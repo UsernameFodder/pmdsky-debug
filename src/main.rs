@@ -1,7 +1,9 @@
 #[macro_use]
 extern crate clap;
 
+use std::convert::AsRef;
 use std::error::Error;
+use std::path::Path;
 
 use clap::{App, AppSettings, Arg, ArgSettings, SubCommand};
 
@@ -36,11 +38,45 @@ fn naming_convention(name: &str) -> resymgen::NamingConvention {
 }
 
 fn run_resymgen() -> Result<(), Box<dyn Error>> {
+    let gen_formats: Vec<_> = resymgen::OutFormat::all().map(|f| f.extension()).collect();
+
     let matches = App::new(crate_name!())
         .version(crate_version!())
         .author("UsernameFodder")
         .about("Generates symbol tables for reverse engineering applications from a YAML specification.")
         .setting(AppSettings::ArgRequiredElseHelp)
+        .subcommand(
+            SubCommand::with_name("gen")
+                .about("Generates one or more symbol tables from a resymgen YAML file")
+                .args(&[
+                    Arg::with_name("format")
+                        .help("Symbol table output format")
+                        .takes_value(true)
+                        .short("f")
+                        .long("format")
+                        .multiple(true)
+                        .number_of_values(1)
+                        .possible_values(&gen_formats.iter().map(|f| f.as_ref()).collect::<Vec<_>>()),
+                    Arg::with_name("binary version")
+                        .help("Version of the binary to generate a symbol table for")
+                        .takes_value(true)
+                        .short("v")
+                        .long("binary-version")
+                        .multiple(true)
+                        .number_of_values(1),
+                    Arg::with_name("output directory")
+                        .help("Output directory")
+                        .takes_value(true)
+                        .short("o")
+                        .long("output-dir")
+                        .default_value("out")
+                        .required(true),
+                    Arg::with_name("input")
+                        .help("Input resymgen YAML file name")
+                        .required(true)
+                        .index(1),
+                ]),
+        )
         .subcommand(
             SubCommand::with_name("fmt")
                 .about("Formats a resymgen YAML file")
@@ -110,6 +146,35 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
         .get_matches();
 
     match matches.subcommand_name() {
+        Some("gen") => {
+            let matches = matches.subcommand_matches("gen").unwrap();
+
+            let input_file = matches.value_of("input").unwrap();
+            let output_dir = matches.value_of("output directory").unwrap();
+            let output_formats = match matches.values_of("format") {
+                Some(v) => Some(
+                    v.map(|name| {
+                        resymgen::OutFormat::from(name)
+                            .ok_or_else(|| format!("Invalid output format: '{}'", name))
+                    })
+                    .collect::<Result<Vec<_>, _>>()?,
+                ),
+                None => None,
+            };
+            let output_versions: Option<Vec<_>> =
+                matches.values_of("binary version").map(|v| v.collect());
+
+            let input_file_stem = Path::new(input_file)
+                .file_stem()
+                .ok_or("Empty input file name")?;
+            let output_base = Path::new(output_dir).join(input_file_stem);
+            resymgen::generate_symbol_tables(
+                input_file,
+                output_formats,
+                output_versions,
+                output_base,
+            )
+        }
         Some("fmt") => {
             let matches = matches.subcommand_matches("fmt").unwrap();
 
