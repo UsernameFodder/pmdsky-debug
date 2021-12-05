@@ -1,5 +1,6 @@
 /// The resymgen YAML format
 use std::any;
+use std::borrow::Cow;
 use std::cmp::Ordering;
 use std::collections::{BTreeMap, HashMap};
 use std::fmt::{self, Display, Formatter};
@@ -10,6 +11,7 @@ use std::slice::SliceIndex;
 use regex::{Captures, Regex};
 use serde::{Deserialize, Serialize};
 use serde_yaml;
+use syn::{self, LitStr};
 
 use super::error::{Error, Result};
 use super::types::*;
@@ -424,20 +426,25 @@ impl SymGen {
         symgen.sort();
         Ok(symgen)
     }
-    /// Convert all integer values in a symgen YAML string from decimal to hexadecimal.
-    fn convert_dec_to_hex(yaml: &str) -> String {
-        // This is sort of a hack, but it's not worth trying to mod yaml-rust and serde-yaml
-        // to support serializing integers as hex directly. The YAML output by serde-yaml and
-        // this specific symgen format are structured enough that we can simply switch integer
-        // fields to hexadecimal via line-by-line text processing.
-
-        // Only modify values under these fields
-        const INT_FIELD_PREFIXES: [&str; 2] = ["address:", "length:"];
-        // If under an int field, the level of whitespace for the field so we can tell when
+    /// Convert target fields in a symgen YAML string with some inline operation,
+    /// via line-by-line text processing. F injects modified lines into the final YAML string
+    /// accumulator, based on the given line to be modified and the current indentation level,
+    /// and returns a success flag.
+    ///
+    /// This is a gross hack. Should investigate whether it's easy to mod yaml-rust and serde-yaml
+    /// to serialize in the desired format directly, rather than doing it via post-processing.
+    /// But this is serviceable for now.
+    fn convert_fields_inline<F, const N: usize>(
+        yaml: &str,
+        field_prefixes: [&str; N],
+        convert: F,
+    ) -> String
+    where
+        F: Fn(&mut String, &str, usize) -> bool,
+    {
+        // If under a target field, the level of whitespace for the field so we can tell when
         // the field has ended.
         let mut field_whitespace_level: Option<usize> = None;
-        // Matches anything that looks like an integer in decimal format
-        let re_int = Regex::new(r"\b\d+\b").unwrap();
         let mut converted_yaml = String::with_capacity(yaml.len());
         for line in yaml.lines() {
             // Strip out hyphens so that the first field in a SymbolList entry we'll still match
@@ -458,10 +465,10 @@ impl SymGen {
             }
 
             if field_whitespace_level.is_none() {
-                // Not currently matching an integer field; look for a new one.
+                // Not currently matching a target field; look for a new one.
                 //
                 // Checking whitespace_level > 0 prevents matching against user-specified block
-                // names that happen to start with the int field prefixes. This works because
+                // names that happen to start with the target field prefixes. This works because
                 // yaml-rust doesn't indent top-level keys. In the unlikely event that this changes
                 // we'd need to keep track of the whitespace level of the current top-level key
                 // instead of assuming it's 0.
@@ -473,13 +480,13 @@ impl SymGen {
                 // - map values: https://github.com/chyh1990/yaml-rust/blob/4fffe95cddbcf444f8a3f080364caf16a6c11ca6/src/emitter.rs#L230
                 // - strings: https://github.com/chyh1990/yaml-rust/blob/4fffe95cddbcf444f8a3f080364caf16a6c11ca6/src/emitter.rs#L156
                 // so we don't need to worry about the case where a user-specified string matching
-                // in field prefixes.
+                // target field prefixes.
                 //
-                // The only other place with arbitrary keys is the MaybeVersionDep's under the int
-                // field keys, but since we should match the parent key first and enter conversion
-                // mode before seeing the version keys, this shouldn't be a problem.
+                // The only other place with arbitrary keys is the MaybeVersionDep's under the
+                // target field keys, but since we should match the parent key first and enter
+                // conversion mode before seeing the version keys, this shouldn't be a problem.
                 if whitespace_level > 0
-                    && INT_FIELD_PREFIXES
+                    && field_prefixes
                         .iter()
                         .any(|prefix| trimmed.starts_with(prefix))
                 {
@@ -487,14 +494,36 @@ impl SymGen {
                 }
             };
 
-            if field_whitespace_level.is_some() {
-                // In an integer field; convert any integers we see.
-
+            let mut success = false;
+            if let Some(indent) = field_whitespace_level {
+                // In a target field; convert subsequent lines.
+                success = convert(&mut converted_yaml, line, indent);
+            }
+            if !success {
+                // No conversion happened. Add the line unmodified
+                converted_yaml.push_str(line);
+            }
+            // Add the newline back in. Note: Rust has standardized on '\n' for newlines on all platforms.
+            // - https://doc.rust-lang.org/std/macro.println.html
+            // - https://stackoverflow.com/questions/66450942/in-rust-is-there-a-way-to-make-literal-newlines-in-r-using-windows-c
+            // Anyway, newer versions of Notepad support Unix line endings :D.
+            // - https://devblogs.microsoft.com/commandline/extended-eol-in-notepad/
+            converted_yaml.push('\n');
+        }
+        converted_yaml
+    }
+    /// Convert all integer values in a symgen YAML string from decimal to hexadecimal.
+    fn convert_dec_to_hex(yaml: &str) -> String {
+        let re_int = Regex::new(r"\b\d+\b").unwrap();
+        SymGen::convert_fields_inline(
+            yaml,
+            ["address:", "length:"],
+            |converted_yaml, line, indent| {
                 // Skip past any colons. This prevents us from replacing "numbers" that appear
                 // within quoted version string keys, and we never expect to see any colons
                 // after the key-value separator. Even if there's no colon, we can still skip
                 // past the whitespace for free, since we have that stored already anyway.
-                let start_idx = line.rfind(':').unwrap_or(field_whitespace_level.unwrap());
+                let start_idx = line.rfind(':').unwrap_or(indent);
                 let converted = re_int.replace_all(&line[start_idx..], |caps: &Captures| {
                     let int = caps[0].parse::<Uint>().unwrap_or_else(|_| {
                         panic!(
@@ -507,18 +536,49 @@ impl SymGen {
                 });
                 converted_yaml.push_str(&line[..start_idx]);
                 converted_yaml.push_str(&converted);
+                true
+            },
+        )
+    }
+    /// Convert all multiline description strings in a symgen YAML string to block scalar format for readability.
+    fn convert_multiline_desc_to_block_scalar(yaml: &str) -> String {
+        SymGen::convert_fields_inline(yaml, ["description:"], |converted_yaml, line, indent| {
+            const SUB_INDENT: usize = 2;
+            let start_idx;
+            let contents;
+            if let Some(idx) = line.find('"') {
+                start_idx = idx;
+                contents = Cow::Borrowed(&line[start_idx..]);
             } else {
-                // Add the line unmodified
-                converted_yaml.push_str(line);
+                if let Some(colon) = line.find(':') {
+                    if let Some(i) = line[colon + 1..].find(|c: char| !c.is_ascii_whitespace()) {
+                        start_idx = colon + 1 + i;
+                        // Manually add quotes so it can be parsed as a Rust string literal
+                        contents = Cow::Owned(format!("\"{}\"", &line[start_idx..]));
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
             }
-            // Add the newline back in. Note: Rust has standardized on '\n' for newlines on all platforms.
-            // - https://doc.rust-lang.org/std/macro.println.html
-            // - https://stackoverflow.com/questions/66450942/in-rust-is-there-a-way-to-make-literal-newlines-in-r-using-windows-c
-            // Anyway, newer versions of Notepad support Unix line endings :D.
-            // - https://devblogs.microsoft.com/commandline/extended-eol-in-notepad/
-            converted_yaml.push('\n');
-        }
-        converted_yaml
+            if let Ok(l) = syn::parse_str::<LitStr>(&contents) {
+                // Only convert multiline strings
+                if l.value().trim_end().lines().count() > 1 {
+                    converted_yaml.push_str(&line[..start_idx]);
+                    converted_yaml.push_str("|-"); // There's no reason to have trailing newlines
+                    for desc_ln in l.value().trim_end().lines() {
+                        converted_yaml.push('\n');
+                        for _ in 0..indent + SUB_INDENT {
+                            converted_yaml.push(' ');
+                        }
+                        converted_yaml.push_str(desc_ln);
+                    }
+                    return true;
+                }
+            }
+            false
+        })
     }
     pub fn write<W: Write>(&self, mut writer: W, int_format: IntFormat) -> Result<()> {
         // I don't expect these YAML files to be too big to fit in memory, so it's easier and
@@ -535,6 +595,7 @@ impl SymGen {
         if let IntFormat::Hexadecimal = int_format {
             yaml = SymGen::convert_dec_to_hex(&yaml);
         }
+        yaml = SymGen::convert_multiline_desc_to_block_scalar(&yaml);
 
         // Skip past the unsightly "---" document-start that serde_yaml inserts (or rather
         // yaml-rust: https://github.com/chyh1990/yaml-rust/blob/4fffe95cddbcf444f8a3f080364caf16a6c11ca6/src/emitter.rs#L135).
@@ -1217,7 +1278,7 @@ mod tests {
         fn get_symgen_data() -> (String, SymGen) {
             (
                 String::from(
-                    r"main:
+                    r#"main:
   versions:
     - v1
     - v2
@@ -1234,7 +1295,10 @@ mod tests {
         v1: 0x2001000
         v2: 0x2002000
       length: 0x1000
-      description: bar
+      description: |-
+        multi
+        line
+        description
     - name: fn2
       address:
         v1:
@@ -1258,7 +1322,7 @@ other:
     - name: fn3
       address: 0x2100000
   data: []
-",
+"#,
                 ),
                 SymGen::from([
                     (
@@ -1284,7 +1348,7 @@ other:
                                         .into(),
                                     ),
                                     length: Some(MaybeVersionDep::Common(0x1000)),
-                                    description: Some("bar".to_string()),
+                                    description: Some("multi\nline\ndescription".to_string()),
                                 },
                                 Symbol {
                                     name: "fn2".to_string(),
@@ -1401,7 +1465,7 @@ other:
                     name: &"fn1",
                     address: 0x2001000,
                     length: Some(0x1000),
-                    description: Some(&"bar"),
+                    description: Some(&"multi\nline\ndescription"),
                 },
                 RealizedSymbol {
                     name: &"fn2",
