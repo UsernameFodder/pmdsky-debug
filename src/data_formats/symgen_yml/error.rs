@@ -3,6 +3,8 @@ use std::{error, io, result, string};
 
 use serde_yaml;
 
+use super::merge::{BlockInferenceError, MergeConflict, MissingBlock};
+
 #[derive(Debug)]
 pub enum Error {
     Yaml(serde_yaml::Error),
@@ -25,3 +27,22 @@ impl Display for Error {
 }
 
 pub type Result<T> = result::Result<T, Error>;
+
+#[derive(Debug)]
+pub enum MergeError {
+    Conflict(MergeConflict),
+    MissingBlock(MissingBlock),
+    BlockInference(BlockInferenceError),
+}
+
+impl error::Error for MergeError {}
+
+impl Display for MergeError {
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+        match self {
+            Self::Conflict(e) => write!(f, "{}", e),
+            Self::MissingBlock(e) => write!(f, "{}", e),
+            Self::BlockInference(e) => write!(f, "{}", e),
+        }
+    }
+}

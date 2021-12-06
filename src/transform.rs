@@ -8,8 +8,8 @@ use std::path::{Path, PathBuf};
 
 use tempfile::NamedTempFile;
 
-use super::data_formats::symgen_yml::SymGen;
-use super::data_formats::{Generate, OutFormat};
+use super::data_formats::symgen_yml::{IntFormat, LoadParams, SymGen, Symbol};
+use super::data_formats::{Generate, InFormat, OutFormat};
 
 // Form the output file path from the base, version, and format
 fn output_file_name(base: &Path, version: &str, format: &OutFormat) -> PathBuf {
@@ -86,6 +86,38 @@ where
     };
 
     generate_symbols(&contents, &formats, &versions, output_base)
+}
+
+/// Merges symbols from a collection of input files into a given symgen file.
+pub fn merge_symbols<P, P2, I>(
+    symgen_file: P,
+    input_files: I,
+    input_format: InFormat,
+    merge_params: &LoadParams,
+    int_format: IntFormat,
+) -> Result<Vec<Vec<Symbol>>, Box<dyn Error>>
+where
+    P: AsRef<Path>,
+    P2: AsRef<Path>,
+    I: AsRef<[P2]>,
+{
+    let symgen_file = symgen_file.as_ref();
+    let mut contents;
+    {
+        let file = File::open(symgen_file)?;
+        contents = SymGen::read(&file)?;
+    }
+
+    let mut unmerged_symbols = Vec::with_capacity(input_files.as_ref().len());
+    for input_name in input_files.as_ref() {
+        let input = File::open(input_name)?;
+        unmerged_symbols.push(input_format.merge(&mut contents, input, &merge_params)?);
+    }
+
+    let output_file = NamedTempFile::new()?;
+    contents.write(&output_file, int_format)?;
+    output_file.persist(symgen_file)?;
+    Ok(unmerged_symbols)
 }
 
 #[cfg(test)]

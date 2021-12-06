@@ -3,9 +3,11 @@ extern crate clap;
 
 use std::convert::AsRef;
 use std::error::Error;
+use std::io::{self, Write};
 use std::path::Path;
 
 use clap::{App, AppSettings, Arg, ArgSettings, SubCommand};
+use termcolor::{Color, ColorChoice, ColorSpec, StandardStream, WriteColor};
 
 use resymgen;
 
@@ -37,8 +39,20 @@ fn naming_convention(name: &str) -> resymgen::NamingConvention {
     }
 }
 
+const SUPPORTED_SYMBOL_TYPES: [&str; 2] = ["function", "data"];
+
+/// stype is assumed to be in SUPPORTED_SYMBOL_TYPES
+fn symbol_type(stype: &str) -> resymgen::SymbolType {
+    match stype {
+        "function" => resymgen::SymbolType::Function,
+        "data" => resymgen::SymbolType::Data,
+        _ => panic!("Unsupported symbol type '{}'", stype), // control should never reach this point
+    }
+}
+
 fn run_resymgen() -> Result<(), Box<dyn Error>> {
     let gen_formats: Vec<_> = resymgen::OutFormat::all().map(|f| f.extension()).collect();
+    let merge_formats: Vec<_> = resymgen::InFormat::all().map(|f| f.extension()).collect();
 
     let matches = App::new(crate_name!())
         .version(crate_version!())
@@ -143,6 +157,56 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
                         .index(1),
                 ]),
         )
+        .subcommand(
+            SubCommand::with_name("merge")
+                .about("Merge one or more data files into a resymgen YAML file")
+                .args(&[
+                    Arg::with_name("format")
+                        .help("Input data format")
+                        .takes_value(true)
+                        .short("f")
+                        .long("input-format")
+                        .possible_values(&merge_formats.iter().map(|f| f.as_ref()).collect::<Vec<_>>())
+                        .default_value("yml")
+                        .required(true),
+                    Arg::with_name("symbol type")
+                        .help("Default symbol type to assume if input data symbols is unlabeled")
+                        .takes_value(true)
+                        .short("s")
+                        .long("symbol-type")
+                        .possible_values(&SUPPORTED_SYMBOL_TYPES),
+                    Arg::with_name("binary version")
+                        .help("Default binary version to assume if input data version is unlabeled")
+                        .takes_value(true)
+                        .short("v")
+                        .long("binary-version"),
+                    Arg::with_name("block")
+                        .help("Default block to assume if input data blocks are unlabeled")
+                        .takes_value(true)
+                        .short("b")
+                        .long("block"),
+                    Arg::with_name("decimal")
+                        .help("Write integers in decimal format. By default integers are written as hexadecimal.")
+                        .short("d")
+                        .long("decimal"),
+                    Arg::with_name("fix formatting")
+                        .help("Run the formatter on the final resymgen YAML file after the merge.")
+                        .short("x")
+                        .long("fix-formatting"),
+                    Arg::with_name("input")
+                        .help("input data file")
+                        .required(true)
+                        .takes_value(true)
+                        .short("i")
+                        .long("input")
+                        .multiple(true)
+                        .number_of_values(1),
+                    Arg::with_name("symgen file")
+                        .help("resymgen YAML file to modify")
+                        .required(true)
+                        .index(1),
+                ]),
+        )
         .get_matches();
 
     match matches.subcommand_name() {
@@ -220,6 +284,65 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
                 checks.push(resymgen::Check::DataNames(naming_convention(conv)));
             }
             resymgen::run_and_print_checks(input_file, &checks)
+        }
+        Some("merge") => {
+            let matches = matches.subcommand_matches("merge").unwrap();
+
+            let input_files: Vec<_> = matches.values_of("input").unwrap().collect();
+            let symgen_file = matches.value_of("symgen file").unwrap();
+            let input_format_name = matches.value_of("format").unwrap();
+            let input_format = resymgen::InFormat::from(input_format_name)
+                .ok_or_else(|| format!("Invalid input format: '{}'", input_format_name))?;
+            let merge_params = resymgen::LoadParams {
+                default_block_name: matches.value_of("block").map(String::from),
+                default_symbol_type: matches.value_of("symbol type").map(symbol_type),
+                default_version_name: matches.value_of("binary version").map(String::from),
+            };
+            let iformat = int_format(matches.is_present("decimal"));
+            let fix_formatting = matches.is_present("fix formatting");
+            let unmerged_symbols = resymgen::merge_symbols(
+                &symgen_file,
+                &input_files,
+                input_format,
+                &merge_params,
+                iformat,
+            )?;
+            if fix_formatting {
+                resymgen::format_file(&symgen_file, iformat)?;
+            }
+
+            // Print the unmerged symbols from each file, with terminal colors
+            let mut stdout = StandardStream::stdout(ColorChoice::Always);
+            let mut print_unmerged_colored = || -> io::Result<()> {
+                let mut color = ColorSpec::new();
+                for (fname, unmerged) in input_files.iter().zip(unmerged_symbols.iter()) {
+                    if !unmerged.is_empty() {
+                        stdout.set_color(color.set_fg(Some(Color::Yellow)))?;
+                        write!(&mut stdout, "* Unmerged symbols from \"{}\":", fname)?;
+                        stdout.reset()?;
+                        writeln!(
+                            &mut stdout,
+                            " {}",
+                            unmerged
+                                .iter()
+                                .map(|s| format!("{}", s.name))
+                                .collect::<Vec<_>>()
+                                .join(", ")
+                        )?;
+                    }
+                }
+                stdout.reset()?;
+                Ok(())
+            };
+            let res = print_unmerged_colored();
+            // Always try to clean up color settings before returning
+            if let Err(e) = stdout.reset() {
+                Err(e)?;
+            } else {
+                res?;
+            }
+
+            Ok(())
         }
         Some(s) => panic!("Subcommand '{}' not implemented", s), // control should never reach this point
         _ => panic!("Missing subcommand"), // control should never reach this point

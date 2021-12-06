@@ -17,6 +17,7 @@ use super::error::{Error, Result};
 use super::types::*;
 
 /// Specifies how integers should be serialized
+#[derive(Clone, Copy)]
 pub enum IntFormat {
     Decimal,
     Hexadecimal,

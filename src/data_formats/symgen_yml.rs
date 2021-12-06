@@ -1,6 +1,7 @@
 /// Module for reading/writing resymgen YAML files.
 mod adapter;
 mod error;
+mod merge;
 mod symgen;
 mod types;
 
