@@ -10,6 +10,7 @@ use std::path::Path;
 use syn::{self, Ident};
 use termcolor::{Color, ColorChoice, ColorSpec, StandardStream, WriteColor};
 
+use super::data_formats::symgen_yml::bounds;
 use super::data_formats::symgen_yml::{
     Block, MaybeVersionDep, OrdString, SymGen, Symbol, Uint, Version, VersionDep,
 };
@@ -326,101 +327,30 @@ fn check_in_bounds_symbols(symgen: &SymGen) -> Result<(), String> {
             None => format!("{:#X}", addr),
         }
     }
-    fn bounds_check(
-        (addr, opt_len): (Uint, Option<Uint>),
-        (bound_start, opt_bound_len): (Uint, Option<Uint>),
-    ) -> bool {
-        if addr < bound_start {
-            return false;
-        }
-        if let Some(bound_len) = opt_bound_len {
-            if addr >= bound_start + bound_len {
-                return false;
-            }
-            if let Some(len) = opt_len {
-                if addr + len > bound_start + bound_len {
-                    return false;
-                }
-            }
-        }
-        true
-    }
-
-    fn symbol_in_bounds(
-        bounds: &MaybeVersionDep<(Uint, Option<Uint>)>,
-        symbol: &Symbol,
-        all_versions: &Option<Vec<Version>>,
-        block_name: &OrdString,
-    ) -> Result<(), String> {
-        let extents = symbol.extents(all_versions.as_deref());
-        match extents {
-            MaybeVersionDep::ByVersion(ext) => {
-                // By-version extents are the easy case: just check each version against the
-                // corresponding bound if present
-                for (vers, (addrs, opt_len)) in ext.iter() {
-                    if let Some(bound) = bounds.get(Some(vers)) {
-                        for addr in addrs.iter() {
-                            let single_ext = (*addr, *opt_len);
-                            assert_check(bounds_check(single_ext, *bound), || {
-                                format!(
-                                    "block \"{}\" [{}]: symbol \"{}\" at {} is outside of block bounds {}",
-                                    block_name,
-                                    vers,
-                                    symbol.name,
-                                    range_str(single_ext),
-                                    range_str(*bound),
-                                )
-                            })?;
-                        }
-                    }
-                }
-            }
-            MaybeVersionDep::Common((addrs, opt_len)) => {
-                // Common extents means all_versions was None. Check this extent against the
-                // bounds for every version (this is possible if a block omits a version list but
-                // still has inferred versions based on the address/length fields).
-                match bounds {
-                    MaybeVersionDep::ByVersion(bound_by_vers) => {
-                        for (vers, bound) in bound_by_vers.iter() {
-                            for addr in addrs.iter() {
-                                let single_ext = (*addr, opt_len);
-                                assert_check(bounds_check(single_ext, *bound), || {
-                                    format!(
-                                        "block \"{}\" [{}]: symbol \"{}\" at {} is outside of block bounds {}",
-                                        block_name,
-                                        vers,
-                                        symbol.name,
-                                        range_str(single_ext),
-                                        range_str(*bound),
-                                    )
-                                })?;
-                            }
-                        }
-                    }
-                    MaybeVersionDep::Common(bound) => {
-                        for addr in addrs.iter() {
-                            let single_ext = (*addr, opt_len);
-                            assert_check(bounds_check(single_ext, *bound), || {
-                                format!(
-                                    "block \"{}\": symbol \"{}\" at {} is outside of block bounds {}",
-                                    block_name,
-                                    symbol.name,
-                                    range_str(single_ext),
-                                    range_str(*bound),
-                                )
-                            })?;
-                        }
-                    }
-                }
-            }
-        }
-        Ok(())
-    }
 
     for (bname, b) in symgen.iter() {
         let bounds = b.extent();
         for s in b.iter() {
-            symbol_in_bounds(&bounds, s, &b.versions, bname)?;
+            if let Some(violation) = bounds::symbol_in_bounds(&bounds, s, &b.versions) {
+                return Err(if let Some(vers) = &violation.version {
+                    format!(
+                        "block \"{}\" [{}]: symbol \"{}\" at {} is outside of block bounds {}",
+                        bname,
+                        vers,
+                        s.name,
+                        range_str(violation.extent),
+                        range_str(violation.bound),
+                    )
+                } else {
+                    format!(
+                        "block \"{}\": symbol \"{}\" at {} is outside of block bounds {}",
+                        bname,
+                        s.name,
+                        range_str(violation.extent),
+                        range_str(violation.bound),
+                    )
+                });
+            }
         }
     }
     Ok(())

@@ -4,6 +4,8 @@ mod error;
 mod symgen;
 mod types;
 
+pub mod bounds;
+
 pub use adapter::*;
 pub use error::*;
 pub use symgen::*;
