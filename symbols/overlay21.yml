@@ -1,0 +1,14 @@
+overlay21:
+  versions:
+    - NA
+    - EU
+    - JP
+  address:
+    NA: 0x238A140
+    EU: 0x238AC80
+  length:
+    NA: 0x2E20
+    EU: 0x2E20
+  description: "Most likely controls the menu for Croagunk's Swap Shop."
+  functions: []
+  data: []

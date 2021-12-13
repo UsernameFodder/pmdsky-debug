@@ -1,0 +1,14 @@
+overlay8:
+  versions:
+    - NA
+    - EU
+    - JP
+  address:
+    NA: 0x233CA80
+    EU: 0x233D200
+  length:
+    NA: 0x2200
+    EU: 0x2620
+  description: Seems related to Wi-Fi communications.
+  functions: []
+  data: []

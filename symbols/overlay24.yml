@@ -1,0 +1,13 @@
+overlay24:
+  versions:
+    - NA
+    - EU
+    - JP
+  address:
+    NA: 0x238A140
+    EU: 0x238AC80
+  length:
+    NA: 0x24E0
+    EU: 0x24E0
+  functions: []
+  data: []

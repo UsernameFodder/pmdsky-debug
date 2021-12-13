@@ -1,0 +1,16 @@
+overlay29:
+  versions:
+    - NA
+    - EU
+    - JP
+  address:
+    NA: 0x22DC240
+    EU: 0x22DCB80
+  length:
+    NA: 0x77620
+    EU: 0x77900
+  description: |-
+    The dungeon engine.
+    This is the "main" overlay of dungeon mode. It controls most things that happen in a Mystery Dungeon, such as dungeon layout generation, dungeon menus, enemy AI, and generally just running each turn while within a dungeon.
+  functions: []
+  data: []

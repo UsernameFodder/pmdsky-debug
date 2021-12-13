@@ -1,0 +1,14 @@
+overlay1:
+  versions:
+    - NA
+    - EU
+    - JP
+  address:
+    NA: 0x2329520
+    EU: 0x2329D40
+  length:
+    NA: 0x12D20
+    EU: 0x12C80
+  description: Seems related to Wi-Fi rescue. It mentions several files from the GROUND and BACK folders.
+  functions: []
+  data: []

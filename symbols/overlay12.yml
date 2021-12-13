@@ -1,0 +1,14 @@
+overlay12:
+  versions:
+    - NA
+    - EU
+    - JP
+  address:
+    NA: 0x238A140
+    EU: 0x238AC80
+  length:
+    NA: 0x20
+    EU: 0x20
+  description: Unused; all zeroes.
+  functions: []
+  data: []

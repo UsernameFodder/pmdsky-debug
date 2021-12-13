@@ -1,0 +1,14 @@
+overlay19:
+  versions:
+    - NA
+    - EU
+    - JP
+  address:
+    NA: 0x238A140
+    EU: 0x238AC80
+  length:
+    NA: 0x4240
+    EU: 0x4220
+  description: "Possibly related to Spinda's Café."
+  functions: []
+  data: []

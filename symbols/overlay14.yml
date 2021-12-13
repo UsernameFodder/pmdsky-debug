@@ -1,0 +1,14 @@
+overlay14:
+  versions:
+    - NA
+    - EU
+    - JP
+  address:
+    NA: 0x238A140
+    EU: 0x238AC80
+  length:
+    NA: 0x3AE0
+    EU: 0x3B40
+  description: Probably runs the sentry duty minigame.
+  functions: []
+  data: []

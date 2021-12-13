@@ -1,0 +1,14 @@
+overlay34:
+  versions:
+    - NA
+    - EU
+    - JP
+  address:
+    NA: 0x22DC240
+    EU: 0x22DCB80
+  length:
+    NA: 0xE60
+    EU: 0xDC0
+  description: Possibly related to launching the game. There are mention in the strings of logos like the ESRB logo.
+  functions: []
+  data: []

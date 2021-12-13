@@ -1,0 +1,14 @@
+overlay2:
+  versions:
+    - NA
+    - EU
+    - JP
+  address:
+    NA: 0x2329520
+    EU: 0x2329D40
+  length:
+    NA: 0x2AFA0
+    EU: 0x2AFC0
+  description: Most likely code for the Nintendo Wi-Fi setup.
+  functions: []
+  data: []

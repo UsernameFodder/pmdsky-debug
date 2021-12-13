@@ -1,0 +1,13 @@
+overlay30:
+  versions:
+    - NA
+    - EU
+    - JP
+  address:
+    NA: 0x2382820
+    EU: 0x2383420
+  length:
+    NA: 0x38A0
+    EU: 0x38A0
+  functions: []
+  data: []

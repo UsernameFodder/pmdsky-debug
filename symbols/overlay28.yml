@@ -1,0 +1,13 @@
+overlay28:
+  versions:
+    - NA
+    - EU
+    - JP
+  address:
+    NA: 0x238A140
+    EU: 0x238AC80
+  length:
+    NA: 0xC60
+    EU: 0xC60
+  functions: []
+  data: []

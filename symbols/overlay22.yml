@@ -1,0 +1,14 @@
+overlay22:
+  versions:
+    - NA
+    - EU
+    - JP
+  address:
+    NA: 0x238A140
+    EU: 0x238AC80
+  length:
+    NA: 0x4B40
+    EU: 0x4B40
+  description: Most like controls the menu for the Kecleon Shop.
+  functions: []
+  data: []

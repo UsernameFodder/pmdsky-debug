@@ -1,0 +1,14 @@
+overlay6:
+  versions:
+    - NA
+    - EU
+    - JP
+  address:
+    NA: 0x233CA80
+    EU: 0x233D200
+  length:
+    NA: 0x2460
+    EU: 0x2460
+  description: Probably linked to Wi-Fi rescue.
+  functions: []
+  data: []

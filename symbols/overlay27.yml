@@ -1,0 +1,14 @@
+overlay27:
+  versions:
+    - NA
+    - EU
+    - JP
+  address:
+    NA: 0x238A140
+    EU: 0x238AC80
+  length:
+    NA: 0x2D60
+    EU: 0x2D60
+  description: Most likely another menu related to item storage (alongside overlay 23).
+  functions: []
+  data: []

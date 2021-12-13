@@ -1,0 +1,14 @@
+overlay31:
+  versions:
+    - NA
+    - EU
+    - JP
+  address:
+    NA: 0x2382820
+    EU: 0x2383420
+  length:
+    NA: 0x7A80
+    EU: 0x7AA0
+  description: Loaded during dungeon mode. Possibly the Tactics menu.
+  functions: []
+  data: []

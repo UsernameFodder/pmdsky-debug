@@ -1,0 +1,14 @@
+overlay15:
+  versions:
+    - NA
+    - EU
+    - JP
+  address:
+    NA: 0x238A140
+    EU: 0x238AC80
+  length:
+    NA: 0x1060
+    EU: 0x1080
+  description: Possibly related to the Duskull Bank menu.
+  functions: []
+  data: []

@@ -1,0 +1,16 @@
+overlay11:
+  versions:
+    - NA
+    - EU
+    - JP
+  address:
+    NA: 0x22DC240
+    EU: 0x22DCB80
+  length:
+    NA: 0x48C40
+    EU: 0x48E40
+  description: |-
+    The script engine.
+    This is the "main" overlay of ground mode. The script engine is what runs the ground mode scripts contained in the SCRIPT folder, which are written in a custom scripting language. These scripts encode things like cutscenes, screen transitions, ground mode events, and tons of other things related to ground mode.
+  functions: []
+  data: []

@@ -1,0 +1,13 @@
+overlay9:
+  versions:
+    - NA
+    - EU
+    - JP
+  address:
+    NA: 0x233CA80
+    EU: 0x233D200
+  length:
+    NA: 0x2D80
+    EU: 0x2D80
+  functions: []
+  data: []

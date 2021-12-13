@@ -1,0 +1,11 @@
+This file contains a list of people who have made notable contributions to the
+substantive contents of pmdsky-debug. If you have made a contribution, whether
+to the symbol tables or other parts of the project, feel free to add yourself
+to this file!
+
+- UsernameFodder
+- psy_commando
+- evandixon
+- The rest of the contributors to Project Pokémon's technical documentation
+  for the NDS Mystery Dungeon games, which can be found here:
+  https://projectpokemon.org/home/docs/mystery-dungeon-nds/

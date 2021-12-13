@@ -1,0 +1,14 @@
+overlay0:
+  versions:
+    - NA
+    - EU
+    - JP
+  address:
+    NA: 0x22BCA80
+    EU: 0x22BD3C0
+  length:
+    NA: 0x609A0
+    EU: 0x60880
+  description: "Possibly contains data and code related to Wi-Fi multiplayer, in addition to the root menu. It mentions several files from the BACK folder that are known backgrounds for the root menu."
+  functions: []
+  data: []

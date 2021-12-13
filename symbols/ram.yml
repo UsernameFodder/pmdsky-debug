@@ -1,0 +1,18 @@
+arm9:
+  versions:
+    - NA
+    - EU
+    - JP
+  address:
+    NA: 0x2000000
+    EU: 0x2000000
+    JP: 0x2000000
+  length:
+    NA: 0x400000
+    EU: 0x400000
+    JP: 0x400000
+  description: |-
+    Main memory.
+    Data in this file aren't real "symbols" contained in the ROM itself, and are instead constructs loaded at runtime.
+  functions: []
+  data: []
