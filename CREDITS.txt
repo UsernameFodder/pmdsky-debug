@@ -6,6 +6,9 @@ to this file!
 - UsernameFodder
 - psy_commando
 - evandixon
+- Capypara
+- End45
+- irdkwia
 - The rest of the contributors to Project Pokémon's technical documentation
   for the NDS Mystery Dungeon games, which can be found here:
   https://projectpokemon.org/home/docs/mystery-dungeon-nds/

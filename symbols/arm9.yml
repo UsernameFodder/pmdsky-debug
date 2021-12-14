@@ -12,5 +12,542 @@ arm9:
   description: |-
     The main ARM9 binary.
     This is the binary that gets loaded when the game is launched, and contains the core code that runs the game, low level facilities such as memory allocation and compression, and the functions and tables necessary to load overlays and dispatch execution to them.
-  functions: []
-  data: []
+  functions:
+    - name: MemAlloc
+      address:
+        NA: 0x2001170
+      description: |-
+        Allocates some memory on the heap, returning a pointer to the starting address.
+        
+        r0: length in bytes
+        r1: flags
+        return: pointer
+    - name: MemFree
+      address:
+        NA: 0x2001188
+      description: |-
+        Frees heap-allocated memory.
+        
+        r0: pointer
+    - name: RoundUpDiv256
+      address:
+        NA: 0x2001894
+      description: |-
+        Divide a number by 256 and round up to the nearest integer.
+        
+        r0: number
+        return: number // 256
+    - name: MultiplyByFixedPoint
+      address:
+        NA: 0x2001A54
+      description: |-
+        Multiply a signed integer x by a signed fixed point multiplier (in Q24.8 format: 24 integer bits + 8 fractional bits).
+        
+        r0: x
+        r1: multiplier
+        return: x * multiplier
+    - name: UMultiplyByFixedPoint
+      address:
+        NA: 0x2001B0C
+      description: |-
+        Multiplies an unsigned integer x by an unsigned fixed point multiplier (in Q24.8 format: 24 integer bits + 8 fractional bits).
+        
+        r0: x
+        r1: multiplier
+        return: x * multiplier
+    - name: MemZero
+      address:
+        NA: 0x2003250
+      description: |-
+        Zeroes a buffer.
+        
+        r0: ptr
+        r1: len
+    - name: LoadFileFromRom
+      address:
+        NA: 0x2008C3C
+      description: |-
+        Loads a file from ROM by filepath into a heap-allocated buffer.
+        
+        r0: [output] pointer to an IO struct {ptr, len}
+        r1: file path string pointer
+        r2: flags
+    - name: GetDebugFlag1
+      address:
+        NA: 0x200C110
+        EU: 0x200C198
+      description: Just returns 0 in the final binary.
+    - name: SetDebugFlag1
+      address:
+        NA: 0x200C118
+        EU: 0x200C1A0
+      description: A no-op in the final binary.
+    - name: DebugPrint0
+      address:
+        NA: 0x200C1FC
+        EU: 0x200C284
+      description: Would log a printf format string in the debug binary. A no-op in the final binary.
+    - name: GetDebugFlag2
+      address:
+        NA: 0x200C234
+        EU: 0x200C2BC
+      description: Just returns 0 in the final binary.
+    - name: SetDebugFlag2
+      address:
+        NA: 0x200C23C
+        EU: 0x200C2C4
+      description: A no-op in the final binary.
+    - name: DebugPrint
+      address:
+        NA: 0x200C240
+        EU: 0x200C2C8
+      description: Would log a printf format string in the debug binary. A no-op in the final binary.
+    - name: IsAuraBow
+      address:
+        NA: 0x200CC14
+      description: |-
+        Checks if an item is one of the aura bows received at the start of the game.
+        
+        r0: item ID
+        return: bool
+    - name: GetExclusiveItemOffset
+      address:
+        NA: 0x2010E40
+      description: |-
+        Gets the exclusive item offset, which is the item ID relative to that of the first exclusive item, the Prism Ruff.
+        
+        r0: item ID
+        return: offset
+    - name: ApplyExclusiveItemStatBoosts
+      address:
+        NA: 0x2010E64
+      description: |-
+        Applies stat boosts from an exclusive item.
+        
+        r0: item ID
+        r1: pointer to attack stat to modify
+        r2: pointer to special attack stat to modify
+        r3: pointer to defense stat to modify
+        stack[0]: pointer to special defense stat to modify
+    - name: SetExclusiveItemEffect
+      address:
+        NA: 0x2010F80
+      description: |-
+        Sets the bit for an exclusive item effect.
+        
+        r0: pointer to the effects bitvector to modify
+        r1: exclusive item effect ID
+    - name: ExclusiveItemEffectFlagTest
+      address:
+        NA: 0x2010FA4
+      description: |-
+        Tests the exclusive item bitvector for a specific exclusive item effect.
+        
+        r0: the effects bitvector to test
+        r1: exclusive item effect ID
+        return: bool
+    - name: GetMoveBasePower
+      address:
+        NA: 0x20139CC
+      description: |-
+        Gets the base power of a move from the move data table.
+        
+        r0: move ID
+        return: base power
+    - name: GetMoveCritChance
+      address:
+        NA: 0x2013B10
+      description: |-
+        Gets the critical hit chance of a move.
+        
+        r0: move ID
+        return: base power
+    - name: IsRecoilMove
+      address:
+        NA: 0x2013E14
+      description: |-
+        Checks if the given move is a recoil move (affected by Reckless).
+        
+        r0: move ID
+        return: bool
+    - name: IsPunchMove
+      address:
+        NA: 0x2014D18
+      description: |-
+        Checks if the given move is a punch move (affected by Iron Fist).
+        
+        r0: move ID
+        return: bool
+    - name: MoveCategory
+      address:
+        NA: 0x20151C8
+      description: |-
+        Gets a move's category (physical, special, status).
+        
+        r0: move ID
+        return: move category enum
+    - name: HandleSir0Translation
+      address:
+        NA: 0x201F4B4
+      description: |-
+        Translates the offsets in a SIR0 file into NDS memory addresses, changes the magic number to SirO (opened), and returns a pointer to the first pointer specified in the SIR0 header (beginning of the data).
+        
+        r0: [output] double pointer to beginning of data
+        r1: pointer to source file buffer
+    - name: SaveScriptVariableValue
+      address:
+        NA: 0x204B820
+        EU: 0x204BB58
+    - name: SaveScriptVariableValueWithOffset
+      address:
+        NA: 0x204B988
+        EU: 0x204BCC0
+    - name: CeilFixedPoint
+      address:
+        NA: 0x2051064
+      description: |-
+        Compute the ceiling of a fixed point float (in Q16.16 format: 16-bit integer part + 16-bit fractional part). Probably used primarily for belly.
+        
+        r0: float
+        return: ceil(float)
+    - name: IsUnown
+      address:
+        NA: 0x2054A88
+      description: |-
+        Checks if a monster ID is an Unown.
+        
+        r0: monster ID
+        return: bool
+    - name: IsShaymin
+      address:
+        NA: 0x2054AA4
+      description: |-
+        Checks if a monster ID is a Shaymin form.
+        
+        r0: monster ID
+        return: bool
+    - name: IsCastform
+      address:
+        NA: 0x2054AD4
+      description: |-
+        Checks if a monster ID is a Castform form.
+        
+        r0: monster ID
+        return: bool
+    - name: IsCherrim
+      address:
+        NA: 0x2054B2C
+      description: |-
+        Checks if a monster ID is a Cherrim form.
+        
+        r0: monster ID
+        return: bool
+    - name: IsDeoxys
+      address:
+        NA: 0x2054B74
+      description: |-
+        Checks if a monster ID is a Deoxys form.
+        
+        r0: monster ID
+        return: bool
+    - name: IqSkillFlagTest
+      address:
+        NA: 0x2058F04
+      description: |-
+        Tests whether an IQ skill with a given ID is active.
+        
+        r0: IQ skill bitvector to test
+        r1: IQ skill ID
+        return: bool
+  data:
+    - name: AURA_BOW_ID_LAST
+      address:
+        NA: 0x200CC34
+      length:
+        NA: 0x4
+      description: Highest item ID of the aura bows.
+    - name: NUMBER_OF_ITEMS
+      address:
+        NA: 0x200E860
+      length:
+        NA: 0x4
+      description: Number of items in the game.
+    - name: CART_REMOVED_IMG_DATA
+      address:
+        NA: 0x2092AE8
+        EU: 0x2092EE4
+      length:
+        NA: 0x4000
+        EU: 0x2000
+    - name: EXCLUSIVE_ITEM_STAT_BOOST_DATA
+      address:
+        NA: 0x20980E8
+      length:
+        NA: 0x3C
+      description: |-
+        Contains stat boost effects for different exclusive item classes.
+        
+        Each 4-byte entry contains the boost data for (attack, special attack, defense, special defense), 1 byte each, for a specific exclusive item class, indexed according to the stat boost data index list.
+    - name: EXCLUSIVE_ITEM_ATTACK_BOOSTS
+      address:
+        NA: 0x20980E8
+      length:
+        NA: 0x39
+      description: "EXCLUSIVE_ITEM_STAT_BOOST_DATA, offset by 0"
+    - name: EXCLUSIVE_ITEM_SPECIAL_ATTACK_BOOSTS
+      address:
+        NA: 0x20980E9
+      length:
+        NA: 0x39
+      description: "EXCLUSIVE_ITEM_STAT_BOOST_DATA, offset by 1"
+    - name: EXCLUSIVE_ITEM_DEFENSE_BOOSTS
+      address:
+        NA: 0x20980EA
+      length:
+        NA: 0x39
+      description: "EXCLUSIVE_ITEM_STAT_BOOST_DATA, offset by 2"
+    - name: EXCLUSIVE_ITEM_SPECIAL_DEFENSE_BOOSTS
+      address:
+        NA: 0x20980EB
+      length:
+        NA: 0x39
+      description: "EXCLUSIVE_ITEM_STAT_BOOST_DATA, offset by 3"
+    - name: EXCLUSIVE_ITEM_EFFECT_DATA
+      address:
+        NA: 0x2098124
+      length:
+        NA: 0x778
+      description: |-
+        Contains special effects for each exclusive item.
+        
+        Each entry is 2 bytes, with the first entry corresponding to the first exclusive item (Prism Ruff). The first byte is the exclusive item effect ID, and the second byte is an index into other data tables (related to the more generic stat boosting effects for specific monsters).
+    - name: EXCLUSIVE_ITEM_STAT_BOOST_DATA_INDEXES
+      address:
+        NA: 0x2098125
+      length:
+        NA: 0x777
+      description: "EXCLUSIVE_ITEM_EFFECT_DATA, offset by 1"
+    - name: RECOIL_MOVE_LIST
+      address:
+        NA: 0x2098D74
+      length:
+        NA: 0x16
+      description: "Null-terminated list of all the recoil moves, as 2-byte move IDs."
+    - name: PUNCH_MOVE_LIST
+      address:
+        NA: 0x2098D8A
+      length:
+        NA: 0x20
+      description: "Null-terminated list of all the punch moves, as 2-byte move IDs."
+    - name: SCRIPT_VARS_LOCALS
+      address:
+        NA: 0x209CECC
+      length:
+        NA: 0x40
+    - name: SCRIPT_VARS
+      address:
+        NA: 0x209D870
+      length:
+        NA: 0x730
+    - name: DUNGEON_LIST
+      address:
+        NA: 0x209E3A0
+        EU: 0x209E924
+      length:
+        NA: 0x2D0
+        EU: 0x2D0
+    - name: DUNGEON_RESTRICTIONS
+      address:
+        NA: 0x20A0C64
+        EU: 0x20A11E8
+      length:
+        NA: 0xC00
+        EU: 0xC00
+    - name: SPECIAL_BAND_STAT_BOOST
+      address:
+        NA: 0x20A186C
+      length:
+        NA: 0x2
+      description: Stat boost value for the Special Band.
+    - name: MUNCH_BELT_STAT_BOOST
+      address:
+        NA: 0x20A187C
+      length:
+        NA: 0x2
+      description: Stat boost value for the Munch Belt.
+    - name: MIN_IQ_EXCLUSIVE_MOVE_USER
+      address:
+        NA: 0x20A188C
+        EU: 0x20A1E10
+      length:
+        NA: 0x4
+        EU: 0x4
+    - name: AURA_BOW_STAT_BOOST
+      address:
+        NA: 0x20A1898
+      length:
+        NA: 0x2
+      description: Stat boost value for the aura bows.
+    - name: MIN_IQ_ITEM_MASTER
+      address:
+        NA: 0x20A18A4
+        EU: 0x20A1E28
+      length:
+        NA: 0x4
+        EU: 0x4
+    - name: DEF_SCARF_STAT_BOOST
+      address:
+        NA: 0x20A18A8
+      length:
+        NA: 0x2
+      description: Stat boost value for the Defense Scarf.
+    - name: POWER_BAND_STAT_BOOST
+      address:
+        NA: 0x20A18AC
+      length:
+        NA: 0x2
+      description: Stat boost value for the Power Band.
+    - name: ZINC_BAND_STAT_BOOST
+      address:
+        NA: 0x20A18B4
+      length:
+        NA: 0x2
+      description: Stat boost value for the Zinc Band.
+    - name: TACTICS_UNLOCK_LEVEL_TABLE
+      address:
+        NA: 0x20A1940
+        EU: 0x20A1EC4
+      length:
+        NA: 0x18
+        EU: 0x18
+    - name: IQ_SKILL_RESTRICTIONS
+      address:
+        NA: 0x20A1A5C
+        EU: 0x20A1FE0
+      length:
+        NA: 0x8C
+        EU: 0x8C
+    - name: SECONDARY_TERRAINS
+      address:
+        NA: 0x20A1AE8
+        EU: 0x20A206C
+      length:
+        NA: 0xC8
+        EU: 0xC8
+    - name: SENTRY_MINIGAME_DATA
+      address:
+        NA: 0x20A1BB0
+    - name: IQ_SKILLS
+      address:
+        NA: 0x20A1C7C
+        EU: 0x20A2200
+      length:
+        NA: 0x114
+        EU: 0x114
+    - name: IQ_GROUP_SKILLS
+      address:
+        NA: 0x20A1D90
+        EU: 0x20A2314
+      length:
+        NA: 0x190
+        EU: 0x190
+    - name: IQ_GUMMI_GAIN_TABLE
+      address:
+        NA: 0x20A22B0
+        EU: 0x20A2834
+      length:
+        NA: 0x288
+        EU: 0x288
+    - name: GUMMI_BELLY_RESTORE_TABLE
+      address:
+        NA: 0x20A2538
+        EU: 0x20A2ABC
+      length:
+        NA: 0x288
+        EU: 0x288
+    - name: SPECIAL_EPISODE_MAIN_CHARACTERS
+      address:
+        NA: 0x20A27F4
+        EU: 0x20A2D78
+      length:
+        NA: 0xC8
+        EU: 0xC8
+    - name: GUEST_MONSTER_DATA
+      address:
+        NA: 0x20A28BC
+        EU: 0x20A2E40
+      length:
+        NA: 0x288
+        EU: 0x288
+    - name: RANK_UP_TABLE
+      address:
+        NA: 0x20A2B44
+        EU: 0x20A30C8
+      length:
+        NA: 0xD0
+        EU: 0xD0
+    - name: MONSTER_SPRITE_DATA
+      address:
+        NA: 0x20A2D08
+        EU: 0x20A332C
+      length:
+        NA: 0x4B0
+        EU: 0x4B0
+    - name: MISSION_DUNGEON_UNLOCK_TABLE
+      address:
+        NA: 0x20A3CAC
+    - name: EVENTS
+      address:
+        NA: 0x20A5488
+        EU: 0x20A5BD8
+      length:
+        NA: 0x1434
+        EU: 0x1584
+    - name: ENTITIES
+      address:
+        NA: 0x20A7FF0
+        EU: 0x20A8890
+      length:
+        NA: 0x1218
+        EU: 0x1218
+    - name: MAP_MARKER_PLACEMENTS
+      address:
+        NA: 0x20A94D0
+        EU: 0x20A9D70
+      length:
+        NA: 0x9B0
+        EU: 0x9B0
+    - name: PACK_FILE_PATHS_TABLE
+      address:
+        NA: 0x20AF6A0
+      length:
+        NA: 0x18
+      description: |-
+        List of pointers to path strings to all known pack files.
+        The game uses this table to load its resources when launching dungeon mode.
+    - name: DEFAULT_HERO_ID
+      address:
+        NA: 0x20AFEFC
+        EU: 0x20B0818
+      length:
+        NA: 0x2
+        EU: 0x2
+      description: "The default monster ID for the hero (0x4: Charmander)"
+    - name: DEFAULT_PARTNER_ID
+      address:
+        NA: 0x20AFEFE
+        EU: 0x20B081A
+      length:
+        NA: 0x2
+        EU: 0x2
+      description: "The default monster ID for the partner (0x1: Bulbasaur)"
+    - name: ITEM_TABLES_PTRS_1
+      address:
+        NA: 0x20B0948
+      length:
+        NA: 0x68
+    - name: SMD_EVENTS_FUN_TABLE
+      address:
+        NA: 0x20B0B90
+      length:
+        NA: 0x1FC
