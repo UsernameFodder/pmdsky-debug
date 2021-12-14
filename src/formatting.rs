@@ -15,8 +15,10 @@ pub fn format_file<P: AsRef<Path>>(
     input_file: P,
     int_format: IntFormat,
 ) -> Result<(), Box<dyn Error>> {
-    let f = File::open(input_file.as_ref())?;
-    let contents = SymGen::read_sorted(&f)?;
+    let contents = {
+        let f = File::open(input_file.as_ref())?;
+        SymGen::read_sorted(&f)?
+    };
     // Write to a tempfile first, then replace the old one atomically.
     let f_new = NamedTempFile::new()?;
     contents.write(&f_new, int_format)?;

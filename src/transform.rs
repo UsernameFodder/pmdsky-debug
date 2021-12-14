@@ -102,11 +102,10 @@ where
     I: AsRef<[P2]>,
 {
     let symgen_file = symgen_file.as_ref();
-    let mut contents;
-    {
+    let mut contents = {
         let file = File::open(symgen_file)?;
-        contents = SymGen::read(&file)?;
-    }
+        SymGen::read(&file)?
+    };
 
     let mut unmerged_symbols = Vec::with_capacity(input_files.as_ref().len());
     for input_name in input_files.as_ref() {
