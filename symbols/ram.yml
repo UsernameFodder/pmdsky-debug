@@ -15,4 +15,46 @@ arm9:
     Main memory.
     Data in this file aren't real "symbols" contained in the ROM itself, and are instead constructs loaded at runtime.
   functions: []
-  data: []
+  data:
+    - name: GAME_STATE_VALUES
+      address:
+        NA: 0x20AF6B8
+        EU: 0x20AFF70
+    - name: DUNGEON_MOVE_TABLES
+      address:
+        NA: 0x20AF6DC
+      description: Seems to be some sort of region (a table of tables?) that holds pointers to various important tables related to moves.
+    - name: PTR_MOVE_DATA_TABLE
+      address:
+        NA: 0x20AF6E4
+    - name: LANGUAGE_INFO_DATA
+      address:
+        NA: 0x20AFCE8
+        EU: 0x20B05A8
+    - name: NOTIFY_NOTE
+      address:
+        NA: 0x20AFEF8
+        EU: 0x20B0814
+    - name: GAME_MODE
+      address:
+        NA: 0x20AFF70
+        EU: 0x20B088C
+    - name: MEMORY_ALLOCATION_TABLE
+      address:
+        NA: 0x20B3380
+        EU: 0x20B3CC0
+      description: Keeps track of all active heap allocations.
+    - name: DUNGEON_PTR
+      address:
+        NA: 0x2353538
+      description: |-
+        Pointer to the dungeon struct in dungeon mode.
+        
+        This is a "working copy" of DUNGEON_PTR_MASTER. The main dungeon engine uses this pointer (or rather pointers to this pointer) when actually running dungeon mode.
+    - name: DUNGEON_PTR_MASTER
+      address:
+        NA: 0x235353C
+      description: |-
+        Pointer to the dungeon struct in dungeon mode.
+        
+        This is a "master copy" of the dungeon pointer. The game uses this pointer when doing low-level memory work (allocation, freeing, zeroing). The normal DUNGEON_PTR is used for most other dungeon mode work.

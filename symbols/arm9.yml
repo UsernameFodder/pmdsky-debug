@@ -202,11 +202,34 @@ arm9:
       address:
         NA: 0x204B988
         EU: 0x204BCC0
+    - name: SubFixedPoint
+      address:
+        NA: 0x2050F10
+      description: |-
+        Compute the subtraction of two decimal fixed point floats.
+        
+        Floats are in the format {16-bit integer part, 16-bit thousandths}, where the integer part is the lower word. Probably used primarily for belly.
+        
+        r0: float
+        r1: decrement
+        return: max(float - decrement, 0)
+    - name: BinToDecFixedPoint
+      address:
+        NA: 0x2051020
+      description: |-
+        Convert a Q16.16 binary fixed-point float to the decimal fixed-point float used for belly calculations. Thousandths are floored.
+        
+        If <data> holds the raw binary data, a Q16.16 binary fixed-point float has the value ((unsigned)data) * 2^-16), and the decimal fixed-point float used for belly has the value (data & 0xffff) + (data >> 16)/1000.
+        
+        r0: pointer p, where ((const unsigned *)p)[1] is the float in Q16.16 format to convert
+        return: float in decimal fixed-point format
     - name: CeilFixedPoint
       address:
         NA: 0x2051064
       description: |-
-        Compute the ceiling of a fixed point float (in Q16.16 format: 16-bit integer part + 16-bit fractional part). Probably used primarily for belly.
+        Compute the ceiling of a decimal fixed point float.
+        
+        Floats are in the format {16-bit integer part, 16-bit thousandths}, where the integer part is the lower word. Probably used primarily for belly.
         
         r0: float
         return: ceil(float)

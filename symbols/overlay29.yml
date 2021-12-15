@@ -12,5 +12,445 @@ overlay29:
   description: |-
     The dungeon engine.
     This is the "main" overlay of dungeon mode. It controls most things that happen in a Mystery Dungeon, such as dungeon layout generation, dungeon menus, enemy AI, and generally just running each turn while within a dungeon.
-  functions: []
-  data: []
+  functions:
+    - name: DungeonAlloc
+      address:
+        NA: 0x22DEA5C
+      description: |-
+        Allocates a new dungeon struct.
+        
+        This updates the master dungeon pointer and returns a copy of that pointer.
+        
+        return: pointer to a newly allocated dungeon struct
+    - name: GetDungeonMasterPtr
+      address:
+        NA: 0x22DEA80
+      description: |-
+        Returns the master dungeon pointer (a global; see ram.yml).
+        
+        return: pointer to a newly allocated dungeon struct
+    - name: DungeonZInit
+      address:
+        NA: 0x22DEA90
+      description: |-
+        Zero-initializes the dungeon struct pointed to by the master dungeon pointer.
+        
+        No params.
+    - name: DungeonFree
+      address:
+        NA: 0x22DEAB0
+      description: |-
+        Frees the dungeons struct pointer to by the master dungeon pointer, and nullifies the pointer.
+        
+        No params.
+    - name: InitializeDungeon
+      address:
+        NA: 0x22DEF38
+      description: Seems to initialize the dungeon struct from specified dungeon data.
+    - name: EntityIsValid
+      address:
+        NA:
+          - 0x22F528C
+          - 0x2321438
+      description: |-
+        Checks if an entity pointer points to a valid entity (not entity type 0, which represents no entity).
+        
+        r0: entity pointer
+        return: bool
+    - name: ResetDamageDesc
+      address:
+        NA: 0x22F6E18
+      description: |-
+        Seems to zero some damage description struct, which is output by the damage calculation function.
+        
+        r0: damage description pointer
+    - name: ItemIsActive
+      address:
+        NA:
+          - 0x22FF898
+          - 0x230A9DC
+          - 0x2311034
+      description: |-
+        Checks if a monster is holding a certain item that isn't disabled by Klutz.
+        
+        r0: entity pointer
+        r1: item ID
+        return: bool
+    - name: IsMonster
+      address:
+        NA:
+          - 0x2301A60
+          - 0x230A994
+      description: |-
+        Checks if an entity is a monster (entity type 1).
+        
+        r0: entity pointer
+        return: bool
+    - name: NoGastroAcidStatus
+      address:
+        NA: 0x2301CDC
+      description: |-
+        Checks if a monster does not have the Gastro Acid status.
+        
+        r0: entity pointer
+        return: bool
+    - name: AbilityIsActive
+      address:
+        NA: 0x2301D10
+      description: |-
+        Checks if a monster has a certain ability that isn't disabled by Gastro Acid.
+        
+        r0: entity pointer
+        r1: ability ID
+        return: bool
+    - name: IqSkillIsEnabled
+      address:
+        NA: 0x2301F80
+      description: |-
+        Checks if a monster has a certain IQ skill enabled.
+        
+        r0: entity pointer
+        r1: IQ skill ID
+        return: bool
+    - name: GetMovePower
+      address:
+        NA: 0x230231C
+      description: |-
+        Gets the power of a move, factoring in Ginseng/Space Globe boosts.
+        
+        r0: user pointer
+        r1: move pointer
+        return: move power
+    - name: DefenderAbilityIsActive
+      address:
+        NA: 0x230A940
+      description: |-
+        Checks if a defender has an active ability that isn't disabled by an attacker's Mold Breaker.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: ability ID to check on the defender
+        r3: flag for whether the attacker's ability is enabled
+        return: bool
+    - name: ExclusiveItemEffectIsActive
+      address:
+        NA: 0x230A9B8
+      description: |-
+        Checks if a certain exclusive item effect is active for a monster.
+        
+        r0: entity pointer
+        r1: exclusive item effect ID
+        return: bool
+    - name: CalcDamage
+      address:
+        NA: 0x230BBAC
+      description: |-
+        Probably the damage calculation function.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: attack type
+        r3: attack power
+        stack[0]: crit chance
+        stack[1]: [output] damage description struct?
+        stack[3]: move ID
+        stack[4]: ?
+    - name: ResetDamageCalcScratchSpace
+      address:
+        NA: 0x230D528
+      description: |-
+        CalcDamage seems to use scratch space of some kind, which this function zeroes.
+        
+        No params.
+    - name: AuraBowIsActive
+      address:
+        NA: 0x230F6C8
+      description: |-
+        Checks if a monster is holding an aura bow that isn't disabled by Klutz.
+        
+        r0: entity pointer
+        return: bool
+    - name: ExclusiveItemOffenseBoost
+      address:
+        NA: 0x230F778
+      description: |-
+        Gets the exclusive item boost for attack/special attack for a monster
+        
+        r0: entity pointer
+        r1: move category index (0 for physical, 1 for special)
+        return: boost
+    - name: ExclusiveItemDefenseBoost
+      address:
+        NA: 0x230F788
+      description: |-
+        Gets the exclusive item boost for defense/special defense for a monster
+        
+        r0: entity pointer
+        r1: move category index (0 for physical, 1 for special)
+        return: boost
+    - name: PptrIsValid
+      address:
+        NA: 0x23118B4
+      description: |-
+        Checks if a double pointer is non-null when double-dereferenced.
+        
+        r0: pointer to pointer
+        return: bool
+    - name: BoostStat
+      address:
+        NA: 0x231399C
+      description: |-
+        Appears to apply a stat boost to an entity?
+        
+        r0: entity pointer 1?
+        r1: entity pointer 2?
+        r2: stat index
+        r3: boost value
+    - name: ApplyItemEffect
+      address:
+        NA: 0x231B68C
+      description: "Seems to apply an item's via a giant switch statement?"
+    - name: ViolentSeedBoost
+      address:
+        NA: 0x231CE1C
+      description: |-
+        Applies the Violent Seed boost to an entity
+        
+        r0: entity pointer 1?
+        r1: entity pointer 2?
+    - name: MoveIsNotPhysical
+      address:
+        NA: 0x231EA18
+      description: |-
+        Checks if a move isn't a physical move.
+        
+        r0: move ID
+        return: bool
+    - name: UpdateMovePp
+      address:
+        NA: 0x2324D8C
+      description: |-
+        Updates the PP of any moves that were used by a monster, if PP should be consumed.
+        
+        r0: entity pointer
+        r1: flag for whether or not PP should be consumed
+    - name: GetApparentWeather
+      address:
+        NA: 0x2334D08
+      description: |-
+        Get the weather, as experienced by a specific entity.
+        
+        r0: entity pointer
+        return: weather ID
+    - name: GetTile
+      address:
+        NA:
+          - 0x23360FC
+          - 0x2336164
+      description: |-
+        Get the tile at some position.
+        
+        r0: x position
+        r1: y position
+        return: tile pointer
+    - name: UpdateTileJunctionFlags
+      address:
+        NA: 0x233AF0C
+      description: |-
+        Updates all the junction flags (bit 3 of the terrain flags) on tiles in some range [x0, x1), [y0, y1).
+        
+        r0: x0
+        r1: y0
+        r2: x1
+        r3: y1
+    - name: CreateDefaultLayout
+      address:
+        NA: 0x233C774
+      description: |-
+        Creates the default floor layout, a one-room monster house.
+        
+        No params.
+    - name: InitializeTile
+      address:
+        NA: 0x2340AD4
+      description: |-
+        Initialize a tile struct.
+        
+        r0: tile pointer
+    - name: InitializeDungeonTerrain
+      address:
+        NA: 0x2340B0C
+      description: |-
+        Does some initialization of the dungeon terrain, like setting the boundary to impassable and zeroing all the traps.
+        
+        No params.
+    - name: PosIsValid
+      address:
+        NA: 0x2340CAC
+      description: |-
+        Checks if a position (x, y) is a valid map position (0 <= x <= 55, 0 <= y <= 31).
+        
+        r0: x
+        r1: y
+        return: bool
+    - name: HasHeldItem
+      address:
+        NA: 0x23467E4
+      description: |-
+        Checks if a monster has a certain held item.
+        
+        r0: entity pointer
+        r1: item ID
+        return: bool
+    - name: RunDungeonMode
+      address:
+        NA: 0x234BF28
+      description: |-
+        This appears to be the top-level function for running dungeon mode.
+        
+        It gets called by some code in overlay 10 right after doing the dungeon fade transition, and once it exits, the dungeon results are processed.
+        
+        This function is presumably in charge of allocating the dungeon struct, setting it up, launching the dungeon engine, etc.
+  data:
+    - name: DUNGEON_STRUCT_SIZE
+      address:
+        NA:
+          - 0x22DEA78
+          - 0x22DEAAC
+      length:
+        NA: 0x4
+      description: Size of the dungeon struct (0x2CB14)
+    - name: JUDGMENT_MOVE_ID
+      address:
+        NA: 0x230C458
+      length:
+        NA: 0x4
+      description: Move ID for Judgment
+    - name: REGULAR_ATTACK_MOVE_ID
+      address:
+        NA: 0x230C45C
+      length:
+        NA: 0x4
+      description: Move ID for the regular attack
+    - name: DEOXYS_ATTACK_ID
+      address:
+        NA: 0x230C460
+      length:
+        NA: 0x4
+      description: Monster ID for Deoxys in Attack Forme
+    - name: DEOXYS_SPEED_ID
+      address:
+        NA: 0x230C464
+      length:
+        NA: 0x4
+      description: Monster ID for Deoxys in Speed Forme
+    - name: GIRATINA_ALTERED_ID
+      address:
+        NA: 0x230C468
+      length:
+        NA: 0x4
+      description: Monster ID for Giratina in Altered Forme
+    - name: PUNISHMENT_MOVE_ID
+      address:
+        NA: 0x230C46C
+      length:
+        NA: 0x4
+      description: Move ID for Punishment
+    - name: OFFENSE_STAT_MAX
+      address:
+        NA: 0x230C49C
+      length:
+        NA: 0x4
+      description: "Cap on an attacker's modified offense (attack or special attack) stat after boosts. Used during damage calculation."
+    - name: PROJECTILE_MOVE_ID
+      address:
+        NA: 0x230D07C
+      length:
+        NA: 0x4
+      description: "The move ID of the special \"projectile\" move"
+    - name: BELLY_LOST_PER_TURN
+      address:
+        NA: 0x2310A70
+        EU: 0x23114D0
+      length:
+        NA: 0x4
+        EU: 0x4
+      description: |-
+        The base value by which belly is decreased every turn.
+        
+        Its raw value is 0x199A, which encodes a Q16.16 binary fixed-point float with value (0x199A * 2^-16), and is the closest approximation to 0.1 representable in this number format.
+    - name: SOME_STRUCT_ROW_SIZE
+      address:
+        NA: 0x2340220
+    - name: TILE_SPAWN_TABLE
+      address:
+        NA: 0x234FDD0
+        EU: 0x23509DC
+      length:
+        NA: 0x2C
+        EU: 0x2C
+    - name: FIXED_FLOOR_OVERRIDES
+      address:
+        NA: 0x234FE14
+        EU: 0x2350A20
+      length:
+        NA: 0x100
+        EU: 0x100
+    - name: MONSTER_SPAWN_TABLE
+      address:
+        NA: 0x234FF14
+        EU: 0x2350B20
+      length:
+        NA: 0x1E0
+        EU: 0x1E0
+    - name: ITEM_SPAWN_TABLE
+      address:
+        NA: 0x23500F4
+        EU: 0x2350D00
+      length:
+        NA: 0x1F8
+        EU: 0x1F8
+    - name: ENTITY_SPAWN_TABLE
+      address:
+        NA: 0x23502EC
+        EU: 0x2350EF8
+      length:
+        NA: 0xC9C
+        EU: 0xC9C
+    - name: BELLY_DRAIN_IN_WALLS_INT
+      address:
+        NA: 0x2352768
+        EU: 0x2353374
+      length:
+        NA: 0x2
+        EU: 0x2
+      description: The additional amount by which belly is decreased every turn when inside walls (integer part)
+    - name: BELLY_DRAIN_IN_WALLS_THOUSANDTHS
+      address:
+        NA: 0x235276A
+        EU: 0x2353376
+      length:
+        NA: 0x2
+        EU: 0x2
+      description: The additional amount by which belly is decreased every turn when inside walls (fractional thousandths)
+    - name: SPATK_STAT_IDX
+      address:
+        NA: 0x2352AE8
+      length:
+        NA: 0x4
+      description: "The index (1) of the special attack entry in internal stat structs, such as the stat modifier array for a monster."
+    - name: ATK_STAT_IDX
+      address:
+        NA: 0x2352AEC
+      length:
+        NA: 0x4
+      description: "The index (0) of the attack entry in internal stat structs, such as the stat modifier array for a monster."
+    - name: DEFAULT_TILE
+      address:
+        NA: 0x2353724
+      length:
+        NA: 0x14
+      description: |-
+        The default tile struct.
+        
+        This is just a struct full of zeroes, but is used as a fallback in various places where a "default" tile is needed, such as when a grid index is out of range.
