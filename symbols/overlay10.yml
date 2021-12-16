@@ -11,4 +11,287 @@ overlay10:
     EU: 0x1F7A0
   description: "Appears to be used both during ground mode and dungeon mode. With dungeon mode, whereas overlay 29 contains the main dungeon engine, this overlay seems to contain routines and data for dungeon mechanics."
   functions: []
-  data: []
+  data:
+    - name: BAD_POISON_DAMAGE_COOLDOWN
+      address:
+        NA: 0x22C4414
+        EU: 0x22C4D6C
+      length:
+        NA: 0x2
+      description: The number of turns between passive bad poison (toxic) damage.
+    - name: PROTEIN_STAT_BOOST
+      address:
+        NA: 0x22C4420
+      length:
+        NA: 0x2
+      description: The permanent attack boost from ingesting a Protein.
+    - name: OREN_BERRY_DAMAGE
+      address:
+        NA: 0x22C4438
+      length:
+        NA: 0x2
+      description: Damage dealt by eating an Oren Berry.
+    - name: SITRUS_BERRY_HP_RESTORATION
+      address:
+        NA: 0x22C4478
+        EU: 0x22C4DD0
+      length:
+        NA: 0x2
+        EU: 0x2
+      description: The amount of HP restored by eating a Sitrus Berry.
+    - name: GOLD_THORN_POWER
+      address:
+        NA: 0x22C44D0
+      length:
+        NA: 0x2
+      description: Attack power for Golden Thorns.
+    - name: SPAWN_COOLDOWN
+      address:
+        NA: 0x22C44DC
+        EU: 0x22C4E34
+      length:
+        NA: 0x2
+        EU: 0x2
+      description: The number of turns between enemy spawns under normal conditions.
+    - name: ORAN_BERRY_FULL_HP_BOOST
+      address:
+        NA: 0x22C44F4
+      length:
+        NA: 0x2
+      description: The permanent HP boost from eating an Oran Berry at full HP (0).
+    - name: LIFE_SEED_HP_BOOST
+      address:
+        NA: 0x22C44F8
+        EU: 0x22C4E50
+      length:
+        NA: 0x2
+        EU: 0x2
+      description: The permanent HP boost from eating a Life Seed.
+    - name: INTIMIDATOR_CHANCE
+      address:
+        NA: 0x22C45B8
+        EU: 0x22C4F10
+      length:
+        NA: 0x2
+        EU: 0x2
+      description: The number of turns between enemy spawns under normal conditions.
+    - name: ORAN_BERRY_HP_RESTORATION
+      address:
+        NA: 0x22C45EC
+        EU: 0x22C4F44
+      length:
+        NA: 0x2
+      description: The amount of HP restored by eating a Oran Berry.
+    - name: SITRUS_BERRY_FULL_HP_BOOST
+      address:
+        NA: 0x22C45F4
+      length:
+        NA: 0x2
+      description: The permanent HP boost from eating a Sitrus Berry at full HP.
+    - name: BURN_DAMAGE_COOLDOWN
+      address:
+        NA: 0x22C4610
+        EU: 0x22C4F68
+      length:
+        NA: 0x2
+        EU: 0x2
+      description: The number of turns between passive burn damage.
+    - name: STICK_POWER
+      address:
+        NA: 0x22C4624
+      length:
+        NA: 0x2
+      description: Attack power for Sticks.
+    - name: SPAWN_COOLDOWN_THIEF_ALERT
+      address:
+        NA: 0x22C4640
+        EU: 0x22C4F98
+      length:
+        NA: 0x2
+        EU: 0x2
+      description: The number of turns between enemy spawns when the Thief Alert condition is active.
+    - name: POISON_DAMAGE_COOLDOWN
+      address:
+        NA: 0x22C46A8
+        EU: 0x22C5000
+      length:
+        NA: 0x2
+      description: The number of turns between passive poison damage.
+    - name: GEO_PEBBLE_DAMAGE
+      address:
+        NA: 0x22C46B4
+      length:
+        NA: 0x2
+      description: Damage dealt by Geo Pebbles.
+    - name: GRAVELEROCK_DAMAGE
+      address:
+        NA: 0x22C46B8
+      length:
+        NA: 0x2
+      description: Damage dealt by Gravelerocks.
+    - name: RARE_FOSSIL_DAMAGE
+      address:
+        NA: 0x22C46BC
+      length:
+        NA: 0x2
+      description: Damage dealt by Rare Fossils.
+    - name: GINSENG_CHANCE_3
+      address:
+        NA: 0x22C46C0
+        EU: 0x22C5018
+      length:
+        NA: 0x2
+        EU: 0x2
+      description: The percentage chance for...something to be set to 3 in a calculation related to the Ginseng boost.
+    - name: ZINC_STAT_BOOST
+      address:
+        NA: 0x22C46C4
+      length:
+        NA: 0x2
+      description: The permanent special defense boost from ingesting a Zinc.
+    - name: IRON_STAT_BOOST
+      address:
+        NA: 0x22C46C8
+      length:
+        NA: 0x2
+      description: The permanent defense boost from ingesting an Iron.
+    - name: CALCIUM_STAT_BOOST
+      address:
+        NA: 0x22C46CC
+      length:
+        NA: 0x2
+      description: The permanent special attack boost from ingesting a Calcium.
+    - name: CORSOLA_TWIG_POWER
+      address:
+        NA: 0x22C46D8
+      length:
+        NA: 0x2
+      description: Attack power for Corsola Twigs.
+    - name: CACNEA_SPIKE_POWER
+      address:
+        NA: 0x22C46DC
+      length:
+        NA: 0x2
+      description: Attack power for Cacnea Spikes.
+    - name: GOLD_FANG_POWER
+      address:
+        NA: 0x22C46E0
+      length:
+        NA: 0x2
+      description: Attack power for Gold Fangs.
+    - name: SILVER_SPIKE_POWER
+      address:
+        NA: 0x22C46E4
+      length:
+        NA: 0x2
+      description: Attack power for Silver Spikes.
+    - name: IRON_THORN_POWER
+      address:
+        NA: 0x22C46E8
+      length:
+        NA: 0x2
+      description: Attack power for Iron Thorns.
+    - name: SLEEP_DURATION_RANGE
+      address:
+        NA: 0x22C4720
+      length:
+        NA: 0x4
+      description: |-
+        Appears to control the range of turns for which the sleep condition can last.
+        
+        The first two bytes are the low value of the range, and the later two bytes are the high value.
+    - name: POWER_PITCHER_DAMAGE_MULTIPLIER
+      address:
+        NA: 0x22C47F8
+      length:
+        NA: 0x4
+      description: "The multiplier for projectile damage from Power Pitcher (1.5), as a Q24.8 fixed-point float"
+    - name: AIR_BLADE_DAMAGE_MULTIPLIER
+      address:
+        NA: 0x22C4844
+      description: "The multiplier for damage from the Air Blade (1.5), as a Q24.8 fixed-point float"
+    - name: SPEED_BOOST_DURATION_RANGE
+      address:
+        NA: 0x22C4888
+      length:
+        NA: 0x4
+      description: |-
+        Appears to control the range of turns for which a speed boost can last.
+        
+        The first two bytes are the low value of the range, and the later two bytes are the high value.
+    - name: OFFENSIVE_STAT_STAGE_MULTIPLIERS
+      address:
+        NA: 0x22C4D98
+      length:
+        NA: 0x54
+      description: "Table of multipliers for offensive stats (attack/special attack) for each stage 0-20, as Q24.8 fixed-point floats"
+    - name: DEFENSIVE_STAT_STAGE_MULTIPLIERS
+      address:
+        NA: 0x22C4DEC
+      length:
+        NA: 0x54
+      description: "Table of multipliers for defensive stats (defense/special defense) for each stage 0-20, as Q24.8 fixed-point floats"
+    - name: RANDOM_MUSIC_ID_TABLE
+      address:
+        NA: 0x22C51FC
+        EU: 0x22C5B54
+      length:
+        NA: 0xF0
+      description: Table of music IDs for dungeons with a random assortment of music tracks?
+    - name: MALE_ACCURACY_STAGE_MULTIPLIERS
+      address:
+        NA: 0x22C540C
+      length:
+        NA: 0x54
+      description: "Table of multipliers for the accuracy stat for males for each stage 0-20, as Q24.8 fixed-point floats"
+    - name: MALE_EVASION_STAGE_MULTIPLIERS
+      address:
+        NA: 0x22C5460
+      length:
+        NA: 0x54
+      description: "Table of multipliers for the evasion stat for males for each stage 0-20, as Q24.8 fixed-point floats"
+    - name: FEMALE_ACCURACY_STAGE_MULTIPLIERS
+      address:
+        NA: 0x22C54B4
+      length:
+        NA: 0x54
+      description: "Table of multipliers for the accuracy stat for females for each stage 0-20, as Q24.8 fixed-point floats"
+    - name: FEMALE_EVASION_STAGE_MULTIPLIERS
+      address:
+        NA: 0x22C5508
+      length:
+        NA: 0x54
+      description: "Table of multipliers for the evasion stat for females for each stage 0-20, as Q24.8 fixed-point floats"
+    - name: MUSIC_ID_TABLE
+      address:
+        NA: 0x22C555C
+        EU: 0x22C5EB4
+      length:
+        NA: 0x154
+    - name: TYPE_MATCHUP_TABLE
+      address:
+        NA: 0x22C56B0
+    - name: MONSTER_SPAWN_STATS_TABLE
+      address:
+        NA: 0x22C5938
+        EU: 0x22C6290
+      length:
+        NA: 0x4A4
+        EU: 0x4A4
+    - name: TILESET_PROPERTIES
+      address:
+        NA: 0x22C631C
+        EU: 0x22C6C74
+      length:
+        NA: 0x954
+        EU: 0x954
+    - name: FIXED_FLOOR_PROPERTIES
+      address:
+        NA: 0x22C6C70
+        EU: 0x22C75C8
+      length:
+        NA: 0xC00
+        EU: 0xC00
+    - name: MOVE_ANIMATION_INFO
+      address:
+        NA: 0x22C9064

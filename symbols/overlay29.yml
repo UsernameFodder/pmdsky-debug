@@ -47,6 +47,40 @@ overlay29:
       address:
         NA: 0x22DEF38
       description: Seems to initialize the dungeon struct from specified dungeon data.
+    - name: Rand16Bit
+      address:
+        NA: 0x22EAA20
+      description: |-
+        Seems to compute a pseudorandom 16-bit value?
+        
+        return: pseudorandom int on the interval [0, 65535]?
+    - name: RandInt
+      address:
+        NA: 0x22EAA98
+      description: |-
+        Seems to compute a pseudorandom integer under a given maximum value?
+        
+        r0: high
+        return: pseudorandom int on the interval [0, high - 1]?
+    - name: RandRange
+      address:
+        NA: 0x22EAAC0
+      description: |-
+        Seems to compute a random value between two integers.
+        
+        r0: x
+        r1: y
+        return: A random(?) integer on the interval [min(x, y), max(x, y) - 1]
+    - name: CalcStatusDuration
+      address:
+        NA: 0x22EAB80
+      description: |-
+        Seems to calculate the duration of a volatile status on a monster.
+        
+        r0: entity pointer
+        r1: pointer to a turn range (an array of two shorts {lower, higher})
+        r2: flag for whether or not to factor in the Self Curer IQ skill and the Natural Cure ability
+        return: number of turns for the status condition
     - name: EntityIsValid
       address:
         NA:
@@ -155,6 +189,16 @@ overlay29:
         stack[1]: [output] damage description struct?
         stack[3]: move ID
         stack[4]: ?
+    - name: CalcDamageFixedWrapper
+      address:
+        NA: 0x230D3A8
+      description: |-
+        Appears to calculate damage from a fixed-damage effect. A wrapper around the function in the ARM 9 binary.
+        
+        r0: entity pointer 1?
+        r1: entity pointer 2?
+        r2: fixed damage
+        others: ?
     - name: ResetDamageCalcScratchSpace
       address:
         NA: 0x230D528
@@ -206,6 +250,31 @@ overlay29:
         r1: entity pointer 2?
         r2: stat index
         r3: boost value
+    - name: BoostSpeed
+      address:
+        NA: 0x2314810
+      description: |-
+        Appears to apply a speed boost to an entity?
+        
+        r1: entity pointer
+        others: ?
+    - name: BoostSpeedWrapper
+      address:
+        NA: 0x231493C
+      description: |-
+        A wrapper around BoostSpeed with the third argument set to 1.
+        
+        r1: entity pointer
+        others: ?
+    - name: TryActivateQuickFeet
+      address:
+        NA: 0x2314E1C
+      description: |-
+        Activate the Quick Feet ability, if a monster has it and it's active.
+        
+        r0: ?
+        r1: entity pointer
+        return: bool, whether or not the ability was activated
     - name: ApplyItemEffect
       address:
         NA: 0x231B68C
@@ -218,6 +287,24 @@ overlay29:
         
         r0: entity pointer 1?
         r1: entity pointer 2?
+    - name: ApplyGummiIqBoost
+      address:
+        NA: 0x231D0C0
+      description: |-
+        Appears to apply the IQ boost from eating a Gummi.
+        
+        r0: ?
+        r1: entity pointer
+        r2: Gummi type ID
+        r3: Gummi base IQ boost?
+    - name: GetMaxPpWrapper
+      address:
+        NA: 0x231E9F0
+      description: |-
+        Gets the maximum PP for a given move. A wrapper around the function in the ARM 9 binary.
+        
+        r0: move pointer
+        return: max PP for the given move, capped at 99
     - name: MoveIsNotPhysical
       address:
         NA: 0x231EA18
@@ -234,6 +321,25 @@ overlay29:
         
         r0: entity pointer
         r1: flag for whether or not PP should be consumed
+    - name: LowerSshort
+      address:
+        NA: 0x2324E64
+      description: |-
+        Gets the lower 2 bytes of a 4-byte number and interprets it as a signed short.
+        
+        r0: 4-byte number x
+        return: (short)x
+    - name: CalcDamageProjectile
+      address:
+        NA: 0x2332C4C
+      description: |-
+        Appears to calculate damage from a variable-damage projectile.
+        
+        r0: entity pointer 1?
+        r1: entity pointer 2?
+        r2: move pointer
+        r3: move power
+        others: ?
     - name: GetApparentWeather
       address:
         NA: 0x2334D08
@@ -364,7 +470,9 @@ overlay29:
       description: "Cap on an attacker's modified offense (attack or special attack) stat after boosts. Used during damage calculation."
     - name: PROJECTILE_MOVE_ID
       address:
-        NA: 0x230D07C
+        NA:
+          - 0x230D07C
+          - 0x231C700
       length:
         NA: 0x4
       description: "The move ID of the special \"projectile\" move"
@@ -379,6 +487,24 @@ overlay29:
         The base value by which belly is decreased every turn.
         
         Its raw value is 0x199A, which encodes a Q16.16 binary fixed-point float with value (0x199A * 2^-16), and is the closest approximation to 0.1 representable in this number format.
+    - name: PLAIN_SEED_VALUE
+      address:
+        NA: 0x231C748
+      length:
+        NA: 0x4
+      description: Some value related to the Plain Seed.
+    - name: MAX_ELIXIR_PP_RESTORATION
+      address:
+        NA: 0x231C74C
+      length:
+        NA: 0x4
+      description: The amount of PP restored per move by ingesting a Max Elixir.
+    - name: SLIP_SEED_VALUE
+      address:
+        NA: 0x231CBAC
+      length:
+        NA: 0x4
+      description: Some value related to the Slip Seed.
     - name: SOME_STRUCT_ROW_SIZE
       address:
         NA: 0x2340220
