@@ -11,4 +11,32 @@ overlay22:
     EU: 0x4B40
   description: Most like controls the menu for the Kecleon Shop.
   functions: []
-  data: []
+  data:
+    - name: SHOP_MENU_CONFIRM
+      address:
+        NA: 0x238E868
+        EU: 0x238F3A8
+      length:
+        NA: 0x18
+        EU: 0x18
+    - name: SHOP_MAIN_MENU_1
+      address:
+        NA: 0x238E880
+        EU: 0x238F3C0
+      length:
+        NA: 0x20
+        EU: 0x20
+    - name: SHOP_MAIN_MENU_2
+      address:
+        NA: 0x238E8A0
+        EU: 0x238F3E0
+      length:
+        NA: 0x20
+        EU: 0x20
+    - name: SHOP_MAIN_MENU_3
+      address:
+        NA: 0x238E8C0
+        EU: 0x238F400
+      length:
+        NA: 0x30
+        EU: 0x30

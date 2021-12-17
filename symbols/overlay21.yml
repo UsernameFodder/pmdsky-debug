@@ -11,4 +11,46 @@ overlay21:
     EU: 0x2E20
   description: "Most likely controls the menu for Croagunk's Swap Shop."
   functions: []
-  data: []
+  data:
+    - name: SWAP_SHOP_MENU_CONFIRM
+      address:
+        NA: 0x238CA38
+        EU: 0x238D578
+      length:
+        NA: 0x18
+        EU: 0x18
+    - name: SWAP_SHOP_SUBMENU_1
+      address:
+        NA: 0x238CA50
+        EU: 0x238D590
+      length:
+        NA: 0x18
+        EU: 0x18
+    - name: SWAP_SHOP_SUBMENU_2
+      address:
+        NA: 0x238CA68
+        EU: 0x238D5A8
+      length:
+        NA: 0x20
+        EU: 0x20
+    - name: SWAP_SHOP_MAIN_MENU_1
+      address:
+        NA: 0x238CA88
+        EU: 0x238D5C8
+      length:
+        NA: 0x20
+        EU: 0x20
+    - name: SWAP_SHOP_MAIN_MENU_2
+      address:
+        NA: 0x238CAA8
+        EU: 0x238D5E8
+      length:
+        NA: 0x28
+        EU: 0x28
+    - name: SWAP_SHOP_SUBMENU_3
+      address:
+        NA: 0x238CAD0
+        EU: 0x238D610
+      length:
+        NA: 0x30
+        EU: 0x30

@@ -44,6 +44,29 @@ arm9:
         NA: 0x20B3380
         EU: 0x20B3CC0
       description: Keeps track of all active heap allocations.
+    - name: DEBUG_SPECIAL_EPISODE_NUMBER
+      address:
+        NA: 0x22AB4AC
+        EU: 0x22ABDEC
+      length:
+        NA: 0x1
+        EU: 0x1
+      description: |-
+        The number of the special episode currently being played.
+        
+        0: normal, Bidoof's Wish
+        1: Igglybuff the Prodigy
+        2: Today's "Oh My Gosh"
+        3: Here Comes Team Charm!
+        4: In the Future of Darkness
+    - name: UNIONALL_RAM_ADDRESS
+      address:
+        NA: 0x2324CA4
+        EU: 0x23257E4
+    - name: GROUND_STATE_MAP
+      address:
+        NA: 0x2324CC0
+        EU: 0x2325800
     - name: DUNGEON_PTR
       address:
         NA: 0x2353538

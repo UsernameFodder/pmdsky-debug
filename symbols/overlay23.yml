@@ -11,4 +11,39 @@ overlay23:
     EU: 0x3780
   description: Most likely controls the menu for Kangaskhan Storage.
   functions: []
-  data: []
+  data:
+    - name: STORAGE_MENU_CONFIRM
+      address:
+        NA: 0x238D2FC
+        EU: 0x238DE3C
+      length:
+        NA: 0x18
+        EU: 0x18
+    - name: STORAGE_MAIN_MENU_1
+      address:
+        NA: 0x238D314
+        EU: 0x238DE54
+      length:
+        NA: 0x20
+        EU: 0x20
+    - name: STORAGE_MAIN_MENU_2
+      address:
+        NA: 0x238D334
+        EU: 0x238DE74
+      length:
+        NA: 0x20
+        EU: 0x20
+    - name: STORAGE_MAIN_MENU_3
+      address:
+        NA: 0x238D354
+        EU: 0x238DE94
+      length:
+        NA: 0x20
+        EU: 0x20
+    - name: STORAGE_MAIN_MENU_4
+      address:
+        NA: 0x238D374
+        EU: 0x238DEB4
+      length:
+        NA: 0x28
+        EU: 0x28

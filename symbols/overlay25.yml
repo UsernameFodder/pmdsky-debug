@@ -10,4 +10,25 @@ overlay25:
     NA: 0x14C0
     EU: 0x14C0
   functions: []
-  data: []
+  data:
+    - name: APPRAISAL_MENU_CONFIRM
+      address:
+        NA: 0x238B4B4
+        EU: 0x238BFF4
+      length:
+        NA: 0x18
+        EU: 0x18
+    - name: APPRAISAL_MAIN_MENU
+      address:
+        NA: 0x238B4CC
+        EU: 0x238C00C
+      length:
+        NA: 0x20
+        EU: 0x20
+    - name: APPRAISAL_SUBMENU
+      address:
+        NA: 0x238B4EC
+        EU: 0x238C02C
+      length:
+        NA: 0x20
+        EU: 0x20

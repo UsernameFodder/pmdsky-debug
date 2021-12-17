@@ -10,4 +10,18 @@ overlay24:
     NA: 0x24E0
     EU: 0x24E0
   functions: []
-  data: []
+  data:
+    - name: DAYCARE_MENU_CONFIRM
+      address:
+        NA: 0x238C520
+        EU: 0x238D060
+      length:
+        NA: 0x18
+        EU: 0x18
+    - name: DAYCARE_MAIN_MENU
+      address:
+        NA: 0x238C538
+        EU: 0x238D078
+      length:
+        NA: 0x20
+        EU: 0x20

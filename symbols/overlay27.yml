@@ -11,4 +11,32 @@ overlay27:
     EU: 0x2D60
   description: Most likely another menu related to item storage (alongside overlay 23).
   functions: []
-  data: []
+  data:
+    - name: DISCARD_ITEMS_MENU_CONFIRM
+      address:
+        NA: 0x238C95C
+        EU: 0x238D49C
+      length:
+        NA: 0x18
+        EU: 0x18
+    - name: DISCARD_ITEMS_SUBMENU_1
+      address:
+        NA: 0x238C974
+        EU: 0x238D4B4
+      length:
+        NA: 0x20
+        EU: 0x20
+    - name: DISCARD_ITEMS_SUBMENU_2
+      address:
+        NA: 0x238C994
+        EU: 0x238D4D4
+      length:
+        NA: 0x20
+        EU: 0x20
+    - name: DISCARD_ITEMS_MAIN_MENU
+      address:
+        NA: 0x238C9B4
+        EU: 0x238D4F4
+      length:
+        NA: 0x28
+        EU: 0x28
