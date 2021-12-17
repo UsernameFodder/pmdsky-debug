@@ -10,4 +10,53 @@ overlay20:
     NA: 0x3000
     EU: 0x3000
   functions: []
-  data: []
+  data:
+    - name: RECYCLE_MENU_CONFIRM_1
+      address:
+        NA: 0x238CF84
+        EU: 0x238DAC4
+      length:
+        NA: 0x18
+        EU: 0x18
+    - name: RECYCLE_MENU_CONFIRM_2
+      address:
+        NA: 0x238CF9C
+        EU: 0x238DADC
+      length:
+        NA: 0x18
+        EU: 0x18
+    - name: RECYCLE_SUBMENU_1
+      address:
+        NA: 0x238CFB4
+        EU: 0x238DAF4
+      length:
+        NA: 0x18
+        EU: 0x18
+    - name: RECYCLE_SUBMENU_2
+      address:
+        NA: 0x238CFCC
+        EU: 0x238DB0C
+      length:
+        NA: 0x20
+        EU: 0x20
+    - name: RECYCLE_MAIN_MENU_1
+      address:
+        NA: 0x238CFEC
+        EU: 0x238DB2C
+      length:
+        NA: 0x28
+        EU: 0x28
+    - name: RECYCLE_MAIN_MENU_2
+      address:
+        NA: 0x238D088
+        EU: 0x238DBC8
+      length:
+        NA: 0x20
+        EU: 0x20
+    - name: RECYCLE_MAIN_MENU_3
+      address:
+        NA: 0x238D0F8
+        EU: 0x238DC38
+      length:
+        NA: 0x18
+        EU: 0x18

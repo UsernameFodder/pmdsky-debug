@@ -12,5 +12,85 @@ overlay11:
   description: |-
     The script engine.
     This is the "main" overlay of ground mode. The script engine is what runs the ground mode scripts contained in the SCRIPT folder, which are written in a custom scripting language. These scripts encode things like cutscenes, screen transitions, ground mode events, and tons of other things related to ground mode.
-  functions: []
-  data: []
+  functions:
+    - name: FuncThatCallsCommandParsing
+      address:
+        NA: 0x22DD164
+        EU: 0x22DDAA4
+    - name: ScriptCommandParsing
+      address:
+        NA: 0x22DDD64
+        EU: 0x22DE6A4
+    - name: SsbLoad2
+      address:
+        NA: 0x22E46FC
+        EU: 0x22E503C
+    - name: StationLoadHanger
+      address:
+        NA: 0x22E4BD4
+        EU: 0x22E5514
+    - name: ScriptStationLoadTalk
+      address:
+        NA: 0x22E53E4
+        EU: 0x22E5D24
+    - name: SsbLoad1
+      address:
+        NA: 0x22E5D50
+        EU: 0x22E6690
+    - name: GroundMainLoop
+      address:
+        NA: 0x22E8774
+        EU: 0x22E90B4
+  data:
+    - name: SCRIPT_OP_CODES
+      address:
+        NA: 0x2318610
+        EU: 0x2318FF0
+      length:
+        NA: 0xBF8
+        EU: 0xBF8
+    - name: C_ROUTINES
+      address:
+        NA: 0x231C828
+      length:
+        NA: 0x15E8
+    - name: OBJECTS
+      address:
+        NA: 0x231EE54
+      length:
+        NA: 0x1A04
+    - name: RECRUITMENT_TABLE_LOCATIONS
+      address:
+        NA: 0x2320894
+        EU: 0x23213C4
+      length:
+        NA: 0x16
+        EU: 0x16
+    - name: RECRUITMENT_TABLE_LEVELS
+      address:
+        NA: 0x23208AC
+        EU: 0x23213DC
+      length:
+        NA: 0x2C
+        EU: 0x2C
+    - name: RECRUITMENT_TABLE_SPECIES
+      address:
+        NA: 0x23208D8
+        EU: 0x2321408
+      length:
+        NA: 0x2C
+        EU: 0x2C
+    - name: LEVEL_TILEMAP_LIST
+      address:
+        NA: 0x2320D2C
+        EU: 0x232185C
+      length:
+        NA: 0x288
+        EU: 0x288
+    - name: GROUND_STATE_PTRS
+      address:
+        NA: 0x2324CF4
+        EU: 0x2325834
+      length:
+        NA: 0x14
+        EU: 0x14

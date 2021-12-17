@@ -11,4 +11,40 @@ overlay13:
     EU: 0x2E80
   description: "Controls the personality test, including the available partners and playable Pokémon. The actual personality test questions are stored in the MESSAGE folder."
   functions: []
-  data: []
+  data:
+    - name: STARTERS_PARTNER_IDS
+      address:
+        NA: 0x238C08C
+        EU: 0x238CBCC
+      length:
+        NA: 0x2A
+        EU: 0x2A
+    - name: STARTERS_HERO_IDS
+      address:
+        NA: 0x238C0B8
+        EU: 0x238CBF8
+      length:
+        NA: 0x40
+        EU: 0x40
+    - name: STARTERS_STRINGS
+      address:
+        NA: 0x238C14C
+      length:
+        NA: 0x60
+    - name: QUIZ_QUESTION_STRINGS
+      address:
+        NA: 0x238C1AC
+      length:
+        NA: 0x84
+    - name: QUIZ_ANSWER_STRINGS
+      address:
+        NA: 0x238C230
+      length:
+        NA: 0x160
+    - name: UNKNOWN_MENU_1
+      address:
+        NA: 0x238CECC
+        EU: 0x238DA0C
+      length:
+        NA: 0x48
+        EU: 0x48

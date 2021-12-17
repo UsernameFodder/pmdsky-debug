@@ -11,4 +11,18 @@ overlay34:
     EU: 0xDC0
   description: Possibly related to launching the game. There are mention in the strings of logos like the ESRB logo.
   functions: []
-  data: []
+  data:
+    - name: UNKNOWN_MENU_CONFIRM
+      address:
+        NA: 0x22DD024
+        EU: 0x22DD8CC
+      length:
+        NA: 0x18
+        EU: 0x18
+    - name: DUNGEON_DEBUG_MENU
+      address:
+        NA: 0x22DD04C
+        EU: 0x22DD8F4
+      length:
+        NA: 0x28
+        EU: 0x28

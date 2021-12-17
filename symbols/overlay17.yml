@@ -10,4 +10,74 @@ overlay17:
     NA: 0x1CE0
     EU: 0x1CE0
   functions: []
-  data: []
+  data:
+    - name: ASSEMBLY_MENU_CONFIRM
+      address:
+        NA: 0x238BB84
+        EU: 0x238C6C4
+      length:
+        NA: 0x18
+        EU: 0x18
+    - name: ASSEMBLY_MAIN_MENU_1
+      address:
+        NA: 0x238BB9C
+        EU: 0x238C6DC
+      length:
+        NA: 0x18
+        EU: 0x18
+    - name: ASSEMBLY_MAIN_MENU_2
+      address:
+        NA: 0x238BBB4
+        EU: 0x238C6F4
+      length:
+        NA: 0x20
+        EU: 0x20
+    - name: ASSEMBLY_SUBMENU_1
+      address:
+        NA: 0x238BBD4
+        EU: 0x238C714
+      length:
+        NA: 0x28
+        EU: 0x28
+    - name: ASSEMBLY_SUBMENU_2
+      address:
+        NA: 0x238BBFC
+        EU: 0x238C73C
+      length:
+        NA: 0x30
+        EU: 0x30
+    - name: ASSEMBLY_SUBMENU_3
+      address:
+        NA: 0x238BC2C
+        EU: 0x238C76C
+      length:
+        NA: 0x30
+        EU: 0x30
+    - name: ASSEMBLY_SUBMENU_4
+      address:
+        NA: 0x238BC5C
+        EU: 0x238C79C
+      length:
+        NA: 0x38
+        EU: 0x38
+    - name: ASSEMBLY_SUBMENU_5
+      address:
+        NA: 0x238BC94
+        EU: 0x238C7D4
+      length:
+        NA: 0x38
+        EU: 0x38
+    - name: ASSEMBLY_SUBMENU_6
+      address:
+        NA: 0x238BCCC
+        EU: 0x238C80C
+      length:
+        NA: 0x38
+        EU: 0x38
+    - name: ASSEMBLY_SUBMENU_7
+      address:
+        NA: 0x238BD04
+        EU: 0x238C844
+      length:
+        NA: 0x40
+        EU: 0x40

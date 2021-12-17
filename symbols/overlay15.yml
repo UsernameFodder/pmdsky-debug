@@ -11,4 +11,11 @@ overlay15:
     EU: 0x1080
   description: Possibly related to the Duskull Bank menu.
   functions: []
-  data: []
+  data:
+    - name: BANK_MAIN_MENU
+      address:
+        NA: 0x238B054
+        EU: 0x238BBC0
+      length:
+        NA: 0x28
+        EU: 0x28

@@ -11,4 +11,25 @@ overlay16:
     EU: 0x2D20
   description: Possibly related to the Chimecho Assembly menu.
   functions: []
-  data: []
+  data:
+    - name: EVO_MENU_CONFIRM
+      address:
+        NA: 0x238CD08
+        EU: 0x238D84C
+      length:
+        NA: 0x18
+        EU: 0x18
+    - name: EVO_SUBMENU
+      address:
+        NA: 0x238CD20
+        EU: 0x238D864
+      length:
+        NA: 0x20
+        EU: 0x20
+    - name: EVO_MAIN_MENU
+      address:
+        NA: 0x238CD40
+        EU: 0x238D884
+      length:
+        NA: 0x20
+        EU: 0x20

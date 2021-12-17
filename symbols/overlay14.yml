@@ -11,4 +11,11 @@ overlay14:
     EU: 0x3B40
   description: Probably runs the sentry duty minigame.
   functions: []
-  data: []
+  data:
+    - name: FOOTPRINT_DEBUG_MENU
+      address:
+        NA: 0x238DAA0
+        EU: 0x238E640
+      length:
+        NA: 0x48
+        EU: 0x48
