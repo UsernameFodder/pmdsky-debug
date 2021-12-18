@@ -14,6 +14,7 @@ use super::data_formats::symgen_yml::bounds;
 use super::data_formats::symgen_yml::{
     Block, MaybeVersionDep, OrdString, SymGen, Symbol, Uint, Version, VersionDep,
 };
+use super::util::MultiFileError;
 
 #[derive(Debug, Clone, Copy)]
 pub enum NamingConvention {
@@ -482,15 +483,15 @@ pub fn run_checks<P: AsRef<Path>>(
 }
 
 /// Prints check results similar to `cargo test` output
-fn print_report(results: &[CheckResult]) -> io::Result<()> {
+fn print_report(results: &[(String, CheckResult)]) -> io::Result<()> {
     let mut stdout = StandardStream::stdout(ColorChoice::Always);
     let mut print_colored_report = || -> io::Result<()> {
         let mut color = ColorSpec::new();
 
         // Results list
-        for r in results {
+        for (name, r) in results {
             stdout.reset()?;
-            write!(&mut stdout, "check {} ... ", r.check)?;
+            write!(&mut stdout, "check {}::{} ... ", name, r.check)?;
             if r.succeeded {
                 stdout.set_color(color.set_fg(Some(Color::Green)))?;
                 writeln!(&mut stdout, "ok")?;
@@ -502,15 +503,15 @@ fn print_report(results: &[CheckResult]) -> io::Result<()> {
 
         stdout.reset()?;
         writeln!(&mut stdout, "")?;
-        let n_failed = results.iter().filter(|r| !r.succeeded).count();
+        let n_failed = results.iter().filter(|(_, r)| !r.succeeded).count();
         let n_passed = results.len() - n_failed;
 
         // Failure details
         if n_failed > 0 {
             writeln!(&mut stdout, "failures:")?;
             writeln!(&mut stdout, "")?;
-            for r in results.iter().filter(|r| !r.succeeded) {
-                writeln!(&mut stdout, "---- {} ----", r.check)?;
+            for (name, r) in results.iter().filter(|(_, r)| !r.succeeded) {
+                writeln!(&mut stdout, "---- [{}] {} ----", name, r.check)?;
                 if let Some(msg) = &r.details {
                     writeln!(&mut stdout, "{}", msg)?;
                 }
@@ -541,13 +542,35 @@ fn print_report(results: &[CheckResult]) -> io::Result<()> {
     }
 }
 
-pub fn run_and_print_checks<P: AsRef<Path>>(
-    input_file: P,
-    checks: &[Check],
-) -> Result<(), Box<dyn Error>> {
-    let results = run_checks(input_file, checks)?;
+pub fn run_and_print_checks<I, P>(input_files: I, checks: &[Check]) -> Result<bool, Box<dyn Error>>
+where
+    P: AsRef<Path>,
+    I: AsRef<[P]>,
+{
+    let input_files = input_files.as_ref();
+    let mut results = Vec::with_capacity(input_files.len() * checks.len());
+    let mut errors = Vec::with_capacity(input_files.len());
+    for input_file in input_files {
+        match run_checks(input_file, checks) {
+            Ok(result) => results.extend(
+                result
+                    .into_iter()
+                    .map(|r| (input_file.as_ref().to_string_lossy().into_owned(), r)),
+            ),
+            Err(e) => errors.push((input_file.as_ref().to_string_lossy().into_owned(), e)),
+        }
+    }
+
+    // Best-effort: print what we have, even if some checks errored
     print_report(&results)?;
-    Ok(())
+
+    if !errors.is_empty() {
+        Err(MultiFileError {
+            base_msg: "Could not complete checks".to_string(),
+            errors,
+        })?;
+    }
+    Ok(results.iter().all(|(_, r)| r.succeeded))
 }
 
 #[cfg(test)]

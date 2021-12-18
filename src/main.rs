@@ -5,11 +5,12 @@ use std::convert::AsRef;
 use std::error::Error;
 use std::io::{self, Write};
 use std::path::Path;
+use std::process;
 
 use clap::{App, AppSettings, Arg, ArgSettings, SubCommand};
 use termcolor::{Color, ColorChoice, ColorSpec, StandardStream, WriteColor};
 
-use resymgen;
+use resymgen::{self, MultiFileError};
 
 fn int_format(write_as_decimal: bool) -> resymgen::IntFormat {
     if write_as_decimal {
@@ -86,8 +87,9 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
                         .default_value("out")
                         .required(true),
                     Arg::with_name("input")
-                        .help("Input resymgen YAML file name")
+                        .help("Input resymgen YAML file name(s)")
                         .required(true)
+                        .multiple(true)
                         .index(1),
                 ]),
         )
@@ -104,8 +106,9 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
                         .short("d")
                         .long("decimal"),
                     Arg::with_name("input")
-                        .help("Input file name")
+                        .help("Input resymgen YAML file name(s)")
                         .required(true)
+                        .multiple(true)
                         .index(1),
                 ]),
         )
@@ -152,8 +155,9 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
                         .set(ArgSettings::CaseInsensitive)
                         .possible_values(&SUPPORTED_NAMING_CONVENTIONS),
                     Arg::with_name("input")
-                        .help("Input file name")
+                        .help("Input resymgen YAML file name(s)")
                         .required(true)
+                        .multiple(true)
                         .index(1),
                 ]),
         )
@@ -213,7 +217,7 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
         Some("gen") => {
             let matches = matches.subcommand_matches("gen").unwrap();
 
-            let input_file = matches.value_of("input").unwrap();
+            let input_files = matches.values_of("input").unwrap();
             let output_dir = matches.value_of("output directory").unwrap();
             let output_formats = match matches.values_of("format") {
                 Some(v) => Some(
@@ -228,35 +232,82 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
             let output_versions: Option<Vec<_>> =
                 matches.values_of("binary version").map(|v| v.collect());
 
-            let input_file_stem = Path::new(input_file)
-                .file_stem()
-                .ok_or("Empty input file name")?;
-            let output_base = Path::new(output_dir).join(input_file_stem);
-            resymgen::generate_symbol_tables(
-                input_file,
-                output_formats,
-                output_versions,
-                output_base,
-            )
+            let mut errors = Vec::with_capacity(input_files.len());
+            for input_file in input_files {
+                let run_gen = || -> Result<(), Box<dyn Error>> {
+                    let input_file_stem = Path::new(input_file)
+                        .file_stem()
+                        .ok_or("Empty input file name")?;
+                    let output_base = Path::new(output_dir).join(input_file_stem);
+                    resymgen::generate_symbol_tables(
+                        input_file,
+                        output_formats.clone(),
+                        output_versions.clone(),
+                        output_base,
+                    )?;
+                    Ok(())
+                };
+                if let Err(e) = run_gen() {
+                    errors.push((input_file.to_string(), e));
+                }
+            }
+            if errors.is_empty() {
+                Ok(())
+            } else {
+                Err(MultiFileError {
+                    base_msg: "Failed to generate symbols".to_string(),
+                    errors,
+                })?
+            }
         }
         Some("fmt") => {
             let matches = matches.subcommand_matches("fmt").unwrap();
 
-            let input_file = matches.value_of("input").unwrap();
+            let input_files = matches.values_of("input").unwrap();
             let iformat = int_format(matches.is_present("decimal"));
             if matches.is_present("check") {
-                if !resymgen::format_check_file(input_file, iformat)? {
+                let mut errors = Vec::with_capacity(input_files.len());
+                let mut failed = false;
+                for input_file in input_files {
+                    match resymgen::format_check_file(input_file, iformat) {
+                        Ok(success) => {
+                            if !success {
+                                println!();
+                                failed = true;
+                            }
+                        }
+                        Err(e) => errors.push((input_file.to_string(), e)),
+                    };
+                }
+                if !errors.is_empty() {
+                    Err(MultiFileError {
+                        base_msg: "Could not complete format check".to_string(),
+                        errors,
+                    })?
+                }
+                if failed {
                     Err("Formatting issues detected.")?;
                 }
-                Ok(())
             } else {
-                resymgen::format_file(input_file, iformat)
+                let mut errors = Vec::with_capacity(input_files.len());
+                for input_file in input_files {
+                    if let Err(e) = resymgen::format_file(input_file, iformat) {
+                        errors.push((input_file.to_string(), e));
+                    }
+                }
+                if !errors.is_empty() {
+                    Err(MultiFileError {
+                        base_msg: "Formatting failed".to_string(),
+                        errors,
+                    })?
+                }
             }
+            Ok(())
         }
         Some("check") => {
             let matches = matches.subcommand_matches("check").unwrap();
 
-            let input_file = matches.value_of("input").unwrap();
+            let input_files = matches.values_of("input").unwrap();
 
             let mut checks = Vec::new();
             if matches.is_present("explicit versions") {
@@ -283,7 +334,12 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
             if let Some(conv) = matches.value_of("data names") {
                 checks.push(resymgen::Check::DataNames(naming_convention(conv)));
             }
-            resymgen::run_and_print_checks(input_file, &checks)
+            // This one handles multiple files internally so that check result printing
+            // can be merged appropriately
+            if !resymgen::run_and_print_checks(input_files.collect::<Vec<_>>(), &checks)? {
+                Err("Checks did not pass")?
+            }
+            Ok(())
         }
         Some("merge") => {
             let matches = matches.subcommand_matches("merge").unwrap();
@@ -350,8 +406,28 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
 }
 
 fn main() {
-    if let Err(e) = run_resymgen() {
-        // Display the error nicely rather than in debug format
-        println!("Error: {}", e);
-    }
+    process::exit(match run_resymgen() {
+        Ok(_) => 0,
+        Err(err) => {
+            let mut stderr = StandardStream::stderr(ColorChoice::Always);
+            let mut print_err = || -> io::Result<()> {
+                // Print the "ERROR" in red to be eye-catching
+                let mut color = ColorSpec::new();
+                stderr.set_color(color.set_fg(Some(Color::Red)))?;
+                write!(&mut stderr, "ERROR")?;
+                stderr.reset()?;
+                writeln!(&mut stderr, ": {}", err)?;
+                Ok(())
+            };
+            if let Err(e) = print_err() {
+                // Normal eprintln the IO error if print_err fails for some reason
+                eprintln!("Internal error: {}", e);
+            }
+            // Always try to clean up color settings before returning
+            if let Err(e) = stderr.reset() {
+                eprintln!("Internal error: {}", e);
+            }
+            1
+        }
+    });
 }

@@ -217,7 +217,7 @@ where
                         }
                         // The merge was successful, but since version inference was involved,
                         // print a warning. This case shouldn't be common for merges anyway.
-                        println!(
+                        eprintln!(
                             "Warning: merging by-version values with common (unversioned) values \
                                 expands the common values by inference, and might cause some \
                                 implicit versions to be lost."
