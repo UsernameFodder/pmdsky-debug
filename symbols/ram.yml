@@ -16,6 +16,75 @@ arm9:
     Data in this file aren't real "symbols" contained in the ROM itself, and are instead constructs loaded at runtime.
   functions: []
   data:
+    - name: LOADED_OVERLAY_GROUP_0
+      address:
+        NA: 0x20AF230
+        EU: 0x20AFAD0
+      length:
+        NA: 0x4
+        EU: 0x4
+      description: |-
+        The overlay group ID of the overlay currently loaded in slot 0. A group ID of 0 denotes no overlay.
+        
+        Overlay group IDs that can be loaded in slot 0:
+        - 0x06 (overlay 3)
+        - 0x07 (overlay 6)
+        - 0x08 (overlay 4)
+        - 0x09 (overlay 5)
+        - 0x0A (overlay 7)
+        - 0x0B (overlay 8)
+        - 0x0C (overlay 9)
+        - 0x10 (overlay 12)
+        - 0x11 (overlay 13)
+        - 0x12 (overlay 14)
+        - 0x13 (overlay 15)
+        - 0x14 (overlay 16)
+        - 0x15 (overlay 17)
+        - 0x16 (overlay 18)
+        - 0x17 (overlay 19)
+        - 0x18 (overlay 20)
+        - 0x19 (overlay 21)
+        - 0x1A (overlay 22)
+        - 0x1B (overlay 23)
+        - 0x1C (overlay 24)
+        - 0x1D (overlay 25)
+        - 0x1E (overlay 26)
+        - 0x1F (overlay 27)
+        - 0x20 (overlay 28)
+        - 0x21 (overlay 30)
+        - 0x22 (overlay 31)
+        - 0x23 (overlay 32)
+        - 0x24 (overlay 33)
+    - name: LOADED_OVERLAY_GROUP_1
+      address:
+        NA: 0x20AF234
+        EU: 0x20AFAD4
+      length:
+        NA: 0x4
+        EU: 0x4
+      description: |-
+        The overlay group ID of the overlay currently loaded in slot 1. A group ID of 0 denotes no overlay.
+        
+        Overlay group IDs that can be loaded in slot 1:
+        - 0x4 (overlay 1)
+        - 0x5 (overlay 2)
+        - 0xD (overlay 11)
+        - 0xE (overlay 29)
+        - 0xF (overlay 34)
+    - name: LOADED_OVERLAY_GROUP_2
+      address:
+        NA: 0x20AF238
+        EU: 0x20AFAD8
+      length:
+        NA: 0x4
+        EU: 0x4
+      description: |-
+        The overlay group ID of the overlay currently loaded in slot 2. A group ID of 0 denotes no overlay.
+        
+        Overlay group IDs that can be loaded in slot 2:
+        - 0x1 (overlay 0)
+        - 0x2 (overlay 10)
+        - 0x3 (overlay 35)
     - name: GAME_STATE_VALUES
       address:
         NA: 0x20AF6B8

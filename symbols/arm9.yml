@@ -63,6 +63,40 @@ arm9:
         
         r0: ptr
         r1: len
+    - name: OverlayIsLoaded
+      address:
+        NA: 0x2003ED0
+        EU: 0x2003ED0
+      description: |-
+        Checks if an overlay with a certain group ID is currently loaded.
+        
+        See ram.yml for a mapping between group ID and overlay number.
+        
+        r0: group ID of the overlay to check. A group ID of 0 denotes no overlay, and the return value will always be true in this case.
+        others: ?
+        return: bool
+    - name: LoadOverlay
+      address:
+        NA: 0x20040AC
+        EU: 0x20040AC
+      description: |-
+        Loads an overlay from ROM by its group ID.
+        
+        See ram.yml for a mapping between group ID and overlay number.
+        
+        r0: group ID of the overlay to load
+        others: ?
+    - name: UnloadOverlay
+      address:
+        NA: 0x2004868
+        EU: 0x2004868
+      description: |-
+        Unloads an overlay from ROM by its group ID.
+        
+        See ram.yml for a mapping between group ID and overlay number.
+        
+        r0: group ID of the overlay to unload
+        others: ?
     - name: LoadFileFromRom
       address:
         NA: 0x2008C3C

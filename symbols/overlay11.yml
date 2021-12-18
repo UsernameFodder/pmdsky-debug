@@ -87,6 +87,17 @@ overlay11:
       length:
         NA: 0x288
         EU: 0x288
+    - name: OVERLAY11_OVERLAY_LOAD_TABLE
+      address:
+        NA: 0x232306C
+      description: |-
+        The overlays that can be loaded while this one is loaded.
+        
+        Each entry is 16 bytes, consisting of:
+        - overlay group ID (see ram.yml for a mapping between group ID and overlay number)
+        - function pointer to entry point
+        - function pointer to destructor
+        - possibly function pointer to frame-update function?
     - name: GROUND_STATE_PTRS
       address:
         NA: 0x2324CF4
