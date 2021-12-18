@@ -508,6 +508,12 @@ arm9:
       length:
         NA: 0x288
         EU: 0x288
+    - name: BAG_CAPACITY_TABLE
+      address:
+        NA: 0x20A27D4
+      length:
+        NA: 0x20
+      description: Array of 4-byte integers containing the bag capacity for each bag level.
     - name: SPECIAL_EPISODE_MAIN_CHARACTERS
       address:
         NA: 0x20A27F4

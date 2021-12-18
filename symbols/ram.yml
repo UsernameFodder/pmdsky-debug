@@ -24,9 +24,12 @@ arm9:
       address:
         NA: 0x20AF6DC
       description: Seems to be some sort of region (a table of tables?) that holds pointers to various important tables related to moves.
-    - name: PTR_MOVE_DATA_TABLE
+    - name: MOVE_DATA_TABLE_PTR
       address:
         NA: 0x20AF6E4
+      length:
+        NA: 0x4
+      description: Points to the contents of the move data table loaded from waza_p.bin
     - name: LANGUAGE_INFO_DATA
       address:
         NA: 0x20AFCE8
@@ -44,6 +47,59 @@ arm9:
         NA: 0x20B3380
         EU: 0x20B3CC0
       description: Keeps track of all active heap allocations.
+    - name: DUNGEON_COLORMAP_PTR
+      address:
+        NA: 0x21B9CF4
+        EU: 0x21BA634
+      length:
+        NA: 0x4
+        EU: 0x4
+      description: |-
+        Pointer to a colormap used to render colors in a dungeon.
+        
+        The colormap is a list of 4-byte RGB colors of the form {R, G, B, padding}, which the game indexes into when rendering colors. Some weather conditions modify the colormap, which is how the color scheme changes when it's, e.g., raining.
+    - name: FRAMES_SINCE_LAUNCH
+      address:
+        NA:
+          - 0x22A354C
+          - 0x22A359C
+          - 0x22B99C4
+      length:
+        NA: 0x4
+      description: "Starts and 0 when the game is first launched, and continuously ticks up (presumably once per frame) while the game is running."
+    - name: BAG_ITEMS
+      address:
+        NA: 0x22A3824
+      length:
+        NA: 0x12C
+      description: |-
+        Array of item structs within the player's bag.
+        
+        While the game only allows a maximum of 48 items during normal play, it seems to read up to 50 item slots if filled.
+    - name: MONEY_CARRIED
+      address:
+        NA: 0x22A4BB8
+      length:
+        NA: 0x4
+      description: The amount of money the player is currently carrying.
+    - name: MONEY_STORED
+      address:
+        NA: 0x22A4BC4
+      length:
+        NA: 0x4
+      description: The amount of money the player currently has stored in the Duskull Bank.
+    - name: LAST_NEW_MOVE
+      address:
+        NA: 0x22AAE4C
+      length:
+        NA: 0x8
+      description: Move struct of the last new move introduced when learning a new move. Persists even after the move selection is made in the menu.
+    - name: BAG_LEVEL
+      address:
+        NA: 0x22AB15C
+      length:
+        NA: 0x1
+      description: "The player's bag level, which determines the bag capacity. This indexes directly into the BAG_CAPACITY_TABLE in the ARM9 binary."
     - name: DEBUG_SPECIAL_EPISODE_NUMBER
       address:
         NA: 0x22AB4AC
@@ -59,6 +115,106 @@ arm9:
         2: Today's "Oh My Gosh"
         3: Here Comes Team Charm!
         4: In the Future of Darkness
+    - name: PENDING_DUNGEON_ID
+      address:
+        NA: 0x22AB4FC
+      length:
+        NA: 0x1
+      description: |-
+        The ID of the selected dungeon when setting off from the overworld.
+        
+        Controls the text and map location during the "map cutscene" just before entering a dungeon, as well as the actual dungeon loaded afterwards.
+    - name: PENDING_STARTING_FLOOR
+      address:
+        NA: 0x22AB4FD
+      length:
+        NA: 0x1
+      description: The floor number to start from in the dungeon specified by PENDING_DUNGEON_ID.
+    - name: PLAY_TIME_SECONDS
+      address:
+        NA: 0x22AB694
+      length:
+        NA: 0x4
+      description: "The player's total play time in seconds."
+    - name: PLAY_TIME_FRAME_COUNTER
+      address:
+        NA: 0x22AB698
+      length:
+        NA: 0x1
+      description: "Counts from 0-59 in a loop, with the play time being incremented by 1 second with each rollover."
+    - name: TEAM_NAME
+      address:
+        NA: 0x22AB918
+      length:
+        NA: 0xC
+      description: |-
+        The team name.
+        
+        A null-terminated string, with a maximum length of 10. Presumably encoded with the ANSI/Shift JIS encoding the game typically uses.
+        
+        This is presumably part of a larger struct, together with other nearby data.
+    - name: HERO_SPECIES_ID
+      address:
+        NA: 0x22ABDE4
+      length:
+        NA: 0x2
+      description: |-
+        The hero's species ID.
+        
+        This is presumably part of a larger struct, together with other nearby data.
+    - name: HERO_NICKNAME
+      address:
+        NA: 0x22ABE1A
+      length:
+        NA: 0xA
+      description: |-
+        The hero's nickname.
+        
+        A null-terminated string, with a maximum length of 10. Presumably encoded with the ANSI/Shift JIS encoding the game typically uses.
+        
+        This is presumably part of a larger struct, together with other nearby data.
+    - name: PARTNER_SPECIES_ID
+      address:
+        NA: 0x22ABE28
+      length:
+        NA: 0x2
+      description: |-
+        The partner's species ID.
+        
+        This is presumably part of a larger struct, together with other nearby data.
+    - name: LEADER_IQ_SKILLS
+      address:
+        NA: 0x22B5198
+      length:
+        NA: 0xC
+      description: |-
+        Unlocked IQ skills of the current leader, available for selection from the IQ skills menu.
+        
+        One bit per skill (1 if unlocked). Same format as the IQ skills bitvector on the monster info struct.
+        
+        This is presumably part of a larger struct, together with other nearby data.
+    - name: LEADER_NICKNAME
+      address:
+        NA: 0x22B51AA
+      length:
+        NA: 0xA
+      description: |-
+        The current leader's nickname.
+        
+        A null-terminated string, with a maximum length of 10. Presumably encoded with the ANSI/Shift JIS encoding the game typically uses.
+        
+        This is presumably part of a larger struct, together with other nearby data.
+    - name: PARTY_MEMBER_2_IQ_SKILLS
+      address:
+        NA: 0x22B5200
+      length:
+        NA: 0xC
+      description: |-
+        Unlocked IQ skills of the second party member, available for selection from the IQ skills menu.
+        
+        One bit per skill (1 if unlocked). Same format as the IQ skills bitvector on the monster info struct.
+        
+        This is presumably part of a larger struct, together with other nearby data.
     - name: UNIONALL_RAM_ADDRESS
       address:
         NA: 0x2324CA4
@@ -70,6 +226,10 @@ arm9:
     - name: DUNGEON_PTR
       address:
         NA: 0x2353538
+        EU: 0x2354138
+      length:
+        NA: 0x4
+        EU: 0x4
       description: |-
         Pointer to the dungeon struct in dungeon mode.
         
@@ -77,7 +237,15 @@ arm9:
     - name: DUNGEON_PTR_MASTER
       address:
         NA: 0x235353C
+      length:
+        NA: 0x4
       description: |-
         Pointer to the dungeon struct in dungeon mode.
         
         This is a "master copy" of the dungeon pointer. The game uses this pointer when doing low-level memory work (allocation, freeing, zeroing). The normal DUNGEON_PTR is used for most other dungeon mode work.
+    - name: TURNING_ON_THE_SPOT_FLAG
+      address:
+        NA: 0x237C9A6
+      length:
+        NA: 0x1
+      description: Flag for whether the player is turning on the spot (pressing Y).
