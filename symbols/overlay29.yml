@@ -47,30 +47,73 @@ overlay29:
       address:
         NA: 0x22DEF38
       description: Seems to initialize the dungeon struct from specified dungeon data.
+    - name: GenerateRngSeed
+      address:
+        NA: 0x22EA980
+      description: |-
+        Generates a seed with which to initialize the PRNG.
+        
+        The seed is calculated by starting with a different seed, the "preseed" x0 (defaults to 1, but can be set by other functions). The preseed is iterated twice with the same recurrence relation used in the primary LCG to generate two pseudorandom 32-bit numbers x1 and x2. The output seed is then computed as
+          seed = (x1 & 0xFF0000) | (x2 >> 0x10) | 1
+        The value x1 is then saved as the new preseed.
+        
+        This method of seeding the PRNG appears to be used only sometimes, depending on certain flags in the data for a given dungeon.
+        
+        return: RNG seed
+    - name: GetRngPreseed
+      address:
+        NA: 0x22EA9CC
+      description: |-
+        Gets the current preseed stored in the global PRNG state. See GenerateRngSeed for more information.
+        
+        return: current RNG preseed
+    - name: SetRngPreseed
+      address:
+        NA: 0x22EA9DC
+      description: |-
+        Sets the preseed in the global PRNG state. See GenerateRngSeed for more information.
+        
+        r0: preseed
+    - name: InitRng
+      address:
+        NA: 0x22EA9EC
+      description: |-
+        Initialize (or reinitialize) the PRNG with a given seed. The primary LCG and the five secondary LCGs are initialized jointly, and with the same seed.
+        
+        r0: seed
     - name: Rand16Bit
       address:
         NA: 0x22EAA20
       description: |-
-        Seems to compute a pseudorandom 16-bit value?
+        Computes a pseudorandom 16-bit integer.
         
-        return: pseudorandom int on the interval [0, 65535]?
+        Random numbers are generated with a linear congruential generator (LCG). The game actually maintains 6 separate sequences that can be used for generation: a primary LCG and 5 secondary LCGs. The generator used depends on parameters set on the global PRNG state.
+        
+        All LCGs have a modulus of 2^32 and a multiplier of 1566083941 (see PRNG_LCG_MULTIPLIER). The primary LCG uses an increment of 1, while the secondary LCGs use an increment of 2531011 (see PRNG_LCG_INCREMENT_SECONDARY). So, for example, the primary LCG uses the recurrence relation:
+          x = (1566083941*x_prev + 1) % 2^32
+        
+        Since the LCGs generate 32-bit integers rather than 16-bit, the primary LCG yields 16-bit values by taking the upper 16 bits of the computed 32-bit value. The secondary LCGs yield 16-bit values by taking the lower 16 bits of the computed 32-bit value.
+        
+        All of the LCGs have a hard-coded default seed of 1, but in practice the seed is set with a call to InitRng during dungeon initialization.
+        
+        return: pseudorandom int on the interval [0, 65535]
     - name: RandInt
       address:
         NA: 0x22EAA98
       description: |-
-        Seems to compute a pseudorandom integer under a given maximum value?
+        Compute a pseudorandom integer under a given maximum value
         
         r0: high
-        return: pseudorandom int on the interval [0, high - 1]?
+        return: pseudorandom integer on the interval [0, high - 1]
     - name: RandRange
       address:
         NA: 0x22EAAC0
       description: |-
-        Seems to compute a random value between two integers.
+        Compute a pseudorandom value between two integers.
         
         r0: x
         r1: y
-        return: A random(?) integer on the interval [min(x, y), max(x, y) - 1]
+        return: pseudorandom integer on the interval [min(x, y), max(x, y) - 1]
     - name: CalcStatusDuration
       address:
         NA: 0x22EAB80
@@ -81,6 +124,29 @@ overlay29:
         r1: pointer to a turn range (an array of two shorts {lower, higher})
         r2: flag for whether or not to factor in the Self Curer IQ skill and the Natural Cure ability
         return: number of turns for the status condition
+    - name: RngUnsetSecondary
+      address:
+        NA: 0x22EAC34
+      description: |-
+        Sets the PRNG to use the primary LCG for subsequent random number generation, and also resets the secondary LCG index back to 0.
+        
+        Similar to RngSetPrimary, but RngSetPrimary doesn't modify the secondary LCG index if it was already set to something other than 0.
+        
+        No params.
+    - name: RngSetSecondary
+      address:
+        NA: 0x22EAC4C
+      description: |-
+        Sets the PRNG to use one of the 5 secondary LCGs for subsequent random number generation.
+        
+        r0: secondary LCG index
+    - name: RngSetPrimary
+      address:
+        NA: 0x22EAC64
+      description: |-
+        Sets the PRNG to use the primary LCG for subsequent random number generation.
+        
+        No params.
     - name: EntityIsValid
       address:
         NA:
@@ -426,6 +492,20 @@ overlay29:
       length:
         NA: 0x4
       description: Size of the dungeon struct (0x2CB14)
+    - name: PRNG_LCG_MULTIPLIER
+      address:
+        NA:
+          - 0x22EA9C8
+          - 0x22EAA8C
+      length:
+        NA: 0x4
+      description: "The multiplier shared by all of the dungeon PRNG's LCGs, 1566083941 (0x5D588B65)."
+    - name: PRNG_LCG_INCREMENT_SECONDARY
+      address:
+        NA: 0x22EAA94
+      length:
+        NA: 0x4
+      description: "The increment for the dungeon PRNG's secondary LCGs, 2531011 (0x269EC3). This happens to be the same increment that the Microsoft Visual C++ runtime library uses in its implementation of the rand() function."
     - name: JUDGMENT_MOVE_ID
       address:
         NA: 0x230C458
