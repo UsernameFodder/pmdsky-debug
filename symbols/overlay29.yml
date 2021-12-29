@@ -47,6 +47,25 @@ overlay29:
       address:
         NA: 0x22DEF38
       description: Seems to initialize the dungeon struct from specified dungeon data.
+    - name: GetFloorType
+      address:
+        NA: 0x22E03B0
+      description: |-
+        Get the current floor type.
+        
+        Floor types:
+          0 appears to mean the current floor is "normal"
+          1 appears to mean the current floor is a fixed floor
+          2 means the current floor has a rescue point
+        
+        return: floor type
+    - name: FixedRoomIsSubstituteRoom
+      address:
+        NA: 0x22E08CC
+      description: |-
+        Checks if the current fixed room is the "substitute room" (ID 0x6E).
+        
+        return: bool
     - name: GenerateRngSeed
       address:
         NA: 0x22EA980
@@ -101,7 +120,7 @@ overlay29:
       address:
         NA: 0x22EAA98
       description: |-
-        Compute a pseudorandom integer under a given maximum value
+        Compute a pseudorandom integer under a given maximum value.
         
         r0: high
         return: pseudorandom integer on the interval [0, high - 1]
@@ -164,6 +183,15 @@ overlay29:
         Seems to zero some damage description struct, which is output by the damage calculation function.
         
         r0: damage description pointer
+    - name: FloorNumberIsEven
+      address:
+        NA: 0x22F73B4
+      description: |-
+        Checks if the current dungeon floor number is even.
+        
+        Has a special check to return false for Labyrinth Cave B10F (the Gabite boss fight).
+        
+        return: bool
     - name: ItemIsActive
       address:
         NA:
@@ -253,6 +281,7 @@ overlay29:
         r3: attack power
         stack[0]: crit chance
         stack[1]: [output] damage description struct?
+        stack[2]: ?
         stack[3]: move ID
         stack[4]: ?
     - name: CalcDamageFixedWrapper
@@ -425,21 +454,471 @@ overlay29:
         r0: x position
         r1: y position
         return: tile pointer
-    - name: UpdateTileJunctionFlags
+    - name: IsSecretBazaar
+      address:
+        NA: 0x23385C4
+      description: |-
+        Checks if the current floor is the Secret Bazaar.
+        
+        return: bool
+    - name: IsSecretRoom
+      address:
+        NA: 0x233865C
+      description: |-
+        Checks if the current floor is the Secret Room fixed floor (from hidden stairs).
+        
+        return: bool
+    - name: LoadFixedRoomDataWrapper
+      address:
+        NA: 0x233A624
+      description: |-
+        A wrapper around LoadFixedRoomData.
+        
+        No params.
+    - name: IsNormalFloor
+      address:
+        NA: 0x233A654
+      description: |-
+        Checks if the current floor is a normal layout.
+        
+        "Normal" means any layout that is NOT one of the following:
+        - Hidden stairs floors
+        - Golden Chamber
+        - Challenge Request floor
+        - Outlaw hideout
+        - Treasure Memo floor
+        - Full-room fixed floors (ID < 0xA5) [0xA5 == Sealed Chamber]
+        
+        return: bool
+    - name: GenerateFloor
+      address:
+        NA: 0x233A6D8
+      description: |-
+        This is the master function that generates the dungeon floor.
+        
+        Very loosely speaking, this function first tries to generate a valid floor layout. Then it tries to spawn entities in a valid configuration. Finally, it performs cleanup and post-processing depending on the dungeon.
+        
+        If a spawn configuration is invalid, the entire floor layout is scrapped and regenerated. If the generated floor layout is invalid 10 times in a row, or a valid spawn configuration isn't generated within 10 attempts, the generation algorithm aborts and the default one-room Monster House floor is generated as a fallback.
+        
+        No params.
+    - name: GetTileTerrain
+      address:
+        NA: 0x233AE78
+      description: |-
+        Gets the terrain type of a tile.
+        
+        r0: tile pointer
+        return: terrain ID
+    - name: Rand100
+      address:
+        NA: 0x233AE84
+      description: |-
+        Compute a pseudorandom integer on the interval [0, 100).
+        
+        return: pseudorandom integer
+    - name: FlagHallwayJunctions
       address:
         NA: 0x233AF0C
       description: |-
-        Updates all the junction flags (bit 3 of the terrain flags) on tiles in some range [x0, x1), [y0, y1).
+        Sets the junction flag (bit 3 of the terrain flags) on any hallway junction tiles in some range [x0, x1), [y0, y1). This leaves tiles within rooms untouched.
+        
+        A hallway tile is considered a junction if it has at least 3 cardinal neighbors with open terrain.
         
         r0: x0
         r1: y0
         r2: x1
         r3: y1
-    - name: CreateDefaultLayout
+    - name: GenerateStandardFloor
+      address:
+        NA: 0x233B028
+      description: |-
+        Generate a standard floor with the given parameters.
+        
+        Broadly speaking, a standard floor is generated as follows:
+        1. Generating the grid
+        2. Creating a room or hallway anchor in each grid cell
+        3. Creating hallways between grid cells
+        4. Generating special features (maze room, Kecleon shop, Monster House, extra hallways, room imperfections, secondary structures)
+        
+        r0: grid size x
+        r1: grid size y
+        r2: floor properties
+    - name: GenerateOuterRingFloor
+      address:
+        NA: 0x233B190
+      description: |-
+        Generates a floor layout with a 4x2 grid of rooms, surrounded by an outer ring of hallways.
+        
+        r0: floor properties
+    - name: GenerateCrossroadsFloor
+      address:
+        NA: 0x233B61C
+      description: |-
+        Generates a floor layout with a mesh of hallways on the interior 3x2 grid, surrounded by a boundary of rooms protruding from the interior like spikes, excluding the corner cells.
+        
+        r0: floor properties
+    - name: GenerateLineFloor
+      address:
+        NA: 0x233BA7C
+      description: |-
+        Generates a floor layout with 5 grid cells in a horizontal line.
+        
+        r0: floor properties
+    - name: GenerateCrossFloor
+      address:
+        NA: 0x233BBDC
+      description: |-
+        Generates a floor layout with 5 rooms arranged in a cross ("plus sign") formation.
+        
+        r0: floor properties
+    - name: GenerateBeetleFloor
+      address:
+        NA: 0x233BD74
+      description: |-
+        Generates a floor layout in a "beetle" formation, which is created by taking a 3x3 grid of rooms, connecting the rooms within each row, and merging the central column into one big room.
+        
+        r0: floor properties
+    - name: MergeRoomsVertically
+      address:
+        NA: 0x233BF30
+      description: |-
+        Merges two vertically stacked rooms into one larger room.
+        
+        r0: x grid coordinate of the rooms to merge
+        r1: y grid coordinate of the upper room
+        r2: dy, where the lower room has a y grid coordinate of y+dy
+        r3: grid to update
+    - name: GenerateOuterRoomsFloor
+      address:
+        NA: 0x233C07C
+      description: |-
+        Generates a floor layout with a ring of rooms on the grid boundary and nothing in the interior.
+        
+        Note that this function is bugged, and won't properly connect all the rooms together for grid_size_x < 4.
+        
+        r0: grid size x
+        r1: grid size y
+        r2: floor properties
+    - name: IsNotFullFloorFixedRoom
+      address:
+        NA: 0x233C310
+      description: |-
+        Checks if a fixed room ID does not correspond to a fixed, full-floor layout.
+        
+        The first non-full-floor fixed room is 0xA5, which is for Sealed Chambers.
+        
+        r0: fixed room ID
+        return: bool
+    - name: GenerateFixedRoom
+      address:
+        NA: 0x233C32C
+      description: |-
+        Handles fixed room generation if the floor contains a fixed room.
+        
+        r0: fixed room ID
+        r1: floor properties
+        return: bool
+    - name: GenerateOneRoomMonsterHouseFloor
       address:
         NA: 0x233C774
       description: |-
-        Creates the default floor layout, a one-room monster house.
+        Generates a floor layout with just a large, one-room Monster House.
+        
+        This is the default layout if dungeon generation fails.
+        
+        No params.
+    - name: GenerateTwoRoomsWithMonsterHouseFloor
+      address:
+        NA: 0x233C844
+      description: |-
+        Generate a floor layout with two rooms (left and right), one of which is a Monster House.
+        
+        No params.
+    - name: GenerateExtraHallways
+      address:
+        NA: 0x233C9E8
+      description: |-
+        Generate extra hallways on the floor via a series of random walks.
+        
+        Each random walk starts from a random tile in a random room, leaves the room in a random cardinal direction, and from there tunnels through obstacles through a series of random turns, leaving open terrain in its wake. The random walk stops when it reaches open terrain, goes out of bounds, or reaches an impassable obstruction.
+        
+        r0: grid to update
+        r1: grid size x
+        r2: grid size y
+        r3: number of extra hallways to generate
+    - name: GetGridPositions
+      address:
+        NA: 0x233CF84
+      description: |-
+        Get the grid cell positions for a given set of floor grid dimensions.
+        
+        r0: [output] pointer to array of the starting x coordinates of each grid column
+        r1: [output] pointer to array of the starting y coordinates of each grid row
+        r2: grid size x
+        r3: grid size y
+    - name: InitDungeonGrid
+      address:
+        NA: 0x233D004
+      description: |-
+        Initialize a dungeon grid with defaults.
+        
+        The grid is an array of grid cells stored in column-major order (such that grid cells with the same x value are stored contiguously), with a fixed column size of 15. If the grid size in the y direction is less than this, the last (15 - grid_size_y) entries of each column will be uninitialized.
+        
+        Note that the grid size arguments define the maximum size of the grid from a programmatic standpoint. However, grid cells can be invalidated if they exceed the configured floor size in the dungeon generation status struct. Thus, the dimensions of the ACTIVE grid can be smaller.
+        
+        r0: [output] grid (expected to have space for at least (15*(grid_size_x-1) + grid_size_y) dungeon grid cells)
+        r1: grid size x
+        r2: grid size y
+    - name: AssignRooms
+      address:
+        NA: 0x233D104
+      description: |-
+        Randomly selects a subset of grid cells to become rooms.
+        
+        The given number of grid cells will become rooms. If any of the selected grid cells are invalid, fewer rooms will be generated. The number of rooms assigned will always be at least 2 and never exceed 36.
+        
+        Cells not marked as rooms will become hallway anchors. A hallway anchor is a single tile in a non-room grid cell to which hallways will be connected later, thus "anchoring" hallway generation.
+        
+        r0: grid to update
+        r1: grid size x
+        r2: grid size y
+        r3: number of rooms; if positive, a random value between [n_rooms, n_rooms+2] will be used. If negative, |n_rooms| will be used exactly.
+    - name: CreateRoomsAndAnchors
+      address:
+        NA: 0x233D318
+      description: |-
+        Creates rooms and hallway anchors in each grid cell as designated by AssignRooms.
+        
+        This function creates a rectangle of open terrain for each room (with some margin relative to the grid cell border). A single open tile is created in hallway anchor cells, and a hallway anchor indicator is set for later reference.
+        
+        r0: grid to update
+        r1: grid size x
+        r2: grid size y
+        r3: array of the starting x coordinates of each grid column
+        stack[0]: array of the starting y coordinates of each grid row
+        stack[1]: room bitflags; only uses bit 2 (mask: 0b100), which enables room imperfections
+    - name: GenerateSecondaryStructures
+      address:
+        NA: 0x233D674
+      description: |-
+        Try to generate secondary structures in flagged rooms.
+        
+        If a valid room with no special features is flagged to have a secondary structure, try to generate a random one in the room, based on the result of a dice roll:
+          0: no secondary structure
+          1: maze, or a central water/lava "plus sign" as fallback, or a single water/lava tile in the center as a second fallback
+          2: checkerboard pattern of water/lava
+          3: central pool of water/lava
+          4: central "island" with items and a Warp Tile, surrounded by a "moat" of water/lava
+          5: horizontal or vertical divider of water/lava splitting the room in two
+        
+        If the room isn't the right shape, dimension, or otherwise doesn't support the selected secondary structure, it is left untouched.
+        
+        r0: grid to update
+        r1: grid size x
+        r2: grid size y
+    - name: AssignGridCellConnections
+      address:
+        NA: 0x233E05C
+      description: |-
+        Randomly assigns connections between adjacent grid cells.
+        
+        Connections are created via a random walk with momentum, starting from the grid cell at (cursor x, cursor y). A connection is drawn in a random direction from the current cursor, and this process is repeated a certain number of times (the "floor connectivity" specified in the floor properties). The direction of the random walk has "momentum"; there's a 50% chance it will be the same as the previous step (or rotated counterclockwise if on the boundary). This helps to reduce the number of dead ends and forks in the road caused by the random walk "doubling back" on itself.
+        
+        If dead ends are disabled in the floor properties, there is an additional phase to remove dead end hallway anchors (only hallway anchors, not rooms) by drawing additional connections. Note that the actual implementation contains a bug: the grid cell validity checks use the wrong index, so connections may be drawn to invalid cells.
+        
+        r0: grid to update
+        r1: grid size x
+        r2: grid size y
+        r3: cursor x
+        stack[0]: cursor y
+        stack[1]: floor properties
+    - name: CreateGridCellConnections
+      address:
+        NA: 0x233E43C
+      description: |-
+        Create grid cell connections either by creating hallways or merging rooms.
+        
+        When creating a hallway connecting a hallway anchor, the exact anchor coordinates are used as the endpoint. When creating a hallway connecting a room, a random point on the room edge facing the hallway is used as the endpoint. The grid cell boundaries are used as the middle coordinates for kinks (see CreateHallway).
+        
+        If room merging is enabled, there is a 9.75% chance that two connected rooms will be merged into a single larger room (9.75% comes from two 5% rolls, one for each of the two rooms being merged). A room can only participate in a merge once.
+        
+        r0: grid to update
+        r1: grid size x
+        r2: grid size y
+        r3: array of the starting x coordinates of each grid column
+        stack[0]: array of the starting y coordinates of each grid row
+        stack[1]: disable room merging flag
+    - name: GenerateRoomImperfections
+      address:
+        NA: 0x233ED34
+      description: |-
+        Attempt to generate room imperfections for each room in the floor layout, if enabled.
+        
+        Each room has a 40% chance of having imperfections if its grid cell is flagged to allow room imperfections. Imperfections are generated by randomly growing the walls of the room inwards for a certain number of iterations, starting from the corners.
+        
+        r0: grid to update
+        r1: grid size x
+        r2: grid size y
+    - name: CreateHallway
+      address:
+        NA: 0x233F120
+      description: |-
+        Create a hallway between two points.
+        
+        If the two points share no coordinates in common (meaning the line connecting them is diagonal), a "kinked" hallway is created, with the kink at a specified "middle" coordinate (in practice the grid cell boundary). For example, with a kinked horizontal hallway, there are two horizontal lines extending out from the endpoints, connected by a vertical line on the middle x coordinate.
+        
+        If a hallway would intersect with an existing open tile (like an existing hallway), the hallway will only be created up to the point where it intersects with the open tile.
+        
+        r0: x0
+        r1: y0
+        r2: x1
+        r3: y1
+        stack[0]: vertical flag (true for vertical hallway, false for horizontal)
+        stack[1]: middle x coordinate for kinked horizontal hallways
+        stack[2]: middle y coordinate for kinked vertical hallways
+    - name: EnsureConnectedGrid
+      address:
+        NA: 0x233F424
+      description: |-
+        Ensure the grid forms a connected graph (all valid cells are reachable) by adding hallways to unreachable grid cells.
+        
+        If a grid cell cannot be connected for some reason, remove it entirely.
+        
+        r0: grid to update
+        r1: grid size x
+        r2: grid size y
+        r3: array of the starting x coordinates of each grid column
+        stack[0]: array of the starting y coordinates of each grid row
+    - name: SetTerrainObstacleChecked
+      address:
+        NA: 0x233F900
+      description: |-
+        Set the terrain of a specific tile to be an obstacle (wall or secondary terrain).
+        
+        Secondary terrain (water/lava) can only be placed in the specified room. If the tile room index does not match, a wall will be placed instead.
+        
+        r0: tile pointer
+        r1: use secondary terrain flag (true for water/lava, false for wall)
+        r2: room index
+    - name: FinalizeJunctions
+      address:
+        NA: 0x233F93C
+      description: |-
+        Finalizes junction tiles by setting the junction flag (bit 3 of the terrain flags) and ensuring open terrain.
+        
+        Note that this implementation is slightly buggy. This function scans tiles left-to-right, top-to-bottom, and identifies junctions as any open, non-hallway tile (room_index != 0xFF) adjacent to an open, hallway tile (room_index == 0xFF). This interacts poorly with hallway anchors (room_index == 0xFE). This function sets the room index of any hallway anchors to 0xFF within the same loop, so a hallway anchor may or may not be identified as a junction depending on the orientation of connected hallways.
+        
+        For example, in the following configuration, the "o" tile would be marked as a junction because the neighboring hallway tile to its left comes earlier in iteration, while the "o" tile still has the room index 0xFE, causing the algorithm to mistake it for a room tile:
+          xxxxx
+          ---ox
+          xxx|x
+          xxx|x
+        However, in the following configuration, the "o" tile would NOT be marked as a junction because it comes earlier in iteration than any of its neighboring hallway tiles, so its room index is set to 0xFF before it can be marked as a junction. This is actually the ONLY possible configuration where a hallway anchor will not be marked as a junction.
+          xxxxx
+          xo---
+          x|xxx
+          x|xxx
+        
+        No params.
+    - name: GenerateKecleonShop
+      address:
+        NA: 0x233FBE8
+      description: |-
+        Possibly generate a Kecleon shop on the floor.
+        
+        A Kecleon shop will be generated with a probability determined by the Kecleon shop spawn chance parameter. A Kecleon shop will be generated in a random room that is valid, connected, has no other special features, and has dimensions of at least 5x4. Kecleon shops will occupy the entire room interior, leaving a one tile margin from the room walls.
+        
+        r0: grid to update
+        r1: grid size x
+        r2: grid size y
+        r3: Kecleon shop spawn chance (percentage from 0-100)
+    - name: GenerateMonsterHouse
+      address:
+        NA: 0x233FF9C
+      description: |-
+        Possibly generate a Monster House on the floor.
+        
+        A Monster House will be generated with a probability determined by the Monster House spawn chance parameter, and only if the current floor can support one (no non-Monster-House outlaw missions or special floor types). A Monster House will be generated in a random room that is valid, connected, and is not a merged or maze room.
+        
+        r0: grid to update
+        r1: grid size x
+        r2: grid size y
+        r3: Monster House spawn chance (percentage from 0-100)
+    - name: GenerateMazeRoom
+      address:
+        NA: 0x2340224
+      description: |-
+        Possibly generate a maze room on the floor.
+        
+        A maze room will be generated with a probability determined by the maze room chance parameter. A maze will be generated in a random room that is valid, connected, has odd dimensions, and has no other features.
+        
+        r0: grid to update
+        r1: grid size x
+        r2: grid size y
+        r3: maze room chance (percentage from 0-100)
+    - name: GenerateMaze
+      address:
+        NA: 0x2340458
+      description: |-
+        Generate a maze room within a given grid cell.
+        
+        A "maze" is generated within the room using a series of random walks to place obstacle terrain (walls or secondary terrain) in a maze-like arrangement. "Maze lines" (see GenerateMazeLine) are generated using every other tile around the room's border, as well as every other interior tile, as a starting point. This ensures that there are stripes of walkable open terrain surrounded by stripes of obstacles (the maze walls).
+        
+        r0: grid cell pointer
+        r1: use secondary terrain flag (true for water/lava, false for walls)
+    - name: GenerateMazeLine
+      address:
+        NA: 0x23406D4
+      description: |-
+        Generate a "maze line" from a given starting point, within the given bounds.
+        
+        A "maze line" is a random walk starting from (x0, y0). The random walk proceeds with a stride of 2 in a random direction, laying down obstacles as it goes. The random walk terminates when it gets trapped and there are no more neighboring tiles that are open and in-bounds.
+        
+        r0: x0
+        r1: y0
+        r2: xmin
+        r3: ymin
+        stack[0]: xmax
+        stack[1]: ymax
+        stack[2]: use secondary terrain flag (true for water/lava, false for walls)
+        stack[3]: room index
+    - name: SetSpawnFlag5
+      address:
+        NA: 0x234087C
+      description: |-
+        Set spawn flag 5 (0b100000 or 0x20) on all tiles in a room.
+        
+        r0: grid cell
+    - name: IsNextToHallway
+      address:
+        NA: 0x23408D0
+      description: |-
+        Checks if a tile position is either in a hallway or next to one.
+        
+        r0: x
+        r1: y
+        return: bool
+    - name: ResolveInvalidSpawns
+      address:
+        NA: 0x2340974
+      description: |-
+        Resolve invalid spawn flags on tiles.
+        
+        Spawn flags can be invalid due to terrain. For example, traps can't spawn on obstacles. Spawn flags can also be invalid due to multiple being set on a single tile, in which case one will take precedence. For example, stair spawns trump trap spawns.
+        
+        No params.
+    - name: ConvertSecondaryTerrainToChasms
+      address:
+        NA: 0x2340A0C
+      description: |-
+        Converts all secondary terrain tiles (water/lava) to chasms.
+        
+        No params.
+    - name: EnsureImpassableTilesAreWalls
+      address:
+        NA: 0x2340A78
+      description: |-
+        Ensures all tiles with the impassable flag are walls.
         
         No params.
     - name: InitializeTile
@@ -449,21 +928,133 @@ overlay29:
         Initialize a tile struct.
         
         r0: tile pointer
-    - name: InitializeDungeonTerrain
+    - name: ResetFloor
       address:
         NA: 0x2340B0C
       description: |-
-        Does some initialization of the dungeon terrain, like setting the boundary to impassable and zeroing all the traps.
+        Resets the floor in preparation for a floor generation attempt.
+        
+        Resets all tiles, resets the border to be impassable, and clears entity spawns.
         
         No params.
-    - name: PosIsValid
+    - name: PosIsOutOfBounds
       address:
         NA: 0x2340CAC
       description: |-
-        Checks if a position (x, y) is a valid map position (0 <= x <= 55, 0 <= y <= 31).
+        Checks if a position (x, y) is out of bounds on the map: !((0 <= x <= 55) && (0 <= y <= 31)).
         
         r0: x
         r1: y
+        return: bool
+    - name: ShuffleSpawnPositions
+      address:
+        NA: 0x2340CE4
+      description: |-
+        Randomly shuffle an array of spawn positions.
+        
+        r0: spawn position array containing bytes {x1, y1, x2, y2, ...}
+        r1: number of (x, y) pairs in the spawn position array
+    - name: SpawnNonEnemies
+      address:
+        NA: 0x2340D4C
+      description: |-
+        Spawn all non-enemy entities, which includes stairs, items, traps, and the player.
+        
+        Most entities are spawned randomly on a subset of permissible tiles.
+        
+        Stairs are spawned if they don't already exist on the floor, and hidden stairs of the specified type are also spawned if configured as long as there are at least 2 floors left in the dungeon. Stairs can spawn on any tile that has open terrain, is in a room, isn't in a Kecleon shop, doesn't already have an enemy spawn, isn't a hallway junction, and isn't a special tile like a Key door.
+        
+        Items are spawned both normally in rooms, as well as in walls and Monster Houses. Normal items can spawn on any tile that has open terrain, is in a room, isn't in a Kecleon shop or Monster House, isn't a hallway junction, and isn't a special tile like a Key door. Buried items can spawn on any wall tile. Monster House items can spawn on any Monster House tile that isn't in a Kecleon shop and isn't a hallway junction.
+        
+        Traps are similarly spawned both normally in rooms, as well as in Monster Houses. Normal traps can spawn on any tile that has open terrain, is in a room, isn't in a Kecleon shop, doesn't already have an item or enemy spawn, and isn't a special tile like a Key door. Monster House traps follow the same conditions as Monster House items.
+        
+        The player can spawn on any tile that has open terrain, is in a room, isn't in a Kecleon shop, isn't a hallway junction, doesn't already have an item, enemy, or trap spawn, and isn't a special tile like a Key door.
+        
+        r0: floor properties
+        r1: empty Monster House flag. An empty Monster House is one with no items or traps, and only a small number of enemies.
+    - name: SpawnEnemies
+      address:
+        NA: 0x2341470
+      description: |-
+        Spawn all enemies, which includes normal enemies and those in Monster Houses.
+        
+        Normal enemies can spawn on any tile that has open terrain, isn't in a Kecleon shop, doesn't already have another entity spawn, and isn't a special tile like a Key door.
+        
+        Monster House enemies can spawn on any Monster House tile that isn't in a Kecleon shop, isn't where the player spawns, and isn't a special tile like a Key door.
+        
+        r0: floor properties
+        r1: empty Monster House flag. An empty Monster House is one with no items or traps, and only a small number of enemies.
+    - name: SetSecondaryTerrainOnWall
+      address:
+        NA: 0x234176C
+      description: |-
+        Set a specific tile to have secondary terrain (water/lava), but only if it's a passable wall.
+        
+        r0: tile pointer
+    - name: GenerateSecondaryTerrainFormations
+      address:
+        NA: 0x23417AC
+      description: |-
+        Generate secondary terrain (water/lava) formations.
+        
+        This includes "rivers" that flow from top-to-bottom (or bottom-to-top), as well as "lakes" both standalone and after rivers. Water/lava formations will never cut through rooms, but they can pass through rooms to the opposite side.
+        
+        Rivers are generated by a top-down or bottom-up random walk that ends when existing secondary terrain is reached or the walk goes out of bounds. Some rivers also end prematurely in a lake. Lakes are a large collection of secondary terrain generated around a central point.
+        
+        r0: bit index to test in the floor properties room flag bitvector (formations are only generated if the bit is set)
+        r1: floor properties
+    - name: StairsAlwaysReachable
+      address:
+        NA: 0x2341E6C
+      description: |-
+        Checks that the stairs are reachable from every walkable tile on the floor.
+        
+        This runs a graph traversal algorithm that is very similar to breadth-first search (the order in which nodes are visited is slightly different), starting from the stairs. If any tile is walkable but wasn't reached by the traversal algorithm, then the stairs must not be reachable from that tile.
+        
+        r0: x coordinate of the stairs
+        r1: y coordinate of the stairs
+        r2: flag to always return true, but set a special bit on all walkable tiles that aren't reachable from the stairs
+        return: bool
+    - name: ConvertWallsToChasms
+      address:
+        NA: 0x2342548
+      description: |-
+        Converts all wall tiles to chasms.
+        
+        No params.
+    - name: ResetInnerBoundaryTileRows
+      address:
+        NA: 0x2342B7C
+      description: |-
+        Reset the inner boundary tile rows (y == 1 and y == 30) to their initial state of all wall tiles, with impassable walls at the edges (x == 0 and x == 55).
+        
+        No params.
+    - name: SpawnStairs
+      address:
+        NA: 0x2342C8C
+      description: |-
+        Spawn stairs at the given location.
+        
+        If the hidden stairs flag is set, hidden stairs will be spawned instead of normal stairs.
+        
+        If spawning normal stairs and the current floor is a rescue floor, the room containing the stairs will be converted into a Monster House.
+        
+        r0: position (two-byte array for {x, y})
+        r1: dungeon generation info pointer (a field on the dungeon struct)
+        r2: hidden stairs flag
+    - name: LoadFixedRoomData
+      address:
+        NA: 0x2343D90
+      description: |-
+        Loads fixed room data from BALANCE/fixed.bin into the buffer pointed to by FIXED_ROOM_DATA_PTR.
+        
+        No params.
+    - name: IsHiddenStairsFloor
+      address:
+        NA: 0x234450C
+      description: |-
+        Checks if the current floor is either the Secret Bazaar or a Secret Room.
+        
         return: bool
     - name: HasHeldItem
       address:
@@ -473,6 +1064,161 @@ overlay29:
         
         r0: entity pointer
         r1: item ID
+        return: bool
+    - name: IsCurrentMissionType
+      address:
+        NA: 0x234921C
+      description: |-
+        Checks if the current floor is an active mission destination of a given type (and any subtype).
+        
+        r0: mission type
+        return: bool
+    - name: IsCurrentMissionTypeExact
+      address:
+        NA: 0x2349250
+      description: |-
+        Checks if the current floor is an active mission destination of a given type and subtype.
+        
+        r0: mission type
+        r1: mission subtype
+        return: bool
+    - name: IsOutlawMonsterHouseFloor
+      address:
+        NA: 0x234928C
+      description: |-
+        Checks if the current floor is a mission destination for a Monster House outlaw mission.
+        
+        return: bool
+    - name: IsGoldenChamber
+      address:
+        NA: 0x23492B0
+      description: |-
+        Checks if the current floor is a Golden Chamber floor.
+        
+        return: bool
+    - name: IsLegendaryChallengeFloor
+      address:
+        NA: 0x23492D4
+      description: |-
+        Checks if the current floor is a boss floor for a Legendary Challenge Letter mission.
+        
+        return: bool
+    - name: IsJirachiChallengeFloor
+      address:
+        NA: 0x2349314
+      description: |-
+        Checks if the current floor is the boss floor in Star Cave Pit for Jirachi's Challenge Letter mission.
+        
+        return: bool
+    - name: IsDestinationFloorWithMonster
+      address:
+        NA: 0x234934C
+      description: |-
+        Checks if the current floor is a mission destination floor with a special monster.
+        
+        See FloorHasMissionMonster for details.
+        
+        return: bool
+    - name: MissionTargetEnemyIsDefeated
+      address:
+        NA: 0x2349470
+      description: |-
+        Checks if the target enemy of the mission on the current floor has been defeated.
+        
+        return: bool
+    - name: SetMissionTargetEnemyDefeated
+      address:
+        NA: 0x2349490
+      description: |-
+        Set the flag for whether or not the target enemy of the current mission has been defeated.
+        
+        r0: new flag value
+    - name: IsDestinationFloorWithFixedRoom
+      address:
+        NA: 0x23494A4
+      description: |-
+        Checks if the current floor is a mission destination floor with a fixed room.
+        
+        The entire floor can be a fixed room layout, or it can just contain a Sealed Chamber.
+        
+        return: bool
+    - name: GetItemToRetrieve
+      address:
+        NA: 0x23494CC
+      description: |-
+        Get the ID of the item that needs to be retrieve on the current floor for a mission, if one exists.
+        
+        return: item ID
+    - name: GetItemToDeliver
+      address:
+        NA: 0x23494F0
+      description: |-
+        Get the ID of the item that needs to be delivered to a mission client on the current floor, if one exists.
+        
+        return: item ID
+    - name: GetSpecialTargetItem
+      address:
+        NA: 0x234951C
+      description: |-
+        Get the ID of the special target item for a Sealed Chamber or Treasure Memo mission on the current floor.
+        
+        return: item ID
+    - name: IsDestinationFloorWithItem
+      address:
+        NA: 0x2349564
+      description: |-
+        Checks if the current floor is a mission destination floor with a special item.
+        
+        This excludes missions involving taking an item from an outlaw.
+        
+        return: bool
+    - name: IsDestinationFloorWithHiddenOutlaw
+      address:
+        NA: 0x23495C4
+      description: |-
+        Checks if the current floor is a mission destination floor with a "hidden outlaw" that behaves like a normal enemy.
+        
+        return: bool
+    - name: IsDestinationFloorWithFleeingOutlaw
+      address:
+        NA: 0x23495E8
+      description: |-
+        Checks if the current floor is a mission destination floor with a "fleeing outlaw" that runs away.
+        
+        return: bool
+    - name: GetMissionTargetEnemy
+      address:
+        NA: 0x2349620
+      description: |-
+        Get the monster ID of the target enemy to be defeated on the current floor for a mission, if one exists.
+        
+        return: monster ID
+    - name: GetMissionEnemyMinionGroup
+      address:
+        NA: 0x2349638
+      description: |-
+        Get the monster ID of the specified minion group on the current floor for a mission, if it exists.
+        
+        Note that a single minion group can correspond to multiple actual minions of the same species. There can be up to 2 minion groups.
+        
+        return: minion group index (0-indexed)
+    - name: FloorHasMissionMonster
+      address:
+        NA: 0x2349748
+      description: |-
+        Checks if a given floor is a mission destination with a special monster, either a target to rescue or an enemy to defeat.
+        
+        Mission types with a monster on the destination floor:
+        - Rescue client
+        - Rescue target
+        - Escort to target
+        - Deliver item
+        - Search for target
+        - Take item from outlaw
+        - Arrest outlaw
+        - Challenge Request
+        
+        r0: mission destination info pointer
         return: bool
     - name: RunDungeonMode
       address:
@@ -492,6 +1238,14 @@ overlay29:
       length:
         NA: 0x4
       description: Size of the dungeon struct (0x2CB14)
+    - name: OFFSET_OF_DUNGEON_FLOOR_PROPERTIES
+      address:
+        NA:
+          - 0x22E79F8
+          - 0x233AE68
+      length:
+        NA: 0x4
+      description: Offset of the floor properties field in the dungeon struct
     - name: PRNG_LCG_MULTIPLIER
       address:
         NA:
@@ -585,9 +1339,87 @@ overlay29:
       length:
         NA: 0x4
       description: Some value related to the Slip Seed.
-    - name: SOME_STRUCT_ROW_SIZE
+    - name: FLOOR_GENERATION_STATUS_PTR
       address:
-        NA: 0x2340220
+        NA:
+          - 0x233AE6C
+          - 0x233AF08
+          - 0x233B18C
+          - 0x233B618
+          - 0x233BA78
+          - 0x233BBD8
+          - 0x233BD70
+          - 0x233BF2C
+          - 0x233C30C
+          - 0x233C76C
+          - 0x233CF80
+          - 0x233D100
+          - 0x233D310
+          - 0x233D670
+          - 0x233E058
+          - 0x233FF90
+          - 0x234021C
+          - 0x23406D0
+          - 0x234145C
+          - 0x2341764
+          - 0x2342178
+          - 0x2342510
+          - 0x23427E0
+          - 0x2342B74
+          - 0x2342C64
+          - 0x2342D98
+          - 0x2342F28
+      length:
+        NA: 0x4
+      description: Pointer to the global FLOOR_GENERATION_STATUS
+    - name: OFFSET_OF_DUNGEON_N_NORMAL_ITEM_SPAWNS
+      address:
+        NA:
+          - 0x233AE74
+          - 0x2341464
+      length:
+        NA: 0x4
+      description: Offset of the (number of base items + 1) field on the dungeon struct
+    - name: DUNGEON_GRID_COLUMN_BYTES
+      address:
+        NA:
+          - 0x233B614
+          - 0x233BA74
+          - 0x233BD6C
+          - 0x233BF28
+          - 0x233C308
+          - 0x233C770
+          - 0x233C9E4
+          - 0x233CF78
+          - 0x233D0FC
+          - 0x233D314
+          - 0x233D66C
+          - 0x233E054
+          - 0x233E438
+          - 0x233ED30
+          - 0x233F114
+          - 0x233F8FC
+          - 0x233FF94
+          - 0x2340220
+          - 0x2340454
+          - 0x23424CC
+      length:
+        NA: 0x4
+      description: "The number of bytes in one column of the dungeon grid cell array, 450, which corresponds to a column of 15 grid cells."
+    - name: DEFAULT_MAX_POSITION
+      address:
+        NA: 0x233FF98
+      length:
+        NA: 0x4
+      description: A large number (9999) to use as a default position for keeping track of min/max position values
+    - name: OFFSET_OF_DUNGEON_GUARANTEED_ITEM_ID
+      address:
+        NA:
+          - 0x2341460
+          - 0x2344E80
+      length:
+        NA: 0x4
+      description: Offset of the guaranteed item ID field in the dungeon struct
     - name: TILE_SPAWN_TABLE
       address:
         NA: 0x234FDD0
@@ -623,6 +1455,15 @@ overlay29:
       length:
         NA: 0xC9C
         EU: 0xC9C
+    - name: DIRECTIONS_XY
+      address:
+        NA: 0x235171C
+      length:
+        NA: 0x20
+      description: |-
+        An array mapping each direction index to its x and y displacements.
+        
+        Directions start with 0=down and proceed counterclockwise. Displacements for x and y are interleaved and encoded as 2-byte signed integers. For example, the first two integers are [0, 1], which correspond to the x and y displacements for the "down" direction (positive y means down).
     - name: BELLY_DRAIN_IN_WALLS_INT
       address:
         NA: 0x2352768
@@ -651,6 +1492,19 @@ overlay29:
       length:
         NA: 0x4
       description: "The index (0) of the attack entry in internal stat structs, such as the stat modifier array for a monster."
+    - name: CORNER_CARDINAL_NEIGHBOR_IS_OPEN
+      address:
+        NA: 0x2353010
+      length:
+        NA: 0x20
+      description: |-
+        An array mapping each (corner index, neighbor direction index) to whether or not that neighbor is expected to be open floor.
+        
+        Corners start with 0=top-left and proceed clockwise. Directions are enumerated as with DIRECTIONS_XY. The array is indexed by i=(corner_index * N_DIRECTIONS + direction). An element of 1 (0) means that starting from the specified corner of a room, moving in the specified direction should lead to an open floor tile (non-open terrain like a wall).
+        
+        Note that this array is only used for the cardinal directions. The elements at odd indexes are unused and unconditionally set to 0.
+        
+        This array is used by the dungeon generation algorithm when generating room imperfections. See GenerateRoomImperfections.
     - name: DEFAULT_TILE
       address:
         NA: 0x2353724

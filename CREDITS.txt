@@ -10,6 +10,7 @@ to this file!
 - End45
 - irdkwia
 - Nov
+- AnonymousRandomPerson
 - The rest of the contributors to Project Pokémon's technical documentation
   for the NDS Mystery Dungeon games, which can be found here:
   https://projectpokemon.org/home/docs/mystery-dungeon-nds/

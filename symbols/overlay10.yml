@@ -12,6 +12,12 @@ overlay10:
   description: "Appears to be used both during ground mode and dungeon mode. With dungeon mode, whereas overlay 29 contains the main dungeon engine, this overlay seems to contain routines and data for dungeon mechanics."
   functions: []
   data:
+    - name: FIRST_DUNGEON_WITH_MONSTER_HOUSE_TRAPS
+      address:
+        NA: 0x22C440C
+      length:
+        NA: 0x1
+      description: "The first dungeon that can have extra traps spawn in Monster Houses, Dark Hill"
     - name: BAD_POISON_DAMAGE_COOLDOWN
       address:
         NA: 0x22C4414
@@ -39,6 +45,12 @@ overlay10:
         NA: 0x2
         EU: 0x2
       description: The amount of HP restored by eating a Sitrus Berry.
+    - name: MONSTER_HOUSE_MAX_NON_MONSTER_SPAWNS
+      address:
+        NA: 0x22C44AC
+      length:
+        NA: 0x2
+      description: "The maximum number of extra non-monster spawns (items/traps) in a Monster House, 7"
     - name: GOLD_THORN_POWER
       address:
         NA: 0x22C44D0
@@ -110,6 +122,12 @@ overlay10:
         NA: 0x2
         EU: 0x2
       description: The number of turns between enemy spawns when the Thief Alert condition is active.
+    - name: MONSTER_HOUSE_MAX_MONSTER_SPAWNS
+      address:
+        NA: 0x22C4660
+      length:
+        NA: 0x2
+      description: "The maximum number of monster spawns in a Monster House, 30, but multiplied by 2/3 for some reason (so the actual maximum is 45)"
     - name: POISON_DAMAGE_COOLDOWN
       address:
         NA: 0x22C46A8

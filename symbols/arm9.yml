@@ -11,7 +11,7 @@ arm9:
     EU: 0xB7D38
   description: |-
     The main ARM9 binary.
-    This is the binary that gets loaded when the game is launched, and contains the core code that runs the game, low level facilities such as memory allocation and compression, and the functions and tables necessary to load overlays and dispatch execution to them.
+    This is the binary that gets loaded when the game is launched, and contains the core code that runs the game, low level facilities such as memory allocation, compression, other external dependencies (such as linked functions from libc and libgcc), and the functions and tables necessary to load overlays and dispatch execution to them.
   functions:
     - name: MemAlloc
       address:
@@ -324,6 +324,45 @@ arm9:
         r0: IQ skill bitvector to test
         r1: IQ skill ID
         return: bool
+    - name: Abs
+      address:
+        NA: 0x208655C
+      description: |-
+        Takes the absolute value of an integer.
+        
+        r0: x
+        return: abs(x)
+    - name: DivideInt
+      address:
+        NA: 0x208FEA4
+      description: |-
+        This appears to be the libgcc implementation of __divsi3 (not sure which gcc version), which implements the division operator for signed ints.
+        
+        r0: dividend
+        r1: divisor
+        return: dividend / divisor
+    - name: DivideUInt
+      address:
+        NA: 0x20900B0
+      description: |-
+        This appears to be the libgcc implementation of __udivsi3 (not sure which gcc version), which implements the division operator for unsigned ints.
+        
+        Note: This function falls through to DivideUIntNoZeroCheck.
+        
+        r0: dividend
+        r1: divisor
+        return: dividend / divisor
+    - name: DivideUIntNoZeroCheck
+      address:
+        NA: 0x20900B8
+      description: |-
+        Subsidiary function to DivideUInt. Skips the initial check for divisor == 0.
+        
+        This function appears to only be called internally.
+        
+        r0: dividend
+        r1: divisor
+        return: dividend / divisor
   data:
     - name: AURA_BOW_ID_LAST
       address:

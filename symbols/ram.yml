@@ -330,9 +330,24 @@ arm9:
         An array of 5 integers corresponding to the last value generated for each secondary LCG sequence.
         
         Based on the assembly, this appears to be its own global array, separate from PRNG_STATE.
+    - name: FIXED_ROOM_DATA_PTR
+      address:
+        NA: 0x2353794
+      length:
+        NA: 0x4
+      description: Pointer to decoded fixed room data loaded from the BALANCE/fixed.bin file.
     - name: TURNING_ON_THE_SPOT_FLAG
       address:
         NA: 0x237C9A6
       length:
         NA: 0x1
       description: Flag for whether the player is turning on the spot (pressing Y).
+    - name: FLOOR_GENERATION_STATUS
+      address:
+        NA: 0x237CFBC
+      length:
+        NA: 0x40
+      description: |-
+        Status data related to generation of the current floor in a dungeon.
+        
+        This data is populated as the dungeon floor is generated.
