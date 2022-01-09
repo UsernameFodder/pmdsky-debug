@@ -1420,20 +1420,28 @@ overlay29:
       length:
         NA: 0x4
       description: Offset of the guaranteed item ID field in the dungeon struct
-    - name: TILE_SPAWN_TABLE
+    - name: FIXED_ROOM_TILE_SPAWN_TABLE
       address:
         NA: 0x234FDD0
         EU: 0x23509DC
       length:
         NA: 0x2C
         EU: 0x2C
-    - name: FIXED_FLOOR_OVERRIDES
+      description: |-
+        Table of tiles that can spawn in fixed rooms, pointed into by the FIXED_ROOM_TILE_SPAWN_TABLE.
+        
+        This is an array of 11 4-byte entries containing info about one tile each. Info includes the trap ID if a trap, room ID, and flags.
+    - name: FIXED_ROOM_REVISIT_OVERRIDES
       address:
         NA: 0x234FE14
         EU: 0x2350A20
       length:
         NA: 0x100
         EU: 0x100
+      description: |-
+        Table of fixed room IDs, which if nonzero, overrides the normal fixed room ID for a floor (which is used to index the table) if the dungeon has already been cleared previously.
+        
+        Overrides are used to substitute different fixed room data for things like revisits to story dungeons.
     - name: MONSTER_SPAWN_TABLE
       address:
         NA: 0x234FF14
@@ -1441,20 +1449,32 @@ overlay29:
       length:
         NA: 0x1E0
         EU: 0x1E0
-    - name: ITEM_SPAWN_TABLE
+      description: |-
+        Table of monsters that can spawn in fixed rooms, pointed into by the FIXED_ROOM_ENTITY_SPAWN_TABLE.
+        
+        This is an array of 120 4-byte entries containing info about one monster each. Info includes the monster ID, stats, and behavior type.
+    - name: FIXED_ROOM_ITEM_SPAWN_TABLE
       address:
         NA: 0x23500F4
         EU: 0x2350D00
       length:
         NA: 0x1F8
         EU: 0x1F8
-    - name: ENTITY_SPAWN_TABLE
+      description: |-
+        Table of items that can spawn in fixed rooms, pointed into by the FIXED_ROOM_ENTITY_SPAWN_TABLE.
+        
+        This is an array of 63 8-byte entries containing one item ID each.
+    - name: FIXED_ROOM_ENTITY_SPAWN_TABLE
       address:
         NA: 0x23502EC
         EU: 0x2350EF8
       length:
         NA: 0xC9C
         EU: 0xC9C
+      description: |-
+        Table of entities (items, monsters, tiles) that can spawn in fixed rooms, which is indexed into by the main data structure for each fixed room.
+        
+        This is an array of 269 entries. Each entry contains 3 pointers (one into FIXED_ROOM_ITEM_SPAWN_TABLE, one into FIXED_ROOM_MONSTER_SPAWN_TABLE, and one into FIXED_ROOM_TILE_SPAWN_TABLE), and represents the entities that can spawn on one specific tile in a fixed room.
     - name: DIRECTIONS_XY
       address:
         NA: 0x235171C

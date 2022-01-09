@@ -255,7 +255,10 @@ overlay10:
         EU: 0x22C5B54
       length:
         NA: 0xF0
-      description: Table of music IDs for dungeons with a random assortment of music tracks?
+      description: |-
+        Table of music IDs for dungeons with a random assortment of music tracks.
+        
+        This is a table with 30 rows, each with 4 2-byte music IDs. Each row contains the possible music IDs for a given group, from which the music track will be selected randomly.
     - name: MALE_ACCURACY_STAGE_MULTIPLIERS
       address:
         NA: 0x22C540C
@@ -286,16 +289,25 @@ overlay10:
         EU: 0x22C5EB4
       length:
         NA: 0x154
+        EU: 0x154
+      description: |-
+        List of music IDs used in dungeons with a single music track.
+        
+        This is an array of 170 2-byte music IDs, and is indexed into by the music value in the floor properties struct for a given floor. Music IDs with the highest bit set (0x8000) are indexes into the RANDOM_MUSIC_ID_TABLE.
     - name: TYPE_MATCHUP_TABLE
       address:
         NA: 0x22C56B0
-    - name: MONSTER_SPAWN_STATS_TABLE
+    - name: FIXED_ROOM_MONSTER_SPAWN_STATS_TABLE
       address:
         NA: 0x22C5938
         EU: 0x22C6290
       length:
         NA: 0x4A4
         EU: 0x4A4
+      description: |-
+        Table of stats for monsters that can spawn in fixed rooms, pointed into by the FIXED_ROOM_MONSTER_SPAWN_TABLE.
+        
+        This is an array of 99 12-byte entries containing stat spreads for one monster entry each.
     - name: TILESET_PROPERTIES
       address:
         NA: 0x22C631C
@@ -303,13 +315,19 @@ overlay10:
       length:
         NA: 0x954
         EU: 0x954
-    - name: FIXED_FLOOR_PROPERTIES
+    - name: FIXED_ROOM_PROPERTIES_TABLE
       address:
         NA: 0x22C6C70
         EU: 0x22C75C8
       length:
         NA: 0xC00
         EU: 0xC00
+      description: |-
+        Table of properties for fixed rooms.
+        
+        This is an array of 256 12-byte entries containing properties for a given fixed room ID.
+        
+        See the struct definitions and End45's dungeon data document for more info.
     - name: MOVE_ANIMATION_INFO
       address:
         NA: 0x22C9064

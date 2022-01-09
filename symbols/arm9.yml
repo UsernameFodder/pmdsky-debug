@@ -453,13 +453,19 @@ arm9:
         NA: 0x209D870
       length:
         NA: 0x730
-    - name: DUNGEON_LIST
+    - name: DUNGEON_DATA_LIST
       address:
         NA: 0x209E3A0
         EU: 0x209E924
       length:
         NA: 0x2D0
         EU: 0x2D0
+      description: |-
+        Data about every dungeon in the game.
+        
+        This is an array of 180 dungeon data list entry structs. Each entry is 4 bytes, and contains floor count information along with an index into the bulk of the dungeon's data in mappa_s.bin.
+        
+        See the struct definitions and End45's dungeon data document for more info.
     - name: DUNGEON_RESTRICTIONS
       address:
         NA: 0x20A0C64
@@ -467,6 +473,12 @@ arm9:
       length:
         NA: 0xC00
         EU: 0xC00
+      description: |-
+        Data related to dungeon restrictions for every dungeon in the game.
+        
+        This is an array of 256 dungeon restriction structs. Each entry is 12 bytes, and contains information about restrictions within the given dungeon.
+        
+        See the struct definitions and End45's dungeon data document for more info.
     - name: SPECIAL_BAND_STAT_BOOST
       address:
         NA: 0x20A186C
@@ -536,6 +548,22 @@ arm9:
       length:
         NA: 0x18
         EU: 0x18
+    - name: OUTLAW_LEVEL_TABLE
+      address:
+        NA: 0x20A1998
+        EU: 0x20A1F1C
+      length:
+        NA: 0x20
+        EU: 0x20
+      description: "Table of 2-byte outlaw levels for outlaw missions, indexed by mission rank."
+    - name: OUTLAW_MINION_LEVEL_TABLE
+      address:
+        NA: 0x20A19B8
+        EU: 0x20A1F3C
+      length:
+        NA: 0x20
+        EU: 0x20
+      description: "Table of 2-byte outlaw minion levels for outlaw hideout missions, indexed by mission rank."
     - name: IQ_SKILL_RESTRICTIONS
       address:
         NA: 0x20A1A5C
@@ -543,13 +571,20 @@ arm9:
       length:
         NA: 0x8C
         EU: 0x8C
-    - name: SECONDARY_TERRAINS
+    - name: SECONDARY_TERRAIN_TYPES
       address:
         NA: 0x20A1AE8
         EU: 0x20A206C
       length:
         NA: 0xC8
         EU: 0xC8
+      description: |-
+        The type of secondary terrain for each dungeon in the game.
+        
+        This is an array of 200 bytes. Each byte is an enum corresponding to one dungeon, with the following values:
+        0: water
+        1: lava
+        2: chasm
     - name: SENTRY_MINIGAME_DATA
       address:
         NA: 0x20A1BB0
@@ -601,6 +636,12 @@ arm9:
       length:
         NA: 0x288
         EU: 0x288
+      description: |-
+        Data for guest monsters that join you during certain story dungeons.
+        
+        Array of 18 36-byte entries.
+        
+        See the struct definitions and End45's dungeon data document for more info.
     - name: RANK_UP_TABLE
       address:
         NA: 0x20A2B44
@@ -639,6 +680,12 @@ arm9:
       length:
         NA: 0x9B0
         EU: 0x9B0
+      description: |-
+        The map marker position of each dungeon on the Wonder Map.
+        
+        This is an array of 310 map marker structs. Each entry is 8 bytes, and contains positional information about a dungeon on the map.
+        
+        See the struct definitions and End45's dungeon data document for more info.
     - name: PACK_FILE_PATHS_TABLE
       address:
         NA: 0x20AF6A0
