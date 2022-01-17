@@ -22,7 +22,7 @@ overlay29:
         This updates the master dungeon pointer and returns a copy of that pointer.
         
         return: pointer to a newly allocated dungeon struct
-    - name: GetDungeonMasterPtr
+    - name: GetDungeonPtrMaster
       address:
         NA: 0x22DEA80
       description: |-
@@ -284,15 +284,43 @@ overlay29:
         stack[2]: ?
         stack[3]: move ID
         stack[4]: ?
-    - name: CalcDamageFixedWrapper
+    - name: CalcDamageFixed
+      address:
+        NA: 0x230D240
+      description: |-
+        Appears to calculate damage from a fixed-damage effect.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: fixed damage
+        stack[0]: [output] damage description struct?
+        stack[1]: attack type
+        stack[2]: move category
+        others: ?
+    - name: CalcDamageFixedNoCategory
       address:
         NA: 0x230D3A8
       description: |-
-        Appears to calculate damage from a fixed-damage effect. A wrapper around the function in the ARM 9 binary.
+        A wrapper around CalcDamageFixed with the move category set to none.
         
-        r0: entity pointer 1?
-        r1: entity pointer 2?
+        r0: attacker pointer
+        r1: defender pointer
         r2: fixed damage
+        stack[0]: [output] damage description struct?
+        stack[1]: attack type
+        others: ?
+    - name: CalcDamageFixedWrapper
+      address:
+        NA: 0x230D3F4
+      description: |-
+        A wrapper around CalcDamageFixed.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: fixed damage
+        stack[0]: [output] damage description struct?
+        stack[1]: attack type
+        stack[2]: move category
         others: ?
     - name: ResetDamageCalcScratchSpace
       address:
@@ -341,8 +369,8 @@ overlay29:
       description: |-
         Appears to apply a stat boost to an entity?
         
-        r0: entity pointer 1?
-        r1: entity pointer 2?
+        r0: attacker pointer
+        r1: defender pointer
         r2: stat index
         r3: boost value
     - name: BoostSpeed
@@ -351,7 +379,8 @@ overlay29:
       description: |-
         Appears to apply a speed boost to an entity?
         
-        r1: entity pointer
+        r0: attacker pointer
+        r1: defender pointer
         others: ?
     - name: BoostSpeedWrapper
       address:
@@ -359,37 +388,44 @@ overlay29:
       description: |-
         A wrapper around BoostSpeed with the third argument set to 1.
         
-        r1: entity pointer
+        r0: attacker pointer
+        r1: defender pointer
         others: ?
     - name: TryActivateQuickFeet
       address:
         NA: 0x2314E1C
       description: |-
-        Activate the Quick Feet ability, if a monster has it and it's active.
+        Activate the Quick Feet ability on the defender, if the monster has it and it's active.
         
-        r0: ?
-        r1: entity pointer
+        r0: attacker pointer
+        r1: defender pointer
         return: bool, whether or not the ability was activated
     - name: ApplyItemEffect
       address:
         NA: 0x231B68C
-      description: "Seems to apply an item's via a giant switch statement?"
+      description: |-
+        Seems to apply an item's via a giant switch statement?
+        
+        r3: attacker pointer
+        stack[0]: defender pointer
+        stack[1]: thrown item pointer
+        others: ?
     - name: ViolentSeedBoost
       address:
         NA: 0x231CE1C
       description: |-
         Applies the Violent Seed boost to an entity
         
-        r0: entity pointer 1?
-        r1: entity pointer 2?
+        r0: attacker pointer
+        r1: defender pointer
     - name: ApplyGummiIqBoost
       address:
         NA: 0x231D0C0
       description: |-
         Appears to apply the IQ boost from eating a Gummi.
         
-        r0: ?
-        r1: entity pointer
+        r0: attacker pointer
+        r1: defender pointer
         r2: Gummi type ID
         r3: Gummi base IQ boost?
     - name: GetMaxPpWrapper
@@ -1201,7 +1237,8 @@ overlay29:
         
         Note that a single minion group can correspond to multiple actual minions of the same species. There can be up to 2 minion groups.
         
-        return: minion group index (0-indexed)
+        r0: minion group index (0-indexed)
+        return: monster ID
     - name: FloorHasMissionMonster
       address:
         NA: 0x2349748

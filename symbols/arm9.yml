@@ -73,7 +73,6 @@ arm9:
         See ram.yml for a mapping between group ID and overlay number.
         
         r0: group ID of the overlay to check. A group ID of 0 denotes no overlay, and the return value will always be true in this case.
-        others: ?
         return: bool
     - name: LoadOverlay
       address:
@@ -85,7 +84,6 @@ arm9:
         See ram.yml for a mapping between group ID and overlay number.
         
         r0: group ID of the overlay to load
-        others: ?
     - name: UnloadOverlay
       address:
         NA: 0x2004868
@@ -186,7 +184,7 @@ arm9:
       description: |-
         Gets the base power of a move from the move data table.
         
-        r0: move ID
+        r0: move pointer
         return: base power
     - name: GetMaxPp
       address:
@@ -202,7 +200,7 @@ arm9:
       description: |-
         Gets the critical hit chance of a move.
         
-        r0: move ID
+        r0: move pointer
         return: base power
     - name: IsRecoilMove
       address:
@@ -220,7 +218,7 @@ arm9:
         
         r0: move ID
         return: bool
-    - name: MoveCategory
+    - name: GetMoveCategory
       address:
         NA: 0x20151C8
       description: |-
@@ -233,6 +231,14 @@ arm9:
         NA: 0x201F4B4
       description: |-
         Translates the offsets in a SIR0 file into NDS memory addresses, changes the magic number to SirO (opened), and returns a pointer to the first pointer specified in the SIR0 header (beginning of the data).
+        
+        r0: [output] double pointer to beginning of data
+        r1: pointer to source file buffer
+    - name: HandleSir0TranslationWrapper
+      address:
+        NA: 0x201F58C
+      description: |-
+        Wrapper around HandleSir0Translation.
         
         r0: [output] double pointer to beginning of data
         r1: pointer to source file buffer
