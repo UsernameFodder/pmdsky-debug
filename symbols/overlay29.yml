@@ -26,7 +26,7 @@ overlay29:
       address:
         NA: 0x22DEA80
       description: |-
-        Returns the master dungeon pointer (a global; see ram.yml).
+        Returns the master dungeon pointer (a global, see DUNGEON_PTR_MASTER).
         
         return: pointer to a newly allocated dungeon struct
     - name: DungeonZInit
@@ -1562,6 +1562,44 @@ overlay29:
         Note that this array is only used for the cardinal directions. The elements at odd indexes are unused and unconditionally set to 0.
         
         This array is used by the dungeon generation algorithm when generating room imperfections. See GenerateRoomImperfections.
+    - name: DUNGEON_PTR
+      address:
+        NA: 0x2353538
+        EU: 0x2354138
+      length:
+        NA: 0x4
+        EU: 0x4
+      description: |-
+        [Runtime] Pointer to the dungeon struct in dungeon mode.
+        
+        This is a "working copy" of DUNGEON_PTR_MASTER. The main dungeon engine uses this pointer (or rather pointers to this pointer) when actually running dungeon mode.
+    - name: DUNGEON_PTR_MASTER
+      address:
+        NA: 0x235353C
+      length:
+        NA: 0x4
+      description: |-
+        [Runtime] Pointer to the dungeon struct in dungeon mode.
+        
+        This is a "master copy" of the dungeon pointer. The game uses this pointer when doing low-level memory work (allocation, freeing, zeroing). The normal DUNGEON_PTR is used for most other dungeon mode work.
+    - name: PRNG_STATE
+      address:
+        NA: 0x2353570
+      length:
+        NA: 0x14
+      description: |-
+        [Runtime] The global PRNG state for dungeon mode, not including the current values in the secondary sequences.
+        
+        This struct holds state for the primary LCG, as well as the current configuration controlling which LCG to use when generating random numbers. See Rand16Bit in overlay29.yml for more information on how the PRNG works.
+    - name: PRNG_STATE_SECONDARY_VALUES
+      address:
+        NA: 0x2353584
+      length:
+        NA: 0x14
+      description: |-
+        [Runtime] An array of 5 integers corresponding to the last value generated for each secondary LCG sequence.
+        
+        Based on the assembly, this appears to be its own global array, separate from PRNG_STATE.
     - name: DEFAULT_TILE
       address:
         NA: 0x2353724
@@ -1571,3 +1609,9 @@ overlay29:
         The default tile struct.
         
         This is just a struct full of zeroes, but is used as a fallback in various places where a "default" tile is needed, such as when a grid index is out of range.
+    - name: FIXED_ROOM_DATA_PTR
+      address:
+        NA: 0x2353794
+      length:
+        NA: 0x4
+      description: "[Runtime] Pointer to decoded fixed room data loaded from the BALANCE/fixed.bin file."

@@ -94,10 +94,20 @@ overlay11:
         The overlays that can be loaded while this one is loaded.
         
         Each entry is 16 bytes, consisting of:
-        - overlay group ID (see ram.yml for a mapping between group ID and overlay number)
+        - overlay group ID (see arm9.yml or enum overlay_group_id in the C headers for a mapping between group ID and overlay number)
         - function pointer to entry point
         - function pointer to destructor
         - possibly function pointer to frame-update function?
+    - name: UNIONALL_RAM_ADDRESS
+      address:
+        NA: 0x2324CA4
+        EU: 0x23257E4
+      description: "[Runtime]"
+    - name: GROUND_STATE_MAP
+      address:
+        NA: 0x2324CC0
+        EU: 0x2325800
+      description: "[Runtime]"
     - name: GROUND_STATE_PTRS
       address:
         NA: 0x2324CF4

@@ -70,7 +70,7 @@ arm9:
       description: |-
         Checks if an overlay with a certain group ID is currently loaded.
         
-        See ram.yml for a mapping between group ID and overlay number.
+        See the LOADED_OVERLAY_GROUP_* data symbols or enum overlay_group_id in the C headers for a mapping between group ID and overlay number.
         
         r0: group ID of the overlay to check. A group ID of 0 denotes no overlay, and the return value will always be true in this case.
         return: bool
@@ -81,7 +81,7 @@ arm9:
       description: |-
         Loads an overlay from ROM by its group ID.
         
-        See ram.yml for a mapping between group ID and overlay number.
+        See the LOADED_OVERLAY_GROUP_* data symbols or enum overlay_group_id in the C headers for a mapping between group ID and overlay number.
         
         r0: group ID of the overlay to load
     - name: UnloadOverlay
@@ -91,7 +91,7 @@ arm9:
       description: |-
         Unloads an overlay from ROM by its group ID.
         
-        See ram.yml for a mapping between group ID and overlay number.
+        See the LOADED_OVERLAY_GROUP_* data symbols or enum overlay_group_id in the C headers for a mapping between group ID and overlay number.
         
         r0: group ID of the overlay to unload
         others: ?
@@ -692,6 +692,75 @@ arm9:
         This is an array of 310 map marker structs. Each entry is 8 bytes, and contains positional information about a dungeon on the map.
         
         See the struct definitions and End45's dungeon data document for more info.
+    - name: LOADED_OVERLAY_GROUP_0
+      address:
+        NA: 0x20AF230
+        EU: 0x20AFAD0
+      length:
+        NA: 0x4
+        EU: 0x4
+      description: |-
+        [Runtime] The overlay group ID of the overlay currently loaded in slot 0. A group ID of 0 denotes no overlay.
+        
+        Overlay group IDs that can be loaded in slot 0:
+        - 0x06 (overlay 3)
+        - 0x07 (overlay 6)
+        - 0x08 (overlay 4)
+        - 0x09 (overlay 5)
+        - 0x0A (overlay 7)
+        - 0x0B (overlay 8)
+        - 0x0C (overlay 9)
+        - 0x10 (overlay 12)
+        - 0x11 (overlay 13)
+        - 0x12 (overlay 14)
+        - 0x13 (overlay 15)
+        - 0x14 (overlay 16)
+        - 0x15 (overlay 17)
+        - 0x16 (overlay 18)
+        - 0x17 (overlay 19)
+        - 0x18 (overlay 20)
+        - 0x19 (overlay 21)
+        - 0x1A (overlay 22)
+        - 0x1B (overlay 23)
+        - 0x1C (overlay 24)
+        - 0x1D (overlay 25)
+        - 0x1E (overlay 26)
+        - 0x1F (overlay 27)
+        - 0x20 (overlay 28)
+        - 0x21 (overlay 30)
+        - 0x22 (overlay 31)
+        - 0x23 (overlay 32)
+        - 0x24 (overlay 33)
+    - name: LOADED_OVERLAY_GROUP_1
+      address:
+        NA: 0x20AF234
+        EU: 0x20AFAD4
+      length:
+        NA: 0x4
+        EU: 0x4
+      description: |-
+        [Runtime] The overlay group ID of the overlay currently loaded in slot 1. A group ID of 0 denotes no overlay.
+        
+        Overlay group IDs that can be loaded in slot 1:
+        - 0x4 (overlay 1)
+        - 0x5 (overlay 2)
+        - 0xD (overlay 11)
+        - 0xE (overlay 29)
+        - 0xF (overlay 34)
+    - name: LOADED_OVERLAY_GROUP_2
+      address:
+        NA: 0x20AF238
+        EU: 0x20AFAD8
+      length:
+        NA: 0x4
+        EU: 0x4
+      description: |-
+        [Runtime] The overlay group ID of the overlay currently loaded in slot 2. A group ID of 0 denotes no overlay.
+        
+        Overlay group IDs that can be loaded in slot 2:
+        - 0x1 (overlay 0)
+        - 0x2 (overlay 10)
+        - 0x3 (overlay 35)
     - name: PACK_FILE_PATHS_TABLE
       address:
         NA: 0x20AF6A0
@@ -700,6 +769,31 @@ arm9:
       description: |-
         List of pointers to path strings to all known pack files.
         The game uses this table to load its resources when launching dungeon mode.
+    - name: GAME_STATE_VALUES
+      address:
+        NA: 0x20AF6B8
+        EU: 0x20AFF70
+      description: "[Runtime]"
+    - name: DUNGEON_MOVE_TABLES
+      address:
+        NA: 0x20AF6DC
+      description: "[Runtime] Seems to be some sort of region (a table of tables?) that holds pointers to various important tables related to moves."
+    - name: MOVE_DATA_TABLE_PTR
+      address:
+        NA: 0x20AF6E4
+      length:
+        NA: 0x4
+      description: "[Runtime] Points to the contents of the move data table loaded from waza_p.bin"
+    - name: LANGUAGE_INFO_DATA
+      address:
+        NA: 0x20AFCE8
+        EU: 0x20B05A8
+      description: "[Runtime]"
+    - name: NOTIFY_NOTE
+      address:
+        NA: 0x20AFEF8
+        EU: 0x20B0814
+      description: "[Runtime]"
     - name: DEFAULT_HERO_ID
       address:
         NA: 0x20AFEFC
@@ -716,6 +810,11 @@ arm9:
         NA: 0x2
         EU: 0x2
       description: "The default monster ID for the partner (0x1: Bulbasaur)"
+    - name: GAME_MODE
+      address:
+        NA: 0x20AFF70
+        EU: 0x20B088C
+      description: "[Runtime]"
     - name: ITEM_TABLES_PTRS_1
       address:
         NA: 0x20B0948
@@ -726,3 +825,8 @@ arm9:
         NA: 0x20B0B90
       length:
         NA: 0x1FC
+    - name: MEMORY_ALLOCATION_TABLE
+      address:
+        NA: 0x20B3380
+        EU: 0x20B3CC0
+      description: "[Runtime] Keeps track of all active heap allocations."

@@ -13,109 +13,11 @@ arm9:
     JP: 0x400000
   description: |-
     Main memory.
-    Data in this file aren't real "symbols" contained in the ROM itself, and are instead constructs loaded at runtime.
+    Data in this file aren't located in the ROM itself, and are instead constructs loaded at runtime.
+    
+    More specifically, this file is a dumping ground for addresses that are useful to know about, but don't fall in the address ranges of any of the other files. Dynamically loaded constructs that do fall within the address range of a relevant binary should be listed in the corresponding YAML file of that binary, since it still has direct utility when reverse-engineering that particular binary.
   functions: []
   data:
-    - name: LOADED_OVERLAY_GROUP_0
-      address:
-        NA: 0x20AF230
-        EU: 0x20AFAD0
-      length:
-        NA: 0x4
-        EU: 0x4
-      description: |-
-        The overlay group ID of the overlay currently loaded in slot 0. A group ID of 0 denotes no overlay.
-        
-        Overlay group IDs that can be loaded in slot 0:
-        - 0x06 (overlay 3)
-        - 0x07 (overlay 6)
-        - 0x08 (overlay 4)
-        - 0x09 (overlay 5)
-        - 0x0A (overlay 7)
-        - 0x0B (overlay 8)
-        - 0x0C (overlay 9)
-        - 0x10 (overlay 12)
-        - 0x11 (overlay 13)
-        - 0x12 (overlay 14)
-        - 0x13 (overlay 15)
-        - 0x14 (overlay 16)
-        - 0x15 (overlay 17)
-        - 0x16 (overlay 18)
-        - 0x17 (overlay 19)
-        - 0x18 (overlay 20)
-        - 0x19 (overlay 21)
-        - 0x1A (overlay 22)
-        - 0x1B (overlay 23)
-        - 0x1C (overlay 24)
-        - 0x1D (overlay 25)
-        - 0x1E (overlay 26)
-        - 0x1F (overlay 27)
-        - 0x20 (overlay 28)
-        - 0x21 (overlay 30)
-        - 0x22 (overlay 31)
-        - 0x23 (overlay 32)
-        - 0x24 (overlay 33)
-    - name: LOADED_OVERLAY_GROUP_1
-      address:
-        NA: 0x20AF234
-        EU: 0x20AFAD4
-      length:
-        NA: 0x4
-        EU: 0x4
-      description: |-
-        The overlay group ID of the overlay currently loaded in slot 1. A group ID of 0 denotes no overlay.
-        
-        Overlay group IDs that can be loaded in slot 1:
-        - 0x4 (overlay 1)
-        - 0x5 (overlay 2)
-        - 0xD (overlay 11)
-        - 0xE (overlay 29)
-        - 0xF (overlay 34)
-    - name: LOADED_OVERLAY_GROUP_2
-      address:
-        NA: 0x20AF238
-        EU: 0x20AFAD8
-      length:
-        NA: 0x4
-        EU: 0x4
-      description: |-
-        The overlay group ID of the overlay currently loaded in slot 2. A group ID of 0 denotes no overlay.
-        
-        Overlay group IDs that can be loaded in slot 2:
-        - 0x1 (overlay 0)
-        - 0x2 (overlay 10)
-        - 0x3 (overlay 35)
-    - name: GAME_STATE_VALUES
-      address:
-        NA: 0x20AF6B8
-        EU: 0x20AFF70
-    - name: DUNGEON_MOVE_TABLES
-      address:
-        NA: 0x20AF6DC
-      description: Seems to be some sort of region (a table of tables?) that holds pointers to various important tables related to moves.
-    - name: MOVE_DATA_TABLE_PTR
-      address:
-        NA: 0x20AF6E4
-      length:
-        NA: 0x4
-      description: Points to the contents of the move data table loaded from waza_p.bin
-    - name: LANGUAGE_INFO_DATA
-      address:
-        NA: 0x20AFCE8
-        EU: 0x20B05A8
-    - name: NOTIFY_NOTE
-      address:
-        NA: 0x20AFEF8
-        EU: 0x20B0814
-    - name: GAME_MODE
-      address:
-        NA: 0x20AFF70
-        EU: 0x20B088C
-    - name: MEMORY_ALLOCATION_TABLE
-      address:
-        NA: 0x20B3380
-        EU: 0x20B3CC0
-      description: Keeps track of all active heap allocations.
     - name: DUNGEON_COLORMAP_PTR
       address:
         NA: 0x21B9CF4
@@ -284,70 +186,18 @@ arm9:
         One bit per skill (1 if unlocked). Same format as the IQ skills bitvector on the monster info struct.
         
         This is presumably part of a larger struct, together with other nearby data.
-    - name: UNIONALL_RAM_ADDRESS
-      address:
-        NA: 0x2324CA4
-        EU: 0x23257E4
-    - name: GROUND_STATE_MAP
-      address:
-        NA: 0x2324CC0
-        EU: 0x2325800
-    - name: DUNGEON_PTR
-      address:
-        NA: 0x2353538
-        EU: 0x2354138
-      length:
-        NA: 0x4
-        EU: 0x4
-      description: |-
-        Pointer to the dungeon struct in dungeon mode.
-        
-        This is a "working copy" of DUNGEON_PTR_MASTER. The main dungeon engine uses this pointer (or rather pointers to this pointer) when actually running dungeon mode.
-    - name: DUNGEON_PTR_MASTER
-      address:
-        NA: 0x235353C
-      length:
-        NA: 0x4
-      description: |-
-        Pointer to the dungeon struct in dungeon mode.
-        
-        This is a "master copy" of the dungeon pointer. The game uses this pointer when doing low-level memory work (allocation, freeing, zeroing). The normal DUNGEON_PTR is used for most other dungeon mode work.
-    - name: PRNG_STATE
-      address:
-        NA: 0x2353570
-      length:
-        NA: 0x14
-      description: |-
-        The global PRNG state for dungeon mode, not including the current values in the secondary sequences.
-        
-        This struct holds state for the primary LCG, as well as the current configuration controlling which LCG to use when generating random numbers. See Rand16Bit in overlay29.yml for more information on how the PRNG works.
-    - name: PRNG_STATE_SECONDARY_VALUES
-      address:
-        NA: 0x2353584
-      length:
-        NA: 0x14
-      description: |-
-        An array of 5 integers corresponding to the last value generated for each secondary LCG sequence.
-        
-        Based on the assembly, this appears to be its own global array, separate from PRNG_STATE.
-    - name: FIXED_ROOM_DATA_PTR
-      address:
-        NA: 0x2353794
-      length:
-        NA: 0x4
-      description: Pointer to decoded fixed room data loaded from the BALANCE/fixed.bin file.
     - name: TURNING_ON_THE_SPOT_FLAG
       address:
         NA: 0x237C9A6
       length:
         NA: 0x1
-      description: Flag for whether the player is turning on the spot (pressing Y).
+      description: "[Runtime] Flag for whether the player is turning on the spot (pressing Y)."
     - name: FLOOR_GENERATION_STATUS
       address:
         NA: 0x237CFBC
       length:
         NA: 0x40
       description: |-
-        Status data related to generation of the current floor in a dungeon.
+        [Runtime] Status data related to generation of the current floor in a dungeon.
         
         This data is populated as the dungeon floor is generated.
