@@ -1,7 +1,10 @@
 This file contains a list of people who have made notable contributions to the
-substantive contents of pmdsky-debug. If you have made a contribution, whether
-to the symbol tables or other parts of the project, feel free to add yourself
-to this file!
+substantive contents of pmdsky-debug. List order is determined by when
+someone's contributions were incorporated into this repository, and is
+unrelated to contribution size or importance.
+
+If you have made a contribution, whether to the symbol tables, C headers, or
+other parts of the project, feel free to add yourself to this file!
 
 - UsernameFodder
 - psy_commando
