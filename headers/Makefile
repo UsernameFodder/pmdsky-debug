@@ -20,4 +20,4 @@ format:
 
 .PHONY: format-check
 format-check:
-	find . -iname '*.h' | xargs clang-format --dry-run -i
+	find . -iname '*.h' | xargs clang-format --dry-run -Werror
