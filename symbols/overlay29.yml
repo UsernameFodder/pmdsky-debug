@@ -231,6 +231,15 @@ overlay29:
         r0: entity pointer
         r1: ability ID
         return: bool
+    - name: MonsterIsType
+      address:
+        NA: 0x2301E50
+      description: |-
+        Checks if a monster is a given type.
+        
+        r0: entity pointer
+        r1: type ID
+        return: bool
     - name: IqSkillIsEnabled
       address:
         NA: 0x2301F80
@@ -400,6 +409,25 @@ overlay29:
         r0: attacker pointer
         r1: defender pointer
         return: bool, whether or not the ability was activated
+    - name: TeamExclusiveItemEffectIsActive
+      address:
+        NA: 0x231A87C
+      description: |-
+        Checks if a monster is a team member under the effects of a certain exclusive item effect.
+        
+        r0: entity pointer
+        r1: exclusive item effect ID
+        return: bool
+    - name: GetEntityMoveTargetAndRange
+      address:
+        NA: 0x231ACAC
+      description: |-
+        Gets the move target-and-range field when used by a given entity. See struct move_target_and_range in the C headers.
+        
+        r0: entity pointer
+        r1: move pointer
+        r2: AI flag (same as GetMoveTargetAndRange)
+        return: move target and range
     - name: ApplyItemEffect
       address:
         NA: 0x231B68C
@@ -1358,6 +1386,10 @@ overlay29:
         The base value by which belly is decreased every turn.
         
         Its raw value is 0x199A, which encodes a Q16.16 binary fixed-point float with value (0x199A * 2^-16), and is the closest approximation to 0.1 representable in this number format.
+    - name: MOVE_TARGET_AND_RANGE_SPECIAL_USER_HEALING
+      address:
+        NA: 0x231AD34
+      description: The move target and range code for special healing moves that target just the user.
     - name: PLAIN_SEED_VALUE
       address:
         NA: 0x231C748

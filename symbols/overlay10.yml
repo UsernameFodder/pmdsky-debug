@@ -79,14 +79,14 @@ overlay10:
         NA: 0x2
         EU: 0x2
       description: The permanent HP boost from eating a Life Seed.
-    - name: INTIMIDATOR_CHANCE
+    - name: INTIMIDATOR_ACTIVATION_CHANCE
       address:
         NA: 0x22C45B8
         EU: 0x22C4F10
       length:
         NA: 0x2
         EU: 0x2
-      description: The number of turns between enemy spawns under normal conditions.
+      description: The percentage chance that Intimidator will activate.
     - name: ORAN_BERRY_HP_RESTORATION
       address:
         NA: 0x22C45EC

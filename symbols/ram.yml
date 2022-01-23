@@ -29,6 +29,26 @@ arm9:
         Pointer to a colormap used to render colors in a dungeon.
         
         The colormap is a list of 4-byte RGB colors of the form {R, G, B, padding}, which the game indexes into when rendering colors. Some weather conditions modify the colormap, which is how the color scheme changes when it's, e.g., raining.
+    - name: DUNGEON_STRUCT
+      address:
+        NA: 0x21B9D34
+        EU: 0x21BA674
+      length:
+        NA: 0x2CB14
+        EU: 0x2CB14
+      description: |-
+        The dungeon context struct used for tons of stuff in dungeon mode. See struct dungeon in the C headers.
+        
+        This struct never seems to be referenced directly, and is instead usually accessed via DUNGEON_PTR in overlay 29.
+    - name: MOVE_DATA_TABLE
+      address:
+        NA: 0x22113CC
+      length:
+        NA: 0x38C6
+      description: |-
+        The move data table loaded directly from /BALANCE/waza_p.bin. See struct move_data_table in the C headers.
+        
+        Pointed to by MOVE_DATA_TABLE_PTR in the ARM 9 binary.
     - name: FRAMES_SINCE_LAUNCH
       address:
         NA:

@@ -178,6 +178,15 @@ arm9:
         r0: the effects bitvector to test
         r1: exclusive item effect ID
         return: bool
+    - name: GetMoveTargetAndRange
+      address:
+        NA: 0x2013840
+      description: |-
+        Gets the move target-and-range field. See struct move_target_and_range in the C headers.
+        
+        r0: move pointer
+        r1: AI flag (every move has two target-and-range fields, one for players and one for AI)
+        return: move target and range
     - name: GetMoveBasePower
       address:
         NA: 0x20139CC

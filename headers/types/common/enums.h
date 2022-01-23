@@ -2646,6 +2646,49 @@ enum move_category {
     CATEGORY_NONE = 3, // this is a guess
 };
 
+// Move range.
+// In the move data, this is the upper 4 bits of the joint Range + Target bitfield
+enum move_range {
+    RANGE_FRONT = 0,           // 1 tile in front
+    RANGE_FRONT_AND_SIDES = 1, // also cuts corners
+    RANGE_NEARBY = 2,          // the 8 surrounding tiles
+    RANGE_ROOM = 3,            // the whole room
+    RANGE_FRONT_2 = 4,         // 2 tiles in front
+    RANGE_FRONT_10 = 5,        // 10 tiles in front
+    RANGE_FLOOR = 6,           // the whole floor
+    // Depends on the move:
+    // - if the target is the user, then the range is also just the user
+    // - if the target is enemies after charging, the range is front or front with corner cutting,
+    //   depending on the move
+    RANGE_USER = 7,
+    RANGE_FRONT_WITH_CORNER_CUTTING = 8, // same as RANGE_FRONT but cuts corners
+    // Ice Shard is the only move in the game with this value. Same effect as RANGE_FRONT_2?
+    RANGE_ICE_SHARD = 9,
+    RANGE_SPECIAL = 15, // for weird moves
+};
+
+// Move target (i.e., who does a move affect when used?)
+// In the move data, this is the lower 4 bits of the joint Range + Target bitfield
+enum move_target {
+    TARGET_ENEMIES = 0,
+    TARGET_PARTY = 1, // including the user
+    TARGET_ALL = 2,   // including the user
+    TARGET_USER = 3,
+    TARGET_ENEMIES_AFTER_CHARGING = 4, // in some sense the user while charging, then enemies
+    TARGET_ALL_EXCEPT_USER = 5,
+    TARGET_TEAMMATES = 6, // excluding the user
+    TARGET_SPECIAL = 15,  // for weird moves
+};
+
+// This is crammed together with the Range + Target bitfield, and seems to be used to
+// differentiate certain healing moves. This might also be a bitfield rather than an enum?
+enum healing_move_type {
+    HEALING_MOVE_NORMAL = 0,
+    // For Softboiled, Moonlight, Milk Drink, Synthesis, Swallow, Heal Order, and Roost
+    HEALING_MOVE_SPECIAL = 2,
+    HEALING_MOVE_FAINT = 3, // Healing Wish and Lunar Dance
+};
+
 // Ability ID
 enum ability_id {
     ABILITY_UNKNOWN = 0,

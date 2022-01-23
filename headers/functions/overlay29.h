@@ -26,6 +26,7 @@ bool ItemIsActive(struct entity* entity, enum item_id item_id);
 bool IsMonster(struct entity* entity);
 bool NoGastroAcidStatus(struct entity* entity);
 bool AbilityIsActive(struct entity* entity, enum ability_id ability_id);
+bool MonsterIsType(struct entity* entity, enum type_id type_id);
 bool IqSkillIsEnabled(struct entity* entity, enum iq_skill_id iq_id);
 int GetMovePower(struct entity* entity, struct move* move);
 bool DefenderAbilityIsActive(struct entity* attacker, struct entity* defender,
@@ -57,6 +58,8 @@ void BoostSpeed(struct entity* attacker, struct entity* defender, undefined4 par
 void BoostSpeedWrapper(struct entity* attacker, struct entity* defender, undefined4 param_3,
                        undefined4 param_4);
 bool TryActivateQuickFeet(struct entity* attacker, struct entity* defender);
+bool TeamExclusiveItemEffectIsActive(struct entity* entity,
+                                     enum exclusive_item_effect_id effect_id);
 void ApplyItemEffect(undefined4 param_1, undefined4 param_2, undefined4 param_3,
                      struct entity* attacker, struct entity* defender, struct item* thrown_item);
 void ViolentSeedBoost(struct entity* attacker, struct entity* defender);

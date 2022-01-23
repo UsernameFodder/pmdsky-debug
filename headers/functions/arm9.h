@@ -23,6 +23,7 @@ void ApplyExclusiveItemStatBoosts(enum item_id item_id, uint8_t* atk_boost, uint
                                   uint8_t* def_boost, uint8_t* sp_def_boost);
 void SetExclusiveItemEffect(uint32_t* effect_flags, enum exclusive_item_effect_id effect_id);
 bool ExclusiveItemEffectFlagTest(uint32_t* effect_flags, enum exclusive_item_effect_id effect_id);
+struct move_target_and_range GetMoveTargetAndRange(struct move* move, bool is_ai);
 int GetMoveBasePower(struct move* move);
 int GetMaxPp(struct move* move);
 int GetMoveCritChance(struct move* move);
