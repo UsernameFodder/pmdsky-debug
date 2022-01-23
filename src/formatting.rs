@@ -59,16 +59,16 @@ fn print_format_diff(old: &str, new: &str, title: &str) -> io::Result<()> {
         // Manually add pretty colors to the diff output (based on `git diff`) :)
         for (i, line) in diff.lines().enumerate() {
             // Don't color the first 2 lines from the header
-            if i > 1 && line.starts_with("+") {
+            if i > 1 && line.starts_with('+') {
                 stderr.set_color(color.set_fg(Some(Color::Green)))?;
                 writeln!(&mut stderr, "{}", line)?;
-            } else if i > 1 && line.starts_with("-") {
+            } else if i > 1 && line.starts_with('-') {
                 stderr.set_color(color.set_fg(Some(Color::Red)))?;
                 writeln!(&mut stderr, "{}", line)?;
-            } else if line.starts_with("@@") {
+            } else if let Some(stripped_line) = line.strip_prefix("@@") {
                 // Only color the stuff between the first two instances of "@@"
                 stderr.set_color(color.set_fg(Some(Color::Cyan)))?;
-                let end = match line[2..].find("@@") {
+                let end = match stripped_line.find("@@") {
                     Some(end_shifted) => {
                         end_shifted + 4 // + 2 for the shift, + 2 to move past the found "@@"
                     }

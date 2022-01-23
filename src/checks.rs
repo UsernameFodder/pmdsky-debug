@@ -358,10 +358,12 @@ fn check_in_bounds_symbols(symgen: &SymGen) -> Result<(), String> {
 }
 
 fn check_no_function_overlap(symgen: &SymGen) -> Result<(), String> {
+    type Extent = (Uint, Uint);
+
     fn append_ext<'a>(
-        extents: &mut Option<VersionDep<Vec<((Uint, Uint), &'a str)>>>,
+        extents: &mut Option<VersionDep<Vec<(Extent, &'a str)>>>,
         vers: Version,
-        ext: (Uint, Uint),
+        ext: Extent,
         name: &'a str,
     ) {
         match extents {
@@ -371,7 +373,7 @@ fn check_no_function_overlap(symgen: &SymGen) -> Result<(), String> {
             Some(exts) => {
                 exts.entry(vers)
                     .and_modify(|e| e.push((ext, name)))
-                    .or_insert(vec![(ext, name)]);
+                    .or_insert_with(|| vec![(ext, name)]);
             }
         }
     }
@@ -387,11 +389,11 @@ fn check_no_function_overlap(symgen: &SymGen) -> Result<(), String> {
         // values have a well-defined set to realize to.
         let versions = b.versions.as_deref().unwrap_or(&[]);
         // ((inclusive start, exclusive end), symbol name)
-        let mut extents_by_vers: Option<VersionDep<Vec<((Uint, Uint), &str)>>> = None;
+        let mut extents_by_vers: Option<VersionDep<Vec<(Extent, &str)>>> = None;
 
         // Gather all function extents
         for s in b.functions.iter() {
-            if let MaybeVersionDep::ByVersion(s_exts) = s.extents(Some(&versions)) {
+            if let MaybeVersionDep::ByVersion(s_exts) = s.extents(Some(versions)) {
                 for (vers, (addrs, len)) in s_exts.iter() {
                     for addr in addrs.iter() {
                         // Every function is considered to have a length of at least 1
@@ -415,7 +417,7 @@ fn check_no_function_overlap(symgen: &SymGen) -> Result<(), String> {
         // Compare adjacent extents for overlaps
         if let Some(mut exts_by_vers) = extents_by_vers {
             for (vers, exts) in exts_by_vers.iter_mut() {
-                exts.sort();
+                exts.sort_unstable();
                 for pair in exts.windows(2) {
                     let ((start1, end1), name1) = pair[0];
                     let ((start2, end2), name2) = pair[1];
@@ -502,20 +504,20 @@ fn print_report(results: &[(String, CheckResult)]) -> io::Result<()> {
         }
 
         stdout.reset()?;
-        writeln!(&mut stdout, "")?;
+        writeln!(&mut stdout)?;
         let n_failed = results.iter().filter(|(_, r)| !r.succeeded).count();
         let n_passed = results.len() - n_failed;
 
         // Failure details
         if n_failed > 0 {
             writeln!(&mut stdout, "failures:")?;
-            writeln!(&mut stdout, "")?;
+            writeln!(&mut stdout)?;
             for (name, r) in results.iter().filter(|(_, r)| !r.succeeded) {
                 writeln!(&mut stdout, "---- [{}] {} ----", name, r.check)?;
                 if let Some(msg) = &r.details {
                     writeln!(&mut stdout, "{}", msg)?;
                 }
-                writeln!(&mut stdout, "")?;
+                writeln!(&mut stdout)?;
             }
         }
 
@@ -565,10 +567,11 @@ where
     print_report(&results)?;
 
     if !errors.is_empty() {
-        Err(MultiFileError {
+        return Err(MultiFileError {
             base_msg: "Could not complete checks".to_string(),
             errors,
-        })?;
+        }
+        .into());
     }
     Ok(results.iter().all(|(_, r)| r.succeeded))
 }

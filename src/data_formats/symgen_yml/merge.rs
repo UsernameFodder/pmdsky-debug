@@ -344,7 +344,7 @@ impl Merge for Block {
             match &mut self.versions {
                 Some(vers) => {
                     for ov in other_versions {
-                        if vers.iter().find(|v| v.name() == ov.name()).is_none() {
+                        if !vers.iter().any(|v| v.name() == ov.name()) {
                             // New version; add it to self
                             vers.push(ov.clone());
                         }
@@ -401,7 +401,7 @@ impl Merge for SymGen {
                 Some(bkey) => {
                     MergeConflict::wrap(
                         self.get_mut(&bkey)
-                            .and_then(|b| Some(b.merge(block)))
+                            .map(|b| b.merge(block))
                             .unwrap_or(Ok(())),
                         bname,
                     )?;
@@ -449,8 +449,8 @@ impl SymbolManager {
             let i = imap.get(symbol_name).copied();
             self.0
                 .entry(block_name.to_owned())
-                .or_insert(HashMap::new())
-                .entry(symbol_type.clone())
+                .or_insert_with(HashMap::new)
+                .entry(*symbol_type)
                 .or_insert(imap);
             i
         };
@@ -477,7 +477,7 @@ impl SymbolManager {
 
 impl SymGen {
     pub fn merge_symgen(&mut self, other: &Self) -> Result<(), MergeError> {
-        self.merge(other).map_err(|e| MergeError::Conflict(e))
+        self.merge(other).map_err(MergeError::Conflict)
     }
     pub fn merge_symbols<I>(&mut self, other: I) -> Result<Vec<Symbol>, MergeError>
     where
@@ -554,7 +554,7 @@ impl SymGen {
                     } else {
                         Cow::Borrowed(&to_add.symbol)
                     };
-                    s.merge(&to_merge).map_err(|e| MergeError::Conflict(e))?;
+                    s.merge(&to_merge).map_err(MergeError::Conflict)?;
                 }
                 None => sym_manager.insert(slist, bname, &to_add.stype, to_add.symbol.clone()),
             };

@@ -257,7 +257,8 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
                 Err(MultiFileError {
                     base_msg: "Failed to generate symbols".to_string(),
                     errors,
-                })?
+                }
+                .into())
             }
         }
         Some("fmt") => {
@@ -280,13 +281,14 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
                     };
                 }
                 if !errors.is_empty() {
-                    Err(MultiFileError {
+                    return Err(MultiFileError {
                         base_msg: "Could not complete format check".to_string(),
                         errors,
-                    })?
+                    }
+                    .into());
                 }
                 if failed {
-                    Err("Formatting issues detected.")?;
+                    return Err("Formatting issues detected.".into());
                 }
             } else {
                 let mut errors = Vec::with_capacity(input_files.len());
@@ -296,10 +298,11 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
                     }
                 }
                 if !errors.is_empty() {
-                    Err(MultiFileError {
+                    return Err(MultiFileError {
                         base_msg: "Formatting failed".to_string(),
                         errors,
-                    })?
+                    }
+                    .into());
                 }
             }
             Ok(())
@@ -337,7 +340,7 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
             // This one handles multiple files internally so that check result printing
             // can be merged appropriately
             if !resymgen::run_and_print_checks(input_files.collect::<Vec<_>>(), &checks)? {
-                Err("Checks did not pass")?
+                return Err("Checks did not pass".into());
             }
             Ok(())
         }
@@ -381,7 +384,7 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
                             " {}",
                             unmerged
                                 .iter()
-                                .map(|s| format!("{}", s.name))
+                                .map(|s| s.name.clone())
                                 .collect::<Vec<_>>()
                                 .join(", ")
                         )?;
@@ -393,7 +396,7 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
             let res = print_unmerged_colored();
             // Always try to clean up color settings before returning
             if let Err(e) = stdout.reset() {
-                Err(e)?;
+                return Err(e.into());
             } else {
                 res?;
             }

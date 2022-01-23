@@ -339,10 +339,10 @@ impl Block {
         // with extent(), this function actually CHANGES Common to ByVersion, which sort of loses
         // information (because Common is purely generic).
         if let Some(vers) = &self.versions {
-            self.address.expand_versions(&vers);
-            self.length.expand_versions(&vers);
-            self.functions.expand_versions(&vers);
-            self.data.expand_versions(&vers);
+            self.address.expand_versions(vers);
+            self.length.expand_versions(vers);
+            self.functions.expand_versions(vers);
+            self.data.expand_versions(vers);
         }
     }
     /// Look up a version by name
@@ -415,7 +415,7 @@ impl SymGen {
         }
     }
     pub fn read_no_init<R: Read>(rdr: R) -> Result<SymGen> {
-        serde_yaml::from_reader(rdr).map_err(|e| Error::Yaml(e))
+        serde_yaml::from_reader(rdr).map_err(Error::Yaml)
     }
     pub fn read<R: Read>(rdr: R) -> Result<SymGen> {
         let mut symgen: SymGen = SymGen::read_no_init(rdr)?;
@@ -454,7 +454,7 @@ impl SymGen {
             // Note that the strings in the Block version list cannot look like a YAML map
             // key (identifier followed by a colon) without being quoted, so we're safe from
             // user-defined versions in this case.
-            let trimmed = line.trim_start().trim_start_matches("-").trim_start();
+            let trimmed = line.trim_start().trim_start_matches('-').trim_start();
             // Safe to subtract usize here since trimmed.len() <= line.len()
             let whitespace_level = line.len() - trimmed.len();
 
@@ -550,18 +550,16 @@ impl SymGen {
             if let Some(idx) = line.find('"') {
                 start_idx = idx;
                 contents = Cow::Borrowed(&line[start_idx..]);
-            } else {
-                if let Some(colon) = line.find(':') {
-                    if let Some(i) = line[colon + 1..].find(|c: char| !c.is_ascii_whitespace()) {
-                        start_idx = colon + 1 + i;
-                        // Manually add quotes so it can be parsed as a Rust string literal
-                        contents = Cow::Owned(format!("\"{}\"", &line[start_idx..]));
-                    } else {
-                        return false;
-                    }
+            } else if let Some(colon) = line.find(':') {
+                if let Some(i) = line[colon + 1..].find(|c: char| !c.is_ascii_whitespace()) {
+                    start_idx = colon + 1 + i;
+                    // Manually add quotes so it can be parsed as a Rust string literal
+                    contents = Cow::Owned(format!("\"{}\"", &line[start_idx..]));
                 } else {
                     return false;
                 }
+            } else {
+                return false;
             }
             if let Ok(l) = syn::parse_str::<LitStr>(&contents) {
                 // Only convert multiline strings
@@ -589,7 +587,7 @@ impl SymGen {
         // so this shouldn't be much worse. If it ever becomes an issue (like with merging huge
         // files or something) this can be refactored to use another intermediate tempfile and a
         // BufReader/BufWriter or something.
-        let mut yaml = serde_yaml::to_string(self).map_err(|e| Error::Yaml(e))?;
+        let mut yaml = serde_yaml::to_string(self).map_err(Error::Yaml)?;
         // yaml-rust's built-in behavior is to dump integers in decimal
         // (https://github.com/chyh1990/yaml-rust/blob/4fffe95cddbcf444f8a3f080364caf16a6c11ca6/src/emitter.rs#L173)
         // so writing in hex format requires further processing.
@@ -608,12 +606,12 @@ impl SymGen {
             .unwrap_or(&yaml)
             .trim_start()
             .as_bytes();
-        writer.write_all(yaml_bytes).map_err(|e| Error::Io(e))
+        writer.write_all(yaml_bytes).map_err(Error::Io)
     }
     pub fn write_to_str(&self, int_format: IntFormat) -> Result<String> {
         let mut bytes = Vec::<u8>::new();
         self.write(&mut bytes, int_format)?;
-        Ok(String::from_utf8(bytes).map_err(|e| Error::FromUtf8(e))?)
+        String::from_utf8(bytes).map_err(Error::FromUtf8)
     }
 
     pub fn expand_versions(&mut self) {

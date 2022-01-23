@@ -35,7 +35,7 @@ fn generate_symbols<P: AsRef<Path>>(
     for fmt in formats.iter() {
         for version in versions.iter() {
             // Write to a tempfile first, then persist atomically.
-            let output_file = output_file_name(output_base.as_ref(), &version, &fmt);
+            let output_file = output_file_name(output_base.as_ref(), version, fmt);
             let f_gen = NamedTempFile::new()?;
             fmt.generate(&f_gen, symgen, version)?;
             // Make sure the parent directory exists first
@@ -110,7 +110,7 @@ where
     let mut unmerged_symbols = Vec::with_capacity(input_files.as_ref().len());
     for input_name in input_files.as_ref() {
         let input = File::open(input_name)?;
-        unmerged_symbols.push(input_format.merge(&mut contents, input, &merge_params)?);
+        unmerged_symbols.push(input_format.merge(&mut contents, input, merge_params)?);
     }
 
     let output_file = NamedTempFile::new()?;

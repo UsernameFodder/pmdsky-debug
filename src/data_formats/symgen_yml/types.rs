@@ -361,11 +361,7 @@ impl<T> MaybeVersionDep<T> {
         }
     }
     pub fn is_common(&self) -> bool {
-        if let Self::Common(_) = self {
-            true
-        } else {
-            false
-        }
+        matches!(self, Self::Common(_))
     }
 
     pub fn get(&self, key: Option<&Version>) -> Option<&T> {
