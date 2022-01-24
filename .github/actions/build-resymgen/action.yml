@@ -1,0 +1,19 @@
+name: Build resymgen
+description: Build resymgen (release profile and tests) or retrieve it from cache
+runs:
+  using: composite
+  steps:
+    - name: Check cache
+      id: cache-lookup
+      uses: actions/cache@v2
+      with:
+        path: target
+        key: ${{ hashFiles('Cargo.toml') }}-${{ hashFiles('src/**') }}
+    - name: Build resymgen
+      run: cargo build --release --verbose
+      shell: bash
+      if: steps.cache-lookup.outputs.cache-hit != 'true'
+    - name: Build tests
+      run: cargo build --tests --verbose
+      shell: bash
+      if: steps.cache-lookup.outputs.cache-hit != 'true'
