@@ -1,0 +1,94 @@
+name: Release Package
+
+on:
+  push:
+    paths:
+      - 'src/**.rs'
+      - 'symbols/**.yml'
+      - 'headers/**'
+      - 'Cargo.toml'
+      - '.github/workflows/release.yml'
+    branches:
+      - master
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  check-resymgen:
+    uses: UsernameFodder/pmdsky-debug/.github/workflows/check-resymgen.yml@master
+  check-symbols:
+    uses: UsernameFodder/pmdsky-debug/.github/workflows/check-symbols.yml@master
+    with:
+      no-format-on-check-fail: true
+  check-headers:
+    uses: UsernameFodder/pmdsky-debug/.github/workflows/check-headers.yml@master
+    with:
+      no-format-on-check-fail: true
+  generate-and-deploy:
+    runs-on: ubuntu-latest
+    needs:
+      - check-resymgen
+      - check-symbols
+      - check-headers
+    env:
+      RELEASE_VERSION: '0.1.0'
+      OUTPUT_DIR: out
+      RELEASE_INSTALL_DIR: release-install
+      RELEASE_ASSETS_DIR: release-assets
+      RELEASE_HASH_FILE: release-assets.sha256
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install resymgen
+        uses: ./.github/actions/build-resymgen
+      - name: Generate symbols
+        run: resymgen gen --output-dir ${{ env.OUTPUT_DIR }} symbols/*.yml
+      - name: Create release directories
+        run: mkdir -p ${{ env.RELEASE_INSTALL_DIR }} ${{ env.RELEASE_ASSETS_DIR }}
+      - name: Install symbols
+        shell: bash
+        run: |
+          # Install the symbol packages
+          for f in $(ls ${{ env.OUTPUT_DIR }}/*); do
+            version_and_format="${f##*_}"
+            version="${version_and_format%.*}"
+            format="${version_and_format##*.}"
+            dir="${{ env.RELEASE_INSTALL_DIR }}/symbols-${format}/${version}"
+            mkdir -p "${dir}"
+            cp "${f}" "${dir}"
+          done
+      - name: Install headers
+        run: rsync -av --include '*/' --include '*.h' --exclude '*' headers ${{ env.RELEASE_INSTALL_DIR }}
+      - name: Archive packages
+        run: |
+          for f in $(ls); do
+            zip -r "../${{ env.RELEASE_ASSETS_DIR }}/${f}.zip" ${f}
+          done
+        working-directory: ${{ env.RELEASE_INSTALL_DIR }}
+      - name: Compute SHA-256 hash for the release package
+        env:
+          HASH_FILE: ${{ env.RELEASE_ASSETS_DIR }}/${{ env.RELEASE_HASH_FILE }}
+        id: new_hash
+        run: |
+          echo ${{ hashFiles(format('{0}/**', env.RELEASE_INSTALL_DIR)) }} > ${HASH_FILE}
+          echo "::set-output name=sha256::$(cat ${HASH_FILE})"
+      - name: Retrieve SHA-256 hash of the previous release package
+        env:
+          HASH_FILE: ${{ env.RELEASE_HASH_FILE }}.old
+        id: old_hash
+        run: |
+          curl --location --fail "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/releases/latest/download/${{ env.RELEASE_HASH_FILE }}" > ${HASH_FILE} || echo "Could not locate previous release package"
+          cat ${HASH_FILE}
+          echo "::set-output name=sha256::$(cat ${HASH_FILE})"
+      - name: Generate release tag
+        id: tag
+        run: echo "::set-output name=release_tag::v${{ env.RELEASE_VERSION }}-${GITHUB_SHA:0:10}"
+        if: steps.new_hash.outputs.sha256 != steps.old_hash.outputs.sha256
+      - name: Create release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.tag.outputs.release_tag }}
+          files: '${{ env.RELEASE_ASSETS_DIR }}/*'
+          fail_on_unmatched_files: true
+        if: steps.new_hash.outputs.sha256 != steps.old_hash.outputs.sha256
