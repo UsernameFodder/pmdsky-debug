@@ -7,8 +7,11 @@ runs:
       id: cache-lookup
       uses: actions/cache@v2
       with:
-        path: target
-        key: ${{ hashFiles('Cargo.toml') }}-${{ hashFiles('src/**') }}
+        path: |
+          ~/.cargo/registry
+          ~/.cargo/git
+          target
+        key: cache-v2_${{ runner.os }}-${{ hashFiles('Cargo.toml') }}-${{ hashFiles('src/**') }}
     - name: Build resymgen
       run: cargo build --release --verbose
       shell: bash
