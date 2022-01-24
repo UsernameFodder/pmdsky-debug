@@ -1,7 +1,7 @@
 #ifndef HEADERS_PMDSKY_H_
 #define HEADERS_PMDSKY_H_
 
-// Try to define the ASSERT_SIZE macro
+// Try to define the ASSERT_SIZE macro.
 #ifdef __has_feature
 #if __has_feature(c_static_assert)
 // clang
