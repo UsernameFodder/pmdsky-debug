@@ -24,10 +24,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Build resymgen
+      - name: Install resymgen
         uses: ./.github/actions/build-resymgen
       - name: Format check
-        run: cargo run --release -- fmt --check symbols/*.yml
+        run: resymgen fmt --check symbols/*.yml
   format:
     runs-on: ubuntu-latest
     needs: format-check
@@ -35,10 +35,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Build resymgen
+      - name: Install resymgen
         uses: ./.github/actions/build-resymgen
       - name: Format
-        run: cargo run --release -- fmt symbols/*.yml
+        run: resymgen fmt symbols/*.yml
       - name: Package reformatted files
         run: zip resymgen-fmt-output.zip $(git diff --relative --name-only)
         working-directory: symbols
@@ -57,7 +57,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Build resymgen
+      - name: Install resymgen
         uses: ./.github/actions/build-resymgen
       - name: Test
-        run: cargo run --release -- check --complete-version-list --explicit-versions --in-bounds-symbols --no-function-overlap --nonempty-maps --unique-symbols --data-names SCREAMING_SNAKE_CASE --function-names PascalCase symbols/*.yml
+        run: resymgen check --complete-version-list --explicit-versions --in-bounds-symbols --no-function-overlap --nonempty-maps --unique-symbols --data-names SCREAMING_SNAKE_CASE --function-names PascalCase symbols/*.yml
