@@ -9,12 +9,12 @@ struct dungeon {
     undefined field_0x3;
     undefined field_0x4;
     undefined field_0x5;
-    // The floor will be advanced at the end of the turn.
+    // 0x6: The floor will be advanced at the end of the turn.
     bool climb_stairs_flag0;
-    // If set in tandem with one of the climb_stairs flags, a quicksave will occur instead of
+    // 0x7: If set in tandem with one of the climb_stairs flags, a quicksave will occur instead of
     // a floor advance.
     bool quicksave_flag;
-    // The floor will be advanced at the end of the turn. Seems to serve the same purpose as
+    // 0x8: The floor will be advanced at the end of the turn. Seems to serve the same purpose as
     // climb_stairs_flag0?
     bool climb_stairs_flag1;
     undefined field_0x9;
@@ -26,7 +26,7 @@ struct dungeon {
     undefined field_0xf;
     undefined field_0x10;
     undefined field_0x11;
-    bool iq_disabled; // IQ skills won't work in the dungeon
+    bool iq_disabled; // 0x12: IQ skills won't work in the dungeon
     undefined field_0x13;
     undefined field_0x14;
     undefined field_0x15;
@@ -1872,16 +1872,16 @@ struct dungeon {
     undefined field_0x745;
     undefined field_0x746;
     undefined field_0x747;
-    enum dungeon_id id : 8;
-    uint8_t floor;                      // Current floor number
-    enum dungeon_group_id group_id : 8; // Same for different segments of a dungeon
+    enum dungeon_id id : 8;             // 0x748
+    uint8_t floor;                      // 0x749: Current floor number
+    enum dungeon_group_id group_id : 8; // 0x74A: Same for different segments of a dungeon
     undefined field_0x74b;
     undefined field_0x74c;
     undefined field_0x74d;
     undefined field_0x74e;
     undefined field_0x74f;
     undefined field_0x750;
-    uint8_t rescue_floor; // Floor number where the rescue point is, if applicable
+    uint8_t rescue_floor; // 0x751: Floor number where the rescue point is, if applicable
     undefined field_0x752;
     undefined field_0x753;
     undefined field_0x754;
@@ -1889,31 +1889,31 @@ struct dungeon {
     undefined field_0x756;
     undefined field_0x757;
     undefined field_0x758;
-    bool recruiting_enabled; // Recruitment is allowed in this dungeon
+    bool recruiting_enabled; // 0x759: Recruitment is allowed in this dungeon
     undefined field_0x75a;
     undefined field_0x75b;
-    bool nonstory_flag;      // Allows leader changing and continuing without the partner
-    bool send_home_disabled; // Sending teammates home is not allowed in this dungeon
-    // Disables sending home/leader changing, lose if partner faints. Set for dungeons
+    bool nonstory_flag;      // 0x75C: Allows leader changing and continuing without the partner
+    bool send_home_disabled; // 0x75D: Sending teammates home is not allowed in this dungeon
+    // 0x75E: Disables sending home/leader changing, lose if partner faints. Set for dungeons
     // between DUNGEON_HIDDEN_LAND and DUNGEON_TEMPORAL_PINNACLE.
     bool hidden_land_flag;
     undefined field_0x75f;
-    // Info about the next mission destination floor, if applicable
+    // 0x760: Info about the next mission destination floor, if applicable
     struct mission_destination_info mission_destination;
     undefined field_0x77c;
     undefined field_0x77d;
     undefined field_0x77e;
     undefined field_0x77f;
-    // Controls when a monster at a certain speed stage is able to act.
+    // 0x780: Controls when a monster at a certain speed stage is able to act.
     // At normal speed, this will tick up by 4 each turn (can act when x % 4 == 3)
     // At +1 speed, ticks up by 2 each turn (can act when x % 2 == 1)
     // At +2 speed, ticks up by 1 or 2 each turn (can act when x % 4 != 0)
     // At +3 speed, ticks up by 1 each turn (an act every tick)
     uint16_t fractional_turn;
-    uint16_t enemy_spawn_counter; // Counts from 0-35, spawns happen at 0
-    int16_t wind_turns;           // Countdown to the wind blowing you out of the dungeon
-    uint16_t enemy_density;       // If 0, prevents the enemy_spawn_counter for increasing
-    // The genid of the next monster to be spawned. Ticks up with each spawn.
+    uint16_t enemy_spawn_counter; // 0x782: Counts from 0-35, spawns happen at 0
+    int16_t wind_turns;           // 0x784: Countdown to the wind blowing you out of the dungeon
+    uint16_t enemy_density;       // 0x786: If 0, prevents the enemy_spawn_counter for increasing
+    // 0x788: The genid of the next monster to be spawned. Ticks up with each spawn.
     uint16_t next_spawn_genid;
     undefined field_0x78a;
     undefined field_0x78b;
@@ -1921,20 +1921,21 @@ struct dungeon {
     undefined field_0x78d;
     undefined field_0x78e;
     undefined field_0x78f;
-    bool thief_alert;       // If you've stolen from Kecleon (actual dungeon state)
-    bool thief_alert_event; // If you've stolen from Kecleon (triggers music and other events?)
+    bool thief_alert; // 0x790: If you've stolen from Kecleon (actual dungeon state)
+    // 0x791: If you've stolen from Kecleon (triggers music and other events?)
+    bool thief_alert_event;
     undefined field_0x792;
-    bool monster_house_triggered; // You Entered a Monster House (actual dungeon state)
-    // You entered a Monster House (triggers music and other events?)
+    bool monster_house_triggered; // 0x793: You Entered a Monster House (actual dungeon state)
+    // 0x794: You entered a Monster House (triggers music and other events?)
     bool monster_house_triggered_event;
     undefined field_0x795;
     undefined field_0x796;
     undefined field_0x797;
-    enum dungeon_objective dungeon_objective : 8; // Objective of the current dungeon
+    enum dungeon_objective dungeon_objective : 8; // 0x798: Objective of the current dungeon
     undefined field_0x799;
     undefined field_0x79a;
-    uint8_t rescue_attempts_left; // Number of times you can be rescued in this dungeon
-    uint32_t prng_seed;           // The PRNG seed, if set
+    uint8_t rescue_attempts_left; // 0x79B: Number of times you can be rescued in this dungeon
+    uint32_t prng_seed;           // 0x79C: The PRNG seed, if set
     undefined field_0x7a0;
     undefined field_0x7a1;
     undefined field_0x7a2;
@@ -1947,7 +1948,7 @@ struct dungeon {
     undefined field_0x7a9;
     undefined field_0x7aa;
     undefined field_0x7ab;
-    // Second number in the default LCG sequence, used for computing the actual PRNG seed
+    // 0x7AC: Second number in the default LCG sequence, used for computing the actual PRNG seed
     uint32_t prng_preseed;
     undefined field_0x7b0;
     undefined field_0x7b1;
@@ -2017,7 +2018,7 @@ struct dungeon {
     undefined field_0x7f1;
     undefined field_0x7f2;
     undefined field_0x7f3;
-    struct monster monsters[20]; // Info for all the monsters currently in the dungeon
+    struct monster monsters[20]; // 0x7F4: Info for all the monsters currently in the dungeon
     undefined field_0x34f4;
     undefined field_0x34f5;
     undefined field_0x34f6;
@@ -4398,12 +4399,12 @@ struct dungeon {
     undefined field_0x3e3d;
     undefined field_0x3e3e;
     undefined field_0x3e3f;
-    struct item items[64]; // Info for all the items on the ground
-    uint16_t n_items;      // Number of active items in the above items array
+    struct item items[64]; // 0x3E40: Info for all the items on the ground
+    uint16_t n_items;      // 0x3FC0: Number of active items in the above items array
     undefined field_0x3fc2;
     undefined field_0x3fc3;
-    struct trap traps[64];                   // Info for all the traps on the floor
-    struct dungeon_generation_info gen_info; // Stuff involved with dungeon generation
+    struct trap traps[64];                   // 0x3FC4: Info for all the traps on the floor
+    struct dungeon_generation_info gen_info; // 0x40C4: Stuff involved with dungeon generation
     undefined field_0xccec;
     undefined field_0xcced;
     undefined field_0xccee;
@@ -4446,10 +4447,10 @@ struct dungeon {
     undefined field_0xcd13;
     // Min x of the generated Kecleon shop, if it exists. This reflects the original generation, and
     // is not updated if some shop tiles are deleted by later steps in floor generation
-    int kecleon_shop_min_x; // inclusive
-    int kecleon_shop_min_y; // inclusive
-    int kecleon_shop_max_x; // inclusive
-    int kecleon_shop_max_y; // inclusive
+    int kecleon_shop_min_x; // 0xCD14: inclusive
+    int kecleon_shop_min_y; // 0xCD18: inclusive
+    int kecleon_shop_max_x; // 0xCD1C: inclusive
+    int kecleon_shop_max_y; // 0xCD20: inclusive
     undefined field_0xcd24;
     undefined field_0xcd25;
     undefined field_0xcd26;
@@ -4470,29 +4471,29 @@ struct dungeon {
     undefined field_0xcd35;
     undefined field_0xcd36;
     undefined field_0xcd37;
-    enum weather_id weather : 8; // current weather
-    // Default weather on the floor that will be reverted to if the current weather is artificial
-    // and ends
+    enum weather_id weather : 8; // 0xCD38: current weather
+    // 0xCD39: Default weather on the floor that will be reverted to if the current weather is
+    // artificial and ends
     enum weather_id natural_weather : 8;
-    // Turns left for each weather type in enum weather_id (except WEATHER_RANDOM). If multiple of
-    // these are nonzero, the one with the highest number of turns left is chosen. Ties are broken
-    // in enum order
+    // 0xCD3A: Turns left for each weather type in enum weather_id (except WEATHER_RANDOM). If
+    // multiple of these are nonzero, the one with the highest number of turns left is chosen.
+    // Ties are broken in enum order
     uint16_t weather_turns[8];
-    // Turns left for artificial permaweather from weather-setting abilities like Drought, Sand
-    // Stream, Drizzle, and Snow Warning; one counter for each weather type in enum weather_id
+    // 0xCD4A: Turns left for artificial permaweather from weather-setting abilities like Drought,
+    // Sand Stream, Drizzle, and Snow Warning; one counter for each weather type in enum weather_id
     // (except WEATHER_RANDOM). Any nonzero value triggers that weather condition (it's usually set
     // to 1 or 0). If the weather's source is removed, this value becomes the normal number of turns
     // left for that weather condition. Priority in the event of multiple nonzero counters is the
     // same as with weather_turns.
     uint16_t artificial_permaweather_turns[8];
-    // For damaging weather conditions like sandstorm. Counts down from 9-0, damage on 9
+    // 0xCD5A: For damaging weather conditions like sandstorm. Counts down from 9-0, damage on 9
     uint8_t weather_damage_counter;
-    uint8_t mud_sport_turns;   // Number of turns left for the Mud Sport condition
-    uint8_t water_sport_turns; // Number of turns left for the Water Sport condition
-    bool nullify_weather;      // Cloud Nine/Air Lock is in effect
+    uint8_t mud_sport_turns;   // 0xCD5B: Number of turns left for the Mud Sport condition
+    uint8_t water_sport_turns; // 0xCD5C: Number of turns left for the Water Sport condition
+    bool nullify_weather;      // 0xCD5D: Cloud Nine/Air Lock is in effect
     undefined field_0xcd5e;
     undefined field_0xcd5f;
-    // Seems to be tile data for tiles within fixed rooms
+    // 0xCD60: Seems to be tile data for tiles within fixed rooms
     struct tile fixed_room_tiles[8][8];
     undefined field_0xd260;
     undefined field_0xd261;
@@ -4626,7 +4627,8 @@ struct dungeon {
     undefined field_0xd2e1;
     undefined field_0xd2e2;
     undefined field_0xd2e3;
-    // This is an array of pointers that point to the actual tile structs within the dungeon struct
+    // 0xD2E4: This is an array of pointers that point to the actual tile structs within the
+    // dungeon struct
     struct tile* tile_ptrs[32][56];
     undefined field_0xeee4;
     undefined field_0xeee5;
@@ -20010,10 +20012,10 @@ struct dungeon {
     undefined field_0x12af7;
     undefined field_0x12af8;
     undefined field_0x12af9;
-    // Number of normal item spawns. Does not include monster held items and additional items in
-    // walls or Monster Houses
+    // 0x12AFA: Number of normal item spawns. Does not include monster held items and additional
+    // items in walls or Monster Houses
     uint16_t n_normal_item_spawns;
-    bool gravity; // Gravity is in effect
+    bool gravity; // 0x12AFC: Gravity is in effect
     undefined field_0x12afd;
     undefined field_0x12afe;
     undefined field_0x12aff;
@@ -20057,7 +20059,7 @@ struct dungeon {
     undefined field_0x12b25;
     undefined field_0x12b26;
     undefined field_0x12b27;
-    struct entity_table entity_table; // Table of all entities in the dungeon
+    struct entity_table entity_table; // 0x12B28: Table of all entities in the dungeon
     undefined field_0x198e4;
     undefined field_0x198e5;
     undefined field_0x198e6;
@@ -22418,11 +22420,11 @@ struct dungeon {
     undefined field_0x1a219;
     undefined field_0x1a21a;
     undefined field_0x1a21b;
-    struct position leader_position_mirror0;
-    struct position leader_position_mirror1;
+    struct position leader_position_mirror0; // 0x1A21C
+    struct position leader_position_mirror1; // 0x1A220
     // Probably derived from pixel position of leader info block
-    struct position leader_pixel_pos_mirror0;
-    struct position leader_pixel_pos_mirror1;
+    struct position leader_pixel_pos_mirror0; // 0x1A224
+    struct position leader_pixel_pos_mirror1; // 0x1A228
     undefined field_0x1a22c;
     undefined field_0x1a22d;
     undefined field_0x1a22e;
@@ -22440,27 +22442,27 @@ struct dungeon {
     undefined field_0x1a23a;
     undefined field_0x1a23b;
     undefined field_0x1a23c;
-    // Controls the number of map tiles around the player's position that get marked as "visited"
-    // while exploring, as well as how far away you can see enemies under non-illuminated conditions
-    // (outside of this range, enemies will not be visible on screen)
+    // 0x1A23D: Controls the number of map tiles around the player's position that get marked as
+    // "visited" while exploring, as well as how far away you can see enemies under non-illuminated
+    // conditions (outside of this range, enemies will not be visible on screen)
     uint8_t visibility_range;
     undefined field_0x1a23e;
-    bool luminous; // Luminous Orb is in effect
-    // Darkness is removed from the floor like with luminous, but the floor layout and enemy
-    // locations aren't revealed. This is set in dungeons that aren't naturally dark, and also in
-    // some fixed room floors
+    bool luminous; // 0x1A23F: Luminous Orb is in effect
+    // 0x1A240: Darkness is removed from the floor like with luminous, but the floor layout and
+    // enemy locations aren't revealed. This is set in dungeons that aren't naturally dark, and
+    // also in some fixed room floors
     bool natural_lighting;
     undefined field_0x1a241;
-    // Generic "can see enemies" flag. Seems to be a dependent property computed as (leader has
-    // Power Ears status OR leader has X-Ray Specs equipped). This is NOT affected by the luminous
-    // flag.
+    // 0x1A242: Generic "can see enemies" flag. Seems to be a dependent property computed as
+    // (leader has Power Ears status OR leader has X-Ray Specs equipped). This is NOT affected by
+    // the luminous flag.
     bool can_see_enemies;
-    // Generic "can see items" flag. Similar to can_see_items (Scanning or X-Ray Specs)
+    // 0x1A243: Generic "can see items" flag. Similar to can_see_items (Scanning or X-Ray Specs)
     bool can_see_items;
-    // Generic "can see traps" flag. Similar to can_see_items (Eyedrops or Goggle Specs)
+    // 0x1A244: Generic "can see traps" flag. Similar to can_see_items (Eyedrops or Goggle Specs)
     bool can_see_traps;
     undefined field_0x1a245;
-    // Generic "can see stairs" flag. Probably just from Stair Spotter?
+    // 0x1A246: Generic "can see stairs" flag. Probably just from Stair Spotter?
     bool can_see_stairs;
     undefined field_0x1a247;
     undefined field_0x1a248;
@@ -22472,18 +22474,18 @@ struct dungeon {
     undefined field_0x1a24e;
     undefined field_0x1a24f;
     undefined field_0x1a250;
-    bool is_turning; // Player is pressing Y to turn on the spot
+    bool is_turning; // 0x1A251: Player is pressing Y to turn on the spot
     // Derived from internal direction in leader info block
-    enum direction_id leader_target_direction : 8;
-    enum direction_id leader_target_direction_mirror : 8;
+    enum direction_id leader_target_direction : 8;        // 0x1A252
+    enum direction_id leader_target_direction_mirror : 8; // 0x1A253
     undefined field_0x1a254;
     undefined field_0x1a255;
     undefined field_0x1a256;
     undefined field_0x1a257;
-    int16_t floor_touch_screen;         // Floor number displayed on the touch screen
-    int16_t leader_level_touch_screen;  // Leader's level displayed on the touch screen
-    int16_t leader_hp_touch_screen;     // Leader's current HP displayed on the touch screen
-    int16_t leader_max_hp_touch_screen; // Leader's max HP displayed on the touch screen
+    int16_t floor_touch_screen;        // 0x1A258: Floor number displayed on the touch screen
+    int16_t leader_level_touch_screen; // 0x1A25A: Leader's level displayed on the touch screen
+    int16_t leader_hp_touch_screen;    // 0x1A25C: Leader's current HP displayed on the touch screen
+    int16_t leader_max_hp_touch_screen; // 0x1A25E: Leader's max HP displayed on the touch screen
     undefined field_0x1a260;
     undefined field_0x1a261;
     undefined field_0x1a262;
@@ -80934,7 +80936,7 @@ struct dungeon {
     undefined field_0x286af;
     undefined field_0x286b0;
     undefined field_0x286b1;
-    struct floor_properties floor_properties; // Properties about the current floor
+    struct floor_properties floor_properties; // 0x286B2: Properties about the current floor
     undefined field_0x286d2;
     undefined field_0x286d3;
     undefined field_0x286d4;
@@ -98109,7 +98111,8 @@ struct dungeon {
     undefined field_0x2c9e5;
     undefined field_0x2c9e6;
     undefined field_0x2c9e7;
-    // ID of an item guaranteed to spawn on the floor, if applicable (e.g., certain mission types)
+    // 0x2C9E8: ID of an item guaranteed to spawn on the floor, if applicable
+    // (e.g., certain mission types)
     enum item_id guaranteed_item_id : 16;
     undefined field_0x2c9ea;
     undefined field_0x2c9eb;
@@ -98377,7 +98380,8 @@ struct dungeon {
     undefined field_0x2caf1;
     undefined field_0x2caf2;
     undefined field_0x2caf3;
-    uint8_t n_floors_plus_one; // One more than the maximum number of floors in the current dungeon
+    // 0x2CAF4: One more than the maximum number of floors in the current dungeon
+    uint8_t n_floors_plus_one;
     undefined field_0x2caf5;
     undefined field_0x2caf6;
     undefined field_0x2caf7;

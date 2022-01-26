@@ -14,7 +14,7 @@ ASSERT_SIZE(struct position, 4);
 
 // Item info
 struct item {
-    // flags: 1-byte bitfield
+    // 0x0: flags: 1-byte bitfield
     bool f_exists : 1;  // Validity flag
     bool f_in_shop : 1; // In a Kecleon Shop
     uint8_t flags_unk2 : 1;
@@ -22,12 +22,12 @@ struct item {
     bool f_set : 1;    // Usable by L+R
     uint8_t flags_unk5 : 3;
 
-    // For bag items. 0 for none, 1 if held by the leader, 2 for the second party member, etc.
+    // 0x1: For bag items. 0 for none, 1 if held by the leader, 2 for the second party member, etc.
     uint8_t held_by;
-    // Only for stackable items. Will be 0 if unapplicable. For Poké, this is an "amount code"
+    // 0x2: Only for stackable items. Will be 0 if unapplicable. For Poké, this is an "amount code"
     // rather than the literal amount
     uint16_t quantity;
-    enum item_id id : 16;
+    enum item_id id : 16; // 0x4
 };
 ASSERT_SIZE(struct item, 6);
 
@@ -45,7 +45,7 @@ ASSERT_SIZE(struct trap, 4);
 
 // Monster move info
 struct move {
-    // flags0: 1-byte bitfield
+    // 0x0: flags0: 1-byte bitfield
     bool f_exists : 1;                   // This move will show up in the move list
     bool f_subsequent_in_link_chain : 1; // This move is in a link chain, but not the first move
     bool f_enabled_for_ai : 1;           // AI can use this move
@@ -56,7 +56,7 @@ struct move {
 
     undefined field_0x1;
 
-    // flags2: 2-byte bitfield
+    // 0x2: flags2: 2-byte bitfield
     bool f_sealed : 1; // Sealed by a Seal Trap. Also prevents AI from using this move
     uint16_t flags2_unk1 : 2;
     bool f_consume_pp : 1;   // This move will consume PP this turn
@@ -69,26 +69,28 @@ struct move {
     bool f_exclusive_item_pp_boost : 1; // A PP-boosting exclusive item is in effect
     uint16_t flags3_unk10 : 6;
 
-    enum move_id id : 16;
-    uint8_t pp;      // Current PP
-    uint8_t ginseng; // Ginseng boost
+    enum move_id id : 16; // 0x4
+    uint8_t pp;           // 0x6: Current PP
+    uint8_t ginseng;      // 0x7: Ginseng boost
 };
 ASSERT_SIZE(struct move, 8);
 
 // Monster stat modifier info
 struct monster_stat_modifiers {
     // Stages go from 0-20 inclusive, with normal being 10
-    int16_t offensive_stages[2]; // {atk, sp_atk}
-    int16_t defensive_stages[2]; // {def, sp_def}
-    int16_t accuracy_stage;
-    int16_t evasion_stage;
-    bool flash_fire_boost;
+    int16_t offensive_stages[2]; // 0x0: {atk, sp_atk}
+    int16_t defensive_stages[2]; // 0x4: {def, sp_def}
+    int16_t accuracy_stage;      // 0x8
+    int16_t evasion_stage;       // 0xA
+    bool flash_fire_boost;       // 0xC
     undefined field_0xd;
     undefined field_0xe;
     undefined field_0xf;
     // Some moves like Screech affect the damage calculation differently than, e.g., Leer
-    int offensive_multipliers[2]; // Q24.8 fixed point, {atk, sp_atk}; from Charm, Memento, etc.
-    int defensive_multipliers[2]; // Q24.8 fixed point, {def, sp_def}; from Screech, etc.
+    // 0x10: Q24.8 fixed point, {atk, sp_atk}; from Charm, Memento, etc.
+    int offensive_multipliers[2];
+    // 0x18: Q24.8 fixed point, {def, sp_def}; from Screech, etc.
+    int defensive_multipliers[2];
 };
 ASSERT_SIZE(struct monster_stat_modifiers, 32);
 
@@ -116,16 +118,16 @@ struct statuses {
     undefined field_0x10;
     undefined field_0x11;
     undefined field_0x12;
-    enum monster_behavior monster_behavior : 8;
-    uint8_t sleep;       // STATUS_SLEEP if 1
-    uint8_t sleep_turns; // Turns left for the status in statuses::sleep
-    uint8_t burn;        // STATUS_BURN if 1
-    uint8_t burn_turns;  // Turns left for the status in statuses::burn
-    // Turns left until residual damage for the status in statuses::burn, if applicable
+    enum monster_behavior monster_behavior : 8; // 0x13
+    uint8_t sleep;                              // 0x14: STATUS_SLEEP if 1
+    uint8_t sleep_turns; // 0x15: Turns left for the status in statuses::sleep
+    uint8_t burn;        // 0x16: STATUS_BURN if 1
+    uint8_t burn_turns;  // 0x17: Turns left for the status in statuses::burn
+    // 0x18: Turns left until residual damage for the status in statuses::burn, if applicable
     uint8_t burn_damage_countdown;
     undefined field_0x19;
     undefined field_0x1a;
-    uint8_t freeze; // STATUS_FROZEN if 1
+    uint8_t freeze; // 0x1B: STATUS_FROZEN if 1
     undefined field_0x1c;
     undefined field_0x1d;
     undefined field_0x1e;
@@ -133,30 +135,30 @@ struct statuses {
     undefined field_0x20;
     undefined field_0x21;
     undefined field_0x22;
-    uint8_t freeze_turns; // Turns left for the status in statuses::freeze
-    // Turns left until residual damage for the status in statuses::freeze, if applicable
+    uint8_t freeze_turns; // 0x23: Turns left for the status in statuses::freeze
+    // 0x24: Turns left until residual damage for the status in statuses::freeze, if applicable
     uint8_t freeze_damage_countdown;
     undefined field_0x25;
     undefined field_0x26;
-    uint8_t cringe;         // STATUS_CRINGE if 1
-    uint8_t cringe_turns;   // Turns left for the status in statuses::cringe
-    uint8_t bide;           // STATUS_BIDE if 1
-    uint8_t bide_turns;     // Turns left for the status in statuses::bide
-    uint8_t bide_move_slot; // Slot in the user's move list
-    uint8_t reflect;        // STATUS_REFLECT if 1
-    uint8_t reflect_turns;  // Turns left for the status in statuses::reflect
-    // Turns left until residual damage for the status in statuses::reflect, if applicable
+    uint8_t cringe;         // 0x27: STATUS_CRINGE if 1
+    uint8_t cringe_turns;   // 0x28: Turns left for the status in statuses::cringe
+    uint8_t bide;           // 0x29: STATUS_BIDE if 1
+    uint8_t bide_turns;     // 0x2A: Turns left for the status in statuses::bide
+    uint8_t bide_move_slot; // 0x2B: Slot in the user's move list
+    uint8_t reflect;        // 0x2C: STATUS_REFLECT if 1
+    uint8_t reflect_turns;  // 0x2D: Turns left for the status in statuses::reflect
+    // 0x2E: Turns left until residual damage for the status in statuses::reflect, if applicable
     uint8_t reflect_damage_countdown;
-    uint8_t curse; // STATUS_CURSED if 1
+    uint8_t curse; // 0x2F: STATUS_CURSED if 1
     undefined field_0x30;
     undefined field_0x31;
-    uint8_t curse_turns; // Turns left for the status in statuses::curse
-    // Turns left until residual damage for the status in statuses::curse, if applicable
+    uint8_t curse_turns; // 0x32: Turns left for the status in statuses::curse
+    // 0x33: Turns left until residual damage for the status in statuses::curse, if applicable
     uint8_t curse_damage_countdown;
     undefined field_0x34;
     undefined field_0x35;
     undefined field_0x36;
-    uint8_t leech_seed; // STATUS_LEECH_SEED if 1
+    uint8_t leech_seed; // 0x37: STATUS_LEECH_SEED if 1
     undefined field_0x38;
     undefined field_0x39;
     undefined field_0x3a;
@@ -165,59 +167,60 @@ struct statuses {
     undefined field_0x3d;
     undefined field_0x3e;
     undefined field_0x3f;
-    uint8_t leech_seed_turns; // Turns left for the status in statuses::leech_seed
-    // Turns left until residual damage for the status in statuses::leech_seed, if applicable.
+    uint8_t leech_seed_turns; // 0x40: Turns left for the status in statuses::leech_seed
+    // 0x41: Turns left until residual damage for the status in statuses::leech_seed, if applicable.
     // Behaves weirdly without an afflictor
     uint8_t leech_seed_damage_countdown;
     undefined field_0x42;
-    uint8_t sure_shot;         // STATUS_SURE_SHOT if 1
-    uint8_t sure_shot_turns;   // Turns left for the status in statuses::sure_shot
-    uint8_t long_toss;         // STATUS_LONG_TOSS if 1
-    uint8_t invisible;         // STATUS_INVISIBLE if 1
-    uint8_t invisible_turns;   // Turns left for the status in statuses::invisible
-    uint8_t blinded;           // STATUS_BLINKER if 1
-    uint8_t blinded_turns;     // Turns left for the status in statuses::blinded
-    uint8_t muzzled;           // STATUS_MUZZLED if 1
-    uint8_t muzzled_turns;     // Turns left for the status in statuses::muzzled
-    uint8_t miracle_eye;       // STATUS_MIRACLE_EYE if 1
-    uint8_t miracle_eye_turns; // Turns left for the status in statuses::miracle_eye
-    uint8_t magnet_rise;       // STATUS_MAGNET_RISE if 1
-    uint8_t magnet_rise_turns; // Turns left for the status in statuses::magnet_rise
-    bool power_ears;           // STATUS_POWER_EARS
-    bool scanning;             // STATUS_SCANNING
-    bool stair_spotter;        // STATUS_STAIR_SPOTTER
+    uint8_t sure_shot;         // 0x43: STATUS_SURE_SHOT if 1
+    uint8_t sure_shot_turns;   // 0x44: Turns left for the status in statuses::sure_shot
+    uint8_t long_toss;         // 0x45: STATUS_LONG_TOSS if 1
+    uint8_t invisible;         // 0x46: STATUS_INVISIBLE if 1
+    uint8_t invisible_turns;   // 0x47: Turns left for the status in statuses::invisible
+    uint8_t blinded;           // 0x48: STATUS_BLINKER if 1
+    uint8_t blinded_turns;     // 0x49: Turns left for the status in statuses::blinded
+    uint8_t muzzled;           // 0x4A: STATUS_MUZZLED if 1
+    uint8_t muzzled_turns;     // 0x4B: Turns left for the status in statuses::muzzled
+    uint8_t miracle_eye;       // 0x4C: STATUS_MIRACLE_EYE if 1
+    uint8_t miracle_eye_turns; // 0x4D: Turns left for the status in statuses::miracle_eye
+    uint8_t magnet_rise;       // 0x4E: STATUS_MAGNET_RISE if 1
+    uint8_t magnet_rise_turns; // 0x4F: Turns left for the status in statuses::magnet_rise
+    bool power_ears;           // 0x50: STATUS_POWER_EARS
+    bool scanning;             // 0x51: STATUS_SCANNING
+    bool stair_spotter;        // 0x52: STATUS_STAIR_SPOTTER
     undefined field_0x53;
-    bool grudge;  // STATUS_GRUDGE
-    bool exposed; // STATUS_EXPOSED (Foresight/Odor Sleuth)
+    bool grudge;  // 0x54: STATUS_GRUDGE
+    bool exposed; // 0x55: STATUS_EXPOSED (Foresight/Odor Sleuth)
     undefined field_0x56;
-    bool boss_flag; // Seems to be true for boss monsters
+    bool boss_flag; // 0x57: Seems to be true for boss monsters
     undefined field_0x58;
     undefined field_0x59;
-    bool in_action;            // Possibly a flag while in action
-    bool terrified;            // STATUS_TERRIFIED
-    uint8_t terrified_turns;   // Turns left for the terrified status
-    uint8_t perish_song_turns; // Turns left before Perish Song takes effect
+    bool in_action;            // 0x5A: Possibly a flag while in action
+    bool terrified;            // 0x5B: STATUS_TERRIFIED
+    uint8_t terrified_turns;   // 0x5C: Turns left for the terrified status
+    uint8_t perish_song_turns; // 0x5D: Turns left before Perish Song takes effect
     undefined field_0x5e;
     undefined field_0x5f;
     undefined field_0x60;
     undefined field_0x61;
-    bool high_up; // Graphical flag for Fly/Bounce
+    bool high_up; // 0x62: Graphical flag for Fly/Bounce
     undefined field_0x63;
     undefined field_0x64;
     undefined field_0x65;
     undefined field_0x66;
-    int speed_stage; // 1 means normal. 0 means half speed. 2, 3, and 4 mean 2x, 3x, and 4x speed.
+    // 0x67: 1 means normal. 0 means half speed. 2, 3, and 4 mean 2x, 3x, and 4x speed.
+    int speed_stage;
     // Each counter ticks down to 0 turn by turn. The current speed_stage is calculated as:
     // max(min({# nonzero speed_up_counters} - {# nonzero speed_down_counters}, 0), 4)
-    uint8_t speed_up_counters[5];
-    uint8_t speed_down_counters[5];
-    uint8_t stockpile_stage; // Goes from 0-3. STATUS_STOCKPILING if nonzero
+    uint8_t speed_up_counters[5];   // 0x6B
+    uint8_t speed_down_counters[5]; // 0x70
+    uint8_t stockpile_stage;        // 0x75: Goes from 0-3. STATUS_STOCKPILING if nonzero
 };
 ASSERT_SIZE(struct statuses, 118);
 
 // Monster info
 struct monster {
-    // flags: 2-byte bitfield
+    // 0x0: flags: 2-byte bitfield
     uint16_t flags_unk0 : 5;
     bool f_swapping_places : 1; // Swapping places with another monster
     uint16_t flags_unk6 : 3;
@@ -225,40 +228,42 @@ struct monster {
     uint16_t flags_unk10 : 5;
     bool f_swapping_places_petrified_ally : 1; // Swapping places with a petrified ally
 
-    enum monster_id id : 16;
-    enum monster_id apparent_id : 16; // What's outwardly displayed if Transformed
-    bool is_not_team_member;          // true for enemies and allied NPCs that aren't on the team
-    bool is_team_leader;
-    bool is_ally; // An ally is an NPC that isn't a normal team member, e.g. for story boss battles
-    enum shopkeeper_mode shopkeeper : 8;
-    uint8_t level;
+    enum monster_id id : 16;          // 0x2:
+    enum monster_id apparent_id : 16; // 0x4: What's outwardly displayed if Transformed
+    bool is_not_team_member; // 0x6: true for enemies and allied NPCs that aren't on the team
+    bool is_team_leader;     // 0x7
+    // 0x8: An ally is an NPC that isn't a normal team member, e.g. for story boss battles
+    bool is_ally;
+    enum shopkeeper_mode shopkeeper : 8; // 0x9
+    uint8_t level;                       // 0xA
     undefined field_0xb;
-    int16_t team_index; // In order by team lineup
-    int16_t iq;
-    int16_t hp;          // Current HP
-    int16_t max_hp_stat; // Add to max_hp_boost for the actual max HP
+    int16_t team_index;  // 0xC: In order by team lineup
+    int16_t iq;          // 0xE
+    int16_t hp;          // 0x10: Current HP
+    int16_t max_hp_stat; // 0x12: Add to max_hp_boost for the actual max HP
     undefined field_0x14;
     undefined field_0x15;
-    int16_t max_hp_boost; // From Life Seeds, Sitrus Berries, etc.
+    int16_t max_hp_boost; // 0x16: From Life Seeds, Sitrus Berries, etc.
     undefined field_0x18;
     undefined field_0x19;
-    uint8_t atk;
-    uint8_t sp_atk;
-    uint8_t def;
-    uint8_t sp_def;
+    uint8_t atk;    // 0x1A
+    uint8_t sp_atk; // 0x1B
+    uint8_t def;    // 0x1C
+    uint8_t sp_def; // 0x1D
     undefined field_0x1e;
     undefined field_0x1f;
-    int exp; // Total Exp. Points
-    struct monster_stat_modifiers stat_modifiers;
-    int16_t hidden_power_base_power;
-    enum type_id hidden_power_type : 8;
+    int exp;                                      // 0x20: Total Exp. Points
+    struct monster_stat_modifiers stat_modifiers; // 0x24
+    int16_t hidden_power_base_power;              // 0x44
+    enum type_id hidden_power_type : 8;           // 0x46
     undefined field_0x47;
-    enum dungeon_id joined_at : 8; // Also used as a unique identifier for special monsters
+    enum dungeon_id joined_at : 8; // 0x48: Also used as a unique identifier for special monsters
     undefined field_0x49;
-    uint16_t action_id;              // Changes as you do things
-    enum direction_id direction : 8; // Current direction the monster is facing
+    uint16_t action_id;              // 0x4A: Changes as you do things
+    enum direction_id direction : 8; // 0x4C: Current direction the monster is facing
     undefined field_0x4d;
-    // Metadata for some action_id values. E.g., this is the bag item index when using an item
+    // 0x4E: Metadata for some action_id values.
+    // E.g., this is the bag item index when using an item
     uint16_t action_use_idx;
     undefined field_0x50;
     undefined field_0x51;
@@ -274,57 +279,58 @@ struct monster {
     undefined field_0x5b;
     undefined field_0x5c;
     undefined field_0x5d;
-    enum type_id type1 : 8;
-    enum type_id type2 : 8;
-    enum ability_id ability1 : 8;
-    enum ability_id ability2 : 8;
-    struct item held_item;
-    uint16_t held_item_id; // Appears to be a mirror of held_item.id
+    enum type_id type1 : 8;       // 0x5E
+    enum type_id type2 : 8;       // 0x5F
+    enum ability_id ability1 : 8; // 0x60
+    enum ability_id ability2 : 8; // 0x61
+    struct item held_item;        // 0x62
+    uint16_t held_item_id;        // 0x68: Appears to be a mirror of held_item.id
     // Previous position data is used by the AI
-    struct position prev_pos;  // Position 1 turn ago
-    struct position prev_pos2; // Position 2 turns ago
-    struct position prev_pos3; // Position 3 turns ago
-    struct position prev_pos4; // Position 4 turns ago
+    struct position prev_pos;  // 0x6A: Position 1 turn ago
+    struct position prev_pos2; // 0x6E: Position 2 turns ago
+    struct position prev_pos3; // 0x72: Position 3 turns ago
+    struct position prev_pos4; // 0x76: Position 4 turns ago
     undefined field_0x7a;
     undefined field_0x7b;
-    enum ai_objective ai_objective : 8;
-    bool ai_not_next_to_target;     // This NPC monster is not next to its current target
-    bool ai_targeting_enemy;        // This NPC monster is targeting an enemy monster
-    bool ai_turning_around;         // This NPC monster has decided to turn around
-    uint16_t ai_target_spawn_genid; // entity::spawn_genid of the entity currently being targeted
+    enum ai_objective ai_objective : 8; // 0x7C
+    bool ai_not_next_to_target;         // 0x7D: This NPC monster is not next to its current target
+    bool ai_targeting_enemy;            // 0x7E: This NPC monster is targeting an enemy monster
+    bool ai_turning_around;             // 0x7F: This NPC monster has decided to turn around
+    // 0x80: entity::spawn_genid of the entity currently being targeted
+    uint16_t ai_target_spawn_genid;
     undefined field_0x82;
     undefined field_0x83;
-    struct entity* ai_target; // Current or most recent AI target
+    struct entity* ai_target; // 0x84: Current or most recent AI target
     undefined field_0x88;
     undefined field_0x89;
     undefined field_0x8a;
     undefined field_0x8b;
-    struct position ai_target_pos; // Position of the entity currently being targeted
-    // Work array while updating skills in the menu. Same meaning as iq_skill_flags.
+    struct position ai_target_pos; // 0x8C: Position of the entity currently being targeted
+    // 0x90: Work array while updating skills in the menu. Same meaning as iq_skill_flags.
     uint32_t iq_skill_menu_flags[3];
-    // First 9 bytes contain bitfield data; the rest is presumably padding.
+    // 0x9C: First 9 bytes contain bitfield data; the rest is presumably padding.
     // Bitvector. See enum iq_skill_id for the meaning of each bit.
     uint32_t iq_skill_flags[3];
-    enum tactic_id tactic : 8;
-    struct statuses statuses;
+    enum tactic_id tactic : 8; // 0xA8
+    struct statuses statuses;  // 0xA9
     undefined field_0x11f;
     undefined field_0x120;
     undefined field_0x121;
     undefined field_0x122;
     undefined field_0x123;
-    struct move moves[4];
-    uint8_t move_flags; // 1-byte bitfield
+    struct move moves[4]; // 0x124
+    uint8_t move_flags;   // 0x144: 1-byte bitfield
     undefined field_0x145;
-    int16_t belly; // Integer part
-    int16_t belly_thousandths;
-    int16_t max_belly; // Integer part
-    int16_t max_belly_thousandths;
+    int16_t belly;                 // 0x146: Integer part
+    int16_t belly_thousandths;     // 0x148
+    int16_t max_belly;             // 0x14A: Integer part
+    int16_t max_belly_thousandths; // 0x14C
     undefined field_0x14e;
-    bool ai_next_to_target; // This NPC monster is next to its current target
+    bool ai_next_to_target; // 0x14F: This NPC monster is next to its current target
     undefined field_0x150;
     undefined field_0x151;
-    // Seems to be true if the monster has already acted this turn: attacked, used an item, or
-    // seemingly anything other than moving/resting. Also true when the monster faints.
+    // 0x152: Seems to be true if the monster has already acted this turn: attacked, used an item,
+    // or seemingly anything other than moving/resting. Also true when the monster faints.
     bool cannot_act;
     undefined field_0x153;
     undefined field_0x154;
@@ -369,8 +375,8 @@ struct monster {
     undefined field_0x17b;
     undefined field_0x17c;
     undefined field_0x17d;
-    struct position target_pixel_pos; // The AI's target's graphical position on screen?
-    struct position pixel_pos;        // The monster's graphical position on screen?
+    struct position target_pixel_pos; // 0x17E: The AI's target's graphical position on screen?
+    struct position pixel_pos;        // 0x182: The monster's graphical position on screen?
     undefined field_0x186;
     undefined field_0x187;
     undefined field_0x188;
@@ -393,7 +399,7 @@ struct monster {
     undefined field_0x199;
     undefined field_0x19a;
     undefined field_0x19b;
-    struct position pos; // Mirror of the position on the entity struct
+    struct position pos; // 0x19C: Mirror of the position on the entity struct
     undefined field_0x1a0;
     undefined field_0x1a1;
     undefined field_0x1a2;
@@ -414,7 +420,7 @@ struct monster {
     undefined field_0x1b1;
     undefined field_0x1b2;
     undefined field_0x1b3;
-    uint16_t walk_anim_frames_left; // Number of frames left in walking animation?
+    uint16_t walk_anim_frames_left; // 0x1B4: Number of frames left in walking animation?
     undefined field_0x1b6;
     undefined field_0x1b7;
     undefined field_0x1b8;
@@ -505,7 +511,7 @@ struct monster {
     undefined field_0x20d;
     undefined field_0x20e;
     undefined field_0x20f;
-    uint8_t hp_fractional; // 200 * fractional_part(HP)
+    uint8_t hp_fractional; // 0x210: 200 * fractional_part(HP)
     undefined field_0x211;
     undefined field_0x212;
     undefined field_0x213;
@@ -526,11 +532,11 @@ struct monster {
     undefined field_0x222;
     undefined field_0x223;
     // Stat boosts from exclusive items with EXCLUSIVE_EFF_STAT_BOOST
-    uint8_t exclusive_item_atk_boost;
-    uint8_t exclusive_item_sp_atk_boost;
-    uint8_t exclusive_item_def_boost;
-    uint8_t exclusive_item_sp_def_boost;
-    // Bitvector. See enum exclusive_item_effect_id for the meaning of each bit
+    uint8_t exclusive_item_atk_boost;    // 0x224
+    uint8_t exclusive_item_sp_atk_boost; // 0x225
+    uint8_t exclusive_item_def_boost;    // 0x226
+    uint8_t exclusive_item_sp_def_boost; // 0x227
+    // 0x228: Bitvector. See enum exclusive_item_effect_id for the meaning of each bit
     uint32_t exclusive_item_effect_flags[5];
     undefined field_0x23c;
     undefined field_0x23d;
@@ -541,25 +547,25 @@ ASSERT_SIZE(struct monster, 576);
 
 // Generic entity data
 struct entity {
-    enum entity_type type : 32;
-    struct position pos;
-    struct position prev_pos;
-    int pixel_x_shifted;        // pixel_x << 8
-    int pixel_y_shifted;        // pixel_y << 8
-    int pixel_x_shifted_mirror; // Monsters only?
-    int pixel_y_shifted_mirror; // Monsters only?
-    // Graphical parameter for evelation above the ground. Last byte behaves weirdly.
+    enum entity_type type : 32; // 0x0
+    struct position pos;        // 0x4
+    struct position prev_pos;   // 0x8
+    int pixel_x_shifted;        // 0xC: pixel_x << 8
+    int pixel_y_shifted;        // 0x10: pixel_y << 8
+    int pixel_x_shifted_mirror; // 0x14: Monsters only?
+    int pixel_y_shifted_mirror; // 0x18: Monsters only?
+    // 0x1C: Graphical parameter for evelation above the ground. Last byte behaves weirdly.
     int elevation;
-    bool is_visible; // For traps/hidden stairs
+    bool is_visible; // 0x20: For traps/hidden stairs
     undefined field_0x21;
     undefined field_0x22;
-    // Seems to be the animation frame counter for the 10-frame "shuffle" animation that plays at
-    // the end of a walk sequence
+    // 0x23: Seems to be the animation frame counter for the 10-frame "shuffle" animation that
+    // plays at the end of a walk sequence
     uint8_t end_walk_anim_frame;
     undefined field_0x24;
-    uint8_t room_idx; // Index of the room a monster is in. 0xFF for hall
-    // Unique index for each monster that spawns. Starts at 0xA for the leader, and each subsequent
-    // monster to spawn is assigned the next number (0xB, 0xC, ...)
+    uint8_t room_idx; // 0x25: Index of the room a monster is in. 0xFF for hall
+    // 0x26:Unique index for each monster that spawns. Starts at 0xA for the leader, and each
+    // subsequent monster to spawn is assigned the next number (0xB, 0xC, ...)
     uint16_t spawn_genid;
     undefined field_0x28;
     undefined field_0x29;
@@ -577,7 +583,7 @@ struct entity {
     undefined field_0x35;
     undefined field_0x36;
     undefined field_0x37;
-    uint8_t idle_anim_frame; // animation frame counter for the idle animation?
+    uint8_t idle_anim_frame; // 0x38: animation frame counter for the idle animation?
     undefined field_0x39;
     undefined field_0x3a;
     undefined field_0x3b;
@@ -597,8 +603,8 @@ struct entity {
     undefined field_0x49;
     undefined field_0x4a;
     undefined field_0x4b;
-    struct position pixel_offset;  // displacement from a monster's normal position
-    struct position shadow_offset; // displacement of monster shadow from its normal position
+    struct position pixel_offset;  // 0x4C: displacement from a monster's normal position
+    struct position shadow_offset; // 0x50: displacement of monster shadow from its normal position
     undefined field_0x54;
     undefined field_0x55;
     undefined field_0x56;
@@ -617,8 +623,8 @@ struct entity {
     undefined field_0x63;
     undefined field_0x64;
     undefined field_0x65;
-    uint16_t sprite_id; // Maybe?
-    uint16_t sprite_id_mirror;
+    uint16_t sprite_id;        // 0x66: Maybe?
+    uint16_t sprite_id_mirror; // 0x68
     undefined field_0x6a;
     undefined field_0x6b;
     undefined field_0x6c;
@@ -659,7 +665,7 @@ struct entity {
     undefined field_0xa1;
     undefined field_0xa2;
     undefined field_0xa3;
-    enum direction_id graphical_direction_mirror1 : 8;
+    enum direction_id graphical_direction_mirror1 : 8; // 0xA4
     undefined field_0xa5;
     undefined field_0xa6;
     undefined field_0xa7;
@@ -669,34 +675,33 @@ struct entity {
     undefined field_0xab;
     undefined field_0xac;
     undefined field_0xad;
-    uint8_t anim_id; // Maybe?
-    uint8_t anim_id_mirror;
-    // Direction a monster's sprite is facing
-    enum direction_id graphical_direction : 8;
-    enum direction_id graphical_direction_mirror0 : 8;
+    uint8_t anim_id;                           // 0xAE: Maybe?
+    uint8_t anim_id_mirror;                    // 0xAF
+    enum direction_id graphical_direction : 8; // 0xB0: Direction a monster's sprite is facing
+    enum direction_id graphical_direction_mirror0 : 8; // 0xB1
     undefined field_0xb2;
     undefined field_0xb3;
-    void* info; // Points to info struct for monster/item/trap
+    void* info; // 0xB4: Points to info struct for monster/item/trap
 };
 ASSERT_SIZE(struct entity, 184);
 
 // Dungeon entity table header
 struct entity_table_hdr {
-    // A list of all monster pointers, whether they're used or not
+    // 0x0: A list of all monster pointers, whether they're used or not
     struct entity* monster_slot_ptrs[20];
-    // Null-terminated array of pointers to actually active monsters
+    // 0x50: Null-terminated array of pointers to actually active monsters
     struct entity* active_monster_ptrs[20];
-    struct entity* item_ptrs[64];
-    struct entity* trap_ptrs[64];
-    struct entity* hidden_stairs_ptr;
+    struct entity* item_ptrs[64];     // 0xA0
+    struct entity* trap_ptrs[64];     // 0x1A0
+    struct entity* hidden_stairs_ptr; // 0x2A0
 };
 ASSERT_SIZE(struct entity_table_hdr, 676);
 
 // A table of all entities in a dungeon.
 // The header contains pointers that point into the subsequent entity array.
 struct entity_table {
-    struct entity_table_hdr header;
-    struct entity entities[149];
+    struct entity_table_hdr header; // 0x0
+    struct entity entities[149];    // 0x2A4
 };
 ASSERT_SIZE(struct entity_table, 28092);
 
@@ -729,8 +734,8 @@ ASSERT_SIZE(union spawn_or_visibility_flags, 2);
 
 // Tile data
 struct tile {
-    // terrain_flags: 2-byte bitfield
-    enum terrain_type : 2;
+    // 0x0: terrain_flags: 2-byte bitfield
+    enum terrain_type terrain_type : 2;
     // This tile can be corner-cut when walking. Seemingly only used during dungeon generation.
     bool f_corner_cuttable : 1;
     // Includes room tiles right next to a hallway, and branching points within corridors.
@@ -757,54 +762,56 @@ struct tile {
     // generation.
     bool f_unreachable_from_stairs : 1;
 
-    // Seems to be used for spawning entities during dungeon generation, and for visibility during
-    // dungeon play
+    // 0x2: Seems to be used for spawning entities during dungeon generation, and for visibility
+    // during dungeon play
     union spawn_or_visibility_flags spawn_or_visibility_flags;
-    uint16_t texture_id; // Maybe? Changing this causes the tile texture to change
+    uint16_t texture_id; // 0x4: Maybe? Changing this causes the tile texture to change
     undefined field_0x6;
-    uint8_t room; // Room index. 0xFF if not in a room.
-    // Where a monster standing on this tile is allowed to move.
+    uint8_t room; // 0x7: Room index. 0xFF if not in a room.
+    // 0x8: Where a monster standing on this tile is allowed to move.
     // Each element is a bitflag that corresponds to one of the first four values of
     // enum mobility_type. Each bit in the bitflag corresponds to the values of enum direction,
     // where 1 means a monster with that mobility type is allowed to walk in that direction.
     uint8_t walkable_neighbor_flags[4];
-    struct entity* monster; // Pointer to a monster on this tile, if any
-    struct entity* object;  // Pointer to an entity other than a monster on this tile (item/trap)
+    struct entity* monster; // 0xC: Pointer to a monster on this tile, if any
+    // 0x10: Pointer to an entity other than a monster on this tile (item/trap)
+    struct entity* object;
 };
 ASSERT_SIZE(struct tile, 20);
 
 // Data related to dungeon generation
 struct dungeon_generation_info {
-    // Set if the floor layout is guaranteed to be a Monster House, or the dungeon generation
+    // 0x0: Set if the floor layout is guaranteed to be a Monster House, or the dungeon generation
     // algorithm fails
     bool force_create_monster_house;
     undefined field_0x1;
     undefined field_0x2;
     undefined field_0x3;
     undefined field_0x4;
-    // Room index of Monster House on the floor. 0xFF if there's no Monster House
+    // 0x5: Room index of Monster House on the floor. 0xFF if there's no Monster House
     uint8_t monster_house_room;
     undefined field_0x6;
     undefined field_0x7;
-    enum hidden_stairs_type hidden_stairs_type : 32;
+    enum hidden_stairs_type hidden_stairs_type : 32; // 0x8
     undefined field_0xc;
     undefined field_0xd;
     undefined field_0xe;
     undefined field_0xf;
-    uint8_t tileset_id;
+    uint8_t tileset_id; // 0xA
     undefined field_0x11;
-    uint16_t music_table_idx; // Music table index (see the same field in struct floor_properties)
+    // 0x12: Music table index (see the same field in struct floor_properties)
+    uint16_t music_table_idx;
     undefined field_0x14;
     undefined field_0x15;
-    enum fixed_room_id fixed_room_id : 8;
+    enum fixed_room_id fixed_room_id : 8; // 0x16
     undefined field_0x17;
     undefined field_0x18;
     undefined field_0x19;
-    uint16_t floor_generation_attempts; // Number of attempts at floor layout generation
-    struct tile tiles[32][56];
-    struct position player_spawn_pos; // Position of the player spawn
-    struct position stairs_pos;       // Position of the stairs spawn
-    // Position of the Hidden Stairs spawn, or (-1, -1) if no Hidden Stairs
+    uint16_t floor_generation_attempts; // 0x1A: Number of attempts at floor layout generation
+    struct tile tiles[32][56];          // 0x1C
+    struct position player_spawn_pos;   // 0x8C1C: Position of the player spawn
+    struct position stairs_pos;         // 0x8C20: Position of the stairs spawn
+    // 0x8C24: Position of the Hidden Stairs spawn, or (-1, -1) if no Hidden Stairs
     struct position hidden_stairs_pos;
 };
 ASSERT_SIZE(struct dungeon_generation_info, 35880);
@@ -813,81 +820,81 @@ ASSERT_SIZE(struct dungeon_generation_info, 35880);
 // A grid cell is a rectangular sector of the full 56x32 tile floor.
 // Each grid cell becomes a room or a hallway anchor after dungeon generation.
 struct dungeon_grid_cell {
-    int16_t start_x; // inclusive
-    int16_t start_y; // inclusive
-    int16_t end_x;   // exclusive
-    int16_t end_y;   // exclusive
-    // Grid cells can be invalid and not used in dungeon generation, depending on the generation
-    // parameters for a particular floor/dungeon
+    int16_t start_x; // 0x0: inclusive
+    int16_t start_y; // 0x2: inclusive
+    int16_t end_x;   // 0x4: exclusive
+    int16_t end_y;   // 0x6: exclusive
+    // 0x8: Grid cells can be invalid and not used in dungeon generation, depending on the
+    // generation parameters for a particular floor/dungeon
     bool is_invalid;
     undefined field_0x9;
-    bool is_room;      // Whether this cell contains a room
-    bool is_connected; // Whether this cell is connected to a neighboring grid cell
+    bool is_room;      // 0xA: Whether this cell contains a room
+    bool is_connected; // 0xB: Whether this cell is connected to a neighboring grid cell
     undefined field_0xc;
     undefined field_0xd;
-    bool is_monster_house; // Whether this cell has a Monster House
+    bool is_monster_house; // 0xE: Whether this cell has a Monster House
     undefined field_0xf;
-    bool is_maze_room; // Whether this cell has a maze room
-    // Room has been merged into another room and is no longer valid
+    bool is_maze_room; // 0x10: Whether this cell has a maze room
+    // 0x11: Room has been merged into another room and is no longer valid
     bool was_merged_into_other_room;
-    bool is_merged_room; // Room had another room merged into it
+    bool is_merged_room; // 0x12: Room had another room merged into it
     // Connection flags set during connection assignment
-    bool is_connected_to_top;
-    bool is_connected_to_bottom;
-    bool is_connected_to_left;
-    bool is_connected_to_right;
+    bool is_connected_to_top;    // 0x13
+    bool is_connected_to_bottom; // 0x14
+    bool is_connected_to_left;   // 0x15
+    bool is_connected_to_right;  // 0x16
     // Work variables used while connections are being created
-    bool should_connect_to_top;
-    bool should_connect_to_bottom;
-    bool should_connect_to_left;
-    bool should_connect_to_right;
+    bool should_connect_to_top;    // 0x17
+    bool should_connect_to_bottom; // 0x18
+    bool should_connect_to_left;   // 0x19
+    bool should_connect_to_right;  // 0x1A
     undefined field_0x1b;
-    // This room has been flagged to have imperfections generated
+    // 0x1C: This room has been flagged to have imperfections generated
     bool flag_imperfect;
-    // This room has been flagged to have secondary structures generated
+    // 0x1D: This room has been flagged to have secondary structures generated
     bool flag_secondary_structure;
 };
 ASSERT_SIZE(struct dungeon_grid_cell, 30);
 
 // Floor generation status data, populated during dungeon generation
 struct floor_generation_status {
-    bool second_spawn;
-    bool has_monster_house;               // This floor has a Monster House
-    uint8_t stairs_room;                  // The index of the room containing the stairs
-    bool has_kecleon_shop;                // This floor has a Kecleon Shop
-    bool has_chasms_as_secondary_terrain; // Secondary terrain type is SECONDARY_TERRAIN_CHASM
-    bool is_invalid;                      // Set when floor generation fails
-    enum floor_size floor_size : 8;
-    bool has_maze;        // This floor has a maze room
-    bool no_enemy_spawns; // No enemies should spawn on this floor
+    bool second_spawn;                    // 0x0
+    bool has_monster_house;               // 0x1: This floor has a Monster House
+    uint8_t stairs_room;                  // 0x2: The index of the room containing the stairs
+    bool has_kecleon_shop;                // 0x3: This floor has a Kecleon Shop
+    bool has_chasms_as_secondary_terrain; // 0x4: Secondary terrain type is SECONDARY_TERRAIN_CHASM
+    bool is_invalid;                      // 0x5: Set when floor generation fails
+    enum floor_size floor_size : 8;       // 0x6
+    bool has_maze;                        // 0x7: This floor has a maze room
+    bool no_enemy_spawns;                 // 0x8: No enemies should spawn on this floor
     undefined field_0x9;
     undefined field_0xa;
     undefined field_0xb;
-    int16_t kecleon_shop_spawn_chance; // Percentage chance from 0-100
+    int16_t kecleon_shop_spawn_chance; // 0xC: Percentage chance from 0-100
     undefined field_0xe;
     undefined field_0xf;
-    int16_t monster_house_spawn_chance; // Percentage chance from 0-100
+    int16_t monster_house_spawn_chance; // 0x10: Percentage chance from 0-100
     undefined field_0x12;
     undefined field_0x13;
-    int n_rooms; // Number of rooms this floor should have
-    // Maximum number of additional secondary structures to generate within rooms.
+    int n_rooms; // 0x14: Number of rooms this floor should have
+    // 0x18: Maximum number of additional secondary structures to generate within rooms.
     // This is decremented as secondary structures are generated until it falls to 0.
     int secondary_structures_budget;
     // Where the Hidden Stairs spawn is
-    uint16_t hidden_stairs_spawn_x;
-    uint16_t hidden_stairs_spawn_y;
+    uint16_t hidden_stairs_spawn_x; // 0x1C
+    uint16_t hidden_stairs_spawn_y; // 0x1E
     // The middle of the Kecleon Shop is, if applicable
-    uint16_t kecleon_shop_middle_x;
-    uint16_t kecleon_shop_middle_y;
-    // The number of tiles that can be reached from the stairs, assuming normal mobility
+    uint16_t kecleon_shop_middle_x; // 0x20
+    uint16_t kecleon_shop_middle_y; // 0x22
+    // 0x24: The number of tiles that can be reached from the stairs, assuming normal mobility
     int n_tiles_reachable_from_stairs;
-    enum floor_layout layout : 32;
-    enum hidden_stairs_type hidden_stairs_type : 32;
+    enum floor_layout layout : 32;                   // 0x28
+    enum hidden_stairs_type hidden_stairs_type : 32; // 0x2C
     // The limits of the Kecleon Shop, if applicable
-    int kecleon_shop_min_x;
-    int kecleon_shop_min_y;
-    int kecleon_shop_max_x;
-    int kecleon_shop_max_y;
+    int kecleon_shop_min_x; // 0x30
+    int kecleon_shop_min_y; // 0x34
+    int kecleon_shop_max_x; // 0x38
+    int kecleon_shop_max_y; // 0x3C
 };
 ASSERT_SIZE(struct floor_generation_status, 64);
 
@@ -906,79 +913,84 @@ ASSERT_SIZE(struct monster_id_16, 2);
 
 // Dungeon floor properties
 struct floor_properties {
-    enum floor_layout layout : 8;
-    int8_t n_rooms; // Number of rooms to be generated
-    uint8_t tileset;
-    // Indexes into the music ID table in overlay 10 to determine the floor's music track.
+    enum floor_layout layout : 8; // 0x0
+    int8_t n_rooms;               // 0x1: Number of rooms to be generated
+    uint8_t tileset;              // 0x2
+    // 0x3: Indexes into the music ID table in overlay 10 to determine the floor's music track.
     // See the relevant descriptions in the overlay 10 symbols for more information.
     uint8_t music_table_idx;
-    enum weather_id weather : 8;
-    uint8_t floor_connectivity; // Controls how many connections will be made between grid cells
-    uint8_t enemy_density;      // Controls how many enemies will be spawned
-    uint8_t kecleon_shop_spawn_chance;  // Percentage chance from 0-100
-    uint8_t monster_house_spawn_chance; // Percentage chance from 0-100
-    uint8_t maze_room_chance;           // Percentage chance from 0-100
-    uint8_t sticky_item_chance;
-    // Whether or not dead ends are allowed in the floor layout. If false, dead ends will be
+    enum weather_id weather : 8; // 0x4
+    // 0x5: Controls how many connections will be made between grid cells
+    uint8_t floor_connectivity;
+    uint8_t enemy_density;              // 0x6: Controls how many enemies will be spawned
+    uint8_t kecleon_shop_spawn_chance;  // 0x7: Percentage chance from 0-100
+    uint8_t monster_house_spawn_chance; // 0x8: Percentage chance from 0-100
+    uint8_t maze_room_chance;           // 0x9: Percentage chance from 0-100
+    uint8_t sticky_item_chance;         // 0xA
+    // 0xB: Whether or not dead ends are allowed in the floor layout. If false, dead ends will be
     // corrected during floor generation (or rather, they should be, but the implementation is
     // buggy)
     bool allow_dead_ends;
-    // Maximum number of secondary structures that can be generated on the floor
+    // 0xC: Maximum number of secondary structures that can be generated on the floor
     uint8_t max_secondary_structures;
-    // room_flags: 1-byte bitfield
+    // 0xD: room_flags: 1-byte bitfield
     bool f_secondary_structures : 1; // Whether secondary structures are allowed
     uint8_t room_flags_unk1 : 1;
     bool f_room_imperfections : 1; // Whether room imperfections are allowed
     uint8_t room_flags_unk3 : 5;
+
     undefined field_0xe;
-    uint8_t item_density; // Controls how many items will be spawned
-    uint8_t trap_density; // Controls how many traps will be spawned
-    uint8_t floor_number; // The current floor number within the overall dungeon
-    enum fixed_room_id fixed_room_id : 8;
-    uint8_t extra_hallways;      // Number of extra hallways to generate
-    uint8_t buried_item_density; // Controls how many buried items (in walls) will be spawned
-    // Controls how much secondary terrain (water, lava, and this actually applies to chasms too)
-    // will be spawned
+    uint8_t item_density; // 0xF: Controls how many items will be spawned
+    uint8_t trap_density; // 0x10: Controls how many traps will be spawned
+    uint8_t floor_number; // 0x11: The current floor number within the overall dungeon
+    enum fixed_room_id fixed_room_id : 8; // 0x12
+    uint8_t extra_hallways;               // 0x13: Number of extra hallways to generate
+    uint8_t buried_item_density; // 0x14: Controls how many buried items (in walls) will be spawned
+    // 0x15: Controls how much secondary terrain (water, lava, and this actually applies to chasms
+    // too) will be spawned
     uint8_t secondary_terrain_density;
-    enum darkness_level darkness_level : 8;
-    uint8_t max_money_amount_div_5; // 1/5 the maximum amount for Poké spawns
+    enum darkness_level darkness_level : 8; // 0x16
+    uint8_t max_money_amount_div_5;         // 0x17: 1/5 the maximum amount for Poké spawns
     undefined field_0x18;
-    uint8_t itemless_monster_house_chance; // Chance that a Monster House will be an itemless one
-    // Values are shifted relative to enum hidden_stairs_type.
+    // 0x19: Chance that a Monster House will be an itemless one
+    uint8_t itemless_monster_house_chance;
+    // 0x1A: Values are shifted relative to enum hidden_stairs_type.
     // 0 means HIDDEN_STAIRS_SECRET_BAZAAR, 1 means HIDDEN_STAIRS_SECRET_ROOM, and
     // 255 still means HIDDEN_STAIRS_RANDOM_SECRET_BAZAAR_OR_SECRET_ROOM.
     uint8_t hidden_stairs_type;
-    uint8_t hidden_stairs_spawn_chance;
-    int16_t enemy_iq;         // IQ stat of enemies
-    int16_t iq_booster_value; // IQ increase from the IQ booster item upon entering the floor
+    uint8_t hidden_stairs_spawn_chance; // 0x1B
+    int16_t enemy_iq;                   // 0x1C: IQ stat of enemies
+    int16_t iq_booster_value; // 0x1E: IQ increase from the IQ booster item upon entering the floor
 };
 ASSERT_SIZE(struct floor_properties, 32);
 
 // Info about a mission destination floor
 struct mission_destination_info {
-    bool is_destination_floor; // Whether or not the current floor is a mission destination
-    enum mission_type type : 8;
-    // The meaning of this field depends on the type field; see union mission_subtype.
+    bool is_destination_floor;  // 0x0: Whether or not the current floor is a mission destination
+    enum mission_type type : 8; // 0x1:
+    // 0x2: The meaning of this field depends on the type field; see union mission_subtype.
     uint8_t subtype;
     undefined field_0x3;
-    enum item_id item_to_retrieve : 16;    // Item to retrieve, if this is an item-retrieval mission
-    enum item_id item_to_deliver : 16;     // Item to deliver to the client, if relevant
-    enum item_id special_target_item : 16; // For Sealed Chamber and Treasure Memo missions
-    enum monster_id client : 16;           // The client on the mission listing
-    enum monster_id rescue_target : 16;    // The monster to be rescued
-    // Usually just the target to defeat. If an outlaw has minions, the monster IDs will be listed
-    // in subsequent entries. Note that there can be multiple minions of the same species, which is
-    // not reflected here.
+    // 0x4: Item to retrieve, if this is an item-retrieval mission
+    enum item_id item_to_retrieve : 16;
+    enum item_id item_to_deliver : 16;     // 0x6: Item to deliver to the client, if relevant
+    enum item_id special_target_item : 16; // 0x8: For Sealed Chamber and Treasure Memo missions
+    enum monster_id client : 16;           // 0xA: The client on the mission listing
+    enum monster_id rescue_target : 16;    // 0xC: The monster to be rescued
+    // 0xE: Usually just the target to defeat. If an outlaw has minions, the monster IDs will be
+    // listed in subsequent entries. Note that there can be multiple minions of the same species,
+    // which is not reflected here.
     struct monster_id_16 enemy_species[3];
-    uint8_t n_enemy_species; // Length of the preceding array
+    uint8_t n_enemy_species; // 0x14: Length of the preceding array
     undefined field_0x15;
-    // Fixed room ID of the destination floor, if relevant (e.g., Chambers, Challenge Letters, etc.)
+    // 0x16: Fixed room ID of the destination floor, if relevant
+    // (e.g., Chambers, Challenge Letters, etc.)
     enum fixed_room_id fixed_room_id : 8;
     undefined field_0x17;
     undefined field_0x18;
     undefined field_0x19;
     undefined field_0x1a;
-    // Will be set after the target enemy has been defeated.
+    // 0x1B: Will be set after the target enemy has been defeated.
     // If there are minions, this flag applies just to the main outlaw.
     bool target_enemy_is_defeated;
 };
@@ -997,7 +1009,7 @@ ASSERT_SIZE(struct dungeon_data_list_entry, 4);
 
 // Entry for a single dungeon in the dungeon restriction list
 struct dungeon_restriction {
-    // flags: 2-byte bitfield
+    // 0x0: flags: 2-byte bitfield
     bool f_dungeon_goes_up : 1;  // Dungeon goes up (stairs ascend, floors are labeled 1F, 2F, ...)
     bool f_enemies_evolve : 1;   // Enemies evolve after they defeat another monster
     bool f_enemies_give_exp : 1; // Enemies give experience
@@ -1011,12 +1023,12 @@ struct dungeon_restriction {
     bool f_treasure_box_drops : 1;    // Enemies can drop Treasure Boxes
     uint16_t flags_unused : 5;
 
-    uint16_t unused;
-    uint8_t max_rescue_attempts; // 0xFF means no rescues allowed
-    uint8_t max_items_allowed;   // Maximum number of items that can be brought into the dungeon
-    uint8_t max_party_size;      // Maximum number of team members that can enter the dungeon
+    uint16_t unused;             // 0x2
+    uint8_t max_rescue_attempts; // 0x4: 0xFF means no rescues allowed
+    uint8_t max_items_allowed; // 0x5: Maximum number of items that can be brought into the dungeon
+    uint8_t max_party_size;    // 0x6: Maximum number of team members that can enter the dungeon
     undefined field_0x7;
-    uint16_t turn_limit_per_floor; // Number of turns per floor before the wind blows you out
+    uint16_t turn_limit_per_floor; // 0x8: Number of turns per floor before the wind blows you out
     undefined field_0xa;
     undefined field_0xb;
 };
@@ -1044,13 +1056,13 @@ ASSERT_SIZE(struct fixed_room_monster_spawn_entry, 4);
 
 // Entry in the fixed room monster spawn stats table
 struct fixed_room_monster_spawn_stats_entry {
-    uint16_t level;
-    uint16_t hp;
-    int16_t exp_yield;
-    uint8_t atk;
-    uint8_t sp_atk;
-    uint8_t def;
-    uint8_t sp_def;
+    uint16_t level;    // 0x0
+    uint16_t hp;       // 0x2
+    int16_t exp_yield; // 0x4
+    uint8_t atk;       // 0x6
+    uint8_t sp_atk;    // 0x7
+    uint8_t def;       // 0x8
+    uint8_t sp_def;    // 0x9
     undefined field_0xa;
     undefined field_0xb;
 };
@@ -1058,20 +1070,20 @@ ASSERT_SIZE(struct fixed_room_monster_spawn_stats_entry, 12);
 
 // Entry in the fixed room properties table
 struct fixed_room_properties_entry {
-    // If MUSIC_NONE_0x0, the music will be taken from the mappa file for the floor
+    // 0x0: If MUSIC_NONE_0x0, the music will be taken from the mappa file for the floor
     enum music_id music : 16;
     undefined field_0x2;
     undefined field_0x3;
-    bool illuminated;           // Floor will be fully illuminated (darkness level DARKNESS_BRIGHT)
-    bool enable_lategame_traps; // Allows Summon, Pitfall, and Pokémon traps to spawn
-    bool ai_moves_enabled;      // NPCs can use moves on this floor
-    bool orbs_allowed;          // Orbs can be used. Ignored for IDs past FIXED_SEALED_CHAMBER.
-    // Warping, being blown away, and leaping are allowed on this floor.
+    bool illuminated; // 0x4: Floor will be fully illuminated (darkness level DARKNESS_BRIGHT)
+    bool enable_lategame_traps; // 0x5: Allows Summon, Pitfall, and Pokémon traps to spawn
+    bool ai_moves_enabled;      // 0x6: NPCs can use moves on this floor
+    bool orbs_allowed;          // 0x7: Orbs can be used. Ignored for IDs past FIXED_SEALED_CHAMBER.
+    // 0x8: Warping, being blown away, and leaping are allowed on this floor.
     // Ignored for IDs past FIXED_SEALED_CHAMBER.
     bool tile_jumps_allowed;
-    // Trawl Orbs work on this floor. Ignored for IDs past FIXED_SEALED_CHAMBER.
+    // 0x9: Trawl Orbs work on this floor. Ignored for IDs past FIXED_SEALED_CHAMBER.
     bool trawl_orbs_allowed;
-    // This floor will be exited immediately after all enemies have been defeated.
+    // 0xA: This floor will be exited immediately after all enemies have been defeated.
     bool exit_after_enemies_defeated;
     undefined field_0xb;
 };
@@ -1079,16 +1091,24 @@ ASSERT_SIZE(struct fixed_room_properties_entry, 12);
 
 // Entry in the fixed room tile spawn table.
 struct fixed_room_tile_spawn_entry {
-    enum trap_id id : 8;
-    uint8_t flags; // Copied into trap::flags
-    uint8_t room;  // Room ID, or 0xFF for hallways
-    // flags3: 1-byte bitfield
+    enum trap_id id : 8; // 0x0
+    uint8_t flags;       // 0x1: Copied into trap::flags
+    uint8_t room;        // 0x2: Room ID, or 0xFF for hallways
+    // 0x3: flags3: 1-byte bitfield
     bool f_trap_visible : 1; // This trap will be visible
     uint8_t flags3_unk1 : 2;
     bool f_secondary_terrain : 1; // This tile will be secondary terrain
     uint8_t flags3_unk4 : 4;
 };
 ASSERT_SIZE(struct fixed_room_tile_spawn_entry, 4);
+
+// Entry in the fixed room entity spawn table. Each field points into one of the subtables.
+struct fixed_room_entity_spawn_entry {
+    struct fixed_room_item_spawn_entry* item;
+    struct fixed_room_monster_spawn_entry* monster;
+    struct fixed_room_tile_spawn_entry* tile;
+};
+ASSERT_SIZE(struct fixed_room_entity_spawn_entry, 12);
 
 struct move_id_16 {
     enum move_id : 16;
@@ -1102,25 +1122,25 @@ struct guest_monster {
     undefined field_0x1;
     undefined field_0x2;
     undefined field_0x3;
-    enum monster_id id : 16;
-    enum dungeon_id joined_at : 8;
+    enum monster_id id : 16;       // 0x4
+    enum dungeon_id joined_at : 8; // 0x6
     undefined field_0x7;
-    struct move_id_16 moves[4];
-    int16_t max_hp;
-    uint8_t level;
+    struct move_id_16 moves[4]; // 0x8
+    int16_t max_hp;             // 0x10
+    uint8_t level;              // 0x12
     undefined field_0x13;
-    int16_t iq;
-    uint8_t atk;
+    int16_t iq;  // 0x14
+    uint8_t atk; // 0x16
     undefined field_0x17;
-    uint8_t sp_atk;
+    uint8_t sp_atk; // 0x18
     undefined field_0x19;
-    uint8_t def;
+    uint8_t def; // 0x1A
     undefined field_0x1b;
-    uint8_t sp_def;
+    uint8_t sp_def; // 0x1C
     undefined field_0x1d;
     undefined field_0x1e;
     undefined field_0x1f;
-    int exp;
+    int exp; // 0x20
 };
 ASSERT_SIZE(struct guest_monster, 36);
 
@@ -1141,13 +1161,14 @@ ASSERT_SIZE(struct map_marker, 8);
 // The LCG states for the dungeon PRNG. See the relevant functions in the overlay 29 symbols for an
 // explanation of how the PRNG works.
 struct prng_state {
-    int use_secondary;        // Flag for whether or not to use the secondary LCGs
-    uint32_t seq_num_primary; // Sequence number for the primary LCG sequence
-    // Second number in the default sequence (starting with 1), used for calculating the actual seed
+    int use_secondary;        // 0x0: Flag for whether or not to use the secondary LCGs
+    uint32_t seq_num_primary; // 0x4: Sequence number for the primary LCG sequence
+    // 0x8: Second number in the default sequence (starting with 1),
+    // used for calculating the actual seed
     uint32_t preseed;
-    // The last value generated by the PRNG, corresponding to seq_num_primary
+    // 0xC: The last value generated by the PRNG, corresponding to seq_num_primary
     uint32_t last_value_primary;
-    int idx_secondary; // Index of the currently active secondary LCG
+    int idx_secondary; // 0x10: Index of the currently active secondary LCG
 };
 ASSERT_SIZE(struct prng_state, 20);
 

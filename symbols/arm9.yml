@@ -451,13 +451,19 @@ arm9:
         NA: 0x2098D74
       length:
         NA: 0x16
-      description: "Null-terminated list of all the recoil moves, as 2-byte move IDs."
+      description: |-
+        Null-terminated list of all the recoil moves, as 2-byte move IDs.
+        
+        type: {enum move_id:16}[11]
     - name: PUNCH_MOVE_LIST
       address:
         NA: 0x2098D8A
       length:
         NA: 0x20
-      description: "Null-terminated list of all the punch moves, as 2-byte move IDs."
+      description: |-
+        Null-terminated list of all the punch moves, as 2-byte move IDs.
+        
+        type: {enum move_id:16}[16]
     - name: SCRIPT_VARS_LOCALS
       address:
         NA: 0x209CECC
@@ -481,6 +487,8 @@ arm9:
         This is an array of 180 dungeon data list entry structs. Each entry is 4 bytes, and contains floor count information along with an index into the bulk of the dungeon's data in mappa_s.bin.
         
         See the struct definitions and End45's dungeon data document for more info.
+        
+        type: struct dungeon_data_list_entry[180]
     - name: DUNGEON_RESTRICTIONS
       address:
         NA: 0x20A0C64
@@ -494,6 +502,8 @@ arm9:
         This is an array of 256 dungeon restriction structs. Each entry is 12 bytes, and contains information about restrictions within the given dungeon.
         
         See the struct definitions and End45's dungeon data document for more info.
+        
+        type: struct dungeon_restriction[256]
     - name: SPECIAL_BAND_STAT_BOOST
       address:
         NA: 0x20A186C
@@ -596,10 +606,9 @@ arm9:
       description: |-
         The type of secondary terrain for each dungeon in the game.
         
-        This is an array of 200 bytes. Each byte is an enum corresponding to one dungeon, with the following values:
-        0: water
-        1: lava
-        2: chasm
+        This is an array of 200 bytes. Each byte is an enum corresponding to one dungeon.
+        
+        type: {enum secondary_terrain_type:8}[200]
     - name: SENTRY_MINIGAME_DATA
       address:
         NA: 0x20A1BB0
@@ -657,6 +666,8 @@ arm9:
         Array of 18 36-byte entries.
         
         See the struct definitions and End45's dungeon data document for more info.
+        
+        type: struct guest_monster[18]
     - name: RANK_UP_TABLE
       address:
         NA: 0x20A2B44
@@ -701,6 +712,8 @@ arm9:
         This is an array of 310 map marker structs. Each entry is 8 bytes, and contains positional information about a dungeon on the map.
         
         See the struct definitions and End45's dungeon data document for more info.
+        
+        type: struct map_marker[310]
     - name: LOADED_OVERLAY_GROUP_0
       address:
         NA: 0x20AF230
@@ -740,6 +753,8 @@ arm9:
         - 0x22 (overlay 31)
         - 0x23 (overlay 32)
         - 0x24 (overlay 33)
+        
+        type: enum overlay_group_id
     - name: LOADED_OVERLAY_GROUP_1
       address:
         NA: 0x20AF234
@@ -756,6 +771,8 @@ arm9:
         - 0xD (overlay 11)
         - 0xE (overlay 29)
         - 0xF (overlay 34)
+        
+        type: enum overlay_group_id
     - name: LOADED_OVERLAY_GROUP_2
       address:
         NA: 0x20AF238
@@ -770,6 +787,8 @@ arm9:
         - 0x1 (overlay 0)
         - 0x2 (overlay 10)
         - 0x3 (overlay 35)
+        
+        type: enum overlay_group_id
     - name: PACK_FILE_PATHS_TABLE
       address:
         NA: 0x20AF6A0
@@ -792,7 +811,10 @@ arm9:
         NA: 0x20AF6E4
       length:
         NA: 0x4
-      description: "[Runtime] Points to the contents of the move data table loaded from waza_p.bin"
+      description: |-
+        [Runtime] Points to the contents of the move data table loaded from waza_p.bin
+        
+        type: struct move_data_table*
     - name: LANGUAGE_INFO_DATA
       address:
         NA: 0x20AFCE8
@@ -810,7 +832,10 @@ arm9:
       length:
         NA: 0x2
         EU: 0x2
-      description: "The default monster ID for the hero (0x4: Charmander)"
+      description: |-
+        The default monster ID for the hero (0x4: Charmander)
+        
+        type: enum monster_id:16
     - name: DEFAULT_PARTNER_ID
       address:
         NA: 0x20AFEFE
@@ -818,7 +843,10 @@ arm9:
       length:
         NA: 0x2
         EU: 0x2
-      description: "The default monster ID for the partner (0x1: Bulbasaur)"
+      description: |-
+        The default monster ID for the partner (0x1: Bulbasaur)
+        
+        type: enum monster_id:16
     - name: GAME_MODE
       address:
         NA: 0x20AFF70

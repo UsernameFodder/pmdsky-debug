@@ -19,6 +19,7 @@ overlay13:
       length:
         NA: 0x2A
         EU: 0x2A
+      description: "type: {enum monster_id:16}[21]"
     - name: STARTERS_HERO_IDS
       address:
         NA: 0x238C0B8
@@ -26,6 +27,7 @@ overlay13:
       length:
         NA: 0x40
         EU: 0x40
+      description: "type: {enum monster_id:16}[32]"
     - name: STARTERS_STRINGS
       address:
         NA: 0x238C14C

@@ -25,31 +25,31 @@ ASSERT_SIZE(struct move_target_and_range, 2);
 
 // Data for a single move
 struct move_data {
-    uint16_t base_power;
-    enum type_id type : 8;
-    enum move_category category : 8;
-    struct move_target_and_range target_range;
-    struct move_target_and_range ai_target_range; // Target/range as seen by the AI
-    uint8_t pp;
-    uint8_t ai_weight; // Possibly. Weight for AI's random move selection
-    // Both accuracy values are used to calculate the move's actual accuracy.
+    uint16_t base_power;                          // 0x0
+    enum type_id type : 8;                        // 0x2
+    enum move_category category : 8;              // 0x3
+    struct move_target_and_range target_range;    // 0x4
+    struct move_target_and_range ai_target_range; // 0x6: Target/range as seen by the AI
+    uint8_t pp;                                   // 0x8
+    uint8_t ai_weight; // 0x9: Possibly. Weight for AI's random move selection
+    // 0xA: Both accuracy values are used to calculate the move's actual accuracy.
     // See the PMD Info Spreadsheet.
     uint8_t accuracy1;
-    uint8_t accuracy2;
-    uint8_t field_0xc;         // unknown
-    uint8_t strikes;           // Number of times the move hits (i.e. for multi-hit moves)
-    uint8_t max_ginseng_boost; // Maximum possible Ginseng boost for this move
-    uint8_t crit_chance;       // The base critical hit chance
-    bool reflected_by_magic_coat;
-    bool can_be_snatched;
-    bool fails_while_muzzled;
-    // Seems to be used by the AI with Status Checker for using moves against frozen monsters
+    uint8_t accuracy2;            // 0xB
+    uint8_t field_0xc;            // unknown
+    uint8_t strikes;              // 0xD: Number of times the move hits (i.e. for multi-hit moves)
+    uint8_t max_ginseng_boost;    // 0xE: Maximum possible Ginseng boost for this move
+    uint8_t crit_chance;          // 0xF: The base critical hit chance
+    bool reflected_by_magic_coat; // 0x10
+    bool can_be_snatched;         // 0x11
+    bool fails_while_muzzled;     // 0x12
+    // 0x13: Seems to be used by the AI with Status Checker for using moves against frozen monsters
     bool ai_can_use_against_frozen;
-    bool usable_while_taunted;
-    // Index in the string files of the range string to be displayed in the move info screen
+    bool usable_while_taunted; // 0x14
+    // 0x15: Index in the string files of the range string to be displayed in the move info screen
     uint8_t range_string_idx;
-    enum move_id id : 16;
-    // Index in the string files of the message string to be displayed in the dungeon message
+    enum move_id id : 16; // 0x16
+    // 0x18: Index in the string files of the message string to be displayed in the dungeon message
     // log when a move is used. E.g., the default (0) is "[User] used [move]!"
     uint16_t message_string_idx;
 };

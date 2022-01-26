@@ -40,6 +40,8 @@ arm9:
         The dungeon context struct used for tons of stuff in dungeon mode. See struct dungeon in the C headers.
         
         This struct never seems to be referenced directly, and is instead usually accessed via DUNGEON_PTR in overlay 29.
+        
+        type: struct dungeon
     - name: MOVE_DATA_TABLE
       address:
         NA: 0x22113CC
@@ -49,6 +51,8 @@ arm9:
         The move data table loaded directly from /BALANCE/waza_p.bin. See struct move_data_table in the C headers.
         
         Pointed to by MOVE_DATA_TABLE_PTR in the ARM 9 binary.
+        
+        type: struct move_data_table
     - name: FRAMES_SINCE_LAUNCH
       address:
         NA:
@@ -67,6 +71,8 @@ arm9:
         Array of item structs within the player's bag.
         
         While the game only allows a maximum of 48 items during normal play, it seems to read up to 50 item slots if filled.
+        
+        type: struct item[50]
     - name: MONEY_CARRIED
       address:
         NA: 0x22A4BB8
@@ -84,7 +90,10 @@ arm9:
         NA: 0x22AAE4C
       length:
         NA: 0x8
-      description: Move struct of the last new move introduced when learning a new move. Persists even after the move selection is made in the menu.
+      description: |-
+        Move struct of the last new move introduced when learning a new move. Persists even after the move selection is made in the menu.
+        
+        type: struct move
     - name: BAG_LEVEL
       address:
         NA: 0x22AB15C
@@ -115,6 +124,8 @@ arm9:
         The ID of the selected dungeon when setting off from the overworld.
         
         Controls the text and map location during the "map cutscene" just before entering a dungeon, as well as the actual dungeon loaded afterwards.
+        
+        type: enum dungeon_id:8
     - name: PENDING_STARTING_FLOOR
       address:
         NA: 0x22AB4FD
@@ -153,6 +164,8 @@ arm9:
         The hero's species ID.
         
         This is presumably part of a larger struct, together with other nearby data.
+        
+        type: enum monster_id:16
     - name: HERO_NICKNAME
       address:
         NA: 0x22ABE1A
@@ -173,6 +186,8 @@ arm9:
         The partner's species ID.
         
         This is presumably part of a larger struct, together with other nearby data.
+        
+        type: enum monster_id:16
     - name: LEADER_IQ_SKILLS
       address:
         NA: 0x22B5198
@@ -221,3 +236,5 @@ arm9:
         [Runtime] Status data related to generation of the current floor in a dungeon.
         
         This data is populated as the dungeon floor is generated.
+        
+        type: struct floor_generation_status

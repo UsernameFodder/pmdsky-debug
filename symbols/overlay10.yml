@@ -17,7 +17,10 @@ overlay10:
         NA: 0x22C440C
       length:
         NA: 0x1
-      description: "The first dungeon that can have extra traps spawn in Monster Houses, Dark Hill"
+      description: |-
+        The first dungeon that can have extra traps spawn in Monster Houses, Dark Hill
+        
+        type: enum dungeon_id:8
     - name: BAD_POISON_DAMAGE_COOLDOWN
       address:
         NA: 0x22C4414
@@ -259,6 +262,8 @@ overlay10:
         Table of music IDs for dungeons with a random assortment of music tracks.
         
         This is a table with 30 rows, each with 4 2-byte music IDs. Each row contains the possible music IDs for a given group, from which the music track will be selected randomly.
+        
+        type: {enum music_id:16}[30][4]
     - name: MALE_ACCURACY_STAGE_MULTIPLIERS
       address:
         NA: 0x22C540C
@@ -294,6 +299,8 @@ overlay10:
         List of music IDs used in dungeons with a single music track.
         
         This is an array of 170 2-byte music IDs, and is indexed into by the music value in the floor properties struct for a given floor. Music IDs with the highest bit set (0x8000) are indexes into the RANDOM_MUSIC_ID_TABLE.
+        
+        type: {enum music_id:16}[170] (or not a music ID if the highest bit is set)
     - name: TYPE_MATCHUP_TABLE
       address:
         NA: 0x22C56B0
@@ -308,6 +315,8 @@ overlay10:
         Table of stats for monsters that can spawn in fixed rooms, pointed into by the FIXED_ROOM_MONSTER_SPAWN_TABLE.
         
         This is an array of 99 12-byte entries containing stat spreads for one monster entry each.
+        
+        type: struct fixed_room_monster_spawn_stats_entry[99]
     - name: TILESET_PROPERTIES
       address:
         NA: 0x22C631C
@@ -328,6 +337,8 @@ overlay10:
         This is an array of 256 12-byte entries containing properties for a given fixed room ID.
         
         See the struct definitions and End45's dungeon data document for more info.
+        
+        type: struct fixed_room_properties_entry[256]
     - name: MOVE_ANIMATION_INFO
       address:
         NA: 0x22C9064
