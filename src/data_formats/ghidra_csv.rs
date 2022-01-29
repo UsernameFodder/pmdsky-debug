@@ -1,5 +1,20 @@
-/// The format from Ghidra's "Export Columns to CSV..." for symbol tables,
-/// with only the "Name", "Location", and "Type" columns selected.
+//! A simple CSV format that can be exported directly from a Ghidra project.
+//!
+//! Files of this format can be obtained by exporting a project's symbol table to CSV using the
+//! "Export Columns to CSV..." option, with only the "Name", "Location", and "Type" columns
+//! selected, and appropriate symbol type filters applied. It consists of a header row (which is
+//! always "Name","Location","Type"), followed by rows containing one symbol each. As the header
+//! suggests, each data row consists of a name, memory address (as hexadecimal), and symbol type
+//! ("Function" or "Data Label"), separated by commas. All values are double-quoted strings.
+//!
+//! # Example
+//! ```csv
+//! "Name","Location","Type"
+//! "main","02000000","Function"
+//! "function1","02400000","Function"
+//! "SOME_DATA","02ffffff","Data Label"
+//! ```
+
 use std::error::Error;
 use std::io::Read;
 use std::vec::IntoIter;
@@ -48,6 +63,7 @@ struct Entry {
     stype: SymbolType,
 }
 
+/// Loader for a specific CSV format exported from Ghidra projects.
 pub struct CsvLoader {
     entries: IntoIter<Entry>,
     params: LoadParams,

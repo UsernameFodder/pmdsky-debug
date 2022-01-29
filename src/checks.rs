@@ -1,4 +1,5 @@
-/// validating the substantive contents of resymgen YAML files
+//! Validating the substantive contents of `resymgen` YAML files. Implements the `check` command.
+
 use std::cmp;
 use std::collections::{BTreeMap, HashSet};
 use std::error::Error;
@@ -16,12 +17,19 @@ use super::data_formats::symgen_yml::{
 };
 use super::util::MultiFileError;
 
+/// Naming conventions for symbol names.
 #[derive(Debug, Clone, Copy)]
 pub enum NamingConvention {
+    /// Symbol names should be valid identifiers (in accordance with Rust syntax).
+    /// This condition implicitly applies to all other variants.
     Identifier,
+    /// snake_case
     SnakeCase,
+    /// SCREAMING_SNAKE_CASE
     ScreamingSnakeCase,
+    /// camelCase
     CamelCase,
+    /// PascalCase
     PascalCase,
 }
 
@@ -110,18 +118,29 @@ impl NamingConvention {
     }
 }
 
+/// Checks that can be run on `resymgen` YAML symbol tables.
 #[derive(Debug, Clone, Copy)]
 pub enum Check {
+    /// All addresses and lengths (for both blocks and symbols) must be explicitly listed by version.
     ExplicitVersions,
+    /// Any version used within a version-dependent address or length must appear in the version
+    /// list of the parent block.
     CompleteVersionList,
+    /// YAML maps (key-value pair lists) must have at least one entry.
     NonEmptyMaps,
+    /// Symbol names within a block must be unique.
     UniqueSymbols,
+    /// Symbols must fall within the address range of the parent block.
     InBoundsSymbols,
+    /// Function symbols must not overlap with each other for a given block and version.
     NoFunctionOverlap,
+    /// Function symbol names must adhere to the specified [`NamingConvention`].
     FunctionNames(NamingConvention),
+    /// Data symbol names must adhere to the specified [`NamingConvention`].
     DataNames(NamingConvention),
 }
 
+/// The result of a [Check] run on `resymgen` YAML symbol tables.
 #[derive(Debug)]
 pub struct CheckResult {
     pub check: Check,
@@ -170,8 +189,9 @@ where
     }
 }
 
-// Runs a simple boolean check on all address/length fields. The generic <'a> is the lifetime of the
-// SymGen object to check, and allows the checker context to hold references to a block if needed.
+/// Runs a simple boolean check on all address/length fields. The generic <'a> is the lifetime of
+/// the [`SymGen`] object to check, and allows the checker context to hold references to a block if
+/// needed.
 trait SimpleAddrLenChecker<'a> {
     fn init_context(
         &mut self,
@@ -474,7 +494,22 @@ fn check_data_names(symgen: &SymGen, conv: NamingConvention) -> Result<(), Strin
     symbols_name_check(symgen, conv, |b: &Block| b.data.iter(), "data")
 }
 
-/// Validates a given input file under the specified checks.
+/// Validates a given `input_file` under the specified `checks`.
+///
+/// Returns a [`Vec<CheckResult>`] corresponding to `checks` if all checks were run without
+/// encountering any fatal errors.
+///
+/// # Examples
+/// ```ignore
+/// let results = run_checks(
+///     "/path/to/symbols.yml",
+///     &[
+///         Check::ExplicitVersions,
+///         Check::FunctionNames(NamingConvention::SnakeCase),
+///     ],
+/// )
+/// .expect("Fatal error occurred");
+/// ```
 pub fn run_checks<P: AsRef<Path>>(
     input_file: P,
     checks: &[Check],
@@ -484,7 +519,7 @@ pub fn run_checks<P: AsRef<Path>>(
     Ok(checks.iter().map(|chk| chk.run(&contents)).collect())
 }
 
-/// Prints check results similar to `cargo test` output
+/// Prints check results similar to `cargo test` output.
 fn print_report(results: &[(String, CheckResult)]) -> io::Result<()> {
     let mut stdout = StandardStream::stdout(ColorChoice::Always);
     let mut print_colored_report = || -> io::Result<()> {
@@ -544,6 +579,23 @@ fn print_report(results: &[(String, CheckResult)]) -> io::Result<()> {
     }
 }
 
+/// Validates a given set of `input_files` under the specified `checks`, and prints a summary of
+/// the results.
+///
+/// If all checks were run without encountering a fatal error, returns `true` if all checks passed
+/// and `false` otherwise.
+///
+/// # Examples
+/// ```ignore
+/// let passed = run_and_print_checks(
+///     ["/path/to/symbols.yml", "/path/to/other_symbols.yml"],
+///     &[
+///         Check::ExplicitVersions,
+///         Check::FunctionNames(NamingConvention::SnakeCase),
+///     ],
+/// )
+/// .expect("Fatal error occurred");
+/// ```
 pub fn run_and_print_checks<I, P>(input_files: I, checks: &[Check]) -> Result<bool, Box<dyn Error>>
 where
     P: AsRef<Path>,

@@ -1,4 +1,6 @@
-/// data transformations involving the resymgen YAML format and other formats
+//! Data transformations involving the `resymgen` YAML format and other formats. Implements the
+//! `gen` and `merge` commands.
+
 use std::borrow::Cow;
 use std::collections::BTreeSet;
 use std::convert::AsRef;
@@ -11,7 +13,7 @@ use tempfile::NamedTempFile;
 use super::data_formats::symgen_yml::{IntFormat, LoadParams, SymGen, Symbol};
 use super::data_formats::{Generate, InFormat, OutFormat};
 
-// Form the output file path from the base, version, and format
+/// Forms the output file path from the base, version, and format.
 fn output_file_name(base: &Path, version: &str, format: &OutFormat) -> PathBuf {
     let output_stem = match base.file_stem() {
         Some(s) => {
@@ -26,6 +28,7 @@ fn output_file_name(base: &Path, version: &str, format: &OutFormat) -> PathBuf {
         .with_extension(format.extension())
 }
 
+/// Generates symbol tables from a given SymGen struct for multiple different formats/versions.
 fn generate_symbols<P: AsRef<Path>>(
     symgen: &SymGen,
     formats: &[OutFormat],
@@ -48,6 +51,7 @@ fn generate_symbols<P: AsRef<Path>>(
     Ok(())
 }
 
+/// Gets a list of all version names explicitly specified by blocks within a SymGen.
 fn all_version_names(symgen: &SymGen) -> Vec<&str> {
     let mut vers = BTreeSet::new();
     for b in symgen.blocks() {
@@ -60,7 +64,22 @@ fn all_version_names(symgen: &SymGen) -> Vec<&str> {
     vers.into_iter().collect()
 }
 
-/// Generates symbol tables from a given input file for multiple different formats/versions.
+/// Generates symbol tables from a given `input_file` for multiple different `output_formats` and
+/// `output_versions`.
+///
+/// Output is written to filepaths based on `output_base`. Both `output_formats` and
+/// `output_versions` default to all formats/versions if `None`.
+///
+/// # Examples
+/// ```ignore
+/// generate_symbol_tables(
+///     "/path/to/symbols.yml",
+///     Some([OutFormat::Ghidra]),
+///     Some("v1"),
+///     "/path/to/out/symbols",
+/// )
+/// .expect("failed to generate symbol tables");
+/// ```
 pub fn generate_symbol_tables<'v, I, F, V, O>(
     input_file: I,
     output_formats: Option<F>,
@@ -88,7 +107,27 @@ where
     generate_symbols(&contents, &formats, &versions, output_base)
 }
 
-/// Merges symbols from a collection of input files into a given symgen file.
+/// Merges symbols from a collection of `input_files` of the format `input_format` into a given
+/// `symgen_file`.
+///
+/// Additional configuration is specified with `merge_params`. Integers are written in `int_format`.
+///
+/// # Examples
+/// ```ignore
+/// let params = LoadParams {
+///     default_block_name: None,
+///     default_symbol_type: None,
+///     default_version_name: Some("v1".into()),
+/// };
+/// merge_symbols(
+///     "/path/to/symbols.yml",
+///     ["/path/to/input.csv"],
+///     InFormat::Csv,
+///     &params,
+///     IntFormat::Hexadecimal,
+/// )
+/// .expect("failed to merge symbols");
+/// ```
 pub fn merge_symbols<P, P2, I>(
     symgen_file: P,
     input_files: I,

@@ -1,4 +1,5 @@
-/// The resymgen YAML format
+//! Defines the `resymgen` YAML format and its programmatic representation, the [`SymGen`] struct.
+
 use std::any;
 use std::borrow::Cow;
 use std::cmp::Ordering;
@@ -16,28 +17,36 @@ use syn::{self, LitStr};
 use super::error::{Error, Result};
 use super::types::*;
 
-/// Specifies how integers should be serialized
+/// Specifies how integers should be formatted during serialization.
 #[derive(Clone, Copy)]
 pub enum IntFormat {
     Decimal,
     Hexadecimal,
 }
 
+/// Information about a [`Block`] to be propagated down to the block's contents.
 struct BlockContext {
     version_order: Option<HashMap<String, u64>>,
 }
 
+/// A symbol in a `resymgen` symbol table, with some metadata.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct Symbol {
+    /// The symbol name.
     pub name: String,
+    /// The starting address of the symbol in memory.
     pub address: MaybeVersionDep<Linkable>,
+    /// The length of the symbol in memory (in bytes).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub length: Option<MaybeVersionDep<Uint>>,
+    /// A description of the symbol.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
 }
 
+/// Combines possibly version-dependent `addrs` and `opt_len` into a single `MaybeVersionDep`
+/// with the data (addr, opt_len).
 fn zip_addr_len<T>(
     addrs: &MaybeVersionDep<T>,
     opt_len: Option<&MaybeVersionDep<Uint>>,
@@ -76,18 +85,32 @@ where
 }
 
 impl Symbol {
+    /// Initializes the [`Symbol`] with a given `ctx`.
     fn init(&mut self, ctx: &BlockContext) {
         self.address.init(&ctx.version_order);
         if let Some(l) = &mut self.length {
             l.init(&ctx.version_order);
         }
     }
+    /// Coerces the [`Symbol`]'s address and length fields to be [`ByVersion`].
+    ///
+    /// If either field is [`Common`], it will be expanded with the versions in `all_versions`.
+    ///
+    /// [`ByVersion`]: MaybeVersionDep::ByVersion
+    /// [`Common`]: MaybeVersionDep::Common
     pub fn expand_versions(&mut self, all_versions: &[Version]) {
         self.address.expand_versions(all_versions);
         if let Some(len) = &mut self.length {
             len.expand_versions(all_versions);
         }
     }
+    /// Gets the extents occupied by the [`Symbol`], possibly by version, represented as
+    /// address-length pairs.
+    ///
+    /// If the optional `all_versions` is provided, the returned extents are guaranteed to be
+    /// [`ByVersion`].
+    ///
+    /// [`ByVersion`]: MaybeVersionDep::ByVersion
     pub fn extents(
         &self,
         all_versions: Option<&[Version]>,
@@ -122,7 +145,7 @@ impl Ord for Symbol {
     }
 }
 
-/// A concrete realization of a symbol for some version.
+/// A concrete realization of a [`Symbol`] for some [`Version`] (which can be [`None`]).
 #[derive(Debug, PartialEq, Eq, Clone, Copy, Serialize, Deserialize)]
 pub struct RealizedSymbol<'a> {
     pub name: &'a str,
@@ -133,7 +156,7 @@ pub struct RealizedSymbol<'a> {
     pub description: Option<&'a str>,
 }
 
-/// Wraps a symbol iterator and yields RealizedSymbols.
+/// Wraps an [`Iterator`] over [`Symbol`]s to yield a stream of [`RealizedSymbol`]s.
 pub struct RealizedSymbolIter<'v, 's, I>
 where
     I: Iterator<Item = &'s Symbol>,
@@ -184,10 +207,12 @@ where
     }
 }
 
+/// Implementers of [`Realize`] can produce iterators over [`RealizedSymbol`]s
+/// for arbitrary [`Version`]s.
 pub trait Realize<'s> {
     type Iter: Iterator<Item = &'s Symbol>;
 
-    /// Returns an iterator over realized symbols.
+    /// Returns a [`RealizedSymbolIter`] for the given `version`.
     fn realize<'v>(self, version: Option<&'v Version>) -> RealizedSymbolIter<'v, 's, Self::Iter>;
 }
 
@@ -206,15 +231,22 @@ where
     }
 }
 
+/// A list of [`Symbol`]s.
+///
+/// Implements a similar accessor interface to [`Vec<Symbol>`].
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Deserialize)]
 pub struct SymbolList(Vec<Symbol>);
 
 impl SymbolList {
+    /// Initializes the [`SymbolList`] with a given `ctx`.
     fn init(&mut self, ctx: &BlockContext) {
         for symbol in self.0.iter_mut() {
             symbol.init(ctx);
         }
     }
+    /// Expands the versions of all the [`Symbol`]s contained within the [`SymbolList`].
+    ///
+    /// See [`Symbol::expand_versions()`].
     pub fn expand_versions(&mut self, all_versions: &[Version]) {
         for symbol in self.0.iter_mut() {
             symbol.expand_versions(all_versions);
@@ -276,28 +308,44 @@ impl Sort for SymbolList {
     }
 }
 
+/// A contiguous block of [`Symbol`]s in a `resymgen` symbol table, with some metadata.
+///
+/// Like its consituent [`Symbol`]s, a [`Block`] contains an address, a length, and a description.
+/// Unlike [`Symbol`]s, the `length` field is required. [`Block`]s can also contain a list of all
+/// relevant [`Version`]s, which may or may not be used by the [`Symbol`]s it contains.
+///
+/// Every [`Block`] contains two separate [`SymbolList`]s: one for function symbols, and one for
+/// data symbols.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct Block {
     // Metadata
+    /// List of [`Version`]s relevant to the block.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub versions: Option<Vec<Version>>,
+    /// The starting address of the block in memory.
     pub address: MaybeVersionDep<Uint>,
+    /// The length of the block in memory (in bytes).
     pub length: MaybeVersionDep<Uint>,
+    /// A description of the block.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
 
     // Symbols
+    /// List of function symbols.
     pub functions: SymbolList,
+    /// List of data symbols.
     pub data: SymbolList,
 }
 
 impl Block {
+    /// Gets a [`BlockContext`] associated with the [`Block`].
     fn get_context(&self) -> BlockContext {
         BlockContext {
             version_order: OrdString::get_order_map(self.versions.as_deref()),
         }
     }
+    /// Initializes the [`Block`]'s contents using its version list.
     fn init(&mut self) {
         let ctx = self.get_context();
 
@@ -314,6 +362,8 @@ impl Block {
         self.functions.init(&ctx);
         self.data.init(&ctx);
     }
+    /// Gets the extent occupied by the [`Block`], possibly by version, represented as
+    /// address-length pairs.
     pub fn extent(&self) -> MaybeVersionDep<(Uint, Option<Uint>)> {
         let mut versions: Vec<Version> = Vec::new();
         if let Some(v) = &self.versions {
@@ -334,6 +384,10 @@ impl Block {
             zip_addr_len(&self.address, Some(&self.length))
         }
     }
+    /// Expands the versions of all the addresses and lengths contained within the [`Block`]
+    /// (both in its metadata and the [`Symbol`]s it contains).
+    ///
+    /// See [`Symbol::expand_versions()`].
     pub fn expand_versions(&mut self) {
         // Note: this function does not try to infer versions from address/length because, unlike
         // with extent(), this function actually CHANGES Common to ByVersion, which sort of loses
@@ -345,20 +399,24 @@ impl Block {
             self.data.expand_versions(vers);
         }
     }
-    /// Look up a version by name
+    /// Looks up a [`Version`] in the [`Block`] by name.
     pub fn version(&self, name: &str) -> Option<&Version> {
         self.versions
             .as_ref()
             .and_then(|vs| vs.iter().find(|v| v.name() == name))
     }
-    /// Returns an iterator over both functions and data.
+    /// Returns a combined iterator over both function and data symbols in the [`Block`].
     pub fn iter(&self) -> impl Iterator<Item = &Symbol> {
         self.functions.iter().chain(self.data.iter())
     }
+    /// Returns a combined iterator over both function and data symbols in the [`Block`], realized
+    /// for the [`Version`] corresponding to `version_name`.
     pub fn iter_realized(&self, version_name: &str) -> impl Iterator<Item = RealizedSymbol> + '_ {
         let version = self.version(version_name);
         self.iter().realize(version)
     }
+    /// Returns an iterator over function symbols in the [`Block`], realized for the [`Version`]
+    /// corresponding to `version_name`.
     pub fn functions_realized(
         &self,
         version_name: &str,
@@ -366,6 +424,8 @@ impl Block {
         let version = self.version(version_name);
         self.functions.iter().realize(version)
     }
+    /// Returns an iterator over data symbols in the [`Block`], realized for the [`Version`]
+    /// corresponding to `version_name`.
     pub fn data_realized(&self, version_name: &str) -> impl Iterator<Item = RealizedSymbol> + '_ {
         let version = self.version(version_name);
         self.data.iter().realize(version)
@@ -391,10 +451,15 @@ impl Sort for Block {
     }
 }
 
+/// A programmatic representation of the `resymgen` YAML format.
+///
+/// At its core, a [`SymGen`] is just a mapping between block names and [`Block`]s, along with
+/// convenient methods for manipulating the data within those [`Block`]s.
 #[derive(Debug, PartialEq, Clone, Serialize, Deserialize)]
 pub struct SymGen(BTreeMap<OrdString, Block>);
 
 impl SymGen {
+    /// Initializes all the block names and [`Block`]s within the [`SymGen`].
     pub fn init(&mut self) {
         // Get entries sorted by (block, name)
         let mut sorted_blocks: Vec<_> = self.0.iter().map(|(name, block)| (block, name)).collect();
@@ -414,27 +479,34 @@ impl SymGen {
             self.0.insert(name, block);
         }
     }
+    /// Reads an uninitialized [`SymGen`] from `rdr`.
     pub fn read_no_init<R: Read>(rdr: R) -> Result<SymGen> {
         serde_yaml::from_reader(rdr).map_err(Error::Yaml)
     }
+    /// Reads a [`SymGen`] from `rdr`. The returned [`SymGen`] will be initialized.
     pub fn read<R: Read>(rdr: R) -> Result<SymGen> {
         let mut symgen: SymGen = SymGen::read_no_init(rdr)?;
         symgen.init();
         Ok(symgen)
     }
+    /// Reads a [`SymGen`] from `rdr`. The returned [`SymGen`] will be initialized and sorted.
+    ///
+    /// [`Block`]s and their contained [`Symbol`]s are sorted by address. For version-dependent
+    /// addresses, comparison is lexicographic in [`Version`] order.
     pub fn read_sorted<R: Read>(rdr: R) -> Result<SymGen> {
         let mut symgen = SymGen::read(rdr)?;
         symgen.sort();
         Ok(symgen)
     }
-    /// Convert target fields in a symgen YAML string with some inline operation,
-    /// via line-by-line text processing. F injects modified lines into the final YAML string
-    /// accumulator, based on the given line to be modified and the current indentation level,
-    /// and returns a success flag.
+    /// Converts target fields in a `resymgen` YAML string with some inline operation,
+    /// via line-by-line text processing.
     ///
-    /// This is a gross hack. Should investigate whether it's easy to mod yaml-rust and serde-yaml
-    /// to serialize in the desired format directly, rather than doing it via post-processing.
-    /// But this is serviceable for now.
+    /// `F` injects modified lines into the final YAML string accumulator, based on the given line
+    /// to be modified and the current indentation level, and returns a success flag.
+    ///
+    /// This is kind of a hack. Might be worth investigating whether it's easy to mod `yaml-rust`
+    /// and `serde-yaml` to serialize in the desired format directly, rather than doing it via
+    /// post-processing. But this is serviceable for now.
     fn convert_fields_inline<F, const N: usize>(
         yaml: &str,
         field_prefixes: [&str; N],
@@ -513,7 +585,7 @@ impl SymGen {
         }
         converted_yaml
     }
-    /// Convert all integer values in a symgen YAML string from decimal to hexadecimal.
+    /// Converts all integer values in a `resymgen` YAML string from decimal to hexadecimal.
     fn convert_dec_to_hex(yaml: &str) -> String {
         let re_int = Regex::new(r"\b\d+\b").unwrap();
         SymGen::convert_fields_inline(
@@ -541,7 +613,8 @@ impl SymGen {
             },
         )
     }
-    /// Convert all multiline description strings in a symgen YAML string to block scalar format for readability.
+    /// Converts all multiline description strings in a `resymgen` YAML string to block scalar
+    /// format, for readability.
     fn convert_multiline_desc_to_block_scalar(yaml: &str) -> String {
         SymGen::convert_fields_inline(yaml, ["description:"], |converted_yaml, line, indent| {
             const SUB_INDENT: usize = 2;
@@ -579,6 +652,9 @@ impl SymGen {
             false
         })
     }
+    /// Writes the [`SymGen`] data to `writer` in `resymgen` YAML format.
+    ///
+    /// Integers will be written with the given `int_format`.
     pub fn write<W: Write>(&self, mut writer: W, int_format: IntFormat) -> Result<()> {
         // I don't expect these YAML files to be too big to fit in memory, so it's easier and
         // faster to keep the serialized data in memory for processing. And anyway,
@@ -608,46 +684,69 @@ impl SymGen {
             .as_bytes();
         writer.write_all(yaml_bytes).map_err(Error::Io)
     }
+    /// Writes the [`SymGen`] data to a [`String`] in `resymgen` YAML format.
+    ///
+    /// Integers will be written with the given `int_format`.
     pub fn write_to_str(&self, int_format: IntFormat) -> Result<String> {
         let mut bytes = Vec::<u8>::new();
         self.write(&mut bytes, int_format)?;
         String::from_utf8(bytes).map_err(Error::FromUtf8)
     }
 
+    /// Expands the versions of all the addresses and lengths contained within the [`SymGen`]
+    /// (in all the contained [`Block`]s).
+    ///
+    /// See [`Block::expand_versions()`].
     pub fn expand_versions(&mut self) {
         for block in self.0.values_mut() {
             block.expand_versions();
         }
     }
+    /// Gets a reference to the [`OrdString`] key in the [`SymGen`] corresponding to `block_name`,
+    /// if present.
     pub fn block_key(&self, block_name: &str) -> Option<&OrdString> {
         self.0.keys().find(|k| k.val == block_name)
     }
 
+    /// Gets a reference to the [`Block`] associated with `key`, if present.
     pub fn get(&self, key: &OrdString) -> Option<&Block> {
         self.0.get(key)
     }
+    /// Gets a mutable reference to the [`Block`] associated with `key`, if present.
     pub fn get_mut(&mut self, key: &OrdString) -> Option<&mut Block> {
         self.0.get_mut(key)
     }
+    /// Inserts the [`Block`] contained by `value` into the [`SymGen`], keyed by `key`.
+    ///
+    /// If the [`SymGen`] already had a [`Block`] keyed by `key`, the old [`Block`] is returned.
     pub fn insert(&mut self, key: OrdString, value: Block) -> Option<Block> {
         self.0.insert(key, value)
     }
 
+    /// Returns an [`Iterator`] over references to (block name, [`Block`]) pairs in the [`SymGen`].
     pub fn iter(&self) -> impl Iterator<Item = (&OrdString, &Block)> {
         self.0.iter()
     }
+    /// Returns an [`Iterator`] over mutable references to (block name, [`Block`]) pairs in the
+    /// [`SymGen`].
     pub fn iter_mut(&mut self) -> impl Iterator<Item = (&OrdString, &mut Block)> {
         self.0.iter_mut()
     }
+    /// Returns an [`Iterator`] over references to [`Block`]s in the [`SymGen`].
     pub fn blocks(&self) -> impl Iterator<Item = &Block> {
         self.0.values()
     }
+    /// Returns an [`Iterator`] over mutable references to [`Block`]s in the [`SymGen`].
     pub fn blocks_mut(&mut self) -> impl Iterator<Item = &mut Block> {
         self.0.values_mut()
     }
+    /// Returns a flat [`Iterator`] over references to the [`Symbol`]s contained within every
+    /// [`Block`] in the [`SymGen`].
     pub fn symbols(&self) -> impl Iterator<Item = &Symbol> {
         self.blocks().flat_map(|b| b.iter())
     }
+    /// Returns a flat [`Iterator`] over all symbols contained within every [`Block`] in
+    /// the [`SymGen`], realized for the [`Version`] corresponding to `version_name`.
     pub fn symbols_realized(
         &self,
         version_name: &str,
@@ -655,6 +754,8 @@ impl SymGen {
         let v = String::from(version_name);
         self.blocks().flat_map(move |b| b.iter_realized(&v))
     }
+    /// Returns a flat [`Iterator`] over all function symbols contained within every [`Block`] in
+    /// the [`SymGen`], realized for the [`Version`] corresponding to `version_name`.
     pub fn functions_realized(
         &self,
         version_name: &str,
@@ -662,6 +763,8 @@ impl SymGen {
         let v = String::from(version_name);
         self.blocks().flat_map(move |b| b.functions_realized(&v))
     }
+    /// Returns a flat [`Iterator`] over all data symbols contained within every [`Block`] in
+    /// the [`SymGen`], realized for the [`Version`] corresponding to `version_name`.
     pub fn data_realized(&self, version_name: &str) -> impl Iterator<Item = RealizedSymbol> + '_ {
         let v = String::from(version_name);
         self.blocks().flat_map(move |b| b.data_realized(&v))

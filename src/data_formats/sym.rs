@@ -1,3 +1,16 @@
+//! The SYM (.sym) format.
+//!
+//! The SYM format is a simple symbol table format. Each symbol is listed on a separate line, and
+//! consists of a memory address (as a raw, 8-character hexadecimal number) and a name separated
+//! by spaces.
+//!
+//! # Example
+//! ```csv
+//! 2000000 main
+//! 2400000 function1
+//! 2FFFFFF SOME_DATA
+//! ```
+
 use std::error::Error;
 use std::io::Write;
 
@@ -6,6 +19,7 @@ use serde::{Serialize, Serializer};
 
 use super::symgen_yml::{Generate, SymGen, Uint};
 
+/// Generator for the .sym format.
 pub struct SymFormatter {}
 
 fn serialize_as_hex8<S>(x: &Uint, s: S) -> Result<S::Ok, S::Error>

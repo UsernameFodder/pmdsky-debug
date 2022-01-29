@@ -1,7 +1,9 @@
-/// Logic for merging data into resymgen YAML structs. This is a separate, mostly private module
-/// because (for efficiency) raw merge operations leave internal initialization/ordering in
-/// inconsistent state, which needs to be corrected explicitly through reinitialization. However,
-/// the publicly exported utilities are safe, however.
+//! Merging data into `resymgen` YAML structs.
+//!
+//! This is a separate, mostly private module because (for efficiency) raw merge operations leave
+//! internal initialization/ordering in inconsistent state, which needs to be corrected explicitly
+//! through reinitialization. However, the publicly exported utilities are safe.
+
 use std::borrow::Cow;
 use std::collections::HashMap;
 use std::error::Error;
@@ -13,10 +15,14 @@ use super::error::MergeError;
 use super::symgen::*;
 use super::types::*;
 
+/// A conflict encountered while merging.
 #[derive(Debug)]
 pub struct MergeConflict {
+    /// Description of the parent object being merged into.
     parent_desc: String,
+    /// Description of the object being merged.
     other_desc: String,
+    /// Nested [`MergeConflict`], if the conflict arises from more primitive inner structures.
     inner: Option<Box<MergeConflict>>,
 }
 
@@ -29,6 +35,8 @@ impl MergeConflict {
         }
     }
 
+    /// Wraps a [`Result<T, MergeConflict>`] in another [`MergeConflict`] with a description
+    /// `desc`, if an [`Err`].
     fn wrap<T, S: ToString>(res: Result<T, MergeConflict>, desc: S) -> Result<T, MergeConflict> {
         match res {
             Ok(x) => Ok(x),
@@ -62,6 +70,8 @@ impl Display for MergeConflict {
     }
 }
 
+/// An error encountered when attempting to merge into a [`Block`] that doesn't exist in the
+/// parent `SymGen`.
 #[derive(Debug)]
 pub struct MissingBlock {
     block_name: String,
@@ -75,9 +85,12 @@ impl Display for MissingBlock {
     }
 }
 
+/// An error encountered when there is ambiguity in which [`Block`] to merge an [`AddSymbol`] into,
+/// i.e. there are multiple different [`Block`]s that could work.
 #[derive(Debug)]
 pub struct BlockInferenceError {
     symbol_name: String,
+    /// List of names of all blocks that an [`AddSymbol`] could be merged into.
     matching_blocks: Vec<String>,
 }
 
@@ -102,7 +115,9 @@ impl Display for BlockInferenceError {
     }
 }
 
+/// A type that can be merged with another instance of the same type.
 trait Merge {
+    /// Merge `other` into `self`.
     fn merge(&mut self, other: &Self) -> Result<(), MergeConflict>;
 }
 
@@ -235,6 +250,8 @@ where
     }
 }
 
+/// Returns a possibly truncated substring of `s`. If truncated, the "..." suffix will be appended
+/// to indicate continuation.
 fn truncate(s: &str) -> String {
     const MAX_LENGTH: usize = 100;
     if s.chars().count() <= MAX_LENGTH {
@@ -417,8 +434,8 @@ impl Merge for SymGen {
     }
 }
 
-// SymbolList lookup and insertion, managed by a cache that stores
-// index by block name, by symbol type, by symbol name
+/// For [`SymbolList`] lookup and insertion, managed by a cache that stores
+/// index by block name, by symbol type, by symbol name.
 struct SymbolManager(HashMap<String, HashMap<SymbolType, HashMap<String, usize>>>);
 
 impl SymbolManager {
@@ -426,6 +443,10 @@ impl SymbolManager {
         Self(HashMap::new())
     }
 
+    /// Gets a mutable reference to a [`Symbol`] from within `slist`, with the given
+    /// cache key (`block_name`, `symbol_type`, `symbol_name`), if present in `slist`.
+    /// If the symbol is present but not within the [`SymbolManager`] cache, it will be
+    /// added the cache for future lookups.
     fn get<'s>(
         &mut self,
         slist: &'s mut SymbolList,
@@ -457,6 +478,8 @@ impl SymbolManager {
         idx.map(move |i| unsafe { slist.get_unchecked_mut(i) })
     }
 
+    /// Appends `symbol` onto `slist`, and update the [`SymbolManager`] cache with a given
+    /// `block_name` and `symbol_type`.
     fn insert(
         &mut self,
         slist: &mut SymbolList,
@@ -476,9 +499,14 @@ impl SymbolManager {
 }
 
 impl SymGen {
+    /// Merges `other` into `self`.
     pub fn merge_symgen(&mut self, other: &Self) -> Result<(), MergeError> {
         self.merge(other).map_err(MergeError::Conflict)
     }
+    /// Merges `other` into `self`.
+    ///
+    /// Returns a `Vec<Symbol>` containing symbols that were not successfully merged if no
+    /// fatal error was encountered, or a [`MergeError`] if a fatal error was encountered.
     pub fn merge_symbols<I>(&mut self, other: I) -> Result<Vec<Symbol>, MergeError>
     where
         I: Iterator<Item = AddSymbol>,

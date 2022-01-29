@@ -1,4 +1,9 @@
-/// reading/writing different symbol data formats.
+//! This module contains structs and methods for reading, writing, and manipulating different
+//! symbol data formats.
+//!
+//! The code for each data format is separated into its own module, including the `resymgen` YAML
+//! format itself (the [`symgen_yml`] module).
+
 pub mod ghidra;
 pub mod ghidra_csv;
 pub mod sym;
@@ -13,13 +18,20 @@ use sym::SymFormatter;
 pub use symgen_yml::Generate;
 use symgen_yml::{Load, LoadParams, SymGen, Symbol};
 
-/// This is like a poor man's version of trait objects for Generate. Real trait objects don't work
-/// because Generate isn't object-safe (generate() is generic), so we can't use dynamic polymorphism
-/// and need to define an enum instead for static polymorphism (the idea is to be able to make an
-/// array of Generate objects).
+// `OutFormat` is like a poor man's version of trait objects for Generate. Real trait objects don't
+// work because `Generate` isn't object-safe (generate() is generic), so we can't use dynamic
+// polymorphism and need to define an enum instead for static polymorphism (the idea is to be able
+// to make an array of `Generate` objects).
+
+/// Output formats that can be generated from the [`resymgen` YAML] format
+/// (all types that are [`Generate`]).
+///
+/// [`resymgen` YAML]: symgen_yml
 #[derive(Debug, Clone, Copy)]
 pub enum OutFormat {
+    /// [`ghidra`] format
     Ghidra,
+    /// [`sym`] format
     Sym,
 }
 
@@ -40,6 +52,7 @@ impl Generate for OutFormat {
 }
 
 impl OutFormat {
+    /// Returns the [`OutFormat`] corresponding to the given `name`, if there is one.
     pub fn from(name: &str) -> Option<Self> {
         match name {
             "ghidra" => Some(Self::Ghidra),
@@ -47,25 +60,37 @@ impl OutFormat {
             _ => None,
         }
     }
+    /// Returns the file extension associated with the [`OutFormat`].
     pub fn extension(&self) -> String {
         match self {
             Self::Ghidra => String::from("ghidra"),
             Self::Sym => String::from("sym"),
         }
     }
+    /// Returns an [`Iterator`] over all [`OutFormat`] variants.
     pub fn all() -> impl Iterator<Item = OutFormat> {
         [Self::Ghidra, Self::Sym].iter().copied()
     }
 }
 
-/// Similar to OutFormat, but for merge input formats.
+/// Input formats that can be merged into a symbol table in the [`resymgen` YAML] format
+/// (all types that are [`Load`]).
+///
+/// [`resymgen` YAML]: symgen_yml
 #[derive(Debug, Clone, Copy)]
 pub enum InFormat {
+    /// [`resymgen` YAML] format.
+    ///
+    /// [`resymgen` YAML]: symgen_yml
     Yaml,
+    /// A specific [CSV] format exported from Ghidra projects.
+    ///
+    /// [CSV]: ghidra_csv
     Csv,
 }
 
 impl InFormat {
+    /// Returns the [`InFormat`] corresponding to the given `name`, if there is one.
     pub fn from(name: &str) -> Option<Self> {
         match name {
             "yml" => Some(Self::Yaml),
@@ -73,16 +98,20 @@ impl InFormat {
             _ => None,
         }
     }
+    /// Returns the file extension associated with the [`InFormat`].
     pub fn extension(&self) -> String {
         match self {
             Self::Yaml => String::from("yml"),
             Self::Csv => String::from("csv"),
         }
     }
+    /// Returns an [`Iterator`] over all [`InFormat`] variants.
     pub fn all() -> impl Iterator<Item = InFormat> {
         [Self::Yaml, Self::Csv].iter().copied()
     }
 
+    /// Reads data from `rdr` in the format specified by the [`InFormat`], and merges it into
+    /// `symgen` using the options specified in `params`.
     pub fn merge<R: Read>(
         &self,
         symgen: &mut SymGen,

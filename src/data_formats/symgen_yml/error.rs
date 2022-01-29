@@ -1,3 +1,5 @@
+//! Error types for this module.
+
 use std::fmt::{self, Display, Formatter};
 use std::{error, io, result, string};
 
@@ -5,6 +7,9 @@ use serde_yaml;
 
 use super::merge::{BlockInferenceError, MergeConflict, MissingBlock};
 
+/// Error encountered during processing a [`SymGen`].
+///
+/// [`SymGen`]: super::SymGen
 #[derive(Debug)]
 pub enum Error {
     Yaml(serde_yaml::Error),
@@ -26,8 +31,14 @@ impl Display for Error {
     }
 }
 
+/// `Result` from processing a [`SymGen`].
+///
+/// [`SymGen`]: super::SymGen
 pub type Result<T> = result::Result<T, Error>;
 
+/// Error encountered while merging into a [`SymGen`].
+///
+/// [`SymGen`]: super::SymGen
 #[derive(Debug)]
 pub enum MergeError {
     Conflict(MergeConflict),

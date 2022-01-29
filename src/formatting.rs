@@ -1,4 +1,5 @@
-/// formatting resymgen YAML files
+//! Formatting `resymgen` YAML files. Implements the `fmt` command.
+
 use std::error::Error;
 use std::fs::{self, File};
 use std::io::{self, Write};
@@ -10,7 +11,12 @@ use termcolor::{Color, ColorChoice, ColorSpec, StandardStream, WriteColor};
 
 use super::data_formats::symgen_yml::{IntFormat, SymGen};
 
-/// Formats a given input file.
+/// Formats a given `input_file`, using to the given `int_format`.
+///
+/// # Examples
+/// ```ignore
+/// format_check_file("/path/to/symbols.yml", IntFormat::Hexadecimal).expect("Format failed");
+/// ```
 pub fn format_file<P: AsRef<Path>>(
     input_file: P,
     int_format: IntFormat,
@@ -26,8 +32,15 @@ pub fn format_file<P: AsRef<Path>>(
     Ok(())
 }
 
-/// Checks the format of a given input file. On success, returns true.
-/// On format-check failure, returns false and prints a diff.
+/// Checks the format of a given `input_file`, subject to the given `int_format`.
+///
+/// On success, returns `true`. On failure, returns `false` and prints a diff.
+///
+/// # Examples
+/// ```ignore
+/// let succeeded = format_check_file("/path/to/symbols.yml", IntFormat::Hexadecimal)
+///     .expect("Format check failed");
+/// ```
 pub fn format_check_file<P: AsRef<Path>>(
     input_file: P,
     int_format: IntFormat,
@@ -48,6 +61,8 @@ pub fn format_check_file<P: AsRef<Path>>(
     }
 }
 
+/// Prints a diff between a file and its formatted version in unified diff format.
+/// The title string is printed as part of the diff header.
 fn print_format_diff(old: &str, new: &str, title: &str) -> io::Result<()> {
     let mut stderr = StandardStream::stderr(ColorChoice::Always);
     let mut print_colored_diff = || -> io::Result<()> {

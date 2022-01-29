@@ -1,3 +1,16 @@
+//! A Ghidra-compatible symbol table format (.ghidra).
+//!
+//! This format is the symbol table format read by the `ImportSymbolsScript.py` Ghidra script.
+//! Each symbol is listed on a separate line, and consists of a name, a memory address (as raw
+//! hexadecimal), and a letter identifying the symbol type ('f' for functions and 'l' for labels).
+//!
+//! # Example
+//! ```csv
+//! main 2000000 f
+//! function1 2400000 f
+//! SOME_DATA 2FFFFFF l
+//! ```
+
 use std::error::Error;
 use std::io::Write;
 
@@ -6,6 +19,7 @@ use serde::{Serialize, Serializer};
 
 use super::symgen_yml::{Generate, SymGen, Uint};
 
+/// Generator for the .ghidra format.
 pub struct GhidraFormatter {}
 
 #[derive(Debug)]

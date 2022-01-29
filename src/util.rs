@@ -1,6 +1,7 @@
 use std::error::Error;
 use std::fmt::{self, Display, Formatter};
 
+/// Encapsulates a collection of similar errors for different files.
 #[derive(Debug)]
 pub struct MultiFileError {
     pub base_msg: String,

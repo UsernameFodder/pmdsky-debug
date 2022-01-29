@@ -1,13 +1,18 @@
-/// Utilities for symbol/block bounds-checking
+//! Utilities for symbol and block bounds checking.
+
 use super::symgen::*;
 use super::types::*;
 
+/// A violation of a bounds check.
 pub struct BoundViolation {
     pub version: Option<Version>,
+    /// The bound that was violated, as an offset and an optional length.
     pub bound: (Uint, Option<Uint>),
+    /// The extent that does not lie within the expected bound, as an offset and an optional length.
     pub extent: (Uint, Option<Uint>),
 }
 
+/// Checks that a given extent lies within a given bound.
 fn bounds_check(
     (addr, opt_len): (Uint, Option<Uint>),
     (bound_start, opt_bound_len): (Uint, Option<Uint>),
@@ -28,6 +33,8 @@ fn bounds_check(
     true
 }
 
+/// Checks that the possibly version-dependent extents of a symbol are contained within their
+/// respective, possibly version-dependent bounds.
 fn symbol_extents_in_bounds(
     bounds: &MaybeVersionDep<(Uint, Option<Uint>)>,
     extents: &MaybeVersionDep<(Linkable, Option<Uint>)>,
@@ -89,6 +96,13 @@ fn symbol_extents_in_bounds(
     None
 }
 
+/// Checks that a `symbol` falls within the given `bounds` (as an offset and an optional length)
+/// for the matching versions.
+///
+/// If `symbol` is not explicitly version-dependent, and `all_versions` is provided, the check
+/// will be done for every given version.
+///
+/// Returns [`None`] on success, or a [`BoundViolation`] if bound is found to be violated.
 pub fn symbol_in_bounds(
     bounds: &MaybeVersionDep<(Uint, Option<Uint>)>,
     symbol: &Symbol,
@@ -97,6 +111,7 @@ pub fn symbol_in_bounds(
     symbol_extents_in_bounds(bounds, &symbol.extents(all_versions.as_deref()))
 }
 
+/// Checks that `symbol` falls within the bounds of `block`.
 pub fn block_contains(block: &Block, symbol: &Symbol) -> bool {
     symbol_in_bounds(&block.extent(), symbol, &block.versions).is_none()
 }

@@ -28,7 +28,7 @@ const SUPPORTED_NAMING_CONVENTIONS: [&str; 5] = [
     "PascalCase",
 ];
 
-/// name is assumed to be in SUPPORTED_NAMING_CONVENTIONS (case-insensitive)
+// name is assumed to be in SUPPORTED_NAMING_CONVENTIONS (case-insensitive)
 fn naming_convention(name: &str) -> resymgen::NamingConvention {
     match name.to_ascii_lowercase().as_ref() {
         "identifier" => resymgen::NamingConvention::Identifier,
@@ -42,7 +42,7 @@ fn naming_convention(name: &str) -> resymgen::NamingConvention {
 
 const SUPPORTED_SYMBOL_TYPES: [&str; 2] = ["function", "data"];
 
-/// stype is assumed to be in SUPPORTED_SYMBOL_TYPES
+// stype is assumed to be in SUPPORTED_SYMBOL_TYPES
 fn symbol_type(stype: &str) -> resymgen::SymbolType {
     match stype {
         "function" => resymgen::SymbolType::Function,
