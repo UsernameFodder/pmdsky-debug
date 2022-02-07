@@ -265,6 +265,10 @@ impl SymbolList {
     {
         self.0.get_mut(index)
     }
+    /// Returns a mutable reference to a symbol, without doing bounds checking.
+    ///
+    /// # Safety
+    /// Calling this method with an out-of-bounds index is undefined behavior.
     pub unsafe fn get_unchecked_mut<I>(
         &mut self,
         index: I,
@@ -279,6 +283,9 @@ impl SymbolList {
     }
     pub fn len(&self) -> usize {
         self.0.len()
+    }
+    pub fn is_empty(&self) -> bool {
+        self.0.is_empty()
     }
     pub fn push(&mut self, value: Symbol) {
         self.0.push(value)

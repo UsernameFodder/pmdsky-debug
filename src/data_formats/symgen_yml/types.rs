@@ -302,6 +302,9 @@ impl<T> VersionDep<T> {
     pub fn len(&self) -> usize {
         self.0.len()
     }
+    pub fn is_empty(&self) -> bool {
+        self.0.is_empty()
+    }
     pub fn values(&self) -> impl Iterator<Item = &T> {
         self.0.values()
     }
@@ -400,6 +403,12 @@ impl<T> MaybeVersionDep<T> {
         match self {
             Self::Common(_) => 1,
             Self::ByVersion(v) => v.len(),
+        }
+    }
+    pub fn is_empty(&self) -> bool {
+        match self {
+            Self::Common(_) => false,
+            Self::ByVersion(v) => v.is_empty(),
         }
     }
     pub fn values(&self) -> impl Iterator<Item = &T> {

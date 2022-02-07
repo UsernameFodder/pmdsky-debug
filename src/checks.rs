@@ -140,7 +140,7 @@ pub enum Check {
     DataNames(NamingConvention),
 }
 
-/// The result of a [Check] run on `resymgen` YAML symbol tables.
+/// The result of a [`Check`] run on `resymgen` YAML symbol tables.
 #[derive(Debug)]
 pub struct CheckResult {
     pub check: Check,
@@ -304,7 +304,7 @@ fn check_nonempty_maps(symgen: &SymGen) -> Result<(), String> {
     struct NonEmptyMapChecker {}
     impl SimpleAddrLenChecker<'_> for NonEmptyMapChecker {
         fn check_val<T>(&self, val: &MaybeVersionDep<T>) -> bool {
-            val.len() > 0
+            !val.is_empty()
         }
         fn error_stem<T>(&self, _val: &MaybeVersionDep<T>) -> String {
             "is empty".to_string()
