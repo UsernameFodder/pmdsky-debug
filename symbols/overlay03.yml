@@ -9,5 +9,6 @@ overlay3:
   length:
     NA: 0xA160
     EU: 0xA160
+  description: Controls the Friend Rescue submenu within the top menu.
   functions: []
   data: []

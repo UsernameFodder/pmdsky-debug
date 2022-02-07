@@ -9,7 +9,7 @@ overlay19:
   length:
     NA: 0x4240
     EU: 0x4220
-  description: "Possibly related to Spinda's Café."
+  description: "Controls Spinda's Juice Bar."
   functions: []
   data:
     - name: BAR_MENU_CONFIRM_1

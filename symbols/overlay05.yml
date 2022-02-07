@@ -9,5 +9,6 @@ overlay5:
   length:
     NA: 0x3240
     EU: 0x3240
+  description: Controls the Trade Team submenu within the top menu.
   functions: []
   data: []

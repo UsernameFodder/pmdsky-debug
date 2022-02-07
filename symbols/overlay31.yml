@@ -9,7 +9,7 @@ overlay31:
   length:
     NA: 0x7A80
     EU: 0x7AA0
-  description: Loaded during dungeon mode. Possibly the Tactics menu.
+  description: Controls the dungeon menu (during dungeon mode).
   functions: []
   data:
     - name: DUNGEON_MAIN_MENU

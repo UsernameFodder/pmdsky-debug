@@ -9,6 +9,6 @@ overlay8:
   length:
     NA: 0x2200
     EU: 0x2620
-  description: Seems related to Wi-Fi communications.
+  description: "Controls the Send Demo Dungeon submenu within the top menu (under \"Other\")."
   functions: []
   data: []

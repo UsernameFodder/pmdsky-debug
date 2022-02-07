@@ -9,6 +9,7 @@ overlay24:
   length:
     NA: 0x24E0
     EU: 0x24E0
+  description: Controls the Chansey Day Care.
   functions: []
   data:
     - name: DAYCARE_MENU_CONFIRM

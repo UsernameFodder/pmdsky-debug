@@ -9,7 +9,7 @@ overlay15:
   length:
     NA: 0x1060
     EU: 0x1080
-  description: Possibly related to the Duskull Bank menu.
+  description: Controls the Duskull Bank.
   functions: []
   data:
     - name: BANK_MAIN_MENU

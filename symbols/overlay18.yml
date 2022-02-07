@@ -9,6 +9,7 @@ overlay18:
   length:
     NA: 0x3500
     EU: 0x3500
+  description: Controls the Electivire Link Shop.
   functions: []
   data:
     - name: MOVES_MENU_CONFIRM

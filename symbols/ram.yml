@@ -73,6 +73,74 @@ arm9:
         While the game only allows a maximum of 48 items during normal play, it seems to read up to 50 item slots if filled.
         
         type: struct item[50]
+    - name: BAG_ITEMS_PTR
+      address:
+        NA: 0x22A3BA8
+      length:
+        NA: 0x4
+      description: Pointer to BAG_ITEMS.
+    - name: STORAGE_ITEMS
+      address:
+        NA: 0x22A3BAE
+      length:
+        NA: 0x7D0
+      description: |-
+        Array of item IDs in the player's item storage.
+        
+        For stackable items, the quantities are stored elsewhere, in STORAGE_ITEM_QUANTITIES.
+        
+        type: {enum item_id:16}[1000]
+    - name: STORAGE_ITEM_QUANTITIES
+      address:
+        NA: 0x22A437E
+      length:
+        NA: 0x7D0
+      description: |-
+        Array of 1000 2-byte (unsigned) quantities corresponding to the item IDs in STORAGE_ITEMS.
+        
+        If the corresponding item ID is not a stackable item, the entry in this array is unused, and will be 0.
+    - name: KECLEON_SHOP_ITEMS_PTR
+      address:
+        NA: 0x22A4B50
+      length:
+        NA: 0x4
+      description: Pointer to KECLEON_SHOP_ITEMS.
+    - name: KECLEON_SHOP_ITEMS
+      address:
+        NA: 0x22A4B54
+      length:
+        NA: 0x20
+      description: |-
+        Array of up to 8 items in the Kecleon Shop of the form {enum item_id:16, uint16_t quantity}.
+        
+        If there are fewer than 8 items, the array is expected to be null-terminated.
+    - name: UNUSED_KECLEON_SHOP_ITEMS
+      address:
+        NA: 0x22A4B74
+      length:
+        NA: 0x20
+      description: "Seems to be another array like KECLEON_SHOP_ITEMS, but don't actually appear to be used by the Kecleon Shop."
+    - name: KECLEON_WARES_ITEMS_PTR
+      address:
+        NA: 0x22A4B94
+      length:
+        NA: 0x4
+      description: Pointer to KECLEON_WARES_ITEMS.
+    - name: KECLEON_WARES_ITEMS
+      address:
+        NA: 0x22A4B98
+      length:
+        NA: 0x10
+      description: |-
+        Array of up to 4 items in Kecleon Wares of the form {enum item_id:16, uint16_t quantity}.
+        
+        If there are fewer than 4 items, the array is expected to be null-terminated.
+    - name: UNUSED_KECLEON_WARES_ITEMS
+      address:
+        NA: 0x22A4BA8
+      length:
+        NA: 0x10
+      description: "Seems to be another array like KECLEON_WARES_ITEMS, but don't actually appear to be used by Kecleon Wares."
     - name: MONEY_CARRIED
       address:
         NA: 0x22A4BB8

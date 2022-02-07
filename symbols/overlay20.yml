@@ -9,6 +9,7 @@ overlay20:
   length:
     NA: 0x3000
     EU: 0x3000
+  description: Controls the Recycle Shop.
   functions: []
   data:
     - name: RECYCLE_MENU_CONFIRM_1

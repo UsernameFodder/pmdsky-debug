@@ -9,5 +9,6 @@ overlay9:
   length:
     NA: 0x2D80
     EU: 0x2D80
+  description: Controls the Sky Jukebox.
   functions: []
   data: []

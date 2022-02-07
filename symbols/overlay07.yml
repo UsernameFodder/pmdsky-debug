@@ -9,5 +9,6 @@ overlay7:
   length:
     NA: 0x5100
     EU: 0x3300
+  description: "Controls the Nintendo WFC submenu within the top menu (under \"Other\")."
   functions: []
   data: []

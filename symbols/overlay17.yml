@@ -9,6 +9,7 @@ overlay17:
   length:
     NA: 0x1CE0
     EU: 0x1CE0
+  description: Controls the Chimecho Assembly.
   functions: []
   data:
     - name: ASSEMBLY_MENU_CONFIRM

@@ -9,7 +9,7 @@ overlay21:
   length:
     NA: 0x2E20
     EU: 0x2E20
-  description: "Most likely controls the menu for Croagunk's Swap Shop."
+  description: Controls the Croagunk Swap Shop.
   functions: []
   data:
     - name: SWAP_SHOP_MENU_CONFIRM

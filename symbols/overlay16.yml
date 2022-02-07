@@ -9,7 +9,7 @@ overlay16:
   length:
     NA: 0x2D20
     EU: 0x2D20
-  description: Possibly related to the Chimecho Assembly menu.
+  description: Controls Luminous Spring.
   functions: []
   data:
     - name: EVO_MENU_CONFIRM

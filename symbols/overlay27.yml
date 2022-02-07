@@ -9,7 +9,7 @@ overlay27:
   length:
     NA: 0x2D60
     EU: 0x2D60
-  description: Most likely another menu related to item storage (alongside overlay 23).
+  description: Most likely another menu related to discarding items in item storage somewhere.
   functions: []
   data:
     - name: DISCARD_ITEMS_MENU_CONFIRM

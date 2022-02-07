@@ -9,7 +9,7 @@ overlay14:
   length:
     NA: 0x3AE0
     EU: 0x3B40
-  description: Probably runs the sentry duty minigame.
+  description: Runs the sentry duty minigame.
   functions: []
   data:
     - name: FOOTPRINT_DEBUG_MENU

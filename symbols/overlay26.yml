@@ -9,5 +9,6 @@ overlay26:
   length:
     NA: 0xE40
     EU: 0xE40
+  description: "Related to mission completion. It's loaded when the dungeon completion summary is shown upon exiting a dungeon, and during the cutscenes where you collect mission rewards from clients."
   functions: []
   data: []

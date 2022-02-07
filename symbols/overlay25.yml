@@ -9,6 +9,7 @@ overlay25:
   length:
     NA: 0x14C0
     EU: 0x14C0
+  description: Controls Xatu Appraisal.
   functions: []
   data:
     - name: APPRAISAL_MENU_CONFIRM

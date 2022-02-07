@@ -9,7 +9,7 @@ overlay22:
   length:
     NA: 0x4B40
     EU: 0x4B40
-  description: Most like controls the menu for the Kecleon Shop.
+  description: Controls the Kecleon Shop in Treasure Town.
   functions: []
   data:
     - name: SHOP_MENU_CONFIRM
