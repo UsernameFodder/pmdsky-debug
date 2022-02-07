@@ -14,7 +14,7 @@ overlay1:
     
     This is loaded together with overlay 0 while in the top menu. Since it's in overlay group 1 (together with other "main" overlays like overlay 11 and overlay 29), this is probably the controller.
     
-    Seems contain code related to Wi-Fi rescue. It mentions several files from the GROUND and BACK folders.
+    Seems to contain code related to Wi-Fi rescue. It mentions several files from the GROUND and BACK folders.
   functions: []
   data:
     - name: CONTINUE_CHOICE
