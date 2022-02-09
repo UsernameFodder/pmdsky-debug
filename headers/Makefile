@@ -14,7 +14,7 @@ headers:
 # -mno-ms-bitfields is needed for some Windows builds, e.g., MinGW's gcc/clang
 	$(CC) -m32 -fsyntax-only -mno-ms-bitfields pmdsky.h
 
-.PHONY: headers-format
+.PHONY: format
 format:
 	find . -iname '*.h' | xargs clang-format -i
 
