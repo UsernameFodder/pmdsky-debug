@@ -3466,4 +3466,24 @@ enum iq_skill_id {
     IQ_TRUE_POWERIST = 68,
 };
 
+// IQ group ID.
+enum iq_group_id {
+    IQ_GROUP_A = 0,
+    IQ_GROUP_B = 1,
+    IQ_GROUP_C = 2,
+    IQ_GROUP_D = 3,
+    IQ_GROUP_E = 4,
+    IQ_GROUP_F = 5,
+    IQ_GROUP_G = 6,
+    IQ_GROUP_H = 7,
+    IQ_GROUP_UNUSED_0x8 = 8,
+    IQ_GROUP_UNUSED_0x9 = 9,
+    IQ_GROUP_I = 10,
+    IQ_GROUP_J = 11,
+    IQ_GROUP_UNUSED_0xC = 12,
+    IQ_GROUP_UNUSED_0xD = 13,
+    IQ_GROUP_UNUSED_0xE = 14,
+    IQ_GROUP_NONE = 15,
+};
+
 #endif
