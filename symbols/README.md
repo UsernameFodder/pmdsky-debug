@@ -102,6 +102,8 @@ Case conventions for symbol names are as follows:
 
 These are enforced by the tests, which also run automatically via GitHub Actions. You'll need to make corrections manually for any test failures; you can view test runs for your pull request to see exactly what caused a failure.
 
+![View GitHub Actions jobs in your pull request](../docs/images/gh-actions-symbols.png)
+
 ## Local development environment
 **This is not required to contribute**. However, you might find that setting this up makes editing the symbol tables even easier, depending on your preferences. Setting up a development environment is as simple as [installing Rust](https://www.rust-lang.org/tools/install). Once you've installed Rust, you can build and run `resymgen` to manipulate the symbol tables locally. All the following instructions assume a command line environment in which the `cargo` command is available, and the working directory is this directory.
 

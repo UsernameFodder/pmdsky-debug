@@ -199,6 +199,8 @@ All headers have access to the above standard types (they're defined in [`pmdsky
 ### Follow style conventions
 Some formatting conventions are enforced by the formatter. You'll be able to see if your changes are properly formatted when you create or edit a pull request on GitHub, and you'll even be able to download corrected files if there are any formatting issues. This is all automated using GitHub Actions so you don't need to install anything on your end, but if you would prefer to do things yourself, you can also set up a [local dev environment](#local-development-environment).
 
+![View GitHub Actions jobs in your pull request](../docs/images/gh-actions-headers.png)
+
 Naming conventions are as follows:
 
 - Function names should exactly match their corresponding [symbol](../symbols) entries, which are `PascalCase`.
