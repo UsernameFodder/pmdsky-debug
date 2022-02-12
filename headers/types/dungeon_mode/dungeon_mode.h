@@ -13,7 +13,7 @@ struct position {
 ASSERT_SIZE(struct position, 4);
 
 // Item info
-struct item {
+struct item{
     // 0x0: flags: 1-byte bitfield
     bool f_exists : 1;  // Validity flag
     bool f_in_shop : 1; // In a Kecleon Shop
@@ -29,7 +29,7 @@ struct item {
     uint16_t quantity;
     enum item_id id : 16; // 0x4
 };
-ASSERT_SIZE(struct item, 6);
+ASSERT_SIZE(struct item, 4);
 
 // Trap info
 struct trap {
