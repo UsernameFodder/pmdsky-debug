@@ -16,9 +16,17 @@ Ghidra can load both symbols and C source code. These instructions assume a spec
 ### Symbols
 1. Download `symbols-ghidra.zip` from the [latest release package](https://github.com/UsernameFodder/pmdsky-debug/releases/latest) and extract the archive.
 2. In the Ghidra code browser, open the script manager (Window > Script Manager in the menu, or by clicking the image in the top toolbar).
-3. Search for "ImportSymbolsScript.py". ![ImportSymbolsScript.py](images/ghidra-import-symbols-script.png)
-4. When you run the script, it will open a file picker window. Run the import script on each of the `.ghidra` files in the `pmdsky-debug` archive (pick the version subdirectory that matches your ROM) that correspond to a binary you've loaded into the Ghidra program. Alternatively, you can concatenate the contents of all the relevant `.ghidra` files into a single, combined `.ghidra` file and just run the import script once on that file. For example, a combined `.ghidra` file for a North American ROM might look like this: ![Example Ghidra symbol table](images/ghidra-symbol-file.png)
-5. You should now see symbol names in the code listing and the decompiler: ![Symbol names in Ghidra](images/ghidra-symbols.png)
+3. Search for "ImportSymbolsScript.py".
+
+   ![ImportSymbolsScript.py](images/ghidra-import-symbols-script.png)
+
+4. When you run the script, it will open a file picker window. Run the import script on each of the `.ghidra` files in the `pmdsky-debug` archive (pick the version subdirectory that matches your ROM) that correspond to a binary you've loaded into the Ghidra program. Alternatively, you can concatenate the contents of all the relevant `.ghidra` files into a single, combined `.ghidra` file and just run the import script once on that file. For example, a combined `.ghidra` file for a North American ROM might look like this:
+
+   ![Example Ghidra symbol table](images/ghidra-symbol-file.png)
+
+5. You should now see symbol names in the code listing and the decompiler:
+
+   ![Symbol names in Ghidra](images/ghidra-symbols.png)
 
 ### C headers (types and function signatures)
 Importing C headers is best done after importing symbols, so make sure you've followed the steps in the [previous section](#symbols) before proceeding with this section.
@@ -31,10 +39,18 @@ Importing C headers is best done after importing symbols, so make sure you've fo
     3. Leave the parse options as the defaults.
 4. Click "Parse to Program" and the confirmations in the popups that follow to begin parsing. Some notes:
     1. Annoyingly, sometimes the "Parsing C" loading window can pop up before you've hit all the confirmations, and actually obscure a confirmation window. Make sure you check that there's nothing behind this window (otherwise you'll be waiting forever).
-    2. The Ghidra parser is _slow_, and parsing can easily take over an hour (mainly because the `dungeon.h` header file is so large), so after you've started the parser and see the "Parsing C" loading window (it might be hidden by the configuration window), I recommend doing something else in the meantime while you wait. ![Parsing C loading window](images/ghidra-parsing-c.png)
-5. You should now be able to view and edit imported types and function signatures in the data type manager (Window > Data Type Manager, if it's not already open). ![Ghidra data type manager](images/ghidra-data-types.png)
+    2. The Ghidra parser is _slow_, and parsing can easily take over an hour (mainly because the `dungeon.h` header file is so large), so after you've started the parser and see the "Parsing C" loading window (it might be hidden by the configuration window), I recommend doing something else in the meantime while you wait.
+
+       ![Parsing C loading window](images/ghidra-parsing-c.png)
+
+5. You should now be able to view and edit imported types and function signatures in the data type manager (Window > Data Type Manager, if it's not already open).
+
+   ![Ghidra data type manager](images/ghidra-data-types.png)
+
 6. Right click on your project's archive in the data type manager (the one labeled with the program name you specified when setting up the project; "dungeon_mode" in the above image) and select "Apply Function Data Types". This will match the function signatures from the C headers with the function symbols you imported in the [previous section](#symbols), and apply parameter names and types to them.
-7. You should now see additional parameter information (types and names) in the decompiler. Additionally, Ghidra should automatically propagate type information to other variables within functions where they can be inferred. Be aware that some registers in the assembly (in the code listing) will be bound to a parameter name for the duration of the function, even if the registers are repurposed throughout the function's execution. ![Parameter information in Ghidra](images/ghidra-parameters.png)
+7. You should now see additional parameter information (types and names) in the decompiler. Additionally, Ghidra should automatically propagate type information to other variables within functions where they can be inferred. Be aware that some registers in the assembly (in the code listing) will be bound to a parameter name for the duration of the function, even if the registers are repurposed throughout the function's execution.
+
+   ![Parameter information in Ghidra](images/ghidra-parameters.png)
 
 #### Applying types manually
 Sometimes data types won't be assigned automatically in the decompiler, and you'll need to do it manually to get the full benefit of the imported types. In the decompiler, you can right-click on a variable and select "Retype Variable" (or sometimes "Retype Global") and specify the name of a type to manually apply to the variable in the decompiled code. This is most useful for struct pointers that haven't been automatically typed, since this allows the decompiler to show struct field accesses by name (e.g., `some_struct->some_named_field`) rather than as raw pointer operations (e.g., `*(some_pointer + some_offset)`).
@@ -75,6 +91,14 @@ As `pmdsky-debug` is updated, you might want to import the latest debug informat
 The No$GBA debugger supports loading symbol names from a `.sym` file.
 
 1. Download `symbols-sym.zip` from the [latest release package](https://github.com/UsernameFodder/pmdsky-debug/releases/latest) and extract the archive.
-2. Locate the ROM file that you will be running in No$GBA, and create a text file in the same folder with the same name, but with the `.sym` extension. For example, if your ROM was called `pmd-eos.nds`, you should create a text file called `pmd-eos.sym`, and the folder should look like this in the file explorer: ![Example ROM file with its accompanying symbol table](images/nocash-files.png)
-3. Figure out which [overlays](overlays.md) will be loaded during the gameplay that you're debugging with No$GBA. Copy the contents of all the corresponding `.sym` files from the `pmdsky-debug` archive (pick the version subdirectory that matches your ROM) into the `.sym` file you just created, concatenating the lines of the different files together. Along with the overlays, you'll always want to include the contents of `arm9.yml`, and if relevant you might also want to include the contents of `ram.yml`. For example, a `.sym` file for a North American ROM might look like this: ![Example symbol table](images/nocash-symfile.png)
-4. Load the ROM in No\$GBA! The debugger will automatically detect the `.sym` file and load it, and symbol name annotations will appear alongside the assembly instructions when debugging: ![Symbol names in the No$GBA debugger](images/nocash-symbols.png)
+2. Locate the ROM file that you will be running in No$GBA, and create a text file in the same folder with the same name, but with the `.sym` extension. For example, if your ROM was called `pmd-eos.nds`, you should create a text file called `pmd-eos.sym`, and the folder should look like this in the file explorer:
+
+   ![Example ROM file with its accompanying symbol table](images/nocash-files.png)
+
+3. Figure out which [overlays](overlays.md) will be loaded during the gameplay that you're debugging with No$GBA. Copy the contents of all the corresponding `.sym` files from the `pmdsky-debug` archive (pick the version subdirectory that matches your ROM) into the `.sym` file you just created, concatenating the lines of the different files together. Along with the overlays, you'll always want to include the contents of `arm9.yml`, and if relevant you might also want to include the contents of `ram.yml`. For example, a `.sym` file for a North American ROM might look like this:
+
+   ![Example symbol table](images/nocash-symfile.png)
+
+4. Load the ROM in No\$GBA! The debugger will automatically detect the `.sym` file and load it, and symbol name annotations will appear alongside the assembly instructions when debugging:
+
+   ![Symbol names in the No$GBA debugger](images/nocash-symbols.png)
