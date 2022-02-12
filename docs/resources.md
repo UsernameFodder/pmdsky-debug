@@ -18,7 +18,7 @@ This is a nonexhaustive list, and only contains subjectively "large" collections
 - UsernameFodder's [EoS RAM notes](https://docs.google.com/document/d/1_Q_7BGmNx5wJtJ9iJEwlK1WITjiCcEQxE9C82RECJbg).
 - UsernameFodder's [enum collection](https://drive.google.com/drive/folders/1-jQNhtZ-Ao-QrwoaG5LY1iVh5gUoMxlH). Most have been ported to the C headers in `pmdsky-debug`, but this still has some obscure additional info.
 - ShinxHijinx's [PMD Info Spreadsheet](https://docs.google.com/spreadsheets/d/18utO_lCpWQ7iXY9wpbtxXpgmzebEI2IRjADp6IrUKZ0/edit).
-- Irdkwia's [dungeon-eos](https://github.com/SkyTemple/dungeon-eos) repository is a reproduction of EoS's dungeon generation algorithm written in Python.
+- SkyTemple's [dungeon-eos](https://github.com/SkyTemple/dungeon-eos) repository is a reproduction of EoS's dungeon generation algorithm written in Python.
 - [psy_commando's tools and research notes](https://projectpokemon.org/home/forums/topic/31407-pokemon-mystery-dungeon-2-psy_commandos-tools-and-research-notes/). Also see [this Dropbox folder](https://www.dropbox.com/sh/8on92uax2mf79gv/AADCmlKOD9oC_NhHnRXVdmMSa), which has some more up-to-date information.
 - Some (not really organized) dumps of various bits of data from EoS on GameFAQs: [Various in-game data](https://gamefaqs.gamespot.com/boards/955859-pokemon-mystery-dungeon-explorers-of-sky/51698562), [Explorers of Darkness Dungeon FAQ 0.5](https://gamefaqs.gamespot.com/boards/938930-pokemon-mystery-dungeon-explorers-of-darkness/50597686).
 
