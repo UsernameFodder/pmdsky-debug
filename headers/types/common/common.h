@@ -13,6 +13,29 @@ struct iovec {
 };
 ASSERT_SIZE(struct iovec, 8);
 
+// A structure that represents a file stream for file I/O.
+struct file_stream {
+    undefined4 field_0x0;
+    undefined4 field_0x4;
+    undefined4 field_0x8;
+    undefined4 field_0xc;
+    undefined4 field_0x10;
+    undefined4 field_0x14;
+    undefined4 field_0x18;
+    undefined4 field_0x1c;
+    undefined4 field_0x20;
+    undefined4 field_0x24;
+    undefined4 field_0x28;
+    undefined4 field_0x2c;
+    undefined4 field_0x30;
+    undefined4 field_0x34;
+    undefined4 field_0x38;
+    undefined4 field_0x3c;
+    undefined4 field_0x40;
+    undefined4 field_0x44;
+};
+ASSERT_SIZE(struct file_stream, 72);
+
 // In the move data, the target and range are encoded together in the first byte of a single
 // two-byte field. The target is the lower half, and the range is the upper half.
 struct move_target_and_range {

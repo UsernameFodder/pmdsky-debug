@@ -64,6 +64,58 @@ arm9:
         
         r0: ptr
         r1: len
+    - name: TaskProcBoot
+      address:
+        NA: 0x2003328
+      description: |-
+        Probably related to booting the game?
+        
+        This function prints the debug message "task proc boot".
+        
+        No params.
+    - name: SoundResume
+      address:
+        NA: 0x2003CC4
+      description: |-
+        Probably resumes the sound player if paused?
+        
+        This function prints the debug string "sound resume".
+    - name: CardPullOutWithStatus
+      address:
+        NA: 0x2003D2C
+      description: |-
+        Probably aborts the program with some status code? It seems to serve a similar purpose to the exit(3) function.
+        
+        This function prints the debug string "card pull out %d" with the status code.
+        
+        r0: status code
+    - name: CardPullOut
+      address:
+        NA: 0x2003D70
+      description: |-
+        Sets some global flag that probably triggers system exit?
+        
+        This function prints the debug string "card pull out".
+        
+        No params.
+    - name: CardBackupError
+      address:
+        NA: 0x2003D94
+      description: |-
+        Sets some global flag that maybe indicates a save error?
+        
+        This function prints the debug string "card backup error".
+        
+        No params.
+    - name: HaltProcessDisp
+      address:
+        NA: 0x2003DB8
+      description: |-
+        Maybe halts the process display?
+        
+        This function prints the debug string "halt process disp %d" with the status code.
+        
+        r0: status code
     - name: OverlayIsLoaded
       address:
         NA: 0x2003ED0
@@ -96,6 +148,92 @@ arm9:
         
         r0: group ID of the overlay to unload
         others: ?
+    - name: DataTransferInit
+      address:
+        NA: 0x2008168
+        EU: 0x2008168
+      description: |-
+        Initializes data transfer mode to get data from the ROM cartridge.
+        
+        No params.
+    - name: DataTransferStop
+      address:
+        NA: 0x2008194
+        EU: 0x2008194
+      description: |-
+        Finalizes data transfer from the ROM cartridge.
+        
+        This function must always be called if DataTransferInit was called, or the game will crash.
+        
+        No params.
+    - name: FileInitWrapper
+      address:
+        NA: 0x2008204
+        EU: 0x2008204
+      description: |-
+        Wrapper call around FileInit.
+        
+        This function must always be called before opening a file.
+        
+        r0: file_stream pointer
+    - name: FileOpen
+      address:
+        NA: 0x2008210
+        EU: 0x2008210
+      description: |-
+        Opens a file from the ROM file system at the given path, sort of like C's fopen(3) library function.
+        
+        r0: file_stream pointer
+        r1: file path string
+    - name: FileGetSize
+      address:
+        NA: 0x2008244
+        EU: 0x2008244
+      description: |-
+        Gets the size of an open file.
+        
+        r0: file_stream pointer
+        return: file size
+    - name: FileRead
+      address:
+        NA: 0x2008254
+        EU: 0x2008254
+      description: |-
+        Reads the contents of a file into the given buffer, and moves the file cursor accordingly.
+        
+        Data transfer mode must have been initialized (with DataTransferInit) prior to calling this function. This function looks like it's doing something akin to calling read(2) or fread(3) in a loop until all the bytes have been successfully read.
+        
+        r0: file_stream pointer
+        r1: [output] buffer
+        r2: number of bytes to read
+        return: number of bytes read
+    - name: FileSeek
+      address:
+        NA: 0x20082A8
+        EU: 0x20082A8
+      description: |-
+        Sets a file stream's position indicator.
+        
+        This function has the a similar API to the fseek(3) library function from C, including using the same codes for the `whence` parameter:
+        - SEEK_SET=0
+        - SEEK_CUR=1
+        - SEEK_END=2 (maybe not implemented?).
+        
+        r0: file_stream pointer
+        r1: offset
+        r2: whence
+    - name: FileClose
+      address:
+        NA: 0x20082C4
+        EU: 0x20082C4
+      description: |-
+        Closes a file.
+        
+        Data transfer mode must have been initialized (with DataTransferInit) prior to calling this function.
+        
+        Note: It is possible to keep a file stream open even if data transfer mode has been stopped, in which case the file stream can be used again if data transfer mode is reinitialized.
+        
+        r0: file_stream pointer
     - name: LoadFileFromRom
       address:
         NA: 0x2008C3C
@@ -143,6 +281,17 @@ arm9:
         
         r0: item ID
         return: bool
+    - name: Sprintf
+      address:
+        NA: 0x200D634
+        EU: 0x200D6BC
+      description: |-
+        Similar to the sprintf(3) C library function.
+        
+        r0: str
+        r1: format
+        ...: variadic
+        return: number of characters printed, excluding the null-terminator
     - name: GetExclusiveItemOffset
       address:
         NA: 0x2010E40
@@ -252,6 +401,35 @@ arm9:
         
         r0: [output] double pointer to beginning of data
         r1: pointer to source file buffer
+    - name: GetLanguage
+      address:
+        NA: 0x20205B0
+        EU: 0x20206B0
+      description: |-
+        Gets the single-byte language ID of the current program.
+        
+        The language ID appears to be used to index some global tables.
+        
+        return: language ID
+    - name: Strcpy
+      address:
+        NA: 0x2025100
+        EU: 0x20253CC
+      description: |-
+        Simlar to the strcpy(3) C library function.
+        
+        r0: dest
+        r1: src
+    - name: Strncpy
+      address:
+        NA: 0x202511C
+        EU: 0x20253E8
+      description: |-
+        Similar to the strncpy(3) C library function.
+        
+        r0: dest
+        r1: src
+        r2: n
     - name: SaveScriptVariableValue
       address:
         NA: 0x204B820
@@ -340,6 +518,13 @@ arm9:
         r0: IQ skill bitvector to test
         r1: IQ skill ID
         return: bool
+    - name: FileInit
+      address:
+        NA: 0x207F3E4
+      description: |-
+        Initializes a file_stream structure for file I/O.
+        
+        r0: file_stream pointer
     - name: Abs
       address:
         NA: 0x208655C
@@ -351,6 +536,7 @@ arm9:
     - name: DivideInt
       address:
         NA: 0x208FEA4
+        EU: 0x209023C
       description: |-
         This appears to be the libgcc implementation of __divsi3 (not sure which gcc version), which implements the division operator for signed ints.
         
