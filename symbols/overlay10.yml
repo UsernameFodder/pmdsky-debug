@@ -48,6 +48,12 @@ overlay10:
         NA: 0x2
         EU: 0x2
       description: The amount of HP restored by eating a Sitrus Berry.
+    - name: EXP_ELITE_EXP_BOOST
+      address:
+        NA: 0x22C44A8
+      length:
+        NA: 0x2
+      description: The percentage increase in experience from the Exp. Elite IQ skill
     - name: MONSTER_HOUSE_MAX_NON_MONSTER_SPAWNS
       address:
         NA: 0x22C44AC
@@ -82,6 +88,12 @@ overlay10:
         NA: 0x2
         EU: 0x2
       description: The permanent HP boost from eating a Life Seed.
+    - name: EXCLUSIVE_ITEM_EXP_BOOST
+      address:
+        NA: 0x22C458C
+      length:
+        NA: 0x2
+      description: The percentage increase in experience from exp-boosting exclusive items
     - name: INTIMIDATOR_ACTIVATION_CHANCE
       address:
         NA: 0x22C45B8
@@ -131,6 +143,18 @@ overlay10:
       length:
         NA: 0x2
       description: "The maximum number of monster spawns in a Monster House, 30, but multiplied by 2/3 for some reason (so the actual maximum is 45)"
+    - name: MIRACLE_CHEST_EXP_BOOST
+      address:
+        NA: 0x22C4698
+      length:
+        NA: 0x2
+      description: The percentage increase in experience from the Miracle Chest item
+    - name: WONDER_CHEST_EXP_BOOST
+      address:
+        NA: 0x22C469C
+      length:
+        NA: 0x2
+      description: The percentage increase in experience from the Wonder Chest item
     - name: POISON_DAMAGE_COOLDOWN
       address:
         NA: 0x22C46A8
@@ -304,6 +328,14 @@ overlay10:
     - name: TYPE_MATCHUP_TABLE
       address:
         NA: 0x22C56B0
+      length:
+        NA: 0x288
+      description: |-
+        Table of type matchups.
+        
+        Each row corresponds to the type matchups of a specific attack type, with each entry within the row specifying the type's effectiveness against a target type.
+        
+        type: struct type_matchup_table
     - name: FIXED_ROOM_MONSTER_SPAWN_STATS_TABLE
       address:
         NA: 0x22C5938

@@ -78,11 +78,10 @@ ASSERT_SIZE(struct move, 8);
 // Monster stat modifier info
 struct monster_stat_modifiers {
     // Stages go from 0-20 inclusive, with normal being 10
-    int16_t offensive_stages[2]; // 0x0: {atk, sp_atk}
-    int16_t defensive_stages[2]; // 0x4: {def, sp_def}
-    int16_t accuracy_stage;      // 0x8
-    int16_t evasion_stage;       // 0xA
-    bool flash_fire_boost;       // 0xC
+    int16_t offensive_stages[2];  // 0x0: {atk, sp_atk}
+    int16_t defensive_stages[2];  // 0x4: {def, sp_def}
+    int16_t hit_chance_stages[2]; // 0x8: {accuracy, evasion}
+    bool flash_fire_boost;        // 0xC
     undefined field_0xd;
     undefined field_0xe;
     undefined field_0xf;

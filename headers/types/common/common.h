@@ -36,6 +36,23 @@ struct file_stream {
 };
 ASSERT_SIZE(struct file_stream, 72);
 
+struct type_matchup_16 {
+    enum type_matchup val : 16;
+};
+ASSERT_SIZE(struct type_matchup_16, 2);
+
+// Type matchup table, not including TYPE_NEUTRAL.
+// Note that Ghost's immunities seem to be hard-coded elsewhere. In this table, both Normal and
+// Fighting are encoded as neutral against Ghost.
+//
+// Row index corresponds to the attack type and the column index corresponds to the defender type.
+// C-style access: type_matchup_table[attack_type][target_type] or
+// *(&type_matchup_table[0][0] + attack_type*18 + target_type)
+struct type_matchup_table {
+    struct type_matchup_16 matchups[18][18];
+};
+ASSERT_SIZE(struct type_matchup_table, 648);
+
 // In the move data, the target and range are encoded together in the first byte of a single
 // two-byte field. The target is the lower half, and the range is the upper half.
 struct move_target_and_range {

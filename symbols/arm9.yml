@@ -430,6 +430,14 @@ arm9:
         r0: dest
         r1: src
         r2: n
+    - name: StringFromMessageId
+      address:
+        NA: 0x20258C4
+      description: |-
+        Gets the string corresponding to a given message ID.
+        
+        r0: message ID
+        return: string from the string files with the given message ID
     - name: SaveScriptVariableValue
       address:
         NA: 0x204B820
@@ -703,12 +711,12 @@ arm9:
       length:
         NA: 0x2
       description: Stat boost value for the Munch Belt.
-    - name: BASE_GUMMI_IQ_BOOST
+    - name: GUMMI_STAT_BOOST
       address:
         NA: 0x20A1888
       length:
         NA: 0x2
-      description: Appears to be the base value used when calculating IQ boosts from normal Gummis.
+      description: Stat boost value if a stat boost occurs when eating normal Gummis.
     - name: MIN_IQ_EXCLUSIVE_MOVE_USER
       address:
         NA: 0x20A188C
@@ -741,12 +749,12 @@ arm9:
       length:
         NA: 0x2
       description: Stat boost value for the Power Band.
-    - name: BASE_WONDER_GUMMI_IQ_BOOST
+    - name: WONDER_GUMMI_STAT_BOOST
       address:
         NA: 0x20A18B0
       length:
         NA: 0x2
-      description: Appears to be the base value used when calculating IQ boosts from Wonder Gummis.
+      description: Stat boost value if a stat boost occurs when eating Wonder Gummis.
     - name: ZINC_BAND_STAT_BOOST
       address:
         NA: 0x20A18B4

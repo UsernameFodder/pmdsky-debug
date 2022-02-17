@@ -2075,6 +2075,13 @@ enum type_id {
     TYPE_NEUTRAL = 18,
 };
 
+enum type_matchup {
+    MATCHUP_IMMUNE = 0,
+    MATCHUP_NOT_VERY_EFFECTIVE = 1,
+    MATCHUP_NEUTRAL = 2,
+    MATCHUP_SUPER_EFFECTIVE = 3,
+};
+
 // Move ID
 enum move_id {
     MOVE_NOTHING = 0,

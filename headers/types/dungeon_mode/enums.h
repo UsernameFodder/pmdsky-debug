@@ -13,6 +13,7 @@ enum direction_id {
     DIR_UP_LEFT = 5,
     DIR_LEFT = 6,
     DIR_DOWN_LEFT = 7,
+    DIR_CURRENT = 8, // Current direction of an entity. Used as a special value in some functions
 };
 
 // Terrain type for a tile
@@ -87,6 +88,16 @@ enum hidden_stairs_type {
     HIDDEN_STAIRS_SECRET_BAZAAR = 1,
     HIDDEN_STAIRS_SECRET_ROOM = 2,
     HIDDEN_STAIRS_RANDOM_SECRET_BAZAAR_OR_SECRET_ROOM = 255,
+};
+
+// Different types of warp effects
+enum warp_type {
+    WARP_RANDOM = 0,         // Warp to a random position
+    WARP_STAIRS_2 = 1,       // Warp within 2 tiles of the stairs
+    WARP_POSITION_FUZZY = 2, // Warp within 2 tiles of a specified position
+    WARP_POSITION_EXACT = 3, // Warp to an exact position
+    WARP_STAIRS_3 = 4,       // Warp within 3 tiles of the stairs
+    WARP_LEADER = 5,         // Warp within 2 tiles of the leader
 };
 
 // Status IDs

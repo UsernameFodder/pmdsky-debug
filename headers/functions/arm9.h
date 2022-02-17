@@ -50,6 +50,7 @@ void HandleSir0TranslationWrapper(uint8_t** dst, uint8_t* src);
 int GetLanguage(void);
 void Strcpy(char* dest, char* src);
 void Strncpy(char* dest, char* src, uint32_t num);
+char* StringFromMessageId(int message_id);
 uint32_t SubFixedPoint(uint32_t val_fp, uint32_t dec_fp);
 uint32_t BinToDecFixedPoint(uint32_t* q16);
 int CeilFixedPoint(uint32_t val_fp);

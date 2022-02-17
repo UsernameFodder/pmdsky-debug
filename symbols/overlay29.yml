@@ -67,6 +67,20 @@ overlay29:
         Checks if the current fixed room is the "substitute room" (ID 0x6E).
         
         return: bool
+    - name: SubstitutePlaceholderStringTags
+      address:
+        NA: 0x22E2AD8
+        EU: 0x22E3418
+      description: |-
+        Replaces instances of a given placeholder tag by the string representation of the given entity.
+        
+        From the eos-move-effects docs (which are somewhat nebulous): "Replaces the string at StringID [r0] by the string representation of the target [r1] (aka its name). Any message with the string manipulator '[string:StringID]' will use that string".
+        
+        The game uses various placeholder tags in its strings, which you can read about here: https://textbox.skytemple.org/.
+        
+        r0: string ID (unclear what this means)
+        r1: entity pointer
+        r2: ?
     - name: GenerateRngSeed
       address:
         NA: 0x22EA980
@@ -134,6 +148,16 @@ overlay29:
         r0: x
         r1: y
         return: pseudorandom integer on the interval [min(x, y), max(x, y) - 1]
+    - name: RandOutcome
+      address:
+        NA:
+          - 0x22EAB20
+          - 0x22EAB50
+      description: |-
+        Returns the result of a possibly biased coin flip (a Bernoulli random variable) with some success probability p.
+        
+        r0: success percentage (100*p)
+        return: true with probability p, false with probability (1-p)
     - name: CalcStatusDuration
       address:
         NA: 0x22EAB80
@@ -193,12 +217,34 @@ overlay29:
         Has a special check to return false for Labyrinth Cave B10F (the Gabite boss fight).
         
         return: bool
+    - name: IsSpecialStoryAlly
+      address:
+        NA: 0x22FBAD0
+      description: |-
+        Checks if a monster is a special story ally.
+        
+        This is a hard-coded check that looks at the monster's "Joined At" field. If the value is in the range [DUNGEON_JOINED_AT_BIDOOF, DUNGEON_DUMMY_0xE3], this check will return true.
+        
+        r0: monster pointer
+        return: bool
+    - name: IsExperienceLocked
+      address:
+        NA: 0x22FBAF0
+      description: |-
+        Checks if a monster does not gain experience.
+        
+        This basically just inverts IsSpecialStoryAlly, with the exception of also checking for the "Joined At" field being DUNGEON_CLIENT (is this set for mission clients?).
+        
+        r0: monster pointer
+        return: bool
     - name: ItemIsActive
       address:
         NA:
           - 0x22FF898
+          - 0x23026CC
           - 0x230A9DC
           - 0x2311034
+        EU: 0x23002C4
       description: |-
         Checks if a monster is holding a certain item that isn't disabled by Klutz.
         
@@ -226,6 +272,7 @@ overlay29:
     - name: AbilityIsActive
       address:
         NA: 0x2301D10
+        EU: 0x230273C
       description: |-
         Checks if a monster has a certain ability that isn't disabled by Gastro Acid.
         
@@ -259,9 +306,37 @@ overlay29:
         r0: user pointer
         r1: move pointer
         return: move power
+    - name: AddExpSpecial
+      address:
+        NA: 0x230253C
+        EU: 0x2302F68
+      description: |-
+        Adds to a monster's experience points, subject to experience boosting effects.
+        
+        This function appears to be called only under special circumstances. Possibly when granting experience from damage (e.g., Joy Ribbon)?
+        
+        Interestingly, the parameter in r0 isn't actually used. This might be a compiler optimization to avoid shuffling registers, since this function might be called alongside lots of other functions that have both the attacker and defender as the first two arguments.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: base experience gain, before boosts
+    - name: PptrIsValid
+      address:
+        NA:
+          - 0x2308FBC
+          - 0x23118B4
+          - 0x2315118
+          - 0x232800C
+      description: |-
+        Checks if a double pointer is non-null when double-dereferenced.
+        
+        r0: pointer to pointer
+        return: bool
     - name: DefenderAbilityIsActive
       address:
-        NA: 0x230A940
+        NA:
+          - 0x230A940
+          - 0x2311B94
       description: |-
         Checks if a defender has an active ability that isn't disabled by an attacker's Mold Breaker.
         
@@ -279,6 +354,22 @@ overlay29:
         r0: entity pointer
         r1: exclusive item effect ID
         return: bool
+    - name: GetTypeMatchup
+      address:
+        NA: 0x230AC58
+        EU: 0x230B6CC
+      description: |-
+        Gets the type matchup for a given combat interaction.
+        
+        Note that the actual monster's types on the attacker and defender pointers are not used; the pointers are only used to check conditions. The actual type matchup table lookup is done solely using the attack and target type parameters.
+        
+        This factors in some conditional effects like exclusive items, statuses, etc. There's some weirdness with the Ghost type; see the comment for struct type_matchup_table.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: target type
+        r3: attack type
+        return: enum type_matchup
     - name: CalcDamage
       address:
         NA: 0x230BBAC
@@ -291,9 +382,27 @@ overlay29:
         r3: attack power
         stack[0]: crit chance
         stack[1]: [output] damage description struct?
-        stack[2]: ?
+        stack[2]: damage multiplier (as a Q24.8 fixed-point float)
         stack[3]: move ID
         stack[4]: ?
+    - name: CalcRecoilDamageFixed
+      address:
+        NA: 0x230D18C
+        EU: 0x230DC00
+      description: |-
+        Appears to calculate recoil damage to a monster.
+        
+        This function wraps CalcDamageFixed using the monster as both the attacker and the defender, after doing some basic checks (like if the monster is already at 0 HP) and applying a boost from the Reckless ability if applicable.
+        
+        r0: entity pointer
+        r1: fixed damage
+        r2: ?
+        r3: [output] damage description struct?
+        stack[0]: move ID (interestingly, this doesn't seem to be used by the function)
+        stack[1]: attack type
+        stack[2]: ?
+        stack[3]: message type
+        others: ?
     - name: CalcDamageFixed
       address:
         NA: 0x230D240
@@ -303,9 +412,12 @@ overlay29:
         r0: attacker pointer
         r1: defender pointer
         r2: fixed damage
+        r3: ?
         stack[0]: [output] damage description struct?
         stack[1]: attack type
         stack[2]: move category
+        stack[3]: ?
+        stack[4]: message type
         others: ?
     - name: CalcDamageFixedNoCategory
       address:
@@ -365,42 +477,396 @@ overlay29:
         r0: entity pointer
         r1: move category index (0 for physical, 1 for special)
         return: boost
-    - name: PptrIsValid
+    - name: InflictSleepStatusSingle
       address:
-        NA: 0x23118B4
+        NA: 0x2311824
+        EU: 0x2312284
       description: |-
-        Checks if a double pointer is non-null when double-dereferenced.
+        This is called by TryInflictSleepStatus.
         
-        r0: pointer to pointer
-        return: bool
-    - name: BoostStat
+        r0: entity pointer
+        r1: number of turns
+    - name: TryInflictSleepStatus
+      address:
+        NA: 0x23118D8
+        EU: 0x2312338
+      description: |-
+        Inflicts the Sleep status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: number of turns
+        r3: flag to log a message on failure
+    - name: TryInflictNightmareStatus
+      address:
+        NA: 0x2311C4C
+        EU: 0x23126AC
+      description: |-
+        Inflicts the Nightmare status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: number of turns
+    - name: TryInflictNappingStatus
+      address:
+        NA: 0x2311D60
+        EU: 0x23127C0
+      description: |-
+        Inflicts the Napping status condition (from Rest) on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: number of turns
+    - name: TryInflictYawningStatus
+      address:
+        NA: 0x2311E70
+        EU: 0x23128D0
+      description: |-
+        Inflicts the Yawning status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: number of turns
+    - name: TryInflictSleeplessStatus
+      address:
+        NA: 0x2311F80
+        EU: 0x23129E0
+      description: |-
+        Inflicts the Sleepless status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: TryInflictPausedStatus
+      address:
+        NA: 0x231206C
+        EU: 0x2312ACC
+      description: |-
+        Inflicts the Paused status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: ?
+        r3: number of turns
+        stack[0]: flag to log a message on failure
+        stack[1]: flag to only perform the check for inflicting without actually inflicting
+        return: Whether or not the status could be inflicted
+    - name: TryInflictInfatuatedStatus
+      address:
+        NA: 0x23121AC
+        EU: 0x2312C0C
+      description: |-
+        Inflicts the Infatuated status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: flag to log a message on failure
+        r3: flag to only perform the check for inflicting without actually inflicting
+        return: Whether or not the status could be inflicted
+    - name: TryInflictBurnStatus
+      address:
+        NA: 0x2312338
+        EU: 0x2312D98
+      description: |-
+        Inflicts the Burn status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: flag to apply some special effect alongside the burn?
+        r3: flag to log a message on failure
+        stack[0]: flag to only perform the check for inflicting without actually inflicting
+        return: Whether or not the status could be inflicted
+    - name: TryInflictBurnStatusWholeTeam
+      address:
+        NA: 0x2312618
+        EU: 0x2313078
+      description: |-
+        Inflicts the Burn status condition on all team members if possible.
+        
+        No params.
+    - name: TryInflictPoisonedStatus
+      address:
+        NA: 0x2312664
+        EU: 0x23130C4
+      description: |-
+        Inflicts the Poisoned status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: flag to log a message on failure
+        r3: flag to only perform the check for inflicting without actually inflicting
+        return: Whether or not the status could be inflicted
+    - name: TryInflictBadlyPoisonedStatus
+      address:
+        NA: 0x231293C
+        EU: 0x231339C
+      description: |-
+        Inflicts the Badly Poisoned status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: flag to log a message on failure
+        r3: flag to only perform the check for inflicting without actually inflicting
+        return: Whether or not the status could be inflicted
+    - name: TryInflictFrozenStatus
+      address:
+        NA: 0x2312BF8
+        EU: 0x2313658
+      description: |-
+        Inflicts the Frozen status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: flag to log a message on failure
+    - name: TryInflictConstrictionStatus
+      address:
+        NA: 0x2312E20
+        EU: 0x2313880
+      description: |-
+        Inflicts the Constriction status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: animation ID
+        r3: flag to log a message on failure
+    - name: TryInflictShadowHoldStatus
+      address:
+        NA: 0x2312F78
+        EU: 0x23139D8
+      description: |-
+        Inflicts the Shadow Hold (AKA Immobilized) status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: flag to log a message on failure
+    - name: TryInflictIngrainStatus
+      address:
+        NA: 0x2313130
+        EU: 0x2313B90
+      description: |-
+        Inflicts the Ingrain status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: TryInflictWrappedStatus
+      address:
+        NA: 0x23131F4
+        EU: 0x2313C54
+      description: |-
+        Inflicts the Wrapped status condition on a target monster if possible.
+        
+        This also gives the user the Wrap status (Wrapped around foe).
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: TryInflictPetrifiedStatus
+      address:
+        NA: 0x231346C
+        EU: 0x2313ECC
+      description: |-
+        Inflicts the Petrified status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: LowerOffensiveStat
+      address:
+        NA: 0x23135FC
+        EU: 0x231405C
+      description: |-
+        Lowers the specified offensive stat on the target monster.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: stat index
+        r3: number of stages
+        stack[0]: ?
+        stack[1]: ?
+    - name: LowerDefensiveStat
+      address:
+        NA: 0x2313814
+        EU: 0x2314274
+      description: |-
+        Lowers the specified defensive stat on the target monster.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: stat index
+        r3: number of stages
+        stack[0]: ?
+        stack[1]: ?
+    - name: BoostOffensiveStat
       address:
         NA: 0x231399C
+        EU: 0x23143FC
       description: |-
-        Appears to apply a stat boost to an entity?
+        Boosts the specified offensive stat on the target monster.
         
-        r0: attacker pointer
-        r1: defender pointer
+        r0: user entity pointer
+        r1: target entity pointer
         r2: stat index
-        r3: boost value
+        r3: number of stages
+    - name: BoostDefensiveStat
+      address:
+        NA: 0x2313B08
+        EU: 0x2314568
+      description: |-
+        Boosts the specified defensive stat on the target monster.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: stat index
+        r3: number of stages
+    - name: ApplyOffensiveStatMultiplier
+      address:
+        NA: 0x2313D40
+        EU: 0x23147A0
+      description: |-
+        Applies a multiplier to the specified offensive stat on the target monster.
+        
+        This affects struct monster_stat_modifiers::offensive_multipliers, for moves like Charm and Memento.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: stat index
+        r3: multiplier
+        stack[0]: ?
+    - name: ApplyDefensiveStatMultiplier
+      address:
+        NA: 0x2313F64
+        EU: 0x23149C4
+      description: |-
+        Applies a multiplier to the specified defensive stat on the target monster.
+        
+        This affects struct monster_stat_modifiers::defensive_multipliers, for moves like Screech.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: stat index
+        r3: multiplier
+        stack[0]: ?
+    - name: BoostHitChanceStat
+      address:
+        NA: 0x23140E4
+        EU: 0x2314B44
+      description: |-
+        Boosts the specified hit chance stat (accuracy or evasion) on the target monster.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: stat index
+    - name: LowerHitChanceStat
+      address:
+        NA: 0x231422C
+        EU: 0x2314C8C
+      description: |-
+        Lowers the specified hit chance stat (accuracy or evasion) on the target monster.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: stat index
+        r3: ?
+    - name: TryInflictCringeStatus
+      address:
+        NA: 0x23143E8
+        EU: 0x2314E48
+      description: |-
+        Inflicts the Cringe status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: flag to log a message on failure
+        r3: flag to only perform the check for inflicting without actually inflicting
+        return: Whether or not the status could be inflicted
+    - name: TryInflictParalysisStatus
+      address:
+        NA: 0x2314544
+        EU: 0x2314FA4
+      description: |-
+        Inflicts the Paralysis status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: flag to log a message on failure
+        r3: flag to only perform the check for inflicting without actually inflicting
+        return: Whether or not the status could be inflicted
+    - name: TeamExclusiveItemEffectIsActive
+      address:
+        NA:
+          - 0x23147EC
+          - 0x231A87C
+        EU: 0x231524C
+      description: |-
+        Checks if a monster is a team member under the effects of a certain exclusive item effect.
+        
+        r0: entity pointer
+        r1: exclusive item effect ID
+        return: bool
     - name: BoostSpeed
       address:
         NA: 0x2314810
+        EU: 0x2315270
       description: |-
-        Appears to apply a speed boost to an entity?
+        Boosts the speed of the target monster.
         
-        r0: attacker pointer
-        r1: defender pointer
-        others: ?
-    - name: BoostSpeedWrapper
+        If the number of turns specified is 0, a random turn count will be selected using the default SPEED_BOOST_DURATION_RANGE.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: number of stages
+        r3: number of turns
+        stack[0]: flag to log a message on failure
+    - name: BoostSpeedOneStage
       address:
         NA: 0x231493C
+        EU: 0x231539C
       description: |-
-        A wrapper around BoostSpeed with the third argument set to 1.
+        A wrapper around BoostSpeed with the number of stages set to 1.
         
-        r0: attacker pointer
-        r1: defender pointer
-        others: ?
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: number of turns
+        r3: flag to log a message on failure
+    - name: LowerSpeed
+      address:
+        NA: 0x2314954
+        EU: 0x23153B4
+      description: |-
+        Lowers the speed of the target monster.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: number of stages
+        r3: flag to log a message on failure
+    - name: TrySealMove
+      address:
+        NA: 0x2314ABC
+        EU: 0x231551C
+      description: |-
+        Seals one of the target monster's moves. The move to be sealed is randomly selected.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: flag to log a message on failure
+        return: Whether or not a move was sealed
+    - name: BoostOrLowerSpeed
+      address:
+        NA: 0x2314C2C
+        EU: 0x231568C
+      description: |-
+        Randomly boosts or lowers the speed of the target monster by one stage with equal probability.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: ResetHitChanceStat
+      address:
+        NA: 0x2314C8C
+        EU: 0x23156EC
+      description: |-
+        Resets the specified hit chance stat (accuracy or evasion) back to normal on the target monster.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: stat index
+        r3: ?
     - name: TryActivateQuickFeet
       address:
         NA: 0x2314E1C
@@ -410,14 +876,84 @@ overlay29:
         r0: attacker pointer
         r1: defender pointer
         return: bool, whether or not the ability was activated
-    - name: TeamExclusiveItemEffectIsActive
+    - name: TryInflictConfusedStatus
       address:
-        NA: 0x231A87C
+        NA: 0x2314F38
+        EU: 0x2315998
       description: |-
-        Checks if a monster is a team member under the effects of a certain exclusive item effect.
+        Inflicts the Confused status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: flag to log a message on failure
+        r3: flag to only perform the check for inflicting without actually inflicting
+        return: Whether or not the status could be inflicted
+    - name: TryInflictCoweringStatus
+      address:
+        NA: 0x231516C
+        EU: 0x2315CCC
+      description: |-
+        Inflicts the Cowering status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: flag to log a message on failure
+        r3: flag to only perform the check for inflicting without actually inflicting
+        return: Whether or not the status could be inflicted
+    - name: TryIncreaseHp
+      address:
+        NA: 0x23152E4
+        EU: 0x2315D44
+      description: |-
+        Restore HP and possibly boost max HP of the target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: HP to restore
+        r3: max HP boost
+        stack[0]: flag to log a message on failure
+        return: Success flag
+    - name: TryInflictLeechSeedStatus
+      address:
+        NA: 0x23157EC
+        EU: 0x231624C
+      description: |-
+        Inflicts the Leech Seed status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: flag to log a message on failure
+        r3: flag to only perform the check for inflicting without actually inflicting
+        return: Whether or not the status could be inflicted
+    - name: TryInflictDestinyBond
+      address:
+        NA: 0x2315A50
+        EU: 0x23164B0
+      description: |-
+        Inflicts the Destiny Bond status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: RestoreMovePP
+      address:
+        NA: 0x2317C20
+        EU: 0x2318680
+      description: |-
+        Restores the PP of all the target's moves by the specified amount.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: PP to restore
+        r3: flag to suppress message logging
+    - name: HasConditionalGroundImmunity
+      address:
+        NA: 0x2318A4C
+      description: |-
+        Checks if a monster is currently immune to Ground-type moves for reasons other than typing and ability.
+        
+        This includes checks for Gravity and Magnet Rise.
         
         r0: entity pointer
-        r1: exclusive item effect ID
         return: bool
     - name: GetEntityMoveTargetAndRange
       address:
@@ -433,7 +969,7 @@ overlay29:
       address:
         NA: 0x231B68C
       description: |-
-        Seems to apply an item's via a giant switch statement?
+        Seems to apply an item's effect via a giant switch statement?
         
         r3: attacker pointer
         stack[0]: defender pointer
@@ -443,20 +979,21 @@ overlay29:
       address:
         NA: 0x231CE1C
       description: |-
-        Applies the Violent Seed boost to an entity
+        Applies the Violent Seed boost to an entity.
         
         r0: attacker pointer
         r1: defender pointer
-    - name: ApplyGummiIqBoost
+    - name: ApplyGummiBoosts
       address:
         NA: 0x231D0C0
+        EU: 0x231DB28
       description: |-
-        Appears to apply the IQ boost from eating a Gummi.
+        Applies the IQ and possible stat boosts from eating a Gummi to the target monster.
         
-        r0: attacker pointer
-        r1: defender pointer
+        r0: user entity pointer
+        r1: target entity pointer
         r2: Gummi type ID
-        r3: Gummi base IQ boost?
+        r3: Stat boost amount, if a random stat boost occurs
     - name: GetMaxPpWrapper
       address:
         NA: 0x231E9F0
@@ -473,6 +1010,62 @@ overlay29:
         
         r0: move ID
         return: bool
+    - name: TryPounce
+      address:
+        NA: 0x231FC20
+        EU: 0x2320688
+      description: |-
+        Makes the target monster execute the Pounce action in a given direction if possible.
+        
+        If the direction ID is 8, the target will pounce in the direction it's currently facing.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: direction ID
+    - name: TryBlowAway
+      address:
+        NA: 0x231FDE0
+        EU: 0x2320848
+      description: |-
+        Blows away the target monster in a given direction if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: direction ID
+    - name: TryWarp
+      address:
+        NA: 0x2320D08
+        EU: 0x2321770
+      description: |-
+        Makes the target monster warp if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: warp type
+        r3: position (if warp type is position-based)
+    - name: RandOutcomeUserTargetInteraction
+      address:
+        NA: 0x2324934
+        EU: 0x232539C
+      description: |-
+        Like RandOutcome, but specifically for user-target interactions.
+        
+        This modifies the underlying random process depending on factors like Serene Grace, and whether or not either entity has fainted.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: base success percentage (100*p). 0 is treated specially and guarantees success.
+    - name: RandOutcomeUserAction
+      address:
+        NA: 0x2324A20
+        EU: 0x2325488
+      description: |-
+        Like RandOutcome, but specifically for user actions.
+        
+        This modifies the underlying random process to factor in Serene Grace (and checks whether the user is a valid entity).
+        
+        r0: entity pointer
+        r1: base success percentage (100*p). 0 is treated specially and guarantees success.
     - name: UpdateMovePp
       address:
         NA: 0x2324D8C
@@ -489,6 +1082,31 @@ overlay29:
         
         r0: 4-byte number x
         return: (short)x
+    - name: DealDamageWithRecoil
+      address:
+        NA: 0x2327F34
+        EU: 0x23289A0
+      description: |-
+        Deals damage from a move or item used by an attacking monster on a defending monster, and also deals recoil damage to the attacker.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: bool, whether or not damage was dealt
+    - name: DealDamage
+      address:
+        NA: 0x2332B20
+        EU: 0x2333560
+      description: |-
+        Deals damage from a move or item used by an attacking monster on a defending monster.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: damage multiplier (as a Q24.8 fixed-point float)
+        stack[0]: item ID
+        return: amount of damage dealt
     - name: CalcDamageProjectile
       address:
         NA: 0x2332C4C
@@ -503,6 +1121,7 @@ overlay29:
     - name: GetApparentWeather
       address:
         NA: 0x2334D08
+        EU: 0x2335748
       description: |-
         Get the weather, as experienced by a specific entity.
         
@@ -519,6 +1138,13 @@ overlay29:
         r0: x position
         r1: y position
         return: tile pointer
+    - name: GravityIsActive
+      address:
+        NA: 0x2338390
+      description: |-
+        Checks if gravity is active on the floor.
+        
+        return: bool
     - name: IsSecretBazaar
       address:
         NA: 0x23385C4
@@ -1286,6 +1912,120 @@ overlay29:
         
         r0: mission destination info pointer
         return: bool
+    - name: LogMessageByIdWithPopupCheckUser
+      address:
+        NA: 0x234B2A4
+        EU: 0x234BEA4
+      description: |-
+        Logs a message in the message log alongside a message popup, if the user hasn't fainted.
+        
+        r0: user entity pointer
+        r1: message ID
+    - name: LogMessageWithPopupCheckUser
+      address:
+        NA: 0x234B2E4
+        EU: 0x234BEE4
+      description: |-
+        Logs a message in the message log alongside a message popup, if the user hasn't fainted.
+        
+        r0: user entity pointer
+        r1: message string
+    - name: LogMessageByIdQuiet
+      address:
+        NA: 0x234B31C
+        EU: 0x234BF1C
+      description: |-
+        Logs a message in the message log (but without a message popup).
+        
+        r0: user entity pointer
+        r1: message ID
+    - name: LogMessageQuiet
+      address:
+        NA: 0x234B340
+        EU: 0x234BF40
+      description: |-
+        Logs a message in the message log (but without a message popup).
+        
+        r0: user entity pointer
+        r1: message string
+    - name: LogMessageByIdWithPopupCheckUserTarget
+      address:
+        NA: 0x234B350
+        EU: 0x234BF50
+      description: |-
+        Logs a message in the message log alongside a message popup, if some user check passes and the target hasn't fainted.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: message ID
+    - name: LogMessageWithPopupCheckUserTarget
+      address:
+        NA: 0x234B3A4
+        EU: 0x234BFA4
+      description: |-
+        Logs a message in the message log alongside a message popup, if some user check passes and the target hasn't fainted.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: message string
+    - name: LogMessageByIdQuietCheckUserTarget
+      address:
+        NA: 0x234B3F0
+        EU: 0x234BFF0
+      description: |-
+        Logs a message in the message log (but without a message popup), if some user check passes and the target hasn't fainted.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: message ID
+    - name: LogMessageByIdWithPopupCheckUserUnknown
+      address:
+        NA: 0x234B444
+        EU: 0x234C044
+      description: |-
+        Logs a message in the message log alongside a message popup, if the user hasn't fainted and some other unknown check.
+        
+        r0: user entity pointer
+        r1: ?
+        r2: message ID
+    - name: LogMessageByIdWithPopup
+      address:
+        NA: 0x234B498
+        EU: 0x234C098
+      description: |-
+        Logs a message in the message log alongside a message popup.
+        
+        r0: user entity pointer
+        r1: message ID
+    - name: LogMessageWithPopup
+      address:
+        NA: 0x234B4BC
+        EU: 0x234C0BC
+      description: |-
+        Logs a message in the message log alongside a message popup.
+        
+        r0: user entity pointer
+        r1: message string
+    - name: LogMessage
+      address:
+        NA: 0x234B508
+        EU: 0x234C108
+      description: |-
+        Logs a message in the message log.
+        
+        r0: user entity pointer
+        r1: message string
+        r2: bool, whether or not to present a message popup
+    - name: LogMessageById
+      address:
+        NA: 0x234B714
+        EU: 0x234C314
+      description: |-
+        Logs a message in the message log.
+        
+        r0: user entity pointer
+        r1: message ID
+        r2: bool, whether or not to present a message popup
     - name: RunDungeonMode
       address:
         NA: 0x234BF28
@@ -1326,6 +2066,12 @@ overlay29:
       length:
         NA: 0x4
       description: "The increment for the dungeon PRNG's secondary LCGs, 2531011 (0x269EC3). This happens to be the same increment that the Microsoft Visual C++ runtime library uses in its implementation of the rand() function."
+    - name: EXPERIENCE_POINT_GAIN_CAP
+      address:
+        NA: 0x23026C8
+      length:
+        NA: 0x4
+      description: A cap on the experience that can be given to a monster in one call to AddExpSpecial
     - name: JUDGMENT_MOVE_ID
       address:
         NA: 0x230C458
