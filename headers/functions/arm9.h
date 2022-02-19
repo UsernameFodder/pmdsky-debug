@@ -7,7 +7,7 @@ int RoundUpDiv256(int x);
 int MultiplyByFixedPoint(int x, int mult_fp);
 uint32_t UMultiplyByFixedPoint(uint32_t x, uint32_t mult_fp);
 void MemZero(void* ptr, uint32_t len);
-void TaksProcBoot(void);
+void TaskProcBoot(void);
 bool SoundResume(void);
 void CardPullOutWithStatus(int status);
 void CardPullOut(void);

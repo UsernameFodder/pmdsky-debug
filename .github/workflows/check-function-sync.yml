@@ -1,0 +1,19 @@
+name: Check Function Synchronization
+
+on:
+  pull_request:
+    paths:
+      - 'symbols/**.yml'
+      - 'headers/functions/**.h'
+    branches:
+      - master
+  workflow_call:
+
+jobs:
+  sync-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Function sync check
+        run: make -C headers symbol-check
