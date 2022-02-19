@@ -21,3 +21,7 @@ format:
 .PHONY: format-check
 format-check:
 	find . -iname '*.h' | xargs clang-format --dry-run -Werror
+
+.PHONY: symbol-check
+symbol-check:
+	./symbol_check.py
