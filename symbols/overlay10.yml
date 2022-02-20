@@ -27,6 +27,7 @@ overlay10:
         EU: 0x22C4D6C
       length:
         NA: 0x2
+        EU: 0x2
       description: The number of turns between passive bad poison (toxic) damage.
     - name: PROTEIN_STAT_BOOST
       address:
@@ -161,6 +162,7 @@ overlay10:
         EU: 0x22C5000
       length:
         NA: 0x2
+        EU: 0x2
       description: The number of turns between passive poison damage.
     - name: GEO_PEBBLE_DAMAGE
       address:
@@ -282,6 +284,7 @@ overlay10:
         EU: 0x22C5B54
       length:
         NA: 0xF0
+        EU: 0xF0
       description: |-
         Table of music IDs for dungeons with a random assortment of music tracks.
         

@@ -162,6 +162,14 @@ arm9:
         Move struct of the last new move introduced when learning a new move. Persists even after the move selection is made in the menu.
         
         type: struct move
+    - name: SCRIPT_VARS_VALUES
+      address:
+        NA: 0x22AB0AC
+        EU: 0x22AB9EC
+      length:
+        NA: 0x2B4
+        EU: 0x2B4
+      description: The table of game variable values. Its structure is determined by SCRIPT_VARS.
     - name: BAG_LEVEL
       address:
         NA: 0x22AB15C

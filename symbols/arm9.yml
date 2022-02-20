@@ -724,6 +724,14 @@ arm9:
       length:
         NA: 0x4
         EU: 0x4
+    - name: WONDER_GUMMI_IQ_GAIN
+      address:
+        NA: 0x20A1890
+        EU: 0x20A1E14
+      length:
+        NA: 0x2
+        EU: 0x2
+      description: IQ gain when ingesting wonder gummis.
     - name: AURA_BOW_STAT_BOOST
       address:
         NA: 0x20A1898

@@ -12,6 +12,14 @@ arm9:
   description: Hard-coded immediate values (literals) in instructions within the ARM 9 binary.
   functions: []
   data:
+    - name: JUICE_BAR_NECTAR_IQ_GAIN
+      address:
+        NA: 0x2011810
+        EU: 0x20118B8
+      length:
+        NA: 0x1
+        EU: 0x1
+      description: IQ gain when ingesting nectar at the Juice Bar.
     - name: TEXT_SPEED
       address:
         NA: 0x2020C98
@@ -237,6 +245,7 @@ overlay9:
       address:
         NA: 0x233D900
         EU: 0x233E080
+      description: Song playing in the main menu when returning from the Sky Jukebox.
 overlay30:
   versions:
     - NA
