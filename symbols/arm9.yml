@@ -667,8 +667,10 @@ arm9:
     - name: SCRIPT_VARS
       address:
         NA: 0x209D870
+        JP: 0x209EC44
       length:
         NA: 0x730
+        JP: 0x730
     - name: DUNGEON_DATA_LIST
       address:
         NA: 0x209E3A0
@@ -892,16 +894,20 @@ arm9:
       address:
         NA: 0x20A5488
         EU: 0x20A5BD8
+        JP: 0x20A6894
       length:
         NA: 0x1434
         EU: 0x1584
+        JP: 0x1470
     - name: ENTITIES
       address:
         NA: 0x20A7FF0
         EU: 0x20A8890
+        JP: 0x20A9438
       length:
         NA: 0x1218
         EU: 0x1218
+        JP: 0x1218
     - name: MAP_MARKER_PLACEMENTS
       address:
         NA: 0x20A94D0
