@@ -1159,11 +1159,13 @@ overlay29:
         Checks if the current floor is the Secret Room fixed floor (from hidden stairs).
         
         return: bool
-    - name: LoadFixedRoomDataWrapper
+    - name: LoadFixedRoomDataVeneer
       address:
         NA: 0x233A624
       description: |-
-        A wrapper around LoadFixedRoomData.
+        Likely a linker-generated veneer for LoadFixedRoomData.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
         
         No params.
     - name: IsNormalFloor

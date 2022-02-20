@@ -152,7 +152,7 @@ struct tile* GetTile(int x, int y);
 bool GravityIsActive(void);
 bool IsSecretBazaar(void);
 bool IsSecretRoom(void);
-void LoadFixedRoomDataWrapper(void);
+void LoadFixedRoomDataVeneer(void);
 bool IsNormalFloor(void);
 void GenerateFloor(void);
 enum terrain_type GetTileTerrain(struct tile* tile);
