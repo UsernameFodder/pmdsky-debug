@@ -245,6 +245,7 @@ overlay9:
       address:
         NA: 0x233D900
         EU: 0x233E080
+      description: Song playing in the main menu when returning from the Sky Jukebox.
 overlay30:
   versions:
     - NA
