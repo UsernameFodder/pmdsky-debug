@@ -167,14 +167,14 @@ arm9:
         This function must always be called if DataTransferInit was called, or the game will crash.
         
         No params.
-    - name: FileInitWrapper
+    - name: FileInitVeneer
       address:
         NA: 0x2008204
         EU: 0x2008204
       description: |-
-        Wrapper call around FileInit.
+        Likely a linker-generated veneer for FileInit.
         
-        This function must always be called before opening a file.
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
         
         r0: file_stream pointer
     - name: FileOpen
@@ -394,11 +394,13 @@ arm9:
         
         r0: [output] double pointer to beginning of data
         r1: pointer to source file buffer
-    - name: HandleSir0TranslationWrapper
+    - name: HandleSir0TranslationVeneer
       address:
         NA: 0x201F58C
       description: |-
-        Wrapper around HandleSir0Translation.
+        Likely a linker-generated veneer for HandleSir0Translation.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
         
         r0: [output] double pointer to beginning of data
         r1: pointer to source file buffer
@@ -532,6 +534,8 @@ arm9:
         NA: 0x207F3E4
       description: |-
         Initializes a file_stream structure for file I/O.
+        
+        This function must always be called before opening a file.
         
         r0: file_stream pointer
     - name: Abs
