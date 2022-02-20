@@ -47,19 +47,25 @@ overlay11:
       address:
         NA: 0x2318610
         EU: 0x2318FF0
+        JP: 0x2319B74
       length:
         NA: 0xBF8
         EU: 0xBF8
+        JP: 0xBF8
     - name: C_ROUTINES
       address:
         NA: 0x231C828
+        JP: 0x231DD8C
       length:
         NA: 0x15E8
+        JP: 0x15E8
     - name: OBJECTS
       address:
         NA: 0x231EE54
+        JP: 0x23203B8
       length:
         NA: 0x1A04
+        JP: 0x1A04
     - name: RECRUITMENT_TABLE_LOCATIONS
       address:
         NA: 0x2320894
