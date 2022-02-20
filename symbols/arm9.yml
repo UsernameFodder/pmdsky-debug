@@ -6,6 +6,7 @@ arm9:
   address:
     NA: 0x2000000
     EU: 0x2000000
+    JP: 0x2000000
   length:
     NA: 0xB73F8
     EU: 0xB7D38
