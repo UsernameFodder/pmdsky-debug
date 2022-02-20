@@ -223,6 +223,15 @@ arm9:
         A null-terminated string, with a maximum length of 10. Presumably encoded with the ANSI/Shift JIS encoding the game typically uses.
         
         This is presumably part of a larger struct, together with other nearby data.
+    - name: SCRIPT_VARS_VALUES
+      address:
+        NA: 0x22AB0AC
+        EU: 0x22AB9EC
+      length:
+        NA: 0x2B4
+        EU: 0x2B4
+      description: |-
+        The table of game variable values. It's structure is determined by SCRIPT_VARS.
     - name: HERO_SPECIES_ID
       address:
         NA: 0x22ABDE4
