@@ -231,7 +231,7 @@ arm9:
         NA: 0x2B4
         EU: 0x2B4
       description: |-
-        The table of game variable values. It's structure is determined by SCRIPT_VARS.
+        The table of game variable values. Its structure is determined by SCRIPT_VARS.
     - name: HERO_SPECIES_ID
       address:
         NA: 0x22ABDE4

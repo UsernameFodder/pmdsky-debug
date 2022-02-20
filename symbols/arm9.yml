@@ -729,8 +729,8 @@ arm9:
         NA: 0x20A1890
         EU: 0x20A1E14
       length:
-        NA: 0x1
-        EU: 0x1
+        NA: 0x2
+        EU: 0x2
       description: IQ gain when ingesting wonder gummis.
     - name: AURA_BOW_STAT_BOOST
       address:
