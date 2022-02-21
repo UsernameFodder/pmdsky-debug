@@ -804,8 +804,9 @@ arm9:
         NA: 0x20A1A5C
         EU: 0x20A1FE0
       length:
-        NA: 0x89
-        EU: 0x89
+        NA: 0x8A
+        EU: 0x8A
+      description: "Table of 2-byte values for each IQ skill that represent a group. IQ skills in the same group can not be enabled at the same time."
     - name: SECONDARY_TERRAIN_TYPES
       address:
         NA: 0x20A1AE8
@@ -829,6 +830,7 @@ arm9:
       length:
         NA: 0x114
         EU: 0x114
+      description: "Table of 4-byte values for each IQ skill that represent the required IQ value to unlock a skill."
     - name: IQ_GROUP_SKILLS
       address:
         NA: 0x20A1D90
