@@ -9,5 +9,6 @@ overlay28:
   length:
     NA: 0xC60
     EU: 0xC60
+  description: Controls the staff credits sequence.
   functions: []
   data: []

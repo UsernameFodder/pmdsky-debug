@@ -9,5 +9,6 @@ overlay30:
   length:
     NA: 0x38A0
     EU: 0x38A0
+  description: Controls quicksaving in dungeons.
   functions: []
   data: []
