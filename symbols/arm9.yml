@@ -416,8 +416,8 @@ arm9:
         return: language ID
     - name: PreprocessString
       address:
-        NA: 0x20223f0
-        EU: 0x20223F0
+        NA: 0x20223F0
+        EU: 0x20225EC
       description: |-
         An enhanced sprintf, which recognizes certain tags and replaces them with appropiate game values.
         This function can also be used to simply insert values passed within the preprocessor args
