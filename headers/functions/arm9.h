@@ -48,6 +48,8 @@ enum move_category GetMoveCategory(enum move_id move_id);
 void HandleSir0Translation(uint8_t** dst, uint8_t* src);
 void HandleSir0TranslationVeneer(uint8_t** dst, uint8_t* src);
 int GetLanguage(void);
+int PreprocessString(char* output, int output_size, char* format, 
+                     struct preprocessor_flags flags, struct preprocessor_args* args)
 void Strcpy(char* dest, char* src);
 void Strncpy(char* dest, char* src, uint32_t num);
 char* StringFromMessageId(int message_id);

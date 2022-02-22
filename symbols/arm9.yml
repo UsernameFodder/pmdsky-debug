@@ -414,12 +414,28 @@ arm9:
         The language ID appears to be used to index some global tables.
         
         return: language ID
+    - name: PreprocessString
+      address:
+        NA: 0x20223f0
+        EU: 0x20223F0
+      description: |-
+        An enhanced sprintf, which recognizes certain tags and replaces them with appropiate game values.
+        This function can also be used to simply insert values passed within the preprocessor args
+
+        The tags utilized for this function are lowercase, it might produce uppercase tags
+        that only are used when the text is being typewrited into a message box
+
+        r0: [output] formatted string
+        r1: maximum capacity of the output buffer
+        r2: input format string
+        r3: preprocessor flags
+        stack[0]: pointer to preprocessor args
     - name: Strcpy
       address:
         NA: 0x2025100
         EU: 0x20253CC
       description: |-
-        Simlar to the strcpy(3) C library function.
+        Similar to the strcpy(3) C library function.
         
         r0: dest
         r1: src
