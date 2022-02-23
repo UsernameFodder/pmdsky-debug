@@ -41,8 +41,8 @@ ASSERT_SIZE(struct file_stream, 72);
 struct preprocessor_flags {
     uint16_t unknown : 13;
     bool show_speaker : 1;
-    uint16_t unknown : 18;
-}
+    uint32_t unknown : 18;
+};
 ASSERT_SIZE(struct preprocessor_flags, 4);
 
 // Represents arguments that might be passed to the PreprocessString function
@@ -53,8 +53,8 @@ struct preprocessor_args {
     char* strings[5];
     uint32_t speaker_id; // An optional argument that is used to insert the name of a Pokémon
     // When they're talking through a message box. It requires it's respective flag to be on
-}
-ASSERT_SIZE(preprocessor_args, 80)
+};
+ASSERT_SIZE(preprocessor_args, 80);
 
 struct type_matchup_16 {
     enum type_matchup val : 16;

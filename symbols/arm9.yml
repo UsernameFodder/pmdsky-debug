@@ -421,10 +421,10 @@ arm9:
       description: |-
         An enhanced sprintf, which recognizes certain tags and replaces them with appropiate game values.
         This function can also be used to simply insert values passed within the preprocessor args
-
+        
         The tags utilized for this function are lowercase, it might produce uppercase tags
         that only are used when the text is being typewrited into a message box
-
+        
         r0: [output] formatted string
         r1: maximum capacity of the output buffer
         r2: input format string
