@@ -39,9 +39,9 @@ ASSERT_SIZE(struct file_stream, 72);
 // These flags are shared with the function to display text inside message boxes
 // So they might need a rename once more information is found
 struct preprocessor_flags {
-    uint16_t unknown : 13;
+    uint16_t unknown0 : 13;
     bool show_speaker : 1;
-    uint32_t unknown : 18;
+    uint32_t unknown18 : 18;
 };
 ASSERT_SIZE(struct preprocessor_flags, 4);
 
