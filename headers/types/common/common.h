@@ -36,6 +36,27 @@ struct file_stream {
 };
 ASSERT_SIZE(struct file_stream, 72);
 
+// These flags are shared with the function to display text inside message boxes
+// So they might need a rename once more information is found
+struct preprocessor_flags {
+    uint16_t unknown0 : 13;
+    bool show_speaker : 1;
+    uint32_t unknown18 : 18;
+};
+ASSERT_SIZE(struct preprocessor_flags, 4);
+
+// Represents arguments that might be passed to the PreprocessString function
+struct preprocessor_args {
+    uint32_t flag_vals[4]; // These are usually IDs with additional flags attached to them
+    uint32_t id_vals[5];
+    int32_t number_vals[5];
+    char* strings[5];
+    // An optional argument that is used to insert the name of a Pokémon
+    // When they're talking through a message box. It requires it's respective flag to be on
+    uint32_t speaker_id;
+};
+ASSERT_SIZE(struct preprocessor_args, 80);
+
 struct type_matchup_16 {
     enum type_matchup val : 16;
 };
