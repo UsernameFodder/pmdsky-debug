@@ -99,4 +99,16 @@ struct script_object {
 };
 ASSERT_SIZE(struct script_object, 12);
 
+// A global structure holding various pointer to important structure for ground mode
+struct main_ground_data {
+    undefined* script; // 0x0: pointer to script structure
+    undefined*
+        partner_follow_data; // 0x4: pointer to the data related to the partner following the player
+    undefined* actors;       // 0x8: pointer to the actors
+    undefined* objects;      // 0x12: pointer to the objects
+    undefined* performers;   // 0x16: pointer to the performers
+    undefined* events;       // 0x20: pointer to the events
+};
+ASSERT_SIZE(struct main_ground_data, 24);
+
 #endif
