@@ -45,6 +45,10 @@ int GetMoveCritChance(struct move* move);
 bool IsRecoilMove(enum move_id move_id);
 bool IsPunchMove(enum move_id move_id);
 enum move_category GetMoveCategory(enum move_id move_id);
+void LoadWteFromRom(struct wte_handle* handle, char* path, uint32_t flags);
+void LoadWteFromFileDirectory(struct wte_handle* handle, uint16_t pack_file_id, uint16_t file_index,
+                              uint32_t malloc_flags);
+void UnloadWte(struct wte_handle* handle);
 void HandleSir0Translation(uint8_t** dst, uint8_t* src);
 void HandleSir0TranslationVeneer(uint8_t** dst, uint8_t* src);
 int GetLanguage(void);
