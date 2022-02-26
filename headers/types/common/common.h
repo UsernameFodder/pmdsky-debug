@@ -22,12 +22,13 @@ struct rect16_xywh {
 ASSERT_SIZE(struct rect16_xywh, 8);
 
 // The fact the 4th byte is never used hints to the fact the struct is packed
-struct rgb {
-    int32_t r : 8;
-    int32_t g : 8;
-    int32_t b : 8;
+struct rgbx {
+    uint8_t r;
+    uint8_t b;
+    uint8_t g;
+    uint8_t x;
 };
-ASSERT_SIZE(struct rgb, 4);
+ASSERT_SIZE(struct rgbx, 4);
 
 // A structure that represents a file stream for file I/O.
 struct file_stream {
@@ -83,16 +84,15 @@ struct wte_header {
         of the file. The offsets are redundant and should be zero
         
         The width specified here should always be the same as the one specified in the texture
-        params, but the height may be lower. The reason is that just like the width, the height 
+        params, but the height may be lower. The reason is that just like the width, the height
         needs to be a power of 2 in the range of 8..1024. The actual texture can have a lower
         height, but not a lower width, as the width is required to properly read the image */
     struct rect16_xywh texture_bounds;
-    struct rgb* palette;
+    struct rgbx* palette;
     uint16_t color_amt; // How many colors are stored in the palette
 };
 #pragma pack(pop)
 ASSERT_SIZE(struct wte_header, 32);
-    
 
 // These flags are shared with the function to display text inside message boxes
 // So they might need a rename once more information is found
