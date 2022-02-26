@@ -391,7 +391,7 @@ arm9:
         NA: 0x201DE4C
       description: |-
         Loads a SIR0-wrapped WTE file from ROM, and returns a handle to it
-
+        
         r0: [output] pointer to wte handle
         r1: file path string
         r2: load file flags

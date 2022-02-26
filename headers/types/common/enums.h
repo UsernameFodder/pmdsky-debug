@@ -54,7 +54,7 @@ enum texture_format {
     TEXFORMAT_COMPRESSED = 5,
     TEXFORMAT_A5I3 = 6,
     TEXFORMAT_DIRECT = 7,
-}
+};
 
 // Monster ID. Add 600 to get secondary genders.
 enum monster_id {
