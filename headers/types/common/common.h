@@ -78,16 +78,16 @@ struct wte_texture_params {
     enum texture_format format : 3;
     bool flip_x : 1;
     bool flip_y : 1;
-    uint8_t unusedD;
+    uint8_t unusedD : 3;
 };
 ASSERT_SIZE(struct wte_texture_params, 2);
 
 struct wte_header {
-    char signature[4]; // 0x0: Signature bytes (must be "\x57\x54\x45\x00")
-    void* texture; // 0x4
-    uint32_t texture_size; // 0x8
+    char signature[4];                // 0x0: Signature bytes (must be "\x57\x54\x45\x00")
+    void* texture;                    // 0x4
+    uint32_t texture_size;            // 0x8
     struct wte_texture_params params; // 0xC
-    uint16_t _padding_0xe; 
+    uint16_t _padding_0xe;
     /*  These bounds are NOT used by the game, but they prove useful to extract the texture out
         of the file. The offsets are redundant and should be zero
 
@@ -96,8 +96,8 @@ struct wte_header {
         needs to be a power of 2 in the range of 8..1024. The actual texture can have a lower
         height, but not a lower width, as the width is required to properly read the image */
     struct rect16_xywh texture_bounds; // 0x10
-    struct rgb* palette; // 0x18
-    uint16_t color_amt; // 0x1C: How many colors are stored in the palette
+    struct rgb* palette;               // 0x18
+    uint16_t color_amt;                // 0x1C: How many colors are stored in the palette
     uint16_t _padding_0x1e;
 };
 ASSERT_SIZE(struct wte_header, 32);
