@@ -13,6 +13,24 @@ struct iovec {
 };
 ASSERT_SIZE(struct iovec, 8);
 
+struct rect16_xywh {
+    int16_t x;
+    int16_t y;
+    int16_t w;
+    int16_t h;
+};
+ASSERT_SIZE(struct rect16_xywh, 8);
+
+// The fact the 4th byte is never used hints to the fact the struct is packed
+#pragma pack(push, 4)
+struct rgb {
+    int8_t r;
+    int8_t g;
+    int8_t b;
+};
+#pragma pack(pop)
+ASSERT_SIZE(struct rgb, 4);
+
 // A structure that represents a file stream for file I/O.
 struct file_stream {
     undefined4 field_0x0;
@@ -35,6 +53,48 @@ struct file_stream {
     undefined4 field_0x44;
 };
 ASSERT_SIZE(struct file_stream, 72);
+
+// Struct used to load, store and unload WTE files
+struct wte_handle {
+    void* content; // Pointer to the heap-allocated WTE data. Only stored for freeing the data
+    wte_header* header;
+};
+ASSERT_SIZE(struct wte_handle, 8);
+
+// These arguments are almost directly passed to the TEXIMAGE_PARAM register, just rearranged
+// For more information see 
+// https://problemkaputt.de/gbatek.htm#ds3dtextureattributes
+struct wte_texture_params {
+    uint8_t texture_smult : 3;
+    uint8_t texture_tmult : 3;
+    uint8_t unused6 : 2;
+    enum texture_format format : 3;
+    bool flip_x : 1;
+    bool flip_y : 1;
+};
+ASSERT_SIZE(struct wte_texture_params, 2);
+
+// To accurately describe the structure of the header we need to enable packing
+#pragma pack(push, 4)
+struct wte_header {
+    char signature[4]; // Signature bytes (must be "\x57\x54\x45\x00")
+    void* texture;
+    uint32_t texture_size;
+    wte_texture_params params;
+    /*  These bounds are NOT used by the game, but they prove useful to extract the texture out of the file. 
+        The offsets are redundant and should be 0
+        
+        The width specified here should always be the same as the one specified in the texture params, 
+        but the height may be lower. The reason is that just like the width, the height needs to be a 
+        power of 2 in the range of 8..1024. The actual texture can have a lower height, but not a lower 
+        width, as the width is required to properly read and display the image */ 
+    rect16_xywh texture_bounds;
+    rgb* palette;
+    uint16_t color_amt; // How many colors are stored in the palette
+};
+#pragma pack(pop)
+ASSERT_SIZE(struct wte_header, 32);
+    
 
 // These flags are shared with the function to display text inside message boxes
 // So they might need a rename once more information is found
