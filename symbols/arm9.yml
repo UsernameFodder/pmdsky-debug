@@ -386,6 +386,32 @@ arm9:
         
         r0: move ID
         return: move category enum
+    - name: LoadWteFromRom
+      address:
+        NA: 0x201DE4C
+      description: |-
+        Loads a SIR0-wrapped WTE file from ROM, and returns a handle to it
+        
+        r0: [output] pointer to wte handle
+        r1: file path string
+        r2: load file flags
+    - name: LoadWteFromFileDirectory
+      address:
+        NA: 0x201DEC4
+      description: |-
+        Loads a SIR0-wrapped WTE file from a file directory, and returns a handle to it
+        
+        r0: [output] pointer to wte handle
+        r1: file directory id
+        r2: file index
+        r3: malloc flags
+    - name: UnloadWte
+      address:
+        NA: 0x201DF18
+      description: |-
+        Frees the buffer used to store the WTE data in the handle, and sets both pointers to null
+        
+        r0: pointer to wte handle
     - name: HandleSir0Translation
       address:
         NA: 0x201F4B4

@@ -44,6 +44,18 @@ enum overlay_group_id {
     OGROUP_OVERLAY_33 = 36,
 };
 
+// https://problemkaputt.de/gbatek.htm#ds3dtextureformats
+enum texture_format {
+    TEXFORMAT_NONE = 0,
+    TEXFORMAT_A3I5 = 1,
+    TEXFORMAT_4COLOR = 2,
+    TEXFORMAT_16COLOR = 3,
+    TEXFORMAT_256COLOR = 4,
+    TEXFORMAT_COMPRESSED = 5,
+    TEXFORMAT_A5I3 = 6,
+    TEXFORMAT_DIRECT = 7,
+};
+
 // Monster ID. Add 600 to get secondary genders.
 enum monster_id {
     MONSTER_NONE = 0,
