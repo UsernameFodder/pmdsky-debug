@@ -82,7 +82,7 @@ struct wte_header {
     struct wte_texture_params params;
     /*  These bounds are NOT used by the game, but they prove useful to extract the texture out
         of the file. The offsets are redundant and should be zero
-        
+
         The width specified here should always be the same as the one specified in the texture
         params, but the height may be lower. The reason is that just like the width, the height
         needs to be a power of 2 in the range of 8..1024. The actual texture can have a lower
