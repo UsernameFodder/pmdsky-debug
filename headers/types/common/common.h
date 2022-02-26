@@ -22,13 +22,13 @@ struct rect16_xywh {
 ASSERT_SIZE(struct rect16_xywh, 8);
 
 // The fact the 4th byte is never used hints to the fact the struct is packed
-struct rgbx {
+struct rgb {
     uint8_t r;
     uint8_t b;
     uint8_t g;
-    uint8_t x;
+    uint8_t unused;
 };
-ASSERT_SIZE(struct rgbx, 4);
+ASSERT_SIZE(struct rgb, 4);
 
 // A structure that represents a file stream for file I/O.
 struct file_stream {
@@ -53,7 +53,15 @@ struct file_stream {
 };
 ASSERT_SIZE(struct file_stream, 72);
 
-// Struct used to load, store and unload WTE files
+/*  Handle to a memory-allocated WTE file.
+
+    The WTE file format is a simple file format found both in file directories
+    and in the ROM filesystem. This format specializes in storing texture data,
+    and is closely linked to the 3D engine, as well as the 3D resource manager!
+
+    While EoS is not a 3D game, the game still utilizes the 3D hardware to draw
+    graphics onto the screen. Examples of its usage are the Dungeon Mode GUI
+    (DUNGEON/dungeon.bin+0x3F4) and the fog (DUNGEON/dungeon.bin+0x401) */
 struct wte_handle {
     void* content; // Pointer to the heap-allocated WTE data. Only stored for freeing the data
     struct wte_header* header;
@@ -70,16 +78,16 @@ struct wte_texture_params {
     enum texture_format format : 3;
     bool flip_x : 1;
     bool flip_y : 1;
+    uint8_t unusedD;
 };
 ASSERT_SIZE(struct wte_texture_params, 2);
 
-// To accurately describe the structure of the header we need to enable packing
-#pragma pack(push, 4)
 struct wte_header {
-    char signature[4]; // Signature bytes (must be "\x57\x54\x45\x00")
-    void* texture;
-    uint32_t texture_size;
-    struct wte_texture_params params;
+    char signature[4]; // 0x0: Signature bytes (must be "\x57\x54\x45\x00")
+    void* texture; // 0x4
+    uint32_t texture_size; // 0x8
+    struct wte_texture_params params; // 0xC
+    uint16_t _padding_0xe; 
     /*  These bounds are NOT used by the game, but they prove useful to extract the texture out
         of the file. The offsets are redundant and should be zero
 
@@ -87,11 +95,11 @@ struct wte_header {
         params, but the height may be lower. The reason is that just like the width, the height
         needs to be a power of 2 in the range of 8..1024. The actual texture can have a lower
         height, but not a lower width, as the width is required to properly read the image */
-    struct rect16_xywh texture_bounds;
-    struct rgbx* palette;
-    uint16_t color_amt; // How many colors are stored in the palette
+    struct rect16_xywh texture_bounds; // 0x10
+    struct rgb* palette; // 0x18
+    uint16_t color_amt; // 0x1C: How many colors are stored in the palette
+    uint16_t _padding_0x1e;
 };
-#pragma pack(pop)
 ASSERT_SIZE(struct wte_header, 32);
 
 // These flags are shared with the function to display text inside message boxes
