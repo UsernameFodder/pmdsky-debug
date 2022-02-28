@@ -76,8 +76,8 @@ struct wte_texture_params {
     uint8_t texture_tmult : 3;
     uint8_t unused6 : 2;
     enum texture_format format : 3;
-    bool flip_x : 1;
-    bool flip_y : 1;
+    bool repeat_x : 1;
+    bool repeat_y : 1;
     uint8_t unusedD : 3;
 };
 ASSERT_SIZE(struct wte_texture_params, 2);
