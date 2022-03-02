@@ -217,6 +217,14 @@ overlay29:
         Has a special check to return false for Labyrinth Cave B10F (the Gabite boss fight).
         
         return: bool
+    - name: HasLowHealth
+      address:
+        NA: 0x22FB610
+      description: |-
+        Checks if the entity passed is a valid monster, and if it's at low health (below 25% rounded down)
+        
+        r0: entity pointer
+        return: bool
     - name: IsSpecialStoryAlly
       address:
         NA: 0x22FBAD0
