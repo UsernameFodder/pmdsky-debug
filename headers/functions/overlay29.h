@@ -24,6 +24,7 @@ void RngSetPrimary(void);
 bool EntityIsValid(struct entity* entity);
 void ResetDamageDesc(undefined4* damage_desc);
 bool FloorNumberIsEven(void);
+bool HasLowHealth(struct entity* entity);
 bool IsSpecialStoryAlly(struct monster* monster);
 bool IsExperienceLocked(struct monster* monster);
 bool ItemIsActive(struct entity* entity, enum item_id item_id);
