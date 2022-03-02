@@ -17,14 +17,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Compile
         run: make -C headers
   format-check:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Format check
         run: make -C headers format-check
   format:
@@ -33,7 +33,7 @@ jobs:
     if: failure() && !inputs.no-format-on-check-fail
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Format
         run: make -C headers format
       - name: Package reformatted files
