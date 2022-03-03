@@ -544,6 +544,21 @@ arm9:
         
         r0: message ID
         return: string from the string files with the given message ID
+    - name: SetScreenWindowsColor
+      address:
+        NA: 0x2027A68
+      description: |-
+        Sets the palette of the frames of windows in the specified screen
+        
+        r0: palette index
+        r1: is upper screen
+    - name: SetBothScreensWindowsColor
+      address:
+        NA: 0x2027A80
+      description: |-
+        Sets the palette of the frames of windows in both screens
+        
+        r0: palette index
     - name: InitMainTeamAfterQuiz
       address:
         NA: 0x20487C4
@@ -565,21 +580,6 @@ arm9:
         Implements SPECIAL_PROC_0x4 (see ScriptSpecialProcessCall).
         
         No params.
-    - name: SetScreenWindowsColor
-      address:
-        NA: 0x2027A68
-      description: |-
-        Sets the palette of the frames of windows in the specified screen
-        
-        r0: palette index
-        r1: is upper screen
-    - name: SetBothScreensWindowsColor
-      address:
-        NA: 0x2027A80
-      description: |-
-        Sets the palette of the frames of windows in both screens
-        
-        r0: palette index
     - name: SaveScriptVariableValue
       address:
         NA: 0x204B820
