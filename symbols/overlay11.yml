@@ -39,10 +39,126 @@ overlay11:
       address:
         NA: 0x22E5D50
         EU: 0x22E6690
+    - name: ScriptSpecialProcessCall
+      address:
+        NA: 0x22E7118
+        EU: 0x22E7A58
+      description: |-
+        Processes calls to the OPCODE_PROCESS_SPECIAL script opcode.
+        
+        r0: some struct containing a callback of some sort, only used for special process ID 18
+        r1: special process ID
+        r2: first argument, if relevant? Probably corresponds to the second parameter of OPCODE_PROCESS_SPECIAL
+        r3: second argument, if relevant? Probably corresponds to the third parameter of OPCODE_PROCESS_SPECIAL
+        return: return value of the special process if it has one, otherwise 0
+    - name: GetSpecialRecruitmentSpecies
+      address:
+        NA: 0x22E803C
+      description: |-
+        Returns an entry from RECRUITMENT_TABLE_SPECIES.
+        
+        Note: This indexes without doing bounds checking.
+        
+        r0: index into RECRUITMENT_TABLE_SPECIES
+        return: enum monster_id
+    - name: PrepareMenuAcceptTeamMember
+      address:
+        NA: 0x22E8080
+      description: |-
+        Implements SPECIAL_PROC_PREPARE_MENU_ACCEPT_TEAM_MEMBER (see ScriptSpecialProcessCall).
+        
+        r0: index into RECRUITMENT_TABLE_SPECIES
+    - name: InitRandomNpcJobs
+      address:
+        NA: 0x22E8124
+      description: |-
+        Implements SPECIAL_PROC_INIT_RANDOM_NPC_JOBS (see ScriptSpecialProcessCall).
+        
+        r0: job type? 0 is a random NPC job, 1 is a bottle mission
+        r1: ?
+    - name: GetRandomNpcJobType
+      address:
+        NA: 0x22E81BC
+      description: |-
+        Implements SPECIAL_PROC_GET_RANDOM_NPC_JOB_TYPE (see ScriptSpecialProcessCall).
+        
+        return: job type?
+    - name: GetRandomNpcJobSubtype
+      address:
+        NA: 0x22E81D4
+      description: |-
+        Implements SPECIAL_PROC_GET_RANDOM_NPC_JOB_SUBTYPE (see ScriptSpecialProcessCall).
+        
+        return: job subtype?
+    - name: GetRandomNpcJobStillAvailable
+      address:
+        NA: 0x22E81F0
+      description: |-
+        Implements SPECIAL_PROC_GET_RANDOM_NPC_JOB_STILL_AVAILABLE (see ScriptSpecialProcessCall).
+        
+        return: bool
+    - name: AcceptRandomNpcJob
+      address:
+        NA: 0x22E8258
+      description: |-
+        Implements SPECIAL_PROC_ACCEPT_RANDOM_NPC_JOB (see ScriptSpecialProcessCall).
+        
+        return: bool
     - name: GroundMainLoop
       address:
         NA: 0x22E8774
         EU: 0x22E90B4
+      description: |-
+        Appears to be the main loop for ground mode.
+        
+        Based on debug print statements and general code structure, it seems contain a core loop, and dispatches to various functions in response to different events.
+        
+        r0: mode, which is stored globally and used in switch statements for dispatch
+        return: return code
+    - name: GroundMainReturnDungeon
+      address:
+        NA: 0x22E9414
+      description: |-
+        Implements SPECIAL_PROC_RETURN_DUNGEON (see ScriptSpecialProcessCall).
+        
+        No params.
+    - name: GroundMainNextDay
+      address:
+        NA: 0x22E9438
+      description: |-
+        Implements SPECIAL_PROC_NEXT_DAY (see ScriptSpecialProcessCall).
+        
+        No params.
+    - name: JumpToTitleScreen
+      address:
+        NA: 0x22E95DC
+      description: |-
+        Implements SPECIAL_PROC_JUMP_TO_TITLE_SCREEN and SPECIAL_PROC_0x1A (see ScriptSpecialProcessCall).
+        
+        r0: int, argument value for SPECIAL_PROC_JUMP_TO_TITLE_SCREEN and -1 for SPECIAL_PROC_0x1A
+        return: bool (but note that the special process ignores this and always returns 0)
+    - name: ReturnToTitleScreen
+      address:
+        NA: 0x22E9694
+      description: |-
+        Implements SPECIAL_PROC_RETURN_TO_TITLE_SCREEN (see ScriptSpecialProcessCall).
+        
+        r0: fade duration
+        return: bool (but note that the special process ignores this and always returns 0)
+    - name: ScriptSpecialProcess0x16
+      address:
+        NA: 0x22E96F4
+      description: |-
+        Implements SPECIAL_PROC_0x16 (see ScriptSpecialProcessCall).
+        
+        r0: bool
+    - name: StatusUpdate
+      address:
+        NA: 0x2313A98
+      description: |-
+        Implements SPECIAL_PROC_STATUS_UPDATE (see ScriptSpecialProcessCall).
+        
+        No params.
   data:
     - name: SCRIPT_OP_CODES
       address:
@@ -53,6 +169,12 @@ overlay11:
         NA: 0xBF8
         EU: 0xBF8
         JP: 0xBF8
+      description: |-
+        Table of opcodes for the script engine. There are 383 8-byte entries.
+        
+        These opcodes underpin the various ExplorerScript functions you can call in the SkyTemple SSB debugger.
+        
+        type: struct script_opcode_table
     - name: C_ROUTINES
       address:
         NA: 0x231C828
@@ -60,13 +182,24 @@ overlay11:
       length:
         NA: 0x15E8
         JP: 0x15E8
+      description: |-
+        Common routines used within the unionall.ssb script (the master script). There are 701 8-byte entries.
+        
+        These routines underpin the ExplorerScript coroutines you can call in the SkyTemple SSB debugger.
+        
+        type: struct common_routine_table
     - name: OBJECTS
       address:
         NA: 0x231EE54
         JP: 0x23203B8
       length:
         NA: 0x1A04
+        EU: 0x1AAC
         JP: 0x1A04
+      description: |-
+        Table of objects for the script engine, which can be placed in scenes. There are a version-dependent number of 12-byte entries.
+        
+        type: struct script_object[length / 12]
     - name: RECRUITMENT_TABLE_LOCATIONS
       address:
         NA: 0x2320894
@@ -74,6 +207,10 @@ overlay11:
       length:
         NA: 0x16
         EU: 0x16
+      description: |-
+        Table of dungeon IDs corresponding to entries in RECRUITMENT_TABLE_SPECIES.
+        
+        type: {enum dungeon_id:16}[22]
     - name: RECRUITMENT_TABLE_LEVELS
       address:
         NA: 0x23208AC
@@ -81,6 +218,10 @@ overlay11:
       length:
         NA: 0x2C
         EU: 0x2C
+      description: |-
+        Table of levels for recruited Pokémon, corresponding to entries in RECRUITMENT_TABLE_SPECIES.
+        
+        type: uint16_t[22]
     - name: RECRUITMENT_TABLE_SPECIES
       address:
         NA: 0x23208D8
@@ -88,6 +229,12 @@ overlay11:
       length:
         NA: 0x2C
         EU: 0x2C
+      description: |-
+        Table of Pokémon recruited at special locations, such as at the ends of certain dungeons (e.g., Dialga or the Seven Treasures legendaries) or during a cutscene (e.g., Cresselia and Manaphy).
+        
+        Interestingly, this includes both Heatran genders. It also includes Darkrai for some reason?
+        
+        type: {enum monster_id:16}[22]
     - name: LEVEL_TILEMAP_LIST
       address:
         NA: 0x2320D2C

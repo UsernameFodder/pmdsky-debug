@@ -3,5 +3,6 @@
 
 #include "common/common.h"
 #include "dungeon_mode/dungeon_mode.h"
+#include "ground_mode/ground_mode.h"
 
 #endif

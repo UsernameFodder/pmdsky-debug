@@ -13,6 +13,14 @@ struct iovec {
 };
 ASSERT_SIZE(struct iovec, 8);
 
+// This seems to be a simple structure used with utility functions related to managing items in
+// the player's bag and storage.
+struct owned_item {
+    enum item_id id : 16;
+    uint16_t amount; // Probably? This is a guess
+};
+ASSERT_SIZE(struct owned_item, 4);
+
 struct rect16_xywh {
     int16_t x;
     int16_t y;

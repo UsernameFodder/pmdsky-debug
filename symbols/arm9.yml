@@ -149,6 +149,13 @@ arm9:
         
         r0: group ID of the overlay to unload
         others: ?
+    - name: KeyWaitInit
+      address:
+        NA: 0x2006DA4
+      description: |-
+        Implements (most of?) SPECIAL_PROC_KEY_WAIT_INIT (see ScriptSpecialProcessCall).
+        
+        No params.
     - name: DataTransferInit
       address:
         NA: 0x2008168
@@ -293,6 +300,60 @@ arm9:
         r1: format
         ...: variadic
         return: number of characters printed, excluding the null-terminator
+    - name: IsBagFull
+      address:
+        NA: 0x200EDC0
+      description: |-
+        Implements SPECIAL_PROC_IS_BAG_FULL (see ScriptSpecialProcessCall).
+        
+        return: bool
+    - name: CountItemTypeInBag
+      address:
+        NA: 0x200EE88
+      description: |-
+        Implements SPECIAL_PROC_COUNT_ITEM_TYPE_IN_BAG (see ScriptSpecialProcessCall).
+        
+        r0: item ID
+        return: number of items of the specified ID in the bag
+    - name: AddItemToBag
+      address:
+        NA: 0x200F84C
+      description: |-
+        Implements SPECIAL_PROC_ADD_ITEM_TO_BAG (see ScriptSpecialProcessCall).
+        
+        r0: pointer to an owned_item
+        return: bool
+    - name: ScriptSpecialProcess0x39
+      address:
+        NA: 0x200FD54
+      description: |-
+        Implements SPECIAL_PROC_0x39 (see ScriptSpecialProcessCall).
+        
+        return: bool
+    - name: CountItemTypeInStorage
+      address:
+        NA: 0x200FEE4
+      description: |-
+        Implements SPECIAL_PROC_COUNT_ITEM_TYPE_IN_STORAGE (see ScriptSpecialProcessCall).
+        
+        r0: pointer to an owned_item
+        return: number of items of the specified ID in storage
+    - name: RemoveItemsTypeInStorage
+      address:
+        NA: 0x20101E4
+      description: |-
+        Probably? Implements SPECIAL_PROC_0x2A (see ScriptSpecialProcessCall).
+        
+        r0: pointer to an owned_item
+        return: bool
+    - name: AddItemToStorage
+      address:
+        NA: 0x201031C
+      description: |-
+        Implements SPECIAL_PROC_ADD_ITEM_TO_STORAGE (see ScriptSpecialProcessCall).
+        
+        r0: pointer to an owned_item
+        return: bool
     - name: GetExclusiveItemOffset
       address:
         NA: 0x2010E40
@@ -498,6 +559,27 @@ arm9:
         Sets the palette of the frames of windows in both screens
         
         r0: palette index
+    - name: InitMainTeamAfterQuiz
+      address:
+        NA: 0x20487C4
+      description: |-
+        Implements SPECIAL_PROC_INIT_MAIN_TEAM_AFTER_QUIZ (see ScriptSpecialProcessCall).
+        
+        No params.
+    - name: ScriptSpecialProcess0x3
+      address:
+        NA: 0x2048A0C
+      description: |-
+        Implements SPECIAL_PROC_0x3 (see ScriptSpecialProcessCall).
+        
+        No params.
+    - name: ScriptSpecialProcess0x4
+      address:
+        NA: 0x2048A84
+      description: |-
+        Implements SPECIAL_PROC_0x4 (see ScriptSpecialProcessCall).
+        
+        No params.
     - name: SaveScriptVariableValue
       address:
         NA: 0x204B820
@@ -506,6 +588,27 @@ arm9:
       address:
         NA: 0x204B988
         EU: 0x204BCC0
+    - name: ScriptSpecialProcess0x3A
+      address:
+        NA: 0x204FC28
+      description: |-
+        Implements SPECIAL_PROC_0x3A (see ScriptSpecialProcessCall).
+        
+        No params.
+    - name: ScriptSpecialProcess0x3B
+      address:
+        NA: 0x204FEC8
+      description: |-
+        Implements SPECIAL_PROC_0x3B (see ScriptSpecialProcessCall).
+        
+        No params.
+    - name: SendSkyGiftToGuildmaster
+      address:
+        NA: 0x204FF80
+      description: |-
+        Implements SPECIAL_PROC_SEND_SKY_GIFT_TO_GUILDMASTER (see ScriptSpecialProcessCall).
+        
+        No params.
     - name: SubFixedPoint
       address:
         NA: 0x2050F10
@@ -585,6 +688,37 @@ arm9:
         
         r0: monster ID
         return: bool
+    - name: IsMonsterOnTeam
+      address:
+        NA: 0x2055148
+      description: |-
+        Checks if a given monster is on the exploration team (not necessarily the active party)?
+        
+        r0: monster ID
+        r1: ?
+        return: bool
+    - name: SetTeamSetupHeroAndPartnerOnly
+      address:
+        NA: 0x20569CC
+      description: |-
+        Implements SPECIAL_PROC_SET_TEAM_SETUP_HERO_AND_PARTNER_ONLY (see ScriptSpecialProcessCall).
+        
+        No params.
+    - name: SetTeamSetupHeroOnly
+      address:
+        NA: 0x2056AB0
+      description: |-
+        Implements SPECIAL_PROC_SET_TEAM_SETUP_HERO_ONLY (see ScriptSpecialProcessCall).
+        
+        No params.
+    - name: GetPartyMembers
+      address:
+        NA: 0x2056C20
+      description: |-
+        Appears to get the team's active party members. Implements most of SPECIAL_PROC_IS_TEAM_SETUP_SOLO (see ScriptSpecialProcessCall).
+        
+        r0: [output] Array of 4 2-byte values (they seem to be indexes of some sort) describing each party member, which will be filled in by the function. The input can be a null pointer if the party members aren't needed
+        return: Number of party members
     - name: IqSkillFlagTest
       address:
         NA: 0x2058F04
@@ -594,6 +728,73 @@ arm9:
         r0: IQ skill bitvector to test
         r1: IQ skill ID
         return: bool
+    - name: GetSosMailCount
+      address:
+        NA: 0x205B97C
+      description: |-
+        Implements SPECIAL_PROC_GET_SOS_MAIL_COUNT (see ScriptSpecialProcessCall).
+        
+        r0: ?
+        r1: some flag?
+        return: SOS mail count
+    - name: DungeonRequestsDone
+      address:
+        NA: 0x205EDA4
+      description: |-
+        Seems to return the number of missions completed.
+        
+        Part of the implementation for SPECIAL_PROC_DUNGEON_HAD_REQUEST_DONE (see ScriptSpecialProcessCall).
+        
+        r0: ?
+        r1: some flag?
+        return: number of missions completed
+    - name: DungeonRequestsDoneWrapper
+      address:
+        NA: 0x205EE10
+      description: |-
+        Calls DungeonRequestsDone with the second argument set to false.
+        
+        r0: ?
+        return: number of mission completed
+    - name: AnyDungeonRequestsDone
+      address:
+        NA: 0x205EE20
+      description: |-
+        Calls DungeonRequestsDone with the second argument set to true, and converts the integer output to a boolean.
+        
+        r0: ?
+        return: bool: whether the number of missions completed is greater than 0
+    - name: ScriptSpecialProcess0x3D
+      address:
+        NA: 0x2065B50
+      description: |-
+        Implements SPECIAL_PROC_0x3D (see ScriptSpecialProcessCall).
+        
+        No params.
+    - name: ScriptSpecialProcess0x3E
+      address:
+        NA: 0x2065B60
+      description: |-
+        Implements SPECIAL_PROC_0x3E (see ScriptSpecialProcessCall).
+        
+        No params.
+    - name: ScriptSpecialProcess0x17
+      address:
+        NA: 0x2065C48
+      description: |-
+        Implements SPECIAL_PROC_0x17 (see ScriptSpecialProcessCall).
+        
+        No params.
+    - name: ItemAtTableIdx
+      address:
+        NA: 0x2065CF8
+      description: |-
+        Gets info about the item at a given item table (not sure what this table is...) index.
+        
+        Used by SPECIAL_PROC_COUNT_TABLE_ITEM_TYPE_IN_BAG and friends (see ScriptSpecialProcessCall).
+        
+        r0: table index
+        r1: [output] pointer to an owned_item
     - name: FileInit
       address:
         NA: 0x207F3E4
@@ -656,6 +857,12 @@ arm9:
       length:
         NA: 0x4
       description: Number of items in the game.
+    - name: MAX_RECRUITABLE_TEAM_MEMBERS
+      address:
+        NA:
+          - 0x2055238
+          - 0x205564C
+      description: "555, appears to be the maximum number of members recruited to an exploration team, at least for the purposes of some checks that need to iterate over all team members."
     - name: CART_REMOVED_IMG_DATA
       address:
         NA: 0x2092AE8
@@ -734,6 +941,12 @@ arm9:
         NA: 0x209CECC
       length:
         NA: 0x40
+      description: |-
+        List of special "local" variables available to the script engine. There are 4 16-byte entries.
+        
+        Each entry has the same structure as an entry in SCRIPT_VARS.
+        
+        type: struct script_local_var_table
     - name: SCRIPT_VARS
       address:
         NA: 0x209D870
@@ -741,6 +954,12 @@ arm9:
       length:
         NA: 0x730
         JP: 0x730
+      description: |-
+        List of predefined global variables that track game state, which are available to the script engine. There are 115 16-byte entries.
+        
+        These variables underpin the various ExplorerScript global variables you can use in the SkyTemple SSB debugger.
+        
+        type: struct script_var_table
     - name: DUNGEON_DATA_LIST
       address:
         NA: 0x209E3A0
@@ -971,6 +1190,10 @@ arm9:
         NA: 0x1434
         EU: 0x1584
         JP: 0x1470
+      description: |-
+        Table of levels for the script engine, in which scenes can take place. There are a version-dependent number of 12-byte entries.
+        
+        type: struct script_level[length / 12]
     - name: ENTITIES
       address:
         NA: 0x20A7FF0
@@ -980,6 +1203,10 @@ arm9:
         NA: 0x1218
         EU: 0x1218
         JP: 0x1218
+      description: |-
+        Table of entities for the script engine, which can move around and do things within a scene. There are 386 12-byte entries.
+        
+        type: struct script_entity[386]
     - name: MAP_MARKER_PLACEMENTS
       address:
         NA: 0x20A94D0
