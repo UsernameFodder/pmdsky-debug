@@ -253,5 +253,6 @@ void LogMessageWithPopup(struct entity* user, char* message);
 void LogMessage(struct entity* user, char* message, bool show_popup);
 void LogMessageById(struct entity* user, int message_id, bool show_popup);
 bool RunDungeonMode(undefined4* param_1, undefined4 param_2);
+void SetBothScreensWindowColorToDefault(void);
 
 #endif
