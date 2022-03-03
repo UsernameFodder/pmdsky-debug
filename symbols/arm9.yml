@@ -565,6 +565,21 @@ arm9:
         Implements SPECIAL_PROC_0x4 (see ScriptSpecialProcessCall).
         
         No params.
+    - name: SetScreenWindowsColor
+      address:
+        NA: 0x2027A68
+      description: |-
+        Sets the palette of the frames of windows in the specified screen
+        
+        r0: palette index
+        r1: is upper screen
+    - name: SetBothScreensWindowsColor
+      address:
+        NA: 0x2027A80
+      description: |-
+        Sets the palette of the frames of windows in both screens
+        
+        r0: palette index
     - name: SaveScriptVariableValue
       address:
         NA: 0x204B820
@@ -625,6 +640,14 @@ arm9:
         
         r0: float
         return: ceil(float)
+    - name: DungeonGoesUp
+      address:
+        NA: 0x2051288
+      description: |-
+        Returns whether the specified dungeon is considered as going upward or not
+        
+        r0: dungeon id
+        return: bool
     - name: IsUnown
       address:
         NA: 0x2054A88

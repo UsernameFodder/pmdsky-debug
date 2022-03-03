@@ -22425,10 +22425,9 @@ struct dungeon {
     // Probably derived from pixel position of leader info block
     struct position leader_pixel_pos_mirror0; // 0x1A224
     struct position leader_pixel_pos_mirror1; // 0x1A228
-    undefined field_0x1a22c;
-    undefined field_0x1a22d;
-    undefined field_0x1a22e;
-    undefined field_0x1a22f;
+    // Seems to represent whoever the camera is aiming at, mostly used to
+    // control rendering of the dungeon, GUI, minimap, etc
+    struct entity* camera_target; // 0x1A22C
     undefined field_0x1a230;
     undefined field_0x1a231;
     undefined field_0x1a232;

@@ -217,6 +217,14 @@ overlay29:
         Has a special check to return false for Labyrinth Cave B10F (the Gabite boss fight).
         
         return: bool
+    - name: HasLowHealth
+      address:
+        NA: 0x22FB610
+      description: |-
+        Checks if the entity passed is a valid monster, and if it's at low health (below 25% rounded down)
+        
+        r0: entity pointer
+        return: bool
     - name: IsSpecialStoryAlly
       address:
         NA: 0x22FBAD0
@@ -2037,6 +2045,14 @@ overlay29:
         It gets called by some code in overlay 10 right after doing the dungeon fade transition, and once it exits, the dungeon results are processed.
         
         This function is presumably in charge of allocating the dungeon struct, setting it up, launching the dungeon engine, etc.
+    - name: SetBothScreensWindowColorToDefault
+      address:
+        NA: 0x234CF60
+      description: |-
+        This changes the palettes of windows in both screens to an appropiate value depending on the playthrough
+        If you're in a special episode, they turn green , otherwise, they turn blue or pink depending on your character's sex
+        
+        No params
   data:
     - name: DUNGEON_STRUCT_SIZE
       address:
