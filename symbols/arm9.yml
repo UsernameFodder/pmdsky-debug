@@ -537,6 +537,14 @@ arm9:
         
         r0: float
         return: ceil(float)
+    - name: DungeonGoesUp
+      address:
+        NA: 0x2051288
+      description: |-
+        Returns whether the specified dungeon is considered as going upward or not
+        
+        r0: dungeon id
+        return: bool
     - name: IsUnown
       address:
         NA: 0x2054A88

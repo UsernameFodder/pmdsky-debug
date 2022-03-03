@@ -62,6 +62,7 @@ void SetBothScreensWindowsColor(int palette_idx);
 uint32_t SubFixedPoint(uint32_t val_fp, uint32_t dec_fp);
 uint32_t BinToDecFixedPoint(uint32_t* q16);
 int CeilFixedPoint(uint32_t val_fp);
+bool DungeonGoesUp(int dungeon_id);
 bool IsUnown(enum monster_id monster_id);
 bool IsShaymin(enum monster_id monster_id);
 bool IsCastform(enum monster_id monster_id);
