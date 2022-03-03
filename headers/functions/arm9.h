@@ -57,6 +57,8 @@ int PreprocessString(char* output, int output_size, char* format, struct preproc
 void Strcpy(char* dest, char* src);
 void Strncpy(char* dest, char* src, uint32_t num);
 char* StringFromMessageId(int message_id);
+void SetScreenWindowsColor(int palette_idx, bool upper_screen);
+void SetBothScreensWindowsColor(int palette_idx);
 uint32_t SubFixedPoint(uint32_t val_fp, uint32_t dec_fp);
 uint32_t BinToDecFixedPoint(uint32_t* q16);
 int CeilFixedPoint(uint32_t val_fp);
