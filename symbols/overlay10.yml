@@ -10,7 +10,19 @@ overlay10:
     NA: 0x1F7A0
     EU: 0x1F7A0
   description: "Appears to be used both during ground mode and dungeon mode. With dungeon mode, whereas overlay 29 contains the main dungeon engine, this overlay seems to contain routines and data for dungeon mechanics."
-  functions: []
+  functions:
+    - name: SprintfStatic
+      address:
+        NA:
+          - 0x22BD44C
+          - 0x22C183C
+      description: |-
+        Statically defined copy of sprintf(3) in overlay 10. See arm9.yml for more information.
+        
+        r0: str
+        r1: format
+        ...: variadic
+        return: number of characters printed, excluding the null-terminator
   data:
     - name: FIRST_DUNGEON_WITH_MONSTER_HOUSE_TRAPS
       address:

@@ -10,6 +10,8 @@ int GetRandomNpcJobSubtype(void);
 bool GetRandomNpcJobStillAvailable(void);
 bool AcceptRandomNpcJob(void);
 int GroundMainLoop(int mode);
+struct mem_arena* GetAllocArenaGround(struct mem_arena* arena, uint32_t flags);
+struct mem_arena* GetFreeArenaGround(struct mem_arena* arena, uint32_t flags);
 void GroundMainReturnDungeon(void);
 void GroundMainNextDay(void);
 bool JumpToTitleScreen(int arg);

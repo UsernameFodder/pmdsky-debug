@@ -44,6 +44,20 @@ enum overlay_group_id {
     OGROUP_OVERLAY_33 = 36,
 };
 
+// Memory allocator flags. These are encoded as bitflags in the memory allocator code.
+enum memory_alloc_flag {
+    // bit 0: The entire memory block is reserved and cannot be yielded in future allocations
+    // until the block has been freed
+    MEM_IN_USE = 0,
+    // bit 1: The memory block contains objects
+    MEM_OBJECT = 1,
+    // bit 2: The memory block contains a memory arena
+    MEM_ARENA = 2,
+    // bit 3: Request a memory subarena allocation within a block. This is a special flag
+    // used when requesting memory; it isn't stored in the content flags bitfield of the block
+    MEM_SUBARENA = 3,
+};
+
 // https://problemkaputt.de/gbatek.htm#ds3dtextureformats
 enum texture_format {
     TEXFORMAT_NONE = 0,

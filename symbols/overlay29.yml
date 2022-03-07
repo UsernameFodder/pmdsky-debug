@@ -259,6 +259,16 @@ overlay29:
         r0: entity pointer
         r1: item ID
         return: bool
+    - name: SprintfStatic
+      address:
+        NA: 0x23002C8
+      description: |-
+        Statically defined copy of sprintf(3) in overlay 29. See arm9.yml for more information.
+        
+        r0: str
+        r1: format
+        ...: variadic
+        return: number of characters printed, excluding the null-terminator
     - name: IsMonster
       address:
         NA:

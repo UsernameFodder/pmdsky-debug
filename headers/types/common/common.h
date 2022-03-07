@@ -5,6 +5,22 @@
 
 #include "enums.h"
 
+// Based on the code for vsprintf(3), it seems like va_list is implemented in the ARM9 binary
+// by just passing a pointer into the stack, so define va_list to be void*.
+typedef void* va_list;
+
+// A slice in the usual programming sense: a pointer, length, and capacity.
+// Used for the implementation of vsprintf(3), but maybe it's used elsewhere as well.
+struct slice {
+    void* data;        // Pointer to the data buffer
+    uint32_t capacity; // How much space is available in total
+    uint32_t length;   // How much space is currently filled
+};
+ASSERT_SIZE(struct slice, 12);
+
+// Function to append data to a struct slice, and return a success flag.
+typedef bool (*slice_append_fn_t)(struct slice* slice, void* data, uint32_t data_len);
+
 // This is essentially the standard (32-bit) Unix I/O vector struct.
 // It's used for file I/O and represents a buffer of data with a pointer and a length.
 struct iovec {
@@ -12,6 +28,97 @@ struct iovec {
     uint32_t iov_len;
 };
 ASSERT_SIZE(struct iovec, 8);
+
+// Program position info (basically stack trace info) for debug logging.
+struct prog_pos_info {
+    char* file; // file name
+    int line;   // line number
+};
+ASSERT_SIZE(struct prog_pos_info, 8);
+
+// Metadata describing a single memory block. A block is a chunk of dynamically allocated memory.
+// It can contain nothing, an allocated object, or a memory arena that itself contains blocks.
+struct mem_block {
+    // 0x0: The type of content in this block (see enum memory_alloc_flag).
+    uint32_t f_in_use : 1; // Block is reserved and cannot be split to accomodate new allocations
+    uint32_t f_object : 1; // Block contains a normal object
+    uint32_t f_arena : 1;  // Block contains a memory arena
+    uint32_t content_flags_unused : 29;
+
+    // 0x4: Flags passed internally to the memory allocator when this block was allocated
+    // (see enum memory_alloc_flag).
+    uint32_t f_alloc_in_use : 1; // Block was reserved when allocated
+    uint32_t f_alloc_object : 1; // Block was allocated as an object
+    // Block was allocated as a memory arena.
+    // f_alloc_arena is always used in tandem with f_alloc_in_use, and influences how the
+    // allocator tries to locate a free block of memory to allocate. However, the arena will
+    // be for private use only, and will be viewed as in use by the allocator until the arena
+    // is freed.
+    uint32_t f_alloc_arena : 1;
+    // Block was allocated as a subarena.
+    // An allocation with f_alloc_subarena is used when creating a new global memory arena,
+    // and guarantees that f_arena will be set and that f_in_use will NOT be set, which allows
+    // blocks to be carved out when the allocator needs memory.
+    uint32_t f_alloc_subarena : 1;
+    uint32_t allocator_flags_unused : 28;
+
+    // 0x8: Flags passed by the user to the memory allocator API functions when this block was
+    // allocated. The least significant byte are reserved for specifying the memory arena to use,
+    // and have functionality determined by the arena locator function currently in use by the
+    // game. The upper bytes are the same as the internal memory allocator flags
+    // (just left-shifted by 8).
+    uint32_t user_flags : 8;
+    uint32_t f_user_alloc_in_use : 1;   // See f_alloc_in_use
+    uint32_t f_user_alloc_object : 1;   // See f_alloc_object
+    uint32_t f_user_alloc_arena : 1;    // See f_alloc_arena
+    uint32_t f_user_alloc_subarena : 1; // See f_alloc_subarena
+    uint32_t user_flags_unused : 20;
+
+    void* data;         // 0xC: Pointer to the start of the memory block
+    uint32_t available; // 0x10: Number of free bytes in the memory block. Always a multiple of 4.
+    uint32_t used;      // 0x14: Number of used bytes in the memory block. Always a multiple of 4.
+};
+ASSERT_SIZE(struct mem_block, 24);
+
+// Metadata for a memory arena. A memory arena is a large, contiguous region of memory that can
+// be carved up into chunks by the memory allocator as needed (when dynamic allocations are
+// requested). An arena starts with one large, vacant block, which gradually gets subdivided as
+// allocations are made within the arena.
+struct mem_arena {
+    // 0x0: The type of content in this arena, as a bitfield (see enum memory_alloc_flag).
+    // Always seems to be 2 (corresponding to MEM_OBJECT), which makes sense since an arena
+    // is by definition a region where objects can be allocated.
+    uint32_t content_flags;
+    // 0x4: Pointer to the parent arena if this is a subarena, or null otherwise.
+    struct mem_arena* parent;
+    struct mem_block* blocks; // 0x8: Array of memory blocks in the arena
+    uint32_t n_blocks;        // 0xC: Number of memory blocks in the arena
+    uint32_t max_blocks;      // 0x10: Maximum number of memory blocks the arena can hold
+    void* data;               // 0x14: Pointer to the start of the memory arena
+    uint32_t len;             // 0x18: Total length of the memory arena. Always a multiple of 4.
+};
+ASSERT_SIZE(struct mem_arena, 28);
+
+// Global table of all heap allocations
+struct mem_alloc_table {
+    uint32_t n_arenas;              // 0x0: Number of global memory arenas (including subarenas)
+    struct mem_arena default_arena; // 0x4: The default memory arena for allocations
+    // Not actually sure how long this array is, but has at least 4 elements, and can't have
+    // more than 8 because it would overlap with default_arena.data
+    struct mem_arena* arenas[8]; // 0x20: Array of global memory arenas
+};
+ASSERT_SIZE(struct mem_alloc_table, 64);
+
+// Functions to get the desired memory arena for (de)allocation, or null if there's no preference.
+// flags has the same meaning as the flags passed to MemAlloc.
+typedef struct mem_arena* (*get_alloc_arena_fn_t)(struct mem_arena* arena, uint32_t flags);
+typedef struct mem_arena* (*get_free_arena_fn_t)(struct mem_arena* arena, void* ptr);
+
+struct mem_arena_getters {
+    get_alloc_arena_fn_t get_alloc_arena; // Arena to be used by MemAlloc and friends
+    get_free_arena_fn_t get_free_arena;   // Arena to be used by MemFree
+};
+ASSERT_SIZE(struct mem_arena_getters, 8);
 
 // This seems to be a simple structure used with utility functions related to managing items in
 // the player's bag and storage.

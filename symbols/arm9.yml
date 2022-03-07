@@ -15,14 +15,101 @@ arm9:
     
     This is the binary that gets loaded when the game is launched, and contains the core code that runs the game, low level facilities such as memory allocation, compression, other external dependencies (such as linked functions from libc and libgcc), and the functions and tables necessary to load overlays and dispatch execution to them.
   functions:
+    - name: InitMemAllocTable
+      address:
+        NA: 0x2000DE0
+      description: |-
+        Initializes MEMORY_ALLOCATION_TABLE.
+        
+        Sets up the default memory arena, sets the default memory allocator parameters (calls SetMemAllocatorParams(0, 0)), and does some other stuff.
+        
+        No params.
+    - name: SetMemAllocatorParams
+      address:
+        NA: 0x2000E70
+      description: |-
+        Sets global parameters for the memory allocator.
+        
+        This includes MEMORY_ALLOCATION_ARENA_GETTERS and some other stuff.
+        
+        Dungeon mode uses the default arena getters. Ground mode uses its own arena getters, which are defined in overlay 11 and set (by calling this function) at the start of GroundMainLoop.
+        
+        r0: GetAllocArena function pointer (GetAllocArenaDefault is used if null)
+        r1: GetFreeArena function pointer (GetFreeArenaDefault is used if null)
+    - name: GetAllocArenaDefault
+      address:
+        NA: 0x2000EC0
+      description: |-
+        The default function for retrieving the arena for memory allocations. This function always just returns the initial arena pointer.
+        
+        r0: initial memory arena pointer, or null
+        r1: flags (see MemAlloc)
+        return: memory arena pointer, or null
+    - name: GetFreeArenaDefault
+      address:
+        NA: 0x2000EC4
+      description: |-
+        The default function for retrieving the arena for memory freeing. This function always just returns the initial arena pointer.
+        
+        r0: initial memory arena pointer, or null
+        r1: pointer to free
+        return: memory arena pointer, or null
+    - name: InitMemArena
+      address:
+        NA: 0x2000EC8
+      description: |-
+        Initializes a new memory arena with the given specifications, and records it in the global MEMORY_ALLOCATION_TABLE.
+        
+        r0: arena struct to be initialized
+        r1: memory region to be owned by the arena, as {pointer, length}
+        r2: pointer to block metadata array for the arena to use
+        r3: maximum number of blocks that the arena can hold
+    - name: MemAllocFlagsToBlockType
+      address:
+        NA: 0x2000F44
+      description: |-
+        Converts the internal alloc flags bitfield (struct mem_block field 0x4) to the block type bitfield (struct mem_block field 0x0).
+        
+        r0: internal alloc flags
+        return: block type flags
+    - name: FindAvailableMemBlock
+      address:
+        NA: 0x2000F88
+      description: |-
+        Searches through the given memory arena for a block with enough free space.
+        
+        Blocks are searched in reverse order. For object allocations (i.e., not arenas), the block with the smallest amount of free space that still suffices is returned. For arena allocations, the first satisfactory block found is returned.
+        
+        r0: memory arena to search
+        r1: internal alloc flags
+        r2: amount of space needed, in bytes
+        return: index of the located block in the arena's block array, or -1 if nothing is available
+    - name: SplitMemBlock
+      address:
+        NA: 0x2001070
+      description: |-
+        Given a memory block at a given index, splits off another memory block of the specified size from the end.
+        
+        Since blocks are stored in an array on the memory arena struct, this is essentially an insertion operation, plus some processing on the block being split and its child.
+        
+        r0: memory arena
+        r1: block index
+        r2: internal alloc flags
+        r3: number of bytes to split off
+        stack[0]: user alloc flags (to assign to the new block)
+        return: the newly split-off memory block
     - name: MemAlloc
       address:
         NA: 0x2001170
       description: |-
         Allocates some memory on the heap, returning a pointer to the starting address.
         
+        Memory allocation is done with region-based memory management. See MEMORY_ALLOCATION_TABLE for more information.
+        
+        This function is just a wrapper around MemLocateSet.
+        
         r0: length in bytes
-        r1: flags
+        r1: flags (see the comment on struct mem_block::user_flags)
         return: pointer
     - name: MemFree
       address:
@@ -30,7 +117,59 @@ arm9:
       description: |-
         Frees heap-allocated memory.
         
+        This function is just a wrapper around MemLocateUnset.
+        
         r0: pointer
+    - name: MemArenaAlloc
+      address:
+        NA: 0x200119C
+      description: |-
+        Allocates some memory on the heap and creates a new global memory arena with it.
+        
+        The actual allocation part works similarly to the normal MemAlloc.
+        
+        r0: desired parent memory arena, or null
+        r1: length of the arena in bytes
+        r2: maximum number of blocks that the arena can hold
+        r3: flags (see MemAlloc)
+        return: memory arena pointer
+    - name: CreateMemArena
+      address:
+        NA: 0x2001280
+      description: |-
+        Creates a new memory arena within a given block of memory.
+        
+        This is essentially a wrapper around InitMemArena, accounting for the space needed by the arena metadata.
+        
+        r0: memory region in which to create the arena, as {pointer, length}
+        r1: maximum number of blocks that the arena can hold
+        return: memory arena pointer
+    - name: MemLocateSet
+      address:
+        NA: 0x2001390
+      description: |-
+        The implementation for MemAlloc.
+        
+        At a high level, memory is allocated by choosing a memory arena, looking through blocks in the memory arena until a free one that's large enough is found, then splitting off a new memory block of the needed size.
+        
+        This function is not fallible, i.e., it hangs the whole program on failure, so callers can assume it never fails.
+        
+        The name for this function comes from the error message logged on failure, and it reflects what the function does: locate an available block of memory and set it up for the caller.
+        
+        r0: desired memory arena for allocation, or null (MemAlloc passes null)
+        r1: length in bytes
+        r2: flags (see MemAlloc)
+        return: pointer to allocated memory
+    - name: MemLocateUnset
+      address:
+        NA: 0x2001638
+      description: |-
+        The implementation for MemFree.
+        
+        At a high level, memory is freed by locating the pointer in its memory arena (searching block-by-block) and emptying the block so it's available for future allocations, and merging it with neighboring blocks if they're available.
+        
+        r0: desired memory arena for freeing, or null (MemFree passes null)
+        r1: pointer to free
     - name: RoundUpDiv256
       address:
         NA: 0x2001894
@@ -57,6 +196,24 @@ arm9:
         r0: x
         r1: multiplier
         return: x * multiplier
+    - name: WaitForever
+      address:
+        NA: 0x2002438
+      description: |-
+        Sets some program state and calls WaitForInterrupt in an infinite loop.
+        
+        This is called on fatal errors to hang the program indefinitely.
+        
+        No params.
+    - name: InitMemAllocTableVeneer
+      address:
+        NA: 0x200321C
+      description: |-
+        Likely a linker-generated veneer for InitMemAllocTable.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
+        
+        No params.
     - name: MemZero
       address:
         NA: 0x2003250
@@ -261,11 +418,43 @@ arm9:
         NA: 0x200C118
         EU: 0x200C1A0
       description: A no-op in the final binary.
+    - name: AppendProgPos
+      address:
+        NA: 0x200C120
+      description: |-
+        Write a base message into a string and append the file name and line number to the end in the format "file = '%s'  line = %5d\n".
+        
+        If no program position info is given, "ProgPos info NULL\n" is appended instead.
+        
+        r0: [output] str
+        r1: program position info
+        r2: base message
+        return: number of characters printed, excluding the null-terminator
+    - name: DebugPrintTrace
+      address:
+        NA: 0x200C16C
+      description: |-
+        Would log a printf format string tagged with the file name and line number in the debug binary.
+        
+        This still constructs the string, but doesn't actually do anything with it in the final binary.
+        
+        If message is a null pointer, the string "  Print  " is used instead.
+        
+        r0: message
+        r1: program position info (can be null)
     - name: DebugPrint0
       address:
-        NA: 0x200C1FC
+        NA:
+          - 0x200C1C8
+          - 0x200C1FC
         EU: 0x200C284
-      description: Would log a printf format string in the debug binary. A no-op in the final binary.
+      description: |-
+        Would log a printf format string in the debug binary.
+        
+        This still constructs the string with Vsprintf, but doesn't actually do anything with it in the final binary.
+        
+        r0: format
+        ...: variadic
     - name: GetDebugFlag2
       address:
         NA: 0x200C234
@@ -280,7 +469,23 @@ arm9:
       address:
         NA: 0x200C240
         EU: 0x200C2C8
-      description: Would log a printf format string in the debug binary. A no-op in the final binary.
+      description: |-
+        Would log a printf format string in the debug binary. A no-op in the final binary.
+        
+        r0: log level
+        r1: format
+        ...: variadic
+    - name: FatalError
+      address:
+        NA: 0x200C25C
+      description: |-
+        Logs some debug messages, then hangs the process.
+        
+        This function is called in lots of places to bail on a fatal error. Looking at the static data callers use to fill in the program position info is informative, as it tells you the original file name (probably from the standard __FILE__ macro) and line number (probably from the standard __LINE__ macro) in the source code.
+        
+        r0: program position info
+        r1: format
+        ...: variadic
     - name: IsAuraBow
       address:
         NA: 0x200CC14
@@ -289,12 +494,28 @@ arm9:
         
         r0: item ID
         return: bool
-    - name: Sprintf
+    - name: SprintfStatic
       address:
-        NA: 0x200D634
+        NA:
+          - 0x200D634
+          - 0x200E990
+          - 0x2013758
+          - 0x20176E4
+          - 0x2017A40
+          - 0x2023590
+          - 0x202378C
+          - 0x2037F30
+          - 0x2039438
+          - 0x203CFA4
+          - 0x2042A84
+          - 0x2052418
+          - 0x2054A60
+          - 0x20609E8
         EU: 0x200D6BC
       description: |-
-        Similar to the sprintf(3) C library function.
+        Functionally the same as Sprintf, just defined statically in many different places.
+        
+        Since this is essentially just a wrapper around vsprintf(3), this function was probably statically defined in a header somewhere and included in a bunch of different places. See the actual Sprintf for the one in libc.
         
         r0: str
         r1: format
@@ -517,21 +738,25 @@ arm9:
         r2: input format string
         r3: preprocessor flags
         stack[0]: pointer to preprocessor args
-    - name: Strcpy
+    - name: StrcpySimple
       address:
         NA: 0x2025100
         EU: 0x20253CC
       description: |-
-        Similar to the strcpy(3) C library function.
+        A simple implementation of the strcpy(3) C library function.
+        
+        This function was probably manually implemented by the developers. See Strcpy for what's probably the real libc function.
         
         r0: dest
         r1: src
-    - name: Strncpy
+    - name: StrncpySimple
       address:
         NA: 0x202511C
         EU: 0x20253E8
       description: |-
-        Similar to the strncpy(3) C library function.
+        A simple implementation of the strncpy(3) C library function.
+        
+        This function was probably manually implemented by the developers. See Strncpy for what's probably the real libc function.
         
         r0: dest
         r1: src
@@ -795,6 +1020,15 @@ arm9:
         
         r0: table index
         r1: [output] pointer to an owned_item
+    - name: WaitForInterrupt
+      address:
+        NA: 0x207BC30
+      description: |-
+        Presumably blocks until the program receives an interrupt.
+        
+        This just calls (in Ghidra terminology) coproc_moveto_Wait_for_interrupt(0). See https://en.wikipedia.org/wiki/ARM_architecture_family#Coprocessors.
+        
+        No params.
     - name: FileInit
       address:
         NA: 0x207F3E4
@@ -812,6 +1046,278 @@ arm9:
         
         r0: x
         return: abs(x)
+    - name: Mbtowc
+      address:
+        NA: 0x20871BC
+      description: |-
+        The mbtowc(3) C library function.
+        
+        r0: pwc
+        r1: s
+        r2: n
+        return: number of consumed bytes, or -1 on failure
+    - name: TryAssignByte
+      address:
+        NA: 0x20871F4
+      description: |-
+        Assign a byte to the target of a pointer if the pointer is non-null.
+        
+        r0: pointer
+        r1: value
+        return: true on success, false on failure
+    - name: TryAssignByteWrapper
+      address:
+        NA: 0x2087208
+      description: |-
+        Wrapper around TryAssignByte.
+        
+        Accesses the TryAssignByte function with a weird chain of pointer dereferences.
+        
+        r0: pointer
+        r1: value
+        return: true on success, false on failure
+    - name: Wcstombs
+      address:
+        NA: 0x2087224
+      description: |-
+        The wcstombs(3) C library function.
+        
+        r0: dest
+        r1: src
+        r2: n
+        return: characters converted
+    - name: Memcpy
+      address:
+        NA: 0x208729C
+      description: |-
+        The memcpy(3) C library function.
+        
+        r0: dest
+        r1: src
+        r2: n
+    - name: Memmove
+      address:
+        NA: 0x20872BC
+      description: |-
+        The memmove(3) C library function.
+        
+        The implementation is nearly the same as Memcpy, but it copies bytes from back to front if src < dst.
+        
+        r0: dest
+        r1: src
+        r2: n
+    - name: Memset
+      address:
+        NA: 0x2087308
+      description: |-
+        The memset(3) C library function.
+        
+        This is just a wrapper around MemsetInternal that returns the pointer at the end.
+        
+        r0: s
+        r1: c (int, but must be a single-byte value)
+        r2: n
+        return: s
+    - name: Memchr
+      address:
+        NA: 0x208731C
+      description: |-
+        The memchr(3) C library function.
+        
+        r0: s
+        r1: c
+        r2: n
+        return: pointer to first occurrence of c in s, or a null pointer if no match
+    - name: Memcmp
+      address:
+        NA: 0x2087348
+      description: |-
+        The memcmp(3) C library function.
+        
+        r0: s1
+        r1: s2
+        r2: n
+        return: comparison value
+    - name: MemsetInternal
+      address:
+        NA: 0x2087388
+      description: |-
+        The actual memory-setting implementation for the memset(3) C library function.
+        
+        This function is optimized to set bytes in 4-byte chunks for n >= 32, correctly handling any unaligned bytes at the front/back. In this case, it also further optimizes by unrolling a for loop to set 8 4-byte values at once (effectively a 32-byte chunk).
+        
+        r0: s
+        r1: c (int, but must be a single-byte value)
+        r2: n
+    - name: VsprintfInternalSlice
+      address:
+        NA: 0x2088C74
+      description: |-
+        This is what implements the bulk of VsprintfInternal.
+        
+        The __vsprintf_internal in the modern-day version of glibc relies on __vfprintf_internal; this function has a slightly different interface, but it serves a similar role.
+        
+        r0: function pointer to append to the string being built (VsprintfInternal uses TryAppendToSlice)
+        r1: string buffer slice
+        r2: format
+        r3: ap
+        return: number of characters printed, excluding the null-terminator
+    - name: TryAppendToSlice
+      address:
+        NA: 0x2089498
+      description: |-
+        Best-effort append the given data to a slice. If the slice's capacity is reached, any remaining data will be truncated.
+        
+        r0: slice pointer
+        r1: buffer of data to append
+        r2: number of bytes in the data buffer
+        return: true
+    - name: VsprintfInternal
+      address:
+        NA: 0x20894DC
+      description: |-
+        This is what implements Vsprintf. It's akin to __vsprintf_internal in the modern-day version of glibc (in fact, it's probably an older version of this).
+        
+        r0: str
+        r1: maxlen (Vsprintf passes UINT32_MAX for this)
+        r2: format
+        r3: ap
+        return: number of characters printed, excluding the null-terminator
+    - name: Vsprintf
+      address:
+        NA: 0x2089544
+      description: |-
+        The vsprintf(3) C library function.
+        
+        r0: str
+        r1: format
+        r2: ap
+        return: number of characters printed, excluding the null-terminator
+    - name: Snprintf
+      address:
+        NA: 0x208955C
+      description: |-
+        The snprintf(3) C library function.
+        
+        This calls VsprintfInternal directly, so it's presumably the real snprintf.
+        
+        r0: str
+        r1: n
+        r2: format
+        ...: variadic
+        return: number of characters printed, excluding the null-terminator
+    - name: Sprintf
+      address:
+        NA: 0x2089584
+      description: |-
+        The sprintf(3) C library function.
+        
+        This calls VsprintfInternal directly, so it's presumably the real sprintf.
+        
+        r0: str
+        r1: format
+        ...: variadic
+        return: number of characters printed, excluding the null-terminator
+    - name: Strlen
+      address:
+        NA: 0x2089678
+      description: |-
+        The strlen(3) C library function.
+        
+        r0: s
+        return: length of s
+    - name: Strcpy
+      address:
+        NA: 0x2089694
+      description: |-
+        The strcpy(3) C library function.
+        
+        This function is optimized to copy characters in aligned 4-byte chunks if possible, correctly handling any unaligned bytes at the front/back.
+        
+        r0: dest
+        r1: src
+    - name: Strncpy
+      address:
+        NA: 0x208975C
+      description: |-
+        The strncpy(3) C library function.
+        
+        r0: dest
+        r1: src
+        r2: n
+    - name: Strcat
+      address:
+        NA: 0x20897AC
+      description: |-
+        The strcat(3) C library function.
+        
+        r0: dest
+        r1: src
+    - name: Strncat
+      address:
+        NA: 0x20897DC
+      description: |-
+        The strncat(3) C library function.
+        
+        r0: dest
+        r1: src
+        r2: n
+    - name: Strcmp
+      address:
+        NA: 0x208982C
+      description: |-
+        The strcmp(3) C library function.
+        
+        Similarly to Strcpy, this function is optimized to compare characters in aligned 4-byte chunks if possible.
+        
+        r0: s1
+        r1: s2
+        return: comparison value
+    - name: Strncmp
+      address:
+        NA: 0x2089940
+      description: |-
+        The strncmp(3) C library function.
+        
+        r0: s1
+        r1: s2
+        r2: n
+        return: comparison value
+    - name: Strchr
+      address:
+        NA: 0x2089974
+      description: |-
+        The strchr(3) C library function.
+        
+        r0: string
+        r1: c
+        return: pointer to the located byte c, or null pointer if no match
+    - name: Strcspn
+      address:
+        NA: 0x20899B0
+      description: |-
+        The strcspn(3) C library function.
+        
+        r0: string
+        r1: stopset
+        return: offset of the first character in string within stopset
+    - name: Strstr
+      address:
+        NA: 0x2089A70
+      description: |-
+        The strstr(3) C library function.
+        
+        r0: haystack
+        r1: needle
+        return: pointer into haystack where needle starts, or null pointer if no match
+    - name: Wcslen
+      address:
+        NA: 0x208B3E8
+      description: |-
+        The wcslen(3) C library function.
+        
+        r0: ws
+        return: length of ws
     - name: DivideInt
       address:
         NA: 0x208FEA4
@@ -845,6 +1351,12 @@ arm9:
         r1: divisor
         return: dividend / divisor
   data:
+    - name: DEFAULT_MEMORY_ARENA_SIZE
+      address:
+        NA: 0x2000E58
+      length:
+        NA: 0x4
+      description: "Length in bytes of the default memory allocation arena, 1991680."
     - name: AURA_BOW_ID_LAST
       address:
         NA: 0x200CC34
@@ -1222,6 +1734,15 @@ arm9:
         See the struct definitions and End45's dungeon data document for more info.
         
         type: struct map_marker[310]
+    - name: MEMORY_ALLOCATION_ARENA_GETTERS
+      address:
+        NA: 0x20AEF00
+      length:
+        NA: 0x8
+      description: |-
+        Functions to get the desired memory arena for allocating and freeing heap memory.
+        
+        type: struct mem_arena_getters
     - name: LOADED_OVERLAY_GROUP_0
       address:
         NA: 0x20AF230
@@ -1374,4 +1895,32 @@ arm9:
       address:
         NA: 0x20B3380
         EU: 0x20B3CC0
-      description: "[Runtime] Keeps track of all active heap allocations."
+      length:
+        NA: 0x40
+        EU: 0x40
+      description: |-
+        [Runtime] Keeps track of all active heap allocations.
+        
+        The memory allocator in the ARM9 binary uses region-based memory management (see https://en.wikipedia.org/wiki/Region-based_memory_management). The heap is broken up into smaller contiguous chunks called arenas (struct mem_arena), which are in turn broken up into chunks referred to as blocks (struct mem_block). Most of the time, an allocation results in a block being split off from a free part of an existing memory arena.
+        
+        Note: There seems to be some other static data at this address in the ARM9 binary itself. It gets overwritten at runtime when the allocator sets up.
+        
+        type: struct mem_alloc_table
+    - name: DEFAULT_MEMORY_ARENA
+      address:
+        NA: 0x20B3384
+      length:
+        NA: 0x1C
+      description: |-
+        [Runtime] The default memory allocation arena. This is part of MEMORY_ALLOCATION_TABLE, but is also referenced on its own by various functions.
+        
+        type: struct mem_arena
+    - name: DEFAULT_MEMORY_ARENA_BLOCKS
+      address:
+        NA: 0x20B33C0
+      length:
+        NA: 0x1800
+      description: |-
+        [Runtime] The block array for DEFAULT_MEMORY_ARENA.
+        
+        type: struct mem_block[256]
