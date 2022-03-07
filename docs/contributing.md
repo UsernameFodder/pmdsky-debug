@@ -11,6 +11,9 @@ See the [`symbols/` README](../symbols/README.md#contributing) for more informat
 ## Types (structs, enums, function signatures)
 See the [`headers/` README](../headers/README.md#contributing) for more information on adding new types.
 
+## Incomplete information that needs more research
+It's common in reverse engineering to have only a vague idea about how something works. For example, you might have a suspicion about what a function does without being certain about it. Partial or incomplete information is still better than nothing, so feel free to contribute symbols and types anyway (just note the uncertainty in the symbol description and/or as a comment in the C headers). Alternatively, if you feel that more understanding is necessary to make a proper contribution, you can also [file a new issue](https://github.com/UsernameFodder/pmdsky-debug/issues) using the "Research topic" issue template.
+
 ## `resymgen`
 If you want to contribute to `resymgen` (e.g., adding support for more data formats), you'll need to [install Rust](https://www.rust-lang.org/tools/install). The `resymgen` package is a standard [Cargo](https://doc.rust-lang.org/cargo/) project (so build with `cargo build`, run tests with `cargo test`, etc.). You can view the rendered library docs on [Docs.rs](https://docs.rs/resymgen/latest/resymgen/).
 
