@@ -39,7 +39,7 @@ Importing C headers is best done after importing symbols, so make sure you've fo
     3. Leave the parse options as the defaults.
 4. Click "Parse to Program" and the confirmations in the popups that follow to begin parsing. Some notes:
     1. Annoyingly, sometimes the "Parsing C" loading window can pop up before you've hit all the confirmations, and actually obscure a confirmation window. Make sure you check that there's nothing behind this window (otherwise you'll be waiting forever).
-    2. The Ghidra parser is _slow_, and parsing can easily take over an hour (mainly because the `dungeon.h` header file is so large), so after you've started the parser and see the "Parsing C" loading window (it might be hidden by the configuration window), I recommend doing something else in the meantime while you wait.
+    2. The Ghidra parser is _slow_, and parsing can easily take over an hour (mainly because the `dungeon.h` header file is so large), so after you've started the parser and see the "Parsing C" loading window (it might be hidden by the configuration window), I recommend doing something else in the meantime while you wait. Alternatively, if you don't need the dungeon struct (or you've loaded it previously and nothing has changed), you can add `-DOMIT_LARGE_FILES` to the "Parse Options" box to skip parsing that file, which should reduce the load time to a few seconds.
 
        ![Parsing C loading window](images/ghidra-parsing-c.png)
 
@@ -86,6 +86,8 @@ This is something to be aware of while reading decompiled code. If a field looks
 
 ### Subsequent imports
 As `pmdsky-debug` is updated, you might want to import the latest debug information into your project. Ghidra is pretty good about checking for repeated information when you import things, so if you've already imported a previous version of the debug info, you should be able to just follow the above steps for importing symbols and headers with the latest `pmdsky-debug` package to add incremental changes. (Although if there are changes to existing things in the debug info rather than just new additions, you might have to do some manual cleanup afterwards.)
+
+If there have been no changes to `dungeon.h` since the last time you imported the C headers, you can also add `-DOMIT_LARGE_FILES` to the "Parse Options" box. This will skip importing `dungeon.h`, which should reduce import times significantly (from about an hour to a few seconds).
 
 ## No$GBA
 The No$GBA debugger supports loading symbol names from a `.sym` file.
