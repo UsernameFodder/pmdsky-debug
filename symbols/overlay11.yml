@@ -115,6 +115,24 @@ overlay11:
         
         r0: mode, which is stored globally and used in switch statements for dispatch
         return: return code
+    - name: GetAllocArenaGround
+      address:
+        NA: 0x22E935C
+      description: |-
+        The GetAllocArena function used for ground mode. See SetMemAllocatorParams for more information.
+        
+        r0: initial memory arena pointer, or null
+        r1: flags (see MemAlloc)
+        return: memory arena pointer, or null
+    - name: GetFreeArenaGround
+      address:
+        NA: 0x22E93C0
+      description: |-
+        The GetFreeArena function used for ground mode. See SetMemAllocatorParams for more information.
+        
+        r0: initial memory arena pointer, or null
+        r1: pointer to free
+        return: memory arena pointer, or null
     - name: GroundMainReturnDungeon
       address:
         NA: 0x22E9414
@@ -152,6 +170,16 @@ overlay11:
         Implements SPECIAL_PROC_0x16 (see ScriptSpecialProcessCall).
         
         r0: bool
+    - name: SprintfStatic
+      address:
+        NA: 0x2308ECC
+      description: |-
+        Statically defined copy of sprintf(3) in overlay 11. See arm9.yml for more information.
+        
+        r0: str
+        r1: format
+        ...: variadic
+        return: number of characters printed, excluding the null-terminator
     - name: StatusUpdate
       address:
         NA: 0x2313A98

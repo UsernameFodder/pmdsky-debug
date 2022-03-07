@@ -39,6 +39,9 @@ typedef long long int64_t;
 // Define the bool type to be 1 byte
 typedef uint8_t bool;
 
+// Define the wchar_t type to be 2 bytes
+typedef int16_t wchar_t;
+
 // Ghidra-style "undefined*" types should be used to signify that a type is unknown
 typedef uint8_t undefined1;
 typedef uint16_t undefined2;
