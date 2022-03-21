@@ -133,39 +133,36 @@ search_results: List[List[List[Segment]]] = [
 
 # Perform the search
 with open(args.source, "rb") as src_file:
-    # Open all the files up front to avoid opening/closing them with each inner
-    # loop iteration.
-    target_files = [open(target, "rb") for target in args.target]
+    # Compile all the search regexes up front to avoid repeating the work with
+    # each target file. The combined size of all search segments is bounded by
+    # the source file size, so it shouldn't be an issue to load everything
+    # into memory at once
+    search_regexes = [seg.regex(src_file) for seg in segments]
+    if args.verbose:
+        # Print the regexes in verbose mode
+        for seg, regex in zip(segments, search_regexes):
+            print(f"{seg} regex: {regex}")
 
-    # The outer loop is over search segments, since each one might be fairly
-    # large, and there could be a lot of them, so we only want to read one into
-    # memory at a time, rather than all at once
-    for seg, seg_matches in zip(segments, search_results):
-        search_regex = seg.regex(src_file)
-        if args.verbose:
-            print(f"{seg} regex: {search_regex}")
-
-        # The inner loop is over target files to search; there shouldn't be many
-        for target_file, file_matches, tname in zip(
-            target_files, seg_matches, args.target
-        ):
-            # Scan contents of the target file for the segment from the source file
+    # The outer loop is over target files to search. Only load one at a time.
+    for t, target_fname in enumerate(args.target):
+        with open(target_fname, "rb") as target_file:
             contents = target_file.read()
-            for match in search_regex.finditer(contents):
-                match_segment = Segment(match.start(), match.end() - match.start())
-                if (
-                    not args.include_self_matches
-                    and tname == args.source
-                    and match_segment == seg
-                ):
-                    # Omit the original segment within the source file,
-                    # which is a guaranteed match
-                    continue
-                file_matches.append(match_segment)
 
-    # Cleanup
-    for target_file in target_files:
-        target_file.close()
+            # The inner loop is over search segments
+            for seg, regex, seg_matches in zip(
+                segments, search_regexes, search_results
+            ):
+                for match in regex.finditer(contents):
+                    match_segment = Segment(match.start(), match.end() - match.start())
+                    if (
+                        not args.include_self_matches
+                        and target_fname == args.source
+                        and match_segment == seg
+                    ):
+                        # Omit the original segment within the source file,
+                        # which is a guaranteed match
+                        continue
+                    seg_matches[t].append(match_segment)
 
 # Report search results
 print(f"*** SOURCE FILE: {args.source} ***")
