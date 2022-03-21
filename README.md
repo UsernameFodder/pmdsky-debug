@@ -14,6 +14,7 @@ In addition, this repository contains some things in support of the debug inform
 
 - Guides and documentation related to reverse engineering _Explorers of Sky_, particularly for beginners. These can be found in the [`docs/`](docs) directory.
 - [`resymgen`](docs/resymgen.md), the Rust package used to transpile the symbol tables from YAML to other formats.
+- Miscellaneous reverse engineering tools in the [`tools/`](tools) directory.
 
 ## Usage
 The symbol tables and the C headers are simultaneously human-readable and machine-readable. This repository is designed to have three possible "modes of use":
