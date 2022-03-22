@@ -1562,8 +1562,7 @@ arm9:
         NA: 0x209E0D4
       length:
         NA: 0x14
-      description: |-
-        Path of the file where all the portraits are stored. "FONT/kaomado.kao", padded with null to a multiple of 4
+      description: "Path of the file where all the portraits are stored. \"FONT/kaomado.kao\", padded with null to a multiple of 4"
     - name: DUNGEON_DATA_LIST
       address:
         NA: 0x209E3A0
