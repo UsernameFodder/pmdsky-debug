@@ -193,10 +193,10 @@ arm9:
         4: In the Future of Darkness
     - name: KAOMADO_STREAM
       address:
-        NA: 0x22Ab4B0
+        NA: 0x22AB4B0
       length:
-        NA: 72
-      description:
+        NA: 0x48
+      description: |-
         The file stream utilized for all Kaomado portrait loads
     - name: PENDING_DUNGEON_ID
       address:

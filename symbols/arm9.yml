@@ -1535,22 +1535,6 @@ arm9:
         Each entry has the same structure as an entry in SCRIPT_VARS.
         
         type: struct script_local_var_table
-    - name: KAOMADO_LAYOUTS
-      address:
-        NA: 0x209E014
-      length:
-        NA: 192
-      description: |-
-        All the possible layouts a Kaomado portrait can be placed in by default
-        
-        type: {struct kaomado_layout}[32]
-    - name: KAOMADO_FILE
-      address:
-        NA: 0x209E0D4
-      length:
-        NA: 20
-      description: |-
-        Path of the file where all the portraits are stored. "FONT/kaomado.kao", padded with null to a multiple of 4
     - name: SCRIPT_VARS
       address:
         NA: 0x209D870
@@ -1564,6 +1548,22 @@ arm9:
         These variables underpin the various ExplorerScript global variables you can use in the SkyTemple SSB debugger.
         
         type: struct script_var_table
+    - name: KAOMADO_LAYOUTS
+      address:
+        NA: 0x209E014
+      length:
+        NA: 0xC0
+      description: |-
+        All the possible layouts a Kaomado portrait can be placed in by default
+        
+        type: {struct kaomado_layout}[32]
+    - name: KAOMADO_FILE
+      address:
+        NA: 0x209E0D4
+      length:
+        NA: 0x14
+      description: |-
+        Path of the file where all the portraits are stored. "FONT/kaomado.kao", padded with null to a multiple of 4
     - name: DUNGEON_DATA_LIST
       address:
         NA: 0x209E3A0

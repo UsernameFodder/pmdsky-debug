@@ -13,8 +13,8 @@ struct kaomado {
 ASSERT_SIZE(struct kaomado, 16);
 
 struct portrait_offset {
-    int32_t offset_x;   // X offset in tiles from the original offset, derived from the layout
-    int32_t offset_y;   // Y offset in tiles from the original offset, derived from the layout
+    int32_t offset_x; // X offset in tiles from the original offset, derived from the layout
+    int32_t offset_y; // Y offset in tiles from the original offset, derived from the layout
 };
 ASSERT_SIZE(struct portrait_offset, 8);
 
@@ -31,8 +31,11 @@ struct kaomado_canvas {
     uint8_t pad0x2;
     uint8_t pad0x3;
     enum kaomado_canvas_state state : 32;
-    struct kaomado render_state; // This is the Kaomado that actually gets rendered
-    struct kaomado buffer_state; // Any changes are first stored here before being copied to the render_state on update time
+    // The buffer_state is the one that receives and stores any commits,
+    // but render_state is only set to the value of buffer_state during
+    // the Kaomado canvas update function
+    struct kaomado render_state;
+    struct kaomado buffer_state;
     bool updated;
     bool hide;
     bool framed;
