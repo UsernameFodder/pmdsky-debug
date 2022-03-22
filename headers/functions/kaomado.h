@@ -8,4 +8,4 @@ void SetKaomadoLayout(struct kaomado*, uint8_t layout_idx);
 void SetKaomadoOffset(struct kaomado*, struct portrait_offset* offset);
 void AllowKaomadoDefault(struct kaomado*, bool allow);
 void IsValidKaomado(struct kaomado*);
-bool LoadKaomado(struct kaomado*, void* buffer); // This function updates all three of the flip fields!
+bool LoadKaomado(struct kaomado*, void* buffer);

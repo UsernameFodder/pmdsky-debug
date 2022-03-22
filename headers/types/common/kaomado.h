@@ -21,7 +21,7 @@ ASSERT_SIZE(struct portrait_offset, 8);
 struct kaomado_buffer {
     struct rgb_24 palette[16]; // Buffer to load the palette of the portrait
     uint8_t at4px_buffer[800]; // Buffer to load the portrait image data
-}
+};
 ASSERT_SIZE(struct kaomado_buffer, 0x350);
 
 // Stores data of a specialized Kaomado canvas for rendering the portrait into itself
@@ -38,7 +38,7 @@ struct kaomado_canvas {
     bool framed;
     uint8_t pad0x2b;
     struct kaomado_buffer buffer;
-}
+};
 ASSERT_SIZE(struct kaomado_canvas, 0x380);
 
 // Identifies a default position for a Kaomado portrait, as well as whether it'll be flipped
@@ -47,4 +47,5 @@ struct kaomado_layout {
     int16_t offset_y;
     bool try_flip;
     uint8_t pad0x5;
-}
+};
+ASSERT_SIZE(struct kaomado_canvas, 6);

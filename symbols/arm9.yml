@@ -861,7 +861,7 @@ arm9:
         If the species is zero, then it does nothing
         
         r0: pointer to Kaomado struct
-        r1: difference offset, pointer to vector2_32
+        r1: pointer to struct portrait_offset
     - name: AllowKaomadoDefault
       address:
         NA: 0x204D894
@@ -884,9 +884,10 @@ arm9:
       description: |-
         Tries to load the portrait data associated with the passed Kaomado struct.
         Returns whether the operation was successful (the portrait could be found)
+        This function also modifies the flip fields in the passed Kaomado struct
         
         r0: pointer to Kaomado struct
-        r1: pointer to buffer
+        r1: pointer to struct kaomado_buffer
         return bool
     - name: ScriptSpecialProcess0x3A
       address:
