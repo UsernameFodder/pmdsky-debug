@@ -1,5 +1,5 @@
 // All Kaomado loads use the same stream, so it's initialized once on game start!
-void InitKaomadoStream(void);
+void InitStreamKaomado(void);
 
 void InitKaomado(struct kaomado*);
 void InitKaomadoSpecies(struct kaomado*, int16_t species_id);

@@ -218,7 +218,7 @@ struct wte_header {
         needs to be a power of 2 in the range of 8..1024. The actual texture can have a lower
         height, but not a lower width, as the width is required to properly read the image */
     struct rect16_xywh texture_bounds; // 0x10
-    struct rgb_32* palette;               // 0x18
+    struct rgb_32* palette;            // 0x18
     uint16_t color_amt;                // 0x1C: How many colors are stored in the palette
     uint16_t _padding_0x1e;
 };

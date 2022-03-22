@@ -40,3 +40,11 @@ struct kaomado_canvas {
     struct kaomado_buffer buffer;
 }
 ASSERT_SIZE(struct kaomado_canvas, 0x380);
+
+// Identifies a default position for a Kaomado portrait, as well as whether it'll be flipped
+struct kaomado_layout {
+    int16_t offset_x;
+    int16_t offset_y;
+    bool try_flip;
+    uint8_t pad0x5;
+}
