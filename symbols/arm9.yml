@@ -1541,7 +1541,7 @@ arm9:
         NA: 192
       description: |-
         All the possible layouts a Kaomado portrait can be placed in by default
-
+        
         type: {struct kaomado_layout}[32]
     - name: KAOMADO_FILE
       address:
