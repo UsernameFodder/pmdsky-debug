@@ -818,7 +818,7 @@ arm9:
         NA: 0x204D780
       description: |-
         Inits the stream used to load all Kaomado portraits
-
+        
         No params
     - name: InitKaomado
       address:
