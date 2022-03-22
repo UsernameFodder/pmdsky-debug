@@ -3,6 +3,12 @@
 #ifndef HEADERS_TYPES_COMMON_ENUMS_H_
 #define HEADERS_TYPES_COMMON_ENUMS_H_
 
+// Represents one of the two screens the console has
+enum screen {
+    MAIN = 0; 
+    SUB = 1;
+}
+
 // Overlay group ID. Each group ID maps to an overlay number.
 enum overlay_group_id {
     OGROUP_NONE = 0,
@@ -3517,6 +3523,14 @@ enum iq_group_id {
     IQ_GROUP_UNUSED_0xD = 13,
     IQ_GROUP_UNUSED_0xE = 14,
     IQ_GROUP_NONE = 15,
+};
+
+enum kaomado_canvas_state {
+    HIDDEN = 0;
+    TRY_UPDATE = 1;
+    UPDATE = 2;
+    STANDBY = 3;
+    HIDE = 4;
 };
 
 #endif
