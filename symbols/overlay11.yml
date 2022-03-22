@@ -238,7 +238,7 @@ overlay11:
       description: |-
         Table of dungeon IDs corresponding to entries in RECRUITMENT_TABLE_SPECIES.
         
-        type: {enum dungeon_id:16}[22]
+        type: struct dungeon_id_16[22]
     - name: RECRUITMENT_TABLE_LEVELS
       address:
         NA: 0x23208AC
@@ -262,7 +262,7 @@ overlay11:
         
         Interestingly, this includes both Heatran genders. It also includes Darkrai for some reason?
         
-        type: {enum monster_id:16}[22]
+        type: struct monster_id_16[22]
     - name: LEVEL_TILEMAP_LIST
       address:
         NA: 0x2320D2C

@@ -77,7 +77,7 @@ ASSERT_SIZE(struct script_opcode_table, 3064);
 
 // Common routines used within the unionall.ssb script (the master script).
 struct common_routine {
-    enum common_routine_id id : 16;
+    struct common_routine_id_16 id;
     int16_t field_0x2;
     char* name; // Routine name as a null-terminated string
 };
