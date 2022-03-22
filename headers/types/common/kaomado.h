@@ -1,14 +1,14 @@
 // Represents the state of a portrait that wants to be displayed
 struct kaomado {
-    uint16_t species_id;    // The species id, or the set index inside kaomado.kao
-    int8_t emote_idx;       // Index of the emote in the species set of portraits
-    uint8_t layout_idx;     // Represents the current layout to display the portrait
-    uint32_t offset_x;      // Tile offset (x / 8) in the X axis to draw the portrait
-    uint32_t offset_y;      // Tile offset (y / 8) in the Y axis to draw the portrait
-    bool try_flip;          // Whether to try to get a flipped portrait from kaomado.kao
-    bool has_flip;          // Whether the specified emote has a flipped variant
-    bool hw_flip;           // Whether the portrait should be flipped using the hardware
-    bool allow_default;     // If true, try using emote index 0 if the desired emote can't be found
+    uint16_t species_id; // The species id, or the set index inside kaomado.kao
+    int8_t emote_idx;    // Index of the emote in the species set of portraits
+    uint8_t layout_idx;  // Represents the current layout to display the portrait
+    uint32_t offset_x;   // Tile offset (x / 8) in the X axis to draw the portrait
+    uint32_t offset_y;   // Tile offset (y / 8) in the Y axis to draw the portrait
+    bool try_flip;       // Whether to try to get a flipped portrait from kaomado.kao
+    bool has_flip;       // Whether the specified emote has a flipped variant
+    bool hw_flip;        // Whether the portrait should be flipped using the hardware
+    bool allow_default;  // If true, try using emote index 0 if the desired emote can't be found
 };
 ASSERT_SIZE(struct kaomado, 16);
 

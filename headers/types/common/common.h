@@ -140,7 +140,7 @@ struct rgb_24 {
     uint8_t r;
     uint8_t g;
     uint8_t b;
-}
+};
 ASSERT_SIZE(struct rgb_24, 3);
 
 // The 4th byte may sometimes be used, and sometimes it is merely padding
@@ -150,7 +150,7 @@ struct rgb_32 {
     uint8_t g;
     uint8_t x;
 };
-ASSERT_SIZE(struct rgb, 4);
+ASSERT_SIZE(struct rgb_32, 4);
 
 // A structure that represents a file stream for file I/O.
 struct file_stream {

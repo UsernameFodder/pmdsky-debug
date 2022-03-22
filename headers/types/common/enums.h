@@ -5,9 +5,9 @@
 
 // Represents one of the two screens the console has
 enum screen {
-    MAIN = 0; 
-    SUB = 1;
-}
+    MAIN = 0,
+    SUB = 1,
+};
 
 // Overlay group ID. Each group ID maps to an overlay number.
 enum overlay_group_id {
@@ -3526,11 +3526,11 @@ enum iq_group_id {
 };
 
 enum kaomado_canvas_state {
-    HIDDEN = 0;
-    TRY_UPDATE = 1;
-    UPDATE = 2;
-    STANDBY = 3;
-    HIDE = 4;
+    HIDDEN = 0,
+    TRY_UPDATE = 1,
+    UPDATE = 2,
+    STANDBY = 3,
+    HIDE = 4,
 };
 
 #endif
