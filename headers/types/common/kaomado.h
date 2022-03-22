@@ -42,6 +42,7 @@ struct kaomado_canvas {
     bool updated;
     bool hide;
     bool framed;
+    uint32_t palette_idx;
     uint8_t pad0x2b;
     struct kaomado_buffer buffer;
 };
@@ -54,6 +55,6 @@ struct kaomado_layout {
     bool try_flip;
     uint8_t pad0x5;
 };
-ASSERT_SIZE(struct kaomado_canvas, 6);
+ASSERT_SIZE(struct kaomado_layout, 6);
 
 #endif
