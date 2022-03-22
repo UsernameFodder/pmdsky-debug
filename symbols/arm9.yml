@@ -817,7 +817,7 @@ arm9:
       address:
         NA: 0x204D780
       description: |-
-        Inits the stream used to load all Kaomado portraits
+        Inits the stream used to load all Kaomado portraits, called once on game start!
         
         No params
     - name: InitKaomado
@@ -888,7 +888,7 @@ arm9:
         
         r0: pointer to Kaomado struct
         r1: pointer to struct kaomado_buffer
-        return bool
+        return: bool
     - name: ScriptSpecialProcess0x3A
       address:
         NA: 0x204FC28
@@ -1556,7 +1556,7 @@ arm9:
       description: |-
         All the possible layouts a Kaomado portrait can be placed in by default
         
-        type: {struct kaomado_layout}[32]
+        type: struct kaomado_layout[32]
     - name: KAOMADO_FILE
       address:
         NA: 0x209E0D4

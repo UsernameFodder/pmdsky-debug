@@ -1,3 +1,6 @@
+#ifndef HEADERS_TYPES_COMMON_KAOMADO_H_
+#define HEADERS_TYPES_COMMON_KAOMADO_H_
+
 // Represents the state of a portrait that wants to be displayed
 struct kaomado {
     uint16_t species_id; // The species id, or the set index inside kaomado.kao
@@ -19,7 +22,7 @@ struct portrait_offset {
 ASSERT_SIZE(struct portrait_offset, 8);
 
 struct kaomado_buffer {
-    struct rgb_24 palette[16]; // Buffer to load the palette of the portrait
+    struct rgb palette[16];    // Buffer to load the palette of the portrait
     uint8_t at4px_buffer[800]; // Buffer to load the portrait image data
 };
 ASSERT_SIZE(struct kaomado_buffer, 0x350);
@@ -52,3 +55,5 @@ struct kaomado_layout {
     uint8_t pad0x5;
 };
 ASSERT_SIZE(struct kaomado_canvas, 6);
+
+#endif
