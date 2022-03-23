@@ -9,7 +9,7 @@
 // We need to differentiate them because each engine has different abilities
 enum screen {
     SCREEN_MAIN = 0, // The screen linked to the main graphics engine (A)
-    SCREEN_SUB = 1,  // The screen linked to the sub graphics engine (B) 
+    SCREEN_SUB = 1,  // The screen linked to the sub graphics engine (B)
 };
 
 // Overlay group ID. Each group ID maps to an overlay number.
