@@ -3,7 +3,7 @@
 
 // Represents the state of a portrait that wants to be displayed
 struct kaomado {
-    uint16_t species_id; // The species id, or the set index inside kaomado.kao
+    monster_id_16 species_id; // The species id, or the set index inside kaomado.kao
     int8_t emote_idx;    // Index of the emote in the species set of portraits
     uint8_t layout_idx;  // Represents the current layout to display the portrait
     uint32_t offset_x;   // Tile offset (x / 8) in the X axis to draw the portrait

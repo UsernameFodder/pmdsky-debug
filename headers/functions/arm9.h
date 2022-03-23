@@ -94,7 +94,7 @@ void ScriptSpecialProcess0x4(void);
 
 void InitStreamKaomado(void);
 void InitKaomado(struct kaomado*);
-void InitKaomadoSpecies(struct kaomado*, int16_t species_id);
+void InitKaomadoSpecies(struct kaomado*, enum monster_id species_id);
 void SetKaomadoEmote(struct kaomado*, uint8_t emote_idx);
 void SetKaomadoLayout(struct kaomado*, uint8_t layout_idx);
 void SetKaomadoOffset(struct kaomado*, struct portrait_offset* offset);
