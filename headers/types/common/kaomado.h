@@ -33,7 +33,7 @@ struct kaomado_canvas {
     uint8_t pad0x1;
     uint8_t pad0x2;
     uint8_t pad0x3;
-    enum kaomado_canvas_state state : 32;
+    enum kaomado_canvas_state state;
     // The buffer_state is the one that receives and stores any commits,
     // but render_state is only set to the value of buffer_state during
     // the Kaomado canvas update function
