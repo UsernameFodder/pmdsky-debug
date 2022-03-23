@@ -3526,11 +3526,11 @@ enum iq_group_id {
 };
 
 enum kaomado_canvas_state {
-    HIDDEN = 0,
-    TRY_UPDATE = 1,
-    UPDATE = 2,
-    STANDBY = 3,
-    HIDE = 4,
+    KAOMADO_CANVAS_HIDDEN = 0,
+    KAOMADO_CANVAS_TRY_UPDATE = 1,
+    KAOMADO_CANVAS_UPDATE = 2,
+    KAOMADO_CANVAS_STANDBY = 3,
+    KAOMADO_CANVAS_HIDE = 4,
 };
 
 #endif
