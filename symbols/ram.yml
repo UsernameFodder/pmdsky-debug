@@ -196,7 +196,10 @@ arm9:
         NA: 0x22AB4B0
       length:
         NA: 0x48
-      description: The file stream utilized for all Kaomado portrait loads
+      description: |-
+        The file stream utilized for all Kaomado portrait loads
+        
+        type: struct file_stream
     - name: PENDING_DUNGEON_ID
       address:
         NA: 0x22AB4FC
