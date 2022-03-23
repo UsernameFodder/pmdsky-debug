@@ -123,7 +123,7 @@ ASSERT_SIZE(struct mem_arena_getters, 8);
 // This seems to be a simple structure used with utility functions related to managing items in
 // the player's bag and storage.
 struct owned_item {
-    enum item_id id : 16;
+    struct item_id_16 id;
     uint16_t amount; // Probably? This is a guess
 };
 ASSERT_SIZE(struct owned_item, 4);
@@ -186,6 +186,7 @@ ASSERT_SIZE(struct wte_handle, 8);
 // These arguments are almost directly passed to the TEXIMAGE_PARAM register, just rearranged
 // For more information see:
 // https://problemkaputt.de/gbatek.htm#ds3dtextureattributes
+#pragma pack(push, 2)
 struct wte_texture_params {
     uint8_t texture_smult : 3;
     uint8_t texture_tmult : 3;
@@ -196,6 +197,7 @@ struct wte_texture_params {
     uint8_t unusedD : 3;
 };
 ASSERT_SIZE(struct wte_texture_params, 2);
+#pragma pack(pop)
 
 struct wte_header {
     char signature[4];                // 0x0: Signature bytes (must be "\x57\x54\x45\x00")
@@ -238,11 +240,6 @@ struct preprocessor_args {
 };
 ASSERT_SIZE(struct preprocessor_args, 80);
 
-struct type_matchup_16 {
-    enum type_matchup val : 16;
-};
-ASSERT_SIZE(struct type_matchup_16, 2);
-
 // Type matchup table, not including TYPE_NEUTRAL.
 // Note that Ghost's immunities seem to be hard-coded elsewhere. In this table, both Normal and
 // Fighting are encoded as neutral against Ghost.
@@ -257,19 +254,21 @@ ASSERT_SIZE(struct type_matchup_table, 648);
 
 // In the move data, the target and range are encoded together in the first byte of a single
 // two-byte field. The target is the lower half, and the range is the upper half.
+#pragma pack(push, 2)
 struct move_target_and_range {
-    enum move_target : 4;
-    enum move_range : 4;
-    enum healing_move_type : 4;
+    enum move_target target : 4;
+    enum move_range range : 4;
+    enum healing_move_type type : 4;
     uint16_t unused : 4; // At least I'm pretty sure this is unused...
 };
 ASSERT_SIZE(struct move_target_and_range, 2);
+#pragma pack(pop)
 
 // Data for a single move
 struct move_data {
     uint16_t base_power;                          // 0x0
-    enum type_id type : 8;                        // 0x2
-    enum move_category category : 8;              // 0x3
+    struct type_id_8 type;                        // 0x2
+    struct move_category_8 category;              // 0x3
     struct move_target_and_range target_range;    // 0x4
     struct move_target_and_range ai_target_range; // 0x6: Target/range as seen by the AI
     uint8_t pp;                                   // 0x8
@@ -290,7 +289,7 @@ struct move_data {
     bool usable_while_taunted; // 0x14
     // 0x15: Index in the string files of the range string to be displayed in the move info screen
     uint8_t range_string_idx;
-    enum move_id id : 16; // 0x16
+    struct move_id_16 id; // 0x16
     // 0x18: Index in the string files of the message string to be displayed in the dungeon message
     // log when a move is used. E.g., the default (0) is "[User] used [move]!"
     uint16_t message_string_idx;

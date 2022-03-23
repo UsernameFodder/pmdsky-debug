@@ -49,8 +49,29 @@ typedef uint16_t undefined2;
 typedef uint32_t undefined4;
 typedef undefined1 undefined;
 
-// All structs are assumed to be packed. If padding is desired, it must be defined explicitly
+#ifdef IMPLICIT_STRUCT_PACKING
+// In implicit packing mode, all structs are packed by default.
+// If padding is desired, it must be defined explicitly.
 #pragma pack(1)
+#endif
+
+// A wrapper struct for an enum stored as an 8-bit integer.
+// For some `enum foo_id`, ENUM_8_BIT(foo_id) will define `struct foo_id_8`.
+// This should only be used within `#pragma pack(push, 1)`.
+#define ENUM_8_BIT(tag)                                                                            \
+    struct tag##_8 {                                                                               \
+        enum tag val : 8;                                                                          \
+    };                                                                                             \
+    ASSERT_SIZE(struct tag##_8, 1)
+
+// A wrapper struct for an enum stored as a 16-bit integer.
+// For some `enum foo_id`, ENUM_16_BIT(foo_id) will define `struct foo_id_16`.
+// This should only be used within `#pragma pack(push, 2)`.
+#define ENUM_16_BIT(tag)                                                                           \
+    struct tag##_16 {                                                                              \
+        enum tag val : 16;                                                                         \
+    };                                                                                             \
+    ASSERT_SIZE(struct tag##_16, 2)
 
 // Now include the actual type definitions and function signatures
 #include "types/types.h"

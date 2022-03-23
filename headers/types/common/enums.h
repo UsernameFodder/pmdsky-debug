@@ -674,6 +674,11 @@ enum monster_id {
     MONSTER_RESERVE_45 = 599,
 };
 
+// This is usually stored as a 16-bit integer
+#pragma pack(push, 2)
+ENUM_16_BIT(monster_id);
+#pragma pack(pop)
+
 // Item ID
 enum item_id {
     ITEM_NOTHING = 0,
@@ -2078,6 +2083,11 @@ enum item_id {
     ITEM_UNNAMED_0x577 = 1399,
 };
 
+// This is usually stored as a 16-bit integer
+#pragma pack(push, 2)
+ENUM_16_BIT(item_id);
+#pragma pack(pop)
+
 // Type ID
 enum type_id {
     TYPE_NONE = 0,
@@ -2101,12 +2111,22 @@ enum type_id {
     TYPE_NEUTRAL = 18,
 };
 
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(type_id);
+#pragma pack(pop)
+
 enum type_matchup {
     MATCHUP_IMMUNE = 0,
     MATCHUP_NOT_VERY_EFFECTIVE = 1,
     MATCHUP_NEUTRAL = 2,
     MATCHUP_SUPER_EFFECTIVE = 3,
 };
+
+// This is usually stored as a 16-bit integer
+#pragma pack(push, 2)
+ENUM_16_BIT(type_matchup);
+#pragma pack(pop)
 
 // Move ID
 enum move_id {
@@ -2671,6 +2691,11 @@ enum move_id {
     MOVE_TAG_0x22E = 558,
 };
 
+// This is usually stored as a 16-bit integer
+#pragma pack(push, 2)
+ENUM_16_BIT(move_id);
+#pragma pack(pop)
+
 // Move category
 enum move_category {
     CATEGORY_PHYSICAL = 0,
@@ -2678,6 +2703,11 @@ enum move_category {
     CATEGORY_STATUS = 2,
     CATEGORY_NONE = 3, // this is a guess
 };
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(move_category);
+#pragma pack(pop)
 
 // Move range.
 // In the move data, this is the upper 4 bits of the joint Range + Target bitfield
@@ -2849,6 +2879,11 @@ enum ability_id {
     ABILITY_STORM_DRAIN = 122,
     ABILITY_LEAF_GUARD = 123,
 };
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(ability_id);
+#pragma pack(pop)
 
 // Dungeon ID.
 // Each "section" of what we would normally consider "one dungeon" has its own ID. Many of the
@@ -3112,6 +3147,16 @@ enum dungeon_id {
     DUNGEON_DUMMY_0xFF = 255,
 };
 
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(dungeon_id);
+#pragma pack(pop)
+
+// This is occasionally stored as a 16-bit integer
+#pragma pack(push, 2)
+ENUM_16_BIT(dungeon_id);
+#pragma pack(pop)
+
 // Dungeon group ID.
 // This is more in line with what we would think of as a "whole dungeon".
 // A single dungeon group might encompass multiple dungeon IDs.
@@ -3217,6 +3262,11 @@ enum dungeon_group_id {
     DGROUP_DUMMY_0x62 = 98,
     DGROUP_DUMMY_0x63 = 99,
 };
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(dungeon_group_id);
+#pragma pack(pop)
 
 // Music/song IDs. Some background SFX are also stored as "songs".
 enum music_id {
@@ -3425,6 +3475,11 @@ enum music_id {
     MUSIC_TEAM_CHARMS_THEME_ALTERNATE_2_UNUSED = 202,
     MUSIC_NONE_0x3E7 = 999,
 };
+
+// This is usually stored as a 16-bit integer
+#pragma pack(push, 2)
+ENUM_16_BIT(music_id);
+#pragma pack(pop)
 
 // IQ skill ID. These are usually encoded as bitvectors.
 enum iq_skill_id {

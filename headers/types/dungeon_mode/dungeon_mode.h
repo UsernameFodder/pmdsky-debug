@@ -27,13 +27,13 @@ struct item {
     // 0x2: Only for stackable items. Will be 0 if unapplicable. For Poké, this is an "amount code"
     // rather than the literal amount
     uint16_t quantity;
-    enum item_id id : 16; // 0x4
+    struct item_id_16 id; // 0x4
 };
 ASSERT_SIZE(struct item, 6);
 
 // Trap info
 struct trap {
-    enum trap_id id : 8;
+    struct trap_id_8 id;
     // If 0 or 2, the trap will activate only when a team member steps on it. If 1, the trap will
     // activate only when an enemy steps on it. Naturally, this seems to be 0 for traps and 2 for
     // Wonder Tiles
@@ -69,7 +69,7 @@ struct move {
     bool f_exclusive_item_pp_boost : 1; // A PP-boosting exclusive item is in effect
     uint16_t flags3_unk10 : 6;
 
-    enum move_id id : 16; // 0x4
+    struct move_id_16 id; // 0x4
     uint8_t pp;           // 0x6: Current PP
     uint8_t ginseng;      // 0x7: Ginseng boost
 };
@@ -97,6 +97,7 @@ ASSERT_SIZE(struct monster_stat_modifiers, 32);
 // Many fields are indexes that select from a group of status conditions. These fields are named
 // by the FIRST status in the list (when the index is 1, since 0 usually means no status). For other
 // statuses in the group, see the subsequent enum values in enum status_id after the first status.
+#pragma pack(push, 1)
 struct statuses {
     bool roost;
     uint8_t field_0x1; // Set by Roost to 0x2
@@ -117,7 +118,7 @@ struct statuses {
     undefined field_0x10;
     undefined field_0x11;
     undefined field_0x12;
-    enum monster_behavior monster_behavior : 8; // 0x13
+    struct monster_behavior_8 monster_behavior; // 0x13
     uint8_t sleep;                              // 0x14: STATUS_SLEEP if 1
     uint8_t sleep_turns; // 0x15: Turns left for the status in statuses::sleep
     uint8_t burn;        // 0x16: STATUS_BURN if 1
@@ -216,6 +217,7 @@ struct statuses {
     uint8_t stockpile_stage;        // 0x75: Goes from 0-3. STATUS_STOCKPILING if nonzero
 };
 ASSERT_SIZE(struct statuses, 118);
+#pragma pack(pop)
 
 // Monster info
 struct monster {
@@ -227,13 +229,13 @@ struct monster {
     uint16_t flags_unk10 : 5;
     bool f_swapping_places_petrified_ally : 1; // Swapping places with a petrified ally
 
-    enum monster_id id : 16;          // 0x2:
-    enum monster_id apparent_id : 16; // 0x4: What's outwardly displayed if Transformed
+    struct monster_id_16 id;          // 0x2:
+    struct monster_id_16 apparent_id; // 0x4: What's outwardly displayed if Transformed
     bool is_not_team_member; // 0x6: true for enemies and allied NPCs that aren't on the team
     bool is_team_leader;     // 0x7
     // 0x8: An ally is an NPC that isn't a normal team member, e.g. for story boss battles
     bool is_ally;
-    enum shopkeeper_mode shopkeeper : 8; // 0x9
+    struct shopkeeper_mode_8 shopkeeper; // 0x9
     uint8_t level;                       // 0xA
     undefined field_0xb;
     int16_t team_index;  // 0xC: In order by team lineup
@@ -254,12 +256,12 @@ struct monster {
     int exp;                                      // 0x20: Total Exp. Points
     struct monster_stat_modifiers stat_modifiers; // 0x24
     int16_t hidden_power_base_power;              // 0x44
-    enum type_id hidden_power_type : 8;           // 0x46
+    struct type_id_8 hidden_power_type;           // 0x46
     undefined field_0x47;
-    enum dungeon_id joined_at : 8; // 0x48: Also used as a unique identifier for special monsters
+    struct dungeon_id_8 joined_at; // 0x48: Also used as a unique identifier for special monsters
     undefined field_0x49;
     uint16_t action_id;              // 0x4A: Changes as you do things
-    enum direction_id direction : 8; // 0x4C: Current direction the monster is facing
+    struct direction_id_8 direction; // 0x4C: Current direction the monster is facing
     undefined field_0x4d;
     // 0x4E: Metadata for some action_id values.
     // E.g., this is the bag item index when using an item
@@ -278,10 +280,10 @@ struct monster {
     undefined field_0x5b;
     undefined field_0x5c;
     undefined field_0x5d;
-    enum type_id type1 : 8;       // 0x5E
-    enum type_id type2 : 8;       // 0x5F
-    enum ability_id ability1 : 8; // 0x60
-    enum ability_id ability2 : 8; // 0x61
+    struct type_id_8 type1;       // 0x5E
+    struct type_id_8 type2;       // 0x5F
+    struct ability_id_8 ability1; // 0x60
+    struct ability_id_8 ability2; // 0x61
     struct item held_item;        // 0x62
     uint16_t held_item_id;        // 0x68: Appears to be a mirror of held_item.id
     // Previous position data is used by the AI
@@ -291,7 +293,7 @@ struct monster {
     struct position prev_pos4; // 0x76: Position 4 turns ago
     undefined field_0x7a;
     undefined field_0x7b;
-    enum ai_objective ai_objective : 8; // 0x7C
+    struct ai_objective_8 ai_objective; // 0x7C
     bool ai_not_next_to_target;         // 0x7D: This NPC monster is not next to its current target
     bool ai_targeting_enemy;            // 0x7E: This NPC monster is targeting an enemy monster
     bool ai_turning_around;             // 0x7F: This NPC monster has decided to turn around
@@ -310,7 +312,7 @@ struct monster {
     // 0x9C: First 9 bytes contain bitfield data; the rest is presumably padding.
     // Bitvector. See enum iq_skill_id for the meaning of each bit.
     uint32_t iq_skill_flags[3];
-    enum tactic_id tactic : 8; // 0xA8
+    struct tactic_id_8 tactic; // 0xA8
     struct statuses statuses;  // 0xA9
     undefined field_0x11f;
     undefined field_0x120;
@@ -546,7 +548,7 @@ ASSERT_SIZE(struct monster, 576);
 
 // Generic entity data
 struct entity {
-    enum entity_type type : 32; // 0x0
+    enum entity_type type;      // 0x0
     struct position pos;        // 0x4
     struct position prev_pos;   // 0x8
     int pixel_x_shifted;        // 0xC: pixel_x << 8
@@ -664,7 +666,7 @@ struct entity {
     undefined field_0xa1;
     undefined field_0xa2;
     undefined field_0xa3;
-    enum direction_id graphical_direction_mirror1 : 8; // 0xA4
+    struct direction_id_8 graphical_direction_mirror1; // 0xA4
     undefined field_0xa5;
     undefined field_0xa6;
     undefined field_0xa7;
@@ -676,8 +678,8 @@ struct entity {
     undefined field_0xad;
     uint8_t anim_id;                           // 0xAE: Maybe?
     uint8_t anim_id_mirror;                    // 0xAF
-    enum direction_id graphical_direction : 8; // 0xB0: Direction a monster's sprite is facing
-    enum direction_id graphical_direction_mirror0 : 8; // 0xB1
+    struct direction_id_8 graphical_direction; // 0xB0: Direction a monster's sprite is facing
+    struct direction_id_8 graphical_direction_mirror0; // 0xB1
     undefined field_0xb2;
     undefined field_0xb3;
     void* info; // 0xB4: Points to info struct for monster/item/trap
@@ -791,7 +793,7 @@ struct dungeon_generation_info {
     uint8_t monster_house_room;
     undefined field_0x6;
     undefined field_0x7;
-    enum hidden_stairs_type hidden_stairs_type : 32; // 0x8
+    enum hidden_stairs_type hidden_stairs_type; // 0x8
     undefined field_0xc;
     undefined field_0xd;
     undefined field_0xe;
@@ -802,7 +804,7 @@ struct dungeon_generation_info {
     uint16_t music_table_idx;
     undefined field_0x14;
     undefined field_0x15;
-    enum fixed_room_id fixed_room_id : 8; // 0x16
+    struct fixed_room_id_8 fixed_room_id; // 0x16
     undefined field_0x17;
     undefined field_0x18;
     undefined field_0x19;
@@ -863,7 +865,7 @@ struct floor_generation_status {
     bool has_kecleon_shop;                // 0x3: This floor has a Kecleon Shop
     bool has_chasms_as_secondary_terrain; // 0x4: Secondary terrain type is SECONDARY_TERRAIN_CHASM
     bool is_invalid;                      // 0x5: Set when floor generation fails
-    enum floor_size floor_size : 8;       // 0x6
+    struct floor_size_8 floor_size;       // 0x6
     bool has_maze;                        // 0x7: This floor has a maze room
     bool no_enemy_spawns;                 // 0x8: No enemies should spawn on this floor
     undefined field_0x9;
@@ -887,8 +889,8 @@ struct floor_generation_status {
     uint16_t kecleon_shop_middle_y; // 0x22
     // 0x24: The number of tiles that can be reached from the stairs, assuming normal mobility
     int n_tiles_reachable_from_stairs;
-    enum floor_layout layout : 32;                   // 0x28
-    enum hidden_stairs_type hidden_stairs_type : 32; // 0x2C
+    enum floor_layout layout;                   // 0x28
+    enum hidden_stairs_type hidden_stairs_type; // 0x2C
     // The limits of the Kecleon Shop, if applicable
     int kecleon_shop_min_x; // 0x30
     int kecleon_shop_min_y; // 0x34
@@ -905,20 +907,15 @@ struct spawn_position {
 };
 ASSERT_SIZE(struct spawn_position, 2);
 
-struct monster_id_16 {
-    enum monster_id id : 16;
-};
-ASSERT_SIZE(struct monster_id_16, 2);
-
 // Dungeon floor properties
 struct floor_properties {
-    enum floor_layout layout : 8; // 0x0
+    struct floor_layout_8 layout; // 0x0
     int8_t n_rooms;               // 0x1: Number of rooms to be generated
     uint8_t tileset;              // 0x2
     // 0x3: Indexes into the music ID table in overlay 10 to determine the floor's music track.
     // See the relevant descriptions in the overlay 10 symbols for more information.
     uint8_t music_table_idx;
-    enum weather_id weather : 8; // 0x4
+    struct weather_id_8 weather; // 0x4
     // 0x5: Controls how many connections will be made between grid cells
     uint8_t floor_connectivity;
     uint8_t enemy_density;              // 0x6: Controls how many enemies will be spawned
@@ -942,13 +939,13 @@ struct floor_properties {
     uint8_t item_density; // 0xF: Controls how many items will be spawned
     uint8_t trap_density; // 0x10: Controls how many traps will be spawned
     uint8_t floor_number; // 0x11: The current floor number within the overall dungeon
-    enum fixed_room_id fixed_room_id : 8; // 0x12
+    struct fixed_room_id_8 fixed_room_id; // 0x12
     uint8_t extra_hallways;               // 0x13: Number of extra hallways to generate
     uint8_t buried_item_density; // 0x14: Controls how many buried items (in walls) will be spawned
     // 0x15: Controls how much secondary terrain (water, lava, and this actually applies to chasms
     // too) will be spawned
     uint8_t secondary_terrain_density;
-    enum darkness_level darkness_level : 8; // 0x16
+    struct darkness_level_8 darkness_level; // 0x16
     uint8_t max_money_amount_div_5;         // 0x17: 1/5 the maximum amount for Poké spawns
     undefined field_0x18;
     // 0x19: Chance that a Monster House will be an itemless one
@@ -966,16 +963,16 @@ ASSERT_SIZE(struct floor_properties, 32);
 // Info about a mission destination floor
 struct mission_destination_info {
     bool is_destination_floor;  // 0x0: Whether or not the current floor is a mission destination
-    enum mission_type type : 8; // 0x1:
+    struct mission_type_8 type; // 0x1:
     // 0x2: The meaning of this field depends on the type field; see union mission_subtype.
     uint8_t subtype;
     undefined field_0x3;
     // 0x4: Item to retrieve, if this is an item-retrieval mission
-    enum item_id item_to_retrieve : 16;
-    enum item_id item_to_deliver : 16;     // 0x6: Item to deliver to the client, if relevant
-    enum item_id special_target_item : 16; // 0x8: For Sealed Chamber and Treasure Memo missions
-    enum monster_id client : 16;           // 0xA: The client on the mission listing
-    enum monster_id rescue_target : 16;    // 0xC: The monster to be rescued
+    struct item_id_16 item_to_retrieve;
+    struct item_id_16 item_to_deliver;     // 0x6: Item to deliver to the client, if relevant
+    struct item_id_16 special_target_item; // 0x8: For Sealed Chamber and Treasure Memo missions
+    struct monster_id_16 client;           // 0xA: The client on the mission listing
+    struct monster_id_16 rescue_target;    // 0xC: The monster to be rescued
     // 0xE: Usually just the target to defeat. If an outlaw has minions, the monster IDs will be
     // listed in subsequent entries. Note that there can be multiple minions of the same species,
     // which is not reflected here.
@@ -984,7 +981,7 @@ struct mission_destination_info {
     undefined field_0x15;
     // 0x16: Fixed room ID of the destination floor, if relevant
     // (e.g., Chambers, Challenge Letters, etc.)
-    enum fixed_room_id fixed_room_id : 8;
+    struct fixed_room_id_8 fixed_room_id;
     undefined field_0x17;
     undefined field_0x18;
     undefined field_0x19;
@@ -1035,7 +1032,7 @@ ASSERT_SIZE(struct dungeon_restriction, 12);
 
 // Entry in the fixed room item spawn table
 struct fixed_room_item_spawn_entry {
-    enum item_id id : 16;
+    struct item_id_16 id;
     undefined field_0x2;
     undefined field_0x3;
     undefined field_0x4;
@@ -1047,9 +1044,9 @@ ASSERT_SIZE(struct fixed_room_item_spawn_entry, 8);
 
 // Entry in the fixed room monster spawn table
 struct fixed_room_monster_spawn_entry {
-    enum monster_id id : 16;
+    struct monster_id_16 id;
     uint8_t stat_table_idx; // Index into the fixed room monster spawn stats table
-    enum monster_behavior behavior : 8;
+    struct monster_behavior_8 behavior;
 };
 ASSERT_SIZE(struct fixed_room_monster_spawn_entry, 4);
 
@@ -1070,7 +1067,7 @@ ASSERT_SIZE(struct fixed_room_monster_spawn_stats_entry, 12);
 // Entry in the fixed room properties table
 struct fixed_room_properties_entry {
     // 0x0: If MUSIC_NONE_0x0, the music will be taken from the mappa file for the floor
-    enum music_id music : 16;
+    struct music_id_16 music;
     undefined field_0x2;
     undefined field_0x3;
     bool illuminated; // 0x4: Floor will be fully illuminated (darkness level DARKNESS_BRIGHT)
@@ -1090,7 +1087,7 @@ ASSERT_SIZE(struct fixed_room_properties_entry, 12);
 
 // Entry in the fixed room tile spawn table.
 struct fixed_room_tile_spawn_entry {
-    enum trap_id id : 8; // 0x0
+    struct trap_id_8 id; // 0x0
     uint8_t flags;       // 0x1: Copied into trap::flags
     uint8_t room;        // 0x2: Room ID, or 0xFF for hallways
     // 0x3: flags3: 1-byte bitfield
@@ -1109,11 +1106,6 @@ struct fixed_room_entity_spawn_entry {
 };
 ASSERT_SIZE(struct fixed_room_entity_spawn_entry, 12);
 
-struct move_id_16 {
-    enum move_id : 16;
-};
-ASSERT_SIZE(struct move_id_16, 2);
-
 // Data for guest monsters that join you during certain story dungeons.
 // These all directly correspond to fields in struct monster.
 struct guest_monster {
@@ -1121,8 +1113,8 @@ struct guest_monster {
     undefined field_0x1;
     undefined field_0x2;
     undefined field_0x3;
-    enum monster_id id : 16;       // 0x4
-    enum dungeon_id joined_at : 8; // 0x6
+    struct monster_id_16 id;       // 0x4
+    struct dungeon_id_8 joined_at; // 0x6
     undefined field_0x7;
     struct move_id_16 moves[4]; // 0x8
     int16_t max_hp;             // 0x10

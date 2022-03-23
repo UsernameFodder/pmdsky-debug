@@ -16,6 +16,11 @@ enum direction_id {
     DIR_CURRENT = 8, // Current direction of an entity. Used as a special value in some functions
 };
 
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(direction_id);
+#pragma pack(pop)
+
 // Terrain type for a tile
 enum terrain_type {
     TERRAIN_WALL = 0,
@@ -30,6 +35,11 @@ enum secondary_terrain_type {
     SECONDARY_TERRAIN_LAVA = 1,
     SECONDARY_TERRAIN_CHASM = 2,
 };
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(secondary_terrain_type);
+#pragma pack(pop)
 
 // Mobility types for monsters
 enum mobility_type {
@@ -81,6 +91,11 @@ enum trap_id {
     TRAP_RANDOM_TRAP = 23,
     TRAP_GRUDGE_TRAP = 24,
 };
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(trap_id);
+#pragma pack(pop)
 
 // The type of hidden stairs (i.e. where it leads), if present
 enum hidden_stairs_type {
@@ -223,6 +238,11 @@ enum tactic_id {
     TACTIC_GET_AWAY_FROM_HERE = 10,
 };
 
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(tactic_id);
+#pragma pack(pop)
+
 // Modes related to shopkeeper behavior
 enum shopkeeper_mode {
     SHOPKEEPER_MODE_NORMAL = 0,
@@ -230,6 +250,11 @@ enum shopkeeper_mode {
     SHOPKEEPER_MODE_ATTACK_ENEMIES = 2,
     SHOPKEEPER_MODE_ATTACK_TEAM = 3,
 };
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(shopkeeper_mode);
+#pragma pack(pop)
 
 // Behavior type of NPC monsters
 enum monster_behavior {
@@ -257,6 +282,11 @@ enum monster_behavior {
     BEHAVIOR_WANDERING_ENEMY_0x15 = 21,
 };
 
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(monster_behavior);
+#pragma pack(pop)
+
 // AI objective that controls how an AI acts in the moment.
 // These were probably taken from Rescue Team; need to confirm validity in Explorers.
 enum ai_objective {
@@ -269,6 +299,11 @@ enum ai_objective {
     AI_STAND_STILL = 6,
     AI_TAKE_ITEM = 7,
 };
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(ai_objective);
+#pragma pack(pop)
 
 // Exclusive effect ID. These are usually encoded as bitvectors.
 // Some of these are unused in-game but still labeled if easy to infer.
@@ -414,6 +449,11 @@ enum darkness_level {
     DARKNESS_DARK = 2,
 };
 
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(darkness_level);
+#pragma pack(pop)
+
 // Weather ID
 enum weather_id {
     WEATHER_CLEAR = 0,
@@ -426,6 +466,11 @@ enum weather_id {
     WEATHER_SNOW = 7,
     WEATHER_RANDOM = 8,
 };
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(weather_id);
+#pragma pack(pop)
 
 // Dungeon floor type
 enum floor_type {
@@ -440,6 +485,11 @@ enum dungeon_objective {
     OBJECTIVE_NORMAL = 1,
     OBJECTIVE_RESCUE = 2, // Rescuing another player
 };
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(dungeon_objective);
+#pragma pack(pop)
 
 // Mission type on a floor
 enum mission_type {
@@ -457,6 +507,11 @@ enum mission_type {
     MISSION_CHALLENGE_REQUEST = 11,
     MISSION_TREASURE_MEMO = 12,
 };
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(mission_type);
+#pragma pack(pop)
 
 // Mission subtype for MISSION_EXPLORE_WITH_CLIENT
 enum mission_subtype_explore {
@@ -766,12 +821,22 @@ enum fixed_room_id {
     FIXED_UNUSED_0xFF = 255,
 };
 
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(fixed_room_id);
+#pragma pack(pop)
+
 // Floor layout size during floor generation
 enum floor_size {
     FLOOR_SIZE_LARGE = 0,
     FLOOR_SIZE_SMALL = 1,
     FLOOR_SIZE_MEDIUM = 2,
 };
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(floor_size);
+#pragma pack(pop)
 
 // Floor layout type during floor generation
 enum floor_layout {
@@ -792,5 +857,10 @@ enum floor_layout {
     LAYOUT_UNUSED_0xE = 14,
     LAYOUT_UNUSED_0xF = 15,
 };
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(floor_layout);
+#pragma pack(pop)
 
 #endif

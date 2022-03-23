@@ -89,7 +89,7 @@ arm9:
         
         For stackable items, the quantities are stored elsewhere, in STORAGE_ITEM_QUANTITIES.
         
-        type: {enum item_id:16}[1000]
+        type: struct item_id_16[1000]
     - name: STORAGE_ITEM_QUANTITIES
       address:
         NA: 0x22A437E
@@ -111,7 +111,7 @@ arm9:
       length:
         NA: 0x20
       description: |-
-        Array of up to 8 items in the Kecleon Shop of the form {enum item_id:16, uint16_t quantity}.
+        Array of up to 8 items in the Kecleon Shop of the form {struct item_id_16 id, uint16_t quantity}.
         
         If there are fewer than 8 items, the array is expected to be null-terminated.
     - name: UNUSED_KECLEON_SHOP_ITEMS
@@ -132,7 +132,7 @@ arm9:
       length:
         NA: 0x10
       description: |-
-        Array of up to 4 items in Kecleon Wares of the form {enum item_id:16, uint16_t quantity}.
+        Array of up to 4 items in Kecleon Wares of the form {struct item_id_16 id, uint16_t quantity}.
         
         If there are fewer than 4 items, the array is expected to be null-terminated.
     - name: UNUSED_KECLEON_WARES_ITEMS
@@ -201,7 +201,7 @@ arm9:
         
         Controls the text and map location during the "map cutscene" just before entering a dungeon, as well as the actual dungeon loaded afterwards.
         
-        type: enum dungeon_id:8
+        type: struct dungeon_id_8
     - name: PENDING_STARTING_FLOOR
       address:
         NA: 0x22AB4FD
@@ -241,7 +241,7 @@ arm9:
         
         This is presumably part of a larger struct, together with other nearby data.
         
-        type: enum monster_id:16
+        type: struct monster_id_16
     - name: HERO_NICKNAME
       address:
         NA: 0x22ABE1A
@@ -263,7 +263,7 @@ arm9:
         
         This is presumably part of a larger struct, together with other nearby data.
         
-        type: enum monster_id:16
+        type: struct monster_id_16
     - name: LEADER_IQ_SKILLS
       address:
         NA: 0x22B5198

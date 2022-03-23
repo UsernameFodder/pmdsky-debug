@@ -1873,9 +1873,9 @@ struct dungeon {
     undefined field_0x745;
     undefined field_0x746;
     undefined field_0x747;
-    enum dungeon_id id : 8;             // 0x748
+    struct dungeon_id_8 id;             // 0x748
     uint8_t floor;                      // 0x749: Current floor number
-    enum dungeon_group_id group_id : 8; // 0x74A: Same for different segments of a dungeon
+    struct dungeon_group_id_8 group_id; // 0x74A: Same for different segments of a dungeon
     undefined field_0x74b;
     undefined field_0x74c;
     undefined field_0x74d;
@@ -1932,7 +1932,7 @@ struct dungeon {
     undefined field_0x795;
     undefined field_0x796;
     undefined field_0x797;
-    enum dungeon_objective dungeon_objective : 8; // 0x798: Objective of the current dungeon
+    struct dungeon_objective_8 dungeon_objective; // 0x798: Objective of the current dungeon
     undefined field_0x799;
     undefined field_0x79a;
     uint8_t rescue_attempts_left; // 0x79B: Number of times you can be rescued in this dungeon
@@ -4472,10 +4472,10 @@ struct dungeon {
     undefined field_0xcd35;
     undefined field_0xcd36;
     undefined field_0xcd37;
-    enum weather_id weather : 8; // 0xCD38: current weather
+    struct weather_id_8 weather; // 0xCD38: current weather
     // 0xCD39: Default weather on the floor that will be reverted to if the current weather is
     // artificial and ends
-    enum weather_id natural_weather : 8;
+    struct weather_id_8 natural_weather;
     // 0xCD3A: Turns left for each weather type in enum weather_id (except WEATHER_RANDOM). If
     // multiple of these are nonzero, the one with the highest number of turns left is chosen.
     // Ties are broken in enum order
@@ -22476,8 +22476,8 @@ struct dungeon {
     undefined field_0x1a250;
     bool is_turning; // 0x1A251: Player is pressing Y to turn on the spot
     // Derived from internal direction in leader info block
-    enum direction_id leader_target_direction : 8;        // 0x1A252
-    enum direction_id leader_target_direction_mirror : 8; // 0x1A253
+    struct direction_id_8 leader_target_direction;        // 0x1A252
+    struct direction_id_8 leader_target_direction_mirror; // 0x1A253
     undefined field_0x1a254;
     undefined field_0x1a255;
     undefined field_0x1a256;
@@ -98113,7 +98113,7 @@ struct dungeon {
     undefined field_0x2c9e7;
     // 0x2C9E8: ID of an item guaranteed to spawn on the floor, if applicable
     // (e.g., certain mission types)
-    enum item_id guaranteed_item_id : 16;
+    struct item_id_16 guaranteed_item_id;
     undefined field_0x2c9ea;
     undefined field_0x2c9eb;
     undefined field_0x2c9ec;

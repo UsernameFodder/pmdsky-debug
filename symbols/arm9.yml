@@ -1438,7 +1438,7 @@ arm9:
       description: |-
         Null-terminated list of all the recoil moves, as 2-byte move IDs.
         
-        type: {enum move_id:16}[11]
+        type: struct move_id_16[11]
     - name: PUNCH_MOVE_LIST
       address:
         NA: 0x2098D8A
@@ -1447,7 +1447,7 @@ arm9:
       description: |-
         Null-terminated list of all the punch moves, as 2-byte move IDs.
         
-        type: {enum move_id:16}[16]
+        type: struct move_id_16[16]
     - name: SCRIPT_VARS_LOCALS
       address:
         NA: 0x209CECC
@@ -1615,7 +1615,7 @@ arm9:
         
         This is an array of 200 bytes. Each byte is an enum corresponding to one dungeon.
         
-        type: {enum secondary_terrain_type:8}[200]
+        type: struct secondary_terrain_type_8[200]
     - name: SENTRY_MINIGAME_DATA
       address:
         NA: 0x20A1BB0
@@ -1864,7 +1864,7 @@ arm9:
       description: |-
         The default monster ID for the hero (0x4: Charmander)
         
-        type: enum monster_id:16
+        type: struct monster_id_16
     - name: DEFAULT_PARTNER_ID
       address:
         NA: 0x20AFEFE
@@ -1875,7 +1875,7 @@ arm9:
       description: |-
         The default monster ID for the partner (0x1: Bulbasaur)
         
-        type: enum monster_id:16
+        type: struct monster_id_16
     - name: GAME_MODE
       address:
         NA: 0x20AFF70

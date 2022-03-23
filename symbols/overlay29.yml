@@ -2318,7 +2318,7 @@ overlay29:
         
         Overrides are used to substitute different fixed room data for things like revisits to story dungeons.
         
-        type: {enum fixed_room_id:8}[256]
+        type: struct fixed_room_id_8[256]
     - name: FIXED_ROOM_MONSTER_SPAWN_TABLE
       address:
         NA: 0x234FF14

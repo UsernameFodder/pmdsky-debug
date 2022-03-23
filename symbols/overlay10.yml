@@ -32,7 +32,7 @@ overlay10:
       description: |-
         The first dungeon that can have extra traps spawn in Monster Houses, Dark Hill
         
-        type: enum dungeon_id:8
+        type: struct dungeon_id_8
     - name: BAD_POISON_DAMAGE_COOLDOWN
       address:
         NA: 0x22C4414
@@ -302,7 +302,7 @@ overlay10:
         
         This is a table with 30 rows, each with 4 2-byte music IDs. Each row contains the possible music IDs for a given group, from which the music track will be selected randomly.
         
-        type: {enum music_id:16}[30][4]
+        type: struct music_id_16[30][4]
     - name: MALE_ACCURACY_STAGE_MULTIPLIERS
       address:
         NA: 0x22C540C
@@ -339,7 +339,7 @@ overlay10:
         
         This is an array of 170 2-byte music IDs, and is indexed into by the music value in the floor properties struct for a given floor. Music IDs with the highest bit set (0x8000) are indexes into the RANDOM_MUSIC_ID_TABLE.
         
-        type: {enum music_id:16}[170] (or not a music ID if the highest bit is set)
+        type: struct music_id_16[170] (or not a music ID if the highest bit is set)
     - name: TYPE_MATCHUP_TABLE
       address:
         NA: 0x22C56B0

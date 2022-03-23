@@ -1312,6 +1312,11 @@ enum common_routine_id {
     ROUTINE_MAP_TEST = 700,
 };
 
+// This is usually stored as a 16-bit integer
+#pragma pack(push, 2)
+ENUM_16_BIT(common_routine_id);
+#pragma pack(pop)
+
 // Script entity IDs. While a few script entities differ between versions, the IDs are the same.
 enum script_entity_id {
     ENTITY_PLAYER = 0,

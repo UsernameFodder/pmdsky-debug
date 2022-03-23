@@ -119,36 +119,53 @@ Then the actual byte value would be `0b10101101 == 0xAD`. Broken down in more de
 ```
 
 ### Struct packing
-All structs in the C headers are _packed_ (more specifically there's a `#pragma pack(1)` in [`pmdsky.h`](pmdsky.h)). If you're familiar with C structs, this is _different_ from the default alignment behavior. If you're _not_ familiar with C structs, this is probably how you might intuitively think struct fields are laid out.
-
 For technical reasons, C struct fields are normally [aligned](https://en.wikipedia.org/wiki/Data_structure_alignment) according to the natural alignment of their types, with extra bytes of padding implicitly inserted to fill any gaps created by alignment. In packed structs, fields are "packed together" exactly as defined, with no padding bytes inserted in between.
 
-Since all structs in `pmdsky-debug` are packed, you can assume that a struct like this:
+All structs in the C headers are naturally aligned by default. However, for clarity, _implicit padding is not allowed_. You must explicitly insert padding bytes if desired. The compiler will enforce this restriction. If a struct cannot be represented with natural alignment, you can pack it with a specified alignment by wrapping it with `#pragma pack` directives (use `push` and `pop` to confine the packing to just the struct of interest). For example:
+
 ```c
+// This struct is 8 bytes wide.
+//
+// {.one_byte = 0x11, .two_bytes = 0x2222, .four_bytes = 0x44444444} in memory:
+//   11 __ 22 22 44 44 44 44
+struct implicit_padding {
+    uint8_t one_byte;
+    // One byte of implicit padding here! This is not allowed!
+    uint16_t two_bytes;
+    uint32_t four_bytes;
+};
+
+// This struct is also 8 bytes wide, but explicitly padded.
+//
+// {.one_byte = 0x11, .two_bytes = 0x2222, .four_bytes = 0x44444444} in memory:
+//   11 __ 22 22 44 44 44 44
+struct explicit_padding {
+    uint8_t one_byte;
+    uint8_t _padding;
+    uint16_t two_bytes;
+    uint32_t four_bytes;
+};
+
+// This struct is 7 bytes wide, and has no padding.
+//
+// {.one_byte = 0x11, .two_bytes = 0x2222, .four_bytes = 0x44444444} in memory:
+//   11 22 22 44 44 44 44
+#pragma pack(push, 1) // Align all members to a 1-byte boundary
 struct packed {
     uint8_t one_byte;
     uint16_t two_bytes;
     uint32_t four_bytes;
 };
-```
-will be exactly 7 bytes wide, and given an instance like this:
-```c
-struct packed example = {
-    .one_byte = 0x11,
-    .two_bytes = 0x2222,
-    .four_bytes = 0x44444444,
-};
-```
-the corresponding memory layout (in typical hexadecimal notation) will look like this:
-```
-11 22 22 44 44 44 44
+#pragma pack(pop) // Go back to the default packing behavior
 ```
 
 ### Pointer size
 EoS binaries are compiled for ARM9 and ARM7, which are 32-bit processor families. This means that all pointers types are 4 bytes wide (and [little-endian](#endianness)).
 
 ### Enum size
-Enums are always 4-byte integers. If you want to embed a smaller-sized enum within a struct, you should make it a bitfield. If you want an array of smaller-sized enums, you can embed them in an auxiliary struct and use the struct for the array type. For example:
+Enums are always 4-byte integers. If you want to embed a smaller-sized enum within a struct, you should either wrap it in an auxiliary struct or make it a bitfield, depending on the situation. An auxiliary struct is preferred when the desired width is an exact number of bytes, whereas an enum bitfield is the only option for fields less than 8 bits wide.
+
+All headers have access to the convenience macros `ENUM_8_BIT` and `ENUM_16_BIT` (defined in [`pmdsky.h`](pmdsky.h)). These define 1-byte and 2-byte auxiliary structs from an enum automatically when wrapped in packing pragmas (the pragmas are required because the C standard does not allow preprocessor directives such as `#pragma` within macros). For example:
 
 ```c
 // This is 4 bytes wide, even though it only goes up to a value of 2.
@@ -158,20 +175,26 @@ enum four_byte_enum {
     LABEL_2 = 2,
 };
 
-// This whole struct is 2 bytes wide.
-struct two_byte_struct {
-    // This restricts the enum field to be 2 bytes wide.
-    enum four_byte_enum two_byte_field : 16;
-};
+// This defines a 1-byte `struct four_byte_enum_8` struct
+// with a single `val` field of type `enum four_byte_enum`
+#pragma pack(push, 1)
+ENUM_8_BIT(four_byte_enum);
+#pragma pack(pop)
 
-// This whole struct is 200 bytes wide (each array element is 2 bytes).
-struct some_other_struct {
-    // two_byte_struct is an auxiliary struct used to reduce the size of each enum element
-    struct two_byte_struct enum_array[100];
+// This defines a 2-byte `struct four_byte_enum_16` struct
+// with a single `val` field of type `enum four_byte_enum`
+#pragma pack(push, 2)
+ENUM_16_BIT(four_byte_enum);
+#pragma pack(pop)
+
+// This whole struct is 4 bytes wide.
+struct two_byte_struct {
+    struct four_byte_enum_16 two_byte_field;
+    struct four_byte_enum_8 array_of_bytes[2];
 };
 ```
 
-_Note_: Technically enum size is a detail that depends on the C compiler implementation, but in practice, most standard compilers targeting standard platforms represent enums as 4 bytes by default, including Ghidra's C parser. Both `gcc` and `clang` support the `-fshort-enums` option, but Ghidra's C parser doesn't, so bitfields are a sane and portable way to represent smaller-sized enums in struct fields.
+_Note_: Technically enum size is a detail that depends on the C compiler implementation, but in practice, most standard compilers targeting standard platforms represent enums as 4 bytes by default, including Ghidra's C parser. Both `gcc` and `clang` support the `-fshort-enums` option, but Ghidra's C parser doesn't, so auxiliary structs and bitfields are a sane and portable way to represent smaller-sized enums in struct fields.
 
 ## Contributing
 In addition to the concepts discussed in the [previous section](#working-with-the-c-headers), there are a few more conventions to follow when contributing to the C headers.
