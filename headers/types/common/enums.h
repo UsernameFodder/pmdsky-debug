@@ -3,10 +3,13 @@
 #ifndef HEADERS_TYPES_COMMON_ENUMS_H_
 #define HEADERS_TYPES_COMMON_ENUMS_H_
 
-// Represents one of the two screens the console has
+// Represents one of the two screens the console has. Each screen is linked
+// to a single graphics engine, but which engine it is linked to isn't fixed.
+// Thus, instead of using "lower" and "upper", we use "main" and "sub" screens
+// We need to differentiate them because each engine has different abilities
 enum screen {
-    MAIN = 0,
-    SUB = 1,
+    SCREEN_MAIN = 0, // The screen linked to the main graphics engine (A)
+    SCREEN_SUB = 1,  // The screen linked to the sub graphics engine (B) 
 };
 
 // Overlay group ID. Each group ID maps to an overlay number.
