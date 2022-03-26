@@ -123,6 +123,12 @@ BINARIES = {
         "overlay35": Binary(0x22BD3C0, 0x20),
     },
 }
+BINARY_NAMES = sorted(
+    {b for v in BINARIES.values() for b in v},
+    key=lambda x: f"overlay{int(x.lstrip('overlay')):04}"
+    if x.startswith("overlay")
+    else x,
+)
 
 
 class OffsetMapping:
@@ -136,6 +142,9 @@ class OffsetMapping:
 
     def add(self, mapped_val: int, label: Optional[str] = None):
         self.mapped.append((label, mapped_val) if label is not None else mapped_val)
+
+    def get_mapped(self) -> List[int]:
+        return [m if type(m) == int else m[1] for m in self.mapped]
 
     def __str__(self) -> str:
         s = f"0x{self.offset:X}"
@@ -234,7 +243,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "-b",
         "--binary",
-        choices=sorted({b for v in BINARIES.values() for b in v}),
+        choices=BINARY_NAMES,
         action="append",
         help="EoS binary",
     )
