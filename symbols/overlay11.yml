@@ -54,6 +54,7 @@ overlay11:
     - name: GetSpecialRecruitmentSpecies
       address:
         NA: 0x22E803C
+        EU: 0x22E897C
       description: |-
         Returns an entry from RECRUITMENT_TABLE_SPECIES.
         
@@ -64,6 +65,7 @@ overlay11:
     - name: PrepareMenuAcceptTeamMember
       address:
         NA: 0x22E8080
+        EU: 0x22E89C0
       description: |-
         Implements SPECIAL_PROC_PREPARE_MENU_ACCEPT_TEAM_MEMBER (see ScriptSpecialProcessCall).
         
@@ -71,6 +73,7 @@ overlay11:
     - name: InitRandomNpcJobs
       address:
         NA: 0x22E8124
+        EU: 0x22E8A64
       description: |-
         Implements SPECIAL_PROC_INIT_RANDOM_NPC_JOBS (see ScriptSpecialProcessCall).
         
@@ -79,6 +82,7 @@ overlay11:
     - name: GetRandomNpcJobType
       address:
         NA: 0x22E81BC
+        EU: 0x22E8AFC
       description: |-
         Implements SPECIAL_PROC_GET_RANDOM_NPC_JOB_TYPE (see ScriptSpecialProcessCall).
         
@@ -86,6 +90,7 @@ overlay11:
     - name: GetRandomNpcJobSubtype
       address:
         NA: 0x22E81D4
+        EU: 0x22E8B14
       description: |-
         Implements SPECIAL_PROC_GET_RANDOM_NPC_JOB_SUBTYPE (see ScriptSpecialProcessCall).
         
@@ -93,6 +98,7 @@ overlay11:
     - name: GetRandomNpcJobStillAvailable
       address:
         NA: 0x22E81F0
+        EU: 0x22E8B30
       description: |-
         Implements SPECIAL_PROC_GET_RANDOM_NPC_JOB_STILL_AVAILABLE (see ScriptSpecialProcessCall).
         
@@ -100,6 +106,7 @@ overlay11:
     - name: AcceptRandomNpcJob
       address:
         NA: 0x22E8258
+        EU: 0x22E8B98
       description: |-
         Implements SPECIAL_PROC_ACCEPT_RANDOM_NPC_JOB (see ScriptSpecialProcessCall).
         
@@ -118,6 +125,7 @@ overlay11:
     - name: GetAllocArenaGround
       address:
         NA: 0x22E935C
+        EU: 0x22E9C9C
       description: |-
         The GetAllocArena function used for ground mode. See SetMemAllocatorParams for more information.
         
@@ -127,6 +135,7 @@ overlay11:
     - name: GetFreeArenaGround
       address:
         NA: 0x22E93C0
+        EU: 0x22E9D00
       description: |-
         The GetFreeArena function used for ground mode. See SetMemAllocatorParams for more information.
         
@@ -136,6 +145,7 @@ overlay11:
     - name: GroundMainReturnDungeon
       address:
         NA: 0x22E9414
+        EU: 0x22E9D54
       description: |-
         Implements SPECIAL_PROC_RETURN_DUNGEON (see ScriptSpecialProcessCall).
         
@@ -143,6 +153,7 @@ overlay11:
     - name: GroundMainNextDay
       address:
         NA: 0x22E9438
+        EU: 0x22E9D78
       description: |-
         Implements SPECIAL_PROC_NEXT_DAY (see ScriptSpecialProcessCall).
         
@@ -150,6 +161,7 @@ overlay11:
     - name: JumpToTitleScreen
       address:
         NA: 0x22E95DC
+        EU: 0x22E9F1C
       description: |-
         Implements SPECIAL_PROC_JUMP_TO_TITLE_SCREEN and SPECIAL_PROC_0x1A (see ScriptSpecialProcessCall).
         
@@ -158,6 +170,7 @@ overlay11:
     - name: ReturnToTitleScreen
       address:
         NA: 0x22E9694
+        EU: 0x22E9FD4
       description: |-
         Implements SPECIAL_PROC_RETURN_TO_TITLE_SCREEN (see ScriptSpecialProcessCall).
         
@@ -166,6 +179,7 @@ overlay11:
     - name: ScriptSpecialProcess0x16
       address:
         NA: 0x22E96F4
+        EU: 0x22EA034
       description: |-
         Implements SPECIAL_PROC_0x16 (see ScriptSpecialProcessCall).
         
@@ -173,6 +187,7 @@ overlay11:
     - name: SprintfStatic
       address:
         NA: 0x2308ECC
+        EU: 0x2309868
       description: |-
         Statically defined copy of sprintf(3) in overlay 11. See arm9.yml for more information.
         
@@ -183,6 +198,7 @@ overlay11:
     - name: StatusUpdate
       address:
         NA: 0x2313A98
+        EU: 0x2314478
       description: |-
         Implements SPECIAL_PROC_STATUS_UPDATE (see ScriptSpecialProcessCall).
         

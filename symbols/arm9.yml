@@ -18,6 +18,7 @@ arm9:
     - name: InitMemAllocTable
       address:
         NA: 0x2000DE0
+        EU: 0x2000DE0
       description: |-
         Initializes MEMORY_ALLOCATION_TABLE.
         
@@ -27,6 +28,7 @@ arm9:
     - name: SetMemAllocatorParams
       address:
         NA: 0x2000E70
+        EU: 0x2000E70
       description: |-
         Sets global parameters for the memory allocator.
         
@@ -39,6 +41,7 @@ arm9:
     - name: GetAllocArenaDefault
       address:
         NA: 0x2000EC0
+        EU: 0x2000EC0
       description: |-
         The default function for retrieving the arena for memory allocations. This function always just returns the initial arena pointer.
         
@@ -48,6 +51,7 @@ arm9:
     - name: GetFreeArenaDefault
       address:
         NA: 0x2000EC4
+        EU: 0x2000EC4
       description: |-
         The default function for retrieving the arena for memory freeing. This function always just returns the initial arena pointer.
         
@@ -57,6 +61,7 @@ arm9:
     - name: InitMemArena
       address:
         NA: 0x2000EC8
+        EU: 0x2000EC8
       description: |-
         Initializes a new memory arena with the given specifications, and records it in the global MEMORY_ALLOCATION_TABLE.
         
@@ -67,6 +72,7 @@ arm9:
     - name: MemAllocFlagsToBlockType
       address:
         NA: 0x2000F44
+        EU: 0x2000F44
       description: |-
         Converts the internal alloc flags bitfield (struct mem_block field 0x4) to the block type bitfield (struct mem_block field 0x0).
         
@@ -75,6 +81,7 @@ arm9:
     - name: FindAvailableMemBlock
       address:
         NA: 0x2000F88
+        EU: 0x2000F88
       description: |-
         Searches through the given memory arena for a block with enough free space.
         
@@ -87,6 +94,7 @@ arm9:
     - name: SplitMemBlock
       address:
         NA: 0x2001070
+        EU: 0x2001070
       description: |-
         Given a memory block at a given index, splits off another memory block of the specified size from the end.
         
@@ -101,6 +109,7 @@ arm9:
     - name: MemAlloc
       address:
         NA: 0x2001170
+        EU: 0x2001170
       description: |-
         Allocates some memory on the heap, returning a pointer to the starting address.
         
@@ -114,6 +123,7 @@ arm9:
     - name: MemFree
       address:
         NA: 0x2001188
+        EU: 0x2001188
       description: |-
         Frees heap-allocated memory.
         
@@ -123,6 +133,7 @@ arm9:
     - name: MemArenaAlloc
       address:
         NA: 0x200119C
+        EU: 0x200119C
       description: |-
         Allocates some memory on the heap and creates a new global memory arena with it.
         
@@ -136,6 +147,7 @@ arm9:
     - name: CreateMemArena
       address:
         NA: 0x2001280
+        EU: 0x2001280
       description: |-
         Creates a new memory arena within a given block of memory.
         
@@ -147,6 +159,7 @@ arm9:
     - name: MemLocateSet
       address:
         NA: 0x2001390
+        EU: 0x2001390
       description: |-
         The implementation for MemAlloc.
         
@@ -163,6 +176,7 @@ arm9:
     - name: MemLocateUnset
       address:
         NA: 0x2001638
+        EU: 0x2001638
       description: |-
         The implementation for MemFree.
         
@@ -173,6 +187,7 @@ arm9:
     - name: RoundUpDiv256
       address:
         NA: 0x2001894
+        EU: 0x2001894
       description: |-
         Divide a number by 256 and round up to the nearest integer.
         
@@ -181,6 +196,7 @@ arm9:
     - name: MultiplyByFixedPoint
       address:
         NA: 0x2001A54
+        EU: 0x2001A54
       description: |-
         Multiply a signed integer x by a signed fixed point multiplier (in Q24.8 format: 24 integer bits + 8 fractional bits).
         
@@ -190,6 +206,7 @@ arm9:
     - name: UMultiplyByFixedPoint
       address:
         NA: 0x2001B0C
+        EU: 0x2001B0C
       description: |-
         Multiplies an unsigned integer x by an unsigned fixed point multiplier (in Q24.8 format: 24 integer bits + 8 fractional bits).
         
@@ -199,6 +216,7 @@ arm9:
     - name: WaitForever
       address:
         NA: 0x2002438
+        EU: 0x2002438
       description: |-
         Sets some program state and calls WaitForInterrupt in an infinite loop.
         
@@ -208,6 +226,7 @@ arm9:
     - name: InitMemAllocTableVeneer
       address:
         NA: 0x200321C
+        EU: 0x200321C
       description: |-
         Likely a linker-generated veneer for InitMemAllocTable.
         
@@ -217,6 +236,7 @@ arm9:
     - name: MemZero
       address:
         NA: 0x2003250
+        EU: 0x2003250
       description: |-
         Zeroes a buffer.
         
@@ -225,6 +245,7 @@ arm9:
     - name: TaskProcBoot
       address:
         NA: 0x2003328
+        EU: 0x2003328
       description: |-
         Probably related to booting the game?
         
@@ -234,6 +255,7 @@ arm9:
     - name: SoundResume
       address:
         NA: 0x2003CC4
+        EU: 0x2003CC4
       description: |-
         Probably resumes the sound player if paused?
         
@@ -241,6 +263,7 @@ arm9:
     - name: CardPullOutWithStatus
       address:
         NA: 0x2003D2C
+        EU: 0x2003D2C
       description: |-
         Probably aborts the program with some status code? It seems to serve a similar purpose to the exit(3) function.
         
@@ -250,6 +273,7 @@ arm9:
     - name: CardPullOut
       address:
         NA: 0x2003D70
+        EU: 0x2003D70
       description: |-
         Sets some global flag that probably triggers system exit?
         
@@ -259,6 +283,7 @@ arm9:
     - name: CardBackupError
       address:
         NA: 0x2003D94
+        EU: 0x2003D94
       description: |-
         Sets some global flag that maybe indicates a save error?
         
@@ -268,6 +293,7 @@ arm9:
     - name: HaltProcessDisp
       address:
         NA: 0x2003DB8
+        EU: 0x2003DB8
       description: |-
         Maybe halts the process display?
         
@@ -309,6 +335,7 @@ arm9:
     - name: KeyWaitInit
       address:
         NA: 0x2006DA4
+        EU: 0x2006DA4
       description: |-
         Implements (most of?) SPECIAL_PROC_KEY_WAIT_INIT (see ScriptSpecialProcessCall).
         
@@ -402,6 +429,7 @@ arm9:
     - name: LoadFileFromRom
       address:
         NA: 0x2008C3C
+        EU: 0x2008C3C
       description: |-
         Loads a file from ROM by filepath into a heap-allocated buffer.
         
@@ -421,6 +449,7 @@ arm9:
     - name: AppendProgPos
       address:
         NA: 0x200C120
+        EU: 0x200C1A8
       description: |-
         Write a base message into a string and append the file name and line number to the end in the format "file = '%s'  line = %5d\n".
         
@@ -433,6 +462,7 @@ arm9:
     - name: DebugPrintTrace
       address:
         NA: 0x200C16C
+        EU: 0x200C1F4
       description: |-
         Would log a printf format string tagged with the file name and line number in the debug binary.
         
@@ -478,6 +508,7 @@ arm9:
     - name: FatalError
       address:
         NA: 0x200C25C
+        EU: 0x200C2E4
       description: |-
         Logs some debug messages, then hangs the process.
         
@@ -489,6 +520,7 @@ arm9:
     - name: IsAuraBow
       address:
         NA: 0x200CC14
+        EU: 0x200CC9C
       description: |-
         Checks if an item is one of the aura bows received at the start of the game.
         
@@ -524,6 +556,7 @@ arm9:
     - name: IsBagFull
       address:
         NA: 0x200EDC0
+        EU: 0x200EE68
       description: |-
         Implements SPECIAL_PROC_IS_BAG_FULL (see ScriptSpecialProcessCall).
         
@@ -531,6 +564,7 @@ arm9:
     - name: CountItemTypeInBag
       address:
         NA: 0x200EE88
+        EU: 0x200EF30
       description: |-
         Implements SPECIAL_PROC_COUNT_ITEM_TYPE_IN_BAG (see ScriptSpecialProcessCall).
         
@@ -539,6 +573,7 @@ arm9:
     - name: AddItemToBag
       address:
         NA: 0x200F84C
+        EU: 0x200F8F4
       description: |-
         Implements SPECIAL_PROC_ADD_ITEM_TO_BAG (see ScriptSpecialProcessCall).
         
@@ -547,6 +582,7 @@ arm9:
     - name: ScriptSpecialProcess0x39
       address:
         NA: 0x200FD54
+        EU: 0x200FDFC
       description: |-
         Implements SPECIAL_PROC_0x39 (see ScriptSpecialProcessCall).
         
@@ -554,6 +590,7 @@ arm9:
     - name: CountItemTypeInStorage
       address:
         NA: 0x200FEE4
+        EU: 0x200FF8C
       description: |-
         Implements SPECIAL_PROC_COUNT_ITEM_TYPE_IN_STORAGE (see ScriptSpecialProcessCall).
         
@@ -562,6 +599,7 @@ arm9:
     - name: RemoveItemsTypeInStorage
       address:
         NA: 0x20101E4
+        EU: 0x201028C
       description: |-
         Probably? Implements SPECIAL_PROC_0x2A (see ScriptSpecialProcessCall).
         
@@ -570,6 +608,7 @@ arm9:
     - name: AddItemToStorage
       address:
         NA: 0x201031C
+        EU: 0x20103C4
       description: |-
         Implements SPECIAL_PROC_ADD_ITEM_TO_STORAGE (see ScriptSpecialProcessCall).
         
@@ -578,6 +617,7 @@ arm9:
     - name: GetExclusiveItemOffset
       address:
         NA: 0x2010E40
+        EU: 0x2010EE8
       description: |-
         Gets the exclusive item offset, which is the item ID relative to that of the first exclusive item, the Prism Ruff.
         
@@ -586,6 +626,7 @@ arm9:
     - name: ApplyExclusiveItemStatBoosts
       address:
         NA: 0x2010E64
+        EU: 0x2010F0C
       description: |-
         Applies stat boosts from an exclusive item.
         
@@ -597,6 +638,7 @@ arm9:
     - name: SetExclusiveItemEffect
       address:
         NA: 0x2010F80
+        EU: 0x2011028
       description: |-
         Sets the bit for an exclusive item effect.
         
@@ -605,6 +647,7 @@ arm9:
     - name: ExclusiveItemEffectFlagTest
       address:
         NA: 0x2010FA4
+        EU: 0x201104C
       description: |-
         Tests the exclusive item bitvector for a specific exclusive item effect.
         
@@ -614,6 +657,7 @@ arm9:
     - name: GetMoveTargetAndRange
       address:
         NA: 0x2013840
+        EU: 0x20138E8
       description: |-
         Gets the move target-and-range field. See struct move_target_and_range in the C headers.
         
@@ -623,6 +667,7 @@ arm9:
     - name: GetMoveBasePower
       address:
         NA: 0x20139CC
+        EU: 0x2013A74
       description: |-
         Gets the base power of a move from the move data table.
         
@@ -631,6 +676,7 @@ arm9:
     - name: GetMaxPp
       address:
         NA: 0x2013A50
+        EU: 0x2013AF8
       description: |-
         Gets the maximum PP for a given move.
         
@@ -639,6 +685,7 @@ arm9:
     - name: GetMoveCritChance
       address:
         NA: 0x2013B10
+        EU: 0x2013BB8
       description: |-
         Gets the critical hit chance of a move.
         
@@ -663,6 +710,7 @@ arm9:
     - name: GetMoveCategory
       address:
         NA: 0x20151C8
+        EU: 0x2015270
       description: |-
         Gets a move's category (physical, special, status).
         
@@ -671,6 +719,7 @@ arm9:
     - name: LoadWteFromRom
       address:
         NA: 0x201DE4C
+        EU: 0x201DEE8
       description: |-
         Loads a SIR0-wrapped WTE file from ROM, and returns a handle to it
         
@@ -680,6 +729,7 @@ arm9:
     - name: LoadWteFromFileDirectory
       address:
         NA: 0x201DEC4
+        EU: 0x201DF60
       description: |-
         Loads a SIR0-wrapped WTE file from a file directory, and returns a handle to it
         
@@ -690,6 +740,7 @@ arm9:
     - name: UnloadWte
       address:
         NA: 0x201DF18
+        EU: 0x201DFB4
       description: |-
         Frees the buffer used to store the WTE data in the handle, and sets both pointers to null
         
@@ -697,6 +748,7 @@ arm9:
     - name: HandleSir0Translation
       address:
         NA: 0x201F4B4
+        EU: 0x201F550
       description: |-
         Translates the offsets in a SIR0 file into NDS memory addresses, changes the magic number to SirO (opened), and returns a pointer to the first pointer specified in the SIR0 header (beginning of the data).
         
@@ -764,6 +816,7 @@ arm9:
     - name: StringFromMessageId
       address:
         NA: 0x20258C4
+        EU: 0x2025B90
       description: |-
         Gets the string corresponding to a given message ID.
         
@@ -772,6 +825,7 @@ arm9:
     - name: SetScreenWindowsColor
       address:
         NA: 0x2027A68
+        EU: 0x2027D5C
       description: |-
         Sets the palette of the frames of windows in the specified screen
         
@@ -780,6 +834,7 @@ arm9:
     - name: SetBothScreensWindowsColor
       address:
         NA: 0x2027A80
+        EU: 0x2027D74
       description: |-
         Sets the palette of the frames of windows in both screens
         
@@ -787,6 +842,7 @@ arm9:
     - name: InitMainTeamAfterQuiz
       address:
         NA: 0x20487C4
+        EU: 0x2048AE0
       description: |-
         Implements SPECIAL_PROC_INIT_MAIN_TEAM_AFTER_QUIZ (see ScriptSpecialProcessCall).
         
@@ -794,6 +850,7 @@ arm9:
     - name: ScriptSpecialProcess0x3
       address:
         NA: 0x2048A0C
+        EU: 0x2048D28
       description: |-
         Implements SPECIAL_PROC_0x3 (see ScriptSpecialProcessCall).
         
@@ -801,6 +858,7 @@ arm9:
     - name: ScriptSpecialProcess0x4
       address:
         NA: 0x2048A84
+        EU: 0x2048DA0
       description: |-
         Implements SPECIAL_PROC_0x4 (see ScriptSpecialProcessCall).
         
@@ -816,6 +874,7 @@ arm9:
     - name: ScriptSpecialProcess0x3A
       address:
         NA: 0x204FC28
+        EU: 0x204FF60
       description: |-
         Implements SPECIAL_PROC_0x3A (see ScriptSpecialProcessCall).
         
@@ -823,6 +882,7 @@ arm9:
     - name: ScriptSpecialProcess0x3B
       address:
         NA: 0x204FEC8
+        EU: 0x2050200
       description: |-
         Implements SPECIAL_PROC_0x3B (see ScriptSpecialProcessCall).
         
@@ -830,6 +890,7 @@ arm9:
     - name: SendSkyGiftToGuildmaster
       address:
         NA: 0x204FF80
+        EU: 0x20502B8
       description: |-
         Implements SPECIAL_PROC_SEND_SKY_GIFT_TO_GUILDMASTER (see ScriptSpecialProcessCall).
         
@@ -837,6 +898,7 @@ arm9:
     - name: SubFixedPoint
       address:
         NA: 0x2050F10
+        EU: 0x2051248
       description: |-
         Compute the subtraction of two decimal fixed point floats.
         
@@ -848,6 +910,7 @@ arm9:
     - name: BinToDecFixedPoint
       address:
         NA: 0x2051020
+        EU: 0x2051358
       description: |-
         Convert a Q16.16 binary fixed-point float to the decimal fixed-point float used for belly calculations. Thousandths are floored.
         
@@ -858,6 +921,7 @@ arm9:
     - name: CeilFixedPoint
       address:
         NA: 0x2051064
+        EU: 0x205139C
       description: |-
         Compute the ceiling of a decimal fixed point float.
         
@@ -868,6 +932,7 @@ arm9:
     - name: DungeonGoesUp
       address:
         NA: 0x2051288
+        EU: 0x20515C0
       description: |-
         Returns whether the specified dungeon is considered as going upward or not
         
@@ -876,6 +941,7 @@ arm9:
     - name: IsUnown
       address:
         NA: 0x2054A88
+        EU: 0x2054E04
       description: |-
         Checks if a monster ID is an Unown.
         
@@ -884,6 +950,7 @@ arm9:
     - name: IsShaymin
       address:
         NA: 0x2054AA4
+        EU: 0x2054E20
       description: |-
         Checks if a monster ID is a Shaymin form.
         
@@ -892,6 +959,7 @@ arm9:
     - name: IsCastform
       address:
         NA: 0x2054AD4
+        EU: 0x2054E50
       description: |-
         Checks if a monster ID is a Castform form.
         
@@ -900,6 +968,7 @@ arm9:
     - name: IsCherrim
       address:
         NA: 0x2054B2C
+        EU: 0x2054EA8
       description: |-
         Checks if a monster ID is a Cherrim form.
         
@@ -908,6 +977,7 @@ arm9:
     - name: IsDeoxys
       address:
         NA: 0x2054B74
+        EU: 0x2054EF0
       description: |-
         Checks if a monster ID is a Deoxys form.
         
@@ -916,6 +986,7 @@ arm9:
     - name: IsMonsterOnTeam
       address:
         NA: 0x2055148
+        EU: 0x20554C4
       description: |-
         Checks if a given monster is on the exploration team (not necessarily the active party)?
         
@@ -925,6 +996,7 @@ arm9:
     - name: SetTeamSetupHeroAndPartnerOnly
       address:
         NA: 0x20569CC
+        EU: 0x2056D48
       description: |-
         Implements SPECIAL_PROC_SET_TEAM_SETUP_HERO_AND_PARTNER_ONLY (see ScriptSpecialProcessCall).
         
@@ -932,6 +1004,7 @@ arm9:
     - name: SetTeamSetupHeroOnly
       address:
         NA: 0x2056AB0
+        EU: 0x2056E2C
       description: |-
         Implements SPECIAL_PROC_SET_TEAM_SETUP_HERO_ONLY (see ScriptSpecialProcessCall).
         
@@ -939,6 +1012,7 @@ arm9:
     - name: GetPartyMembers
       address:
         NA: 0x2056C20
+        EU: 0x2056F9C
       description: |-
         Appears to get the team's active party members. Implements most of SPECIAL_PROC_IS_TEAM_SETUP_SOLO (see ScriptSpecialProcessCall).
         
@@ -947,6 +1021,7 @@ arm9:
     - name: IqSkillFlagTest
       address:
         NA: 0x2058F04
+        EU: 0x2059280
       description: |-
         Tests whether an IQ skill with a given ID is active.
         
@@ -956,6 +1031,7 @@ arm9:
     - name: GetSosMailCount
       address:
         NA: 0x205B97C
+        EU: 0x205BCF8
       description: |-
         Implements SPECIAL_PROC_GET_SOS_MAIL_COUNT (see ScriptSpecialProcessCall).
         
@@ -965,6 +1041,7 @@ arm9:
     - name: DungeonRequestsDone
       address:
         NA: 0x205EDA4
+        EU: 0x205F120
       description: |-
         Seems to return the number of missions completed.
         
@@ -984,6 +1061,7 @@ arm9:
     - name: AnyDungeonRequestsDone
       address:
         NA: 0x205EE20
+        EU: 0x205F19C
       description: |-
         Calls DungeonRequestsDone with the second argument set to true, and converts the integer output to a boolean.
         
@@ -992,6 +1070,7 @@ arm9:
     - name: ScriptSpecialProcess0x3D
       address:
         NA: 0x2065B50
+        EU: 0x2065ECC
       description: |-
         Implements SPECIAL_PROC_0x3D (see ScriptSpecialProcessCall).
         
@@ -999,6 +1078,7 @@ arm9:
     - name: ScriptSpecialProcess0x3E
       address:
         NA: 0x2065B60
+        EU: 0x2065EDC
       description: |-
         Implements SPECIAL_PROC_0x3E (see ScriptSpecialProcessCall).
         
@@ -1006,6 +1086,7 @@ arm9:
     - name: ScriptSpecialProcess0x17
       address:
         NA: 0x2065C48
+        EU: 0x2065FC4
       description: |-
         Implements SPECIAL_PROC_0x17 (see ScriptSpecialProcessCall).
         
@@ -1013,6 +1094,7 @@ arm9:
     - name: ItemAtTableIdx
       address:
         NA: 0x2065CF8
+        EU: 0x2066074
       description: |-
         Gets info about the item at a given item table (not sure what this table is...) index.
         
@@ -1023,6 +1105,7 @@ arm9:
     - name: WaitForInterrupt
       address:
         NA: 0x207BC30
+        EU: 0x207BFC8
       description: |-
         Presumably blocks until the program receives an interrupt.
         
@@ -1032,6 +1115,7 @@ arm9:
     - name: FileInit
       address:
         NA: 0x207F3E4
+        EU: 0x207F77C
       description: |-
         Initializes a file_stream structure for file I/O.
         
@@ -1041,6 +1125,7 @@ arm9:
     - name: Abs
       address:
         NA: 0x208655C
+        EU: 0x20868F4
       description: |-
         Takes the absolute value of an integer.
         
@@ -1049,6 +1134,7 @@ arm9:
     - name: Mbtowc
       address:
         NA: 0x20871BC
+        EU: 0x2087554
       description: |-
         The mbtowc(3) C library function.
         
@@ -1059,6 +1145,7 @@ arm9:
     - name: TryAssignByte
       address:
         NA: 0x20871F4
+        EU: 0x208758C
       description: |-
         Assign a byte to the target of a pointer if the pointer is non-null.
         
@@ -1068,6 +1155,7 @@ arm9:
     - name: TryAssignByteWrapper
       address:
         NA: 0x2087208
+        EU: 0x20875A0
       description: |-
         Wrapper around TryAssignByte.
         
@@ -1079,6 +1167,7 @@ arm9:
     - name: Wcstombs
       address:
         NA: 0x2087224
+        EU: 0x20875BC
       description: |-
         The wcstombs(3) C library function.
         
@@ -1089,6 +1178,7 @@ arm9:
     - name: Memcpy
       address:
         NA: 0x208729C
+        EU: 0x2087634
       description: |-
         The memcpy(3) C library function.
         
@@ -1098,6 +1188,7 @@ arm9:
     - name: Memmove
       address:
         NA: 0x20872BC
+        EU: 0x2087654
       description: |-
         The memmove(3) C library function.
         
@@ -1109,6 +1200,7 @@ arm9:
     - name: Memset
       address:
         NA: 0x2087308
+        EU: 0x20876A0
       description: |-
         The memset(3) C library function.
         
@@ -1121,6 +1213,7 @@ arm9:
     - name: Memchr
       address:
         NA: 0x208731C
+        EU: 0x20876B4
       description: |-
         The memchr(3) C library function.
         
@@ -1131,6 +1224,7 @@ arm9:
     - name: Memcmp
       address:
         NA: 0x2087348
+        EU: 0x20876E0
       description: |-
         The memcmp(3) C library function.
         
@@ -1141,6 +1235,7 @@ arm9:
     - name: MemsetInternal
       address:
         NA: 0x2087388
+        EU: 0x2087720
       description: |-
         The actual memory-setting implementation for the memset(3) C library function.
         
@@ -1152,6 +1247,7 @@ arm9:
     - name: VsprintfInternalSlice
       address:
         NA: 0x2088C74
+        EU: 0x208900C
       description: |-
         This is what implements the bulk of VsprintfInternal.
         
@@ -1165,6 +1261,7 @@ arm9:
     - name: TryAppendToSlice
       address:
         NA: 0x2089498
+        EU: 0x2089830
       description: |-
         Best-effort append the given data to a slice. If the slice's capacity is reached, any remaining data will be truncated.
         
@@ -1175,6 +1272,7 @@ arm9:
     - name: VsprintfInternal
       address:
         NA: 0x20894DC
+        EU: 0x2089874
       description: |-
         This is what implements Vsprintf. It's akin to __vsprintf_internal in the modern-day version of glibc (in fact, it's probably an older version of this).
         
@@ -1186,6 +1284,7 @@ arm9:
     - name: Vsprintf
       address:
         NA: 0x2089544
+        EU: 0x20898DC
       description: |-
         The vsprintf(3) C library function.
         
@@ -1196,6 +1295,7 @@ arm9:
     - name: Snprintf
       address:
         NA: 0x208955C
+        EU: 0x20898F4
       description: |-
         The snprintf(3) C library function.
         
@@ -1209,6 +1309,7 @@ arm9:
     - name: Sprintf
       address:
         NA: 0x2089584
+        EU: 0x208991C
       description: |-
         The sprintf(3) C library function.
         
@@ -1221,6 +1322,7 @@ arm9:
     - name: Strlen
       address:
         NA: 0x2089678
+        EU: 0x2089A10
       description: |-
         The strlen(3) C library function.
         
@@ -1229,6 +1331,7 @@ arm9:
     - name: Strcpy
       address:
         NA: 0x2089694
+        EU: 0x2089A2C
       description: |-
         The strcpy(3) C library function.
         
@@ -1239,6 +1342,7 @@ arm9:
     - name: Strncpy
       address:
         NA: 0x208975C
+        EU: 0x2089AF4
       description: |-
         The strncpy(3) C library function.
         
@@ -1248,6 +1352,7 @@ arm9:
     - name: Strcat
       address:
         NA: 0x20897AC
+        EU: 0x2089B44
       description: |-
         The strcat(3) C library function.
         
@@ -1256,6 +1361,7 @@ arm9:
     - name: Strncat
       address:
         NA: 0x20897DC
+        EU: 0x2089B74
       description: |-
         The strncat(3) C library function.
         
@@ -1265,6 +1371,7 @@ arm9:
     - name: Strcmp
       address:
         NA: 0x208982C
+        EU: 0x2089BC4
       description: |-
         The strcmp(3) C library function.
         
@@ -1276,6 +1383,7 @@ arm9:
     - name: Strncmp
       address:
         NA: 0x2089940
+        EU: 0x2089CD8
       description: |-
         The strncmp(3) C library function.
         
@@ -1286,6 +1394,7 @@ arm9:
     - name: Strchr
       address:
         NA: 0x2089974
+        EU: 0x2089D0C
       description: |-
         The strchr(3) C library function.
         
@@ -1295,6 +1404,7 @@ arm9:
     - name: Strcspn
       address:
         NA: 0x20899B0
+        EU: 0x2089D48
       description: |-
         The strcspn(3) C library function.
         
@@ -1304,6 +1414,7 @@ arm9:
     - name: Strstr
       address:
         NA: 0x2089A70
+        EU: 0x2089E08
       description: |-
         The strstr(3) C library function.
         
@@ -1313,6 +1424,7 @@ arm9:
     - name: Wcslen
       address:
         NA: 0x208B3E8
+        EU: 0x208B780
       description: |-
         The wcslen(3) C library function.
         
@@ -1331,6 +1443,7 @@ arm9:
     - name: DivideUInt
       address:
         NA: 0x20900B0
+        EU: 0x2090448
       description: |-
         This appears to be the libgcc implementation of __udivsi3 (not sure which gcc version), which implements the division operator for unsigned ints.
         
@@ -1342,6 +1455,7 @@ arm9:
     - name: DivideUIntNoZeroCheck
       address:
         NA: 0x20900B8
+        EU: 0x2090450
       description: |-
         Subsidiary function to DivideUInt. Skips the initial check for divisor == 0.
         

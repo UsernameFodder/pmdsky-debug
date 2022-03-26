@@ -17,6 +17,7 @@ overlay29:
     - name: DungeonAlloc
       address:
         NA: 0x22DEA5C
+        EU: 0x22DF39C
       description: |-
         Allocates a new dungeon struct.
         
@@ -33,6 +34,7 @@ overlay29:
     - name: DungeonZInit
       address:
         NA: 0x22DEA90
+        EU: 0x22DF3D0
       description: |-
         Zero-initializes the dungeon struct pointed to by the master dungeon pointer.
         
@@ -47,10 +49,12 @@ overlay29:
     - name: InitializeDungeon
       address:
         NA: 0x22DEF38
+        EU: 0x22DF878
       description: Seems to initialize the dungeon struct from specified dungeon data.
     - name: GetFloorType
       address:
         NA: 0x22E03B0
+        EU: 0x22E0CF0
       description: |-
         Get the current floor type.
         
@@ -63,6 +67,7 @@ overlay29:
     - name: FixedRoomIsSubstituteRoom
       address:
         NA: 0x22E08CC
+        EU: 0x22E120C
       description: |-
         Checks if the current fixed room is the "substitute room" (ID 0x6E).
         
@@ -84,6 +89,7 @@ overlay29:
     - name: GenerateRngSeed
       address:
         NA: 0x22EA980
+        EU: 0x22EB330
       description: |-
         Generates a seed with which to initialize the PRNG.
         
@@ -97,6 +103,7 @@ overlay29:
     - name: GetRngPreseed
       address:
         NA: 0x22EA9CC
+        EU: 0x22EB37C
       description: |-
         Gets the current preseed stored in the global PRNG state. See GenerateRngSeed for more information.
         
@@ -104,6 +111,7 @@ overlay29:
     - name: SetRngPreseed
       address:
         NA: 0x22EA9DC
+        EU: 0x22EB38C
       description: |-
         Sets the preseed in the global PRNG state. See GenerateRngSeed for more information.
         
@@ -111,6 +119,7 @@ overlay29:
     - name: InitRng
       address:
         NA: 0x22EA9EC
+        EU: 0x22EB39C
       description: |-
         Initialize (or reinitialize) the PRNG with a given seed. The primary LCG and the five secondary LCGs are initialized jointly, and with the same seed.
         
@@ -118,6 +127,7 @@ overlay29:
     - name: Rand16Bit
       address:
         NA: 0x22EAA20
+        EU: 0x22EB3D0
       description: |-
         Computes a pseudorandom 16-bit integer.
         
@@ -134,6 +144,7 @@ overlay29:
     - name: RandInt
       address:
         NA: 0x22EAA98
+        EU: 0x22EB448
       description: |-
         Compute a pseudorandom integer under a given maximum value.
         
@@ -142,6 +153,7 @@ overlay29:
     - name: RandRange
       address:
         NA: 0x22EAAC0
+        EU: 0x22EB470
       description: |-
         Compute a pseudorandom value between two integers.
         
@@ -161,6 +173,7 @@ overlay29:
     - name: CalcStatusDuration
       address:
         NA: 0x22EAB80
+        EU: 0x22EB530
       description: |-
         Seems to calculate the duration of a volatile status on a monster.
         
@@ -171,6 +184,7 @@ overlay29:
     - name: RngUnsetSecondary
       address:
         NA: 0x22EAC34
+        EU: 0x22EB5E4
       description: |-
         Sets the PRNG to use the primary LCG for subsequent random number generation, and also resets the secondary LCG index back to 0.
         
@@ -180,6 +194,7 @@ overlay29:
     - name: RngSetSecondary
       address:
         NA: 0x22EAC4C
+        EU: 0x22EB5FC
       description: |-
         Sets the PRNG to use one of the 5 secondary LCGs for subsequent random number generation.
         
@@ -204,6 +219,7 @@ overlay29:
     - name: ResetDamageDesc
       address:
         NA: 0x22F6E18
+        EU: 0x22F77D0
       description: |-
         Seems to zero some damage description struct, which is output by the damage calculation function.
         
@@ -211,6 +227,7 @@ overlay29:
     - name: FloorNumberIsEven
       address:
         NA: 0x22F73B4
+        EU: 0x22F7D6C
       description: |-
         Checks if the current dungeon floor number is even.
         
@@ -220,6 +237,7 @@ overlay29:
     - name: HasLowHealth
       address:
         NA: 0x22FB610
+        EU: 0x22FC01C
       description: |-
         Checks if the entity passed is a valid monster, and if it's at low health (below 25% rounded down)
         
@@ -228,6 +246,7 @@ overlay29:
     - name: IsSpecialStoryAlly
       address:
         NA: 0x22FBAD0
+        EU: 0x22FC4CC
       description: |-
         Checks if a monster is a special story ally.
         
@@ -238,6 +257,7 @@ overlay29:
     - name: IsExperienceLocked
       address:
         NA: 0x22FBAF0
+        EU: 0x22FC4EC
       description: |-
         Checks if a monster does not gain experience.
         
@@ -262,6 +282,7 @@ overlay29:
     - name: SprintfStatic
       address:
         NA: 0x23002C8
+        EU: 0x2300CF4
       description: |-
         Statically defined copy of sprintf(3) in overlay 29. See arm9.yml for more information.
         
@@ -282,6 +303,7 @@ overlay29:
     - name: NoGastroAcidStatus
       address:
         NA: 0x2301CDC
+        EU: 0x2302708
       description: |-
         Checks if a monster does not have the Gastro Acid status.
         
@@ -300,6 +322,7 @@ overlay29:
     - name: MonsterIsType
       address:
         NA: 0x2301E50
+        EU: 0x230287C
       description: |-
         Checks if a monster is a given type.
         
@@ -309,6 +332,7 @@ overlay29:
     - name: IqSkillIsEnabled
       address:
         NA: 0x2301F80
+        EU: 0x23029AC
       description: |-
         Checks if a monster has a certain IQ skill enabled.
         
@@ -318,6 +342,7 @@ overlay29:
     - name: GetMovePower
       address:
         NA: 0x230231C
+        EU: 0x2302D48
       description: |-
         Gets the power of a move, factoring in Ginseng/Space Globe boosts.
         
@@ -366,6 +391,7 @@ overlay29:
     - name: ExclusiveItemEffectIsActive
       address:
         NA: 0x230A9B8
+        EU: 0x230B42C
       description: |-
         Checks if a certain exclusive item effect is active for a monster.
         
@@ -391,6 +417,7 @@ overlay29:
     - name: CalcDamage
       address:
         NA: 0x230BBAC
+        EU: 0x230C620
       description: |-
         Probably the damage calculation function.
         
@@ -424,6 +451,7 @@ overlay29:
     - name: CalcDamageFixed
       address:
         NA: 0x230D240
+        EU: 0x230DCB4
       description: |-
         Appears to calculate damage from a fixed-damage effect.
         
@@ -440,6 +468,7 @@ overlay29:
     - name: CalcDamageFixedNoCategory
       address:
         NA: 0x230D3A8
+        EU: 0x230DE1C
       description: |-
         A wrapper around CalcDamageFixed with the move category set to none.
         
@@ -452,6 +481,7 @@ overlay29:
     - name: CalcDamageFixedWrapper
       address:
         NA: 0x230D3F4
+        EU: 0x230DE68
       description: |-
         A wrapper around CalcDamageFixed.
         
@@ -465,6 +495,7 @@ overlay29:
     - name: ResetDamageCalcScratchSpace
       address:
         NA: 0x230D528
+        EU: 0x230DF9C
       description: |-
         CalcDamage seems to use scratch space of some kind, which this function zeroes.
         
@@ -472,6 +503,7 @@ overlay29:
     - name: AuraBowIsActive
       address:
         NA: 0x230F6C8
+        EU: 0x231013C
       description: |-
         Checks if a monster is holding an aura bow that isn't disabled by Klutz.
         
@@ -480,6 +512,7 @@ overlay29:
     - name: ExclusiveItemOffenseBoost
       address:
         NA: 0x230F778
+        EU: 0x23101EC
       description: |-
         Gets the exclusive item boost for attack/special attack for a monster
         
@@ -489,6 +522,7 @@ overlay29:
     - name: ExclusiveItemDefenseBoost
       address:
         NA: 0x230F788
+        EU: 0x23101FC
       description: |-
         Gets the exclusive item boost for defense/special defense for a monster
         
@@ -888,6 +922,7 @@ overlay29:
     - name: TryActivateQuickFeet
       address:
         NA: 0x2314E1C
+        EU: 0x231587C
       description: |-
         Activate the Quick Feet ability on the defender, if the monster has it and it's active.
         
@@ -966,6 +1001,7 @@ overlay29:
     - name: HasConditionalGroundImmunity
       address:
         NA: 0x2318A4C
+        EU: 0x23194AC
       description: |-
         Checks if a monster is currently immune to Ground-type moves for reasons other than typing and ability.
         
@@ -976,6 +1012,7 @@ overlay29:
     - name: GetEntityMoveTargetAndRange
       address:
         NA: 0x231ACAC
+        EU: 0x231B70C
       description: |-
         Gets the move target-and-range field when used by a given entity. See struct move_target_and_range in the C headers.
         
@@ -986,6 +1023,7 @@ overlay29:
     - name: ApplyItemEffect
       address:
         NA: 0x231B68C
+        EU: 0x231C0EC
       description: |-
         Seems to apply an item's effect via a giant switch statement?
         
@@ -996,6 +1034,7 @@ overlay29:
     - name: ViolentSeedBoost
       address:
         NA: 0x231CE1C
+        EU: 0x231D884
       description: |-
         Applies the Violent Seed boost to an entity.
         
@@ -1015,6 +1054,7 @@ overlay29:
     - name: GetMaxPpWrapper
       address:
         NA: 0x231E9F0
+        EU: 0x231F458
       description: |-
         Gets the maximum PP for a given move. A wrapper around the function in the ARM 9 binary.
         
@@ -1023,6 +1063,7 @@ overlay29:
     - name: MoveIsNotPhysical
       address:
         NA: 0x231EA18
+        EU: 0x231F480
       description: |-
         Checks if a move isn't a physical move.
         
@@ -1087,6 +1128,7 @@ overlay29:
     - name: UpdateMovePp
       address:
         NA: 0x2324D8C
+        EU: 0x23257F4
       description: |-
         Updates the PP of any moves that were used by a monster, if PP should be consumed.
         
@@ -1095,6 +1137,7 @@ overlay29:
     - name: LowerSshort
       address:
         NA: 0x2324E64
+        EU: 0x23258CC
       description: |-
         Gets the lower 2 bytes of a 4-byte number and interprets it as a signed short.
         
@@ -1128,6 +1171,7 @@ overlay29:
     - name: CalcDamageProjectile
       address:
         NA: 0x2332C4C
+        EU: 0x233368C
       description: |-
         Appears to calculate damage from a variable-damage projectile.
         
@@ -1159,6 +1203,7 @@ overlay29:
     - name: GravityIsActive
       address:
         NA: 0x2338390
+        EU: 0x2338F60
       description: |-
         Checks if gravity is active on the floor.
         
@@ -1166,6 +1211,7 @@ overlay29:
     - name: IsSecretBazaar
       address:
         NA: 0x23385C4
+        EU: 0x2339194
       description: |-
         Checks if the current floor is the Secret Bazaar.
         
@@ -1173,6 +1219,7 @@ overlay29:
     - name: IsSecretRoom
       address:
         NA: 0x233865C
+        EU: 0x233922C
       description: |-
         Checks if the current floor is the Secret Room fixed floor (from hidden stairs).
         
@@ -1189,6 +1236,7 @@ overlay29:
     - name: IsNormalFloor
       address:
         NA: 0x233A654
+        EU: 0x233B238
       description: |-
         Checks if the current floor is a normal layout.
         
@@ -1204,6 +1252,7 @@ overlay29:
     - name: GenerateFloor
       address:
         NA: 0x233A6D8
+        EU: 0x233B2BC
       description: |-
         This is the master function that generates the dungeon floor.
         
@@ -1215,6 +1264,7 @@ overlay29:
     - name: GetTileTerrain
       address:
         NA: 0x233AE78
+        EU: 0x233BA5C
       description: |-
         Gets the terrain type of a tile.
         
@@ -1223,6 +1273,7 @@ overlay29:
     - name: Rand100
       address:
         NA: 0x233AE84
+        EU: 0x233BA68
       description: |-
         Compute a pseudorandom integer on the interval [0, 100).
         
@@ -1230,6 +1281,7 @@ overlay29:
     - name: FlagHallwayJunctions
       address:
         NA: 0x233AF0C
+        EU: 0x233BAF0
       description: |-
         Sets the junction flag (bit 3 of the terrain flags) on any hallway junction tiles in some range [x0, x1), [y0, y1). This leaves tiles within rooms untouched.
         
@@ -1242,6 +1294,7 @@ overlay29:
     - name: GenerateStandardFloor
       address:
         NA: 0x233B028
+        EU: 0x233BC0C
       description: |-
         Generate a standard floor with the given parameters.
         
@@ -1257,6 +1310,7 @@ overlay29:
     - name: GenerateOuterRingFloor
       address:
         NA: 0x233B190
+        EU: 0x233BD74
       description: |-
         Generates a floor layout with a 4x2 grid of rooms, surrounded by an outer ring of hallways.
         
@@ -1264,6 +1318,7 @@ overlay29:
     - name: GenerateCrossroadsFloor
       address:
         NA: 0x233B61C
+        EU: 0x233C200
       description: |-
         Generates a floor layout with a mesh of hallways on the interior 3x2 grid, surrounded by a boundary of rooms protruding from the interior like spikes, excluding the corner cells.
         
@@ -1271,6 +1326,7 @@ overlay29:
     - name: GenerateLineFloor
       address:
         NA: 0x233BA7C
+        EU: 0x233C660
       description: |-
         Generates a floor layout with 5 grid cells in a horizontal line.
         
@@ -1278,6 +1334,7 @@ overlay29:
     - name: GenerateCrossFloor
       address:
         NA: 0x233BBDC
+        EU: 0x233C7C0
       description: |-
         Generates a floor layout with 5 rooms arranged in a cross ("plus sign") formation.
         
@@ -1285,6 +1342,7 @@ overlay29:
     - name: GenerateBeetleFloor
       address:
         NA: 0x233BD74
+        EU: 0x233C958
       description: |-
         Generates a floor layout in a "beetle" formation, which is created by taking a 3x3 grid of rooms, connecting the rooms within each row, and merging the central column into one big room.
         
@@ -1292,6 +1350,7 @@ overlay29:
     - name: MergeRoomsVertically
       address:
         NA: 0x233BF30
+        EU: 0x233CB14
       description: |-
         Merges two vertically stacked rooms into one larger room.
         
@@ -1302,6 +1361,7 @@ overlay29:
     - name: GenerateOuterRoomsFloor
       address:
         NA: 0x233C07C
+        EU: 0x233CC60
       description: |-
         Generates a floor layout with a ring of rooms on the grid boundary and nothing in the interior.
         
@@ -1313,6 +1373,7 @@ overlay29:
     - name: IsNotFullFloorFixedRoom
       address:
         NA: 0x233C310
+        EU: 0x233CEF4
       description: |-
         Checks if a fixed room ID does not correspond to a fixed, full-floor layout.
         
@@ -1323,6 +1384,7 @@ overlay29:
     - name: GenerateFixedRoom
       address:
         NA: 0x233C32C
+        EU: 0x233CF10
       description: |-
         Handles fixed room generation if the floor contains a fixed room.
         
@@ -1332,6 +1394,7 @@ overlay29:
     - name: GenerateOneRoomMonsterHouseFloor
       address:
         NA: 0x233C774
+        EU: 0x233D358
       description: |-
         Generates a floor layout with just a large, one-room Monster House.
         
@@ -1341,6 +1404,7 @@ overlay29:
     - name: GenerateTwoRoomsWithMonsterHouseFloor
       address:
         NA: 0x233C844
+        EU: 0x233D428
       description: |-
         Generate a floor layout with two rooms (left and right), one of which is a Monster House.
         
@@ -1348,6 +1412,7 @@ overlay29:
     - name: GenerateExtraHallways
       address:
         NA: 0x233C9E8
+        EU: 0x233D5CC
       description: |-
         Generate extra hallways on the floor via a series of random walks.
         
@@ -1360,6 +1425,7 @@ overlay29:
     - name: GetGridPositions
       address:
         NA: 0x233CF84
+        EU: 0x233DB68
       description: |-
         Get the grid cell positions for a given set of floor grid dimensions.
         
@@ -1370,6 +1436,7 @@ overlay29:
     - name: InitDungeonGrid
       address:
         NA: 0x233D004
+        EU: 0x233DBE8
       description: |-
         Initialize a dungeon grid with defaults.
         
@@ -1383,6 +1450,7 @@ overlay29:
     - name: AssignRooms
       address:
         NA: 0x233D104
+        EU: 0x233DCE8
       description: |-
         Randomly selects a subset of grid cells to become rooms.
         
@@ -1397,6 +1465,7 @@ overlay29:
     - name: CreateRoomsAndAnchors
       address:
         NA: 0x233D318
+        EU: 0x233DEFC
       description: |-
         Creates rooms and hallway anchors in each grid cell as designated by AssignRooms.
         
@@ -1411,6 +1480,7 @@ overlay29:
     - name: GenerateSecondaryStructures
       address:
         NA: 0x233D674
+        EU: 0x233E258
       description: |-
         Try to generate secondary structures in flagged rooms.
         
@@ -1430,6 +1500,7 @@ overlay29:
     - name: AssignGridCellConnections
       address:
         NA: 0x233E05C
+        EU: 0x233EC40
       description: |-
         Randomly assigns connections between adjacent grid cells.
         
@@ -1446,6 +1517,7 @@ overlay29:
     - name: CreateGridCellConnections
       address:
         NA: 0x233E43C
+        EU: 0x233F020
       description: |-
         Create grid cell connections either by creating hallways or merging rooms.
         
@@ -1462,6 +1534,7 @@ overlay29:
     - name: GenerateRoomImperfections
       address:
         NA: 0x233ED34
+        EU: 0x233F918
       description: |-
         Attempt to generate room imperfections for each room in the floor layout, if enabled.
         
@@ -1473,6 +1546,7 @@ overlay29:
     - name: CreateHallway
       address:
         NA: 0x233F120
+        EU: 0x233FD04
       description: |-
         Create a hallway between two points.
         
@@ -1490,6 +1564,7 @@ overlay29:
     - name: EnsureConnectedGrid
       address:
         NA: 0x233F424
+        EU: 0x2340008
       description: |-
         Ensure the grid forms a connected graph (all valid cells are reachable) by adding hallways to unreachable grid cells.
         
@@ -1503,6 +1578,7 @@ overlay29:
     - name: SetTerrainObstacleChecked
       address:
         NA: 0x233F900
+        EU: 0x23404E4
       description: |-
         Set the terrain of a specific tile to be an obstacle (wall or secondary terrain).
         
@@ -1514,6 +1590,7 @@ overlay29:
     - name: FinalizeJunctions
       address:
         NA: 0x233F93C
+        EU: 0x2340520
       description: |-
         Finalizes junction tiles by setting the junction flag (bit 3 of the terrain flags) and ensuring open terrain.
         
@@ -1534,6 +1611,7 @@ overlay29:
     - name: GenerateKecleonShop
       address:
         NA: 0x233FBE8
+        EU: 0x23407CC
       description: |-
         Possibly generate a Kecleon shop on the floor.
         
@@ -1546,6 +1624,7 @@ overlay29:
     - name: GenerateMonsterHouse
       address:
         NA: 0x233FF9C
+        EU: 0x2340B80
       description: |-
         Possibly generate a Monster House on the floor.
         
@@ -1558,6 +1637,7 @@ overlay29:
     - name: GenerateMazeRoom
       address:
         NA: 0x2340224
+        EU: 0x2340E08
       description: |-
         Possibly generate a maze room on the floor.
         
@@ -1570,6 +1650,7 @@ overlay29:
     - name: GenerateMaze
       address:
         NA: 0x2340458
+        EU: 0x234103C
       description: |-
         Generate a maze room within a given grid cell.
         
@@ -1580,6 +1661,7 @@ overlay29:
     - name: GenerateMazeLine
       address:
         NA: 0x23406D4
+        EU: 0x23412B8
       description: |-
         Generate a "maze line" from a given starting point, within the given bounds.
         
@@ -1596,6 +1678,7 @@ overlay29:
     - name: SetSpawnFlag5
       address:
         NA: 0x234087C
+        EU: 0x2341460
       description: |-
         Set spawn flag 5 (0b100000 or 0x20) on all tiles in a room.
         
@@ -1603,6 +1686,7 @@ overlay29:
     - name: IsNextToHallway
       address:
         NA: 0x23408D0
+        EU: 0x23414B4
       description: |-
         Checks if a tile position is either in a hallway or next to one.
         
@@ -1612,6 +1696,7 @@ overlay29:
     - name: ResolveInvalidSpawns
       address:
         NA: 0x2340974
+        EU: 0x2341558
       description: |-
         Resolve invalid spawn flags on tiles.
         
@@ -1621,6 +1706,7 @@ overlay29:
     - name: ConvertSecondaryTerrainToChasms
       address:
         NA: 0x2340A0C
+        EU: 0x23415F0
       description: |-
         Converts all secondary terrain tiles (water/lava) to chasms.
         
@@ -1628,6 +1714,7 @@ overlay29:
     - name: EnsureImpassableTilesAreWalls
       address:
         NA: 0x2340A78
+        EU: 0x234165C
       description: |-
         Ensures all tiles with the impassable flag are walls.
         
@@ -1635,6 +1722,7 @@ overlay29:
     - name: InitializeTile
       address:
         NA: 0x2340AD4
+        EU: 0x23416B8
       description: |-
         Initialize a tile struct.
         
@@ -1642,6 +1730,7 @@ overlay29:
     - name: ResetFloor
       address:
         NA: 0x2340B0C
+        EU: 0x23416F0
       description: |-
         Resets the floor in preparation for a floor generation attempt.
         
@@ -1651,6 +1740,7 @@ overlay29:
     - name: PosIsOutOfBounds
       address:
         NA: 0x2340CAC
+        EU: 0x2341890
       description: |-
         Checks if a position (x, y) is out of bounds on the map: !((0 <= x <= 55) && (0 <= y <= 31)).
         
@@ -1660,6 +1750,7 @@ overlay29:
     - name: ShuffleSpawnPositions
       address:
         NA: 0x2340CE4
+        EU: 0x23418C8
       description: |-
         Randomly shuffle an array of spawn positions.
         
@@ -1668,6 +1759,7 @@ overlay29:
     - name: SpawnNonEnemies
       address:
         NA: 0x2340D4C
+        EU: 0x2341930
       description: |-
         Spawn all non-enemy entities, which includes stairs, items, traps, and the player.
         
@@ -1686,6 +1778,7 @@ overlay29:
     - name: SpawnEnemies
       address:
         NA: 0x2341470
+        EU: 0x2342054
       description: |-
         Spawn all enemies, which includes normal enemies and those in Monster Houses.
         
@@ -1698,6 +1791,7 @@ overlay29:
     - name: SetSecondaryTerrainOnWall
       address:
         NA: 0x234176C
+        EU: 0x2342350
       description: |-
         Set a specific tile to have secondary terrain (water/lava), but only if it's a passable wall.
         
@@ -1705,6 +1799,7 @@ overlay29:
     - name: GenerateSecondaryTerrainFormations
       address:
         NA: 0x23417AC
+        EU: 0x2342390
       description: |-
         Generate secondary terrain (water/lava) formations.
         
@@ -1717,6 +1812,7 @@ overlay29:
     - name: StairsAlwaysReachable
       address:
         NA: 0x2341E6C
+        EU: 0x2342A50
       description: |-
         Checks that the stairs are reachable from every walkable tile on the floor.
         
@@ -1729,6 +1825,7 @@ overlay29:
     - name: ConvertWallsToChasms
       address:
         NA: 0x2342548
+        EU: 0x234312C
       description: |-
         Converts all wall tiles to chasms.
         
@@ -1736,6 +1833,7 @@ overlay29:
     - name: ResetInnerBoundaryTileRows
       address:
         NA: 0x2342B7C
+        EU: 0x2343760
       description: |-
         Reset the inner boundary tile rows (y == 1 and y == 30) to their initial state of all wall tiles, with impassable walls at the edges (x == 0 and x == 55).
         
@@ -1743,6 +1841,7 @@ overlay29:
     - name: SpawnStairs
       address:
         NA: 0x2342C8C
+        EU: 0x2343870
       description: |-
         Spawn stairs at the given location.
         
@@ -1756,6 +1855,7 @@ overlay29:
     - name: LoadFixedRoomData
       address:
         NA: 0x2343D90
+        EU: 0x2344974
       description: |-
         Loads fixed room data from BALANCE/fixed.bin into the buffer pointed to by FIXED_ROOM_DATA_PTR.
         
@@ -1763,6 +1863,7 @@ overlay29:
     - name: IsHiddenStairsFloor
       address:
         NA: 0x234450C
+        EU: 0x23450F0
       description: |-
         Checks if the current floor is either the Secret Bazaar or a Secret Room.
         
@@ -1770,6 +1871,7 @@ overlay29:
     - name: HasHeldItem
       address:
         NA: 0x23467E4
+        EU: 0x23473D0
       description: |-
         Checks if a monster has a certain held item.
         
@@ -1779,6 +1881,7 @@ overlay29:
     - name: IsCurrentMissionType
       address:
         NA: 0x234921C
+        EU: 0x2349E1C
       description: |-
         Checks if the current floor is an active mission destination of a given type (and any subtype).
         
@@ -1787,6 +1890,7 @@ overlay29:
     - name: IsCurrentMissionTypeExact
       address:
         NA: 0x2349250
+        EU: 0x2349E50
       description: |-
         Checks if the current floor is an active mission destination of a given type and subtype.
         
@@ -1796,6 +1900,7 @@ overlay29:
     - name: IsOutlawMonsterHouseFloor
       address:
         NA: 0x234928C
+        EU: 0x2349E8C
       description: |-
         Checks if the current floor is a mission destination for a Monster House outlaw mission.
         
@@ -1803,6 +1908,7 @@ overlay29:
     - name: IsGoldenChamber
       address:
         NA: 0x23492B0
+        EU: 0x2349EB0
       description: |-
         Checks if the current floor is a Golden Chamber floor.
         
@@ -1810,6 +1916,7 @@ overlay29:
     - name: IsLegendaryChallengeFloor
       address:
         NA: 0x23492D4
+        EU: 0x2349ED4
       description: |-
         Checks if the current floor is a boss floor for a Legendary Challenge Letter mission.
         
@@ -1817,6 +1924,7 @@ overlay29:
     - name: IsJirachiChallengeFloor
       address:
         NA: 0x2349314
+        EU: 0x2349F14
       description: |-
         Checks if the current floor is the boss floor in Star Cave Pit for Jirachi's Challenge Letter mission.
         
@@ -1824,6 +1932,7 @@ overlay29:
     - name: IsDestinationFloorWithMonster
       address:
         NA: 0x234934C
+        EU: 0x2349F4C
       description: |-
         Checks if the current floor is a mission destination floor with a special monster.
         
@@ -1833,6 +1942,7 @@ overlay29:
     - name: MissionTargetEnemyIsDefeated
       address:
         NA: 0x2349470
+        EU: 0x234A070
       description: |-
         Checks if the target enemy of the mission on the current floor has been defeated.
         
@@ -1840,6 +1950,7 @@ overlay29:
     - name: SetMissionTargetEnemyDefeated
       address:
         NA: 0x2349490
+        EU: 0x234A090
       description: |-
         Set the flag for whether or not the target enemy of the current mission has been defeated.
         
@@ -1847,6 +1958,7 @@ overlay29:
     - name: IsDestinationFloorWithFixedRoom
       address:
         NA: 0x23494A4
+        EU: 0x234A0A4
       description: |-
         Checks if the current floor is a mission destination floor with a fixed room.
         
@@ -1856,6 +1968,7 @@ overlay29:
     - name: GetItemToRetrieve
       address:
         NA: 0x23494CC
+        EU: 0x234A0CC
       description: |-
         Get the ID of the item that needs to be retrieve on the current floor for a mission, if one exists.
         
@@ -1863,6 +1976,7 @@ overlay29:
     - name: GetItemToDeliver
       address:
         NA: 0x23494F0
+        EU: 0x234A0F0
       description: |-
         Get the ID of the item that needs to be delivered to a mission client on the current floor, if one exists.
         
@@ -1870,6 +1984,7 @@ overlay29:
     - name: GetSpecialTargetItem
       address:
         NA: 0x234951C
+        EU: 0x234A11C
       description: |-
         Get the ID of the special target item for a Sealed Chamber or Treasure Memo mission on the current floor.
         
@@ -1877,6 +1992,7 @@ overlay29:
     - name: IsDestinationFloorWithItem
       address:
         NA: 0x2349564
+        EU: 0x234A164
       description: |-
         Checks if the current floor is a mission destination floor with a special item.
         
@@ -1886,6 +2002,7 @@ overlay29:
     - name: IsDestinationFloorWithHiddenOutlaw
       address:
         NA: 0x23495C4
+        EU: 0x234A1C4
       description: |-
         Checks if the current floor is a mission destination floor with a "hidden outlaw" that behaves like a normal enemy.
         
@@ -1893,6 +2010,7 @@ overlay29:
     - name: IsDestinationFloorWithFleeingOutlaw
       address:
         NA: 0x23495E8
+        EU: 0x234A1E8
       description: |-
         Checks if the current floor is a mission destination floor with a "fleeing outlaw" that runs away.
         
@@ -1900,6 +2018,7 @@ overlay29:
     - name: GetMissionTargetEnemy
       address:
         NA: 0x2349620
+        EU: 0x234A220
       description: |-
         Get the monster ID of the target enemy to be defeated on the current floor for a mission, if one exists.
         
@@ -1907,6 +2026,7 @@ overlay29:
     - name: GetMissionEnemyMinionGroup
       address:
         NA: 0x2349638
+        EU: 0x234A238
       description: |-
         Get the monster ID of the specified minion group on the current floor for a mission, if it exists.
         
@@ -1917,6 +2037,7 @@ overlay29:
     - name: FloorHasMissionMonster
       address:
         NA: 0x2349748
+        EU: 0x234A348
       description: |-
         Checks if a given floor is a mission destination with a special monster, either a target to rescue or an enemy to defeat.
         
@@ -2049,6 +2170,7 @@ overlay29:
     - name: RunDungeonMode
       address:
         NA: 0x234BF28
+        EU: 0x234CB28
       description: |-
         This appears to be the top-level function for running dungeon mode.
         
@@ -2058,6 +2180,7 @@ overlay29:
     - name: SetBothScreensWindowColorToDefault
       address:
         NA: 0x234CF60
+        EU: 0x234DB60
       description: |-
         This changes the palettes of windows in both screens to an appropiate value depending on the playthrough
         If you're in a special episode, they turn green , otherwise, they turn blue or pink depending on your character's sex
