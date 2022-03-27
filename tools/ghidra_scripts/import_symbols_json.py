@@ -8,8 +8,8 @@ import ghidra.program.model.symbol.SourceType as SourceType
 COMMENT_TAG = "=== imported description ===\n"
 functionManager = currentProgram.getFunctionManager()
 
-jython_file = askFile("Select symbol JSON file", "Importing symbols...")
-with open(jython_file.absolutePath, "r") as f:
+jythonFile = askFile("Select symbol JSON file", "Import")
+with open(jythonFile.absolutePath, "r") as f:
     symbols = json.load(f)
 
 for s in symbols:
@@ -44,10 +44,10 @@ for s in symbols:
         if not comment:
             comment = COMMENT_TAG + description
         else:
-            comment_parts = comment.split(COMMENT_TAG)
-            if len(comment_parts) == 1:
-                comment_parts[0] += "\n\n"
-                comment_parts.append("")
-            comment_parts[1] = description
-            comment = COMMENT_TAG.join(comment_parts)
+            commentParts = comment.split(COMMENT_TAG)
+            if len(commentParts) == 1:
+                commentParts[0] += "\n\n"
+                commentParts.append("")
+            commentParts[1] = description
+            comment = COMMENT_TAG.join(commentParts)
         setPlateComment(address, comment)
