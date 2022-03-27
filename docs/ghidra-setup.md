@@ -1,6 +1,8 @@
 # Setting up Ghidra for _Pokémon Mystery Dungeon: Explorers of Sky_
 Properly setting up a Ghidra environment for _Explorers of Sky_ can be tricky if you don't do it right. This guide walks you through the whole process, assuming you've already installed Ghidra and just have an EoS ROM file. Steps were originally written for Ghidra 10.1.1, but shouldn't vary significantly between Ghidra versions.
 
+Note: There is an easy-to-use Ghidra extension for loading Nintendo DS ROMs called [NTRGhidra](https://github.com/pedro-javierf/NTRGhidra). With NTRGhidra installed, you can just load the ROM (i.e., the `.nds` file) directly, then skip to the [Run analyzers](#run-analyzers) section. However, NTRGhidra loads all overlays at once, which reduces the quality of Ghidra's auto-analysis, particularly with cross-overlay branching. For this reason, the setup described below is still preferred when analyzing overlays in depth.
+
 ## Unpack the ROM
 An NDS ROM (`.nds` file) is a [self-contained collection](https://problemkaputt.de/gbatek.htm#dscartridgeheader) that contains everything needed to run a game. This includes multiple binaries (for two separate CPUs!), an entire file system called the [NitroFS](https://problemkaputt.de/gbatek.htm#dscartridgenitroromandnitroarcfilesystems), metadata, and some other stuff. In order to do any reverse engineering, you'll first need to unpack this collection into its constituent parts.
 

@@ -4,6 +4,7 @@
     - [Symbols](#symbols)
       - [Using the built-in import script](#using-the-built-in-import-script)
       - [Using the custom `pmdsky-debug` import script](#using-the-custom-pmdsky-debug-import-script)
+      - [Using the NTRGhidra import script](#using-the-ntrghidra-import-script)
     - [C headers (types and function signatures)](#c-headers-types-and-function-signatures)
       - [Applying types manually](#applying-types-manually)
       - [Enums](#enums)
@@ -17,6 +18,8 @@ Ghidra can load both symbols and C source code. These instructions assume a spec
 
 ### Symbols
 There are two options for importing `pmdsky-debug` symbols into Ghidra: with the built-in import script (easier) or with a custom one from `pmdsky-debug` (better). Using the built-in script requires slightly less setup, but won't import symbol descriptions, whereas the custom `pmdsky-debug` importer will create plate comments containing the symbol descriptions. The two options are otherwise equivalent.
+
+If you used [NTRGhidra](https://github.com/pedro-javierf/NTRGhidra) to set up your project, you must use a special import script. See [Using the NTRGhidra import script](#using-the-ntrghidra-import-script).
 
 #### Using the built-in import script
 1. Download `symbols-ghidra.zip` from the [latest release package](https://github.com/UsernameFodder/pmdsky-debug/releases/latest) and extract the archive.
@@ -49,6 +52,11 @@ There are two options for importing `pmdsky-debug` symbols into Ghidra: with the
 5. You should now see symbol names and descriptions in the code listing and the decompiler:
 
    ![Symbol names and descriptions in Ghidra](images/ghidra-symbols-with-descriptions.png)
+
+#### Using the NTRGhidra import script
+Importing into an NTRGhidra project is essentially the same as [using the custom `pmdsky-debug` import script](#using-the-custom-pmdsky-debug-import-script), with the following differences:
+1. Use [`import_symbols_ntr_ghidra.py`](../tools/ghidra_scripts/import_symbols_ntr_ghidra.py) rather than `import_symbols_json.py`.
+2. When the script opens the file picker window, select the version subdirectory within the `symbols-json` archive that matches your ROM (e.g., `symbols-json/NA/` for the North American version), rather than a specific JSON file. The script will import symbols from all the relevant files at once.
 
 ### C headers (types and function signatures)
 Importing C headers is best done after importing symbols, so make sure you've followed the steps in the [previous section](#symbols) before proceeding with this section.
