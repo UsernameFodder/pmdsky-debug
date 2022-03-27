@@ -2,6 +2,8 @@
 - [Using Debug Info from `pmdsky-debug`](#using-debug-info-from-pmdsky-debug)
   - [Ghidra](#ghidra)
     - [Symbols](#symbols)
+      - [Using the built-in import script](#using-the-built-in-import-script)
+      - [Using the custom `pmdsky-debug` import script](#using-the-custom-pmdsky-debug-import-script)
     - [C headers (types and function signatures)](#c-headers-types-and-function-signatures)
       - [Applying types manually](#applying-types-manually)
       - [Enums](#enums)
@@ -14,6 +16,9 @@
 Ghidra can load both symbols and C source code. These instructions assume a specific Ghidra setup. See the preceding steps in [Setting up Ghidra for _Pokémon Mystery Dungeon: Explorers of Sky_](ghidra-setup.md) first.
 
 ### Symbols
+There are two options for importing `pmdsky-debug` symbols into Ghidra: with the built-in import script (easier) or with a custom one from `pmdsky-debug` (better). Using the built-in script requires slightly less setup, but won't import symbol descriptions, whereas the custom `pmdsky-debug` importer will create plate comments containing the symbol descriptions. The two options are otherwise equivalent.
+
+#### Using the built-in import script
 1. Download `symbols-ghidra.zip` from the [latest release package](https://github.com/UsernameFodder/pmdsky-debug/releases/latest) and extract the archive.
 2. In the Ghidra code browser, open the script manager (Window > Script Manager in the menu, or by clicking the image in the top toolbar).
 3. Search for "ImportSymbolsScript.py".
@@ -27,6 +32,23 @@ Ghidra can load both symbols and C source code. These instructions assume a spec
 5. You should now see symbol names in the code listing and the decompiler:
 
    ![Symbol names in Ghidra](images/ghidra-symbols.png)
+
+#### Using the custom `pmdsky-debug` import script
+1. Download `symbols-json.zip` from the [latest release package](https://github.com/UsernameFodder/pmdsky-debug/releases/latest) and extract the archive.
+2. In the Ghidra code browser, open the script manager (Window > Script Manager in the menu, or by clicking the image in the top toolbar).
+3. Add [`import_symbols_json.py`](../tools/ghidra_scripts/import_symbols_json.py) to the Ghidra Script Manager. There are two ways to do this:
+    1. [Preferred] Add a script directory containing the file (e.g., the `pmdsky-debug/tools/ghidra_scripts` directory) with the "Manage Script Directories" button.
+
+       ![Manage Script Directories](images/ghidra-manage-script-directories.png)
+
+    2. Create a new script with the "Create New Script" button and manually copy the code into the editor (select "Python" for the script type and name it `import_symbols_json.py`).
+
+       ![Create New Script](images/ghidra-create-new-script.png)
+
+4. Search for the "import_symbols_json.py" script you just added and run it. When you run the script, it will open a file picker window. Run the import script on each of the `.json` files in the `pmdsky-debug` archive (pick the version subdirectory that matches your ROM) that correspond to a binary you've loaded into the Ghidra program.
+5. You should now see symbol names and descriptions in the code listing and the decompiler:
+
+   ![Symbol names and descriptions in Ghidra](images/ghidra-symbols-with-descriptions.png)
 
 ### C headers (types and function signatures)
 Importing C headers is best done after importing symbols, so make sure you've followed the steps in the [previous section](#symbols) before proceeding with this section.
