@@ -6,6 +6,7 @@
 
 pub mod ghidra;
 pub mod ghidra_csv;
+pub mod json;
 pub mod sym;
 pub mod symgen_yml;
 
@@ -14,6 +15,7 @@ use std::io::{Read, Write};
 
 use ghidra::GhidraFormatter;
 use ghidra_csv::CsvLoader;
+use json::JsonFormatter;
 use sym::SymFormatter;
 pub use symgen_yml::Generate;
 use symgen_yml::{Load, LoadParams, SymGen, Symbol};
@@ -33,6 +35,8 @@ pub enum OutFormat {
     Ghidra,
     /// [`sym`] format
     Sym,
+    /// [`json`] format
+    Json,
 }
 
 // Technically this makes it redundant to impl Generate for the individual formatters, but I think
@@ -47,6 +51,7 @@ impl Generate for OutFormat {
         match self {
             Self::Ghidra => GhidraFormatter {}.generate(writer, symgen, version),
             Self::Sym => SymFormatter {}.generate(writer, symgen, version),
+            Self::Json => JsonFormatter {}.generate(writer, symgen, version),
         }
     }
 }
@@ -57,6 +62,7 @@ impl OutFormat {
         match name {
             "ghidra" => Some(Self::Ghidra),
             "sym" => Some(Self::Sym),
+            "json" => Some(Self::Json),
             _ => None,
         }
     }
@@ -65,11 +71,12 @@ impl OutFormat {
         match self {
             Self::Ghidra => String::from("ghidra"),
             Self::Sym => String::from("sym"),
+            Self::Json => String::from("json"),
         }
     }
     /// Returns an [`Iterator`] over all [`OutFormat`] variants.
     pub fn all() -> impl Iterator<Item = OutFormat> {
-        [Self::Ghidra, Self::Sym].iter().copied()
+        [Self::Ghidra, Self::Sym, Self::Json].iter().copied()
     }
 }
 
