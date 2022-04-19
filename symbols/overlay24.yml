@@ -6,9 +6,11 @@ overlay24:
   address:
     NA: 0x238A140
     EU: 0x238AC80
+    JP: 0x238B6A0
   length:
     NA: 0x24E0
     EU: 0x24E0
+    JP: 0x24E0
   description: Controls the Chansey Day Care.
   functions: []
   data:

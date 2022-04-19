@@ -9,6 +9,7 @@ arm9:
   length:
     NA: 0xB73F8
     EU: 0xB7D38
+    JP: 0xB8CB8
   description: Hard-coded immediate values (literals) in instructions within the ARM 9 binary.
   functions: []
   data:
@@ -43,9 +44,11 @@ overlay0:
   address:
     NA: 0x22BCA80
     EU: 0x22BD3C0
+    JP: 0x22BE220
   length:
     NA: 0x609A0
     EU: 0x60880
+    JP: 0x609A0
   description: Hard-coded immediate values (literals) in instructions within overlay 0.
   functions: []
   data:
@@ -62,9 +65,11 @@ overlay10:
   address:
     NA: 0x22BCA80
     EU: 0x22BD3C0
+    JP: 0x22BE220
   length:
     NA: 0x1F7A0
     EU: 0x1F7A0
+    JP: 0x1F6A0
   description: Hard-coded immediate values (literals) in instructions within overlay 10.
   functions: []
   data: []
@@ -76,9 +81,11 @@ overlay11:
   address:
     NA: 0x22DC240
     EU: 0x22DCB80
+    JP: 0x22DD8E0
   length:
     NA: 0x48C40
     EU: 0x48E40
+    JP: 0x48B00
   description: Hard-coded immediate values (literals) in instructions within overlay 11.
   functions: []
   data: []
@@ -90,9 +97,11 @@ overlay29:
   address:
     NA: 0x22DC240
     EU: 0x22DCB80
+    JP: 0x22DD8E0
   length:
     NA: 0x77620
     EU: 0x77900
+    JP: 0x77200
   description: Hard-coded immediate values (literals) in instructions within overlay 29.
   functions: []
   data:
@@ -109,9 +118,11 @@ overlay34:
   address:
     NA: 0x22DC240
     EU: 0x22DCB80
+    JP: 0x22DD8E0
   length:
     NA: 0xE60
     EU: 0xDC0
+    JP: 0xDC0
   description: Hard-coded immediate values (literals) in instructions within overlay 34.
   functions: []
   data: []
@@ -123,9 +134,11 @@ overlay1:
   address:
     NA: 0x2329520
     EU: 0x2329D40
+    JP: 0x232ACC0
   length:
     NA: 0x12D20
     EU: 0x12C80
+    JP: 0x12E00
   description: Hard-coded immediate values (literals) in instructions within overlay 1.
   functions: []
   data: []
@@ -137,9 +150,11 @@ overlay2:
   address:
     NA: 0x2329520
     EU: 0x2329D40
+    JP: 0x232ACC0
   length:
     NA: 0x2AFA0
     EU: 0x2AFC0
+    JP: 0x2AFA0
   description: Hard-coded immediate values (literals) in instructions within overlay 2.
   functions: []
   data: []
@@ -151,9 +166,11 @@ overlay3:
   address:
     NA: 0x233CA80
     EU: 0x233D200
+    JP: 0x233E300
   length:
     NA: 0xA160
     EU: 0xA160
+    JP: 0xA160
   description: Hard-coded immediate values (literals) in instructions within overlay 3.
   functions: []
   data: []
@@ -165,9 +182,11 @@ overlay4:
   address:
     NA: 0x233CA80
     EU: 0x233D200
+    JP: 0x233E300
   length:
     NA: 0x2BE0
     EU: 0x2BE0
+    JP: 0x2BE0
   description: Hard-coded immediate values (literals) in instructions within overlay 4.
   functions: []
   data: []
@@ -179,9 +198,11 @@ overlay5:
   address:
     NA: 0x233CA80
     EU: 0x233D200
+    JP: 0x233E300
   length:
     NA: 0x3240
     EU: 0x3240
+    JP: 0x3260
   description: Hard-coded immediate values (literals) in instructions within overlay 5.
   functions: []
   data: []
@@ -193,9 +214,11 @@ overlay6:
   address:
     NA: 0x233CA80
     EU: 0x233D200
+    JP: 0x233E300
   length:
     NA: 0x2460
     EU: 0x2460
+    JP: 0x2460
   description: Hard-coded immediate values (literals) in instructions within overlay 6.
   functions: []
   data: []
@@ -207,9 +230,11 @@ overlay7:
   address:
     NA: 0x233CA80
     EU: 0x233D200
+    JP: 0x233E300
   length:
     NA: 0x5100
     EU: 0x3300
+    JP: 0x53E0
   description: Hard-coded immediate values (literals) in instructions within overlay 7.
   functions: []
   data: []
@@ -221,9 +246,11 @@ overlay8:
   address:
     NA: 0x233CA80
     EU: 0x233D200
+    JP: 0x233E300
   length:
     NA: 0x2200
     EU: 0x2620
+    JP: 0x2200
   description: Hard-coded immediate values (literals) in instructions within overlay 8.
   functions: []
   data: []
@@ -235,9 +262,11 @@ overlay9:
   address:
     NA: 0x233CA80
     EU: 0x233D200
+    JP: 0x233E300
   length:
     NA: 0x2D80
     EU: 0x2D80
+    JP: 0x2D20
   description: Hard-coded immediate values (literals) in instructions within overlay 9.
   functions: []
   data:
@@ -254,9 +283,11 @@ overlay30:
   address:
     NA: 0x2382820
     EU: 0x2383420
+    JP: 0x2383AA0
   length:
     NA: 0x38A0
     EU: 0x38A0
+    JP: 0x3880
   description: Hard-coded immediate values (literals) in instructions within overlay 30.
   functions: []
   data: []
@@ -268,9 +299,11 @@ overlay31:
   address:
     NA: 0x2382820
     EU: 0x2383420
+    JP: 0x2383AA0
   length:
     NA: 0x7A80
     EU: 0x7AA0
+    JP: 0x7AC0
   description: Hard-coded immediate values (literals) in instructions within overlay 31.
   functions: []
   data: []
@@ -282,9 +315,11 @@ overlay13:
   address:
     NA: 0x238A140
     EU: 0x238AC80
+    JP: 0x238B6A0
   length:
     NA: 0x2E80
     EU: 0x2E80
+    JP: 0x2E80
   description: Hard-coded immediate values (literals) in instructions within overlay 13.
   functions: []
   data: []
@@ -296,9 +331,11 @@ overlay14:
   address:
     NA: 0x238A140
     EU: 0x238AC80
+    JP: 0x238B6A0
   length:
     NA: 0x3AE0
     EU: 0x3B40
+    JP: 0x3AE0
   description: Hard-coded immediate values (literals) in instructions within overlay 14.
   functions: []
   data: []
@@ -310,9 +347,11 @@ overlay15:
   address:
     NA: 0x238A140
     EU: 0x238AC80
+    JP: 0x238B6A0
   length:
     NA: 0x1060
     EU: 0x1080
+    JP: 0x1060
   description: Hard-coded immediate values (literals) in instructions within overlay 15.
   functions: []
   data: []
@@ -324,9 +363,11 @@ overlay16:
   address:
     NA: 0x238A140
     EU: 0x238AC80
+    JP: 0x238B6A0
   length:
     NA: 0x2D20
     EU: 0x2D20
+    JP: 0x2D40
   description: Hard-coded immediate values (literals) in instructions within overlay 16.
   functions: []
   data: []
@@ -338,9 +379,11 @@ overlay17:
   address:
     NA: 0x238A140
     EU: 0x238AC80
+    JP: 0x238B6A0
   length:
     NA: 0x1CE0
     EU: 0x1CE0
+    JP: 0x1CE0
   description: Hard-coded immediate values (literals) in instructions within overlay 17.
   functions: []
   data: []
@@ -352,9 +395,11 @@ overlay18:
   address:
     NA: 0x238A140
     EU: 0x238AC80
+    JP: 0x238B6A0
   length:
     NA: 0x3500
     EU: 0x3500
+    JP: 0x3520
   description: Hard-coded immediate values (literals) in instructions within overlay 18.
   functions: []
   data: []
@@ -366,9 +411,11 @@ overlay19:
   address:
     NA: 0x238A140
     EU: 0x238AC80
+    JP: 0x238B6A0
   length:
     NA: 0x4240
     EU: 0x4220
+    JP: 0x4220
   description: Hard-coded immediate values (literals) in instructions within overlay 19.
   functions: []
   data: []
@@ -380,9 +427,11 @@ overlay20:
   address:
     NA: 0x238A140
     EU: 0x238AC80
+    JP: 0x238B6A0
   length:
     NA: 0x3000
     EU: 0x3000
+    JP: 0x3000
   description: Hard-coded immediate values (literals) in instructions within overlay 20.
   functions: []
   data: []
@@ -394,9 +443,11 @@ overlay21:
   address:
     NA: 0x238A140
     EU: 0x238AC80
+    JP: 0x238B6A0
   length:
     NA: 0x2E20
     EU: 0x2E20
+    JP: 0x2E40
   description: Hard-coded immediate values (literals) in instructions within overlay 21.
   functions: []
   data: []
@@ -408,9 +459,11 @@ overlay22:
   address:
     NA: 0x238A140
     EU: 0x238AC80
+    JP: 0x238B6A0
   length:
     NA: 0x4B40
     EU: 0x4B40
+    JP: 0x4B40
   description: Hard-coded immediate values (literals) in instructions within overlay 22.
   functions: []
   data: []
@@ -422,9 +475,11 @@ overlay23:
   address:
     NA: 0x238A140
     EU: 0x238AC80
+    JP: 0x238B6A0
   length:
     NA: 0x3780
     EU: 0x3780
+    JP: 0x37E0
   description: Hard-coded immediate values (literals) in instructions within overlay 23.
   functions: []
   data: []
@@ -436,9 +491,11 @@ overlay24:
   address:
     NA: 0x238A140
     EU: 0x238AC80
+    JP: 0x238B6A0
   length:
     NA: 0x24E0
     EU: 0x24E0
+    JP: 0x24E0
   description: Hard-coded immediate values (literals) in instructions within overlay 24.
   functions: []
   data: []
@@ -450,9 +507,11 @@ overlay25:
   address:
     NA: 0x238A140
     EU: 0x238AC80
+    JP: 0x238B6A0
   length:
     NA: 0x14C0
     EU: 0x14C0
+    JP: 0x14C0
   description: Hard-coded immediate values (literals) in instructions within overlay 25.
   functions: []
   data: []
@@ -464,9 +523,11 @@ overlay26:
   address:
     NA: 0x238A140
     EU: 0x238AC80
+    JP: 0x238B6A0
   length:
     NA: 0xE40
     EU: 0xE40
+    JP: 0xE40
   description: Hard-coded immediate values (literals) in instructions within overlay 26.
   functions: []
   data: []
@@ -478,9 +539,11 @@ overlay27:
   address:
     NA: 0x238A140
     EU: 0x238AC80
+    JP: 0x238B6A0
   length:
     NA: 0x2D60
     EU: 0x2D60
+    JP: 0x2DA0
   description: Hard-coded immediate values (literals) in instructions within overlay 27.
   functions: []
   data: []
@@ -492,9 +555,11 @@ overlay28:
   address:
     NA: 0x238A140
     EU: 0x238AC80
+    JP: 0x238B6A0
   length:
     NA: 0xC60
     EU: 0xC60
+    JP: 0xC60
   description: Hard-coded immediate values (literals) in instructions within overlay 28.
   functions: []
   data: []

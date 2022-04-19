@@ -10,6 +10,7 @@ arm9:
   length:
     NA: 0xB73F8
     EU: 0xB7D38
+    JP: 0xB8CB8
   description: |-
     The main ARM9 binary.
     

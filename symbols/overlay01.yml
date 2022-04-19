@@ -6,9 +6,11 @@ overlay1:
   address:
     NA: 0x2329520
     EU: 0x2329D40
+    JP: 0x232ACC0
   length:
     NA: 0x12D20
     EU: 0x12C80
+    JP: 0x12E00
   description: |-
     Likely controls the top menu.
     

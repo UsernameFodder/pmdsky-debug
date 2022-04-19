@@ -6,9 +6,11 @@ overlay28:
   address:
     NA: 0x238A140
     EU: 0x238AC80
+    JP: 0x238B6A0
   length:
     NA: 0xC60
     EU: 0xC60
+    JP: 0xC60
   description: Controls the staff credits sequence.
   functions: []
   data: []

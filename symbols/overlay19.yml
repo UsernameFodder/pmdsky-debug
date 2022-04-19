@@ -6,9 +6,11 @@ overlay19:
   address:
     NA: 0x238A140
     EU: 0x238AC80
+    JP: 0x238B6A0
   length:
     NA: 0x4240
     EU: 0x4220
+    JP: 0x4220
   description: "Controls Spinda's Juice Bar."
   functions: []
   data:

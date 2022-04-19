@@ -6,9 +6,11 @@ overlay15:
   address:
     NA: 0x238A140
     EU: 0x238AC80
+    JP: 0x238B6A0
   length:
     NA: 0x1060
     EU: 0x1080
+    JP: 0x1060
   description: Controls the Duskull Bank.
   functions: []
   data:

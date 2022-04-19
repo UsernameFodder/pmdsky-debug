@@ -6,9 +6,11 @@ overlay18:
   address:
     NA: 0x238A140
     EU: 0x238AC80
+    JP: 0x238B6A0
   length:
     NA: 0x3500
     EU: 0x3500
+    JP: 0x3520
   description: Controls the Electivire Link Shop.
   functions: []
   data:

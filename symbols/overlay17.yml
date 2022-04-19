@@ -6,9 +6,11 @@ overlay17:
   address:
     NA: 0x238A140
     EU: 0x238AC80
+    JP: 0x238B6A0
   length:
     NA: 0x1CE0
     EU: 0x1CE0
+    JP: 0x1CE0
   description: Controls the Chimecho Assembly.
   functions: []
   data:

@@ -10,6 +10,7 @@ overlay11:
   length:
     NA: 0x48C40
     EU: 0x48E40
+    JP: 0x48B00
   description: |-
     The script engine.
     
