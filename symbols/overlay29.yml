@@ -20,6 +20,7 @@ overlay29:
       address:
         NA: 0x22DEA5C
         EU: 0x22DF39C
+        JP: 0x22E00FC
       description: |-
         Allocates a new dungeon struct.
         
@@ -38,6 +39,7 @@ overlay29:
       address:
         NA: 0x22DEA90
         EU: 0x22DF3D0
+        JP: 0x22E0130
       description: |-
         Zero-initializes the dungeon struct pointed to by the master dungeon pointer.
         
@@ -54,6 +56,7 @@ overlay29:
       address:
         NA: 0x22DEF38
         EU: 0x22DF878
+        JP: 0x22E05D8
       description: Seems to initialize the dungeon struct from specified dungeon data.
     - name: EntityIsValid
       address:
@@ -175,6 +178,7 @@ overlay29:
       address:
         NA: 0x22E03B0
         EU: 0x22E0CF0
+        JP: 0x22E1A48
       description: |-
         Get the current floor type.
         
@@ -196,6 +200,7 @@ overlay29:
       address:
         NA: 0x22E2AD8
         EU: 0x22E3418
+        JP: 0x22E416C
       description: |-
         Replaces instances of a given placeholder tag by the string representation of the given entity.
         
@@ -246,6 +251,7 @@ overlay29:
       address:
         NA: 0x22EA980
         EU: 0x22EB330
+        JP: 0x22EBFE8
       description: |-
         Generates a seed with which to initialize the dungeon PRNG.
         
@@ -260,6 +266,7 @@ overlay29:
       address:
         NA: 0x22EA9CC
         EU: 0x22EB37C
+        JP: 0x22EC034
       description: |-
         Gets the current preseed stored in the global dungeon PRNG state. See GenerateDungeonRngSeed for more information.
         
@@ -268,6 +275,7 @@ overlay29:
       address:
         NA: 0x22EA9DC
         EU: 0x22EB38C
+        JP: 0x22EC044
       description: |-
         Sets the preseed in the global dungeon PRNG state. See GenerateDungeonRngSeed for more information.
         
@@ -276,6 +284,7 @@ overlay29:
       address:
         NA: 0x22EA9EC
         EU: 0x22EB39C
+        JP: 0x22EC054
       description: |-
         Initialize (or reinitialize) the dungeon PRNG with a given seed. The primary LCG and the five secondary LCGs are initialized jointly, and with the same seed.
         
@@ -284,6 +293,7 @@ overlay29:
       address:
         NA: 0x22EAA20
         EU: 0x22EB3D0
+        JP: 0x22EC088
       description: |-
         Computes a pseudorandom 16-bit integer using the dungeon PRNG.
         
@@ -303,6 +313,7 @@ overlay29:
       address:
         NA: 0x22EAA98
         EU: 0x22EB448
+        JP: 0x22EC100
       description: |-
         Compute a pseudorandom integer under a given maximum value using the dungeon PRNG.
         
@@ -312,6 +323,7 @@ overlay29:
       address:
         NA: 0x22EAAC0
         EU: 0x22EB470
+        JP: 0x22EC128
       description: |-
         Compute a pseudorandom value between two integers using the dungeon PRNG.
         
@@ -335,6 +347,7 @@ overlay29:
       address:
         NA: 0x22EAB80
         EU: 0x22EB530
+        JP: 0x22EC1E8
       description: |-
         Seems to calculate the duration of a volatile status on a monster.
         
@@ -346,6 +359,7 @@ overlay29:
       address:
         NA: 0x22EAC34
         EU: 0x22EB5E4
+        JP: 0x22EC29C
       description: |-
         Sets the dungeon PRNG to use the primary LCG for subsequent random number generation, and also resets the secondary LCG index back to 0.
         
@@ -356,6 +370,7 @@ overlay29:
       address:
         NA: 0x22EAC4C
         EU: 0x22EB5FC
+        JP: 0x22EC2B4
       description: |-
         Sets the dungeon PRNG to use one of the 5 secondary LCGs for subsequent random number generation.
         
@@ -383,6 +398,7 @@ overlay29:
       address:
         NA: 0x22F6E18
         EU: 0x22F77D0
+        JP: 0x22F83FC
       description: |-
         Seems to zero some damage description struct, which is output by the damage calculation function.
         
@@ -391,6 +407,7 @@ overlay29:
       address:
         NA: 0x22F73B4
         EU: 0x22F7D6C
+        JP: 0x22F897C
       description: |-
         Checks if the current dungeon floor number is even.
         
@@ -520,6 +537,7 @@ overlay29:
       address:
         NA: 0x22FB610
         EU: 0x22FC01C
+        JP: 0x22FCAE4
       description: |-
         Checks if the entity passed is a valid monster, and if it's at low health (below 25% rounded down)
         
@@ -529,6 +547,7 @@ overlay29:
       address:
         NA: 0x22FBAD0
         EU: 0x22FC4CC
+        JP: 0x22FCFA4
       description: |-
         Checks if a monster is a special story ally.
         
@@ -540,6 +559,7 @@ overlay29:
       address:
         NA: 0x22FBAF0
         EU: 0x22FC4EC
+        JP: 0x22FCFC4
       description: |-
         Checks if a monster does not gain experience.
         
@@ -562,6 +582,7 @@ overlay29:
       address:
         NA: 0x23002C8
         EU: 0x2300CF4
+        JP: 0x23016D0
       description: |-
         Statically defined copy of sprintf(3) in overlay 29. See arm9.yml for more information.
         
@@ -573,6 +594,7 @@ overlay29:
       address:
         NA: 0x2301CDC
         EU: 0x2302708
+        JP: 0x2303234
       description: |-
         Checks if a monster does not have the Gastro Acid status.
         
@@ -582,6 +604,7 @@ overlay29:
       address:
         NA: 0x2301D10
         EU: 0x230273C
+        JP: 0x2303268
       description: |-
         Checks if a monster has a certain ability that isn't disabled by Gastro Acid.
         
@@ -601,6 +624,7 @@ overlay29:
       address:
         NA: 0x2301E50
         EU: 0x230287C
+        JP: 0x23033A0
       description: |-
         Checks if a monster is a given type.
         
@@ -611,6 +635,7 @@ overlay29:
       address:
         NA: 0x2301F80
         EU: 0x23029AC
+        JP: 0x23034D0
       description: |-
         Checks if a monster has a certain IQ skill enabled.
         
@@ -621,6 +646,7 @@ overlay29:
       address:
         NA: 0x230231C
         EU: 0x2302D48
+        JP: 0x230386C
       description: |-
         Gets the power of a move, factoring in Ginseng/Space Globe boosts.
         
@@ -631,6 +657,7 @@ overlay29:
       address:
         NA: 0x230253C
         EU: 0x2302F68
+        JP: 0x2303A8C
       description: |-
         Adds to a monster's experience points, subject to experience boosting effects.
         
@@ -645,6 +672,7 @@ overlay29:
       address:
         NA: 0x230AC58
         EU: 0x230B6CC
+        JP: 0x230C1D0
       description: |-
         Gets the type matchup for a given combat interaction.
         
@@ -677,6 +705,7 @@ overlay29:
       address:
         NA: 0x230D18C
         EU: 0x230DC00
+        JP: 0x230E6CC
       description: |-
         Appears to calculate recoil damage to a monster.
         
@@ -695,6 +724,7 @@ overlay29:
       address:
         NA: 0x230D240
         EU: 0x230DCB4
+        JP: 0x230E780
       description: |-
         Appears to calculate damage from a fixed-damage effect.
         
@@ -712,6 +742,7 @@ overlay29:
       address:
         NA: 0x230D3A8
         EU: 0x230DE1C
+        JP: 0x230E8E4
       description: |-
         A wrapper around CalcDamageFixed with the move category set to none.
         
@@ -725,6 +756,7 @@ overlay29:
       address:
         NA: 0x230D3F4
         EU: 0x230DE68
+        JP: 0x230E930
       description: |-
         A wrapper around CalcDamageFixed.
         
@@ -739,6 +771,7 @@ overlay29:
       address:
         NA: 0x230D528
         EU: 0x230DF9C
+        JP: 0x230EA64
       description: |-
         CalcDamage seems to use scratch space of some kind, which this function zeroes.
         
@@ -747,6 +780,7 @@ overlay29:
       address:
         NA: 0x230F6C8
         EU: 0x231013C
+        JP: 0x2310C04
       description: |-
         Checks if a monster is holding an aura bow that isn't disabled by Klutz.
         
@@ -792,6 +826,7 @@ overlay29:
       address:
         NA: 0x2311824
         EU: 0x2312284
+        JP: 0x2312D3C
       description: |-
         This is called by TryInflictSleepStatus.
         
@@ -801,6 +836,7 @@ overlay29:
       address:
         NA: 0x23118D8
         EU: 0x2312338
+        JP: 0x2312DF0
       description: |-
         Inflicts the Sleep status condition on a target monster if possible.
         
@@ -812,6 +848,7 @@ overlay29:
       address:
         NA: 0x2311C4C
         EU: 0x23126AC
+        JP: 0x2313158
       description: |-
         Inflicts the Nightmare status condition on a target monster if possible.
         
@@ -822,6 +859,7 @@ overlay29:
       address:
         NA: 0x2311D60
         EU: 0x23127C0
+        JP: 0x2313268
       description: |-
         Inflicts the Napping status condition (from Rest) on a target monster if possible.
         
@@ -832,6 +870,7 @@ overlay29:
       address:
         NA: 0x2311E70
         EU: 0x23128D0
+        JP: 0x2313374
       description: |-
         Inflicts the Yawning status condition on a target monster if possible.
         
@@ -842,6 +881,7 @@ overlay29:
       address:
         NA: 0x2311F80
         EU: 0x23129E0
+        JP: 0x2313484
       description: |-
         Inflicts the Sleepless status condition on a target monster if possible.
         
@@ -851,6 +891,7 @@ overlay29:
       address:
         NA: 0x231206C
         EU: 0x2312ACC
+        JP: 0x2313570
       description: |-
         Inflicts the Paused status condition on a target monster if possible.
         
@@ -865,6 +906,7 @@ overlay29:
       address:
         NA: 0x23121AC
         EU: 0x2312C0C
+        JP: 0x23136B0
       description: |-
         Inflicts the Infatuated status condition on a target monster if possible.
         
@@ -877,6 +919,7 @@ overlay29:
       address:
         NA: 0x2312338
         EU: 0x2312D98
+        JP: 0x2313838
       description: |-
         Inflicts the Burn status condition on a target monster if possible.
         
@@ -890,6 +933,7 @@ overlay29:
       address:
         NA: 0x2312618
         EU: 0x2313078
+        JP: 0x2313B14
       description: |-
         Inflicts the Burn status condition on all team members if possible.
         
@@ -922,6 +966,7 @@ overlay29:
       address:
         NA: 0x2312BF8
         EU: 0x2313658
+        JP: 0x23140EC
       description: |-
         Inflicts the Frozen status condition on a target monster if possible.
         
@@ -932,6 +977,7 @@ overlay29:
       address:
         NA: 0x2312E20
         EU: 0x2313880
+        JP: 0x2314310
       description: |-
         Inflicts the Constriction status condition on a target monster if possible.
         
@@ -943,6 +989,7 @@ overlay29:
       address:
         NA: 0x2312F78
         EU: 0x23139D8
+        JP: 0x2314468
       description: |-
         Inflicts the Shadow Hold (AKA Immobilized) status condition on a target monster if possible.
         
@@ -953,6 +1000,7 @@ overlay29:
       address:
         NA: 0x2313130
         EU: 0x2313B90
+        JP: 0x231461C
       description: |-
         Inflicts the Ingrain status condition on a target monster if possible.
         
@@ -962,6 +1010,7 @@ overlay29:
       address:
         NA: 0x23131F4
         EU: 0x2313C54
+        JP: 0x23146E0
       description: |-
         Inflicts the Wrapped status condition on a target monster if possible.
         
@@ -973,6 +1022,7 @@ overlay29:
       address:
         NA: 0x231346C
         EU: 0x2313ECC
+        JP: 0x2314958
       description: |-
         Inflicts the Petrified status condition on a target monster if possible.
         
@@ -995,6 +1045,7 @@ overlay29:
       address:
         NA: 0x2313814
         EU: 0x2314274
+        JP: 0x2314CFC
       description: |-
         Lowers the specified defensive stat on the target monster.
         
@@ -1008,6 +1059,7 @@ overlay29:
       address:
         NA: 0x231399C
         EU: 0x23143FC
+        JP: 0x2314E84
       description: |-
         Boosts the specified offensive stat on the target monster.
         
@@ -1019,6 +1071,7 @@ overlay29:
       address:
         NA: 0x2313B08
         EU: 0x2314568
+        JP: 0x2314FF0
       description: |-
         Boosts the specified defensive stat on the target monster.
         
@@ -1044,6 +1097,7 @@ overlay29:
       address:
         NA: 0x2313F64
         EU: 0x23149C4
+        JP: 0x2315444
       description: |-
         Applies a multiplier to the specified defensive stat on the target monster.
         
@@ -1058,6 +1112,7 @@ overlay29:
       address:
         NA: 0x23140E4
         EU: 0x2314B44
+        JP: 0x23155C4
       description: |-
         Boosts the specified hit chance stat (accuracy or evasion) on the target monster.
         
@@ -1068,6 +1123,7 @@ overlay29:
       address:
         NA: 0x231422C
         EU: 0x2314C8C
+        JP: 0x231570C
       description: |-
         Lowers the specified hit chance stat (accuracy or evasion) on the target monster.
         
@@ -1079,6 +1135,7 @@ overlay29:
       address:
         NA: 0x23143E8
         EU: 0x2314E48
+        JP: 0x23158C4
       description: |-
         Inflicts the Cringe status condition on a target monster if possible.
         
@@ -1091,6 +1148,7 @@ overlay29:
       address:
         NA: 0x2314544
         EU: 0x2314FA4
+        JP: 0x2315A1C
       description: |-
         Inflicts the Paralysis status condition on a target monster if possible.
         
@@ -1103,6 +1161,7 @@ overlay29:
       address:
         NA: 0x2314810
         EU: 0x2315270
+        JP: 0x2315CE4
       description: |-
         Boosts the speed of the target monster.
         
@@ -1117,6 +1176,7 @@ overlay29:
       address:
         NA: 0x231493C
         EU: 0x231539C
+        JP: 0x2315E10
       description: |-
         A wrapper around BoostSpeed with the number of stages set to 1.
         
@@ -1128,6 +1188,7 @@ overlay29:
       address:
         NA: 0x2314954
         EU: 0x23153B4
+        JP: 0x2315E28
       description: |-
         Lowers the speed of the target monster.
         
@@ -1139,6 +1200,7 @@ overlay29:
       address:
         NA: 0x2314ABC
         EU: 0x231551C
+        JP: 0x2315F90
       description: |-
         Seals one of the target monster's moves. The move to be sealed is randomly selected.
         
@@ -1150,6 +1212,7 @@ overlay29:
       address:
         NA: 0x2314C2C
         EU: 0x231568C
+        JP: 0x2316100
       description: |-
         Randomly boosts or lowers the speed of the target monster by one stage with equal probability.
         
@@ -1159,6 +1222,7 @@ overlay29:
       address:
         NA: 0x2314C8C
         EU: 0x23156EC
+        JP: 0x2316160
       description: |-
         Resets the specified hit chance stat (accuracy or evasion) back to normal on the target monster.
         
@@ -1170,6 +1234,7 @@ overlay29:
       address:
         NA: 0x2314E1C
         EU: 0x231587C
+        JP: 0x23162F0
       description: |-
         Activate the Quick Feet ability on the defender, if the monster has it and it's active.
         
@@ -1180,6 +1245,7 @@ overlay29:
       address:
         NA: 0x2314F38
         EU: 0x2315998
+        JP: 0x2316410
       description: |-
         Inflicts the Confused status condition on a target monster if possible.
         
@@ -1192,6 +1258,7 @@ overlay29:
       address:
         NA: 0x231516C
         EU: 0x2315CCC
+        JP: 0x2316744
       description: |-
         Inflicts the Cowering status condition on a target monster if possible.
         
@@ -1204,6 +1271,7 @@ overlay29:
       address:
         NA: 0x23152E4
         EU: 0x2315D44
+        JP: 0x23167BC
       description: |-
         Restore HP and possibly boost max HP of the target monster if possible.
         
@@ -1217,6 +1285,7 @@ overlay29:
       address:
         NA: 0x23157EC
         EU: 0x231624C
+        JP: 0x2316CC4
       description: |-
         Inflicts the Leech Seed status condition on a target monster if possible.
         
@@ -1229,6 +1298,7 @@ overlay29:
       address:
         NA: 0x2315A50
         EU: 0x23164B0
+        JP: 0x2316F28
       description: |-
         Inflicts the Destiny Bond status condition on a target monster if possible.
         
@@ -1238,6 +1308,7 @@ overlay29:
       address:
         NA: 0x2317C20
         EU: 0x2318680
+        JP: 0x23190F0
       description: |-
         Restores the PP of all the target's moves by the specified amount.
         
@@ -1249,6 +1320,7 @@ overlay29:
       address:
         NA: 0x2318A4C
         EU: 0x23194AC
+        JP: 0x2319F1C
       description: |-
         Checks if a monster is currently immune to Ground-type moves for reasons other than typing and ability.
         
@@ -1271,6 +1343,7 @@ overlay29:
       address:
         NA: 0x231ACAC
         EU: 0x231B70C
+        JP: 0x231C17C
       description: |-
         Gets the move target-and-range field when used by a given entity. See struct move_target_and_range in the C headers.
         
@@ -1282,6 +1355,7 @@ overlay29:
       address:
         NA: 0x231B68C
         EU: 0x231C0EC
+        JP: 0x231CB58
       description: |-
         Seems to apply an item's effect via a giant switch statement?
         
@@ -1302,6 +1376,7 @@ overlay29:
       address:
         NA: 0x231D0C0
         EU: 0x231DB28
+        JP: 0x231E588
       description: |-
         Applies the IQ and possible stat boosts from eating a Gummi to the target monster.
         
@@ -1313,6 +1388,7 @@ overlay29:
       address:
         NA: 0x231E9F0
         EU: 0x231F458
+        JP: 0x231FE9C
       description: |-
         Gets the maximum PP for a given move. A wrapper around the function in the ARM 9 binary.
         
@@ -1322,6 +1398,7 @@ overlay29:
       address:
         NA: 0x231EA18
         EU: 0x231F480
+        JP: 0x231FEC4
       description: |-
         Checks if a move isn't a physical move.
         
@@ -1331,6 +1408,7 @@ overlay29:
       address:
         NA: 0x231FC20
         EU: 0x2320688
+        JP: 0x23210CC
       description: |-
         Makes the target monster execute the Pounce action in a given direction if possible.
         
@@ -1343,6 +1421,7 @@ overlay29:
       address:
         NA: 0x231FDE0
         EU: 0x2320848
+        JP: 0x232128C
       description: |-
         Blows away the target monster in a given direction if possible.
         
@@ -1353,6 +1432,7 @@ overlay29:
       address:
         NA: 0x2320D08
         EU: 0x2321770
+        JP: 0x23221B4
       description: |-
         Makes the target monster warp if possible.
         
@@ -1364,6 +1444,7 @@ overlay29:
       address:
         NA: 0x2324934
         EU: 0x232539C
+        JP: 0x2325DC4
       description: |-
         Like DungeonRandOutcome, but specifically for user-target interactions.
         
@@ -1376,6 +1457,7 @@ overlay29:
       address:
         NA: 0x2324A20
         EU: 0x2325488
+        JP: 0x2325EAC
       description: |-
         Like DungeonRandOutcome, but specifically for user actions.
         
@@ -1387,6 +1469,7 @@ overlay29:
       address:
         NA: 0x2324D8C
         EU: 0x23257F4
+        JP: 0x2326218
       description: |-
         Updates the PP of any moves that were used by a monster, if PP should be consumed.
         
@@ -1396,6 +1479,7 @@ overlay29:
       address:
         NA: 0x2324E64
         EU: 0x23258CC
+        JP: 0x23262F0
       description: |-
         Gets the lower 2 bytes of a 4-byte number and interprets it as a signed short.
         
@@ -1405,6 +1489,7 @@ overlay29:
       address:
         NA: 0x2327F34
         EU: 0x23289A0
+        JP: 0x23293BC
       description: |-
         Deals damage from a move or item used by an attacking monster on a defending monster, and also deals recoil damage to the attacker.
         
@@ -1417,6 +1502,7 @@ overlay29:
       address:
         NA: 0x2332B20
         EU: 0x2333560
+        JP: 0x2333F10
       description: |-
         Deals damage from a move or item used by an attacking monster on a defending monster.
         
@@ -1430,6 +1516,7 @@ overlay29:
       address:
         NA: 0x2332C4C
         EU: 0x233368C
+        JP: 0x233403C
       description: |-
         Appears to calculate damage from a variable-damage projectile.
         
@@ -1442,6 +1529,7 @@ overlay29:
       address:
         NA: 0x2334D08
         EU: 0x2335748
+        JP: 0x23360F4
       description: |-
         Get the weather, as experienced by a specific entity.
         
@@ -1504,6 +1592,7 @@ overlay29:
       address:
         NA: 0x233A654
         EU: 0x233B238
+        JP: 0x233BA18
       description: |-
         Checks if the current floor is a normal layout.
         
@@ -1520,6 +1609,7 @@ overlay29:
       address:
         NA: 0x233A6D8
         EU: 0x233B2BC
+        JP: 0x233BA9C
       description: |-
         This is the master function that generates the dungeon floor.
         
@@ -1532,6 +1622,7 @@ overlay29:
       address:
         NA: 0x233AE78
         EU: 0x233BA5C
+        JP: 0x233C23C
       description: |-
         Gets the terrain type of a tile.
         
@@ -1541,6 +1632,7 @@ overlay29:
       address:
         NA: 0x233AE84
         EU: 0x233BA68
+        JP: 0x233C248
       description: |-
         Compute a pseudorandom integer on the interval [0, 100) using the dungeon PRNG.
         
@@ -1549,6 +1641,7 @@ overlay29:
       address:
         NA: 0x233AF0C
         EU: 0x233BAF0
+        JP: 0x233C2D0
       description: |-
         Sets the junction flag (bit 3 of the terrain flags) on any hallway junction tiles in some range [x0, x1), [y0, y1). This leaves tiles within rooms untouched.
         
@@ -1562,6 +1655,7 @@ overlay29:
       address:
         NA: 0x233B028
         EU: 0x233BC0C
+        JP: 0x233C3EC
       description: |-
         Generate a standard floor with the given parameters.
         
@@ -1578,6 +1672,7 @@ overlay29:
       address:
         NA: 0x233B190
         EU: 0x233BD74
+        JP: 0x233C554
       description: |-
         Generates a floor layout with a 4x2 grid of rooms, surrounded by an outer ring of hallways.
         
@@ -1586,6 +1681,7 @@ overlay29:
       address:
         NA: 0x233B61C
         EU: 0x233C200
+        JP: 0x233C9E0
       description: |-
         Generates a floor layout with a mesh of hallways on the interior 3x2 grid, surrounded by a boundary of rooms protruding from the interior like spikes, excluding the corner cells.
         
@@ -1594,6 +1690,7 @@ overlay29:
       address:
         NA: 0x233BA7C
         EU: 0x233C660
+        JP: 0x233CE40
       description: |-
         Generates a floor layout with 5 grid cells in a horizontal line.
         
@@ -1602,6 +1699,7 @@ overlay29:
       address:
         NA: 0x233BBDC
         EU: 0x233C7C0
+        JP: 0x233CFA0
       description: |-
         Generates a floor layout with 5 rooms arranged in a cross ("plus sign") formation.
         
@@ -1610,6 +1708,7 @@ overlay29:
       address:
         NA: 0x233BD74
         EU: 0x233C958
+        JP: 0x233D138
       description: |-
         Generates a floor layout in a "beetle" formation, which is created by taking a 3x3 grid of rooms, connecting the rooms within each row, and merging the central column into one big room.
         
@@ -1618,6 +1717,7 @@ overlay29:
       address:
         NA: 0x233BF30
         EU: 0x233CB14
+        JP: 0x233D2F4
       description: |-
         Merges two vertically stacked rooms into one larger room.
         
@@ -1629,6 +1729,7 @@ overlay29:
       address:
         NA: 0x233C07C
         EU: 0x233CC60
+        JP: 0x233D440
       description: |-
         Generates a floor layout with a ring of rooms on the grid boundary and nothing in the interior.
         
@@ -1641,6 +1742,7 @@ overlay29:
       address:
         NA: 0x233C310
         EU: 0x233CEF4
+        JP: 0x233D6D4
       description: |-
         Checks if a fixed room ID does not correspond to a fixed, full-floor layout.
         
@@ -1662,6 +1764,7 @@ overlay29:
       address:
         NA: 0x233C774
         EU: 0x233D358
+        JP: 0x233DB34
       description: |-
         Generates a floor layout with just a large, one-room Monster House.
         
@@ -1672,6 +1775,7 @@ overlay29:
       address:
         NA: 0x233C844
         EU: 0x233D428
+        JP: 0x233DC04
       description: |-
         Generate a floor layout with two rooms (left and right), one of which is a Monster House.
         
@@ -1680,6 +1784,7 @@ overlay29:
       address:
         NA: 0x233C9E8
         EU: 0x233D5CC
+        JP: 0x233DDA8
       description: |-
         Generate extra hallways on the floor via a series of random walks.
         
@@ -1693,6 +1798,7 @@ overlay29:
       address:
         NA: 0x233CF84
         EU: 0x233DB68
+        JP: 0x233E344
       description: |-
         Get the grid cell positions for a given set of floor grid dimensions.
         
@@ -1704,6 +1810,7 @@ overlay29:
       address:
         NA: 0x233D004
         EU: 0x233DBE8
+        JP: 0x233E3C4
       description: |-
         Initialize a dungeon grid with defaults.
         
@@ -1718,6 +1825,7 @@ overlay29:
       address:
         NA: 0x233D104
         EU: 0x233DCE8
+        JP: 0x233E4C4
       description: |-
         Randomly selects a subset of grid cells to become rooms.
         
@@ -1733,6 +1841,7 @@ overlay29:
       address:
         NA: 0x233D318
         EU: 0x233DEFC
+        JP: 0x233E6D8
       description: |-
         Creates rooms and hallway anchors in each grid cell as designated by AssignRooms.
         
@@ -1748,6 +1857,7 @@ overlay29:
       address:
         NA: 0x233D674
         EU: 0x233E258
+        JP: 0x233EA34
       description: |-
         Try to generate secondary structures in flagged rooms.
         
@@ -1768,6 +1878,7 @@ overlay29:
       address:
         NA: 0x233E05C
         EU: 0x233EC40
+        JP: 0x233F41C
       description: |-
         Randomly assigns connections between adjacent grid cells.
         
@@ -1785,6 +1896,7 @@ overlay29:
       address:
         NA: 0x233E43C
         EU: 0x233F020
+        JP: 0x233F7FC
       description: |-
         Create grid cell connections either by creating hallways or merging rooms.
         
@@ -1802,6 +1914,7 @@ overlay29:
       address:
         NA: 0x233ED34
         EU: 0x233F918
+        JP: 0x23400F4
       description: |-
         Attempt to generate room imperfections for each room in the floor layout, if enabled.
         
@@ -1814,6 +1927,7 @@ overlay29:
       address:
         NA: 0x233F120
         EU: 0x233FD04
+        JP: 0x23404E0
       description: |-
         Create a hallway between two points.
         
@@ -1832,6 +1946,7 @@ overlay29:
       address:
         NA: 0x233F424
         EU: 0x2340008
+        JP: 0x23407E4
       description: |-
         Ensure the grid forms a connected graph (all valid cells are reachable) by adding hallways to unreachable grid cells.
         
@@ -1846,6 +1961,7 @@ overlay29:
       address:
         NA: 0x233F900
         EU: 0x23404E4
+        JP: 0x2340CC0
       description: |-
         Set the terrain of a specific tile to be an obstacle (wall or secondary terrain).
         
@@ -1858,6 +1974,7 @@ overlay29:
       address:
         NA: 0x233F93C
         EU: 0x2340520
+        JP: 0x2340CFC
       description: |-
         Finalizes junction tiles by setting the junction flag (bit 3 of the terrain flags) and ensuring open terrain.
         
@@ -1879,6 +1996,7 @@ overlay29:
       address:
         NA: 0x233FBE8
         EU: 0x23407CC
+        JP: 0x2340FA8
       description: |-
         Possibly generate a Kecleon shop on the floor.
         
@@ -1892,6 +2010,7 @@ overlay29:
       address:
         NA: 0x233FF9C
         EU: 0x2340B80
+        JP: 0x234135C
       description: |-
         Possibly generate a Monster House on the floor.
         
@@ -1905,6 +2024,7 @@ overlay29:
       address:
         NA: 0x2340224
         EU: 0x2340E08
+        JP: 0x23415E4
       description: |-
         Possibly generate a maze room on the floor.
         
@@ -1918,6 +2038,7 @@ overlay29:
       address:
         NA: 0x2340458
         EU: 0x234103C
+        JP: 0x2341818
       description: |-
         Generate a maze room within a given grid cell.
         
@@ -1929,6 +2050,7 @@ overlay29:
       address:
         NA: 0x23406D4
         EU: 0x23412B8
+        JP: 0x2341A94
       description: |-
         Generate a "maze line" from a given starting point, within the given bounds.
         
@@ -1946,6 +2068,7 @@ overlay29:
       address:
         NA: 0x234087C
         EU: 0x2341460
+        JP: 0x2341C3C
       description: |-
         Set spawn flag 5 (0b100000 or 0x20) on all tiles in a room.
         
@@ -1954,6 +2077,7 @@ overlay29:
       address:
         NA: 0x23408D0
         EU: 0x23414B4
+        JP: 0x2341C90
       description: |-
         Checks if a tile position is either in a hallway or next to one.
         
@@ -1964,6 +2088,7 @@ overlay29:
       address:
         NA: 0x2340974
         EU: 0x2341558
+        JP: 0x2341D34
       description: |-
         Resolve invalid spawn flags on tiles.
         
@@ -1974,6 +2099,7 @@ overlay29:
       address:
         NA: 0x2340A0C
         EU: 0x23415F0
+        JP: 0x2341DCC
       description: |-
         Converts all secondary terrain tiles (water/lava) to chasms.
         
@@ -1982,6 +2108,7 @@ overlay29:
       address:
         NA: 0x2340A78
         EU: 0x234165C
+        JP: 0x2341E38
       description: |-
         Ensures all tiles with the impassable flag are walls.
         
@@ -1990,6 +2117,7 @@ overlay29:
       address:
         NA: 0x2340AD4
         EU: 0x23416B8
+        JP: 0x2341E94
       description: |-
         Initialize a tile struct.
         
@@ -1998,6 +2126,7 @@ overlay29:
       address:
         NA: 0x2340B0C
         EU: 0x23416F0
+        JP: 0x2341ECC
       description: |-
         Resets the floor in preparation for a floor generation attempt.
         
@@ -2008,6 +2137,7 @@ overlay29:
       address:
         NA: 0x2340CAC
         EU: 0x2341890
+        JP: 0x234206C
       description: |-
         Checks if a position (x, y) is out of bounds on the map: !((0 <= x <= 55) && (0 <= y <= 31)).
         
@@ -2018,6 +2148,7 @@ overlay29:
       address:
         NA: 0x2340CE4
         EU: 0x23418C8
+        JP: 0x23420A4
       description: |-
         Randomly shuffle an array of spawn positions.
         
@@ -2027,6 +2158,7 @@ overlay29:
       address:
         NA: 0x2340D4C
         EU: 0x2341930
+        JP: 0x234210C
       description: |-
         Spawn all non-enemy entities, which includes stairs, items, traps, and the player.
         
@@ -2046,6 +2178,7 @@ overlay29:
       address:
         NA: 0x2341470
         EU: 0x2342054
+        JP: 0x2342830
       description: |-
         Spawn all enemies, which includes normal enemies and those in Monster Houses.
         
@@ -2059,6 +2192,7 @@ overlay29:
       address:
         NA: 0x234176C
         EU: 0x2342350
+        JP: 0x2342B2C
       description: |-
         Set a specific tile to have secondary terrain (water/lava), but only if it's a passable wall.
         
@@ -2067,6 +2201,7 @@ overlay29:
       address:
         NA: 0x23417AC
         EU: 0x2342390
+        JP: 0x2342B6C
       description: |-
         Generate secondary terrain (water/lava) formations.
         
@@ -2080,6 +2215,7 @@ overlay29:
       address:
         NA: 0x2341E6C
         EU: 0x2342A50
+        JP: 0x234322C
       description: |-
         Checks that the stairs are reachable from every walkable tile on the floor.
         
@@ -2093,6 +2229,7 @@ overlay29:
       address:
         NA: 0x2342548
         EU: 0x234312C
+        JP: 0x2343908
       description: |-
         Converts all wall tiles to chasms.
         
@@ -2101,6 +2238,7 @@ overlay29:
       address:
         NA: 0x2342B7C
         EU: 0x2343760
+        JP: 0x2343F3C
       description: |-
         Reset the inner boundary tile rows (y == 1 and y == 30) to their initial state of all wall tiles, with impassable walls at the edges (x == 0 and x == 55).
         
@@ -2109,6 +2247,7 @@ overlay29:
       address:
         NA: 0x2342C8C
         EU: 0x2343870
+        JP: 0x234404C
       description: |-
         Spawn stairs at the given location.
         
@@ -2123,6 +2262,7 @@ overlay29:
       address:
         NA: 0x2343D90
         EU: 0x2344974
+        JP: 0x2345154
       description: |-
         Loads fixed room data from BALANCE/fixed.bin into the buffer pointed to by FIXED_ROOM_DATA_PTR.
         
@@ -2131,6 +2271,7 @@ overlay29:
       address:
         NA: 0x234450C
         EU: 0x23450F0
+        JP: 0x23458D0
       description: |-
         Checks if the current floor is either the Secret Bazaar or a Secret Room.
         
@@ -2139,6 +2280,7 @@ overlay29:
       address:
         NA: 0x23467E4
         EU: 0x23473D0
+        JP: 0x2347B94
       description: |-
         Checks if a monster has a certain held item.
         
@@ -2149,6 +2291,7 @@ overlay29:
       address:
         NA: 0x234921C
         EU: 0x2349E1C
+        JP: 0x234A544
       description: |-
         Checks if the current floor is an active mission destination of a given type (and any subtype).
         
@@ -2158,6 +2301,7 @@ overlay29:
       address:
         NA: 0x2349250
         EU: 0x2349E50
+        JP: 0x234A578
       description: |-
         Checks if the current floor is an active mission destination of a given type and subtype.
         
@@ -2168,6 +2312,7 @@ overlay29:
       address:
         NA: 0x234928C
         EU: 0x2349E8C
+        JP: 0x234A5B4
       description: |-
         Checks if the current floor is a mission destination for a Monster House outlaw mission.
         
@@ -2176,6 +2321,7 @@ overlay29:
       address:
         NA: 0x23492B0
         EU: 0x2349EB0
+        JP: 0x234A5D8
       description: |-
         Checks if the current floor is a Golden Chamber floor.
         
@@ -2184,6 +2330,7 @@ overlay29:
       address:
         NA: 0x23492D4
         EU: 0x2349ED4
+        JP: 0x234A5FC
       description: |-
         Checks if the current floor is a boss floor for a Legendary Challenge Letter mission.
         
@@ -2192,6 +2339,7 @@ overlay29:
       address:
         NA: 0x2349314
         EU: 0x2349F14
+        JP: 0x234A63C
       description: |-
         Checks if the current floor is the boss floor in Star Cave Pit for Jirachi's Challenge Letter mission.
         
@@ -2200,6 +2348,7 @@ overlay29:
       address:
         NA: 0x234934C
         EU: 0x2349F4C
+        JP: 0x234A674
       description: |-
         Checks if the current floor is a mission destination floor with a special monster.
         
@@ -2210,6 +2359,7 @@ overlay29:
       address:
         NA: 0x2349470
         EU: 0x234A070
+        JP: 0x234A798
       description: |-
         Checks if the target enemy of the mission on the current floor has been defeated.
         
@@ -2218,6 +2368,7 @@ overlay29:
       address:
         NA: 0x2349490
         EU: 0x234A090
+        JP: 0x234A7B8
       description: |-
         Set the flag for whether or not the target enemy of the current mission has been defeated.
         
@@ -2226,6 +2377,7 @@ overlay29:
       address:
         NA: 0x23494A4
         EU: 0x234A0A4
+        JP: 0x234A7CC
       description: |-
         Checks if the current floor is a mission destination floor with a fixed room.
         
@@ -2236,6 +2388,7 @@ overlay29:
       address:
         NA: 0x23494CC
         EU: 0x234A0CC
+        JP: 0x234A7F4
       description: |-
         Get the ID of the item that needs to be retrieve on the current floor for a mission, if one exists.
         
@@ -2244,6 +2397,7 @@ overlay29:
       address:
         NA: 0x23494F0
         EU: 0x234A0F0
+        JP: 0x234A818
       description: |-
         Get the ID of the item that needs to be delivered to a mission client on the current floor, if one exists.
         
@@ -2252,6 +2406,7 @@ overlay29:
       address:
         NA: 0x234951C
         EU: 0x234A11C
+        JP: 0x234A844
       description: |-
         Get the ID of the special target item for a Sealed Chamber or Treasure Memo mission on the current floor.
         
@@ -2260,6 +2415,7 @@ overlay29:
       address:
         NA: 0x2349564
         EU: 0x234A164
+        JP: 0x234A88C
       description: |-
         Checks if the current floor is a mission destination floor with a special item.
         
@@ -2270,6 +2426,7 @@ overlay29:
       address:
         NA: 0x23495C4
         EU: 0x234A1C4
+        JP: 0x234A8EC
       description: |-
         Checks if the current floor is a mission destination floor with a "hidden outlaw" that behaves like a normal enemy.
         
@@ -2278,6 +2435,7 @@ overlay29:
       address:
         NA: 0x23495E8
         EU: 0x234A1E8
+        JP: 0x234A910
       description: |-
         Checks if the current floor is a mission destination floor with a "fleeing outlaw" that runs away.
         
@@ -2286,6 +2444,7 @@ overlay29:
       address:
         NA: 0x2349620
         EU: 0x234A220
+        JP: 0x234A948
       description: |-
         Get the monster ID of the target enemy to be defeated on the current floor for a mission, if one exists.
         
@@ -2294,6 +2453,7 @@ overlay29:
       address:
         NA: 0x2349638
         EU: 0x234A238
+        JP: 0x234A960
       description: |-
         Get the monster ID of the specified minion group on the current floor for a mission, if it exists.
         
@@ -2305,6 +2465,7 @@ overlay29:
       address:
         NA: 0x2349748
         EU: 0x234A348
+        JP: 0x234AA70
       description: |-
         Checks if a given floor is a mission destination with a special monster, either a target to rescue or an enemy to defeat.
         
@@ -2324,6 +2485,7 @@ overlay29:
       address:
         NA: 0x234B2A4
         EU: 0x234BEA4
+        JP: 0x234C514
       description: |-
         Logs a message in the message log alongside a message popup, if the user hasn't fainted.
         
@@ -2333,6 +2495,7 @@ overlay29:
       address:
         NA: 0x234B2E4
         EU: 0x234BEE4
+        JP: 0x234C554
       description: |-
         Logs a message in the message log alongside a message popup, if the user hasn't fainted.
         
@@ -2342,6 +2505,7 @@ overlay29:
       address:
         NA: 0x234B31C
         EU: 0x234BF1C
+        JP: 0x234C58C
       description: |-
         Logs a message in the message log (but without a message popup).
         
@@ -2351,6 +2515,7 @@ overlay29:
       address:
         NA: 0x234B340
         EU: 0x234BF40
+        JP: 0x234C5B0
       description: |-
         Logs a message in the message log (but without a message popup).
         
@@ -2360,6 +2525,7 @@ overlay29:
       address:
         NA: 0x234B350
         EU: 0x234BF50
+        JP: 0x234C5C0
       description: |-
         Logs a message in the message log alongside a message popup, if some user check passes and the target hasn't fainted.
         
@@ -2370,6 +2536,7 @@ overlay29:
       address:
         NA: 0x234B3A4
         EU: 0x234BFA4
+        JP: 0x234C614
       description: |-
         Logs a message in the message log alongside a message popup, if some user check passes and the target hasn't fainted.
         
@@ -2380,6 +2547,7 @@ overlay29:
       address:
         NA: 0x234B3F0
         EU: 0x234BFF0
+        JP: 0x234C660
       description: |-
         Logs a message in the message log (but without a message popup), if some user check passes and the target hasn't fainted.
         
@@ -2390,6 +2558,7 @@ overlay29:
       address:
         NA: 0x234B444
         EU: 0x234C044
+        JP: 0x234C6B4
       description: |-
         Logs a message in the message log alongside a message popup, if the user hasn't fainted and some other unknown check.
         
@@ -2400,6 +2569,7 @@ overlay29:
       address:
         NA: 0x234B498
         EU: 0x234C098
+        JP: 0x234C708
       description: |-
         Logs a message in the message log alongside a message popup.
         
@@ -2428,6 +2598,7 @@ overlay29:
       address:
         NA: 0x234B714
         EU: 0x234C314
+        JP: 0x234C984
       description: |-
         Logs a message in the message log.
         
@@ -2438,6 +2609,7 @@ overlay29:
       address:
         NA: 0x234BF28
         EU: 0x234CB28
+        JP: 0x234D18C
       description: |-
         This appears to be the top-level function for running dungeon mode.
         
@@ -2448,6 +2620,7 @@ overlay29:
       address:
         NA: 0x234CF60
         EU: 0x234DB60
+        JP: 0x234E1C4
       description: |-
         This changes the palettes of windows in both screens to an appropiate value depending on the playthrough
         If you're in a special episode, they turn green , otherwise, they turn blue or pink depending on your character's sex
