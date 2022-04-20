@@ -10,6 +10,7 @@ use tempfile::NamedTempFile;
 use termcolor::{Color, ColorChoice, ColorSpec, StandardStream, WriteColor};
 
 use super::data_formats::symgen_yml::{IntFormat, SymGen};
+use super::util;
 
 /// Formats a given `input_file`, using to the given `int_format`.
 ///
@@ -28,7 +29,7 @@ pub fn format_file<P: AsRef<Path>>(
     // Write to a tempfile first, then replace the old one atomically.
     let f_new = NamedTempFile::new()?;
     contents.write(&f_new, int_format)?;
-    f_new.persist(input_file.as_ref())?;
+    util::persist_named_temp_file_safe(f_new, input_file.as_ref())?;
     Ok(())
 }
 

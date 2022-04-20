@@ -12,6 +12,7 @@ use tempfile::NamedTempFile;
 
 use super::data_formats::symgen_yml::{IntFormat, LoadParams, SymGen, Symbol};
 use super::data_formats::{Generate, InFormat, OutFormat};
+use super::util;
 
 /// Forms the output file path from the base, version, and format.
 fn output_file_name(base: &Path, version: &str, format: &OutFormat) -> PathBuf {
@@ -45,7 +46,7 @@ fn generate_symbols<P: AsRef<Path>>(
             if let Some(parent) = output_file.parent() {
                 fs::create_dir_all(parent)?;
             }
-            f_gen.persist(output_file)?;
+            util::persist_named_temp_file_safe(f_gen, output_file)?;
         }
     }
     Ok(())
@@ -154,7 +155,7 @@ where
 
     let output_file = NamedTempFile::new()?;
     contents.write(&output_file, int_format)?;
-    output_file.persist(symgen_file)?;
+    util::persist_named_temp_file_safe(output_file, symgen_file)?;
     Ok(unmerged_symbols)
 }
 
