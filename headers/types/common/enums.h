@@ -3,6 +3,15 @@
 #ifndef HEADERS_TYPES_COMMON_ENUMS_H_
 #define HEADERS_TYPES_COMMON_ENUMS_H_
 
+// Represents one of the two screens the console has. Each screen is linked
+// to a single graphics engine, but which engine it is linked to isn't fixed.
+// Thus, instead of using "lower" and "upper", we use "main" and "sub" screens
+// We need to differentiate them because each engine has different abilities
+enum screen {
+    SCREEN_MAIN = 0, // The screen linked to the main graphics engine (A)
+    SCREEN_SUB = 1,  // The screen linked to the sub graphics engine (B)
+};
+
 // Overlay group ID. Each group ID maps to an overlay number.
 enum overlay_group_id {
     OGROUP_NONE = 0,
@@ -3572,6 +3581,14 @@ enum iq_group_id {
     IQ_GROUP_UNUSED_0xD = 13,
     IQ_GROUP_UNUSED_0xE = 14,
     IQ_GROUP_NONE = 15,
+};
+
+enum kaomado_canvas_state {
+    KAOMADO_CANVAS_HIDDEN = 0,
+    KAOMADO_CANVAS_TRY_UPDATE = 1,
+    KAOMADO_CANVAS_UPDATE = 2,
+    KAOMADO_CANVAS_STANDBY = 3,
+    KAOMADO_CANVAS_HIDE = 4,
 };
 
 #endif
