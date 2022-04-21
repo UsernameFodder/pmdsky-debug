@@ -113,6 +113,7 @@ other:
 ### Currently supported output formats (`gen`)
 - SYM format
 - Ghidra-compatible symbol table (imported via the `ImportSymbolsScript.py` script)
+- JSON
 
 ### Currently supported input formats (`merge`)
 - `resymgen` YAML
