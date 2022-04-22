@@ -89,10 +89,9 @@ class AsmSegment(Segment):
                     f".{{{AsmSegment.INSTRUCTION_SIZE - 1}}}".encode()
                     + re.escape(instr[-1:])
                 )
-                pass
             else:
                 pattern += re.escape(instr)
-        return re.compile(pattern)
+        return re.compile(pattern, flags=re.DOTALL)
 
 
 class DataSegment(Segment):
@@ -105,7 +104,7 @@ class DataSegment(Segment):
 def armv5_search(
     src_filename: str,
     target_filenames: List[str],
-    search_segments: List[Segment],
+    segments: List[Segment],
     *,
     self_matches: bool = False,
     verbose: bool = False,
@@ -115,7 +114,7 @@ def armv5_search(
     Args:
         src_filename (str): source file name
         target_filenames (List[str]): target file names
-        search_segments (List[Segment]): segments within the source file to match
+        segments (List[Segment]): segments within the source file to match
         self_matches (bool, optional): include self-matches if searching the source file. Defaults to False.
         verbose (bool, optional): verbose printing. Defaults to False.
 
@@ -138,7 +137,7 @@ def armv5_search(
         if verbose:
             # Print the regexes in verbose mode
             for seg, regex in zip(segments, search_regexes):
-                print(f"{seg} regex: {regex}")
+                print(f"{seg} regex: {regex.pattern}")
 
         # The outer loop is over target files to search. Only load one at a time.
         for t, target_fname in enumerate(target_filenames):
