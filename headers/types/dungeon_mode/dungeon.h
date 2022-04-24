@@ -1936,7 +1936,7 @@ struct dungeon {
     undefined field_0x799;
     undefined field_0x79a;
     uint8_t rescue_attempts_left; // 0x79B: Number of times you can be rescued in this dungeon
-    uint32_t prng_seed;           // 0x79C: The PRNG seed, if set
+    uint32_t prng_seed;           // 0x79C: The dungeon PRNG seed, if set
     undefined field_0x7a0;
     undefined field_0x7a1;
     undefined field_0x7a2;
@@ -1949,7 +1949,8 @@ struct dungeon {
     undefined field_0x7a9;
     undefined field_0x7aa;
     undefined field_0x7ab;
-    // 0x7AC: Second number in the default LCG sequence, used for computing the actual PRNG seed
+    // 0x7AC: Second number in the default LCG sequence, used for computing the actual dungeon PRNG
+    // seed
     uint32_t prng_preseed;
     undefined field_0x7b0;
     undefined field_0x7b1;

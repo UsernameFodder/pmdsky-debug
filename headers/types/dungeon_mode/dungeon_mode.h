@@ -1150,7 +1150,7 @@ struct map_marker {
 ASSERT_SIZE(struct map_marker, 8);
 
 // The LCG states for the dungeon PRNG. See the relevant functions in the overlay 29 symbols for an
-// explanation of how the PRNG works.
+// explanation of how the dungeon PRNG works.
 struct prng_state {
     int use_secondary;        // 0x0: Flag for whether or not to use the secondary LCGs
     uint32_t seq_num_primary; // 0x4: Sequence number for the primary LCG sequence

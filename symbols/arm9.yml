@@ -213,6 +213,83 @@ arm9:
         r0: x
         r1: multiplier
         return: x * multiplier
+    - name: GetRngSeed
+      address:
+        NA: 0x200222C
+        EU: 0x200222C
+      description: Get the current value of PRNG_SEQUENCE_NUM.
+    - name: SetRngSeed
+      address:
+        NA: 0x200223C
+        EU: 0x200223C
+      description: |-
+        Seed PRNG_SEQUENCE_NUM to a given value.
+        
+        r0: seed
+    - name: Rand16Bit
+      address:
+        NA: 0x200224C
+        EU: 0x200224C
+      description: |-
+        Computes a pseudorandom 16-bit integer using the general-purpose PRNG.
+        
+        Note that much of dungeon mode uses its own (slightly higher-quality) PRNG within overlay 29. See overlay29.yml for more information.
+        
+        Random numbers are generated with a linear congruential generator (LCG), using a modulus of 2^16, a multiplier of 109, and an increment of 1021. I.e., the recurrence relation is `x = (109*x_prev + 1021) % 2^16`.
+        
+        The LCG has a hard-coded seed of 13452 (0x348C), but can be seeded with a call to SetRngSeed.
+        
+        return: pseudorandom int on the interval [0, 65535]
+    - name: RandInt
+      address:
+        NA: 0x2002274
+        EU: 0x2002274
+      description: |-
+        Compute a pseudorandom integer under a given maximum value using the general-purpose PRNG.
+        
+        This function relies on a single call to Rand16Bit. Even though it takes a 32-bit integer as input, the number of unique outcomes is capped at 2^16.
+        
+        r0: high
+        return: pseudorandom integer on the interval [0, high - 1]
+    - name: RandRange
+      address:
+        NA: 0x200228C
+        EU: 0x200228C
+      description: |-
+        Compute a pseudorandom value between two integers using the general-purpose PRNG.
+        
+        This function relies on a single call to Rand16Bit. Even though it takes 32-bit integers as input, the number of unique outcomes is capped at 2^16.
+        
+        r0: x
+        r1: y
+        return: pseudorandom integer on the interval [x, y - 1]
+    - name: Rand32Bit
+      address:
+        NA: 0x20022AC
+        EU: 0x20022AC
+      description: |-
+        Computes a random 32-bit integer using the general-purpose PRNG. The upper and lower 16 bits are each generated with a separate call to Rand16Bit (so this function advances the PRNG twice).
+        
+        return: pseudorandom int on the interval [0, 4294967295]
+    - name: RandIntSafe
+      address:
+        NA: 0x20022F8
+        EU: 0x20022F8
+      description: |-
+        Same as RandInt, except explicitly masking out the upper 16 bits of the output from Rand16Bit (which should be zero anyway).
+        
+        r0: high
+        return: pseudorandom integer on the interval [0, high - 1]
+    - name: RandRangeSafe
+      address:
+        NA: 0x2002318
+        EU: 0x2002318
+      description: |-
+        Like RandRange, except reordering the inputs as needed, and explicitly masking out the upper 16 bits of the output from Rand16Bit (which should be zero anyway).
+        
+        r0: x
+        r1: y
+        return: pseudorandom integer on the interval [min(x, y), max(x, y) - 1]
     - name: WaitForever
       address:
         NA: 0x2002438
@@ -1857,6 +1934,14 @@ arm9:
         Functions to get the desired memory arena for allocating and freeing heap memory.
         
         type: struct mem_arena_getters
+    - name: PRNG_SEQUENCE_NUM
+      address:
+        NA: 0x20AEF2C
+        EU: 0x20AF7CC
+      length:
+        NA: 0x2
+        EU: 0x2
+      description: "[Runtime] The current PRNG sequence number for the general-purpose PRNG. See Rand16Bit for more information on how the general-purpose PRNG works."
     - name: LOADED_OVERLAY_GROUP_0
       address:
         NA: 0x20AF230
