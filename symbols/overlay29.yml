@@ -411,7 +411,7 @@ overlay29:
         
         r0: attacker pointer
         r1: defender pointer
-        r2: target type
+        r2: target type index (0 the target's first type, 1 for the target's second type)
         r3: attack type
         return: enum type_matchup
     - name: CalcDamage
