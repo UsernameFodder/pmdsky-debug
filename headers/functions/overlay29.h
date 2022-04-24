@@ -40,7 +40,7 @@ bool DefenderAbilityIsActive(struct entity* attacker, struct entity* defender,
                              enum ability_id ability_id, bool attacker_ability_enabled);
 bool ExclusiveItemEffectIsActive(struct entity* entity, enum exclusive_item_effect_id effect_id);
 enum type_matchup GetTypeMatchup(struct entity* attacker, struct entity* defender,
-                                 enum type_id target_type, enum type_id attack_type);
+                                 int target_type_idx, enum type_id attack_type);
 void CalcDamage(struct entity* attacker, struct entity* defender, enum type_id attack_type,
                 int attack_power, int crit_chance, undefined4* damage_out, int damage_mult_fp,
                 enum move_id move_id, int param_9);
