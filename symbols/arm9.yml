@@ -329,6 +329,34 @@ arm9:
         This function prints the debug message "task proc boot".
         
         No params.
+    - name: EnableAllInterrupts
+      address:
+        NA: 0x2003608
+        EU: 0x2003608
+      description: |-
+        Sets the Interrupt Master Enable (IME) register to 1, which enables all CPU interrupts (if enabled in the Interrupt Enable (IE) register).
+        
+        See https://problemkaputt.de/gbatek.htm#dsiomaps.
+        
+        return: old value in the IME register
+    - name: GetTime
+      address:
+        NA: 0x20037B4
+        EU: 0x20037B4
+      description: |-
+        Seems to get the current (system?) time as an IEEE 754 floating-point number.
+        
+        return: current time (maybe in seconds?)
+    - name: DisableAllInterrupts
+      address:
+        NA: 0x2003824
+        EU: 0x2003824
+      description: |-
+        Sets the Interrupt Master Enable (IME) register to 0, which disables all CPU interrupts (even if enabled in the Interrupt Enable (IE) register).
+        
+        See https://problemkaputt.de/gbatek.htm#dsiomaps.
+        
+        return: old value in the IME register
     - name: SoundResume
       address:
         NA: 0x2003CC4
@@ -409,6 +437,30 @@ arm9:
         
         r0: group ID of the overlay to unload
         others: ?
+    - name: EuclideanNorm
+      address:
+        NA:
+          - 0x2005050
+          - 0x20050B0
+        EU:
+          - 0x2005050
+          - 0x20050B0
+      description: |-
+        Computes the Euclidean norm of a two-component integer array, sort of like hypotf(3).
+        
+        r0: integer array [x, y]
+        return: sqrt(x*x + y*y)
+    - name: ClampComponentAbs
+      address:
+        NA: 0x2005110
+        EU: 0x2005110
+      description: |-
+        Clamps the absolute values in a two-component integer array.
+        
+        Given an integer array [x, y] and a maximum absolute value M, clamps each element of the array to M such that the output array is [min(max(x, -M), M), min(max(y, -M), M)].
+        
+        r0: 2-element integer array, will be mutated
+        r1: max absolute value
     - name: KeyWaitInit
       address:
         NA: 0x2006DA4
@@ -916,6 +968,22 @@ arm9:
         Sets the palette of the frames of windows in both screens
         
         r0: palette index
+    - name: GetNotifyNote
+      address:
+        NA: 0x20484A0
+        EU: 0x20487BC
+      description: |-
+        Returns the current value of NOTIFY_NOTE.
+        
+        return: bool
+    - name: SetNotifyNote
+      address:
+        NA: 0x20484B0
+        EU: 0x20487CC
+      description: |-
+        Sets NOTIFY_NOTE to the given value.
+        
+        r0: bool
     - name: InitMainTeamAfterQuiz
       address:
         NA: 0x20487C4
@@ -940,6 +1008,28 @@ arm9:
         Implements SPECIAL_PROC_0x4 (see ScriptSpecialProcessCall).
         
         No params.
+    - name: NoteSaveBase
+      address:
+        NA: 0x2048F84
+        EU: 0x20492A0
+      description: |-
+        Probably related to saving or quicksaving?
+        
+        This function prints the debug message "NoteSave Base %d %d" with some values. It's also the only place where GetRngSeed is called.
+        
+        r0: possibly a flag/code that controls the type of save file to generate?
+        others: ?
+        return: status code
+    - name: NoteLoadBase
+      address:
+        NA: 0x2049370
+        EU: 0x20496A8
+      description: |-
+        Probably related to loading a save file or quicksave?
+        
+        This function prints the debug message "NoteLoad Base %d" with some value. It's also the only place where SetRngSeed is called.
+        
+        return: status code
     - name: SaveScriptVariableValue
       address:
         NA: 0x204B820
@@ -1507,6 +1597,86 @@ arm9:
         
         r0: ws
         return: length of ws
+    - name: AddFloat
+      address:
+        NA: 0x208ECB8
+        EU: 0x208F050
+      description: |-
+        This appears to be the libgcc implementation of __addsf3 (not sure which gcc version), which implements the addition operator for IEEE 754 floating-point numbers.
+        
+        r0: a
+        r1: b
+        return: a + b
+    - name: DivideFloat
+      address:
+        NA: 0x208F234
+        EU: 0x208F5CC
+      description: |-
+        This appears to be the libgcc implementation of __divsf3 (not sure which gcc version), which implements the division operator for IEEE 754 floating-point numbers.
+        
+        r0: dividend
+        r1: divisor
+        return: dividend / divisor
+    - name: FloatToDouble
+      address:
+        NA: 0x208F5EC
+        EU: 0x208F984
+      description: |-
+        This appears to be the libgcc implementation of __extendsfdf2 (not sure which gcc version), which implements the float to double cast operation for IEEE 754 floating-point numbers.
+        
+        r0: float
+        return: (double)float
+    - name: FloatToInt
+      address:
+        NA: 0x208F670
+        EU: 0x208FA08
+      description: |-
+        This appears to be the libgcc implementation of __fixsfsi (not sure which gcc version), which implements the float to int cast operation for IEEE 754 floating-point numbers. The output saturates if the input is out of the representable range for the int type.
+        
+        r0: float
+        return: (int)float
+    - name: IntToFloat
+      address:
+        NA: 0x208F6A4
+        EU: 0x208FA3C
+      description: |-
+        This appears to be the libgcc implementation of __floatsisf (not sure which gcc version), which implements the int to float cast operation for IEEE 754 floating-point numbers.
+        
+        r0: int
+        return: (float)int
+    - name: UIntToFloat
+      address:
+        NA: 0x208F6EC
+        EU: 0x208FA84
+      description: |-
+        This appears to be the libgcc implementation of __floatunsisf (not sure which gcc version), which implements the unsigned int to float cast operation for IEEE 754 floating-point numbers.
+        
+        r0: uint
+        return: (float)uint
+    - name: MultiplyFloat
+      address:
+        NA: 0x208F734
+        EU: 0x208FACC
+      description: "This appears to be the libgcc implementation of __mulsf3 (not sure which gcc version), which implements the multiplication operator for IEEE 754 floating-point numbers."
+    - name: Sqrtf
+      address:
+        NA: 0x208F914
+        EU: 0x208FCAC
+      description: |-
+        The sqrtf(3) C library function.
+        
+        r0: x
+        return: sqrt(x)
+    - name: SubtractFloat
+      address:
+        NA: 0x208FA04
+        EU: 0x208FD9C
+      description: |-
+        This appears to be the libgcc implementation of __subsf3 (not sure which gcc version), which implements the subtraction operator for IEEE 754 floating-point numbers.
+        
+        r0: a
+        r1: b
+        return: a - b
     - name: DivideInt
       address:
         NA: 0x208FEA4
@@ -2052,7 +2222,10 @@ arm9:
       address:
         NA: 0x20AFEF8
         EU: 0x20B0814
-      description: "[Runtime]"
+      description: |-
+        [Runtime] Flag related to saving and loading state?
+        
+        type: bool
     - name: DEFAULT_HERO_ID
       address:
         NA: 0x20AFEFC
