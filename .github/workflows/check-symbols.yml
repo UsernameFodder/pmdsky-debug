@@ -43,7 +43,7 @@ jobs:
         run: zip resymgen-fmt-output.zip $(git diff --relative --name-only)
         working-directory: symbols
       - name: Upload reformatted files
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: formatted-symbols
           path: symbols/resymgen-fmt-output.zip
