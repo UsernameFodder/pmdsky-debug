@@ -240,18 +240,19 @@ enum monster_id GetMissionTargetEnemy(void);
 enum monster_id GetMissionEnemyMinionGroup(int i);
 bool FloorHasMissionMonster(struct mission_destination_info* mission_dst);
 void LogMessageByIdWithPopupCheckUser(struct entity* user, int message_id);
-void LogMessageWithPopupCheckUser(struct entity* user, char* message);
+void LogMessageWithPopupCheckUser(struct entity* user, const char* message);
 void LogMessageByIdQuiet(struct entity* user, int message_id);
-void LogMessageQuiet(struct entity* user, char* message);
+void LogMessageQuiet(struct entity* user, const char* message);
 void LogMessageByIdWithPopupCheckUserTarget(struct entity* user, struct entity* target,
                                             int message_id);
-void LogMessageWithPopupCheckUserTarget(struct entity* user, struct entity* target, char* message);
+void LogMessageWithPopupCheckUserTarget(struct entity* user, struct entity* target,
+                                        const char* message);
 void LogMessageByIdQuietCheckUserTarget(struct entity* user, struct entity* target, int message_id);
 void LogMessageByIdWithPopupCheckUserUnknown(struct entity* user, undefined4* param_2,
                                              int message_id);
 void LogMessageByIdWithPopup(struct entity* user, int message_id);
-void LogMessageWithPopup(struct entity* user, char* message);
-void LogMessage(struct entity* user, char* message, bool show_popup);
+void LogMessageWithPopup(struct entity* user, const char* message);
+void LogMessage(struct entity* user, const char* message, bool show_popup);
 void LogMessageById(struct entity* user, int message_id, bool show_popup);
 bool RunDungeonMode(undefined4* param_1, undefined4 param_2);
 void SetBothScreensWindowColorToDefault(void);
