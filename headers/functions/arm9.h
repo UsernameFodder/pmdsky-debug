@@ -98,8 +98,8 @@ void HandleSir0Translation(uint8_t** dst, uint8_t* src);
 void HandleSir0TranslationVeneer(uint8_t** dst, uint8_t* src);
 int GetLanguageType(void);
 int GetLanguage(void);
-int PreprocessString(char* output, int output_size, const char* format, struct preprocessor_flags flags,
-                     struct preprocessor_args* args);
+int PreprocessString(char* output, int output_size, const char* format,
+                     struct preprocessor_flags flags, struct preprocessor_args* args);
 void StrcpySimple(char* dest, const char* src);
 void StrncpySimple(char* dest, const char* src, uint32_t n);
 char* StringFromMessageId(int message_id);
@@ -173,7 +173,8 @@ void* Memset(void* s, int c, uint32_t n);
 void* Memchr(void* s, char c, uint32_t n);
 int Memcmp(void* s1, void* s2, uint32_t n);
 void MemsetInternal(void* s, int c, uint32_t n);
-int VsprintfInternalSlice(slice_append_fn_t append, struct slice* str, const char* format, va_list ap);
+int VsprintfInternalSlice(slice_append_fn_t append, struct slice* str, const char* format,
+                          va_list ap);
 bool TryAppendToSlice(struct slice* slice, void* data, uint32_t data_len);
 int VsprintfInternal(char* str, uint32_t maxlen, const char* format, va_list ap);
 int Vsprintf(const char* str, const char* format, va_list ap);

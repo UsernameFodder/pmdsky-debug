@@ -245,7 +245,8 @@ void LogMessageByIdQuiet(struct entity* user, int message_id);
 void LogMessageQuiet(struct entity* user, const char* message);
 void LogMessageByIdWithPopupCheckUserTarget(struct entity* user, struct entity* target,
                                             int message_id);
-void LogMessageWithPopupCheckUserTarget(struct entity* user, struct entity* target, const char* message);
+void LogMessageWithPopupCheckUserTarget(struct entity* user, struct entity* target,
+                                        const char* message);
 void LogMessageByIdQuietCheckUserTarget(struct entity* user, struct entity* target, int message_id);
 void LogMessageByIdWithPopupCheckUserUnknown(struct entity* user, undefined4* param_2,
                                              int message_id);
