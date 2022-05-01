@@ -3,7 +3,7 @@
 #ifndef HEADERS_TYPES_GROUND_MODE_ENUMS_H_
 #define HEADERS_TYPES_GROUND_MODE_ENUMS_H_
 
-// Predefined global variables available to the script engine.
+// Predefined variables available to the script engine.
 enum script_var_id {
     VAR_VERSION = 0,
     VAR_CONDITION = 1,
@@ -119,16 +119,35 @@ enum script_var_id {
     VAR_PLAY_OLD_GAME = 111,
     VAR_NOTE_MODIFY_FLAG = 112,
     VAR_SUB30_PROJECTP = 113,
-    VAR_SUM = 114,
+    VAR_SUM = 114, // This seems to be an end marker or some sort of special variable?
+
+    // Local variables start at ID 0x400
+    VAR_LOCAL0 = 1024,
+    VAR_LOCAL1 = 1025,
+    VAR_LOCAL2 = 1026,
+    VAR_LOCAL3 = 1027,
 };
 
-// Local variables available to the script engine.
-enum script_local_var_id {
-    LOCAL_VAR_LOCAL0 = 0,
-    LOCAL_VAR_LOCAL1 = 1,
-    LOCAL_VAR_LOCAL2 = 2,
-    LOCAL_VAR_LOCAL3 = 3,
+// Script variable types.
+enum script_var_type {
+    VARTYPE_NONE = 0,
+    VARTYPE_BIT = 1,
+    // VARTYPE_STRING is an array of characters, and implementation-wise are treated exactly the
+    // same way as VARTYPE_UINT8
+    VARTYPE_STRING = 2,
+    VARTYPE_UINT8 = 3,
+    VARTYPE_INT8 = 4,
+    VARTYPE_UINT16 = 5,
+    VARTYPE_INT16 = 6,
+    VARTYPE_UINT32 = 7,
+    VARTYPE_INT32 = 8,
+    VARTYPE_SPECIAL = 9,
 };
+
+// This is usually stored as a 16-bit integer
+#pragma pack(push, 2)
+ENUM_16_BIT(script_var_type);
+#pragma pack(pop)
 
 // Opcodes available to the script engine.
 enum script_opcode_id {
