@@ -167,9 +167,14 @@ arm9:
         NA: 0x22AB0AC
         EU: 0x22AB9EC
       length:
-        NA: 0x2B4
-        EU: 0x2B4
-      description: The table of game variable values. Its structure is determined by SCRIPT_VARS.
+        NA: 0x400
+        EU: 0x400
+      description: |-
+        The table of game variable values. Its structure is determined by SCRIPT_VARS.
+        
+        Note that with the script variable list defined in SCRIPT_VARS, the used length of this table is actually only 0x2B4. However, the real length of this table is 0x400 based on the game code.
+        
+        type: struct script_var_value_table
     - name: BAG_LEVEL
       address:
         NA: 0x22AB15C
