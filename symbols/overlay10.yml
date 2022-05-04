@@ -264,11 +264,11 @@ overlay10:
         NA: 0x22C47F8
       length:
         NA: 0x4
-      description: "The multiplier for projectile damage from Power Pitcher (1.5), as a Q24.8 fixed-point float"
+      description: "The multiplier for projectile damage from Power Pitcher (1.5), as a binary fixed-point number (8 fraction bits)"
     - name: AIR_BLADE_DAMAGE_MULTIPLIER
       address:
         NA: 0x22C4844
-      description: "The multiplier for damage from the Air Blade (1.5), as a Q24.8 fixed-point float"
+      description: "The multiplier for damage from the Air Blade (1.5), as a binary fixed-point number (8 fraction bits)"
     - name: SPEED_BOOST_DURATION_RANGE
       address:
         NA: 0x22C4888
@@ -283,13 +283,13 @@ overlay10:
         NA: 0x22C4D98
       length:
         NA: 0x54
-      description: "Table of multipliers for offensive stats (attack/special attack) for each stage 0-20, as Q24.8 fixed-point floats"
+      description: "Table of multipliers for offensive stats (attack/special attack) for each stage 0-20, as binary fixed-point numbers (8 fraction bits)"
     - name: DEFENSIVE_STAT_STAGE_MULTIPLIERS
       address:
         NA: 0x22C4DEC
       length:
         NA: 0x54
-      description: "Table of multipliers for defensive stats (defense/special defense) for each stage 0-20, as Q24.8 fixed-point floats"
+      description: "Table of multipliers for defensive stats (defense/special defense) for each stage 0-20, as binary fixed-point numbers (8 fraction bits)"
     - name: RANDOM_MUSIC_ID_TABLE
       address:
         NA: 0x22C51FC
@@ -308,25 +308,25 @@ overlay10:
         NA: 0x22C540C
       length:
         NA: 0x54
-      description: "Table of multipliers for the accuracy stat for males for each stage 0-20, as Q24.8 fixed-point floats"
+      description: "Table of multipliers for the accuracy stat for males for each stage 0-20, as binary fixed-point numbers (8 fraction bits)"
     - name: MALE_EVASION_STAGE_MULTIPLIERS
       address:
         NA: 0x22C5460
       length:
         NA: 0x54
-      description: "Table of multipliers for the evasion stat for males for each stage 0-20, as Q24.8 fixed-point floats"
+      description: "Table of multipliers for the evasion stat for males for each stage 0-20, as binary fixed-point numbers (8 fraction bits)"
     - name: FEMALE_ACCURACY_STAGE_MULTIPLIERS
       address:
         NA: 0x22C54B4
       length:
         NA: 0x54
-      description: "Table of multipliers for the accuracy stat for females for each stage 0-20, as Q24.8 fixed-point floats"
+      description: "Table of multipliers for the accuracy stat for females for each stage 0-20, as binary fixed-point numbers (8 fraction bits)"
     - name: FEMALE_EVASION_STAGE_MULTIPLIERS
       address:
         NA: 0x22C5508
       length:
         NA: 0x54
-      description: "Table of multipliers for the evasion stat for females for each stage 0-20, as Q24.8 fixed-point floats"
+      description: "Table of multipliers for the evasion stat for females for each stage 0-20, as binary fixed-point numbers (8 fraction bits)"
     - name: MUSIC_ID_TABLE
       address:
         NA: 0x22C555C

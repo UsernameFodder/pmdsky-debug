@@ -86,9 +86,9 @@ struct monster_stat_modifiers {
     undefined field_0xe;
     undefined field_0xf;
     // Some moves like Screech affect the damage calculation differently than, e.g., Leer
-    // 0x10: Q24.8 fixed point, {atk, sp_atk}; from Charm, Memento, etc.
+    // 0x10: binary fixed-point (8 fraction bits), {atk, sp_atk}; from Charm, Memento, etc.
     int offensive_multipliers[2];
-    // 0x18: Q24.8 fixed point, {def, sp_def}; from Screech, etc.
+    // 0x18: binary fixed-point (8 fraction bits), {def, sp_def}; from Screech, etc.
     int defensive_multipliers[2];
 };
 ASSERT_SIZE(struct monster_stat_modifiers, 32);

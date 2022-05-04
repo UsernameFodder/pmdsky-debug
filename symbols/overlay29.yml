@@ -429,7 +429,7 @@ overlay29:
         r3: attack power
         stack[0]: crit chance
         stack[1]: [output] damage description struct?
-        stack[2]: damage multiplier (as a Q24.8 fixed-point float)
+        stack[2]: damage multiplier (as a binary fixed-point number with 8 fraction bits)
         stack[3]: move ID
         stack[4]: ?
     - name: CalcRecoilDamageFixed
@@ -1167,7 +1167,7 @@ overlay29:
         r0: attacker pointer
         r1: defender pointer
         r2: move
-        r3: damage multiplier (as a Q24.8 fixed-point float)
+        r3: damage multiplier (as a binary fixed-point number with 8 fraction bits)
         stack[0]: item ID
         return: amount of damage dealt
     - name: CalcDamageProjectile
@@ -2306,7 +2306,7 @@ overlay29:
       description: |-
         The base value by which belly is decreased every turn.
         
-        Its raw value is 0x199A, which encodes a Q16.16 binary fixed-point float with value (0x199A * 2^-16), and is the closest approximation to 0.1 representable in this number format.
+        Its raw value is 0x199A, which encodes a binary fixed-point number (16 fraction bits) with value (0x199A * 2^-16), and is the closest approximation to 0.1 representable in this number format.
     - name: MOVE_TARGET_AND_RANGE_SPECIAL_USER_HEALING
       address:
         NA: 0x231AD34

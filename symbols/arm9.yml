@@ -198,7 +198,7 @@ arm9:
         NA: 0x2001A54
         EU: 0x2001A54
       description: |-
-        Multiply a signed integer x by a signed fixed point multiplier (in Q24.8 format: 24 integer bits + 8 fractional bits).
+        Multiply a signed integer x by a signed binary fixed-point multiplier (8 fraction bits).
         
         r0: x
         r1: multiplier
@@ -208,7 +208,7 @@ arm9:
         NA: 0x2001B0C
         EU: 0x2001B0C
       description: |-
-        Multiplies an unsigned integer x by an unsigned fixed point multiplier (in Q24.8 format: 24 integer bits + 8 fractional bits).
+        Multiplies an unsigned integer x by an unsigned binary fixed-point multiplier (8 fraction bits).
         
         r0: x
         r1: multiplier
@@ -1308,7 +1308,7 @@ arm9:
         NA: 0x2050F10
         EU: 0x2051248
       description: |-
-        Compute the subtraction of two decimal fixed point floats.
+        Compute the subtraction of two decimal fixed-point numbers (16 fraction bits).
         
         Floats are in the format {16-bit integer part, 16-bit thousandths}, where the integer part is the lower word. Probably used primarily for belly.
         
@@ -1320,18 +1320,18 @@ arm9:
         NA: 0x2051020
         EU: 0x2051358
       description: |-
-        Convert a Q16.16 binary fixed-point float to the decimal fixed-point float used for belly calculations. Thousandths are floored.
+        Convert a binary fixed-point number (16 fraction bits) to the decimal fixed-point number (16 fraction bits) used for belly calculations. Thousandths are floored.
         
-        If <data> holds the raw binary data, a Q16.16 binary fixed-point float has the value ((unsigned)data) * 2^-16), and the decimal fixed-point float used for belly has the value (data & 0xffff) + (data >> 16)/1000.
+        If <data> holds the raw binary data, a binary fixed-point number (16 fraction bits) has the value ((unsigned)data) * 2^-16), and the decimal fixed-point number (16 fraction bits) used for belly has the value (data & 0xffff) + (data >> 16)/1000.
         
-        r0: pointer p, where ((const unsigned *)p)[1] is the float in Q16.16 format to convert
-        return: float in decimal fixed-point format
+        r0: pointer p, where ((const unsigned *)p)[1] is the fractional number in binary fixed-point format to convert
+        return: fractional number in decimal fixed-point format
     - name: CeilFixedPoint
       address:
         NA: 0x2051064
         EU: 0x205139C
       description: |-
-        Compute the ceiling of a decimal fixed point float.
+        Compute the ceiling of a decimal fixed-point number (16 fraction bits).
         
         Floats are in the format {16-bit integer part, 16-bit thousandths}, where the integer part is the lower word. Probably used primarily for belly.
         
