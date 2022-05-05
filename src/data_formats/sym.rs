@@ -6,9 +6,9 @@
 //!
 //! # Example
 //! ```csv
-//! 2000000 main
-//! 2400000 function1
-//! 2FFFFFF SOME_DATA
+//! 02000000 main
+//! 02400000 function1
+//! 02FFFFFF SOME_DATA
 //! ```
 
 use std::error::Error;
