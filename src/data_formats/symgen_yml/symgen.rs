@@ -1511,20 +1511,173 @@ other:
             )
         }
 
-        #[test]
-        fn test_read() {
-            let (input, expected) = get_symgen_data();
+        /// Same as get_symgen_data(), but with 64-bit data
+        fn get_symgen_data_64bit() -> (String, SymGen) {
+            (
+                String::from(
+                    r#"main:
+  versions:
+    - v1
+    - v2
+  address:
+    v1: 0x2000000FF
+    v2: 0x2000000FF
+  length:
+    v1: 0x100000FF
+    v2: 0x100004FF
+  description: foo
+  functions:
+    - name: fn1
+      address:
+        v1: 0x2001000FF
+        v2: 0x2002000FF
+      length: 0x1000
+      description: |-
+        multi
+        line
+        description
+    - name: fn2
+      address:
+        v1:
+          - 0x2002000FF
+          - 0x2003000FF
+        v2: 0x2003000FF
+      description: baz
+  data:
+    - name: SOME_DATA
+      address:
+        v1: 0x2000000FF
+        v2: 0x2000000FF
+      length:
+        v1: 0x1000
+        v2: 0x2000
+      description: foo bar baz
+other:
+  address: 0x2100000FFFF
+  length: 0x100000FFFF
+  functions:
+    - name: fn3
+      address: 0x2100000FFFF
+  data: []
+"#,
+                ),
+                SymGen::from([
+                    (
+                        ("main", 0).into(),
+                        Block {
+                            versions: Some(vec![("v1", 0).into(), ("v2", 1).into()]),
+                            address: MaybeVersionDep::ByVersion(
+                                [
+                                    (("v1", 0).into(), 0x2000000FF),
+                                    (("v2", 1).into(), 0x2000000FF),
+                                ]
+                                .into(),
+                            ),
+                            length: MaybeVersionDep::ByVersion(
+                                [
+                                    (("v1", 0).into(), 0x100000FF),
+                                    (("v2", 1).into(), 0x100004FF),
+                                ]
+                                .into(),
+                            ),
+                            description: Some("foo".to_string()),
+                            functions: [
+                                Symbol {
+                                    name: "fn1".to_string(),
+                                    address: MaybeVersionDep::ByVersion(
+                                        [
+                                            (("v1", 0).into(), 0x2001000FF.into()),
+                                            (("v2", 1).into(), 0x2002000FF.into()),
+                                        ]
+                                        .into(),
+                                    ),
+                                    length: Some(MaybeVersionDep::Common(0x1000)),
+                                    description: Some("multi\nline\ndescription".to_string()),
+                                },
+                                Symbol {
+                                    name: "fn2".to_string(),
+                                    address: MaybeVersionDep::ByVersion(
+                                        [
+                                            (("v1", 0).into(), [0x2002000FF, 0x2003000FF].into()),
+                                            (("v2", 1).into(), 0x2003000FF.into()),
+                                        ]
+                                        .into(),
+                                    ),
+                                    length: None,
+                                    description: Some("baz".to_string()),
+                                },
+                            ]
+                            .into(),
+                            data: [Symbol {
+                                name: "SOME_DATA".to_string(),
+                                address: MaybeVersionDep::ByVersion(
+                                    [
+                                        (("v1", 0).into(), 0x2000000FF.into()),
+                                        (("v2", 1).into(), 0x2000000FF.into()),
+                                    ]
+                                    .into(),
+                                ),
+                                length: Some(MaybeVersionDep::ByVersion(
+                                    [(("v1", 0).into(), 0x1000), (("v2", 1).into(), 0x2000)].into(),
+                                )),
+                                description: Some("foo bar baz".to_string()),
+                            }]
+                            .into(),
+                        },
+                    ),
+                    (
+                        ("other", 1).into(),
+                        Block {
+                            versions: None,
+                            address: MaybeVersionDep::Common(0x2100000FFFF),
+                            length: MaybeVersionDep::Common(0x100000FFFF),
+                            description: None,
+                            functions: [Symbol {
+                                name: "fn3".to_string(),
+                                address: MaybeVersionDep::Common(0x2100000FFFF.into()),
+                                length: None,
+                                description: None,
+                            }]
+                            .into(),
+                            data: [].into(),
+                        },
+                    ),
+                ]),
+            )
+        }
+
+        fn read_test_template<F: FnOnce() -> (String, SymGen)>(get_data: F) {
+            let (input, expected) = get_data();
             let obj = SymGen::read(input.as_bytes()).expect("Read failed");
             assert_eq!(&obj, &expected);
         }
 
         #[test]
-        fn test_write() {
-            let (expected, input) = get_symgen_data();
+        fn test_read() {
+            read_test_template(get_symgen_data);
+        }
+
+        #[test]
+        fn test_read_64bit() {
+            read_test_template(get_symgen_data_64bit);
+        }
+
+        fn write_test_template<F: FnOnce() -> (String, SymGen)>(get_data: F) {
+            let (expected, input) = get_data();
             let yaml = input
                 .write_to_str(IntFormat::Hexadecimal)
                 .expect("Write failed");
             assert_eq!(&yaml, &expected);
+        }
+
+        #[test]
+        fn test_write() {
+            write_test_template(get_symgen_data);
+        }
+
+        #[test]
+        fn test_write_64bit() {
+            write_test_template(get_symgen_data_64bit);
         }
 
         #[test]
