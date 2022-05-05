@@ -274,7 +274,20 @@ overlay29:
           - 0x23026CC
           - 0x230A9DC
           - 0x2311034
-        EU: 0x23002C4
+        EU: 
+          - 0x23002C4
+          - 0x22E3CBC
+          - 0x22EECC8
+          - 0x22F6350
+          - 0x23030F8
+          - 0x2308948
+          - 0x230B450
+          - 0x230EFEC
+          - 0x2310284
+          - 0x2311A94
+          - 0x2312658
+          - 0x2315B9C
+          - 0x2348750
       description: |-
         Checks if a monster is holding a certain item that isn't disabled by Klutz.
         
