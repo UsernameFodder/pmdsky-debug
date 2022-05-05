@@ -9,9 +9,9 @@ use std::slice;
 
 use serde::{Deserialize, Serialize};
 
-/// Unsigned integer type for addresses and lengths. This should match the system register size
-/// of the binary being reverse engineered.
-pub type Uint = u32;
+/// Unsigned integer type for addresses and lengths. This should be at least as large as the
+/// system register size of the binary being reverse engineered.
+pub type Uint = u64;
 /// Map from [`String`]s to sort indexes.
 pub type OrderMap = Option<HashMap<String, u64>>;
 
