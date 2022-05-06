@@ -528,6 +528,12 @@ overlay29:
           - 0x2302438
           - 0x230B3B4
           - 0x23237CC
+          - 0x23125F4
+          - 0x23290A0
+          - 0x232A980
+          - 0x232C840
+          - 0x232E860
+          - 0x233344C
       description: |-
         Checks if a defender has an active ability that isn't disabled by an attacker's Mold Breaker.
         
