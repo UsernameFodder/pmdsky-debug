@@ -312,5 +312,9 @@ overlay11:
         NA: 0x2324CF4
         EU: 0x2325834
       length:
-        NA: 0x14
-        EU: 0x14
+        NA: 0x18
+        EU: 0x18
+      description: |-
+        Host pointers to multiple structure used for performing an overworld scene
+        
+        type: struct main_ground_data
