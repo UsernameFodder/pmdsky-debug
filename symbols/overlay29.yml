@@ -404,6 +404,8 @@ overlay29:
           - 0x233344C
       description: |-
         Checks if a defender has an active ability that isn't disabled by an attacker's Mold Breaker.
+
+        There are two versions of this function, which share the same logic but have slightly different assembly. This is probably due to differences in compiler optimizations at different addresses.
         
         r0: attacker pointer
         r1: defender pointer
