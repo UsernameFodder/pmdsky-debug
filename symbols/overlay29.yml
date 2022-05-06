@@ -212,7 +212,65 @@ overlay29:
       address:
         NA:
           - 0x22F528C
+          - 0x2308FBC
+          - 0x23118B4
+          - 0x2315118
           - 0x2321438
+          - 0x232800C
+        EU:
+          - 0x22E0C94
+          - 0x22E235C
+          - 0x22E2947
+          - 0x22E3C98
+          - 0x22E4168
+          - 0x22E9FA4
+          - 0x22ECFB8
+          - 0x22ED770
+          - 0x22EECF8
+          - 0x22F0154
+          - 0x22F0F44
+          - 0x22F5C48
+          - 0x22F6C60
+          - 0x22F7D1C
+          - 0x22FD398
+          - 0x22FEEB8
+          - 0x2300B10
+          - 0x2303464
+          - 0x23051E4
+          - 0x2305FB8
+          - 0x2306630
+          - 0x2308924
+          - 0x23099E8
+          - 0x230F364
+          - 0x230FA7C
+          - 0x2311A70
+          - 0x2312314
+          - 0x2315B78
+          - 0x2319794
+          - 0x23198AC
+          - 0x231A9EC
+          - 0x231BBF4
+          - 0x231D630
+          - 0x231F840
+          - 0x231FFD8
+          - 0x2320664
+          - 0x2320BE4
+          - 0x23211CC
+          - 0x2326088
+          - 0x2328A78
+          - 0x232AE44
+          - 0x232CF70
+          - 0x232EC90
+          - 0x232F280
+          - 0x23349EC
+          - 0x2335B18
+          - 0x2338878
+          - 0x23456DC
+          - 0x2346284
+          - 0x23487A4
+          - 0x234A47C
+          - 0x234E9D0
+          - 0x234F820
       description: |-
         Checks if an entity pointer points to a valid entity (not entity type 0, which represents no entity).
         
@@ -388,72 +446,6 @@ overlay29:
         r0: attacker pointer
         r1: defender pointer
         r2: base experience gain, before boosts
-    - name: PptrIsValid
-      address:
-        NA:
-          - 0x2308FBC
-          - 0x23118B4
-          - 0x2315118
-          - 0x232800C
-        EU:
-          - 0x22E0C94
-          - 0x22E235C
-          - 0x22E2947
-          - 0x22E3C98
-          - 0x22E4168
-          - 0x22E9FA4
-          - 0x22ECFB8
-          - 0x22ED770
-          - 0x22EECF8
-          - 0x22F0154
-          - 0x22F0F44
-          - 0x22F5C48
-          - 0x22F6C60
-          - 0x22F7D1C
-          - 0x22FD398
-          - 0x22FEEB8
-          - 0x2300B10
-          - 0x2303464
-          - 0x23051E4
-          - 0x2305FB8
-          - 0x2306630
-          - 0x2308924
-          - 0x23099E8
-          - 0x230F364
-          - 0x230FA7C
-          - 0x2311A70
-          - 0x2312314
-          - 0x2315B78
-          - 0x2319794
-          - 0x23198AC
-          - 0x231A9EC
-          - 0x231BBF4
-          - 0x231D630
-          - 0x231F840
-          - 0x231FFD8
-          - 0x2320664
-          - 0x2320BE4
-          - 0x23211CC
-          - 0x2326088
-          - 0x2328A78
-          - 0x232AE44
-          - 0x232CF70
-          - 0x232EC90
-          - 0x232F280
-          - 0x23349EC
-          - 0x2335B18
-          - 0x2338878
-          - 0x23456DC
-          - 0x2346284
-          - 0x23487A4
-          - 0x234A47C
-          - 0x234E9D0
-          - 0x234F820
-      description: |-
-        Checks if a double pointer is non-null when double-dereferenced.
-        
-        r0: pointer to pointer
-        return: bool
     - name: DefenderAbilityIsActive
       address:
         NA:
