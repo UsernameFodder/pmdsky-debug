@@ -433,15 +433,15 @@ overlay29:
           - 0x2322DB8
           - 0x234D460
         EU:
-          - 0x022FA12C
-          - 0x0230248C
-          - 0x0230B408
-          - 0x023103F4
-          - 0x02319510
-          - 0x0231B434
-          - 0x0231BD78
-          - 0x02323820
-          - 0x0234E060
+          - 0x22FA12C
+          - 0x230248C
+          - 0x230B408
+          - 0x23103F4
+          - 0x2319510
+          - 0x231B434
+          - 0x231BD78
+          - 0x2323820
+          - 0x234E060
       description: |-
         Checks if an entity is a monster (entity type 1).
         
