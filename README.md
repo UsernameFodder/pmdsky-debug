@@ -54,3 +54,5 @@ This repository is an attempt to implement the first sharing method (machine-rea
 ### No$GBA with symbol names
 ![No$GBA with symbol names](docs/images/top-readme-nocash.png)
 
+## Licensing
+The overall `pmdsky-debug` project is licensed under [GPLv3](LICENSE.txt). However, the [symbols](symbols) and [C headers](headers) are additionally licensed under MIT; see the separate `LICENSE.txt` files in each directory. If you are exclusively using the symbols and/or C headers, you may choose to use them under either GPLv3 or MIT. If you are using `pmdsky-debug` as a submodule for your own project purely for the symbols and/or C headers, the dual license likewise applies, provided the symbols and/or C headers are the _only_ part of `pmdsky-debug` being used.
