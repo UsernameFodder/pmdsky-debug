@@ -414,8 +414,15 @@ overlay29:
     - name: IsMonster
       address:
         NA:
+          - 0x22F9720
           - 0x2301A60
           - 0x230A994
+          - 0x230F980
+          - 0x2318AB0
+          - 0x231A9D4
+          - 0x231B318
+          - 0x2322DB8
+          - 0x234D460
         EU:
           - 0x022FA12C
           - 0x0230248C
