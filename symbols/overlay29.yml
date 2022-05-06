@@ -51,6 +51,122 @@ overlay29:
         NA: 0x22DEF38
         EU: 0x22DF878
       description: Seems to initialize the dungeon struct from specified dungeon data.
+    - name: EntityIsValid
+      address:
+        NA:
+          - 0x22E0354
+          - 0x22E1A1C
+          - 0x22E32E8
+          - 0x22E37B8
+          - 0x22E95F4
+          - 0x22EC608
+          - 0x22ECDC0
+          - 0x22EE348
+          - 0x22EF7A0
+          - 0x22F0590
+          - 0x22F528C
+          - 0x22F62A8
+          - 0x22F7364
+          - 0x22FC99C
+          - 0x22FED98
+          - 0x23000E4
+          - 0x2302A38
+          - 0x23047B8
+          - 0x230558C
+          - 0x2305C04
+          - 0x2307EF8
+          - 0x230827C
+          - 0x2308FBC
+          - 0x230E8F0
+          - 0x230F008
+          - 0x2311010
+          - 0x23118B4
+          - 0x2315118
+          - 0x2318D34
+          - 0x2318E4C
+          - 0x2319F8C
+          - 0x231B194
+          - 0x231CBC8
+          - 0x231EDD8
+          - 0x231F570
+          - 0x231FBFC
+          - 0x232017C
+          - 0x2320764
+          - 0x2321438
+          - 0x2325620
+          - 0x232800C
+          - 0x232A3D8
+          - 0x232C500
+          - 0x232E250
+          - 0x232E840
+          - 0x2333FAC
+          - 0x23350D8
+          - 0x2337CA8
+          - 0x2344AF8
+          - 0x2345698
+          - 0x2347BA4
+          - 0x234987C
+          - 0x234DDD0
+          - 0x234EC14
+        EU:
+          - 0x22E0C94
+          - 0x22E235C
+          - 0x22E2947
+          - 0x22E3C98
+          - 0x22E4168
+          - 0x22E9FA4
+          - 0x22ECFB8
+          - 0x22ED770
+          - 0x22EECF8
+          - 0x22F0154
+          - 0x22F0F44
+          - 0x22F5C48
+          - 0x22F6C60
+          - 0x22F7D1C
+          - 0x22FD398
+          - 0x22FEEB8
+          - 0x2300B10
+          - 0x2303464
+          - 0x23051E4
+          - 0x2305FB8
+          - 0x2306630
+          - 0x2308924
+          - 0x23099E8
+          - 0x230F364
+          - 0x230FA7C
+          - 0x2311A70
+          - 0x2312314
+          - 0x2315B78
+          - 0x2319794
+          - 0x23198AC
+          - 0x231A9EC
+          - 0x231BBF4
+          - 0x231D630
+          - 0x231F840
+          - 0x231FFD8
+          - 0x2320664
+          - 0x2320BE4
+          - 0x23211CC
+          - 0x2326088
+          - 0x2328A78
+          - 0x232AE44
+          - 0x232CF70
+          - 0x232EC90
+          - 0x232F280
+          - 0x23349EC
+          - 0x2335B18
+          - 0x2338878
+          - 0x23456DC
+          - 0x2346284
+          - 0x23487A4
+          - 0x234A47C
+          - 0x234E9D0
+          - 0x234F820
+      description: |-
+        Checks if an entity pointer points to a valid entity (not entity type 0, which represents no entity).
+        
+        r0: entity pointer
+        return: bool
     - name: GetFloorType
       address:
         NA: 0x22E03B0
@@ -86,6 +202,42 @@ overlay29:
         r0: string ID (unclear what this means)
         r1: entity pointer
         r2: ?
+    - name: ItemIsActive
+      address:
+        NA:
+          - 0x22E330C
+          - 0x22EE318
+          - 0x22F5994
+          - 0x22FF898
+          - 0x23026CC
+          - 0x2307F1C
+          - 0x230A9DC
+          - 0x230E578
+          - 0x230F810
+          - 0x2311034
+          - 0x2311BF8
+          - 0x231513C
+          - 0x2347B50
+        EU:
+          - 0x22E3CBC
+          - 0x22EECC8
+          - 0x22F6350
+          - 0x23002C4
+          - 0x23030F8
+          - 0x2308948
+          - 0x230B450
+          - 0x230EFEC
+          - 0x2310284
+          - 0x2311A94
+          - 0x2312658
+          - 0x2315B9C
+          - 0x2348750
+      description: |-
+        Checks if a monster is holding a certain item that isn't disabled by Klutz.
+        
+        r0: entity pointer
+        r1: item ID
+        return: bool
     - name: GenerateDungeonRngSeed
       address:
         NA: 0x22EA980
@@ -208,122 +360,6 @@ overlay29:
         Sets the dungeon PRNG to use the primary LCG for subsequent random number generation.
         
         No params.
-    - name: EntityIsValid
-      address:
-        NA:
-          - 0x22E0354
-          - 0x22E1A1C
-          - 0x22E32E8
-          - 0x22E37B8
-          - 0x22E95F4
-          - 0x22EC608
-          - 0x22ECDC0
-          - 0x22EE348
-          - 0x22EF7A0
-          - 0x22F0590
-          - 0x22F528C
-          - 0x22F62A8
-          - 0x22F7364
-          - 0x22FC99C
-          - 0x22FED98
-          - 0x23000E4
-          - 0x2302A38
-          - 0x23047B8
-          - 0x230558C
-          - 0x2305C04
-          - 0x2307EF8
-          - 0x230827C
-          - 0x2308FBC
-          - 0x230E8F0
-          - 0x230F008
-          - 0x2311010
-          - 0x23118B4
-          - 0x2315118
-          - 0x2318D34
-          - 0x2318E4C
-          - 0x2319F8C
-          - 0x231B194
-          - 0x231CBC8
-          - 0x231EDD8
-          - 0x231F570
-          - 0x231FBFC
-          - 0x232017C
-          - 0x2320764
-          - 0x2321438
-          - 0x2325620
-          - 0x232800C
-          - 0x232A3D8
-          - 0x232C500
-          - 0x232E250
-          - 0x232E840
-          - 0x2333FAC
-          - 0x23350D8
-          - 0x2337CA8
-          - 0x2344AF8
-          - 0x2345698
-          - 0x2347BA4
-          - 0x234987C
-          - 0x234DDD0
-          - 0x234EC14
-        EU:
-          - 0x22E0C94
-          - 0x22E235C
-          - 0x22E2947
-          - 0x22E3C98
-          - 0x22E4168
-          - 0x22E9FA4
-          - 0x22ECFB8
-          - 0x22ED770
-          - 0x22EECF8
-          - 0x22F0154
-          - 0x22F0F44
-          - 0x22F5C48
-          - 0x22F6C60
-          - 0x22F7D1C
-          - 0x22FD398
-          - 0x22FEEB8
-          - 0x2300B10
-          - 0x2303464
-          - 0x23051E4
-          - 0x2305FB8
-          - 0x2306630
-          - 0x2308924
-          - 0x23099E8
-          - 0x230F364
-          - 0x230FA7C
-          - 0x2311A70
-          - 0x2312314
-          - 0x2315B78
-          - 0x2319794
-          - 0x23198AC
-          - 0x231A9EC
-          - 0x231BBF4
-          - 0x231D630
-          - 0x231F840
-          - 0x231FFD8
-          - 0x2320664
-          - 0x2320BE4
-          - 0x23211CC
-          - 0x2326088
-          - 0x2328A78
-          - 0x232AE44
-          - 0x232CF70
-          - 0x232EC90
-          - 0x232F280
-          - 0x23349EC
-          - 0x2335B18
-          - 0x2338878
-          - 0x23456DC
-          - 0x2346284
-          - 0x23487A4
-          - 0x234A47C
-          - 0x234E9D0
-          - 0x234F820
-      description: |-
-        Checks if an entity pointer points to a valid entity (not entity type 0, which represents no entity).
-        
-        r0: entity pointer
-        return: bool
     - name: ResetDamageDesc
       address:
         NA: 0x22F6E18
@@ -341,6 +377,65 @@ overlay29:
         
         Has a special check to return false for Labyrinth Cave B10F (the Gabite boss fight).
         
+        return: bool
+    - name: DefenderAbilityIsActive
+      address:
+        NA:
+          - 0x22F96CC
+          - 0x2301A0C
+          - 0x230A940
+          - 0x2311B94
+          - 0x2322D64
+          - 0x2328634
+          - 0x2329F14
+          - 0x232BDD0
+          - 0x232DE20
+          - 0x2332A0C
+        EU:
+          - 0x22FA08D
+          - 0x2302438
+          - 0x230B3B4
+          - 0x23125F4
+          - 0x23237CC
+          - 0x23290A0
+          - 0x232A980
+          - 0x232C840
+          - 0x232E860
+          - 0x233344C
+      description: |-
+        Checks if a defender has an active ability that isn't disabled by an attacker's Mold Breaker.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: ability ID to check on the defender
+        r3: flag for whether the attacker's ability is enabled
+        return: bool
+    - name: IsMonster
+      address:
+        NA:
+          - 0x22F9720
+          - 0x2301A60
+          - 0x230A994
+          - 0x230F980
+          - 0x2318AB0
+          - 0x231A9D4
+          - 0x231B318
+          - 0x2322DB8
+          - 0x234D460
+        EU:
+          - 0x22FA12C
+          - 0x230248C
+          - 0x230B408
+          - 0x23103F4
+          - 0x2319510
+          - 0x231B434
+          - 0x231BD78
+          - 0x2323820
+          - 0x234E060
+      description: |-
+        Checks if an entity is a monster (entity type 1).
+        
+        r0: entity pointer
         return: bool
     - name: HasLowHealth
       address:
@@ -373,42 +468,6 @@ overlay29:
         
         r0: monster pointer
         return: bool
-    - name: ItemIsActive
-      address:
-        NA:
-          - 0x22E330C
-          - 0x22EE318
-          - 0x22F5994
-          - 0x22FF898
-          - 0x23026CC
-          - 0x2307F1C
-          - 0x230A9DC
-          - 0x230E578
-          - 0x230F810
-          - 0x2311034
-          - 0x2311BF8
-          - 0x231513C
-          - 0x2347B50
-        EU: 
-          - 0x23002C4
-          - 0x22E3CBC
-          - 0x22EECC8
-          - 0x22F6350
-          - 0x23030F8
-          - 0x2308948
-          - 0x230B450
-          - 0x230EFEC
-          - 0x2310284
-          - 0x2311A94
-          - 0x2312658
-          - 0x2315B9C
-          - 0x2348750
-      description: |-
-        Checks if a monster is holding a certain item that isn't disabled by Klutz.
-        
-        r0: entity pointer
-        r1: item ID
-        return: bool
     - name: SprintfStatic
       address:
         NA: 0x23002C8
@@ -420,33 +479,6 @@ overlay29:
         r1: format
         ...: variadic
         return: number of characters printed, excluding the null-terminator
-    - name: IsMonster
-      address:
-        NA:
-          - 0x22F9720
-          - 0x2301A60
-          - 0x230A994
-          - 0x230F980
-          - 0x2318AB0
-          - 0x231A9D4
-          - 0x231B318
-          - 0x2322DB8
-          - 0x234D460
-        EU:
-          - 0x22FA12C
-          - 0x230248C
-          - 0x230B408
-          - 0x23103F4
-          - 0x2319510
-          - 0x231B434
-          - 0x231BD78
-          - 0x2323820
-          - 0x234E060
-      description: |-
-        Checks if an entity is a monster (entity type 1).
-        
-        r0: entity pointer
-        return: bool
     - name: NoGastroAcidStatus
       address:
         NA: 0x2301CDC
@@ -510,38 +542,6 @@ overlay29:
         r0: attacker pointer
         r1: defender pointer
         r2: base experience gain, before boosts
-    - name: DefenderAbilityIsActive
-      address:
-        NA:
-          - 0x22F96CC
-          - 0x2301A0C
-          - 0x230A940
-          - 0x2311B94
-          - 0x2322D64
-          - 0x2328634
-          - 0x2329F14
-          - 0x232BDD0
-          - 0x232DE20
-          - 0x2332A0C
-        EU:
-          - 0x22FA08D
-          - 0x2302438
-          - 0x230B3B4
-          - 0x23237CC
-          - 0x23125F4
-          - 0x23290A0
-          - 0x232A980
-          - 0x232C840
-          - 0x232E860
-          - 0x233344C
-      description: |-
-        Checks if a defender has an active ability that isn't disabled by an attacker's Mold Breaker.
-        
-        r0: attacker pointer
-        r1: defender pointer
-        r2: ability ID to check on the defender
-        r3: flag for whether the attacker's ability is enabled
-        return: bool
     - name: ExclusiveItemEffectIsActive
       address:
         NA: 0x230A9B8
