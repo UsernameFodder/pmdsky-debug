@@ -6,9 +6,11 @@ struct dungeon* GetDungeonPtrMaster(void);
 void DungeonZInit(void);
 void DungeonFree(void);
 int InitializeDungeon(undefined* dungeon_data, struct dungeon* dungeon);
+bool EntityIsValid(struct entity* entity);
 enum floor_type GetFloorType(void);
 bool FixedRoomIsSubstituteRoom(void);
 void SubstitutePlaceholderStringTags(int string_id, struct entity* entity, undefined4 param_3);
+bool ItemIsActive(struct entity* entity, enum item_id item_id);
 uint32_t GenerateDungeonRngSeed(void);
 uint32_t GetDungeonRngPreseed(void);
 void SetDungeonRngPreseed(uint32_t preseed);
@@ -21,23 +23,20 @@ int CalcStatusDuration(struct entity* entity, uint16_t* turn_range, bool iq_skil
 void DungeonRngUnsetSecondary(void);
 void DungeonRngSetSecondary(int i);
 void DungeonRngSetPrimary(void);
-bool EntityIsValid(struct entity* entity);
 void ResetDamageDesc(undefined4* damage_desc);
 bool FloorNumberIsEven(void);
+bool DefenderAbilityIsActive(struct entity* attacker, struct entity* defender,
+                             enum ability_id ability_id, bool attacker_ability_enabled);
+bool IsMonster(struct entity* entity);
 bool HasLowHealth(struct entity* entity);
 bool IsSpecialStoryAlly(struct monster* monster);
 bool IsExperienceLocked(struct monster* monster);
-bool ItemIsActive(struct entity* entity, enum item_id item_id);
-bool IsMonster(struct entity* entity);
 bool NoGastroAcidStatus(struct entity* entity);
 bool AbilityIsActive(struct entity* entity, enum ability_id ability_id);
 bool MonsterIsType(struct entity* entity, enum type_id type_id);
 bool IqSkillIsEnabled(struct entity* entity, enum iq_skill_id iq_id);
 int GetMovePower(struct entity* entity, struct move* move);
 void AddExpSpecial(struct entity* attacker, struct entity* defender, int base_exp);
-bool PptrIsValid(void** pptr);
-bool DefenderAbilityIsActive(struct entity* attacker, struct entity* defender,
-                             enum ability_id ability_id, bool attacker_ability_enabled);
 bool ExclusiveItemEffectIsActive(struct entity* entity, enum exclusive_item_effect_id effect_id);
 enum type_matchup GetTypeMatchup(struct entity* attacker, struct entity* defender,
                                  int target_type_idx, enum type_id attack_type);
