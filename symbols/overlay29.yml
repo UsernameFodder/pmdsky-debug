@@ -376,10 +376,19 @@ overlay29:
     - name: ItemIsActive
       address:
         NA:
+          - 0x22E330C
+          - 0x22EE318
+          - 0x22F5994
           - 0x22FF898
           - 0x23026CC
+          - 0x2307F1C
           - 0x230A9DC
+          - 0x230E578
+          - 0x230F810
           - 0x2311034
+          - 0x2311BF8
+          - 0x231513C
+          - 0x2347B50
         EU: 
           - 0x23002C4
           - 0x22E3CBC
