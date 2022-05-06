@@ -8,6 +8,7 @@
     - [Use address lists for duplicated symbols](#use-address-lists-for-duplicated-symbols)
     - [Follow style conventions](#follow-style-conventions)
   - [Local development environment](#local-development-environment)
+  - [Licensing](#licensing)
 
 A "symbol" is a name for a specific offset within a binary. Having descriptive symbol names often dramatically improves the readability of assembly instructions and decompiled code. This directory contains catalogs of symbols within the _Explorers of Sky_ binaries. They use the human-and-machine-readable [YAML](https://en.wikipedia.org/wiki/YAML) format, so they can be used both as documentation and for import into various tools.
 
@@ -119,3 +120,6 @@ Refer to the [`resymgen` README](../docs/resymgen.md#usage) for a general overvi
 - Bulk-merge symbols from a CSV file into the symbol tables: `resymgen merge -x -f csv -v <version> -i <CSV file> <YAML symbol file>`
     - The exact CSV format can be exported directly from a Ghidra project from the symbol table (in the code browser: Window > Symbol Table), and is documented in the [`resymgen` library docs](https://docs.rs/resymgen/latest/resymgen/data_formats/ghidra_csv/index.html).
     - If a CSV file contains addresses outside of the range of the block within the YAML file, they will be skipped, which allows you to run this command multiple times to append to multiple YAML files from a single CSV file.
+
+## Licensing
+The `pmdsky-debug` symbol tables are dual-licensed under [GNU GPLv3](../LICENSE.txt) or [MIT](LICENSE.txt). If you are using the symbol tables in your own project, you may choose to use them under either license.
