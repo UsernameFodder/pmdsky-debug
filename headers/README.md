@@ -14,6 +14,7 @@
     - [Use meaningful types](#use-meaningful-types)
     - [Follow style conventions](#follow-style-conventions)
   - [Local development environment](#local-development-environment)
+  - [Licensing](#licensing)
 
 The C headers in this directory contain _type information_, including struct definitions, enum definitions, and function signatures. They also contain _documentation_ in the form of comments. They don't contain "code" in the sense of executable instructions (that would be in the realm of a decompilation project).
 
@@ -240,3 +241,6 @@ Naming conventions are as follows:
 - Either [`clang`](https://clang.llvm.org/) or [`gcc`](https://gcc.gnu.org/) will allow you to run compiler checks (syntax and size assertions) via `make` or `make headers`.
 - [`clang-format`](https://clang.llvm.org/docs/ClangFormat.html) (often comes included when you install [`clang`](https://clang.llvm.org/)) will allow you to run the formatter via `make format` (it also requires the `find` and `xargs` Unix utilities). With `clang-format` version 10+ you can also run the formatter in check mode via `make format-check`.
 - [Python 3](https://www.python.org/) (invokable with the `python3` command) with [PyYAML](https://pyyaml.org/) installed (`pip3 install pyyaml`) will allow you to run synchronization checks between functions defined in the C headers and those defined in the corresponding [symbol](../symbols) files, via `make symbol-check`.
+
+## Licensing
+The `pmdsky-debug` C headers are dual-licensed under [GNU GPLv3](../LICENSE.txt) or [MIT](LICENSE.txt). If you are using the C headers in your own project, you may choose to use them under either license.
