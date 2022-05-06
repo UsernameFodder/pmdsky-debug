@@ -35,7 +35,6 @@ bool MonsterIsType(struct entity* entity, enum type_id type_id);
 bool IqSkillIsEnabled(struct entity* entity, enum iq_skill_id iq_id);
 int GetMovePower(struct entity* entity, struct move* move);
 void AddExpSpecial(struct entity* attacker, struct entity* defender, int base_exp);
-bool PptrIsValid(void** pptr);
 bool DefenderAbilityIsActive(struct entity* attacker, struct entity* defender,
                              enum ability_id ability_id, bool attacker_ability_enabled);
 bool ExclusiveItemEffectIsActive(struct entity* entity, enum exclusive_item_effect_id effect_id);
