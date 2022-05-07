@@ -2550,6 +2550,34 @@ overlay29:
           - 0x2342C64
           - 0x2342D98
           - 0x2342F28
+        EU:
+          - 0x233BA50
+          - 0x233BAEC
+          - 0x233BD70
+          - 0x233C1FC
+          - 0x233C65C
+          - 0x233C7BC
+          - 0x233C954
+          - 0x233CB10
+          - 0x233CEF0
+          - 0x233D350
+          - 0x233DB64
+          - 0x233DCE4
+          - 0x233DEF4
+          - 0x233E254
+          - 0x233EC3C
+          - 0x2340B74
+          - 0x2340E00
+          - 0x23412B4
+          - 0x2342040
+          - 0x2342348
+          - 0x2342D5C
+          - 0x23430F4
+          - 0x23433C4
+          - 0x2343758
+          - 0x2343848
+          - 0x234397C
+          - 0x2343B0C
       length:
         NA: 0x4
       description: |-
@@ -2561,9 +2589,12 @@ overlay29:
         NA:
           - 0x233AE74
           - 0x2341464
+        EU:
+          - 0x233BA58
+          - 0x2342048
       length:
         NA: 0x4
-      description: Offset of the (number of base items + 1) field on the dungeon struct
+      description: Offset of the (number of base items + 1) field on the dungeon struct (0x12AFA)
     - name: DUNGEON_GRID_COLUMN_BYTES
       address:
         NA:
@@ -2587,12 +2618,34 @@ overlay29:
           - 0x2340220
           - 0x2340454
           - 0x23424CC
+        EU:
+          - 0x233C1F8
+          - 0x233C658
+          - 0x233C950
+          - 0x233CB0C
+          - 0x233CEEC
+          - 0x233D354
+          - 0x233D5C8
+          - 0x233DB5C
+          - 0x233DCE0
+          - 0x233DEF8
+          - 0x233E250
+          - 0x233EC38
+          - 0x233F01C
+          - 0x233F914
+          - 0x233FCF8
+          - 0x23404E0
+          - 0x2340B78
+          - 0x2340E04
+          - 0x2341038
+          - 0x23430B0
       length:
         NA: 0x4
       description: "The number of bytes in one column of the dungeon grid cell array, 450, which corresponds to a column of 15 grid cells."
     - name: DEFAULT_MAX_POSITION
       address:
         NA: 0x233FF98
+        EU: 0x2340B7C
       length:
         NA: 0x4
       description: A large number (9999) to use as a default position for keeping track of min/max position values
@@ -2601,9 +2654,12 @@ overlay29:
         NA:
           - 0x2341460
           - 0x2344E80
+        EU:
+          - 0x2342044
+          - 0x2345A64
       length:
         NA: 0x4
-      description: Offset of the guaranteed item ID field in the dungeon struct
+      description: Offset of the guaranteed item ID field in the dungeon struct (0x2C9E8)
     - name: FIXED_ROOM_TILE_SPAWN_TABLE
       address:
         NA: 0x234FDD0
@@ -2672,6 +2728,7 @@ overlay29:
     - name: DIRECTIONS_XY
       address:
         NA: 0x235171C
+        EU: 0x2352328
       length:
         NA: 0x20
       description: |-
@@ -2697,18 +2754,21 @@ overlay29:
     - name: SPATK_STAT_IDX
       address:
         NA: 0x2352AE8
+        EU: 0x23536F4
       length:
         NA: 0x4
       description: "The index (1) of the special attack entry in internal stat structs, such as the stat modifier array for a monster."
     - name: ATK_STAT_IDX
       address:
         NA: 0x2352AEC
+        EU: 0x23536F8
       length:
         NA: 0x4
       description: "The index (0) of the attack entry in internal stat structs, such as the stat modifier array for a monster."
     - name: CORNER_CARDINAL_NEIGHBOR_IS_OPEN
       address:
         NA: 0x2353010
+        EU: 0x2353C24
       length:
         NA: 0x20
       description: |-
@@ -2747,6 +2807,7 @@ overlay29:
     - name: DUNGEON_PRNG_STATE
       address:
         NA: 0x2353570
+        EU: 0x2354170
       length:
         NA: 0x14
       description: |-
@@ -2758,6 +2819,7 @@ overlay29:
     - name: DUNGEON_PRNG_STATE_SECONDARY_VALUES
       address:
         NA: 0x2353584
+        EU: 0x2354184
       length:
         NA: 0x14
       description: |-
@@ -2767,6 +2829,7 @@ overlay29:
     - name: DEFAULT_TILE
       address:
         NA: 0x2353724
+        EU: 0x235433C
       length:
         NA: 0x14
       description: |-
@@ -2778,6 +2841,7 @@ overlay29:
     - name: FIXED_ROOM_DATA_PTR
       address:
         NA: 0x2353794
+        EU: 0x23543AC
       length:
         NA: 0x4
       description: "[Runtime] Pointer to decoded fixed room data loaded from the BALANCE/fixed.bin file."
