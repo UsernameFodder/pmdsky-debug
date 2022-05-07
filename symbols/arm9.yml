@@ -1977,30 +1977,35 @@ arm9:
     - name: DEFAULT_MEMORY_ARENA_SIZE
       address:
         NA: 0x2000E58
+        EU: 0x2000E58
       length:
         NA: 0x4
       description: "Length in bytes of the default memory allocation arena, 1991680."
     - name: AURA_BOW_ID_LAST
       address:
         NA: 0x200CC34
+        EU: 0x200CCBC
       length:
         NA: 0x4
       description: Highest item ID of the aura bows.
     - name: NUMBER_OF_ITEMS
       address:
         NA: 0x200E860
+        EU: 0x200E930
       length:
         NA: 0x4
       description: Number of items in the game.
     - name: MAX_MONEY_CARRIED
       address:
         NA: 0x200ED50
+        EU: 0x200EDF8
       length:
         NA: 0x4
       description: "Maximum amount of money the player can carry, 99999."
     - name: MAX_MONEY_STORED
       address:
         NA: 0x2010750
+        EU: 0x20107F8
       length:
         NA: 0x4
       description: "Maximum amount of money the player can store in the Duskull Bank, 9999999."
@@ -2011,6 +2016,11 @@ arm9:
           - 0x204B4E4
           - 0x204C42C
           - 0x204C484
+        EU:
+          - 0x204B630
+          - 0x204B81C
+          - 0x204C764
+          - 0x204C7BC
       length:
         NA: 0x4
       description: Hard-coded pointer to SCRIPT_VARS_VALUES.
@@ -2019,6 +2029,9 @@ arm9:
         NA:
           - 0x2055238
           - 0x205564C
+        EU:
+          - 0x20555B4
+          - 0x20559C8
       description: "555, appears to be the maximum number of members recruited to an exploration team, at least for the purposes of some checks that need to iterate over all team members."
     - name: CART_REMOVED_IMG_DATA
       address:
@@ -2030,6 +2043,7 @@ arm9:
     - name: EXCLUSIVE_ITEM_STAT_BOOST_DATA
       address:
         NA: 0x20980E8
+        EU: 0x209852C
       length:
         NA: 0x3C
       description: |-
@@ -2039,30 +2053,35 @@ arm9:
     - name: EXCLUSIVE_ITEM_ATTACK_BOOSTS
       address:
         NA: 0x20980E8
+        EU: 0x209852C
       length:
         NA: 0x39
       description: "EXCLUSIVE_ITEM_STAT_BOOST_DATA, offset by 0"
     - name: EXCLUSIVE_ITEM_SPECIAL_ATTACK_BOOSTS
       address:
         NA: 0x20980E9
+        EU: 0x209852D
       length:
         NA: 0x39
       description: "EXCLUSIVE_ITEM_STAT_BOOST_DATA, offset by 1"
     - name: EXCLUSIVE_ITEM_DEFENSE_BOOSTS
       address:
         NA: 0x20980EA
+        EU: 0x209852E
       length:
         NA: 0x39
       description: "EXCLUSIVE_ITEM_STAT_BOOST_DATA, offset by 2"
     - name: EXCLUSIVE_ITEM_SPECIAL_DEFENSE_BOOSTS
       address:
         NA: 0x20980EB
+        EU: 0x209852F
       length:
         NA: 0x39
       description: "EXCLUSIVE_ITEM_STAT_BOOST_DATA, offset by 3"
     - name: EXCLUSIVE_ITEM_EFFECT_DATA
       address:
         NA: 0x2098124
+        EU: 0x2098568
       length:
         NA: 0x778
       description: |-
@@ -2072,6 +2091,7 @@ arm9:
     - name: EXCLUSIVE_ITEM_STAT_BOOST_DATA_INDEXES
       address:
         NA: 0x2098125
+        EU: 0x2098569
       length:
         NA: 0x777
       description: "EXCLUSIVE_ITEM_EFFECT_DATA, offset by 1"
