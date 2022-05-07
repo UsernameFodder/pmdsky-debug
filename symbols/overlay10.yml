@@ -195,18 +195,21 @@ overlay10:
     - name: GEO_PEBBLE_DAMAGE
       address:
         NA: 0x22C46B4
+        EU: 0x22C500C
       length:
         NA: 0x2
       description: Damage dealt by Geo Pebbles.
     - name: GRAVELEROCK_DAMAGE
       address:
         NA: 0x22C46B8
+        EU: 0x22C5010
       length:
         NA: 0x2
       description: Damage dealt by Gravelerocks.
     - name: RARE_FOSSIL_DAMAGE
       address:
         NA: 0x22C46BC
+        EU: 0x22C5014
       length:
         NA: 0x2
       description: Damage dealt by Rare Fossils.
@@ -221,54 +224,63 @@ overlay10:
     - name: ZINC_STAT_BOOST
       address:
         NA: 0x22C46C4
+        EU: 0x22C501C
       length:
         NA: 0x2
       description: The permanent special defense boost from ingesting a Zinc.
     - name: IRON_STAT_BOOST
       address:
         NA: 0x22C46C8
+        EU: 0x22C5020
       length:
         NA: 0x2
       description: The permanent defense boost from ingesting an Iron.
     - name: CALCIUM_STAT_BOOST
       address:
         NA: 0x22C46CC
+        EU: 0x22C5024
       length:
         NA: 0x2
       description: The permanent special attack boost from ingesting a Calcium.
     - name: CORSOLA_TWIG_POWER
       address:
         NA: 0x22C46D8
+        EU: 0x22C5030
       length:
         NA: 0x2
       description: Attack power for Corsola Twigs.
     - name: CACNEA_SPIKE_POWER
       address:
         NA: 0x22C46DC
+        EU: 0x22C5034
       length:
         NA: 0x2
       description: Attack power for Cacnea Spikes.
     - name: GOLD_FANG_POWER
       address:
         NA: 0x22C46E0
+        EU: 0x22C5038
       length:
         NA: 0x2
       description: Attack power for Gold Fangs.
     - name: SILVER_SPIKE_POWER
       address:
         NA: 0x22C46E4
+        EU: 0x22C503C
       length:
         NA: 0x2
       description: Attack power for Silver Spikes.
     - name: IRON_THORN_POWER
       address:
         NA: 0x22C46E8
+        EU: 0x22C5040
       length:
         NA: 0x2
       description: Attack power for Iron Thorns.
     - name: SLEEP_DURATION_RANGE
       address:
         NA: 0x22C4720
+        EU: 0x22C5078
       length:
         NA: 0x4
       description: |-
@@ -278,16 +290,19 @@ overlay10:
     - name: POWER_PITCHER_DAMAGE_MULTIPLIER
       address:
         NA: 0x22C47F8
+        EU: 0x22C5150
       length:
         NA: 0x4
       description: "The multiplier for projectile damage from Power Pitcher (1.5), as a binary fixed-point number (8 fraction bits)"
     - name: AIR_BLADE_DAMAGE_MULTIPLIER
       address:
         NA: 0x22C4844
+        EU: 0x22C519C
       description: "The multiplier for damage from the Air Blade (1.5), as a binary fixed-point number (8 fraction bits)"
     - name: SPEED_BOOST_DURATION_RANGE
       address:
         NA: 0x22C4888
+        EU: 0x22C51E0
       length:
         NA: 0x4
       description: |-
@@ -297,12 +312,14 @@ overlay10:
     - name: OFFENSIVE_STAT_STAGE_MULTIPLIERS
       address:
         NA: 0x22C4D98
+        EU: 0x22C56F0
       length:
         NA: 0x54
       description: "Table of multipliers for offensive stats (attack/special attack) for each stage 0-20, as binary fixed-point numbers (8 fraction bits)"
     - name: DEFENSIVE_STAT_STAGE_MULTIPLIERS
       address:
         NA: 0x22C4DEC
+        EU: 0x22C5744
       length:
         NA: 0x54
       description: "Table of multipliers for defensive stats (defense/special defense) for each stage 0-20, as binary fixed-point numbers (8 fraction bits)"
