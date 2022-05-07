@@ -16,6 +16,9 @@ In addition, this repository contains some things in support of the debug inform
 - [`resymgen`](docs/resymgen.md), the Rust package used to transpile the symbol tables from YAML to other formats.
 - Miscellaneous reverse engineering tools in the [`tools/`](tools) directory.
 
+## What's _not_ in this repository?
+This repository contains _annotations_ and _tools_ that are meant to accompany analysis of the _Explorers of Sky_ binaries, but does _not_ contain the binaries themselves. **It is up to you to obtain ROMs yourself.** The legal way is to dump the game files directly from a physical _Explorers of Sky_ cartridge that you own.
+
 ## Usage
 The symbol tables and the C headers are simultaneously human-readable and machine-readable. This repository is designed to have three possible "modes of use":
 
