@@ -16,6 +16,9 @@ overlay10:
         NA:
           - 0x22BD44C
           - 0x22C183C
+        EU:
+          - 0x22BDD8C
+          - 0x22C2194 
       description: |-
         Statically defined copy of sprintf(3) in overlay 10. See arm9.yml for more information.
         
@@ -27,6 +30,7 @@ overlay10:
     - name: FIRST_DUNGEON_WITH_MONSTER_HOUSE_TRAPS
       address:
         NA: 0x22C440C
+        EU: 0x22C4D64
       length:
         NA: 0x1
       description: |-
@@ -44,12 +48,14 @@ overlay10:
     - name: PROTEIN_STAT_BOOST
       address:
         NA: 0x22C4420
+        EU: 0x22C4D78
       length:
         NA: 0x2
       description: The permanent attack boost from ingesting a Protein.
     - name: OREN_BERRY_DAMAGE
       address:
         NA: 0x22C4438
+        EU: 0x22C4D90
       length:
         NA: 0x2
       description: Damage dealt by eating an Oren Berry.
@@ -64,18 +70,21 @@ overlay10:
     - name: EXP_ELITE_EXP_BOOST
       address:
         NA: 0x22C44A8
+        EU: 0x22C4E00
       length:
         NA: 0x2
       description: The percentage increase in experience from the Exp. Elite IQ skill
     - name: MONSTER_HOUSE_MAX_NON_MONSTER_SPAWNS
       address:
         NA: 0x22C44AC
+        EU: 0x22C4E04
       length:
         NA: 0x2
       description: "The maximum number of extra non-monster spawns (items/traps) in a Monster House, 7"
     - name: GOLD_THORN_POWER
       address:
         NA: 0x22C44D0
+        EU: 0x22C4E28
       length:
         NA: 0x2
       description: Attack power for Golden Thorns.
@@ -90,6 +99,7 @@ overlay10:
     - name: ORAN_BERRY_FULL_HP_BOOST
       address:
         NA: 0x22C44F4
+        EU: 0x22C4E4C
       length:
         NA: 0x2
       description: The permanent HP boost from eating an Oran Berry at full HP (0).
@@ -104,6 +114,7 @@ overlay10:
     - name: EXCLUSIVE_ITEM_EXP_BOOST
       address:
         NA: 0x22C458C
+        EU: 0x22C4EE4
       length:
         NA: 0x2
       description: The percentage increase in experience from exp-boosting exclusive items
@@ -125,6 +136,7 @@ overlay10:
     - name: SITRUS_BERRY_FULL_HP_BOOST
       address:
         NA: 0x22C45F4
+        EU: 0x22C4F4C
       length:
         NA: 0x2
       description: The permanent HP boost from eating a Sitrus Berry at full HP.
@@ -139,6 +151,7 @@ overlay10:
     - name: STICK_POWER
       address:
         NA: 0x22C4624
+        EU: 0x22C4F7C
       length:
         NA: 0x2
       description: Attack power for Sticks.
@@ -153,18 +166,21 @@ overlay10:
     - name: MONSTER_HOUSE_MAX_MONSTER_SPAWNS
       address:
         NA: 0x22C4660
+        EU: 0x22C4FB8
       length:
         NA: 0x2
       description: "The maximum number of monster spawns in a Monster House, 30, but multiplied by 2/3 for some reason (so the actual maximum is 45)"
     - name: MIRACLE_CHEST_EXP_BOOST
       address:
         NA: 0x22C4698
+        EU: 0x22C4FF0
       length:
         NA: 0x2
       description: The percentage increase in experience from the Miracle Chest item
     - name: WONDER_CHEST_EXP_BOOST
       address:
         NA: 0x22C469C
+        EU: 0x22C4FF4
       length:
         NA: 0x2
       description: The percentage increase in experience from the Wonder Chest item
