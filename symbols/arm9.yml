@@ -2418,6 +2418,7 @@ arm9:
     - name: MEMORY_ALLOCATION_ARENA_GETTERS
       address:
         NA: 0x20AEF00
+        EU: 0x20AF7A0
       length:
         NA: 0x8
       description: |-
@@ -2510,6 +2511,7 @@ arm9:
     - name: PACK_FILE_PATHS_TABLE
       address:
         NA: 0x20AF6A0
+        EU: 0x20AFF58
       length:
         NA: 0x18
       description: |-
@@ -2523,10 +2525,12 @@ arm9:
     - name: DUNGEON_MOVE_TABLES
       address:
         NA: 0x20AF6DC
+        EU: 0x20AFFA8
       description: "[Runtime] Seems to be some sort of region (a table of tables?) that holds pointers to various important tables related to moves."
     - name: MOVE_DATA_TABLE_PTR
       address:
         NA: 0x20AF6E4
+        EU: 0x20AFFB0
       length:
         NA: 0x4
       description: |-
@@ -2604,6 +2608,7 @@ arm9:
     - name: DEFAULT_MEMORY_ARENA
       address:
         NA: 0x20B3384
+        EU: 0x20B3CC4
       length:
         NA: 0x1C
       description: |-
@@ -2613,6 +2618,7 @@ arm9:
     - name: DEFAULT_MEMORY_ARENA_BLOCKS
       address:
         NA: 0x20B33C0
+        EU: 0x20B3D00
       length:
         NA: 0x1800
       description: |-
