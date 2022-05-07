@@ -27,6 +27,7 @@ overlay29:
     - name: GetDungeonPtrMaster
       address:
         NA: 0x22DEA80
+        EU: 0x22DF3C0
       description: |-
         Returns the master dungeon pointer (a global, see DUNGEON_PTR_MASTER).
         
@@ -42,6 +43,7 @@ overlay29:
     - name: DungeonFree
       address:
         NA: 0x22DEAB0
+        EU: 0x22DF3F0
       description: |-
         Frees the dungeons struct pointer to by the master dungeon pointer, and nullifies the pointer.
         
@@ -319,6 +321,9 @@ overlay29:
         NA:
           - 0x22EAB20
           - 0x22EAB50
+        EU:
+          - 0x22EB4D0
+          - 0x22EB500
       description: |-
         Returns the result of a possibly biased coin flip (a Bernoulli random variable) with some success probability p, using the dungeon PRNG.
         
@@ -356,6 +361,7 @@ overlay29:
     - name: DungeonRngSetPrimary
       address:
         NA: 0x22EAC64
+        EU: 0x22EB614
       description: |-
         Sets the dungeon PRNG to use the primary LCG for subsequent random number generation.
         
@@ -1383,6 +1389,7 @@ overlay29:
     - name: LoadFixedRoomDataVeneer
       address:
         NA: 0x233A624
+        EU: 0x233B208
       description: |-
         Likely a linker-generated veneer for LoadFixedRoomData.
         
@@ -2348,6 +2355,9 @@ overlay29:
         NA:
           - 0x22DEA78
           - 0x22DEAAC
+        EU:
+          - 0x22DF3B8
+          - 0x22DF3EC
       length:
         NA: 0x4
       description: Size of the dungeon struct (0x2CB14)
@@ -2703,6 +2713,7 @@ overlay29:
     - name: DUNGEON_PTR_MASTER
       address:
         NA: 0x235353C
+        EU: 0x235413C
       length:
         NA: 0x4
       description: |-
