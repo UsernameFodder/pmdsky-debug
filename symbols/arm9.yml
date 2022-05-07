@@ -2098,6 +2098,7 @@ arm9:
     - name: RECOIL_MOVE_LIST
       address:
         NA: 0x2098D74
+        EU: 0x20991B8
       length:
         NA: 0x16
       description: |-
@@ -2107,6 +2108,7 @@ arm9:
     - name: PUNCH_MOVE_LIST
       address:
         NA: 0x2098D8A
+        EU: 0x20991CE
       length:
         NA: 0x20
       description: |-
@@ -2116,6 +2118,7 @@ arm9:
     - name: SCRIPT_VARS_LOCALS
       address:
         NA: 0x209CECC
+        EU: 0x209D450
       length:
         NA: 0x40
       description: |-
@@ -2127,9 +2130,11 @@ arm9:
     - name: SCRIPT_VARS
       address:
         NA: 0x209D870
+        EU: 0x209DDF4
         JP: 0x209EC44
       length:
         NA: 0x730
+        EU: 0x730
         JP: 0x730
       description: |-
         List of predefined global variables that track game state, which are available to the script engine. There are 115 16-byte entries.
@@ -2170,18 +2175,21 @@ arm9:
     - name: SPECIAL_BAND_STAT_BOOST
       address:
         NA: 0x20A186C
+        EU: 0x20A1DF0
       length:
         NA: 0x2
       description: Stat boost value for the Special Band.
     - name: MUNCH_BELT_STAT_BOOST
       address:
         NA: 0x20A187C
+        EU: 0x20A1E00
       length:
         NA: 0x2
       description: Stat boost value for the Munch Belt.
     - name: GUMMI_STAT_BOOST
       address:
         NA: 0x20A1888
+        EU: 0x20A1E0C
       length:
         NA: 0x2
       description: Stat boost value if a stat boost occurs when eating normal Gummis.
@@ -2203,6 +2211,7 @@ arm9:
     - name: AURA_BOW_STAT_BOOST
       address:
         NA: 0x20A1898
+        EU: 0x20A1E1C
       length:
         NA: 0x2
       description: Stat boost value for the aura bows.
@@ -2216,24 +2225,28 @@ arm9:
     - name: DEF_SCARF_STAT_BOOST
       address:
         NA: 0x20A18A8
+        EU: 0x20A1E2C
       length:
         NA: 0x2
       description: Stat boost value for the Defense Scarf.
     - name: POWER_BAND_STAT_BOOST
       address:
         NA: 0x20A18AC
+        EU: 0x20A1E30
       length:
         NA: 0x2
       description: Stat boost value for the Power Band.
     - name: WONDER_GUMMI_STAT_BOOST
       address:
         NA: 0x20A18B0
+        EU: 0x20A1E34
       length:
         NA: 0x2
       description: Stat boost value if a stat boost occurs when eating Wonder Gummis.
     - name: ZINC_BAND_STAT_BOOST
       address:
         NA: 0x20A18B4
+        EU: 0x20A1E38
       length:
         NA: 0x2
       description: Stat boost value for the Zinc Band.
@@ -2284,6 +2297,7 @@ arm9:
     - name: SENTRY_MINIGAME_DATA
       address:
         NA: 0x20A1BB0
+        EU: 0x20A2134
     - name: IQ_SKILLS
       address:
         NA: 0x20A1C7C
@@ -2316,6 +2330,7 @@ arm9:
     - name: BAG_CAPACITY_TABLE
       address:
         NA: 0x20A27D4
+        EU: 0x20A2D58
       length:
         NA: 0x20
       description: Array of 4-byte integers containing the bag capacity for each bag level.
@@ -2358,6 +2373,7 @@ arm9:
     - name: MISSION_DUNGEON_UNLOCK_TABLE
       address:
         NA: 0x20A3CAC
+        EU: 0x20A42AC
     - name: EVENTS
       address:
         NA: 0x20A5488
