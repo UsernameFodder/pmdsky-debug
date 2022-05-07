@@ -686,7 +686,23 @@ arm9:
           - 0x2052418
           - 0x2054A60
           - 0x20609E8
-        EU: 0x200D6BC
+        EU: 
+          - 0x200D6BC
+          - 0x200E808
+          - 0x2013800
+          - 0x20177C4
+          - 0x2017ADC
+          - 0x202378C
+          - 0x20239B0
+          - 0x203822C
+          - 0x2039734
+          - 0x203AC6C
+          - 0x203D2A0
+          - 0x2041A48
+          - 0x2042DA0
+          - 0x2052750
+          - 0x2054DDC
+          - 0x2060D64
       description: |-
         Functionally the same as Sprintf, just defined statically in many different places.
         
@@ -853,6 +869,7 @@ arm9:
     - name: IsRecoilMove
       address:
         NA: 0x2013E14
+        EU: 0x2013EBC
       description: |-
         Checks if the given move is a recoil move (affected by Reckless).
         
@@ -861,6 +878,7 @@ arm9:
     - name: IsPunchMove
       address:
         NA: 0x2014D18
+        EU: 0x2014DC0
       description: |-
         Checks if the given move is a punch move (affected by Iron Fist).
         
@@ -916,6 +934,7 @@ arm9:
     - name: HandleSir0TranslationVeneer
       address:
         NA: 0x201F58C
+        EU: 0x201F628
       description: |-
         Likely a linker-generated veneer for HandleSir0Translation.
         
@@ -1073,6 +1092,7 @@ arm9:
     - name: GetGameMode
       address:
         NA: 0x204AFC0
+        EU: 0x204B2F8
       description: |-
         Gets the value of GAME_MODE.
         
@@ -1461,6 +1481,7 @@ arm9:
     - name: DungeonRequestsDoneWrapper
       address:
         NA: 0x205EE10
+        EU: 0x205F18C
       description: |-
         Calls DungeonRequestsDone with the second argument set to false.
         
