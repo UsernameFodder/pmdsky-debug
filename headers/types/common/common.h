@@ -334,7 +334,7 @@ struct adventure_log {
     struct dungeon_floor_pair current_floor;
     uint16_t padding;
 };
-ASSERT_SIZE(struct adventure_log, 638);
+ASSERT_SIZE(struct adventure_log, 636);
 
 // TODO: Add more data file structures, as convenient or needed, especially if the load address
 // or pointers to the load address are known.
