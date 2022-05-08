@@ -18,7 +18,7 @@ overlay10:
           - 0x22C183C
         EU:
           - 0x22BDD8C
-          - 0x22C2194 
+          - 0x22C2194
       description: |-
         Statically defined copy of sprintf(3) in overlay 10. See arm9.yml for more information.
         
