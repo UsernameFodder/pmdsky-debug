@@ -1392,7 +1392,7 @@ arm9:
         Increments by 1 the number of evolutions.
         
         No params.
-    - name: GetEvolutions
+    - name: GetNbEvolutions
       address:
         NA: 0x204FD24
         EU: 0x205005C
