@@ -1484,7 +1484,7 @@ arm9:
         Marks one pokémon as battled.
         
         r0: monster ID
-    - name: GetNbPkmnBattled
+    - name: GetNbPokemonBattled
       address:
         NA: 0x204FEB4
         EU: 0x20501EC
@@ -1580,7 +1580,7 @@ arm9:
         Affects GetNbPokemonJoined, GetNbMovesLearned, GetNbPokemonBattled and GetNbItemAcquired.
         
         No params.
-    - name: RecruitSpecialPokémonLog
+    - name: RecruitSpecialPokemonLog
       address:
         NA: 0x2050244
         EU: 0x205057C
@@ -1601,8 +1601,8 @@ arm9:
     - name: GetNbFainted
       address:
         NA: 0x20502EC
-        EU: 0x2050630?
-        JP: 0x2050644?
+        EU: 0x2050624
+        JP: 0x2050638
       description: |-
         Gets the number of times you fainted.
         
@@ -1634,7 +1634,7 @@ arm9:
         Sets a challenge letter as cleared.
         
         r0: challenge ID
-    - name: GetFootprintsGamePoints
+    - name: GetSentryDutyGamePoints
       address:
         NA: 0x20504A4
         EU: 0x20507DC
@@ -1644,7 +1644,7 @@ arm9:
         
         r0: the rank (range 0-4, 1st to 5th)
         return: points
-    - name: SetFootprintsGamePoints
+    - name: SetSentryDutyGamePoints
       address:
         NA: 0x20504BC
         EU: 0x20507F4
@@ -2870,7 +2870,7 @@ arm9:
         [Runtime]
         
         type: uint8_t
-    - name: ADVENTURE_LOG_STRUCT_PTR
+    - name: ADVENTURE_LOG_PTR
       address:
         NA: 0x20AFF78
         EU: 0x20B0894
