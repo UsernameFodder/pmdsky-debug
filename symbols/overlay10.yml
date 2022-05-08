@@ -339,24 +339,28 @@ overlay10:
     - name: MALE_ACCURACY_STAGE_MULTIPLIERS
       address:
         NA: 0x22C540C
+        EU: 0x22C5D64
       length:
         NA: 0x54
       description: "Table of multipliers for the accuracy stat for males for each stage 0-20, as binary fixed-point numbers (8 fraction bits)"
     - name: MALE_EVASION_STAGE_MULTIPLIERS
       address:
         NA: 0x22C5460
+        EU: 0x22C5DB8
       length:
         NA: 0x54
       description: "Table of multipliers for the evasion stat for males for each stage 0-20, as binary fixed-point numbers (8 fraction bits)"
     - name: FEMALE_ACCURACY_STAGE_MULTIPLIERS
       address:
         NA: 0x22C54B4
+        EU: 0x22C5E0C
       length:
         NA: 0x54
       description: "Table of multipliers for the accuracy stat for females for each stage 0-20, as binary fixed-point numbers (8 fraction bits)"
     - name: FEMALE_EVASION_STAGE_MULTIPLIERS
       address:
         NA: 0x22C5508
+        EU: 0x22C5E60
       length:
         NA: 0x54
       description: "Table of multipliers for the evasion stat for females for each stage 0-20, as binary fixed-point numbers (8 fraction bits)"
@@ -376,6 +380,7 @@ overlay10:
     - name: TYPE_MATCHUP_TABLE
       address:
         NA: 0x22C56B0
+        EU: 0x22C6008
       length:
         NA: 0x288
       description: |-
@@ -422,3 +427,4 @@ overlay10:
     - name: MOVE_ANIMATION_INFO
       address:
         NA: 0x22C9064
+        EU: 0x22C99BC
