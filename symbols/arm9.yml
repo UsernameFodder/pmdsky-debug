@@ -1287,18 +1287,7 @@ arm9:
       description: |-
         Sets the location of the adventure log struct in memory.
         
-        Sets it in a static memory location (US: 0x22AB69C, EU: 0x22ABFDC, JP: 0x22ACE58)
-        
-        No params.
-    - name: SetAdventureLogStructLocation
-      address:
-        NA: 0x204FA70
-        EU: 0x204FDA8
-        JP: 0x204FDBC
-      description: |-
-        Sets the location of the adventure log struct in memory.
-        
-        Sets it in a static memory location (US: 0x22AB69C, EU: 0x22ABFDC, JP: 0x22ACE58)
+        Sets it in a static memory location (At 0x22AB69C [US], 0x22ABFDC [EU], 0x22ACE58 [JP])
         
         No params.
     - name: SetAdventureLogDungeonFloor
