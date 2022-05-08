@@ -316,7 +316,7 @@ struct adventure_log {
     uint32_t nb_friend_rescues;
     uint32_t nb_evolutions;
     uint32_t nb_eggs_hatched;
-    uint32_t successful_steals; //Unused in Sky
+    uint32_t successful_steals; // Unused in Sky
     uint32_t nb_faints;
     uint32_t nb_victories_on_one_floor;
     uint32_t pokemon_joined_counter;
