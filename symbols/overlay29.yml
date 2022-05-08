@@ -2360,6 +2360,7 @@ overlay29:
           - 0x22DF3EC
       length:
         NA: 0x4
+        EU: 0x4
       description: Size of the dungeon struct (0x2CB14)
     - name: OFFSET_OF_DUNGEON_FLOOR_PROPERTIES
       address:
@@ -2371,6 +2372,7 @@ overlay29:
           - 0x233BA4C
       length:
         NA: 0x4
+        EU: 0x4
       description: Offset of the floor properties field in the dungeon struct (0x286B2)
     - name: DUNGEON_PRNG_LCG_MULTIPLIER
       address:
@@ -2382,6 +2384,7 @@ overlay29:
           - 0x22EB43C
       length:
         NA: 0x4
+        EU: 0x4
       description: "The multiplier shared by all of the dungeon PRNG's LCGs, 1566083941 (0x5D588B65)."
     - name: DUNGEON_PRNG_LCG_INCREMENT_SECONDARY
       address:
@@ -2389,6 +2392,7 @@ overlay29:
         EU: 0x22EB444
       length:
         NA: 0x4
+        EU: 0x4
       description: "The increment for the dungeon PRNG's secondary LCGs, 2531011 (0x269EC3). This happens to be the same increment that the Microsoft Visual C++ runtime library uses in its implementation of the rand() function."
     - name: EXPERIENCE_POINT_GAIN_CAP
       address:
@@ -2396,6 +2400,7 @@ overlay29:
         EU: 0x23030F4
       length:
         NA: 0x4
+        EU: 0x4
       description: A cap on the experience that can be given to a monster in one call to AddExpSpecial
     - name: JUDGMENT_MOVE_ID
       address:
@@ -2403,6 +2408,7 @@ overlay29:
         EU: 0x230CECC
       length:
         NA: 0x4
+        EU: 0x4
       description: |-
         Move ID for Judgment (0x1D3)
         
@@ -2413,6 +2419,7 @@ overlay29:
         EU: 0x230CED0
       length:
         NA: 0x4
+        EU: 0x4
       description: |-
         Move ID for the regular attack (0x163)
         
@@ -2423,6 +2430,7 @@ overlay29:
         EU: 0x230CED4
       length:
         NA: 0x4
+        EU: 0x4
       description: |-
         Monster ID for Deoxys in Attack Forme (0x1A3)
         
@@ -2433,6 +2441,7 @@ overlay29:
         EU: 0x230CED8
       length:
         NA: 0x4
+        EU: 0x4
       description: |-
         Monster ID for Deoxys in Speed Forme (0x1A5)
         
@@ -2443,6 +2452,7 @@ overlay29:
         EU: 0x230CEDC
       length:
         NA: 0x4
+        EU: 0x4
       description: |-
         Monster ID for Giratina in Altered Forme (0x211)
         
@@ -2453,6 +2463,7 @@ overlay29:
         EU: 0x230CEE0
       length:
         NA: 0x4
+        EU: 0x4
       description: |-
         Move ID for Punishment (0x1BD)
         
@@ -2463,6 +2474,7 @@ overlay29:
         EU: 0x230CF10
       length:
         NA: 0x4
+        EU: 0x4
       description: "Cap on an attacker's modified offense (attack or special attack) stat after boosts. Used during damage calculation."
     - name: PROJECTILE_MOVE_ID
       address:
@@ -2474,6 +2486,7 @@ overlay29:
           - 0x231D160
       length:
         NA: 0x4
+        EU: 0x4
       description: |-
         The move ID of the special "projectile" move (0x195)
         
@@ -2495,6 +2508,7 @@ overlay29:
         EU: 0x231B794
       length:
         NA: 0x4
+        EU: 0x4
       description: |-
         The move target and range code for special healing moves that target just the user (0x273).
         
@@ -2505,6 +2519,7 @@ overlay29:
         EU: 0x231D1A8
       length:
         NA: 0x4
+        EU: 0x4
       description: Some value related to the Plain Seed (0xBE9).
     - name: MAX_ELIXIR_PP_RESTORATION
       address:
@@ -2512,6 +2527,7 @@ overlay29:
         EU: 0x231D1AC
       length:
         NA: 0x4
+        EU: 0x4
       description: The amount of PP restored per move by ingesting a Max Elixir (0x3E7).
     - name: SLIP_SEED_VALUE
       address:
@@ -2519,6 +2535,7 @@ overlay29:
         EU: 0x231D614
       length:
         NA: 0x4
+        EU: 0x4
       description: Some value related to the Slip Seed (0xC75).
     - name: FLOOR_GENERATION_STATUS_PTR
       address:
@@ -2580,6 +2597,7 @@ overlay29:
           - 0x2343B0C
       length:
         NA: 0x4
+        EU: 0x4
       description: |-
         Pointer to the global FLOOR_GENERATION_STATUS
         
@@ -2594,6 +2612,7 @@ overlay29:
           - 0x2342048
       length:
         NA: 0x4
+        EU: 0x4
       description: Offset of the (number of base items + 1) field on the dungeon struct (0x12AFA)
     - name: DUNGEON_GRID_COLUMN_BYTES
       address:
@@ -2641,6 +2660,7 @@ overlay29:
           - 0x23430B0
       length:
         NA: 0x4
+        EU: 0x4
       description: "The number of bytes in one column of the dungeon grid cell array, 450, which corresponds to a column of 15 grid cells."
     - name: DEFAULT_MAX_POSITION
       address:
@@ -2648,6 +2668,7 @@ overlay29:
         EU: 0x2340B7C
       length:
         NA: 0x4
+        EU: 0x4
       description: A large number (9999) to use as a default position for keeping track of min/max position values
     - name: OFFSET_OF_DUNGEON_GUARANTEED_ITEM_ID
       address:
@@ -2659,6 +2680,7 @@ overlay29:
           - 0x2345A64
       length:
         NA: 0x4
+        EU: 0x4
       description: Offset of the guaranteed item ID field in the dungeon struct (0x2C9E8)
     - name: FIXED_ROOM_TILE_SPAWN_TABLE
       address:
@@ -2731,6 +2753,7 @@ overlay29:
         EU: 0x2352328
       length:
         NA: 0x20
+        EU: 0x20
       description: |-
         An array mapping each direction index to its x and y displacements.
         
@@ -2757,6 +2780,7 @@ overlay29:
         EU: 0x23536F4
       length:
         NA: 0x4
+        EU: 0x4
       description: "The index (1) of the special attack entry in internal stat structs, such as the stat modifier array for a monster."
     - name: ATK_STAT_IDX
       address:
@@ -2764,6 +2788,7 @@ overlay29:
         EU: 0x23536F8
       length:
         NA: 0x4
+        EU: 0x4
       description: "The index (0) of the attack entry in internal stat structs, such as the stat modifier array for a monster."
     - name: CORNER_CARDINAL_NEIGHBOR_IS_OPEN
       address:
@@ -2771,6 +2796,7 @@ overlay29:
         EU: 0x2353C24
       length:
         NA: 0x20
+        EU: 0x20
       description: |-
         An array mapping each (corner index, neighbor direction index) to whether or not that neighbor is expected to be open floor.
         
@@ -2798,6 +2824,7 @@ overlay29:
         EU: 0x235413C
       length:
         NA: 0x4
+        EU: 0x4
       description: |-
         [Runtime] Pointer to the dungeon struct in dungeon mode.
         
@@ -2810,6 +2837,7 @@ overlay29:
         EU: 0x2354170
       length:
         NA: 0x14
+        EU: 0x14
       description: |-
         [Runtime] The global PRNG state for dungeon mode, not including the current values in the secondary sequences.
         
@@ -2822,6 +2850,7 @@ overlay29:
         EU: 0x2354184
       length:
         NA: 0x14
+        EU: 0x14
       description: |-
         [Runtime] An array of 5 integers corresponding to the last value generated for each secondary LCG sequence.
         
@@ -2832,6 +2861,7 @@ overlay29:
         EU: 0x235433C
       length:
         NA: 0x14
+        EU: 0x14
       description: |-
         The default tile struct.
         
@@ -2844,4 +2874,5 @@ overlay29:
         EU: 0x23543AC
       length:
         NA: 0x4
+        EU: 0x4
       description: "[Runtime] Pointer to decoded fixed room data loaded from the BALANCE/fixed.bin file."
