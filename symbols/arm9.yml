@@ -1980,6 +1980,7 @@ arm9:
         EU: 0x2000E58
       length:
         NA: 0x4
+        EU: 0x4
       description: "Length in bytes of the default memory allocation arena, 1991680."
     - name: AURA_BOW_ID_LAST
       address:
@@ -1987,6 +1988,7 @@ arm9:
         EU: 0x200CCBC
       length:
         NA: 0x4
+        EU: 0x4
       description: Highest item ID of the aura bows.
     - name: NUMBER_OF_ITEMS
       address:
@@ -1994,6 +1996,7 @@ arm9:
         EU: 0x200E930
       length:
         NA: 0x4
+        EU: 0x4
       description: Number of items in the game.
     - name: MAX_MONEY_CARRIED
       address:
@@ -2001,6 +2004,7 @@ arm9:
         EU: 0x200EDF8
       length:
         NA: 0x4
+        EU: 0x4
       description: "Maximum amount of money the player can carry, 99999."
     - name: MAX_MONEY_STORED
       address:
@@ -2008,6 +2012,7 @@ arm9:
         EU: 0x20107F8
       length:
         NA: 0x4
+        EU: 0x4
       description: "Maximum amount of money the player can store in the Duskull Bank, 9999999."
     - name: SCRIPT_VARS_VALUES_PTR
       address:
@@ -2023,6 +2028,7 @@ arm9:
           - 0x204C7BC
       length:
         NA: 0x4
+        EU: 0x4
       description: Hard-coded pointer to SCRIPT_VARS_VALUES.
     - name: MAX_RECRUITABLE_TEAM_MEMBERS
       address:
@@ -2046,6 +2052,7 @@ arm9:
         EU: 0x209852C
       length:
         NA: 0x3C
+        EU: 0x3C
       description: |-
         Contains stat boost effects for different exclusive item classes.
         
@@ -2056,6 +2063,7 @@ arm9:
         EU: 0x209852C
       length:
         NA: 0x39
+        EU: 0x39
       description: "EXCLUSIVE_ITEM_STAT_BOOST_DATA, offset by 0"
     - name: EXCLUSIVE_ITEM_SPECIAL_ATTACK_BOOSTS
       address:
@@ -2063,6 +2071,7 @@ arm9:
         EU: 0x209852D
       length:
         NA: 0x39
+        EU: 0x39
       description: "EXCLUSIVE_ITEM_STAT_BOOST_DATA, offset by 1"
     - name: EXCLUSIVE_ITEM_DEFENSE_BOOSTS
       address:
@@ -2070,6 +2079,7 @@ arm9:
         EU: 0x209852E
       length:
         NA: 0x39
+        EU: 0x39
       description: "EXCLUSIVE_ITEM_STAT_BOOST_DATA, offset by 2"
     - name: EXCLUSIVE_ITEM_SPECIAL_DEFENSE_BOOSTS
       address:
@@ -2077,6 +2087,7 @@ arm9:
         EU: 0x209852F
       length:
         NA: 0x39
+        EU: 0x39
       description: "EXCLUSIVE_ITEM_STAT_BOOST_DATA, offset by 3"
     - name: EXCLUSIVE_ITEM_EFFECT_DATA
       address:
@@ -2084,6 +2095,7 @@ arm9:
         EU: 0x2098568
       length:
         NA: 0x778
+        EU: 0x778
       description: |-
         Contains special effects for each exclusive item.
         
@@ -2094,6 +2106,7 @@ arm9:
         EU: 0x2098569
       length:
         NA: 0x777
+        EU: 0x777
       description: "EXCLUSIVE_ITEM_EFFECT_DATA, offset by 1"
     - name: RECOIL_MOVE_LIST
       address:
@@ -2101,6 +2114,7 @@ arm9:
         EU: 0x20991B8
       length:
         NA: 0x16
+        EU: 0x16
       description: |-
         Null-terminated list of all the recoil moves, as 2-byte move IDs.
         
@@ -2111,6 +2125,7 @@ arm9:
         EU: 0x20991CE
       length:
         NA: 0x20
+        EU: 0x20
       description: |-
         Null-terminated list of all the punch moves, as 2-byte move IDs.
         
@@ -2121,6 +2136,7 @@ arm9:
         EU: 0x209D450
       length:
         NA: 0x40
+        EU: 0x40
       description: |-
         List of special "local" variables available to the script engine. There are 4 16-byte entries.
         
@@ -2178,6 +2194,7 @@ arm9:
         EU: 0x20A1DF0
       length:
         NA: 0x2
+        EU: 0x2
       description: Stat boost value for the Special Band.
     - name: MUNCH_BELT_STAT_BOOST
       address:
@@ -2185,6 +2202,7 @@ arm9:
         EU: 0x20A1E00
       length:
         NA: 0x2
+        EU: 0x2
       description: Stat boost value for the Munch Belt.
     - name: GUMMI_STAT_BOOST
       address:
@@ -2192,6 +2210,7 @@ arm9:
         EU: 0x20A1E0C
       length:
         NA: 0x2
+        EU: 0x2
       description: Stat boost value if a stat boost occurs when eating normal Gummis.
     - name: MIN_IQ_EXCLUSIVE_MOVE_USER
       address:
@@ -2214,6 +2233,7 @@ arm9:
         EU: 0x20A1E1C
       length:
         NA: 0x2
+        EU: 0x2
       description: Stat boost value for the aura bows.
     - name: MIN_IQ_ITEM_MASTER
       address:
@@ -2228,6 +2248,7 @@ arm9:
         EU: 0x20A1E2C
       length:
         NA: 0x2
+        EU: 0x2
       description: Stat boost value for the Defense Scarf.
     - name: POWER_BAND_STAT_BOOST
       address:
@@ -2235,6 +2256,7 @@ arm9:
         EU: 0x20A1E30
       length:
         NA: 0x2
+        EU: 0x2
       description: Stat boost value for the Power Band.
     - name: WONDER_GUMMI_STAT_BOOST
       address:
@@ -2242,6 +2264,7 @@ arm9:
         EU: 0x20A1E34
       length:
         NA: 0x2
+        EU: 0x2
       description: Stat boost value if a stat boost occurs when eating Wonder Gummis.
     - name: ZINC_BAND_STAT_BOOST
       address:
@@ -2249,6 +2272,7 @@ arm9:
         EU: 0x20A1E38
       length:
         NA: 0x2
+        EU: 0x2
       description: Stat boost value for the Zinc Band.
     - name: TACTICS_UNLOCK_LEVEL_TABLE
       address:
@@ -2421,6 +2445,7 @@ arm9:
         EU: 0x20AF7A0
       length:
         NA: 0x8
+        EU: 0x8
       description: |-
         Functions to get the desired memory arena for allocating and freeing heap memory.
         
@@ -2514,6 +2539,7 @@ arm9:
         EU: 0x20AFF58
       length:
         NA: 0x18
+        EU: 0x18
       description: |-
         List of pointers to path strings to all known pack files.
         The game uses this table to load its resources when launching dungeon mode.
@@ -2533,6 +2559,7 @@ arm9:
         EU: 0x20AFFB0
       length:
         NA: 0x4
+        EU: 0x4
       description: |-
         [Runtime] Points to the contents of the move data table loaded from waza_p.bin
         
@@ -2586,12 +2613,14 @@ arm9:
         EU: 0x20B1264
       length:
         NA: 0x68
+        EU: 0x68
     - name: SMD_EVENTS_FUN_TABLE
       address:
         NA: 0x20B0B90
         EU: 0x20B14D4
       length:
         NA: 0x1FC
+        EU: 0x1FC
     - name: MEMORY_ALLOCATION_TABLE
       address:
         NA: 0x20B3380
@@ -2613,6 +2642,7 @@ arm9:
         EU: 0x20B3CC4
       length:
         NA: 0x1C
+        EU: 0x1C
       description: |-
         [Runtime] The default memory allocation arena. This is part of MEMORY_ALLOCATION_TABLE, but is also referenced on its own by various functions.
         
@@ -2623,6 +2653,7 @@ arm9:
         EU: 0x20B3D00
       length:
         NA: 0x1800
+        EU: 0x1800
       description: |-
         [Runtime] The block array for DEFAULT_MEMORY_ARENA.
         
