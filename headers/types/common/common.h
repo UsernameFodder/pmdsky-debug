@@ -325,16 +325,16 @@ struct adventure_log {
     uint32_t nb_big_treasure_wins;
     uint32_t nb_recycled;
     uint32_t nb_gifts_sent;
-    uint32_t nb_big_treasure_wins;
     uint32_t pokemon_joined_flags[37];
     uint32_t pokemon_battled_flags[37];
     uint32_t moves_learned_flags[17];
     uint32_t items_acquired_flags[44];
     uint32_t special_challenge_flags;
-    uint32_t footprints_game_points[5];
+    uint32_t sentry_duty_game_points[5];
     struct dungeon_floor_pair current_floor;
+    uint16_t padding;
 };
-ASSERT_SIZE(struct adventure_log, 634);
+ASSERT_SIZE(struct adventure_log, 638);
 
 // TODO: Add more data file structures, as convenient or needed, especially if the load address
 // or pointers to the load address are known.
