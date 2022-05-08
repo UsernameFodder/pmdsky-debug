@@ -332,7 +332,7 @@ struct adventure_log {
     uint32_t items_acquired_flags[44];
     uint32_t special_challenge_flags;
     uint32_t footprints_game_points[5];
-    struct dungeon_floor_pair;
+    struct dungeon_floor_pair current_floor;
 };
 ASSERT_SIZE(struct adventure_log, 634);
 
