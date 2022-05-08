@@ -2583,11 +2583,13 @@ arm9:
     - name: ITEM_TABLES_PTRS_1
       address:
         NA: 0x20B0948
+        EU: 0x20B1264
       length:
         NA: 0x68
     - name: SMD_EVENTS_FUN_TABLE
       address:
         NA: 0x20B0B90
+        EU: 0x20B14D4
       length:
         NA: 0x1FC
     - name: MEMORY_ALLOCATION_TABLE
