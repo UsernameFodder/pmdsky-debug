@@ -1301,24 +1301,24 @@ arm9:
         Sets it in a static memory location (US: 0x22AB69C, EU: 0x22ABFDC, JP: 0x22ACE58)
         
         No params.
-    - name: SetAdventureLogUnknown2Bytes
+    - name: SetAdventureLogDungeonFloor
       address:
         NA: 0x204FA3C
         EU: 0x204FD74
         JP: 0x204FD88
       description: |-
-        Sets 2 bytes at the end of the adventure log structure.
+        Sets the current dungeon floor pair.
         
-        r0: pointer to a 2 bytes structure
-    - name: GetAdventureLogUnknown2Bytes
+        r0: struct dungeon_floor_pair
+    - name: GetAdventureLogDungeonFloor
       address:
         NA: 0x204FA5C
         EU: 0x204FD94
         JP: 0x204FDA8
       description: |-
-        Gets 2 bytes at the end of the adventure log structure.
+        Gets the current dungeon floor pair.
         
-        return: pointer to a 2 bytes structure
+        return: struct dungeon_floor_pair
     - name: ClearAdventureLogStruct
       address:
         NA: 0x204FA70
