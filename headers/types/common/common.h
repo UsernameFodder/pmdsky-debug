@@ -302,6 +302,40 @@ struct move_data_table {
 };
 ASSERT_SIZE(struct move_data_table, 14534);
 
+// A common structure for pairs of dungeon/floor values
+struct dungeon_floor_pair {
+    uint8_t dungeon_id;
+    uint8_t floor_id;
+};
+ASSERT_SIZE(struct dungeon_floor_pair, 2);
+
+// The adventure log structure.
+struct adventure_log {
+    uint32_t completion_flags[4];
+    uint32_t nb_dungeons_cleared;
+    uint32_t nb_friend_rescues;
+    uint32_t nb_evolutions;
+    uint32_t nb_eggs_hatched;
+    uint32_t successful_steals; //Unused in Sky
+    uint32_t nb_faints;
+    uint32_t nb_victories_on_one_floor;
+    uint32_t pokemon_joined_counter;
+    uint32_t pokemon_battled_counter;
+    uint32_t moves_learned_counter;
+    uint32_t nb_big_treasure_wins;
+    uint32_t nb_recycled;
+    uint32_t nb_gifts_sent;
+    uint32_t nb_big_treasure_wins;
+    uint32_t pokemon_joined_flags[37];
+    uint32_t pokemon_battled_flags[37];
+    uint32_t moves_learned_flags[17];
+    uint32_t items_acquired_flags[44];
+    uint32_t special_challenge_flags;
+    uint32_t footprints_game_points[5];
+    struct dungeon_floor_pair;
+};
+ASSERT_SIZE(struct adventure_log, 634);
+
 // TODO: Add more data file structures, as convenient or needed, especially if the load address
 // or pointers to the load address are known.
 
