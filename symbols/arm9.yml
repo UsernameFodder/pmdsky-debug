@@ -1279,30 +1279,381 @@ arm9:
         Initializes the DUNGEON_*_LIST script variable values (IDs 0x4f-0x54).
         
         No params.
-    - name: ScriptSpecialProcess0x3A
+    - name: SetAdventureLogStructLocation
+      address:
+        NA: 0x204FA24
+        EU: 0x204FD5C
+        JP: 0x204FD70
+      description: |-
+        Sets the location of the adventure log struct in memory.
+        
+        Sets it in a static memory location (At 0x22AB69C [US], 0x22ABFDC [EU], 0x22ACE58 [JP])
+        
+        No params.
+    - name: SetAdventureLogDungeonFloor
+      address:
+        NA: 0x204FA3C
+        EU: 0x204FD74
+        JP: 0x204FD88
+      description: |-
+        Sets the current dungeon floor pair.
+        
+        r0: struct dungeon_floor_pair
+    - name: GetAdventureLogDungeonFloor
+      address:
+        NA: 0x204FA5C
+        EU: 0x204FD94
+        JP: 0x204FDA8
+      description: |-
+        Gets the current dungeon floor pair.
+        
+        return: struct dungeon_floor_pair
+    - name: ClearAdventureLogStruct
+      address:
+        NA: 0x204FA70
+        EU: 0x204FDA8
+        JP: 0x204FDBC
+      description: |-
+        Clears the adventure log structure.
+        
+        No params.
+    - name: SetAdventureLogCompleted
+      address:
+        NA: 0x204FB9C
+        EU: 0x204FED4
+        JP: 0x204FEE8
+      description: |-
+        Marks one of the adventure log entry as completed.
+        
+        r0: entry ID
+    - name: IsAdventureLogNotEmpty
+      address:
+        NA: 0x204FBC4
+        EU: 0x204FEFC
+        JP: 0x204FF10
+      description: |-
+        Checks if at least one of the adventure log entry is completed.
+        
+        return: bool
+    - name: GetAdventureLogCompleted
+      address:
+        NA: 0x204FBFC
+        EU: 0x204FF34
+        JP: 0x204FF48
+      description: |-
+        Checks if one adventure log entry is completed.
+        
+        r0: entry ID
+        return: bool
+    - name: IncrementNbDungeonsCleared
       address:
         NA: 0x204FC28
         EU: 0x204FF60
+        JP: 0x204FF74
       description: |-
+        Increments by 1 the number of dungeons cleared.
+        
         Implements SPECIAL_PROC_0x3A (see ScriptSpecialProcessCall).
         
         No params.
-    - name: ScriptSpecialProcess0x3B
+    - name: GetNbDungeonsCleared
+      address:
+        NA: 0x204FC6C
+        EU: 0x204FFA4
+        JP: 0x204FFB8
+      description: |-
+        Gets the number of dungeons cleared.
+        
+        return: the number of dungeons cleared
+    - name: IncrementNbFriendRescues
+      address:
+        NA: 0x204FC80
+        EU: 0x204FFB8
+        JP: 0x204FFCC
+      description: |-
+        Increments by 1 the number of successful friend rescues.
+        
+        No params.
+    - name: GetNbFriendRescues
+      address:
+        NA: 0x204FCC8
+        EU: 0x2050000
+        JP: 0x2050014
+      description: |-
+        Gets the number of successful friend rescues.
+        
+        return: the number of successful friend rescues
+    - name: IncrementNbEvolutions
+      address:
+        NA: 0x204FCDC
+        EU: 0x2050014
+        JP: 0x2050028
+      description: |-
+        Increments by 1 the number of evolutions.
+        
+        No params.
+    - name: GetNbEvolutions
+      address:
+        NA: 0x204FD24
+        EU: 0x205005C
+        JP: 0x2050070
+      description: |-
+        Gets the number of evolutions.
+        
+        return: the number of evolutions
+    - name: IncrementNbSteals
+      address:
+        NA: 0x204FD38
+        EU: 0x2050070
+        JP: 0x2050084
+      description: |-
+        Leftover from Time & Darkness. Does not do anything.
+        
+        Calls to this matches the ones for incrementing the number of successful steals in Time & Darkness.
+        
+        No params.
+    - name: IncrementNbEggsHatched
+      address:
+        NA: 0x204FD3C
+        EU: 0x2050074
+        JP: 0x2050088
+      description: |-
+        Increments by 1 the number of eggs hatched.
+        
+        No params.
+    - name: GetNbEggsHatched
+      address:
+        NA: 0x204FD78
+        EU: 0x20500B0
+        JP: 0x20500C4
+      description: |-
+        Gets the number of eggs hatched.
+        
+        return: the number of eggs hatched
+    - name: GetNbPokemonJoined
+      address:
+        NA: 0x204FD8C
+        EU: 0x20500C4
+        JP: 0x20500D8
+      description: |-
+        Gets the number of different pokémon that joined.
+        
+        return: the number of different pokémon that joined
+    - name: GetNbMovesLearned
+      address:
+        NA: 0x204FDA0
+        EU: 0x20500D8
+        JP: 0x20500EC
+      description: |-
+        Gets the number of different moves learned.
+        
+        return: the number of different moves learned
+    - name: SetVictoriesOnOneFloor
+      address:
+        NA: 0x204FDB4
+        EU: 0x20500EC
+        JP: 0x2050100
+      description: |-
+        Sets the record of victories on one floor.
+        
+        r0: the new record of victories
+    - name: GetVictoriesOnOneFloor
+      address:
+        NA: 0x204FDE8
+        EU: 0x2050120
+        JP: 0x2050134
+      description: |-
+        Gets the record of victories on one floor.
+        
+        return: the record of victories
+    - name: SetPokemonJoined
+      address:
+        NA: 0x204FDFC
+        EU: 0x2050134
+        JP: 0x2050148
+      description: |-
+        Marks one pokémon as joined.
+        
+        r0: monster ID
+    - name: SetPokemonBattled
+      address:
+        NA: 0x204FE58
+        EU: 0x2050190
+        JP: 0x20501A4
+      description: |-
+        Marks one pokémon as battled.
+        
+        r0: monster ID
+    - name: GetNbPokemonBattled
+      address:
+        NA: 0x204FEB4
+        EU: 0x20501EC
+        JP: 0x2050200
+      description: |-
+        Gets the number of different pokémon that battled against you.
+        
+        return: the number of different pokémon that battled against you
+    - name: IncrementNbBigTreasureWins
       address:
         NA: 0x204FEC8
         EU: 0x2050200
+        JP: 0x2050214
       description: |-
+        Increments by 1 the number of big treasure wins.
+        
         Implements SPECIAL_PROC_0x3B (see ScriptSpecialProcessCall).
         
         No params.
-    - name: SendSkyGiftToGuildmaster
+    - name: SetNbBigTreasureWins
+      address:
+        NA: 0x204FEE8
+        EU: 0x2050220
+        JP: 0x2050234
+      description: |-
+        Sets the number of big treasure wins.
+        
+        r0: the new number of big treasure wins
+    - name: GetNbBigTreasureWins
+      address:
+        NA: 0x204FF20
+        EU: 0x2050258
+        JP: 0x205026C
+      description: |-
+        Gets the number of big treasure wins.
+        
+        return: the number of big treasure wins
+    - name: SetNbRecycled
+      address:
+        NA: 0x204FF34
+        EU: 0x205026C
+        JP: 0x2050280
+      description: |-
+        Sets the number of items recycled.
+        
+        r0: the new number of items recycled
+    - name: GetNbRecycled
+      address:
+        NA: 0x204FF6C
+        EU: 0x20502A4
+        JP: 0x20502B8
+      description: |-
+        Gets the number of items recycled.
+        
+        return: the number of items recycled
+    - name: IncrementNbSkyGiftsSent
       address:
         NA: 0x204FF80
         EU: 0x20502B8
+        JP: 0x20502CC
       description: |-
+        Increments by 1 the number of sky gifts sent.
+        
         Implements SPECIAL_PROC_SEND_SKY_GIFT_TO_GUILDMASTER (see ScriptSpecialProcessCall).
         
         No params.
+    - name: SetNbSkyGiftsSent
+      address:
+        NA: 0x204FFA0
+        EU: 0x20502D8
+        JP: 0x20502EC
+      description: |-
+        Sets the number of Sky Gifts sent.
+        
+        return: the number of Sky Gifts sent
+    - name: GetNbSkyGiftsSent
+      address:
+        NA: 0x204FFD8
+        EU: 0x2050310
+        JP: 0x2050324
+      description: |-
+        Gets the number of Sky Gifts sent.
+        
+        return: the number of Sky Gifts sent
+    - name: ComputeSpecialCounters
+      address:
+        NA: 0x204FFEC
+        EU: 0x2050324
+        JP: 0x2050338
+      description: |-
+        Computes the counters from the bit fields in the adventure log, as they are not updated automatically when bit fields are altered.
+        
+        Affects GetNbPokemonJoined, GetNbMovesLearned, GetNbPokemonBattled and GetNbItemAcquired.
+        
+        No params.
+    - name: RecruitSpecialPokemonLog
+      address:
+        NA: 0x2050244
+        EU: 0x205057C
+        JP: 0x2050590
+      description: |-
+        Marks a specified special pokémon as recruited in the adventure log.
+        
+        r0: monster ID
+    - name: IncrementNbFainted
+      address:
+        NA: 0x20502B0
+        EU: 0x20505E8
+        JP: 0x20505FC
+      description: |-
+        Increments by 1 the number of times you fainted.
+        
+        No params.
+    - name: GetNbFainted
+      address:
+        NA: 0x20502EC
+        EU: 0x2050624
+        JP: 0x2050638
+      description: |-
+        Gets the number of times you fainted.
+        
+        return: the number of times you fainted
+    - name: SetItemAcquired
+      address:
+        NA: 0x2050300
+        EU: 0x2050638
+        JP: 0x205064C
+      description: |-
+        Marks one specific item as acquired.
+        
+        r0: item ID
+    - name: GetNbItemAcquired
+      address:
+        NA: 0x20503CC
+        EU: 0x2050704
+        JP: 0x2050718
+      description: |-
+        Gets the number of items acquired.
+        
+        return: the number of items acquired
+    - name: SetChallengeLetterCleared
+      address:
+        NA: 0x2050420
+        EU: 0x2050758
+        JP: 0x205076C
+      description: |-
+        Sets a challenge letter as cleared.
+        
+        r0: challenge ID
+    - name: GetSentryDutyGamePoints
+      address:
+        NA: 0x20504A4
+        EU: 0x20507DC
+        JP: 0x20507F0
+      description: |-
+        Gets the points for the associated rank in the footprints minigame.
+        
+        r0: the rank (range 0-4, 1st to 5th)
+        return: points
+    - name: SetSentryDutyGamePoints
+      address:
+        NA: 0x20504BC
+        EU: 0x20507F4
+        JP: 0x2050808
+      description: |-
+        Sets a new record in the footprints minigame.
+        
+        r0: points
+        return: the rank (range 0-4, 1st to 5th; -1 if out of ranking)
     - name: SubFixedPoint
       address:
         NA: 0x2050F10
@@ -2519,6 +2870,19 @@ arm9:
         [Runtime]
         
         type: uint8_t
+    - name: ADVENTURE_LOG_PTR
+      address:
+        NA: 0x20AFF78
+        EU: 0x20B0894
+        JP: 0x20B17EC
+      length:
+        NA: 0x4
+        EU: 0x4
+        JP: 0x4
+      description: |-
+        [Runtime]
+        
+        type: struct adventure_log*
     - name: ITEM_TABLES_PTRS_1
       address:
         NA: 0x20B0948
