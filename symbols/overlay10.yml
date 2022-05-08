@@ -33,6 +33,7 @@ overlay10:
         EU: 0x22C4D64
       length:
         NA: 0x1
+        EU: 0x1
       description: |-
         The first dungeon that can have extra traps spawn in Monster Houses, Dark Hill
         
@@ -51,6 +52,7 @@ overlay10:
         EU: 0x22C4D78
       length:
         NA: 0x2
+        EU: 0x2
       description: The permanent attack boost from ingesting a Protein.
     - name: OREN_BERRY_DAMAGE
       address:
@@ -58,6 +60,7 @@ overlay10:
         EU: 0x22C4D90
       length:
         NA: 0x2
+        EU: 0x2
       description: Damage dealt by eating an Oren Berry.
     - name: SITRUS_BERRY_HP_RESTORATION
       address:
@@ -73,6 +76,7 @@ overlay10:
         EU: 0x22C4E00
       length:
         NA: 0x2
+        EU: 0x2
       description: The percentage increase in experience from the Exp. Elite IQ skill
     - name: MONSTER_HOUSE_MAX_NON_MONSTER_SPAWNS
       address:
@@ -80,6 +84,7 @@ overlay10:
         EU: 0x22C4E04
       length:
         NA: 0x2
+        EU: 0x2
       description: "The maximum number of extra non-monster spawns (items/traps) in a Monster House, 7"
     - name: GOLD_THORN_POWER
       address:
@@ -87,6 +92,7 @@ overlay10:
         EU: 0x22C4E28
       length:
         NA: 0x2
+        EU: 0x2
       description: Attack power for Golden Thorns.
     - name: SPAWN_COOLDOWN
       address:
@@ -102,6 +108,7 @@ overlay10:
         EU: 0x22C4E4C
       length:
         NA: 0x2
+        EU: 0x2
       description: The permanent HP boost from eating an Oran Berry at full HP (0).
     - name: LIFE_SEED_HP_BOOST
       address:
@@ -117,6 +124,7 @@ overlay10:
         EU: 0x22C4EE4
       length:
         NA: 0x2
+        EU: 0x2
       description: The percentage increase in experience from exp-boosting exclusive items
     - name: INTIMIDATOR_ACTIVATION_CHANCE
       address:
@@ -132,6 +140,7 @@ overlay10:
         EU: 0x22C4F44
       length:
         NA: 0x2
+        EU: 0x2
       description: The amount of HP restored by eating a Oran Berry.
     - name: SITRUS_BERRY_FULL_HP_BOOST
       address:
@@ -139,6 +148,7 @@ overlay10:
         EU: 0x22C4F4C
       length:
         NA: 0x2
+        EU: 0x2
       description: The permanent HP boost from eating a Sitrus Berry at full HP.
     - name: BURN_DAMAGE_COOLDOWN
       address:
@@ -154,6 +164,7 @@ overlay10:
         EU: 0x22C4F7C
       length:
         NA: 0x2
+        EU: 0x2
       description: Attack power for Sticks.
     - name: SPAWN_COOLDOWN_THIEF_ALERT
       address:
@@ -169,6 +180,7 @@ overlay10:
         EU: 0x22C4FB8
       length:
         NA: 0x2
+        EU: 0x2
       description: "The maximum number of monster spawns in a Monster House, 30, but multiplied by 2/3 for some reason (so the actual maximum is 45)"
     - name: MIRACLE_CHEST_EXP_BOOST
       address:
@@ -176,6 +188,7 @@ overlay10:
         EU: 0x22C4FF0
       length:
         NA: 0x2
+        EU: 0x2
       description: The percentage increase in experience from the Miracle Chest item
     - name: WONDER_CHEST_EXP_BOOST
       address:
@@ -183,6 +196,7 @@ overlay10:
         EU: 0x22C4FF4
       length:
         NA: 0x2
+        EU: 0x2
       description: The percentage increase in experience from the Wonder Chest item
     - name: POISON_DAMAGE_COOLDOWN
       address:
@@ -198,6 +212,7 @@ overlay10:
         EU: 0x22C500C
       length:
         NA: 0x2
+        EU: 0x2
       description: Damage dealt by Geo Pebbles.
     - name: GRAVELEROCK_DAMAGE
       address:
@@ -205,6 +220,7 @@ overlay10:
         EU: 0x22C5010
       length:
         NA: 0x2
+        EU: 0x2
       description: Damage dealt by Gravelerocks.
     - name: RARE_FOSSIL_DAMAGE
       address:
@@ -212,6 +228,7 @@ overlay10:
         EU: 0x22C5014
       length:
         NA: 0x2
+        EU: 0x2
       description: Damage dealt by Rare Fossils.
     - name: GINSENG_CHANCE_3
       address:
@@ -227,6 +244,7 @@ overlay10:
         EU: 0x22C501C
       length:
         NA: 0x2
+        EU: 0x2
       description: The permanent special defense boost from ingesting a Zinc.
     - name: IRON_STAT_BOOST
       address:
@@ -234,6 +252,7 @@ overlay10:
         EU: 0x22C5020
       length:
         NA: 0x2
+        EU: 0x2
       description: The permanent defense boost from ingesting an Iron.
     - name: CALCIUM_STAT_BOOST
       address:
@@ -241,6 +260,7 @@ overlay10:
         EU: 0x22C5024
       length:
         NA: 0x2
+        EU: 0x2
       description: The permanent special attack boost from ingesting a Calcium.
     - name: CORSOLA_TWIG_POWER
       address:
@@ -248,6 +268,7 @@ overlay10:
         EU: 0x22C5030
       length:
         NA: 0x2
+        EU: 0x2
       description: Attack power for Corsola Twigs.
     - name: CACNEA_SPIKE_POWER
       address:
@@ -255,6 +276,7 @@ overlay10:
         EU: 0x22C5034
       length:
         NA: 0x2
+        EU: 0x2
       description: Attack power for Cacnea Spikes.
     - name: GOLD_FANG_POWER
       address:
@@ -262,6 +284,7 @@ overlay10:
         EU: 0x22C5038
       length:
         NA: 0x2
+        EU: 0x2
       description: Attack power for Gold Fangs.
     - name: SILVER_SPIKE_POWER
       address:
@@ -269,6 +292,7 @@ overlay10:
         EU: 0x22C503C
       length:
         NA: 0x2
+        EU: 0x2
       description: Attack power for Silver Spikes.
     - name: IRON_THORN_POWER
       address:
@@ -276,6 +300,7 @@ overlay10:
         EU: 0x22C5040
       length:
         NA: 0x2
+        EU: 0x2
       description: Attack power for Iron Thorns.
     - name: SLEEP_DURATION_RANGE
       address:
@@ -283,6 +308,7 @@ overlay10:
         EU: 0x22C5078
       length:
         NA: 0x4
+        EU: 0x4
       description: |-
         Appears to control the range of turns for which the sleep condition can last.
         
@@ -293,6 +319,7 @@ overlay10:
         EU: 0x22C5150
       length:
         NA: 0x4
+        EU: 0x4
       description: "The multiplier for projectile damage from Power Pitcher (1.5), as a binary fixed-point number (8 fraction bits)"
     - name: AIR_BLADE_DAMAGE_MULTIPLIER
       address:
@@ -305,6 +332,7 @@ overlay10:
         EU: 0x22C51E0
       length:
         NA: 0x4
+        EU: 0x4
       description: |-
         Appears to control the range of turns for which a speed boost can last.
         
@@ -315,6 +343,7 @@ overlay10:
         EU: 0x22C56F0
       length:
         NA: 0x54
+        EU: 0x54
       description: "Table of multipliers for offensive stats (attack/special attack) for each stage 0-20, as binary fixed-point numbers (8 fraction bits)"
     - name: DEFENSIVE_STAT_STAGE_MULTIPLIERS
       address:
@@ -322,6 +351,7 @@ overlay10:
         EU: 0x22C5744
       length:
         NA: 0x54
+        EU: 0x54
       description: "Table of multipliers for defensive stats (defense/special defense) for each stage 0-20, as binary fixed-point numbers (8 fraction bits)"
     - name: RANDOM_MUSIC_ID_TABLE
       address:
@@ -342,6 +372,7 @@ overlay10:
         EU: 0x22C5D64
       length:
         NA: 0x54
+        EU: 0x54
       description: "Table of multipliers for the accuracy stat for males for each stage 0-20, as binary fixed-point numbers (8 fraction bits)"
     - name: MALE_EVASION_STAGE_MULTIPLIERS
       address:
@@ -349,6 +380,7 @@ overlay10:
         EU: 0x22C5DB8
       length:
         NA: 0x54
+        EU: 0x54
       description: "Table of multipliers for the evasion stat for males for each stage 0-20, as binary fixed-point numbers (8 fraction bits)"
     - name: FEMALE_ACCURACY_STAGE_MULTIPLIERS
       address:
@@ -356,6 +388,7 @@ overlay10:
         EU: 0x22C5E0C
       length:
         NA: 0x54
+        EU: 0x54
       description: "Table of multipliers for the accuracy stat for females for each stage 0-20, as binary fixed-point numbers (8 fraction bits)"
     - name: FEMALE_EVASION_STAGE_MULTIPLIERS
       address:
@@ -363,6 +396,7 @@ overlay10:
         EU: 0x22C5E60
       length:
         NA: 0x54
+        EU: 0x54
       description: "Table of multipliers for the evasion stat for females for each stage 0-20, as binary fixed-point numbers (8 fraction bits)"
     - name: MUSIC_ID_TABLE
       address:
@@ -383,6 +417,7 @@ overlay10:
         EU: 0x22C6008
       length:
         NA: 0x288
+        EU: 0x288
       description: |-
         Table of type matchups.
         
