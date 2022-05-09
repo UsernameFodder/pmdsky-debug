@@ -2349,6 +2349,21 @@ overlay29:
         If you're in a special episode, they turn green , otherwise, they turn blue or pink depending on your character's sex
         
         No params
+    - name: CheckSlowStart
+      address:
+        EU: 0x22F9C48
+      description: |-
+        Runs a check over all monsters on the field for the ability Slow Start, and lowers the speed of those who have it.
+
+        No params
+    - name: TryAbilityTruant
+      address:
+        EU: 0x22FA1FC
+      description: |-
+        Checks if an entity has the ability Truant, and if so tries to apply the pause status to it.
+
+        r0: pointer to entity
+        returns: bool
   data:
     - name: DUNGEON_STRUCT_SIZE
       address:
