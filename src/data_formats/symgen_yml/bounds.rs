@@ -197,6 +197,57 @@ mod tests {
     }
 
     #[test]
+    fn test_by_version_bounds_and_extents_different_ordinals() {
+        let cases: [(VersionDep<_>, VersionDep<_>, bool); 3] = [
+            (
+                [
+                    (("v1", 0).into(), (0, Some(100))),
+                    (("v2", 0).into(), (0, Some(100))),
+                ]
+                .into(),
+                [
+                    (("v1", 1).into(), (0.into(), Some(100))),
+                    (("v2", 2).into(), (0.into(), Some(100))),
+                ]
+                .into(),
+                true,
+            ),
+            (
+                [
+                    (("v1", 0).into(), (0, Some(100))),
+                    (("v2", 0).into(), (0, Some(100))),
+                ]
+                .into(),
+                [
+                    (("v1", 1).into(), (0.into(), Some(150))),
+                    (("v2", 2).into(), (0.into(), Some(100))),
+                ]
+                .into(),
+                false,
+            ),
+            (
+                [(("v2", 0).into(), (0, Some(100)))].into(),
+                [
+                    (("v1", 1).into(), (0.into(), Some(150))),
+                    (("v2", 2).into(), (0.into(), Some(100))),
+                ]
+                .into(),
+                true,
+            ),
+        ];
+        for case in cases {
+            assert_eq!(
+                symbol_extents_in_bounds(
+                    &MaybeVersionDep::ByVersion(case.0.into()),
+                    &MaybeVersionDep::ByVersion(case.1.into())
+                )
+                .is_none(),
+                case.2
+            );
+        }
+    }
+
+    #[test]
     fn test_by_version_bounds_with_common_extents() {
         let cases: [(VersionDep<_>, _, bool); 3] = [
             (

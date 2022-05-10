@@ -391,7 +391,7 @@ fn check_no_function_overlap(symgen: &SymGen) -> Result<(), String> {
                 *extents = Some([(vers, vec![(ext, name)])].into());
             }
             Some(exts) => {
-                exts.entry(vers)
+                exts.entry_native(vers)
                     .and_modify(|e| e.push((ext, name)))
                     .or_insert_with(|| vec![(ext, name)]);
             }
@@ -816,8 +816,15 @@ mod tests {
             .next()
             .expect("symgen does not have two functions")
             .clone();
-        let addr = overlapping.address.get_mut(block.version("v1")).unwrap();
-        *addr = function.address.get(block.version("v1")).unwrap().clone();
+        let addr = overlapping
+            .address
+            .get_mut_native(block.version("v1"))
+            .unwrap();
+        *addr = function
+            .address
+            .get_native(block.version("v1"))
+            .unwrap()
+            .clone();
         block.functions = [function, overlapping].into();
         assert!(check_no_function_overlap(&symgen).is_err());
     }
