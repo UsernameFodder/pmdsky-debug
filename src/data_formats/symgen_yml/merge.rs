@@ -174,10 +174,12 @@ where
         for (v, x) in other.iter() {
             match versions_by_name.get(v.name()) {
                 // This version key already exists (by name), so try to merge the inner value
-                Some(vers) => MergeConflict::wrap(self.get_mut(vers).unwrap().merge(x), v.name())?,
+                Some(vers) => {
+                    MergeConflict::wrap(self.get_mut_native(vers).unwrap().merge(x), v.name())?
+                }
                 None => {
                     // This version key is new, so insert it
-                    self.insert(v.clone(), x.clone());
+                    self.insert_native(v.clone(), x.clone());
                     versions_by_name.insert(v.name().to_owned(), v.clone());
                 }
             }

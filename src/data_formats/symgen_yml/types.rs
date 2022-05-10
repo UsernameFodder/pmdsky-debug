@@ -281,18 +281,83 @@ impl<T> VersionDep<T> {
         }
     }
 
+    /// Searches for a [`Version`] in the [`VersionDep<T>`] with the given name.
+    pub fn find_version(&self, name: &str) -> Option<&Version> {
+        self.versions().find(|&v| v.name() == name)
+    }
+    /// Searches for a [`Version`] in the [`VersionDep<T>`] with a name matching that of `version`.
+    pub fn find_native_version(&self, version: &Version) -> Option<&Version> {
+        self.find_version(version.name())
+    }
+
+    /// Gets the given [`Version`]'s corresponding entry in the [`VersionDep<T>`] for in-place
+    /// manipulation, where the given key is matched by name.
     pub fn entry(&mut self, key: Version) -> Entry<Version, T> {
-        self.0.entry(key)
+        self.entry_native(self.find_native_version(&key).cloned().unwrap_or(key))
     }
+    /// Gets the given native [`Version`]'s corresponding entry in the [`VersionDep<T>`] for
+    /// in-place manipulation. The given key is assumed to be from the same [`Version`] space as
+    /// the [`VersionDep<T>`], meaning it is matched by both name and ordinal.
+    ///
+    /// This function is less flexible than the `entry()` method, but is less work
+    /// (it is a pure map lookup), so it's useful if you are already working within the
+    /// [`VersionDep<T>`]'s native [`Version`] space.
+    pub fn entry_native(&mut self, native_key: Version) -> Entry<Version, T> {
+        self.0.entry(native_key)
+    }
+    /// Returns a reference to the value in the [`VersionDep<T>`] corresponding to the [`Version`],
+    /// where the given key is matched by name.
     pub fn get(&self, key: &Version) -> Option<&T> {
-        self.0.get(key)
+        self.find_native_version(key)
+            .and_then(|v| self.get_native(v))
     }
+    /// Returns a reference to the value in the [`VersionDep<T>`] corresponding to the native
+    /// [`Version`]. The given key is assumed to be from the same [`Version`] space as the
+    /// [`VersionDep<T>`], meaning it is matched by both name and ordinal.
+    ///
+    /// This function is less flexible than the `get()` method, but is less work
+    /// (it is a pure map lookup), so it's useful if you are already working within the
+    /// [`VersionDep<T>`]'s native [`Version`] space.
+    pub fn get_native(&self, native_key: &Version) -> Option<&T> {
+        self.0.get(native_key)
+    }
+    /// Returns a mutable reference to the value in the [`VersionDep<T>`] corresponding to the
+    /// [`Version`], where the given key is matched by name.
     pub fn get_mut(&mut self, key: &Version) -> Option<&mut T> {
-        self.0.get_mut(key)
+        self.find_native_version(key)
+            .cloned()
+            .and_then(move |v| self.get_mut_native(&v))
     }
+    /// Returns a mutable reference to the value in the [`VersionDep<T>`] corresponding to the
+    /// native [`Version`]. The given key is assumed to be from the same [`Version`] space as the
+    /// [`VersionDep<T>`], meaning it is matched by both name and ordinal.
+    ///
+    /// This function is less flexible than the `get_mut()` method, but is less work
+    /// (it is a pure map lookup), so it's useful if you are already working within the
+    /// [`VersionDep<T>`]'s native [`Version`] space.
+    pub fn get_mut_native(&mut self, native_key: &Version) -> Option<&mut T> {
+        self.0.get_mut(native_key)
+    }
+    /// Inserts a [`Version`]-value pair into the [`VersionDep<T>`]. If the [`VersionDep<T>`] did not
+    /// have this [`Version`] present (by name), [`None`] is returned.
+    ///
+    /// If the [`VersionDep<T>`] did have this [`Version`] present (by name), the value is updated,
+    /// and the old value is returned.
     pub fn insert(&mut self, key: Version, value: T) -> Option<T> {
-        self.0.insert(key, value)
+        self.insert_native(
+            self.find_native_version(&key).cloned().unwrap_or(key),
+            value,
+        )
     }
+    /// Inserts a native [`Version`]-value pair into the [`VersionDep<T>`]. If the [`VersionDep<T>`] did not
+    /// have this native [`Version`] present (by name and ordinal), [`None`] is returned.
+    ///
+    /// If the [`VersionDep<T>`] did have this native [`Version`] present (by name and ordinal),
+    /// the value is updated, and the old value is returned.
+    pub fn insert_native(&mut self, native_key: Version, value: T) -> Option<T> {
+        self.0.insert(native_key, value)
+    }
+
     pub fn iter(&self) -> impl Iterator<Item = (&Version, &T)> {
         self.0.iter()
     }
@@ -387,18 +452,63 @@ impl<T> MaybeVersionDep<T> {
         matches!(self, Self::Common(_))
     }
 
+    /// Returns a reference to the value in the [`MaybeVersionDep<T>`] corresponding to the
+    /// [`Version`] if one is given, where the given key is matched by name. If the key is
+    /// [`None`], the returned value will also be [`None`] unless the [`MaybeVersionDep<T>`]
+    /// is [`Common`].
+    ///
+    /// [`Common`]: MaybeVersionDep::Common
     pub fn get(&self, key: Option<&Version>) -> Option<&T> {
         match self {
             Self::Common(x) => Some(x),
             Self::ByVersion(v) => key.and_then(move |k| v.get(k)),
         }
     }
+    /// Returns a reference to the value in the [`VersionDep<T>`] corresponding to the native
+    /// [`Version`] if one is given, where the given key is assumed to be from the same [`Version`]
+    /// space as the [`MaybeVersionDep<T>`], meaning it is matched by both name and ordinal. If the
+    /// key is [`None`], the returned value will also be [`None`] unless the [`MaybeVersionDep<T>`]
+    /// is [`Common`].
+    ///
+    /// This function is less flexible than the `get()` method, but is less work
+    /// (it is at most a pure map lookup), so it's useful if you are already working within the
+    /// [`MaybeVersionDep<T>`]'s native [`Version`] space.
+    ///
+    /// [`Common`]: MaybeVersionDep::Common
+    pub fn get_native(&self, key: Option<&Version>) -> Option<&T> {
+        match self {
+            Self::Common(x) => Some(x),
+            Self::ByVersion(v) => key.and_then(move |k| v.get_native(k)),
+        }
+    }
+    /// Returns a mutable reference to the value in the [`MaybeVersionDep<T>`] corresponding to the
+    /// [`Version`] if one is given, where the given key is matched by name. If the key is [`None`],
+    /// the returned value will also be [`None`] unless the [`MaybeVersionDep<T>`] is [`Common`].
+    ///
+    /// [`Common`]: MaybeVersionDep::Common
     pub fn get_mut(&mut self, key: Option<&Version>) -> Option<&mut T> {
         match self {
             Self::Common(x) => Some(x),
             Self::ByVersion(v) => key.and_then(move |k| v.get_mut(k)),
         }
     }
+    /// Returns a mutable reference to the value in the [`MaybeVersionDep<T>`] corresponding to the
+    /// native [`Version`] if one is given, where the given key is matched by name. If the key is
+    /// [`None`], the returned value will also be [`None`] unless the [`MaybeVersionDep<T>`] is
+    /// [`Common`].
+    ///
+    /// This function is less flexible than the `get_mut()` method, but is less work
+    /// (it is at most a pure map lookup), so it's useful if you are already working within the
+    /// [`MaybeVersionDep<T>`]'s native [`Version`] space.
+    ///
+    /// [`Common`]: MaybeVersionDep::Common
+    pub fn get_mut_native(&mut self, key: Option<&Version>) -> Option<&mut T> {
+        match self {
+            Self::Common(x) => Some(x),
+            Self::ByVersion(v) => key.and_then(move |k| v.get_mut_native(k)),
+        }
+    }
+
     pub fn len(&self) -> usize {
         match self {
             Self::Common(_) => 1,
@@ -664,6 +774,61 @@ mod tests {
                 assert_eq!(x.cmp(y), *order)
             }
         }
+
+        #[test]
+        fn test_find_version() {
+            let v2 = Version::from(("v2", 100));
+            let vals =
+                VersionDep::from([("v1".into(), vec![1, 2, 3]), (v2.clone(), vec![1, 2, 3])]);
+
+            assert_eq!(vals.find_version("v2"), Some(&v2));
+            assert_eq!(vals.find_version("v3"), None);
+
+            assert_eq!(vals.find_native_version(&("v2", 0).into()), Some(&v2));
+            assert_eq!(vals.find_native_version(&"v3".into()), None);
+        }
+
+        #[test]
+        fn test_get() {
+            let mut vals = VersionDep::from([
+                ("v1".into(), vec![1, 2, 3]),
+                (("v2", 100).into(), vec![1, 2, 3]),
+            ]);
+            assert_eq!(vals.get(&("v2".into(), 0).into()), Some(&vec![1, 2, 3]));
+
+            vals.get_mut(&("v2", 0).into()).unwrap().push(4);
+            assert_eq!(
+                vals.get_native(&("v2", 100).into()),
+                Some(&vec![1, 2, 3, 4])
+            );
+        }
+
+        #[test]
+        fn test_set() {
+            let mut vals = VersionDep::from([
+                ("v1".into(), vec![1, 2, 3]),
+                (("v2", 100).into(), vec![1, 2, 3]),
+            ]);
+            assert_eq!(vals.insert(("v2", 0).into(), vec![]), Some(vec![1, 2, 3]));
+            assert_eq!(vals.insert(("v3", 0).into(), vec![3, 3, 3]), None);
+            assert_eq!(vals.get_native(&("v2", 100).into()), Some(&vec![]));
+            assert_eq!(vals.get_native(&("v3", 0).into()), Some(&vec![3, 3, 3]));
+        }
+
+        #[test]
+        fn test_entry() {
+            let mut vals = VersionDep::from([
+                ("v1".into(), vec![1, 2, 3]),
+                (("v2", 100).into(), vec![1, 2, 3]),
+            ]);
+            vals.entry(("v2", 0).into()).or_insert(vec![]).push(4);
+            vals.entry(("v3", 0).into()).or_insert(vec![]).push(4);
+            assert_eq!(
+                vals.get_native(&("v2", 100).into()),
+                Some(&vec![1, 2, 3, 4])
+            );
+            assert_eq!(vals.get_native(&("v3", 0).into()), Some(&vec![4]));
+        }
     }
 
     mod maybe_version_dep_tests {
@@ -715,13 +880,23 @@ mod tests {
         }
 
         #[test]
+        fn test_get_native() {
+            let (common, by_version) = get_maybe_version_deps();
+            assert_eq!(common.get_native(None), Some(&500));
+            assert_eq!(common.get_native(Some(&("v3", 0).into())), Some(&500));
+
+            assert_eq!(by_version.get_native(None), None);
+            assert_eq!(by_version.get_native(Some(&("v3", 0).into())), Some(&300));
+        }
+
+        #[test]
         fn test_get() {
             let (common, by_version) = get_maybe_version_deps();
             assert_eq!(common.get(None), Some(&500));
-            assert_eq!(common.get(Some(&("v3", 0).into())), Some(&500));
+            assert_eq!(common.get(Some(&("v3", 100).into())), Some(&500));
 
             assert_eq!(by_version.get(None), None);
-            assert_eq!(by_version.get(Some(&("v3", 0).into())), Some(&300));
+            assert_eq!(by_version.get(Some(&("v3", 100).into())), Some(&300));
         }
 
         #[test]

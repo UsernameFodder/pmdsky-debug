@@ -46,7 +46,7 @@ pub struct Symbol {
 }
 
 /// Combines possibly version-dependent `addrs` and `opt_len` into a single `MaybeVersionDep`
-/// with the data (addr, opt_len).
+/// with the data (addr, opt_len). Assumes `addrs` and `opt_len` have the same `Version` key space.
 fn zip_addr_len<T>(
     addrs: &MaybeVersionDep<T>,
     opt_len: Option<&MaybeVersionDep<Uint>>,
@@ -59,7 +59,7 @@ where
             let version_dep = match opt_len {
                 Some(len) => addr
                     .iter()
-                    .map(|(v, a)| (v.clone(), (a.clone(), len.get(Some(v)).copied())))
+                    .map(|(v, a)| (v.clone(), (a.clone(), len.get_native(Some(v)).copied())))
                     .collect(),
                 None => addr
                     .iter()
