@@ -299,7 +299,7 @@ impl<T> VersionDep<T> {
     /// in-place manipulation. The given key is assumed to be from the same [`Version`] space as
     /// the [`VersionDep<T>`], meaning it is matched by both name and ordinal.
     ///
-    /// This function is less flexible than the `entry()` method, but is less work
+    /// This method is less flexible than the `entry()` method, but is less work
     /// (it is a pure map lookup), so it's useful if you are already working within the
     /// [`VersionDep<T>`]'s native [`Version`] space.
     pub fn entry_native(&mut self, native_key: Version) -> Entry<Version, T> {
@@ -315,7 +315,7 @@ impl<T> VersionDep<T> {
     /// [`Version`]. The given key is assumed to be from the same [`Version`] space as the
     /// [`VersionDep<T>`], meaning it is matched by both name and ordinal.
     ///
-    /// This function is less flexible than the `get()` method, but is less work
+    /// This method is less flexible than the `get()` method, but is less work
     /// (it is a pure map lookup), so it's useful if you are already working within the
     /// [`VersionDep<T>`]'s native [`Version`] space.
     pub fn get_native(&self, native_key: &Version) -> Option<&T> {
@@ -332,7 +332,7 @@ impl<T> VersionDep<T> {
     /// native [`Version`]. The given key is assumed to be from the same [`Version`] space as the
     /// [`VersionDep<T>`], meaning it is matched by both name and ordinal.
     ///
-    /// This function is less flexible than the `get_mut()` method, but is less work
+    /// This method is less flexible than the `get_mut()` method, but is less work
     /// (it is a pure map lookup), so it's useful if you are already working within the
     /// [`VersionDep<T>`]'s native [`Version`] space.
     pub fn get_mut_native(&mut self, native_key: &Version) -> Option<&mut T> {
@@ -354,6 +354,10 @@ impl<T> VersionDep<T> {
     ///
     /// If the [`VersionDep<T>`] did have this native [`Version`] present (by name and ordinal),
     /// the value is updated, and the old value is returned.
+    ///
+    /// This method is less flexible than the `insert()` method, but is less work
+    /// (it is a pure map lookup), so it's useful if you are already working within the
+    /// [`VersionDep<T>`]'s native [`Version`] space.
     pub fn insert_native(&mut self, native_key: Version, value: T) -> Option<T> {
         self.0.insert(native_key, value)
     }
@@ -470,7 +474,7 @@ impl<T> MaybeVersionDep<T> {
     /// key is [`None`], the returned value will also be [`None`] unless the [`MaybeVersionDep<T>`]
     /// is [`Common`].
     ///
-    /// This function is less flexible than the `get()` method, but is less work
+    /// This method is less flexible than the `get()` method, but is less work
     /// (it is at most a pure map lookup), so it's useful if you are already working within the
     /// [`MaybeVersionDep<T>`]'s native [`Version`] space.
     ///
@@ -497,7 +501,7 @@ impl<T> MaybeVersionDep<T> {
     /// [`None`], the returned value will also be [`None`] unless the [`MaybeVersionDep<T>`] is
     /// [`Common`].
     ///
-    /// This function is less flexible than the `get_mut()` method, but is less work
+    /// This method is less flexible than the `get_mut()` method, but is less work
     /// (it is at most a pure map lookup), so it's useful if you are already working within the
     /// [`MaybeVersionDep<T>`]'s native [`Version`] space.
     ///
