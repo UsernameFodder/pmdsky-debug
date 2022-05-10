@@ -1906,10 +1906,12 @@ struct dungeon {
     undefined field_0x77e;
     undefined field_0x77f;
     // 0x780: Controls when a monster at a certain speed stage is able to act.
+    // Increased by 1-4 each turn, depending on the team leader's speed level:
     // At normal speed, this will tick up by 4 each turn (can act when x % 4 == 3)
     // At +1 speed, ticks up by 2 each turn (can act when x % 2 == 1)
     // At +2 speed, ticks up by 1 or 2 each turn (can act when x % 4 != 0)
     // At +3 speed, ticks up by 1 each turn (an act every tick)
+    // The counter is increased modulo 24, goes from 0x00 to 0x17 then starts over
     uint16_t fractional_turn;
     uint16_t enemy_spawn_counter; // 0x782: Counts from 0-35, spawns happen at 0
     int16_t wind_turns;           // 0x784: Countdown to the wind blowing you out of the dungeon
