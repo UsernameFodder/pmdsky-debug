@@ -4391,10 +4391,10 @@ struct dungeon {
     undefined field_0x3e31;
     undefined field_0x3e32;
     undefined field_0x3e33;
-    undefined field_0x3e34;
-    undefined field_0x3e35;
-    undefined field_0x3e36;
-    undefined field_0x3e37;
+    bool enemy_plus_is_active;  // 0x3E34: An enemy monster has the ability Plus
+    bool team_plus_is_active;   // 0x3E35: A team member has the ability Plus
+    bool enemy_minus_is_active; // 0x3E36: An enemy monster has the ability Minus
+    bool team_minus_is_active;  // 0x3E37: A team member has the ability Minus
     undefined field_0x3e38;
     undefined field_0x3e39;
     undefined field_0x3e3a;
