@@ -639,16 +639,6 @@ overlay29:
         r0: attacker pointer
         r1: defender pointer
         r2: base experience gain, before boosts
-    - name: ExclusiveItemEffectIsActive
-      address:
-        NA: 0x230A9B8
-        EU: 0x230B42C
-      description: |-
-        Checks if a certain exclusive item effect is active for a monster.
-        
-        r0: entity pointer
-        r1: exclusive item effect ID
-        return: bool
     - name: GetTypeMatchup
       address:
         NA: 0x230AC58
