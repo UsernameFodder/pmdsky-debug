@@ -23,21 +23,28 @@ int CalcStatusDuration(struct entity* entity, uint16_t* turn_range, bool iq_skil
 void DungeonRngUnsetSecondary(void);
 void DungeonRngSetSecondary(int i);
 void DungeonRngSetPrimary(void);
+void TrySwitchPlace(struct entity* user, struct entity* target);
 void ResetDamageDesc(undefined4* damage_desc);
 bool FloorNumberIsEven(void);
+void CheckSlowStart(void);
+void CheckArtificialWeatherAbilities(void);
 bool DefenderAbilityIsActive(struct entity* attacker, struct entity* defender,
                              enum ability_id ability_id, bool attacker_ability_enabled);
 bool IsMonster(struct entity* entity);
+void TryAbilityTruant(struct entity* entity);
+bool TeamExclusiveItemEffectIsActive(struct entity* entity,
+                                     enum exclusive_item_effect_id effect_id);
 bool HasLowHealth(struct entity* entity);
 bool IsSpecialStoryAlly(struct monster* monster);
 bool IsExperienceLocked(struct monster* monster);
+int GetNumberOfAttacks(struct entity* entity);
 bool NoGastroAcidStatus(struct entity* entity);
 bool AbilityIsActive(struct entity* entity, enum ability_id ability_id);
+bool IsLevitating(struct entity* entity);
 bool MonsterIsType(struct entity* entity, enum type_id type_id);
 bool IqSkillIsEnabled(struct entity* entity, enum iq_skill_id iq_id);
 int GetMovePower(struct entity* entity, struct move* move);
 void AddExpSpecial(struct entity* attacker, struct entity* defender, int base_exp);
-bool ExclusiveItemEffectIsActive(struct entity* entity, enum exclusive_item_effect_id effect_id);
 enum type_matchup GetTypeMatchup(struct entity* attacker, struct entity* defender,
                                  int target_type_idx, enum type_id attack_type);
 void CalcDamage(struct entity* attacker, struct entity* defender, enum type_id attack_type,
@@ -63,6 +70,8 @@ void ResetDamageCalcScratchSpace(void);
 bool AuraBowIsActive(struct entity* entity);
 int ExclusiveItemOffenseBoost(struct entity* entity, int move_category_idx);
 int ExclusiveItemDefenseBoost(struct entity* entity, int move_category_idx);
+void TickNoSlipCap(struct entity* entity);
+void AdvanceStatusAndHealthRegen(struct entity* entity);
 void InflictSleepStatusSingle(struct entity* entity, int turns);
 void TryInflictSleepStatus(struct entity* user, struct entity* target, int turns, bool log_failure);
 void TryInflictNightmareStatus(struct entity* user, struct entity* target, int turns);
@@ -103,8 +112,6 @@ bool TryInflictCringeStatus(struct entity* user, struct entity* target, bool log
                             bool check_only);
 bool TryInflictParalysisStatus(struct entity* user, struct entity* target, bool log_failure,
                                bool check_only);
-bool TeamExclusiveItemEffectIsActive(struct entity* entity,
-                                     enum exclusive_item_effect_id effect_id);
 void BoostSpeed(struct entity* user, struct entity* target, int n_stages, int turns,
                 bool log_failure);
 void BoostSpeedOneStage(struct entity* user, struct entity* target, int turns, bool log_failure);
@@ -124,6 +131,7 @@ bool TryInflictLeechSeedStatus(struct entity* user, struct entity* target, bool 
 void TryInflictDestinyBond(struct entity* user, struct entity* target);
 void RestoreMovePP(struct entity* user, struct entity* target, int pp, bool suppress_logs);
 bool HasConditionalGroundImmunity(struct entity* entity);
+int Conversion2IsActive(struct entity* entity);
 struct move_target_and_range GetEntityMoveTargetAndRange(struct entity* entity, struct move* move,
                                                          bool is_ai);
 void ApplyItemEffect(undefined4 param_1, undefined4 param_2, undefined4 param_3,
@@ -149,6 +157,7 @@ int DealDamage(struct entity* attacker, struct entity* defender, struct move* mo
 void CalcDamageProjectile(struct entity* attacker, struct entity* defender, struct move* move,
                           int power, undefined4 param_5, undefined4 param_6);
 enum weather_id GetApparentWeather(struct entity* entity);
+void TryWeatherFormChange(struct entity* entity);
 struct tile* GetTile(int x, int y);
 bool GravityIsActive(void);
 bool IsSecretBazaar(void);
