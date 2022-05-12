@@ -201,7 +201,7 @@ struct statuses {
     uint8_t perish_song_turns; // 0x5D: Turns left before Perish Song takes effect
     // 0x5E: Increases progressively while the No-Slip Cap is held. Capped at 0x13
     // Used to calculate the chance of an item becoming sticky, resets to 0 when that happens
-    uint8_t no_slip_cap_counter;   
+    uint8_t no_slip_cap_counter;
     undefined field_0x5f;
     undefined field_0x60;
     undefined field_0x61;
