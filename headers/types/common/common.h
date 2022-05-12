@@ -156,9 +156,9 @@ struct file_stream {
     undefined4 field_0x18;
     undefined4 field_0x1c;
     undefined4 field_0x20;
-    undefined4 field_0x24;
-    undefined4 field_0x28;
-    undefined4 field_0x2c;
+    void* start_address;
+    void* end_address;
+    void* current_address;
     undefined4 field_0x30;
     undefined4 field_0x34;
     undefined4 field_0x38;
