@@ -552,7 +552,7 @@ arm9:
         This function has the a similar API to the fseek(3) library function from C, including using the same codes for the `whence` parameter:
         - SEEK_SET=0
         - SEEK_CUR=1
-        - SEEK_END=2 (maybe not implemented?).
+        - SEEK_END=2
         
         r0: file_stream pointer
         r1: offset
