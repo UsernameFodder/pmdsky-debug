@@ -395,7 +395,7 @@ overlay29:
         Has a special check to return false for Labyrinth Cave B10F (the Gabite boss fight).
         
         return: bool
-    - name: CheckSlowStart
+    - name: TryActivateSlowStart
       address:
         NA: 0x22F923C
         EU: 0x22F9C48
@@ -403,7 +403,7 @@ overlay29:
         Runs a check over all monsters on the field for the ability Slow Start, and lowers the speed of those who have it.
         
         No params
-    - name: CheckArtificialWeatherAbilities
+    - name: TryActivateArtificialWeatherAbilities
       address:
         NA: 0x22F92D8
         EU: 0x22F9CE4
@@ -472,7 +472,7 @@ overlay29:
         
         r0: entity pointer
         return: bool
-    - name: TryAbilityTruant
+    - name: TryActivateTruant
       address:
         NA: 0x22F97F0
         EU: 0x22FA1FC
@@ -480,7 +480,7 @@ overlay29:
         Checks if an entity has the ability Truant, and if so tries to apply the pause status to it.
         
         r0: pointer to entity
-    - name: TeamExclusiveItemEffectIsActive
+    - name: ExclusiveItemEffectIsActive
       address:
         NA:
           - 0x22FAC98
@@ -586,7 +586,7 @@ overlay29:
         r0: entity pointer
         r1: ability ID
         return: bool
-    - name: IsLevitating
+    - name: LevitateIsActive
       address:
         NA: 0x2301E18
         EU: 0x2302844
@@ -778,7 +778,7 @@ overlay29:
         Checks if the entity is a team member and holds the No-Slip Cap, and if so attempts to make one item in the bag sticky.
         
         r0: pointer to entity
-    - name: AdvanceStatusAndHealthRegen
+    - name: TickStatusAndHealthRegen
       address:
         NA: 0x2311088
         EU: 0x2311AE8
