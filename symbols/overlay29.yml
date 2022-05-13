@@ -366,6 +366,17 @@ overlay29:
         Sets the dungeon PRNG to use the primary LCG for subsequent random number generation.
         
         No params.
+    - name: TrySwitchPlace
+      address:
+        NA: 0x22EB178
+        EU: 0x22EBB28
+      description: |-
+        The user entity attempts to switch places with the target entity (i.e. by the effect of the Switcher Orb). 
+        
+        The function checks for the Suction Cups ability for both the user and the target, and for the Mold Breaker ability on the user.
+        
+        r0: pointer to user entity
+        r1: pointer to target entity
     - name: ResetDamageDesc
       address:
         NA: 0x22F6E18
@@ -384,6 +395,22 @@ overlay29:
         Has a special check to return false for Labyrinth Cave B10F (the Gabite boss fight).
         
         return: bool
+    - name: TryActivateSlowStart
+      address:
+        NA: 0x22F923C
+        EU: 0x22F9C48
+      description: |-
+        Runs a check over all monsters on the field for the ability Slow Start, and lowers the speed of those who have it.
+        
+        No params
+    - name: TryActivateArtificialWeatherAbilities
+      address:
+        NA: 0x22F92D8
+        EU: 0x22F9CE4
+      description: |-
+        Runs a check over all monsters on the field for abilities that affect the weather and changes the floor's weather accordingly.
+        
+        No params
     - name: DefenderAbilityIsActive
       address:
         NA:
@@ -445,6 +472,48 @@ overlay29:
         
         r0: entity pointer
         return: bool
+    - name: TryActivateTruant
+      address:
+        NA: 0x22F97F0
+        EU: 0x22FA1FC
+      description: |-
+        Checks if an entity has the ability Truant, and if so tries to apply the pause status to it.
+        
+        r0: pointer to entity
+    - name: ExclusiveItemEffectIsActive
+      address:
+        NA:
+          - 0x22FAC98
+          - 0x22FFF28
+          - 0x230A9B8
+          - 0x230F8AC
+          - 0x2311064
+          - 0x23147EC
+          - 0x23197A8
+          - 0x231A87C
+          - 0x2323918
+          - 0x23329E8
+          - 0x2347B80
+          - 0x23482B0
+        EU:
+          - 0x22FB6A4
+          - 0x2300954
+          - 0x230B42C
+          - 0x2310320
+          - 0x2311AC4
+          - 0x231524C
+          - 0x231A208
+          - 0x231B2DC
+          - 0x2324380
+          - 0x2333428
+          - 0x2348780
+          - 0x2348EB0
+      description: |-
+        Checks if a monster is a team member under the effects of a certain exclusive item effect.
+        
+        r0: entity pointer
+        r1: exclusive item effect ID
+        return: bool
     - name: HasLowHealth
       address:
         NA: 0x22FB610
@@ -476,6 +545,17 @@ overlay29:
         
         r0: monster pointer
         return: bool
+    - name: GetNumberOfAttacks
+      address:
+        NA: 0x22FFF5C
+        EU: 0x2300988
+      description: |-
+        Returns the number of attacks that a monster can do in one turn (1 or 2).
+        
+        Checks for the abilities Swift Swim, Chlorophyll, Unburden, and for exclusive items.
+        
+        r0: pointer to entity
+        returns: int
     - name: SprintfStatic
       address:
         NA: 0x23002C8
@@ -505,6 +585,15 @@ overlay29:
         
         r0: entity pointer
         r1: ability ID
+        return: bool
+    - name: LevitateIsActive
+      address:
+        NA: 0x2301E18
+        EU: 0x2302844
+      description: |-
+        Checks if a monster is levitating (has the effect of Levitate and Gravity is not active).
+        
+        r0: pointer to entity
         return: bool
     - name: MonsterIsType
       address:
@@ -550,16 +639,6 @@ overlay29:
         r0: attacker pointer
         r1: defender pointer
         r2: base experience gain, before boosts
-    - name: ExclusiveItemEffectIsActive
-      address:
-        NA: 0x230A9B8
-        EU: 0x230B42C
-      description: |-
-        Checks if a certain exclusive item effect is active for a monster.
-        
-        r0: entity pointer
-        r1: exclusive item effect ID
-        return: bool
     - name: GetTypeMatchup
       address:
         NA: 0x230AC58
@@ -691,6 +770,22 @@ overlay29:
         r0: entity pointer
         r1: move category index (0 for physical, 1 for special)
         return: boost
+    - name: TickNoSlipCap
+      address:
+        NA: 0x230FB90
+        EU: 0x2310604
+      description: |-
+        Checks if the entity is a team member and holds the No-Slip Cap, and if so attempts to make one item in the bag sticky.
+        
+        r0: pointer to entity
+    - name: TickStatusAndHealthRegen
+      address:
+        NA: 0x2311088
+        EU: 0x2311AE8
+      description: |-
+        Applies the natural HP regen effect by taking modifiers into account (Poison Heal, Heal Ribbon, weather-related regen). Then it ticks down counters for volatile status effects, and heals them if the counter reached zero.
+        
+        r0: pointer to entity
     - name: InflictSleepStatusSingle
       address:
         NA: 0x2311824
@@ -1002,18 +1097,6 @@ overlay29:
         r2: flag to log a message on failure
         r3: flag to only perform the check for inflicting without actually inflicting
         return: Whether or not the status could be inflicted
-    - name: TeamExclusiveItemEffectIsActive
-      address:
-        NA:
-          - 0x23147EC
-          - 0x231A87C
-        EU: 0x231524C
-      description: |-
-        Checks if a monster is a team member under the effects of a certain exclusive item effect.
-        
-        r0: entity pointer
-        r1: exclusive item effect ID
-        return: bool
     - name: BoostSpeed
       address:
         NA: 0x2314810
@@ -1171,6 +1254,17 @@ overlay29:
         
         r0: entity pointer
         return: bool
+    - name: Conversion2IsActive
+      address:
+        NA: 0x2319814
+        EU: 0x231A274
+      description: |-
+        Checks if the monster is under the effect of Conversion 2 (its type was changed).
+        
+        Returns 1 if the effects is a status, 2 if it comes from an exclusive item, 0 otherwise.
+        
+        r0: pointer to entity
+        return: int
     - name: GetEntityMoveTargetAndRange
       address:
         NA: 0x231ACAC
@@ -1351,6 +1445,14 @@ overlay29:
         
         r0: entity pointer
         return: weather ID
+    - name: TryWeatherFormChange
+      address:
+        NA: 0x2335170
+        EU: 0x2335BB0
+      description: |-
+        Tries to change a monster into one of its weather-related alternative forms. Applies to Castform and Cherrim, and checks for their unique abilities.
+        
+        r0: pointer to entity
     - name: GetTile
       address:
         NA:
@@ -2394,6 +2496,14 @@ overlay29:
         NA: 0x4
         EU: 0x4
       description: "The increment for the dungeon PRNG's secondary LCGs, 2531011 (0x269EC3). This happens to be the same increment that the Microsoft Visual C++ runtime library uses in its implementation of the rand() function."
+    - name: MSG_ID_SLOW_START
+      address:
+        NA: 0x22F92D0
+        EU: 0x22F9CDC
+      length:
+        NA: 0x4
+        EU: 0x4
+      description: ID of the message printed when a monster has the ability Slow Start at the beginning of the floor.
     - name: EXPERIENCE_POINT_GAIN_CAP
       address:
         NA: 0x23026C8
@@ -2502,6 +2612,18 @@ overlay29:
         The base value by which belly is decreased every turn.
         
         Its raw value is 0x199A, which encodes a binary fixed-point number (16 fraction bits) with value (0x199A * 2^-16), and is the closest approximation to 0.1 representable in this number format.
+    - name: MAX_HP_CAP
+      address:
+        NA:
+          - 0x2311814
+          - 0x2318454
+        EU:
+          - 0x2312274
+          - 0x2318EB4
+      length:
+        NA: 0x4
+        EU: 0x4
+      description: The maximum amount of HP a monster can have (999).
     - name: MOVE_TARGET_AND_RANGE_SPECIAL_USER_HEALING
       address:
         NA: 0x231AD34
@@ -2537,6 +2659,46 @@ overlay29:
         NA: 0x4
         EU: 0x4
       description: Some value related to the Slip Seed (0xC75).
+    - name: CASTFORM_NORMAL_FORM_MALE_ID
+      address:
+        NA: 0x2335438
+        EU: 0x2335E78
+      length:
+        NA: 0x4
+        EU: 0x4
+      description: "Castform's male normal form ID (0x17B)"
+    - name: CASTFORM_NORMAL_FORM_FEMALE_ID
+      address:
+        NA: 0x233543C
+        EU: 0x2335E7C
+      length:
+        NA: 0x4
+        EU: 0x4
+      description: "Castform's female normal form ID (0x3D3)"
+    - name: CHERRIM_SUNSHINE_FORM_MALE_ID
+      address:
+        NA: 0x2335440
+        EU: 0x2335E80
+      length:
+        NA: 0x4
+        EU: 0x4
+      description: "Cherrim's male sunshine form ID (0x1CD)"
+    - name: CHERRIM_OVERCAST_FORM_FEMALE_ID
+      address:
+        NA: 0x2335444
+        EU: 0x2335E84
+      length:
+        NA: 0x4
+        EU: 0x4
+      description: "Cherrim's female overcast form ID (0x424)"
+    - name: CHERRIM_SUNSHINE_FORM_FEMALE_ID
+      address:
+        NA: 0x2335448
+        EU: 0x2335E88
+      length:
+        NA: 0x4
+        EU: 0x4
+      description: "Cherrim's female sunshine form ID (0x425)"
     - name: FLOOR_GENERATION_STATUS_PTR
       address:
         NA:
@@ -2855,6 +3017,30 @@ overlay29:
         [Runtime] An array of 5 integers corresponding to the last value generated for each secondary LCG sequence.
         
         Based on the assembly, this appears to be its own global array, separate from DUNGEON_PRNG_STATE.
+    - name: EXCL_ITEM_EFFECTS_WEATHER_ATK_SPEED_BOOST
+      address:
+        NA: 0x23535B0
+        EU: 0x23541B0
+      length:
+        NA: 0x8
+        EU: 0x8
+      description: Array of IDs for exclusive item effects that increase attack speed with certain weather conditions.
+    - name: EXCL_ITEM_EFFECTS_WEATHER_MOVE_SPEED_BOOST
+      address:
+        NA: 0x23535B8
+        EU: 0x23541B8
+      length:
+        NA: 0x8
+        EU: 0x8
+      description: Array of IDs for exclusive item effects that increase movement speed with certain weather conditions.
+    - name: EXCL_ITEM_EFFECTS_WEATHER_NO_STATUS
+      address:
+        NA: 0x23535C0
+        EU: 0x23541C0
+      length:
+        NA: 0x8
+        EU: 0x8
+      description: Array of IDs for exclusive item effects that grant status immunity with certain weather conditions.
     - name: DEFAULT_TILE
       address:
         NA: 0x2353724
