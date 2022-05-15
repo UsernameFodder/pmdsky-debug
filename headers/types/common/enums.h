@@ -9,7 +9,7 @@ enum overlay_group_id {
     OGROUP_OVERLAY_0 = 1,
     OGROUP_OVERLAY_10 = 2,
     OGROUP_OVERLAY_35 = 3,
-    OGROUP_OVERlAY_1 = 4,
+    OGROUP_OVERLAY_1 = 4,
     OGROUP_OVERLAY_2 = 5,
     OGROUP_OVERLAY_3 = 6,
     OGROUP_OVERLAY_6 = 7,
