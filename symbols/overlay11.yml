@@ -289,6 +289,7 @@ overlay11:
     - name: OVERLAY11_OVERLAY_LOAD_TABLE
       address:
         NA: 0x232306C
+        EU: 0x2323B9C
       description: |-
         The overlays that can be loaded while this one is loaded.
         

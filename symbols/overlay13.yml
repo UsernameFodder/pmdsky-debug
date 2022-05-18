@@ -31,18 +31,24 @@ overlay13:
     - name: STARTERS_STRINGS
       address:
         NA: 0x238C14C
+        EU: 0x238CC8C
       length:
         NA: 0x60
+        EU: 0x60
     - name: QUIZ_QUESTION_STRINGS
       address:
         NA: 0x238C1AC
+        EU: 0x238CCEC
       length:
         NA: 0x84
+        EU: 0x84
     - name: QUIZ_ANSWER_STRINGS
       address:
         NA: 0x238C230
+        EU: 0x238CD70
       length:
         NA: 0x160
+        EU: 0x160
     - name: UNKNOWN_MENU_1
       address:
         NA: 0x238CECC
