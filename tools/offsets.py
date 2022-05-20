@@ -123,7 +123,7 @@ BINARIES = {
         "overlay35": Binary(0x22BD3C0, 0x20),
     },
     "JP": {
-        "arm9": Binary(0x2000000, 0x756920),
+        "arm9": Binary(0x2000000, 0xB8CB8),
         "overlay0": Binary(0x22BE220, 0x609A0),
         "overlay1": Binary(0x232ACC0, 0x12E00),
         "overlay2": Binary(0x232ACC0, 0x2AFA0),
