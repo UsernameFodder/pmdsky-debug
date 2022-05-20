@@ -10,6 +10,7 @@ arm9:
   length:
     NA: 0xB73F8
     EU: 0xB7D38
+    JP: 0xB8CB8
   description: |-
     The main ARM9 binary.
     
@@ -19,6 +20,7 @@ arm9:
       address:
         NA: 0x2000DE0
         EU: 0x2000DE0
+        JP: 0x2000DE0
       description: |-
         Initializes MEMORY_ALLOCATION_TABLE.
         
@@ -29,6 +31,7 @@ arm9:
       address:
         NA: 0x2000E70
         EU: 0x2000E70
+        JP: 0x2000E70
       description: |-
         Sets global parameters for the memory allocator.
         
@@ -42,6 +45,7 @@ arm9:
       address:
         NA: 0x2000EC0
         EU: 0x2000EC0
+        JP: 0x2000EC0
       description: |-
         The default function for retrieving the arena for memory allocations. This function always just returns the initial arena pointer.
         
@@ -52,6 +56,7 @@ arm9:
       address:
         NA: 0x2000EC4
         EU: 0x2000EC4
+        JP: 0x2000EC4
       description: |-
         The default function for retrieving the arena for memory freeing. This function always just returns the initial arena pointer.
         
@@ -62,6 +67,7 @@ arm9:
       address:
         NA: 0x2000EC8
         EU: 0x2000EC8
+        JP: 0x2000EC8
       description: |-
         Initializes a new memory arena with the given specifications, and records it in the global MEMORY_ALLOCATION_TABLE.
         
@@ -73,6 +79,7 @@ arm9:
       address:
         NA: 0x2000F44
         EU: 0x2000F44
+        JP: 0x2000F44
       description: |-
         Converts the internal alloc flags bitfield (struct mem_block field 0x4) to the block type bitfield (struct mem_block field 0x0).
         
@@ -82,6 +89,7 @@ arm9:
       address:
         NA: 0x2000F88
         EU: 0x2000F88
+        JP: 0x2000F88
       description: |-
         Searches through the given memory arena for a block with enough free space.
         
@@ -95,6 +103,7 @@ arm9:
       address:
         NA: 0x2001070
         EU: 0x2001070
+        JP: 0x2001070
       description: |-
         Given a memory block at a given index, splits off another memory block of the specified size from the end.
         
@@ -110,6 +119,7 @@ arm9:
       address:
         NA: 0x2001170
         EU: 0x2001170
+        JP: 0x2001170
       description: |-
         Allocates some memory on the heap, returning a pointer to the starting address.
         
@@ -124,6 +134,7 @@ arm9:
       address:
         NA: 0x2001188
         EU: 0x2001188
+        JP: 0x2001188
       description: |-
         Frees heap-allocated memory.
         
@@ -134,6 +145,7 @@ arm9:
       address:
         NA: 0x200119C
         EU: 0x200119C
+        JP: 0x200119C
       description: |-
         Allocates some memory on the heap and creates a new global memory arena with it.
         
@@ -148,6 +160,7 @@ arm9:
       address:
         NA: 0x2001280
         EU: 0x2001280
+        JP: 0x2001280
       description: |-
         Creates a new memory arena within a given block of memory.
         
@@ -160,6 +173,7 @@ arm9:
       address:
         NA: 0x2001390
         EU: 0x2001390
+        JP: 0x2001390
       description: |-
         The implementation for MemAlloc.
         
@@ -177,6 +191,7 @@ arm9:
       address:
         NA: 0x2001638
         EU: 0x2001638
+        JP: 0x2001638
       description: |-
         The implementation for MemFree.
         
@@ -188,6 +203,7 @@ arm9:
       address:
         NA: 0x2001894
         EU: 0x2001894
+        JP: 0x2001894
       description: |-
         Divide a number by 256 and round up to the nearest integer.
         
@@ -197,6 +213,7 @@ arm9:
       address:
         NA: 0x2001A54
         EU: 0x2001A54
+        JP: 0x2001A54
       description: |-
         Multiply a signed integer x by a signed binary fixed-point multiplier (8 fraction bits).
         
@@ -207,6 +224,7 @@ arm9:
       address:
         NA: 0x2001B0C
         EU: 0x2001B0C
+        JP: 0x2001B0C
       description: |-
         Multiplies an unsigned integer x by an unsigned binary fixed-point multiplier (8 fraction bits).
         
@@ -294,6 +312,7 @@ arm9:
       address:
         NA: 0x2002438
         EU: 0x2002438
+        JP: 0x2002438
       description: |-
         Sets some program state and calls WaitForInterrupt in an infinite loop.
         
@@ -304,6 +323,7 @@ arm9:
       address:
         NA: 0x200321C
         EU: 0x200321C
+        JP: 0x200321C
       description: |-
         Likely a linker-generated veneer for InitMemAllocTable.
         
@@ -314,6 +334,7 @@ arm9:
       address:
         NA: 0x2003250
         EU: 0x2003250
+        JP: 0x2003250
       description: |-
         Zeroes a buffer.
         
@@ -337,6 +358,7 @@ arm9:
       address:
         NA: 0x2003328
         EU: 0x2003328
+        JP: 0x2003328
       description: |-
         Probably related to booting the game?
         
@@ -375,6 +397,7 @@ arm9:
       address:
         NA: 0x2003CC4
         EU: 0x2003CC4
+        JP: 0x2003CC4
       description: |-
         Probably resumes the sound player if paused?
         
@@ -383,6 +406,7 @@ arm9:
       address:
         NA: 0x2003D2C
         EU: 0x2003D2C
+        JP: 0x2003D2C
       description: |-
         Probably aborts the program with some status code? It seems to serve a similar purpose to the exit(3) function.
         
@@ -393,6 +417,7 @@ arm9:
       address:
         NA: 0x2003D70
         EU: 0x2003D70
+        JP: 0x2003D70
       description: |-
         Sets some global flag that probably triggers system exit?
         
@@ -403,6 +428,7 @@ arm9:
       address:
         NA: 0x2003D94
         EU: 0x2003D94
+        JP: 0x2003D94
       description: |-
         Sets some global flag that maybe indicates a save error?
         
@@ -413,6 +439,7 @@ arm9:
       address:
         NA: 0x2003DB8
         EU: 0x2003DB8
+        JP: 0x2003DB8
       description: |-
         Maybe halts the process display?
         
@@ -423,6 +450,7 @@ arm9:
       address:
         NA: 0x2003ED0
         EU: 0x2003ED0
+        JP: 0x2003ED0
       description: |-
         Checks if an overlay with a certain group ID is currently loaded.
         
@@ -434,6 +462,7 @@ arm9:
       address:
         NA: 0x20040AC
         EU: 0x20040AC
+        JP: 0x20040AC
       description: |-
         Loads an overlay from ROM by its group ID.
         
@@ -444,6 +473,7 @@ arm9:
       address:
         NA: 0x2004868
         EU: 0x2004868
+        JP: 0x2004868
       description: |-
         Unloads an overlay from ROM by its group ID.
         
@@ -479,6 +509,7 @@ arm9:
       address:
         NA: 0x2006DA4
         EU: 0x2006DA4
+        JP: 0x2006DA4
       description: |-
         Implements (most of?) SPECIAL_PROC_KEY_WAIT_INIT (see ScriptSpecialProcessCall).
         
@@ -487,6 +518,7 @@ arm9:
       address:
         NA: 0x2008168
         EU: 0x2008168
+        JP: 0x2008168
       description: |-
         Initializes data transfer mode to get data from the ROM cartridge.
         
@@ -495,6 +527,7 @@ arm9:
       address:
         NA: 0x2008194
         EU: 0x2008194
+        JP: 0x2008194
       description: |-
         Finalizes data transfer from the ROM cartridge.
         
@@ -515,6 +548,7 @@ arm9:
       address:
         NA: 0x2008210
         EU: 0x2008210
+        JP: 0x2008210
       description: |-
         Opens a file from the ROM file system at the given path, sort of like C's fopen(3) library function.
         
@@ -524,6 +558,7 @@ arm9:
       address:
         NA: 0x2008244
         EU: 0x2008244
+        JP: 0x2008244
       description: |-
         Gets the size of an open file.
         
@@ -533,6 +568,7 @@ arm9:
       address:
         NA: 0x2008254
         EU: 0x2008254
+        JP: 0x2008254
       description: |-
         Reads the contents of a file into the given buffer, and moves the file cursor accordingly.
         
@@ -546,6 +582,7 @@ arm9:
       address:
         NA: 0x20082A8
         EU: 0x20082A8
+        JP: 0x20082A8
       description: |-
         Sets a file stream's position indicator.
         
@@ -561,6 +598,7 @@ arm9:
       address:
         NA: 0x20082C4
         EU: 0x20082C4
+        JP: 0x20082C4
       description: |-
         Closes a file.
         
@@ -573,6 +611,7 @@ arm9:
       address:
         NA: 0x2008C3C
         EU: 0x2008C3C
+        JP: 0x2008C3C
       description: |-
         Loads a file from ROM by filepath into a heap-allocated buffer.
         
@@ -583,16 +622,19 @@ arm9:
       address:
         NA: 0x200C110
         EU: 0x200C198
+        JP: 0x200C110
       description: Just returns 0 in the final binary.
     - name: SetDebugFlag1
       address:
         NA: 0x200C118
         EU: 0x200C1A0
+        JP: 0x200C118
       description: A no-op in the final binary.
     - name: AppendProgPos
       address:
         NA: 0x200C120
         EU: 0x200C1A8
+        JP: 0x200C120
       description: |-
         Write a base message into a string and append the file name and line number to the end in the format "file = '%s'  line = %5d\n".
         
@@ -606,6 +648,7 @@ arm9:
       address:
         NA: 0x200C16C
         EU: 0x200C1F4
+        JP: 0x200C16C
       description: |-
         Would log a printf format string tagged with the file name and line number in the debug binary.
         
@@ -632,16 +675,19 @@ arm9:
       address:
         NA: 0x200C234
         EU: 0x200C2BC
+        JP: 0x200C234
       description: Just returns 0 in the final binary.
     - name: SetDebugFlag2
       address:
         NA: 0x200C23C
         EU: 0x200C2C4
+        JP: 0x200C23C
       description: A no-op in the final binary.
     - name: DebugPrint
       address:
         NA: 0x200C240
         EU: 0x200C2C8
+        JP: 0x200C240
       description: |-
         Would log a printf format string in the debug binary. A no-op in the final binary.
         
@@ -652,6 +698,7 @@ arm9:
       address:
         NA: 0x200C25C
         EU: 0x200C2E4
+        JP: 0x200C25C
       description: |-
         Logs some debug messages, then hangs the process.
         
@@ -664,6 +711,7 @@ arm9:
       address:
         NA: 0x200CC14
         EU: 0x200CC9C
+        JP: 0x200CC14
       description: |-
         Checks if an item is one of the aura bows received at the start of the game.
         
@@ -724,6 +772,7 @@ arm9:
       address:
         NA: 0x200EDC0
         EU: 0x200EE68
+        JP: 0x200EDF0
       description: |-
         Implements SPECIAL_PROC_IS_BAG_FULL (see ScriptSpecialProcessCall).
         
@@ -732,6 +781,7 @@ arm9:
       address:
         NA: 0x200EE88
         EU: 0x200EF30
+        JP: 0x200EEB8
       description: |-
         Implements SPECIAL_PROC_COUNT_ITEM_TYPE_IN_BAG (see ScriptSpecialProcessCall).
         
@@ -741,6 +791,7 @@ arm9:
       address:
         NA: 0x200F84C
         EU: 0x200F8F4
+        JP: 0x200F81C
       description: |-
         Implements SPECIAL_PROC_ADD_ITEM_TO_BAG (see ScriptSpecialProcessCall).
         
@@ -750,6 +801,7 @@ arm9:
       address:
         NA: 0x200FD54
         EU: 0x200FDFC
+        JP: 0x200FD24
       description: |-
         Implements SPECIAL_PROC_0x39 (see ScriptSpecialProcessCall).
         
@@ -758,6 +810,7 @@ arm9:
       address:
         NA: 0x200FEE4
         EU: 0x200FF8C
+        JP: 0x200FEB4
       description: |-
         Implements SPECIAL_PROC_COUNT_ITEM_TYPE_IN_STORAGE (see ScriptSpecialProcessCall).
         
@@ -767,6 +820,7 @@ arm9:
       address:
         NA: 0x20101E4
         EU: 0x201028C
+        JP: 0x20101B4
       description: |-
         Probably? Implements SPECIAL_PROC_0x2A (see ScriptSpecialProcessCall).
         
@@ -776,6 +830,7 @@ arm9:
       address:
         NA: 0x201031C
         EU: 0x20103C4
+        JP: 0x20102EC
       description: |-
         Implements SPECIAL_PROC_ADD_ITEM_TO_STORAGE (see ScriptSpecialProcessCall).
         
@@ -793,6 +848,7 @@ arm9:
       address:
         NA: 0x2010E40
         EU: 0x2010EE8
+        JP: 0x2010E10
       description: |-
         Gets the exclusive item offset, which is the item ID relative to that of the first exclusive item, the Prism Ruff.
         
@@ -802,6 +858,7 @@ arm9:
       address:
         NA: 0x2010E64
         EU: 0x2010F0C
+        JP: 0x2010E34
       description: |-
         Applies stat boosts from an exclusive item.
         
@@ -814,6 +871,7 @@ arm9:
       address:
         NA: 0x2010F80
         EU: 0x2011028
+        JP: 0x2010F50
       description: |-
         Sets the bit for an exclusive item effect.
         
@@ -823,6 +881,7 @@ arm9:
       address:
         NA: 0x2010FA4
         EU: 0x201104C
+        JP: 0x2010F74
       description: |-
         Tests the exclusive item bitvector for a specific exclusive item effect.
         
@@ -833,6 +892,7 @@ arm9:
       address:
         NA: 0x2013840
         EU: 0x20138E8
+        JP: 0x2013810
       description: |-
         Gets the move target-and-range field. See struct move_target_and_range in the C headers.
         
@@ -843,6 +903,7 @@ arm9:
       address:
         NA: 0x20139CC
         EU: 0x2013A74
+        JP: 0x201399C
       description: |-
         Gets the base power of a move from the move data table.
         
@@ -852,6 +913,7 @@ arm9:
       address:
         NA: 0x2013A50
         EU: 0x2013AF8
+        JP: 0x2013A20
       description: |-
         Gets the maximum PP for a given move.
         
@@ -861,6 +923,7 @@ arm9:
       address:
         NA: 0x2013B10
         EU: 0x2013BB8
+        JP: 0x2013AE0
       description: |-
         Gets the critical hit chance of a move.
         
@@ -888,6 +951,7 @@ arm9:
       address:
         NA: 0x20151C8
         EU: 0x2015270
+        JP: 0x2015198
       description: |-
         Gets a move's category (physical, special, status).
         
@@ -897,6 +961,7 @@ arm9:
       address:
         NA: 0x201DE4C
         EU: 0x201DEE8
+        JP: 0x201DEA4
       description: |-
         Loads a SIR0-wrapped WTE file from ROM, and returns a handle to it
         
@@ -907,6 +972,7 @@ arm9:
       address:
         NA: 0x201DEC4
         EU: 0x201DF60
+        JP: 0x201DF1C
       description: |-
         Loads a SIR0-wrapped WTE file from a file directory, and returns a handle to it
         
@@ -918,6 +984,7 @@ arm9:
       address:
         NA: 0x201DF18
         EU: 0x201DFB4
+        JP: 0x201DF70
       description: |-
         Frees the buffer used to store the WTE data in the handle, and sets both pointers to null
         
@@ -926,6 +993,7 @@ arm9:
       address:
         NA: 0x201F4B4
         EU: 0x201F550
+        JP: 0x201F50C
       description: |-
         Translates the offsets in a SIR0 file into NDS memory addresses, changes the magic number to SirO (opened), and returns a pointer to the first pointer specified in the SIR0 header (beginning of the data).
         
@@ -956,6 +1024,7 @@ arm9:
       address:
         NA: 0x20205B0
         EU: 0x20206B0
+        JP: 0x2020608
       description: |-
         Gets the single-byte language ID of the current program.
         
@@ -966,6 +1035,7 @@ arm9:
       address:
         NA: 0x20223F0
         EU: 0x20225EC
+        JP: 0x2022440
       description: |-
         An enhanced sprintf, which recognizes certain tags and replaces them with appropiate game values.
         This function can also be used to simply insert values passed within the preprocessor args
@@ -982,6 +1052,7 @@ arm9:
       address:
         NA: 0x2025100
         EU: 0x20253CC
+        JP: 0x2025150
       description: |-
         A simple implementation of the strcpy(3) C library function.
         
@@ -993,6 +1064,7 @@ arm9:
       address:
         NA: 0x202511C
         EU: 0x20253E8
+        JP: 0x202516C
       description: |-
         A simple implementation of the strncpy(3) C library function.
         
@@ -1005,6 +1077,7 @@ arm9:
       address:
         NA: 0x20258C4
         EU: 0x2025B90
+        JP: 0x20258A4
       description: |-
         Gets the string corresponding to a given message ID.
         
@@ -1014,6 +1087,7 @@ arm9:
       address:
         NA: 0x2027A68
         EU: 0x2027D5C
+        JP: 0x2027DC8
       description: |-
         Sets the palette of the frames of windows in the specified screen
         
@@ -1023,6 +1097,7 @@ arm9:
       address:
         NA: 0x2027A80
         EU: 0x2027D74
+        JP: 0x2027DE0
       description: |-
         Sets the palette of the frames of windows in both screens
         
@@ -1047,6 +1122,7 @@ arm9:
       address:
         NA: 0x20487C4
         EU: 0x2048AE0
+        JP: 0x2048B30
       description: |-
         Implements SPECIAL_PROC_INIT_MAIN_TEAM_AFTER_QUIZ (see ScriptSpecialProcessCall).
         
@@ -1055,6 +1131,7 @@ arm9:
       address:
         NA: 0x2048A0C
         EU: 0x2048D28
+        JP: 0x2048D78
       description: |-
         Implements SPECIAL_PROC_0x3 (see ScriptSpecialProcessCall).
         
@@ -1063,6 +1140,7 @@ arm9:
       address:
         NA: 0x2048A84
         EU: 0x2048DA0
+        JP: 0x2048DF0
       description: |-
         Implements SPECIAL_PROC_0x4 (see ScriptSpecialProcessCall).
         
@@ -1159,6 +1237,7 @@ arm9:
       address:
         NA: 0x204B820
         EU: 0x204BB58
+        JP: 0x204BB80
       description: |-
         Saves the given value to a script variable.
         
@@ -1169,6 +1248,7 @@ arm9:
       address:
         NA: 0x204B988
         EU: 0x204BCC0
+        JP: 0x204BCE8
       description: |-
         Saves the given value to a script variable at some index (for script variables that are arrays).
         
@@ -1678,6 +1758,7 @@ arm9:
       address:
         NA: 0x2050F10
         EU: 0x2051248
+        JP: 0x2051260
       description: |-
         Compute the subtraction of two decimal fixed-point numbers (16 fraction bits).
         
@@ -1690,6 +1771,7 @@ arm9:
       address:
         NA: 0x2051020
         EU: 0x2051358
+        JP: 0x2051370
       description: |-
         Convert a binary fixed-point number (16 fraction bits) to the decimal fixed-point number (16 fraction bits) used for belly calculations. Thousandths are floored.
         
@@ -1701,6 +1783,7 @@ arm9:
       address:
         NA: 0x2051064
         EU: 0x205139C
+        JP: 0x20513B4
       description: |-
         Compute the ceiling of a decimal fixed-point number (16 fraction bits).
         
@@ -1712,6 +1795,7 @@ arm9:
       address:
         NA: 0x2051288
         EU: 0x20515C0
+        JP: 0x20515D8
       description: |-
         Returns whether the specified dungeon is considered as going upward or not
         
@@ -1721,6 +1805,7 @@ arm9:
       address:
         NA: 0x2054A88
         EU: 0x2054E04
+        JP: 0x2054DC0
       description: |-
         Checks if a monster ID is an Unown.
         
@@ -1730,6 +1815,7 @@ arm9:
       address:
         NA: 0x2054AA4
         EU: 0x2054E20
+        JP: 0x2054DDC
       description: |-
         Checks if a monster ID is a Shaymin form.
         
@@ -1739,6 +1825,7 @@ arm9:
       address:
         NA: 0x2054AD4
         EU: 0x2054E50
+        JP: 0x2054E0C
       description: |-
         Checks if a monster ID is a Castform form.
         
@@ -1748,6 +1835,7 @@ arm9:
       address:
         NA: 0x2054B2C
         EU: 0x2054EA8
+        JP: 0x2054E64
       description: |-
         Checks if a monster ID is a Cherrim form.
         
@@ -1757,6 +1845,7 @@ arm9:
       address:
         NA: 0x2054B74
         EU: 0x2054EF0
+        JP: 0x2054EAC
       description: |-
         Checks if a monster ID is a Deoxys form.
         
@@ -1766,6 +1855,7 @@ arm9:
       address:
         NA: 0x2055148
         EU: 0x20554C4
+        JP: 0x2055480
       description: |-
         Checks if a given monster is on the exploration team (not necessarily the active party)?
         
@@ -1776,6 +1866,7 @@ arm9:
       address:
         NA: 0x20569CC
         EU: 0x2056D48
+        JP: 0x2056D68
       description: |-
         Implements SPECIAL_PROC_SET_TEAM_SETUP_HERO_AND_PARTNER_ONLY (see ScriptSpecialProcessCall).
         
@@ -1784,6 +1875,7 @@ arm9:
       address:
         NA: 0x2056AB0
         EU: 0x2056E2C
+        JP: 0x2056E48
       description: |-
         Implements SPECIAL_PROC_SET_TEAM_SETUP_HERO_ONLY (see ScriptSpecialProcessCall).
         
@@ -1792,6 +1884,7 @@ arm9:
       address:
         NA: 0x2056C20
         EU: 0x2056F9C
+        JP: 0x2056FB4
       description: |-
         Appears to get the team's active party members. Implements most of SPECIAL_PROC_IS_TEAM_SETUP_SOLO (see ScriptSpecialProcessCall).
         
@@ -1801,6 +1894,7 @@ arm9:
       address:
         NA: 0x2058F04
         EU: 0x2059280
+        JP: 0x2059200
       description: |-
         Tests whether an IQ skill with a given ID is active.
         
@@ -1811,6 +1905,7 @@ arm9:
       address:
         NA: 0x205B97C
         EU: 0x205BCF8
+        JP: 0x205BC7C
       description: |-
         Implements SPECIAL_PROC_GET_SOS_MAIL_COUNT (see ScriptSpecialProcessCall).
         
@@ -1821,6 +1916,7 @@ arm9:
       address:
         NA: 0x205EDA4
         EU: 0x205F120
+        JP: 0x205F0A4
       description: |-
         Seems to return the number of missions completed.
         
@@ -1842,6 +1938,7 @@ arm9:
       address:
         NA: 0x205EE20
         EU: 0x205F19C
+        JP: 0x205F120
       description: |-
         Calls DungeonRequestsDone with the second argument set to true, and converts the integer output to a boolean.
         
@@ -1851,6 +1948,7 @@ arm9:
       address:
         NA: 0x2065B50
         EU: 0x2065ECC
+        JP: 0x2065E38
       description: |-
         Implements SPECIAL_PROC_0x3D (see ScriptSpecialProcessCall).
         
@@ -1859,6 +1957,7 @@ arm9:
       address:
         NA: 0x2065B60
         EU: 0x2065EDC
+        JP: 0x2065E48
       description: |-
         Implements SPECIAL_PROC_0x3E (see ScriptSpecialProcessCall).
         
@@ -1867,6 +1966,7 @@ arm9:
       address:
         NA: 0x2065C48
         EU: 0x2065FC4
+        JP: 0x2065F30
       description: |-
         Implements SPECIAL_PROC_0x17 (see ScriptSpecialProcessCall).
         
@@ -1875,6 +1975,7 @@ arm9:
       address:
         NA: 0x2065CF8
         EU: 0x2066074
+        JP: 0x2065FE0
       description: |-
         Gets info about the item at a given item table (not sure what this table is...) index.
         
@@ -1886,6 +1987,7 @@ arm9:
       address:
         NA: 0x207BC30
         EU: 0x207BFC8
+        JP: 0x207BF18
       description: |-
         Presumably blocks until the program receives an interrupt.
         
@@ -1896,6 +1998,7 @@ arm9:
       address:
         NA: 0x207F3E4
         EU: 0x207F77C
+        JP: 0x207F6CC
       description: |-
         Initializes a file_stream structure for file I/O.
         
@@ -1906,6 +2009,7 @@ arm9:
       address:
         NA: 0x208655C
         EU: 0x20868F4
+        JP: 0x2086844
       description: |-
         Takes the absolute value of an integer.
         
@@ -1915,6 +2019,7 @@ arm9:
       address:
         NA: 0x20871BC
         EU: 0x2087554
+        JP: 0x20874A4
       description: |-
         The mbtowc(3) C library function.
         
@@ -1926,6 +2031,7 @@ arm9:
       address:
         NA: 0x20871F4
         EU: 0x208758C
+        JP: 0x20874DC
       description: |-
         Assign a byte to the target of a pointer if the pointer is non-null.
         
@@ -1936,6 +2042,7 @@ arm9:
       address:
         NA: 0x2087208
         EU: 0x20875A0
+        JP: 0x20874F0
       description: |-
         Wrapper around TryAssignByte.
         
@@ -1948,6 +2055,7 @@ arm9:
       address:
         NA: 0x2087224
         EU: 0x20875BC
+        JP: 0x208750C
       description: |-
         The wcstombs(3) C library function.
         
@@ -1959,6 +2067,7 @@ arm9:
       address:
         NA: 0x208729C
         EU: 0x2087634
+        JP: 0x2087584
       description: |-
         The memcpy(3) C library function.
         
@@ -1969,6 +2078,7 @@ arm9:
       address:
         NA: 0x20872BC
         EU: 0x2087654
+        JP: 0x20875A4
       description: |-
         The memmove(3) C library function.
         
@@ -1981,6 +2091,7 @@ arm9:
       address:
         NA: 0x2087308
         EU: 0x20876A0
+        JP: 0x20875F0
       description: |-
         The memset(3) C library function.
         
@@ -1994,6 +2105,7 @@ arm9:
       address:
         NA: 0x208731C
         EU: 0x20876B4
+        JP: 0x2087604
       description: |-
         The memchr(3) C library function.
         
@@ -2005,6 +2117,7 @@ arm9:
       address:
         NA: 0x2087348
         EU: 0x20876E0
+        JP: 0x2087630
       description: |-
         The memcmp(3) C library function.
         
@@ -2016,6 +2129,7 @@ arm9:
       address:
         NA: 0x2087388
         EU: 0x2087720
+        JP: 0x2087670
       description: |-
         The actual memory-setting implementation for the memset(3) C library function.
         
@@ -2028,6 +2142,7 @@ arm9:
       address:
         NA: 0x2088C74
         EU: 0x208900C
+        JP: 0x2088F5C
       description: |-
         This is what implements the bulk of VsprintfInternal.
         
@@ -2042,6 +2157,7 @@ arm9:
       address:
         NA: 0x2089498
         EU: 0x2089830
+        JP: 0x2089780
       description: |-
         Best-effort append the given data to a slice. If the slice's capacity is reached, any remaining data will be truncated.
         
@@ -2053,6 +2169,7 @@ arm9:
       address:
         NA: 0x20894DC
         EU: 0x2089874
+        JP: 0x20897C4
       description: |-
         This is what implements Vsprintf. It's akin to __vsprintf_internal in the modern-day version of glibc (in fact, it's probably an older version of this).
         
@@ -2065,6 +2182,7 @@ arm9:
       address:
         NA: 0x2089544
         EU: 0x20898DC
+        JP: 0x208982C
       description: |-
         The vsprintf(3) C library function.
         
@@ -2076,6 +2194,7 @@ arm9:
       address:
         NA: 0x208955C
         EU: 0x20898F4
+        JP: 0x2089844
       description: |-
         The snprintf(3) C library function.
         
@@ -2090,6 +2209,7 @@ arm9:
       address:
         NA: 0x2089584
         EU: 0x208991C
+        JP: 0x208986C
       description: |-
         The sprintf(3) C library function.
         
@@ -2103,6 +2223,7 @@ arm9:
       address:
         NA: 0x2089678
         EU: 0x2089A10
+        JP: 0x2089960
       description: |-
         The strlen(3) C library function.
         
@@ -2112,6 +2233,7 @@ arm9:
       address:
         NA: 0x2089694
         EU: 0x2089A2C
+        JP: 0x208997C
       description: |-
         The strcpy(3) C library function.
         
@@ -2123,6 +2245,7 @@ arm9:
       address:
         NA: 0x208975C
         EU: 0x2089AF4
+        JP: 0x2089A44
       description: |-
         The strncpy(3) C library function.
         
@@ -2133,6 +2256,7 @@ arm9:
       address:
         NA: 0x20897AC
         EU: 0x2089B44
+        JP: 0x2089A94
       description: |-
         The strcat(3) C library function.
         
@@ -2142,6 +2266,7 @@ arm9:
       address:
         NA: 0x20897DC
         EU: 0x2089B74
+        JP: 0x2089AC4
       description: |-
         The strncat(3) C library function.
         
@@ -2152,6 +2277,7 @@ arm9:
       address:
         NA: 0x208982C
         EU: 0x2089BC4
+        JP: 0x2089B14
       description: |-
         The strcmp(3) C library function.
         
@@ -2164,6 +2290,7 @@ arm9:
       address:
         NA: 0x2089940
         EU: 0x2089CD8
+        JP: 0x2089C28
       description: |-
         The strncmp(3) C library function.
         
@@ -2175,6 +2302,7 @@ arm9:
       address:
         NA: 0x2089974
         EU: 0x2089D0C
+        JP: 0x2089C5C
       description: |-
         The strchr(3) C library function.
         
@@ -2185,6 +2313,7 @@ arm9:
       address:
         NA: 0x20899B0
         EU: 0x2089D48
+        JP: 0x2089C98
       description: |-
         The strcspn(3) C library function.
         
@@ -2195,6 +2324,7 @@ arm9:
       address:
         NA: 0x2089A70
         EU: 0x2089E08
+        JP: 0x2089D58
       description: |-
         The strstr(3) C library function.
         
@@ -2205,6 +2335,7 @@ arm9:
       address:
         NA: 0x208B3E8
         EU: 0x208B780
+        JP: 0x208B6D0
       description: |-
         The wcslen(3) C library function.
         
@@ -2294,6 +2425,7 @@ arm9:
       address:
         NA: 0x208FEA4
         EU: 0x209023C
+        JP: 0x209018C
       description: |-
         This appears to be the libgcc implementation of __divsi3 (not sure which gcc version), which implements the division operator for signed ints.
         
@@ -2304,6 +2436,7 @@ arm9:
       address:
         NA: 0x20900B0
         EU: 0x2090448
+        JP: 0x2090398
       description: |-
         This appears to be the libgcc implementation of __udivsi3 (not sure which gcc version), which implements the division operator for unsigned ints.
         
@@ -2316,6 +2449,7 @@ arm9:
       address:
         NA: 0x20900B8
         EU: 0x2090450
+        JP: 0x20903A0
       description: |-
         Subsidiary function to DivideUInt. Skips the initial check for divisor == 0.
         

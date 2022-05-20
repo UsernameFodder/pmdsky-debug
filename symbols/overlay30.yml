@@ -6,9 +6,11 @@ overlay30:
   address:
     NA: 0x2382820
     EU: 0x2383420
+    JP: 0x2383AA0
   length:
     NA: 0x38A0
     EU: 0x38A0
+    JP: 0x3880
   description: Controls quicksaving in dungeons.
   functions: []
   data: []

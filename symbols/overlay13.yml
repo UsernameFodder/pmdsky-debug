@@ -6,9 +6,11 @@ overlay13:
   address:
     NA: 0x238A140
     EU: 0x238AC80
+    JP: 0x238B6A0
   length:
     NA: 0x2E80
     EU: 0x2E80
+    JP: 0x2E80
   description: "Controls the personality test, including the available partners and playable Pokémon. The actual personality test questions are stored in the MESSAGE folder."
   functions: []
   data:

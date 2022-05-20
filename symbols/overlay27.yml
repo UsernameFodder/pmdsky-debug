@@ -6,9 +6,11 @@ overlay27:
   address:
     NA: 0x238A140
     EU: 0x238AC80
+    JP: 0x238B6A0
   length:
     NA: 0x2D60
     EU: 0x2D60
+    JP: 0x2DA0
   description: Controls the special episode item discard menu.
   functions: []
   data:

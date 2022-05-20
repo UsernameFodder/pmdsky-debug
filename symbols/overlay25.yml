@@ -6,9 +6,11 @@ overlay25:
   address:
     NA: 0x238A140
     EU: 0x238AC80
+    JP: 0x238B6A0
   length:
     NA: 0x14C0
     EU: 0x14C0
+    JP: 0x14C0
   description: Controls Xatu Appraisal.
   functions: []
   data:

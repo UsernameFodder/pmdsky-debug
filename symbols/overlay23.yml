@@ -6,9 +6,11 @@ overlay23:
   address:
     NA: 0x238A140
     EU: 0x238AC80
+    JP: 0x238B6A0
   length:
     NA: 0x3780
     EU: 0x3780
+    JP: 0x37E0
   description: Controls Kangaskhan Storage (both in Treasure Town and via Kangaskhan Rocks).
   functions: []
   data:

@@ -6,9 +6,11 @@ overlay14:
   address:
     NA: 0x238A140
     EU: 0x238AC80
+    JP: 0x238B6A0
   length:
     NA: 0x3AE0
     EU: 0x3B40
+    JP: 0x3AE0
   description: Runs the sentry duty minigame.
   functions: []
   data:
