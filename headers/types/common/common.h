@@ -277,7 +277,7 @@ struct move_data {
     // 0xA: Both accuracy values are used to calculate the move's actual accuracy.
     // See the PMD Info Spreadsheet.
     uint8_t accuracy1;
-    uint8_t accuracy2;            // 0xB
+    uint8_t accuracy2; // 0xB
     // 0xC: If this move has a random chance AI condition (see enum move_ai_condition),
     // this is the chance that the AI will consider a potential target as elegible
     uint8_t ai_condition_random_chance;
@@ -317,11 +317,11 @@ struct ground_move {
     bool flags_unk4 : 1;
     bool f_disabled : 1;
     uint8_t flags_unk6 : 2;
-    
-    undefined field_0x1;               // Probably padding since it doesn't get initialized
-    struct move_id_16 id;              // 0x2
-    uint8_t ginseng;                   // 0x4: Ginseng boost
-    undefined field_0x5;               // Probably padding since it doesn't get initialized
+
+    undefined field_0x1;  // Probably padding since it doesn't get initialized
+    struct move_id_16 id; // 0x2
+    uint8_t ginseng;      // 0x4: Ginseng boost
+    undefined field_0x5;  // Probably padding since it doesn't get initialized
 };
 ASSERT_SIZE(struct ground_move, 6);
 
@@ -329,27 +329,27 @@ ASSERT_SIZE(struct ground_move, 6);
 // (Allies in the assembly, guest pokémon, etc.)
 // Dungeon mode might also use these entries sometimes
 struct ground_monster {
-    bool is_valid;                  // 0x0: True if the entry is valid
-    int8_t level;                   // 0x1: Monster level
-    struct dungeon_id_8 joined_at;  // 0x2
-    undefined field_0x3;            // Same as guest_monster::field_0x7
-    struct monster_id_16 id;        // 0x4: Monster ID
+    bool is_valid;                 // 0x0: True if the entry is valid
+    int8_t level;                  // 0x1: Monster level
+    struct dungeon_id_8 joined_at; // 0x2
+    undefined field_0x3;           // Same as guest_monster::field_0x7
+    struct monster_id_16 id;       // 0x4: Monster ID
     undefined field_0x6;
     undefined field_0x7;
-    uint16_t iq;                    // 0x8
-    uint16_t max_hp;                // 0xA
-    int8_t atk;                     // 0xC
-    int8_t sp_atk;                  // 0xD
-    int8_t def;                     // 0xE
-    int8_t sp_def;                  // 0xF
-    int exp;                        // 0x10
+    uint16_t iq;     // 0x8
+    uint16_t max_hp; // 0xA
+    int8_t atk;      // 0xC
+    int8_t sp_atk;   // 0xD
+    int8_t def;      // 0xE
+    int8_t sp_def;   // 0xF
+    int exp;         // 0x10
     // 0x14: Bitvector that keeps track of which IQ skills the monster has enabled.
     // See enum iq_skill_id for the meaning of each bit.
     uint32_t iq_skill_flags[3];
-    struct tactic_id_8 tactic;      // 0x20
+    struct tactic_id_8 tactic; // 0x20
     undefined field_0x21;
-    struct ground_move moves[4];    // 0x22
-    char name[10];                  // 0x3A: Display name of the monster
+    struct ground_move moves[4]; // 0x22
+    char name[10];               // 0x3A: Display name of the monster
 };
 ASSERT_SIZE(struct ground_monster, 68);
 
@@ -600,35 +600,37 @@ ASSERT_SIZE(struct unk_dungeon_init, 232);
 // A struct used to init certain values in the dungeon struct when entering dungeon mode.
 // Gets initialized in ground mode.
 struct dungeon_init {
-    struct dungeon_id_8 id;            // 0x0: Copied into dungeon::id
-    uint8_t floor;                     // 0x1: Copied into dungeon::floor
-    undefined2 field_0x2;              // Copied into dungeon::field_0x74C
+    struct dungeon_id_8 id; // 0x0: Copied into dungeon::id
+    uint8_t floor;          // 0x1: Copied into dungeon::floor
+    undefined2 field_0x2;   // Copied into dungeon::field_0x74C
     undefined field_0x4;
-    bool nonstory_flag;                // 0x5: Copied into dungeon::nonstory_flag
-    bool recruiting_enabled;           // 0x6: Copied into dungeon::recruiting_enabled
+    bool nonstory_flag;      // 0x5: Copied into dungeon::nonstory_flag
+    bool recruiting_enabled; // 0x6: Copied into dungeon::recruiting_enabled
     // 0x7: If true, dungeon::recruiting_enabled gets set to false. Overrides recruiting_enabled.
     bool force_disable_recruiting;
-    undefined field_0x8;               // Copied into dungeon::field_0x75A
-    undefined field_0x9;               // Copied into dungeon::field_0x75B
-    bool send_home_disabled;           // 0xA: Copied into dungeon::send_home_disabled
-    bool hidden_land_flag;             // 0xB: Copied into dungeon::hidden_land_flag
-    bool skip_faint_animation_flag;    // 0xC: Copied into dungeon::skip_faint_animation_flag
+    undefined field_0x8;            // Copied into dungeon::field_0x75A
+    undefined field_0x9;            // Copied into dungeon::field_0x75B
+    bool send_home_disabled;        // 0xA: Copied into dungeon::send_home_disabled
+    bool hidden_land_flag;          // 0xB: Copied into dungeon::hidden_land_flag
+    bool skip_faint_animation_flag; // 0xC: Copied into dungeon::skip_faint_animation_flag
     // 0xD: Copied into dungeon::dungeon_objective. Read as a signed byte (?).
     struct dungeon_objective_8 dungeon_objective;
     int8_t field_0xE;
-    bool has_guest_pokemon;            // 0xF: If true, a guest pokémon will be added to your team
-    bool send_help_item;               // 0x10: If true, you recive an item at the start of the dungeon
-    bool show_rescues_left;            // 0x11: If true, you get a message saying how many rescue chances you have left
+    bool has_guest_pokemon; // 0xF: If true, a guest pokémon will be added to your team
+    bool send_help_item;    // 0x10: If true, you recive an item at the start of the dungeon
+    bool show_rescues_left; // 0x11: If true, you get a message saying how many rescue chances you
+                            // have left
     undefined field_0x12;
     undefined field_0x13;
     // 0x14
     // [EU]0x22DF920 loads this as a word
     // [EU]0x22DFBAC loads this as a signed byte
     // ???
-    undefined4 field_0x14;             // Copied into dungeon::field_0x750
+    undefined4 field_0x14; // Copied into dungeon::field_0x750
     // Copied into dungeon::field_0x754, and into dungeon::field_0x7A0 during rescues
     undefined4 field_0x18;
-    // 0x1C: Array containing the list of quest pokémon that will join the team in the dungeon (max 2)
+    // 0x1C: Array containing the list of quest pokémon that will join the team in the dungeon
+    // (max 2)
     struct ground_monster guest_pokemon[2];
     // 0xA4: Used as a base address at [EU]0x22E0354 and [EU]0x22E03AC.
     // It's probably a separate struct.
@@ -636,22 +638,23 @@ struct dungeon_init {
     undefined field_0xA5;
     undefined field_0xA6;
     undefined field_0xA7;
-    struct item_id_16 help_item;       // 0xA8: ID of the item to give to the player if send_help_item is true
+    struct item_id_16
+        help_item; // 0xA8: ID of the item to give to the player if send_help_item is true
     undefined field_0xAA;
     undefined field_0xAB;
-    undefined field_0xAC;              // Copied into dungeon::field_0x7CC
+    undefined field_0xAC; // Copied into dungeon::field_0x7CC
     undefined field_0xAD;
     undefined field_0xAE;
     undefined field_0xAF;
     undefined4 field_0xB0;
-    undefined field_0xB4;              // Gets set to dungeon::id during dungeon init
-    undefined field_0xB5;              // Gets set to dungeon::floor during dungeon init
+    undefined field_0xB4; // Gets set to dungeon::id during dungeon init
+    undefined field_0xB5; // Gets set to dungeon::floor during dungeon init
     undefined field_0xB6;
     undefined field_0xB7;
     // 0xB8: Used as a base address at [EU]0x22E0ABC.
     // It's probably a separate struct.
-    undefined field_0xB8;              // Gets set to dungeon::id during dungeon init
-    undefined field_0xB9;              // Gets set to dungeon::floor during dungeon init
+    undefined field_0xB8; // Gets set to dungeon::id during dungeon init
+    undefined field_0xB9; // Gets set to dungeon::floor during dungeon init
     undefined field_0xBA;
     undefined field_0xBB;
     undefined4 field_0xBC;

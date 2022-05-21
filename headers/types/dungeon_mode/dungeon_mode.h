@@ -38,11 +38,11 @@ struct trap {
     // activate only when an enemy steps on it. Naturally, this seems to be 0 for traps and 2 for
     // Wonder Tiles
     uint8_t team;
-    
+
     // 0x2: flags: 1-byte bitfield
-    bool f_unbreakable: 1; // If true, the trap can't be broken (for example, using a Trapbust Orb)
+    bool f_unbreakable : 1; // If true, the trap can't be broken (for example, using a Trapbust Orb)
     uint8_t flags_unk1 : 7;
-    
+
     undefined field_0x3;
 };
 ASSERT_SIZE(struct trap, 4);
@@ -81,12 +81,12 @@ ASSERT_SIZE(struct move, 8);
 
 // Used to hold data during damage calculation
 struct attack_data {
-    int damage;                              // 0x0: Damage dealt by the move
-    enum damage_source damage_source;        // 0x4
-    enum type_matchup type_matchup;          // 0x8: Result of the type matchup calculation
-    struct type_id_8 type;                   // 0xC: Type of the move used
-    struct move_category_8 category;         // 0xD: Category of the move used
-    bool critical_hit;                       // 0xE
+    int damage;                       // 0x0: Damage dealt by the move
+    enum damage_source damage_source; // 0x4
+    enum type_matchup type_matchup;   // 0x8: Result of the type matchup calculation
+    struct type_id_8 type;            // 0xC: Type of the move used
+    struct move_category_8 category;  // 0xD: Category of the move used
+    bool critical_hit;                // 0xE
     undefined field_0xF;
     undefined field_0x10;
     // Most likely padding. These aren't set by the function that inits the struct.
@@ -245,9 +245,9 @@ ASSERT_SIZE(struct statuses, 118);
 // Monster info
 struct monster {
     // 0x0: flags: 2-byte bitfield
-	// If true, the AI will skip this monster's turn. There's also an unresearched
-	// check related to constriction that reads this flag
-    bool f_ai_unk : 1; 
+    // If true, the AI will skip this monster's turn. There's also an unresearched
+    // check related to constriction that reads this flag
+    bool f_ai_unk : 1;
     bool f_ai_skip_turn : 1; // If true, the AI will skip this monster's turn and reset the flag.
     uint16_t flags_unk2 : 3;
     bool f_swapping_places : 1; // Swapping places with another monster
@@ -287,12 +287,12 @@ struct monster {
     undefined field_0x47;
     struct dungeon_id_8 joined_at; // 0x48: Also used as a unique identifier for special monsters
     undefined field_0x49;
-    struct action_16 action_id;              // 0x4A: Determines the action the monster will take on this turn
+    struct action_16 action_id; // 0x4A: Determines the action the monster will take on this turn
     struct direction_id_8 direction; // 0x4C: Current direction the monster is facing
     undefined field_0x4d;
     // 0x4E: Metadata for some action_id values.
-    // E.g., this is the bag item index when using an item, the monster index when taking an action on a monster
-    // or the move index when using a move
+    // E.g., this is the bag item index when using an item, the monster index when taking an action
+    // on a monster or the move index when using a move
     uint16_t action_use_idx;
     undefined field_0x50;
     undefined field_0x51;
@@ -354,7 +354,8 @@ struct monster {
     int16_t belly_thousandths;     // 0x148
     int16_t max_belly;             // 0x14A: Integer part
     int16_t max_belly_thousandths; // 0x14C
-    bool ai_ally_skip;             // 0x14E: If true and the monster is an ally, the AI will skip it. False for enemies.
+    // 0x14E: If true and the monster is an ally, the AI will skip it. False for enemies.
+    bool ai_ally_skip;
     bool ai_next_to_target; // 0x14F: This NPC monster is next to its current target
     undefined field_0x150;
     undefined field_0x151;
@@ -364,7 +365,7 @@ struct monster {
     undefined field_0x153;
     undefined field_0x154;
     undefined field_0x155;
-    undefined field_0x156;         // 0 when the monster faints
+    undefined field_0x156; // 0 when the monster faints
     undefined field_0x157;
     undefined field_0x158;
     undefined field_0x159;
@@ -576,7 +577,8 @@ struct monster {
     undefined field_0x23c;
     undefined field_0x23d;
     undefined field_0x23e;
-    // Gets set to 1 when the move used won't use up any PP, but it doesn't seem like the value is ever read.
+    // Gets set to 1 when the move used won't use up any PP, but it doesn't seem like the value is
+    // ever read.
     undefined field_0x23f;
 };
 ASSERT_SIZE(struct monster, 576);
@@ -594,7 +596,8 @@ struct entity {
     int elevation;
     bool is_visible; // 0x20: For traps/hidden stairs
     undefined field_0x21;
-    bool transparent; // 0x22: If true, the sprite will be shown with a certain degree of transparency
+    // 0x22: If true, the sprite will be shown with a certain degree of transparency
+    bool transparent;
     // 0x23: Seems to be the animation frame counter for the 10-frame "shuffle" animation that
     // plays at the end of a walk sequence
     uint8_t end_walk_anim_frame;
@@ -803,7 +806,8 @@ struct tile {
     union spawn_or_visibility_flags spawn_or_visibility_flags;
     uint16_t texture_id; // 0x4: Maybe? Changing this causes the tile texture to change
     undefined field_0x6;
-    // 0x7: Room index. 0xFF if not in a room, 0xFE on junctions during map generation (it gets set to 0xFF later).
+    // 0x7: Room index. 0xFF if not in a room, 0xFE on junctions during map generation (it gets set
+    // to 0xFF later).
     uint8_t room;
     // 0x8: Where a monster standing on this tile is allowed to move.
     // Each element is a bitflag that corresponds to one of the first four values of
@@ -818,9 +822,11 @@ ASSERT_SIZE(struct tile, 20);
 
 // Struct that seems to hold data related to the map, the camera and the touchscreen numbers
 struct display_data {
-    struct position camera_pos;              // 0x0: Position of the tile the camera is currently pointing to
-    struct position camera_pos_mirror;       // 0x4: Copy of 0x0. Used to detect changes in the camera's position.
-    struct position camera_pixel_pos;        // 0x8: Pixel position of the tile the camera is currently pointing to
+    struct position camera_pos; // 0x0: Position of the tile the camera is currently pointing to
+    // 0x4: Copy of 0x0. Used to detect changes in the camera's position.
+    struct position camera_pos_mirror;
+    // 0x8: Pixel position of the tile the camera is currently pointing to
+    struct position camera_pixel_pos;
     struct position camera_pixel_pos_mirror; // 0xC: Mirror of 0x8
     // 0x10: Entity currently being pointed by the camera, mostly used to
     // control rendering of the dungeon, GUI, minimap, etc.
@@ -843,13 +849,14 @@ struct display_data {
     // "visited" while exploring, as well as how far away you can see enemies under non-illuminated
     // conditions (outside of this range, enemies will not be visible on screen).
     uint8_t darkness_level;
-    bool blinded;                            // 0x22: True if the pokémon currently pointed by the camera is blind
+    bool blinded; // 0x22: True if the pokémon currently pointed by the camera is blind
     // 0x23: True after using a Luminous Orb or in floor where darkness is forcefully disabled
     bool bright_floor;
     // 0x24: If false and bright_floor is false as well, darkness will be displayed graphically.
     // This is set in dungeons that aren't naturally dark, and also in some fixed room floors.
     bool natural_lighting;
-    // 0x25: True if the pokémon currently pointed by the camera has the Map Surveyor IQ skill active
+    // 0x25: True if the pokémon currently pointed by the camera has the Map Surveyor IQ skill
+    // active
     bool map_surveyor;
     // 0x26: True if enemies should be shown on the map.
     // Seems to be a dependent property computed as
@@ -863,19 +870,20 @@ struct display_data {
     // 0x29: True if the pokémon currently pointed by the camera is hallucinating.
     // Causes all entities to be displayed as green circles on the map.
     bool hallucinating;
-    bool can_see_stairs;                     // 0x2A: True if stairs are being shown on the map
+    bool can_see_stairs; // 0x2A: True if stairs are being shown on the map
     undefined field_0x2B;
     undefined field_0x2C;
-    bool darkness;                           // 0x2D: True if there's darkness on the floor
+    bool darkness; // 0x2D: True if there's darkness on the floor
     undefined field_0x2E;
-    // 0x2F: True if the leader is being pointed by the camera right now. If false, UI digits will be displayed in green.
+    // 0x2F: True if the leader is being pointed by the camera right now. If false, UI digits will
+    // be displayed in green.
     bool leader_pointed;
     undefined field_0x30;
     undefined field_0x31;
     undefined field_0x32;
     undefined field_0x33;
     undefined field_0x34;
-    bool allies_or_grid;                     // 0x35: True when the allies menu is opened or while Y is being held
+    bool allies_or_grid; // 0x35: True when the allies menu is opened or while Y is being held
     // Derived from internal direction in leader info block
     struct direction_id_8 leader_target_direction;        // 0x36
     struct direction_id_8 leader_target_direction_mirror; // 0x37
@@ -883,10 +891,10 @@ struct display_data {
     undefined field_0x39;
     undefined field_0x3A;
     undefined field_0x3B;
-    int16_t floor_touch_screen;              // 0x3C: Floor number displayed on the touch screen
-    int16_t leader_level_touch_screen;       // 0x3E: Leader's level displayed on the touch screen
-    int16_t leader_hp_touch_screen;          // 0x40: Leader's current HP displayed on the touch screen
-    int16_t leader_max_hp_touch_screen;      // 0x42: Leader's max HP displayed on the touch screen
+    int16_t floor_touch_screen;         // 0x3C: Floor number displayed on the touch screen
+    int16_t leader_level_touch_screen;  // 0x3E: Leader's level displayed on the touch screen
+    int16_t leader_hp_touch_screen;     // 0x40: Leader's current HP displayed on the touch screen
+    int16_t leader_max_hp_touch_screen; // 0x42: Leader's max HP displayed on the touch screen
     undefined2 field_0x44;
     // Padding?
     undefined field_0x46;
@@ -980,10 +988,10 @@ struct dungeon_generation_info {
     struct position stairs_pos;         // 0x8C20: Position of the stairs spawn
     // 0x8C24: Position of the Hidden Stairs spawn, or (-1, -1) if no Hidden Stairs
     struct position hidden_stairs_pos;
-    struct position leader_spawn_pos;   // 0x8C28: Spawn position of the leader
-    struct position ally_1_spawn_pos;   // 0x8C2C: Spawn position of the second team member
-    struct position ally_2_spawn_pos;   // 0x8C30: Spawn position of the third team member
-    struct position ally_3_spawn_pos;   // 0x8C34: Spawn position of the fourth team member
+    struct position leader_spawn_pos; // 0x8C28: Spawn position of the leader
+    struct position ally_1_spawn_pos; // 0x8C2C: Spawn position of the second team member
+    struct position ally_2_spawn_pos; // 0x8C30: Spawn position of the third team member
+    struct position ally_3_spawn_pos; // 0x8C34: Spawn position of the fourth team member
     // There's another 6 potential positions right after these
 };
 ASSERT_SIZE(struct dungeon_generation_info, 35896);
@@ -1081,20 +1089,20 @@ ASSERT_SIZE(struct spawn_position, 2);
 // Dungeon floor properties
 struct floor_properties {
     struct floor_layout_8 layout; // 0x0
-    // 0x1: Affects the number of rooms to be generated. If it's positive, a slight random variation (between -2 and +1)
-    // is applied to the value (the final value must be at least 1). If it's negative, its absolute value is used
-    // without adding a random variation.
+    // 0x1: Affects the number of rooms to be generated. If it's positive, a slight random variation
+    // (between -2 and +1) is applied to the value (the final value must be at least 1). If it's
+    // negative, its absolute value is used without adding a random variation.
     int8_t room_density;
-    uint8_t tileset;              // 0x2
+    uint8_t tileset; // 0x2
     // 0x3: Indexes into the music ID table in overlay 10 to determine the floor's music track.
     // See the relevant descriptions in the overlay 10 symbols for more information.
     uint8_t music_table_idx;
     struct weather_id_8 weather; // 0x4
     // 0x5: Controls how many connections will be made between grid cells
     uint8_t floor_connectivity;
-    // 0x6: Controls how many enemies will be spawned. If 0, no enemies will spawn, even as the player walks.
-    // If > 0, the final value will be randomized between density / 2 and density - 1. If < 0, its absolute
-    // value will be used without adding a random variation.
+    // 0x6: Controls how many enemies will be spawned. If 0, no enemies will spawn, even as the
+    // player walks. If > 0, the final value will be randomized between density / 2 and density - 1.
+    // If < 0, its absolute value will be used without adding a random variation.
     uint8_t enemy_density;
     uint8_t kecleon_shop_spawn_chance;  // 0x7: Percentage chance from 0-100
     uint8_t monster_house_spawn_chance; // 0x8: Percentage chance from 0-100
@@ -1124,8 +1132,9 @@ struct floor_properties {
     uint8_t secondary_terrain_density;
     // 0x16: Vision range (in tiles) when standing on a hallway. A value of 0 disables darkness.
     uint8_t darkness_level;
-    uint8_t max_money_amount_div_5;         // 0x17: 1/5 the maximum amount for Poké spawns
-    struct shop_item_positions_8 shop_item_positions; // 0x18: Chance of an item spawning on each tile in a Kecleon shop
+    uint8_t max_money_amount_div_5; // 0x17: 1/5 the maximum amount for Poké spawns
+    // 0x18: Chance of an item spawning on each tile in a Kecleon shop
+    struct shop_item_positions_8 shop_item_positions;
     // 0x19: Chance that a Monster House will be an itemless one
     uint8_t itemless_monster_house_chance;
     // 0x1A: Values are shifted relative to enum hidden_stairs_type.
@@ -1140,8 +1149,9 @@ ASSERT_SIZE(struct floor_properties, 32);
 
 // Contains data about a monster that spawns in a dungeon
 struct monster_spawn_entry {
-    uint16_t level_mult_512;           // 0x0: Spawn level << 9
-    uint16_t incremental_spawn_weight; // 0x2: Incremental spawn weight of this entry for normal spawns
+    uint16_t level_mult_512; // 0x0: Spawn level << 9
+    // 0x2: Incremental spawn weight of this entry for normal spawns
+    uint16_t incremental_spawn_weight;
     // 0x4: Incremental spawn weight of this entry for monster house spawns
     uint16_t incremental_spawn_weight_monster_house;
     // 0x6: Monster id. Depending on where this struct is used, it can have values above 600
@@ -1259,12 +1269,12 @@ struct fixed_room_properties_entry {
     struct music_id_16 music;
     undefined field_0x2;
     undefined field_0x3;
-    bool illuminated; // 0x4: Floor will be fully illuminated (darkness level 0)
+    bool illuminated;           // 0x4: Floor will be fully illuminated (darkness level 0)
     bool enable_lategame_traps; // 0x5: Allows Summon, Pitfall, and Pokémon traps to work
     // 0x6: Monsters can use moves on this floor. Does not affect the regular attack.
     // If false, NPCs won't use any moves at all (not even the regular attack)
     bool moves_enabled;
-    bool orbs_allowed;          // 0x7: Orbs can be used. Ignored for IDs past FIXED_SEALED_CHAMBER.
+    bool orbs_allowed; // 0x7: Orbs can be used. Ignored for IDs past FIXED_SEALED_CHAMBER.
     // 0x8: Warping, being blown away, and leaping are allowed on this floor.
     // Ignored for IDs past FIXED_SEALED_CHAMBER.
     bool tile_jumps_allowed;
@@ -1326,24 +1336,24 @@ ASSERT_SIZE(struct guest_monster, 36);
 
 // Used by the AI to keep track of which moves it can use
 struct ai_possible_move {
-    bool can_be_used;           // 0x0
+    bool can_be_used; // 0x0
     undefined field_0x1;
     undefined field_0x2;
     undefined field_0x3;
-    int weight;                 // 0x4: Affects the chance of the AI using this move
+    int weight; // 0x4: Affects the chance of the AI using this move
 };
 ASSERT_SIZE(struct ai_possible_move, 8);
 
 // Used to store data about a menu entry for in-dungeon menus
 // Might be also used outside of dungeons.
 struct dungeon_menu_entry {
-    uint16_t id;               // 0x0: Used to identify each entry in the menu
+    uint16_t id; // 0x0: Used to identify each entry in the menu
     // 0x2: Used to store some additional data about menu entries.
     // For example, if the entry represents an item, this stores the item ID.
     uint16_t parameter;
     undefined field_0x4;
     undefined field_0x5;
-    uint16_t string_id;        // 0x6: ID of the string shown for this entry
+    uint16_t string_id; // 0x6: ID of the string shown for this entry
 };
 ASSERT_SIZE(struct dungeon_menu_entry, 8);
 

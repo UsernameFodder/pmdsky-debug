@@ -2716,16 +2716,17 @@ enum move_range {
     RANGE_FRONT_AND_SIDES = 1, // also cuts corners
     RANGE_NEARBY = 2,          // the 8 surrounding tiles
     RANGE_ROOM = 3,            // the whole room
-    RANGE_FRONT_2 = 4,         // 2 tiles in front, also cuts corners but the AI doesn't account for that
-    RANGE_FRONT_10 = 5,        // 10 tiles in front
-    RANGE_FLOOR = 6,           // the whole floor
+    RANGE_FRONT_2 = 4,  // 2 tiles in front, also cuts corners but the AI doesn't account for that
+    RANGE_FRONT_10 = 5, // 10 tiles in front
+    RANGE_FLOOR = 6,    // the whole floor
     // Depends on the move:
     // - if the target is the user, then the range is also just the user
     // - if the target is enemies after charging, the range is front or front with corner cutting,
     //   depending on the move
     RANGE_USER = 7,
     RANGE_FRONT_WITH_CORNER_CUTTING = 8, // same as RANGE_FRONT but cuts corners
-    RANGE_FRONT_2_WITH_CORNER_CUTTING = 9, // same as RANGE_FRONT_2 but the AI accounts for corner-cutting
+    // same as RANGE_FRONT_2 but the AI accounts for corner-cutting
+    RANGE_FRONT_2_WITH_CORNER_CUTTING = 9,
     RANGE_SPECIAL = 15, // for weird moves
 };
 
@@ -2746,12 +2747,13 @@ enum move_target {
 // It does not affect how the move works
 enum move_ai_condition {
     AI_CONDITION_NONE = 0,
-    AI_CONDITION_RANDOM = 1,  // The AI will consider a target elegible wirh a chance equal to the move's
-                              // "ai_condition_random_chance" value
-    AI_CONDITION_HP_25 = 2,   // Target has HP <= 25%
-    AI_CONDITION_STATUS = 3,  // Target has a negative status condition
-    AI_CONDITION_ASLEEP = 4,  // Target is asleep, napping or in a nightmare
-    AI_CONDITION_GHOST = 5,   // Target is ghost-type and not exposed
+    // The AI will consider a target elegible wirh a chance equal to the
+    // move's "ai_condition_random_chance" value
+    AI_CONDITION_RANDOM = 1,
+    AI_CONDITION_HP_25 = 2,           // Target has HP <= 25%
+    AI_CONDITION_STATUS = 3,          // Target has a negative status condition
+    AI_CONDITION_ASLEEP = 4,          // Target is asleep, napping or in a nightmare
+    AI_CONDITION_GHOST = 5,           // Target is ghost-type and not exposed
     AI_CONDITION_HP_25_OR_STATUS = 6, // Target has HP <= 25% or a negative status condition
 };
 

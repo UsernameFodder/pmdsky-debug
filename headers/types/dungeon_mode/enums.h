@@ -312,74 +312,76 @@ ENUM_8_BIT(ai_objective);
 
 // Actions that a monster can take on its turn
 enum action {
-    ACTION_NOTHING = 0,                // 0x0
-    // 0x1: Pass turn. Enemies will print the "is watching carefully" message when performing this action
+    ACTION_NOTHING = 0, // 0x0
+    // 0x1: Pass turn. Enemies will print the "is watching carefully" message when performing this
+    // action
     ACTION_PASS_TURN = 1,
-    ACTION_WALK = 2,                   // 0x2: Walk
+    ACTION_WALK = 2, // 0x2: Walk
     ACTION_UNK_3 = 3,
     ACTION_UNK_4 = 4,
     ACTION_UNK_5 = 5,
-    ACTION_NEXT = 6,                    // 0x6: Switch to next Pokémon when viewing moves
-    ACTION_PREVIOUS = 7,                // 0x7: Switch to previous Pokémon when viewing moves
-    ACTION_PLACE_ITEM = 8,              // 0x8: Place an item on the floor
-    ACTION_PICK_UP_PLAYER = 9,          // 0x9: Pick up an item from the floor (player)
+    ACTION_NEXT = 6,           // 0x6: Switch to next Pokémon when viewing moves
+    ACTION_PREVIOUS = 7,       // 0x7: Switch to previous Pokémon when viewing moves
+    ACTION_PLACE_ITEM = 8,     // 0x8: Place an item on the floor
+    ACTION_PICK_UP_PLAYER = 9, // 0x9: Pick up an item from the floor (player)
     ACTION_UNK_A = 10,
     ACTION_THROW_ITEM_PLAYER = 11,      // 0xB: Throw an item
     ACTION_CHECK_ITEM_DESCRIPTION = 12, // 0xC: Check the description of an item
     ACTION_EAT_BERRY_SEED_DRINK = 13,   // 0xD: Each a berry or seed, or drink something
     ACTION_EAT_GUMMI = 14,              // 0xE: Eat a gummi
     ACTION_UNK_F = 15,
-    ACTION_USE_TM = 16,                 // 0x10: Use a TM
+    ACTION_USE_TM = 16, // 0x10: Use a TM
     ACTION_UNK_11 = 17,
-    ACTION_USE_ITEM = 18,               // 0x12: Use an item
-    ACTION_TALK_FIELD = 19,             // 0x13: Talk to a teammate by facing them and pressing A
-    ACTION_USE_MOVE_PLAYER = 20,        // 0x14: Use a move (player)
-    ACTION_USE_MOVE_AI = 21,            // 0x15: Use a move (AI)
+    ACTION_USE_ITEM = 18,        // 0x12: Use an item
+    ACTION_TALK_FIELD = 19,      // 0x13: Talk to a teammate by facing them and pressing A
+    ACTION_USE_MOVE_PLAYER = 20, // 0x14: Use a move (player)
+    ACTION_USE_MOVE_AI = 21,     // 0x15: Use a move (AI)
     ACTION_UNK_16 = 22,
-    ACTION_STRUGGLE = 23,               // 0x17: Use Struggle
+    ACTION_STRUGGLE = 23, // 0x17: Use Struggle
     ACTION_UNK_18 = 24,
-    ACTION_CHECK_MOVES = 25,            // 0x19: Check the list of moves
-    ACTION_CHANGE_TACTICS = 26,         // 0x1A: Change a teammate's tactic
-    ACTION_CHECK_SUMMARY = 27,          // 0x1B: Check a pokémon's summary
-    ACTION_TALK_MENU = 28,              // 0x1C: Talk to a teammate by using the in-menu option
+    ACTION_CHECK_MOVES = 25,    // 0x19: Check the list of moves
+    ACTION_CHANGE_TACTICS = 26, // 0x1A: Change a teammate's tactic
+    ACTION_CHECK_SUMMARY = 27,  // 0x1B: Check a pokémon's summary
+    ACTION_TALK_MENU = 28,      // 0x1C: Talk to a teammate by using the in-menu option
     ACTION_UNK_1D = 29,
-    ACTION_SET_MOVE = 30,               // 0x1E: Set a move
-    ACTION_SWITCH_MOVE = 31,            // 0x1F: Switch a move on or off
+    ACTION_SET_MOVE = 30,    // 0x1E: Set a move
+    ACTION_SWITCH_MOVE = 31, // 0x1F: Switch a move on or off
     ACTION_UNK_20 = 32,
     ACTION_UNK_21 = 33,
     ACTION_UNK_22 = 34,
-    ACTION_EAT_AI = 35,                 // 0x23: Eat item (AI)
-    ACTION_THROW_ITEM_AI = 36,          // 0x24: Throw an item (AI)
+    ACTION_EAT_AI = 35,        // 0x23: Eat item (AI)
+    ACTION_THROW_ITEM_AI = 36, // 0x24: Throw an item (AI)
     ACTION_UNK_25 = 37,
-    ACTION_USE_STAIRS = 38,             // 0x26: Use the stairs
-    ACTION_THROW_STRAIGHT_PLAYER = 39,  // 0x27: Throw a straight-line item (player)
+    ACTION_USE_STAIRS = 38,            // 0x26: Use the stairs
+    ACTION_THROW_STRAIGHT_PLAYER = 39, // 0x27: Throw a straight-line item (player)
     ACTION_UNK_28 = 40,
     ACTION_UNK_29 = 41,
     ACTION_UNK_2A = 42,
-    ACTION_QUICKSAVE = 43,              // 0x2B: Quicksave
-    ACTION_USE_LINK_BOX = 44,           // 0x2C: Use a Link Box
+    ACTION_QUICKSAVE = 43,    // 0x2B: Quicksave
+    ACTION_USE_LINK_BOX = 44, // 0x2C: Use a Link Box
     ACTION_UNK_2D = 45,
-    ACTION_GIVE_UP = 46,                // 0x2E: Give up
+    ACTION_GIVE_UP = 46, // 0x2E: Give up
     ACTION_UNK_2F = 47,
-    ACTION_VIEW_IQ = 48,                // 0x30: Open the IQ skills menu
-    ACTION_USE_ORB = 49,                // 0x31: Use an orb
-    ACTION_REGULAR_ATTACK = 50,         // 0x32: Regular Attack
-    ACTION_UNSET_MOVE = 51,             // 0x33: Unset a move
-    ACTION_SEND_HOME = 52,              // 0x34: Send a pokémon home
+    ACTION_VIEW_IQ = 48,        // 0x30: Open the IQ skills menu
+    ACTION_USE_ORB = 49,        // 0x31: Use an orb
+    ACTION_REGULAR_ATTACK = 50, // 0x32: Regular Attack
+    ACTION_UNSET_MOVE = 51,     // 0x33: Unset a move
+    ACTION_SEND_HOME = 52,      // 0x34: Send a pokémon home
     ACTION_UNK_35 = 53,
-    ACTION_GIVE_ITEM = 54,              // 0X36: Give held item
-    ACTION_TAKE_ITEM = 35,              // 0x37: Take a held item
+    ACTION_GIVE_ITEM = 54, // 0X36: Give held item
+    ACTION_TAKE_ITEM = 35, // 0x37: Take a held item
     ACTION_UNK_38 = 36,
-    // 0x39: <pokémon> had second thoughts! - Used as a failsafe when trying to take an illegal action
+    // 0x39: <pokémon> had second thoughts! - Used as a failsafe when trying to take an illegal
+    // action
     ACTION_SECOND_THOUGHTS = 37,
-    ACTION_SWAP_ITEM = 38,              // 0x3A: Swapping an item
-    ACTION_CHANGE_LEADER = 39,          // 0x3B: Change the team's leader
-    ACTION_SET_ITEM = 40,               // 0x3C: Set item
-    ACTION_UNSET_ITEM = 41,             // 0x3D: Unset item
+    ACTION_SWAP_ITEM = 38,     // 0x3A: Swapping an item
+    ACTION_CHANGE_LEADER = 39, // 0x3B: Change the team's leader
+    ACTION_SET_ITEM = 40,      // 0x3C: Set item
+    ACTION_UNSET_ITEM = 41,    // 0x3D: Unset item
     ACTION_UNK_3E = 42,
-    ACTION_PICK_UP_AI = 43,             // 0x3F: Pick up an item (AI)
+    ACTION_PICK_UP_AI = 43, // 0x3F: Pick up an item (AI)
     ACTION_UNK_40 = 44,
-    ACTION_THROW_ARC_PLAYER = 45,       // 0x41: Throw a Gravelerock or a similar item (player)
+    ACTION_THROW_ARC_PLAYER = 45, // 0x41: Throw a Gravelerock or a similar item (player)
 };
 
 // This is usually stored as an 16-bit integer
@@ -389,30 +391,30 @@ ENUM_16_BIT(action);
 
 // Potental sources of damage dealt to monsters
 enum damage_source {
-    DAMAGE_SOURCE_MOVE = 0,             // "Took X damage"
+    DAMAGE_SOURCE_MOVE = 0, // "Took X damage"
     DAMAGE_SOURCE_BURN = 1,
-    DAMAGE_SOURCE_CONSTRICTION = 2,     // "Was squeezed for X damage"
+    DAMAGE_SOURCE_CONSTRICTION = 2, // "Was squeezed for X damage"
     DAMAGE_SOURCE_POISON = 3,
-    DAMAGE_SOURCE_RECOIL_1 = 4,         // User deals damage to itself because of their own recoil move
-    DAMAGE_SOURCE_WRAP = 5,             // "Was wrapped for X damage"
-    DAMAGE_SOURCE_COUNTER = 6,          // Damage taken from a conunterattack
+    DAMAGE_SOURCE_RECOIL_1 = 4, // User deals damage to itself because of their own recoil move
+    DAMAGE_SOURCE_WRAP = 5,     // "Was wrapped for X damage"
+    DAMAGE_SOURCE_COUNTER = 6,  // Damage taken from a conunterattack
     DAMAGE_SOURCE_CURSE = 7,
-    DAMAGE_SOURCE_NIGHTMARE = 8,        // Damage taken when awakening from a nightmare
+    DAMAGE_SOURCE_NIGHTMARE = 8, // Damage taken when awakening from a nightmare
     DAMAGE_SOURCE_LEECH_SEED = 9,
     DAMAGE_SOURCE_SPIKES = 10,
     DAMAGE_SOURCE_PERISH_SONG = 11,
     DAMAGE_SOURCE_DESTINY_BOND = 12,
-    DAMAGE_SOURCE_SLUDGE = 13,          // "Was showered with sludge for X damage"
+    DAMAGE_SOURCE_SLUDGE = 13, // "Was showered with sludge for X damage"
     DAMAGE_SOURCE_CHESTNUT_1 = 14,
-    DAMAGE_SOURCE_CHESTNUT_2 = 15,      // Same string as DAMAGE_SOURCE_CHESTNUT_1
-    DAMAGE_SOURCE_UNK16 = 16,           // Same string as DAMAGE_SOURCE_MOVE
+    DAMAGE_SOURCE_CHESTNUT_2 = 15, // Same string as DAMAGE_SOURCE_CHESTNUT_1
+    DAMAGE_SOURCE_UNK16 = 16,      // Same string as DAMAGE_SOURCE_MOVE
     DAMAGE_SOURCE_BAD_WEATHER = 17,
-    DAMAGE_SOURCE_MISSED_MOVE = 18,     // Damage taken from moves that hurt the user when they miss
-    DAMAGE_SOURCE_RECOIL_2 = 19,        // Same string as DAMAGE_SOURCE_RECOIL_1
+    DAMAGE_SOURCE_MISSED_MOVE = 18, // Damage taken from moves that hurt the user when they miss
+    DAMAGE_SOURCE_RECOIL_2 = 19,    // Same string as DAMAGE_SOURCE_RECOIL_1
     DAMAGE_SOURCE_STEALTH_ROCK = 20,
     DAMAGE_SOURCE_TOXIC_SPIKES = 21,
-    DAMAGE_SOURCE_ALMOST_FAINTED = 22,  // "Is on the verge of fainting after using that move"
-    DAMAGE_SOURCE_UNK_ABILITY = 23,     // "Took X damage because of <ability>"
+    DAMAGE_SOURCE_ALMOST_FAINTED = 22, // "Is on the verge of fainting after using that move"
+    DAMAGE_SOURCE_UNK_ABILITY = 23,    // "Took X damage because of <ability>"
     DAMAGE_SOURCE_SOLAR_POWER = 24,
     DAMAGE_SOURCE_DRY_SKIN = 25,
 };
@@ -631,7 +633,7 @@ enum floor_type {
 enum dungeon_objective {
     OBJECTIVE_STORY = 0, // This dungeon visit is part of the story
     OBJECTIVE_NORMAL = 1,
-    OBJECTIVE_RESCUE = 2, // Rescuing another player
+    OBJECTIVE_RESCUE = 2,          // Rescuing another player
     OBJECTIVE_UNK_GAME_MODE_5 = 3, // $GAME_MODE == 5 when entering the dungeon
 };
 
@@ -710,11 +712,12 @@ union mission_subtype {
 
 // List of reasons why you can get forcefully kicked out of a dungeon
 enum forced_loss_reason {
-    FORCED_LOSS_NONE = 0,              // You don't have to get kicked out of the dungeon
-    FORCED_LOSS_PARTNER_FAINTED = 1,   // Your partner fainted (before postgame)
-    FORCED_LOSS_CLIENT_FAINTED = 2,    // Your client fainted
-    FORCED_LOSS_ESCORT_FAINTED = 3,    // The client you had to escort fainted
-    FORCED_LOSS_CLIENT_CANT_JOIN = 4,  // "Your client [name:0] couldn't join you. Let's return to Treasure Town."
+    FORCED_LOSS_NONE = 0,            // You don't have to get kicked out of the dungeon
+    FORCED_LOSS_PARTNER_FAINTED = 1, // Your partner fainted (before postgame)
+    FORCED_LOSS_CLIENT_FAINTED = 2,  // Your client fainted
+    FORCED_LOSS_ESCORT_FAINTED = 3,  // The client you had to escort fainted
+    // "Your client [name:0] couldn't join you. Let's return to Treasure Town."
+    FORCED_LOSS_CLIENT_CANT_JOIN = 4,
 };
 
 // This is usually stored as an 8-bit integer
@@ -725,9 +728,9 @@ ENUM_8_BIT(forced_loss_reason);
 // Controls whether the loop that runs until the current floor ends should continue
 // iterating or not and why
 enum floor_loop_status {
-    FLOOR_LOOP_CONTINUE = 0,         // The floor loop keeps executing as normal
-    FLOOR_LOOP_LEADER_FAINTED = 1,   // The floor loop exits because the leader fainted
-    FLOOR_LOOP_NEXT_FLOOR = 2,       // The floor loop exits because the floor is over
+    FLOOR_LOOP_CONTINUE = 0,       // The floor loop keeps executing as normal
+    FLOOR_LOOP_LEADER_FAINTED = 1, // The floor loop exits because the leader fainted
+    FLOOR_LOOP_NEXT_FLOOR = 2,     // The floor loop exits because the floor is over
 };
 
 // This is usually stored as an 8-bit integer

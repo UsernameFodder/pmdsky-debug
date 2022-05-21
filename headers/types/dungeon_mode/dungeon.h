@@ -210,8 +210,10 @@ struct dungeon {
     undefined field_0xc1;
     undefined field_0xc2;
     undefined field_0xc3;
-    struct entity* current_active_entity; // 0xC4: Pointer to the entity that is taking its turn right now
-    struct entity* new_leader; // 0xC8: Pointer to the monster that will become the leader of the team after changing leaders
+    // 0xC4: Pointer to the entity that is taking its turn right now
+    struct entity* current_active_entity;
+    // 0xC8: Pointer to the monster that will become the leader of the team after changing leaders
+    struct entity* new_leader;
     undefined field_0xcc;
     undefined field_0xcd;
     undefined field_0xce;
@@ -19083,7 +19085,8 @@ struct dungeon {
     struct monster_id_16 sprie_indexes[1155];
     undefined field_0x1a21a;
     undefined field_0x1a21b;
-    struct display_data display_data; // 0x1A21C: Data about the map, the camera and the touchscreen numbers
+    // 0x1A21C: Data about the map, the camera and the touchscreen numbers
+    struct display_data display_data;
     struct minimap_display_data minimap_display_data; // 0x1A264: Data used to display the minimap
     undefined field_0x286b0;
     undefined field_0x286b1;
