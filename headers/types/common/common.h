@@ -4,6 +4,7 @@
 #define HEADERS_TYPES_COMMON_H_
 
 #include "enums.h"
+#include "../dungeon_mode/enums.h"
 
 // Based on the code for vsprintf(3), it seems like va_list is implemented in the ARM9 binary
 // by just passing a pointer into the stack, so define va_list to be void*.
@@ -258,7 +259,7 @@ ASSERT_SIZE(struct type_matchup_table, 648);
 struct move_target_and_range {
     enum move_target target : 4;
     enum move_range range : 4;
-    enum healing_move_type type : 4;
+    enum move_ai_condition ai_condition : 4;
     uint16_t unused : 4; // At least I'm pretty sure this is unused...
 };
 ASSERT_SIZE(struct move_target_and_range, 2);
@@ -277,7 +278,9 @@ struct move_data {
     // See the PMD Info Spreadsheet.
     uint8_t accuracy1;
     uint8_t accuracy2;            // 0xB
-    uint8_t field_0xc;            // unknown
+    // 0xC: If this move has a random chance AI condition (see enum move_ai_condition),
+    // this is the chance that the AI will consider a potential target as elegible
+    uint8_t ai_condition_random_chance;
     uint8_t strikes;              // 0xD: Number of times the move hits (i.e. for multi-hit moves)
     uint8_t max_ginseng_boost;    // 0xE: Maximum possible Ginseng boost for this move
     uint8_t crit_chance;          // 0xF: The base critical hit chance
@@ -302,12 +305,365 @@ struct move_data_table {
 };
 ASSERT_SIZE(struct move_data_table, 14534);
 
+// Reduced version of dungeon_mode::move that stores less info
+// Dungeon mode might also use these entries sometimes
+struct ground_move {
+    // 0x0: flags: 1-byte bitfield
+    // See move::flags0 for details
+    bool f_exists : 1;
+    bool f_subsequent_in_link_chain : 1;
+    bool f_enabled_for_ai : 1;
+    bool flags_unk3 : 1;
+    bool flags_unk4 : 1;
+    bool f_disabled : 1;
+    uint8_t flags_unk6 : 2;
+    
+    undefined field_0x1;               // Probably padding since it doesn't get initialized
+    struct move_id_16 id;              // 0x2
+    uint8_t ginseng;                   // 0x4: Ginseng boost
+    undefined field_0x5;               // Probably padding since it doesn't get initialized
+};
+ASSERT_SIZE(struct ground_move, 6);
+
+// Used to store monster data in ground mode
+// (Allies in the assembly, guest pokémon, etc.)
+// Dungeon mode might also use these entries sometimes
+struct ground_monster {
+    bool is_valid;                  // 0x0: True if the entry is valid
+    int8_t level;                   // 0x1: Monster level
+    struct dungeon_id_8 joined_at;  // 0x2
+    undefined field_0x3;            // Same as guest_monster::field_0x7
+    struct monster_id_16 id;        // 0x4: Monster ID
+    undefined field_0x6;
+    undefined field_0x7;
+    uint16_t iq;                    // 0x8
+    uint16_t max_hp;                // 0xA
+    int8_t atk;                     // 0xC
+    int8_t sp_atk;                  // 0xD
+    int8_t def;                     // 0xE
+    int8_t sp_def;                  // 0xF
+    int exp;                        // 0x10
+    // 0x14: Bitvector that keeps track of which IQ skills the monster has enabled.
+    // See enum iq_skill_id for the meaning of each bit.
+    uint32_t iq_skill_flags[3];
+    struct tactic_id_8 tactic;      // 0x20
+    undefined field_0x21;
+    struct ground_move moves[4];    // 0x22
+    char name[10];                  // 0x3A: Display name of the monster
+};
+ASSERT_SIZE(struct ground_monster, 68);
+
 // A common structure for pairs of dungeon/floor values
 struct dungeon_floor_pair {
     uint8_t dungeon_id;
     uint8_t floor_id;
 };
 ASSERT_SIZE(struct dungeon_floor_pair, 2);
+
+// Unknown struct included in the dungeon_init struct (see below)
+struct unk_dungeon_init {
+    undefined field_0x0;
+    undefined field_0x1;
+    undefined field_0x2;
+    undefined field_0x3;
+    undefined field_0x4;
+    undefined field_0x5;
+    undefined field_0x6;
+    undefined field_0x7;
+    undefined field_0x8;
+    undefined field_0x9;
+    undefined field_0xA;
+    undefined field_0xB;
+    undefined field_0xC;
+    undefined field_0xD;
+    undefined field_0xE;
+    undefined field_0xF;
+    undefined field_0x10;
+    undefined field_0x11;
+    undefined field_0x12;
+    undefined field_0x13;
+    undefined field_0x14;
+    undefined field_0x15;
+    undefined field_0x16;
+    undefined field_0x17;
+    undefined field_0x18;
+    undefined field_0x19;
+    undefined field_0x1A;
+    undefined field_0x1B;
+    undefined field_0x1C;
+    undefined field_0x1D;
+    undefined field_0x1E;
+    undefined field_0x1F;
+    undefined field_0x20;
+    undefined field_0x21;
+    undefined field_0x22;
+    undefined field_0x23;
+    undefined field_0x24;
+    undefined field_0x25;
+    undefined field_0x26;
+    undefined field_0x27;
+    undefined field_0x28;
+    undefined field_0x29;
+    undefined field_0x2A;
+    undefined field_0x2B;
+    undefined field_0x2C;
+    undefined field_0x2D;
+    undefined field_0x2E;
+    undefined field_0x2F;
+    undefined field_0x30;
+    undefined field_0x31;
+    undefined field_0x32;
+    undefined field_0x33;
+    undefined field_0x34;
+    undefined field_0x35;
+    undefined field_0x36;
+    undefined field_0x37;
+    undefined field_0x38;
+    undefined field_0x39;
+    undefined field_0x3A;
+    undefined field_0x3B;
+    undefined field_0x3C;
+    undefined field_0x3D;
+    undefined field_0x3E;
+    undefined field_0x3F;
+    undefined field_0x40;
+    undefined field_0x41;
+    undefined field_0x42;
+    undefined field_0x43;
+    undefined field_0x44;
+    undefined field_0x45;
+    undefined field_0x46;
+    undefined field_0x47;
+    undefined field_0x48;
+    undefined field_0x49;
+    undefined field_0x4A;
+    undefined field_0x4B;
+    undefined field_0x4C;
+    undefined field_0x4D;
+    undefined field_0x4E;
+    undefined field_0x4F;
+    undefined field_0x50;
+    undefined field_0x51;
+    undefined field_0x52;
+    undefined field_0x53;
+    undefined field_0x54;
+    undefined field_0x55;
+    undefined field_0x56;
+    undefined field_0x57;
+    undefined field_0x58;
+    undefined field_0x59;
+    undefined field_0x5A;
+    undefined field_0x5B;
+    undefined field_0x5C;
+    undefined field_0x5D;
+    undefined field_0x5E;
+    undefined field_0x5F;
+    undefined field_0x60;
+    undefined field_0x61;
+    undefined field_0x62;
+    undefined field_0x63;
+    undefined field_0x64;
+    undefined field_0x65;
+    undefined field_0x66;
+    undefined field_0x67;
+    undefined field_0x68;
+    undefined field_0x69;
+    undefined field_0x6A;
+    undefined field_0x6B;
+    undefined field_0x6C;
+    undefined field_0x6D;
+    undefined field_0x6E;
+    undefined field_0x6F;
+    undefined field_0x70;
+    undefined field_0x71;
+    undefined field_0x72;
+    undefined field_0x73;
+    undefined field_0x74;
+    undefined field_0x75;
+    undefined field_0x76;
+    undefined field_0x77;
+    undefined field_0x78;
+    undefined field_0x79;
+    undefined field_0x7A;
+    undefined field_0x7B;
+    undefined field_0x7C;
+    undefined field_0x7D;
+    undefined field_0x7E;
+    undefined field_0x7F;
+    undefined field_0x80;
+    undefined field_0x81;
+    undefined field_0x82;
+    undefined field_0x83;
+    undefined field_0x84;
+    undefined field_0x85;
+    undefined field_0x86;
+    undefined field_0x87;
+    undefined field_0x88;
+    undefined field_0x89;
+    undefined field_0x8A;
+    undefined field_0x8B;
+    undefined field_0x8C;
+    undefined field_0x8D;
+    undefined field_0x8E;
+    undefined field_0x8F;
+    undefined field_0x90;
+    undefined field_0x91;
+    undefined field_0x92;
+    undefined field_0x93;
+    undefined field_0x94;
+    undefined field_0x95;
+    undefined field_0x96;
+    undefined field_0x97;
+    undefined field_0x98;
+    undefined field_0x99;
+    undefined field_0x9A;
+    undefined field_0x9B;
+    undefined field_0x9C;
+    undefined field_0x9D;
+    undefined field_0x9E;
+    undefined field_0x9F;
+    undefined field_0xA0;
+    undefined field_0xA1;
+    undefined field_0xA2;
+    undefined field_0xA3;
+    undefined field_0xA4;
+    undefined field_0xA5;
+    undefined field_0xA6;
+    undefined field_0xA7;
+    undefined field_0xA8;
+    undefined field_0xA9;
+    undefined field_0xAA;
+    undefined field_0xAB;
+    undefined field_0xAC;
+    undefined field_0xAD;
+    undefined field_0xAE;
+    undefined field_0xAF;
+    undefined field_0xB0;
+    undefined field_0xB1;
+    undefined field_0xB2;
+    undefined field_0xB3;
+    undefined field_0xB4;
+    undefined field_0xB5;
+    undefined field_0xB6;
+    undefined field_0xB7;
+    undefined field_0xB8;
+    undefined field_0xB9;
+    undefined field_0xBA;
+    undefined field_0xBB;
+    undefined field_0xBC;
+    undefined field_0xBD;
+    undefined field_0xBE;
+    undefined field_0xBF;
+    undefined field_0xC0;
+    undefined field_0xC1;
+    undefined field_0xC2;
+    undefined field_0xC3;
+    undefined field_0xC4;
+    undefined field_0xC5;
+    undefined field_0xC6;
+    undefined field_0xC7;
+    undefined field_0xC8;
+    undefined field_0xC9;
+    undefined field_0xCA;
+    undefined field_0xCB;
+    undefined field_0xCC;
+    undefined field_0xCD;
+    undefined field_0xCE;
+    undefined field_0xCF;
+    undefined field_0xD0;
+    undefined field_0xD1;
+    undefined field_0xD2;
+    undefined field_0xD3;
+    undefined field_0xD4;
+    undefined field_0xD5;
+    undefined field_0xD6;
+    undefined field_0xD7;
+    undefined field_0xD8;
+    undefined field_0xD9;
+    undefined field_0xDA;
+    undefined field_0xDB;
+    undefined field_0xDC;
+    undefined field_0xDD;
+    undefined field_0xDE;
+    undefined field_0xDF;
+    undefined field_0xE0;
+    undefined field_0xE1;
+    undefined field_0xE2;
+    undefined field_0xE3;
+    undefined field_0xE4;
+    undefined field_0xE5;
+    undefined field_0xE6;
+    undefined field_0xE7;
+};
+ASSERT_SIZE(struct unk_dungeon_init, 232);
+
+// A struct used to init certain values in the dungeon struct when entering dungeon mode.
+// Gets initialized in ground mode.
+struct dungeon_init {
+    struct dungeon_id_8 id;            // 0x0: Copied into dungeon::id
+    uint8_t floor;                     // 0x1: Copied into dungeon::floor
+    undefined2 field_0x2;              // Copied into dungeon::field_0x74C
+    undefined field_0x4;
+    bool nonstory_flag;                // 0x5: Copied into dungeon::nonstory_flag
+    bool recruiting_enabled;           // 0x6: Copied into dungeon::recruiting_enabled
+    // 0x7: If true, dungeon::recruiting_enabled gets set to false. Overrides recruiting_enabled.
+    bool force_disable_recruiting;
+    undefined field_0x8;               // Copied into dungeon::field_0x75A
+    undefined field_0x9;               // Copied into dungeon::field_0x75B
+    bool send_home_disabled;           // 0xA: Copied into dungeon::send_home_disabled
+    bool hidden_land_flag;             // 0xB: Copied into dungeon::hidden_land_flag
+    bool skip_faint_animation_flag;    // 0xC: Copied into dungeon::skip_faint_animation_flag
+    // 0xD: Copied into dungeon::dungeon_objective. Read as a signed byte (?).
+    struct dungeon_objective_8 dungeon_objective;
+    int8_t field_0xE;
+    bool has_guest_pokemon;            // 0xF: If true, a guest pokémon will be added to your team
+    bool send_help_item;               // 0x10: If true, you recive an item at the start of the dungeon
+    bool show_rescues_left;            // 0x11: If true, you get a message saying how many rescue chances you have left
+    undefined field_0x12;
+    undefined field_0x13;
+    // 0x14
+    // [EU]0x22DF920 loads this as a word
+    // [EU]0x22DFBAC loads this as a signed byte
+    // ???
+    undefined4 field_0x14;             // Copied into dungeon::field_0x750
+    // Copied into dungeon::field_0x754, and into dungeon::field_0x7A0 during rescues
+    undefined4 field_0x18;
+    // 0x1C: Array containing the list of quest pokémon that will join the team in the dungeon (max 2)
+    struct ground_monster guest_pokemon[2];
+    // 0xA4: Used as a base address at [EU]0x22E0354 and [EU]0x22E03AC.
+    // It's probably a separate struct.
+    undefined field_0xA4;
+    undefined field_0xA5;
+    undefined field_0xA6;
+    undefined field_0xA7;
+    struct item_id_16 help_item;       // 0xA8: ID of the item to give to the player if send_help_item is true
+    undefined field_0xAA;
+    undefined field_0xAB;
+    undefined field_0xAC;              // Copied into dungeon::field_0x7CC
+    undefined field_0xAD;
+    undefined field_0xAE;
+    undefined field_0xAF;
+    undefined4 field_0xB0;
+    undefined field_0xB4;              // Gets set to dungeon::id during dungeon init
+    undefined field_0xB5;              // Gets set to dungeon::floor during dungeon init
+    undefined field_0xB6;
+    undefined field_0xB7;
+    // 0xB8: Used as a base address at [EU]0x22E0ABC.
+    // It's probably a separate struct.
+    undefined field_0xB8;              // Gets set to dungeon::id during dungeon init
+    undefined field_0xB9;              // Gets set to dungeon::floor during dungeon init
+    undefined field_0xBA;
+    undefined field_0xBB;
+    undefined4 field_0xBC;
+    // 0xC0: Used as a base address at [EU]0x22E0A4C
+    struct unk_dungeon_init field_0xC0;
+    undefined field_0x1A8;
+    // Probably padding, these bytes aren't accessed by the funtion that inits this struct
+    undefined field_0x1A9;
+    undefined field_0x1AA;
+    undefined field_0x1AB;
+};
+ASSERT_SIZE(struct dungeon_init, 428);
 
 // The adventure log structure.
 struct adventure_log {
