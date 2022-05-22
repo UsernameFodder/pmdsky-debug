@@ -849,7 +849,8 @@ struct display_data {
     // "visited" while exploring, as well as how far away you can see enemies under non-illuminated
     // conditions (outside of this range, enemies will not be visible on screen).
     uint8_t darkness_level;
-    // 0x22: True if the pokémon currently pointed by the camera has the status_id::STATUS_BLINKER effect
+    // 0x22: True if the pokémon currently pointed by the camera has
+    // the status_id::STATUS_BLINKER effect
     bool blinded;
     // 0x23: True after using a Luminous Orb or in floors where darkness is forcefully disabled
     bool luminous;
