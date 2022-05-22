@@ -849,10 +849,11 @@ struct display_data {
     // "visited" while exploring, as well as how far away you can see enemies under non-illuminated
     // conditions (outside of this range, enemies will not be visible on screen).
     uint8_t darkness_level;
-    bool blinded; // 0x22: True if the pokémon currently pointed by the camera is blind
-    // 0x23: True after using a Luminous Orb or in floor where darkness is forcefully disabled
-    bool bright_floor;
-    // 0x24: If false and bright_floor is false as well, darkness will be displayed graphically.
+    // 0x22: True if the pokémon currently pointed by the camera has the status_id::STATUS_BLINKER effect
+    bool blinded;
+    // 0x23: True after using a Luminous Orb or in floors where darkness is forcefully disabled
+    bool luminous;
+    // 0x24: If false and luminous is false as well, darkness will be displayed graphically.
     // This is set in dungeons that aren't naturally dark, and also in some fixed room floors.
     bool natural_lighting;
     // 0x25: True if the pokémon currently pointed by the camera has the Map Surveyor IQ skill
@@ -867,7 +868,8 @@ struct display_data {
     bool can_see_items;
     // 0x28: True if traps are being shown on the map. Similar to can_see_enemies.
     bool can_see_traps;
-    // 0x29: True if the pokémon currently pointed by the camera is hallucinating.
+    // 0x29: True if the pokémon currently pointed by the camera has the
+    // status_id::STATUS_CROSS_EYED effect.
     // Causes all entities to be displayed as green circles on the map.
     bool hallucinating;
     bool can_see_stairs; // 0x2A: True if stairs are being shown on the map
@@ -883,7 +885,7 @@ struct display_data {
     undefined field_0x32;
     undefined field_0x33;
     undefined field_0x34;
-    bool allies_or_grid; // 0x35: True when the allies menu is opened or while Y is being held
+    bool team_menu_or_grid; // 0x35: True when the team menu is opened or while Y is being held
     // Derived from internal direction in leader info block
     struct direction_id_8 leader_target_direction;        // 0x36
     struct direction_id_8 leader_target_direction_mirror; // 0x37
@@ -988,11 +990,9 @@ struct dungeon_generation_info {
     struct position stairs_pos;         // 0x8C20: Position of the stairs spawn
     // 0x8C24: Position of the Hidden Stairs spawn, or (-1, -1) if no Hidden Stairs
     struct position hidden_stairs_pos;
-    struct position leader_spawn_pos; // 0x8C28: Spawn position of the leader
-    struct position ally_1_spawn_pos; // 0x8C2C: Spawn position of the second team member
-    struct position ally_2_spawn_pos; // 0x8C30: Spawn position of the third team member
-    struct position ally_3_spawn_pos; // 0x8C34: Spawn position of the fourth team member
-    // There's another 6 potential positions right after these
+    // 0x8C28: Spawn position of each of the team members
+    struct position individual_team_spawn_positions[4];
+    // There's another 6 words that look like spawn positions right after these 4
 };
 ASSERT_SIZE(struct dungeon_generation_info, 35896);
 

@@ -880,7 +880,7 @@ struct dungeon {
     // between DUNGEON_HIDDEN_LAND and DUNGEON_TEMPORAL_PINNACLE.
     bool hidden_land_flag;
     // 0x75F: If true, the message log won't be shown and the yellow beam animation won't
-    // appear over theam members after the leader faints
+    // appear over team members after the leader faints
     bool skip_faint_animation_flag;
     // 0x760: Info about the next mission destination floor, if applicable
     struct mission_destination_info mission_destination;
@@ -903,7 +903,7 @@ struct dungeon {
     uint16_t next_spawn_genid;
     undefined field_0x78a;
     // 0x78B: True if the leader is running. Causes the leader's action for the next turn
-    // to be set to Action::ACTION_WALK until it hits an obstacle.
+    // to be set to action::ACTION_WALK until it hits an obstacle.
     bool leader_running;
     undefined field_0x78c;
     undefined field_0x78d;
@@ -19082,7 +19082,7 @@ struct dungeon {
     undefined field_0x19912;
     undefined field_0x19913;
     // 0x19914: List that matches monster IDs with their sprite index on this floor
-    struct monster_id_16 sprie_indexes[1155];
+    struct monster_id_16 sprite_indexes[1155];
     undefined field_0x1a21a;
     undefined field_0x1a21b;
     // 0x1A21C: Data about the map, the camera and the touchscreen numbers

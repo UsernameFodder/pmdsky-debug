@@ -326,7 +326,7 @@ struct ground_move {
 ASSERT_SIZE(struct ground_move, 6);
 
 // Used to store monster data in ground mode
-// (Allies in the assembly, guest pokémon, etc.)
+// (Team members in the assembly, guest pokémon, etc.)
 // Dungeon mode might also use these entries sometimes
 struct ground_monster {
     bool is_valid;                 // 0x0: True if the entry is valid
@@ -638,8 +638,8 @@ struct dungeon_init {
     undefined field_0xA5;
     undefined field_0xA6;
     undefined field_0xA7;
-    struct item_id_16
-        help_item; // 0xA8: ID of the item to give to the player if send_help_item is true
+    // 0xA8: ID of the item to give to the player if send_help_item is true
+    struct item_id_16 help_item;
     undefined field_0xAA;
     undefined field_0xAB;
     undefined field_0xAC; // Copied into dungeon::field_0x7CC

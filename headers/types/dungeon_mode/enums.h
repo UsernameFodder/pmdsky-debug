@@ -384,12 +384,12 @@ enum action {
     ACTION_THROW_ARC_PLAYER = 45, // 0x41: Throw a Gravelerock or a similar item (player)
 };
 
-// This is usually stored as an 16-bit integer
+// This is usually stored as a 16-bit integer
 #pragma pack(push, 2)
 ENUM_16_BIT(action);
 #pragma pack(pop)
 
-// Potental sources of damage dealt to monsters
+// Potential sources of damage dealt to monsters
 enum damage_source {
     DAMAGE_SOURCE_MOVE = 0, // "Took X damage"
     DAMAGE_SOURCE_BURN = 1,
