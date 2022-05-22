@@ -844,11 +844,11 @@ struct display_data {
     undefined field_0x1E;
     undefined field_0x1F;
     undefined field_0x20;
-    // 0x21: Same as floor_properties::darkness_level
+    // 0x21: Same as floor_properties::visibility_range
     // Affects the number of map tiles around the player's position that get marked as
     // "visited" while exploring, as well as how far away you can see enemies under non-illuminated
     // conditions (outside of this range, enemies will not be visible on screen).
-    uint8_t darkness_level;
+    uint8_t visibility_range;
     // 0x22: True if the pokémon currently pointed by the camera has
     // the status_id::STATUS_BLINKER effect
     bool blinded;
@@ -1131,8 +1131,9 @@ struct floor_properties {
     // 0x15: Controls how much secondary terrain (water, lava, and this actually applies to chasms
     // too) will be spawned
     uint8_t secondary_terrain_density;
-    // 0x16: Vision range (in tiles) when standing on a hallway. A value of 0 disables darkness.
-    uint8_t darkness_level;
+    // 0x16: Vision range (in tiles) when standing on a hallway.
+    // A value of 0 means no limit, a value > 0 enables darkness on the floor.
+    uint8_t visibility_range;
     uint8_t max_money_amount_div_5; // 0x17: 1/5 the maximum amount for Poké spawns
     // 0x18: Chance of an item spawning on each tile in a Kecleon shop
     struct shop_item_positions_8 shop_item_positions;
