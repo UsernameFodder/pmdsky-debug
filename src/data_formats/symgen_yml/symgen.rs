@@ -315,6 +315,13 @@ impl Sort for SymbolList {
     }
 }
 
+fn option_vec_is_empty<T>(opt: &Option<Vec<T>>) -> bool {
+    match opt {
+        None => true,
+        Some(v) => v.is_empty(),
+    }
+}
+
 /// A contiguous block of [`Symbol`]s in a `resymgen` symbol table, with some metadata.
 ///
 /// Like its consituent [`Symbol`]s, a [`Block`] contains an address, a length, and a description.
@@ -328,7 +335,7 @@ impl Sort for SymbolList {
 pub struct Block {
     // Metadata
     /// List of [`Version`]s relevant to the block.
-    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(skip_serializing_if = "option_vec_is_empty")]
     pub versions: Option<Vec<Version>>,
     /// The starting address of the block in memory.
     pub address: MaybeVersionDep<Uint>,
