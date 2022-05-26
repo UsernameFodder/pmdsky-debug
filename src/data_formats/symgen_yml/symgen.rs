@@ -462,7 +462,7 @@ impl Sort for Block {
 ///
 /// At its core, a [`SymGen`] is just a mapping between block names and [`Block`]s, along with
 /// convenient methods for manipulating the data within those [`Block`]s.
-#[derive(Debug, PartialEq, Clone, Serialize, Deserialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Deserialize)]
 pub struct SymGen(BTreeMap<OrdString, Block>);
 
 impl SymGen {
