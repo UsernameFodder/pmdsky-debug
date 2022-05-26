@@ -632,6 +632,7 @@ where
 mod tests {
     use super::*;
 
+    #[cfg(test)]
     mod naming_convention_tests {
         use super::*;
 
