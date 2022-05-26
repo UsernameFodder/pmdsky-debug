@@ -1194,6 +1194,7 @@ mod tests {
         }
     }
 
+    #[cfg(test)]
     mod block_tests {
         use super::*;
 
@@ -1380,6 +1381,7 @@ mod tests {
         }
     }
 
+    #[cfg(test)]
     mod symgen_tests {
         use super::*;
 

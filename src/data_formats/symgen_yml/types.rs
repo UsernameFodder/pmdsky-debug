@@ -835,6 +835,7 @@ mod tests {
         }
     }
 
+    #[cfg(test)]
     mod maybe_version_dep_tests {
         use super::*;
 
