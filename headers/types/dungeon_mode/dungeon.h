@@ -25,7 +25,8 @@ struct dungeon {
     undefined field_0xc;
     undefined field_0xd;
     undefined field_0xe;
-    undefined field_0xf;
+    // 0xF: True if an enemy has defeated an ally on this turn and should evolve as a result
+    bool should_enemy_evolve;
     undefined field_0x10;
     // 0x11: True if the leader isn't doing anything right now. False if it's currently performing
     // an action (such as walking or attacking)
@@ -34,10 +35,7 @@ struct dungeon {
     undefined field_0x13;
     // 0x14: If > 0, you get kicked out of the dungeon, usually because an important team member
     // (such as your client) fainted.
-    struct forced_loss_reason_8 forced_loss_reason;
-    undefined field_0x15;
-    undefined field_0x16;
-    undefined field_0x17;
+    enum forced_loss_reason forced_loss_reason;
     undefined field_0x18;
     undefined field_0x19;
     undefined field_0x1a;
@@ -907,7 +905,7 @@ struct dungeon {
     bool leader_running;
     undefined field_0x78c;
     undefined field_0x78d;
-    undefined field_0x78e;
+    bool pass_turn; // 0x78E: True if the leader has chosen to pass its turn
     undefined field_0x78f;
     bool thief_alert; // 0x790: If you've stolen from Kecleon (actual dungeon state)
     // 0x791: If you've stolen from Kecleon (triggers music and other events?)

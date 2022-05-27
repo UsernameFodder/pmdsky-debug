@@ -899,6 +899,15 @@ arm9:
         r0: move pointer
         r1: AI flag (every move has two target-and-range fields, one for players and one for AI)
         return: move target and range
+    - name: GetMoveType
+      address:
+        NA: 0x2013864
+        EU: 0x201390C
+      description: |-
+        Gets the type of a move
+        
+        r0: Pointer to move data
+        return: Type of the move
     - name: GetMoveBasePower
       address:
         NA: 0x20139CC
@@ -909,6 +918,16 @@ arm9:
         
         r0: move pointer
         return: base power
+    - name: GetMoveAccuracyOrAIChance
+      address:
+        NA: 0x2013A0C
+        EU: 0x2013AB4
+      description: |-
+        Gets one of the two accuracy values of a move or its ai_condition_random_chance field.
+        
+        r0: Move pointer
+        r1: 0 to get the move's first accuracy1 field, 1 to get its accuracy2, 2 to get its ai_condition_random_chance.
+        return: Move's accuracy1, accuracy2 or ai_condition_random_chance
     - name: GetMaxPp
       address:
         NA: 0x2013A50
@@ -1379,6 +1398,23 @@ arm9:
         Initializes the DUNGEON_*_LIST script variable values (IDs 0x4f-0x54).
         
         No params.
+    - name: SetDungeonTipShown
+      address:
+        NA: 0x204D250
+        EU: 0x204D588
+      description: |-
+        Marks a dungeon tip as already shown to the player
+        
+        r0: Dungeon tip ID
+    - name: GetDungeonTipShown
+      address:
+        NA: 0x204D290
+        EU: 0x204D5C8
+      description: |-
+        Checks if a dungeon tip has already been shown before or not.
+        
+        r0: Dungeon tip ID
+        returns: True if the tip has been shown before, false otherwise.
     - name: SetAdventureLogStructLocation
       address:
         NA: 0x204FA24
@@ -1801,6 +1837,90 @@ arm9:
         
         r0: dungeon id
         return: bool
+    - name: JoinedAtRangeCheck
+      address:
+        NA: 0x2051490
+        EU: 0x20517C8
+      description: |-
+        Returns whether a certain joined_at field value is between dungeon_id::DUNGEON_JOINED_AT_BIDOOF and dungeon_id::DUNGEON_DUMMY_0xE3.
+        
+        r0: joined_at id
+        return: bool
+    - name: ShouldCauseGameOverOnFaint
+      address:
+        NA: 0x2051760
+        EU: 0x2051A98
+      description: |-
+        Returns whether a game over should happen when a monster with the specified joined_at ID faints (as long as the other conditions are met). It might have a more generic meaning.
+        
+        r0: joined_at id
+        return: bool
+    - name: GetMonsterGender
+      address:
+        NA: 0x20527A8
+        EU: 0x2052AE0
+      description: |-
+        Returns the gender field of a monster given its ID.
+        
+        r0: monster id
+        return: monster gender
+    - name: GetSpriteSize
+      address:
+        NA: 0x20527E0
+        EU: 0x2052B18
+      description: |-
+        Returns the sprite size of the specified monster. If the size is between 1 and 6, 6 will be returned.
+        
+        r0: monster id
+        return: sprite size
+    - name: GetSpriteFileSize
+      address:
+        NA: 0x205281C
+        EU: 0x2052B54
+      description: |-
+        Returns the sprite file size of the specified monster.
+        
+        r0: monster id
+        return: sprite file size
+    - name: GetMonsterPreEvolution
+      address:
+        NA: 0x20529A8
+        EU: 0x2052CE0
+      description: |-
+        Returns the pre-evolution id of a monster given its ID.
+        
+        r0: monster id
+        return: ID of the monster that evolves into the one specified in r0
+    - name: GetEvolutions
+      address:
+        NA: 0x2053E88
+        EU: 0x2054204
+      description: |-
+        Returns a list of all the possible evolutions for a given monster id.
+        
+        r0: Monster id
+        r1: [Output] Array that will hold the list of monster ids the specified monster can evolve into
+        r2: True to skip the check that prevents returning monsters with a different sprite size than the current one
+        r3: True to skip the check that prevents Shedinja from being counted as a potential evolution
+        return: Number of possible evolutions for the specified monster id
+    - name: GetMonsterIdFromSpawnEntry
+      address:
+        NA: 0x2054480
+        EU: 0x20547FC
+      description: |-
+        Returns the monster ID of the specified monster spawn entry, converted to its primary gender ID (so modulo 600).
+        
+        r0: Pointer to the monster spawn entry
+        return: monster_spawn_entry::id
+    - name: GetMonsterGenderWrapper
+      address:
+        NA: 0x2054760
+        EU: 0x2054ADC
+      description: |-
+        Calls GetMonsterGender
+        
+        r0: monster id
+        return: monster gender
     - name: IsUnown
       address:
         NA: 0x2054A88

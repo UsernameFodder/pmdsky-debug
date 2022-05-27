@@ -80,7 +80,7 @@ struct move {
 ASSERT_SIZE(struct move, 8);
 
 // Used to hold data during damage calculation
-struct attack_data {
+struct damage_data {
     int damage;                       // 0x0: Damage dealt by the move
     enum damage_source damage_source; // 0x4
     enum type_matchup type_matchup;   // 0x8: Result of the type matchup calculation
@@ -94,7 +94,7 @@ struct attack_data {
     undefined field_0x12;
     undefined field_0x13;
 };
-ASSERT_SIZE(struct attack_data, 20);
+ASSERT_SIZE(struct damage_data, 20);
 
 // Monster stat modifier info
 struct monster_stat_modifiers {
@@ -1358,6 +1358,13 @@ struct dungeon_menu_entry {
     uint16_t string_id; // 0x6: ID of the string shown for this entry
 };
 ASSERT_SIZE(struct dungeon_menu_entry, 8);
+
+// Represents a message containing a dungeon tip that is displayed at the start of a floor
+struct message_tip {
+    int tip_id; // 0x0: Each tip message has its own ID
+    int message_id; // 0x4: String ID of the message to display
+};
+ASSERT_SIZE(struct message_tip, 8);
 
 // Map marker entry in the map marker placements list. These determine where a dungeon
 // appears on the Wonder Map.
