@@ -727,11 +727,28 @@ overlay29:
         NA: 0x22FD084
         EU: 0x22FDA80
         JP: 0x22FE478
+      description: |-
+        Spawns a new monster on a tile, according to the information passed by the first parameter.
+
+        If the second parameter is true, the monster cannot spawn asleep, otherwise it will randomly be asleep.
+
+        r0: pointer to spawned monster data (on the stack)
+        r1: bool
+        return: pointer to entity
     - name: CalcSpeedStage
       address:
         NA: 0x22FFDF4
         EU: 0x2300820
         JP: 0x2301224
+      description: |-
+        Calculates the speed stage of a monster from its speed up/down counters. The second parameter is the weight of each counter (how many stages it will add/remove), but appears to be always 1. 
+        Takes modifiers into account (paralysis, snowy weather, Time Tripper). Deoxys-speed, Shaymin-sky and enemy Kecleon during a thief alert get a flat +1 always.
+
+        The calculated speed stage is both returned and saved in the monster's statuses struct.
+
+        r0: pointer to entity
+        r1: speed counter weight
+        returns: int
     - name: GetNumberOfAttacks
       address:
         NA: 0x22FFF5C
@@ -840,11 +857,26 @@ overlay29:
         NA: 0x2304AB4
         EU: 0x23054E0
         JP: 0x2306004
+     description: |-
+      Returns the animation id to be applied to a monster that has the sleep, napping, nightmare or bide status.
+
+      Returns a different animation for sudowoodo and for monsters with infinite sleep turns (0x7F).
+
+      r0: pointer to entity
+      return: uint8_t
     - name: EndFrozenClassStatus
       address:
         NA: 0x2306258
         EU: 0x2306C84
         JP: 0x23077A8
+      description: |-
+        Cures the target's freeze, shadow hold, ingrain, petrified, constriction or wrap (both as user and as target) status due to the action of the user.
+
+        If the third parameter is true, the event will be printed to the log.
+
+        r0: pointer to user
+        r1: pointer to target
+        r2: bool (print to log)
     - name: EndCringeClassStatus
       address:
         NA: 0x23063D4

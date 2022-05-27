@@ -51,6 +51,8 @@ bool TeamLeaderIqSkillIsEnabled(enum iq_skill_id iq_skill);
 bool HasLowHealth(struct entity* entity);
 bool IsSpecialStoryAlly(struct monster* monster);
 bool IsExperienceLocked(struct monster* monster);
+struct entity* SpawnMonster(struct spawned_monster_data* monster_data, bool cannot_be_asleep);
+int CalcSpeedStage(struct entity* entity, int counter_weight);
 int GetNumberOfAttacks(struct entity* entity);
 bool NoGastroAcidStatus(struct entity* entity);
 bool AbilityIsActive(struct entity* entity, enum ability_id ability_id);
@@ -59,6 +61,8 @@ bool MonsterIsType(struct entity* entity, enum type_id type_id);
 bool IqSkillIsEnabled(struct entity* entity, enum iq_skill_id iq_id);
 int GetMovePower(struct entity* entity, struct move* move);
 void AddExpSpecial(struct entity* attacker, struct entity* defender, int base_exp);
+uint8_t GetSleepAnimationId(struct entity* entity);
+void EndFrozenClassStatus(struct entity* user, struct entity* target, bool print_to_log);
 enum type_matchup GetTypeMatchup(struct entity* attacker, struct entity* defender,
                                  int target_type_idx, enum type_id attack_type);
 void CalcDamage(struct entity* attacker, struct entity* defender, enum type_id attack_type,
