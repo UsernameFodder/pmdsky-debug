@@ -1387,6 +1387,27 @@ struct prng_state {
 };
 ASSERT_SIZE(struct prng_state, 20);
 
+
+
+// Contains the necessary information to spawn an enemy monster.
+// Allocated on the stack and passed via a pointer to SpawnEnemy.
+struct spawned_monster_data {
+    monster_id_16 monster_id;   // 0x0: The id of the monster to spawn
+    monster_behavior behavior;  // 0x2: NPC behavior of the monster
+    undefined field_0x3;
+    undefined field_0x4;
+    undefined field_0x5;
+    undefined field_0x6;
+    undefined field_0x7;
+    uint16_t level; // 0x8: The level of the spawned monster
+    position pos;   // 0xA: Position on the floor where the monster will be spawned
+    // 0xE: True if the monster cannot be spawned asleep.
+    // If false, there is a random chance that the monster will be asleep.
+    bool cannot_be_asleep;
+    undefined field_0xf;
+};
+ASSERT_SIZE(spawned_monster_data, 16);
+
 // Separate this out into its own file because it's massive
 #include "dungeon.h"
 

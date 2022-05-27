@@ -188,6 +188,18 @@ overlay29:
           2 means the current floor has a rescue point
         
         return: floor type
+    - name: TryForcedLoss
+      address:
+        NA: 0x22E0620
+        EU: 0x22E0F60
+        JP: 0x22E1CAC
+      description: |-
+        Attempts to trigger a forced loss of the type specified in the forced loss reason field of the dungeon struct. Returns true if the loss happens, false otherwise.
+
+        If the parameter is true, the function will not check for the end of the floor condition and will skip other (unknown) actions in case of forced loss.
+
+        r0: bool
+        return: bool
     - name: FixedRoomIsSubstituteRoom
       address:
         NA: 0x22E08CC
@@ -196,6 +208,16 @@ overlay29:
         Checks if the current fixed room is the "substitute room" (ID 0x6E).
         
         return: bool
+    - name: GetTileAtEntity
+      address:
+        NA: 0x22E1628
+        EU: 0x22E1F68
+        JP: 0x22E2CB8
+      description: |-
+        Returns a pointer to the tile where an entity is located.
+
+        r0: pointer to entity
+        returns: pointer to tile
     - name: SubstitutePlaceholderStringTags
       address:
         NA: 0x22E2AD8
@@ -247,6 +269,45 @@ overlay29:
         r0: entity pointer
         r1: item ID
         return: bool
+    - name: GetMonsterIdToSpawn
+      address:
+        NA: 0x22E7DA0
+        EU: 0x22E8750
+        JP: 0x22E9408
+      description: |-
+        Get the id of the monster to be randomly spawned. The parameter determines the spawn weight to use (0 for normal, 1 for monster house).
+        
+        r0: int
+        return: monster ID
+    - name: GetMonsterLevelToSpawn
+      address:
+        NA: 0x22E7E58
+        EU: 0x22E8808
+        JP: 0x22E94C0
+      description: |-
+        Get the level of the monster to be spawned, given its id.
+        
+        r0: monster ID
+        return: uint8
+    - name: GetTeamLeader
+      address:
+        NA: 0x22E9580
+        EU: 0x22E9F30
+        JP: 0x22EABE8
+      description: |-
+        Returns an entity pointer to the team leader. If the global pointer to the team leader was null, the function reads the pointer from the dungeon struct and copies it to the global pointer before returning.
+        
+        return: pointer to entity
+    - name: TickDownStatusTurnCounter
+      address:
+        NA: 0x22E9A44
+        EU: 0x22EA3F4
+        JP: 0x22EB0AC
+      description: |-
+        Ticks down a turn counter for a status condition and returns its new value. If the counter equals 0x7F, it will not be decreased.
+        
+        r0: pointer to the status turn counter
+        return: uint8
     - name: GenerateDungeonRngSeed
       address:
         NA: 0x22EA980
@@ -387,6 +448,7 @@ overlay29:
       address:
         NA: 0x22EB178
         EU: 0x22EBB28
+        JP: 0x22EC7E0
       description: |-
         The user entity attempts to switch places with the target entity (i.e. by the effect of the Switcher Orb). 
         
@@ -394,6 +456,44 @@ overlay29:
         
         r0: pointer to user entity
         r1: pointer to target entity
+    - name: FloorLoop
+      address:
+        NA: 0x22EBD08
+        EU: 0x22EC6B8
+        JP: 0x22ED370
+      description: |-
+        The main function which updates the state of the floor. Called in a loop by InitializeDungeon while FloorIsOver returns false.
+
+        The parameter is always equal to 1 and is used as parameter for another unknown function.
+        
+        r0: int
+    - name: TrySpawnMonsterAndActivatePlusMinus
+      address:
+        NA: 0x22EC6DC
+        EU: 0x22ED08C
+        JP: 0x22EDD44
+      description: |-
+        Called at the beginning of FloorLoop. First it calls TrySpawnMonster, then tries to activate the Plus and Minus abilities for both allies and enemies, and finally calls TryForcedLoss.
+        
+        No params.
+    - name: FloorIsOver
+      address:
+        NA: 0x22EC7E8
+        EU: 0x22ED198
+        JP: 0x22EDE50
+      description: |-
+        Returns true if the player will advance to the next floor on the next turn, and in that case sets the floor_loop_status in the dungeon struct to 2.
+        
+        return: bool
+    - name: GetForcedLossReason
+      address:
+        NA: 0x22ED01C
+        EU: 0x22ED9CC
+        JP: 0x22EE680
+      description: |-
+        Returns the forced loss reason field from the dungeon struct.
+        
+        return: forced loss reason
     - name: ResetDamageDesc
       address:
         NA: 0x22F6E18
@@ -414,10 +514,20 @@ overlay29:
         Has a special check to return false for Labyrinth Cave B10F (the Gabite boss fight).
         
         return: bool
+    - name: GetKecleonIdToSpawnByFloor
+      address:
+        NA: 0x22F73EC
+        EU: 0x22F7DA4
+        JP: 0x22F89B4
+      description: |-
+        If the current floor number is even, returns female Kecleon's id (0x3D7), otherwise returns male Kecleon's id (0x17F).
+        
+        return: monster ID
     - name: TryActivateSlowStart
       address:
         NA: 0x22F923C
         EU: 0x22F9C48
+        JP: 0x22FA800
       description: |-
         Runs a check over all monsters on the field for the ability Slow Start, and lowers the speed of those who have it.
         
@@ -426,6 +536,7 @@ overlay29:
       address:
         NA: 0x22F92D8
         EU: 0x22F9CE4
+        JP: 0x22FA89C
       description: |-
         Runs a check over all monsters on the field for abilities that affect the weather and changes the floor's weather accordingly.
         
@@ -444,7 +555,7 @@ overlay29:
           - 0x232DE20
           - 0x2332A0C
         EU:
-          - 0x22FA08D
+          - 0x22FA0D8
           - 0x2302438
           - 0x230B3B4
           - 0x23125F4
@@ -495,10 +606,24 @@ overlay29:
       address:
         NA: 0x22F97F0
         EU: 0x22FA1FC
+        JP: 0x22FADA8
       description: |-
         Checks if an entity has the ability Truant, and if so tries to apply the pause status to it.
         
         r0: pointer to entity
+    - name: MonsterCanSpawn
+      address:
+        NA: 0x22FA5F0
+        EU: 0x22FAFFC
+        JP: 0x22FBB98
+      description: |-
+        Returns true if a monster id can be spawned. 
+        
+        This function only checks for one id, 0x97 (Mew), and returns false if either the second parameter is false or if the mew_cannot_spawn flag in the dungeon struct is false. Returns true in all other cases.
+        
+        r0: monster id
+        r1: bool
+        return: bool
     - name: ExclusiveItemEffectIsActive
       address:
         NA:
@@ -532,6 +657,36 @@ overlay29:
         
         r0: entity pointer
         r1: exclusive item effect ID
+        return: bool
+    - name: GetTeamMemberWithIqSkill
+      address:
+        NA: 0x22FAFF8
+        EU: 0x22FBA04
+        JP: 0x22FC580
+      description: |-
+        Returns an entity pointer to a team member which has the specified iq skill.
+        
+        r0: iq skill id
+        return: pointer to entity
+    - name: TeamMemberHasEnabledIqSkill
+      address:
+        NA: 0x22FB064
+        EU: 0x22FBA70
+        JP: 0x22FC5EC
+      description: |-
+        Returns true if a team member has the specified iq skill.
+        
+        r0: iq skill id
+        return: bool
+    - name: TeamLeaderIqSkillIsEnabled
+      address:
+        NA: 0x22FB080
+        EU: 0x22FBA8C
+        JP: 0x22FC608
+      description: |-
+        Returns true the leader has the specified iq skill.
+        
+        r0: iq skill id
         return: bool
     - name: HasLowHealth
       address:
@@ -567,10 +722,21 @@ overlay29:
         
         r0: monster pointer
         return: bool
+    - name: SpawnMonster
+      address:
+        NA: 0x22FD084
+        EU: 0x22FDA80
+        JP: 0x22FE478
+    - name: CalcSpeedStage
+      address:
+        NA: 0x22FFDF4
+        EU: 0x2300820
+        JP: 0x2301224
     - name: GetNumberOfAttacks
       address:
         NA: 0x22FFF5C
         EU: 0x2300988
+        JP: 0x230138C
       description: |-
         Returns the number of attacks that a monster can do in one turn (1 or 2).
         
@@ -615,6 +781,7 @@ overlay29:
       address:
         NA: 0x2301E18
         EU: 0x2302844
+        JP: 0x2303368
       description: |-
         Checks if a monster is levitating (has the effect of Levitate and Gravity is not active).
         
@@ -668,6 +835,21 @@ overlay29:
         r0: attacker pointer
         r1: defender pointer
         r2: base experience gain, before boosts
+    - name: GetSleepAnimationId
+      address:
+        NA: 0x2304AB4
+        EU: 0x23054E0
+        JP: 0x2306004
+    - name: EndFrozenClassStatus
+      address:
+        NA: 0x2306258
+        EU: 0x2306C84
+        JP: 0x23077A8
+    - name: EndCringeClassStatus
+      address:
+        NA: 0x23063D4
+        EU: 0x2306E00
+        JP: 0x2307904
     - name: GetTypeMatchup
       address:
         NA: 0x230AC58
@@ -776,6 +958,11 @@ overlay29:
         CalcDamage seems to use scratch space of some kind, which this function zeroes.
         
         No params.
+    - name: TrySpawnMonsterAndTickSpawnCounter
+      address:
+        NA: 0x230E6BC
+        EU: 0x230F130
+        JP: 0x230FBF8
     - name: AuraBowIsActive
       address:
         NA: 0x230F6C8
@@ -810,6 +997,7 @@ overlay29:
       address:
         NA: 0x230FB90
         EU: 0x2310604
+        JP: 0x23110CC
       description: |-
         Checks if the entity is a team member and holds the No-Slip Cap, and if so attempts to make one item in the bag sticky.
         
@@ -818,6 +1006,7 @@ overlay29:
       address:
         NA: 0x2311088
         EU: 0x2311AE8
+        JP: 0x23125B0
       description: |-
         Applies the natural HP regen effect by taking modifiers into account (Poison Heal, Heal Ribbon, weather-related regen). Then it ticks down counters for volatile status effects, and heals them if the counter reached zero.
         
@@ -1018,6 +1207,11 @@ overlay29:
         
         r0: user entity pointer
         r1: target entity pointer
+    - name: FreeOtherWrappedMonster
+      address:
+        NA: 0x23133F0
+        EU: 0x2313E50
+        JP: 0x23148DC
     - name: TryInflictPetrifiedStatus
       address:
         NA: 0x231346C
@@ -1304,6 +1498,11 @@ overlay29:
         
         r0: user entity pointer
         r1: target entity pointer
+    - name: IsBlinded
+      address:
+        NA: 0x23177E4
+        EU: 0x2318244
+        JP: 0x2318CB4
     - name: RestoreMovePP
       address:
         NA: 0x2317C20
@@ -1316,6 +1515,11 @@ overlay29:
         r1: target entity pointer
         r2: PP to restore
         r3: flag to suppress message logging
+    - name: SetReflectDamageCountdownTo4
+      address:
+        NA: 0x23183C0
+        EU: 0x2318E20
+        JP: 0x2319890
     - name: HasConditionalGroundImmunity
       address:
         NA: 0x2318A4C
@@ -1332,6 +1536,7 @@ overlay29:
       address:
         NA: 0x2319814
         EU: 0x231A274
+        JP: 0x231ACE4
       description: |-
         Checks if the monster is under the effect of Conversion 2 (its type was changed).
         
@@ -1339,6 +1544,11 @@ overlay29:
         
         r0: pointer to entity
         return: int
+    - name: IsTargetInRange
+      address:
+        NA: 0x231A694
+        EU: 0x231B0F4
+        JP: 0x231BB64
     - name: GetEntityMoveTargetAndRange
       address:
         NA: 0x231ACAC
@@ -1485,6 +1695,16 @@ overlay29:
         
         r0: 4-byte number x
         return: (short)x
+    - name: GetAlternativeMoveAnimId
+      address:
+        NA: 0x2325B10
+        EU: 0x2326578
+        JP: 0x2326F9C
+    - name: MoveNeedsAlternativeAnim
+      address:
+        NA: 0x2325C78
+        EU: 0x23266E0
+        JP: 0x2327104
     - name: DealDamageWithRecoil
       address:
         NA: 0x2327F34
@@ -1539,17 +1759,31 @@ overlay29:
       address:
         NA: 0x2335170
         EU: 0x2335BB0
+        JP: 0x233655C
       description: |-
         Tries to change a monster into one of its weather-related alternative forms. Applies to Castform and Cherrim, and checks for their unique abilities.
         
         r0: pointer to entity
     - name: GetTile
       address:
+        NA: 0x23360FC
+        EU: 0x2336CCC
+        JP: 0x23374CC
+      description: |-
+        Get the tile at some position. If the coordinates are out of bounds, returns a default tile.
+        
+        r0: x position
+        r1: y position
+        return: tile pointer
+    - name: GetTileAndCopyIfDefault
+      address:
         NA:
           - 0x23360FC
           - 0x2336164
+        EU:
+          - 0x2336D34
       description: |-
-        Get the tile at some position.
+        Get the tile at some position. If the coordinates are out of bounds, returns a default tile after copying it onto another global variable.
         
         r0: x position
         r1: y position
@@ -1578,6 +1812,11 @@ overlay29:
         Checks if the current floor is the Secret Room fixed floor (from hidden stairs).
         
         return: bool
+    - name: IsNotSecretFloor
+      address:
+        NA: 0x2338684
+        EU: 0x2339254
+        JP: 0x2339A48
     - name: LoadFixedRoomDataVeneer
       address:
         NA: 0x233A624
@@ -2588,6 +2827,7 @@ overlay29:
       address:
         NA: 0x234B508
         EU: 0x234C108
+        JP: 0x234C778
       description: |-
         Logs a message in the message log.
         
@@ -2626,6 +2866,9 @@ overlay29:
         If you're in a special episode, they turn green , otherwise, they turn blue or pink depending on your character's sex
         
         No params
+    - name: TryActivateMapSurveyor
+      address:
+        EU: 0x22E375C
   data:
     - name: DUNGEON_STRUCT_SIZE
       address:
@@ -3237,3 +3480,18 @@ overlay29:
         NA: 0x4
         EU: 0x4
       description: "[Runtime] Pointer to decoded fixed room data loaded from the BALANCE/fixed.bin file."
+    - name: SPAWN_RAND_MAX
+      address:
+        EU: 0x22E8800
+    - name: KECLEON_FEMALE_ID
+      address:
+        EU: 0x22F7DBC
+    - name: KECLEON_MALE_ID
+      address:
+        EU: 0x22F7DC0
+    - name: FRACTIONAL_TURN_SEQUENCE
+      address:
+        EU: 0x2352EC2
+    - name: LEADER_PTR
+      address:
+        EU: 0x235415C

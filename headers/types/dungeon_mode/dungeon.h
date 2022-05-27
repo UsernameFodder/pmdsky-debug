@@ -24,8 +24,10 @@ struct dungeon {
     undefined field_0xb;
     undefined field_0xc;
     undefined field_0xd;
-    undefined field_0xe;
-    undefined field_0xf;
+    // 0xE: If set to 1, artificial weather abilities will be activated on this turn. 
+    // Set to 0 by TryActivateArtificialWeatherAbilities
+    bool activate_artificial_weather_flag;
+    undefined field_0xf;    // Appears to become 1 during the floor transition screen.
     undefined field_0x10;
     // 0x11: True if the leader isn't doing anything right now. False if it's currently performing
     // an action (such as walking or attacking)
@@ -42,10 +44,11 @@ struct dungeon {
     undefined field_0x19;
     undefined field_0x1a;
     undefined field_0x1b;
-    undefined field_0x1c;
+    undefined field_0x1c;   // Increased once per frame until 0x64. Resets to 0 when taking an action, such as walking.
     undefined field_0x1d;
     undefined field_0x1e;
-    undefined field_0x1f;
+    // 0x1F: Turn counter, Speed Boost triggers every 250 turns, then the counter is reset.
+    uint8_t speed_boost_counter;
     undefined field_0x20;
     undefined field_0x21;
     undefined field_0x22;
@@ -1680,134 +1683,10 @@ struct dungeon {
     undefined field_0x3791;
     undefined field_0x3792;
     undefined field_0x3793;
-    undefined field_0x3794;
-    undefined field_0x3795;
-    undefined field_0x3796;
-    undefined field_0x3797;
-    undefined field_0x3798;
-    undefined field_0x3799;
-    undefined field_0x379a;
-    undefined field_0x379b;
-    undefined field_0x379c;
-    undefined field_0x379d;
-    undefined field_0x379e;
-    undefined field_0x379f;
-    undefined field_0x37a0;
-    undefined field_0x37a1;
-    undefined field_0x37a2;
-    undefined field_0x37a3;
-    undefined field_0x37a4;
-    undefined field_0x37a5;
-    undefined field_0x37a6;
-    undefined field_0x37a7;
-    undefined field_0x37a8;
-    undefined field_0x37a9;
-    undefined field_0x37aa;
-    undefined field_0x37ab;
-    undefined field_0x37ac;
-    undefined field_0x37ad;
-    undefined field_0x37ae;
-    undefined field_0x37af;
-    undefined field_0x37b0;
-    undefined field_0x37b1;
-    undefined field_0x37b2;
-    undefined field_0x37b3;
-    undefined field_0x37b4;
-    undefined field_0x37b5;
-    undefined field_0x37b6;
-    undefined field_0x37b7;
-    undefined field_0x37b8;
-    undefined field_0x37b9;
-    undefined field_0x37ba;
-    undefined field_0x37bb;
-    undefined field_0x37bc;
-    undefined field_0x37bd;
-    undefined field_0x37be;
-    undefined field_0x37bf;
-    undefined field_0x37c0;
-    undefined field_0x37c1;
-    undefined field_0x37c2;
-    undefined field_0x37c3;
-    undefined field_0x37c4;
-    undefined field_0x37c5;
-    undefined field_0x37c6;
-    undefined field_0x37c7;
-    undefined field_0x37c8;
-    undefined field_0x37c9;
-    undefined field_0x37ca;
-    undefined field_0x37cb;
-    undefined field_0x37cc;
-    undefined field_0x37cd;
-    undefined field_0x37ce;
-    undefined field_0x37cf;
-    undefined field_0x37d0;
-    undefined field_0x37d1;
-    undefined field_0x37d2;
-    undefined field_0x37d3;
-    undefined field_0x37d4;
-    undefined field_0x37d5;
-    undefined field_0x37d6;
-    undefined field_0x37d7;
-    undefined field_0x37d8;
-    undefined field_0x37d9;
-    undefined field_0x37da;
-    undefined field_0x37db;
-    undefined field_0x37dc;
-    undefined field_0x37dd;
-    undefined field_0x37de;
-    undefined field_0x37df;
-    undefined field_0x37e0;
-    undefined field_0x37e1;
-    undefined field_0x37e2;
-    undefined field_0x37e3;
-    undefined field_0x37e4;
-    undefined field_0x37e5;
-    undefined field_0x37e6;
-    undefined field_0x37e7;
-    undefined field_0x37e8;
-    undefined field_0x37e9;
-    undefined field_0x37ea;
-    undefined field_0x37eb;
-    undefined field_0x37ec;
-    undefined field_0x37ed;
-    undefined field_0x37ee;
-    undefined field_0x37ef;
-    undefined field_0x37f0;
-    undefined field_0x37f1;
-    undefined field_0x37f2;
-    undefined field_0x37f3;
-    undefined field_0x37f4;
-    undefined field_0x37f5;
-    undefined field_0x37f6;
-    undefined field_0x37f7;
-    undefined field_0x37f8;
-    undefined field_0x37f9;
-    undefined field_0x37fa;
-    undefined field_0x37fb;
-    undefined field_0x37fc;
-    undefined field_0x37fd;
-    undefined field_0x37fe;
-    undefined field_0x37ff;
-    undefined field_0x3800;
-    undefined field_0x3801;
-    undefined field_0x3802;
-    undefined field_0x3803;
-    undefined field_0x3804;
-    undefined field_0x3805;
-    undefined field_0x3806;
-    undefined field_0x3807;
-    undefined field_0x3808;
-    undefined field_0x3809;
-    undefined field_0x380a;
-    undefined field_0x380b;
-    undefined field_0x380c;
-    undefined field_0x380d;
-    undefined field_0x380e;
-    undefined field_0x380f;
-    undefined field_0x3810;
-    undefined field_0x3811;
-    undefined field_0x3812;
-    undefined field_0x3813;
+    // 0x3794: Table of monsters that can be spawned on the floor.
+    // The number of valid entries is stored in monster_spawn_table_length.
+    // The last 2 entries of the table are always Kecleon (0x17F) and the dummy (0x229).
+    struct monster_spawn_entry monster_spawn_table[16];
     undefined field_0x3814;
     undefined field_0x3815;
     undefined field_0x3816;
@@ -3356,10 +3235,8 @@ struct dungeon {
     undefined field_0x3e1d;
     undefined field_0x3e1e;
     undefined field_0x3e1f;
-    undefined field_0x3e20;
-    undefined field_0x3e21;
-    undefined field_0x3e22;
-    undefined field_0x3e23;
+    // 0x3E20: Number of valid entries in the monster spawn table.
+    int monster_spawn_table_length;
     undefined field_0x3e24;
     undefined field_0x3e25;
     undefined field_0x3e26;
@@ -3381,7 +3258,7 @@ struct dungeon {
     bool enemy_minus_is_active; // 0x3E36: An enemy monster has the ability Minus
     bool team_minus_is_active;  // 0x3E37: A team member has the ability Minus
     undefined field_0x3e38;
-    undefined field_0x3e39;
+    bool mew_cannot_spawn;  // 0x3E39: If true, a monster with id 0x97 (Mew) cannot be spawned on the floor.
     undefined field_0x3e3a;
     undefined field_0x3e3b;
     undefined field_0x3e3c;
@@ -19065,20 +18942,19 @@ struct dungeon {
     undefined field_0x19901;
     undefined field_0x19902;
     undefined field_0x19903;
-    undefined field_0x19904;
+    undefined field_0x19904;    // Unknown entity pointer to a monster.
     undefined field_0x19905;
     undefined field_0x19906;
     undefined field_0x19907;
-    undefined field_0x19908;
-    undefined field_0x19909;
-    undefined field_0x1990a;
-    undefined field_0x1990b;
+    // 0x19908: Pointer to the entity to be spawned by the effect of Illuminate
+    struct entity* illuminate_spawn_entity;
+    // 0x1990C: Seems to store the value of field 0x7 from the statuses struct of the monster that 0x19904 points to.
     undefined field_0x1990c;
     undefined field_0x1990d;
     undefined field_0x1990e;
     undefined field_0x1990f;
-    undefined field_0x19910;
-    undefined field_0x19911;
+    // 0x19910: Spawn genid of the monster to be spawned by the effect of Illuminate
+    uint16_t illuminate_spawn_genid;
     undefined field_0x19912;
     undefined field_0x19913;
     // 0x19914: List that matches monster IDs with their sprite index on this floor

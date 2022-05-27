@@ -56,6 +56,10 @@ overlay10:
         NA: 0x2
         EU: 0x2
       description: The permanent attack boost from ingesting a Protein.
+    - name: SPAWN_CAP_NO_MONSTER_HOUSE
+      address:
+        NA: 0x22C4430
+        EU: 0x22C4D88
     - name: OREN_BERRY_DAMAGE
       address:
         NA: 0x22C4438
@@ -184,6 +188,10 @@ overlay10:
         NA: 0x2
         EU: 0x2
       description: "The maximum number of monster spawns in a Monster House, 30, but multiplied by 2/3 for some reason (so the actual maximum is 45)"
+    - name: SPEED_BOOST_TURNS
+      address:
+        NA: 0x22C466C
+        EU: 0x22C4FC4
     - name: MIRACLE_CHEST_EXP_BOOST
       address:
         NA: 0x22C4698
@@ -200,6 +208,10 @@ overlay10:
         NA: 0x2
         EU: 0x2
       description: The percentage increase in experience from the Wonder Chest item
+    - name: SPAWN_CAP_WITH_MONSTER_HOUSE
+      address:
+        NA: 0x22C46A4
+        EU: 0x22C4FFC
     - name: POISON_DAMAGE_COOLDOWN
       address:
         NA: 0x22C46A8
