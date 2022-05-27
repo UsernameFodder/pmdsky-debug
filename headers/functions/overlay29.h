@@ -169,7 +169,7 @@ int LowerSshort(int x);
 bool DealDamageWithRecoil(struct entity* attacker, struct entity* defender, struct move* move,
                           enum item_id item_id);
 void ExecuteMoveEffect(undefined4* param_0, struct entity* attacker, struct move* move,
-                    undefined4 param_3, undefined4 param_4);
+                       undefined4 param_3, undefined4 param_4);
 int DealDamage(struct entity* attacker, struct entity* defender, struct move* move,
                int damage_mult_fp, enum item_id item_id);
 void CalcDamageProjectile(struct entity* attacker, struct entity* defender, struct move* move,

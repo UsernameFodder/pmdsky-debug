@@ -189,8 +189,8 @@ uint8_t GetMonsterGender(enum monster_id monster_id);
 uint8_t GetSpriteSize(enum monster_id monster_id);
 uint8_t GetSpriteFileSize(enum monster_id monster_id);
 enum monster_id GetMonsterPreEvolution(enum monster_id monster_id);
-int GetEvolutions(enum monster_id monster_id, enum monster_id* output_list, bool skip_sprite_size_check,
-                  bool skip_shedinja_check);
+int GetEvolutions(enum monster_id monster_id, enum monster_id* output_list,
+                  bool skip_sprite_size_check, bool skip_shedinja_check);
 enum monster_id GetMonsterIdFromSpawnEntry(struct monster_spawn_entry*);
 uint8_t GetMonsterGenderWrapper(enum monster_id monster_id);
 bool IsUnown(enum monster_id monster_id);

@@ -1361,7 +1361,7 @@ ASSERT_SIZE(struct dungeon_menu_entry, 8);
 
 // Represents a message containing a dungeon tip that is displayed at the start of a floor
 struct message_tip {
-    int tip_id; // 0x0: Each tip message has its own ID
+    int tip_id;     // 0x0: Each tip message has its own ID
     int message_id; // 0x4: String ID of the message to display
 };
 ASSERT_SIZE(struct message_tip, 8);

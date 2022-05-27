@@ -2856,8 +2856,7 @@ overlay29:
       address:
         NA: 0x234D2AC
         EU: 0x234DEAC
-      description: |-
-        Very similar to DisplayMessage
+      description: Very similar to DisplayMessage
     - name: DisplayMessageInternal
       address:
         NA: 0x234D590
