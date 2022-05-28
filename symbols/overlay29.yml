@@ -196,6 +196,14 @@ overlay29:
         Checks if the current fixed room is the "substitute room" (ID 0x6E).
         
         return: bool
+    - name: ShouldGameOverOnImportantTeamMemberFaint
+      address:
+        NA: 0x22E0928
+        EU: 0x22E1268
+      description: |-
+        Returns true if you should get kicked out of the dungeon if an important team member (like the partner or certain story allies) faints.
+        
+        return: dungeon::nonstory_flag || dungeon::hidden_land_flag
     - name: SubstitutePlaceholderStringTags
       address:
         NA: 0x22E2AD8
@@ -247,6 +255,23 @@ overlay29:
         r0: entity pointer
         r1: item ID
         return: bool
+    - name: IsOnMonsterSpawnList
+      address:
+        NA: 0x22E7D4C
+        EU: 0x22E86FC
+      description: |-
+        Returns true if the specified monster is included in the floor's monster spawn list (the modified list after a maximum of 14 different species were chosen, not the raw list read from the mappa file).
+        
+        r0: Monster ID
+        return: bool
+    - name: GetLeader
+      address:
+        NA: 0x22E9580
+        EU: 0x22E9F30
+      description: |-
+        Gets the pointer to the entity that is currently leading the team, or null if none of the first 4 entities is a valid monster with its is_team_leader flag set. It also sets LEADER_PTR to the result before returning it.
+        
+        return: Pointer to the current leader of the team or null if there's no valid leader.
     - name: GenerateDungeonRngSeed
       address:
         NA: 0x22EA980
@@ -394,6 +419,22 @@ overlay29:
         
         r0: pointer to user entity
         r1: pointer to target entity
+    - name: SetForcedLossReason
+      address:
+        NA: 0x22ED008
+        EU: 0x22ED9B8
+      description: |-
+        Sets dungeon::forced_loss_reason to the specified value
+        
+        r0: Forced loss reason
+    - name: GetForcedLossReason
+      address:
+        NA: 0x22ED01C
+        EU: 0x22ED9CC
+      description: |-
+        Returns dungeon::forced_loss_reason
+        
+        return: forced_loss_reason
     - name: ResetDamageDesc
       address:
         NA: 0x22F6E18
@@ -403,6 +444,15 @@ overlay29:
         Seems to zero some damage description struct, which is output by the damage calculation function.
         
         r0: damage description pointer
+    - name: GetSpriteIndex
+      address:
+        NA: 0x22F7388
+        EU: 0x22F7D40
+      description: |-
+        Gets the sprite index of the specified monster on this floor
+        
+        r0: Monster ID
+        return: Sprite index of the specified monster ID
     - name: FloorNumberIsEven
       address:
         NA: 0x22F73B4
@@ -414,6 +464,16 @@ overlay29:
         Has a special check to return false for Labyrinth Cave B10F (the Gabite boss fight).
         
         return: bool
+    - name: HandleFaint
+      address:
+        NA: 0x22F7F30
+        EU: 0x22F8938
+      description: |-
+        Handles a fainted pokémon (reviving does not count as fainting).
+        
+        r0: Fainted entity
+        r1: Faint reason (move ID or greater than the max move id for other causes)
+        r2: Entity responsible of the fainting
     - name: TryActivateSlowStart
       address:
         NA: 0x22F923C
@@ -499,6 +559,15 @@ overlay29:
         Checks if an entity has the ability Truant, and if so tries to apply the pause status to it.
         
         r0: pointer to entity
+    - name: RestorePpAllMovesSetFlags
+      address:
+        NA: 0x22F9A74
+        EU: 0x22FA480
+      description: |-
+        Restores PP for all moves, clears flags move::f_consume_2_pp, move::flags2_unk5 and move::flags2_unk7, and sets flag move::f_consume_pp.
+        Called when a monster is revived.
+        
+        r0: pointer to entity whose moves will be restored
     - name: ExclusiveItemEffectIsActive
       address:
         NA:
@@ -642,6 +711,16 @@ overlay29:
         r0: entity pointer
         r1: IQ skill ID
         return: bool
+    - name: GetMoveTypeForMonster
+      address:
+        NA: 0x230227C
+        EU: 0x2302CA8
+      description: |-
+        Check the type of a move when used by a certain monster. Accounts for special cases such as Hidden Power, Weather Ball, the regular attack...
+        
+        r0: Entity pointer
+        r1: Pointer to move data
+        return: Type of the move
     - name: GetMovePower
       address:
         NA: 0x230231C
@@ -668,6 +747,39 @@ overlay29:
         r0: attacker pointer
         r1: defender pointer
         r2: base experience gain, before boosts
+    - name: EnemyEvolution
+      address:
+        NA: 0x23026FC
+        EU: 0x2303128
+      description: |-
+        Checks if the specified enemy should evolve because it just defeated an ally, and if so, attempts to evolve it.
+        
+        r0: Pointer to the enemy to check
+    - name: EvolveMonster
+      address:
+        NA: 0x2303C7C
+        EU: 0x23046A8
+      description: |-
+        Makes the specified monster evolve into the specified species.
+        
+        r0: Pointer to the entity to evolve
+        r1: ?
+        r2: Species to evolve into
+    - name: ApplyDamage
+      address:
+        NA: 0x2308FE0
+        EU: 0x2309A0C
+      description: |-
+        Applies damage to a monster. Displays the damage animation, lowers its health and handles reviving if applicable.
+        The EU version has some additional checks related to printing fainting messages under specific circumstances.
+        
+        r0: Attacker pointer
+        r1: Defender pointer
+        r2: Pointer to the damage_data struct that contains info about the damage to deal
+        r3: ?
+        stack[0]: ?
+        stack[1]: Pointer to some struct. The first byte contains the ID of the move used.
+        return: True if the target fainted (reviving does not count as fainting)
     - name: GetTypeMatchup
       address:
         NA: 0x230AC58
@@ -697,7 +809,7 @@ overlay29:
         r2: attack type
         r3: attack power
         stack[0]: crit chance
-        stack[1]: [output] damage description struct?
+        stack[1]: [output] struct containing info about the damage calculation
         stack[2]: damage multiplier (as a binary fixed-point number with 8 fraction bits)
         stack[3]: move ID
         stack[4]: ?
@@ -714,7 +826,7 @@ overlay29:
         r0: entity pointer
         r1: fixed damage
         r2: ?
-        r3: [output] damage description struct?
+        r3: [output] struct containing info about the damage calculation
         stack[0]: move ID (interestingly, this doesn't seem to be used by the function)
         stack[1]: attack type
         stack[2]: ?
@@ -732,7 +844,7 @@ overlay29:
         r1: defender pointer
         r2: fixed damage
         r3: ?
-        stack[0]: [output] damage description struct?
+        stack[0]: [output] struct containing info about the damage calculation
         stack[1]: attack type
         stack[2]: move category
         stack[3]: ?
@@ -749,7 +861,7 @@ overlay29:
         r0: attacker pointer
         r1: defender pointer
         r2: fixed damage
-        stack[0]: [output] damage description struct?
+        stack[0]: [output] struct containing info about the damage calculation
         stack[1]: attack type
         others: ?
     - name: CalcDamageFixedWrapper
@@ -763,7 +875,7 @@ overlay29:
         r0: attacker pointer
         r1: defender pointer
         r2: fixed damage
-        stack[0]: [output] damage description struct?
+        stack[0]: [output] struct containing info about the damage calculation
         stack[1]: attack type
         stack[2]: move category
         others: ?
@@ -1440,6 +1552,18 @@ overlay29:
         r1: target entity pointer
         r2: warp type
         r3: position (if warp type is position-based)
+    - name: MoveHitCheck
+      address:
+        NA: 0x2323C48
+        EU: 0x23246B0
+      description: |-
+        Determines if a move used hits or misses the target. It gets called twice per target, once with r3 = false and a second time with r3 = true.
+        
+        r0: Attacker
+        r1: Defender
+        r2: Pointer to move data
+        r3: True if the move's first accuracy (accuracy1) should be used, false if its second accuracy (accuracy2) should be used instead.
+        returns: True if the move hits, false if it misses.
     - name: DungeonRandOutcomeUserTargetInteraction
       address:
         NA: 0x2324934
@@ -1498,6 +1622,18 @@ overlay29:
         r2: move
         r3: item ID
         return: bool, whether or not damage was dealt
+    - name: ExecuteMoveEffect
+      address:
+        NA: 0x232E864
+        EU: 0x232F2A4
+      description: |-
+        Handles the effects that happen after a move is used. Includes a loop that is run for each target, mutiple ability checks and the giant switch statement that executes the effect of the move used given its ID.
+        
+        r0: pointer to some struct
+        r1: attacker pointer
+        r2: pointer to move data
+        r3: ?
+        stack[0]: ?
     - name: DealDamage
       address:
         NA: 0x2332B20
@@ -1525,6 +1661,18 @@ overlay29:
         r2: move pointer
         r3: move power
         others: ?
+    - name: CalcDamageFinal
+      address:
+        NA: 0x2332D6C
+        EU: 0x23337AC
+      description: |-
+        Last function called by DealDamage to determine the final damage dealt by the move. The result of this call is the return value of DealDamage. 
+        
+        r0: Attacker pointer
+        r1: Defender pointer
+        r2: Move pointer
+        r3: ?
+        stack[0]: Pointer to some struct. The first byte contains the ID of the move used.
     - name: GetApparentWeather
       address:
         NA: 0x2334D08
@@ -1548,6 +1696,9 @@ overlay29:
         NA:
           - 0x23360FC
           - 0x2336164
+        EU:
+          - 0x2336CCC
+          - 0x2336D34
       description: |-
         Get the tile at some position.
         
@@ -1578,6 +1729,30 @@ overlay29:
         Checks if the current floor is the Secret Room fixed floor (from hidden stairs).
         
         return: bool
+    - name: GetMinimapData
+      address:
+        NA: 0x2339118
+        EU: 0x2339CE8
+      description: |-
+        Returns a pointer to the minimap_display_data struct in the dungeon struct.
+        
+        return: minimap_display_data*
+    - name: SetMinimapDataE447
+      address:
+        NA: 0x233A218
+        EU: 0x233ADE8
+      description: |-
+        Sets minimap_display_data::field_0xE447 to the specified value
+        
+        r0: Value to set the field to
+    - name: SetMinimapDataE448
+      address:
+        NA: 0x233A230
+        EU: 0x233AE14
+      description: |-
+        Sets minimap_display_data::field_0xE448 to the specified value
+        
+        r0: Value to set the field to
     - name: LoadFixedRoomDataVeneer
       address:
         NA: 0x233A624
@@ -2287,6 +2462,14 @@ overlay29:
         r0: entity pointer
         r1: item ID
         return: bool
+    - name: IsOutlawOrChallengeRequestFloor
+      address:
+        NA: 0x23491C4
+        EU: 0x2349DC4
+      description: |-
+        Checks if the current floor is an active mission destination of type MISSION_TAKE_ITEM_FROM_OUTLAW, MISSION_ARREST_OUTLAW or MISSION_CHALLENGE_REQUEST.
+        
+        return: bool
     - name: IsCurrentMissionType
       address:
         NA: 0x234921C
@@ -2605,6 +2788,15 @@ overlay29:
         r0: user entity pointer
         r1: message ID
         r2: bool, whether or not to present a message popup
+    - name: OpenMessageLog
+      address:
+        NA: 0x234BB5C
+        EU: 0x234C75C
+      description: |-
+        Opens the message log window.
+        
+        r0: ?
+        r1: ?
     - name: RunDungeonMode
       address:
         NA: 0x234BF28
@@ -2616,6 +2808,15 @@ overlay29:
         It gets called by some code in overlay 10 right after doing the dungeon fade transition, and once it exits, the dungeon results are processed.
         
         This function is presumably in charge of allocating the dungeon struct, setting it up, launching the dungeon engine, etc.
+    - name: DisplayDungeonTip
+      address:
+        NA: 0x234CEF0
+        EU: 0x234DAF0
+      description: |-
+        Checks if a given dungeon tip should be displayed at the start of a floor and if so, displays it. Called up to 4 times at the start of each new floor, with a different r0 parameter each time.
+        
+        r0: Pointer to the message_tip struct of the message that should be displayed
+        r1: True to log the message in the message log
     - name: SetBothScreensWindowColorToDefault
       address:
         NA: 0x234CF60
@@ -2626,6 +2827,50 @@ overlay29:
         If you're in a special episode, they turn green , otherwise, they turn blue or pink depending on your character's sex
         
         No params
+    - name: DisplayMessage
+      address:
+        NA: 0x234D258
+        EU: 0x234DE58
+      description: |-
+        Displays a message in a dialogue box that optionally waits for player input before closing.
+        
+        r0: ?
+        r1: ID of the string to display
+        r2: True to wait for player input before closing the dialogue box, false to close it automatically once all the characters get printed.
+    - name: DisplayMessage2
+      address:
+        NA: 0x234D2AC
+        EU: 0x234DEAC
+      description: Very similar to DisplayMessage
+    - name: DisplayMessageInternal
+      address:
+        NA: 0x234D590
+        EU: 0x234E190
+      description: |-
+        Called by DisplayMessage. Seems to be the function that handles the display of the dialogue box. It won't return until all the characters have been written and after the player manually closes the dialogue box (if the corresponding parameter was set).
+        
+        r0: ID of the string to display
+        r1: True to wait for player input before closing the dialogue box, false to close it automatically once all the characters get printed.
+        r2: ? (r0 in DisplayMessage)
+        r3: ?
+        stack[0]: ?
+        stack[1]: ?
+    - name: EuFaintCheck
+      address:
+        EU: 0x22F88E8
+      description: |-
+        This function is exclusive to the EU ROM. Seems to perform a check to see if the monster who just fainted was a team member who should cause the minimap to be updated (or something like that, maybe related to the Map Surveyor IQ skill) and if it passes, updates the minimap.
+        The function ends by calling another 2 functions. In US ROMs, calls to EUFaintCheck are replaced by calls to those two functions. This seems to indicate that this function fixes some edge case glitch that can happen when a team member faints.
+        
+        r0: False if the fainted entity was a team member
+        r1: True to set an unknown byte in the RAM to 1
+    - name: GetMinimapDataE447
+      address:
+        EU: 0x233AE00
+      description: |-
+        Exclusive to the EU ROM. Returns minimap_display_data::field_0xE447.
+        
+        return: minimap_display_data::field_0xE447
   data:
     - name: DUNGEON_STRUCT_SIZE
       address:
@@ -3168,6 +3413,17 @@ overlay29:
         This is a "master copy" of the dungeon pointer. The game uses this pointer when doing low-level memory work (allocation, freeing, zeroing). The normal DUNGEON_PTR is used for most other dungeon mode work.
         
         type: struct dungeon*
+    - name: LEADER_PTR
+      address:
+        NA: 0x235355C
+        EU: 0x235415C
+      length:
+        NA: 0x4
+        EU: 0x4
+      description: |-
+        [Runtime] Pointer to the current leader of the team.
+        
+        type: struct entity*
     - name: DUNGEON_PRNG_STATE
       address:
         NA: 0x2353570
@@ -3216,6 +3472,14 @@ overlay29:
         NA: 0x8
         EU: 0x8
       description: Array of IDs for exclusive item effects that grant status immunity with certain weather conditions.
+    - name: EXCL_ITEM_EFFECTS_EVASION_BOOST
+      address:
+        NA: 0x2353710
+        EU: 0x2354310
+      length:
+        NA: 0x8
+        EU: 0x8
+      description: Array of IDs for exclusive item effects that grant an evasion boost with certain weather conditions.
     - name: DEFAULT_TILE
       address:
         NA: 0x2353724
