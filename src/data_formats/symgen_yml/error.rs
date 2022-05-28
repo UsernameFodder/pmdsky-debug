@@ -1,13 +1,40 @@
 //! Error types for this module.
 
 use std::fmt::{self, Display, Formatter};
+use std::path::PathBuf;
 use std::{error, io, result, string};
 
 use serde_yaml;
 
 use super::merge::{BlockInferenceError, MergeConflict, MissingBlock};
 
-/// Error encountered during processing a [`SymGen`].
+/// Error encountered when resolving a [`Subregion`].
+///
+/// [`Subregion`]: super::Subregion
+#[derive(Debug)]
+pub enum SubregionError {
+    InvalidPath(PathBuf),
+    Symlink(PathBuf),
+    SymGen((PathBuf, Box<Error>)),
+}
+
+impl error::Error for SubregionError {}
+
+impl Display for SubregionError {
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+        match self {
+            Self::InvalidPath(p) => write!(f, "invalid subregion path: '{}'", p.display()),
+            Self::Symlink(p) => write!(
+                f,
+                "subregion directory '{}' is a symlink; not supported",
+                p.display()
+            ),
+            Self::SymGen((p, e)) => write!(f, "{}: {}", p.display(), e),
+        }
+    }
+}
+
+/// Error encountered while processing a [`SymGen`].
 ///
 /// [`SymGen`]: super::SymGen
 #[derive(Debug)]
@@ -15,6 +42,7 @@ pub enum Error {
     Yaml(serde_yaml::Error),
     Io(io::Error),
     FromUtf8(string::FromUtf8Error),
+    Subregion(SubregionError),
 }
 
 impl error::Error for Error {}
@@ -27,6 +55,7 @@ impl Display for Error {
             Self::Yaml(e) => write!(f, "YAML: {}", e),
             Self::Io(e) => write!(f, "{}", e),
             Self::FromUtf8(e) => write!(f, "{}", e),
+            Self::Subregion(e) => write!(f, "{}", e),
         }
     }
 }

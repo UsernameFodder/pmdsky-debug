@@ -5,8 +5,9 @@ use std::borrow::Cow;
 use std::cmp::Ordering;
 use std::collections::{BTreeMap, HashMap};
 use std::fmt::{self, Display, Formatter};
-use std::io::{Read, Write};
+use std::io::{self, Read, Write};
 use std::ops::Deref;
+use std::path::{Path, PathBuf};
 use std::slice::SliceIndex;
 
 use regex::{Captures, Regex};
@@ -14,7 +15,7 @@ use serde::{Deserialize, Serialize};
 use serde_yaml;
 use syn::{self, LitStr};
 
-use super::error::{Error, Result};
+use super::error::{Error, Result, SubregionError};
 use super::types::*;
 
 /// Specifies how integers should be formatted during serialization.
@@ -290,6 +291,9 @@ impl SymbolList {
     pub fn push(&mut self, value: Symbol) {
         self.0.push(value)
     }
+    pub fn append(&mut self, other: &mut SymbolList) {
+        self.0.append(&mut other.0)
+    }
 }
 
 impl Deref for SymbolList {
@@ -346,6 +350,9 @@ pub struct Block {
     pub description: Option<String>,
 
     // Symbols
+    /// List of subregions.
+    #[serde(skip_serializing_if = "option_vec_is_empty")]
+    pub subregions: Option<Vec<Subregion>>,
     /// List of function symbols.
     pub functions: SymbolList,
     /// List of data symbols.
@@ -375,6 +382,53 @@ impl Block {
         // Init symbols
         self.functions.init(&ctx);
         self.data.init(&ctx);
+    }
+    /// Recursively resolves the contents of all [`Subregion`]s in the [`Block`].
+    ///
+    /// [`Subregion`]s are read from files using `file_opener`, with file paths based on the root
+    /// directory specified by `dir_path`.
+    pub fn resolve_subregions<P, R, F>(&mut self, dir_path: P, file_opener: F) -> Result<()>
+    where
+        P: AsRef<Path>,
+        R: Read,
+        F: Fn(&Path) -> io::Result<R> + Copy,
+    {
+        if let Some(subregions) = &mut self.subregions {
+            for s in subregions.iter_mut() {
+                s.resolve(&dir_path, file_opener)?;
+                // Recursively resolve
+                let subdir_path = dir_path.as_ref().join(Subregion::subregion_dir(&s.name));
+                // Explicitly block symlinks, which could lead to infinite recursion.
+                // If the path itself is invalid, just carry on and let file_opener deal with it.
+                // Note that the documentation on is_symlink() is a bit ambiguous, but this method
+                // (at least on Unix) will still follow symlinks on the path to get to the file,
+                // it just won't follow the file's link if the file itself is a symlink.
+                if subdir_path.is_symlink() {
+                    return Err(Error::Subregion(SubregionError::Symlink(subdir_path)));
+                }
+                s.contents
+                    .as_mut()
+                    .expect("subregion not resolved after Subregion::resolve()")
+                    .resolve_subregions(&subdir_path, file_opener)?;
+            }
+        }
+        Ok(())
+    }
+    /// Moves all symbols within [`Subregion`]s into the [`Block`]'s main symbol lists, destroying
+    /// the [`Subregion`]s in the process.
+    pub fn collapse_subregions(&mut self) {
+        if let Some(subregions) = self.subregions.take() {
+            for s in subregions {
+                if let Some(mut symgen) = s.contents {
+                    // Recursively collapse
+                    symgen.collapse_subregions();
+                    for blocks in symgen.blocks_mut() {
+                        self.functions.append(&mut blocks.functions);
+                        self.data.append(&mut blocks.data);
+                    }
+                }
+            }
+        }
     }
     /// Gets the extent occupied by the [`Block`], possibly by version, represented as
     /// address-length pairs.
@@ -460,6 +514,14 @@ impl Ord for Block {
 
 impl Sort for Block {
     fn sort(&mut self) {
+        if let Some(subregions) = &mut self.subregions {
+            subregions.sort();
+            for s in subregions {
+                if let Some(contents) = &mut s.contents {
+                    contents.sort();
+                }
+            }
+        }
         self.functions.sort();
         self.data.sort();
     }
@@ -707,6 +769,30 @@ impl SymGen {
         String::from_utf8(bytes).map_err(Error::FromUtf8)
     }
 
+    /// Recursively resolves the contents of all [`Subregion`]s in all [`Block`]s within the
+    /// [`SymGen`].
+    ///
+    /// [`Subregion`]s are read from files using `file_opener`, with file paths based on the root
+    /// directory specified by `dir_path`.
+    pub fn resolve_subregions<P, R, F>(&mut self, dir_path: P, file_opener: F) -> Result<()>
+    where
+        P: AsRef<Path>,
+        R: Read,
+        F: Fn(&Path) -> io::Result<R> + Copy,
+    {
+        for block in self.0.values_mut() {
+            block.resolve_subregions(&dir_path, file_opener)?;
+        }
+        Ok(())
+    }
+    /// Moves all symbols within [`Subregion`]s into their parent [`Block`]s' main symbol lists,
+    /// destroying the [`Subregion`]s in the process.
+    pub fn collapse_subregions(&mut self) {
+        for block in self.0.values_mut() {
+            block.collapse_subregions();
+        }
+    }
+
     /// Expands the versions of all the addresses and lengths contained within the [`SymGen`]
     /// (in all the contained [`Block`]s).
     ///
@@ -808,6 +894,130 @@ impl Sort for SymGen {
         for block in self.0.values_mut() {
             block.sort();
         }
+    }
+}
+
+/// A subsidiary [`SymGen`] (a collection of named [`Block`]s) nested within a parent [`Block`].
+///
+/// A minimal [`Subregion`] consists of just a file name, which may or may not correspond to a
+/// valid file. A [`Subregion`] can be "resolved" by associating a concrete [`SymGen`] with it,
+/// typically by reading the contents of a file corresponding to the [`Subregion`]'s name.
+/// The contents of a resolved [`Subregion`] are logically grouped together, but are ultimately
+/// owned by the parent [`Block`].
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Deserialize)]
+#[serde(transparent)]
+pub struct Subregion {
+    pub name: PathBuf,
+    // This doesn't actually need to be a Box to compile, but it's more space-efficient for the
+    // common case of an unresolved subregion. It also allows for the null pointer optimization.
+    #[serde(skip)]
+    pub contents: Option<Box<SymGen>>,
+}
+
+impl Subregion {
+    /// Get the canonical directory containing the subregion files for a given parent file path.
+    pub fn subregion_dir<P: AsRef<Path>>(filepath: P) -> PathBuf {
+        filepath.as_ref().with_extension("")
+    }
+
+    /// Whether this [`Subregion`] is associated with a concrete [`SymGen`].
+    pub fn is_resolved(&self) -> bool {
+        self.contents.is_some()
+    }
+
+    /// Resolve this [`Subregion`] with the contents of a file.
+    ///
+    /// The file is read using `file_opener`, with the file path derived from the directory
+    /// specified by `dir_path` and the [`Subregion`]'s name.
+    pub fn resolve<P, R, F>(&mut self, dir_path: P, file_opener: F) -> Result<()>
+    where
+        P: AsRef<Path>,
+        R: Read,
+        F: Fn(&Path) -> io::Result<R> + Copy,
+    {
+        if self.name.components().count() != 1 {
+            return Err(Error::Subregion(SubregionError::InvalidPath(
+                self.name.clone(),
+            )));
+        }
+        let filepath = dir_path.as_ref().join(&self.name);
+        let rdr = file_opener(&filepath).map_err(|e| {
+            Error::Subregion(SubregionError::SymGen((
+                filepath.clone(),
+                Box::new(Error::Io(e)),
+            )))
+        })?;
+        self.contents = Some(Box::new(SymGen::read(rdr).map_err(|e| {
+            Error::Subregion(SubregionError::SymGen((filepath.clone(), Box::new(e))))
+        })?));
+        Ok(())
+    }
+    /// Unresolves this [`Subregion`] by discarding its contents, if any.
+    pub fn unresolve(&mut self) {
+        self.contents = None;
+    }
+}
+
+impl<P> From<P> for Subregion
+where
+    P: AsRef<Path>,
+{
+    fn from(val: P) -> Self {
+        // unresolved subregion
+        Subregion {
+            name: val.as_ref().to_owned(),
+            contents: None,
+        }
+    }
+}
+
+impl<P> PartialEq<P> for Subregion
+where
+    P: AsRef<Path>,
+{
+    fn eq(&self, other: &P) -> bool {
+        self.name == other.as_ref()
+    }
+}
+
+impl PartialOrd for Subregion {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+impl Ord for Subregion {
+    fn cmp(&self, other: &Self) -> Ordering {
+        self.name.cmp(&other.name)
+    }
+}
+
+#[cfg(test)]
+pub mod test_utils {
+    use super::*;
+    use std::collections::HashMap;
+    use std::io;
+    use std::path::{Path, PathBuf};
+
+    pub fn get_symgen_with_subregions<P: AsRef<Path>>(
+        root: &str,
+        subregions: &[(P, &str)],
+    ) -> SymGen {
+        let mut symgen = SymGen::read(root.as_bytes()).expect("Failed to read SymGen");
+        let root_dir = Path::new(file!());
+        let file_map: HashMap<PathBuf, String> = subregions
+            .iter()
+            .map(|(p, s)| (root_dir.join(p.as_ref()), s.to_string()))
+            .collect();
+        symgen
+            .resolve_subregions(root_dir, |p| {
+                file_map
+                    .get(p)
+                    .map(|s| s.as_bytes())
+                    .ok_or_else(|| io::Error::new(io::ErrorKind::NotFound, p.to_string_lossy()))
+            })
+            .expect("Failed to resolve subregions");
+        symgen
     }
 }
 
@@ -1213,6 +1423,7 @@ mod tests {
                 address: addresses.clone(),
                 length: addresses.clone(),
                 description: None,
+                subregions: None,
                 functions: symbols.clone(),
                 data: symbols.clone(),
             };
@@ -1223,8 +1434,14 @@ mod tests {
 
         #[test]
         fn test_init_sort() {
-            let block = get_sorted_block();
+            let mut block = get_sorted_block();
+            // Add some subregions manually
+            block.subregions = Some(vec!["subregion2".into(), "subregion1".into()]);
+            block.sort();
+
             let (_, final_versions, _, final_addresses, _, final_symbols) = get_block_data();
+            let mut final_subregions = block.subregions.clone().unwrap();
+            final_subregions.sort();
             assert_eq!(
                 &block,
                 &Block {
@@ -1232,6 +1449,7 @@ mod tests {
                     address: final_addresses.clone(),
                     length: final_addresses.clone(),
                     description: None,
+                    subregions: Some(final_subregions.clone()),
                     functions: final_symbols.clone(),
                     data: final_symbols.clone(),
                 }
@@ -1281,6 +1499,7 @@ mod tests {
                     address,
                     length,
                     description,
+                    subregions: None,
                     functions: expanded_symbols.clone(),
                     data: expanded_symbols.clone(),
                 }
@@ -1455,6 +1674,7 @@ other:
                                 [(("v1", 0).into(), 0x100000), (("v2", 1).into(), 0x100004)].into(),
                             ),
                             description: Some("foo".to_string()),
+                            subregions: None,
                             functions: [
                                 Symbol {
                                     name: "fn1".to_string(),
@@ -1506,6 +1726,7 @@ other:
                             address: MaybeVersionDep::Common(0x2100000),
                             length: MaybeVersionDep::Common(0x100000),
                             description: None,
+                            subregions: None,
                             functions: [Symbol {
                                 name: "fn3".to_string(),
                                 address: MaybeVersionDep::Common(0x2100000.into()),
@@ -1590,6 +1811,7 @@ other:
                                 .into(),
                             ),
                             description: Some("foo".to_string()),
+                            subregions: None,
                             functions: [
                                 Symbol {
                                     name: "fn1".to_string(),
@@ -1641,6 +1863,7 @@ other:
                             address: MaybeVersionDep::Common(0x2100000FFFF),
                             length: MaybeVersionDep::Common(0x100000FFFF),
                             description: None,
+                            subregions: None,
                             functions: [Symbol {
                                 name: "fn3".to_string(),
                                 address: MaybeVersionDep::Common(0x2100000FFFF.into()),
@@ -1786,6 +2009,262 @@ other:
                 assert_eq!(data_iter.next().as_ref(), Some(e));
             }
             assert_eq!(data_iter.next(), None);
+        }
+    }
+
+    #[cfg(test)]
+    mod subregion_tests {
+        use super::*;
+
+        #[test]
+        fn test_subregion_dir() {
+            assert_eq!(Subregion::subregion_dir("test.yml"), Path::new("test"));
+            assert_eq!(
+                Subregion::subregion_dir("path/to/test.yml"),
+                Path::new("path/to/test")
+            );
+            assert_eq!(
+                Subregion::subregion_dir("/abs/path/to/test.yml"),
+                Path::new("/abs/path/to/test")
+            );
+        }
+
+        fn get_basic_subregion<P: AsRef<Path>>(name: P) -> (Subregion, String) {
+            let text = format!(
+                r#"{}:
+                address: 0x0
+                length: 0x100
+                functions: []
+                data: []
+                "#,
+                Subregion::subregion_dir(&name).display()
+            );
+            let sub = Subregion {
+                name: name.as_ref().to_owned(),
+                contents: Some(Box::new(
+                    SymGen::read(text.as_bytes()).expect("Failed to read SymGen"),
+                )),
+            };
+            (sub, text)
+        }
+
+        fn get_parent_subregion<P: AsRef<Path>>(
+            name: P,
+            subregions: &[(P, Subregion)],
+        ) -> (Subregion, String) {
+            let text = format!(
+                r#"{}:
+                address: 0x0
+                length: 0x100
+                subregions: {:?}
+                functions: []
+                data: []
+                "#,
+                Subregion::subregion_dir(&name).display(),
+                subregions
+                    .iter()
+                    .map(|(p, _)| p.as_ref().display())
+                    .collect::<Vec<_>>()
+            );
+            let mut sub = Subregion {
+                name: name.as_ref().to_owned(),
+                contents: Some(Box::new(
+                    SymGen::read(text.as_bytes()).expect("Failed to read SymGen"),
+                )),
+            };
+            sub.contents
+                .as_mut()
+                .unwrap()
+                .blocks_mut()
+                .next()
+                .unwrap()
+                .subregions = Some(subregions.iter().map(|(_, s)| s.clone()).collect());
+            (sub, text)
+        }
+
+        #[test]
+        fn test_resolve() {
+            let name = "sub.yml";
+            let (resolved, text) = get_basic_subregion(name);
+            let mut subregion = Subregion::from(name);
+            assert!(!subregion.is_resolved());
+            subregion
+                .resolve("", |_| Ok(text.as_bytes()))
+                .expect("Failed to resolve subregion");
+            assert!(subregion.is_resolved());
+            assert_eq!(&subregion, &resolved);
+        }
+
+        #[test]
+        fn test_invalid_path() {
+            let mut subregion = Subregion::from("dir/sub.yml");
+            let res = subregion.resolve("", |_| Ok("".as_bytes()));
+            assert!(matches!(
+                res,
+                Err(Error::Subregion(SubregionError::InvalidPath(_)))
+            ));
+        }
+
+        #[test]
+        fn test_recursive_resolve_subregions() {
+            let (name1, name2, name3) = ("sub1.yml", "sub2.yml", "sub3.yml");
+            let mut symgen = SymGen::read(
+                format!(
+                    r#"main:
+                    address: 0x0
+                    length: 0x100
+                    subregions:
+                      - {}
+                      - {}
+                    functions: []
+                    data: []
+                    "#,
+                    name1, name2
+                )
+                .as_bytes(),
+            )
+            .expect("Failed to read SymGen");
+            let (sub1, text1) = get_basic_subregion(name1);
+            let (sub3, text3) = get_basic_subregion(name3);
+            let (sub2, text2) = get_parent_subregion(name2, &[(name3, sub3)]);
+            // Use this source file path as the root_dir in order to ensure that none of the test
+            // subregion paths are actually real, and thus that the recursive symlink check will
+            // never be set off. Technically this depends on the working directory when the test
+            // binary is run, but this should be a good enough safeguard...
+            let root_dir = Path::new(file!());
+            let file_map: HashMap<PathBuf, String> = [
+                (root_dir.join(name1), text1),
+                (root_dir.join(name2), text2),
+                (
+                    root_dir.join(Subregion::subregion_dir(name2)).join(name3),
+                    text3,
+                ),
+            ]
+            .into();
+
+            symgen
+                .resolve_subregions(root_dir, |p| {
+                    file_map
+                        .get(p)
+                        .map(|s| s.as_bytes())
+                        .ok_or_else(|| io::Error::new(io::ErrorKind::NotFound, p.to_string_lossy()))
+                })
+                .expect("Failed to resolve subregions");
+
+            let block = symgen.blocks().next().unwrap();
+            let block_subregions: Vec<&Subregion> = block
+                .subregions
+                .as_ref()
+                .expect("Block has no subregions?")
+                .iter()
+                .collect();
+            assert_eq!(block_subregions[0], &sub1);
+            assert_eq!(block_subregions[1], &sub2);
+        }
+
+        #[test]
+        fn test_recursive_collapse_subregions() {
+            let (name1, name2, name3) = ("sub1.yml", "sub2.yml", "sub3.yml");
+            let mut symgen = SymGen::read(
+                format!(
+                    r#"main:
+                    address: 0x0
+                    length: 0x100
+                    subregions:
+                      - {}
+                      - {}
+                    functions:
+                      - name: fn0
+                        address: 0x0
+                    data: []
+                    "#,
+                    name1, name2
+                )
+                .as_bytes(),
+            )
+            .expect("Failed to read SymGen");
+            let text1 = r#"sub1:
+                address: 0x0
+                length: 0x100
+                functions: []
+                data:
+                  - name: data1
+                    address: 0x10
+                    length: 0x4
+                "#;
+            let text2 = r#"sub2:
+                address: 0x0
+                length: 0x100
+                subregions:
+                  - sub3.yml
+                functions:
+                  - name: fn2
+                    address: 0x8
+                data:
+                  - name: data2
+                    address: 0x20
+                    length: 0x4
+                "#;
+            let text3 = r#"sub3:
+                address: 0x0
+                length: 0x100
+                functions:
+                  - name: fn3
+                    address: 0xC
+                data:
+                  - name: data3
+                    address: 0x30
+                    length: 0x4
+                "#;
+
+            let collapsed_symgen = SymGen::read(
+                r#"main:
+                address: 0x0
+                length: 0x100
+                functions:
+                  - name: fn0
+                    address: 0x0
+                  - name: fn2
+                    address: 0x8
+                  - name: fn3
+                    address: 0xC
+                data:
+                  - name: data1
+                    address: 0x10
+                    length: 0x4
+                  - name: data2
+                    address: 0x20
+                    length: 0x4
+                  - name: data3
+                    address: 0x30
+                    length: 0x4
+                "#
+                .as_bytes(),
+            )
+            .expect("Failed to read SymGen");
+
+            let root_dir = Path::new(file!());
+            let file_map: HashMap<PathBuf, String> = [
+                (root_dir.join(name1), text1.to_owned()),
+                (root_dir.join(name2), text2.to_owned()),
+                (
+                    root_dir.join(Subregion::subregion_dir(name2)).join(name3),
+                    text3.to_owned(),
+                ),
+            ]
+            .into();
+
+            symgen
+                .resolve_subregions(root_dir, |p| {
+                    file_map
+                        .get(p)
+                        .map(|s| s.as_bytes())
+                        .ok_or_else(|| io::Error::new(io::ErrorKind::NotFound, p.to_string_lossy()))
+                })
+                .expect("Failed to resolve subregions");
+
+            symgen.collapse_subregions();
+            assert_eq!(&symgen, &collapsed_symgen);
         }
     }
 }
