@@ -14,7 +14,7 @@ python3 arm5find.py -a 0x1390 0x28c </path/to/arm9_NA.bin> </path/to/arm9_EU.bin
 python3 arm5find.py -d 0x77330 0x14 </path/to/overlay29_NA.bin> </path/to/overlay29_EU.bin>
 
 You can include more than one `-a`/`-d` inputs to search for multiple segments
-at once. You can also incluce more than one target file to search multiple
+at once. You can also include more than one target file to search multiple
 files at once.
 """
 
