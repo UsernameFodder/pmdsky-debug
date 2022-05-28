@@ -247,6 +247,7 @@ overlay11:
     - name: C_ROUTINES
       address:
         NA: 0x231C828
+        EU: 0x231D208
         JP: 0x231DD8C
       length:
         NA: 0x15E8
@@ -260,6 +261,7 @@ overlay11:
     - name: OBJECTS
       address:
         NA: 0x231EE54
+        EU: 0x231F8DC
         JP: 0x23203B8
       length:
         NA: 0x1A04
