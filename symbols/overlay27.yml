@@ -1,44 +1,44 @@
 overlay27:
   versions:
-    - NA
     - EU
+    - NA
     - JP
   address:
-    NA: 0x238A140
     EU: 0x238AC80
+    NA: 0x238A140
     JP: 0x238B6A0
   length:
-    NA: 0x2D60
     EU: 0x2D60
+    NA: 0x2D60
     JP: 0x2DA0
   description: Controls the special episode item discard menu.
   functions: []
   data:
     - name: DISCARD_ITEMS_MENU_CONFIRM
       address:
-        NA: 0x238C95C
         EU: 0x238D49C
+        NA: 0x238C95C
       length:
-        NA: 0x18
         EU: 0x18
+        NA: 0x18
     - name: DISCARD_ITEMS_SUBMENU_1
       address:
-        NA: 0x238C974
         EU: 0x238D4B4
+        NA: 0x238C974
       length:
-        NA: 0x20
         EU: 0x20
+        NA: 0x20
     - name: DISCARD_ITEMS_SUBMENU_2
       address:
-        NA: 0x238C994
         EU: 0x238D4D4
+        NA: 0x238C994
       length:
-        NA: 0x20
         EU: 0x20
+        NA: 0x20
     - name: DISCARD_ITEMS_MAIN_MENU
       address:
-        NA: 0x238C9B4
         EU: 0x238D4F4
+        NA: 0x238C9B4
       length:
-        NA: 0x28
         EU: 0x28
+        NA: 0x28

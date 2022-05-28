@@ -1,15 +1,15 @@
 overlay6:
   versions:
-    - NA
     - EU
+    - NA
     - JP
   address:
-    NA: 0x233CA80
     EU: 0x233D200
+    NA: 0x233CA80
     JP: 0x233E300
   length:
-    NA: 0x2460
     EU: 0x2460
+    NA: 0x2460
     JP: 0x2460
   description: Controls the Wonder Mail S submenu within the top menu.
   functions: []

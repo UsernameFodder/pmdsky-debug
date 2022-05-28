@@ -1,15 +1,15 @@
 overlay1:
   versions:
-    - NA
     - EU
+    - NA
     - JP
   address:
-    NA: 0x2329520
     EU: 0x2329D40
+    NA: 0x2329520
     JP: 0x232ACC0
   length:
-    NA: 0x12D20
     EU: 0x12C80
+    NA: 0x12D20
     JP: 0x12E00
   description: |-
     Likely controls the top menu.
@@ -21,43 +21,43 @@ overlay1:
   data:
     - name: CONTINUE_CHOICE
       address:
-        NA: 0x233B568
         EU: 0x233BCB4
+        NA: 0x233B568
       length:
-        NA: 0x20
         EU: 0x20
+        NA: 0x20
     - name: SUBMENU
       address:
-        NA: 0x233B588
         EU: 0x233BCD4
+        NA: 0x233B588
       length:
-        NA: 0x48
         EU: 0x48
+        NA: 0x48
     - name: MAIN_MENU
       address:
-        NA: 0x233B5D0
         EU: 0x233BD1C
+        NA: 0x233B5D0
       length:
-        NA: 0xA0
         EU: 0xA0
+        NA: 0xA0
     - name: MAIN_MENU_CONFIRM
       address:
-        NA: 0x233B74C
         EU: 0x233BE98
+        NA: 0x233B74C
       length:
-        NA: 0x18
         EU: 0x18
+        NA: 0x18
     - name: MAIN_DEBUG_MENU_1
       address:
-        NA: 0x233B810
         EU: 0x233BF5C
+        NA: 0x233B810
       length:
-        NA: 0x60
         EU: 0x60
+        NA: 0x60
     - name: MAIN_DEBUG_MENU_2
       address:
-        NA: 0x233B890
         EU: 0x233BFDC
+        NA: 0x233B890
       length:
-        NA: 0x38
         EU: 0x38
+        NA: 0x38

@@ -1,15 +1,15 @@
 overlay29:
   versions:
-    - NA
     - EU
+    - NA
     - JP
   address:
-    NA: 0x22DC240
     EU: 0x22DCB80
+    NA: 0x22DC240
     JP: 0x22DD8E0
   length:
-    NA: 0x77620
     EU: 0x77900
+    NA: 0x77620
     JP: 0x77200
   description: |-
     The dungeon engine.
@@ -18,8 +18,8 @@ overlay29:
   functions:
     - name: DungeonAlloc
       address:
-        NA: 0x22DEA5C
         EU: 0x22DF39C
+        NA: 0x22DEA5C
         JP: 0x22E00FC
       description: |-
         Allocates a new dungeon struct.
@@ -29,16 +29,16 @@ overlay29:
         return: pointer to a newly allocated dungeon struct
     - name: GetDungeonPtrMaster
       address:
-        NA: 0x22DEA80
         EU: 0x22DF3C0
+        NA: 0x22DEA80
       description: |-
         Returns the master dungeon pointer (a global, see DUNGEON_PTR_MASTER).
         
         return: pointer to a newly allocated dungeon struct
     - name: DungeonZInit
       address:
-        NA: 0x22DEA90
         EU: 0x22DF3D0
+        NA: 0x22DEA90
         JP: 0x22E0130
       description: |-
         Zero-initializes the dungeon struct pointed to by the master dungeon pointer.
@@ -46,20 +46,74 @@ overlay29:
         No params.
     - name: DungeonFree
       address:
-        NA: 0x22DEAB0
         EU: 0x22DF3F0
+        NA: 0x22DEAB0
       description: |-
         Frees the dungeons struct pointer to by the master dungeon pointer, and nullifies the pointer.
         
         No params.
     - name: InitializeDungeon
       address:
-        NA: 0x22DEF38
         EU: 0x22DF878
+        NA: 0x22DEF38
         JP: 0x22E05D8
       description: Seems to initialize the dungeon struct from specified dungeon data.
     - name: EntityIsValid
       address:
+        EU:
+          - 0x22E0C94
+          - 0x22E235C
+          - 0x22E2947
+          - 0x22E3C98
+          - 0x22E4168
+          - 0x22E9FA4
+          - 0x22ECFB8
+          - 0x22ED770
+          - 0x22EECF8
+          - 0x22F0154
+          - 0x22F0F44
+          - 0x22F5C48
+          - 0x22F6C60
+          - 0x22F7D1C
+          - 0x22FD398
+          - 0x22FEEB8
+          - 0x2300B10
+          - 0x2303464
+          - 0x23051E4
+          - 0x2305FB8
+          - 0x2306630
+          - 0x2308924
+          - 0x23099E8
+          - 0x230F364
+          - 0x230FA7C
+          - 0x2311A70
+          - 0x2312314
+          - 0x2315B78
+          - 0x2319794
+          - 0x23198AC
+          - 0x231A9EC
+          - 0x231BBF4
+          - 0x231D630
+          - 0x231F840
+          - 0x231FFD8
+          - 0x2320664
+          - 0x2320BE4
+          - 0x23211CC
+          - 0x2326088
+          - 0x2328A78
+          - 0x232AE44
+          - 0x232CF70
+          - 0x232EC90
+          - 0x232F280
+          - 0x23349EC
+          - 0x2335B18
+          - 0x2338878
+          - 0x23456DC
+          - 0x2346284
+          - 0x23487A4
+          - 0x234A47C
+          - 0x234E9D0
+          - 0x234F820
         NA:
           - 0x22E0354
           - 0x22E1A1C
@@ -115,60 +169,6 @@ overlay29:
           - 0x234987C
           - 0x234DDD0
           - 0x234EC14
-        EU:
-          - 0x22E0C94
-          - 0x22E235C
-          - 0x22E2947
-          - 0x22E3C98
-          - 0x22E4168
-          - 0x22E9FA4
-          - 0x22ECFB8
-          - 0x22ED770
-          - 0x22EECF8
-          - 0x22F0154
-          - 0x22F0F44
-          - 0x22F5C48
-          - 0x22F6C60
-          - 0x22F7D1C
-          - 0x22FD398
-          - 0x22FEEB8
-          - 0x2300B10
-          - 0x2303464
-          - 0x23051E4
-          - 0x2305FB8
-          - 0x2306630
-          - 0x2308924
-          - 0x23099E8
-          - 0x230F364
-          - 0x230FA7C
-          - 0x2311A70
-          - 0x2312314
-          - 0x2315B78
-          - 0x2319794
-          - 0x23198AC
-          - 0x231A9EC
-          - 0x231BBF4
-          - 0x231D630
-          - 0x231F840
-          - 0x231FFD8
-          - 0x2320664
-          - 0x2320BE4
-          - 0x23211CC
-          - 0x2326088
-          - 0x2328A78
-          - 0x232AE44
-          - 0x232CF70
-          - 0x232EC90
-          - 0x232F280
-          - 0x23349EC
-          - 0x2335B18
-          - 0x2338878
-          - 0x23456DC
-          - 0x2346284
-          - 0x23487A4
-          - 0x234A47C
-          - 0x234E9D0
-          - 0x234F820
       description: |-
         Checks if an entity pointer points to a valid entity (not entity type 0, which represents no entity).
         
@@ -176,8 +176,8 @@ overlay29:
         return: bool
     - name: GetFloorType
       address:
-        NA: 0x22E03B0
         EU: 0x22E0CF0
+        NA: 0x22E03B0
         JP: 0x22E1A48
       description: |-
         Get the current floor type.
@@ -190,8 +190,8 @@ overlay29:
         return: floor type
     - name: TryForcedLoss
       address:
-        NA: 0x22E0620
         EU: 0x22E0F60
+        NA: 0x22E0620
         JP: 0x22E1CAC
       description: |-
         Attempts to trigger a forced loss of the type specified in dungeon::forced_loss_reason.
@@ -200,24 +200,24 @@ overlay29:
         return: true if the forced loss happens, false otherwise
     - name: FixedRoomIsSubstituteRoom
       address:
-        NA: 0x22E08CC
         EU: 0x22E120C
+        NA: 0x22E08CC
       description: |-
         Checks if the current fixed room is the "substitute room" (ID 0x6E).
         
         return: bool
     - name: ShouldGameOverOnImportantTeamMemberFaint
       address:
-        NA: 0x22E0928
         EU: 0x22E1268
+        NA: 0x22E0928
       description: |-
         Returns true if you should get kicked out of the dungeon if an important team member (like the partner or certain story allies) faints.
         
         return: dungeon::nonstory_flag || dungeon::hidden_land_flag
     - name: GetTileAtEntity
       address:
-        NA: 0x22E1628
         EU: 0x22E1F68
+        NA: 0x22E1628
         JP: 0x22E2CB8
       description: |-
         Returns a pointer to the tile where an entity is located.
@@ -226,8 +226,8 @@ overlay29:
         returns: pointer to tile
     - name: SubstitutePlaceholderStringTags
       address:
-        NA: 0x22E2AD8
         EU: 0x22E3418
+        NA: 0x22E2AD8
         JP: 0x22E416C
       description: |-
         Replaces instances of a given placeholder tag by the string representation of the given entity.
@@ -241,8 +241,8 @@ overlay29:
         r2: ?
     - name: UpdateMapSurveyorFlag
       address:
-        NA: 0x22E2DD8
         EU: 0x22E375C
+        NA: 0x22E2DD8
       description: |-
         Sets the Map Surveyor flag in the dungeon struct to true if a team member has Map Surveyor, sets it to false otherwise.
         
@@ -251,20 +251,6 @@ overlay29:
         return: bool
     - name: ItemIsActive
       address:
-        NA:
-          - 0x22E330C
-          - 0x22EE318
-          - 0x22F5994
-          - 0x22FF898
-          - 0x23026CC
-          - 0x2307F1C
-          - 0x230A9DC
-          - 0x230E578
-          - 0x230F810
-          - 0x2311034
-          - 0x2311BF8
-          - 0x231513C
-          - 0x2347B50
         EU:
           - 0x22E3CBC
           - 0x22EECC8
@@ -279,6 +265,20 @@ overlay29:
           - 0x2312658
           - 0x2315B9C
           - 0x2348750
+        NA:
+          - 0x22E330C
+          - 0x22EE318
+          - 0x22F5994
+          - 0x22FF898
+          - 0x23026CC
+          - 0x2307F1C
+          - 0x230A9DC
+          - 0x230E578
+          - 0x230F810
+          - 0x2311034
+          - 0x2311BF8
+          - 0x231513C
+          - 0x2347B50
       description: |-
         Checks if a monster is holding a certain item that isn't disabled by Klutz.
         
@@ -287,8 +287,8 @@ overlay29:
         return: bool
     - name: IsOnMonsterSpawnList
       address:
-        NA: 0x22E7D4C
         EU: 0x22E86FC
+        NA: 0x22E7D4C
       description: |-
         Returns true if the specified monster is included in the floor's monster spawn list (the modified list after a maximum of 14 different species were chosen, not the raw list read from the mappa file).
         
@@ -296,8 +296,8 @@ overlay29:
         return: bool
     - name: GetMonsterIdToSpawn
       address:
-        NA: 0x22E7DA0
         EU: 0x22E8750
+        NA: 0x22E7DA0
         JP: 0x22E9408
       description: |-
         Get the id of the monster to be randomly spawned.
@@ -306,8 +306,8 @@ overlay29:
         return: monster ID
     - name: GetMonsterLevelToSpawn
       address:
-        NA: 0x22E7E58
         EU: 0x22E8808
+        NA: 0x22E7E58
         JP: 0x22E94C0
       description: |-
         Get the level of the monster to be spawned, given its id.
@@ -316,16 +316,16 @@ overlay29:
         return: Level of the monster to be spawned, or 1 if the specified ID can't be found on the floor's spawn table.
     - name: GetLeader
       address:
-        NA: 0x22E9580
         EU: 0x22E9F30
+        NA: 0x22E9580
       description: |-
         Gets the pointer to the entity that is currently leading the team, or null if none of the first 4 entities is a valid monster with its is_team_leader flag set. It also sets LEADER_PTR to the result before returning it.
         
         return: Pointer to the current leader of the team or null if there's no valid leader.
     - name: TickStatusTurnCounter
       address:
-        NA: 0x22E9A44
         EU: 0x22EA3F4
+        NA: 0x22E9A44
         JP: 0x22EB0AC
       description: |-
         Ticks down a turn counter for a status condition. If the counter equals 0x7F, it will not be decreased.
@@ -334,8 +334,8 @@ overlay29:
         return: new counter value
     - name: GenerateDungeonRngSeed
       address:
-        NA: 0x22EA980
         EU: 0x22EB330
+        NA: 0x22EA980
         JP: 0x22EBFE8
       description: |-
         Generates a seed with which to initialize the dungeon PRNG.
@@ -349,8 +349,8 @@ overlay29:
         return: RNG seed
     - name: GetDungeonRngPreseed
       address:
-        NA: 0x22EA9CC
         EU: 0x22EB37C
+        NA: 0x22EA9CC
         JP: 0x22EC034
       description: |-
         Gets the current preseed stored in the global dungeon PRNG state. See GenerateDungeonRngSeed for more information.
@@ -358,8 +358,8 @@ overlay29:
         return: current dungeon RNG preseed
     - name: SetDungeonRngPreseed
       address:
-        NA: 0x22EA9DC
         EU: 0x22EB38C
+        NA: 0x22EA9DC
         JP: 0x22EC044
       description: |-
         Sets the preseed in the global dungeon PRNG state. See GenerateDungeonRngSeed for more information.
@@ -367,8 +367,8 @@ overlay29:
         r0: preseed
     - name: InitDungeonRng
       address:
-        NA: 0x22EA9EC
         EU: 0x22EB39C
+        NA: 0x22EA9EC
         JP: 0x22EC054
       description: |-
         Initialize (or reinitialize) the dungeon PRNG with a given seed. The primary LCG and the five secondary LCGs are initialized jointly, and with the same seed.
@@ -376,8 +376,8 @@ overlay29:
         r0: seed
     - name: DungeonRand16Bit
       address:
-        NA: 0x22EAA20
         EU: 0x22EB3D0
+        NA: 0x22EAA20
         JP: 0x22EC088
       description: |-
         Computes a pseudorandom 16-bit integer using the dungeon PRNG.
@@ -396,8 +396,8 @@ overlay29:
         return: pseudorandom int on the interval [0, 65535]
     - name: DungeonRandInt
       address:
-        NA: 0x22EAA98
         EU: 0x22EB448
+        NA: 0x22EAA98
         JP: 0x22EC100
       description: |-
         Compute a pseudorandom integer under a given maximum value using the dungeon PRNG.
@@ -406,8 +406,8 @@ overlay29:
         return: pseudorandom integer on the interval [0, high - 1]
     - name: DungeonRandRange
       address:
-        NA: 0x22EAAC0
         EU: 0x22EB470
+        NA: 0x22EAAC0
         JP: 0x22EC128
       description: |-
         Compute a pseudorandom value between two integers using the dungeon PRNG.
@@ -417,12 +417,12 @@ overlay29:
         return: pseudorandom integer on the interval [min(x, y), max(x, y) - 1]
     - name: DungeonRandOutcome
       address:
-        NA:
-          - 0x22EAB20
-          - 0x22EAB50
         EU:
           - 0x22EB4D0
           - 0x22EB500
+        NA:
+          - 0x22EAB20
+          - 0x22EAB50
       description: |-
         Returns the result of a possibly biased coin flip (a Bernoulli random variable) with some success probability p, using the dungeon PRNG.
         
@@ -430,8 +430,8 @@ overlay29:
         return: true with probability p, false with probability (1-p)
     - name: CalcStatusDuration
       address:
-        NA: 0x22EAB80
         EU: 0x22EB530
+        NA: 0x22EAB80
         JP: 0x22EC1E8
       description: |-
         Seems to calculate the duration of a volatile status on a monster.
@@ -442,8 +442,8 @@ overlay29:
         return: number of turns for the status condition
     - name: DungeonRngUnsetSecondary
       address:
-        NA: 0x22EAC34
         EU: 0x22EB5E4
+        NA: 0x22EAC34
         JP: 0x22EC29C
       description: |-
         Sets the dungeon PRNG to use the primary LCG for subsequent random number generation, and also resets the secondary LCG index back to 0.
@@ -453,8 +453,8 @@ overlay29:
         No params.
     - name: DungeonRngSetSecondary
       address:
-        NA: 0x22EAC4C
         EU: 0x22EB5FC
+        NA: 0x22EAC4C
         JP: 0x22EC2B4
       description: |-
         Sets the dungeon PRNG to use one of the 5 secondary LCGs for subsequent random number generation.
@@ -462,16 +462,16 @@ overlay29:
         r0: secondary LCG index
     - name: DungeonRngSetPrimary
       address:
-        NA: 0x22EAC64
         EU: 0x22EB614
+        NA: 0x22EAC64
       description: |-
         Sets the dungeon PRNG to use the primary LCG for subsequent random number generation.
         
         No params.
     - name: TrySwitchPlace
       address:
-        NA: 0x22EB178
         EU: 0x22EBB28
+        NA: 0x22EB178
         JP: 0x22EC7E0
       description: |-
         The user entity attempts to switch places with the target entity (i.e. by the effect of the Switcher Orb). 
@@ -482,8 +482,8 @@ overlay29:
         r1: pointer to target entity
     - name: RunFractionalTurn
       address:
-        NA: 0x22EBD08
         EU: 0x22EC6B8
+        NA: 0x22EBD08
         JP: 0x22ED370
       description: |-
         The main function which executes the actions that take place in a fractional turn. Called in a loop by InitializeDungeon while FloorIsOver returns false.
@@ -491,8 +491,8 @@ overlay29:
         r0: first loop flag (true when the function is first called during a floor)
     - name: TrySpawnMonsterAndActivatePlusMinus
       address:
-        NA: 0x22EC6DC
         EU: 0x22ED08C
+        NA: 0x22EC6DC
         JP: 0x22EDD44
       description: |-
         Called at the beginning of RunFractionalTurn. Executed only if FRACTIONAL_TURN_SEQUENCE[fractional_turn * 2] is not 0.
@@ -502,8 +502,8 @@ overlay29:
         No params.
     - name: FloorIsOver
       address:
-        NA: 0x22EC7E8
         EU: 0x22ED198
+        NA: 0x22EC7E8
         JP: 0x22EDE50
       description: |-
         Checks if the current floor should end, and updates dungeon::floor_loop_status if required.
@@ -513,24 +513,24 @@ overlay29:
         return: true if the current floor should end
     - name: SetForcedLossReason
       address:
-        NA: 0x22ED008
         EU: 0x22ED9B8
+        NA: 0x22ED008
       description: |-
         Sets dungeon::forced_loss_reason to the specified value
         
         r0: Forced loss reason
     - name: GetForcedLossReason
       address:
-        NA: 0x22ED01C
         EU: 0x22ED9CC
+        NA: 0x22ED01C
       description: |-
         Returns dungeon::forced_loss_reason
         
         return: forced_loss_reason
     - name: ResetDamageDesc
       address:
-        NA: 0x22F6E18
         EU: 0x22F77D0
+        NA: 0x22F6E18
         JP: 0x22F83FC
       description: |-
         Seems to zero some damage description struct, which is output by the damage calculation function.
@@ -538,8 +538,8 @@ overlay29:
         r0: damage description pointer
     - name: GetSpriteIndex
       address:
-        NA: 0x22F7388
         EU: 0x22F7D40
+        NA: 0x22F7388
       description: |-
         Gets the sprite index of the specified monster on this floor
         
@@ -547,8 +547,8 @@ overlay29:
         return: Sprite index of the specified monster ID
     - name: FloorNumberIsEven
       address:
-        NA: 0x22F73B4
         EU: 0x22F7D6C
+        NA: 0x22F73B4
         JP: 0x22F897C
       description: |-
         Checks if the current dungeon floor number is even.
@@ -558,17 +558,26 @@ overlay29:
         return: bool
     - name: GetKecleonIdToSpawnByFloor
       address:
-        NA: 0x22F73EC
         EU: 0x22F7DA4
+        NA: 0x22F73EC
         JP: 0x22F89B4
       description: |-
         If the current floor number is even, returns female Kecleon's id (0x3D7), otherwise returns male Kecleon's id (0x17F).
         
         return: monster ID
+    - name: EuFaintCheck
+      address:
+        EU: 0x22F88E8
+      description: |-
+        This function is exclusive to the EU ROM. Seems to perform a check to see if the monster who just fainted was a team member who should cause the minimap to be updated (or something like that, maybe related to the Map Surveyor IQ skill) and if it passes, updates the minimap.
+        The function ends by calling another 2 functions. In US ROMs, calls to EUFaintCheck are replaced by calls to those two functions. This seems to indicate that this function fixes some edge case glitch that can happen when a team member faints.
+        
+        r0: False if the fainted entity was a team member
+        r1: True to set an unknown byte in the RAM to 1
     - name: HandleFaint
       address:
-        NA: 0x22F7F30
         EU: 0x22F8938
+        NA: 0x22F7F30
       description: |-
         Handles a fainted pokémon (reviving does not count as fainting).
         
@@ -577,8 +586,8 @@ overlay29:
         r2: Entity responsible of the fainting
     - name: TryActivateSlowStart
       address:
-        NA: 0x22F923C
         EU: 0x22F9C48
+        NA: 0x22F923C
         JP: 0x22FA800
       description: |-
         Runs a check over all monsters on the field for the ability Slow Start, and lowers the speed of those who have it.
@@ -586,8 +595,8 @@ overlay29:
         No params
     - name: TryActivateArtificialWeatherAbilities
       address:
-        NA: 0x22F92D8
         EU: 0x22F9CE4
+        NA: 0x22F92D8
         JP: 0x22FA89C
       description: |-
         Runs a check over all monsters on the field for abilities that affect the weather and changes the floor's weather accordingly.
@@ -595,17 +604,6 @@ overlay29:
         No params
     - name: DefenderAbilityIsActive
       address:
-        NA:
-          - 0x22F96CC
-          - 0x2301A0C
-          - 0x230A940
-          - 0x2311B94
-          - 0x2322D64
-          - 0x2328634
-          - 0x2329F14
-          - 0x232BDD0
-          - 0x232DE20
-          - 0x2332A0C
         EU:
           - 0x22FA0D8
           - 0x2302438
@@ -617,6 +615,17 @@ overlay29:
           - 0x232C840
           - 0x232E860
           - 0x233344C
+        NA:
+          - 0x22F96CC
+          - 0x2301A0C
+          - 0x230A940
+          - 0x2311B94
+          - 0x2322D64
+          - 0x2328634
+          - 0x2329F14
+          - 0x232BDD0
+          - 0x232DE20
+          - 0x2332A0C
       description: |-
         Checks if a defender has an active ability that isn't disabled by an attacker's Mold Breaker.
         
@@ -629,16 +638,6 @@ overlay29:
         return: bool
     - name: IsMonster
       address:
-        NA:
-          - 0x22F9720
-          - 0x2301A60
-          - 0x230A994
-          - 0x230F980
-          - 0x2318AB0
-          - 0x231A9D4
-          - 0x231B318
-          - 0x2322DB8
-          - 0x234D460
         EU:
           - 0x22FA12C
           - 0x230248C
@@ -649,6 +648,16 @@ overlay29:
           - 0x231BD78
           - 0x2323820
           - 0x234E060
+        NA:
+          - 0x22F9720
+          - 0x2301A60
+          - 0x230A994
+          - 0x230F980
+          - 0x2318AB0
+          - 0x231A9D4
+          - 0x231B318
+          - 0x2322DB8
+          - 0x234D460
       description: |-
         Checks if an entity is a monster (entity type 1).
         
@@ -656,8 +665,8 @@ overlay29:
         return: bool
     - name: TryActivateTruant
       address:
-        NA: 0x22F97F0
         EU: 0x22FA1FC
+        NA: 0x22F97F0
         JP: 0x22FADA8
       description: |-
         Checks if an entity has the ability Truant, and if so tries to apply the pause status to it.
@@ -665,8 +674,8 @@ overlay29:
         r0: pointer to entity
     - name: RestorePpAllMovesSetFlags
       address:
-        NA: 0x22F9A74
         EU: 0x22FA480
+        NA: 0x22F9A74
       description: |-
         Restores PP for all moves, clears flags move::f_consume_2_pp, move::flags2_unk5 and move::flags2_unk7, and sets flag move::f_consume_pp.
         Called when a monster is revived.
@@ -674,8 +683,8 @@ overlay29:
         r0: pointer to entity whose moves will be restored
     - name: MewSpawnCheck
       address:
-        NA: 0x22FA5F0
         EU: 0x22FAFFC
+        NA: 0x22FA5F0
         JP: 0x22FBB98
       description: |-
         If the monster id parameter is 0x97 (Mew), returns false if either dungeon::mew_cannot_spawn or the second parameter are true.
@@ -687,19 +696,6 @@ overlay29:
         return: bool
     - name: ExclusiveItemEffectIsActive
       address:
-        NA:
-          - 0x22FAC98
-          - 0x22FFF28
-          - 0x230A9B8
-          - 0x230F8AC
-          - 0x2311064
-          - 0x23147EC
-          - 0x23197A8
-          - 0x231A87C
-          - 0x2323918
-          - 0x23329E8
-          - 0x2347B80
-          - 0x23482B0
         EU:
           - 0x22FB6A4
           - 0x2300954
@@ -713,6 +709,19 @@ overlay29:
           - 0x2333428
           - 0x2348780
           - 0x2348EB0
+        NA:
+          - 0x22FAC98
+          - 0x22FFF28
+          - 0x230A9B8
+          - 0x230F8AC
+          - 0x2311064
+          - 0x23147EC
+          - 0x23197A8
+          - 0x231A87C
+          - 0x2323918
+          - 0x23329E8
+          - 0x2347B80
+          - 0x23482B0
       description: |-
         Checks if a monster is a team member under the effects of a certain exclusive item effect.
         
@@ -721,8 +730,8 @@ overlay29:
         return: bool
     - name: GetTeamMemberWithIqSkill
       address:
-        NA: 0x22FAFF8
         EU: 0x22FBA04
+        NA: 0x22FAFF8
         JP: 0x22FC580
       description: |-
         Returns an entity pointer to the first team member which has the specified iq skill.
@@ -731,8 +740,8 @@ overlay29:
         return: pointer to entity
     - name: TeamMemberHasEnabledIqSkill
       address:
-        NA: 0x22FB064
         EU: 0x22FBA70
+        NA: 0x22FB064
         JP: 0x22FC5EC
       description: |-
         Returns true if any team member has the specified iq skill.
@@ -741,8 +750,8 @@ overlay29:
         return: bool
     - name: TeamLeaderIqSkillIsEnabled
       address:
-        NA: 0x22FB080
         EU: 0x22FBA8C
+        NA: 0x22FB080
         JP: 0x22FC608
       description: |-
         Returns true the leader has the specified iq skill.
@@ -751,8 +760,8 @@ overlay29:
         return: bool
     - name: HasLowHealth
       address:
-        NA: 0x22FB610
         EU: 0x22FC01C
+        NA: 0x22FB610
         JP: 0x22FCAE4
       description: |-
         Checks if the entity passed is a valid monster, and if it's at low health (below 25% rounded down)
@@ -761,8 +770,8 @@ overlay29:
         return: bool
     - name: IsSpecialStoryAlly
       address:
-        NA: 0x22FBAD0
         EU: 0x22FC4CC
+        NA: 0x22FBAD0
         JP: 0x22FCFA4
       description: |-
         Checks if a monster is a special story ally.
@@ -773,8 +782,8 @@ overlay29:
         return: bool
     - name: IsExperienceLocked
       address:
-        NA: 0x22FBAF0
         EU: 0x22FC4EC
+        NA: 0x22FBAF0
         JP: 0x22FCFC4
       description: |-
         Checks if a monster does not gain experience.
@@ -785,8 +794,8 @@ overlay29:
         return: bool
     - name: SpawnMonster
       address:
-        NA: 0x22FD084
         EU: 0x22FDA80
+        NA: 0x22FD084
         JP: 0x22FE478
       description: |-
         Spawns the given monster on a tile.
@@ -796,8 +805,8 @@ overlay29:
         return: pointer to entity
     - name: CalcSpeedStage
       address:
-        NA: 0x22FFDF4
         EU: 0x2300820
+        NA: 0x22FFDF4
         JP: 0x2301224
       description: |-
         Calculates the speed stage of a monster from its speed up/down counters. The second parameter is the weight of each counter (how many stages it will add/remove), but appears to be always 1. 
@@ -810,8 +819,8 @@ overlay29:
         return: speed stage
     - name: GetNumberOfAttacks
       address:
-        NA: 0x22FFF5C
         EU: 0x2300988
+        NA: 0x22FFF5C
         JP: 0x230138C
       description: |-
         Returns the number of attacks that a monster can do in one turn (1 or 2).
@@ -822,8 +831,8 @@ overlay29:
         returns: int
     - name: SprintfStatic
       address:
-        NA: 0x23002C8
         EU: 0x2300CF4
+        NA: 0x23002C8
         JP: 0x23016D0
       description: |-
         Statically defined copy of sprintf(3) in overlay 29. See arm9.yml for more information.
@@ -834,8 +843,8 @@ overlay29:
         return: number of characters printed, excluding the null-terminator
     - name: NoGastroAcidStatus
       address:
-        NA: 0x2301CDC
         EU: 0x2302708
+        NA: 0x2301CDC
         JP: 0x2303234
       description: |-
         Checks if a monster does not have the Gastro Acid status.
@@ -844,8 +853,8 @@ overlay29:
         return: bool
     - name: AbilityIsActive
       address:
-        NA: 0x2301D10
         EU: 0x230273C
+        NA: 0x2301D10
         JP: 0x2303268
       description: |-
         Checks if a monster has a certain ability that isn't disabled by Gastro Acid.
@@ -855,8 +864,8 @@ overlay29:
         return: bool
     - name: LevitateIsActive
       address:
-        NA: 0x2301E18
         EU: 0x2302844
+        NA: 0x2301E18
         JP: 0x2303368
       description: |-
         Checks if a monster is levitating (has the effect of Levitate and Gravity is not active).
@@ -865,8 +874,8 @@ overlay29:
         return: bool
     - name: MonsterIsType
       address:
-        NA: 0x2301E50
         EU: 0x230287C
+        NA: 0x2301E50
         JP: 0x23033A0
       description: |-
         Checks if a monster is a given type.
@@ -876,8 +885,8 @@ overlay29:
         return: bool
     - name: IqSkillIsEnabled
       address:
-        NA: 0x2301F80
         EU: 0x23029AC
+        NA: 0x2301F80
         JP: 0x23034D0
       description: |-
         Checks if a monster has a certain IQ skill enabled.
@@ -887,8 +896,8 @@ overlay29:
         return: bool
     - name: GetMoveTypeForMonster
       address:
-        NA: 0x230227C
         EU: 0x2302CA8
+        NA: 0x230227C
       description: |-
         Check the type of a move when used by a certain monster. Accounts for special cases such as Hidden Power, Weather Ball, the regular attack...
         
@@ -897,8 +906,8 @@ overlay29:
         return: Type of the move
     - name: GetMovePower
       address:
-        NA: 0x230231C
         EU: 0x2302D48
+        NA: 0x230231C
         JP: 0x230386C
       description: |-
         Gets the power of a move, factoring in Ginseng/Space Globe boosts.
@@ -908,8 +917,8 @@ overlay29:
         return: move power
     - name: AddExpSpecial
       address:
-        NA: 0x230253C
         EU: 0x2302F68
+        NA: 0x230253C
         JP: 0x2303A8C
       description: |-
         Adds to a monster's experience points, subject to experience boosting effects.
@@ -923,16 +932,16 @@ overlay29:
         r2: base experience gain, before boosts
     - name: EnemyEvolution
       address:
-        NA: 0x23026FC
         EU: 0x2303128
+        NA: 0x23026FC
       description: |-
         Checks if the specified enemy should evolve because it just defeated an ally, and if so, attempts to evolve it.
         
         r0: Pointer to the enemy to check
     - name: EvolveMonster
       address:
-        NA: 0x2303C7C
         EU: 0x23046A8
+        NA: 0x2303C7C
       description: |-
         Makes the specified monster evolve into the specified species.
         
@@ -941,8 +950,8 @@ overlay29:
         r2: Species to evolve into
     - name: GetSleepAnimationId
       address:
-        NA: 0x2304AB4
         EU: 0x23054E0
+        NA: 0x2304AB4
         JP: 0x2306004
       description: |-
         Returns the animation id to be applied to a monster that has the sleep, napping, nightmare or bide status.
@@ -953,8 +962,8 @@ overlay29:
         return: animation ID
     - name: EndFrozenClassStatus
       address:
-        NA: 0x2306258
         EU: 0x2306C84
+        NA: 0x2306258
         JP: 0x23077A8
       description: |-
         Cures the target's freeze, shadow hold, ingrain, petrified, constriction or wrap (both as user and as target) status due to the action of the user.
@@ -964,8 +973,8 @@ overlay29:
         r2: if true, the event will be printed to the log
     - name: EndCringeClassStatus
       address:
-        NA: 0x23063D4
         EU: 0x2306E00
+        NA: 0x23063D4
         JP: 0x2307904
       description: |-
         Cures the target's cringe, confusion, cowering, pause, taunt, encore or infatuated status due to the action of the user, and prints the event to the log.
@@ -974,8 +983,8 @@ overlay29:
         r1: pointer to target
     - name: ApplyDamage
       address:
-        NA: 0x2308FE0
         EU: 0x2309A0C
+        NA: 0x2308FE0
       description: |-
         Applies damage to a monster. Displays the damage animation, lowers its health and handles reviving if applicable.
         The EU version has some additional checks related to printing fainting messages under specific circumstances.
@@ -989,8 +998,8 @@ overlay29:
         return: True if the target fainted (reviving does not count as fainting)
     - name: GetTypeMatchup
       address:
-        NA: 0x230AC58
         EU: 0x230B6CC
+        NA: 0x230AC58
         JP: 0x230C1D0
       description: |-
         Gets the type matchup for a given combat interaction.
@@ -1006,8 +1015,8 @@ overlay29:
         return: enum type_matchup
     - name: CalcDamage
       address:
-        NA: 0x230BBAC
         EU: 0x230C620
+        NA: 0x230BBAC
       description: |-
         Probably the damage calculation function.
         
@@ -1022,8 +1031,8 @@ overlay29:
         stack[4]: ?
     - name: CalcRecoilDamageFixed
       address:
-        NA: 0x230D18C
         EU: 0x230DC00
+        NA: 0x230D18C
         JP: 0x230E6CC
       description: |-
         Appears to calculate recoil damage to a monster.
@@ -1041,8 +1050,8 @@ overlay29:
         others: ?
     - name: CalcDamageFixed
       address:
-        NA: 0x230D240
         EU: 0x230DCB4
+        NA: 0x230D240
         JP: 0x230E780
       description: |-
         Appears to calculate damage from a fixed-damage effect.
@@ -1059,8 +1068,8 @@ overlay29:
         others: ?
     - name: CalcDamageFixedNoCategory
       address:
-        NA: 0x230D3A8
         EU: 0x230DE1C
+        NA: 0x230D3A8
         JP: 0x230E8E4
       description: |-
         A wrapper around CalcDamageFixed with the move category set to none.
@@ -1073,8 +1082,8 @@ overlay29:
         others: ?
     - name: CalcDamageFixedWrapper
       address:
-        NA: 0x230D3F4
         EU: 0x230DE68
+        NA: 0x230D3F4
         JP: 0x230E930
       description: |-
         A wrapper around CalcDamageFixed.
@@ -1088,8 +1097,8 @@ overlay29:
         others: ?
     - name: ResetDamageCalcScratchSpace
       address:
-        NA: 0x230D528
         EU: 0x230DF9C
+        NA: 0x230D528
         JP: 0x230EA64
       description: |-
         CalcDamage seems to use scratch space of some kind, which this function zeroes.
@@ -1097,8 +1106,8 @@ overlay29:
         No params.
     - name: TrySpawnMonsterAndTickSpawnCounter
       address:
-        NA: 0x230E6BC
         EU: 0x230F130
+        NA: 0x230E6BC
         JP: 0x230FBF8
       description: |-
         First ticks up the spawn counter, and if it's equal or greater than the spawn cooldown, it will try to spawn an enemy if the number of enemies is below the spawn cap.
@@ -1108,8 +1117,8 @@ overlay29:
         No params.
     - name: AuraBowIsActive
       address:
-        NA: 0x230F6C8
         EU: 0x231013C
+        NA: 0x230F6C8
         JP: 0x2310C04
       description: |-
         Checks if a monster is holding an aura bow that isn't disabled by Klutz.
@@ -1118,8 +1127,8 @@ overlay29:
         return: bool
     - name: ExclusiveItemOffenseBoost
       address:
-        NA: 0x230F778
         EU: 0x23101EC
+        NA: 0x230F778
       description: |-
         Gets the exclusive item boost for attack/special attack for a monster
         
@@ -1128,8 +1137,8 @@ overlay29:
         return: boost
     - name: ExclusiveItemDefenseBoost
       address:
-        NA: 0x230F788
         EU: 0x23101FC
+        NA: 0x230F788
       description: |-
         Gets the exclusive item boost for defense/special defense for a monster
         
@@ -1138,8 +1147,8 @@ overlay29:
         return: boost
     - name: TickNoSlipCap
       address:
-        NA: 0x230FB90
         EU: 0x2310604
+        NA: 0x230FB90
         JP: 0x23110CC
       description: |-
         Checks if the entity is a team member and holds the No-Slip Cap, and if so attempts to make one item in the bag sticky.
@@ -1147,8 +1156,8 @@ overlay29:
         r0: pointer to entity
     - name: TickStatusAndHealthRegen
       address:
-        NA: 0x2311088
         EU: 0x2311AE8
+        NA: 0x2311088
         JP: 0x23125B0
       description: |-
         Applies the natural HP regen effect by taking modifiers into account (Poison Heal, Heal Ribbon, weather-related regen). Then it ticks down counters for volatile status effects, and heals them if the counter reached zero.
@@ -1156,8 +1165,8 @@ overlay29:
         r0: pointer to entity
     - name: InflictSleepStatusSingle
       address:
-        NA: 0x2311824
         EU: 0x2312284
+        NA: 0x2311824
         JP: 0x2312D3C
       description: |-
         This is called by TryInflictSleepStatus.
@@ -1166,8 +1175,8 @@ overlay29:
         r1: number of turns
     - name: TryInflictSleepStatus
       address:
-        NA: 0x23118D8
         EU: 0x2312338
+        NA: 0x23118D8
         JP: 0x2312DF0
       description: |-
         Inflicts the Sleep status condition on a target monster if possible.
@@ -1178,8 +1187,8 @@ overlay29:
         r3: flag to log a message on failure
     - name: TryInflictNightmareStatus
       address:
-        NA: 0x2311C4C
         EU: 0x23126AC
+        NA: 0x2311C4C
         JP: 0x2313158
       description: |-
         Inflicts the Nightmare status condition on a target monster if possible.
@@ -1189,8 +1198,8 @@ overlay29:
         r2: number of turns
     - name: TryInflictNappingStatus
       address:
-        NA: 0x2311D60
         EU: 0x23127C0
+        NA: 0x2311D60
         JP: 0x2313268
       description: |-
         Inflicts the Napping status condition (from Rest) on a target monster if possible.
@@ -1200,8 +1209,8 @@ overlay29:
         r2: number of turns
     - name: TryInflictYawningStatus
       address:
-        NA: 0x2311E70
         EU: 0x23128D0
+        NA: 0x2311E70
         JP: 0x2313374
       description: |-
         Inflicts the Yawning status condition on a target monster if possible.
@@ -1211,8 +1220,8 @@ overlay29:
         r2: number of turns
     - name: TryInflictSleeplessStatus
       address:
-        NA: 0x2311F80
         EU: 0x23129E0
+        NA: 0x2311F80
         JP: 0x2313484
       description: |-
         Inflicts the Sleepless status condition on a target monster if possible.
@@ -1221,8 +1230,8 @@ overlay29:
         r1: target entity pointer
     - name: TryInflictPausedStatus
       address:
-        NA: 0x231206C
         EU: 0x2312ACC
+        NA: 0x231206C
         JP: 0x2313570
       description: |-
         Inflicts the Paused status condition on a target monster if possible.
@@ -1236,8 +1245,8 @@ overlay29:
         return: Whether or not the status could be inflicted
     - name: TryInflictInfatuatedStatus
       address:
-        NA: 0x23121AC
         EU: 0x2312C0C
+        NA: 0x23121AC
         JP: 0x23136B0
       description: |-
         Inflicts the Infatuated status condition on a target monster if possible.
@@ -1249,8 +1258,8 @@ overlay29:
         return: Whether or not the status could be inflicted
     - name: TryInflictBurnStatus
       address:
-        NA: 0x2312338
         EU: 0x2312D98
+        NA: 0x2312338
         JP: 0x2313838
       description: |-
         Inflicts the Burn status condition on a target monster if possible.
@@ -1263,8 +1272,8 @@ overlay29:
         return: Whether or not the status could be inflicted
     - name: TryInflictBurnStatusWholeTeam
       address:
-        NA: 0x2312618
         EU: 0x2313078
+        NA: 0x2312618
         JP: 0x2313B14
       description: |-
         Inflicts the Burn status condition on all team members if possible.
@@ -1272,8 +1281,8 @@ overlay29:
         No params.
     - name: TryInflictPoisonedStatus
       address:
-        NA: 0x2312664
         EU: 0x23130C4
+        NA: 0x2312664
       description: |-
         Inflicts the Poisoned status condition on a target monster if possible.
         
@@ -1284,8 +1293,8 @@ overlay29:
         return: Whether or not the status could be inflicted
     - name: TryInflictBadlyPoisonedStatus
       address:
-        NA: 0x231293C
         EU: 0x231339C
+        NA: 0x231293C
       description: |-
         Inflicts the Badly Poisoned status condition on a target monster if possible.
         
@@ -1296,8 +1305,8 @@ overlay29:
         return: Whether or not the status could be inflicted
     - name: TryInflictFrozenStatus
       address:
-        NA: 0x2312BF8
         EU: 0x2313658
+        NA: 0x2312BF8
         JP: 0x23140EC
       description: |-
         Inflicts the Frozen status condition on a target monster if possible.
@@ -1307,8 +1316,8 @@ overlay29:
         r2: flag to log a message on failure
     - name: TryInflictConstrictionStatus
       address:
-        NA: 0x2312E20
         EU: 0x2313880
+        NA: 0x2312E20
         JP: 0x2314310
       description: |-
         Inflicts the Constriction status condition on a target monster if possible.
@@ -1319,8 +1328,8 @@ overlay29:
         r3: flag to log a message on failure
     - name: TryInflictShadowHoldStatus
       address:
-        NA: 0x2312F78
         EU: 0x23139D8
+        NA: 0x2312F78
         JP: 0x2314468
       description: |-
         Inflicts the Shadow Hold (AKA Immobilized) status condition on a target monster if possible.
@@ -1330,8 +1339,8 @@ overlay29:
         r2: flag to log a message on failure
     - name: TryInflictIngrainStatus
       address:
-        NA: 0x2313130
         EU: 0x2313B90
+        NA: 0x2313130
         JP: 0x231461C
       description: |-
         Inflicts the Ingrain status condition on a target monster if possible.
@@ -1340,8 +1349,8 @@ overlay29:
         r1: target entity pointer
     - name: TryInflictWrappedStatus
       address:
-        NA: 0x23131F4
         EU: 0x2313C54
+        NA: 0x23131F4
         JP: 0x23146E0
       description: |-
         Inflicts the Wrapped status condition on a target monster if possible.
@@ -1352,8 +1361,8 @@ overlay29:
         r1: target entity pointer
     - name: FreeOtherWrappedMonsters
       address:
-        NA: 0x23133F0
         EU: 0x2313E50
+        NA: 0x23133F0
         JP: 0x23148DC
       description: |-
         Frees from the wrap status all monsters which are wrapped by/around the monster passed as parameter.
@@ -1361,8 +1370,8 @@ overlay29:
         r0: pointer to entity
     - name: TryInflictPetrifiedStatus
       address:
-        NA: 0x231346C
         EU: 0x2313ECC
+        NA: 0x231346C
         JP: 0x2314958
       description: |-
         Inflicts the Petrified status condition on a target monster if possible.
@@ -1371,8 +1380,8 @@ overlay29:
         r1: target entity pointer
     - name: LowerOffensiveStat
       address:
-        NA: 0x23135FC
         EU: 0x231405C
+        NA: 0x23135FC
       description: |-
         Lowers the specified offensive stat on the target monster.
         
@@ -1384,8 +1393,8 @@ overlay29:
         stack[1]: ?
     - name: LowerDefensiveStat
       address:
-        NA: 0x2313814
         EU: 0x2314274
+        NA: 0x2313814
         JP: 0x2314CFC
       description: |-
         Lowers the specified defensive stat on the target monster.
@@ -1398,8 +1407,8 @@ overlay29:
         stack[1]: ?
     - name: BoostOffensiveStat
       address:
-        NA: 0x231399C
         EU: 0x23143FC
+        NA: 0x231399C
         JP: 0x2314E84
       description: |-
         Boosts the specified offensive stat on the target monster.
@@ -1410,8 +1419,8 @@ overlay29:
         r3: number of stages
     - name: BoostDefensiveStat
       address:
-        NA: 0x2313B08
         EU: 0x2314568
+        NA: 0x2313B08
         JP: 0x2314FF0
       description: |-
         Boosts the specified defensive stat on the target monster.
@@ -1422,8 +1431,8 @@ overlay29:
         r3: number of stages
     - name: ApplyOffensiveStatMultiplier
       address:
-        NA: 0x2313D40
         EU: 0x23147A0
+        NA: 0x2313D40
       description: |-
         Applies a multiplier to the specified offensive stat on the target monster.
         
@@ -1436,8 +1445,8 @@ overlay29:
         stack[0]: ?
     - name: ApplyDefensiveStatMultiplier
       address:
-        NA: 0x2313F64
         EU: 0x23149C4
+        NA: 0x2313F64
         JP: 0x2315444
       description: |-
         Applies a multiplier to the specified defensive stat on the target monster.
@@ -1451,8 +1460,8 @@ overlay29:
         stack[0]: ?
     - name: BoostHitChanceStat
       address:
-        NA: 0x23140E4
         EU: 0x2314B44
+        NA: 0x23140E4
         JP: 0x23155C4
       description: |-
         Boosts the specified hit chance stat (accuracy or evasion) on the target monster.
@@ -1462,8 +1471,8 @@ overlay29:
         r2: stat index
     - name: LowerHitChanceStat
       address:
-        NA: 0x231422C
         EU: 0x2314C8C
+        NA: 0x231422C
         JP: 0x231570C
       description: |-
         Lowers the specified hit chance stat (accuracy or evasion) on the target monster.
@@ -1474,8 +1483,8 @@ overlay29:
         r3: ?
     - name: TryInflictCringeStatus
       address:
-        NA: 0x23143E8
         EU: 0x2314E48
+        NA: 0x23143E8
         JP: 0x23158C4
       description: |-
         Inflicts the Cringe status condition on a target monster if possible.
@@ -1487,8 +1496,8 @@ overlay29:
         return: Whether or not the status could be inflicted
     - name: TryInflictParalysisStatus
       address:
-        NA: 0x2314544
         EU: 0x2314FA4
+        NA: 0x2314544
         JP: 0x2315A1C
       description: |-
         Inflicts the Paralysis status condition on a target monster if possible.
@@ -1500,8 +1509,8 @@ overlay29:
         return: Whether or not the status could be inflicted
     - name: BoostSpeed
       address:
-        NA: 0x2314810
         EU: 0x2315270
+        NA: 0x2314810
         JP: 0x2315CE4
       description: |-
         Boosts the speed of the target monster.
@@ -1515,8 +1524,8 @@ overlay29:
         stack[0]: flag to log a message on failure
     - name: BoostSpeedOneStage
       address:
-        NA: 0x231493C
         EU: 0x231539C
+        NA: 0x231493C
         JP: 0x2315E10
       description: |-
         A wrapper around BoostSpeed with the number of stages set to 1.
@@ -1527,8 +1536,8 @@ overlay29:
         r3: flag to log a message on failure
     - name: LowerSpeed
       address:
-        NA: 0x2314954
         EU: 0x23153B4
+        NA: 0x2314954
         JP: 0x2315E28
       description: |-
         Lowers the speed of the target monster.
@@ -1539,8 +1548,8 @@ overlay29:
         r3: flag to log a message on failure
     - name: TrySealMove
       address:
-        NA: 0x2314ABC
         EU: 0x231551C
+        NA: 0x2314ABC
         JP: 0x2315F90
       description: |-
         Seals one of the target monster's moves. The move to be sealed is randomly selected.
@@ -1551,8 +1560,8 @@ overlay29:
         return: Whether or not a move was sealed
     - name: BoostOrLowerSpeed
       address:
-        NA: 0x2314C2C
         EU: 0x231568C
+        NA: 0x2314C2C
         JP: 0x2316100
       description: |-
         Randomly boosts or lowers the speed of the target monster by one stage with equal probability.
@@ -1561,8 +1570,8 @@ overlay29:
         r1: target entity pointer
     - name: ResetHitChanceStat
       address:
-        NA: 0x2314C8C
         EU: 0x23156EC
+        NA: 0x2314C8C
         JP: 0x2316160
       description: |-
         Resets the specified hit chance stat (accuracy or evasion) back to normal on the target monster.
@@ -1573,8 +1582,8 @@ overlay29:
         r3: ?
     - name: TryActivateQuickFeet
       address:
-        NA: 0x2314E1C
         EU: 0x231587C
+        NA: 0x2314E1C
         JP: 0x23162F0
       description: |-
         Activate the Quick Feet ability on the defender, if the monster has it and it's active.
@@ -1584,8 +1593,8 @@ overlay29:
         return: bool, whether or not the ability was activated
     - name: TryInflictConfusedStatus
       address:
-        NA: 0x2314F38
         EU: 0x2315998
+        NA: 0x2314F38
         JP: 0x2316410
       description: |-
         Inflicts the Confused status condition on a target monster if possible.
@@ -1597,8 +1606,8 @@ overlay29:
         return: Whether or not the status could be inflicted
     - name: TryInflictCoweringStatus
       address:
-        NA: 0x231516C
         EU: 0x2315CCC
+        NA: 0x231516C
         JP: 0x2316744
       description: |-
         Inflicts the Cowering status condition on a target monster if possible.
@@ -1610,8 +1619,8 @@ overlay29:
         return: Whether or not the status could be inflicted
     - name: TryIncreaseHp
       address:
-        NA: 0x23152E4
         EU: 0x2315D44
+        NA: 0x23152E4
         JP: 0x23167BC
       description: |-
         Restore HP and possibly boost max HP of the target monster if possible.
@@ -1624,8 +1633,8 @@ overlay29:
         return: Success flag
     - name: TryInflictLeechSeedStatus
       address:
-        NA: 0x23157EC
         EU: 0x231624C
+        NA: 0x23157EC
         JP: 0x2316CC4
       description: |-
         Inflicts the Leech Seed status condition on a target monster if possible.
@@ -1637,8 +1646,8 @@ overlay29:
         return: Whether or not the status could be inflicted
     - name: TryInflictDestinyBond
       address:
-        NA: 0x2315A50
         EU: 0x23164B0
+        NA: 0x2315A50
         JP: 0x2316F28
       description: |-
         Inflicts the Destiny Bond status condition on a target monster if possible.
@@ -1647,8 +1656,8 @@ overlay29:
         r1: target entity pointer
     - name: IsBlinded
       address:
-        NA: 0x23177E4
         EU: 0x2318244
+        NA: 0x23177E4
         JP: 0x2318CB4
       description: |-
         Returns true if the monster has the blinded status (see statuses::blinded), or if it is not the leader and is holding Y-Ray Specs.
@@ -1658,8 +1667,8 @@ overlay29:
         return: bool
     - name: RestoreMovePP
       address:
-        NA: 0x2317C20
         EU: 0x2318680
+        NA: 0x2317C20
         JP: 0x23190F0
       description: |-
         Restores the PP of all the target's moves by the specified amount.
@@ -1670,8 +1679,8 @@ overlay29:
         r3: flag to suppress message logging
     - name: SetReflectDamageCountdownTo4
       address:
-        NA: 0x23183C0
         EU: 0x2318E20
+        NA: 0x23183C0
         JP: 0x2319890
       description: |-
         Sets the monster's reflect damage countdown to a global value (0x4).
@@ -1679,8 +1688,8 @@ overlay29:
         r0: pointer to entity
     - name: HasConditionalGroundImmunity
       address:
-        NA: 0x2318A4C
         EU: 0x23194AC
+        NA: 0x2318A4C
         JP: 0x2319F1C
       description: |-
         Checks if a monster is currently immune to Ground-type moves for reasons other than typing and ability.
@@ -1691,8 +1700,8 @@ overlay29:
         return: bool
     - name: Conversion2IsActive
       address:
-        NA: 0x2319814
         EU: 0x231A274
+        NA: 0x2319814
         JP: 0x231ACE4
       description: |-
         Checks if the monster is under the effect of Conversion 2 (its type was changed).
@@ -1703,8 +1712,8 @@ overlay29:
         return: int
     - name: IsTargetInRange
       address:
-        NA: 0x231A694
         EU: 0x231B0F4
+        NA: 0x231A694
         JP: 0x231BB64
       description: |-
         Returns true if the target is within range of the user's move, false otherwise.
@@ -1718,8 +1727,8 @@ overlay29:
         r3: move range (in number of tiles)
     - name: GetEntityMoveTargetAndRange
       address:
-        NA: 0x231ACAC
         EU: 0x231B70C
+        NA: 0x231ACAC
         JP: 0x231C17C
       description: |-
         Gets the move target-and-range field when used by a given entity. See struct move_target_and_range in the C headers.
@@ -1730,8 +1739,8 @@ overlay29:
         return: move target and range
     - name: ApplyItemEffect
       address:
-        NA: 0x231B68C
         EU: 0x231C0EC
+        NA: 0x231B68C
         JP: 0x231CB58
       description: |-
         Seems to apply an item's effect via a giant switch statement?
@@ -1742,8 +1751,8 @@ overlay29:
         others: ?
     - name: ViolentSeedBoost
       address:
-        NA: 0x231CE1C
         EU: 0x231D884
+        NA: 0x231CE1C
       description: |-
         Applies the Violent Seed boost to an entity.
         
@@ -1751,8 +1760,8 @@ overlay29:
         r1: defender pointer
     - name: ApplyGummiBoosts
       address:
-        NA: 0x231D0C0
         EU: 0x231DB28
+        NA: 0x231D0C0
         JP: 0x231E588
       description: |-
         Applies the IQ and possible stat boosts from eating a Gummi to the target monster.
@@ -1763,8 +1772,8 @@ overlay29:
         r3: Stat boost amount, if a random stat boost occurs
     - name: GetMaxPpWrapper
       address:
-        NA: 0x231E9F0
         EU: 0x231F458
+        NA: 0x231E9F0
         JP: 0x231FE9C
       description: |-
         Gets the maximum PP for a given move. A wrapper around the function in the ARM 9 binary.
@@ -1773,8 +1782,8 @@ overlay29:
         return: max PP for the given move, capped at 99
     - name: MoveIsNotPhysical
       address:
-        NA: 0x231EA18
         EU: 0x231F480
+        NA: 0x231EA18
         JP: 0x231FEC4
       description: |-
         Checks if a move isn't a physical move.
@@ -1783,8 +1792,8 @@ overlay29:
         return: bool
     - name: TryPounce
       address:
-        NA: 0x231FC20
         EU: 0x2320688
+        NA: 0x231FC20
         JP: 0x23210CC
       description: |-
         Makes the target monster execute the Pounce action in a given direction if possible.
@@ -1796,8 +1805,8 @@ overlay29:
         r2: direction ID
     - name: TryBlowAway
       address:
-        NA: 0x231FDE0
         EU: 0x2320848
+        NA: 0x231FDE0
         JP: 0x232128C
       description: |-
         Blows away the target monster in a given direction if possible.
@@ -1807,8 +1816,8 @@ overlay29:
         r2: direction ID
     - name: TryWarp
       address:
-        NA: 0x2320D08
         EU: 0x2321770
+        NA: 0x2320D08
         JP: 0x23221B4
       description: |-
         Makes the target monster warp if possible.
@@ -1819,8 +1828,8 @@ overlay29:
         r3: position (if warp type is position-based)
     - name: MoveHitCheck
       address:
-        NA: 0x2323C48
         EU: 0x23246B0
+        NA: 0x2323C48
       description: |-
         Determines if a move used hits or misses the target. It gets called twice per target, once with r3 = false and a second time with r3 = true.
         
@@ -1831,8 +1840,8 @@ overlay29:
         returns: True if the move hits, false if it misses.
     - name: DungeonRandOutcomeUserTargetInteraction
       address:
-        NA: 0x2324934
         EU: 0x232539C
+        NA: 0x2324934
         JP: 0x2325DC4
       description: |-
         Like DungeonRandOutcome, but specifically for user-target interactions.
@@ -1844,8 +1853,8 @@ overlay29:
         r2: base success percentage (100*p). 0 is treated specially and guarantees success.
     - name: DungeonRandOutcomeUserAction
       address:
-        NA: 0x2324A20
         EU: 0x2325488
+        NA: 0x2324A20
         JP: 0x2325EAC
       description: |-
         Like DungeonRandOutcome, but specifically for user actions.
@@ -1856,8 +1865,8 @@ overlay29:
         r1: base success percentage (100*p). 0 is treated specially and guarantees success.
     - name: UpdateMovePp
       address:
-        NA: 0x2324D8C
         EU: 0x23257F4
+        NA: 0x2324D8C
         JP: 0x2326218
       description: |-
         Updates the PP of any moves that were used by a monster, if PP should be consumed.
@@ -1866,8 +1875,8 @@ overlay29:
         r1: flag for whether or not PP should be consumed
     - name: LowerSshort
       address:
-        NA: 0x2324E64
         EU: 0x23258CC
+        NA: 0x2324E64
         JP: 0x23262F0
       description: |-
         Gets the lower 2 bytes of a 4-byte number and interprets it as a signed short.
@@ -1876,8 +1885,8 @@ overlay29:
         return: (short)x
     - name: DealDamageWithRecoil
       address:
-        NA: 0x2327F34
         EU: 0x23289A0
+        NA: 0x2327F34
         JP: 0x23293BC
       description: |-
         Deals damage from a move or item used by an attacking monster on a defending monster, and also deals recoil damage to the attacker.
@@ -1889,8 +1898,8 @@ overlay29:
         return: bool, whether or not damage was dealt
     - name: ExecuteMoveEffect
       address:
-        NA: 0x232E864
         EU: 0x232F2A4
+        NA: 0x232E864
       description: |-
         Handles the effects that happen after a move is used. Includes a loop that is run for each target, mutiple ability checks and the giant switch statement that executes the effect of the move used given its ID.
         
@@ -1901,8 +1910,8 @@ overlay29:
         stack[0]: ?
     - name: DealDamage
       address:
-        NA: 0x2332B20
         EU: 0x2333560
+        NA: 0x2332B20
         JP: 0x2333F10
       description: |-
         Deals damage from a move or item used by an attacking monster on a defending monster.
@@ -1915,8 +1924,8 @@ overlay29:
         return: amount of damage dealt
     - name: CalcDamageProjectile
       address:
-        NA: 0x2332C4C
         EU: 0x233368C
+        NA: 0x2332C4C
         JP: 0x233403C
       description: |-
         Appears to calculate damage from a variable-damage projectile.
@@ -1928,8 +1937,8 @@ overlay29:
         others: ?
     - name: CalcDamageFinal
       address:
-        NA: 0x2332D6C
         EU: 0x23337AC
+        NA: 0x2332D6C
       description: |-
         Last function called by DealDamage to determine the final damage dealt by the move. The result of this call is the return value of DealDamage. 
         
@@ -1940,8 +1949,8 @@ overlay29:
         stack[0]: Pointer to some struct. The first byte contains the ID of the move used.
     - name: GetApparentWeather
       address:
-        NA: 0x2334D08
         EU: 0x2335748
+        NA: 0x2334D08
         JP: 0x23360F4
       description: |-
         Get the weather, as experienced by a specific entity.
@@ -1950,8 +1959,8 @@ overlay29:
         return: weather ID
     - name: TryWeatherFormChange
       address:
-        NA: 0x2335170
         EU: 0x2335BB0
+        NA: 0x2335170
         JP: 0x233655C
       description: |-
         Tries to change a monster into one of its weather-related alternative forms. Applies to Castform and Cherrim, and checks for their unique abilities.
@@ -1959,8 +1968,8 @@ overlay29:
         r0: pointer to entity
     - name: GetTile
       address:
-        NA: 0x23360FC
         EU: 0x2336CCC
+        NA: 0x23360FC
         JP: 0x23374CC
       description: |-
         Get the tile at some position. If the coordinates are out of bounds, returns a default tile.
@@ -1970,8 +1979,8 @@ overlay29:
         return: tile pointer
     - name: GetTileSafe
       address:
-        NA: 0x2336164
         EU: 0x2336D34
+        NA: 0x2336164
         JP: 0x2337534
       description: |-
         Get the tile at some position. If the coordinates are out of bounds, returns a pointer to a copy of the default tile.
@@ -1981,32 +1990,32 @@ overlay29:
         return: tile pointer
     - name: GravityIsActive
       address:
-        NA: 0x2338390
         EU: 0x2338F60
+        NA: 0x2338390
       description: |-
         Checks if gravity is active on the floor.
         
         return: bool
     - name: IsSecretBazaar
       address:
-        NA: 0x23385C4
         EU: 0x2339194
+        NA: 0x23385C4
       description: |-
         Checks if the current floor is the Secret Bazaar.
         
         return: bool
     - name: IsSecretRoom
       address:
-        NA: 0x233865C
         EU: 0x233922C
+        NA: 0x233865C
       description: |-
         Checks if the current floor is the Secret Room fixed floor (from hidden stairs).
         
         return: bool
     - name: IsSecretFloor
       address:
-        NA: 0x2338684
         EU: 0x2339254
+        NA: 0x2338684
         JP: 0x2339A48
       description: |-
         Checks if the current floor is a secret bazaar or a secret room.
@@ -2014,32 +2023,39 @@ overlay29:
         returns: bool
     - name: GetMinimapData
       address:
-        NA: 0x2339118
         EU: 0x2339CE8
+        NA: 0x2339118
       description: |-
         Returns a pointer to the minimap_display_data struct in the dungeon struct.
         
         return: minimap_display_data*
     - name: SetMinimapDataE447
       address:
-        NA: 0x233A218
         EU: 0x233ADE8
+        NA: 0x233A218
       description: |-
         Sets minimap_display_data::field_0xE447 to the specified value
         
         r0: Value to set the field to
+    - name: GetMinimapDataE447
+      address:
+        EU: 0x233AE00
+      description: |-
+        Exclusive to the EU ROM. Returns minimap_display_data::field_0xE447.
+        
+        return: minimap_display_data::field_0xE447
     - name: SetMinimapDataE448
       address:
-        NA: 0x233A230
         EU: 0x233AE14
+        NA: 0x233A230
       description: |-
         Sets minimap_display_data::field_0xE448 to the specified value
         
         r0: Value to set the field to
     - name: LoadFixedRoomDataVeneer
       address:
-        NA: 0x233A624
         EU: 0x233B208
+        NA: 0x233A624
       description: |-
         Likely a linker-generated veneer for LoadFixedRoomData.
         
@@ -2048,8 +2064,8 @@ overlay29:
         No params.
     - name: IsNormalFloor
       address:
-        NA: 0x233A654
         EU: 0x233B238
+        NA: 0x233A654
         JP: 0x233BA18
       description: |-
         Checks if the current floor is a normal layout.
@@ -2065,8 +2081,8 @@ overlay29:
         return: bool
     - name: GenerateFloor
       address:
-        NA: 0x233A6D8
         EU: 0x233B2BC
+        NA: 0x233A6D8
         JP: 0x233BA9C
       description: |-
         This is the master function that generates the dungeon floor.
@@ -2078,8 +2094,8 @@ overlay29:
         No params.
     - name: GetTileTerrain
       address:
-        NA: 0x233AE78
         EU: 0x233BA5C
+        NA: 0x233AE78
         JP: 0x233C23C
       description: |-
         Gets the terrain type of a tile.
@@ -2088,8 +2104,8 @@ overlay29:
         return: terrain ID
     - name: DungeonRand100
       address:
-        NA: 0x233AE84
         EU: 0x233BA68
+        NA: 0x233AE84
         JP: 0x233C248
       description: |-
         Compute a pseudorandom integer on the interval [0, 100) using the dungeon PRNG.
@@ -2097,8 +2113,8 @@ overlay29:
         return: pseudorandom integer
     - name: FlagHallwayJunctions
       address:
-        NA: 0x233AF0C
         EU: 0x233BAF0
+        NA: 0x233AF0C
         JP: 0x233C2D0
       description: |-
         Sets the junction flag (bit 3 of the terrain flags) on any hallway junction tiles in some range [x0, x1), [y0, y1). This leaves tiles within rooms untouched.
@@ -2111,8 +2127,8 @@ overlay29:
         r3: y1
     - name: GenerateStandardFloor
       address:
-        NA: 0x233B028
         EU: 0x233BC0C
+        NA: 0x233B028
         JP: 0x233C3EC
       description: |-
         Generate a standard floor with the given parameters.
@@ -2128,8 +2144,8 @@ overlay29:
         r2: floor properties
     - name: GenerateOuterRingFloor
       address:
-        NA: 0x233B190
         EU: 0x233BD74
+        NA: 0x233B190
         JP: 0x233C554
       description: |-
         Generates a floor layout with a 4x2 grid of rooms, surrounded by an outer ring of hallways.
@@ -2137,8 +2153,8 @@ overlay29:
         r0: floor properties
     - name: GenerateCrossroadsFloor
       address:
-        NA: 0x233B61C
         EU: 0x233C200
+        NA: 0x233B61C
         JP: 0x233C9E0
       description: |-
         Generates a floor layout with a mesh of hallways on the interior 3x2 grid, surrounded by a boundary of rooms protruding from the interior like spikes, excluding the corner cells.
@@ -2146,8 +2162,8 @@ overlay29:
         r0: floor properties
     - name: GenerateLineFloor
       address:
-        NA: 0x233BA7C
         EU: 0x233C660
+        NA: 0x233BA7C
         JP: 0x233CE40
       description: |-
         Generates a floor layout with 5 grid cells in a horizontal line.
@@ -2155,8 +2171,8 @@ overlay29:
         r0: floor properties
     - name: GenerateCrossFloor
       address:
-        NA: 0x233BBDC
         EU: 0x233C7C0
+        NA: 0x233BBDC
         JP: 0x233CFA0
       description: |-
         Generates a floor layout with 5 rooms arranged in a cross ("plus sign") formation.
@@ -2164,8 +2180,8 @@ overlay29:
         r0: floor properties
     - name: GenerateBeetleFloor
       address:
-        NA: 0x233BD74
         EU: 0x233C958
+        NA: 0x233BD74
         JP: 0x233D138
       description: |-
         Generates a floor layout in a "beetle" formation, which is created by taking a 3x3 grid of rooms, connecting the rooms within each row, and merging the central column into one big room.
@@ -2173,8 +2189,8 @@ overlay29:
         r0: floor properties
     - name: MergeRoomsVertically
       address:
-        NA: 0x233BF30
         EU: 0x233CB14
+        NA: 0x233BF30
         JP: 0x233D2F4
       description: |-
         Merges two vertically stacked rooms into one larger room.
@@ -2185,8 +2201,8 @@ overlay29:
         r3: grid to update
     - name: GenerateOuterRoomsFloor
       address:
-        NA: 0x233C07C
         EU: 0x233CC60
+        NA: 0x233C07C
         JP: 0x233D440
       description: |-
         Generates a floor layout with a ring of rooms on the grid boundary and nothing in the interior.
@@ -2198,8 +2214,8 @@ overlay29:
         r2: floor properties
     - name: IsNotFullFloorFixedRoom
       address:
-        NA: 0x233C310
         EU: 0x233CEF4
+        NA: 0x233C310
         JP: 0x233D6D4
       description: |-
         Checks if a fixed room ID does not correspond to a fixed, full-floor layout.
@@ -2210,8 +2226,8 @@ overlay29:
         return: bool
     - name: GenerateFixedRoom
       address:
-        NA: 0x233C32C
         EU: 0x233CF10
+        NA: 0x233C32C
       description: |-
         Handles fixed room generation if the floor contains a fixed room.
         
@@ -2220,8 +2236,8 @@ overlay29:
         return: bool
     - name: GenerateOneRoomMonsterHouseFloor
       address:
-        NA: 0x233C774
         EU: 0x233D358
+        NA: 0x233C774
         JP: 0x233DB34
       description: |-
         Generates a floor layout with just a large, one-room Monster House.
@@ -2231,8 +2247,8 @@ overlay29:
         No params.
     - name: GenerateTwoRoomsWithMonsterHouseFloor
       address:
-        NA: 0x233C844
         EU: 0x233D428
+        NA: 0x233C844
         JP: 0x233DC04
       description: |-
         Generate a floor layout with two rooms (left and right), one of which is a Monster House.
@@ -2240,8 +2256,8 @@ overlay29:
         No params.
     - name: GenerateExtraHallways
       address:
-        NA: 0x233C9E8
         EU: 0x233D5CC
+        NA: 0x233C9E8
         JP: 0x233DDA8
       description: |-
         Generate extra hallways on the floor via a series of random walks.
@@ -2254,8 +2270,8 @@ overlay29:
         r3: number of extra hallways to generate
     - name: GetGridPositions
       address:
-        NA: 0x233CF84
         EU: 0x233DB68
+        NA: 0x233CF84
         JP: 0x233E344
       description: |-
         Get the grid cell positions for a given set of floor grid dimensions.
@@ -2266,8 +2282,8 @@ overlay29:
         r3: grid size y
     - name: InitDungeonGrid
       address:
-        NA: 0x233D004
         EU: 0x233DBE8
+        NA: 0x233D004
         JP: 0x233E3C4
       description: |-
         Initialize a dungeon grid with defaults.
@@ -2281,8 +2297,8 @@ overlay29:
         r2: grid size y
     - name: AssignRooms
       address:
-        NA: 0x233D104
         EU: 0x233DCE8
+        NA: 0x233D104
         JP: 0x233E4C4
       description: |-
         Randomly selects a subset of grid cells to become rooms.
@@ -2297,8 +2313,8 @@ overlay29:
         r3: number of rooms; if positive, a random value between [n_rooms, n_rooms+2] will be used. If negative, |n_rooms| will be used exactly.
     - name: CreateRoomsAndAnchors
       address:
-        NA: 0x233D318
         EU: 0x233DEFC
+        NA: 0x233D318
         JP: 0x233E6D8
       description: |-
         Creates rooms and hallway anchors in each grid cell as designated by AssignRooms.
@@ -2313,8 +2329,8 @@ overlay29:
         stack[1]: room bitflags; only uses bit 2 (mask: 0b100), which enables room imperfections
     - name: GenerateSecondaryStructures
       address:
-        NA: 0x233D674
         EU: 0x233E258
+        NA: 0x233D674
         JP: 0x233EA34
       description: |-
         Try to generate secondary structures in flagged rooms.
@@ -2334,8 +2350,8 @@ overlay29:
         r2: grid size y
     - name: AssignGridCellConnections
       address:
-        NA: 0x233E05C
         EU: 0x233EC40
+        NA: 0x233E05C
         JP: 0x233F41C
       description: |-
         Randomly assigns connections between adjacent grid cells.
@@ -2352,8 +2368,8 @@ overlay29:
         stack[1]: floor properties
     - name: CreateGridCellConnections
       address:
-        NA: 0x233E43C
         EU: 0x233F020
+        NA: 0x233E43C
         JP: 0x233F7FC
       description: |-
         Create grid cell connections either by creating hallways or merging rooms.
@@ -2370,8 +2386,8 @@ overlay29:
         stack[1]: disable room merging flag
     - name: GenerateRoomImperfections
       address:
-        NA: 0x233ED34
         EU: 0x233F918
+        NA: 0x233ED34
         JP: 0x23400F4
       description: |-
         Attempt to generate room imperfections for each room in the floor layout, if enabled.
@@ -2383,8 +2399,8 @@ overlay29:
         r2: grid size y
     - name: CreateHallway
       address:
-        NA: 0x233F120
         EU: 0x233FD04
+        NA: 0x233F120
         JP: 0x23404E0
       description: |-
         Create a hallway between two points.
@@ -2402,8 +2418,8 @@ overlay29:
         stack[2]: middle y coordinate for kinked vertical hallways
     - name: EnsureConnectedGrid
       address:
-        NA: 0x233F424
         EU: 0x2340008
+        NA: 0x233F424
         JP: 0x23407E4
       description: |-
         Ensure the grid forms a connected graph (all valid cells are reachable) by adding hallways to unreachable grid cells.
@@ -2417,8 +2433,8 @@ overlay29:
         stack[0]: array of the starting y coordinates of each grid row
     - name: SetTerrainObstacleChecked
       address:
-        NA: 0x233F900
         EU: 0x23404E4
+        NA: 0x233F900
         JP: 0x2340CC0
       description: |-
         Set the terrain of a specific tile to be an obstacle (wall or secondary terrain).
@@ -2430,8 +2446,8 @@ overlay29:
         r2: room index
     - name: FinalizeJunctions
       address:
-        NA: 0x233F93C
         EU: 0x2340520
+        NA: 0x233F93C
         JP: 0x2340CFC
       description: |-
         Finalizes junction tiles by setting the junction flag (bit 3 of the terrain flags) and ensuring open terrain.
@@ -2452,8 +2468,8 @@ overlay29:
         No params.
     - name: GenerateKecleonShop
       address:
-        NA: 0x233FBE8
         EU: 0x23407CC
+        NA: 0x233FBE8
         JP: 0x2340FA8
       description: |-
         Possibly generate a Kecleon shop on the floor.
@@ -2466,8 +2482,8 @@ overlay29:
         r3: Kecleon shop spawn chance (percentage from 0-100)
     - name: GenerateMonsterHouse
       address:
-        NA: 0x233FF9C
         EU: 0x2340B80
+        NA: 0x233FF9C
         JP: 0x234135C
       description: |-
         Possibly generate a Monster House on the floor.
@@ -2480,8 +2496,8 @@ overlay29:
         r3: Monster House spawn chance (percentage from 0-100)
     - name: GenerateMazeRoom
       address:
-        NA: 0x2340224
         EU: 0x2340E08
+        NA: 0x2340224
         JP: 0x23415E4
       description: |-
         Possibly generate a maze room on the floor.
@@ -2494,8 +2510,8 @@ overlay29:
         r3: maze room chance (percentage from 0-100)
     - name: GenerateMaze
       address:
-        NA: 0x2340458
         EU: 0x234103C
+        NA: 0x2340458
         JP: 0x2341818
       description: |-
         Generate a maze room within a given grid cell.
@@ -2506,8 +2522,8 @@ overlay29:
         r1: use secondary terrain flag (true for water/lava, false for walls)
     - name: GenerateMazeLine
       address:
-        NA: 0x23406D4
         EU: 0x23412B8
+        NA: 0x23406D4
         JP: 0x2341A94
       description: |-
         Generate a "maze line" from a given starting point, within the given bounds.
@@ -2524,8 +2540,8 @@ overlay29:
         stack[3]: room index
     - name: SetSpawnFlag5
       address:
-        NA: 0x234087C
         EU: 0x2341460
+        NA: 0x234087C
         JP: 0x2341C3C
       description: |-
         Set spawn flag 5 (0b100000 or 0x20) on all tiles in a room.
@@ -2533,8 +2549,8 @@ overlay29:
         r0: grid cell
     - name: IsNextToHallway
       address:
-        NA: 0x23408D0
         EU: 0x23414B4
+        NA: 0x23408D0
         JP: 0x2341C90
       description: |-
         Checks if a tile position is either in a hallway or next to one.
@@ -2544,8 +2560,8 @@ overlay29:
         return: bool
     - name: ResolveInvalidSpawns
       address:
-        NA: 0x2340974
         EU: 0x2341558
+        NA: 0x2340974
         JP: 0x2341D34
       description: |-
         Resolve invalid spawn flags on tiles.
@@ -2555,8 +2571,8 @@ overlay29:
         No params.
     - name: ConvertSecondaryTerrainToChasms
       address:
-        NA: 0x2340A0C
         EU: 0x23415F0
+        NA: 0x2340A0C
         JP: 0x2341DCC
       description: |-
         Converts all secondary terrain tiles (water/lava) to chasms.
@@ -2564,8 +2580,8 @@ overlay29:
         No params.
     - name: EnsureImpassableTilesAreWalls
       address:
-        NA: 0x2340A78
         EU: 0x234165C
+        NA: 0x2340A78
         JP: 0x2341E38
       description: |-
         Ensures all tiles with the impassable flag are walls.
@@ -2573,8 +2589,8 @@ overlay29:
         No params.
     - name: InitializeTile
       address:
-        NA: 0x2340AD4
         EU: 0x23416B8
+        NA: 0x2340AD4
         JP: 0x2341E94
       description: |-
         Initialize a tile struct.
@@ -2582,8 +2598,8 @@ overlay29:
         r0: tile pointer
     - name: ResetFloor
       address:
-        NA: 0x2340B0C
         EU: 0x23416F0
+        NA: 0x2340B0C
         JP: 0x2341ECC
       description: |-
         Resets the floor in preparation for a floor generation attempt.
@@ -2593,8 +2609,8 @@ overlay29:
         No params.
     - name: PosIsOutOfBounds
       address:
-        NA: 0x2340CAC
         EU: 0x2341890
+        NA: 0x2340CAC
         JP: 0x234206C
       description: |-
         Checks if a position (x, y) is out of bounds on the map: !((0 <= x <= 55) && (0 <= y <= 31)).
@@ -2604,8 +2620,8 @@ overlay29:
         return: bool
     - name: ShuffleSpawnPositions
       address:
-        NA: 0x2340CE4
         EU: 0x23418C8
+        NA: 0x2340CE4
         JP: 0x23420A4
       description: |-
         Randomly shuffle an array of spawn positions.
@@ -2614,8 +2630,8 @@ overlay29:
         r1: number of (x, y) pairs in the spawn position array
     - name: SpawnNonEnemies
       address:
-        NA: 0x2340D4C
         EU: 0x2341930
+        NA: 0x2340D4C
         JP: 0x234210C
       description: |-
         Spawn all non-enemy entities, which includes stairs, items, traps, and the player.
@@ -2634,8 +2650,8 @@ overlay29:
         r1: empty Monster House flag. An empty Monster House is one with no items or traps, and only a small number of enemies.
     - name: SpawnEnemies
       address:
-        NA: 0x2341470
         EU: 0x2342054
+        NA: 0x2341470
         JP: 0x2342830
       description: |-
         Spawn all enemies, which includes normal enemies and those in Monster Houses.
@@ -2648,8 +2664,8 @@ overlay29:
         r1: empty Monster House flag. An empty Monster House is one with no items or traps, and only a small number of enemies.
     - name: SetSecondaryTerrainOnWall
       address:
-        NA: 0x234176C
         EU: 0x2342350
+        NA: 0x234176C
         JP: 0x2342B2C
       description: |-
         Set a specific tile to have secondary terrain (water/lava), but only if it's a passable wall.
@@ -2657,8 +2673,8 @@ overlay29:
         r0: tile pointer
     - name: GenerateSecondaryTerrainFormations
       address:
-        NA: 0x23417AC
         EU: 0x2342390
+        NA: 0x23417AC
         JP: 0x2342B6C
       description: |-
         Generate secondary terrain (water/lava) formations.
@@ -2671,8 +2687,8 @@ overlay29:
         r1: floor properties
     - name: StairsAlwaysReachable
       address:
-        NA: 0x2341E6C
         EU: 0x2342A50
+        NA: 0x2341E6C
         JP: 0x234322C
       description: |-
         Checks that the stairs are reachable from every walkable tile on the floor.
@@ -2685,8 +2701,8 @@ overlay29:
         return: bool
     - name: ConvertWallsToChasms
       address:
-        NA: 0x2342548
         EU: 0x234312C
+        NA: 0x2342548
         JP: 0x2343908
       description: |-
         Converts all wall tiles to chasms.
@@ -2694,8 +2710,8 @@ overlay29:
         No params.
     - name: ResetInnerBoundaryTileRows
       address:
-        NA: 0x2342B7C
         EU: 0x2343760
+        NA: 0x2342B7C
         JP: 0x2343F3C
       description: |-
         Reset the inner boundary tile rows (y == 1 and y == 30) to their initial state of all wall tiles, with impassable walls at the edges (x == 0 and x == 55).
@@ -2703,8 +2719,8 @@ overlay29:
         No params.
     - name: SpawnStairs
       address:
-        NA: 0x2342C8C
         EU: 0x2343870
+        NA: 0x2342C8C
         JP: 0x234404C
       description: |-
         Spawn stairs at the given location.
@@ -2718,8 +2734,8 @@ overlay29:
         r2: hidden stairs flag
     - name: LoadFixedRoomData
       address:
-        NA: 0x2343D90
         EU: 0x2344974
+        NA: 0x2343D90
         JP: 0x2345154
       description: |-
         Loads fixed room data from BALANCE/fixed.bin into the buffer pointed to by FIXED_ROOM_DATA_PTR.
@@ -2727,8 +2743,8 @@ overlay29:
         No params.
     - name: IsHiddenStairsFloor
       address:
-        NA: 0x234450C
         EU: 0x23450F0
+        NA: 0x234450C
         JP: 0x23458D0
       description: |-
         Checks if the current floor is either the Secret Bazaar or a Secret Room.
@@ -2736,8 +2752,8 @@ overlay29:
         return: bool
     - name: HasHeldItem
       address:
-        NA: 0x23467E4
         EU: 0x23473D0
+        NA: 0x23467E4
         JP: 0x2347B94
       description: |-
         Checks if a monster has a certain held item.
@@ -2747,16 +2763,16 @@ overlay29:
         return: bool
     - name: IsOutlawOrChallengeRequestFloor
       address:
-        NA: 0x23491C4
         EU: 0x2349DC4
+        NA: 0x23491C4
       description: |-
         Checks if the current floor is an active mission destination of type MISSION_TAKE_ITEM_FROM_OUTLAW, MISSION_ARREST_OUTLAW or MISSION_CHALLENGE_REQUEST.
         
         return: bool
     - name: IsCurrentMissionType
       address:
-        NA: 0x234921C
         EU: 0x2349E1C
+        NA: 0x234921C
         JP: 0x234A544
       description: |-
         Checks if the current floor is an active mission destination of a given type (and any subtype).
@@ -2765,8 +2781,8 @@ overlay29:
         return: bool
     - name: IsCurrentMissionTypeExact
       address:
-        NA: 0x2349250
         EU: 0x2349E50
+        NA: 0x2349250
         JP: 0x234A578
       description: |-
         Checks if the current floor is an active mission destination of a given type and subtype.
@@ -2776,8 +2792,8 @@ overlay29:
         return: bool
     - name: IsOutlawMonsterHouseFloor
       address:
-        NA: 0x234928C
         EU: 0x2349E8C
+        NA: 0x234928C
         JP: 0x234A5B4
       description: |-
         Checks if the current floor is a mission destination for a Monster House outlaw mission.
@@ -2785,8 +2801,8 @@ overlay29:
         return: bool
     - name: IsGoldenChamber
       address:
-        NA: 0x23492B0
         EU: 0x2349EB0
+        NA: 0x23492B0
         JP: 0x234A5D8
       description: |-
         Checks if the current floor is a Golden Chamber floor.
@@ -2794,8 +2810,8 @@ overlay29:
         return: bool
     - name: IsLegendaryChallengeFloor
       address:
-        NA: 0x23492D4
         EU: 0x2349ED4
+        NA: 0x23492D4
         JP: 0x234A5FC
       description: |-
         Checks if the current floor is a boss floor for a Legendary Challenge Letter mission.
@@ -2803,8 +2819,8 @@ overlay29:
         return: bool
     - name: IsJirachiChallengeFloor
       address:
-        NA: 0x2349314
         EU: 0x2349F14
+        NA: 0x2349314
         JP: 0x234A63C
       description: |-
         Checks if the current floor is the boss floor in Star Cave Pit for Jirachi's Challenge Letter mission.
@@ -2812,8 +2828,8 @@ overlay29:
         return: bool
     - name: IsDestinationFloorWithMonster
       address:
-        NA: 0x234934C
         EU: 0x2349F4C
+        NA: 0x234934C
         JP: 0x234A674
       description: |-
         Checks if the current floor is a mission destination floor with a special monster.
@@ -2823,8 +2839,8 @@ overlay29:
         return: bool
     - name: MissionTargetEnemyIsDefeated
       address:
-        NA: 0x2349470
         EU: 0x234A070
+        NA: 0x2349470
         JP: 0x234A798
       description: |-
         Checks if the target enemy of the mission on the current floor has been defeated.
@@ -2832,8 +2848,8 @@ overlay29:
         return: bool
     - name: SetMissionTargetEnemyDefeated
       address:
-        NA: 0x2349490
         EU: 0x234A090
+        NA: 0x2349490
         JP: 0x234A7B8
       description: |-
         Set the flag for whether or not the target enemy of the current mission has been defeated.
@@ -2841,8 +2857,8 @@ overlay29:
         r0: new flag value
     - name: IsDestinationFloorWithFixedRoom
       address:
-        NA: 0x23494A4
         EU: 0x234A0A4
+        NA: 0x23494A4
         JP: 0x234A7CC
       description: |-
         Checks if the current floor is a mission destination floor with a fixed room.
@@ -2852,8 +2868,8 @@ overlay29:
         return: bool
     - name: GetItemToRetrieve
       address:
-        NA: 0x23494CC
         EU: 0x234A0CC
+        NA: 0x23494CC
         JP: 0x234A7F4
       description: |-
         Get the ID of the item that needs to be retrieve on the current floor for a mission, if one exists.
@@ -2861,8 +2877,8 @@ overlay29:
         return: item ID
     - name: GetItemToDeliver
       address:
-        NA: 0x23494F0
         EU: 0x234A0F0
+        NA: 0x23494F0
         JP: 0x234A818
       description: |-
         Get the ID of the item that needs to be delivered to a mission client on the current floor, if one exists.
@@ -2870,8 +2886,8 @@ overlay29:
         return: item ID
     - name: GetSpecialTargetItem
       address:
-        NA: 0x234951C
         EU: 0x234A11C
+        NA: 0x234951C
         JP: 0x234A844
       description: |-
         Get the ID of the special target item for a Sealed Chamber or Treasure Memo mission on the current floor.
@@ -2879,8 +2895,8 @@ overlay29:
         return: item ID
     - name: IsDestinationFloorWithItem
       address:
-        NA: 0x2349564
         EU: 0x234A164
+        NA: 0x2349564
         JP: 0x234A88C
       description: |-
         Checks if the current floor is a mission destination floor with a special item.
@@ -2890,8 +2906,8 @@ overlay29:
         return: bool
     - name: IsDestinationFloorWithHiddenOutlaw
       address:
-        NA: 0x23495C4
         EU: 0x234A1C4
+        NA: 0x23495C4
         JP: 0x234A8EC
       description: |-
         Checks if the current floor is a mission destination floor with a "hidden outlaw" that behaves like a normal enemy.
@@ -2899,8 +2915,8 @@ overlay29:
         return: bool
     - name: IsDestinationFloorWithFleeingOutlaw
       address:
-        NA: 0x23495E8
         EU: 0x234A1E8
+        NA: 0x23495E8
         JP: 0x234A910
       description: |-
         Checks if the current floor is a mission destination floor with a "fleeing outlaw" that runs away.
@@ -2908,8 +2924,8 @@ overlay29:
         return: bool
     - name: GetMissionTargetEnemy
       address:
-        NA: 0x2349620
         EU: 0x234A220
+        NA: 0x2349620
         JP: 0x234A948
       description: |-
         Get the monster ID of the target enemy to be defeated on the current floor for a mission, if one exists.
@@ -2917,8 +2933,8 @@ overlay29:
         return: monster ID
     - name: GetMissionEnemyMinionGroup
       address:
-        NA: 0x2349638
         EU: 0x234A238
+        NA: 0x2349638
         JP: 0x234A960
       description: |-
         Get the monster ID of the specified minion group on the current floor for a mission, if it exists.
@@ -2929,8 +2945,8 @@ overlay29:
         return: monster ID
     - name: FloorHasMissionMonster
       address:
-        NA: 0x2349748
         EU: 0x234A348
+        NA: 0x2349748
         JP: 0x234AA70
       description: |-
         Checks if a given floor is a mission destination with a special monster, either a target to rescue or an enemy to defeat.
@@ -2949,8 +2965,8 @@ overlay29:
         return: bool
     - name: LogMessageByIdWithPopupCheckUser
       address:
-        NA: 0x234B2A4
         EU: 0x234BEA4
+        NA: 0x234B2A4
         JP: 0x234C514
       description: |-
         Logs a message in the message log alongside a message popup, if the user hasn't fainted.
@@ -2959,8 +2975,8 @@ overlay29:
         r1: message ID
     - name: LogMessageWithPopupCheckUser
       address:
-        NA: 0x234B2E4
         EU: 0x234BEE4
+        NA: 0x234B2E4
         JP: 0x234C554
       description: |-
         Logs a message in the message log alongside a message popup, if the user hasn't fainted.
@@ -2969,8 +2985,8 @@ overlay29:
         r1: message string
     - name: LogMessageByIdQuiet
       address:
-        NA: 0x234B31C
         EU: 0x234BF1C
+        NA: 0x234B31C
         JP: 0x234C58C
       description: |-
         Logs a message in the message log (but without a message popup).
@@ -2979,8 +2995,8 @@ overlay29:
         r1: message ID
     - name: LogMessageQuiet
       address:
-        NA: 0x234B340
         EU: 0x234BF40
+        NA: 0x234B340
         JP: 0x234C5B0
       description: |-
         Logs a message in the message log (but without a message popup).
@@ -2989,8 +3005,8 @@ overlay29:
         r1: message string
     - name: LogMessageByIdWithPopupCheckUserTarget
       address:
-        NA: 0x234B350
         EU: 0x234BF50
+        NA: 0x234B350
         JP: 0x234C5C0
       description: |-
         Logs a message in the message log alongside a message popup, if some user check passes and the target hasn't fainted.
@@ -3000,8 +3016,8 @@ overlay29:
         r2: message ID
     - name: LogMessageWithPopupCheckUserTarget
       address:
-        NA: 0x234B3A4
         EU: 0x234BFA4
+        NA: 0x234B3A4
         JP: 0x234C614
       description: |-
         Logs a message in the message log alongside a message popup, if some user check passes and the target hasn't fainted.
@@ -3011,8 +3027,8 @@ overlay29:
         r2: message string
     - name: LogMessageByIdQuietCheckUserTarget
       address:
-        NA: 0x234B3F0
         EU: 0x234BFF0
+        NA: 0x234B3F0
         JP: 0x234C660
       description: |-
         Logs a message in the message log (but without a message popup), if some user check passes and the target hasn't fainted.
@@ -3022,8 +3038,8 @@ overlay29:
         r2: message ID
     - name: LogMessageByIdWithPopupCheckUserUnknown
       address:
-        NA: 0x234B444
         EU: 0x234C044
+        NA: 0x234B444
         JP: 0x234C6B4
       description: |-
         Logs a message in the message log alongside a message popup, if the user hasn't fainted and some other unknown check.
@@ -3033,8 +3049,8 @@ overlay29:
         r2: message ID
     - name: LogMessageByIdWithPopup
       address:
-        NA: 0x234B498
         EU: 0x234C098
+        NA: 0x234B498
         JP: 0x234C708
       description: |-
         Logs a message in the message log alongside a message popup.
@@ -3043,8 +3059,8 @@ overlay29:
         r1: message ID
     - name: LogMessageWithPopup
       address:
-        NA: 0x234B4BC
         EU: 0x234C0BC
+        NA: 0x234B4BC
       description: |-
         Logs a message in the message log alongside a message popup.
         
@@ -3052,8 +3068,8 @@ overlay29:
         r1: message string
     - name: LogMessage
       address:
-        NA: 0x234B508
         EU: 0x234C108
+        NA: 0x234B508
         JP: 0x234C778
       description: |-
         Logs a message in the message log.
@@ -3063,8 +3079,8 @@ overlay29:
         r2: bool, whether or not to present a message popup
     - name: LogMessageById
       address:
-        NA: 0x234B714
         EU: 0x234C314
+        NA: 0x234B714
         JP: 0x234C984
       description: |-
         Logs a message in the message log.
@@ -3074,8 +3090,8 @@ overlay29:
         r2: bool, whether or not to present a message popup
     - name: OpenMessageLog
       address:
-        NA: 0x234BB5C
         EU: 0x234C75C
+        NA: 0x234BB5C
       description: |-
         Opens the message log window.
         
@@ -3083,8 +3099,8 @@ overlay29:
         r1: ?
     - name: RunDungeonMode
       address:
-        NA: 0x234BF28
         EU: 0x234CB28
+        NA: 0x234BF28
         JP: 0x234D18C
       description: |-
         This appears to be the top-level function for running dungeon mode.
@@ -3094,8 +3110,8 @@ overlay29:
         This function is presumably in charge of allocating the dungeon struct, setting it up, launching the dungeon engine, etc.
     - name: DisplayDungeonTip
       address:
-        NA: 0x234CEF0
         EU: 0x234DAF0
+        NA: 0x234CEF0
       description: |-
         Checks if a given dungeon tip should be displayed at the start of a floor and if so, displays it. Called up to 4 times at the start of each new floor, with a different r0 parameter each time.
         
@@ -3103,8 +3119,8 @@ overlay29:
         r1: True to log the message in the message log
     - name: SetBothScreensWindowColorToDefault
       address:
-        NA: 0x234CF60
         EU: 0x234DB60
+        NA: 0x234CF60
         JP: 0x234E1C4
       description: |-
         This changes the palettes of windows in both screens to an appropiate value depending on the playthrough
@@ -3113,8 +3129,8 @@ overlay29:
         No params
     - name: DisplayMessage
       address:
-        NA: 0x234D258
         EU: 0x234DE58
+        NA: 0x234D258
       description: |-
         Displays a message in a dialogue box that optionally waits for player input before closing.
         
@@ -3123,13 +3139,13 @@ overlay29:
         r2: True to wait for player input before closing the dialogue box, false to close it automatically once all the characters get printed.
     - name: DisplayMessage2
       address:
-        NA: 0x234D2AC
         EU: 0x234DEAC
+        NA: 0x234D2AC
       description: Very similar to DisplayMessage
     - name: DisplayMessageInternal
       address:
-        NA: 0x234D590
         EU: 0x234E190
+        NA: 0x234D590
       description: |-
         Called by DisplayMessage. Seems to be the function that handles the display of the dialogue box. It won't return until all the characters have been written and after the player manually closes the dialogue box (if the corresponding parameter was set).
         
@@ -3139,324 +3155,280 @@ overlay29:
         r3: ?
         stack[0]: ?
         stack[1]: ?
-    - name: EuFaintCheck
-      address:
-        EU: 0x22F88E8
-      description: |-
-        This function is exclusive to the EU ROM. Seems to perform a check to see if the monster who just fainted was a team member who should cause the minimap to be updated (or something like that, maybe related to the Map Surveyor IQ skill) and if it passes, updates the minimap.
-        The function ends by calling another 2 functions. In US ROMs, calls to EUFaintCheck are replaced by calls to those two functions. This seems to indicate that this function fixes some edge case glitch that can happen when a team member faints.
-        
-        r0: False if the fainted entity was a team member
-        r1: True to set an unknown byte in the RAM to 1
-    - name: GetMinimapDataE447
-      address:
-        EU: 0x233AE00
-      description: |-
-        Exclusive to the EU ROM. Returns minimap_display_data::field_0xE447.
-        
-        return: minimap_display_data::field_0xE447
   data:
     - name: DUNGEON_STRUCT_SIZE
       address:
-        NA:
-          - 0x22DEA78
-          - 0x22DEAAC
         EU:
           - 0x22DF3B8
           - 0x22DF3EC
+        NA:
+          - 0x22DEA78
+          - 0x22DEAAC
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: Size of the dungeon struct (0x2CB14)
     - name: OFFSET_OF_DUNGEON_FLOOR_PROPERTIES
       address:
-        NA:
-          - 0x22E79F8
-          - 0x233AE68
         EU:
           - 0x22E83A8
           - 0x233BA4C
+        NA:
+          - 0x22E79F8
+          - 0x233AE68
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: Offset of the floor properties field in the dungeon struct (0x286B2)
     - name: SPAWN_RAND_MAX
       address:
-        NA: 0x22E7E50
         EU: 0x22E8800
+        NA: 0x22E7E50
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: "Equal to 10,000 (0x2710). Used as parameter for DungeonRandInt to generate the random number which determines the entity to spawn."
     - name: DUNGEON_PRNG_LCG_MULTIPLIER
       address:
-        NA:
-          - 0x22EA9C8
-          - 0x22EAA8C
         EU:
           - 0x22EB378
           - 0x22EB43C
+        NA:
+          - 0x22EA9C8
+          - 0x22EAA8C
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: "The multiplier shared by all of the dungeon PRNG's LCGs, 1566083941 (0x5D588B65)."
     - name: DUNGEON_PRNG_LCG_INCREMENT_SECONDARY
       address:
-        NA: 0x22EAA94
         EU: 0x22EB444
+        NA: 0x22EAA94
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: "The increment for the dungeon PRNG's secondary LCGs, 2531011 (0x269EC3). This happens to be the same increment that the Microsoft Visual C++ runtime library uses in its implementation of the rand() function."
     - name: KECLEON_FEMALE_ID
       address:
-        NA: 0x22F7404
         EU: 0x22F7DBC
+        NA: 0x22F7404
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: "0x3D7 (983). Used when spawning Kecleon on an even numbered floor."
     - name: KECLEON_MALE_ID
       address:
-        NA: 0x22F7408
         EU: 0x22F7DC0
+        NA: 0x22F7408
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: "0x17F (383). Used when spawning Kecleon on an odd numbered floor."
     - name: MSG_ID_SLOW_START
       address:
-        NA: 0x22F92D0
         EU: 0x22F9CDC
+        NA: 0x22F92D0
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: ID of the message printed when a monster has the ability Slow Start at the beginning of the floor.
     - name: EXPERIENCE_POINT_GAIN_CAP
       address:
-        NA: 0x23026C8
         EU: 0x23030F4
+        NA: 0x23026C8
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: A cap on the experience that can be given to a monster in one call to AddExpSpecial
     - name: JUDGMENT_MOVE_ID
       address:
-        NA: 0x230C458
         EU: 0x230CECC
+        NA: 0x230C458
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: |-
         Move ID for Judgment (0x1D3)
         
         type: enum move_id
     - name: REGULAR_ATTACK_MOVE_ID
       address:
-        NA: 0x230C45C
         EU: 0x230CED0
+        NA: 0x230C45C
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: |-
         Move ID for the regular attack (0x163)
         
         type: enum move_id
     - name: DEOXYS_ATTACK_ID
       address:
-        NA: 0x230C460
         EU: 0x230CED4
+        NA: 0x230C460
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: |-
         Monster ID for Deoxys in Attack Forme (0x1A3)
         
         type: enum monster_id
     - name: DEOXYS_SPEED_ID
       address:
-        NA: 0x230C464
         EU: 0x230CED8
+        NA: 0x230C464
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: |-
         Monster ID for Deoxys in Speed Forme (0x1A5)
         
         type: enum monster_id
     - name: GIRATINA_ALTERED_ID
       address:
-        NA: 0x230C468
         EU: 0x230CEDC
+        NA: 0x230C468
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: |-
         Monster ID for Giratina in Altered Forme (0x211)
         
         type: enum monster_id
     - name: PUNISHMENT_MOVE_ID
       address:
-        NA: 0x230C46C
         EU: 0x230CEE0
+        NA: 0x230C46C
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: |-
         Move ID for Punishment (0x1BD)
         
         type: enum move_id
     - name: OFFENSE_STAT_MAX
       address:
-        NA: 0x230C49C
         EU: 0x230CF10
+        NA: 0x230C49C
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: "Cap on an attacker's modified offense (attack or special attack) stat after boosts. Used during damage calculation."
     - name: PROJECTILE_MOVE_ID
       address:
-        NA:
-          - 0x230D07C
-          - 0x231C700
         EU:
           - 0x230DAF0
           - 0x231D160
+        NA:
+          - 0x230D07C
+          - 0x231C700
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: |-
         The move ID of the special "projectile" move (0x195)
         
         type: enum move_id
     - name: BELLY_LOST_PER_TURN
       address:
-        NA: 0x2310A70
         EU: 0x23114D0
+        NA: 0x2310A70
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: |-
         The base value by which belly is decreased every turn.
         
         Its raw value is 0x199A, which encodes a binary fixed-point number (16 fraction bits) with value (0x199A * 2^-16), and is the closest approximation to 0.1 representable in this number format.
     - name: MAX_HP_CAP
       address:
-        NA:
-          - 0x2311814
-          - 0x2318454
         EU:
           - 0x2312274
           - 0x2318EB4
+        NA:
+          - 0x2311814
+          - 0x2318454
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: The maximum amount of HP a monster can have (999).
     - name: MOVE_TARGET_AND_RANGE_SPECIAL_USER_HEALING
       address:
-        NA: 0x231AD34
         EU: 0x231B794
+        NA: 0x231AD34
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: |-
         The move target and range code for special healing moves that target just the user (0x273).
         
         type: struct move_target_and_range (+ padding)
     - name: PLAIN_SEED_VALUE
       address:
-        NA: 0x231C748
         EU: 0x231D1A8
+        NA: 0x231C748
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: Some value related to the Plain Seed (0xBE9).
     - name: MAX_ELIXIR_PP_RESTORATION
       address:
-        NA: 0x231C74C
         EU: 0x231D1AC
+        NA: 0x231C74C
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: The amount of PP restored per move by ingesting a Max Elixir (0x3E7).
     - name: SLIP_SEED_VALUE
       address:
-        NA: 0x231CBAC
         EU: 0x231D614
+        NA: 0x231CBAC
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: Some value related to the Slip Seed (0xC75).
     - name: CASTFORM_NORMAL_FORM_MALE_ID
       address:
-        NA: 0x2335438
         EU: 0x2335E78
+        NA: 0x2335438
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: "Castform's male normal form ID (0x17B)"
     - name: CASTFORM_NORMAL_FORM_FEMALE_ID
       address:
-        NA: 0x233543C
         EU: 0x2335E7C
+        NA: 0x233543C
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: "Castform's female normal form ID (0x3D3)"
     - name: CHERRIM_SUNSHINE_FORM_MALE_ID
       address:
-        NA: 0x2335440
         EU: 0x2335E80
+        NA: 0x2335440
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: "Cherrim's male sunshine form ID (0x1CD)"
     - name: CHERRIM_OVERCAST_FORM_FEMALE_ID
       address:
-        NA: 0x2335444
         EU: 0x2335E84
+        NA: 0x2335444
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: "Cherrim's female overcast form ID (0x424)"
     - name: CHERRIM_SUNSHINE_FORM_FEMALE_ID
       address:
-        NA: 0x2335448
         EU: 0x2335E88
+        NA: 0x2335448
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: "Cherrim's female sunshine form ID (0x425)"
     - name: FLOOR_GENERATION_STATUS_PTR
       address:
-        NA:
-          - 0x233AE6C
-          - 0x233AF08
-          - 0x233B18C
-          - 0x233B618
-          - 0x233BA78
-          - 0x233BBD8
-          - 0x233BD70
-          - 0x233BF2C
-          - 0x233C30C
-          - 0x233C76C
-          - 0x233CF80
-          - 0x233D100
-          - 0x233D310
-          - 0x233D670
-          - 0x233E058
-          - 0x233FF90
-          - 0x234021C
-          - 0x23406D0
-          - 0x234145C
-          - 0x2341764
-          - 0x2342178
-          - 0x2342510
-          - 0x23427E0
-          - 0x2342B74
-          - 0x2342C64
-          - 0x2342D98
-          - 0x2342F28
         EU:
           - 0x233BA50
           - 0x233BAEC
@@ -3485,48 +3457,55 @@ overlay29:
           - 0x2343848
           - 0x234397C
           - 0x2343B0C
+        NA:
+          - 0x233AE6C
+          - 0x233AF08
+          - 0x233B18C
+          - 0x233B618
+          - 0x233BA78
+          - 0x233BBD8
+          - 0x233BD70
+          - 0x233BF2C
+          - 0x233C30C
+          - 0x233C76C
+          - 0x233CF80
+          - 0x233D100
+          - 0x233D310
+          - 0x233D670
+          - 0x233E058
+          - 0x233FF90
+          - 0x234021C
+          - 0x23406D0
+          - 0x234145C
+          - 0x2341764
+          - 0x2342178
+          - 0x2342510
+          - 0x23427E0
+          - 0x2342B74
+          - 0x2342C64
+          - 0x2342D98
+          - 0x2342F28
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: |-
         Pointer to the global FLOOR_GENERATION_STATUS
         
         type: struct floor_generation_status*
     - name: OFFSET_OF_DUNGEON_N_NORMAL_ITEM_SPAWNS
       address:
-        NA:
-          - 0x233AE74
-          - 0x2341464
         EU:
           - 0x233BA58
           - 0x2342048
+        NA:
+          - 0x233AE74
+          - 0x2341464
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: Offset of the (number of base items + 1) field on the dungeon struct (0x12AFA)
     - name: DUNGEON_GRID_COLUMN_BYTES
       address:
-        NA:
-          - 0x233B614
-          - 0x233BA74
-          - 0x233BD6C
-          - 0x233BF28
-          - 0x233C308
-          - 0x233C770
-          - 0x233C9E4
-          - 0x233CF78
-          - 0x233D0FC
-          - 0x233D314
-          - 0x233D66C
-          - 0x233E054
-          - 0x233E438
-          - 0x233ED30
-          - 0x233F114
-          - 0x233F8FC
-          - 0x233FF94
-          - 0x2340220
-          - 0x2340454
-          - 0x23424CC
         EU:
           - 0x233C1F8
           - 0x233C658
@@ -3548,37 +3527,58 @@ overlay29:
           - 0x2340E04
           - 0x2341038
           - 0x23430B0
+        NA:
+          - 0x233B614
+          - 0x233BA74
+          - 0x233BD6C
+          - 0x233BF28
+          - 0x233C308
+          - 0x233C770
+          - 0x233C9E4
+          - 0x233CF78
+          - 0x233D0FC
+          - 0x233D314
+          - 0x233D66C
+          - 0x233E054
+          - 0x233E438
+          - 0x233ED30
+          - 0x233F114
+          - 0x233F8FC
+          - 0x233FF94
+          - 0x2340220
+          - 0x2340454
+          - 0x23424CC
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: "The number of bytes in one column of the dungeon grid cell array, 450, which corresponds to a column of 15 grid cells."
     - name: DEFAULT_MAX_POSITION
       address:
-        NA: 0x233FF98
         EU: 0x2340B7C
+        NA: 0x233FF98
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: A large number (9999) to use as a default position for keeping track of min/max position values
     - name: OFFSET_OF_DUNGEON_GUARANTEED_ITEM_ID
       address:
-        NA:
-          - 0x2341460
-          - 0x2344E80
         EU:
           - 0x2342044
           - 0x2345A64
+        NA:
+          - 0x2341460
+          - 0x2344E80
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: Offset of the guaranteed item ID field in the dungeon struct (0x2C9E8)
     - name: FIXED_ROOM_TILE_SPAWN_TABLE
       address:
-        NA: 0x234FDD0
         EU: 0x23509DC
+        NA: 0x234FDD0
       length:
-        NA: 0x2C
         EU: 0x2C
+        NA: 0x2C
       description: |-
         Table of tiles that can spawn in fixed rooms, pointed into by the FIXED_ROOM_TILE_SPAWN_TABLE.
         
@@ -3587,11 +3587,11 @@ overlay29:
         type: struct fixed_room_tile_spawn_entry[11]
     - name: FIXED_ROOM_REVISIT_OVERRIDES
       address:
-        NA: 0x234FE14
         EU: 0x2350A20
+        NA: 0x234FE14
       length:
-        NA: 0x100
         EU: 0x100
+        NA: 0x100
       description: |-
         Table of fixed room IDs, which if nonzero, overrides the normal fixed room ID for a floor (which is used to index the table) if the dungeon has already been cleared previously.
         
@@ -3600,11 +3600,11 @@ overlay29:
         type: struct fixed_room_id_8[256]
     - name: FIXED_ROOM_MONSTER_SPAWN_TABLE
       address:
-        NA: 0x234FF14
         EU: 0x2350B20
+        NA: 0x234FF14
       length:
-        NA: 0x1E0
         EU: 0x1E0
+        NA: 0x1E0
       description: |-
         Table of monsters that can spawn in fixed rooms, pointed into by the FIXED_ROOM_ENTITY_SPAWN_TABLE.
         
@@ -3613,11 +3613,11 @@ overlay29:
         type: struct fixed_room_monster_spawn_entry[120]
     - name: FIXED_ROOM_ITEM_SPAWN_TABLE
       address:
-        NA: 0x23500F4
         EU: 0x2350D00
+        NA: 0x23500F4
       length:
-        NA: 0x1F8
         EU: 0x1F8
+        NA: 0x1F8
       description: |-
         Table of items that can spawn in fixed rooms, pointed into by the FIXED_ROOM_ENTITY_SPAWN_TABLE.
         
@@ -3626,11 +3626,11 @@ overlay29:
         type: struct fixed_room_item_spawn_entry[63]
     - name: FIXED_ROOM_ENTITY_SPAWN_TABLE
       address:
-        NA: 0x23502EC
         EU: 0x2350EF8
+        NA: 0x23502EC
       length:
-        NA: 0xC9C
         EU: 0xC9C
+        NA: 0xC9C
       description: |-
         Table of entities (items, monsters, tiles) that can spawn in fixed rooms, which is indexed into by the main data structure for each fixed room.
         
@@ -3639,65 +3639,65 @@ overlay29:
         type: struct fixed_room_entity_spawn_entry[269]
     - name: DIRECTIONS_XY
       address:
-        NA: 0x235171C
         EU: 0x2352328
+        NA: 0x235171C
       length:
-        NA: 0x20
         EU: 0x20
+        NA: 0x20
       description: |-
         An array mapping each direction index to its x and y displacements.
         
         Directions start with 0=down and proceed counterclockwise (see enum direction_id). Displacements for x and y are interleaved and encoded as 2-byte signed integers. For example, the first two integers are [0, 1], which correspond to the x and y displacements for the "down" direction (positive y means down).
     - name: FRACTIONAL_TURN_SEQUENCE
       address:
-        NA: 0x2352284
         EU: 0x2352EC2
+        NA: 0x2352284
       length:
-        NA: 0xFA
         EU: 0xFA
+        NA: 0xFA
       description: |-
         Read by certain functions that are called by RunFractionalTurn to see if they should be executed.
         
         Array is accessed via a pointer added to some multiple of fractional_turn, so that if the resulting memory location is zero, the function returns.
     - name: BELLY_DRAIN_IN_WALLS_INT
       address:
-        NA: 0x2352768
         EU: 0x2353374
+        NA: 0x2352768
       length:
-        NA: 0x2
         EU: 0x2
+        NA: 0x2
       description: The additional amount by which belly is decreased every turn when inside walls (integer part)
     - name: BELLY_DRAIN_IN_WALLS_THOUSANDTHS
       address:
-        NA: 0x235276A
         EU: 0x2353376
+        NA: 0x235276A
       length:
-        NA: 0x2
         EU: 0x2
+        NA: 0x2
       description: The additional amount by which belly is decreased every turn when inside walls (fractional thousandths)
     - name: SPATK_STAT_IDX
       address:
-        NA: 0x2352AE8
         EU: 0x23536F4
+        NA: 0x2352AE8
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: "The index (1) of the special attack entry in internal stat structs, such as the stat modifier array for a monster."
     - name: ATK_STAT_IDX
       address:
-        NA: 0x2352AEC
         EU: 0x23536F8
+        NA: 0x2352AEC
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: "The index (0) of the attack entry in internal stat structs, such as the stat modifier array for a monster."
     - name: CORNER_CARDINAL_NEIGHBOR_IS_OPEN
       address:
-        NA: 0x2353010
         EU: 0x2353C24
+        NA: 0x2353010
       length:
-        NA: 0x20
         EU: 0x20
+        NA: 0x20
       description: |-
         An array mapping each (corner index, neighbor direction index) to whether or not that neighbor is expected to be open floor.
         
@@ -3708,11 +3708,11 @@ overlay29:
         This array is used by the dungeon generation algorithm when generating room imperfections. See GenerateRoomImperfections.
     - name: DUNGEON_PTR
       address:
-        NA: 0x2353538
         EU: 0x2354138
+        NA: 0x2353538
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: |-
         [Runtime] Pointer to the dungeon struct in dungeon mode.
         
@@ -3721,11 +3721,11 @@ overlay29:
         type: struct dungeon*
     - name: DUNGEON_PTR_MASTER
       address:
-        NA: 0x235353C
         EU: 0x235413C
+        NA: 0x235353C
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: |-
         [Runtime] Pointer to the dungeon struct in dungeon mode.
         
@@ -3734,22 +3734,22 @@ overlay29:
         type: struct dungeon*
     - name: LEADER_PTR
       address:
-        NA: 0x235355C
         EU: 0x235415C
+        NA: 0x235355C
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: |-
         [Runtime] Pointer to the current leader of the team.
         
         type: struct entity*
     - name: DUNGEON_PRNG_STATE
       address:
-        NA: 0x2353570
         EU: 0x2354170
+        NA: 0x2353570
       length:
-        NA: 0x14
         EU: 0x14
+        NA: 0x14
       description: |-
         [Runtime] The global PRNG state for dungeon mode, not including the current values in the secondary sequences.
         
@@ -3758,54 +3758,54 @@ overlay29:
         type: struct prng_state
     - name: DUNGEON_PRNG_STATE_SECONDARY_VALUES
       address:
-        NA: 0x2353584
         EU: 0x2354184
+        NA: 0x2353584
       length:
-        NA: 0x14
         EU: 0x14
+        NA: 0x14
       description: |-
         [Runtime] An array of 5 integers corresponding to the last value generated for each secondary LCG sequence.
         
         Based on the assembly, this appears to be its own global array, separate from DUNGEON_PRNG_STATE.
     - name: EXCL_ITEM_EFFECTS_WEATHER_ATK_SPEED_BOOST
       address:
-        NA: 0x23535B0
         EU: 0x23541B0
+        NA: 0x23535B0
       length:
-        NA: 0x8
         EU: 0x8
+        NA: 0x8
       description: Array of IDs for exclusive item effects that increase attack speed with certain weather conditions.
     - name: EXCL_ITEM_EFFECTS_WEATHER_MOVE_SPEED_BOOST
       address:
-        NA: 0x23535B8
         EU: 0x23541B8
+        NA: 0x23535B8
       length:
-        NA: 0x8
         EU: 0x8
+        NA: 0x8
       description: Array of IDs for exclusive item effects that increase movement speed with certain weather conditions.
     - name: EXCL_ITEM_EFFECTS_WEATHER_NO_STATUS
       address:
-        NA: 0x23535C0
         EU: 0x23541C0
+        NA: 0x23535C0
       length:
-        NA: 0x8
         EU: 0x8
+        NA: 0x8
       description: Array of IDs for exclusive item effects that grant status immunity with certain weather conditions.
     - name: EXCL_ITEM_EFFECTS_EVASION_BOOST
       address:
-        NA: 0x2353710
         EU: 0x2354310
+        NA: 0x2353710
       length:
-        NA: 0x8
         EU: 0x8
+        NA: 0x8
       description: Array of IDs for exclusive item effects that grant an evasion boost with certain weather conditions.
     - name: DEFAULT_TILE
       address:
-        NA: 0x2353724
         EU: 0x235433C
+        NA: 0x2353724
       length:
-        NA: 0x14
         EU: 0x14
+        NA: 0x14
       description: |-
         The default tile struct.
         
@@ -3814,9 +3814,9 @@ overlay29:
         type: struct tile
     - name: FIXED_ROOM_DATA_PTR
       address:
-        NA: 0x2353794
         EU: 0x23543AC
+        NA: 0x2353794
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: "[Runtime] Pointer to decoded fixed room data loaded from the BALANCE/fixed.bin file."

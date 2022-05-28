@@ -41,6 +41,7 @@ enum forced_loss_reason GetForcedLossReason(void);
 void ResetDamageDesc(undefined4* damage_desc);
 uint16_t GetSpriteIndex(enum monster_id monster_id);
 bool FloorNumberIsEven(void);
+void EuFaintCheck(bool non_team_member_fainted, bool set_unk_byte);
 void HandleFaint(struct entity* fainted_entity, int faint_reason, struct entity* killer);
 enum monster_id GetKecleonIdToSpawnByFloor(void);
 void TryActivateSlowStart(void);
@@ -209,6 +210,7 @@ bool IsSecretBazaar(void);
 bool IsSecretRoom(void);
 struct minimap_display_data* GetMinimapData(void);
 void SetMinimapDataE447(uint8_t value);
+uint8_t GetMinimapDataE447(void);
 void SetMinimapDataE448(uint8_t value);
 bool IsSecretFloor(void);
 void LoadFixedRoomDataVeneer(void);
@@ -320,7 +322,5 @@ void DisplayMessage(undefined4 param_1, int message_id, bool wait_for_input);
 void DisplayMessage2(undefined4 param_1, int message_id, bool wait_for_input);
 void DisplayMessageInternal(int message_id, bool wait_for_input, undefined4 param_3,
                             undefined4 param_4, undefined4 param_5, undefined4 param_6);
-void EuFaintCheck(bool non_team_member_fainted, bool set_unk_byte);
-uint8_t GetMinimapDataE447(void);
 
 #endif

@@ -1,23 +1,23 @@
 overlay14:
   versions:
-    - NA
     - EU
+    - NA
     - JP
   address:
-    NA: 0x238A140
     EU: 0x238AC80
+    NA: 0x238A140
     JP: 0x238B6A0
   length:
-    NA: 0x3AE0
     EU: 0x3B40
+    NA: 0x3AE0
     JP: 0x3AE0
   description: Runs the sentry duty minigame.
   functions: []
   data:
     - name: FOOTPRINT_DEBUG_MENU
       address:
-        NA: 0x238DAA0
         EU: 0x238E640
+        NA: 0x238DAA0
       length:
-        NA: 0x48
         EU: 0x48
+        NA: 0x48

@@ -1,15 +1,15 @@
 arm9:
   versions:
-    - NA
     - EU
+    - NA
     - JP
   address:
-    NA: 0x2000000
     EU: 0x2000000
+    NA: 0x2000000
     JP: 0x2000000
   length:
-    NA: 0xB73F8
     EU: 0xB7D38
+    NA: 0xB73F8
     JP: 0xB8CB8
   description: |-
     The main ARM9 binary.
@@ -18,8 +18,8 @@ arm9:
   functions:
     - name: InitMemAllocTable
       address:
-        NA: 0x2000DE0
         EU: 0x2000DE0
+        NA: 0x2000DE0
         JP: 0x2000DE0
       description: |-
         Initializes MEMORY_ALLOCATION_TABLE.
@@ -29,8 +29,8 @@ arm9:
         No params.
     - name: SetMemAllocatorParams
       address:
-        NA: 0x2000E70
         EU: 0x2000E70
+        NA: 0x2000E70
         JP: 0x2000E70
       description: |-
         Sets global parameters for the memory allocator.
@@ -43,8 +43,8 @@ arm9:
         r1: GetFreeArena function pointer (GetFreeArenaDefault is used if null)
     - name: GetAllocArenaDefault
       address:
-        NA: 0x2000EC0
         EU: 0x2000EC0
+        NA: 0x2000EC0
         JP: 0x2000EC0
       description: |-
         The default function for retrieving the arena for memory allocations. This function always just returns the initial arena pointer.
@@ -54,8 +54,8 @@ arm9:
         return: memory arena pointer, or null
     - name: GetFreeArenaDefault
       address:
-        NA: 0x2000EC4
         EU: 0x2000EC4
+        NA: 0x2000EC4
         JP: 0x2000EC4
       description: |-
         The default function for retrieving the arena for memory freeing. This function always just returns the initial arena pointer.
@@ -65,8 +65,8 @@ arm9:
         return: memory arena pointer, or null
     - name: InitMemArena
       address:
-        NA: 0x2000EC8
         EU: 0x2000EC8
+        NA: 0x2000EC8
         JP: 0x2000EC8
       description: |-
         Initializes a new memory arena with the given specifications, and records it in the global MEMORY_ALLOCATION_TABLE.
@@ -77,8 +77,8 @@ arm9:
         r3: maximum number of blocks that the arena can hold
     - name: MemAllocFlagsToBlockType
       address:
-        NA: 0x2000F44
         EU: 0x2000F44
+        NA: 0x2000F44
         JP: 0x2000F44
       description: |-
         Converts the internal alloc flags bitfield (struct mem_block field 0x4) to the block type bitfield (struct mem_block field 0x0).
@@ -87,8 +87,8 @@ arm9:
         return: block type flags
     - name: FindAvailableMemBlock
       address:
-        NA: 0x2000F88
         EU: 0x2000F88
+        NA: 0x2000F88
         JP: 0x2000F88
       description: |-
         Searches through the given memory arena for a block with enough free space.
@@ -101,8 +101,8 @@ arm9:
         return: index of the located block in the arena's block array, or -1 if nothing is available
     - name: SplitMemBlock
       address:
-        NA: 0x2001070
         EU: 0x2001070
+        NA: 0x2001070
         JP: 0x2001070
       description: |-
         Given a memory block at a given index, splits off another memory block of the specified size from the end.
@@ -117,8 +117,8 @@ arm9:
         return: the newly split-off memory block
     - name: MemAlloc
       address:
-        NA: 0x2001170
         EU: 0x2001170
+        NA: 0x2001170
         JP: 0x2001170
       description: |-
         Allocates some memory on the heap, returning a pointer to the starting address.
@@ -132,8 +132,8 @@ arm9:
         return: pointer
     - name: MemFree
       address:
-        NA: 0x2001188
         EU: 0x2001188
+        NA: 0x2001188
         JP: 0x2001188
       description: |-
         Frees heap-allocated memory.
@@ -143,8 +143,8 @@ arm9:
         r0: pointer
     - name: MemArenaAlloc
       address:
-        NA: 0x200119C
         EU: 0x200119C
+        NA: 0x200119C
         JP: 0x200119C
       description: |-
         Allocates some memory on the heap and creates a new global memory arena with it.
@@ -158,8 +158,8 @@ arm9:
         return: memory arena pointer
     - name: CreateMemArena
       address:
-        NA: 0x2001280
         EU: 0x2001280
+        NA: 0x2001280
         JP: 0x2001280
       description: |-
         Creates a new memory arena within a given block of memory.
@@ -171,8 +171,8 @@ arm9:
         return: memory arena pointer
     - name: MemLocateSet
       address:
-        NA: 0x2001390
         EU: 0x2001390
+        NA: 0x2001390
         JP: 0x2001390
       description: |-
         The implementation for MemAlloc.
@@ -189,8 +189,8 @@ arm9:
         return: pointer to allocated memory
     - name: MemLocateUnset
       address:
-        NA: 0x2001638
         EU: 0x2001638
+        NA: 0x2001638
         JP: 0x2001638
       description: |-
         The implementation for MemFree.
@@ -201,8 +201,8 @@ arm9:
         r1: pointer to free
     - name: RoundUpDiv256
       address:
-        NA: 0x2001894
         EU: 0x2001894
+        NA: 0x2001894
         JP: 0x2001894
       description: |-
         Divide a number by 256 and round up to the nearest integer.
@@ -211,8 +211,8 @@ arm9:
         return: number // 256
     - name: MultiplyByFixedPoint
       address:
-        NA: 0x2001A54
         EU: 0x2001A54
+        NA: 0x2001A54
         JP: 0x2001A54
       description: |-
         Multiply a signed integer x by a signed binary fixed-point multiplier (8 fraction bits).
@@ -222,8 +222,8 @@ arm9:
         return: x * multiplier
     - name: UMultiplyByFixedPoint
       address:
-        NA: 0x2001B0C
         EU: 0x2001B0C
+        NA: 0x2001B0C
         JP: 0x2001B0C
       description: |-
         Multiplies an unsigned integer x by an unsigned binary fixed-point multiplier (8 fraction bits).
@@ -233,21 +233,21 @@ arm9:
         return: x * multiplier
     - name: GetRngSeed
       address:
-        NA: 0x200222C
         EU: 0x200222C
+        NA: 0x200222C
       description: Get the current value of PRNG_SEQUENCE_NUM.
     - name: SetRngSeed
       address:
-        NA: 0x200223C
         EU: 0x200223C
+        NA: 0x200223C
       description: |-
         Seed PRNG_SEQUENCE_NUM to a given value.
         
         r0: seed
     - name: Rand16Bit
       address:
-        NA: 0x200224C
         EU: 0x200224C
+        NA: 0x200224C
         JP: 0x200224C
       description: |-
         Computes a pseudorandom 16-bit integer using the general-purpose PRNG.
@@ -261,8 +261,8 @@ arm9:
         return: pseudorandom int on the interval [0, 65535]
     - name: RandInt
       address:
-        NA: 0x2002274
         EU: 0x2002274
+        NA: 0x2002274
         JP: 0x2002274
       description: |-
         Compute a pseudorandom integer under a given maximum value using the general-purpose PRNG.
@@ -273,8 +273,8 @@ arm9:
         return: pseudorandom integer on the interval [0, high - 1]
     - name: RandRange
       address:
-        NA: 0x200228C
         EU: 0x200228C
+        NA: 0x200228C
         JP: 0x200228C
       description: |-
         Compute a pseudorandom value between two integers using the general-purpose PRNG.
@@ -286,8 +286,8 @@ arm9:
         return: pseudorandom integer on the interval [x, y - 1]
     - name: Rand32Bit
       address:
-        NA: 0x20022AC
         EU: 0x20022AC
+        NA: 0x20022AC
         JP: 0x20022AC
       description: |-
         Computes a random 32-bit integer using the general-purpose PRNG. The upper and lower 16 bits are each generated with a separate call to Rand16Bit (so this function advances the PRNG twice).
@@ -295,8 +295,8 @@ arm9:
         return: pseudorandom int on the interval [0, 4294967295]
     - name: RandIntSafe
       address:
-        NA: 0x20022F8
         EU: 0x20022F8
+        NA: 0x20022F8
         JP: 0x20022F8
       description: |-
         Same as RandInt, except explicitly masking out the upper 16 bits of the output from Rand16Bit (which should be zero anyway).
@@ -305,8 +305,8 @@ arm9:
         return: pseudorandom integer on the interval [0, high - 1]
     - name: RandRangeSafe
       address:
-        NA: 0x2002318
         EU: 0x2002318
+        NA: 0x2002318
         JP: 0x2002318
       description: |-
         Like RandRange, except reordering the inputs as needed, and explicitly masking out the upper 16 bits of the output from Rand16Bit (which should be zero anyway).
@@ -316,8 +316,8 @@ arm9:
         return: pseudorandom integer on the interval [min(x, y), max(x, y) - 1]
     - name: WaitForever
       address:
-        NA: 0x2002438
         EU: 0x2002438
+        NA: 0x2002438
         JP: 0x2002438
       description: |-
         Sets some program state and calls WaitForInterrupt in an infinite loop.
@@ -327,8 +327,8 @@ arm9:
         No params.
     - name: InitMemAllocTableVeneer
       address:
-        NA: 0x200321C
         EU: 0x200321C
+        NA: 0x200321C
         JP: 0x200321C
       description: |-
         Likely a linker-generated veneer for InitMemAllocTable.
@@ -338,8 +338,8 @@ arm9:
         No params.
     - name: MemZero
       address:
-        NA: 0x2003250
         EU: 0x2003250
+        NA: 0x2003250
         JP: 0x2003250
       description: |-
         Zeroes a buffer.
@@ -348,8 +348,8 @@ arm9:
         r1: len
     - name: MemcpySimple
       address:
-        NA: 0x20032E4
         EU: 0x20032E4
+        NA: 0x20032E4
         JP: 0x20032E4
       description: |-
         A simple implementation of the memcpy(3) C library function.
@@ -363,8 +363,8 @@ arm9:
         r2: n
     - name: TaskProcBoot
       address:
-        NA: 0x2003328
         EU: 0x2003328
+        NA: 0x2003328
         JP: 0x2003328
       description: |-
         Probably related to booting the game?
@@ -374,8 +374,8 @@ arm9:
         No params.
     - name: EnableAllInterrupts
       address:
-        NA: 0x2003608
         EU: 0x2003608
+        NA: 0x2003608
         JP: 0x2003608
       description: |-
         Sets the Interrupt Master Enable (IME) register to 1, which enables all CPU interrupts (if enabled in the Interrupt Enable (IE) register).
@@ -385,8 +385,8 @@ arm9:
         return: old value in the IME register
     - name: GetTime
       address:
-        NA: 0x20037B4
         EU: 0x20037B4
+        NA: 0x20037B4
         JP: 0x20037B4
       description: |-
         Seems to get the current (system?) time as an IEEE 754 floating-point number.
@@ -394,8 +394,8 @@ arm9:
         return: current time (maybe in seconds?)
     - name: DisableAllInterrupts
       address:
-        NA: 0x2003824
         EU: 0x2003824
+        NA: 0x2003824
         JP: 0x2003824
       description: |-
         Sets the Interrupt Master Enable (IME) register to 0, which disables all CPU interrupts (even if enabled in the Interrupt Enable (IE) register).
@@ -405,8 +405,8 @@ arm9:
         return: old value in the IME register
     - name: SoundResume
       address:
-        NA: 0x2003CC4
         EU: 0x2003CC4
+        NA: 0x2003CC4
         JP: 0x2003CC4
       description: |-
         Probably resumes the sound player if paused?
@@ -414,8 +414,8 @@ arm9:
         This function prints the debug string "sound resume".
     - name: CardPullOutWithStatus
       address:
-        NA: 0x2003D2C
         EU: 0x2003D2C
+        NA: 0x2003D2C
         JP: 0x2003D2C
       description: |-
         Probably aborts the program with some status code? It seems to serve a similar purpose to the exit(3) function.
@@ -425,8 +425,8 @@ arm9:
         r0: status code
     - name: CardPullOut
       address:
-        NA: 0x2003D70
         EU: 0x2003D70
+        NA: 0x2003D70
         JP: 0x2003D70
       description: |-
         Sets some global flag that probably triggers system exit?
@@ -436,8 +436,8 @@ arm9:
         No params.
     - name: CardBackupError
       address:
-        NA: 0x2003D94
         EU: 0x2003D94
+        NA: 0x2003D94
         JP: 0x2003D94
       description: |-
         Sets some global flag that maybe indicates a save error?
@@ -447,8 +447,8 @@ arm9:
         No params.
     - name: HaltProcessDisp
       address:
-        NA: 0x2003DB8
         EU: 0x2003DB8
+        NA: 0x2003DB8
         JP: 0x2003DB8
       description: |-
         Maybe halts the process display?
@@ -458,8 +458,8 @@ arm9:
         r0: status code
     - name: OverlayIsLoaded
       address:
-        NA: 0x2003ED0
         EU: 0x2003ED0
+        NA: 0x2003ED0
         JP: 0x2003ED0
       description: |-
         Checks if an overlay with a certain group ID is currently loaded.
@@ -470,8 +470,8 @@ arm9:
         return: bool
     - name: LoadOverlay
       address:
-        NA: 0x20040AC
         EU: 0x20040AC
+        NA: 0x20040AC
         JP: 0x20040AC
       description: |-
         Loads an overlay from ROM by its group ID.
@@ -481,8 +481,8 @@ arm9:
         r0: group ID of the overlay to load
     - name: UnloadOverlay
       address:
-        NA: 0x2004868
         EU: 0x2004868
+        NA: 0x2004868
         JP: 0x2004868
       description: |-
         Unloads an overlay from ROM by its group ID.
@@ -493,10 +493,10 @@ arm9:
         others: ?
     - name: EuclideanNorm
       address:
-        NA:
+        EU:
           - 0x2005050
           - 0x20050B0
-        EU:
+        NA:
           - 0x2005050
           - 0x20050B0
       description: |-
@@ -506,8 +506,8 @@ arm9:
         return: sqrt(x*x + y*y)
     - name: ClampComponentAbs
       address:
-        NA: 0x2005110
         EU: 0x2005110
+        NA: 0x2005110
         JP: 0x2005110
       description: |-
         Clamps the absolute values in a two-component integer array.
@@ -518,8 +518,8 @@ arm9:
         r1: max absolute value
     - name: KeyWaitInit
       address:
-        NA: 0x2006DA4
         EU: 0x2006DA4
+        NA: 0x2006DA4
         JP: 0x2006DA4
       description: |-
         Implements (most of?) SPECIAL_PROC_KEY_WAIT_INIT (see ScriptSpecialProcessCall).
@@ -527,8 +527,8 @@ arm9:
         No params.
     - name: DataTransferInit
       address:
-        NA: 0x2008168
         EU: 0x2008168
+        NA: 0x2008168
         JP: 0x2008168
       description: |-
         Initializes data transfer mode to get data from the ROM cartridge.
@@ -536,8 +536,8 @@ arm9:
         No params.
     - name: DataTransferStop
       address:
-        NA: 0x2008194
         EU: 0x2008194
+        NA: 0x2008194
         JP: 0x2008194
       description: |-
         Finalizes data transfer from the ROM cartridge.
@@ -547,8 +547,8 @@ arm9:
         No params.
     - name: FileInitVeneer
       address:
-        NA: 0x2008204
         EU: 0x2008204
+        NA: 0x2008204
       description: |-
         Likely a linker-generated veneer for FileInit.
         
@@ -557,8 +557,8 @@ arm9:
         r0: file_stream pointer
     - name: FileOpen
       address:
-        NA: 0x2008210
         EU: 0x2008210
+        NA: 0x2008210
         JP: 0x2008210
       description: |-
         Opens a file from the ROM file system at the given path, sort of like C's fopen(3) library function.
@@ -567,8 +567,8 @@ arm9:
         r1: file path string
     - name: FileGetSize
       address:
-        NA: 0x2008244
         EU: 0x2008244
+        NA: 0x2008244
         JP: 0x2008244
       description: |-
         Gets the size of an open file.
@@ -577,8 +577,8 @@ arm9:
         return: file size
     - name: FileRead
       address:
-        NA: 0x2008254
         EU: 0x2008254
+        NA: 0x2008254
         JP: 0x2008254
       description: |-
         Reads the contents of a file into the given buffer, and moves the file cursor accordingly.
@@ -591,8 +591,8 @@ arm9:
         return: number of bytes read
     - name: FileSeek
       address:
-        NA: 0x20082A8
         EU: 0x20082A8
+        NA: 0x20082A8
         JP: 0x20082A8
       description: |-
         Sets a file stream's position indicator.
@@ -607,8 +607,8 @@ arm9:
         r2: whence
     - name: FileClose
       address:
-        NA: 0x20082C4
         EU: 0x20082C4
+        NA: 0x20082C4
         JP: 0x20082C4
       description: |-
         Closes a file.
@@ -620,8 +620,8 @@ arm9:
         r0: file_stream pointer
     - name: LoadFileFromRom
       address:
-        NA: 0x2008C3C
         EU: 0x2008C3C
+        NA: 0x2008C3C
         JP: 0x2008C3C
       description: |-
         Loads a file from ROM by filepath into a heap-allocated buffer.
@@ -631,20 +631,20 @@ arm9:
         r2: flags
     - name: GetDebugFlag1
       address:
-        NA: 0x200C110
         EU: 0x200C198
+        NA: 0x200C110
         JP: 0x200C110
       description: Just returns 0 in the final binary.
     - name: SetDebugFlag1
       address:
-        NA: 0x200C118
         EU: 0x200C1A0
+        NA: 0x200C118
         JP: 0x200C118
       description: A no-op in the final binary.
     - name: AppendProgPos
       address:
-        NA: 0x200C120
         EU: 0x200C1A8
+        NA: 0x200C120
         JP: 0x200C120
       description: |-
         Write a base message into a string and append the file name and line number to the end in the format "file = '%s'  line = %5d\n".
@@ -657,8 +657,8 @@ arm9:
         return: number of characters printed, excluding the null-terminator
     - name: DebugPrintTrace
       address:
-        NA: 0x200C16C
         EU: 0x200C1F4
+        NA: 0x200C16C
         JP: 0x200C16C
       description: |-
         Would log a printf format string tagged with the file name and line number in the debug binary.
@@ -671,10 +671,10 @@ arm9:
         r1: program position info (can be null)
     - name: DebugPrint0
       address:
+        EU: 0x200C284
         NA:
           - 0x200C1C8
           - 0x200C1FC
-        EU: 0x200C284
       description: |-
         Would log a printf format string in the debug binary.
         
@@ -684,20 +684,20 @@ arm9:
         ...: variadic
     - name: GetDebugFlag2
       address:
-        NA: 0x200C234
         EU: 0x200C2BC
+        NA: 0x200C234
         JP: 0x200C234
       description: Just returns 0 in the final binary.
     - name: SetDebugFlag2
       address:
-        NA: 0x200C23C
         EU: 0x200C2C4
+        NA: 0x200C23C
         JP: 0x200C23C
       description: A no-op in the final binary.
     - name: DebugPrint
       address:
-        NA: 0x200C240
         EU: 0x200C2C8
+        NA: 0x200C240
         JP: 0x200C240
       description: |-
         Would log a printf format string in the debug binary. A no-op in the final binary.
@@ -707,8 +707,8 @@ arm9:
         ...: variadic
     - name: FatalError
       address:
-        NA: 0x200C25C
         EU: 0x200C2E4
+        NA: 0x200C25C
         JP: 0x200C25C
       description: |-
         Logs some debug messages, then hangs the process.
@@ -720,8 +720,8 @@ arm9:
         ...: variadic
     - name: IsAuraBow
       address:
-        NA: 0x200CC14
         EU: 0x200CC9C
+        NA: 0x200CC14
         JP: 0x200CC14
       description: |-
         Checks if an item is one of the aura bows received at the start of the game.
@@ -730,21 +730,6 @@ arm9:
         return: bool
     - name: SprintfStatic
       address:
-        NA:
-          - 0x200D634
-          - 0x200E990
-          - 0x2013758
-          - 0x20176E4
-          - 0x2017A40
-          - 0x2023590
-          - 0x202378C
-          - 0x2037F30
-          - 0x2039438
-          - 0x203CFA4
-          - 0x2042A84
-          - 0x2052418
-          - 0x2054A60
-          - 0x20609E8
         EU:
           - 0x200D6BC
           - 0x200E808
@@ -762,6 +747,21 @@ arm9:
           - 0x2052750
           - 0x2054DDC
           - 0x2060D64
+        NA:
+          - 0x200D634
+          - 0x200E990
+          - 0x2013758
+          - 0x20176E4
+          - 0x2017A40
+          - 0x2023590
+          - 0x202378C
+          - 0x2037F30
+          - 0x2039438
+          - 0x203CFA4
+          - 0x2042A84
+          - 0x2052418
+          - 0x2054A60
+          - 0x20609E8
       description: |-
         Functionally the same as Sprintf, just defined statically in many different places.
         
@@ -773,8 +773,8 @@ arm9:
         return: number of characters printed, excluding the null-terminator
     - name: SetMoneyCarried
       address:
-        NA: 0x200ED1C
         EU: 0x200EDC4
+        NA: 0x200ED1C
         JP: 0x200ED4C
       description: |-
         Sets the amount of money the player is carrying, clamping the value to the range [0, MAX_MONEY_CARRIED].
@@ -782,8 +782,8 @@ arm9:
         r0: new value
     - name: IsBagFull
       address:
-        NA: 0x200EDC0
         EU: 0x200EE68
+        NA: 0x200EDC0
         JP: 0x200EDF0
       description: |-
         Implements SPECIAL_PROC_IS_BAG_FULL (see ScriptSpecialProcessCall).
@@ -791,8 +791,8 @@ arm9:
         return: bool
     - name: CountItemTypeInBag
       address:
-        NA: 0x200EE88
         EU: 0x200EF30
+        NA: 0x200EE88
         JP: 0x200EEB8
       description: |-
         Implements SPECIAL_PROC_COUNT_ITEM_TYPE_IN_BAG (see ScriptSpecialProcessCall).
@@ -801,8 +801,8 @@ arm9:
         return: number of items of the specified ID in the bag
     - name: AddItemToBag
       address:
-        NA: 0x200F84C
         EU: 0x200F8F4
+        NA: 0x200F84C
         JP: 0x200F81C
       description: |-
         Implements SPECIAL_PROC_ADD_ITEM_TO_BAG (see ScriptSpecialProcessCall).
@@ -811,8 +811,8 @@ arm9:
         return: bool
     - name: ScriptSpecialProcess0x39
       address:
-        NA: 0x200FD54
         EU: 0x200FDFC
+        NA: 0x200FD54
         JP: 0x200FD24
       description: |-
         Implements SPECIAL_PROC_0x39 (see ScriptSpecialProcessCall).
@@ -820,8 +820,8 @@ arm9:
         return: bool
     - name: CountItemTypeInStorage
       address:
-        NA: 0x200FEE4
         EU: 0x200FF8C
+        NA: 0x200FEE4
         JP: 0x200FEB4
       description: |-
         Implements SPECIAL_PROC_COUNT_ITEM_TYPE_IN_STORAGE (see ScriptSpecialProcessCall).
@@ -830,8 +830,8 @@ arm9:
         return: number of items of the specified ID in storage
     - name: RemoveItemsTypeInStorage
       address:
-        NA: 0x20101E4
         EU: 0x201028C
+        NA: 0x20101E4
         JP: 0x20101B4
       description: |-
         Probably? Implements SPECIAL_PROC_0x2A (see ScriptSpecialProcessCall).
@@ -840,8 +840,8 @@ arm9:
         return: bool
     - name: AddItemToStorage
       address:
-        NA: 0x201031C
         EU: 0x20103C4
+        NA: 0x201031C
         JP: 0x20102EC
       description: |-
         Implements SPECIAL_PROC_ADD_ITEM_TO_STORAGE (see ScriptSpecialProcessCall).
@@ -850,8 +850,8 @@ arm9:
         return: bool
     - name: SetMoneyStored
       address:
-        NA: 0x2010724
         EU: 0x20107CC
+        NA: 0x2010724
         JP: 0x20106F4
       description: |-
         Sets the amount of money the player has stored in the Duskull Bank, clamping the value to the range [0, MAX_MONEY_STORED].
@@ -859,8 +859,8 @@ arm9:
         r0: new value
     - name: GetExclusiveItemOffset
       address:
-        NA: 0x2010E40
         EU: 0x2010EE8
+        NA: 0x2010E40
         JP: 0x2010E10
       description: |-
         Gets the exclusive item offset, which is the item ID relative to that of the first exclusive item, the Prism Ruff.
@@ -869,8 +869,8 @@ arm9:
         return: offset
     - name: ApplyExclusiveItemStatBoosts
       address:
-        NA: 0x2010E64
         EU: 0x2010F0C
+        NA: 0x2010E64
         JP: 0x2010E34
       description: |-
         Applies stat boosts from an exclusive item.
@@ -882,8 +882,8 @@ arm9:
         stack[0]: pointer to special defense stat to modify
     - name: SetExclusiveItemEffect
       address:
-        NA: 0x2010F80
         EU: 0x2011028
+        NA: 0x2010F80
         JP: 0x2010F50
       description: |-
         Sets the bit for an exclusive item effect.
@@ -892,8 +892,8 @@ arm9:
         r1: exclusive item effect ID
     - name: ExclusiveItemEffectFlagTest
       address:
-        NA: 0x2010FA4
         EU: 0x201104C
+        NA: 0x2010FA4
         JP: 0x2010F74
       description: |-
         Tests the exclusive item bitvector for a specific exclusive item effect.
@@ -903,8 +903,8 @@ arm9:
         return: bool
     - name: GetMoveTargetAndRange
       address:
-        NA: 0x2013840
         EU: 0x20138E8
+        NA: 0x2013840
         JP: 0x2013810
       description: |-
         Gets the move target-and-range field. See struct move_target_and_range in the C headers.
@@ -914,8 +914,8 @@ arm9:
         return: move target and range
     - name: GetMoveType
       address:
-        NA: 0x2013864
         EU: 0x201390C
+        NA: 0x2013864
       description: |-
         Gets the type of a move
         
@@ -923,8 +923,8 @@ arm9:
         return: Type of the move
     - name: GetMoveBasePower
       address:
-        NA: 0x20139CC
         EU: 0x2013A74
+        NA: 0x20139CC
         JP: 0x201399C
       description: |-
         Gets the base power of a move from the move data table.
@@ -933,8 +933,8 @@ arm9:
         return: base power
     - name: GetMoveAccuracyOrAiChance
       address:
-        NA: 0x2013A0C
         EU: 0x2013AB4
+        NA: 0x2013A0C
       description: |-
         Gets one of the two accuracy values of a move or its ai_condition_random_chance field.
         
@@ -943,8 +943,8 @@ arm9:
         return: Move's accuracy1, accuracy2 or ai_condition_random_chance
     - name: GetMaxPp
       address:
-        NA: 0x2013A50
         EU: 0x2013AF8
+        NA: 0x2013A50
         JP: 0x2013A20
       description: |-
         Gets the maximum PP for a given move.
@@ -953,8 +953,8 @@ arm9:
         return: max PP for the given move, capped at 99
     - name: GetMoveCritChance
       address:
-        NA: 0x2013B10
         EU: 0x2013BB8
+        NA: 0x2013B10
         JP: 0x2013AE0
       description: |-
         Gets the critical hit chance of a move.
@@ -963,8 +963,8 @@ arm9:
         return: base power
     - name: IsRecoilMove
       address:
-        NA: 0x2013E14
         EU: 0x2013EBC
+        NA: 0x2013E14
       description: |-
         Checks if the given move is a recoil move (affected by Reckless).
         
@@ -972,8 +972,8 @@ arm9:
         return: bool
     - name: IsPunchMove
       address:
-        NA: 0x2014D18
         EU: 0x2014DC0
+        NA: 0x2014D18
       description: |-
         Checks if the given move is a punch move (affected by Iron Fist).
         
@@ -981,8 +981,8 @@ arm9:
         return: bool
     - name: GetMoveCategory
       address:
-        NA: 0x20151C8
         EU: 0x2015270
+        NA: 0x20151C8
         JP: 0x2015198
       description: |-
         Gets a move's category (physical, special, status).
@@ -991,8 +991,8 @@ arm9:
         return: move category enum
     - name: LoadWteFromRom
       address:
-        NA: 0x201DE4C
         EU: 0x201DEE8
+        NA: 0x201DE4C
         JP: 0x201DEA4
       description: |-
         Loads a SIR0-wrapped WTE file from ROM, and returns a handle to it
@@ -1002,8 +1002,8 @@ arm9:
         r2: load file flags
     - name: LoadWteFromFileDirectory
       address:
-        NA: 0x201DEC4
         EU: 0x201DF60
+        NA: 0x201DEC4
         JP: 0x201DF1C
       description: |-
         Loads a SIR0-wrapped WTE file from a file directory, and returns a handle to it
@@ -1014,8 +1014,8 @@ arm9:
         r3: malloc flags
     - name: UnloadWte
       address:
-        NA: 0x201DF18
         EU: 0x201DFB4
+        NA: 0x201DF18
         JP: 0x201DF70
       description: |-
         Frees the buffer used to store the WTE data in the handle, and sets both pointers to null
@@ -1023,8 +1023,8 @@ arm9:
         r0: pointer to wte handle
     - name: HandleSir0Translation
       address:
-        NA: 0x201F4B4
         EU: 0x201F550
+        NA: 0x201F4B4
         JP: 0x201F50C
       description: |-
         Translates the offsets in a SIR0 file into NDS memory addresses, changes the magic number to SirO (opened), and returns a pointer to the first pointer specified in the SIR0 header (beginning of the data).
@@ -1033,8 +1033,8 @@ arm9:
         r1: pointer to source file buffer
     - name: HandleSir0TranslationVeneer
       address:
-        NA: 0x201F58C
         EU: 0x201F628
+        NA: 0x201F58C
       description: |-
         Likely a linker-generated veneer for HandleSir0Translation.
         
@@ -1044,8 +1044,8 @@ arm9:
         r1: pointer to source file buffer
     - name: GetLanguageType
       address:
-        NA: 0x20205A0
         EU: 0x2020688
+        NA: 0x20205A0
         JP: 0x20205F8
       description: |-
         Gets the language type.
@@ -1055,8 +1055,8 @@ arm9:
         return: language type
     - name: GetLanguage
       address:
-        NA: 0x20205B0
         EU: 0x20206B0
+        NA: 0x20205B0
         JP: 0x2020608
       description: |-
         Gets the single-byte language ID of the current program.
@@ -1066,8 +1066,8 @@ arm9:
         return: language ID
     - name: PreprocessString
       address:
-        NA: 0x20223F0
         EU: 0x20225EC
+        NA: 0x20223F0
         JP: 0x2022440
       description: |-
         An enhanced sprintf, which recognizes certain tags and replaces them with appropiate game values.
@@ -1083,8 +1083,8 @@ arm9:
         stack[0]: pointer to preprocessor args
     - name: StrcpySimple
       address:
-        NA: 0x2025100
         EU: 0x20253CC
+        NA: 0x2025100
         JP: 0x2025150
       description: |-
         A simple implementation of the strcpy(3) C library function.
@@ -1095,8 +1095,8 @@ arm9:
         r1: src
     - name: StrncpySimple
       address:
-        NA: 0x202511C
         EU: 0x20253E8
+        NA: 0x202511C
         JP: 0x202516C
       description: |-
         A simple implementation of the strncpy(3) C library function.
@@ -1108,8 +1108,8 @@ arm9:
         r2: n
     - name: StringFromMessageId
       address:
-        NA: 0x20258C4
         EU: 0x2025B90
+        NA: 0x20258C4
         JP: 0x20258A4
       description: |-
         Gets the string corresponding to a given message ID.
@@ -1118,8 +1118,8 @@ arm9:
         return: string from the string files with the given message ID
     - name: SetScreenWindowsColor
       address:
-        NA: 0x2027A68
         EU: 0x2027D5C
+        NA: 0x2027A68
         JP: 0x2027DC8
       description: |-
         Sets the palette of the frames of windows in the specified screen
@@ -1128,8 +1128,8 @@ arm9:
         r1: is upper screen
     - name: SetBothScreensWindowsColor
       address:
-        NA: 0x2027A80
         EU: 0x2027D74
+        NA: 0x2027A80
         JP: 0x2027DE0
       description: |-
         Sets the palette of the frames of windows in both screens
@@ -1137,24 +1137,24 @@ arm9:
         r0: palette index
     - name: GetNotifyNote
       address:
-        NA: 0x20484A0
         EU: 0x20487BC
+        NA: 0x20484A0
       description: |-
         Returns the current value of NOTIFY_NOTE.
         
         return: bool
     - name: SetNotifyNote
       address:
-        NA: 0x20484B0
         EU: 0x20487CC
+        NA: 0x20484B0
       description: |-
         Sets NOTIFY_NOTE to the given value.
         
         r0: bool
     - name: InitMainTeamAfterQuiz
       address:
-        NA: 0x20487C4
         EU: 0x2048AE0
+        NA: 0x20487C4
         JP: 0x2048B30
       description: |-
         Implements SPECIAL_PROC_INIT_MAIN_TEAM_AFTER_QUIZ (see ScriptSpecialProcessCall).
@@ -1162,8 +1162,8 @@ arm9:
         No params.
     - name: ScriptSpecialProcess0x3
       address:
-        NA: 0x2048A0C
         EU: 0x2048D28
+        NA: 0x2048A0C
         JP: 0x2048D78
       description: |-
         Implements SPECIAL_PROC_0x3 (see ScriptSpecialProcessCall).
@@ -1171,8 +1171,8 @@ arm9:
         No params.
     - name: ScriptSpecialProcess0x4
       address:
-        NA: 0x2048A84
         EU: 0x2048DA0
+        NA: 0x2048A84
         JP: 0x2048DF0
       description: |-
         Implements SPECIAL_PROC_0x4 (see ScriptSpecialProcessCall).
@@ -1180,8 +1180,8 @@ arm9:
         No params.
     - name: NoteSaveBase
       address:
-        NA: 0x2048F84
         EU: 0x20492A0
+        NA: 0x2048F84
         JP: 0x20492F0
       description: |-
         Probably related to saving or quicksaving?
@@ -1193,8 +1193,8 @@ arm9:
         return: status code
     - name: NoteLoadBase
       address:
-        NA: 0x2049370
         EU: 0x20496A8
+        NA: 0x2049370
         JP: 0x20496DC
       description: |-
         Probably related to loading a save file or quicksave?
@@ -1204,16 +1204,16 @@ arm9:
         return: status code
     - name: GetGameMode
       address:
-        NA: 0x204AFC0
         EU: 0x204B2F8
+        NA: 0x204AFC0
       description: |-
         Gets the value of GAME_MODE.
         
         return: game mode
     - name: InitScriptVariableValues
       address:
-        NA: 0x204B04C
         EU: 0x204B384
+        NA: 0x204B04C
         JP: 0x204B3B4
       description: |-
         Initialize the script variable values table (SCRIPT_VARS_VALUES).
@@ -1223,16 +1223,16 @@ arm9:
         No params.
     - name: InitEventFlagScriptVars
       address:
-        NA: 0x204B304
         EU: 0x204B63C
+        NA: 0x204B304
       description: |-
         Initializes an assortment of event flag script variables (see the code for an exhaustive list).
         
         No params.
     - name: ZinitScriptVariable
       address:
-        NA: 0x204B434
         EU: 0x204B76C
+        NA: 0x204B434
         JP: 0x204B794
       description: |-
         Zero-initialize the values of the given script variable.
@@ -1241,8 +1241,8 @@ arm9:
         r1: script variable ID
     - name: LoadScriptVariableRaw
       address:
-        NA: 0x204B49C
         EU: 0x204B7D4
+        NA: 0x204B49C
         JP: 0x204B7FC
       description: |-
         Loads a script variable descriptor for a given ID.
@@ -1252,8 +1252,8 @@ arm9:
         r2: script variable ID
     - name: LoadScriptVariableValue
       address:
-        NA: 0x204B4EC
         EU: 0x204B824
+        NA: 0x204B4EC
         JP: 0x204B84C
       description: |-
         Loads the value of a script variable.
@@ -1263,8 +1263,8 @@ arm9:
         return: value
     - name: LoadScriptVariableValueAtIndex
       address:
-        NA: 0x204B678
         EU: 0x204B9B0
+        NA: 0x204B678
         JP: 0x204B9D8
       description: |-
         Loads the value of a script variable at some index (for script variables that are arrays).
@@ -1275,8 +1275,8 @@ arm9:
         return: value
     - name: SaveScriptVariableValue
       address:
-        NA: 0x204B820
         EU: 0x204BB58
+        NA: 0x204B820
         JP: 0x204BB80
       description: |-
         Saves the given value to a script variable.
@@ -1286,8 +1286,8 @@ arm9:
         r2: value to save
     - name: SaveScriptVariableValueAtIndex
       address:
-        NA: 0x204B988
         EU: 0x204BCC0
+        NA: 0x204B988
         JP: 0x204BCE8
       description: |-
         Saves the given value to a script variable at some index (for script variables that are arrays).
@@ -1298,8 +1298,8 @@ arm9:
         r3: value to save
     - name: LoadScriptVariableValueSum
       address:
-        NA: 0x204BB00
         EU: 0x204BE38
+        NA: 0x204BB00
         JP: 0x204BE60
       description: |-
         Loads the sum of all values of a given script variable (for script variables that are arrays).
@@ -1309,8 +1309,8 @@ arm9:
         return: sum of values
     - name: LoadScriptVariableValueBytes
       address:
-        NA: 0x204BB64
         EU: 0x204BE9C
+        NA: 0x204BB64
         JP: 0x204BEC4
       description: |-
         Loads some number of bytes from the value of a given script variable.
@@ -1320,8 +1320,8 @@ arm9:
         r2: number of bytes to load
     - name: SaveScriptVariableValueBytes
       address:
-        NA: 0x204BBCC
         EU: 0x204BF04
+        NA: 0x204BBCC
         JP: 0x204BF2C
       description: |-
         Saves some number of bytes to the given script variable.
@@ -1331,8 +1331,8 @@ arm9:
         r2: number of bytes
     - name: ScriptVariablesEqual
       address:
-        NA: 0x204BC18
         EU: 0x204BF50
+        NA: 0x204BC18
         JP: 0x204BF78
       description: |-
         Checks if two script variables have equal values. For arrays, compares elementwise for the length of the first variable.
@@ -1343,8 +1343,8 @@ arm9:
         return: true if values are equal, false otherwise
     - name: EventFlagBackup
       address:
-        NA: 0x204C1E4
         EU: 0x204C51C
+        NA: 0x204C1E4
         JP: 0x204C544
       description: |-
         Saves event flag script variables (see the code for an exhaustive list) to their respective BACKUP script variables, but only in certain game modes.
@@ -1354,8 +1354,8 @@ arm9:
         No params.
     - name: DumpScriptVariableValues
       address:
-        NA: 0x204C408
         EU: 0x204C740
+        NA: 0x204C408
         JP: 0x204C768
       description: |-
         Runs EventFlagBackup, then copies the script variable values table (SCRIPT_VARS_VALUES) to the given pointer.
@@ -1364,8 +1364,8 @@ arm9:
         return: always 1
     - name: RestoreScriptVariableValues
       address:
-        NA: 0x204C430
         EU: 0x204C768
+        NA: 0x204C430
         JP: 0x204C790
       description: |-
         Restores the script variable values table (SCRIPT_VARS_VALUES) with the given data. The source data is assumed to be exactly 1024 bytes in length.
@@ -1374,8 +1374,8 @@ arm9:
         return: whether the restored value for VAR_VERSION is equal to its default value
     - name: InitScenarioScriptVars
       address:
-        NA: 0x204C488
         EU: 0x204C7C0
+        NA: 0x204C488
         JP: 0x204C7E8
       description: |-
         Initializes most of the SCENARIO_* script variables (except SCENARIO_TALK_BIT_FLAG for some reason). Also initializes the PLAY_OLD_GAME variable.
@@ -1383,8 +1383,8 @@ arm9:
         No params.
     - name: SetScenarioScriptVar
       address:
-        NA: 0x204C618
         EU: 0x204C950
+        NA: 0x204C618
         JP: 0x204C978
       description: |-
         Sets the given SCENARIO_* script variable with a given pair of values [val0, val1].
@@ -1396,8 +1396,8 @@ arm9:
         r2: val1
     - name: GetSpecialEpisodeType
       address:
-        NA: 0x204C8EC
         EU: 0x204CC24
+        NA: 0x204C8EC
         JP: 0x204CC4C
       description: |-
         Gets the special episode type from the SPECIAL_EPISODE_TYPE script variable.
@@ -1405,8 +1405,8 @@ arm9:
         return: special episode type
     - name: ScenarioFlagBackup
       address:
-        NA: 0x204CCB8
         EU: 0x204CFF0
+        NA: 0x204CCB8
         JP: 0x204D018
       description: |-
         Saves scenario flag script variables (SCENARIO_SELECT, SCENARIO_MAIN_BIT_FLAG) to their respective BACKUP script variables, but only in certain game modes.
@@ -1416,8 +1416,8 @@ arm9:
         No params.
     - name: InitWorldMapScriptVars
       address:
-        NA: 0x204CD88
         EU: 0x204D0C0
+        NA: 0x204CD88
         JP: 0x204D0E8
       description: |-
         Initializes the WORLD_MAP_* script variable values (IDs 0x55-0x57).
@@ -1425,8 +1425,8 @@ arm9:
         No params.
     - name: InitDungeonListScriptVars
       address:
-        NA: 0x204CE90
         EU: 0x204D1C8
+        NA: 0x204CE90
         JP: 0x204D1F0
       description: |-
         Initializes the DUNGEON_*_LIST script variable values (IDs 0x4f-0x54).
@@ -1434,16 +1434,16 @@ arm9:
         No params.
     - name: SetDungeonTipShown
       address:
-        NA: 0x204D250
         EU: 0x204D588
+        NA: 0x204D250
       description: |-
         Marks a dungeon tip as already shown to the player
         
         r0: Dungeon tip ID
     - name: GetDungeonTipShown
       address:
-        NA: 0x204D290
         EU: 0x204D5C8
+        NA: 0x204D290
       description: |-
         Checks if a dungeon tip has already been shown before or not.
         
@@ -1451,8 +1451,8 @@ arm9:
         return: True if the tip has been shown before, false otherwise.
     - name: MonsterSpawnsEnabled
       address:
-        NA: 0x204D360
         EU: 0x204D698
+        NA: 0x204D360
         JP: 0x204D6C0
       description: |-
         Always returns true.
@@ -1463,8 +1463,8 @@ arm9:
         return: bool (always true)
     - name: SetAdventureLogStructLocation
       address:
-        NA: 0x204FA24
         EU: 0x204FD5C
+        NA: 0x204FA24
         JP: 0x204FD70
       description: |-
         Sets the location of the adventure log struct in memory.
@@ -1474,8 +1474,8 @@ arm9:
         No params.
     - name: SetAdventureLogDungeonFloor
       address:
-        NA: 0x204FA3C
         EU: 0x204FD74
+        NA: 0x204FA3C
         JP: 0x204FD88
       description: |-
         Sets the current dungeon floor pair.
@@ -1483,8 +1483,8 @@ arm9:
         r0: struct dungeon_floor_pair
     - name: GetAdventureLogDungeonFloor
       address:
-        NA: 0x204FA5C
         EU: 0x204FD94
+        NA: 0x204FA5C
         JP: 0x204FDA8
       description: |-
         Gets the current dungeon floor pair.
@@ -1492,8 +1492,8 @@ arm9:
         return: struct dungeon_floor_pair
     - name: ClearAdventureLogStruct
       address:
-        NA: 0x204FA70
         EU: 0x204FDA8
+        NA: 0x204FA70
         JP: 0x204FDBC
       description: |-
         Clears the adventure log structure.
@@ -1501,8 +1501,8 @@ arm9:
         No params.
     - name: SetAdventureLogCompleted
       address:
-        NA: 0x204FB9C
         EU: 0x204FED4
+        NA: 0x204FB9C
         JP: 0x204FEE8
       description: |-
         Marks one of the adventure log entry as completed.
@@ -1510,8 +1510,8 @@ arm9:
         r0: entry ID
     - name: IsAdventureLogNotEmpty
       address:
-        NA: 0x204FBC4
         EU: 0x204FEFC
+        NA: 0x204FBC4
         JP: 0x204FF10
       description: |-
         Checks if at least one of the adventure log entry is completed.
@@ -1519,8 +1519,8 @@ arm9:
         return: bool
     - name: GetAdventureLogCompleted
       address:
-        NA: 0x204FBFC
         EU: 0x204FF34
+        NA: 0x204FBFC
         JP: 0x204FF48
       description: |-
         Checks if one adventure log entry is completed.
@@ -1529,8 +1529,8 @@ arm9:
         return: bool
     - name: IncrementNbDungeonsCleared
       address:
-        NA: 0x204FC28
         EU: 0x204FF60
+        NA: 0x204FC28
         JP: 0x204FF74
       description: |-
         Increments by 1 the number of dungeons cleared.
@@ -1540,8 +1540,8 @@ arm9:
         No params.
     - name: GetNbDungeonsCleared
       address:
-        NA: 0x204FC6C
         EU: 0x204FFA4
+        NA: 0x204FC6C
         JP: 0x204FFB8
       description: |-
         Gets the number of dungeons cleared.
@@ -1549,8 +1549,8 @@ arm9:
         return: the number of dungeons cleared
     - name: IncrementNbFriendRescues
       address:
-        NA: 0x204FC80
         EU: 0x204FFB8
+        NA: 0x204FC80
         JP: 0x204FFCC
       description: |-
         Increments by 1 the number of successful friend rescues.
@@ -1558,8 +1558,8 @@ arm9:
         No params.
     - name: GetNbFriendRescues
       address:
-        NA: 0x204FCC8
         EU: 0x2050000
+        NA: 0x204FCC8
         JP: 0x2050014
       description: |-
         Gets the number of successful friend rescues.
@@ -1567,8 +1567,8 @@ arm9:
         return: the number of successful friend rescues
     - name: IncrementNbEvolutions
       address:
-        NA: 0x204FCDC
         EU: 0x2050014
+        NA: 0x204FCDC
         JP: 0x2050028
       description: |-
         Increments by 1 the number of evolutions.
@@ -1576,8 +1576,8 @@ arm9:
         No params.
     - name: GetNbEvolutions
       address:
-        NA: 0x204FD24
         EU: 0x205005C
+        NA: 0x204FD24
         JP: 0x2050070
       description: |-
         Gets the number of evolutions.
@@ -1585,8 +1585,8 @@ arm9:
         return: the number of evolutions
     - name: IncrementNbSteals
       address:
-        NA: 0x204FD38
         EU: 0x2050070
+        NA: 0x204FD38
         JP: 0x2050084
       description: |-
         Leftover from Time & Darkness. Does not do anything.
@@ -1596,8 +1596,8 @@ arm9:
         No params.
     - name: IncrementNbEggsHatched
       address:
-        NA: 0x204FD3C
         EU: 0x2050074
+        NA: 0x204FD3C
         JP: 0x2050088
       description: |-
         Increments by 1 the number of eggs hatched.
@@ -1605,8 +1605,8 @@ arm9:
         No params.
     - name: GetNbEggsHatched
       address:
-        NA: 0x204FD78
         EU: 0x20500B0
+        NA: 0x204FD78
         JP: 0x20500C4
       description: |-
         Gets the number of eggs hatched.
@@ -1614,8 +1614,8 @@ arm9:
         return: the number of eggs hatched
     - name: GetNbPokemonJoined
       address:
-        NA: 0x204FD8C
         EU: 0x20500C4
+        NA: 0x204FD8C
         JP: 0x20500D8
       description: |-
         Gets the number of different pokémon that joined.
@@ -1623,8 +1623,8 @@ arm9:
         return: the number of different pokémon that joined
     - name: GetNbMovesLearned
       address:
-        NA: 0x204FDA0
         EU: 0x20500D8
+        NA: 0x204FDA0
         JP: 0x20500EC
       description: |-
         Gets the number of different moves learned.
@@ -1632,8 +1632,8 @@ arm9:
         return: the number of different moves learned
     - name: SetVictoriesOnOneFloor
       address:
-        NA: 0x204FDB4
         EU: 0x20500EC
+        NA: 0x204FDB4
         JP: 0x2050100
       description: |-
         Sets the record of victories on one floor.
@@ -1641,8 +1641,8 @@ arm9:
         r0: the new record of victories
     - name: GetVictoriesOnOneFloor
       address:
-        NA: 0x204FDE8
         EU: 0x2050120
+        NA: 0x204FDE8
         JP: 0x2050134
       description: |-
         Gets the record of victories on one floor.
@@ -1650,8 +1650,8 @@ arm9:
         return: the record of victories
     - name: SetPokemonJoined
       address:
-        NA: 0x204FDFC
         EU: 0x2050134
+        NA: 0x204FDFC
         JP: 0x2050148
       description: |-
         Marks one pokémon as joined.
@@ -1659,8 +1659,8 @@ arm9:
         r0: monster ID
     - name: SetPokemonBattled
       address:
-        NA: 0x204FE58
         EU: 0x2050190
+        NA: 0x204FE58
         JP: 0x20501A4
       description: |-
         Marks one pokémon as battled.
@@ -1668,8 +1668,8 @@ arm9:
         r0: monster ID
     - name: GetNbPokemonBattled
       address:
-        NA: 0x204FEB4
         EU: 0x20501EC
+        NA: 0x204FEB4
         JP: 0x2050200
       description: |-
         Gets the number of different pokémon that battled against you.
@@ -1677,8 +1677,8 @@ arm9:
         return: the number of different pokémon that battled against you
     - name: IncrementNbBigTreasureWins
       address:
-        NA: 0x204FEC8
         EU: 0x2050200
+        NA: 0x204FEC8
         JP: 0x2050214
       description: |-
         Increments by 1 the number of big treasure wins.
@@ -1688,8 +1688,8 @@ arm9:
         No params.
     - name: SetNbBigTreasureWins
       address:
-        NA: 0x204FEE8
         EU: 0x2050220
+        NA: 0x204FEE8
         JP: 0x2050234
       description: |-
         Sets the number of big treasure wins.
@@ -1697,8 +1697,8 @@ arm9:
         r0: the new number of big treasure wins
     - name: GetNbBigTreasureWins
       address:
-        NA: 0x204FF20
         EU: 0x2050258
+        NA: 0x204FF20
         JP: 0x205026C
       description: |-
         Gets the number of big treasure wins.
@@ -1706,8 +1706,8 @@ arm9:
         return: the number of big treasure wins
     - name: SetNbRecycled
       address:
-        NA: 0x204FF34
         EU: 0x205026C
+        NA: 0x204FF34
         JP: 0x2050280
       description: |-
         Sets the number of items recycled.
@@ -1715,8 +1715,8 @@ arm9:
         r0: the new number of items recycled
     - name: GetNbRecycled
       address:
-        NA: 0x204FF6C
         EU: 0x20502A4
+        NA: 0x204FF6C
         JP: 0x20502B8
       description: |-
         Gets the number of items recycled.
@@ -1724,8 +1724,8 @@ arm9:
         return: the number of items recycled
     - name: IncrementNbSkyGiftsSent
       address:
-        NA: 0x204FF80
         EU: 0x20502B8
+        NA: 0x204FF80
         JP: 0x20502CC
       description: |-
         Increments by 1 the number of sky gifts sent.
@@ -1735,8 +1735,8 @@ arm9:
         No params.
     - name: SetNbSkyGiftsSent
       address:
-        NA: 0x204FFA0
         EU: 0x20502D8
+        NA: 0x204FFA0
         JP: 0x20502EC
       description: |-
         Sets the number of Sky Gifts sent.
@@ -1744,8 +1744,8 @@ arm9:
         return: the number of Sky Gifts sent
     - name: GetNbSkyGiftsSent
       address:
-        NA: 0x204FFD8
         EU: 0x2050310
+        NA: 0x204FFD8
         JP: 0x2050324
       description: |-
         Gets the number of Sky Gifts sent.
@@ -1753,8 +1753,8 @@ arm9:
         return: the number of Sky Gifts sent
     - name: ComputeSpecialCounters
       address:
-        NA: 0x204FFEC
         EU: 0x2050324
+        NA: 0x204FFEC
         JP: 0x2050338
       description: |-
         Computes the counters from the bit fields in the adventure log, as they are not updated automatically when bit fields are altered.
@@ -1764,8 +1764,8 @@ arm9:
         No params.
     - name: RecruitSpecialPokemonLog
       address:
-        NA: 0x2050244
         EU: 0x205057C
+        NA: 0x2050244
         JP: 0x2050590
       description: |-
         Marks a specified special pokémon as recruited in the adventure log.
@@ -1773,8 +1773,8 @@ arm9:
         r0: monster ID
     - name: IncrementNbFainted
       address:
-        NA: 0x20502B0
         EU: 0x20505E8
+        NA: 0x20502B0
         JP: 0x20505FC
       description: |-
         Increments by 1 the number of times you fainted.
@@ -1782,8 +1782,8 @@ arm9:
         No params.
     - name: GetNbFainted
       address:
-        NA: 0x20502EC
         EU: 0x2050624
+        NA: 0x20502EC
         JP: 0x2050638
       description: |-
         Gets the number of times you fainted.
@@ -1791,8 +1791,8 @@ arm9:
         return: the number of times you fainted
     - name: SetItemAcquired
       address:
-        NA: 0x2050300
         EU: 0x2050638
+        NA: 0x2050300
         JP: 0x205064C
       description: |-
         Marks one specific item as acquired.
@@ -1800,8 +1800,8 @@ arm9:
         r0: item ID
     - name: GetNbItemAcquired
       address:
-        NA: 0x20503CC
         EU: 0x2050704
+        NA: 0x20503CC
         JP: 0x2050718
       description: |-
         Gets the number of items acquired.
@@ -1809,8 +1809,8 @@ arm9:
         return: the number of items acquired
     - name: SetChallengeLetterCleared
       address:
-        NA: 0x2050420
         EU: 0x2050758
+        NA: 0x2050420
         JP: 0x205076C
       description: |-
         Sets a challenge letter as cleared.
@@ -1818,8 +1818,8 @@ arm9:
         r0: challenge ID
     - name: GetSentryDutyGamePoints
       address:
-        NA: 0x20504A4
         EU: 0x20507DC
+        NA: 0x20504A4
         JP: 0x20507F0
       description: |-
         Gets the points for the associated rank in the footprints minigame.
@@ -1828,8 +1828,8 @@ arm9:
         return: points
     - name: SetSentryDutyGamePoints
       address:
-        NA: 0x20504BC
         EU: 0x20507F4
+        NA: 0x20504BC
         JP: 0x2050808
       description: |-
         Sets a new record in the footprints minigame.
@@ -1838,8 +1838,8 @@ arm9:
         return: the rank (range 0-4, 1st to 5th; -1 if out of ranking)
     - name: SubFixedPoint
       address:
-        NA: 0x2050F10
         EU: 0x2051248
+        NA: 0x2050F10
         JP: 0x2051260
       description: |-
         Compute the subtraction of two decimal fixed-point numbers (16 fraction bits).
@@ -1851,8 +1851,8 @@ arm9:
         return: max(float - decrement, 0)
     - name: BinToDecFixedPoint
       address:
-        NA: 0x2051020
         EU: 0x2051358
+        NA: 0x2051020
         JP: 0x2051370
       description: |-
         Convert a binary fixed-point number (16 fraction bits) to the decimal fixed-point number (16 fraction bits) used for belly calculations. Thousandths are floored.
@@ -1863,8 +1863,8 @@ arm9:
         return: fractional number in decimal fixed-point format
     - name: CeilFixedPoint
       address:
-        NA: 0x2051064
         EU: 0x205139C
+        NA: 0x2051064
         JP: 0x20513B4
       description: |-
         Compute the ceiling of a decimal fixed-point number (16 fraction bits).
@@ -1875,8 +1875,8 @@ arm9:
         return: ceil(float)
     - name: DungeonGoesUp
       address:
-        NA: 0x2051288
         EU: 0x20515C0
+        NA: 0x2051288
         JP: 0x20515D8
       description: |-
         Returns whether the specified dungeon is considered as going upward or not
@@ -1885,8 +1885,8 @@ arm9:
         return: bool
     - name: JoinedAtRangeCheck
       address:
-        NA: 0x2051490
         EU: 0x20517C8
+        NA: 0x2051490
       description: |-
         Returns whether a certain joined_at field value is between dungeon_id::DUNGEON_JOINED_AT_BIDOOF and dungeon_id::DUNGEON_DUMMY_0xE3.
         
@@ -1894,8 +1894,8 @@ arm9:
         return: bool
     - name: ShouldCauseGameOverOnFaint
       address:
-        NA: 0x2051760
         EU: 0x2051A98
+        NA: 0x2051760
       description: |-
         Returns whether a game over should happen when a monster with the specified joined_at ID faints (as long as the other conditions are met). It might have a more generic meaning.
         
@@ -1903,8 +1903,8 @@ arm9:
         return: bool
     - name: GetMonsterGender
       address:
-        NA: 0x20527A8
         EU: 0x2052AE0
+        NA: 0x20527A8
       description: |-
         Returns the gender field of a monster given its ID.
         
@@ -1912,8 +1912,8 @@ arm9:
         return: monster gender
     - name: GetSpriteSize
       address:
-        NA: 0x20527E0
         EU: 0x2052B18
+        NA: 0x20527E0
       description: |-
         Returns the sprite size of the specified monster. If the size is between 1 and 6, 6 will be returned.
         
@@ -1921,8 +1921,8 @@ arm9:
         return: sprite size
     - name: GetSpriteFileSize
       address:
-        NA: 0x205281C
         EU: 0x2052B54
+        NA: 0x205281C
       description: |-
         Returns the sprite file size of the specified monster.
         
@@ -1930,8 +1930,8 @@ arm9:
         return: sprite file size
     - name: GetMonsterPreEvolution
       address:
-        NA: 0x20529A8
         EU: 0x2052CE0
+        NA: 0x20529A8
       description: |-
         Returns the pre-evolution id of a monster given its ID.
         
@@ -1939,8 +1939,8 @@ arm9:
         return: ID of the monster that evolves into the one specified in r0
     - name: GetEvolutions
       address:
-        NA: 0x2053E88
         EU: 0x2054204
+        NA: 0x2053E88
       description: |-
         Returns a list of all the possible evolutions for a given monster id.
         
@@ -1951,8 +1951,8 @@ arm9:
         return: Number of possible evolutions for the specified monster id
     - name: GetMonsterIdFromSpawnEntry
       address:
-        NA: 0x2054480
         EU: 0x20547FC
+        NA: 0x2054480
       description: |-
         Returns the monster ID of the specified monster spawn entry
         
@@ -1960,8 +1960,8 @@ arm9:
         return: monster_spawn_entry::id
     - name: GetMonsterLevelFromSpawnEntry
       address:
-        NA: 0x20544B8
         EU: 0x2054834
+        NA: 0x20544B8
         JP: 0x20547F0
       description: |-
         Returns the level of the specified monster spawn entry.
@@ -1970,8 +1970,8 @@ arm9:
         return: uint8_t
     - name: GetMonsterGenderVeneer
       address:
-        NA: 0x2054760
         EU: 0x2054ADC
+        NA: 0x2054760
       description: |-
         Likely a linker-generated veneer for GetMonsterGender.
         
@@ -1981,8 +1981,8 @@ arm9:
         return: monster gender
     - name: IsUnown
       address:
-        NA: 0x2054A88
         EU: 0x2054E04
+        NA: 0x2054A88
         JP: 0x2054DC0
       description: |-
         Checks if a monster ID is an Unown.
@@ -1991,8 +1991,8 @@ arm9:
         return: bool
     - name: IsShaymin
       address:
-        NA: 0x2054AA4
         EU: 0x2054E20
+        NA: 0x2054AA4
         JP: 0x2054DDC
       description: |-
         Checks if a monster ID is a Shaymin form.
@@ -2001,8 +2001,8 @@ arm9:
         return: bool
     - name: IsCastform
       address:
-        NA: 0x2054AD4
         EU: 0x2054E50
+        NA: 0x2054AD4
         JP: 0x2054E0C
       description: |-
         Checks if a monster ID is a Castform form.
@@ -2011,8 +2011,8 @@ arm9:
         return: bool
     - name: IsCherrim
       address:
-        NA: 0x2054B2C
         EU: 0x2054EA8
+        NA: 0x2054B2C
         JP: 0x2054E64
       description: |-
         Checks if a monster ID is a Cherrim form.
@@ -2021,8 +2021,8 @@ arm9:
         return: bool
     - name: IsDeoxys
       address:
-        NA: 0x2054B74
         EU: 0x2054EF0
+        NA: 0x2054B74
         JP: 0x2054EAC
       description: |-
         Checks if a monster ID is a Deoxys form.
@@ -2031,8 +2031,8 @@ arm9:
         return: bool
     - name: IsMonsterOnTeam
       address:
-        NA: 0x2055148
         EU: 0x20554C4
+        NA: 0x2055148
         JP: 0x2055480
       description: |-
         Checks if a given monster is on the exploration team (not necessarily the active party)?
@@ -2042,8 +2042,8 @@ arm9:
         return: bool
     - name: SetTeamSetupHeroAndPartnerOnly
       address:
-        NA: 0x20569CC
         EU: 0x2056D48
+        NA: 0x20569CC
         JP: 0x2056D68
       description: |-
         Implements SPECIAL_PROC_SET_TEAM_SETUP_HERO_AND_PARTNER_ONLY (see ScriptSpecialProcessCall).
@@ -2051,8 +2051,8 @@ arm9:
         No params.
     - name: SetTeamSetupHeroOnly
       address:
-        NA: 0x2056AB0
         EU: 0x2056E2C
+        NA: 0x2056AB0
         JP: 0x2056E48
       description: |-
         Implements SPECIAL_PROC_SET_TEAM_SETUP_HERO_ONLY (see ScriptSpecialProcessCall).
@@ -2060,8 +2060,8 @@ arm9:
         No params.
     - name: GetPartyMembers
       address:
-        NA: 0x2056C20
         EU: 0x2056F9C
+        NA: 0x2056C20
         JP: 0x2056FB4
       description: |-
         Appears to get the team's active party members. Implements most of SPECIAL_PROC_IS_TEAM_SETUP_SOLO (see ScriptSpecialProcessCall).
@@ -2070,8 +2070,8 @@ arm9:
         return: Number of party members
     - name: IqSkillFlagTest
       address:
-        NA: 0x2058F04
         EU: 0x2059280
+        NA: 0x2058F04
         JP: 0x2059200
       description: |-
         Tests whether an IQ skill with a given ID is active.
@@ -2081,8 +2081,8 @@ arm9:
         return: bool
     - name: GetSosMailCount
       address:
-        NA: 0x205B97C
         EU: 0x205BCF8
+        NA: 0x205B97C
         JP: 0x205BC7C
       description: |-
         Implements SPECIAL_PROC_GET_SOS_MAIL_COUNT (see ScriptSpecialProcessCall).
@@ -2092,8 +2092,8 @@ arm9:
         return: SOS mail count
     - name: DungeonRequestsDone
       address:
-        NA: 0x205EDA4
         EU: 0x205F120
+        NA: 0x205EDA4
         JP: 0x205F0A4
       description: |-
         Seems to return the number of missions completed.
@@ -2105,8 +2105,8 @@ arm9:
         return: number of missions completed
     - name: DungeonRequestsDoneWrapper
       address:
-        NA: 0x205EE10
         EU: 0x205F18C
+        NA: 0x205EE10
       description: |-
         Calls DungeonRequestsDone with the second argument set to false.
         
@@ -2114,8 +2114,8 @@ arm9:
         return: number of mission completed
     - name: AnyDungeonRequestsDone
       address:
-        NA: 0x205EE20
         EU: 0x205F19C
+        NA: 0x205EE20
         JP: 0x205F120
       description: |-
         Calls DungeonRequestsDone with the second argument set to true, and converts the integer output to a boolean.
@@ -2124,8 +2124,8 @@ arm9:
         return: bool: whether the number of missions completed is greater than 0
     - name: ScriptSpecialProcess0x3D
       address:
-        NA: 0x2065B50
         EU: 0x2065ECC
+        NA: 0x2065B50
         JP: 0x2065E38
       description: |-
         Implements SPECIAL_PROC_0x3D (see ScriptSpecialProcessCall).
@@ -2133,8 +2133,8 @@ arm9:
         No params.
     - name: ScriptSpecialProcess0x3E
       address:
-        NA: 0x2065B60
         EU: 0x2065EDC
+        NA: 0x2065B60
         JP: 0x2065E48
       description: |-
         Implements SPECIAL_PROC_0x3E (see ScriptSpecialProcessCall).
@@ -2142,8 +2142,8 @@ arm9:
         No params.
     - name: ScriptSpecialProcess0x17
       address:
-        NA: 0x2065C48
         EU: 0x2065FC4
+        NA: 0x2065C48
         JP: 0x2065F30
       description: |-
         Implements SPECIAL_PROC_0x17 (see ScriptSpecialProcessCall).
@@ -2151,8 +2151,8 @@ arm9:
         No params.
     - name: ItemAtTableIdx
       address:
-        NA: 0x2065CF8
         EU: 0x2066074
+        NA: 0x2065CF8
         JP: 0x2065FE0
       description: |-
         Gets info about the item at a given item table (not sure what this table is...) index.
@@ -2163,8 +2163,8 @@ arm9:
         r1: [output] pointer to an owned_item
     - name: WaitForInterrupt
       address:
-        NA: 0x207BC30
         EU: 0x207BFC8
+        NA: 0x207BC30
         JP: 0x207BF18
       description: |-
         Presumably blocks until the program receives an interrupt.
@@ -2174,8 +2174,8 @@ arm9:
         No params.
     - name: FileInit
       address:
-        NA: 0x207F3E4
         EU: 0x207F77C
+        NA: 0x207F3E4
         JP: 0x207F6CC
       description: |-
         Initializes a file_stream structure for file I/O.
@@ -2185,8 +2185,8 @@ arm9:
         r0: file_stream pointer
     - name: Abs
       address:
-        NA: 0x208655C
         EU: 0x20868F4
+        NA: 0x208655C
         JP: 0x2086844
       description: |-
         Takes the absolute value of an integer.
@@ -2195,8 +2195,8 @@ arm9:
         return: abs(x)
     - name: Mbtowc
       address:
-        NA: 0x20871BC
         EU: 0x2087554
+        NA: 0x20871BC
         JP: 0x20874A4
       description: |-
         The mbtowc(3) C library function.
@@ -2207,8 +2207,8 @@ arm9:
         return: number of consumed bytes, or -1 on failure
     - name: TryAssignByte
       address:
-        NA: 0x20871F4
         EU: 0x208758C
+        NA: 0x20871F4
         JP: 0x20874DC
       description: |-
         Assign a byte to the target of a pointer if the pointer is non-null.
@@ -2218,8 +2218,8 @@ arm9:
         return: true on success, false on failure
     - name: TryAssignByteWrapper
       address:
-        NA: 0x2087208
         EU: 0x20875A0
+        NA: 0x2087208
         JP: 0x20874F0
       description: |-
         Wrapper around TryAssignByte.
@@ -2231,8 +2231,8 @@ arm9:
         return: true on success, false on failure
     - name: Wcstombs
       address:
-        NA: 0x2087224
         EU: 0x20875BC
+        NA: 0x2087224
         JP: 0x208750C
       description: |-
         The wcstombs(3) C library function.
@@ -2243,8 +2243,8 @@ arm9:
         return: characters converted
     - name: Memcpy
       address:
-        NA: 0x208729C
         EU: 0x2087634
+        NA: 0x208729C
         JP: 0x2087584
       description: |-
         The memcpy(3) C library function.
@@ -2254,8 +2254,8 @@ arm9:
         r2: n
     - name: Memmove
       address:
-        NA: 0x20872BC
         EU: 0x2087654
+        NA: 0x20872BC
         JP: 0x20875A4
       description: |-
         The memmove(3) C library function.
@@ -2267,8 +2267,8 @@ arm9:
         r2: n
     - name: Memset
       address:
-        NA: 0x2087308
         EU: 0x20876A0
+        NA: 0x2087308
         JP: 0x20875F0
       description: |-
         The memset(3) C library function.
@@ -2281,8 +2281,8 @@ arm9:
         return: s
     - name: Memchr
       address:
-        NA: 0x208731C
         EU: 0x20876B4
+        NA: 0x208731C
         JP: 0x2087604
       description: |-
         The memchr(3) C library function.
@@ -2293,8 +2293,8 @@ arm9:
         return: pointer to first occurrence of c in s, or a null pointer if no match
     - name: Memcmp
       address:
-        NA: 0x2087348
         EU: 0x20876E0
+        NA: 0x2087348
         JP: 0x2087630
       description: |-
         The memcmp(3) C library function.
@@ -2305,8 +2305,8 @@ arm9:
         return: comparison value
     - name: MemsetInternal
       address:
-        NA: 0x2087388
         EU: 0x2087720
+        NA: 0x2087388
         JP: 0x2087670
       description: |-
         The actual memory-setting implementation for the memset(3) C library function.
@@ -2318,8 +2318,8 @@ arm9:
         r2: n
     - name: VsprintfInternalSlice
       address:
-        NA: 0x2088C74
         EU: 0x208900C
+        NA: 0x2088C74
         JP: 0x2088F5C
       description: |-
         This is what implements the bulk of VsprintfInternal.
@@ -2333,8 +2333,8 @@ arm9:
         return: number of characters printed, excluding the null-terminator
     - name: TryAppendToSlice
       address:
-        NA: 0x2089498
         EU: 0x2089830
+        NA: 0x2089498
         JP: 0x2089780
       description: |-
         Best-effort append the given data to a slice. If the slice's capacity is reached, any remaining data will be truncated.
@@ -2345,8 +2345,8 @@ arm9:
         return: true
     - name: VsprintfInternal
       address:
-        NA: 0x20894DC
         EU: 0x2089874
+        NA: 0x20894DC
         JP: 0x20897C4
       description: |-
         This is what implements Vsprintf. It's akin to __vsprintf_internal in the modern-day version of glibc (in fact, it's probably an older version of this).
@@ -2358,8 +2358,8 @@ arm9:
         return: number of characters printed, excluding the null-terminator
     - name: Vsprintf
       address:
-        NA: 0x2089544
         EU: 0x20898DC
+        NA: 0x2089544
         JP: 0x208982C
       description: |-
         The vsprintf(3) C library function.
@@ -2370,8 +2370,8 @@ arm9:
         return: number of characters printed, excluding the null-terminator
     - name: Snprintf
       address:
-        NA: 0x208955C
         EU: 0x20898F4
+        NA: 0x208955C
         JP: 0x2089844
       description: |-
         The snprintf(3) C library function.
@@ -2385,8 +2385,8 @@ arm9:
         return: number of characters printed, excluding the null-terminator
     - name: Sprintf
       address:
-        NA: 0x2089584
         EU: 0x208991C
+        NA: 0x2089584
         JP: 0x208986C
       description: |-
         The sprintf(3) C library function.
@@ -2399,8 +2399,8 @@ arm9:
         return: number of characters printed, excluding the null-terminator
     - name: Strlen
       address:
-        NA: 0x2089678
         EU: 0x2089A10
+        NA: 0x2089678
         JP: 0x2089960
       description: |-
         The strlen(3) C library function.
@@ -2409,8 +2409,8 @@ arm9:
         return: length of s
     - name: Strcpy
       address:
-        NA: 0x2089694
         EU: 0x2089A2C
+        NA: 0x2089694
         JP: 0x208997C
       description: |-
         The strcpy(3) C library function.
@@ -2421,8 +2421,8 @@ arm9:
         r1: src
     - name: Strncpy
       address:
-        NA: 0x208975C
         EU: 0x2089AF4
+        NA: 0x208975C
         JP: 0x2089A44
       description: |-
         The strncpy(3) C library function.
@@ -2432,8 +2432,8 @@ arm9:
         r2: n
     - name: Strcat
       address:
-        NA: 0x20897AC
         EU: 0x2089B44
+        NA: 0x20897AC
         JP: 0x2089A94
       description: |-
         The strcat(3) C library function.
@@ -2442,8 +2442,8 @@ arm9:
         r1: src
     - name: Strncat
       address:
-        NA: 0x20897DC
         EU: 0x2089B74
+        NA: 0x20897DC
         JP: 0x2089AC4
       description: |-
         The strncat(3) C library function.
@@ -2453,8 +2453,8 @@ arm9:
         r2: n
     - name: Strcmp
       address:
-        NA: 0x208982C
         EU: 0x2089BC4
+        NA: 0x208982C
         JP: 0x2089B14
       description: |-
         The strcmp(3) C library function.
@@ -2466,8 +2466,8 @@ arm9:
         return: comparison value
     - name: Strncmp
       address:
-        NA: 0x2089940
         EU: 0x2089CD8
+        NA: 0x2089940
         JP: 0x2089C28
       description: |-
         The strncmp(3) C library function.
@@ -2478,8 +2478,8 @@ arm9:
         return: comparison value
     - name: Strchr
       address:
-        NA: 0x2089974
         EU: 0x2089D0C
+        NA: 0x2089974
         JP: 0x2089C5C
       description: |-
         The strchr(3) C library function.
@@ -2489,8 +2489,8 @@ arm9:
         return: pointer to the located byte c, or null pointer if no match
     - name: Strcspn
       address:
-        NA: 0x20899B0
         EU: 0x2089D48
+        NA: 0x20899B0
         JP: 0x2089C98
       description: |-
         The strcspn(3) C library function.
@@ -2500,8 +2500,8 @@ arm9:
         return: offset of the first character in string within stopset
     - name: Strstr
       address:
-        NA: 0x2089A70
         EU: 0x2089E08
+        NA: 0x2089A70
         JP: 0x2089D58
       description: |-
         The strstr(3) C library function.
@@ -2511,8 +2511,8 @@ arm9:
         return: pointer into haystack where needle starts, or null pointer if no match
     - name: Wcslen
       address:
-        NA: 0x208B3E8
         EU: 0x208B780
+        NA: 0x208B3E8
         JP: 0x208B6D0
       description: |-
         The wcslen(3) C library function.
@@ -2521,8 +2521,8 @@ arm9:
         return: length of ws
     - name: AddFloat
       address:
-        NA: 0x208ECB8
         EU: 0x208F050
+        NA: 0x208ECB8
         JP: 0x208EFA0
       description: |-
         This appears to be the libgcc implementation of __addsf3 (not sure which gcc version), which implements the addition operator for IEEE 754 floating-point numbers.
@@ -2532,8 +2532,8 @@ arm9:
         return: a + b
     - name: DivideFloat
       address:
-        NA: 0x208F234
         EU: 0x208F5CC
+        NA: 0x208F234
         JP: 0x208F51C
       description: |-
         This appears to be the libgcc implementation of __divsf3 (not sure which gcc version), which implements the division operator for IEEE 754 floating-point numbers.
@@ -2543,8 +2543,8 @@ arm9:
         return: dividend / divisor
     - name: FloatToDouble
       address:
-        NA: 0x208F5EC
         EU: 0x208F984
+        NA: 0x208F5EC
         JP: 0x208F8D4
       description: |-
         This appears to be the libgcc implementation of __extendsfdf2 (not sure which gcc version), which implements the float to double cast operation for IEEE 754 floating-point numbers.
@@ -2553,8 +2553,8 @@ arm9:
         return: (double)float
     - name: FloatToInt
       address:
-        NA: 0x208F670
         EU: 0x208FA08
+        NA: 0x208F670
         JP: 0x208F958
       description: |-
         This appears to be the libgcc implementation of __fixsfsi (not sure which gcc version), which implements the float to int cast operation for IEEE 754 floating-point numbers. The output saturates if the input is out of the representable range for the int type.
@@ -2563,8 +2563,8 @@ arm9:
         return: (int)float
     - name: IntToFloat
       address:
-        NA: 0x208F6A4
         EU: 0x208FA3C
+        NA: 0x208F6A4
         JP: 0x208F98C
       description: |-
         This appears to be the libgcc implementation of __floatsisf (not sure which gcc version), which implements the int to float cast operation for IEEE 754 floating-point numbers.
@@ -2573,8 +2573,8 @@ arm9:
         return: (float)int
     - name: UIntToFloat
       address:
-        NA: 0x208F6EC
         EU: 0x208FA84
+        NA: 0x208F6EC
         JP: 0x208F9D4
       description: |-
         This appears to be the libgcc implementation of __floatunsisf (not sure which gcc version), which implements the unsigned int to float cast operation for IEEE 754 floating-point numbers.
@@ -2583,14 +2583,14 @@ arm9:
         return: (float)uint
     - name: MultiplyFloat
       address:
-        NA: 0x208F734
         EU: 0x208FACC
+        NA: 0x208F734
         JP: 0x208FA1C
       description: "This appears to be the libgcc implementation of __mulsf3 (not sure which gcc version), which implements the multiplication operator for IEEE 754 floating-point numbers."
     - name: Sqrtf
       address:
-        NA: 0x208F914
         EU: 0x208FCAC
+        NA: 0x208F914
         JP: 0x208FBFC
       description: |-
         The sqrtf(3) C library function.
@@ -2599,8 +2599,8 @@ arm9:
         return: sqrt(x)
     - name: SubtractFloat
       address:
-        NA: 0x208FA04
         EU: 0x208FD9C
+        NA: 0x208FA04
         JP: 0x208FCEC
       description: |-
         This appears to be the libgcc implementation of __subsf3 (not sure which gcc version), which implements the subtraction operator for IEEE 754 floating-point numbers.
@@ -2610,8 +2610,8 @@ arm9:
         return: a - b
     - name: DivideInt
       address:
-        NA: 0x208FEA4
         EU: 0x209023C
+        NA: 0x208FEA4
         JP: 0x209018C
       description: |-
         This appears to be the libgcc implementation of __divsi3 (not sure which gcc version), which implements the division operator for signed ints.
@@ -2621,8 +2621,8 @@ arm9:
         return: dividend / divisor
     - name: DivideUInt
       address:
-        NA: 0x20900B0
         EU: 0x2090448
+        NA: 0x20900B0
         JP: 0x2090398
       description: |-
         This appears to be the libgcc implementation of __udivsi3 (not sure which gcc version), which implements the division operator for unsigned ints.
@@ -2634,8 +2634,8 @@ arm9:
         return: dividend / divisor
     - name: DivideUIntNoZeroCheck
       address:
-        NA: 0x20900B8
         EU: 0x2090450
+        NA: 0x20900B8
         JP: 0x20903A0
       description: |-
         Subsidiary function to DivideUInt. Skips the initial check for divisor == 0.
@@ -2648,175 +2648,175 @@ arm9:
   data:
     - name: DEFAULT_MEMORY_ARENA_SIZE
       address:
-        NA: 0x2000E58
         EU: 0x2000E58
+        NA: 0x2000E58
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: "Length in bytes of the default memory allocation arena, 1991680."
     - name: AURA_BOW_ID_LAST
       address:
-        NA: 0x200CC34
         EU: 0x200CCBC
+        NA: 0x200CC34
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: Highest item ID of the aura bows.
     - name: NUMBER_OF_ITEMS
       address:
-        NA: 0x200E860
         EU: 0x200E930
+        NA: 0x200E860
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: Number of items in the game.
     - name: MAX_MONEY_CARRIED
       address:
-        NA: 0x200ED50
         EU: 0x200EDF8
+        NA: 0x200ED50
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: "Maximum amount of money the player can carry, 99999."
     - name: MAX_MONEY_STORED
       address:
-        NA: 0x2010750
         EU: 0x20107F8
+        NA: 0x2010750
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: "Maximum amount of money the player can store in the Duskull Bank, 9999999."
     - name: SCRIPT_VARS_VALUES_PTR
       address:
-        NA:
-          - 0x204B2F8
-          - 0x204B4E4
-          - 0x204C42C
-          - 0x204C484
         EU:
           - 0x204B630
           - 0x204B81C
           - 0x204C764
           - 0x204C7BC
+        NA:
+          - 0x204B2F8
+          - 0x204B4E4
+          - 0x204C42C
+          - 0x204C484
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: Hard-coded pointer to SCRIPT_VARS_VALUES.
     - name: MONSTER_ID_LIMIT
       address:
-        NA: 0x205449C
         EU: 0x2054818
+        NA: 0x205449C
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: One more than the maximum valid monster ID (0x483).
     - name: MAX_RECRUITABLE_TEAM_MEMBERS
       address:
-        NA:
-          - 0x2055238
-          - 0x205564C
         EU:
           - 0x20555B4
           - 0x20559C8
+        NA:
+          - 0x2055238
+          - 0x205564C
       description: "555, appears to be the maximum number of members recruited to an exploration team, at least for the purposes of some checks that need to iterate over all team members."
     - name: CART_REMOVED_IMG_DATA
       address:
-        NA: 0x2092AE8
         EU: 0x2092EE4
+        NA: 0x2092AE8
       length:
-        NA: 0x4000
         EU: 0x2000
+        NA: 0x4000
     - name: EXCLUSIVE_ITEM_STAT_BOOST_DATA
       address:
-        NA: 0x20980E8
         EU: 0x209852C
+        NA: 0x20980E8
       length:
-        NA: 0x3C
         EU: 0x3C
+        NA: 0x3C
       description: |-
         Contains stat boost effects for different exclusive item classes.
         
         Each 4-byte entry contains the boost data for (attack, special attack, defense, special defense), 1 byte each, for a specific exclusive item class, indexed according to the stat boost data index list.
     - name: EXCLUSIVE_ITEM_ATTACK_BOOSTS
       address:
-        NA: 0x20980E8
         EU: 0x209852C
+        NA: 0x20980E8
       length:
-        NA: 0x39
         EU: 0x39
+        NA: 0x39
       description: "EXCLUSIVE_ITEM_STAT_BOOST_DATA, offset by 0"
     - name: EXCLUSIVE_ITEM_SPECIAL_ATTACK_BOOSTS
       address:
-        NA: 0x20980E9
         EU: 0x209852D
+        NA: 0x20980E9
       length:
-        NA: 0x39
         EU: 0x39
+        NA: 0x39
       description: "EXCLUSIVE_ITEM_STAT_BOOST_DATA, offset by 1"
     - name: EXCLUSIVE_ITEM_DEFENSE_BOOSTS
       address:
-        NA: 0x20980EA
         EU: 0x209852E
+        NA: 0x20980EA
       length:
-        NA: 0x39
         EU: 0x39
+        NA: 0x39
       description: "EXCLUSIVE_ITEM_STAT_BOOST_DATA, offset by 2"
     - name: EXCLUSIVE_ITEM_SPECIAL_DEFENSE_BOOSTS
       address:
-        NA: 0x20980EB
         EU: 0x209852F
+        NA: 0x20980EB
       length:
-        NA: 0x39
         EU: 0x39
+        NA: 0x39
       description: "EXCLUSIVE_ITEM_STAT_BOOST_DATA, offset by 3"
     - name: EXCLUSIVE_ITEM_EFFECT_DATA
       address:
-        NA: 0x2098124
         EU: 0x2098568
+        NA: 0x2098124
       length:
-        NA: 0x778
         EU: 0x778
+        NA: 0x778
       description: |-
         Contains special effects for each exclusive item.
         
         Each entry is 2 bytes, with the first entry corresponding to the first exclusive item (Prism Ruff). The first byte is the exclusive item effect ID, and the second byte is an index into other data tables (related to the more generic stat boosting effects for specific monsters).
     - name: EXCLUSIVE_ITEM_STAT_BOOST_DATA_INDEXES
       address:
-        NA: 0x2098125
         EU: 0x2098569
+        NA: 0x2098125
       length:
-        NA: 0x777
         EU: 0x777
+        NA: 0x777
       description: "EXCLUSIVE_ITEM_EFFECT_DATA, offset by 1"
     - name: RECOIL_MOVE_LIST
       address:
-        NA: 0x2098D74
         EU: 0x20991B8
+        NA: 0x2098D74
       length:
-        NA: 0x16
         EU: 0x16
+        NA: 0x16
       description: |-
         Null-terminated list of all the recoil moves, as 2-byte move IDs.
         
         type: struct move_id_16[11]
     - name: PUNCH_MOVE_LIST
       address:
-        NA: 0x2098D8A
         EU: 0x20991CE
+        NA: 0x2098D8A
       length:
-        NA: 0x20
         EU: 0x20
+        NA: 0x20
       description: |-
         Null-terminated list of all the punch moves, as 2-byte move IDs.
         
         type: struct move_id_16[16]
     - name: SCRIPT_VARS_LOCALS
       address:
-        NA: 0x209CECC
         EU: 0x209D450
+        NA: 0x209CECC
       length:
-        NA: 0x40
         EU: 0x40
+        NA: 0x40
       description: |-
         List of special "local" variables available to the script engine. There are 4 16-byte entries.
         
@@ -2825,12 +2825,12 @@ arm9:
         type: struct script_local_var_table
     - name: SCRIPT_VARS
       address:
-        NA: 0x209D870
         EU: 0x209DDF4
+        NA: 0x209D870
         JP: 0x209EC44
       length:
-        NA: 0x730
         EU: 0x730
+        NA: 0x730
         JP: 0x730
       description: |-
         List of predefined global variables that track game state, which are available to the script engine. There are 115 16-byte entries.
@@ -2840,11 +2840,11 @@ arm9:
         type: struct script_var_table
     - name: DUNGEON_DATA_LIST
       address:
-        NA: 0x209E3A0
         EU: 0x209E924
+        NA: 0x209E3A0
       length:
-        NA: 0x2D0
         EU: 0x2D0
+        NA: 0x2D0
       description: |-
         Data about every dungeon in the game.
         
@@ -2855,11 +2855,11 @@ arm9:
         type: struct dungeon_data_list_entry[180]
     - name: DUNGEON_RESTRICTIONS
       address:
-        NA: 0x20A0C64
         EU: 0x20A11E8
+        NA: 0x20A0C64
       length:
-        NA: 0xC00
         EU: 0xC00
+        NA: 0xC00
       description: |-
         Data related to dungeon restrictions for every dungeon in the game.
         
@@ -2870,128 +2870,128 @@ arm9:
         type: struct dungeon_restriction[256]
     - name: SPECIAL_BAND_STAT_BOOST
       address:
-        NA: 0x20A186C
         EU: 0x20A1DF0
+        NA: 0x20A186C
       length:
-        NA: 0x2
         EU: 0x2
+        NA: 0x2
       description: Stat boost value for the Special Band.
     - name: MUNCH_BELT_STAT_BOOST
       address:
-        NA: 0x20A187C
         EU: 0x20A1E00
+        NA: 0x20A187C
       length:
-        NA: 0x2
         EU: 0x2
+        NA: 0x2
       description: Stat boost value for the Munch Belt.
     - name: GUMMI_STAT_BOOST
       address:
-        NA: 0x20A1888
         EU: 0x20A1E0C
+        NA: 0x20A1888
       length:
-        NA: 0x2
         EU: 0x2
+        NA: 0x2
       description: Stat boost value if a stat boost occurs when eating normal Gummis.
     - name: MIN_IQ_EXCLUSIVE_MOVE_USER
       address:
-        NA: 0x20A188C
         EU: 0x20A1E10
+        NA: 0x20A188C
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
     - name: WONDER_GUMMI_IQ_GAIN
       address:
-        NA: 0x20A1890
         EU: 0x20A1E14
+        NA: 0x20A1890
       length:
-        NA: 0x2
         EU: 0x2
+        NA: 0x2
       description: IQ gain when ingesting wonder gummis.
     - name: AURA_BOW_STAT_BOOST
       address:
-        NA: 0x20A1898
         EU: 0x20A1E1C
+        NA: 0x20A1898
       length:
-        NA: 0x2
         EU: 0x2
+        NA: 0x2
       description: Stat boost value for the aura bows.
     - name: MIN_IQ_ITEM_MASTER
       address:
-        NA: 0x20A18A4
         EU: 0x20A1E28
+        NA: 0x20A18A4
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
     - name: DEF_SCARF_STAT_BOOST
       address:
-        NA: 0x20A18A8
         EU: 0x20A1E2C
+        NA: 0x20A18A8
       length:
-        NA: 0x2
         EU: 0x2
+        NA: 0x2
       description: Stat boost value for the Defense Scarf.
     - name: POWER_BAND_STAT_BOOST
       address:
-        NA: 0x20A18AC
         EU: 0x20A1E30
+        NA: 0x20A18AC
       length:
-        NA: 0x2
         EU: 0x2
+        NA: 0x2
       description: Stat boost value for the Power Band.
     - name: WONDER_GUMMI_STAT_BOOST
       address:
-        NA: 0x20A18B0
         EU: 0x20A1E34
+        NA: 0x20A18B0
       length:
-        NA: 0x2
         EU: 0x2
+        NA: 0x2
       description: Stat boost value if a stat boost occurs when eating Wonder Gummis.
     - name: ZINC_BAND_STAT_BOOST
       address:
-        NA: 0x20A18B4
         EU: 0x20A1E38
+        NA: 0x20A18B4
       length:
-        NA: 0x2
         EU: 0x2
+        NA: 0x2
       description: Stat boost value for the Zinc Band.
     - name: TACTICS_UNLOCK_LEVEL_TABLE
       address:
-        NA: 0x20A1940
         EU: 0x20A1EC4
+        NA: 0x20A1940
       length:
-        NA: 0x18
         EU: 0x18
+        NA: 0x18
     - name: OUTLAW_LEVEL_TABLE
       address:
-        NA: 0x20A1998
         EU: 0x20A1F1C
+        NA: 0x20A1998
       length:
-        NA: 0x20
         EU: 0x20
+        NA: 0x20
       description: "Table of 2-byte outlaw levels for outlaw missions, indexed by mission rank."
     - name: OUTLAW_MINION_LEVEL_TABLE
       address:
-        NA: 0x20A19B8
         EU: 0x20A1F3C
+        NA: 0x20A19B8
       length:
-        NA: 0x20
         EU: 0x20
+        NA: 0x20
       description: "Table of 2-byte outlaw minion levels for outlaw hideout missions, indexed by mission rank."
     - name: IQ_SKILL_RESTRICTIONS
       address:
-        NA: 0x20A1A5C
         EU: 0x20A1FE0
+        NA: 0x20A1A5C
       length:
-        NA: 0x8A
         EU: 0x8A
+        NA: 0x8A
       description: Table of 2-byte values for each IQ skill that represent a group. IQ skills in the same group can not be enabled at the same time.
     - name: SECONDARY_TERRAIN_TYPES
       address:
-        NA: 0x20A1AE8
         EU: 0x20A206C
+        NA: 0x20A1AE8
       length:
-        NA: 0xC8
         EU: 0xC8
+        NA: 0xC8
       description: |-
         The type of secondary terrain for each dungeon in the game.
         
@@ -3000,58 +3000,58 @@ arm9:
         type: struct secondary_terrain_type_8[200]
     - name: SENTRY_MINIGAME_DATA
       address:
-        NA: 0x20A1BB0
         EU: 0x20A2134
+        NA: 0x20A1BB0
     - name: IQ_SKILLS
       address:
-        NA: 0x20A1C7C
         EU: 0x20A2200
+        NA: 0x20A1C7C
       length:
-        NA: 0x114
         EU: 0x114
+        NA: 0x114
       description: Table of 4-byte values for each IQ skill that represent the required IQ value to unlock a skill.
     - name: IQ_GROUP_SKILLS
       address:
-        NA: 0x20A1D90
         EU: 0x20A2314
+        NA: 0x20A1D90
       length:
-        NA: 0x190
         EU: 0x190
+        NA: 0x190
     - name: IQ_GUMMI_GAIN_TABLE
       address:
-        NA: 0x20A22B0
         EU: 0x20A2834
+        NA: 0x20A22B0
       length:
-        NA: 0x288
         EU: 0x288
+        NA: 0x288
     - name: GUMMI_BELLY_RESTORE_TABLE
       address:
-        NA: 0x20A2538
         EU: 0x20A2ABC
+        NA: 0x20A2538
       length:
-        NA: 0x288
         EU: 0x288
+        NA: 0x288
     - name: BAG_CAPACITY_TABLE
       address:
-        NA: 0x20A27D4
         EU: 0x20A2D58
+        NA: 0x20A27D4
       length:
         NA: 0x20
       description: Array of 4-byte integers containing the bag capacity for each bag level.
     - name: SPECIAL_EPISODE_MAIN_CHARACTERS
       address:
-        NA: 0x20A27F4
         EU: 0x20A2D78
+        NA: 0x20A27F4
       length:
-        NA: 0xC8
         EU: 0xC8
+        NA: 0xC8
     - name: GUEST_MONSTER_DATA
       address:
-        NA: 0x20A28BC
         EU: 0x20A2E40
+        NA: 0x20A28BC
       length:
-        NA: 0x288
         EU: 0x288
+        NA: 0x288
       description: |-
         Data for guest monsters that join you during certain story dungeons.
         
@@ -3062,30 +3062,30 @@ arm9:
         type: struct guest_monster[18]
     - name: RANK_UP_TABLE
       address:
-        NA: 0x20A2B44
         EU: 0x20A30C8
+        NA: 0x20A2B44
       length:
-        NA: 0xD0
         EU: 0xD0
+        NA: 0xD0
     - name: MONSTER_SPRITE_DATA
       address:
-        NA: 0x20A2D08
         EU: 0x20A332C
+        NA: 0x20A2D08
       length:
-        NA: 0x4B0
         EU: 0x4B0
+        NA: 0x4B0
     - name: MISSION_DUNGEON_UNLOCK_TABLE
       address:
-        NA: 0x20A3CAC
         EU: 0x20A42AC
+        NA: 0x20A3CAC
     - name: EVENTS
       address:
-        NA: 0x20A5488
         EU: 0x20A5BD8
+        NA: 0x20A5488
         JP: 0x20A6894
       length:
-        NA: 0x1434
         EU: 0x1584
+        NA: 0x1434
         JP: 0x1470
       description: |-
         Table of levels for the script engine, in which scenes can take place. There are a version-dependent number of 12-byte entries.
@@ -3093,12 +3093,12 @@ arm9:
         type: struct script_level[length / 12]
     - name: ENTITIES
       address:
-        NA: 0x20A7FF0
         EU: 0x20A8890
+        NA: 0x20A7FF0
         JP: 0x20A9438
       length:
-        NA: 0x1218
         EU: 0x1218
+        NA: 0x1218
         JP: 0x1218
       description: |-
         Table of entities for the script engine, which can move around and do things within a scene. There are 386 12-byte entries.
@@ -3106,11 +3106,11 @@ arm9:
         type: struct script_entity[386]
     - name: MAP_MARKER_PLACEMENTS
       address:
-        NA: 0x20A94D0
         EU: 0x20A9D70
+        NA: 0x20A94D0
       length:
-        NA: 0x9B0
         EU: 0x9B0
+        NA: 0x9B0
       description: |-
         The map marker position of each dungeon on the Wonder Map.
         
@@ -3121,30 +3121,30 @@ arm9:
         type: struct map_marker[310]
     - name: MEMORY_ALLOCATION_ARENA_GETTERS
       address:
-        NA: 0x20AEF00
         EU: 0x20AF7A0
+        NA: 0x20AEF00
       length:
-        NA: 0x8
         EU: 0x8
+        NA: 0x8
       description: |-
         Functions to get the desired memory arena for allocating and freeing heap memory.
         
         type: struct mem_arena_getters
     - name: PRNG_SEQUENCE_NUM
       address:
-        NA: 0x20AEF2C
         EU: 0x20AF7CC
+        NA: 0x20AEF2C
       length:
-        NA: 0x2
         EU: 0x2
+        NA: 0x2
       description: "[Runtime] The current PRNG sequence number for the general-purpose PRNG. See Rand16Bit for more information on how the general-purpose PRNG works."
     - name: LOADED_OVERLAY_GROUP_0
       address:
-        NA: 0x20AF230
         EU: 0x20AFAD0
+        NA: 0x20AF230
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: |-
         [Runtime] The overlay group ID of the overlay currently loaded in slot 0. A group ID of 0 denotes no overlay.
         
@@ -3181,11 +3181,11 @@ arm9:
         type: enum overlay_group_id
     - name: LOADED_OVERLAY_GROUP_1
       address:
-        NA: 0x20AF234
         EU: 0x20AFAD4
+        NA: 0x20AF234
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: |-
         [Runtime] The overlay group ID of the overlay currently loaded in slot 1. A group ID of 0 denotes no overlay.
         
@@ -3199,11 +3199,11 @@ arm9:
         type: enum overlay_group_id
     - name: LOADED_OVERLAY_GROUP_2
       address:
-        NA: 0x20AF238
         EU: 0x20AFAD8
+        NA: 0x20AF238
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: |-
         [Runtime] The overlay group ID of the overlay currently loaded in slot 2. A group ID of 0 denotes no overlay.
         
@@ -3215,86 +3215,86 @@ arm9:
         type: enum overlay_group_id
     - name: PACK_FILE_PATHS_TABLE
       address:
-        NA: 0x20AF6A0
         EU: 0x20AFF58
+        NA: 0x20AF6A0
       length:
-        NA: 0x18
         EU: 0x18
+        NA: 0x18
       description: |-
         List of pointers to path strings to all known pack files.
         The game uses this table to load its resources when launching dungeon mode.
     - name: GAME_STATE_VALUES
       address:
-        NA: 0x20AF6B8
         EU: 0x20AFF70
+        NA: 0x20AF6B8
       description: "[Runtime]"
     - name: DUNGEON_MOVE_TABLES
       address:
-        NA: 0x20AF6DC
         EU: 0x20AFFA8
+        NA: 0x20AF6DC
       description: "[Runtime] Seems to be some sort of region (a table of tables?) that holds pointers to various important tables related to moves."
     - name: MOVE_DATA_TABLE_PTR
       address:
-        NA: 0x20AF6E4
         EU: 0x20AFFB0
+        NA: 0x20AF6E4
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: |-
         [Runtime] Points to the contents of the move data table loaded from waza_p.bin
         
         type: struct move_data_table*
     - name: LANGUAGE_INFO_DATA
       address:
-        NA: 0x20AFCE8
         EU: 0x20B05A8
+        NA: 0x20AFCE8
       description: "[Runtime]"
     - name: NOTIFY_NOTE
       address:
-        NA: 0x20AFEF8
         EU: 0x20B0814
+        NA: 0x20AFEF8
       description: |-
         [Runtime] Flag related to saving and loading state?
         
         type: bool
     - name: DEFAULT_HERO_ID
       address:
-        NA: 0x20AFEFC
         EU: 0x20B0818
+        NA: 0x20AFEFC
       length:
-        NA: 0x2
         EU: 0x2
+        NA: 0x2
       description: |-
         The default monster ID for the hero (0x4: Charmander)
         
         type: struct monster_id_16
     - name: DEFAULT_PARTNER_ID
       address:
-        NA: 0x20AFEFE
         EU: 0x20B081A
+        NA: 0x20AFEFE
       length:
-        NA: 0x2
         EU: 0x2
+        NA: 0x2
       description: |-
         The default monster ID for the partner (0x1: Bulbasaur)
         
         type: struct monster_id_16
     - name: GAME_MODE
       address:
-        NA: 0x20AFF70
         EU: 0x20B088C
+        NA: 0x20AFF70
       description: |-
         [Runtime]
         
         type: uint8_t
     - name: ADVENTURE_LOG_PTR
       address:
-        NA: 0x20AFF78
         EU: 0x20B0894
+        NA: 0x20AFF78
         JP: 0x20B17EC
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
         JP: 0x4
       description: |-
         [Runtime]
@@ -3302,25 +3302,25 @@ arm9:
         type: struct adventure_log*
     - name: ITEM_TABLES_PTRS_1
       address:
-        NA: 0x20B0948
         EU: 0x20B1264
+        NA: 0x20B0948
       length:
-        NA: 0x68
         EU: 0x68
+        NA: 0x68
     - name: SMD_EVENTS_FUN_TABLE
       address:
-        NA: 0x20B0B90
         EU: 0x20B14D4
+        NA: 0x20B0B90
       length:
-        NA: 0x1FC
         EU: 0x1FC
+        NA: 0x1FC
     - name: MEMORY_ALLOCATION_TABLE
       address:
-        NA: 0x20B3380
         EU: 0x20B3CC0
+        NA: 0x20B3380
       length:
-        NA: 0x40
         EU: 0x40
+        NA: 0x40
       description: |-
         [Runtime] Keeps track of all active heap allocations.
         
@@ -3331,22 +3331,22 @@ arm9:
         type: struct mem_alloc_table
     - name: DEFAULT_MEMORY_ARENA
       address:
-        NA: 0x20B3384
         EU: 0x20B3CC4
+        NA: 0x20B3384
       length:
-        NA: 0x1C
         EU: 0x1C
+        NA: 0x1C
       description: |-
         [Runtime] The default memory allocation arena. This is part of MEMORY_ALLOCATION_TABLE, but is also referenced on its own by various functions.
         
         type: struct mem_arena
     - name: DEFAULT_MEMORY_ARENA_BLOCKS
       address:
-        NA: 0x20B33C0
         EU: 0x20B3D00
+        NA: 0x20B33C0
       length:
-        NA: 0x1800
         EU: 0x1800
+        NA: 0x1800
       description: |-
         [Runtime] The block array for DEFAULT_MEMORY_ARENA.
         

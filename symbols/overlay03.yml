@@ -1,15 +1,15 @@
 overlay3:
   versions:
-    - NA
     - EU
+    - NA
     - JP
   address:
-    NA: 0x233CA80
     EU: 0x233D200
+    NA: 0x233CA80
     JP: 0x233E300
   length:
-    NA: 0xA160
     EU: 0xA160
+    NA: 0xA160
     JP: 0xA160
   description: Controls the Friend Rescue submenu within the top menu.
   functions: []

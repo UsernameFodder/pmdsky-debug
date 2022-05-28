@@ -1,60 +1,60 @@
 overlay13:
   versions:
-    - NA
     - EU
+    - NA
     - JP
   address:
-    NA: 0x238A140
     EU: 0x238AC80
+    NA: 0x238A140
     JP: 0x238B6A0
   length:
-    NA: 0x2E80
     EU: 0x2E80
+    NA: 0x2E80
     JP: 0x2E80
   description: "Controls the personality test, including the available partners and playable Pokémon. The actual personality test questions are stored in the MESSAGE folder."
   functions: []
   data:
     - name: STARTERS_PARTNER_IDS
       address:
-        NA: 0x238C08C
         EU: 0x238CBCC
+        NA: 0x238C08C
       length:
-        NA: 0x2A
         EU: 0x2A
+        NA: 0x2A
       description: "type: struct monster_id_16[21]"
     - name: STARTERS_HERO_IDS
       address:
-        NA: 0x238C0B8
         EU: 0x238CBF8
+        NA: 0x238C0B8
       length:
-        NA: 0x40
         EU: 0x40
+        NA: 0x40
       description: "type: struct monster_id_16[32]"
     - name: STARTERS_STRINGS
       address:
-        NA: 0x238C14C
         EU: 0x238CC8C
+        NA: 0x238C14C
       length:
-        NA: 0x60
         EU: 0x60
+        NA: 0x60
     - name: QUIZ_QUESTION_STRINGS
       address:
-        NA: 0x238C1AC
         EU: 0x238CCEC
+        NA: 0x238C1AC
       length:
-        NA: 0x84
         EU: 0x84
+        NA: 0x84
     - name: QUIZ_ANSWER_STRINGS
       address:
-        NA: 0x238C230
         EU: 0x238CD70
+        NA: 0x238C230
       length:
-        NA: 0x160
         EU: 0x160
+        NA: 0x160
     - name: UNKNOWN_MENU_1
       address:
-        NA: 0x238CECC
         EU: 0x238DA0C
+        NA: 0x238CECC
       length:
-        NA: 0x48
         EU: 0x48
+        NA: 0x48
