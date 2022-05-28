@@ -61,6 +61,7 @@ int GetMovePower(struct entity* entity, struct move* move);
 void AddExpSpecial(struct entity* attacker, struct entity* defender, int base_exp);
 uint8_t GetSleepAnimationId(struct entity* entity);
 void EndFrozenClassStatus(struct entity* user, struct entity* target, bool print_to_log);
+void EndCringeClassStatus(struct entity* user, struct entity* target);
 enum type_matchup GetTypeMatchup(struct entity* attacker, struct entity* defender,
                                  int target_type_idx, enum type_id attack_type);
 void CalcDamage(struct entity* attacker, struct entity* defender, enum type_id attack_type,
@@ -83,6 +84,7 @@ void CalcDamageFixedNoCategory(struct entity* attacker, struct entity* defender,
                                int16_t param_7, undefined4 param_8, undefined4 param_9,
                                undefined4 param_10);
 void ResetDamageCalcScratchSpace(void);
+void TrySpawnMonsterAndTickSpawnCounter(void);
 bool AuraBowIsActive(struct entity* entity);
 int ExclusiveItemOffenseBoost(struct entity* entity, int move_category_idx);
 int ExclusiveItemDefenseBoost(struct entity* entity, int move_category_idx);

@@ -60,6 +60,7 @@ overlay10:
       address:
         NA: 0x22C4430
         EU: 0x22C4D88
+      description: The maximum number of enemies that can spawn on a floor without a monster house (15).
     - name: OREN_BERRY_DAMAGE
       address:
         NA: 0x22C4438
@@ -192,6 +193,7 @@ overlay10:
       address:
         NA: 0x22C466C
         EU: 0x22C4FC4
+      description: Number of turns (250) after which Speed Boost will trigger and increase speed by one stage.
     - name: MIRACLE_CHEST_EXP_BOOST
       address:
         NA: 0x22C4698
@@ -212,6 +214,7 @@ overlay10:
       address:
         NA: 0x22C46A4
         EU: 0x22C4FFC
+      description: "The maximum number of enemies that can spawn on a floor with a monster house (4, not counting those in the monster house)."
     - name: POISON_DAMAGE_COOLDOWN
       address:
         NA: 0x22C46A8

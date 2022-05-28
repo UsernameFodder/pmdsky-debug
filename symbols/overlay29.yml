@@ -473,7 +473,9 @@ overlay29:
         EU: 0x22ED08C
         JP: 0x22EDD44
       description: |-
-        Called at the beginning of FloorLoop. First it calls TrySpawnMonster, then tries to activate the Plus and Minus abilities for both allies and enemies, and finally calls TryForcedLoss.
+        Called at the beginning of FloorLoop. Executed only if FRACTIONAL_TURN_SEQUENCE[fractional_turn * 2] is not 0.
+        
+        First it calls TrySpawnMonsterAndTickSpawnCounter, then tries to activate the Plus and Minus abilities for both allies and enemies, and finally calls TryForcedLoss.
         
         No params.
     - name: FloorIsOver
@@ -991,6 +993,12 @@ overlay29:
         NA: 0x230E6BC
         EU: 0x230F130
         JP: 0x230FBF8
+      description: |-
+        First ticks up the spawn counter, and if it's equal or greater than the spawn cooldown, it will try to spawn an enemy if the number of enemies is below the spawn cap.
+        
+        If the spawn counter is greater than 900, it will instead perform the special spawn caused by the ability Illuminate.
+        
+        No params.
     - name: AuraBowIsActive
       address:
         NA: 0x230F6C8
