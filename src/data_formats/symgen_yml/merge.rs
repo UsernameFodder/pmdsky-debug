@@ -373,6 +373,25 @@ impl Merge for Block {
             }
         }
 
+        // Merge subregions
+        if let Some(other_subregions) = &other.subregions {
+            if let Some(subregions) = &mut self.subregions {
+                // Try to match subregions between blocks
+                for other_sub in other_subregions {
+                    if let Some(sub) = subregions.iter_mut().find(|s| s.name == other_sub.name) {
+                        // Found matching subregions; merge them
+                        sub.merge(other_sub)?;
+                    } else {
+                        // No matching subregions; just append to the subregion list
+                        subregions.push(other_sub.clone());
+                    }
+                }
+            } else {
+                // This block has no subregions; just steal the other's subregions
+                self.subregions = Some(other_subregions.clone());
+            }
+        }
+
         let other_address;
         let other_length;
         let mut other_functions = Cow::Borrowed(&other.functions);
@@ -592,6 +611,27 @@ impl SymGen {
         // Reinit because merging can introduce new OrdStrings/Versions
         self.init();
         Ok(unmerged_symbols)
+    }
+}
+
+impl Merge for Subregion {
+    fn merge(&mut self, other: &Self) -> Result<(), MergeConflict> {
+        if self.name != other.name {
+            return Err(MergeConflict::new(
+                self.name.display(),
+                other.name.display(),
+            ));
+        }
+        if let Some(contents) = &mut self.contents {
+            if let Some(other_contents) = &other.contents {
+                // Both subregions have contents; merge them
+                contents.merge(other_contents)?;
+            }
+        } else {
+            // No contents; copy over the other's
+            *self = other.clone();
+        }
+        Ok(())
     }
 }
 
@@ -831,6 +871,7 @@ mod tests {
             address: MaybeVersionDep::ByVersion([("v1".into(), 1)].into()),
             length: MaybeVersionDep::ByVersion([("v1".into(), 10)].into()),
             description: None,
+            subregions: None,
             functions: [Symbol {
                 name: "function1".to_string(),
                 address: MaybeVersionDep::ByVersion([("v1".into(), 1.into())].into()),
@@ -846,6 +887,7 @@ mod tests {
                 address: MaybeVersionDep::ByVersion([("v2".into(), 2)].into()),
                 length: MaybeVersionDep::ByVersion([("v1".into(), 10)].into()),
                 description: Some("desc".to_string()),
+                subregions: None,
                 functions: [Symbol {
                     name: "function2".to_string(),
                     address: MaybeVersionDep::ByVersion([("v2".into(), 1.into())].into()),
@@ -869,6 +911,7 @@ mod tests {
                 address: MaybeVersionDep::ByVersion([("v1".into(), 1), ("v2".into(), 2)].into()),
                 length: MaybeVersionDep::ByVersion([("v1".into(), 10)].into()),
                 description: Some("desc".to_string()),
+                subregions: None,
                 functions: [
                     Symbol {
                         name: "function1".to_string(),
@@ -902,6 +945,7 @@ mod tests {
             address: MaybeVersionDep::Common(1),
             length: MaybeVersionDep::Common(10),
             description: None,
+            subregions: None,
             functions: [Symbol {
                 name: "function1".to_string(),
                 address: MaybeVersionDep::ByVersion([("v1".into(), 1.into())].into()),
@@ -917,6 +961,7 @@ mod tests {
                 address: MaybeVersionDep::Common(2),
                 length: MaybeVersionDep::Common(3),
                 description: None,
+                subregions: None,
                 functions: [
                     Symbol {
                         name: "function1".to_string(),
@@ -948,6 +993,7 @@ mod tests {
                 address: MaybeVersionDep::ByVersion([("v1".into(), 1), ("v2".into(), 2)].into()),
                 length: MaybeVersionDep::ByVersion([("v1".into(), 10), ("v2".into(), 3)].into()),
                 description: None,
+                subregions: None,
                 functions: [
                     Symbol {
                         name: "function1".to_string(),
