@@ -918,7 +918,7 @@ arm9:
         
         r0: move pointer
         return: base power
-    - name: GetMoveAccuracyOrAIChance
+    - name: GetMoveAccuracyOrAiChance
       address:
         NA: 0x2013A0C
         EU: 0x2013AB4

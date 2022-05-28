@@ -32,7 +32,7 @@ enum forced_loss_reason GetForcedLossReason(void);
 void ResetDamageDesc(undefined4* damage_desc);
 uint16_t GetSpriteIndex(enum monster_id monster_id);
 bool FloorNumberIsEven(void);
-void EUFaintCheck(bool non_team_member_fainted, bool set_unk_byte);
+void EuFaintCheck(bool non_team_member_fainted, bool set_unk_byte);
 void HandleFaint(struct entity* fainted_entity, int faint_reason, struct entity* killer);
 void TryActivateSlowStart(void);
 void TryActivateArtificialWeatherAbilities(void);
@@ -40,7 +40,7 @@ bool DefenderAbilityIsActive(struct entity* attacker, struct entity* defender,
                              enum ability_id ability_id, bool attacker_ability_enabled);
 bool IsMonster(struct entity* entity);
 void TryActivateTruant(struct entity* entity);
-void RestorePPAllMovesSetFlags(struct entity* entity);
+void RestorePpAllMovesSetFlags(struct entity* entity);
 bool ExclusiveItemEffectIsActive(struct entity* entity, enum exclusive_item_effect_id effect_id);
 bool HasLowHealth(struct entity* entity);
 bool IsSpecialStoryAlly(struct monster* monster);

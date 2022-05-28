@@ -464,7 +464,7 @@ overlay29:
         Has a special check to return false for Labyrinth Cave B10F (the Gabite boss fight).
         
         return: bool
-    - name: EUFaintCheck
+    - name: EuFaintCheck
       address:
         EU: 0x22F88E8
       description: |-
@@ -568,7 +568,7 @@ overlay29:
         Checks if an entity has the ability Truant, and if so tries to apply the pause status to it.
         
         r0: pointer to entity
-    - name: RestorePPAllMovesSetFlags
+    - name: RestorePpAllMovesSetFlags
       address:
         NA: 0x22F9A74
         EU: 0x22FA480

@@ -86,7 +86,7 @@ bool ExclusiveItemEffectFlagTest(uint32_t* effect_flags, enum exclusive_item_eff
 struct move_target_and_range GetMoveTargetAndRange(struct move* move, bool is_ai);
 enum type_id GetMoveType(struct move* move);
 int GetMoveBasePower(struct move* move);
-uint8_t GetMoveAccuracyOrAIChance(struct move* move, int which);
+uint8_t GetMoveAccuracyOrAiChance(struct move* move, int which);
 int GetMaxPp(struct move* move);
 int GetMoveCritChance(struct move* move);
 bool IsRecoilMove(enum move_id move_id);
