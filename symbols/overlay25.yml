@@ -1,37 +1,37 @@
 overlay25:
   versions:
-    - NA
     - EU
+    - NA
     - JP
   address:
-    NA: 0x238A140
     EU: 0x238AC80
+    NA: 0x238A140
     JP: 0x238B6A0
   length:
-    NA: 0x14C0
     EU: 0x14C0
+    NA: 0x14C0
     JP: 0x14C0
   description: Controls Xatu Appraisal.
   functions: []
   data:
     - name: APPRAISAL_MENU_CONFIRM
       address:
-        NA: 0x238B4B4
         EU: 0x238BFF4
+        NA: 0x238B4B4
       length:
-        NA: 0x18
         EU: 0x18
+        NA: 0x18
     - name: APPRAISAL_MAIN_MENU
       address:
-        NA: 0x238B4CC
         EU: 0x238C00C
+        NA: 0x238B4CC
       length:
-        NA: 0x20
         EU: 0x20
+        NA: 0x20
     - name: APPRAISAL_SUBMENU
       address:
-        NA: 0x238B4EC
         EU: 0x238C02C
+        NA: 0x238B4EC
       length:
-        NA: 0x20
         EU: 0x20
+        NA: 0x20

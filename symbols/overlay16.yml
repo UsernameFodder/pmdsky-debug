@@ -1,37 +1,37 @@
 overlay16:
   versions:
-    - NA
     - EU
+    - NA
     - JP
   address:
-    NA: 0x238A140
     EU: 0x238AC80
+    NA: 0x238A140
     JP: 0x238B6A0
   length:
-    NA: 0x2D20
     EU: 0x2D20
+    NA: 0x2D20
     JP: 0x2D40
   description: Controls Luminous Spring.
   functions: []
   data:
     - name: EVO_MENU_CONFIRM
       address:
-        NA: 0x238CD08
         EU: 0x238D84C
+        NA: 0x238CD08
       length:
-        NA: 0x18
         EU: 0x18
+        NA: 0x18
     - name: EVO_SUBMENU
       address:
-        NA: 0x238CD20
         EU: 0x238D864
+        NA: 0x238CD20
       length:
-        NA: 0x20
         EU: 0x20
+        NA: 0x20
     - name: EVO_MAIN_MENU
       address:
-        NA: 0x238CD40
         EU: 0x238D884
+        NA: 0x238CD40
       length:
-        NA: 0x20
         EU: 0x20
+        NA: 0x20

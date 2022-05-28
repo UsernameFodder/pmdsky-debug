@@ -1,15 +1,15 @@
 overlay34:
   versions:
-    - NA
     - EU
+    - NA
     - JP
   address:
-    NA: 0x22DC240
     EU: 0x22DCB80
+    NA: 0x22DC240
     JP: 0x22DD8E0
   length:
-    NA: 0xE60
     EU: 0xDC0
+    NA: 0xE60
     JP: 0xDC0
   description: |-
     Related to launching the game.
@@ -19,15 +19,15 @@ overlay34:
   data:
     - name: UNKNOWN_MENU_CONFIRM
       address:
-        NA: 0x22DD024
         EU: 0x22DD8CC
+        NA: 0x22DD024
       length:
-        NA: 0x18
         EU: 0x18
+        NA: 0x18
     - name: DUNGEON_DEBUG_MENU
       address:
-        NA: 0x22DD04C
         EU: 0x22DD8F4
+        NA: 0x22DD04C
       length:
-        NA: 0x28
         EU: 0x28
+        NA: 0x28

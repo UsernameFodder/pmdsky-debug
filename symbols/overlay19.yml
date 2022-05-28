@@ -1,51 +1,51 @@
 overlay19:
   versions:
-    - NA
     - EU
+    - NA
     - JP
   address:
-    NA: 0x238A140
     EU: 0x238AC80
+    NA: 0x238A140
     JP: 0x238B6A0
   length:
-    NA: 0x4240
     EU: 0x4220
+    NA: 0x4240
     JP: 0x4220
   description: "Controls Spinda's Juice Bar."
   functions: []
   data:
     - name: BAR_MENU_CONFIRM_1
       address:
-        NA: 0x238E208
         EU: 0x238ED3C
+        NA: 0x238E208
       length:
-        NA: 0x18
         EU: 0x18
+        NA: 0x18
     - name: BAR_MENU_CONFIRM_2
       address:
-        NA: 0x238E220
         EU: 0x238ED54
+        NA: 0x238E220
       length:
-        NA: 0x18
         EU: 0x18
+        NA: 0x18
     - name: BAR_MAIN_MENU
       address:
-        NA: 0x238E250
         EU: 0x238ED84
+        NA: 0x238E250
       length:
-        NA: 0x20
         EU: 0x20
+        NA: 0x20
     - name: BAR_SUBMENU_1
       address:
-        NA: 0x238E270
         EU: 0x238EDA4
+        NA: 0x238E270
       length:
-        NA: 0x20
         EU: 0x20
+        NA: 0x20
     - name: BAR_SUBMENU_2
       address:
-        NA: 0x238E290
         EU: 0x238EDC4
+        NA: 0x238E290
       length:
-        NA: 0x30
         EU: 0x30
+        NA: 0x30

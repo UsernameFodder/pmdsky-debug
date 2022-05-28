@@ -1,15 +1,15 @@
 ram:
   versions:
-    - NA
     - EU
+    - NA
     - JP
   address:
-    NA: 0x2000000
     EU: 0x2000000
+    NA: 0x2000000
     JP: 0x2000000
   length:
-    NA: 0x400000
     EU: 0x400000
+    NA: 0x400000
     JP: 0x400000
   description: |-
     Main memory.
@@ -20,22 +20,22 @@ ram:
   data:
     - name: DUNGEON_COLORMAP_PTR
       address:
-        NA: 0x21B9CF4
         EU: 0x21BA634
+        NA: 0x21B9CF4
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: |-
         Pointer to a colormap used to render colors in a dungeon.
         
         The colormap is a list of 4-byte RGB colors of the form {R, G, B, padding}, which the game indexes into when rendering colors. Some weather conditions modify the colormap, which is how the color scheme changes when it's, e.g., raining.
     - name: DUNGEON_STRUCT
       address:
-        NA: 0x21B9D34
         EU: 0x21BA674
+        NA: 0x21B9D34
       length:
-        NA: 0x2CB14
         EU: 0x2CB14
+        NA: 0x2CB14
       description: |-
         The dungeon context struct used for tons of stuff in dungeon mode. See struct dungeon in the C headers.
         
@@ -44,11 +44,11 @@ ram:
         type: struct dungeon
     - name: MOVE_DATA_TABLE
       address:
-        NA: 0x22113CC
         EU: 0x2211D0C
+        NA: 0x22113CC
       length:
-        NA: 0x38C6
         EU: 0x38C6
+        NA: 0x38C6
       description: |-
         The move data table loaded directly from /BALANCE/waza_p.bin. See struct move_data_table in the C headers.
         
@@ -57,23 +57,23 @@ ram:
         type: struct move_data_table
     - name: FRAMES_SINCE_LAUNCH
       address:
-        NA:
-          - 0x22A354C
-          - 0x22A359C
         EU:
           - 0x22A3E8C
           - 0x22A3EDC
+        NA:
+          - 0x22A354C
+          - 0x22A359C
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: "Starts at 0 when the game is first launched, and continuously ticks up once per frame while the game is running."
     - name: BAG_ITEMS
       address:
-        NA: 0x22A3824
         EU: 0x22A4164
+        NA: 0x22A3824
       length:
-        NA: 0x12C
         EU: 0x12C
+        NA: 0x12C
       description: |-
         Array of item structs within the player's bag.
         
@@ -82,19 +82,19 @@ ram:
         type: struct item[50]
     - name: BAG_ITEMS_PTR
       address:
-        NA: 0x22A3BA8
         EU: 0x22A44E8
+        NA: 0x22A3BA8
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: Pointer to BAG_ITEMS.
     - name: STORAGE_ITEMS
       address:
-        NA: 0x22A3BAE
         EU: 0x22A44EE
+        NA: 0x22A3BAE
       length:
-        NA: 0x7D0
         EU: 0x7D0
+        NA: 0x7D0
       description: |-
         Array of item IDs in the player's item storage.
         
@@ -103,103 +103,103 @@ ram:
         type: struct item_id_16[1000]
     - name: STORAGE_ITEM_QUANTITIES
       address:
-        NA: 0x22A437E
         EU: 0x22A4CBE
+        NA: 0x22A437E
       length:
-        NA: 0x7D0
         EU: 0x7D0
+        NA: 0x7D0
       description: |-
         Array of 1000 2-byte (unsigned) quantities corresponding to the item IDs in STORAGE_ITEMS.
         
         If the corresponding item ID is not a stackable item, the entry in this array is unused, and will be 0.
     - name: KECLEON_SHOP_ITEMS_PTR
       address:
-        NA: 0x22A4B50
         EU: 0x22A5490
+        NA: 0x22A4B50
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: Pointer to KECLEON_SHOP_ITEMS.
     - name: KECLEON_SHOP_ITEMS
       address:
-        NA: 0x22A4B54
         EU: 0x22A5494
+        NA: 0x22A4B54
       length:
-        NA: 0x20
         EU: 0x20
+        NA: 0x20
       description: |-
         Array of up to 8 items in the Kecleon Shop of the form {struct item_id_16 id, uint16_t quantity}.
         
         If there are fewer than 8 items, the array is expected to be null-terminated.
     - name: UNUSED_KECLEON_SHOP_ITEMS
       address:
-        NA: 0x22A4B74
         EU: 0x22A54B4
+        NA: 0x22A4B74
       length:
-        NA: 0x20
         EU: 0x20
+        NA: 0x20
       description: "Seems to be another array like KECLEON_SHOP_ITEMS, but don't actually appear to be used by the Kecleon Shop."
     - name: KECLEON_WARES_ITEMS_PTR
       address:
-        NA: 0x22A4B94
         EU: 0x22A54D4
+        NA: 0x22A4B94
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: Pointer to KECLEON_WARES_ITEMS.
     - name: KECLEON_WARES_ITEMS
       address:
-        NA: 0x22A4B98
         EU: 0x22A54D8
+        NA: 0x22A4B98
       length:
-        NA: 0x10
         EU: 0x10
+        NA: 0x10
       description: |-
         Array of up to 4 items in Kecleon Wares of the form {struct item_id_16 id, uint16_t quantity}.
         
         If there are fewer than 4 items, the array is expected to be null-terminated.
     - name: UNUSED_KECLEON_WARES_ITEMS
       address:
-        NA: 0x22A4BA8
         EU: 0x22A54E8
+        NA: 0x22A4BA8
       length:
-        NA: 0x10
         EU: 0x10
+        NA: 0x10
       description: "Seems to be another array like KECLEON_WARES_ITEMS, but don't actually appear to be used by Kecleon Wares."
     - name: MONEY_CARRIED
       address:
-        NA: 0x22A4BB8
         EU: 0x22A54F8
+        NA: 0x22A4BB8
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: The amount of money the player is currently carrying.
     - name: MONEY_STORED
       address:
-        NA: 0x22A4BC4
         EU: 0x22A5504
+        NA: 0x22A4BC4
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: The amount of money the player currently has stored in the Duskull Bank.
     - name: LAST_NEW_MOVE
       address:
-        NA: 0x22AAE4C
         EU: 0x22AB78C
+        NA: 0x22AAE4C
       length:
-        NA: 0x8
         EU: 0x8
+        NA: 0x8
       description: |-
         Move struct of the last new move introduced when learning a new move. Persists even after the move selection is made in the menu.
         
         type: struct move
     - name: SCRIPT_VARS_VALUES
       address:
-        NA: 0x22AB0AC
         EU: 0x22AB9EC
+        NA: 0x22AB0AC
       length:
-        NA: 0x400
         EU: 0x400
+        NA: 0x400
       description: |-
         The table of game variable values. Its structure is determined by SCRIPT_VARS.
         
@@ -208,19 +208,19 @@ ram:
         type: struct script_var_value_table
     - name: BAG_LEVEL
       address:
-        NA: 0x22AB15C
         EU: 0x22ABA9C
+        NA: 0x22AB15C
       length:
-        NA: 0x1
         EU: 0x1
+        NA: 0x1
       description: "The player's bag level, which determines the bag capacity. This indexes directly into the BAG_CAPACITY_TABLE in the ARM9 binary."
     - name: DEBUG_SPECIAL_EPISODE_NUMBER
       address:
-        NA: 0x22AB4AC
         EU: 0x22ABDEC
+        NA: 0x22AB4AC
       length:
-        NA: 0x1
         EU: 0x1
+        NA: 0x1
       description: |-
         The number of the special episode currently being played.
         
@@ -231,11 +231,11 @@ ram:
         4: In the Future of Darkness
     - name: PENDING_DUNGEON_ID
       address:
-        NA: 0x22AB4FC
         EU: 0x22ABE3C
+        NA: 0x22AB4FC
       length:
-        NA: 0x1
         EU: 0x1
+        NA: 0x1
       description: |-
         The ID of the selected dungeon when setting off from the overworld.
         
@@ -244,35 +244,35 @@ ram:
         type: struct dungeon_id_8
     - name: PENDING_STARTING_FLOOR
       address:
-        NA: 0x22AB4FD
         EU: 0x22ABE3D
+        NA: 0x22AB4FD
       length:
-        NA: 0x1
         EU: 0x1
+        NA: 0x1
       description: The floor number to start from in the dungeon specified by PENDING_DUNGEON_ID.
     - name: PLAY_TIME_SECONDS
       address:
-        NA: 0x22AB694
         EU: 0x22ABFD4
+        NA: 0x22AB694
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: "The player's total play time in seconds."
     - name: PLAY_TIME_FRAME_COUNTER
       address:
-        NA: 0x22AB698
         EU: 0x22ABFD8
+        NA: 0x22AB698
       length:
-        NA: 0x1
         EU: 0x1
+        NA: 0x1
       description: "Counts from 0-59 in a loop, with the play time being incremented by 1 second with each rollover."
     - name: TEAM_NAME
       address:
-        NA: 0x22AB918
         EU: 0x22AC258
+        NA: 0x22AB918
       length:
-        NA: 0xC
         EU: 0xC
+        NA: 0xC
       description: |-
         The team name.
         
@@ -281,11 +281,11 @@ ram:
         This is presumably part of a larger struct, together with other nearby data.
     - name: HERO_SPECIES_ID
       address:
-        NA: 0x22ABDE4
         EU: 0x22AC724
+        NA: 0x22ABDE4
       length:
-        NA: 0x2
         EU: 0x2
+        NA: 0x2
       description: |-
         The hero's species ID.
         
@@ -294,11 +294,11 @@ ram:
         type: struct monster_id_16
     - name: HERO_NICKNAME
       address:
-        NA: 0x22ABE1A
         EU: 0x22AC75A
+        NA: 0x22ABE1A
       length:
-        NA: 0xA
         EU: 0xA
+        NA: 0xA
       description: |-
         The hero's nickname.
         
@@ -307,11 +307,11 @@ ram:
         This is presumably part of a larger struct, together with other nearby data.
     - name: PARTNER_SPECIES_ID
       address:
-        NA: 0x22ABE28
         EU: 0x22AC768
+        NA: 0x22ABE28
       length:
-        NA: 0x2
         EU: 0x2
+        NA: 0x2
       description: |-
         The partner's species ID.
         
@@ -320,11 +320,11 @@ ram:
         type: struct monster_id_16
     - name: LEADER_IQ_SKILLS
       address:
-        NA: 0x22B5198
         EU: 0x22B5AD8
+        NA: 0x22B5198
       length:
-        NA: 0xC
         EU: 0xC
+        NA: 0xC
       description: |-
         Unlocked IQ skills of the current leader, available for selection from the IQ skills menu.
         
@@ -333,11 +333,11 @@ ram:
         This is presumably part of a larger struct, together with other nearby data.
     - name: LEADER_NICKNAME
       address:
-        NA: 0x22B51AA
         EU: 0x22B5AEA
+        NA: 0x22B51AA
       length:
-        NA: 0xA
         EU: 0xA
+        NA: 0xA
       description: |-
         The current leader's nickname.
         
@@ -346,11 +346,11 @@ ram:
         This is presumably part of a larger struct, together with other nearby data.
     - name: PARTY_MEMBER_2_IQ_SKILLS
       address:
-        NA: 0x22B5200
         EU: 0x22B5B40
+        NA: 0x22B5200
       length:
-        NA: 0xC
         EU: 0xC
+        NA: 0xC
       description: |-
         Unlocked IQ skills of the second party member, available for selection from the IQ skills menu.
         
@@ -359,27 +359,27 @@ ram:
         This is presumably part of a larger struct, together with other nearby data.
     - name: FRAMES_SINCE_LAUNCH_TIMES_THREE
       address:
-        NA: 0x22B99C4
         EU: 0x22BA304
+        NA: 0x22B99C4
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: "Starts at 0 when the game is first launched, and ticks up by 3 per frame while the game is running."
     - name: TURNING_ON_THE_SPOT_FLAG
       address:
-        NA: 0x237C9A6
         EU: 0x237D5A6
+        NA: 0x237C9A6
       length:
-        NA: 0x1
         EU: 0x1
+        NA: 0x1
       description: "[Runtime] Flag for whether the player is turning on the spot (pressing Y)."
     - name: FLOOR_GENERATION_STATUS
       address:
-        NA: 0x237CFBC
         EU: 0x237DBBC
+        NA: 0x237CFBC
       length:
-        NA: 0x40
         EU: 0x40
+        NA: 0x40
       description: |-
         [Runtime] Status data related to generation of the current floor in a dungeon.
         

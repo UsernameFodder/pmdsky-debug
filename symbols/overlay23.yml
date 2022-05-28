@@ -1,51 +1,51 @@
 overlay23:
   versions:
-    - NA
     - EU
+    - NA
     - JP
   address:
-    NA: 0x238A140
     EU: 0x238AC80
+    NA: 0x238A140
     JP: 0x238B6A0
   length:
-    NA: 0x3780
     EU: 0x3780
+    NA: 0x3780
     JP: 0x37E0
   description: Controls Kangaskhan Storage (both in Treasure Town and via Kangaskhan Rocks).
   functions: []
   data:
     - name: STORAGE_MENU_CONFIRM
       address:
-        NA: 0x238D2FC
         EU: 0x238DE3C
+        NA: 0x238D2FC
       length:
-        NA: 0x18
         EU: 0x18
+        NA: 0x18
     - name: STORAGE_MAIN_MENU_1
       address:
-        NA: 0x238D314
         EU: 0x238DE54
+        NA: 0x238D314
       length:
-        NA: 0x20
         EU: 0x20
+        NA: 0x20
     - name: STORAGE_MAIN_MENU_2
       address:
-        NA: 0x238D334
         EU: 0x238DE74
+        NA: 0x238D334
       length:
-        NA: 0x20
         EU: 0x20
+        NA: 0x20
     - name: STORAGE_MAIN_MENU_3
       address:
-        NA: 0x238D354
         EU: 0x238DE94
+        NA: 0x238D354
       length:
-        NA: 0x20
         EU: 0x20
+        NA: 0x20
     - name: STORAGE_MAIN_MENU_4
       address:
-        NA: 0x238D374
         EU: 0x238DEB4
+        NA: 0x238D374
       length:
-        NA: 0x28
         EU: 0x28
+        NA: 0x28

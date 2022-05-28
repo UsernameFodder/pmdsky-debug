@@ -1,15 +1,15 @@
 overlay8:
   versions:
-    - NA
     - EU
+    - NA
     - JP
   address:
-    NA: 0x233CA80
     EU: 0x233D200
+    NA: 0x233CA80
     JP: 0x233E300
   length:
-    NA: 0x2200
     EU: 0x2620
+    NA: 0x2200
     JP: 0x2200
   description: "Controls the Send Demo Dungeon submenu within the top menu (under \"Other\")."
   functions: []
