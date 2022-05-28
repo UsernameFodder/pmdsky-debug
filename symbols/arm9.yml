@@ -1908,7 +1908,7 @@ arm9:
         NA: 0x2054480
         EU: 0x20547FC
       description: |-
-        Returns the monster ID of the specified monster spawn entry, converted to its primary gender ID (so modulo 600).
+        Returns the monster ID of the specified monster spawn entry
         
         r0: Pointer to the monster spawn entry
         return: monster_spawn_entry::id
