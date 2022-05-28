@@ -24,7 +24,7 @@ struct dungeon {
     undefined field_0xb;
     undefined field_0xc;
     undefined field_0xd;
-    // 0xE: If set to 1, artificial weather abilities will be activated on this turn. 
+    // 0xE: If set to 1, artificial weather abilities will be activated on this turn.
     // Set to 0 by TryActivateArtificialWeatherAbilities
     bool activate_artificial_weather_flag;
     undefined field_0xf;
@@ -44,7 +44,8 @@ struct dungeon {
     undefined field_0x19;
     undefined field_0x1a;
     undefined field_0x1b;
-    undefined field_0x1c;   // Increased once per frame until 0x64. Resets to 0 when taking an action, such as walking.
+    // 0x1C: Increased once per frame until 0x64. Resets to 0 when the leader acts.
+    undefined field_0x1c;
     undefined field_0x1d;
     undefined field_0x1e;
     // 0x1F: Turn counter, Speed Boost triggers every 250 turns, then the counter is reset.
@@ -3258,7 +3259,8 @@ struct dungeon {
     bool enemy_minus_is_active; // 0x3E36: An enemy monster has the ability Minus
     bool team_minus_is_active;  // 0x3E37: A team member has the ability Minus
     undefined field_0x3e38;
-    bool mew_cannot_spawn;  // 0x3E39: If true, a monster with id 0x97 (Mew) cannot be spawned on the floor.
+    // 0x3E39: If true, a monster with id 0x97 (Mew) cannot be spawned on the floor.
+    bool mew_cannot_spawn;
     undefined field_0x3e3a;
     undefined field_0x3e3b;
     undefined field_0x3e3c;
@@ -18942,13 +18944,14 @@ struct dungeon {
     undefined field_0x19901;
     undefined field_0x19902;
     undefined field_0x19903;
-    undefined field_0x19904;    // Unknown entity pointer to a monster.
+    undefined field_0x19904; // Unknown entity pointer to a monster.
     undefined field_0x19905;
     undefined field_0x19906;
     undefined field_0x19907;
     // 0x19908: Pointer to the entity to be spawned by the effect of Illuminate
     struct entity* illuminate_spawn_entity;
-    // 0x1990C: Seems to store the value of field 0x7 from the statuses struct of the monster that 0x19904 points to.
+    // 0x1990C: Seems to store the value of field 0x7 from the
+    // statuses struct of the monster that 0x19904 points to.
     undefined field_0x1990c;
     undefined field_0x1990d;
     undefined field_0x1990e;

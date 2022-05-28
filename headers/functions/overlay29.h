@@ -152,7 +152,8 @@ void RestoreMovePP(struct entity* user, struct entity* target, int pp, bool supp
 void SetReflectDamageCountdownTo4(struct entity* entity);
 bool HasConditionalGroundImmunity(struct entity* entity);
 int Conversion2IsActive(struct entity* entity);
-bool IsTargetInRange(struct entity* user, struct entity* target, int direction_index, int move_range);
+bool IsTargetInRange(struct entity* user, struct entity* target, int direction_index,
+                     int move_range);
 struct move_target_and_range GetEntityMoveTargetAndRange(struct entity* entity, struct move* move,
                                                          bool is_ai);
 void ApplyItemEffect(undefined4 param_1, undefined4 param_2, undefined4 param_3,

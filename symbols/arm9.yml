@@ -2577,6 +2577,14 @@ arm9:
         NA: 0x4
         EU: 0x4
       description: Hard-coded pointer to SCRIPT_VARS_VALUES.
+    - name: MONSTER_ID_LIMIT
+      address:
+        NA: 0x205449C
+        EU: 0x2054818
+      length:
+        NA: 0x4
+        EU: 0x4
+      description: One more than the maximum valid monster ID (0x483).
     - name: MAX_RECRUITABLE_TEAM_MEMBERS
       address:
         NA:
@@ -3218,6 +3226,3 @@ arm9:
         [Runtime] The block array for DEFAULT_MEMORY_ARENA.
         
         type: struct mem_block[256]
-    - name: MONSTER_ID_LIMIT
-      address:
-        EU: 0x2054818

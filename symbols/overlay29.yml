@@ -195,9 +195,9 @@ overlay29:
         JP: 0x22E1CAC
       description: |-
         Attempts to trigger a forced loss of the type specified in the forced loss reason field of the dungeon struct. Returns true if the loss happens, false otherwise.
-
+        
         If the parameter is true, the function will not check for the end of the floor condition and will skip other (unknown) actions in case of forced loss.
-
+        
         r0: bool
         return: bool
     - name: FixedRoomIsSubstituteRoom
@@ -215,7 +215,7 @@ overlay29:
         JP: 0x22E2CB8
       description: |-
         Returns a pointer to the tile where an entity is located.
-
+        
         r0: pointer to entity
         returns: pointer to tile
     - name: SubstitutePlaceholderStringTags
@@ -233,6 +233,15 @@ overlay29:
         r0: string ID (unclear what this means)
         r1: entity pointer
         r2: ?
+    - name: TryActivateMapSurveyorNA
+      address:
+        NA: 0x22E2DD8
+      description: |-
+        Sets the Map Surveyor flag in the dungeon struct to true if a team member has Map Surveyor, sets it to false otherwise.
+        
+        Exclusive to the NA version; the EU equivalent returns true if the flag was changed.
+        
+        no params.
     - name: ItemIsActive
       address:
         NA:
@@ -454,7 +463,7 @@ overlay29:
         JP: 0x22ED370
       description: |-
         The main function which updates the state of the floor. Called in a loop by InitializeDungeon while FloorIsOver returns false.
-
+        
         The parameter is always equal to 1 and is used as parameter for another unknown function.
         
         r0: int
@@ -711,9 +720,9 @@ overlay29:
         JP: 0x22FE478
       description: |-
         Spawns a new monster on a tile, according to the information passed by the first parameter.
-
+        
         If the second parameter is true, the monster cannot spawn asleep, otherwise it will randomly be asleep.
-
+        
         r0: pointer to spawned monster data (on the stack)
         r1: bool
         return: pointer to entity
@@ -725,9 +734,9 @@ overlay29:
       description: |-
         Calculates the speed stage of a monster from its speed up/down counters. The second parameter is the weight of each counter (how many stages it will add/remove), but appears to be always 1. 
         Takes modifiers into account (paralysis, snowy weather, Time Tripper). Deoxys-speed, Shaymin-sky and enemy Kecleon during a thief alert get a flat +1 always.
-
+        
         The calculated speed stage is both returned and saved in the monster's statuses struct.
-
+        
         r0: pointer to entity
         r1: speed counter weight
         returns: int
@@ -839,13 +848,13 @@ overlay29:
         NA: 0x2304AB4
         EU: 0x23054E0
         JP: 0x2306004
-     description: |-
-      Returns the animation id to be applied to a monster that has the sleep, napping, nightmare or bide status.
-
-      Returns a different animation for sudowoodo and for monsters with infinite sleep turns (0x7F).
-
-      r0: pointer to entity
-      return: uint8_t
+      description: |-
+        Returns the animation id to be applied to a monster that has the sleep, napping, nightmare or bide status.
+        
+        Returns a different animation for sudowoodo and for monsters with infinite sleep turns (0x7F).
+        
+        r0: pointer to entity
+        return: uint8_t
     - name: EndFrozenClassStatus
       address:
         NA: 0x2306258
@@ -853,9 +862,9 @@ overlay29:
         JP: 0x23077A8
       description: |-
         Cures the target's freeze, shadow hold, ingrain, petrified, constriction or wrap (both as user and as target) status due to the action of the user.
-
+        
         If the third parameter is true, the event will be printed to the log.
-
+        
         r0: pointer to user
         r1: pointer to target
         r2: bool (print to log)
@@ -866,7 +875,7 @@ overlay29:
         JP: 0x2307904
       description: |-
         Cures the target's cringe, confusion, cowering, pause, taunt, encore or infatuated status due to the action of the user, and prints the event to the log.
-
+        
         r0: pointer to user
         r1: pointer to target
     - name: GetTypeMatchup
@@ -1233,7 +1242,7 @@ overlay29:
         JP: 0x23148DC
       description: |-
         Frees from the wrap status all monsters which are wrapped by/around the monster passed as parameter.
-
+        
         r0: pointer to entity
     - name: TryInflictPetrifiedStatus
       address:
@@ -1528,7 +1537,7 @@ overlay29:
         JP: 0x2318CB4
       description: |-
         Returns true if the monster has the blinded status, or if it is not the leader and is holding Y-Ray Specs. If the second parameter is false, skips checking for the held item.
-
+        
         r0: pointer to entity
         r1: bool
         return: bool
@@ -1551,7 +1560,7 @@ overlay29:
         JP: 0x2319890
       description: |-
         Sets the monster's reflect damage countdown to a global value (0x4).
-
+        
         r0: pointer to entity
     - name: HasConditionalGroundImmunity
       address:
@@ -1584,10 +1593,10 @@ overlay29:
         JP: 0x231BB64
       description: |-
         Returns true if the target is within range of the user's move, false otherwise.
-
+        
         If the user does not have Course Checker, it simply checks if the distance between user and target is less or equal than the move range.
         Otherwise, it will iterate through all tiles in the direction specified, checking for walls or other monsters in the way, and return false if they are found.
-
+        
         r0: user pointer
         r1: target pointer
         r2: direction index
@@ -1810,11 +1819,9 @@ overlay29:
         return: tile pointer
     - name: GetTileAndCopyIfDefault
       address:
-        NA:
-          - 0x23360FC
-          - 0x2336164
-        EU:
-          - 0x2336D34
+        NA: 0x2336164
+        EU: 0x2336D34
+        JP: 0x2337534
       description: |-
         Get the tile at some position. If the coordinates are out of bounds, returns a default tile after copying it onto another global variable.
         
@@ -1852,7 +1859,7 @@ overlay29:
         JP: 0x2339A48
       description: |-
         Checks if the current floor is a secret bazaar or a secret room.
-
+        
         returns: bool
     - name: LoadFixedRoomDataVeneer
       address:
@@ -2908,15 +2915,10 @@ overlay29:
         EU: 0x22E375C
       description: |-
         Sets the Map Surveyor flag in the dungeon struct to true if a team member has Map Surveyor, sets it to false otherwise. Returns true if the flag was changed by the function.
-
+        
+        Exclusive to the EU version; the NA equivalent does not return a value.
+        
         return: bool
-    - name: TryActivateMapSurveyorNA
-      address:
-        NA: 0x22E2DD8
-      description: |-
-        Sets the Map Surveyor flag in the dungeon struct to true if a team member has Map Surveyor, sets it to false otherwise.
-
-        no params.
   data:
     - name: DUNGEON_STRUCT_SIZE
       address:
@@ -2942,6 +2944,14 @@ overlay29:
         NA: 0x4
         EU: 0x4
       description: Offset of the floor properties field in the dungeon struct (0x286B2)
+    - name: SPAWN_RAND_MAX
+      address:
+        NA: 0x22E7E50
+        EU: 0x22E8800
+      length:
+        NA: 0x4
+        EU: 0x4
+      description: "Equal to 10,000 (0x2710). Used as parameter for DungeonRandInt to generate the random number which determines the entity to spawn."
     - name: DUNGEON_PRNG_LCG_MULTIPLIER
       address:
         NA:
@@ -2962,6 +2972,22 @@ overlay29:
         NA: 0x4
         EU: 0x4
       description: "The increment for the dungeon PRNG's secondary LCGs, 2531011 (0x269EC3). This happens to be the same increment that the Microsoft Visual C++ runtime library uses in its implementation of the rand() function."
+    - name: KECLEON_FEMALE_ID
+      address:
+        NA: 0x22F7404
+        EU: 0x22F7DBC
+      length:
+        NA: 0x4
+        EU: 0x4
+      description: "0x3D7 (983). Used when spawning Kecleon on an even numbered floor."
+    - name: KECLEON_MALE_ID
+      address:
+        NA: 0x22F7408
+        EU: 0x22F7DC0
+      length:
+        NA: 0x4
+        EU: 0x4
+      description: "0x17F (383). Used when spawning Kecleon on an odd numbered floor."
     - name: MSG_ID_SLOW_START
       address:
         NA: 0x22F92D0
@@ -3386,6 +3412,17 @@ overlay29:
         An array mapping each direction index to its x and y displacements.
         
         Directions start with 0=down and proceed counterclockwise (see enum direction_id). Displacements for x and y are interleaved and encoded as 2-byte signed integers. For example, the first two integers are [0, 1], which correspond to the x and y displacements for the "down" direction (positive y means down).
+    - name: FRACTIONAL_TURN_SEQUENCE
+      address:
+        NA: 0x2352284
+        EU: 0x2352EC2
+      length:
+        NA: 0xFA
+        EU: 0xFA
+      description: |-
+        Read by certain functions that are called by TurnLoop to see if they should be executed.
+        
+        Array is accessed via a pointer added to some multiple of fractional_turn, so that if the resulting memory location is zero, the function returns.
     - name: BELLY_DRAIN_IN_WALLS_INT
       address:
         NA: 0x2352768
@@ -3528,39 +3565,3 @@ overlay29:
         NA: 0x4
         EU: 0x4
       description: "[Runtime] Pointer to decoded fixed room data loaded from the BALANCE/fixed.bin file."
-    - name: SPAWN_RAND_MAX
-      address:
-        EU: 0x22E8800
-      length:
-        NA: 0x4
-        EU: 0x4
-      description: |-
-        Equal to 10,000 (0x2710). Used as parameter for DungeonRandInt to generate the random number which determines the entity to spawn.
-    - name: KECLEON_FEMALE_ID
-      address:
-        EU: 0x22F7DBC
-      length:
-        NA: 0x4
-        EU: 0x4
-      description: |-
-        0x3D7 (983). Used when spawning Kecleon on an even numbered floor.
-    - name: KECLEON_MALE_ID
-      address:
-        EU: 0x22F7DC0
-      length:
-        NA: 0x4
-        EU: 0x4
-      description: |-
-        0x17F (383). Used when spawning Kecleon on an odd numbered floor.
-    - name: FRACTIONAL_TURN_SEQUENCE
-      address:
-        EU: 0x2352EC2
-        NA: 0x2352284
-      length:
-        NA: 0xFA
-        EU: 0xFA
-      description: |-
-        Read by certain functions that are called by TurnLoop to see if they should be executed.
-
-        Array is accessed via a pointer added to some multiple of fractional_turn, so that if the resulting memory location is zero, the function returns.
-        
