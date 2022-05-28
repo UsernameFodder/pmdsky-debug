@@ -27,6 +27,9 @@ binary files. It uses the following strategies to this end:
       have exactly matching assembly). If a function symbol's length is not
       known, symbols_vfill.py makes a guess for the length, and adaptively
       adjusts it until it leads to exactly one match (if possible).
+    - Imposing a minimum instruction count on matches based on adaptive symbol
+      length inference. By default, the inferred length will always be at least
+      the length of 4 instructions.
 
 Note that this program has a "fast mode", which can be enabled with the --fast
 flag. The only thing this changes is the number of times the formatter is run.
@@ -146,6 +149,7 @@ def function_fill_versions(
     file_by_version: Dict[str, str],
     bin_name: str,
     *,
+    min_instr_count: int = 4,
     verbosity: int = 0,
     dry_run: bool = False,
 ) -> FillCounter:
@@ -157,6 +161,8 @@ def function_fill_versions(
             version, can be mutated
         file_by_version (Dict[str, str]): binary file paths by game version
         bin_name (str): short name of the binary containing the function
+        min_instr_count (int, optional): minimum instruction count for adaptive
+            length search. Defaults to 4.
         verbosity (int, optional): verbosity (0-4). Defaults to 0.
         dry_run (bool, optional): enable dry run mode. Defaults to False.
 
@@ -170,6 +176,9 @@ def function_fill_versions(
 
     def debug(message: str, level: int = 4):
         report(f"DEBUG: {message}", level)
+
+    if min_instr_count <= 0:
+        raise ValueError("minimum instruction count must be positive")
 
     versions = set(file_by_version.keys())
     known = versions & set(function["address"].keys())
@@ -216,8 +225,9 @@ def function_fill_versions(
     # it's unknown
     adaptive_length = length is None
     if length is None:
-        # Start with a reasonable guess for length of 8 assembly instructions
-        length = 8 * arm5find.AsmSegment.INSTRUCTION_SIZE
+        # Start with a reasonable guess for length of 8 assembly instructions.
+        # Clamp to the minimum instruction count
+        length = max(8, min_instr_count) * arm5find.AsmSegment.INSTRUCTION_SIZE
     for dst_vers in missing:
         log_prefix = f"[{bin_name}, {dst_vers}] {function['name']}: "
 
@@ -245,6 +255,11 @@ def function_fill_versions(
             prev_instr = instr  # for coarse search
             next_instr = instr  # for coarse search
             instr_bounds: Optional[list] = None  # for fine search
+            if len(search_results) != 1:
+                debug(
+                    f"{log_prefix}starting adaptive length search"
+                    + f" (min instruction count = {min_instr_count})"
+                )
             while len(search_results) != 1:
                 debug(
                     f"{log_prefix}adaptive length: 0x{length:X}"
@@ -258,6 +273,10 @@ def function_fill_versions(
                         # No search results, shrink the length so the search is
                         # more permissive
                         next_instr = instr // 2
+                        # If we're overshooting the minimum instruction count,
+                        # clamp
+                        if next_instr < min_instr_count and instr > min_instr_count:
+                            next_instr = min_instr_count
                     else:
                         # More than one search result, grow the length so the
                         # search is more restrictive
@@ -267,9 +286,10 @@ def function_fill_versions(
                     # end up backtracking in size, transition from coarse search
                     # to fine search
                     if (
-                        next_instr == 0
+                        next_instr < min_instr_count
                         or (next_instr - instr) * (prev_instr - instr) > 0
                     ):
+                        debug(f"{log_prefix}transitioning to fine search")
                         # instr_bounds is [inclusive, exclusive)
                         instr_bounds = [
                             min(prev_instr, instr) + 1,
@@ -328,6 +348,7 @@ def function_fill_versions(
 def symbols_fill_versions(
     binaries: Dict[str, Dict[str, str]],
     *,
+    min_instr_count: int = 4,
     verbosity: int = 0,
     dry_run: bool = False,
     fast_mode: bool = False,
@@ -337,6 +358,8 @@ def symbols_fill_versions(
     Args:
         binaries (Dict[str, Dict[str, str]]): binary file paths by binary short
             name (outer key) and game version (inner key)
+        min_instr_count (int, optional): minimum instruction count for adaptive
+            length search. Defaults to 4.
         verbosity (int, optional): verbosity (0-4). Defaults to 0.
         dry_run (bool, optional): enable dry run mode. Defaults to False.
         fast_mode (bool, optional): enable fast mode. Defaults to False.
@@ -369,6 +392,7 @@ def symbols_fill_versions(
                     binary_contents,
                     file_by_version,
                     bin_name,
+                    min_instr_count=min_instr_count,
                     verbosity=verbosity,
                     dry_run=dry_run,
                 )
@@ -401,6 +425,13 @@ if __name__ == "__main__":
         choices=offsets.BINARY_NAMES,
         action="append",
         help="EoS binary",
+    )
+    parser.add_argument(
+        "-i",
+        "--min-instr-count",
+        type=int,
+        default=4,
+        help="minimum instruction count for adaptive symbol lengths",
     )
     parser.add_argument(
         "-v", "--verbose", action="count", default=0, help="verbosity level"
@@ -442,6 +473,7 @@ if __name__ == "__main__":
         print("*** DRY RUN ***")
     counters = symbols_fill_versions(
         files_by_version,
+        min_instr_count=args.min_instr_count,
         verbosity=args.verbose,
         dry_run=args.dry_run,
         fast_mode=args.fast,
