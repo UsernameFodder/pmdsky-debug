@@ -464,15 +464,6 @@ overlay29:
         Has a special check to return false for Labyrinth Cave B10F (the Gabite boss fight).
         
         return: bool
-    - name: EuFaintCheck
-      address:
-        EU: 0x22F88E8
-      description: |-
-        This function is exclusive to the EU ROM. Seems to perform a check to see if the monster who just fainted was a team member who should cause the minimap to be updated (or something like that, maybe related to the Map Surveyor IQ skill) and if it passes, updates the minimap.
-        The function ends by calling another 2 functions. In US ROMs, calls to EUFaintCheck are replaced by calls to those two functions. This seems to indicate that this function fixes some edge case glitch that can happen when a team member faints.
-        
-        r0: False if the fainted entity was a team member
-        r1: True to set an unknown byte in the RAM to 1
     - name: HandleFaint
       address:
         NA: 0x22F7F30
@@ -1754,13 +1745,6 @@ overlay29:
         Sets minimap_display_data::field_0xE447 to the specified value
         
         r0: Value to set the field to
-    - name: GetMinimapDataE447
-      address:
-        EU: 0x233AE00
-      description: |-
-        Exclusive to the EU ROM. Returns minimap_display_data::field_0xE447.
-        
-        return: minimap_display_data::field_0xE447
     - name: SetMinimapDataE448
       address:
         NA: 0x233A230
@@ -2871,6 +2855,22 @@ overlay29:
         r3: ?
         stack[0]: ?
         stack[1]: ?
+    - name: EuFaintCheck
+      address:
+        EU: 0x22F88E8
+      description: |-
+        This function is exclusive to the EU ROM. Seems to perform a check to see if the monster who just fainted was a team member who should cause the minimap to be updated (or something like that, maybe related to the Map Surveyor IQ skill) and if it passes, updates the minimap.
+        The function ends by calling another 2 functions. In US ROMs, calls to EUFaintCheck are replaced by calls to those two functions. This seems to indicate that this function fixes some edge case glitch that can happen when a team member faints.
+        
+        r0: False if the fainted entity was a team member
+        r1: True to set an unknown byte in the RAM to 1
+    - name: GetMinimapDataE447
+      address:
+        EU: 0x233AE00
+      description: |-
+        Exclusive to the EU ROM. Returns minimap_display_data::field_0xE447.
+        
+        return: minimap_display_data::field_0xE447
   data:
     - name: DUNGEON_STRUCT_SIZE
       address:
