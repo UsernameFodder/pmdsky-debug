@@ -131,10 +131,8 @@ struct statuses {
     undefined field_0x8;
     undefined field_0x9;
     undefined field_0xa;
-    undefined field_0xb;
-    undefined field_0xc;
-    undefined field_0xd;
-    undefined field_0xe;
+    // 0xB: Pointer to the monster being wrapped around/wrapped by
+    struct entity* wrapped_opponent;
     undefined field_0xf;
     undefined field_0x10;
     undefined field_0x11;
@@ -1387,8 +1385,6 @@ struct prng_state {
 };
 ASSERT_SIZE(struct prng_state, 20);
 
-
-
 // Contains the necessary information to spawn an enemy monster.
 // Allocated on the stack and passed via a pointer to SpawnEnemy.
 struct spawned_monster_data {
@@ -1407,6 +1403,8 @@ struct spawned_monster_data {
     undefined field_0xf;
 };
 ASSERT_SIZE(spawned_monster_data, 16);
+
+
 
 // Separate this out into its own file because it's massive
 #include "dungeon.h"

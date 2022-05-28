@@ -289,15 +289,6 @@ overlay29:
         
         r0: monster ID
         return: uint8
-    - name: GetTeamLeader
-      address:
-        NA: 0x22E9580
-        EU: 0x22E9F30
-        JP: 0x22EABE8
-      description: |-
-        Returns an entity pointer to the team leader. If the global pointer to the team leader was null, the function reads the pointer from the dungeon struct and copies it to the global pointer before returning.
-        
-        return: pointer to entity
     - name: TickDownStatusTurnCounter
       address:
         NA: 0x22E9A44
@@ -485,15 +476,6 @@ overlay29:
         Returns true if the player will advance to the next floor on the next turn, and in that case sets the floor_loop_status in the dungeon struct to 2.
         
         return: bool
-    - name: GetForcedLossReason
-      address:
-        NA: 0x22ED01C
-        EU: 0x22ED9CC
-        JP: 0x22EE680
-      description: |-
-        Returns the forced loss reason field from the dungeon struct.
-        
-        return: forced loss reason
     - name: ResetDamageDesc
       address:
         NA: 0x22F6E18
@@ -882,6 +864,11 @@ overlay29:
         NA: 0x23063D4
         EU: 0x2306E00
         JP: 0x2307904
+      description: |-
+        Cures the target's cringe, confusion, cowering, pause, taunt, encore or infatuated status due to the action of the user, and prints the event to the log.
+
+        r0: pointer to user
+        r1: pointer to target
     - name: GetTypeMatchup
       address:
         NA: 0x230AC58
@@ -1239,11 +1226,15 @@ overlay29:
         
         r0: user entity pointer
         r1: target entity pointer
-    - name: FreeOtherWrappedMonster
+    - name: FreeOtherWrappedMonsters
       address:
         NA: 0x23133F0
         EU: 0x2313E50
         JP: 0x23148DC
+      description: |-
+        Frees from the wrap status all monsters which are wrapped by/around the monster passed as parameter.
+
+        r0: pointer to entity
     - name: TryInflictPetrifiedStatus
       address:
         NA: 0x231346C
@@ -1535,6 +1526,12 @@ overlay29:
         NA: 0x23177E4
         EU: 0x2318244
         JP: 0x2318CB4
+      description: |-
+        Returns true if the monster has the blinded status, or if it is not the leader and is holding Y-Ray Specs. If the second parameter is false, skips checking for the held item.
+
+        r0: pointer to entity
+        r1: bool
+        return: bool
     - name: RestoreMovePP
       address:
         NA: 0x2317C20
@@ -1552,6 +1549,10 @@ overlay29:
         NA: 0x23183C0
         EU: 0x2318E20
         JP: 0x2319890
+      description: |-
+        Sets the monster's reflect damage countdown to a global value (0x4).
+
+        r0: pointer to entity
     - name: HasConditionalGroundImmunity
       address:
         NA: 0x2318A4C
@@ -1581,6 +1582,16 @@ overlay29:
         NA: 0x231A694
         EU: 0x231B0F4
         JP: 0x231BB64
+      description: |-
+        Returns true if the target is within range of the user's move, false otherwise.
+
+        If the user does not have Course Checker, it simply checks if the distance between user and target is less or equal than the move range.
+        Otherwise, it will iterate through all tiles in the direction specified, checking for walls or other monsters in the way, and return false if they are found.
+
+        r0: user pointer
+        r1: target pointer
+        r2: direction index
+        r3: move range (in tiles)
     - name: GetEntityMoveTargetAndRange
       address:
         NA: 0x231ACAC
@@ -1727,16 +1738,6 @@ overlay29:
         
         r0: 4-byte number x
         return: (short)x
-    - name: GetAlternativeMoveAnimId
-      address:
-        NA: 0x2325B10
-        EU: 0x2326578
-        JP: 0x2326F9C
-    - name: MoveNeedsAlternativeAnim
-      address:
-        NA: 0x2325C78
-        EU: 0x23266E0
-        JP: 0x2327104
     - name: DealDamageWithRecoil
       address:
         NA: 0x2327F34
@@ -1844,11 +1845,15 @@ overlay29:
         Checks if the current floor is the Secret Room fixed floor (from hidden stairs).
         
         return: bool
-    - name: IsNotSecretFloor
+    - name: IsSecretFloor
       address:
         NA: 0x2338684
         EU: 0x2339254
         JP: 0x2339A48
+      description: |-
+        Checks if the current floor is a secret bazaar or a secret room.
+
+        returns: bool
     - name: LoadFixedRoomDataVeneer
       address:
         NA: 0x233A624
@@ -2898,9 +2903,20 @@ overlay29:
         If you're in a special episode, they turn green , otherwise, they turn blue or pink depending on your character's sex
         
         No params
-    - name: TryActivateMapSurveyor
+    - name: TryActivateMapSurveyorEU
       address:
         EU: 0x22E375C
+      description: |-
+        Sets the Map Surveyor flag in the dungeon struct to true if a team member has Map Surveyor, sets it to false otherwise. Returns true if the flag was changed by the function.
+
+        return: bool
+    - name: TryActivateMapSurveyorNA
+      address:
+        NA: 0x22E2DD8
+      description: |-
+        Sets the Map Surveyor flag in the dungeon struct to true if a team member has Map Surveyor, sets it to false otherwise.
+
+        no params.
   data:
     - name: DUNGEON_STRUCT_SIZE
       address:
@@ -3515,15 +3531,36 @@ overlay29:
     - name: SPAWN_RAND_MAX
       address:
         EU: 0x22E8800
+      length:
+        NA: 0x4
+        EU: 0x4
+      description: |-
+        Equal to 10,000 (0x2710). Used as parameter for DungeonRandInt to generate the random number which determines the entity to spawn.
     - name: KECLEON_FEMALE_ID
       address:
         EU: 0x22F7DBC
+      length:
+        NA: 0x4
+        EU: 0x4
+      description: |-
+        0x3D7 (983). Used when spawning Kecleon on an even numbered floor.
     - name: KECLEON_MALE_ID
       address:
         EU: 0x22F7DC0
+      length:
+        NA: 0x4
+        EU: 0x4
+      description: |-
+        0x17F (383). Used when spawning Kecleon on an odd numbered floor.
     - name: FRACTIONAL_TURN_SEQUENCE
       address:
         EU: 0x2352EC2
-    - name: LEADER_PTR
-      address:
-        EU: 0x235415C
+        NA: 0x2352284
+      length:
+        NA: 0xFA
+        EU: 0xFA
+      description: |-
+        Read by certain functions that are called by TurnLoop to see if they should be executed.
+
+        Array is accessed via a pointer added to some multiple of fractional_turn, so that if the resulting memory location is zero, the function returns.
+        

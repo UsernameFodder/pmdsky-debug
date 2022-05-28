@@ -147,9 +147,12 @@ bool TryIncreaseHp(struct entity* user, struct entity* target, int hp_restoratio
 bool TryInflictLeechSeedStatus(struct entity* user, struct entity* target, bool log_failure,
                                bool check_only);
 void TryInflictDestinyBond(struct entity* user, struct entity* target);
+bool IsBlinded(struct entity* entity, bool check_held_item);
 void RestoreMovePP(struct entity* user, struct entity* target, int pp, bool suppress_logs);
+void SetReflectDamageCountdownTo4(struct entity* entity);
 bool HasConditionalGroundImmunity(struct entity* entity);
 int Conversion2IsActive(struct entity* entity);
+bool IsTargetInRange(struct entity* user, struct entity* target, int direction_index, int move_range);
 struct move_target_and_range GetEntityMoveTargetAndRange(struct entity* entity, struct move* move,
                                                          bool is_ai);
 void ApplyItemEffect(undefined4 param_1, undefined4 param_2, undefined4 param_3,
@@ -181,6 +184,7 @@ struct tile* GetTileAndCopyIfDefault(int x, int y);
 bool GravityIsActive(void);
 bool IsSecretBazaar(void);
 bool IsSecretRoom(void);
+bool IsSecretFloor(void);
 void LoadFixedRoomDataVeneer(void);
 bool IsNormalFloor(void);
 void GenerateFloor(void);
@@ -283,5 +287,7 @@ void LogMessage(struct entity* user, const char* message, bool show_popup);
 void LogMessageById(struct entity* user, int message_id, bool show_popup);
 bool RunDungeonMode(undefined4* param_1, undefined4 param_2);
 void SetBothScreensWindowColorToDefault(void);
+bool TryActivateMapSurveyorEU(void);
+void TryActivateMapSurveyorNA(void);
 
 #endif

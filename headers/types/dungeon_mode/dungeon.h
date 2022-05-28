@@ -27,7 +27,7 @@ struct dungeon {
     // 0xE: If set to 1, artificial weather abilities will be activated on this turn. 
     // Set to 0 by TryActivateArtificialWeatherAbilities
     bool activate_artificial_weather_flag;
-    undefined field_0xf;    // Appears to become 1 during the floor transition screen.
+    undefined field_0xf;
     undefined field_0x10;
     // 0x11: True if the leader isn't doing anything right now. False if it's currently performing
     // an action (such as walking or attacking)

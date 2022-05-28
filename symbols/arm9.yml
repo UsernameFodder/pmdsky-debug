@@ -1844,18 +1844,6 @@ arm9:
         
         r0: dungeon id
         return: bool
-    - name: GetMonsterIdFromSpawnTableEntry
-      address:
-        NA: 0x2054480
-        EU: 0x20547FC
-        JP: 0x20547B8
-      description: |-
-        Given a pointer to an entry of the monster spawn table, returns the monster id of that entry.
-        
-        Performs an integer division by 0x483 (max id number + 1) and returns the remainder, so that even if the id in the entry is above the maximum, the returned value will not.
-        
-        r0: pointer to monster_spawn_entry
-        return: monster ID
     - name: GetMonsterLevelFromSpawnTableEntry
       address:
         NA: 0x20544B8
