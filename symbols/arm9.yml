@@ -1844,16 +1844,16 @@ arm9:
         
         r0: dungeon id
         return: bool
-    - name: GetMonsterLevelFromSpawnTableEntry
+    - name: GetMonsterLevelFromSpawnEntry
       address:
         NA: 0x20544B8
         EU: 0x2054834
         JP: 0x20547F0
       description: |-
-        Given a pointer to an entry of the monster spawn table, returns the level of the monster in that entry.
+        Returns the level of the specified monster spawn entry.
         
-        r0: pointer to monster_spawn_entry
-        return: uint
+        r0: pointer to the monster spawn entry
+        return: uint8_t
     - name: IsUnown
       address:
         NA: 0x2054A88

@@ -15,7 +15,6 @@ void SubstitutePlaceholderStringTags(int string_id, struct entity* entity, undef
 bool ItemIsActive(struct entity* entity, enum item_id item_id);
 struct monster_id_16 GetMonsterIdToSpawn(int spawn_weight);
 uint8_t GetMonsterLevelToSpawn(struct monster_id_16 monster_id);
-struct entity* GetTeamLeader(void);
 uint8_t TickDownStatusTurnCounter(uint8_t* counter);
 uint32_t GenerateDungeonRngSeed(void);
 uint32_t GetDungeonRngPreseed(void);
@@ -33,7 +32,6 @@ void TrySwitchPlace(struct entity* user, struct entity* target);
 void FloorLoop(int unknown);
 void TrySpawnMonsterAndActivatePlusMinus(void);
 bool FloorIsOver(void);
-enum forced_loss_reason GetForcedLossReason(void);
 void ResetDamageDesc(undefined4* damage_desc);
 bool FloorNumberIsEven(void);
 enum monster_id GetKecleonIdToSpawnByFloor(void);
@@ -113,6 +111,7 @@ void TryInflictConstrictionStatus(struct entity* user, struct entity* target, in
 void TryInflictShadowHoldStatus(struct entity* user, struct entity* target, bool log_failure);
 void TryInflictIngrainStatus(struct entity* user, struct entity* target);
 void TryInflictWrappedStatus(struct entity* user, struct entity* target);
+void FreeOtherWrappedMonsters(struct entity* entity);
 void TryInflictPetrifiedStatus(struct entity* user, struct entity* target);
 void LowerOffensiveStat(struct entity* user, struct entity* target, int stat_idx, int16_t n_stages,
                         undefined param_5, undefined param_6);
