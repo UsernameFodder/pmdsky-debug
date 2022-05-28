@@ -30,6 +30,7 @@ overlay11:
       address:
         NA: 0x22E46FC
         EU: 0x22E503C
+        JP: 0x22E5D28
     - name: StationLoadHanger
       address:
         NA: 0x22E4BD4
@@ -44,6 +45,7 @@ overlay11:
       address:
         NA: 0x22E5D50
         EU: 0x22E6690
+        JP: 0x22E737C
     - name: ScriptSpecialProcessCall
       address:
         NA: 0x22E7118

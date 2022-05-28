@@ -720,11 +720,6 @@ enum forced_loss_reason {
     FORCED_LOSS_CLIENT_CANT_JOIN = 4,
 };
 
-// This is usually stored as an 8-bit integer
-#pragma pack(push, 1)
-ENUM_8_BIT(forced_loss_reason);
-#pragma pack(pop)
-
 // Controls whether the loop that runs until the current floor ends should continue
 // iterating or not and why
 enum floor_loop_status {
