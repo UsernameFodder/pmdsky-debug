@@ -6,8 +6,10 @@ addresses in the pmdsky-debug symbol tables, for addresses that are known in
 some game versions (e.g., NA, EU) but not in others.
 
 When run, the program will modify the YAML symbol tables in-place (unless
-dry-run mode is enabled), allowing inspection of filled addresses with
-`git diff` (or similar).
+dry-run mode is enabled). It is recommended that you commit any symbol table
+changes that you are working on BEFORE running `symbols_vfill.py`. This will
+allow you to inspect filled addresses with `git diff` (or similar), and will
+also prevent you from losing your changes if something somehow goes wrong.
 
 This program is conservative in the symbol addresses it fills in, and tries
 hard to avoid adding incorrect addresses caused by spurious matches between
