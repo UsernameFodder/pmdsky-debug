@@ -192,7 +192,7 @@ enum monster_id GetMonsterPreEvolution(enum monster_id monster_id);
 int GetEvolutions(enum monster_id monster_id, enum monster_id* output_list,
                   bool skip_sprite_size_check, bool skip_shedinja_check);
 enum monster_id GetMonsterIdFromSpawnEntry(struct monster_spawn_entry*);
-uint8_t GetMonsterGenderWrapper(enum monster_id monster_id);
+uint8_t GetMonsterGenderVeneer(enum monster_id monster_id);
 bool IsUnown(enum monster_id monster_id);
 bool IsShaymin(enum monster_id monster_id);
 bool IsCastform(enum monster_id monster_id);

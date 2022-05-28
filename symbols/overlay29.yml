@@ -764,7 +764,7 @@ overlay29:
         Checks if the specified enemy should evolve because it just defeated an ally, and if so, attempts to evolve it.
         
         r0: Pointer to the enemy to check
-    - name: Evolve
+    - name: EvolveMonster
       address:
         NA: 0x2303C7C
         EU: 0x23046A8
@@ -780,6 +780,7 @@ overlay29:
         EU: 0x2309A0C
       description: |-
         Applies damage to a monster. Displays the damage animation, lowers its health and handles reviving if applicable.
+        The EU version has some additional checks related to printing fainting messages under specific circumstances.
         
         r0: Attacker pointer
         r1: Defender pointer

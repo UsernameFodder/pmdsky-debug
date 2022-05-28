@@ -55,9 +55,9 @@ enum type_id GetMoveTypeForMonster(struct entity* entity, struct move* move);
 int GetMovePower(struct entity* entity, struct move* move);
 void AddExpSpecial(struct entity* attacker, struct entity* defender, int base_exp);
 void EnemyEvolution(struct entity* enemy);
-void Evolve(struct entity* monster, undefined4* param_1, enum monster_id new_monster_id);
+void EvolveMonster(struct entity* monster, undefined4* param_2, enum monster_id new_monster_id);
 bool ApplyDamage(struct entity* attacker, struct entity* defender, struct damage_data* damage_data,
-                 undefined4 param_3, undefined4* param_4, undefined4* param_5);
+                 undefined4 param_4, undefined4* param_5, undefined4* param_6);
 enum type_matchup GetTypeMatchup(struct entity* attacker, struct entity* defender,
                                  int target_type_idx, enum type_id attack_type);
 void CalcDamage(struct entity* attacker, struct entity* defender, enum type_id attack_type,
@@ -168,14 +168,14 @@ void UpdateMovePp(struct entity* entity, bool can_consume_pp);
 int LowerSshort(int x);
 bool DealDamageWithRecoil(struct entity* attacker, struct entity* defender, struct move* move,
                           enum item_id item_id);
-void ExecuteMoveEffect(undefined4* param_0, struct entity* attacker, struct move* move,
-                       undefined4 param_3, undefined4 param_4);
+void ExecuteMoveEffect(undefined4* param_1, struct entity* attacker, struct move* move,
+                       undefined4 param_4, undefined4 param_5);
 int DealDamage(struct entity* attacker, struct entity* defender, struct move* move,
                int damage_mult_fp, enum item_id item_id);
 void CalcDamageProjectile(struct entity* attacker, struct entity* defender, struct move* move,
                           int power, undefined4 param_5, undefined4 param_6);
 int CalcDamageFinal(struct entity* attacker, struct entity* defender, struct move* move,
-                    undefined4 param_3, undefined4* param_4);
+                    undefined4 param_4, undefined4* param_5);
 enum weather_id GetApparentWeather(struct entity* entity);
 void TryWeatherFormChange(struct entity* entity);
 struct tile* GetTile(int x, int y);
@@ -287,13 +287,13 @@ void LogMessageByIdWithPopup(struct entity* user, int message_id);
 void LogMessageWithPopup(struct entity* user, const char* message);
 void LogMessage(struct entity* user, const char* message, bool show_popup);
 void LogMessageById(struct entity* user, int message_id, bool show_popup);
-void OpenMessageLog(undefined4 param_0, undefined4 param_1);
+void OpenMessageLog(undefined4 param_1, undefined4 param_2);
 bool RunDungeonMode(undefined4* param_1, undefined4 param_2);
 void DisplayDungeonTip(struct message_tip* message_tip, bool log);
 void SetBothScreensWindowColorToDefault(void);
-void DisplayMessage(undefined4 param_0, int message_id, bool wait_for_input);
-void DisplayMessage2(undefined4 param_0, int message_id, bool wait_for_input);
-void DisplayMessageInternal(int message_id, bool wait_for_input, undefined4 param_2,
-                            undefined4 param_3, undefined4 param_4, undefined4 param_5);
+void DisplayMessage(undefined4 param_1, int message_id, bool wait_for_input);
+void DisplayMessage2(undefined4 param_1, int message_id, bool wait_for_input);
+void DisplayMessageInternal(int message_id, bool wait_for_input, undefined4 param_3,
+                            undefined4 param_4, undefined4 param_5, undefined4 param_6);
 
 #endif
