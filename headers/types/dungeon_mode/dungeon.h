@@ -13,7 +13,7 @@ struct dungeon {
     undefined field_0x4;
     bool stepped_on_stairs; // 0x5: True if the leader just stepped on the stairs.
     // 0x6: The floor will be advanced at the end of the turn, unless the leader fainted.
-    bool end_floor_flag;
+    uint8_t end_floor_flag;
     // 0x7: If set in tandem with one of the climb_stairs flags, a quicksave will occur instead of
     // a floor advance.
     bool quicksave_flag;

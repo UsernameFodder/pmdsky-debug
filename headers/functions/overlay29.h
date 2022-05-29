@@ -33,7 +33,7 @@ void DungeonRngSetSecondary(int i);
 void DungeonRngSetPrimary(void);
 void TrySwitchPlace(struct entity* user, struct entity* target);
 void SetForcedLossReason(enum forced_loss_reason forced_loss_reason);
-void FloorLoop(bool is_first_loop);
+void RunFractionalTurn(bool is_first_loop);
 void TrySpawnMonsterAndActivatePlusMinus(void);
 bool FloorIsOver(void);
 enum forced_loss_reason GetForcedLossReason(void);
