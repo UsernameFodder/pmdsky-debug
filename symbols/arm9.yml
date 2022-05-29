@@ -1449,7 +1449,7 @@ arm9:
         
         r0: Dungeon tip ID
         return: True if the tip has been shown before, false otherwise.
-    - name: ReturnInt1
+    - name: ReturnTrue
       address:
         NA: 0x204D360
         EU: 0x204D698
@@ -1457,7 +1457,7 @@ arm9:
       description: |-
         Just writes 1 into r0 and returns.
         
-        return: int (1)
+        return: bool (true)
     - name: SetAdventureLogStructLocation
       address:
         NA: 0x204FA24

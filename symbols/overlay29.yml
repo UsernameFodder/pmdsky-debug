@@ -241,15 +241,16 @@ overlay29:
         r0: string ID (unclear what this means)
         r1: entity pointer
         r2: ?
-    - name: TryActivateMapSurveyorNA
+    - name: UpdateMapSurveyorFlag
       address:
         NA: 0x22E2DD8
+        EU: 0x22E375C
       description: |-
         Sets the Map Surveyor flag in the dungeon struct to true if a team member has Map Surveyor, sets it to false otherwise.
         
-        Exclusive to the NA version; the EU equivalent returns true if the flag was changed.
+        This function has two variants: in the EU ROM, it will return true if the flag was changed. The NA version always returns 0x41 (equivalent to true).
         
-        no params.
+        return: bool
     - name: ItemIsActive
       address:
         NA:
@@ -301,9 +302,9 @@ overlay29:
         EU: 0x22E8750
         JP: 0x22E9408
       description: |-
-        Get the id of the monster to be randomly spawned. The parameter determines the spawn weight to use (0 for normal, 1 for monster house).
+        Get the id of the monster to be randomly spawned.
         
-        r0: int
+        r0: the spawn weight to use (0 for normal, 1 for monster house)
         return: monster ID
     - name: GetMonsterLevelToSpawn
       address:
@@ -314,7 +315,7 @@ overlay29:
         Get the level of the monster to be spawned, given its id.
         
         r0: monster ID
-        return: uint8
+        return: Level of the monster to be spawned, or 1 if the specified ID can't be found on the floor's spawn table.
     - name: GetLeader
       address:
         NA: 0x22E9580
@@ -323,16 +324,16 @@ overlay29:
         Gets the pointer to the entity that is currently leading the team, or null if none of the first 4 entities is a valid monster with its is_team_leader flag set. It also sets LEADER_PTR to the result before returning it.
         
         return: Pointer to the current leader of the team or null if there's no valid leader.
-    - name: TickDownStatusTurnCounter
+    - name: TickStatusTurnCounter
       address:
         NA: 0x22E9A44
         EU: 0x22EA3F4
         JP: 0x22EB0AC
       description: |-
-        Ticks down a turn counter for a status condition and returns its new value. If the counter equals 0x7F, it will not be decreased.
+        Ticks down a turn counter for a status condition. If the counter equals 0x7F, it will not be decreased.
         
         r0: pointer to the status turn counter
-        return: uint8
+        return: new counter value
     - name: GenerateDungeonRngSeed
       address:
         NA: 0x22EA980
@@ -489,9 +490,7 @@ overlay29:
       description: |-
         The main function which updates the state of the floor. Called in a loop by InitializeDungeon while FloorIsOver returns false.
         
-        The parameter is always equal to 1 and is used as parameter for another unknown function.
-        
-        r0: int
+        r0: first loop flag (true when the function is first called during a floor)
     - name: TrySpawnMonsterAndActivatePlusMinus
       address:
         NA: 0x22EC6DC
@@ -509,9 +508,11 @@ overlay29:
         EU: 0x22ED198
         JP: 0x22EDE50
       description: |-
-        Returns true if the player will advance to the next floor on the next turn, and in that case sets the floor_loop_status in the dungeon struct to 2.
+        Checks if the current floor should end, and updates dungeon::floor_loop_status if required.
+        If the player has been defeated, sets dungeon::floor_loop_status to floor_loop_status::FLOOR_LOOP_LEADER_FAINTED.
+        If dungeon::end_floor_flag is 1 or 2, sets sets dungeon::floor_loop_status to floor_loop_status::FLOOR_LOOP_NEXT_FLOOR.
         
-        return: bool
+        return: true if the current floor should end
     - name: SetForcedLossReason
       address:
         NA: 0x22ED008
@@ -726,7 +727,7 @@ overlay29:
         EU: 0x22FBA04
         JP: 0x22FC580
       description: |-
-        Returns an entity pointer to a team member which has the specified iq skill.
+        Returns an entity pointer to the first team member which has the specified iq skill.
         
         r0: iq skill id
         return: pointer to entity
@@ -736,7 +737,7 @@ overlay29:
         EU: 0x22FBA70
         JP: 0x22FC5EC
       description: |-
-        Returns true if a team member has the specified iq skill.
+        Returns true if any team member has the specified iq skill.
         
         r0: iq skill id
         return: bool
@@ -790,12 +791,10 @@ overlay29:
         EU: 0x22FDA80
         JP: 0x22FE478
       description: |-
-        Spawns a new monster on a tile, according to the information passed by the first parameter.
+        Spawns the given monster on a tile.
         
-        If the second parameter is true, the monster cannot spawn asleep, otherwise it will randomly be asleep.
-        
-        r0: pointer to spawned monster data (on the stack)
-        r1: bool
+        r0: pointer to struct spawned_monster_data
+        r1: if true, the monster cannot spawn asleep, otherwise it will randomly be asleep
         return: pointer to entity
     - name: CalcSpeedStage
       address:
@@ -810,7 +809,7 @@ overlay29:
         
         r0: pointer to entity
         r1: speed counter weight
-        returns: int
+        return: speed stage
     - name: GetNumberOfAttacks
       address:
         NA: 0x22FFF5C
@@ -953,7 +952,7 @@ overlay29:
         Returns a different animation for sudowoodo and for monsters with infinite sleep turns (0x7F).
         
         r0: pointer to entity
-        return: uint8_t
+        return: animation ID
     - name: EndFrozenClassStatus
       address:
         NA: 0x2306258
@@ -962,11 +961,9 @@ overlay29:
       description: |-
         Cures the target's freeze, shadow hold, ingrain, petrified, constriction or wrap (both as user and as target) status due to the action of the user.
         
-        If the third parameter is true, the event will be printed to the log.
-        
         r0: pointer to user
         r1: pointer to target
-        r2: bool (print to log)
+        r2: if true, the event will be printed to the log
     - name: EndCringeClassStatus
       address:
         NA: 0x23063D4
@@ -1656,10 +1653,10 @@ overlay29:
         EU: 0x2318244
         JP: 0x2318CB4
       description: |-
-        Returns true if the monster has the blinded status, or if it is not the leader and is holding Y-Ray Specs. If the second parameter is false, skips checking for the held item.
+        Returns true if the monster has the blinded status, or if it is not the leader and is holding Y-Ray Specs.
         
         r0: pointer to entity
-        r1: bool
+        r1: flag for whether to check for the held item
         return: bool
     - name: RestoreMovePP
       address:
@@ -1719,8 +1716,8 @@ overlay29:
         
         r0: user pointer
         r1: target pointer
-        r2: direction index
-        r3: move range (in tiles)
+        r2: direction ID
+        r3: move range (in number of tiles)
     - name: GetEntityMoveTargetAndRange
       address:
         NA: 0x231ACAC
@@ -3144,15 +3141,6 @@ overlay29:
         r3: ?
         stack[0]: ?
         stack[1]: ?
-    - name: TryActivateMapSurveyorEU
-      address:
-        EU: 0x22E375C
-      description: |-
-        Sets the Map Surveyor flag in the dungeon struct to true if a team member has Map Surveyor, sets it to false otherwise. Returns true if the flag was changed by the function.
-        
-        Exclusive to the EU version; the NA equivalent does not return a value.
-        
-        return: bool
     - name: EuFaintCheck
       address:
         EU: 0x22F88E8
@@ -3670,7 +3658,7 @@ overlay29:
         NA: 0xFA
         EU: 0xFA
       description: |-
-        Read by certain functions that are called by TurnLoop to see if they should be executed.
+        Read by certain functions that are called by FloorLoop to see if they should be executed.
         
         Array is accessed via a pointer added to some multiple of fractional_turn, so that if the resulting memory location is zero, the function returns.
     - name: BELLY_DRAIN_IN_WALLS_INT

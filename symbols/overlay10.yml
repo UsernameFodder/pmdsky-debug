@@ -214,7 +214,7 @@ overlay10:
       address:
         NA: 0x22C46A4
         EU: 0x22C4FFC
-      description: "The maximum number of enemies that can spawn on a floor with a monster house (4, not counting those in the monster house)."
+      description: "The maximum number of enemies that can spawn on a floor with a monster house, not counting those in the monster house (4)."
     - name: POISON_DAMAGE_COOLDOWN
       address:
         NA: 0x22C46A8

@@ -18,7 +18,7 @@ bool IsOnMonsterSpawnList(enum monster_id monster_id);
 struct entity* GetLeader(void);
 enum monster_id GetMonsterIdToSpawn(int spawn_weight);
 uint8_t GetMonsterLevelToSpawn(enum monster_id monster_id);
-uint8_t TickDownStatusTurnCounter(uint8_t* counter);
+uint8_t TickStatusTurnCounter(uint8_t* counter);
 uint32_t GenerateDungeonRngSeed(void);
 uint32_t GetDungeonRngPreseed(void);
 void SetDungeonRngPreseed(uint32_t preseed);
@@ -33,7 +33,7 @@ void DungeonRngSetSecondary(int i);
 void DungeonRngSetPrimary(void);
 void TrySwitchPlace(struct entity* user, struct entity* target);
 void SetForcedLossReason(enum forced_loss_reason forced_loss_reason);
-void FloorLoop(int unknown);
+void FloorLoop(bool is_first_loop);
 void TrySpawnMonsterAndActivatePlusMinus(void);
 bool FloorIsOver(void);
 enum forced_loss_reason GetForcedLossReason(void);
@@ -73,7 +73,7 @@ void EvolveMonster(struct entity* monster, undefined4* param_2, enum monster_id 
 bool ApplyDamage(struct entity* attacker, struct entity* defender, struct damage_data* damage_data,
                  undefined4 param_4, undefined4* param_5, undefined4* param_6);
 uint8_t GetSleepAnimationId(struct entity* entity);
-void EndFrozenClassStatus(struct entity* user, struct entity* target, bool print_to_log);
+void EndFrozenClassStatus(struct entity* user, struct entity* target, bool log);
 void EndCringeClassStatus(struct entity* user, struct entity* target);
 enum type_matchup GetTypeMatchup(struct entity* attacker, struct entity* defender,
                                  int target_type_idx, enum type_id attack_type);
@@ -168,7 +168,7 @@ void SetReflectDamageCountdownTo4(struct entity* entity);
 bool HasConditionalGroundImmunity(struct entity* entity);
 int Conversion2IsActive(struct entity* entity);
 bool IsTargetInRange(struct entity* user, struct entity* target, enum direction_id direction,
-                     int move_range);
+                     int n_tiles);
 struct move_target_and_range GetEntityMoveTargetAndRange(struct entity* entity, struct move* move,
                                                          bool is_ai);
 void ApplyItemEffect(undefined4 param_1, undefined4 param_2, undefined4 param_3,
@@ -321,7 +321,6 @@ void DisplayMessageInternal(int message_id, bool wait_for_input, undefined4 para
                             undefined4 param_4, undefined4 param_5, undefined4 param_6);
 void EuFaintCheck(bool non_team_member_fainted, bool set_unk_byte);
 uint8_t GetMinimapDataE447(void);
-bool TryActivateMapSurveyorEU(void);
-void TryActivateMapSurveyorNA(void);
+bool UpdateMapSurveyorFlag(void);
 
 #endif
