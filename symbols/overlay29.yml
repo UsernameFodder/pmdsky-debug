@@ -482,13 +482,13 @@ overlay29:
         
         r0: pointer to user entity
         r1: pointer to target entity
-    - name: FloorLoop
+    - name: RunFractionalTurn
       address:
         NA: 0x22EBD08
         EU: 0x22EC6B8
         JP: 0x22ED370
       description: |-
-        The main function which updates the state of the floor. Called in a loop by InitializeDungeon while FloorIsOver returns false.
+        The main function which executes the actions that take place in a fractional turn. Called in a loop by InitializeDungeon while FloorIsOver returns false.
         
         r0: first loop flag (true when the function is first called during a floor)
     - name: TrySpawnMonsterAndActivatePlusMinus
