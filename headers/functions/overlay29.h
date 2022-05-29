@@ -16,8 +16,8 @@ void SubstitutePlaceholderStringTags(int string_id, struct entity* entity, undef
 bool ItemIsActive(struct entity* entity, enum item_id item_id);
 bool IsOnMonsterSpawnList(enum monster_id monster_id);
 struct entity* GetLeader(void);
-struct monster_id_16 GetMonsterIdToSpawn(int spawn_weight);
-uint8_t GetMonsterLevelToSpawn(struct monster_id_16 monster_id);
+enum monster_id GetMonsterIdToSpawn(int spawn_weight);
+uint8_t GetMonsterLevelToSpawn(enum monster_id monster_id);
 uint8_t TickDownStatusTurnCounter(uint8_t* counter);
 uint32_t GenerateDungeonRngSeed(void);
 uint32_t GetDungeonRngPreseed(void);
@@ -49,7 +49,7 @@ bool DefenderAbilityIsActive(struct entity* attacker, struct entity* defender,
 bool IsMonster(struct entity* entity);
 void TryActivateTruant(struct entity* entity);
 void RestorePpAllMovesSetFlags(struct entity* entity);
-bool MonsterCanSpawn(struct monster_id_16 monster_id, bool fail_if_mew);
+bool MonsterCanSpawn(enum monster_id monster_id, bool fail_if_mew);
 bool ExclusiveItemEffectIsActive(struct entity* entity, enum exclusive_item_effect_id effect_id);
 struct entity* GetTeamMemberWithIqSkill(enum iq_skill_id iq_skill);
 bool TeamMemberHasEnabledIqSkill(enum iq_skill_id iq_skill);
@@ -167,7 +167,7 @@ void RestoreMovePP(struct entity* user, struct entity* target, int pp, bool supp
 void SetReflectDamageCountdownTo4(struct entity* entity);
 bool HasConditionalGroundImmunity(struct entity* entity);
 int Conversion2IsActive(struct entity* entity);
-bool IsTargetInRange(struct entity* user, struct entity* target, int direction_index,
+bool IsTargetInRange(struct entity* user, struct entity* target, enum direction_id direction,
                      int move_range);
 struct move_target_and_range GetEntityMoveTargetAndRange(struct entity* entity, struct move* move,
                                                          bool is_ai);

@@ -1394,6 +1394,7 @@ ASSERT_SIZE(struct prng_state, 20);
 
 // Contains the necessary information to spawn a monster.
 // Allocated on the stack and passed via a pointer to SpawnMonster.
+#pragma pack(push, 1)
 struct spawned_monster_data {
     struct monster_id_16 monster_id; // 0x0: The id of the monster to spawn
     enum monster_behavior behavior;  // 0x2: NPC behavior of the monster
@@ -1410,6 +1411,7 @@ struct spawned_monster_data {
     undefined field_0xf;
 };
 ASSERT_SIZE(struct spawned_monster_data, 16);
+#pragma pack(pop)
 
 // Separate this out into its own file because it's massive
 #include "dungeon.h"
