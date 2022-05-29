@@ -497,7 +497,7 @@ overlay29:
         EU: 0x22ED08C
         JP: 0x22EDD44
       description: |-
-        Called at the beginning of FloorLoop. Executed only if FRACTIONAL_TURN_SEQUENCE[fractional_turn * 2] is not 0.
+        Called at the beginning of RunFractionalTurn. Executed only if FRACTIONAL_TURN_SEQUENCE[fractional_turn * 2] is not 0.
         
         First it calls TrySpawnMonsterAndTickSpawnCounter, then tries to activate the Plus and Minus abilities for both allies and enemies, and finally calls TryForcedLoss.
         
@@ -3658,7 +3658,7 @@ overlay29:
         NA: 0xFA
         EU: 0xFA
       description: |-
-        Read by certain functions that are called by FloorLoop to see if they should be executed.
+        Read by certain functions that are called by RunFractionalTurn to see if they should be executed.
         
         Array is accessed via a pointer added to some multiple of fractional_turn, so that if the resulting memory location is zero, the function returns.
     - name: BELLY_DRAIN_IN_WALLS_INT
