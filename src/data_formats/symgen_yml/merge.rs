@@ -455,9 +455,11 @@ impl Merge for SymGen {
     }
 }
 
+type BySymbolListId<T> = HashMap<String, HashMap<SymbolType, T>>;
+
 /// For [`SymbolList`] lookup and insertion, managed by a cache that stores
 /// index by block name, by symbol type, by symbol name.
-struct SymbolManager(HashMap<String, HashMap<SymbolType, HashMap<String, usize>>>);
+struct SymbolManager(BySymbolListId<HashMap<String, usize>>);
 
 impl SymbolManager {
     fn new() -> Self {
@@ -519,10 +521,112 @@ impl SymbolManager {
     }
 }
 
+/// A type that can be intrinsically associated with a single block name.
+trait BlockMatch {
+    type Raw;
+
+    fn new(raw: Self::Raw) -> Self;
+    fn raw(self) -> Self::Raw;
+    fn block_name(&self) -> String;
+}
+
+/// A collection of match results from block inference. Matches are only valid if there aren't more
+/// than one of them.
+enum BlockMatches<T> {
+    None,
+    One(T),
+    Many(Vec<String>),
+}
+
+impl<T: BlockMatch> BlockMatches<T> {
+    /// Add a new [`BlockMatch`] to the collection.
+    fn add(&mut self, raw: T::Raw) {
+        let m = T::new(raw);
+        match self {
+            Self::None => *self = Self::One(m),
+            Self::One(first) => *self = Self::Many(vec![first.block_name(), m.block_name()]),
+            Self::Many(all_matches) => all_matches.push(m.block_name()),
+        }
+    }
+    /// Resolve the collection into a [`BlockMatch`] if one exists, or an error if there were
+    /// multiple matches.
+    fn resolve(self, symbol_name: &str) -> Result<Option<T::Raw>, MergeError> {
+        match self {
+            // This symbol doesn't fit in any of the blocks
+            Self::None => Ok(None),
+            // This symbol fits in exactly one block
+            Self::One(m) => Ok(Some(m.raw())),
+            // It's ambiguous which block to merge into, so error out
+            Self::Many(all_matches) => Err(MergeError::BlockInference(BlockInferenceError {
+                symbol_name: symbol_name.to_owned(),
+                matching_blocks: all_matches,
+            })),
+        }
+    }
+}
+
+/// Match result from block inference when merging symbols.
+struct InferBlockMatch<'b>((&'b String, &'b mut Block));
+
+impl<'b> BlockMatch for InferBlockMatch<'b> {
+    type Raw = (&'b String, &'b mut Block);
+
+    fn new(raw: Self::Raw) -> Self {
+        Self(raw)
+    }
+    fn raw(self) -> Self::Raw {
+        self.0
+    }
+    fn block_name(&self) -> String {
+        self.0 .0.clone()
+    }
+}
+
+type BlockAssignment<'n, 'b> = (&'n String, &'b mut Block);
+
 impl SymGen {
     /// Merges `other` into `self`.
     pub fn merge_symgen(&mut self, other: &Self) -> Result<(), MergeError> {
         self.merge(other).map_err(MergeError::Conflict)
+    }
+    /// Determine which [`Block`], if any, the given [`AddSymbol`] should be merged into.
+    fn assign_block<'b, 's, 'n>(
+        &'b mut self,
+        to_add: &'s AddSymbol,
+    ) -> Result<Option<BlockAssignment<'n, 'b>>, MergeError>
+    where
+        'b: 'n,
+        's: 'n,
+    {
+        let (bname, block) = if let Some(name) = &to_add.block_name {
+            // A block name was explicitly specified, so retrieve it
+            match self.block_key(name) {
+                Some(bkey) => {
+                    let key = bkey.clone();
+                    (name, self.get_mut(&key).unwrap())
+                }
+                None => {
+                    return Err(MergeError::MissingBlock(MissingBlock {
+                        block_name: name.clone(),
+                    }))
+                }
+            }
+        } else {
+            // No block name, so try to infer the block based on the symbol address
+            let mut block_matches: BlockMatches<InferBlockMatch> = BlockMatches::None;
+            for (bname, block) in self.iter_mut() {
+                if bounds::block_contains(block, &to_add.symbol) {
+                    block_matches.add((&bname.val, block));
+                }
+            }
+            if let Some(assignment) = block_matches.resolve(&to_add.symbol.name)? {
+                assignment
+            } else {
+                return Ok(None);
+            }
+        };
+
+        Ok(Some((bname, block)))
     }
     /// Merges `other` into `self`.
     ///
@@ -535,57 +639,12 @@ impl SymGen {
         let mut unmerged_symbols = Vec::new();
         let mut sym_manager = SymbolManager::new();
         for to_add in other {
-            let (bname, block) = match &to_add.block_name {
-                Some(name) => match self.block_key(name) {
-                    // A block name was explicitly specified, so retrieve it
-                    Some(bkey) => {
-                        let key = bkey.clone();
-                        (name, self.get_mut(&key).unwrap())
-                    }
-                    None => {
-                        return Err(MergeError::MissingBlock(MissingBlock {
-                            block_name: name.clone(),
-                        }))
-                    }
-                },
+            let assignment = self.assign_block(&to_add)?;
+            let (bname, block) = match assignment {
+                Some((bname, block)) => (bname, block),
                 None => {
-                    // No block name; try to infer it based on the symbol address
-                    let mut first_match: Option<_> = None;
-                    // Set this vector only if there's more than one match. Collect all the
-                    // matching block names in this case.
-                    let mut all_matching_blocks: Option<Vec<String>> = None;
-                    for (bname, block) in self.iter_mut() {
-                        if bounds::block_contains(block, &to_add.symbol) {
-                            match first_match.as_ref() {
-                                None => first_match = Some((&bname.val, block)),
-                                Some(m) => {
-                                    let mut new = all_matching_blocks
-                                        .take()
-                                        .unwrap_or_else(|| vec![m.0.clone()]);
-                                    new.push(bname.val.clone());
-                                    all_matching_blocks = Some(new);
-                                }
-                            }
-                        }
-                    }
-
-                    match first_match {
-                        Some(inferred) => {
-                            if let Some(matching_blocks) = all_matching_blocks {
-                                // It's ambiguous which block to merge into, so error out
-                                return Err(MergeError::BlockInference(BlockInferenceError {
-                                    symbol_name: to_add.symbol.name,
-                                    matching_blocks,
-                                }));
-                            }
-                            inferred
-                        }
-                        None => {
-                            // This symbol doesn't fit in any of the blocks, so skip it
-                            unmerged_symbols.push(to_add.symbol);
-                            continue;
-                        }
-                    }
+                    unmerged_symbols.push(to_add.symbol);
+                    continue;
                 }
             };
 
