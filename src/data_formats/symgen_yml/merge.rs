@@ -8,6 +8,7 @@ use std::borrow::Cow;
 use std::collections::HashMap;
 use std::error::Error;
 use std::fmt::{self, Debug, Display, Formatter};
+use std::path::{Path, PathBuf};
 
 use super::adapter::{AddSymbol, SymbolType};
 use super::bounds;
@@ -455,10 +456,10 @@ impl Merge for SymGen {
     }
 }
 
-type BySymbolListId<T> = HashMap<String, HashMap<SymbolType, T>>;
+type BySymbolListId<T> = HashMap<Option<PathBuf>, HashMap<String, HashMap<SymbolType, T>>>;
 
 /// For [`SymbolList`] lookup and insertion, managed by a cache that stores
-/// index by block name, by symbol type, by symbol name.
+/// index by subregion path, by block name, by symbol type, by symbol name.
 struct SymbolManager(BySymbolListId<HashMap<String, usize>>);
 
 impl SymbolManager {
@@ -473,11 +474,17 @@ impl SymbolManager {
     fn get<'s>(
         &mut self,
         slist: &'s mut SymbolList,
+        subregion_path: &Option<PathBuf>,
         block_name: &str,
         symbol_type: &SymbolType,
         symbol_name: &str,
     ) -> Option<&'s mut Symbol> {
-        let idx = if let Some(imap) = self.0.get(block_name).and_then(|m| m.get(symbol_type)) {
+        let idx = if let Some(imap) = self
+            .0
+            .get(subregion_path)
+            .and_then(|m| m.get(block_name))
+            .and_then(|m| m.get(symbol_type))
+        {
             imap.get(symbol_name).copied()
         } else {
             let imap = slist.iter().enumerate().fold(
@@ -492,6 +499,8 @@ impl SymbolManager {
             );
             let i = imap.get(symbol_name).copied();
             self.0
+                .entry(subregion_path.clone())
+                .or_insert_with(HashMap::new)
                 .entry(block_name.to_owned())
                 .or_insert_with(HashMap::new)
                 .entry(*symbol_type)
@@ -506,13 +515,15 @@ impl SymbolManager {
     fn insert(
         &mut self,
         slist: &mut SymbolList,
+        subregion_path: &Option<PathBuf>,
         block_name: &str,
         symbol_type: &SymbolType,
         symbol: Symbol,
     ) {
         if let Some(imap) = self
             .0
-            .get_mut(block_name)
+            .get_mut(subregion_path)
+            .and_then(|m| m.get_mut(block_name))
             .and_then(|m| m.get_mut(symbol_type))
         {
             imap.insert(symbol.name.clone(), slist.len());
@@ -566,10 +577,13 @@ impl<T: BlockMatch> BlockMatches<T> {
 }
 
 /// Match result from block inference when merging symbols.
-struct InferBlockMatch<'b>((&'b String, &'b mut Block));
+struct InferBlockMatch<'n, 'b, P>((Option<P>, &'n String, &'b mut Block));
 
-impl<'b> BlockMatch for InferBlockMatch<'b> {
-    type Raw = (&'b String, &'b mut Block);
+impl<'n, 'b, P> BlockMatch for InferBlockMatch<'n, 'b, P>
+where
+    P: AsRef<Path>,
+{
+    type Raw = (Option<P>, &'n String, &'b mut Block);
 
     fn new(raw: Self::Raw) -> Self {
         Self(raw)
@@ -578,11 +592,14 @@ impl<'b> BlockMatch for InferBlockMatch<'b> {
         self.0
     }
     fn block_name(&self) -> String {
-        self.0 .0.clone()
+        match &self.0 .0 {
+            Some(p) => format!("{}::{}", p.as_ref().display(), self.0 .1),
+            None => self.0 .1.clone(),
+        }
     }
 }
 
-type BlockAssignment<'n, 'b> = (&'n String, &'b mut Block);
+type BlockAssignment<'n, 'b> = (Option<PathBuf>, &'n String, &'b mut Block);
 
 impl SymGen {
     /// Merges `other` into `self`.
@@ -590,16 +607,20 @@ impl SymGen {
         self.merge(other).map_err(MergeError::Conflict)
     }
     /// Determine which [`Block`], if any, the given [`AddSymbol`] should be merged into.
+    ///
+    /// The assigned [`Block`] may be either a top-level one in the [`SymGen`] or a subsidiary
+    /// [`Block`] within a resolved [`Subregion`].
     fn assign_block<'b, 's, 'n>(
         &'b mut self,
         to_add: &'s AddSymbol,
+        subregion_path: Option<&Path>,
     ) -> Result<Option<BlockAssignment<'n, 'b>>, MergeError>
     where
         'b: 'n,
         's: 'n,
     {
-        let (bname, block) = if let Some(name) = &to_add.block_name {
-            // A block name was explicitly specified, so retrieve it
+        let (bname, block) = if let (Some(name), None) = (&to_add.block_name, subregion_path) {
+            // Not in subregion and block name was explicitly specified, so retrieve it
             match self.block_key(name) {
                 Some(bkey) => {
                     let key = bkey.clone();
@@ -612,21 +633,68 @@ impl SymGen {
                 }
             }
         } else {
-            // No block name, so try to infer the block based on the symbol address
-            let mut block_matches: BlockMatches<InferBlockMatch> = BlockMatches::None;
+            // In subregion or no block name, so try to infer the block based on the symbol address
+            let mut block_matches: BlockMatches<InferBlockMatch<_>> = BlockMatches::None;
             for (bname, block) in self.iter_mut() {
                 if bounds::block_contains(block, &to_add.symbol) {
-                    block_matches.add((&bname.val, block));
+                    block_matches.add((subregion_path, &bname.val, block));
                 }
             }
             if let Some(assignment) = block_matches.resolve(&to_add.symbol.name)? {
-                assignment
+                // The subregion path was only needed for error reporting
+                (assignment.1, assignment.2)
             } else {
                 return Ok(None);
             }
         };
 
-        Ok(Some((bname, block)))
+        // Search through subregions in the selected block for a match, and assign the matching
+        // subregion block instead, if one exists.
+        if let Some(subregions) = &mut block.subregions {
+            let mut block_matches: BlockMatches<InferBlockMatch<_>> = BlockMatches::None;
+            for subregion in subregions {
+                if let Some(symgen) = &mut subregion.contents {
+                    let sub_path = if let Some(p) = subregion_path {
+                        Cow::Owned(Subregion::subregion_dir(p).join(&subregion.name))
+                    } else {
+                        Cow::Borrowed(&subregion.name)
+                    };
+                    if let Some(assignment) = symgen.assign_block(to_add, Some(&sub_path))? {
+                        block_matches.add(assignment);
+                    }
+                }
+            }
+            if let Some(block_match) = block_matches.resolve(&to_add.symbol.name)? {
+                // block_match contains direct references into a block in a subregion, which itself
+                // is contained within block.subregions. This means that if we try to return it
+                // directly, the compiler will infer the lifetimes of the references within
+                // block_match to be 'n and 'b (for the block name and block, respectively), which
+                // means that the parent borrow to &mut block.subregions must also satisfy the same
+                // lifetime constraints. However, since 'n and 'b come from the function inputs,
+                // they outlive the scope of this code block and extend to the end of the function.
+                // Since there's a code path that falls through to return a mutable reference to
+                // the top-level block, the borrow checker will complain that it aliases with the
+                // long-lived mutable reference to block.subregions, even though this is clearly
+                // nonsense.
+                //
+                // To silence the borrow checker, convert the references within block_match into
+                // raw pointers, then back to references again. Then return a newly constructed
+                // tuple with these new references. This severs the lifetime inference chain
+                // between the return value and &mut block.subregions at the beginning of the
+                // scope, allowing &mut block.subregions to be assigned a lifetime local to the
+                // scope.
+                let (bname_ref, block_ref) = unsafe {
+                    (
+                        &*(block_match.1 as *const String),
+                        &mut *(block_match.2 as *mut Block),
+                    )
+                };
+                return Ok(Some((block_match.0, bname_ref, block_ref)));
+            }
+        }
+
+        // Assign the matching top-level block
+        Ok(Some((subregion_path.map(|p| p.to_owned()), bname, block)))
     }
     /// Merges `other` into `self`.
     ///
@@ -639,9 +707,9 @@ impl SymGen {
         let mut unmerged_symbols = Vec::new();
         let mut sym_manager = SymbolManager::new();
         for to_add in other {
-            let assignment = self.assign_block(&to_add)?;
-            let (bname, block) = match assignment {
-                Some((bname, block)) => (bname, block),
+            let assignment = self.assign_block(&to_add, None)?;
+            let (sub_path, bname, block) = match assignment {
+                Some((sub_path, bname, block)) => (sub_path, bname, block),
                 None => {
                     unmerged_symbols.push(to_add.symbol);
                     continue;
@@ -652,7 +720,7 @@ impl SymGen {
                 SymbolType::Function => &mut block.functions,
                 SymbolType::Data => &mut block.data,
             };
-            let sym = sym_manager.get(slist, bname, &to_add.stype, &to_add.symbol.name);
+            let sym = sym_manager.get(slist, &sub_path, bname, &to_add.stype, &to_add.symbol.name);
             match sym {
                 Some(s) => {
                     let to_merge = if let Some(vers) = &block.versions {
@@ -664,7 +732,13 @@ impl SymGen {
                     };
                     s.merge(&to_merge).map_err(MergeError::Conflict)?;
                 }
-                None => sym_manager.insert(slist, bname, &to_add.stype, to_add.symbol.clone()),
+                None => sym_manager.insert(
+                    slist,
+                    &sub_path,
+                    bname,
+                    &to_add.stype,
+                    to_add.symbol.clone(),
+                ),
             };
         }
         // Reinit because merging can introduce new OrdStrings/Versions
@@ -696,6 +770,7 @@ impl Merge for Subregion {
 
 #[cfg(test)]
 mod tests {
+    use super::super::symgen::test_utils;
     use super::*;
 
     #[test]
@@ -1213,6 +1288,182 @@ mod tests {
         );
     }
 
+    #[test]
+    fn test_merge_symgen_with_subregions() {
+        // The subregion handling code is in Block not SymGen, but it's easier to construct a
+        // SymGen, and the code path for SymGen should call into the Block code anyway.
+        let sub1_text = r#"sub1:
+            address: 0x10
+            length: 0x10
+            functions:
+              - name: sub1_fn
+                address: 0x10
+            data: []
+            "#;
+        let top_level_sub3_text = r#"sub3:
+            address: 0x30
+            length: 0x10
+            functions: []
+            data: []
+            "#;
+        let sub4_text = r#"sub4:
+            address: 0x2C
+            length: 0x4
+            functions:
+              - name: sub4_fn
+                address: 0x2C
+            data: []
+            "#;
+
+        let mut symgen = test_utils::get_symgen_with_subregions(
+            r#"main:
+            address: 0x0
+            length: 0x100
+            subregions:
+              - sub1.yml
+              - sub2.yml
+            functions:
+              - name: fn1
+                address: 0x0
+            data:
+              - name: data1
+                address: 0x50
+                length: 0x4
+            "#,
+            &[
+                ("sub1.yml", sub1_text),
+                (
+                    "sub2.yml",
+                    r#"sub2:
+                    address: 0x20
+                    length: 0x10
+                    subregions:
+                      - sub3.yml
+                    functions:
+                      - name: sub2_fn1
+                        address: 0x20
+                    data: []
+                    "#,
+                ),
+                (
+                    "sub2/sub3.yml",
+                    r#"sub3:
+                    address: 0x28
+                    length: 0x4
+                    functions:
+                      - name: sub3_fn1
+                        address: 0x28
+                    data: []
+                    "#,
+                ),
+            ],
+        );
+        let other = test_utils::get_symgen_with_subregions(
+            r#"main:
+            address: 0x0
+            length: 0x100
+            subregions:
+              - sub2.yml
+              - sub3.yml
+            functions:
+              - name: fn2
+                address: 0x4
+            data:
+              - name: data2
+                address: 0x54
+                length: 0x4
+            "#,
+            &[
+                (
+                    "sub2.yml",
+                    r#"sub2:
+                    address: 0x20
+                    length: 0x10
+                    subregions:
+                      - sub3.yml
+                      - sub4.yml
+                    functions:
+                      - name: sub2_fn2
+                        address: 0x24
+                    data: []
+                    "#,
+                ),
+                (
+                    "sub2/sub3.yml",
+                    r#"sub3:
+                    address: 0x28
+                    length: 0x4
+                    functions:
+                      - name: sub3_fn2
+                        address: 0x2A
+                    data: []
+                    "#,
+                ),
+                ("sub2/sub4.yml", sub4_text),
+                ("sub3.yml", top_level_sub3_text),
+            ],
+        );
+        let expected = test_utils::get_symgen_with_subregions(
+            r#"main:
+            address: 0x0
+            length: 0x100
+            subregions:
+              - sub1.yml
+              - sub2.yml
+              - sub3.yml
+            functions:
+              - name: fn1
+                address: 0x0
+              - name: fn2
+                address: 0x4
+            data:
+              - name: data1
+                address: 0x50
+                length: 0x4
+              - name: data2
+                address: 0x54
+                length: 0x4
+            "#,
+            &[
+                ("sub1.yml", sub1_text),
+                (
+                    "sub2.yml",
+                    r#"sub2:
+                    address: 0x20
+                    length: 0x10
+                    subregions:
+                      - sub3.yml
+                      - sub4.yml
+                    functions:
+                      - name: sub2_fn1
+                        address: 0x20
+                      - name: sub2_fn2
+                        address: 0x24
+                    data: []
+                    "#,
+                ),
+                (
+                    "sub2/sub3.yml",
+                    r#"sub3:
+                    address: 0x28
+                    length: 0x4
+                    functions:
+                      - name: sub3_fn1
+                        address: 0x28
+                      - name: sub3_fn2
+                        address: 0x2A
+                    data: []
+                    "#,
+                ),
+                ("sub2/sub4.yml", sub4_text),
+                ("sub3.yml", top_level_sub3_text),
+            ],
+        );
+        let res = symgen.merge(&other);
+        assert!(res.is_ok());
+        assert_eq!(&symgen, &expected);
+    }
+
     // Returns initial SymGen, AddSymbol list, and expected SymGen after merge
     fn get_merge_symbols_data() -> (SymGen, Vec<AddSymbol>, SymGen) {
         (
@@ -1317,5 +1568,199 @@ mod tests {
             s.block_name = None;
         }
         assert!(x.merge_symbols(Box::new(add_symbols.into_iter())).is_err());
+    }
+
+    fn get_merge_target_with_subregions() -> SymGen {
+        test_utils::get_symgen_with_subregions(
+            r#"main:
+            address: 0x0
+            length: 0x100
+            subregions:
+              - sub1.yml
+              - sub2.yml
+            functions: []
+            data: []
+            "#,
+            &[
+                (
+                    "sub1.yml",
+                    r#"sub1:
+                    address: 0x0
+                    length: 0x50
+                    functions: []
+                    data: []
+                    "#,
+                ),
+                (
+                    "sub2.yml",
+                    r#"sub2:
+                    address: 0x40
+                    length: 0x40
+                    subregions:
+                      - sub3.yml
+                    functions: []
+                    data: []
+                    "#,
+                ),
+                (
+                    "sub2/sub3.yml",
+                    r#"sub3:
+                    address: 0x60
+                    length: 0x20
+                    functions: []
+                    data: []
+                    "#,
+                ),
+            ],
+        )
+    }
+
+    #[test]
+    fn test_merge_symbols_from_iter_with_subregions() {
+        let mut x = get_merge_target_with_subregions();
+        let unmerged_symbol = Symbol {
+            name: "unmerged".to_string(),
+            address: MaybeVersionDep::Common(0x100.into()),
+            length: None,
+            description: None,
+        };
+        let add_symbols = vec![
+            AddSymbol {
+                symbol: Symbol {
+                    name: "main_fn".to_string(),
+                    address: MaybeVersionDep::Common(0x80.into()),
+                    length: None,
+                    description: None,
+                },
+                stype: SymbolType::Function,
+                block_name: None,
+            },
+            AddSymbol {
+                symbol: Symbol {
+                    name: "sub1_data".to_string(),
+                    address: MaybeVersionDep::Common(0x0.into()),
+                    length: Some(MaybeVersionDep::Common(0x4)),
+                    description: None,
+                },
+                stype: SymbolType::Data,
+                block_name: None,
+            },
+            AddSymbol {
+                symbol: Symbol {
+                    name: "sub2_fn".to_string(),
+                    address: MaybeVersionDep::Common(0x50.into()),
+                    length: None,
+                    description: None,
+                },
+                stype: SymbolType::Function,
+                block_name: None,
+            },
+            AddSymbol {
+                symbol: Symbol {
+                    name: "sub3_data".to_string(),
+                    address: MaybeVersionDep::Common(0x60.into()),
+                    length: Some(MaybeVersionDep::Common(0x4)),
+                    description: None,
+                },
+                stype: SymbolType::Data,
+                // Make sure providing the top-level block name doesn't mess anything up
+                block_name: Some("main".to_string()),
+            },
+            AddSymbol {
+                symbol: Symbol {
+                    name: "sub3_fn".to_string(),
+                    address: MaybeVersionDep::Common(0x64.into()),
+                    length: None,
+                    description: None,
+                },
+                stype: SymbolType::Function,
+                block_name: None,
+            },
+            AddSymbol {
+                // Make sure unmerged symbols are still treated properly
+                symbol: unmerged_symbol.clone(),
+                stype: SymbolType::Function,
+                block_name: None,
+            },
+        ];
+        let expected = test_utils::get_symgen_with_subregions(
+            r#"main:
+            address: 0x0
+            length: 0x100
+            subregions:
+              - sub1.yml
+              - sub2.yml
+            functions:
+              - name: main_fn
+                address: 0x80
+            data: []
+            "#,
+            &[
+                (
+                    "sub1.yml",
+                    r#"sub1:
+                    address: 0x0
+                    length: 0x50
+                    functions: []
+                    data:
+                      - name: sub1_data
+                        address: 0x0
+                        length: 0x4
+                    "#,
+                ),
+                (
+                    "sub2.yml",
+                    r#"sub2:
+                    address: 0x40
+                    length: 0x40
+                    subregions:
+                      - sub3.yml
+                    functions:
+                      - name: sub2_fn
+                        address: 0x50
+                    data: []
+                    "#,
+                ),
+                (
+                    "sub2/sub3.yml",
+                    r#"sub3:
+                    address: 0x60
+                    length: 0x20
+                    functions:
+                      - name: sub3_fn
+                        address: 0x64
+                    data:
+                      - name: sub3_data
+                        address: 0x60
+                        length: 0x4
+                    "#,
+                ),
+            ],
+        );
+
+        let res = x.merge_symbols(Box::new(add_symbols.into_iter()));
+        assert!(res.is_ok());
+        assert_eq!(res.unwrap(), vec![unmerged_symbol.clone()]);
+        assert_eq!(&x, &expected);
+    }
+
+    #[test]
+    fn test_merge_symbols_from_iter_with_subregions_inference_error() {
+        let mut x = get_merge_target_with_subregions();
+        assert!(x
+            .merge_symbols(Box::new(
+                vec![AddSymbol {
+                    symbol: Symbol {
+                        name: "fn1".to_string(),
+                        address: MaybeVersionDep::Common(0x40.into()), // Fits in both sub1 and sub2
+                        length: None,
+                        description: None,
+                    },
+                    stype: SymbolType::Function,
+                    block_name: None,
+                }]
+                .into_iter()
+            ))
+            .is_err());
     }
 }
