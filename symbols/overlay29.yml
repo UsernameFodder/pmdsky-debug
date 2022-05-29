@@ -248,7 +248,7 @@ overlay29:
       description: |-
         Sets the Map Surveyor flag in the dungeon struct to true if a team member has Map Surveyor, sets it to false otherwise.
         
-        This function has two variants: in the EU ROM, it will return true if the flag was changed. The NA version always returns 0x41 (equivalent to true).
+        This function has two variants: in the EU ROM, it will return true if the flag was changed. The NA version will return the new value of the flag instead.
         
         return: bool
     - name: ItemIsActive
