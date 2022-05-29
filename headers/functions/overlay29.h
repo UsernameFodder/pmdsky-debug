@@ -36,6 +36,7 @@ void SetForcedLossReason(enum forced_loss_reason forced_loss_reason);
 void FloorLoop(int unknown);
 void TrySpawnMonsterAndActivatePlusMinus(void);
 bool FloorIsOver(void);
+enum forced_loss_reason GetForcedLossReason(void);
 void ResetDamageDesc(undefined4* damage_desc);
 uint16_t GetSpriteIndex(enum monster_id monster_id);
 bool FloorNumberIsEven(void);
