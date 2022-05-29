@@ -194,12 +194,10 @@ overlay29:
         EU: 0x22E0F60
         JP: 0x22E1CAC
       description: |-
-        Attempts to trigger a forced loss of the type specified in the forced loss reason field of the dungeon struct. Returns true if the loss happens, false otherwise.
+        Attempts to trigger a forced loss of the type specified in dungeon::forced_loss_reason.
         
-        If the parameter is true, the function will not check for the end of the floor condition and will skip other (unknown) actions in case of forced loss.
-        
-        r0: bool
-        return: bool
+        r0: if true, the function will not check for the end of the floor condition and will skip other (unknown) actions in case of forced loss.
+        return: true if the forced loss happens, false otherwise
     - name: FixedRoomIsSubstituteRoom
       address:
         NA: 0x22E08CC
@@ -510,7 +508,7 @@ overlay29:
       description: |-
         Checks if the current floor should end, and updates dungeon::floor_loop_status if required.
         If the player has been defeated, sets dungeon::floor_loop_status to floor_loop_status::FLOOR_LOOP_LEADER_FAINTED.
-        If dungeon::end_floor_flag is 1 or 2, sets sets dungeon::floor_loop_status to floor_loop_status::FLOOR_LOOP_NEXT_FLOOR.
+        If dungeon::end_floor_flag is 1 or 2, sets dungeon::floor_loop_status to floor_loop_status::FLOOR_LOOP_NEXT_FLOOR.
         
         return: true if the current floor should end
     - name: SetForcedLossReason
@@ -674,18 +672,18 @@ overlay29:
         Called when a monster is revived.
         
         r0: pointer to entity whose moves will be restored
-    - name: MonsterCanSpawn
+    - name: MewSpawnCheck
       address:
         NA: 0x22FA5F0
         EU: 0x22FAFFC
         JP: 0x22FBB98
       description: |-
-        Returns true if a monster id can be spawned. 
+        If the monster id parameter is 0x97 (Mew), returns false if either dungeon::mew_cannot_spawn or the second parameter are true.
         
-        This function only checks for one id, 0x97 (Mew), and returns false if either the second parameter is false or if the mew_cannot_spawn flag in the dungeon struct is false. Returns true in all other cases.
+        Called before spawning an enemy, appears to be checking if Mew can spawn on the current floor.
         
         r0: monster id
-        r1: bool
+        r1: return false if the monster id is Mew
         return: bool
     - name: ExclusiveItemEffectIsActive
       address:
@@ -1653,7 +1651,7 @@ overlay29:
         EU: 0x2318244
         JP: 0x2318CB4
       description: |-
-        Returns true if the monster has the blinded status, or if it is not the leader and is holding Y-Ray Specs.
+        Returns true if the monster has the blinded status (see statuses::blinded), or if it is not the leader and is holding Y-Ray Specs.
         
         r0: pointer to entity
         r1: flag for whether to check for the held item
@@ -1970,13 +1968,13 @@ overlay29:
         r0: x position
         r1: y position
         return: tile pointer
-    - name: GetTileAndCopyIfDefault
+    - name: GetTileSafe
       address:
         NA: 0x2336164
         EU: 0x2336D34
         JP: 0x2337534
       description: |-
-        Get the tile at some position. If the coordinates are out of bounds, returns a default tile after copying it onto another global variable.
+        Get the tile at some position. If the coordinates are out of bounds, returns a pointer to a copy of the default tile.
         
         r0: x position
         r1: y position

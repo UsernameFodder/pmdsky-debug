@@ -24,8 +24,8 @@ struct dungeon {
     undefined field_0xb;
     undefined field_0xc;
     undefined field_0xd;
-    // 0xE: If set to 1, artificial weather abilities will be activated on this turn.
-    // Set to 0 by TryActivateArtificialWeatherAbilities
+    // 0xE: If true, artificial weather abilities will be activated on this turn.
+    // Set to false by TryActivateArtificialWeatherAbilities
     bool activate_artificial_weather_flag;
     // 0xF: True if an enemy has defeated an ally on this turn and should evolve as a result
     bool should_enemy_evolve;
@@ -3235,7 +3235,7 @@ struct dungeon {
     undefined field_0x3e1d;
     undefined field_0x3e1e;
     undefined field_0x3e1f;
-    // 0x3E20: Number of valid monster spawn entries.
+    // 0x3E20: Number of valid monster spawn entries (see spawn_entries).
     int monster_spawn_entries_length;
     undefined field_0x3e24;
     undefined field_0x3e25;

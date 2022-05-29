@@ -139,7 +139,7 @@ void InitWorldMapScriptVars(void);
 void InitDungeonListScriptVars(void);
 void SetDungeonTipShown(int tip_id);
 bool GetDungeonTipShown(int tip_id);
-bool ReturnTrue(void);
+bool MonsterSpawnsEnabled(void);
 void SetAdventureLogStructLocation(void);
 void SetAdventureLogDungeonFloor(struct dungeon_floor_pair dungeon_floor);
 struct dungeon_floor_pair GetAdventureLogDungeonFloor(void);

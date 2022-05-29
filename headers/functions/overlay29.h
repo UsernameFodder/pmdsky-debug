@@ -13,6 +13,7 @@ bool FixedRoomIsSubstituteRoom(void);
 bool ShouldGameOverOnImportantTeamMemberFaint(void);
 struct tile* GetTileAtEntity(struct entity* entity);
 void SubstitutePlaceholderStringTags(int string_id, struct entity* entity, undefined4 param_3);
+bool UpdateMapSurveyorFlag(void);
 bool ItemIsActive(struct entity* entity, enum item_id item_id);
 bool IsOnMonsterSpawnList(enum monster_id monster_id);
 struct entity* GetLeader(void);
@@ -49,7 +50,7 @@ bool DefenderAbilityIsActive(struct entity* attacker, struct entity* defender,
 bool IsMonster(struct entity* entity);
 void TryActivateTruant(struct entity* entity);
 void RestorePpAllMovesSetFlags(struct entity* entity);
-bool MonsterCanSpawn(enum monster_id monster_id, bool fail_if_mew);
+bool MewSpawnCheck(enum monster_id monster_id, bool fail_if_mew);
 bool ExclusiveItemEffectIsActive(struct entity* entity, enum exclusive_item_effect_id effect_id);
 struct entity* GetTeamMemberWithIqSkill(enum iq_skill_id iq_skill);
 bool TeamMemberHasEnabledIqSkill(enum iq_skill_id iq_skill);
@@ -202,7 +203,7 @@ int CalcDamageFinal(struct entity* attacker, struct entity* defender, struct mov
 enum weather_id GetApparentWeather(struct entity* entity);
 void TryWeatherFormChange(struct entity* entity);
 struct tile* GetTile(int x, int y);
-struct tile* GetTileAndCopyIfDefault(int x, int y);
+struct tile* GetTileSafe(int x, int y);
 bool GravityIsActive(void);
 bool IsSecretBazaar(void);
 bool IsSecretRoom(void);
@@ -321,6 +322,5 @@ void DisplayMessageInternal(int message_id, bool wait_for_input, undefined4 para
                             undefined4 param_4, undefined4 param_5, undefined4 param_6);
 void EuFaintCheck(bool non_team_member_fainted, bool set_unk_byte);
 uint8_t GetMinimapDataE447(void);
-bool UpdateMapSurveyorFlag(void);
 
 #endif
