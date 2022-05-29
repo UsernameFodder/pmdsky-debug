@@ -295,14 +295,6 @@ overlay29:
         
         r0: Monster ID
         return: bool
-    - name: GetLeader
-      address:
-        NA: 0x22E9580
-        EU: 0x22E9F30
-      description: |-
-        Gets the pointer to the entity that is currently leading the team, or null if none of the first 4 entities is a valid monster with its is_team_leader flag set. It also sets LEADER_PTR to the result before returning it.
-        
-        return: Pointer to the current leader of the team or null if there's no valid leader.
     - name: GetMonsterIdToSpawn
       address:
         NA: 0x22E7DA0
@@ -323,6 +315,14 @@ overlay29:
         
         r0: monster ID
         return: uint8
+    - name: GetLeader
+      address:
+        NA: 0x22E9580
+        EU: 0x22E9F30
+      description: |-
+        Gets the pointer to the entity that is currently leading the team, or null if none of the first 4 entities is a valid monster with its is_team_leader flag set. It also sets LEADER_PTR to the result before returning it.
+        
+        return: Pointer to the current leader of the team or null if there's no valid leader.
     - name: TickDownStatusTurnCounter
       address:
         NA: 0x22E9A44
@@ -481,14 +481,6 @@ overlay29:
         
         r0: pointer to user entity
         r1: pointer to target entity
-    - name: SetForcedLossReason
-      address:
-        NA: 0x22ED008
-        EU: 0x22ED9B8
-      description: |-
-        Sets dungeon::forced_loss_reason to the specified value
-        
-        r0: Forced loss reason
     - name: FloorLoop
       address:
         NA: 0x22EBD08
@@ -520,6 +512,14 @@ overlay29:
         Returns true if the player will advance to the next floor on the next turn, and in that case sets the floor_loop_status in the dungeon struct to 2.
         
         return: bool
+    - name: SetForcedLossReason
+      address:
+        NA: 0x22ED008
+        EU: 0x22ED9B8
+      description: |-
+        Sets dungeon::forced_loss_reason to the specified value
+        
+        r0: Forced loss reason
     - name: GetForcedLossReason
       address:
         NA: 0x22ED01C
@@ -557,6 +557,15 @@ overlay29:
         Has a special check to return false for Labyrinth Cave B10F (the Gabite boss fight).
         
         return: bool
+    - name: GetKecleonIdToSpawnByFloor
+      address:
+        NA: 0x22F73EC
+        EU: 0x22F7DA4
+        JP: 0x22F89B4
+      description: |-
+        If the current floor number is even, returns female Kecleon's id (0x3D7), otherwise returns male Kecleon's id (0x17F).
+        
+        return: monster ID
     - name: HandleFaint
       address:
         NA: 0x22F7F30
@@ -567,15 +576,6 @@ overlay29:
         r0: Fainted entity
         r1: Faint reason (move ID or greater than the max move id for other causes)
         r2: Entity responsible of the fainting
-    - name: GetKecleonIdToSpawnByFloor
-      address:
-        NA: 0x22F73EC
-        EU: 0x22F7DA4
-        JP: 0x22F89B4
-      description: |-
-        If the current floor number is even, returns female Kecleon's id (0x3D7), otherwise returns male Kecleon's id (0x17F).
-        
-        return: monster ID
     - name: TryActivateSlowStart
       address:
         NA: 0x22F923C
@@ -942,21 +942,6 @@ overlay29:
         r0: Pointer to the entity to evolve
         r1: ?
         r2: Species to evolve into
-    - name: ApplyDamage
-      address:
-        NA: 0x2308FE0
-        EU: 0x2309A0C
-      description: |-
-        Applies damage to a monster. Displays the damage animation, lowers its health and handles reviving if applicable.
-        The EU version has some additional checks related to printing fainting messages under specific circumstances.
-        
-        r0: Attacker pointer
-        r1: Defender pointer
-        r2: Pointer to the damage_data struct that contains info about the damage to deal
-        r3: ?
-        stack[0]: ?
-        stack[1]: Pointer to some struct. The first byte contains the ID of the move used.
-        return: True if the target fainted (reviving does not count as fainting)
     - name: GetSleepAnimationId
       address:
         NA: 0x2304AB4
@@ -992,6 +977,21 @@ overlay29:
         
         r0: pointer to user
         r1: pointer to target
+    - name: ApplyDamage
+      address:
+        NA: 0x2308FE0
+        EU: 0x2309A0C
+      description: |-
+        Applies damage to a monster. Displays the damage animation, lowers its health and handles reviving if applicable.
+        The EU version has some additional checks related to printing fainting messages under specific circumstances.
+        
+        r0: Attacker pointer
+        r1: Defender pointer
+        r2: Pointer to the damage_data struct that contains info about the damage to deal
+        r3: ?
+        stack[0]: ?
+        stack[1]: Pointer to some struct. The first byte contains the ID of the move used.
+        return: True if the target fainted (reviving does not count as fainting)
     - name: GetTypeMatchup
       address:
         NA: 0x230AC58
@@ -2008,6 +2008,15 @@ overlay29:
         Checks if the current floor is the Secret Room fixed floor (from hidden stairs).
         
         return: bool
+    - name: IsSecretFloor
+      address:
+        NA: 0x2338684
+        EU: 0x2339254
+        JP: 0x2339A48
+      description: |-
+        Checks if the current floor is a secret bazaar or a secret room.
+        
+        returns: bool
     - name: GetMinimapData
       address:
         NA: 0x2339118
@@ -2032,15 +2041,6 @@ overlay29:
         Sets minimap_display_data::field_0xE448 to the specified value
         
         r0: Value to set the field to
-    - name: IsSecretFloor
-      address:
-        NA: 0x2338684
-        EU: 0x2339254
-        JP: 0x2339A48
-      description: |-
-        Checks if the current floor is a secret bazaar or a secret room.
-        
-        returns: bool
     - name: LoadFixedRoomDataVeneer
       address:
         NA: 0x233A624
@@ -3144,6 +3144,15 @@ overlay29:
         r3: ?
         stack[0]: ?
         stack[1]: ?
+    - name: TryActivateMapSurveyorEU
+      address:
+        EU: 0x22E375C
+      description: |-
+        Sets the Map Surveyor flag in the dungeon struct to true if a team member has Map Surveyor, sets it to false otherwise. Returns true if the flag was changed by the function.
+        
+        Exclusive to the EU version; the NA equivalent does not return a value.
+        
+        return: bool
     - name: EuFaintCheck
       address:
         EU: 0x22F88E8
@@ -3160,15 +3169,6 @@ overlay29:
         Exclusive to the EU ROM. Returns minimap_display_data::field_0xE447.
         
         return: minimap_display_data::field_0xE447
-    - name: TryActivateMapSurveyorEU
-      address:
-        EU: 0x22E375C
-      description: |-
-        Sets the Map Surveyor flag in the dungeon struct to true if a team member has Map Surveyor, sets it to false otherwise. Returns true if the flag was changed by the function.
-        
-        Exclusive to the EU version; the NA equivalent does not return a value.
-        
-        return: bool
   data:
     - name: DUNGEON_STRUCT_SIZE
       address:

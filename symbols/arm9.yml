@@ -1955,6 +1955,16 @@ arm9:
         
         r0: Pointer to the monster spawn entry
         return: monster_spawn_entry::id
+    - name: GetMonsterLevelFromSpawnEntry
+      address:
+        NA: 0x20544B8
+        EU: 0x2054834
+        JP: 0x20547F0
+      description: |-
+        Returns the level of the specified monster spawn entry.
+        
+        r0: pointer to the monster spawn entry
+        return: uint8_t
     - name: GetMonsterGenderVeneer
       address:
         NA: 0x2054760
@@ -1966,16 +1976,6 @@ arm9:
         
         r0: monster id
         return: monster gender
-    - name: GetMonsterLevelFromSpawnEntry
-      address:
-        NA: 0x20544B8
-        EU: 0x2054834
-        JP: 0x20547F0
-      description: |-
-        Returns the level of the specified monster spawn entry.
-        
-        r0: pointer to the monster spawn entry
-        return: uint8_t
     - name: IsUnown
       address:
         NA: 0x2054A88
