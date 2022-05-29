@@ -8,12 +8,18 @@ void DungeonFree(void);
 int InitializeDungeon(undefined* dungeon_data, struct dungeon* dungeon);
 bool EntityIsValid(struct entity* entity);
 enum floor_type GetFloorType(void);
+bool TryForcedLoss(bool skip_floor_end_check);
 bool FixedRoomIsSubstituteRoom(void);
 bool ShouldGameOverOnImportantTeamMemberFaint(void);
+struct tile* GetTileAtEntity(struct entity* entity);
 void SubstitutePlaceholderStringTags(int string_id, struct entity* entity, undefined4 param_3);
+bool UpdateMapSurveyorFlag(void);
 bool ItemIsActive(struct entity* entity, enum item_id item_id);
 bool IsOnMonsterSpawnList(enum monster_id monster_id);
 struct entity* GetLeader(void);
+enum monster_id GetMonsterIdToSpawn(int spawn_weight);
+uint8_t GetMonsterLevelToSpawn(enum monster_id monster_id);
+uint8_t TickStatusTurnCounter(uint8_t* counter);
 uint32_t GenerateDungeonRngSeed(void);
 uint32_t GetDungeonRngPreseed(void);
 void SetDungeonRngPreseed(uint32_t preseed);
@@ -28,11 +34,15 @@ void DungeonRngSetSecondary(int i);
 void DungeonRngSetPrimary(void);
 void TrySwitchPlace(struct entity* user, struct entity* target);
 void SetForcedLossReason(enum forced_loss_reason forced_loss_reason);
+void RunFractionalTurn(bool is_first_loop);
+void TrySpawnMonsterAndActivatePlusMinus(void);
+bool FloorIsOver(void);
 enum forced_loss_reason GetForcedLossReason(void);
 void ResetDamageDesc(undefined4* damage_desc);
 uint16_t GetSpriteIndex(enum monster_id monster_id);
 bool FloorNumberIsEven(void);
 void HandleFaint(struct entity* fainted_entity, int faint_reason, struct entity* killer);
+enum monster_id GetKecleonIdToSpawnByFloor(void);
 void TryActivateSlowStart(void);
 void TryActivateArtificialWeatherAbilities(void);
 bool DefenderAbilityIsActive(struct entity* attacker, struct entity* defender,
@@ -40,10 +50,16 @@ bool DefenderAbilityIsActive(struct entity* attacker, struct entity* defender,
 bool IsMonster(struct entity* entity);
 void TryActivateTruant(struct entity* entity);
 void RestorePpAllMovesSetFlags(struct entity* entity);
+bool MewSpawnCheck(enum monster_id monster_id, bool fail_if_mew);
 bool ExclusiveItemEffectIsActive(struct entity* entity, enum exclusive_item_effect_id effect_id);
+struct entity* GetTeamMemberWithIqSkill(enum iq_skill_id iq_skill);
+bool TeamMemberHasEnabledIqSkill(enum iq_skill_id iq_skill);
+bool TeamLeaderIqSkillIsEnabled(enum iq_skill_id iq_skill);
 bool HasLowHealth(struct entity* entity);
 bool IsSpecialStoryAlly(struct monster* monster);
 bool IsExperienceLocked(struct monster* monster);
+struct entity* SpawnMonster(struct spawned_monster_data* monster_data, bool cannot_be_asleep);
+int CalcSpeedStage(struct entity* entity, int counter_weight);
 int GetNumberOfAttacks(struct entity* entity);
 bool NoGastroAcidStatus(struct entity* entity);
 bool AbilityIsActive(struct entity* entity, enum ability_id ability_id);
@@ -57,6 +73,9 @@ void EnemyEvolution(struct entity* enemy);
 void EvolveMonster(struct entity* monster, undefined4* param_2, enum monster_id new_monster_id);
 bool ApplyDamage(struct entity* attacker, struct entity* defender, struct damage_data* damage_data,
                  undefined4 param_4, undefined4* param_5, undefined4* param_6);
+uint8_t GetSleepAnimationId(struct entity* entity);
+void EndFrozenClassStatus(struct entity* user, struct entity* target, bool log);
+void EndCringeClassStatus(struct entity* user, struct entity* target);
 enum type_matchup GetTypeMatchup(struct entity* attacker, struct entity* defender,
                                  int target_type_idx, enum type_id attack_type);
 void CalcDamage(struct entity* attacker, struct entity* defender, enum type_id attack_type,
@@ -80,6 +99,7 @@ void CalcDamageFixedNoCategory(struct entity* attacker, struct entity* defender,
                                enum type_id attack_type, int16_t param_7, undefined4 param_8,
                                undefined4 param_9, undefined4 param_10);
 void ResetDamageCalcScratchSpace(void);
+void TrySpawnMonsterAndTickSpawnCounter(void);
 bool AuraBowIsActive(struct entity* entity);
 int ExclusiveItemOffenseBoost(struct entity* entity, int move_category_idx);
 int ExclusiveItemDefenseBoost(struct entity* entity, int move_category_idx);
@@ -108,6 +128,7 @@ void TryInflictConstrictionStatus(struct entity* user, struct entity* target, in
 void TryInflictShadowHoldStatus(struct entity* user, struct entity* target, bool log_failure);
 void TryInflictIngrainStatus(struct entity* user, struct entity* target);
 void TryInflictWrappedStatus(struct entity* user, struct entity* target);
+void FreeOtherWrappedMonsters(struct entity* entity);
 void TryInflictPetrifiedStatus(struct entity* user, struct entity* target);
 void LowerOffensiveStat(struct entity* user, struct entity* target, int stat_idx, int16_t n_stages,
                         undefined param_5, undefined param_6);
@@ -142,9 +163,13 @@ bool TryIncreaseHp(struct entity* user, struct entity* target, int hp_restoratio
 bool TryInflictLeechSeedStatus(struct entity* user, struct entity* target, bool log_failure,
                                bool check_only);
 void TryInflictDestinyBond(struct entity* user, struct entity* target);
+bool IsBlinded(struct entity* entity, bool check_held_item);
 void RestoreMovePP(struct entity* user, struct entity* target, int pp, bool suppress_logs);
+void SetReflectDamageCountdownTo4(struct entity* entity);
 bool HasConditionalGroundImmunity(struct entity* entity);
 int Conversion2IsActive(struct entity* entity);
+bool IsTargetInRange(struct entity* user, struct entity* target, enum direction_id direction,
+                     int n_tiles);
 struct move_target_and_range GetEntityMoveTargetAndRange(struct entity* entity, struct move* move,
                                                          bool is_ai);
 void ApplyItemEffect(undefined4 param_1, undefined4 param_2, undefined4 param_3,
@@ -178,12 +203,14 @@ int CalcDamageFinal(struct entity* attacker, struct entity* defender, struct mov
 enum weather_id GetApparentWeather(struct entity* entity);
 void TryWeatherFormChange(struct entity* entity);
 struct tile* GetTile(int x, int y);
+struct tile* GetTileSafe(int x, int y);
 bool GravityIsActive(void);
 bool IsSecretBazaar(void);
 bool IsSecretRoom(void);
 struct minimap_display_data* GetMinimapData(void);
 void SetMinimapDataE447(uint8_t value);
 void SetMinimapDataE448(uint8_t value);
+bool IsSecretFloor(void);
 void LoadFixedRoomDataVeneer(void);
 bool IsNormalFloor(void);
 void GenerateFloor(void);

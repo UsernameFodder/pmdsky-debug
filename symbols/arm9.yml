@@ -248,6 +248,7 @@ arm9:
       address:
         NA: 0x200224C
         EU: 0x200224C
+        JP: 0x200224C
       description: |-
         Computes a pseudorandom 16-bit integer using the general-purpose PRNG.
         
@@ -262,6 +263,7 @@ arm9:
       address:
         NA: 0x2002274
         EU: 0x2002274
+        JP: 0x2002274
       description: |-
         Compute a pseudorandom integer under a given maximum value using the general-purpose PRNG.
         
@@ -273,6 +275,7 @@ arm9:
       address:
         NA: 0x200228C
         EU: 0x200228C
+        JP: 0x200228C
       description: |-
         Compute a pseudorandom value between two integers using the general-purpose PRNG.
         
@@ -285,6 +288,7 @@ arm9:
       address:
         NA: 0x20022AC
         EU: 0x20022AC
+        JP: 0x20022AC
       description: |-
         Computes a random 32-bit integer using the general-purpose PRNG. The upper and lower 16 bits are each generated with a separate call to Rand16Bit (so this function advances the PRNG twice).
         
@@ -293,6 +297,7 @@ arm9:
       address:
         NA: 0x20022F8
         EU: 0x20022F8
+        JP: 0x20022F8
       description: |-
         Same as RandInt, except explicitly masking out the upper 16 bits of the output from Rand16Bit (which should be zero anyway).
         
@@ -302,6 +307,7 @@ arm9:
       address:
         NA: 0x2002318
         EU: 0x2002318
+        JP: 0x2002318
       description: |-
         Like RandRange, except reordering the inputs as needed, and explicitly masking out the upper 16 bits of the output from Rand16Bit (which should be zero anyway).
         
@@ -344,6 +350,7 @@ arm9:
       address:
         NA: 0x20032E4
         EU: 0x20032E4
+        JP: 0x20032E4
       description: |-
         A simple implementation of the memcpy(3) C library function.
         
@@ -369,6 +376,7 @@ arm9:
       address:
         NA: 0x2003608
         EU: 0x2003608
+        JP: 0x2003608
       description: |-
         Sets the Interrupt Master Enable (IME) register to 1, which enables all CPU interrupts (if enabled in the Interrupt Enable (IE) register).
         
@@ -379,6 +387,7 @@ arm9:
       address:
         NA: 0x20037B4
         EU: 0x20037B4
+        JP: 0x20037B4
       description: |-
         Seems to get the current (system?) time as an IEEE 754 floating-point number.
         
@@ -387,6 +396,7 @@ arm9:
       address:
         NA: 0x2003824
         EU: 0x2003824
+        JP: 0x2003824
       description: |-
         Sets the Interrupt Master Enable (IME) register to 0, which disables all CPU interrupts (even if enabled in the Interrupt Enable (IE) register).
         
@@ -498,6 +508,7 @@ arm9:
       address:
         NA: 0x2005110
         EU: 0x2005110
+        JP: 0x2005110
       description: |-
         Clamps the absolute values in a two-component integer array.
         
@@ -764,6 +775,7 @@ arm9:
       address:
         NA: 0x200ED1C
         EU: 0x200EDC4
+        JP: 0x200ED4C
       description: |-
         Sets the amount of money the player is carrying, clamping the value to the range [0, MAX_MONEY_CARRIED].
         
@@ -840,6 +852,7 @@ arm9:
       address:
         NA: 0x2010724
         EU: 0x20107CC
+        JP: 0x20106F4
       description: |-
         Sets the amount of money the player has stored in the Duskull Bank, clamping the value to the range [0, MAX_MONEY_STORED].
         
@@ -1033,6 +1046,7 @@ arm9:
       address:
         NA: 0x20205A0
         EU: 0x2020688
+        JP: 0x20205F8
       description: |-
         Gets the language type.
         
@@ -1168,6 +1182,7 @@ arm9:
       address:
         NA: 0x2048F84
         EU: 0x20492A0
+        JP: 0x20492F0
       description: |-
         Probably related to saving or quicksaving?
         
@@ -1180,6 +1195,7 @@ arm9:
       address:
         NA: 0x2049370
         EU: 0x20496A8
+        JP: 0x20496DC
       description: |-
         Probably related to loading a save file or quicksave?
         
@@ -1198,6 +1214,7 @@ arm9:
       address:
         NA: 0x204B04C
         EU: 0x204B384
+        JP: 0x204B3B4
       description: |-
         Initialize the script variable values table (SCRIPT_VARS_VALUES).
         
@@ -1216,6 +1233,7 @@ arm9:
       address:
         NA: 0x204B434
         EU: 0x204B76C
+        JP: 0x204B794
       description: |-
         Zero-initialize the values of the given script variable.
         
@@ -1225,6 +1243,7 @@ arm9:
       address:
         NA: 0x204B49C
         EU: 0x204B7D4
+        JP: 0x204B7FC
       description: |-
         Loads a script variable descriptor for a given ID.
         
@@ -1235,6 +1254,7 @@ arm9:
       address:
         NA: 0x204B4EC
         EU: 0x204B824
+        JP: 0x204B84C
       description: |-
         Loads the value of a script variable.
         
@@ -1245,6 +1265,7 @@ arm9:
       address:
         NA: 0x204B678
         EU: 0x204B9B0
+        JP: 0x204B9D8
       description: |-
         Loads the value of a script variable at some index (for script variables that are arrays).
         
@@ -1279,6 +1300,7 @@ arm9:
       address:
         NA: 0x204BB00
         EU: 0x204BE38
+        JP: 0x204BE60
       description: |-
         Loads the sum of all values of a given script variable (for script variables that are arrays).
         
@@ -1289,6 +1311,7 @@ arm9:
       address:
         NA: 0x204BB64
         EU: 0x204BE9C
+        JP: 0x204BEC4
       description: |-
         Loads some number of bytes from the value of a given script variable.
         
@@ -1299,6 +1322,7 @@ arm9:
       address:
         NA: 0x204BBCC
         EU: 0x204BF04
+        JP: 0x204BF2C
       description: |-
         Saves some number of bytes to the given script variable.
         
@@ -1309,6 +1333,7 @@ arm9:
       address:
         NA: 0x204BC18
         EU: 0x204BF50
+        JP: 0x204BF78
       description: |-
         Checks if two script variables have equal values. For arrays, compares elementwise for the length of the first variable.
         
@@ -1320,6 +1345,7 @@ arm9:
       address:
         NA: 0x204C1E4
         EU: 0x204C51C
+        JP: 0x204C544
       description: |-
         Saves event flag script variables (see the code for an exhaustive list) to their respective BACKUP script variables, but only in certain game modes.
         
@@ -1330,6 +1356,7 @@ arm9:
       address:
         NA: 0x204C408
         EU: 0x204C740
+        JP: 0x204C768
       description: |-
         Runs EventFlagBackup, then copies the script variable values table (SCRIPT_VARS_VALUES) to the given pointer.
         
@@ -1339,6 +1366,7 @@ arm9:
       address:
         NA: 0x204C430
         EU: 0x204C768
+        JP: 0x204C790
       description: |-
         Restores the script variable values table (SCRIPT_VARS_VALUES) with the given data. The source data is assumed to be exactly 1024 bytes in length.
         
@@ -1348,6 +1376,7 @@ arm9:
       address:
         NA: 0x204C488
         EU: 0x204C7C0
+        JP: 0x204C7E8
       description: |-
         Initializes most of the SCENARIO_* script variables (except SCENARIO_TALK_BIT_FLAG for some reason). Also initializes the PLAY_OLD_GAME variable.
         
@@ -1356,6 +1385,7 @@ arm9:
       address:
         NA: 0x204C618
         EU: 0x204C950
+        JP: 0x204C978
       description: |-
         Sets the given SCENARIO_* script variable with a given pair of values [val0, val1].
         
@@ -1368,6 +1398,7 @@ arm9:
       address:
         NA: 0x204C8EC
         EU: 0x204CC24
+        JP: 0x204CC4C
       description: |-
         Gets the special episode type from the SPECIAL_EPISODE_TYPE script variable.
         
@@ -1376,6 +1407,7 @@ arm9:
       address:
         NA: 0x204CCB8
         EU: 0x204CFF0
+        JP: 0x204D018
       description: |-
         Saves scenario flag script variables (SCENARIO_SELECT, SCENARIO_MAIN_BIT_FLAG) to their respective BACKUP script variables, but only in certain game modes.
         
@@ -1386,6 +1418,7 @@ arm9:
       address:
         NA: 0x204CD88
         EU: 0x204D0C0
+        JP: 0x204D0E8
       description: |-
         Initializes the WORLD_MAP_* script variable values (IDs 0x55-0x57).
         
@@ -1394,6 +1427,7 @@ arm9:
       address:
         NA: 0x204CE90
         EU: 0x204D1C8
+        JP: 0x204D1F0
       description: |-
         Initializes the DUNGEON_*_LIST script variable values (IDs 0x4f-0x54).
         
@@ -1415,6 +1449,18 @@ arm9:
         
         r0: Dungeon tip ID
         return: True if the tip has been shown before, false otherwise.
+    - name: MonsterSpawnsEnabled
+      address:
+        NA: 0x204D360
+        EU: 0x204D698
+        JP: 0x204D6C0
+      description: |-
+        Always returns true.
+        
+        This function seems to be a debug switch that the developers may have used to disable the random enemy spawn. 
+        If it returned false, the call to SpawnMonster inside TrySpawnMonsterAndTickSpawnCounter would not be executed.
+        
+        return: bool (always true)
     - name: SetAdventureLogStructLocation
       address:
         NA: 0x204FA24
@@ -1912,6 +1958,16 @@ arm9:
         
         r0: Pointer to the monster spawn entry
         return: monster_spawn_entry::id
+    - name: GetMonsterLevelFromSpawnEntry
+      address:
+        NA: 0x20544B8
+        EU: 0x2054834
+        JP: 0x20547F0
+      description: |-
+        Returns the level of the specified monster spawn entry.
+        
+        r0: pointer to the monster spawn entry
+        return: uint8_t
     - name: GetMonsterGenderVeneer
       address:
         NA: 0x2054760
@@ -2467,6 +2523,7 @@ arm9:
       address:
         NA: 0x208ECB8
         EU: 0x208F050
+        JP: 0x208EFA0
       description: |-
         This appears to be the libgcc implementation of __addsf3 (not sure which gcc version), which implements the addition operator for IEEE 754 floating-point numbers.
         
@@ -2477,6 +2534,7 @@ arm9:
       address:
         NA: 0x208F234
         EU: 0x208F5CC
+        JP: 0x208F51C
       description: |-
         This appears to be the libgcc implementation of __divsf3 (not sure which gcc version), which implements the division operator for IEEE 754 floating-point numbers.
         
@@ -2487,6 +2545,7 @@ arm9:
       address:
         NA: 0x208F5EC
         EU: 0x208F984
+        JP: 0x208F8D4
       description: |-
         This appears to be the libgcc implementation of __extendsfdf2 (not sure which gcc version), which implements the float to double cast operation for IEEE 754 floating-point numbers.
         
@@ -2496,6 +2555,7 @@ arm9:
       address:
         NA: 0x208F670
         EU: 0x208FA08
+        JP: 0x208F958
       description: |-
         This appears to be the libgcc implementation of __fixsfsi (not sure which gcc version), which implements the float to int cast operation for IEEE 754 floating-point numbers. The output saturates if the input is out of the representable range for the int type.
         
@@ -2505,6 +2565,7 @@ arm9:
       address:
         NA: 0x208F6A4
         EU: 0x208FA3C
+        JP: 0x208F98C
       description: |-
         This appears to be the libgcc implementation of __floatsisf (not sure which gcc version), which implements the int to float cast operation for IEEE 754 floating-point numbers.
         
@@ -2514,6 +2575,7 @@ arm9:
       address:
         NA: 0x208F6EC
         EU: 0x208FA84
+        JP: 0x208F9D4
       description: |-
         This appears to be the libgcc implementation of __floatunsisf (not sure which gcc version), which implements the unsigned int to float cast operation for IEEE 754 floating-point numbers.
         
@@ -2523,11 +2585,13 @@ arm9:
       address:
         NA: 0x208F734
         EU: 0x208FACC
+        JP: 0x208FA1C
       description: "This appears to be the libgcc implementation of __mulsf3 (not sure which gcc version), which implements the multiplication operator for IEEE 754 floating-point numbers."
     - name: Sqrtf
       address:
         NA: 0x208F914
         EU: 0x208FCAC
+        JP: 0x208FBFC
       description: |-
         The sqrtf(3) C library function.
         
@@ -2537,6 +2601,7 @@ arm9:
       address:
         NA: 0x208FA04
         EU: 0x208FD9C
+        JP: 0x208FCEC
       description: |-
         This appears to be the libgcc implementation of __subsf3 (not sure which gcc version), which implements the subtraction operator for IEEE 754 floating-point numbers.
         
@@ -2637,6 +2702,14 @@ arm9:
         NA: 0x4
         EU: 0x4
       description: Hard-coded pointer to SCRIPT_VARS_VALUES.
+    - name: MONSTER_ID_LIMIT
+      address:
+        NA: 0x205449C
+        EU: 0x2054818
+      length:
+        NA: 0x4
+        EU: 0x4
+      description: One more than the maximum valid monster ID (0x483).
     - name: MAX_RECRUITABLE_TEAM_MEMBERS
       address:
         NA:

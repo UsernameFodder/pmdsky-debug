@@ -12,10 +12,11 @@ struct dungeon {
     undefined field_0x3;
     undefined field_0x4;
     bool stepped_on_stairs; // 0x5: True if the leader just stepped on the stairs.
-    // 0x6: The floor will be advanced at the end of the turn, unless the leader fainted.
-    bool end_floor_flag;
-    // 0x7: If set in tandem with one of the climb_stairs flags, a quicksave will occur instead of
-    // a floor advance.
+    // 0x6: If equal to 1 or 2, the floor will be advanced at the end of the turn,
+    // unless the leader fainted.
+    uint8_t end_floor_flag;
+    // 0x7: If set in tandem with either end_floor_flag or end_floor_no_death_check_flag,
+    // a quicksave will occur instead of a floor advance.
     bool quicksave_flag;
     // 0x8: The floor will be advanced at the end of the turn. Set when quicksaving.
     bool end_floor_no_death_check_flag;
@@ -24,7 +25,9 @@ struct dungeon {
     undefined field_0xb;
     undefined field_0xc;
     undefined field_0xd;
-    undefined field_0xe;
+    // 0xE: If true, artificial weather abilities will be activated on this turn.
+    // Set to false by TryActivateArtificialWeatherAbilities
+    bool activate_artificial_weather_flag;
     // 0xF: True if an enemy has defeated an ally on this turn and should evolve as a result
     bool should_enemy_evolve;
     undefined field_0x10;
@@ -40,10 +43,12 @@ struct dungeon {
     undefined field_0x19;
     undefined field_0x1a;
     undefined field_0x1b;
+    // 0x1C: Increased once per frame until 0x64. Resets to 0 when the leader acts.
     undefined field_0x1c;
     undefined field_0x1d;
     undefined field_0x1e;
-    undefined field_0x1f;
+    // 0x1F: Turn counter, Speed Boost triggers every 250 turns, then the counter is reset.
+    uint8_t speed_boost_counter;
     undefined field_0x20;
     undefined field_0x21;
     undefined field_0x22;
@@ -2158,134 +2163,11 @@ struct dungeon {
     undefined field_0x3971;
     undefined field_0x3972;
     undefined field_0x3973;
-    undefined field_0x3974;
-    undefined field_0x3975;
-    undefined field_0x3976;
-    undefined field_0x3977;
-    undefined field_0x3978;
-    undefined field_0x3979;
-    undefined field_0x397a;
-    undefined field_0x397b;
-    undefined field_0x397c;
-    undefined field_0x397d;
-    undefined field_0x397e;
-    undefined field_0x397f;
-    undefined field_0x3980;
-    undefined field_0x3981;
-    undefined field_0x3982;
-    undefined field_0x3983;
-    undefined field_0x3984;
-    undefined field_0x3985;
-    undefined field_0x3986;
-    undefined field_0x3987;
-    undefined field_0x3988;
-    undefined field_0x3989;
-    undefined field_0x398a;
-    undefined field_0x398b;
-    undefined field_0x398c;
-    undefined field_0x398d;
-    undefined field_0x398e;
-    undefined field_0x398f;
-    undefined field_0x3990;
-    undefined field_0x3991;
-    undefined field_0x3992;
-    undefined field_0x3993;
-    undefined field_0x3994;
-    undefined field_0x3995;
-    undefined field_0x3996;
-    undefined field_0x3997;
-    undefined field_0x3998;
-    undefined field_0x3999;
-    undefined field_0x399a;
-    undefined field_0x399b;
-    undefined field_0x399c;
-    undefined field_0x399d;
-    undefined field_0x399e;
-    undefined field_0x399f;
-    undefined field_0x39a0;
-    undefined field_0x39a1;
-    undefined field_0x39a2;
-    undefined field_0x39a3;
-    undefined field_0x39a4;
-    undefined field_0x39a5;
-    undefined field_0x39a6;
-    undefined field_0x39a7;
-    undefined field_0x39a8;
-    undefined field_0x39a9;
-    undefined field_0x39aa;
-    undefined field_0x39ab;
-    undefined field_0x39ac;
-    undefined field_0x39ad;
-    undefined field_0x39ae;
-    undefined field_0x39af;
-    undefined field_0x39b0;
-    undefined field_0x39b1;
-    undefined field_0x39b2;
-    undefined field_0x39b3;
-    undefined field_0x39b4;
-    undefined field_0x39b5;
-    undefined field_0x39b6;
-    undefined field_0x39b7;
-    undefined field_0x39b8;
-    undefined field_0x39b9;
-    undefined field_0x39ba;
-    undefined field_0x39bb;
-    undefined field_0x39bc;
-    undefined field_0x39bd;
-    undefined field_0x39be;
-    undefined field_0x39bf;
-    undefined field_0x39c0;
-    undefined field_0x39c1;
-    undefined field_0x39c2;
-    undefined field_0x39c3;
-    undefined field_0x39c4;
-    undefined field_0x39c5;
-    undefined field_0x39c6;
-    undefined field_0x39c7;
-    undefined field_0x39c8;
-    undefined field_0x39c9;
-    undefined field_0x39ca;
-    undefined field_0x39cb;
-    undefined field_0x39cc;
-    undefined field_0x39cd;
-    undefined field_0x39ce;
-    undefined field_0x39cf;
-    undefined field_0x39d0;
-    undefined field_0x39d1;
-    undefined field_0x39d2;
-    undefined field_0x39d3;
-    undefined field_0x39d4;
-    undefined field_0x39d5;
-    undefined field_0x39d6;
-    undefined field_0x39d7;
-    undefined field_0x39d8;
-    undefined field_0x39d9;
-    undefined field_0x39da;
-    undefined field_0x39db;
-    undefined field_0x39dc;
-    undefined field_0x39dd;
-    undefined field_0x39de;
-    undefined field_0x39df;
-    undefined field_0x39e0;
-    undefined field_0x39e1;
-    undefined field_0x39e2;
-    undefined field_0x39e3;
-    undefined field_0x39e4;
-    undefined field_0x39e5;
-    undefined field_0x39e6;
-    undefined field_0x39e7;
-    undefined field_0x39e8;
-    undefined field_0x39e9;
-    undefined field_0x39ea;
-    undefined field_0x39eb;
-    undefined field_0x39ec;
-    undefined field_0x39ed;
-    undefined field_0x39ee;
-    undefined field_0x39ef;
-    undefined field_0x39f0;
-    undefined field_0x39f1;
-    undefined field_0x39f2;
-    undefined field_0x39f3;
+    // 0x3974: Monsters that can be spawned on the floor.
+    // Read when spawning enemies, at initialization the one at 0x2C964 is used.
+    // The number of valid entries is stored in monster_spawn_table_length.
+    // The last 2 entries of the table are always Kecleon (0x17F) and the dummy (0x229).
+    struct monster_spawn_entry spawn_entries[16];
     undefined field_0x39f4;
     undefined field_0x39f5;
     undefined field_0x39f6;
@@ -3354,10 +3236,8 @@ struct dungeon {
     undefined field_0x3e1d;
     undefined field_0x3e1e;
     undefined field_0x3e1f;
-    undefined field_0x3e20;
-    undefined field_0x3e21;
-    undefined field_0x3e22;
-    undefined field_0x3e23;
+    // 0x3E20: Number of valid monster spawn entries (see spawn_entries).
+    int monster_spawn_entries_length;
     undefined field_0x3e24;
     undefined field_0x3e25;
     undefined field_0x3e26;
@@ -3379,7 +3259,8 @@ struct dungeon {
     bool enemy_minus_is_active; // 0x3E36: An enemy monster has the ability Minus
     bool team_minus_is_active;  // 0x3E37: A team member has the ability Minus
     undefined field_0x3e38;
-    undefined field_0x3e39;
+    // 0x3E39: If true, a monster with id 0x97 (Mew) cannot be spawned on the floor.
+    bool mew_cannot_spawn;
     undefined field_0x3e3a;
     undefined field_0x3e3b;
     undefined field_0x3e3c;
@@ -19063,20 +18944,18 @@ struct dungeon {
     undefined field_0x19901;
     undefined field_0x19902;
     undefined field_0x19903;
-    undefined field_0x19904;
-    undefined field_0x19905;
-    undefined field_0x19906;
-    undefined field_0x19907;
-    undefined field_0x19908;
-    undefined field_0x19909;
-    undefined field_0x1990a;
-    undefined field_0x1990b;
+    // 0x19904: Unknown entity pointer to a monster.
+    struct entity* unknown_monster;
+    // 0x19908: Pointer to the entity to be spawned by the effect of Illuminate
+    struct entity* illuminate_spawn_entity;
+    // 0x1990C: Seems to store the value of field 0x7 from the
+    // statuses struct of the monster that 0x19904 points to.
     undefined field_0x1990c;
     undefined field_0x1990d;
     undefined field_0x1990e;
     undefined field_0x1990f;
-    undefined field_0x19910;
-    undefined field_0x19911;
+    // 0x19910: Spawn genid of the monster to be spawned by the effect of Illuminate
+    uint16_t illuminate_spawn_genid;
     undefined field_0x19912;
     undefined field_0x19913;
     // 0x19914: List that matches monster IDs with their sprite index on this floor
@@ -36131,7 +36010,9 @@ struct dungeon {
     undefined field_0x2c961;
     undefined field_0x2c962;
     undefined field_0x2c963;
-    struct monster_spawn_entry spawn_entries[16]; // 0x2C964: List of spawn entries on this floor
+    // 0x2C964: List of spawn entries on this floor
+    // This is used during initialization, enemies are spawned using the copy at 0x3974
+    struct monster_spawn_entry spawn_entries_master[16];
     undefined2 field_0x2c9e4;
     // 0x2C9E6: Highest level among all the enemies that spawn on this floor
     uint16_t highest_enemy_level;

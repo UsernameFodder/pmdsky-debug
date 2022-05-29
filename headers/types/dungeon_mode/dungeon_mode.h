@@ -131,10 +131,8 @@ struct statuses {
     undefined field_0x8;
     undefined field_0x9;
     undefined field_0xa;
-    undefined field_0xb;
-    undefined field_0xc;
-    undefined field_0xd;
-    undefined field_0xe;
+    // 0xB: Pointer to the monster being wrapped around/wrapped by
+    struct entity* wrapped_opponent;
     undefined field_0xf;
     undefined field_0x10;
     undefined field_0x11;
@@ -1393,6 +1391,26 @@ struct prng_state {
     int idx_secondary; // 0x10: Index of the currently active secondary LCG
 };
 ASSERT_SIZE(struct prng_state, 20);
+
+// Contains the necessary information to spawn a monster.
+// Allocated on the stack and passed via a pointer to SpawnMonster.
+
+struct spawned_monster_data {
+    struct monster_id_16 monster_id;    // 0x0: The id of the monster to spawn
+    struct monster_behavior_8 behavior; // 0x2: NPC behavior of the monster
+    undefined field_0x3;
+    undefined field_0x4;
+    undefined field_0x5;
+    undefined field_0x6;
+    undefined field_0x7;
+    uint16_t level;      // 0x8: The level of the spawned monster
+    struct position pos; // 0xA: Position on the floor where the monster will be spawned
+    // 0xE: True if the monster cannot be spawned asleep.
+    // If false, there is a random chance that the monster will be asleep.
+    bool cannot_be_asleep;
+    undefined field_0xf;
+};
+ASSERT_SIZE(struct spawned_monster_data, 16);
 
 // Separate this out into its own file because it's massive
 #include "dungeon.h"
