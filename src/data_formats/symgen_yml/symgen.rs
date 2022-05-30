@@ -1,5 +1,8 @@
 //! Defines the `resymgen` YAML format and its programmatic representation, the [`SymGen`] struct.
 
+pub mod cursor;
+pub use cursor::{BlockCursor, SymGenCursor};
+
 use std::any;
 use std::borrow::Cow;
 use std::cmp::Ordering;
@@ -498,6 +501,11 @@ impl Block {
         let version = self.version(version_name);
         self.data.iter().realize(version)
     }
+
+    /// Returns a [`BlockCursor`] for this [`Block`] with the given block name and file path.
+    pub fn cursor<'s, 'p>(&'s self, name: &'s str, path: &'p Path) -> BlockCursor<'s, 'p> {
+        BlockCursor::new(self, name, Cow::Borrowed(path))
+    }
 }
 
 impl PartialOrd for Block {
@@ -868,6 +876,11 @@ impl SymGen {
     pub fn data_realized(&self, version_name: &str) -> impl Iterator<Item = RealizedSymbol> + '_ {
         let v = String::from(version_name);
         self.blocks().flat_map(move |b| b.data_realized(&v))
+    }
+
+    /// Returns a [`SymGenCursor`] for this [`SymGen`] with the given file path.
+    pub fn cursor<'s, 'p>(&'s self, path: &'p Path) -> SymGenCursor<'s, 'p> {
+        SymGenCursor::new(self, Cow::Borrowed(path))
     }
 }
 
