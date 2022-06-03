@@ -5,6 +5,8 @@ use std::path::Path;
 
 use tempfile::{NamedTempFile, PersistError};
 
+use super::data_formats::symgen_yml::{IntFormat, SymGen};
+
 /// Encapsulates a collection of similar errors for different files.
 #[derive(Debug)]
 pub struct MultiFileError {
@@ -49,6 +51,22 @@ pub fn persist_named_temp_file_safe<P: AsRef<Path>>(
                 file,
             });
         }
+    }
+    Ok(())
+}
+
+/// Recursively write a [`SymGen`] and all its subregions to files, starting with the top-level
+/// file path specified by `top_path`, and using the given `int_format`.
+pub fn symgen_write_recursive<P: AsRef<Path>>(
+    symgen: &SymGen,
+    top_path: P,
+    int_format: IntFormat,
+) -> Result<(), Box<dyn Error>> {
+    for cursor in symgen.cursor(top_path.as_ref()).btraverse() {
+        // Write to a tempfile first, then replace the old one atomically.
+        let output_file = NamedTempFile::new()?;
+        cursor.symgen().write(&output_file, int_format)?;
+        persist_named_temp_file_safe(output_file, cursor.path())?;
     }
     Ok(())
 }
