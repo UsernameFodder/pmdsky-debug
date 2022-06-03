@@ -10,7 +10,7 @@ use std::path::{Path, PathBuf};
 
 use tempfile::NamedTempFile;
 
-use super::data_formats::symgen_yml::{IntFormat, LoadParams, SymGen, Symbol};
+use super::data_formats::symgen_yml::{IntFormat, LoadParams, Sort, Subregion, SymGen, Symbol};
 use super::data_formats::{Generate, InFormat, OutFormat};
 use super::util;
 
@@ -69,7 +69,8 @@ fn all_version_names(symgen: &SymGen) -> Vec<&str> {
 /// `output_versions`.
 ///
 /// Output is written to filepaths based on `output_base`. Both `output_formats` and
-/// `output_versions` default to all formats/versions if `None`.
+/// `output_versions` default to all formats/versions if `None`. If `sort_output` is true, the
+/// function and data sections of the output symbol tables will each be sorted by symbol address.
 ///
 /// # Examples
 /// ```ignore
@@ -77,6 +78,7 @@ fn all_version_names(symgen: &SymGen) -> Vec<&str> {
 ///     "/path/to/symbols.yml",
 ///     Some([OutFormat::Ghidra]),
 ///     Some("v1"),
+///     false,
 ///     "/path/to/out/symbols",
 /// )
 /// .expect("failed to generate symbol tables");
@@ -85,6 +87,7 @@ pub fn generate_symbol_tables<'v, I, F, V, O>(
     input_file: I,
     output_formats: Option<F>,
     output_versions: Option<V>,
+    sort_output: bool,
     output_base: O,
 ) -> Result<(), Box<dyn Error>>
 where
@@ -93,8 +96,16 @@ where
     V: AsRef<[&'v str]>,
     O: AsRef<Path>,
 {
-    let file = File::open(input_file)?;
-    let contents = SymGen::read(&file)?;
+    let input_file = input_file.as_ref();
+    let mut contents = {
+        let file = File::open(input_file)?;
+        SymGen::read(&file)?
+    };
+    contents.resolve_subregions(Subregion::subregion_dir(input_file), |p| File::open(p))?;
+    contents.collapse_subregions();
+    if sort_output {
+        contents.sort();
+    }
 
     let formats = match &output_formats {
         Some(f) => Cow::Borrowed(f.as_ref()),
@@ -146,16 +157,20 @@ where
         let file = File::open(symgen_file)?;
         SymGen::read(&file)?
     };
+    contents.resolve_subregions(Subregion::subregion_dir(symgen_file), |p| File::open(p))?;
 
     let mut unmerged_symbols = Vec::with_capacity(input_files.as_ref().len());
     for input_name in input_files.as_ref() {
         let input = File::open(input_name)?;
-        unmerged_symbols.push(input_format.merge(&mut contents, input, merge_params)?);
+        unmerged_symbols.push(input_format.merge(
+            &mut contents,
+            input,
+            Some(input_name),
+            merge_params,
+        )?);
     }
 
-    let output_file = NamedTempFile::new()?;
-    contents.write(&output_file, int_format)?;
-    util::persist_named_temp_file_safe(output_file, symgen_file)?;
+    util::symgen_write_recursive(&contents, symgen_file, int_format)?;
     Ok(unmerged_symbols)
 }
 

@@ -62,7 +62,7 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
         .setting(AppSettings::ArgRequiredElseHelp)
         .subcommand(
             SubCommand::with_name("gen")
-                .about("Generates one or more symbol tables from a resymgen YAML file")
+                .about("Generates one or more symbol tables from a resymgen YAML file and its subregion files")
                 .args(&[
                     Arg::with_name("format")
                         .help("Symbol table output format")
@@ -79,6 +79,10 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
                         .long("binary-version")
                         .multiple(true)
                         .number_of_values(1),
+                    Arg::with_name("sort")
+                        .help("Within each symbol category (functions, data), generate symbols in order by address")
+                        .short("s")
+                        .long("sort"),
                     Arg::with_name("output directory")
                         .help("Output directory")
                         .takes_value(true)
@@ -97,6 +101,10 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
             SubCommand::with_name("fmt")
                 .about("Formats a resymgen YAML file")
                 .args(&[
+                    Arg::with_name("recursive")
+                        .help("Recursively format the given file and its subregion files")
+                        .short("r")
+                        .long("recursive"),
                     Arg::with_name("check")
                         .help("Run in 'check' mode. If the input is improperly formatted, exit with 1 and print a diff.")
                         .short("c")
@@ -163,7 +171,7 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
         )
         .subcommand(
             SubCommand::with_name("merge")
-                .about("Merge one or more data files into a resymgen YAML file")
+                .about("Merge one or more data files into a resymgen YAML file and its subregion files")
                 .args(&[
                     Arg::with_name("format")
                         .help("Input data format")
@@ -231,6 +239,7 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
             };
             let output_versions: Option<Vec<_>> =
                 matches.values_of("binary version").map(|v| v.collect());
+            let sort_output = matches.is_present("sort");
 
             let mut errors = Vec::with_capacity(input_files.len());
             for input_file in input_files {
@@ -243,6 +252,7 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
                         input_file,
                         output_formats.clone(),
                         output_versions.clone(),
+                        sort_output,
                         output_base,
                     )?;
                     Ok(())
@@ -265,12 +275,13 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
             let matches = matches.subcommand_matches("fmt").unwrap();
 
             let input_files = matches.values_of("input").unwrap();
+            let recursive = matches.is_present("recursive");
             let iformat = int_format(matches.is_present("decimal"));
             if matches.is_present("check") {
                 let mut errors = Vec::with_capacity(input_files.len());
                 let mut failed = false;
                 for input_file in input_files {
-                    match resymgen::format_check_file(input_file, iformat) {
+                    match resymgen::format_check_file(input_file, recursive, iformat) {
                         Ok(success) => {
                             if !success {
                                 println!();
@@ -293,7 +304,7 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
             } else {
                 let mut errors = Vec::with_capacity(input_files.len());
                 for input_file in input_files {
-                    if let Err(e) = resymgen::format_file(input_file, iformat) {
+                    if let Err(e) = resymgen::format_file(input_file, recursive, iformat) {
                         errors.push((input_file.to_string(), e));
                     }
                 }
@@ -367,7 +378,7 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
                 iformat,
             )?;
             if fix_formatting {
-                resymgen::format_file(&symgen_file, iformat)?;
+                resymgen::format_file(&symgen_file, true, iformat)?;
             }
 
             // Print the unmerged symbols from each file, with terminal colors
