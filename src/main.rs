@@ -124,12 +124,16 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
             SubCommand::with_name("check")
                 .about("Validates the contents of a resymgen YAML file")
                 .args(&[
+                    Arg::with_name("recursive")
+                        .help("Recursively validate the given file and its subregion files")
+                        .short("r")
+                        .long("recursive"),
                     Arg::with_name("explicit versions")
                         .help("Require versions to be explicitly specified in maps")
                         .short("v")
                         .long("explicit-versions"),
                     Arg::with_name("complete version list")
-                        .help("Require versions used in maps to appear exactly once in the top-level version list")
+                        .help("Require versions used in maps to appear exactly once in the top-level version list. If the --recursive option is specified, also require version lists to contain all versions used in subregions.")
                         .short("V")
                         .long("complete-version-list"),
                     Arg::with_name("nonempty maps")
@@ -137,17 +141,17 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
                         .short("m")
                         .long("nonempty-maps"),
                     Arg::with_name("unique symbols")
-                        .help("Require symbol names to be unique within a block")
+                        .help("Require symbol names to be unique within a block. If the --recursive option is specified, require symbol names to be unique within a block and its subregions, and require subregion names to be unique within a block.")
                         .short("u")
                         .long("unique-symbols"),
                     Arg::with_name("in-bounds symbols")
-                        .help("Require symbols to be within specified per-version block bounds")
+                        .help("Require symbols to be within specified per-version block bounds. If the --recursive option is specified, also require subregions to be within the per-version bounds of their parent blocks.")
                         .short("b")
                         .long("in-bounds-symbols"),
-                    Arg::with_name("no function overlap")
-                        .help("Disallow per-version overlap between functions within a block")
+                    Arg::with_name("no overlap")
+                        .help("Disallow per-version overlap between functions within a block. If the --recursive option is specified, also disallow per-version overlap between a subregion and any other subregion, function, or data within a block.")
                         .short("o")
-                        .long("no-function-overlap"),
+                        .long("no-overlap"),
                     Arg::with_name("function names")
                         .help("Enforce a naming convention for function symbols. Note that all conventions implicitly enforce valid identifiers.")
                         .takes_value(true)
@@ -322,6 +326,7 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
             let matches = matches.subcommand_matches("check").unwrap();
 
             let input_files = matches.values_of("input").unwrap();
+            let recursive = matches.is_present("recursive");
 
             let mut checks = Vec::new();
             if matches.is_present("explicit versions") {
@@ -339,8 +344,8 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
             if matches.is_present("in-bounds symbols") {
                 checks.push(resymgen::Check::InBoundsSymbols);
             }
-            if matches.is_present("no function overlap") {
-                checks.push(resymgen::Check::NoFunctionOverlap);
+            if matches.is_present("no overlap") {
+                checks.push(resymgen::Check::NoOverlap);
             }
             if let Some(conv) = matches.value_of("function names") {
                 checks.push(resymgen::Check::FunctionNames(naming_convention(conv)));
@@ -350,7 +355,8 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
             }
             // This one handles multiple files internally so that check result printing
             // can be merged appropriately
-            if !resymgen::run_and_print_checks(input_files.collect::<Vec<_>>(), &checks)? {
+            if !resymgen::run_and_print_checks(input_files.collect::<Vec<_>>(), &checks, recursive)?
+            {
                 return Err("Checks did not pass".into());
             }
             Ok(())
