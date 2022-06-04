@@ -379,74 +379,132 @@ fn check_in_bounds_symbols(symgen: &SymGen) -> Result<(), String> {
 
 fn check_no_function_overlap(symgen: &SymGen) -> Result<(), String> {
     type Extent = (Uint, Uint);
-
-    fn append_ext<'a>(
-        extents: &mut Option<VersionDep<Vec<(Extent, &'a str)>>>,
-        vers: Version,
-        ext: Extent,
-        name: &'a str,
-    ) {
-        match extents {
-            None => {
-                *extents = Some([(vers, vec![(ext, name)])].into());
-            }
-            Some(exts) => {
-                exts.entry_native(vers)
-                    .and_modify(|e| e.push((ext, name)))
-                    .or_insert_with(|| vec![(ext, name)]);
+    struct ExtentsByVersion<'a> {
+        versioned: Option<VersionDep<Vec<(Extent, &'a str)>>>,
+        unversioned: Option<Vec<(Extent, &'a str)>>,
+    }
+    impl<'a> ExtentsByVersion<'a> {
+        fn new() -> Self {
+            Self {
+                versioned: None,
+                unversioned: None,
             }
         }
-    }
-
-    for (bname, b) in symgen.iter() {
-        // If there's no version list, use an empty list for Common expansion. It really isn't
-        // reasonable to expect better inference for what versions a Common value represents
-        // because the obvious meaning (any version mentioned by at least one symbol in the list)
-        // is sort of overkill to compute (it would require an entire pass over the symbols to
-        // construct an "inferred version list"). So it's entirely reasonable to assume that
-        // Common values will be ignored when no version list is present. If this is undesired
-        // behavior, the user should run the full-version-list check first to make sure Common
-        // values have a well-defined set to realize to.
-        let versions = b.versions.as_deref().unwrap_or(&[]);
-        // ((inclusive start, exclusive end), symbol name)
-        let mut extents_by_vers: Option<VersionDep<Vec<(Extent, &str)>>> = None;
-
-        // Gather all function extents
-        for s in b.functions.iter() {
-            if let MaybeVersionDep::ByVersion(s_exts) = s.extents(Some(versions)) {
-                for (vers, (addrs, len)) in s_exts.iter() {
-                    for addr in addrs.iter() {
-                        // Every function is considered to have a length of at least 1
-                        append_ext(
-                            &mut extents_by_vers,
-                            vers.clone(),
-                            (*addr, *addr + cmp::max(1, len.unwrap_or(1))),
-                            &s.name,
+        fn append(&mut self, vers: Option<Version>, ext: Extent, name: &'a str) {
+            match vers {
+                None => match &mut self.unversioned {
+                    None => {
+                        self.unversioned = Some(vec![(ext, name)]);
+                    }
+                    Some(exts) => {
+                        exts.push((ext, name));
+                    }
+                },
+                Some(vers) => match &mut self.versioned {
+                    None => {
+                        self.versioned = Some([(vers, vec![(ext, name)])].into());
+                    }
+                    Some(exts) => {
+                        exts.entry_native(vers)
+                            .and_modify(|e| e.push((ext, name)))
+                            .or_insert_with(|| vec![(ext, name)]);
+                    }
+                },
+            }
+        }
+        fn append_symbol(&mut self, symbol: &'a Symbol, versions: Option<&[Version]>) {
+            match symbol.extents(versions) {
+                MaybeVersionDep::ByVersion(s_exts) => {
+                    for (vers, (addrs, len)) in s_exts.iter() {
+                        for &addr in addrs.iter() {
+                            // Every symbol is considered to have a length of at least 1
+                            self.append(
+                                Some(vers.clone()),
+                                (addr, addr + cmp::max(1, len.unwrap_or(1))),
+                                &symbol.name,
+                            )
+                        }
+                    }
+                }
+                MaybeVersionDep::Common((addrs, len)) => {
+                    // Version expansion wasn't possible, assume unversioned
+                    for &addr in addrs.iter() {
+                        // Every symbol is considered to have a length of at least 1
+                        self.append(
+                            None,
+                            (addr, addr + cmp::max(1, len.unwrap_or(1))),
+                            &symbol.name,
                         )
                     }
                 }
-            } else {
-                // This should never happen because versions is never None
-                panic!(
-                    "Symbol::extents({:?}) resolved to Common for {:?}",
-                    versions, s
-                )
             }
+        }
+        fn check_exts_for_self_overlap(
+            exts: &mut Vec<(Extent, &str)>,
+            ext_type: &str,
+        ) -> Result<(), String> {
+            exts.sort_unstable();
+            for pair in exts.windows(2) {
+                let ((start1, end1), name1) = pair[0];
+                let ((start2, end2), name2) = pair[1];
+                assert_check(start2 >= end1, || {
+                    format!(
+                        "overlapping {} \"{}\" ({:#X}-{:#X}) and \"{}\" ({:#X}-{:#X})",
+                        ext_type,
+                        name1,
+                        start1,
+                        end1 - 1,
+                        name2,
+                        start2,
+                        end2 - 1
+                    )
+                })?;
+            }
+            Ok(())
+        }
+        fn check_for_self_overlap(&mut self, bname: &str, ext_type: &str) -> Result<(), String> {
+            // Compare adjacent extents for overlaps
+            if let Some(exts_by_vers) = self.versioned.as_mut() {
+                for (vers, exts) in exts_by_vers.iter_mut() {
+                    if let Some(err_stem) =
+                        ExtentsByVersion::check_exts_for_self_overlap(exts, ext_type).err()
+                    {
+                        return Err(format!("block \"{}\" [{}]: {}", bname, vers, err_stem));
+                    }
+                }
+            }
+            if let Some(exts) = self.unversioned.as_mut() {
+                if let Some(err_stem) =
+                    ExtentsByVersion::check_exts_for_self_overlap(exts, ext_type).err()
+                {
+                    return Err(format!("block \"{}\": {}", bname, err_stem));
+                }
+            }
+            Ok(())
+        }
+    }
+
+    for (bname, block) in symgen.iter() {
+        // Common expansion will be done using the version list if present. If there's no version
+        // list, any Common values will only be checked for overlap with other Common values.
+        // It really isn't reasonable to expect better inference for what versions a Common value
+        // represents because the obvious meaning (any version mentioned by at least one symbol in
+        // the list) is sort of overkill to compute (it would require an entire pass over the
+        // symbols to construct an "inferred version list"). So it's entirely reasonable to assume
+        // that Common values will be treated as having "no version" if no version list is present.
+        // If this is undesired behavior, the user should run the full-version-list check first to
+        // make sure Common values have a well-defined set to realize to.
+        let versions = block.versions.as_deref();
+        // ((inclusive start, exclusive end), symbol name)
+        let mut extents_by_vers = ExtentsByVersion::new();
+
+        // Gather all function extents
+        for s in block.functions.iter() {
+            extents_by_vers.append_symbol(s, versions);
         }
 
         // Compare adjacent extents for overlaps
-        if let Some(mut exts_by_vers) = extents_by_vers {
-            for (vers, exts) in exts_by_vers.iter_mut() {
-                exts.sort_unstable();
-                for pair in exts.windows(2) {
-                    let ((start1, end1), name1) = pair[0];
-                    let ((start2, end2), name2) = pair[1];
-                    assert_check(start2 >= end1, || {
-                        format!("block \"{}\" [{}]: overlapping functions \"{}\" ({:#X}-{:#X}) and \"{}\" ({:#X}-{:#X})", bname, vers, name1, start1, end1-1, name2, start2, end2-1)
-                    })?;
-                }
-            }
-        }
+        extents_by_vers.check_for_self_overlap(&bname.val, "functions")?;
     }
     Ok(())
 }
@@ -826,6 +884,102 @@ mod tests {
             .get_native(block.version("v1"))
             .unwrap()
             .clone();
+        block.functions = [function, overlapping].into();
+        assert!(check_no_function_overlap(&symgen).is_err());
+    }
+
+    #[test]
+    fn test_no_function_overlap_common_with_version_list() {
+        let mut symgen = SymGen::read(
+            r"
+            main:
+              versions:
+                - v1
+                - v2
+              address: 0x2000000
+              length: 0x100000
+              functions:
+                - name: fn1
+                  address: 0x2001000
+                  length: 0x1000
+                - name: fn2
+                  address:
+                    v1:
+                      - 0x2000000
+                      - 0x2002000
+                    v2: 0x2004000
+              data: []
+        "
+            .as_bytes(),
+        )
+        .expect("Read failed");
+
+        assert!(check_no_function_overlap(&symgen).is_ok());
+
+        let block = get_main_block(&mut symgen);
+        // Swap the address of the first function to match one of the versions in the second,
+        // causing an overlap
+        let mut function = block
+            .functions
+            .iter()
+            .next()
+            .expect("symgen has no functions")
+            .clone();
+        let overlapping = block
+            .functions
+            .iter()
+            .next()
+            .expect("symgen does not have two functions")
+            .clone();
+        let addr = function.address.get_mut_native(None).unwrap();
+        *addr = overlapping
+            .address
+            .get_native(block.version("v1"))
+            .unwrap()
+            .clone();
+        block.functions = [function, overlapping].into();
+        assert!(check_no_function_overlap(&symgen).is_err());
+    }
+
+    #[test]
+    fn test_no_function_overlap_common_no_version_list() {
+        let mut symgen = SymGen::read(
+            r"
+            main:
+              address: 0x2000000
+              length: 0x100000
+              functions:
+                - name: fn1
+                  address: 0x2001000
+                  length: 0x1000
+                - name: fn2
+                  address:
+                    - 0x2000000
+                    - 0x2002000
+              data: []
+        "
+            .as_bytes(),
+        )
+        .expect("Read failed");
+
+        assert!(check_no_function_overlap(&symgen).is_ok());
+
+        let block = get_main_block(&mut symgen);
+        // Swap the address of the second function to match the first, causing an overlap
+        let function = block
+            .functions
+            .iter()
+            .next()
+            .expect("symgen has no functions")
+            .clone();
+        let mut overlapping = block
+            .functions
+            .iter()
+            .next()
+            .expect("symgen does not have two functions")
+            .clone();
+        let addr = overlapping.address.get_mut_native(None).unwrap();
+        *addr = function.address.get_native(None).unwrap().clone();
         block.functions = [function, overlapping].into();
         assert!(check_no_function_overlap(&symgen).is_err());
     }
