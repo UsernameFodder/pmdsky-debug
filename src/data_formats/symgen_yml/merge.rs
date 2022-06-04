@@ -636,7 +636,7 @@ impl SymGen {
             // In subregion or no block name, so try to infer the block based on the symbol address
             let mut block_matches: BlockMatches<InferBlockMatch<_>> = BlockMatches::None;
             for (bname, block) in self.iter_mut() {
-                if bounds::block_contains(block, &to_add.symbol) {
+                if bounds::block_contains_symbol(block, &to_add.symbol) {
                     block_matches.add((subregion_path, &bname.val, block));
                 }
             }
