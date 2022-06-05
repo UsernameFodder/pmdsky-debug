@@ -4,6 +4,7 @@ description = "Generates symbol tables for reverse engineering applications from
 version = "0.4.0"
 authors = ["UsernameFodder <usernamefodder@gmail.com>"]
 edition = "2018"
+rust-version = "1.58"
 repository = "https://github.com/UsernameFodder/pmdsky-debug"
 license = "GPL-3.0-only"
 readme = "docs/resymgen.md"
