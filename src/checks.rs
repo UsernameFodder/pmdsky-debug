@@ -870,7 +870,7 @@ fn check_data_names(symgen: &SymGen, conv: NamingConvention) -> Result<(), Strin
 ///
 /// In `recursive` mode, subregion files are also validated.
 ///
-/// Returns a [`Vec<(PathBuf, CheckResult)>`] with the results of all checks on all the files
+/// Returns a `Vec<(PathBuf, CheckResult)>` with the results of all checks on all the files
 /// validated, if all checks were run without encountering any fatal errors.
 ///
 /// # Examples
