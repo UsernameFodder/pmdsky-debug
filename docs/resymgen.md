@@ -26,13 +26,17 @@ The `resymgen` binary is provided with this package. Run `resymgen --help` for d
 ### The `resymgen` YAML specification
 A `resymgen` YAML file consists of one or more named _blocks_.
 
-Each block is tagged with some metadata, including a starting memory address, a length, an optional version list, and an optional description. The address and length are allowed to be version-dependent. Each block also contains two lists of _symbols_, one for functions and one for data.
+Each block is tagged with some metadata, including a starting memory address, a length, an optional version list, and an optional description. The address and length are allowed to be version-dependent. Each block also contains two lists of _symbols_, one for functions and one for data, and optionally a list of _subregions_.
 
 A _symbol_ represents one or more memory regions containing an identifiable chunk of instructions or data. Each symbol has the following fields:
 - A name (required)
 - An address (required) and a length (optional). Similar to blocks, the address and length fields are allowed to be version-dependent.
     - Additionally, the address (or each address, if version-dependent) can be either a single value or a list of values. This is useful when a data symbol was defined as a constant or inlined, and was placed in multiple different locations (usually in data pools) by the compiler. This is also useful for functions that were defined with a static linkage in a C header and macro-included in multiple different source files, since this can result in the same function existing in multiple places in the compiled binary.
 - A description (optional)
+
+A _subregion_ represents a nested `resymgen` YAML file, which has one or more of its own named blocks, that is contained within the parent block. In a `resymgen` YAML file, a subregion is represented as a file name (note that it should _not_ be a file path with multiple components). If the parent file has the file path `/path/to/parent.yml`, and one of its blocks has a subregion with the name `sub.yml`, then this subregion name references a corresponding subregion file with the file path `/path/to/parent/sub.yml`.
+
+Subregions are useful for splitting up large `resymgen` YAML files. If a parent file has one or more subregion files, blocks in the parent file can still contain metadata describing the region as a whole, and the parent file can be treated as an aggregate entity by `resymgen` subcommands.
 
 #### Quick reference
 ```
@@ -43,6 +47,9 @@ A _symbol_ represents one or more memory regions containing an identifiable chun
   address: MaybeVersionDep[number]
   length: MaybeVersionDep[number]
   description (optional): <string>
+  subregions (optional):
+    - <file name>
+    ...
   functions:
     - name: <string>
       address: MaybeVersionDep[ScalarOrList[number]]
@@ -77,6 +84,9 @@ main:
     v1: 0x100000
     v2: 0x100000
   description: The main memory region
+  subregions:
+    - sub1.yml
+    - sub2.yml
   functions:
     - name: function1
       address:
