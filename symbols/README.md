@@ -114,6 +114,12 @@ Refer to the [`resymgen` README](../docs/resymgen.md#usage) for a general overvi
 
 - Run the formatter: `resymgen fmt <symbol files>`
     - On Unix shells that support globbing (the `*` operator), you can use `*.yml` in place of `<symbol files>` to format everything in the directory.
+    - If you're using Windows and have auto-converted CRLF line endings enabled (`git config --get core.autocrlf` outputs `true`), you may encounter issues when running the formatter, which always uses Unix-style LF line endings. The best way to fix this is to configure Git to use LF line endings within `pmdsky-debug` (most modern text editors on Windows should know how to properly handle LF line endings). To do this, stash or commit any changes you're working on, then run the following commands within the `pmdsky-debug` directory:
+      ```
+      git config core.autocrlf false
+      git rm --cached -r .
+      git reset --hard
+      ```
 - Run the tests: `resymgen check -Vvbomu -d screaming_snake_case -f pascalcase <symbol files>`
     - On Unix shells that support globbing (the `*` operator), you can use `*.yml` in place of `<symbol files>` to test everything in the directory.
     - If you're wondering what all the flags mean, see the help text (`resymgen check --help`).
