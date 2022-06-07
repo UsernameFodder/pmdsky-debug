@@ -52,12 +52,16 @@ overlay29:
         Frees the dungeons struct pointer to by the master dungeon pointer, and nullifies the pointer.
         
         No params.
-    - name: InitializeDungeon
+    - name: RunDungeon
       address:
         EU: 0x22DF878
         NA: 0x22DEF38
         JP: 0x22E05D8
-      description: Seems to initialize the dungeon struct from specified dungeon data.
+      description: |-
+        Called at the start of a dungeon. Initializes the dungeon struct from specified dungeon data. Includes a loop that does not break until the dungeon is cleared, and another one inside it that runs until the current floor ends.
+
+        r0: Pointer to the struct containing info used to initialize the dungeon. See type dungeon_init for details.
+        r1: Pointer to the dungeon data struct that will be used during the dungeon.
     - name: EntityIsValid
       address:
         EU:
@@ -214,6 +218,11 @@ overlay29:
         Returns true if you should get kicked out of the dungeon if an important team member (like the partner or certain story allies) faints.
         
         return: dungeon::nonstory_flag || dungeon::hidden_land_flag
+    - name: FadeToBlack
+      address:
+        EU: 0x22E12A8
+        NA: 0x22E0968
+      description: Fades the screen to black across several frames.
     - name: GetTileAtEntity
       address:
         EU: 0x22E1F68
@@ -332,6 +341,14 @@ overlay29:
         
         r0: pointer to the status turn counter
         return: new counter value
+    - name: NextFrame
+      address:
+        EU: 0x22EA990
+        NA: 0x22E9FE0
+      description: |-
+        Advances one frame. Does not return until the next frame starts.
+
+        r0: ? - Unused by the function
     - name: GenerateDungeonRngSeed
       address:
         EU: 0x22EB330
@@ -486,9 +503,18 @@ overlay29:
         NA: 0x22EBD08
         JP: 0x22ED370
       description: |-
-        The main function which executes the actions that take place in a fractional turn. Called in a loop by InitializeDungeon while FloorIsOver returns false.
+        The main function which executes the actions that take place in a fractional turn. Called in a loop by InitializeDungeon while IsFloorOver returns false.
         
         r0: first loop flag (true when the function is first called during a floor)
+    - name: LeaderTurn
+      address:
+        EU: 0x22ECCB8
+        NA: 0x22EC308
+      description: |-
+        Handles the leader's turn. Includes a movement speed check that might cause it to return early if the leader isn't fast enough to act in this fractional turn. If that check (and some others) pass, the function does not return until the leader performs an action.
+
+        r0: ?
+        return: true if the leader has performed an action
     - name: TrySpawnMonsterAndActivatePlusMinus
       address:
         EU: 0x22ED08C
@@ -500,7 +526,7 @@ overlay29:
         First it calls TrySpawnMonsterAndTickSpawnCounter, then tries to activate the Plus and Minus abilities for both allies and enemies, and finally calls TryForcedLoss.
         
         No params.
-    - name: FloorIsOver
+    - name: IsFloorOver
       address:
         EU: 0x22ED198
         NA: 0x22EC7E8
@@ -511,6 +537,11 @@ overlay29:
         If dungeon::end_floor_flag is 1 or 2, sets dungeon::floor_loop_status to floor_loop_status::FLOOR_LOOP_NEXT_FLOOR.
         
         return: true if the current floor should end
+    - name: DecrementWindCounter
+      address:
+        EU: 0x22ED4F8
+        NA: 0x22ECB48
+      description: Decrements dungeon::wind_turns and displays a wind warning message if required.
     - name: SetForcedLossReason
       address:
         EU: 0x22ED9B8
@@ -565,6 +596,15 @@ overlay29:
         If the current floor number is even, returns female Kecleon's id (0x3D7), otherwise returns male Kecleon's id (0x17F).
         
         return: monster ID
+    - name: LoadMonsterSprite
+      address:
+        EU: 0x22F800C
+        NA: 0x22F73EC
+      description: |-
+        Loads the sprite of the specified monster to use it in a dungeon.
+
+        r0: Monster id
+        r1: ?
     - name: EuFaintCheck
       address:
         EU: 0x22F88E8
@@ -792,6 +832,14 @@ overlay29:
         
         r0: monster pointer
         return: bool
+    - name: InitTeam
+      address:
+        EU: 0x22FCF08
+        NA: 0x22FC50C
+      description: |-
+        Seems to initialize the team when entering a dungeon.
+
+        r0: ?
     - name: SpawnMonster
       address:
         EU: 0x22FDA80
@@ -803,6 +851,30 @@ overlay29:
         r0: pointer to struct spawned_monster_data
         r1: if true, the monster cannot spawn asleep, otherwise it will randomly be asleep
         return: pointer to entity
+    - name: InitTeamMember
+      address:
+        EU: 0x22FDDB0
+        NA: 0x22FD3B4
+      description: |-
+        Initializes a team member. Run at the start of each floor in a dungeon.
+
+        r0: Monster ID
+        r1: First type
+        r2: Second type
+        r3: Pointer to the struct containing the data of the team member to initialize
+        stack[0]: ?
+        stack[1]: ?
+        stack[2]: ?
+        stack[3]: ?
+        stack[4]: ?
+    - name: ExecuteMonsterAction
+      address:
+        EU: 0x22FEEDC
+        NA: 0x22FE4BC
+      description: |-
+        Executes the set action for the specified monster. Used for both AI actions and player-inputted actions. If the action is not ACTION_NOTHING, ACTION_PASS_TURN, ACTION_WALK or ACTION_UNK_4, the monster's already_acted field is set to true. Includes a switch based on the action ID that performs the action, although some of them aren't handled by said swtich.
+
+        r0: Pointer to monster entity
     - name: CalcSpeedStage
       address:
         EU: 0x2300820
@@ -817,6 +889,14 @@ overlay29:
         r0: pointer to entity
         r1: speed counter weight
         return: speed stage
+    - name: CalcSpeedStageWrapper
+      address:
+        EU: 0x2300978
+        NA: 0x22FFF4C
+      description: |-
+        Calls CalcSpeedStage with r1 = 1.
+
+        r0: pointer to entity
     - name: GetNumberOfAttacks
       address:
         EU: 0x2300988
@@ -948,6 +1028,15 @@ overlay29:
         r0: Pointer to the entity to evolve
         r1: ?
         r2: Species to evolve into
+    - name: DisplayActions
+      address:
+        EU: 0x2305A0C
+        NA: 0x2304FE0
+      description: |-
+        Graphically displays any pending actions that have happened but haven't been shown on screen yet. All actions are displayed at the same time. For example, this delayed display system is used to display multiple monsters moving at once even though they take turns sequentially.
+
+        r0: ?
+        returns: Seems to be true if there were any pending actions to display.
     - name: GetSleepAnimationId
       address:
         EU: 0x23054E0
@@ -1758,7 +1847,7 @@ overlay29:
         
         r0: attacker pointer
         r1: defender pointer
-    - name: ApplyGummiBoosts
+    - name: ApplyGummiBoostsDungeon
       address:
         EU: 0x231DB28
         NA: 0x231D0C0
@@ -2020,7 +2109,13 @@ overlay29:
       description: |-
         Checks if the current floor is a secret bazaar or a secret room.
         
-        returns: bool
+        return: bool
+    - name: GetDungeonGenInfoUnk0C
+      address:
+        EU: 0x2339450
+        NA: 0x2338880
+      description: |-
+        return: dungeon_generation_info::field_0xc
     - name: GetMinimapData
       address:
         EU: 0x2339CE8

@@ -353,6 +353,103 @@ struct ground_monster {
 };
 ASSERT_SIZE(struct ground_monster, 68);
 
+// Seems to store information about active team members, including those from special episodes.
+struct team_member {
+    // 0x0: flags: 1-byte bitfield
+    bool f_is_valid : 1;
+    uint8_t flags_unk1 : 7;
+
+    bool is_leader; // 0x1
+    uint8_t level;  // 0x2
+    undefined field_0x3;
+    undefined field_0x4;
+    undefined field_0x5;
+    uint16_t iq; // 0x6
+    undefined field_0x8;
+    undefined field_0x9;
+    undefined field_0xA;
+    undefined field_0xB;
+    undefined field_0xC;
+    undefined field_0xD;
+    uint16_t current_hp; // 0xE
+    uint16_t max_hp;     // 0x10
+    int8_t atk;          // 0x12
+    int8_t sp_atk;       // 0x13
+    int8_t def;          // 0x14
+    int8_t sp_def;       // 0x15
+    undefined field_0x16;
+    undefined field_0x17;
+    int exp; // 0x18
+    undefined field_0x1C;
+    undefined field_0x1D;
+    undefined field_0x1E;
+    undefined field_0x1F;
+    undefined field_0x20;
+    undefined field_0x21;
+    undefined field_0x22;
+    undefined field_0x23;
+    undefined field_0x24;
+    undefined field_0x25;
+    undefined field_0x26;
+    undefined field_0x27;
+    undefined field_0x28;
+    undefined field_0x29;
+    undefined field_0x2A;
+    undefined field_0x2B;
+    undefined field_0x2C;
+    undefined field_0x2D;
+    undefined field_0x2E;
+    undefined field_0x2F;
+    undefined field_0x30;
+    undefined field_0x31;
+    undefined field_0x32;
+    undefined field_0x33;
+    undefined field_0x34;
+    undefined field_0x35;
+    undefined field_0x36;
+    undefined field_0x37;
+    undefined field_0x38;
+    undefined field_0x39;
+    undefined field_0x3A;
+    undefined field_0x3B;
+    undefined field_0x3C;
+    undefined field_0x3D;
+    undefined field_0x3E;
+    undefined field_0x3F;
+    undefined field_0x40;
+    undefined field_0x41;
+    undefined field_0x42;
+    undefined field_0x43;
+    undefined field_0x44;
+    undefined field_0x45;
+    undefined field_0x46;
+    undefined field_0x47;
+    undefined field_0x48;
+    undefined field_0x49;
+    undefined field_0x4A;
+    undefined field_0x4B;
+    undefined field_0x4C;
+    undefined field_0x4D;
+    undefined field_0x4E;
+    undefined field_0x4F;
+    undefined field_0x50;
+    undefined field_0x51;
+    undefined field_0x52;
+    undefined field_0x53;
+    undefined field_0x54;
+    undefined field_0x55;
+    undefined field_0x56;
+    undefined field_0x57;
+    undefined field_0x58;
+    undefined field_0x59;
+    undefined field_0x5A;
+    undefined field_0x5B;
+    undefined field_0x5C;
+    undefined field_0x5D;
+    char name[10]; // 0x5E: Display name of the monster
+};
+ASSERT_SIZE(struct team_member, 104);
+
 // A common structure for pairs of dungeon/floor values
 struct dungeon_floor_pair {
     uint8_t dungeon_id;
