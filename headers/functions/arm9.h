@@ -204,7 +204,7 @@ bool IsCastform(enum monster_id monster_id);
 bool IsCherrim(enum monster_id monster_id);
 bool IsDeoxys(enum monster_id monster_id);
 bool IsMonsterOnTeam(enum monster_id monster_id, int param_2);
-struct team_member* GetTeamMemberData(uint8_t index); 
+struct team_member* GetTeamMemberData(uint8_t index);
 void SetTeamSetupHeroAndPartnerOnly(void);
 void SetTeamSetupHeroOnly(void);
 int GetPartyMembers(uint16_t* party_members);

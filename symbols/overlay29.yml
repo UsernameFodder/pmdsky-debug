@@ -541,7 +541,7 @@ overlay29:
       address:
         EU: 0x22ED4F8
         NA: 0x22ECB48
-      description: Decrements dungeon::wind_turns and displays a wind warning message if required.
+      description: "Decrements dungeon::wind_turns and displays a wind warning message if required."
     - name: SetForcedLossReason
       address:
         EU: 0x22ED9B8
@@ -599,7 +599,7 @@ overlay29:
     - name: LoadMonsterSprite
       address:
         EU: 0x22F800C
-        NA: 0x22F73EC
+        NA: 0x22F7654
       description: |-
         Loads the sprite of the specified monster to use it in a dungeon.
 
@@ -1028,15 +1028,6 @@ overlay29:
         r0: Pointer to the entity to evolve
         r1: ?
         r2: Species to evolve into
-    - name: DisplayActions
-      address:
-        EU: 0x2305A0C
-        NA: 0x2304FE0
-      description: |-
-        Graphically displays any pending actions that have happened but haven't been shown on screen yet. All actions are displayed at the same time. For example, this delayed display system is used to display multiple monsters moving at once even though they take turns sequentially.
-
-        r0: ?
-        returns: Seems to be true if there were any pending actions to display.
     - name: GetSleepAnimationId
       address:
         EU: 0x23054E0
@@ -1049,6 +1040,15 @@ overlay29:
         
         r0: pointer to entity
         return: animation ID
+    - name: DisplayActions
+      address:
+        EU: 0x2305A0C
+        NA: 0x2304FE0
+      description: |-
+        Graphically displays any pending actions that have happened but haven't been shown on screen yet. All actions are displayed at the same time. For example, this delayed display system is used to display multiple monsters moving at once even though they take turns sequentially.
+
+        r0: ?
+        returns: Seems to be true if there were any pending actions to display.
     - name: EndFrozenClassStatus
       address:
         EU: 0x2306C84
@@ -2114,8 +2114,7 @@ overlay29:
       address:
         EU: 0x2339450
         NA: 0x2338880
-      description: |-
-        return: dungeon_generation_info::field_0xc
+      description: "return: dungeon_generation_info::field_0xc"
     - name: GetMinimapData
       address:
         EU: 0x2339CE8
