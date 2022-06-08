@@ -21,7 +21,7 @@ struct entity* GetLeader(void);
 enum monster_id GetMonsterIdToSpawn(int spawn_weight);
 uint8_t GetMonsterLevelToSpawn(enum monster_id monster_id);
 uint8_t TickStatusTurnCounter(uint8_t* counter);
-void NextFrame(undefined param_1);
+void AdvanceFrame(undefined param_1);
 uint32_t GenerateDungeonRngSeed(void);
 uint32_t GetDungeonRngPreseed(void);
 void SetDungeonRngPreseed(uint32_t preseed);

@@ -344,7 +344,7 @@ overlay29:
         
         r0: pointer to the status turn counter
         return: new counter value
-    - name: NextFrame
+    - name: AdvanceFrame
       address:
         EU: 0x22EA990
         NA: 0x22E9FE0
