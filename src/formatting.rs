@@ -95,7 +95,18 @@ fn print_format_diff<D: Display>(old: &str, new: &str, title: D) -> io::Result<(
             // Don't color the first 2 lines from the header
             if i > 1 && line.starts_with('+') {
                 stderr.set_color(color.set_fg(Some(Color::Green)))?;
-                writeln!(&mut stderr, "{}", line)?;
+                let trimmed = line.trim_end();
+                if trimmed.len() < line.len() {
+                    // Trailing whitespace on added lines should be colored red
+                    write!(&mut stderr, "{}", trimmed)?;
+                    stderr.set_color(color.set_bg(Some(Color::Red)))?;
+                    write!(&mut stderr, "{}", &line[trimmed.len()..])?;
+                    color.clear();
+                    stderr.reset()?;
+                    writeln!(&mut stderr)?;
+                } else {
+                    writeln!(&mut stderr, "{}", line)?;
+                }
             } else if i > 1 && line.starts_with('-') {
                 stderr.set_color(color.set_fg(Some(Color::Red)))?;
                 writeln!(&mut stderr, "{}", line)?;
