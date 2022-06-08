@@ -901,7 +901,7 @@ arm9:
         r0: the effects bitvector to test
         r1: exclusive item effect ID
         return: bool
-    - name: ApplyGummiBoostsGround
+    - name: ApplyGummiBoostsGroundMode
       address:
         EU: 0x2011944
         NA: 0x201189C
@@ -913,7 +913,8 @@ arm9:
         r2: Pointer to something
         r3: Pointer to something
         stack[0]: ?
-        stack[1]: Pointer to a buffer to store some result into
+        stack[1]: ?
+        stack[2]: Pointer to a buffer to store some result into
     - name: GetMoveTargetAndRange
       address:
         EU: 0x20138E8
@@ -2068,7 +2069,7 @@ arm9:
         NA: 0x205638C
       description: |-
         Returns a struct containing information about a team member.
-
+        
         r0: Index
         return: Pointer to struct containing team member information
     - name: SetTeamSetupHeroAndPartnerOnly
@@ -2116,7 +2117,7 @@ arm9:
         NA: 0x20590F8
       description: |-
         Returns the data of a monster sent into the Explorer Dojo using the "exchange teams" option.
-
+        
         r0: Entry number (0-3)
         return: Ground monster data of the specified entry
     - name: GetSosMailCount

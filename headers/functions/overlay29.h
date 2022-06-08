@@ -37,7 +37,7 @@ void DungeonRngSetPrimary(void);
 void TrySwitchPlace(struct entity* user, struct entity* target);
 void SetForcedLossReason(enum forced_loss_reason forced_loss_reason);
 void RunFractionalTurn(bool is_first_loop);
-bool LeaderTurn(undefined param_1);
+bool RunLeaderTurn(undefined param_1);
 void TrySpawnMonsterAndActivatePlusMinus(void);
 bool IsFloorOver(void);
 void DecrementWindCounter(void);
@@ -83,7 +83,7 @@ int GetMovePower(struct entity* entity, struct move* move);
 void AddExpSpecial(struct entity* attacker, struct entity* defender, int base_exp);
 void EnemyEvolution(struct entity* enemy);
 void EvolveMonster(struct entity* monster, undefined4* param_2, enum monster_id new_monster_id);
-bool DisplayActions(undefined param_1);
+bool DisplayActions(struct entity* param_1);
 bool ApplyDamage(struct entity* attacker, struct entity* defender, struct damage_data* damage_data,
                  undefined4 param_4, undefined4* param_5, undefined4* param_6);
 uint8_t GetSleepAnimationId(struct entity* entity);
@@ -188,8 +188,8 @@ struct move_target_and_range GetEntityMoveTargetAndRange(struct entity* entity, 
 void ApplyItemEffect(undefined4 param_1, undefined4 param_2, undefined4 param_3,
                      struct entity* attacker, struct entity* defender, struct item* thrown_item);
 void ViolentSeedBoost(struct entity* attacker, struct entity* defender);
-void ApplyGummiBoostsDungeon(struct entity* user, struct entity* target, enum type_id gummi_type,
-                             int random_stat_boost);
+void ApplyGummiBoostsDungeonMode(struct entity* user, struct entity* target,
+                                 enum type_id gummi_type, int random_stat_boost);
 int GetMaxPpWrapper(struct move* move);
 bool MoveIsNotPhysical(enum move_id move_id);
 void TryPounce(struct entity* user, struct entity* target, enum direction_id direction);
