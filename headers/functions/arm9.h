@@ -83,6 +83,9 @@ void ApplyExclusiveItemStatBoosts(enum item_id item_id, uint8_t* atk_boost, uint
                                   uint8_t* def_boost, uint8_t* sp_def_boost);
 void SetExclusiveItemEffect(uint32_t* effect_flags, enum exclusive_item_effect_id effect_id);
 bool ExclusiveItemEffectFlagTest(uint32_t* effect_flags, enum exclusive_item_effect_id effect_id);
+void ApplyGummiBoostsGroundMode(undefined2* param_1, undefined2* param_2, undefined* param_3,
+                                undefined* param_4, undefined2 param_5, undefined param_6,
+                                void* buffer);
 struct move_target_and_range GetMoveTargetAndRange(struct move* move, bool is_ai);
 enum type_id GetMoveType(struct move* move);
 int GetMoveBasePower(struct move* move);
@@ -184,6 +187,7 @@ uint32_t SubFixedPoint(uint32_t val_fp, uint32_t dec_fp);
 uint32_t BinToDecFixedPoint(uint32_t* q16);
 int CeilFixedPoint(uint32_t val_fp);
 bool DungeonGoesUp(enum dungeon_id dungeon_id);
+int8_t GetMaxRescueAttempts(enum dungeon_id dungeon_id);
 bool JoinedAtRangeCheck(struct dungeon_id_8 joined_at);
 bool ShouldCauseGameOverOnFaint(struct dungeon_id_8 joined_at);
 uint8_t GetMonsterGender(enum monster_id monster_id);
@@ -201,10 +205,12 @@ bool IsCastform(enum monster_id monster_id);
 bool IsCherrim(enum monster_id monster_id);
 bool IsDeoxys(enum monster_id monster_id);
 bool IsMonsterOnTeam(enum monster_id monster_id, int param_2);
+struct team_member* GetTeamMemberData(uint8_t index);
 void SetTeamSetupHeroAndPartnerOnly(void);
 void SetTeamSetupHeroOnly(void);
 int GetPartyMembers(uint16_t* party_members);
 bool IqSkillFlagTest(uint32_t* iq_skill_flags, enum iq_skill_id iq_id);
+struct ground_monster* GetExplorerMazeMonster(uint8_t entry_number);
 int GetSosMailCount(int param_1, bool param_2);
 int DungeonRequestsDone(uint8_t param_1, bool param_2);
 int DungeonRequestsDoneWrapper(uint8_t param_1);

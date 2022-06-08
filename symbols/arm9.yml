@@ -901,6 +901,20 @@ arm9:
         r0: the effects bitvector to test
         r1: exclusive item effect ID
         return: bool
+    - name: ApplyGummiBoostsGroundMode
+      address:
+        EU: 0x2011944
+        NA: 0x201189C
+      description: |-
+        Applies the IQ boosts from eating a Gummi to the target monster.
+        
+        r0: Pointer to something
+        r1: Pointer to something
+        r2: Pointer to something
+        r3: Pointer to something
+        stack[0]: ?
+        stack[1]: ?
+        stack[2]: Pointer to a buffer to store some result into
     - name: GetMoveTargetAndRange
       address:
         EU: 0x20138E8
@@ -1883,6 +1897,15 @@ arm9:
         
         r0: dungeon id
         return: bool
+    - name: GetMaxRescueAttempts
+      address:
+        EU: 0x20516B8
+        NA: 0x2051380
+      description: |-
+        Returns the maximum rescue attempts allowed in the specified dungeon.
+        
+        r0: dungeon id
+        return: Max rescue attempts, or -1 if rescues are disabled.
     - name: JoinedAtRangeCheck
       address:
         EU: 0x20517C8
@@ -2040,6 +2063,15 @@ arm9:
         r0: monster ID
         r1: ?
         return: bool
+    - name: GetTeamMemberData
+      address:
+        EU: 0x2056708
+        NA: 0x205638C
+      description: |-
+        Returns a struct containing information about a team member.
+        
+        r0: Index
+        return: Pointer to struct containing team member information
     - name: SetTeamSetupHeroAndPartnerOnly
       address:
         EU: 0x2056D48
@@ -2079,6 +2111,15 @@ arm9:
         r0: IQ skill bitvector to test
         r1: IQ skill ID
         return: bool
+    - name: GetExplorerMazeMonster
+      address:
+        EU: 0x2059474
+        NA: 0x20590F8
+      description: |-
+        Returns the data of a monster sent into the Explorer Dojo using the "exchange teams" option.
+        
+        r0: Entry number (0-3)
+        return: Ground monster data of the specified entry
     - name: GetSosMailCount
       address:
         EU: 0x205BCF8

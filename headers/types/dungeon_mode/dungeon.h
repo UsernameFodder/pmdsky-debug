@@ -925,8 +925,8 @@ struct dungeon {
     struct dungeon_objective_8 dungeon_objective; // 0x798: Objective of the current dungeon
     undefined field_0x799;
     undefined field_0x79a;
-    uint8_t rescue_attempts_left; // 0x79B: Number of times you can be rescued in this dungeon
-    uint32_t prng_seed;           // 0x79C: The dungeon PRNG seed, if set
+    int8_t rescue_attempts_left; // 0x79B: Number of times you can be rescued in this dungeon
+    uint32_t prng_seed;          // 0x79C: The dungeon PRNG seed, if set
     undefined field_0x7a0;
     undefined field_0x7a1;
     undefined field_0x7a2;

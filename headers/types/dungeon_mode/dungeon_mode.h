@@ -969,10 +969,7 @@ struct dungeon_generation_info {
     undefined field_0x6;
     undefined field_0x7;
     enum hidden_stairs_type hidden_stairs_type; // 0x8
-    undefined field_0xc;
-    undefined field_0xd;
-    undefined field_0xe;
-    undefined field_0xf;
+    undefined4 field_0xc;
     uint8_t tileset_id; // 0x10
     undefined field_0x11;
     // 0x12: Music table index (see the same field in struct floor_properties)
