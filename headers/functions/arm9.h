@@ -1,6 +1,10 @@
 #ifndef HEADERS_FUNCTIONS_ARM9_H_
 #define HEADERS_FUNCTIONS_ARM9_H_
 
+bool ShouldMonsterRunAwayVariationOutlawCheck(struct entity* monster, undefined param_2);
+void AiMovement(struct entity* monster, undefined param_2);
+void CalculateAiTargetPos(struct entity* monster);
+void ChooseAiMove(struct entity* monster);
 void InitMemAllocTable(void);
 void SetMemAllocatorParams(get_alloc_arena_fn_t get_alloc_arena,
                            get_free_arena_fn_t get_free_arena);
@@ -88,10 +92,12 @@ void ApplyGummiBoostsGroundMode(undefined2* param_1, undefined2* param_2, undefi
                                 void* buffer);
 struct move_target_and_range GetMoveTargetAndRange(struct move* move, bool is_ai);
 enum type_id GetMoveType(struct move* move);
+uint8_t GetMoveAiWeight(struct move* move);
 int GetMoveBasePower(struct move* move);
 uint8_t GetMoveAccuracyOrAiChance(struct move* move, int which);
 int GetMaxPp(struct move* move);
 int GetMoveCritChance(struct move* move);
+bool IsMoveRangeString19(struct move* move);
 bool IsRecoilMove(enum move_id move_id);
 bool IsPunchMove(enum move_id move_id);
 enum move_category GetMoveCategory(enum move_id move_id);
@@ -193,6 +199,7 @@ bool ShouldCauseGameOverOnFaint(struct dungeon_id_8 joined_at);
 uint8_t GetMonsterGender(enum monster_id monster_id);
 uint8_t GetSpriteSize(enum monster_id monster_id);
 uint8_t GetSpriteFileSize(enum monster_id monster_id);
+bool GetCanMoveFlag(enum monster_id monster_id);
 enum monster_id GetMonsterPreEvolution(enum monster_id monster_id);
 int GetEvolutions(enum monster_id monster_id, enum monster_id* output_list,
                   bool skip_sprite_size_check, bool skip_shedinja_check);

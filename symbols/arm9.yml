@@ -16,6 +16,41 @@ arm9:
     
     This is the binary that gets loaded when the game is launched, and contains the core code that runs the game, low level facilities such as memory allocation, compression, other external dependencies (such as linked functions from libc and libgcc), and the functions and tables necessary to load overlays and dispatch execution to them.
   functions:
+    - name: ShouldMonsterRunAwayVariationOutlawCheck
+      address:
+        EU: 0x1FFA390
+        NA: 0x1FFA390
+      description: |-
+        Calls ShouldMonsterRunAwayVariation. If the result is true, returns true. Otherwise, returns true only if the monster's behavior field is equal to monster_behavior::BEHAVIOR_FLEEING_OUTLAW.
+        
+        r0: Entity pointer
+        r1: ?
+        return: True if ShouldMonsterRunAway returns true or the monster is a fleeing outlaw
+    - name: AiMovement
+      address:
+        EU: 0x1FFA3C4
+        NA: 0x1FFA3C4
+      description: |-
+        Used by the AI to determine the direction in which a monster should move
+        
+        r0: Entity pointer
+        r1: ?
+    - name: CalculateAiTargetPos
+      address:
+        EU: 0x1FFB2C8
+        NA: 0x1FFB2C8
+      description: |-
+        Calculates the target position of an AI-controlled monster and stores it in the monster's ai_target_pos field
+        
+        r0: Entity pointer
+    - name: ChooseAiMove
+      address:
+        EU: 0x1FFB658
+        NA: 0x1FFB658
+      description: |-
+        Determines if an AI-controlled monster will use a move and which one it will use
+        
+        r0: Entity pointer
     - name: InitMemAllocTable
       address:
         EU: 0x2000DE0
@@ -935,6 +970,15 @@ arm9:
         
         r0: Pointer to move data
         return: Type of the move
+    - name: GetMoveAiWeight
+      address:
+        EU: 0x2013A34
+        NA: 0x201398C
+      description: |-
+        Gets the AI weight of a move
+        
+        r0: Pointer to move data
+        return: AI weight of the move
     - name: GetMoveBasePower
       address:
         EU: 0x2013A74
@@ -975,6 +1019,15 @@ arm9:
         
         r0: move pointer
         return: base power
+    - name: IsMoveRangeString19
+      address:
+        EU: 0x2013BB8
+        NA: 0x2013C04
+      description: |-
+        Returns whether a move's range string is 19 ("User").
+        
+        r0: Move pointer
+        return: True if the move's range string field has a value of 19.  
     - name: IsRecoilMove
       address:
         EU: 0x2013EBC
@@ -1951,6 +2004,15 @@ arm9:
         
         r0: monster id
         return: sprite file size
+    - name: GetCanMoveFlag
+      address:
+        EU: 0x2052BEC
+        NA: 0x20528B4
+      description: |-
+        Returns the flag that determines if a monster can move in dungeons.
+        
+        r0: Monster ID
+        return: "Can move" flag
     - name: GetMonsterPreEvolution
       address:
         EU: 0x2052CE0
