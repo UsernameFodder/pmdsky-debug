@@ -359,7 +359,7 @@ overlay29:
     - name: GetDistance
       address:
         EU: 0x22E9A3C
-        NA: 
+        NA: 0x22E908C
       description: |-
         Returns the distance between two positions. Calculated as max(abs(x0-x1), abs(y0,y1)).
         
@@ -577,6 +577,15 @@ overlay29:
         
         r0: Pointer to the monster's action_id field (this field is probably contained in a struct)
         r1: Monster ID
+    - name: SetActionRegularAttack
+      address:
+        EU: 0x22EC600
+        NA: 0x22EBC50
+      description: |-
+        Sets a monster's action to action::ACTION_REGULAR_ATTACK, with a specified direction.
+        
+        r0: Pointer to the monster's action_id field (this field is probably contained in a struct)
+        r1: Direction in which to use the move. Gets stored in monster::direction.
     - name: SetActionUseMoveAi
       address:
         EU: 0x22EC66C
@@ -587,15 +596,6 @@ overlay29:
         r0: Pointer to the monster's action_id field (this field is probably contained in a struct)
         r1: Index of the move to use (0-3). Gets stored in monster::action_use_idx.
         r2: Direction in which to use the move. Gets stored in monster::direction.
-    - name: SetActionRegularAttack
-      address:
-        EU: 0x22EC6B8
-        NA: 0x22EBC50
-      description: |-
-        Sets a monster's action to action::ACTION_REGULAR_ATTACK, with a specified direction.
-        
-        r0: Pointer to the monster's action_id field (this field is probably contained in a struct)
-        r1: Direction in which to use the move. Gets stored in monster::direction.
     - name: RunFractionalTurn
       address:
         EU: 0x22EC6B8
@@ -1144,7 +1144,7 @@ overlay29:
     - name: CanSeeInvisibleMonsters
       address:
         EU: 0x2302918
-        NA: 
+        NA: 0x2301EEC
       description: |-
         Returns whether a certain monster can see other invisible monsters. To be precise, this function returns true if the monster is holding Goggle Specs or if it has the status status::STATUS_EYEDROPS.
         
@@ -2243,7 +2243,7 @@ overlay29:
     - name: GetMoveAnimationId
       address:
         EU: 0x2326578
-        NA: 
+        NA: 0x2325B10
       description: |-
         Returns the move animation ID that should be played for a move. It contains a check for weather ball. After that, if the parameter should_play_alternative_animation is false, the move ID is returned. If it's true, there's a bunch of manual ID checks that result on a certain hardcoded return value.
         
@@ -2327,8 +2327,8 @@ overlay29:
         stack[0]: Pointer to some struct. The first byte contains the ID of the move used.
     - name: StatusCheckerCheck
       address:
-        EU: 0x23337AC
-        NA: 0x2332D6C
+        EU: 0x2333AB4
+        NA: 0x2333074
       description: |-
         Determines if using a given move against its intended targets would be redundant because all of them already have the effect caused by said move.
         

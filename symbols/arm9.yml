@@ -1021,13 +1021,13 @@ arm9:
         return: base power
     - name: IsMoveRangeString19
       address:
-        EU: 0x2013BB8
+        EU: 0x2013CAC
         NA: 0x2013C04
       description: |-
         Returns whether a move's range string is 19 ("User").
         
         r0: Move pointer
-        return: True if the move's range string field has a value of 19.  
+        return: True if the move's range string field has a value of 19.
     - name: IsRecoilMove
       address:
         EU: 0x2013EBC
