@@ -57,7 +57,7 @@ python3 symbols_vfill.py -f --dry-run \
 import argparse
 from pathlib import Path
 import re
-from typing import Dict, Iterable, List, Optional, Union
+from typing import Dict, Generator, Iterable, List, Optional, Union
 import yaml
 
 import arm5find
@@ -70,13 +70,25 @@ class SymbolTable:
 
     SYMBOL_DIR: Path = Path(__file__).resolve().parent.parent / "symbols"
 
-    def __init__(self, binary: str):
+    def __init__(self, arg: Union[str, Path]):
+        if isinstance(arg, Path):
+            self.path = arg
+            return
+        binary: str = arg
         if binary not in offsets.BINARY_NAMES:
             raise ValueError(f'Invalid binary: "{binary}"')
         if binary.startswith("overlay"):
             # overlay0 -> overlay00, etc.
             binary = f"overlay{int(binary.lstrip('overlay')):02}"
         self.path = SymbolTable.SYMBOL_DIR / f"{binary}.yml"
+
+    def walk(self) -> Generator["SymbolTable", None, None]:
+        yield self
+        subregion_dir = self.path.parents[0] / Path(self.path.stem)
+        if subregion_dir.is_dir():
+            for p in sorted(subregion_dir.iterdir()):
+                if p.is_file():
+                    yield from SymbolTable(p).walk()
 
     @staticmethod
     def fmt(files: Union[str, List[str]]):
@@ -374,37 +386,39 @@ def symbols_fill_versions(
     files_to_format: List[str] = []  # Only used in fast mode
 
     for bin_name, file_by_version in binaries.items():
-        symbol_table = SymbolTable(bin_name)
-        symbol_contents = symbol_table.read()
-
         # Keep a cache of file contents by version to avoid loading them many times
         binary_contents: Dict[str, bytes] = {}
 
         counters[bin_name] = FillCounter()
 
-        for block in symbol_contents.values():
-            # Data symbols are pretty much impossible to match generally without
-            # a risk of false positives, because the same raw data could pretty
-            # easily be used in multiple different contexts (which we would
-            # consider to be different symbols). So, only try to fill in
-            # function addresses.
-            for function in block["functions"]:
-                counters[bin_name] += function_fill_versions(
-                    function,
-                    binary_contents,
-                    file_by_version,
-                    bin_name,
-                    min_instr_count=min_instr_count,
-                    verbosity=verbosity,
-                    dry_run=dry_run,
-                )
+        # Fill symbols in all subregion files
+        for symbol_table in SymbolTable(bin_name).walk():
+            symbol_contents = symbol_table.read()
+            table_counter = FillCounter()
+            for block in symbol_contents.values():
+                # Data symbols are pretty much impossible to match generally
+                # without a risk of false positives, because the same raw data
+                # could pretty easily be used in multiple different contexts
+                # (which we would consider to be different symbols). So, only
+                # try to fill in function addresses.
+                for function in block["functions"]:
+                    table_counter += function_fill_versions(
+                        function,
+                        binary_contents,
+                        file_by_version,
+                        bin_name,
+                        min_instr_count=min_instr_count,
+                        verbosity=verbosity,
+                        dry_run=dry_run,
+                    )
 
-        # The symbol table is modified iff the filled counter is positive
-        if not dry_run and counters[bin_name].filled > 0:
-            symbol_table.write(symbol_contents, skip_formatting=fast_mode)
-            if fast_mode:
-                # We'll need to run the formatter on this later
-                files_to_format.append(str(symbol_table.path))
+            # The symbol table is modified iff the filled counter is positive
+            if not dry_run and table_counter.filled > 0:
+                symbol_table.write(symbol_contents, skip_formatting=fast_mode)
+                if fast_mode:
+                    # We'll need to run the formatter on this later
+                    files_to_format.append(str(symbol_table.path))
+            counters[bin_name] += table_counter
 
     if files_to_format:
         SymbolTable.fmt(files_to_format)
