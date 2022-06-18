@@ -22,7 +22,7 @@ bool IsOnMonsterSpawnList(enum monster_id monster_id);
 enum monster_id GetMonsterIdToSpawn(int spawn_weight);
 uint8_t GetMonsterLevelToSpawn(enum monster_id monster_id);
 enum direction_id GetDirectionTowardsPosition(struct position* origin, struct position* target);
-int GetDistance(struct position* position_a, struct position* position_b);
+int GetChebyshevDistance(struct position* position_a, struct position* position_b);
 bool IsPositionInSight(struct position* origin, struct position* target, bool user_has_dropeye);
 struct entity* GetLeader(void);
 uint8_t TickStatusTurnCounter(uint8_t* counter);
@@ -41,11 +41,11 @@ void DungeonRngSetSecondary(int i);
 void DungeonRngSetPrimary(void);
 void TrySwitchPlace(struct entity* user, struct entity* target);
 void ClearMonsterActionFields(void* monster_action_field);
-void SetMonsterActionFields(void* monster_action_field);
+void SetMonsterActionFields(void* monster_action_field, struct action_16 action_id);
 void SetActionPassTurnOrWalk(void* monster_action_field, enum monster_id monster_id);
+void SetActionRegularAttack(void* monster_action_field, enum direction_id direction);
 void SetActionUseMoveAi(void* monster_action_field, uint8_t move_index,
-                        struct direction_id_8 direction);
-void SetActionRegularAttack(void* monster_action_field, struct direction_id_8 direction);
+                        enum direction_id direction);
 void RunFractionalTurn(bool is_first_loop);
 bool RunLeaderTurn(undefined param_1);
 void TrySpawnMonsterAndActivatePlusMinus(void);
@@ -87,12 +87,12 @@ bool HasStatusThatPreventsActing(struct entity* monster);
 int CalcSpeedStage(struct entity* entity, int counter_weight);
 int CalcSpeedStageWrapper(struct entity* entity);
 int GetNumberOfAttacks(struct entity* entity);
-bool IsMonsterConrnered(struct entity* monster);
-bool CanAttackInDirection(struct entity* monster, struct direction_id_8 direction);
-bool CanAiMonsterMoveInDirection(struct entity* monster, struct direction_id_8 direction,
+bool IsMonsterCornered(struct entity* monster);
+bool CanAttackInDirection(struct entity* monster, enum direction_id direction);
+bool CanAiMonsterMoveInDirection(struct entity* monster, enum direction_id direction,
                                  struct entity* out_monster_in_target_position);
 bool ShouldMonsterRunAway(struct entity* monster);
-bool ShouldMonsterRunAwayVariation(struct entity* monster);
+bool ShouldMonsterRunAwayVariation(struct entity* monster, undefined param_2);
 bool NoGastroAcidStatus(struct entity* entity);
 bool AbilityIsActive(struct entity* entity, enum ability_id ability_id);
 bool LevitateIsActive(struct entity* entity);
@@ -206,11 +206,11 @@ bool HasConditionalGroundImmunity(struct entity* entity);
 int Conversion2IsActive(struct entity* entity);
 int AiConsiderMove(struct ai_possible_move* ai_possible_move, struct entity* monster,
                    struct move* move);
-int TryAddTargetToAiTargetList(int current_num_targets, struct move_target_and_range,
+int TryAddTargetToAiTargetList(int current_num_targets, struct move_target_and_range move_ai_range,
                                struct entity* user, struct entity* target, struct move* move,
                                bool check_all_conditions);
-bool IsAiTargetEligible(struct move_target_and_range, struct entity* user, struct entity* target,
-                        struct move* move, bool check_all_conditions);
+bool IsAiTargetEligible(struct move_target_and_range move_ai_range, struct entity* user,
+                        struct entity* target, struct move* move, bool check_all_conditions);
 bool IsTargetInRange(struct entity* user, struct entity* target, enum direction_id direction,
                      int n_tiles);
 struct move_target_and_range GetEntityMoveTargetAndRange(struct entity* entity, struct move* move,

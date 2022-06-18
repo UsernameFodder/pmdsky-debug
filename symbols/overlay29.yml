@@ -241,7 +241,8 @@ overlay29:
         EU: 0x22E3150
         NA: 0x22E2810
       description: |-
-        Checks if a monster can target another entity when controlled by the AI. Checks if the target is invisible, if the user can see invisible monsters, if the user is blinded and if the target position is in sight from the position of the user (this last check is done by calling IsPositionInSight with the user's and the target's position).
+        Checks if a monster can target another entity when controlled by the AI.
+        More specifically, it checks if the target is invisible, if the user can see invisible monsters, if the user is blinded and if the target position is in sight from the position of the user (this last check is done by calling IsPositionInSight with the user's and the target's position).
         
         r0: User entity pointer
         r1: Target entity pointer
@@ -356,22 +357,23 @@ overlay29:
         r0: Origin position
         r1: Target position
         return: Direction in which to move to reach the target position from the origin position
-    - name: GetDistance
+    - name: GetChebyshevDistance
       address:
         EU: 0x22E9A3C
         NA: 0x22E908C
       description: |-
-        Returns the distance between two positions. Calculated as max(abs(x0-x1), abs(y0,y1)).
+        Returns the Chebyshev distance between two positions. Calculated as max(abs(x0-x1), abs(y0-y1)).
         
         r0: Position A
         r1: Position B
-        return: Distance between position A and position B
+        return: Chebyshev Distance between position A and position B
     - name: IsPositionInSight
       address:
         EU: 0x22E9B54
         NA: 0x22E91A4
       description: |-
-        Checks if a given target position is in sight from a given origin position. There's multiple factors that affect this check, but generally, it's true if both positions are in the same room or within 2 tiles of each other.
+        Checks if a given target position is in sight from a given origin position.
+        There's multiple factors that affect this check, but generally, it's true if both positions are in the same room or within 2 tiles of each other.
         
         r0: Origin position
         r1: Target position
@@ -556,7 +558,8 @@ overlay29:
         EU: 0x22EBDA4
         NA: 0x22EB3F4
       description: |-
-        Clears the fields related to AI in the monster's data struct, setting them all to 0. Specifically, monster::action_id, monster::action_use_idx and monster::field_0x54 are cleared.
+        Clears the fields related to AI in the monster's data struct, setting them all to 0.
+        Specifically, monster::action_id, monster::action_use_idx and monster::field_0x54 are cleared.
         
         r0: Pointer to the monster's action_id field (this field is probably contained in a struct)
     - name: SetMonsterActionFields
@@ -564,7 +567,8 @@ overlay29:
         EU: 0x22EBDB8
         NA: 0x22EB408
       description: |-
-        Sets some the fields related to AI in the monster's data struct. Specifically, monster::action_id, monster::action_use_idx and monster::field_0x54. The last 2 are always set to 0.
+        Sets some the fields related to AI in the monster's data struct.
+        Specifically, monster::action_id, monster::action_use_idx and monster::field_0x54. The last 2 are always set to 0.
         
         r0: Pointer to the monster's action_id field (this field is probably contained in a struct)
         r1: Value to set monster::action_id to.
@@ -1050,7 +1054,7 @@ overlay29:
         r1: format
         ...: variadic
         return: number of characters printed, excluding the null-terminator
-    - name: IsMonsterConrnered
+    - name: IsMonsterCornered
       address:
         EU: 0x2301B44
         NA: 0x2301118
@@ -1064,7 +1068,8 @@ overlay29:
         EU: 0x2301C60
         NA: 0x2301234
       description: |-
-        Returns whether a monster can attack in a given direction. The check fails if the destination tile is impassable, contains a monster that isn't of type entity_type::ENTITY_MONSTER or if the monster can't directly move from the current tile into the destination tile.
+        Returns whether a monster can attack in a given direction.
+        The check fails if the destination tile is impassable, contains a monster that isn't of type entity_type::ENTITY_MONSTER or if the monster can't directly move from the current tile into the destination tile.
         
         r0: Entity pointer
         r1: Direction
@@ -1074,7 +1079,8 @@ overlay29:
         EU: 0x2301D24
         NA: 0x23012F8
       description: |-
-        Checks whether an AI-controlled monster can move in the specified direction. Accounts for walls, other monsters on the target position and IQ skills that might prevent a monster from moving into a specific location, such as House Avoider, Trap Avoider or Lava Evader.
+        Checks whether an AI-controlled monster can move in the specified direction.
+        Accounts for walls, other monsters on the target position and IQ skills that might prevent a monster from moving into a specific location, such as House Avoider, Trap Avoider or Lava Evader.
         
         r0: Entity pointer
         r1: Direction
@@ -1146,7 +1152,8 @@ overlay29:
         EU: 0x2302918
         NA: 0x2301EEC
       description: |-
-        Returns whether a certain monster can see other invisible monsters. To be precise, this function returns true if the monster is holding Goggle Specs or if it has the status status::STATUS_EYEDROPS.
+        Returns whether a certain monster can see other invisible monsters.
+        To be precise, this function returns true if the monster is holding Goggle Specs or if it has the status status::STATUS_EYEDROPS.
         
         r0: Entity pointer
         return: True if the monster can see invisible monsters.
@@ -1155,7 +1162,7 @@ overlay29:
         EU: 0x230297C
         NA: 0x2301F50
       description: |-
-        Returns whether a certain monster is under the effect of the status::STATUS_DROPEYE status.
+        Returns whether a certain monster is under the effect of status::STATUS_DROPEYE.
         
         r0: Entity pointer
         return: True if the monster has dropeye status.
@@ -2009,7 +2016,8 @@ overlay29:
         EU: 0x231A2E0
         NA: 0x2319880
       description: |-
-        The AI uses this function to check if a move has any potential targets, to calculate the list of potential targets and to calculate the move's special weight. This weight will be higher if the pokémon has weak-type picker and the target is weak to the move (allies only, enemies always get a result of 1 even if the move is super effective). More things could affect the result.
+        The AI uses this function to check if a move has any potential targets, to calculate the list of potential targets and to calculate the move's special weight.
+        This weight will be higher if the pokémon has weak-type picker and the target is weak to the move (allies only, enemies always get a result of 1 even if the move is super effective). More things could affect the result.
         This function also sets the flag can_be_used on the ai_possible_move struct if it makes sense to use it.
         More research is needed. There's more documentation about this special weight. Does all the documented behavior happen in this function?
         
@@ -2202,7 +2210,8 @@ overlay29:
         EU: 0x23254DC
         NA: 0x2324A74
       description: |-
-        Checks if an AI-controlled monster can use a move. Will return false if the any of the flags move::f_exists, move::f_subsequent_in_link_chain or move::f_disabled is true. The function does not check if the flag move::f_enabled_for_ai is set. This function also returns true if the call to CanMonsterUseMove is false.
+        Checks if an AI-controlled monster can use a move.
+        Will return false if the any of the flags move::f_exists, move::f_subsequent_in_link_chain or move::f_disabled is true. The function does not check if the flag move::f_enabled_for_ai is set. This function also returns true if the call to CanMonsterUseMove is true.
         The function contains a loop that is supposed to check other moves after the specified one, but the loop breaks after it finds a move that isn't linked, which is always true given the checks in place at the start of the function.
         
         r0: Entity pointer
@@ -2214,7 +2223,8 @@ overlay29:
         EU: 0x232558C
         NA: 0x2324B24
       description: |-
-        Checks if a monster can use the given move. Will always return true for the regular attack. Will return false if the move if the flag move::f_disabled is true, if the flag move::f_sealed is true. More things will be checked if the extra_checks parameter is true.
+        Checks if a monster can use the given move.
+        Will always return true for the regular attack. Will return false if the move if the flag move::f_disabled is true, if the flag move::f_sealed is true. More things will be checked if the extra_checks parameter is true.
         
         r0: Entity pointer
         r1: Move pointer
@@ -2245,7 +2255,8 @@ overlay29:
         EU: 0x2326578
         NA: 0x2325B10
       description: |-
-        Returns the move animation ID that should be played for a move. It contains a check for weather ball. After that, if the parameter should_play_alternative_animation is false, the move ID is returned. If it's true, there's a bunch of manual ID checks that result on a certain hardcoded return value.
+        Returns the move animation ID that should be played for a move.
+        It contains a check for weather ball. After that, if the parameter should_play_alternative_animation is false, the move ID is returned. If it's true, there's a bunch of manual ID checks that result on a certain hardcoded return value.
         
         r0: Move ID
         r1: Apparent weather for the monster who used the move
