@@ -5,25 +5,28 @@
 
 import os
 import re
-from typing import Dict, List, Optional
+from typing import Dict, Generator, List, Optional
 import yaml
 
 ROOT_DIR = os.path.relpath(os.path.join(os.path.dirname(__file__), ".."))
 HEADERS_FUNCTIONS_DIR = os.path.join(ROOT_DIR, "headers", "functions")
 SYMBOLS_DIR = os.path.join(ROOT_DIR, "symbols")
 
-def get_function_headers() -> List[str]:
-    return [
-        os.path.join(HEADERS_FUNCTIONS_DIR, f)
-        for f in os.listdir(HEADERS_FUNCTIONS_DIR)
-        if f.endswith(".h")
-    ]
+
+def get_function_headers() -> Generator[str, None, None]:
+    for root, dirs, files in os.walk(HEADERS_FUNCTIONS_DIR):
+        dirs.sort()  # Ensure subdirectories are visited in sorted order
+        for f in sorted(files):
+            if f.endswith(".h"):
+                yield os.path.join(root, f)
+
 
 class FunctionList:
     """
     A list of all functions defined for a specific binary file, including the
     C headers and the symbol tables.
     """
+
     header_file: str
     symbol_file: str
 
@@ -42,17 +45,16 @@ class FunctionList:
 
     @staticmethod
     def file_stem(header_file: str) -> str:
-        return os.path.splitext(os.path.basename(header_file))[0]
+        return os.path.splitext(
+            os.path.relpath(header_file, start=HEADERS_FUNCTIONS_DIR)
+        )[0]
 
     @staticmethod
     def get_symbol_file(header_file: str) -> Optional[str]:
         """
         Get the symbol file name that corresponds to the given header file.
         """
-        fname = os.path.join(
-            SYMBOLS_DIR,
-            FunctionList.file_stem(header_file) + ".yml"
-        )
+        fname = os.path.join(SYMBOLS_DIR, FunctionList.file_stem(header_file) + ".yml")
         return fname if os.path.isfile(fname) else None
 
     def functions_from_header_file(self) -> List[str]:
@@ -76,6 +78,7 @@ class FunctionList:
             - set(self.functions_from_symbol_file())
         )
 
+
 def run_symbol_check() -> bool:
     passed = True
     for header_file in get_function_headers():
@@ -84,17 +87,22 @@ def run_symbol_check() -> bool:
             missing = flist.missing_functions()
             if missing:
                 passed = False
-                print(f"{flist}: found {len(missing)} discrepancies between"
-                    + " C headers and symbol tables.")
-                print(f"The following functions are present in"
+                print(
+                    f"{flist}: found {len(missing)} discrepancies between"
+                    + " C headers and symbol tables."
+                )
+                print(
+                    f"The following functions are present in"
                     + f" {flist.header_file} but missing from"
-                    + f" {flist.symbol_file}:")
+                    + f" {flist.symbol_file}:"
+                )
                 for symbol_name in missing:
                     print(f"    - {symbol_name}")
         except ValueError:
             # File doesn't correspond to a symbol file; skip
             pass
     return passed
+
 
 if __name__ == "__main__":
     if not run_symbol_check():
