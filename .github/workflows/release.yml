@@ -49,7 +49,7 @@ jobs:
       - name: Install resymgen
         uses: ./.github/actions/build-resymgen
       - name: Generate symbols
-        run: resymgen gen --output-dir ${{ env.OUTPUT_DIR }} symbols/*.yml
+        run: resymgen gen --sort --output-dir ${{ env.OUTPUT_DIR }} symbols/*.yml
       - name: Create release directories
         run: mkdir -p ${{ env.RELEASE_INSTALL_DIR }} ${{ env.RELEASE_ASSETS_DIR }}
       - name: Install symbols
