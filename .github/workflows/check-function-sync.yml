@@ -5,6 +5,7 @@ on:
     paths:
       - 'symbols/**.yml'
       - 'headers/functions/**.h'
+      - 'headers/symbol_check.py'
     branches:
       - master
   workflow_call:
