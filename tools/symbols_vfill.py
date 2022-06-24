@@ -57,6 +57,8 @@ python3 symbols_vfill.py -f --dry-run \
 import argparse
 from pathlib import Path
 import re
+import subprocess
+import sys
 from typing import Dict, Generator, Iterable, List, Optional, Union
 import yaml
 
@@ -92,8 +94,12 @@ class SymbolTable:
 
     @staticmethod
     def fmt(files: Union[str, List[str]]):
-        # Use resymgen for formatting rather than relying on pyyaml
-        resymgen.fmt(files, capture_output=True).check_returncode()
+        try:
+            # Use resymgen for formatting rather than relying on pyyaml
+            resymgen.fmt(files, capture_output=True, check=True)
+        except subprocess.CalledProcessError as e:
+            print(e.stderr.decode(), file=sys.stderr)
+            raise
 
     def read(self) -> dict:
         with self.path.open("r") as f:
@@ -471,8 +477,7 @@ if __name__ == "__main__":
         if getattr(args, f"dir_{vers.lower()}") is not None
     }
     if len(data_dirs) < 2:
-        print("Data directories must be provided for at least 2 versions")
-        raise SystemExit
+        raise SystemExit("Data directories must be provided for at least 2 versions")
 
     # Outer key is binary name, inner key is version, inner value is file path.
     files_by_version: Dict[str, Dict[str, str]] = {name: {} for name in args.binary}
@@ -480,8 +485,7 @@ if __name__ == "__main__":
         files = find_binary_files(data_dir, args.binary)
         if len(files) < len(args.binary):
             missing = sorted(set(args.binary) - set(files))
-            print(f"Missing binaries from {data_dir}: {', '.join(missing)}")
-            raise SystemExit
+            raise SystemExit(f"Missing binaries from {data_dir}: {', '.join(missing)}")
         for name, fpath in files.items():
             files_by_version[name][vers] = fpath
 
