@@ -1,6 +1,3 @@
-import os
-import subprocess
-
 """
 A simple Python interface for calling resymgen commands via subprocess.
 Requires cargo to be installed and available in the runtime environment.
@@ -12,6 +9,9 @@ resymgen.help([]).check_returncode()
 resymgen.fmt(["--check", "<path/to/symbol/file>"]).check_returncode()
 ```
 """
+
+import os
+import subprocess
 
 
 class Resymgen:
