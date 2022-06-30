@@ -17,12 +17,12 @@ arm9:
     JP: 0xB8CB8
     EU-ITCM: 0x4000
     NA-ITCM: 0x4000
-  subregions:
-    - itcm.yml
   description: |-
     The main ARM9 binary.
     
     This is the binary that gets loaded when the game is launched, and contains the core code that runs the game, low level facilities such as memory allocation, compression, other external dependencies (such as linked functions from libc and libgcc), and the functions and tables necessary to load overlays and dispatch execution to them.
+  subregions:
+    - itcm.yml
   functions:
     - name: InitMemAllocTable
       address:
