@@ -67,3 +67,4 @@ itcm:
         Determines if an AI-controlled monster will use a move and which one it will use
         
         r0: Entity pointer
+  data:
