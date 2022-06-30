@@ -1,0 +1,69 @@
+itcm:
+  versions:
+    - EU
+    - NA
+    - JP
+    - EU-ITCM
+    - NA-ITCM
+  address:
+    EU: 0x20B3CC0
+    NA: 0x20B3380
+    EU-ITCM: 0x1FF8000
+    NA-ITCM: 0x1FF8000
+  length:
+    EU: 0x4084
+    NA: 0x4084
+    EU-ITCM: 0x4084
+    NA-ITCM: 0x4084
+  description: |-
+    The instruction TCM (tightly-coupled memory) and the corresponding region in the ARM9 binary.
+
+    The ITCM is a special area of low-latency memory meant for performance-critical routines. It's similar to an instruction cache, but more predictable. See the ARMv5 Architecture Reference Manual, Chapter B7 (https://developer.arm.com/documentation/ddi0100/i).
+    
+    The Nintendo DS ITCM region is located at 0x0-0x7FFF in memory, but the 32 KiB segment is mirrored throughout the 16 MiB block from 0x0-0x1FFFFFF. The Explorers of Sky code seems to reference only the mirror at 0x1FF8000, the closest one to main memory.
+    
+    In Explorers of Sky, a fixed region of the ARM9 binary appears to be loaded in the ITCM at all times, and seems to contain functions related to the dungeon AI, among other things. The ITCM has a max capacity of 0x8000, although not all of it is used.
+  functions:
+    - name: ShouldMonsterRunAwayVariationOutlawCheck
+      address:
+        EU: 0x20B6050
+        NA: 0x20B5710
+        EU-ITCM: 0x1FFA390
+        NA-ITCM: 0x1FFA390
+      description: |-
+        Calls ShouldMonsterRunAwayVariation. If the result is true, returns true. Otherwise, returns true only if the monster's behavior field is equal to monster_behavior::BEHAVIOR_FLEEING_OUTLAW.
+        
+        r0: Entity pointer
+        r1: ?
+        return: True if ShouldMonsterRunAway returns true or the monster is a fleeing outlaw
+    - name: AiMovement
+      address:
+        EU: 0x20B6084
+        NA: 0x20B5744
+        EU-ITCM: 0x1FFA3C4
+        NA-ITCM: 0x1FFA3C4
+      description: |-
+        Used by the AI to determine the direction in which a monster should move
+        
+        r0: Entity pointer
+        r1: ?
+    - name: CalculateAiTargetPos
+      address:
+        EU: 0x20B6F88
+        NA: 0x20B6648
+        EU-ITCM: 0x1FFB2C8
+        NA-ITCM: 0x1FFB2C8
+      description: |-
+        Calculates the target position of an AI-controlled monster and stores it in the monster's ai_target_pos field
+        
+        r0: Entity pointer
+    - name: ChooseAiMove
+      address:
+        EU: 0x20B7318
+        NA: 0x20B69D8
+        EU-ITCM: 0x1FFB658
+        NA-ITCM: 0x1FFB658
+      description: |-
+        Determines if an AI-controlled monster will use a move and which one it will use
+        
+        r0: Entity pointer

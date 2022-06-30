@@ -1,10 +1,8 @@
 #ifndef HEADERS_FUNCTIONS_ARM9_H_
 #define HEADERS_FUNCTIONS_ARM9_H_
 
-bool ShouldMonsterRunAwayVariationOutlawCheck(struct entity* monster, undefined param_2);
-void AiMovement(struct entity* monster, undefined param_2);
-void CalculateAiTargetPos(struct entity* monster);
-void ChooseAiMove(struct entity* monster);
+#include "arm9/itcm.h"
+
 void InitMemAllocTable(void);
 void SetMemAllocatorParams(get_alloc_arena_fn_t get_alloc_arena,
                            get_free_arena_fn_t get_free_arena);

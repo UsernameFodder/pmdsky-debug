@@ -3,54 +3,27 @@ arm9:
     - EU
     - NA
     - JP
+    - EU-ITCM
+    - NA-ITCM
   address:
     EU: 0x2000000
     NA: 0x2000000
     JP: 0x2000000
+    EU-ITCM: 0x1FF8000
+    NA-ITCM: 0x1FF8000
   length:
     EU: 0xB7D38
     NA: 0xB73F8
     JP: 0xB8CB8
+    EU-ITCM: 0x4084
+    NA-ITCM: 0x4084
+  subregions:
+    - itcm.yml
   description: |-
     The main ARM9 binary.
     
     This is the binary that gets loaded when the game is launched, and contains the core code that runs the game, low level facilities such as memory allocation, compression, other external dependencies (such as linked functions from libc and libgcc), and the functions and tables necessary to load overlays and dispatch execution to them.
   functions:
-    - name: ShouldMonsterRunAwayVariationOutlawCheck
-      address:
-        EU: 0x1FFA390
-        NA: 0x1FFA390
-      description: |-
-        Calls ShouldMonsterRunAwayVariation. If the result is true, returns true. Otherwise, returns true only if the monster's behavior field is equal to monster_behavior::BEHAVIOR_FLEEING_OUTLAW.
-        
-        r0: Entity pointer
-        r1: ?
-        return: True if ShouldMonsterRunAway returns true or the monster is a fleeing outlaw
-    - name: AiMovement
-      address:
-        EU: 0x1FFA3C4
-        NA: 0x1FFA3C4
-      description: |-
-        Used by the AI to determine the direction in which a monster should move
-        
-        r0: Entity pointer
-        r1: ?
-    - name: CalculateAiTargetPos
-      address:
-        EU: 0x1FFB2C8
-        NA: 0x1FFB2C8
-      description: |-
-        Calculates the target position of an AI-controlled monster and stores it in the monster's ai_target_pos field
-        
-        r0: Entity pointer
-    - name: ChooseAiMove
-      address:
-        EU: 0x1FFB658
-        NA: 0x1FFB658
-      description: |-
-        Determines if an AI-controlled monster will use a move and which one it will use
-        
-        r0: Entity pointer
     - name: InitMemAllocTable
       address:
         EU: 0x2000DE0
