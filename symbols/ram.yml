@@ -18,41 +18,6 @@ ram:
     More specifically, this file is a dumping ground for addresses that are useful to know about, but don't fall in the address ranges of any of the other files. Dynamically loaded constructs that do fall within the address range of a relevant binary should be listed in the corresponding YAML file of that binary, since it still has direct utility when reverse-engineering that particular binary.
   functions: []
   data:
-    - name: MEMORY_ALLOCATION_TABLE
-      address:
-        EU: 0x20B3CC0
-        NA: 0x20B3380
-      length:
-        EU: 0x40
-        NA: 0x40
-      description: |-
-        Keeps track of all active heap allocations.
-        
-        The memory allocator in the ARM9 binary uses region-based memory management (see https://en.wikipedia.org/wiki/Region-based_memory_management). The heap is broken up into smaller contiguous chunks called arenas (struct mem_arena), which are in turn broken up into chunks referred to as blocks (struct mem_block). Most of the time, an allocation results in a block being split off from a free part of an existing memory arena.
-        
-        type: struct mem_alloc_table
-    - name: DEFAULT_MEMORY_ARENA
-      address:
-        EU: 0x20B3CC4
-        NA: 0x20B3384
-      length:
-        EU: 0x1C
-        NA: 0x1C
-      description: |-
-        The default memory allocation arena. This is part of MEMORY_ALLOCATION_TABLE, but is also referenced on its own by various functions.
-        
-        type: struct mem_arena
-    - name: DEFAULT_MEMORY_ARENA_BLOCKS
-      address:
-        EU: 0x20B3D00
-        NA: 0x20B33C0
-      length:
-        EU: 0x1800
-        NA: 0x1800
-      description: |-
-        The block array for DEFAULT_MEMORY_ARENA.
-        
-        type: struct mem_block[256]
     - name: DUNGEON_COLORMAP_PTR
       address:
         EU: 0x21BA634
