@@ -15,8 +15,8 @@ arm9:
     EU: 0xB7D38
     NA: 0xB73F8
     JP: 0xB8CB8
-    EU-ITCM: 0x4084
-    NA-ITCM: 0x4084
+    EU-ITCM: 0x4000
+    NA-ITCM: 0x4000
   subregions:
     - itcm.yml
   description: |-
