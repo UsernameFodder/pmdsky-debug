@@ -3,18 +3,26 @@ arm9:
     - EU
     - NA
     - JP
+    - EU-ITCM
+    - NA-ITCM
   address:
     EU: 0x2000000
     NA: 0x2000000
     JP: 0x2000000
+    EU-ITCM: 0x1FF8000
+    NA-ITCM: 0x1FF8000
   length:
     EU: 0xB7D38
     NA: 0xB73F8
     JP: 0xB8CB8
+    EU-ITCM: 0x4000
+    NA-ITCM: 0x4000
   description: |-
     The main ARM9 binary.
     
     This is the binary that gets loaded when the game is launched, and contains the core code that runs the game, low level facilities such as memory allocation, compression, other external dependencies (such as linked functions from libc and libgcc), and the functions and tables necessary to load overlays and dispatch execution to them.
+  subregions:
+    - itcm.yml
   functions:
     - name: InitMemAllocTable
       address:
@@ -935,6 +943,15 @@ arm9:
         
         r0: Pointer to move data
         return: Type of the move
+    - name: GetMoveAiWeight
+      address:
+        EU: 0x2013A34
+        NA: 0x201398C
+      description: |-
+        Gets the AI weight of a move
+        
+        r0: Pointer to move data
+        return: AI weight of the move
     - name: GetMoveBasePower
       address:
         EU: 0x2013A74
@@ -975,6 +992,15 @@ arm9:
         
         r0: move pointer
         return: base power
+    - name: IsMoveRangeString19
+      address:
+        EU: 0x2013CAC
+        NA: 0x2013C04
+      description: |-
+        Returns whether a move's range string is 19 ("User").
+        
+        r0: Move pointer
+        return: True if the move's range string field has a value of 19.
     - name: IsRecoilMove
       address:
         EU: 0x2013EBC
@@ -1951,6 +1977,15 @@ arm9:
         
         r0: monster id
         return: sprite file size
+    - name: GetCanMoveFlag
+      address:
+        EU: 0x2052BEC
+        NA: 0x20528B4
+      description: |-
+        Returns the flag that determines if a monster can move in dungeons.
+        
+        r0: Monster ID
+        return: "Can move" flag
     - name: GetMonsterPreEvolution
       address:
         EU: 0x2052CE0
@@ -3355,40 +3390,3 @@ arm9:
       length:
         EU: 0x1FC
         NA: 0x1FC
-    - name: MEMORY_ALLOCATION_TABLE
-      address:
-        EU: 0x20B3CC0
-        NA: 0x20B3380
-      length:
-        EU: 0x40
-        NA: 0x40
-      description: |-
-        [Runtime] Keeps track of all active heap allocations.
-        
-        The memory allocator in the ARM9 binary uses region-based memory management (see https://en.wikipedia.org/wiki/Region-based_memory_management). The heap is broken up into smaller contiguous chunks called arenas (struct mem_arena), which are in turn broken up into chunks referred to as blocks (struct mem_block). Most of the time, an allocation results in a block being split off from a free part of an existing memory arena.
-        
-        Note: There seems to be some other static data at this address in the ARM9 binary itself. It gets overwritten at runtime when the allocator sets up.
-        
-        type: struct mem_alloc_table
-    - name: DEFAULT_MEMORY_ARENA
-      address:
-        EU: 0x20B3CC4
-        NA: 0x20B3384
-      length:
-        EU: 0x1C
-        NA: 0x1C
-      description: |-
-        [Runtime] The default memory allocation arena. This is part of MEMORY_ALLOCATION_TABLE, but is also referenced on its own by various functions.
-        
-        type: struct mem_arena
-    - name: DEFAULT_MEMORY_ARENA_BLOCKS
-      address:
-        EU: 0x20B3D00
-        NA: 0x20B33C0
-      length:
-        EU: 0x1800
-        NA: 0x1800
-      description: |-
-        [Runtime] The block array for DEFAULT_MEMORY_ARENA.
-        
-        type: struct mem_block[256]

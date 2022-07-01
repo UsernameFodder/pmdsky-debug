@@ -291,7 +291,8 @@ struct monster {
     // 0x4E: Metadata for some action_id values.
     // E.g., this is the bag item index when using an item, the monster index when taking an action
     // on a monster or the move index when using a move
-    uint16_t action_use_idx;
+    uint8_t action_use_idx;
+    undefined field_0x4F;
     undefined field_0x50;
     undefined field_0x51;
     undefined field_0x52;
@@ -409,8 +410,8 @@ struct monster {
     undefined field_0x17b;
     undefined field_0x17c;
     undefined field_0x17d;
-    struct position target_pixel_pos; // 0x17E: The AI's target's graphical position on screen?
-    struct position pixel_pos;        // 0x182: The monster's graphical position on screen?
+    struct position target_pos; // 0x17E: The AI's target's position on screen
+    struct position pixel_pos;  // 0x182: The monster's graphical position on screen?
     undefined field_0x186;
     undefined field_0x187;
     undefined field_0x188;
@@ -1333,8 +1334,8 @@ ASSERT_SIZE(struct guest_monster, 36);
 
 // Used by the AI to keep track of which moves it can use
 struct ai_possible_move {
-    bool can_be_used; // 0x0
-    undefined field_0x1;
+    bool can_be_used;                // 0x0
+    struct direction_id_8 direction; // 0x1: Direction in which the move should be used
     undefined field_0x2;
     undefined field_0x3;
     int weight; // 0x4: Affects the chance of the AI using this move

@@ -5,6 +5,7 @@
 
 // Direction on the dungeon grid
 enum direction_id {
+    DIR_NONE = -1,
     DIR_DOWN = 0,
     DIR_DOWN_RIGHT = 1,
     DIR_RIGHT = 2,

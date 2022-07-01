@@ -1,0 +1,111 @@
+itcm:
+  versions:
+    - EU
+    - NA
+    - JP
+    - EU-ITCM
+    - NA-ITCM
+  address:
+    EU: 0x20B3CC0
+    NA: 0x20B3380
+    EU-ITCM: 0x1FF8000
+    NA-ITCM: 0x1FF8000
+  length:
+    EU: 0x4000
+    NA: 0x4000
+    EU-ITCM: 0x4000
+    NA-ITCM: 0x4000
+  description: |-
+    The instruction TCM (tightly-coupled memory) and the corresponding region in the ARM9 binary.
+    
+    The ITCM is a special area of low-latency memory meant for performance-critical routines. It's similar to an instruction cache, but more predictable. See the ARMv5 Architecture Reference Manual, Chapter B7 (https://developer.arm.com/documentation/ddi0100/i).
+    
+    The Nintendo DS ITCM region is located at 0x0-0x7FFF in memory, but the 32 KiB segment is mirrored throughout the 16 MiB block from 0x0-0x1FFFFFF. The Explorers of Sky code seems to reference only the mirror at 0x1FF8000, the closest one to main memory.
+    
+    In Explorers of Sky, a fixed region of the ARM9 binary appears to be loaded in the ITCM at all times, and seems to contain functions related to the dungeon AI, among other things. The ITCM has a max capacity of 0x8000, although not all of it is used.
+  functions:
+    - name: ShouldMonsterRunAwayVariationOutlawCheck
+      address:
+        EU: 0x20B6050
+        NA: 0x20B5710
+        EU-ITCM: 0x1FFA390
+        NA-ITCM: 0x1FFA390
+      description: |-
+        Calls ShouldMonsterRunAwayVariation. If the result is true, returns true. Otherwise, returns true only if the monster's behavior field is equal to monster_behavior::BEHAVIOR_FLEEING_OUTLAW.
+        
+        r0: Entity pointer
+        r1: ?
+        return: True if ShouldMonsterRunAway returns true or the monster is a fleeing outlaw
+    - name: AiMovement
+      address:
+        EU: 0x20B6084
+        NA: 0x20B5744
+        EU-ITCM: 0x1FFA3C4
+        NA-ITCM: 0x1FFA3C4
+      description: |-
+        Used by the AI to determine the direction in which a monster should move
+        
+        r0: Entity pointer
+        r1: ?
+    - name: CalculateAiTargetPos
+      address:
+        EU: 0x20B6F88
+        NA: 0x20B6648
+        EU-ITCM: 0x1FFB2C8
+        NA-ITCM: 0x1FFB2C8
+      description: |-
+        Calculates the target position of an AI-controlled monster and stores it in the monster's ai_target_pos field
+        
+        r0: Entity pointer
+    - name: ChooseAiMove
+      address:
+        EU: 0x20B7318
+        NA: 0x20B69D8
+        EU-ITCM: 0x1FFB658
+        NA-ITCM: 0x1FFB658
+      description: |-
+        Determines if an AI-controlled monster will use a move and which one it will use
+        
+        r0: Entity pointer
+  data:
+    - name: MEMORY_ALLOCATION_TABLE
+      address:
+        EU: 0x20B3CC0
+        NA: 0x20B3380
+      length:
+        EU: 0x40
+        NA: 0x40
+      description: |-
+        [Runtime] Keeps track of all active heap allocations.
+        
+        The memory allocator in the ARM9 binary uses region-based memory management (see https://en.wikipedia.org/wiki/Region-based_memory_management). The heap is broken up into smaller contiguous chunks called arenas (struct mem_arena), which are in turn broken up into chunks referred to as blocks (struct mem_block). Most of the time, an allocation results in a block being split off from a free part of an existing memory arena.
+        
+        Note: This symbol isn't actually part of the ITCM, it gets created at runtime on the spot in RAM that used to contain the code that was moved to the ITCM.
+        
+        type: struct mem_alloc_table
+    - name: DEFAULT_MEMORY_ARENA
+      address:
+        EU: 0x20B3CC4
+        NA: 0x20B3384
+      length:
+        EU: 0x1C
+        NA: 0x1C
+      description: |-
+        [Runtime] The default memory allocation arena. This is part of MEMORY_ALLOCATION_TABLE, but is also referenced on its own by various functions.
+        
+        Note: This symbol isn't actually part of the ITCM, it gets created at runtime on the spot in RAM that used to contain the code that was moved to the ITCM.
+        
+        type: struct mem_arena
+    - name: DEFAULT_MEMORY_ARENA_BLOCKS
+      address:
+        EU: 0x20B3D00
+        NA: 0x20B33C0
+      length:
+        EU: 0x1800
+        NA: 0x1800
+      description: |-
+        [Runtime] The block array for DEFAULT_MEMORY_ARENA.
+        
+        Note: This symbol isn't actually part of the ITCM, it gets created at runtime on the spot in RAM that used to contain the code that was moved to the ITCM.
+        
+        type: struct mem_block[256]
