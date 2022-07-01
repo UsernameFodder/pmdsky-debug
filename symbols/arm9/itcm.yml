@@ -109,4 +109,3 @@ itcm:
         Note: This symbol isn't actually part of the ITCM, it gets created at runtime on the spot in RAM that used to contain the code that was moved to the ITCM.
         
         type: struct mem_block[256]
-
