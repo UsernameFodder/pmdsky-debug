@@ -127,7 +127,8 @@ The No$GBA debugger supports loading symbol names from a `.sym` file.
 
    ![Example ROM file with its accompanying symbol table](images/nocash-files.png)
 
-3. Figure out which [overlays](overlays.md) will be loaded during the gameplay that you're debugging with No$GBA. Copy the contents of all the corresponding `.sym` files from the `pmdsky-debug` archive (pick the version subdirectory that matches your ROM) into the `.sym` file you just created, concatenating the lines of the different files together. Along with the overlays, you'll always want to include the contents of `arm9.yml`, and if relevant you might also want to include the contents of `ram.yml`. For example, a `.sym` file for a North American ROM might look like this:
+3. Locate which subdirectories you will have to use, which depends on the version of your ROM. You will need the files from all the subdirectories starting with your ROM's version identifier. For example, if you're working with an North American ROM, you'll need the files under the `NA` and `NA-ITCM` subdirectories.
+4. Figure out which [overlays](overlays.md) will be loaded during the gameplay that you're debugging with No$GBA. Copy the contents of all the corresponding `.sym` files from each one of the relevant subdirectories into the `.sym` file you just created, concatenating the lines of the different files together. Make sure to start copying from the `xx-ITCM` subdirectory first. Along with the overlays, you'll always want to include the contents of `arm9_xx.sym`, and if relevant you might also want to include the contents of `ram_xx.sym`. For example, a `.sym` file for a North American ROM might look like this:
 
    ![Example symbol table](images/nocash-symfile.png)
 
