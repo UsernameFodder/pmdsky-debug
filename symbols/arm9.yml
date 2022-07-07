@@ -726,6 +726,70 @@ arm9:
         r0: program position info
         r1: format
         ...: variadic
+    - name: OpenAllPackFiles
+      address:
+        EU: 0x200C364
+      description: |-
+        Open the 6 files at PACK_FILE_PATHS_TABLE into PACK_FILE_OPENED. Called during game initialisation.
+        
+        No params.
+    - name: GetFileLengthInPackWithPackNb
+      address:
+        EU: 0x200C3C4
+      description: |-
+        Call GetFileLengthInPack after looking up the global Pack archive by its number
+        
+        r0: pack file number
+        r1: file number
+        return: size of the file in bytes from the Pack Table of Content
+    - name: LoadFileInPackWithPackId
+      address:
+        EU: 0x200C3E4
+      description: |-
+        Call LoadFileInPack after looking up the global Pack archive by its identifier
+        
+        r0: pack file identifier
+        r1: [output] target buffer
+        r2: file index
+        return: number of read bytes (identical to the length of the pack from the Table of Content)
+    - name: AllocAndLoadFileInPack
+      address:
+        EU: 0x200C410
+      description: |-
+        Allocate a file and load a file from the pack archive inside.
+        The data pointed by the pointer in the output need to be freed once is not needed anymore.
+        
+        r0: pack file identifier
+        r1: file index
+        r2: [output] result struct (will contain length and pointer)
+        r3: allocation flags
+    - name: OpenPackFile
+      address:
+        EU: 0x200C468
+      description: |-
+        Open a Pack file, to be read later. Initialise the output structure.
+        
+        r0: [output] pack file struct
+        r1: file name
+    - name: GetFileLengthInPack
+      address:
+        EU: 0x200C4FC
+      description: |-
+        Get the length of a file entry from a Pack archive
+        
+        r0: pack file struct
+        r1: file index
+        return: size of the file in bytes from the Pack Table of Content
+    - name: LoadFileInPack
+      address:
+        EU: 0x200C50C
+      description: |-
+        Load the indexed file from the Pack archive, itself loaded from the ROM.
+        
+        r0: pack file struct
+        r1: [output] target buffer
+        r2: file index
+        return: number of read bytes (identical to the length of the pack from the Table of Content)
     - name: IsAuraBow
       address:
         EU: 0x200CC9C
@@ -3289,6 +3353,15 @@ arm9:
         - 0x3 (overlay 35)
         
         type: enum overlay_group_id
+    - name: PACK_FILE_OPENED
+      address:
+        EU: 0x20AFF54
+      length:
+        EU: 0x4
+      description: |-
+        [Runtime] A pointer to the 6 opened Pack files (listed at PACK_FILE_PATHS_TABLE)
+        
+        type: struct pack_file_opened*
     - name: PACK_FILE_PATHS_TABLE
       address:
         EU: 0x20AFF58
@@ -3299,6 +3372,8 @@ arm9:
       description: |-
         List of pointers to path strings to all known pack files.
         The game uses this table to load its resources when launching dungeon mode.
+        
+        type: char*[6]
     - name: GAME_STATE_VALUES
       address:
         EU: 0x20AFF70
