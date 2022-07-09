@@ -69,6 +69,16 @@ uint32_t GetDebugFlag2(uint32_t flag_id);
 void SetDebugFlag2(uint32_t flag_id, uint32_t val);
 void DebugPrint(uint8_t level, const char* fmt, ...);
 void FatalError(struct prog_pos_info prog_pos, const char* fmt, ...);
+void OpenAllPackFiles(void);
+uint32_t GetFileLengthInPackWithPackNb(enum pack_file_id pack_id, uint32_t file_index);
+uint32_t LoadFileInPackWithPackId(enum pack_file_id pack_id, void* output_buffer,
+                                  uint32_t file_index);
+void AllocAndLoadFileInPack(enum pack_file_id pack_id, uint32_t file_index,
+                            struct pack_alloc_and_load_result* output, uint32_t malloc_flags);
+void OpenPackFile(struct pack_file_opened* pack_file, const char* file_name);
+uint32_t GetFileLengthInPack(struct pack_file_opened* pack_file, uint32_t file_index);
+uint32_t LoadFileInPack(struct pack_file_opened* pack_file, void* output_buffer,
+                        uint32_t file_index);
 bool IsAuraBow(enum item_id item_id);
 int SprintfStatic(char* str, const char* format, ...);
 void SetMoneyCarried(int amount);
