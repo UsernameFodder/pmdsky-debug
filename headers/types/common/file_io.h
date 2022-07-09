@@ -1,7 +1,7 @@
 // Structures about reading files from the filesystem, as well as parsing them.
 
-#ifndef HEADERS_TYPES_COMMON_CARTRIDGE_IO_H_
-#define HEADERS_TYPES_COMMON_CARTRIDGE_IO_H_
+#ifndef HEADERS_TYPES_COMMON_FILE_IO_H_
+#define HEADERS_TYPES_COMMON_FILE_IO_H_
 
 // This is essentially the standard (32-bit) Unix I/O vector struct.
 // It's used for file I/O and represents a buffer of data with a pointer and a length.
