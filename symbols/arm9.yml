@@ -2005,12 +2005,12 @@ arm9:
         
         r0: joined_at id
         return: bool
-    - name: ShouldCauseGameOverOnFaint
+    - name: JoinedAtRangeCheck2
       address:
         EU: 0x2051A98
         NA: 0x2051760
       description: |-
-        Returns whether a game over should happen when a monster with the specified joined_at ID faints (as long as the other conditions are met). It might have a more generic meaning.
+        Returns whether a certain joined_at field value is equal to dungeon_id::DUNGEON_BEACH or is between dungeon_id::DUNGEON_DUMMY_0xEC and dungeon_id::DUNGEON_DUMMY_0xF0.
         
         r0: joined_at id
         return: bool
@@ -2162,6 +2162,17 @@ arm9:
         r0: monster ID
         r1: ?
         return: bool
+    - name: CheckTeamMemberField8
+      address:
+        EU: 0x20565E0
+        NA: 0x2056228
+      description: |-
+        Checks if a value obtained from team_member::field_0x8 is equal to certain values.
+        
+        This is known to return true for some or all of the guest monsters.
+        
+        r0: Value read from team_member::field_0x8
+        return: True if the value is equal to 0x55AA or 0x5AA5
     - name: GetTeamMemberData
       address:
         EU: 0x2056708
@@ -2758,7 +2769,8 @@ arm9:
         
         r0: dividend
         r1: divisor
-        return: dividend / divisor
+        return r0: dividend / divisor
+        return r1: reminder
     - name: DivideUInt
       address:
         EU: 0x2090448
@@ -2771,7 +2783,8 @@ arm9:
         
         r0: dividend
         r1: divisor
-        return: dividend / divisor
+        return r0: dividend / divisor
+        return r1: reminder
     - name: DivideUIntNoZeroCheck
       address:
         EU: 0x2090450
@@ -2784,7 +2797,8 @@ arm9:
         
         r0: dividend
         r1: divisor
-        return: dividend / divisor
+        return r0: dividend / divisor
+        return r1: reminder
   data:
     - name: DEFAULT_MEMORY_ARENA_SIZE
       address:
