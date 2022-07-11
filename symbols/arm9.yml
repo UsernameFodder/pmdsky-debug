@@ -2767,10 +2767,11 @@ arm9:
       description: |-
         This appears to be the libgcc implementation of __divsi3 (not sure which gcc version), which implements the division operator for signed ints.
         
+        The return value is a 64-bit integer, with the quotient (dividend / divisor) in the lower 32 bits and the remainder (dividend % divisor) in the upper 32 bits. In accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return), this means that the quotient is returned in r0 and the remainder is returned in r1.
+        
         r0: dividend
         r1: divisor
-        return r0: dividend / divisor
-        return r1: reminder
+        return: (quotient) | (remainder << 32)
     - name: DivideUInt
       address:
         EU: 0x2090448
@@ -2779,12 +2780,12 @@ arm9:
       description: |-
         This appears to be the libgcc implementation of __udivsi3 (not sure which gcc version), which implements the division operator for unsigned ints.
         
+        The return value is a 64-bit integer, with the quotient (dividend / divisor) in the lower 32 bits and the remainder (dividend % divisor) in the upper 32 bits. In accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return), this means that the quotient is returned in r0 and the remainder is returned in r1.
         Note: This function falls through to DivideUIntNoZeroCheck.
         
         r0: dividend
         r1: divisor
-        return r0: dividend / divisor
-        return r1: reminder
+        return: (quotient) | (remainder << 32)
     - name: DivideUIntNoZeroCheck
       address:
         EU: 0x2090450
@@ -2793,12 +2794,12 @@ arm9:
       description: |-
         Subsidiary function to DivideUInt. Skips the initial check for divisor == 0.
         
+        The return value is a 64-bit integer, with the quotient (dividend / divisor) in the lower 32 bits and the remainder (dividend % divisor) in the upper 32 bits. In accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return), this means that the quotient is returned in r0 and the remainder is returned in r1.
         This function appears to only be called internally.
         
         r0: dividend
         r1: divisor
-        return r0: dividend / divisor
-        return r1: reminder
+        return: (quotient) | (remainder << 32)
   data:
     - name: DEFAULT_MEMORY_ARENA_SIZE
       address:

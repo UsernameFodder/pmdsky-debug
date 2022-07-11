@@ -275,8 +275,8 @@ float UIntToFloat(uint32_t u);
 float MultiplyFloat(float a, float b);
 float Sqrtf(float x);
 float SubtractFloat(float a, float b);
-int DivideInt(int dividend, int divisor);
-uint32_t DivideUInt(uint32_t dividend, uint32_t divisor);
-uint32_t DivideUIntNoZeroCheck(uint32_t dividend, uint32_t divisor);
+unsigned long long DivideInt(int dividend, int divisor);
+unsigned long long DivideUInt(uint32_t dividend, uint32_t divisor);
+unsigned long long DivideUIntNoZeroCheck(uint32_t dividend, uint32_t divisor);
 
 #endif
