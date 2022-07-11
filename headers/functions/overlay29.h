@@ -10,7 +10,7 @@ bool EntityIsValid(struct entity* entity);
 enum floor_type GetFloorType(void);
 bool TryForcedLoss(bool skip_floor_end_check);
 bool FixedRoomIsSubstituteRoom(void);
-bool ShouldGameOverOnImportantTeamMemberFaint(void);
+bool StoryRestrictionsEnabled(void);
 void FadeToBlack(void);
 struct tile* GetTileAtEntity(struct entity* entity);
 bool CanTargetEntity(struct entity* user, struct entity* target);

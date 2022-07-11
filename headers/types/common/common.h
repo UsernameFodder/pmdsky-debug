@@ -267,8 +267,7 @@ struct team_member {
     undefined field_0x4;
     undefined field_0x5;
     uint16_t iq; // 0x6
-    undefined field_0x8;
-    undefined field_0x9;
+    undefined2 field_0x8;
     undefined field_0xA;
     undefined field_0xB;
     undefined field_0xC;

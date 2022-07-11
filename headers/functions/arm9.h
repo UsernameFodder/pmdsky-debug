@@ -203,7 +203,7 @@ int CeilFixedPoint(uint32_t val_fp);
 bool DungeonGoesUp(enum dungeon_id dungeon_id);
 int8_t GetMaxRescueAttempts(enum dungeon_id dungeon_id);
 bool JoinedAtRangeCheck(struct dungeon_id_8 joined_at);
-bool ShouldCauseGameOverOnFaint(struct dungeon_id_8 joined_at);
+bool JoinedAtRangeCheck2(struct dungeon_id_8 joined_at);
 uint8_t GetMonsterGender(enum monster_id monster_id);
 uint8_t GetSpriteSize(enum monster_id monster_id);
 uint8_t GetSpriteFileSize(enum monster_id monster_id);
@@ -220,6 +220,7 @@ bool IsCastform(enum monster_id monster_id);
 bool IsCherrim(enum monster_id monster_id);
 bool IsDeoxys(enum monster_id monster_id);
 bool IsMonsterOnTeam(enum monster_id monster_id, int param_2);
+bool CheckTeamMemberField8(undefined2 param_1);
 struct team_member* GetTeamMemberData(uint8_t index);
 void SetTeamSetupHeroAndPartnerOnly(void);
 void SetTeamSetupHeroOnly(void);
@@ -274,8 +275,8 @@ float UIntToFloat(uint32_t u);
 float MultiplyFloat(float a, float b);
 float Sqrtf(float x);
 float SubtractFloat(float a, float b);
-int DivideInt(int dividend, int divisor);
-uint32_t DivideUInt(uint32_t dividend, uint32_t divisor);
-uint32_t DivideUIntNoZeroCheck(uint32_t dividend, uint32_t divisor);
+unsigned long long DivideInt(int dividend, int divisor);
+unsigned long long DivideUInt(uint32_t dividend, uint32_t divisor);
+unsigned long long DivideUIntNoZeroCheck(uint32_t dividend, uint32_t divisor);
 
 #endif

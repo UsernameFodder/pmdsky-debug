@@ -210,14 +210,16 @@ overlay29:
         Checks if the current fixed room is the "substitute room" (ID 0x6E).
         
         return: bool
-    - name: ShouldGameOverOnImportantTeamMemberFaint
+    - name: StoryRestrictionsEnabled
       address:
         EU: 0x22E1268
         NA: 0x22E0928
       description: |-
-        Returns true if you should get kicked out of the dungeon if an important team member (like the partner or certain story allies) faints.
+        Returns true if certain special restrictions are enabled.
         
-        return: dungeon::nonstory_flag || dungeon::hidden_land_flag
+        If true, you will get kicked out of the dungeon if a team member that passes the arm9::JoinedAtRangeCheck2 check faints.
+        
+        return: !dungeon::nonstory_flag || dungeon::hidden_land_flag
     - name: FadeToBlack
       address:
         EU: 0x22E12A8
@@ -682,6 +684,16 @@ overlay29:
         
         r0: Monster ID
         return: Sprite index of the specified monster ID
+    - name: JoinedAtRangeCheck2Veneer
+      address:
+        EU: 0x22F7D60
+        NA: 0x22F73A8
+      description: |-
+        Likely a linker-generated veneer for arm9::JoinedAtRangeCheck2.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
+        
+        No params.
     - name: FloorNumberIsEven
       address:
         EU: 0x22F7D6C
