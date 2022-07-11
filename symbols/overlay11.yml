@@ -207,6 +207,16 @@ overlay11:
         Implements SPECIAL_PROC_0x16 (see ScriptSpecialProcessCall).
         
         r0: bool
+    - name: LoadABgListEntry
+      address:
+        EU: 0x22EC480
+      description: |-
+        Open and read an entry from the MAP_BG/bg_list.dat
+        
+        Documentation on this format can be found here : https://github.com/SkyTemple/skytemple-files/tree/master/skytemple_files/graphics/bg_list_dat
+        
+        r0: [output] The entry
+        r1: the number of the background
     - name: SprintfStatic
       address:
         EU: 0x2309868
@@ -335,6 +345,10 @@ overlay11:
         EU: 0x2325800
         NA: 0x2324CC0
       description: "[Runtime]"
+    - name: GROUND_STATE_WEATHER
+      address:
+        EU: 0x232580C
+      description: "[Runtime] Same structure format as GROUND_STATE_MAP"
     - name: GROUND_STATE_PTRS
       address:
         EU: 0x2325834
