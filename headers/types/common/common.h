@@ -693,6 +693,20 @@ struct adventure_log {
 };
 ASSERT_SIZE(struct adventure_log, 636);
 
+// a 2d uint (32bit) vector
+struct uvec2 {
+    uint32_t x;
+    uint32_t y;
+};
+ASSERT_SIZE(struct uvec2, 8);
+
+// a 2d int (32bit) vector
+struct vec2 {
+    int32_t x;
+    int32_t y;
+};
+ASSERT_SIZE(struct vec2, 8);
+
 // TODO: Add more data file structures, as convenient or needed, especially if the load address
 // or pointers to the load address are known.
 
