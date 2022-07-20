@@ -240,6 +240,58 @@ struct statuses {
 ASSERT_SIZE(struct statuses, 118);
 #pragma pack(pop)
 
+#pragma pack(push, 1)
+// A bitfield where every bit controls one of the icons that can appear on top of a monster's sprite
+// to represent status effects. If multiple bits are set, the shown icon cycles through them.
+struct status_icon_flags {
+    bool f_sleepless : 1;    // Blue eye blinking yellow
+    bool f_burn : 1;         // Red flame
+    bool f_poison : 1;       // White skull
+    bool f_toxic : 1;        // Purple skull
+    bool f_confused : 1;     // Yellow birds
+    bool f_cowering : 1;     // 2 green lines in circle (same as whiffer)
+    bool f_taunt : 1;        // Fist icon
+    bool f_encore : 1;       // Blue exclamation mark (same as low HP)
+    bool f_reflect : 1;      // Blue shield with white sparks. Also for counter, mini counter, mist,
+                             // metal burst, aqua ring, lucky chant
+    bool f_safeguard : 1;    // Pink shield. Also for mirror coat
+    bool f_light_screen : 1; // Golden shield. Also for magic coat
+    bool f_protect : 1;      // Green shield. Also for mirror move and vital throw
+    bool f_endure : 1;       // Blue shield with red sparks
+    bool f_low_hp : 1;       // Blue exclamation mark (same as encore)
+    bool f_curse : 1;        // Red skull
+    bool f_embargo : 1;      // Yellow exclamation mark. Also for gastro acid and snatch
+    bool f_sure_shot : 1;    // Blue sword blinking yellow
+    bool f_whiffer : 1;      // 2 green lines in circle (same as cowering)
+    bool f_set_damage : 1;   // Blue sword blinking red
+    bool f_focus_energy : 1; // Red sword blinking yellow
+    bool f_blinded : 1;      // Blue eye with an X
+    bool f_cross_eyed : 1;   // Blue question mark
+    bool f_eyedrops : 1;     // Blue eye blinking yellow with a circular wave
+    bool f_muzzled : 1;      // Blinking red cross
+    bool f_grudge : 1;       // Purple shield
+    bool f_exposed : 1;      // Blue eye blinking red with a circular wave
+    bool f_sleep : 1;        // Red Z's
+    bool f_lowered_stat : 1; // Yellow arrow pointing down
+    bool f_heal_block : 1;   // Blinking green cross
+    bool f_miracle_eye : 1;  // Blinking orange cross
+    bool f_red_exclamation_mark : 1; // Probably unused
+    bool f_magnet_rise : 1;          // Purple arrow pointing up
+
+    // The following 4 bytes appear to have a different meaning, maybe they are intended to
+    // represent sprites that cover the monster and are not just icons (due to the difference
+    // between freeze and the other status effects). Except for the first bit, the others do not
+    // seem to have an effect, but the code stores the full 4 bytes as a bitwise OR of some of the
+    // flags (see UpdateStatusIconBitfield).
+    bool f_freeze : 1; // Ice block (technically not an icon, but behaves in the same way)
+    uint16_t flags_unk2 : 7;
+    undefined field_0x5;
+    undefined field_0x6;
+    undefined field_0x7;
+};
+ASSERT_SIZE(struct status_icon_flags, 8);
+#pragma pack(pop)
+
 // Monster info
 struct monster {
     // 0x0: flags: 2-byte bitfield
@@ -554,14 +606,7 @@ struct monster {
     undefined field_0x215;
     undefined field_0x216;
     undefined field_0x217;
-    undefined field_0x218;
-    undefined field_0x219;
-    undefined field_0x21a;
-    undefined field_0x21b;
-    undefined field_0x21c;
-    undefined field_0x21d;
-    undefined field_0x21e;
-    undefined field_0x21f;
+    struct status_icon_flags status_icons;
     undefined field_0x220;
     undefined field_0x221;
     undefined field_0x222;
@@ -1392,7 +1437,6 @@ ASSERT_SIZE(struct prng_state, 20);
 
 // Contains the necessary information to spawn a monster.
 // Allocated on the stack and passed via a pointer to SpawnMonster.
-
 struct spawned_monster_data {
     struct monster_id_16 monster_id;    // 0x0: The id of the monster to spawn
     struct monster_behavior_8 behavior; // 0x2: NPC behavior of the monster

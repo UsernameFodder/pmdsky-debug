@@ -909,7 +909,10 @@ struct dungeon {
     // to be set to action::ACTION_WALK until it hits an obstacle.
     bool leader_running;
     undefined field_0x78c;
-    undefined field_0x78d;
+    // 0x78D: This flag is set by the unused move 0x395 (Reviver).
+    // If true, the UpdateStatusIconFlag function will set the icon flag
+    // to display a blue exclamation mark on monsters that hold an item.
+    bool unused_reviver_item_flag;
     bool pass_turn; // 0x78E: True if the leader has chosen to pass its turn
     undefined field_0x78f;
     bool thief_alert; // 0x790: If you've stolen from Kecleon (actual dungeon state)
