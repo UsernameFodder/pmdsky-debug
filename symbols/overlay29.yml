@@ -320,6 +320,18 @@ overlay29:
         r0: entity pointer
         r1: item ID
         return: bool
+    - name: UpdateStatusIconFlags
+      address:
+        EU: 0x22E4464
+        NA: 0x22E3AB4
+      description: |-
+        Sets a monster's status_icon_flags bitfield according to its current status effects. Does not affect a Sudowoodo in the "permanent sleep" state (statuses::sleep == 0x7F).
+        
+        Some of the status effect in monster:statuses are used as an index to access an array, where every group of 8 bytes represents a bitmask. All masks are added in a bitwise OR and then stored in monster::status_icon.
+        
+        Also sets icon flags for statuses::exposed, statuses::grudge, critical HP and lowered stats with explicit checks, and applies the effect of the Identifier Orb (see dungeon::identify_orb_flag).
+        
+        r0: entity pointer
     - name: IsOnMonsterSpawnList
       address:
         EU: 0x22E86FC
@@ -3592,6 +3604,20 @@ overlay29:
         EU: 0x4
         NA: 0x4
       description: Size of the dungeon struct (0x2CB14)
+    - name: MAX_HP_CAP
+      address:
+        EU:
+          - 0x22E4780
+          - 0x2312274
+          - 0x2318EB4
+        NA:
+          - 0x22E3DD0
+          - 0x2311814
+          - 0x2318454
+      length:
+        EU: 0x4
+        NA: 0x4
+      description: The maximum amount of HP a monster can have (999).
     - name: OFFSET_OF_DUNGEON_FLOOR_PROPERTIES
       address:
         EU:
@@ -3764,18 +3790,6 @@ overlay29:
         The base value by which belly is decreased every turn.
         
         Its raw value is 0x199A, which encodes a binary fixed-point number (16 fraction bits) with value (0x199A * 2^-16), and is the closest approximation to 0.1 representable in this number format.
-    - name: MAX_HP_CAP
-      address:
-        EU:
-          - 0x2312274
-          - 0x2318EB4
-        NA:
-          - 0x2311814
-          - 0x2318454
-      length:
-        EU: 0x4
-        NA: 0x4
-      description: The maximum amount of HP a monster can have (999).
     - name: MOVE_TARGET_AND_RANGE_SPECIAL_USER_HEALING
       address:
         EU: 0x231B794
@@ -4061,6 +4075,126 @@ overlay29:
         This is an array of 269 entries. Each entry contains 3 pointers (one into FIXED_ROOM_ITEM_SPAWN_TABLE, one into FIXED_ROOM_MONSTER_SPAWN_TABLE, and one into FIXED_ROOM_TILE_SPAWN_TABLE), and represents the entities that can spawn on one specific tile in a fixed room.
         
         type: struct fixed_room_entity_spawn_entry[269]
+    - name: STATUS_ICON_ARRAY_MUZZLED
+      address:
+        EU: 0x2351DC8
+        NA: 0x23511BC
+      length:
+        EU: 0x10
+        NA: 0x10
+      description: "Array of bit masks used to set monster::status_icon. Indexed by monster::statuses::muzzled * 8. See UpdateStatusIconFlags for details."
+    - name: STATUS_ICON_ARRAY_MAGNET_RISE
+      address:
+        EU: 0x2351DD8
+        NA: 0x23511CC
+      length:
+        EU: 0x10
+        NA: 0x10
+      description: "Array of bit masks used to set monster::status_icon. Indexed by monster::statuses::magnet_rise * 8. See UpdateStatusIconFlags for details."
+    - name: STATUS_ICON_ARRAY_MIRACLE_EYE
+      address:
+        EU: 0x2351DF8
+        NA: 0x23511EC
+      length:
+        EU: 0x18
+        NA: 0x18
+      description: "Array of bit masks used to set monster::status_icon. Indexed by monster::statuses::miracle_eye * 8. See UpdateStatusIconFlags for details."
+    - name: STATUS_ICON_ARRAY_LEECH_SEED
+      address:
+        EU: 0x2351E08
+        NA: 0x23511FC
+      length:
+        EU: 0x18
+        NA: 0x18
+      description: "Array of bit masks used to set monster::status_icon. Indexed by monster::statuses::leech_seed * 8. See UpdateStatusIconFlags for details."
+    - name: STATUS_ICON_ARRAY_LONG_TOSS
+      address:
+        EU: 0x2351E20
+        NA: 0x2351214
+      length:
+        EU: 0x18
+        NA: 0x18
+      description: "Array of bit masks used to set monster::status_icon. Indexed by monster::statuses::long_toss * 8. See UpdateStatusIconFlags for details."
+    - name: STATUS_ICON_ARRAY_BLINDED
+      address:
+        EU: 0x2351E78
+        NA: 0x235126C
+      length:
+        EU: 0x28
+        NA: 0x28
+      description: "Array of bit masks used to set monster::status_icon. Indexed by monster::statuses::blinded * 8. See UpdateStatusIconFlags for details."
+    - name: STATUS_ICON_ARRAY_BURN
+      address:
+        EU: 0x2351EA0
+        NA: 0x2351294
+      length:
+        EU: 0x28
+        NA: 0x28
+      description: "Array of bit masks used to set monster::status_icon. Indexed by monster::statuses::burn * 8. See UpdateStatusIconFlags for details."
+    - name: STATUS_ICON_ARRAY_SURE_SHOT
+      address:
+        EU: 0x2351EC8
+        NA: 0x23512BC
+      length:
+        EU: 0x28
+        NA: 0x28
+      description: "Array of bit masks used to set monster::status_icon. Indexed by monster::statuses::sure_shot * 8. See UpdateStatusIconFlags for details."
+    - name: STATUS_ICON_ARRAY_INVISIBLE
+      address:
+        EU: 0x2351EF0
+        NA: 0x23512E4
+      length:
+        EU: 0x28
+        NA: 0x28
+      description: "Array of bit masks used to set monster::status_icon. Indexed by monster::statuses::invisible * 8. See UpdateStatusIconFlags for details."
+    - name: STATUS_ICON_ARRAY_SLEEP
+      address:
+        EU: 0x2351F18
+        NA: 0x235130C
+      length:
+        EU: 0x40
+        NA: 0x40
+      description: "Array of bit masks used to set monster::status_icon. Indexed by monster::statuses::sleep * 8. See UpdateStatusIconFlags for details."
+    - name: STATUS_ICON_ARRAY_CURSE
+      address:
+        EU: 0x2351F48
+        NA: 0x235133C
+      length:
+        EU: 0x38
+        NA: 0x38
+      description: "Array of bit masks used to set monster::status_icon. Indexed by monster::statuses::curse * 8. See UpdateStatusIconFlags for details."
+    - name: STATUS_ICON_ARRAY_FREEZE
+      address:
+        EU: 0x2351F80
+        NA: 0x2351274
+      length:
+        EU: 0x40
+        NA: 0x40
+      description: "Array of bit masks used to set monster::status_icon. Indexed by monster::statuses::freeze * 8. See UpdateStatusIconFlags for details."
+    - name: STATUS_ICON_ARRAY_CRINGE
+      address:
+        EU: 0x2351FC0
+        NA: 0x23513B4
+      length:
+        EU: 0x40
+        NA: 0x40
+      description: "Array of bit masks used to set monster::status_icon. Indexed by monster::statuses::cringe * 8. See UpdateStatusIconFlags for details."
+    - name: STATUS_ICON_ARRAY_BIDE
+      address:
+        EU: 0x2352000
+        NA: 0x23513F4
+      length:
+        EU: 0x70
+        NA: 0x70
+      description: "Array of bit masks used to set monster::status_icon. Indexed by monster::statuses::bide * 8. See UpdateStatusIconFlags for details."
+    - name: STATUS_ICON_ARRAY_REFLECT
+      address:
+        EU: 0x2352100
+        NA: 0x23514F4
+      length:
+        EU: 0x90
+        NA: 0x90
+      description: "Array of bit masks used to set monster::status_icon. Indexed by monster::statuses::reflect * 8. See UpdateStatusIconFlags for details."
     - name: DIRECTIONS_XY
       address:
         EU: 0x2352328

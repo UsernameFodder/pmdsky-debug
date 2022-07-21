@@ -18,6 +18,7 @@ bool CanTargetPosition(struct entity* monster, struct position* position);
 void SubstitutePlaceholderStringTags(int string_id, struct entity* entity, undefined4 param_3);
 bool UpdateMapSurveyorFlag(void);
 bool ItemIsActive(struct entity* entity, enum item_id item_id);
+void UpdateStatusIconFlags(struct entity* entity);
 bool IsOnMonsterSpawnList(enum monster_id monster_id);
 enum monster_id GetMonsterIdToSpawn(int spawn_weight);
 uint8_t GetMonsterLevelToSpawn(enum monster_id monster_id);
