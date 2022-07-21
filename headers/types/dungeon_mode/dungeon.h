@@ -909,7 +909,7 @@ struct dungeon {
     // to be set to action::ACTION_WALK until it hits an obstacle.
     bool leader_running;
     undefined field_0x78c;
-    // 0x78D: This flag is set by the unused move 0x395 (Reviver).
+    // 0x78D: This flag is set by the unused move 0x18D (Reviver).
     // If true, the UpdateStatusIconFlag function will set the icon flag
     // to display a blue exclamation mark on monsters that hold an item.
     bool unused_reviver_item_flag;

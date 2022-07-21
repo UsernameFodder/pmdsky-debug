@@ -240,7 +240,6 @@ struct statuses {
 ASSERT_SIZE(struct statuses, 118);
 #pragma pack(pop)
 
-#pragma pack(push, 1)
 // A bitfield where every bit controls one of the icons that can appear on top of a monster's sprite
 // to represent status effects. If multiple bits are set, the shown icon cycles through them.
 struct status_icon_flags {
@@ -285,13 +284,12 @@ struct status_icon_flags {
     // seem to have an effect, but the code stores the full 4 bytes as a bitwise OR of some of the
     // flags (see UpdateStatusIconBitfield).
     bool f_freeze : 1; // Ice block
-    uint16_t flags_unk2 : 7;
+    uint8_t flags_unk2 : 7;
     undefined field_0x5;
     undefined field_0x6;
     undefined field_0x7;
 };
 ASSERT_SIZE(struct status_icon_flags, 8);
-#pragma pack(pop)
 
 // Monster info
 struct monster {
@@ -607,6 +605,7 @@ struct monster {
     undefined field_0x215;
     undefined field_0x216;
     undefined field_0x217;
+    // 0x218: Status icons displayed on top of the monster's sprite
     struct status_icon_flags status_icons;
     undefined field_0x220;
     undefined field_0x221;
