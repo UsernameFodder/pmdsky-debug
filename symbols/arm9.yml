@@ -679,7 +679,9 @@ arm9:
         r1: program position info (can be null)
     - name: DebugPrint0
       address:
-        EU: 0x200C284
+        EU:
+          - 0x200C250
+          - 0x200C284
         NA:
           - 0x200C1C8
           - 0x200C1FC
