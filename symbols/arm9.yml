@@ -344,6 +344,14 @@ arm9:
         See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
         
         No params.
+    - name: IsIOVecAllocated
+      address:
+        EU: 0x2003238
+      description: |-
+        Return true if the iovec has an allocated file (base pointer not null), otherwise return false
+        
+        r0: pointer to the io_vec
+        return: boolean
     - name: MemZero
       address:
         EU: 0x2003250
@@ -626,6 +634,13 @@ arm9:
         Note: It is possible to keep a file stream open even if data transfer mode has been stopped, in which case the file stream can be used again if data transfer mode is reinitialized.
         
         r0: file_stream pointer
+    - name: FreeIOVec
+      address:
+        EU: 0x2008BD4
+      description: |-
+        Free the memory allocated to an iovec, and nullify it
+        
+        r0: the iovec
     - name: LoadFileFromRom
       address:
         EU: 0x2008C3C

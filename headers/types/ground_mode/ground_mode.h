@@ -170,8 +170,8 @@ struct script_level {
     uint16_t mapty;
     undefined2 field_0x2;
     uint16_t mapid;
-    int16_t field_0x6;
-    char* name; // Level name as a null-terminated string
+    uint16_t weather_id; // 0xFFFF for none
+    char* name;          // Level name as a null-terminated string
 };
 ASSERT_SIZE(struct script_level, 12);
 
