@@ -7,9 +7,9 @@ struct dungeon {
     undefined field_0x0;
     undefined field_0x1;
     undefined field_0x2;
-    // 0x3: If 1 and there's an active mission on the floor, the message
+    // 0x3: If true and there's an active mission on the floor, the message
     // "You've reached a destination floor! But where is the target pokémon..." will be displayed.
-    undefined field_0x3;
+    bool target_monster_not_found_flag;
     undefined field_0x4;
     bool stepped_on_stairs; // 0x5: True if the leader just stepped on the stairs.
     // 0x6: If equal to 1 or 2, the floor will be advanced at the end of the turn,
