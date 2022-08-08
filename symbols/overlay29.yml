@@ -3273,6 +3273,16 @@ overlay29:
         See FloorHasMissionMonster for details.
         
         return: bool
+    - name: LoadMissionMonsterSprites
+      address:
+        EU: 0x2349FF8
+        NA: 0x23493F8
+      description: |-
+        Loads the sprites of monsters that appear on the current floor because of a mission, if applicable.
+        
+        This includes monsters to be rescued, outlaws and its minions.
+        
+        No params.
     - name: MissionTargetEnemyIsDefeated
       address:
         EU: 0x234A070
@@ -3379,6 +3389,22 @@ overlay29:
         
         r0: minion group index (0-indexed)
         return: monster ID
+    - name: SetTargetMonsterNotFoundFlag
+      address:
+        EU: 0x234A2C4
+        NA: 0x23496C4
+      description: |-
+        Sets dungeon::target_monster_not_found_flag to the specified value.
+        
+        r0: Value to set the flag to
+    - name: GetTargetMonsterNotFoundFlag
+      address:
+        EU: 0x234A2D8
+        NA: 0x23496D8
+      description: |-
+        Gets the value of dungeon::target_monster_not_found_flag.
+        
+        return: dungeon::target_monster_not_found_flag
     - name: FloorHasMissionMonster
       address:
         EU: 0x234A348
