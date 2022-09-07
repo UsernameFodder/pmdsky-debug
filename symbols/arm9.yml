@@ -792,6 +792,17 @@ arm9:
         r1: [output] target buffer
         r2: file index
         return: number of read bytes (identical to the length of the pack from the Table of Content)
+    - name: GetItemCategoryVeneer
+      address:
+        EU: 0x200CB78
+        NA: 0x200CAF0
+      description: |-
+        Likely a linker-generated veneer for GetItemCategory.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
+        
+        r0: Item ID
+        return: Category ID
     - name: IsAuraBow
       address:
         EU: 0x200CC9C
@@ -845,6 +856,15 @@ arm9:
         r1: format
         ...: variadic
         return: number of characters printed, excluding the null-terminator
+    - name: GetItemCategory
+      address:
+        EU: 0x200E8D8
+        NA: 0x200E808
+      description: |-
+        Returns the category of the specified item
+        
+        r0: Item ID
+        return: Item category
     - name: SetMoneyCarried
       address:
         EU: 0x200EDC4
@@ -1998,6 +2018,15 @@ arm9:
         
         r0: dungeon id
         return: Max rescue attempts, or -1 if rescues are disabled.
+    - name: GetLeaderChangeFlag
+      address:
+        EU: 0x20516F8
+        NA: 0x20513C0
+      description: |-
+        Returns true if the flag that allows changing leaders is set in the restrictions of the specified dungeon
+        
+        r0: dungeon id
+        return: True if the restrictions of the current dungeon allow changing leaders, false otherwise.
     - name: JoinedAtRangeCheck
       address:
         EU: 0x20517C8

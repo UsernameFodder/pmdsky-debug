@@ -79,8 +79,10 @@ void OpenPackFile(struct pack_file_opened* pack_file, const char* file_name);
 uint32_t GetFileLengthInPack(struct pack_file_opened* pack_file, uint32_t file_index);
 uint32_t LoadFileInPack(struct pack_file_opened* pack_file, void* output_buffer,
                         uint32_t file_index);
+enum item_category GetItemCategoryVeneer(enum item_id item_id);
 bool IsAuraBow(enum item_id item_id);
 int SprintfStatic(char* str, const char* format, ...);
+enum item_category GetItemCategory(enum item_id item_id);
 void SetMoneyCarried(int amount);
 bool IsBagFull(void);
 int CountItemTypeInBag(enum item_id);
@@ -202,6 +204,7 @@ uint32_t BinToDecFixedPoint(uint32_t* q16);
 int CeilFixedPoint(uint32_t val_fp);
 bool DungeonGoesUp(enum dungeon_id dungeon_id);
 int8_t GetMaxRescueAttempts(enum dungeon_id dungeon_id);
+bool GetLeaderChangeFlag(enum dungeon_id dungeon_id);
 bool JoinedAtRangeCheck(struct dungeon_id_8 joined_at);
 bool JoinedAtRangeCheck2(struct dungeon_id_8 joined_at);
 uint8_t GetMonsterGender(enum monster_id monster_id);

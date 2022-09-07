@@ -2088,6 +2088,31 @@ enum item_id {
 ENUM_16_BIT(item_id);
 #pragma pack(pop)
 
+// Item category
+enum item_category {
+    CATEGORY_THROWN_LINE = 0,
+    CATEGORY_THROWN_ARC = 1,
+    CATEGORY_BERRIES_SEEDS_VITAMINS = 2,
+    CATEGORY_FOOD_GUMMIES = 3,
+    CATEGORY_HELD_ITEMS = 4,
+    CATEGORY_TMS_HMS = 5,
+    CATEGORY_POKE = 6, // Money
+    CATEGORY_UNK_7 = 7,
+    CATEGORY_OTHER = 8,
+    CATEGORY_ORBS = 9,
+    CATEGORY_LINK_BOX = 10,
+    CATEGORY_USED_TM = 11,
+    CATEGORY_CHESTS_1 = 12,
+    CATEGORY_CHESTS_2 = 13,
+    CATEGORY_CHESTS_3 = 14,
+    CATEGORY_EXCLUSIVE_ITEMS = 15
+};
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(item_category);
+#pragma pack(pop)
+
 // Type ID
 enum type_id {
     TYPE_NONE = 0,
