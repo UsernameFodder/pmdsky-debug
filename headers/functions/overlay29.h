@@ -44,6 +44,8 @@ void TrySwitchPlace(struct entity* user, struct entity* target);
 void ClearMonsterActionFields(void* monster_action_field);
 void SetMonsterActionFields(void* monster_action_field, struct action_16 action_id);
 void SetActionPassTurnOrWalk(void* monster_action_field, enum monster_id monster_id);
+enum action GetItemAction(int item_id);
+void AddDungeonSubMenuOption(int action_id, bool enabled);
 void SetActionRegularAttack(void* monster_action_field, enum direction_id direction);
 void SetActionUseMoveAi(void* monster_action_field, uint8_t move_index,
                         enum direction_id direction);
@@ -374,7 +376,10 @@ void DisplayDungeonTip(struct message_tip* message_tip, bool log);
 void SetBothScreensWindowColorToDefault(void);
 void DisplayMessage(undefined4 param_1, int message_id, bool wait_for_input);
 void DisplayMessage2(undefined4 param_1, int message_id, bool wait_for_input);
+bool YesNoMenu(undefined param_1, int message_id, int default_option, undefined param_4);
 void DisplayMessageInternal(int message_id, bool wait_for_input, undefined4 param_3,
                             undefined4 param_4, undefined4 param_5, undefined4 param_6);
+int OthersMenuLoop(void);
+undefined OthersMenu(void);
 
 #endif

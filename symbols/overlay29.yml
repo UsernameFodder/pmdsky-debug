@@ -595,6 +595,27 @@ overlay29:
         
         r0: Pointer to the monster's action_id field (this field is probably contained in a struct)
         r1: Monster ID
+    - name: GetItemAction
+      address:
+        EU: 0x22EBF88
+        NA: 0x22EB5D8
+      description: |-
+        Returns the action ID that corresponds to an item given its ID.
+        
+        The action is based on the category of the item (see ITEM_CATEGORY_ACTIONS), unless the specified ID is 0x16B, in which case ACTION_UNK_35 is returned.
+        Some items can have unexpected actions, such as thrown items, which have ACTION_NOTHING. This is done to prevent duplicate actions from being listed in the menu (since items always have a "throw" option), since a return value of ACTION_NOTHING prevents the option from showing up in the menu.
+        
+        r0: Item ID
+        return: Action ID associated with the specified item
+    - name: AddDungeonSubMenuOption
+      address:
+        EU: 0x22EC1CC
+        NA: 0x22EB81C
+      description: |-
+        Adds an option to the list of actions that can be taken on a pokémon, item or move to the currently active sub-menu on dungeon mode (team, moves, items, etc.).
+        
+        r0: Action ID
+        r1: True if the option should be enabled, false otherwise
     - name: SetActionRegularAttack
       address:
         EU: 0x22EC600
@@ -3604,6 +3625,18 @@ overlay29:
         EU: 0x234DEAC
         NA: 0x234D2AC
       description: Very similar to DisplayMessage
+    - name: YesNoMenu
+      address:
+        EU: 0x234E118
+        NA: 0x234D518
+      description: |-
+        Opens a menu where the user can choose "Yes" or "No" and waits for input before returning.
+        
+        r0: ?
+        r1: ID of the string to display in the textbox
+        r2: Option that the cursor will be on by default. 0 for "Yes", 1 for "No"
+        r3: ?
+        return: True if the user chooses "Yes", false if the user chooses "No"
     - name: DisplayMessageInternal
       address:
         EU: 0x234E190
@@ -3617,6 +3650,24 @@ overlay29:
         r3: ?
         stack[0]: ?
         stack[1]: ?
+    - name: OthersMenuLoop
+      address:
+        EU: 0x23503CC
+        NA: 0x234F7C0
+      description: |-
+        Called on each frame while the in-dungeon "others" menu is open.
+        
+        It contains a switch to determine whether an option has been chosen or not and a second switch that determines what to do depending on which option was chosen.
+        
+        return: int (Actually, this is probably some sort of enum shared by all the MenuLoop functions)
+    - name: OthersMenu
+      address:
+        EU: 0x2350630
+        NA: 0x234FA24
+      description: |-
+        Called when the in-dungeon "others" menu is open. Does not return until the menu is closed.
+        
+        return: Always 0
   data:
     - name: DUNGEON_STRUCT_SIZE
       address:
@@ -4232,6 +4283,17 @@ overlay29:
         An array mapping each direction index to its x and y displacements.
         
         Directions start with 0=down and proceed counterclockwise (see enum direction_id). Displacements for x and y are interleaved and encoded as 2-byte signed integers. For example, the first two integers are [0, 1], which correspond to the x and y displacements for the "down" direction (positive y means down).
+    - name: ITEM_CATEGORY_ACTIONS
+      address:
+        EU: 0x2352C1C
+        NA: 0x2352010
+      length:
+        EU: 0x20
+        NA: 0x20
+      description: |-
+        Action ID associated with each item category. Used by GetItemAction.
+        
+        Each entry is 2 bytes long.
     - name: FRACTIONAL_TURN_SEQUENCE
       address:
         EU: 0x2352EC2

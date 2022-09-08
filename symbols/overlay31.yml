@@ -12,7 +12,44 @@ overlay31:
     NA: 0x7A80
     JP: 0x7AC0
   description: Controls the dungeon menu (during dungeon mode).
-  functions: []
+  functions:
+    - name: TeamMenu
+      address:
+        EU: 0x2387C70
+        NA: 0x238704C
+      description: |-
+        Called when the in-dungeon "team" menu is open. Does not return until the menu is closed.
+        
+        Note that selecting certain options in this menu (such as viewing the details or the moves of a pokémon) counts as switching to a different menu, which causes the function to return.
+        
+        r0: Pointer to the leader's entity struct
+        return: ?
+    - name: RestMenu
+      address:
+        EU: 0x23893B0
+        NA: 0x238878C
+      description: |-
+        Called when the in-dungeon "rest" menu is open. Does not return until the menu is closed.
+        
+        No params.
+    - name: RecruitmentSearchMenuLoop
+      address:
+        EU: 0x2389828
+        NA: 0x2388C04
+      description: |-
+        Called on each frame while the in-dungeon "recruitment search" menu is open.
+        
+        return: int (Actually, this is probably some sort of enum shared by all the MenuLoop functions)
+    - name: HelpMenuLoop
+      address:
+        EU: 0x2389E20
+        NA: 0x23891FC
+      description: |-
+        Called on each frame while the in-dungeon "help" menu is open.
+        
+        The menu is still considered open while one of the help pages is being viewed, so this function keeps being called even after choosing an option.
+        
+        return: int (Actually, this is probably some sort of enum shared by all the MenuLoop functions)
   data:
     - name: DUNGEON_MAIN_MENU
       address:
