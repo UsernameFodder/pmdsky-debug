@@ -376,7 +376,7 @@ void DisplayDungeonTip(struct message_tip* message_tip, bool log);
 void SetBothScreensWindowColorToDefault(void);
 void DisplayMessage(undefined4 param_1, int message_id, bool wait_for_input);
 void DisplayMessage2(undefined4 param_1, int message_id, bool wait_for_input);
-bool YesNoMenu(undefined param_1, int message_id, int default_option, undefined param_3);
+bool YesNoMenu(undefined param_1, int message_id, int default_option, undefined param_4);
 void DisplayMessageInternal(int message_id, bool wait_for_input, undefined4 param_3,
                             undefined4 param_4, undefined4 param_5, undefined4 param_6);
 int OthersMenuLoop(void);

@@ -2105,7 +2105,7 @@ enum item_category {
     CATEGORY_CHESTS_1 = 12,
     CATEGORY_CHESTS_2 = 13,
     CATEGORY_CHESTS_3 = 14,
-    CATEGORY_EXCLUSIVE_ITEMS = 15
+    CATEGORY_EXCLUSIVE_ITEMS = 15,
 };
 
 // This is usually stored as an 8-bit integer

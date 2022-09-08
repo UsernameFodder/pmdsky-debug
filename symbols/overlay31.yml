@@ -23,7 +23,7 @@ overlay31:
         Note that selecting certain options in this menu (such as viewing the details or the moves of a pokémon) counts as switching to a different menu, which causes the function to return.
         
         r0: Pointer to the leader's entity struct
-        returns: ?
+        return: ?
     - name: RestMenu
       address:
         EU: 0x23893B0
