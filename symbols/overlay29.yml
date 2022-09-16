@@ -2238,6 +2238,7 @@ overlay29:
         r0: user entity pointer
         r1: target entity pointer
         r2: base success percentage (100*p). 0 is treated specially and guarantees success.
+        returns: True if the random check passed, false otherwise.
     - name: DungeonRandOutcomeUserAction
       address:
         EU: 0x2325488
@@ -2250,6 +2251,7 @@ overlay29:
         
         r0: entity pointer
         r1: base success percentage (100*p). 0 is treated specially and guarantees success.
+        returns: True if the random check passed, false otherwise.
     - name: CanAiUseMove
       address:
         EU: 0x23254DC
