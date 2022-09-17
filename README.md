@@ -8,7 +8,7 @@ Debug information for reverse engineering _Pokémon Mystery Dungeon: Explorers o
 The debug information in this repository is split into two complementary pieces:
 
 - Symbol tables in the [`symbols/`](symbols) directory state where certain functions and interesting bits of data are located within the EoS binaries. Many of these symbols are accompanied by additional explanation about the inner workings of the game.
-- C headers in the [`headers/`](headers) directory provide the exact memory layouts for various structures used by the game's code, with many of the fields labeled by name and with comments. The headers also provide function signatures with precise types for parameters and return values.
+- C headers in the [`headers/`](headers) directory provide the exact memory layouts for various structures used by the game's code, with many of the fields labeled by name and with comments. The headers also provide function signatures with precise types for parameters and return values, and global variable declarations with precise types.
 
 In addition, this repository contains some things in support of the debug information:
 
@@ -20,11 +20,12 @@ In addition, this repository contains some things in support of the debug inform
 This repository contains _annotations_ and _tools_ that are meant to accompany analysis of the _Explorers of Sky_ binaries, but does _not_ contain the binaries themselves. **It is up to you to obtain ROMs yourself.** The legal way is to dump the game files directly from a physical _Explorers of Sky_ cartridge that you own.
 
 ## Usage
-The symbol tables and the C headers are simultaneously human-readable and machine-readable. This repository is designed to have three possible "modes of use":
+The symbol tables and the C headers are simultaneously human-readable and machine-readable. This repository is designed to have various possible "modes of use":
 
 - For EoS debug info, which can be directly imported into various reverse engineering tools. See [Using Debug Info from `pmdsky-debug`](docs/using-debug-info.md) for more information.
 - Detailed technical documentation for EoS hacking.
 - An easy way to share EoS technical research in a standardized format. See [Contributing to `pmdsky-debug`](docs/contributing.md) for more information.
+- For symbol tables and API headers that can be used to link against the EoS binaries.
 
 The symbol tables and the C headers can be used as standalone references, or they can be used in conjunction. For example, if you are watching live memory while the game is running, you can use the symbol tables to find where a particular piece of data is in RAM. If that piece of data is a composite structure, you can then consult the C headers to understand what fields are contained in that structure, and exactly how the fields are laid out in memory.
 

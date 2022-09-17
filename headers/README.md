@@ -16,7 +16,7 @@
   - [Local development environment](#local-development-environment)
   - [Licensing](#licensing)
 
-The C headers in this directory contain _type information_, including struct definitions, enum definitions, and function signatures. They also contain _documentation_ in the form of comments. They don't contain "code" in the sense of executable instructions (that would be in the realm of a decompilation project).
+The C headers in this directory contain _type information_, including struct definitions, enum definitions, function signatures, and global variable declarations. They also contain _documentation_ in the form of comments. They don't contain "code" in the sense of executable instructions (that would be in the realm of a decompilation project).
 
 The top-level entrypoint for the headers is [`pmdsky.h`](pmdsky.h). These headers are real, valid C that can be compiled with standard tools (`gcc` or `clang`). They also use a subset of C supported by Ghidra's C parser with no additional environment configuration (so no GCC extensions, etc.). This makes them versatile and compatible with the mature ecosystem of tools available for C programming.
 
@@ -227,7 +227,7 @@ Some formatting conventions are enforced by the formatter. You'll be able to see
 
 Naming conventions are as follows:
 
-- Function names should exactly match their corresponding [symbol](../symbols) entries, which are `PascalCase`.
+- Function and data names should exactly match their corresponding [symbol](../symbols) entries, which are `PascalCase` and `SCREAMING_SNAKE_CASE`, respectively.
 - Enum labels (the actual values, not the enum name itself):
     - Use `SCREAMING_SNAKE_CASE`
     - All labels within an enum should share a common prefix. For example, `enum item_id` labels are all prefixed by `ITEM_`.
@@ -240,7 +240,7 @@ Naming conventions are as follows:
 - [GNU Make](https://www.gnu.org/software/make/) will allow you to run `make` commands. If you have the other tools but not `make`, you can just copy commands from the [Makefile](Makefile) and run them yourself.
 - Either [`clang`](https://clang.llvm.org/) or [`gcc`](https://gcc.gnu.org/) will allow you to run compiler checks (syntax and size assertions) via `make` or `make headers`.
 - [`clang-format`](https://clang.llvm.org/docs/ClangFormat.html) (often comes included when you install [`clang`](https://clang.llvm.org/)) will allow you to run the formatter via `make format` (it also requires the `find` and `xargs` Unix utilities). With `clang-format` version 10+ you can also run the formatter in check mode via `make format-check`.
-- [Python 3](https://www.python.org/) (invokable with the `python3` command) with [PyYAML](https://pyyaml.org/) installed (`pip3 install pyyaml`) will allow you to run synchronization checks between functions defined in the C headers and those defined in the corresponding [symbol](../symbols) files, via `make symbol-check`.
+- [Python 3](https://www.python.org/) (invokable with the `python3` command) with [PyYAML](https://pyyaml.org/) installed (`pip3 install pyyaml`) will allow you to run synchronization checks between functions and data symbols defined in the C headers and those defined in the corresponding [symbol](../symbols) files, via `make symbol-check`.
 
 ## Licensing
 The `pmdsky-debug` C headers are dual-licensed under [GNU GPLv3](../LICENSE.txt) or [MIT](LICENSE.txt). If you are using the C headers in your own project, you may choose to use them under either license.
