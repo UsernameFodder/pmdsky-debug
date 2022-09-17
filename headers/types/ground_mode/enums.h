@@ -1726,6 +1726,21 @@ enum script_entity_id {
     ENTITY_NPC_PINPUKU = 385,           // Happiny
 };
 
+// These are definitely used for VAR_EXECUTE_SPECIAL_EPISODE_TYPE.
+// Haven't confirmed whether they also apply to VAR_SPECIAL_EPISODE_TYPE...but probably.
+enum special_episode_type {
+    EPISODE_BIDOOFS_WISH = 0, // Also used in "normal" mode when a special episode isn't running
+    EPISODE_IGGLYBUFF_THE_PRODIGY = 1,
+    EPISODE_TODAYS_OH_MY_GOSH = 2,
+    EPISODE_HERE_COMES_TEAM_CHARM = 3,
+    EPISODE_IN_THE_FUTURE_OF_DARKNESS = 4,
+};
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(special_episode_type);
+#pragma pack(pop)
+
 // These are super long, so split them out into a separate file
 #include "version_dep_enums.h"
 

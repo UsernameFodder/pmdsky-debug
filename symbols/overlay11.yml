@@ -292,7 +292,7 @@ overlay11:
       description: |-
         Table of levels for recruited Pokémon, corresponding to entries in RECRUITMENT_TABLE_SPECIES.
         
-        type: uint16_t[22]
+        type: int16_t[22]
     - name: RECRUITMENT_TABLE_SPECIES
       address:
         EU: 0x2321408
@@ -313,10 +313,14 @@ overlay11:
       length:
         EU: 0x288
         NA: 0x288
+      description: "type: struct level_tilemap_list_entry[81]"
     - name: OVERLAY11_OVERLAY_LOAD_TABLE
       address:
         EU: 0x2323B9C
         NA: 0x232306C
+      length:
+        EU: 0x150
+        NA: 0x150
       description: |-
         The overlays that can be loaded while this one is loaded.
         
@@ -325,6 +329,8 @@ overlay11:
         - function pointer to entry point
         - function pointer to destructor
         - possibly function pointer to frame-update function?
+        
+        type: struct overlay_load_entry[21]
     - name: UNIONALL_RAM_ADDRESS
       address:
         EU: 0x23257E4

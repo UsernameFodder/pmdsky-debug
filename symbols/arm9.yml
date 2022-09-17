@@ -2045,6 +2045,15 @@ arm9:
         
         r0: joined_at id
         return: bool
+    - name: GetRankUpEntry
+      address:
+        EU: 0x2051B2C
+        NA: 0x20517F4
+      description: |-
+        Gets the rank up data for the specified rank.
+        
+        r0: rank index
+        return: struct rankup_table_entry*
     - name: GetMonsterGender
       address:
         EU: 0x2052AE0
@@ -2904,6 +2913,9 @@ arm9:
         NA:
           - 0x2055238
           - 0x205564C
+      length:
+        EU: 0x4
+        NA: 0x4
       description: "555, appears to be the maximum number of members recruited to an exploration team, at least for the purposes of some checks that need to iterate over all team members."
     - name: CART_REMOVED_IMG_DATA
       address:
@@ -2923,6 +2935,8 @@ arm9:
         Contains stat boost effects for different exclusive item classes.
         
         Each 4-byte entry contains the boost data for (attack, special attack, defense, special defense), 1 byte each, for a specific exclusive item class, indexed according to the stat boost data index list.
+        
+        type: struct exclusive_item_stat_boost_entry[15]
     - name: EXCLUSIVE_ITEM_ATTACK_BOOSTS
       address:
         EU: 0x209852C
@@ -2966,6 +2980,8 @@ arm9:
         Contains special effects for each exclusive item.
         
         Each entry is 2 bytes, with the first entry corresponding to the first exclusive item (Prism Ruff). The first byte is the exclusive item effect ID, and the second byte is an index into other data tables (related to the more generic stat boosting effects for specific monsters).
+        
+        type: struct exclusive_item_effect_entry[956]
     - name: EXCLUSIVE_ITEM_STAT_BOOST_DATA_INDEXES
       address:
         EU: 0x2098569
@@ -3222,6 +3238,7 @@ arm9:
         EU: 0x20A2D58
         NA: 0x20A27D4
       length:
+        EU: 0x20
         NA: 0x20
       description: Array of 4-byte integers containing the bag capacity for each bag level.
     - name: SPECIAL_EPISODE_MAIN_CHARACTERS
@@ -3450,6 +3467,9 @@ arm9:
       address:
         EU: 0x20B0814
         NA: 0x20AFEF8
+      length:
+        EU: 0x1
+        NA: 0x1
       description: |-
         [Runtime] Flag related to saving and loading state?
         

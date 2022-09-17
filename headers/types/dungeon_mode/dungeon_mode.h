@@ -1205,6 +1205,26 @@ struct floor_properties {
 };
 ASSERT_SIZE(struct floor_properties, 32);
 
+struct tileset_property {
+    int32_t field_0x0;
+    uint8_t field_0x4;
+    uint8_t field_0x5;
+    uint8_t field_0x6;
+    uint8_t _padding;
+    int16_t field_0x8;
+    uint8_t field_0xa;
+    uint8_t field_0xb;
+};
+ASSERT_SIZE(struct tileset_property, 12);
+
+struct level_tilemap_list_entry {
+    int16_t field_0x0;
+    uint8_t field_0x2;
+    uint8_t field_0x3;
+    undefined4 field_0x4;
+};
+ASSERT_SIZE(struct level_tilemap_list_entry, 8);
+
 // Contains data about a monster that spawns in a dungeon
 struct monster_spawn_entry {
     uint16_t level_mult_512; // 0x0: Spawn level << 9
@@ -1290,8 +1310,7 @@ ASSERT_SIZE(struct dungeon_restriction, 12);
 
 // Entry in the fixed room item spawn table
 struct fixed_room_item_spawn_entry {
-    struct item_id_16 id;
-    uint16_t quantity;
+    struct bulk_item item;
     undefined field_0x4;
     undefined field_0x5;
     undefined field_0x6;

@@ -327,7 +327,7 @@ overlay29:
       description: |-
         Sets a monster's status_icon_flags bitfield according to its current status effects. Does not affect a Sudowoodo in the "permanent sleep" state (statuses::sleep == 0x7F).
         
-        Some of the status effect in monster:statuses are used as an index to access an array, where every group of 8 bytes represents a bitmask. All masks are added in a bitwise OR and then stored in monster::status_icon.
+        Some of the status effect in monster::statuses are used as an index to access an array, where every group of 8 bytes represents a bitmask. All masks are added in a bitwise OR and then stored in monster::status_icon.
         
         Also sets icon flags for statuses::exposed, statuses::grudge, critical HP and lowered stats with explicit checks, and applies the effect of the Identifier Orb (see dungeon::identify_orb_flag).
         

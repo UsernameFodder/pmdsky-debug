@@ -36,7 +36,7 @@ uint32_t DungeonRand16Bit(void);
 uint32_t DungeonRandInt(uint32_t n);
 int DungeonRandRange(int x, int y);
 bool DungeonRandOutcome(int percentage);
-int CalcStatusDuration(struct entity* entity, uint16_t* turn_range, bool iq_skill_effects);
+int CalcStatusDuration(struct entity* entity, int16_t* turn_range, bool iq_skill_effects);
 void DungeonRngUnsetSecondary(void);
 void DungeonRngSetSecondary(int i);
 void DungeonRngSetPrimary(void);
