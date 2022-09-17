@@ -6,9 +6,9 @@ This repository is designed to make contributing simple while maintaining qualit
 ## Symbols (functions and data)
 See the [`symbols/` README](../symbols/README.md#contributing) for more information on adding new symbols.
 
-**NOTE:** If you're adding symbols, you might also want to add [new types](#types-structs-enums-function-signatures) to accompany them. This is optional but recommended, especially if you're adding functions. Providing function signatures in the C headers allows you to strictly specify function parameters and their types.
+**NOTE:** If you're adding symbols, you might also want to add [new types](#types-structs-enums-function-signatures-global-declarations) to accompany them. This is optional but recommended, especially if you're adding functions. Providing function signatures in the C headers allows you to strictly specify function parameters and their types. Providing global variable declarations in the C headers allows you to strictly specify data structure types.
 
-## Types (structs, enums, function signatures)
+## Types (structs, enums, function signatures, global declarations)
 See the [`headers/` README](../headers/README.md#contributing) for more information on adding new types.
 
 ## Incomplete information that needs more research

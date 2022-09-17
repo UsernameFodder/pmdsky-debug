@@ -73,8 +73,9 @@ typedef undefined1 undefined;
     };                                                                                             \
     ASSERT_SIZE(struct tag##_16, 2)
 
-// Now include the actual type definitions and function signatures
+// Now include the actual type definitions, function signatures, and global declarations
 #include "types/types.h"
 #include "functions/functions.h"
+#include "data/data.h"
 
 #endif
