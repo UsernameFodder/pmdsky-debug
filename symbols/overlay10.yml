@@ -60,6 +60,9 @@ overlay10:
       address:
         EU: 0x22C4D88
         NA: 0x22C4430
+      length:
+        EU: 0x2
+        NA: 0x2
       description: The maximum number of enemies that can spawn on a floor without a monster house (15).
     - name: OREN_BERRY_DAMAGE
       address:
@@ -193,6 +196,9 @@ overlay10:
       address:
         EU: 0x22C4FC4
         NA: 0x22C466C
+      length:
+        EU: 0x2
+        NA: 0x2
       description: Number of turns (250) after which Speed Boost will trigger and increase speed by one stage.
     - name: MIRACLE_CHEST_EXP_BOOST
       address:
@@ -214,6 +220,9 @@ overlay10:
       address:
         EU: 0x22C4FFC
         NA: 0x22C46A4
+      length:
+        EU: 0x2
+        NA: 0x2
       description: "The maximum number of enemies that can spawn on a floor with a monster house, not counting those in the monster house (4)."
     - name: POISON_DAMAGE_COOLDOWN
       address:
@@ -342,6 +351,9 @@ overlay10:
       address:
         EU: 0x22C519C
         NA: 0x22C4844
+      length:
+        EU: 0x4
+        NA: 0x4
       description: "The multiplier for damage from the Air Blade (1.5), as a binary fixed-point number (8 fraction bits)"
     - name: SPEED_BOOST_DURATION_RANGE
       address:
@@ -461,6 +473,7 @@ overlay10:
       length:
         EU: 0x954
         NA: 0x954
+      description: "type: struct tileset_property[199]"
     - name: FIXED_ROOM_PROPERTIES_TABLE
       address:
         EU: 0x22C75C8

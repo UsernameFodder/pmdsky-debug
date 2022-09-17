@@ -556,6 +556,11 @@ enum exclusive_item_effect_id {
     EXCLUSIVE_EFF_ABSORB_STEEL_DAMAGE = 128,
 };
 
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(exclusive_item_effect_id);
+#pragma pack(pop)
+
 // Affects the chance of items spawning on each tile in a Kecleon Shop
 // The chances (in %) of each tile (in a 3x3 area at the center of the shop)
 // having an item are listed below.

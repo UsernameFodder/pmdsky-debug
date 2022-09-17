@@ -128,9 +128,11 @@ ram:
         EU: 0x20
         NA: 0x20
       description: |-
-        Array of up to 8 items in the Kecleon Shop of the form {struct item_id_16 id, uint16_t quantity}.
+        Array of up to 8 items in the Kecleon Shop.
         
         If there are fewer than 8 items, the array is expected to be null-terminated.
+        
+        type: struct bulk_item[8]
     - name: UNUSED_KECLEON_SHOP_ITEMS
       address:
         EU: 0x22A54B4
@@ -155,9 +157,11 @@ ram:
         EU: 0x10
         NA: 0x10
       description: |-
-        Array of up to 4 items in Kecleon Wares of the form {struct item_id_16 id, uint16_t quantity}.
+        Array of up to 4 items in Kecleon Wares.
         
         If there are fewer than 4 items, the array is expected to be null-terminated.
+        
+        type: struct bulk_item[4]
     - name: UNUSED_KECLEON_WARES_ITEMS
       address:
         EU: 0x22A54E8
@@ -224,11 +228,9 @@ ram:
       description: |-
         The number of the special episode currently being played.
         
-        0: normal, Bidoof's Wish
-        1: Igglybuff the Prodigy
-        2: Today's "Oh My Gosh"
-        3: Here Comes Team Charm!
-        4: In the Future of Darkness
+        This backs the EXECUTE_SPECIAL_EPISODE_TYPE script variable.
+        
+        type: struct special_episode_type_8
     - name: PENDING_DUNGEON_ID
       address:
         EU: 0x22ABE3C

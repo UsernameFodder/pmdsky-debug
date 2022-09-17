@@ -114,13 +114,22 @@ struct mem_arena_getters {
 };
 ASSERT_SIZE(struct mem_arena_getters, 8);
 
-// This seems to be a simple structure used with utility functions related to managing items in
-// the player's bag and storage.
-struct owned_item {
-    struct item_id_16 id;
-    uint16_t amount; // Probably? This is a guess
+struct overlay_load_entry {
+    enum overlay_group_id group;
+    // These are function pointers, but not sure of the signature.
+    void* entrypoint;
+    void* destructor;
+    void* frame_update; // Possibly?
 };
-ASSERT_SIZE(struct owned_item, 4);
+ASSERT_SIZE(struct overlay_load_entry, 16);
+
+// This seems to be a simple structure used with utility functions related to managing items
+// in bulk, such as in the player's bag, storage, and Kecleon shops.
+struct bulk_item {
+    struct item_id_16 id;
+    uint16_t quantity; // Definitely in some contexts, but not verified in all
+};
+ASSERT_SIZE(struct bulk_item, 4);
 
 // These flags are shared with the function to display text inside message boxes
 // So they might need a rename once more information is found
@@ -706,6 +715,33 @@ struct vec2 {
     int32_t y;
 };
 ASSERT_SIZE(struct vec2, 8);
+
+struct exclusive_item_stat_boost_entry {
+    int8_t atk;
+    int8_t sp_atk;
+    int8_t def;
+    int8_t sp_def;
+};
+ASSERT_SIZE(struct exclusive_item_stat_boost_entry, 4);
+
+struct exclusive_item_effect_entry {
+    struct exclusive_item_effect_id_8 effect_id;
+    uint8_t foreign_idx; // Index into other tables
+};
+ASSERT_SIZE(struct exclusive_item_effect_entry, 2);
+
+struct rankup_table_entry {
+    undefined field_0x0;
+    undefined field_0x1;
+    undefined field_0x2;
+    undefined field_0x3;
+    int field_0x4;
+    int field_0x8;
+    int16_t field_0xc;
+    undefined field_0xe;
+    undefined field_0xf;
+};
+ASSERT_SIZE(struct rankup_table_entry, 16);
 
 // TODO: Add more data file structures, as convenient or needed, especially if the load address
 // or pointers to the load address are known.
