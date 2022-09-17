@@ -1,5 +1,5 @@
-#ifndef HEADERS_FUNCTIONS_OVERLAY1_H_
-#define HEADERS_FUNCTIONS_OVERLAY1_H_
+#ifndef HEADERS_FUNCTIONS_OVERLAY01_H_
+#define HEADERS_FUNCTIONS_OVERLAY01_H_
 
 void CreateMainMenus(void);
 void AddMainMenuOption(int action_id, bool enabled);
