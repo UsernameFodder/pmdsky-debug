@@ -1555,7 +1555,7 @@ struct dungeon {
     // 0xD2E4: This is an array of pointers that point to the actual tile structs within the
     // dungeon struct
     struct tile* tile_ptrs[32][56];
-    uint8_t n_rooms; // 0xEEE4: Number of rooms on the current floor
+    uint8_t n_rooms;        // 0xEEE4: Number of rooms on the current floor
     undefined field_0xeee5; // Uninitialized, likely padding
     undefined field_0xeee6; // Uninitialized, likely padding
     undefined field_0xeee7; // Uninitialized, likely padding
