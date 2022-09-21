@@ -1,6 +1,5 @@
 #ifndef HEADERS_TYPES_DUNGEON_MODE_DUNGEON_H_
 #define HEADERS_TYPES_DUNGEON_MODE_DUNGEON_H_
-#ifndef OMIT_LARGE_FILES
 
 // Dungeon state
 struct dungeon {
@@ -2119,5 +2118,4 @@ struct dungeon {
 };
 ASSERT_SIZE(struct dungeon, 183060);
 
-#endif
 #endif
