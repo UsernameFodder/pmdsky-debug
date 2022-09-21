@@ -38,7 +38,7 @@ jobs:
       - check-headers
       - check-function-sync
     env:
-      RELEASE_VERSION: '0.2.1'
+      RELEASE_VERSION: '0.3.0'
       OUTPUT_DIR: out
       RELEASE_INSTALL_DIR: release-install
       RELEASE_ASSETS_DIR: release-assets
