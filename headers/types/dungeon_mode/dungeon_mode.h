@@ -870,9 +870,9 @@ struct room_data {
     undefined field_0x1;                 // Initialized to 0
     struct position bottom_right_corner; // 0x2
     struct position top_left_corner;     // 0x6
-    undefined field_0xA;                 // Doesn't get initialized, likely padding
-    undefined field_0xB;                 // Doesn't get initialized, likely padding
-    undefined4 field_0xC;                // Initialized to (bottom_right_corner.x - 1) * 0x1C
+    undefined field_0xa;                 // Doesn't get initialized, likely padding
+    undefined field_0xb;                 // Doesn't get initialized, likely padding
+    undefined4 field_0xc;                // Initialized to (bottom_right_corner.x - 1) * 0x1C
     undefined4 field_0x10;               // Initialized to (bottom_right_corner.y - 1) * 0x1C
     undefined4 field_0x14;               // Initialized to (top_left_corner.x + 1) * 0x1C
     undefined4 field_0x18;               // Initialized to (top_left_corner.y + 1) * 0x1C

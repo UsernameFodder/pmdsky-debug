@@ -834,7 +834,7 @@ struct dungeon {
     struct monster monsters[20]; // 0x7F4: Info for all the monsters currently in the dungeon
     // 0x34F4: Array that contains the spawn stats for enemies, which are only calculated
     // once at the start of the floor.
-    // Since the enemy spawn list of a floor can only hav a maximum of 16 entries,
+    // Since the enemy spawn list of a floor can only have a maximum of 16 entries,
     // the remaining 48 are unused.
     struct enemy_spawn_stats enemy_spawn_stats[64];
     // 0x3974: Monsters that can be spawned on the floor.
