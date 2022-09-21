@@ -864,6 +864,21 @@ struct tile {
 };
 ASSERT_SIZE(struct tile, 20);
 
+// Information about the rooms on the current floor
+struct room_data {
+    uint8_t room_id;
+    undefined field_0x1;                 // Initialized to 0
+    struct position bottom_right_corner; // 0x2
+    struct position top_left_corner;     // 0x6
+    undefined field_0xa;                 // Doesn't get initialized, likely padding
+    undefined field_0xb;                 // Doesn't get initialized, likely padding
+    undefined4 field_0xc;                // Initialized to (bottom_right_corner.x - 1) * 0x1C
+    undefined4 field_0x10;               // Initialized to (bottom_right_corner.y - 1) * 0x1C
+    undefined4 field_0x14;               // Initialized to (top_left_corner.x + 1) * 0x1C
+    undefined4 field_0x18;               // Initialized to (top_left_corner.y + 1) * 0x1C
+};
+ASSERT_SIZE(struct room_data, 28);
+
 // Struct that seems to hold data related to the map, the camera and the touchscreen numbers
 struct display_data {
     struct position camera_pos; // 0x0: Position of the tile the camera is currently pointing to
@@ -1350,6 +1365,20 @@ struct fixed_room_entity_spawn_entry {
     struct fixed_room_tile_spawn_entry* tile;
 };
 ASSERT_SIZE(struct fixed_room_entity_spawn_entry, 12);
+
+// Struct that contains some data used when spawning new enemies
+struct enemy_spawn_stats {
+    struct monster_id_16 id; // 0x0
+    uint16_t level;          // 0x2
+    // 0x4: Spawn moves. Useless since each individual enemy gets its own when spawning.
+    struct move_id_16 moves[4];
+    uint16_t max_hp; // 0xC
+    uint8_t atk;     // 0xE
+    uint8_t def;     // 0xF
+    uint8_t sp_atk;  // 0x10
+    uint8_t sp_def;  // 0x11
+};
+ASSERT_SIZE(struct enemy_spawn_stats, 18);
 
 // Data for guest monsters that join you during certain story dungeons.
 // These all directly correspond to fields in struct monster.
