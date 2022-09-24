@@ -232,7 +232,7 @@ struct statuses {
     // 0x67: 1 means normal. 0 means half speed. 2, 3, and 4 mean 2x, 3x, and 4x speed.
     int speed_stage;
     // Each counter ticks down to 0 turn by turn. The current speed_stage is calculated as:
-    // max(min({# nonzero speed_up_counters} - {# nonzero speed_down_counters}, 0), 4)
+    // min(max({# nonzero speed_up_counters} - {# nonzero speed_down_counters}, 0), 4)
     uint8_t speed_up_counters[5];   // 0x6B
     uint8_t speed_down_counters[5]; // 0x70
     uint8_t stockpile_stage;        // 0x75: Goes from 0-3. STATUS_STOCKPILING if nonzero
