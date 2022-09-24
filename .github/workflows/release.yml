@@ -95,6 +95,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ steps.tag.outputs.release_tag }}
+          target_commitish: ${{ github.sha }}
           files: '${{ env.RELEASE_ASSETS_DIR }}/*'
           fail_on_unmatched_files: true
         if: steps.new_hash.outputs.sha256 != steps.old_hash.outputs.sha256
