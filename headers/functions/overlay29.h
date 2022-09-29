@@ -93,7 +93,7 @@ int GetNumberOfAttacks(struct entity* entity);
 bool IsMonsterCornered(struct entity* monster);
 bool CanAttackInDirection(struct entity* monster, enum direction_id direction);
 bool CanAiMonsterMoveInDirection(struct entity* monster, enum direction_id direction,
-                                 struct entity* out_monster_in_target_position);
+                                 bool* out_monster_in_target_position);
 bool ShouldMonsterRunAway(struct entity* monster);
 bool ShouldMonsterRunAwayVariation(struct entity* monster, undefined param_2);
 bool NoGastroAcidStatus(struct entity* entity);

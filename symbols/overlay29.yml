@@ -1129,7 +1129,7 @@ overlay29:
         
         r0: Entity pointer
         r1: Direction
-        r2: (output) If movement was not possible because there was another monster on the target tile, its entity pointer is returned here
+        r2: (output) True if movement was not possible because there was another monster on the target tile, false otherwise.
         return: True if the monster can move in the specified direction, false otherwise.
     - name: ShouldMonsterRunAway
       address:
