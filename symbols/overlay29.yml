@@ -3239,12 +3239,14 @@ overlay29:
         
         r0: Flag(s) to check (0 = f_exists, 1 = f_in_shop, 2 = f_unpaid, etc.)
         return: True if any of the items of the team has the specified flags set, false otherwise.
-    - name: 
+    - name: CheckActiveChallengeRequest
       address:
-        EU: 
-        NA: 
+        EU: 0x2349D4C
+        NA: 0x234914C
       description: |-
+        Checks if there's an active challenge request on the current dungeon.
         
+        return: True if there's an active challenge request on the current dungeon in the list of missions.
     - name: IsOutlawOrChallengeRequestFloor
       address:
         EU: 0x2349DC4

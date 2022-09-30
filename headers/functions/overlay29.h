@@ -334,6 +334,7 @@ void LoadFixedRoomData(void);
 bool IsHiddenStairsFloor(void);
 bool HasHeldItem(struct entity* entity, enum item_id item_id);
 bool CheckTeamItemsFlags(int flags);
+bool CheckActiveChallengeRequest(void);
 bool IsOutlawOrChallengeRequestFloor(void);
 bool IsCurrentMissionType(enum mission_type type);
 bool IsCurrentMissionTypeExact(enum mission_type type, union mission_subtype subtype);
