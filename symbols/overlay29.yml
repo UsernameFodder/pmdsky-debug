@@ -1027,8 +1027,8 @@ overlay29:
         Initializes a team member. Run at the start of each floor in a dungeon.
         
         r0: Monster ID
-        r1: First type
-        r2: Second type
+        r1: X position
+        r2: Y position
         r3: Pointer to the struct containing the data of the team member to initialize
         stack[0]: ?
         stack[1]: ?
