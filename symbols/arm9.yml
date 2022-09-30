@@ -1632,7 +1632,7 @@ arm9:
     - name: GetNbPrecedingFloors
       address:
         EU: 0x204F918
-        NA: 0x204F5C8
+        NA: 0x204F5E0
       description: |-
         Given a dungeon ID, returns the total amount of floors summed by all the previous dungeons in its group.
         
@@ -2490,7 +2490,7 @@ arm9:
         return: False if the monster ID (after converting it) is contained in MISSION_BANNED_MONSTERS, true if it isn't.
     - name: CanMonsterBeUsedForMissionWrapper
       address:
-        EU: 0x2062DE4
+        EU: 0x2062DD4
         NA: 0x2062A58
       description: |-
         Calls CanMonsterBeUsedForMission with r1 = 1.
