@@ -45,6 +45,8 @@ extern struct monster_id_16 SPECIAL_EPISODE_MAIN_CHARACTERS[100];
 extern struct guest_monster GUEST_MONSTER_DATA[18];
 extern struct rankup_table_entry RANK_UP_TABLE[13];
 extern undefined MONSTER_SPRITE_DATA[1200];
+extern struct monster_id_16 MISSION_BANNED_STORY_MONSTERS[21];
+extern struct monster_id_16 MISSION_BANNED_MONSTERS[124];
 extern struct script_level EVENTS[0]; // Length differs between versions
 extern struct script_entity ENTITIES[386];
 extern struct map_marker MAP_MARKER_PLACEMENTS[310];

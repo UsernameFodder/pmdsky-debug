@@ -17,7 +17,7 @@ struct item {
     // 0x0: flags: 1-byte bitfield
     bool f_exists : 1;  // Validity flag
     bool f_in_shop : 1; // In a Kecleon Shop
-    uint8_t flags_unk2 : 1;
+    bool f_unpaid : 1; // Picked up from a Kecleon Shop but not paid for yet
     bool f_sticky : 1; // Sticky
     bool f_set : 1;    // Usable by L+R
     uint8_t flags_unk5 : 3;
@@ -1280,6 +1280,12 @@ struct dungeon_data_list_entry {
     uint8_t n_total_floors_group;
 };
 ASSERT_SIZE(struct dungeon_data_list_entry, 4);
+
+struct dungeon_group_and_group_floor {
+    struct dungeon_group_id_8 group_id;
+    uint8_t group_floor;
+};
+ASSERT_SIZE(struct dungeon_group_and_group_floor, 2);
 
 // Entry for a single dungeon in the dungeon restriction list
 struct dungeon_restriction {

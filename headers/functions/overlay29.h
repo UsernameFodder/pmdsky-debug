@@ -56,6 +56,7 @@ bool IsFloorOver(void);
 void DecrementWindCounter(void);
 void SetForcedLossReason(enum forced_loss_reason forced_loss_reason);
 enum forced_loss_reason GetForcedLossReason(void);
+void ChangeLeader(void);
 void ResetDamageDesc(undefined4* damage_desc);
 uint16_t GetSpriteIndex(enum monster_id monster_id);
 bool FloorNumberIsEven(void);
@@ -332,6 +333,7 @@ void SpawnStairs(uint8_t* pos, struct dungeon_generation_info* gen_info, bool hi
 void LoadFixedRoomData(void);
 bool IsHiddenStairsFloor(void);
 bool HasHeldItem(struct entity* entity, enum item_id item_id);
+bool CheckTeamItemsFlags(int flags);
 bool IsOutlawOrChallengeRequestFloor(void);
 bool IsCurrentMissionType(enum mission_type type);
 bool IsCurrentMissionTypeExact(enum mission_type type, union mission_subtype subtype);

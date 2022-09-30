@@ -1741,6 +1741,13 @@ enum special_episode_type {
 ENUM_8_BIT(special_episode_type);
 #pragma pack(pop)
 
+// Used as return values for GenerateMission
+enum mission_generation_result {
+    MISSION_GENERATION_SUCCESS = 0,
+    MISSION_GENERATION_FAILURE = 1,
+    MISSION_GENERATION_GLOBAL_FAILURE = 2,
+};
+
 // These are super long, so split them out into a separate file
 #include "version_dep_enums.h"
 

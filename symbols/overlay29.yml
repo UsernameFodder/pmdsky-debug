@@ -699,6 +699,16 @@ overlay29:
         Returns dungeon::forced_loss_reason
         
         return: forced_loss_reason
+    - name: ChangeLeader
+      address:
+        EU: 0x22F42F0
+        NA: 0x22F3934
+      description: |-
+        Tries to change the current leader to the monster specified by dungeon::new_leader.
+        
+        Accounts for situations that can prevent changing leaders, such as having stolen from a Kecleon shop. If one of those situations prevents changing leaders, prints the corresponding message to the message log.
+        
+        No params.
     - name: ResetDamageDesc
       address:
         EU: 0x22F77D0
@@ -3220,6 +3230,21 @@ overlay29:
         r0: entity pointer
         r1: item ID
         return: bool
+    - name: CheckTeamItemsFlags
+      address:
+        EU: 0x23477CC
+        NA: 0x2346BD8
+      description: |-
+        Checks whether any of the items in the bag or any of the items carried by team members has any of the specified flags set in its flags field.
+        
+        r0: Flag(s) to check (0 = f_exists, 1 = f_in_shop, 2 = f_unpaid, etc.)
+        return: True if any of the items of the team has the specified flags set, false otherwise.
+    - name: 
+      address:
+        EU: 
+        NA: 
+      description: |-
+        
     - name: IsOutlawOrChallengeRequestFloor
       address:
         EU: 0x2349DC4
