@@ -252,7 +252,7 @@ bool AnyDungeonRequestsDone(uint8_t param_1);
 int GetMissionByTypeAndDungeon(int start_index, enum mission_type mission_type,
                                undefined* subtype_struct, enum dungeon_id dungeon_id);
 bool CheckAcceptedMissionByTypeAndDungeon(enum mission_type mission_type, undefined* subtype_struct,
-                               enum dungeon_id dungeon_id);
+                                          enum dungeon_id dungeon_id);
 void ClearMissionData(struct mission* mission);
 bool IsMonsterMissionAllowed(enum monster_id monster_id);
 bool CanMonsterBeUsedForMissionWrapper(enum monster_id monster_id);
