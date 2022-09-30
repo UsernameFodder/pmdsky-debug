@@ -17,9 +17,9 @@ struct item {
     // 0x0: flags: 1-byte bitfield
     bool f_exists : 1;  // Validity flag
     bool f_in_shop : 1; // In a Kecleon Shop
-    bool f_unpaid : 1; // Picked up from a Kecleon Shop but not paid for yet
-    bool f_sticky : 1; // Sticky
-    bool f_set : 1;    // Usable by L+R
+    bool f_unpaid : 1;  // Picked up from a Kecleon Shop but not paid for yet
+    bool f_sticky : 1;  // Sticky
+    bool f_set : 1;     // Usable by L+R
     uint8_t flags_unk5 : 3;
 
     // 0x1: For bag items. 0 for none, 1 if held by the leader, 2 for the second party member, etc.

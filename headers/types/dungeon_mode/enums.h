@@ -743,8 +743,8 @@ enum mission_reward_type {
     MISSION_REWARD_MONEY_AND_MORE = 1, // Money + (?)
     MISSION_REWARD_ITEM = 2,
     MISSION_REWARD_ITEM_AND_MORE = 3, // Item + (?)
-    MISSION_REWARD_ITEM_HIDDEN = 4, // Item, displayed as "(?)"
-    MISSION_REWARD_MONEY_HIDDEN = 5, // Money, displayed as "(?)"
+    MISSION_REWARD_ITEM_HIDDEN = 4,   // Item, displayed as "(?)"
+    MISSION_REWARD_MONEY_HIDDEN = 5,  // Money, displayed as "(?)"
     // Either an egg or the client requests to join the team, displayed as "(?)"
     MISSION_REWARD_SPECIAL = 6,
 };
@@ -756,7 +756,7 @@ ENUM_8_BIT(mission_reward_type);
 // Different types of restrictions that a mission can have
 enum mission_restriction_type {
     MISSION_RESTRICTION_NONE = 0,
-    MISSION_RESTRICTION_TYPE = 1, // Requires a pokémon of a certain type on the team
+    MISSION_RESTRICTION_TYPE = 1,    // Requires a pokémon of a certain type on the team
     MISSION_RESTRICTION_MONSTER = 2, // Requires a certain pokémon on the team
 };
 // This is usually stored as an 8-bit integer
