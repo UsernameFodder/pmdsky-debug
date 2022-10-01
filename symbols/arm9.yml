@@ -2300,7 +2300,7 @@ arm9:
         EU: 0x2055AEC
         NA: 0x2055770
       description: |-
-        Returns the data of the player pokémon (first slot in Chimeco Assembly)
+        Returns the data of the player pokémon (first slot in Chimecho Assembly)
         
         return: Monster data
     - name: GetPartnerData
@@ -2308,7 +2308,7 @@ arm9:
         EU: 0x2055B14
         NA: 0x2055798
       description: |-
-        Returns the data of the partner pokémon (second slot in Chimeco Assembly)
+        Returns the data of the partner pokémon (second slot in Chimecho Assembly)
         
         return: Monster data
     - name: CheckTeamMemberField8
@@ -2514,7 +2514,7 @@ arm9:
         EU: 0x2062E60
         NA: 0x2062AE4
       description: |-
-        Checkss if the specified monster should be allowed to be part of a mission (probably as the client or the target), accounting for the progress on the story.
+        Checks if the specified monster should be allowed to be part of a mission (probably as the client or the target), accounting for the progress on the story.
         
         If PERFOMANCE_PROGRESS_FLAG[9] is true, the function returns true.
         If it isn't, the function checks if the specified monster is contained in the MISSION_BANNED_STORY_MONSTERS array, or if it corresponds to the ID of the player or the partner.

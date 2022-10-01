@@ -754,8 +754,8 @@ struct mission {
     undefined field_0x6;            // Likely padding
     undefined field_0x7;            // Likely padding
     int field_0x8;                  // 0x8, changing it seems to affect the text of the mission
-    undefined field_0xC;
-    undefined field_0xD;
+    undefined field_0xc;
+    undefined field_0xd;
     struct monster_id_16 client; // 0xE
     struct monster_id_16 target; // 0x10
     int16_t field_0x12;
@@ -764,10 +764,10 @@ struct mission {
     undefined field_0x17;
     struct item_id_16 item_reward;                      // 0x18
     struct mission_restriction_type_8 restriction_type; // 0x1A
-    undefined field_0x1B;
+    undefined field_0x1b;
     union mission_restriction restriction; // 0x1C
-    undefined field_0x1E;
-    undefined field_0x1F;
+    undefined field_0x1e;
+    undefined field_0x1f;
 };
 ASSERT_SIZE(struct mission, 32);
 
