@@ -234,7 +234,7 @@ bool IsCherrim(enum monster_id monster_id);
 bool IsDeoxys(enum monster_id monster_id);
 enum monster_id FemaleToMaleForm(enum monster_id monster_id);
 bool IsMonsterOnTeam(enum monster_id monster_id, int param_2);
-struct ground_monster* GetPlayerData(void);
+struct ground_monster* GetHeroData(void);
 struct ground_monster* GetPartnerData(void);
 bool CheckTeamMemberField8(undefined2 param_1);
 struct team_member* GetTeamMemberData(uint8_t index);

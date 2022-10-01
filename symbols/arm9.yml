@@ -2295,12 +2295,12 @@ arm9:
         r0: monster ID
         r1: ?
         return: bool
-    - name: GetPlayerData
+    - name: GetHeroData
       address:
         EU: 0x2055AEC
         NA: 0x2055770
       description: |-
-        Returns the data of the player pokémon (first slot in Chimecho Assembly)
+        Returns the ground monster data of the hero (first slot in Chimecho Assembly)
         
         return: Monster data
     - name: GetPartnerData
@@ -2308,7 +2308,7 @@ arm9:
         EU: 0x2055B14
         NA: 0x2055798
       description: |-
-        Returns the data of the partner pokémon (second slot in Chimecho Assembly)
+        Returns the ground monster data of the partner (second slot in Chimecho Assembly)
         
         return: Monster data
     - name: CheckTeamMemberField8
