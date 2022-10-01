@@ -362,7 +362,7 @@ ASSERT_SIZE(struct team_member, 104);
 
 // A common structure for pairs of dungeon/floor values
 struct dungeon_floor_pair {
-    uint8_t dungeon_id;
+    struct dungeon_id_8 dungeon_id;
     uint8_t floor_id;
 };
 ASSERT_SIZE(struct dungeon_floor_pair, 2);
@@ -742,6 +742,34 @@ struct rankup_table_entry {
     undefined field_0xf;
 };
 ASSERT_SIZE(struct rankup_table_entry, 16);
+
+// Contains the data for a single mission
+struct mission {
+    struct mission_status_8 status; // 0x0
+    struct mission_type_8 type;     // 0x1
+    union mission_subtype subtype;  // 0x2
+    undefined field_0x3;
+    struct dungeon_id_8 dungeon_id; // 0x4
+    uint8_t floor;                  // 0x5
+    undefined field_0x6;            // Likely padding
+    undefined field_0x7;            // Likely padding
+    int field_0x8;                  // 0x8, changing it seems to affect the text of the mission
+    undefined field_0xc;
+    undefined field_0xd;
+    struct monster_id_16 client; // 0xE
+    struct monster_id_16 target; // 0x10
+    int16_t field_0x12;
+    int16_t field_0x14;
+    struct mission_reward_type_8 reward_type; // 0x16
+    undefined field_0x17;
+    struct item_id_16 item_reward;                      // 0x18
+    struct mission_restriction_type_8 restriction_type; // 0x1A
+    undefined field_0x1b;
+    union mission_restriction restriction; // 0x1C
+    undefined field_0x1e;
+    undefined field_0x1f;
+};
+ASSERT_SIZE(struct mission, 32);
 
 // TODO: Add more data file structures, as convenient or needed, especially if the load address
 // or pointers to the load address are known.

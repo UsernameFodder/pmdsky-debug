@@ -56,6 +56,7 @@ bool IsFloorOver(void);
 void DecrementWindCounter(void);
 void SetForcedLossReason(enum forced_loss_reason forced_loss_reason);
 enum forced_loss_reason GetForcedLossReason(void);
+void ChangeLeader(void);
 void ResetDamageDesc(undefined4* damage_desc);
 uint16_t GetSpriteIndex(enum monster_id monster_id);
 bool FloorNumberIsEven(void);
@@ -82,7 +83,7 @@ bool IsSpecialStoryAlly(struct monster* monster);
 bool IsExperienceLocked(struct monster* monster);
 void InitTeam(undefined param_1);
 struct entity* SpawnMonster(struct spawned_monster_data* monster_data, bool cannot_be_asleep);
-void InitTeamMember(enum monster_id, enum type_id type_1, enum type_id type_2,
+void InitTeamMember(enum monster_id, int16_t x_position, int16_t y_position,
                     struct team_member* team_member_data, undefined param_5, undefined param_6,
                     undefined param_7, undefined param_8, undefined param_9);
 void ExecuteMonsterAction(struct entity* monster);
@@ -332,6 +333,8 @@ void SpawnStairs(uint8_t* pos, struct dungeon_generation_info* gen_info, bool hi
 void LoadFixedRoomData(void);
 bool IsHiddenStairsFloor(void);
 bool HasHeldItem(struct entity* entity, enum item_id item_id);
+bool CheckTeamItemsFlags(int flags);
+bool CheckActiveChallengeRequest(void);
 bool IsOutlawOrChallengeRequestFloor(void);
 bool IsCurrentMissionType(enum mission_type type);
 bool IsCurrentMissionTypeExact(enum mission_type type, union mission_subtype subtype);

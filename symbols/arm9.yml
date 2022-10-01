@@ -1558,6 +1558,17 @@ arm9:
         Initializes the DUNGEON_*_LIST script variable values (IDs 0x4f-0x54).
         
         No params.
+    - name: HasMonsterBeenAttackedInDungeons
+      address:
+        EU: 0x204D540
+        NA: 0x204D208
+      description: |-
+        Checks whether the specified monster has been attacked by the player at some point in their adventure during an exploration.
+        
+        The check is performed using the result of passing the ID to FemaleToMaleForm.
+        
+        r0: Monster ID
+        return: True if the specified mosnter (after converting its ID through FemaleToMaleForm) has been attacked by the player before, false otherwise.
     - name: SetDungeonTipShown
       address:
         EU: 0x204D588
@@ -1587,6 +1598,68 @@ arm9:
         If it returned false, the call to SpawnMonster inside TrySpawnMonsterAndTickSpawnCounter would not be executed.
         
         return: bool (always true)
+    - name: GetNbFloors
+      address:
+        EU: 0x204F8B4
+        NA: 0x204F57C
+      description: |-
+        Returns the number of floors of the given dungeon.
+        
+        The result is hardcoded for certain dungeons, such as dojo mazes.
+        
+        r0: Dungeon ID
+        return: Number of floors
+    - name: GetNbFloorsPlusOne
+      address:
+        EU: 0x204F8EC
+        NA: 0x204F5B4
+      description: |-
+        Returns the number of floors of the given dungeon + 1.
+        
+        r0: Dungeon ID
+        return: Number of floors + 1
+    - name: GetDungeonGroup
+      address:
+        EU: 0x204F900
+        NA: 0x204F5C8
+      description: |-
+        Returns the dungeon group associated to the given dungeon.
+        
+        For IDs greater or equal to dungeon_id::DUNGEON_NORMAL_FLY_MAZE, returns dungeon_group_id::DGROUP_MAROWAK_DOJO.
+        
+        r0: Dungeon ID
+        return: Group ID
+    - name: GetNbPrecedingFloors
+      address:
+        EU: 0x204F918
+        NA: 0x204F5E0
+      description: |-
+        Given a dungeon ID, returns the total amount of floors summed by all the previous dungeons in its group.
+        
+        The value is normally pulled from dungeon_data_list_entry::n_preceding_floors_group, except for dungeons with an ID >= dungeon_id::DUNGEON_NORMAL_FLY_MAZE, for which this function always returns 0.
+        
+        r0: Dungeon ID
+        return: Number of preceding floors of the dungeon
+    - name: GetNbFloorsDungeonGroup
+      address:
+        EU: 0x204F930
+        NA: 0x204F5F8
+      description: |-
+        Returns the total amount of floors among all the dungeons in the dungeon group of the specified dungeon.
+        
+        r0: Dungeon ID
+        return: Total number of floors in the group of the specified dungeon
+    - name: DungeonFloorToGroupFloor
+      address:
+        EU: 0x204F984
+        NA: 0x204F64C
+      description: |-
+        Given a dungeon ID and a floor number, returns a struct with the corresponding dungeon group and floor number in that group.
+        
+        The function normally uses the data in mappa_s.bin to calculate the result, but there's some dungeons (such as dojo mazes) that have hardcoded return values.
+        
+        r0: (output) Struct containing the dungeon group and floor group
+        r1: Struct containing the dungeon ID and floor number
     - name: SetAdventureLogStructLocation
       address:
         EU: 0x204FD5C
@@ -2111,6 +2184,17 @@ arm9:
         r2: True to skip the check that prevents returning monsters with a different sprite size than the current one
         r3: True to skip the check that prevents Shedinja from being counted as a potential evolution
         return: Number of possible evolutions for the specified monster id
+    - name: GetBaseForm
+      address:
+        EU: 0x20543A0
+        NA: 0x2054024
+      description: |-
+        Checks if the specified monster ID corresponds to any of the pokémon that have multiple forms and returns the ID of the base form if so. If it doesn't, the same ID is returned.
+        
+        Some of the pokémon included in the check are Unown, Cherrim and Deoxys.
+        
+        r0: Monster ID
+        return: ID of the base form of the specified monster, or the same if the specified monster doesn't have a base form.
     - name: GetMonsterIdFromSpawnEntry
       address:
         EU: 0x20547FC
@@ -2191,6 +2275,15 @@ arm9:
         
         r0: monster ID
         return: bool
+    - name: FemaleToMaleForm
+      address:
+        EU: 0x2054F5C
+        NA: 0x2054BE0
+      description: |-
+        Returns the ID of the first form of the specified monster if the specified ID corresponds to a secondary form with female gender and the first form has male gender. If those conditions don't meet, returns the same ID unchanged.
+        
+        r0: Monster ID
+        return: ID of the male form of the monster if the requirements meet, same ID otherwise.
     - name: IsMonsterOnTeam
       address:
         EU: 0x20554C4
@@ -2202,6 +2295,22 @@ arm9:
         r0: monster ID
         r1: ?
         return: bool
+    - name: GetHeroData
+      address:
+        EU: 0x2055AEC
+        NA: 0x2055770
+      description: |-
+        Returns the ground monster data of the hero (first slot in Chimecho Assembly)
+        
+        return: Monster data
+    - name: GetPartnerData
+      address:
+        EU: 0x2055B14
+        NA: 0x2055798
+      description: |-
+        Returns the ground monster data of the partner (second slot in Chimecho Assembly)
+        
+        return: Monster data
     - name: CheckTeamMemberField8
       address:
         EU: 0x20565E0
@@ -2281,6 +2390,24 @@ arm9:
         r0: ?
         r1: some flag?
         return: SOS mail count
+    - name: GenerateMission
+      address:
+        EU: 0x205D5A0
+        NA: 0x205D224
+      description: |-
+        Attempts to generate a random mission.
+        
+        r0: Pointer to something
+        r1: Pointer to the struct where the data of the generated mission will be written to
+        return: MISSION_GENERATION_SUCCESS if the mission was successfully generated, MISSION_GENERATION_FAILURE if it failed and MISSION_GENERATION_GLOBAL_FAILURE if it failed and the game shouldn't try to generate more.
+    - name: GenerateDailyMissions
+      address:
+        EU: 0x205E94C
+        NA: 0x205E5D0
+      description: |-
+        Generates the missions displayed on the Job Bulletin Board and the Outlaw Notice Board.
+        
+        No params.
     - name: DungeonRequestsDone
       address:
         EU: 0x205F120
@@ -2313,6 +2440,89 @@ arm9:
         
         r0: ?
         return: bool: whether the number of missions completed is greater than 0
+    - name: GetMissionByTypeAndDungeon
+      address:
+        EU: 0x205F728
+        NA: 0x205F3AC
+      description: |-
+        Returns the position on the mission list of the first mission of the specified type that takes place in the specified dungeon.
+        
+        If the type of the mission has a subtype, the subtype of the checked mission must match the one in [r2] too for it to be returned.
+        
+        r0: Position on the mission list where the search should start. Missions before this position on the list will be ignored.
+        r1: Mission type
+        r2: Pointer to some struct that contains the subtype of the mission to check on its first byte
+        r3: Dungeon ID
+        return: Index of the first mission that meets the specified requirements, or -1 if there aren't any missions that do so.
+    - name: CheckAcceptedMissionByTypeAndDungeon
+      address:
+        EU: 0x205F820
+        NA: 0x205F4A4
+      description: |-
+        Returns true if there are any accepted missions on the mission list that are of the specified type and take place in the specified dungeon.
+        
+        If the type of the mission has a subtype, the subtype of the checked mission must match the one in [r2] too for it to be returned.
+        
+        r0: Mission type
+        r1: Pointer to some struct that contains the subtype of the mission to check on its first byte
+        r2: Dungeon ID
+        return: True if at least one mission meets the specified requirements, false otherwise.
+    - name: ClearMissionData
+      address:
+        EU: 0x205FD34
+        NA: 0x205F9B8
+      description: |-
+        Given a mission struct, clears some of it fields.
+        
+        In particular, mission::status is set to mission_status::MISSION_STATUS_INVALID, mission::dungeon_id is set to -1, mission::floor is set to 0 and mission::reward_type is set to mission_reward_type::MISSION_REWARD_MONEY.
+        
+        r0: Pointer to the mission to clear
+    - name: IsMonsterMissionAllowed
+      address:
+        EU: 0x2062D90
+        NA: 0x2062A14
+      description: |-
+        Checks if the specified monster is contained in the MISSION_BANNED_MONSTERS array.
+        
+        The function converts the ID by calling GetBaseForm and FemaleToMaleForm first.
+        
+        r0: Monster ID
+        return: False if the monster ID (after converting it) is contained in MISSION_BANNED_MONSTERS, true if it isn't.
+    - name: CanMonsterBeUsedForMissionWrapper
+      address:
+        EU: 0x2062DD4
+        NA: 0x2062A58
+      description: |-
+        Calls CanMonsterBeUsedForMission with r1 = 1.
+        
+        r0: Monster ID
+        return: Result of CanMonsterBeUsedForMission
+    - name: CanMonsterBeUsedForMission
+      address:
+        EU: 0x2062DE4
+        NA: 0x2062A68
+      description: |-
+        Returns whether a certain monster can be used (probably as the client or as the target) when generating a mission.
+        
+        Excluded monsters include those that haven't been fought in dungeons yet, the second form of certain monsters and, if PERFOMANCE_PROGRESS_FLAG[9] is 0, monsters in MISSION_BANNED_STORY_MONSTERS, the species of the player and the species of the partner.
+        
+        r0: Monster ID
+        r1: True to exclude monsters in the MISSION_BANNED_MONSTERS array, false to allow them
+        return: True if the specified monster can be part of a mission
+    - name: IsMonsterMissionAllowedStory
+      address:
+        EU: 0x2062E60
+        NA: 0x2062AE4
+      description: |-
+        Checks if the specified monster should be allowed to be part of a mission (probably as the client or the target), accounting for the progress on the story.
+        
+        If PERFOMANCE_PROGRESS_FLAG[9] is true, the function returns true.
+        If it isn't, the function checks if the specified monster is contained in the MISSION_BANNED_STORY_MONSTERS array, or if it corresponds to the ID of the player or the partner.
+        
+        The function converts the ID by calling GetBaseForm and FemaleToMaleForm first.
+        
+        r0: Monster ID
+        return: True if PERFOMANCE_PROGRESS_FLAG[9] is true, false if it isn't and the monster ID (after converting it) is contained in MISSION_BANNED_STORY_MONSTERS or if it's the ID of the player or the partner, true otherwise.
     - name: ScriptSpecialProcess0x3D
       address:
         EU: 0x2065ECC
@@ -3281,6 +3491,30 @@ arm9:
       address:
         EU: 0x20A42AC
         NA: 0x20A3CAC
+    - name: MISSION_BANNED_STORY_MONSTERS
+      address:
+        EU: 0x20A4314
+        NA: 0x20A3D24
+      length:
+        EU: 0x2A
+        NA: 0x2A
+      description: |-
+        Null-terminated list of monster IDs that can't be used (probably as clients or targets) when generating missions before a certain point in the story.
+        
+        To be precise, PERFOMANCE_PROGRESS_FLAG[9] must be enabled so these monsters can appear as mission clients.
+        
+        type: struct monster_id_16[length / 2]
+    - name: MISSION_BANNED_MONSTERS
+      address:
+        EU: 0x20A43AC
+        NA: 0x20A3DAC
+      length:
+        EU: 0xF8
+        NA: 0xF8
+      description: |-
+        Null-terminated list of monster IDs that can't be used (probably as clients or targets) when generating missions.
+        
+        type: struct monster_id_16[length / 2]
     - name: EVENTS
       address:
         EU: 0x20A5BD8

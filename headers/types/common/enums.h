@@ -3604,4 +3604,11 @@ enum iq_group_id {
     IQ_GROUP_NONE = 15,
 };
 
+enum monster_gender {
+    GENDER_INVALID = 0,
+    GENDER_MALE = 1,
+    GENDER_FEMALE = 2,
+    GENDER_GENDERLESS = 3,
+};
+
 #endif
