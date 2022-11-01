@@ -62,6 +62,7 @@ extern bool NOTIFY_NOTE;
 extern struct monster_id_16 DEFAULT_HERO_ID;
 extern struct monster_id_16 DEFAULT_PARTNER_ID;
 extern uint8_t GAME_MODE;
+extern struct global_progress* GLOBAL_PROGRESS_PTR;
 extern struct adventure_log* ADVENTURE_LOG_PTR;
 extern void* ITEM_TABLES_PTRS_1[26];
 extern void* SMD_EVENTS_FUN_TABLE[127];
