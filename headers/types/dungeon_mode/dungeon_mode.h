@@ -285,7 +285,7 @@ struct monster {
     struct type_id_8 hidden_power_type;           // 0x46
     undefined field_0x47;
     struct dungeon_id_8 joined_at; // 0x48: Also used as a unique identifier for special monsters
-    undefined field_0x49;
+    uint8_t joined_at_floor;       // 0x49: Floor number of recruitment. 0 for special recruits
     struct action_16 action_id; // 0x4A: Determines the action the monster will take on this turn
     struct direction_id_8 direction; // 0x4C: Current direction the monster is facing
     undefined field_0x4d;
@@ -1361,10 +1361,10 @@ struct guest_monster {
     char* name;                    // 0x0: Points to an array containing the monster's name
     struct monster_id_16 id;       // 0x4
     struct dungeon_id_8 joined_at; // 0x6
-    undefined field_0x7;
-    struct move_id_16 moves[4]; // 0x8
-    int16_t max_hp;             // 0x10
-    uint8_t level;              // 0x12
+    uint8_t joined_at_floor;       // 0x7
+    struct move_id_16 moves[4];    // 0x8
+    int16_t max_hp;                // 0x10
+    uint8_t level;                 // 0x12
     undefined field_0x13;
     int16_t iq;  // 0x14
     uint8_t atk; // 0x16

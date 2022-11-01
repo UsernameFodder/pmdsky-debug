@@ -224,8 +224,8 @@ struct ground_move {
     bool f_exists : 1;
     bool f_subsequent_in_link_chain : 1;
     bool f_enabled_for_ai : 1;
-    bool flags_unk3 : 1;
-    bool flags_unk4 : 1;
+    bool f_set : 1;
+    bool f_last_used : 1; // unconfirmed, but probably the same as struct move
     bool f_disabled : 1;
     uint8_t flags_unk6 : 2;
 
@@ -243,17 +243,17 @@ struct ground_monster {
     bool is_valid;                 // 0x0: True if the entry is valid
     int8_t level;                  // 0x1: Monster level
     struct dungeon_id_8 joined_at; // 0x2
-    undefined field_0x3;           // Same as guest_monster::field_0x7
+    uint8_t joined_at_floor;       // 0x3: See struct monster::joined_at_floor
     struct monster_id_16 id;       // 0x4: Monster ID
-    undefined field_0x6;
-    undefined field_0x7;
-    uint16_t iq;     // 0x8
-    uint16_t max_hp; // 0xA
-    int8_t atk;      // 0xC
-    int8_t sp_atk;   // 0xD
-    int8_t def;      // 0xE
-    int8_t sp_def;   // 0xF
-    int exp;         // 0x10
+    int8_t level_at_first_evo;     // 0x6: Level upon first evolution, or 0 if not applicable
+    int8_t level_at_second_evo;    // 0x7: Level upon second evolution, or 0 if not applicable
+    uint16_t iq;                   // 0x8
+    uint16_t max_hp;               // 0xA
+    int8_t atk;                    // 0xC
+    int8_t sp_atk;                 // 0xD
+    int8_t def;                    // 0xE
+    int8_t sp_def;                 // 0xF
+    int exp;                       // 0x10
     // 0x14: Bitvector that keeps track of which IQ skills the monster has enabled.
     // See enum iq_skill_id for the meaning of each bit.
     uint32_t iq_skill_flags[3];
