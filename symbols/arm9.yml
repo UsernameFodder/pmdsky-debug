@@ -731,6 +731,7 @@ arm9:
     - name: OpenAllPackFiles
       address:
         EU: 0x200C364
+        NA: 0x200C2DC
       description: |-
         Open the 6 files at PACK_FILE_PATHS_TABLE into PACK_FILE_OPENED. Called during game initialisation.
         
@@ -738,6 +739,7 @@ arm9:
     - name: GetFileLengthInPackWithPackNb
       address:
         EU: 0x200C3C4
+        NA: 0x200C33C
       description: |-
         Call GetFileLengthInPack after looking up the global Pack archive by its number
         
@@ -747,6 +749,7 @@ arm9:
     - name: LoadFileInPackWithPackId
       address:
         EU: 0x200C3E4
+        NA: 0x200C35C
       description: |-
         Call LoadFileInPack after looking up the global Pack archive by its identifier
         
@@ -757,6 +760,7 @@ arm9:
     - name: AllocAndLoadFileInPack
       address:
         EU: 0x200C410
+        NA: 0x200C388
       description: |-
         Allocate a file and load a file from the pack archive inside.
         The data pointed by the pointer in the output need to be freed once is not needed anymore.
@@ -768,6 +772,7 @@ arm9:
     - name: OpenPackFile
       address:
         EU: 0x200C468
+        NA: 0x200C3E0
       description: |-
         Open a Pack file, to be read later. Initialise the output structure.
         
@@ -776,6 +781,7 @@ arm9:
     - name: GetFileLengthInPack
       address:
         EU: 0x200C4FC
+        NA: 0x200C474
       description: |-
         Get the length of a file entry from a Pack archive
         
@@ -785,6 +791,7 @@ arm9:
     - name: LoadFileInPack
       address:
         EU: 0x200C50C
+        NA: 0x200C484
       description: |-
         Load the indexed file from the Pack archive, itself loaded from the ROM.
         
