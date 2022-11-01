@@ -1748,6 +1748,18 @@ enum mission_generation_result {
     MISSION_GENERATION_GLOBAL_FAILURE = 2,
 };
 
+// For the HERO_TALK_KIND and PARTNER_TALK_KIND script variables,
+// which presumably control dialogue variations, but someone with more scripting
+// experience should double-check me on that :)
+enum talk_kind {
+    TALK_NONE = 0,
+    TALK_PARTNER_MALE_SPECIAL = 1,   // Squirtle, Totodile, Chimchar, Meowth, Munchlax
+    TALK_PARTNER_DEFAULT = 2,        // All partners not in the "special" categories
+    TALK_PARTNER_FEMALE_SPECIAL = 3, // Torchic, Chikorita, Eevee, Vulpix, Skitty
+    TALK_HERO_MALE = 4,
+    TALK_HERO_FEMALE = 5,
+};
+
 // These are super long, so split them out into a separate file
 #include "version_dep_enums.h"
 

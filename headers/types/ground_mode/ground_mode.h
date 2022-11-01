@@ -341,4 +341,10 @@ struct main_ground_data {
 };
 ASSERT_SIZE(struct main_ground_data, 24);
 
+struct partner_talk_kind_table_entry {
+    enum talk_kind talk_kind;
+    enum monster_id id;
+};
+ASSERT_SIZE(struct partner_talk_kind_table_entry, 8);
+
 #endif
