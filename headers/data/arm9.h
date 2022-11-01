@@ -16,6 +16,7 @@ extern struct exclusive_item_stat_boost_entry EXCLUSIVE_ITEM_STAT_BOOST_DATA[15]
 extern struct exclusive_item_effect_entry EXCLUSIVE_ITEM_EFFECT_DATA[956];
 extern struct move_id_16 RECOIL_MOVE_LIST[11];
 extern struct move_id_16 PUNCH_MOVE_LIST[16];
+extern struct partner_talk_kind_table_entry PARTNER_TALK_KIND_TABLE[11];
 extern struct script_local_var_table SCRIPT_VARS_LOCALS;
 extern struct script_var_table SCRIPT_VARS;
 extern struct dungeon_data_list_entry DUNGEON_DATA_LIST[180];

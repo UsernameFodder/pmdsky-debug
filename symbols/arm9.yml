@@ -3247,6 +3247,19 @@ arm9:
         Null-terminated list of all the punch moves, as 2-byte move IDs.
         
         type: struct move_id_16[16]
+    - name: PARTNER_TALK_KIND_TABLE
+      address:
+        EU: 0x209D268
+        NA: 0x209CCE4
+        JP: 0x209E0B8
+      length:
+        EU: 0x58
+        NA: 0x58
+        JP: 0x58
+      description: |-
+        Table of values for the PARTNER_TALK_KIND script variable.
+        
+        type: struct partner_talk_kind_table_entry[11]
     - name: SCRIPT_VARS_LOCALS
       address:
         EU: 0x209D450
