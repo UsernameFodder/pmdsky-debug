@@ -4,6 +4,7 @@
 # present in the symbol tables.
 
 from abc import ABC, abstractmethod
+import argparse
 import os
 import re
 from typing import Dict, Generator, List, Optional
@@ -89,6 +90,14 @@ class HeaderSymbolList(ABC):
             set(self.names_from_header_file()) - set(self.names_from_symbol_file())
         )
 
+    def extra_symbols(self) -> List[str]:
+        """
+        Find symbols that are in the symbol tables but not in the C headers.
+        """
+        return list(
+            set(self.names_from_symbol_file()) - set(self.names_from_header_file())
+        )
+
 
 class FunctionList(HeaderSymbolList):
     HEADERS_DIR = os.path.join(ROOT_DIR, "headers", "functions")
@@ -120,12 +129,18 @@ class DataList(HeaderSymbolList):
             return re.findall(r"\b(\w+)(?:\s*(?:\)|\[\s*\w+\s*\]))*\s*;", f.read())
 
 
-def run_symbol_check(symbol_list: HeaderSymbolList, verbose: bool = False) -> bool:
+def run_symbol_check(
+    symbol_list: HeaderSymbolList,
+    symbol_type_str: str,
+    find_extra_symbols: bool = False,
+    verbose: bool = False,
+) -> bool:
     passed = True
     for header_file in symbol_list.headers():
         try:
             slist = symbol_list(header_file)
             missing = slist.missing_symbols()
+            extra = slist.extra_symbols() if find_extra_symbols else []
             if missing:
                 passed = False
                 print(
@@ -133,13 +148,22 @@ def run_symbol_check(symbol_list: HeaderSymbolList, verbose: bool = False) -> bo
                     + " C headers and symbol tables."
                 )
                 print(
-                    f"The following symbols are present in"
+                    f"The following {symbol_type_str} are present in"
                     + f" {slist.header_file} but missing from"
                     + f" {slist.symbol_file}:"
                 )
                 for symbol_name in missing:
                     print(f"    - {symbol_name}")
-            elif verbose:
+            if extra:
+                print(f"{slist}: found {len(extra)} untyped symbols in symbol tables")
+                print(
+                    f"The following {symbol_type_str} are present in"
+                    + f" {slist.symbol_file} but missing from"
+                    + f" {slist.header_file}:"
+                )
+                for symbol_name in extra:
+                    print(f"    - {symbol_name}")
+            if not missing and not extra and verbose:
                 print(f"Checked {header_file}")
         except ValueError:
             # File doesn't correspond to a symbol file; skip
@@ -148,7 +172,29 @@ def run_symbol_check(symbol_list: HeaderSymbolList, verbose: bool = False) -> bo
 
 
 if __name__ == "__main__":
-    functions_passed = run_symbol_check(FunctionList)
-    data_passed = run_symbol_check(DataList)
+    parser = argparse.ArgumentParser(
+        description="Cross-check the C headers with the symbol tables"
+    )
+    parser.add_argument(
+        "-e",
+        "--extra-symbols",
+        action="store_true",
+        help="print extra symbols present in the symbol tables but not in the C headers",
+    )
+    parser.add_argument("-v", "--verbose", action="store_true", help="verbose output")
+    args = parser.parse_args()
+
+    functions_passed = run_symbol_check(
+        FunctionList,
+        "functions",
+        find_extra_symbols=args.extra_symbols,
+        verbose=args.verbose,
+    )
+    data_passed = run_symbol_check(
+        DataList,
+        "data symbols",
+        find_extra_symbols=args.extra_symbols,
+        verbose=args.verbose,
+    )
     if not functions_passed or not data_passed:
         raise SystemExit(1)

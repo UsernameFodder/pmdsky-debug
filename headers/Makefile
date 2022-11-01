@@ -38,3 +38,7 @@ format-check:
 .PHONY: symbol-check
 symbol-check:
 	./symbol_check.py
+
+.PHONY: symbol-check-extra
+symbol-check-extra:
+	./symbol_check.py --extra-symbols
