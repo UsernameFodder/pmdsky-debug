@@ -156,6 +156,8 @@ int GetSpecialEpisodeType(void);
 void ScenarioFlagBackup(void);
 void InitWorldMapScriptVars(void);
 void InitDungeonListScriptVars(void);
+struct global_progress* GlobalProgressAlloc(void);
+void ResetGlobalProgress(void);
 bool HasMonsterBeenAttackedInDungeons(enum monster_id monster_id);
 void SetDungeonTipShown(int tip_id);
 bool GetDungeonTipShown(int tip_id);

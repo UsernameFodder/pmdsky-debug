@@ -1565,6 +1565,24 @@ arm9:
         Initializes the DUNGEON_*_LIST script variable values (IDs 0x4f-0x54).
         
         No params.
+    - name: GlobalProgressAlloc
+      address:
+        EU: 0x204D440
+        NA: 0x204D108
+      description: |-
+        Allocates a new global progress struct.
+        
+        This updates the global pointer and returns a copy of that pointer.
+        
+        return: pointer to a newly allocated global progress struct
+    - name: ResetGlobalProgress
+      address:
+        EU: 0x204D468
+        NA: 0x204D130
+      description: |-
+        Zero-initializes the global progress struct.
+        
+        No params.
     - name: HasMonsterBeenAttackedInDungeons
       address:
         EU: 0x204D540
@@ -3745,6 +3763,17 @@ arm9:
         [Runtime]
         
         type: uint8_t
+    - name: GLOBAL_PROGRESS_PTR
+      address:
+        EU: 0x20B0890
+        NA: 0x20AFF74
+      length:
+        EU: 0x4
+        NA: 0x4
+      description: |-
+        [Runtime]
+        
+        type: struct global_progress*
     - name: ADVENTURE_LOG_PTR
       address:
         EU: 0x20B0894

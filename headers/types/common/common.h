@@ -625,6 +625,20 @@ struct dungeon_init {
 };
 ASSERT_SIZE(struct dungeon_init, 428);
 
+// Structure describing various player progress milestones?
+// Ported directly from Irdkwia's notes. The only confirmed thing is the struct size.
+struct global_progress {
+    undefined unk_pokemon_flags1[148];        // 0x0: unused
+    undefined field_0x94[4];                  // 0x94
+    undefined unk_pokemon_flags2[148];        // 0x98: used
+    undefined exclusive_pokemon_flags[23];    // 0x12C: partially used, only for Time/Darkness
+    undefined dungeon_max_reached_floor[180]; // 0x143: used
+    undefined field_0x1f7;                    // unused
+    undefined4 nb_adventures;                 // 0x1F8: used
+    undefined field_0x1fc[16];                // unknown/unused
+};
+ASSERT_SIZE(struct global_progress, 524);
+
 // The adventure log structure.
 struct adventure_log {
     uint32_t completion_flags[4];
