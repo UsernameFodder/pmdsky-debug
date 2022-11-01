@@ -302,45 +302,19 @@ ram:
         If a member is released, all subsequent members will be shifted up (so there should be no gaps in the list).
         
         type: struct ground_monster[555]
-    - name: LEADER_IQ_SKILLS
+    - name: TEAM_ACTIVE_ROSTER
       address:
-        EU: 0x22B5AD8
-        NA: 0x22B5198
+        EU: 0x22B5A8C
+        NA: 0x22B514C
       length:
-        EU: 0xC
-        NA: 0xC
+        EU: 0x2D8
+        NA: 0x2D8
       description: |-
-        Unlocked IQ skills of the current leader, available for selection from the IQ skills menu.
+        List of all currently active team members and relevant information about them.
         
-        One bit per skill (1 if unlocked). Same format as the IQ skills bitvector on the monster info struct.
+        Listed in team order. The first four entries correspond to the team in normal modes of play. The last three entries are always for Grovyle, Dusknoir, and Celebi (in that order).
         
-        This is presumably part of a larger struct, together with other nearby data.
-    - name: LEADER_NICKNAME
-      address:
-        EU: 0x22B5AEA
-        NA: 0x22B51AA
-      length:
-        EU: 0xA
-        NA: 0xA
-      description: |-
-        The current leader's nickname.
-        
-        A null-terminated string, with a maximum length of 10. Presumably encoded with the ANSI/Shift JIS encoding the game typically uses.
-        
-        This is presumably part of a larger struct, together with other nearby data.
-    - name: PARTY_MEMBER_2_IQ_SKILLS
-      address:
-        EU: 0x22B5B40
-        NA: 0x22B5200
-      length:
-        EU: 0xC
-        NA: 0xC
-      description: |-
-        Unlocked IQ skills of the second party member, available for selection from the IQ skills menu.
-        
-        One bit per skill (1 if unlocked). Same format as the IQ skills bitvector on the monster info struct.
-        
-        This is presumably part of a larger struct, together with other nearby data.
+        type: struct team_member[7]
     - name: FRAMES_SINCE_LAUNCH_TIMES_THREE
       address:
         EU: 0x22BA304

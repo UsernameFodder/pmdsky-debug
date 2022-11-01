@@ -4,7 +4,7 @@
 #define HEADERS_TYPES_COMMON_H_
 
 #include "enums.h"
-#include "../dungeon_mode/enums.h"
+#include "../dungeon_mode/dungeon_mode_common.h"
 #include "file_io.h"
 
 // Based on the code for vsprintf(3), it seems like va_list is implemented in the ARM9 binary
@@ -265,92 +265,42 @@ struct ground_monster {
 ASSERT_SIZE(struct ground_monster, 68);
 
 // Seems to store information about active team members, including those from special episodes.
+// A lot of the fields seem to be analogous to fields on struct monster.
 struct team_member {
     // 0x0: flags: 1-byte bitfield
     bool f_is_valid : 1;
     uint8_t flags_unk1 : 7;
 
-    bool is_leader; // 0x1
-    uint8_t level;  // 0x2
-    undefined field_0x3;
-    undefined field_0x4;
+    bool is_leader;                // 0x1
+    uint8_t level;                 // 0x2
+    struct dungeon_id_8 joined_at; // 0x3
+    uint8_t joined_at_floor;       // 0x4
     undefined field_0x5;
-    uint16_t iq; // 0x6
-    undefined2 field_0x8;
-    undefined field_0xA;
-    undefined field_0xB;
-    undefined field_0xC;
-    undefined field_0xD;
-    uint16_t current_hp; // 0xE
-    uint16_t max_hp;     // 0x10
-    int8_t atk;          // 0x12
-    int8_t sp_atk;       // 0x13
-    int8_t def;          // 0x14
-    int8_t sp_def;       // 0x15
+    uint16_t iq;          // 0x6
+    int16_t member_index; // 0x8: Index in the list of all team members (not just the active ones)
+    int16_t team_index;   // 0xA: In order by team lineup
+    struct monster_id_16 id; // 0xC
+    uint16_t current_hp;     // 0xE
+    uint16_t max_hp;         // 0x10
+    int8_t atk;              // 0x12
+    int8_t sp_atk;           // 0x13
+    int8_t def;              // 0x14
+    int8_t sp_def;           // 0x15
     undefined field_0x16;
     undefined field_0x17;
-    int exp; // 0x18
-    undefined field_0x1C;
-    undefined field_0x1D;
-    undefined field_0x1E;
-    undefined field_0x1F;
-    undefined field_0x20;
-    undefined field_0x21;
-    undefined field_0x22;
-    undefined field_0x23;
-    undefined field_0x24;
-    undefined field_0x25;
-    undefined field_0x26;
-    undefined field_0x27;
-    undefined field_0x28;
-    undefined field_0x29;
-    undefined field_0x2A;
-    undefined field_0x2B;
-    undefined field_0x2C;
-    undefined field_0x2D;
-    undefined field_0x2E;
-    undefined field_0x2F;
-    undefined field_0x30;
-    undefined field_0x31;
-    undefined field_0x32;
-    undefined field_0x33;
-    undefined field_0x34;
-    undefined field_0x35;
-    undefined field_0x36;
-    undefined field_0x37;
-    undefined field_0x38;
-    undefined field_0x39;
-    undefined field_0x3A;
-    undefined field_0x3B;
+    int exp;              // 0x18
+    struct move moves[4]; // 0x1C
     undefined field_0x3C;
     undefined field_0x3D;
-    undefined field_0x3E;
-    undefined field_0x3F;
-    undefined field_0x40;
-    undefined field_0x41;
-    undefined field_0x42;
-    undefined field_0x43;
-    undefined field_0x44;
-    undefined field_0x45;
-    undefined field_0x46;
-    undefined field_0x47;
-    undefined field_0x48;
-    undefined field_0x49;
-    undefined field_0x4A;
-    undefined field_0x4B;
-    undefined field_0x4C;
-    undefined field_0x4D;
-    undefined field_0x4E;
-    undefined field_0x4F;
-    undefined field_0x50;
-    undefined field_0x51;
-    undefined field_0x52;
-    undefined field_0x53;
-    undefined field_0x54;
-    undefined field_0x55;
-    undefined field_0x56;
-    undefined field_0x57;
-    undefined field_0x58;
+    struct item held_item;         // 0x3E
+    int16_t belly;                 // 0x44: Integer part
+    int16_t belly_thousandths;     // 0x46
+    int16_t max_belly;             // 0x48: Integer part
+    int16_t max_belly_thousandths; // 0x4A
+    // 0x4C: Bitvector that keeps track of which IQ skills the monster has enabled.
+    // See enum iq_skill_id for the meaning of each bit.
+    uint32_t iq_skill_flags[3];
+    struct tactic_id_8 tactic; // 0x58
     undefined field_0x59;
     undefined field_0x5A;
     undefined field_0x5B;
