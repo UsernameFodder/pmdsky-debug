@@ -314,6 +314,8 @@ ram:
         
         Listed in team order. The first four entries correspond to the team in normal modes of play. The last three entries are always for Grovyle, Dusknoir, and Celebi (in that order).
         
+        This struct is updated relatively infrequently. For example, in dungeon mode, it's typically only updated at the start of the floor; refer to DUNGEON_STRUCT instead for live data.
+        
         type: struct team_member[7]
     - name: FRAMES_SINCE_LAUNCH_TIMES_THREE
       address:
