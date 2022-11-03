@@ -810,6 +810,24 @@ arm9:
         
         r0: Item ID
         return: Category ID
+    - name: IsThrownItem
+      address:
+        EU: 0x200CB98
+        NA: 0x200CB10
+      description: |-
+        Checks if a given item ID is a thrown item (CATEGORY_THROWN_LINE or CATEGORY_THROWN_ARC).
+        
+        r0: item ID
+        return: bool
+    - name: IsNotMoney
+      address:
+        EU: 0x200CBB4
+        NA: 0x200CB2C
+      description: |-
+        Checks if an item ID is not ITEM_POKE.
+        
+        r0: item ID
+        return: bool
     - name: IsAuraBow
       address:
         EU: 0x200CC9C
@@ -820,6 +838,29 @@ arm9:
         
         r0: item ID
         return: bool
+    - name: InitItem
+      address:
+        EU: 0x200CF24
+        NA: 0x200CE9C
+      description: |-
+        Initialize an item struct with the given information.
+        
+        This will resolve the quantity based on the item type. For Poké, the quantity code will always be set to 1. For thrown items, the quantity code will be randomly generated on the range of valid quantities for that item type. For non-stackable items, the quantity code will always be set to 0. Otherwise, the quantity will be assigned from the quantity argument.
+        
+        r0: pointer to item to initialize
+        r1: item ID
+        r2: quantity
+        r3: sticky flag
+    - name: InitStandardItem
+      address:
+        EU: 0x200CFE0
+        NA: 0x200CF58
+      description: |-
+        Wrapper around InitItem with quantity set to 0.
+        
+        r0: pointer to item to initialize
+        r1: item ID
+        r2: sticky flag
     - name: SprintfStatic
       address:
         EU:
@@ -863,6 +904,26 @@ arm9:
         r1: format
         ...: variadic
         return: number of characters printed, excluding the null-terminator
+    - name: GetExclusiveItemOffsetEnsureValid
+      address:
+        EU: 0x200E84C
+        NA: 0x200E77C
+      description: |-
+        Gets the exclusive item offset, which is the item ID relative to that of the first exclusive item, the Prism Ruff.
+        
+        If the given item ID is not a valid item ID, ITEM_PLAIN_SEED (0x55) is returned. This is a bug, since 0x55 is the valid exclusive item offset for the Icy Globe.
+        
+        r0: item ID
+        return: offset
+    - name: IsItemValid
+      address:
+        EU: 0x200E890
+        NA: 0x200E7C0
+      description: |-
+        Checks if an item ID is valid(?).
+        
+        r0: item ID
+        return: bool
     - name: GetItemCategory
       address:
         EU: 0x200E8D8
@@ -872,6 +933,25 @@ arm9:
         
         r0: Item ID
         return: Item category
+    - name: EnsureValidItem
+      address:
+        EU: 0x200E8F8
+        NA: 0x200E828
+      description: |-
+        Checks if the given item ID is valid (using IsItemValid). If so, return the given item ID. Otherwise, return ITEM_PLAIN_SEED.
+        
+        r0: item ID
+        return: valid item ID
+    - name: GetThrownItemQuantityLimit
+      address:
+        EU: 0x200EB00
+        NA: 0x200EA58
+      description: |-
+        Get the minimum or maximum quantity for a given thrown item ID.
+        
+        r0: item ID
+        r1: 0 for minimum, 1 for maximum
+        return: minimum/maximum quantity for the given item ID
     - name: SetMoneyCarried
       address:
         EU: 0x200EDC4
@@ -900,6 +980,15 @@ arm9:
         
         r0: item ID
         return: number of items of the specified ID in the bag
+    - name: IsItemInBag
+      address:
+        EU: 0x200EF88
+        NA: 0x200EEE0
+      description: |-
+        Checks if an item is in the player's bag.
+        
+        r0: item ID
+        return: bool
     - name: AddItemToBag
       address:
         EU: 0x200F8F4
@@ -3094,8 +3183,12 @@ arm9:
       description: Highest item ID of the aura bows.
     - name: NUMBER_OF_ITEMS
       address:
-        EU: 0x200E930
-        NA: 0x200E860
+        EU:
+          - 0x200E88C
+          - 0x200E930
+        NA:
+          - 0x200E7BC
+          - 0x200E860
       length:
         EU: 0x4
         NA: 0x4
@@ -3467,6 +3560,17 @@ arm9:
       length:
         EU: 0x190
         NA: 0x190
+    - name: MONEY_QUANTITY_TABLE
+      address:
+        EU: 0x20A24A4
+        NA: 0x20A1F20
+      length:
+        EU: 0x190
+        NA: 0x190
+      description: |-
+        Table that maps money quantity codes (as recorded in, e.g., struct item) to actual amounts.
+        
+        type: int[100]
     - name: IQ_GUMMI_GAIN_TABLE
       address:
         EU: 0x20A2834
@@ -3714,6 +3818,17 @@ arm9:
         EU: 0x20AFF70
         NA: 0x20AF6B8
       description: "[Runtime]"
+    - name: ITEM_DATA_TABLE_PTRS
+      address:
+        EU: 0x20AFF78
+        NA: 0x20AF6C0
+      length:
+        EU: 0xC
+        NA: 0xC
+      description: |-
+        [Runtime] List of pointers to various item data tables.
+        
+        The first two pointers are definitely item-related (although the order appears to be flipped between EU/NA?). Not sure about the third pointer.
     - name: DUNGEON_MOVE_TABLES
       address:
         EU: 0x20AFFA8

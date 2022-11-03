@@ -19,7 +19,7 @@ struct item {
     // 0x1: For bag items. 0 for none, 1 if held by the leader, 2 for the second party member, etc.
     uint8_t held_by;
     // 0x2: Only for stackable items. Will be 0 if unapplicable. For Poké, this is an "amount code"
-    // rather than the literal amount
+    // rather than the literal amount (see MONEY_QUANTITY_TABLE)
     uint16_t quantity;
     struct item_id_16 id; // 0x4
 };

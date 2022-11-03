@@ -13,6 +13,9 @@ bool FixedRoomIsSubstituteRoom(void);
 bool StoryRestrictionsEnabled(void);
 void FadeToBlack(void);
 struct tile* GetTileAtEntity(struct entity* entity);
+struct entity* SpawnTrap(enum trap_id trap_id, struct position* position, uint8_t team,
+                         uint8_t flags);
+struct entity* SpawnItemEntity(struct position* position);
 bool CanTargetEntity(struct entity* user, struct entity* target);
 bool CanTargetPosition(struct entity* monster, struct position* position);
 void SubstitutePlaceholderStringTags(int string_id, struct entity* entity, undefined4 param_3);
@@ -56,6 +59,9 @@ bool IsFloorOver(void);
 void DecrementWindCounter(void);
 void SetForcedLossReason(enum forced_loss_reason forced_loss_reason);
 enum forced_loss_reason GetForcedLossReason(void);
+void BindTrapToTile(struct tile* tile, struct entity* trap, bool is_visible);
+void SpawnEnemyTrapAtPos(enum trap_id trap_id, int16_t x, int16_t y, uint8_t flags,
+                         bool is_visible);
 void ChangeLeader(void);
 void ResetDamageDesc(undefined4* damage_desc);
 uint16_t GetSpriteIndex(enum monster_id monster_id);
@@ -260,6 +266,8 @@ struct tile* GetTileSafe(int x, int y);
 uint8_t GetStairsRoom(void);
 bool GravityIsActive(void);
 bool IsSecretBazaar(void);
+bool ShouldBoostHiddenStairsSpawnChance(void);
+void SetShouldBoostHiddenStairsSpawnChance(bool value);
 bool IsSecretRoom(void);
 struct minimap_display_data* GetMinimapData(void);
 void SetMinimapDataE447(uint8_t value);
@@ -272,6 +280,7 @@ bool IsNormalFloor(void);
 void GenerateFloor(void);
 enum terrain_type GetTileTerrain(struct tile* tile);
 uint32_t DungeonRand100(void);
+void ClearHiddenStairs(void);
 void FlagHallwayJunctions(int x0, int y0, int x1, int y1);
 void GenerateStandardFloor(int grid_size_x, int grid_size_y, struct floor_properties* floor_props);
 void GenerateOuterRingFloor(struct floor_properties* floor_props);
@@ -329,13 +338,26 @@ void GenerateSecondaryTerrainFormations(uint8_t test_flag, struct floor_properti
 bool StairsAlwaysReachable(int x_stairs, int y_stairs, bool mark_unreachable);
 void ConvertWallsToChasms(void);
 void ResetInnerBoundaryTileRows(void);
-void SpawnStairs(uint8_t* pos, struct dungeon_generation_info* gen_info, bool hidden_stairs);
+void SpawnStairs(uint8_t* pos, struct dungeon_generation_info* gen_info,
+                 enum hidden_stairs_type hidden_stairs_type);
+enum hidden_stairs_type GetHiddenStairsType(struct dungeon_generation_info* gen_info,
+                                            struct floor_properties* floor_props);
+void ResetHiddenStairsSpawn(void);
 void LoadFixedRoomData(void);
+void GenerateItemExplicit(struct item* item, enum item_id item_id, uint16_t quantity, bool sticky);
+void GenerateAndSpawnItem(enum item_id item_id, int16_t x, int16_t y, uint16_t quantity,
+                          bool sticky, bool check_in_bag);
 bool IsHiddenStairsFloor(void);
+void GenerateCleanItem(struct item* item, enum item_id item_id);
+bool SpawnItem(struct position* position, struct item* item, bool flag);
 bool HasHeldItem(struct entity* entity, enum item_id item_id);
+void GenerateMoneyQuantity(struct item* item, int max_amount);
 bool CheckTeamItemsFlags(int flags);
+void GenerateItem(struct item* item, enum item_id item_id, uint16_t quantity,
+                  enum gen_item_stickiness sticky_type);
 bool CheckActiveChallengeRequest(void);
 bool IsOutlawOrChallengeRequestFloor(void);
+bool IsDestinationFloor(void);
 bool IsCurrentMissionType(enum mission_type type);
 bool IsCurrentMissionTypeExact(enum mission_type type, union mission_subtype subtype);
 bool IsOutlawMonsterHouseFloor(void);

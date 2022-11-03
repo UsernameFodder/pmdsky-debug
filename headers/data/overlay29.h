@@ -72,6 +72,7 @@ extern struct exclusive_item_effect_id_8 EXCL_ITEM_EFFECTS_WEATHER_MOVE_SPEED_BO
 extern struct exclusive_item_effect_id_8 EXCL_ITEM_EFFECTS_WEATHER_NO_STATUS[8];
 extern struct exclusive_item_effect_id_8 EXCL_ITEM_EFFECTS_EVASION_BOOST[8];
 extern struct tile DEFAULT_TILE;
+extern bool HIDDEN_STAIRS_SPAWN_BLOCKED;
 extern void* FIXED_ROOM_DATA_PTR;
 
 #endif

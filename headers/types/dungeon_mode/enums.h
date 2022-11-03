@@ -1114,4 +1114,12 @@ enum floor_layout {
 ENUM_8_BIT(floor_layout);
 #pragma pack(pop)
 
+// Used as a parameter when generating items
+enum gen_item_stickiness {
+    // Use the sticky item chance from the floor properties on the dungeon struct
+    GEN_ITEM_STICKY_RANDOM = 0,
+    GEN_ITEM_STICKY_ALWAYS = 1,
+    GEN_ITEM_STICKY_NEVER = 2,
+};
+
 #endif

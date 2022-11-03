@@ -286,7 +286,7 @@ struct monster {
     undefined field_0x47;
     struct dungeon_id_8 joined_at; // 0x48: Also used as a unique identifier for special monsters
     uint8_t joined_at_floor;       // 0x49: Floor number of recruitment. 0 for special recruits
-    struct action_16 action_id; // 0x4A: Determines the action the monster will take on this turn
+    struct action_16 action_id;    // 0x4A: Determines the action the monster will take on this turn
     struct direction_id_8 direction; // 0x4C: Current direction the monster is facing
     undefined field_0x4d;
     // 0x4E: Metadata for some action_id values.
@@ -1067,12 +1067,10 @@ struct floor_generation_status {
     // 0x18: Maximum number of additional secondary structures to generate within rooms.
     // This is decremented as secondary structures are generated until it falls to 0.
     int secondary_structures_budget;
-    // Where the Hidden Stairs spawn is
-    uint16_t hidden_stairs_spawn_x; // 0x1C
-    uint16_t hidden_stairs_spawn_y; // 0x1E
-    // The middle of the Kecleon Shop is, if applicable
-    uint16_t kecleon_shop_middle_x; // 0x20
-    uint16_t kecleon_shop_middle_y; // 0x22
+    // 0x1C: Where the Hidden Stairs spawn is. Values of -1 indicate no Hidden Stairs.
+    struct position hidden_stairs_spawn;
+    // 0x20: Where the middle of the Kecleon Shop is, if applicable
+    struct position kecleon_shop_middle;
     // 0x24: The number of tiles that can be reached from the stairs, assuming normal mobility
     int n_tiles_reachable_from_stairs;
     enum floor_layout layout;                   // 0x28

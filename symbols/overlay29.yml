@@ -238,6 +238,31 @@ overlay29:
         
         r0: pointer to entity
         returns: pointer to tile
+    - name: SpawnTrap
+      address:
+        EU: 0x22E2BA0
+        NA: 0x22E2260
+      description: |-
+        Spawns a trap on the floor. Fails if there are more than 64 traps already on the floor.
+        
+        This modifies the appropriate fields on the dungeon struct, initializing new entries in the entity table and the trap info list.
+        
+        r0: trap ID
+        r1: position
+        r2: team (see struct trap::team)
+        r3: flags (see struct trap::team)
+        return: entity pointer for the newly added trap, or null on failure
+    - name: SpawnItemEntity
+      address:
+        EU: 0x22E2C54
+        NA: 0x22E2314
+      description: |-
+        Spawns a blank item entity on the floor. Fails if there are more than 64 items already on the floor.
+        
+        This initializes a new entry in the entity table and points it to the corresponding slot in the item info list.
+        
+        r0: position
+        return: entity pointer for the newly added item, or null on failure
     - name: CanTargetEntity
       address:
         EU: 0x22E3150
@@ -699,6 +724,28 @@ overlay29:
         Returns dungeon::forced_loss_reason
         
         return: forced_loss_reason
+    - name: BindTrapToTile
+      address:
+        EU: 0x22EE208
+        NA: 0x22ED858
+      description: |-
+        Sets the given tile's associated object to be the given trap, and sets the visibility of the trap.
+        
+        r0: tile pointer
+        r1: entity pointer
+        r2: visibility flag
+    - name: SpawnEnemyTrapAtPos
+      address:
+        EU: 0x22EE320
+        NA: 0x22ED970
+      description: |-
+        A convenience wrapper around SpawnTrap and BindTrapToTile. Always passes 0 for the team parameter (making it an enemy trap).
+        
+        r0: trap ID
+        r1: x position
+        r2: y position
+        r3: flags
+        stack[0]: visibility flag
     - name: ChangeLeader
       address:
         EU: 0x22F42F0
@@ -2468,6 +2515,22 @@ overlay29:
         Checks if the current floor is the Secret Bazaar.
         
         return: bool
+    - name: ShouldBoostHiddenStairsSpawnChance
+      address:
+        EU: 0x23391BC
+        NA: 0x23385EC
+      description: |-
+        Gets the boost_hidden_stairs_spawn_chance field on the dungeon struct.
+        
+        return: bool
+    - name: SetShouldBoostHiddenStairsSpawnChance
+      address:
+        EU: 0x23391D4
+        NA: 0x2338604
+      description: |-
+        Sets the boost_hidden_stairs_spawn_chance field on the dungeon struct to the given value.
+        
+        r0: bool to set the flag to
     - name: IsSecretRoom
       address:
         EU: 0x233922C
@@ -2580,6 +2643,14 @@ overlay29:
         Compute a pseudorandom integer on the interval [0, 100) using the dungeon PRNG.
         
         return: pseudorandom integer
+    - name: ClearHiddenStairs
+      address:
+        EU: 0x233BA78
+        NA: 0x233AE94
+      description: |-
+        Clears the tile (terrain and spawns) on which Hidden Stairs are spawned, if applicable.
+        
+        No params.
     - name: FlagHallwayJunctions
       address:
         EU: 0x233BAF0
@@ -3194,13 +3265,35 @@ overlay29:
       description: |-
         Spawn stairs at the given location.
         
-        If the hidden stairs flag is set, hidden stairs will be spawned instead of normal stairs.
+        If the hidden stairs type is something other than HIDDEN_STAIRS_NONE, hidden stairs of the specified type will be spawned instead of normal stairs.
         
         If spawning normal stairs and the current floor is a rescue floor, the room containing the stairs will be converted into a Monster House.
         
+        If attempting to spawn hidden stairs but the spawn is blocked, the floor generation status's hidden stairs spawn position will be updated, but it won't be transferred to the dungeon generation info struct.
+        
         r0: position (two-byte array for {x, y})
         r1: dungeon generation info pointer (a field on the dungeon struct)
-        r2: hidden stairs flag
+        r2: hidden stairs type
+    - name: GetHiddenStairsType
+      address:
+        EU: 0x2343980
+        NA: 0x2342D9C
+      description: |-
+        Gets the hidden stairs type for a given floor.
+        
+        This function reads the floor properties and resolves any randomness (such as HIDDEN_STAIRS_RANDOM_SECRET_BAZAAR_OR_SECRET_ROOM and the floor_properties::hidden_stairs_spawn_chance) into a concrete hidden stairs type.
+        
+        r0: dungeon generation info pointer
+        r1: floor properties pointer
+        return: enum hidden_stairs_type
+    - name: ResetHiddenStairsSpawn
+      address:
+        EU: 0x2343AEC
+        NA: 0x2342F08
+      description: |-
+        Resets hidden stairs spawn information for the floor. This includes the position on the floor generation status as well as the flag indicating whether the spawn was blocked.
+        
+        No params.
     - name: LoadFixedRoomData
       address:
         EU: 0x2344974
@@ -3210,6 +3303,36 @@ overlay29:
         Loads fixed room data from BALANCE/fixed.bin into the buffer pointed to by FIXED_ROOM_DATA_PTR.
         
         No params.
+    - name: GenerateItemExplicit
+      address:
+        EU: 0x2344F98
+        NA: 0x23443B4
+      description: |-
+        Initializes an item struct with the given information.
+        
+        This calls InitStandardItem, then explicitly sets the quantity and stickiness. If quantity == 0 for Poké, GenerateCleanItem is used instead.
+        
+        r0: pointer to item to initialize
+        r1: item ID
+        r2: quantity
+        r3: sticky flag
+    - name: GenerateAndSpawnItem
+      address:
+        EU: 0x2345014
+        NA: 0x2344430
+      description: |-
+        A convenience function that generates an item with GenerateItemExplicit, then spawns it with SpawnItem.
+        
+        If the check-in-bag flag is set and the player's bag already contains an item with the given ID, a Reviver Seed will be spawned instead.
+        
+        It seems like this function is only ever called in one place, with an item ID of 0x49 (Reviver Seed).
+        
+        r0: item ID
+        r1: x position
+        r2: y position
+        r3: quantity
+        stack[0]: sticky flag
+        stack[1]: check-in-bag flag
     - name: IsHiddenStairsFloor
       address:
         EU: 0x23450F0
@@ -3219,6 +3342,28 @@ overlay29:
         Checks if the current floor is either the Secret Bazaar or a Secret Room.
         
         return: bool
+    - name: GenerateCleanItem
+      address:
+        EU: 0x23457C8
+        NA: 0x2344BE4
+      description: |-
+        Wrapper around GenerateItem with quantity set to 0 and stickiness type set to SPAWN_STICKY_NEVER.
+        
+        r0: pointer to item to initialize
+        r1: item ID
+    - name: SpawnItem
+      address:
+        EU: 0x2346120
+        NA: 0x2345538
+      description: |-
+        Spawns an item on the floor. Fails if there are more than 64 items already on the floor.
+        
+        This calls SpawnItemEntity, fills in the item info struct, sets the entity to be visible, binds the entity to the tile it occupies, updates the n_items counter on the dungeon struct, and various other bits of bookkeeping.
+        
+        r0: position
+        r1: item pointer
+        r2: some flag?
+        return: success flag
     - name: HasHeldItem
       address:
         EU: 0x23473D0
@@ -3230,6 +3375,15 @@ overlay29:
         r0: entity pointer
         r1: item ID
         return: bool
+    - name: GenerateMoneyQuantity
+      address:
+        EU: 0x2347420
+        NA: 0x2346834
+      description: |-
+        Set the quantity code on an item (assuming it's Poké), given some maximum acceptable money amount.
+        
+        r0: item pointer
+        r1: max money amount (inclusive)
     - name: CheckTeamItemsFlags
       address:
         EU: 0x23477CC
@@ -3239,6 +3393,19 @@ overlay29:
         
         r0: Flag(s) to check (0 = f_exists, 1 = f_in_shop, 2 = f_unpaid, etc.)
         return: True if any of the items of the team has the specified flags set, false otherwise.
+    - name: GenerateItem
+      address:
+        EU: 0x2347EC4
+        NA: 0x23472C4
+      description: |-
+        Initializes an item struct with the given information.
+        
+        This wraps InitItem, but with extra logic to resolve the item's stickiness. It also calls GenerateMoneyQuantity for Poké.
+        
+        r0: pointer to item to initialize
+        r1: item ID
+        r2: quantity
+        r3: stickiness type (enum gen_item_stickiness)
     - name: CheckActiveChallengeRequest
       address:
         EU: 0x2349D4C
@@ -3253,6 +3420,14 @@ overlay29:
         NA: 0x23491C4
       description: |-
         Checks if the current floor is an active mission destination of type MISSION_TAKE_ITEM_FROM_OUTLAW, MISSION_ARREST_OUTLAW or MISSION_CHALLENGE_REQUEST.
+        
+        return: bool
+    - name: IsDestinationFloor
+      address:
+        EU: 0x2349E08
+        NA: 0x2349208
+      description: |-
+        Checks if the current floor is a mission destination floor.
         
         return: bool
     - name: IsCurrentMissionType
@@ -4487,6 +4662,19 @@ overlay29:
         This is just a struct full of zeroes, but is used as a fallback in various places where a "default" tile is needed, such as when a grid index is out of range.
         
         type: struct tile
+    - name: HIDDEN_STAIRS_SPAWN_BLOCKED
+      address:
+        EU: 0x23543A4
+        NA: 0x235378C
+      length:
+        EU: 0x1
+        NA: 0x1
+      description: |-
+        [Runtime] A flag for when Hidden Stairs could normally have spawned on the floor but didn't.
+        
+        This is set either when the Hidden Stairs just happen not to spawn by chance, or when the current floor is a rescue or mission destination floor.
+        
+        This appears to be part of a larger (8-byte?) struct. It seems like this value is at least followed by 3 bytes of padding and a 4-byte integer field.
     - name: FIXED_ROOM_DATA_PTR
       address:
         EU: 0x23543AC

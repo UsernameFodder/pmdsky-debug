@@ -80,12 +80,21 @@ uint32_t GetFileLengthInPack(struct pack_file_opened* pack_file, uint32_t file_i
 uint32_t LoadFileInPack(struct pack_file_opened* pack_file, void* output_buffer,
                         uint32_t file_index);
 enum item_category GetItemCategoryVeneer(enum item_id item_id);
+bool IsThrownItem(enum item_id item_id);
+bool IsNotMoney(enum item_id item_id);
 bool IsAuraBow(enum item_id item_id);
+void InitItem(struct item* item, enum item_id item_id, uint16_t quantity, bool sticky);
+void InitStandardItem(struct item* item, enum item_id item_id, bool sticky);
 int SprintfStatic(char* str, const char* format, ...);
+int GetExclusiveItemOffsetEnsureValid(enum item_id item_id);
+bool IsItemValid(enum item_id);
 enum item_category GetItemCategory(enum item_id item_id);
+enum item_id EnsureValidItem(enum item_id);
+uint8_t GetThrownItemQuantityLimit(enum item_id, int limit_idx);
 void SetMoneyCarried(int amount);
 bool IsBagFull(void);
-int CountItemTypeInBag(enum item_id);
+int CountItemTypeInBag(enum item_id item_id);
+bool IsItemInBag(enum item_id item_id);
 bool AddItemToBag(struct bulk_item* item);
 bool ScriptSpecialProcess0x39(void);
 int CountItemTypeInStorage(struct bulk_item* item);
