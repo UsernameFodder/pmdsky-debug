@@ -790,10 +790,8 @@ struct dungeon {
     undefined field_0x7c9;
     undefined field_0x7ca;
     undefined field_0x7cb;
-    undefined field_0x7cc;
-    undefined field_0x7cd;
-    undefined field_0x7ce;
-    undefined field_0x7cf;
+    bool boost_max_money_amount; // 0x7CC: Boost the floor's maximum Poké limit by 8x
+    uint8_t _padding_0x7cd[3];
     undefined field_0x7d0;
     undefined field_0x7d1;
     undefined field_0x7d2;
@@ -1710,7 +1708,9 @@ struct dungeon {
     undefined field_0x12b22;
     undefined field_0x12b23;
     undefined field_0x12b24;
-    undefined field_0x12b25;
+    // 0x12B25: Whether or not the hidden stairs spawn chance be boosted for the floor
+    // (by 20%; see HIDDEN_STAIRS_SPAWN_CHANCE_MULTIPLIER)
+    bool boost_hidden_stairs_spawn_chance;
     undefined field_0x12b26;
     undefined field_0x12b27;
     struct entity_table entity_table; // 0x12B28: Table of all entities in the dungeon

@@ -355,6 +355,14 @@ overlay10:
         EU: 0x4
         NA: 0x4
       description: "The multiplier for damage from the Air Blade (1.5), as a binary fixed-point number (8 fraction bits)"
+    - name: HIDDEN_STAIRS_SPAWN_CHANCE_MULTIPLIER
+      address:
+        EU: 0x22C51A8
+        NA: 0x22C4850
+      length:
+        EU: 0x4
+        NA: 0x4
+      description: "The hidden stairs spawn chance multiplier (~1.2) as a binary fixed-point number (8 fraction bits), if applicable. See ShouldBoostHiddenStairsSpawnChance in overlay 29."
     - name: SPEED_BOOST_DURATION_RANGE
       address:
         EU: 0x22C51E0
