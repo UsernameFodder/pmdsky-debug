@@ -20,6 +20,7 @@ Additionally, blocks can define _subregions_. A subregion is a separate file spl
 
 ## Files
 - [`arm9.yml`](arm9.yml) (and subregions within [`arm9/`](arm9/)) contains all symbols in EoS's main ARM9 binary (usually called `arm9.bin`).
+- [`arm7.yml`](arm7.yml) contains all symbols in EoS's secondary ARM7 binary (usually called `arm7.bin`).
 - The `overlay*.yml` files (and subregions within `overlay*/`) contain all symbols in their respective [overlays](../docs/overlays.md).
 - [`ram.yml`](ram.yml) contains symbols that don't fall within any of the binaries themselves (such as various heap-allocated structures), but are still useful to know about.
 - [`literals.yml`](literals.yml) is a special file for recording the addresses of interesting values that are _arguments for a specific instruction_ rather than standalone data. These "literals" (or "immediate values" in assembly jargon) are often embedded within basic instructions like `mov`, `add`, and `sub`, and hence aren't real symbols, but may be useful regardless. For example, the starting levels for the hero and partner are encoded as literals within the ARM9 binary.
