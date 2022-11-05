@@ -20,10 +20,21 @@ arm9:
   description: |-
     The main ARM9 binary.
     
-    This is the binary that gets loaded when the game is launched, and contains the core code that runs the game, low level facilities such as memory allocation, compression, other external dependencies (such as linked functions from libc and libgcc), and the functions and tables necessary to load overlays and dispatch execution to them.
+    This is the main binary that gets loaded when the game is launched, and contains the core code that runs the game, low level facilities such as memory allocation, compression, other external dependencies (such as linked functions from libc and libgcc), and the functions and tables necessary to load overlays and dispatch execution to them.
+    
+    Speaking generally, this is the program run by the Nintendo DS's main ARM946E-S CPU, which handles all gameplay mechanisms and graphics rendering.
   subregions:
     - itcm.yml
   functions:
+    - name: EntryArm9
+      address:
+        EU: 0x2000800
+        NA: 0x2000800
+        JP: 0x2000800
+      description: |-
+        The entrypoint for the ARM9 CPU. This is like the "main" function for the ARM9 subsystem.
+        
+        No params.
     - name: InitMemAllocTable
       address:
         EU: 0x2000DE0
