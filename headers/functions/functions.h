@@ -2,6 +2,7 @@
 #define HEADERS_FUNCTIONS_H_
 
 #include "arm9.h"
+#include "arm7.h"
 #include "overlay01.h"
 #include "overlay11.h"
 #include "overlay13.h"

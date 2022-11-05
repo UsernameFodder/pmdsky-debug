@@ -3,6 +3,7 @@
 
 #include "arm9/itcm.h"
 
+void EntryArm9(void);
 void InitMemAllocTable(void);
 void SetMemAllocatorParams(get_alloc_arena_fn_t get_alloc_arena,
                            get_free_arena_fn_t get_free_arena);
