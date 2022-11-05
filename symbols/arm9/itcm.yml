@@ -28,6 +28,7 @@ itcm:
       address:
         EU: 0x20B6050
         NA: 0x20B5710
+        JP: 0x20B6FD8
         EU-ITCM: 0x1FFA390
         NA-ITCM: 0x1FFA390
       description: |-
@@ -40,6 +41,7 @@ itcm:
       address:
         EU: 0x20B6084
         NA: 0x20B5744
+        JP: 0x20B700C
         EU-ITCM: 0x1FFA3C4
         NA-ITCM: 0x1FFA3C4
       description: |-
@@ -51,6 +53,7 @@ itcm:
       address:
         EU: 0x20B6F88
         NA: 0x20B6648
+        JP: 0x20B7F10
         EU-ITCM: 0x1FFB2C8
         NA-ITCM: 0x1FFB2C8
       description: |-
@@ -61,6 +64,7 @@ itcm:
       address:
         EU: 0x20B7318
         NA: 0x20B69D8
+        JP: 0x20B82A0
         EU-ITCM: 0x1FFB658
         NA-ITCM: 0x1FFB658
       description: |-

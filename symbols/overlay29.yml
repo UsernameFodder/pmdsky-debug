@@ -214,6 +214,7 @@ overlay29:
       address:
         EU: 0x22E1268
         NA: 0x22E0928
+        JP: 0x22E1FB8
       description: |-
         Returns true if certain special restrictions are enabled.
         
@@ -224,6 +225,7 @@ overlay29:
       address:
         EU: 0x22E12A8
         NA: 0x22E0968
+        JP: 0x22E1FF8
       description: |-
         Fades the screen to black across several frames.
         
@@ -242,6 +244,7 @@ overlay29:
       address:
         EU: 0x22E2BA0
         NA: 0x22E2260
+        JP: 0x22E38F0
       description: |-
         Spawns a trap on the floor. Fails if there are more than 64 traps already on the floor.
         
@@ -267,6 +270,7 @@ overlay29:
       address:
         EU: 0x22E3150
         NA: 0x22E2810
+        JP: 0x22E3DE0
       description: |-
         Checks if a monster can target another entity when controlled by the AI.
         More specifically, it checks if the target is invisible, if the user can see invisible monsters, if the user is blinded and if the target position is in sight from the position of the user (this last check is done by calling IsPositionInSight with the user's and the target's position).
@@ -278,6 +282,7 @@ overlay29:
       address:
         EU: 0x22E3294
         NA: 0x22E2954
+        JP: 0x22E3FE8
       description: |-
         Checks if a monster can target a position. This function just calls IsPositionInSight using the position of the user as the origin.
         
@@ -349,6 +354,7 @@ overlay29:
       address:
         EU: 0x22E4464
         NA: 0x22E3AB4
+        JP: 0x22E5124
       description: |-
         Sets a monster's status_icon_flags bitfield according to its current status effects. Does not affect a Sudowoodo in the "permanent sleep" state (statuses::sleep == 0x7F).
         
@@ -361,6 +367,7 @@ overlay29:
       address:
         EU: 0x22E86FC
         NA: 0x22E7D4C
+        JP: 0x22E93B4
       description: |-
         Returns true if the specified monster is included in the floor's monster spawn list (the modified list after a maximum of 14 different species were chosen, not the raw list read from the mappa file).
         
@@ -390,6 +397,7 @@ overlay29:
       address:
         EU: 0x22E99D0
         NA: 0x22E9020
+        JP: 0x22EA688
       description: |-
         Gets the direction in which a monster should move to go from the origin position to the target position
         
@@ -400,6 +408,7 @@ overlay29:
       address:
         EU: 0x22E9A3C
         NA: 0x22E908C
+        JP: 0x22EA6F4
       description: |-
         Returns the Chebyshev distance between two positions. Calculated as max(abs(x0-x1), abs(y0-y1)).
         
@@ -410,6 +419,7 @@ overlay29:
       address:
         EU: 0x22E9B54
         NA: 0x22E91A4
+        JP: 0x22EA80C
       description: |-
         Checks if a given target position is in sight from a given origin position.
         There's multiple factors that affect this check, but generally, it's true if both positions are in the same room or within 2 tiles of each other.
@@ -422,6 +432,7 @@ overlay29:
       address:
         EU: 0x22E9F30
         NA: 0x22E9580
+        JP: 0x22EABE8
       description: |-
         Gets the pointer to the entity that is currently leading the team, or null if none of the first 4 entities is a valid monster with its is_team_leader flag set. It also sets LEADER_PTR to the result before returning it.
         
@@ -440,6 +451,7 @@ overlay29:
       address:
         EU: 0x22EA990
         NA: 0x22E9FE0
+        JP: 0x22EB648
       description: |-
         Advances one frame. Does not return until the next frame starts.
         
@@ -596,6 +608,7 @@ overlay29:
       address:
         EU: 0x22EBDA4
         NA: 0x22EB3F4
+        JP: 0x22ECA5C
       description: |-
         Clears the fields related to AI in the monster's data struct, setting them all to 0.
         Specifically, monster::action_id, monster::action_use_idx and monster::field_0x54 are cleared.
@@ -605,6 +618,7 @@ overlay29:
       address:
         EU: 0x22EBDB8
         NA: 0x22EB408
+        JP: 0x22ECA70
       description: |-
         Sets some the fields related to AI in the monster's data struct.
         Specifically, monster::action_id, monster::action_use_idx and monster::field_0x54. The last 2 are always set to 0.
@@ -615,6 +629,7 @@ overlay29:
       address:
         EU: 0x22EBDCC
         NA: 0x22EB41C
+        JP: 0x22ECA84
       description: |-
         Sets a monster's action to action::ACTION_PASS_TURN or action::ACTION_WALK, depending on the result of GetCanMoveFlag for the monster's ID.
         
@@ -624,6 +639,7 @@ overlay29:
       address:
         EU: 0x22EBF88
         NA: 0x22EB5D8
+        JP: 0x22ECC40
       description: |-
         Returns the action ID that corresponds to an item given its ID.
         
@@ -636,6 +652,7 @@ overlay29:
       address:
         EU: 0x22EC1CC
         NA: 0x22EB81C
+        JP: 0x22ECE84
       description: |-
         Adds an option to the list of actions that can be taken on a pokémon, item or move to the currently active sub-menu on dungeon mode (team, moves, items, etc.).
         
@@ -645,6 +662,7 @@ overlay29:
       address:
         EU: 0x22EC600
         NA: 0x22EBC50
+        JP: 0x22ED2B8
       description: |-
         Sets a monster's action to action::ACTION_REGULAR_ATTACK, with a specified direction.
         
@@ -654,6 +672,7 @@ overlay29:
       address:
         EU: 0x22EC66C
         NA: 0x22EBCBC
+        JP: 0x22ED324
       description: |-
         Sets a monster's action to action::ACTION_USE_MOVE_AI, with a specified direction and move index.
         
@@ -673,6 +692,7 @@ overlay29:
       address:
         EU: 0x22ECCB8
         NA: 0x22EC308
+        JP: 0x22ED970
       description: |-
         Handles the leader's turn. Includes a movement speed check that might cause it to return early if the leader isn't fast enough to act in this fractional turn. If that check (and some others) pass, the function does not return until the leader performs an action.
         
@@ -704,6 +724,7 @@ overlay29:
       address:
         EU: 0x22ED4F8
         NA: 0x22ECB48
+        JP: 0x22EE1AC
       description: |-
         Decrements dungeon::wind_turns and displays a wind warning message if required.
         
@@ -712,6 +733,7 @@ overlay29:
       address:
         EU: 0x22ED9B8
         NA: 0x22ED008
+        JP: 0x22EE66C
       description: |-
         Sets dungeon::forced_loss_reason to the specified value
         
@@ -720,6 +742,7 @@ overlay29:
       address:
         EU: 0x22ED9CC
         NA: 0x22ED01C
+        JP: 0x22EE680
       description: |-
         Returns dungeon::forced_loss_reason
         
@@ -728,6 +751,7 @@ overlay29:
       address:
         EU: 0x22EE208
         NA: 0x22ED858
+        JP: 0x22EEEBC
       description: |-
         Sets the given tile's associated object to be the given trap, and sets the visibility of the trap.
         
@@ -738,6 +762,7 @@ overlay29:
       address:
         EU: 0x22EE320
         NA: 0x22ED970
+        JP: 0x22EEFD4
       description: |-
         A convenience wrapper around SpawnTrap and BindTrapToTile. Always passes 0 for the team parameter (making it an enemy trap).
         
@@ -750,6 +775,7 @@ overlay29:
       address:
         EU: 0x22F42F0
         NA: 0x22F3934
+        JP: 0x22F4F2C
       description: |-
         Tries to change the current leader to the monster specified by dungeon::new_leader.
         
@@ -808,6 +834,7 @@ overlay29:
       address:
         EU: 0x22F800C
         NA: 0x22F7654
+        JP: 0x22F8C18
       description: |-
         Loads the sprite of the specified monster to use it in a dungeon.
         
@@ -826,6 +853,7 @@ overlay29:
       address:
         EU: 0x22F8938
         NA: 0x22F7F30
+        JP: 0x22F94F0
       description: |-
         Handles a fainted pokémon (reviving does not count as fainting).
         
@@ -836,6 +864,7 @@ overlay29:
       address:
         EU: 0x22F9B50
         NA: 0x22F9144
+        JP: 0x22FA708
       description: |-
         Given a monster, updates its target_pos field based on its current position and the direction in which it plans to attack.
         
@@ -941,6 +970,7 @@ overlay29:
       address:
         EU: 0x22FAE3C
         NA: 0x22FA430
+        JP: 0x22FB9D8
       description: |-
         Checks if a given monster should try to reach the stairs when controlled by the AI
         
@@ -1061,6 +1091,7 @@ overlay29:
       address:
         EU: 0x22FCF08
         NA: 0x22FC50C
+        JP: 0x22FD8FC
       description: |-
         Seems to initialize the team when entering a dungeon.
         
@@ -1080,6 +1111,7 @@ overlay29:
       address:
         EU: 0x22FDDB0
         NA: 0x22FD3B4
+        JP: 0x22FE7A8
       description: |-
         Initializes a team member. Run at the start of each floor in a dungeon.
         
@@ -1096,6 +1128,7 @@ overlay29:
       address:
         EU: 0x22FEEDC
         NA: 0x22FE4BC
+        JP: 0x22FF8A4
       description: |-
         Executes the set action for the specified monster. Used for both AI actions and player-inputted actions. If the action is not ACTION_NOTHING, ACTION_PASS_TURN, ACTION_WALK or ACTION_UNK_4, the monster's already_acted field is set to true. Includes a switch based on the action ID that performs the action, although some of them aren't handled by said swtich.
         
@@ -1104,6 +1137,7 @@ overlay29:
       address:
         EU: 0x22FFBF4
         NA: 0x22FF1C8
+        JP: 0x23005B8
       description: |-
         Returns true if the monster has any status problem that prevents it from acting
         
@@ -1160,6 +1194,7 @@ overlay29:
       address:
         EU: 0x2301B44
         NA: 0x2301118
+        JP: 0x230251C
       description: |-
         True if the given monster is cornered (it can't move in any direction)
         
@@ -1169,6 +1204,7 @@ overlay29:
       address:
         EU: 0x2301C60
         NA: 0x2301234
+        JP: 0x2302694
       description: |-
         Returns whether a monster can attack in a given direction.
         The check fails if the destination tile is impassable, contains a monster that isn't of type entity_type::ENTITY_MONSTER or if the monster can't directly move from the current tile into the destination tile.
@@ -1180,6 +1216,7 @@ overlay29:
       address:
         EU: 0x2301D24
         NA: 0x23012F8
+        JP: 0x23027B8
       description: |-
         Checks whether an AI-controlled monster can move in the specified direction.
         Accounts for walls, other monsters on the target position and IQ skills that might prevent a monster from moving into a specific location, such as House Avoider, Trap Avoider or Lava Evader.
@@ -1192,6 +1229,7 @@ overlay29:
       address:
         EU: 0x2301FE4
         NA: 0x23015B8
+        JP: 0x2302B28
       description: |-
         Checks if a monster should run away from other monsters
         
@@ -1201,6 +1239,7 @@ overlay29:
       address:
         EU: 0x23020D4
         NA: 0x23016A8
+        JP: 0x2302C18
       description: |-
         Calls ShouldMonsterRunAway and returns its result. It also calls another function if the result was true.
         
@@ -1253,6 +1292,7 @@ overlay29:
       address:
         EU: 0x2302918
         NA: 0x2301EEC
+        JP: 0x230343C
       description: |-
         Returns whether a certain monster can see other invisible monsters.
         To be precise, this function returns true if the monster is holding Goggle Specs or if it has the status status::STATUS_EYEDROPS.
@@ -1263,6 +1303,7 @@ overlay29:
       address:
         EU: 0x230297C
         NA: 0x2301F50
+        JP: 0x23034A0
       description: |-
         Returns whether a certain monster is under the effect of status::STATUS_DROPEYE.
         
@@ -1283,6 +1324,7 @@ overlay29:
       address:
         EU: 0x2302CA8
         NA: 0x230227C
+        JP: 0x23037CC
       description: |-
         Check the type of a move when used by a certain monster. Accounts for special cases such as Hidden Power, Weather Ball, the regular attack...
         
@@ -1319,6 +1361,7 @@ overlay29:
       address:
         EU: 0x2303128
         NA: 0x23026FC
+        JP: 0x2303C4C
       description: |-
         Checks if the specified enemy should evolve because it just defeated an ally, and if so, attempts to evolve it.
         
@@ -1327,6 +1370,7 @@ overlay29:
       address:
         EU: 0x23046A8
         NA: 0x2303C7C
+        JP: 0x23051CC
       description: |-
         Makes the specified monster evolve into the specified species.
         
@@ -1349,6 +1393,7 @@ overlay29:
       address:
         EU: 0x2305A0C
         NA: 0x2304FE0
+        JP: 0x2306530
       description: |-
         Graphically displays any pending actions that have happened but haven't been shown on screen yet. All actions are displayed at the same time. For example, this delayed display system is used to display multiple monsters moving at once even though they take turns sequentially.
         
@@ -1388,6 +1433,7 @@ overlay29:
       address:
         EU: 0x2309A0C
         NA: 0x2308FE0
+        JP: 0x230A598
       description: |-
         Applies damage to a monster. Displays the damage animation, lowers its health and handles reviving if applicable.
         The EU version has some additional checks related to printing fainting messages under specific circumstances.
@@ -2117,6 +2163,7 @@ overlay29:
       address:
         EU: 0x231A2E0
         NA: 0x2319880
+        JP: 0x231AD50
       description: |-
         The AI uses this function to check if a move has any potential targets, to calculate the list of potential targets and to calculate the move's special weight.
         This weight will be higher if the pokémon has weak-type picker and the target is weak to the move (allies only, enemies always get a result of 1 even if the move is super effective). More things could affect the result.
@@ -2131,6 +2178,7 @@ overlay29:
       address:
         EU: 0x231AA10
         NA: 0x2319FB0
+        JP: 0x231B480
       description: |-
         Checks if the specified target is eligible to be targeted by the AI and if so adds it to the list of targets. This function also fills an array that seems to contain the directions in which the user should turn to look at each of the targets in the list, as well as a third unknown array.
         
@@ -2145,6 +2193,7 @@ overlay29:
       address:
         EU: 0x231AB04
         NA: 0x231A0A4
+        JP: 0x231B574
       description: |-
         Checks if a given target is eligible to be targeted by the AI with a certain move
         
@@ -2274,6 +2323,7 @@ overlay29:
       address:
         EU: 0x23246B0
         NA: 0x2323C48
+        JP: 0x23250E8
       description: |-
         Determines if a move used hits or misses the target. It gets called twice per target, once with r3 = false and a second time with r3 = true.
         
@@ -2313,6 +2363,7 @@ overlay29:
       address:
         EU: 0x23254DC
         NA: 0x2324A74
+        JP: 0x2325F00
       description: |-
         Checks if an AI-controlled monster can use a move.
         Will return false if the any of the flags move::f_exists, move::f_subsequent_in_link_chain or move::f_disabled is true. The function does not check if the flag move::f_enabled_for_ai is set. This function also returns true if the call to CanMonsterUseMove is true.
@@ -2326,6 +2377,7 @@ overlay29:
       address:
         EU: 0x232558C
         NA: 0x2324B24
+        JP: 0x2325FB0
       description: |-
         Checks if a monster can use the given move.
         Will always return true for the regular attack. Will return false if the move if the flag move::f_disabled is true, if the flag move::f_sealed is true. More things will be checked if the extra_checks parameter is true.
@@ -2358,6 +2410,7 @@ overlay29:
       address:
         EU: 0x2326578
         NA: 0x2325B10
+        JP: 0x2326F9C
       description: |-
         Returns the move animation ID that should be played for a move.
         It contains a check for weather ball. After that, if the parameter should_play_alternative_animation is false, the move ID is returned. If it's true, there's a bunch of manual ID checks that result on a certain hardcoded return value.
@@ -2370,6 +2423,7 @@ overlay29:
       address:
         EU: 0x23266E0
         NA: 0x2325C78
+        JP: 0x2327104
       description: |-
         Checks whether a moved used by a monster should play its alternative animation. Includes checks for Curse, Snore, Sleep Talk, Solar Beam and 2-turn moves.
         
@@ -2432,6 +2486,7 @@ overlay29:
       address:
         EU: 0x23337AC
         NA: 0x2332D6C
+        JP: 0x233415C
       description: |-
         Last function called by DealDamage to determine the final damage dealt by the move. The result of this call is the return value of DealDamage. 
         
@@ -2444,6 +2499,7 @@ overlay29:
       address:
         EU: 0x2333AB4
         NA: 0x2333074
+        JP: 0x2334460
       description: |-
         Determines if using a given move against its intended targets would be redundant because all of them already have the effect caused by said move.
         
@@ -2495,6 +2551,7 @@ overlay29:
       address:
         EU: 0x2336FF8
         NA: 0x2336428
+        JP: 0x23377F8
       description: |-
         Returns the index of the room that contains the stairs
         
@@ -2565,6 +2622,7 @@ overlay29:
       address:
         EU: 0x233ADE8
         NA: 0x233A218
+        JP: 0x233B5DC
       description: |-
         Sets minimap_display_data::field_0xE447 to the specified value
         
@@ -2580,6 +2638,7 @@ overlay29:
       address:
         EU: 0x233AE14
         NA: 0x233A230
+        JP: 0x233B5F4
       description: |-
         Sets minimap_display_data::field_0xE448 to the specified value
         
@@ -2647,6 +2706,7 @@ overlay29:
       address:
         EU: 0x233BA78
         NA: 0x233AE94
+        JP: 0x233C258
       description: |-
         Clears the tile (terrain and spawns) on which Hidden Stairs are spawned, if applicable.
         
@@ -3290,6 +3350,7 @@ overlay29:
       address:
         EU: 0x2343AEC
         NA: 0x2342F08
+        JP: 0x23442CC
       description: |-
         Resets hidden stairs spawn information for the floor. This includes the position on the floor generation status as well as the flag indicating whether the spawn was blocked.
         
@@ -3307,6 +3368,7 @@ overlay29:
       address:
         EU: 0x2344F98
         NA: 0x23443B4
+        JP: 0x2345778
       description: |-
         Initializes an item struct with the given information.
         
@@ -3320,6 +3382,7 @@ overlay29:
       address:
         EU: 0x2345014
         NA: 0x2344430
+        JP: 0x23457F4
       description: |-
         A convenience function that generates an item with GenerateItemExplicit, then spawns it with SpawnItem.
         
@@ -3346,6 +3409,7 @@ overlay29:
       address:
         EU: 0x23457C8
         NA: 0x2344BE4
+        JP: 0x2345FA8
       description: |-
         Wrapper around GenerateItem with quantity set to 0 and stickiness type set to SPAWN_STICKY_NEVER.
         
@@ -3355,6 +3419,7 @@ overlay29:
       address:
         EU: 0x2346120
         NA: 0x2345538
+        JP: 0x23468FC
       description: |-
         Spawns an item on the floor. Fails if there are more than 64 items already on the floor.
         
@@ -3379,6 +3444,7 @@ overlay29:
       address:
         EU: 0x2347420
         NA: 0x2346834
+        JP: 0x2347BE4
       description: |-
         Set the quantity code on an item (assuming it's Poké), given some maximum acceptable money amount.
         
@@ -3388,6 +3454,7 @@ overlay29:
       address:
         EU: 0x23477CC
         NA: 0x2346BD8
+        JP: 0x2347F8C
       description: |-
         Checks whether any of the items in the bag or any of the items carried by team members has any of the specified flags set in its flags field.
         
@@ -3397,6 +3464,7 @@ overlay29:
       address:
         EU: 0x2347EC4
         NA: 0x23472C4
+        JP: 0x2348684
       description: |-
         Initializes an item struct with the given information.
         
@@ -3410,6 +3478,7 @@ overlay29:
       address:
         EU: 0x2349D4C
         NA: 0x234914C
+        JP: 0x234A474
       description: |-
         Checks if there's an active challenge request on the current dungeon.
         
@@ -3418,6 +3487,7 @@ overlay29:
       address:
         EU: 0x2349DC4
         NA: 0x23491C4
+        JP: 0x234A4EC
       description: |-
         Checks if the current floor is an active mission destination of type MISSION_TAKE_ITEM_FROM_OUTLAW, MISSION_ARREST_OUTLAW or MISSION_CHALLENGE_REQUEST.
         
@@ -3426,6 +3496,7 @@ overlay29:
       address:
         EU: 0x2349E08
         NA: 0x2349208
+        JP: 0x234A530
       description: |-
         Checks if the current floor is a mission destination floor.
         
@@ -3502,6 +3573,7 @@ overlay29:
       address:
         EU: 0x2349FF8
         NA: 0x23493F8
+        JP: 0x234A720
       description: |-
         Loads the sprites of monsters that appear on the current floor because of a mission, if applicable.
         
@@ -3618,6 +3690,7 @@ overlay29:
       address:
         EU: 0x234A2C4
         NA: 0x23496C4
+        JP: 0x234A9EC
       description: |-
         Sets dungeon::target_monster_not_found_flag to the specified value.
         
@@ -3626,6 +3699,7 @@ overlay29:
       address:
         EU: 0x234A2D8
         NA: 0x23496D8
+        JP: 0x234AA00
       description: |-
         Gets the value of dungeon::target_monster_not_found_flag.
         
@@ -3779,6 +3853,7 @@ overlay29:
       address:
         EU: 0x234C75C
         NA: 0x234BB5C
+        JP: 0x234CDC0
       description: |-
         Opens the message log window.
         
@@ -3799,6 +3874,7 @@ overlay29:
       address:
         EU: 0x234DAF0
         NA: 0x234CEF0
+        JP: 0x234E154
       description: |-
         Checks if a given dungeon tip should be displayed at the start of a floor and if so, displays it. Called up to 4 times at the start of each new floor, with a different r0 parameter each time.
         
@@ -3818,6 +3894,7 @@ overlay29:
       address:
         EU: 0x234DE58
         NA: 0x234D258
+        JP: 0x234E4E4
       description: |-
         Displays a message in a dialogue box that optionally waits for player input before closing.
         
@@ -3828,11 +3905,13 @@ overlay29:
       address:
         EU: 0x234DEAC
         NA: 0x234D2AC
+        JP: 0x234E538
       description: Very similar to DisplayMessage
     - name: YesNoMenu
       address:
         EU: 0x234E118
         NA: 0x234D518
+        JP: 0x234E7A4
       description: |-
         Opens a menu where the user can choose "Yes" or "No" and waits for input before returning.
         
@@ -3845,6 +3924,7 @@ overlay29:
       address:
         EU: 0x234E190
         NA: 0x234D590
+        JP: 0x234E81C
       description: |-
         Called by DisplayMessage. Seems to be the function that handles the display of the dialogue box. It won't return until all the characters have been written and after the player manually closes the dialogue box (if the corresponding parameter was set).
         
@@ -3858,6 +3938,7 @@ overlay29:
       address:
         EU: 0x23503CC
         NA: 0x234F7C0
+        JP: 0x2350A40
       description: |-
         Called on each frame while the in-dungeon "others" menu is open.
         
@@ -3868,6 +3949,7 @@ overlay29:
       address:
         EU: 0x2350630
         NA: 0x234FA24
+        JP: 0x2350CA4
       description: |-
         Called when the in-dungeon "others" menu is open. Does not return until the menu is closed.
         

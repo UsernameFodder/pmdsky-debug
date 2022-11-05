@@ -743,6 +743,7 @@ arm9:
       address:
         EU: 0x200C364
         NA: 0x200C2DC
+        JP: 0x200C2DC
       description: |-
         Open the 6 files at PACK_FILE_PATHS_TABLE into PACK_FILE_OPENED. Called during game initialisation.
         
@@ -751,6 +752,7 @@ arm9:
       address:
         EU: 0x200C3C4
         NA: 0x200C33C
+        JP: 0x200C33C
       description: |-
         Call GetFileLengthInPack after looking up the global Pack archive by its number
         
@@ -761,6 +763,7 @@ arm9:
       address:
         EU: 0x200C3E4
         NA: 0x200C35C
+        JP: 0x200C35C
       description: |-
         Call LoadFileInPack after looking up the global Pack archive by its identifier
         
@@ -772,6 +775,7 @@ arm9:
       address:
         EU: 0x200C410
         NA: 0x200C388
+        JP: 0x200C388
       description: |-
         Allocate a file and load a file from the pack archive inside.
         The data pointed by the pointer in the output need to be freed once is not needed anymore.
@@ -784,6 +788,7 @@ arm9:
       address:
         EU: 0x200C468
         NA: 0x200C3E0
+        JP: 0x200C3E0
       description: |-
         Open a Pack file, to be read later. Initialise the output structure.
         
@@ -793,6 +798,7 @@ arm9:
       address:
         EU: 0x200C4FC
         NA: 0x200C474
+        JP: 0x200C474
       description: |-
         Get the length of a file entry from a Pack archive
         
@@ -803,6 +809,7 @@ arm9:
       address:
         EU: 0x200C50C
         NA: 0x200C484
+        JP: 0x200C484
       description: |-
         Load the indexed file from the Pack archive, itself loaded from the ROM.
         
@@ -825,6 +832,7 @@ arm9:
       address:
         EU: 0x200CB98
         NA: 0x200CB10
+        JP: 0x200CB10
       description: |-
         Checks if a given item ID is a thrown item (CATEGORY_THROWN_LINE or CATEGORY_THROWN_ARC).
         
@@ -834,6 +842,7 @@ arm9:
       address:
         EU: 0x200CBB4
         NA: 0x200CB2C
+        JP: 0x200CB2C
       description: |-
         Checks if an item ID is not ITEM_POKE.
         
@@ -853,6 +862,7 @@ arm9:
       address:
         EU: 0x200CF24
         NA: 0x200CE9C
+        JP: 0x200CE9C
       description: |-
         Initialize an item struct with the given information.
         
@@ -866,6 +876,7 @@ arm9:
       address:
         EU: 0x200CFE0
         NA: 0x200CF58
+        JP: 0x200CF58
       description: |-
         Wrapper around InitItem with quantity set to 0.
         
@@ -919,6 +930,7 @@ arm9:
       address:
         EU: 0x200E84C
         NA: 0x200E77C
+        JP: 0x200E7AC
       description: |-
         Gets the exclusive item offset, which is the item ID relative to that of the first exclusive item, the Prism Ruff.
         
@@ -930,6 +942,7 @@ arm9:
       address:
         EU: 0x200E890
         NA: 0x200E7C0
+        JP: 0x200E7F0
       description: |-
         Checks if an item ID is valid(?).
         
@@ -939,6 +952,7 @@ arm9:
       address:
         EU: 0x200E8D8
         NA: 0x200E808
+        JP: 0x200E838
       description: |-
         Returns the category of the specified item
         
@@ -948,6 +962,7 @@ arm9:
       address:
         EU: 0x200E8F8
         NA: 0x200E828
+        JP: 0x200E858
       description: |-
         Checks if the given item ID is valid (using IsItemValid). If so, return the given item ID. Otherwise, return ITEM_PLAIN_SEED.
         
@@ -957,6 +972,7 @@ arm9:
       address:
         EU: 0x200EB00
         NA: 0x200EA58
+        JP: 0x200EA88
       description: |-
         Get the minimum or maximum quantity for a given thrown item ID.
         
@@ -995,6 +1011,7 @@ arm9:
       address:
         EU: 0x200EF88
         NA: 0x200EEE0
+        JP: 0x200EF10
       description: |-
         Checks if an item is in the player's bag.
         
@@ -1106,6 +1123,7 @@ arm9:
       address:
         EU: 0x2011944
         NA: 0x201189C
+        JP: 0x201186C
       description: |-
         Applies the IQ boosts from eating a Gummi to the target monster.
         
@@ -1131,6 +1149,7 @@ arm9:
       address:
         EU: 0x201390C
         NA: 0x2013864
+        JP: 0x2013834
       description: |-
         Gets the type of a move
         
@@ -1140,6 +1159,7 @@ arm9:
       address:
         EU: 0x2013A34
         NA: 0x201398C
+        JP: 0x201395C
       description: |-
         Gets the AI weight of a move
         
@@ -1159,6 +1179,7 @@ arm9:
       address:
         EU: 0x2013AB4
         NA: 0x2013A0C
+        JP: 0x20139DC
       description: |-
         Gets one of the two accuracy values of a move or its ai_condition_random_chance field.
         
@@ -1189,6 +1210,7 @@ arm9:
       address:
         EU: 0x2013CAC
         NA: 0x2013C04
+        JP: 0x2013BD4
       description: |-
         Returns whether a move's range string is 19 ("User").
         
@@ -1669,6 +1691,7 @@ arm9:
       address:
         EU: 0x204D440
         NA: 0x204D108
+        JP: 0x204D468
       description: |-
         Allocates a new global progress struct.
         
@@ -1679,6 +1702,7 @@ arm9:
       address:
         EU: 0x204D468
         NA: 0x204D130
+        JP: 0x204D490
       description: |-
         Zero-initializes the global progress struct.
         
@@ -1687,6 +1711,7 @@ arm9:
       address:
         EU: 0x204D540
         NA: 0x204D208
+        JP: 0x204D568
       description: |-
         Checks whether the specified monster has been attacked by the player at some point in their adventure during an exploration.
         
@@ -1698,6 +1723,7 @@ arm9:
       address:
         EU: 0x204D588
         NA: 0x204D250
+        JP: 0x204D5B0
       description: |-
         Marks a dungeon tip as already shown to the player
         
@@ -1706,6 +1732,7 @@ arm9:
       address:
         EU: 0x204D5C8
         NA: 0x204D290
+        JP: 0x204D5F0
       description: |-
         Checks if a dungeon tip has already been shown before or not.
         
@@ -1727,6 +1754,7 @@ arm9:
       address:
         EU: 0x204F8B4
         NA: 0x204F57C
+        JP: 0x204F8D4
       description: |-
         Returns the number of floors of the given dungeon.
         
@@ -1738,6 +1766,7 @@ arm9:
       address:
         EU: 0x204F8EC
         NA: 0x204F5B4
+        JP: 0x204F90C
       description: |-
         Returns the number of floors of the given dungeon + 1.
         
@@ -1747,6 +1776,7 @@ arm9:
       address:
         EU: 0x204F900
         NA: 0x204F5C8
+        JP: 0x204F920
       description: |-
         Returns the dungeon group associated to the given dungeon.
         
@@ -1778,6 +1808,7 @@ arm9:
       address:
         EU: 0x204F984
         NA: 0x204F64C
+        JP: 0x204F9A4
       description: |-
         Given a dungeon ID and a floor number, returns a struct with the corresponding dungeon group and floor number in that group.
         
@@ -2211,6 +2242,7 @@ arm9:
       address:
         EU: 0x20516B8
         NA: 0x2051380
+        JP: 0x20516D0
       description: |-
         Returns the maximum rescue attempts allowed in the specified dungeon.
         
@@ -2220,6 +2252,7 @@ arm9:
       address:
         EU: 0x20516F8
         NA: 0x20513C0
+        JP: 0x2051710
       description: |-
         Returns true if the flag that allows changing leaders is set in the restrictions of the specified dungeon
         
@@ -2229,6 +2262,7 @@ arm9:
       address:
         EU: 0x20517C8
         NA: 0x2051490
+        JP: 0x20517E0
       description: |-
         Returns whether a certain joined_at field value is between dungeon_id::DUNGEON_JOINED_AT_BIDOOF and dungeon_id::DUNGEON_DUMMY_0xE3.
         
@@ -2238,6 +2272,7 @@ arm9:
       address:
         EU: 0x2051A98
         NA: 0x2051760
+        JP: 0x2051AB0
       description: |-
         Returns whether a certain joined_at field value is equal to dungeon_id::DUNGEON_BEACH or is between dungeon_id::DUNGEON_DUMMY_0xEC and dungeon_id::DUNGEON_DUMMY_0xF0.
         
@@ -2256,6 +2291,7 @@ arm9:
       address:
         EU: 0x2052AE0
         NA: 0x20527A8
+        JP: 0x2052AE0
       description: |-
         Returns the gender field of a monster given its ID.
         
@@ -2265,6 +2301,7 @@ arm9:
       address:
         EU: 0x2052B18
         NA: 0x20527E0
+        JP: 0x2052B18
       description: |-
         Returns the sprite size of the specified monster. If the size is between 1 and 6, 6 will be returned.
         
@@ -2274,6 +2311,7 @@ arm9:
       address:
         EU: 0x2052B54
         NA: 0x205281C
+        JP: 0x2052B54
       description: |-
         Returns the sprite file size of the specified monster.
         
@@ -2283,6 +2321,7 @@ arm9:
       address:
         EU: 0x2052BEC
         NA: 0x20528B4
+        JP: 0x2052BEC
       description: |-
         Returns the flag that determines if a monster can move in dungeons.
         
@@ -2292,6 +2331,7 @@ arm9:
       address:
         EU: 0x2052CE0
         NA: 0x20529A8
+        JP: 0x2052CE0
       description: |-
         Returns the pre-evolution id of a monster given its ID.
         
@@ -2301,6 +2341,7 @@ arm9:
       address:
         EU: 0x2054204
         NA: 0x2053E88
+        JP: 0x20541C0
       description: |-
         Returns a list of all the possible evolutions for a given monster id.
         
@@ -2313,6 +2354,7 @@ arm9:
       address:
         EU: 0x20543A0
         NA: 0x2054024
+        JP: 0x205435C
       description: |-
         Checks if the specified monster ID corresponds to any of the pokémon that have multiple forms and returns the ID of the base form if so. If it doesn't, the same ID is returned.
         
@@ -2324,6 +2366,7 @@ arm9:
       address:
         EU: 0x20547FC
         NA: 0x2054480
+        JP: 0x20547B8
       description: |-
         Returns the monster ID of the specified monster spawn entry
         
@@ -2404,6 +2447,7 @@ arm9:
       address:
         EU: 0x2054F5C
         NA: 0x2054BE0
+        JP: 0x2054F18
       description: |-
         Returns the ID of the first form of the specified monster if the specified ID corresponds to a secondary form with female gender and the first form has male gender. If those conditions don't meet, returns the same ID unchanged.
         
@@ -2424,6 +2468,7 @@ arm9:
       address:
         EU: 0x2055AEC
         NA: 0x2055770
+        JP: 0x2055B0C
       description: |-
         Returns the ground monster data of the hero (first slot in Chimecho Assembly)
         
@@ -2432,6 +2477,7 @@ arm9:
       address:
         EU: 0x2055B14
         NA: 0x2055798
+        JP: 0x2055B34
       description: |-
         Returns the ground monster data of the partner (second slot in Chimecho Assembly)
         
@@ -2440,6 +2486,7 @@ arm9:
       address:
         EU: 0x20565E0
         NA: 0x2056228
+        JP: 0x20565C4
       description: |-
         Checks if a value obtained from team_member::field_0x8 is equal to certain values.
         
@@ -2451,6 +2498,7 @@ arm9:
       address:
         EU: 0x2056708
         NA: 0x205638C
+        JP: 0x2056728
       description: |-
         Returns a struct containing information about a team member.
         
@@ -2499,6 +2547,7 @@ arm9:
       address:
         EU: 0x2059474
         NA: 0x20590F8
+        JP: 0x20593F4
       description: |-
         Returns the data of a monster sent into the Explorer Dojo using the "exchange teams" option.
         
@@ -2519,6 +2568,7 @@ arm9:
       address:
         EU: 0x205D5A0
         NA: 0x205D224
+        JP: 0x205D524
       description: |-
         Attempts to generate a random mission.
         
@@ -2529,6 +2579,7 @@ arm9:
       address:
         EU: 0x205E94C
         NA: 0x205E5D0
+        JP: 0x205E8D0
       description: |-
         Generates the missions displayed on the Job Bulletin Board and the Outlaw Notice Board.
         
@@ -2569,6 +2620,7 @@ arm9:
       address:
         EU: 0x205F728
         NA: 0x205F3AC
+        JP: 0x205F69C
       description: |-
         Returns the position on the mission list of the first mission of the specified type that takes place in the specified dungeon.
         
@@ -2583,6 +2635,7 @@ arm9:
       address:
         EU: 0x205F820
         NA: 0x205F4A4
+        JP: 0x205F794
       description: |-
         Returns true if there are any accepted missions on the mission list that are of the specified type and take place in the specified dungeon.
         
@@ -2596,6 +2649,7 @@ arm9:
       address:
         EU: 0x205FD34
         NA: 0x205F9B8
+        JP: 0x205FCA8
       description: |-
         Given a mission struct, clears some of it fields.
         
@@ -2606,6 +2660,7 @@ arm9:
       address:
         EU: 0x2062D90
         NA: 0x2062A14
+        JP: 0x2062CFC
       description: |-
         Checks if the specified monster is contained in the MISSION_BANNED_MONSTERS array.
         
@@ -2626,6 +2681,7 @@ arm9:
       address:
         EU: 0x2062DE4
         NA: 0x2062A68
+        JP: 0x2062D50
       description: |-
         Returns whether a certain monster can be used (probably as the client or as the target) when generating a mission.
         
@@ -2638,6 +2694,7 @@ arm9:
       address:
         EU: 0x2062E60
         NA: 0x2062AE4
+        JP: 0x2062DCC
       description: |-
         Checks if the specified monster should be allowed to be part of a mission (probably as the client or the target), accounting for the progress on the story.
         
