@@ -17,6 +17,7 @@ overlay31:
       address:
         EU: 0x2387C70
         NA: 0x238704C
+        JP: 0x23882C8
       description: |-
         Called when the in-dungeon "team" menu is open. Does not return until the menu is closed.
         
@@ -28,6 +29,7 @@ overlay31:
       address:
         EU: 0x23893B0
         NA: 0x238878C
+        JP: 0x23899EC
       description: |-
         Called when the in-dungeon "rest" menu is open. Does not return until the menu is closed.
         
@@ -36,6 +38,7 @@ overlay31:
       address:
         EU: 0x2389828
         NA: 0x2388C04
+        JP: 0x2389E7C
       description: |-
         Called on each frame while the in-dungeon "recruitment search" menu is open.
         
@@ -44,6 +47,7 @@ overlay31:
       address:
         EU: 0x2389E20
         NA: 0x23891FC
+        JP: 0x238A4C0
       description: |-
         Called on each frame while the in-dungeon "help" menu is open.
         

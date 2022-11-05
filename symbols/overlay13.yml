@@ -17,6 +17,7 @@ overlay13:
       address:
         EU: 0x238C8E8
         NA: 0x238BDA8
+        JP: 0x238D30C
       description: |-
         Returns the personality obtained after answering all the questions.
         

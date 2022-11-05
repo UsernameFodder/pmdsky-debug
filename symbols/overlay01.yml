@@ -22,6 +22,7 @@ overlay1:
       address:
         EU: 0x23318C8
         NA: 0x23310E4
+        JP: 0x2332888
       description: |-
         Prepares the top menu and sub menu, adding the different options that compose them.
         
@@ -32,6 +33,7 @@ overlay1:
       address:
         EU: 0x2331D3C
         NA: 0x2331558
+        JP: 0x2332CF8
       description: |-
         Adds an option to the top menu.
         
@@ -43,6 +45,7 @@ overlay1:
       address:
         EU: 0x2331E14
         NA: 0x2331630
+        JP: 0x2332DD0
       description: |-
         Adds an option to the "Other" submenu on the top menu.
         
