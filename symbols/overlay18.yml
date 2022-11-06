@@ -77,3 +77,99 @@ overlay18:
       length:
         EU: 0x48
         NA: 0x48
+    - name: OVERLAY18_D_BOX_LAYOUT_1
+      address:
+        NA: 0x238D270
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY18_D_BOX_LAYOUT_2
+      address:
+        NA: 0x238D280
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY18_D_BOX_LAYOUT_3
+      address:
+        NA: 0x238D290
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY18_D_BOX_LAYOUT_4
+      address:
+        NA: 0x238D2A0
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY18_D_BOX_LAYOUT_5
+      address:
+        NA: 0x238D2B0
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY18_D_BOX_LAYOUT_6
+      address:
+        NA: 0x238D2C0
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY18_D_BOX_LAYOUT_7
+      address:
+        NA: 0x238D2D0
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY18_D_BOX_LAYOUT_8
+      address:
+        NA: 0x238D2E0
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY18_D_BOX_LAYOUT_9
+      address:
+        NA: 0x238D2F0
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY18_D_BOX_LAYOUT_10
+      address:
+        NA: 0x238D300
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY18_D_BOX_LAYOUT_11
+      address:
+        NA: 0x238D310
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY18_FUNCTION_POINTER_TABLE
+      address:
+        NA: 0x238D4C8
+      length:
+        NA: 0x130
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY18_RESERVED_SPACE
+      address:
+        NA: 0x238D61C
+      length:
+        NA: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY18_UNKNOWN_POINTER__NA_238D620
+      address:
+        NA: 0x238D620
+      length:
+        NA: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY18_UNKNOWN_POINTER__NA_238D624
+      address:
+        NA: 0x238D624
+      length:
+        NA: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY18_UNKNOWN_POINTER__NA_238D628
+      address:
+        NA: 0x238D628
+      length:
+        NA: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"
