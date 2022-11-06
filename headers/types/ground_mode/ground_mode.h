@@ -347,4 +347,17 @@ struct partner_talk_kind_table_entry {
 };
 ASSERT_SIZE(struct partner_talk_kind_table_entry, 8);
 
+struct bar_item {
+    struct item_id_16 id;
+    int16_t field_0x2;
+    int16_t field_0x4;
+    int16_t field_0x6;
+    int16_t field_0x8;
+    int16_t field_0xa;
+    int16_t field_0xc;
+    // Probably padding
+    undefined field_0xe[8];
+};
+ASSERT_SIZE(struct bar_item, 22);
+
 #endif

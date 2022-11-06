@@ -12,7 +12,36 @@ overlay19:
     NA: 0x4240
     JP: 0x4220
   description: "Controls Spinda's Juice Bar."
-  functions: []
+  functions:
+    - name: GetBarItem
+      address:
+        NA: 0x238A140
+      description: |-
+        Gets the struct bar_item from BAR_AVAILABLE_ITEMS with the specified item ID.
+        
+        r0: item ID
+        return: struct bar_item*
+    - name: GetRecruitableMonsterAll
+      address:
+        NA: 0x238A1C4
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        return: int?
+    - name: GetRecruitableMonsterList
+      address:
+        NA: 0x238A274
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        return: int?
+    - name: GetRecruitableMonsterListRestricted
+      address:
+        NA: 0x238A31C
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        return: int?
   data:
     - name: BAR_MENU_CONFIRM_1
       address:
@@ -49,3 +78,102 @@ overlay19:
       length:
         EU: 0x30
         NA: 0x30
+    - name: OVERLAY19_UNKNOWN_TABLE__NA_238DAE0
+      address:
+        NA: 0x238DAE0
+      length:
+        NA: 0x8
+      description: |-
+        4*0x2
+        
+        Note: unverified, ported from Irdkwia's notes
+    - name: BAR_UNLOCKABLE_DUNGEONS_TABLE
+      address:
+        NA: 0x238DAE8
+      length:
+        NA: 0xC
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: struct dungeon_id_16[6]
+    - name: BAR_RECRUITABLE_MONSTER_TABLE
+      address:
+        NA: 0x238DAF4
+      length:
+        NA: 0xD8
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: struct monster_id_16[108]
+    - name: BAR_AVAILABLE_ITEMS
+      address:
+        NA: 0x238DBCC
+      length:
+        NA: 0x5AC
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: struct bar_item[66]
+    - name: OVERLAY19_UNKNOWN_STRING_IDS__NA_238E178
+      address:
+        NA: 0x238E178
+      length:
+        NA: 0x2C
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY19_UNKNOWN_STRUCT__NA_238E1A4
+      address:
+        NA: 0x238E1A4
+      length:
+        NA: 0x28
+      description: |-
+        5*0x8
+        
+        Note: unverified, ported from Irdkwia's notes
+    - name: OVERLAY19_UNKNOWN_STRING_IDS__NA_238E1CC
+      address:
+        NA: 0x238E1CC
+      length:
+        NA: 0xC
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: BAR_D_BOX_LAYOUT_1
+      address:
+        NA: 0x238E1D8
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: BAR_D_BOX_LAYOUT_2
+      address:
+        NA: 0x238E1E8
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: BAR_D_BOX_LAYOUT_3
+      address:
+        NA: 0x238E1F8
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY19_UNKNOWN_STRING_IDS__NA_238E238
+      address:
+        NA: 0x238E238
+      length:
+        NA: 0x18
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY19_RESERVED_SPACE
+      address:
+        NA: 0x238E344
+      length:
+        NA: 0x1C
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY19_UNKNOWN_POINTER__NA_238E360
+      address:
+        NA: 0x238E360
+      length:
+        NA: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY19_UNKNOWN_POINTER__NA_238E364
+      address:
+        NA: 0x238E364
+      length:
+        NA: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"

@@ -8,6 +8,7 @@
 #include "overlay16.h"
 #include "overlay17.h"
 #include "overlay18.h"
+#include "overlay19.h"
 #include "overlay29.h"
 #include "ram.h"
 
