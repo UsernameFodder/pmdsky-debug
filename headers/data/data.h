@@ -5,6 +5,7 @@
 #include "overlay10.h"
 #include "overlay11.h"
 #include "overlay13.h"
+#include "overlay16.h"
 #include "overlay29.h"
 #include "ram.h"
 
