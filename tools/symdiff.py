@@ -120,7 +120,11 @@ def open_file_at_revision(path: Path, revision: Optional[str]) -> TextIO:
     except subprocess.CalledProcessError as e:
         err_str = e.stderr.decode()
         # If the path doesn't exist, raise a special error so we can handle it
-        if f"path '{path_from_root}' does not exist in '{revision}'" in err_str:
+        if (
+            f"path '{path_from_root}' does not exist in '{revision}'" in err_str
+            or f"path '{path_from_root}' exists on disk, but not in '{revision}'"
+            in err_str
+        ):
             raise FileNotFoundError(err_str)
         print(err_str, file=sys.stderr)
         raise
