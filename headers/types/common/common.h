@@ -735,6 +735,27 @@ struct mission {
 };
 ASSERT_SIZE(struct mission, 32);
 
+// Unverified, ported from Irdkwia's notes
+struct quiz_answer_points_entry {
+    undefined field_0x0;
+    undefined field_0x1;
+    undefined field_0x2;
+    undefined field_0x3;
+    undefined field_0x4;
+    undefined field_0x5;
+    undefined field_0x6;
+    undefined field_0x7;
+    undefined field_0x8;
+    undefined field_0x9;
+    undefined field_0xa;
+    undefined field_0xb;
+    undefined field_0xc;
+    undefined field_0xd;
+    undefined field_0xe;
+    undefined field_0xf;
+};
+ASSERT_SIZE(struct quiz_answer_points_entry, 16);
+
 // TODO: Add more data file structures, as convenient or needed, especially if the load address
 // or pointers to the load address are known.
 

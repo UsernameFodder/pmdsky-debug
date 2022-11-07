@@ -54,6 +54,57 @@ overlay1:
         r0: Action ID
         r1: True if the option should be enabled, false otherwise
   data:
+    - name: PRINTS_STRINGS
+      address:
+        EU: 0x233B878
+        NA: 0x233B12C
+      length:
+        EU: 0x1E8
+        NA: 0x1E8
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: PRINTS_STRUCT
+      address:
+        EU: 0x233BA60
+        NA: 0x233B314
+      length:
+        EU: 0x1F0
+        NA: 0x1F0
+      description: |-
+        62*0x8
+        
+        Note: unverified, ported from Irdkwia's notes
+    - name: OVERLAY1_D_BOX_LAYOUT_1
+      address:
+        EU: 0x233BC64
+        NA: 0x233B518
+      length:
+        EU: 0x10
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY1_D_BOX_LAYOUT_2
+      address:
+        EU: 0x233BC74
+        NA: 0x233B528
+      length:
+        EU: 0x10
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY1_D_BOX_LAYOUT_3
+      address:
+        EU: 0x233BC84
+        NA: 0x233B538
+      length:
+        EU: 0x10
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY1_D_BOX_LAYOUT_4
+      address:
+        EU: 0x233BC94
+        NA: 0x233B548
+      length:
+        EU: 0x10
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
     - name: CONTINUE_CHOICE
       address:
         EU: 0x233BCB4
@@ -96,3 +147,39 @@ overlay1:
       length:
         EU: 0x38
         NA: 0x38
+    - name: OVERLAY1_D_BOX_LAYOUT_5
+      address:
+        NA: 0x233B71C
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY1_D_BOX_LAYOUT_6
+      address:
+        NA: 0x233B72C
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY1_D_BOX_LAYOUT_7
+      address:
+        NA: 0x233B73C
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY1_D_BOX_LAYOUT_8
+      address:
+        NA: 0x233B7D0
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY1_D_BOX_LAYOUT_9
+      address:
+        NA: 0x233B7F0
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY1_D_BOX_LAYOUT_10
+      address:
+        NA: 0x233B870
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"

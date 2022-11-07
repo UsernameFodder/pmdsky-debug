@@ -13,4 +13,24 @@ overlay30:
     JP: 0x3880
   description: Controls quicksaving in dungeons.
   functions: []
-  data: []
+  data:
+    - name: OVERLAY30_JP_STRING_1
+      address:
+        EU: 0x2386C84
+        NA: 0x2386080
+        JP: 0x23872E0
+      length:
+        EU: 0xC
+        NA: 0xC
+        JP: 0xC
+      description: みさき様
+    - name: OVERLAY30_JP_STRING_2
+      address:
+        EU: 0x2386C90
+        NA: 0x238608C
+        JP: 0x23872EC
+      length:
+        EU: 0xC
+        NA: 0xC
+        JP: 0xC
+      description: やよい様
