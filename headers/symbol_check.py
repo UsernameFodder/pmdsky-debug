@@ -70,6 +70,14 @@ class HeaderSymbolList(ABC):
         fname = os.path.join(SYMBOLS_DIR, cls.file_stem(header_file) + ".yml")
         return fname if os.path.isfile(fname) else None
 
+    @staticmethod
+    def header_file_strip_comments(contents: str) -> str:
+        # Remove "//" comments
+        contents = re.sub(r"//[^\n]*\n", "\n", contents)
+        # Remove "/* */" comments
+        contents = re.sub(r"/\*.*?\*/", "", contents, flags=re.DOTALL)
+        return contents
+
     @abstractmethod
     def names_from_header_file(self) -> List[str]:
         return []
@@ -109,7 +117,9 @@ class FunctionList(HeaderSymbolList):
             # good enough. This should work for everything except functions
             # with function pointer parameters, but function pointer parameters
             # should really be typedef'd for readability anyway.
-            return re.findall(r"\b(\w+)\s*\(", f.read())
+            return re.findall(
+                r"\b(\w+)\s*\(", self.header_file_strip_comments(f.read())
+            )
 
 
 class DataList(HeaderSymbolList):
@@ -126,7 +136,10 @@ class DataList(HeaderSymbolList):
             # - array pointers `int (*x)[10]`
             # It won't work for function pointers `int (*f)(int, int)`, but
             # these should really be typedef'd for readability anyway.
-            return re.findall(r"\b(\w+)(?:\s*(?:\)|\[\s*\w+\s*\]))*\s*;", f.read())
+            return re.findall(
+                r"\b(\w+)(?:\s*(?:\)|\[\s*\w+\s*\]))*\s*;",
+                self.header_file_strip_comments(f.read()),
+            )
 
 
 def run_symbol_check(
