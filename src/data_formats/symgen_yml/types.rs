@@ -593,6 +593,19 @@ impl<T: Ord> PartialOrd for MaybeVersionDep<T> {
 
 impl<T: Ord> Ord for MaybeVersionDep<T> {
     fn cmp(&self, other: &Self) -> Ordering {
+        // FIXME: The comparison between Common/ByVersion is not consistent/transitive
+        // if the VersionDep is missing some versions! E.g.,
+        // - {v1: 3}
+        // - {v2: 1}
+        // - 2 // Does this go before v1? Or after v2?
+        // This is unfortunately annoying to fix...somehow the full version list would
+        // need to be stored on each VersionDep just in case a comparison with a Common
+        // variant becomes necessary. For now, just print a warning in these cases, and
+        // encourage users not to mix Common and ByVersion variants.
+        const INTRANSITIVITY_WARNING: &str =
+            "Warning: comparing by-version values with common (unversioned) \
+                values is not guaranteed to yield consistent sorting results. \
+                Consider converting explicitly versioning all values.";
         match self {
             Self::Common(val1) => {
                 match other {
@@ -601,8 +614,9 @@ impl<T: Ord> Ord for MaybeVersionDep<T> {
                         val1.cmp(val2)
                     }
                     Self::ByVersion(vals2) => {
+                        eprintln!("{}", INTRANSITIVITY_WARNING);
                         // Compare self against all values in other.
-                        // Repeat self at least so it is greater than an empty VersionDep.
+                        // Repeat self at least once so it is greater than an empty VersionDep.
                         iter::repeat(val1)
                             .take(cmp::max(vals2.0.len(), 1))
                             .cmp(vals2.0.values())
@@ -612,8 +626,9 @@ impl<T: Ord> Ord for MaybeVersionDep<T> {
             Self::ByVersion(vals1) => {
                 match other {
                     Self::Common(val2) => {
+                        eprintln!("{}", INTRANSITIVITY_WARNING);
                         // Compare all values in self against other.
-                        // Repeat other at least so it is greater than an empty VersionDep.
+                        // Repeat other at least once so it is greater than an empty VersionDep.
                         vals1
                             .0
                             .values()
