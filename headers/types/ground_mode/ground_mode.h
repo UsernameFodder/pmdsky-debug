@@ -360,4 +360,10 @@ struct bar_item {
 };
 ASSERT_SIZE(struct bar_item, 22);
 
+struct ground_weather_entry {
+    int16_t field_0x0;
+    int16_t field_0x2;
+};
+ASSERT_SIZE(struct ground_weather_entry, 4);
+
 #endif
