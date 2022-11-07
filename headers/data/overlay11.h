@@ -3,6 +3,7 @@
 
 extern struct script_opcode_table SCRIPT_OP_CODES;
 extern struct common_routine_table C_ROUTINES;
+extern char GROUND_WAN_FILES_TABLE[343][12];
 extern struct script_object OBJECTS[0]; // Length differs by version
 extern struct dungeon_id_16 RECRUITMENT_TABLE_LOCATIONS[22];
 extern int16_t RECRUITMENT_TABLE_LEVELS[22];
@@ -10,5 +11,10 @@ extern struct monster_id_16 RECRUITMENT_TABLE_SPECIES[22];
 extern struct level_tilemap_list_entry LEVEL_TILEMAP_LIST[81];
 extern struct overlay_load_entry OVERLAY11_OVERLAY_LOAD_TABLE[21];
 extern struct main_ground_data GROUND_STATE_PTRS;
+extern undefined SCRIPT_COMMAND_PARSING_DATA[32];
+extern char SCRIPT_OP_CODE_NAMES[0];    // Length might differ by version; needs verification
+extern char OVERLAY11_DEBUG_STRINGS[0]; // Length might differ by version; needs verification
+extern char C_ROUTINE_NAMES[0];         // Length might differ by version; needs verification
+extern struct ground_weather_entry GROUND_WEATHER_TABLE[12];
 
 #endif

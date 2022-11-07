@@ -17,6 +17,11 @@ void GroundMainNextDay(void);
 bool JumpToTitleScreen(int arg);
 bool ReturnToTitleScreen(uint32_t fade_duration);
 void ScriptSpecialProcess0x16(bool param_1);
+void LoadBackgroundAttributes(char* bg_attr_str, int bg_id);
+void LoadMapType10(void* buf, int map_id, undefined* dungeon_info_str, undefined4 additional_info);
+void LoadMapType11(void* buf, int map_id, undefined* dungeon_info_str, undefined4 additional_info);
+void GetSpecialLayoutBackground(int bg_id, undefined* dungeon_info_str, undefined4 additional_info,
+                                bool copy_fixed_room_layout);
 void StatusUpdate(void);
 
 #endif
