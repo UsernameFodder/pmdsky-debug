@@ -1173,6 +1173,64 @@ struct level_tilemap_list_entry {
 };
 ASSERT_SIZE(struct level_tilemap_list_entry, 8);
 
+struct move_animation {
+    int16_t field_0x0;
+    int16_t field_0x2;
+    int16_t field_0x4;
+    int16_t field_0x6;
+    uint8_t field_0x8;
+    undefined field_0x9;
+    undefined field_0xa;
+    undefined field_0xb;
+    undefined field_0xc;
+    undefined field_0xd;
+    undefined field_0xe;
+    undefined field_0xf;
+    undefined field_0x10;
+    int8_t field_0x11;
+    uint16_t field_0x12;
+    int16_t field_0x14;
+    uint16_t field_0x16;
+};
+ASSERT_SIZE(struct move_animation, 24);
+
+// Unverified, ported from Irdkwia's notes
+struct special_monster_move_animation {
+    int16_t field_0x0;
+    undefined field_0x2;
+    int8_t field_0x3;
+    int16_t field_0x4;
+};
+ASSERT_SIZE(struct special_monster_move_animation, 6);
+
+// Unverified, ported from Irdkwia's notes
+struct item_animation {
+    int16_t field_0x0;
+    int16_t field_0x2;
+};
+ASSERT_SIZE(struct item_animation, 4);
+
+// Unverified, ported from Irdkwia's notes
+struct trap_animation {
+    int16_t field_0x0;
+};
+ASSERT_SIZE(struct trap_animation, 2);
+
+// Unverified, ported from Irdkwia's notes
+struct effect_animation {
+    int field_0x0;
+    int field_0x4;
+    int field_0x8;
+    int field_0xc;
+    int field_0x10;
+    int field_0x14;
+    uint8_t field_0x18;
+    int8_t field_0x19;
+    uint8_t field_0x1a;
+    uint8_t field_0x1b;
+};
+ASSERT_SIZE(struct effect_animation, 28);
+
 // Contains data about a monster that spawns in a dungeon
 struct monster_spawn_entry {
     uint16_t level_mult_512; // 0x0: Spawn level << 9
@@ -1388,6 +1446,36 @@ struct ai_possible_move {
     int weight; // 0x4: Affects the chance of the AI using this move
 };
 ASSERT_SIZE(struct ai_possible_move, 8);
+
+struct weather_attributes {
+    struct type_id_8 weather_ball_type;
+    uint8_t _padding;
+    struct monster_id_16 castform_male_id;   // monster ID for male Castform in this weather
+    struct monster_id_16 castform_female_id; // monster ID for female Castform in this weather
+};
+ASSERT_SIZE(struct weather_attributes, 6);
+
+// Unverified, ported from Irdkwia's notes
+struct nature_power_entry {
+    undefined4 field_0x0;
+    undefined* field_0x4;
+};
+ASSERT_SIZE(struct nature_power_entry, 8);
+
+struct natural_gift_item_info {
+    struct item_id_16 item_id;
+    struct type_id_8 type_id;
+    uint8_t _padding;
+    // This value seems to be one less than the base power value in the PMD Info Spreadsheet
+    int16_t base_power_minus_one;
+};
+ASSERT_SIZE(struct natural_gift_item_info, 6);
+
+struct metronome_table_entry {
+    enum move_id move_id;
+    undefined* field_0x4;
+};
+ASSERT_SIZE(struct metronome_table_entry, 8);
 
 // Used to store data about a menu entry for in-dungeon menus
 // Might be also used outside of dungeons.

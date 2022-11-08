@@ -6,6 +6,7 @@ extern int16_t BAD_POISON_DAMAGE_COOLDOWN;
 extern int16_t PROTEIN_STAT_BOOST;
 extern int16_t SPAWN_CAP_NO_MONSTER_HOUSE;
 extern int16_t OREN_BERRY_DAMAGE;
+extern int UNOWN_STONE_DROP_CHANCE;
 extern int16_t SITRUS_BERRY_HP_RESTORATION;
 extern int16_t EXP_ELITE_EXP_BOOST;
 extern int16_t MONSTER_HOUSE_MAX_NON_MONSTER_SPAWNS;
@@ -43,9 +44,15 @@ extern int POWER_PITCHER_DAMAGE_MULTIPLIER;
 extern int AIR_BLADE_DAMAGE_MULTIPLIER;
 extern int HIDDEN_STAIRS_SPAWN_CHANCE_MULTIPLIER;
 extern int16_t SPEED_BOOST_DURATION_RANGE[2];
+extern struct weather_attributes WEATHER_ATTRIBUTE_TABLE[8];
 extern int OFFENSIVE_STAT_STAGE_MULTIPLIERS[21];
 extern int DEFENSIVE_STAT_STAGE_MULTIPLIERS[21];
+extern struct nature_power_entry NATURE_POWER_TABLE[15];
+extern undefined PLUCK_ITEM_EAT_TABLE[132]; // Just a guess, ported from Irdkwia's notes
+extern int16_t RECRUITMENT_LEVEL_BOOST_TABLE[102];
+extern struct natural_gift_item_info NATURAL_GIFT_ITEM_TABLE[34];
 extern struct music_id_16 RANDOM_MUSIC_ID_TABLE[30][4];
+extern int16_t SHOP_ITEM_CHANCES[144];
 extern int MALE_ACCURACY_STAGE_MULTIPLIERS[21];
 extern int MALE_EVASION_STAGE_MULTIPLIERS[21];
 extern int FEMALE_ACCURACY_STAGE_MULTIPLIERS[21];
@@ -53,7 +60,13 @@ extern int FEMALE_EVASION_STAGE_MULTIPLIERS[21];
 extern struct music_id_16 MUSIC_ID_TABLE[170];
 extern struct type_matchup_table TYPE_MATCHUP_TABLE;
 extern struct fixed_room_monster_spawn_stats_entry FIXED_ROOM_MONSTER_SPAWN_STATS_TABLE[99];
+extern struct metronome_table_entry METRONOME_TABLE[168];
 extern struct tileset_property TILESET_PROPERTIES[199];
 extern struct fixed_room_properties_entry FIXED_ROOM_PROPERTIES_TABLE[256];
+extern struct trap_animation TRAP_ANIMATION_INFO[26];
+extern struct item_animation ITEM_ANIMATION_INFO[1400];
+extern struct move_animation MOVE_ANIMATION_INFO[563];
+extern struct effect_animation EFFECT_ANIMATION_INFO[700];
+extern struct special_monster_move_animation SPECIAL_MONSTER_MOVE_ANIMATION_INFO[7422];
 
 #endif

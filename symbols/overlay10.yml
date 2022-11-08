@@ -28,6 +28,88 @@ overlay10:
         r1: format
         ...: variadic
         return: number of characters printed, excluding the null-terminator
+    - name: GetEffectAnimation
+      address:
+        EU: 0x22C07E0
+        NA: 0x22BFEA0
+        JP: 0x22C1644
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: anim_id
+        return: effect animation pointer
+    - name: GetMoveAnimation
+      address:
+        EU: 0x22C07F4
+        NA: 0x22BFEB4
+        JP: 0x22C1658
+      description: |-
+        Get the move animation corresponding to the given move ID.
+        
+        r0: move_id
+        return: move animation pointer
+    - name: GetSpecialMonsterMoveAnimation
+      address:
+        EU: 0x22C0808
+        NA: 0x22BFEC8
+        JP: 0x22C166C
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: ent_id
+        return: special monster move animation pointer
+    - name: GetTrapAnimation
+      address:
+        EU: 0x22C081C
+        NA: 0x22BFEDC
+        JP: 0x22C1680
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: trap_id
+        return: trap animation
+    - name: GetItemAnimation1
+      address:
+        EU: 0x22C0830
+        NA: 0x22BFEF0
+        JP: 0x22C1694
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: item_id
+        return: first field of the item animation info
+    - name: GetItemAnimation2
+      address:
+        EU: 0x22C0844
+        NA: 0x22BFF04
+        JP: 0x22C16A4
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: item_id
+        return: second field of the item animation info
+    - name: GetMoveAnimationSpeed
+      address:
+        EU: 0x22C0858
+        NA: 0x22BFF18
+        JP: 0x22C16BC
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: move_id
+        return: anim_ent_ptr (This might be a mistake? It seems to be an integer, not a pointer)
+    - name: CheckEndDungeon
+      address:
+        EU: 0x22C31E4
+        NA: 0x22C288C
+        JP: 0x22C3F74
+      description: |-
+        Do the stuff when you lose in a dungeon.
+        
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: End condition code? Seems to control what tasks get run and what transition happens when the dungeon ends
+        return: return code?
   data:
     - name: FIRST_DUNGEON_WITH_MONSTER_HOUSE_TRAPS
       address:
@@ -72,6 +154,16 @@ overlay10:
         EU: 0x2
         NA: 0x2
       description: Damage dealt by eating an Oren Berry.
+    - name: UNOWN_STONE_DROP_CHANCE
+      address:
+        EU: 0x22C4DCC
+        NA: 0x22C4474
+        JP: 0x22C5B5C
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"
     - name: SITRUS_BERRY_HP_RESTORATION
       address:
         EU: 0x22C4DD0
@@ -374,6 +466,19 @@ overlay10:
         Appears to control the range of turns for which a speed boost can last.
         
         The first two bytes are the low value of the range, and the later two bytes are the high value.
+    - name: WEATHER_ATTRIBUTE_TABLE
+      address:
+        EU: 0x22C55C4
+        NA: 0x22C4C6C
+        JP: 0x22C6354
+      length:
+        EU: 0x30
+        NA: 0x30
+        JP: 0x30
+      description: |-
+        Maps each weather type (by index, see enum weather_id) to the corresponding Weather Ball type and Castform form.
+        
+        type: struct weather_attributes[8]
     - name: OFFENSIVE_STAT_STAGE_MULTIPLIERS
       address:
         EU: 0x22C56F0
@@ -390,58 +495,137 @@ overlay10:
         EU: 0x54
         NA: 0x54
       description: "Table of multipliers for defensive stats (defense/special defense) for each stage 0-20, as binary fixed-point numbers (8 fraction bits)"
+    - name: NATURE_POWER_TABLE
+      address:
+        EU: 0x22C5798
+        NA: 0x22C4E40
+        JP: 0x22C6528
+      length:
+        EU: 0x78
+        NA: 0x78
+        JP: 0x78
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: struct nature_power_entry[15]
+    - name: PLUCK_ITEM_EAT_TABLE
+      address:
+        EU: 0x22C5810
+        NA: 0x22C4EB8
+        JP: 0x22C65A0
+      length:
+        EU: 0x84
+        NA: 0x84
+        JP: 0x84
+      description: |-
+        Just a guess
+        
+        Note: unverified, ported from Irdkwia's notes
+    - name: RECRUITMENT_LEVEL_BOOST_TABLE
+      address:
+        EU: 0x22C59BC
+        NA: 0x22C5064
+        JP: 0x22C674C
+      length:
+        EU: 0xCC
+        NA: 0xCC
+        JP: 0xCC
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: int16_t[102]
+    - name: NATURAL_GIFT_ITEM_TABLE
+      address:
+        EU: 0x22C5A88
+        NA: 0x22C5130
+        JP: 0x22C6818
+      length:
+        EU: 0xCC
+        NA: 0xCC
+        JP: 0xCC
+      description: |-
+        Maps items to their type and base power if used with Natural Gift.
+        
+        Any item not listed in this table explicitly will be Normal type with a base power of 1 when used with Natural Gift.
+        
+        type: struct natural_gift_item_info[34]
     - name: RANDOM_MUSIC_ID_TABLE
       address:
         EU: 0x22C5B54
         NA: 0x22C51FC
+        JP: 0x22C68E4
       length:
         EU: 0xF0
         NA: 0xF0
+        JP: 0xF0
       description: |-
         Table of music IDs for dungeons with a random assortment of music tracks.
         
         This is a table with 30 rows, each with 4 2-byte music IDs. Each row contains the possible music IDs for a given group, from which the music track will be selected randomly.
         
         type: struct music_id_16[30][4]
+    - name: SHOP_ITEM_CHANCES
+      address:
+        EU: 0x22C5C44
+        NA: 0x22C52EC
+        JP: 0x22C69D4
+      length:
+        EU: 0x120
+        NA: 0x120
+        JP: 0x120
+      description: |-
+        8 * 6 * 3 * 0x2
+        
+        Note: unverified, ported from Irdkwia's notes
     - name: MALE_ACCURACY_STAGE_MULTIPLIERS
       address:
         EU: 0x22C5D64
         NA: 0x22C540C
+        JP: 0x22C6AF4
       length:
         EU: 0x54
         NA: 0x54
+        JP: 0x54
       description: "Table of multipliers for the accuracy stat for males for each stage 0-20, as binary fixed-point numbers (8 fraction bits)"
     - name: MALE_EVASION_STAGE_MULTIPLIERS
       address:
         EU: 0x22C5DB8
         NA: 0x22C5460
+        JP: 0x22C6B48
       length:
         EU: 0x54
         NA: 0x54
+        JP: 0x54
       description: "Table of multipliers for the evasion stat for males for each stage 0-20, as binary fixed-point numbers (8 fraction bits)"
     - name: FEMALE_ACCURACY_STAGE_MULTIPLIERS
       address:
         EU: 0x22C5E0C
         NA: 0x22C54B4
+        JP: 0x22C6B9C
       length:
         EU: 0x54
         NA: 0x54
+        JP: 0x54
       description: "Table of multipliers for the accuracy stat for females for each stage 0-20, as binary fixed-point numbers (8 fraction bits)"
     - name: FEMALE_EVASION_STAGE_MULTIPLIERS
       address:
         EU: 0x22C5E60
         NA: 0x22C5508
+        JP: 0x22C6BF0
       length:
         EU: 0x54
         NA: 0x54
+        JP: 0x54
       description: "Table of multipliers for the evasion stat for females for each stage 0-20, as binary fixed-point numbers (8 fraction bits)"
     - name: MUSIC_ID_TABLE
       address:
         EU: 0x22C5EB4
         NA: 0x22C555C
+        JP: 0x22C6C44
       length:
         EU: 0x154
         NA: 0x154
+        JP: 0x154
       description: |-
         List of music IDs used in dungeons with a single music track.
         
@@ -452,9 +636,11 @@ overlay10:
       address:
         EU: 0x22C6008
         NA: 0x22C56B0
+        JP: 0x22C6D98
       length:
         EU: 0x288
         NA: 0x288
+        JP: 0x288
       description: |-
         Table of type matchups.
         
@@ -465,30 +651,49 @@ overlay10:
       address:
         EU: 0x22C6290
         NA: 0x22C5938
+        JP: 0x22C7020
       length:
         EU: 0x4A4
         NA: 0x4A4
+        JP: 0x4A4
       description: |-
         Table of stats for monsters that can spawn in fixed rooms, pointed into by the FIXED_ROOM_MONSTER_SPAWN_TABLE.
         
         This is an array of 99 12-byte entries containing stat spreads for one monster entry each.
         
         type: struct fixed_room_monster_spawn_stats_entry[99]
+    - name: METRONOME_TABLE
+      address:
+        EU: 0x22C6734
+        NA: 0x22C5DDC
+        JP: 0x22C74C4
+      length:
+        EU: 0x540
+        NA: 0x540
+        JP: 0x540
+      description: |-
+        Something to do with the moves that Metronome can turn into.
+        
+        type: struct metronome_table_entry[168]
     - name: TILESET_PROPERTIES
       address:
         EU: 0x22C6C74
         NA: 0x22C631C
+        JP: 0x22C7A04
       length:
         EU: 0x954
         NA: 0x954
+        JP: 0x954
       description: "type: struct tileset_property[199]"
     - name: FIXED_ROOM_PROPERTIES_TABLE
       address:
         EU: 0x22C75C8
         NA: 0x22C6C70
+        JP: 0x22C8358
       length:
         EU: 0xC00
         NA: 0xC00
+        JP: 0xC00
       description: |-
         Table of properties for fixed rooms.
         
@@ -497,7 +702,65 @@ overlay10:
         See the struct definitions and End45's dungeon data document for more info.
         
         type: struct fixed_room_properties_entry[256]
+    - name: TRAP_ANIMATION_INFO
+      address:
+        EU: 0x22C83A8
+        NA: 0x22C7A50
+        JP: 0x22C9138
+      length:
+        EU: 0x34
+        NA: 0x34
+        JP: 0x34
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: struct trap_animation[26]
+    - name: ITEM_ANIMATION_INFO
+      address:
+        EU: 0x22C83DC
+        NA: 0x22C7A84
+        JP: 0x22C916C
+      length:
+        EU: 0x15E0
+        NA: 0x15E0
+        JP: 0x15E0
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: struct item_animation[1400]
     - name: MOVE_ANIMATION_INFO
       address:
         EU: 0x22C99BC
         NA: 0x22C9064
+        JP: 0x22CA74C
+      length:
+        EU: 0x34C8
+        NA: 0x34C8
+        JP: 0x34C8
+      description: "type: struct move_animation[563]"
+    - name: EFFECT_ANIMATION_INFO
+      address:
+        EU: 0x22CCE84
+        NA: 0x22CC52C
+        JP: 0x22CDC14
+      length:
+        EU: 0x4C90
+        NA: 0x4C90
+        JP: 0x4C90
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: struct effect_animation[700]
+    - name: SPECIAL_MONSTER_MOVE_ANIMATION_INFO
+      address:
+        EU: 0x22D1B14
+        NA: 0x22D11BC
+        JP: 0x22D28A4
+      length:
+        EU: 0xADF4
+        NA: 0xADF4
+        JP: 0xADF4
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: struct special_monster_move_animation[7422]
