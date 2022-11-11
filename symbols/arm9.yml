@@ -3232,6 +3232,43 @@ arm9:
         r0: dividend
         r1: divisor
         return: (quotient) | (remainder << 32)
+    - name: GetFaintReason
+      address:
+        NA: 0x200CA54
+      description: |-
+        Gets the faint reason code (see HandleFaint) for a given move-item combination.
+        
+        If there's no item, the reason code is the move ID. If the item is an orb, return FAINT_REASON_ORB_ITEM. Otherwise, return FAINT_REASON_NON_ORB_ITEM.
+        
+        r0: move ID
+        r1: item ID
+        return: faint reason
+    - name: InitMove
+      address:
+        NA: 0x20137B8
+      description: |-
+        Initializes a move info struct.
+        
+        This sets f_exists and f_enabled_for_ai on the flags, the ID to the given ID, the PP to the max PP for the move ID, and the ginseng boost to 0.
+        
+        r0: pointer to move to initialize
+        r1: move ID
+    - name: TreasureBoxDropsEnabled
+      address:
+        NA: 0x20512F0
+      description: |-
+        Checks if enemy Treasure Box drops are enabled in the dungeon.
+        
+        r0: dungeon ID
+        return: bool
+    - name: GetLowKickMultiplier
+      address:
+        NA: 0x20528FC
+      description: |-
+        Gets the Low Kick (and Grass Knot) damage multiplier for the given species.
+        
+        r0: monster ID
+        return: multiplier as a binary fixed-point number with 8 fraction bits.
   data:
     - name: DEFAULT_MEMORY_ARENA_SIZE
       address:
@@ -3997,3 +4034,11 @@ arm9:
       length:
         EU: 0x1FC
         NA: 0x1FC
+    - name: FAINT_REASON_CODE_ORB_ITEM
+      address:
+        NA: 0x200CA84
+      description: "The faint reason code for any item in CATEGORY_ORBS, 0x262."
+    - name: FAINT_REASON_CODE_NON_ORB_ITEM
+      address:
+        NA: 0x200CA88
+      description: "The faint reason code for any item not in CATEGORY_ORBS, 0x263."

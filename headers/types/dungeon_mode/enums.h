@@ -42,6 +42,33 @@ enum secondary_terrain_type {
 ENUM_8_BIT(secondary_terrain_type);
 #pragma pack(pop)
 
+// Moves that Nature Power can turn into
+enum nature_power_variant {
+    NATURE_POWER_SURF = 0,
+    NATURE_POWER_STUN_SPORE = 1,
+    NATURE_POWER_SHADOW_BALL = 2,
+    NATURE_POWER_SWIFT = 3,
+    NATURE_POWER_EARTHQUAKE = 4,
+    NATURE_POWER_RAZOR_LEAF = 5,
+    NATURE_POWER_BUBBLEBEAM = 6,
+    NATURE_POWER_ROCK_SLIDE = 7,
+    // This is exactly the same as NATURE_POWER_EARTHQUAKE,
+    // except the move effect handler checks whether the defender
+    // is digging and doubles the damage if so.
+    NATURE_POWER_EARTHQUAKE_2 = 8,
+    NATURE_POWER_TRI_ATTACK = 9,
+    NATURE_POWER_HYDRO_PUMP = 10,
+    NATURE_POWER_BLIZZARD = 11,
+    NATURE_POWER_ICE_BEAM = 12,
+    NATURE_POWER_SEED_BOMB = 13,
+    NATURE_POWER_MUD_BOMB = 14,
+};
+
+// This is usually stored as a 16-bit integer
+#pragma pack(push, 2)
+ENUM_16_BIT(nature_power_variant);
+#pragma pack(pop)
+
 // Mobility types for monsters
 enum mobility_type {
     MOBILITY_NORMAL = 0,
@@ -786,6 +813,18 @@ enum mission_status {
 #pragma pack(push, 1)
 ENUM_8_BIT(mission_status);
 #pragma pack(pop)
+
+// The cause of a monster fainting, not including the move case.
+// These codes should all be greater than any move ID.
+enum faint_reason_non_move {
+    FAINT_REASON_ITEM_ORB = 610,
+    FAINT_REASON_ITEM_NON_ORB = 611,
+};
+
+union faint_reason {
+    enum move_id move;
+    enum faint_reason_non_move other;
+};
 
 // List of reasons why you can get forcefully kicked out of a dungeon
 enum forced_loss_reason {
