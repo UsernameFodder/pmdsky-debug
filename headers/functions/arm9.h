@@ -223,6 +223,7 @@ uint32_t SubFixedPoint(uint32_t val_fp, uint32_t dec_fp);
 uint32_t BinToDecFixedPoint(uint32_t* q16);
 int CeilFixedPoint(uint32_t val_fp);
 bool DungeonGoesUp(enum dungeon_id dungeon_id);
+bool TreasureBoxDropsEnabled(enum dungeon_id dungeon_id);
 int8_t GetMaxRescueAttempts(enum dungeon_id dungeon_id);
 bool GetLeaderChangeFlag(enum dungeon_id dungeon_id);
 bool JoinedAtRangeCheck(struct dungeon_id_8 joined_at);
@@ -317,5 +318,9 @@ float SubtractFloat(float a, float b);
 unsigned long long DivideInt(int dividend, int divisor);
 unsigned long long DivideUInt(uint32_t dividend, uint32_t divisor);
 unsigned long long DivideUIntNoZeroCheck(uint32_t dividend, uint32_t divisor);
+union faint_reason GetFaintReason(enum move_id, enum item_id);
+void InitMove(struct move* move, enum move_id);
+bool TreasureBoxDropsEnabled(enum dungeon_id dungeon_id);
+int GetLowKickMultiplier(enum monster_id monster_id);
 
 #endif

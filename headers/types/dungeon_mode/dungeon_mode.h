@@ -597,7 +597,7 @@ struct entity {
     uint8_t end_walk_anim_frame;
     undefined field_0x24;
     uint8_t room_idx; // 0x25: Index of the room a monster is in. 0xFF for hall
-    // 0x26:Unique index for each monster that spawns. Starts at 0xA for the leader, and each
+    // 0x26: Unique index for each monster that spawns. Starts at 0xA for the leader, and each
     // subsequent monster to spawn is assigned the next number (0xB, 0xC, ...)
     uint16_t spawn_genid;
     undefined field_0x28;
@@ -1159,7 +1159,7 @@ struct tileset_property {
     uint8_t field_0x5;
     uint8_t field_0x6;
     uint8_t _padding;
-    int16_t field_0x8;
+    struct nature_power_variant_16 nature_power_variant;
     uint8_t field_0xa;
     uint8_t field_0xb;
 };
@@ -1455,12 +1455,21 @@ struct weather_attributes {
 };
 ASSERT_SIZE(struct weather_attributes, 6);
 
-// Unverified, ported from Irdkwia's notes
-struct nature_power_entry {
-    undefined4 field_0x0;
-    undefined* field_0x4;
+// Performs the effect of a move used by the attacker on the defender, with the item ID associated
+// with the move (or ITEM_NOTHING if not applicable). Returns whether or not the move was
+// successfully used.
+typedef bool (*move_effect_fn_t)(struct entity* attacker, struct entity* defender,
+                                 struct move* move, enum item_id item_id);
+
+// Describes one possible variant that a wildcard move like Nature Power or Metronome can turn into
+struct wildcard_move_desc {
+    // Move ID that the wildcard move turns into
+    struct move_id_16 move_id;
+    uint16_t _padding;
+    // Effect handler that executes the move that the wildcard move turns into
+    move_effect_fn_t do_move;
 };
-ASSERT_SIZE(struct nature_power_entry, 8);
+ASSERT_SIZE(struct wildcard_move_desc, 8);
 
 struct natural_gift_item_info {
     struct item_id_16 item_id;
@@ -1470,12 +1479,6 @@ struct natural_gift_item_info {
     int16_t base_power_minus_one;
 };
 ASSERT_SIZE(struct natural_gift_item_info, 6);
-
-struct metronome_table_entry {
-    enum move_id move_id;
-    undefined* field_0x4;
-};
-ASSERT_SIZE(struct metronome_table_entry, 8);
 
 // Used to store data about a menu entry for in-dungeon menus
 // Might be also used outside of dungeons.

@@ -63,11 +63,12 @@ void BindTrapToTile(struct tile* tile, struct entity* trap, bool is_visible);
 void SpawnEnemyTrapAtPos(enum trap_id trap_id, int16_t x, int16_t y, uint8_t flags,
                          bool is_visible);
 void ChangeLeader(void);
-void ResetDamageDesc(undefined4* damage_desc);
+void ResetDamageData(struct damage_data* damage);
 uint16_t GetSpriteIndex(enum monster_id monster_id);
 bool FloorNumberIsEven(void);
 void EuFaintCheck(bool non_team_member_fainted, bool set_unk_byte);
-void HandleFaint(struct entity* fainted_entity, int faint_reason, struct entity* killer);
+void HandleFaint(struct entity* fainted_entity, union faint_reason faint_reason,
+                 struct entity* killer);
 void UpdateAiTargetPos(struct entity* monster);
 enum monster_id GetKecleonIdToSpawnByFloor(void);
 void LoadMonsterSprite(enum monster_id monster_id, undefined param_2);
@@ -117,7 +118,7 @@ void EnemyEvolution(struct entity* enemy);
 void EvolveMonster(struct entity* monster, undefined4* param_2, enum monster_id new_monster_id);
 bool DisplayActions(struct entity* param_1);
 bool ApplyDamage(struct entity* attacker, struct entity* defender, struct damage_data* damage_data,
-                 undefined4 param_4, undefined4* param_5, undefined4* param_6);
+                 undefined4 param_4, undefined4* param_5, union faint_reason faint_reason);
 uint8_t GetSleepAnimationId(struct entity* entity);
 void EndFrozenClassStatus(struct entity* user, struct entity* target, bool log);
 void EndCringeClassStatus(struct entity* user, struct entity* target);
@@ -248,16 +249,16 @@ int LowerSshort(int x);
 uint16_t GetMoveAnimationId(struct move* move, enum weather_id apparent_weather,
                             bool should_play_alternative_animation);
 bool ShouldMovePlayAlternativeAnimation(struct entity* user, struct move* move);
-bool DealDamageWithRecoil(struct entity* attacker, struct entity* defender, struct move* move,
-                          enum item_id item_id);
+bool DoMoveDamageWithRecoil(struct entity* attacker, struct entity* defender, struct move* move,
+                            enum item_id item_id);
 void ExecuteMoveEffect(undefined4* param_1, struct entity* attacker, struct move* move,
                        undefined4 param_4, undefined4 param_5);
 int DealDamage(struct entity* attacker, struct entity* defender, struct move* move,
                int damage_mult_fp, enum item_id item_id);
-void CalcDamageProjectile(struct entity* attacker, struct entity* defender, struct move* move,
-                          int power, undefined4 param_5, undefined4 param_6);
+int CalcDamageProjectile(struct entity* attacker, struct entity* defender, struct move* move,
+                         int power, int damage_mult_fp, enum item_id item_id);
 int CalcDamageFinal(struct entity* attacker, struct entity* defender, struct move* move,
-                    undefined4 param_4, undefined4* param_5);
+                    struct damage_data* damage_out, union faint_reason faint_reason);
 bool StatusCheckerCheck(struct entity* attacker, struct move* move);
 enum weather_id GetApparentWeather(struct entity* entity);
 void TryWeatherFormChange(struct entity* entity);
@@ -406,5 +407,284 @@ void DisplayMessageInternal(int message_id, bool wait_for_input, undefined4 para
                             undefined4 param_4, undefined4 param_5, undefined4 param_6);
 int OthersMenuLoop(void);
 undefined OthersMenu(void);
+bool IsMarowakTrainingMaze(void);
+void TrySpawnEnemyItemDrop(struct entity* attacker, struct entity* defender);
+union faint_reason GetFaintReasonWrapper(struct move* move, enum item_id item_id);
+bool DoMoveDamage(struct entity* attacker, struct entity* defender, struct move* move,
+                  enum item_id item_id);
+bool DoMoveIronTail(struct entity* attacker, struct entity* defender, struct move* move,
+                    enum item_id item_id);
+bool DoMoveYawn(struct entity* attacker, struct entity* defender, struct move* move,
+                enum item_id item_id);
+bool DoMoveNightmare(struct entity* attacker, struct entity* defender, struct move* move,
+                     enum item_id item_id);
+bool DoMoveCharm(struct entity* attacker, struct entity* defender, struct move* move,
+                 enum item_id item_id);
+bool DoMoveEncore(struct entity* attacker, struct entity* defender, struct move* move,
+                  enum item_id item_id);
+bool DoMoveSuperFang(struct entity* attacker, struct entity* defender, struct move* move,
+                     enum item_id item_id);
+bool DoMovePainSplit(struct entity* attacker, struct entity* defender, struct move* move,
+                     enum item_id item_id);
+bool DoMoveTorment(struct entity* attacker, struct entity* defender, struct move* move,
+                   enum item_id item_id);
+bool DoMoveSwagger(struct entity* attacker, struct entity* defender, struct move* move,
+                   enum item_id item_id);
+bool DoMoveDamageCringe30(struct entity* attacker, struct entity* defender, struct move* move,
+                          enum item_id item_id);
+bool DoMoveWhirlpool(struct entity* attacker, struct entity* defender, struct move* move,
+                     enum item_id item_id);
+bool DoMoveFakeTears(struct entity* attacker, struct entity* defender, struct move* move,
+                     enum item_id item_id);
+bool DoMoveSpite(struct entity* attacker, struct entity* defender, struct move* move,
+                 enum item_id item_id);
+bool DoMoveSmokescreen(struct entity* attacker, struct entity* defender, struct move* move,
+                       enum item_id item_id);
+bool DoMoveFlatter(struct entity* attacker, struct entity* defender, struct move* move,
+                   enum item_id item_id);
+bool DoMoveWillOWisp(struct entity* attacker, struct entity* defender, struct move* move,
+                     enum item_id item_id);
+bool DoMoveReturn(struct entity* attacker, struct entity* defender, struct move* move,
+                  enum item_id item_id);
+bool DoMoveFlameWheel(struct entity* attacker, struct entity* defender, struct move* move,
+                      enum item_id item_id);
+bool DoMoveGust(struct entity* attacker, struct entity* defender, struct move* move,
+                enum item_id item_id);
+bool DoMoveParalyze(struct entity* attacker, struct entity* defender, struct move* move,
+                    enum item_id item_id);
+bool DoMoveDamageLowerDef20(struct entity* attacker, struct entity* defender, struct move* move,
+                            enum item_id item_id);
+bool DoMoveBite(struct entity* attacker, struct entity* defender, struct move* move,
+                enum item_id item_id);
+bool DoMoveDamageParalyze20(struct entity* attacker, struct entity* defender, struct move* move,
+                            enum item_id item_id);
+bool DoMoveEndeavor(struct entity* attacker, struct entity* defender, struct move* move,
+                    enum item_id item_id);
+bool DoMoveFacade(struct entity* attacker, struct entity* defender, struct move* move,
+                  enum item_id item_id);
+bool DoMoveDamageLowerSpeed20(struct entity* attacker, struct entity* defender, struct move* move,
+                              enum item_id item_id);
+bool DoMoveBrickBreak(struct entity* attacker, struct entity* defender, struct move* move,
+                      enum item_id item_id);
+bool DoMoveRockTomb(struct entity* attacker, struct entity* defender, struct move* move,
+                    enum item_id item_id);
+bool DoMoveDamageDrain(struct entity* attacker, struct entity* defender, struct move* move,
+                       enum item_id item_id);
+bool DoMoveReversal(struct entity* attacker, struct entity* defender, struct move* move,
+                    enum item_id item_id);
+bool DoMoveSmellingSalt(struct entity* attacker, struct entity* defender, struct move* move,
+                        enum item_id item_id);
+bool DoMoveMetalSound(struct entity* attacker, struct entity* defender, struct move* move,
+                      enum item_id item_id);
+bool DoMoveTickle(struct entity* attacker, struct entity* defender, struct move* move,
+                  enum item_id item_id);
+bool DoMoveOutrage(struct entity* attacker, struct entity* defender, struct move* move,
+                   enum item_id item_id);
+bool DoMoveDamageWeightDependent(struct entity* attacker, struct entity* defender,
+                                 struct move* move, enum item_id item_id);
+bool DoMoveAncientPower(struct entity* attacker, struct entity* defender, struct move* move,
+                        enum item_id item_id);
+bool DoMoveRapidSpin(struct entity* attacker, struct entity* defender, struct move* move,
+                     enum item_id item_id);
+bool DoMoveDamageFreeze15(struct entity* attacker, struct entity* defender, struct move* move,
+                          enum item_id item_id);
+bool DoMoveScaryFace(struct entity* attacker, struct entity* defender, struct move* move,
+                     enum item_id item_id);
+bool DoMoveRockClimb(struct entity* attacker, struct entity* defender, struct move* move,
+                     enum item_id item_id);
+bool DoMoveEarthquake(struct entity* attacker, struct entity* defender, struct move* move,
+                      enum item_id item_id);
+enum nature_power_variant GetNaturePowerVariant(void);
+bool DoMoveNaturePower(struct entity* attacker, struct entity* defender, struct move* move,
+                       enum item_id item_id);
+bool DoMoveLick(struct entity* attacker, struct entity* defender, struct move* move,
+                enum item_id item_id);
+bool DoMoveFissure(struct entity* attacker, struct entity* defender, struct move* move,
+                   enum item_id item_id);
+bool DoMoveExtrasensory(struct entity* attacker, struct entity* defender, struct move* move,
+                        enum item_id item_id);
+bool DoMoveAbsorb(struct entity* attacker, struct entity* defender, struct move* move,
+                  enum item_id item_id);
+bool DoMoveSkillSwap(struct entity* attacker, struct entity* defender, struct move* move,
+                     enum item_id item_id);
+bool DoMoveHeadbutt(struct entity* attacker, struct entity* defender, struct move* move,
+                    enum item_id item_id);
+bool DoMoveDoubleEdge(struct entity* attacker, struct entity* defender, struct move* move,
+                      enum item_id item_id);
+bool DoMoveSandAttack(struct entity* attacker, struct entity* defender, struct move* move,
+                      enum item_id item_id);
+bool DoMoveDamagePoison40(struct entity* attacker, struct entity* defender, struct move* move,
+                          enum item_id item_id);
+bool DoMoveSacredFire(struct entity* attacker, struct entity* defender, struct move* move,
+                      enum item_id item_id);
+bool DoMoveSheerCold(struct entity* attacker, struct entity* defender, struct move* move,
+                     enum item_id item_id);
+bool DoMoveDamageLowerAccuracy40(struct entity* attacker, struct entity* defender,
+                                 struct move* move, enum item_id item_id);
+bool DoMoveTwister(struct entity* attacker, struct entity* defender, struct move* move,
+                   enum item_id item_id);
+bool DoMoveTwineedle(struct entity* attacker, struct entity* defender, struct move* move,
+                     enum item_id item_id);
+bool DoMoveSeismicToss(struct entity* attacker, struct entity* defender, struct move* move,
+                       enum item_id item_id);
+bool DoMoveSupersonic(struct entity* attacker, struct entity* defender, struct move* move,
+                      enum item_id item_id);
+bool DoMoveTaunt(struct entity* attacker, struct entity* defender, struct move* move,
+                 enum item_id item_id);
+bool DoMoveHornDrill(struct entity* attacker, struct entity* defender, struct move* move,
+                     enum item_id item_id);
+bool DoMoveThundershock(struct entity* attacker, struct entity* defender, struct move* move,
+                        enum item_id item_id);
+bool DoMoveThunderWave(struct entity* attacker, struct entity* defender, struct move* move,
+                       enum item_id item_id);
+bool DoMoveBlock(struct entity* attacker, struct entity* defender, struct move* move,
+                 enum item_id item_id);
+bool DoMovePoisonGas(struct entity* attacker, struct entity* defender, struct move* move,
+                     enum item_id item_id);
+bool DoMoveToxic(struct entity* attacker, struct entity* defender, struct move* move,
+                 enum item_id item_id);
+bool DoMovePoisonFang(struct entity* attacker, struct entity* defender, struct move* move,
+                      enum item_id item_id);
+bool DoMovePoisonSting(struct entity* attacker, struct entity* defender, struct move* move,
+                       enum item_id item_id);
+bool DoMoveTriAttack(struct entity* attacker, struct entity* defender, struct move* move,
+                     enum item_id item_id);
+bool DoMoveSwapItems(struct entity* attacker, struct entity* defender, struct move* move,
+                     enum item_id item_id);
+bool DoMoveTripleKick(struct entity* attacker, struct entity* defender, struct move* move,
+                      enum item_id item_id);
+bool DoMoveMudSlap(struct entity* attacker, struct entity* defender, struct move* move,
+                   enum item_id item_id);
+bool DoMoveThief(struct entity* attacker, struct entity* defender, struct move* move,
+                 enum item_id item_id);
+bool DoMoveRolePlay(struct entity* attacker, struct entity* defender, struct move* move,
+                    enum item_id item_id);
+bool DoMoveLeer(struct entity* attacker, struct entity* defender, struct move* move,
+                enum item_id item_id);
+bool DoMoveFakeOut(struct entity* attacker, struct entity* defender, struct move* move,
+                   enum item_id item_id);
+bool DoMovePayDay(struct entity* attacker, struct entity* defender, struct move* move,
+                  enum item_id item_id);
+bool DoMoveCurse(struct entity* attacker, struct entity* defender, struct move* move,
+                 enum item_id item_id);
+bool DoMoveSuperpower(struct entity* attacker, struct entity* defender, struct move* move,
+                      enum item_id item_id);
+bool DoMoveDynamicPunch(struct entity* attacker, struct entity* defender, struct move* move,
+                        enum item_id item_id);
+bool DoMoveKnockOff(struct entity* attacker, struct entity* defender, struct move* move,
+                    enum item_id item_id);
+bool DoMoveSecretPower(struct entity* attacker, struct entity* defender, struct move* move,
+                       enum item_id item_id);
+bool DoMoveDizzyPunch(struct entity* attacker, struct entity* defender, struct move* move,
+                      enum item_id item_id);
+bool DoMoveImprison(struct entity* attacker, struct entity* defender, struct move* move,
+                    enum item_id item_id);
+bool DoMoveFeatherDance(struct entity* attacker, struct entity* defender, struct move* move,
+                        enum item_id item_id);
+bool DoMoveBeatUp(struct entity* attacker, struct entity* defender, struct move* move,
+                  enum item_id item_id);
+bool DoMoveBlastBurn(struct entity* attacker, struct entity* defender, struct move* move,
+                     enum item_id item_id);
+bool DoMoveCrushClaw(struct entity* attacker, struct entity* defender, struct move* move,
+                     enum item_id item_id);
+bool DoMoveBlazeKick(struct entity* attacker, struct entity* defender, struct move* move,
+                     enum item_id item_id);
+bool DoMovePresent(struct entity* attacker, struct entity* defender, struct move* move,
+                   enum item_id item_id);
+bool DoMoveEruption(struct entity* attacker, struct entity* defender, struct move* move,
+                    enum item_id item_id);
+bool DoMovePoisonTail(struct entity* attacker, struct entity* defender, struct move* move,
+                      enum item_id item_id);
+bool DoMoveRoar(struct entity* attacker, struct entity* defender, struct move* move,
+                enum item_id item_id);
+bool DoMoveDamageConstrict10(struct entity* attacker, struct entity* defender, struct move* move,
+                             enum item_id item_id);
+bool DoMoveWrap(struct entity* attacker, struct entity* defender, struct move* move,
+                enum item_id item_id);
+bool DoMoveMagnitude(struct entity* attacker, struct entity* defender, struct move* move,
+                     enum item_id item_id);
+bool DoMoveMistBall(struct entity* attacker, struct entity* defender, struct move* move,
+                    enum item_id item_id);
+bool DoMoveDestinyBond(struct entity* attacker, struct entity* defender, struct move* move,
+                       enum item_id item_id);
+bool DoMoveHiddenPower(struct entity* attacker, struct entity* defender, struct move* move,
+                       enum item_id item_id);
+bool DoMoveAttract(struct entity* attacker, struct entity* defender, struct move* move,
+                   enum item_id item_id);
+bool DoMoveCopycat(struct entity* attacker, struct entity* defender, struct move* move,
+                   enum item_id item_id);
+bool DoMoveFrustration(struct entity* attacker, struct entity* defender, struct move* move,
+                       enum item_id item_id);
+bool DoMoveLeechSeed(struct entity* attacker, struct entity* defender, struct move* move,
+                     enum item_id item_id);
+bool DoMoveDreamEater(struct entity* attacker, struct entity* defender, struct move* move,
+                      enum item_id item_id);
+bool DoMoveDragonRage(struct entity* attacker, struct entity* defender, struct move* move,
+                      enum item_id item_id);
+bool DoMoveDamageLowerSpecialDefense50(struct entity* attacker, struct entity* defender,
+                                       struct move* move, enum item_id item_id);
+bool DoMoveFling(struct entity* attacker, struct entity* defender, struct move* move,
+                 enum item_id item_id);
+bool DoHammerArm(struct entity* attacker, struct entity* defender, struct move* move,
+                 enum item_id item_id);
+bool DoMoveGastroAcid(struct entity* attacker, struct entity* defender, struct move* move,
+                      enum item_id item_id);
+bool DoMoveCloseCombat(struct entity* attacker, struct entity* defender, struct move* move,
+                       enum item_id item_id);
+bool DoMoveGuardSwap(struct entity* attacker, struct entity* defender, struct move* move,
+                     enum item_id item_id);
+bool DoMoveThunderFang(struct entity* attacker, struct entity* defender, struct move* move,
+                       enum item_id item_id);
+bool DoMoveDefog(struct entity* attacker, struct entity* defender, struct move* move,
+                 enum item_id item_id);
+bool DoMoveTrumpCard(struct entity* attacker, struct entity* defender, struct move* move,
+                     enum item_id item_id);
+bool DoMoveIceFang(struct entity* attacker, struct entity* defender, struct move* move,
+                   enum item_id item_id);
+bool DoMovePsychoShift(struct entity* attacker, struct entity* defender, struct move* move,
+                       enum item_id item_id);
+bool DoMoveEmbargo(struct entity* attacker, struct entity* defender, struct move* move,
+                   enum item_id item_id);
+bool DoMoveBrine(struct entity* attacker, struct entity* defender, struct move* move,
+                 enum item_id item_id);
+bool DoMoveNaturalGift(struct entity* attacker, struct entity* defender, struct move* move,
+                       enum item_id item_id);
+bool DoMoveGyroBall(struct entity* attacker, struct entity* defender, struct move* move,
+                    enum item_id item_id);
+bool DoMoveChargeBeam(struct entity* attacker, struct entity* defender, struct move* move,
+                      enum item_id item_id);
+bool DoMoveDamageEatItem(struct entity* attacker, struct entity* defender, struct move* move,
+                         enum item_id item_id);
+bool DoMoveLastResort(struct entity* attacker, struct entity* defender, struct move* move,
+                      enum item_id item_id);
+bool DoMoveDamageHpDependent(struct entity* attacker, struct entity* defender, struct move* move,
+                             enum item_id item_id);
+bool DoMoveHeartSwap(struct entity* attacker, struct entity* defender, struct move* move,
+                     enum item_id item_id);
+bool DoMovePowerSwap(struct entity* attacker, struct entity* defender, struct move* move,
+                     enum item_id item_id);
+bool DoMoveFeint(struct entity* attacker, struct entity* defender, struct move* move,
+                 enum item_id item_id);
+bool DoMoveFlareBlitz(struct entity* attacker, struct entity* defender, struct move* move,
+                      enum item_id item_id);
+bool DoMoveFireFang(struct entity* attacker, struct entity* defender, struct move* move,
+                    enum item_id item_id);
+bool DoMoveMiracleEye(struct entity* attacker, struct entity* defender, struct move* move,
+                      enum item_id item_id);
+bool DoMoveWakeUpSlap(struct entity* attacker, struct entity* defender, struct move* move,
+                      enum item_id item_id);
+bool DoMoveHeadSmash(struct entity* attacker, struct entity* defender, struct move* move,
+                     enum item_id item_id);
+bool DoMoveCaptivate(struct entity* attacker, struct entity* defender, struct move* move,
+                     enum item_id item_id);
+bool DoMoveDamageInlined(struct entity* attacker, struct entity* defender, struct move* move,
+                         enum item_id item_id);
+void GenerateStandardItem(struct item* item, enum item_id item_id,
+                          enum gen_item_stickiness sticky_type);
+void SpawnEnemyItemDropWrapper(struct entity* entity, struct position* pos, struct item* item,
+                               undefined4 param_4);
+void SpawnEnemyItemDrop(struct entity* entity, struct entity* item_entity, struct item* item,
+                        int param_4, int16_t* dir_xy, undefined param_6);
+bool TryGenerateUnownStoneDrop(struct item* item, enum monster_id monster_id);
 
 #endif
