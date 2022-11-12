@@ -35,6 +35,7 @@ extern uint32_t DUNGEON_GRID_COLUMN_BYTES;
 extern int32_t DEFAULT_MAX_POSITION;
 extern uint32_t OFFSET_OF_DUNGEON_GUARANTEED_ITEM_ID;
 extern struct fixed_room_tile_spawn_entry FIXED_ROOM_TILE_SPAWN_TABLE[11];
+extern struct item_id_16 TREASURE_BOX_1_ITEM_IDS[12];
 extern struct fixed_room_id_8 FIXED_ROOM_REVISIT_OVERRIDES[256];
 extern struct fixed_room_monster_spawn_entry FIXED_ROOM_MONSTER_SPAWN_TABLE[120];
 extern struct fixed_room_item_spawn_entry FIXED_ROOM_ITEM_SPAWN_TABLE[63];
@@ -74,5 +75,8 @@ extern struct exclusive_item_effect_id_8 EXCL_ITEM_EFFECTS_EVASION_BOOST[8];
 extern struct tile DEFAULT_TILE;
 extern bool HIDDEN_STAIRS_SPAWN_BLOCKED;
 extern void* FIXED_ROOM_DATA_PTR;
+extern int MONSTER_HEAL_HP_MAX;
+extern enum move_id ROCK_WRECKER_MOVE_ID;
+extern struct rgb MAP_COLOR_TABLE[9];
 
 #endif

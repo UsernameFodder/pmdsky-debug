@@ -9,6 +9,8 @@ int RunDungeon(struct dungeon_init* dungeon_init_data, struct dungeon* dungeon);
 bool EntityIsValid(struct entity* entity);
 enum floor_type GetFloorType(void);
 bool TryForcedLoss(bool skip_floor_end_check);
+bool IsBossFight(enum fixed_room_id fixed_room_id);
+bool IsCurrentFixedRoomBossFight(void);
 bool FixedRoomIsSubstituteRoom(void);
 bool StoryRestrictionsEnabled(void);
 void FadeToBlack(void);
@@ -22,6 +24,7 @@ void SubstitutePlaceholderStringTags(int string_id, struct entity* entity, undef
 bool UpdateMapSurveyorFlag(void);
 bool ItemIsActive(struct entity* entity, enum item_id item_id);
 void UpdateStatusIconFlags(struct entity* entity);
+void LoadMappaFileAttributes(int quick_saved, int param_2, undefined* special_process);
 bool IsOnMonsterSpawnList(enum monster_id monster_id);
 enum monster_id GetMonsterIdToSpawn(int spawn_weight);
 uint8_t GetMonsterLevelToSpawn(enum monster_id monster_id);
@@ -43,6 +46,7 @@ int CalcStatusDuration(struct entity* entity, int16_t* turn_range, bool iq_skill
 void DungeonRngUnsetSecondary(void);
 void DungeonRngSetSecondary(int i);
 void DungeonRngSetPrimary(void);
+void ChangeDungeonMusic(enum music_id music_id);
 void TrySwitchPlace(struct entity* user, struct entity* target);
 void ClearMonsterActionFields(void* monster_action_field);
 void SetMonsterActionFields(void* monster_action_field, struct action_16 action_id);
@@ -62,18 +66,28 @@ enum forced_loss_reason GetForcedLossReason(void);
 void BindTrapToTile(struct tile* tile, struct entity* trap, bool is_visible);
 void SpawnEnemyTrapAtPos(enum trap_id trap_id, int16_t x, int16_t y, uint8_t flags,
                          bool is_visible);
+void PerformLeaderAction(void);
 void ChangeLeader(void);
 void ResetDamageData(struct damage_data* damage);
+int GetTotalSpriteFileSize(enum monster_id monster_id);
 uint16_t GetSpriteIndex(enum monster_id monster_id);
+bool JoinedAtRangeCheck2Veneer(struct dungeon_id_8 joined_at);
 bool FloorNumberIsEven(void);
+enum monster_id GetKecleonIdToSpawnByFloor(void);
+void StoreSpriteFileIndexBothGenders(enum monster_id monster_id, int file_id);
+void LoadMonsterSpriteInner(enum monster_id monster_id);
+void SwapMonsterWanFileIndex(int src_id, int dst_id);
+void LoadMonsterSprite(enum monster_id monster_id, undefined param_2);
+void DeleteMonsterSpriteFile(enum monster_id monster_id);
+void DeleteAllMonsterSpriteFiles(void);
 void EuFaintCheck(bool non_team_member_fainted, bool set_unk_byte);
 void HandleFaint(struct entity* fainted_entity, union faint_reason faint_reason,
                  struct entity* killer);
 void UpdateAiTargetPos(struct entity* monster);
-enum monster_id GetKecleonIdToSpawnByFloor(void);
-void LoadMonsterSprite(enum monster_id monster_id, undefined param_2);
+void SetMonsterTypeAndAbility(struct entity* target);
 void TryActivateSlowStart(void);
 void TryActivateArtificialWeatherAbilities(void);
+int GetMonsterApparentId(struct entity* target, enum monster_id current_id);
 bool DefenderAbilityIsActive(struct entity* attacker, struct entity* defender,
                              enum ability_id ability_id, bool attacker_ability_enabled);
 bool IsMonster(struct entity* entity);
@@ -85,6 +99,7 @@ bool ExclusiveItemEffectIsActive(struct entity* entity, enum exclusive_item_effe
 struct entity* GetTeamMemberWithIqSkill(enum iq_skill_id iq_skill);
 bool TeamMemberHasEnabledIqSkill(enum iq_skill_id iq_skill);
 bool TeamLeaderIqSkillIsEnabled(enum iq_skill_id iq_skill);
+bool IsSatisfyingScenarioConditionToSpawn(enum monster_id monster_id);
 bool HasLowHealth(struct entity* entity);
 bool IsSpecialStoryAlly(struct monster* monster);
 bool IsExperienceLocked(struct monster* monster);
@@ -93,11 +108,13 @@ struct entity* SpawnMonster(struct spawned_monster_data* monster_data, bool cann
 void InitTeamMember(enum monster_id, int16_t x_position, int16_t y_position,
                     struct team_member* team_member_data, undefined param_5, undefined param_6,
                     undefined param_7, undefined param_8, undefined param_9);
+void InitMonster(struct monster* monster, bool flag);
 void ExecuteMonsterAction(struct entity* monster);
 bool HasStatusThatPreventsActing(struct entity* monster);
 int CalcSpeedStage(struct entity* entity, int counter_weight);
 int CalcSpeedStageWrapper(struct entity* entity);
 int GetNumberOfAttacks(struct entity* entity);
+void GetMonsterName(char* buffer, struct monster* target_info);
 bool IsMonsterCornered(struct entity* monster);
 bool CanAttackInDirection(struct entity* monster, enum direction_id direction);
 bool CanAiMonsterMoveInDirection(struct entity* monster, enum direction_id direction,
@@ -106,8 +123,12 @@ bool ShouldMonsterRunAway(struct entity* monster);
 bool ShouldMonsterRunAwayVariation(struct entity* monster, undefined param_2);
 bool NoGastroAcidStatus(struct entity* entity);
 bool AbilityIsActive(struct entity* entity, enum ability_id ability_id);
+bool AbilityIsActiveVeneer(struct entity* entity, enum ability_id ability_id);
+bool AbilityIsActiveAnyEntity(struct entity* user, enum ability_id ability_id);
 bool LevitateIsActive(struct entity* entity);
 bool MonsterIsType(struct entity* entity, enum type_id type_id);
+bool IsTypeAffectedByGravity(struct entity* entity, enum type_id type_id);
+bool HasTypeAffectedByGravity(struct entity* entity, enum type_id type_id);
 bool CanSeeInvisibleMonsters(struct entity* entity);
 bool HasDropeyeStatus(struct entity* entity);
 bool IqSkillIsEnabled(struct entity* entity, enum iq_skill_id iq_id);
@@ -115,6 +136,8 @@ enum type_id GetMoveTypeForMonster(struct entity* entity, struct move* move);
 int GetMovePower(struct entity* entity, struct move* move);
 void AddExpSpecial(struct entity* attacker, struct entity* defender, int base_exp);
 void EnemyEvolution(struct entity* enemy);
+bool TryDecreaseLevel(struct entity* user, struct entity* target, int n_levels);
+bool LevelUp(struct entity* user, struct entity* target, bool message, undefined4 param_4);
 void EvolveMonster(struct entity* monster, undefined4* param_2, enum monster_id new_monster_id);
 bool DisplayActions(struct entity* param_1);
 bool ApplyDamage(struct entity* attacker, struct entity* defender, struct damage_data* damage_data,
@@ -146,6 +169,7 @@ void CalcDamageFixedNoCategory(struct entity* attacker, struct entity* defender,
                                enum type_id attack_type, int16_t param_7, undefined4 param_8,
                                undefined4 param_9, undefined4 param_10);
 void ResetDamageCalcScratchSpace(void);
+bool IsRecruited(struct entity* user, struct entity* target);
 void TrySpawnMonsterAndTickSpawnCounter(void);
 bool AuraBowIsActive(struct entity* entity);
 int ExclusiveItemOffenseBoost(struct entity* entity, int move_category_idx);
@@ -205,8 +229,12 @@ bool TryInflictConfusedStatus(struct entity* user, struct entity* target, bool l
                               bool check_only);
 bool TryInflictCoweringStatus(struct entity* user, struct entity* target, bool log_failure,
                               bool check_only);
+bool TryRestoreHp(struct entity* user, struct entity* target, int hp_restoration);
 bool TryIncreaseHp(struct entity* user, struct entity* target, int hp_restoration, int max_hp_boost,
                    bool log_failure);
+void RevealItems(struct entity* user, struct entity* target);
+void RevealStairs(struct entity* user, struct entity* target);
+void RevealEnemies(struct entity* user, struct entity* target);
 bool TryInflictLeechSeedStatus(struct entity* user, struct entity* target, bool log_failure,
                                bool check_only);
 void TryInflictDestinyBond(struct entity* user, struct entity* target);
@@ -226,6 +254,8 @@ bool IsTargetInRange(struct entity* user, struct entity* target, enum direction_
                      int n_tiles);
 struct move_target_and_range GetEntityMoveTargetAndRange(struct entity* entity, struct move* move,
                                                          bool is_ai);
+bool IsInSpawnList(undefined* spawn_list, enum monster_id monster_id);
+int ChangeShayminForme(struct entity* entity, int forme);
 void ApplyItemEffect(undefined4 param_1, undefined4 param_2, undefined4 param_3,
                      struct entity* attacker, struct entity* defender, struct item* thrown_item);
 void ViolentSeedBoost(struct entity* attacker, struct entity* defender);
@@ -239,6 +269,7 @@ void TryWarp(struct entity* user, struct entity* target, enum warp_type warp_typ
              struct position position);
 bool MoveHitCheck(struct entity* attacker, struct entity* defender, struct move* move,
                   bool use_second_accuracy);
+bool IsHyperBeamVariant(struct move* move);
 bool DungeonRandOutcomeUserTargetInteraction(struct entity* user, struct entity* target,
                                              int percentage);
 bool DungeonRandOutcomeUserAction(struct entity* user, int percentage);
@@ -262,9 +293,17 @@ int CalcDamageFinal(struct entity* attacker, struct entity* defender, struct mov
 bool StatusCheckerCheck(struct entity* attacker, struct move* move);
 enum weather_id GetApparentWeather(struct entity* entity);
 void TryWeatherFormChange(struct entity* entity);
+int DigitCount(int n);
+void LoadTextureUi(void);
+int DisplayNumberTextureUi(int16_t x, int16_t y, int n, int ally_mode);
+int DisplayCharTextureUi(undefined* call_back_str, int16_t x, int16_t y, int char_id,
+                         int16_t param_5);
+void DisplayUi(void);
 struct tile* GetTile(int x, int y);
 struct tile* GetTileSafe(int x, int y);
+bool IsFullFloorFixedRoom(void);
 uint8_t GetStairsRoom(void);
+enum monster_id GetRandomSpawnMonsterID(void);
 bool GravityIsActive(void);
 bool IsSecretBazaar(void);
 bool ShouldBoostHiddenStairsSpawnChance(void);
@@ -345,6 +384,18 @@ enum hidden_stairs_type GetHiddenStairsType(struct dungeon_generation_info* gen_
                                             struct floor_properties* floor_props);
 void ResetHiddenStairsSpawn(void);
 void LoadFixedRoomData(void);
+int LoadFixedRoom(int param_1, int param_2, int param_3, undefined4 param_4);
+void OpenFixedBin(void);
+void CloseFixedBin(void);
+bool AreOrbsAllowed(enum fixed_room_id fixed_room_id);
+bool AreTileJumpsAllowed(enum fixed_room_id fixed_room_id);
+bool AreTrawlOrbsAllowed(enum fixed_room_id fixed_room_id);
+bool AreOrbsAllowedVeneer(enum fixed_room_id fixed_room_id);
+bool AreLateGameTrapsEnabled(enum fixed_room_id fixed_room_id);
+bool AreMovesEnabled(enum fixed_room_id fixed_room_id);
+bool IsRoomIlluminated(enum fixed_room_id fixed_room_id);
+enum monster_id GetMatchingMonsterId(enum monster_id monster_id, undefined4 param_2,
+                                     undefined4 param_3);
 void GenerateItemExplicit(struct item* item, enum item_id item_id, uint16_t quantity, bool sticky);
 void GenerateAndSpawnItem(enum item_id item_id, int16_t x, int16_t y, uint16_t quantity,
                           bool sticky, bool check_in_bag);
@@ -381,6 +432,7 @@ enum monster_id GetMissionEnemyMinionGroup(int i);
 void SetTargetMonsterNotFoundFlag(bool value);
 bool GetTargetMonsterNotFoundFlag(void);
 bool FloorHasMissionMonster(struct mission_destination_info* mission_dst);
+void GenerateMissionEggMonster(struct mission* mission);
 void LogMessageByIdWithPopupCheckUser(struct entity* user, int message_id);
 void LogMessageWithPopupCheckUser(struct entity* user, const char* message);
 void LogMessageByIdQuiet(struct entity* user, int message_id);
@@ -400,11 +452,13 @@ void OpenMessageLog(undefined4 param_1, undefined4 param_2);
 bool RunDungeonMode(undefined4* param_1, undefined4 param_2);
 void DisplayDungeonTip(struct message_tip* message_tip, bool log);
 void SetBothScreensWindowColorToDefault(void);
+int GetPersonalityIndex(struct monster* monster);
 void DisplayMessage(undefined4 param_1, int message_id, bool wait_for_input);
 void DisplayMessage2(undefined4 param_1, int message_id, bool wait_for_input);
 bool YesNoMenu(undefined param_1, int message_id, int default_option, undefined param_4);
 void DisplayMessageInternal(int message_id, bool wait_for_input, undefined4 param_3,
                             undefined4 param_4, undefined4 param_5, undefined4 param_6);
+void OpenMenu(undefined4 param_1, undefined4 param_2, bool param_3, undefined4 param_4);
 int OthersMenuLoop(void);
 undefined OthersMenu(void);
 bool IsMarowakTrainingMaze(void);
