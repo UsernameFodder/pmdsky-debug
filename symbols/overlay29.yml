@@ -173,6 +173,11 @@ overlay29:
           - 0x234987C
           - 0x234DDD0
           - 0x234EC14
+        JP:
+          - 0x2312538
+          - 0x2312DCC
+          - 0x23165F0
+          - 0x23364C4
       description: |-
         Checks if an entity pointer points to a valid entity (not entity type 0, which represents no entity).
         
@@ -202,6 +207,25 @@ overlay29:
         
         r0: if true, the function will not check for the end of the floor condition and will skip other (unknown) actions in case of forced loss.
         return: true if the forced loss happens, false otherwise
+    - name: IsBossFight
+      address:
+        EU: 0x22E11A4
+        NA: 0x22E0864
+        JP: 0x22E1EF4
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: fixed_room_id
+        return: bool
+    - name: IsCurrentFixedRoomBossFight
+      address:
+        EU: 0x22E11C0
+        NA: 0x22E0880
+        JP: 0x22E1F10
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        return: bool
     - name: FixedRoomIsSubstituteRoom
       address:
         EU: 0x22E120C
@@ -344,6 +368,9 @@ overlay29:
           - 0x2311BF8
           - 0x231513C
           - 0x2347B50
+        JP:
+          - 0x2300CA8
+          - 0x2316614
       description: |-
         Checks if a monster is holding a certain item that isn't disabled by Klutz.
         
@@ -363,6 +390,17 @@ overlay29:
         Also sets icon flags for statuses::exposed, statuses::grudge, critical HP and lowered stats with explicit checks, and applies the effect of the Identifier Orb (see dungeon::identify_orb_flag).
         
         r0: entity pointer
+    - name: LoadMappaFileAttributes
+      address:
+        EU: 0x22E796C
+        NA: 0x22E6FBC
+        JP: 0x22E862C
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: quick_saved
+        r1: ???
+        r2: special_process
     - name: IsOnMonsterSpawnList
       address:
         EU: 0x22E86FC
@@ -547,6 +585,9 @@ overlay29:
         NA:
           - 0x22EAB20
           - 0x22EAB50
+        JP:
+          - 0x22EC188
+          - 0x22EC1B8
       description: |-
         Returns the result of a possibly biased coin flip (a Bernoulli random variable) with some success probability p, using the dungeon PRNG.
         
@@ -592,6 +633,15 @@ overlay29:
         Sets the dungeon PRNG to use the primary LCG for subsequent random number generation.
         
         No params.
+    - name: ChangeDungeonMusic
+      address:
+        EU: 0x22EB7C4
+        NA: 0x22EAE14
+        JP: 0x22EC47C
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: music ID
     - name: TrySwitchPlace
       address:
         EU: 0x22EBB28
@@ -771,6 +821,17 @@ overlay29:
         r2: y position
         r3: flags
         stack[0]: visibility flag
+    - name: PerformLeaderAction
+      address:
+        EU: 0x22F1890
+        NA: 0x22F0EDC
+        JP: 0x22F24DC
+      description: |-
+        This appears to be the function that actually performs the leader's action within RunLeaderTurn.
+        
+        Note: unverified, ported from Irdkwia's notes
+        
+        No params.
     - name: ChangeLeader
       address:
         EU: 0x22F42F0
@@ -791,6 +852,18 @@ overlay29:
         Zeroes the damage data struct, which is output by the damage calculation function.
         
         r0: damage data pointer
+    - name: GetTotalSpriteFileSize
+      address:
+        EU: 0x22F7A20
+        NA: 0x22F7068
+        JP: 0x22F8634
+      description: |-
+        Checks Castform and Cherrim
+        
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: monster ID
+        return: sprite file size
     - name: GetSpriteIndex
       address:
         EU: 0x22F7D40
@@ -816,7 +889,7 @@ overlay29:
         NA: 0x22F73B4
         JP: 0x22F897C
       description: |-
-        Checks if the current dungeon floor number is even.
+        Checks if the current dungeon floor number is even (probably to determine whether an enemy spawn should be female).
         
         Has a special check to return false for Labyrinth Cave B10F (the Gabite boss fight).
         
@@ -830,6 +903,35 @@ overlay29:
         If the current floor number is even, returns female Kecleon's id (0x3D7), otherwise returns male Kecleon's id (0x17F).
         
         return: monster ID
+    - name: StoreSpriteFileIndexBothGenders
+      address:
+        EU: 0x22F7DC4
+        NA: 0x22F740C
+        JP: 0x22F89D4
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: monster ID
+        r1: file ID
+    - name: LoadMonsterSpriteInner
+      address:
+        EU: 0x22F7E8C
+        NA: 0x22F74D4
+        JP: 0x22F8A9C
+      description: |-
+        This is called by LoadMonsterSprite a bunch of times.
+        
+        r0: monster ID
+    - name: SwapMonsterWanFileIndex
+      address:
+        EU: 0x22F7F8C
+        NA: 0x22F75D4
+        JP: 0x22F8B98
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: src_id
+        r1: dst_id
     - name: LoadMonsterSprite
       address:
         EU: 0x22F800C
@@ -838,8 +940,28 @@ overlay29:
       description: |-
         Loads the sprite of the specified monster to use it in a dungeon.
         
-        r0: Monster id
+        Irdkwia's notes: Handles Castform/Cherrim/Deoxys
+        
+        r0: monster ID
         r1: ?
+    - name: DeleteMonsterSpriteFile
+      address:
+        EU: 0x22F8120
+        NA: 0x22F7768
+        JP: 0x22F8D2C
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: monster ID
+    - name: DeleteAllMonsterSpriteFiles
+      address:
+        EU: 0x22F81BC
+        NA: 0x22F7804
+        JP: 0x22F8DC4
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        No params.
     - name: EuFaintCheck
       address:
         EU: 0x22F88E8
@@ -869,6 +991,17 @@ overlay29:
         Given a monster, updates its target_pos field based on its current position and the direction in which it plans to attack.
         
         r0: Entity pointer
+    - name: SetMonsterTypeAndAbility
+      address:
+        EU: 0x22F9BA0
+        NA: 0x22F9194
+        JP: 0x22FA758
+      description: |-
+        Checks Forecast ability
+        
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: target entity pointer
     - name: TryActivateSlowStart
       address:
         EU: 0x22F9C48
@@ -887,6 +1020,17 @@ overlay29:
         Runs a check over all monsters on the field for abilities that affect the weather and changes the floor's weather accordingly.
         
         No params
+    - name: GetMonsterApparentId
+      address:
+        EU: 0x22F9E14
+        NA: 0x22F9408
+        JP: 0x22FA9CC
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: target entity pointer
+        r1: current_id
+        return: ?
     - name: DefenderAbilityIsActive
       address:
         EU:
@@ -911,6 +1055,7 @@ overlay29:
           - 0x232BDD0
           - 0x232DE20
           - 0x2332A0C
+        JP: 0x2302F74
       description: |-
         Checks if a defender has an active ability that isn't disabled by an attacker's Mold Breaker.
         
@@ -1017,6 +1162,9 @@ overlay29:
           - 0x23329E8
           - 0x2347B80
           - 0x23482B0
+        JP:
+          - 0x2315CC0
+          - 0x2349638
       description: |-
         Checks if a monster is a team member under the effects of a certain exclusive item effect.
         
@@ -1052,6 +1200,16 @@ overlay29:
         Returns true the leader has the specified iq skill.
         
         r0: iq skill id
+        return: bool
+    - name: IsSatisfyingScenarioConditionToSpawn
+      address:
+        EU: 0x22FBFF8
+        NA: 0x22FB5EC
+        JP: 0x22FCAC0
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: monster ID
         return: bool
     - name: HasLowHealth
       address:
@@ -1124,6 +1282,16 @@ overlay29:
         stack[2]: ?
         stack[3]: ?
         stack[4]: ?
+    - name: InitMonster
+      address:
+        EU: 0x22FE7BC
+        NA: 0x22FDDC0
+        JP: 0x22FF1B0
+      description: |-
+        Initializes a monster struct.
+        
+        r0: pointer to monster to initialize
+        r1: some flag
     - name: ExecuteMonsterAction
       address:
         EU: 0x22FEEDC
@@ -1178,6 +1346,16 @@ overlay29:
         
         r0: pointer to entity
         returns: int
+    - name: GetMonsterName
+      address:
+        EU: 0x2300B90
+        NA: 0x2300164
+        JP: 0x2301538
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: buffer
+        r1: TargetInfo
     - name: SprintfStatic
       address:
         EU: 0x2300CF4
@@ -1267,6 +1445,30 @@ overlay29:
         r0: entity pointer
         r1: ability ID
         return: bool
+    - name: AbilityIsActiveVeneer
+      address:
+        EU: 0x23027A4
+        NA: 0x2301D78
+        JP: 0x23032D0
+      description: |-
+        Likely a linker-generated veneer for AbilityIsActive.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
+        
+        r0: entity pointer
+        r1: ability ID
+        return: bool
+    - name: AbilityIsActiveAnyEntity
+      address:
+        EU: 0x23027B0
+        NA: 0x2301D84
+        JP: 0x23032DC
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: user entity pointer
+        r1: ability ID
+        return: bool
     - name: LevitateIsActive
       address:
         EU: 0x2302844
@@ -1286,6 +1488,28 @@ overlay29:
         Checks if a monster is a given type.
         
         r0: entity pointer
+        r1: type ID
+        return: bool
+    - name: IsTypeAffectedByGravity
+      address:
+        EU: 0x23028B4
+        NA: 0x2301E88
+        JP: 0x23033D8
+      description: |-
+        Checks if Gravity is active and that the given type is affected (i.e., Flying type).
+        
+        r0: target entity pointer (unused)
+        r1: type ID
+        return: bool
+    - name: HasTypeAffectedByGravity
+      address:
+        EU: 0x23028D8
+        NA: 0x2301EAC
+        JP: 0x23033FC
+      description: |-
+        Checks if Gravity is active and that the given monster is of an affected type (i.e., Flying type).
+        
+        r0: target entity pointer
         r1: type ID
         return: bool
     - name: CanSeeInvisibleMonsters
@@ -1366,6 +1590,31 @@ overlay29:
         Checks if the specified enemy should evolve because it just defeated an ally, and if so, attempts to evolve it.
         
         r0: Pointer to the enemy to check
+    - name: TryDecreaseLevel
+      address:
+        EU: 0x23039B4
+        NA: 0x2302F88
+        JP: 0x23044D4
+      description: |-
+        Decrease the target monster's level if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: number of levels to decrease
+        return: success flag
+    - name: LevelUp
+      address:
+        EU: 0x2303A68
+        NA: 0x230303C
+        JP: 0x2304588
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: message flag?
+        r3: ?
+        return: success flag?
     - name: EvolveMonster
       address:
         EU: 0x23046A8
@@ -1466,6 +1715,7 @@ overlay29:
       address:
         EU: 0x230C620
         NA: 0x230BBAC
+        JP: 0x230D100
       description: |-
         Probably the damage calculation function.
         
@@ -1553,6 +1803,17 @@ overlay29:
         CalcDamage seems to use scratch space of some kind, which this function zeroes.
         
         No params.
+    - name: IsRecruited
+      address:
+        EU: 0x230E644
+        NA: 0x230DBD0
+        JP: 0x230F110
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        return: bool
     - name: TrySpawnMonsterAndTickSpawnCounter
       address:
         EU: 0x230F130
@@ -1732,6 +1993,7 @@ overlay29:
       address:
         EU: 0x23130C4
         NA: 0x2312664
+        JP: 0x2313B60
       description: |-
         Inflicts the Poisoned status condition on a target monster if possible.
         
@@ -1744,6 +2006,7 @@ overlay29:
       address:
         EU: 0x231339C
         NA: 0x231293C
+        JP: 0x2313E34
       description: |-
         Inflicts the Badly Poisoned status condition on a target monster if possible.
         
@@ -1831,6 +2094,7 @@ overlay29:
       address:
         EU: 0x231405C
         NA: 0x23135FC
+        JP: 0x2314AE8
       description: |-
         Lowers the specified offensive stat on the target monster.
         
@@ -1882,6 +2146,7 @@ overlay29:
       address:
         EU: 0x23147A0
         NA: 0x2313D40
+        JP: 0x2315224
       description: |-
         Applies a multiplier to the specified offensive stat on the target monster.
         
@@ -1929,7 +2194,7 @@ overlay29:
         r0: user entity pointer
         r1: target entity pointer
         r2: stat index
-        r3: ?
+        r3: ? (Irdkwia's notes say this is the number of stages, but I'm pretty sure that's incorrect)
     - name: TryInflictCringeStatus
       address:
         EU: 0x2314E48
@@ -2055,9 +2320,9 @@ overlay29:
         return: Whether or not the status could be inflicted
     - name: TryInflictCoweringStatus
       address:
-        EU: 0x2315CCC
+        EU: 0x2315BCC
         NA: 0x231516C
-        JP: 0x2316744
+        JP: 0x2316644
       description: |-
         Inflicts the Cowering status condition on a target monster if possible.
         
@@ -2066,6 +2331,18 @@ overlay29:
         r2: flag to log a message on failure
         r3: flag to only perform the check for inflicting without actually inflicting
         return: Whether or not the status could be inflicted
+    - name: TryRestoreHp
+      address:
+        EU: 0x2315CCC
+        NA: 0x231526C
+        JP: 0x2316744
+      description: |-
+        Restore HP of the target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: HP to restore
+        return: success flag
     - name: TryIncreaseHp
       address:
         EU: 0x2315D44
@@ -2080,6 +2357,36 @@ overlay29:
         r3: max HP boost
         stack[0]: flag to log a message on failure
         return: Success flag
+    - name: RevealItems
+      address:
+        EU: 0x2316070
+        NA: 0x2315610
+        JP: 0x2316AE8
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: RevealStairs
+      address:
+        EU: 0x2316100
+        NA: 0x23156A0
+        JP: 0x2316B78
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: RevealEnemies
+      address:
+        EU: 0x23161BC
+        NA: 0x231575C
+        JP: 0x2316C34
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: user entity pointer
+        r1: target entity pointer
     - name: TryInflictLeechSeedStatus
       address:
         EU: 0x231624C
@@ -2230,6 +2537,37 @@ overlay29:
         r1: move pointer
         r2: AI flag (same as GetMoveTargetAndRange)
         return: move target and range
+    - name: IsInSpawnList
+      address:
+        EU: 0x231BE5C
+        NA: 0x231B3FC
+        JP: 0x231C8C8
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: spawn_list_ptr
+        r1: monster ID
+        return: bool
+    - name: ChangeShayminForme
+      address:
+        EU: 0x231BF4C
+        NA: 0x231B4EC
+        JP: 0x231C9B8
+      description: |-
+        forme:
+          1: change from Land to Sky
+          2: change from Sky to Land
+        result:
+          0: not Shaymin
+          1: not correct Forme
+          2: frozen
+          3: ok
+        
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: Target
+        r1: forme
+        return: result
     - name: ApplyItemEffect
       address:
         EU: 0x231C0EC
@@ -2332,6 +2670,18 @@ overlay29:
         r2: Pointer to move data
         r3: True if the move's first accuracy (accuracy1) should be used, false if its second accuracy (accuracy2) should be used instead.
         returns: True if the move hits, false if it misses.
+    - name: IsHyperBeamVariant
+      address:
+        EU: 0x2324F9C
+        NA: 0x2324534
+        JP: 0x23259C4
+      description: |-
+        Checks if a move is a Hyper Beam variant that requires a a turn to recharge.
+        
+        Include moves: Frenzy Plant, Hydro Cannon, Hyper Beam, Blast Burn, Rock Wrecker, Giga Impact, Roar of Time
+        
+        r0: move
+        return: bool
     - name: DungeonRandOutcomeUserTargetInteraction
       address:
         EU: 0x232539C
@@ -2448,6 +2798,7 @@ overlay29:
       address:
         EU: 0x232F2A4
         NA: 0x232E864
+        JP: 0x232FC60
       description: |-
         Handles the effects that happen after a move is used. Includes a loop that is run for each target, mutiple ability checks and the giant switch statement that executes the effect of the move used given its ID.
         
@@ -2529,6 +2880,63 @@ overlay29:
         Tries to change a monster into one of its weather-related alternative forms. Applies to Castform and Cherrim, and checks for their unique abilities.
         
         r0: pointer to entity
+    - name: DigitCount
+      address:
+        EU: 0x23360B0
+        NA: 0x2335670
+        JP: 0x2336A5C
+      description: |-
+        Counts the number of digits in a nonnegative integer.
+        
+        If the number is negative, it is cast to a uint16_t before counting digits.
+        
+        r0: int
+        return: number of digits in int
+    - name: LoadTextureUi
+      address:
+        EU: 0x2336100
+        NA: 0x23356C0
+        JP: 0x2336AAC
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        No params.
+    - name: DisplayNumberTextureUi
+      address:
+        EU: 0x23362CC
+        NA: 0x2335880
+        JP: 0x2336C50
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: x position
+        r1: y position
+        r2: number
+        r3: ally_mode
+        return: xsize
+    - name: DisplayCharTextureUi
+      address:
+        EU: 0x23363D4
+        NA: 0x2335988
+        JP: 0x2336D58
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: call_back_str
+        r1: x position
+        r2: y position
+        r3: char_id
+        stack[0]: ?
+        return: ?
+    - name: DisplayUi
+      address:
+        EU: 0x233645C
+        NA: 0x2335A10
+        JP: 0x2336DE0
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        No params.
     - name: GetTile
       address:
         EU: 0x2336CCC
@@ -2551,6 +2959,17 @@ overlay29:
         r0: x position
         r1: y position
         return: tile pointer
+    - name: IsFullFloorFixedRoom
+      address:
+        EU: 0x2336DA4
+        NA: 0x23361D4
+        JP: 0x23375A4
+      description: |-
+        Checks if the current fixed room on the dungeon generation info corresponds to a fixed, full-floor layout.
+        
+        The first non-full-floor fixed room is 0xA5, which is for Sealed Chambers.
+        
+        return: bool
     - name: GetStairsRoom
       address:
         EU: 0x2336FF8
@@ -2560,6 +2979,15 @@ overlay29:
         Returns the index of the room that contains the stairs
         
         return: Room index
+    - name: GetRandomSpawnMonsterID
+      address:
+        EU: 0x2338B68
+        NA: 0x2337F98
+        JP: 0x233935C
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        return: monster ID?
     - name: GravityIsActive
       address:
         EU: 0x2338F60
@@ -3368,6 +3796,122 @@ overlay29:
         Loads fixed room data from BALANCE/fixed.bin into the buffer pointed to by FIXED_ROOM_DATA_PTR.
         
         No params.
+    - name: LoadFixedRoom
+      address:
+        EU: 0x2344A04
+        NA: 0x2343E20
+        JP: 0x23451E4
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OpenFixedBin
+      address:
+        EU: 0x2344C38
+        NA: 0x2344054
+        JP: 0x2345418
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        No params.
+    - name: CloseFixedBin
+      address:
+        EU: 0x2344C6C
+        NA: 0x2344088
+        JP: 0x234544C
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        No params.
+    - name: AreOrbsAllowed
+      address:
+        EU: 0x2344C90
+        NA: 0x23440AC
+        JP: 0x2345470
+      description: |-
+        Checks if orbs are usable in the given fixed room.
+        
+        Always true if not a full-floor fixed room.
+        
+        r0: fixed room ID
+        return: bool
+    - name: AreTileJumpsAllowed
+      address:
+        EU: 0x2344CC0
+        NA: 0x23440DC
+        JP: 0x23454A0
+      description: |-
+        Checks if tile jumps (warping, being blown away, and leaping) are allowed in the given fixed room.
+        
+        Always true if not a full-floor fixed room.
+        
+        r0: fixed room ID
+        return: bool
+    - name: AreTrawlOrbsAllowed
+      address:
+        EU: 0x2344CF0
+        NA: 0x234410C
+        JP: 0x23454D0
+      description: |-
+        Checks if Trawl Orbs work in the given fixed room.
+        
+        Always true if not a full-floor fixed room.
+        
+        r0: fixed room ID
+        return: bool
+    - name: AreOrbsAllowedVeneer
+      address:
+        EU: 0x2344D20
+        NA: 0x234413C
+        JP: 0x2345500
+      description: |-
+        Likely a linker-generated veneer for InitMemAllocTable.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
+        
+        r0: fixed room ID
+        return: bool
+    - name: AreLateGameTrapsEnabled
+      address:
+        EU: 0x2344D2C
+        NA: 0x2344148
+        JP: 0x234550C
+      description: |-
+        Check if late-game traps (Summon, Pitfall, and Pokémon traps) work in the given fixed room.
+        
+        Or disabled? This function, which Irdkwia's notes label as a disable check, check the struct field labeled in End's notes as an enable flag.
+        
+        r0: fixed room ID
+        return: bool
+    - name: AreMovesEnabled
+      address:
+        EU: 0x2344D44
+        NA: 0x2344160
+        JP: 0x2345524
+      description: |-
+        Checks if moves (excluding the regular attack) are usable in the given fixed room.
+        
+        r0: fixed room ID
+        return: bool
+    - name: IsRoomIlluminated
+      address:
+        EU: 0x2344D5C
+        NA: 0x2344178
+        JP: 0x234553C
+      description: |-
+        Checks if the given fixed room is fully illuminated.
+        
+        r0: fixed room ID
+        return: bool
+    - name: GetMatchingMonsterId
+      address:
+        EU: 0x2344D74
+        NA: 0x2344190
+        JP: 0x2345554
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: monster ID
+        r1: ?
+        r2: ?
+        return: monster ID
     - name: GenerateItemExplicit
       address:
         EU: 0x2344F98
@@ -3728,6 +4272,17 @@ overlay29:
         
         r0: mission destination info pointer
         return: bool
+    - name: GenerateMissionEggMonster
+      address:
+        EU: 0x234A4A0
+        NA: 0x23498A0
+        JP: 0x234AB90
+      description: |-
+        Generates the monster ID in the egg from the given mission. Uses the base form of the monster.
+        
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: mission struct
     - name: LogMessageByIdWithPopupCheckUser
       address:
         EU: 0x234BEA4
@@ -3826,6 +4381,7 @@ overlay29:
       address:
         EU: 0x234C0BC
         NA: 0x234B4BC
+        JP: 0x234C72C
       description: |-
         Logs a message in the message log alongside a message popup.
         
@@ -3894,6 +4450,16 @@ overlay29:
         If you're in a special episode, they turn green , otherwise, they turn blue or pink depending on your character's sex
         
         No params
+    - name: GetPersonalityIndex
+      address:
+        EU: 0x234DBEC
+        NA: 0x234CFEC
+        JP: 0x234E250
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: monster pointer
+        return: ?
     - name: DisplayMessage
       address:
         EU: 0x234DE58
@@ -3938,6 +4504,12 @@ overlay29:
         r3: ?
         stack[0]: ?
         stack[1]: ?
+    - name: OpenMenu
+      address:
+        EU: 0x234E9F4
+        NA: 0x234DDF4
+        JP: 0x234F080
+      description: "Note: unverified, ported from Irdkwia's notes"
     - name: OthersMenuLoop
       address:
         EU: 0x23503CC
@@ -5965,22 +6537,39 @@ overlay29:
       address:
         EU: 0x23509DC
         NA: 0x234FDD0
+        JP: 0x2351050
       length:
         EU: 0x2C
         NA: 0x2C
+        JP: 0x2C
       description: |-
         Table of tiles that can spawn in fixed rooms, pointed into by the FIXED_ROOM_TILE_SPAWN_TABLE.
         
         This is an array of 11 4-byte entries containing info about one tile each. Info includes the trap ID if a trap, room ID, and flags.
         
         type: struct fixed_room_tile_spawn_entry[11]
+    - name: TREASURE_BOX_1_ITEM_IDS
+      address:
+        EU: 0x2350A08
+        NA: 0x234FDFC
+        JP: 0x235107C
+      length:
+        EU: 0x18
+        NA: 0x18
+        JP: 0x18
+      description: |-
+        Item IDs for variant 1 of each of the treasure box items (ITEM_*_BOX_1).
+        
+        type: struct item_id_16[12]
     - name: FIXED_ROOM_REVISIT_OVERRIDES
       address:
         EU: 0x2350A20
         NA: 0x234FE14
+        JP: 0x2351094
       length:
         EU: 0x100
         NA: 0x100
+        JP: 0x100
       description: |-
         Table of fixed room IDs, which if nonzero, overrides the normal fixed room ID for a floor (which is used to index the table) if the dungeon has already been cleared previously.
         
@@ -5991,9 +6580,11 @@ overlay29:
       address:
         EU: 0x2350B20
         NA: 0x234FF14
+        JP: 0x2351194
       length:
         EU: 0x1E0
         NA: 0x1E0
+        JP: 0x1E0
       description: |-
         Table of monsters that can spawn in fixed rooms, pointed into by the FIXED_ROOM_ENTITY_SPAWN_TABLE.
         
@@ -6004,9 +6595,11 @@ overlay29:
       address:
         EU: 0x2350D00
         NA: 0x23500F4
+        JP: 0x2351374
       length:
         EU: 0x1F8
         NA: 0x1F8
+        JP: 0x1F8
       description: |-
         Table of items that can spawn in fixed rooms, pointed into by the FIXED_ROOM_ENTITY_SPAWN_TABLE.
         
@@ -6017,9 +6610,11 @@ overlay29:
       address:
         EU: 0x2350EF8
         NA: 0x23502EC
+        JP: 0x2351374
       length:
         EU: 0xC9C
         NA: 0xC9C
+        JP: 0xC9C
       description: |-
         Table of entities (items, monsters, tiles) that can spawn in fixed rooms, which is indexed into by the main data structure for each fixed room.
         
@@ -6353,3 +6948,26 @@ overlay29:
         EU: 0x4
         NA: 0x4
       description: "[Runtime] Pointer to decoded fixed room data loaded from the BALANCE/fixed.bin file."
+    - name: MONSTER_HEAL_HP_MAX
+      address:
+        NA: 0x23152E0
+      length:
+        NA: 0x4
+      description: The maximum amount of HP a monster can have (999).
+    - name: ROCK_WRECKER_MOVE_ID
+      address:
+        NA: 0x23245A0
+      length:
+        NA: 0x4
+      description: The move ID for Rock Wrecker (453).
+    - name: MAP_COLOR_TABLE
+      address:
+        NA: 0x2352FD0
+      length:
+        NA: 0x24
+      description: |-
+        In order: white, black, red, green, blue, magenta, dark pink, chartreuse, light orange
+        
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: struct rgb[9]

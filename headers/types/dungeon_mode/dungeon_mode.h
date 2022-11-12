@@ -277,8 +277,8 @@ struct monster {
     uint8_t sp_atk; // 0x1B
     uint8_t def;    // 0x1C
     uint8_t sp_def; // 0x1D
-    undefined field_0x1e;
-    undefined field_0x1f;
+    uint8_t field_0x1e;
+    uint8_t field_0x1f;
     int exp;                                      // 0x20: Total Exp. Points
     struct monster_stat_modifiers stat_modifiers; // 0x24
     int16_t hidden_power_base_power;              // 0x44
