@@ -91,6 +91,23 @@ def revision_str(revision: Optional[str]) -> str:
     return "[current]" if revision is None else revision
 
 
+def ensure_revision_exists(revision: str):
+    """Make sure the given revision exists.
+    See https://stackoverflow.com/questions/18515488/how-to-check-if-the-commit-exists-in-a-git-repository-by-its-sha-1
+
+    Args:
+        revision (str): git revision
+
+    Raises:
+        ValueError: revision does not exist
+    """
+    try:
+        git_cmd(["cat-file", "-e", f"{revision}^{{commit}}"])
+    except subprocess.CalledProcessError as e:
+        # Invalid revision
+        raise ValueError(e.stderr.decode())
+
+
 def open_file_at_revision(path: Path, revision: Optional[str]) -> TextIO:
     """Read a file from the repository as it was at the given revision.
 
@@ -115,19 +132,13 @@ def open_file_at_revision(path: Path, revision: Optional[str]) -> TextIO:
     if revision is None:
         return path.open("r")
 
+    ensure_revision_exists(revision)
     try:
         return StringIO(git_cmd(["show", f"{revision}:{path_from_root}"]))
     except subprocess.CalledProcessError as e:
-        err_str = e.stderr.decode()
-        # If the path doesn't exist, raise a special error so we can handle it
-        if (
-            f"path '{path_from_root}' does not exist in '{revision}'" in err_str
-            or f"path '{path_from_root}' exists on disk, but not in '{revision}'"
-            in err_str
-        ):
-            raise FileNotFoundError(err_str)
-        print(err_str, file=sys.stderr)
-        raise
+        # Since we already made sure the revision exists, assume a
+        # CalledProcessError means the file doesn't exist in the revision
+        raise FileNotFoundError(e.stderr.decode())
 
 
 class SymbolPath:
@@ -1025,6 +1036,25 @@ if __name__ == "__main__":
         args.path = [Path(s) for s in sys.argv[n + 1 :]]
     except ValueError:
         args = parser.parse_args()
+
+    # git diff supports commit range syntax (a..b and a...b), so we should too.
+    # But having args.base being a range would break other things, so
+    # explicitly convert the commit range to a base and target revision.
+    if args.target is None and ".." in args.base:
+        sep = "..." if "..." in args.base else ".."
+        args.base, args.target = args.base.split(sep, 1)
+
+    # Ensure that any specified revisions exist up-front, so we can print nicer
+    # error messages
+    try:
+        ensure_revision_exists(args.base)
+    except ValueError:
+        raise SystemExit(f"fatal: invalid revision {args.base}")
+    if args.target is not None:
+        try:
+            ensure_revision_exists(args.target)
+        except ValueError:
+            raise SystemExit(f"fatal: invalid revision {args.target}")
 
     if not args.path:
         # Default to all modified symbol tables
