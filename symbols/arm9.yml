@@ -5,18 +5,21 @@ arm9:
     - JP
     - EU-ITCM
     - NA-ITCM
+    - JP-ITCM
   address:
     EU: 0x2000000
     NA: 0x2000000
     JP: 0x2000000
     EU-ITCM: 0x1FF8000
     NA-ITCM: 0x1FF8000
+    JP-ITCM: 0x1FF8000
   length:
     EU: 0xB7D38
     NA: 0xB73F8
     JP: 0xB8CB8
     EU-ITCM: 0x4000
     NA-ITCM: 0x4000
+    JP-ITCM: 0x4060
   description: |-
     The main ARM9 binary.
     
