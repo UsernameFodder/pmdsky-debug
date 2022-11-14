@@ -66,7 +66,7 @@ enum forced_loss_reason GetForcedLossReason(void);
 void BindTrapToTile(struct tile* tile, struct entity* trap, bool is_visible);
 void SpawnEnemyTrapAtPos(enum trap_id trap_id, int16_t x, int16_t y, uint8_t flags,
                          bool is_visible);
-void PerformLeaderAction(void);
+void SetLeaderAction(void);
 void ChangeLeader(void);
 void ResetDamageData(struct damage_data* damage);
 int GetTotalSpriteFileSize(enum monster_id monster_id);

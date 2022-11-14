@@ -821,15 +821,16 @@ overlay29:
         r2: y position
         r3: flags
         stack[0]: visibility flag
-    - name: PerformLeaderAction
+    - name: SetLeaderAction
       address:
         EU: 0x22F1890
         NA: 0x22F0EDC
         JP: 0x22F24DC
       description: |-
-        This appears to be the function that actually performs the leader's action within RunLeaderTurn.
+        Sets the leader's action field depending on the inputs given by the player.
         
-        Note: unverified, ported from Irdkwia's notes
+        This function also accounts for other special situations that can force a certain action, such as when the leader is running. The function also takes care of opening the main menu when X is pressed.
+        The function generally doesn't return until the player has an action set.
         
         No params.
     - name: ChangeLeader
