@@ -384,7 +384,9 @@ struct monster {
     undefined field_0x164;
     undefined field_0x165;
     undefined field_0x166;
-    undefined field_0x167;
+    // 0x167: Set to true when the monster receives a critical hit. If true when the monster
+    // attacks, Anger Point will activate. Set to false after the monster attacks.
+    bool anger_point_flag;
     undefined field_0x168;
     undefined field_0x169;
     // 0x16A: If true, after the monster spawns, it will turn in the specified direction and
