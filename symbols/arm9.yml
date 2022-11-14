@@ -3273,6 +3273,26 @@ arm9:
         r0: monster ID
         return: multiplier as a binary fixed-point number with 8 fraction bits.
   data:
+    - name: ARM9_HEADER
+      address:
+        EU: 0x2000000
+        NA: 0x2000000
+        JP: 0x2000000
+      length:
+        EU: 0x800
+        NA: 0x800
+        JP: 0x800
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: SDK_STRINGS
+      address:
+        EU: 0x2000BA0
+        NA: 0x2000BA0
+        JP: 0x2000BA0
+      length:
+        EU: 0xCC
+        NA: 0xCC
+        JP: 0xCC
+      description: "Note: unverified, ported from Irdkwia's notes"
     - name: DEFAULT_MEMORY_ARENA_SIZE
       address:
         EU: 0x2000E58
@@ -3357,16 +3377,73 @@ arm9:
       address:
         EU: 0x2092EE4
         NA: 0x2092AE8
+        JP: 0x2092DD0
       length:
         EU: 0x2000
         NA: 0x4000
+        JP: 0x2000
+    - name: AVAILABLE_ITEMS_IN_GROUP_TABLE
+      address:
+        EU: 0x2095130
+        NA: 0x2094D34
+        JP: 0x2095028
+      length:
+        EU: 0x3200
+        NA: 0x3200
+        JP: 0x3200
+      description: |-
+        100*0x80
+        Linked to the dungeon group id
+        
+        Note: unverified, ported from Irdkwia's notes
+    - name: ARM9_UNKNOWN_TABLE__NA_2097FF8
+      address:
+        EU: 0x2098444
+        NA: 0x2097FF8
+        JP: 0x20982EC
+      length:
+        EU: 0x40
+        NA: 0x40
+        JP: 0x40
+      description: |-
+        16*0x4 (0x2+0x2)
+        
+        Note: unverified, ported from Irdkwia's notes
+    - name: KECLEON_SHOP_ITEM_TABLE_LISTS_1
+      address:
+        EU: 0x2098504
+        NA: 0x20980C0
+        JP: 0x20983B4
+      length:
+        EU: 0x10
+        NA: 0x10
+        JP: 0x10
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: enum item_id[4]
+    - name: KECLEON_SHOP_ITEM_TABLE_LISTS_2
+      address:
+        EU: 0x2098514
+        NA: 0x20980D0
+        JP: 0x20983C4
+      length:
+        EU: 0x10
+        NA: 0x10
+        JP: 0x10
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: enum item_id[4]
     - name: EXCLUSIVE_ITEM_STAT_BOOST_DATA
       address:
         EU: 0x209852C
         NA: 0x20980E8
+        JP: 0x20983DC
       length:
         EU: 0x3C
         NA: 0x3C
+        JP: 0x3C
       description: |-
         Contains stat boost effects for different exclusive item classes.
         
@@ -3377,41 +3454,51 @@ arm9:
       address:
         EU: 0x209852C
         NA: 0x20980E8
+        JP: 0x20983DC
       length:
         EU: 0x39
         NA: 0x39
+        JP: 0x39
       description: "EXCLUSIVE_ITEM_STAT_BOOST_DATA, offset by 0"
     - name: EXCLUSIVE_ITEM_SPECIAL_ATTACK_BOOSTS
       address:
         EU: 0x209852D
         NA: 0x20980E9
+        JP: 0x20983DD
       length:
         EU: 0x39
         NA: 0x39
+        JP: 0x39
       description: "EXCLUSIVE_ITEM_STAT_BOOST_DATA, offset by 1"
     - name: EXCLUSIVE_ITEM_DEFENSE_BOOSTS
       address:
         EU: 0x209852E
         NA: 0x20980EA
+        JP: 0x20983DE
       length:
         EU: 0x39
         NA: 0x39
+        JP: 0x39
       description: "EXCLUSIVE_ITEM_STAT_BOOST_DATA, offset by 2"
     - name: EXCLUSIVE_ITEM_SPECIAL_DEFENSE_BOOSTS
       address:
         EU: 0x209852F
         NA: 0x20980EB
+        JP: 0x20983DF
       length:
         EU: 0x39
         NA: 0x39
+        JP: 0x39
       description: "EXCLUSIVE_ITEM_STAT_BOOST_DATA, offset by 3"
     - name: EXCLUSIVE_ITEM_EFFECT_DATA
       address:
         EU: 0x2098568
         NA: 0x2098124
+        JP: 0x2098418
       length:
         EU: 0x778
         NA: 0x778
+        JP: 0x778
       description: |-
         Contains special effects for each exclusive item.
         
@@ -3426,6 +3513,29 @@ arm9:
         EU: 0x777
         NA: 0x777
       description: "EXCLUSIVE_ITEM_EFFECT_DATA, offset by 1"
+    - name: RECYCLE_SHOP_ITEM_LIST
+      address:
+        EU: 0x2098D10
+        NA: 0x20988CC
+        JP: 0x2098BC0
+      length:
+        EU: 0x360
+        NA: 0x360
+        JP: 0x360
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: TYPE_SPECIFIC_EXCLUSIVE_ITEMS
+      address:
+        EU: 0x2099070
+        NA: 0x2098C2C
+        JP: 0x2098F20
+      length:
+        EU: 0x88
+        NA: 0x88
+        JP: 0x88
+      description: |-
+        Lists of type-specific exclusive items (silk, dust, gem, globe) for each type.
+        
+        type: struct item_id_16[17][4]
     - name: RECOIL_MOVE_LIST
       address:
         EU: 0x20991B8
@@ -3465,9 +3575,11 @@ arm9:
       address:
         EU: 0x209D450
         NA: 0x209CECC
+        JP: 0x209E2A0
       length:
         EU: 0x40
         NA: 0x40
+        JP: 0x40
       description: |-
         List of special "local" variables available to the script engine. There are 4 16-byte entries.
         
@@ -3489,13 +3601,108 @@ arm9:
         These variables underpin the various ExplorerScript global variables you can use in the SkyTemple SSB debugger.
         
         type: struct script_var_table
+    - name: HARDCODED_PORTRAIT_DATA_TABLE
+      address:
+        EU: 0x209E598
+        NA: 0x209E014
+        JP: 0x209F3E8
+      length:
+        EU: 0xC0
+        NA: 0xC0
+        JP: 0xC0
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: struct portrait_data_entry[32]
+    - name: WONDER_MAIL_BITS_MAP
+      address:
+        EU: 0x209E66C
+        NA: 0x209E0E8
+        JP: 0x209F4BC
+      length:
+        EU: 0x20
+        NA: 0x20
+        JP: 0x20
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: uint8_t[32]
+    - name: WONDER_MAIL_BITS_SWAP
+      address:
+        EU: 0x209E68C
+        NA: 0x209E108
+        JP: 0x209F4DC
+      length:
+        EU: 0x24
+        NA: 0x24
+        JP: 0x24
+      description: |-
+        Last 2 bytes are unused
+        
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: uint8_t[36]
+    - name: ARM9_UNKNOWN_TABLE__NA_209E12C
+      address:
+        EU: 0x209E6B0
+        NA: 0x209E12C
+        JP: 0x209F500
+      length:
+        EU: 0x38
+        NA: 0x38
+        JP: 0x38
+      description: |-
+        52*0x2 + 2 bytes unused
+        
+        Note: unverified, ported from Irdkwia's notes
+    - name: ARM9_UNKNOWN_TABLE__NA_209E164
+      address:
+        EU: 0x209E6E8
+        NA: 0x209E164
+        JP: 0x209F538
+      length:
+        EU: 0x100
+        NA: 0x100
+        JP: 0x100
+      description: |-
+        256*0x1
+        
+        Note: unverified, ported from Irdkwia's notes
+    - name: ARM9_UNKNOWN_TABLE__NA_209E280
+      address:
+        EU: 0x209E804
+        NA: 0x209E280
+        JP: 0x209F654
+      length:
+        EU: 0x20
+        NA: 0x20
+        JP: 0x20
+      description: |-
+        32*0x1
+        
+        Note: unverified, ported from Irdkwia's notes
+    - name: WONDER_MAIL_ENCRYPTION_TABLE
+      address:
+        EU: 0x209E824
+        NA: 0x209E2A0
+        JP: 0x209F674
+      length:
+        EU: 0x100
+        NA: 0x100
+        JP: 0x100
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: uint8_t[256]
     - name: DUNGEON_DATA_LIST
       address:
         EU: 0x209E924
         NA: 0x209E3A0
+        JP: 0x209F774
       length:
         EU: 0x2D0
         NA: 0x2D0
+        JP: 0x2D0
       description: |-
         Data about every dungeon in the game.
         
@@ -3504,13 +3711,146 @@ arm9:
         See the struct definitions and End45's dungeon data document for more info.
         
         type: struct dungeon_data_list_entry[180]
+    - name: ADVENTURE_LOG_ENCOUNTERS_MONSTER_IDS
+      address:
+        EU: 0x209EBF4
+        NA: 0x209E670
+        JP: 0x209FA44
+      length:
+        EU: 0x4C
+        NA: 0x4C
+        JP: 0x4C
+      description: |-
+        List of monster IDs with a corresponding milestone in the Adventure Log.
+        
+        type: struct monster_id_16[38]
+    - name: ARM9_UNKNOWN_DATA__NA_209E6BC
+      address:
+        EU: 0x209EC40
+        NA: 0x209E6BC
+        JP: 0x209FA90
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: TACTIC_NAME_STRING_IDS
+      address:
+        EU: 0x209EC44
+        NA: 0x209E6C0
+        JP: 0x209FA94
+      length:
+        EU: 0x18
+        NA: 0x18
+        JP: 0x18
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: int16_t[12]
+    - name: STATUS_NAME_STRING_IDS
+      address:
+        EU: 0x209EC5C
+        NA: 0x209E6D8
+        JP: 0x209FAAC
+      length:
+        EU: 0xCC
+        NA: 0xCC
+        JP: 0xCC
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: int16_t[102]
+    - name: DUNGEON_RETURN_STATUS_TABLE
+      address:
+        EU: 0x209ED28
+        NA: 0x209E7A4
+        JP: 0x209FB78
+      length:
+        EU: 0x16C
+        NA: 0x16C
+        JP: 0x16C
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: struct dungeon_return_status[91]
+    - name: STATUSES_FULL_DESCRIPTION_STRING_IDS
+      address:
+        EU: 0x209EE94
+        NA: 0x209E910
+        JP: 0x209FCE4
+      length:
+        EU: 0x19C
+        NA: 0x19C
+        JP: 0x19C
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: struct status_description[103]
+    - name: ARM9_UNKNOWN_DATA__NA_209EAAC
+      address:
+        EU: 0x209F030
+        NA: 0x209EAAC
+        JP: 0x209FE80
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: MISSION_FLOOR_RANKS_AND_ITEM_LISTS_1
+      address:
+        EU: 0x209F034
+        NA: 0x209EAB0
+        JP: 0x209FE84
+      length:
+        EU: 0xC64
+        NA: 0xC64
+        JP: 0xC64
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: MISSION_FLOORS_FORBIDDEN
+      address:
+        EU: 0x209FC98
+        NA: 0x209F714
+        JP: 0x20A0AE8
+      length:
+        EU: 0xC8
+        NA: 0xC8
+        JP: 0xC8
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: struct mission_floors_forbidden[100]
+    - name: MISSION_FLOOR_RANKS_AND_ITEM_LISTS_2
+      address:
+        EU: 0x209FD60
+        NA: 0x209F7DC
+        JP: 0x20A0BB0
+      length:
+        EU: 0x12F8
+        NA: 0x12F8
+        JP: 0x12F8
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: MISSION_FLOOR_RANKS_PTRS
+      address:
+        EU: 0x20A1058
+        NA: 0x20A0AD4
+        JP: 0x20A1EA8
+      length:
+        EU: 0x190
+        NA: 0x190
+        JP: 0x190
+      description: |-
+        Uses MISSION_FLOOR_RANKS_AND_ITEM_LISTS
+        
+        Note: unverified, ported from Irdkwia's notes
     - name: DUNGEON_RESTRICTIONS
       address:
         EU: 0x20A11E8
         NA: 0x20A0C64
+        JP: 0x20A2038
       length:
         EU: 0xC00
         NA: 0xC00
+        JP: 0xC00
       description: |-
         Data related to dungeon restrictions for every dungeon in the game.
         
@@ -3605,44 +3945,179 @@ arm9:
         EU: 0x2
         NA: 0x2
       description: Stat boost value for the Zinc Band.
+    - name: EGG_HP_BONUS
+      address:
+        EU: 0x20A1E3C
+        NA: 0x20A18B8
+        JP: 0x20A2C8C
+      length:
+        EU: 0x2
+        NA: 0x2
+        JP: 0x2
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: EVOLUTION_HP_BONUS
+      address:
+        EU: 0x20A1E48
+        NA: 0x20A18C4
+        JP: 0x20A2C98
+      length:
+        EU: 0x2
+        NA: 0x2
+        JP: 0x2
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: EVOLUTION_PHYSICAL_STAT_BONUSES
+      address:
+        EU: 0x20A1E54
+        NA: 0x20A18D0
+        JP: 0x20A2CA4
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        0x2: Atk + 0x2: Def
+        
+        Note: unverified, ported from Irdkwia's notes
+    - name: EGG_STAT_BONUSES
+      address:
+        EU: 0x20A1E60
+        NA: 0x20A18DC
+        JP: 0x20A2CB0
+      length:
+        EU: 0x8
+        NA: 0x8
+        JP: 0x8
+      description: |-
+        0x2: Atk + 0x2: SpAtk + 0x2: Def + 0x2: SpDef
+        
+        Note: unverified, ported from Irdkwia's notes
+    - name: EVOLUTION_SPECIAL_STAT_BONUSES
+      address:
+        EU: 0x20A1E68
+        NA: 0x20A18E4
+        JP: 0x20A2CB8
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        0x2: SpAtk + 0x2: SpDef
+        
+        Note: unverified, ported from Irdkwia's notes
+    - name: FORBIDDEN_FORGOT_MOVE_LIST
+      address:
+        EU: 0x20A1E9C
+        NA: 0x20A1918
+        JP: 0x20A2CEC
+      length:
+        EU: 0x12
+        NA: 0x12
+        JP: 0x12
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: struct forbidden_forgot_move_entry[3]
     - name: TACTICS_UNLOCK_LEVEL_TABLE
       address:
         EU: 0x20A1EC4
         NA: 0x20A1940
+        JP: 0x20A2D14
       length:
         EU: 0x18
         NA: 0x18
+        JP: 0x18
+      description: "type: int16_t[12]"
+    - name: CLIENT_LEVEL_TABLE
+      address:
+        EU: 0x20A1EFC
+        NA: 0x20A1978
+        JP: 0x20A2D4C
+      length:
+        EU: 0x20
+        NA: 0x20
+        JP: 0x20
+      description: |-
+        Still a guess
+        
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: int16_t[16]
     - name: OUTLAW_LEVEL_TABLE
       address:
         EU: 0x20A1F1C
         NA: 0x20A1998
+        JP: 0x20A2D6C
       length:
         EU: 0x20
         NA: 0x20
-      description: "Table of 2-byte outlaw levels for outlaw missions, indexed by mission rank."
+        JP: 0x20
+      description: |-
+        Table of 2-byte outlaw levels for outlaw missions, indexed by mission rank.
+        
+        type: int16_t[16]
     - name: OUTLAW_MINION_LEVEL_TABLE
       address:
         EU: 0x20A1F3C
         NA: 0x20A19B8
+        JP: 0x20A2D8C
       length:
         EU: 0x20
         NA: 0x20
-      description: "Table of 2-byte outlaw minion levels for outlaw hideout missions, indexed by mission rank."
+        JP: 0x20
+      description: |-
+        Table of 2-byte outlaw minion levels for outlaw hideout missions, indexed by mission rank.
+        
+        type: int16_t[16]
+    - name: HIDDEN_POWER_BASE_POWER_TABLE
+      address:
+        EU: 0x20A1F5C
+        NA: 0x20A19D8
+        JP: 0x20A2DAC
+      length:
+        EU: 0x28
+        NA: 0x28
+        JP: 0x28
+      description: |-
+        Still a guess
+        
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: int[10]
+    - name: VERSION_EXCLUSIVE_MONSTERS
+      address:
+        EU: 0x20A1F84
+        NA: 0x20A1A00
+        JP: 0x20A2DD4
+      length:
+        EU: 0x5C
+        NA: 0x5C
+        JP: 0x5C
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: struct version_exclusive_monster[23]
     - name: IQ_SKILL_RESTRICTIONS
       address:
         EU: 0x20A1FE0
         NA: 0x20A1A5C
+        JP: 0x20A2E30
       length:
         EU: 0x8A
         NA: 0x8A
-      description: Table of 2-byte values for each IQ skill that represent a group. IQ skills in the same group can not be enabled at the same time.
+        JP: 0x8A
+      description: |-
+        Table of 2-byte values for each IQ skill that represent a group. IQ skills in the same group can not be enabled at the same time.
+        
+        type: int16_t[69]
     - name: SECONDARY_TERRAIN_TYPES
       address:
         EU: 0x20A206C
         NA: 0x20A1AE8
+        JP: 0x20A2EBC
       length:
         EU: 0xC8
         NA: 0xC8
+        JP: 0xC8
       description: |-
         The type of secondary terrain for each dungeon in the game.
         
@@ -3653,68 +4128,126 @@ arm9:
       address:
         EU: 0x20A2134
         NA: 0x20A1BB0
+        JP: 0x20A2F84
+      length:
+        EU: 0xCC
+        NA: 0xCC
+        JP: 0xCC
+      description: "Irdkwia's notes: FOOTPRINTS_MAP"
     - name: IQ_SKILLS
       address:
         EU: 0x20A2200
         NA: 0x20A1C7C
+        JP: 0x20A3050
       length:
         EU: 0x114
         NA: 0x114
-      description: Table of 4-byte values for each IQ skill that represent the required IQ value to unlock a skill.
+        JP: 0x114
+      description: |-
+        Table of 4-byte values for each IQ skill that represent the required IQ value to unlock a skill.
+        
+        type: int[69]
     - name: IQ_GROUP_SKILLS
       address:
         EU: 0x20A2314
         NA: 0x20A1D90
+        JP: 0x20A3164
       length:
         EU: 0x190
         NA: 0x190
+        JP: 0x190
+      description: "Irdkwia's notes: 25*16*0x1"
     - name: MONEY_QUANTITY_TABLE
       address:
         EU: 0x20A24A4
         NA: 0x20A1F20
+        JP: 0x20A32F4
       length:
         EU: 0x190
         NA: 0x190
+        JP: 0x190
       description: |-
         Table that maps money quantity codes (as recorded in, e.g., struct item) to actual amounts.
         
         type: int[100]
+    - name: ARM9_UNKNOWN_TABLE__NA_20A20B0
+      address:
+        EU: 0x20A2634
+        NA: 0x20A20B0
+        JP: 0x20A3484
+      length:
+        EU: 0x200
+        NA: 0x200
+        JP: 0x200
+      description: |-
+        256*0x2
+        
+        Note: unverified, ported from Irdkwia's notes
     - name: IQ_GUMMI_GAIN_TABLE
       address:
         EU: 0x20A2834
         NA: 0x20A22B0
+        JP: 0x20A3684
       length:
         EU: 0x288
         NA: 0x288
+        JP: 0x288
+      description: "type: int16_t[18][18]"
     - name: GUMMI_BELLY_RESTORE_TABLE
       address:
         EU: 0x20A2ABC
         NA: 0x20A2538
+        JP: 0x20A390C
       length:
         EU: 0x288
         NA: 0x288
+        JP: 0x288
+      description: "type: int16_t[18][18]"
+    - name: BAG_CAPACITY_TABLE_SPECIAL_EPISODES
+      address:
+        EU: 0x20A2D44
+        NA: 0x20A27C0
+        JP: 0x20A3B94
+      length:
+        EU: 0x14
+        NA: 0x14
+        JP: 0x14
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: uint32_t[5]
     - name: BAG_CAPACITY_TABLE
       address:
         EU: 0x20A2D58
         NA: 0x20A27D4
+        JP: 0x20A3BA8
       length:
         EU: 0x20
         NA: 0x20
-      description: Array of 4-byte integers containing the bag capacity for each bag level.
+        JP: 0x20
+      description: |-
+        Array of 4-byte integers containing the bag capacity for each bag level.
+        
+        type: uint32_t[8]
     - name: SPECIAL_EPISODE_MAIN_CHARACTERS
       address:
         EU: 0x20A2D78
         NA: 0x20A27F4
+        JP: 0x20A3BC8
       length:
         EU: 0xC8
         NA: 0xC8
+        JP: 0xC8
+      description: "type: struct monster_id_16[100]"
     - name: GUEST_MONSTER_DATA
       address:
         EU: 0x20A2E40
         NA: 0x20A28BC
+        JP: 0x20A3C90
       length:
         EU: 0x288
         NA: 0x288
+        JP: 0x288
       description: |-
         Data for guest monsters that join you during certain story dungeons.
         
@@ -3727,44 +4260,269 @@ arm9:
       address:
         EU: 0x20A30C8
         NA: 0x20A2B44
+        JP: 0x20A3F18
       length:
         EU: 0xD0
         NA: 0xD0
+        JP: 0xD0
+    - name: DS_DOWNLOAD_TEAMS
+      address:
+        EU: 0x20A3198
+        NA: 0x20A2C14
+        JP: 0x20A3FE8
+      length:
+        EU: 0x70
+        NA: 0x70
+        JP: 0x70
+      description: |-
+        Seems like this is just a collection of null-terminated lists concatenated together.
+        
+        Note: unverified, ported from Irdkwia's notes
+        
+        struct monster_id_16[56]
+    - name: ARM9_UNKNOWN_PTR__NA_20A2C84
+      address:
+        EU: 0x20A3208
+        NA: 0x20A2C84
+        JP: 0x20A4058
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: UNOWN_SPECIES_ADDITIONAL_CHARS
+      address:
+        EU: 0x20A320C
+        NA: 0x20A2C88
+        JP: 0x20A405C
+      length:
+        EU: 0x80
+        NA: 0x80
+        JP: 0x80
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: enum monster_id[28]
     - name: MONSTER_SPRITE_DATA
       address:
         EU: 0x20A332C
         NA: 0x20A2D08
+        JP: 0x20A40DC
       length:
         EU: 0x4B0
         NA: 0x4B0
+        JP: 0x4B0
+    - name: REMOTE_STRINGS
+      address:
+        EU: 0x20A4140
+        NA: 0x20A3B40
+        JP: 0x20A4F24
+      length:
+        EU: 0x2C
+        NA: 0x2C
+        JP: 0x2C
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: RANK_STRINGS_1
+      address:
+        EU: 0x20A416C
+        NA: 0x20A3B6C
+        JP: 0x20A4F50
+      length:
+        EU: 0x30
+        NA: 0x30
+        JP: 0x30
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: MISSION_MENU_STRING_IDS_1
+      address:
+        EU: 0x20A419C
+        NA: 0x20A3B9C
+        JP: 0x20A4F80
+      length:
+        EU: 0x10
+        NA: 0x10
+        JP: 0x10
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: int16_t[8]
+    - name: RANK_STRINGS_2
+      address:
+        EU: 0x20A41AC
+        NA: 0x20A3BAC
+        JP: 0x20A4F90
+      length:
+        EU: 0x30
+        NA: 0x30
+        JP: 0x30
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: MISSION_MENU_STRING_IDS_2
+      address:
+        EU: 0x20A41DC
+        NA: 0x20A3BDC
+        JP: 0x20A4FC0
+      length:
+        EU: 0x10
+        NA: 0x10
+        JP: 0x10
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: int16_t[8]
+    - name: RANK_STRINGS_3
+      address:
+        EU: 0x20A41EC
+        NA: 0x20A3BEC
+        JP: 0x20A4FD0
+      length:
+        EU: 0xB4
+        NA: 0xB4
+        JP: 0xB4
+      description: "Note: unverified, ported from Irdkwia's notes"
     - name: MISSION_DUNGEON_UNLOCK_TABLE
       address:
         EU: 0x20A42AC
         NA: 0x20A3CAC
+        JP: 0x20A5090
+      length:
+        EU: 0x6
+        NA: 0x6
+        JP: 0x6
+      description: |-
+        Irdkwia's notes: SpecialDungeonMissions
+        
+        type: struct dungeon_unlock_entry[3]
+    - name: NO_SEND_ITEM_TABLE
+      address:
+        EU: 0x20A42B2
+        NA: 0x20A3CB2
+        JP: 0x20A5096
+      length:
+        EU: 0x6
+        NA: 0x6
+        JP: 0x6
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: struct item_id_16[3]
+    - name: ARM9_UNKNOWN_TABLE__NA_20A3CC8
+      address:
+        EU: 0x20A42C8
+        NA: 0x20A3CC8
+        JP: 0x20A50AC
+      length:
+        EU: 0x1C
+        NA: 0x1C
+        JP: 0x1C
+      description: |-
+        14*0x2
+        Linked to ARM9_UNKNOWN_TABLE__NA_20A3CE4
+        
+        Note: unverified, ported from Irdkwia's notes
+    - name: ARM9_UNKNOWN_TABLE__NA_20A3CE4
+      address:
+        EU: 0x20A42E4
+        NA: 0x20A3CE4
+        JP: 0x20A50C8
+      length:
+        EU: 0x10
+        NA: 0x10
+        JP: 0x10
+      description: |-
+        8*0x2
+        
+        Note: unverified, ported from Irdkwia's notes
+    - name: ARM9_UNKNOWN_FUNCTION_TABLE__NA_20A3CF4
+      address:
+        EU: 0x20A42F4
+        NA: 0x20A3CF4
+        JP: 0x20A50D8
+      length:
+        EU: 0x20
+        NA: 0x20
+        JP: 0x20
+      description: |-
+        Could be related to missions
+        
+        Note: unverified, ported from Irdkwia's notes
     - name: MISSION_BANNED_STORY_MONSTERS
       address:
         EU: 0x20A4314
-        NA: 0x20A3D24
+        NA: 0x20A3D14
+        JP: 0x20A50F8
       length:
         EU: 0x2A
         NA: 0x2A
+        JP: 0x2A
       description: |-
         Null-terminated list of monster IDs that can't be used (probably as clients or targets) when generating missions before a certain point in the story.
         
         To be precise, PERFOMANCE_PROGRESS_FLAG[9] must be enabled so these monsters can appear as mission clients.
         
         type: struct monster_id_16[length / 2]
+    - name: ITEM_DELIVERY_TABLE
+      address:
+        EU: 0x20A433E
+        NA: 0x20A3D3E
+        JP: 0x20A5122
+      length:
+        EU: 0x2E
+        NA: 0x2E
+        JP: 0x2E
+      description: |-
+        Maybe it is the Item table used for Item Deliveries
+        
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: struct item_id_16[23]
+    - name: MISSION_RANK_POINTS
+      address:
+        EU: 0x20A436C
+        NA: 0x20A3D6C
+        JP: 0x20A5150
+      length:
+        EU: 0x40
+        NA: 0x40
+        JP: 0x40
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: int[16]
     - name: MISSION_BANNED_MONSTERS
       address:
         EU: 0x20A43AC
         NA: 0x20A3DAC
+        JP: 0x20A5190
       length:
         EU: 0xF8
         NA: 0xF8
+        JP: 0xF8
       description: |-
         Null-terminated list of monster IDs that can't be used (probably as clients or targets) when generating missions.
         
-        type: struct monster_id_16[length / 2]
+        type: struct monster_id_16[124]
+    - name: MISSION_STRING_IDS
+      address:
+        EU: 0x20A44A4
+        NA: 0x20A3EA4
+        JP: 0x20A5288
+      length:
+        EU: 0x788
+        NA: 0x788
+        JP: 0x788
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: int16_t[964]
+    - name: LEVEL_LIST
+      address:
+        EU: 0x20A4CEC
+        NA: 0x20A46EC
+        JP: 0x20A5AD0
+      length:
+        EU: 0x2470
+        NA: 0x21D0
+        JP: 0x2234
+      description: "Note: unverified, ported from Irdkwia's notes"
     - name: EVENTS
       address:
         EU: 0x20A5BD8
@@ -3778,6 +4536,42 @@ arm9:
         Table of levels for the script engine, in which scenes can take place. There are a version-dependent number of 12-byte entries.
         
         type: struct script_level[length / 12]
+    - name: ARM9_UNKNOWN_TABLE__NA_20A68BC
+      address:
+        EU: 0x20A715C
+        NA: 0x20A68BC
+        JP: 0x20A7D04
+      length:
+        EU: 0xC
+        NA: 0xC
+        JP: 0xC
+      description: |-
+        6*0x2
+        
+        Note: unverified, ported from Irdkwia's notes
+    - name: DEMO_TEAMS
+      address:
+        EU: 0x20A7168
+        NA: 0x20A68C8
+        JP: 0x20A7D10
+      length:
+        EU: 0x48
+        NA: 0x48
+        JP: 0x48
+      description: |-
+        18*0x4 (Hero ID 0x2, Partner ID 0x2)
+        
+        Note: unverified, ported from Irdkwia's notes
+    - name: ACTOR_LIST
+      address:
+        EU: 0x20A71B0
+        NA: 0x20A6910
+        JP: 0x20A7D58
+      length:
+        EU: 0x28F8
+        NA: 0x28F8
+        JP: 0x28F8
+      description: "Note: unverified, ported from Irdkwia's notes"
     - name: ENTITIES
       address:
         EU: 0x20A8890
@@ -3791,13 +4585,178 @@ arm9:
         Table of entities for the script engine, which can move around and do things within a scene. There are 386 12-byte entries.
         
         type: struct script_entity[386]
+    - name: JOB_D_BOX_LAYOUT_1
+      address:
+        EU: 0x20A9AB8
+        NA: 0x20A9218
+        JP: 0x20AA660
+      length:
+        EU: 0x10
+        NA: 0x10
+        JP: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: JOB_MENU_1
+      address:
+        EU: 0x20A9AC8
+        NA: 0x20A9228
+        JP: 0x20AA670
+      length:
+        EU: 0x20
+        NA: 0x20
+        JP: 0x20
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: JOB_MENU_2
+      address:
+        EU: 0x20A9AE8
+        NA: 0x20A9248
+        JP: 0x20AA690
+      length:
+        EU: 0x20
+        NA: 0x20
+        JP: 0x20
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: JOB_MENU_3
+      address:
+        EU: 0x20A9B58
+        NA: 0x20A92B8
+        JP: 0x20AA700
+      length:
+        EU: 0x18
+        NA: 0x18
+        JP: 0x18
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: JOB_MENU_4
+      address:
+        EU: 0x20A9B70
+        NA: 0x20A92D0
+        JP: 0x20AA718
+      length:
+        EU: 0x18
+        NA: 0x18
+        JP: 0x18
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: JOB_MENU_5
+      address:
+        EU: 0x20A9B88
+        NA: 0x20A92E8
+        JP: 0x20AA730
+      length:
+        EU: 0x18
+        NA: 0x18
+        JP: 0x18
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: JOB_MENU_6
+      address:
+        EU: 0x20A9BA0
+        NA: 0x20A9300
+        JP: 0x20AA748
+      length:
+        EU: 0x18
+        NA: 0x18
+        JP: 0x18
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: JOB_MENU_7
+      address:
+        EU: 0x20A9BB8
+        NA: 0x20A9318
+        JP: 0x20AA760
+      length:
+        EU: 0x18
+        NA: 0x18
+        JP: 0x18
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: JOB_MENU_8
+      address:
+        EU: 0x20A9BD0
+        NA: 0x20A9330
+        JP: 0x20AA778
+      length:
+        EU: 0x18
+        NA: 0x18
+        JP: 0x18
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: JOB_MENU_9
+      address:
+        EU: 0x20A9BE8
+        NA: 0x20A9348
+        JP: 0x20AA790
+      length:
+        EU: 0x18
+        NA: 0x18
+        JP: 0x18
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: JOB_MENU_10
+      address:
+        EU: 0x20A9C00
+        NA: 0x20A9360
+        JP: 0x20AA7A8
+      length:
+        EU: 0x18
+        NA: 0x18
+        JP: 0x18
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: JOB_MENU_11
+      address:
+        EU: 0x20A9C18
+        NA: 0x20A9378
+        JP: 0x20AA7C0
+      length:
+        EU: 0x18
+        NA: 0x18
+        JP: 0x18
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: JOB_MENU_12
+      address:
+        EU: 0x20A9C30
+        NA: 0x20A9390
+        JP: 0x20AA7D8
+      length:
+        EU: 0x20
+        NA: 0x20
+        JP: 0x20
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: JOB_MENU_13
+      address:
+        EU: 0x20A9C50
+        NA: 0x20A93B0
+        JP: 0x20AA7F8
+      length:
+        EU: 0x20
+        NA: 0x20
+        JP: 0x20
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: JOB_D_BOX_LAYOUT_2
+      address:
+        EU: 0x20A9C70
+        NA: 0x20A93D0
+        JP: 0x20AA818
+      length:
+        EU: 0x10
+        NA: 0x10
+        JP: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: DUNGEON_SWAP_ID_TABLE
+      address:
+        EU: 0x20A9C80
+        NA: 0x20A93E0
+        JP: 0x20AA828
+      length:
+        EU: 0xD4
+        NA: 0xD4
+        JP: 0xD4
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: struct dungeon_id_8[212]
     - name: MAP_MARKER_PLACEMENTS
       address:
         EU: 0x20A9D70
         NA: 0x20A94D0
+        JP: 0x20AA918
       length:
         EU: 0x9B0
         NA: 0x9B0
+        JP: 0x9B0
       description: |-
         The map marker position of each dungeon on the Wonder Map.
         
@@ -3806,6 +4765,32 @@ arm9:
         See the struct definitions and End45's dungeon data document for more info.
         
         type: struct map_marker[310]
+    - name: ARM9_UNKNOWN_TABLE__NA_20A9FB0
+      address:
+        EU: 0x20AA850
+        NA: 0x20A9FB0
+        JP: 0x20AB3F8
+      length:
+        EU: 0x4974
+        NA: 0x4974
+        JP: 0x4974
+      description: |-
+        4701*0x4
+        
+        Note: unverified, ported from Irdkwia's notes
+    - name: ARM9_UNKNOWN_TABLE__NA_20AE924
+      address:
+        EU: 0x20AF1C4
+        NA: 0x20AE924
+        JP: 0x20AFD6C
+      length:
+        EU: 0x2D4
+        NA: 0x2D4
+        JP: 0x2D4
+      description: |-
+        724*0x1
+        
+        Note: unverified, ported from Irdkwia's notes
     - name: MEMORY_ALLOCATION_ARENA_GETTERS
       address:
         EU: 0x20AF7A0
@@ -3926,6 +4911,17 @@ arm9:
         EU: 0x20AFF70
         NA: 0x20AF6B8
       description: "[Runtime]"
+    - name: BAG_ITEMS_PTR_MIRROR
+      address:
+        EU: 0x20AFF70
+        NA: 0x20AF6B8
+      length:
+        EU: 0x4
+        NA: 0x4
+      description: |-
+        [Runtime] Probably a mirror of ram.yml::BAG_ITEMS_PTR?
+        
+        Note: unverified, ported from Irdkwia's notes
     - name: ITEM_DATA_TABLE_PTRS
       address:
         EU: 0x20AFF78
@@ -3958,6 +4954,21 @@ arm9:
         EU: 0x20B05A8
         NA: 0x20AFCE8
       description: "[Runtime]"
+    - name: KEYBOARD_STRING_IDS
+      address:
+        EU: 0x20B0718
+        NA: 0x20AFDFC
+        JP: 0x20B1240
+      length:
+        EU: 0x3C
+        NA: 0x3C
+        JP: 0x3C
+      description: |-
+        30*0x2
+        
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: int16_t[30]
     - name: NOTIFY_NOTE
       address:
         EU: 0x20B0814
@@ -4027,9 +5038,73 @@ arm9:
       address:
         EU: 0x20B1264
         NA: 0x20B0948
+        JP: 0x20B21BC
       length:
         EU: 0x68
         NA: 0x68
+        JP: 0x68
+      description: "Irdkwia's notes: 26*0x4, uses MISSION_FLOOR_RANKS_AND_ITEM_LISTS"
+    - name: UNOWN_SPECIES_ADDITIONAL_CHAR_PTR_TABLE
+      address:
+        EU: 0x20B12F4
+        NA: 0x20B09D8
+        JP: 0x20B224C
+      length:
+        EU: 0x70
+        NA: 0x70
+        JP: 0x70
+      description: |-
+        Uses UNOWN_SPECIES_ADDITIONAL_CHARS
+        
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: enum monster_id*[28]
+    - name: PARTY_MONSTERS_PTR
+      address:
+        EU: 0x20B1364
+        NA: 0x20B0A48
+        JP: 0x20B22BC
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: MISSION_LIST_PTR
+      address:
+        EU: 0x20B13BC
+        NA: 0x20B0A78
+        JP: 0x20B22EC
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: REMOTE_STRING_PTR_TABLE
+      address:
+        EU: 0x20B13C0
+        NA: 0x20B0A7C
+        JP: 0x20B22F0
+      length:
+        EU: 0x1C
+        NA: 0x1C
+        JP: 0x1C
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: const char*[7]
+    - name: RANK_STRING_PTR_TABLE
+      address:
+        EU: 0x20B13DC
+        NA: 0x20B0A98
+        JP: 0x20B230C
+      length:
+        EU: 0x40
+        NA: 0x40
+        JP: 0x40
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: const char*[16]
     - name: SMD_EVENTS_FUN_TABLE
       address:
         EU: 0x20B14D4
@@ -4037,6 +5112,33 @@ arm9:
       length:
         EU: 0x1FC
         NA: 0x1FC
+      description: "Irdkwia's notes: named DSEEventFunctionPtrTable with length 0x3C0 (note the disagreement), 240*0x4."
+    - name: MUSIC_DURATION_LOOKUP_TABLE_1
+      address:
+        EU: 0x20B1894
+        NA: 0x20B0F50
+        JP: 0x20B27C4
+      length:
+        EU: 0x100
+        NA: 0x100
+        JP: 0x100
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: int16_t[128]
+    - name: MUSIC_DURATION_LOOKUP_TABLE_2
+      address:
+        EU: 0x20B1994
+        NA: 0x20B1050
+        JP: 0x20B28C4
+      length:
+        EU: 0x200
+        NA: 0x200
+        JP: 0x200
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: int32_t[128]
     - name: FAINT_REASON_CODE_ORB_ITEM
       address:
         NA: 0x200CA84
@@ -4045,3 +5147,39 @@ arm9:
       address:
         NA: 0x200CA88
       description: "The faint reason code for any item not in CATEGORY_ORBS, 0x263."
+    - name: MOVE_POWER_STARS_TABLE
+      address:
+        NA: 0x2099CD4
+      length:
+        NA: 0x18
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: int[6]
+    - name: MOVE_ACCURACY_STARS_TABLE
+      address:
+        NA: 0x2099CEC
+      length:
+        NA: 0x20
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: int[8]
+    - name: LOADED_WAN_TABLE_PTR
+      address:
+        NA: 0x20AFC68
+      length:
+        NA: 0x4
+      description: |-
+        pointer to a wan table
+        
+        Note: unverified, ported from Irdkwia's notes
+    - name: TBL_TALK_GROUP_STRING_ID_START
+      address:
+        NA: 0x20AFCF8
+      length:
+        NA: 0xC
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: int16_t[6]
