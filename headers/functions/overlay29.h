@@ -69,8 +69,8 @@ void SpawnEnemyTrapAtPos(enum trap_id trap_id, int16_t x, int16_t y, uint8_t fla
 void SetLeaderAction(void);
 void ChangeLeader(void);
 void ResetDamageData(struct damage_data* damage);
-int GetTotalSpriteFileSize(enum monster_id monster_id);
-uint16_t GetSpriteIndex(enum monster_id monster_id);
+int DungeonGetTotalSpriteFileSize(enum monster_id monster_id);
+uint16_t DungeonGetSpriteIndex(enum monster_id monster_id);
 bool JoinedAtRangeCheck2Veneer(struct dungeon_id_8 joined_at);
 bool FloorNumberIsEven(void);
 enum monster_id GetKecleonIdToSpawnByFloor(void);

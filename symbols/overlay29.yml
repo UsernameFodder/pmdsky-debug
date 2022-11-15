@@ -853,7 +853,7 @@ overlay29:
         Zeroes the damage data struct, which is output by the damage calculation function.
         
         r0: damage data pointer
-    - name: GetTotalSpriteFileSize
+    - name: DungeonGetTotalSpriteFileSize
       address:
         EU: 0x22F7A20
         NA: 0x22F7068
@@ -865,7 +865,7 @@ overlay29:
         
         r0: monster ID
         return: sprite file size
-    - name: GetSpriteIndex
+    - name: DungeonGetSpriteIndex
       address:
         EU: 0x22F7D40
         NA: 0x22F7388
