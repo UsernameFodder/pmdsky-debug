@@ -31,6 +31,30 @@ overlay31:
         Note: unverified, ported from Irdkwia's notes
         
         r0: appears to be an index of some sort, probably the menu index based on the function name?
+    - name: MovesMenu
+      address:
+        EU: 0x2385DC0
+        NA: 0x23851C0
+      description: |-
+        Displays a menu showing the moves of a monster. Does not return until the menu is closed.
+        
+        This function does not get called when opening the leader's move menu.
+        
+        r0: Pointer to an action struct containing the index of the monster whose moves will be checked in the action_use_idx field.
+    - name: HandleMovesMenu
+      address:
+        EU: 0x2386004
+        NA: 0x2385404
+      description: |-
+        Handles the different options on the moves menu. Does not return until the menu is closed.
+        
+        This function also takes care of updating the fields in the action_data struct it receives when a menu option is chosen.
+        
+        r0: Pointer to pointer to the entity that opened the menu. The chosen action will be written on its action field.
+        r1: ?
+        r2: ?
+        r3: Index of the monster whose moves are going to be displayed on the menu. Unused.
+        return: True if the menu was closed without selecting anything, false if an option was chosen.
     - name: TeamMenu
       address:
         EU: 0x2387C70

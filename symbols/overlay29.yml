@@ -254,6 +254,14 @@ overlay29:
         If true, you will get kicked out of the dungeon if a team member that passes the arm9::JoinedAtRangeCheck2 check faints.
         
         return: !dungeon::nonstory_flag || dungeon::hidden_land_flag
+    - name: GetScenarioBalanceVeneer
+      address:
+        EU: 0x22E129C
+        NA: 0x22E095C
+      description: |-
+        Likely a linker-generated veneer for GetScenarioBalance.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
     - name: FadeToBlack
       address:
         EU: 0x22E12A8
@@ -322,6 +330,15 @@ overlay29:
         r0: Entity pointer
         r1: Target position
         return: True if the specified monster can target the target position, false otherwise.
+    - name: GetTeamMemberIndex
+      address:
+        EU: 0x22E3378
+        NA: 0x22E2A38
+      description: |-
+        Given a pointer to an entity, returns its index on the entity list, or null if the entity can't be found on the first 4 slots of the list.
+        
+        r0: Pointer to the entity to find
+        return: Index of the specified entity on the entity list, or null if it's not on the first 4 slots.
     - name: SubstitutePlaceholderStringTags
       address:
         EU: 0x22E3418
@@ -347,6 +364,25 @@ overlay29:
         This function has two variants: in the EU ROM, it will return true if the flag was changed. The NA version will return the new value of the flag instead.
         
         return: bool
+    - name: PointCameraToMonster
+      address:
+        EU: 0x22E3804
+        NA: 0x22E2E54
+      description: |-
+        Points the camera to the specified monster.
+        
+        r0: Entity pointer
+        r1: ?
+    - name: UpdateCamera
+      address:
+        EU: 0x22E3874
+        NA: 0x22E2EC4
+      description: |-
+        Called every frame. Sets the camera to the right coordinates depending on the monster it points to.
+        
+        It also takes care of updating the minimap, checking which elements should be shown on it, as well as whether the screen should be black due to the blinker status.
+        
+        r0: ?
     - name: ItemIsActive
       address:
         EU:
@@ -406,6 +442,8 @@ overlay29:
         JP: 0x22E862C
       description: |-
         Note: unverified, ported from Irdkwia's notes
+        
+        This function processes the spawn list of the current floor, checking which species can spawn, capping the amount of spawnable species on the floor to 14, randomly choosing which 14 species will spawn and ensuring that the sprite size of all the species combined does not exceed the maximum of 0x58000 bytes (352 KB). Kecleon and the Decoy are always included in the random selection.
         
         r0: quick_saved
         r1: ???
@@ -670,9 +708,9 @@ overlay29:
         JP: 0x22ECA5C
       description: |-
         Clears the fields related to AI in the monster's data struct, setting them all to 0.
-        Specifically, monster::action_id, monster::action_use_idx and monster::field_0x54 are cleared.
+        Specifically, monster::action::action_id, monster::action::action_use_idx and monster::action::field_0xA are cleared.
         
-        r0: Pointer to the monster's action_id field (this field is probably contained in a struct)
+        r0: Pointer to the monster's action field
     - name: SetMonsterActionFields
       address:
         EU: 0x22EBDB8
@@ -680,10 +718,10 @@ overlay29:
         JP: 0x22ECA70
       description: |-
         Sets some the fields related to AI in the monster's data struct.
-        Specifically, monster::action_id, monster::action_use_idx and monster::field_0x54. The last 2 are always set to 0.
+        Specifically, monster::action::action_id, monster::action::action_use_idx and monster::action::field_0xA. The last 2 are always set to 0.
         
-        r0: Pointer to the monster's action_id field (this field is probably contained in a struct)
-        r1: Value to set monster::action_id to.
+        r0: Pointer to the monster's action field
+        r1: Value to set monster::action::action_id to.
     - name: SetActionPassTurnOrWalk
       address:
         EU: 0x22EBDCC
@@ -692,7 +730,7 @@ overlay29:
       description: |-
         Sets a monster's action to action::ACTION_PASS_TURN or action::ACTION_WALK, depending on the result of GetCanMoveFlag for the monster's ID.
         
-        r0: Pointer to the monster's action_id field (this field is probably contained in a struct)
+        r0: Pointer to the monster's action field
         r1: Monster ID
     - name: GetItemAction
       address:
@@ -717,6 +755,14 @@ overlay29:
         
         r0: Action ID
         r1: True if the option should be enabled, false otherwise
+    - name: DisableDungeonSubMenuOption
+      address:
+        EU: 0x22EC2A4
+        NA: 0x22EB8F4
+      description: |-
+        Disables an option that was addeed to a dungeon sub-menu.
+        
+        r0: Action ID of the option that should be disabled
     - name: SetActionRegularAttack
       address:
         EU: 0x22EC600
@@ -725,8 +771,8 @@ overlay29:
       description: |-
         Sets a monster's action to action::ACTION_REGULAR_ATTACK, with a specified direction.
         
-        r0: Pointer to the monster's action_id field (this field is probably contained in a struct)
-        r1: Direction in which to use the move. Gets stored in monster::direction.
+        r0: Pointer to the monster's action field
+        r1: Direction in which to use the move. Gets stored in monster::action::direction.
     - name: SetActionUseMoveAi
       address:
         EU: 0x22EC66C
@@ -735,9 +781,9 @@ overlay29:
       description: |-
         Sets a monster's action to action::ACTION_USE_MOVE_AI, with a specified direction and move index.
         
-        r0: Pointer to the monster's action_id field (this field is probably contained in a struct)
-        r1: Index of the move to use (0-3). Gets stored in monster::action_use_idx.
-        r2: Direction in which to use the move. Gets stored in monster::direction.
+        r0: Pointer to the monster's action field
+        r1: Index of the move to use (0-3). Gets stored in monster::action::action_use_idx.
+        r2: Direction in which to use the move. Gets stored in monster::action::direction.
     - name: RunFractionalTurn
       address:
         EU: 0x22EC6B8
@@ -1041,6 +1087,22 @@ overlay29:
         r0: target entity pointer
         r1: current_id
         return: ?
+    - name: GetLeaderMonster
+      address:
+        EU: 0x22E9FC8
+        NA: 0x22E9618
+      description: |-
+        Returns a pointer to the monster data of the current leader.
+        
+        No params.
+    - name: GetLeaderAction
+      address:
+        EU: 0x22F1540
+        NA: 0x22F0B8C
+      description: |-
+        Returns a pointer to the action data of the current leader (field 0x4A on its monster struct).
+        
+        No params.
     - name: DefenderAbilityIsActive
       address:
         EU:
@@ -1112,6 +1174,18 @@ overlay29:
         Checks if an entity has the ability Truant, and if so tries to apply the pause status to it.
         
         r0: pointer to entity
+    - name: TryPointCameraToMonster
+      address:
+        EU: 0x22FA2C0
+        NA: 0x22F98B4
+      description: |-
+        Attempts to place the camera on top of the specified monster.
+        
+        If the camera is already on top of the specified entity, the function does nothing.
+        
+        r0: Entity pointer. Must be a monster, otherwise the function does nothing.
+        r1: ?
+        r2: ?
     - name: RestorePpAllMovesSetFlags
       address:
         EU: 0x22FA480
@@ -1211,16 +1285,18 @@ overlay29:
         
         r0: iq skill id
         return: bool
-    - name: IsSatisfyingScenarioConditionToSpawn
+    - name: CheckSpawnThreshold
       address:
         EU: 0x22FBFF8
         NA: 0x22FB5EC
         JP: 0x22FCAC0
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Checks if a given monster ID can spawn in dungeons.
+        
+        The function returns true if th monster's spawn threshold value is <= SCENARIO_BALANCE_FLAG
         
         r0: monster ID
-        return: bool
+        return: True if the monster can spawn, false otherwise
     - name: HasLowHealth
       address:
         EU: 0x22FC01C
