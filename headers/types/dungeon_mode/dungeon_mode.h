@@ -241,6 +241,26 @@ struct status_icon_flags {
 };
 ASSERT_SIZE(struct status_icon_flags, 8);
 
+// Contains data used to describe an action taken by a monster.
+// This struct could potentially be longer.
+struct action_data {
+    struct action_16 action_id;      // 0x0: Action ID
+    struct direction_id_8 direction; // 0x2: Direction in which the action will be performed
+    undefined field_0x3;
+    // 0x4: Metadata for some action_id values.
+    // E.g., this is the bag item index when using an item, the monster index when taking an action
+    // on a monster or the move index when using a move
+    uint8_t action_use_idx;
+    undefined field_0x5;
+    undefined field_0x6;
+    undefined field_0x7;
+    undefined field_0x8;
+    undefined field_0x9;
+    undefined field_0xA;
+    undefined field_0xB;
+};
+ASSERT_SIZE(struct action_data, 12);
+
 // Monster info
 struct monster {
     // 0x0: flags: 2-byte bitfield
@@ -286,20 +306,7 @@ struct monster {
     undefined field_0x47;
     struct dungeon_id_8 joined_at; // 0x48: Also used as a unique identifier for special monsters
     uint8_t joined_at_floor;       // 0x49: Floor number of recruitment. 0 for special recruits
-    struct action_16 action_id;    // 0x4A: Determines the action the monster will take on this turn
-    struct direction_id_8 direction; // 0x4C: Current direction the monster is facing
-    undefined field_0x4d;
-    // 0x4E: Metadata for some action_id values.
-    // E.g., this is the bag item index when using an item, the monster index when taking an action
-    // on a monster or the move index when using a move
-    uint8_t action_use_idx;
-    undefined field_0x4F;
-    undefined field_0x50;
-    undefined field_0x51;
-    undefined field_0x52;
-    undefined field_0x53;
-    undefined field_0x54;
-    undefined field_0x55;
+    struct action_data action;     // 0x4A: Determines the action the monster will take on this turn
     undefined field_0x56;
     undefined field_0x57;
     undefined field_0x58;

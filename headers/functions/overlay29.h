@@ -21,8 +21,11 @@ struct entity* SpawnTrap(enum trap_id trap_id, struct position* position, uint8_
 struct entity* SpawnItemEntity(struct position* position);
 bool CanTargetEntity(struct entity* user, struct entity* target);
 bool CanTargetPosition(struct entity* monster, struct position* position);
+int GetTeamMemberIndex(struct entity* monster);
 void SubstitutePlaceholderStringTags(int string_id, struct entity* entity, undefined4 param_3);
 bool UpdateMapSurveyorFlag(void);
+void PointCameraToMonster(struct entity* entity, undefined param_2);
+void UpdateCamera(undefined param_1);
 bool ItemIsActive(struct entity* entity, enum item_id item_id);
 void UpdateStatusIconFlags(struct entity* entity);
 void LoadMappaFileAttributes(int quick_saved, int param_2, undefined* special_process);
@@ -33,6 +36,7 @@ enum direction_id GetDirectionTowardsPosition(struct position* origin, struct po
 int GetChebyshevDistance(struct position* position_a, struct position* position_b);
 bool IsPositionInSight(struct position* origin, struct position* target, bool user_has_dropeye);
 struct entity* GetLeader(void);
+struct monster* GetLeaderMonster(void);
 uint8_t TickStatusTurnCounter(uint8_t* counter);
 void AdvanceFrame(undefined param_1);
 uint32_t GenerateDungeonRngSeed(void);
@@ -49,13 +53,14 @@ void DungeonRngSetSecondary(int i);
 void DungeonRngSetPrimary(void);
 void ChangeDungeonMusic(enum music_id music_id);
 void TrySwitchPlace(struct entity* user, struct entity* target);
-void ClearMonsterActionFields(void* monster_action_field);
-void SetMonsterActionFields(void* monster_action_field, struct action_16 action_id);
-void SetActionPassTurnOrWalk(void* monster_action_field, enum monster_id monster_id);
+void ClearMonsterActionFields(struct action_data* monster_action);
+void SetMonsterActionFields(struct action_data* monster_action, struct action_16 action_id);
+void SetActionPassTurnOrWalk(struct action_data* monster_action, enum monster_id monster_id);
 enum action GetItemAction(int item_id);
 void AddDungeonSubMenuOption(int action_id, bool enabled);
-void SetActionRegularAttack(void* monster_action_field, enum direction_id direction);
-void SetActionUseMoveAi(void* monster_action_field, uint8_t move_index,
+void DisableDungeonSubMenuOption(int action_id);
+void SetActionRegularAttack(struct action_data* monster_action, enum direction_id direction);
+void SetActionUseMoveAi(struct action_data* monster_action, uint8_t move_index,
                         enum direction_id direction);
 void RunFractionalTurn(bool is_first_loop);
 bool RunLeaderTurn(undefined param_1);
@@ -67,6 +72,7 @@ enum forced_loss_reason GetForcedLossReason(void);
 void BindTrapToTile(struct tile* tile, struct entity* trap, bool is_visible);
 void SpawnEnemyTrapAtPos(enum trap_id trap_id, int16_t x, int16_t y, uint8_t flags,
                          bool is_visible);
+struct action_16* GetLeaderAction(void);
 void SetLeaderAction(void);
 void ChangeLeader(void);
 void ResetDamageData(struct damage_data* damage);
@@ -93,6 +99,7 @@ bool DefenderAbilityIsActive(struct entity* attacker, struct entity* defender,
                              enum ability_id ability_id, bool attacker_ability_enabled);
 bool IsMonster(struct entity* entity);
 void TryActivateTruant(struct entity* entity);
+void TryPointCameraToMonster(struct entity* entity, undefined param_2, undefined param_3);
 void RestorePpAllMovesSetFlags(struct entity* entity);
 bool ShouldMonsterHeadToStairs(struct entity* entity);
 bool MewSpawnCheck(enum monster_id monster_id, bool fail_if_mew);
@@ -100,7 +107,7 @@ bool ExclusiveItemEffectIsActive(struct entity* entity, enum exclusive_item_effe
 struct entity* GetTeamMemberWithIqSkill(enum iq_skill_id iq_skill);
 bool TeamMemberHasEnabledIqSkill(enum iq_skill_id iq_skill);
 bool TeamLeaderIqSkillIsEnabled(enum iq_skill_id iq_skill);
-bool IsSatisfyingScenarioConditionToSpawn(enum monster_id monster_id);
+bool CheckSpawnThreshold(enum monster_id monster_id);
 bool HasLowHealth(struct entity* entity);
 bool IsSpecialStoryAlly(struct monster* monster);
 bool IsExperienceLocked(struct monster* monster);
