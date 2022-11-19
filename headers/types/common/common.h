@@ -625,6 +625,21 @@ struct dungeon_init {
 };
 ASSERT_SIZE(struct dungeon_init, 428);
 
+// Unverified, ported from Irdkwia's notes
+struct dungeon_unlock_entry {
+    struct dungeon_id_8 dungeon_id;
+    uint8_t scenario_balance_min;
+};
+ASSERT_SIZE(struct dungeon_unlock_entry, 2);
+
+// Unverified, ported from Irdkwia's notes
+struct dungeon_return_status {
+    bool flag;
+    uint8_t _padding;
+    int16_t string_id;
+};
+ASSERT_SIZE(struct dungeon_return_status, 4);
+
 // Structure describing various player progress milestones?
 // Ported directly from Irdkwia's notes. The only confirmed thing is the struct size.
 struct global_progress {
@@ -735,6 +750,12 @@ struct mission {
 };
 ASSERT_SIZE(struct mission, 32);
 
+struct mission_floors_forbidden {
+    uint8_t field_0x0;
+    uint8_t field_0x1;
+};
+ASSERT_SIZE(struct mission_floors_forbidden, 2);
+
 // Unverified, ported from Irdkwia's notes
 struct quiz_answer_points_entry {
     undefined field_0x0;
@@ -755,6 +776,37 @@ struct quiz_answer_points_entry {
     undefined field_0xf;
 };
 ASSERT_SIZE(struct quiz_answer_points_entry, 16);
+
+// Unverified, ported from Irdkwia's notes
+struct portrait_data_entry {
+    int16_t xpos;
+    int16_t ypos;
+    uint8_t portrait;
+    uint8_t _padding;
+};
+ASSERT_SIZE(struct portrait_data_entry, 6);
+
+// Unverified, ported from Irdkwia's notes
+struct status_description {
+    int16_t name_str_id;
+    int16_t desc_str_id;
+};
+ASSERT_SIZE(struct status_description, 4);
+
+// Unverified, ported from Irdkwia's notes
+struct forbidden_forgot_move_entry {
+    struct monster_id_16 monster_id;
+    struct dungeon_id_16 origin_id;
+    struct move_id_16 move_id;
+};
+ASSERT_SIZE(struct forbidden_forgot_move_entry, 6);
+
+struct version_exclusive_monster {
+    struct monster_id_16 id;
+    bool in_eot; // In Explorers of Time
+    bool in_eod; // In Explorers of Darkness
+};
+ASSERT_SIZE(struct version_exclusive_monster, 4);
 
 // TODO: Add more data file structures, as convenient or needed, especially if the load address
 // or pointers to the load address are known.

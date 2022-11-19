@@ -29,6 +29,84 @@ itcm:
     
     In Explorers of Sky, a fixed region of the ARM9 binary appears to be loaded in the ITCM at all times, and seems to contain functions related to the dungeon AI, among other things. The ITCM has a max capacity of 0x8000, although not all of it is used.
   functions:
+    - name: GetKeyN2MSwitch
+      address:
+        EU: 0x20B50F4
+        NA: 0x20B47B4
+        JP: 0x20B607C
+        EU-ITCM: 0x1FF9434
+        NA-ITCM: 0x1FF9434
+        JP-ITCM: 0x1FF949C
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: key
+        r1: switch
+    - name: GetKeyN2M
+      address:
+        EU: 0x20B5128
+        NA: 0x20B47E8
+        JP: 0x20B60B0
+        EU-ITCM: 0x1FF9468
+        NA-ITCM: 0x1FF9468
+        JP-ITCM: 0x1FF94D0
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: key
+        return: monster ID
+    - name: GetKeyN2MBaseForm
+      address:
+        EU: 0x20B5194
+        NA: 0x20B4854
+        JP: 0x20B611C
+        EU-ITCM: 0x1FF94D4
+        NA-ITCM: 0x1FF94D4
+        JP-ITCM: 0x1FF953C
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: key
+        return: monster ID
+    - name: GetKeyM2NSwitch
+      address:
+        EU: 0x20B51CC
+        NA: 0x20B488C
+        JP: 0x20B6154
+        EU-ITCM: 0x1FF950C
+        NA-ITCM: 0x1FF950C
+        JP-ITCM: 0x1FF9574
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: monster ID
+        r1: switch
+    - name: GetKeyM2N
+      address:
+        EU: 0x20B5200
+        NA: 0x20B48C0
+        JP: 0x20B6188
+        EU-ITCM: 0x1FF9540
+        NA-ITCM: 0x1FF9540
+        JP-ITCM: 0x1FF95A8
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: monster ID
+        return: key
+    - name: GetKeyM2NBaseForm
+      address:
+        EU: 0x20B526C
+        NA: 0x20B492C
+        JP: 0x20B61F4
+        EU-ITCM: 0x1FF95AC
+        NA-ITCM: 0x1FF95AC
+        JP-ITCM: 0x1FF9614
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: monster ID
+        return: key
     - name: ShouldMonsterRunAwayVariationOutlawCheck
       address:
         EU: 0x20B6050
