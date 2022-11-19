@@ -36,6 +36,7 @@ enum direction_id GetDirectionTowardsPosition(struct position* origin, struct po
 int GetChebyshevDistance(struct position* position_a, struct position* position_b);
 bool IsPositionInSight(struct position* origin, struct position* target, bool user_has_dropeye);
 struct entity* GetLeader(void);
+struct monster* GetLeaderMonster(void);
 uint8_t TickStatusTurnCounter(uint8_t* counter);
 void AdvanceFrame(undefined param_1);
 uint32_t GenerateDungeonRngSeed(void);
@@ -71,6 +72,7 @@ enum forced_loss_reason GetForcedLossReason(void);
 void BindTrapToTile(struct tile* tile, struct entity* trap, bool is_visible);
 void SpawnEnemyTrapAtPos(enum trap_id trap_id, int16_t x, int16_t y, uint8_t flags,
                          bool is_visible);
+struct action_16* GetLeaderAction(void);
 void SetLeaderAction(void);
 void ChangeLeader(void);
 void ResetDamageData(struct damage_data* damage);
@@ -93,8 +95,6 @@ void SetMonsterTypeAndAbility(struct entity* target);
 void TryActivateSlowStart(void);
 void TryActivateArtificialWeatherAbilities(void);
 int GetMonsterApparentId(struct entity* target, enum monster_id current_id);
-struct monster* GetLeaderMonster(void);
-struct action_16* GetLeaderAction(void);
 bool DefenderAbilityIsActive(struct entity* attacker, struct entity* defender,
                              enum ability_id ability_id, bool attacker_ability_enabled);
 bool IsMonster(struct entity* entity);

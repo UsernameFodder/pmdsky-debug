@@ -522,6 +522,14 @@ overlay29:
         Gets the pointer to the entity that is currently leading the team, or null if none of the first 4 entities is a valid monster with its is_team_leader flag set. It also sets LEADER_PTR to the result before returning it.
         
         return: Pointer to the current leader of the team or null if there's no valid leader.
+    - name: GetLeaderMonster
+      address:
+        EU: 0x22E9FC8
+        NA: 0x22E9618
+      description: |-
+        Returns a pointer to the monster data of the current leader.
+        
+        No params.
     - name: TickStatusTurnCounter
       address:
         EU: 0x22EA3F4
@@ -876,6 +884,14 @@ overlay29:
         r2: y position
         r3: flags
         stack[0]: visibility flag
+    - name: GetLeaderAction
+      address:
+        EU: 0x22F1540
+        NA: 0x22F0B8C
+      description: |-
+        Returns a pointer to the action data of the current leader (field 0x4A on its monster struct).
+        
+        No params.
     - name: SetLeaderAction
       address:
         EU: 0x22F1890
@@ -1087,22 +1103,6 @@ overlay29:
         r0: target entity pointer
         r1: current_id
         return: ?
-    - name: GetLeaderMonster
-      address:
-        EU: 0x22E9FC8
-        NA: 0x22E9618
-      description: |-
-        Returns a pointer to the monster data of the current leader.
-        
-        No params.
-    - name: GetLeaderAction
-      address:
-        EU: 0x22F1540
-        NA: 0x22F0B8C
-      description: |-
-        Returns a pointer to the action data of the current leader (field 0x4A on its monster struct).
-        
-        No params.
     - name: DefenderAbilityIsActive
       address:
         EU:
