@@ -13,6 +13,24 @@ overlay31:
     JP: 0x7AC0
   description: Controls the dungeon menu (during dungeon mode).
   functions:
+    - name: EntryOverlay31
+      address:
+        EU: 0x2383420
+        NA: 0x2382820
+        JP: 0x2383AA0
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        No params.
+    - name: DungeonMenuSwitch
+      address:
+        EU: 0x23836C0
+        NA: 0x2382AC0
+        JP: 0x2383D40
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: appears to be an index of some sort, probably the menu index based on the function name?
     - name: TeamMenu
       address:
         EU: 0x2387C70
@@ -54,20 +72,6 @@ overlay31:
         The menu is still considered open while one of the help pages is being viewed, so this function keeps being called even after choosing an option.
         
         return: int (Actually, this is probably some sort of enum shared by all the MenuLoop functions)
-    - name: EntryOverlay31
-      address:
-        NA: 0x2382820
-      description: |-
-        Note: unverified, ported from Irdkwia's notes
-        
-        No params.
-    - name: DungeonMenuSwitch
-      address:
-        NA: 0x2382AC0
-      description: |-
-        Note: unverified, ported from Irdkwia's notes
-        
-        r0: appears to be an index of some sort, probably the menu index based on the function name?
   data:
     - name: DUNGEON_MAIN_MENU
       address:

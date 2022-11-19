@@ -15,7 +15,9 @@ overlay19:
   functions:
     - name: GetBarItem
       address:
+        EU: 0x238AC80
         NA: 0x238A140
+        JP: 0x238B6A0
       description: |-
         Gets the struct bar_item from BAR_AVAILABLE_ITEMS with the specified item ID.
         
@@ -23,21 +25,27 @@ overlay19:
         return: struct bar_item*
     - name: GetRecruitableMonsterAll
       address:
+        EU: 0x238AD04
         NA: 0x238A1C4
+        JP: 0x238B724
       description: |-
         Note: unverified, ported from Irdkwia's notes
         
         return: int?
     - name: GetRecruitableMonsterList
       address:
+        EU: 0x238ADB4
         NA: 0x238A274
+        JP: 0x238B7D4
       description: |-
         Note: unverified, ported from Irdkwia's notes
         
         return: int?
     - name: GetRecruitableMonsterListRestricted
       address:
+        EU: 0x238AE5C
         NA: 0x238A31C
+        JP: 0x238B87C
       description: |-
         Note: unverified, ported from Irdkwia's notes
         
