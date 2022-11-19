@@ -1293,7 +1293,7 @@ overlay29:
       description: |-
         Checks if a given monster ID can spawn in dungeons.
         
-        The function returns true if th monster's spawn threshold value is <= SCENARIO_BALANCE_FLAG
+        The function returns true if the monster's spawn threshold value is <= SCENARIO_BALANCE_FLAG
         
         r0: monster ID
         return: True if the monster can spawn, false otherwise
