@@ -6,7 +6,7 @@ pub use cursor::{BlockCursor, SymGenCursor};
 use std::any;
 use std::borrow::Cow;
 use std::cmp::Ordering;
-use std::collections::{BTreeMap, HashMap};
+use std::collections::{BTreeMap, BTreeSet, HashMap};
 use std::fmt::{self, Display, Formatter};
 use std::io::{self, Read, Write};
 use std::ops::Deref;
@@ -313,12 +313,316 @@ impl<const N: usize> From<[Symbol; N]> for SymbolList {
     }
 }
 
+/// A symbol in a [`SymbolList`], potentially augmented by additional addresses for sorting
+#[derive(Debug, PartialEq, Eq, Clone)]
+struct SortSymbol {
+    /// The symbol.
+    symbol: Symbol,
+    /// Addresses temporarily assigned while the parent SymbolList is being sorted.
+    sort_address: Option<VersionDep<Linkable>>,
+}
+
+impl SortSymbol {
+    fn get_native(&self, native_key: &Version) -> Option<&Linkable> {
+        if let Some(addr) = &self.sort_address {
+            return addr.get_native(native_key);
+        } else if let MaybeVersionDep::ByVersion(addr) = &self.symbol.address {
+            return addr.get_native(native_key);
+        }
+        None
+    }
+    fn contains_key_native(&self, native_key: &Version) -> bool {
+        self.get_native(native_key).is_some()
+    }
+    fn insert_native(&mut self, native_key: Version, value: Linkable) -> Option<Linkable> {
+        if let Some(addr) = &mut self.sort_address {
+            addr.insert_native(native_key, value)
+        } else if let MaybeVersionDep::ByVersion(addr) = &self.symbol.address {
+            let mut addr = addr.clone();
+            let old = addr.insert_native(native_key, value);
+            self.sort_address = Some(addr);
+            old
+        } else {
+            self.sort_address = Some([(native_key, value)].into());
+            None
+        }
+    }
+}
+
+impl PartialOrd for SortSymbol {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+impl Ord for SortSymbol {
+    fn cmp(&self, other: &Self) -> Ordering {
+        // Use the sort_address field if present, otherwise fall back to the normal address field
+        match &self.sort_address {
+            Some(self_sort_addr) => match &other.sort_address {
+                Some(other_sort_addr) => self_sort_addr.cmp(other_sort_addr),
+                None => {
+                    MaybeVersionDep::ByVersion(self_sort_addr.clone()).cmp(&other.symbol.address)
+                }
+            },
+            None => match &other.sort_address {
+                Some(other_sort_addr) => self
+                    .symbol
+                    .address
+                    .cmp(&MaybeVersionDep::ByVersion(other_sort_addr.clone())),
+                None => self.symbol.address.cmp(&other.symbol.address),
+            },
+        }
+    }
+}
+
+/// A disjoint set of closed numeric ranges
+#[derive(Debug, PartialEq, Eq)]
+struct RangeSet(Vec<(Uint, Uint)>);
+
+impl From<Vec<(Uint, Uint)>> for RangeSet {
+    fn from(mut ranges: Vec<(Uint, Uint)>) -> Self {
+        ranges.retain(|r| r.0 <= r.1);
+        if ranges.is_empty() {
+            return Self(ranges);
+        }
+        ranges.sort_unstable();
+
+        let mut rangeset = Vec::with_capacity(ranges.len());
+        let mut range_iter = ranges.into_iter();
+        // Buffer the current range so that we can coalesce if needed before pushing
+        let mut current_range = range_iter.next().unwrap();
+        for r in range_iter {
+            // Note: can't just check (r.0 - current_range.1) as i64 <= 1 because of integer
+            // underflow.
+            if r.0 <= current_range.1 || (r.0 - current_range.1 == 1) {
+                // The new range's left endpoint overlaps with or borders current_range, so we can
+                // combine it with current_range.
+                current_range.1 = current_range.1.max(r.1);
+            } else {
+                rangeset.push(current_range);
+                current_range = r;
+            }
+        }
+        rangeset.push(current_range);
+        Self(rangeset)
+    }
+}
+
+impl RangeSet {
+    fn contains(&self, val: Uint) -> bool {
+        self.0
+            .binary_search_by(|r| {
+                if let Ordering::Greater = r.0.cmp(&val) {
+                    Ordering::Greater
+                } else if let Ordering::Less = r.1.cmp(&val) {
+                    Ordering::Less
+                } else {
+                    Ordering::Equal
+                }
+            })
+            .is_ok()
+    }
+}
+
 impl Sort for SymbolList {
     fn sort(&mut self) {
+        // Sort each individual symbol's contents, and gather a sorted list of all versions
+        // inferred from the symbol contents
+        let mut all_versions = BTreeSet::new();
         for symbol in self.0.iter_mut() {
             symbol.sort();
+
+            for v in symbol.address.versions() {
+                all_versions.insert(v);
+            }
         }
-        self.0.sort();
+        let all_versions: Vec<_> = all_versions.into_iter().cloned().collect();
+
+        // Move symbols over to an auxiliary array, since we need to be able to augment the symbol
+        // data for sorting purposes
+        let mut sort_list: Vec<SortSymbol> = Vec::with_capacity(self.len());
+        for symbol in self.0.drain(..) {
+            sort_list.push(SortSymbol {
+                symbol,
+                sort_address: None,
+            });
+        }
+
+        // Realize Common addresses for sorting purposes, if possible. Comparison between
+        // Common/ByVersion variants is not consistent/transitive if the ByVersion variant
+        // is missing some versions, and realization prevents such intransitivity.
+        for ss in sort_list.iter_mut() {
+            if ss.symbol.address.is_common() && !all_versions.is_empty() {
+                ss.sort_address = Some(ss.symbol.address.by_version(&all_versions));
+            }
+        }
+
+        // First pass: naive lexicographic sort.
+        sort_list.sort();
+
+        // The following block performs a more sophisticated sorting algorithm for symbols with
+        // versioned addresses.
+        //
+        // # Motivation
+        // A naive lexicographic sort has limitations when some symbols are missing addresses
+        // for certain versions. For example, say you have a list like this:
+        // ```yml
+        // - name: a
+        //   address:
+        //     v1: 0
+        //     v2: 1
+        // - name: b
+        //   address:
+        //     v1: 10
+        //     v2: 11
+        // - name: c
+        //   address:
+        //     v2: 2
+        // ```
+        // The naive sort will leave "c" at the end, even though it should really be in between
+        // "a" and "b", based on the v2 value.
+        //
+        // However, it's not always possible to unambiguously order symbols with missing addresses.
+        // For example, say you have a list like this:
+        // ```yml
+        // - name: a
+        //   address:
+        //     v1: 0
+        //     v2: 10
+        // - name: b
+        //   address:
+        //     v1: 1
+        //     v2: 2
+        // - name: c
+        //   address:
+        //     v2: 5
+        // ```
+        // Here, it's not clear whether "c" should come before "a", or after "b". A good sorting
+        // algorithm should be able to detect such situations, and leave these symbols at the end
+        // in these cases.
+        //
+        // # Algorithm Overview
+        // Sorting happens over multiple passes, one for each version, in order (with the first
+        // pass being the naive sort in the previous line). The passes accumulate, and by the last
+        // pass, the list will be fully sorted. In each pass (for a version "v"):
+        //
+        // 1. Of the symbols with addresses for version "v" but not for prior versions, determine
+        // which can be unambigously resorted.
+        // 2. Of the good symbols in step 1, figure out where to relocate them, and then do so.
+        //
+        // See subsequent comments for more detail.
+        let mut first_unsorted_idx = 0;
+        for (pass_idx, vpair) in all_versions.windows(2).enumerate() {
+            let vsorted = &vpair[0]; // the previous version, which a pass was already done for
+            let v = &vpair[1]; // the currrent version, which this pass is focused on
+                               // all previous versions for which a pass was already done for
+            let all_vsorted = &all_versions[..=pass_idx];
+
+            // Find the first symbol (that isn't already sorted) whose address set doesn't have
+            // vsorted. This is the first unsorted symbol.
+            for ss in sort_list.iter().skip(first_unsorted_idx) {
+                if ss.contains_key_native(vsorted) {
+                    first_unsorted_idx += 1;
+                } else {
+                    break;
+                }
+            }
+            // Everything is already sorted; nothing to do
+            if first_unsorted_idx == sort_list.len() {
+                break;
+            }
+
+            // Search for sort violations among the vsorted-sorted symbols with v addresses,
+            // and fill in v addresses if missing. A sort violation for version v is when the
+            // sequence of v addresses (the ordering of which is controlled by addresses from prior
+            // versions) is not in sorted order. For example:
+            //
+            // v2: 1, 2, 3, 4, 5, 3, 6, 4, 8, 12, 11
+            //                    ^     ^         ^
+            //                     sort violations
+            //
+            // What we care about is the range of values that are "passed through" when sorting
+            // order is violated. In the above example, we pass from 5 -> 3, 6 -> 4, and 12 -> 11.
+            // This means that we can't sort any currently unsorted symbol with a v address in the
+            // ranges [3, 5], [4, 6], or [11, 12].
+            let mut prev_val = Uint::MIN;
+            let mut contested_ranges = Vec::new();
+            for ss in sort_list.iter_mut().take(first_unsorted_idx) {
+                if let Some(cur_val) = ss.get_native(v).map(|val| val.cmp_key()) {
+                    if cur_val < prev_val {
+                        contested_ranges.push((cur_val, prev_val));
+                    }
+                    prev_val = cur_val;
+                } else {
+                    // We need to fill in an artificial v address so the binary search in the
+                    // next step works properly. We can just use prev_val to maintain the existing
+                    // order.
+                    ss.insert_native(v.clone(), prev_val.into());
+                }
+            }
+            let contested_ranges = RangeSet::from(contested_ranges);
+
+            // Go through each of the unsorted symbols (with v addresses but not vsorted addresses)
+            // and try to assign fake addresses for all the addresses in all_vsorted, such that the
+            // symbols will end up appropriately sorted.
+            let (sorted_slice, unsorted_slice) = sort_list.split_at_mut(first_unsorted_idx);
+            for ss in unsorted_slice.iter_mut() {
+                if let Some(cur_val) = ss.get_native(v).map(|val| val.cmp_key()) {
+                    first_unsorted_idx += 1; // this just saves us some work in the next pass
+
+                    if contested_ranges.contains(cur_val) {
+                        // This symbol is in a contested range...we can't sort it, so just skip
+                        continue;
+                    }
+
+                    // Search for the first fully sorted symbol (had a vsorted address) with a
+                    // version v address that exceeds that of the current unsorted symbol. This
+                    // is the sorted symbol we want to insert the unsorted symbol in front of.
+                    let idx =
+                        sorted_slice.partition_point(|ss| {
+                            ss.get_native(v).expect(
+                            "SymbolList::Sort reference symbol does not have reference value?",
+                        ).cmp_key() <= cur_val
+                        });
+                    // If idx == sorted_slice.len(), there's nothing to do; the current unsorted
+                    // symbol comes after all the currently sorted symbols and should stay at the
+                    // end of the list.
+                    if idx < sorted_slice.len() {
+                        // # Safety
+                        // We just checked that idx < sorted_slice.len()
+                        let ref_ss = unsafe { sorted_slice.get_unchecked(idx) };
+                        // Copy the values for the all_vsorted version from the matched sorted
+                        // symbol to the current unsorted symbol. Since the version v value for
+                        // the current unsorted symbol is less than that of the matched sorted
+                        // symbol by construction, this ensures that the current unsorted symbol
+                        // will end up directly in front of the sorted symbol when we resort the
+                        // list.
+                        for vother in all_vsorted.iter() {
+                            // ref_ss must have a value for v, but not necessarily for the vother's
+                            // before it, since it could've been skipped on previous iterations due
+                            // to contested ranges.
+                            if let Some(vother_val) = ref_ss.get_native(vother) {
+                                ss.insert_native(vother.clone(), vother_val.cmp_key().into());
+                            }
+                        }
+                    }
+                } else {
+                    // This symbol doesn't have a v address. Since sort_list was already
+                    // pre-sorted, none of the later symbols will either. This pass is finished.
+                    break;
+                }
+            }
+
+            // Next pass: now that we've added new sort_addresses, redo the lexicographic sort
+            // to put the symbols with version v addresses but not vsorted addresses in order
+            sort_list.sort();
+        }
+
+        // Transfer the fully sorted symbols back from the auxiliary array
+        for ss in sort_list.into_iter() {
+            self.0.push(ss.symbol);
+        }
     }
 }
 
@@ -1334,6 +1638,423 @@ mod tests {
             list.sort();
 
             assert_eq!(&list, &final_list);
+        }
+
+        #[test]
+        fn test_rangeset_from() {
+            let rangeset = RangeSet::from(vec![
+                (11, 19),
+                (10, 20),   // fully subsume (11, 19)
+                (15, 18),   // fully within (10, 20)
+                (5, 12),    // extend (10, 20) leftwards
+                (15, 30),   // extend (5, 20) rightwards
+                (40, 50),   // disjoint
+                (100, 200), // disjoint
+                (1, 55),    // fully subsume (5, 30) + (40, 50)
+                (56, 60),   // extend (1, 55) rightwards
+            ]);
+            assert_eq!(&rangeset, &RangeSet(vec![(1, 60), (100, 200),]));
+        }
+
+        #[test]
+        fn test_rangeset_contains() {
+            let rangeset = RangeSet(vec![(1, 60), (100, 200)]);
+            assert!(!rangeset.contains(0));
+            assert!(rangeset.contains(1));
+            assert!(rangeset.contains(30));
+            assert!(rangeset.contains(60));
+            assert!(!rangeset.contains(75));
+            assert!(rangeset.contains(100));
+            assert!(rangeset.contains(150));
+            assert!(rangeset.contains(200));
+            assert!(!rangeset.contains(300));
+        }
+
+        fn make_symbol_list<const N: usize>(
+            list: [(&str, MaybeVersionDep<Linkable>); N],
+        ) -> SymbolList {
+            let mut versions = BTreeSet::new();
+            for i in list.iter() {
+                for v in i.1.versions() {
+                    versions.insert(v);
+                }
+            }
+            let versions: Vec<_> = versions.into_iter().collect();
+            let version_order = OrdString::get_order_map(Some(&versions));
+            let ctx = BlockContext { version_order };
+
+            let mut slist = SymbolList(
+                list.iter()
+                    .map(|i| Symbol {
+                        name: i.0.to_string(),
+                        address: i.1.clone(),
+                        length: None,
+                        description: None,
+                    })
+                    .collect(),
+            );
+            slist.init(&ctx);
+            slist
+        }
+
+        fn assert_sort_order<const N: usize>(
+            list: [(&str, MaybeVersionDep<Linkable>); N],
+            list_sorted: [(&str, MaybeVersionDep<Linkable>); N],
+        ) {
+            let mut list = make_symbol_list(list);
+            let list_sorted = make_symbol_list(list_sorted);
+            list.sort();
+            assert_eq!(&list, &list_sorted);
+        }
+
+        #[test]
+        fn test_sort_common() {
+            assert_sort_order(
+                [
+                    ("symbol3", MaybeVersionDep::Common(3.into())),
+                    ("symbol1", MaybeVersionDep::Common(1.into())),
+                    ("symbol2", MaybeVersionDep::Common(2.into())),
+                ],
+                [
+                    ("symbol1", MaybeVersionDep::Common(1.into())),
+                    ("symbol2", MaybeVersionDep::Common(2.into())),
+                    ("symbol3", MaybeVersionDep::Common(3.into())),
+                ],
+            );
+        }
+
+        #[test]
+        fn test_sort_multipass() {
+            assert_sort_order(
+                [
+                    (
+                        "symbol1",
+                        MaybeVersionDep::ByVersion(
+                            [
+                                ("v1".into(), 0.into()),
+                                ("v2".into(), 1.into()),
+                                ("v3".into(), 2.into()),
+                            ]
+                            .into(),
+                        ),
+                    ),
+                    (
+                        "symbol3",
+                        MaybeVersionDep::ByVersion(
+                            [("v1".into(), 10.into()), ("v2".into(), 11.into())].into(),
+                        ),
+                    ),
+                    (
+                        "symbol5",
+                        MaybeVersionDep::ByVersion(
+                            [
+                                ("v1".into(), 20.into()),
+                                ("v2".into(), 21.into()),
+                                ("v3".into(), 22.into()),
+                            ]
+                            .into(),
+                        ),
+                    ),
+                    (
+                        "symbol0",
+                        MaybeVersionDep::ByVersion([("v2".into(), 0.into())].into()),
+                    ),
+                    (
+                        "symbol6",
+                        MaybeVersionDep::ByVersion([("v2".into(), 100.into())].into()),
+                    ),
+                    (
+                        "symbol2",
+                        MaybeVersionDep::ByVersion([("v2".into(), 1.into())].into()),
+                    ),
+                    (
+                        "symbol4",
+                        MaybeVersionDep::ByVersion([("v3".into(), 15.into())].into()),
+                    ),
+                ],
+                [
+                    (
+                        "symbol0",
+                        MaybeVersionDep::ByVersion([("v2".into(), 0.into())].into()),
+                    ),
+                    (
+                        "symbol1",
+                        MaybeVersionDep::ByVersion(
+                            [
+                                ("v1".into(), 0.into()),
+                                ("v2".into(), 1.into()),
+                                ("v3".into(), 2.into()),
+                            ]
+                            .into(),
+                        ),
+                    ),
+                    (
+                        "symbol2",
+                        MaybeVersionDep::ByVersion([("v2".into(), 1.into())].into()),
+                    ),
+                    (
+                        "symbol3",
+                        MaybeVersionDep::ByVersion(
+                            [("v1".into(), 10.into()), ("v2".into(), 11.into())].into(),
+                        ),
+                    ),
+                    (
+                        "symbol4",
+                        MaybeVersionDep::ByVersion([("v3".into(), 15.into())].into()),
+                    ),
+                    (
+                        "symbol5",
+                        MaybeVersionDep::ByVersion(
+                            [
+                                ("v1".into(), 20.into()),
+                                ("v2".into(), 21.into()),
+                                ("v3".into(), 22.into()),
+                            ]
+                            .into(),
+                        ),
+                    ),
+                    (
+                        "symbol6",
+                        MaybeVersionDep::ByVersion([("v2".into(), 100.into())].into()),
+                    ),
+                ],
+            );
+        }
+
+        #[test]
+        fn test_sort_multipass_conflict() {
+            assert_sort_order(
+                [
+                    (
+                        "symbol1",
+                        MaybeVersionDep::ByVersion(
+                            [
+                                ("v1".into(), 0.into()),
+                                ("v2".into(), 1.into()),
+                                ("v3".into(), 2.into()),
+                            ]
+                            .into(),
+                        ),
+                    ),
+                    (
+                        "symbol2",
+                        MaybeVersionDep::ByVersion(
+                            [("v1".into(), 10.into()), ("v2".into(), 0.into())].into(),
+                        ),
+                    ),
+                    (
+                        "symbol4",
+                        MaybeVersionDep::ByVersion(
+                            [
+                                ("v1".into(), 20.into()),
+                                ("v2".into(), 21.into()),
+                                ("v3".into(), 22.into()),
+                            ]
+                            .into(),
+                        ),
+                    ),
+                    (
+                        "symbol5",
+                        MaybeVersionDep::ByVersion(
+                            [
+                                ("v1".into(), 30.into()),
+                                ("v2".into(), 20.into()),
+                                ("v3".into(), 32.into()),
+                            ]
+                            .into(),
+                        ),
+                    ),
+                    (
+                        "symbol6",
+                        MaybeVersionDep::ByVersion([("v2".into(), 1.into())].into()),
+                    ),
+                    (
+                        "symbol3a",
+                        MaybeVersionDep::ByVersion([("v2".into(), 10.into())].into()),
+                    ),
+                    (
+                        "symbol3b",
+                        MaybeVersionDep::ByVersion([("v3".into(), 15.into())].into()),
+                    ),
+                    (
+                        "symbol7",
+                        MaybeVersionDep::ByVersion([("v2".into(), 20.into())].into()),
+                    ),
+                ],
+                [
+                    (
+                        "symbol1",
+                        MaybeVersionDep::ByVersion(
+                            [
+                                ("v1".into(), 0.into()),
+                                ("v2".into(), 1.into()),
+                                ("v3".into(), 2.into()),
+                            ]
+                            .into(),
+                        ),
+                    ),
+                    (
+                        "symbol2",
+                        MaybeVersionDep::ByVersion(
+                            [("v1".into(), 10.into()), ("v2".into(), 0.into())].into(),
+                        ),
+                    ),
+                    (
+                        "symbol3a",
+                        MaybeVersionDep::ByVersion([("v2".into(), 10.into())].into()),
+                    ),
+                    (
+                        "symbol3b",
+                        MaybeVersionDep::ByVersion([("v3".into(), 15.into())].into()),
+                    ),
+                    (
+                        "symbol4",
+                        MaybeVersionDep::ByVersion(
+                            [
+                                ("v1".into(), 20.into()),
+                                ("v2".into(), 21.into()),
+                                ("v3".into(), 22.into()),
+                            ]
+                            .into(),
+                        ),
+                    ),
+                    (
+                        "symbol5",
+                        MaybeVersionDep::ByVersion(
+                            [
+                                ("v1".into(), 30.into()),
+                                ("v2".into(), 20.into()),
+                                ("v3".into(), 32.into()),
+                            ]
+                            .into(),
+                        ),
+                    ),
+                    (
+                        "symbol6",
+                        // Conflicts with symbol1/symbol2
+                        MaybeVersionDep::ByVersion([("v2".into(), 1.into())].into()),
+                    ),
+                    (
+                        "symbol7",
+                        // Conflicts with symbol4/symbol5
+                        MaybeVersionDep::ByVersion([("v2".into(), 20.into())].into()),
+                    ),
+                ],
+            );
+        }
+
+        #[test]
+        fn test_sort_multipass_conflict_cascade() {
+            assert_sort_order(
+                [
+                    (
+                        "symbol1",
+                        MaybeVersionDep::ByVersion(
+                            [
+                                ("v1".into(), 0.into()),
+                                ("v2".into(), 1.into()),
+                                ("v3".into(), 2.into()),
+                            ]
+                            .into(),
+                        ),
+                    ),
+                    (
+                        "symbol3",
+                        MaybeVersionDep::ByVersion(
+                            [
+                                ("v1".into(), 10.into()),
+                                ("v2".into(), 0.into()),
+                                ("v3".into(), 12.into()),
+                            ]
+                            .into(),
+                        ),
+                    ),
+                    (
+                        "symbol5",
+                        MaybeVersionDep::ByVersion(
+                            [
+                                ("v1".into(), 20.into()),
+                                ("v2".into(), 21.into()),
+                                ("v3".into(), 22.into()),
+                            ]
+                            .into(),
+                        ),
+                    ),
+                    (
+                        "symbol6",
+                        MaybeVersionDep::ByVersion(
+                            [("v2".into(), 1.into()), ("v3".into(), 13.into())].into(),
+                        ),
+                    ),
+                    (
+                        "symbol4",
+                        MaybeVersionDep::ByVersion([("v2".into(), 10.into())].into()),
+                    ),
+                    (
+                        "symbol7",
+                        MaybeVersionDep::ByVersion([("v3".into(), 15.into())].into()),
+                    ),
+                    (
+                        "symbol2",
+                        MaybeVersionDep::ByVersion([("v3".into(), 10.into())].into()),
+                    ),
+                ],
+                [
+                    (
+                        "symbol1",
+                        MaybeVersionDep::ByVersion(
+                            [
+                                ("v1".into(), 0.into()),
+                                ("v2".into(), 1.into()),
+                                ("v3".into(), 2.into()),
+                            ]
+                            .into(),
+                        ),
+                    ),
+                    (
+                        "symbol2",
+                        MaybeVersionDep::ByVersion([("v3".into(), 10.into())].into()),
+                    ),
+                    (
+                        "symbol3",
+                        MaybeVersionDep::ByVersion(
+                            [
+                                ("v1".into(), 10.into()),
+                                ("v2".into(), 0.into()),
+                                ("v3".into(), 12.into()),
+                            ]
+                            .into(),
+                        ),
+                    ),
+                    (
+                        "symbol4",
+                        MaybeVersionDep::ByVersion([("v2".into(), 10.into())].into()),
+                    ),
+                    (
+                        "symbol5",
+                        MaybeVersionDep::ByVersion(
+                            [
+                                ("v1".into(), 20.into()),
+                                ("v2".into(), 21.into()),
+                                ("v3".into(), 22.into()),
+                            ]
+                            .into(),
+                        ),
+                    ),
+                    (
+                        "symbol6",
+                        // Conflicts with symbol1/symbol3
+                        MaybeVersionDep::ByVersion(
+                            [("v2".into(), 1.into()), ("v3".into(), 13.into())].into(),
+                        ),
+                    ),
+                    (
+                        "symbol7",
+                        // Conflicts with symbol5/symbol6
+                        MaybeVersionDep::ByVersion([("v3".into(), 15.into())].into()),
+                    ),
+                ],
+            );
         }
 
         #[test]
