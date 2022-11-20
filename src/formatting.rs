@@ -131,9 +131,6 @@ fn print_format_diff<D: Display>(old: &str, new: &str, title: D) -> io::Result<(
     };
     let res = print_colored_diff();
     // Always try to clean up color settings before returning
-    if let Err(e) = stderr.reset() {
-        Err(e)
-    } else {
-        res
-    }
+    stderr.reset()?; // throw away Ok() output
+    res
 }
