@@ -1,7 +1,7 @@
 [package]
 name = "resymgen"
 description = "Generates symbol tables for reverse engineering applications from a YAML specification"
-version = "0.4.1"
+version = "0.4.2"
 authors = ["UsernameFodder <usernamefodder@gmail.com>"]
 edition = "2018"
 rust-version = "1.58"
