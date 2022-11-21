@@ -14,6 +14,12 @@ overlay20:
   description: Controls the Recycle Shop.
   functions: []
   data:
+    - name: OVERLAY20_UNKNOWN_POINTER__NA_238CF7C
+      address:
+        NA: 0x238CF7C
+      length:
+        NA: 0x8
+      description: "Note: unverified, ported from Irdkwia's notes"
     - name: RECYCLE_MENU_CONFIRM_1
       address:
         EU: 0x238DAC4
@@ -49,26 +55,6 @@ overlay20:
       length:
         EU: 0x28
         NA: 0x28
-    - name: RECYCLE_MAIN_MENU_2
-      address:
-        EU: 0x238DBC8
-        NA: 0x238D088
-      length:
-        EU: 0x20
-        NA: 0x20
-    - name: RECYCLE_MAIN_MENU_3
-      address:
-        EU: 0x238DC38
-        NA: 0x238D0F8
-      length:
-        EU: 0x18
-        NA: 0x18
-    - name: OVERLAY20_UNKNOWN_POINTER__NA_238CF7C
-      address:
-        NA: 0x238CF7C
-      length:
-        NA: 0x8
-      description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY20_UNKNOWN_TABLE__NA_238D014
       address:
         NA: 0x238D014
@@ -111,6 +97,13 @@ overlay20:
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
+    - name: RECYCLE_MAIN_MENU_2
+      address:
+        EU: 0x238DBC8
+        NA: 0x238D088
+      length:
+        EU: 0x20
+        NA: 0x20
     - name: RECYCLE_D_BOX_LAYOUT_7
       address:
         NA: 0x238D0A8
@@ -141,6 +134,13 @@ overlay20:
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
+    - name: RECYCLE_MAIN_MENU_3
+      address:
+        EU: 0x238DC38
+        NA: 0x238D0F8
+      length:
+        EU: 0x18
+        NA: 0x18
     - name: OVERLAY20_RESERVED_SPACE
       address:
         NA: 0x238D110

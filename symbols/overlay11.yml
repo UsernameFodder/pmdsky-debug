@@ -275,6 +275,29 @@ overlay11:
         
         No params.
   data:
+    - name: OVERLAY11_UNKNOWN_TABLE__NA_2316A38
+      address:
+        NA: 0x2316A38
+      length:
+        NA: 0xA0
+      description: |-
+        Multiple entries are pointers to the string "script.c"
+        
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: undefined4[40]
+    - name: SCRIPT_COMMAND_PARSING_DATA
+      address:
+        NA: 0x2316AD8
+      length:
+        NA: 0x20
+      description: Used by ScriptCommandParsing somehow
+    - name: SCRIPT_OP_CODE_NAMES
+      address:
+        NA: 0x2316AF8
+      length:
+        NA: 0x1B18
+      description: "Opcode name strings pointed to by entries in SCRIPT_OP_CODES (script_opcode::name)"
     - name: SCRIPT_OP_CODES
       address:
         EU: 0x2318FF0
@@ -290,6 +313,18 @@ overlay11:
         These opcodes underpin the various ExplorerScript functions you can call in the SkyTemple SSB debugger.
         
         type: struct script_opcode_table
+    - name: OVERLAY11_DEBUG_STRINGS
+      address:
+        NA: 0x2319208
+      length:
+        NA: 0x8E4
+      description: Strings used with various debug printing functions throughout the overlay
+    - name: C_ROUTINE_NAMES
+      address:
+        NA: 0x2319AEC
+      length:
+        NA: 0x2D3C
+      description: "Common routine name strings pointed to by entries in C_ROUTINES (common_routine::name)"
     - name: C_ROUTINES
       address:
         EU: 0x231D208
@@ -304,6 +339,15 @@ overlay11:
         These routines underpin the ExplorerScript coroutines you can call in the SkyTemple SSB debugger.
         
         type: struct common_routine_table
+    - name: GROUND_WEATHER_TABLE
+      address:
+        NA: 0x231DE10
+      length:
+        NA: 0x30
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: struct ground_weather_entry[12]
     - name: GROUND_WAN_FILES_TABLE
       address:
         EU: 0x231E820
@@ -412,47 +456,3 @@ overlay11:
         Host pointers to multiple structure used for performing an overworld scene
         
         type: struct main_ground_data
-    - name: OVERLAY11_UNKNOWN_TABLE__NA_2316A38
-      address:
-        NA: 0x2316A38
-      length:
-        NA: 0xA0
-      description: |-
-        Multiple entries are pointers to the string "script.c"
-        
-        Note: unverified, ported from Irdkwia's notes
-        
-        type: undefined4[40]
-    - name: SCRIPT_COMMAND_PARSING_DATA
-      address:
-        NA: 0x2316AD8
-      length:
-        NA: 0x20
-      description: Used by ScriptCommandParsing somehow
-    - name: SCRIPT_OP_CODE_NAMES
-      address:
-        NA: 0x2316AF8
-      length:
-        NA: 0x1B18
-      description: "Opcode name strings pointed to by entries in SCRIPT_OP_CODES (script_opcode::name)"
-    - name: OVERLAY11_DEBUG_STRINGS
-      address:
-        NA: 0x2319208
-      length:
-        NA: 0x8E4
-      description: Strings used with various debug printing functions throughout the overlay
-    - name: C_ROUTINE_NAMES
-      address:
-        NA: 0x2319AEC
-      length:
-        NA: 0x2D3C
-      description: "Common routine name strings pointed to by entries in C_ROUTINES (common_routine::name)"
-    - name: GROUND_WEATHER_TABLE
-      address:
-        NA: 0x231DE10
-      length:
-        NA: 0x30
-      description: |-
-        Note: unverified, ported from Irdkwia's notes
-        
-        type: struct ground_weather_entry[12]

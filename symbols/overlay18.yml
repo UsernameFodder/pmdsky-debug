@@ -14,69 +14,6 @@ overlay18:
   description: Controls the Electivire Link Shop.
   functions: []
   data:
-    - name: MOVES_MENU_CONFIRM
-      address:
-        EU: 0x238DE60
-        NA: 0x238D320
-      length:
-        EU: 0x18
-        NA: 0x18
-    - name: MOVES_SUBMENU_1
-      address:
-        EU: 0x238DE78
-        NA: 0x238D338
-      length:
-        EU: 0x20
-        NA: 0x20
-    - name: MOVES_SUBMENU_2
-      address:
-        EU: 0x238DE98
-        NA: 0x238D358
-      length:
-        EU: 0x20
-        NA: 0x20
-    - name: MOVES_MAIN_MENU
-      address:
-        EU: 0x238DEB8
-        NA: 0x238D378
-      length:
-        EU: 0x20
-        NA: 0x20
-    - name: MOVES_SUBMENU_3
-      address:
-        EU: 0x238DED8
-        NA: 0x238D398
-      length:
-        EU: 0x28
-        NA: 0x28
-    - name: MOVES_SUBMENU_4
-      address:
-        EU: 0x238DF00
-        NA: 0x238D3C0
-      length:
-        EU: 0x30
-        NA: 0x30
-    - name: MOVES_SUBMENU_5
-      address:
-        EU: 0x238DF30
-        NA: 0x238D3F0
-      length:
-        EU: 0x48
-        NA: 0x48
-    - name: MOVES_SUBMENU_6
-      address:
-        EU: 0x238DF78
-        NA: 0x238D438
-      length:
-        EU: 0x48
-        NA: 0x48
-    - name: MOVES_SUBMENU_7
-      address:
-        EU: 0x238DFC0
-        NA: 0x238D480
-      length:
-        EU: 0x48
-        NA: 0x48
     - name: OVERLAY18_D_BOX_LAYOUT_1
       address:
         NA: 0x238D270
@@ -143,6 +80,69 @@ overlay18:
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
+    - name: MOVES_MENU_CONFIRM
+      address:
+        EU: 0x238DE60
+        NA: 0x238D320
+      length:
+        EU: 0x18
+        NA: 0x18
+    - name: MOVES_SUBMENU_1
+      address:
+        EU: 0x238DE78
+        NA: 0x238D338
+      length:
+        EU: 0x20
+        NA: 0x20
+    - name: MOVES_SUBMENU_2
+      address:
+        EU: 0x238DE98
+        NA: 0x238D358
+      length:
+        EU: 0x20
+        NA: 0x20
+    - name: MOVES_MAIN_MENU
+      address:
+        EU: 0x238DEB8
+        NA: 0x238D378
+      length:
+        EU: 0x20
+        NA: 0x20
+    - name: MOVES_SUBMENU_3
+      address:
+        EU: 0x238DED8
+        NA: 0x238D398
+      length:
+        EU: 0x28
+        NA: 0x28
+    - name: MOVES_SUBMENU_4
+      address:
+        EU: 0x238DF00
+        NA: 0x238D3C0
+      length:
+        EU: 0x30
+        NA: 0x30
+    - name: MOVES_SUBMENU_5
+      address:
+        EU: 0x238DF30
+        NA: 0x238D3F0
+      length:
+        EU: 0x48
+        NA: 0x48
+    - name: MOVES_SUBMENU_6
+      address:
+        EU: 0x238DF78
+        NA: 0x238D438
+      length:
+        EU: 0x48
+        NA: 0x48
+    - name: MOVES_SUBMENU_7
+      address:
+        EU: 0x238DFC0
+        NA: 0x238D480
+      length:
+        EU: 0x48
+        NA: 0x48
     - name: OVERLAY18_FUNCTION_POINTER_TABLE
       address:
         NA: 0x238D4C8

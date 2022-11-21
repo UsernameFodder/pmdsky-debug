@@ -14,6 +14,18 @@ overlay24:
   description: Controls the Chansey Day Care.
   functions: []
   data:
+    - name: OVERLAY24_UNKNOWN_STRUCT__NA_238C508
+      address:
+        NA: 0x238C508
+      length:
+        NA: 0xC
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY24_UNKNOWN_STRUCT__NA_238C514
+      address:
+        NA: 0x238C514
+      length:
+        NA: 0xC
+      description: "Note: unverified, ported from Irdkwia's notes"
     - name: DAYCARE_MENU_CONFIRM
       address:
         EU: 0x238D060
@@ -28,18 +40,6 @@ overlay24:
       length:
         EU: 0x20
         NA: 0x20
-    - name: OVERLAY24_UNKNOWN_STRUCT__NA_238C508
-      address:
-        NA: 0x238C508
-      length:
-        NA: 0xC
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: OVERLAY24_UNKNOWN_STRUCT__NA_238C514
-      address:
-        NA: 0x238C514
-      length:
-        NA: 0xC
-      description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY24_UNKNOWN_STRING_IDS
       address:
         NA: 0x238C558

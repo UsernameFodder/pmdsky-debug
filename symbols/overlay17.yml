@@ -14,6 +14,36 @@ overlay17:
   description: Controls the Chimecho Assembly.
   functions: []
   data:
+    - name: ASSEMBLY_D_BOX_LAYOUT_1
+      address:
+        NA: 0x238BB34
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: ASSEMBLY_D_BOX_LAYOUT_2
+      address:
+        NA: 0x238BB44
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: ASSEMBLY_D_BOX_LAYOUT_3
+      address:
+        NA: 0x238BB54
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: ASSEMBLY_D_BOX_LAYOUT_4
+      address:
+        NA: 0x238BB64
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: ASSEMBLY_D_BOX_LAYOUT_5
+      address:
+        NA: 0x238BB74
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
     - name: ASSEMBLY_MENU_CONFIRM
       address:
         EU: 0x238C6C4
@@ -84,36 +114,6 @@ overlay17:
       length:
         EU: 0x40
         NA: 0x40
-    - name: ASSEMBLY_D_BOX_LAYOUT_1
-      address:
-        NA: 0x238BB34
-      length:
-        NA: 0x10
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: ASSEMBLY_D_BOX_LAYOUT_2
-      address:
-        NA: 0x238BB44
-      length:
-        NA: 0x10
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: ASSEMBLY_D_BOX_LAYOUT_3
-      address:
-        NA: 0x238BB54
-      length:
-        NA: 0x10
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: ASSEMBLY_D_BOX_LAYOUT_4
-      address:
-        NA: 0x238BB64
-      length:
-        NA: 0x10
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: ASSEMBLY_D_BOX_LAYOUT_5
-      address:
-        NA: 0x238BB74
-      length:
-        NA: 0x10
-      description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY17_FUNCTION_POINTER_TABLE
       address:
         NA: 0x238BD44

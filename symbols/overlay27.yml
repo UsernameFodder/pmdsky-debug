@@ -14,6 +14,24 @@ overlay27:
   description: Controls the special episode item discard menu.
   functions: []
   data:
+    - name: OVERLAY27_UNKNOWN_VALUE__NA_238C948
+      address:
+        NA: 0x238C948
+      length:
+        NA: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY27_UNKNOWN_VALUE__NA_238C94C
+      address:
+        NA: 0x238C94C
+      length:
+        NA: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY27_UNKNOWN_STRUCT__NA_238C950
+      address:
+        NA: 0x238C950
+      length:
+        NA: 0xC
+      description: "Note: unverified, ported from Irdkwia's notes"
     - name: DISCARD_ITEMS_MENU_CONFIRM
       address:
         EU: 0x238D49C
@@ -42,24 +60,6 @@ overlay27:
       length:
         EU: 0x28
         NA: 0x28
-    - name: OVERLAY27_UNKNOWN_VALUE__NA_238C948
-      address:
-        NA: 0x238C948
-      length:
-        NA: 0x4
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: OVERLAY27_UNKNOWN_VALUE__NA_238C94C
-      address:
-        NA: 0x238C94C
-      length:
-        NA: 0x4
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: OVERLAY27_UNKNOWN_STRUCT__NA_238C950
-      address:
-        NA: 0x238C950
-      length:
-        NA: 0xC
-      description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY27_UNKNOWN_STRING_IDS
       address:
         NA: 0x238C9DC

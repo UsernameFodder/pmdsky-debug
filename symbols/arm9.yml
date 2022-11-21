@@ -7132,6 +7132,14 @@ arm9:
         EU: 0x4
         NA: 0x4
       description: "Length in bytes of the default memory allocation arena, 1991680."
+    - name: FAINT_REASON_CODE_ORB_ITEM
+      address:
+        NA: 0x200CA84
+      description: "The faint reason code for any item in CATEGORY_ORBS, 0x262."
+    - name: FAINT_REASON_CODE_NON_ORB_ITEM
+      address:
+        NA: 0x200CA88
+      description: "The faint reason code for any item not in CATEGORY_ORBS, 0x263."
     - name: AURA_BOW_ID_LAST
       address:
         EU: 0x200CCBC
@@ -7389,6 +7397,24 @@ arm9:
         Null-terminated list of all the punch moves, as 2-byte move IDs.
         
         type: struct move_id_16[16]
+    - name: MOVE_POWER_STARS_TABLE
+      address:
+        NA: 0x2099CD4
+      length:
+        NA: 0x18
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: int[6]
+    - name: MOVE_ACCURACY_STARS_TABLE
+      address:
+        NA: 0x2099CEC
+      length:
+        NA: 0x20
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: int[8]
     - name: PARTNER_TALK_KIND_TABLE
       address:
         EU: 0x209D268
@@ -8782,11 +8808,29 @@ arm9:
         [Runtime] Points to the contents of the move data table loaded from waza_p.bin
         
         type: struct move_data_table*
+    - name: LOADED_WAN_TABLE_PTR
+      address:
+        NA: 0x20AFC68
+      length:
+        NA: 0x4
+      description: |-
+        pointer to a wan table
+        
+        Note: unverified, ported from Irdkwia's notes
     - name: LANGUAGE_INFO_DATA
       address:
         EU: 0x20B05A8
         NA: 0x20AFCE8
       description: "[Runtime]"
+    - name: TBL_TALK_GROUP_STRING_ID_START
+      address:
+        NA: 0x20AFCF8
+      length:
+        NA: 0xC
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: int16_t[6]
     - name: KEYBOARD_STRING_IDS
       address:
         EU: 0x20B0718
@@ -8979,47 +9023,3 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         type: int32_t[128]
-    - name: FAINT_REASON_CODE_ORB_ITEM
-      address:
-        NA: 0x200CA84
-      description: "The faint reason code for any item in CATEGORY_ORBS, 0x262."
-    - name: FAINT_REASON_CODE_NON_ORB_ITEM
-      address:
-        NA: 0x200CA88
-      description: "The faint reason code for any item not in CATEGORY_ORBS, 0x263."
-    - name: MOVE_POWER_STARS_TABLE
-      address:
-        NA: 0x2099CD4
-      length:
-        NA: 0x18
-      description: |-
-        Note: unverified, ported from Irdkwia's notes
-        
-        type: int[6]
-    - name: MOVE_ACCURACY_STARS_TABLE
-      address:
-        NA: 0x2099CEC
-      length:
-        NA: 0x20
-      description: |-
-        Note: unverified, ported from Irdkwia's notes
-        
-        type: int[8]
-    - name: LOADED_WAN_TABLE_PTR
-      address:
-        NA: 0x20AFC68
-      length:
-        NA: 0x4
-      description: |-
-        pointer to a wan table
-        
-        Note: unverified, ported from Irdkwia's notes
-    - name: TBL_TALK_GROUP_STRING_ID_START
-      address:
-        NA: 0x20AFCF8
-      length:
-        NA: 0xC
-      description: |-
-        Note: unverified, ported from Irdkwia's notes
-        
-        type: int16_t[6]

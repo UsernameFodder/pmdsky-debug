@@ -4,6 +4,8 @@
 #include "arm9/itcm.h"
 
 extern uint32_t DEFAULT_MEMORY_ARENA_SIZE;
+extern enum faint_reason_non_move FAINT_REASON_CODE_ORB_ITEM;
+extern enum faint_reason_non_move FAINT_REASON_CODE_NON_ORB_ITEM;
 extern enum item_id AURA_BOW_ID_LAST;
 extern uint32_t NUMBER_OF_ITEMS;
 extern uint32_t MAX_MONEY_CARRIED;
@@ -19,6 +21,8 @@ extern struct exclusive_item_effect_entry EXCLUSIVE_ITEM_EFFECT_DATA[956];
 extern struct item_id_16 TYPE_SPECIFIC_EXCLUSIVE_ITEMS[17][4];
 extern struct move_id_16 RECOIL_MOVE_LIST[11];
 extern struct move_id_16 PUNCH_MOVE_LIST[16];
+extern int MOVE_POWER_STARS_TABLE[6];
+extern int MOVE_ACCURACY_STARS_TABLE[8];
 extern struct partner_talk_kind_table_entry PARTNER_TALK_KIND_TABLE[11];
 extern struct script_local_var_table SCRIPT_VARS_LOCALS;
 extern struct script_var_table SCRIPT_VARS;
@@ -97,7 +101,9 @@ extern const char* PACK_FILE_PATHS_TABLE[6];
 extern struct item* BAG_ITEMS_PTR_MIRROR;
 extern void* ITEM_DATA_TABLE_PTRS[3];
 extern struct move_data_table* MOVE_DATA_TABLE_PTR;
+extern undefined* LOADED_WAN_TABLE_PTR;
 extern int16_t KEYBOARD_STRING_IDS[30];
+extern int16_t TBL_TALK_GROUP_STRING_ID_START[6];
 extern bool NOTIFY_NOTE;
 extern struct monster_id_16 DEFAULT_HERO_ID;
 extern struct monster_id_16 DEFAULT_PARTNER_ID;
@@ -113,11 +119,5 @@ extern const char* RANK_STRING_PTR_TABLE[16];
 extern void* SMD_EVENTS_FUN_TABLE[127];
 extern int16_t MUSIC_DURATION_LOOKUP_TABLE_1[128];
 extern int32_t MUSIC_DURATION_LOOKUP_TABLE_2[128];
-extern enum faint_reason_non_move FAINT_REASON_CODE_ORB_ITEM;
-extern enum faint_reason_non_move FAINT_REASON_CODE_NON_ORB_ITEM;
-extern int MOVE_POWER_STARS_TABLE[6];
-extern int MOVE_ACCURACY_STARS_TABLE[8];
-extern undefined* LOADED_WAN_TABLE_PTR;
-extern int16_t TBL_TALK_GROUP_STRING_ID_START[6];
 
 #endif
