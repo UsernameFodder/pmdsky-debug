@@ -97,55 +97,6 @@ overlay31:
         
         return: int (Actually, this is probably some sort of enum shared by all the MenuLoop functions)
   data:
-    - name: DUNGEON_MAIN_MENU
-      address:
-        EU: 0x238A9F8
-        NA: 0x2389DD4
-      length:
-        EU: 0x40
-        NA: 0x40
-    - name: DUNGEON_SUBMENU_1
-      address:
-        EU: 0x238AA94
-        NA: 0x2389E70
-      length:
-        EU: 0x20
-        NA: 0x20
-    - name: DUNGEON_SUBMENU_2
-      address:
-        EU: 0x238AAB4
-        NA: 0x2389E90
-      length:
-        EU: 0x20
-        NA: 0x20
-    - name: DUNGEON_SUBMENU_3
-      address:
-        EU: 0x238AAD4
-        NA: 0x2389EB0
-      length:
-        EU: 0x20
-        NA: 0x20
-    - name: DUNGEON_SUBMENU_4
-      address:
-        EU: 0x238AAF4
-        NA: 0x2389ED0
-      length:
-        EU: 0x20
-        NA: 0x20
-    - name: DUNGEON_SUBMENU_5
-      address:
-        EU: 0x238AD40
-        NA: 0x238A11C
-      length:
-        EU: 0x18
-        NA: 0x18
-    - name: DUNGEON_SUBMENU_6
-      address:
-        EU: 0x238ADC4
-        NA: 0x238A1A0
-      length:
-        EU: 0x48
-        NA: 0x48
     - name: DUNGEON_D_BOX_LAYOUT_1
       address:
         NA: 0x2389D94
@@ -170,6 +121,13 @@ overlay31:
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
+    - name: DUNGEON_MAIN_MENU
+      address:
+        EU: 0x238A9F8
+        NA: 0x2389DD4
+      length:
+        EU: 0x40
+        NA: 0x40
     - name: OVERLAY31_UNKNOWN_STRING_IDS
       address:
         NA: 0x2389E20
@@ -200,6 +158,34 @@ overlay31:
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
+    - name: DUNGEON_SUBMENU_1
+      address:
+        EU: 0x238AA94
+        NA: 0x2389E70
+      length:
+        EU: 0x20
+        NA: 0x20
+    - name: DUNGEON_SUBMENU_2
+      address:
+        EU: 0x238AAB4
+        NA: 0x2389E90
+      length:
+        EU: 0x20
+        NA: 0x20
+    - name: DUNGEON_SUBMENU_3
+      address:
+        EU: 0x238AAD4
+        NA: 0x2389EB0
+      length:
+        EU: 0x20
+        NA: 0x20
+    - name: DUNGEON_SUBMENU_4
+      address:
+        EU: 0x238AAF4
+        NA: 0x2389ED0
+      length:
+        EU: 0x20
+        NA: 0x20
     - name: OVERLAY31_UNKNOWN_STRUCT__NA_2389EF0
       address:
         NA: 0x2389EF0
@@ -326,6 +312,13 @@ overlay31:
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
+    - name: DUNGEON_SUBMENU_5
+      address:
+        EU: 0x238AD40
+        NA: 0x238A11C
+      length:
+        EU: 0x18
+        NA: 0x18
     - name: DUNGEON_D_BOX_LAYOUT_26
       address:
         NA: 0x238A134
@@ -356,6 +349,13 @@ overlay31:
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
+    - name: DUNGEON_SUBMENU_6
+      address:
+        EU: 0x238ADC4
+        NA: 0x238A1A0
+      length:
+        EU: 0x48
+        NA: 0x48
     - name: DUNGEON_D_BOX_LAYOUT_29
       address:
         NA: 0x238A1E8

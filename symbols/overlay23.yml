@@ -14,6 +14,24 @@ overlay23:
   description: Controls Kangaskhan Storage (both in Treasure Town and via Kangaskhan Rocks).
   functions: []
   data:
+    - name: OVERLAY23_UNKNOWN_VALUE__NA_238D2E8
+      address:
+        NA: 0x238D2E8
+      length:
+        NA: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY23_UNKNOWN_VALUE__NA_238D2EC
+      address:
+        NA: 0x238D2EC
+      length:
+        NA: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY23_UNKNOWN_STRUCT__NA_238D2F0
+      address:
+        NA: 0x238D2F0
+      length:
+        NA: 0xC
+      description: "Note: unverified, ported from Irdkwia's notes"
     - name: STORAGE_MENU_CONFIRM
       address:
         EU: 0x238DE3C
@@ -49,24 +67,6 @@ overlay23:
       length:
         EU: 0x28
         NA: 0x28
-    - name: OVERLAY23_UNKNOWN_VALUE__NA_238D2E8
-      address:
-        NA: 0x238D2E8
-      length:
-        NA: 0x4
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: OVERLAY23_UNKNOWN_VALUE__NA_238D2EC
-      address:
-        NA: 0x238D2EC
-      length:
-        NA: 0x4
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: OVERLAY23_UNKNOWN_STRUCT__NA_238D2F0
-      address:
-        NA: 0x238D2F0
-      length:
-        NA: 0xC
-      description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY23_UNKNOWN_STRING_IDS
       address:
         NA: 0x238D39C

@@ -2889,6 +2889,35 @@ overlay29:
         r0: Pointer to the entity that used the move
         r1: Move pointer
         return: True if the move should play its alternative animation
+    - name: DoMoveDamage
+      address:
+        NA:
+          - 0x2325DC0
+          - 0x232A500
+          - 0x232B8B0
+          - 0x232DD88
+      description: |-
+        Move effect: Deal damage.
+        Relevant moves: Many!
+        
+        This just wraps DealDamage with a multiplier of 1 (i.e., the fixed-point number 0x100).
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether or not damage was dealt
+    - name: DoMoveIronTail
+      address:
+        NA: 0x2325DE4
+      description: |-
+        Move effect: Iron Tail
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
     - name: DoMoveYawn
       address:
         EU: 0x232692C
@@ -2993,6 +3022,18 @@ overlay29:
         r2: move
         r3: item ID
         return: whether the move was successfully used
+    - name: DoMoveDamageCringe30
+      address:
+        NA: 0x2326670
+      description: |-
+        Move effect: Deal damage with a 30% chance (ROCK_SLIDE_CRINGE_CHANCE) of inflicting the cringe status on the defender.
+        Relevant moves: Rock Slide, Iron Head, Air Slash, Zen Headbutt, Dragon Rush
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether or not damage was dealt
     - name: DoMoveWhirlpool
       address:
         EU: 0x23271B8
@@ -3000,6 +3041,17 @@ overlay29:
         JP: 0x2327BDC
       description: |-
         Move effect: Whirlpool
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveFakeTears
+      address:
+        NA: 0x23267D8
+      description: |-
+        Move effect: Fake Tears
         
         r0: attacker pointer
         r1: defender pointer
@@ -3071,6 +3123,17 @@ overlay29:
         r2: move
         r3: item ID
         return: whether the move was successfully used
+    - name: DoMoveFlameWheel
+      address:
+        NA: 0x2326CC8
+      description: |-
+        Move effect: Flame Wheel
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
     - name: DoMoveGust
       address:
         EU: 0x2327888
@@ -3084,6 +3147,56 @@ overlay29:
         r2: move
         r3: item ID
         return: whether the move was successfully used
+    - name: DoMoveParalyze
+      address:
+        NA:
+          - 0x2326E80
+          - 0x2328230
+          - 0x232B434
+      description: |-
+        Move effect: Paralyze the defender if possible
+        Relevant moves: Disable, Stun Spore, Glare
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDamageLowerDef20
+      address:
+        NA: 0x2327034
+      description: |-
+        Move effect: Deal damage with a 20% chance (CRUNCH_LOWER_DEFENSE_CHANCE) of lowering the defender's defense.
+        Relevant moves: Crunch, Shadow Ball
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether or not damage was dealt
+    - name: DoMoveBite
+      address:
+        NA: 0x23270B4
+      description: |-
+        Move effect: Bite
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDamageParalyze20
+      address:
+        NA: 0x2327120
+      description: |-
+        Move effect: Deal damage with a 20% chance (THUNDER_PARALYZE_CHANCE) of paralyzing the defender.
+        Relevant moves: Thunder, Force Palm
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether or not damage was dealt
     - name: DoMoveEndeavor
       address:
         EU: 0x2327BF4
@@ -3110,6 +3223,18 @@ overlay29:
         r2: move
         r3: item ID
         return: whether the move was successfully used
+    - name: DoMoveDamageLowerSpeed20
+      address:
+        NA: 0x232728C
+      description: |-
+        Move effect: Deal damage with a 20% chance (CONSTRICT_LOWER_SPEED_CHANCE) of lowering the defender's speed.
+        Relevant moves: Constrict, Bubblebeam
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether or not damage was dealt
     - name: DoMoveBrickBreak
       address:
         EU: 0x2327D60
@@ -3150,6 +3275,17 @@ overlay29:
         r2: move
         r3: item ID
         return: whether or not damage was dealt
+    - name: DoMoveReversal
+      address:
+        NA: 0x2327598
+      description: |-
+        Move effect: Reversal
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
     - name: DoMoveSmellingSalt
       address:
         EU: 0x23280B4
@@ -3269,6 +3405,17 @@ overlay29:
         r2: move
         r3: item ID
         return: whether the move was successfully used
+    - name: DoMoveRockClimb
+      address:
+        NA: 0x2327C08
+      description: |-
+        Move effect: Rock Climb
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
     - name: DoMoveDamageWithRecoil
       address:
         EU: 0x23289A0
@@ -3317,6 +3464,17 @@ overlay29:
         r2: move (unused)
         r3: item ID
         return: whether the move was successfully used
+    - name: DoMoveLick
+      address:
+        NA: 0x232816C
+      description: |-
+        Move effect: Lick
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
     - name: DoMoveFissure
       address:
         EU: 0x2328E10
@@ -3324,6 +3482,17 @@ overlay29:
         JP: 0x232982C
       description: |-
         Move effect: Fissure
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveExtrasensory
+      address:
+        NA: 0x23284BC
+      description: |-
+        Move effect: Extrasensory
         
         r0: attacker pointer
         r1: defender pointer
@@ -3357,6 +3526,17 @@ overlay29:
         r2: move
         r3: item ID
         return: whether the move was successfully used
+    - name: DoMoveHeadbutt
+      address:
+        NA: 0x23288C4
+      description: |-
+        Move effect: Headbutt
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
     - name: DoMoveDoubleEdge
       address:
         EU: 0x232939C
@@ -3364,6 +3544,40 @@ overlay29:
         JP: 0x2329DB0
       description: |-
         Move effect: Double-Edge
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSandAttack
+      address:
+        NA: 0x2328A54
+      description: |-
+        Move effect: Sand-Attack
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDamagePoison40
+      address:
+        NA: 0x2328A74
+      description: |-
+        Move effect: Deal damage with a 40% chance (SMOG_POISON_CHANCE) of poisoning the defender.
+        Relevant moves: Smog, Poison Jab, Cross Poison
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether or not damage was dealt
+    - name: DoMoveSacredFire
+      address:
+        NA: 0x2328B00
+      description: |-
+        Move effect: Sacred Fire
         
         r0: attacker pointer
         r1: defender pointer
@@ -3383,6 +3597,18 @@ overlay29:
         r2: move
         r3: item ID
         return: whether the move was successfully used
+    - name: DoMoveDamageLowerAccuracy40
+      address:
+        NA: 0x2329000
+      description: |-
+        Move effect: Deal damage with a 40% chance (MUDDY_WATER_LOWER_ACCURACY_CHANCE) of lowering the defender's accuracy.
+        Relevant moves: Muddy Water, Mud Bomb, Mirror Shot
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether or not damage was dealt
     - name: DoMoveTwister
       address:
         EU: 0x2329B38
@@ -3463,6 +3689,19 @@ overlay29:
         r2: move
         r3: item ID
         return: whether the move was successfully used
+    - name: DoMoveThundershock
+      address:
+        NA: 0x2329710
+      description: |-
+        Move effect: Thundershock
+        
+        This is identical to DoMoveLick, except it uses a different data symbol for the paralysis chance (but it's still 10%).
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
     - name: DoMoveThunderWave
       address:
         EU: 0x232A1E8
@@ -3509,6 +3748,28 @@ overlay29:
         JP: 0x232ACFC
       description: |-
         Move effect: Toxic
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMovePoisonFang
+      address:
+        NA: 0x2329898
+      description: |-
+        Move effect: Poison Fang
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMovePoisonSting
+      address:
+        NA: 0x2329904
+      description: |-
+        Move effect: Poison Sting
         
         r0: attacker pointer
         r1: defender pointer
@@ -3568,6 +3829,17 @@ overlay29:
         r2: move
         r3: item ID
         return: whether the move was successfully used
+    - name: DoMoveThief
+      address:
+        NA: 0x232A04C
+      description: |-
+        Move effect: Thief
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
     - name: DoMoveRolePlay
       address:
         EU: 0x232ABF4
@@ -3575,6 +3847,28 @@ overlay29:
         JP: 0x232B5F8
       description: |-
         Move effect: Role Play
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveLeer
+      address:
+        NA: 0x232A27C
+      description: |-
+        Move effect: Leer
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveFakeOut
+      address:
+        NA: 0x232A2BC
+      description: |-
+        Move effect: Fake Out
         
         r0: attacker pointer
         r1: defender pointer
@@ -3659,6 +3953,17 @@ overlay29:
         r2: move
         r3: item ID
         return: whether the move was successfully used
+    - name: DoMoveDizzyPunch
+      address:
+        NA: 0x232AEF0
+      description: |-
+        Move effect: Dizzy Punch
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
     - name: DoMoveImprison
       address:
         EU: 0x232BA0C
@@ -3666,6 +3971,17 @@ overlay29:
         JP: 0x232C400
       description: |-
         Move effect: Imprison
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveFeatherDance
+      address:
+        NA: 0x232AFF0
+      description: |-
+        Move effect: FeatherDance
         
         r0: attacker pointer
         r1: defender pointer
@@ -3698,6 +4014,28 @@ overlay29:
         r2: move
         r3: item ID
         return: whether the move was successfully used
+    - name: DoMoveCrushClaw
+      address:
+        NA: 0x232B164
+      description: |-
+        Move effect: Crush Claw
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveBlazeKick
+      address:
+        NA: 0x232B1E4
+      description: |-
+        Move effect: Blaze Kick
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
     - name: DoMovePresent
       address:
         EU: 0x232BCD8
@@ -3718,6 +4056,17 @@ overlay29:
         JP: 0x232C7C8
       description: |-
         Move effect: Eruption
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMovePoisonTail
+      address:
+        NA: 0x232B494
+      description: |-
+        Move effect: Poison Tail
         
         r0: attacker pointer
         r1: defender pointer
@@ -3771,6 +4120,17 @@ overlay29:
         JP: 0x232CB84
       description: |-
         Move effect: Magnitude
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveMistBall
+      address:
+        NA: 0x232B820
+      description: |-
+        Move effect: Mist Ball
         
         r0: attacker pointer
         r1: defender pointer
@@ -3864,6 +4224,17 @@ overlay29:
         NA: 0x232BCC4
       description: |-
         Move effect: Dream Eater
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDragonRage
+      address:
+        NA: 0x232BF88
+      description: |-
+        Move effect: Dragon Rage
         
         r0: attacker pointer
         r1: defender pointer
@@ -4073,6 +4444,18 @@ overlay29:
         JP: 0x232EDB0
       description: |-
         Move effect: Charge Beam
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDamageEatItem
+      address:
+        NA: 0x232D9E4
+      description: |-
+        Move effect: Deals damage, and eats any beneficial items the defender is holding.
+        Relevant moves: Pluck, Bug Bite
         
         r0: attacker pointer
         r1: defender pointer
@@ -6021,389 +6404,6 @@ overlay29:
         Called when the in-dungeon "others" menu is open. Does not return until the menu is closed.
         
         return: Always 0
-    - name: DoMoveDamage
-      address:
-        NA:
-          - 0x2325DC0
-          - 0x232A500
-          - 0x232B8B0
-          - 0x232DD88
-      description: |-
-        Move effect: Deal damage.
-        Relevant moves: Many!
-        
-        This just wraps DealDamage with a multiplier of 1 (i.e., the fixed-point number 0x100).
-        
-        r0: attacker pointer
-        r1: defender pointer
-        r2: move
-        r3: item ID
-        return: whether or not damage was dealt
-    - name: DoMoveIronTail
-      address:
-        NA: 0x2325DE4
-      description: |-
-        Move effect: Iron Tail
-        
-        r0: attacker pointer
-        r1: defender pointer
-        r2: move
-        r3: item ID
-        return: whether the move was successfully used
-    - name: DoMoveDamageCringe30
-      address:
-        NA: 0x2326670
-      description: |-
-        Move effect: Deal damage with a 30% chance (ROCK_SLIDE_CRINGE_CHANCE) of inflicting the cringe status on the defender.
-        Relevant moves: Rock Slide, Iron Head, Air Slash, Zen Headbutt, Dragon Rush
-        
-        r0: attacker pointer
-        r1: defender pointer
-        r2: move
-        r3: item ID
-        return: whether or not damage was dealt
-    - name: DoMoveFakeTears
-      address:
-        NA: 0x23267D8
-      description: |-
-        Move effect: Fake Tears
-        
-        r0: attacker pointer
-        r1: defender pointer
-        r2: move
-        r3: item ID
-        return: whether the move was successfully used
-    - name: DoMoveFlameWheel
-      address:
-        NA: 0x2326CC8
-      description: |-
-        Move effect: Flame Wheel
-        
-        r0: attacker pointer
-        r1: defender pointer
-        r2: move
-        r3: item ID
-        return: whether the move was successfully used
-    - name: DoMoveParalyze
-      address:
-        NA:
-          - 0x2326E80
-          - 0x2328230
-          - 0x232B434
-      description: |-
-        Move effect: Paralyze the defender if possible
-        Relevant moves: Disable, Stun Spore, Glare
-        
-        r0: attacker pointer
-        r1: defender pointer
-        r2: move
-        r3: item ID
-        return: whether the move was successfully used
-    - name: DoMoveDamageLowerDef20
-      address:
-        NA: 0x2327034
-      description: |-
-        Move effect: Deal damage with a 20% chance (CRUNCH_LOWER_DEFENSE_CHANCE) of lowering the defender's defense.
-        Relevant moves: Crunch, Shadow Ball
-        
-        r0: attacker pointer
-        r1: defender pointer
-        r2: move
-        r3: item ID
-        return: whether or not damage was dealt
-    - name: DoMoveBite
-      address:
-        NA: 0x23270B4
-      description: |-
-        Move effect: Bite
-        
-        r0: attacker pointer
-        r1: defender pointer
-        r2: move
-        r3: item ID
-        return: whether the move was successfully used
-    - name: DoMoveDamageParalyze20
-      address:
-        NA: 0x2327120
-      description: |-
-        Move effect: Deal damage with a 20% chance (THUNDER_PARALYZE_CHANCE) of paralyzing the defender.
-        Relevant moves: Thunder, Force Palm
-        
-        r0: attacker pointer
-        r1: defender pointer
-        r2: move
-        r3: item ID
-        return: whether or not damage was dealt
-    - name: DoMoveDamageLowerSpeed20
-      address:
-        NA: 0x232728C
-      description: |-
-        Move effect: Deal damage with a 20% chance (CONSTRICT_LOWER_SPEED_CHANCE) of lowering the defender's speed.
-        Relevant moves: Constrict, Bubblebeam
-        
-        r0: attacker pointer
-        r1: defender pointer
-        r2: move
-        r3: item ID
-        return: whether or not damage was dealt
-    - name: DoMoveReversal
-      address:
-        NA: 0x2327598
-      description: |-
-        Move effect: Reversal
-        
-        r0: attacker pointer
-        r1: defender pointer
-        r2: move
-        r3: item ID
-        return: whether the move was successfully used
-    - name: DoMoveRockClimb
-      address:
-        NA: 0x2327C08
-      description: |-
-        Move effect: Rock Climb
-        
-        r0: attacker pointer
-        r1: defender pointer
-        r2: move
-        r3: item ID
-        return: whether the move was successfully used
-    - name: DoMoveLick
-      address:
-        NA: 0x232816C
-      description: |-
-        Move effect: Lick
-        
-        r0: attacker pointer
-        r1: defender pointer
-        r2: move
-        r3: item ID
-        return: whether the move was successfully used
-    - name: DoMoveExtrasensory
-      address:
-        NA: 0x23284BC
-      description: |-
-        Move effect: Extrasensory
-        
-        r0: attacker pointer
-        r1: defender pointer
-        r2: move
-        r3: item ID
-        return: whether the move was successfully used
-    - name: DoMoveHeadbutt
-      address:
-        NA: 0x23288C4
-      description: |-
-        Move effect: Headbutt
-        
-        r0: attacker pointer
-        r1: defender pointer
-        r2: move
-        r3: item ID
-        return: whether the move was successfully used
-    - name: DoMoveSandAttack
-      address:
-        NA: 0x2328A54
-      description: |-
-        Move effect: Sand-Attack
-        
-        r0: attacker pointer
-        r1: defender pointer
-        r2: move
-        r3: item ID
-        return: whether the move was successfully used
-    - name: DoMoveDamagePoison40
-      address:
-        NA: 0x2328A74
-      description: |-
-        Move effect: Deal damage with a 40% chance (SMOG_POISON_CHANCE) of poisoning the defender.
-        Relevant moves: Smog, Poison Jab, Cross Poison
-        
-        r0: attacker pointer
-        r1: defender pointer
-        r2: move
-        r3: item ID
-        return: whether or not damage was dealt
-    - name: DoMoveSacredFire
-      address:
-        NA: 0x2328B00
-      description: |-
-        Move effect: Sacred Fire
-        
-        r0: attacker pointer
-        r1: defender pointer
-        r2: move
-        r3: item ID
-        return: whether the move was successfully used
-    - name: DoMoveDamageLowerAccuracy40
-      address:
-        NA: 0x2329000
-      description: |-
-        Move effect: Deal damage with a 40% chance (MUDDY_WATER_LOWER_ACCURACY_CHANCE) of lowering the defender's accuracy.
-        Relevant moves: Muddy Water, Mud Bomb, Mirror Shot
-        
-        r0: attacker pointer
-        r1: defender pointer
-        r2: move
-        r3: item ID
-        return: whether or not damage was dealt
-    - name: DoMoveThundershock
-      address:
-        NA: 0x2329710
-      description: |-
-        Move effect: Thundershock
-        
-        This is identical to DoMoveLick, except it uses a different data symbol for the paralysis chance (but it's still 10%).
-        
-        r0: attacker pointer
-        r1: defender pointer
-        r2: move
-        r3: item ID
-        return: whether the move was successfully used
-    - name: DoMovePoisonFang
-      address:
-        NA: 0x2329898
-      description: |-
-        Move effect: Poison Fang
-        
-        r0: attacker pointer
-        r1: defender pointer
-        r2: move
-        r3: item ID
-        return: whether the move was successfully used
-    - name: DoMovePoisonSting
-      address:
-        NA: 0x2329904
-      description: |-
-        Move effect: Poison Sting
-        
-        r0: attacker pointer
-        r1: defender pointer
-        r2: move
-        r3: item ID
-        return: whether the move was successfully used
-    - name: DoMoveThief
-      address:
-        NA: 0x232A04C
-      description: |-
-        Move effect: Thief
-        
-        r0: attacker pointer
-        r1: defender pointer
-        r2: move
-        r3: item ID
-        return: whether the move was successfully used
-    - name: DoMoveLeer
-      address:
-        NA: 0x232A27C
-      description: |-
-        Move effect: Leer
-        
-        r0: attacker pointer
-        r1: defender pointer
-        r2: move
-        r3: item ID
-        return: whether the move was successfully used
-    - name: DoMoveFakeOut
-      address:
-        NA: 0x232A2BC
-      description: |-
-        Move effect: Fake Out
-        
-        r0: attacker pointer
-        r1: defender pointer
-        r2: move
-        r3: item ID
-        return: whether the move was successfully used
-    - name: DoMoveDizzyPunch
-      address:
-        NA: 0x232AEF0
-      description: |-
-        Move effect: Dizzy Punch
-        
-        r0: attacker pointer
-        r1: defender pointer
-        r2: move
-        r3: item ID
-        return: whether the move was successfully used
-    - name: DoMoveFeatherDance
-      address:
-        NA: 0x232AFF0
-      description: |-
-        Move effect: FeatherDance
-        
-        r0: attacker pointer
-        r1: defender pointer
-        r2: move
-        r3: item ID
-        return: whether the move was successfully used
-    - name: DoMoveCrushClaw
-      address:
-        NA: 0x232B164
-      description: |-
-        Move effect: Crush Claw
-        
-        r0: attacker pointer
-        r1: defender pointer
-        r2: move
-        r3: item ID
-        return: whether the move was successfully used
-    - name: DoMoveBlazeKick
-      address:
-        NA: 0x232B1E4
-      description: |-
-        Move effect: Blaze Kick
-        
-        r0: attacker pointer
-        r1: defender pointer
-        r2: move
-        r3: item ID
-        return: whether the move was successfully used
-    - name: DoMovePoisonTail
-      address:
-        NA: 0x232B494
-      description: |-
-        Move effect: Poison Tail
-        
-        r0: attacker pointer
-        r1: defender pointer
-        r2: move
-        r3: item ID
-        return: whether the move was successfully used
-    - name: DoMoveMistBall
-      address:
-        NA: 0x232B820
-      description: |-
-        Move effect: Mist Ball
-        
-        r0: attacker pointer
-        r1: defender pointer
-        r2: move
-        r3: item ID
-        return: whether the move was successfully used
-    - name: DoMoveDragonRage
-      address:
-        NA: 0x232BF88
-      description: |-
-        Move effect: Dragon Rage
-        
-        r0: attacker pointer
-        r1: defender pointer
-        r2: move
-        r3: item ID
-        return: whether the move was successfully used
-    - name: DoMoveDamageEatItem
-      address:
-        NA: 0x232D9E4
-      description: |-
-        Move effect: Deals damage, and eats any beneficial items the defender is holding.
-        Relevant moves: Pluck, Bug Bite
-        
-        r0: attacker pointer
-        r1: defender pointer
-        r2: move
-        r3: item ID
-        return: whether the move was successfully used
   data:
     - name: DUNGEON_STRUCT_SIZE
       address:
@@ -6603,6 +6603,12 @@ overlay29:
         The base value by which belly is decreased every turn.
         
         Its raw value is 0x199A, which encodes a binary fixed-point number (16 fraction bits) with value (0x199A * 2^-16), and is the closest approximation to 0.1 representable in this number format.
+    - name: MONSTER_HEAL_HP_MAX
+      address:
+        NA: 0x23152E0
+      length:
+        NA: 0x4
+      description: The maximum amount of HP a monster can have (999).
     - name: MOVE_TARGET_AND_RANGE_SPECIAL_USER_HEALING
       address:
         EU: 0x231B794
@@ -6638,6 +6644,12 @@ overlay29:
         EU: 0x4
         NA: 0x4
       description: Some value related to the Slip Seed (0xC75).
+    - name: ROCK_WRECKER_MOVE_ID
+      address:
+        NA: 0x23245A0
+      length:
+        NA: 0x4
+      description: The move ID for Rock Wrecker (453).
     - name: CASTFORM_NORMAL_FORM_MALE_ID
       address:
         EU: 0x2335E78
@@ -7096,6 +7108,17 @@ overlay29:
         EU: 0x4
         NA: 0x4
       description: "The index (0) of the attack entry in internal stat structs, such as the stat modifier array for a monster."
+    - name: MAP_COLOR_TABLE
+      address:
+        NA: 0x2352FD0
+      length:
+        NA: 0x24
+      description: |-
+        In order: white, black, red, green, blue, magenta, dark pink, chartreuse, light orange
+        
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: struct rgb[9]
     - name: CORNER_CARDINAL_NEIGHBOR_IS_OPEN
       address:
         EU: 0x2353C24
@@ -7238,26 +7261,3 @@ overlay29:
         EU: 0x4
         NA: 0x4
       description: "[Runtime] Pointer to decoded fixed room data loaded from the BALANCE/fixed.bin file."
-    - name: MONSTER_HEAL_HP_MAX
-      address:
-        NA: 0x23152E0
-      length:
-        NA: 0x4
-      description: The maximum amount of HP a monster can have (999).
-    - name: ROCK_WRECKER_MOVE_ID
-      address:
-        NA: 0x23245A0
-      length:
-        NA: 0x4
-      description: The move ID for Rock Wrecker (453).
-    - name: MAP_COLOR_TABLE
-      address:
-        NA: 0x2352FD0
-      length:
-        NA: 0x24
-      description: |-
-        In order: white, black, red, green, blue, magenta, dark pink, chartreuse, light orange
-        
-        Note: unverified, ported from Irdkwia's notes
-        
-        type: struct rgb[9]

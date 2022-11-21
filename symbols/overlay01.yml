@@ -126,27 +126,6 @@ overlay1:
       length:
         EU: 0xA0
         NA: 0xA0
-    - name: MAIN_MENU_CONFIRM
-      address:
-        EU: 0x233BE98
-        NA: 0x233B74C
-      length:
-        EU: 0x18
-        NA: 0x18
-    - name: MAIN_DEBUG_MENU_1
-      address:
-        EU: 0x233BF5C
-        NA: 0x233B810
-      length:
-        EU: 0x60
-        NA: 0x60
-    - name: MAIN_DEBUG_MENU_2
-      address:
-        EU: 0x233BFDC
-        NA: 0x233B890
-      length:
-        EU: 0x38
-        NA: 0x38
     - name: OVERLAY1_D_BOX_LAYOUT_5
       address:
         NA: 0x233B71C
@@ -165,6 +144,13 @@ overlay1:
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
+    - name: MAIN_MENU_CONFIRM
+      address:
+        EU: 0x233BE98
+        NA: 0x233B74C
+      length:
+        EU: 0x18
+        NA: 0x18
     - name: OVERLAY1_D_BOX_LAYOUT_8
       address:
         NA: 0x233B7D0
@@ -177,9 +163,23 @@ overlay1:
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
+    - name: MAIN_DEBUG_MENU_1
+      address:
+        EU: 0x233BF5C
+        NA: 0x233B810
+      length:
+        EU: 0x60
+        NA: 0x60
     - name: OVERLAY1_D_BOX_LAYOUT_10
       address:
         NA: 0x233B870
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
+    - name: MAIN_DEBUG_MENU_2
+      address:
+        EU: 0x233BFDC
+        NA: 0x233B890
+      length:
+        EU: 0x38
+        NA: 0x38

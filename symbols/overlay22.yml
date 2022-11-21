@@ -14,6 +14,24 @@ overlay22:
   description: Controls the Kecleon Shop in Treasure Town.
   functions: []
   data:
+    - name: SHOP_D_BOX_LAYOUT_1
+      address:
+        NA: 0x238E81C
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: SHOP_D_BOX_LAYOUT_2
+      address:
+        NA: 0x238E83C
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY22_UNKNOWN_STRUCT__NA_238E85C
+      address:
+        NA: 0x238E85C
+      length:
+        NA: 0xC
+      description: "Note: unverified, ported from Irdkwia's notes"
     - name: SHOP_MENU_CONFIRM
       address:
         EU: 0x238F3A8
@@ -42,24 +60,6 @@ overlay22:
       length:
         EU: 0x30
         NA: 0x30
-    - name: SHOP_D_BOX_LAYOUT_1
-      address:
-        NA: 0x238E81C
-      length:
-        NA: 0x10
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: SHOP_D_BOX_LAYOUT_2
-      address:
-        NA: 0x238E83C
-      length:
-        NA: 0x10
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: OVERLAY22_UNKNOWN_STRUCT__NA_238E85C
-      address:
-        NA: 0x238E85C
-      length:
-        NA: 0xC
-      description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY22_UNKNOWN_STRING_IDS
       address:
         NA: 0x238E8F0

@@ -14,6 +14,12 @@ overlay21:
   description: Controls the Croagunk Swap Shop.
   functions: []
   data:
+    - name: SWAP_SHOP_D_BOX_LAYOUT_1
+      address:
+        NA: 0x238CA28
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
     - name: SWAP_SHOP_MENU_CONFIRM
       address:
         EU: 0x238D578
@@ -56,12 +62,6 @@ overlay21:
       length:
         EU: 0x30
         NA: 0x30
-    - name: SWAP_SHOP_D_BOX_LAYOUT_1
-      address:
-        NA: 0x238CA28
-      length:
-        NA: 0x10
-      description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY21_UNKNOWN_STRING_IDS
       address:
         NA: 0x238CB00

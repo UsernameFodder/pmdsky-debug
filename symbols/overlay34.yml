@@ -27,22 +27,6 @@ overlay34:
         r0: probably a game mode ID?
         return: probably a return code?
   data:
-    - name: START_MENU_CONFIRM
-      address:
-        EU: 0x22DD8CC
-        NA: 0x22DD024
-      length:
-        EU: 0x18
-        NA: 0x18
-      description: "Irdkwia's notes: 3*0x8"
-    - name: DUNGEON_DEBUG_MENU
-      address:
-        EU: 0x22DD8F4
-        NA: 0x22DD04C
-      length:
-        EU: 0x28
-        NA: 0x28
-      description: "Irdkwia's notes: 5*0x8"
     - name: OVERLAY34_UNKNOWN_STRUCT__NA_22DD014
       address:
         NA: 0x22DD014
@@ -52,6 +36,14 @@ overlay34:
         1*0x4 + 3*0x4
         
         Note: unverified, ported from Irdkwia's notes
+    - name: START_MENU_CONFIRM
+      address:
+        EU: 0x22DD8CC
+        NA: 0x22DD024
+      length:
+        EU: 0x18
+        NA: 0x18
+      description: "Irdkwia's notes: 3*0x8"
     - name: OVERLAY34_UNKNOWN_STRUCT__NA_22DD03C
       address:
         NA: 0x22DD03C
@@ -61,6 +53,14 @@ overlay34:
         1*0x4 + 3*0x4
         
         Note: unverified, ported from Irdkwia's notes
+    - name: DUNGEON_DEBUG_MENU
+      address:
+        EU: 0x22DD8F4
+        NA: 0x22DD04C
+      length:
+        EU: 0x28
+        NA: 0x28
+      description: "Irdkwia's notes: 5*0x8"
     - name: OVERLAY34_RESERVED_SPACE
       address:
         NA: 0x22DD074

@@ -51,41 +51,6 @@ overlay19:
         
         return: int?
   data:
-    - name: BAR_MENU_CONFIRM_1
-      address:
-        EU: 0x238ED3C
-        NA: 0x238E208
-      length:
-        EU: 0x18
-        NA: 0x18
-    - name: BAR_MENU_CONFIRM_2
-      address:
-        EU: 0x238ED54
-        NA: 0x238E220
-      length:
-        EU: 0x18
-        NA: 0x18
-    - name: BAR_MAIN_MENU
-      address:
-        EU: 0x238ED84
-        NA: 0x238E250
-      length:
-        EU: 0x20
-        NA: 0x20
-    - name: BAR_SUBMENU_1
-      address:
-        EU: 0x238EDA4
-        NA: 0x238E270
-      length:
-        EU: 0x20
-        NA: 0x20
-    - name: BAR_SUBMENU_2
-      address:
-        EU: 0x238EDC4
-        NA: 0x238E290
-      length:
-        EU: 0x30
-        NA: 0x30
     - name: OVERLAY19_UNKNOWN_TABLE__NA_238DAE0
       address:
         NA: 0x238DAE0
@@ -161,12 +126,47 @@ overlay19:
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
+    - name: BAR_MENU_CONFIRM_1
+      address:
+        EU: 0x238ED3C
+        NA: 0x238E208
+      length:
+        EU: 0x18
+        NA: 0x18
+    - name: BAR_MENU_CONFIRM_2
+      address:
+        EU: 0x238ED54
+        NA: 0x238E220
+      length:
+        EU: 0x18
+        NA: 0x18
     - name: OVERLAY19_UNKNOWN_STRING_IDS__NA_238E238
       address:
         NA: 0x238E238
       length:
         NA: 0x18
       description: "Note: unverified, ported from Irdkwia's notes"
+    - name: BAR_MAIN_MENU
+      address:
+        EU: 0x238ED84
+        NA: 0x238E250
+      length:
+        EU: 0x20
+        NA: 0x20
+    - name: BAR_SUBMENU_1
+      address:
+        EU: 0x238EDA4
+        NA: 0x238E270
+      length:
+        EU: 0x20
+        NA: 0x20
+    - name: BAR_SUBMENU_2
+      address:
+        EU: 0x238EDC4
+        NA: 0x238E290
+      length:
+        EU: 0x30
+        NA: 0x30
     - name: OVERLAY19_RESERVED_SPACE
       address:
         NA: 0x238E344

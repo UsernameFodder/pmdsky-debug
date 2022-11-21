@@ -290,6 +290,10 @@ int LowerSshort(int x);
 uint16_t GetMoveAnimationId(struct move* move, enum weather_id apparent_weather,
                             bool should_play_alternative_animation);
 bool ShouldMovePlayAlternativeAnimation(struct entity* user, struct move* move);
+bool DoMoveDamage(struct entity* attacker, struct entity* defender, struct move* move,
+                  enum item_id item_id);
+bool DoMoveIronTail(struct entity* attacker, struct entity* defender, struct move* move,
+                    enum item_id item_id);
 bool DoMoveYawn(struct entity* attacker, struct entity* defender, struct move* move,
                 enum item_id item_id);
 bool DoMoveNightmare(struct entity* attacker, struct entity* defender, struct move* move,
@@ -365,6 +369,8 @@ bool DoMoveRapidSpin(struct entity* attacker, struct entity* defender, struct mo
 bool DoMoveDamageFreeze15(struct entity* attacker, struct entity* defender, struct move* move,
                           enum item_id item_id);
 bool DoMoveScaryFace(struct entity* attacker, struct entity* defender, struct move* move,
+                     enum item_id item_id);
+bool DoMoveRockClimb(struct entity* attacker, struct entity* defender, struct move* move,
                      enum item_id item_id);
 bool DoMoveDamageWithRecoil(struct entity* attacker, struct entity* defender, struct move* move,
                             enum item_id item_id);
@@ -741,11 +747,5 @@ void DisplayMessageInternal(int message_id, bool wait_for_input, undefined4 para
 void OpenMenu(undefined4 param_1, undefined4 param_2, bool param_3, undefined4 param_4);
 int OthersMenuLoop(void);
 undefined OthersMenu(void);
-bool DoMoveDamage(struct entity* attacker, struct entity* defender, struct move* move,
-                  enum item_id item_id);
-bool DoMoveIronTail(struct entity* attacker, struct entity* defender, struct move* move,
-                    enum item_id item_id);
-bool DoMoveRockClimb(struct entity* attacker, struct entity* defender, struct move* move,
-                     enum item_id item_id);
 
 #endif
