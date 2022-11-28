@@ -1,6 +1,8 @@
 #ifndef HEADERS_DATA_OVERLAY29_H_
 #define HEADERS_DATA_OVERLAY29_H_
 
+#include "overlay29/move_effects.h"
+
 extern uint32_t DUNGEON_STRUCT_SIZE;
 extern int32_t MAX_HP_CAP;
 extern uint32_t OFFSET_OF_DUNGEON_FLOOR_PROPERTIES;
@@ -26,7 +28,6 @@ extern int32_t PLAIN_SEED_VALUE;
 extern int32_t MAX_ELIXIR_PP_RESTORATION;
 extern int32_t SLIP_SEED_VALUE;
 extern enum move_id ROCK_WRECKER_MOVE_ID;
-extern int32_t LUNAR_DANCE_PP_RESTORATION;
 extern enum monster_id CASTFORM_NORMAL_FORM_MALE_ID;
 extern enum monster_id CASTFORM_NORMAL_FORM_FEMALE_ID;
 extern enum monster_id CHERRIM_SUNSHINE_FORM_MALE_ID;
