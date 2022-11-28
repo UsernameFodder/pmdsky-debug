@@ -138,6 +138,18 @@ overlay10:
         EU: 0x2
         NA: 0x2
       description: The permanent attack boost from ingesting a Protein.
+    - name: WATERFALL_CRINGE_CHANCE
+      address:
+        NA: 0x22C4424
+      length:
+        NA: 0x2
+      description: "The chance of Waterfall inflicting the cringe status, as a percentage (30%)."
+    - name: AURORA_BEAM_LOWER_ATTACK_CHANCE
+      address:
+        NA: 0x22C4428
+      length:
+        NA: 0x2
+      description: "The chance of Aurora Beam halving attack, as a percentage (60%)."
     - name: SPAWN_CAP_NO_MONSTER_HOUSE
       address:
         EU: 0x22C4D88
@@ -171,7 +183,7 @@ overlay10:
         NA: 0x22C4448
       length:
         NA: 0x2
-      description: "The chance of Extrasensory inflicting the cringe status, as a percentage (10%)."
+      description: "The chance of Extrasensory (and others, see DoMoveDamageCringe10) inflicting the cringe status, as a percentage (10%)."
     - name: ROCK_SLIDE_CRINGE_CHANCE
       address:
         NA: 0x22C444C
@@ -208,12 +220,12 @@ overlay10:
       length:
         NA: 0x2
       description: "The chance of Muddy Water (and others, see DoMoveDamageLowerAccuracy40) lowering accuracy, as a percentage (40%)."
-    - name: ANCIENTPOWER_BOOST_CHANCE
+    - name: SILVER_WIND_BOOST_CHANCE
       address:
         NA: 0x22C4488
       length:
         NA: 0x2
-      description: "The chance of AncientPower boosting all stats, as a percentage (20%)."
+      description: "The chance of Silver Wind (and others, see DoMoveDamageBoostAllStats) boosting all stats, as a percentage (20%)."
     - name: POISON_TAIL_POISON_CHANCE
       address:
         NA: 0x22C448C
@@ -226,6 +238,12 @@ overlay10:
       length:
         NA: 0x2
       description: "The chance of Thundershock paralyzing, as a percentage (10%)."
+    - name: BOUNCE_PARALYZE_CHANCE
+      address:
+        NA: 0x22C4494
+      length:
+        NA: 0x2
+      description: "The chance of Bounce paralyzing, as a percentage (30%)"
     - name: HEADBUTT_CRINGE_CHANCE
       address:
         NA: 0x22C4498
@@ -266,6 +284,18 @@ overlay10:
         EU: 0x2
         NA: 0x2
       description: "The maximum number of extra non-monster spawns (items/traps) in a Monster House, 7"
+    - name: HEAL_ORDER_HP_RESTORATION
+      address:
+        NA: 0x22C44B8
+      length:
+        NA: 0x2
+      description: The amount of HP restored by Heal Order (40).
+    - name: STEEL_WING_BOOST_DEFENSE_CHANCE
+      address:
+        NA: 0x22C44C4
+      length:
+        NA: 0x2
+      description: "The chance of Steel Wing boosting defense, as a percentage (20%)."
     - name: GOLD_THORN_POWER
       address:
         EU: 0x22C4E28
@@ -310,6 +340,12 @@ overlay10:
         EU: 0x2
         NA: 0x2
       description: The permanent HP boost from eating a Life Seed.
+    - name: OCTAZOOKA_LOWER_ACCURACY_CHANCE
+      address:
+        NA: 0x22C4500
+      length:
+        NA: 0x2
+      description: "The chance of Octazooka lowering accuracy, as a percentage (60%)."
     - name: LUSTER_PURGE_LOWER_SPECIAL_DEFENSE_CHANCE
       address:
         NA: 0x22C450C
@@ -339,7 +375,7 @@ overlay10:
         NA: 0x22C4528
       length:
         NA: 0x2
-      description: "The chance of Lick paralyzing, as a percentage (10%)."
+      description: "The chance of Lick (and others, see DoMoveDamageParalyze10) paralyzing, as a percentage (10%)."
     - name: THUNDER_FANG_PARALYZE_CHANCE
       address:
         NA: 0x22C452C
@@ -351,7 +387,13 @@ overlay10:
         NA: 0x22C4534
       length:
         NA: 0x2
-      description: "The chance of Bite inflicting the cringe status, as a percentage (20%)"
+      description: "The chance of Bite (and others, see DoMoveDamageCringe20) inflicting the cringe status, as a percentage (20%)"
+    - name: SKY_ATTACK_CRINGE_CHANCE
+      address:
+        NA: 0x22C4538
+      length:
+        NA: 0x2
+      description: "The chance of Sky Attack inflicting the cringe status, as a percentage (25%)."
     - name: ICE_FANG_CRINGE_CHANCE
       address:
         NA: 0x22C453C
@@ -364,18 +406,36 @@ overlay10:
       length:
         NA: 0x2
       description: "The chance of Blaze Kick burning, as a percentage (10%)."
+    - name: FLAMETHROWER_BURN_CHANCE
+      address:
+        NA: 0x22C4544
+      length:
+        NA: 0x2
+      description: "The chance of Flamethrower (and others, see DoMoveDamageBurn10) burning, as a percentage (10%)."
     - name: DIZZY_PUNCH_CONFUSE_CHANCE
       address:
         NA: 0x22C4548
       length:
         NA: 0x2
-      description: "The chance of Dizzy Punch confusing, as a percentage (30%)."
+      description: "The chance of Dizzy Punch (and others, see DoMoveDamageConfuse30) confusing, as a percentage (30%)."
     - name: SECRET_POWER_EFFECT_CHANCE
       address:
         NA: 0x22C454C
       length:
         NA: 0x2
       description: "The chance of Secret Power inflicting an effect, as a percentage (30%)."
+    - name: METAL_CLAW_BOOST_ATTACK_CHANCE
+      address:
+        NA: 0x22C4554
+      length:
+        NA: 0x2
+      description: "The chance of Metal Claw boosting attack, as a percentage (20%)."
+    - name: SONICBOOM_FIXED_DAMAGE
+      address:
+        NA: 0x22C4568
+      length:
+        NA: 0x2
+      description: The amount of fixed damage dealt by SonicBoom (20).
     - name: EXCLUSIVE_ITEM_EXP_BOOST
       address:
         EU: 0x22C4EE4
@@ -408,6 +468,18 @@ overlay10:
         EU: 0x2
         NA: 0x2
       description: The permanent HP boost from eating a Sitrus Berry at full HP.
+    - name: SNORE_CRINGE_CHANCE
+      address:
+        NA: 0x22C4600
+      length:
+        NA: 0x2
+      description: "The chance of Snore inflicting the cringe status, as a percentage (30%)."
+    - name: METEOR_MASH_BOOST_ATTACK_CHANCE
+      address:
+        NA: 0x22C4604
+      length:
+        NA: 0x2
+      description: "The chance of Meteor Mash boosting attack, as a percentage (20%)."
     - name: CRUSH_CLAW_LOWER_DEFENSE_CHANCE
       address:
         NA: 0x22C4608
@@ -422,6 +494,12 @@ overlay10:
         EU: 0x2
         NA: 0x2
       description: The number of turns between passive burn damage.
+    - name: SHADOW_BALL_LOWER_SPECIAL_DEFENSE_CHANCE
+      address:
+        NA: 0x22C461C
+      length:
+        NA: 0x2
+      description: "The chance of Shadow Ball lowering special defense, as a percentage (20%)."
     - name: STICK_POWER
       address:
         EU: 0x22C4F7C
@@ -430,18 +508,24 @@ overlay10:
         EU: 0x2
         NA: 0x2
       description: Attack power for Sticks.
-    - name: BLIZZARD_FREEZE_CHANCE
+    - name: BUBBLE_LOWER_SPEED_CHANCE
+      address:
+        NA: 0x22C462C
+      length:
+        NA: 0x2
+      description: "The chance of Bubble lowering speed, as a percentage (10%)."
+    - name: POWDER_SNOW_FREEZE_CHANCE
       address:
         NA: 0x22C4634
       length:
         NA: 0x2
-      description: "The chance of Blizzard (and others, see DoMoveDamageFreeze15) freezing, as a percentage (15%)."
+      description: "The chance of Powder Snow (and others, see DoMoveDamageFreeze15) freezing, as a percentage (15%)."
     - name: POISON_STING_POISON_CHANCE
       address:
         NA: 0x22C463C
       length:
         NA: 0x2
-      description: "The chance of Poison Sting poisoning, as a percentage (18%)."
+      description: "The chance of Poison Sting (and others, see DoMoveDamagePoison18) poisoning, as a percentage (18%)."
     - name: SPAWN_COOLDOWN_THIEF_ALERT
       address:
         EU: 0x22C4F98
@@ -462,6 +546,12 @@ overlay10:
       length:
         NA: 0x2
       description: "The chance of Thunder (and others, see DoMoveDamageParalyze20) paralyzing, as a percentage (20%)"
+    - name: THUNDERBOLT_PARALYZE_CHANCE
+      address:
+        NA: 0x22C465C
+      length:
+        NA: 0x2
+      description: "The chance of Thunderbolt paralyzing, as a percentage (15%)."
     - name: MONSTER_HOUSE_MAX_MONSTER_SPAWNS
       address:
         EU: 0x22C4FB8
@@ -507,13 +597,13 @@ overlay10:
         NA: 0x22C4688
       length:
         NA: 0x2
-      description: "The chance of Flame Wheel burning, as a percentage (10%)."
-    - name: ROCK_CLIMB_CONFUSE_CHANCE
+      description: "The chance of Flame Wheel (and others, see DoMoveDamageBurn10FlameWheel) burning, as a percentage (10%)."
+    - name: PSYBEAM_CONFUSE_CHANCE
       address:
         NA: 0x22C4690
       length:
         NA: 0x2
-      description: "The chance of Rock Climb confusing, as a percentage (10%)."
+      description: "The chance of Psybeam (and others, see DoMoveDamageConfuse10) confusing, as a percentage (10%)."
     - name: TRI_ATTACK_STATUS_CHANCE
       address:
         NA: 0x22C4694
@@ -654,6 +744,12 @@ overlay10:
         EU: 0x2
         NA: 0x2
       description: Attack power for Iron Thorns.
+    - name: HEALING_WISH_HP_RESTORATION
+      address:
+        NA: 0x22C46F4
+      length:
+        NA: 0x2
+      description: The amount of HP restored by Healing Wish (999). This also applies to Lunar Dance.
     - name: FACADE_DAMAGE_MULTIPLIER
       address:
         NA: 0x22C4718
@@ -669,7 +765,7 @@ overlay10:
         The turn range for the Paused status inflicted by Imprison, [3, 6).
         
         type: int16_t[2]
-    - name: SLEEP_DURATION_RANGE
+    - name: SLEEP_TURN_RANGE
       address:
         EU: 0x22C5078
         NA: 0x22C4720
@@ -687,6 +783,33 @@ overlay10:
         NA: 0x4
       description: |-
         The turn range for the Nightmare status inflicted by Nightmare, [4, 8).
+        
+        type: int16_t[2]
+    - name: REST_TURN_RANGE
+      address:
+        NA: 0x22C4748
+      length:
+        NA: 0x4
+      description: |-
+        The turn range for the Napping status inflicted by Rest, [1, 4).
+        
+        type: int16_t[2]
+    - name: SPORT_CONDITION_TURN_RANGE
+      address:
+        NA: 0x22C478C
+      length:
+        NA: 0x4
+      description: |-
+        The turn range for the sport conditions activated by Mud Sport and Water Sport, [10, 12).
+        
+        type: int16_t[2]
+    - name: SURE_SHOT_TURN_RANGE
+      address:
+        NA: 0x22C4798
+      length:
+        NA: 0x4
+      description: |-
+        The turn range for the Sure Shot status inflicted by Mind Reader and Lock-On, [10, 12).
         
         type: int16_t[2]
     - name: SMOKESCREEN_TURN_RANGE
@@ -731,7 +854,7 @@ overlay10:
         The turn range for the Yawning status inflicted by Yawn, [2, 2].
         
         type: int16_t[2]
-    - name: SPEED_BOOST_DURATION_RANGE
+    - name: SPEED_BOOST_TURN_RANGE
       address:
         EU: 0x22C51E0
         NA: 0x22C4888
@@ -742,6 +865,44 @@ overlay10:
         Appears to control the range of turns for which a speed boost can last.
         
         The first two bytes are the low value of the range, and the later two bytes are the high value.
+    - name: SYNTHESIS_HP_RESTORATION_TABLE
+      address:
+        NA: 0x22C4954
+      length:
+        NA: 0x10
+      description: |-
+        Maps each weather type (by index, see enum weather_id) to the corresponding HP restoration value for Synthesis.
+        
+        type: int16_t[8]
+    - name: ROOST_HP_RESTORATION_TABLE
+      address:
+        NA: 0x22C4964
+      length:
+        NA: 0x10
+      description: |-
+        Maps each weather type (by index, see enum weather_id) to the corresponding HP restoration value for Roost.
+        
+        Every entry in this table is 40.
+        
+        type: int16_t[8]
+    - name: MOONLIGHT_HP_RESTORATION_TABLE
+      address:
+        NA: 0x22C4974
+      length:
+        NA: 0x10
+      description: |-
+        Maps each weather type (by index, see enum weather_id) to the corresponding HP restoration value for Moonlight.
+        
+        type: int16_t[8]
+    - name: MORNING_SUN_HP_RESTORATION_TABLE
+      address:
+        NA: 0x22C4984
+      length:
+        NA: 0x10
+      description: |-
+        Maps each weather type (by index, see enum weather_id) to the corresponding HP restoration value for Morning Sun.
+        
+        type: int16_t[8]
     - name: WEATHER_ATTRIBUTE_TABLE
       address:
         EU: 0x22C55C4

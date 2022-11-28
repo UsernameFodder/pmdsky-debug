@@ -333,6 +333,12 @@ ram:
         EU: 0x1
         NA: 0x1
       description: "[Runtime] Flag for whether the player is turning on the spot (pressing Y)."
+    - name: METRONOME_NEXT_INDEX
+      address:
+        NA: 0x237CA88
+      length:
+        NA: 0x4
+      description: "[Runtime] The index into METRONOME_TABLE for the next usage of Metronome."
     - name: FLOOR_GENERATION_STATUS
       address:
         EU: 0x237DBBC
