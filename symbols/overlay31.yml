@@ -35,6 +35,7 @@ overlay31:
       address:
         EU: 0x2385DC0
         NA: 0x23851C0
+        JP: 0x2386430
       description: |-
         Displays a menu showing the moves of a monster. Does not return until the menu is closed.
         
@@ -45,6 +46,7 @@ overlay31:
       address:
         EU: 0x2386004
         NA: 0x2385404
+        JP: 0x2386674
       description: |-
         Handles the different options on the moves menu. Does not return until the menu is closed.
         
