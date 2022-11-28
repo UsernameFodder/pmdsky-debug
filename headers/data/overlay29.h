@@ -26,6 +26,7 @@ extern int32_t PLAIN_SEED_VALUE;
 extern int32_t MAX_ELIXIR_PP_RESTORATION;
 extern int32_t SLIP_SEED_VALUE;
 extern enum move_id ROCK_WRECKER_MOVE_ID;
+extern int32_t LUNAR_DANCE_PP_RESTORATION;
 extern enum monster_id CASTFORM_NORMAL_FORM_MALE_ID;
 extern enum monster_id CASTFORM_NORMAL_FORM_FEMALE_ID;
 extern enum monster_id CHERRIM_SUNSHINE_FORM_MALE_ID;
