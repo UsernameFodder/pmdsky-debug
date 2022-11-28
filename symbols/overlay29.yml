@@ -334,6 +334,7 @@ overlay29:
       address:
         EU: 0x22E3378
         NA: 0x22E2A38
+        JP: 0x22E40CC
       description: |-
         Given a pointer to an entity, returns its index on the entity list, or null if the entity can't be found on the first 4 slots of the list.
         
@@ -368,6 +369,7 @@ overlay29:
       address:
         EU: 0x22E3804
         NA: 0x22E2E54
+        JP: 0x22E44C4
       description: |-
         Points the camera to the specified monster.
         
@@ -377,6 +379,7 @@ overlay29:
       address:
         EU: 0x22E3874
         NA: 0x22E2EC4
+        JP: 0x22E4534
       description: |-
         Called every frame. Sets the camera to the right coordinates depending on the monster it points to.
         
@@ -526,6 +529,7 @@ overlay29:
       address:
         EU: 0x22E9FC8
         NA: 0x22E9618
+        JP: 0x22EAC80
       description: |-
         Returns a pointer to the monster data of the current leader.
         
@@ -767,6 +771,7 @@ overlay29:
       address:
         EU: 0x22EC2A4
         NA: 0x22EB8F4
+        JP: 0x22ECF5C
       description: |-
         Disables an option that was addeed to a dungeon sub-menu.
         
@@ -888,6 +893,7 @@ overlay29:
       address:
         EU: 0x22F1540
         NA: 0x22F0B8C
+        JP: 0x22F218C
       description: |-
         Returns a pointer to the action data of the current leader (field 0x4A on its monster struct).
         
@@ -1178,6 +1184,7 @@ overlay29:
       address:
         EU: 0x22FA2C0
         NA: 0x22F98B4
+        JP: 0x22FAE6C
       description: |-
         Attempts to place the camera on top of the specified monster.
         
@@ -2920,7 +2927,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveDamageMultihitUntilMiss
       address:
+        EU: 0x23268CC
         NA: 0x2325E64
+        JP: 0x23272F0
       description: |-
         Move effect: Deal multihit damage until a strike misses
         Relevant moves: Ice Ball, Rollout
@@ -2981,7 +2990,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveVitalThrow
       address:
+        EU: 0x2326A1C
         NA: 0x2325FB4
+        JP: 0x2327440
       description: |-
         Move effect: Vital Throw
         
@@ -2992,7 +3003,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveDig
       address:
+        EU: 0x2326A2C
         NA: 0x2325FC4
+        JP: 0x2327450
       description: |-
         Move effect: Dig
         
@@ -3027,6 +3040,7 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveRainDance
       address:
+        EU: 0x2326B38
         NA: 0x23260D0
       description: |-
         Move effect: Rain Dance
@@ -3038,6 +3052,7 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveHail
       address:
+        EU: 0x2326B94
         NA: 0x232612C
       description: |-
         Move effect: Hail
@@ -3049,7 +3064,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveHealStatus
       address:
+        EU: 0x2326BF0
         NA: 0x2326188
+        JP: 0x2327614
       description: |-
         Move effect: Heal the team's status conditions
         Relevant moves: Aromatherapy, Heal Bell, Refresh
@@ -3085,7 +3102,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveRage
       address:
+        EU: 0x2326C88
         NA: 0x2326220
+        JP: 0x23276AC
       description: |-
         Move effect: Rage
         
@@ -3135,7 +3154,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveStringShot
       address:
+        EU: 0x2326FB8
         NA: 0x2326550
+        JP: 0x23279DC
       description: |-
         Move effect: String Shot
         
@@ -3159,7 +3180,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveSnore
       address:
+        EU: 0x232700C
         NA: 0x23265A4
+        JP: 0x2327A30
       description: |-
         Move effect: Snore
         
@@ -3170,7 +3193,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveScreech
       address:
+        EU: 0x23270B0
         NA: 0x2326648
+        JP: 0x2327AD4
       description: |-
         Move effect: Screech
         
@@ -3193,7 +3218,9 @@ overlay29:
         return: whether or not damage was dealt
     - name: DoMoveWeatherBall
       address:
+        EU: 0x2327144
         NA: 0x23266DC
+        JP: 0x2327B68
       description: |-
         Move effect: Weather Ball
         
@@ -3241,7 +3268,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveFocusEnergy
       address:
+        EU: 0x2327324
         NA: 0x23268BC
+        JP: 0x2327D44
       description: |-
         Move effect: Focus Energy
         Relevant moves: Focus Energy, MOVE_TAG_0x1AC
@@ -3266,7 +3295,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveMirrorMove
       address:
+        EU: 0x2327370
         NA: 0x2326908
+        JP: 0x2327D90
       description: |-
         Move effect: Mirror Move
         
@@ -3277,7 +3308,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveOverheat
       address:
+        EU: 0x2327394
         NA: 0x232692C
+        JP: 0x2327DB4
       description: |-
         Move effect: Overheat
         
@@ -3288,7 +3321,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveAuroraBeam
       address:
+        EU: 0x23273F8
         NA: 0x2326990
+        JP: 0x2327E18
       description: |-
         Move effect: Aurora Beam
         
@@ -3299,7 +3334,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveMemento
       address:
+        EU: 0x2327474
         NA: 0x2326A0C
+        JP: 0x2327E94
       description: |-
         Move effect: Memento
         
@@ -3371,7 +3408,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveCounter
       address:
+        EU: 0x232771C
         NA: 0x2326CB4
+        JP: 0x232813C
       description: |-
         Move effect: Give the user the Counter status
         Relevant moves: Pursuit, Counter, Payback
@@ -3407,7 +3446,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveExpose
       address:
+        EU: 0x2327840
         NA: 0x2326DD8
+        JP: 0x2328260
       description: |-
         Move effect: Expose all Ghost-type enemies, and reset evasion boosts
         Relevant moves: Odor Sleuth, Foresight
@@ -3482,7 +3523,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveRazorWind
       address:
+        EU: 0x2327920
         NA: 0x2326EB8
+        JP: 0x2328340
       description: |-
         Move effect: Razor Wind
         
@@ -3493,7 +3536,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveBide
       address:
+        EU: 0x23279B0
         NA: 0x2326F48
+        JP: 0x23283D0
       description: |-
         Move effect: Give the user the Bide status
         Relevant moves: Bide, Revenge, Avalanche
@@ -3505,7 +3550,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveBideUnleash
       address:
+        EU: 0x23279F4
         NA: 0x2326F8C
+        JP: 0x2328414
       description: |-
         Move effect: Unleashes the Bide status
         Relevant moves: Bide (unleashing), Revenge (unleashing), Avalanche (unleashing)
@@ -3618,6 +3665,7 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveFocusPunch
       address:
+        EU: 0x2327E34
         NA: 0x23273CC
       description: |-
         Move effect: Focus Punch
@@ -3694,7 +3742,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveShadowHold
       address:
+        EU: 0x23281AC
         NA: 0x2327744
+        JP: 0x2328BCC
       description: |-
         Move effect: Inflict the Shadow Hold status on the defender
         Relevant moves: Spider Web, Mean Look
@@ -3706,7 +3756,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveHaze
       address:
+        EU: 0x23281C0
         NA: 0x2327758
+        JP: 0x2328BE0
       description: |-
         Move effect: Haze
         
@@ -3770,7 +3822,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveBoostSpeed1
       address:
+        EU: 0x2328390
         NA: 0x2327928
+        JP: 0x2328DB0
       description: |-
         Move effect: Boost the team's movement speed by one stage
         Relevant moves: Agility, Speed Boost (item effect), MOVE_TAG_0x1AA, Tailwind
@@ -3795,7 +3849,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveSureShot
       address:
+        EU: 0x2328414
         NA: 0x23279AC
+        JP: 0x2328E34
       description: |-
         Move effect: Give the user the Sure-Shot status
         Relevant moves: Mind Reader, Lock-On
@@ -3818,7 +3874,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveSkyAttack
       address:
+        EU: 0x2328490
         NA: 0x2327A28
+        JP: 0x2328EB0
       description: |-
         Move effect: Sky Attack
         
@@ -3844,6 +3902,7 @@ overlay29:
     - name: DoMoveMeteorMash
       address:
         NA: 0x2327B5C
+        JP: 0x2328FE4
       description: |-
         Move effect: Meteor Mash
         
@@ -3854,7 +3913,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveEndure
       address:
+        EU: 0x232864C
         NA: 0x2327BE0
+        JP: 0x2329068
       description: |-
         Move effect: Endure
         
@@ -3891,7 +3952,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMovePsywave
       address:
+        EU: 0x23286E0
         NA: 0x2327C74
+        JP: 0x23290FC
       description: |-
         Move effect: Psywave
         
@@ -3902,7 +3965,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveDamageLowerDefensiveStatVariable
       address:
+        EU: 0x2328744
         NA: 0x2327CD8
+        JP: 0x2329160
       description: |-
         Move effect: Deal damage with some chance of lowering one of the defender's defensive stats.
         Relevant moves: Psychic, Acid, Seed Flare, Earth Power, Bug Buzz, Flash Cannon
@@ -3919,7 +3984,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMovePsychoBoost
       address:
+        EU: 0x23287CC
         NA: 0x2327D60
+        JP: 0x23291E8
       description: |-
         Move effect: Psycho Boost
         
@@ -3930,7 +3997,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveUproar
       address:
+        EU: 0x232883C
         NA: 0x2327DD0
+        JP: 0x2329258
       description: |-
         Move effect: Uproar
         
@@ -3952,7 +4021,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMovePsychUp
       address:
+        EU: 0x2328900
         NA: 0x2327E94
+        JP: 0x232931C
       description: |-
         Move effect: Psych Up
         
@@ -3977,7 +4048,9 @@ overlay29:
         return: bool, whether or not damage was dealt
     - name: DoMoveRecoverHp
       address:
+        EU: 0x2328A9C
         NA: 0x2328030
+        JP: 0x23294B8
       description: |-
         Move effect: Recover 50% of the user's max HP
         Relevant moves: Recover, Slack Off
@@ -4035,7 +4108,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveSelfdestruct
       address:
+        EU: 0x2328C44
         NA: 0x23281D8
+        JP: 0x2329660
       description: |-
         Move effect: Selfdestruct
         
@@ -4057,7 +4132,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveCharge
       address:
+        EU: 0x2328D34
         NA: 0x23282C8
+        JP: 0x2329750
       description: |-
         Move effect: Charge
         
@@ -4079,7 +4156,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveMist
       address:
+        EU: 0x2328E00
         NA: 0x2328394
+        JP: 0x232981C
       description: |-
         Move effect: Mist
         
@@ -4115,7 +4194,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveSafeguard
       address:
+        EU: 0x2328F94
         NA: 0x2328528
+        JP: 0x23299B0
       description: |-
         Move effect: Safeguard
         
@@ -4153,7 +4234,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveSketch
       address:
+        EU: 0x2329200
         NA: 0x2328794
+        JP: 0x2329C14
       description: |-
         Move effect: Sketch
         
@@ -4188,6 +4271,7 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveSandstorm
       address:
+        EU: 0x2329464
         NA: 0x23289F8
       description: |-
         Move effect: Sandstorm
@@ -4259,7 +4343,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveSolarBeam
       address:
+        EU: 0x23296E0
         NA: 0x2328C74
+        JP: 0x232A0F4
       description: |-
         Move effect: SolarBeam
         
@@ -4281,7 +4367,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveFly
       address:
+        EU: 0x2329850
         NA: 0x2328DE4
+        JP: 0x232A264
       description: |-
         Move effect: Fly
         
@@ -4292,7 +4380,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveExplosion
       address:
+        EU: 0x23298E0
         NA: 0x2328E74
+        JP: 0x232A2F4
       description: |-
         Move effect: Explosion
         
@@ -4303,7 +4393,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveDive
       address:
+        EU: 0x2329938
         NA: 0x2328ECC
+        JP: 0x232A34C
       description: |-
         Move effect: Dive
         
@@ -4337,7 +4429,9 @@ overlay29:
         return: whether or not damage was dealt
     - name: DoMoveStockpile
       address:
+        EU: 0x2329AE0
         NA: 0x2329074
+        JP: 0x232A4F4
       description: |-
         Move effect: Stockpile
         
@@ -4374,7 +4468,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveRecoverHpTeam
       address:
+        EU: 0x2329C60
         NA: 0x23291F4
+        JP: 0x232A674
       description: |-
         Move effect: Recover 25% HP for all team members
         Relevant moves: Softboiled, Milk Drink
@@ -4474,7 +4570,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveConversion
       address:
+        EU: 0x2329FC0
         NA: 0x2329554
+        JP: 0x232A9D4
       description: |-
         Move effect: Conversion
         
@@ -4485,7 +4583,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveConversion2
       address:
+        EU: 0x232A0D0
         NA: 0x2329664
+        JP: 0x232AAE4
       description: |-
         Move effect: Conversion 2
         
@@ -4496,7 +4596,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveHelpingHand
       address:
+        EU: 0x232A0E0
         NA: 0x2329674
+        JP: 0x232AAF4
       description: |-
         Move effect: Helping Hand
         
@@ -4519,7 +4621,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveWarp
       address:
+        EU: 0x232A164
         NA: 0x23296F8
+        JP: 0x232AB78
       description: |-
         Move effect: Warp the target to another tile on the floor
         Relevant moves: Teleport, Warp (item effect), MOVE_TAG_0x1A8
@@ -4557,7 +4661,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveZapCannon
       address:
+        EU: 0x232A25C
         NA: 0x23297F0
+        JP: 0x232AC6C
       description: |-
         Move effect: Zap Cannon
         
@@ -4631,7 +4737,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveJumpKick
       address:
+        EU: 0x232A3DC
         NA: 0x2329970
+        JP: 0x232ADEC
       description: |-
         Move effect: Jump Kick
         
@@ -4642,7 +4750,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveBounce
       address:
+        EU: 0x232A508
         NA: 0x2329A9C
+        JP: 0x232AF18
       description: |-
         Move effect: Bounce
         
@@ -4653,7 +4763,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveHiJumpKick
       address:
+        EU: 0x232A5D4
         NA: 0x2329B68
+        JP: 0x232AFE4
       description: |-
         Move effect: Hi Jump Kick
         
@@ -4704,7 +4816,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveSport
       address:
+        EU: 0x232AA20
         NA: 0x2329FB4
+        JP: 0x232B424
       description: |-
         Move effect: Activate the relevant sport condition (Mud Sport, Water Sport) on the floor
         Relevant moves: Mud Sport, Water Sport
@@ -4752,7 +4866,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveNightShade
       address:
+        EU: 0x232AAE4
         NA: 0x232A078
+        JP: 0x232B4E8
       description: |-
         Move effect: Night Shade
         
@@ -4774,7 +4890,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveSurf
       address:
+        EU: 0x232ABB4
         NA: 0x232A148
+        JP: 0x232B5B8
       description: |-
         Move effect: Surf
         
@@ -4798,6 +4916,7 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveSunnyDay
       address:
+        EU: 0x232AC8C
         NA: 0x232A220
       description: |-
         Move effect: Sunny Day
@@ -4821,7 +4940,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveWish
       address:
+        EU: 0x232AD18
         NA: 0x232A2AC
+        JP: 0x232B71C
       description: |-
         Move effect: Wish
         
@@ -4843,6 +4964,7 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveSleepTalk
       address:
+        EU: 0x232AD94
         NA: 0x232A328
       description: |-
         Move effect: Sleep Talk
@@ -4867,6 +4989,7 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveAssist
       address:
+        EU: 0x232AE68
         NA: 0x232A3FC
       description: |-
         Move effect: Assist
@@ -4878,7 +5001,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveRest
       address:
+        EU: 0x232AE80
         NA: 0x232A414
+        JP: 0x232B884
       description: |-
         Move effect: Rest
         
@@ -4889,7 +5014,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveIngrain
       address:
+        EU: 0x232AEEC
         NA: 0x232A480
+        JP: 0x232B8F0
       description: |-
         Move effect: Ingrain
         
@@ -4900,6 +5027,7 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveSwallow
       address:
+        EU: 0x232AEFC
         NA: 0x232A490
       description: |-
         Move effect: Swallow
@@ -4948,6 +5076,7 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveSpitUp
       address:
+        EU: 0x232B0AC
         NA: 0x232A640
       description: |-
         Move effect: Spit Up
@@ -4985,7 +5114,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveSplash
       address:
+        EU: 0x232B358
         NA: 0x232A8EC
+        JP: 0x232BD54
       description: |-
         Move effect: Splash
         
@@ -4996,7 +5127,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveSetDamage
       address:
+        EU: 0x232B6B0
         NA: 0x232AC44
+        JP: 0x232C0A4
       description: |-
         Move effect: Give the user the Set Damage status
         Relevant moves: Doom Desire, Future Sight
@@ -5008,7 +5141,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveBellyDrum
       address:
+        EU: 0x232B6C0
         NA: 0x232AC54
+        JP: 0x232C0B4
       description: |-
         Move effect: Belly Drum
         
@@ -5019,7 +5154,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveLightScreen
       address:
+        EU: 0x232B774
         NA: 0x232AD08
+        JP: 0x232C168
       description: |-
         Move effect: Light Screen
         
@@ -5165,7 +5302,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveTransform
       address:
+        EU: 0x232BEB8
         NA: 0x232B44C
+        JP: 0x232C8AC
       description: |-
         Move effect: Transform
         
@@ -5201,7 +5340,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveCamouflage
       address:
+        EU: 0x232BF84
         NA: 0x232B518
+        JP: 0x232C978
       description: |-
         Move effect: Camouflage
         
@@ -5237,6 +5378,7 @@ overlay29:
         return: whether or not damage was dealt
     - name: DoMovePerishSong
       address:
+        EU: 0x232C110
         NA: 0x232B6A4
       description: |-
         Move effect: Perish Song
@@ -5250,7 +5392,7 @@ overlay29:
       address:
         EU: 0x232C124
         NA: 0x232B6B8
-        JP: 0x232C0A4
+        JP: 0x232CB14
       description: |-
         Move effect: Wrap
         
@@ -5261,6 +5403,7 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveSpikes
       address:
+        EU: 0x232C134
         NA: 0x232B6C8
       description: |-
         Move effect: Spikes
@@ -5285,7 +5428,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveMagicCoat
       address:
+        EU: 0x232C22C
         NA: 0x232B7C0
+        JP: 0x232CC0C
       description: |-
         Move effect: Magic Coat
         
@@ -5296,7 +5441,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveProtect
       address:
+        EU: 0x232C23C
         NA: 0x232B7D0
+        JP: 0x232CC1C
       description: |-
         Move effect: Try to give the user the Protect status
         Relevant moves: Protect, Detect
@@ -5319,7 +5466,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveDecoy
       address:
+        EU: 0x232C26C
         NA: 0x232B800
+        JP: 0x232CC4C
       description: |-
         Move effect: Inflict the Decoy status on the target
         Relevant moves: Follow Me, Substitute, Decoy Maker (item effect)
@@ -5355,7 +5504,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveMirrorCoat
       address:
+        EU: 0x232C340
         NA: 0x232B8D4
+        JP: 0x232CD20
       description: |-
         Move effect: Mirror Coat
         
@@ -5459,7 +5610,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveMetronome
       address:
+        EU: 0x232C6D4
         NA: 0x232BC64
+        JP: 0x232D0B8
       description: |-
         Move effect: Metronome
         
@@ -5482,7 +5635,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveSnatch
       address:
+        EU: 0x232C8A4
         NA: 0x232BE34
+        JP: 0x232D280
       description: |-
         Move effect: Snatch
         
@@ -5493,7 +5648,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveRecycle
       address:
+        EU: 0x232C8B4
         NA: 0x232BE44
+        JP: 0x232D290
       description: |-
         Move effect: Recycle
         
@@ -5504,7 +5661,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveReflect
       address:
+        EU: 0x232C9E8
         NA: 0x232BF78
+        JP: 0x232D3C4
       description: |-
         Move effect: Reflect
         
@@ -5526,7 +5685,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveDragonDance
       address:
+        EU: 0x232CA98
         NA: 0x232C028
+        JP: 0x232D474
       description: |-
         Move effect: Dragon Dance
         
@@ -5537,7 +5698,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveSkullBash
       address:
+        EU: 0x232CAD4
         NA: 0x232C064
+        JP: 0x232D4B0
       description: |-
         Move effect: Skull Bash
         
@@ -5562,7 +5725,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveStruggle
       address:
+        EU: 0x232CC14
         NA: 0x232C1A4
+        JP: 0x232D5F0
       description: |-
         Move effect: Struggle
         
@@ -5573,7 +5738,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveRockSmash
       address:
+        EU: 0x232CCEC
         NA: 0x232C27C
+        JP: 0x232D6C8
       description: |-
         Move effect: Rock Smash
         Relevant moves: Rock Smash, MOVE_UNNAMED_0x169
@@ -5585,7 +5752,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveSeeTrap
       address:
+        EU: 0x232CD70
         NA: 0x232C300
+        JP: 0x232D74C
       description: |-
         Move effect: See-Trap (item effect)
         
@@ -5596,7 +5765,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveTakeaway
       address:
+        EU: 0x232CD80
         NA: 0x232C310
+        JP: 0x232D75C
       description: |-
         Move effect: Takeaway (item effect)
         
@@ -5607,7 +5778,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveRebound
       address:
+        EU: 0x232CF94
         NA: 0x232C524
+        JP: 0x232D968
       description: |-
         Move effect: Rebound (item effect)
         
@@ -5618,6 +5791,7 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveSwitchPositions
       address:
+        EU: 0x232CFA8
         NA: 0x232C538
       description: |-
         Move effect: Switches the user's position with positions of other monsters in the room.
@@ -5630,7 +5804,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveStayAway
       address:
+        EU: 0x232CFD0
         NA: 0x232C560
+        JP: 0x232D9A4
       description: |-
         Move effect: Stay Away (item effect)
         
@@ -5641,7 +5817,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveCleanse
       address:
+        EU: 0x232CFE8
         NA: 0x232C578
+        JP: 0x232D9BC
       description: |-
         Move effect: Cleanse (item effect)
         
@@ -5663,7 +5841,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveTwoEdge
       address:
+        EU: 0x232D160
         NA: 0x232C6F0
+        JP: 0x232DB38
       description: |-
         Move effect: Two-Edge (item effect)
         
@@ -5674,7 +5854,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveNoMove
       address:
+        EU: 0x232D288
         NA: 0x232C818
+        JP: 0x232DC60
       description: |-
         Move effect: No-Move (item effect)
         
@@ -5685,7 +5867,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveScan
       address:
+        EU: 0x232D29C
         NA: 0x232C82C
+        JP: 0x232DC74
       description: |-
         Move effect: Scan (item effect)
         
@@ -5696,7 +5880,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMovePowerEars
       address:
+        EU: 0x232D2AC
         NA: 0x232C83C
+        JP: 0x232DC84
       description: |-
         Move effect: Power-Ears (item effect)
         
@@ -5707,7 +5893,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveTransfer
       address:
+        EU: 0x232D2BC
         NA: 0x232C84C
+        JP: 0x232DC94
       description: |-
         Move effect: Transfer (item effect)
         
@@ -5718,7 +5906,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveSlowDown
       address:
+        EU: 0x232D484
         NA: 0x232CA14
+        JP: 0x232DE5C
       description: |-
         Move effect: Slow Down (item effect)
         
@@ -5729,7 +5919,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveSearchlight
       address:
+        EU: 0x232D49C
         NA: 0x232CA2C
+        JP: 0x232DE74
       description: |-
         Move effect: Searchlight (item effect)
         
@@ -5740,7 +5932,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMovePetrify
       address:
+        EU: 0x232D4AC
         NA: 0x232CA3C
+        JP: 0x232DE84
       description: |-
         Move effect: Petrifies the target
         Relevant moves: Petrify (item effect), MOVE_TAG_0x1A9
@@ -5752,7 +5946,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMovePounce
       address:
+        EU: 0x232D4BC
         NA: 0x232CA4C
+        JP: 0x232DE94
       description: |-
         Move effect: Pounce (item effect)
         
@@ -5763,7 +5959,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveTrawl
       address:
+        EU: 0x232D4D0
         NA: 0x232CA60
+        JP: 0x232DEA8
       description: |-
         Move effect: Trawl (item effect)
         
@@ -5774,7 +5972,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveEscape
       address:
+        EU: 0x232D4E0
         NA: 0x232CA70
+        JP: 0x232DEB8
       description: |-
         Move effect: Escape (item effect)
         
@@ -5785,7 +5985,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveDrought
       address:
+        EU: 0x232D578
         NA: 0x232CB08
+        JP: 0x232DF50
       description: |-
         Move effect: Drought (item effect)
         
@@ -5796,7 +5998,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveTrapBuster
       address:
+        EU: 0x232D588
         NA: 0x232CB18
+        JP: 0x232DF60
       description: |-
         Move effect: Trap Buster (item effect)
         
@@ -5807,7 +6011,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveWildCall
       address:
+        EU: 0x232D734
         NA: 0x232CCC4
+        JP: 0x232E10C
       description: |-
         Move effect: Wild Call (item effect)
         
@@ -5818,7 +6024,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveInvisify
       address:
+        EU: 0x232D800
         NA: 0x232CD90
+        JP: 0x232E1D8
       description: |-
         Move effect: Invisify (item effect)
         
@@ -5829,7 +6037,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveOneShot
       address:
+        EU: 0x232D814
         NA: 0x232CDA4
+        JP: 0x232E1EC
       description: |-
         Move effect: One-Shot (item effect)
         
@@ -5840,7 +6050,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveHpGauge
       address:
+        EU: 0x232D8B0
         NA: 0x232CE40
+        JP: 0x232E288
       description: |-
         Move effect: HP Gauge (item effect)
         
@@ -5851,7 +6063,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveVacuumCut
       address:
+        EU: 0x232D8C0
         NA: 0x232CE50
+        JP: 0x232E298
       description: |-
         Move effect: Vacuum Cut
         
@@ -5862,6 +6076,7 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveReviver
       address:
+        EU: 0x232D8EC
         NA: 0x232CE7C
       description: |-
         Move effect: Reviver (item effect)
@@ -5873,7 +6088,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveShocker
       address:
+        EU: 0x232D904
         NA: 0x232CE94
+        JP: 0x232E2DC
       description: |-
         Move effect: Shocker (item effect)
         
@@ -5884,7 +6101,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveEcho
       address:
+        EU: 0x232D91C
         NA: 0x232CEAC
+        JP: 0x232E2F4
       description: |-
         Move effect: Echo (item effect)
         
@@ -5895,7 +6114,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveFamish
       address:
+        EU: 0x232D9C4
         NA: 0x232CF54
+        JP: 0x232E39C
       description: |-
         Move effect: Famish (item effect)
         
@@ -5906,7 +6127,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveOneRoom
       address:
+        EU: 0x232D9E4
         NA: 0x232CF74
+        JP: 0x232E3BC
       description: |-
         Move effect: One-Room (item effect)
         
@@ -5917,7 +6140,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveFillIn
       address:
+        EU: 0x232D9F4
         NA: 0x232CF84
+        JP: 0x232E3CC
       description: |-
         Move effect: Fill-In (item effect)
         
@@ -5928,7 +6153,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveTrapper
       address:
+        EU: 0x232DB60
         NA: 0x232D0F0
+        JP: 0x232E538
       description: |-
         Move effect: Trapper (item effect)
         
@@ -5939,7 +6166,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveItemize
       address:
+        EU: 0x232DBB8
         NA: 0x232D148
+        JP: 0x232E58C
       description: |-
         Move effect: Itemize (item effect)
         
@@ -5964,7 +6193,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveMobile
       address:
+        EU: 0x232DC5C
         NA: 0x232D1EC
+        JP: 0x232E630
       description: |-
         Move effect: Mobile (item effect)
         
@@ -5975,7 +6206,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveSeeStairs
       address:
+        EU: 0x232DC6C
         NA: 0x232D1FC
+        JP: 0x232E640
       description: |-
         Move effect: See Stairs (item effect)
         
@@ -5986,7 +6219,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveLongToss
       address:
+        EU: 0x232DC7C
         NA: 0x232D20C
+        JP: 0x232E650
       description: |-
         Move effect: Long Toss (item effect)
         
@@ -5997,7 +6232,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMovePierce
       address:
+        EU: 0x232DC8C
         NA: 0x232D21C
+        JP: 0x232E660
       description: |-
         Move effect: Pierce (item effect)
         
@@ -6021,7 +6258,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveAquaRing
       address:
+        EU: 0x232DCE0
         NA: 0x232D270
+        JP: 0x232E6B4
       description: |-
         Move effect: Aqua Ring
         
@@ -6045,7 +6284,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveHealingWish
       address:
+        EU: 0x232DD08
         NA: 0x232D298
+        JP: 0x232E6DC
       description: |-
         Move effect: Healing Wish
         
@@ -6069,7 +6310,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveLuckyChant
       address:
+        EU: 0x232DDD8
         NA: 0x232D368
+        JP: 0x232E7AC
       description: |-
         Move effect: Lucky Chant
         
@@ -6092,7 +6335,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveHealOrder
       address:
+        EU: 0x232DE48
         NA: 0x232D3D8
+        JP: 0x232E81C
       description: |-
         Move effect: Heal Order
         
@@ -6103,7 +6348,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveHealBlock
       address:
+        EU: 0x232DE70
         NA: 0x232D400
+        JP: 0x232E844
       description: |-
         Move effect: Heal Block
         
@@ -6232,7 +6479,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveShadowForce
       address:
+        EU: 0x232E2D0
         NA: 0x232D860
+        JP: 0x232ECA4
       description: |-
         Move effect: Shadow Force
         
@@ -6243,7 +6492,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveGravity
       address:
+        EU: 0x232E36C
         NA: 0x232D8FC
+        JP: 0x232ED40
       description: |-
         Move effect: Gravity
         
@@ -6254,6 +6505,7 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveStealthRock
       address:
+        EU: 0x232E37C
         NA: 0x232D90C
       description: |-
         Move effect: Stealth Rock
@@ -6290,7 +6542,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveAcupressure
       address:
+        EU: 0x232E510
         NA: 0x232DAD0
+        JP: 0x232EEEC
       description: |-
         Move effect: Acupressure
         
@@ -6301,7 +6555,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveMagnetRise
       address:
+        EU: 0x232E694
         NA: 0x232DC54
+        JP: 0x232F06C
       description: |-
         Move effect: Magnet Rise
         
@@ -6312,6 +6568,7 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveToxicSpikes
       address:
+        EU: 0x232E6A4
         NA: 0x232DC64
       description: |-
         Move effect: Toxic Spikes
@@ -6336,7 +6593,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveTrickRoom
       address:
+        EU: 0x232E7B8
         NA: 0x232DD78
+        JP: 0x232F180
       description: |-
         Move effect: Trick Room
         
@@ -6347,6 +6606,7 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveWorrySeed
       address:
+        EU: 0x232E7EC
         NA: 0x232DDAC
       description: |-
         Move effect: Worry Seed
@@ -6385,7 +6645,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveRoost
       address:
+        EU: 0x232EA08
         NA: 0x232DFC8
+        JP: 0x232F3C8
       description: |-
         Move effect: Roost
         
@@ -6408,7 +6670,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMovePowerTrick
       address:
+        EU: 0x232EB24
         NA: 0x232E0E4
+        JP: 0x232F4E4
       description: |-
         Move effect: Power Trick
         
@@ -6469,7 +6733,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveLunarDance
       address:
+        EU: 0x232EDA8
         NA: 0x232E368
+        JP: 0x232F768
       description: |-
         Move effect: Lunar Dance
         
@@ -6506,7 +6772,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveMetalBurst
       address:
+        EU: 0x232EECC
         NA: 0x232E48C
+        JP: 0x232F88C
       description: |-
         Move effect: Metal Burst
         
@@ -6543,7 +6811,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveLeafStorm
       address:
+        EU: 0x232F064
         NA: 0x232E624
+        JP: 0x232FA20
       description: |-
         Move effect: Leaf Storm
         
@@ -6554,7 +6824,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveDracoMeteor
       address:
+        EU: 0x232F0BC
         NA: 0x232E67C
+        JP: 0x232FA78
       description: |-
         Move effect: Draco Meteor
         
@@ -6568,7 +6840,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveRockPolish
       address:
+        EU: 0x232F120
         NA: 0x232E6E0
+        JP: 0x232FADC
       description: |-
         Move effect: Rock Polish
         
@@ -6601,7 +6875,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveTag0x1A6
       address:
+        EU: 0x232F190
         NA: 0x232E750
+        JP: 0x232FB4C
       description: |-
         Move effect: MOVE_TAG_0x1A6
         
@@ -6612,7 +6888,9 @@ overlay29:
         return: whether the move was successfully used
     - name: DoMoveTag0x1A7
       address:
+        EU: 0x232F1D4
         NA: 0x232E794
+        JP: 0x232FB90
       description: |-
         Move effect: MOVE_TAG_0x1A7
         
@@ -6722,7 +7000,9 @@ overlay29:
         r0: pointer to entity
     - name: ActivateSportCondition
       address:
+        EU: 0x2335E8C
         NA: 0x233544C
+        JP: 0x2336838
       description: |-
         Activates the Mud Sport or Water Sport condition on the dungeon floor for some number of turns.
         

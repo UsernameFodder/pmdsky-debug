@@ -3558,6 +3558,7 @@ arm9:
       address:
         EU: 0x2032768
         NA: 0x2032474
+        JP: 0x2032794
       description: |-
         Called whenever a menu option is selected. Returns whether the option is active or not.
         
