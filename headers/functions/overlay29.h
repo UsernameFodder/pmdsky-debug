@@ -105,7 +105,6 @@ void TryPointCameraToMonster(struct entity* entity, undefined param_2, undefined
 void RestorePpAllMovesSetFlags(struct entity* entity);
 bool ShouldMonsterHeadToStairs(struct entity* entity);
 bool MewSpawnCheck(enum monster_id monster_id, bool fail_if_mew);
-bool TeamMemberHasExclusiveItemEffectActive(enum exclusive_item_effect_id effect_id);
 bool ExclusiveItemEffectIsActive(struct entity* entity, enum exclusive_item_effect_id effect_id);
 struct entity* GetTeamMemberWithIqSkill(enum iq_skill_id iq_skill);
 bool TeamMemberHasEnabledIqSkill(enum iq_skill_id iq_skill);
@@ -185,6 +184,7 @@ void TrySpawnMonsterAndTickSpawnCounter(void);
 bool AuraBowIsActive(struct entity* entity);
 int ExclusiveItemOffenseBoost(struct entity* entity, int move_category_idx);
 int ExclusiveItemDefenseBoost(struct entity* entity, int move_category_idx);
+bool TeamMemberHasExclusiveItemEffectActive(enum exclusive_item_effect_id effect_id);
 void TrySpawnEnemyItemDrop(struct entity* attacker, struct entity* defender);
 void TickNoSlipCap(struct entity* entity);
 void TickStatusAndHealthRegen(struct entity* entity);
@@ -387,7 +387,6 @@ void ConvertSecondaryTerrainToChasms(void);
 void EnsureImpassableTilesAreWalls(void);
 void InitializeTile(struct tile* tile);
 void ResetFloor(void);
-void ResetImportantSpawnPositions(struct dungeon_generation_info* gen_info);
 bool PosIsOutOfBounds(int x, int y);
 void ShuffleSpawnPositions(struct spawn_position* spawn_positions, int n_spawn_positions);
 void SpawnNonEnemies(struct floor_properties* floor_props, bool empty_monster_house);
@@ -397,6 +396,7 @@ void GenerateSecondaryTerrainFormations(uint8_t test_flag, struct floor_properti
 bool StairsAlwaysReachable(int x_stairs, int y_stairs, bool mark_unreachable);
 void ConvertWallsToChasms(void);
 void ResetInnerBoundaryTileRows(void);
+void ResetImportantSpawnPositions(struct dungeon_generation_info* gen_info);
 void SpawnStairs(uint8_t* pos, struct dungeon_generation_info* gen_info,
                  enum hidden_stairs_type hidden_stairs_type);
 enum hidden_stairs_type GetHiddenStairsType(struct dungeon_generation_info* gen_info,
