@@ -3114,7 +3114,7 @@ overlay29:
         Checks if gravity is active on the floor.
         
         return: bool
-     - name: ShouldBoostKecleonShopSpawnChance
+    - name: ShouldBoostKecleonShopSpawnChance
       address:
         NA: 0x023384C0
       description: |-
