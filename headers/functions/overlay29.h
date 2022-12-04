@@ -184,6 +184,7 @@ void TrySpawnMonsterAndTickSpawnCounter(void);
 bool AuraBowIsActive(struct entity* entity);
 int ExclusiveItemOffenseBoost(struct entity* entity, int move_category_idx);
 int ExclusiveItemDefenseBoost(struct entity* entity, int move_category_idx);
+bool TeamMemberHasExclusiveItemEffectActive(enum exclusive_item_effect_id effect_id);
 void TrySpawnEnemyItemDrop(struct entity* attacker, struct entity* defender);
 void TickNoSlipCap(struct entity* entity);
 void TickStatusAndHealthRegen(struct entity* entity);
@@ -318,9 +319,13 @@ bool IsFullFloorFixedRoom(void);
 uint8_t GetStairsRoom(void);
 enum monster_id GetRandomSpawnMonsterID(void);
 bool GravityIsActive(void);
+bool ShouldBoostKecleonShopSpawnChance(void);
+void SetShouldBoostKecleonShopSpawnChance(bool value);
+void UpdateShouldBoostKecleonShopSpawnChance(void);
 bool IsSecretBazaar(void);
 bool ShouldBoostHiddenStairsSpawnChance(void);
 void SetShouldBoostHiddenStairsSpawnChance(bool value);
+void UpdateShouldBoostHiddenStairsSpawnChance(void);
 bool IsSecretRoom(void);
 struct minimap_display_data* GetMinimapData(void);
 void SetMinimapDataE447(uint8_t value);
@@ -391,6 +396,7 @@ void GenerateSecondaryTerrainFormations(uint8_t test_flag, struct floor_properti
 bool StairsAlwaysReachable(int x_stairs, int y_stairs, bool mark_unreachable);
 void ConvertWallsToChasms(void);
 void ResetInnerBoundaryTileRows(void);
+void ResetImportantSpawnPositions(struct dungeon_generation_info* gen_info);
 void SpawnStairs(uint8_t* pos, struct dungeon_generation_info* gen_info,
                  enum hidden_stairs_type hidden_stairs_type);
 enum hidden_stairs_type GetHiddenStairsType(struct dungeon_generation_info* gen_info,

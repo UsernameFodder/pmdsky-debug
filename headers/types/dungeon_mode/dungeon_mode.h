@@ -1023,12 +1023,12 @@ struct dungeon_grid_cell {
     // 0x8: Grid cells can be invalid and not used in dungeon generation, depending on the
     // generation parameters for a particular floor/dungeon
     bool is_invalid;
-    undefined field_0x9;
-    bool is_room;      // 0xA: Whether this cell contains a room
-    bool is_connected; // 0xB: Whether this cell is connected to a neighboring grid cell
-    undefined field_0xc;
-    undefined field_0xd;
-    bool is_monster_house; // 0xE: Whether this cell has a Monster House
+    bool has_secondary_structure; // 0x9: Whether this cell has generated a secondary structure
+    bool is_room;                 // 0xA: Whether this cell contains a room
+    bool is_connected;            // 0xB: Whether this cell is connected to a neighboring grid cell
+    bool is_kecleon_shop;         // 0xC: Whether this cell has a Kecleon Shop
+    undefined field_0xd;          // 0xD: This field is entirely unused
+    bool is_monster_house;        // 0xE: Whether this cell has a Monster House
     undefined field_0xf;
     bool is_maze_room; // 0x10: Whether this cell has a maze room
     // 0x11: Room has been merged into another room and is no longer valid
@@ -1044,7 +1044,7 @@ struct dungeon_grid_cell {
     bool should_connect_to_bottom; // 0x18
     bool should_connect_to_left;   // 0x19
     bool should_connect_to_right;  // 0x1A
-    undefined field_0x1b;
+    undefined field_0x1b;          // 0x1B: Potentially flag_fixed ?
     // 0x1C: This room has been flagged to have imperfections generated
     bool flag_imperfect;
     // 0x1D: This room has been flagged to have secondary structures generated
