@@ -1211,14 +1211,6 @@ overlay29:
         r0: monster id
         r1: return false if the monster id is Mew
         return: bool
-    - name: TeamMemberHasExclusiveItemEffectActive
-      address:
-        NA: 0x0230F840
-      description: |-
-        Checks if any team member is under the effects of a certain exclusive item effect.
-
-        r0: exclusive item effect ID
-        return: bool
     - name: ExclusiveItemEffectIsActive
       address:
         EU:
@@ -1942,6 +1934,14 @@ overlay29:
         r0: entity pointer
         r1: move category index (0 for physical, 1 for special)
         return: boost
+    - name: TeamMemberHasExclusiveItemEffectActive
+      address:
+        NA: 0x230F840
+      description: |-
+        Checks if any team member is under the effects of a certain exclusive item effect.
+        
+        r0: exclusive item effect ID
+        return: bool
     - name: TrySpawnEnemyItemDrop
       address:
         EU: 0x231044C
@@ -3116,24 +3116,24 @@ overlay29:
         return: bool
     - name: ShouldBoostKecleonShopSpawnChance
       address:
-        NA: 0x023384C0
+        NA: 0x23384C0
       description: |-
         Gets the boost_kecleon_shop_spawn_chance field on the dungeon struct.
         
         return: bool
     - name: SetShouldBoostKecleonShopSpawnChance
       address:
-        NA: 0x023384D8
+        NA: 0x23384D8
       description: |-
         Sets the boost_kecleon_shop_spawn_chance field on the dungeon struct to the given value.
         
         r0: bool to set the flag to
     - name: UpdateShouldBoostKecleonShopSpawnChance
       address:
-        NA: 0x023384F0
+        NA: 0x23384F0
       description: |-
         Sets the boost_kecleon_shop_spawn_chance field on the dungeon struct depending on if a team member has the exclusive item effect for more kecleon shops.
-
+        
         No params.
     - name: IsSecretBazaar
       address:
@@ -3161,10 +3161,10 @@ overlay29:
         r0: bool to set the flag to
     - name: UpdateShouldBoostHiddenStairsSpawnChance
       address:
-        NA: 0x0233861C
+        NA: 0x233861C
       description: |-
         Sets the boost_hidden_stairs_spawn_chance field on the dungeon struct depending on if a team member has the exclusive item effect for more hidden stairs.
-
+        
         No params.
     - name: IsSecretRoom
       address:
@@ -3785,13 +3785,6 @@ overlay29:
         Resets all tiles, resets the border to be impassable, and clears entity spawns.
         
         No params.
-    - name: ResetImportantSpawnPositions
-      address:
-        NA: 0x02342C68
-      description: |-
-        Resets important spawn positions (the player, stairs, and hidden stairs) back to their default values.
-
-        r0: dungeon generation info pointer (a field on the dungeon struct)
     - name: PosIsOutOfBounds
       address:
         EU: 0x2341890
@@ -3902,6 +3895,13 @@ overlay29:
         Reset the inner boundary tile rows (y == 1 and y == 30) to their initial state of all wall tiles, with impassable walls at the edges (x == 0 and x == 55).
         
         No params.
+    - name: ResetImportantSpawnPositions
+      address:
+        NA: 0x2342C68
+      description: |-
+        Resets important spawn positions (the player, stairs, and hidden stairs) back to their default values.
+        
+        r0: dungeon generation info pointer (a field on the dungeon struct)
     - name: SpawnStairs
       address:
         EU: 0x2343870

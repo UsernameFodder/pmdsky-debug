@@ -1707,7 +1707,7 @@ struct dungeon {
     undefined field_0x12b21;
     undefined field_0x12b22;
     undefined field_0x12b23;
-	// 0x12B24: Whether or not the kecleon shop spawn chance be boosted for the floor
+    // 0x12B24: Whether or not the kecleon shop spawn chance be boosted for the floor
     bool boost_kecleon_shop_spawn_chance;
     // 0x12B25: Whether or not the hidden stairs spawn chance be boosted for the floor
     // (by 20%; see HIDDEN_STAIRS_SPAWN_CHANCE_MULTIPLIER)
