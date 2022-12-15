@@ -1278,6 +1278,17 @@ overlay29:
         
         r0: iq skill id
         return: bool
+    - name: HasSuperEffectiveMoveAgainstUser
+      address:
+        EU: 0x22FBB18
+        NA: 0x22FB10C
+      description: |-
+        Checks if the target has at least one super effective move against the user.
+        
+        r0: User
+        r1: Target
+        r2: If true, moves with a max Ginseng boost != 99 will be ignored
+        return: True if the target has at least one super effective move against the user, false otherwise.
     - name: CheckSpawnThreshold
       address:
         EU: 0x22FBFF8
@@ -1773,6 +1784,19 @@ overlay29:
         stack[0]: ?
         stack[1]: Faint reason (see HandleFaint)
         return: True if the target fainted (reviving does not count as fainting)
+    - name: GetTypeMatchupBothTypes
+      address:
+        EU: 0x230B500
+        NA: 0x230AA8C
+      description: |-
+        Gets the type matchup for a given combat interaction, accounting for both of the user's types.
+        
+        Calls GetTypeMatchup twice and combines the result.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: attack type
+        return: enum type_matchup
     - name: GetTypeMatchup
       address:
         EU: 0x230B6CC
@@ -2781,6 +2805,15 @@ overlay29:
         
         r0: move
         return: bool
+    - name: HasMaxGinsengBoost99
+      address:
+        EU: 0x2325200
+        NA: 0x2324798
+      description: |-
+        Checks if a move has a max Ginseng boost value of 99
+        
+        r0: Move
+        return: True if the move's max Ginseng boost is 99, false otherwise.
     - name: DungeonRandOutcomeUserTargetInteraction
       address:
         EU: 0x232539C

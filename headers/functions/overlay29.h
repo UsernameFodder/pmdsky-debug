@@ -109,6 +109,8 @@ bool ExclusiveItemEffectIsActive(struct entity* entity, enum exclusive_item_effe
 struct entity* GetTeamMemberWithIqSkill(enum iq_skill_id iq_skill);
 bool TeamMemberHasEnabledIqSkill(enum iq_skill_id iq_skill);
 bool TeamLeaderIqSkillIsEnabled(enum iq_skill_id iq_skill);
+bool HasSuperEffectiveMoveAgainstUser(struct entity* user, struct entity* target,
+                                      bool ignore_moves_with_max_ginseng_not_99);
 bool CheckSpawnThreshold(enum monster_id monster_id);
 bool HasLowHealth(struct entity* entity);
 bool IsSpecialStoryAlly(struct monster* monster);
@@ -156,6 +158,8 @@ uint8_t GetSleepAnimationId(struct entity* entity);
 void EndFrozenClassStatus(struct entity* user, struct entity* target, bool log);
 void EndCringeClassStatus(struct entity* user, struct entity* target);
 void RunMonsterAi(struct entity* monster, undefined param_2);
+enum type_matchup GetTypeMatchupBothTypes(struct entity* attacker, struct entity* defender,
+                                          enum type_id attack_type);
 enum type_matchup GetTypeMatchup(struct entity* attacker, struct entity* defender,
                                  int target_type_idx, enum type_id attack_type);
 void CalcDamage(struct entity* attacker, struct entity* defender, enum type_id attack_type,
@@ -282,6 +286,7 @@ void TryWarp(struct entity* user, struct entity* target, enum warp_type warp_typ
 bool MoveHitCheck(struct entity* attacker, struct entity* defender, struct move* move,
                   bool use_second_accuracy);
 bool IsHyperBeamVariant(struct move* move);
+bool HasMaxGinsengBoost99(struct move* move);
 bool DungeonRandOutcomeUserTargetInteraction(struct entity* user, struct entity* target,
                                              int percentage);
 bool DungeonRandOutcomeUserAction(struct entity* user, int percentage);
