@@ -110,7 +110,7 @@ struct entity* GetTeamMemberWithIqSkill(enum iq_skill_id iq_skill);
 bool TeamMemberHasEnabledIqSkill(enum iq_skill_id iq_skill);
 bool TeamLeaderIqSkillIsEnabled(enum iq_skill_id iq_skill);
 bool HasSuperEffectiveMoveAgainstUser(struct entity* user, struct entity* target,
-                                      bool ignore_moves_with_max_ginseng_not_99)
+                                      bool ignore_moves_with_max_ginseng_not_99);
 bool CheckSpawnThreshold(enum monster_id monster_id);
 bool HasLowHealth(struct entity* entity);
 bool IsSpecialStoryAlly(struct monster* monster);
