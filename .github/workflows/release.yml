@@ -78,7 +78,7 @@ jobs:
         id: new_hash
         run: |
           echo ${{ hashFiles(format('{0}/**', env.RELEASE_INSTALL_DIR)) }} > ${HASH_FILE}
-          echo "::set-output name=sha256::$(cat ${HASH_FILE})"
+          echo "sha256=$(cat ${HASH_FILE})" >> $GITHUB_OUTPUT
       - name: Retrieve SHA-256 hash of the previous release package
         env:
           HASH_FILE: ${{ env.RELEASE_HASH_FILE }}.old
@@ -86,10 +86,10 @@ jobs:
         run: |
           curl --location --fail "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/releases/latest/download/${{ env.RELEASE_HASH_FILE }}" > ${HASH_FILE} || echo "Could not locate previous release package"
           cat ${HASH_FILE}
-          echo "::set-output name=sha256::$(cat ${HASH_FILE})"
+          echo "sha256=$(cat ${HASH_FILE})" >> $GITHUB_OUTPUT
       - name: Generate release tag
         id: tag
-        run: echo "::set-output name=release_tag::v${{ env.RELEASE_VERSION }}+${GITHUB_SHA:0:10}"
+        run: echo "release_tag=v${{ env.RELEASE_VERSION }}+${GITHUB_SHA:0:10}" >> $GITHUB_OUTPUT
         if: steps.new_hash.outputs.sha256 != steps.old_hash.outputs.sha256
       - name: Create release
         uses: softprops/action-gh-release@v1
