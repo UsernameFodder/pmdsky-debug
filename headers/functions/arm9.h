@@ -289,7 +289,9 @@ void SeChangeVolume(int param_1, int param_2, int param_3);
 void SeChangePan(int param_1, int param_2, int param_3);
 void StopSe(int param_1, int param_2);
 void DeleteWanTableEntry(undefined* wan_table, int wan_id);
+int FindWanTableEntry(undefined* wan_table, const char* path);
 int GetLoadedWanTableEntry(undefined* wan_table, int bin_file_id, int file_id);
+int LoadWanTableEntry(undefined* wan_table, const char* path, uint32_t flags);
 int ReplaceWanFromBinFile(undefined* wan_table, int wan_id, int bin_file_id, int file_id,
                           bool compressed);
 void DeleteWanTableEntryVeneer(undefined* wan_table, int wan_id);
@@ -318,6 +320,9 @@ int StoiTag(const char* s);
 int AnalyzeText(undefined* buf);
 int PreprocessString(char* output, int output_size, const char* format,
                      struct preprocessor_flags flags, struct preprocessor_args* args);
+int PreprocessStringFromMessageId(char* output, int output_size, int message_id,
+                                  struct preprocessor_flags flags, struct preprocessor_args* args);
+void InitPreprocessorArgs(struct preprocessor_args* args);
 char* SetStringAccuracy(char* s, int param_2);
 char* SetStringPower(char* s, int param_2);
 void SetQuestionMarks(char* s);
@@ -335,6 +340,7 @@ void LoadTblTalk(void);
 int GetTalkLine(int personality_idx, int group_id, int restrictions);
 void SetScreenWindowsColor(int palette_idx, bool upper_screen);
 void SetBothScreensWindowsColor(int palette_idx);
+undefined4 GetDialogBoxField0xC(int dbox_id);
 int CreateNormalMenu(undefined* layout, int menu_flags, undefined* additional_info, undefined* menu,
                      int option_id);
 void FreeNormalMenu(int menu_id);
@@ -349,7 +355,8 @@ int GetAdvancedMenuResult(int menu_id);
 int CreateDBox(undefined* layout);
 void FreeDBox(int dbox_id);
 bool IsDBoxActive(int dbox_id);
-void ShowMessageInDBox(int dbox_id, undefined4 param_2, int string_id, undefined4 param_4);
+void ShowMessageInDBox(int dbox_id, struct preprocessor_flags flags, int string_id,
+                       struct preprocessor_args* args);
 void ShowDBox(int dbox_id);
 int CreatePortraitBox(undefined param_1, undefined4 param_2, int param_3);
 void FreePortraitBox(int dbox_id);

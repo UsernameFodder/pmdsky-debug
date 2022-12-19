@@ -186,6 +186,10 @@ ram:
         EU: 0x4
         NA: 0x4
       description: The amount of money the player currently has stored in the Duskull Bank.
+    - name: DIALOG_BOX_LIST
+      address:
+        NA: 0x22A88DC
+      description: Array of allocated dialog box structs.
     - name: LAST_NEW_MOVE
       address:
         EU: 0x22AB78C
@@ -325,6 +329,11 @@ ram:
         EU: 0x4
         NA: 0x4
       description: "Starts at 0 when the game is first launched, and ticks up by 3 per frame while the game is running."
+    - name: SENTRY_DUTY_STRUCT
+      address:
+        NA: 0x237A5D0
+      length:
+        NA: 0x38D4
     - name: TURNING_ON_THE_SPOT_FLAG
       address:
         EU: 0x237D5A6

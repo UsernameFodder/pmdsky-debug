@@ -2872,6 +2872,17 @@ arm9:
         
         r0: wan_table_ptr
         r1: wan_id
+    - name: FindWanTableEntry
+      address:
+        EU: 0x201D370
+        NA: 0x201D2D4
+        JP: 0x201D32C
+      description: |-
+        Appears to search in the given table (in practice always seems to be LOADED_WAN_TABLE_PTR) for an entry with the given file name.
+        
+        r0: table pointer
+        r1: file name
+        return: index of the found file, if found, or -1 if not found
     - name: GetLoadedWanTableEntry
       address:
         EU: 0x201D3D0
@@ -2886,6 +2897,18 @@ arm9:
         r1: bin_file_id
         r2: file_id
         return: wan_id
+    - name: LoadWanTableEntry
+      address:
+        EU: 0x201D478
+        NA: 0x201D3DC
+        JP: 0x201D434
+      description: |-
+        Appears to load data from the given file (in practice always seems to be animation data), using previously loaded data in the given table (see FindWanTableEntry) if possible.
+        
+        r0: table pointer
+        r1: file name
+        r2: flags
+        return: table index of the loaded data
     - name: ReplaceWanFromBinFile
       address:
         EU: 0x201D720
@@ -3173,6 +3196,28 @@ arm9:
         r2: input format string
         r3: preprocessor flags
         stack[0]: pointer to preprocessor args
+    - name: PreprocessStringFromMessageId
+      address:
+        EU: 0x20237B4
+        NA: 0x20235B8
+        JP: 0x2023608
+      description: |-
+        Calls PreprocessString after resolving the given message ID to a string.
+        
+        r0: [output] formatted string
+        r1: maximum capacity of the output buffer
+        r2: message ID
+        r3: preprocessor flags
+        stack[0]: pointer to preprocessor args
+    - name: InitPreprocessorArgs
+      address:
+        EU: 0x20238B4
+        NA: 0x2023690
+        JP: 0x20236E0
+      description: |-
+        Initializes a struct preprocess_args.
+        
+        r0: preprocessor args pointer
     - name: SetStringAccuracy
       address:
         EU: 0x20245C0
@@ -3348,6 +3393,16 @@ arm9:
         Sets the palette of the frames of windows in both screens
         
         r0: palette index
+    - name: GetDialogBoxField0xC
+      address:
+        EU: 0x2028630
+        NA: 0x202833C
+        JP: 0x202869C
+      description: |-
+        Gets field_0xc from the dialog box of the given ID.
+        
+        r0: dbox_id
+        return: field_0xc
     - name: Arm9LoadUnkFieldNa0x2029EC8
       address:
         EU: 0x202A1BC
@@ -3502,9 +3557,9 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         r0: dbox_id
-        r1: ???
+        r1: preprocessor flags (see PreprocessString)
         r2: string_id
-        r3: ???
+        r3: pointer to preprocessor args (see PreprocessString)
     - name: ShowDBox
       address:
         EU: 0x202F698
@@ -7177,6 +7232,12 @@ arm9:
         EU: 0x4
         NA: 0x4
       description: "Maximum amount of money the player can store in the Duskull Bank, 9999999."
+    - name: DIALOG_BOX_LIST_PTR
+      address:
+        NA: 0x2028350
+      length:
+        NA: 0x4
+      description: Hard-coded pointer to DIALOG_BOX_LIST.
     - name: SCRIPT_VARS_VALUES_PTR
       address:
         EU:
@@ -7982,7 +8043,7 @@ arm9:
         This is an array of 200 bytes. Each byte is an enum corresponding to one dungeon.
         
         type: struct secondary_terrain_type_8[200]
-    - name: SENTRY_MINIGAME_DATA
+    - name: SENTRY_DUTY_MONSTER_IDS
       address:
         EU: 0x20A2134
         NA: 0x20A1BB0
@@ -7991,7 +8052,10 @@ arm9:
         EU: 0xCC
         NA: 0xCC
         JP: 0xCC
-      description: "Irdkwia's notes: FOOTPRINTS_MAP"
+      description: |-
+        Table of monster IDs usable in the sentry duty minigame.
+        
+        type: struct monster_id_16[102]
     - name: IQ_SKILLS
       address:
         EU: 0x20A2200

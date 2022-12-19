@@ -131,6 +131,14 @@ struct bulk_item {
 };
 ASSERT_SIZE(struct bulk_item, 4);
 
+// Structure for dialog boxes?
+struct dialog_box {
+    undefined fields_0x0[12];
+    undefined* field_0xc; // Some struct pointer
+    undefined fields_0xd[208];
+};
+ASSERT_SIZE(struct dialog_box, 224);
+
 // These flags are shared with the function to display text inside message boxes
 // So they might need a rename once more information is found
 struct preprocessor_flags {
@@ -142,11 +150,11 @@ ASSERT_SIZE(struct preprocessor_flags, 4);
 
 // Represents arguments that might be passed to the PreprocessString function
 struct preprocessor_args {
-    uint32_t flag_vals[4]; // These are usually IDs with additional flags attached to them
-    uint32_t id_vals[5];
-    int32_t number_vals[5];
-    char* strings[5];
-    // An optional argument that is used to insert the name of a Pokémon
+    uint32_t flag_vals[4];  // 0x0: These are usually IDs with additional flags attached to them
+    uint32_t id_vals[5];    // 0x10
+    int32_t number_vals[5]; // 0x24
+    char* strings[5];       // 0x38
+    // 0x4C: An optional argument that is used to insert the name of a Pokémon
     // When they're talking through a message box. It requires it's respective flag to be on
     uint32_t speaker_id;
 };
