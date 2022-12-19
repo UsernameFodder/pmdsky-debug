@@ -29,6 +29,7 @@ extern char TEAM_NAME[10];
 extern struct ground_monster TEAM_MEMBER_LIST[555];
 extern struct team_member TEAM_ACTIVE_ROSTER[7];
 extern uint32_t FRAMES_SINCE_LAUNCH_TIMES_THREE;
+extern struct sentry_duty SENTRY_DUTY_STRUCT;
 extern bool TURNING_ON_THE_SPOT_FLAG;
 extern int METRONOME_NEXT_INDEX;
 extern struct floor_generation_status FLOOR_GENERATION_STATUS;

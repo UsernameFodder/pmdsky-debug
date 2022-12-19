@@ -253,6 +253,74 @@ overlay11:
         r1: dungeon_info_str
         r2: additional_info
         r3: copy_fixed_room_layout
+    - name: SetAnimDataFields
+      address:
+        EU: 0x22F51BC
+        NA: 0x22F481C
+        JP: 0x22F5E74
+      description: |-
+        Sets some fields on the animation struct?
+        
+        r0: animation pointer
+        r1: ?
+    - name: SetAnimDataFieldsWrapper
+      address:
+        EU: 0x22F52FC
+        NA: 0x22F495C
+        JP: 0x22F5FB4
+      description: Calls SetAnimDataFields with the second argument right-shifted by 16.
+    - name: InitAnimDataFromOtherAnimData
+      address:
+        EU: 0x22F5604
+        NA: 0x22F4C64
+        JP: 0x22F62E8
+      description: |-
+        Appears to partially copy some animation data into another animation struct, plus doing extra initialization on the destination struct.
+        
+        r0: dst
+        r1: src
+    - name: SetAnimDataFields2
+      address:
+        EU: 0x22F5C88
+        NA: 0x22F52E8
+        JP: 0x22F696C
+      description: |-
+        Sets some fields on the animation struct, based on the params?
+        
+        r0: animation pointer
+        r1: flags
+        r2: ?
+    - name: LoadObjectAnimData
+      address:
+        EU: 0x22F7800
+        NA: 0x22F6E60
+        JP: 0x22F84E4
+      description: |-
+        Loads the animation (WAN) data for a given object index?
+        
+        r0: animation pointer
+        r1: object index
+        r2: flags
+    - name: InitAnimDataFromOtherAnimDataVeneer
+      address:
+        NA: 0x22F6F0C
+      description: |-
+        Likely a linker-generated veneer for InitAnimDataFromOtherAnimData.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
+        
+        r0: dst
+        r1: src
+    - name: AnimRelatedFunction
+      address:
+        NA:
+          - 0x22F6F14
+          - 0x22F7064
+      description: |-
+        Does more stuff related to animations...probably?
+        
+        r0: animation pointer?
+        others: ?
     - name: SprintfStatic
       address:
         EU: 0x2309868

@@ -234,6 +234,12 @@ struct script_object {
 };
 ASSERT_SIZE(struct script_object, 12);
 
+// Data relating to animation
+struct animation {
+    undefined fields[196];
+};
+ASSERT_SIZE(struct animation, 196);
+
 // represent an actor present in the scene in the overworld (both during cutscenes and free-roams)
 struct live_actor {
     struct monster_id_16
@@ -319,7 +325,10 @@ struct live_actor {
     undefined field_0x189;
     undefined field_0x18a;
     undefined field_0x18b;
-    undefined animation[196]; // a struct containing data relating to animation
+    // Probably? This is known to be a 196-byte struct relating to animation.
+    // struct animation is confirmed in a different context than this field,
+    // but it seems too coincidental for this field to be a different struct.
+    struct animation animation;
 };
 ASSERT_SIZE(struct live_actor, 592);
 
