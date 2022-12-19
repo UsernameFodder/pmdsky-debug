@@ -1960,7 +1960,9 @@ overlay29:
         return: boost
     - name: TeamMemberHasExclusiveItemEffectActive
       address:
+        EU: 0x23102B4
         NA: 0x230F840
+        JP: 0x2310D7C
       description: |-
         Checks if any team member is under the effects of a certain exclusive item effect.
         
@@ -3149,6 +3151,7 @@ overlay29:
         return: bool
     - name: ShouldBoostKecleonShopSpawnChance
       address:
+        EU: 0x2339090
         NA: 0x23384C0
       description: |-
         Gets the boost_kecleon_shop_spawn_chance field on the dungeon struct.
@@ -3156,6 +3159,7 @@ overlay29:
         return: bool
     - name: SetShouldBoostKecleonShopSpawnChance
       address:
+        EU: 0x23390A8
         NA: 0x23384D8
       description: |-
         Sets the boost_kecleon_shop_spawn_chance field on the dungeon struct to the given value.
@@ -3163,7 +3167,9 @@ overlay29:
         r0: bool to set the flag to
     - name: UpdateShouldBoostKecleonShopSpawnChance
       address:
+        EU: 0x23390C0
         NA: 0x23384F0
+        JP: 0x23398B4
       description: |-
         Sets the boost_kecleon_shop_spawn_chance field on the dungeon struct depending on if a team member has the exclusive item effect for more kecleon shops.
         
@@ -3194,7 +3200,9 @@ overlay29:
         r0: bool to set the flag to
     - name: UpdateShouldBoostHiddenStairsSpawnChance
       address:
+        EU: 0x23391EC
         NA: 0x233861C
+        JP: 0x23399E0
       description: |-
         Sets the boost_hidden_stairs_spawn_chance field on the dungeon struct depending on if a team member has the exclusive item effect for more hidden stairs.
         
@@ -3930,7 +3938,9 @@ overlay29:
         No params.
     - name: ResetImportantSpawnPositions
       address:
+        EU: 0x234384C
         NA: 0x2342C68
+        JP: 0x2344028
       description: |-
         Resets important spawn positions (the player, stairs, and hidden stairs) back to their default values.
         
