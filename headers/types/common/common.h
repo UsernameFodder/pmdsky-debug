@@ -114,6 +114,14 @@ struct mem_arena_getters {
 };
 ASSERT_SIZE(struct mem_arena_getters, 8);
 
+// 64-bit signed fixed-point number with 16 fraction bits.
+// Represents the number ((upper << 16) + (lower >> 16) + (lower & 0xFFFF) * 2^-16)
+struct fx64 {
+    int32_t upper; // sign bit, plus the 31 most significant integer bits
+    uint32_t lower; // the 32 least significant bits (16 integer + 16 fraction)
+};
+ASSERT_SIZE(struct fx64, 8);
+
 struct overlay_load_entry {
     enum overlay_group_id group;
     // These are function pointers, but not sure of the signature.

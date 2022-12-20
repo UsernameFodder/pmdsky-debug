@@ -231,6 +231,17 @@ arm9:
         
         r0: number
         return: number // 256
+    - name: UFixedPoint64CmpLt
+      address:
+        NA: 0x2001A30
+      description: |-
+        Compares two unsigned 64-bit fixed-point numbers (16 fraction bits) x and y.
+        
+        r0: upper 32 bits of x
+        r1: lower 32 bits of x
+        r2: upper 32 bits of y
+        r3: lower 32 bits of y
+        return: x < y
     - name: MultiplyByFixedPoint
       address:
         EU: 0x2001A54
@@ -253,6 +264,121 @@ arm9:
         r0: x
         r1: multiplier
         return: x * multiplier
+    - name: IntToFixedPoint64
+      address:
+        NA: 0x2001C80
+      description: |-
+        Converts a signed integer to a 64-bit fixed-point number (16 fraction bits).
+        
+        Note that this function appears to be bugged: it appears to try to sign-extend if the input is negative, but in a nonsensical way, checking the sign bit for a 16-bit signed integer, but then doing the sign extension as if the input were a 32-bit signed integer.
+        
+        r0: [output] 64-bit fixed-point number
+        r1: 32-bit signed int
+    - name: FixedPoint64ToInt
+      address:
+        NA: 0x2001CB0
+      description: |-
+        Converts a 64-bit fixed-point number (16 fraction bits) to a signed integer.
+        
+        r0: 64-bit fixed-point number
+        return: 32-bit signed
+    - name: FixedPoint32To64
+      address:
+        NA: 0x2001CD4
+      description: |-
+        Converts a 32-bit fixed-point number (8 fraction bits) to a 64-bit fixed point number (16 fraction bits). Sign-extends as necessary.
+        
+        r0: [output] 64-bit fixed-point number
+        r1: 32-bit signed fixed-point number
+    - name: NegateFixedPoint64
+      address:
+        NA: 0x2001CF8
+      description: |-
+        Negates a 64-bit fixed-point number (16 fraction bits) in-place.
+        
+        r0: 64-bit fixed-point number to negate
+    - name: FixedPoint64IsZero
+      address:
+        NA: 0x2001D28
+      description: |-
+        Checks whether a 64-bit fixed-point number (16 fraction bits) is zero.
+        
+        r0: 64-bit fixed-point number
+        return: bool
+    - name: FixedPoint64IsNegative
+      address:
+        NA: 0x2001D50
+      description: |-
+        Checks whether a 64-bit fixed-point number (16 fraction bits) is negative.
+        
+        r0: 64-bit fixed-point number
+        return: bool
+    - name: FixedPoint64CmpLt
+      address:
+        NA: 0x2001D68
+      description: |-
+        Compares two signed 64-bit fixed-point numbers (16 fraction bits) x and y.
+        
+        r0: x
+        r1: y
+        return: x < y
+    - name: MultiplyFixedPoint64
+      address:
+        NA: 0x2001DF4
+      description: |-
+        Multiplies two signed 64-bit fixed-point numbers (16 fraction bits) x and y.
+        
+        r0: [output] product (x * y)
+        r1: x
+        r2: y
+    - name: DivideFixedPoint64
+      address:
+        NA: 0x2001EC8
+      description: |-
+        Divides two signed 64-bit fixed-point numbers (16 fraction bits).
+        
+        Returns the maximum positive value ((INT64_MAX >> 16) + (UINT16_MAX * 2^-16)) if the divisor is zero.
+        
+        r0: [output] quotient (dividend / divisor)
+        r1: dividend
+        r2: divisor
+    - name: UMultiplyFixedPoint64
+      address:
+        NA: 0x2001FA0
+      description: |-
+        Multiplies two unsigned 64-bit fixed-point numbers (16 fraction bits) x and y.
+        
+        r0: [output] product (x * y)
+        r1: x
+        r2: y
+    - name: UDivideFixedPoint64
+      address:
+        NA: 0x2002084
+      description: |-
+        Divides two unsigned 64-bit fixed-point numbers (16 fraction bits).
+        
+        Returns the maximum positive value for a signed fixed-point number ((INT64_MAX >> 16) + (UINT16_MAX * 2^-16)) if the divisor is zero.
+        
+        r0: [output] quotient (dividend / divisor)
+        r1: dividend
+        r2: divisor
+    - name: AddFixedPoint64
+      address:
+        NA: 0x20021C8
+      description: |-
+        Adds two 64-bit fixed-point numbers (16 fraction bits) x and y.
+        
+        r0: [output] sum (x + y)
+        r1: x
+        r2: y
+    - name: Log
+      address:
+        NA: 0x20021F4
+      description: |-
+        The natural log function over the domain of [1, 2047]. The input is clamped to this domain.
+        
+        r0: [output] ln(x)
+        r1: x
     - name: GetRngSeed
       address:
         EU: 0x200222C
@@ -7282,6 +7408,12 @@ arm9:
         EU: 0x4
         NA: 0x4
       description: "Length in bytes of the default memory allocation arena, 1991680."
+    - name: LOG_MAX_ARG
+      address:
+        NA: 0x2002220
+      length:
+        NA: 0x4
+      description: "The maximum argument value for the Log function, 2047."
     - name: DAMAGE_SOURCE_CODE_ORB_ITEM
       address:
         NA: 0x200CA84
@@ -7368,6 +7500,19 @@ arm9:
         EU: 0x4
         NA: 0x4
       description: "555, appears to be the maximum number of members recruited to an exploration team, at least for the purposes of some checks that need to iterate over all team members."
+    - name: NATURAL_LOG_VALUE_TABLE
+      address:
+        NA: 0x2091448
+      length:
+        NA: 0x1000
+      description: |-
+        A table of values for the natural log function corresponding to integer arguments in the range [0, 2047].
+        
+        Each value is stored as a 16-bit fixed-point number with 12 fractional bits. I.e., to get the actual natural log value, take the table entry and divide it by 2^12.
+        
+        The value at an input of 0 is just listed as 0; the Log function makes sure the input is always at least 1 before reading the table.
+        
+        type: int16_t[2048]
     - name: CART_REMOVED_IMG_DATA
       address:
         EU: 0x2092EE4

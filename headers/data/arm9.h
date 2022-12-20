@@ -4,6 +4,7 @@
 #include "arm9/itcm.h"
 
 extern uint32_t DEFAULT_MEMORY_ARENA_SIZE;
+extern int LOG_MAX_ARG;
 extern enum damage_source_non_move DAMAGE_SOURCE_CODE_ORB_ITEM;
 extern enum damage_source_non_move DAMAGE_SOURCE_CODE_NON_ORB_ITEM;
 extern enum item_id AURA_BOW_ID_LAST;
@@ -14,6 +15,7 @@ extern undefined* DIALOG_BOX_LIST_PTR;
 extern struct script_var_value_table* SCRIPT_VARS_VALUES_PTR;
 extern uint32_t MONSTER_ID_LIMIT;
 extern uint32_t MAX_RECRUITABLE_TEAM_MEMBERS;
+extern int16_t NATURAL_LOG_VALUE_TABLE[2048];
 extern undefined CART_REMOVED_IMG_DATA[0]; // Length differs between versions
 extern enum item_id KECLEON_SHOP_ITEM_TABLE_LISTS_1[4];
 extern enum item_id KECLEON_SHOP_ITEM_TABLE_LISTS_2[4];
