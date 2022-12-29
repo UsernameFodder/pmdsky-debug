@@ -28,6 +28,22 @@ overlay10:
         r1: format
         ...: variadic
         return: number of characters printed, excluding the null-terminator
+    - name: GetEffectAnimationField0x19
+      address:
+        NA: 0x22BDEB4
+      description: |-
+        Calls GetEffectAnimation and returns field 0x19.
+        
+        r0: anim_id
+        return: GetEffectAnimation(anim_id)->field_0x19.
+    - name: AnimationHasMoreFrames
+      address:
+        NA: 0x22BF904
+      description: |-
+        Just a guess. This is called in a loop in PlayEffectAnimation, and the output controls whether or not AdvanceFrame continues to be called.
+        
+        r0: ?
+        return: whether or not the animation still has more frames left?
     - name: GetEffectAnimation
       address:
         EU: 0x22C07E0
@@ -196,6 +212,12 @@ overlay10:
       length:
         NA: 0x2
       description: "The chance of Crunch (and others, see DoMoveDamageLowerDef20) lowering defense, as a percentage (20%)."
+    - name: FOREWARN_FORCED_MISS_CHANCE
+      address:
+        NA: 0x22C4468
+      length:
+        NA: 0x2
+      description: "The chance of Forewarn forcing a move to miss, as a percentage (20%)."
     - name: UNOWN_STONE_DROP_CHANCE
       address:
         EU: 0x22C4DCC
@@ -352,6 +374,12 @@ overlay10:
       length:
         NA: 0x2
       description: "The chance of Luster Purge (and others, see DoMoveDamageLowerSpecialDefense50) lowering special defense, as a percentage (50%)."
+    - name: SUPER_LUCK_CRIT_RATE_BOOST
+      address:
+        NA: 0x22C4510
+      length:
+        NA: 0x2
+      description: "The critical hit rate (additive) boost from Super Luck, 10%."
     - name: CONSTRICT_LOWER_SPEED_CHANCE
       address:
         NA: 0x22C4514
@@ -430,6 +458,12 @@ overlay10:
       length:
         NA: 0x2
       description: "The chance of Metal Claw boosting attack, as a percentage (20%)."
+    - name: TECHNICIAN_MOVE_POWER_THRESHOLD
+      address:
+        NA: 0x22C455C
+      length:
+        NA: 0x2
+      description: "The move power threshold for Technician (4). Moves whose base power doesn't exceed this value will receive a 50% damage boost."
     - name: SONICBOOM_FIXED_DAMAGE
       address:
         NA: 0x22C4568
@@ -452,6 +486,12 @@ overlay10:
         EU: 0x2
         NA: 0x2
       description: "The chance of the Aftermath ability activating, as a percentage (50%)."
+    - name: SET_DAMAGE_STATUS_DAMAGE
+      address:
+        NA: 0x22C4598
+      length:
+        NA: 0x2
+      description: The fixed amount of damage dealt when the Set Damage status condition is active (30).
     - name: INTIMIDATOR_ACTIVATION_CHANCE
       address:
         EU: 0x22C4F10
@@ -460,6 +500,12 @@ overlay10:
         EU: 0x2
         NA: 0x2
       description: The percentage chance that Intimidator will activate.
+    - name: TYPE_ADVANTAGE_MASTER_CRIT_RATE
+      address:
+        NA: 0x22C45E0
+      length:
+        NA: 0x2
+      description: "The flat critical hit rate with Type-Advantage Master, 40%."
     - name: ORAN_BERRY_HP_RESTORATION
       address:
         EU: 0x22C4F44
@@ -752,12 +798,24 @@ overlay10:
         EU: 0x2
         NA: 0x2
       description: Attack power for Iron Thorns.
+    - name: SCOPE_LENS_CRIT_RATE_BOOST
+      address:
+        NA: 0x22C46F0
+      length:
+        NA: 0x2
+      description: "The critical hit rate (additive) boost from the Scope Lens/Patsy Band items and the Sharpshooter IQ skill, 15%."
     - name: HEALING_WISH_HP_RESTORATION
       address:
         NA: 0x22C46F4
       length:
         NA: 0x2
       description: The amount of HP restored by Healing Wish (999). This also applies to Lunar Dance.
+    - name: MONSTER_BOOSTED_ATTACKS_MULTIPLIER
+      address:
+        NA: 0x22C4710
+      length:
+        NA: 0x4
+      description: "The blanket damage multiplier applied to attacks by a monster with monster::boosted_attacks set, as a fixed-point number with 8 fraction bits (1.5)."
     - name: FACADE_DAMAGE_MULTIPLIER
       address:
         NA: 0x22C4718
@@ -793,6 +851,15 @@ overlay10:
         The turn range for the Nightmare status inflicted by Nightmare, [4, 8).
         
         type: int16_t[2]
+    - name: BURN_DAMAGE_MULTIPLIER
+      address:
+        NA: 0x22C4744
+      length:
+        NA: 0x4
+      description: |-
+        The extra damage multiplier for moves when the attacker is burned, as a fixed-point number with 8 fraction bits (the raw value is 0xCC, which is close to 0.8).
+        
+        Unlike in the main series, this multiplier is applied regardless of whether the move being used is physical or special.
     - name: REST_TURN_RANGE
       address:
         NA: 0x22C4748
@@ -802,6 +869,18 @@ overlay10:
         The turn range for the Napping status inflicted by Rest, [1, 4).
         
         type: int16_t[2]
+    - name: MATCHUP_SUPER_EFFECTIVE_MULTIPLIER_ERRATIC_PLAYER
+      address:
+        NA: 0x22C474C
+      length:
+        NA: 0x4
+      description: "The damage multiplier corresponding to MATCHUP_SUPER_EFFECTIVE when Erratic Player is active, as a fixed-point number with 8 fraction bits (the raw value is 0x1B3, the closest possible representation of 1.7)."
+    - name: MATCHUP_IMMUNE_MULTIPLIER
+      address:
+        NA: 0x22C4758
+      length:
+        NA: 0x4
+      description: "The damage multiplier corresponding to MATCHUP_IMMUNE, as a fixed-point number with 8 fraction bits (0.5)."
     - name: SPORT_CONDITION_TURN_RANGE
       address:
         NA: 0x22C478C
@@ -820,6 +899,18 @@ overlay10:
         The turn range for the Sure Shot status inflicted by Mind Reader and Lock-On, [10, 12).
         
         type: int16_t[2]
+    - name: DETECT_BAND_MOVE_ACCURACY_DROP
+      address:
+        NA: 0x22C47A8
+      length:
+        NA: 0x4
+      description: The (subtractive) move accuracy drop induced on an attacker if the defender is wearing a Detect Band (30).
+    - name: TINTED_LENS_MULTIPLIER
+      address:
+        NA: 0x22C47C0
+      length:
+        NA: 0x4
+      description: "The extra damage multiplier for not-very-effective moves when Tinted Lens is active, as a fixed-point number with 8 fraction bits (the raw value is 0x133, the closest possible representation of 1.2)."
     - name: SMOKESCREEN_TURN_RANGE
       address:
         NA: 0x22C47C4
@@ -829,6 +920,30 @@ overlay10:
         The turn range for the Whiffer status inflicted by Smokescreen, [1, 4).
         
         type: int16_t[2]
+    - name: SHADOW_FORCE_DAMAGE_MULTIPLIER
+      address:
+        NA: 0x22C47DC
+      length:
+        NA: 0x4
+      description: "The damage multiplier for Shadow Force, as a fixed-point number with 8 fraction bits (2)."
+    - name: DIG_DAMAGE_MULTIPLIER
+      address:
+        NA: 0x22C47E4
+      length:
+        NA: 0x4
+      description: "The damage multiplier for Dig, as a fixed-point number with 8 fraction bits (2)."
+    - name: DIVE_DAMAGE_MULTIPLIER
+      address:
+        NA: 0x22C47E8
+      length:
+        NA: 0x4
+      description: "The damage multiplier for Dive, as a fixed-point number with 8 fraction bits (2)."
+    - name: BOUNCE_DAMAGE_MULTIPLIER
+      address:
+        NA: 0x22C47EC
+      length:
+        NA: 0x4
+      description: "The damage multiplier for Bounce, as a fixed-point number with 8 fraction bits (2)."
     - name: POWER_PITCHER_DAMAGE_MULTIPLIER
       address:
         EU: 0x22C5150
@@ -837,6 +952,48 @@ overlay10:
         EU: 0x4
         NA: 0x4
       description: "The multiplier for projectile damage from Power Pitcher (1.5), as a binary fixed-point number (8 fraction bits)"
+    - name: QUICK_DODGER_MOVE_ACCURACY_DROP
+      address:
+        NA: 0x22C4808
+      length:
+        NA: 0x4
+      description: The (subtractive) move accuracy drop induced on an attacker if the defender has the Quick Dodger IQ skill (10).
+    - name: MATCHUP_NOT_VERY_EFFECTIVE_MULTIPLIER
+      address:
+        NA: 0x22C4810
+      length:
+        NA: 0x4
+      description: "The damage multiplier corresponding to MATCHUP_NOT_VERY_EFFECTIVE, as a fixed-point number with 8 fraction bits (the raw value is 0x1B4, the closest possible representation of 1/√2)."
+    - name: MATCHUP_SUPER_EFFECTIVE_MULTIPLIER
+      address:
+        NA: 0x22C4818
+      length:
+        NA: 0x4
+      description: "The damage multiplier corresponding to MATCHUP_SUPER_EFFECTIVE, as a fixed-point number with 8 fraction bits (the raw value is 0x166, the closest possible representation of 1.4)."
+    - name: MATCHUP_NEUTRAL_MULTIPLIER
+      address:
+        NA: 0x22C481C
+      length:
+        NA: 0x4
+      description: "The damage multiplier corresponding to MATCHUP_NEUTRAL, as a fixed-point number with 8 fraction bits (1)."
+    - name: MATCHUP_IMMUNE_MULTIPLIER_ERRATIC_PLAYER
+      address:
+        NA: 0x22C4820
+      length:
+        NA: 0x4
+      description: "The damage multiplier corresponding to MATCHUP_IMMUNE when Erratic Player is active, as a fixed-point number with 8 fraction bits (0.25)."
+    - name: MATCHUP_NOT_VERY_EFFECTIVE_MULTIPLIER_ERRATIC_PLAYER
+      address:
+        NA: 0x22C4824
+      length:
+        NA: 0x4
+      description: "The damage multiplier corresponding to MATCHUP_NOT_VERY_EFFECTIVE when Erratic Player is active, as a fixed-point number with 8 fraction bits (0.5)."
+    - name: MATCHUP_NEUTRAL_MULTIPLIER_ERRATIC_PLAYER
+      address:
+        NA: 0x22C482C
+      length:
+        NA: 0x4
+      description: "The damage multiplier corresponding to MATCHUP_NEUTRAL when Erratic Player is active, as a fixed-point number with 8 fraction bits (1)."
     - name: AIR_BLADE_DAMAGE_MULTIPLIER
       address:
         EU: 0x22C519C
@@ -873,6 +1030,62 @@ overlay10:
         Appears to control the range of turns for which a speed boost can last.
         
         The first two bytes are the low value of the range, and the later two bytes are the high value.
+    - name: SOLARBEAM_DAMAGE_MULTIPLIER
+      address:
+        NA: 0x22C48A4
+      length:
+        NA: 0x4
+      description: "The default damage multiplier for SolarBeam, as a fixed-point number with 8 fraction bits (2)."
+    - name: SKY_ATTACK_DAMAGE_MULTIPLIER
+      address:
+        NA: 0x22C48B0
+      length:
+        NA: 0x4
+      description: "The damage multiplier for Sky Attack, as a fixed-point number with 8 fraction bits (2)."
+    - name: RAZOR_WIND_DAMAGE_MULTIPLIER
+      address:
+        NA: 0x22C48B0
+      length:
+        NA: 0x4
+      description: "The damage multiplier for Razor Wind, as a fixed-point number with 8 fraction bits (2)."
+    - name: FOCUS_PUNCH_DAMAGE_MULTIPLIER
+      address:
+        NA: 0x22C48B4
+      length:
+        NA: 0x4
+      description: "The damage multiplier for Focus Punch, as a fixed-point number with 8 fraction bits (2)."
+    - name: SKULL_BASH_DAMAGE_MULTIPLIER
+      address:
+        NA: 0x22C48BC
+      length:
+        NA: 0x4
+      description: "The damage multiplier for Skull Bash, as a fixed-point number with 8 fraction bits (2)."
+    - name: FLY_DAMAGE_MULTIPLIER
+      address:
+        NA: 0x22C48C0
+      length:
+        NA: 0x4
+      description: "The damage multiplier for Fly, as a fixed-point number with 8 fraction bits (2)."
+    - name: WEATHER_BALL_TYPE_TABLE
+      address:
+        NA: 0x22C48DC
+      length:
+        NA: 0x8
+      description: |-
+        Maps each weather type (by index, see enum weather_id) to the corresponding Weather Ball type.
+        
+        type: struct type_id_8[8]
+    - name: LAST_RESORT_DAMAGE_MULT_TABLE
+      address:
+        NA: 0x22C4944
+      length:
+        NA: 0x10
+      description: |-
+        Table of damage multipliers for Last Resort for different numbers of moves out of PP, where each entry is a binary fixed-point number with 8 fraction bits.
+        
+        If n is the number of moves out of PP not counting Last Resort itself, the table is indexed by (n - 1).
+        
+        type: int[4]
     - name: SYNTHESIS_HP_RESTORATION_TABLE
       address:
         NA: 0x22C4954
@@ -911,7 +1124,52 @@ overlay10:
         Maps each weather type (by index, see enum weather_id) to the corresponding HP restoration value for Morning Sun.
         
         type: int16_t[8]
-    - name: WEATHER_ATTRIBUTE_TABLE
+    - name: REVERSAL_DAMAGE_MULT_TABLE
+      address:
+        NA: 0x22C4994
+      length:
+        NA: 0x10
+      description: |-
+        Table of damage multipliers for Reversal/Flail at different HP ranges, where each entry is a binary fixed-point number with 8 fraction bits.
+        
+        type: int[4]
+    - name: WATER_SPOUT_DAMAGE_MULT_TABLE
+      address:
+        NA: 0x22C49A4
+      length:
+        NA: 0x10
+      description: |-
+        Table of damage multipliers for Water Spout at different HP ranges, where each entry is a binary fixed-point number with 8 fraction bits.
+        
+        type: int[4]
+    - name: WRING_OUT_DAMAGE_MULT_TABLE
+      address:
+        NA: 0x22C49B4
+      length:
+        NA: 0x10
+      description: |-
+        Table of damage multipliers for Wring Out/Crush Grip at different HP ranges, where each entry is a binary fixed-point number with 8 fraction bits.
+        
+        type: int[4]
+    - name: ERUPTION_DAMAGE_MULT_TABLE
+      address:
+        NA: 0x22C49C4
+      length:
+        NA: 0x10
+      description: |-
+        Table of damage multipliers for Eruption at different HP ranges, where each entry is a binary fixed-point number with 8 fraction bits.
+        
+        type: int[4]
+    - name: WEATHER_BALL_DAMAGE_MULT_TABLE
+      address:
+        NA: 0x22C4B54
+      length:
+        NA: 0x20
+      description: |-
+        Maps each weather type (by index, see enum weather_id) to the corresponding Weather Ball damage multiplier, where each entry is a binary fixed-point number with 8 fraction bits.
+        
+        type: int[8]
+    - name: CASTFORM_WEATHER_ATTRIBUTE_TABLE
       address:
         EU: 0x22C55C4
         NA: 0x22C4C6C
@@ -921,9 +1179,20 @@ overlay10:
         NA: 0x30
         JP: 0x30
       description: |-
-        Maps each weather type (by index, see enum weather_id) to the corresponding Weather Ball type and Castform form.
+        Maps each weather type (by index, see enum weather_id) to the corresponding Castform type and form.
         
-        type: struct weather_attributes[8]
+        type: struct castform_weather_attributes[8]
+    - name: TYPE_MATCHUP_COMBINATOR_TABLE
+      address:
+        NA: 0x22C4D14
+      length:
+        NA: 0x40
+      description: |-
+        Table of type matchup combinations.
+        
+        Each row corresponds to a single type matchup that results from combining two individual type matchups together. For example, combining MATCHUP_NOT_VERY_EFFECTIVE with MATCHUP_SUPER_EFFECTIVE results in MATCHUP_NEUTRAL.
+        
+        type: struct type_matchup_combinator_table
     - name: OFFENSIVE_STAT_STAGE_MULTIPLIERS
       address:
         EU: 0x22C56F0

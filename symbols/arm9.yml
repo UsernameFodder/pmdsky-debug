@@ -371,7 +371,7 @@ arm9:
         r0: [output] sum (x + y)
         r1: x
         r2: y
-    - name: Log
+    - name: ClampedLn
       address:
         NA: 0x20021F4
       description: |-
@@ -8123,6 +8123,12 @@ arm9:
         NA: 0x2
         JP: 0x2
       description: "Note: unverified, ported from Irdkwia's notes"
+    - name: DAMAGE_FORMULA_FLV_SHIFT
+      address:
+        NA: 0x20A18CC
+      length:
+        NA: 0x4
+      description: "The constant shift added to the \"FLV\" intermediate quantity in the damage formula (see dungeon::last_move_damage_calc_flv), as a binary fixed-point number with 8 fraction bits (50)."
     - name: EVOLUTION_PHYSICAL_STAT_BONUSES
       address:
         EU: 0x20A1E54
@@ -8136,6 +8142,21 @@ arm9:
         0x2: Atk + 0x2: Def
         
         Note: unverified, ported from Irdkwia's notes
+    - name: DAMAGE_FORMULA_CONSTANT_SHIFT
+      address:
+        NA: 0x20A18D4
+      length:
+        NA: 0x4
+      description: |-
+        The constant shift applied to the overall output of the "unshifted base" damage formula (the sum of the scaled AT, DEF, and ClampedLn terms), as a binary fixed-point number with 8 fraction bits (-311).
+        
+        The value of -311 is notably equal to -round[DAMAGE_FORMULA_LN_PREFACTOR * ln(DAMAGE_FORMULA_LN_ARG_PREFACTOR * DAMAGE_FORMULA_FLV_SHIFT)]. This is probably not a coincidence.
+    - name: DAMAGE_FORMULA_FLV_DEFICIT_DIVISOR
+      address:
+        NA: 0x20A18D8
+      length:
+        NA: 0x4
+      description: "The divisor of the (AT - DEF) term within the \"FLV\" intermediate quantity in the damage formula (see dungeon::last_move_damage_calc_flv), as a binary fixed-point number with 8 fraction bits (8)."
     - name: EGG_STAT_BONUSES
       address:
         EU: 0x20A1E60
@@ -8162,6 +8183,36 @@ arm9:
         0x2: SpAtk + 0x2: SpDef
         
         Note: unverified, ported from Irdkwia's notes
+    - name: DAMAGE_FORMULA_NON_TEAM_MEMBER_MODIFIER
+      address:
+        NA: 0x20A18E8
+      length:
+        NA: 0x4
+      description: "The divisor applied to the overall output of the \"shifted base\" damage formula (the sum of the scaled AT, Def, ClampedLn, and DAMAGE_FORMULA_CONSTANT_SHIFT terms) if the attacker is not a team member (and the current fixed room is not the substitute room...for some reason), as a binary fixed-point number with 8 fraction bits (85/64)."
+    - name: DAMAGE_FORMULA_LN_PREFACTOR
+      address:
+        NA: 0x20A18EC
+      length:
+        NA: 0x4
+      description: "The prefactor to the output of the ClampedLn in the damage formula, as a binary fixed-point number with 8 fraction bits (50)."
+    - name: DAMAGE_FORMULA_AT_PREFACTOR
+      address:
+        NA: 0x20A18F4
+      length:
+        NA: 0x4
+      description: "The prefactor to the \"AT\" (attack) intermediate quantity in the damage formula (see dungeon::last_move_damage_calc_at), as a binary fixed-point number with 8 fraction bits (153/256, which is close to 0.6)."
+    - name: DAMAGE_FORMULA_DEF_PREFACTOR
+      address:
+        NA: 0x20A18F4
+      length:
+        NA: 0x4
+      description: "The prefactor to the \"DEF\" (defense) intermediate quantity in the damage formula (see dungeon::last_move_damage_calc_def), as a binary fixed-point number with 8 fraction bits (-0.5)."
+    - name: DAMAGE_FORMULA_LN_ARG_PREFACTOR
+      address:
+        NA: 0x20A18F8
+      length:
+        NA: 0x4
+      description: "The prefactor to the argument of ClampedLn in the damage formula (FLV + DAMAGE_FORMULA_FLV_SHIFT), as a binary fixed-point number with 8 fraction bits (10)."
     - name: FORBIDDEN_FORGOT_MOVE_LIST
       address:
         EU: 0x20A1E9C

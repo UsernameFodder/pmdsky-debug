@@ -3389,7 +3389,7 @@ move_effects:
         r2: move
         r3: item ID
         return: whether the move was successfully used
-    - name: DoHammerArm
+    - name: DoMoveHammerArm
       address:
         EU: 0x232DC9C
         NA: 0x232D22C
@@ -4046,6 +4046,17 @@ move_effects:
         r3: item ID
         return: whether the move was successfully used
   data:
+    - name: MAX_HP_CAP_MOVE_EFFECTS
+      address:
+        NA:
+          - 0x2327644
+          - 0x2327E8C
+          - 0x232B42C
+          - 0x232D734
+          - 0x232DF30
+      length:
+        NA: 0x4
+      description: "See overlay29.yml::MAX_HP_CAP"
     - name: LUNAR_DANCE_PP_RESTORATION
       address:
         NA: 0x232E3CC

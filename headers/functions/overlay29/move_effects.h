@@ -528,8 +528,8 @@ bool DoMoveLongToss(struct entity* attacker, struct entity* defender, struct mov
                     enum item_id item_id);
 bool DoMovePierce(struct entity* attacker, struct entity* defender, struct move* move,
                   enum item_id item_id);
-bool DoHammerArm(struct entity* attacker, struct entity* defender, struct move* move,
-                 enum item_id item_id);
+bool DoMoveHammerArm(struct entity* attacker, struct entity* defender, struct move* move,
+                     enum item_id item_id);
 bool DoMoveAquaRing(struct entity* attacker, struct entity* defender, struct move* move,
                     enum item_id item_id);
 bool DoMoveGastroAcid(struct entity* attacker, struct entity* defender, struct move* move,

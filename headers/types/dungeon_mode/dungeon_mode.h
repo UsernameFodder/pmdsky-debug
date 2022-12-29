@@ -37,8 +37,14 @@ struct damage_data {
     struct type_id_8 type;              // 0xC: Type of the move used
     struct move_category_8 category;    // 0xD: Category of the move used
     bool critical_hit;                  // 0xE
-    undefined field_0xF;
-    undefined field_0x10;
+    // 0xF: Set to true if the type matchup calculation results in full immunity due to Flash Fire,
+    // Levitate, or Magnet Rise. It seems like this is only used to skip the 30-damage override due
+    // to the Set Damage status
+    bool full_type_immunity;
+    // 0x10: This can be set at various points to indicate that no damage should be dealt. This is
+    // checked at the very end of CalcDamageFinal and overrides all other results of the damage
+    // calculation.
+    bool no_damage;
     // Most likely padding. These aren't set by the function that inits the struct.
     undefined field_0x11;
     undefined field_0x12;
@@ -52,8 +58,7 @@ struct monster_stat_modifiers {
     int16_t offensive_stages[2];  // 0x0: {atk, sp_atk}
     int16_t defensive_stages[2];  // 0x4: {def, sp_def}
     int16_t hit_chance_stages[2]; // 0x8: {accuracy, evasion}
-    bool flash_fire_boost;        // 0xC
-    undefined field_0xd;
+    int16_t flash_fire_boost;     // 0xC: can be 0, 1, or 2
     undefined field_0xe;
     undefined field_0xf;
     // Some moves like Screech affect the damage calculation differently than, e.g., Leer
@@ -174,7 +179,10 @@ struct statuses {
     undefined field_0x5f;
     undefined field_0x60;
     undefined field_0x61;
-    bool high_up; // 0x62: Graphical flag for Fly/Bounce
+    // 0x62: Flag for two-turn moves that haven't concluded yet. This is also a graphical flag.
+    // A value of 1 mean "high up" (Fly/Bounce). A value of 2 means some other condition like
+    // Dig, Shadow Force, etc. Other values are treated as invalid.
+    uint8_t two_turn_move_invincible;
     undefined field_0x63;
     undefined field_0x64;
     undefined field_0x65;
@@ -293,10 +301,8 @@ struct monster {
     int16_t max_hp_boost; // 0x16: From Life Seeds, Sitrus Berries, etc.
     undefined field_0x18;
     undefined field_0x19;
-    uint8_t atk;    // 0x1A
-    uint8_t sp_atk; // 0x1B
-    uint8_t def;    // 0x1C
-    uint8_t sp_def; // 0x1D
+    uint8_t offensive_stats[2]; // 0x1A: {atk, sp_atk}
+    uint8_t defensive_stats[2]; // 0x1C: {def, sp_def}
     uint8_t field_0x1e;
     uint8_t field_0x1f;
     int exp;                                      // 0x20: Total Exp. Points
@@ -315,12 +321,10 @@ struct monster {
     undefined field_0x5b;
     undefined field_0x5c;
     undefined field_0x5d;
-    struct type_id_8 type1;         // 0x5E
-    struct type_id_8 type2;         // 0x5F
-    struct ability_id_8 ability1;   // 0x60
-    struct ability_id_8 ability2;   // 0x61
-    struct item held_item;          // 0x62
-    struct item_id_16 held_item_id; // 0x68: Appears to be a mirror of held_item.id
+    struct type_id_8 types[2];        // 0x5E
+    struct ability_id_8 abilities[2]; // 0x60
+    struct item held_item;            // 0x62
+    struct item_id_16 held_item_id;   // 0x68: Appears to be a mirror of held_item.id
     // Previous position data is used by the AI
     struct position prev_pos;  // 0x6A: Position 1 turn ago
     struct position prev_pos2; // 0x6E: Position 2 turns ago
@@ -374,11 +378,15 @@ struct monster {
     undefined field_0x155;
     undefined field_0x156; // 0 when the monster faints
     undefined field_0x157;
-    undefined field_0x158;
-    undefined field_0x159;
-    undefined field_0x15a;
-    undefined field_0x15b;
-    undefined field_0x15c;
+    // 0x158: General-purpose bitflags tracking different bits of volatile state.
+    // Together with prev_state_bitflags, this is typically used to determine whether
+    // to log a message on a state change.
+    uint16_t state_flags;
+    // 0x15A: The previous value of state_bitflags before the last update
+    uint16_t prev_state_flags;
+    // 0x15C: Appears to control if there's a log message upon a Flash Fire boost.
+    // A message will only be logged once.
+    bool flash_fire_boost_logged;
     undefined field_0x15d;
     undefined field_0x15e;
     undefined field_0x15f;
@@ -388,9 +396,11 @@ struct monster {
     bool cannot_give_items;
     undefined field_0x162;
     undefined field_0x163;
-    undefined field_0x164;
+    bool took_damage_flag; // 0x164: Set after the monster took damage.
     undefined field_0x165;
-    undefined field_0x166;
+    // 0x166: Set after the monster attacks (true if the attack missed, false otherwise). If true
+    // when the monster attacks, Practice Swinger will activate.
+    bool practice_swinger_flag;
     // 0x167: Set to true when the monster receives a critical hit. If true when the monster
     // attacks, Anger Point will activate. Set to false after the monster attacks.
     bool anger_point_flag;
@@ -567,14 +577,13 @@ struct monster {
     // 0x218: Status icons displayed on top of the monster's sprite
     struct status_icon_flags status_icons;
     undefined field_0x220;
-    undefined field_0x221;
+    // 0x221: Setting this applies a 1.5x damage multiplier to all the monster's attacks
+    bool boosted_attacks;
     undefined field_0x222;
     undefined field_0x223;
     // Stat boosts from exclusive items with EXCLUSIVE_EFF_STAT_BOOST
-    uint8_t exclusive_item_atk_boost;    // 0x224
-    uint8_t exclusive_item_sp_atk_boost; // 0x225
-    uint8_t exclusive_item_def_boost;    // 0x226
-    uint8_t exclusive_item_sp_def_boost; // 0x227
+    uint8_t exclusive_item_offense_boosts[2]; // 0x224: {atk, sp_atk}
+    uint8_t exclusive_item_defense_boosts[2]; // 0x226: {def, sp_def}
     // 0x228: Bitvector. See enum exclusive_item_effect_id for the meaning of each bit
     uint32_t exclusive_item_effect_flags[5];
     undefined field_0x23c;
@@ -1456,13 +1465,13 @@ struct ai_possible_move {
 };
 ASSERT_SIZE(struct ai_possible_move, 8);
 
-struct weather_attributes {
-    struct type_id_8 weather_ball_type;
+struct castform_weather_attributes {
+    struct type_id_8 castform_type;
     uint8_t _padding;
     struct monster_id_16 castform_male_id;   // monster ID for male Castform in this weather
     struct monster_id_16 castform_female_id; // monster ID for female Castform in this weather
 };
-ASSERT_SIZE(struct weather_attributes, 6);
+ASSERT_SIZE(struct castform_weather_attributes, 6);
 
 // Performs the effect of a move used by the attacker on the defender, with the item ID associated
 // with the move (or ITEM_NOTHING if not applicable). Returns whether or not the move was
@@ -1484,8 +1493,9 @@ struct natural_gift_item_info {
     struct item_id_16 item_id;
     struct type_id_8 type_id;
     uint8_t _padding;
-    // This value seems to be one less than the base power value in the PMD Info Spreadsheet
-    int16_t base_power_minus_one;
+    // This value is the boost that's added to Natural Gift's default base power of 1
+    // during damage calculation
+    int16_t base_power_boost;
 };
 ASSERT_SIZE(struct natural_gift_item_info, 6);
 
@@ -1555,6 +1565,148 @@ struct spawned_monster_data {
     undefined field_0xf;
 };
 ASSERT_SIZE(struct spawned_monster_data, 16);
+
+// Appears to contain diagnostic information related to the damage calculation routines.
+struct damage_calc_diag {
+    struct type_id_8 move_type; // 0x0: The type of the last move used
+    undefined field_0x1;
+    undefined field_0x2;
+    undefined field_0x3;
+    enum move_category move_category; // 0x4: The category of the last move used
+    // 0x8: The type matchup of the last move used against the individual types of the defender
+    struct type_matchup_8 move_indiv_type_matchups[2];
+    // 0xA: The modified offensive stat stage of the attacker for the last move used
+    uint8_t offensive_stat_stage;
+    // 0xB: The modified defensive stat stage of the defender for the last move used
+    uint8_t defensive_stat_stage;
+    // 0xC: The base offensive stat of the attacker for the last move used
+    uint16_t offensive_stat;
+    // 0xE: The base defensive stat of the defender for the last move used
+    uint16_t defensive_stat;
+    // 0x10: The Flash Fire boost of the attacker when a Fire move was last used
+    uint16_t flash_fire_boost;
+    // 0x12: The modified offense value calculated for the attacker for the last move used,
+    // prior to being clamped between 0 and 999
+    uint16_t offense_calc;
+    // 0x14: The modified defense value calculated for the defender for the last move used
+    uint16_t defense_calc;
+    uint16_t attacker_level; // 0x16: The level of the attacker for the last move used
+    // 0x18: The intermediate quantity in the damage calculation called "AT" in debug logging,
+    // which corresponds to: round[ min(max(offense_calc, 0), 999) + power_calc ],
+    // where power_calc is a modified move power calculated as (intermediate rounding omitted):
+    // GetMovePower(...) * (offensive stat stage multipliers) * (offensive multipliers)
+    uint16_t damage_calc_at;
+    // 0x1A: An identical copy of defense_calc. This is probably a relic of development,
+    // when the final defense contribution to the damage formula might have been a different
+    // quantity computed from defense_calc, like how damage_calc_at is computed
+    // from offense_calc
+    uint16_t damage_calc_def;
+    // 0x1C: The intermediate quantity in the damage calculation called "FLV" in debug logging
+    // (effective level?), which corresponds to: round[ (offense_calc - defense_calc)/8 + level ]
+    uint16_t damage_calc_flv;
+    undefined field_0x1e;
+    undefined field_0x1f;
+    // 0x20: The result of the damage calculation after multiplying the base value by multipliers,
+    // but before applying random variation. There are also a couple stray multipliers applied
+    // after this result, including multipliers specific to the projectile move (the static 50%,
+    // and the Power Pitcher multiplier) and the Air Blade multiplier.
+    int damage_calc;
+    // 0x24: The intermediate quantity in the damage calculation resulting from the "base" damage
+    // calculation: the sum of the power, attack, defense, and level terms, modified by the
+    // non-team-member multiplier if relevant, and clamped between 1 and 999.
+    int damage_calc_base;
+    // 0x28: The random multiplier applied to the result of the damage calculation, as a
+    // percentage (so the actual factor, multiplied by 100), rounded to an integer.
+    int damage_calc_random_mult_pct;
+    // 0x2C: The calculated "static" damage multiplier applied to the output of the base damage
+    // calculation. "Static" in the sense that this part of the multiplier doesn't depend on
+    // variables like type-based effects, critical hits, and Reflect/Light Screen. Factors in
+    // the static damage multiplier include the argument to CalcDamage, the multiplier due to
+    // monster::boosted_attacks, Reckless, and Iron Fist.
+    int static_damage_mult;
+    // 0x30: The net number of attack boosts to an attacker due to a Power Band or Munch Belt.
+    // It seems like there's a bug in the code; aura bows do not contribute to this field.
+    int8_t item_atk_modifier;
+    // 0x31: The net number of special attack boosts to an attacker due to a Special Band,
+    // Munch Belt, or aura bow. It seems like there's a bug in the code; physical attack boosts
+    // from aura bows also contribute to this field.
+    int8_t item_sp_atk_modifier;
+    // 0x32: The net number of offense boosts to an attacker due to Download, Rivalry,
+    // Flower Gift, and Solar Power
+    int8_t ability_offense_modifier;
+    // 0x33: The net number of defense boosts to a defender due to Flower Gift
+    int8_t ability_defense_modifier;
+    // 0x34: The net number of offense boosts to an attacker due to Aggressor, Defender, and
+    // Practice Swinger
+    int8_t iq_skill_offense_modifier;
+    // 0x35: The net number of defense boosts to a defender due to Counter Basher, Aggressor, and
+    // Defender
+    int8_t iq_skill_defense_modifier;
+    // 0x36: The net number of defense boosts to a defender due to a Def Scarf or aura bow.
+    // It seems like there's a bug in the code; special defense boosts from aura bows also
+    // contribute to this field.
+    int8_t item_def_modifier;
+    // 0x37: The net number of special defense boosts to a defender due to a Zinc Band.
+    // It seems like there's a bug in the code; aura bows do not contribute to this field.
+    int8_t item_sp_def_modifier;
+    // 0x38: Whether or not Scope Lens or Sharpshooter boosted the critical hit rate of a move
+    bool scope_lens_or_sharpshooter_activated;
+    // 0x39: Whether or not the Patsy Band boosted the critical hit rate of a move
+    bool patsy_band_activated;
+    // 0x3A: Whether or not Reflect or the Time Shield halved the damage from a physical move
+    bool half_physical_damage_activated;
+    // 0x3B: Whether or not Light Screen or the Aqua Mantle halved the damage from a special move
+    bool half_special_damage_activated;
+    // 0x3C: Whether or not the Enhanced critical-hit rate status maxed out the critical hit rate
+    // of a move
+    bool focus_energy_activated;
+    // 0x3D: Whether or not Type-Advantage Master boosted the critical hit rate of a move
+    bool type_advantage_master_activated;
+    // 0x3E: Whether or not a non-Normal-type move was dampened by Cloudy weather
+    bool cloudy_drop_activated;
+    // 0x3F: Whether or not a Fire or Water move was affected by Rainy weather
+    bool rain_multiplier_activated;
+    // 0x40: Whether or not a Fire or Water move was affected by Sunny weather
+    bool sunny_multiplier_activated;
+    // 0x41: Whether or a Fire move was dampened by Thick Fat or Heatproof
+    bool fire_move_ability_drop_activated;
+    // 0x42: Whether or not Flash Fire was activated at some point for Fire immunity
+    bool flash_fire_activated;
+    // 0x43: Whether or not Levitate was activated at some point for Ground immunity
+    bool levitate_activated;
+    bool torrent_boost_activated;  // 0x44: Whether or not a Water move was boosted by Torrent
+    bool overgrow_boost_activated; // 0x45: Whether or not a Grass move was boosted by Overgrow
+    bool swarm_boost_activated;    // 0x46: Whether or not a Bug move was boosted by Swarm
+    // 0x47: Whether or not a Fire move was boosted by either Blaze or Dry Skin
+    bool fire_move_ability_boost_activated;
+    // 0x48: Whether or not Scrappy was activated at some point to bypass immunity
+    bool scrappy_activated;
+    // 0x49: Whether or not Super Luck boosted the critical hit rate for a move
+    bool super_luck_activated;
+    // 0x4A: Whether or not Sniper boosted the critical hit damage multiplier for a move
+    bool sniper_activated;
+    bool stab_boost_activated; // 0x4B: Whether or not STAB was activated for a move
+    // 0x4C: Whether or not an Electric move was dampened by either Mud Sport or Fog
+    bool electric_move_dampened;
+    // 0x4D: Whether or not Water Sport was activated by a Fire move
+    bool water_sport_drop_activated;
+    bool charge_boost_activated; // 0x4E: Whether or not Charge was activated by an Electric move
+    undefined field_0x4f;
+    // 0x50: Whether or not a Ghost type's immunity to Normal/Fighting was activated at some point
+    bool ghost_immunity_activated;
+    // 0x51: Whether or not a defender took less damage due to the Charging Skull Bash status
+    bool skull_bash_defense_boost_activated;
+    undefined field_0x52;
+    undefined field_0x53;
+};
+ASSERT_SIZE(struct damage_calc_diag, 84);
+
+// Used during ApplyDamage to negate damage from certain types due to exclusive items
+struct damage_negating_exclusive_eff_entry {
+    enum type_id type;
+    enum exclusive_item_effect_id effect;
+};
+ASSERT_SIZE(struct damage_negating_exclusive_eff_entry, 8);
 
 // Separate this out into its own file because it's massive
 #include "dungeon.h"

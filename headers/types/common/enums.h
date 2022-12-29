@@ -495,7 +495,7 @@ enum monster_id {
     _MONSTER_ID_GENDERED(RAYQUAZA, 416),
     _MONSTER_ID_GENDERED(JIRACHI, 417),
     _MONSTER_ID_GENDERED(DEOXYS_NORMAL, 418),
-    _MONSTER_ID_GENDERED(DEOXYS_ATTACH, 419),
+    _MONSTER_ID_GENDERED(DEOXYS_ATTACK, 419),
     _MONSTER_ID_GENDERED(DEOXYS_DEFENSE, 420),
     _MONSTER_ID_GENDERED(DEOXYS_SPEED, 421),
     _MONSTER_ID_GENDERED(TURTWIG, 422),
@@ -2153,7 +2153,12 @@ enum type_matchup {
     MATCHUP_SUPER_EFFECTIVE = 3,
 };
 
-// This is usually stored as a 16-bit integer
+// This is can be stored as a 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(type_matchup);
+#pragma pack(pop)
+
+// This is can also be stored as a 16-bit integer
 #pragma pack(push, 2)
 ENUM_16_BIT(type_matchup);
 #pragma pack(pop)
