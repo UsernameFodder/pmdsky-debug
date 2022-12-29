@@ -117,7 +117,7 @@ ASSERT_SIZE(struct mem_arena_getters, 8);
 // 64-bit signed fixed-point number with 16 fraction bits.
 // Represents the number ((upper << 16) + (lower >> 16) + (lower & 0xFFFF) * 2^-16)
 struct fx64 {
-    int32_t upper; // sign bit, plus the 31 most significant integer bits
+    int32_t upper;  // sign bit, plus the 31 most significant integer bits
     uint32_t lower; // the 32 least significant bits (16 integer + 16 fraction)
 };
 ASSERT_SIZE(struct fx64, 8);
@@ -179,6 +179,13 @@ struct type_matchup_table {
     struct type_matchup_16 matchups[18][18];
 };
 ASSERT_SIZE(struct type_matchup_table, 648);
+
+// Type matchup combinator table, for combining two type matchups into one.
+// This table is symmetric, and maps (type_matchup, type_matchup) -> type_matchup
+struct type_matchup_combinator_table {
+    enum type_matchup combination[4][4];
+};
+ASSERT_SIZE(struct type_matchup_combinator_table, 64);
 
 // In the move data, the target and range are encoded together in the first byte of a single
 // two-byte field. The target is the lower half, and the range is the upper half.

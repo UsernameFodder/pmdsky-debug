@@ -218,90 +218,8 @@ struct dungeon {
     struct entity* new_leader;
     // 0xCC: Entity struct of the item that was just thrown or dropped
     struct entity thrown_item;
-    undefined field_0x184;
-    undefined field_0x185;
-    undefined field_0x186;
-    undefined field_0x187;
-    undefined field_0x188;
-    undefined field_0x189;
-    undefined field_0x18a;
-    undefined field_0x18b;
-    undefined field_0x18c;
-    undefined field_0x18d;
-    undefined field_0x18e;
-    undefined field_0x18f;
-    undefined field_0x190;
-    undefined field_0x191;
-    undefined field_0x192;
-    undefined field_0x193;
-    undefined field_0x194;
-    undefined field_0x195;
-    undefined field_0x196;
-    undefined field_0x197;
-    undefined field_0x198;
-    undefined field_0x199;
-    undefined field_0x19a;
-    undefined field_0x19b;
-    undefined field_0x19c;
-    undefined field_0x19d;
-    undefined field_0x19e;
-    undefined field_0x19f;
-    undefined field_0x1a0;
-    undefined field_0x1a1;
-    undefined field_0x1a2;
-    undefined field_0x1a3;
-    undefined field_0x1a4;
-    undefined field_0x1a5;
-    undefined field_0x1a6;
-    undefined field_0x1a7;
-    undefined field_0x1a8;
-    undefined field_0x1a9;
-    undefined field_0x1aa;
-    undefined field_0x1ab;
-    undefined field_0x1ac;
-    undefined field_0x1ad;
-    undefined field_0x1ae;
-    undefined field_0x1af;
-    undefined field_0x1b0;
-    undefined field_0x1b1;
-    undefined field_0x1b2;
-    undefined field_0x1b3;
-    undefined field_0x1b4;
-    undefined field_0x1b5;
-    undefined field_0x1b6;
-    undefined field_0x1b7;
-    undefined field_0x1b8;
-    undefined field_0x1b9;
-    undefined field_0x1ba;
-    undefined field_0x1bb;
-    undefined field_0x1bc;
-    undefined field_0x1bd;
-    undefined field_0x1be;
-    undefined field_0x1bf;
-    undefined field_0x1c0;
-    undefined field_0x1c1;
-    undefined field_0x1c2;
-    undefined field_0x1c3;
-    undefined field_0x1c4;
-    undefined field_0x1c5;
-    undefined field_0x1c6;
-    undefined field_0x1c7;
-    undefined field_0x1c8;
-    undefined field_0x1c9;
-    undefined field_0x1ca;
-    undefined field_0x1cb;
-    undefined field_0x1cc;
-    undefined field_0x1cd;
-    undefined field_0x1ce;
-    undefined field_0x1cf;
-    undefined field_0x1d0;
-    undefined field_0x1d1;
-    undefined field_0x1d2;
-    undefined field_0x1d3;
-    undefined field_0x1d4;
-    undefined field_0x1d5;
-    undefined field_0x1d6;
-    undefined field_0x1d7;
+    // 0x184: Info about the most recent damage calculation. Reset with each call to CalcDamage
+    struct damage_calc_diag last_damage_calc;
     undefined field_0x1d8;
     undefined field_0x1d9;
     undefined field_0x1da;
@@ -1324,10 +1242,8 @@ struct dungeon {
     undefined field_0x3e31;
     undefined field_0x3e32;
     undefined field_0x3e33;
-    bool enemy_plus_is_active;  // 0x3E34: An enemy monster has the ability Plus
-    bool team_plus_is_active;   // 0x3E35: A team member has the ability Plus
-    bool enemy_minus_is_active; // 0x3E36: An enemy monster has the ability Minus
-    bool team_minus_is_active;  // 0x3E37: A team member has the ability Minus
+    bool plus_is_active[2];  // 0x3E34: A monster on the {enemy, team} side has the ability Plus
+    bool minus_is_active[2]; // 0x3E36: A monster on the {enemy, team} side has the ability Minus
     undefined field_0x3e38;
     // 0x3E39: If true, a monster with id 0x97 (Mew) cannot be spawned on the floor.
     bool mew_cannot_spawn;

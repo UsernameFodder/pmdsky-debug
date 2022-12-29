@@ -31,6 +31,9 @@ extern struct team_member TEAM_ACTIVE_ROSTER[7];
 extern uint32_t FRAMES_SINCE_LAUNCH_TIMES_THREE;
 extern struct sentry_duty SENTRY_DUTY_STRUCT;
 extern bool TURNING_ON_THE_SPOT_FLAG;
+extern bool ROLLOUT_ICE_BALL_MISSED;
+extern int ROLLOUT_ICE_BALL_SUCCESSIVE_HITS;
+extern int TRIPLE_KICK_SUCCESSIVE_HITS;
 extern int METRONOME_NEXT_INDEX;
 extern struct floor_generation_status FLOOR_GENERATION_STATUS;
 

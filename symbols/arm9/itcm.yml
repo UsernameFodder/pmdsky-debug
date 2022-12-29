@@ -158,6 +158,18 @@ itcm:
         Determines if an AI-controlled monster will use a move and which one it will use
         
         r0: Entity pointer
+    - name: LightningRodStormDrainCheck
+      address:
+        NA: 0x20B71DC
+        NA-ITCM: 0x1FFBE5C
+      description: |-
+        Appears to check whether LightningRod or Storm Drain should draw in a move.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move pointer
+        r3: true if checking for Storm Drain, false if checking for LightningRod
+        return: whether the move should be drawn in
   data:
     - name: MEMORY_ALLOCATION_TABLE
       address:

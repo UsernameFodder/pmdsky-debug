@@ -442,6 +442,19 @@ overlay29:
         Returns dungeon::display_data::visibility_range. If the visibility range is 0, returns 2 instead.
         
         return: Visibility range of the current floor, or 2 if the visibility is 0.
+    - name: PlayEffectAnimation
+      address:
+        NA: 0x22E35E4
+      description: |-
+        Just a guess. This appears to be paired often with GetEffectAnimationField0x19, and also has calls AnimationHasMoreFrames in a loop alongside AdvanceFrame(66) calls.
+        
+        The third parameter skips the loop entirely. It seems like in this case the function might just preload some animation frames for later use??
+        
+        r0: entity pointer
+        r1: ?
+        r2: appears to be a flag for actually running the animation now? If this is 0, the AdvanceFrame loop is skipped entirely.
+        others: ?
+        return: status code, or maybe the number of frames or something? Either way, -1 seems to indicate the animation being finished or something?
     - name: UpdateStatusIconFlags
       address:
         EU: 0x22E4464
@@ -455,6 +468,20 @@ overlay29:
         Also sets icon flags for statuses::exposed, statuses::grudge, critical HP and lowered stats with explicit checks, and applies the effect of the Identifier Orb (see dungeon::identify_orb_flag).
         
         r0: entity pointer
+    - name: PlayEffectAnimation0x171Full
+      address:
+        NA: 0x22E4018
+      description: |-
+        Just a guess. Calls PlayEffectAnimation with data from animation ID 0x171, with the third parameter of PlayEffectAnimation set to true.
+        
+        r0: entity pointer
+    - name: PlayEffectAnimation0x171
+      address:
+        NA: 0x22E406C
+      description: |-
+        Just a guess. Calls PlayEffectAnimation with data from animation ID 0x171.
+        
+        r0: entity pointer
     - name: ShowPpRestoreEffect
       address:
         EU: 0x22E5314
@@ -462,6 +489,26 @@ overlay29:
         JP: 0x22E5FD4
       description: |-
         Displays the graphical effect on a monster that just recovered PP.
+        
+        r0: entity pointer
+    - name: PlayEffectAnimation0x1A9
+      address:
+        NA:
+          - 0x22E6130
+          - 0x22E617C
+          - 0x22E61C8
+          - 0x22E6214
+          - 0x22E64C4
+          - 0x22E6510
+      description: |-
+        Just a guess. Calls PlayEffectAnimation with data from animation ID 0x1A9.
+        
+        r0: entity pointer
+    - name: PlayEffectAnimation0x18E
+      address:
+        NA: 0x22E63D8
+      description: |-
+        Just a guess. Calls PlayEffectAnimation with data from animation ID 0x18E.
         
         r0: entity pointer
     - name: LoadMappaFileAttributes
@@ -593,6 +640,15 @@ overlay29:
         Advances one frame. Does not return until the next frame starts.
         
         r0: ? - Unused by the function
+    - name: SetDungeonRngPreseed23Bit
+      address:
+        NA: 0x22EA968
+      description: |-
+        Sets the preseed in the global dungeon PRNG state, using 23 bits from the input. See GenerateDungeonRngSeed for more information.
+        
+        Given the input preseed23, the actual global preseed is set to (preseed23 & 0xFFFFFF | 1), so only bits 1-23 of the input are used.
+        
+        r0: preseed23
     - name: GenerateDungeonRngSeed
       address:
         EU: 0x22EB330
@@ -940,6 +996,14 @@ overlay29:
         Seems to be a function used during development to disable recruiting. If it returns false, SpecificRecruitCheck will also return false.
         
         return: true
+    - name: IsSecretBazaarNpcBehavior
+      address:
+        NA: 0x22EFB04
+      description: |-
+        Checks if a behavior ID corresponds to one of the Secret Bazaar NPCs.
+        
+        r0: monster behavior ID
+        return: bool
     - name: GetLeaderAction
       address:
         EU: 0x22F1540
@@ -1335,6 +1399,14 @@ overlay29:
         
         r0: iq skill id
         return: bool
+    - name: CountMovesOutOfPp
+      address:
+        NA: 0x22FB0A8
+      description: |-
+        Returns how many of a monster's move are out of PP.
+        
+        r0: entity pointer
+        return: number of moves out of PP
     - name: HasSuperEffectiveMoveAgainstUser
       address:
         EU: 0x22FBB18
@@ -1529,6 +1601,108 @@ overlay29:
         r1: format
         ...: variadic
         return: number of characters printed, excluding the null-terminator
+    - name: IsMonsterDrowsy
+      address:
+        NA: 0x23004B0
+      description: |-
+        Checks if a monster has the sleep, nightmare, or yawning status. Note that this excludes the napping status.
+        
+        r0: entity pointer
+        return: bool
+    - name: MonsterHasNonvolatileNonsleepStatus
+      address:
+        NA: 0x23004E4
+      description: |-
+        Checks if a monster has one of the statuses in the "burn" group, which includes the traditionally non-volatile status conditions (except sleep) in the main series: STATUS_BURN, STATUS_POISONED, STATUS_BADLY_POISONED, STATUS_PARALYSIS, and STATUS_IDENTIFYING.
+        
+        STATUS_IDENTIFYING is probably included based on enum status_id? Unless it's handled differently somehow.
+        
+        r0: entity pointer
+        return: bool
+    - name: MonsterHasImmobilizingStatus
+      address:
+        NA: 0x2300500
+      description: |-
+        Checks if a monster has one of the non-self-inflicted statuses in the "freeze" group, which includes status conditions that immobilize the monster: STATUS_FROZEN, STATUS_SHADOW_HOLD, STATUS_WRAPPED, STATUS_PETRIFIED, STATUS_CONSTRICTION, and STATUS_FAMISHED.
+        
+        r0: entity pointer
+        return: bool
+    - name: MonsterHasAttackInterferingStatus
+      address:
+        NA: 0x2300520
+      description: |-
+        Checks if a monster has one of the statuses in the "cringe" group, which includes status conditions that interfere with the monster's ability to attack: STATUS_CRINGE, STATUS_CONFUSED, STATUS_PAUSED, STATUS_COWERING, STATUS_TAUNTED, STATUS_ENCORE, STATUS_INFATUATED, and STATUS_DOUBLE_SPEED.
+        
+        STATUS_DOUBLE_SPEED is probably included based on enum status_id? Unless it's handled differently somehow.
+        
+        r0: entity pointer
+        return: bool
+    - name: MonsterHasSkillInterferingStatus
+      address:
+        NA: 0x230053C
+      description: |-
+        Checks if a monster has one of the non-self-inflicted statuses in the "curse" group, which loosely includes status conditions that interfere with the monster's skills or ability to do things: STATUS_CURSED, STATUS_DECOY, STATUS_GASTRO_ACID, STATUS_HEAL_BLOCK, STATUS_EMBARGO.
+        
+        r0: entity pointer
+        return: bool
+    - name: MonsterHasLeechSeedStatus
+      address:
+        NA: 0x2300588
+      description: |-
+        Checks if a monster is afflicted with Leech Seed.
+        
+        r0: entity pointer
+        return: bool
+    - name: MonsterHasWhifferStatus
+      address:
+        NA: 0x23005A4
+      description: |-
+        Checks if a monster has the whiffer status.
+        
+        r0: entity pointer
+        return: bool
+    - name: IsMonsterVisuallyImpaired
+      address:
+        NA: 0x23005C0
+      description: |-
+        Checks if a monster's vision is impaired somehow. This includes the checks in IsBlinded, as well as STATUS_CROSS_EYED and STATUS_DROPEYE.
+        
+        r0: entity pointer
+        r1: flag for whether to check for the held item
+        return: bool
+    - name: IsMonsterMuzzled
+      address:
+        NA: 0x23005FC
+      description: |-
+        Checks if a monster has the muzzled status.
+        
+        r0: entity pointer
+        return: bool
+    - name: MonsterHasMiracleEyeStatus
+      address:
+        NA: 0x2300618
+      description: |-
+        Checks if a monster has the Miracle Eye status.
+        
+        r0: entity pointer
+        return: bool
+    - name: MonsterHasNegativeStatus
+      address:
+        NA: 0x2300634
+      description: |-
+        Checks if a monster has any "negative" status conditions. This includes a wide variety of non-self-inflicted statuses that could traditionally be viewed as actual "status conditions", as well as speed being lowered and moves being sealed.
+        
+        r0: entity pointer
+        r1: flag for whether to check for the held item (see IsMonsterVisuallyImpaired)
+        return: bool
+    - name: IsMonsterSleeping
+      address:
+        NA: 0x23007A8
+      description: |-
+        Checks if a monster has the sleep, nightmare, or napping status.
+        
+        r0: entity pointer
+        return: bool
     - name: IsMonsterCornered
       address:
         EU: 0x2301B44
@@ -1619,13 +1793,15 @@ overlay29:
         r0: entity pointer
         r1: ability ID
         return: bool
-    - name: AbilityIsActiveAnyEntity
+    - name: OtherMonsterAbilityIsActive
       address:
         EU: 0x23027B0
         NA: 0x2301D84
         JP: 0x23032DC
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Checks if there are any other monsters on the floor besides the user that have the specified ability active, subject to the user being on the floor.
+        
+        It also seems like there might be some other range or validity check, so this might not actually check ALL other monsters?
         
         r0: user entity pointer
         r1: ability ID
@@ -1740,6 +1916,16 @@ overlay29:
         r0: user pointer
         r1: move pointer
         return: move power
+    - name: UpdateStateFlags
+      address:
+        NA: 0x23023C0
+      description: |-
+        Updates monster::state_flags and monster::prev_state_flags with new values.
+        
+        r0: monster pointer
+        r1: bitmask for bits to update
+        r2: whether to set the bits indicated by the mask to 1 or 0
+        return: whether or not any of the masked bits changed from the previous state
     - name: AddExpSpecial
       address:
         EU: 0x2302F68
@@ -1852,6 +2038,21 @@ overlay29:
         
         r0: Pointer to monster
         r1: ?
+    - name: ApplyDamageAndEffects
+      address:
+        NA: 0x230863C
+      description: |-
+        Calls ApplyDamage, then performs various "post-damage" effects such as counter damage, statuses from abilities that activate on contact, and probably some other stuff.
+        
+        Note that this doesn't include the effect of Illuminate, which is specifically handled elsewhere.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: damage_data pointer
+        r3: False Swipe flag (see ApplyDamage)
+        stack[0]: experience flag (see ApplyDamage)
+        stack[1]: Damage source (see HandleFaint)
+        stack[2]: defender response flag. If true, the defender can respond to the attack with various effects. If false, the only post-damage effect that can happen is the Rage attack boost.
     - name: ApplyDamage
       address:
         EU: 0x2309A0C
@@ -1864,9 +2065,9 @@ overlay29:
         r0: Attacker pointer
         r1: Defender pointer
         r2: Pointer to the damage_data struct that contains info about the damage to deal
-        r3: ?
-        stack[0]: ?
-        stack[1]: Damage source
+        r3: False Swipe flag, causes the defender's HP to be set to 1 if it would otherwise have been 0
+        stack[0]: experience flag, controls whether or not experience will be granted upon a monster fainting, and whether enemy evolution might be triggered
+        stack[1]: Damage source (see HandleFaint)
         return: True if the target fainted (reviving does not count as fainting)
     - name: AftermathCheck
       address:
@@ -1896,6 +2097,38 @@ overlay29:
         r1: defender pointer
         r2: attack type
         return: enum type_matchup
+    - name: ScrappyShouldActivate
+      address:
+        NA: 0x230AB58
+      description: |-
+        Checks whether Scrappy should activate.
+        
+        Scrappy activates when the ability is active on the attacker, the move type is Normal or Fighting, and the defender is a Ghost type.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move type ID
+        return: bool
+    - name: IsTypeIneffectiveAgainstGhost
+      address:
+        NA: 0x230ABF0
+      description: |-
+        Checks whether a type is normally ineffective against Ghost, i.e., it's Normal or Fighting.
+        
+        r0: type ID
+        return: bool
+    - name: GhostImmunityIsActive
+      address:
+        NA: 0x230AC04
+      description: |-
+        Checks whether the defender's typing would give it Ghost immunities.
+        
+        This only checks one of the defender's types at a time. It checks whether the defender has the exposed status and whether the attacker has the Scrappy-like exclusive item effect, but does NOT check whether the attacker has the Scrappy ability.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: defender type index (0 the defender's first type, 1 for the defender's second type)
+        return: bool
     - name: GetTypeMatchup
       address:
         EU: 0x230B6CC
@@ -1913,13 +2146,40 @@ overlay29:
         r2: target type index (0 the target's first type, 1 for the target's second type)
         r3: attack type
         return: enum type_matchup
+    - name: CalcTypeBasedDamageEffects
+      address:
+        NA: 0x230AD04
+      description: |-
+        Calculates type-based effects on damage.
+        
+        Loosely, this includes type matchup effects (including modifications due to abilities, IQ skills, and exclusive items), STAB, pinch abilities like Overgrow, weather/floor condition effects on certain types, and miscellaneous effects like Charge.
+        
+        r0: [output] damage multiplier due to type effects.
+        r1: attacker pointer
+        r2: defender pointer
+        r3: attack power
+        stack[0]: attack type
+        stack[1]: [output] struct containing info about the damage calculation (only the critical_hit, type_matchup, and field_0xF fields are modified)
+        stack[2]: flag for whether Erratic Player and Technician effects should be excluded. CalcDamage only passes in true if the move is the regular attack or a projectile.
+        return: whether or not the Type-Advantage Master IQ skill should activate if the attacker has it. In practice, this corresponds to when the attack is super-effective, but technically true is also returned when the defender is an invalid entity.
     - name: CalcDamage
       address:
         EU: 0x230C620
         NA: 0x230BBAC
         JP: 0x230D100
       description: |-
-        Probably the damage calculation function.
+        The damage calculation function.
+        
+        At a high level, the damage formula is:
+          M * [(153/256)*(A + P) - 0.5*D + 50*ln(10*[L + (A - D)/8 + 50]) - 311]
+        where:
+          - A is the offensive stat (attack or special attack) with relevant modifiers applied (stat stages, certain items, certain abilities, etc.)
+          - D is the defensive stat (defense or special defense) with relevant modifiers applied (stat stages, certain items, certain abilities, etc.)
+          - L is the attacker's level
+          - P is the move power with relevant modifiers applied
+          - M is an aggregate damage multiplier from a variety of things, such as type-effectiveness, STAB, critical hits (which are also rolled in this function), certain items, certain abilities, certain statuses, etc.
+        
+        The calculations are done primarily with 64-bit fixed point arithmetic, and a bit of 32-bit fixed point arithmetic. There's also rounding/truncation/clamping at various steps in the process.
         
         r0: attacker pointer
         r1: defender pointer
@@ -1929,7 +2189,7 @@ overlay29:
         stack[1]: [output] struct containing info about the damage calculation
         stack[2]: damage multiplier (as a binary fixed-point number with 8 fraction bits)
         stack[3]: move ID
-        stack[4]: ?
+        stack[4]: flag to account for certain effects (Flash Fire, Reflect, Light Screen, aura bows, Def. Scarf, Zinc Band). Only ever set to false when computing recoil damage for Jump Kick/Hi Jump Kick missing, which is based on the damage that would have been done if the move didn't miss.
     - name: CalcRecoilDamageFixed
       address:
         EU: 0x230DC00
@@ -1960,7 +2220,7 @@ overlay29:
         r0: attacker pointer
         r1: defender pointer
         r2: fixed damage
-        r3: ?
+        r3: experience flag (see ApplyDamage)
         stack[0]: [output] struct containing info about the damage calculation
         stack[1]: attack type
         stack[2]: move category
@@ -1978,6 +2238,7 @@ overlay29:
         r0: attacker pointer
         r1: defender pointer
         r2: fixed damage
+        r3: experience flag (see ApplyDamage)
         stack[0]: [output] struct containing info about the damage calculation
         stack[1]: attack type
         stack[2]: damage source
@@ -1994,19 +2255,30 @@ overlay29:
         r0: attacker pointer
         r1: defender pointer
         r2: fixed damage
+        r3: experience flag (see ApplyDamage)
         stack[0]: [output] struct containing info about the damage calculation
         stack[1]: attack type
         stack[2]: move category
         stack[3]: damage source
         stack[4]: damage message
         others: ?
-    - name: ResetDamageCalcScratchSpace
+    - name: UpdateShopkeeperModeAfterAttack
+      address:
+        NA: 0x230D440
+      description: |-
+        Updates the shopkeeper mode of a monster in response to being struck by an attack.
+        
+        If the defender is in normal shopkeeper mode (not aggressive), nothing happens. Otherwise, the mode is set to SHOPKEEPER_MODE_ATTACK_TEAM if the attacker is a team member, or SHOPKEEPER_MODE_ATTACK_ENEMIES otherwise.
+        
+        r0: attacker pointer
+        r1: defender pointer
+    - name: ResetDamageCalcDiagnostics
       address:
         EU: 0x230DF9C
         NA: 0x230D528
         JP: 0x230EA64
       description: |-
-        CalcDamage seems to use scratch space of some kind, which this function zeroes.
+        Resets the damage calculation diagnostic info stored on the dungeon struct. Called unconditionally at the start of CalcDamage.
         
         No params.
     - name: SpecificRecruitCheck
@@ -2393,6 +2665,17 @@ overlay29:
         r1: target entity pointer
         r2: stat index
         r3: number of stages
+    - name: FlashFireShouldActivate
+      address:
+        NA: 0x2313C74
+      description: |-
+        Checks whether Flash Fire should activate, assuming the defender is being hit by a Fire-type move.
+        
+        This checks that the defender is valid and Flash Fire is active, and that Normalize isn't active on the attacker.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        return: 2 if Flash Fire should activate and raise the defender's boost level, 1 if Flash Fire should activate but the defender's boost level is maxed out, 0 otherwise.
     - name: ApplyOffensiveStatMultiplier
       address:
         EU: 0x23147A0
@@ -2545,6 +2828,18 @@ overlay29:
         r1: target entity pointer
         r2: stat index
         r3: ?
+    - name: ExclusiveItemEffectIsActiveWithLogging
+      address:
+        NA: 0x2314D40
+      description: |-
+        Calls ExclusiveItemEffectIsActive, then logs the specified message if indicated.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: whether a message should be logged if the effect is active
+        r3: message ID to be logged if the effect is active
+        stack[0]: exclusive item effect ID
+        return: bool, same as ExclusiveItemEffectIsActive
     - name: TryActivateQuickFeet
       address:
         EU: 0x231587C
@@ -2798,6 +3093,22 @@ overlay29:
         r1: move pointer
         r2: AI flag (same as GetMoveTargetAndRange)
         return: move target and range
+    - name: GetEntityNaturalGiftInfo
+      address:
+        NA: 0x231AE90
+      description: |-
+        Gets the relevant entry in NATURAL_GIFT_ITEM_TABLE based on the entity's held item, if possible.
+        
+        r0: entity pointer
+        return: pointer to a struct natural_gift_item_info, or null if none was found
+    - name: GetEntityWeatherBallType
+      address:
+        NA: 0x231AF0C
+      description: |-
+        Gets the current Weather Ball type for the given entity, based on the apparent weather.
+        
+        r0: entity pointer
+        return: type ID
     - name: IsInSpawnList
       address:
         EU: 0x231BE5C
@@ -2882,6 +3193,14 @@ overlay29:
         
         r0: move ID
         return: bool
+    - name: CategoryIsNotPhysical
+      address:
+        NA: 0x231EA30
+      description: |-
+        Checks that a move category is not CATEGORY_PHYSICAL.
+        
+        r0: move category ID
+        return: bool
     - name: TryPounce
       address:
         EU: 0x2320688
@@ -2944,7 +3263,8 @@ overlay29:
         r0: Attacker
         r1: Defender
         r2: Pointer to move data
-        r3: True if the move's first accuracy (accuracy1) should be used, false if its second accuracy (accuracy2) should be used instead.
+        r3: False if the move's first accuracy (accuracy1) should be used, true if its second accuracy (accuracy2) should be used instead.
+        stack[0]: If true, always hit if the attacker and defender are the same. Otherwise, moves can miss no matter what the attacker and defender are.
         returns: True if the move hits, false if it misses.
     - name: IsHyperBeamVariant
       address:
@@ -2968,6 +3288,15 @@ overlay29:
         
         r0: Move
         return: True if the move's max Ginseng boost is 99, false otherwise.
+    - name: TwoTurnMoveForcedMiss
+      address:
+        NA: 0x2324854
+      description: |-
+        Checks if a move should miss a monster due to the monster being in the middle of Fly, Bounce, Dive, Dig, Shadow Force, or some other two-turn move that grants pseudo-invincibility.
+        
+        r0: entity pointer
+        r1: move
+        return: true if the move should miss
     - name: DungeonRandOutcomeUserTargetInteraction
       address:
         EU: 0x232539C
@@ -3117,13 +3446,27 @@ overlay29:
         r3: damage multiplier (as a binary fixed-point number with 8 fraction bits)
         stack[0]: item ID
         return: amount of damage dealt
-    - name: CalcDamageProjectile
+    - name: DealDamageWithTypeAndPowerBoost
+      address:
+        NA: 0x2332BB8
+      description: |-
+        Same as DealDamage, except with an explicit move type and a base power boost.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: damage multiplier (as a binary fixed-point number with 8 fraction bits)
+        stack[0]: item ID
+        stack[1]: move type
+        stack[2]: base power boost
+        return: amount of damage dealt
+    - name: DealDamageProjectile
       address:
         EU: 0x233368C
         NA: 0x2332C4C
         JP: 0x233403C
       description: |-
-        Appears to calculate damage from a variable-damage projectile.
+        Deals damage from a variable-damage projectile.
         
         r0: entity pointer 1?
         r1: entity pointer 2?
@@ -3132,13 +3475,28 @@ overlay29:
         stack[0]: damage multiplier (as a binary fixed-point number with 8 fraction bits)
         stack[1]: item ID of the projectile
         return: Calculated damage
-    - name: CalcDamageFinal
+    - name: DealDamageWithType
+      address:
+        NA: 0x2332CDC
+      description: |-
+        Same as DealDamage, except with an explicit move type.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move type
+        r3: move
+        stack[0]: damage multiplier (as a binary fixed-point number with 8 fraction bits)
+        stack[1]: item ID
+        return: amount of damage dealt
+    - name: PerformDamageSequence
       address:
         EU: 0x23337AC
         NA: 0x2332D6C
         JP: 0x233415C
       description: |-
-        Last function called by DealDamage to determine the final damage dealt by the move. The result of this call is the return value of DealDamage. 
+        Performs the "damage sequence" given the results of the damage calculation. This includes running the accuracy roll with MoveHitCheck, calling ApplyDamageAndEffects, and some other miscellaneous bits of state bookkeeping (including handling the effects of Illuminate).
+        
+        This is the last function called by DealDamage. The result of this call is the return value of DealDamage and its relatives.
         
         r0: Attacker pointer
         r1: Defender pointer
@@ -3293,6 +3651,15 @@ overlay29:
         Note: unverified, ported from Irdkwia's notes
         
         return: monster ID?
+    - name: NearbyAllyIqSkillIsEnabled
+      address:
+        NA: 0x2338288
+      description: |-
+        Appears to check whether or not the given monster has any allies nearby (within 1 tile) that have the given IQ skill active.
+        
+        r0: entity pointer
+        r1: IQ skill ID
+        return: bool
     - name: GravityIsActive
       address:
         EU: 0x2338F60
@@ -4681,6 +5048,19 @@ overlay29:
         Note: unverified, ported from Irdkwia's notes
         
         r0: mission struct
+    - name: LogMessageByIdWithPopupCheckParticipants
+      address:
+        NA: 0x234B250
+      description: |-
+        Logs the appropriate message based on the participating entites; this function calls LogMessageByIdWithPopupCheckUserTarget is both the user and target pointers are non-null, otherwise it calls LogMessageByIdWithPopupCheckUser if the user pointer is non-null, otherwise doesn't log anything.
+        
+        This function also seems to set some global table entry to some value?
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: message ID
+        r3: index into some table?
+        stack[0]: value to set at the table index specified by r3?
     - name: LogMessageByIdWithPopupCheckUser
       address:
         EU: 0x234BEA4
@@ -4949,8 +5329,10 @@ overlay29:
           - 0x2318EB4
         NA:
           - 0x22E3DD0
+          - 0x230B7B8
           - 0x2311814
           - 0x2318454
+          - 0x2324020
       length:
         EU: 0x4
         NA: 0x4
@@ -5616,6 +5998,63 @@ overlay29:
         EU: 0x2
         NA: 0x2
       description: The additional amount by which belly is decreased every turn when inside walls (fractional thousandths)
+    - name: DAMAGE_MULTIPLIER_0_5
+      address:
+        NA: 0x235283C
+      length:
+        NA: 0x8
+      description: "A generic damage multiplier of 0.5 used in various places, as a 64-bit fixed-point number with 16 fraction bits."
+    - name: DAMAGE_MULTIPLIER_1_5
+      address:
+        NA: 0x2352844
+      length:
+        NA: 0x8
+      description: "A generic damage multiplier of 1.5 used in various places, as a 64-bit fixed-point number with 16 fraction bits."
+    - name: DAMAGE_MULTIPLIER_2
+      address:
+        NA: 0x235284C
+      length:
+        NA: 0x8
+      description: "A generic damage multiplier of 2 used in various places, as a 64-bit fixed-point number with 16 fraction bits."
+    - name: CLOUDY_DAMAGE_MULTIPLIER
+      address:
+        NA: 0x235285C
+      length:
+        NA: 0x8
+      description: "The extra damage multiplier for non-Normal-type moves when the weather is Cloudy, as a 64-bit fixed-point number with 16 fraction bits (0.75)."
+    - name: SOLID_ROCK_MULTIPLIER
+      address:
+        NA: 0x2352864
+      length:
+        NA: 0x8
+      description: "The extra damage multiplier for super-effective moves when Solid Rock or Filter is active, as a 64-bit fixed-point number with 16 fraction bits (0.75)."
+    - name: DAMAGE_FORMULA_MAX_BASE
+      address:
+        NA: 0x235286C
+      length:
+        NA: 0x8
+      description: "The maximum value of the base damage formula (after DAMAGE_FORMULA_NON_TEAM_MEMBER_MODIFIER application, if relevant), as a 64-bit binary fixed-point number with 16 fraction bits (999)."
+    - name: WONDER_GUARD_MULTIPLIER
+      address:
+        NA: 0x2352874
+      length:
+        NA: 0x8
+      description: "The damage multiplier for moves affected by Wonder Guard, as a 64-bit fixed-point number with 16 fraction bits (0)."
+    - name: DAMAGE_FORMULA_MIN_BASE
+      address:
+        NA: 0x235287C
+      length:
+        NA: 0x8
+      description: "The minimum value of the base damage formula (after DAMAGE_FORMULA_NON_TEAM_MEMBER_MODIFIER application, if relevant), as a 64-bit binary fixed-point number with 16 fraction bits (1)."
+    - name: TYPE_DAMAGE_NEGATING_EXCLUSIVE_ITEM_EFFECTS
+      address:
+        NA: 0x23528A4
+      length:
+        NA: 0xE0
+      description: |-
+        List of exclusive item effects that negate damage of a certain type, terminated by a TYPE_NEUTRAL entry.
+        
+        type: struct damage_negating_exclusive_eff_entry[28]
     - name: SPATK_STAT_IDX
       address:
         EU: 0x23536F4
@@ -5632,6 +6071,15 @@ overlay29:
         EU: 0x4
         NA: 0x4
       description: "The index (0) of the attack entry in internal stat structs, such as the stat modifier array for a monster."
+    - name: ROLLOUT_DAMAGE_MULT_TABLE
+      address:
+        NA: 0x2352AF0
+      length:
+        NA: 0x28
+      description: |-
+        A table of damage multipliers for each successive hit of Rollout/Ice Ball. Each entry is a binary fixed-point number with 8 fraction bits.
+        
+        type: int32_t[10]
     - name: MAP_COLOR_TABLE
       address:
         NA: 0x2352FD0

@@ -38,7 +38,7 @@ void DivideFixedPoint64(struct fx64* quotient, struct fx64* dividend, struct fx6
 void UMultiplyFixedPoint64(struct fx64* prod, struct fx64* x, struct fx64* y);
 void UDivideFixedPoint64(struct fx64* quotient, struct fx64* dividend, struct fx64* divisor);
 void AddFixedPoint64(struct fx64* sum, struct fx64* x, struct fx64* y);
-void Log(struct fx64* out, int x);
+void ClampedLn(struct fx64* out, int x);
 uint16_t GetRngSeed(void);
 void SetRngSeed(uint16_t seed);
 uint16_t Rand16Bit(void);

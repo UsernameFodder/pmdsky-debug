@@ -425,7 +425,7 @@ enum damage_message {
     DAMAGE_MESSAGE_POISON = 3,
     DAMAGE_MESSAGE_RECOIL_1 = 4, // User deals damage to itself because of their own recoil move
     DAMAGE_MESSAGE_WRAP = 5,     // "Was wrapped for X damage"
-    DAMAGE_MESSAGE_COUNTER = 6,  // Damage taken from a conunterattack
+    DAMAGE_MESSAGE_COUNTER = 6,  // Damage taken from a counterattack
     DAMAGE_MESSAGE_CURSE = 7,
     DAMAGE_MESSAGE_NIGHTMARE = 8, // Damage taken when awakening from a nightmare
     DAMAGE_MESSAGE_LEECH_SEED = 9,
@@ -581,6 +581,7 @@ enum exclusive_item_effect_id {
     EXCLUSIVE_EFF_ABSORB_DRAGON_DAMAGE = 126,
     EXCLUSIVE_EFF_ABSORB_DARK_DAMAGE = 127,
     EXCLUSIVE_EFF_ABSORB_STEEL_DAMAGE = 128,
+    EXCLUSIVE_EFF_LAST = 129, // Used as a null-terminator in some places
 };
 
 // This is usually stored as an 8-bit integer

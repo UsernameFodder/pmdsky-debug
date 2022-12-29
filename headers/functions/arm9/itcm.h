@@ -11,5 +11,7 @@ bool ShouldMonsterRunAwayVariationOutlawCheck(struct entity* monster, undefined 
 void AiMovement(struct entity* monster, undefined param_2);
 void CalculateAiTargetPos(struct entity* monster);
 void ChooseAiMove(struct entity* monster);
+bool LightningRodStormDrainCheck(struct entity* attacker, struct entity* defender,
+                                 struct move* move, bool storm_drain);
 
 #endif

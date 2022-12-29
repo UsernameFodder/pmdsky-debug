@@ -342,6 +342,24 @@ ram:
         EU: 0x1
         NA: 0x1
       description: "[Runtime] Flag for whether the player is turning on the spot (pressing Y)."
+    - name: ROLLOUT_ICE_BALL_MISSED
+      address:
+        NA: 0x237CA69
+      length:
+        NA: 0x1
+      description: "[Runtime] Appears to be set to true whenever a hit from Rollout or Ice Ball fails to deal damage."
+    - name: ROLLOUT_ICE_BALL_SUCCESSIVE_HITS
+      address:
+        NA: 0x237CA70
+      length:
+        NA: 0x4
+      description: "[Runtime] Seems to count the number of successive hits by Rollout or Ice Ball."
+    - name: TRIPLE_KICK_SUCCESSIVE_HITS
+      address:
+        NA: 0x237CA7C
+      length:
+        NA: 0x4
+      description: "[Runtime] Seems to count the number of successive hits by Triple Kick."
     - name: METRONOME_NEXT_INDEX
       address:
         NA: 0x237CA88
