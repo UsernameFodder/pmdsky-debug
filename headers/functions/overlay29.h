@@ -150,6 +150,7 @@ bool HasTypeAffectedByGravity(struct entity* entity, enum type_id type_id);
 bool CanSeeInvisibleMonsters(struct entity* entity);
 bool HasDropeyeStatus(struct entity* entity);
 bool IqSkillIsEnabled(struct entity* entity, enum iq_skill_id iq_id);
+void UpdateIqSkills(struct monster* monster);
 enum type_id GetMoveTypeForMonster(struct entity* entity, struct move* move);
 int GetMovePower(struct entity* entity, struct move* move);
 void AddExpSpecial(struct entity* attacker, struct entity* defender, int base_exp);
@@ -308,7 +309,7 @@ bool DungeonRandOutcomeUserAction(struct entity* user, int percentage);
 bool CanAiUseMove(struct entity* monster, int move_index, bool extra_checks);
 bool CanMonsterUseMove(struct entity* monster, struct move* move, bool extra_checks);
 void UpdateMovePp(struct entity* entity, bool can_consume_pp);
-union damage_source GetFaintReasonWrapper(struct move* move, enum item_id item_id);
+union damage_source GetDamageSourceWrapper(struct move* move, enum item_id item_id);
 int LowerSshort(int x);
 uint16_t GetMoveAnimationId(struct move* move, enum weather_id apparent_weather,
                             bool should_play_alternative_animation);

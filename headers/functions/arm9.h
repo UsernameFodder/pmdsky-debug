@@ -92,7 +92,7 @@ void AllocAndLoadFileInPack(enum pack_file_id pack_id, uint32_t file_index,
                             struct pack_alloc_and_load_result* output, uint32_t malloc_flags);
 void OpenPackFile(struct pack_file_opened* pack_file, const char* file_name);
 uint32_t GetFileLengthInPack(struct pack_file_opened* pack_file, uint32_t file_index);
-union damage_source GetFaintReason(enum move_id, enum item_id);
+union damage_source GetDamageSource(enum move_id, enum item_id);
 uint32_t LoadFileInPack(struct pack_file_opened* pack_file, void* output_buffer,
                         uint32_t file_index);
 enum item_category GetItemCategoryVeneer(enum item_id item_id);

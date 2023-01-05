@@ -449,8 +449,8 @@ overlay10:
         EU: 0x22C4EEC
         NA: 0x22C4594
       length:
-        EU: 0x4
-        NA: 0x4
+        EU: 0x2
+        NA: 0x2
       description: "The chance of the Aftermath ability activating, as a percentage (50%)."
     - name: INTIMIDATOR_ACTIVATION_CHANCE
       address:

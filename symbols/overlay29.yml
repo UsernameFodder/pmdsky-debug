@@ -935,7 +935,7 @@ overlay29:
         
         Seems to be a function used during development to disable recruiting. If it returns false, SpecificRecruitCheck will also return false.
         
-        No params.
+        Return: true
     - name: GetLeaderAction
       address:
         EU: 0x22F1540
@@ -1105,7 +1105,7 @@ overlay29:
         Handles a fainted pokémon (reviving does not count as fainting).
         
         r0: Fainted entity
-        r1: Faint reason (move ID or greater than the max move id for other causes)
+        r1: Damage source (move ID or greater than the max move id for other causes)
         r2: Entity responsible of the fainting
     - name: UpdateAiTargetPos
       address:
@@ -1697,6 +1697,8 @@ overlay29:
         If the monster is a team member, copies monster::iq_skill_menu_flags to monster::iq_skill_flags. If the monster is an enemy, enables all the IQ skills it can learn (except a few that are only enabled in enemies that have a certain amount of IQ).
         If the monster is an enemy, it also sets its tactic to TACTIC_GO_AFTER_FOES.
         Called after exiting the IQ skills menu or after an enemy spawns.
+        
+        r0: monster pointer
     - name: GetMoveTypeForMonster
       address:
         EU: 0x2302CA8
@@ -1845,7 +1847,7 @@ overlay29:
         r2: Pointer to the damage_data struct that contains info about the damage to deal
         r3: ?
         stack[0]: ?
-        stack[1]: Faint reason (see HandleFaint)
+        stack[1]: Damage source
         return: True if the target fainted (reviving does not count as fainting)
     - name: AftermathCheck
       address:
@@ -3006,17 +3008,17 @@ overlay29:
         
         r0: entity pointer
         r1: flag for whether or not PP should be consumed
-    - name: GetFaintReasonWrapper
+    - name: GetDamageSourceWrapper
       address:
         EU: 0x23258AC
         NA: 0x2324E44
         JP: 0x23262D0
       description: |-
-        Wraps GetFaintReason (in arm9) for a move info struct rather than a move ID.
+        Wraps GetDamageSource (in arm9) for a move info struct rather than a move ID.
         
         r0: move info pointer
         r1: item ID
-        return: faint reason
+        return: damage source
     - name: LowerSshort
       address:
         EU: 0x23258CC
@@ -3118,7 +3120,7 @@ overlay29:
         r1: Defender pointer
         r2: Move pointer
         r3: [output] struct containing info about the damage calculation
-        stack[0]: Faint reason (see HandleFaint)
+        stack[0]: Damage source
         return: Calculated damage
     - name: StatusCheckerCheck
       address:
