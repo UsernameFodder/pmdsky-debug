@@ -27,6 +27,12 @@ headers-packed:
 # -mno-ms-bitfields is needed for some Windows builds, e.g., MinGW's gcc/clang
 	$(CC) -m32 -fsyntax-only -mno-ms-bitfields -DIMPLICIT_STRUCT_PACKING pmdsky.h
 
+# Unsized variant of the headers. This isn't included in the default target because it assumes
+# the presence of system headers. Don't use any funky options here, since this mode is intended
+# for normal dev use.
+headers-unsized:
+	$(CC) -fsyntax-only -DPMDSKY_UNSIZED_HEADERS pmdsky.h
+
 .PHONY: format
 format:
 	find . -iname '*.h' | xargs clang-format -i

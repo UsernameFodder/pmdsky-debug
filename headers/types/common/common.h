@@ -7,10 +7,6 @@
 #include "../dungeon_mode/dungeon_mode_common.h"
 #include "file_io.h"
 
-// Based on the code for vsprintf(3), it seems like va_list is implemented in the ARM9 binary
-// by just passing a pointer into the stack, so define va_list to be void*.
-typedef void* va_list;
-
 // A slice in the usual programming sense: a pointer, length, and capacity.
 // Used for the implementation of vsprintf(3), but maybe it's used elsewhere as well.
 struct slice {
