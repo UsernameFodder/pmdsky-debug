@@ -935,7 +935,7 @@ overlay29:
         
         Seems to be a function used during development to disable recruiting. If it returns false, SpecificRecruitCheck will also return false.
         
-        Return: true
+        return: true
     - name: GetLeaderAction
       address:
         EU: 0x22F1540
