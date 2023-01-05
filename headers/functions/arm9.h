@@ -368,8 +368,8 @@ int ShowKeyboard(int message_id, char* buffer1, int param_3, char* buffer2);
 int GetKeyboardStatus(void);
 int GetKeyboardStringResult(void);
 void PrintMoveOptionMenu(void);
-void PrintIqSkillsMenu(enum monster_id monster_id, uint32_t* iq_skills_flags,
-                       int monster_iq, bool is_blinded);
+void PrintIqSkillsMenu(enum monster_id monster_id, uint32_t* iq_skills_flags, int monster_iq,
+                       bool is_blinded);
 bool GetNotifyNote(void);
 void SetNotifyNote(bool flag);
 void InitMainTeamAfterQuiz(void);
