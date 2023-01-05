@@ -21,6 +21,7 @@ struct tile* GetTileAtEntity(struct entity* entity);
 struct entity* SpawnTrap(enum trap_id trap_id, struct position* position, uint8_t team,
                          uint8_t flags);
 struct entity* SpawnItemEntity(struct position* position);
+bool CanSeeTarget(struct entity* user, struct entity* target);
 bool CanTargetEntity(struct entity* user, struct entity* target);
 bool CanTargetPosition(struct entity* monster, struct position* position);
 int GetTeamMemberIndex(struct entity* monster);
@@ -29,13 +30,17 @@ bool UpdateMapSurveyorFlag(void);
 void PointCameraToMonster(struct entity* entity, undefined param_2);
 void UpdateCamera(undefined param_1);
 bool ItemIsActive(struct entity* entity, enum item_id item_id);
+int GetVisibilityRange(void);
 void UpdateStatusIconFlags(struct entity* entity);
+void ShowPpRestoreEffect(struct entity* entity);
 void LoadMappaFileAttributes(int quick_saved, int param_2, undefined* special_process);
 bool IsOnMonsterSpawnList(enum monster_id monster_id);
 enum monster_id GetMonsterIdToSpawn(int spawn_weight);
 uint8_t GetMonsterLevelToSpawn(enum monster_id monster_id);
 enum direction_id GetDirectionTowardsPosition(struct position* origin, struct position* target);
 int GetChebyshevDistance(struct position* position_a, struct position* position_b);
+bool IsPositionActuallyInSight(struct position* origin, struct position* target,
+                               bool user_has_dropeye);
 bool IsPositionInSight(struct position* origin, struct position* target, bool user_has_dropeye);
 struct entity* GetLeader(void);
 struct monster* GetLeaderMonster(void);
@@ -74,6 +79,7 @@ enum forced_loss_reason GetForcedLossReason(void);
 void BindTrapToTile(struct tile* tile, struct entity* trap, bool is_visible);
 void SpawnEnemyTrapAtPos(enum trap_id trap_id, int16_t x, int16_t y, uint8_t flags,
                          bool is_visible);
+bool DebugRecruitingEnabled(void);
 struct action_16* GetLeaderAction(void);
 void SetLeaderAction(void);
 void ChangeLeader(void);
@@ -90,7 +96,7 @@ void LoadMonsterSprite(enum monster_id monster_id, undefined param_2);
 void DeleteMonsterSpriteFile(enum monster_id monster_id);
 void DeleteAllMonsterSpriteFiles(void);
 void EuFaintCheck(bool non_team_member_fainted, bool set_unk_byte);
-void HandleFaint(struct entity* fainted_entity, union faint_reason faint_reason,
+void HandleFaint(struct entity* fainted_entity, union damage_source damage_source,
                  struct entity* killer);
 void UpdateAiTargetPos(struct entity* monster);
 void SetMonsterTypeAndAbility(struct entity* target);
@@ -153,7 +159,9 @@ bool LevelUp(struct entity* user, struct entity* target, bool message, undefined
 void EvolveMonster(struct entity* monster, undefined4* param_2, enum monster_id new_monster_id);
 bool DisplayActions(struct entity* param_1);
 bool ApplyDamage(struct entity* attacker, struct entity* defender, struct damage_data* damage_data,
-                 undefined4 param_4, undefined4* param_5, union faint_reason faint_reason);
+                 undefined4 param_4, undefined4* param_5, union damage_source damage_source);
+bool AftermathCheck(struct entity* attacker, struct entity* defender,
+                    union damage_source damage_source);
 uint8_t GetSleepAnimationId(struct entity* entity);
 void EndFrozenClassStatus(struct entity* user, struct entity* target, bool log);
 void EndCringeClassStatus(struct entity* user, struct entity* target);
@@ -167,23 +175,27 @@ void CalcDamage(struct entity* attacker, struct entity* defender, enum type_id a
                 int damage_mult_fp, enum move_id move_id, int param_9);
 void CalcRecoilDamageFixed(struct entity* attacker, int fixed_damage, undefined4 param_3,
                            struct damage_data* damage_out, enum move_id move_id,
-                           enum type_id attack_type, int16_t param_7, undefined4 message_type,
-                           undefined4 param_9, undefined4 param_10);
+                           enum type_id attack_type, union damage_source damage_source,
+                           enum damage_message damage_message, undefined4 param_9,
+                           undefined4 param_10);
 void CalcDamageFixed(struct entity* attacker, struct entity* defender, int fixed_damage,
                      undefined4 param_4, struct damage_data* damage_out, enum type_id attack_type,
-                     enum move_category move_category, int16_t param_8, undefined4 message_type,
-                     undefined4 param_10, undefined4 param_11);
+                     enum move_category move_category, union damage_source damage_source,
+                     enum damage_message damage_message, undefined4 param_10, undefined4 param_11);
+void CalcDamageFixedNoCategory(struct entity* attacker, struct entity* defender, int fixed_damage,
+                               undefined4 param_4, struct damage_data* damage_out,
+                               enum type_id attack_type, union damage_source damage_source,
+                               enum damage_message damage_message, undefined4 param_9,
+                               undefined4 param_10);
 void CalcDamageFixedWrapper(struct entity* attacker, struct entity* defender, int fixed_damage,
                             undefined4 param_4, struct damage_data* damage_out,
                             enum type_id attack_type, enum move_category move_category,
-                            int16_t param_8, undefined4 param_9, undefined4 param_10,
-                            undefined4 param_11);
-void CalcDamageFixedNoCategory(struct entity* attacker, struct entity* defender, int fixed_damage,
-                               undefined4 param_4, struct damage_data* damage_out,
-                               enum type_id attack_type, int16_t param_7, undefined4 param_8,
-                               undefined4 param_9, undefined4 param_10);
+                            union damage_source damage_source, enum damage_message damage_message,
+                            undefined4 param_10, undefined4 param_11);
 void ResetDamageCalcScratchSpace(void);
-bool IsRecruited(struct entity* user, struct entity* target);
+bool SpecificRecruitCheck(enum monster_id monster_id);
+bool RecruitCheck(struct entity* user, struct entity* target);
+bool TryRecruit(struct entity* user, struct entity* recruit);
 void TrySpawnMonsterAndTickSpawnCounter(void);
 bool AuraBowIsActive(struct entity* entity);
 int ExclusiveItemOffenseBoost(struct entity* entity, int move_category_idx);
@@ -268,6 +280,7 @@ bool IsAiTargetEligible(struct move_target_and_range move_ai_range, struct entit
                         struct entity* target, struct move* move, bool check_all_conditions);
 bool IsTargetInRange(struct entity* user, struct entity* target, enum direction_id direction,
                      int n_tiles);
+bool ShouldUsePp(struct entity* entity);
 struct move_target_and_range GetEntityMoveTargetAndRange(struct entity* entity, struct move* move,
                                                          bool is_ai);
 bool IsInSpawnList(undefined* spawn_list, enum monster_id monster_id);
@@ -281,6 +294,8 @@ int GetMaxPpWrapper(struct move* move);
 bool MoveIsNotPhysical(enum move_id move_id);
 void TryPounce(struct entity* user, struct entity* target, enum direction_id direction);
 void TryBlowAway(struct entity* user, struct entity* target, enum direction_id direction);
+void TryExplosion(struct entity* user, struct entity* target, struct position* pos,
+                  undefined param_4, undefined param_5, union damage_source damage_source);
 void TryWarp(struct entity* user, struct entity* target, enum warp_type warp_type,
              struct position position);
 bool MoveHitCheck(struct entity* attacker, struct entity* defender, struct move* move,
@@ -293,7 +308,7 @@ bool DungeonRandOutcomeUserAction(struct entity* user, int percentage);
 bool CanAiUseMove(struct entity* monster, int move_index, bool extra_checks);
 bool CanMonsterUseMove(struct entity* monster, struct move* move, bool extra_checks);
 void UpdateMovePp(struct entity* entity, bool can_consume_pp);
-union faint_reason GetFaintReasonWrapper(struct move* move, enum item_id item_id);
+union damage_source GetFaintReasonWrapper(struct move* move, enum item_id item_id);
 int LowerSshort(int x);
 uint16_t GetMoveAnimationId(struct move* move, enum weather_id apparent_weather,
                             bool should_play_alternative_animation);
@@ -307,7 +322,7 @@ int DealDamage(struct entity* attacker, struct entity* defender, struct move* mo
 int CalcDamageProjectile(struct entity* attacker, struct entity* defender, struct move* move,
                          int power, int damage_mult_fp, enum item_id item_id);
 int CalcDamageFinal(struct entity* attacker, struct entity* defender, struct move* move,
-                    struct damage_data* damage_out, union faint_reason faint_reason);
+                    struct damage_data* damage_out, union damage_source damage_source);
 bool StatusCheckerCheck(struct entity* attacker, struct move* move);
 enum weather_id GetApparentWeather(struct entity* entity);
 void TryWeatherFormChange(struct entity* entity);

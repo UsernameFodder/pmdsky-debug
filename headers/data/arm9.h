@@ -4,8 +4,8 @@
 #include "arm9/itcm.h"
 
 extern uint32_t DEFAULT_MEMORY_ARENA_SIZE;
-extern enum faint_reason_non_move FAINT_REASON_CODE_ORB_ITEM;
-extern enum faint_reason_non_move FAINT_REASON_CODE_NON_ORB_ITEM;
+extern enum damage_source_non_move DAMAGE_SOURCE_CODE_ORB_ITEM;
+extern enum damage_source_non_move DAMAGE_SOURCE_CODE_NON_ORB_ITEM;
 extern enum item_id AURA_BOW_ID_LAST;
 extern uint32_t NUMBER_OF_ITEMS;
 extern uint32_t MAX_MONEY_CARRIED;

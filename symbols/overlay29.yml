@@ -301,6 +301,19 @@ overlay29:
         
         r0: position
         return: entity pointer for the newly added item, or null on failure
+    - name: CanSeeTarget
+      address:
+        EU: 0x22E308C
+        NA: 0x22E274C
+      description: |-
+        Checks if a given monster can see another monster.
+        
+        Calls IsPositionActuallyInSight. Also checks if the user is blinded, if the target is invisible, etc.
+        This function is almost the same as CanTargetEntity, the only difference is that the latter calls IsPositionInSight instead.
+        
+        r0: User entity pointer
+        r1: Target entity pointer
+        return: True if the user can see the target, false otherwise
     - name: CanTargetEntity
       address:
         EU: 0x22E3150
@@ -309,10 +322,11 @@ overlay29:
       description: |-
         Checks if a monster can target another entity when controlled by the AI.
         More specifically, it checks if the target is invisible, if the user can see invisible monsters, if the user is blinded and if the target position is in sight from the position of the user (this last check is done by calling IsPositionInSight with the user's and the target's position).
+        This function is almost the same as CanSeeTarget, the only difference is that the latter calls IsPositionActuallyInSight instead.
         
         r0: User entity pointer
         r1: Target entity pointer
-        return: True if the user can target the target
+        return: True if the user can target the target, false otherwise
     - name: CanTargetPosition
       address:
         EU: 0x22E3294
@@ -419,6 +433,14 @@ overlay29:
         r0: entity pointer
         r1: item ID
         return: bool
+    - name: GetVisibilityRange
+      address:
+        EU: 0x22E3CEC
+        NA: 0x22E333C
+      description: |-
+        Returns dungeon::display_data::visibility_range. If the visibility range is 0, returns 2 instead.
+        
+        return: Visibility range of the current floor, or 2 if the visibility is 0.
     - name: UpdateStatusIconFlags
       address:
         EU: 0x22E4464
@@ -430,6 +452,14 @@ overlay29:
         Some of the status effect in monster::statuses are used as an index to access an array, where every group of 8 bytes represents a bitmask. All masks are added in a bitwise OR and then stored in monster::status_icon.
         
         Also sets icon flags for statuses::exposed, statuses::grudge, critical HP and lowered stats with explicit checks, and applies the effect of the Identifier Orb (see dungeon::identify_orb_flag).
+        
+        r0: entity pointer
+    - name: ShowPpRestoreEffect
+      address:
+        EU: 0x22E5314
+        NA: 0x22E4964
+      description: |-
+        Displays the graphical effect on a monster that just recovered PP.
         
         r0: entity pointer
     - name: LoadMappaFileAttributes
@@ -497,6 +527,19 @@ overlay29:
         r0: Position A
         r1: Position B
         return: Chebyshev Distance between position A and position B
+    - name: IsPositionActuallyInSight
+      address:
+        EU: 0x22E9A7C
+        NA: 0x22E90CC
+      description: |-
+        Checks if a given target position is in sight from a given origin position.
+        If the origin position is on a hallway or r2 is true, checks if both positions are within <dungeon::display_data::visibility_range> tiles of each other.
+        If the origin position is on a room, checks that the target position is within the boundaries of said room.
+        
+        r0: Origin position
+        r1: Target position
+        r2: True to assume the entity standing on the origin position has the dropeye status
+        return: True if the target position is in sight from the origin position
     - name: IsPositionInSight
       address:
         EU: 0x22E9B54
@@ -504,7 +547,7 @@ overlay29:
         JP: 0x22EA80C
       description: |-
         Checks if a given target position is in sight from a given origin position.
-        There's multiple factors that affect this check, but generally, it's true if both positions are in the same room or within 2 tiles of each other.
+        There's multiple factors that affect this check, but generally, it's true if both positions are in the same room (by checking if the target position is within the boundaries of the room where the origin position is) or within 2 tiles of each other.
         
         r0: Origin position
         r1: Target position
@@ -883,6 +926,16 @@ overlay29:
         r2: y position
         r3: flags
         stack[0]: visibility flag
+    - name: DebugRecruitingEnabled
+      address:
+        EU: 0x22F0420
+        NA: 0x22EFA6C
+      description: |-
+        Always returns true. Called by SpecificRecruitCheck.
+        
+        Seems to be a function used during development to disable recruiting. If it returns false, SpecificRecruitCheck will also return false.
+        
+        No params.
     - name: GetLeaderAction
       address:
         EU: 0x22F1540
@@ -1634,6 +1687,16 @@ overlay29:
         r0: entity pointer
         r1: IQ skill ID
         return: bool
+    - name: UpdateIqSkills
+      address:
+        EU: 0x23029E8
+        NA: 0x2301FBC
+      description: |-
+        Updates the IQ skill flags of a monster.
+        
+        If the monster is a team member, copies monster::iq_skill_menu_flags to monster::iq_skill_flags. If the monster is an enemy, enables all the IQ skills it can learn (except a few that are only enabled in enemies that have a certain amount of IQ).
+        If the monster is an enemy, it also sets its tactic to TACTIC_GO_AFTER_FOES.
+        Called after exiting the IQ skills menu or after an enemy spawns.
     - name: GetMoveTypeForMonster
       address:
         EU: 0x2302CA8
@@ -1784,6 +1847,19 @@ overlay29:
         stack[0]: ?
         stack[1]: Faint reason (see HandleFaint)
         return: True if the target fainted (reviving does not count as fainting)
+    - name: AftermathCheck
+      address:
+        EU: 0x230B480
+        NA: 0x230AA0C
+      description: |-
+        Checks if the defender has the Aftermath ability and tries to activate it if so (50% chance).
+        
+        The ability won't trigger if the damage source is DAMAGE_SOURCE_EXPLOSION.
+        
+        r0: Attacker pointer
+        r1: Defender pointer
+        r2: Damage source
+        return: True if Aftermath was activated, false if it wasn't
     - name: GetTypeMatchupBothTypes
       address:
         EU: 0x230B500
@@ -1847,8 +1923,8 @@ overlay29:
         r3: [output] struct containing info about the damage calculation
         stack[0]: move ID (interestingly, this doesn't seem to be used by the function)
         stack[1]: attack type
-        stack[2]: ?
-        stack[3]: message type
+        stack[2]: damage source
+        stack[3]: damage message
         others: ?
     - name: CalcDamageFixed
       address:
@@ -1865,8 +1941,8 @@ overlay29:
         stack[0]: [output] struct containing info about the damage calculation
         stack[1]: attack type
         stack[2]: move category
-        stack[3]: ?
-        stack[4]: message type
+        stack[3]: damage source
+        stack[4]: damage message
         others: ?
     - name: CalcDamageFixedNoCategory
       address:
@@ -1881,6 +1957,8 @@ overlay29:
         r2: fixed damage
         stack[0]: [output] struct containing info about the damage calculation
         stack[1]: attack type
+        stack[2]: damage source
+        stack[3]: damage message
         others: ?
     - name: CalcDamageFixedWrapper
       address:
@@ -1896,6 +1974,8 @@ overlay29:
         stack[0]: [output] struct containing info about the damage calculation
         stack[1]: attack type
         stack[2]: move category
+        stack[3]: damage source
+        stack[4]: damage message
         others: ?
     - name: ResetDamageCalcScratchSpace
       address:
@@ -1906,17 +1986,39 @@ overlay29:
         CalcDamage seems to use scratch space of some kind, which this function zeroes.
         
         No params.
-    - name: IsRecruited
+    - name: SpecificRecruitCheck
+      address:
+        EU: 0x230E588
+        NA: 0x230DB14
+      description: |-
+        Checks if a specific monster can be recruited. Called by RecruitCheck.
+        
+        Will return false if dungeon::recruiting_enabled is false, if the monster is Mew and dungeon::dungeon_objective is OBJECTIVE_RESCUE or if the monster is any of the special Deoxys forms or any of the 3 regis.
+        If this function returns false, RecruitCheck will return false as well.
+        
+        r0: Monster ID
+        return: True if the monster can be recruited
+    - name: RecruitCheck
       address:
         EU: 0x230E644
         NA: 0x230DBD0
         JP: 0x230F110
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Determines if a defeated enemy will attempt to join the team
         
         r0: user entity pointer
         r1: target entity pointer
-        return: bool
+        return: True if the target will attempt to join the team
+    - name: TryRecruit
+      address:
+        EU: 0x230EAD8
+        NA: 0x230E064
+      description: |-
+        Asks the player if they would like to recruit the enemy that was just defeated and handles the recruitment if they accept.
+        
+        r0: user entity pointer
+        r1: monster to recruit entity pointer
+        return: True if the monster was recruited, false if it wasn't
     - name: TrySpawnMonsterAndTickSpawnCounter
       address:
         EU: 0x230F130
@@ -2650,6 +2752,15 @@ overlay29:
         r1: target pointer
         r2: direction ID
         r3: move range (in number of tiles)
+    - name: ShouldUsePp
+      address:
+        EU: 0x231B200
+        NA: 0x231A7A0
+      description: |-
+        Checks if a monster should use PP when using a move. It also displays the corresponding animation if PP Saver triggers and prints the required messages to the message log.
+        
+        r0: entity pointer
+        return: True if the monster should not use PP, false if it should.
     - name: GetEntityMoveTargetAndRange
       address:
         EU: 0x231B70C
@@ -2770,6 +2881,21 @@ overlay29:
         r0: user entity pointer
         r1: target entity pointer
         r2: direction ID
+    - name: TryExplosion
+      address:
+        EU: 0x23211F0
+        NA: 0x2320788
+      description: |-
+        Creates an explosion if possible.
+        
+        The target monster is considered the source of the explosion.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: coordinates where the explosion should take place (unverified)
+        r3: ?
+        stack[0]: ?
+        stack[1]: damage source (normally DAMAGE_SOURCE_EXPLOSION)
     - name: TryWarp
       address:
         EU: 0x2321770

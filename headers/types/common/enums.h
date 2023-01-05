@@ -3589,6 +3589,11 @@ enum iq_skill_id {
     IQ_TRUE_POWERIST = 68,
 };
 
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(iq_skill_id);
+#pragma pack(pop)
+
 // IQ group ID.
 enum iq_group_id {
     IQ_GROUP_A = 0,

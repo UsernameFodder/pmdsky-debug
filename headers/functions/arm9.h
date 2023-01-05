@@ -92,7 +92,7 @@ void AllocAndLoadFileInPack(enum pack_file_id pack_id, uint32_t file_index,
                             struct pack_alloc_and_load_result* output, uint32_t malloc_flags);
 void OpenPackFile(struct pack_file_opened* pack_file, const char* file_name);
 uint32_t GetFileLengthInPack(struct pack_file_opened* pack_file, uint32_t file_index);
-union faint_reason GetFaintReason(enum move_id, enum item_id);
+union damage_source GetFaintReason(enum move_id, enum item_id);
 uint32_t LoadFileInPack(struct pack_file_opened* pack_file, void* output_buffer,
                         uint32_t file_index);
 enum item_category GetItemCategoryVeneer(enum item_id item_id);
@@ -336,6 +336,7 @@ void GetStringFromFile(char* buf, int string_id);
 void LoadStringFile(void);
 void GetStringFromFileVeneer(char* buf, int string_id);
 char* StringFromMessageId(int message_id);
+void CopyStringFromMessageId(char* buf, int string_id, int buf_len);
 void LoadTblTalk(void);
 int GetTalkLine(int personality_idx, int group_id, int restrictions);
 void SetScreenWindowsColor(int palette_idx, bool upper_screen);
@@ -367,6 +368,8 @@ int ShowKeyboard(int message_id, char* buffer1, int param_3, char* buffer2);
 int GetKeyboardStatus(void);
 int GetKeyboardStringResult(void);
 void PrintMoveOptionMenu(void);
+void PrintIqSkillsMenu(enum monster_id monster_id, uint32_t* iq_skills_flags,
+                       int monster_iq, bool is_blinded);
 bool GetNotifyNote(void);
 void SetNotifyNote(bool flag);
 void InitMainTeamAfterQuiz(void);
@@ -623,7 +626,14 @@ int GetPartyMembers(uint16_t* party_members);
 void RefillTeam(void);
 int ClearItem(int team_id, bool check);
 void ChangeGiratinaFormIfSkyDungeon(enum dungeon_id dungeon_id);
+bool CanLearnIqSkill(int iq_amount, enum iq_skill_id iq_id);
+int GetLearnableIqSkills(struct iq_skill_id_8* out_iq_skill_id, enum monster_id monster_id,
+                         int monster_iq);
+void DisableIqSkill(uint32_t* iq_skills_flags, enum iq_skill_id iq_id);
+void EnableIqSkill(uint32_t* iq_skills_flags, enum iq_skill_id iq_id);
+enum iq_skill_id GetSpeciesIqSkill(enum monster_id monster_id, int index);
 bool IqSkillFlagTest(uint32_t* iq_skill_flags, enum iq_skill_id iq_id);
+enum iq_skill_id GetNextIqSkill(enum monster_id monster_id, int monster_iq);
 struct ground_monster* GetExplorerMazeMonster(uint8_t entry_number);
 undefined4 WriteMonsterInfoToSave(void* start_addr, uint32_t total_len);
 undefined4 ReadMonsterInfoFromSave(void* start_addr, uint32_t total_len);

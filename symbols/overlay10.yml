@@ -284,6 +284,14 @@ overlay10:
         EU: 0x2
         NA: 0x2
       description: "The maximum number of extra non-monster spawns (items/traps) in a Monster House, 7"
+    - name: AFTERMATH_CHANCE
+      address:
+        EU: 0x22C4EEC
+        NA: 0x22C4594
+      length:
+        EU: 0x4
+        NA: 0x4
+      description: "The chance of the Aftermath ability activating, as a percentage (50%)."
     - name: HEAL_ORDER_HP_RESTORATION
       address:
         NA: 0x22C44B8
