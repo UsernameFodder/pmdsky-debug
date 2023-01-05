@@ -417,34 +417,34 @@ enum action {
 ENUM_16_BIT(action);
 #pragma pack(pop)
 
-// Potential sources of damage dealt to monsters
-enum damage_source {
-    DAMAGE_SOURCE_MOVE = 0, // "Took X damage"
-    DAMAGE_SOURCE_BURN = 1,
-    DAMAGE_SOURCE_CONSTRICTION = 2, // "Was squeezed for X damage"
-    DAMAGE_SOURCE_POISON = 3,
-    DAMAGE_SOURCE_RECOIL_1 = 4, // User deals damage to itself because of their own recoil move
-    DAMAGE_SOURCE_WRAP = 5,     // "Was wrapped for X damage"
-    DAMAGE_SOURCE_COUNTER = 6,  // Damage taken from a conunterattack
-    DAMAGE_SOURCE_CURSE = 7,
-    DAMAGE_SOURCE_NIGHTMARE = 8, // Damage taken when awakening from a nightmare
-    DAMAGE_SOURCE_LEECH_SEED = 9,
-    DAMAGE_SOURCE_SPIKES = 10,
-    DAMAGE_SOURCE_PERISH_SONG = 11,
-    DAMAGE_SOURCE_DESTINY_BOND = 12,
-    DAMAGE_SOURCE_SLUDGE = 13, // "Was showered with sludge for X damage"
-    DAMAGE_SOURCE_CHESTNUT_1 = 14,
-    DAMAGE_SOURCE_CHESTNUT_2 = 15, // Same string as DAMAGE_SOURCE_CHESTNUT_1
-    DAMAGE_SOURCE_UNK16 = 16,      // Same string as DAMAGE_SOURCE_MOVE
-    DAMAGE_SOURCE_BAD_WEATHER = 17,
-    DAMAGE_SOURCE_MISSED_MOVE = 18, // Damage taken from moves that hurt the user when they miss
-    DAMAGE_SOURCE_RECOIL_2 = 19,    // Same string as DAMAGE_SOURCE_RECOIL_1
-    DAMAGE_SOURCE_STEALTH_ROCK = 20,
-    DAMAGE_SOURCE_TOXIC_SPIKES = 21,
-    DAMAGE_SOURCE_ALMOST_FAINTED = 22, // "Is on the verge of fainting after using that move"
-    DAMAGE_SOURCE_UNK_ABILITY = 23,    // "Took X damage because of <ability>"
-    DAMAGE_SOURCE_SOLAR_POWER = 24,
-    DAMAGE_SOURCE_DRY_SKIN = 25,
+// Identifies a message displayed when a monster takes damage
+enum damage_message {
+    DAMAGE_MESSAGE_MOVE = 0, // "Took X damage"
+    DAMAGE_MESSAGE_BURN = 1,
+    DAMAGE_MESSAGE_CONSTRICTION = 2, // "Was squeezed for X damage"
+    DAMAGE_MESSAGE_POISON = 3,
+    DAMAGE_MESSAGE_RECOIL_1 = 4, // User deals damage to itself because of their own recoil move
+    DAMAGE_MESSAGE_WRAP = 5,     // "Was wrapped for X damage"
+    DAMAGE_MESSAGE_COUNTER = 6,  // Damage taken from a conunterattack
+    DAMAGE_MESSAGE_CURSE = 7,
+    DAMAGE_MESSAGE_NIGHTMARE = 8, // Damage taken when awakening from a nightmare
+    DAMAGE_MESSAGE_LEECH_SEED = 9,
+    DAMAGE_MESSAGE_SPIKES = 10,
+    DAMAGE_MESSAGE_PERISH_SONG = 11,
+    DAMAGE_MESSAGE_DESTINY_BOND = 12,
+    DAMAGE_MESSAGE_SLUDGE = 13, // "Was showered with sludge for X damage"
+    DAMAGE_MESSAGE_CHESTNUT_1 = 14,
+    DAMAGE_MESSAGE_CHESTNUT_2 = 15, // Same string as DAMAGE_MESSAGE_CHESTNUT_1
+    DAMAGE_MESSAGE_UNK16 = 16,      // Same string as DAMAGE_MESSAGE_MOVE
+    DAMAGE_MESSAGE_BAD_WEATHER = 17,
+    DAMAGE_MESSAGE_MISSED_MOVE = 18, // Damage taken from moves that hurt the user when they miss
+    DAMAGE_MESSAGE_RECOIL_2 = 19,    // Same string as DAMAGE_MESSAGE_RECOIL_1
+    DAMAGE_MESSAGE_STEALTH_ROCK = 20,
+    DAMAGE_MESSAGE_TOXIC_SPIKES = 21,
+    DAMAGE_MESSAGE_ALMOST_FAINTED = 22, // "Is on the verge of fainting after using that move"
+    DAMAGE_MESSAGE_UNK_ABILITY = 23,    // "Took X damage because of <ability>"
+    DAMAGE_MESSAGE_SOLAR_POWER = 24,
+    DAMAGE_MESSAGE_DRY_SKIN = 25,
 };
 
 // Exclusive effect ID. These are usually encoded as bitvectors.
@@ -814,16 +814,80 @@ enum mission_status {
 ENUM_8_BIT(mission_status);
 #pragma pack(pop)
 
-// The cause of a monster fainting, not including the move case.
+// The cause of a monster taking damage, not including the move case.
 // These codes should all be greater than any move ID.
-enum faint_reason_non_move {
-    FAINT_REASON_ITEM_ORB = 610,
-    FAINT_REASON_ITEM_NON_ORB = 611,
+// Some of the values are used as faint reasons rather than damage sources.
+enum damage_source_non_move {
+    DAMAGE_SOURCE_TRANSFORM_FRIEND = 563, // "was transformed into a friend"
+    DAMAGE_SOURCE_NOT_BEFRIENDED = 564,   // "left without being befriended"
+    DAMAGE_SOURCE_DEBUG_ATTACK = 565,
+    DAMAGE_SOURCE_JUMP_KICK = 566,
+    DAMAGE_SOURCE_HI_JUMP_KICK = 567,
+    DAMAGE_SOURCE_DESTINY_BOND = 568,
+    DAMAGE_SOURCE_SLUDGE = 569,
+    DAMAGE_SOURCE_POWERFUL_MOVE_1 = 570,
+    DAMAGE_SOURCE_POWERFUL_MOVE_2 = 571,
+    DAMAGE_SOURCE_RECOIL = 572,
+    DAMAGE_SOURCE_SPLASH = 573,
+    DAMAGE_SOURCE_ENERGY = 574, // "an enemy's pent-up energy"
+    DAMAGE_SOURCE_POWERFUL_MOVE_3 = 575,
+    DAMAGE_SOURCE_POWERFUL_MOVE_4 = 576,
+    DAMAGE_SOURCE_POWERFUL_MOVE_5 = 577,
+    DAMAGE_SOURCE_POWERFUL_MOVE_6 = 578,
+    DAMAGE_SOURCE_POWERFUL_MOVE_7 = 579,
+    DAMAGE_SOURCE_POWERFUL_MOVE_8 = 580,
+    DAMAGE_SOURCE_SPIKES = 581,
+    DAMAGE_SOURCE_DEBUG_DAMAGE = 582,
+    DAMAGE_SOURCE_BURN = 583,
+    DAMAGE_SOURCE_CONSTRICTION = 584,
+    DAMAGE_SOURCE_POISON = 585,
+    DAMAGE_SOURCE_WRAP = 586,
+    DAMAGE_SOURCE_CURSE = 587,
+    DAMAGE_SOURCE_LEECH_SEED = 588,
+    DAMAGE_SOURCE_PERISH_SONG = 589,
+    DAMAGE_SOURCE_NIGHTMARE = 590,
+    DAMAGE_SOURCE_THROWN_ROCK = 591,
+    DAMAGE_SOURCE_HUNGER = 592,
+    DAMAGE_SOURCE_EXPLODED = 593, // I think this one is only used for the monster that explodes.
+                                  // Other monsters that are hit by the explosion use
+                                  // DAMAGE_SOURCE_EXPLOSION.
+    DAMAGE_SOURCE_CHESTNUT_TRAP = 594,
+    DAMAGE_SOURCE_TRAP = 595,
+    DAMAGE_SOURCE_PITFALL_TRAP = 596,
+    DAMAGE_SOURCE_BLAST_SEED = 597,
+    DAMAGE_SOURCE_THROWN_ITEM = 598,
+    DAMAGE_SOURCE_TRANSFORM_ITEM = 599,
+    DAMAGE_SOURCE_KNOCKED_FLYING = 600,
+    DAMAGE_SOURCE_FLYING_MONSTER = 601,
+    DAMAGE_SOURCE_GAVE_UP = 602,   // "gave up the exploration"
+    DAMAGE_SOURCE_DELETED = 603,   // "was deleted for the sake of an event"
+    DAMAGE_SOURCE_WENT_AWAY = 604, // "went away"
+    DAMAGE_SOURCE_UNSEEN_FORCE = 605,
+    DAMAGE_SOURCE_PARTNER_FAINTED = 606, // "returned with the fallen partner"
+    DAMAGE_SOURCE_WEATHER = 607,
+    DAMAGE_SOURCE_POSSESS = 608,
+    DAMAGE_SOURCE_CLIENT_FAINTED = 609, // "failed to protect the client Pokémon"
+    DAMAGE_SOURCE_ITEM_ORB = 610,
+    DAMAGE_SOURCE_ITEM_NON_ORB = 611,
+    DAMAGE_SOURCE_UNK612 = 612,                // "-"
+    DAMAGE_SOURCE_ESCORT_FAINTED = 613,        // "failed to escort the client Pokémon"
+    DAMAGE_SOURCE_OTHER_MONSTER_FAINTED = 614, // "returned with the fallen [string:2]"
+    DAMAGE_SOURCE_BIDOOF_FAINTED = 615,
+    DAMAGE_SOURCE_GROVYLE_FAINTED = 616,
+    DAMAGE_SOURCE_CELEBI_FAINTED = 617,
+    DAMAGE_SOURCE_CHATOT_FAINTED = 618,
+    DAMAGE_SOURCE_CRESSELIA_FAINTED = 619,
+    DAMAGE_SOURCE_TOXIC_SPIKES = 620,
+    DAMAGE_SOURCE_STEALTH_ROCK = 621,
+    DAMAGE_SOURCE_BAD_DREAMS = 622,
+    DAMAGE_SOURCE_EXPLOSION = 623,
+    DAMAGE_SOURCE_OREN_BERRY = 624,
 };
 
-union faint_reason {
+// Possible reasons why a monster can take damage or faint
+union damage_source {
     enum move_id move;
-    enum faint_reason_non_move other;
+    enum damage_source_non_move other;
 };
 
 // List of reasons why you can get forcefully kicked out of a dungeon

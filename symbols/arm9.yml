@@ -986,19 +986,19 @@ arm9:
         r1: [output] target buffer
         r2: file index
         return: number of read bytes (identical to the length of the pack from the Table of Content)
-    - name: GetFaintReason
+    - name: GetDamageSource
       address:
         EU: 0x200CADC
         NA: 0x200CA54
         JP: 0x200CA54
       description: |-
-        Gets the faint reason code (see HandleFaint) for a given move-item combination.
+        Gets the damage source for a given move-item combination.
         
-        If there's no item, the reason code is the move ID. If the item is an orb, return FAINT_REASON_ORB_ITEM. Otherwise, return FAINT_REASON_NON_ORB_ITEM.
+        If there's no item, the source is the move ID. If the item is an orb, return DAMAGE_SOURCE_ORB_ITEM. Otherwise, return DAMAGE_SOURCE_NON_ORB_ITEM.
         
         r0: move ID
         r1: item ID
-        return: faint reason
+        return: damage source
     - name: GetItemCategoryVeneer
       address:
         EU: 0x200CB78
@@ -3353,6 +3353,18 @@ arm9:
         
         r0: message ID
         return: string from the string files with the given message ID
+    - name: CopyStringFromMessageId
+      address:
+        EU: 0x2025BD8
+        NA: 0x202590C
+      description: |-
+        Gets the string corresponding to a given message ID and copies it to the buffer specified in r0.
+        
+        This function won't write more than <buffer length> bytes.
+        
+        r0: Buffer
+        r1: String ID
+        r2: Buffer length
     - name: LoadTblTalk
       address:
         EU: 0x2025C08
@@ -3659,6 +3671,17 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         No params.
+    - name: PrintIqSkillsMenu
+      address:
+        EU: 0x2041D3C
+        NA: 0x2041A40
+      description: |-
+        Draws the IQ skills menu for a certain monster.
+        
+        r0: Monster species
+        r1: Pointer to bitarray where the enabled skills will be written when enabling or disabling them in the menu
+        r2: Monster IQ
+        r3: True if the monster is blinded
     - name: GetNotifyNote
       address:
         EU: 0x20487BC
@@ -6231,6 +6254,59 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         r0: dungeon ID
+    - name: CanLearnIqSkill
+      address:
+        EU: 0x2059054
+        NA: 0x2058CD8
+      description: |-
+        Returns whether an IQ skill can be learned with a given IQ amount or not.
+        
+        If the specified amount is 0, it always returns false.
+        
+        r0: IQ amount
+        r1: IQ skill
+        return: True if the specified skill can be learned with the specified IQ amount.
+    - name: GetLearnableIqSkills
+      address:
+        EU: 0x2059080
+        NA: 0x2058D04
+      description: |-
+        Determines the list of IQ skills that a given monster can learn given its IQ value.
+        
+        The list of skills is written in the array specified in r0. The array has 69 slots in total. Unused slots are set to 0.
+        
+        r0: (output) Array where the list of skills will be written
+        r1: Monster species
+        r2: Monster IQ
+        return: Amount of skills written to the output array
+    - name: DisableIqSkill
+      address:
+        EU: 0x2059120
+        NA: 0x2058DA4
+      description: |-
+        Disables an IQ skill.
+        
+        r0: Pointer to the bitarray containing the list of enabled IQ skills
+        r1: ID of the skill to disable
+    - name: EnableIqSkill
+      address:
+        EU: 0x2059170
+        NA: 0x2058DF4
+      description: |-
+        Enables an IQ skill and disables any other skills that are incompatible with it.
+        
+        r0: Pointer to the bitarray containing the list of enabled IQ skills
+        r1: ID of the skill to enable
+    - name: GetSpeciesIqSkill
+      address:
+        EU: 0x20591E4
+        NA: 0x2058E68
+      description: |-
+        Gets the <index>th skill on the list of IQ skills that a given monster species can learn.
+        
+        r0: Species ID
+        r1: Index (starting at 0)
+        return: IQ skill ID
     - name: IqSkillFlagTest
       address:
         EU: 0x2059280
@@ -6242,6 +6318,16 @@ arm9:
         r0: IQ skill bitvector to test
         r1: IQ skill ID
         return: bool
+    - name: GetNextIqSkill
+      address:
+        EU: 0x20592A0
+        NA: 0x2058F24
+      description: |-
+        Returns the next IQ skill that a given monster will learn given its current IQ value, or IQ_NONE if the monster won't learn any more skills.
+        
+        r0: Monster ID
+        r1: Monster IQ
+        return: ID of the next skill learned by the monster, or IQ_NONE if the monster won't learn any more skills.
     - name: GetExplorerMazeMonster
       address:
         EU: 0x2059474
@@ -7188,14 +7274,14 @@ arm9:
         EU: 0x4
         NA: 0x4
       description: "Length in bytes of the default memory allocation arena, 1991680."
-    - name: FAINT_REASON_CODE_ORB_ITEM
+    - name: DAMAGE_SOURCE_CODE_ORB_ITEM
       address:
         NA: 0x200CA84
-      description: "The faint reason code for any item in CATEGORY_ORBS, 0x262."
-    - name: FAINT_REASON_CODE_NON_ORB_ITEM
+      description: "The damage source value for any item in CATEGORY_ORBS, 0x262."
+    - name: DAMAGE_SOURCE_CODE_NON_ORB_ITEM
       address:
         NA: 0x200CA88
-      description: "The faint reason code for any item not in CATEGORY_ORBS, 0x263."
+      description: "The damage source value for any item not in CATEGORY_ORBS, 0x263."
     - name: AURA_BOW_ID_LAST
       address:
         EU: 0x200CCBC

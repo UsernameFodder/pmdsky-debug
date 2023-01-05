@@ -31,12 +31,12 @@ ASSERT_SIZE(struct trap, 4);
 
 // Used to hold data during damage calculation
 struct damage_data {
-    int damage;                       // 0x0: Damage dealt by the move
-    enum damage_source damage_source; // 0x4
-    enum type_matchup type_matchup;   // 0x8: Result of the type matchup calculation
-    struct type_id_8 type;            // 0xC: Type of the move used
-    struct move_category_8 category;  // 0xD: Category of the move used
-    bool critical_hit;                // 0xE
+    int damage;                         // 0x0: Damage dealt by the move
+    enum damage_message damage_message; // 0x4: Message to display
+    enum type_matchup type_matchup;     // 0x8: Result of the type matchup calculation
+    struct type_id_8 type;              // 0xC: Type of the move used
+    struct move_category_8 category;    // 0xD: Category of the move used
+    bool critical_hit;                  // 0xE
     undefined field_0xF;
     undefined field_0x10;
     // Most likely padding. These aren't set by the function that inits the struct.
