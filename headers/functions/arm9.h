@@ -106,9 +106,9 @@ void AllocAndLoadFileInPack(enum pack_file_id pack_id, uint32_t file_index,
                             struct pack_alloc_and_load_result* output, uint32_t malloc_flags);
 void OpenPackFile(struct pack_file_opened* pack_file, const char* file_name);
 uint32_t GetFileLengthInPack(struct pack_file_opened* pack_file, uint32_t file_index);
-union damage_source GetDamageSource(enum move_id, enum item_id);
 uint32_t LoadFileInPack(struct pack_file_opened* pack_file, void* output_buffer,
                         uint32_t file_index);
+union damage_source GetDamageSource(enum move_id, enum item_id);
 enum item_category GetItemCategoryVeneer(enum item_id item_id);
 enum move_id GetItemMoveId16(enum item_id item_id);
 bool IsThrownItem(enum item_id item_id);
@@ -219,9 +219,9 @@ void FormatMoveString(char* string, struct move* move, undefined* type_print);
 void FormatMoveStringMore(undefined* param_1, int param_2, struct move* move,
                           undefined* type_print);
 void InitMove(struct move* move, enum move_id);
-struct move_target_and_range GetMoveTargetAndRange(struct move* move, bool is_ai);
 void GetInfoMoveCheckId(struct move* move, enum move_id move_id);
 void GetInfoMoveGround(struct ground_move* move, enum move_id move_id);
+struct move_target_and_range GetMoveTargetAndRange(struct move* move, bool is_ai);
 enum type_id GetMoveType(struct move* move);
 undefined* GetMovesetLevelUpPtr(enum monster_id monster_id);
 bool IsInvalidMoveset(int moveset_id);
@@ -598,11 +598,11 @@ enum monster_id GetBaseFormCastformCherrimDeoxys(enum monster_id monster_id);
 int GetAllBaseForms(enum monster_id monster_id);
 int GetDexNumberVeneer(enum monster_id monster_id);
 enum monster_id GetMonsterIdFromSpawnEntry(struct monster_spawn_entry*);
-enum monster_gender GetMonsterGenderVeneer(enum monster_id monster_id);
 void SetMonsterId(struct monster_spawn_entry* monster_spawn, enum monster_id monster_id);
 void SetMonsterLevelAndId(struct monster_spawn_entry* monster_spawn, int level,
                           enum monster_id monster_id);
 uint8_t GetMonsterLevelFromSpawnEntry(struct monster_spawn_entry* entry);
+enum monster_gender GetMonsterGenderVeneer(enum monster_id monster_id);
 bool IsMonsterValid(enum monster_id monster_id);
 bool IsUnown(enum monster_id monster_id);
 bool IsShaymin(enum monster_id monster_id);

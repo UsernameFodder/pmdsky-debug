@@ -37,7 +37,7 @@ format-check:
 
 .PHONY: symbol-check
 symbol-check:
-	./symbol_check.py
+	./symbol_check.py --sort-order
 
 .PHONY: symbol-check-extra
 symbol-check-extra:
