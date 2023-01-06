@@ -5,6 +5,7 @@
 
 from abc import ABC, abstractmethod
 import argparse
+import difflib
 import os
 import re
 from typing import Dict, Generator, List, Optional
@@ -33,11 +34,16 @@ class HeaderSymbolList(ABC):
 
     header_file: str
     symbol_file: str
+    # Caches to avoid doing unnecessary file I/O
+    cached_header_names: Optional[List[str]]
+    cached_symbol_names: Optional[List[str]]
 
     def __init__(self, header_file: str):
         assert hasattr(self, "HEADERS_DIR")
         assert hasattr(self, "SYMBOL_LIST_KEY")
 
+        self.cached_header_names = None
+        self.cached_symbol_names = None
         self.header_file = header_file
         symbol_file = self.get_symbol_file(self.header_file)
         if symbol_file is not None:
@@ -79,16 +85,23 @@ class HeaderSymbolList(ABC):
         return contents
 
     @abstractmethod
-    def names_from_header_file(self) -> List[str]:
+    def _names_from_header_file(self) -> List[str]:
         return []
 
+    def names_from_header_file(self) -> List[str]:
+        if self.cached_header_names is None:
+            self.cached_header_names = self._names_from_header_file()
+        return list(self.cached_header_names)
+
     def names_from_symbol_file(self) -> List[str]:
-        with open(self.symbol_file, "r") as f:
-            return [
-                symbol["name"]
-                for block in yaml.safe_load(f).values()
-                for symbol in block[self.SYMBOL_LIST_KEY]
-            ]
+        if self.cached_symbol_names is None:
+            with open(self.symbol_file, "r") as f:
+                self.cached_symbol_names = [
+                    symbol["name"]
+                    for block in yaml.safe_load(f).values()
+                    for symbol in block[self.SYMBOL_LIST_KEY]
+                ]
+        return list(self.cached_symbol_names)
 
     def missing_symbols(self) -> List[str]:
         """
@@ -106,12 +119,34 @@ class HeaderSymbolList(ABC):
             set(self.names_from_symbol_file()) - set(self.names_from_header_file())
         )
 
+    def order_diff(self) -> List[str]:
+        """
+        Return a diff between the symbol tables and the C headers, including only
+        the symbols that are in both.
+        """
+        symbol_names = self.names_from_symbol_file()
+        header_names = self.names_from_header_file()
+
+        common_symbols = set(symbol_names) & set(header_names)
+        symbol_order = [name for name in symbol_names if name in common_symbols]
+        header_order = [name for name in header_names if name in common_symbols]
+        return list(
+            difflib.unified_diff(
+                header_order,
+                symbol_order,
+                fromfile=f"[old] {self.header_file}",
+                tofile=f"[new] {self.header_file} (matches {self.symbol_file})",
+                n=1,
+                lineterm="",
+            )
+        )
+
 
 class FunctionList(HeaderSymbolList):
     HEADERS_DIR = os.path.join(ROOT_DIR, "headers", "functions")
     SYMBOL_LIST_KEY = "functions"
 
-    def names_from_header_file(self) -> List[str]:
+    def _names_from_header_file(self) -> List[str]:
         with open(self.header_file, "r") as f:
             # Look for words preceding an open parenthesis. Not perfect, but
             # good enough. This should work for everything except functions
@@ -126,7 +161,7 @@ class DataList(HeaderSymbolList):
     HEADERS_DIR = os.path.join(ROOT_DIR, "headers", "data")
     SYMBOL_LIST_KEY = "data"
 
-    def names_from_header_file(self) -> List[str]:
+    def _names_from_header_file(self) -> List[str]:
         with open(self.header_file, "r") as f:
             # Look for words preceding a semicolon, with optional closing
             # parentheses and/or pairs of square brackets in between. This
@@ -146,6 +181,7 @@ def run_symbol_check(
     symbol_list: HeaderSymbolList,
     symbol_type_str: str,
     find_extra_symbols: bool = False,
+    check_order: bool = False,
     verbose: bool = False,
 ) -> bool:
     passed = True
@@ -154,6 +190,7 @@ def run_symbol_check(
             slist = symbol_list(header_file)
             missing = slist.missing_symbols()
             extra = slist.extra_symbols() if find_extra_symbols else []
+            order_diff = slist.order_diff() if check_order else []
             if missing:
                 passed = False
                 print(
@@ -167,6 +204,7 @@ def run_symbol_check(
                 )
                 for symbol_name in missing:
                     print(f"    - {symbol_name}")
+                print()
             if extra:
                 print(f"{slist}: found {len(extra)} untyped symbols in symbol tables")
                 print(
@@ -176,7 +214,20 @@ def run_symbol_check(
                 )
                 for symbol_name in extra:
                     print(f"    - {symbol_name}")
-            if not missing and not extra and verbose:
+                print()
+            if order_diff:
+                passed = False
+                print(
+                    f"{slist}: found ordering discrepancies between"
+                    + f" {symbol_type_str} in the C headers and symbol tables."
+                )
+                print(
+                    "To match the symbol tables, make the following changes"
+                    + " to the C headers:"
+                )
+                print("\n".join(order_diff))
+                print()
+            if not missing and not extra and not order_diff and verbose:
                 print(f"Checked {header_file}")
         except ValueError:
             # File doesn't correspond to a symbol file; skip
@@ -194,6 +245,12 @@ if __name__ == "__main__":
         action="store_true",
         help="print extra symbols present in the symbol tables but not in the C headers",
     )
+    parser.add_argument(
+        "-s",
+        "--sort-order",
+        action="store_true",
+        help="check sort order in the C headers based on symbol table order",
+    )
     parser.add_argument("-v", "--verbose", action="store_true", help="verbose output")
     args = parser.parse_args()
 
@@ -201,12 +258,14 @@ if __name__ == "__main__":
         FunctionList,
         "functions",
         find_extra_symbols=args.extra_symbols,
+        check_order=args.sort_order,
         verbose=args.verbose,
     )
     data_passed = run_symbol_check(
         DataList,
         "data symbols",
         find_extra_symbols=args.extra_symbols,
+        check_order=args.sort_order,
         verbose=args.verbose,
     )
     if not functions_passed or not data_passed:
