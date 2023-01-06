@@ -16,6 +16,7 @@ bool IsCurrentFixedRoomBossFight(void);
 bool IsMarowakTrainingMaze(void);
 bool FixedRoomIsSubstituteRoom(void);
 bool StoryRestrictionsEnabled(void);
+int GetScenarioBalanceVeneer(void);
 void FadeToBlack(void);
 struct tile* GetTileAtEntity(struct entity* entity);
 struct entity* SpawnTrap(enum trap_id trap_id, struct position* position, uint8_t team,
