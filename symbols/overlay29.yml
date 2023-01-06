@@ -1364,6 +1364,18 @@ overlay29:
         
         r0: entity pointer
         return: bool
+    - name: AreEntitiesAdjacent
+      address:
+        EU: 0x22FC084
+        NA: 0x22FB678
+      description: |-
+        Checks whether two entities are adjacent or not.
+        
+        The function checks all 8 possible directions.
+        
+        r0: First entity
+        r1: Second entity
+        return: True if both entities are adjacent, false otherwise.
     - name: IsSpecialStoryAlly
       address:
         EU: 0x22FC4CC
