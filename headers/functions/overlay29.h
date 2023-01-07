@@ -16,6 +16,7 @@ bool IsCurrentFixedRoomBossFight(void);
 bool IsMarowakTrainingMaze(void);
 bool FixedRoomIsSubstituteRoom(void);
 bool StoryRestrictionsEnabled(void);
+int GetScenarioBalanceVeneer(void);
 void FadeToBlack(void);
 struct tile* GetTileAtEntity(struct entity* entity);
 struct entity* SpawnTrap(enum trap_id trap_id, struct position* position, uint8_t team,
@@ -119,6 +120,7 @@ bool HasSuperEffectiveMoveAgainstUser(struct entity* user, struct entity* target
                                       bool ignore_moves_with_max_ginseng_not_99);
 bool CheckSpawnThreshold(enum monster_id monster_id);
 bool HasLowHealth(struct entity* entity);
+bool AreEntitiesAdjacent(struct entity* first, struct entity* second);
 bool IsSpecialStoryAlly(struct monster* monster);
 bool IsExperienceLocked(struct monster* monster);
 void InitTeam(undefined param_1);
