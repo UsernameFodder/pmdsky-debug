@@ -444,7 +444,9 @@ overlay29:
         return: Visibility range of the current floor, or 2 if the visibility is 0.
     - name: PlayEffectAnimation
       address:
+        EU: 0x22E3F94
         NA: 0x22E35E4
+        JP: 0x22E4C54
       description: |-
         Just a guess. This appears to be paired often with GetEffectAnimationField0x19, and also has calls AnimationHasMoreFrames in a loop alongside AdvanceFrame(66) calls.
         
@@ -470,14 +472,18 @@ overlay29:
         r0: entity pointer
     - name: PlayEffectAnimation0x171Full
       address:
+        EU: 0x22E49C8
         NA: 0x22E4018
+        JP: 0x22E5688
       description: |-
         Just a guess. Calls PlayEffectAnimation with data from animation ID 0x171, with the third parameter of PlayEffectAnimation set to true.
         
         r0: entity pointer
     - name: PlayEffectAnimation0x171
       address:
+        EU: 0x22E4A1C
         NA: 0x22E406C
+        JP: 0x22E56DC
       description: |-
         Just a guess. Calls PlayEffectAnimation with data from animation ID 0x171.
         
@@ -506,7 +512,9 @@ overlay29:
         r0: entity pointer
     - name: PlayEffectAnimation0x18E
       address:
+        EU: 0x22E6D88
         NA: 0x22E63D8
+        JP: 0x22E7A48
       description: |-
         Just a guess. Calls PlayEffectAnimation with data from animation ID 0x18E.
         
@@ -642,7 +650,9 @@ overlay29:
         r0: ? - Unused by the function
     - name: SetDungeonRngPreseed23Bit
       address:
+        EU: 0x22EB318
         NA: 0x22EA968
+        JP: 0x22EBFD0
       description: |-
         Sets the preseed in the global dungeon PRNG state, using 23 bits from the input. See GenerateDungeonRngSeed for more information.
         
@@ -998,7 +1008,9 @@ overlay29:
         return: true
     - name: IsSecretBazaarNpcBehavior
       address:
+        EU: 0x22F04B8
         NA: 0x22EFB04
+        JP: 0x22F1108
       description: |-
         Checks if a behavior ID corresponds to one of the Secret Bazaar NPCs.
         
@@ -1401,6 +1413,7 @@ overlay29:
         return: bool
     - name: CountMovesOutOfPp
       address:
+        EU: 0x22FBAB4
         NA: 0x22FB0A8
       description: |-
         Returns how many of a monster's move are out of PP.
@@ -1603,7 +1616,9 @@ overlay29:
         return: number of characters printed, excluding the null-terminator
     - name: IsMonsterDrowsy
       address:
+        EU: 0x2300EDC
         NA: 0x23004B0
+        JP: 0x2301894
       description: |-
         Checks if a monster has the sleep, nightmare, or yawning status. Note that this excludes the napping status.
         
@@ -1611,7 +1626,9 @@ overlay29:
         return: bool
     - name: MonsterHasNonvolatileNonsleepStatus
       address:
+        EU: 0x2300F10
         NA: 0x23004E4
+        JP: 0x23018C8
       description: |-
         Checks if a monster has one of the statuses in the "burn" group, which includes the traditionally non-volatile status conditions (except sleep) in the main series: STATUS_BURN, STATUS_POISONED, STATUS_BADLY_POISONED, STATUS_PARALYSIS, and STATUS_IDENTIFYING.
         
@@ -1621,7 +1638,9 @@ overlay29:
         return: bool
     - name: MonsterHasImmobilizingStatus
       address:
+        EU: 0x2300F2C
         NA: 0x2300500
+        JP: 0x23018E4
       description: |-
         Checks if a monster has one of the non-self-inflicted statuses in the "freeze" group, which includes status conditions that immobilize the monster: STATUS_FROZEN, STATUS_SHADOW_HOLD, STATUS_WRAPPED, STATUS_PETRIFIED, STATUS_CONSTRICTION, and STATUS_FAMISHED.
         
@@ -1629,7 +1648,9 @@ overlay29:
         return: bool
     - name: MonsterHasAttackInterferingStatus
       address:
+        EU: 0x2300F4C
         NA: 0x2300520
+        JP: 0x2301904
       description: |-
         Checks if a monster has one of the statuses in the "cringe" group, which includes status conditions that interfere with the monster's ability to attack: STATUS_CRINGE, STATUS_CONFUSED, STATUS_PAUSED, STATUS_COWERING, STATUS_TAUNTED, STATUS_ENCORE, STATUS_INFATUATED, and STATUS_DOUBLE_SPEED.
         
@@ -1639,7 +1660,9 @@ overlay29:
         return: bool
     - name: MonsterHasSkillInterferingStatus
       address:
+        EU: 0x2300F68
         NA: 0x230053C
+        JP: 0x2301920
       description: |-
         Checks if a monster has one of the non-self-inflicted statuses in the "curse" group, which loosely includes status conditions that interfere with the monster's skills or ability to do things: STATUS_CURSED, STATUS_DECOY, STATUS_GASTRO_ACID, STATUS_HEAL_BLOCK, STATUS_EMBARGO.
         
@@ -1647,7 +1670,9 @@ overlay29:
         return: bool
     - name: MonsterHasLeechSeedStatus
       address:
+        EU: 0x2300FB4
         NA: 0x2300588
+        JP: 0x230196C
       description: |-
         Checks if a monster is afflicted with Leech Seed.
         
@@ -1655,7 +1680,9 @@ overlay29:
         return: bool
     - name: MonsterHasWhifferStatus
       address:
+        EU: 0x2300FD0
         NA: 0x23005A4
+        JP: 0x2301988
       description: |-
         Checks if a monster has the whiffer status.
         
@@ -1663,7 +1690,9 @@ overlay29:
         return: bool
     - name: IsMonsterVisuallyImpaired
       address:
+        EU: 0x2300FEC
         NA: 0x23005C0
+        JP: 0x23019A4
       description: |-
         Checks if a monster's vision is impaired somehow. This includes the checks in IsBlinded, as well as STATUS_CROSS_EYED and STATUS_DROPEYE.
         
@@ -1672,7 +1701,9 @@ overlay29:
         return: bool
     - name: IsMonsterMuzzled
       address:
+        EU: 0x2301028
         NA: 0x23005FC
+        JP: 0x23019E0
       description: |-
         Checks if a monster has the muzzled status.
         
@@ -1680,7 +1711,9 @@ overlay29:
         return: bool
     - name: MonsterHasMiracleEyeStatus
       address:
+        EU: 0x2301044
         NA: 0x2300618
+        JP: 0x23019FC
       description: |-
         Checks if a monster has the Miracle Eye status.
         
@@ -1688,7 +1721,9 @@ overlay29:
         return: bool
     - name: MonsterHasNegativeStatus
       address:
+        EU: 0x2301060
         NA: 0x2300634
+        JP: 0x2301A18
       description: |-
         Checks if a monster has any "negative" status conditions. This includes a wide variety of non-self-inflicted statuses that could traditionally be viewed as actual "status conditions", as well as speed being lowered and moves being sealed.
         
@@ -1697,7 +1732,9 @@ overlay29:
         return: bool
     - name: IsMonsterSleeping
       address:
+        EU: 0x23011D4
         NA: 0x23007A8
+        JP: 0x2301B8C
       description: |-
         Checks if a monster has the sleep, nightmare, or napping status.
         
@@ -1918,6 +1955,7 @@ overlay29:
         return: move power
     - name: UpdateStateFlags
       address:
+        EU: 0x2302DEC
         NA: 0x23023C0
       description: |-
         Updates monster::state_flags and monster::prev_state_flags with new values.
@@ -2040,7 +2078,9 @@ overlay29:
         r1: ?
     - name: ApplyDamageAndEffects
       address:
+        EU: 0x2309068
         NA: 0x230863C
+        JP: 0x2309C1C
       description: |-
         Calls ApplyDamage, then performs various "post-damage" effects such as counter damage, statuses from abilities that activate on contact, and probably some other stuff.
         
@@ -2099,7 +2139,9 @@ overlay29:
         return: enum type_matchup
     - name: ScrappyShouldActivate
       address:
+        EU: 0x230B5CC
         NA: 0x230AB58
+        JP: 0x230C0D0
       description: |-
         Checks whether Scrappy should activate.
         
@@ -2111,7 +2153,9 @@ overlay29:
         return: bool
     - name: IsTypeIneffectiveAgainstGhost
       address:
+        EU: 0x230B664
         NA: 0x230ABF0
+        JP: 0x230C168
       description: |-
         Checks whether a type is normally ineffective against Ghost, i.e., it's Normal or Fighting.
         
@@ -2119,7 +2163,9 @@ overlay29:
         return: bool
     - name: GhostImmunityIsActive
       address:
+        EU: 0x230B678
         NA: 0x230AC04
+        JP: 0x230C17C
       description: |-
         Checks whether the defender's typing would give it Ghost immunities.
         
@@ -2148,6 +2194,7 @@ overlay29:
         return: enum type_matchup
     - name: CalcTypeBasedDamageEffects
       address:
+        EU: 0x230B778
         NA: 0x230AD04
       description: |-
         Calculates type-based effects on damage.
@@ -2264,7 +2311,9 @@ overlay29:
         others: ?
     - name: UpdateShopkeeperModeAfterAttack
       address:
+        EU: 0x230DEB4
         NA: 0x230D440
+        JP: 0x230E97C
       description: |-
         Updates the shopkeeper mode of a monster in response to being struck by an attack.
         
@@ -2667,7 +2716,9 @@ overlay29:
         r3: number of stages
     - name: FlashFireShouldActivate
       address:
+        EU: 0x23146D4
         NA: 0x2313C74
+        JP: 0x231515C
       description: |-
         Checks whether Flash Fire should activate, assuming the defender is being hit by a Fire-type move.
         
@@ -2830,7 +2881,9 @@ overlay29:
         r3: ?
     - name: ExclusiveItemEffectIsActiveWithLogging
       address:
+        EU: 0x23157A0
         NA: 0x2314D40
+        JP: 0x2316214
       description: |-
         Calls ExclusiveItemEffectIsActive, then logs the specified message if indicated.
         
@@ -3095,7 +3148,9 @@ overlay29:
         return: move target and range
     - name: GetEntityNaturalGiftInfo
       address:
+        EU: 0x231B8F0
         NA: 0x231AE90
+        JP: 0x231C360
       description: |-
         Gets the relevant entry in NATURAL_GIFT_ITEM_TABLE based on the entity's held item, if possible.
         
@@ -3103,7 +3158,9 @@ overlay29:
         return: pointer to a struct natural_gift_item_info, or null if none was found
     - name: GetEntityWeatherBallType
       address:
+        EU: 0x231B96C
         NA: 0x231AF0C
+        JP: 0x231C3DC
       description: |-
         Gets the current Weather Ball type for the given entity, based on the apparent weather.
         
@@ -3195,7 +3252,9 @@ overlay29:
         return: bool
     - name: CategoryIsNotPhysical
       address:
+        EU: 0x231F498
         NA: 0x231EA30
+        JP: 0x231FEDC
       description: |-
         Checks that a move category is not CATEGORY_PHYSICAL.
         
@@ -3290,6 +3349,7 @@ overlay29:
         return: True if the move's max Ginseng boost is 99, false otherwise.
     - name: TwoTurnMoveForcedMiss
       address:
+        EU: 0x23252BC
         NA: 0x2324854
       description: |-
         Checks if a move should miss a monster due to the monster being in the middle of Fly, Bounce, Dive, Dig, Shadow Force, or some other two-turn move that grants pseudo-invincibility.
@@ -3448,7 +3508,9 @@ overlay29:
         return: amount of damage dealt
     - name: DealDamageWithTypeAndPowerBoost
       address:
+        EU: 0x23335F8
         NA: 0x2332BB8
+        JP: 0x2333FA8
       description: |-
         Same as DealDamage, except with an explicit move type and a base power boost.
         
@@ -3477,7 +3539,9 @@ overlay29:
         return: Calculated damage
     - name: DealDamageWithType
       address:
+        EU: 0x233371C
         NA: 0x2332CDC
+        JP: 0x23340CC
       description: |-
         Same as DealDamage, except with an explicit move type.
         
@@ -3653,7 +3717,9 @@ overlay29:
         return: monster ID?
     - name: NearbyAllyIqSkillIsEnabled
       address:
+        EU: 0x2338E58
         NA: 0x2338288
+        JP: 0x233964C
       description: |-
         Appears to check whether or not the given monster has any allies nearby (within 1 tile) that have the given IQ skill active.
         
@@ -5050,7 +5116,9 @@ overlay29:
         r0: mission struct
     - name: LogMessageByIdWithPopupCheckParticipants
       address:
+        EU: 0x234BE50
         NA: 0x234B250
+        JP: 0x234C4C0
       description: |-
         Logs the appropriate message based on the participating entites; this function calls LogMessageByIdWithPopupCheckUserTarget is both the user and target pointers are non-null, otherwise it calls LogMessageByIdWithPopupCheckUser if the user pointer is non-null, otherwise doesn't log anything.
         

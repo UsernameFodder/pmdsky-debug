@@ -30,7 +30,9 @@ overlay10:
         return: number of characters printed, excluding the null-terminator
     - name: GetEffectAnimationField0x19
       address:
+        EU: 0x22BE7F4
         NA: 0x22BDEB4
+        JP: 0x22BF658
       description: |-
         Calls GetEffectAnimation and returns field 0x19.
         
@@ -38,7 +40,9 @@ overlay10:
         return: GetEffectAnimation(anim_id)->field_0x19.
     - name: AnimationHasMoreFrames
       address:
+        EU: 0x22C0244
         NA: 0x22BF904
+        JP: 0x22C10A8
       description: |-
         Just a guess. This is called in a loop in PlayEffectAnimation, and the output controls whether or not AdvanceFrame continues to be called.
         

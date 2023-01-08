@@ -160,7 +160,9 @@ itcm:
         r0: Entity pointer
     - name: LightningRodStormDrainCheck
       address:
+        EU: 0x20B7B1C
         NA: 0x20B71DC
+        JP: 0x20B8AA4
         NA-ITCM: 0x1FFBE5C
       description: |-
         Appears to check whether LightningRod or Storm Drain should draw in a move.

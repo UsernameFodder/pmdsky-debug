@@ -233,7 +233,9 @@ arm9:
         return: number // 256
     - name: UFixedPoint64CmpLt
       address:
+        EU: 0x2001A30
         NA: 0x2001A30
+        JP: 0x2001A30
       description: |-
         Compares two unsigned 64-bit fixed-point numbers (16 fraction bits) x and y.
         
@@ -266,7 +268,9 @@ arm9:
         return: x * multiplier
     - name: IntToFixedPoint64
       address:
+        EU: 0x2001C80
         NA: 0x2001C80
+        JP: 0x2001C80
       description: |-
         Converts a signed integer to a 64-bit fixed-point number (16 fraction bits).
         
@@ -276,7 +280,9 @@ arm9:
         r1: 32-bit signed int
     - name: FixedPoint64ToInt
       address:
+        EU: 0x2001CB0
         NA: 0x2001CB0
+        JP: 0x2001CB0
       description: |-
         Converts a 64-bit fixed-point number (16 fraction bits) to a signed integer.
         
@@ -284,7 +290,9 @@ arm9:
         return: 32-bit signed
     - name: FixedPoint32To64
       address:
+        EU: 0x2001CD4
         NA: 0x2001CD4
+        JP: 0x2001CD4
       description: |-
         Converts a 32-bit fixed-point number (8 fraction bits) to a 64-bit fixed point number (16 fraction bits). Sign-extends as necessary.
         
@@ -292,14 +300,18 @@ arm9:
         r1: 32-bit signed fixed-point number
     - name: NegateFixedPoint64
       address:
+        EU: 0x2001CF8
         NA: 0x2001CF8
+        JP: 0x2001CF8
       description: |-
         Negates a 64-bit fixed-point number (16 fraction bits) in-place.
         
         r0: 64-bit fixed-point number to negate
     - name: FixedPoint64IsZero
       address:
+        EU: 0x2001D28
         NA: 0x2001D28
+        JP: 0x2001D28
       description: |-
         Checks whether a 64-bit fixed-point number (16 fraction bits) is zero.
         
@@ -307,7 +319,9 @@ arm9:
         return: bool
     - name: FixedPoint64IsNegative
       address:
+        EU: 0x2001D50
         NA: 0x2001D50
+        JP: 0x2001D50
       description: |-
         Checks whether a 64-bit fixed-point number (16 fraction bits) is negative.
         
@@ -315,7 +329,9 @@ arm9:
         return: bool
     - name: FixedPoint64CmpLt
       address:
+        EU: 0x2001D68
         NA: 0x2001D68
+        JP: 0x2001D68
       description: |-
         Compares two signed 64-bit fixed-point numbers (16 fraction bits) x and y.
         
@@ -324,7 +340,9 @@ arm9:
         return: x < y
     - name: MultiplyFixedPoint64
       address:
+        EU: 0x2001DF4
         NA: 0x2001DF4
+        JP: 0x2001DF4
       description: |-
         Multiplies two signed 64-bit fixed-point numbers (16 fraction bits) x and y.
         
@@ -333,7 +351,9 @@ arm9:
         r2: y
     - name: DivideFixedPoint64
       address:
+        EU: 0x2001EC8
         NA: 0x2001EC8
+        JP: 0x2001EC8
       description: |-
         Divides two signed 64-bit fixed-point numbers (16 fraction bits).
         
@@ -344,7 +364,9 @@ arm9:
         r2: divisor
     - name: UMultiplyFixedPoint64
       address:
+        EU: 0x2001FA0
         NA: 0x2001FA0
+        JP: 0x2001FA0
       description: |-
         Multiplies two unsigned 64-bit fixed-point numbers (16 fraction bits) x and y.
         
@@ -353,7 +375,9 @@ arm9:
         r2: y
     - name: UDivideFixedPoint64
       address:
+        EU: 0x2002084
         NA: 0x2002084
+        JP: 0x2002084
       description: |-
         Divides two unsigned 64-bit fixed-point numbers (16 fraction bits).
         
@@ -364,7 +388,9 @@ arm9:
         r2: divisor
     - name: AddFixedPoint64
       address:
+        EU: 0x20021C8
         NA: 0x20021C8
+        JP: 0x20021C8
       description: |-
         Adds two 64-bit fixed-point numbers (16 fraction bits) x and y.
         
@@ -373,7 +399,9 @@ arm9:
         r2: y
     - name: ClampedLn
       address:
+        EU: 0x20021F4
         NA: 0x20021F4
+        JP: 0x20021F4
       description: |-
         The natural log function over the domain of [1, 2047]. The input is clamped to this domain.
         
