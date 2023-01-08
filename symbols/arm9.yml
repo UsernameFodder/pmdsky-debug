@@ -3357,6 +3357,7 @@ arm9:
       address:
         EU: 0x2025BD8
         NA: 0x202590C
+        JP: 0x20258EC
       description: |-
         Gets the string corresponding to a given message ID and copies it to the buffer specified in r0.
         
@@ -3675,6 +3676,7 @@ arm9:
       address:
         EU: 0x2041D3C
         NA: 0x2041A40
+        JP: 0x2041DA8
       description: |-
         Draws the IQ skills menu for a certain monster.
         
@@ -6258,6 +6260,7 @@ arm9:
       address:
         EU: 0x2059054
         NA: 0x2058CD8
+        JP: 0x2058FD4
       description: |-
         Returns whether an IQ skill can be learned with a given IQ amount or not.
         
@@ -6270,6 +6273,7 @@ arm9:
       address:
         EU: 0x2059080
         NA: 0x2058D04
+        JP: 0x2059000
       description: |-
         Determines the list of IQ skills that a given monster can learn given its IQ value.
         
@@ -6283,6 +6287,7 @@ arm9:
       address:
         EU: 0x2059120
         NA: 0x2058DA4
+        JP: 0x20590A0
       description: |-
         Disables an IQ skill.
         
@@ -6292,6 +6297,7 @@ arm9:
       address:
         EU: 0x2059170
         NA: 0x2058DF4
+        JP: 0x20590F0
       description: |-
         Enables an IQ skill and disables any other skills that are incompatible with it.
         
@@ -6301,6 +6307,7 @@ arm9:
       address:
         EU: 0x20591E4
         NA: 0x2058E68
+        JP: 0x2059164
       description: |-
         Gets the <index>th skill on the list of IQ skills that a given monster species can learn.
         
@@ -6322,6 +6329,7 @@ arm9:
       address:
         EU: 0x20592A0
         NA: 0x2058F24
+        JP: 0x2059220
       description: |-
         Returns the next IQ skill that a given monster will learn given its current IQ value, or IQ_NONE if the monster won't learn any more skills.
         

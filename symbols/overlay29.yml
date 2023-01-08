@@ -305,6 +305,7 @@ overlay29:
       address:
         EU: 0x22E308C
         NA: 0x22E274C
+        JP: 0x22E3DE0
       description: |-
         Checks if a given monster can see another monster.
         
@@ -318,7 +319,7 @@ overlay29:
       address:
         EU: 0x22E3150
         NA: 0x22E2810
-        JP: 0x22E3DE0
+        JP: 0x22E3EA4
       description: |-
         Checks if a monster can target another entity when controlled by the AI.
         More specifically, it checks if the target is invisible, if the user can see invisible monsters, if the user is blinded and if the target position is in sight from the position of the user (this last check is done by calling IsPositionInSight with the user's and the target's position).
@@ -458,6 +459,7 @@ overlay29:
       address:
         EU: 0x22E5314
         NA: 0x22E4964
+        JP: 0x22E5FD4
       description: |-
         Displays the graphical effect on a monster that just recovered PP.
         
@@ -531,6 +533,7 @@ overlay29:
       address:
         EU: 0x22E9A7C
         NA: 0x22E90CC
+        JP: 0x22EA734
       description: |-
         Checks if a given target position is in sight from a given origin position.
         If the origin position is on a hallway or r2 is true, checks if both positions are within <dungeon::display_data::visibility_range> tiles of each other.
@@ -930,6 +933,7 @@ overlay29:
       address:
         EU: 0x22F0420
         NA: 0x22EFA6C
+        JP: 0x22F1070
       description: |-
         Always returns true. Called by SpecificRecruitCheck.
         
@@ -1335,6 +1339,7 @@ overlay29:
       address:
         EU: 0x22FBB18
         NA: 0x22FB10C
+        JP: 0x22FC694
       description: |-
         Checks if the target has at least one super effective move against the user.
         
@@ -1368,6 +1373,7 @@ overlay29:
       address:
         EU: 0x22FC084
         NA: 0x22FB678
+        JP: 0x22FCB4C
       description: |-
         Checks whether two entities are adjacent or not.
         
@@ -1703,6 +1709,7 @@ overlay29:
       address:
         EU: 0x23029E8
         NA: 0x2301FBC
+        JP: 0x230350C
       description: |-
         Updates the IQ skill flags of a monster.
         
@@ -1865,6 +1872,7 @@ overlay29:
       address:
         EU: 0x230B480
         NA: 0x230AA0C
+        JP: 0x230BF88
       description: |-
         Checks if the defender has the Aftermath ability and tries to activate it if so (50% chance).
         
@@ -1878,6 +1886,7 @@ overlay29:
       address:
         EU: 0x230B500
         NA: 0x230AA8C
+        JP: 0x230C004
       description: |-
         Gets the type matchup for a given combat interaction, accounting for both of the user's types.
         
@@ -2004,6 +2013,7 @@ overlay29:
       address:
         EU: 0x230E588
         NA: 0x230DB14
+        JP: 0x230F054
       description: |-
         Checks if a specific monster can be recruited. Called by RecruitCheck.
         
@@ -2770,6 +2780,7 @@ overlay29:
       address:
         EU: 0x231B200
         NA: 0x231A7A0
+        JP: 0x231BC70
       description: |-
         Checks if a monster should use PP when using a move. It also displays the corresponding animation if PP Saver triggers and prints the required messages to the message log.
         
@@ -2951,6 +2962,7 @@ overlay29:
       address:
         EU: 0x2325200
         NA: 0x2324798
+        JP: 0x2325C28
       description: |-
         Checks if a move has a max Ginseng boost value of 99
         
