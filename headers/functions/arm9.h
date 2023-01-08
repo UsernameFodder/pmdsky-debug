@@ -561,7 +561,7 @@ uint8_t GetSpriteSize(enum monster_id monster_id);
 uint8_t GetSpriteFileSize(enum monster_id monster_id);
 int GetShadowSize(enum monster_id monster_id);
 int GetSpeedStatus(enum monster_id monster_id);
-int GetMovementType(enum monster_id monster_id);
+enum mobility_type GetMobilityType(enum monster_id monster_id);
 int GetRegenSpeed(enum monster_id monster_id);
 bool GetCanMoveFlag(enum monster_id monster_id);
 int GetChanceAsleep(enum monster_id monster_id);

@@ -51,6 +51,13 @@ bool IsPositionActuallyInSight(struct position* origin, struct position* target,
 bool IsPositionInSight(struct position* origin, struct position* target, bool user_has_dropeye);
 struct entity* GetLeader(void);
 struct monster* GetLeaderMonster(void);
+bool FindNearbyUnoccupiedTile(struct position* pos_out, struct position* origin,
+                              struct position* search_list, int search_list_len, bool random_room);
+bool FindClosestUnoccupiedTileWithin2(struct position* pos_out, struct position* origin,
+                                      bool random_room);
+bool FindFarthestUnoccupiedTileWithin2(struct position* pos_out, struct position* origin,
+                                       bool random_room);
+bool FindUnoccupiedTileWithin3(struct position* pos_out, struct position* origin, bool random_room);
 uint8_t TickStatusTurnCounter(uint8_t* counter);
 void AdvanceFrame(undefined param_1);
 void SetDungeonRngPreseed23Bit(uint32_t preseed23);
@@ -132,14 +139,19 @@ bool HasLowHealth(struct entity* entity);
 bool AreEntitiesAdjacent(struct entity* first, struct entity* second);
 bool IsSpecialStoryAlly(struct monster* monster);
 bool IsExperienceLocked(struct monster* monster);
-void InitTeam(undefined param_1);
+void SpawnTeam(undefined param_1);
+void SpawnInitialMonsters(void);
 struct entity* SpawnMonster(struct spawned_monster_data* monster_data, bool cannot_be_asleep);
 void InitTeamMember(enum monster_id, int16_t x_position, int16_t y_position,
                     struct team_member* team_member_data, undefined param_5, undefined param_6,
                     undefined param_7, undefined param_8, undefined param_9);
 void InitMonster(struct monster* monster, bool flag);
+void MarkShopkeeperSpawn(int x, int y, enum monster_id monster_id, enum monster_behavior behavior);
+void SpawnShopkeepers(void);
+void GetOutlawSpawnData(struct spawned_target_data* outlaw);
 void ExecuteMonsterAction(struct entity* monster);
 bool HasStatusThatPreventsActing(struct entity* monster);
+bool IsInvalidSpawnTile(enum monster_id monster_id, struct tile* tile);
 int CalcSpeedStage(struct entity* entity, int counter_weight);
 int CalcSpeedStageWrapper(struct entity* entity);
 int GetNumberOfAttacks(struct entity* entity);
@@ -186,6 +198,7 @@ uint8_t GetSleepAnimationId(struct entity* entity);
 bool DisplayActions(struct entity* param_1);
 void EndFrozenClassStatus(struct entity* user, struct entity* target, bool log);
 void EndCringeClassStatus(struct entity* user, struct entity* target);
+void TryTriggerMonsterHouse(struct entity* entity, bool outside_enemies);
 void RunMonsterAi(struct entity* monster, undefined param_2);
 void ApplyDamageAndEffects(struct entity* attacker, struct entity* defender,
                            struct damage_data* damage_data, bool false_swipe, bool exp_on_faint,
@@ -388,6 +401,7 @@ bool IsFullFloorFixedRoom(void);
 uint8_t GetStairsRoom(void);
 enum monster_id GetRandomSpawnMonsterID(void);
 bool NearbyAllyIqSkillIsEnabled(struct entity* entity, enum iq_skill_id iq_skill);
+void ResetGravity(void);
 bool GravityIsActive(void);
 bool ShouldBoostKecleonShopSpawnChance(void);
 void SetShouldBoostKecleonShopSpawnChance(bool value);
@@ -459,8 +473,8 @@ void InitializeTile(struct tile* tile);
 void ResetFloor(void);
 bool PosIsOutOfBounds(int x, int y);
 void ShuffleSpawnPositions(struct spawn_position* spawn_positions, int n_spawn_positions);
-void SpawnNonEnemies(struct floor_properties* floor_props, bool empty_monster_house);
-void SpawnEnemies(struct floor_properties* floor_props, bool empty_monster_house);
+void MarkNonEnemySpawns(struct floor_properties* floor_props, bool empty_monster_house);
+void MarkEnemySpawns(struct floor_properties* floor_props, bool empty_monster_house);
 void SetSecondaryTerrainOnWall(struct tile* tile);
 void GenerateSecondaryTerrainFormations(uint8_t test_flag, struct floor_properties* floor_props);
 bool StairsAlwaysReachable(int x_stairs, int y_stairs, bool mark_unreachable);
@@ -504,6 +518,7 @@ bool CheckTeamItemsFlags(int flags);
 void GenerateItem(struct item* item, enum item_id item_id, uint16_t quantity,
                   enum gen_item_stickiness sticky_type);
 bool CheckActiveChallengeRequest(void);
+struct mission_destination_info* GetMissionDestination(void);
 bool IsOutlawOrChallengeRequestFloor(void);
 bool IsDestinationFloor(void);
 bool IsCurrentMissionType(enum mission_type type);
