@@ -5605,16 +5605,16 @@ arm9:
         
         r0: id
         return: speed status
-    - name: GetMovementType
+    - name: GetMobilityType
       address:
         EU: 0x2052BAC
         NA: 0x2052874
         JP: 0x2052BAC
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Gets the mobility type for a given monster.
         
-        r0: id
-        return: movement type
+        r0: monster ID
+        return: mobility type
     - name: GetRegenSpeed
       address:
         EU: 0x2052BC8

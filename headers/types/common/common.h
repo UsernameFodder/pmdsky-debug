@@ -618,7 +618,7 @@ struct dungeon_init {
     struct item_id_16 help_item;
     undefined field_0xAA;
     undefined field_0xAB;
-    undefined field_0xAC; // Copied into dungeon::field_0x7CC
+    bool boost_max_money_amount; // 0xAC: Copied into dungeon::boost_max_money_amount
     undefined field_0xAD;
     undefined field_0xAE;
     undefined field_0xAF;

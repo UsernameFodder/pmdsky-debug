@@ -629,6 +629,62 @@ overlay29:
         Returns a pointer to the monster data of the current leader.
         
         No params.
+    - name: FindNearbyUnoccupiedTile
+      address:
+        EU: 0x22EA1F4
+        NA: 0x22E9844
+        JP: 0x22EAEAC
+      description: |-
+        Searches for an unoccupied tile near some origin.
+        
+        A tile is considered "unoccupied" if it's not a key door, and has no object or monster on it. In "random room" mode, the tile must also not be in a hallway, and must not have the stairs.
+        
+        The first unoccupied tile found is returned. The search order is randomized in "random room" mode, otherwise the search order is fixed based on the input displacement array.
+        
+        r0: [output] position
+        r1: origin position
+        r2: array of displacements from the origin position to consider
+        r3: number of elements in displacements array
+        stack[0]: random room mode flag
+        return: whether a tile was successfully found
+    - name: FindClosestUnoccupiedTileWithin2
+      address:
+        NA: 0x22E99F0
+      description: |-
+        Searches for the closest unoccupied tile within 2 steps of the given origin.
+        
+        Calls FindNearbyUnoccupiedTile with DISPLACEMENTS_WITHIN_2_SMALLEST_FIRST.
+        
+        r0: [output] position
+        r1: origin position
+        r2: random room mode flag
+        return: whether a tile was successfully found
+    - name: FindFarthestUnoccupiedTileWithin2
+      address:
+        NA: 0x22E9A0C
+      description: |-
+        Searches for the farthest unoccupied tile within 2 steps of the given origin.
+        
+        Calls FindNearbyUnoccupiedTile with DISPLACEMENTS_WITHIN_2_LARGEST_FIRST.
+        
+        r0: [output] position
+        r1: origin position
+        r2: random room mode flag
+        return: whether a tile was successfully found
+    - name: FindUnoccupiedTileWithin3
+      address:
+        EU: 0x22EA3D8
+        NA: 0x22E9A28
+        JP: 0x22EB090
+      description: |-
+        Searches for an unoccupied tile within 3 steps of the given origin.
+        
+        Calls FindNearbyUnoccupiedTile with DISPLACEMENTS_WITHIN_3.
+        
+        r0: [output] position
+        r1: origin position
+        r2: random room mode flag
+        return: whether a tile was successfully found
     - name: TickStatusTurnCounter
       address:
         EU: 0x22EA3F4
@@ -1491,15 +1547,26 @@ overlay29:
         
         r0: monster pointer
         return: bool
-    - name: InitTeam
+    - name: SpawnTeam
       address:
         EU: 0x22FCF08
         NA: 0x22FC50C
         JP: 0x22FD8FC
       description: |-
-        Seems to initialize the team when entering a dungeon.
+        Seems to initialize and spawn the team when entering a dungeon.
         
         r0: ?
+    - name: SpawnInitialMonsters
+      address:
+        EU: 0x22FD774
+        NA: 0x22FCD78
+        JP: 0x22FE16C
+      description: |-
+        Tries to spawn monsters on all the tiles marked for monster spawns. This includes normal enemies and mission targets (rescue targets, outlaws, etc.).
+        
+        A random initial position is selected as a starting point. Tiles are then swept over left-to-right, top-to-bottom, wrapping around when the map boundary is reached, until all tiles have been checked. The first marked tile encountered in the sweep is reserved for the mission target, but the actual spawning of the target is done last.
+        
+        No params.
     - name: SpawnMonster
       address:
         EU: 0x22FDA80
@@ -1538,6 +1605,38 @@ overlay29:
         
         r0: pointer to monster to initialize
         r1: some flag
+    - name: MarkShopkeeperSpawn
+      address:
+        EU: 0x22FEB94
+        NA: 0x22FE198
+        JP: 0x22FF580
+      description: |-
+        Add a shopkeeper spawn to the list on the dungeon struct. Actual spawning is done later by SpawnShopkeepers.
+        
+        If an existing entry in dungeon::shopkeeper_spawns exists with the same position, that entry is reused for the new spawn data. Otherwise, a new entry is appended to the array.
+        
+        r0: x position
+        r1: y position
+        r2: monster ID
+        r3: monster behavior
+    - name: SpawnShopkeepers
+      address:
+        EU: 0x22FEC48
+        NA: 0x22FE24C
+        JP: 0x22FF634
+      description: |-
+        Spawns all the shopkeepers in the dungeon struct's shopkeeper_spawns array.
+        
+        No params.
+    - name: GetOutlawSpawnData
+      address:
+        EU: 0x22FEE1C
+        NA: 0x22FE420
+        JP: 0x22FF808
+      description: |-
+        Gets outlaw spawn data for the current floor.
+        
+        r0: [output] Outlaw spawn data
     - name: ExecuteMonsterAction
       address:
         EU: 0x22FEEDC
@@ -1557,6 +1656,22 @@ overlay29:
         
         r0: Entity pointer
         return: True if the specified monster can't act because of a status problem, false otherwise.
+    - name: IsInvalidSpawnTile
+      address:
+        EU: 0x23000F0
+        NA: 0x22FF6C4
+        JP: 0x2300AB4
+      description: |-
+        Checks if a monster cannot spawn on the given tile for some reason.
+        
+        Reasons include:
+        - There's another monster on the tile
+        - The tile is an impassable wall
+        - The monster does not have the required mobility to stand on the tile
+        
+        r0: monster ID
+        r1: tile pointer
+        return: true means the monster CANNOT spawn on this tile
     - name: CalcSpeedStage
       address:
         EU: 0x2300820
@@ -2067,6 +2182,20 @@ overlay29:
         
         r0: pointer to user
         r1: pointer to target
+    - name: TryTriggerMonsterHouse
+      address:
+        EU: 0x2308978
+        NA: 0x2307F4C
+        JP: 0x2309480
+      description: |-
+        Triggers a Monster House for an entity, if the right conditions are met.
+        
+        Conditions: entity is valid and on the team, the tile is a Monster House tile, and the Monster House hasn't already been triggered.
+        
+        This function sets the monster_house_triggered flag on the dungeon struct, spawns a bunch of enemies around the triggering entity (within a 4 tile radius), and handles the "dropping down" animation for these enemies. If the allow outside enemies flag is set, the enemy spawns can be on any free tile (no monster) with open terrain, including in hallways. Otherwise, spawns are confined within the room boundaries.
+        
+        r0: entity for which the Monster House should be triggered
+        r1: allow outside enemies flag (in practice this is always set to dungeon_generation_info::force_create_monster_house)
     - name: RunMonsterAi
       address:
         EU: 0x2308D6C
@@ -3726,6 +3855,15 @@ overlay29:
         r0: entity pointer
         r1: IQ skill ID
         return: bool
+    - name: ResetGravity
+      address:
+        EU: 0x2338F3C
+        NA: 0x233836C
+        JP: 0x2339730
+      description: |-
+        Resets gravity (and the byte after it?) in the dungeon struct back to 0.
+        
+        No params.
     - name: GravityIsActive
       address:
         EU: 0x2338F60
@@ -4432,13 +4570,13 @@ overlay29:
         
         r0: spawn position array containing bytes {x1, y1, x2, y2, ...}
         r1: number of (x, y) pairs in the spawn position array
-    - name: SpawnNonEnemies
+    - name: MarkNonEnemySpawns
       address:
         EU: 0x2341930
         NA: 0x2340D4C
         JP: 0x234210C
       description: |-
-        Spawn all non-enemy entities, which includes stairs, items, traps, and the player.
+        Mark tiles for all non-enemy entities, which includes stairs, items, traps, and the player. Note that this only marks tiles; actual spawning is handled later.
         
         Most entities are spawned randomly on a subset of permissible tiles.
         
@@ -4452,13 +4590,13 @@ overlay29:
         
         r0: floor properties
         r1: empty Monster House flag. An empty Monster House is one with no items or traps, and only a small number of enemies.
-    - name: SpawnEnemies
+    - name: MarkEnemySpawns
       address:
         EU: 0x2342054
         NA: 0x2341470
         JP: 0x2342830
       description: |-
-        Spawn all enemies, which includes normal enemies and those in Monster Houses.
+        Mark tiles for all enemies, which includes normal enemies and those in Monster Houses. Note that this only marks tiles; actual spawning is handled later in SpawnInitialMonsters.
         
         Normal enemies can spawn on any tile that has open terrain, isn't in a Kecleon shop, doesn't already have another entity spawn, and isn't a special tile like a Key door.
         
@@ -4862,6 +5000,15 @@ overlay29:
         Checks if there's an active challenge request on the current dungeon.
         
         return: True if there's an active challenge request on the current dungeon in the list of missions.
+    - name: GetMissionDestination
+      address:
+        EU: 0x2349DA4
+        NA: 0x23491A4
+        JP: 0x234A4CC
+      description: |-
+        Returns the current mission destination on the dungeon struct.
+        
+        return: &dungeon::mission_destination
     - name: IsOutlawOrChallengeRequestFloor
       address:
         EU: 0x2349DC4
@@ -6028,6 +6175,39 @@ overlay29:
         An array mapping each direction index to its x and y displacements.
         
         Directions start with 0=down and proceed counterclockwise (see enum direction_id). Displacements for x and y are interleaved and encoded as 2-byte signed integers. For example, the first two integers are [0, 1], which correspond to the x and y displacements for the "down" direction (positive y means down).
+    - name: DISPLACEMENTS_WITHIN_2_LARGEST_FIRST
+      address:
+        NA: 0x23517DC
+      length:
+        NA: 0x68
+      description: |-
+        An array of displacement vectors with max norm <= 2, ordered in descending order by norm.
+        
+        The last element, (99, 99), is invalid and used as an end marker.
+        
+        type: position[26]
+    - name: DISPLACEMENTS_WITHIN_2_SMALLEST_FIRST
+      address:
+        NA: 0x2351844
+      length:
+        NA: 0x68
+      description: |-
+        An array of displacement vectors with max norm <= 2, ordered in ascending order by norm.
+        
+        The last element, (99, 99), is invalid and used as an end marker.
+        
+        type: position[26]
+    - name: DISPLACEMENTS_WITHIN_3
+      address:
+        NA: 0x23518AC
+      length:
+        NA: 0xC8
+      description: |-
+        An array of displacement vectors with max norm <= 3. The elements are vaguely in ascending order by norm, but not exactly.
+        
+        The last element, (99, 99), is invalid and used as an end marker.
+        
+        type: position[50]
     - name: ITEM_CATEGORY_ACTIONS
       address:
         EU: 0x2352C1C

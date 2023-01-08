@@ -1547,7 +1547,7 @@ struct prng_state {
 };
 ASSERT_SIZE(struct prng_state, 20);
 
-// Contains the necessary information to spawn a monster.
+// Contains the necessary information to spawn a normal monster.
 // Allocated on the stack and passed via a pointer to SpawnMonster.
 struct spawned_monster_data {
     struct monster_id_16 monster_id;    // 0x0: The id of the monster to spawn
@@ -1565,6 +1565,33 @@ struct spawned_monster_data {
     undefined field_0xf;
 };
 ASSERT_SIZE(struct spawned_monster_data, 16);
+
+// Contains the necessary information to spawn a mission target.
+#pragma pack(push, 1)
+struct spawned_target_data {
+    struct monster_id_16 monster_id;    // 0x0: The id of the monster to spawn
+    struct monster_behavior_8 behavior; // 0x2: NPC behavior of the monster
+    uint8_t _padding_0x3;
+    uint16_t level; // 0x4: The level of the spawned monster
+    bool valid;     // 0x6: Indicates that this spawn data is valid
+    bool visible; // 0x7: Set to false if this is a "hidden outlaw" that behaves like a normal enemy
+    bool pos_assigned; // 0x8: Whether or not a spawn position has been assigned to this monster
+    uint8_t _padding_0x9;
+    struct position pos; // 0xA: Position on the floor where the monster will be spawned
+    undefined field_0xe;
+};
+ASSERT_SIZE(struct spawned_target_data, 15);
+#pragma pack(pop)
+
+// Contains the necessary information to spawn a Kecleon shopkeeper.
+struct spawned_shopkeeper_data {
+    struct monster_id_16 monster_id;    // 0x0: The id of the monster to spawn
+    struct monster_behavior_8 behavior; // 0x2: NPC behavior of the monster
+    bool valid;                         // 0x3: Indicates that this spawn data is valid
+    uint8_t pos_x;                      // 0x4
+    uint8_t pos_y;                      // 0x5
+};
+ASSERT_SIZE(struct spawned_shopkeeper_data, 6);
 
 // Appears to contain diagnostic information related to the damage calculation routines.
 struct damage_calc_diag {
