@@ -1525,7 +1525,7 @@ overlay29:
     - name: TryEatItem
       address:
         EU: 0x22FBC20
-        NA: 0x22BF214
+        NA: 0x22FB214
       description: |-
         The user attempts to eat an item from the target.
         
@@ -6427,7 +6427,7 @@ overlay29:
       length:
         EU: 0x2C
         NA: 0x2C
-      description: "List that matches two-turn move IDs to their corresponding status ID. The last entry is null."
+      description: List that matches two-turn move IDs to their corresponding status ID. The last entry is null.
     - name: SPATK_STAT_IDX
       address:
         EU: 0x23536F4
