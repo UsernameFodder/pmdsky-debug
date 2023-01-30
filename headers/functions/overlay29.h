@@ -22,6 +22,8 @@ struct tile* GetTileAtEntity(struct entity* entity);
 struct entity* SpawnTrap(enum trap_id trap_id, struct position* position, uint8_t team,
                          uint8_t flags);
 struct entity* SpawnItemEntity(struct position* position);
+bool ShouldDisplayEntityMessages(struct entity* entity, undefined param_2);
+bool ShouldDisplayEntityMessagesWrapper(struct entity* entity);
 bool CanSeeTarget(struct entity* user, struct entity* target);
 bool CanTargetEntity(struct entity* user, struct entity* target);
 bool CanTargetPosition(struct entity* monster, struct position* position);
@@ -41,6 +43,7 @@ void ShowPpRestoreEffect(struct entity* entity);
 void PlayEffectAnimation0x1A9(struct entity* entity);
 void PlayEffectAnimation0x18E(struct entity* entity);
 void LoadMappaFileAttributes(int quick_saved, int param_2, undefined* special_process);
+int MonsterSpawnListPartialCopy(struct monster_spawn_entry* buffer, int current_buffer_entries);
 bool IsOnMonsterSpawnList(enum monster_id monster_id);
 enum monster_id GetMonsterIdToSpawn(int spawn_weight);
 uint8_t GetMonsterLevelToSpawn(enum monster_id monster_id);
@@ -78,7 +81,7 @@ void TrySwitchPlace(struct entity* user, struct entity* target);
 void ClearMonsterActionFields(struct action_data* monster_action);
 void SetMonsterActionFields(struct action_data* monster_action, struct action_16 action_id);
 void SetActionPassTurnOrWalk(struct action_data* monster_action, enum monster_id monster_id);
-enum action GetItemAction(int item_id);
+enum action GetItemAction(enum item_id item_id);
 void AddDungeonSubMenuOption(int action_id, bool enabled);
 void DisableDungeonSubMenuOption(int action_id);
 void SetActionRegularAttack(struct action_data* monster_action, enum direction_id direction);
@@ -134,6 +137,7 @@ bool TeamLeaderIqSkillIsEnabled(enum iq_skill_id iq_skill);
 int CountMovesOutOfPp(struct entity* entity);
 bool HasSuperEffectiveMoveAgainstUser(struct entity* user, struct entity* target,
                                       bool ignore_moves_with_max_ginseng_not_99);
+bool TryEatItem(struct entity* user, struct entity* target);
 bool CheckSpawnThreshold(enum monster_id monster_id);
 bool HasLowHealth(struct entity* entity);
 bool AreEntitiesAdjacent(struct entity* first, struct entity* second);
@@ -319,6 +323,8 @@ void RevealEnemies(struct entity* user, struct entity* target);
 bool TryInflictLeechSeedStatus(struct entity* user, struct entity* target, bool log_failure,
                                bool check_only);
 void TryInflictDestinyBond(struct entity* user, struct entity* target);
+void TryInvisify(struct entity* user, struct entity* target);
+void TryTransform(struct entity* user, struct entity* target);
 bool IsBlinded(struct entity* entity, bool check_held_item);
 void RestoreMovePP(struct entity* user, struct entity* target, int pp, bool suppress_logs);
 void SetReflectDamageCountdownTo4(struct entity* entity);
@@ -345,6 +351,8 @@ void ApplyItemEffect(undefined4 param_1, undefined4 param_2, undefined4 param_3,
 void ViolentSeedBoost(struct entity* attacker, struct entity* defender);
 void ApplyGummiBoostsDungeonMode(struct entity* user, struct entity* target,
                                  enum type_id gummi_type, int random_stat_boost);
+bool CanMonsterUseItem(struct entity* entity, struct item* item);
+bool ShouldTryEatItem(enum item_id item_id);
 int GetMaxPpWrapper(struct move* move);
 bool MoveIsNotPhysical(enum move_id move_id);
 bool CategoryIsNotPhysical(enum move_category category_id);
@@ -354,9 +362,11 @@ void TryExplosion(struct entity* user, struct entity* target, struct position* p
                   undefined param_4, undefined param_5, union damage_source damage_source);
 void TryWarp(struct entity* user, struct entity* target, enum warp_type warp_type,
              struct position position);
+int GetMoveRangeDistance(struct entity* user, struct move* move, bool check_two_turn_moves);
 bool MoveHitCheck(struct entity* attacker, struct entity* defender, struct move* move,
                   bool use_second_accuracy, bool never_miss_self);
 bool IsHyperBeamVariant(struct move* move);
+bool IsChargingTwoTurnMove(struct entity* user, struct move* move);
 bool HasMaxGinsengBoost99(struct move* move);
 bool TwoTurnMoveForcedMiss(struct entity* target, struct move* move);
 bool DungeonRandOutcomeUserTargetInteraction(struct entity* user, struct entity* target,

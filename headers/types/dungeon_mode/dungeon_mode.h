@@ -1735,6 +1735,13 @@ struct damage_negating_exclusive_eff_entry {
 };
 ASSERT_SIZE(struct damage_negating_exclusive_eff_entry, 8);
 
+// Represents a two-turn move and its corresponding status_two_turn_id value
+struct two_turn_move_and_status {
+    struct move_id_16 move;
+    struct status_two_turn_id_16 status;
+};
+ASSERT_SIZE(struct two_turn_move_and_status, 4);
+
 // Separate this out into its own file because it's massive
 #include "dungeon.h"
 

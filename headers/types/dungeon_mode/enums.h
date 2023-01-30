@@ -256,6 +256,29 @@ enum status_id {
     STATUS_STAIR_SPOTTER = 101,  // Can locate stairs
 };
 
+// Values for the two-turn move status group
+// Corresponds to values 28 to 40 in the status_id enum
+enum status_two_turn_id {
+    STATUS_TWO_TURN_BIDE = 1,
+    STATUS_TWO_TURN_SOLARBEAM = 2,
+    STATUS_TWO_TURN_SKY_ATTACK = 3,
+    STATUS_TWO_TURN_RAZOR_WIND = 4,
+    STATUS_TWO_TURN_FOCUS_PUNCH = 5,
+    STATUS_TWO_TURN_SKULL_BASH = 6,
+    STATUS_TWO_TURN_FLYING = 7,
+    STATUS_TWO_TURN_BOUNCING = 8,
+    STATUS_TWO_TURN_DIVING = 9,
+    STATUS_TWO_TURN_DIGGING = 10,
+    STATUS_TWO_TURN_CHARGING = 11,
+    STATUS_TWO_TURN_ENRAGED = 12,
+    STATUS_TWO_TURN_SHADOW_FORCE = 13,
+};
+
+// This is usually stored as a 16-bit integer
+#pragma pack(push, 2)
+ENUM_16_BIT(status_two_turn_id);
+#pragma pack(pop)
+
 // Tactic ID. These are usually encoded as bitvectors.
 enum tactic_id {
     TACTIC_LETS_GO_TOGETHER = 0,
