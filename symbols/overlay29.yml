@@ -307,13 +307,13 @@ overlay29:
         EU: 0x22E2EB4
         NA: 0x22E2574
       description: |-
-        Checks if messages that involve a certain entity should be displayed or supressed.
+        Checks if messages that involve a certain entity should be displayed or suppressed.
         
         For example, it returns false if the entity is an invisible enemy.
         
         r0: Entity pointer
         r1: ?
-        return: True if messages involving the entity should be displayed, false if they should be supressed.
+        return: True if messages involving the entity should be displayed, false if they should be suppressed.
     - name: ShouldDisplayEntityMessagesWrapper
       address:
         EU: 0x22E306C
@@ -322,7 +322,7 @@ overlay29:
         Calls ShouldDisplayEntityMessages with r1 = 0
         
         r0: Entity pointer
-        return: True if messages involving the entity should be displayed, false if they should be supressed.
+        return: True if messages involving the entity should be displayed, false if they should be suppressed.
     - name: CanSeeTarget
       address:
         EU: 0x22E308C
