@@ -1173,6 +1173,14 @@ overlay10:
         Maps each weather type (by index, see enum weather_id) to the corresponding Weather Ball damage multiplier, where each entry is a binary fixed-point number with 8 fraction bits.
         
         type: int[8]
+    - name: EAT_ITEM_EFFECT_IGNORE_LIST
+      address:
+        EU: 0x22C54CC
+        NA: 0x22C4B74
+      length:
+        EU: 0x48
+        NA: 0x48
+      description: List of item IDs that should be ignored by the ShouldTryEatItem function. The last entry is null.
     - name: CASTFORM_WEATHER_ATTRIBUTE_TABLE
       address:
         EU: 0x22C55C4

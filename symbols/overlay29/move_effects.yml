@@ -74,6 +74,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveSleep
       address:
+        EU: 0x2326968
         NA: 0x2325F00
       description: |-
         Move effect: Put target enemies to sleep
@@ -684,6 +685,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveCrunch
       address:
+        EU: 0x2327A9C
         NA: 0x2327034
       description: |-
         Move effect: Deal damage with a 20% chance (CRUNCH_LOWER_DEFENSE_CHANCE) of lowering the defender's defense.
@@ -708,6 +710,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveDamageParalyze20
       address:
+        EU: 0x2327B88
         NA: 0x2327120
       description: |-
         Move effect: Deal damage with a 20% chance (THUNDER_PARALYZE_CHANCE) of paralyzing the defender.
@@ -1021,6 +1024,7 @@ move_effects:
         return: whether or not damage was dealt
     - name: DoMoveMeteorMash
       address:
+        EU: 0x23285C4
         NA: 0x2327B5C
         JP: 0x2328FE4
       description: |-
@@ -1254,6 +1258,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveShadowBall
       address:
+        EU: 0x2328CB4
         NA: 0x2328248
       description: |-
         Move effect: Shadow Ball
@@ -1552,6 +1557,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveWaterfall
       address:
+        EU: 0x2329A00
         NA: 0x2328F94
       description: |-
         Move effect: Waterfall
@@ -1871,6 +1877,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveDamagePoison18
       address:
+        EU: 0x232A370
         NA: 0x2329904
       description: |-
         Move effect: Deal damage with an 18% chance (POISON_STING_POISON_CHANCE) to poison the defender.
@@ -2326,6 +2333,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveDamageConfuse30
       address:
+        EU: 0x232B95C
         NA: 0x232AEF0
       description: |-
         Move effect: Deal damage with a 30% chance (DIZZY_PUNCH_CONFUSE_CHANCE) to confuse the defender.
@@ -2820,6 +2828,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveDragonRage
       address:
+        EU: 0x232C9F8
         NA: 0x232BF88
       description: |-
         Move effect: Dragon Rage
@@ -3175,6 +3184,8 @@ move_effects:
         JP: 0x232E1D8
       description: |-
         Move effect: Invisify (item effect)
+        
+        This function sets r1 = r0 before calling TryInvisify, so the effect will always be applied to the user regardless of the move settings.
         
         r0: attacker pointer
         r1: defender pointer
@@ -3676,6 +3687,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveDamageEatItem
       address:
+        EU: 0x232E454
         NA: 0x232D9E4
       description: |-
         Move effect: Deals damage, and eats any beneficial items the defender is holding.

@@ -105,6 +105,7 @@ overlay29:
           - 0x2320664
           - 0x2320BE4
           - 0x23211CC
+          - 0x2321EA0
           - 0x2326088
           - 0x232F280
           - 0x23349EC
@@ -301,6 +302,27 @@ overlay29:
         
         r0: position
         return: entity pointer for the newly added item, or null on failure
+    - name: ShouldDisplayEntityMessages
+      address:
+        EU: 0x22E2EB4
+        NA: 0x22E2574
+      description: |-
+        Checks if messages that involve a certain entity should be displayed or suppressed.
+        
+        For example, it returns false if the entity is an invisible enemy.
+        
+        r0: Entity pointer
+        r1: ?
+        return: True if messages involving the entity should be displayed, false if they should be suppressed.
+    - name: ShouldDisplayEntityMessagesWrapper
+      address:
+        EU: 0x22E306C
+        NA: 0x22E272C
+      description: |-
+        Calls ShouldDisplayEntityMessages with r1 = 0
+        
+        r0: Entity pointer
+        return: True if messages involving the entity should be displayed, false if they should be suppressed.
     - name: CanSeeTarget
       address:
         EU: 0x22E308C
@@ -532,6 +554,18 @@ overlay29:
         r0: quick_saved
         r1: ???
         r2: special_process
+    - name: MonsterSpawnListPartialCopy
+      address:
+        EU: 0x22E8610
+        NA: 0x22E7C60
+      description: |-
+        Copies all entries in the floor's monster spawn list that have a sprite size >= 6 to the specified buffer.
+        
+        The parameter in r1 can be used to specify how many entries are already present in the buffer. Entries added by this function will be placed after those, and the total returned in r1 will account for existing entries as well.
+        
+        r0: (output) Buffer where the result will be stored
+        r1: Current amount of entries in the buffer
+        return: New amount of entries in the buffer
     - name: IsOnMonsterSpawnList
       address:
         EU: 0x22E86FC
@@ -1488,6 +1522,19 @@ overlay29:
         r1: Target
         r2: If true, moves with a max Ginseng boost != 99 will be ignored
         return: True if the target has at least one super effective move against the user, false otherwise.
+    - name: TryEatItem
+      address:
+        EU: 0x22FBC20
+        NA: 0x22FB214
+      description: |-
+        The user attempts to eat an item from the target.
+        
+        The function tries to eat the target's held item first. If that's not possible and the target is part of the team, it attempts to eat a random edible item from the bag instead.
+        Fun fact: The code used to select the random bag item that will be eaten is poorly coded. As a result, there's a small chance of the first edible item in the bag being picked instead of a random one. The exact chance of this happening is (N/B)^B, where N is the amount of non-edible items in the bag and B is the total amount of items in the bag.
+        
+        r0: User
+        r1: Target
+        return: True if the attempt was successful
     - name: CheckSpawnThreshold
       address:
         EU: 0x22FBFF8
@@ -3138,6 +3185,28 @@ overlay29:
         
         r0: user entity pointer
         r1: target entity pointer
+    - name: TryInvisify
+      address:
+        EU: 0x2316FDC
+        NA: 0x231657C
+      description: |-
+        Attempts to turn the target invisible.
+        
+        The user pointer is only used when calling LogMessage functions.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: TryTransform
+      address:
+        EU: 0x2317C7C
+        NA: 0x231721C
+      description: |-
+        Attempts to transform the target into the species of a random monster contained in the list returned by MonsterSpawnListPartialCopy.
+        
+        The user pointer is only used when calling LogMessage functions.
+        
+        r0: user entity pointer
+        r1: target entity pointer
     - name: IsBlinded
       address:
         EU: 0x2318244
@@ -3359,6 +3428,30 @@ overlay29:
         r1: target entity pointer
         r2: Gummi type ID
         r3: Stat boost amount, if a random stat boost occurs
+    - name: CanMonsterUseItem
+      address:
+        EU: 0x231DF0C
+        NA: 0x231D4A4
+      description: |-
+        Checks whether a monster can use a certain item.
+        
+        Returns false if the item is sticky, or if the monster is under the STATUS_MUZZLED status and the item is edible.
+        Also prints failure messages if required.
+        
+        r0: Monster entity pointer
+        r1: Item pointer
+        return: True if the monster can use the item, false otherwise
+    - name: ShouldTryEatItem
+      address:
+        EU: 0x231F3F8
+        NA: 0x231E990
+      description: |-
+        Checks if a given item should be eaten by the TryEatItem effect.
+        
+        Returns false if the ID is lower than 0x45, greater than 0x8A or if it's listed in the EAT_ITEM_EFFECT_IGNORE_LIST array.
+        
+        r0: Item ID
+        return: True if the item should be eaten by TryEatItem.
     - name: GetMaxPpWrapper
       address:
         EU: 0x231F458
@@ -3440,6 +3533,20 @@ overlay29:
         r1: target entity pointer
         r2: warp type
         r3: position (if warp type is position-based)
+    - name: GetMoveRangeDistance
+      address:
+        EU: 0x2322D0C
+        NA: 0x23222A4
+      description: |-
+        Returns the maximum reach distance of a move, based on its AI range value.
+        
+        If the move doesn't have an AI range value of RANGE_FRONT_10, RANGE_FRONT_WITH_CORNER_CUTTING or RANGE_FRONT_2_WITH_CORNER_CUTTING, returns 0.
+        If r2 is true, the move is a two-turn move and the user isn't charging said move, returns 0.
+        
+        r0: User entity pointer
+        r1: Move pointer
+        r2: True to perform the two-turn move check
+        return: Maximum reach distance of the move, in tiles.
     - name: MoveHitCheck
       address:
         EU: 0x23246B0
@@ -3466,6 +3573,16 @@ overlay29:
         
         r0: move
         return: bool
+    - name: IsChargingTwoTurnMove
+      address:
+        EU: 0x232500C
+        NA: 0x23245A4
+      description: |-
+        Checks if a monster is currently charging the specified two-turn move.
+        
+        r0: User entity pointer
+        r1: Move pointer
+        return: True if the user is charging the specified two-turn move, false otherwise.
     - name: HasMaxGinsengBoost99
       address:
         EU: 0x2325200
@@ -6303,6 +6420,14 @@ overlay29:
         List of exclusive item effects that negate damage of a certain type, terminated by a TYPE_NEUTRAL entry.
         
         type: struct damage_negating_exclusive_eff_entry[28]
+    - name: TWO_TURN_MOVES_AND_STATUSES
+      address:
+        EU: 0x23536B8
+        NA: 0x2352AAC
+      length:
+        EU: 0x2C
+        NA: 0x2C
+      description: List that matches two-turn move IDs to their corresponding status ID. The last entry is null.
     - name: SPATK_STAT_IDX
       address:
         EU: 0x23536F4

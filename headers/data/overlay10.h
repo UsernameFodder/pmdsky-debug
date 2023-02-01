@@ -148,6 +148,7 @@ extern int WATER_SPOUT_DAMAGE_MULT_TABLE[4];
 extern int WRING_OUT_DAMAGE_MULT_TABLE[4];
 extern int ERUPTION_DAMAGE_MULT_TABLE[4];
 extern int WEATHER_BALL_DAMAGE_MULT_TABLE[8];
+extern struct item_id_16 EAT_ITEM_EFFECT_IGNORE_LIST[36];
 extern struct castform_weather_attributes CASTFORM_WEATHER_ATTRIBUTE_TABLE[8];
 extern struct type_matchup_combinator_table TYPE_MATCHUP_COMBINATOR_TABLE;
 extern int OFFENSIVE_STAT_STAGE_MULTIPLIERS[21];
