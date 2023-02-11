@@ -577,8 +577,8 @@ struct monster {
     // 0x218: Status icons displayed on top of the monster's sprite
     struct status_icon_flags status_icons;
     undefined field_0x220;
-    // 0x221: Setting this applies a 1.5x damage multiplier to all the monster's attacks
-    bool boosted_attacks;
+    // 0x221: Set if the current move being used was copied by Me First
+    bool me_first_flag;
     undefined field_0x222;
     undefined field_0x223;
     // Stat boosts from exclusive items with EXCLUSIVE_EFF_STAT_BOOST
@@ -1649,7 +1649,7 @@ struct damage_calc_diag {
     // calculation. "Static" in the sense that this part of the multiplier doesn't depend on
     // variables like type-based effects, critical hits, and Reflect/Light Screen. Factors in
     // the static damage multiplier include the argument to CalcDamage, the multiplier due to
-    // monster::boosted_attacks, Reckless, and Iron Fist.
+    // monster::me_first_flag, Reckless, and Iron Fist.
     int static_damage_mult;
     // 0x30: The net number of attack boosts to an attacker due to a Power Band or Munch Belt.
     // It seems like there's a bug in the code; aura bows do not contribute to this field.

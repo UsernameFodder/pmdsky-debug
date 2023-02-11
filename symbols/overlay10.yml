@@ -814,12 +814,12 @@ overlay10:
       length:
         NA: 0x2
       description: The amount of HP restored by Healing Wish (999). This also applies to Lunar Dance.
-    - name: MONSTER_BOOSTED_ATTACKS_MULTIPLIER
+    - name: ME_FIRST_MULTIPLIER
       address:
         NA: 0x22C4710
       length:
         NA: 0x4
-      description: "The blanket damage multiplier applied to attacks by a monster with monster::boosted_attacks set, as a fixed-point number with 8 fraction bits (1.5)."
+      description: "The damage multiplier applied to attacks copied by Me First, as a fixed-point number with 8 fraction bits (1.5)."
     - name: FACADE_DAMAGE_MULTIPLIER
       address:
         NA: 0x22C4718
