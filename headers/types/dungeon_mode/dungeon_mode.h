@@ -354,10 +354,9 @@ struct monster {
     struct tactic_id_8 tactic; // 0xA8
     struct statuses statuses;  // 0xA9
     undefined field_0x11f;
-    undefined field_0x120;
-    undefined field_0x121;
-    undefined field_0x122;
-    undefined field_0x123;
+    // 0x120: If zero, when the monster is standing in a room, the AI will make it head towards a
+    // random exit. If nonzero, the monster will instead move in a random direction every turn.
+    int random_movement;
     struct move moves[4]; // 0x124
     uint8_t move_flags;   // 0x144: 1-byte bitfield
     undefined field_0x145;
@@ -1333,7 +1332,8 @@ struct dungeon_restriction {
     uint8_t max_party_size;    // 0x6: Maximum number of team members that can enter the dungeon
     undefined field_0x7;
     uint16_t turn_limit_per_floor; // 0x8: Number of turns per floor before the wind blows you out
-    undefined field_0xa;
+    // 0xA: Chance of setting the monster::random_movement field to 1 when spawning an enemy
+    uint8_t random_movement_chance;
     undefined field_0xb;
 };
 ASSERT_SIZE(struct dungeon_restriction, 12);
