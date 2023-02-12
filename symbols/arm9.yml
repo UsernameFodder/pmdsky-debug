@@ -5220,16 +5220,16 @@ arm9:
         
         r0: dungeon id
         return: True if the restrictions of the current dungeon allow changing leaders, false otherwise.
-    - name: GetUnknownDungeonOption
+    - name: GetRandomMovementChance
       address:
         EU: 0x2051720
         NA: 0x20513E8
         JP: 0x2051738
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Returns dungeon_restriction::random_movement_chance for the specified dungeon ID.
         
         r0: dungeon ID
-        return: ?
+        return: Random movement chance
     - name: CanEnemyEvolve
       address:
         EU: 0x2051738

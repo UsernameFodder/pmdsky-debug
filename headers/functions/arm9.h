@@ -524,7 +524,7 @@ bool IsMoneyAllowed(enum dungeon_id dungeon_id);
 int8_t GetMaxRescueAttempts(enum dungeon_id dungeon_id);
 bool IsRecruitingAllowed(enum dungeon_id dungeon_id);
 bool GetLeaderChangeFlag(enum dungeon_id dungeon_id);
-int GetUnknownDungeonOption(enum dungeon_id dungeon_id);
+int GetRandomMovementChance(enum dungeon_id dungeon_id);
 bool CanEnemyEvolve(enum dungeon_id dungeon_id);
 int GetMaxMembersAllowed(enum dungeon_id dungeon_id);
 bool IsIqEnabled(enum dungeon_id dungeon_id);
