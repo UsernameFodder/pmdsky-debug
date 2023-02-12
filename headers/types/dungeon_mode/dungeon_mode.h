@@ -1333,8 +1333,7 @@ struct dungeon_restriction {
     undefined field_0x7;
     uint16_t turn_limit_per_floor; // 0x8: Number of turns per floor before the wind blows you out
     // 0xA: Chance of setting the monster::random_movement field to 1 when spawning an enemy
-    uint8_t random_movement_chance;
-    undefined field_0xb;
+    int16_t random_movement_chance;
 };
 ASSERT_SIZE(struct dungeon_restriction, 12);
 
