@@ -356,6 +356,7 @@ bool ShouldTryEatItem(enum item_id item_id);
 int GetMaxPpWrapper(struct move* move);
 bool MoveIsNotPhysical(enum move_id move_id);
 bool CategoryIsNotPhysical(enum move_category category_id);
+void TryDrought(struct entity* user);
 void TryPounce(struct entity* user, struct entity* target, enum direction_id direction);
 void TryBlowAway(struct entity* user, struct entity* target, enum direction_id direction);
 void TryExplosion(struct entity* user, struct entity* target, struct position* pos,
@@ -409,6 +410,7 @@ struct tile* GetTile(int x, int y);
 struct tile* GetTileSafe(int x, int y);
 bool IsFullFloorFixedRoom(void);
 uint8_t GetStairsRoom(void);
+bool IsWaterTileset(void);
 enum monster_id GetRandomSpawnMonsterID(void);
 bool NearbyAllyIqSkillIsEnabled(struct entity* entity, enum iq_skill_id iq_skill);
 void ResetGravity(void);

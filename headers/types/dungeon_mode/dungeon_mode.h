@@ -1178,7 +1178,9 @@ struct tileset_property {
     uint8_t _padding;
     struct nature_power_variant_16 nature_power_variant;
     uint8_t field_0xa;
-    uint8_t field_0xb;
+    // 0xB: True if this is a water tileset. If so, a different kind of shadow will be displayed
+    // under monsters in dungeons, drought orbs won't work and Dive can be used anywhere.
+    bool is_water_tileset;
 };
 ASSERT_SIZE(struct tileset_property, 12);
 

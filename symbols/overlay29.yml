@@ -3482,6 +3482,16 @@ overlay29:
         
         r0: move category ID
         return: bool
+    - name: TryDrought
+      address:
+        EU: 0x231FFFC
+        NA: 0x231F594
+      description: |-
+        Attempts to drain all water from the current floor.
+        
+        Fails if orbs are disabled on the floor or if the current tileset has the is_water_tileset flag set.
+        
+        r0: user pointer
     - name: TryPounce
       address:
         EU: 0x2320688
@@ -3952,6 +3962,14 @@ overlay29:
         Returns the index of the room that contains the stairs
         
         return: Room index
+    - name: IsWaterTileset
+      address:
+        EU: 0x2338A64
+        NA: 0x2337E94
+      description: |-
+        Returns flag tileset_property::is_water_tileset for the current tileset
+        
+        return: True if the current tileset is a water tileset
     - name: GetRandomSpawnMonsterID
       address:
         EU: 0x2338B68
