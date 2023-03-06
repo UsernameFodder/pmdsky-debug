@@ -716,8 +716,8 @@ ASSERT_SIZE(struct vec2, 8);
 
 struct exclusive_item_stat_boost_entry {
     int8_t atk;
-    int8_t sp_atk;
     int8_t def;
+    int8_t sp_atk;
     int8_t sp_def;
 };
 ASSERT_SIZE(struct exclusive_item_stat_boost_entry, 4);

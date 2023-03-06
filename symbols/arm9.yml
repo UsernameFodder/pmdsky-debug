@@ -7615,7 +7615,7 @@ arm9:
       description: |-
         Contains stat boost effects for different exclusive item classes.
         
-        Each 4-byte entry contains the boost data for (attack, special attack, defense, special defense), 1 byte each, for a specific exclusive item class, indexed according to the stat boost data index list.
+        Each 4-byte entry contains the boost data for (attack, defense, special attack, special defense), 1 byte each, for a specific exclusive item class, indexed according to the stat boost data index list.
         
         type: struct exclusive_item_stat_boost_entry[15]
     - name: EXCLUSIVE_ITEM_ATTACK_BOOSTS
@@ -7628,7 +7628,7 @@ arm9:
         NA: 0x39
         JP: 0x39
       description: "EXCLUSIVE_ITEM_STAT_BOOST_DATA, offset by 0"
-    - name: EXCLUSIVE_ITEM_SPECIAL_ATTACK_BOOSTS
+    - name: EXCLUSIVE_ITEM_DEFENSE_BOOSTS
       address:
         EU: 0x209852D
         NA: 0x20980E9
@@ -7638,7 +7638,7 @@ arm9:
         NA: 0x39
         JP: 0x39
       description: "EXCLUSIVE_ITEM_STAT_BOOST_DATA, offset by 1"
-    - name: EXCLUSIVE_ITEM_DEFENSE_BOOSTS
+    - name: EXCLUSIVE_ITEM_SPECIAL_ATTACK_BOOSTS
       address:
         EU: 0x209852E
         NA: 0x20980EA
