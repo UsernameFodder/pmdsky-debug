@@ -355,7 +355,7 @@ void LoadTblTalk(void);
 int GetTalkLine(int personality_idx, int group_id, int restrictions);
 void SetScreenWindowsColor(int palette_idx, bool upper_screen);
 void SetBothScreensWindowsColor(int palette_idx);
-undefined4 GetDialogBoxField0xC(int dbox_id);
+undefined* GetDialogBoxField0xC(int dbox_id);
 int CreateNormalMenu(undefined* layout, int menu_flags, undefined* additional_info, undefined* menu,
                      int option_id);
 void FreeNormalMenu(int menu_id);
@@ -375,7 +375,7 @@ void ShowMessageInDBox(int dbox_id, struct preprocessor_flags flags, int string_
 void ShowDBox(int dbox_id);
 int CreatePortraitBox(undefined param_1, undefined4 param_2, int param_3);
 void FreePortraitBox(int dbox_id);
-void ShowPortraitBox(int dbox_id, undefined* portrait);
+void ShowPortraitBox(int dbox_id, struct portrait_box* portrait);
 void HidePortraitBox(int dbox_id);
 bool IsMenuOptionActive(undefined* param_1);
 int ShowKeyboard(int message_id, char* buffer1, int param_3, char* buffer2);
@@ -447,11 +447,12 @@ void CopyProgressInfoTo(undefined* write_info, undefined4 param_2, undefined4 pa
 undefined4 CopyProgressInfoFromScratchTo(void* start_addr, uint32_t total_len);
 void CopyProgressInfoFrom(undefined* read_info);
 undefined4 CopyProgressInfoFromScratchFrom(void* start_addr, uint32_t total_len);
-void SetPortraitMonsterId(undefined* portrait, enum monster_id monster_id);
-void SetPortraitExpressionId(undefined* portrait, int expression_id);
-void SetPortraitUnknownAttr(undefined* portrait, int attr);
-void SetPortraitAttrStruct(undefined* portrait, undefined* attr);
-bool LoadPortrait(undefined* portrait, void* buf);
+void InitPortraitBox(struct portrait_box* portrait);
+void InitPortraitBoxWithMonsterId(struct portrait_box* portrait, enum monster_id monster_id);
+void SetPortraitExpressionId(struct portrait_box* portrait, int expression_id);
+void SetPortraitUnknownAttr(struct portrait_box* portrait, int attr);
+void SetPortraitAttrStruct(struct portrait_box* portrait, undefined* attr);
+bool LoadPortrait(struct portrait_box* portrait, void* buf);
 int GetNbFloors(enum dungeon_id dungeon_id);
 int GetNbFloorsPlusOne(enum dungeon_id dungeon_id);
 enum dungeon_group_id GetDungeonGroup(enum dungeon_id dungeon_id);

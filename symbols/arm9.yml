@@ -3766,7 +3766,7 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         r0: dbox_id
-        r1: portrait_ptr
+        r1: portrait box pointer
     - name: HidePortraitBox
       address:
         EU: 0x202F9D0
@@ -4467,7 +4467,14 @@ arm9:
         
         r0: start_address
         r1: total_length
-    - name: SetPortraitMonsterId
+    - name: InitPortraitBox
+      address:
+        NA: 0x204D79C
+      description: |-
+        Initializes a struct portrait_box.
+        
+        r0: portrait box pointer
+    - name: InitPortraitBoxWithMonsterId
       address:
         EU: 0x204DB0C
         NA: 0x204D7D4
@@ -4475,7 +4482,7 @@ arm9:
       description: |-
         Note: unverified, ported from Irdkwia's notes
         
-        r0: portrait_ptr
+        r0: portrait box pointer
         r1: monster ID
     - name: SetPortraitExpressionId
       address:
@@ -4485,7 +4492,7 @@ arm9:
       description: |-
         Note: unverified, ported from Irdkwia's notes
         
-        r0: portrait_ptr
+        r0: portrait box pointer
         r1: expression_id
     - name: SetPortraitUnknownAttr
       address:
@@ -4495,7 +4502,7 @@ arm9:
       description: |-
         Note: unverified, ported from Irdkwia's notes
         
-        r0: portrait_ptr
+        r0: portrait box pointer
         r1: attr
     - name: SetPortraitAttrStruct
       address:
@@ -4505,7 +4512,7 @@ arm9:
       description: |-
         Note: unverified, ported from Irdkwia's notes
         
-        r0: portrait_ptr
+        r0: portrait box pointer
         r1: attr_ptr
     - name: LoadPortrait
       address:
@@ -4517,7 +4524,7 @@ arm9:
         
         Note: unverified, ported from Irdkwia's notes
         
-        r0: portrait_ptr
+        r0: portrait box pointer
         r1: buffer_portrait
         return: exists
     - name: GetNbFloors
