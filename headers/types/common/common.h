@@ -675,28 +675,28 @@ ASSERT_SIZE(struct global_progress, 524);
 
 // The adventure log structure.
 struct adventure_log {
-    uint32_t completion_flags[4];
-    uint32_t nb_dungeons_cleared;
-    uint32_t nb_friend_rescues;
-    uint32_t nb_evolutions;
-    uint32_t nb_eggs_hatched;
-    uint32_t successful_steals; // Unused in Sky
-    uint32_t nb_faints;
-    uint32_t nb_victories_on_one_floor;
-    uint32_t pokemon_joined_counter;
-    uint32_t pokemon_battled_counter;
-    uint32_t moves_learned_counter;
-    uint32_t nb_big_treasure_wins;
-    uint32_t nb_recycled;
-    uint32_t nb_gifts_sent;
-    uint32_t pokemon_joined_flags[37];
-    uint32_t pokemon_battled_flags[37];
-    uint32_t moves_learned_flags[17];
-    uint32_t items_acquired_flags[44];
-    uint32_t special_challenge_flags;
-    uint32_t sentry_duty_game_points[5];
-    struct dungeon_floor_pair current_floor;
-    uint16_t padding;
+    uint32_t completion_flags[4];            // 0x0
+    uint32_t nb_dungeons_cleared;            // 0x10
+    uint32_t nb_friend_rescues;              // 0x14
+    uint32_t nb_evolutions;                  // 0x18
+    uint32_t nb_eggs_hatched;                // 0x1C
+    uint32_t successful_steals;              // 0x20: Unused in Sky
+    uint32_t nb_faints;                      // 0x24
+    uint32_t nb_victories_on_one_floor;      // 0x28
+    uint32_t pokemon_joined_counter;         // 0x2C
+    uint32_t pokemon_battled_counter;        // 0x30
+    uint32_t moves_learned_counter;          // 0x34
+    uint32_t nb_big_treasure_wins;           // 0x38
+    uint32_t nb_recycled;                    // 0x3C
+    uint32_t nb_gifts_sent;                  // 0x40
+    uint32_t pokemon_joined_flags[37];       // 0x44
+    uint32_t pokemon_battled_flags[37];      // 0xD8
+    uint32_t moves_learned_flags[17];        // 0x16C
+    uint32_t items_acquired_flags[44];       // 0x1B0
+    uint32_t special_challenge_flags;        // 0x260
+    uint32_t sentry_duty_game_points[5];     // 0x264
+    struct dungeon_floor_pair current_floor; // 0x278
+    uint16_t padding;                        // 0x27A
 };
 ASSERT_SIZE(struct adventure_log, 636);
 
