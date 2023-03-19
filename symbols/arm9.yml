@@ -5877,7 +5877,7 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         No params.
-    - name: IsNotNickname
+    - name: StrcmpMonsterName
       address:
         EU: 0x205332C
         NA: 0x2052FB0
@@ -6201,129 +6201,169 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         r0: recruit_str
-    - name: GetMember
+    - name: IsValidTeamMember
+      address:
+        NA: 0x2055390
+      description: |-
+        Returns whether or not the team member at the given index is valid for the current game mode.
+        
+        During normal play, this will only be false for the special-episode-reserved indexes (2, 3, 4). During special episodes, this will be false for the hero and partner (0, 1).
+        
+        r0: team member index
+        return: bool
+    - name: IsMainCharacter
+      address:
+        NA: 0x2055528
+      description: |-
+        Returns whether or not the team member at the given index is a "main character".
+        
+        During normal play, this will only be true for the hero and partner (0, 1). During special episodes, this will be true for the special-episode-reserved indexes (2, 3, 4).
+        
+        r0: team member index
+        return: bool
+    - name: GetTeamMember
       address:
         EU: 0x2055924
         NA: 0x20555A8
         JP: 0x2055944
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Gets the team member at the given index.
         
-        r0: member_idx
-        return: ?
-    - name: GetHeroStrIdIfExists
+        r0: team member index
+        return: ground monster pointer
+    - name: GetHeroMemberIdx
       address:
         EU: 0x20559CC
         NA: 0x2055650
         JP: 0x20559EC
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Returns the team member index of the hero (0) if the hero is valid, otherwise return -1.
         
-        return: ?
-    - name: GetPartnerStrIdIfExists
+        return: team member index
+    - name: GetPartnerMemberIdx
       address:
         EU: 0x20559F8
         NA: 0x205567C
         JP: 0x2055A18
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Returns the team member index of the partner (1) if the partner is valid, otherwise return -1.
         
-        return: ?
-    - name: GetFirstTeamMemberStrIdIfExists
+        return: team member index
+    - name: GetMainCharacter1MemberIdx
       address:
         EU: 0x2055A24
         NA: 0x20556A8
         JP: 0x2055A44
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Returns the team member index of the first main character for the given game mode, if valid, otherwise return -1.
         
-        return: ?
-    - name: GetSecondTeamMemberStrIdIfExists
+        In normal play, this will be the hero (0). During special episodes, this will be 2.
+        
+        return: team member index
+    - name: GetMainCharacter2MemberIdx
       address:
         EU: 0x2055A68
         NA: 0x20556EC
         JP: 0x2055A88
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Returns the team member index of the second main character for the given game mode, if valid, otherwise return -1.
         
-        return: ?
-    - name: GetThirdTeamMemberStrIdIfExists
+        In normal play, this will be the partner (1). During special episodes, this will be 3 if there's a second main character.
+        
+        return: team member index
+    - name: GetMainCharacter3MemberIdx
       address:
         EU: 0x2055AAC
         NA: 0x2055730
         JP: 0x2055ACC
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Returns the team member index of the third main character for the given game mode, if valid, otherwise return -1.
         
-        return: ?
-    - name: GetHeroData
+        In normal play, this will be invalid (-1). During special episodes, this will be 4 if there's a third main character.
+        
+        return: team member index
+    - name: GetHero
       address:
         EU: 0x2055AEC
         NA: 0x2055770
         JP: 0x2055B0C
       description: |-
-        Returns the ground monster data of the hero (first slot in Chimecho Assembly)
+        Returns the ground monster data of the hero.
         
-        return: Monster data
-    - name: GetPartnerData
+        return: ground monster pointer
+    - name: GetPartner
       address:
         EU: 0x2055B14
         NA: 0x2055798
         JP: 0x2055B34
       description: |-
-        Returns the ground monster data of the partner (second slot in Chimecho Assembly)
+        Returns the ground monster data of the partner.
         
-        return: Monster data
-    - name: GetFirstTeamMemberData
+        return: ground monster pointer
+    - name: GetMainCharacter1
       address:
         EU: 0x2055B40
         NA: 0x20557C4
         JP: 0x2055B60
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Returns the ground monster data of the first main character for the given game mode.
         
-        return: Monster data
-    - name: GetSecondTeamMemberData
+        In normal play, this will be the hero. During special episodes, this will be the first special episode main character (index 2).
+        
+        return: ground monster pointer
+    - name: GetMainCharacter2
       address:
         EU: 0x2055B88
         NA: 0x205580C
         JP: 0x2055BA8
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Returns the ground monster data of the second main character for the given game mode, or null if invalid.
         
-        return: Monster data
-    - name: GetThirdTeamMemberData
+        In normal play, this will be the partner. During special episodes, this will be the second special episode main character (index 3) if one is present.
+        
+        return: ground monster pointer
+    - name: GetMainCharacter3
       address:
         EU: 0x2055BD0
         NA: 0x2055854
         JP: 0x2055BF0
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Returns the ground monster data of the third main character for the given game mode, or null if invalid.
         
-        return: Monster data
-    - name: GetFirstEmptyRecruitSlot
+        In normal play, this will be null. During special episodes, this will be the third special episode main character (index 4) if one is present.
+        
+        return: ground monster pointer
+    - name: GetFirstEmptyMemberIdx
       address:
         EU: 0x2055CE0
         NA: 0x2055964
         JP: 0x2055D00
       description: |-
-        Returns -1 if there is none
+        Gets the first unoccupied team member index (in the Chimecho Assembly), or -1 if there is none.
         
-        Note: unverified, ported from Irdkwia's notes
+        If valid, this will always be at least 5, since indexes 0-4 are reserved for main characters.
         
         r0: ?
-        return: ?
-    - name: CheckTeamMemberField8
+        return: team member index of the first available slot
+    - name: IsMonsterNotNicknamed
+      address:
+        NA: 0x2056070
+      description: |-
+        Checks if the string_buffer matches the name of the species
+        
+        r0: ground monster pointer
+        return: bool
+    - name: CheckTeamMemberIdx
       address:
         EU: 0x20565E0
         NA: 0x2056228
         JP: 0x20565C4
       description: |-
-        Checks if a value obtained from team_member::field_0x8 is equal to certain values.
+        Checks if a team member's member index (team_member::member_idx) is equal to certain values.
         
         This is known to return true for some or all of the guest monsters.
         
-        r0: Value read from team_member::field_0x8
+        r0: member index
         return: True if the value is equal to 0x55AA or 0x5AA5
     - name: IsMonsterIdInNormalRange
       address:
@@ -6335,32 +6375,33 @@ arm9:
         
         r0: monster ID
         return: bool
-    - name: GetTeamMemberData
+    - name: SetActiveTeam
+      address:
+        NA: 0x20562CC
+      description: |-
+        Sets the specified team to active in TEAM_MEMBER_TABLE.
+        
+        r0: team ID
+    - name: GetActiveTeamMember
       address:
         EU: 0x2056708
         NA: 0x205638C
         JP: 0x2056728
       description: |-
-        Returns a struct containing information about a team member.
+        Returns a struct containing information about the active team member in the given slot index.
         
-        Irdkwia's notes (note the discrepancy): GetEquivalentTeamID
-          r0: str_id
-          return: team_id, -1 if not in team
-        
-        r0: Index
-        return: Pointer to struct containing team member information
-    - name: GetTeamMember
+        r0: roster index
+        return: team member pointer, or null if index is -1
+    - name: GetActiveRosterIndex
       address:
         EU: 0x2056738
         NA: 0x20563BC
         JP: 0x2056758
       description: |-
-        Null pointer if -1
+        Searches for the roster index for the given team member within the current active roster.
         
-        Note: unverified, ported from Irdkwia's notes
-        
-        r0: team_id
-        return: team member
+        r0: team member index
+        return: roster index if the team member is active, -1 otherwise
     - name: SetTeamSetupHeroAndPartnerOnly
       address:
         EU: 0x2056D48
@@ -9281,7 +9322,7 @@ arm9:
         NA: 0x1
         JP: 0x1
       description: |-
-        [Runtime]
+        [Runtime] Game mode, see enum game_mode for possible values.
         
         type: uint8_t
     - name: GLOBAL_PROGRESS_PTR
@@ -9333,7 +9374,7 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         type: enum monster_id*[28]
-    - name: PARTY_MONSTERS_PTR
+    - name: TEAM_MEMBER_TABLE_PTR
       address:
         EU: 0x20B1364
         NA: 0x20B0A48
@@ -9342,7 +9383,7 @@ arm9:
         EU: 0x4
         NA: 0x4
         JP: 0x4
-      description: "Note: unverified, ported from Irdkwia's notes"
+      description: Pointer to TEAM_MEMBER_TABLE
     - name: MISSION_LIST_PTR
       address:
         EU: 0x20B13BC

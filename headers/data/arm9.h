@@ -124,7 +124,7 @@ extern struct global_progress* GLOBAL_PROGRESS_PTR;
 extern struct adventure_log* ADVENTURE_LOG_PTR;
 extern void* ITEM_TABLES_PTRS_1[26];
 extern enum monster_id* UNOWN_SPECIES_ADDITIONAL_CHAR_PTR_TABLE[28];
-extern undefined* PARTY_MONSTERS_PTR;
+extern struct team_member_table* TEAM_MEMBER_TABLE_PTR;
 extern undefined* MISSION_LIST_PTR;
 extern const char* REMOTE_STRING_PTR_TABLE[7];
 extern const char* RANK_STRING_PTR_TABLE[16];

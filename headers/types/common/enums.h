@@ -70,6 +70,29 @@ enum texture_format {
     TEXFORMAT_DIRECT = 7,
 };
 
+// Values for GAME_MODE
+enum game_mode {
+    GAME_MODE_MENU = 0, // top menu
+    GAME_MODE_1 = 1,
+    GAME_MODE_NORMAL = 2,          // normal play, including both overworld/dungeons
+    GAME_MODE_SPECIAL_EPISODE = 3, // during special episodes
+    // Pelipper Island (and likely also in the dungeon while rescuing, need to confirm)
+    GAME_MODE_RESCUE = 4,
+    // Possibly more?
+};
+
+// There are 3 independent teams that the player can control, depending on the game mode
+enum team_id {
+    TEAM_MAIN = 0,            // main team (GAME_MODE_NORMAL)
+    TEAM_SPECIAL_EPISODE = 1, // team during a special episode (GAME_MODE_SPECIAL_EPISODE)
+    TEAM_RESCUE = 2,          // team during a Pelipper Island rescue (GAME_MODE_RESCUE)
+};
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(team_id);
+#pragma pack(pop)
+
 // Some macro shenanigans to define the monster secondary gender labels neatly.
 #define _MONSTER_ID_GENDERED(name, base_value)                                                     \
     MONSTER_##name = base_value, MONSTER_##name##_SECONDARY = base_value + 600
