@@ -304,7 +304,7 @@ struct ground_monster {
 };
 ASSERT_SIZE(struct ground_monster, 68);
 
-// Seems to store information about active team members, including those from special episodes.
+// Stores information about active team members, including those from special episodes.
 // A lot of the fields seem to be analogous to fields on struct monster.
 struct team_member {
     // 0x0: flags: 1-byte bitfield
@@ -349,6 +349,47 @@ struct team_member {
     char name[10]; // 0x5E: Display name of the monster
 };
 ASSERT_SIZE(struct team_member, 104);
+
+// Table with information about all team members, which are active, and on which teams
+struct team_member_table {
+    // 0x0: List of all recruited team members. Appears to be in chronological order of recruitment.
+    //
+    // The first two entries are fixed to the hero and partner. The next three entries are reserved
+    // for special episode main characters, which differ (and will be updated here) depending on the
+    // special episode. For example, in SE5, the third entry becomes Grovyle, with the fourth and
+    // fifth entries becoming Dusknoir after progressing far enough into the special episode.
+    //
+    // Subsequent entries are normal recruits. If a member is released, all subsequent members will
+    // be shifted up, so there should be no gaps in the list.
+    struct ground_monster members[555];
+    // 0x936C: Currently active team members for each team, listed in team order. The first index is
+    // the team ID (see enum team_id), the second is the roster index within the given team.
+    //
+    // This struct is updated relatively infrequently. For example, in dungeon mode, it's typically
+    // only updated at the start of the floor; refer to DUNGEON_STRUCT instead for live data.
+    struct team_member active_team_rosters[3][4];
+    // 0x984C: Pointer into active_team_rosters for the currently active team, i.e.,
+    // &active_team_rosters[active_team]
+    struct team_member* active_roster;
+    undefined field_0x9850;
+    undefined field_0x9851;
+    undefined field_0x9852;
+    undefined field_0x9853;
+    undefined field_0x9854;
+    undefined field_0x9855;
+    // 0x9856: member indexes (into the members array) for the active rosters of each team
+    int16_t active_team_roster_member_idxs[3][4];
+    undefined field_0x986e;
+    undefined field_0x986f;
+    // 0x9870: Pointer into active_team_roster_member_idxs for the currently active team, i.e.,
+    // &active_team_roster_member_idxs[active_team]
+    int16_t* active_roster_member_idxs;
+    undefined field_0x9874;
+    undefined field_0x9875;
+    undefined field_0x9876;
+    struct team_id_8 active_team; // 0x9877: Currently active team
+};
+ASSERT_SIZE(struct team_member_table, 39032);
 
 // A common structure for pairs of dungeon/floor values
 struct dungeon_floor_pair {
