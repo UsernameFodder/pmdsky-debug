@@ -1,6 +1,8 @@
 # Contributing to `pmdsky-debug`
 Contributions are welcome, no matter how small! This can be new symbols, new type definitions, changes to `resymgen`, bug fixes, documentation, etc. Make sure add yourself to [`CREDITS.txt`](../CREDITS.txt) if you're a new contributor!
 
+You can contribute by opening a pull request. If you've never done this before, [this tutorial](https://github.com/firstcontributions/first-contributions/blob/main/README.md) is a friendly introduction to the process. You can also follow GitHub's official [quickstart guide](https://docs.github.com/en/get-started/quickstart/contributing-to-projects), if you prefer.
+
 This repository is designed to make contributing simple while maintaining quality. No setup is required to contribute to the symbol tables and C headers beyond a normal text editor and the ability to create pull requests on GitHub. When you open or update a pull request, the relevant GitHub Actions jobs will automatically test your changes (and run the formatter for you if necessary). Changes to `resymgen` require the standard Rust toolchain.
 
 ## Symbols (functions and data)
