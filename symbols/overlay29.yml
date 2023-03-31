@@ -2208,6 +2208,22 @@ overlay29:
         
         r0: Pointer to an entity. Can be null.
         returns: Seems to be true if there were any pending actions to display.
+    - name: EndSleepClassStatus
+      address:
+        NA: 0x2305FDC
+      description: |-
+        Cures the target's sleep, sleepless, nightmare, yawn or napping status due to the action of the user, and prints the event to the log.
+        
+        r0: pointer to user
+        r1: pointer to target
+    - name: EndBurnClassStatus
+      address:
+        NA: 0x23061A8
+      description: |-
+        Cures the target's burned, poisoned, badly poisoned or paralysis status due to the action of the user, and prints the event to the log.
+        
+        r0: pointer to user
+        r1: pointer to target
     - name: EndFrozenClassStatus
       address:
         EU: 0x2306C84
@@ -2226,6 +2242,54 @@ overlay29:
         JP: 0x2307904
       description: |-
         Cures the target's cringe, confusion, cowering, pause, taunt, encore or infatuated status due to the action of the user, and prints the event to the log.
+        
+        r0: pointer to user
+        r1: pointer to target
+    - name: EndReflectClassStatus
+      address:
+        NA: 0x23064F4
+      description: |-
+        Removes the target's reflect, safeguard, light screen, counter, magic coat, wish, protect, mirror coat, endure, mini counter?, mirror move, conversion 2, vital throw, mist, metal burst, aqua ring or lucky chant status due to the action of the user, and prints the event to the log.
+        
+        r0: pointer to user
+        r1: pointer to target
+    - name: EndLeechSeedClassStatus
+      address:
+        NA: 0x23068C4
+      description: |-
+        Cures the target's leech seed or destiny bond status due to the action of the user, and prints the event to the log.
+        
+        r0: pointer to user
+        r1: pointer to target
+    - name: EndSureShotClassStatus
+      address:
+        NA: 0x2306950
+      description: |-
+        Removes the target's sure shot, whiffer, set damage or focus energy status due to the action of the user, and prints the event to the log.
+        
+        r0: pointer to user
+        r1: pointer to target
+    - name: EndMuzzledStatus
+      address:
+        NA: 0x2306BF8
+      description: |-
+        Removes the target's muzzled status due to the action of the user, and prints the event to the log.
+        
+        r0: pointer to user
+        r1: pointer to target
+    - name: EndMiracleEyeStatus
+      address:
+        NA: 0x2306C64
+      description: |-
+        Removes the target's miracle eye status due to the action of the user, and prints the event to the log.
+        
+        r0: pointer to user
+        r1: pointer to target
+    - name: EndMagnetRiseStatus
+      address:
+        NA: 0x2306CD0
+      description: |-
+        Removes the target's magnet rise status due to the action of the user, and prints the event to the log.
         
         r0: pointer to user
         r1: pointer to target
