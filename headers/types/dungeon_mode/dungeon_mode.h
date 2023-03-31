@@ -80,7 +80,7 @@ struct statuses {
     // and restored to entity::types after statuses::roost ends.
     struct type_id_8 original_types[2];
     // 0x3: The move id to be used if statuses::bide is 1.
-    struct move_id_16 bide_move_id;
+    uint8_t bide_move_id;
     undefined field_0x4;
     undefined field_0x5;
     undefined field_0x6;
