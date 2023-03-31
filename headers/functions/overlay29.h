@@ -208,13 +208,8 @@ void EndReflectClassStatus(struct entity* user, struct entity* target);
 void EndLeechSeedClassStatus(struct entity* user, struct entity* target);
 void EndSureShotClassStatus(struct entity* user, struct entity* target);
 void EndMuzzledStatus(struct entity* user, struct entity* target);
-void EndSleepClassStatus(struct entity* user, struct entity* target);
 void EndMiracleEyeStatus(struct entity* user, struct entity* target);
 void EndMagnetRiseStatus(struct entity* user, struct entity* target);
-void EndBurnClassStatus(struct entity* user, struct entity* target);
-void EndBurnClassStatus(struct entity* user, struct entity* target);
-void EndBurnClassStatus(struct entity* user, struct entity* target);
-void EndBurnClassStatus(struct entity* user, struct entity* target);
 void TryTriggerMonsterHouse(struct entity* entity, bool outside_enemies);
 void RunMonsterAi(struct entity* monster, undefined param_2);
 void ApplyDamageAndEffects(struct entity* attacker, struct entity* defender,
