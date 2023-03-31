@@ -76,9 +76,11 @@ ASSERT_SIZE(struct monster_stat_modifiers, 32);
 #pragma pack(push, 1)
 struct statuses {
     bool roost;
-    uint8_t field_0x1; // Set by Roost to 0x2
-    uint8_t field_0x2; // Set by Roost to 0xA
-    undefined field_0x3;
+    // 0x1: The typing in entity::types before the flying type is removed for statuses::roost
+    // and restored to entity::types after statuses::roost ends.
+    struct type_id_8 original_types[2];
+    // 0x3: The move id to be used if statuses::bide is 1.
+    uint8_t bide_move_id;
     undefined field_0x4;
     undefined field_0x5;
     undefined field_0x6;
@@ -121,7 +123,7 @@ struct statuses {
     uint8_t bide_move_slot; // 0x2B: Slot in the user's move list
     uint8_t reflect;        // 0x2C: STATUS_REFLECT if 1
     uint8_t reflect_turns;  // 0x2D: Turns left for the status in statuses::reflect
-    // 0x2E: Turns left until residual damage for the status in statuses::reflect, if applicable
+    // 0x2E: Turns left until residual healing for the status in statuses::reflect, if applicable
     uint8_t reflect_damage_countdown;
     uint8_t curse; // 0x2F: STATUS_CURSED if 1
     undefined field_0x30;
@@ -163,10 +165,10 @@ struct statuses {
     bool scanning;             // 0x51: STATUS_SCANNING
     bool stair_spotter;        // 0x52: STATUS_STAIR_SPOTTER
     undefined field_0x53;
-    bool grudge;  // 0x54: STATUS_GRUDGE
-    bool exposed; // 0x55: STATUS_EXPOSED (Foresight/Odor Sleuth)
-    undefined field_0x56;
-    bool boss_flag; // 0x57: Seems to be true for boss monsters
+    bool grudge;       // 0x54: STATUS_GRUDGE
+    bool exposed;      // 0x55: STATUS_EXPOSED (Foresight/Odor Sleuth)
+    bool type_changed; // 0x56: Flag for if the monster's type has been changed
+    bool boss_flag;    // 0x57: Seems to be true for boss monsters
     undefined field_0x58;
     undefined field_0x59;
     bool in_action;            // 0x5A: Possibly a flag while in action
@@ -176,7 +178,9 @@ struct statuses {
     // 0x5E: Increases progressively while the No-Slip Cap is held. Capped at 0x13
     // Used to calculate the chance of an item becoming sticky, resets to 0 when that happens
     uint8_t no_slip_cap_counter;
-    undefined field_0x5f;
+    // 0x5F: Determines how much experience the monster will reward after being defeated
+    // 0 = 0.5x, 1 = 1.0x, 2 = 1.5x
+    uint8_t exp_yield;
     undefined field_0x60;
     undefined field_0x61;
     // 0x62: Flag for two-turn moves that haven't concluded yet. This is also a graphical flag.

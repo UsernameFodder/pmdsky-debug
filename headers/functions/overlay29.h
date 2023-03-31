@@ -200,8 +200,16 @@ bool LevelUp(struct entity* user, struct entity* target, bool message, undefined
 void EvolveMonster(struct entity* monster, undefined4* param_2, enum monster_id new_monster_id);
 uint8_t GetSleepAnimationId(struct entity* entity);
 bool DisplayActions(struct entity* param_1);
+void EndSleepClassStatus(struct entity* user, struct entity* target);
+void EndBurnClassStatus(struct entity* user, struct entity* target);
 void EndFrozenClassStatus(struct entity* user, struct entity* target, bool log);
 void EndCringeClassStatus(struct entity* user, struct entity* target);
+void EndReflectClassStatus(struct entity* user, struct entity* target);
+void EndLeechSeedClassStatus(struct entity* user, struct entity* target);
+void EndSureShotClassStatus(struct entity* user, struct entity* target);
+void EndMuzzledStatus(struct entity* user, struct entity* target);
+void EndMiracleEyeStatus(struct entity* user, struct entity* target);
+void EndMagnetRiseStatus(struct entity* user, struct entity* target);
 void TryTriggerMonsterHouse(struct entity* entity, bool outside_enemies);
 void RunMonsterAi(struct entity* monster, undefined param_2);
 void ApplyDamageAndEffects(struct entity* attacker, struct entity* defender,
