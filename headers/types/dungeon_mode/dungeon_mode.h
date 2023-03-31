@@ -376,9 +376,13 @@ struct monster {
     // 0x152: Seems to be true if the monster has already acted this turn: attacked, used an item,
     // or seemingly anything other than moving/resting. Also true when the monster faints.
     bool already_acted;
-    undefined field_0x153;
-    undefined field_0x154;
-    undefined field_0x155;
+    // 0x153: True if this enemey should evolve. It is not enough to set this flag to evolve
+    // an enemy monster. You also need to set dungeon::should_enemy_evolve.
+    bool should_evolve;
+    // 0x154: True if using a charged move. Changed together with statuses::bide.
+    bool using_charged_move;
+    // 0x155: True if the tagret attacked a Pokemon that has STATUS_GRUDGE.
+    bool hit_grudge_monster;
     undefined field_0x156; // 0 when the monster faints
     undefined field_0x157;
     // 0x158: General-purpose bitflags tracking different bits of volatile state.
@@ -390,17 +394,30 @@ struct monster {
     // 0x15C: Appears to control if there's a log message upon a Flash Fire boost.
     // A message will only be logged once.
     bool flash_fire_boost_logged;
-    undefined field_0x15d;
-    undefined field_0x15e;
-    undefined field_0x15f;
-    undefined field_0x160;
+    // 0x15D: Appears to be a counter for how many times rollout has hit. Likely to be able to
+    // determine how much extra damage consecutive rollout hits should deal.
+    uint8_t rollout_hit_counter;
+    // 0x15E: If true, the monster is warped after completing its move.
+    bool memento_warp_flag;
+    // 0x15F: If true, the monster's special attack is dropped after the completing its move.
+    bool overheat_special_attack_drop_flag;
+    // 0x160: If true, the monster's shadow is drawn. This value is initalized to 1 for every
+    // monster except Diglet and Dugtrio.
+    bool display_shadow;
     // 0x161: If true, prevents giving items to this monster. Might have a broader meaning,
     // such as whether the monster is a guest pokémon.
     bool cannot_give_items;
-    undefined field_0x162;
-    undefined field_0x163;
+    // 0x162: Related to using a move and either missing or fainting. Set to 1 right before
+    // the function for a move is called and set to 0 (sometimes) in ApplyDamage. Gets set
+    // when the monster faints sometimes with field 0x156.
+    bool field_0x162;
+    // 0x163: Related to controlling the number of attacks per move use. Possibly to account
+    // for two-turn moves.
+    bool field_0x163;
     bool took_damage_flag; // 0x164: Set after the monster took damage.
-    undefined field_0x165;
+    // 0x165: Appears to be some sort of validity check? Where 0 is valid and 1 is invalid.
+    // HandleFaint sets this number to 1. Also set to 1 if IsMonsterIdInNormalRange is false.
+    bool field_0x165;
     // 0x166: Set after the monster attacks (true if the attack missed, false otherwise). If true
     // when the monster attacks, Practice Swinger will activate.
     bool practice_swinger_flag;
