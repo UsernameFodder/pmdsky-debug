@@ -165,10 +165,10 @@ struct statuses {
     bool scanning;             // 0x51: STATUS_SCANNING
     bool stair_spotter;        // 0x52: STATUS_STAIR_SPOTTER
     undefined field_0x53;
-    bool grudge;  // 0x54: STATUS_GRUDGE
-    bool exposed; // 0x55: STATUS_EXPOSED (Foresight/Odor Sleuth)
+    bool grudge;       // 0x54: STATUS_GRUDGE
+    bool exposed;      // 0x55: STATUS_EXPOSED (Foresight/Odor Sleuth)
     bool type_changed; // 0x56: Flag for if the monster's type has been changed
-    bool boss_flag; // 0x57: Seems to be true for boss monsters
+    bool boss_flag;    // 0x57: Seems to be true for boss monsters
     undefined field_0x58;
     undefined field_0x59;
     bool in_action;            // 0x5A: Possibly a flag while in action
