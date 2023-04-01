@@ -376,12 +376,12 @@ struct monster {
     // 0x152: Seems to be true if the monster has already acted this turn: attacked, used an item,
     // or seemingly anything other than moving/resting. Also true when the monster faints.
     bool already_acted;
-    // 0x153: True if this enemey should evolve. It is not enough to set this flag to evolve
+    // 0x153: True if this enemy should evolve. It is not enough to set this flag to evolve
     // an enemy monster. You also need to set dungeon::should_enemy_evolve.
     bool should_evolve;
     // 0x154: True if using a charged move. Changed together with statuses::bide.
     bool using_charged_move;
-    // 0x155: True if the tagret attacked a Pokemon that has STATUS_GRUDGE.
+    // 0x155: True if the target attacked a Pokemon that has STATUS_GRUDGE.
     bool hit_grudge_monster;
     undefined field_0x156; // 0 when the monster faints
     undefined field_0x157;
@@ -402,7 +402,7 @@ struct monster {
     // 0x15F: If true, the monster's special attack is dropped after the completing its move.
     bool overheat_special_attack_drop_flag;
     // 0x160: If true, the monster's shadow is drawn. This value is initalized to 1 for every
-    // monster except Diglet and Dugtrio.
+    // monster except Diglett and Dugtrio.
     bool display_shadow;
     // 0x161: If true, prevents giving items to this monster. Might have a broader meaning,
     // such as whether the monster is a guest pokémon.
