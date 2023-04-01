@@ -1451,14 +1451,17 @@ struct dungeon {
     undefined field_0x12aa5;
     undefined field_0x12aa6;
     undefined field_0x12aa7;
-    undefined field_0x12aa8;
-    undefined field_0x12aa9;
-    undefined field_0x12aaa;
-    undefined field_0x12aab;
-    undefined field_0x12aac;
-    undefined field_0x12aad;
-    undefined field_0x12aae;
-    undefined field_0x12aaf;
+    // 0x12AA8: This flag is set by the move 0x191 ("Trapper") which is the effect
+    // of the Trapper Orb. If true, the game will try to spawn a trap.
+    bool trapper_orb_flag;
+    undefined field_0x12aa9; // Likely padding
+    // 0x12AAA: Location to spawn the trap by trapper_orb_flag.
+    struct position trapper_orb_trap_pos;
+    // 0x12AAE: Trap ID to spawn the trap by trapper_orb_flag. Notably, the game
+    // will always set this to 0x19, but could work with other values.
+    struct trap_id_8 traper_orb_trap_id;
+    // 0x12AAF: Alignment to spawn the trap by trapper_orb_flag.
+    uint8_t trapper_orb_trap_team;
     undefined field_0x12ab0;
     undefined field_0x12ab1;
     undefined field_0x12ab2;
