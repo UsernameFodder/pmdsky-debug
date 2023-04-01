@@ -84,10 +84,9 @@ struct statuses {
     undefined field_0x4;
     undefined field_0x5;
     undefined field_0x6;
-    undefined field_0x7;
-    undefined field_0x8;
-    undefined field_0x9;
-    undefined field_0xa;
+    // 0x7: Accessed when setting statuses::leech_seed and compared against values in
+    // dungeon::0x3DCC (this value is probably an array). This value is saved 
+    uint32_t field_0x7;
     // 0xB: Pointer to the monster being wrapped around/wrapped by
     struct entity* wrapped_opponent;
     undefined field_0xf;
@@ -101,7 +100,11 @@ struct statuses {
     uint8_t burn_turns;  // 0x17: Turns left for the status in statuses::burn
     // 0x18: Turns left until residual damage for the status in statuses::burn, if applicable
     uint8_t burn_damage_countdown;
-    undefined field_0x19;
+    // 0x19: The number of times the statuses::burn_damage_countdown has reached 0. Only used
+    // when badly poisoned. Determines how much damage the badly poisoned status condition
+    // will deal. There is no noticable difference because the table this value is looked up
+    // on is filled with 0x6
+    uint8_t burn_damaged_count;
     undefined field_0x1a;
     uint8_t freeze; // 0x1B: STATUS_FROZEN if 1
     undefined field_0x1c;
@@ -138,11 +141,12 @@ struct statuses {
     undefined field_0x38;
     undefined field_0x39;
     undefined field_0x3a;
-    undefined field_0x3b;
-    undefined field_0x3c;
-    undefined field_0x3d;
-    undefined field_0x3e;
-    undefined field_0x3f;
+    // 0x3B: Leech seed related tracker. Set to the value in statuses:0x7 after finding
+    // statuses::leech_seed_source_monster_index.
+    uint32_t field_0x3b;
+    // 0x3F: Index into entity_table_hdr::monster_slot_ptrs in the dungeon that the 
+    // user (drainer) is held.
+    uint8_t leech_seed_source_monster_index;
     uint8_t leech_seed_turns; // 0x40: Turns left for the status in statuses::leech_seed
     // 0x41: Turns left until residual damage for the status in statuses::leech_seed, if applicable.
     // Behaves weirdly without an afflictor
@@ -407,12 +411,13 @@ struct monster {
     // 0x161: If true, prevents giving items to this monster. Might have a broader meaning,
     // such as whether the monster is a guest pokémon.
     bool cannot_give_items;
-    // 0x162: Related to using a move and either missing or fainting. Set to 1 right before
+    // 0x162: Related to using a move and either missing or fainting? Set to 1 right before
     // the function for a move is called and set to 0 (sometimes) in ApplyDamage. Gets set
-    // when the monster faints sometimes with field 0x156.
+    // when the monster faints sometimes with field 0x156. Also set back to 1 after completing
+    // a move if it's still valid?
     bool field_0x162;
     // 0x163: Related to controlling the number of attacks per move use. Possibly to account
-    // for two-turn moves.
+    // for two-turn moves?
     bool field_0x163;
     bool took_damage_flag; // 0x164: Set after the monster took damage.
     // 0x165: Appears to be some sort of validity check? Where 0 is valid and 1 is invalid.
@@ -436,11 +441,13 @@ struct monster {
     undefined field_0x16d;
     undefined field_0x16e;
     undefined field_0x16f;
-    undefined field_0x170;
+    bool field_0x170;
     undefined field_0x171;
-    undefined field_0x172;
+    // 0x172: Set when the leader and falling through a pitfall trap.
+    bool field_0x172;
     undefined field_0x173;
-    undefined field_0x174;
+    // 0x174: Set when the leader and falling through a pitfall trap.
+    bool field_0x174;
     undefined field_0x175;
     undefined field_0x176;
     undefined field_0x177;
@@ -458,14 +465,15 @@ struct monster {
     undefined field_0x189;
     undefined field_0x18a;
     undefined field_0x18b;
-    undefined field_0x18c;
-    undefined field_0x18d;
-    undefined field_0x18e;
-    undefined field_0x18f;
+    // 0x18C: Bitflags to that cause non-damaging items to trigger on the attacker
+    // after they have completed their move. (Only uses first 21 bits).
+    uint32_t item_trigger_bitflags;
     undefined field_0x190;
     undefined field_0x191;
-    undefined field_0x192;
-    undefined field_0x193;
+    // 0x192: Bitflags to that cause non-damaging abilities to trigger on the attacker
+    // after they have completed their move. (Only uses first 11 bits). One exception
+    // is the move Rapid Spin which sets one of the flags for the user.
+    uint16_t contact_ability_trigger_bitflags;
     undefined field_0x194;
     undefined field_0x195;
     undefined field_0x196;

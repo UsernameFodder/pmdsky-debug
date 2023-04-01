@@ -12,7 +12,8 @@ struct dungeon {
     undefined field_0x4;
     bool stepped_on_stairs; // 0x5: True if the leader just stepped on the stairs.
     // 0x6: If equal to 1 or 2, the floor will be advanced at the end of the turn,
-    // unless the leader fainted.
+    // unless the leader fainted. 2 is used for the leader falling through a pitfall
+    // trap.
     uint8_t end_floor_flag;
     // 0x7: If set in tandem with either end_floor_flag or end_floor_no_death_check_flag,
     // a quicksave will occur instead of a floor advance.
@@ -1096,6 +1097,9 @@ struct dungeon {
     undefined field_0x3b73;
     // 0x3B74: Unknown array, likely one entry per monster species
     uint8_t unknown_array_0x3B74[600];
+    // 0x3DCC: The following entries are 4 bytes long and probably an array. I'm not certain
+    // what this array holds, but this value is compared to statuses:0x7 in several places. So
+    // it's probably not a coincidence that if this is an array it has 20 entries in it.
     undefined field_0x3dcc;
     undefined field_0x3dcd;
     undefined field_0x3dce;
@@ -1176,7 +1180,7 @@ struct dungeon {
     undefined field_0x3e19;
     undefined field_0x3e1a;
     undefined field_0x3e1b;
-    undefined4 field_0x3e1c;
+    undefined field_0x3e1c;
     // 0x3E20: Number of valid monster spawn entries (see spawn_entries).
     int monster_spawn_entries_length;
     undefined field_0x3e24;
@@ -1723,6 +1727,8 @@ struct dungeon {
     uint16_t spawn_table_entries_chosen[16];
     undefined field_0x2ca0a;
     undefined field_0x2ca0b;
+    // 0x2CA0C: Probably a char[] that holds the name for the monster that caused
+    // the faint. Uncertain of exact size.
     undefined field_0x2ca0c;
     undefined field_0x2ca0d;
     undefined field_0x2ca0e;
@@ -1753,6 +1759,8 @@ struct dungeon {
     undefined field_0x2ca27;
     undefined field_0x2ca28;
     undefined field_0x2ca29;
+    // 0x2CA0C: Probably a char[] that holds the name for the monster that fainted.
+    // Uncertain of exact size.
     undefined field_0x2ca2a;
     undefined field_0x2ca2b;
     undefined field_0x2ca2c;
@@ -1783,6 +1791,9 @@ struct dungeon {
     undefined field_0x2ca45;
     undefined field_0x2ca46;
     undefined field_0x2ca47;
+    // 0x2CA0C: Probably a char[] because strcpy is called on it; however, unable to determine
+    // what exactly would get saved here. Possible the game may always set it to the null
+    // terminator and never actually copies something inside. Uncertain of exact size.
     undefined field_0x2ca48;
     undefined field_0x2ca49;
     undefined field_0x2ca4a;
@@ -1815,25 +1826,19 @@ struct dungeon {
     undefined field_0x2ca65;
     undefined field_0x2ca66;
     undefined field_0x2ca67;
-    undefined field_0x2ca68;
-    undefined field_0x2ca69;
-    undefined field_0x2ca6a;
-    undefined field_0x2ca6b;
-    undefined field_0x2ca6c;
-    undefined field_0x2ca6d;
-    undefined field_0x2ca6e;
-    undefined field_0x2ca6f;
-    undefined field_0x2ca70;
-    undefined field_0x2ca71;
-    undefined field_0x2ca72;
-    undefined field_0x2ca73;
-    undefined field_0x2ca74;
-    undefined field_0x2ca75;
-    undefined field_0x2ca76;
-    undefined field_0x2ca77;
-    undefined field_0x2ca78;
-    undefined field_0x2ca79;
-    undefined field_0x2ca7a;
+    struct dungeon_id_8 fainted_id; // 0x2CA68: Copied from dungeon::id, upon fainting.
+    uint8_t fainted_floor;          // 0x2CA69: Copied from dungeon::floor, upon fainting.
+    // 0x2CA6A: Copy of the fainted monster's held item.
+    struct item fainted_monster_held_item;
+    int fainted_monster_exp; // 0x2CA70: Copy of fainted monster's experience.
+    // 0x2CA74: Copy of the fainted monster's ACTUAL max hp (monster::max_hp_stat +
+    // monster::max_hp_boost)
+    int16_t fainted_monster_actual_max_hp;
+    // 0x2CA76: Copy of the fainted monster's offensive stats.
+    uint8_t fainted_monster_offensive_stats[2];
+    // 0x2CA76: Copy of the fainted monster's defenive stats.
+    uint8_t fainted_monster_defensive_stats[2];
+    uint8_t fainted_monster_level; // 0x2CA7A: Copy of fainted monster's level.
     undefined field_0x2ca7b;
     undefined field_0x2ca7c;
     undefined field_0x2ca7d;
