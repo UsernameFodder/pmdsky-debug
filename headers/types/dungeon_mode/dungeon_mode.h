@@ -412,12 +412,12 @@ struct monster {
     // 0x161: If true, prevents giving items to this monster. Might have a broader meaning,
     // such as whether the monster is a guest pokémon.
     bool cannot_give_items;
-    // 0x162: Related to using a move and either missing or fainting? Set to 1 right before
+    // 0x162: Related to using a move and either missing or fainting. Set to 1 right before
     // the function for a move is called and set to 0 (sometimes) in ApplyDamage. Gets set
     // when the monster faints sometimes with field 0x156.
     bool field_0x162;
     // 0x163: Related to controlling the number of attacks per move use. Possibly to account
-    // for two-turn moves?
+    // for two-turn moves.
     bool field_0x163;
     bool took_damage_flag; // 0x164: Set after the monster took damage.
     // 0x165: Appears to be some sort of validity check? Where 0 is valid and 1 is invalid.
