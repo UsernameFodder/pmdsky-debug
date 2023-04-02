@@ -258,6 +258,7 @@ bool SpecificRecruitCheck(enum monster_id monster_id);
 bool RecruitCheck(struct entity* user, struct entity* target);
 bool TryRecruit(struct entity* user, struct entity* recruit);
 void TrySpawnMonsterAndTickSpawnCounter(void);
+void TryNonLeaderItemPickUp(struct entity* entity);
 bool AuraBowIsActive(struct entity* entity);
 int ExclusiveItemOffenseBoost(struct entity* entity, int move_category_idx);
 int ExclusiveItemDefenseBoost(struct entity* entity, int move_category_idx);
@@ -526,6 +527,7 @@ bool IsHiddenStairsFloor(void);
 void GenerateStandardItem(struct item* item, enum item_id item_id,
                           enum gen_item_stickiness sticky_type);
 void GenerateCleanItem(struct item* item, enum item_id item_id);
+void TryLeaderItemPickUp(struct position* position, bool flag);
 bool SpawnItem(struct position* position, struct item* item, bool flag);
 void SpawnEnemyItemDropWrapper(struct entity* entity, struct position* pos, struct item* item,
                                undefined4 param_4);

@@ -2615,6 +2615,17 @@ overlay29:
         If the spawn counter is greater than 900, it will instead perform the special spawn caused by the ability Illuminate.
         
         No params.
+    - name: TryNonLeaderItemPickUp
+      address:
+        EU: 0x230FBD8
+        NA: 0x230F164
+        JP: 0x23106A0
+      description: |-
+        Similar to TryLeaderItemPickUp, but for other monsters.
+        
+        Used both for enemies and team members.
+        
+        r0: entity pointer
     - name: AuraBowIsActive
       address:
         EU: 0x231013C
@@ -5092,6 +5103,16 @@ overlay29:
         
         r0: pointer to item to initialize
         r1: item ID
+    - name: TryLeaderItemPickUp
+      address:
+        EU: 0x2345C40
+        NA: 0x2345058
+        JP: 0x234641C
+      description: |-
+        Checks the tile at the specified position and determines if the leader should pick up an item.
+        
+        r0: position
+        r1: flag for whether or not a message should be logged upon the leader failing to obtain the item
     - name: SpawnItem
       address:
         EU: 0x2346120
