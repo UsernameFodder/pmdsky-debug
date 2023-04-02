@@ -491,8 +491,7 @@ overlay10:
         NA: 0x22C4578
       length:
         NA: 0x2
-      description: The passive bonus health regen given when the weather is rain for the
-      abilities rain dish and dry skin.
+      description: The passive bonus health regen given when the weather is rain for the abilities rain dish and dry skin.
     - name: LEECH_SEED_HP_DRAIN
       address:
         NA: 0x22C4588

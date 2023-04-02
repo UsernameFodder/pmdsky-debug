@@ -145,8 +145,8 @@ struct statuses {
     // 0x3B: Leech seed related tracker. Set to the value in statuses:0x7 after finding
     // statuses::leech_seed_source_monster_index.
     uint32_t field_0x3b;
-    // 0x3F: Index into entity_table_hdr::monster_slot_ptrs in the dungeon that the 
-    // user (drainer) is held.
+    // 0x3F: Index into entity_table_hdr::monster_slot_ptrs in the dungeon that the user
+    // (drainer) is held.
     uint8_t leech_seed_source_monster_index;
     uint8_t leech_seed_turns; // 0x40: Turns left for the status in statuses::leech_seed
     // 0x41: Turns left until residual damage for the status in statuses::leech_seed, if applicable.

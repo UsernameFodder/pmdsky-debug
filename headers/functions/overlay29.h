@@ -125,7 +125,8 @@ void SetMonsterTypeAndAbility(struct entity* target);
 void TryActivateSlowStart(void);
 void TryActivateArtificialWeatherAbilities(void);
 int GetMonsterApparentId(struct entity* target, enum monster_id current_id);
-bool TryActivateTraceAndColorChange(struct entity* attacker, struct entity* defender, struct move* move);
+bool TryActivateTraceAndColorChange(struct entity* attacker, struct entity* defender,
+                                    struct move* move);
 bool DefenderAbilityIsActive(struct entity* attacker, struct entity* defender,
                              enum ability_id ability_id, bool attacker_ability_enabled);
 bool IsMonster(struct entity* entity);
