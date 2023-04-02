@@ -1836,7 +1836,7 @@ struct dungeon {
     int16_t fainted_monster_actual_max_hp;
     // 0x2CA76: Copy of the fainted monster's offensive stats.
     uint8_t fainted_monster_offensive_stats[2];
-    // 0x2CA76: Copy of the fainted monster's defenive stats.
+    // 0x2CA78: Copy of the fainted monster's defenive stats.
     uint8_t fainted_monster_defensive_stats[2];
     uint8_t fainted_monster_level; // 0x2CA7A: Copy of fainted monster's level.
     undefined field_0x2ca7b;

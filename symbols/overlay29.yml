@@ -6643,8 +6643,7 @@ overlay29:
         NA: 0x2353330
       length:
         NA: 0x36
-      description: List that matches the damage_message ID to their corresponding message ID.
-      The null entry at 0xE in the middle is for hunger. The last entry is null.
+      description: List that matches the damage_message ID to their corresponding message ID. The null entry at 0xE in the middle is for hunger. The last entry is null.
     - name: TWO_TURN_MOVES_AND_STATUSES
       address:
         EU: 0x23536B8
