@@ -414,8 +414,7 @@ struct monster {
     bool cannot_give_items;
     // 0x162: Related to using a move and either missing or fainting? Set to 1 right before
     // the function for a move is called and set to 0 (sometimes) in ApplyDamage. Gets set
-    // when the monster faints sometimes with field 0x156. Also set back to 1 after completing
-    // a move if it's still valid?
+    // when the monster faints sometimes with field 0x156.
     bool field_0x162;
     // 0x163: Related to controlling the number of attacks per move use. Possibly to account
     // for two-turn moves?
