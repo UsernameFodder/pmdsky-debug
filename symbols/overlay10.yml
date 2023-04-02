@@ -736,18 +736,12 @@ overlay10:
         EU: 0x2
         NA: 0x2
       description: The number of turns between passive poison damage.
-    - name: POISON_DAMAGE_COOLDOWN
+    - name: LEECH_SEED_DAMAGE_COOLDOWN
       address:
         NA: 0x22C46AC
       length:
         NA: 0x2
       description: The number of turns between leech seed health drain.
-    - name: BURN_DAMAGE
-      address:
-        NA: 0x22C44D4
-      length:
-        NA: 0x2
-      description: Damage dealt by the poison status condition.
     - name: GEO_PEBBLE_DAMAGE
       address:
         EU: 0x22C500C

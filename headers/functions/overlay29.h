@@ -397,7 +397,8 @@ bool CanMonsterUseMove(struct entity* monster, struct move* move, bool extra_che
 void UpdateMovePp(struct entity* entity, bool can_consume_pp);
 union damage_source GetDamageSourceWrapper(struct move* move, enum item_id item_id);
 int LowerSshort(int x);
-void PlayMoveAnimation(struct entity* user, struct entity* target, struct move* move, struct position* position);
+void PlayMoveAnimation(struct entity* user, struct entity* target, struct move* move,
+                       struct position* position);
 uint16_t GetMoveAnimationId(struct move* move, enum weather_id apparent_weather,
                             bool should_play_alternative_animation);
 bool ShouldMovePlayAlternativeAnimation(struct entity* user, struct move* move);
