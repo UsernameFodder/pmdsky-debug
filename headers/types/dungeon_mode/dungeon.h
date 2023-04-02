@@ -1180,7 +1180,7 @@ struct dungeon {
     undefined field_0x3e19;
     undefined field_0x3e1a;
     undefined field_0x3e1b;
-    undefined field_0x3e1c;
+    undefined4 field_0x3e1c;
     // 0x3E20: Number of valid monster spawn entries (see spawn_entries).
     int monster_spawn_entries_length;
     undefined field_0x3e24;

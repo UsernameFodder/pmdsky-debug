@@ -3699,7 +3699,7 @@ overlay29:
         also handled here.)
         
         r0: entity pointer
-    - name: TryActivateNondamagingDefenderItem
+    - name: TryActivateNondamagingDefenderExclusiveItem
       address:
         NA: 0x2321CF0
       description: |-

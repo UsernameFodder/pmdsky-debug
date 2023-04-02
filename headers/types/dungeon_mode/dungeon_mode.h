@@ -105,7 +105,7 @@ struct statuses {
     // when badly poisoned. Determines how much damage the badly poisoned status condition
     // will deal. There is no noticable difference because the table this value is looked up
     // on is filled with 0x6
-    uint8_t burn_damaged_count;
+    uint8_t badly_poisoned_damage_count;
     undefined field_0x1a;
     uint8_t freeze; // 0x1B: STATUS_FROZEN if 1
     undefined field_0x1c;
@@ -465,14 +465,17 @@ struct monster {
     undefined field_0x189;
     undefined field_0x18a;
     undefined field_0x18b;
-    // 0x18C: Bitflags to that cause non-damaging items to trigger on the attacker
-    // after they have completed their move. (Only uses first 21 bits).
-    uint32_t item_trigger_bitflags;
+    // 0x18C: Bitflags that cause non-damaging exclusive items to trigger on the
+    // attacker after they have completed their move. For example, the Eclipse Robe
+    // (Darkrai exclusive item) may afflict attacking enemies with the nightmare
+    // status condition. (Only uses first 21 bits).
+    uint32_t exclusive_item_trigger_bitflags;
     undefined field_0x190;
     undefined field_0x191;
-    // 0x192: Bitflags to that cause non-damaging abilities to trigger on the attacker
-    // after they have completed their move. (Only uses first 11 bits). One exception
-    // is the move Rapid Spin which sets one of the flags for the user.
+    // 0x192: Bitflags that cause non-damaging abilities to trigger on the attacker
+    // after they have completed their move. Abilites like magnet pull, cute charm,
+    // static, and flame body. (Only uses first 11 bits). One exception is the move
+    // Rapid Spin which sets one of the flags for the user.
     uint16_t contact_ability_trigger_bitflags;
     undefined field_0x194;
     undefined field_0x195;

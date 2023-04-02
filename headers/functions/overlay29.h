@@ -381,7 +381,7 @@ void TryExplosion(struct entity* user, struct entity* target, struct position* p
 void TryWarp(struct entity* user, struct entity* target, enum warp_type warp_type,
              struct position position);
 void TryActivateNondamagingDefenderAbility(struct entity* entity);
-void TryActivateNondamagingDefenderItem(struct entity* attacker, struct entity* defender);
+void TryActivateNondamagingDefenderExclusiveItem(struct entity* attacker, struct entity* defender);
 int GetMoveRangeDistance(struct entity* user, struct move* move, bool check_two_turn_moves);
 bool MoveHitCheck(struct entity* attacker, struct entity* defender, struct move* move,
                   bool use_second_accuracy, bool never_miss_self);
