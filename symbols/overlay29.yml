@@ -3708,7 +3708,7 @@ overlay29:
         applies the corresponding effect.
         
         r0: attacker entity pointer
-        r1: defender entity pointer 
+        r1: defender entity pointer
     - name: GetMoveRangeDistance
       address:
         EU: 0x2322D0C
@@ -6696,13 +6696,13 @@ overlay29:
         NA: 0x23532D0
       length:
         NA: 0xA
-      description: List that holds the message IDs for how much a monster's IQ was raised by in decreasing order.
+      description: "List that holds the message IDs for how much a monster's IQ was raised by in decreasing order."
     - name: DAMAGE_MESSAGE_IDS
       address:
         NA: 0x2353330
       length:
         NA: 0x36
-      description: "List that matches the damage_message ID to their corresponding message ID. The null entry at 0xE in the middle is for hunger. The last entry is null."
+      description: List that matches the damage_message ID to their corresponding message ID. The null entry at 0xE in the middle is for hunger. The last entry is null.
     - name: DUNGEON_PTR
       address:
         EU: 0x2354138
