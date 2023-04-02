@@ -1090,7 +1090,8 @@ overlay29:
         NA: 0x22EDBD4
       description: |-
         Saves the relevant information in the dungeon struct to later place a trap at the
-        location of the entity. (Only called with trap ID 0x19, but could be used with others).
+        location of the entity. (Only called with trap ID 0x19 (TRAP_NONE), but could be used 
+        with others).
         
         r0: entity pointer
         r1: trap ID
@@ -1099,7 +1100,7 @@ overlay29:
       address:
         NA: 0x22EDCBC
       description: |-
-        Checks if the a trap can be placed on the tile. If the trap ID is above 0x18 (the
+        Checks if the a trap can be placed on the tile. If the trap ID is >= TRAP_NONE (the
         last value for a trap), randomly select another trap (except for wonder tile). After
         30 failed attempts to select a non-wonder tile trap ID, default to chestnut trap.
         If the checks pass, spawn the trap.
@@ -6685,19 +6686,19 @@ overlay29:
         Note that this array is only used for the cardinal directions. The elements at odd indexes are unused and unconditionally set to 0.
         
         This array is used by the dungeon generation algorithm when generating room imperfections. See GenerateRoomImperfections.
-    - name: GUMMI_LIKE_MESSAGE_IDS
+    - name: GUMMI_LIKE_STRING_IDS
       address:
         NA: 0x23532D0
       length:
         NA: 0x8
       description: List that holds the message IDs for how much a monster liked a gummi in decreasing order.
-    - name: GUMMI_IQ_MESSAGE_IDS
+    - name: GUMMI_IQ_STRING_IDS
       address:
         NA: 0x23532D0
       length:
         NA: 0xA
       description: "List that holds the message IDs for how much a monster's IQ was raised by in decreasing order."
-    - name: DAMAGE_MESSAGE_IDS
+    - name: DAMAGE_STRING_IDS
       address:
         NA: 0x2353330
       length:

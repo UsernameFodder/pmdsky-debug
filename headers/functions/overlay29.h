@@ -98,8 +98,8 @@ void BindTrapToTile(struct tile* tile, struct entity* trap, bool is_visible);
 void SpawnEnemyTrapAtPos(enum trap_id trap_id, int16_t x, int16_t y, uint8_t flags,
                          bool is_visible);
 void PrepareTrapperTrap(struct entity* entity, enum trap_id trap_id, uint8_t team);
-void TrySpawnTrap(struct entity* entity, enum trap_id trap_id, uint8_t team, bool visible);
-void TrySpawnTrapperTrap(struct entity* entity);
+bool TrySpawnTrap(struct position* pos, enum trap_id trap_id, uint8_t team, bool visible);
+bool TrySpawnTrapperTrap(struct entity* entity);
 bool DebugRecruitingEnabled(void);
 bool IsSecretBazaarNpcBehavior(enum monster_behavior behavior);
 struct action_16* GetLeaderAction(void);
@@ -125,12 +125,12 @@ void SetMonsterTypeAndAbility(struct entity* target);
 void TryActivateSlowStart(void);
 void TryActivateArtificialWeatherAbilities(void);
 int GetMonsterApparentId(struct entity* target, enum monster_id current_id);
-bool TryActivateTraceAndColorChange(struct entity* attacker, struct entity* defender,
+void TryActivateTraceAndColorChange(struct entity* attacker, struct entity* defender,
                                     struct move* move);
 bool DefenderAbilityIsActive(struct entity* attacker, struct entity* defender,
                              enum ability_id ability_id, bool attacker_ability_enabled);
 bool IsMonster(struct entity* entity);
-bool TryActivateConversion2(struct entity* attacker, struct entity* defender, struct move* move);
+void TryActivateConversion2(struct entity* attacker, struct entity* defender, struct move* move);
 void TryActivateTruant(struct entity* entity);
 void TryPointCameraToMonster(struct entity* entity, undefined param_2, undefined param_3);
 void RestorePpAllMovesSetFlags(struct entity* entity);
@@ -367,8 +367,8 @@ void ViolentSeedBoost(struct entity* attacker, struct entity* defender);
 void ApplyGummiBoostsDungeonMode(struct entity* user, struct entity* target,
                                  enum type_id gummi_type, int random_stat_boost);
 bool CanMonsterUseItem(struct entity* entity, struct item* item);
-void ApplyGrimyFoodEffect(struct entity* attacker, struct entity* defender);
-void ApplyMixElixirEffect(struct entity* attacker, struct entity* defender);
+void ApplyGrimyFoodEffect(struct entity* user, struct entity* target);
+void ApplyMixElixirEffect(struct entity* user, struct entity* target);
 bool ShouldTryEatItem(enum item_id item_id);
 int GetMaxPpWrapper(struct move* move);
 bool MoveIsNotPhysical(enum move_id move_id);
@@ -421,6 +421,7 @@ bool StatusCheckerCheck(struct entity* attacker, struct move* move);
 enum weather_id GetApparentWeather(struct entity* entity);
 void TryWeatherFormChange(struct entity* entity);
 void ActivateSportCondition(bool water_sport);
+bool TryActivateWeather(bool param_1, bool param_2);
 int DigitCount(int n);
 void LoadTextureUi(void);
 int DisplayNumberTextureUi(int16_t x, int16_t y, int n, int ally_mode);

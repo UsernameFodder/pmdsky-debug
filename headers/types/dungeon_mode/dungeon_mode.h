@@ -144,7 +144,7 @@ struct statuses {
     undefined field_0x3a;
     // 0x3B: Leech seed related tracker. Set to the value in statuses:0x7 after finding
     // statuses::leech_seed_source_monster_index.
-    uint32_t field_0x3b;
+    uint32_t unk_leech_seed_tracker;
     // 0x3F: Index into entity_table_hdr::monster_slot_ptrs in the dungeon that the user
     // (drainer) is held.
     uint8_t leech_seed_source_monster_index;
@@ -444,10 +444,10 @@ struct monster {
     bool field_0x170;
     undefined field_0x171;
     // 0x172: Set when the leader and falling through a pitfall trap.
-    bool field_0x172;
+    bool pitfall_trap_flag_0x172;
     undefined field_0x173;
     // 0x174: Set when the leader and falling through a pitfall trap.
-    bool field_0x174;
+    bool pitfall_trap_flag_0x174;
     undefined field_0x175;
     undefined field_0x176;
     undefined field_0x177;
