@@ -85,7 +85,8 @@ struct statuses {
     undefined field_0x5;
     undefined field_0x6;
     // 0x7: Accessed when setting statuses::leech_seed and compared against values in
-    // dungeon::0x3DCC (this value is probably an array). This value is saved 
+    // dungeon::0x3DCC (this value is probably an array). This value is saved to
+    // statuses:0x3B for Destiny Bond and Leech Seed.
     uint32_t field_0x7;
     // 0xB: Pointer to the monster being wrapped around/wrapped by
     struct entity* wrapped_opponent;
