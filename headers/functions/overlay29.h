@@ -38,7 +38,7 @@ void UpdateCamera(undefined param_1);
 bool ItemIsActive(struct entity* entity, enum item_id item_id);
 int GetVisibilityRange(void);
 int PlayEffectAnimationEntity(struct entity* entity, int effect_id, bool play_now, int param_4,
-                             int param_5, undefined param_6, int param_7, undefined2* param_8);
+                              int param_5, undefined param_6, int param_7, undefined2* param_8);
 int PlayEffectAnimationPos(struct position* pos, int effect_id, bool play_now);
 int PlayEffectAnimationPixelPos(struct pixel_position* pixel_pos, int effect_id, bool play_now);
 void UpdateStatusIconFlags(struct entity* entity);
