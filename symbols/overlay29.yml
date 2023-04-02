@@ -6626,24 +6626,6 @@ overlay29:
         List of exclusive item effects that negate damage of a certain type, terminated by a TYPE_NEUTRAL entry.
         
         type: struct damage_negating_exclusive_eff_entry[28]
-    - name: GUMMI_LIKE_MESSAGE_IDS
-      address:
-        NA: 0x23532D0
-      length:
-        NA: 0x8
-      description: List that holds the message IDs for how much a monster liked a gummi in decreasing order.
-    - name: GUMMI_IQ_MESSAGE_IDS
-      address:
-        NA: 0x23532D0
-      length:
-        NA: 0xA
-      description: List that holds the message IDs for how much a monster's IQ was raised by in decreasing order.
-    - name: DAMAGE_MESSAGE_IDS
-      address:
-        NA: 0x2353330
-      length:
-        NA: 0x36
-      description: List that matches the damage_message ID to their corresponding message ID. The null entry at 0xE in the middle is for hunger. The last entry is null.
     - name: TWO_TURN_MOVES_AND_STATUSES
       address:
         EU: 0x23536B8
@@ -6703,6 +6685,24 @@ overlay29:
         Note that this array is only used for the cardinal directions. The elements at odd indexes are unused and unconditionally set to 0.
         
         This array is used by the dungeon generation algorithm when generating room imperfections. See GenerateRoomImperfections.
+    - name: GUMMI_LIKE_MESSAGE_IDS
+      address:
+        NA: 0x23532D0
+      length:
+        NA: 0x8
+      description: List that holds the message IDs for how much a monster liked a gummi in decreasing order.
+    - name: GUMMI_IQ_MESSAGE_IDS
+      address:
+        NA: 0x23532D0
+      length:
+        NA: 0xA
+      description: List that holds the message IDs for how much a monster's IQ was raised by in decreasing order.
+    - name: DAMAGE_MESSAGE_IDS
+      address:
+        NA: 0x2353330
+      length:
+        NA: 0x36
+      description: List that matches the damage_message ID to their corresponding message ID. The null entry at 0xE in the middle is for hunger. The last entry is null.
     - name: DUNGEON_PTR
       address:
         EU: 0x2354138

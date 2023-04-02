@@ -633,7 +633,7 @@ overlay10:
         NA: 0x22C4654
       length:
         NA: 0x2
-      description: The number of turns the moves rain dance, hail, sandstorm, sunny day and defog change the weather for. (3000)
+      description: "The number of turns the moves rain dance, hail, sandstorm, sunny day and defog change the weather for. (3000)"
     - name: THUNDER_PARALYZE_CHANCE
       address:
         NA: 0x22C4658
@@ -1247,7 +1247,7 @@ overlay10:
         NA: 0x22C4C9C
       length:
         NA: 0x3C
-      description: Table for how much damage each tick of badly poisoned should deal. The table is filled with 0x0006, but could use different values for each entry.
+      description: "Table for how much damage each tick of badly poisoned should deal. The table is filled with 0x0006, but could use different values for each entry."
     - name: TYPE_MATCHUP_COMBINATOR_TABLE
       address:
         NA: 0x22C4D14
