@@ -1647,7 +1647,8 @@ struct dungeon {
     uint16_t spawn_table_entries_chosen[16];
     undefined field_0x2ca0a;
     undefined field_0x2ca0b;
-    // 0x2CA0C: Holds the name for the entity that caused the faint. The exact size is a guess. Likely larger because of entities like the Explosion Trap.
+    // 0x2CA0C: Holds the name for the entity that caused the faint. The exact size is a guess.
+    // Likely larger because of entities like the Explosion Trap.
     char fainted_monster_cause_entity_name[10];
     undefined field_0x2ca16;
     undefined field_0x2ca17;
@@ -1691,7 +1692,7 @@ struct dungeon {
     undefined field_0x2ca45;
     undefined field_0x2ca46;
     undefined field_0x2ca47;
-    // 0x2CA0C: Possible the game may always set it to the null terminator and never actually 
+    // 0x2CA0C: Possible the game may always set it to the null terminator and never actually
     // copies something inside. Uncertain of exact size
     char field_0x2ca48[1];
     undefined field_0x2ca49;
