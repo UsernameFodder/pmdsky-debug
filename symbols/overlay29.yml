@@ -266,6 +266,24 @@ overlay29:
         Fades the screen to black across several frames.
         
         No params.
+    - name: GetTrapData
+      address:
+        EU: 0x22E1F48
+        NA: 0x22E1608
+      description: |-
+        Given a trap entity, returns the pointer to the trap data it contains.
+        
+        r0: Entity pointer
+        return: Trap data pointer
+    - name: GetItemData
+      address:
+        EU: 0x22E1F50
+        NA: 0x22E1610
+      description: |-
+        Given an item entity, returns the pointer to the item data it contains.
+        
+        r0: Entity pointer
+        return: Item data pointer
     - name: GetTileAtEntity
       address:
         EU: 0x22E1F68
@@ -302,6 +320,15 @@ overlay29:
         
         r0: position
         return: entity pointer for the newly added item, or null on failure
+    - name: ShouldMinimapDisplayEntity
+      address:
+        EU: 0x22E2DD8
+        NA: 0x22E2498
+      description: |-
+        Checks if a given entity should be displayed on the minimap
+        
+        r0: Entity pointer
+        return: True if the entity should be displayed on the minimap
     - name: ShouldDisplayEntityMessages
       address:
         EU: 0x22E2EB4
@@ -464,7 +491,7 @@ overlay29:
         Returns dungeon::display_data::visibility_range. If the visibility range is 0, returns 2 instead.
         
         return: Visibility range of the current floor, or 2 if the visibility is 0.
-    - name: PlayEffectAnimation
+    - name: PlayEffectAnimationEntity
       address:
         EU: 0x22E3F94
         NA: 0x22E35E4
@@ -475,10 +502,32 @@ overlay29:
         The third parameter skips the loop entirely. It seems like in this case the function might just preload some animation frames for later use??
         
         r0: entity pointer
-        r1: ?
+        r1: Effect ID
         r2: appears to be a flag for actually running the animation now? If this is 0, the AdvanceFrame loop is skipped entirely.
         others: ?
         return: status code, or maybe the number of frames or something? Either way, -1 seems to indicate the animation being finished or something?
+    - name: PlayEffectAnimationPos
+      address:
+        EU: 0x22E418C
+        NA: 0x22E37DC
+      description: |-
+        Takes a position struct in r0 and converts it to a pixel position struct before calling PlayEffectAnimationPixelPos
+        
+        r0: Position where the effect should be played
+        r1: Effect ID
+        r2: Unknown flag (same as the one in PlayEffectAnimationEntity)
+        return: Result of call to PlayEffectAnimationPixelPos
+    - name: PlayEffectAnimationPixelPos
+      address:
+        EU: 0x22E41D0
+        NA: 0x22E3820
+      description: |-
+        Seems like a variant of PlayEffectAnimationEntity that uses pixel coordinates as its first parameter instead of an entity pointer.
+        
+        r0: Pixel position where the effect should be played
+        r1: Effect ID
+        r2: Unknown flag (same as the one in PlayEffectAnimationEntity)
+        return: Same as PlayEffectAnimationEntity
     - name: UpdateStatusIconFlags
       address:
         EU: 0x22E4464
@@ -1085,6 +1134,33 @@ overlay29:
         r2: y position
         r3: flags
         stack[0]: visibility flag
+    - name: TryTriggerTrap
+      address:
+        EU: 0x22EE950
+        NA: 0x22EDFA0
+      description: |-
+        Called whenever a monster steps on a trap.
+        
+        The function will try to trigger it. Nothing will happen if the pokémon has the same team as the trap. The attempt to trigger the trap can also fail due to IQ skills, due to the trap failing to work (random chance), etc.
+        
+        r0: Entity who stepped on the trap
+        r1: Trap position
+        r2: ?
+        r3: ?
+    - name: ApplyTrapEffect
+      address:
+        EU: 0x22EFB08
+        NA: 0x22EF154
+      description: |-
+        Performs the effect of a triggered trap.
+        
+        The trap's animaton happens before this function is called.
+        
+        r0: Triggered trap
+        r1: User
+        r2: Target, normally same as user
+        r3: Tile that contains the trap
+        return: True if the trap should be destroyed after the effect is applied
     - name: DebugRecruitingEnabled
       address:
         EU: 0x22F0420
@@ -1125,6 +1201,16 @@ overlay29:
         
         This function also accounts for other special situations that can force a certain action, such as when the leader is running. The function also takes care of opening the main menu when X is pressed.
         The function generally doesn't return until the player has an action set.
+        
+        No params.
+    - name: CheckLeaderTile
+      address:
+        EU: 0x22F3FEC
+        NA: 0x22F3634
+      description: |-
+        Checks the tile the leader just stepped on and performs any required actions, such as picking up items, triggering traps, etc.
+        
+        Contains a switch that checks the type of the tile the leader just stepped on.
         
         No params.
     - name: ChangeLeader
@@ -2208,6 +2294,16 @@ overlay29:
         
         r0: Pointer to an entity. Can be null.
         returns: Seems to be true if there were any pending actions to display.
+    - name: CheckNonLeaderTile
+      address:
+        EU: 0x23060C0
+        NA: 0x2305694
+      description: |-
+        Similar to CheckLeaderTile, but for other pokémon.
+        
+        Used both for enemies and team members.
+        
+        r0: Entity pointer
     - name: EndSleepClassStatus
       address:
         NA: 0x2305FDC
@@ -4026,6 +4122,24 @@ overlay29:
         Returns the index of the room that contains the stairs
         
         return: Room index
+    - name: UpdateTrapsVisibility
+      address:
+        EU: 0x2337B1C
+        NA: 0x2336F4C
+      description: |-
+        Exact purpose unknown. Gets called whenever a trap tile is shown or hidden.
+        
+        No params.
+    - name: DiscoverMinimap
+      address:
+        EU: 0x233860C
+        NA: 0x2337A3C
+      description: |-
+        Discovers the tiles around the specified position on the minimap.
+        
+        The discovery radius depends on the visibility range of the floor. If display_data::blinded is true, the function returns early without doing anything.
+        
+        r0: Position around which the map should be discovered
     - name: IsWaterTileset
       address:
         EU: 0x2338A64
@@ -4146,6 +4260,26 @@ overlay29:
         Checks if the current floor is a secret bazaar or a secret room.
         
         return: bool
+    - name: HiddenStairsPresent
+      address:
+        EU: 0x23392A8
+        NA: 0x23386D8
+      description: |-
+        Checks if the hidden stairs are present on this floor.
+        
+        The function checks that dungeon_generation_info::hidden_stairs_pos isn't (-1, -1)
+        
+        return: True if the hidden stairs are present on this floor, false otherwise.
+    - name: HiddenStairsTrigger
+      address:
+        EU: 0x2339364
+        NA: 0x2338794
+      description: |-
+        Called whenever the leader steps on the hidden stairs.
+        
+        If the stairs hadn't been revealed yet, plays the corresponding animation.
+        
+        r0: True to display a message if the stairs are revealed, false to omit it.
     - name: GetDungeonGenInfoUnk0C
       address:
         EU: 0x2339450
@@ -4159,6 +4293,23 @@ overlay29:
         Returns a pointer to the minimap_display_data struct in the dungeon struct.
         
         return: minimap_display_data*
+    - name: DrawMinimapTile
+      address:
+        EU: 0x2339DBC
+        NA: 0x23391EC
+      description: |-
+        Draws a single tile on the minimap.
+        
+        r0: X position
+        r1: Y position
+    - name: UpdateMinimap
+      address:
+        EU: 0x233A8B8
+        NA: 0x2339CE8
+      description: |-
+        Graphically updates the minimap
+        
+        No params.
     - name: SetMinimapDataE447
       address:
         EU: 0x233ADE8
@@ -4184,6 +4335,23 @@ overlay29:
         Sets minimap_display_data::field_0xE448 to the specified value
         
         r0: Value to set the field to
+    - name: InitWeirdMinimapMatrix
+      address:
+        EU: 0x233AE74
+        NA: 0x233A290
+      description: |-
+        Initializes the matrix at minimap_display_data+0xE000. Seems to overflow said matrix when doing so.
+        
+        No params.
+    - name: InitMinimapDisplayTile
+      address:
+        EU: 0x233AED4
+        NA: 0x233A2F0
+      description: |-
+        Used to initialize an instance of struct minimap_display_tile
+        
+        r0: Pointer to struct to init
+        r1: Seems to be a pointer to the file that stores minimap icons or something like that
     - name: LoadFixedRoomDataVeneer
       address:
         EU: 0x233B208
