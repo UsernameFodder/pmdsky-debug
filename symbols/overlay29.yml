@@ -1085,6 +1085,41 @@ overlay29:
         r2: y position
         r3: flags
         stack[0]: visibility flag
+    - name: PrepareTrapperTrap
+      address:
+        NA: 0x22EDBD4
+      description: |-
+        Saves the relevant information in the dungeon struct to later place a trap at the
+        location of the entity. (Only called with trap ID 0x19 (TRAP_NONE), but could be used 
+        with others).
+        
+        r0: entity pointer
+        r1: trap ID
+        r2: team (see struct trap::team)
+    - name: TrySpawnTrap
+      address:
+        NA: 0x22EDCBC
+      description: |-
+        Checks if the a trap can be placed on the tile. If the trap ID is >= TRAP_NONE (the
+        last value for a trap), randomly select another trap (except for wonder tile). After
+        30 failed attempts to select a non-wonder tile trap ID, default to chestnut trap.
+        If the checks pass, spawn the trap.
+        
+        r0: position
+        r1: trap ID
+        r2: team (see struct trap::team)
+        r3: visibility flag
+        return: true if a trap was spawned succesfully
+    - name: TrySpawnTrapperTrap
+      address:
+        NA: 0x22EDDD4
+      description: |-
+        If the flag for a trapper trap is set, handles spawning a trap based upon the
+        information inside the dungeon struct. Uses the entity for logging a message
+        depending on success or failure.
+        
+        r0: entity pointer
+        return: true if a trap was spawned succesfully
     - name: DebugRecruitingEnabled
       address:
         EU: 0x22F0420
@@ -1326,6 +1361,16 @@ overlay29:
         r0: target entity pointer
         r1: current_id
         return: ?
+    - name: TryActivateTraceAndColorChange
+      address:
+        NA: 0x22F94F0
+      description: |-
+        Tries to activate the abilities trace and color change if possible. Called after using
+        a move.
+        
+        r0: attacker entity pointer
+        r1: defender entity pointer
+        r2: move pointer
     - name: DefenderAbilityIsActive
       address:
         EU:
@@ -1380,6 +1425,16 @@ overlay29:
         
         r0: entity pointer
         return: bool
+    - name: TryActivateConversion2
+      address:
+        NA: 0x22F9744
+      description: |-
+        Checks for the conversion2 status and applies the type change if applicable. Called
+        after using a move.
+        
+        r0: attacker entity pointer
+        r1: defender entity pointer
+        r2: move pointer
     - name: TryActivateTruant
       address:
         EU: 0x22FA1FC
@@ -3326,6 +3381,16 @@ overlay29:
         
         r0: entity pointer
         return: bool
+    - name: MirrorMoveIsActive
+      address:
+        NA: 0x2319748
+      description: |-
+        Checks if the monster is under the effect of Mirror Move.
+        
+        Returns 1 if the effects is a status, 2 if it comes from an exclusive item, 0 otherwise.
+        
+        r0: pointer to entity
+        return: int
     - name: Conversion2IsActive
       address:
         EU: 0x231A274
@@ -3516,6 +3581,24 @@ overlay29:
         r0: Monster entity pointer
         r1: Item pointer
         return: True if the monster can use the item, false otherwise
+    - name: ApplyGrimyFoodEffect
+      address:
+        NA: 0x231D534
+      description: |-
+        Randomly inflicts poison, shadow hold, burn, paralysis, or an offensive stat debuff
+        to the target. If the survivalist iq skill or gluttony ability is active, the target
+        has a 50% chance not to be affected.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: ApplyMixElixirEffect
+      address:
+        NA: 0x231D680
+      description: |-
+        If the target monster is a Linoone, restores all the PP of all the target's moves.
+        
+        r0: user entity pointer
+        r1: target entity pointer
     - name: ShouldTryEatItem
       address:
         EU: 0x231F3F8
@@ -3618,6 +3701,26 @@ overlay29:
         r1: target entity pointer
         r2: warp type
         r3: position (if warp type is position-based)
+    - name: TryActivateNondamagingDefenderAbility
+      address:
+        NA: 0x2321A78
+      description: |-
+        Applies the effects of a defender's ability on an attacker. After a move is used,
+        this function is called to see if any of the bitflags for an ability were set and
+        applies the corresponding effect. (The way leech seed removes certain statuses is
+        also handled here.)
+        
+        r0: entity pointer
+    - name: TryActivateNondamagingDefenderExclusiveItem
+      address:
+        NA: 0x2321CF0
+      description: |-
+        Applies the effects of a defender's item on an attacker. After a move is used,
+        this function is called to see if any of the bitflags for an item were set and
+        applies the corresponding effect.
+        
+        r0: attacker entity pointer
+        r1: defender entity pointer
     - name: GetMoveRangeDistance
       address:
         EU: 0x2322D0C
@@ -3773,6 +3876,17 @@ overlay29:
         
         r0: 4-byte number x
         return: (short) x
+    - name: PlayMoveAnimation
+      address:
+        NA: 0x23256B4
+      description: |-
+        Handles the process of getting and playing all the animations for a move. Waits
+        until the animation has no more frames before returning.
+        
+        r0: Pointer to the entity that used the move
+        r1: Pointer to the entity that is the target
+        r2: Move pointer
+        r3: position
     - name: GetMoveAnimationId
       address:
         EU: 0x2326578
@@ -3938,6 +4052,17 @@ overlay29:
         Activates the Mud Sport or Water Sport condition on the dungeon floor for some number of turns.
         
         r0: water sport flag (false for Mud Sport, true for Water Sport)
+    - name: TryActivateWeather
+      address:
+        EU: 0x2335F04
+        NA: 0x23354C4
+      description: |-
+        Tries to change the weather based upon the information for each weather type in the
+        dungeon struct. Returns whether the weather was succesfully changed or not.
+        
+        r0: bool to not play the weather change animation?
+        r1: bool to force weather change? Like play the animation and text for the weather?
+        return: True if the weather changed
     - name: DigitCount
       address:
         EU: 0x23360B0
@@ -6582,6 +6707,24 @@ overlay29:
         Note that this array is only used for the cardinal directions. The elements at odd indexes are unused and unconditionally set to 0.
         
         This array is used by the dungeon generation algorithm when generating room imperfections. See GenerateRoomImperfections.
+    - name: GUMMI_LIKE_STRING_IDS
+      address:
+        NA: 0x23532D0
+      length:
+        NA: 0x8
+      description: List that holds the message IDs for how much a monster liked a gummi in decreasing order.
+    - name: GUMMI_IQ_STRING_IDS
+      address:
+        NA: 0x23532D0
+      length:
+        NA: 0xA
+      description: "List that holds the message IDs for how much a monster's IQ was raised by in decreasing order."
+    - name: DAMAGE_STRING_IDS
+      address:
+        NA: 0x2353330
+      length:
+        NA: 0x36
+      description: List that matches the damage_message ID to their corresponding message ID. The null entry at 0xE in the middle is for hunger. The last entry is null.
     - name: DUNGEON_PTR
       address:
         EU: 0x2354138

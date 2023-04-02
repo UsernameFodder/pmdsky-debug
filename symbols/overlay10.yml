@@ -330,6 +330,18 @@ overlay10:
         EU: 0x2
         NA: 0x2
       description: Attack power for Golden Thorns.
+    - name: BURN_DAMAGE
+      address:
+        NA: 0x22C44D4
+      length:
+        NA: 0x2
+      description: Damage dealt by the burn status condition.
+    - name: POISON_DAMAGE
+      address:
+        NA: 0x22C44D8
+      length:
+        NA: 0x2
+      description: Damage dealt by the poison status condition.
     - name: SPAWN_COOLDOWN
       address:
         EU: 0x22C4E34
@@ -474,6 +486,18 @@ overlay10:
       length:
         NA: 0x2
       description: The amount of fixed damage dealt by SonicBoom (20).
+    - name: RAIN_ABILITY_BONUS_REGEN
+      address:
+        NA: 0x22C4578
+      length:
+        NA: 0x2
+      description: The passive bonus health regen given when the weather is rain for the abilities rain dish and dry skin.
+    - name: LEECH_SEED_HP_DRAIN
+      address:
+        NA: 0x22C4588
+      length:
+        NA: 0x2
+      description: The amount of health drained by leech seed status.
     - name: EXCLUSIVE_ITEM_EXP_BOOST
       address:
         EU: 0x22C4EE4
@@ -572,6 +596,12 @@ overlay10:
       length:
         NA: 0x2
       description: "The chance of Bubble lowering speed, as a percentage (10%)."
+    - name: ICE_BODY_BONUS_REGEN
+      address:
+        NA: 0x22C4630
+      length:
+        EU: 0x2
+      description: The passive bonus health regen given when the weather is hail for the ability ice body.
     - name: POWDER_SNOW_FREEZE_CHANCE
       address:
         NA: 0x22C4634
@@ -598,6 +628,12 @@ overlay10:
       length:
         NA: 0x2
       description: "The chance of Poison Fang poisoning, as a percentage (30%)."
+    - name: WEATHER_MOVE_TURN_COUNT
+      address:
+        NA: 0x22C4654
+      length:
+        NA: 0x2
+      description: "The number of turns the moves rain dance, hail, sandstorm, sunny day and defog change the weather for. (3000)"
     - name: THUNDER_PARALYZE_CHANCE
       address:
         NA: 0x22C4658
@@ -700,6 +736,12 @@ overlay10:
         EU: 0x2
         NA: 0x2
       description: The number of turns between passive poison damage.
+    - name: LEECH_SEED_DAMAGE_COOLDOWN
+      address:
+        NA: 0x22C46AC
+      length:
+        NA: 0x2
+      description: The number of turns between leech seed health drain.
     - name: GEO_PEBBLE_DAMAGE
       address:
         EU: 0x22C500C
@@ -756,6 +798,12 @@ overlay10:
         EU: 0x2
         NA: 0x2
       description: The permanent special attack boost from ingesting a Calcium.
+    - name: WISH_BONUS_REGEN
+      address:
+        NA: 0x22C46D0
+      length:
+        NA: 0x2
+      description: The passive bonus regen given by the wish status condition.
     - name: DRAGON_RAGE_FIXED_DAMAGE
       address:
         NA: 0x22C46D4
@@ -1194,6 +1242,12 @@ overlay10:
         Maps each weather type (by index, see enum weather_id) to the corresponding Castform type and form.
         
         type: struct castform_weather_attributes[8]
+    - name: BAD_POISON_DAMAGE_TABLE
+      address:
+        NA: 0x22C4C9C
+      length:
+        NA: 0x3C
+      description: "Table for how much damage each tick of badly poisoned should deal. The table is filled with 0x0006, but could use different values for each entry."
     - name: TYPE_MATCHUP_COMBINATOR_TABLE
       address:
         NA: 0x22C4D14

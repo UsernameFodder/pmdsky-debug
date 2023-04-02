@@ -97,6 +97,9 @@ enum forced_loss_reason GetForcedLossReason(void);
 void BindTrapToTile(struct tile* tile, struct entity* trap, bool is_visible);
 void SpawnEnemyTrapAtPos(enum trap_id trap_id, int16_t x, int16_t y, uint8_t flags,
                          bool is_visible);
+void PrepareTrapperTrap(struct entity* entity, enum trap_id trap_id, uint8_t team);
+bool TrySpawnTrap(struct position* pos, enum trap_id trap_id, uint8_t team, bool visible);
+bool TrySpawnTrapperTrap(struct entity* entity);
 bool DebugRecruitingEnabled(void);
 bool IsSecretBazaarNpcBehavior(enum monster_behavior behavior);
 struct action_16* GetLeaderAction(void);
@@ -122,9 +125,12 @@ void SetMonsterTypeAndAbility(struct entity* target);
 void TryActivateSlowStart(void);
 void TryActivateArtificialWeatherAbilities(void);
 int GetMonsterApparentId(struct entity* target, enum monster_id current_id);
+void TryActivateTraceAndColorChange(struct entity* attacker, struct entity* defender,
+                                    struct move* move);
 bool DefenderAbilityIsActive(struct entity* attacker, struct entity* defender,
                              enum ability_id ability_id, bool attacker_ability_enabled);
 bool IsMonster(struct entity* entity);
+void TryActivateConversion2(struct entity* attacker, struct entity* defender, struct move* move);
 void TryActivateTruant(struct entity* entity);
 void TryPointCameraToMonster(struct entity* entity, undefined param_2, undefined param_3);
 void RestorePpAllMovesSetFlags(struct entity* entity);
@@ -338,6 +344,7 @@ bool IsBlinded(struct entity* entity, bool check_held_item);
 void RestoreMovePP(struct entity* user, struct entity* target, int pp, bool suppress_logs);
 void SetReflectDamageCountdownTo4(struct entity* entity);
 bool HasConditionalGroundImmunity(struct entity* entity);
+int MirrorMoveIsActive(struct entity* entity);
 int Conversion2IsActive(struct entity* entity);
 int AiConsiderMove(struct ai_possible_move* ai_possible_move, struct entity* monster,
                    struct move* move);
@@ -361,6 +368,8 @@ void ViolentSeedBoost(struct entity* attacker, struct entity* defender);
 void ApplyGummiBoostsDungeonMode(struct entity* user, struct entity* target,
                                  enum type_id gummi_type, int random_stat_boost);
 bool CanMonsterUseItem(struct entity* entity, struct item* item);
+void ApplyGrimyFoodEffect(struct entity* user, struct entity* target);
+void ApplyMixElixirEffect(struct entity* user, struct entity* target);
 bool ShouldTryEatItem(enum item_id item_id);
 int GetMaxPpWrapper(struct move* move);
 bool MoveIsNotPhysical(enum move_id move_id);
@@ -372,6 +381,8 @@ void TryExplosion(struct entity* user, struct entity* target, struct position* p
                   undefined param_4, undefined param_5, union damage_source damage_source);
 void TryWarp(struct entity* user, struct entity* target, enum warp_type warp_type,
              struct position position);
+void TryActivateNondamagingDefenderAbility(struct entity* entity);
+void TryActivateNondamagingDefenderExclusiveItem(struct entity* attacker, struct entity* defender);
 int GetMoveRangeDistance(struct entity* user, struct move* move, bool check_two_turn_moves);
 bool MoveHitCheck(struct entity* attacker, struct entity* defender, struct move* move,
                   bool use_second_accuracy, bool never_miss_self);
@@ -387,6 +398,8 @@ bool CanMonsterUseMove(struct entity* monster, struct move* move, bool extra_che
 void UpdateMovePp(struct entity* entity, bool can_consume_pp);
 union damage_source GetDamageSourceWrapper(struct move* move, enum item_id item_id);
 int LowerSshort(int x);
+void PlayMoveAnimation(struct entity* user, struct entity* target, struct move* move,
+                       struct position* position);
 uint16_t GetMoveAnimationId(struct move* move, enum weather_id apparent_weather,
                             bool should_play_alternative_animation);
 bool ShouldMovePlayAlternativeAnimation(struct entity* user, struct move* move);
@@ -409,6 +422,7 @@ bool StatusCheckerCheck(struct entity* attacker, struct move* move);
 enum weather_id GetApparentWeather(struct entity* entity);
 void TryWeatherFormChange(struct entity* entity);
 void ActivateSportCondition(bool water_sport);
+bool TryActivateWeather(bool param_1, bool param_2);
 int DigitCount(int n);
 void LoadTextureUi(void);
 int DisplayNumberTextureUi(int16_t x, int16_t y, int n, int ally_mode);
