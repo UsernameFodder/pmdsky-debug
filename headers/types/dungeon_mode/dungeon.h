@@ -12,7 +12,8 @@ struct dungeon {
     undefined field_0x4;
     bool stepped_on_stairs; // 0x5: True if the leader just stepped on the stairs.
     // 0x6: If equal to 1 or 2, the floor will be advanced at the end of the turn,
-    // unless the leader fainted.
+    // unless the leader fainted. 2 is used for the leader falling through a pitfall
+    // trap.
     uint8_t end_floor_flag;
     // 0x7: If set in tandem with either end_floor_flag or end_floor_no_death_check_flag,
     // a quicksave will occur instead of a floor advance.
@@ -1096,86 +1097,9 @@ struct dungeon {
     undefined field_0x3b73;
     // 0x3B74: Unknown array, likely one entry per monster species
     uint8_t unknown_array_0x3B74[600];
-    undefined field_0x3dcc;
-    undefined field_0x3dcd;
-    undefined field_0x3dce;
-    undefined field_0x3dcf;
-    undefined field_0x3dd0;
-    undefined field_0x3dd1;
-    undefined field_0x3dd2;
-    undefined field_0x3dd3;
-    undefined field_0x3dd4;
-    undefined field_0x3dd5;
-    undefined field_0x3dd6;
-    undefined field_0x3dd7;
-    undefined field_0x3dd8;
-    undefined field_0x3dd9;
-    undefined field_0x3dda;
-    undefined field_0x3ddb;
-    undefined field_0x3ddc;
-    undefined field_0x3ddd;
-    undefined field_0x3dde;
-    undefined field_0x3ddf;
-    undefined field_0x3de0;
-    undefined field_0x3de1;
-    undefined field_0x3de2;
-    undefined field_0x3de3;
-    undefined field_0x3de4;
-    undefined field_0x3de5;
-    undefined field_0x3de6;
-    undefined field_0x3de7;
-    undefined field_0x3de8;
-    undefined field_0x3de9;
-    undefined field_0x3dea;
-    undefined field_0x3deb;
-    undefined field_0x3dec;
-    undefined field_0x3ded;
-    undefined field_0x3dee;
-    undefined field_0x3def;
-    undefined field_0x3df0;
-    undefined field_0x3df1;
-    undefined field_0x3df2;
-    undefined field_0x3df3;
-    undefined field_0x3df4;
-    undefined field_0x3df5;
-    undefined field_0x3df6;
-    undefined field_0x3df7;
-    undefined field_0x3df8;
-    undefined field_0x3df9;
-    undefined field_0x3dfa;
-    undefined field_0x3dfb;
-    undefined field_0x3dfc;
-    undefined field_0x3dfd;
-    undefined field_0x3dfe;
-    undefined field_0x3dff;
-    undefined field_0x3e00;
-    undefined field_0x3e01;
-    undefined field_0x3e02;
-    undefined field_0x3e03;
-    undefined field_0x3e04;
-    undefined field_0x3e05;
-    undefined field_0x3e06;
-    undefined field_0x3e07;
-    undefined field_0x3e08;
-    undefined field_0x3e09;
-    undefined field_0x3e0a;
-    undefined field_0x3e0b;
-    undefined field_0x3e0c;
-    undefined field_0x3e0d;
-    undefined field_0x3e0e;
-    undefined field_0x3e0f;
-    undefined field_0x3e10;
-    undefined field_0x3e11;
-    undefined field_0x3e12;
-    undefined field_0x3e13;
-    undefined field_0x3e14;
-    undefined field_0x3e15;
-    undefined field_0x3e16;
-    undefined field_0x3e17;
-    undefined field_0x3e18;
-    undefined field_0x3e19;
-    undefined field_0x3e1a;
-    undefined field_0x3e1b;
+    // 0x3DCC: Uncertain what this array holds, but this value is compared to statuses:0x7 in
+    // several places and accessd in a loop with the upper bound being 20.
+    undefined4 field_0x3dcc[20];
     undefined4 field_0x3e1c;
     // 0x3E20: Number of valid monster spawn entries (see spawn_entries).
     int monster_spawn_entries_length;
@@ -1723,16 +1647,9 @@ struct dungeon {
     uint16_t spawn_table_entries_chosen[16];
     undefined field_0x2ca0a;
     undefined field_0x2ca0b;
-    undefined field_0x2ca0c;
-    undefined field_0x2ca0d;
-    undefined field_0x2ca0e;
-    undefined field_0x2ca0f;
-    undefined field_0x2ca10;
-    undefined field_0x2ca11;
-    undefined field_0x2ca12;
-    undefined field_0x2ca13;
-    undefined field_0x2ca14;
-    undefined field_0x2ca15;
+    // 0x2CA0C: Holds the name for the entity that caused the faint. The exact size is a guess.
+    // Likely larger because of entities like the Explosion Trap.
+    char fainted_monster_cause_entity_name[10];
     undefined field_0x2ca16;
     undefined field_0x2ca17;
     undefined field_0x2ca18;
@@ -1753,16 +1670,8 @@ struct dungeon {
     undefined field_0x2ca27;
     undefined field_0x2ca28;
     undefined field_0x2ca29;
-    undefined field_0x2ca2a;
-    undefined field_0x2ca2b;
-    undefined field_0x2ca2c;
-    undefined field_0x2ca2d;
-    undefined field_0x2ca2e;
-    undefined field_0x2ca2f;
-    undefined field_0x2ca30;
-    undefined field_0x2ca31;
-    undefined field_0x2ca32;
-    undefined field_0x2ca33;
+    // 0x2CA2A: Holds the name for the monster that fainted. The exact size is a guess.
+    char fainted_monster_name[10];
     undefined field_0x2ca34;
     undefined field_0x2ca35;
     undefined field_0x2ca36;
@@ -1783,7 +1692,9 @@ struct dungeon {
     undefined field_0x2ca45;
     undefined field_0x2ca46;
     undefined field_0x2ca47;
-    undefined field_0x2ca48;
+    // 0x2CA0C: Possible the game may always set it to the null terminator and never actually
+    // copies something inside. Uncertain of exact size
+    char field_0x2ca48[1];
     undefined field_0x2ca49;
     undefined field_0x2ca4a;
     undefined field_0x2ca4b;
@@ -1815,25 +1726,19 @@ struct dungeon {
     undefined field_0x2ca65;
     undefined field_0x2ca66;
     undefined field_0x2ca67;
-    undefined field_0x2ca68;
-    undefined field_0x2ca69;
-    undefined field_0x2ca6a;
-    undefined field_0x2ca6b;
-    undefined field_0x2ca6c;
-    undefined field_0x2ca6d;
-    undefined field_0x2ca6e;
-    undefined field_0x2ca6f;
-    undefined field_0x2ca70;
-    undefined field_0x2ca71;
-    undefined field_0x2ca72;
-    undefined field_0x2ca73;
-    undefined field_0x2ca74;
-    undefined field_0x2ca75;
-    undefined field_0x2ca76;
-    undefined field_0x2ca77;
-    undefined field_0x2ca78;
-    undefined field_0x2ca79;
-    undefined field_0x2ca7a;
+    struct dungeon_id_8 fainted_id; // 0x2CA68: Copied from dungeon::id, upon fainting.
+    uint8_t fainted_floor;          // 0x2CA69: Copied from dungeon::floor, upon fainting.
+    // 0x2CA6A: Copy of the fainted monster's held item.
+    struct item fainted_monster_held_item;
+    int fainted_monster_exp; // 0x2CA70: Copy of fainted monster's experience.
+    // 0x2CA74: Copy of the fainted monster's ACTUAL max hp (monster::max_hp_stat +
+    // monster::max_hp_boost)
+    int16_t fainted_monster_max_hp;
+    // 0x2CA76: Copy of the fainted monster's offensive stats.
+    uint8_t fainted_monster_offensive_stats[2];
+    // 0x2CA78: Copy of the fainted monster's defenive stats.
+    uint8_t fainted_monster_defensive_stats[2];
+    uint8_t fainted_monster_level; // 0x2CA7A: Copy of fainted monster's level.
     undefined field_0x2ca7b;
     undefined field_0x2ca7c;
     undefined field_0x2ca7d;
