@@ -1371,10 +1371,9 @@ struct dungeon {
     // 0x12A92: Unknown array, probably related to unknown_tile_matrix
     // since they get initialized together.
     uint16_t unknown_array_0x12A92[9];
-    undefined field_0x12aa4;
-    undefined field_0x12aa5;
-    undefined field_0x12aa6;
-    undefined field_0x12aa7;
+    // 0x12AA4: Gets set after loading the data for a fixed room when generating a
+    // floor. Gets set back to null when done generating a floor.
+    void* unk_fixed_room_pointer;
     // 0x12AA8: This flag is set by the move 0x191 ("Trapper") which is the effect
     // of the Trapper Orb. If true, the game will try to spawn a trap.
     bool trapper_orb_flag;

@@ -100,6 +100,12 @@ void SpawnEnemyTrapAtPos(enum trap_id trap_id, int16_t x, int16_t y, uint8_t fla
 void PrepareTrapperTrap(struct entity* entity, enum trap_id trap_id, uint8_t team);
 bool TrySpawnTrap(struct position* pos, enum trap_id trap_id, uint8_t team, bool visible);
 bool TrySpawnTrapperTrap(struct entity* entity);
+void ApplyMudTrapEffect(struct entity* attacker, struct entity* defender);
+void ApplyStickyTrapEffect(struct entity* attacker, struct entity* defender);
+void ApplyGrimyTrapEffect(struct entity* attacker, struct entity* defender);
+void ApplyPitfallTrapEffect(struct entity* attacker, struct entity* defender, struct tile* tile,
+                            bool grate_stay_intact);
+void ApplySummonTrapEffect(struct entity* monster, struct position* pos);
 bool DebugRecruitingEnabled(void);
 bool IsSecretBazaarNpcBehavior(enum monster_behavior behavior);
 struct action_16* GetLeaderAction(void);
@@ -136,6 +142,7 @@ void TryPointCameraToMonster(struct entity* entity, undefined param_2, undefined
 void RestorePpAllMovesSetFlags(struct entity* entity);
 bool ShouldMonsterHeadToStairs(struct entity* entity);
 bool MewSpawnCheck(enum monster_id monster_id, bool fail_if_mew);
+void TryEndStatusWithAbility(struct entity* attacker, struct entity* defender);
 bool ExclusiveItemEffectIsActive(struct entity* entity, enum exclusive_item_effect_id effect_id);
 struct entity* GetTeamMemberWithIqSkill(enum iq_skill_id iq_skill);
 bool TeamMemberHasEnabledIqSkill(enum iq_skill_id iq_skill);
@@ -520,6 +527,7 @@ void SpawnStairs(uint8_t* pos, struct dungeon_generation_info* gen_info,
                  enum hidden_stairs_type hidden_stairs_type);
 enum hidden_stairs_type GetHiddenStairsType(struct dungeon_generation_info* gen_info,
                                             struct floor_properties* floor_props);
+int GetKecleonShopSpawnChance(int base_kecleon_shop_chance);
 void ResetHiddenStairsSpawn(void);
 void LoadFixedRoomData(void);
 int LoadFixedRoom(int param_1, int param_2, int param_3, undefined4 param_4);

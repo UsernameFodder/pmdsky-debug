@@ -1120,6 +1120,51 @@ overlay29:
         
         r0: entity pointer
         return: true if a trap was spawned succesfully
+    - name: ApplyMudTrapEffect
+      address:
+        NA: 0x22EE36C
+      description: |-
+        Randomly lowers attack, special attack, defense, or special defense of the defender by 3 stages.
+        
+        r0: attacker entity pointer
+        r1: defender entity pointer
+    - name: ApplyStickyTrapEffect
+      address:
+        NA: 0x22EE434
+      description: |-
+        If the defender is the leader, randomly try to make something in the bag sticky. Otherwise, try to make the item the monster is holding sticky.
+        
+        r0: attacker entity pointer
+        r1: defender entity pointer
+    - name: ApplyGrimyTrapEffect
+      address:
+        NA: 0x22EE62C
+      description: |-
+        If the defender is the leader, randomly try to turn food items in the toolbox into
+        grimy food. Otherwise, try to make the food item the monster is holding grimy food.
+        
+        r0: attacker entity pointer
+        r1: defender entity pointer
+    - name: ApplyPitfallTrapEffect
+      address:
+        NA: 0x22EE820
+      description: |-
+        If the defender is the leader, end the current floor unless it has a rescue point.
+        Otherwise, make the entity faint and ignore reviver seeds.
+        
+        r0: attacker entity pointer
+        r1: defender entity pointer
+        r2: tile pointer
+        r3: bool (controls if the trap should become TRAP_BROKEN_PITFALL_TRAP)
+    - name: ApplySummonTrapEffect
+      address:
+        NA: 0x22EE994
+      description: |-
+        Randomly spawns 2-4 enemy monsters around the position. The monster is only used for
+        logging messages.
+        
+        r0: monster entity pointer
+        r1: position
     - name: DebugRecruitingEnabled
       address:
         EU: 0x22F0420
@@ -1489,6 +1534,18 @@ overlay29:
         r0: monster id
         r1: return false if the monster id is Mew
         return: bool
+    - name: TryEndStatusWithAbility
+      address:
+        NA: 0x22FA7DC
+      description: |-
+        Checks if any of the defender's active abilities would end one of their current status
+        conditions. For example, if the ability Own Tempo will stop confusion.
+        
+        Called after changing a monster's ability with skill swap, role play, or trace to
+        remove statuses the monster should no longer be affected by.
+        
+        r0: attacker entity pointer
+        r1: defender entity pointer
     - name: ExclusiveItemEffectIsActive
       address:
         EU:
@@ -5032,6 +5089,16 @@ overlay29:
         r0: dungeon generation info pointer
         r1: floor properties pointer
         return: enum hidden_stairs_type
+    - name: GetKecleonShopSpawnChance
+      address:
+        NA: 0x2342EBC
+      description: |-
+        Gets the kecleon shop spawn chance for the floor.
+        
+        When dungeon::boost_kecleon_shop_spawn_chance is false, returns the same value as the input. When it's true, returns the input (chance * 1.2).
+        
+        r0: base kecleon shop spawn chance, floor_properties::kecleon_shop_spawn_chance
+        return: int
     - name: ResetHiddenStairsSpawn
       address:
         EU: 0x2343AEC

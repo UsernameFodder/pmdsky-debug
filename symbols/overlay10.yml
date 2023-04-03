@@ -1054,6 +1054,13 @@ overlay10:
         EU: 0x4
         NA: 0x4
       description: "The multiplier for damage from the Air Blade (1.5), as a binary fixed-point number (8 fraction bits)"
+    - name: KECLEON_SHOP_BOOST_CHANCE_MULTIPLIER
+      address:
+        NA: 0x22C484C
+      length:
+        EU: 0x4
+        NA: 0x4
+      description: "The boosed kecleon shop spawn chance multiplier (~1.2) as a binary fixed-point number (8 fraction bits)."
     - name: HIDDEN_STAIRS_SPAWN_CHANCE_MULTIPLIER
       address:
         EU: 0x22C51A8
