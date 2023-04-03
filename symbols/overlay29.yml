@@ -266,21 +266,21 @@ overlay29:
         Fades the screen to black across several frames.
         
         No params.
-    - name: GetTrapData
+    - name: GetTrapInfo
       address:
         EU: 0x22E1F48
         NA: 0x22E1608
       description: |-
-        Given a trap entity, returns the pointer to the trap data it contains.
+        Given a trap entity, returns the pointer to the trap info struct it contains.
         
         r0: Entity pointer
         return: Trap data pointer
-    - name: GetItemData
+    - name: GetItemInfo
       address:
         EU: 0x22E1F50
         NA: 0x22E1610
       description: |-
-        Given an item entity, returns the pointer to the item data it contains.
+        Given an item entity, returns the pointer to the item info struct it contains.
         
         r0: Entity pointer
         return: Item data pointer
@@ -1154,7 +1154,7 @@ overlay29:
       description: |-
         Performs the effect of a triggered trap.
         
-        The trap's animaton happens before this function is called.
+        The trap's animation happens before this function is called.
         
         r0: Triggered trap
         r1: User
@@ -2299,7 +2299,7 @@ overlay29:
         EU: 0x23060C0
         NA: 0x2305694
       description: |-
-        Similar to CheckLeaderTile, but for other pokémon.
+        Similar to CheckLeaderTile, but for other monsters.
         
         Used both for enemies and team members.
         
