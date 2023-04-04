@@ -13,6 +13,14 @@ struct position {
 };
 ASSERT_SIZE(struct position, 4);
 
+// Used to indicate the pixel position of an entity. Values are shifted 8 bits to the left, so they
+// are probably decimal numbers instead.
+struct pixel_position {
+    int32_t x;
+    int32_t y;
+};
+ASSERT_SIZE(struct pixel_position, 8);
+
 // Trap info
 struct trap {
     struct trap_id_8 id;
@@ -628,13 +636,11 @@ ASSERT_SIZE(struct monster, 576);
 
 // Generic entity data
 struct entity {
-    enum entity_type type;      // 0x0
-    struct position pos;        // 0x4
-    struct position prev_pos;   // 0x8
-    int pixel_x_shifted;        // 0xC: pixel_x << 8
-    int pixel_y_shifted;        // 0x10: pixel_y << 8
-    int pixel_x_shifted_mirror; // 0x14: Monsters only?
-    int pixel_y_shifted_mirror; // 0x18: Monsters only?
+    enum entity_type type;                  // 0x0
+    struct position pos;                    // 0x4
+    struct position prev_pos;               // 0x8
+    struct pixel_position pixel_pos;        // 0xC
+    struct pixel_position pixel_pos_mirror; // 0x14: Monsters only?
     // 0x1C: Graphical parameter for evelation above the ground. Last byte behaves weirdly.
     int elevation;
     bool is_visible; // 0x20: For traps/hidden stairs

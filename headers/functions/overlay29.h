@@ -18,10 +18,13 @@ bool FixedRoomIsSubstituteRoom(void);
 bool StoryRestrictionsEnabled(void);
 int GetScenarioBalanceVeneer(void);
 void FadeToBlack(void);
+struct trap* GetTrapInfo(struct entity* trap_entity);
+struct item* GetItemInfo(struct entity* item_entity);
 struct tile* GetTileAtEntity(struct entity* entity);
 struct entity* SpawnTrap(enum trap_id trap_id, struct position* position, uint8_t team,
                          uint8_t flags);
 struct entity* SpawnItemEntity(struct position* position);
+bool ShouldMinimapDisplayEntity(struct entity* entity);
 bool ShouldDisplayEntityMessages(struct entity* entity, undefined param_2);
 bool ShouldDisplayEntityMessagesWrapper(struct entity* entity);
 bool CanSeeTarget(struct entity* user, struct entity* target);
@@ -34,8 +37,10 @@ void PointCameraToMonster(struct entity* entity, undefined param_2);
 void UpdateCamera(undefined param_1);
 bool ItemIsActive(struct entity* entity, enum item_id item_id);
 int GetVisibilityRange(void);
-int PlayEffectAnimation(struct entity* entity, undefined4 param_2, bool play_now, int param_4,
-                        int param_5, undefined param_6, int param_7, undefined2* param_8);
+int PlayEffectAnimationEntity(struct entity* entity, int effect_id, bool play_now, int param_4,
+                              int param_5, undefined param_6, int param_7, undefined2* param_8);
+int PlayEffectAnimationPos(struct position* pos, int effect_id, bool play_now);
+int PlayEffectAnimationPixelPos(struct pixel_position* pixel_pos, int effect_id, bool play_now);
 void UpdateStatusIconFlags(struct entity* entity);
 void PlayEffectAnimation0x171Full(struct entity* entity);
 void PlayEffectAnimation0x171(struct entity* entity);
@@ -100,10 +105,15 @@ void SpawnEnemyTrapAtPos(enum trap_id trap_id, int16_t x, int16_t y, uint8_t fla
 void PrepareTrapperTrap(struct entity* entity, enum trap_id trap_id, uint8_t team);
 bool TrySpawnTrap(struct position* pos, enum trap_id trap_id, uint8_t team, bool visible);
 bool TrySpawnTrapperTrap(struct entity* entity);
+void TryTriggerTrap(struct entity* entity, struct position* pos, undefined param_3,
+                    undefined param_4);
+bool ApplyTrapEffect(struct trap* trap, struct entity* user, struct entity* target,
+                     struct tile* tile);
 bool DebugRecruitingEnabled(void);
 bool IsSecretBazaarNpcBehavior(enum monster_behavior behavior);
 struct action_16* GetLeaderAction(void);
 void SetLeaderAction(void);
+void CheckLeaderTile(void);
 void ChangeLeader(void);
 void ResetDamageData(struct damage_data* damage);
 int DungeonGetTotalSpriteFileSize(enum monster_id monster_id);
@@ -206,6 +216,7 @@ bool LevelUp(struct entity* user, struct entity* target, bool message, undefined
 void EvolveMonster(struct entity* monster, undefined4* param_2, enum monster_id new_monster_id);
 uint8_t GetSleepAnimationId(struct entity* entity);
 bool DisplayActions(struct entity* param_1);
+void CheckNonLeaderTile(struct entity* entity);
 void EndSleepClassStatus(struct entity* user, struct entity* target);
 void EndBurnClassStatus(struct entity* user, struct entity* target);
 void EndFrozenClassStatus(struct entity* user, struct entity* target, bool log);
@@ -433,6 +444,8 @@ struct tile* GetTile(int x, int y);
 struct tile* GetTileSafe(int x, int y);
 bool IsFullFloorFixedRoom(void);
 uint8_t GetStairsRoom(void);
+void UpdateTrapsVisibility(void);
+void DiscoverMinimap(struct position* pos);
 bool IsWaterTileset(void);
 enum monster_id GetRandomSpawnMonsterID(void);
 bool NearbyAllyIqSkillIsEnabled(struct entity* entity, enum iq_skill_id iq_skill);
@@ -447,11 +460,17 @@ void SetShouldBoostHiddenStairsSpawnChance(bool value);
 void UpdateShouldBoostHiddenStairsSpawnChance(void);
 bool IsSecretRoom(void);
 bool IsSecretFloor(void);
+bool HiddenStairsPresent(void);
+void HiddenStairsTrigger(bool show_message);
 undefined4 GetDungeonGenInfoUnk0C(void);
 struct minimap_display_data* GetMinimapData(void);
+void DrawMinimapTile(int x, int y);
+void UpdateMinimap(void);
 void SetMinimapDataE447(uint8_t value);
 uint8_t GetMinimapDataE447(void);
 void SetMinimapDataE448(uint8_t value);
+void InitWeirdMinimapMatrix(void);
+void InitMinimapDisplayTile(struct minimap_display_tile* minimap_display_tile, undefined* ptr);
 void LoadFixedRoomDataVeneer(void);
 bool IsNormalFloor(void);
 void GenerateFloor(void);
