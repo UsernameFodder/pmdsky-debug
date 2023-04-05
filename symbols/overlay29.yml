@@ -1222,11 +1222,37 @@ overlay29:
       address:
         NA: 0x22EE994
       description: |-
-        Randomly spawns 2-4 enemy monsters around the position. The monster is only used for
+        Randomly spawns 2-4 enemy monsters around the position. The entity is only used for
         logging messages.
         
-        r0: monster entity pointer
+        r0: entity pointer
         r1: position
+    - name: ApplyPpZeroTrapEffect
+      address:
+        NA: 0x22EEA30
+      description: |-
+        Tries to reduce the PP of one of the defender's moves to 0.
+        
+        r0: attacker entity pointer
+        r1: defender entity pointer
+    - name: ApplyPokemonTrapEffect
+      address:
+        NA: 0x22EEB18
+      description: |-
+        Turns item in the same room as the tile at the position (usually just the entities's
+        position) into monsters. If the position is in a hallway, convert items in a 3x3 area
+        centered on the position into monsters.
+        
+        r0: entity pointer
+        r1: position
+    - name: ApplyToxicSpikesTrapEffect
+      address:
+        NA: 0x22EEEEC
+      description: |-
+        Tries to inflict 10 damage on the defender and then tries to poison them.
+        
+        r0: attacker entity pointer
+        r1: defender entity pointer
     - name: ApplyTrapEffect
       address:
         EU: 0x22EFB08
@@ -3534,6 +3560,15 @@ overlay29:
         
         r0: entity pointer
         return: bool
+    - name: TryResetStatChanges
+      address:
+        NA: 0x2319624
+      description: |-
+        Tries to reset the stat changes of the defender.
+        
+        r0: attacker entity pointer
+        r1: defender entity pointer
+        r3: bool to force animation
     - name: MirrorMoveIsActive
       address:
         NA: 0x2319748
@@ -3829,8 +3864,8 @@ overlay29:
         r2: direction ID
     - name: TryExplosion
       address:
-        EU: 0x23211F0
-        NA: 0x2320788
+        EU: 0x2320EB0
+        NA: 0x2320448
       description: |-
         Creates an explosion if possible.
         
@@ -3838,9 +3873,24 @@ overlay29:
         
         r0: user entity pointer
         r1: target entity pointer
-        r2: coordinates where the explosion should take place (unverified)
-        r3: ?
-        stack[0]: ?
+        r2: coordinates where the explosion should take place (center)
+        r3: explosion radius (only works correctly with 1 and 2)
+        stack[0]: damage type
+        stack[1]: damage source
+    - name: TryAftermathExplosion
+      address:
+        EU: 0x23211F0
+        NA: 0x2320788
+      description: |-
+        Creates the explosion for the ability aftermath if possible.
+        
+        The target monster is considered the source of the explosion.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: coordinates where the explosion should take place (center)
+        r3: explosion radius (only works correctly with 1 and 2)
+        stack[0]: damage type
         stack[1]: damage source (normally DAMAGE_SOURCE_EXPLOSION)
     - name: TryWarp
       address:

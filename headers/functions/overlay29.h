@@ -113,6 +113,9 @@ void ApplyGrimyTrapEffect(struct entity* attacker, struct entity* defender);
 void ApplyPitfallTrapEffect(struct entity* attacker, struct entity* defender, struct tile* tile,
                             bool grate_stay_intact);
 void ApplySummonTrapEffect(struct entity* monster, struct position* pos);
+void ApplyPpZeroTrapEffect(struct entity* attacker, struct entity* defender);
+void ApplyPokemonTrapEffect(struct entity* monster, struct position* pos);
+void ApplyToxicSpikesTrapEffect(struct entity* attacker, struct entity* defender);
 bool ApplyTrapEffect(struct trap* trap, struct entity* user, struct entity* target,
                      struct tile* tile);
 bool DebugRecruitingEnabled(void);
@@ -362,6 +365,7 @@ bool IsBlinded(struct entity* entity, bool check_held_item);
 void RestoreMovePP(struct entity* user, struct entity* target, int pp, bool suppress_logs);
 void SetReflectDamageCountdownTo4(struct entity* entity);
 bool HasConditionalGroundImmunity(struct entity* entity);
+void TryResetStatChanges(struct entity* attacker, struct entity* defender, bool force_animation);
 int MirrorMoveIsActive(struct entity* entity);
 int Conversion2IsActive(struct entity* entity);
 int AiConsiderMove(struct ai_possible_move* ai_possible_move, struct entity* monster,
@@ -395,8 +399,10 @@ bool CategoryIsNotPhysical(enum move_category category_id);
 void TryDrought(struct entity* user);
 void TryPounce(struct entity* user, struct entity* target, enum direction_id direction);
 void TryBlowAway(struct entity* user, struct entity* target, enum direction_id direction);
-void TryExplosion(struct entity* user, struct entity* target, struct position* pos,
-                  undefined param_4, undefined param_5, union damage_source damage_source);
+void TryExplosion(struct entity* user, struct entity* target, struct position* pos, int radius,
+                  enum type_id attack_type,, union damage_source damage_source);
+void TryAftermathExplosion(struct entity* user, struct entity* target, struct position* pos,
+                  int radius, enum type_id attack_type,, union damage_source damage_source);
 void TryWarp(struct entity* user, struct entity* target, enum warp_type warp_type,
              struct position position);
 void TryActivateNondamagingDefenderAbility(struct entity* entity);

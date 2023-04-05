@@ -1058,7 +1058,6 @@ overlay10:
       address:
         NA: 0x22C484C
       length:
-        EU: 0x4
         NA: 0x4
       description: "The boosed kecleon shop spawn chance multiplier (~1.2) as a binary fixed-point number (8 fraction bits)."
     - name: HIDDEN_STAIRS_SPAWN_CHANCE_MULTIPLIER
