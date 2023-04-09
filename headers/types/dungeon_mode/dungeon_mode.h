@@ -335,7 +335,7 @@ struct monster {
     struct dungeon_id_8 joined_at; // 0x48: Also used as a unique identifier for special monsters
     uint8_t joined_at_floor;       // 0x49: Floor number of recruitment. 0 for special recruits
     struct action_data action;     // 0x4A: Determines the action the monster will take on this turn
-    struct type_id_8 types[2];        // 0x5E
+    struct type_id_8 types[2];     // 0x5E
     struct ability_id_8 abilities[2]; // 0x60
     struct item held_item;            // 0x62
     struct item_id_16 held_item_id;   // 0x68: Appears to be a mirror of held_item.id
