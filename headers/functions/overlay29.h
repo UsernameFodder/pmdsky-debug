@@ -116,8 +116,12 @@ void ApplySummonTrapEffect(struct entity* monster, struct position* pos);
 void ApplyPpZeroTrapEffect(struct entity* attacker, struct entity* defender);
 void ApplyPokemonTrapEffect(struct entity* monster, struct position* pos);
 void ApplyToxicSpikesTrapEffect(struct entity* attacker, struct entity* defender);
+bool ApplyRandomTrapEffect(struct trap* trap, struct entity* user, struct entity* target,
+                           struct tile* tile, struct position* pos);
+void ApplyGrudgeTrapEffect(struct entity* monster, struct position* pos);
 bool ApplyTrapEffect(struct trap* trap, struct entity* user, struct entity* target,
-                     struct tile* tile);
+                     struct tile* tile, struct position* pos, int trap_id, bool random_trap);
+void RevealTrapsNearby(struct entity* monster);
 bool DebugRecruitingEnabled(void);
 bool IsSecretBazaarNpcBehavior(enum monster_behavior behavior);
 struct action_16* GetLeaderAction(void);
@@ -400,9 +404,9 @@ void TryDrought(struct entity* user);
 void TryPounce(struct entity* user, struct entity* target, enum direction_id direction);
 void TryBlowAway(struct entity* user, struct entity* target, enum direction_id direction);
 void TryExplosion(struct entity* user, struct entity* target, struct position* pos, int radius,
-                  enum type_id attack_type,, union damage_source damage_source);
+                  enum type_id attack_type, union damage_source damage_source);
 void TryAftermathExplosion(struct entity* user, struct entity* target, struct position* pos,
-                  int radius, enum type_id attack_type,, union damage_source damage_source);
+                           int radius, enum type_id attack_type, union damage_source damage_source);
 void TryWarp(struct entity* user, struct entity* target, enum warp_type warp_type,
              struct position position);
 void TryActivateNondamagingDefenderAbility(struct entity* entity);

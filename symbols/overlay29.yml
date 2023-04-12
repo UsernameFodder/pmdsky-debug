@@ -1212,12 +1212,13 @@ overlay29:
         NA: 0x22EE820
       description: |-
         If the defender is the leader, end the current floor unless it has a rescue point.
-        Otherwise, make the entity faint and ignore reviver seeds.
+        Otherwise, make the entity faint and ignore reviver seeds. If not called by a random
+        trap, break the grate on the pitfall trap.
         
         r0: attacker entity pointer
         r1: defender entity pointer
         r2: tile pointer
-        r3: bool (controls if the trap should become TRAP_BROKEN_PITFALL_TRAP)
+        r3: bool caused by random trap
     - name: ApplySummonTrapEffect
       address:
         NA: 0x22EE994
@@ -1245,6 +1246,14 @@ overlay29:
         
         r0: entity pointer
         r1: position
+    - name: ApplyTripTrapEffect
+      address:
+        NA: 0x22EED2C
+      description: |-
+        Tries to drop the defender's item and places it on the floor.
+        
+        r0: attacker entity pointer
+        r1: defender entity pointer
     - name: ApplyToxicSpikesTrapEffect
       address:
         NA: 0x22EEEEC
@@ -1253,6 +1262,27 @@ overlay29:
         
         r0: attacker entity pointer
         r1: defender entity pointer
+    - name: ApplyRandomTrapEffect
+      address:
+        NA: 0x22EEF40
+      description: |-
+        Selects a random trap that isn't a wonder tile and isn't a random trap and calls
+        ApplyTrapEffect on all monsters that is different from the trap's team.
+        
+        r0: Triggered trap
+        r1: User
+        r2: Target, normally same as user
+        r3: Tile that contains the trap
+        stack[0]: position
+    - name: ApplyGrudgeTrapEffect
+      address:
+        NA: 0x22EF074
+      description: |-
+        Spawns several monsters around the position and gives them all the grudge status
+        condition.
+        
+        r0: entity pointer
+        r1: position
     - name: ApplyTrapEffect
       address:
         EU: 0x22EFB08
@@ -1266,7 +1296,17 @@ overlay29:
         r1: User
         r2: Target, normally same as user
         r3: Tile that contains the trap
+        stack[0]: position
+        stack[1]: trap ID
+        stack[2]: bool caused by random trap
         return: True if the trap should be destroyed after the effect is applied
+    - name: RevealTrapsNearby
+      address:
+        NA: 0x22EF5D8
+      description: |-
+        Reveals traps within the monster's viewing range.
+        
+        r0: entity pointer
     - name: DebugRecruitingEnabled
       address:
         EU: 0x22F0420
