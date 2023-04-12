@@ -116,12 +116,13 @@ void ApplyPitfallTrapEffect(struct entity* attacker, struct entity* defender, st
 void ApplySummonTrapEffect(struct entity* monster, struct position* pos);
 void ApplyPpZeroTrapEffect(struct entity* attacker, struct entity* defender);
 void ApplyPokemonTrapEffect(struct entity* monster, struct position* pos);
+void ApplyTripTrapEffect(struct entity* attacker, struct entity* defender);
 void ApplyToxicSpikesTrapEffect(struct entity* attacker, struct entity* defender);
 bool ApplyRandomTrapEffect(struct trap* trap, struct entity* user, struct entity* target,
                            struct tile* tile, struct position* pos);
 void ApplyGrudgeTrapEffect(struct entity* monster, struct position* pos);
 bool ApplyTrapEffect(struct trap* trap, struct entity* user, struct entity* target,
-                     struct tile* tile, struct position* pos, int trap_id, bool random_trap);
+                     struct tile* tile, struct position* pos, enum trap_id, bool random_trap);
 void RevealTrapsNearby(struct entity* monster);
 bool DebugRecruitingEnabled(void);
 bool IsSecretBazaarNpcBehavior(enum monster_behavior behavior);
@@ -557,7 +558,7 @@ void SpawnStairs(uint8_t* pos, struct dungeon_generation_info* gen_info,
                  enum hidden_stairs_type hidden_stairs_type);
 enum hidden_stairs_type GetHiddenStairsType(struct dungeon_generation_info* gen_info,
                                             struct floor_properties* floor_props);
-int GetKecleonShopSpawnChance(int base_kecleon_shop_chance);
+int GetFinalKecleonShopSpawnChance(int base_kecleon_shop_chance);
 void ResetHiddenStairsSpawn(void);
 void LoadFixedRoomData(void);
 int LoadFixedRoom(int param_1, int param_2, int param_3, undefined4 param_4);

@@ -1288,8 +1288,8 @@ overlay29:
       address:
         NA: 0x22EF074
       description: |-
-        Spawns several monsters around the position and gives them all the grudge status
-        condition.
+        Spawns several monsters around the position and gives all monsters on the floor the
+        grudge status condition.
         
         r0: entity pointer
         r1: position
@@ -5357,7 +5357,7 @@ overlay29:
         r0: dungeon generation info pointer
         r1: floor properties pointer
         return: enum hidden_stairs_type
-    - name: GetKecleonShopSpawnChance
+    - name: GetFinalKecleonShopSpawnChance
       address:
         NA: 0x2342EBC
       description: |-

@@ -124,7 +124,6 @@ enum trap_id {
     // Used in fixed room data to indicate that a trap shouldn't be placed on the current tile
     // Also used to indicate a random non-wonder tile trap should be selected instead during play
     TRAP_NONE = 25,
-    // Traps 0x1A to 0x1F are likely unused.
     TRAP_0x1A = 26,
     TRAP_0x1B = 27,
     TRAP_0x1C = 28,
