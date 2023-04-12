@@ -267,7 +267,6 @@ struct status_icon_flags {
 ASSERT_SIZE(struct status_icon_flags, 8);
 
 // Contains data used to describe an action taken by a monster.
-// This struct could potentially be longer.
 struct action_data {
     struct action_16 action_id;      // 0x0: Action ID
     struct direction_id_8 direction; // 0x2: Direction in which the action will be performed
@@ -283,8 +282,14 @@ struct action_data {
     undefined field_0x9;
     undefined field_0xA;
     undefined field_0xB;
+    undefined field_0xC;
+    undefined field_0xD;
+    undefined field_0xE;
+    undefined field_0xF;
+    int16_t field_0x10;
+    int16_t field_0x12;
 };
-ASSERT_SIZE(struct action_data, 12);
+ASSERT_SIZE(struct action_data, 20);
 
 // Monster info
 struct monster {
@@ -330,15 +335,7 @@ struct monster {
     struct dungeon_id_8 joined_at; // 0x48: Also used as a unique identifier for special monsters
     uint8_t joined_at_floor;       // 0x49: Floor number of recruitment. 0 for special recruits
     struct action_data action;     // 0x4A: Determines the action the monster will take on this turn
-    undefined field_0x56;
-    undefined field_0x57;
-    undefined field_0x58;
-    undefined field_0x59;
-    undefined field_0x5a;
-    undefined field_0x5b;
-    undefined field_0x5c;
-    undefined field_0x5d;
-    struct type_id_8 types[2];        // 0x5E
+    struct type_id_8 types[2];     // 0x5E
     struct ability_id_8 abilities[2]; // 0x60
     struct item held_item;            // 0x62
     struct item_id_16 held_item_id;   // 0x68: Appears to be a mirror of held_item.id

@@ -958,6 +958,16 @@ overlay29:
         
         r0: pointer to user entity
         r1: pointer to target entity
+    - name: SetLeaderActionFields
+      address:
+        EU: 0x22EBD78
+        NA: 0x22EB3C8
+      description: |-
+        Sets the leader's monster::action::action_id to the specified value.
+        
+        Also sets monster::action::action_use_idx and monster::action::field_0xA to 0, as well as monster::action::field_0x10 and monster::action::field_0x12 to -1.
+        
+        r0: ID of the action to set
     - name: ClearMonsterActionFields
       address:
         EU: 0x22EBDA4
