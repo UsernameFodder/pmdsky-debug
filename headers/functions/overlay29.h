@@ -108,8 +108,22 @@ bool TrySpawnTrap(struct position* pos, enum trap_id trap_id, uint8_t team, bool
 bool TrySpawnTrapperTrap(struct entity* entity);
 void TryTriggerTrap(struct entity* entity, struct position* pos, undefined param_3,
                     undefined param_4);
+void ApplyMudTrapEffect(struct entity* attacker, struct entity* defender);
+void ApplyStickyTrapEffect(struct entity* attacker, struct entity* defender);
+void ApplyGrimyTrapEffect(struct entity* attacker, struct entity* defender);
+void ApplyPitfallTrapEffect(struct entity* attacker, struct entity* defender, struct tile* tile,
+                            bool grate_stay_intact);
+void ApplySummonTrapEffect(struct entity* monster, struct position* pos);
+void ApplyPpZeroTrapEffect(struct entity* attacker, struct entity* defender);
+void ApplyPokemonTrapEffect(struct entity* monster, struct position* pos);
+void ApplyTripTrapEffect(struct entity* attacker, struct entity* defender);
+void ApplyToxicSpikesTrapEffect(struct entity* attacker, struct entity* defender);
+bool ApplyRandomTrapEffect(struct trap* trap, struct entity* user, struct entity* target,
+                           struct tile* tile, struct position* pos);
+void ApplyGrudgeTrapEffect(struct entity* monster, struct position* pos);
 bool ApplyTrapEffect(struct trap* trap, struct entity* user, struct entity* target,
-                     struct tile* tile);
+                     struct tile* tile, struct position* pos, enum trap_id, bool random_trap);
+void RevealTrapsNearby(struct entity* monster);
 bool DebugRecruitingEnabled(void);
 bool IsSecretBazaarNpcBehavior(enum monster_behavior behavior);
 struct action_16* GetLeaderAction(void);
@@ -147,6 +161,7 @@ void TryPointCameraToMonster(struct entity* entity, undefined param_2, undefined
 void RestorePpAllMovesSetFlags(struct entity* entity);
 bool ShouldMonsterHeadToStairs(struct entity* entity);
 bool MewSpawnCheck(enum monster_id monster_id, bool fail_if_mew);
+void TryEndStatusWithAbility(struct entity* attacker, struct entity* defender);
 bool ExclusiveItemEffectIsActive(struct entity* entity, enum exclusive_item_effect_id effect_id);
 struct entity* GetTeamMemberWithIqSkill(enum iq_skill_id iq_skill);
 bool TeamMemberHasEnabledIqSkill(enum iq_skill_id iq_skill);
@@ -356,6 +371,7 @@ bool IsBlinded(struct entity* entity, bool check_held_item);
 void RestoreMovePP(struct entity* user, struct entity* target, int pp, bool suppress_logs);
 void SetReflectDamageCountdownTo4(struct entity* entity);
 bool HasConditionalGroundImmunity(struct entity* entity);
+void TryResetStatChanges(struct entity* attacker, struct entity* defender, bool force_animation);
 int MirrorMoveIsActive(struct entity* entity);
 int Conversion2IsActive(struct entity* entity);
 int AiConsiderMove(struct ai_possible_move* ai_possible_move, struct entity* monster,
@@ -389,8 +405,10 @@ bool CategoryIsNotPhysical(enum move_category category_id);
 void TryDrought(struct entity* user);
 void TryPounce(struct entity* user, struct entity* target, enum direction_id direction);
 void TryBlowAway(struct entity* user, struct entity* target, enum direction_id direction);
-void TryExplosion(struct entity* user, struct entity* target, struct position* pos,
-                  undefined param_4, undefined param_5, union damage_source damage_source);
+void TryExplosion(struct entity* user, struct entity* target, struct position* pos, int radius,
+                  enum type_id attack_type, union damage_source damage_source);
+void TryAftermathExplosion(struct entity* user, struct entity* target, struct position* pos,
+                           int radius, enum type_id attack_type, union damage_source damage_source);
 void TryWarp(struct entity* user, struct entity* target, enum warp_type warp_type,
              struct position position);
 void TryActivateNondamagingDefenderAbility(struct entity* entity);
@@ -540,6 +558,7 @@ void SpawnStairs(uint8_t* pos, struct dungeon_generation_info* gen_info,
                  enum hidden_stairs_type hidden_stairs_type);
 enum hidden_stairs_type GetHiddenStairsType(struct dungeon_generation_info* gen_info,
                                             struct floor_properties* floor_props);
+int GetFinalKecleonShopSpawnChance(int base_kecleon_shop_chance);
 void ResetHiddenStairsSpawn(void);
 void LoadFixedRoomData(void);
 int LoadFixedRoom(int param_1, int param_2, int param_3, undefined4 param_4);

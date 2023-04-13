@@ -122,9 +122,17 @@ enum trap_id {
     TRAP_RANDOM_TRAP = 23,
     TRAP_GRUDGE_TRAP = 24,
     // Used in fixed room data to indicate that a trap shouldn't be placed on the current tile
-    // Also used by to indicate a random non-wonder tile trap should be selected instead during
-    // during play
+    // Also used to indicate a random non-wonder tile trap should be selected instead during play
     TRAP_NONE = 25,
+    TRAP_0x1A = 26,
+    TRAP_0x1B = 27,
+    TRAP_0x1C = 28,
+    TRAP_0x1D = 29,
+    TRAP_0x1E = 30,
+    TRAP_0x1F = 31,
+    // Behaves identically to a normal pitfall trap, but uses the sprite where the grate is
+    // already broken. TRAP_PITFALL_TRAP becomes this one when something falls through.
+    TRAP_BROKEN_PITFALL_TRAP = 32,
 };
 
 // This is usually stored as an 8-bit integer
