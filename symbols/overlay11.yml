@@ -217,7 +217,7 @@ overlay11:
         https://github.com/SkyTemple/skytemple-files/tree/55b3017631a8a1b0f106111ef91a901dc394c6df/skytemple_files/graphics/bg_list_dat
         
         r0: [output] The entry
-        r1: the number of the backgrounds
+        r1: background ID
     - name: SprintfStatic
       address:
         EU: 0x2309868
