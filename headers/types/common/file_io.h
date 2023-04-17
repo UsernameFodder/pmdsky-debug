@@ -141,12 +141,11 @@ struct wte_header {
 ASSERT_SIZE(struct wte_header, 32);
 
 struct bg_list_entry_sub_struct {
-    char name[9]; // Zero terminated string
-    undefined1 field_0x9;
+    char name[10]; // Null-terminated string
 };
 ASSERT_SIZE(struct bg_list_entry_sub_struct, 10);
 
-// Represent an entry in the bg_list.dat file, after being loaded by LoadABgListEntry
+// Represents an entry in the bg_list.dat file, after being loaded by LoadBgListEntry
 struct bg_list_entry {
     struct bg_list_entry_sub_struct bpl;
     struct bg_list_entry_sub_struct bpc;

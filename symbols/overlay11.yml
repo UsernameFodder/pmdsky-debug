@@ -207,16 +207,17 @@ overlay11:
         Implements SPECIAL_PROC_0x16 (see ScriptSpecialProcessCall).
         
         r0: bool
-    - name: LoadABgListEntry
+    - name: LoadBgListEntry
       address:
         EU: 0x22EC480
       description: |-
         Open and read an entry from the MAP_BG/bg_list.dat
         
-        Documentation on this format can be found here : https://github.com/SkyTemple/skytemple-files/tree/master/skytemple_files/graphics/bg_list_dat
+        Documentation on this format can be found here:
+        https://github.com/SkyTemple/skytemple-files/tree/55b3017631a8a1b0f106111ef91a901dc394c6df/skytemple_files/graphics/bg_list_dat
         
         r0: [output] The entry
-        r1: the number of the background
+        r1: the number of the backgrounds
     - name: SprintfStatic
       address:
         EU: 0x2309868

@@ -344,7 +344,7 @@ arm9:
         See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
         
         No params.
-    - name: IsIOVecAllocated
+    - name: IsIoVecAllocated
       address:
         EU: 0x2003238
       description: |-
@@ -634,7 +634,7 @@ arm9:
         Note: It is possible to keep a file stream open even if data transfer mode has been stopped, in which case the file stream can be used again if data transfer mode is reinitialized.
         
         r0: file_stream pointer
-    - name: FreeIOVec
+    - name: FreeIoVec
       address:
         EU: 0x2008BD4
       description: |-

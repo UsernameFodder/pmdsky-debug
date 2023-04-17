@@ -17,7 +17,7 @@ void GroundMainNextDay(void);
 bool JumpToTitleScreen(int arg);
 bool ReturnToTitleScreen(uint32_t fade_duration);
 void ScriptSpecialProcess0x16(bool param_1);
-void LoadABgListEntry(struct bg_list_entry* entry, uint32_t bg_id);
+void LoadBgListEntry(struct bg_list_entry* entry, uint32_t bg_id);
 void StatusUpdate(void);
 
 #endif
