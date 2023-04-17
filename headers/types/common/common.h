@@ -906,9 +906,9 @@ struct wan_table_entry {
     int16_t reference_counter;
     undefined field9_0x2e;
     undefined field10_0x2f;
-    struct wan_header*
-        sprite_start; // 0x30: pointer to the beginning of the data section of iov_base.
-    void* iov_base;   // 0x34: points to a sirO
+    // 0x30: pointer to the beginning of the data section of iov_base.
+    struct wan_header* sprite_start;
+    void* iov_base; // 0x34: points to a sirO
 };
 ASSERT_SIZE(struct wan_table_entry, 56);
 
