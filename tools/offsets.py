@@ -46,6 +46,7 @@ class Binary:
 BINARIES = {
     "NA": {
         "arm9": Binary(0x2000000, 0xB73F8),
+        "arm7": Binary(0x2380000, 0x27080),
         "overlay0": Binary(0x22BCA80, 0x609A0),
         "overlay1": Binary(0x2329520, 0x12D20),
         "overlay2": Binary(0x2329520, 0x2AFA0),
@@ -85,6 +86,7 @@ BINARIES = {
     },
     "EU": {
         "arm9": Binary(0x2000000, 0xB7D38),
+        "arm7": Binary(0x2380000, 0x27080),
         "overlay0": Binary(0x22BD3C0, 0x60880),
         "overlay1": Binary(0x2329D40, 0x12C80),
         "overlay2": Binary(0x2329D40, 0x2AFC0),
@@ -124,6 +126,7 @@ BINARIES = {
     },
     "JP": {
         "arm9": Binary(0x2000000, 0xB8CB8),
+        "arm7": Binary(0x2380000, 0x27080),
         "overlay0": Binary(0x22BE220, 0x609A0),
         "overlay1": Binary(0x232ACC0, 0x12E00),
         "overlay2": Binary(0x232ACC0, 0x2AFA0),

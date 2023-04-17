@@ -22,6 +22,10 @@ other parts of the project, feel free to add yourself to this file!
 - SBDWolf
 - marius851000
 - Metalcape
+- kkzero
+- EpicYoshiMaster
+- Jawshoeuh
+- Adex
 - The rest of the contributors to Project Pokémon's technical documentation
   for the NDS Mystery Dungeon games, which can be found here:
   https://projectpokemon.org/home/docs/mystery-dungeon-nds/

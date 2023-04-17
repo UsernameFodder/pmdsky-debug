@@ -207,9 +207,11 @@ overlay11:
         Implements SPECIAL_PROC_0x16 (see ScriptSpecialProcessCall).
         
         r0: bool
-    - name: LoadBgListEntry
+    - name: LoadBackgroundAttributes
       address:
         EU: 0x22EC480
+        NA: 0x22EBB40
+        JP: 0x22ED174
       description: |-
         Open and read an entry from the MAP_BG/bg_list.dat
         
@@ -218,6 +220,110 @@ overlay11:
         
         r0: [output] The entry
         r1: background ID
+    - name: LoadMapType10
+      address:
+        EU: 0x22ED664
+        NA: 0x22ECD24
+        JP: 0x22EE358
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: [output] buffer_ptr
+        r1: map_id
+        r2: dungeon_info_str
+        r3: additional_info
+    - name: LoadMapType11
+      address:
+        EU: 0x22EDB84
+        NA: 0x22ED244
+        JP: 0x22EE878
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: [output] buffer_ptr
+        r1: map_id
+        r2: dungeon_info_str
+        r3: additional_info
+    - name: GetSpecialLayoutBackground
+      address:
+        EU: 0x22F1F00
+        NA: 0x22F155C
+        JP: 0x22F2BA8
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: bg_id
+        r1: dungeon_info_str
+        r2: additional_info
+        r3: copy_fixed_room_layout
+    - name: SetAnimDataFields
+      address:
+        EU: 0x22F51BC
+        NA: 0x22F481C
+        JP: 0x22F5E74
+      description: |-
+        Sets some fields on the animation struct?
+        
+        r0: animation pointer
+        r1: ?
+    - name: SetAnimDataFieldsWrapper
+      address:
+        EU: 0x22F52FC
+        NA: 0x22F495C
+        JP: 0x22F5FB4
+      description: Calls SetAnimDataFields with the second argument right-shifted by 16.
+    - name: InitAnimDataFromOtherAnimData
+      address:
+        EU: 0x22F5604
+        NA: 0x22F4C64
+        JP: 0x22F62E8
+      description: |-
+        Appears to partially copy some animation data into another animation struct, plus doing extra initialization on the destination struct.
+        
+        r0: dst
+        r1: src
+    - name: SetAnimDataFields2
+      address:
+        EU: 0x22F5C88
+        NA: 0x22F52E8
+        JP: 0x22F696C
+      description: |-
+        Sets some fields on the animation struct, based on the params?
+        
+        r0: animation pointer
+        r1: flags
+        r2: ?
+    - name: LoadObjectAnimData
+      address:
+        EU: 0x22F7800
+        NA: 0x22F6E60
+        JP: 0x22F84E4
+      description: |-
+        Loads the animation (WAN) data for a given object index?
+        
+        r0: animation pointer
+        r1: object index
+        r2: flags
+    - name: InitAnimDataFromOtherAnimDataVeneer
+      address:
+        NA: 0x22F6F0C
+      description: |-
+        Likely a linker-generated veneer for InitAnimDataFromOtherAnimData.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
+        
+        r0: dst
+        r1: src
+    - name: AnimRelatedFunction
+      address:
+        NA:
+          - 0x22F6F14
+          - 0x22F7064
+      description: |-
+        Does more stuff related to animations...probably?
+        
+        r0: animation pointer?
+        others: ?
     - name: SprintfStatic
       address:
         EU: 0x2309868
@@ -240,6 +346,29 @@ overlay11:
         
         No params.
   data:
+    - name: OVERLAY11_UNKNOWN_TABLE__NA_2316A38
+      address:
+        NA: 0x2316A38
+      length:
+        NA: 0xA0
+      description: |-
+        Multiple entries are pointers to the string "script.c"
+        
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: undefined4[40]
+    - name: SCRIPT_COMMAND_PARSING_DATA
+      address:
+        NA: 0x2316AD8
+      length:
+        NA: 0x20
+      description: Used by ScriptCommandParsing somehow
+    - name: SCRIPT_OP_CODE_NAMES
+      address:
+        NA: 0x2316AF8
+      length:
+        NA: 0x1B18
+      description: "Opcode name strings pointed to by entries in SCRIPT_OP_CODES (script_opcode::name)"
     - name: SCRIPT_OP_CODES
       address:
         EU: 0x2318FF0
@@ -255,6 +384,18 @@ overlay11:
         These opcodes underpin the various ExplorerScript functions you can call in the SkyTemple SSB debugger.
         
         type: struct script_opcode_table
+    - name: OVERLAY11_DEBUG_STRINGS
+      address:
+        NA: 0x2319208
+      length:
+        NA: 0x8E4
+      description: Strings used with various debug printing functions throughout the overlay
+    - name: C_ROUTINE_NAMES
+      address:
+        NA: 0x2319AEC
+      length:
+        NA: 0x2D3C
+      description: "Common routine name strings pointed to by entries in C_ROUTINES (common_routine::name)"
     - name: C_ROUTINES
       address:
         EU: 0x231D208
@@ -269,6 +410,26 @@ overlay11:
         These routines underpin the ExplorerScript coroutines you can call in the SkyTemple SSB debugger.
         
         type: struct common_routine_table
+    - name: GROUND_WEATHER_TABLE
+      address:
+        NA: 0x231DE10
+      length:
+        NA: 0x30
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: struct ground_weather_entry[12]
+    - name: GROUND_WAN_FILES_TABLE
+      address:
+        EU: 0x231E820
+        NA: 0x231DE40
+      length:
+        EU: 0x10BC
+        NA: 0x1014
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: char[343][12]
     - name: OBJECTS
       address:
         EU: 0x231F8DC
@@ -303,7 +464,7 @@ overlay11:
       description: |-
         Table of levels for recruited Pokémon, corresponding to entries in RECRUITMENT_TABLE_SPECIES.
         
-        type: uint16_t[22]
+        type: int16_t[22]
     - name: RECRUITMENT_TABLE_SPECIES
       address:
         EU: 0x2321408
@@ -324,10 +485,17 @@ overlay11:
       length:
         EU: 0x288
         NA: 0x288
+      description: |-
+        Irdkwia's notes: FIXED_FLOOR_GROUND_ASSOCIATION
+        
+        type: struct level_tilemap_list_entry[81]
     - name: OVERLAY11_OVERLAY_LOAD_TABLE
       address:
         EU: 0x2323B9C
         NA: 0x232306C
+      length:
+        EU: 0x150
+        NA: 0x150
       description: |-
         The overlays that can be loaded while this one is loaded.
         
@@ -336,6 +504,8 @@ overlay11:
         - function pointer to entry point
         - function pointer to destructor
         - possibly function pointer to frame-update function?
+        
+        type: struct overlay_load_entry[21]
     - name: UNIONALL_RAM_ADDRESS
       address:
         EU: 0x23257E4

@@ -4,6 +4,7 @@
 #define HEADERS_TYPES_DUNGEON_MODE_H_
 
 #include "enums.h"
+#include "dungeon_mode_common.h"
 
 // Used in various contexts, like with entity positions in the dungeon
 struct position {
@@ -12,24 +13,13 @@ struct position {
 };
 ASSERT_SIZE(struct position, 4);
 
-// Item info
-struct item {
-    // 0x0: flags: 1-byte bitfield
-    bool f_exists : 1;  // Validity flag
-    bool f_in_shop : 1; // In a Kecleon Shop
-    uint8_t flags_unk2 : 1;
-    bool f_sticky : 1; // Sticky
-    bool f_set : 1;    // Usable by L+R
-    uint8_t flags_unk5 : 3;
-
-    // 0x1: For bag items. 0 for none, 1 if held by the leader, 2 for the second party member, etc.
-    uint8_t held_by;
-    // 0x2: Only for stackable items. Will be 0 if unapplicable. For Poké, this is an "amount code"
-    // rather than the literal amount
-    uint16_t quantity;
-    struct item_id_16 id; // 0x4
+// Used to indicate the pixel position of an entity. Values are shifted 8 bits to the left, so they
+// are probably decimal numbers instead.
+struct pixel_position {
+    int32_t x;
+    int32_t y;
 };
-ASSERT_SIZE(struct item, 6);
+ASSERT_SIZE(struct pixel_position, 8);
 
 // Trap info
 struct trap {
@@ -47,48 +37,22 @@ struct trap {
 };
 ASSERT_SIZE(struct trap, 4);
 
-// Monster move info
-struct move {
-    // 0x0: flags0: 1-byte bitfield
-    bool f_exists : 1;                   // This move will show up in the move list
-    bool f_subsequent_in_link_chain : 1; // This move is in a link chain, but not the first move
-    bool f_enabled_for_ai : 1;           // AI can use this move
-    bool f_set : 1;                      // Usable by L+A
-    bool f_last_used : 1; // This move was the last one used (for things like Torment?)
-    bool f_disabled : 1;  // For Torment (and maybe others)
-    uint8_t flags0_unk6 : 2;
-
-    undefined field_0x1;
-
-    // 0x2: flags2: 2-byte bitfield
-    bool f_sealed : 1; // Sealed by a Seal Trap. Also prevents AI from using this move
-    uint16_t flags2_unk1 : 2;
-    bool f_consume_pp : 1;   // This move will consume PP this turn
-    bool f_consume_2_pp : 1; // Consume 2 PP this turn. No effect unless f_consume_pp is set
-    uint16_t flags2_unk5 : 1;
-    // Consume 4 PP this turn. No effect unless f_consume_pp is set, overrides f_consume_2_pp
-    bool f_consume_4_pp : 1;
-    uint16_t flags2_unk7 : 1;
-    uint16_t flags2_unk8 : 1;
-    bool f_exclusive_item_pp_boost : 1; // A PP-boosting exclusive item is in effect
-    uint16_t flags3_unk10 : 6;
-
-    struct move_id_16 id; // 0x4
-    uint8_t pp;           // 0x6: Current PP
-    uint8_t ginseng;      // 0x7: Ginseng boost
-};
-ASSERT_SIZE(struct move, 8);
-
 // Used to hold data during damage calculation
 struct damage_data {
-    int damage;                       // 0x0: Damage dealt by the move
-    enum damage_source damage_source; // 0x4
-    enum type_matchup type_matchup;   // 0x8: Result of the type matchup calculation
-    struct type_id_8 type;            // 0xC: Type of the move used
-    struct move_category_8 category;  // 0xD: Category of the move used
-    bool critical_hit;                // 0xE
-    undefined field_0xF;
-    undefined field_0x10;
+    int damage;                         // 0x0: Damage dealt by the move
+    enum damage_message damage_message; // 0x4: Message to display
+    enum type_matchup type_matchup;     // 0x8: Result of the type matchup calculation
+    struct type_id_8 type;              // 0xC: Type of the move used
+    struct move_category_8 category;    // 0xD: Category of the move used
+    bool critical_hit;                  // 0xE
+    // 0xF: Set to true if the type matchup calculation results in full immunity due to Flash Fire,
+    // Levitate, or Magnet Rise. It seems like this is only used to skip the 30-damage override due
+    // to the Set Damage status
+    bool full_type_immunity;
+    // 0x10: This can be set at various points to indicate that no damage should be dealt. This is
+    // checked at the very end of CalcDamageFinal and overrides all other results of the damage
+    // calculation.
+    bool no_damage;
     // Most likely padding. These aren't set by the function that inits the struct.
     undefined field_0x11;
     undefined field_0x12;
@@ -102,8 +66,7 @@ struct monster_stat_modifiers {
     int16_t offensive_stages[2];  // 0x0: {atk, sp_atk}
     int16_t defensive_stages[2];  // 0x4: {def, sp_def}
     int16_t hit_chance_stages[2]; // 0x8: {accuracy, evasion}
-    bool flash_fire_boost;        // 0xC
-    undefined field_0xd;
+    int16_t flash_fire_boost;     // 0xC: can be 0, 1, or 2
     undefined field_0xe;
     undefined field_0xf;
     // Some moves like Screech affect the damage calculation differently than, e.g., Leer
@@ -121,16 +84,18 @@ ASSERT_SIZE(struct monster_stat_modifiers, 32);
 #pragma pack(push, 1)
 struct statuses {
     bool roost;
-    uint8_t field_0x1; // Set by Roost to 0x2
-    uint8_t field_0x2; // Set by Roost to 0xA
-    undefined field_0x3;
+    // 0x1: The typing in entity::types before the flying type is removed for statuses::roost
+    // and restored to entity::types after statuses::roost ends.
+    struct type_id_8 original_types[2];
+    // 0x3: The move id to be used if statuses::bide is 1.
+    uint8_t bide_move_id;
     undefined field_0x4;
     undefined field_0x5;
     undefined field_0x6;
-    undefined field_0x7;
-    undefined field_0x8;
-    undefined field_0x9;
-    undefined field_0xa;
+    // 0x7: Accessed when setting statuses::leech_seed and compared against values in
+    // dungeon::0x3DCC (this value is probably an array). This value is saved to
+    // statuses:0x3B for Destiny Bond and Leech Seed.
+    uint32_t field_0x7;
     // 0xB: Pointer to the monster being wrapped around/wrapped by
     struct entity* wrapped_opponent;
     undefined field_0xf;
@@ -144,7 +109,11 @@ struct statuses {
     uint8_t burn_turns;  // 0x17: Turns left for the status in statuses::burn
     // 0x18: Turns left until residual damage for the status in statuses::burn, if applicable
     uint8_t burn_damage_countdown;
-    undefined field_0x19;
+    // 0x19: The number of times the statuses::burn_damage_countdown has reached 0. Only used
+    // when badly poisoned. Determines how much damage the badly poisoned status condition
+    // will deal. There is no noticable difference because the table this value is looked up
+    // on is filled with 0x6
+    uint8_t badly_poisoned_damage_count;
     undefined field_0x1a;
     uint8_t freeze; // 0x1B: STATUS_FROZEN if 1
     undefined field_0x1c;
@@ -166,7 +135,7 @@ struct statuses {
     uint8_t bide_move_slot; // 0x2B: Slot in the user's move list
     uint8_t reflect;        // 0x2C: STATUS_REFLECT if 1
     uint8_t reflect_turns;  // 0x2D: Turns left for the status in statuses::reflect
-    // 0x2E: Turns left until residual damage for the status in statuses::reflect, if applicable
+    // 0x2E: Turns left until residual healing for the status in statuses::reflect, if applicable
     uint8_t reflect_damage_countdown;
     uint8_t curse; // 0x2F: STATUS_CURSED if 1
     undefined field_0x30;
@@ -181,11 +150,12 @@ struct statuses {
     undefined field_0x38;
     undefined field_0x39;
     undefined field_0x3a;
-    undefined field_0x3b;
-    undefined field_0x3c;
-    undefined field_0x3d;
-    undefined field_0x3e;
-    undefined field_0x3f;
+    // 0x3B: Leech seed related tracker. Set to the value in statuses:0x7 after finding
+    // statuses::leech_seed_source_monster_index.
+    uint32_t unk_leech_seed_tracker;
+    // 0x3F: Index into entity_table_hdr::monster_slot_ptrs in the dungeon that the user
+    // (drainer) is held.
+    uint8_t leech_seed_source_monster_index;
     uint8_t leech_seed_turns; // 0x40: Turns left for the status in statuses::leech_seed
     // 0x41: Turns left until residual damage for the status in statuses::leech_seed, if applicable.
     // Behaves weirdly without an afflictor
@@ -208,10 +178,10 @@ struct statuses {
     bool scanning;             // 0x51: STATUS_SCANNING
     bool stair_spotter;        // 0x52: STATUS_STAIR_SPOTTER
     undefined field_0x53;
-    bool grudge;  // 0x54: STATUS_GRUDGE
-    bool exposed; // 0x55: STATUS_EXPOSED (Foresight/Odor Sleuth)
-    undefined field_0x56;
-    bool boss_flag; // 0x57: Seems to be true for boss monsters
+    bool grudge;       // 0x54: STATUS_GRUDGE
+    bool exposed;      // 0x55: STATUS_EXPOSED (Foresight/Odor Sleuth)
+    bool type_changed; // 0x56: Flag for if the monster's type has been changed
+    bool boss_flag;    // 0x57: Seems to be true for boss monsters
     undefined field_0x58;
     undefined field_0x59;
     bool in_action;            // 0x5A: Possibly a flag while in action
@@ -221,10 +191,15 @@ struct statuses {
     // 0x5E: Increases progressively while the No-Slip Cap is held. Capped at 0x13
     // Used to calculate the chance of an item becoming sticky, resets to 0 when that happens
     uint8_t no_slip_cap_counter;
-    undefined field_0x5f;
+    // 0x5F: Determines how much experience the monster will reward after being defeated
+    // 0 = 0.5x, 1 = 1.0x, 2 = 1.5x
+    uint8_t exp_yield;
     undefined field_0x60;
     undefined field_0x61;
-    bool high_up; // 0x62: Graphical flag for Fly/Bounce
+    // 0x62: Flag for two-turn moves that haven't concluded yet. This is also a graphical flag.
+    // A value of 1 mean "high up" (Fly/Bounce). A value of 2 means some other condition like
+    // Dig, Shadow Force, etc. Other values are treated as invalid.
+    uint8_t two_turn_move_invincible;
     undefined field_0x63;
     undefined field_0x64;
     undefined field_0x65;
@@ -232,13 +207,89 @@ struct statuses {
     // 0x67: 1 means normal. 0 means half speed. 2, 3, and 4 mean 2x, 3x, and 4x speed.
     int speed_stage;
     // Each counter ticks down to 0 turn by turn. The current speed_stage is calculated as:
-    // max(min({# nonzero speed_up_counters} - {# nonzero speed_down_counters}, 0), 4)
+    // min(max({# nonzero speed_up_counters} - {# nonzero speed_down_counters}, 0), 4)
     uint8_t speed_up_counters[5];   // 0x6B
     uint8_t speed_down_counters[5]; // 0x70
     uint8_t stockpile_stage;        // 0x75: Goes from 0-3. STATUS_STOCKPILING if nonzero
 };
 ASSERT_SIZE(struct statuses, 118);
 #pragma pack(pop)
+
+// A bitfield where every bit controls one of the icons that can appear on top of a monster's sprite
+// to represent status effects. If multiple bits are set, the shown icon cycles through them.
+struct status_icon_flags {
+    bool f_sleepless : 1; // Blue eye blinking yellow
+    bool f_burn : 1;      // Red flame
+    bool f_poison : 1;    // White skull
+    bool f_toxic : 1;     // Purple skull
+    bool f_confused : 1;  // Yellow birds
+    bool f_cowering : 1;  // 2 green lines in circle (same as whiffer)
+    bool f_taunt : 1;     // Fist icon
+    bool f_encore : 1;    // Blue exclamation mark (same as low HP)
+    // Blue shield with white sparks. Also for counter, mini counter, mist,
+    // metal burst, aqua ring, and lucky chant
+    bool f_reflect : 1;
+    bool f_safeguard : 1;            // Pink shield. Also for mirror coat
+    bool f_light_screen : 1;         // Golden shield. Also for magic coat
+    bool f_protect : 1;              // Green shield. Also for mirror move and vital throw
+    bool f_endure : 1;               // Blue shield with red sparks
+    bool f_low_hp : 1;               // Blue exclamation mark (same as encore)
+    bool f_curse : 1;                // Red skull
+    bool f_embargo : 1;              // Yellow exclamation mark. Also for gastro acid and snatch
+    bool f_sure_shot : 1;            // Blue sword blinking yellow
+    bool f_whiffer : 1;              // 2 green lines in circle (same as cowering)
+    bool f_set_damage : 1;           // Blue sword blinking red
+    bool f_focus_energy : 1;         // Red sword blinking yellow
+    bool f_blinded : 1;              // Blue eye with an X
+    bool f_cross_eyed : 1;           // Blue question mark
+    bool f_eyedrops : 1;             // Blue eye blinking yellow with a circular wave
+    bool f_muzzled : 1;              // Blinking red cross
+    bool f_grudge : 1;               // Purple shield
+    bool f_exposed : 1;              // Blue eye blinking red with a circular wave
+    bool f_sleep : 1;                // Red Z's
+    bool f_lowered_stat : 1;         // Yellow arrow pointing down
+    bool f_heal_block : 1;           // Blinking green cross
+    bool f_miracle_eye : 1;          // Blinking orange cross
+    bool f_red_exclamation_mark : 1; // Probably unused
+    bool f_magnet_rise : 1;          // Purple arrow pointing up
+
+    // The following 4 bytes appear to have a different meaning, maybe they are intended to
+    // represent icons that are always displayed and do not cycle (inferred from the difference
+    // between the ice block and the other icons). Except for the first bit, the others do not
+    // seem to have an effect, but the code stores the full 4 bytes as a bitwise OR of some of the
+    // flags (see UpdateStatusIconBitfield).
+    bool f_freeze : 1; // Ice block
+    uint8_t flags_unk2 : 7;
+    undefined field_0x5;
+    undefined field_0x6;
+    undefined field_0x7;
+};
+ASSERT_SIZE(struct status_icon_flags, 8);
+
+// Contains data used to describe an action taken by a monster.
+struct action_data {
+    struct action_16 action_id;      // 0x0: Action ID
+    struct direction_id_8 direction; // 0x2: Direction in which the action will be performed
+    undefined field_0x3;
+    // 0x4: Metadata for some action_id values.
+    // E.g., this is the bag item index when using an item, the monster index when taking an action
+    // on a monster or the move index when using a move
+    uint8_t action_use_idx;
+    undefined field_0x5;
+    undefined field_0x6;
+    undefined field_0x7;
+    undefined field_0x8;
+    undefined field_0x9;
+    undefined field_0xA;
+    undefined field_0xB;
+    undefined field_0xC;
+    undefined field_0xD;
+    undefined field_0xE;
+    undefined field_0xF;
+    int16_t field_0x10;
+    int16_t field_0x12;
+};
+ASSERT_SIZE(struct action_data, 20);
 
 // Monster info
 struct monster {
@@ -272,47 +323,22 @@ struct monster {
     int16_t max_hp_boost; // 0x16: From Life Seeds, Sitrus Berries, etc.
     undefined field_0x18;
     undefined field_0x19;
-    uint8_t atk;    // 0x1A
-    uint8_t sp_atk; // 0x1B
-    uint8_t def;    // 0x1C
-    uint8_t sp_def; // 0x1D
-    undefined field_0x1e;
-    undefined field_0x1f;
+    uint8_t offensive_stats[2]; // 0x1A: {atk, sp_atk}
+    uint8_t defensive_stats[2]; // 0x1C: {def, sp_def}
+    uint8_t field_0x1e;
+    uint8_t field_0x1f;
     int exp;                                      // 0x20: Total Exp. Points
     struct monster_stat_modifiers stat_modifiers; // 0x24
     int16_t hidden_power_base_power;              // 0x44
     struct type_id_8 hidden_power_type;           // 0x46
     undefined field_0x47;
     struct dungeon_id_8 joined_at; // 0x48: Also used as a unique identifier for special monsters
-    undefined field_0x49;
-    struct action_16 action_id; // 0x4A: Determines the action the monster will take on this turn
-    struct direction_id_8 direction; // 0x4C: Current direction the monster is facing
-    undefined field_0x4d;
-    // 0x4E: Metadata for some action_id values.
-    // E.g., this is the bag item index when using an item, the monster index when taking an action
-    // on a monster or the move index when using a move
-    uint8_t action_use_idx;
-    undefined field_0x4F;
-    undefined field_0x50;
-    undefined field_0x51;
-    undefined field_0x52;
-    undefined field_0x53;
-    undefined field_0x54;
-    undefined field_0x55;
-    undefined field_0x56;
-    undefined field_0x57;
-    undefined field_0x58;
-    undefined field_0x59;
-    undefined field_0x5a;
-    undefined field_0x5b;
-    undefined field_0x5c;
-    undefined field_0x5d;
-    struct type_id_8 type1;       // 0x5E
-    struct type_id_8 type2;       // 0x5F
-    struct ability_id_8 ability1; // 0x60
-    struct ability_id_8 ability2; // 0x61
-    struct item held_item;        // 0x62
-    uint16_t held_item_id;        // 0x68: Appears to be a mirror of held_item.id
+    uint8_t joined_at_floor;       // 0x49: Floor number of recruitment. 0 for special recruits
+    struct action_data action;     // 0x4A: Determines the action the monster will take on this turn
+    struct type_id_8 types[2];     // 0x5E
+    struct ability_id_8 abilities[2]; // 0x60
+    struct item held_item;            // 0x62
+    struct item_id_16 held_item_id;   // 0x68: Appears to be a mirror of held_item.id
     // Previous position data is used by the AI
     struct position prev_pos;  // 0x6A: Position 1 turn ago
     struct position prev_pos2; // 0x6E: Position 2 turns ago
@@ -342,10 +368,9 @@ struct monster {
     struct tactic_id_8 tactic; // 0xA8
     struct statuses statuses;  // 0xA9
     undefined field_0x11f;
-    undefined field_0x120;
-    undefined field_0x121;
-    undefined field_0x122;
-    undefined field_0x123;
+    // 0x120: If zero, when the monster is standing in a room, the AI will make it head towards a
+    // random exit. If nonzero, the monster will instead move in a random direction every turn.
+    int random_movement;
     struct move moves[4]; // 0x124
     uint8_t move_flags;   // 0x144: 1-byte bitfield
     undefined field_0x145;
@@ -361,29 +386,54 @@ struct monster {
     // 0x152: Seems to be true if the monster has already acted this turn: attacked, used an item,
     // or seemingly anything other than moving/resting. Also true when the monster faints.
     bool already_acted;
-    undefined field_0x153;
-    undefined field_0x154;
-    undefined field_0x155;
+    // 0x153: True if this enemy should evolve. It is not enough to set this flag to evolve
+    // an enemy monster. You also need to set dungeon::should_enemy_evolve.
+    bool should_evolve;
+    // 0x154: True if using a charged move. Changed together with statuses::bide.
+    bool using_charged_move;
+    // 0x155: True if the target attacked a Pokemon that has STATUS_GRUDGE.
+    bool hit_grudge_monster;
     undefined field_0x156; // 0 when the monster faints
     undefined field_0x157;
-    undefined field_0x158;
-    undefined field_0x159;
-    undefined field_0x15a;
-    undefined field_0x15b;
-    undefined field_0x15c;
-    undefined field_0x15d;
-    undefined field_0x15e;
-    undefined field_0x15f;
-    undefined field_0x160;
+    // 0x158: General-purpose bitflags tracking different bits of volatile state.
+    // Together with prev_state_bitflags, this is typically used to determine whether
+    // to log a message on a state change.
+    uint16_t state_flags;
+    // 0x15A: The previous value of state_bitflags before the last update
+    uint16_t prev_state_flags;
+    // 0x15C: Appears to control if there's a log message upon a Flash Fire boost.
+    // A message will only be logged once.
+    bool flash_fire_boost_logged;
+    // 0x15D: Appears to be a counter for how many times rollout has hit. Likely to be able to
+    // determine how much extra damage consecutive rollout hits should deal.
+    uint8_t rollout_hit_counter;
+    // 0x15E: If true, the monster is warped after completing its move.
+    bool memento_warp_flag;
+    // 0x15F: If true, the monster's special attack is dropped after the completing its move.
+    bool overheat_special_attack_drop_flag;
+    // 0x160: If true, the monster's shadow is drawn. This value is initalized to 1 for every
+    // monster except Diglett and Dugtrio.
+    bool display_shadow;
     // 0x161: If true, prevents giving items to this monster. Might have a broader meaning,
     // such as whether the monster is a guest pokémon.
     bool cannot_give_items;
-    undefined field_0x162;
-    undefined field_0x163;
-    undefined field_0x164;
-    undefined field_0x165;
-    undefined field_0x166;
-    undefined field_0x167;
+    // 0x162: Related to using a move and either missing or fainting. Set to 1 right before
+    // the function for a move is called and set to 0 (sometimes) in ApplyDamage. Gets set
+    // when the monster faints sometimes with field 0x156. Maybe not?
+    bool field_0x162;
+    // 0x163: Related to controlling the number of attacks per move use. Possibly to account
+    // for two-turn moves?
+    bool field_0x163;
+    bool took_damage_flag; // 0x164: Set after the monster took damage.
+    // 0x165: Appears to be some sort of validity check? Where 0 is valid and 1 is invalid.
+    // HandleFaint sets this number to 1. Also set to 1 if IsMonsterIdInNormalRange is false.
+    bool field_0x165;
+    // 0x166: Set after the monster attacks (true if the attack missed, false otherwise). If true
+    // when the monster attacks, Practice Swinger will activate.
+    bool practice_swinger_flag;
+    // 0x167: Set to true when the monster receives a critical hit. If true when the monster
+    // attacks, Anger Point will activate. Set to false after the monster attacks.
+    bool anger_point_flag;
     undefined field_0x168;
     undefined field_0x169;
     // 0x16A: If true, after the monster spawns, it will turn in the specified direction and
@@ -396,11 +446,13 @@ struct monster {
     undefined field_0x16d;
     undefined field_0x16e;
     undefined field_0x16f;
-    undefined field_0x170;
+    bool field_0x170;
     undefined field_0x171;
-    undefined field_0x172;
+    // 0x172: Set when the leader and falling through a pitfall trap.
+    bool pitfall_trap_flag_0x172;
     undefined field_0x173;
-    undefined field_0x174;
+    // 0x174: Set when the leader and falling through a pitfall trap.
+    bool pitfall_trap_flag_0x174;
     undefined field_0x175;
     undefined field_0x176;
     undefined field_0x177;
@@ -418,14 +470,18 @@ struct monster {
     undefined field_0x189;
     undefined field_0x18a;
     undefined field_0x18b;
-    undefined field_0x18c;
-    undefined field_0x18d;
-    undefined field_0x18e;
-    undefined field_0x18f;
+    // 0x18C: Bitflags that cause non-damaging exclusive items to trigger on the
+    // attacker after they have completed their move. For example, the Eclipse Robe
+    // (Darkrai exclusive item) may afflict attacking enemies with the nightmare
+    // status condition. (Only uses first 21 bits).
+    uint32_t exclusive_item_trigger_bitflags;
     undefined field_0x190;
     undefined field_0x191;
-    undefined field_0x192;
-    undefined field_0x193;
+    // 0x192: Bitflags that cause non-damaging abilities to trigger on the attacker
+    // after they have completed their move. Abilites like magnet pull, cute charm,
+    // static, and flame body. (Only uses first 11 bits). One exception is the move
+    // Rapid Spin which sets one of the flags for the user.
+    uint16_t contact_ability_trigger_bitflags;
     undefined field_0x194;
     undefined field_0x195;
     undefined field_0x196;
@@ -554,23 +610,16 @@ struct monster {
     undefined field_0x215;
     undefined field_0x216;
     undefined field_0x217;
-    undefined field_0x218;
-    undefined field_0x219;
-    undefined field_0x21a;
-    undefined field_0x21b;
-    undefined field_0x21c;
-    undefined field_0x21d;
-    undefined field_0x21e;
-    undefined field_0x21f;
+    // 0x218: Status icons displayed on top of the monster's sprite
+    struct status_icon_flags status_icons;
     undefined field_0x220;
-    undefined field_0x221;
+    // 0x221: Set if the current move being used was copied by Me First
+    bool me_first_flag;
     undefined field_0x222;
     undefined field_0x223;
     // Stat boosts from exclusive items with EXCLUSIVE_EFF_STAT_BOOST
-    uint8_t exclusive_item_atk_boost;    // 0x224
-    uint8_t exclusive_item_sp_atk_boost; // 0x225
-    uint8_t exclusive_item_def_boost;    // 0x226
-    uint8_t exclusive_item_sp_def_boost; // 0x227
+    uint8_t exclusive_item_offense_boosts[2]; // 0x224: {atk, sp_atk}
+    uint8_t exclusive_item_defense_boosts[2]; // 0x226: {def, sp_def}
     // 0x228: Bitvector. See enum exclusive_item_effect_id for the meaning of each bit
     uint32_t exclusive_item_effect_flags[5];
     undefined field_0x23c;
@@ -584,13 +633,11 @@ ASSERT_SIZE(struct monster, 576);
 
 // Generic entity data
 struct entity {
-    enum entity_type type;      // 0x0
-    struct position pos;        // 0x4
-    struct position prev_pos;   // 0x8
-    int pixel_x_shifted;        // 0xC: pixel_x << 8
-    int pixel_y_shifted;        // 0x10: pixel_y << 8
-    int pixel_x_shifted_mirror; // 0x14: Monsters only?
-    int pixel_y_shifted_mirror; // 0x18: Monsters only?
+    enum entity_type type;                  // 0x0
+    struct position pos;                    // 0x4
+    struct position prev_pos;               // 0x8
+    struct pixel_position pixel_pos;        // 0xC
+    struct pixel_position pixel_pos_mirror; // 0x14: Monsters only?
     // 0x1C: Graphical parameter for evelation above the ground. Last byte behaves weirdly.
     int elevation;
     bool is_visible; // 0x20: For traps/hidden stairs
@@ -602,7 +649,7 @@ struct entity {
     uint8_t end_walk_anim_frame;
     undefined field_0x24;
     uint8_t room_idx; // 0x25: Index of the room a monster is in. 0xFF for hall
-    // 0x26:Unique index for each monster that spawns. Starts at 0xA for the leader, and each
+    // 0x26: Unique index for each monster that spawns. Starts at 0xA for the leader, and each
     // subsequent monster to spawn is assigned the next number (0xB, 0xC, ...)
     uint16_t spawn_genid;
     undefined field_0x28;
@@ -819,6 +866,21 @@ struct tile {
 };
 ASSERT_SIZE(struct tile, 20);
 
+// Information about the rooms on the current floor
+struct room_data {
+    uint8_t room_id;
+    undefined field_0x1;                 // Initialized to 0
+    struct position bottom_right_corner; // 0x2
+    struct position top_left_corner;     // 0x6
+    undefined field_0xa;                 // Doesn't get initialized, likely padding
+    undefined field_0xb;                 // Doesn't get initialized, likely padding
+    undefined4 field_0xc;                // Initialized to (bottom_right_corner.x - 1) * 0x1C
+    undefined4 field_0x10;               // Initialized to (bottom_right_corner.y - 1) * 0x1C
+    undefined4 field_0x14;               // Initialized to (top_left_corner.x + 1) * 0x1C
+    undefined4 field_0x18;               // Initialized to (top_left_corner.y + 1) * 0x1C
+};
+ASSERT_SIZE(struct room_data, 28);
+
 // Struct that seems to hold data related to the map, the camera and the touchscreen numbers
 struct display_data {
     struct position camera_pos; // 0x0: Position of the tile the camera is currently pointing to
@@ -1004,12 +1066,12 @@ struct dungeon_grid_cell {
     // 0x8: Grid cells can be invalid and not used in dungeon generation, depending on the
     // generation parameters for a particular floor/dungeon
     bool is_invalid;
-    undefined field_0x9;
-    bool is_room;      // 0xA: Whether this cell contains a room
-    bool is_connected; // 0xB: Whether this cell is connected to a neighboring grid cell
-    undefined field_0xc;
-    undefined field_0xd;
-    bool is_monster_house; // 0xE: Whether this cell has a Monster House
+    bool has_secondary_structure; // 0x9: Whether this cell has generated a secondary structure
+    bool is_room;                 // 0xA: Whether this cell contains a room
+    bool is_connected;            // 0xB: Whether this cell is connected to a neighboring grid cell
+    bool is_kecleon_shop;         // 0xC: Whether this cell has a Kecleon Shop
+    undefined field_0xd;          // 0xD: This field is entirely unused
+    bool is_monster_house;        // 0xE: Whether this cell has a Monster House
     undefined field_0xf;
     bool is_maze_room; // 0x10: Whether this cell has a maze room
     // 0x11: Room has been merged into another room and is no longer valid
@@ -1025,7 +1087,7 @@ struct dungeon_grid_cell {
     bool should_connect_to_bottom; // 0x18
     bool should_connect_to_left;   // 0x19
     bool should_connect_to_right;  // 0x1A
-    undefined field_0x1b;
+    undefined field_0x1b;          // 0x1B: Potentially flag_fixed ?
     // 0x1C: This room has been flagged to have imperfections generated
     bool flag_imperfect;
     // 0x1D: This room has been flagged to have secondary structures generated
@@ -1057,12 +1119,10 @@ struct floor_generation_status {
     // 0x18: Maximum number of additional secondary structures to generate within rooms.
     // This is decremented as secondary structures are generated until it falls to 0.
     int secondary_structures_budget;
-    // Where the Hidden Stairs spawn is
-    uint16_t hidden_stairs_spawn_x; // 0x1C
-    uint16_t hidden_stairs_spawn_y; // 0x1E
-    // The middle of the Kecleon Shop is, if applicable
-    uint16_t kecleon_shop_middle_x; // 0x20
-    uint16_t kecleon_shop_middle_y; // 0x22
+    // 0x1C: Where the Hidden Stairs spawn is. Values of -1 indicate no Hidden Stairs.
+    struct position hidden_stairs_spawn;
+    // 0x20: Where the middle of the Kecleon Shop is, if applicable
+    struct position kecleon_shop_middle;
     // 0x24: The number of tiles that can be reached from the stairs, assuming normal mobility
     int n_tiles_reachable_from_stairs;
     enum floor_layout layout;                   // 0x28
@@ -1145,6 +1205,86 @@ struct floor_properties {
 };
 ASSERT_SIZE(struct floor_properties, 32);
 
+struct tileset_property {
+    int32_t field_0x0;
+    uint8_t field_0x4;
+    uint8_t field_0x5;
+    uint8_t field_0x6;
+    uint8_t _padding;
+    struct nature_power_variant_16 nature_power_variant;
+    uint8_t field_0xa;
+    // 0xB: True if this is a water tileset. If so, a different kind of shadow will be displayed
+    // under monsters in dungeons, drought orbs won't work and Dive can be used anywhere.
+    bool is_water_tileset;
+};
+ASSERT_SIZE(struct tileset_property, 12);
+
+struct level_tilemap_list_entry {
+    int16_t field_0x0;
+    uint8_t field_0x2;
+    uint8_t field_0x3;
+    undefined4 field_0x4;
+};
+ASSERT_SIZE(struct level_tilemap_list_entry, 8);
+
+struct move_animation {
+    int16_t field_0x0;
+    int16_t field_0x2;
+    int16_t field_0x4;
+    int16_t field_0x6;
+    uint8_t field_0x8;
+    undefined field_0x9;
+    undefined field_0xa;
+    undefined field_0xb;
+    undefined field_0xc;
+    undefined field_0xd;
+    undefined field_0xe;
+    undefined field_0xf;
+    undefined field_0x10;
+    int8_t field_0x11;
+    uint16_t field_0x12;
+    int16_t field_0x14;
+    uint16_t field_0x16;
+};
+ASSERT_SIZE(struct move_animation, 24);
+
+// Unverified, ported from Irdkwia's notes
+struct special_monster_move_animation {
+    int16_t field_0x0;
+    undefined field_0x2;
+    int8_t field_0x3;
+    int16_t field_0x4;
+};
+ASSERT_SIZE(struct special_monster_move_animation, 6);
+
+// Unverified, ported from Irdkwia's notes
+struct item_animation {
+    int16_t field_0x0;
+    int16_t field_0x2;
+};
+ASSERT_SIZE(struct item_animation, 4);
+
+// Unverified, ported from Irdkwia's notes
+struct trap_animation {
+    int16_t field_0x0;
+};
+ASSERT_SIZE(struct trap_animation, 2);
+
+// Unverified, ported from Irdkwia's notes
+struct effect_animation {
+    int field_0x0;
+    int field_0x4;
+    int field_0x8;
+    int field_0xc;
+    int field_0x10;
+    int field_0x14;
+    uint8_t field_0x18;
+    int8_t field_0x19;
+    uint8_t field_0x1a;
+    uint8_t field_0x1b;
+};
+ASSERT_SIZE(struct effect_animation, 28);
+
 // Contains data about a monster that spawns in a dungeon
 struct monster_spawn_entry {
     uint16_t level_mult_512; // 0x0: Spawn level << 9
@@ -1201,6 +1341,12 @@ struct dungeon_data_list_entry {
 };
 ASSERT_SIZE(struct dungeon_data_list_entry, 4);
 
+struct dungeon_group_and_group_floor {
+    struct dungeon_group_id_8 group_id;
+    uint8_t group_floor;
+};
+ASSERT_SIZE(struct dungeon_group_and_group_floor, 2);
+
 // Entry for a single dungeon in the dungeon restriction list
 struct dungeon_restriction {
     // 0x0: flags: 2-byte bitfield
@@ -1223,15 +1369,14 @@ struct dungeon_restriction {
     uint8_t max_party_size;    // 0x6: Maximum number of team members that can enter the dungeon
     undefined field_0x7;
     uint16_t turn_limit_per_floor; // 0x8: Number of turns per floor before the wind blows you out
-    undefined field_0xa;
-    undefined field_0xb;
+    // 0xA: Chance of setting the monster::random_movement field to 1 when spawning an enemy
+    int16_t random_movement_chance;
 };
 ASSERT_SIZE(struct dungeon_restriction, 12);
 
 // Entry in the fixed room item spawn table
 struct fixed_room_item_spawn_entry {
-    struct item_id_16 id;
-    uint16_t quantity;
+    struct bulk_item item;
     undefined field_0x4;
     undefined field_0x5;
     undefined field_0x6;
@@ -1306,16 +1451,30 @@ struct fixed_room_entity_spawn_entry {
 };
 ASSERT_SIZE(struct fixed_room_entity_spawn_entry, 12);
 
+// Struct that contains some data used when spawning new enemies
+struct enemy_spawn_stats {
+    struct monster_id_16 id; // 0x0
+    uint16_t level;          // 0x2
+    // 0x4: Spawn moves. Useless since each individual enemy gets its own when spawning.
+    struct move_id_16 moves[4];
+    uint16_t max_hp; // 0xC
+    uint8_t atk;     // 0xE
+    uint8_t def;     // 0xF
+    uint8_t sp_atk;  // 0x10
+    uint8_t sp_def;  // 0x11
+};
+ASSERT_SIZE(struct enemy_spawn_stats, 18);
+
 // Data for guest monsters that join you during certain story dungeons.
 // These all directly correspond to fields in struct monster.
 struct guest_monster {
     char* name;                    // 0x0: Points to an array containing the monster's name
     struct monster_id_16 id;       // 0x4
     struct dungeon_id_8 joined_at; // 0x6
-    undefined field_0x7;
-    struct move_id_16 moves[4]; // 0x8
-    int16_t max_hp;             // 0x10
-    uint8_t level;              // 0x12
+    uint8_t joined_at_floor;       // 0x7
+    struct move_id_16 moves[4];    // 0x8
+    int16_t max_hp;                // 0x10
+    uint8_t level;                 // 0x12
     undefined field_0x13;
     int16_t iq;  // 0x14
     uint8_t atk; // 0x16
@@ -1341,6 +1500,40 @@ struct ai_possible_move {
     int weight; // 0x4: Affects the chance of the AI using this move
 };
 ASSERT_SIZE(struct ai_possible_move, 8);
+
+struct castform_weather_attributes {
+    struct type_id_8 castform_type;
+    uint8_t _padding;
+    struct monster_id_16 castform_male_id;   // monster ID for male Castform in this weather
+    struct monster_id_16 castform_female_id; // monster ID for female Castform in this weather
+};
+ASSERT_SIZE(struct castform_weather_attributes, 6);
+
+// Performs the effect of a move used by the attacker on the defender, with the item ID associated
+// with the move (or ITEM_NOTHING if not applicable). Returns whether or not the move was
+// successfully used.
+typedef bool (*move_effect_fn_t)(struct entity* attacker, struct entity* defender,
+                                 struct move* move, enum item_id item_id);
+
+// Describes one possible variant that a wildcard move like Nature Power or Metronome can turn into
+struct wildcard_move_desc {
+    // Move ID that the wildcard move turns into
+    struct move_id_16 move_id;
+    uint16_t _padding;
+    // Effect handler that executes the move that the wildcard move turns into
+    move_effect_fn_t do_move;
+};
+ASSERT_SIZE(struct wildcard_move_desc, 8);
+
+struct natural_gift_item_info {
+    struct item_id_16 item_id;
+    struct type_id_8 type_id;
+    uint8_t _padding;
+    // This value is the boost that's added to Natural Gift's default base power of 1
+    // during damage calculation
+    int16_t base_power_boost;
+};
+ASSERT_SIZE(struct natural_gift_item_info, 6);
 
 // Used to store data about a menu entry for in-dungeon menus
 // Might be also used outside of dungeons.
@@ -1390,9 +1583,8 @@ struct prng_state {
 };
 ASSERT_SIZE(struct prng_state, 20);
 
-// Contains the necessary information to spawn a monster.
+// Contains the necessary information to spawn a normal monster.
 // Allocated on the stack and passed via a pointer to SpawnMonster.
-
 struct spawned_monster_data {
     struct monster_id_16 monster_id;    // 0x0: The id of the monster to spawn
     struct monster_behavior_8 behavior; // 0x2: NPC behavior of the monster
@@ -1409,6 +1601,182 @@ struct spawned_monster_data {
     undefined field_0xf;
 };
 ASSERT_SIZE(struct spawned_monster_data, 16);
+
+// Contains the necessary information to spawn a mission target.
+#pragma pack(push, 1)
+struct spawned_target_data {
+    struct monster_id_16 monster_id;    // 0x0: The id of the monster to spawn
+    struct monster_behavior_8 behavior; // 0x2: NPC behavior of the monster
+    uint8_t _padding_0x3;
+    uint16_t level; // 0x4: The level of the spawned monster
+    bool valid;     // 0x6: Indicates that this spawn data is valid
+    bool visible; // 0x7: Set to false if this is a "hidden outlaw" that behaves like a normal enemy
+    bool pos_assigned; // 0x8: Whether or not a spawn position has been assigned to this monster
+    uint8_t _padding_0x9;
+    struct position pos; // 0xA: Position on the floor where the monster will be spawned
+    undefined field_0xe;
+};
+ASSERT_SIZE(struct spawned_target_data, 15);
+#pragma pack(pop)
+
+// Contains the necessary information to spawn a Kecleon shopkeeper.
+struct spawned_shopkeeper_data {
+    struct monster_id_16 monster_id;    // 0x0: The id of the monster to spawn
+    struct monster_behavior_8 behavior; // 0x2: NPC behavior of the monster
+    bool valid;                         // 0x3: Indicates that this spawn data is valid
+    uint8_t pos_x;                      // 0x4
+    uint8_t pos_y;                      // 0x5
+};
+ASSERT_SIZE(struct spawned_shopkeeper_data, 6);
+
+// Appears to contain diagnostic information related to the damage calculation routines.
+struct damage_calc_diag {
+    struct type_id_8 move_type; // 0x0: The type of the last move used
+    undefined field_0x1;
+    undefined field_0x2;
+    undefined field_0x3;
+    enum move_category move_category; // 0x4: The category of the last move used
+    // 0x8: The type matchup of the last move used against the individual types of the defender
+    struct type_matchup_8 move_indiv_type_matchups[2];
+    // 0xA: The modified offensive stat stage of the attacker for the last move used
+    uint8_t offensive_stat_stage;
+    // 0xB: The modified defensive stat stage of the defender for the last move used
+    uint8_t defensive_stat_stage;
+    // 0xC: The base offensive stat of the attacker for the last move used
+    uint16_t offensive_stat;
+    // 0xE: The base defensive stat of the defender for the last move used
+    uint16_t defensive_stat;
+    // 0x10: The Flash Fire boost of the attacker when a Fire move was last used
+    uint16_t flash_fire_boost;
+    // 0x12: The modified offense value calculated for the attacker for the last move used,
+    // prior to being clamped between 0 and 999
+    uint16_t offense_calc;
+    // 0x14: The modified defense value calculated for the defender for the last move used
+    uint16_t defense_calc;
+    uint16_t attacker_level; // 0x16: The level of the attacker for the last move used
+    // 0x18: The intermediate quantity in the damage calculation called "AT" in debug logging,
+    // which corresponds to: round[ min(max(offense_calc, 0), 999) + power_calc ],
+    // where power_calc is a modified move power calculated as (intermediate rounding omitted):
+    // GetMovePower(...) * (offensive stat stage multipliers) * (offensive multipliers)
+    uint16_t damage_calc_at;
+    // 0x1A: An identical copy of defense_calc. This is probably a relic of development,
+    // when the final defense contribution to the damage formula might have been a different
+    // quantity computed from defense_calc, like how damage_calc_at is computed
+    // from offense_calc
+    uint16_t damage_calc_def;
+    // 0x1C: The intermediate quantity in the damage calculation called "FLV" in debug logging
+    // (effective level?), which corresponds to: round[ (offense_calc - defense_calc)/8 + level ]
+    uint16_t damage_calc_flv;
+    undefined field_0x1e;
+    undefined field_0x1f;
+    // 0x20: The result of the damage calculation after multiplying the base value by multipliers,
+    // but before applying random variation. There are also a couple stray multipliers applied
+    // after this result, including multipliers specific to the projectile move (the static 50%,
+    // and the Power Pitcher multiplier) and the Air Blade multiplier.
+    int damage_calc;
+    // 0x24: The intermediate quantity in the damage calculation resulting from the "base" damage
+    // calculation: the sum of the power, attack, defense, and level terms, modified by the
+    // non-team-member multiplier if relevant, and clamped between 1 and 999.
+    int damage_calc_base;
+    // 0x28: The random multiplier applied to the result of the damage calculation, as a
+    // percentage (so the actual factor, multiplied by 100), rounded to an integer.
+    int damage_calc_random_mult_pct;
+    // 0x2C: The calculated "static" damage multiplier applied to the output of the base damage
+    // calculation. "Static" in the sense that this part of the multiplier doesn't depend on
+    // variables like type-based effects, critical hits, and Reflect/Light Screen. Factors in
+    // the static damage multiplier include the argument to CalcDamage, the multiplier due to
+    // monster::me_first_flag, Reckless, and Iron Fist.
+    int static_damage_mult;
+    // 0x30: The net number of attack boosts to an attacker due to a Power Band or Munch Belt.
+    // It seems like there's a bug in the code; aura bows do not contribute to this field.
+    int8_t item_atk_modifier;
+    // 0x31: The net number of special attack boosts to an attacker due to a Special Band,
+    // Munch Belt, or aura bow. It seems like there's a bug in the code; physical attack boosts
+    // from aura bows also contribute to this field.
+    int8_t item_sp_atk_modifier;
+    // 0x32: The net number of offense boosts to an attacker due to Download, Rivalry,
+    // Flower Gift, and Solar Power
+    int8_t ability_offense_modifier;
+    // 0x33: The net number of defense boosts to a defender due to Flower Gift
+    int8_t ability_defense_modifier;
+    // 0x34: The net number of offense boosts to an attacker due to Aggressor, Defender, and
+    // Practice Swinger
+    int8_t iq_skill_offense_modifier;
+    // 0x35: The net number of defense boosts to a defender due to Counter Basher, Aggressor, and
+    // Defender
+    int8_t iq_skill_defense_modifier;
+    // 0x36: The net number of defense boosts to a defender due to a Def Scarf or aura bow.
+    // It seems like there's a bug in the code; special defense boosts from aura bows also
+    // contribute to this field.
+    int8_t item_def_modifier;
+    // 0x37: The net number of special defense boosts to a defender due to a Zinc Band.
+    // It seems like there's a bug in the code; aura bows do not contribute to this field.
+    int8_t item_sp_def_modifier;
+    // 0x38: Whether or not Scope Lens or Sharpshooter boosted the critical hit rate of a move
+    bool scope_lens_or_sharpshooter_activated;
+    // 0x39: Whether or not the Patsy Band boosted the critical hit rate of a move
+    bool patsy_band_activated;
+    // 0x3A: Whether or not Reflect or the Time Shield halved the damage from a physical move
+    bool half_physical_damage_activated;
+    // 0x3B: Whether or not Light Screen or the Aqua Mantle halved the damage from a special move
+    bool half_special_damage_activated;
+    // 0x3C: Whether or not the Enhanced critical-hit rate status maxed out the critical hit rate
+    // of a move
+    bool focus_energy_activated;
+    // 0x3D: Whether or not Type-Advantage Master boosted the critical hit rate of a move
+    bool type_advantage_master_activated;
+    // 0x3E: Whether or not a non-Normal-type move was dampened by Cloudy weather
+    bool cloudy_drop_activated;
+    // 0x3F: Whether or not a Fire or Water move was affected by Rainy weather
+    bool rain_multiplier_activated;
+    // 0x40: Whether or not a Fire or Water move was affected by Sunny weather
+    bool sunny_multiplier_activated;
+    // 0x41: Whether or a Fire move was dampened by Thick Fat or Heatproof
+    bool fire_move_ability_drop_activated;
+    // 0x42: Whether or not Flash Fire was activated at some point for Fire immunity
+    bool flash_fire_activated;
+    // 0x43: Whether or not Levitate was activated at some point for Ground immunity
+    bool levitate_activated;
+    bool torrent_boost_activated;  // 0x44: Whether or not a Water move was boosted by Torrent
+    bool overgrow_boost_activated; // 0x45: Whether or not a Grass move was boosted by Overgrow
+    bool swarm_boost_activated;    // 0x46: Whether or not a Bug move was boosted by Swarm
+    // 0x47: Whether or not a Fire move was boosted by either Blaze or Dry Skin
+    bool fire_move_ability_boost_activated;
+    // 0x48: Whether or not Scrappy was activated at some point to bypass immunity
+    bool scrappy_activated;
+    // 0x49: Whether or not Super Luck boosted the critical hit rate for a move
+    bool super_luck_activated;
+    // 0x4A: Whether or not Sniper boosted the critical hit damage multiplier for a move
+    bool sniper_activated;
+    bool stab_boost_activated; // 0x4B: Whether or not STAB was activated for a move
+    // 0x4C: Whether or not an Electric move was dampened by either Mud Sport or Fog
+    bool electric_move_dampened;
+    // 0x4D: Whether or not Water Sport was activated by a Fire move
+    bool water_sport_drop_activated;
+    bool charge_boost_activated; // 0x4E: Whether or not Charge was activated by an Electric move
+    undefined field_0x4f;
+    // 0x50: Whether or not a Ghost type's immunity to Normal/Fighting was activated at some point
+    bool ghost_immunity_activated;
+    // 0x51: Whether or not a defender took less damage due to the Charging Skull Bash status
+    bool skull_bash_defense_boost_activated;
+    undefined field_0x52;
+    undefined field_0x53;
+};
+ASSERT_SIZE(struct damage_calc_diag, 84);
+
+// Used during ApplyDamage to negate damage from certain types due to exclusive items
+struct damage_negating_exclusive_eff_entry {
+    enum type_id type;
+    enum exclusive_item_effect_id effect;
+};
+ASSERT_SIZE(struct damage_negating_exclusive_eff_entry, 8);
+
+// Represents a two-turn move and its corresponding status_two_turn_id value
+struct two_turn_move_and_status {
+    struct move_id_16 move;
+    struct status_two_turn_id_16 status;
+};
+ASSERT_SIZE(struct two_turn_move_and_status, 4);
 
 // Separate this out into its own file because it's massive
 #include "dungeon.h"

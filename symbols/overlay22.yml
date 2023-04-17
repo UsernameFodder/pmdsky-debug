@@ -14,6 +14,24 @@ overlay22:
   description: Controls the Kecleon Shop in Treasure Town.
   functions: []
   data:
+    - name: SHOP_D_BOX_LAYOUT_1
+      address:
+        NA: 0x238E81C
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: SHOP_D_BOX_LAYOUT_2
+      address:
+        NA: 0x238E83C
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY22_UNKNOWN_STRUCT__NA_238E85C
+      address:
+        NA: 0x238E85C
+      length:
+        NA: 0xC
+      description: "Note: unverified, ported from Irdkwia's notes"
     - name: SHOP_MENU_CONFIRM
       address:
         EU: 0x238F3A8
@@ -42,3 +60,93 @@ overlay22:
       length:
         EU: 0x30
         NA: 0x30
+    - name: OVERLAY22_UNKNOWN_STRING_IDS
+      address:
+        NA: 0x238E8F0
+      length:
+        NA: 0x60
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: SHOP_D_BOX_LAYOUT_3
+      address:
+        NA: 0x238E950
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: SHOP_D_BOX_LAYOUT_4
+      address:
+        NA: 0x238E960
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: SHOP_D_BOX_LAYOUT_5
+      address:
+        NA: 0x238E970
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: SHOP_D_BOX_LAYOUT_6
+      address:
+        NA: 0x238E980
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: SHOP_D_BOX_LAYOUT_7
+      address:
+        NA: 0x238E990
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: SHOP_D_BOX_LAYOUT_8
+      address:
+        NA: 0x238E9A0
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: SHOP_D_BOX_LAYOUT_9
+      address:
+        NA: 0x238E9B0
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: SHOP_D_BOX_LAYOUT_10
+      address:
+        NA: 0x238E9C0
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY22_RESERVED_SPACE
+      address:
+        NA: 0x238EC58
+      length:
+        NA: 0x8
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY22_UNKNOWN_POINTER__NA_238EC60
+      address:
+        NA: 0x238EC60
+      length:
+        NA: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY22_UNKNOWN_POINTER__NA_238EC64
+      address:
+        NA: 0x238EC64
+      length:
+        NA: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY22_UNKNOWN_POINTER__NA_238EC68
+      address:
+        NA: 0x238EC68
+      length:
+        NA: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY22_UNKNOWN_POINTER__NA_238EC6C
+      address:
+        NA: 0x238EC6C
+      length:
+        NA: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY22_UNKNOWN_POINTER__NA_238EC70
+      address:
+        NA: 0x238EC70
+      length:
+        NA: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"

@@ -25,20 +25,20 @@ jobs:
     uses: UsernameFodder/pmdsky-debug/.github/workflows/check-headers.yml@master
     with:
       no-format-on-check-fail: true
-  check-function-sync:
+  check-symbol-header-sync:
     needs:
       - check-symbols
       - check-headers
-    uses: UsernameFodder/pmdsky-debug/.github/workflows/check-function-sync.yml@master
+    uses: UsernameFodder/pmdsky-debug/.github/workflows/check-symbol-header-sync.yml@master
   generate-and-deploy:
     runs-on: ubuntu-latest
     needs:
       - check-resymgen
       - check-symbols
       - check-headers
-      - check-function-sync
+      - check-symbol-header-sync
     env:
-      RELEASE_VERSION: '0.2.1'
+      RELEASE_VERSION: '0.5.1'
       OUTPUT_DIR: out
       RELEASE_INSTALL_DIR: release-install
       RELEASE_ASSETS_DIR: release-assets
@@ -78,7 +78,7 @@ jobs:
         id: new_hash
         run: |
           echo ${{ hashFiles(format('{0}/**', env.RELEASE_INSTALL_DIR)) }} > ${HASH_FILE}
-          echo "::set-output name=sha256::$(cat ${HASH_FILE})"
+          echo "sha256=$(cat ${HASH_FILE})" >> $GITHUB_OUTPUT
       - name: Retrieve SHA-256 hash of the previous release package
         env:
           HASH_FILE: ${{ env.RELEASE_HASH_FILE }}.old
@@ -86,15 +86,16 @@ jobs:
         run: |
           curl --location --fail "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/releases/latest/download/${{ env.RELEASE_HASH_FILE }}" > ${HASH_FILE} || echo "Could not locate previous release package"
           cat ${HASH_FILE}
-          echo "::set-output name=sha256::$(cat ${HASH_FILE})"
+          echo "sha256=$(cat ${HASH_FILE})" >> $GITHUB_OUTPUT
       - name: Generate release tag
         id: tag
-        run: echo "::set-output name=release_tag::v${{ env.RELEASE_VERSION }}+${GITHUB_SHA:0:10}"
+        run: echo "release_tag=v${{ env.RELEASE_VERSION }}+${GITHUB_SHA:0:10}" >> $GITHUB_OUTPUT
         if: steps.new_hash.outputs.sha256 != steps.old_hash.outputs.sha256
       - name: Create release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ steps.tag.outputs.release_tag }}
+          target_commitish: ${{ github.sha }}
           files: '${{ env.RELEASE_ASSETS_DIR }}/*'
           fail_on_unmatched_files: true
         if: steps.new_hash.outputs.sha256 != steps.old_hash.outputs.sha256

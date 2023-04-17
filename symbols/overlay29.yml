@@ -15,6 +15,8 @@ overlay29:
     The dungeon engine.
     
     This is the "main" overlay of dungeon mode. It controls most things that happen in a Mystery Dungeon, such as dungeon layout generation, dungeon menus, enemy AI, and generally just running each turn while within a dungeon.
+  subregions:
+    - move_effects.yml
   functions:
     - name: DungeonAlloc
       address:
@@ -103,11 +105,8 @@ overlay29:
           - 0x2320664
           - 0x2320BE4
           - 0x23211CC
+          - 0x2321EA0
           - 0x2326088
-          - 0x2328A78
-          - 0x232AE44
-          - 0x232CF70
-          - 0x232EC90
           - 0x232F280
           - 0x23349EC
           - 0x2335B18
@@ -159,10 +158,6 @@ overlay29:
           - 0x2320764
           - 0x2321438
           - 0x2325620
-          - 0x232800C
-          - 0x232A3D8
-          - 0x232C500
-          - 0x232E250
           - 0x232E840
           - 0x2333FAC
           - 0x23350D8
@@ -173,6 +168,11 @@ overlay29:
           - 0x234987C
           - 0x234DDD0
           - 0x234EC14
+        JP:
+          - 0x2312538
+          - 0x2312DCC
+          - 0x23165F0
+          - 0x23364C4
       description: |-
         Checks if an entity pointer points to a valid entity (not entity type 0, which represents no entity).
         
@@ -202,6 +202,34 @@ overlay29:
         
         r0: if true, the function will not check for the end of the floor condition and will skip other (unknown) actions in case of forced loss.
         return: true if the forced loss happens, false otherwise
+    - name: IsBossFight
+      address:
+        EU: 0x22E11A4
+        NA: 0x22E0864
+        JP: 0x22E1EF4
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: fixed_room_id
+        return: bool
+    - name: IsCurrentFixedRoomBossFight
+      address:
+        EU: 0x22E11C0
+        NA: 0x22E0880
+        JP: 0x22E1F10
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        return: bool
+    - name: IsMarowakTrainingMaze
+      address:
+        EU: 0x22E11E0
+        NA: 0x22E08A0
+        JP: 0x22E1F30
+      description: |-
+        Check if the current dungeon is one of the training mazes in Marowak Dojo (this excludes Final Maze).
+        
+        return: bool
     - name: FixedRoomIsSubstituteRoom
       address:
         EU: 0x22E120C
@@ -210,22 +238,52 @@ overlay29:
         Checks if the current fixed room is the "substitute room" (ID 0x6E).
         
         return: bool
-    - name: ShouldGameOverOnImportantTeamMemberFaint
+    - name: StoryRestrictionsEnabled
       address:
         EU: 0x22E1268
         NA: 0x22E0928
+        JP: 0x22E1FB8
       description: |-
-        Returns true if you should get kicked out of the dungeon if an important team member (like the partner or certain story allies) faints.
+        Returns true if certain special restrictions are enabled.
         
-        return: dungeon::nonstory_flag || dungeon::hidden_land_flag
+        If true, you will get kicked out of the dungeon if a team member that passes the arm9::JoinedAtRangeCheck2 check faints.
+        
+        return: !dungeon::nonstory_flag || dungeon::hidden_land_flag
+    - name: GetScenarioBalanceVeneer
+      address:
+        EU: 0x22E129C
+        NA: 0x22E095C
+      description: |-
+        Likely a linker-generated veneer for GetScenarioBalance.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
     - name: FadeToBlack
       address:
         EU: 0x22E12A8
         NA: 0x22E0968
+        JP: 0x22E1FF8
       description: |-
         Fades the screen to black across several frames.
         
         No params.
+    - name: GetTrapInfo
+      address:
+        EU: 0x22E1F48
+        NA: 0x22E1608
+      description: |-
+        Given a trap entity, returns the pointer to the trap info struct it contains.
+        
+        r0: Entity pointer
+        return: Trap data pointer
+    - name: GetItemInfo
+      address:
+        EU: 0x22E1F50
+        NA: 0x22E1610
+      description: |-
+        Given an item entity, returns the pointer to the item info struct it contains.
+        
+        r0: Entity pointer
+        return: Item data pointer
     - name: GetTileAtEntity
       address:
         EU: 0x22E1F68
@@ -236,27 +294,110 @@ overlay29:
         
         r0: pointer to entity
         returns: pointer to tile
+    - name: SpawnTrap
+      address:
+        EU: 0x22E2BA0
+        NA: 0x22E2260
+        JP: 0x22E38F0
+      description: |-
+        Spawns a trap on the floor. Fails if there are more than 64 traps already on the floor.
+        
+        This modifies the appropriate fields on the dungeon struct, initializing new entries in the entity table and the trap info list.
+        
+        r0: trap ID
+        r1: position
+        r2: team (see struct trap::team)
+        r3: flags (see struct trap::team)
+        return: entity pointer for the newly added trap, or null on failure
+    - name: SpawnItemEntity
+      address:
+        EU: 0x22E2C54
+        NA: 0x22E2314
+      description: |-
+        Spawns a blank item entity on the floor. Fails if there are more than 64 items already on the floor.
+        
+        This initializes a new entry in the entity table and points it to the corresponding slot in the item info list.
+        
+        r0: position
+        return: entity pointer for the newly added item, or null on failure
+    - name: ShouldMinimapDisplayEntity
+      address:
+        EU: 0x22E2DD8
+        NA: 0x22E2498
+      description: |-
+        Checks if a given entity should be displayed on the minimap
+        
+        r0: Entity pointer
+        return: True if the entity should be displayed on the minimap
+    - name: ShouldDisplayEntityMessages
+      address:
+        EU: 0x22E2EB4
+        NA: 0x22E2574
+      description: |-
+        Checks if messages that involve a certain entity should be displayed or suppressed.
+        
+        For example, it returns false if the entity is an invisible enemy.
+        
+        r0: Entity pointer
+        r1: ?
+        return: True if messages involving the entity should be displayed, false if they should be suppressed.
+    - name: ShouldDisplayEntityMessagesWrapper
+      address:
+        EU: 0x22E306C
+        NA: 0x22E272C
+      description: |-
+        Calls ShouldDisplayEntityMessages with r1 = 0
+        
+        r0: Entity pointer
+        return: True if messages involving the entity should be displayed, false if they should be suppressed.
+    - name: CanSeeTarget
+      address:
+        EU: 0x22E308C
+        NA: 0x22E274C
+        JP: 0x22E3DE0
+      description: |-
+        Checks if a given monster can see another monster.
+        
+        Calls IsPositionActuallyInSight. Also checks if the user is blinded, if the target is invisible, etc.
+        This function is almost the same as CanTargetEntity, the only difference is that the latter calls IsPositionInSight instead.
+        
+        r0: User entity pointer
+        r1: Target entity pointer
+        return: True if the user can see the target, false otherwise
     - name: CanTargetEntity
       address:
         EU: 0x22E3150
         NA: 0x22E2810
+        JP: 0x22E3EA4
       description: |-
         Checks if a monster can target another entity when controlled by the AI.
         More specifically, it checks if the target is invisible, if the user can see invisible monsters, if the user is blinded and if the target position is in sight from the position of the user (this last check is done by calling IsPositionInSight with the user's and the target's position).
+        This function is almost the same as CanSeeTarget, the only difference is that the latter calls IsPositionActuallyInSight instead.
         
         r0: User entity pointer
         r1: Target entity pointer
-        return: True if the user can target the target
+        return: True if the user can target the target, false otherwise
     - name: CanTargetPosition
       address:
         EU: 0x22E3294
         NA: 0x22E2954
+        JP: 0x22E3FE8
       description: |-
         Checks if a monster can target a position. This function just calls IsPositionInSight using the position of the user as the origin.
         
         r0: Entity pointer
         r1: Target position
         return: True if the specified monster can target the target position, false otherwise.
+    - name: GetTeamMemberIndex
+      address:
+        EU: 0x22E3378
+        NA: 0x22E2A38
+        JP: 0x22E40CC
+      description: |-
+        Given a pointer to an entity, returns its index on the entity list, or null if the entity can't be found on the first 4 slots of the list.
+        
+        r0: Pointer to the entity to find
+        return: Index of the specified entity on the entity list, or null if it's not on the first 4 slots.
     - name: SubstitutePlaceholderStringTags
       address:
         EU: 0x22E3418
@@ -282,6 +423,27 @@ overlay29:
         This function has two variants: in the EU ROM, it will return true if the flag was changed. The NA version will return the new value of the flag instead.
         
         return: bool
+    - name: PointCameraToMonster
+      address:
+        EU: 0x22E3804
+        NA: 0x22E2E54
+        JP: 0x22E44C4
+      description: |-
+        Points the camera to the specified monster.
+        
+        r0: Entity pointer
+        r1: ?
+    - name: UpdateCamera
+      address:
+        EU: 0x22E3874
+        NA: 0x22E2EC4
+        JP: 0x22E4534
+      description: |-
+        Called every frame. Sets the camera to the right coordinates depending on the monster it points to.
+        
+        It also takes care of updating the minimap, checking which elements should be shown on it, as well as whether the screen should be black due to the blinker status.
+        
+        r0: ?
     - name: ItemIsActive
       address:
         EU:
@@ -312,16 +474,152 @@ overlay29:
           - 0x2311BF8
           - 0x231513C
           - 0x2347B50
+        JP:
+          - 0x2300CA8
+          - 0x2316614
       description: |-
         Checks if a monster is holding a certain item that isn't disabled by Klutz.
         
         r0: entity pointer
         r1: item ID
         return: bool
+    - name: GetVisibilityRange
+      address:
+        EU: 0x22E3CEC
+        NA: 0x22E333C
+      description: |-
+        Returns dungeon::display_data::visibility_range. If the visibility range is 0, returns 2 instead.
+        
+        return: Visibility range of the current floor, or 2 if the visibility is 0.
+    - name: PlayEffectAnimationEntity
+      address:
+        EU: 0x22E3F94
+        NA: 0x22E35E4
+        JP: 0x22E4C54
+      description: |-
+        Just a guess. This appears to be paired often with GetEffectAnimationField0x19, and also has calls AnimationHasMoreFrames in a loop alongside AdvanceFrame(66) calls.
+        
+        The third parameter skips the loop entirely. It seems like in this case the function might just preload some animation frames for later use??
+        
+        r0: entity pointer
+        r1: Effect ID
+        r2: appears to be a flag for actually running the animation now? If this is 0, the AdvanceFrame loop is skipped entirely.
+        others: ?
+        return: status code, or maybe the number of frames or something? Either way, -1 seems to indicate the animation being finished or something?
+    - name: PlayEffectAnimationPos
+      address:
+        EU: 0x22E418C
+        NA: 0x22E37DC
+      description: |-
+        Takes a position struct in r0 and converts it to a pixel position struct before calling PlayEffectAnimationPixelPos
+        
+        r0: Position where the effect should be played
+        r1: Effect ID
+        r2: Unknown flag (same as the one in PlayEffectAnimationEntity)
+        return: Result of call to PlayEffectAnimationPixelPos
+    - name: PlayEffectAnimationPixelPos
+      address:
+        EU: 0x22E41D0
+        NA: 0x22E3820
+      description: |-
+        Seems like a variant of PlayEffectAnimationEntity that uses pixel coordinates as its first parameter instead of an entity pointer.
+        
+        r0: Pixel position where the effect should be played
+        r1: Effect ID
+        r2: Unknown flag (same as the one in PlayEffectAnimationEntity)
+        return: Same as PlayEffectAnimationEntity
+    - name: UpdateStatusIconFlags
+      address:
+        EU: 0x22E4464
+        NA: 0x22E3AB4
+        JP: 0x22E5124
+      description: |-
+        Sets a monster's status_icon_flags bitfield according to its current status effects. Does not affect a Sudowoodo in the "permanent sleep" state (statuses::sleep == 0x7F).
+        
+        Some of the status effect in monster::statuses are used as an index to access an array, where every group of 8 bytes represents a bitmask. All masks are added in a bitwise OR and then stored in monster::status_icon.
+        
+        Also sets icon flags for statuses::exposed, statuses::grudge, critical HP and lowered stats with explicit checks, and applies the effect of the Identifier Orb (see dungeon::identify_orb_flag).
+        
+        r0: entity pointer
+    - name: PlayEffectAnimation0x171Full
+      address:
+        EU: 0x22E49C8
+        NA: 0x22E4018
+        JP: 0x22E5688
+      description: |-
+        Just a guess. Calls PlayEffectAnimation with data from animation ID 0x171, with the third parameter of PlayEffectAnimation set to true.
+        
+        r0: entity pointer
+    - name: PlayEffectAnimation0x171
+      address:
+        EU: 0x22E4A1C
+        NA: 0x22E406C
+        JP: 0x22E56DC
+      description: |-
+        Just a guess. Calls PlayEffectAnimation with data from animation ID 0x171.
+        
+        r0: entity pointer
+    - name: ShowPpRestoreEffect
+      address:
+        EU: 0x22E5314
+        NA: 0x22E4964
+        JP: 0x22E5FD4
+      description: |-
+        Displays the graphical effect on a monster that just recovered PP.
+        
+        r0: entity pointer
+    - name: PlayEffectAnimation0x1A9
+      address:
+        NA:
+          - 0x22E6130
+          - 0x22E617C
+          - 0x22E61C8
+          - 0x22E6214
+          - 0x22E64C4
+          - 0x22E6510
+      description: |-
+        Just a guess. Calls PlayEffectAnimation with data from animation ID 0x1A9.
+        
+        r0: entity pointer
+    - name: PlayEffectAnimation0x18E
+      address:
+        EU: 0x22E6D88
+        NA: 0x22E63D8
+        JP: 0x22E7A48
+      description: |-
+        Just a guess. Calls PlayEffectAnimation with data from animation ID 0x18E.
+        
+        r0: entity pointer
+    - name: LoadMappaFileAttributes
+      address:
+        EU: 0x22E796C
+        NA: 0x22E6FBC
+        JP: 0x22E862C
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        This function processes the spawn list of the current floor, checking which species can spawn, capping the amount of spawnable species on the floor to 14, randomly choosing which 14 species will spawn and ensuring that the sprite size of all the species combined does not exceed the maximum of 0x58000 bytes (352 KB). Kecleon and the Decoy are always included in the random selection.
+        
+        r0: quick_saved
+        r1: ???
+        r2: special_process
+    - name: MonsterSpawnListPartialCopy
+      address:
+        EU: 0x22E8610
+        NA: 0x22E7C60
+      description: |-
+        Copies all entries in the floor's monster spawn list that have a sprite size >= 6 to the specified buffer.
+        
+        The parameter in r1 can be used to specify how many entries are already present in the buffer. Entries added by this function will be placed after those, and the total returned in r1 will account for existing entries as well.
+        
+        r0: (output) Buffer where the result will be stored
+        r1: Current amount of entries in the buffer
+        return: New amount of entries in the buffer
     - name: IsOnMonsterSpawnList
       address:
         EU: 0x22E86FC
         NA: 0x22E7D4C
+        JP: 0x22E93B4
       description: |-
         Returns true if the specified monster is included in the floor's monster spawn list (the modified list after a maximum of 14 different species were chosen, not the raw list read from the mappa file).
         
@@ -351,6 +649,7 @@ overlay29:
       address:
         EU: 0x22E99D0
         NA: 0x22E9020
+        JP: 0x22EA688
       description: |-
         Gets the direction in which a monster should move to go from the origin position to the target position
         
@@ -361,19 +660,35 @@ overlay29:
       address:
         EU: 0x22E9A3C
         NA: 0x22E908C
+        JP: 0x22EA6F4
       description: |-
         Returns the Chebyshev distance between two positions. Calculated as max(abs(x0-x1), abs(y0-y1)).
         
         r0: Position A
         r1: Position B
         return: Chebyshev Distance between position A and position B
+    - name: IsPositionActuallyInSight
+      address:
+        EU: 0x22E9A7C
+        NA: 0x22E90CC
+        JP: 0x22EA734
+      description: |-
+        Checks if a given target position is in sight from a given origin position.
+        If the origin position is on a hallway or r2 is true, checks if both positions are within <dungeon::display_data::visibility_range> tiles of each other.
+        If the origin position is on a room, checks that the target position is within the boundaries of said room.
+        
+        r0: Origin position
+        r1: Target position
+        r2: True to assume the entity standing on the origin position has the dropeye status
+        return: True if the target position is in sight from the origin position
     - name: IsPositionInSight
       address:
         EU: 0x22E9B54
         NA: 0x22E91A4
+        JP: 0x22EA80C
       description: |-
         Checks if a given target position is in sight from a given origin position.
-        There's multiple factors that affect this check, but generally, it's true if both positions are in the same room or within 2 tiles of each other.
+        There's multiple factors that affect this check, but generally, it's true if both positions are in the same room (by checking if the target position is within the boundaries of the room where the origin position is) or within 2 tiles of each other.
         
         r0: Origin position
         r1: Target position
@@ -383,10 +698,76 @@ overlay29:
       address:
         EU: 0x22E9F30
         NA: 0x22E9580
+        JP: 0x22EABE8
       description: |-
         Gets the pointer to the entity that is currently leading the team, or null if none of the first 4 entities is a valid monster with its is_team_leader flag set. It also sets LEADER_PTR to the result before returning it.
         
         return: Pointer to the current leader of the team or null if there's no valid leader.
+    - name: GetLeaderMonster
+      address:
+        EU: 0x22E9FC8
+        NA: 0x22E9618
+        JP: 0x22EAC80
+      description: |-
+        Returns a pointer to the monster data of the current leader.
+        
+        No params.
+    - name: FindNearbyUnoccupiedTile
+      address:
+        EU: 0x22EA1F4
+        NA: 0x22E9844
+        JP: 0x22EAEAC
+      description: |-
+        Searches for an unoccupied tile near some origin.
+        
+        A tile is considered "unoccupied" if it's not a key door, and has no object or monster on it. In "random room" mode, the tile must also not be in a hallway, and must not have the stairs.
+        
+        The first unoccupied tile found is returned. The search order is randomized in "random room" mode, otherwise the search order is fixed based on the input displacement array.
+        
+        r0: [output] position
+        r1: origin position
+        r2: array of displacements from the origin position to consider
+        r3: number of elements in displacements array
+        stack[0]: random room mode flag
+        return: whether a tile was successfully found
+    - name: FindClosestUnoccupiedTileWithin2
+      address:
+        NA: 0x22E99F0
+      description: |-
+        Searches for the closest unoccupied tile within 2 steps of the given origin.
+        
+        Calls FindNearbyUnoccupiedTile with DISPLACEMENTS_WITHIN_2_SMALLEST_FIRST.
+        
+        r0: [output] position
+        r1: origin position
+        r2: random room mode flag
+        return: whether a tile was successfully found
+    - name: FindFarthestUnoccupiedTileWithin2
+      address:
+        NA: 0x22E9A0C
+      description: |-
+        Searches for the farthest unoccupied tile within 2 steps of the given origin.
+        
+        Calls FindNearbyUnoccupiedTile with DISPLACEMENTS_WITHIN_2_LARGEST_FIRST.
+        
+        r0: [output] position
+        r1: origin position
+        r2: random room mode flag
+        return: whether a tile was successfully found
+    - name: FindUnoccupiedTileWithin3
+      address:
+        EU: 0x22EA3D8
+        NA: 0x22E9A28
+        JP: 0x22EB090
+      description: |-
+        Searches for an unoccupied tile within 3 steps of the given origin.
+        
+        Calls FindNearbyUnoccupiedTile with DISPLACEMENTS_WITHIN_3.
+        
+        r0: [output] position
+        r1: origin position
+        r2: random room mode flag
+        return: whether a tile was successfully found
     - name: TickStatusTurnCounter
       address:
         EU: 0x22EA3F4
@@ -401,10 +782,22 @@ overlay29:
       address:
         EU: 0x22EA990
         NA: 0x22E9FE0
+        JP: 0x22EB648
       description: |-
         Advances one frame. Does not return until the next frame starts.
         
         r0: ? - Unused by the function
+    - name: SetDungeonRngPreseed23Bit
+      address:
+        EU: 0x22EB318
+        NA: 0x22EA968
+        JP: 0x22EBFD0
+      description: |-
+        Sets the preseed in the global dungeon PRNG state, using 23 bits from the input. See GenerateDungeonRngSeed for more information.
+        
+        Given the input preseed23, the actual global preseed is set to (preseed23 & 0xFFFFFF | 1), so only bits 1-23 of the input are used.
+        
+        r0: preseed23
     - name: GenerateDungeonRngSeed
       address:
         EU: 0x22EB330
@@ -496,6 +889,9 @@ overlay29:
         NA:
           - 0x22EAB20
           - 0x22EAB50
+        JP:
+          - 0x22EC188
+          - 0x22EC1B8
       description: |-
         Returns the result of a possibly biased coin flip (a Bernoulli random variable) with some success probability p, using the dungeon PRNG.
         
@@ -541,6 +937,15 @@ overlay29:
         Sets the dungeon PRNG to use the primary LCG for subsequent random number generation.
         
         No params.
+    - name: ChangeDungeonMusic
+      address:
+        EU: 0x22EB7C4
+        NA: 0x22EAE14
+        JP: 0x22EC47C
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: music ID
     - name: TrySwitchPlace
       address:
         EU: 0x22EBB28
@@ -553,53 +958,100 @@ overlay29:
         
         r0: pointer to user entity
         r1: pointer to target entity
+    - name: SetLeaderActionFields
+      address:
+        EU: 0x22EBD78
+        NA: 0x22EB3C8
+      description: |-
+        Sets the leader's monster::action::action_id to the specified value.
+        
+        Also sets monster::action::action_use_idx and monster::action::field_0xA to 0, as well as monster::action::field_0x10 and monster::action::field_0x12 to -1.
+        
+        r0: ID of the action to set
     - name: ClearMonsterActionFields
       address:
         EU: 0x22EBDA4
         NA: 0x22EB3F4
+        JP: 0x22ECA5C
       description: |-
         Clears the fields related to AI in the monster's data struct, setting them all to 0.
-        Specifically, monster::action_id, monster::action_use_idx and monster::field_0x54 are cleared.
+        Specifically, monster::action::action_id, monster::action::action_use_idx and monster::action::field_0xA are cleared.
         
-        r0: Pointer to the monster's action_id field (this field is probably contained in a struct)
+        r0: Pointer to the monster's action field
     - name: SetMonsterActionFields
       address:
         EU: 0x22EBDB8
         NA: 0x22EB408
+        JP: 0x22ECA70
       description: |-
         Sets some the fields related to AI in the monster's data struct.
-        Specifically, monster::action_id, monster::action_use_idx and monster::field_0x54. The last 2 are always set to 0.
+        Specifically, monster::action::action_id, monster::action::action_use_idx and monster::action::field_0xA. The last 2 are always set to 0.
         
-        r0: Pointer to the monster's action_id field (this field is probably contained in a struct)
-        r1: Value to set monster::action_id to.
+        r0: Pointer to the monster's action field
+        r1: Value to set monster::action::action_id to.
     - name: SetActionPassTurnOrWalk
       address:
         EU: 0x22EBDCC
         NA: 0x22EB41C
+        JP: 0x22ECA84
       description: |-
         Sets a monster's action to action::ACTION_PASS_TURN or action::ACTION_WALK, depending on the result of GetCanMoveFlag for the monster's ID.
         
-        r0: Pointer to the monster's action_id field (this field is probably contained in a struct)
+        r0: Pointer to the monster's action field
         r1: Monster ID
+    - name: GetItemAction
+      address:
+        EU: 0x22EBF88
+        NA: 0x22EB5D8
+        JP: 0x22ECC40
+      description: |-
+        Returns the action ID that corresponds to an item given its ID.
+        
+        The action is based on the category of the item (see ITEM_CATEGORY_ACTIONS), unless the specified ID is 0x16B, in which case ACTION_UNK_35 is returned.
+        Some items can have unexpected actions, such as thrown items, which have ACTION_NOTHING. This is done to prevent duplicate actions from being listed in the menu (since items always have a "throw" option), since a return value of ACTION_NOTHING prevents the option from showing up in the menu.
+        
+        r0: Item ID
+        return: Action ID associated with the specified item
+    - name: AddDungeonSubMenuOption
+      address:
+        EU: 0x22EC1CC
+        NA: 0x22EB81C
+        JP: 0x22ECE84
+      description: |-
+        Adds an option to the list of actions that can be taken on a pokémon, item or move to the currently active sub-menu on dungeon mode (team, moves, items, etc.).
+        
+        r0: Action ID
+        r1: True if the option should be enabled, false otherwise
+    - name: DisableDungeonSubMenuOption
+      address:
+        EU: 0x22EC2A4
+        NA: 0x22EB8F4
+        JP: 0x22ECF5C
+      description: |-
+        Disables an option that was addeed to a dungeon sub-menu.
+        
+        r0: Action ID of the option that should be disabled
     - name: SetActionRegularAttack
       address:
         EU: 0x22EC600
         NA: 0x22EBC50
+        JP: 0x22ED2B8
       description: |-
         Sets a monster's action to action::ACTION_REGULAR_ATTACK, with a specified direction.
         
-        r0: Pointer to the monster's action_id field (this field is probably contained in a struct)
-        r1: Direction in which to use the move. Gets stored in monster::direction.
+        r0: Pointer to the monster's action field
+        r1: Direction in which to use the move. Gets stored in monster::action::direction.
     - name: SetActionUseMoveAi
       address:
         EU: 0x22EC66C
         NA: 0x22EBCBC
+        JP: 0x22ED324
       description: |-
         Sets a monster's action to action::ACTION_USE_MOVE_AI, with a specified direction and move index.
         
-        r0: Pointer to the monster's action_id field (this field is probably contained in a struct)
-        r1: Index of the move to use (0-3). Gets stored in monster::action_use_idx.
-        r2: Direction in which to use the move. Gets stored in monster::direction.
+        r0: Pointer to the monster's action field
+        r1: Index of the move to use (0-3). Gets stored in monster::action::action_use_idx.
+        r2: Direction in which to use the move. Gets stored in monster::action::direction.
     - name: RunFractionalTurn
       address:
         EU: 0x22EC6B8
@@ -613,6 +1065,7 @@ overlay29:
       address:
         EU: 0x22ECCB8
         NA: 0x22EC308
+        JP: 0x22ED970
       description: |-
         Handles the leader's turn. Includes a movement speed check that might cause it to return early if the leader isn't fast enough to act in this fractional turn. If that check (and some others) pass, the function does not return until the leader performs an action.
         
@@ -644,6 +1097,7 @@ overlay29:
       address:
         EU: 0x22ED4F8
         NA: 0x22ECB48
+        JP: 0x22EE1AC
       description: |-
         Decrements dungeon::wind_turns and displays a wind warning message if required.
         
@@ -652,6 +1106,7 @@ overlay29:
       address:
         EU: 0x22ED9B8
         NA: 0x22ED008
+        JP: 0x22EE66C
       description: |-
         Sets dungeon::forced_loss_reason to the specified value
         
@@ -660,20 +1115,293 @@ overlay29:
       address:
         EU: 0x22ED9CC
         NA: 0x22ED01C
+        JP: 0x22EE680
       description: |-
         Returns dungeon::forced_loss_reason
         
         return: forced_loss_reason
-    - name: ResetDamageDesc
+    - name: BindTrapToTile
+      address:
+        EU: 0x22EE208
+        NA: 0x22ED858
+        JP: 0x22EEEBC
+      description: |-
+        Sets the given tile's associated object to be the given trap, and sets the visibility of the trap.
+        
+        r0: tile pointer
+        r1: entity pointer
+        r2: visibility flag
+    - name: SpawnEnemyTrapAtPos
+      address:
+        EU: 0x22EE320
+        NA: 0x22ED970
+        JP: 0x22EEFD4
+      description: |-
+        A convenience wrapper around SpawnTrap and BindTrapToTile. Always passes 0 for the team parameter (making it an enemy trap).
+        
+        r0: trap ID
+        r1: x position
+        r2: y position
+        r3: flags
+        stack[0]: visibility flag
+    - name: PrepareTrapperTrap
+      address:
+        NA: 0x22EDBD4
+      description: |-
+        Saves the relevant information in the dungeon struct to later place a trap at the
+        location of the entity. (Only called with trap ID 0x19 (TRAP_NONE), but could be used 
+        with others).
+        
+        r0: entity pointer
+        r1: trap ID
+        r2: team (see struct trap::team)
+    - name: TrySpawnTrap
+      address:
+        NA: 0x22EDCBC
+      description: |-
+        Checks if the a trap can be placed on the tile. If the trap ID is >= TRAP_NONE (the
+        last value for a trap), randomly select another trap (except for wonder tile). After
+        30 failed attempts to select a non-wonder tile trap ID, default to chestnut trap.
+        If the checks pass, spawn the trap.
+        
+        r0: position
+        r1: trap ID
+        r2: team (see struct trap::team)
+        r3: visibility flag
+        return: true if a trap was spawned succesfully
+    - name: TrySpawnTrapperTrap
+      address:
+        NA: 0x22EDDD4
+      description: |-
+        If the flag for a trapper trap is set, handles spawning a trap based upon the
+        information inside the dungeon struct. Uses the entity for logging a message
+        depending on success or failure.
+        
+        r0: entity pointer
+        return: true if a trap was spawned succesfully
+    - name: TryTriggerTrap
+      address:
+        EU: 0x22EE950
+        NA: 0x22EDFA0
+      description: |-
+        Called whenever a monster steps on a trap.
+        
+        The function will try to trigger it. Nothing will happen if the pokémon has the same team as the trap. The attempt to trigger the trap can also fail due to IQ skills, due to the trap failing to work (random chance), etc.
+        
+        r0: Entity who stepped on the trap
+        r1: Trap position
+        r2: ?
+        r3: ?
+    - name: ApplyMudTrapEffect
+      address:
+        NA: 0x22EE36C
+      description: |-
+        Randomly lowers attack, special attack, defense, or special defense of the defender by 3 stages.
+        
+        r0: attacker entity pointer
+        r1: defender entity pointer
+    - name: ApplyStickyTrapEffect
+      address:
+        NA: 0x22EE434
+      description: |-
+        If the defender is the leader, randomly try to make something in the bag sticky. Otherwise, try to make the item the monster is holding sticky.
+        
+        r0: attacker entity pointer
+        r1: defender entity pointer
+    - name: ApplyGrimyTrapEffect
+      address:
+        NA: 0x22EE62C
+      description: |-
+        If the defender is the leader, randomly try to turn food items in the toolbox into
+        grimy food. Otherwise, try to make the food item the monster is holding grimy food.
+        
+        r0: attacker entity pointer
+        r1: defender entity pointer
+    - name: ApplyPitfallTrapEffect
+      address:
+        NA: 0x22EE820
+      description: |-
+        If the defender is the leader, end the current floor unless it has a rescue point.
+        Otherwise, make the entity faint and ignore reviver seeds. If not called by a random
+        trap, break the grate on the pitfall trap.
+        
+        r0: attacker entity pointer
+        r1: defender entity pointer
+        r2: tile pointer
+        r3: bool caused by random trap
+    - name: ApplySummonTrapEffect
+      address:
+        NA: 0x22EE994
+      description: |-
+        Randomly spawns 2-4 enemy monsters around the position. The entity is only used for
+        logging messages.
+        
+        r0: entity pointer
+        r1: position
+    - name: ApplyPpZeroTrapEffect
+      address:
+        NA: 0x22EEA30
+      description: |-
+        Tries to reduce the PP of one of the defender's moves to 0.
+        
+        r0: attacker entity pointer
+        r1: defender entity pointer
+    - name: ApplyPokemonTrapEffect
+      address:
+        NA: 0x22EEB18
+      description: |-
+        Turns item in the same room as the tile at the position (usually just the entities's
+        position) into monsters. If the position is in a hallway, convert items in a 3x3 area
+        centered on the position into monsters.
+        
+        r0: entity pointer
+        r1: position
+    - name: ApplyTripTrapEffect
+      address:
+        NA: 0x22EED2C
+      description: |-
+        Tries to drop the defender's item and places it on the floor.
+        
+        r0: attacker entity pointer
+        r1: defender entity pointer
+    - name: ApplyToxicSpikesTrapEffect
+      address:
+        NA: 0x22EEEEC
+      description: |-
+        Tries to inflict 10 damage on the defender and then tries to poison them.
+        
+        r0: attacker entity pointer
+        r1: defender entity pointer
+    - name: ApplyRandomTrapEffect
+      address:
+        NA: 0x22EEF40
+      description: |-
+        Selects a random trap that isn't a wonder tile and isn't a random trap and calls
+        ApplyTrapEffect on all monsters that is different from the trap's team.
+        
+        r0: Triggered trap
+        r1: User
+        r2: Target, normally same as user
+        r3: Tile that contains the trap
+        stack[0]: position
+    - name: ApplyGrudgeTrapEffect
+      address:
+        NA: 0x22EF074
+      description: |-
+        Spawns several monsters around the position and gives all monsters on the floor the
+        grudge status condition.
+        
+        r0: entity pointer
+        r1: position
+    - name: ApplyTrapEffect
+      address:
+        EU: 0x22EFB08
+        NA: 0x22EF154
+      description: |-
+        Performs the effect of a triggered trap.
+        
+        The trap's animation happens before this function is called.
+        
+        r0: Triggered trap
+        r1: User
+        r2: Target, normally same as user
+        r3: Tile that contains the trap
+        stack[0]: position
+        stack[1]: trap ID
+        stack[2]: bool caused by random trap
+        return: True if the trap should be destroyed after the effect is applied
+    - name: RevealTrapsNearby
+      address:
+        NA: 0x22EF5D8
+      description: |-
+        Reveals traps within the monster's viewing range.
+        
+        r0: entity pointer
+    - name: DebugRecruitingEnabled
+      address:
+        EU: 0x22F0420
+        NA: 0x22EFA6C
+        JP: 0x22F1070
+      description: |-
+        Always returns true. Called by SpecificRecruitCheck.
+        
+        Seems to be a function used during development to disable recruiting. If it returns false, SpecificRecruitCheck will also return false.
+        
+        return: true
+    - name: IsSecretBazaarNpcBehavior
+      address:
+        EU: 0x22F04B8
+        NA: 0x22EFB04
+        JP: 0x22F1108
+      description: |-
+        Checks if a behavior ID corresponds to one of the Secret Bazaar NPCs.
+        
+        r0: monster behavior ID
+        return: bool
+    - name: GetLeaderAction
+      address:
+        EU: 0x22F1540
+        NA: 0x22F0B8C
+        JP: 0x22F218C
+      description: |-
+        Returns a pointer to the action data of the current leader (field 0x4A on its monster struct).
+        
+        No params.
+    - name: SetLeaderAction
+      address:
+        EU: 0x22F1890
+        NA: 0x22F0EDC
+        JP: 0x22F24DC
+      description: |-
+        Sets the leader's action field depending on the inputs given by the player.
+        
+        This function also accounts for other special situations that can force a certain action, such as when the leader is running. The function also takes care of opening the main menu when X is pressed.
+        The function generally doesn't return until the player has an action set.
+        
+        No params.
+    - name: CheckLeaderTile
+      address:
+        EU: 0x22F3FEC
+        NA: 0x22F3634
+      description: |-
+        Checks the tile the leader just stepped on and performs any required actions, such as picking up items, triggering traps, etc.
+        
+        Contains a switch that checks the type of the tile the leader just stepped on.
+        
+        No params.
+    - name: ChangeLeader
+      address:
+        EU: 0x22F42F0
+        NA: 0x22F3934
+        JP: 0x22F4F2C
+      description: |-
+        Tries to change the current leader to the monster specified by dungeon::new_leader.
+        
+        Accounts for situations that can prevent changing leaders, such as having stolen from a Kecleon shop. If one of those situations prevents changing leaders, prints the corresponding message to the message log.
+        
+        No params.
+    - name: ResetDamageData
       address:
         EU: 0x22F77D0
         NA: 0x22F6E18
         JP: 0x22F83FC
       description: |-
-        Seems to zero some damage description struct, which is output by the damage calculation function.
+        Zeroes the damage data struct, which is output by the damage calculation function.
         
-        r0: damage description pointer
-    - name: GetSpriteIndex
+        r0: damage data pointer
+    - name: DungeonGetTotalSpriteFileSize
+      address:
+        EU: 0x22F7A20
+        NA: 0x22F7068
+        JP: 0x22F8634
+      description: |-
+        Checks Castform and Cherrim
+        
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: monster ID
+        return: sprite file size
+    - name: DungeonGetSpriteIndex
       address:
         EU: 0x22F7D40
         NA: 0x22F7388
@@ -682,13 +1410,23 @@ overlay29:
         
         r0: Monster ID
         return: Sprite index of the specified monster ID
+    - name: JoinedAtRangeCheck2Veneer
+      address:
+        EU: 0x22F7D60
+        NA: 0x22F73A8
+      description: |-
+        Likely a linker-generated veneer for arm9::JoinedAtRangeCheck2.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
+        
+        No params.
     - name: FloorNumberIsEven
       address:
         EU: 0x22F7D6C
         NA: 0x22F73B4
         JP: 0x22F897C
       description: |-
-        Checks if the current dungeon floor number is even.
+        Checks if the current dungeon floor number is even (probably to determine whether an enemy spawn should be female).
         
         Has a special check to return false for Labyrinth Cave B10F (the Gabite boss fight).
         
@@ -702,15 +1440,65 @@ overlay29:
         If the current floor number is even, returns female Kecleon's id (0x3D7), otherwise returns male Kecleon's id (0x17F).
         
         return: monster ID
+    - name: StoreSpriteFileIndexBothGenders
+      address:
+        EU: 0x22F7DC4
+        NA: 0x22F740C
+        JP: 0x22F89D4
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: monster ID
+        r1: file ID
+    - name: LoadMonsterSpriteInner
+      address:
+        EU: 0x22F7E8C
+        NA: 0x22F74D4
+        JP: 0x22F8A9C
+      description: |-
+        This is called by LoadMonsterSprite a bunch of times.
+        
+        r0: monster ID
+    - name: SwapMonsterWanFileIndex
+      address:
+        EU: 0x22F7F8C
+        NA: 0x22F75D4
+        JP: 0x22F8B98
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: src_id
+        r1: dst_id
     - name: LoadMonsterSprite
       address:
         EU: 0x22F800C
         NA: 0x22F7654
+        JP: 0x22F8C18
       description: |-
         Loads the sprite of the specified monster to use it in a dungeon.
         
-        r0: Monster id
+        Irdkwia's notes: Handles Castform/Cherrim/Deoxys
+        
+        r0: monster ID
         r1: ?
+    - name: DeleteMonsterSpriteFile
+      address:
+        EU: 0x22F8120
+        NA: 0x22F7768
+        JP: 0x22F8D2C
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: monster ID
+    - name: DeleteAllMonsterSpriteFiles
+      address:
+        EU: 0x22F81BC
+        NA: 0x22F7804
+        JP: 0x22F8DC4
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        No params.
     - name: EuFaintCheck
       address:
         EU: 0x22F88E8
@@ -724,20 +1512,33 @@ overlay29:
       address:
         EU: 0x22F8938
         NA: 0x22F7F30
+        JP: 0x22F94F0
       description: |-
         Handles a fainted pokémon (reviving does not count as fainting).
         
         r0: Fainted entity
-        r1: Faint reason (move ID or greater than the max move id for other causes)
+        r1: Damage source (move ID or greater than the max move id for other causes)
         r2: Entity responsible of the fainting
     - name: UpdateAiTargetPos
       address:
         EU: 0x22F9B50
         NA: 0x22F9144
+        JP: 0x22FA708
       description: |-
         Given a monster, updates its target_pos field based on its current position and the direction in which it plans to attack.
         
         r0: Entity pointer
+    - name: SetMonsterTypeAndAbility
+      address:
+        EU: 0x22F9BA0
+        NA: 0x22F9194
+        JP: 0x22FA758
+      description: |-
+        Checks Forecast ability
+        
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: target entity pointer
     - name: TryActivateSlowStart
       address:
         EU: 0x22F9C48
@@ -756,6 +1557,27 @@ overlay29:
         Runs a check over all monsters on the field for abilities that affect the weather and changes the floor's weather accordingly.
         
         No params
+    - name: GetMonsterApparentId
+      address:
+        EU: 0x22F9E14
+        NA: 0x22F9408
+        JP: 0x22FA9CC
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: target entity pointer
+        r1: current_id
+        return: ?
+    - name: TryActivateTraceAndColorChange
+      address:
+        NA: 0x22F94F0
+      description: |-
+        Tries to activate the abilities trace and color change if possible. Called after using
+        a move.
+        
+        r0: attacker entity pointer
+        r1: defender entity pointer
+        r2: move pointer
     - name: DefenderAbilityIsActive
       address:
         EU:
@@ -764,10 +1586,6 @@ overlay29:
           - 0x230B3B4
           - 0x23125F4
           - 0x23237CC
-          - 0x23290A0
-          - 0x232A980
-          - 0x232C840
-          - 0x232E860
           - 0x233344C
         NA:
           - 0x22F96CC
@@ -775,11 +1593,8 @@ overlay29:
           - 0x230A940
           - 0x2311B94
           - 0x2322D64
-          - 0x2328634
-          - 0x2329F14
-          - 0x232BDD0
-          - 0x232DE20
           - 0x2332A0C
+        JP: 0x2302F74
       description: |-
         Checks if a defender has an active ability that isn't disabled by an attacker's Mold Breaker.
         
@@ -817,6 +1632,16 @@ overlay29:
         
         r0: entity pointer
         return: bool
+    - name: TryActivateConversion2
+      address:
+        NA: 0x22F9744
+      description: |-
+        Checks for the conversion2 status and applies the type change if applicable. Called
+        after using a move.
+        
+        r0: attacker entity pointer
+        r1: defender entity pointer
+        r2: move pointer
     - name: TryActivateTruant
       address:
         EU: 0x22FA1FC
@@ -826,6 +1651,19 @@ overlay29:
         Checks if an entity has the ability Truant, and if so tries to apply the pause status to it.
         
         r0: pointer to entity
+    - name: TryPointCameraToMonster
+      address:
+        EU: 0x22FA2C0
+        NA: 0x22F98B4
+        JP: 0x22FAE6C
+      description: |-
+        Attempts to place the camera on top of the specified monster.
+        
+        If the camera is already on top of the specified entity, the function does nothing.
+        
+        r0: Entity pointer. Must be a monster, otherwise the function does nothing.
+        r1: ?
+        r2: ?
     - name: RestorePpAllMovesSetFlags
       address:
         EU: 0x22FA480
@@ -839,6 +1677,7 @@ overlay29:
       address:
         EU: 0x22FAE3C
         NA: 0x22FA430
+        JP: 0x22FB9D8
       description: |-
         Checks if a given monster should try to reach the stairs when controlled by the AI
         
@@ -857,6 +1696,18 @@ overlay29:
         r0: monster id
         r1: return false if the monster id is Mew
         return: bool
+    - name: TryEndStatusWithAbility
+      address:
+        NA: 0x22FA7DC
+      description: |-
+        Checks if any of the defender's active abilities would end one of their current status
+        conditions. For example, if the ability Own Tempo will stop confusion.
+        
+        Called after changing a monster's ability with skill swap, role play, or trace to
+        remove statuses the monster should no longer be affected by.
+        
+        r0: attacker entity pointer
+        r1: defender entity pointer
     - name: ExclusiveItemEffectIsActive
       address:
         EU:
@@ -885,6 +1736,9 @@ overlay29:
           - 0x23329E8
           - 0x2347B80
           - 0x23482B0
+        JP:
+          - 0x2315CC0
+          - 0x2349638
       description: |-
         Checks if a monster is a team member under the effects of a certain exclusive item effect.
         
@@ -921,6 +1775,52 @@ overlay29:
         
         r0: iq skill id
         return: bool
+    - name: CountMovesOutOfPp
+      address:
+        EU: 0x22FBAB4
+        NA: 0x22FB0A8
+      description: |-
+        Returns how many of a monster's move are out of PP.
+        
+        r0: entity pointer
+        return: number of moves out of PP
+    - name: HasSuperEffectiveMoveAgainstUser
+      address:
+        EU: 0x22FBB18
+        NA: 0x22FB10C
+        JP: 0x22FC694
+      description: |-
+        Checks if the target has at least one super effective move against the user.
+        
+        r0: User
+        r1: Target
+        r2: If true, moves with a max Ginseng boost != 99 will be ignored
+        return: True if the target has at least one super effective move against the user, false otherwise.
+    - name: TryEatItem
+      address:
+        EU: 0x22FBC20
+        NA: 0x22FB214
+      description: |-
+        The user attempts to eat an item from the target.
+        
+        The function tries to eat the target's held item first. If that's not possible and the target is part of the team, it attempts to eat a random edible item from the bag instead.
+        Fun fact: The code used to select the random bag item that will be eaten is poorly coded. As a result, there's a small chance of the first edible item in the bag being picked instead of a random one. The exact chance of this happening is (N/B)^B, where N is the amount of non-edible items in the bag and B is the total amount of items in the bag.
+        
+        r0: User
+        r1: Target
+        return: True if the attempt was successful
+    - name: CheckSpawnThreshold
+      address:
+        EU: 0x22FBFF8
+        NA: 0x22FB5EC
+        JP: 0x22FCAC0
+      description: |-
+        Checks if a given monster ID can spawn in dungeons.
+        
+        The function returns true if the monster's spawn threshold value is <= SCENARIO_BALANCE_FLAG
+        
+        r0: monster ID
+        return: True if the monster can spawn, false otherwise
     - name: HasLowHealth
       address:
         EU: 0x22FC01C
@@ -931,6 +1831,19 @@ overlay29:
         
         r0: entity pointer
         return: bool
+    - name: AreEntitiesAdjacent
+      address:
+        EU: 0x22FC084
+        NA: 0x22FB678
+        JP: 0x22FCB4C
+      description: |-
+        Checks whether two entities are adjacent or not.
+        
+        The function checks all 8 possible directions.
+        
+        r0: First entity
+        r1: Second entity
+        return: True if both entities are adjacent, false otherwise.
     - name: IsSpecialStoryAlly
       address:
         EU: 0x22FC4CC
@@ -955,14 +1868,26 @@ overlay29:
         
         r0: monster pointer
         return: bool
-    - name: InitTeam
+    - name: SpawnTeam
       address:
         EU: 0x22FCF08
         NA: 0x22FC50C
+        JP: 0x22FD8FC
       description: |-
-        Seems to initialize the team when entering a dungeon.
+        Seems to initialize and spawn the team when entering a dungeon.
         
         r0: ?
+    - name: SpawnInitialMonsters
+      address:
+        EU: 0x22FD774
+        NA: 0x22FCD78
+        JP: 0x22FE16C
+      description: |-
+        Tries to spawn monsters on all the tiles marked for monster spawns. This includes normal enemies and mission targets (rescue targets, outlaws, etc.).
+        
+        A random initial position is selected as a starting point. Tiles are then swept over left-to-right, top-to-bottom, wrapping around when the map boundary is reached, until all tiles have been checked. The first marked tile encountered in the sweep is reserved for the mission target, but the actual spawning of the target is done last.
+        
+        No params.
     - name: SpawnMonster
       address:
         EU: 0x22FDA80
@@ -978,22 +1903,66 @@ overlay29:
       address:
         EU: 0x22FDDB0
         NA: 0x22FD3B4
+        JP: 0x22FE7A8
       description: |-
         Initializes a team member. Run at the start of each floor in a dungeon.
         
         r0: Monster ID
-        r1: First type
-        r2: Second type
+        r1: X position
+        r2: Y position
         r3: Pointer to the struct containing the data of the team member to initialize
         stack[0]: ?
         stack[1]: ?
         stack[2]: ?
         stack[3]: ?
         stack[4]: ?
+    - name: InitMonster
+      address:
+        EU: 0x22FE7BC
+        NA: 0x22FDDC0
+        JP: 0x22FF1B0
+      description: |-
+        Initializes a monster struct.
+        
+        r0: pointer to monster to initialize
+        r1: some flag
+    - name: MarkShopkeeperSpawn
+      address:
+        EU: 0x22FEB94
+        NA: 0x22FE198
+        JP: 0x22FF580
+      description: |-
+        Add a shopkeeper spawn to the list on the dungeon struct. Actual spawning is done later by SpawnShopkeepers.
+        
+        If an existing entry in dungeon::shopkeeper_spawns exists with the same position, that entry is reused for the new spawn data. Otherwise, a new entry is appended to the array.
+        
+        r0: x position
+        r1: y position
+        r2: monster ID
+        r3: monster behavior
+    - name: SpawnShopkeepers
+      address:
+        EU: 0x22FEC48
+        NA: 0x22FE24C
+        JP: 0x22FF634
+      description: |-
+        Spawns all the shopkeepers in the dungeon struct's shopkeeper_spawns array.
+        
+        No params.
+    - name: GetOutlawSpawnData
+      address:
+        EU: 0x22FEE1C
+        NA: 0x22FE420
+        JP: 0x22FF808
+      description: |-
+        Gets outlaw spawn data for the current floor.
+        
+        r0: [output] Outlaw spawn data
     - name: ExecuteMonsterAction
       address:
         EU: 0x22FEEDC
         NA: 0x22FE4BC
+        JP: 0x22FF8A4
       description: |-
         Executes the set action for the specified monster. Used for both AI actions and player-inputted actions. If the action is not ACTION_NOTHING, ACTION_PASS_TURN, ACTION_WALK or ACTION_UNK_4, the monster's already_acted field is set to true. Includes a switch based on the action ID that performs the action, although some of them aren't handled by said swtich.
         
@@ -1002,11 +1971,28 @@ overlay29:
       address:
         EU: 0x22FFBF4
         NA: 0x22FF1C8
+        JP: 0x23005B8
       description: |-
         Returns true if the monster has any status problem that prevents it from acting
         
         r0: Entity pointer
         return: True if the specified monster can't act because of a status problem, false otherwise.
+    - name: IsInvalidSpawnTile
+      address:
+        EU: 0x23000F0
+        NA: 0x22FF6C4
+        JP: 0x2300AB4
+      description: |-
+        Checks if a monster cannot spawn on the given tile for some reason.
+        
+        Reasons include:
+        - There's another monster on the tile
+        - The tile is an impassable wall
+        - The monster does not have the required mobility to stand on the tile
+        
+        r0: monster ID
+        r1: tile pointer
+        return: true means the monster CANNOT spawn on this tile
     - name: CalcSpeedStage
       address:
         EU: 0x2300820
@@ -1042,6 +2028,16 @@ overlay29:
         
         r0: pointer to entity
         returns: int
+    - name: GetMonsterName
+      address:
+        EU: 0x2300B90
+        NA: 0x2300164
+        JP: 0x2301538
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: buffer
+        r1: TargetInfo
     - name: SprintfStatic
       address:
         EU: 0x2300CF4
@@ -1054,10 +2050,137 @@ overlay29:
         r1: format
         ...: variadic
         return: number of characters printed, excluding the null-terminator
+    - name: IsMonsterDrowsy
+      address:
+        EU: 0x2300EDC
+        NA: 0x23004B0
+        JP: 0x2301894
+      description: |-
+        Checks if a monster has the sleep, nightmare, or yawning status. Note that this excludes the napping status.
+        
+        r0: entity pointer
+        return: bool
+    - name: MonsterHasNonvolatileNonsleepStatus
+      address:
+        EU: 0x2300F10
+        NA: 0x23004E4
+        JP: 0x23018C8
+      description: |-
+        Checks if a monster has one of the statuses in the "burn" group, which includes the traditionally non-volatile status conditions (except sleep) in the main series: STATUS_BURN, STATUS_POISONED, STATUS_BADLY_POISONED, STATUS_PARALYSIS, and STATUS_IDENTIFYING.
+        
+        STATUS_IDENTIFYING is probably included based on enum status_id? Unless it's handled differently somehow.
+        
+        r0: entity pointer
+        return: bool
+    - name: MonsterHasImmobilizingStatus
+      address:
+        EU: 0x2300F2C
+        NA: 0x2300500
+        JP: 0x23018E4
+      description: |-
+        Checks if a monster has one of the non-self-inflicted statuses in the "freeze" group, which includes status conditions that immobilize the monster: STATUS_FROZEN, STATUS_SHADOW_HOLD, STATUS_WRAPPED, STATUS_PETRIFIED, STATUS_CONSTRICTION, and STATUS_FAMISHED.
+        
+        r0: entity pointer
+        return: bool
+    - name: MonsterHasAttackInterferingStatus
+      address:
+        EU: 0x2300F4C
+        NA: 0x2300520
+        JP: 0x2301904
+      description: |-
+        Checks if a monster has one of the statuses in the "cringe" group, which includes status conditions that interfere with the monster's ability to attack: STATUS_CRINGE, STATUS_CONFUSED, STATUS_PAUSED, STATUS_COWERING, STATUS_TAUNTED, STATUS_ENCORE, STATUS_INFATUATED, and STATUS_DOUBLE_SPEED.
+        
+        STATUS_DOUBLE_SPEED is probably included based on enum status_id? Unless it's handled differently somehow.
+        
+        r0: entity pointer
+        return: bool
+    - name: MonsterHasSkillInterferingStatus
+      address:
+        EU: 0x2300F68
+        NA: 0x230053C
+        JP: 0x2301920
+      description: |-
+        Checks if a monster has one of the non-self-inflicted statuses in the "curse" group, which loosely includes status conditions that interfere with the monster's skills or ability to do things: STATUS_CURSED, STATUS_DECOY, STATUS_GASTRO_ACID, STATUS_HEAL_BLOCK, STATUS_EMBARGO.
+        
+        r0: entity pointer
+        return: bool
+    - name: MonsterHasLeechSeedStatus
+      address:
+        EU: 0x2300FB4
+        NA: 0x2300588
+        JP: 0x230196C
+      description: |-
+        Checks if a monster is afflicted with Leech Seed.
+        
+        r0: entity pointer
+        return: bool
+    - name: MonsterHasWhifferStatus
+      address:
+        EU: 0x2300FD0
+        NA: 0x23005A4
+        JP: 0x2301988
+      description: |-
+        Checks if a monster has the whiffer status.
+        
+        r0: entity pointer
+        return: bool
+    - name: IsMonsterVisuallyImpaired
+      address:
+        EU: 0x2300FEC
+        NA: 0x23005C0
+        JP: 0x23019A4
+      description: |-
+        Checks if a monster's vision is impaired somehow. This includes the checks in IsBlinded, as well as STATUS_CROSS_EYED and STATUS_DROPEYE.
+        
+        r0: entity pointer
+        r1: flag for whether to check for the held item
+        return: bool
+    - name: IsMonsterMuzzled
+      address:
+        EU: 0x2301028
+        NA: 0x23005FC
+        JP: 0x23019E0
+      description: |-
+        Checks if a monster has the muzzled status.
+        
+        r0: entity pointer
+        return: bool
+    - name: MonsterHasMiracleEyeStatus
+      address:
+        EU: 0x2301044
+        NA: 0x2300618
+        JP: 0x23019FC
+      description: |-
+        Checks if a monster has the Miracle Eye status.
+        
+        r0: entity pointer
+        return: bool
+    - name: MonsterHasNegativeStatus
+      address:
+        EU: 0x2301060
+        NA: 0x2300634
+        JP: 0x2301A18
+      description: |-
+        Checks if a monster has any "negative" status conditions. This includes a wide variety of non-self-inflicted statuses that could traditionally be viewed as actual "status conditions", as well as speed being lowered and moves being sealed.
+        
+        r0: entity pointer
+        r1: flag for whether to check for the held item (see IsMonsterVisuallyImpaired)
+        return: bool
+    - name: IsMonsterSleeping
+      address:
+        EU: 0x23011D4
+        NA: 0x23007A8
+        JP: 0x2301B8C
+      description: |-
+        Checks if a monster has the sleep, nightmare, or napping status.
+        
+        r0: entity pointer
+        return: bool
     - name: IsMonsterCornered
       address:
         EU: 0x2301B44
         NA: 0x2301118
+        JP: 0x230251C
       description: |-
         True if the given monster is cornered (it can't move in any direction)
         
@@ -1067,6 +2190,7 @@ overlay29:
       address:
         EU: 0x2301C60
         NA: 0x2301234
+        JP: 0x2302694
       description: |-
         Returns whether a monster can attack in a given direction.
         The check fails if the destination tile is impassable, contains a monster that isn't of type entity_type::ENTITY_MONSTER or if the monster can't directly move from the current tile into the destination tile.
@@ -1078,18 +2202,20 @@ overlay29:
       address:
         EU: 0x2301D24
         NA: 0x23012F8
+        JP: 0x23027B8
       description: |-
         Checks whether an AI-controlled monster can move in the specified direction.
         Accounts for walls, other monsters on the target position and IQ skills that might prevent a monster from moving into a specific location, such as House Avoider, Trap Avoider or Lava Evader.
         
         r0: Entity pointer
         r1: Direction
-        r2: (output) If movement was not possible because there was another monster on the target tile, its entity pointer is returned here
+        r2: (output) True if movement was not possible because there was another monster on the target tile, false otherwise.
         return: True if the monster can move in the specified direction, false otherwise.
     - name: ShouldMonsterRunAway
       address:
         EU: 0x2301FE4
         NA: 0x23015B8
+        JP: 0x2302B28
       description: |-
         Checks if a monster should run away from other monsters
         
@@ -1099,6 +2225,7 @@ overlay29:
       address:
         EU: 0x23020D4
         NA: 0x23016A8
+        JP: 0x2302C18
       description: |-
         Calls ShouldMonsterRunAway and returns its result. It also calls another function if the result was true.
         
@@ -1126,6 +2253,32 @@ overlay29:
         r0: entity pointer
         r1: ability ID
         return: bool
+    - name: AbilityIsActiveVeneer
+      address:
+        EU: 0x23027A4
+        NA: 0x2301D78
+        JP: 0x23032D0
+      description: |-
+        Likely a linker-generated veneer for AbilityIsActive.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
+        
+        r0: entity pointer
+        r1: ability ID
+        return: bool
+    - name: OtherMonsterAbilityIsActive
+      address:
+        EU: 0x23027B0
+        NA: 0x2301D84
+        JP: 0x23032DC
+      description: |-
+        Checks if there are any other monsters on the floor besides the user that have the specified ability active, subject to the user being on the floor.
+        
+        It also seems like there might be some other range or validity check, so this might not actually check ALL other monsters?
+        
+        r0: user entity pointer
+        r1: ability ID
+        return: bool
     - name: LevitateIsActive
       address:
         EU: 0x2302844
@@ -1147,10 +2300,33 @@ overlay29:
         r0: entity pointer
         r1: type ID
         return: bool
+    - name: IsTypeAffectedByGravity
+      address:
+        EU: 0x23028B4
+        NA: 0x2301E88
+        JP: 0x23033D8
+      description: |-
+        Checks if Gravity is active and that the given type is affected (i.e., Flying type).
+        
+        r0: target entity pointer (unused)
+        r1: type ID
+        return: bool
+    - name: HasTypeAffectedByGravity
+      address:
+        EU: 0x23028D8
+        NA: 0x2301EAC
+        JP: 0x23033FC
+      description: |-
+        Checks if Gravity is active and that the given monster is of an affected type (i.e., Flying type).
+        
+        r0: target entity pointer
+        r1: type ID
+        return: bool
     - name: CanSeeInvisibleMonsters
       address:
         EU: 0x2302918
         NA: 0x2301EEC
+        JP: 0x230343C
       description: |-
         Returns whether a certain monster can see other invisible monsters.
         To be precise, this function returns true if the monster is holding Goggle Specs or if it has the status status::STATUS_EYEDROPS.
@@ -1161,6 +2337,7 @@ overlay29:
       address:
         EU: 0x230297C
         NA: 0x2301F50
+        JP: 0x23034A0
       description: |-
         Returns whether a certain monster is under the effect of status::STATUS_DROPEYE.
         
@@ -1177,10 +2354,24 @@ overlay29:
         r0: entity pointer
         r1: IQ skill ID
         return: bool
+    - name: UpdateIqSkills
+      address:
+        EU: 0x23029E8
+        NA: 0x2301FBC
+        JP: 0x230350C
+      description: |-
+        Updates the IQ skill flags of a monster.
+        
+        If the monster is a team member, copies monster::iq_skill_menu_flags to monster::iq_skill_flags. If the monster is an enemy, enables all the IQ skills it can learn (except a few that are only enabled in enemies that have a certain amount of IQ).
+        If the monster is an enemy, it also sets its tactic to TACTIC_GO_AFTER_FOES.
+        Called after exiting the IQ skills menu or after an enemy spawns.
+        
+        r0: monster pointer
     - name: GetMoveTypeForMonster
       address:
         EU: 0x2302CA8
         NA: 0x230227C
+        JP: 0x23037CC
       description: |-
         Check the type of a move when used by a certain monster. Accounts for special cases such as Hidden Power, Weather Ball, the regular attack...
         
@@ -1198,6 +2389,17 @@ overlay29:
         r0: user pointer
         r1: move pointer
         return: move power
+    - name: UpdateStateFlags
+      address:
+        EU: 0x2302DEC
+        NA: 0x23023C0
+      description: |-
+        Updates monster::state_flags and monster::prev_state_flags with new values.
+        
+        r0: monster pointer
+        r1: bitmask for bits to update
+        r2: whether to set the bits indicated by the mask to 1 or 0
+        return: whether or not any of the masked bits changed from the previous state
     - name: AddExpSpecial
       address:
         EU: 0x2302F68
@@ -1217,14 +2419,41 @@ overlay29:
       address:
         EU: 0x2303128
         NA: 0x23026FC
+        JP: 0x2303C4C
       description: |-
         Checks if the specified enemy should evolve because it just defeated an ally, and if so, attempts to evolve it.
         
         r0: Pointer to the enemy to check
+    - name: TryDecreaseLevel
+      address:
+        EU: 0x23039B4
+        NA: 0x2302F88
+        JP: 0x23044D4
+      description: |-
+        Decrease the target monster's level if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: number of levels to decrease
+        return: success flag
+    - name: LevelUp
+      address:
+        EU: 0x2303A68
+        NA: 0x230303C
+        JP: 0x2304588
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: message flag?
+        r3: ?
+        return: success flag?
     - name: EvolveMonster
       address:
         EU: 0x23046A8
         NA: 0x2303C7C
+        JP: 0x23051CC
       description: |-
         Makes the specified monster evolve into the specified species.
         
@@ -1247,11 +2476,38 @@ overlay29:
       address:
         EU: 0x2305A0C
         NA: 0x2304FE0
+        JP: 0x2306530
       description: |-
         Graphically displays any pending actions that have happened but haven't been shown on screen yet. All actions are displayed at the same time. For example, this delayed display system is used to display multiple monsters moving at once even though they take turns sequentially.
         
         r0: Pointer to an entity. Can be null.
         returns: Seems to be true if there were any pending actions to display.
+    - name: CheckNonLeaderTile
+      address:
+        EU: 0x23060C0
+        NA: 0x2305694
+      description: |-
+        Similar to CheckLeaderTile, but for other monsters.
+        
+        Used both for enemies and team members.
+        
+        r0: Entity pointer
+    - name: EndSleepClassStatus
+      address:
+        NA: 0x2305FDC
+      description: |-
+        Cures the target's sleep, sleepless, nightmare, yawn or napping status due to the action of the user, and prints the event to the log.
+        
+        r0: pointer to user
+        r1: pointer to target
+    - name: EndBurnClassStatus
+      address:
+        NA: 0x23061A8
+      description: |-
+        Cures the target's burned, poisoned, badly poisoned or paralysis status due to the action of the user, and prints the event to the log.
+        
+        r0: pointer to user
+        r1: pointer to target
     - name: EndFrozenClassStatus
       address:
         EU: 0x2306C84
@@ -1273,6 +2529,68 @@ overlay29:
         
         r0: pointer to user
         r1: pointer to target
+    - name: EndReflectClassStatus
+      address:
+        NA: 0x23064F4
+      description: |-
+        Removes the target's reflect, safeguard, light screen, counter, magic coat, wish, protect, mirror coat, endure, mini counter?, mirror move, conversion 2, vital throw, mist, metal burst, aqua ring or lucky chant status due to the action of the user, and prints the event to the log.
+        
+        r0: pointer to user
+        r1: pointer to target
+    - name: EndLeechSeedClassStatus
+      address:
+        NA: 0x23068C4
+      description: |-
+        Cures the target's leech seed or destiny bond status due to the action of the user, and prints the event to the log.
+        
+        r0: pointer to user
+        r1: pointer to target
+    - name: EndSureShotClassStatus
+      address:
+        NA: 0x2306950
+      description: |-
+        Removes the target's sure shot, whiffer, set damage or focus energy status due to the action of the user, and prints the event to the log.
+        
+        r0: pointer to user
+        r1: pointer to target
+    - name: EndMuzzledStatus
+      address:
+        NA: 0x2306BF8
+      description: |-
+        Removes the target's muzzled status due to the action of the user, and prints the event to the log.
+        
+        r0: pointer to user
+        r1: pointer to target
+    - name: EndMiracleEyeStatus
+      address:
+        NA: 0x2306C64
+      description: |-
+        Removes the target's miracle eye status due to the action of the user, and prints the event to the log.
+        
+        r0: pointer to user
+        r1: pointer to target
+    - name: EndMagnetRiseStatus
+      address:
+        NA: 0x2306CD0
+      description: |-
+        Removes the target's magnet rise status due to the action of the user, and prints the event to the log.
+        
+        r0: pointer to user
+        r1: pointer to target
+    - name: TryTriggerMonsterHouse
+      address:
+        EU: 0x2308978
+        NA: 0x2307F4C
+        JP: 0x2309480
+      description: |-
+        Triggers a Monster House for an entity, if the right conditions are met.
+        
+        Conditions: entity is valid and on the team, the tile is a Monster House tile, and the Monster House hasn't already been triggered.
+        
+        This function sets the monster_house_triggered flag on the dungeon struct, spawns a bunch of enemies around the triggering entity (within a 4 tile radius), and handles the "dropping down" animation for these enemies. If the allow outside enemies flag is set, the enemy spawns can be on any free tile (no monster) with open terrain, including in hallways. Otherwise, spawns are confined within the room boundaries.
+        
+        r0: entity for which the Monster House should be triggered
+        r1: allow outside enemies flag (in practice this is always set to dungeon_generation_info::force_create_monster_house)
     - name: RunMonsterAi
       address:
         EU: 0x2308D6C
@@ -1282,10 +2600,28 @@ overlay29:
         
         r0: Pointer to monster
         r1: ?
+    - name: ApplyDamageAndEffects
+      address:
+        EU: 0x2309068
+        NA: 0x230863C
+        JP: 0x2309C1C
+      description: |-
+        Calls ApplyDamage, then performs various "post-damage" effects such as counter damage, statuses from abilities that activate on contact, and probably some other stuff.
+        
+        Note that this doesn't include the effect of Illuminate, which is specifically handled elsewhere.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: damage_data pointer
+        r3: False Swipe flag (see ApplyDamage)
+        stack[0]: experience flag (see ApplyDamage)
+        stack[1]: Damage source (see HandleFaint)
+        stack[2]: defender response flag. If true, the defender can respond to the attack with various effects. If false, the only post-damage effect that can happen is the Rage attack boost.
     - name: ApplyDamage
       address:
         EU: 0x2309A0C
         NA: 0x2308FE0
+        JP: 0x230A598
       description: |-
         Applies damage to a monster. Displays the damage animation, lowers its health and handles reviving if applicable.
         The EU version has some additional checks related to printing fainting messages under specific circumstances.
@@ -1293,10 +2629,76 @@ overlay29:
         r0: Attacker pointer
         r1: Defender pointer
         r2: Pointer to the damage_data struct that contains info about the damage to deal
-        r3: ?
-        stack[0]: ?
-        stack[1]: Pointer to some struct. The first byte contains the ID of the move used.
+        r3: False Swipe flag, causes the defender's HP to be set to 1 if it would otherwise have been 0
+        stack[0]: experience flag, controls whether or not experience will be granted upon a monster fainting, and whether enemy evolution might be triggered
+        stack[1]: Damage source (see HandleFaint)
         return: True if the target fainted (reviving does not count as fainting)
+    - name: AftermathCheck
+      address:
+        EU: 0x230B480
+        NA: 0x230AA0C
+        JP: 0x230BF88
+      description: |-
+        Checks if the defender has the Aftermath ability and tries to activate it if so (50% chance).
+        
+        The ability won't trigger if the damage source is DAMAGE_SOURCE_EXPLOSION.
+        
+        r0: Attacker pointer
+        r1: Defender pointer
+        r2: Damage source
+        return: True if Aftermath was activated, false if it wasn't
+    - name: GetTypeMatchupBothTypes
+      address:
+        EU: 0x230B500
+        NA: 0x230AA8C
+        JP: 0x230C004
+      description: |-
+        Gets the type matchup for a given combat interaction, accounting for both of the user's types.
+        
+        Calls GetTypeMatchup twice and combines the result.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: attack type
+        return: enum type_matchup
+    - name: ScrappyShouldActivate
+      address:
+        EU: 0x230B5CC
+        NA: 0x230AB58
+        JP: 0x230C0D0
+      description: |-
+        Checks whether Scrappy should activate.
+        
+        Scrappy activates when the ability is active on the attacker, the move type is Normal or Fighting, and the defender is a Ghost type.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move type ID
+        return: bool
+    - name: IsTypeIneffectiveAgainstGhost
+      address:
+        EU: 0x230B664
+        NA: 0x230ABF0
+        JP: 0x230C168
+      description: |-
+        Checks whether a type is normally ineffective against Ghost, i.e., it's Normal or Fighting.
+        
+        r0: type ID
+        return: bool
+    - name: GhostImmunityIsActive
+      address:
+        EU: 0x230B678
+        NA: 0x230AC04
+        JP: 0x230C17C
+      description: |-
+        Checks whether the defender's typing would give it Ghost immunities.
+        
+        This only checks one of the defender's types at a time. It checks whether the defender has the exposed status and whether the attacker has the Scrappy-like exclusive item effect, but does NOT check whether the attacker has the Scrappy ability.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: defender type index (0 the defender's first type, 1 for the defender's second type)
+        return: bool
     - name: GetTypeMatchup
       address:
         EU: 0x230B6CC
@@ -1314,12 +2716,41 @@ overlay29:
         r2: target type index (0 the target's first type, 1 for the target's second type)
         r3: attack type
         return: enum type_matchup
+    - name: CalcTypeBasedDamageEffects
+      address:
+        EU: 0x230B778
+        NA: 0x230AD04
+      description: |-
+        Calculates type-based effects on damage.
+        
+        Loosely, this includes type matchup effects (including modifications due to abilities, IQ skills, and exclusive items), STAB, pinch abilities like Overgrow, weather/floor condition effects on certain types, and miscellaneous effects like Charge.
+        
+        r0: [output] damage multiplier due to type effects.
+        r1: attacker pointer
+        r2: defender pointer
+        r3: attack power
+        stack[0]: attack type
+        stack[1]: [output] struct containing info about the damage calculation (only the critical_hit, type_matchup, and field_0xF fields are modified)
+        stack[2]: flag for whether Erratic Player and Technician effects should be excluded. CalcDamage only passes in true if the move is the regular attack or a projectile.
+        return: whether or not the Type-Advantage Master IQ skill should activate if the attacker has it. In practice, this corresponds to when the attack is super-effective, but technically true is also returned when the defender is an invalid entity.
     - name: CalcDamage
       address:
         EU: 0x230C620
         NA: 0x230BBAC
+        JP: 0x230D100
       description: |-
-        Probably the damage calculation function.
+        The damage calculation function.
+        
+        At a high level, the damage formula is:
+          M * [(153/256)*(A + P) - 0.5*D + 50*ln(10*[L + (A - D)/8 + 50]) - 311]
+        where:
+          - A is the offensive stat (attack or special attack) with relevant modifiers applied (stat stages, certain items, certain abilities, etc.)
+          - D is the defensive stat (defense or special defense) with relevant modifiers applied (stat stages, certain items, certain abilities, etc.)
+          - L is the attacker's level
+          - P is the move power with relevant modifiers applied
+          - M is an aggregate damage multiplier from a variety of things, such as type-effectiveness, STAB, critical hits (which are also rolled in this function), certain items, certain abilities, certain statuses, etc.
+        
+        The calculations are done primarily with 64-bit fixed point arithmetic, and a bit of 32-bit fixed point arithmetic. There's also rounding/truncation/clamping at various steps in the process.
         
         r0: attacker pointer
         r1: defender pointer
@@ -1329,7 +2760,7 @@ overlay29:
         stack[1]: [output] struct containing info about the damage calculation
         stack[2]: damage multiplier (as a binary fixed-point number with 8 fraction bits)
         stack[3]: move ID
-        stack[4]: ?
+        stack[4]: flag to account for certain effects (Flash Fire, Reflect, Light Screen, aura bows, Def. Scarf, Zinc Band). Only ever set to false when computing recoil damage for Jump Kick/Hi Jump Kick missing, which is based on the damage that would have been done if the move didn't miss.
     - name: CalcRecoilDamageFixed
       address:
         EU: 0x230DC00
@@ -1346,8 +2777,8 @@ overlay29:
         r3: [output] struct containing info about the damage calculation
         stack[0]: move ID (interestingly, this doesn't seem to be used by the function)
         stack[1]: attack type
-        stack[2]: ?
-        stack[3]: message type
+        stack[2]: damage source
+        stack[3]: damage message
         others: ?
     - name: CalcDamageFixed
       address:
@@ -1360,12 +2791,12 @@ overlay29:
         r0: attacker pointer
         r1: defender pointer
         r2: fixed damage
-        r3: ?
+        r3: experience flag (see ApplyDamage)
         stack[0]: [output] struct containing info about the damage calculation
         stack[1]: attack type
         stack[2]: move category
-        stack[3]: ?
-        stack[4]: message type
+        stack[3]: damage source
+        stack[4]: damage message
         others: ?
     - name: CalcDamageFixedNoCategory
       address:
@@ -1378,8 +2809,11 @@ overlay29:
         r0: attacker pointer
         r1: defender pointer
         r2: fixed damage
+        r3: experience flag (see ApplyDamage)
         stack[0]: [output] struct containing info about the damage calculation
         stack[1]: attack type
+        stack[2]: damage source
+        stack[3]: damage message
         others: ?
     - name: CalcDamageFixedWrapper
       address:
@@ -1392,19 +2826,68 @@ overlay29:
         r0: attacker pointer
         r1: defender pointer
         r2: fixed damage
+        r3: experience flag (see ApplyDamage)
         stack[0]: [output] struct containing info about the damage calculation
         stack[1]: attack type
         stack[2]: move category
+        stack[3]: damage source
+        stack[4]: damage message
         others: ?
-    - name: ResetDamageCalcScratchSpace
+    - name: UpdateShopkeeperModeAfterAttack
+      address:
+        EU: 0x230DEB4
+        NA: 0x230D440
+        JP: 0x230E97C
+      description: |-
+        Updates the shopkeeper mode of a monster in response to being struck by an attack.
+        
+        If the defender is in normal shopkeeper mode (not aggressive), nothing happens. Otherwise, the mode is set to SHOPKEEPER_MODE_ATTACK_TEAM if the attacker is a team member, or SHOPKEEPER_MODE_ATTACK_ENEMIES otherwise.
+        
+        r0: attacker pointer
+        r1: defender pointer
+    - name: ResetDamageCalcDiagnostics
       address:
         EU: 0x230DF9C
         NA: 0x230D528
         JP: 0x230EA64
       description: |-
-        CalcDamage seems to use scratch space of some kind, which this function zeroes.
+        Resets the damage calculation diagnostic info stored on the dungeon struct. Called unconditionally at the start of CalcDamage.
         
         No params.
+    - name: SpecificRecruitCheck
+      address:
+        EU: 0x230E588
+        NA: 0x230DB14
+        JP: 0x230F054
+      description: |-
+        Checks if a specific monster can be recruited. Called by RecruitCheck.
+        
+        Will return false if dungeon::recruiting_enabled is false, if the monster is Mew and dungeon::dungeon_objective is OBJECTIVE_RESCUE or if the monster is any of the special Deoxys forms or any of the 3 regis.
+        If this function returns false, RecruitCheck will return false as well.
+        
+        r0: Monster ID
+        return: True if the monster can be recruited
+    - name: RecruitCheck
+      address:
+        EU: 0x230E644
+        NA: 0x230DBD0
+        JP: 0x230F110
+      description: |-
+        Determines if a defeated enemy will attempt to join the team
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        return: True if the target will attempt to join the team
+    - name: TryRecruit
+      address:
+        EU: 0x230EAD8
+        NA: 0x230E064
+      description: |-
+        Asks the player if they would like to recruit the enemy that was just defeated and handles the recruitment if they accept.
+        
+        r0: user entity pointer
+        r1: monster to recruit entity pointer
+        return: True if the monster was recruited, false if it wasn't
     - name: TrySpawnMonsterAndTickSpawnCounter
       address:
         EU: 0x230F130
@@ -1416,6 +2899,17 @@ overlay29:
         If the spawn counter is greater than 900, it will instead perform the special spawn caused by the ability Illuminate.
         
         No params.
+    - name: TryNonLeaderItemPickUp
+      address:
+        EU: 0x230FBD8
+        NA: 0x230F164
+        JP: 0x23106A0
+      description: |-
+        Similar to TryLeaderItemPickUp, but for other monsters.
+        
+        Used both for enemies and team members.
+        
+        r0: entity pointer
     - name: AuraBowIsActive
       address:
         EU: 0x231013C
@@ -1446,6 +2940,28 @@ overlay29:
         r0: entity pointer
         r1: move category index (0 for physical, 1 for special)
         return: boost
+    - name: TeamMemberHasExclusiveItemEffectActive
+      address:
+        EU: 0x23102B4
+        NA: 0x230F840
+        JP: 0x2310D7C
+      description: |-
+        Checks if any team member is under the effects of a certain exclusive item effect.
+        
+        r0: exclusive item effect ID
+        return: bool
+    - name: TrySpawnEnemyItemDrop
+      address:
+        EU: 0x231044C
+        NA: 0x230F9D8
+        JP: 0x2310F14
+      description: |-
+        Determine what item a defeated enemy should drop, if any, then (probably?) spawn that item underneath them.
+        
+        This function is called at the time when an enemy is defeated from ApplyDamage.
+        
+        r0: attacker entity (who defeated the enemy)
+        r1: defender entity (who was defeated)
     - name: TickNoSlipCap
       address:
         EU: 0x2310604
@@ -1584,6 +3100,7 @@ overlay29:
       address:
         EU: 0x23130C4
         NA: 0x2312664
+        JP: 0x2313B60
       description: |-
         Inflicts the Poisoned status condition on a target monster if possible.
         
@@ -1596,6 +3113,7 @@ overlay29:
       address:
         EU: 0x231339C
         NA: 0x231293C
+        JP: 0x2313E34
       description: |-
         Inflicts the Badly Poisoned status condition on a target monster if possible.
         
@@ -1683,6 +3201,7 @@ overlay29:
       address:
         EU: 0x231405C
         NA: 0x23135FC
+        JP: 0x2314AE8
       description: |-
         Lowers the specified offensive stat on the target monster.
         
@@ -1730,10 +3249,24 @@ overlay29:
         r1: target entity pointer
         r2: stat index
         r3: number of stages
+    - name: FlashFireShouldActivate
+      address:
+        EU: 0x23146D4
+        NA: 0x2313C74
+        JP: 0x231515C
+      description: |-
+        Checks whether Flash Fire should activate, assuming the defender is being hit by a Fire-type move.
+        
+        This checks that the defender is valid and Flash Fire is active, and that Normalize isn't active on the attacker.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        return: 2 if Flash Fire should activate and raise the defender's boost level, 1 if Flash Fire should activate but the defender's boost level is maxed out, 0 otherwise.
     - name: ApplyOffensiveStatMultiplier
       address:
         EU: 0x23147A0
         NA: 0x2313D40
+        JP: 0x2315224
       description: |-
         Applies a multiplier to the specified offensive stat on the target monster.
         
@@ -1781,7 +3314,7 @@ overlay29:
         r0: user entity pointer
         r1: target entity pointer
         r2: stat index
-        r3: ?
+        r3: ? (Irdkwia's notes say this is the number of stages, but I'm pretty sure that's incorrect)
     - name: TryInflictCringeStatus
       address:
         EU: 0x2314E48
@@ -1816,7 +3349,7 @@ overlay29:
       description: |-
         Boosts the speed of the target monster.
         
-        If the number of turns specified is 0, a random turn count will be selected using the default SPEED_BOOST_DURATION_RANGE.
+        If the number of turns specified is 0, a random turn count will be selected using the default SPEED_BOOST_TURN_RANGE.
         
         r0: user entity pointer
         r1: target entity pointer
@@ -1881,6 +3414,20 @@ overlay29:
         r1: target entity pointer
         r2: stat index
         r3: ?
+    - name: ExclusiveItemEffectIsActiveWithLogging
+      address:
+        EU: 0x23157A0
+        NA: 0x2314D40
+        JP: 0x2316214
+      description: |-
+        Calls ExclusiveItemEffectIsActive, then logs the specified message if indicated.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: whether a message should be logged if the effect is active
+        r3: message ID to be logged if the effect is active
+        stack[0]: exclusive item effect ID
+        return: bool, same as ExclusiveItemEffectIsActive
     - name: TryActivateQuickFeet
       address:
         EU: 0x231587C
@@ -1907,9 +3454,9 @@ overlay29:
         return: Whether or not the status could be inflicted
     - name: TryInflictCoweringStatus
       address:
-        EU: 0x2315CCC
+        EU: 0x2315BCC
         NA: 0x231516C
-        JP: 0x2316744
+        JP: 0x2316644
       description: |-
         Inflicts the Cowering status condition on a target monster if possible.
         
@@ -1918,6 +3465,18 @@ overlay29:
         r2: flag to log a message on failure
         r3: flag to only perform the check for inflicting without actually inflicting
         return: Whether or not the status could be inflicted
+    - name: TryRestoreHp
+      address:
+        EU: 0x2315CCC
+        NA: 0x231526C
+        JP: 0x2316744
+      description: |-
+        Restore HP of the target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: HP to restore
+        return: success flag
     - name: TryIncreaseHp
       address:
         EU: 0x2315D44
@@ -1932,6 +3491,36 @@ overlay29:
         r3: max HP boost
         stack[0]: flag to log a message on failure
         return: Success flag
+    - name: RevealItems
+      address:
+        EU: 0x2316070
+        NA: 0x2315610
+        JP: 0x2316AE8
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: RevealStairs
+      address:
+        EU: 0x2316100
+        NA: 0x23156A0
+        JP: 0x2316B78
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: RevealEnemies
+      address:
+        EU: 0x23161BC
+        NA: 0x231575C
+        JP: 0x2316C34
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: user entity pointer
+        r1: target entity pointer
     - name: TryInflictLeechSeedStatus
       address:
         EU: 0x231624C
@@ -1952,6 +3541,28 @@ overlay29:
         JP: 0x2316F28
       description: |-
         Inflicts the Destiny Bond status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: TryInvisify
+      address:
+        EU: 0x2316FDC
+        NA: 0x231657C
+      description: |-
+        Attempts to turn the target invisible.
+        
+        The user pointer is only used when calling LogMessage functions.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: TryTransform
+      address:
+        EU: 0x2317C7C
+        NA: 0x231721C
+      description: |-
+        Attempts to transform the target into the species of a random monster contained in the list returned by MonsterSpawnListPartialCopy.
+        
+        The user pointer is only used when calling LogMessage functions.
         
         r0: user entity pointer
         r1: target entity pointer
@@ -1999,6 +3610,25 @@ overlay29:
         
         r0: entity pointer
         return: bool
+    - name: TryResetStatChanges
+      address:
+        NA: 0x2319624
+      description: |-
+        Tries to reset the stat changes of the defender.
+        
+        r0: attacker entity pointer
+        r1: defender entity pointer
+        r3: bool to force animation
+    - name: MirrorMoveIsActive
+      address:
+        NA: 0x2319748
+      description: |-
+        Checks if the monster is under the effect of Mirror Move.
+        
+        Returns 1 if the effects is a status, 2 if it comes from an exclusive item, 0 otherwise.
+        
+        r0: pointer to entity
+        return: int
     - name: Conversion2IsActive
       address:
         EU: 0x231A274
@@ -2015,6 +3645,7 @@ overlay29:
       address:
         EU: 0x231A2E0
         NA: 0x2319880
+        JP: 0x231AD50
       description: |-
         The AI uses this function to check if a move has any potential targets, to calculate the list of potential targets and to calculate the move's special weight.
         This weight will be higher if the pokémon has weak-type picker and the target is weak to the move (allies only, enemies always get a result of 1 even if the move is super effective). More things could affect the result.
@@ -2029,6 +3660,7 @@ overlay29:
       address:
         EU: 0x231AA10
         NA: 0x2319FB0
+        JP: 0x231B480
       description: |-
         Checks if the specified target is eligible to be targeted by the AI and if so adds it to the list of targets. This function also fills an array that seems to contain the directions in which the user should turn to look at each of the targets in the list, as well as a third unknown array.
         
@@ -2043,6 +3675,7 @@ overlay29:
       address:
         EU: 0x231AB04
         NA: 0x231A0A4
+        JP: 0x231B574
       description: |-
         Checks if a given target is eligible to be targeted by the AI with a certain move
         
@@ -2067,6 +3700,16 @@ overlay29:
         r1: target pointer
         r2: direction ID
         r3: move range (in number of tiles)
+    - name: ShouldUsePp
+      address:
+        EU: 0x231B200
+        NA: 0x231A7A0
+        JP: 0x231BC70
+      description: |-
+        Checks if a monster should use PP when using a move. It also displays the corresponding animation if PP Saver triggers and prints the required messages to the message log.
+        
+        r0: entity pointer
+        return: True if the monster should not use PP, false if it should.
     - name: GetEntityMoveTargetAndRange
       address:
         EU: 0x231B70C
@@ -2079,6 +3722,57 @@ overlay29:
         r1: move pointer
         r2: AI flag (same as GetMoveTargetAndRange)
         return: move target and range
+    - name: GetEntityNaturalGiftInfo
+      address:
+        EU: 0x231B8F0
+        NA: 0x231AE90
+        JP: 0x231C360
+      description: |-
+        Gets the relevant entry in NATURAL_GIFT_ITEM_TABLE based on the entity's held item, if possible.
+        
+        r0: entity pointer
+        return: pointer to a struct natural_gift_item_info, or null if none was found
+    - name: GetEntityWeatherBallType
+      address:
+        EU: 0x231B96C
+        NA: 0x231AF0C
+        JP: 0x231C3DC
+      description: |-
+        Gets the current Weather Ball type for the given entity, based on the apparent weather.
+        
+        r0: entity pointer
+        return: type ID
+    - name: IsInSpawnList
+      address:
+        EU: 0x231BE5C
+        NA: 0x231B3FC
+        JP: 0x231C8C8
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: spawn_list_ptr
+        r1: monster ID
+        return: bool
+    - name: ChangeShayminForme
+      address:
+        EU: 0x231BF4C
+        NA: 0x231B4EC
+        JP: 0x231C9B8
+      description: |-
+        forme:
+          1: change from Land to Sky
+          2: change from Sky to Land
+        result:
+          0: not Shaymin
+          1: not correct Forme
+          2: frozen
+          3: ok
+        
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: Target
+        r1: forme
+        return: result
     - name: ApplyItemEffect
       address:
         EU: 0x231C0EC
@@ -2112,6 +3806,48 @@ overlay29:
         r1: target entity pointer
         r2: Gummi type ID
         r3: Stat boost amount, if a random stat boost occurs
+    - name: CanMonsterUseItem
+      address:
+        EU: 0x231DF0C
+        NA: 0x231D4A4
+      description: |-
+        Checks whether a monster can use a certain item.
+        
+        Returns false if the item is sticky, or if the monster is under the STATUS_MUZZLED status and the item is edible.
+        Also prints failure messages if required.
+        
+        r0: Monster entity pointer
+        r1: Item pointer
+        return: True if the monster can use the item, false otherwise
+    - name: ApplyGrimyFoodEffect
+      address:
+        NA: 0x231D534
+      description: |-
+        Randomly inflicts poison, shadow hold, burn, paralysis, or an offensive stat debuff
+        to the target. If the survivalist iq skill or gluttony ability is active, the target
+        has a 50% chance not to be affected.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: ApplyMixElixirEffect
+      address:
+        NA: 0x231D680
+      description: |-
+        If the target monster is a Linoone, restores all the PP of all the target's moves.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: ShouldTryEatItem
+      address:
+        EU: 0x231F3F8
+        NA: 0x231E990
+      description: |-
+        Checks if a given item should be eaten by the TryEatItem effect.
+        
+        Returns false if the ID is lower than 0x45, greater than 0x8A or if it's listed in the EAT_ITEM_EFFECT_IGNORE_LIST array.
+        
+        r0: Item ID
+        return: True if the item should be eaten by TryEatItem.
     - name: GetMaxPpWrapper
       address:
         EU: 0x231F458
@@ -2132,6 +3868,26 @@ overlay29:
         
         r0: move ID
         return: bool
+    - name: CategoryIsNotPhysical
+      address:
+        EU: 0x231F498
+        NA: 0x231EA30
+        JP: 0x231FEDC
+      description: |-
+        Checks that a move category is not CATEGORY_PHYSICAL.
+        
+        r0: move category ID
+        return: bool
+    - name: TryDrought
+      address:
+        EU: 0x231FFFC
+        NA: 0x231F594
+      description: |-
+        Attempts to drain all water from the current floor.
+        
+        Fails if orbs are disabled on the floor or if the current tileset has the is_water_tileset flag set.
+        
+        r0: user pointer
     - name: TryPounce
       address:
         EU: 0x2320688
@@ -2156,6 +3912,36 @@ overlay29:
         r0: user entity pointer
         r1: target entity pointer
         r2: direction ID
+    - name: TryExplosion
+      address:
+        EU: 0x2320EB0
+        NA: 0x2320448
+      description: |-
+        Creates an explosion if possible.
+        
+        The target monster is considered the source of the explosion.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: coordinates where the explosion should take place (center)
+        r3: explosion radius (only works correctly with 1 and 2)
+        stack[0]: damage type
+        stack[1]: damage source
+    - name: TryAftermathExplosion
+      address:
+        EU: 0x23211F0
+        NA: 0x2320788
+      description: |-
+        Creates the explosion for the ability aftermath if possible.
+        
+        The target monster is considered the source of the explosion.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: coordinates where the explosion should take place (center)
+        r3: explosion radius (only works correctly with 1 and 2)
+        stack[0]: damage type
+        stack[1]: damage source (normally DAMAGE_SOURCE_EXPLOSION)
     - name: TryWarp
       address:
         EU: 0x2321770
@@ -2168,18 +3954,96 @@ overlay29:
         r1: target entity pointer
         r2: warp type
         r3: position (if warp type is position-based)
+    - name: TryActivateNondamagingDefenderAbility
+      address:
+        NA: 0x2321A78
+      description: |-
+        Applies the effects of a defender's ability on an attacker. After a move is used,
+        this function is called to see if any of the bitflags for an ability were set and
+        applies the corresponding effect. (The way leech seed removes certain statuses is
+        also handled here.)
+        
+        r0: entity pointer
+    - name: TryActivateNondamagingDefenderExclusiveItem
+      address:
+        NA: 0x2321CF0
+      description: |-
+        Applies the effects of a defender's item on an attacker. After a move is used,
+        this function is called to see if any of the bitflags for an item were set and
+        applies the corresponding effect.
+        
+        r0: attacker entity pointer
+        r1: defender entity pointer
+    - name: GetMoveRangeDistance
+      address:
+        EU: 0x2322D0C
+        NA: 0x23222A4
+      description: |-
+        Returns the maximum reach distance of a move, based on its AI range value.
+        
+        If the move doesn't have an AI range value of RANGE_FRONT_10, RANGE_FRONT_WITH_CORNER_CUTTING or RANGE_FRONT_2_WITH_CORNER_CUTTING, returns 0.
+        If r2 is true, the move is a two-turn move and the user isn't charging said move, returns 0.
+        
+        r0: User entity pointer
+        r1: Move pointer
+        r2: True to perform the two-turn move check
+        return: Maximum reach distance of the move, in tiles.
     - name: MoveHitCheck
       address:
         EU: 0x23246B0
         NA: 0x2323C48
+        JP: 0x23250E8
       description: |-
         Determines if a move used hits or misses the target. It gets called twice per target, once with r3 = false and a second time with r3 = true.
         
         r0: Attacker
         r1: Defender
         r2: Pointer to move data
-        r3: True if the move's first accuracy (accuracy1) should be used, false if its second accuracy (accuracy2) should be used instead.
+        r3: False if the move's first accuracy (accuracy1) should be used, true if its second accuracy (accuracy2) should be used instead.
+        stack[0]: If true, always hit if the attacker and defender are the same. Otherwise, moves can miss no matter what the attacker and defender are.
         returns: True if the move hits, false if it misses.
+    - name: IsHyperBeamVariant
+      address:
+        EU: 0x2324F9C
+        NA: 0x2324534
+        JP: 0x23259C4
+      description: |-
+        Checks if a move is a Hyper Beam variant that requires a a turn to recharge.
+        
+        Include moves: Frenzy Plant, Hydro Cannon, Hyper Beam, Blast Burn, Rock Wrecker, Giga Impact, Roar of Time
+        
+        r0: move
+        return: bool
+    - name: IsChargingTwoTurnMove
+      address:
+        EU: 0x232500C
+        NA: 0x23245A4
+      description: |-
+        Checks if a monster is currently charging the specified two-turn move.
+        
+        r0: User entity pointer
+        r1: Move pointer
+        return: True if the user is charging the specified two-turn move, false otherwise.
+    - name: HasMaxGinsengBoost99
+      address:
+        EU: 0x2325200
+        NA: 0x2324798
+        JP: 0x2325C28
+      description: |-
+        Checks if a move has a max Ginseng boost value of 99
+        
+        r0: Move
+        return: True if the move's max Ginseng boost is 99, false otherwise.
+    - name: TwoTurnMoveForcedMiss
+      address:
+        EU: 0x23252BC
+        NA: 0x2324854
+      description: |-
+        Checks if a move should miss a monster due to the monster being in the middle of Fly, Bounce, Dive, Dig, Shadow Force, or some other two-turn move that grants pseudo-invincibility.
+        
+        r0: entity pointer
+        r1: move
+        return: true if the move should miss
     - name: DungeonRandOutcomeUserTargetInteraction
       address:
         EU: 0x232539C
@@ -2193,6 +4057,7 @@ overlay29:
         r0: user entity pointer
         r1: target entity pointer
         r2: base success percentage (100*p). 0 is treated specially and guarantees success.
+        returns: True if the random check passed, false otherwise.
     - name: DungeonRandOutcomeUserAction
       address:
         EU: 0x2325488
@@ -2205,10 +4070,12 @@ overlay29:
         
         r0: entity pointer
         r1: base success percentage (100*p). 0 is treated specially and guarantees success.
+        returns: True if the random check passed, false otherwise.
     - name: CanAiUseMove
       address:
         EU: 0x23254DC
         NA: 0x2324A74
+        JP: 0x2325F00
       description: |-
         Checks if an AI-controlled monster can use a move.
         Will return false if the any of the flags move::f_exists, move::f_subsequent_in_link_chain or move::f_disabled is true. The function does not check if the flag move::f_enabled_for_ai is set. This function also returns true if the call to CanMonsterUseMove is true.
@@ -2222,6 +4089,7 @@ overlay29:
       address:
         EU: 0x232558C
         NA: 0x2324B24
+        JP: 0x2325FB0
       description: |-
         Checks if a monster can use the given move.
         Will always return true for the regular attack. Will return false if the move if the flag move::f_disabled is true, if the flag move::f_sealed is true. More things will be checked if the extra_checks parameter is true.
@@ -2240,6 +4108,17 @@ overlay29:
         
         r0: entity pointer
         r1: flag for whether or not PP should be consumed
+    - name: GetDamageSourceWrapper
+      address:
+        EU: 0x23258AC
+        NA: 0x2324E44
+        JP: 0x23262D0
+      description: |-
+        Wraps GetDamageSource (in arm9) for a move info struct rather than a move ID.
+        
+        r0: move info pointer
+        r1: item ID
+        return: damage source
     - name: LowerSshort
       address:
         EU: 0x23258CC
@@ -2250,10 +4129,22 @@ overlay29:
         
         r0: 4-byte number x
         return: (short) x
+    - name: PlayMoveAnimation
+      address:
+        NA: 0x23256B4
+      description: |-
+        Handles the process of getting and playing all the animations for a move. Waits
+        until the animation has no more frames before returning.
+        
+        r0: Pointer to the entity that used the move
+        r1: Pointer to the entity that is the target
+        r2: Move pointer
+        r3: position
     - name: GetMoveAnimationId
       address:
         EU: 0x2326578
         NA: 0x2325B10
+        JP: 0x2326F9C
       description: |-
         Returns the move animation ID that should be played for a move.
         It contains a check for weather ball. After that, if the parameter should_play_alternative_animation is false, the move ID is returned. If it's true, there's a bunch of manual ID checks that result on a certain hardcoded return value.
@@ -2266,29 +4157,18 @@ overlay29:
       address:
         EU: 0x23266E0
         NA: 0x2325C78
+        JP: 0x2327104
       description: |-
         Checks whether a moved used by a monster should play its alternative animation. Includes checks for Curse, Snore, Sleep Talk, Solar Beam and 2-turn moves.
         
         r0: Pointer to the entity that used the move
         r1: Move pointer
         return: True if the move should play its alternative animation
-    - name: DealDamageWithRecoil
-      address:
-        EU: 0x23289A0
-        NA: 0x2327F34
-        JP: 0x23293BC
-      description: |-
-        Deals damage from a move or item used by an attacking monster on a defending monster, and also deals recoil damage to the attacker.
-        
-        r0: attacker pointer
-        r1: defender pointer
-        r2: move
-        r3: item ID
-        return: bool, whether or not damage was dealt
     - name: ExecuteMoveEffect
       address:
         EU: 0x232F2A4
         NA: 0x232E864
+        JP: 0x232FC60
       description: |-
         Handles the effects that happen after a move is used. Includes a loop that is run for each target, mutiple ability checks and the giant switch statement that executes the effect of the move used given its ID.
         
@@ -2297,6 +4177,19 @@ overlay29:
         r2: pointer to move data
         r3: ?
         stack[0]: ?
+    - name: DoMoveDamageInlined
+      address:
+        EU: 0x23334B0
+        NA: 0x2332A70
+        JP: 0x2333E60
+      description: |-
+        Exactly the same as DoMoveDamage, except it appears DealDamage was inlined.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether or not damage was dealt
     - name: DealDamage
       address:
         EU: 0x2333560
@@ -2311,35 +4204,73 @@ overlay29:
         r3: damage multiplier (as a binary fixed-point number with 8 fraction bits)
         stack[0]: item ID
         return: amount of damage dealt
-    - name: CalcDamageProjectile
+    - name: DealDamageWithTypeAndPowerBoost
+      address:
+        EU: 0x23335F8
+        NA: 0x2332BB8
+        JP: 0x2333FA8
+      description: |-
+        Same as DealDamage, except with an explicit move type and a base power boost.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: damage multiplier (as a binary fixed-point number with 8 fraction bits)
+        stack[0]: item ID
+        stack[1]: move type
+        stack[2]: base power boost
+        return: amount of damage dealt
+    - name: DealDamageProjectile
       address:
         EU: 0x233368C
         NA: 0x2332C4C
         JP: 0x233403C
       description: |-
-        Appears to calculate damage from a variable-damage projectile.
+        Deals damage from a variable-damage projectile.
         
         r0: entity pointer 1?
         r1: entity pointer 2?
         r2: move pointer
         r3: move power
-        others: ?
-    - name: CalcDamageFinal
+        stack[0]: damage multiplier (as a binary fixed-point number with 8 fraction bits)
+        stack[1]: item ID of the projectile
+        return: Calculated damage
+    - name: DealDamageWithType
+      address:
+        EU: 0x233371C
+        NA: 0x2332CDC
+        JP: 0x23340CC
+      description: |-
+        Same as DealDamage, except with an explicit move type.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move type
+        r3: move
+        stack[0]: damage multiplier (as a binary fixed-point number with 8 fraction bits)
+        stack[1]: item ID
+        return: amount of damage dealt
+    - name: PerformDamageSequence
       address:
         EU: 0x23337AC
         NA: 0x2332D6C
+        JP: 0x233415C
       description: |-
-        Last function called by DealDamage to determine the final damage dealt by the move. The result of this call is the return value of DealDamage. 
+        Performs the "damage sequence" given the results of the damage calculation. This includes running the accuracy roll with MoveHitCheck, calling ApplyDamageAndEffects, and some other miscellaneous bits of state bookkeeping (including handling the effects of Illuminate).
+        
+        This is the last function called by DealDamage. The result of this call is the return value of DealDamage and its relatives.
         
         r0: Attacker pointer
         r1: Defender pointer
         r2: Move pointer
-        r3: ?
-        stack[0]: Pointer to some struct. The first byte contains the ID of the move used.
+        r3: [output] struct containing info about the damage calculation
+        stack[0]: Damage source
+        return: Calculated damage
     - name: StatusCheckerCheck
       address:
         EU: 0x2333AB4
         NA: 0x2333074
+        JP: 0x2334460
       description: |-
         Determines if using a given move against its intended targets would be redundant because all of them already have the effect caused by said move.
         
@@ -2365,6 +4296,83 @@ overlay29:
         Tries to change a monster into one of its weather-related alternative forms. Applies to Castform and Cherrim, and checks for their unique abilities.
         
         r0: pointer to entity
+    - name: ActivateSportCondition
+      address:
+        EU: 0x2335E8C
+        NA: 0x233544C
+        JP: 0x2336838
+      description: |-
+        Activates the Mud Sport or Water Sport condition on the dungeon floor for some number of turns.
+        
+        r0: water sport flag (false for Mud Sport, true for Water Sport)
+    - name: TryActivateWeather
+      address:
+        EU: 0x2335F04
+        NA: 0x23354C4
+      description: |-
+        Tries to change the weather based upon the information for each weather type in the
+        dungeon struct. Returns whether the weather was succesfully changed or not.
+        
+        r0: bool to not play the weather change animation?
+        r1: bool to force weather change? Like play the animation and text for the weather?
+        return: True if the weather changed
+    - name: DigitCount
+      address:
+        EU: 0x23360B0
+        NA: 0x2335670
+        JP: 0x2336A5C
+      description: |-
+        Counts the number of digits in a nonnegative integer.
+        
+        If the number is negative, it is cast to a uint16_t before counting digits.
+        
+        r0: int
+        return: number of digits in int
+    - name: LoadTextureUi
+      address:
+        EU: 0x2336100
+        NA: 0x23356C0
+        JP: 0x2336AAC
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        No params.
+    - name: DisplayNumberTextureUi
+      address:
+        EU: 0x23362CC
+        NA: 0x2335880
+        JP: 0x2336C50
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: x position
+        r1: y position
+        r2: number
+        r3: ally_mode
+        return: xsize
+    - name: DisplayCharTextureUi
+      address:
+        EU: 0x23363D4
+        NA: 0x2335988
+        JP: 0x2336D58
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: call_back_str
+        r1: x position
+        r2: y position
+        r3: char_id
+        stack[0]: ?
+        return: ?
+    - name: DisplayUi
+      address:
+        EU: 0x233645C
+        NA: 0x2335A10
+        JP: 0x2336DE0
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        No params.
     - name: GetTile
       address:
         EU: 0x2336CCC
@@ -2387,14 +4395,81 @@ overlay29:
         r0: x position
         r1: y position
         return: tile pointer
+    - name: IsFullFloorFixedRoom
+      address:
+        EU: 0x2336DA4
+        NA: 0x23361D4
+        JP: 0x23375A4
+      description: |-
+        Checks if the current fixed room on the dungeon generation info corresponds to a fixed, full-floor layout.
+        
+        The first non-full-floor fixed room is 0xA5, which is for Sealed Chambers.
+        
+        return: bool
     - name: GetStairsRoom
       address:
         EU: 0x2336FF8
         NA: 0x2336428
+        JP: 0x23377F8
       description: |-
         Returns the index of the room that contains the stairs
         
         return: Room index
+    - name: UpdateTrapsVisibility
+      address:
+        EU: 0x2337B1C
+        NA: 0x2336F4C
+      description: |-
+        Exact purpose unknown. Gets called whenever a trap tile is shown or hidden.
+        
+        No params.
+    - name: DiscoverMinimap
+      address:
+        EU: 0x233860C
+        NA: 0x2337A3C
+      description: |-
+        Discovers the tiles around the specified position on the minimap.
+        
+        The discovery radius depends on the visibility range of the floor. If display_data::blinded is true, the function returns early without doing anything.
+        
+        r0: Position around which the map should be discovered
+    - name: IsWaterTileset
+      address:
+        EU: 0x2338A64
+        NA: 0x2337E94
+      description: |-
+        Returns flag tileset_property::is_water_tileset for the current tileset
+        
+        return: True if the current tileset is a water tileset
+    - name: GetRandomSpawnMonsterID
+      address:
+        EU: 0x2338B68
+        NA: 0x2337F98
+        JP: 0x233935C
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        return: monster ID?
+    - name: NearbyAllyIqSkillIsEnabled
+      address:
+        EU: 0x2338E58
+        NA: 0x2338288
+        JP: 0x233964C
+      description: |-
+        Appears to check whether or not the given monster has any allies nearby (within 1 tile) that have the given IQ skill active.
+        
+        r0: entity pointer
+        r1: IQ skill ID
+        return: bool
+    - name: ResetGravity
+      address:
+        EU: 0x2338F3C
+        NA: 0x233836C
+        JP: 0x2339730
+      description: |-
+        Resets gravity (and the byte after it?) in the dungeon struct back to 0.
+        
+        No params.
     - name: GravityIsActive
       address:
         EU: 0x2338F60
@@ -2403,6 +4478,31 @@ overlay29:
         Checks if gravity is active on the floor.
         
         return: bool
+    - name: ShouldBoostKecleonShopSpawnChance
+      address:
+        EU: 0x2339090
+        NA: 0x23384C0
+      description: |-
+        Gets the boost_kecleon_shop_spawn_chance field on the dungeon struct.
+        
+        return: bool
+    - name: SetShouldBoostKecleonShopSpawnChance
+      address:
+        EU: 0x23390A8
+        NA: 0x23384D8
+      description: |-
+        Sets the boost_kecleon_shop_spawn_chance field on the dungeon struct to the given value.
+        
+        r0: bool to set the flag to
+    - name: UpdateShouldBoostKecleonShopSpawnChance
+      address:
+        EU: 0x23390C0
+        NA: 0x23384F0
+        JP: 0x23398B4
+      description: |-
+        Sets the boost_kecleon_shop_spawn_chance field on the dungeon struct depending on if a team member has the exclusive item effect for more kecleon shops.
+        
+        No params.
     - name: IsSecretBazaar
       address:
         EU: 0x2339194
@@ -2411,6 +4511,31 @@ overlay29:
         Checks if the current floor is the Secret Bazaar.
         
         return: bool
+    - name: ShouldBoostHiddenStairsSpawnChance
+      address:
+        EU: 0x23391BC
+        NA: 0x23385EC
+      description: |-
+        Gets the boost_hidden_stairs_spawn_chance field on the dungeon struct.
+        
+        return: bool
+    - name: SetShouldBoostHiddenStairsSpawnChance
+      address:
+        EU: 0x23391D4
+        NA: 0x2338604
+      description: |-
+        Sets the boost_hidden_stairs_spawn_chance field on the dungeon struct to the given value.
+        
+        r0: bool to set the flag to
+    - name: UpdateShouldBoostHiddenStairsSpawnChance
+      address:
+        EU: 0x23391EC
+        NA: 0x233861C
+        JP: 0x23399E0
+      description: |-
+        Sets the boost_hidden_stairs_spawn_chance field on the dungeon struct depending on if a team member has the exclusive item effect for more hidden stairs.
+        
+        No params.
     - name: IsSecretRoom
       address:
         EU: 0x233922C
@@ -2428,6 +4553,26 @@ overlay29:
         Checks if the current floor is a secret bazaar or a secret room.
         
         return: bool
+    - name: HiddenStairsPresent
+      address:
+        EU: 0x23392A8
+        NA: 0x23386D8
+      description: |-
+        Checks if the hidden stairs are present on this floor.
+        
+        The function checks that dungeon_generation_info::hidden_stairs_pos isn't (-1, -1)
+        
+        return: True if the hidden stairs are present on this floor, false otherwise.
+    - name: HiddenStairsTrigger
+      address:
+        EU: 0x2339364
+        NA: 0x2338794
+      description: |-
+        Called whenever the leader steps on the hidden stairs.
+        
+        If the stairs hadn't been revealed yet, plays the corresponding animation.
+        
+        r0: True to display a message if the stairs are revealed, false to omit it.
     - name: GetDungeonGenInfoUnk0C
       address:
         EU: 0x2339450
@@ -2441,10 +4586,28 @@ overlay29:
         Returns a pointer to the minimap_display_data struct in the dungeon struct.
         
         return: minimap_display_data*
+    - name: DrawMinimapTile
+      address:
+        EU: 0x2339DBC
+        NA: 0x23391EC
+      description: |-
+        Draws a single tile on the minimap.
+        
+        r0: X position
+        r1: Y position
+    - name: UpdateMinimap
+      address:
+        EU: 0x233A8B8
+        NA: 0x2339CE8
+      description: |-
+        Graphically updates the minimap
+        
+        No params.
     - name: SetMinimapDataE447
       address:
         EU: 0x233ADE8
         NA: 0x233A218
+        JP: 0x233B5DC
       description: |-
         Sets minimap_display_data::field_0xE447 to the specified value
         
@@ -2460,10 +4623,28 @@ overlay29:
       address:
         EU: 0x233AE14
         NA: 0x233A230
+        JP: 0x233B5F4
       description: |-
         Sets minimap_display_data::field_0xE448 to the specified value
         
         r0: Value to set the field to
+    - name: InitWeirdMinimapMatrix
+      address:
+        EU: 0x233AE74
+        NA: 0x233A290
+      description: |-
+        Initializes the matrix at minimap_display_data+0xE000. Seems to overflow said matrix when doing so.
+        
+        No params.
+    - name: InitMinimapDisplayTile
+      address:
+        EU: 0x233AED4
+        NA: 0x233A2F0
+      description: |-
+        Used to initialize an instance of struct minimap_display_tile
+        
+        r0: Pointer to struct to init
+        r1: Seems to be a pointer to the file that stores minimap icons or something like that
     - name: LoadFixedRoomDataVeneer
       address:
         EU: 0x233B208
@@ -2523,6 +4704,15 @@ overlay29:
         Compute a pseudorandom integer on the interval [0, 100) using the dungeon PRNG.
         
         return: pseudorandom integer
+    - name: ClearHiddenStairs
+      address:
+        EU: 0x233BA78
+        NA: 0x233AE94
+        JP: 0x233C258
+      description: |-
+        Clears the tile (terrain and spawns) on which Hidden Stairs are spawned, if applicable.
+        
+        No params.
     - name: FlagHallwayJunctions
       address:
         EU: 0x233BAF0
@@ -3040,13 +5230,13 @@ overlay29:
         
         r0: spawn position array containing bytes {x1, y1, x2, y2, ...}
         r1: number of (x, y) pairs in the spawn position array
-    - name: SpawnNonEnemies
+    - name: MarkNonEnemySpawns
       address:
         EU: 0x2341930
         NA: 0x2340D4C
         JP: 0x234210C
       description: |-
-        Spawn all non-enemy entities, which includes stairs, items, traps, and the player.
+        Mark tiles for all non-enemy entities, which includes stairs, items, traps, and the player. Note that this only marks tiles; actual spawning is handled later.
         
         Most entities are spawned randomly on a subset of permissible tiles.
         
@@ -3060,13 +5250,13 @@ overlay29:
         
         r0: floor properties
         r1: empty Monster House flag. An empty Monster House is one with no items or traps, and only a small number of enemies.
-    - name: SpawnEnemies
+    - name: MarkEnemySpawns
       address:
         EU: 0x2342054
         NA: 0x2341470
         JP: 0x2342830
       description: |-
-        Spawn all enemies, which includes normal enemies and those in Monster Houses.
+        Mark tiles for all enemies, which includes normal enemies and those in Monster Houses. Note that this only marks tiles; actual spawning is handled later in SpawnInitialMonsters.
         
         Normal enemies can spawn on any tile that has open terrain, isn't in a Kecleon shop, doesn't already have another entity spawn, and isn't a special tile like a Key door.
         
@@ -3129,6 +5319,15 @@ overlay29:
         Reset the inner boundary tile rows (y == 1 and y == 30) to their initial state of all wall tiles, with impassable walls at the edges (x == 0 and x == 55).
         
         No params.
+    - name: ResetImportantSpawnPositions
+      address:
+        EU: 0x234384C
+        NA: 0x2342C68
+        JP: 0x2344028
+      description: |-
+        Resets important spawn positions (the player, stairs, and hidden stairs) back to their default values.
+        
+        r0: dungeon generation info pointer (a field on the dungeon struct)
     - name: SpawnStairs
       address:
         EU: 0x2343870
@@ -3137,13 +5336,46 @@ overlay29:
       description: |-
         Spawn stairs at the given location.
         
-        If the hidden stairs flag is set, hidden stairs will be spawned instead of normal stairs.
+        If the hidden stairs type is something other than HIDDEN_STAIRS_NONE, hidden stairs of the specified type will be spawned instead of normal stairs.
         
         If spawning normal stairs and the current floor is a rescue floor, the room containing the stairs will be converted into a Monster House.
         
+        If attempting to spawn hidden stairs but the spawn is blocked, the floor generation status's hidden stairs spawn position will be updated, but it won't be transferred to the dungeon generation info struct.
+        
         r0: position (two-byte array for {x, y})
         r1: dungeon generation info pointer (a field on the dungeon struct)
-        r2: hidden stairs flag
+        r2: hidden stairs type
+    - name: GetHiddenStairsType
+      address:
+        EU: 0x2343980
+        NA: 0x2342D9C
+      description: |-
+        Gets the hidden stairs type for a given floor.
+        
+        This function reads the floor properties and resolves any randomness (such as HIDDEN_STAIRS_RANDOM_SECRET_BAZAAR_OR_SECRET_ROOM and the floor_properties::hidden_stairs_spawn_chance) into a concrete hidden stairs type.
+        
+        r0: dungeon generation info pointer
+        r1: floor properties pointer
+        return: enum hidden_stairs_type
+    - name: GetFinalKecleonShopSpawnChance
+      address:
+        NA: 0x2342EBC
+      description: |-
+        Gets the kecleon shop spawn chance for the floor.
+        
+        When dungeon::boost_kecleon_shop_spawn_chance is false, returns the same value as the input. When it's true, returns the input (chance * 1.2).
+        
+        r0: base kecleon shop spawn chance, floor_properties::kecleon_shop_spawn_chance
+        return: int
+    - name: ResetHiddenStairsSpawn
+      address:
+        EU: 0x2343AEC
+        NA: 0x2342F08
+        JP: 0x23442CC
+      description: |-
+        Resets hidden stairs spawn information for the floor. This includes the position on the floor generation status as well as the flag indicating whether the spawn was blocked.
+        
+        No params.
     - name: LoadFixedRoomData
       address:
         EU: 0x2344974
@@ -3153,6 +5385,154 @@ overlay29:
         Loads fixed room data from BALANCE/fixed.bin into the buffer pointed to by FIXED_ROOM_DATA_PTR.
         
         No params.
+    - name: LoadFixedRoom
+      address:
+        EU: 0x2344A04
+        NA: 0x2343E20
+        JP: 0x23451E4
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OpenFixedBin
+      address:
+        EU: 0x2344C38
+        NA: 0x2344054
+        JP: 0x2345418
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        No params.
+    - name: CloseFixedBin
+      address:
+        EU: 0x2344C6C
+        NA: 0x2344088
+        JP: 0x234544C
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        No params.
+    - name: AreOrbsAllowed
+      address:
+        EU: 0x2344C90
+        NA: 0x23440AC
+        JP: 0x2345470
+      description: |-
+        Checks if orbs are usable in the given fixed room.
+        
+        Always true if not a full-floor fixed room.
+        
+        r0: fixed room ID
+        return: bool
+    - name: AreTileJumpsAllowed
+      address:
+        EU: 0x2344CC0
+        NA: 0x23440DC
+        JP: 0x23454A0
+      description: |-
+        Checks if tile jumps (warping, being blown away, and leaping) are allowed in the given fixed room.
+        
+        Always true if not a full-floor fixed room.
+        
+        r0: fixed room ID
+        return: bool
+    - name: AreTrawlOrbsAllowed
+      address:
+        EU: 0x2344CF0
+        NA: 0x234410C
+        JP: 0x23454D0
+      description: |-
+        Checks if Trawl Orbs work in the given fixed room.
+        
+        Always true if not a full-floor fixed room.
+        
+        r0: fixed room ID
+        return: bool
+    - name: AreOrbsAllowedVeneer
+      address:
+        EU: 0x2344D20
+        NA: 0x234413C
+        JP: 0x2345500
+      description: |-
+        Likely a linker-generated veneer for InitMemAllocTable.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
+        
+        r0: fixed room ID
+        return: bool
+    - name: AreLateGameTrapsEnabled
+      address:
+        EU: 0x2344D2C
+        NA: 0x2344148
+        JP: 0x234550C
+      description: |-
+        Check if late-game traps (Summon, Pitfall, and Pokémon traps) work in the given fixed room.
+        
+        Or disabled? This function, which Irdkwia's notes label as a disable check, check the struct field labeled in End's notes as an enable flag.
+        
+        r0: fixed room ID
+        return: bool
+    - name: AreMovesEnabled
+      address:
+        EU: 0x2344D44
+        NA: 0x2344160
+        JP: 0x2345524
+      description: |-
+        Checks if moves (excluding the regular attack) are usable in the given fixed room.
+        
+        r0: fixed room ID
+        return: bool
+    - name: IsRoomIlluminated
+      address:
+        EU: 0x2344D5C
+        NA: 0x2344178
+        JP: 0x234553C
+      description: |-
+        Checks if the given fixed room is fully illuminated.
+        
+        r0: fixed room ID
+        return: bool
+    - name: GetMatchingMonsterId
+      address:
+        EU: 0x2344D74
+        NA: 0x2344190
+        JP: 0x2345554
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: monster ID
+        r1: ?
+        r2: ?
+        return: monster ID
+    - name: GenerateItemExplicit
+      address:
+        EU: 0x2344F98
+        NA: 0x23443B4
+        JP: 0x2345778
+      description: |-
+        Initializes an item struct with the given information.
+        
+        This calls InitStandardItem, then explicitly sets the quantity and stickiness. If quantity == 0 for Poké, GenerateCleanItem is used instead.
+        
+        r0: pointer to item to initialize
+        r1: item ID
+        r2: quantity
+        r3: sticky flag
+    - name: GenerateAndSpawnItem
+      address:
+        EU: 0x2345014
+        NA: 0x2344430
+        JP: 0x23457F4
+      description: |-
+        A convenience function that generates an item with GenerateItemExplicit, then spawns it with SpawnItem.
+        
+        If the check-in-bag flag is set and the player's bag already contains an item with the given ID, a Reviver Seed will be spawned instead.
+        
+        It seems like this function is only ever called in one place, with an item ID of 0x49 (Reviver Seed).
+        
+        r0: item ID
+        r1: x position
+        r2: y position
+        r3: quantity
+        stack[0]: sticky flag
+        stack[1]: check-in-bag flag
     - name: IsHiddenStairsFloor
       address:
         EU: 0x23450F0
@@ -3162,6 +5542,90 @@ overlay29:
         Checks if the current floor is either the Secret Bazaar or a Secret Room.
         
         return: bool
+    - name: GenerateStandardItem
+      address:
+        EU: 0x23457B4
+        NA: 0x2344BD0
+        JP: 0x2345F94
+      description: |-
+        Wrapper around GenerateItem with quantity set to 0
+        
+        r0: pointer to item to initialize
+        r1: item ID
+        r2: stickiness type
+    - name: GenerateCleanItem
+      address:
+        EU: 0x23457C8
+        NA: 0x2344BE4
+        JP: 0x2345FA8
+      description: |-
+        Wrapper around GenerateItem with quantity set to 0 and stickiness type set to SPAWN_STICKY_NEVER.
+        
+        r0: pointer to item to initialize
+        r1: item ID
+    - name: TryLeaderItemPickUp
+      address:
+        EU: 0x2345C40
+        NA: 0x2345058
+        JP: 0x234641C
+      description: |-
+        Checks the tile at the specified position and determines if the leader should pick up an item.
+        
+        r0: position
+        r1: flag for whether or not a message should be logged upon the leader failing to obtain the item
+    - name: SpawnItem
+      address:
+        EU: 0x2346120
+        NA: 0x2345538
+        JP: 0x23468FC
+      description: |-
+        Spawns an item on the floor. Fails if there are more than 64 items already on the floor.
+        
+        This calls SpawnItemEntity, fills in the item info struct, sets the entity to be visible, binds the entity to the tile it occupies, updates the n_items counter on the dungeon struct, and various other bits of bookkeeping.
+        
+        r0: position
+        r1: item pointer
+        r2: some flag?
+        return: success flag
+    - name: SpawnEnemyItemDropWrapper
+      address:
+        EU: 0x2346628
+        NA: 0x2345A3C
+        JP: 0x2346E00
+      description: |-
+        Wraps SpawnEnemyItemDrop in a more convenient interface.
+        
+        r0: entity
+        r1: position
+        r2: item
+        r3: ?
+    - name: SpawnEnemyItemDrop
+      address:
+        EU: 0x23466C4
+        NA: 0x2345AD8
+        JP: 0x2346E9C
+      description: |-
+        Appears to spawn an enemy item drop at a specified location, with a log message.
+        
+        r0: entity
+        r1: item entity
+        r2: item info
+        r3: ?
+        stack[0]: pointer to int16_t[2] for x/y direction (corresponding to DIRECTIONS_XY)
+        stack[1]: ?
+    - name: TryGenerateUnownStoneDrop
+      address:
+        EU: 0x2346C4C
+        NA: 0x2346060
+        JP: 0x2347424
+      description: |-
+        Determine if a defeated monster should drop a Unown Stone, and generate the item if so.
+        
+        Checks that the current dungeon isn't a Marowak Dojo training maze, and that the monster is an Unown. If so, there's a 21% chance that an Unown Stone will be generated.
+        
+        r0: [output] item
+        r1: monster ID
+        return: whether or not an Unown Stone was generated
     - name: HasHeldItem
       address:
         EU: 0x23473D0
@@ -3173,12 +5637,74 @@ overlay29:
         r0: entity pointer
         r1: item ID
         return: bool
+    - name: GenerateMoneyQuantity
+      address:
+        EU: 0x2347420
+        NA: 0x2346834
+        JP: 0x2347BE4
+      description: |-
+        Set the quantity code on an item (assuming it's Poké), given some maximum acceptable money amount.
+        
+        r0: item pointer
+        r1: max money amount (inclusive)
+    - name: CheckTeamItemsFlags
+      address:
+        EU: 0x23477CC
+        NA: 0x2346BD8
+        JP: 0x2347F8C
+      description: |-
+        Checks whether any of the items in the bag or any of the items carried by team members has any of the specified flags set in its flags field.
+        
+        r0: Flag(s) to check (0 = f_exists, 1 = f_in_shop, 2 = f_unpaid, etc.)
+        return: True if any of the items of the team has the specified flags set, false otherwise.
+    - name: GenerateItem
+      address:
+        EU: 0x2347EC4
+        NA: 0x23472C4
+        JP: 0x2348684
+      description: |-
+        Initializes an item struct with the given information.
+        
+        This wraps InitItem, but with extra logic to resolve the item's stickiness. It also calls GenerateMoneyQuantity for Poké.
+        
+        r0: pointer to item to initialize
+        r1: item ID
+        r2: quantity
+        r3: stickiness type (enum gen_item_stickiness)
+    - name: CheckActiveChallengeRequest
+      address:
+        EU: 0x2349D4C
+        NA: 0x234914C
+        JP: 0x234A474
+      description: |-
+        Checks if there's an active challenge request on the current dungeon.
+        
+        return: True if there's an active challenge request on the current dungeon in the list of missions.
+    - name: GetMissionDestination
+      address:
+        EU: 0x2349DA4
+        NA: 0x23491A4
+        JP: 0x234A4CC
+      description: |-
+        Returns the current mission destination on the dungeon struct.
+        
+        return: &dungeon::mission_destination
     - name: IsOutlawOrChallengeRequestFloor
       address:
         EU: 0x2349DC4
         NA: 0x23491C4
+        JP: 0x234A4EC
       description: |-
         Checks if the current floor is an active mission destination of type MISSION_TAKE_ITEM_FROM_OUTLAW, MISSION_ARREST_OUTLAW or MISSION_CHALLENGE_REQUEST.
+        
+        return: bool
+    - name: IsDestinationFloor
+      address:
+        EU: 0x2349E08
+        NA: 0x2349208
+        JP: 0x234A530
+      description: |-
+        Checks if the current floor is a mission destination floor.
         
         return: bool
     - name: IsCurrentMissionType
@@ -3249,6 +5775,17 @@ overlay29:
         See FloorHasMissionMonster for details.
         
         return: bool
+    - name: LoadMissionMonsterSprites
+      address:
+        EU: 0x2349FF8
+        NA: 0x23493F8
+        JP: 0x234A720
+      description: |-
+        Loads the sprites of monsters that appear on the current floor because of a mission, if applicable.
+        
+        This includes monsters to be rescued, outlaws and its minions.
+        
+        No params.
     - name: MissionTargetEnemyIsDefeated
       address:
         EU: 0x234A070
@@ -3355,6 +5892,24 @@ overlay29:
         
         r0: minion group index (0-indexed)
         return: monster ID
+    - name: SetTargetMonsterNotFoundFlag
+      address:
+        EU: 0x234A2C4
+        NA: 0x23496C4
+        JP: 0x234A9EC
+      description: |-
+        Sets dungeon::target_monster_not_found_flag to the specified value.
+        
+        r0: Value to set the flag to
+    - name: GetTargetMonsterNotFoundFlag
+      address:
+        EU: 0x234A2D8
+        NA: 0x23496D8
+        JP: 0x234AA00
+      description: |-
+        Gets the value of dungeon::target_monster_not_found_flag.
+        
+        return: dungeon::target_monster_not_found_flag
     - name: FloorHasMissionMonster
       address:
         EU: 0x234A348
@@ -3375,6 +5930,32 @@ overlay29:
         
         r0: mission destination info pointer
         return: bool
+    - name: GenerateMissionEggMonster
+      address:
+        EU: 0x234A4A0
+        NA: 0x23498A0
+        JP: 0x234AB90
+      description: |-
+        Generates the monster ID in the egg from the given mission. Uses the base form of the monster.
+        
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: mission struct
+    - name: LogMessageByIdWithPopupCheckParticipants
+      address:
+        EU: 0x234BE50
+        NA: 0x234B250
+        JP: 0x234C4C0
+      description: |-
+        Logs the appropriate message based on the participating entites; this function calls LogMessageByIdWithPopupCheckUserTarget is both the user and target pointers are non-null, otherwise it calls LogMessageByIdWithPopupCheckUser if the user pointer is non-null, otherwise doesn't log anything.
+        
+        This function also seems to set some global table entry to some value?
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: message ID
+        r3: index into some table?
+        stack[0]: value to set at the table index specified by r3?
     - name: LogMessageByIdWithPopupCheckUser
       address:
         EU: 0x234BEA4
@@ -3473,6 +6054,7 @@ overlay29:
       address:
         EU: 0x234C0BC
         NA: 0x234B4BC
+        JP: 0x234C72C
       description: |-
         Logs a message in the message log alongside a message popup.
         
@@ -3504,6 +6086,7 @@ overlay29:
       address:
         EU: 0x234C75C
         NA: 0x234BB5C
+        JP: 0x234CDC0
       description: |-
         Opens the message log window.
         
@@ -3524,6 +6107,7 @@ overlay29:
       address:
         EU: 0x234DAF0
         NA: 0x234CEF0
+        JP: 0x234E154
       description: |-
         Checks if a given dungeon tip should be displayed at the start of a floor and if so, displays it. Called up to 4 times at the start of each new floor, with a different r0 parameter each time.
         
@@ -3539,10 +6123,21 @@ overlay29:
         If you're in a special episode, they turn green , otherwise, they turn blue or pink depending on your character's sex
         
         No params
+    - name: GetPersonalityIndex
+      address:
+        EU: 0x234DBEC
+        NA: 0x234CFEC
+        JP: 0x234E250
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: monster pointer
+        return: ?
     - name: DisplayMessage
       address:
         EU: 0x234DE58
         NA: 0x234D258
+        JP: 0x234E4E4
       description: |-
         Displays a message in a dialogue box that optionally waits for player input before closing.
         
@@ -3553,11 +6148,26 @@ overlay29:
       address:
         EU: 0x234DEAC
         NA: 0x234D2AC
+        JP: 0x234E538
       description: Very similar to DisplayMessage
+    - name: YesNoMenu
+      address:
+        EU: 0x234E118
+        NA: 0x234D518
+        JP: 0x234E7A4
+      description: |-
+        Opens a menu where the user can choose "Yes" or "No" and waits for input before returning.
+        
+        r0: ?
+        r1: ID of the string to display in the textbox
+        r2: Option that the cursor will be on by default. 0 for "Yes", 1 for "No"
+        r3: ?
+        return: True if the user chooses "Yes", false if the user chooses "No"
     - name: DisplayMessageInternal
       address:
         EU: 0x234E190
         NA: 0x234D590
+        JP: 0x234E81C
       description: |-
         Called by DisplayMessage. Seems to be the function that handles the display of the dialogue box. It won't return until all the characters have been written and after the player manually closes the dialogue box (if the corresponding parameter was set).
         
@@ -3567,6 +6177,32 @@ overlay29:
         r3: ?
         stack[0]: ?
         stack[1]: ?
+    - name: OpenMenu
+      address:
+        EU: 0x234E9F4
+        NA: 0x234DDF4
+        JP: 0x234F080
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OthersMenuLoop
+      address:
+        EU: 0x23503CC
+        NA: 0x234F7C0
+        JP: 0x2350A40
+      description: |-
+        Called on each frame while the in-dungeon "others" menu is open.
+        
+        It contains a switch to determine whether an option has been chosen or not and a second switch that determines what to do depending on which option was chosen.
+        
+        return: int (Actually, this is probably some sort of enum shared by all the MenuLoop functions)
+    - name: OthersMenu
+      address:
+        EU: 0x2350630
+        NA: 0x234FA24
+        JP: 0x2350CA4
+      description: |-
+        Called when the in-dungeon "others" menu is open. Does not return until the menu is closed.
+        
+        return: Always 0
   data:
     - name: DUNGEON_STRUCT_SIZE
       address:
@@ -3580,6 +6216,22 @@ overlay29:
         EU: 0x4
         NA: 0x4
       description: Size of the dungeon struct (0x2CB14)
+    - name: MAX_HP_CAP
+      address:
+        EU:
+          - 0x22E4780
+          - 0x2312274
+          - 0x2318EB4
+        NA:
+          - 0x22E3DD0
+          - 0x230B7B8
+          - 0x2311814
+          - 0x2318454
+          - 0x2324020
+      length:
+        EU: 0x4
+        NA: 0x4
+      description: The maximum amount of HP a monster can have (999).
     - name: OFFSET_OF_DUNGEON_FLOOR_PROPERTIES
       address:
         EU:
@@ -3752,16 +6404,10 @@ overlay29:
         The base value by which belly is decreased every turn.
         
         Its raw value is 0x199A, which encodes a binary fixed-point number (16 fraction bits) with value (0x199A * 2^-16), and is the closest approximation to 0.1 representable in this number format.
-    - name: MAX_HP_CAP
+    - name: MONSTER_HEAL_HP_MAX
       address:
-        EU:
-          - 0x2312274
-          - 0x2318EB4
-        NA:
-          - 0x2311814
-          - 0x2318454
+        NA: 0x23152E0
       length:
-        EU: 0x4
         NA: 0x4
       description: The maximum amount of HP a monster can have (999).
     - name: MOVE_TARGET_AND_RANGE_SPECIAL_USER_HEALING
@@ -3799,6 +6445,12 @@ overlay29:
         EU: 0x4
         NA: 0x4
       description: Some value related to the Slip Seed (0xC75).
+    - name: ROCK_WRECKER_MOVE_ID
+      address:
+        NA: 0x23245A0
+      length:
+        NA: 0x4
+      description: The move ID for Rock Wrecker (453).
     - name: CASTFORM_NORMAL_FORM_MALE_ID
       address:
         EU: 0x2335E78
@@ -3988,22 +6640,39 @@ overlay29:
       address:
         EU: 0x23509DC
         NA: 0x234FDD0
+        JP: 0x2351050
       length:
         EU: 0x2C
         NA: 0x2C
+        JP: 0x2C
       description: |-
         Table of tiles that can spawn in fixed rooms, pointed into by the FIXED_ROOM_TILE_SPAWN_TABLE.
         
         This is an array of 11 4-byte entries containing info about one tile each. Info includes the trap ID if a trap, room ID, and flags.
         
         type: struct fixed_room_tile_spawn_entry[11]
+    - name: TREASURE_BOX_1_ITEM_IDS
+      address:
+        EU: 0x2350A08
+        NA: 0x234FDFC
+        JP: 0x235107C
+      length:
+        EU: 0x18
+        NA: 0x18
+        JP: 0x18
+      description: |-
+        Item IDs for variant 1 of each of the treasure box items (ITEM_*_BOX_1).
+        
+        type: struct item_id_16[12]
     - name: FIXED_ROOM_REVISIT_OVERRIDES
       address:
         EU: 0x2350A20
         NA: 0x234FE14
+        JP: 0x2351094
       length:
         EU: 0x100
         NA: 0x100
+        JP: 0x100
       description: |-
         Table of fixed room IDs, which if nonzero, overrides the normal fixed room ID for a floor (which is used to index the table) if the dungeon has already been cleared previously.
         
@@ -4014,9 +6683,11 @@ overlay29:
       address:
         EU: 0x2350B20
         NA: 0x234FF14
+        JP: 0x2351194
       length:
         EU: 0x1E0
         NA: 0x1E0
+        JP: 0x1E0
       description: |-
         Table of monsters that can spawn in fixed rooms, pointed into by the FIXED_ROOM_ENTITY_SPAWN_TABLE.
         
@@ -4027,9 +6698,11 @@ overlay29:
       address:
         EU: 0x2350D00
         NA: 0x23500F4
+        JP: 0x2351374
       length:
         EU: 0x1F8
         NA: 0x1F8
+        JP: 0x1F8
       description: |-
         Table of items that can spawn in fixed rooms, pointed into by the FIXED_ROOM_ENTITY_SPAWN_TABLE.
         
@@ -4040,15 +6713,137 @@ overlay29:
       address:
         EU: 0x2350EF8
         NA: 0x23502EC
+        JP: 0x2351374
       length:
         EU: 0xC9C
         NA: 0xC9C
+        JP: 0xC9C
       description: |-
         Table of entities (items, monsters, tiles) that can spawn in fixed rooms, which is indexed into by the main data structure for each fixed room.
         
         This is an array of 269 entries. Each entry contains 3 pointers (one into FIXED_ROOM_ITEM_SPAWN_TABLE, one into FIXED_ROOM_MONSTER_SPAWN_TABLE, and one into FIXED_ROOM_TILE_SPAWN_TABLE), and represents the entities that can spawn on one specific tile in a fixed room.
         
         type: struct fixed_room_entity_spawn_entry[269]
+    - name: STATUS_ICON_ARRAY_MUZZLED
+      address:
+        EU: 0x2351DC8
+        NA: 0x23511BC
+      length:
+        EU: 0x10
+        NA: 0x10
+      description: "Array of bit masks used to set monster::status_icon. Indexed by monster::statuses::muzzled * 8. See UpdateStatusIconFlags for details."
+    - name: STATUS_ICON_ARRAY_MAGNET_RISE
+      address:
+        EU: 0x2351DD8
+        NA: 0x23511CC
+      length:
+        EU: 0x10
+        NA: 0x10
+      description: "Array of bit masks used to set monster::status_icon. Indexed by monster::statuses::magnet_rise * 8. See UpdateStatusIconFlags for details."
+    - name: STATUS_ICON_ARRAY_MIRACLE_EYE
+      address:
+        EU: 0x2351DF8
+        NA: 0x23511EC
+      length:
+        EU: 0x18
+        NA: 0x18
+      description: "Array of bit masks used to set monster::status_icon. Indexed by monster::statuses::miracle_eye * 8. See UpdateStatusIconFlags for details."
+    - name: STATUS_ICON_ARRAY_LEECH_SEED
+      address:
+        EU: 0x2351E08
+        NA: 0x23511FC
+      length:
+        EU: 0x18
+        NA: 0x18
+      description: "Array of bit masks used to set monster::status_icon. Indexed by monster::statuses::leech_seed * 8. See UpdateStatusIconFlags for details."
+    - name: STATUS_ICON_ARRAY_LONG_TOSS
+      address:
+        EU: 0x2351E20
+        NA: 0x2351214
+      length:
+        EU: 0x18
+        NA: 0x18
+      description: "Array of bit masks used to set monster::status_icon. Indexed by monster::statuses::long_toss * 8. See UpdateStatusIconFlags for details."
+    - name: STATUS_ICON_ARRAY_BLINDED
+      address:
+        EU: 0x2351E78
+        NA: 0x235126C
+      length:
+        EU: 0x28
+        NA: 0x28
+      description: "Array of bit masks used to set monster::status_icon. Indexed by monster::statuses::blinded * 8. See UpdateStatusIconFlags for details."
+    - name: STATUS_ICON_ARRAY_BURN
+      address:
+        EU: 0x2351EA0
+        NA: 0x2351294
+      length:
+        EU: 0x28
+        NA: 0x28
+      description: "Array of bit masks used to set monster::status_icon. Indexed by monster::statuses::burn * 8. See UpdateStatusIconFlags for details."
+    - name: STATUS_ICON_ARRAY_SURE_SHOT
+      address:
+        EU: 0x2351EC8
+        NA: 0x23512BC
+      length:
+        EU: 0x28
+        NA: 0x28
+      description: "Array of bit masks used to set monster::status_icon. Indexed by monster::statuses::sure_shot * 8. See UpdateStatusIconFlags for details."
+    - name: STATUS_ICON_ARRAY_INVISIBLE
+      address:
+        EU: 0x2351EF0
+        NA: 0x23512E4
+      length:
+        EU: 0x28
+        NA: 0x28
+      description: "Array of bit masks used to set monster::status_icon. Indexed by monster::statuses::invisible * 8. See UpdateStatusIconFlags for details."
+    - name: STATUS_ICON_ARRAY_SLEEP
+      address:
+        EU: 0x2351F18
+        NA: 0x235130C
+      length:
+        EU: 0x40
+        NA: 0x40
+      description: "Array of bit masks used to set monster::status_icon. Indexed by monster::statuses::sleep * 8. See UpdateStatusIconFlags for details."
+    - name: STATUS_ICON_ARRAY_CURSE
+      address:
+        EU: 0x2351F48
+        NA: 0x235133C
+      length:
+        EU: 0x38
+        NA: 0x38
+      description: "Array of bit masks used to set monster::status_icon. Indexed by monster::statuses::curse * 8. See UpdateStatusIconFlags for details."
+    - name: STATUS_ICON_ARRAY_FREEZE
+      address:
+        EU: 0x2351F80
+        NA: 0x2351274
+      length:
+        EU: 0x40
+        NA: 0x40
+      description: "Array of bit masks used to set monster::status_icon. Indexed by monster::statuses::freeze * 8. See UpdateStatusIconFlags for details."
+    - name: STATUS_ICON_ARRAY_CRINGE
+      address:
+        EU: 0x2351FC0
+        NA: 0x23513B4
+      length:
+        EU: 0x40
+        NA: 0x40
+      description: "Array of bit masks used to set monster::status_icon. Indexed by monster::statuses::cringe * 8. See UpdateStatusIconFlags for details."
+    - name: STATUS_ICON_ARRAY_BIDE
+      address:
+        EU: 0x2352000
+        NA: 0x23513F4
+      length:
+        EU: 0x70
+        NA: 0x70
+      description: "Array of bit masks used to set monster::status_icon. Indexed by monster::statuses::bide * 8. See UpdateStatusIconFlags for details."
+    - name: STATUS_ICON_ARRAY_REFLECT
+      address:
+        EU: 0x2352100
+        NA: 0x23514F4
+      length:
+        EU: 0x90
+        NA: 0x90
+      description: "Array of bit masks used to set monster::status_icon. Indexed by monster::statuses::reflect * 8. See UpdateStatusIconFlags for details."
     - name: DIRECTIONS_XY
       address:
         EU: 0x2352328
@@ -4060,6 +6855,50 @@ overlay29:
         An array mapping each direction index to its x and y displacements.
         
         Directions start with 0=down and proceed counterclockwise (see enum direction_id). Displacements for x and y are interleaved and encoded as 2-byte signed integers. For example, the first two integers are [0, 1], which correspond to the x and y displacements for the "down" direction (positive y means down).
+    - name: DISPLACEMENTS_WITHIN_2_LARGEST_FIRST
+      address:
+        NA: 0x23517DC
+      length:
+        NA: 0x68
+      description: |-
+        An array of displacement vectors with max norm <= 2, ordered in descending order by norm.
+        
+        The last element, (99, 99), is invalid and used as an end marker.
+        
+        type: position[26]
+    - name: DISPLACEMENTS_WITHIN_2_SMALLEST_FIRST
+      address:
+        NA: 0x2351844
+      length:
+        NA: 0x68
+      description: |-
+        An array of displacement vectors with max norm <= 2, ordered in ascending order by norm.
+        
+        The last element, (99, 99), is invalid and used as an end marker.
+        
+        type: position[26]
+    - name: DISPLACEMENTS_WITHIN_3
+      address:
+        NA: 0x23518AC
+      length:
+        NA: 0xC8
+      description: |-
+        An array of displacement vectors with max norm <= 3. The elements are vaguely in ascending order by norm, but not exactly.
+        
+        The last element, (99, 99), is invalid and used as an end marker.
+        
+        type: position[50]
+    - name: ITEM_CATEGORY_ACTIONS
+      address:
+        EU: 0x2352C1C
+        NA: 0x2352010
+      length:
+        EU: 0x20
+        NA: 0x20
+      description: |-
+        Action ID associated with each item category. Used by GetItemAction.
+        
+        Each entry is 2 bytes long.
     - name: FRACTIONAL_TURN_SEQUENCE
       address:
         EU: 0x2352EC2
@@ -4087,6 +6926,71 @@ overlay29:
         EU: 0x2
         NA: 0x2
       description: The additional amount by which belly is decreased every turn when inside walls (fractional thousandths)
+    - name: DAMAGE_MULTIPLIER_0_5
+      address:
+        NA: 0x235283C
+      length:
+        NA: 0x8
+      description: "A generic damage multiplier of 0.5 used in various places, as a 64-bit fixed-point number with 16 fraction bits."
+    - name: DAMAGE_MULTIPLIER_1_5
+      address:
+        NA: 0x2352844
+      length:
+        NA: 0x8
+      description: "A generic damage multiplier of 1.5 used in various places, as a 64-bit fixed-point number with 16 fraction bits."
+    - name: DAMAGE_MULTIPLIER_2
+      address:
+        NA: 0x235284C
+      length:
+        NA: 0x8
+      description: "A generic damage multiplier of 2 used in various places, as a 64-bit fixed-point number with 16 fraction bits."
+    - name: CLOUDY_DAMAGE_MULTIPLIER
+      address:
+        NA: 0x235285C
+      length:
+        NA: 0x8
+      description: "The extra damage multiplier for non-Normal-type moves when the weather is Cloudy, as a 64-bit fixed-point number with 16 fraction bits (0.75)."
+    - name: SOLID_ROCK_MULTIPLIER
+      address:
+        NA: 0x2352864
+      length:
+        NA: 0x8
+      description: "The extra damage multiplier for super-effective moves when Solid Rock or Filter is active, as a 64-bit fixed-point number with 16 fraction bits (0.75)."
+    - name: DAMAGE_FORMULA_MAX_BASE
+      address:
+        NA: 0x235286C
+      length:
+        NA: 0x8
+      description: "The maximum value of the base damage formula (after DAMAGE_FORMULA_NON_TEAM_MEMBER_MODIFIER application, if relevant), as a 64-bit binary fixed-point number with 16 fraction bits (999)."
+    - name: WONDER_GUARD_MULTIPLIER
+      address:
+        NA: 0x2352874
+      length:
+        NA: 0x8
+      description: "The damage multiplier for moves affected by Wonder Guard, as a 64-bit fixed-point number with 16 fraction bits (0)."
+    - name: DAMAGE_FORMULA_MIN_BASE
+      address:
+        NA: 0x235287C
+      length:
+        NA: 0x8
+      description: "The minimum value of the base damage formula (after DAMAGE_FORMULA_NON_TEAM_MEMBER_MODIFIER application, if relevant), as a 64-bit binary fixed-point number with 16 fraction bits (1)."
+    - name: TYPE_DAMAGE_NEGATING_EXCLUSIVE_ITEM_EFFECTS
+      address:
+        NA: 0x23528A4
+      length:
+        NA: 0xE0
+      description: |-
+        List of exclusive item effects that negate damage of a certain type, terminated by a TYPE_NEUTRAL entry.
+        
+        type: struct damage_negating_exclusive_eff_entry[28]
+    - name: TWO_TURN_MOVES_AND_STATUSES
+      address:
+        EU: 0x23536B8
+        NA: 0x2352AAC
+      length:
+        EU: 0x2C
+        NA: 0x2C
+      description: List that matches two-turn move IDs to their corresponding status ID. The last entry is null.
     - name: SPATK_STAT_IDX
       address:
         EU: 0x23536F4
@@ -4103,6 +7007,26 @@ overlay29:
         EU: 0x4
         NA: 0x4
       description: "The index (0) of the attack entry in internal stat structs, such as the stat modifier array for a monster."
+    - name: ROLLOUT_DAMAGE_MULT_TABLE
+      address:
+        NA: 0x2352AF0
+      length:
+        NA: 0x28
+      description: |-
+        A table of damage multipliers for each successive hit of Rollout/Ice Ball. Each entry is a binary fixed-point number with 8 fraction bits.
+        
+        type: int32_t[10]
+    - name: MAP_COLOR_TABLE
+      address:
+        NA: 0x2352FD0
+      length:
+        NA: 0x24
+      description: |-
+        In order: white, black, red, green, blue, magenta, dark pink, chartreuse, light orange
+        
+        Note: unverified, ported from Irdkwia's notes
+        
+        type: struct rgb[9]
     - name: CORNER_CARDINAL_NEIGHBOR_IS_OPEN
       address:
         EU: 0x2353C24
@@ -4118,6 +7042,24 @@ overlay29:
         Note that this array is only used for the cardinal directions. The elements at odd indexes are unused and unconditionally set to 0.
         
         This array is used by the dungeon generation algorithm when generating room imperfections. See GenerateRoomImperfections.
+    - name: GUMMI_LIKE_STRING_IDS
+      address:
+        NA: 0x23532D0
+      length:
+        NA: 0x8
+      description: List that holds the message IDs for how much a monster liked a gummi in decreasing order.
+    - name: GUMMI_IQ_STRING_IDS
+      address:
+        NA: 0x23532D0
+      length:
+        NA: 0xA
+      description: "List that holds the message IDs for how much a monster's IQ was raised by in decreasing order."
+    - name: DAMAGE_STRING_IDS
+      address:
+        NA: 0x2353330
+      length:
+        NA: 0x36
+      description: List that matches the damage_message ID to their corresponding message ID. The null entry at 0xE in the middle is for hunger. The last entry is null.
     - name: DUNGEON_PTR
       address:
         EU: 0x2354138
@@ -4224,6 +7166,19 @@ overlay29:
         This is just a struct full of zeroes, but is used as a fallback in various places where a "default" tile is needed, such as when a grid index is out of range.
         
         type: struct tile
+    - name: HIDDEN_STAIRS_SPAWN_BLOCKED
+      address:
+        EU: 0x23543A4
+        NA: 0x235378C
+      length:
+        EU: 0x1
+        NA: 0x1
+      description: |-
+        [Runtime] A flag for when Hidden Stairs could normally have spawned on the floor but didn't.
+        
+        This is set either when the Hidden Stairs just happen not to spawn by chance, or when the current floor is a rescue or mission destination floor.
+        
+        This appears to be part of a larger (8-byte?) struct. It seems like this value is at least followed by 3 bytes of padding and a 4-byte integer field.
     - name: FIXED_ROOM_DATA_PTR
       address:
         EU: 0x23543AC

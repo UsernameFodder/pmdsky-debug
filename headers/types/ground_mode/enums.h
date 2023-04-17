@@ -1726,6 +1726,40 @@ enum script_entity_id {
     ENTITY_NPC_PINPUKU = 385,           // Happiny
 };
 
+// These are definitely used for VAR_EXECUTE_SPECIAL_EPISODE_TYPE.
+// Haven't confirmed whether they also apply to VAR_SPECIAL_EPISODE_TYPE...but probably.
+enum special_episode_type {
+    EPISODE_BIDOOFS_WISH = 0, // Also used in "normal" mode when a special episode isn't running
+    EPISODE_IGGLYBUFF_THE_PRODIGY = 1,
+    EPISODE_TODAYS_OH_MY_GOSH = 2,
+    EPISODE_HERE_COMES_TEAM_CHARM = 3,
+    EPISODE_IN_THE_FUTURE_OF_DARKNESS = 4,
+};
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(special_episode_type);
+#pragma pack(pop)
+
+// Used as return values for GenerateMission
+enum mission_generation_result {
+    MISSION_GENERATION_SUCCESS = 0,
+    MISSION_GENERATION_FAILURE = 1,
+    MISSION_GENERATION_GLOBAL_FAILURE = 2,
+};
+
+// For the HERO_TALK_KIND and PARTNER_TALK_KIND script variables,
+// which presumably control dialogue variations, but someone with more scripting
+// experience should double-check me on that :)
+enum talk_kind {
+    TALK_NONE = 0,
+    TALK_PARTNER_MALE_SPECIAL = 1,   // Squirtle, Totodile, Chimchar, Meowth, Munchlax
+    TALK_PARTNER_DEFAULT = 2,        // All partners not in the "special" categories
+    TALK_PARTNER_FEMALE_SPECIAL = 3, // Torchic, Chikorita, Eevee, Vulpix, Skitty
+    TALK_HERO_MALE = 4,
+    TALK_HERO_FEMALE = 5,
+};
+
 // These are super long, so split them out into a separate file
 #include "version_dep_enums.h"
 

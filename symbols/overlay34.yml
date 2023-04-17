@@ -15,15 +15,44 @@ overlay34:
     Related to launching the game.
     
     There are mention in the strings of logos like the ESRB logo. This only seems to be loaded during the ESRB rating splash screen, so this is likely the sole purpose of this overlay.
-  functions: []
+  functions:
+    - name: ExplorersOfSkyMain
+      address:
+        NA: 0x22DC240
+      description: |-
+        The main function for Explorers of Sky.
+        
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: probably a game mode ID?
+        return: probably a return code?
   data:
-    - name: UNKNOWN_MENU_CONFIRM
+    - name: OVERLAY34_UNKNOWN_STRUCT__NA_22DD014
+      address:
+        NA: 0x22DD014
+      length:
+        NA: 0x10
+      description: |-
+        1*0x4 + 3*0x4
+        
+        Note: unverified, ported from Irdkwia's notes
+    - name: START_MENU_CONFIRM
       address:
         EU: 0x22DD8CC
         NA: 0x22DD024
       length:
         EU: 0x18
         NA: 0x18
+      description: "Irdkwia's notes: 3*0x8"
+    - name: OVERLAY34_UNKNOWN_STRUCT__NA_22DD03C
+      address:
+        NA: 0x22DD03C
+      length:
+        NA: 0x10
+      description: |-
+        1*0x4 + 3*0x4
+        
+        Note: unverified, ported from Irdkwia's notes
     - name: DUNGEON_DEBUG_MENU
       address:
         EU: 0x22DD8F4
@@ -31,3 +60,40 @@ overlay34:
       length:
         EU: 0x28
         NA: 0x28
+      description: "Irdkwia's notes: 5*0x8"
+    - name: OVERLAY34_RESERVED_SPACE
+      address:
+        NA: 0x22DD074
+      length:
+        NA: 0xC
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY34_UNKNOWN_POINTER__NA_22DD080
+      address:
+        NA: 0x22DD080
+      length:
+        NA: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY34_UNKNOWN_POINTER__NA_22DD084
+      address:
+        NA: 0x22DD084
+      length:
+        NA: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY34_UNKNOWN_POINTER__NA_22DD088
+      address:
+        NA: 0x22DD088
+      length:
+        NA: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY34_UNKNOWN_POINTER__NA_22DD08C
+      address:
+        NA: 0x22DD08C
+      length:
+        NA: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY34_UNKNOWN_POINTER__NA_22DD090
+      address:
+        NA: 0x22DD090
+      length:
+        NA: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"

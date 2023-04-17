@@ -4,12 +4,8 @@
 #define HEADERS_TYPES_COMMON_H_
 
 #include "enums.h"
-#include "../dungeon_mode/enums.h"
+#include "../dungeon_mode/dungeon_mode_common.h"
 #include "file_io.h"
-
-// Based on the code for vsprintf(3), it seems like va_list is implemented in the ARM9 binary
-// by just passing a pointer into the stack, so define va_list to be void*.
-typedef void* va_list;
 
 // A slice in the usual programming sense: a pointer, length, and capacity.
 // Used for the implementation of vsprintf(3), but maybe it's used elsewhere as well.
@@ -114,13 +110,59 @@ struct mem_arena_getters {
 };
 ASSERT_SIZE(struct mem_arena_getters, 8);
 
-// This seems to be a simple structure used with utility functions related to managing items in
-// the player's bag and storage.
-struct owned_item {
-    struct item_id_16 id;
-    uint16_t amount; // Probably? This is a guess
+// 64-bit signed fixed-point number with 16 fraction bits.
+// Represents the number ((upper << 16) + (lower >> 16) + (lower & 0xFFFF) * 2^-16)
+struct fx64 {
+    int32_t upper;  // sign bit, plus the 31 most significant integer bits
+    uint32_t lower; // the 32 least significant bits (16 integer + 16 fraction)
 };
-ASSERT_SIZE(struct owned_item, 4);
+ASSERT_SIZE(struct fx64, 8);
+
+struct overlay_load_entry {
+    enum overlay_group_id group;
+    // These are function pointers, but not sure of the signature.
+    void* entrypoint;
+    void* destructor;
+    void* frame_update; // Possibly?
+};
+ASSERT_SIZE(struct overlay_load_entry, 16);
+
+// This seems to be a simple structure used with utility functions related to managing items
+// in bulk, such as in the player's bag, storage, and Kecleon shops.
+struct bulk_item {
+    struct item_id_16 id;
+    uint16_t quantity; // Definitely in some contexts, but not verified in all
+};
+ASSERT_SIZE(struct bulk_item, 4);
+
+// Structure for dialog boxes?
+struct dialog_box {
+    undefined fields_0x0[12];
+    undefined* field_0xc; // Some struct pointer
+    undefined fields_0xd[208];
+};
+ASSERT_SIZE(struct dialog_box, 224);
+
+// Structure for dialog boxes with portraits?
+struct portrait_box {
+    undefined field_0x0;
+    undefined field_0x1;
+    undefined field_0x2;
+    undefined field_0x3;
+    undefined field_0x4;
+    undefined field_0x5;
+    undefined field_0x6;
+    undefined field_0x7;
+    undefined field_0x8;
+    undefined field_0x9;
+    undefined field_0xa;
+    undefined field_0xb;
+    undefined field_0xc;
+    undefined field_0xd;
+    undefined field_0xe;
+    undefined field_0xf;
+};
+ASSERT_SIZE(struct portrait_box, 16);
 
 // These flags are shared with the function to display text inside message boxes
 // So they might need a rename once more information is found
@@ -133,11 +175,11 @@ ASSERT_SIZE(struct preprocessor_flags, 4);
 
 // Represents arguments that might be passed to the PreprocessString function
 struct preprocessor_args {
-    uint32_t flag_vals[4]; // These are usually IDs with additional flags attached to them
-    uint32_t id_vals[5];
-    int32_t number_vals[5];
-    char* strings[5];
-    // An optional argument that is used to insert the name of a Pokémon
+    uint32_t flag_vals[4];  // 0x0: These are usually IDs with additional flags attached to them
+    uint32_t id_vals[5];    // 0x10
+    int32_t number_vals[5]; // 0x24
+    char* strings[5];       // 0x38
+    // 0x4C: An optional argument that is used to insert the name of a Pokémon
     // When they're talking through a message box. It requires it's respective flag to be on
     uint32_t speaker_id;
 };
@@ -154,6 +196,13 @@ struct type_matchup_table {
     struct type_matchup_16 matchups[18][18];
 };
 ASSERT_SIZE(struct type_matchup_table, 648);
+
+// Type matchup combinator table, for combining two type matchups into one.
+// This table is symmetric, and maps (type_matchup, type_matchup) -> type_matchup
+struct type_matchup_combinator_table {
+    enum type_matchup combination[4][4];
+};
+ASSERT_SIZE(struct type_matchup_combinator_table, 64);
 
 // In the move data, the target and range are encoded together in the first byte of a single
 // two-byte field. The target is the lower half, and the range is the upper half.
@@ -215,8 +264,8 @@ struct ground_move {
     bool f_exists : 1;
     bool f_subsequent_in_link_chain : 1;
     bool f_enabled_for_ai : 1;
-    bool flags_unk3 : 1;
-    bool flags_unk4 : 1;
+    bool f_set : 1;
+    bool f_last_used : 1; // unconfirmed, but probably the same as struct move
     bool f_disabled : 1;
     uint8_t flags_unk6 : 2;
 
@@ -234,17 +283,17 @@ struct ground_monster {
     bool is_valid;                 // 0x0: True if the entry is valid
     int8_t level;                  // 0x1: Monster level
     struct dungeon_id_8 joined_at; // 0x2
-    undefined field_0x3;           // Same as guest_monster::field_0x7
+    uint8_t joined_at_floor;       // 0x3: See struct monster::joined_at_floor
     struct monster_id_16 id;       // 0x4: Monster ID
-    undefined field_0x6;
-    undefined field_0x7;
-    uint16_t iq;     // 0x8
-    uint16_t max_hp; // 0xA
-    int8_t atk;      // 0xC
-    int8_t sp_atk;   // 0xD
-    int8_t def;      // 0xE
-    int8_t sp_def;   // 0xF
-    int exp;         // 0x10
+    int8_t level_at_first_evo;     // 0x6: Level upon first evolution, or 0 if not applicable
+    int8_t level_at_second_evo;    // 0x7: Level upon second evolution, or 0 if not applicable
+    uint16_t iq;                   // 0x8
+    uint16_t max_hp;               // 0xA
+    int8_t atk;                    // 0xC
+    int8_t sp_atk;                 // 0xD
+    int8_t def;                    // 0xE
+    int8_t sp_def;                 // 0xF
+    int exp;                       // 0x10
     // 0x14: Bitvector that keeps track of which IQ skills the monster has enabled.
     // See enum iq_skill_id for the meaning of each bit.
     uint32_t iq_skill_flags[3];
@@ -255,94 +304,43 @@ struct ground_monster {
 };
 ASSERT_SIZE(struct ground_monster, 68);
 
-// Seems to store information about active team members, including those from special episodes.
+// Stores information about active team members, including those from special episodes.
+// A lot of the fields seem to be analogous to fields on struct monster.
 struct team_member {
     // 0x0: flags: 1-byte bitfield
     bool f_is_valid : 1;
     uint8_t flags_unk1 : 7;
 
-    bool is_leader; // 0x1
-    uint8_t level;  // 0x2
-    undefined field_0x3;
-    undefined field_0x4;
+    bool is_leader;                // 0x1
+    uint8_t level;                 // 0x2
+    struct dungeon_id_8 joined_at; // 0x3
+    uint8_t joined_at_floor;       // 0x4
     undefined field_0x5;
-    uint16_t iq; // 0x6
-    undefined field_0x8;
-    undefined field_0x9;
-    undefined field_0xA;
-    undefined field_0xB;
-    undefined field_0xC;
-    undefined field_0xD;
-    uint16_t current_hp; // 0xE
-    uint16_t max_hp;     // 0x10
-    int8_t atk;          // 0x12
-    int8_t sp_atk;       // 0x13
-    int8_t def;          // 0x14
-    int8_t sp_def;       // 0x15
+    uint16_t iq;          // 0x6
+    int16_t member_index; // 0x8: Index in the list of all team members (not just the active ones)
+    int16_t team_index;   // 0xA: In order by team lineup
+    struct monster_id_16 id; // 0xC
+    uint16_t current_hp;     // 0xE
+    uint16_t max_hp;         // 0x10
+    int8_t atk;              // 0x12
+    int8_t sp_atk;           // 0x13
+    int8_t def;              // 0x14
+    int8_t sp_def;           // 0x15
     undefined field_0x16;
     undefined field_0x17;
-    int exp; // 0x18
-    undefined field_0x1C;
-    undefined field_0x1D;
-    undefined field_0x1E;
-    undefined field_0x1F;
-    undefined field_0x20;
-    undefined field_0x21;
-    undefined field_0x22;
-    undefined field_0x23;
-    undefined field_0x24;
-    undefined field_0x25;
-    undefined field_0x26;
-    undefined field_0x27;
-    undefined field_0x28;
-    undefined field_0x29;
-    undefined field_0x2A;
-    undefined field_0x2B;
-    undefined field_0x2C;
-    undefined field_0x2D;
-    undefined field_0x2E;
-    undefined field_0x2F;
-    undefined field_0x30;
-    undefined field_0x31;
-    undefined field_0x32;
-    undefined field_0x33;
-    undefined field_0x34;
-    undefined field_0x35;
-    undefined field_0x36;
-    undefined field_0x37;
-    undefined field_0x38;
-    undefined field_0x39;
-    undefined field_0x3A;
-    undefined field_0x3B;
+    int exp;              // 0x18
+    struct move moves[4]; // 0x1C
     undefined field_0x3C;
     undefined field_0x3D;
-    undefined field_0x3E;
-    undefined field_0x3F;
-    undefined field_0x40;
-    undefined field_0x41;
-    undefined field_0x42;
-    undefined field_0x43;
-    undefined field_0x44;
-    undefined field_0x45;
-    undefined field_0x46;
-    undefined field_0x47;
-    undefined field_0x48;
-    undefined field_0x49;
-    undefined field_0x4A;
-    undefined field_0x4B;
-    undefined field_0x4C;
-    undefined field_0x4D;
-    undefined field_0x4E;
-    undefined field_0x4F;
-    undefined field_0x50;
-    undefined field_0x51;
-    undefined field_0x52;
-    undefined field_0x53;
-    undefined field_0x54;
-    undefined field_0x55;
-    undefined field_0x56;
-    undefined field_0x57;
-    undefined field_0x58;
+    struct item held_item;         // 0x3E
+    int16_t belly;                 // 0x44: Integer part
+    int16_t belly_thousandths;     // 0x46
+    int16_t max_belly;             // 0x48: Integer part
+    int16_t max_belly_thousandths; // 0x4A
+    // 0x4C: Bitvector that keeps track of which IQ skills the monster has enabled.
+    // See enum iq_skill_id for the meaning of each bit.
+    uint32_t iq_skill_flags[3];
+    struct tactic_id_8 tactic; // 0x58
     undefined field_0x59;
     undefined field_0x5A;
     undefined field_0x5B;
@@ -352,9 +350,50 @@ struct team_member {
 };
 ASSERT_SIZE(struct team_member, 104);
 
+// Table with information about all team members, which are active, and on which teams
+struct team_member_table {
+    // 0x0: List of all recruited team members. Appears to be in chronological order of recruitment.
+    //
+    // The first two entries are fixed to the hero and partner. The next three entries are reserved
+    // for special episode main characters, which differ (and will be updated here) depending on the
+    // special episode. For example, in SE5, the third entry becomes Grovyle, with the fourth and
+    // fifth entries becoming Dusknoir after progressing far enough into the special episode.
+    //
+    // Subsequent entries are normal recruits. If a member is released, all subsequent members will
+    // be shifted up, so there should be no gaps in the list.
+    struct ground_monster members[555];
+    // 0x936C: Currently active team members for each team, listed in team order. The first index is
+    // the team ID (see enum team_id), the second is the roster index within the given team.
+    //
+    // This struct is updated relatively infrequently. For example, in dungeon mode, it's typically
+    // only updated at the start of the floor; refer to DUNGEON_STRUCT instead for live data.
+    struct team_member active_team_rosters[3][4];
+    // 0x984C: Pointer into active_team_rosters for the currently active team, i.e.,
+    // &active_team_rosters[active_team]
+    struct team_member* active_roster;
+    undefined field_0x9850;
+    undefined field_0x9851;
+    undefined field_0x9852;
+    undefined field_0x9853;
+    undefined field_0x9854;
+    undefined field_0x9855;
+    // 0x9856: member indexes (into the members array) for the active rosters of each team
+    int16_t active_team_roster_member_idxs[3][4];
+    undefined field_0x986e;
+    undefined field_0x986f;
+    // 0x9870: Pointer into active_team_roster_member_idxs for the currently active team, i.e.,
+    // &active_team_roster_member_idxs[active_team]
+    int16_t* active_roster_member_idxs;
+    undefined field_0x9874;
+    undefined field_0x9875;
+    undefined field_0x9876;
+    struct team_id_8 active_team; // 0x9877: Currently active team
+};
+ASSERT_SIZE(struct team_member_table, 39032);
+
 // A common structure for pairs of dungeon/floor values
 struct dungeon_floor_pair {
-    uint8_t dungeon_id;
+    struct dungeon_id_8 dungeon_id;
     uint8_t floor_id;
 };
 ASSERT_SIZE(struct dungeon_floor_pair, 2);
@@ -641,7 +680,7 @@ struct dungeon_init {
     struct item_id_16 help_item;
     undefined field_0xAA;
     undefined field_0xAB;
-    undefined field_0xAC; // Copied into dungeon::field_0x7CC
+    bool boost_max_money_amount; // 0xAC: Copied into dungeon::boost_max_money_amount
     undefined field_0xAD;
     undefined field_0xAE;
     undefined field_0xAF;
@@ -667,32 +706,188 @@ struct dungeon_init {
 };
 ASSERT_SIZE(struct dungeon_init, 428);
 
+// Unverified, ported from Irdkwia's notes
+struct dungeon_unlock_entry {
+    struct dungeon_id_8 dungeon_id;
+    uint8_t scenario_balance_min;
+};
+ASSERT_SIZE(struct dungeon_unlock_entry, 2);
+
+// Unverified, ported from Irdkwia's notes
+struct dungeon_return_status {
+    bool flag;
+    uint8_t _padding;
+    int16_t string_id;
+};
+ASSERT_SIZE(struct dungeon_return_status, 4);
+
+// Structure describing various player progress milestones?
+// Ported directly from Irdkwia's notes. The only confirmed thing is the struct size.
+struct global_progress {
+    undefined unk_pokemon_flags1[148];        // 0x0: unused
+    undefined field_0x94[4];                  // 0x94
+    undefined unk_pokemon_flags2[148];        // 0x98: used
+    undefined exclusive_pokemon_flags[23];    // 0x12C: partially used, only for Time/Darkness
+    undefined dungeon_max_reached_floor[180]; // 0x143: used
+    undefined field_0x1f7;                    // unused
+    undefined4 nb_adventures;                 // 0x1F8: used
+    undefined field_0x1fc[16];                // unknown/unused
+};
+ASSERT_SIZE(struct global_progress, 524);
+
 // The adventure log structure.
 struct adventure_log {
-    uint32_t completion_flags[4];
-    uint32_t nb_dungeons_cleared;
-    uint32_t nb_friend_rescues;
-    uint32_t nb_evolutions;
-    uint32_t nb_eggs_hatched;
-    uint32_t successful_steals; // Unused in Sky
-    uint32_t nb_faints;
-    uint32_t nb_victories_on_one_floor;
-    uint32_t pokemon_joined_counter;
-    uint32_t pokemon_battled_counter;
-    uint32_t moves_learned_counter;
-    uint32_t nb_big_treasure_wins;
-    uint32_t nb_recycled;
-    uint32_t nb_gifts_sent;
-    uint32_t pokemon_joined_flags[37];
-    uint32_t pokemon_battled_flags[37];
-    uint32_t moves_learned_flags[17];
-    uint32_t items_acquired_flags[44];
-    uint32_t special_challenge_flags;
-    uint32_t sentry_duty_game_points[5];
-    struct dungeon_floor_pair current_floor;
-    uint16_t padding;
+    uint32_t completion_flags[4];            // 0x0
+    uint32_t nb_dungeons_cleared;            // 0x10
+    uint32_t nb_friend_rescues;              // 0x14
+    uint32_t nb_evolutions;                  // 0x18
+    uint32_t nb_eggs_hatched;                // 0x1C
+    uint32_t successful_steals;              // 0x20: Unused in Sky
+    uint32_t nb_faints;                      // 0x24
+    uint32_t nb_victories_on_one_floor;      // 0x28
+    uint32_t pokemon_joined_counter;         // 0x2C
+    uint32_t pokemon_battled_counter;        // 0x30
+    uint32_t moves_learned_counter;          // 0x34
+    uint32_t nb_big_treasure_wins;           // 0x38
+    uint32_t nb_recycled;                    // 0x3C
+    uint32_t nb_gifts_sent;                  // 0x40
+    uint32_t pokemon_joined_flags[37];       // 0x44
+    uint32_t pokemon_battled_flags[37];      // 0xD8
+    uint32_t moves_learned_flags[17];        // 0x16C
+    uint32_t items_acquired_flags[44];       // 0x1B0
+    uint32_t special_challenge_flags;        // 0x260
+    uint32_t sentry_duty_game_points[5];     // 0x264
+    struct dungeon_floor_pair current_floor; // 0x278
+    uint16_t padding;                        // 0x27A
 };
 ASSERT_SIZE(struct adventure_log, 636);
+
+// a 2d uint (32bit) vector
+struct uvec2 {
+    uint32_t x;
+    uint32_t y;
+};
+ASSERT_SIZE(struct uvec2, 8);
+
+// a 2d int (32bit) vector
+struct vec2 {
+    int32_t x;
+    int32_t y;
+};
+ASSERT_SIZE(struct vec2, 8);
+
+struct exclusive_item_stat_boost_entry {
+    int8_t atk;
+    int8_t def;
+    int8_t sp_atk;
+    int8_t sp_def;
+};
+ASSERT_SIZE(struct exclusive_item_stat_boost_entry, 4);
+
+struct exclusive_item_effect_entry {
+    struct exclusive_item_effect_id_8 effect_id;
+    uint8_t foreign_idx; // Index into other tables
+};
+ASSERT_SIZE(struct exclusive_item_effect_entry, 2);
+
+struct rankup_table_entry {
+    undefined field_0x0;
+    undefined field_0x1;
+    undefined field_0x2;
+    undefined field_0x3;
+    int field_0x4;
+    int field_0x8;
+    int16_t field_0xc;
+    undefined field_0xe;
+    undefined field_0xf;
+};
+ASSERT_SIZE(struct rankup_table_entry, 16);
+
+// Contains the data for a single mission
+struct mission {
+    struct mission_status_8 status; // 0x0
+    struct mission_type_8 type;     // 0x1
+    union mission_subtype subtype;  // 0x2
+    undefined field_0x3;
+    struct dungeon_id_8 dungeon_id; // 0x4
+    uint8_t floor;                  // 0x5
+    undefined field_0x6;            // Likely padding
+    undefined field_0x7;            // Likely padding
+    int field_0x8;                  // 0x8, changing it seems to affect the text of the mission
+    undefined field_0xc;
+    undefined field_0xd;
+    struct monster_id_16 client; // 0xE
+    struct monster_id_16 target; // 0x10
+    int16_t field_0x12;
+    int16_t field_0x14;
+    struct mission_reward_type_8 reward_type; // 0x16
+    undefined field_0x17;
+    struct item_id_16 item_reward;                      // 0x18
+    struct mission_restriction_type_8 restriction_type; // 0x1A
+    undefined field_0x1b;
+    union mission_restriction restriction; // 0x1C
+    undefined field_0x1e;
+    undefined field_0x1f;
+};
+ASSERT_SIZE(struct mission, 32);
+
+struct mission_floors_forbidden {
+    uint8_t field_0x0;
+    uint8_t field_0x1;
+};
+ASSERT_SIZE(struct mission_floors_forbidden, 2);
+
+// Unverified, ported from Irdkwia's notes
+struct quiz_answer_points_entry {
+    undefined field_0x0;
+    undefined field_0x1;
+    undefined field_0x2;
+    undefined field_0x3;
+    undefined field_0x4;
+    undefined field_0x5;
+    undefined field_0x6;
+    undefined field_0x7;
+    undefined field_0x8;
+    undefined field_0x9;
+    undefined field_0xa;
+    undefined field_0xb;
+    undefined field_0xc;
+    undefined field_0xd;
+    undefined field_0xe;
+    undefined field_0xf;
+};
+ASSERT_SIZE(struct quiz_answer_points_entry, 16);
+
+// Unverified, ported from Irdkwia's notes
+struct portrait_data_entry {
+    int16_t xpos;
+    int16_t ypos;
+    uint8_t portrait;
+    uint8_t _padding;
+};
+ASSERT_SIZE(struct portrait_data_entry, 6);
+
+// Unverified, ported from Irdkwia's notes
+struct status_description {
+    int16_t name_str_id;
+    int16_t desc_str_id;
+};
+ASSERT_SIZE(struct status_description, 4);
+
+// Unverified, ported from Irdkwia's notes
+struct forbidden_forgot_move_entry {
+    struct monster_id_16 monster_id;
+    struct dungeon_id_16 origin_id;
+    struct move_id_16 move_id;
+};
+ASSERT_SIZE(struct forbidden_forgot_move_entry, 6);
+
+struct version_exclusive_monster {
+    struct monster_id_16 id;
+    bool in_eot; // In Explorers of Time
+    bool in_eod; // In Explorers of Darkness
+};
+ASSERT_SIZE(struct version_exclusive_monster, 4);
 
 // TODO: Add more data file structures, as convenient or needed, especially if the load address
 // or pointers to the load address are known.

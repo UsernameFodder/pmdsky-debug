@@ -14,6 +14,24 @@ overlay23:
   description: Controls Kangaskhan Storage (both in Treasure Town and via Kangaskhan Rocks).
   functions: []
   data:
+    - name: OVERLAY23_UNKNOWN_VALUE__NA_238D2E8
+      address:
+        NA: 0x238D2E8
+      length:
+        NA: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY23_UNKNOWN_VALUE__NA_238D2EC
+      address:
+        NA: 0x238D2EC
+      length:
+        NA: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY23_UNKNOWN_STRUCT__NA_238D2F0
+      address:
+        NA: 0x238D2F0
+      length:
+        NA: 0xC
+      description: "Note: unverified, ported from Irdkwia's notes"
     - name: STORAGE_MENU_CONFIRM
       address:
         EU: 0x238DE3C
@@ -49,3 +67,69 @@ overlay23:
       length:
         EU: 0x28
         NA: 0x28
+    - name: OVERLAY23_UNKNOWN_STRING_IDS
+      address:
+        NA: 0x238D39C
+      length:
+        NA: 0x2C
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: STORAGE_D_BOX_LAYOUT_1
+      address:
+        NA: 0x238D3C8
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: STORAGE_D_BOX_LAYOUT_2
+      address:
+        NA: 0x238D3D8
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: STORAGE_D_BOX_LAYOUT_3
+      address:
+        NA: 0x238D3E8
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: STORAGE_D_BOX_LAYOUT_4
+      address:
+        NA: 0x238D3F8
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: STORAGE_D_BOX_LAYOUT_5
+      address:
+        NA: 0x238D408
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: STORAGE_D_BOX_LAYOUT_6
+      address:
+        NA: 0x238D418
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: STORAGE_D_BOX_LAYOUT_7
+      address:
+        NA: 0x238D428
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: STORAGE_D_BOX_LAYOUT_8
+      address:
+        NA: 0x238D438
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY23_RESERVED_SPACE
+      address:
+        NA: 0x238D888
+      length:
+        NA: 0x18
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY23_UNKNOWN_POINTER__NA_238D8A0
+      address:
+        NA: 0x238D8A0
+      length:
+        NA: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"

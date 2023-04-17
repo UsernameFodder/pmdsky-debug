@@ -17,8 +17,94 @@ overlay1:
     This is loaded together with overlay 0 while in the top menu. Since it's in overlay group 1 (together with other "main" overlays like overlay 11 and overlay 29), this is probably the controller.
     
     Seems to contain code related to Wi-Fi rescue. It mentions several files from the GROUND and BACK folders.
-  functions: []
+  functions:
+    - name: CreateMainMenus
+      address:
+        EU: 0x23318C8
+        NA: 0x23310E4
+        JP: 0x2332888
+      description: |-
+        Prepares the top menu and sub menu, adding the different options that compose them.
+        
+        Contains multiple calls to AddMainMenuOption and AddSubMenuOption. Some of them are conditionally executed depending on which options should be unlocked.
+        
+        No params.
+    - name: AddMainMenuOption
+      address:
+        EU: 0x2331D3C
+        NA: 0x2331558
+        JP: 0x2332CF8
+      description: |-
+        Adds an option to the top menu.
+        
+        This function is called for each one of the options in the top menu. It loops the MAIN_MENU data field, if the specified action ID does not exist there, the option won't be added.
+        
+        r0: Action ID
+        r1: True if the option should be enabled, false otherwise
+    - name: AddSubMenuOption
+      address:
+        EU: 0x2331E14
+        NA: 0x2331630
+        JP: 0x2332DD0
+      description: |-
+        Adds an option to the "Other" submenu on the top menu.
+        
+        This function is called for each one of the options in the submenu. It loops the SUBMENU data field, if the specified action ID does not exist there, the option won't be added.
+        
+        r0: Action ID
+        r1: True if the option should be enabled, false otherwise
   data:
+    - name: PRINTS_STRINGS
+      address:
+        EU: 0x233B878
+        NA: 0x233B12C
+      length:
+        EU: 0x1E8
+        NA: 0x1E8
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: PRINTS_STRUCT
+      address:
+        EU: 0x233BA60
+        NA: 0x233B314
+      length:
+        EU: 0x1F0
+        NA: 0x1F0
+      description: |-
+        62*0x8
+        
+        Note: unverified, ported from Irdkwia's notes
+    - name: OVERLAY1_D_BOX_LAYOUT_1
+      address:
+        EU: 0x233BC64
+        NA: 0x233B518
+      length:
+        EU: 0x10
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY1_D_BOX_LAYOUT_2
+      address:
+        EU: 0x233BC74
+        NA: 0x233B528
+      length:
+        EU: 0x10
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY1_D_BOX_LAYOUT_3
+      address:
+        EU: 0x233BC84
+        NA: 0x233B538
+      length:
+        EU: 0x10
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY1_D_BOX_LAYOUT_4
+      address:
+        EU: 0x233BC94
+        NA: 0x233B548
+      length:
+        EU: 0x10
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
     - name: CONTINUE_CHOICE
       address:
         EU: 0x233BCB4
@@ -40,6 +126,24 @@ overlay1:
       length:
         EU: 0xA0
         NA: 0xA0
+    - name: OVERLAY1_D_BOX_LAYOUT_5
+      address:
+        NA: 0x233B71C
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY1_D_BOX_LAYOUT_6
+      address:
+        NA: 0x233B72C
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY1_D_BOX_LAYOUT_7
+      address:
+        NA: 0x233B73C
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
     - name: MAIN_MENU_CONFIRM
       address:
         EU: 0x233BE98
@@ -47,6 +151,18 @@ overlay1:
       length:
         EU: 0x18
         NA: 0x18
+    - name: OVERLAY1_D_BOX_LAYOUT_8
+      address:
+        NA: 0x233B7D0
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY1_D_BOX_LAYOUT_9
+      address:
+        NA: 0x233B7F0
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
     - name: MAIN_DEBUG_MENU_1
       address:
         EU: 0x233BF5C
@@ -54,6 +170,12 @@ overlay1:
       length:
         EU: 0x60
         NA: 0x60
+    - name: OVERLAY1_D_BOX_LAYOUT_10
+      address:
+        NA: 0x233B870
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
     - name: MAIN_DEBUG_MENU_2
       address:
         EU: 0x233BFDC

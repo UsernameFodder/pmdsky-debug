@@ -42,6 +42,33 @@ enum secondary_terrain_type {
 ENUM_8_BIT(secondary_terrain_type);
 #pragma pack(pop)
 
+// Moves that Nature Power can turn into
+enum nature_power_variant {
+    NATURE_POWER_SURF = 0,
+    NATURE_POWER_STUN_SPORE = 1,
+    NATURE_POWER_SHADOW_BALL = 2,
+    NATURE_POWER_SWIFT = 3,
+    NATURE_POWER_EARTHQUAKE = 4,
+    NATURE_POWER_RAZOR_LEAF = 5,
+    NATURE_POWER_BUBBLEBEAM = 6,
+    NATURE_POWER_ROCK_SLIDE = 7,
+    // This is exactly the same as NATURE_POWER_EARTHQUAKE,
+    // except the move effect handler checks whether the defender
+    // is digging and doubles the damage if so.
+    NATURE_POWER_EARTHQUAKE_2 = 8,
+    NATURE_POWER_TRI_ATTACK = 9,
+    NATURE_POWER_HYDRO_PUMP = 10,
+    NATURE_POWER_BLIZZARD = 11,
+    NATURE_POWER_ICE_BEAM = 12,
+    NATURE_POWER_SEED_BOMB = 13,
+    NATURE_POWER_MUD_BOMB = 14,
+};
+
+// This is usually stored as a 16-bit integer
+#pragma pack(push, 2)
+ENUM_16_BIT(nature_power_variant);
+#pragma pack(pop)
+
 // Mobility types for monsters
 enum mobility_type {
     MOBILITY_NORMAL = 0,
@@ -95,7 +122,17 @@ enum trap_id {
     TRAP_RANDOM_TRAP = 23,
     TRAP_GRUDGE_TRAP = 24,
     // Used in fixed room data to indicate that a trap shouldn't be placed on the current tile
+    // Also used to indicate a random non-wonder tile trap should be selected instead during play
     TRAP_NONE = 25,
+    TRAP_0x1A = 26,
+    TRAP_0x1B = 27,
+    TRAP_0x1C = 28,
+    TRAP_0x1D = 29,
+    TRAP_0x1E = 30,
+    TRAP_0x1F = 31,
+    // Behaves identically to a normal pitfall trap, but uses the sprite where the grate is
+    // already broken. TRAP_PITFALL_TRAP becomes this one when something falls through.
+    TRAP_BROKEN_PITFALL_TRAP = 32,
 };
 
 // This is usually stored as an 8-bit integer
@@ -228,6 +265,29 @@ enum status_id {
     STATUS_DOUBLED_ATTACK = 100, // Has sped-up attacks
     STATUS_STAIR_SPOTTER = 101,  // Can locate stairs
 };
+
+// Values for the two-turn move status group
+// Corresponds to values 28 to 40 in the status_id enum
+enum status_two_turn_id {
+    STATUS_TWO_TURN_BIDE = 1,
+    STATUS_TWO_TURN_SOLARBEAM = 2,
+    STATUS_TWO_TURN_SKY_ATTACK = 3,
+    STATUS_TWO_TURN_RAZOR_WIND = 4,
+    STATUS_TWO_TURN_FOCUS_PUNCH = 5,
+    STATUS_TWO_TURN_SKULL_BASH = 6,
+    STATUS_TWO_TURN_FLYING = 7,
+    STATUS_TWO_TURN_BOUNCING = 8,
+    STATUS_TWO_TURN_DIVING = 9,
+    STATUS_TWO_TURN_DIGGING = 10,
+    STATUS_TWO_TURN_CHARGING = 11,
+    STATUS_TWO_TURN_ENRAGED = 12,
+    STATUS_TWO_TURN_SHADOW_FORCE = 13,
+};
+
+// This is usually stored as a 16-bit integer
+#pragma pack(push, 2)
+ENUM_16_BIT(status_two_turn_id);
+#pragma pack(pop)
 
 // Tactic ID. These are usually encoded as bitvectors.
 enum tactic_id {
@@ -390,34 +450,34 @@ enum action {
 ENUM_16_BIT(action);
 #pragma pack(pop)
 
-// Potential sources of damage dealt to monsters
-enum damage_source {
-    DAMAGE_SOURCE_MOVE = 0, // "Took X damage"
-    DAMAGE_SOURCE_BURN = 1,
-    DAMAGE_SOURCE_CONSTRICTION = 2, // "Was squeezed for X damage"
-    DAMAGE_SOURCE_POISON = 3,
-    DAMAGE_SOURCE_RECOIL_1 = 4, // User deals damage to itself because of their own recoil move
-    DAMAGE_SOURCE_WRAP = 5,     // "Was wrapped for X damage"
-    DAMAGE_SOURCE_COUNTER = 6,  // Damage taken from a conunterattack
-    DAMAGE_SOURCE_CURSE = 7,
-    DAMAGE_SOURCE_NIGHTMARE = 8, // Damage taken when awakening from a nightmare
-    DAMAGE_SOURCE_LEECH_SEED = 9,
-    DAMAGE_SOURCE_SPIKES = 10,
-    DAMAGE_SOURCE_PERISH_SONG = 11,
-    DAMAGE_SOURCE_DESTINY_BOND = 12,
-    DAMAGE_SOURCE_SLUDGE = 13, // "Was showered with sludge for X damage"
-    DAMAGE_SOURCE_CHESTNUT_1 = 14,
-    DAMAGE_SOURCE_CHESTNUT_2 = 15, // Same string as DAMAGE_SOURCE_CHESTNUT_1
-    DAMAGE_SOURCE_UNK16 = 16,      // Same string as DAMAGE_SOURCE_MOVE
-    DAMAGE_SOURCE_BAD_WEATHER = 17,
-    DAMAGE_SOURCE_MISSED_MOVE = 18, // Damage taken from moves that hurt the user when they miss
-    DAMAGE_SOURCE_RECOIL_2 = 19,    // Same string as DAMAGE_SOURCE_RECOIL_1
-    DAMAGE_SOURCE_STEALTH_ROCK = 20,
-    DAMAGE_SOURCE_TOXIC_SPIKES = 21,
-    DAMAGE_SOURCE_ALMOST_FAINTED = 22, // "Is on the verge of fainting after using that move"
-    DAMAGE_SOURCE_UNK_ABILITY = 23,    // "Took X damage because of <ability>"
-    DAMAGE_SOURCE_SOLAR_POWER = 24,
-    DAMAGE_SOURCE_DRY_SKIN = 25,
+// Identifies a message displayed when a monster takes damage
+enum damage_message {
+    DAMAGE_MESSAGE_MOVE = 0, // "Took X damage"
+    DAMAGE_MESSAGE_BURN = 1,
+    DAMAGE_MESSAGE_CONSTRICTION = 2, // "Was squeezed for X damage"
+    DAMAGE_MESSAGE_POISON = 3,
+    DAMAGE_MESSAGE_RECOIL_1 = 4, // User deals damage to itself because of their own recoil move
+    DAMAGE_MESSAGE_WRAP = 5,     // "Was wrapped for X damage"
+    DAMAGE_MESSAGE_COUNTER = 6,  // Damage taken from a counterattack
+    DAMAGE_MESSAGE_CURSE = 7,
+    DAMAGE_MESSAGE_NIGHTMARE = 8, // Damage taken when awakening from a nightmare
+    DAMAGE_MESSAGE_LEECH_SEED = 9,
+    DAMAGE_MESSAGE_SPIKES = 10,
+    DAMAGE_MESSAGE_PERISH_SONG = 11,
+    DAMAGE_MESSAGE_DESTINY_BOND = 12,
+    DAMAGE_MESSAGE_SLUDGE = 13, // "Was showered with sludge for X damage"
+    DAMAGE_MESSAGE_CHESTNUT_1 = 14,
+    DAMAGE_MESSAGE_CHESTNUT_2 = 15, // Same string as DAMAGE_MESSAGE_CHESTNUT_1
+    DAMAGE_MESSAGE_UNK16 = 16,      // Same string as DAMAGE_MESSAGE_MOVE
+    DAMAGE_MESSAGE_BAD_WEATHER = 17,
+    DAMAGE_MESSAGE_MISSED_MOVE = 18, // Damage taken from moves that hurt the user when they miss
+    DAMAGE_MESSAGE_RECOIL_2 = 19,    // Same string as DAMAGE_MESSAGE_RECOIL_1
+    DAMAGE_MESSAGE_STEALTH_ROCK = 20,
+    DAMAGE_MESSAGE_TOXIC_SPIKES = 21,
+    DAMAGE_MESSAGE_ALMOST_FAINTED = 22, // "Is on the verge of fainting after using that move"
+    DAMAGE_MESSAGE_UNK_ABILITY = 23,    // "Took X damage because of <ability>"
+    DAMAGE_MESSAGE_SOLAR_POWER = 24,
+    DAMAGE_MESSAGE_DRY_SKIN = 25,
 };
 
 // Exclusive effect ID. These are usually encoded as bitvectors.
@@ -554,7 +614,13 @@ enum exclusive_item_effect_id {
     EXCLUSIVE_EFF_ABSORB_DRAGON_DAMAGE = 126,
     EXCLUSIVE_EFF_ABSORB_DARK_DAMAGE = 127,
     EXCLUSIVE_EFF_ABSORB_STEEL_DAMAGE = 128,
+    EXCLUSIVE_EFF_LAST = 129, // Used as a null-terminator in some places
 };
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(exclusive_item_effect_id);
+#pragma pack(pop)
 
 // Affects the chance of items spawning on each tile in a Kecleon Shop
 // The chances (in %) of each tile (in a 3x3 area at the center of the shop)
@@ -670,7 +736,13 @@ enum mission_subtype_explore {
     MISSION_EXPLORE_NORMAL = 0,
     MISSION_EXPLORE_SEALED_CHAMBER = 1,
     MISSION_EXPLORE_GOLDEN_CHAMBER = 2,
+    MISSION_EXPLORE_NEW_DUNGEON = 3,
 };
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(mission_subtype_explore);
+#pragma pack(pop)
 
 // Mission subtype for MISSION_TAKE_ITEM_FROM_OUTLAW
 enum mission_subtype_take_item {
@@ -678,6 +750,11 @@ enum mission_subtype_take_item {
     MISSION_TAKE_ITEM_HIDDEN_OUTLAW = 1,
     MISSION_TAKE_ITEM_FLEEING_OUTLAW = 2,
 };
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(mission_subtype_take_item);
+#pragma pack(pop)
 
 // Mission subtype for MISSION_ARREST_OUTLAW
 // 0-3 all occur naturally in-game, but don't seem to have any obvious differences?
@@ -692,6 +769,11 @@ enum mission_subtype_outlaw {
     MISSION_OUTLAW_MONSTER_HOUSE = 7,
 };
 
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(mission_subtype_outlaw);
+#pragma pack(pop)
+
 // Mission subtype for MISSION_CHALLENGE_REQUEST
 enum mission_subtype_challenge {
     MISSION_CHALLENGE_NORMAL = 0,
@@ -702,13 +784,144 @@ enum mission_subtype_challenge {
     MISSION_CHALLENGE_JIRACHI = 5,
 };
 
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(mission_subtype_challenge);
+#pragma pack(pop)
+
 // The meaning of the mission subtype depends on the mission type
 union mission_subtype {
-    int none;
-    enum mission_subtype_explore explore;
-    enum mission_subtype_take_item take_item;
-    enum mission_subtype_outlaw outlaw;
-    enum mission_subtype_challenge challenge;
+    uint8_t none;
+    struct mission_subtype_explore_8 explore;
+    struct mission_subtype_take_item_8 take_item;
+    struct mission_subtype_outlaw_8 outlaw;
+    struct mission_subtype_challenge_8 challenge;
+};
+
+// Different types of rewards that a mission can have
+enum mission_reward_type {
+    MISSION_REWARD_MONEY = 0,
+    MISSION_REWARD_MONEY_AND_MORE = 1, // Money + (?)
+    MISSION_REWARD_ITEM = 2,
+    MISSION_REWARD_ITEM_AND_MORE = 3, // Item + (?)
+    MISSION_REWARD_ITEM_HIDDEN = 4,   // Item, displayed as "(?)"
+    MISSION_REWARD_MONEY_HIDDEN = 5,  // Money, displayed as "(?)"
+    // Either an egg or the client requests to join the team, displayed as "(?)"
+    MISSION_REWARD_SPECIAL = 6,
+};
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(mission_reward_type);
+#pragma pack(pop)
+
+// Different types of restrictions that a mission can have
+enum mission_restriction_type {
+    MISSION_RESTRICTION_NONE = 0,
+    MISSION_RESTRICTION_TYPE = 1,    // Requires a pokémon of a certain type on the team
+    MISSION_RESTRICTION_MONSTER = 2, // Requires a certain pokémon on the team
+};
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(mission_restriction_type);
+#pragma pack(pop)
+
+// The restriction of a mission can be a monster ID or a type ID
+union mission_restriction {
+    struct monster_id_16 monster_id;
+    struct type_id_8 type_id;
+};
+
+// Represents the different statuses that a mission can have
+enum mission_status {
+    MISSION_STATUS_INVALID = 0, // Used for empty mission slots
+    MISSION_STATUS_UNK_1 = 1,   // The mission won't display a status
+    MISSION_STATUS_UNK_2 = 2,   // The mission won't display a status
+    MISSION_STATUS_UNK_3 = 3,   // The mission won't display a status
+    MISSION_STATUS_SUSPENDED = 4,
+    MISSION_STATUS_ACCEPTED = 5,
+    MISSION_STATUS_DONE = 6,
+    MISSION_STATUS_UNK_7 = 7, // Shows up as "accepted"
+    MISSION_STATUS_UNK_8 = 8, // Shows up as "accepted"
+};
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(mission_status);
+#pragma pack(pop)
+
+// The cause of a monster taking damage, not including the move case.
+// These codes should all be greater than any move ID.
+// Some of the values are used as faint reasons rather than damage sources.
+enum damage_source_non_move {
+    DAMAGE_SOURCE_TRANSFORM_FRIEND = 563, // "was transformed into a friend"
+    DAMAGE_SOURCE_NOT_BEFRIENDED = 564,   // "left without being befriended"
+    DAMAGE_SOURCE_DEBUG_ATTACK = 565,
+    DAMAGE_SOURCE_JUMP_KICK = 566,
+    DAMAGE_SOURCE_HI_JUMP_KICK = 567,
+    DAMAGE_SOURCE_DESTINY_BOND = 568,
+    DAMAGE_SOURCE_SLUDGE = 569,
+    DAMAGE_SOURCE_POWERFUL_MOVE_1 = 570,
+    DAMAGE_SOURCE_POWERFUL_MOVE_2 = 571,
+    DAMAGE_SOURCE_RECOIL = 572,
+    DAMAGE_SOURCE_SPLASH = 573,
+    DAMAGE_SOURCE_ENERGY = 574, // "an enemy's pent-up energy"
+    DAMAGE_SOURCE_POWERFUL_MOVE_3 = 575,
+    DAMAGE_SOURCE_POWERFUL_MOVE_4 = 576,
+    DAMAGE_SOURCE_POWERFUL_MOVE_5 = 577,
+    DAMAGE_SOURCE_POWERFUL_MOVE_6 = 578,
+    DAMAGE_SOURCE_POWERFUL_MOVE_7 = 579,
+    DAMAGE_SOURCE_POWERFUL_MOVE_8 = 580,
+    DAMAGE_SOURCE_SPIKES = 581,
+    DAMAGE_SOURCE_DEBUG_DAMAGE = 582,
+    DAMAGE_SOURCE_BURN = 583,
+    DAMAGE_SOURCE_CONSTRICTION = 584,
+    DAMAGE_SOURCE_POISON = 585,
+    DAMAGE_SOURCE_WRAP = 586,
+    DAMAGE_SOURCE_CURSE = 587,
+    DAMAGE_SOURCE_LEECH_SEED = 588,
+    DAMAGE_SOURCE_PERISH_SONG = 589,
+    DAMAGE_SOURCE_NIGHTMARE = 590,
+    DAMAGE_SOURCE_THROWN_ROCK = 591,
+    DAMAGE_SOURCE_HUNGER = 592,
+    DAMAGE_SOURCE_EXPLODED = 593, // I think this one is only used for the monster that explodes.
+                                  // Other monsters that are hit by the explosion use
+                                  // DAMAGE_SOURCE_EXPLOSION.
+    DAMAGE_SOURCE_CHESTNUT_TRAP = 594,
+    DAMAGE_SOURCE_TRAP = 595,
+    DAMAGE_SOURCE_PITFALL_TRAP = 596,
+    DAMAGE_SOURCE_BLAST_SEED = 597,
+    DAMAGE_SOURCE_THROWN_ITEM = 598,
+    DAMAGE_SOURCE_TRANSFORM_ITEM = 599,
+    DAMAGE_SOURCE_KNOCKED_FLYING = 600,
+    DAMAGE_SOURCE_FLYING_MONSTER = 601,
+    DAMAGE_SOURCE_GAVE_UP = 602,   // "gave up the exploration"
+    DAMAGE_SOURCE_DELETED = 603,   // "was deleted for the sake of an event"
+    DAMAGE_SOURCE_WENT_AWAY = 604, // "went away"
+    DAMAGE_SOURCE_UNSEEN_FORCE = 605,
+    DAMAGE_SOURCE_PARTNER_FAINTED = 606, // "returned with the fallen partner"
+    DAMAGE_SOURCE_WEATHER = 607,
+    DAMAGE_SOURCE_POSSESS = 608,
+    DAMAGE_SOURCE_CLIENT_FAINTED = 609, // "failed to protect the client Pokémon"
+    DAMAGE_SOURCE_ITEM_ORB = 610,
+    DAMAGE_SOURCE_ITEM_NON_ORB = 611,
+    DAMAGE_SOURCE_UNK612 = 612,                // "-"
+    DAMAGE_SOURCE_ESCORT_FAINTED = 613,        // "failed to escort the client Pokémon"
+    DAMAGE_SOURCE_OTHER_MONSTER_FAINTED = 614, // "returned with the fallen [string:2]"
+    DAMAGE_SOURCE_BIDOOF_FAINTED = 615,
+    DAMAGE_SOURCE_GROVYLE_FAINTED = 616,
+    DAMAGE_SOURCE_CELEBI_FAINTED = 617,
+    DAMAGE_SOURCE_CHATOT_FAINTED = 618,
+    DAMAGE_SOURCE_CRESSELIA_FAINTED = 619,
+    DAMAGE_SOURCE_TOXIC_SPIKES = 620,
+    DAMAGE_SOURCE_STEALTH_ROCK = 621,
+    DAMAGE_SOURCE_BAD_DREAMS = 622,
+    DAMAGE_SOURCE_EXPLOSION = 623,
+    DAMAGE_SOURCE_OREN_BERRY = 624,
+};
+
+// Possible reasons why a monster can take damage or faint
+union damage_source {
+    enum move_id move;
+    enum damage_source_non_move other;
 };
 
 // List of reasons why you can get forcefully kicked out of a dungeon
@@ -1037,5 +1250,13 @@ enum floor_layout {
 #pragma pack(push, 1)
 ENUM_8_BIT(floor_layout);
 #pragma pack(pop)
+
+// Used as a parameter when generating items
+enum gen_item_stickiness {
+    // Use the sticky item chance from the floor properties on the dungeon struct
+    GEN_ITEM_STICKY_RANDOM = 0,
+    GEN_ITEM_STICKY_ALWAYS = 1,
+    GEN_ITEM_STICKY_NEVER = 2,
+};
 
 #endif

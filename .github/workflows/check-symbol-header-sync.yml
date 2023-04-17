@@ -1,10 +1,11 @@
-name: Check Function Synchronization
+name: Check Symbol-Header Synchronization
 
 on:
   pull_request:
     paths:
       - 'symbols/**.yml'
       - 'headers/functions/**.h'
+      - 'headers/data/**.h'
       - 'headers/symbol_check.py'
     branches:
       - master
@@ -16,5 +17,5 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Function sync check
+      - name: Symbol sync check
         run: make -C headers symbol-check

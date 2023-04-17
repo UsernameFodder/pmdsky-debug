@@ -654,7 +654,7 @@ fn check_no_overlap(symgen: &SymGen) -> Result<(), String> {
             }
         }
         fn check_exts_for_self_overlap(
-            exts: &mut Vec<(Extent, &str)>,
+            exts: &mut [(Extent, &str)],
             ext_type: &str,
         ) -> Result<(), String> {
             exts.sort_unstable();
@@ -693,8 +693,8 @@ fn check_no_overlap(symgen: &SymGen) -> Result<(), String> {
             Ok(())
         }
         fn check_exts_for_mutual_overlap(
-            exts1: &mut Vec<(Extent, &str)>,
-            exts2: &mut Vec<(Extent, &str)>,
+            exts1: &mut [(Extent, &str)],
+            exts2: &mut [(Extent, &str)],
             ext_type1: &str,
             ext_type2: &str,
         ) -> Result<(), String> {
@@ -991,11 +991,8 @@ fn print_report(results: &[(PathBuf, CheckResult)]) -> io::Result<()> {
     };
     let res = print_colored_report();
     // Always try to clean up color settings before returning
-    if let Err(e) = stdout.reset() {
-        Err(e)
-    } else {
-        res
-    }
+    stdout.reset()?; // throw away Ok() output
+    res
 }
 
 /// Validates a given set of `input_files` under the specified `checks`, and prints a summary of

@@ -128,9 +128,11 @@ ram:
         EU: 0x20
         NA: 0x20
       description: |-
-        Array of up to 8 items in the Kecleon Shop of the form {struct item_id_16 id, uint16_t quantity}.
+        Array of up to 8 items in the Kecleon Shop.
         
         If there are fewer than 8 items, the array is expected to be null-terminated.
+        
+        type: struct bulk_item[8]
     - name: UNUSED_KECLEON_SHOP_ITEMS
       address:
         EU: 0x22A54B4
@@ -155,9 +157,11 @@ ram:
         EU: 0x10
         NA: 0x10
       description: |-
-        Array of up to 4 items in Kecleon Wares of the form {struct item_id_16 id, uint16_t quantity}.
+        Array of up to 4 items in Kecleon Wares.
         
         If there are fewer than 4 items, the array is expected to be null-terminated.
+        
+        type: struct bulk_item[4]
     - name: UNUSED_KECLEON_WARES_ITEMS
       address:
         EU: 0x22A54E8
@@ -182,6 +186,10 @@ ram:
         EU: 0x4
         NA: 0x4
       description: The amount of money the player currently has stored in the Duskull Bank.
+    - name: DIALOG_BOX_LIST
+      address:
+        NA: 0x22A88DC
+      description: Array of allocated dialog box structs.
     - name: LAST_NEW_MOVE
       address:
         EU: 0x22AB78C
@@ -224,11 +232,9 @@ ram:
       description: |-
         The number of the special episode currently being played.
         
-        0: normal, Bidoof's Wish
-        1: Igglybuff the Prodigy
-        2: Today's "Oh My Gosh"
-        3: Here Comes Team Charm!
-        4: In the Future of Darkness
+        This backs the EXECUTE_SPECIAL_EPISODE_TYPE script variable.
+        
+        type: struct special_episode_type_8
     - name: PENDING_DUNGEON_ID
       address:
         EU: 0x22ABE3C
@@ -279,84 +285,19 @@ ram:
         A null-terminated string, with a maximum length of 10. Presumably encoded with the ANSI/Shift JIS encoding the game typically uses.
         
         This is presumably part of a larger struct, together with other nearby data.
-    - name: HERO_SPECIES_ID
+    - name: TEAM_MEMBER_TABLE
       address:
-        EU: 0x22AC724
-        NA: 0x22ABDE4
+        EU: 0x22AC720
+        NA: 0x22ABDE0
       length:
-        EU: 0x2
-        NA: 0x2
+        EU: 0x9878
+        NA: 0x9878
       description: |-
-        The hero's species ID.
+        Table with all team members, persistent information about them, and information about which ones are currently active.
         
-        This is presumably part of a larger struct, together with other nearby data.
+        See the comments on struct team_member_table for more information.
         
-        type: struct monster_id_16
-    - name: HERO_NICKNAME
-      address:
-        EU: 0x22AC75A
-        NA: 0x22ABE1A
-      length:
-        EU: 0xA
-        NA: 0xA
-      description: |-
-        The hero's nickname.
-        
-        A null-terminated string, with a maximum length of 10. Presumably encoded with the ANSI/Shift JIS encoding the game typically uses.
-        
-        This is presumably part of a larger struct, together with other nearby data.
-    - name: PARTNER_SPECIES_ID
-      address:
-        EU: 0x22AC768
-        NA: 0x22ABE28
-      length:
-        EU: 0x2
-        NA: 0x2
-      description: |-
-        The partner's species ID.
-        
-        This is presumably part of a larger struct, together with other nearby data.
-        
-        type: struct monster_id_16
-    - name: LEADER_IQ_SKILLS
-      address:
-        EU: 0x22B5AD8
-        NA: 0x22B5198
-      length:
-        EU: 0xC
-        NA: 0xC
-      description: |-
-        Unlocked IQ skills of the current leader, available for selection from the IQ skills menu.
-        
-        One bit per skill (1 if unlocked). Same format as the IQ skills bitvector on the monster info struct.
-        
-        This is presumably part of a larger struct, together with other nearby data.
-    - name: LEADER_NICKNAME
-      address:
-        EU: 0x22B5AEA
-        NA: 0x22B51AA
-      length:
-        EU: 0xA
-        NA: 0xA
-      description: |-
-        The current leader's nickname.
-        
-        A null-terminated string, with a maximum length of 10. Presumably encoded with the ANSI/Shift JIS encoding the game typically uses.
-        
-        This is presumably part of a larger struct, together with other nearby data.
-    - name: PARTY_MEMBER_2_IQ_SKILLS
-      address:
-        EU: 0x22B5B40
-        NA: 0x22B5200
-      length:
-        EU: 0xC
-        NA: 0xC
-      description: |-
-        Unlocked IQ skills of the second party member, available for selection from the IQ skills menu.
-        
-        One bit per skill (1 if unlocked). Same format as the IQ skills bitvector on the monster info struct.
-        
-        This is presumably part of a larger struct, together with other nearby data.
+        type: struct team_member_table
     - name: FRAMES_SINCE_LAUNCH_TIMES_THREE
       address:
         EU: 0x22BA304
@@ -365,6 +306,11 @@ ram:
         EU: 0x4
         NA: 0x4
       description: "Starts at 0 when the game is first launched, and ticks up by 3 per frame while the game is running."
+    - name: SENTRY_DUTY_STRUCT
+      address:
+        NA: 0x237A5D0
+      length:
+        NA: 0x38D4
     - name: TURNING_ON_THE_SPOT_FLAG
       address:
         EU: 0x237D5A6
@@ -373,6 +319,30 @@ ram:
         EU: 0x1
         NA: 0x1
       description: "[Runtime] Flag for whether the player is turning on the spot (pressing Y)."
+    - name: ROLLOUT_ICE_BALL_MISSED
+      address:
+        NA: 0x237CA69
+      length:
+        NA: 0x1
+      description: "[Runtime] Appears to be set to true whenever a hit from Rollout or Ice Ball fails to deal damage."
+    - name: ROLLOUT_ICE_BALL_SUCCESSIVE_HITS
+      address:
+        NA: 0x237CA70
+      length:
+        NA: 0x4
+      description: "[Runtime] Seems to count the number of successive hits by Rollout or Ice Ball."
+    - name: TRIPLE_KICK_SUCCESSIVE_HITS
+      address:
+        NA: 0x237CA7C
+      length:
+        NA: 0x4
+      description: "[Runtime] Seems to count the number of successive hits by Triple Kick."
+    - name: METRONOME_NEXT_INDEX
+      address:
+        NA: 0x237CA88
+      length:
+        NA: 0x4
+      description: "[Runtime] The index into METRONOME_TABLE for the next usage of Metronome."
     - name: FLOOR_GENERATION_STATUS
       address:
         EU: 0x237DBBC

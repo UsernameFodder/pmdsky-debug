@@ -12,49 +12,330 @@ overlay13:
     NA: 0x2E80
     JP: 0x2E80
   description: "Controls the personality test, including the available partners and playable Pokémon. The actual personality test questions are stored in the MESSAGE folder."
-  functions: []
+  functions:
+    - name: EntryOverlay13
+      address:
+        EU: 0x238AC80
+        NA: 0x238A140
+        JP: 0x238B6A0
+      description: |-
+        Main function of this overlay.
+        
+        Note: unverified, ported from Irdkwia's notes
+        
+        No params.
+    - name: ExitOverlay13
+      address:
+        EU: 0x238ACD0
+        NA: 0x238A190
+        JP: 0x238B6F0
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        No params.
+    - name: Overlay13SwitchFunctionNa238A1C8
+      address:
+        EU: 0x238AD08
+        NA: 0x238A1C8
+        JP: 0x238B728
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        return: int?
+    - name: Overlay13SwitchFunctionNa238A574
+      address:
+        EU: 0x238B0B4
+        NA: 0x238A574
+        JP: 0x238BAD4
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        No params.
+    - name: GetPersonality
+      address:
+        EU: 0x238C8E8
+        NA: 0x238BDA8
+        JP: 0x238D30C
+      description: |-
+        Returns the personality obtained after answering all the questions.
+        
+        The value to return is determined by checking the points obtained for each the personalities and returning the one with the highest amount of points.
+        
+        return: Personality (0-15)
+    - name: GetOptionStringFromID
+      address:
+        EU: 0x238C930
+        NA: 0x238BDF0
+        JP: 0x238D354
+      description: |-
+        Note: unverified, ported from Irdkwia's notes. The first parameter and the return value point to the same string (which is passed directly into PreprocessString as the first argument), so I'm not sure why they're named differently... Seems like a mistake?
+        
+        r0: menu_id
+        r1: option_id
+        return: process
+    - name: WaitForNextStep
+      address:
+        EU: 0x238C98C
+        NA: 0x238BE4C
+        JP: 0x238D3B0
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: switch_case
   data:
+    - name: QUIZ_BORDER_COLOR_TABLE
+      address:
+        EU: 0x238CB50
+        NA: 0x238C010
+        JP: 0x238D578
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: PORTRAIT_ATTRIBUTES
+      address:
+        EU: 0x238CB54
+        NA: 0x238C014
+        JP: 0x238D57C
+      length:
+        EU: 0x8
+        NA: 0x8
+        JP: 0x8
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: QUIZ_MALE_FEMALE_BOOST_TABLE
+      address:
+        EU: 0x238CB5C
+        NA: 0x238C01C
+        JP: 0x238D584
+      length:
+        EU: 0x8
+        NA: 0x8
+        JP: 0x8
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY13_UNKNOWN_STRUCT__NA_238C024
+      address:
+        EU: 0x238CB64
+        NA: 0x238C024
+        JP: 0x238D58C
+      length:
+        EU: 0x10
+        NA: 0x10
+        JP: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: QUIZ_D_BOX_LAYOUT_1
+      address:
+        EU: 0x238CB74
+        NA: 0x238C034
+        JP: 0x238D59C
+      length:
+        EU: 0x10
+        NA: 0x10
+        JP: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: QUIZ_D_BOX_LAYOUT_2
+      address:
+        EU: 0x238CB84
+        NA: 0x238C044
+        JP: 0x238D5AC
+      length:
+        EU: 0x10
+        NA: 0x10
+        JP: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: QUIZ_D_BOX_LAYOUT_3
+      address:
+        EU: 0x238CB94
+        NA: 0x238C054
+        JP: 0x238D5BC
+      length:
+        EU: 0x10
+        NA: 0x10
+        JP: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: QUIZ_D_BOX_LAYOUT_4
+      address:
+        EU: 0x238CBA4
+        NA: 0x238C064
+        JP: 0x238D5CC
+      length:
+        EU: 0x10
+        NA: 0x10
+        JP: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: QUIZ_MENU_1
+      address:
+        EU: 0x238CBB4
+        NA: 0x238C074
+        JP: 0x238D5DC
+      length:
+        EU: 0x18
+        NA: 0x18
+        JP: 0x18
+      description: "Note: unverified, ported from Irdkwia's notes"
     - name: STARTERS_PARTNER_IDS
       address:
         EU: 0x238CBCC
         NA: 0x238C08C
+        JP: 0x238D5F4
       length:
         EU: 0x2A
         NA: 0x2A
+        JP: 0x2A
       description: "type: struct monster_id_16[21]"
     - name: STARTERS_HERO_IDS
       address:
         EU: 0x238CBF8
         NA: 0x238C0B8
+        JP: 0x238D620
       length:
         EU: 0x40
         NA: 0x40
+        JP: 0x40
       description: "type: struct monster_id_16[32]"
+    - name: STARTERS_TYPE_INCOMPATIBILITY_TABLE
+      address:
+        EU: 0x238CC38
+        NA: 0x238C0F8
+        JP: 0x238D660
+      length:
+        EU: 0x54
+        NA: 0x54
+        JP: 0x54
+      description: "Note: unverified, ported from Irdkwia's notes"
     - name: STARTERS_STRINGS
       address:
         EU: 0x238CC8C
         NA: 0x238C14C
+        JP: 0x238D6B4
       length:
         EU: 0x60
         NA: 0x60
+        JP: 0x60
+      description: "Irdkwia's notes: InsightsStringIDs"
     - name: QUIZ_QUESTION_STRINGS
       address:
         EU: 0x238CCEC
         NA: 0x238C1AC
+        JP: 0x238D714
       length:
         EU: 0x84
         NA: 0x84
+        JP: 0x84
+      description: "0x2 * (66 questions)"
     - name: QUIZ_ANSWER_STRINGS
       address:
         EU: 0x238CD70
         NA: 0x238C230
+        JP: 0x238D798
       length:
         EU: 0x160
         NA: 0x160
-    - name: UNKNOWN_MENU_1
+        JP: 0x160
+      description: "0x2 * (175 answers + null-terminator)"
+    - name: QUIZ_ANSWER_POINTS
+      address:
+        EU: 0x238CED0
+        NA: 0x238C390
+        JP: 0x238D8F8
+      length:
+        EU: 0xAE0
+        NA: 0xAE0
+        JP: 0xAE0
+      description: |-
+        0x10 * (174 answers?)
+        
+        Note: unverified, ported from Irdkwia's notes
+    - name: OVERLAY13_RESERVED_SPACE
+      address:
+        EU: 0x238D9D0
+        NA: 0x238CE90
+        JP: 0x238E3F8
+      length:
+        EU: 0x10
+        NA: 0x10
+        JP: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY13_UNKNOWN_POINTER__NA_238CEA0
+      address:
+        EU: 0x238D9E0
+        NA: 0x238CEA0
+        JP: 0x238E408
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY13_UNKNOWN_POINTER__NA_238CEA4
+      address:
+        EU: 0x238D9E4
+        NA: 0x238CEA4
+        JP: 0x238E40C
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY13_UNKNOWN_POINTER__NA_238CEA8
+      address:
+        EU: 0x238D9E8
+        NA: 0x238CEA8
+        JP: 0x238E410
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: QUIZ_D_BOX_LAYOUT_5
+      address:
+        EU: 0x238D9EC
+        NA: 0x238CEAC
+        JP: 0x238E414
+      length:
+        EU: 0x10
+        NA: 0x10
+        JP: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: QUIZ_D_BOX_LAYOUT_6
+      address:
+        EU: 0x238D9FC
+        NA: 0x238CEBC
+        JP: 0x238E424
+      length:
+        EU: 0x10
+        NA: 0x10
+        JP: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: QUIZ_DEBUG_MENU
       address:
         EU: 0x238DA0C
         NA: 0x238CECC
+        JP: 0x238E434
       length:
         EU: 0x48
         NA: 0x48
+        JP: 0x48
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY13_UNKNOWN_STRUCT__NA_238CF14
+      address:
+        EU: 0x238DA54
+        NA: 0x238CF14
+        JP: 0x238E47C
+      length:
+        EU: 0x10
+        NA: 0x10
+        JP: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: QUIZ_QUESTION_ANSWER_ASSOCIATIONS
+      address:
+        EU: 0x238DA64
+        NA: 0x238CF24
+        JP: 0x238E48C
+      length:
+        EU: 0x84
+        NA: 0x84
+        JP: 0x84
+      description: |-
+        0x2 * (66 questions)
+        
+        Note: unverified, ported from Irdkwia's notes

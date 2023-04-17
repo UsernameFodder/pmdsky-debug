@@ -168,7 +168,7 @@ pub enum Linkable {
 
 impl Linkable {
     /// The value to use for comparisons.
-    fn cmp_key(&self) -> Uint {
+    pub(super) fn cmp_key(&self) -> Uint {
         match self {
             Self::Single(x) => *x,
             Self::Multiple(v) => *v.iter().min().unwrap_or(&0),
@@ -593,6 +593,14 @@ impl<T: Ord> PartialOrd for MaybeVersionDep<T> {
 
 impl<T: Ord> Ord for MaybeVersionDep<T> {
     fn cmp(&self, other: &Self) -> Ordering {
+        // It should be impossible for the resymgen code to end up in the code paths
+        // with intransitive comparison, since it should do version resolution of
+        // Common variants prior to sorting, but it's good to have the warning here
+        // just in case.
+        const INTRANSITIVITY_WARNING: &str =
+            "Warning: comparing by-version values with common (unversioned) \
+                values is not guaranteed to yield consistent sorting results. \
+                Consider converting explicitly versioning all values.";
         match self {
             Self::Common(val1) => {
                 match other {
@@ -601,8 +609,9 @@ impl<T: Ord> Ord for MaybeVersionDep<T> {
                         val1.cmp(val2)
                     }
                     Self::ByVersion(vals2) => {
+                        eprintln!("{}", INTRANSITIVITY_WARNING);
                         // Compare self against all values in other.
-                        // Repeat self at least so it is greater than an empty VersionDep.
+                        // Repeat self at least once so it is greater than an empty VersionDep.
                         iter::repeat(val1)
                             .take(cmp::max(vals2.0.len(), 1))
                             .cmp(vals2.0.values())
@@ -612,8 +621,9 @@ impl<T: Ord> Ord for MaybeVersionDep<T> {
             Self::ByVersion(vals1) => {
                 match other {
                     Self::Common(val2) => {
+                        eprintln!("{}", INTRANSITIVITY_WARNING);
                         // Compare all values in self against other.
-                        // Repeat other at least so it is greater than an empty VersionDep.
+                        // Repeat other at least once so it is greater than an empty VersionDep.
                         vals1
                             .0
                             .values()

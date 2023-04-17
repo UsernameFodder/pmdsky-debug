@@ -234,16 +234,145 @@ struct script_object {
 };
 ASSERT_SIZE(struct script_object, 12);
 
+// Data relating to animation
+struct animation {
+    undefined fields[196];
+};
+ASSERT_SIZE(struct animation, 196);
+
+// represent an actor present in the scene in the overworld (both during cutscenes and free-roams)
+struct live_actor {
+    struct monster_id_16
+        species_id;     // The id of the Actor in the actor list. Internally named type.
+    uint16_t entity_id; // The ID of the actor in the ENTITIES table. Internally named kind.
+    bool is_enabled; // true when the actor is loaded, false otherwise (should be checked if unsure)
+    undefined field_0x5;
+    uint16_t hanger;
+    uint8_t sector;
+    int8_t field_0x9;
+    int16_t field_0xa;
+    struct uvec2 collision_box; // The size of the collision box of the pokemon
+    undefined field_0x14;
+    undefined field_0x15;
+    undefined field_0x16;
+    undefined field_0x17;
+    struct uvec2 size_div2; // The size of the collision box divided by two
+    undefined field_0x20;
+    undefined field_0x21;
+    undefined field_0x22;
+    undefined field_0x23;
+    undefined field_0x24;
+    undefined field_0x25;
+    undefined field_0x26;
+    undefined field_0x27;
+    struct vec2 limit_min_pos;         // minimum possible coordinates, for random move in free roam
+    struct vec2 limit_max_pos;         // maximum possible coordinates, for random move in free roam
+    undefined maybe_command_data[236]; // Seems to be a script-related struct
+    int16_t field_0x124;
+    undefined field_0x126;
+    undefined field_0x127;
+    uint32_t bitfied_collision_layer; // not sure
+    int32_t field_0x12c;
+    struct direction_id_8 current_direction; // not sure
+    undefined field_0x131;
+    undefined field_0x132;
+    undefined field_0x133;
+    undefined field_0x134;
+    undefined field_0x135;
+    undefined field_0x136;
+    undefined field_0x137;
+    struct vec2 field38_0x138;
+    undefined field_0x140;
+    undefined field_0x141;
+    undefined field_0x142;
+    undefined field_0x143;
+    undefined field_0x144;
+    undefined field_0x145;
+    undefined field_0x146;
+    undefined field_0x147;
+    undefined field_0x148;
+    undefined field_0x149;
+    undefined field_0x14a;
+    undefined field_0x14b;
+    uint32_t field_0x14c;
+    int16_t field_0x150;
+    bool field_0x152;
+    undefined field_0x153;
+    int16_t field_0x154;
+    bool field_0x156;
+    undefined field_0x157;
+    int16_t field_0x158;
+    struct direction_id_8 direction;
+    undefined field_0x15b;
+    struct vec2 coord_min; // the top-left coordinate of the collision box of the actor
+    struct vec2 coord_max; // the bottom-right coordinate of the collision box of the actor
+    undefined4 field_0x16c;
+    undefined4 field_0x170;
+    int8_t field_0x174;
+    int8_t field_0x175;
+    int16_t field_0x176;
+    int16_t field_0x178;
+    undefined field_0x17a;
+    undefined field_0x17b;
+    // not sure. seem to be 0 when not moving and 3 when moving most of the time.
+    int32_t movement_related;
+    int16_t second_bitfield; // not sure
+    int16_t field_0x182;
+    int16_t field_0x184;
+    undefined field_0x186;
+    undefined field_0x187;
+    undefined field_0x188;
+    undefined field_0x189;
+    undefined field_0x18a;
+    undefined field_0x18b;
+    // Probably? This is known to be a 196-byte struct relating to animation.
+    // struct animation is confirmed in a different context than this field,
+    // but it seems too coincidental for this field to be a different struct.
+    struct animation animation;
+};
+ASSERT_SIZE(struct live_actor, 592);
+
+// A list of 24 actors, which is the number of statically allocated live actor
+struct live_actor_list {
+    struct live_actor actors[24];
+};
+ASSERT_SIZE(struct live_actor_list, 14208);
+
 // A global structure holding various pointer to important structure for ground mode
 struct main_ground_data {
     undefined* script; // 0x0: pointer to script structure
     undefined*
         partner_follow_data; // 0x4: pointer to the data related to the partner following the player
-    undefined* actors;       // 0x8: pointer to the actors
-    undefined* objects;      // 0x12: pointer to the objects
-    undefined* performers;   // 0x16: pointer to the performers
-    undefined* events;       // 0x20: pointer to the events
+    struct live_actor_list* actors; // 0x8: pointer to the actors
+    undefined* objects;             // 0x12: pointer to the objects
+    undefined* performers;          // 0x16: pointer to the performers
+    undefined* events;              // 0x20: pointer to the events
 };
 ASSERT_SIZE(struct main_ground_data, 24);
+
+struct partner_talk_kind_table_entry {
+    enum talk_kind talk_kind;
+    enum monster_id id;
+};
+ASSERT_SIZE(struct partner_talk_kind_table_entry, 8);
+
+struct bar_item {
+    struct item_id_16 id;
+    int16_t field_0x2;
+    int16_t field_0x4;
+    int16_t field_0x6;
+    int16_t field_0x8;
+    int16_t field_0xa;
+    int16_t field_0xc;
+    // Probably padding
+    undefined field_0xe[8];
+};
+ASSERT_SIZE(struct bar_item, 22);
+
+struct ground_weather_entry {
+    int16_t field_0x0;
+    int16_t field_0x2;
+};
+ASSERT_SIZE(struct ground_weather_entry, 4);
 
 #endif

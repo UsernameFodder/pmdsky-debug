@@ -14,6 +14,12 @@ overlay21:
   description: Controls the Croagunk Swap Shop.
   functions: []
   data:
+    - name: SWAP_SHOP_D_BOX_LAYOUT_1
+      address:
+        NA: 0x238CA28
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
     - name: SWAP_SHOP_MENU_CONFIRM
       address:
         EU: 0x238D578
@@ -56,3 +62,81 @@ overlay21:
       length:
         EU: 0x30
         NA: 0x30
+    - name: OVERLAY21_UNKNOWN_STRING_IDS
+      address:
+        NA: 0x238CB00
+      length:
+        NA: 0x38
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: SWAP_SHOP_D_BOX_LAYOUT_2
+      address:
+        NA: 0x238CB38
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: SWAP_SHOP_D_BOX_LAYOUT_3
+      address:
+        NA: 0x238CB48
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: SWAP_SHOP_D_BOX_LAYOUT_4
+      address:
+        NA: 0x238CB58
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: SWAP_SHOP_D_BOX_LAYOUT_5
+      address:
+        NA: 0x238CB68
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: SWAP_SHOP_D_BOX_LAYOUT_6
+      address:
+        NA: 0x238CB78
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: SWAP_SHOP_D_BOX_LAYOUT_7
+      address:
+        NA: 0x238CB88
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: SWAP_SHOP_D_BOX_LAYOUT_8
+      address:
+        NA: 0x238CB98
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: SWAP_SHOP_D_BOX_LAYOUT_9
+      address:
+        NA: 0x238CBA8
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY21_JP_STRING
+      address:
+        NA: 0x238CF1C
+      length:
+        NA: 0x8
+      description: 合成：
+    - name: OVERLAY21_RESERVED_SPACE
+      address:
+        NA: 0x238CF38
+      length:
+        NA: 0x8
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY21_UNKNOWN_POINTER__NA_238CF40
+      address:
+        NA: 0x238CF40
+      length:
+        NA: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY21_UNKNOWN_POINTER__NA_238CF44
+      address:
+        NA: 0x238CF44
+      length:
+        NA: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"
