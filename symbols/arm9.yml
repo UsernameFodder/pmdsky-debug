@@ -1091,8 +1091,8 @@ arm9:
         Call LoadFileInPack after looking up the global Pack archive by its identifier
         
         r0: pack file identifier
-        r1: [output] target buffer
-        r2: file index
+        r1: file index
+        r2: [output] target buffer
         return: number of read bytes (identical to the length of the pack from the Table of Content)
     - name: AllocAndLoadFileInPack
       address:
@@ -3022,17 +3022,25 @@ arm9:
         NA: 0x201D1DC
         JP: 0x201D234
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Always delete an entry if the file is allocated externally (file_externally_allocated is set), otherwise, decrease the reference counter. If it reach 0, delete the sprite.
         
         r0: wan_table_ptr
         r1: wan_id
+    - name: AllocateWanTableEntry
+      address:
+        EU: 0x201D2E0
+      description: |-
+        Return the identifier to a free wan table entry (-1 if none are avalaible). The entry is zeroed.
+        
+        r0: wan_table_ptr
+        return: the entry id in wan_table
     - name: FindWanTableEntry
       address:
         EU: 0x201D370
         NA: 0x201D2D4
         JP: 0x201D32C
       description: |-
-        Appears to search in the given table (in practice always seems to be LOADED_WAN_TABLE_PTR) for an entry with the given file name.
+        Search in the given table (in practice always seems to be LOADED_WAN_TABLE_PTR) for an entry with the given file name.
         
         r0: table pointer
         r1: file name
@@ -3043,14 +3051,19 @@ arm9:
         NA: 0x201D334
         JP: 0x201D38C
       description: |-
-        wan_id = -1 if it is not loaded
-        
-        Note: unverified, ported from Irdkwia's notes
+        Lookup for a sprite coming from provided pack_id and file_index in the wan table.
         
         r0: wan_table_ptr
-        r1: bin_file_id
-        r2: file_id
-        return: wan_id
+        r1: pack_id
+        r2: file_index
+        return: sprite id in the wan table, -1 if not found
+    - name: InitWanTable
+      address:
+        EU: 0x201D458
+      description: |-
+        Initialize the input Wan Table with 0x60 free entry (it need a lenght of 0x1510 bytes)
+        
+        r0: wan_table_ptr
     - name: LoadWanTableEntry
       address:
         EU: 0x201D478
@@ -3063,6 +3076,28 @@ arm9:
         r1: file name
         r2: flags
         return: table index of the loaded data
+    - name: LoadWanTableEntryFromPack
+      address:
+        EU: 0x201D520
+      description: |-
+        Return an already allocated entry for this sprite if it exist, otherwise allocate a new one and load the optionally compressed sprite.
+        
+        r0: wan_table_ptr
+        r1: pack_id
+        r2: file_index
+        r3: allocation flags
+        stack[0]: compressed
+    - name: LoadWanTableEntryFromPackUseProvidedMemory
+      address:
+        EU: 0x201D62C
+      description: |-
+        Return an already allocated entry for this sprite if it exist, other allocate a new one and load the optionally compressed sprite into the provided memory area. Mark the sprite as externally allocated.
+        
+        r0: wan_table_ptr
+        r1: pack_id
+        r2: file_index
+        r3: sprite_storage_ptr
+        stack[0]: compressed
     - name: ReplaceWanFromBinFile
       address:
         EU: 0x201D720
