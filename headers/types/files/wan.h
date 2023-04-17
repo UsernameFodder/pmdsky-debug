@@ -1,5 +1,5 @@
-#ifndef HEADERS_TYPES_FILES_WAN_H
-#define HEADERS_TYPES_FILES_WAN_H
+#ifndef HEADERS_TYPES_FILES_WAN_H_
+#define HEADERS_TYPES_FILES_WAN_H_
 
 // For now, there is only the top-level header for WAN files.
 

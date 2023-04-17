@@ -3051,7 +3051,7 @@ arm9:
         NA: 0x201D334
         JP: 0x201D38C
       description: |-
-        Lookup for a sprite coming from provided pack_id and file_index in the wan table.
+        Look up a sprite with the provided pack_id and file_index in the wan table.
         
         r0: wan_table_ptr
         r1: pack_id
@@ -3061,7 +3061,7 @@ arm9:
       address:
         EU: 0x201D458
       description: |-
-        Initialize the input Wan Table with 0x60 free entry (it need a lenght of 0x1510 bytes)
+        Initialize the input WAN table with 0x60 free entries (it needs a length of 0x1510 bytes)
         
         r0: wan_table_ptr
     - name: LoadWanTableEntry
@@ -3080,24 +3080,26 @@ arm9:
       address:
         EU: 0x201D520
       description: |-
-        Return an already allocated entry for this sprite if it exist, otherwise allocate a new one and load the optionally compressed sprite.
+        Return an already allocated entry for this sprite if it exists, otherwise allocate a new one and load the optionally compressed sprite.
         
         r0: wan_table_ptr
         r1: pack_id
         r2: file_index
         r3: allocation flags
         stack[0]: compressed
+        return: the entry id in wan_table
     - name: LoadWanTableEntryFromPackUseProvidedMemory
       address:
         EU: 0x201D62C
       description: |-
-        Return an already allocated entry for this sprite if it exist, other allocate a new one and load the optionally compressed sprite into the provided memory area. Mark the sprite as externally allocated.
+        Return an already allocated entry for this sprite if it exists, otherwise allocate a new one and load the optionally compressed sprite into the provided memory area. Mark the sprite as externally allocated.
         
         r0: wan_table_ptr
         r1: pack_id
         r2: file_index
         r3: sprite_storage_ptr
         stack[0]: compressed
+        return: the entry id in wan_table
     - name: ReplaceWanFromBinFile
       address:
         EU: 0x201D720
