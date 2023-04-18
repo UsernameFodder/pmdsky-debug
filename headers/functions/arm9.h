@@ -100,8 +100,8 @@ void DebugPrint(uint8_t level, const char* fmt, ...);
 void FatalError(struct prog_pos_info prog_pos, const char* fmt, ...);
 void OpenAllPackFiles(void);
 uint32_t GetFileLengthInPackWithPackNb(enum pack_file_id pack_id, uint32_t file_index);
-uint32_t LoadFileInPackWithPackId(enum pack_file_id pack_id, void* output_buffer,
-                                  uint32_t file_index);
+uint32_t LoadFileInPackWithPackId(enum pack_file_id pack_id, uint32_t file_index,
+                                  void* output_buffer);
 void AllocAndLoadFileInPack(enum pack_file_id pack_id, uint32_t file_index,
                             struct pack_alloc_and_load_result* output, uint32_t malloc_flags);
 void OpenPackFile(struct pack_file_opened* pack_file, const char* file_name);
@@ -302,13 +302,21 @@ void PlaySeFullSpec(int param_1, int param_2, int param_3, int param_4);
 void SeChangeVolume(int param_1, int param_2, int param_3);
 void SeChangePan(int param_1, int param_2, int param_3);
 void StopSe(int param_1, int param_2);
-void DeleteWanTableEntry(undefined* wan_table, int wan_id);
-int FindWanTableEntry(undefined* wan_table, const char* path);
-int GetLoadedWanTableEntry(undefined* wan_table, int bin_file_id, int file_id);
-int LoadWanTableEntry(undefined* wan_table, const char* path, uint32_t flags);
-int ReplaceWanFromBinFile(undefined* wan_table, int wan_id, int bin_file_id, int file_id,
-                          bool compressed);
-void DeleteWanTableEntryVeneer(undefined* wan_table, int wan_id);
+void DeleteWanTableEntry(struct wan_table* wan_table, int wan_id);
+int AllocateWanTableEntry(struct wan_table* wan_table);
+int FindWanTableEntry(struct wan_table* wan_table, const char* path);
+int GetLoadedWanTableEntry(struct wan_table* wan_table, enum pack_file_id pack_id,
+                           uint16_t file_index);
+void InitWanTable(struct wan_table* wan_table);
+int LoadWanTableEntry(struct wan_table* wan_table, const char* path, uint32_t flags);
+int LoadWanTableEntryFromPack(struct wan_table* wan_table, enum pack_file_id pack_id,
+                              uint16_t file_index, uint32_t alloc_flags, bool is_compressed);
+int LoadWanTableEntryFromPackUseProvidedMemory(struct wan_table* wan_table,
+                                               enum pack_file_id pack_id, uint16_t file_index,
+                                               void* sprite_storage, bool is_compressed);
+int ReplaceWanFromBinFile(struct wan_table* wan_table, int wan_id, enum pack_file_id pack_id,
+                          uint16_t file_index, bool compressed);
+void DeleteWanTableEntryVeneer(struct wan_table* wan_table, int wan_id);
 void LoadWteFromRom(struct wte_handle* handle, const char* path, uint32_t flags);
 void LoadWteFromFileDirectory(struct wte_handle* handle, uint16_t pack_file_id, uint16_t file_index,
                               uint32_t malloc_flags);

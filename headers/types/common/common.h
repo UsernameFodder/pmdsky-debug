@@ -6,6 +6,7 @@
 #include "enums.h"
 #include "../dungeon_mode/dungeon_mode_common.h"
 #include "file_io.h"
+#include "../files/wan.h"
 
 // A slice in the usual programming sense: a pointer, length, and capacity.
 // Used for the implementation of vsprintf(3), but maybe it's used elsewhere as well.
@@ -888,6 +889,45 @@ struct version_exclusive_monster {
     bool in_eod; // In Explorers of Darkness
 };
 ASSERT_SIZE(struct version_exclusive_monster, 4);
+
+// An entry correspond to sprite loaded in memory and ready to be displayed
+struct wan_table_entry {
+    char path[32];                  // 0x0: Needs to be null-terminated. Only used for direct file.
+    bool file_externally_allocated; // 0x20: True if the iov_base shouldn’t be freed by this struct.
+    uint8_t source_type;            // 0x21: 1 = direct file, 2 = pack file
+    int16_t pack_id;                // 0x22: for wan in pack file
+    int16_t file_index;             // 0x24: for wan in pack file
+    undefined field5_0x26;
+    undefined field6_0x27;
+    uint32_t iov_len;
+    // 0x2C: When removing a reference, if it reaches 0, the entry is removed (unless
+    // file_externally_allocated is true, as it is always removed even if there are remaining
+    // references)
+    int16_t reference_counter;
+    undefined field9_0x2e;
+    undefined field10_0x2f;
+    // 0x30: pointer to the beginning of the data section of iov_base.
+    struct wan_header* sprite_start;
+    void* iov_base; // 0x34: points to a sirO
+};
+ASSERT_SIZE(struct wan_table_entry, 56);
+
+// Global structure used to deduplicate loading of wan sprites. Loaded sprites are
+// reference-counted.
+struct wan_table {
+    struct wan_table_entry sprites[96]; // 0x0
+    void* at_decompress_scratch_space;  // 0x1500
+    undefined field2_0x1504;
+    undefined field3_0x1505;
+    undefined field4_0x1506;
+    undefined field5_0x1507;
+    int16_t total_nb_of_entries;  // 0x1508: The total number of entries. Should be equal to 0x60.
+    int16_t next_alloc_start_pos; // 0x150A
+    int16_t field8_0x150c;
+    undefined field9_0x150e;
+    undefined field10_0x150f;
+};
+ASSERT_SIZE(struct wan_table, 5392);
 
 // TODO: Add more data file structures, as convenient or needed, especially if the load address
 // or pointers to the load address are known.
