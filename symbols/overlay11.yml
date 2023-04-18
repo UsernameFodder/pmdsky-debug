@@ -213,10 +213,13 @@ overlay11:
         NA: 0x22EBB40
         JP: 0x22ED174
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Open and read an entry from the MAP_BG/bg_list.dat
         
-        r0: [output] bg_attr_str
-        r1: bg_id
+        Documentation on this format can be found here:
+        https://github.com/SkyTemple/skytemple-files/tree/55b3017631a8a1b0f106111ef91a901dc394c6df/skytemple_files/graphics/bg_list_dat
+        
+        r0: [output] The entry
+        r1: background ID
     - name: LoadMapType10
       address:
         EU: 0x22ED664
@@ -513,6 +516,10 @@ overlay11:
         EU: 0x2325800
         NA: 0x2324CC0
       description: "[Runtime]"
+    - name: GROUND_STATE_WEATHER
+      address:
+        EU: 0x232580C
+      description: "[Runtime] Same structure format as GROUND_STATE_MAP"
     - name: GROUND_STATE_PTRS
       address:
         EU: 0x2325834
