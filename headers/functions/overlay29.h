@@ -228,7 +228,7 @@ int GetMovePower(struct entity* entity, struct move* move);
 bool UpdateStateFlags(struct monster* monster, uint16_t mask, bool set_flags);
 void AddExpSpecial(struct entity* attacker, struct entity* defender, int base_exp);
 void EnemyEvolution(struct entity* enemy);
-bool LevelUpItemEffect(struct entity* attacker, struct entity* defender int levels, bool message,
+bool LevelUpItemEffect(struct entity* attacker, struct entity* defender, int levels, bool message,
                        bool dialog);
 bool TryDecreaseLevel(struct entity* user, struct entity* target, int n_levels);
 bool LevelUp(struct entity* user, struct entity* target, bool message, bool dialog);

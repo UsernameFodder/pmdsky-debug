@@ -2633,7 +2633,7 @@ overlay29:
         r1: pointer to target
     - name: TryInflictDropeyeStatus
       address:
-        NA: 0x023078EC
+        NA: 0x23078EC
       description: |-
         Inflicts the Dropeye status condition on a target monster if possible.
         
@@ -3641,7 +3641,7 @@ overlay29:
         r1: target entity pointer
     - name: TryInflictBlinkerStatus
       address:
-        NA: 0x023176CC
+        NA: 0x23176CC
       description: |-
         Inflicts the Blinker status condition on a target monster if possible.
         

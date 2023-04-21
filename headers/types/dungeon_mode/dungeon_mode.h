@@ -208,7 +208,7 @@ struct statuses {
     bool unk_item_use_action;
     // 0x61: Is initalized to 0x63 (99). Changing it from this value causes the monster to
     // begin rendering differently? For example, it causes entity::0xB3 to be 1 and forces
-    //entity::0x28 to be 0. 
+    //entity::0x28 to be 0.
     undefined field_0x61;
     // 0x62: Flag for two-turn moves that haven't concluded yet. This is also a graphical flag.
     // A value of 1 mean "high up" (Fly/Bounce). A value of 2 means some other condition like
@@ -1038,7 +1038,7 @@ ASSERT_SIZE(struct minimap_display_data, 58444);
 struct dungeon_generation_info {
     // 0x0: Set if the floor layout is guaranteed to be a Monster House, or the dungeon generation
     // algorithm fails
-    bool force_create_monster_house;'
+    bool force_create_monster_house;
     // 0x1: Set if the locked door on the dungeon floor has already been open.
     bool locked_door_opened;
     // 0x2: Set if a kecleon shop was properly spawned.
