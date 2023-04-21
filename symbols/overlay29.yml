@@ -3617,7 +3617,7 @@ overlay29:
         
         r0: user entity pointer
         r1: target entity pointer
-    - name: TryIncreaseHp
+    - name: TryIncreaseBelly
       address:
         NA: 0x2316BB0
       description: |-
@@ -3626,7 +3626,7 @@ overlay29:
         r0: user entity pointer
         r1: target entity pointer
         r2: belly to restore
-        r3: max belly boost
+        r3: max belly boost (if belly is full)
         stack[0]: flag to log a message
     - name: TryTransform
       address:
