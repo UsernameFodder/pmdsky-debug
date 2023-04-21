@@ -208,7 +208,7 @@ struct statuses {
     bool unk_item_use_action;
     // 0x61: Is initalized to 0x63 (99). Changing it from this value causes the monster to
     // begin rendering differently? For example, it causes entity::0xB3 to be 1 and forces
-    //entity::0x28 to be 0.
+    // entity::0x28 to be 0.
     undefined field_0x61;
     // 0x62: Flag for two-turn moves that haven't concluded yet. This is also a graphical flag.
     // A value of 1 mean "high up" (Fly/Bounce). A value of 2 means some other condition like

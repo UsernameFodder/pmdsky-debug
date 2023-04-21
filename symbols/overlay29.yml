@@ -4052,7 +4052,8 @@ overlay29:
       address:
         NA: 0x231D6E0
       description: |-
-        If the target monster is a team member, set dough_seed_extra_money_flag to true to make extra money spawn on the next floor. Otherwise, do nothing.
+        If the target monster is a team member, set dough_seed_extra_poke_flag to true to 
+        make extra poke spawn on the next floor. Otherwise, do nothing.
         
         r0: user entity pointer
         r1: target entity pointer
@@ -4768,8 +4769,8 @@ overlay29:
         NA: 0x2338560
       description: |-
         Checks the dough_seed_extra_money_flag field on the dungeon struct and tries to spawn
-        extra money if it is set.
-
+        extra poke if it is set.
+        
         No params.
     - name: IsSecretBazaar
       address:

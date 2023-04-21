@@ -614,7 +614,7 @@ struct dungeon {
     bool thief_alert_event;
     // 0x792: Controls when to play certain special music? Can be 0x7C (Outlaw), 0x7D
     // (Monster House), 0x168 (Goodnight), and 0x169 (Mission Failure). Used by the Gone Pebbble
-    // to play track 0x168, challenge letter missions to play track 0x7C, and dungeon failure 
+    // to play track 0x168, challenge letter missions to play track 0x7C, and dungeon failure
     // to play 0x169? Can only be 0,1,2,3,4.
     uint8_t unk_music_flag;
     bool monster_house_triggered; // 0x793: You Entered a Monster House (actual dungeon state)

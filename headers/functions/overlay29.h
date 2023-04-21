@@ -374,9 +374,9 @@ bool TryInflictLeechSeedStatus(struct entity* user, struct entity* target, bool 
                                bool check_only);
 void TryInflictDestinyBond(struct entity* user, struct entity* target);
 void TryInvisify(struct entity* user, struct entity* target);
-void TryTransform(struct entity* user, struct entity* target);
 void TryIncreaseBelly(struct entity* user, struct entity* target, int belly_restoration,
                       int max_belly_boost, bool log_failure);
+void TryTransform(struct entity* user, struct entity* target);
 bool TryInflictBlinkerStatus(struct entity* user, struct entity* target, bool check_only,
                              bool log_failure);
 bool IsBlinded(struct entity* entity, bool check_held_item);
@@ -519,7 +519,6 @@ uint8_t GetMinimapDataE447(void);
 void SetMinimapDataE448(uint8_t value);
 void InitWeirdMinimapMatrix(void);
 void InitMinimapDisplayTile(struct minimap_display_tile* minimap_display_tile, undefined* ptr);
-void ApplyKeyEffect(struct entity* attacker, struct entity* defender);
 void LoadFixedRoomDataVeneer(void);
 bool IsNormalFloor(void);
 void GenerateFloor(void);
@@ -590,6 +589,7 @@ enum hidden_stairs_type GetHiddenStairsType(struct dungeon_generation_info* gen_
                                             struct floor_properties* floor_props);
 int GetFinalKecleonShopSpawnChance(int base_kecleon_shop_chance);
 void ResetHiddenStairsSpawn(void);
+void ApplyKeyEffect(struct entity* attacker, struct entity* defender);
 void LoadFixedRoomData(void);
 int LoadFixedRoom(int param_1, int param_2, int param_3, undefined4 param_4);
 void OpenFixedBin(void);
