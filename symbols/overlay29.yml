@@ -1673,6 +1673,15 @@ overlay29:
         Called when a monster is revived.
         
         r0: pointer to entity whose moves will be restored
+    - name: BoostIQ
+      address:
+        NA: 0x22FA144
+      description: |-
+        Tries to boost the target's IQ.
+        
+        r0: monster entity pointer
+        r1: iq boost
+        r2: bool suppress logs
     - name: ShouldMonsterHeadToStairs
       address:
         EU: 0x22FAE3C
@@ -2424,6 +2433,19 @@ overlay29:
         Checks if the specified enemy should evolve because it just defeated an ally, and if so, attempts to evolve it.
         
         r0: Pointer to the enemy to check
+    - name: LevelUpItemEffect
+      address:
+        NA: 0x2302A5C
+      description: |-
+        Attempts to level up the the target. Calls LevelUp with a few extra checks and messages
+        for using as an item. Used for the Joy Seed and Golden Seed.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: number of levels
+        r3: bool message flag?
+        stack[0]: bool show level up dialog (for example "Hey, I leveled up!" with a portrait)?
+        return: success flag
     - name: TryDecreaseLevel
       address:
         EU: 0x23039B4
@@ -2442,13 +2464,13 @@ overlay29:
         NA: 0x230303C
         JP: 0x2304588
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Attempts to level up the the target. Fails if the target's level can't be raised. The show show level up dialog bool does nothing for monsters not on the team.
         
         r0: user entity pointer
         r1: target entity pointer
-        r2: message flag?
-        r3: ?
-        return: success flag?
+        r2: bool message flag?
+        r3: bool show level up dialog (for example "Hey, I leveled up!" with a portrait)?
+        return: success flag
     - name: EvolveMonster
       address:
         EU: 0x23046A8
@@ -2457,8 +2479,8 @@ overlay29:
       description: |-
         Makes the specified monster evolve into the specified species.
         
-        r0: Pointer to the entity to evolve
-        r1: ?
+        r0: ?
+        r1: Pointer to the entity to evolve
         r2: Species to evolve into
     - name: GetSleepAnimationId
       address:
@@ -2492,6 +2514,38 @@ overlay29:
         Used both for enemies and team members.
         
         r0: Entity pointer
+    - name: EndNegativeStatusCondition
+      address:
+        NA: 0x23058C4
+      description: |-
+        Cures the target's negative status conditions. The game rarely (if not never) calls
+        this function with the bool to remove the wrapping status false.
+        
+        r0: pointer to user
+        r1: pointer to target
+        r2: bool play animation
+        r3: bool log failure message
+        stack[0]: bool remove wrapping status
+        return: bool succesfully removed negative status
+    - name: EndNegativeStatusConditionWrapper
+      address:
+        NA: 0x2305C28
+      description: |-
+        Calls EndNegativeStatusCondition with remove wrapping status false.
+        
+        r0: pointer to user
+        r1: pointer to target
+        r2: bool play animation
+        r3: bool log failure message
+        return: bool succesfully removed negative status
+    - name: TransferNegativeStatusCondition
+      address:
+        NA: 0x2305C3C
+      description: |-
+        Transfers all negative status conditions the user has and gives then to the target.
+        
+        r0: user entity pointer
+        r1: target entity pointer
     - name: EndSleepClassStatus
       address:
         NA: 0x2305FDC
@@ -2577,6 +2631,14 @@ overlay29:
         
         r0: pointer to user
         r1: pointer to target
+    - name: TryInflictDropeyeStatus
+      address:
+        NA: 0x023078EC
+      description: |-
+        Inflicts the Dropeye status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
     - name: TryTriggerMonsterHouse
       address:
         EU: 0x2308978
@@ -3555,6 +3617,17 @@ overlay29:
         
         r0: user entity pointer
         r1: target entity pointer
+    - name: TryIncreaseHp
+      address:
+        NA: 0x2316BB0
+      description: |-
+        Restore belly and possibly boost max belly of the target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: belly to restore
+        r3: max belly boost
+        stack[0]: flag to log a message
     - name: TryTransform
       address:
         EU: 0x2317C7C
@@ -3566,6 +3639,17 @@ overlay29:
         
         r0: user entity pointer
         r1: target entity pointer
+    - name: TryInflictBlinkerStatus
+      address:
+        NA: 0x023176CC
+      description: |-
+        Inflicts the Blinker status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: flag to only perform the check for inflicting without actually inflicting
+        r3: flag to log a message on failure
+        return: Whether or not the status could be inflicted
     - name: IsBlinded
       address:
         EU: 0x2318244
@@ -3577,6 +3661,33 @@ overlay29:
         r0: pointer to entity
         r1: flag for whether to check for the held item
         return: bool
+    - name: TryInflictCrossEyedStatus
+      address:
+        NA: 0x2317844
+      description: |-
+        Inflicts the Cross-Eyed status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: flag to only perform the check for inflicting without actually inflicting
+        return: Whether or not the status could be inflicted
+    - name: TryInflictEyedropStatus
+      address:
+        NA: 0x231795C
+      description: |-
+        Inflicts the Eyedrop status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: TryInflictSlipStatus
+      address:
+        NA: 0x2317A0C
+      description: |-
+        Inflicts the Slip status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        return: Whether or not the status could be inflicted
     - name: RestoreMovePP
       address:
         EU: 0x2318680
@@ -3589,6 +3700,42 @@ overlay29:
         r1: target entity pointer
         r2: PP to restore
         r3: flag to suppress message logging
+    - name: ApplyProteinEffect
+      address:
+        NA: 0x2317F50
+      description: |-
+        Tries to boost the target's attack stat.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: attack boost
+    - name: ApplyCalciumEffect
+      address:
+        NA: 0x2317FE4
+      description: |-
+        Tries to boost the target's special attack stat.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: special attack boost
+    - name: ApplyIronEffect
+      address:
+        NA: 0x2318078
+      description: |-
+        Tries to boost the target's defense stat.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: defense boost
+    - name: ApplyZincEffect
+      address:
+        NA: 0x231810C
+      description: |-
+        Tries to boost the target's special defense stat.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: special defense boost
     - name: SetReflectDamageCountdownTo4
       address:
         EU: 0x2318E20
@@ -3785,6 +3932,48 @@ overlay29:
         stack[0]: defender pointer
         stack[1]: thrown item pointer
         others: ?
+    - name: ApplyCheriBerryEffect
+      address:
+        NA: 0x231CBEC
+      description: |-
+        Tries to heal the paralysis status condition. Prints a message on failure.
+        
+        r0: attacker pointer
+        r1: defender pointer
+    - name: ApplyPechaBerryEffect
+      address:
+        NA: 0x231CC18
+      description: |-
+        Tries to heal the poisoned and badly poisoned status condition. Prints a message on
+        failure.
+        
+        r0: attacker pointer
+        r1: defender pointer
+    - name: ApplyRawstBerryEffect
+      address:
+        NA: 0x231CC4C
+      description: |-
+        Tries to heal the burn status condition. Prints a message on failure.
+        
+        r0: attacker pointer
+        r1: defender pointer
+    - name: ApplyHungerSeedEffect
+      address:
+        NA: 0x231CC94
+      description: |-
+        Empties the targets belly to cause Hungry Pal status in non-leader monsters and
+        Famished in the leader monster.
+        
+        r0: attacker pointer
+        r1: defender pointer
+    - name: ApplyVileSeedEffect
+      address:
+        NA: 0x231CD80
+      description: |-
+        Reduces the targets defense and special defense stages to the lowest level.
+        
+        r0: attacker pointer
+        r1: defender pointer
     - name: ViolentSeedBoost
       address:
         EU: 0x231D884
@@ -3794,6 +3983,28 @@ overlay29:
         
         r0: attacker pointer
         r1: defender pointer
+    - name: ApplyGinsengEffect
+      address:
+        NA: 0x231CE68
+      description: |-
+        Boosts the power of the move at the top of the target's Move List. Appears to have a
+        leftover check to boost the power of a move by 3 instead of 1 that always fails because
+        the chance is 0.
+        
+        r0: attacker pointer
+        r1: defender pointer
+    - name: ApplyBlastSeedEffect
+      address:
+        NA: 0x231CF84
+      description: |-
+        If thrown, unfreeze and deal fixed damage to the defender. If not thrown, try to find 
+        a monster in front of the attacker. If a monster is found unfreeze and dedal fixed 
+        damage to the defender. Appears to have a leftover check for if the current fixed room is a boss fight and loads a different pointer for the damage when used in a boss room.
+        However, this isn't noticeable because both the normal and boss damage is the same.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: bool thrown
     - name: ApplyGummiBoostsDungeonMode
       address:
         EU: 0x231DB28
@@ -3834,6 +4045,48 @@ overlay29:
         NA: 0x231D680
       description: |-
         If the target monster is a Linoone, restores all the PP of all the target's moves.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: ApplyDoughSeedEffect
+      address:
+        NA: 0x231D6E0
+      description: |-
+        If the target monster is a team member, set dough_seed_extra_money_flag to true to make extra money spawn on the next floor. Otherwise, do nothing.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: ApplyViaSeedEffect
+      address:
+        NA: 0x231D74C
+      description: |-
+        Tries to randomly teleport the target with a message for eating the seed.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: ApplyGravelyrockEffect
+      address:
+        NA: 0x231D7C0
+      description: |-
+        Restores 10 hunger to the target and will raise the target's IQ if they are a bonsly
+        or sudowoodo.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: ApplyGonePebbleEffect
+      address:
+        NA: 0x231D838
+      description: |-
+        Causes a few visual effects, temporarily changes the dungeon music to the Goodnight
+        track, and gives the target the enduring status.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: ApplyGracideaEffect
+      address:
+        NA: 0x231D9C0
+      description: |-
+        If the target is Shaymin, attempt to change the target's form to Shaymin Sky Forme. Otherwise, do nothing.
         
         r0: user entity pointer
         r1: target entity pointer
@@ -4502,6 +4755,21 @@ overlay29:
       description: |-
         Sets the boost_kecleon_shop_spawn_chance field on the dungeon struct depending on if a team member has the exclusive item effect for more kecleon shops.
         
+        No params.
+    - name: SetDoughSeedFlag
+      address:
+        NA: 0x2338548
+      description: |-
+        Sets the dough_seed_extra_money_flag field on the dungeon struct to the given value.
+        
+        r0: bool to set the flag to
+    - name: TrySpawnDoughSeedPoke
+      address:
+        NA: 0x2338560
+      description: |-
+        Checks the dough_seed_extra_money_flag field on the dungeon struct and tries to spawn
+        extra money if it is set.
+
         No params.
     - name: IsSecretBazaar
       address:
@@ -5376,6 +5644,15 @@ overlay29:
         Resets hidden stairs spawn information for the floor. This includes the position on the floor generation status as well as the flag indicating whether the spawn was blocked.
         
         No params.
+    - name: ApplyKeyEffect
+      address:
+        NA: 0x2343CD8
+      description: |-
+        Attempts to open a locked door in front of the target if a locked door has not already
+        been open on the floor.
+        
+        r0: user entity pointer
+        r1: target entity pointer
     - name: LoadFixedRoomData
       address:
         EU: 0x2344974
@@ -6421,14 +6698,14 @@ overlay29:
         The move target and range code for special healing moves that target just the user (0x273).
         
         type: struct move_target_and_range (+ padding)
-    - name: PLAIN_SEED_VALUE
+    - name: PLAIN_SEED_STRING_ID
       address:
         EU: 0x231D1A8
         NA: 0x231C748
       length:
         EU: 0x4
         NA: 0x4
-      description: Some value related to the Plain Seed (0xBE9).
+      description: The string ID for eating a Plain Seed (0xBE9).
     - name: MAX_ELIXIR_PP_RESTORATION
       address:
         EU: 0x231D1AC
@@ -6437,14 +6714,14 @@ overlay29:
         EU: 0x4
         NA: 0x4
       description: The amount of PP restored per move by ingesting a Max Elixir (0x3E7).
-    - name: SLIP_SEED_VALUE
+    - name: SLIP_SEED_FAIL_STRING_ID
       address:
         EU: 0x231D614
         NA: 0x231CBAC
       length:
         EU: 0x4
         NA: 0x4
-      description: Some value related to the Slip Seed (0xC75).
+      description: The string ID for when eating the Slip Seed fails (0xC75).
     - name: ROCK_WRECKER_MOVE_ID
       address:
         NA: 0x23245A0

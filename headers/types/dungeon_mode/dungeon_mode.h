@@ -98,10 +98,8 @@ struct statuses {
     uint32_t field_0x7;
     // 0xB: Pointer to the monster being wrapped around/wrapped by
     struct entity* wrapped_opponent;
-    undefined field_0xf;
-    undefined field_0x10;
-    undefined field_0x11;
-    undefined field_0x12;
+    // 0xF: Tracks the damage taken to deal when bide status ends. Max 0x3E7 (999).
+    uint32_t bide_damage_tally;
     struct monster_behavior_8 monster_behavior; // 0x13
     uint8_t sleep;                              // 0x14: STATUS_SLEEP if 1
     uint8_t sleep_turns; // 0x15: Turns left for the status in statuses::sleep
@@ -138,8 +136,10 @@ struct statuses {
     // 0x2E: Turns left until residual healing for the status in statuses::reflect, if applicable
     uint8_t reflect_damage_countdown;
     uint8_t curse; // 0x2F: STATUS_CURSED if 1
-    undefined field_0x30;
-    undefined field_0x31;
+    // 0x30: Set to monster::0x6 of the monster the attacker (the one causing the decoy status).
+    uint8_t curse_applier_non_team_member_flag;
+    // 0x31: Set to 1 on a Pokemon when inflicted with the Decoy status.
+    undefined unk_decoy_tracker;
     uint8_t curse_turns; // 0x32: Turns left for the status in statuses::curse
     // 0x33: Turns left until residual damage for the status in statuses::curse, if applicable
     uint8_t curse_damage_countdown;
@@ -177,14 +177,24 @@ struct statuses {
     bool power_ears;           // 0x50: STATUS_POWER_EARS
     bool scanning;             // 0x51: STATUS_SCANNING
     bool stair_spotter;        // 0x52: STATUS_STAIR_SPOTTER
-    undefined field_0x53;
+    // 0x53: Set when initally spawning a team member with the ability Pickup.
+    bool pickup_flag;
     bool grudge;       // 0x54: STATUS_GRUDGE
     bool exposed;      // 0x55: STATUS_EXPOSED (Foresight/Odor Sleuth)
     bool type_changed; // 0x56: Flag for if the monster's type has been changed
     bool boss_flag;    // 0x57: Seems to be true for boss monsters
-    undefined field_0x58;
+    // 0x58: Appears to be a flag for when a monster increasces their speed. Maybe only used
+    // by the RunLeaderTurn function to know if the leader has changed their speed stage partway
+    // through the function?
+    undefined unk_speed_boost_tracker;
+    // 0x59: Maybe related to being a team member and new recruit? Set to 1 in TryRecruit
+    // and 0 in SpawnTeam. Also checked in EnemyEvolution to be 0 before evolving. Maybe to
+    // prevent a recently recruited ally from evolving after and or to add a monster to the
+    // assembly after the completion of a dungeon?
     undefined field_0x59;
-    bool in_action;            // 0x5A: Possibly a flag while in action
+    // 0x5A: Possibly a flag while in action. Could also be a flag that to cause the  burn from
+    // lava, heal a burn from water, and decreasce hunger in the walls.
+    bool in_action;
     bool terrified;            // 0x5B: STATUS_TERRIFIED
     uint8_t terrified_turns;   // 0x5C: Turns left for the terrified status
     uint8_t perish_song_turns; // 0x5D: Turns left before Perish Song takes effect
@@ -194,13 +204,19 @@ struct statuses {
     // 0x5F: Determines how much experience the monster will reward after being defeated
     // 0 = 0.5x, 1 = 1.0x, 2 = 1.5x
     uint8_t exp_yield;
-    undefined field_0x60;
+    // 0x60: Appears to be set when the held item of the monster is going to be used?
+    bool unk_item_use_action;
+    // 0x61: Is initalized to 0x63 (99). Changing it from this value causes the monster to
+    // begin rendering differently? For example, it causes entity::0xB3 to be 1 and forces
+    //entity::0x28 to be 0. 
     undefined field_0x61;
     // 0x62: Flag for two-turn moves that haven't concluded yet. This is also a graphical flag.
     // A value of 1 mean "high up" (Fly/Bounce). A value of 2 means some other condition like
     // Dig, Shadow Force, etc. Other values are treated as invalid.
     uint8_t two_turn_move_invincible;
-    undefined field_0x63;
+    // 0x63: Related to handling AI when a decoy is present on the floor?
+    // Seems to only be 0, 1, 2
+    undefined decoy_ai_tracker;
     undefined field_0x64;
     undefined field_0x65;
     undefined field_0x66;
@@ -606,10 +622,10 @@ struct monster {
     undefined field_0x211;
     undefined field_0x212;
     undefined field_0x213;
-    undefined field_0x214;
-    undefined field_0x215;
-    undefined field_0x216;
-    undefined field_0x217;
+    // 0x214: Somehow related to gaining exp through a joy ribbon. Set to 0 after
+    // gaining or losing a level. Also checked and set to 0 when an enemy evolves.
+    // Maybe for a specific scenario of leveling up with exp from a joy ribbon?
+    uint32_t unk_exp_tracker;
     // 0x218: Status icons displayed on top of the monster's sprite
     struct status_icon_flags status_icons;
     undefined field_0x220;
@@ -1022,14 +1038,19 @@ ASSERT_SIZE(struct minimap_display_data, 58444);
 struct dungeon_generation_info {
     // 0x0: Set if the floor layout is guaranteed to be a Monster House, or the dungeon generation
     // algorithm fails
-    bool force_create_monster_house;
-    undefined field_0x1;
-    undefined field_0x2;
+    bool force_create_monster_house;'
+    // 0x1: Set if the locked door on the dungeon floor has already been open.
+    bool locked_door_opened;
+    // 0x2: Set if a kecleon shop was properly spawned.
+    bool kecleon_shop_spawned;
+    // 0x3: When a non-zero value, the one-room orb will fail.
     undefined field_0x3;
-    undefined field_0x4;
+    bool dough_seed_extra_poke_flag;
     // 0x5: Room index of Monster House on the floor. 0xFF if there's no Monster House
     uint8_t monster_house_room;
-    undefined field_0x6;
+    // 0x6: Related to when a monster from a fixed room faints. Maybe to check if the floor
+    // should be over after knocking them out?
+    undefined unk_fixed_room_static_monster_tracker;
     undefined field_0x7;
     enum hidden_stairs_type hidden_stairs_type; // 0x8
     undefined4 field_0xc;
