@@ -612,10 +612,9 @@ struct dungeon {
     bool thief_alert;      // 0x790: If you've stolen from Kecleon (actual dungeon state)
     // 0x791: If you've stolen from Kecleon (triggers music and other events?)
     bool thief_alert_event;
-    // 0x792: Controls when to play certain special music? Can be 0x7C (Outlaw), 0x7D
-    // (Monster House), 0x168 (Goodnight), and 0x169 (Mission Failure). Used by the Gone Pebbble
-    // to play track 0x168, challenge letter missions to play track 0x7C, and dungeon failure
-    // to play 0x169? Can only be 0,1,2,3,4.
+    // 0x792: Can only be 0,1,2,3,4. Controls when to play certain special music tracks 0x7C
+    // (1), 0x7D (2), 0xA8 (3), 0xA9 (4). Used by the Gone Pebbble to play track 0xA8,
+    // challenge letter missions to play track 0x7C and dungeon failure to play 0xA9?
     uint8_t unk_music_flag;
     bool monster_house_triggered; // 0x793: You Entered a Monster House (actual dungeon state)
     // 0x794: You entered a Monster House (triggers music and other events?)
@@ -1629,9 +1628,7 @@ struct dungeon {
     // Same format as regular_item_weights.
     uint16_t secret_room_item_weights[1400];
     // 0x2C932: Spawn weights for traps.
-    uint16_t trap_weights[24];
-    undefined field_0x2c962;
-    undefined field_0x2c963;
+    uint16_t trap_weights[25];
     // 0x2C964: List of spawn entries on this floor
     // This is used during initialization, enemies are spawned using the copy at 0x3974
     struct monster_spawn_entry spawn_entries_master[16];
@@ -1880,7 +1877,7 @@ struct dungeon {
     // 0x2CB04: Related to playing dungeon music?
     undefined2 field_0x2cb04;
     // 0x2CB06: Current Dunegon Music ID
-    uint16_t dungeon_music_playing_id;
+    struct music_id_16 dungeon_music_playing_id;
     undefined field_0x2cb08;
     undefined field_0x2cb09;
     undefined field_0x2cb0a;

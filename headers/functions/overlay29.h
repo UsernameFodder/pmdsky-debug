@@ -159,7 +159,7 @@ void TryActivateConversion2(struct entity* attacker, struct entity* defender, st
 void TryActivateTruant(struct entity* entity);
 void TryPointCameraToMonster(struct entity* entity, undefined param_2, undefined param_3);
 void RestorePpAllMovesSetFlags(struct entity* entity);
-bool BoostIQ(struct entity* entity, int iq_boost, bool suppress_logs);
+void BoostIQ(struct entity* entity, int iq_boost, bool suppress_logs);
 bool ShouldMonsterHeadToStairs(struct entity* entity);
 bool MewSpawnCheck(enum monster_id monster_id, bool fail_if_mew);
 void TryEndStatusWithAbility(struct entity* attacker, struct entity* defender);
@@ -227,19 +227,20 @@ enum type_id GetMoveTypeForMonster(struct entity* entity, struct move* move);
 int GetMovePower(struct entity* entity, struct move* move);
 bool UpdateStateFlags(struct monster* monster, uint16_t mask, bool set_flags);
 void AddExpSpecial(struct entity* attacker, struct entity* defender, int base_exp);
-void EnemyEvolution(struct entity* enemy);
-bool LevelUpItemEffect(struct entity* attacker, struct entity* defender, int levels, bool message,
-                       bool dialog);
+void EnemyEvolution(struct entity* entity);
+void LevelUpItemEffect(struct entity* user, struct entity* target, int levels,
+                       bool message, bool dialog);
 bool TryDecreaseLevel(struct entity* user, struct entity* target, int n_levels);
 bool LevelUp(struct entity* user, struct entity* target, bool message, bool dialog);
-void EvolveMonster(struct entity* monster, undefined4* param_2, enum monster_id new_monster_id);
+void EvolveMonster(struct entity* user, struct entity* target, enum monster_id new_monster_id);
 uint8_t GetSleepAnimationId(struct entity* entity);
 bool DisplayActions(struct entity* param_1);
 void CheckNonLeaderTile(struct entity* entity);
 bool EndNegativeStatusCondition(struct entity* user, struct entity* target, bool animation,
                                 bool fail_message, bool remove_wrapping);
-bool EndNegativeStatusConditionWrapper(struct entity* user, struct entity* target, bool animation,
-                                       bool fail_message, bool remove_wrapping);
+bool EndNegativeStatusConditionWrapper(struct entity* user, struct entity* target,
+                                       bool animation, bool fail_message);
+void TransferNegativeStatusCondition(struct entity* user, struct entity* target);
 void EndSleepClassStatus(struct entity* user, struct entity* target);
 void EndBurnClassStatus(struct entity* user, struct entity* target);
 void EndFrozenClassStatus(struct entity* user, struct entity* target, bool log);
@@ -250,7 +251,7 @@ void EndSureShotClassStatus(struct entity* user, struct entity* target);
 void EndMuzzledStatus(struct entity* user, struct entity* target);
 void EndMiracleEyeStatus(struct entity* user, struct entity* target);
 void EndMagnetRiseStatus(struct entity* user, struct entity* target);
-void TryInflictDropeyeStatus(struct entity* user, struct entity* target);
+bool TryInflictDropeyeStatus(struct entity* user, struct entity* target);
 void TryTriggerMonsterHouse(struct entity* entity, bool outside_enemies);
 void RunMonsterAi(struct entity* monster, undefined param_2);
 void ApplyDamageAndEffects(struct entity* attacker, struct entity* defender,
@@ -411,6 +412,7 @@ bool IsInSpawnList(undefined* spawn_list, enum monster_id monster_id);
 int ChangeShayminForme(struct entity* entity, int forme);
 void ApplyItemEffect(undefined4 param_1, undefined4 param_2, undefined4 param_3,
                      struct entity* attacker, struct entity* defender, struct item* thrown_item);
+void ApplyCheriBerryEffect(struct entity* attacker, struct entity* defender);
 void ApplyPechaBerryEffect(struct entity* attacker, struct entity* defender);
 void ApplyRawstBerryEffect(struct entity* attacker, struct entity* defender);
 void ApplyHungerSeedEffect(struct entity* attacker, struct entity* defender);
@@ -425,6 +427,9 @@ void ApplyGrimyFoodEffect(struct entity* attacker, struct entity* defender);
 void ApplyMixElixirEffect(struct entity* attacker, struct entity* defender);
 void ApplyDoughSeedEffect(struct entity* attacker, struct entity* defender);
 void ApplyViaSeedEffect(struct entity* attacker, struct entity* defender);
+void ApplyGravelyrockEffect(struct entity* attacker, struct entity* defender);
+void ApplyGonePebbleEffect(struct entity* attacker, struct entity* defender);
+void ApplyGracideaEffect(struct entity* attacker, struct entity* defender);
 bool ShouldTryEatItem(enum item_id item_id);
 int GetMaxPpWrapper(struct move* move);
 bool MoveIsNotPhysical(enum move_id move_id);
@@ -589,7 +594,7 @@ enum hidden_stairs_type GetHiddenStairsType(struct dungeon_generation_info* gen_
                                             struct floor_properties* floor_props);
 int GetFinalKecleonShopSpawnChance(int base_kecleon_shop_chance);
 void ResetHiddenStairsSpawn(void);
-void ApplyKeyEffect(struct entity* attacker, struct entity* defender);
+void ApplyKeyEffect(struct entity* user, struct entity* target);
 void LoadFixedRoomData(void);
 int LoadFixedRoom(int param_1, int param_2, int param_3, undefined4 param_4);
 void OpenFixedBin(void);

@@ -2430,9 +2430,11 @@ overlay29:
         NA: 0x23026FC
         JP: 0x2303C4C
       description: |-
-        Checks if the specified enemy should evolve because it just defeated an ally, and if so, attempts to evolve it.
+        Checks if any enemies on the floor should evolve and attempts to evolve it. The
+        entity pointer passed seems to get replaced by a generic placeholder entity if the
+        entity pointer passed is invalid.
         
-        r0: Pointer to the enemy to check
+        r0: entity pointer
     - name: LevelUpItemEffect
       address:
         NA: 0x2302A5C
@@ -2445,7 +2447,6 @@ overlay29:
         r2: number of levels
         r3: bool message flag?
         stack[0]: bool show level up dialog (for example "Hey, I leveled up!" with a portrait)?
-        return: success flag
     - name: TryDecreaseLevel
       address:
         EU: 0x23039B4
@@ -2477,10 +2478,11 @@ overlay29:
         NA: 0x2303C7C
         JP: 0x23051CC
       description: |-
-        Makes the specified monster evolve into the specified species.
+        Makes the specified monster evolve into the specified species. Has a special case when
+        a monster evolves into Ninjask and tries to spawn a Shedinja as well.
         
-        r0: ?
-        r1: Pointer to the entity to evolve
+        r0: user entity pointer?
+        r1: target pointer to the entity to evolve
         r2: Species to evolve into
     - name: GetSleepAnimationId
       address:
@@ -2639,6 +2641,7 @@ overlay29:
         
         r0: user entity pointer
         r1: target entity pointer
+        return: Whether or not the status could be inflicted
     - name: TryTriggerMonsterHouse
       address:
         EU: 0x2308978

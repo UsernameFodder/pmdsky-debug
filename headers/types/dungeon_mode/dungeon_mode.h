@@ -136,7 +136,7 @@ struct statuses {
     // 0x2E: Turns left until residual healing for the status in statuses::reflect, if applicable
     uint8_t reflect_damage_countdown;
     uint8_t curse; // 0x2F: STATUS_CURSED if 1
-    // 0x30: Set to monster::0x6 of the monster the attacker (the one causing the decoy status).
+    // 0x30: Set to monster::is_not_team_member of the attacker (the one causing the decoy status).
     uint8_t curse_applier_non_team_member_flag;
     // 0x31: Set to 1 on a Pokemon when inflicted with the Decoy status.
     undefined unk_decoy_tracker;
@@ -186,14 +186,14 @@ struct statuses {
     // 0x58: Appears to be a flag for when a monster increasces their speed. Maybe only used
     // by the RunLeaderTurn function to know if the leader has changed their speed stage partway
     // through the function?
-    undefined unk_speed_boost_tracker;
+    undefined unk_sped_up_tracker;
     // 0x59: Maybe related to being a team member and new recruit? Set to 1 in TryRecruit
     // and 0 in SpawnTeam. Also checked in EnemyEvolution to be 0 before evolving. Maybe to
     // prevent a recently recruited ally from evolving after and or to add a monster to the
     // assembly after the completion of a dungeon?
     undefined field_0x59;
-    // 0x5A: Possibly a flag while in action. Could also be a flag that to cause the  burn from
-    // lava, heal a burn from water, and decreasce hunger in the walls.
+    // 0x5A: Possibly a flag while in action. Could also be a flag to cause the burn from
+    // lava, heal a burn from water, and decrease hunger in the walls.
     bool in_action;
     bool terrified;            // 0x5B: STATUS_TERRIFIED
     uint8_t terrified_turns;   // 0x5C: Turns left for the terrified status
@@ -1039,12 +1039,12 @@ struct dungeon_generation_info {
     // 0x0: Set if the floor layout is guaranteed to be a Monster House, or the dungeon generation
     // algorithm fails
     bool force_create_monster_house;
-    // 0x1: Set if the locked door on the dungeon floor has already been open.
+    // 0x1: Set if the locked door on the floor has already been open.
     bool locked_door_opened;
     // 0x2: Set if a kecleon shop was properly spawned.
     bool kecleon_shop_spawned;
     // 0x3: When a non-zero value, the one-room orb will fail.
-    undefined field_0x3;
+    undefined unk_one_room_flag;
     bool dough_seed_extra_poke_flag;
     // 0x5: Room index of Monster House on the floor. 0xFF if there's no Monster House
     uint8_t monster_house_room;
