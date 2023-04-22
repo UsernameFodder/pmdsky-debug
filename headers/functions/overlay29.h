@@ -236,10 +236,10 @@ void EvolveMonster(struct entity* user, struct entity* target, enum monster_id n
 uint8_t GetSleepAnimationId(struct entity* entity);
 bool DisplayActions(struct entity* param_1);
 void CheckNonLeaderTile(struct entity* entity);
-bool EndNegativeStatusCondition(struct entity* user, struct entity* target, bool animation,
-                                bool fail_message, bool remove_wrapping);
-bool EndNegativeStatusConditionWrapper(struct entity* user, struct entity* target,
-                                       bool animation, bool fail_message);
+bool EndNegativeStatusCondition(struct entity* user, struct entity* target, bool animation, bool fail_message,
+                                bool remove_wrapping);
+bool EndNegativeStatusConditionWrapper(struct entity* user, struct entity* target, bool animation,
+                                       bool fail_message);
 void TransferNegativeStatusCondition(struct entity* user, struct entity* target);
 void EndSleepClassStatus(struct entity* user, struct entity* target);
 void EndBurnClassStatus(struct entity* user, struct entity* target);
