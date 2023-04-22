@@ -1039,7 +1039,7 @@ struct dungeon_generation_info {
     // 0x0: Set if the floor layout is guaranteed to be a Monster House, or the dungeon generation
     // algorithm fails
     bool force_create_monster_house;
-    // 0x1: Set if the locked door on the floor has already been open.
+    // 0x1: Set if the locked door on the floor has already been opened.
     bool locked_door_opened;
     // 0x2: Set if a kecleon shop was properly spawned.
     bool kecleon_shop_spawned;
