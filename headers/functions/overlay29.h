@@ -228,16 +228,16 @@ int GetMovePower(struct entity* entity, struct move* move);
 bool UpdateStateFlags(struct monster* monster, uint16_t mask, bool set_flags);
 void AddExpSpecial(struct entity* attacker, struct entity* defender, int base_exp);
 void EnemyEvolution(struct entity* entity);
-void LevelUpItemEffect(struct entity* user, struct entity* target, int levels,
-                       bool message, bool dialog);
+void LevelUpItemEffect(struct entity* user, struct entity* target, int levels, bool message,
+                       bool dialog);
 bool TryDecreaseLevel(struct entity* user, struct entity* target, int n_levels);
 bool LevelUp(struct entity* user, struct entity* target, bool message, bool dialog);
 void EvolveMonster(struct entity* user, struct entity* target, enum monster_id new_monster_id);
 uint8_t GetSleepAnimationId(struct entity* entity);
 bool DisplayActions(struct entity* param_1);
 void CheckNonLeaderTile(struct entity* entity);
-bool EndNegativeStatusCondition(struct entity* user, struct entity* target, bool animation, bool fail_message,
-                                bool remove_wrapping);
+bool EndNegativeStatusCondition(struct entity* user, struct entity* target, bool animation,
+                                bool fail_message, bool remove_wrapping);
 bool EndNegativeStatusConditionWrapper(struct entity* user, struct entity* target, bool animation,
                                        bool fail_message);
 void TransferNegativeStatusCondition(struct entity* user, struct entity* target);
