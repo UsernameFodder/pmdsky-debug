@@ -1626,9 +1626,8 @@ struct dungeon {
     uint16_t grab_bag_item_weights[1416];
     // 0x2BE42: Spawn weights for secret room items in treasure boxes.
     // Same format as regular_item_weights? For some reason the weights for the secret rooms
-    // are of a different length than the other item weight lists before it? The trap weights
-    // appear to overlap what would be the 16 categories entries? Maybe categories not used for
-    // this list?
+    // are of a different length than the other item weight lists before it. The trap weights
+    // appear to overlap what would be entries 1400-1415.
     uint16_t secret_room_item_weights[1400];
     // 0x2C932: Spawn weights for traps.
     uint16_t trap_weights[25];

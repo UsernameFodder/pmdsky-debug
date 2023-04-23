@@ -3709,8 +3709,8 @@ overlay29:
       description: |-
         Tries to boost the target's attack stat.
         
-        r0: attacker pointer
-        r1: defender pointer
+        r0: user entity pointer
+        r1: target entity pointer
         r2: attack boost
     - name: ApplyCalciumEffect
       address:
@@ -3718,8 +3718,8 @@ overlay29:
       description: |-
         Tries to boost the target's special attack stat.
         
-        r0: attacker pointer
-        r1: defender pointer
+        r0: user entity pointer
+        r1: target entity pointer
         r2: special attack boost
     - name: ApplyIronEffect
       address:
@@ -3727,8 +3727,8 @@ overlay29:
       description: |-
         Tries to boost the target's defense stat.
         
-        r0: attacker pointer
-        r1: defender pointer
+        r0: user entity pointer
+        r1: target entity pointer
         r2: defense boost
     - name: ApplyZincEffect
       address:
@@ -3736,8 +3736,8 @@ overlay29:
       description: |-
         Tries to boost the target's special defense stat.
         
-        r0: attacker pointer
-        r1: defender pointer
+        r0: user entity pointer
+        r1: target entity pointer
         r2: special defense boost
     - name: SetReflectDamageCountdownTo4
       address:
@@ -3941,8 +3941,8 @@ overlay29:
       description: |-
         Tries to heal the paralysis status condition. Prints a message on failure.
         
-        r0: attacker pointer
-        r1: defender pointer
+        r0: user entity pointer
+        r1: target entity pointer
     - name: ApplyPechaBerryEffect
       address:
         NA: 0x231CC18
@@ -3950,16 +3950,16 @@ overlay29:
         Tries to heal the poisoned and badly poisoned status condition. Prints a message on
         failure.
         
-        r0: attacker pointer
-        r1: defender pointer
+        r0: user entity pointer
+        r1: target entity pointer
     - name: ApplyRawstBerryEffect
       address:
         NA: 0x231CC4C
       description: |-
         Tries to heal the burn status condition. Prints a message on failure.
         
-        r0: attacker pointer
-        r1: defender pointer
+        r0: user entity pointer
+        r1: target entity pointer
     - name: ApplyHungerSeedEffect
       address:
         NA: 0x231CC94
@@ -3967,8 +3967,8 @@ overlay29:
         Empties the targets belly to cause Hungry Pal status in non-leader monsters and
         Famished in the leader monster.
         
-        r0: attacker pointer
-        r1: defender pointer
+        r0: user entity pointer
+        r1: target entity pointer
     - name: ApplyVileSeedEffect
       address:
         NA: 0x231CD80
@@ -3977,15 +3977,15 @@ overlay29:
         
         r0: attacker pointer
         r1: defender pointer
-    - name: ViolentSeedBoost
+    - name: ApplyViolentSeedEffect
       address:
         EU: 0x231D884
         NA: 0x231CE1C
       description: |-
-        Applies the Violent Seed boost to an entity.
+        Boosts the target's offensive stats stages to the max.
         
-        r0: attacker pointer
-        r1: defender pointer
+        r0: user entity pointer
+        r1: target entity pointer
     - name: ApplyGinsengEffect
       address:
         NA: 0x231CE68
@@ -3994,8 +3994,8 @@ overlay29:
         leftover check to boost the power of a move by 3 instead of 1 that always fails because
         the chance is 0.
         
-        r0: attacker pointer
-        r1: defender pointer
+        r0: user entity pointer
+        r1: target entity pointer
     - name: ApplyBlastSeedEffect
       address:
         NA: 0x231CF84
@@ -4005,8 +4005,8 @@ overlay29:
         damage to the defender. Appears to have a leftover check for if the current fixed room is a boss fight and loads a different pointer for the damage when used in a boss room.
         However, this isn't noticeable because both the normal and boss damage is the same.
         
-        r0: attacker pointer
-        r1: defender pointer
+        r0: user entity pointer
+        r1: target entity pointer
         r2: bool thrown
     - name: ApplyGummiBoostsDungeonMode
       address:
