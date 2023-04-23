@@ -29,6 +29,8 @@ struct dungeon {
     // Set to false by TryActivateArtificialWeatherAbilities
     bool activate_artificial_weather_flag;
     // 0xF: True if an enemy has defeated an ally on this turn and should evolve as a result
+    // May also have a niche usage if an enemy gets enough experience to level up through
+    // something like the Joy Ribbon?
     bool should_enemy_evolve;
     undefined field_0x10;
     // 0x11: True if the leader isn't doing anything right now. False if it's currently performing
@@ -221,10 +223,11 @@ struct dungeon {
     struct entity thrown_item;
     // 0x184: Info about the most recent damage calculation. Reset with each call to CalcDamage
     struct damage_calc_diag last_damage_calc;
-    undefined field_0x1d8;
-    undefined field_0x1d9;
-    undefined field_0x1da;
-    undefined field_0x1db;
+    // 0x1D8: Somehow related to executing a monster's actions (including leader).
+    undefined2 field_0x1d8;
+    // 0x1DA: Somehow related to executing the leader's actions. Also maybe when leader opens
+    // some menus?
+    undefined2 field_0x1da;
     undefined field_0x1dc;
     undefined field_0x1dd;
     undefined field_0x1de;
@@ -597,17 +600,22 @@ struct dungeon {
     // 0x78B: True if the leader is running. Causes the leader's action for the next turn
     // to be set to action::ACTION_WALK until it hits an obstacle.
     bool leader_running;
+    // 0x78C: Likely related to the actions of the leader because it is set to 0 in
+    // SetLeaderAction and this value gets bitwise or'd with 0x78B and then saved back to here.
     undefined field_0x78c;
     // 0x78D: This flag is set by the move 0x189 ("HP Gauge") which is the
     // effect of the Identify Orb. If true, monsters not in the team that are
     // holding an item will be marked by a blue exclamation mark icon.
     bool identify_orb_flag;
-    bool pass_turn; // 0x78E: True if the leader has chosen to pass its turn
-    undefined field_0x78f;
-    bool thief_alert; // 0x790: If you've stolen from Kecleon (actual dungeon state)
+    bool pass_turn;        // 0x78E: True if the leader has chosen to pass its turn
+    bool drought_orb_flag; // 0x78F: True if a drought orb has been used.
+    bool thief_alert;      // 0x790: If you've stolen from Kecleon (actual dungeon state)
     // 0x791: If you've stolen from Kecleon (triggers music and other events?)
     bool thief_alert_event;
-    undefined field_0x792;
+    // 0x792: Can only be 0,1,2,3,4. Controls when to play certain special music tracks 0x7C
+    // (1), 0x7D (2), 0xA8 (3), 0xA9 (4). Used by the Gone Pebbble to play track 0xA8,
+    // challenge letter missions to play track 0x7C and dungeon failure to play 0xA9?
+    uint8_t unk_music_flag;
     bool monster_house_triggered; // 0x793: You Entered a Monster House (actual dungeon state)
     // 0x794: You entered a Monster House (triggers music and other events?)
     bool monster_house_triggered_event;
@@ -627,8 +635,9 @@ struct dungeon {
     undefined field_0x7a5;
     undefined field_0x7a6;
     undefined field_0x7a7;
-    undefined field_0x7a8;
-    undefined field_0x7a9;
+    // 0x7A8: Holds some data for a monster id to loads its sprite. If this value is non-zero,
+    // it gets loaded after loading the dungeon floor monster spawn entries.
+    struct monster_id_16 some_monster_sprite_to_load;
     undefined field_0x7aa;
     undefined field_0x7ab;
     // 0x7AC: Second number in the default LCG sequence, used for computing the actual dungeon PRNG
@@ -659,7 +668,8 @@ struct dungeon {
     undefined field_0x7c6;
     undefined field_0x7c7;
     undefined field_0x7c8;
-    undefined field_0x7c9;
+    // 0x7C9: You entered a Kecleon Shop (triggers music and maybe more?)
+    bool standing_in_kecleon_shop;
     undefined field_0x7ca;
     undefined field_0x7cb;
     bool boost_max_money_amount; // 0x7CC: Boost the floor's maximum Poké limit by 8x
@@ -1121,12 +1131,15 @@ struct dungeon {
     undefined field_0x3e33;
     bool plus_is_active[2];  // 0x3E34: A monster on the {enemy, team} side has the ability Plus
     bool minus_is_active[2]; // 0x3E36: A monster on the {enemy, team} side has the ability Minus
-    undefined field_0x3e38;
+    // 0x3E38: If true, a monster on the floor is a decoy.
+    bool decoy_is_active;
     // 0x3E39: If true, a monster with id 0x97 (Mew) cannot be spawned on the floor.
     bool mew_cannot_spawn;
     undefined field_0x3e3a;
     undefined field_0x3e3b;
-    undefined field_0x3e3c;
+    // 0x3E3C: Gets set to true in ChangeShayminForme. Seems to also control which sprite to
+    // load for a Shaymin on the team?
+    bool shaymin_sky_form_loaded;
     undefined field_0x3e3d;
     undefined field_0x3e3e;
     undefined field_0x3e3f;
@@ -1612,26 +1625,12 @@ struct dungeon {
     // 0x2B332: Spawn weights for bazaar grab bag items. Same format as regular_item_weights.
     uint16_t grab_bag_item_weights[1416];
     // 0x2BE42: Spawn weights for secret room items in treasure boxes.
-    // Same format as regular_item_weights.
-    uint16_t secret_room_item_weights[1416];
-    undefined field_0x2c952;
-    undefined field_0x2c953;
-    undefined field_0x2c954;
-    undefined field_0x2c955;
-    undefined field_0x2c956;
-    undefined field_0x2c957;
-    undefined field_0x2c958;
-    undefined field_0x2c959;
-    undefined field_0x2c95a;
-    undefined field_0x2c95b;
-    undefined field_0x2c95c;
-    undefined field_0x2c95d;
-    undefined field_0x2c95e;
-    undefined field_0x2c95f;
-    undefined field_0x2c960;
-    undefined field_0x2c961;
-    undefined field_0x2c962;
-    undefined field_0x2c963;
+    // Same format as regular_item_weights? For some reason the weights for the secret rooms
+    // are of a different length than the other item weight lists before it. The trap weights
+    // appear to overlap what would be entries 1400-1415.
+    uint16_t secret_room_item_weights[1400];
+    // 0x2C932: Spawn weights for traps.
+    uint16_t trap_weights[25];
     // 0x2C964: List of spawn entries on this floor
     // This is used during initialization, enemies are spawned using the copy at 0x3974
     struct monster_spawn_entry spawn_entries_master[16];
@@ -1868,18 +1867,19 @@ struct dungeon {
     undefined field_0x2caf9;
     undefined field_0x2cafa;
     undefined field_0x2cafb;
+    // Related to playing dungeon music?
     undefined field_0x2cafc;
     undefined field_0x2cafd;
     undefined field_0x2cafe;
     undefined field_0x2caff;
     undefined field_0x2cb00;
     undefined field_0x2cb01;
-    undefined field_0x2cb02;
-    undefined field_0x2cb03;
-    undefined field_0x2cb04;
-    undefined field_0x2cb05;
-    undefined field_0x2cb06;
-    undefined field_0x2cb07;
+    // Related to playing dungeon music?
+    undefined2 field_0x2cb02;
+    // 0x2CB04: Related to playing dungeon music?
+    undefined2 field_0x2cb04;
+    // 0x2CB06: Current Dunegon Music ID
+    struct music_id_16 dungeon_music_playing_id;
     undefined field_0x2cb08;
     undefined field_0x2cb09;
     undefined field_0x2cb0a;
