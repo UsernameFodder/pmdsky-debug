@@ -1341,12 +1341,12 @@ struct mission_destination_info {
     // (e.g., Chambers, Challenge Letters, etc.)
     struct fixed_room_id_8 fixed_room_id;
     // 0x17: Related to missions where you have to obtain an item? Possibly related to the item
-    // being picked up or destroyed? 
+    // being picked up and/or destroyed? 
     bool unk_mission_item_tracker1;
     undefined field_0x18;
     undefined field_0x19;
     // 0x1A: Related to missions where you have to obtain an item? Possibly related to the item
-    // being picked up or destroyed? 
+    // being picked up and/or destroyed?
     bool unk_mission_item_tracker2;
     // 0x1B: Will be set after the target enemy has been defeated.
     // If there are minions, this flag applies just to the main outlaw.
