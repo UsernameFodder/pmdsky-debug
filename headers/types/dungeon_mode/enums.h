@@ -1259,4 +1259,16 @@ enum gen_item_stickiness {
     GEN_ITEM_STICKY_NEVER = 2,
 };
 
+// This is usually stored as a 32-bit integer
+#pragma pack(push, 4)
+ENUM_32_BIT(action);
+#pragma pack(pop)
+
+// Used to determine which version of a dungeon to load.
+enum game {
+    GAME_SKY = 0,
+    GAME_TIME = 1,
+    GAME_DARKNESS = 2,
+};
+
 #endif

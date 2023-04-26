@@ -92,9 +92,11 @@ struct statuses {
     undefined field_0x4;
     undefined field_0x5;
     undefined field_0x6;
-    // 0x7: Unique number saved into statuses::statuses_applier_id to connect the applier
-    // of status conditions such as leech seed and destiny bond.
-    uint32_t statuses_unique_id;
+    // 0x7: Unique number given to the monster when spawning to differentiate it from other
+    // monsters and to properly keep track of a monster. Likely used because a monster could be
+    // spawned into the same slot as an old monster and using a pointer alone could cause some
+    // issues. Used for Leech Seed, Destiny Bond, Storm Drain, Lightning Rod (probably more).
+    uint32_t unique_id;
     // 0xB: Unique number between the wrapped and wrapping target to connect them.
     uint32_t wrap_pair_unique_id;
     // 0xF: Tracks the damage taken to deal when bide status ends. Max 0x3E7 (999).

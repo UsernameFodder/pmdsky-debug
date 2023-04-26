@@ -682,8 +682,7 @@ struct dungeon {
     // the move table and the check to load waza_p2.bin is later, waza_p2.bin can be deleted
     // without causing the game to crash as the data from waza_p.bin is still loaded because
     // it's not overwritten by loading waza_p2.bin
-    // 0 = Sky, 1 = Time, 2 = Darkness
-    uint32_t dungeon_game_version_id;
+    enum game dungeon_game_version_id;
     // 0x7D0: Pointer to spawn list? Uncertain which spawn list?
     undefined field_0x7d0;
     undefined field_0x7d1;
@@ -1119,11 +1118,11 @@ struct dungeon {
     // 0x3B74: Unknown array, likely one entry per monster species
     uint8_t unknown_array_0x3B74[600];
     // 0x3DCC: Appears to be a table that holds the statuses::statuses_unique_id value for
-    // the monsters. Maybe just for convenience to avoid loading it from all monsters?
-    uint32_t monster_statuses_unique_id[20];
+    // the monsters. Maybe just for convenience to avoid loading it from every monster?
+    uint32_t monster_unique_id[20];
     // 0x3E1C: Appears to be be an index inside dungeon::active_monsters_unique_statuses_ids.
     // Uncertain what this index is used for.
-    uint32_t statuses_unique_id_index;
+    uint32_t unique_id_index;
     // 0x3E20: Number of valid monster spawn entries (see spawn_entries).
     int monster_spawn_entries_length;
     undefined field_0x3e24;
@@ -1134,13 +1133,14 @@ struct dungeon {
     undefined field_0x3e29;
     undefined field_0x3e2a;
     undefined field_0x3e2b;
-    // 0x3E2C: Appears to be a counter that is saved into statuses::statuses_unique_id so that
-    // every monster has a different id for tracking statuses such as leech seed and destiny
-    // bond.
-    uint32_t monster_unique_statuses_id_counter;
+    // 0x3E2C: Appears to be a counter that is saved into statuses::unique_id so that every
+    // monster has a different id for tracking statuses such as leech seed and the abilities
+    // storm drain and lightning rod.
+    // bond. Initalized to 0x400 (1024)
+    uint32_t monster_unique_id_counter;
     // 0x3E30: Appears to to be a counter that is used for both attacker and defender to figure
     // out which pair of wrapper and wrapped are connected. This number is saved into
-    // statuses::wrap_pair_unique_id. Initalized to 0xA (10)?
+    // statuses::wrap_pair_unique_id. Initalized to 0xA (10)
     uint32_t monster_unique_wrap_counter;
     bool plus_is_active[2];  // 0x3E34: A monster on the {enemy, team} side has the ability Plus
     bool minus_is_active[2]; // 0x3E36: A monster on the {enemy, team} side has the ability Minus
@@ -1192,7 +1192,7 @@ struct dungeon {
     int kecleon_shop_min_y; // 0xCD18: inclusive
     int kecleon_shop_max_x; // 0xCD1C: inclusive
     int kecleon_shop_max_y; // 0xCD20: inclusive
-    // Cordinates for a non full floor fixed room? Uncertain if max values are inclusive.
+    // Coordinates for a non full floor fixed room? Uncertain if max values are inclusive.
     int fixed_room_min_x; // 0xCD24: inclusive
     int fixed_room_min_y; // 0xCD28: inclusive
     int fixed_room_max_x; // 0xCD2C: inclusive?
@@ -1524,48 +1524,21 @@ struct dungeon {
     undefined field_0x12b26;
     undefined field_0x12b27;
     struct entity_table entity_table; // 0x12B28: Table of all entities in the dungeon
-    undefined field_0x198e4;
-    undefined field_0x198e5;
-    undefined field_0x198e6;
-    undefined field_0x198e7;
-    undefined field_0x198e8;
-    undefined field_0x198e9;
-    undefined field_0x198ea;
-    undefined field_0x198eb;
-    undefined field_0x198ec;
-    undefined field_0x198ed;
-    undefined field_0x198ee;
-    undefined field_0x198ef;
-    undefined field_0x198f0;
-    undefined field_0x198f1;
-    undefined field_0x198f2;
-    undefined field_0x198f3;
-    undefined field_0x198f4;
-    undefined field_0x198f5;
-    undefined field_0x198f6;
-    undefined field_0x198f7;
-    undefined field_0x198f8;
-    undefined field_0x198f9;
-    undefined field_0x198fa;
-    undefined field_0x198fb;
-    undefined field_0x198fc;
-    undefined field_0x198fd;
-    undefined field_0x198fe;
-    undefined field_0x198ff;
-    undefined field_0x19900;
-    undefined field_0x19901;
-    undefined field_0x19902;
-    undefined field_0x19903;
-    // 0x19904: Pointer to the monster that will snatch the effect of a move?
+    undefined4 field_0x198e4;
+    undefined4 field_0x198e8;
+    undefined4 field_0x198ec;
+    undefined4 field_0x198f0;
+    undefined4 field_0x198f4;
+    undefined4 field_0x198f8;
+    undefined4 field_0x198fc;
+    undefined4 field_0x19900;
+    // 0x19904: Pointer to the monster that will snatch the effect of a move.
     struct entity* snatch_monster;
     // 0x19908: Pointer to the entity to be spawned by the effect of Illuminate
     struct entity* illuminate_spawn_entity;
-    // 0x1990C: Stores statuses::statuses_unique_id for the monster poitned to by
-    // dungeon::snatch_monster?
-    undefined snatch_status_unique_id;
-    undefined field_0x1990d;
-    undefined field_0x1990e;
-    undefined field_0x1990f;
+    // 0x1990C: Stores statuses::unique_id for the monster pointed to by
+    // dungeon::snatch_monster.
+    uint32_t snatch_status_unique_id;
     // 0x19910: Spawn genid of the monster to be spawned by the effect of Illuminate
     uint16_t illuminate_spawn_genid;
     undefined field_0x19912;
