@@ -151,7 +151,7 @@ struct statuses {
     undefined field_0x3a;
     // 0x3B: Used to track the statuses::statuses_unique_id of the relevant monster for
     // statuses like Leech Seed and Destiny bond.
-    uint32_t statuses_applier_id
+    uint32_t statuses_applier_id;
     // 0x3F: Index into entity_table_hdr::monster_slot_ptrs in the dungeon that the user
     // (drainer) is held.
     uint8_t leech_seed_source_monster_index;

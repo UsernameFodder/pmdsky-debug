@@ -20,8 +20,7 @@ struct item {
     bool f_unk_mission_item : 1;
     // For items that have been placed into a Kecleon shop, but the player hasn't been paid for
     // yet? (Uncertain)
-    uint8_t f_unsold_in_shop : 1;    
-
+    uint8_t f_unsold_in_shop : 1;
     // 0x1: For bag items. 0 for none, 1 if held by the leader, 2 for the second party member, etc.
     uint8_t held_by;
     // 0x2: Only for stackable items. Will be 0 if unapplicable. For Poké, this is an "amount code"

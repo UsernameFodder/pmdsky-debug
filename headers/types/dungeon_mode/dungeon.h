@@ -53,7 +53,6 @@ struct dungeon {
     uint8_t speed_boost_counter;
     // 0x20: Total amount of floors summed by all the previous dungeons in its group
     uint16_t number_preceding_floors;
-    // 0x22: 
     undefined field_0x22;
     undefined field_0x23;
     undefined field_0x24;
@@ -1514,7 +1513,7 @@ struct dungeon {
     undefined field_0x12b1d;
     undefined field_0x12b1e;
     undefined field_0x12b1f;
-    // 0x12B20: Probably counts how many sprites or monster entries the fixed room wants 
+    // 0x12B20: Probably counts how many sprites or monster entries the fixed room wants
     // loaded.
     uint32_t fixed_room_monster_sprite_counter;
     // 0x12B24: Whether or not the kecleon shop spawn chance be boosted for the floor
@@ -1563,7 +1562,7 @@ struct dungeon {
     struct entity* illuminate_spawn_entity;
     // 0x1990C: Stores statuses::statuses_unique_id for the monster poitned to by
     // dungeon::snatch_monster?
-    undefined snatch_status_unique_id;;
+    undefined snatch_status_unique_id;
     undefined field_0x1990d;
     undefined field_0x1990e;
     undefined field_0x1990f;
