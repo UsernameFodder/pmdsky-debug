@@ -1386,8 +1386,8 @@ struct dungeon {
     // since they get initialized together.
     uint16_t unknown_array_0x12A92[9];
     // 0x12AA4: Pointer to data about the fixed room such as width and height. Gets set after
-    // oading the data for a fixed room when generating a floor. Gets set back to null when
-    // done generating a floor. 
+    // loading the data for a fixed room when generating a floor. Gets set back to null when
+    // done generating a floor.
     undefined* unk_fixed_room_pointer;
     // 0x12AA8: This flag is set by the move 0x191 ("Trapper") which is the effect
     // of the Trapper Orb. If true, the game will try to spawn a trap.
