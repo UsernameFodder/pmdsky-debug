@@ -1341,7 +1341,7 @@ struct mission_destination_info {
     // (e.g., Chambers, Challenge Letters, etc.)
     struct fixed_room_id_8 fixed_room_id;
     // 0x17: Related to missions where you have to obtain an item? Possibly related to the item
-    // being picked up and/or destroyed? 
+    // being picked up and/or destroyed?
     bool unk_mission_item_tracker1;
     undefined field_0x18;
     undefined field_0x19;
