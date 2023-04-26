@@ -51,8 +51,9 @@ struct dungeon {
     undefined field_0x1e;
     // 0x1F: Turn counter, Speed Boost triggers every 250 turns, then the counter is reset.
     uint8_t speed_boost_counter;
-    undefined field_0x20;
-    undefined field_0x21;
+    // 0x20: Total amount of floors summed by all the previous dungeons in its group
+    uint16_t number_preceding_floors;
+    // 0x22: 
     undefined field_0x22;
     undefined field_0x23;
     undefined field_0x24;
@@ -620,8 +621,9 @@ struct dungeon {
     // 0x794: You entered a Monster House (triggers music and other events?)
     bool monster_house_triggered_event;
     undefined field_0x795;
-    undefined field_0x796;
-    undefined field_0x797;
+    // 0x796: Seems to often be 0x3E7 (999)? Somehow related to controlling or managing the
+    // playing music?
+    undefined2 field_0x796;
     struct dungeon_objective_8 dungeon_objective; // 0x798: Objective of the current dungeon
     undefined field_0x799;
     undefined field_0x79a;
@@ -636,9 +638,10 @@ struct dungeon {
     undefined field_0x7a6;
     undefined field_0x7a7;
     // 0x7A8: Holds some data for a monster id to loads its sprite. If this value is non-zero,
-    // it gets loaded after loading the dungeon floor monster spawn entries.
+    // it gets loaded after loading the dungeon floor monster spawn entries. Maybe for monsters
+    // that need a specific item to spawn?
     struct monster_id_16 some_monster_sprite_to_load;
-    undefined field_0x7aa;
+    uint8_t some_monster_level; // The level for dungeon::some_monster_sprite_to_load?
     undefined field_0x7ab;
     // 0x7AC: Second number in the default LCG sequence, used for computing the actual dungeon PRNG
     // seed
@@ -672,8 +675,17 @@ struct dungeon {
     bool standing_in_kecleon_shop;
     undefined field_0x7ca;
     undefined field_0x7cb;
-    bool boost_max_money_amount; // 0x7CC: Boost the floor's maximum Poké limit by 8x
-    uint8_t _padding_0x7cd[3];
+    // 0x7CC: Controls which mappa file (Time/Darkness/Sky) to load for a dungeon. When time and
+    // darkness are selected their respective mappa files are loaded, the hidden stairs type
+    // will always return 0, treasure boxes will generate with only exclusive items that exist
+    // in time/darkness, use a multiple of 0x28 (40) for poke. If sky is selected, causes
+    // waza_p2.bin to be loaded over waza_p.bin. Because waza_p.bin is initally loaded into
+    // the move table and the check to load waza_p2.bin is later, waza_p2.bin can be deleted
+    // without causing the game to crash as the data from waza_p.bin is still loaded because
+    // it's not overwritten by loading waza_p2.bin
+    // 0 = Sky, 1 = Time, 2 = Darkness
+    uint32_t dungeon_game_version_id;
+    // 0x7D0: Pointer to spawn list? Uncertain which spawn list?
     undefined field_0x7d0;
     undefined field_0x7d1;
     undefined field_0x7d2;
@@ -1107,10 +1119,12 @@ struct dungeon {
     undefined field_0x3b73;
     // 0x3B74: Unknown array, likely one entry per monster species
     uint8_t unknown_array_0x3B74[600];
-    // 0x3DCC: Uncertain what this array holds, but this value is compared to statuses:0x7 in
-    // several places and accessd in a loop with the upper bound being 20.
-    undefined4 field_0x3dcc[20];
-    undefined4 field_0x3e1c;
+    // 0x3DCC: Appears to be a table that holds the statuses::statuses_unique_id value for
+    // the monsters. Maybe just for convenience to avoid loading it from all monsters?
+    uint32_t monster_statuses_unique_id[20];
+    // 0x3E1C: Appears to be be an index inside dungeon::active_monsters_unique_statuses_ids.
+    // Uncertain what this index is used for.
+    uint32_t statuses_unique_id_index;
     // 0x3E20: Number of valid monster spawn entries (see spawn_entries).
     int monster_spawn_entries_length;
     undefined field_0x3e24;
@@ -1121,22 +1135,22 @@ struct dungeon {
     undefined field_0x3e29;
     undefined field_0x3e2a;
     undefined field_0x3e2b;
-    undefined field_0x3e2c;
-    undefined field_0x3e2d;
-    undefined field_0x3e2e;
-    undefined field_0x3e2f;
-    undefined field_0x3e30;
-    undefined field_0x3e31;
-    undefined field_0x3e32;
-    undefined field_0x3e33;
+    // 0x3E2C: Appears to be a counter that is saved into statuses::statuses_unique_id so that
+    // every monster has a different id for tracking statuses such as leech seed and destiny
+    // bond.
+    uint32_t monster_unique_statuses_id_counter;
+    // 0x3E30: Appears to to be a counter that is used for both attacker and defender to figure
+    // out which pair of wrapper and wrapped are connected. This number is saved into
+    // statuses::wrap_pair_unique_id. Initalized to 0xA (10)?
+    uint32_t monster_unique_wrap_counter;
     bool plus_is_active[2];  // 0x3E34: A monster on the {enemy, team} side has the ability Plus
     bool minus_is_active[2]; // 0x3E36: A monster on the {enemy, team} side has the ability Minus
     // 0x3E38: If true, a monster on the floor is a decoy.
     bool decoy_is_active;
     // 0x3E39: If true, a monster with id 0x97 (Mew) cannot be spawned on the floor.
     bool mew_cannot_spawn;
-    undefined field_0x3e3a;
-    undefined field_0x3e3b;
+    // 0x3E3A: Holds the monster ID for the Deoxys form randomly selected for this floor.
+    struct monster_id_16 deoxys_floor_id;
     // 0x3E3C: Gets set to true in ChangeShayminForme. Seems to also control which sprite to
     // load for a Shaymin on the team?
     bool shaymin_sky_form_loaded;
@@ -1179,26 +1193,14 @@ struct dungeon {
     int kecleon_shop_min_y; // 0xCD18: inclusive
     int kecleon_shop_max_x; // 0xCD1C: inclusive
     int kecleon_shop_max_y; // 0xCD20: inclusive
-    undefined field_0xcd24;
-    undefined field_0xcd25;
-    undefined field_0xcd26;
-    undefined field_0xcd27;
-    undefined field_0xcd28;
-    undefined field_0xcd29;
-    undefined field_0xcd2a;
-    undefined field_0xcd2b;
-    undefined field_0xcd2c;
-    undefined field_0xcd2d;
-    undefined field_0xcd2e;
-    undefined field_0xcd2f;
-    undefined field_0xcd30;
-    undefined field_0xcd31;
-    undefined field_0xcd32;
-    undefined field_0xcd33;
-    undefined field_0xcd34;
-    undefined field_0xcd35;
-    undefined field_0xcd36;
-    undefined field_0xcd37;
+    // Cordinates for a non full floor fixed room? Uncertain if max values are inclusive.
+    int fixed_room_min_x; // 0xCD24: inclusive
+    int fixed_room_min_y; // 0xCD28: inclusive
+    int fixed_room_max_x; // 0xCD2C: inclusive?
+    int fixed_room_max_y; // 0xCD30: inclusive?
+    // 0xCD34: Width of the generated fixed room?
+    uint16_t fixed_room_width;
+    uint16_t fixed_room_height;
     struct weather_id_8 weather; // 0xCD38: current weather
     // 0xCD39: Default weather on the floor that will be reverted to if the current weather is
     // artificial and ends
@@ -1384,8 +1386,9 @@ struct dungeon {
     // 0x12A92: Unknown array, probably related to unknown_tile_matrix
     // since they get initialized together.
     uint16_t unknown_array_0x12A92[9];
-    // 0x12AA4: Gets set after loading the data for a fixed room when generating a
-    // floor. Gets set back to null when done generating a floor.
+    // 0x12AA4: Pointer to data about the fixed room such as width and height. Gets set after
+    // oading the data for a fixed room when generating a floor. Gets set back to null when
+    // done generating a floor. 
     undefined* unk_fixed_room_pointer;
     // 0x12AA8: This flag is set by the move 0x191 ("Trapper") which is the effect
     // of the Trapper Orb. If true, the game will try to spawn a trap.
@@ -1511,10 +1514,9 @@ struct dungeon {
     undefined field_0x12b1d;
     undefined field_0x12b1e;
     undefined field_0x12b1f;
-    undefined field_0x12b20;
-    undefined field_0x12b21;
-    undefined field_0x12b22;
-    undefined field_0x12b23;
+    // 0x12B20: Probably counts how many sprites or monster entries the fixed room wants 
+    // loaded.
+    uint32_t fixed_room_monster_sprite_counter;
     // 0x12B24: Whether or not the kecleon shop spawn chance be boosted for the floor
     bool boost_kecleon_shop_spawn_chance;
     // 0x12B25: Whether or not the hidden stairs spawn chance be boosted for the floor
@@ -1555,13 +1557,13 @@ struct dungeon {
     undefined field_0x19901;
     undefined field_0x19902;
     undefined field_0x19903;
-    // 0x19904: Unknown entity pointer to a monster.
-    struct entity* unknown_monster;
+    // 0x19904: Pointer to the monster that will snatch the effect of a move?
+    struct entity* snatch_monster;
     // 0x19908: Pointer to the entity to be spawned by the effect of Illuminate
     struct entity* illuminate_spawn_entity;
-    // 0x1990C: Seems to store the value of field 0x7 from the
-    // statuses struct of the monster that 0x19904 points to.
-    undefined field_0x1990c;
+    // 0x1990C: Stores statuses::statuses_unique_id for the monster poitned to by
+    // dungeon::snatch_monster?
+    undefined snatch_status_unique_id;;
     undefined field_0x1990d;
     undefined field_0x1990e;
     undefined field_0x1990f;
@@ -1576,7 +1578,9 @@ struct dungeon {
     // 0x1A21C: Data about the map, the camera and the touchscreen numbers
     struct display_data display_data;
     struct minimap_display_data minimap_display_data; // 0x1A264: Data used to display the minimap
-    undefined field_0x286b0;
+    // 0x286B0: Initalized to 0xFF, then set to a copy of dungeon::group_id
+    struct dungeon_group_id_8 group_id_copy;
+    // 0x286B1: Initalized to 0xFF, then set to a copy of dungeon::0x74B
     undefined field_0x286b1;
     struct floor_properties floor_properties; // 0x286B2: Properties about the current floor
     undefined field_0x286d2;
@@ -1634,7 +1638,8 @@ struct dungeon {
     // 0x2C964: List of spawn entries on this floor
     // This is used during initialization, enemies are spawned using the copy at 0x3974
     struct monster_spawn_entry spawn_entries_master[16];
-    undefined2 field_0x2c9e4;
+    // 0x2C9E4: The total number of spawn entries loaded or to be loaded?
+    uint16_t number_sprites_loaded;
     // 0x2C9E6: Highest level among all the enemies that spawn on this floor
     uint16_t highest_enemy_level;
     // 0x2C9E8: ID of an item guaranteed to spawn on the floor, if applicable

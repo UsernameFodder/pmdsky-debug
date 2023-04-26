@@ -92,12 +92,11 @@ struct statuses {
     undefined field_0x4;
     undefined field_0x5;
     undefined field_0x6;
-    // 0x7: Accessed when setting statuses::leech_seed and compared against values in
-    // dungeon::0x3DCC (this value is probably an array). This value is saved to
-    // statuses:0x3B for Destiny Bond and Leech Seed.
-    uint32_t field_0x7;
-    // 0xB: Pointer to the monster being wrapped around/wrapped by
-    struct entity* wrapped_opponent;
+    // 0x7: Unique number saved into statuses::statuses_applier_id to connect the applier
+    // of status conditions such as leech seed and destiny bond.
+    uint32_t statuses_unique_id;
+    // 0xB: Unique number between the wrapped and wrapping target to connect them.
+    uint32_t wrap_pair_unique_id;
     // 0xF: Tracks the damage taken to deal when bide status ends. Max 0x3E7 (999).
     uint32_t bide_damage_tally;
     struct monster_behavior_8 monster_behavior; // 0x13
@@ -150,9 +149,9 @@ struct statuses {
     undefined field_0x38;
     undefined field_0x39;
     undefined field_0x3a;
-    // 0x3B: Leech seed related tracker. Set to the value in statuses:0x7 after finding
-    // statuses::leech_seed_source_monster_index.
-    uint32_t unk_leech_seed_tracker;
+    // 0x3B: Used to track the statuses::statuses_unique_id of the relevant monster for
+    // statuses like Leech Seed and Destiny bond.
+    uint32_t statuses_applier_id
     // 0x3F: Index into entity_table_hdr::monster_slot_ptrs in the dungeon that the user
     // (drainer) is held.
     uint8_t leech_seed_source_monster_index;
@@ -1341,10 +1340,14 @@ struct mission_destination_info {
     // 0x16: Fixed room ID of the destination floor, if relevant
     // (e.g., Chambers, Challenge Letters, etc.)
     struct fixed_room_id_8 fixed_room_id;
-    undefined field_0x17;
+    // 0x17: Related to missions where you have to obtain an item? Possibly related to the item
+    // being picked up and/or destroyed?
+    bool unk_mission_item_tracker1;
     undefined field_0x18;
     undefined field_0x19;
-    undefined field_0x1a;
+    // 0x1A: Related to missions where you have to obtain an item? Possibly related to the item
+    // being picked up or destroyed? 
+    bool unk_mission_item_tracker2;
     // 0x1B: Will be set after the target enemy has been defeated.
     // If there are minions, this flag applies just to the main outlaw.
     bool target_enemy_is_defeated;
