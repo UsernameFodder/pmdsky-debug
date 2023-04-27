@@ -640,7 +640,7 @@ struct dungeon {
     // it gets loaded after loading the dungeon floor monster spawn entries. Maybe for monsters
     // that need a specific item to spawn?
     struct monster_id_16 some_monster_sprite_to_load;
-    uint8_t some_monster_level; // The level for dungeon::some_monster_sprite_to_load?
+    uint8_t some_monster_level; // 0x7AA: The level for dungeon::some_monster_sprite_to_load?
     undefined field_0x7ab;
     // 0x7AC: Second number in the default LCG sequence, used for computing the actual dungeon PRNG
     // seed
@@ -1134,13 +1134,12 @@ struct dungeon {
     undefined field_0x3e2a;
     undefined field_0x3e2b;
     // 0x3E2C: Appears to be a counter that is saved into statuses::unique_id so that every
-    // monster has a different id for tracking statuses such as leech seed and the abilities
-    // storm drain and lightning rod.
-    // bond. Initalized to 0x400 (1024)
+    // monster has a different id for tracking statuses such as Leech Seed and Destiny Bond, and the
+    // abilities Storm Drain and Lightning Rod. Initialized to 0x400 (1024)
     uint32_t monster_unique_id_counter;
     // 0x3E30: Appears to to be a counter that is used for both attacker and defender to figure
     // out which pair of wrapper and wrapped are connected. This number is saved into
-    // statuses::wrap_pair_unique_id. Initalized to 0xA (10)
+    // statuses::wrap_pair_unique_id. Initialized to 0xA (10)
     uint32_t monster_unique_wrap_counter;
     bool plus_is_active[2];  // 0x3E34: A monster on the {enemy, team} side has the ability Plus
     bool minus_is_active[2]; // 0x3E36: A monster on the {enemy, team} side has the ability Minus
@@ -1199,6 +1198,7 @@ struct dungeon {
     int fixed_room_max_y; // 0xCD30: inclusive?
     // 0xCD34: Width of the generated fixed room?
     uint16_t fixed_room_width;
+    // 0xCD36: Height of the generated fixed room?
     uint16_t fixed_room_height;
     struct weather_id_8 weather; // 0xCD38: current weather
     // 0xCD39: Default weather on the floor that will be reverted to if the current weather is
@@ -1536,8 +1536,7 @@ struct dungeon {
     struct entity* snatch_monster;
     // 0x19908: Pointer to the entity to be spawned by the effect of Illuminate
     struct entity* illuminate_spawn_entity;
-    // 0x1990C: Stores statuses::unique_id for the monster pointed to by
-    // dungeon::snatch_monster.
+    // 0x1990C: Stores statuses::unique_id for the monster pointed to by dungeon::snatch_monster.
     uint32_t snatch_status_unique_id;
     // 0x19910: Spawn genid of the monster to be spawned by the effect of Illuminate
     uint16_t illuminate_spawn_genid;
@@ -1550,9 +1549,9 @@ struct dungeon {
     // 0x1A21C: Data about the map, the camera and the touchscreen numbers
     struct display_data display_data;
     struct minimap_display_data minimap_display_data; // 0x1A264: Data used to display the minimap
-    // 0x286B0: Initalized to 0xFF, then set to a copy of dungeon::group_id
+    // 0x286B0: Initialized to 0xFF, then set to a copy of dungeon::group_id
     struct dungeon_group_id_8 group_id_copy;
-    // 0x286B1: Initalized to 0xFF, then set to a copy of dungeon::0x74B
+    // 0x286B1: Initialized to 0xFF, then set to a copy of dungeon::0x74B
     undefined field_0x286b1;
     struct floor_properties floor_properties; // 0x286B2: Properties about the current floor
     undefined field_0x286d2;
