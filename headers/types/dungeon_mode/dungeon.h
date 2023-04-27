@@ -682,7 +682,7 @@ struct dungeon {
     // the move table and the check to load waza_p2.bin is later, waza_p2.bin can be deleted
     // without causing the game to crash as the data from waza_p.bin is still loaded because
     // it's not overwritten by loading waza_p2.bin
-    enum game dungeon_game_version_id;
+    enum game_id dungeon_game_version_id;
     // 0x7D0: Pointer to spawn list? Uncertain which spawn list?
     undefined field_0x7d0;
     undefined field_0x7d1;

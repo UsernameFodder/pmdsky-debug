@@ -576,7 +576,7 @@ struct unk_dungeon_init {
     // 0xAC: Controls which version of the dungeon to load. Gets copied into
     // dungeon::dungeon_game_version_id. Uncertain when the game decides to load the
     // Time/Darkness version of dungeons.
-    enum game dungeon_game_version_id;
+    enum game_id dungeon_game_version_id;
     undefined field_0xB0;
     undefined field_0xB1;
     undefined field_0xB2;
