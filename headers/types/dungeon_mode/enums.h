@@ -1259,4 +1259,11 @@ enum gen_item_stickiness {
     GEN_ITEM_STICKY_NEVER = 2,
 };
 
+// Used to determine which version of a dungeon to load.
+enum game_id {
+    GAME_SKY = 0,
+    GAME_TIME = 1,
+    GAME_DARKNESS = 2,
+};
+
 #endif
