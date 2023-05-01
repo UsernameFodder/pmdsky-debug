@@ -322,6 +322,9 @@ int LoadWanTableEntryFromPackUseProvidedMemory(struct wan_table* wan_table,
 int ReplaceWanFromBinFile(struct wan_table* wan_table, int wan_id, enum pack_file_id pack_id,
                           uint16_t file_index, bool compressed);
 void DeleteWanTableEntryVeneer(struct wan_table* wan_table, int wan_id);
+bool WanHasAnimationGroup(struct wan_header* wan_header, uint16_t animation_group_id);
+bool WanTableSpriteHasAnimationGroup(uint16_t sprite_id, uint16_t animation_group_id);
+enum wan_sprite_type SpriteTypeInWanTable(uint16_t sprite_id);
 void LoadWteFromRom(struct wte_handle* handle, const char* path, uint32_t flags);
 void LoadWteFromFileDirectory(struct wte_handle* handle, uint16_t pack_file_id, uint16_t file_index,
                               uint32_t malloc_flags);

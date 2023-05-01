@@ -1,7 +1,7 @@
 #ifndef HEADERS_DATA_RAM_H_
 #define HEADERS_DATA_RAM_H_
 
-extern struct rgb* DUNGEON_COLORMAP_PTR;
+extern struct rgba* DUNGEON_COLORMAP_PTR;
 extern struct dungeon DUNGEON_STRUCT;
 extern struct move_data_table MOVE_DATA_TABLE;
 extern uint32_t FRAMES_SINCE_LAUNCH;
@@ -30,6 +30,7 @@ extern struct team_member_table TEAM_MEMBER_TABLE;
 extern uint32_t FRAMES_SINCE_LAUNCH_TIMES_THREE;
 extern struct sentry_duty SENTRY_DUTY_STRUCT;
 extern bool TURNING_ON_THE_SPOT_FLAG;
+extern struct LoadedAttackSpriteData* LOADED_ATTACK_SPRITE_DATA;
 extern bool ROLLOUT_ICE_BALL_MISSED;
 extern int ROLLOUT_ICE_BALL_SUCCESSIVE_HITS;
 extern int TRIPLE_KICK_SUCCESSIVE_HITS;

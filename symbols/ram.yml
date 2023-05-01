@@ -319,6 +319,15 @@ ram:
         EU: 0x1
         NA: 0x1
       description: "[Runtime] Flag for whether the player is turning on the spot (pressing Y)."
+    - name: LOADED_ATTACK_SPRITE_DATA
+      address:
+        EU: 0x237D5AC
+      length:
+        EU: 0x4
+      description: |-
+        [Runtime] Pointer to the dynamically allocated structure relating to the currently loaded attack sprite, in Dungeon mode.
+        
+        type: struct loaded_attack_sprite_data*
     - name: ROLLOUT_ICE_BALL_MISSED
       address:
         NA: 0x237CA69

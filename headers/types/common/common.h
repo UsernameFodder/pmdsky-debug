@@ -4,21 +4,10 @@
 #define HEADERS_TYPES_COMMON_H_
 
 #include "enums.h"
+#include "util.h"
 #include "../dungeon_mode/dungeon_mode_common.h"
 #include "file_io.h"
 #include "../files/wan.h"
-
-// A slice in the usual programming sense: a pointer, length, and capacity.
-// Used for the implementation of vsprintf(3), but maybe it's used elsewhere as well.
-struct slice {
-    void* data;      // Pointer to the data buffer
-    size_t capacity; // How much space is available in total
-    size_t length;   // How much space is currently filled
-};
-ASSERT_SIZE(struct slice, 12);
-
-// Function to append data to a struct slice, and return a success flag.
-typedef bool (*slice_append_fn_t)(struct slice* slice, const void* data, size_t data_len);
 
 // Program position info (basically stack trace info) for debug logging.
 struct prog_pos_info {
@@ -110,14 +99,6 @@ struct mem_arena_getters {
     get_free_arena_fn_t get_free_arena;   // Arena to be used by MemFree
 };
 ASSERT_SIZE(struct mem_arena_getters, 8);
-
-// 64-bit signed fixed-point number with 16 fraction bits.
-// Represents the number ((upper << 16) + (lower >> 16) + (lower & 0xFFFF) * 2^-16)
-struct fx64 {
-    int32_t upper;  // sign bit, plus the 31 most significant integer bits
-    uint32_t lower; // the 32 least significant bits (16 integer + 16 fraction)
-};
-ASSERT_SIZE(struct fx64, 8);
 
 struct overlay_load_entry {
     enum overlay_group_id group;
@@ -766,20 +747,6 @@ struct adventure_log {
 };
 ASSERT_SIZE(struct adventure_log, 636);
 
-// a 2d uint (32bit) vector
-struct uvec2 {
-    uint32_t x;
-    uint32_t y;
-};
-ASSERT_SIZE(struct uvec2, 8);
-
-// a 2d int (32bit) vector
-struct vec2 {
-    int32_t x;
-    int32_t y;
-};
-ASSERT_SIZE(struct vec2, 8);
-
 struct exclusive_item_stat_boost_entry {
     int8_t atk;
     int8_t def;
@@ -897,9 +864,9 @@ ASSERT_SIZE(struct version_exclusive_monster, 4);
 struct wan_table_entry {
     char path[32];                  // 0x0: Needs to be null-terminated. Only used for direct file.
     bool file_externally_allocated; // 0x20: True if the iov_base shouldn’t be freed by this struct.
-    uint8_t source_type;            // 0x21: 1 = direct file, 2 = pack file
-    int16_t pack_id;                // 0x22: for wan in pack file
-    int16_t file_index;             // 0x24: for wan in pack file
+    struct wan_source_type_8 source_type; // 0x21: 1 = direct file, 2 = pack file
+    int16_t pack_id;                      // 0x22: for wan in pack file
+    int16_t file_index;                   // 0x24: for wan in pack file
     undefined field5_0x26;
     undefined field6_0x27;
     uint32_t iov_len;

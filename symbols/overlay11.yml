@@ -306,6 +306,7 @@ overlay11:
         r2: flags
     - name: InitAnimDataFromOtherAnimDataVeneer
       address:
+        EU: 0x22F78A8
         NA: 0x22F6F0C
       description: |-
         Likely a linker-generated veneer for InitAnimDataFromOtherAnimData.
@@ -316,6 +317,9 @@ overlay11:
         r1: src
     - name: AnimRelatedFunction
       address:
+        EU:
+          - 0x22F78B4
+          - 0x22F7A04
         NA:
           - 0x22F6F14
           - 0x22F7064
@@ -324,6 +328,25 @@ overlay11:
         
         r0: animation pointer?
         others: ?
+    - name: AllocAndInitPartnerFollowDataAndLiveActorList
+      address:
+        EU: 0x22F865C
+      description: Allocate an initialize the partner follow data and the live actor list (in GROUND_STATE_PTRS)
+    - name: InitPartnerFollowDataAndLiveActorList
+      address:
+        EU: 0x22F86B8
+      description: "Initialize the partner follow data and the live actor list (in GROUND_STATE_PTRS, doesn’t perform the allocation of those structure)"
+    - name: DeleteLiveActor
+      address:
+        EU: 0x22F8F18
+      description: |-
+        Remove the actor from the overworld actor list (in GROUND_STATE_PTRS)
+        
+        r0: the index of the actor in the live actor list
+    - name: InitPartnerFollowData
+      address:
+        EU: 0x22FC3C8
+      description: "Initialize the partner follow data structure, without allocating it (in GROUND_STATE_PTRS)"
     - name: SprintfStatic
       address:
         EU: 0x2309868

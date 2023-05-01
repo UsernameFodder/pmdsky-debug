@@ -1449,6 +1449,34 @@ overlay29:
         Zeroes the damage data struct, which is output by the damage calculation function.
         
         r0: damage data pointer
+    - name: FreeLoadedAttackSpriteAndMore
+      address:
+        EU: 0x22F78C8
+      description: |-
+        Free among other another data structure the attack sprite storage area/data
+        
+        No params.
+    - name: SetAndLoadCurrentAttackAnimation
+      address:
+        EU: 0x22F7920
+      description: |-
+        Load given sprite into the currently loaded attack sprite structure, replacing the previous one if already loaded.
+        
+        r0: pack id
+        r1: file index
+        return: sprite id in the loaded wan list
+    - name: ClearLoadedAttackSprite
+      address:
+        EU: 0x22F79C0
+      description: |-
+        Delete the data of the currently loaded attack sprite, if any.
+        Doesn’t free the structure, that can be continued to be used.
+        
+        No params.
+    - name: GetLoadedAttackSpriteId
+      address:
+        EU: 0x22F7A08
+      description: "return: the sprite id (in the loaded wan list) of the currently loaded attack sprite (or 0 if none)"
     - name: DungeonGetTotalSpriteFileSize
       address:
         EU: 0x22F7A20
@@ -7905,7 +7933,7 @@ overlay29:
         
         Note: unverified, ported from Irdkwia's notes
         
-        type: struct rgb[9]
+        type: struct rgba[9]
     - name: CORNER_CARDINAL_NEIGHBOR_IS_OPEN
       address:
         EU: 0x2353C24
@@ -8000,6 +8028,24 @@ overlay29:
         [Runtime] An array of 5 integers corresponding to the last value generated for each secondary LCG sequence.
         
         Based on the assembly, this appears to be its own global array, separate from DUNGEON_PRNG_STATE.
+    - name: LOADED_ATTACK_SPRITE_FILE_INDEX
+      address:
+        EU: 0x23541AC
+      length:
+        EU: 0x2
+      description: |-
+        [Runtime] The file index of the currently loaded attack sprite.
+        
+        type: uint16_t
+    - name: LOADED_ATTACK_SPRITE_PACK_ID
+      address:
+        EU: 0x23541AE
+      length:
+        EU: 0x2
+      description: |-
+        [Runtime] The pack id of the currently loaded attack sprite. Should correspond to the id of m_attack.bin
+        
+        type: enum pack_file_id
     - name: EXCL_ITEM_EFFECTS_WEATHER_ATK_SPEED_BOOST
       address:
         EU: 0x23541B0

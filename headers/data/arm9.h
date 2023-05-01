@@ -113,7 +113,6 @@ extern const char* PACK_FILE_PATHS_TABLE[6];
 extern struct item* BAG_ITEMS_PTR_MIRROR;
 extern void* ITEM_DATA_TABLE_PTRS[3];
 extern struct move_data_table* MOVE_DATA_TABLE_PTR;
-extern undefined* LOADED_WAN_TABLE_PTR;
 extern int16_t TBL_TALK_GROUP_STRING_ID_START[6];
 extern int16_t KEYBOARD_STRING_IDS[30];
 extern bool NOTIFY_NOTE;
