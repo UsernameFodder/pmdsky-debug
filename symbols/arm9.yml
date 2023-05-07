@@ -7004,6 +7004,66 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         No params.
+    - name: ClearIrqFlag
+      address:
+        EU: 0x207BB68
+        NA: 0x207B7D0
+      description: |-
+        Enables processor interrupts by clearing the i flag in the program status register (cpsr).
+        
+        Return: Old value of cpsr & 0x80 (0x80 if interrupts were disabled, 0x0 if they were already enabled)
+    - name: EnableIrqFlag
+      address:
+        EU: 0x207BB7C
+        NA: 0x207B7E4
+      description: |-
+        Disables processor interrupts by setting the i flag in the program status register (cpsr).
+        
+        Return: Old value of cpsr & 0x80 (0x80 if interrupts were already disabled, 0x0 if they were enabled)
+    - name: SetIrqFlag
+      address:
+        EU: 0x207BB90
+        NA: 0x207B7F8
+      description: |-
+        Sets the value of the processor's interrupt flag according to the specified parameter.
+        
+        r0: Value to set the flag to (0x80 to set it, which disables interrupts; 0x0 to unset it, which enables interrupts)
+        Return: Old value of cpsr & 0x80 (0x80 if interrupts were disabled, 0x0 if they were enabled)
+    - name: EnableIrqFiqFlags
+      address:
+        EU: 0x207BBA8
+        NA: 0x207B810
+      description: |-
+        Disables processor all interrupts (both standard and fast) by setting the i and f flags in the program status register (cpsr).
+        
+        Return: Old value of cpsr & 0xC0 (contains the previous values of the i and f flags)
+    - name: SetIrqFiqFlags
+      address:
+        EU: 0x207BBBC
+        NA: 0x207B824
+      description: |-
+        Sets the value of the processor's interrupt flags (i and f) according to the specified parameter.
+        
+        r0: Value to set the flags to (0xC0 to set both flags, 0x80 to set the i flag and clear the f flag, 0x40 to set the f flag and clear the i flag and 0x0 to clear both flags)
+        Return: Old value of cpsr & 0xC0 (contains the previous values of the i and f flags)
+    - name: GetIrqFlag
+      address:
+        EU: 0x207BBD4
+        NA: 0x207B83C
+      description: |-
+        Gets the current value of the processor's interrupt request (i) flag
+        
+        Return: cpsr & 0x80 (0x80 if interrupts are disabled, 0x0 if they are enabled)
+    - name: WaitForever2
+      address:
+        EU: 0x207BFB8
+        NA: 0x207BC20
+      description: |-
+        Calls EnableIrqFlag and WaitForInterrupt in an infinite loop.
+        
+        This is called on fatal errors to hang the program indefinitely.
+        
+        No params.
     - name: WaitForInterrupt
       address:
         EU: 0x207BFC8
