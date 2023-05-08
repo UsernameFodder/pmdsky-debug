@@ -466,18 +466,19 @@ enum damage_message {
     DAMAGE_MESSAGE_PERISH_SONG = 11,
     DAMAGE_MESSAGE_DESTINY_BOND = 12,
     DAMAGE_MESSAGE_SLUDGE = 13, // "Was showered with sludge for X damage"
-    DAMAGE_MESSAGE_CHESTNUT_1 = 14,
-    DAMAGE_MESSAGE_CHESTNUT_2 = 15, // Same string as DAMAGE_MESSAGE_CHESTNUT_1
-    DAMAGE_MESSAGE_UNK16 = 16,      // Same string as DAMAGE_MESSAGE_MOVE
-    DAMAGE_MESSAGE_BAD_WEATHER = 17,
-    DAMAGE_MESSAGE_MISSED_MOVE = 18, // Damage taken from moves that hurt the user when they miss
-    DAMAGE_MESSAGE_RECOIL_2 = 19,    // Same string as DAMAGE_MESSAGE_RECOIL_1
-    DAMAGE_MESSAGE_STEALTH_ROCK = 20,
-    DAMAGE_MESSAGE_TOXIC_SPIKES = 21,
-    DAMAGE_MESSAGE_ALMOST_FAINTED = 22, // "Is on the verge of fainting after using that move"
-    DAMAGE_MESSAGE_UNK_ABILITY = 23,    // "Took X damage because of <ability>"
-    DAMAGE_MESSAGE_SOLAR_POWER = 24,
-    DAMAGE_MESSAGE_DRY_SKIN = 25,
+    DAMAGE_MESSAGE_HUNGER = 14, // No string associated with hunger, uses 0x0.
+    DAMAGE_MESSAGE_CHESTNUT_1 = 15,
+    DAMAGE_MESSAGE_CHESTNUT_2 = 16,   // Same string as DAMAGE_MESSAGE_CHESTNUT_1
+    DAMAGE_MESSAGE_PITFALL_TRAP = 17, // Same string as DAMAGE_MESSAGE_MOVE
+    DAMAGE_MESSAGE_BAD_WEATHER = 18,
+    DAMAGE_MESSAGE_MISSED_MOVE = 19, // Damage taken from moves that hurt the user when they miss
+    DAMAGE_MESSAGE_RECOIL_2 = 20,    // Same string as DAMAGE_MESSAGE_RECOIL_1
+    DAMAGE_MESSAGE_STEALTH_ROCK = 21,
+    DAMAGE_MESSAGE_TOXIC_SPIKES = 22,
+    DAMAGE_MESSAGE_ALMOST_FAINTED = 23, // "Is on the verge of fainting after using that move"
+    DAMAGE_MESSAGE_BAD_DREAMS = 24,     // "Took X damage because of <ability>"
+    DAMAGE_MESSAGE_SOLAR_POWER = 25,
+    DAMAGE_MESSAGE_DRY_SKIN = 26,
 };
 
 // Exclusive effect ID. These are usually encoded as bitvectors.

@@ -573,10 +573,10 @@ struct unk_dungeon_init {
     undefined field_0xA9;
     undefined field_0xAA;
     undefined field_0xAB;
-    // 0xAC: Controls which version of the dungeon to load. Gets copied into
-    // dungeon::dungeon_game_version_id. Uncertain when the game decides to load the
-    // Time/Darkness version of dungeons.
-    enum game_id dungeon_game_version_id;
+    undefined field_0xAC;
+    undefined field_0xAD;
+    undefined field_0xAE;
+    undefined field_0xAF;
     undefined field_0xB0;
     undefined field_0xB1;
     undefined field_0xB2;
@@ -641,7 +641,9 @@ ASSERT_SIZE(struct unk_dungeon_init, 232);
 struct dungeon_init {
     struct dungeon_id_8 id; // 0x0: Copied into dungeon::id
     uint8_t floor;          // 0x1: Copied into dungeon::floor
-    undefined2 field_0x2;   // Copied into dungeon::field_0x74C
+    // Copied into dungeon::field_0x74C, might be related to the dungeon being conquered or
+    // the fixed room overrides.
+    undefined2 field_0x2;
     undefined field_0x4;
     bool nonstory_flag;      // 0x5: Copied into dungeon::nonstory_flag
     bool recruiting_enabled; // 0x6: Copied into dungeon::recruiting_enabled
@@ -666,8 +668,9 @@ struct dungeon_init {
     // [EU]0x22DFBAC loads this as a signed byte
     // ???
     undefined4 field_0x14; // Copied into dungeon::field_0x750
-    // Copied into dungeon::field_0x754, and into dungeon::field_0x7A0 during rescues
-    undefined4 field_0x18;
+    // 0x18: The dungeon PRNG preseed? Copied into dungeon::prng_preseed_23_bit and
+    // dungeon::rescue_prng_preseed_23_bit.
+    uint32_t prng_preseed_23_bit;
     // 0x1C: Array containing the list of quest pokémon that will join the team in the dungeon
     // (max 2)
     struct ground_monster guest_pokemon[2];
@@ -681,10 +684,10 @@ struct dungeon_init {
     struct item_id_16 help_item;
     undefined field_0xAA;
     undefined field_0xAB;
-    bool boost_max_money_amount; // 0xAC: Copied into dungeon::boost_max_money_amount
-    undefined field_0xAD;
-    undefined field_0xAE;
-    undefined field_0xAF;
+    // 0xAC: Controls which version of the dungeon to load. Gets copied into
+    // dungeon::dungeon_game_version_id. Uncertain when the game decides to load the
+    // Time/Darkness version of dungeons.
+    enum game_id dungeon_game_version_id;
     undefined4 field_0xB0;
     undefined field_0xB4; // Gets set to dungeon::id during dungeon init
     undefined field_0xB5; // Gets set to dungeon::floor during dungeon init

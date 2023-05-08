@@ -118,10 +118,10 @@ struct statuses {
     undefined field_0x1c;
     undefined field_0x1d;
     undefined field_0x1e;
-    undefined field_0x1f;
-    undefined field_0x20;
-    undefined field_0x21;
-    undefined field_0x22;
+    // 0x1F: Controls the animation that plays when taking damage from the constriction status.
+    // For some reason this is initalized to 0x22 (34)? Which is the animation used by
+    // the exclusive item Nether Veil.
+    uint32_t constriction_animation;
     uint8_t freeze_turns; // 0x23: Turns left for the status in statuses::freeze
     // 0x24: Turns left until residual damage for the status in statuses::freeze, if applicable
     uint8_t freeze_damage_countdown;
@@ -398,7 +398,8 @@ struct monster {
     // 0x14E: If true and the monster is an ally, the AI will skip it. False for enemies.
     bool ai_ally_skip;
     bool ai_next_to_target; // 0x14F: This NPC monster is next to its current target
-    undefined field_0x150;
+    // 0x150: Set if monster::is_team_leader is true and belly is empty.
+    bool famished;
     undefined field_0x151;
     // 0x152: Seems to be true if the monster has already acted this turn: attacked, used an item,
     // or seemingly anything other than moving/resting. Also true when the monster faints.
@@ -472,10 +473,14 @@ struct monster {
     bool pitfall_trap_flag_0x174;
     undefined field_0x175;
     undefined field_0x176;
-    undefined field_0x177;
-    undefined field_0x178;
+    // 0x177: Appears to be the direction for using sleep talk? Set to DIR_NONE when awake.
+    struct direction_id_8 sleep_talk_direction;
+    // 0x178: Appears to be the direction for using snore? Set to DIR_NONE when awake.
+    struct direction_id_8 snore_direction;
     undefined field_0x179;
+    // 0x17A: Somehow related to sprite size?
     undefined field_0x17a;
+    // 0x17B: Somehow related to sprite size?
     undefined field_0x17b;
     undefined field_0x17c;
     undefined field_0x17d;
@@ -909,19 +914,16 @@ struct display_data {
     // 0x10: Entity currently being pointed by the camera, mostly used to
     // control rendering of the dungeon, GUI, minimap, etc.
     struct entity* camera_target;
-    undefined field_0x14;
-    undefined field_0x15;
-    undefined field_0x16;
-    undefined field_0x17;
-    undefined field_0x18;
-    undefined field_0x19;
-    undefined field_0x1A;
-    undefined field_0x1B;
-    undefined field_0x1C;
-    undefined field_0x1D;
-    undefined field_0x1E;
-    undefined field_0x1F;
-    undefined field_0x20;
+    // 0x14: Appears to be used to determine the offset to render the screen from normal when
+    // shaking.
+    uint32_t screen_shake_offset;
+    // 0x18: Appears to be the intensity value for when the screen shakes. Decremented by
+    // 0x1 until 0x0.
+    uint32_t screen_shake_intensity;
+    // 0x1C: Appears to be the value to set to display_data::screen_shake_intensity when it
+    // reaches 0x0. (This number is usually 0x0 so the screen stops shaking after.)
+    uint32_t screen_shake_intensity_reset;
+    undefined field_0x20; // 0x20: Initialized to 0x3.
     // 0x21: Same as floor_properties::visibility_range
     // Affects the number of map tiles around the player's position that get marked as
     // "visited" while exploring, as well as how far away you can see enemies under non-illuminated
@@ -960,7 +962,9 @@ struct display_data {
     // be displayed in green.
     bool leader_pointed;
     undefined field_0x30;
-    undefined field_0x31;
+    // 0x31: Set to 1 when losing in a dungeon. Seems to cause display_data::0x38 to
+    // display_data::leader_max_hp_touch_screen to become 0xFFFF (-1).
+    bool unk_fade_to_black_tracker;
     undefined field_0x32;
     undefined field_0x33;
     undefined field_0x34;
@@ -968,10 +972,8 @@ struct display_data {
     // Derived from internal direction in leader info block
     struct direction_id_8 leader_target_direction;        // 0x36
     struct direction_id_8 leader_target_direction_mirror; // 0x37
-    undefined field_0x38;
-    undefined field_0x39;
-    undefined field_0x3A;
-    undefined field_0x3B;
+    undefined2 field_0x38;
+    undefined2 field_0x3A;
     int16_t floor_touch_screen;         // 0x3C: Floor number displayed on the touch screen
     int16_t leader_level_touch_screen;  // 0x3E: Leader's level displayed on the touch screen
     int16_t leader_hp_touch_screen;     // 0x40: Leader's current HP displayed on the touch screen
@@ -1059,8 +1061,9 @@ struct dungeon_generation_info {
     undefined field_0x11;
     // 0x12: Music table index (see the same field in struct floor_properties)
     uint16_t music_table_idx;
-    undefined field_0x14;
-    undefined field_0x15;
+    // 0x14: Controls which trap graphics to use for the staircase. Usually 0x2B (27) and
+    // 0x2C (28) for down and up respectively.
+    uint16_t staircase_visual_idx;
     struct fixed_room_id_8 fixed_room_id; // 0x16
     undefined field_0x17;
     undefined field_0x18;
@@ -1326,7 +1329,8 @@ struct mission_destination_info {
     struct mission_type_8 type; // 0x1:
     // 0x2: The meaning of this field depends on the type field; see union mission_subtype.
     uint8_t subtype;
-    undefined field_0x3;
+    // 0x3: The index of the mission in the job list?
+    uint8_t mission_job_list_idx;
     // 0x4: Item to retrieve, if this is an item-retrieval mission
     struct item_id_16 item_to_retrieve;
     struct item_id_16 item_to_deliver;     // 0x6: Item to deliver to the client, if relevant

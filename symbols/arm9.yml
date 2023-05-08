@@ -1617,15 +1617,14 @@ arm9:
         
         r0: item ID
         return: move ID
-    - name: TestItemFlag0xE
+    - name: TestItemAiFlag
       address:
         EU: 0x200EB48
         NA: 0x200EAA0
         JP: 0x200EAD0
       description: |-
-        Tests bit 7 if r1 is 0, bit 6 if r1 is 1, bit 5 otherwise
-        
-        Note: unverified, ported from Irdkwia's notes
+        Used to check the AI flags for an item. Tests bit 7 if r1 is 0, bit 6 if r1 is 1, bit
+        5 otherwise.
         
         r0: item ID
         r1: bit_id
@@ -1679,6 +1678,14 @@ arm9:
         Sets the amount of money the player is carrying, clamping the value to the range [0, MAX_MONEY_CARRIED].
         
         r0: new value
+    - name: AddMoneyCarried
+      address:
+        NA: 0x200ED58
+      description: |-
+        Adds the amount of money to the player's current amount of money. Just calls
+        SetMoneyCarried with the current money + money gained.
+        
+        r0: money gained (can be negative)
     - name: GetCurrentBagCapacity
       address:
         EU: 0x200EE2C
