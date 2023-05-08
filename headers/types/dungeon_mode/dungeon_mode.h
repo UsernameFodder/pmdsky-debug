@@ -473,10 +473,10 @@ struct monster {
     bool pitfall_trap_flag_0x174;
     undefined field_0x175;
     undefined field_0x176;
-    // 0x177: Appears to be the direction for using sleep talk? Set to 0xFF (-1) when awake.
-    int8_t sleep_talk_direction;
-    // 0x178: Appears to be the direction for using snore? Set to 0xFF (-1) when awake.
-    int8_t snore_direction;
+    // 0x177: Appears to be the direction for using sleep talk? Set to DIR_NONE when awake.
+    struct direction_id_8 sleep_talk_direction;
+    // 0x178: Appears to be the direction for using snore? Set to DIR_NONE when awake.
+    struct direction_id_8 snore_direction;
     undefined field_0x179;
     // 0x17A: Somehow related to sprite size?
     undefined field_0x17a;
@@ -914,7 +914,8 @@ struct display_data {
     // 0x10: Entity currently being pointed by the camera, mostly used to
     // control rendering of the dungeon, GUI, minimap, etc.
     struct entity* camera_target;
-    // 0x14: Appears to be used to determine the offset to render the from normal when shaking.
+    // 0x14: Appears to be used to determine the offset to render the screen from normal when
+    // shaking.
     uint32_t screen_shake_offset;
     // 0x18: Appears to be the intensity value for when the screen shakes. Decremented by
     // 0x1 until 0x0.
