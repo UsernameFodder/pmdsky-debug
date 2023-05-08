@@ -640,7 +640,7 @@ struct dungeon_init {
     struct dungeon_id_8 id; // 0x0: Copied into dungeon::id
     uint8_t floor;          // 0x1: Copied into dungeon::floor
     // Copied into dungeon::field_0x74C, might be related to the dungeon being conquered or
-    // loading the fixed room overrides.
+    // the fixed room overrides.
     undefined2 field_0x2;
     undefined field_0x4;
     bool nonstory_flag;      // 0x5: Copied into dungeon::nonstory_flag

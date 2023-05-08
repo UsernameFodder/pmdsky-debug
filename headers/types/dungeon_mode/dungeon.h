@@ -256,10 +256,6 @@ struct dungeon {
     undefined4 unk2_animation3_value;
     undefined4 unk3_animation3_value;
     struct entity* animation3_entity; // 0x644: Monster pointer for the animation?
-    undefined field_0x648;
-    undefined field_0x64C;
-    undefined field_0x646;
-    undefined field_0x647;
     // 0x648: Some type of monster name related to fainting. Used for the partner, escort or
     // accompanying monster, but may be be changed when any monster faints (but might not be
     // used for them).
@@ -515,7 +511,7 @@ struct dungeon {
     struct dungeon_group_id_8 group_id; // 0x74A: Same for different segments of a dungeon
     undefined field_0x74b;
     // 0x74C: Used as an input to CheckDungeonOpen, and uses output to determine if the
-    // override fixed room to be loaded.
+    // override fixed room should be loaded?
     undefined2 field_0x74c;
     undefined field_0x74e;
     undefined field_0x74f;
