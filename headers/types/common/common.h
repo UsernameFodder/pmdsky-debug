@@ -401,20 +401,19 @@ ASSERT_SIZE(struct dungeon_floor_pair, 2);
 
 // Unknown struct included in the dungeon_init struct (see below)
 struct unk_dungeon_init {
-    undefined field_0x0;
-    undefined field_0x1;
-    undefined field_0x2;
-    undefined field_0x3;
+    struct dungeon_id_8 id; // 0x0
+    uint8_t floor;          // 0x1: Current floor number
+    undefined2 field_0x2;   // 0x2: Copied to dungeon::0x74C
     undefined field_0x4;
-    undefined field_0x5;
-    undefined field_0x6;
+    bool nonstory_flag;      // 0x5: Allows leader changing and continuing without the partner
+    bool recruiting_enabled; // 0x6: Recruitment is allowed in this dungeon.
     undefined field_0x7;
     undefined field_0x8;
     undefined field_0x9;
     undefined field_0xA;
     undefined field_0xB;
     undefined field_0xC;
-    undefined field_0xD;
+    struct dungeon_objective_8 dungeon_objective; // 0xD: Objective of the current dungeon
     undefined field_0xE;
     undefined field_0xF;
     undefined field_0x10;

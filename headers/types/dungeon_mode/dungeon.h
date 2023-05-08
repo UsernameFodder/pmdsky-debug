@@ -3,9 +3,9 @@
 
 // Dungeon state
 struct dungeon {
-    undefined field_0x0;
-    undefined field_0x1;
-    undefined field_0x2;
+    undefined field_0x0; // 0x0: Initialized to 0x0.
+    undefined field_0x1; // 0x1: Initialized to 0x0.
+    undefined field_0x2; // 0x2: Initialized to 0x0.
     // 0x3: If true and there's an active mission on the floor, the message
     // "You've reached a destination floor! But where is the target pokémon..." will be displayed.
     bool target_monster_not_found_flag;
@@ -23,8 +23,8 @@ struct dungeon {
     undefined field_0x9;
     undefined field_0xa;
     undefined field_0xb;
-    undefined field_0xc;
-    undefined field_0xd;
+    undefined field_0xc; // 0xC: Initialized to 0x0
+    undefined field_0xd; // 0xD: Initialized to 0x0
     // 0xE: If true, artificial weather abilities will be activated on this turn.
     // Set to false by TryActivateArtificialWeatherAbilities
     bool activate_artificial_weather_flag;
@@ -32,29 +32,31 @@ struct dungeon {
     // May also have a niche usage if an enemy gets enough experience to level up through
     // something like the Joy Ribbon?
     bool should_enemy_evolve;
-    undefined field_0x10;
+    undefined field_0x10; // 0x10: Initialized to 0x0.
     // 0x11: True if the leader isn't doing anything right now. False if it's currently performing
     // an action (such as walking or attacking)
     bool no_action_in_progress;
-    bool iq_disabled; // 0x12: IQ skills won't work in the dungeon
-    undefined field_0x13;
+    bool iq_disabled;                 // 0x12: IQ skills won't work in the dungeon.
+    bool regular_attack_reveal_traps; // 0x13: Regular attacks will reveal traps.
     // 0x14: If > 0, you get kicked out of the dungeon, usually because an important team member
     // (such as your client) fainted.
     enum forced_loss_reason forced_loss_reason;
-    undefined field_0x18;
-    undefined field_0x19;
-    undefined field_0x1a;
-    undefined field_0x1b;
+    // 0x18: Appears to be set to 1 when using the escape orb and set to 2 when completing
+    // a mission. dungeon::end_floor_no_death_check_flag gets set whenever this is changed.
+    uint32_t successful_exit_tracker;
     // 0x1C: Increased once per frame until 0x64. Resets to 0 when the leader acts.
     undefined field_0x1c;
     undefined field_0x1d;
-    undefined field_0x1e;
+    // 0x1E: Number of floors completed? (Guess). Initialized to 0.
+    // If this is a floor tracker, odd it is not a uint16_t like the others.
+    uint8_t number_completed_floors;
     // 0x1F: Turn counter, Speed Boost triggers every 250 turns, then the counter is reset.
     uint8_t speed_boost_counter;
     // 0x20: Total amount of floors summed by all the previous dungeons in its group
     uint16_t number_preceding_floors;
-    undefined field_0x22;
-    undefined field_0x23;
+    // 0x22: Total amount of floors passed including those in its group? (Guess)
+    // Set to dungeon::number_preceding_floors + dungeon::number_completed_floors
+    uint16_t total_floors_completed;
     undefined field_0x24;
     undefined field_0x25;
     undefined field_0x26;
@@ -228,10 +230,8 @@ struct dungeon {
     // 0x1DA: Somehow related to executing the leader's actions. Also maybe when leader opens
     // some menus?
     undefined2 field_0x1da;
-    undefined field_0x1dc;
-    undefined field_0x1dd;
-    undefined field_0x1de;
-    undefined field_0x1df;
+    undefined2 field_0x1dc; // 0x1DC: Initialized to 0xFFFF
+    undefined2 field_0x1de; // 0x1DE: Initialized to 0xFFFF
     // 0x1E0: Color table. Used to apply a tint to the colors shown on screen.
     // Changes depending on the current weather.
     struct rgb color_table[256];
@@ -240,68 +240,30 @@ struct dungeon {
     struct spawned_shopkeeper_data shopkeeper_spawns[8];
     // 0x610: Number of valid shopkeeper spawns
     int shopkeeper_spawn_count;
-    undefined field_0x614;
-    undefined field_0x615;
-    undefined field_0x616;
-    undefined field_0x617;
-    undefined field_0x618;
-    undefined field_0x619;
-    undefined field_0x61a;
-    undefined field_0x61b;
-    undefined field_0x61c;
-    undefined field_0x61d;
-    undefined field_0x61e;
-    undefined field_0x61f;
-    undefined field_0x620;
-    undefined field_0x621;
-    undefined field_0x622;
-    undefined field_0x623;
-    undefined field_0x624;
-    undefined field_0x625;
-    undefined field_0x626;
-    undefined field_0x627;
-    undefined field_0x628;
-    undefined field_0x629;
-    undefined field_0x62a;
-    undefined field_0x62b;
-    undefined field_0x62c;
-    undefined field_0x62d;
-    undefined field_0x62e;
-    undefined field_0x62f;
-    undefined field_0x630;
-    undefined field_0x631;
-    undefined field_0x632;
-    undefined field_0x633;
-    undefined field_0x634;
-    undefined field_0x635;
-    undefined field_0x636;
-    undefined field_0x637;
-    undefined field_0x638;
-    undefined field_0x639;
-    undefined field_0x63a;
-    undefined field_0x63b;
-    undefined field_0x63c;
-    undefined field_0x63d;
-    undefined field_0x63e;
-    undefined field_0x63f;
-    undefined field_0x640;
-    undefined field_0x641;
-    undefined field_0x642;
-    undefined field_0x643;
-    undefined field_0x644;
-    undefined field_0x645;
+    undefined4 field_0x614;
+    // 0x618: Something related to animiations?  Could be ID?
+    undefined4 unk1_animation1_value;
+    undefined4 unk2_animation1_value;
+    undefined4 unk3_animation1_value;
+    struct entity* animation1_entity; // 0x624: Monster pointer for the animation?
+    // 0x628: Something related to animiations?  Could be ID?
+    undefined4 unk1_animation2_value;
+    undefined4 unk2_animation2_value;
+    undefined4 unk3_animation2_value;
+    struct entity* animation2_entity; // 0x634: Monster pointer for the animation?
+    // 0x638: Something related to animiations? Could be ID?
+    undefined4 unk1_animation3_value;
+    undefined4 unk2_animation3_value;
+    undefined4 unk3_animation3_value;
+    struct entity* animation3_entity; // 0x644: Monster pointer for the animation?
+    undefined field_0x648;
+    undefined field_0x64C;
     undefined field_0x646;
     undefined field_0x647;
-    undefined field_0x648;
-    undefined field_0x649;
-    undefined field_0x64a;
-    undefined field_0x64b;
-    undefined field_0x64c;
-    undefined field_0x64d;
-    undefined field_0x64e;
-    undefined field_0x64f;
-    undefined field_0x650;
-    undefined field_0x651;
+    // 0x648: Some type of monster name related to fainting. Used for the partner, escort or
+    // accompanying monster, but may be be changed when any monster faints (but might not be
+    // used for them).
+    char unk_fainted_monster_name[10];
     undefined field_0x652;
     undefined field_0x653;
     undefined field_0x654;
@@ -552,23 +514,23 @@ struct dungeon {
     uint8_t floor;                      // 0x749: Current floor number
     struct dungeon_group_id_8 group_id; // 0x74A: Same for different segments of a dungeon
     undefined field_0x74b;
-    undefined field_0x74c;
-    undefined field_0x74d;
+    // 0x74C: Used as an input to CheckDungeonOpen, and uses output to determine if the
+    // override fixed room to be loaded.
+    undefined2 field_0x74c;
     undefined field_0x74e;
     undefined field_0x74f;
+    // 0x750: Accessed with a ldr instruction? Maybe used for something else before the rescue
+    // floor is defined?
     undefined field_0x750;
     uint8_t rescue_floor; // 0x751: Floor number where the rescue point is, if applicable
     undefined field_0x752;
     undefined field_0x753;
-    undefined field_0x754;
-    undefined field_0x755;
-    undefined field_0x756;
-    undefined field_0x757;
+    undefined4 field_0x754;
     // 0x758: Whether the current floor should continue or end and why
     struct floor_loop_status_8 floor_loop_status;
     bool recruiting_enabled; // 0x759: Recruitment is allowed in this dungeon
     undefined field_0x75a;
-    undefined field_0x75b;
+    undefined field_0x75b;   // 0x75B: Initialized to 0x1.
     bool nonstory_flag;      // 0x75C: Allows leader changing and continuing without the partner
     bool send_home_disabled; // 0x75D: Sending teammates home is not allowed in this dungeon
     // 0x75E: Disables sending home/leader changing, lose if partner faints. Set for dungeons
@@ -596,7 +558,7 @@ struct dungeon {
     uint16_t enemy_density;       // 0x786: If 0, prevents the enemy_spawn_counter for increasing
     // 0x788: The genid of the next monster to be spawned. Ticks up with each spawn.
     uint16_t next_spawn_genid;
-    undefined field_0x78a;
+    undefined field_0x78a; // 0x78A: Initialized to 0x0.
     // 0x78B: True if the leader is running. Causes the leader's action for the next turn
     // to be set to action::ACTION_WALK until it hits an obstacle.
     bool leader_running;
@@ -624,18 +586,15 @@ struct dungeon {
     // playing music?
     undefined2 field_0x796;
     struct dungeon_objective_8 dungeon_objective; // 0x798: Objective of the current dungeon
-    undefined field_0x799;
-    undefined field_0x79a;
-    int8_t rescue_attempts_left; // 0x79B: Number of times you can be rescued in this dungeon
-    uint32_t prng_seed;          // 0x79C: The dungeon PRNG seed, if set
-    undefined field_0x7a0;
-    undefined field_0x7a1;
-    undefined field_0x7a2;
-    undefined field_0x7a3;
-    undefined field_0x7a4;
-    undefined field_0x7a5;
-    undefined field_0x7a6;
-    undefined field_0x7a7;
+    // 0x799: Determines which message to display when the leader's belly reaches 0. Goes up
+    // to 0x9 (10), but only displays a unique message for 0x1, 0x2, and 0x3.
+    uint8_t leader_hunger_message_tracker;
+    undefined field_0x79a;        // 0x79A: Initialized to 0x0.
+    int8_t rescue_attempts_left;  // 0x79B: Number of times you can be rescued in this dungeon
+    uint32_t prng_seed;           // 0x79C: The dungeon PRNG seed, if set
+    uint32_t prng_preseed_23_bit; // 0x7A0: The dungeon PRNG preseed.
+    undefined2 field_0x7a4; // 0x7A4: Initialized to 0x63.
+    undefined2 field_0x7a6; // 0x7A6: Initialized to 0x63.
     // 0x7A8: Holds some data for a monster id to loads its sprite. If this value is non-zero,
     // it gets loaded after loading the dungeon floor monster spawn entries. Maybe for monsters
     // that need a specific item to spawn?
@@ -657,19 +616,17 @@ struct dungeon {
     undefined field_0x7b9;
     undefined field_0x7ba;
     undefined field_0x7bb;
-    undefined field_0x7bc;
-    undefined field_0x7bd;
-    undefined field_0x7be;
-    undefined field_0x7bf;
-    undefined field_0x7c0;
-    undefined field_0x7c1;
-    undefined field_0x7c2;
-    undefined field_0x7c3;
-    undefined field_0x7c4;
-    undefined field_0x7c5;
-    undefined field_0x7c6;
-    undefined field_0x7c7;
-    undefined field_0x7c8;
+    // 0x7BC: The amount of poke the items being bought are worth (By the player)?
+    uint32_t poke_buy_kecleon_shop;
+    // 0x7C0: The amount of poke the items being sold are worth (By the player)?
+    uint32_t poke_sold_kecleon_shop;
+    // 0x7C4: Uncertain what this tracks? This is definitely related to
+    // dungeon::poke_buy_kecleon_shop. Sometimes subtract dungeon::poke_buy_kecleon_shop from
+    // this, set this to dungeon::poke_buy_kecleon_shop, and sometimes compared to
+    // dungeon::poke_buy_kecleon_shop.
+    uint32_t unk_poke_kecleon_shop_tracker;
+    // 0x7C8: Leader standing on a Kecleon shop tile?
+    bool leader_standing_in_kecleon_shop;
     // 0x7C9: You entered a Kecleon Shop (triggers music and maybe more?)
     bool standing_in_kecleon_shop;
     undefined field_0x7ca;
@@ -1129,7 +1086,9 @@ struct dungeon {
     undefined field_0x3e25;
     undefined field_0x3e26;
     undefined field_0x3e27;
-    undefined field_0x3e28;
+    // 0x3E28: Related in some way to the spawn entries on the floor. Does something about them
+    // if false, then set to true.
+    bool unk_spawn_entry_id_check;
     undefined field_0x3e29;
     undefined field_0x3e2a;
     undefined field_0x3e2b;
@@ -1177,14 +1136,9 @@ struct dungeon {
     undefined field_0xcd09;
     undefined field_0xcd0a;
     undefined field_0xcd0b;
-    undefined field_0xcd0c;
-    undefined field_0xcd0d;
-    undefined field_0xcd0e;
-    undefined field_0xcd0f;
-    undefined field_0xcd10;
-    undefined field_0xcd11;
-    undefined field_0xcd12;
-    undefined field_0xcd13;
+    // 0xCD0C: Appears to be an array for the team. Likely only the first 4 entries are used.
+    // Somehow related to controlling the animations for the team? Initialized to 0xFF (-1).
+    int8_t unk_team_animation_array[8];
     // Min x of the generated Kecleon shop, if it exists. This reflects the original generation, and
     // is not updated if some shop tiles are deleted by later steps in floor generation
     int kecleon_shop_min_x; // 0xCD14: inclusive
@@ -1524,14 +1478,18 @@ struct dungeon {
     undefined field_0x12b26;
     undefined field_0x12b27;
     struct entity_table entity_table; // 0x12B28: Table of all entities in the dungeon
-    undefined4 field_0x198e4;
-    undefined4 field_0x198e8;
-    undefined4 field_0x198ec;
-    undefined4 field_0x198f0;
-    undefined4 field_0x198f4;
-    undefined4 field_0x198f8;
-    undefined4 field_0x198fc;
-    undefined4 field_0x19900;
+    // 0x198E4: An ally monster related to storm drain/lightning rod and maybe other checks?
+    struct entity* unk_ally_monster1;
+    uint32_t unk_ally_monster_unique_id1; // 0x198E8: statuses::unique_id from that monster?
+    // 0x198EC: An ally monster related to storm drain/lightning rod and maybe other checks?
+    struct entity* unk_ally_monster2;
+    uint32_t unk_ally_monster_unique_id2; // 0x198F0: statuses::unique_id from that monster?
+    // 0x198F4: An enemy monster related to storm drain/lightning rod and maybe other checks?
+    struct entity* unk_enemy_monster1;
+    uint32_t unk_enemy_monster_unique_id1; // 0x198F8: statuses::unique_id from that monster?
+    // 0x198FC: An enemy monster related to storm drain/lightning rod and maybe other checks?
+    struct entity* unk_enemy_monster2;
+    uint32_t unk_enemy_monster_unique_id2; // 0x19900: statuses::unique_id from that monster?
     // 0x19904: Pointer to the monster that will snatch the effect of a move.
     struct entity* snatch_monster;
     // 0x19908: Pointer to the entity to be spawned by the effect of Illuminate
@@ -1554,38 +1512,23 @@ struct dungeon {
     // 0x286B1: Initialized to 0xFF, then set to a copy of dungeon::0x74B
     undefined field_0x286b1;
     struct floor_properties floor_properties; // 0x286B2: Properties about the current floor
-    undefined field_0x286d2;
-    undefined field_0x286d3;
-    undefined field_0x286d4;
-    undefined field_0x286d5;
-    undefined field_0x286d6;
-    undefined field_0x286d7;
-    undefined field_0x286d8;
-    undefined field_0x286d9;
-    undefined field_0x286da;
-    undefined field_0x286db;
-    undefined field_0x286dc;
-    undefined field_0x286dd;
-    undefined field_0x286de;
-    undefined field_0x286df;
-    undefined field_0x286e0;
-    undefined field_0x286e1;
-    undefined field_0x286e2;
-    undefined field_0x286e3;
-    undefined field_0x286e4;
-    undefined field_0x286e5;
-    undefined field_0x286e6;
-    undefined field_0x286e7;
-    undefined field_0x286e8;
-    undefined field_0x286e9;
-    undefined field_0x286ea;
-    undefined field_0x286eb;
-    undefined field_0x286ec;
-    undefined field_0x286ed;
-    undefined field_0x286ee;
-    undefined field_0x286ef;
-    undefined field_0x286f0;
-    undefined field_0x286f1;
+    // 0x286D2: Maybe a 0x10 long array?
+    undefined2 field_0x286d2;
+    undefined2 field_0x286d4;
+    undefined2 field_0x286d6;
+    undefined2 field_0x286d8;
+    undefined2 field_0x286da;
+    undefined2 field_0x286dc;
+    undefined2 field_0x286de;
+    undefined2 field_0x286e0;
+    undefined2 field_0x286e2;
+    undefined2 field_0x286e4;
+    undefined2 field_0x286e6;
+    undefined2 field_0x286e8;
+    undefined2 field_0x286ea;
+    undefined2 field_0x286ec;
+    undefined2 field_0x286ee;
+    undefined2 field_0x286f0;
     // 0x286F2: Spawn weights for regular items. It's the unrolled form of this floor's regular
     // item spawn list.
     // It has enough space to hold 1416 entries (1400 items + 16 categories), but only the
@@ -1666,18 +1609,10 @@ struct dungeon {
     undefined field_0x2ca45;
     undefined field_0x2ca46;
     undefined field_0x2ca47;
-    // 0x2CA0C: Possible the game may always set it to the null terminator and never actually
-    // copies something inside. Uncertain of exact size
-    char field_0x2ca48[1];
-    undefined field_0x2ca49;
-    undefined field_0x2ca4a;
-    undefined field_0x2ca4b;
-    undefined field_0x2ca4c;
-    undefined field_0x2ca4d;
-    undefined field_0x2ca4e;
-    undefined field_0x2ca4f;
-    undefined field_0x2ca50;
-    undefined field_0x2ca51;
+    // 0x2CA48: A monster name that is copied from dungeon::unk_fainted_monster_name. Maybe for
+    // situations where the player loses because the partner, escort, or accompanying monster
+    // fainted? Exact size is a guess.
+    char loss_related_monster_name[10];
     undefined field_0x2ca52;
     undefined field_0x2ca53;
     undefined field_0x2ca54;
@@ -1864,7 +1799,9 @@ struct dungeon {
     undefined field_0x2cb0d;
     undefined field_0x2cb0e;
     undefined field_0x2cb0f;
-    undefined field_0x2cb10;
+    // 0x2CB10: Somehow related to display_data::hallucinating and seems to maybe control
+    // the sleeping animations when the camera is pointed away from a hallucinating monster?
+    bool unk_camera_tracker;
     undefined field_0x2cb11;
     undefined field_0x2cb12;
     undefined field_0x2cb13;
