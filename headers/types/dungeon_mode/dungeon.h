@@ -587,12 +587,13 @@ struct dungeon {
     // 0x799: Determines which message to display when the leader's belly reaches 0. Goes up
     // to 0x9 (9), but only displays a unique message for 0x1, 0x2, and 0x3.
     uint8_t leader_hunger_message_tracker;
-    undefined field_0x79a;        // 0x79A: Initialized to 0x0.
-    int8_t rescue_attempts_left;  // 0x79B: Number of times you can be rescued in this dungeon
-    uint32_t prng_seed;           // 0x79C: The dungeon PRNG seed, if set
+    undefined field_0x79a; // 0x79A: Initialized to 0x0.
+     // 0x79B: Number of times you can be rescued in this dungeon
+    int8_t rescue_attempts_left;
+    uint32_t prng_seed;                  // 0x79C: The dungeon PRNG seed, if set
     uint32_t rescue_prng_preseed_23_bit; // 0x7A0: The 23 bit dungeon PRNG preseed for rescues?
-    undefined2 field_0x7a4; // 0x7A4: Initialized to 0x63.
-    undefined2 field_0x7a6; // 0x7A6: Initialized to 0x63.
+    undefined2 field_0x7a4;              // 0x7A4: Initialized to 0x63.
+    undefined2 field_0x7a6;              // 0x7A6: Initialized to 0x63.
     // 0x7A8: Holds some data for a monster id to loads its sprite. If this value is non-zero,
     // it gets loaded after loading the dungeon floor monster spawn entries. Maybe for monsters
     // that need a specific item to spawn?

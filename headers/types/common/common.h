@@ -688,9 +688,6 @@ struct dungeon_init {
     // dungeon::dungeon_game_version_id. Uncertain when the game decides to load the
     // Time/Darkness version of dungeons.
     enum game_id dungeon_game_version_id;
-    undefined field_0xAD;
-    undefined field_0xAE;
-    undefined field_0xAF;
     undefined4 field_0xB0;
     undefined field_0xB4; // Gets set to dungeon::id during dungeon init
     undefined field_0xB5; // Gets set to dungeon::floor during dungeon init

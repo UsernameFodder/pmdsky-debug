@@ -1617,7 +1617,7 @@ arm9:
         
         r0: item ID
         return: move ID
-    - name: TestItemAIFlag
+    - name: TestItemAiFlag
       address:
         EU: 0x200EB48
         NA: 0x200EAA0

@@ -476,7 +476,7 @@ enum damage_message {
     DAMAGE_MESSAGE_STEALTH_ROCK = 21,
     DAMAGE_MESSAGE_TOXIC_SPIKES = 22,
     DAMAGE_MESSAGE_ALMOST_FAINTED = 23, // "Is on the verge of fainting after using that move"
-    DAMAGE_MESSAGE_BAD_DREAMS = 24,    // "Took X damage because of <ability>"
+    DAMAGE_MESSAGE_BAD_DREAMS = 24,     // "Took X damage because of <ability>"
     DAMAGE_MESSAGE_SOLAR_POWER = 25,
     DAMAGE_MESSAGE_DRY_SKIN = 26,
 };
