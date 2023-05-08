@@ -519,13 +519,15 @@ struct dungeon {
     undefined2 field_0x74c;
     undefined field_0x74e;
     undefined field_0x74f;
-    // 0x750: Accessed with a ldr instruction? Maybe used for something else before the rescue
-    // floor is defined?
+    // 0x750: A ldr instruction is used at this address? Maybe used for something else before
+    // the rescue floor number is set?
     undefined field_0x750;
     uint8_t rescue_floor; // 0x751: Floor number where the rescue point is, if applicable
     undefined field_0x752;
     undefined field_0x753;
-    undefined4 field_0x754;
+    // 0x754: Should also be prng_pressed_23_bit? dungeon_init::prng_preseed_23_bit gets copied
+    // here, but might not be used?
+    uint32_t prng_preseed_23_bit;
     // 0x758: Whether the current floor should continue or end and why
     struct floor_loop_status_8 floor_loop_status;
     bool recruiting_enabled; // 0x759: Recruitment is allowed in this dungeon
@@ -592,7 +594,7 @@ struct dungeon {
     undefined field_0x79a;        // 0x79A: Initialized to 0x0.
     int8_t rescue_attempts_left;  // 0x79B: Number of times you can be rescued in this dungeon
     uint32_t prng_seed;           // 0x79C: The dungeon PRNG seed, if set
-    uint32_t prng_preseed_23_bit; // 0x7A0: The dungeon PRNG preseed.
+    uint32_t rescue_prng_preseed_23_bit; // 0x7A0: The 23 bit dungeon PRNG preseed for rescues?
     undefined2 field_0x7a4; // 0x7A4: Initialized to 0x63.
     undefined2 field_0x7a6; // 0x7A6: Initialized to 0x63.
     // 0x7A8: Holds some data for a monster id to loads its sprite. If this value is non-zero,

@@ -1328,7 +1328,8 @@ struct mission_destination_info {
     struct mission_type_8 type; // 0x1:
     // 0x2: The meaning of this field depends on the type field; see union mission_subtype.
     uint8_t subtype;
-    undefined field_0x3;
+    // 0x3: The index of the mission in the job list?
+    uint8_t mission_job_list_idx;
     // 0x4: Item to retrieve, if this is an item-retrieval mission
     struct item_id_16 item_to_retrieve;
     struct item_id_16 item_to_deliver;     // 0x6: Item to deliver to the client, if relevant
