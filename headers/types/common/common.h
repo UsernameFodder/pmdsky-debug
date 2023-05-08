@@ -401,8 +401,8 @@ ASSERT_SIZE(struct dungeon_floor_pair, 2);
 
 // Unknown struct included in the dungeon_init struct (see below)
 struct unk_dungeon_init {
-    undefined_field_0x0;
-    undefined_field_0x1;
+    undefined field_0x0;
+    undefined field_0x1;
     undefined field_0x2;
     undefined field_0x4;
     undefined field_0x5;

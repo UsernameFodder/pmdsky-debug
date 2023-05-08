@@ -589,7 +589,7 @@ struct dungeon {
     undefined2 field_0x796;
     struct dungeon_objective_8 dungeon_objective; // 0x798: Objective of the current dungeon
     // 0x799: Determines which message to display when the leader's belly reaches 0. Goes up
-    // to 0x9 (10), but only displays a unique message for 0x1, 0x2, and 0x3.
+    // to 0x9 (9), but only displays a unique message for 0x1, 0x2, and 0x3.
     uint8_t leader_hunger_message_tracker;
     undefined field_0x79a;        // 0x79A: Initialized to 0x0.
     int8_t rescue_attempts_left;  // 0x79B: Number of times you can be rescued in this dungeon
