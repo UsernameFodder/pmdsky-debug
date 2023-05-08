@@ -404,8 +404,10 @@ struct unk_dungeon_init {
     undefined field_0x0;
     undefined field_0x1;
     undefined field_0x2;
+    undefined field_0x3;
     undefined field_0x4;
     undefined field_0x5;
+    undefined field_0x6;
     undefined field_0x7;
     undefined field_0x8;
     undefined field_0x9;
