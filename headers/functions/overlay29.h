@@ -211,6 +211,9 @@ bool CanAiMonsterMoveInDirection(struct entity* monster, enum direction_id direc
                                  bool* out_monster_in_target_position);
 bool ShouldMonsterRunAway(struct entity* monster);
 bool ShouldMonsterRunAwayVariation(struct entity* monster, undefined param_2);
+bool SafeguardIsActive(struct entity* user, struct entity* target, bool log_message);
+bool LeafGuardIsActive(struct entity* user, struct entity* target, bool log_message);
+bool IsProtectedFromStatDrops(struct entity* user, struct entity* target, bool log_message);
 bool NoGastroAcidStatus(struct entity* entity);
 bool AbilityIsActive(struct entity* entity, enum ability_id ability_id);
 bool AbilityIsActiveVeneer(struct entity* entity, enum ability_id ability_id);
@@ -226,6 +229,7 @@ void UpdateIqSkills(struct monster* monster);
 enum type_id GetMoveTypeForMonster(struct entity* entity, struct move* move);
 int GetMovePower(struct entity* entity, struct move* move);
 bool UpdateStateFlags(struct monster* monster, uint16_t mask, bool set_flags);
+bool IsProtecetedFromNegativeStatus(struct entity* user, struct entity* target, bool log_message);
 void AddExpSpecial(struct entity* attacker, struct entity* defender, int base_exp);
 void EnemyEvolution(struct entity* entity);
 void LevelUpItemEffect(struct entity* user, struct entity* target, int levels, bool message,
@@ -251,7 +255,7 @@ void EndSureShotClassStatus(struct entity* user, struct entity* target);
 void EndMuzzledStatus(struct entity* user, struct entity* target);
 void EndMiracleEyeStatus(struct entity* user, struct entity* target);
 void EndMagnetRiseStatus(struct entity* user, struct entity* target);
-bool TryInflictDropeyeStatus(struct entity* user, struct entity* target);
+bool TransferNegativeBlinkerClassStatus(struct entity* user, struct entity* target);
 void TryTriggerMonsterHouse(struct entity* entity, bool outside_enemies);
 void RunMonsterAi(struct entity* monster, undefined param_2);
 void ApplyDamageAndEffects(struct entity* attacker, struct entity* defender,
@@ -310,6 +314,9 @@ void TickNoSlipCap(struct entity* entity);
 void TickStatusAndHealthRegen(struct entity* entity);
 void InflictSleepStatusSingle(struct entity* entity, int turns);
 void TryInflictSleepStatus(struct entity* user, struct entity* target, int turns, bool log_failure);
+bool IsProtectedFromSleepClassStatus(struct entity* user, struct entity* target,
+                                     bool ignore_safeguard, bool ingnore_protections,
+                                     bool log_failure);
 void TryInflictNightmareStatus(struct entity* user, struct entity* target, int turns);
 void TryInflictNappingStatus(struct entity* user, struct entity* target, int turns);
 void TryInflictYawningStatus(struct entity* user, struct entity* target, int turns);
@@ -373,24 +380,69 @@ void RevealStairs(struct entity* user, struct entity* target);
 void RevealEnemies(struct entity* user, struct entity* target);
 bool TryInflictLeechSeedStatus(struct entity* user, struct entity* target, bool log_failure,
                                bool check_only);
-void TryInflictDestinyBond(struct entity* user, struct entity* target);
-void TryInvisify(struct entity* user, struct entity* target);
+void TryInflictDestinyBondStatus(struct entity* user, struct entity* target);
+void TryInflictSureShotStatus(struct entity* user, struct entity* target);
+void TryInflictWhifferStatus(struct entity* user, struct entity* target);
+void TryInflictSetDamageStatus(struct entity* user, struct entity* target);
+void TryInflictFocusEnergyStatus(struct entity* user, struct entity* target);
+bool TryInflictDecoyStatus(struct entity* user, struct entity* target);
+void TryInflictCurseStatus(struct entity* user, struct entity* target);
+void TryInflictSnatchStatus(struct entity* user, struct entity* target);
+bool TryInflictTauntStatus(struct entity* user, struct entity* target);
+bool TryInflictStockpileStatus(struct entity* user, struct entity* target);
+void TryInflictInvisibleStatus(struct entity* user, struct entity* target);
+bool TryInflictPerishSongStatus(struct entity* user, struct entity* target, bool only_check);
+bool TryInflictEncoreStatus(struct entity* user, struct entity* target, bool only_check);
+void TryIncreaseBelly(struct entity* user, struct entity* target, int belly_lost,
+                      int max_belly_shrink);
 void TryIncreaseBelly(struct entity* user, struct entity* target, int belly_restoration,
                       int max_belly_boost, bool log_failure);
+bool TryInflictMuzzledStatus(struct entity* user, struct entity* target, bool only_check);
 void TryTransform(struct entity* user, struct entity* target);
+void TryInflictMobileStatus(struct entity* user, struct entity* target);
+bool TryInflictExposedStatus(struct entity* user, struct entity* target, int effect_id,
+                            bool only_check);
+void TryActivateIdentifyCondition(struct entity* user, struct entity* target)
 bool TryInflictBlinkerStatus(struct entity* user, struct entity* target, bool check_only,
                              bool log_failure);
 bool IsBlinded(struct entity* entity, bool check_held_item);
 bool TryInflictCrossEyedStatus(struct entity* user, struct entity* target, bool check_only);
 void TryInflictEyedropStatus(struct entity* user, struct entity* target);
 bool TryInflictSlipStatus(struct entity* user, struct entity* target);
+bool TryInflictDropeyeStatus(struct entity* user, struct entity* target);
 void RestoreMovePP(struct entity* user, struct entity* target, int pp, bool suppress_logs);
 void ApplyProteinEffect(struct entity* user, struct entity* target, int stat_boost);
 void ApplyCalciumEffect(struct entity* user, struct entity* target, int stat_boost);
 void ApplyIronEffect(struct entity* user, struct entity* target, int stat_boost);
 void ApplyZincEffect(struct entity* user, struct entity* target, int stat_boost);
-void SetReflectDamageCountdownTo4(struct entity* entity);
+void TryInflictLongTossStatus(struct entity* user, struct entity* target);
+void TryInflictPierceStatus(struct entity* user, struct entity* target);
+bool TryInflictGastroAcidStatus(struct entity* user, struct entity* target, bool log_message,
+                               bool check_only);
+void SetAquaRingHealingCountdownTo4(struct entity* entity);
+void ApplyAquaRingHealing(struct entity* entity);
+void TryInflictAquaRingStatus(struct entity* user, struct entity* target);
+void TryInflictLuckyChantStatus(struct entity* user, struct entity* target);
+bool TryInflictHealBlockStatus(struct entity* user, struct entity* target, bool log_message,
+                               bool check_only);
+bool MonsterHasEmbargoStatus(struct entity* entity);
+void LogItemBlockedByEmbargo(struct entity* entity);
+bool TryInflictEmbargoStatus(struct entity* user, struct entity* target, bool log_message,
+                             bool check_only);
+bool TryInflictMiracleEyeStatus(struct entity* user, struct entity* target, bool check_only);
+void TryInflictMagnetRiseStatus(struct entity* user, struct entity* target);
 bool HasConditionalGroundImmunity(struct entity* entity);
+void TryInflictSafeguardStatus(struct entity* user, struct entity* target);
+void TryInflictMistStatus(struct entity* user, struct entity* target);
+void TryInflictWishStatus(struct entity* user, struct entity* target);
+void TryInflictMagicCoatStatus(struct entity* user, struct entity* target);
+void TryInflictLightScreenStatus(struct entity* user, struct entity* target);
+void TryInflictReflectStatus(struct entity* user, struct entity* target);
+void TryInflictProtectStatus(struct entity* user, struct entity* target);
+void TryInflictMirrorCoatStatus(struct entity* user, struct entity* target);
+void TryInflictEndureStatus(struct entity* user, struct entity* target);
+void TryInflictMirrorMoveStatus(struct entity* user, struct entity* target);
+void TryInflictConversion2Status(struct entity* user, struct entity* target);
 void TryResetStatChanges(struct entity* attacker, struct entity* defender, bool force_animation);
 int MirrorMoveIsActive(struct entity* entity);
 int Conversion2IsActive(struct entity* entity);

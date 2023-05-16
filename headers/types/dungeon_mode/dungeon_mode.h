@@ -464,7 +464,8 @@ struct monster {
     undefined field_0x16d;
     undefined field_0x16e;
     undefined field_0x16f;
-    bool field_0x170;
+    // 0x170: Set to make the monster disappear when using the move U-turn.
+    bool uturn_hide_monster_flag;
     undefined field_0x171;
     // 0x172: Set when the leader and falling through a pitfall trap.
     bool pitfall_trap_flag_0x172;
