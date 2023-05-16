@@ -401,7 +401,7 @@ bool TryInflictMuzzledStatus(struct entity* user, struct entity* target, bool on
 void TryTransform(struct entity* user, struct entity* target);
 void TryInflictMobileStatus(struct entity* user, struct entity* target);
 bool TryInflictExposedStatus(struct entity* user, struct entity* target, int effect_id,
-                            bool only_check);
+                             bool only_check);
 void TryActivateIdentifyCondition(struct entity* user, struct entity* target);
 bool TryInflictBlinkerStatus(struct entity* user, struct entity* target, bool check_only,
                              bool log_failure);
