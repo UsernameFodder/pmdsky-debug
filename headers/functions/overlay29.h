@@ -393,7 +393,7 @@ bool TryInflictStockpileStatus(struct entity* user, struct entity* target);
 void TryInflictInvisibleStatus(struct entity* user, struct entity* target);
 bool TryInflictPerishSongStatus(struct entity* user, struct entity* target, bool only_check);
 bool TryInflictEncoreStatus(struct entity* user, struct entity* target, bool only_check);
-void TryIncreaseBelly(struct entity* user, struct entity* target, int belly_lost,
+void TryDecreaseBelly(struct entity* user, struct entity* target, int belly_lost,
                       int max_belly_shrink);
 void TryIncreaseBelly(struct entity* user, struct entity* target, int belly_restoration,
                       int max_belly_boost, bool log_failure);
@@ -402,7 +402,7 @@ void TryTransform(struct entity* user, struct entity* target);
 void TryInflictMobileStatus(struct entity* user, struct entity* target);
 bool TryInflictExposedStatus(struct entity* user, struct entity* target, int effect_id,
                             bool only_check);
-void TryActivateIdentifyCondition(struct entity* user, struct entity* target)
+void TryActivateIdentifyCondition(struct entity* user, struct entity* target);
 bool TryInflictBlinkerStatus(struct entity* user, struct entity* target, bool check_only,
                              bool log_failure);
 bool IsBlinded(struct entity* entity, bool check_held_item);
@@ -418,7 +418,7 @@ void ApplyZincEffect(struct entity* user, struct entity* target, int stat_boost)
 void TryInflictLongTossStatus(struct entity* user, struct entity* target);
 void TryInflictPierceStatus(struct entity* user, struct entity* target);
 bool TryInflictGastroAcidStatus(struct entity* user, struct entity* target, bool log_message,
-                               bool check_only);
+                                bool check_only);
 void SetAquaRingHealingCountdownTo4(struct entity* entity);
 void ApplyAquaRingHealing(struct entity* entity);
 void TryInflictAquaRingStatus(struct entity* user, struct entity* target);

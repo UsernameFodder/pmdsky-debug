@@ -4059,7 +4059,7 @@ overlay29:
         r2: flag to only perform the check for inflicting without actually inflicting
     - name: TryInflictMagnetRiseStatus
       address:
-        NA: 0x231845C
+        NA: 0x2318984
       description: |-
         Inflicts the Magnet Rise status condition on a target monster if possible.
         
