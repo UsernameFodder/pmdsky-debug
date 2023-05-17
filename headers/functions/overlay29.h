@@ -443,6 +443,7 @@ void TryInflictMirrorCoatStatus(struct entity* user, struct entity* target);
 void TryInflictEndureStatus(struct entity* user, struct entity* target);
 void TryInflictMirrorMoveStatus(struct entity* user, struct entity* target);
 void TryInflictConversion2Status(struct entity* user, struct entity* target);
+void TryInflictVitalThrowStatus(struct entity* user, struct entity* target);
 void TryResetStatChanges(struct entity* attacker, struct entity* defender, bool force_animation);
 int MirrorMoveIsActive(struct entity* entity);
 int Conversion2IsActive(struct entity* entity);

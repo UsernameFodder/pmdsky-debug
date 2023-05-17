@@ -3119,6 +3119,7 @@ overlay29:
         r2: ignore safeguard
         r3: ignore other protections (exclusive items + leaf guard)
         stack[0]: flag to log a message on failure
+        return: bool
     - name: TryInflictNightmareStatus
       address:
         EU: 0x23126AC
@@ -3733,7 +3734,7 @@ overlay29:
       address:
         NA: 0x23164D8
       description: |-
-        Inflicts the Stockpile condition on a target monster if possible. Wont boost the level
+        Inflicts the Stockpile condition on a target monster if possible. Won't boost the level
         of stockpiling above 3.
         
         r0: user entity pointer
@@ -3782,7 +3783,6 @@ overlay29:
         r1: target entity pointer
         r2: belly to lose
         r3: max belly shrink
-        return: Whether or not the status could be inflicted
     - name: TryIncreaseBelly
       address:
         NA: 0x2316BB0
@@ -3828,7 +3828,7 @@ overlay29:
         NA: 0x23174C8
       description: |-
         Inflicts the Exposed status condition on a target monster if possible. Only applies to
-        ghosts types and monsters with raised evasion. If the animation effect ID is 0,
+        Ghost types and monsters with raised evasion. If the animation effect ID is 0,
         defaults to animation ID 0xE (this fallback animation likely can't be seen in normal
         play).
         
