@@ -2439,7 +2439,7 @@ overlay29:
         r1: bitmask for bits to update
         r2: whether to set the bits indicated by the mask to 1 or 0
         return: whether or not any of the masked bits changed from the previous state
-    - name: IsProtecetedFromNegativeStatus
+    - name: IsProtectedFromNegativeStatus
       address:
         NA: 0x2302430
       description: |-
