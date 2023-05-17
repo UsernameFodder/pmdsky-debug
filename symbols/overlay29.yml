@@ -2241,6 +2241,36 @@ overlay29:
         r0: Entity pointer
         r1: ?
         return: Result of the call to ShouldMonsterRunAway
+    - name: SafeguardIsActive
+      address:
+        NA: 0x2301940
+      description: |-
+        Checks if the monster is under the effect of Safeguard.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: flag to log a message
+        return: bool
+    - name: LeafGuardIsActive
+      address:
+        NA: 0x2301994
+      description: |-
+        Checks if the monster is protected by the ability Leaf Guard.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: flag to log a message
+        return: bool
+    - name: IsProtectedFromStatDrops
+      address:
+        NA: 0x2301B2C
+      description: |-
+        Checks if the target monster is protected from getting their stats dropped by the user.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: flag to log a message
+        return: bool
     - name: NoGastroAcidStatus
       address:
         EU: 0x2302708
@@ -2409,6 +2439,16 @@ overlay29:
         r1: bitmask for bits to update
         r2: whether to set the bits indicated by the mask to 1 or 0
         return: whether or not any of the masked bits changed from the previous state
+    - name: IsProtectedFromNegativeStatus
+      address:
+        NA: 0x2302430
+      description: |-
+        Checks if the target monster is protected from getting a negative status condition.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: flag to log a message
+        return: bool
     - name: AddExpSpecial
       address:
         EU: 0x2302F68
@@ -2633,15 +2673,16 @@ overlay29:
         
         r0: pointer to user
         r1: pointer to target
-    - name: TryInflictDropeyeStatus
+    - name: TransferNegativeBlinkerClassStatus
       address:
         NA: 0x23078EC
       description: |-
-        Inflicts the Dropeye status condition on a target monster if possible.
+        Tries to transfer the the negative blinker class status conditions from the user to
+        the target.
         
         r0: user entity pointer
         r1: target entity pointer
-        return: Whether or not the status could be inflicted
+        return: Whether or not the status could be transferred
     - name: TryTriggerMonsterHouse
       address:
         EU: 0x2308978
@@ -3067,6 +3108,18 @@ overlay29:
         r1: target entity pointer
         r2: number of turns
         r3: flag to log a message on failure
+    - name: IsProtectedFromSleepClassStatus
+      address:
+        NA: 0x23119E4
+      description: |-
+        Checks if the monster is immune to sleep class status conditions.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: ignore safeguard
+        r3: ignore other protections (exclusive items + leaf guard)
+        stack[0]: flag to log a message on failure
+        return: bool
     - name: TryInflictNightmareStatus
       address:
         EU: 0x23126AC
@@ -3599,7 +3652,7 @@ overlay29:
         r2: flag to log a message on failure
         r3: flag to only perform the check for inflicting without actually inflicting
         return: Whether or not the status could be inflicted
-    - name: TryInflictDestinyBond
+    - name: TryInflictDestinyBondStatus
       address:
         EU: 0x23164B0
         NA: 0x2315A50
@@ -3609,7 +3662,85 @@ overlay29:
         
         r0: user entity pointer
         r1: target entity pointer
-    - name: TryInvisify
+    - name: TryInflictSureShotStatus
+      address:
+        NA: 0x2315B70
+      description: |-
+        Inflicts the Sure Shot status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: TryInflictWhifferStatus
+      address:
+        NA: 0x2315C00
+      description: |-
+        Inflicts the Whiffer status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: TryInflictSetDamageStatus
+      address:
+        NA: 0x2315CE8
+      description: |-
+        Inflicts the Set Damage status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: TryInflictFocusEnergyStatus
+      address:
+        NA: 0x2315D84
+      description: |-
+        Inflicts the Focus Energy status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: TryInflictDecoyStatus
+      address:
+        NA: 0x2315E24
+      description: |-
+        Inflicts the Decoy status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        return: Whether or not the status could be inflicted
+    - name: TryInflictCurseStatus
+      address:
+        NA: 0x23160DC
+      description: |-
+        Inflicts the Curse status condition on a target monster if possible and if the user is
+        a ghost type. Otherwise, just boost the user's defense and attack then lower the user's
+        speed.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: TryInflictSnatchStatus
+      address:
+        NA: 0x2316280
+      description: |-
+        Inflicts the Snatch status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: TryInflictTauntStatus
+      address:
+        NA: 0x23163A8
+      description: |-
+        Inflicts the Taunt status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        return: Whether or not the status could be inflicted
+    - name: TryInflictStockpileStatus
+      address:
+        NA: 0x23164D8
+      description: |-
+        Inflicts the Stockpile condition on a target monster if possible. Won't boost the level
+        of stockpiling above 3.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        return: Whether or not the status could be inflicted or boosted
+    - name: TryInflictInvisibleStatus
       address:
         EU: 0x2316FDC
         NA: 0x231657C
@@ -3620,6 +3751,38 @@ overlay29:
         
         r0: user entity pointer
         r1: target entity pointer
+    - name: TryInflictPerishSongStatus
+      address:
+        NA: 0x231662C
+      description: |-
+        Inflicts the Perish Song status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: flag to only perform the check for inflicting without actually inflicting
+        return: Whether or not the status could be inflicted
+    - name: TryInflictEncoreStatus
+      address:
+        NA: 0x2316720
+      description: |-
+        Inflicts the Encore status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: flag to only perform the check for inflicting without actually inflicting
+        return: Whether or not the status could be inflicted
+    - name: TryDecreaseBelly
+      address:
+        NA: 0x23168D8
+      description: |-
+        Tries to reduce the belly size of the target. Only when max belly shrink is 0, the
+        current belly is reduced by belly to lose. If both are non-zero, only the max belly
+        shrink is applied.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: belly to lose
+        r3: max belly shrink
     - name: TryIncreaseBelly
       address:
         NA: 0x2316BB0
@@ -3631,6 +3794,16 @@ overlay29:
         r2: belly to restore
         r3: max belly boost (if belly is full)
         stack[0]: flag to log a message
+    - name: TryInflictMuzzledStatus
+      address:
+        NA: 0x2317124
+      description: |-
+        Inflicts the Muzzled status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: flag to only perform the check for inflicting without actually inflicting
+        return: Whether or not the status could be inflicted
     - name: TryTransform
       address:
         EU: 0x2317C7C
@@ -3639,6 +3812,37 @@ overlay29:
         Attempts to transform the target into the species of a random monster contained in the list returned by MonsterSpawnListPartialCopy.
         
         The user pointer is only used when calling LogMessage functions.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: TryInflictMobileStatus
+      address:
+        NA: 0x231740C
+      description: |-
+        Inflicts the Mobile status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: TryInflictExposedStatus
+      address:
+        NA: 0x23174C8
+      description: |-
+        Inflicts the Exposed status condition on a target monster if possible. Only applies to
+        Ghost types and monsters with raised evasion. If the animation effect ID is 0,
+        defaults to animation ID 0xE (this fallback animation likely can't be seen in normal
+        play).
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: animation effect ID
+        r3: flag to only perform the check for inflicting without actually inflicting
+        return: Whether or not the status could be inflicted
+    - name: TryActivateIdentifyCondition
+      address:
+        NA: 0x2317648
+      description: |-
+        Sets the flag for the identify orb which causes monsters holding items to be shown with
+        a blue exclamation mark status icon.
         
         r0: user entity pointer
         r1: target entity pointer
@@ -3691,6 +3895,15 @@ overlay29:
         r0: user entity pointer
         r1: target entity pointer
         return: Whether or not the status could be inflicted
+    - name: TryInflictDropeyeStatus
+      address:
+        NA: 0x2317AF4
+      description: |-
+        Inflicts the Dropeye status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        return: Whether or not the status could be inflicted
     - name: RestoreMovePP
       address:
         EU: 0x2318680
@@ -3739,15 +3952,119 @@ overlay29:
         r0: user entity pointer
         r1: target entity pointer
         r2: special defense boost
-    - name: SetReflectDamageCountdownTo4
+    - name: TryInflictLongTossStatus
+      address:
+        NA: 0x23181A0
+      description: |-
+        Inflicts the Long Toss status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: TryInflictPierceStatus
+      address:
+        NA: 0x2318210
+      description: |-
+        Inflicts the Pierce status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: TryInflictGastroAcidStatus
+      address:
+        NA: 0x231827C
+      description: |-
+        Inflicts the Gastro Acid status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: flag to log message
+        r3: flag to only perform the check for inflicting without actually inflicting
+        return: Whether or not the status could be inflicted
+    - name: SetAquaRingHealingCountdownTo4
       address:
         EU: 0x2318E20
         NA: 0x23183C0
         JP: 0x2319890
       description: |-
-        Sets the monster's reflect damage countdown to a global value (0x4).
+        Sets the countdown for Aqua Ring healing countdown to a global value (0x4).
         
         r0: pointer to entity
+    - name: ApplyAquaRingHealing
+      address:
+        NA: 0x23183E8
+      description: |-
+        Applies the passive healing gained from the Aqua Ring status.
+        
+        r0: pointer to entity
+    - name: TryInflictAquaRingStatus
+      address:
+        NA: 0x231845C
+      description: |-
+        Inflicts the Aqua Ring status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: TryInflictLuckyChantStatus
+      address:
+        NA: 0x2318508
+      description: |-
+        Inflicts the Lucky Chant status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: TryInflictHealBlockStatus
+      address:
+        NA: 0x23185A8
+      description: |-
+        Inflicts the Heal Block status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: flag to log message
+        r3: flag to only perform the check for inflicting without actually inflicting
+        return: Whether or not the status could be inflicted
+    - name: MonsterHasEmbargoStatus
+      address:
+        NA: 0x23186CC
+      description: |-
+        Returns true if the monster has the Embargo status condition.
+        
+        r0: pointer to entity
+        return: bool
+    - name: LogItemBlockedByEmbargo
+      address:
+        NA: 0x2318700
+      description: |-
+        Logs the error message when the usage of an item is blocked by Embargo.
+        
+        r0: pointer to entity
+    - name: TryInflictEmbargoStatus
+      address:
+        NA: 0x231872C
+      description: |-
+        Inflicts the Embargo status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: flag to log message
+        r3: flag to only perform the check for inflicting without actually inflicting
+        return: Whether or not the status could be inflicted
+    - name: TryInflictMiracleEyeStatus
+      address:
+        NA: 0x2318850
+      description: |-
+        Inflicts the Miracle Eye status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: flag to only perform the check for inflicting without actually inflicting
+    - name: TryInflictMagnetRiseStatus
+      address:
+        NA: 0x2318984
+      description: |-
+        Inflicts the Magnet Rise status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
     - name: HasConditionalGroundImmunity
       address:
         EU: 0x23194AC
@@ -3760,6 +4077,102 @@ overlay29:
         
         r0: entity pointer
         return: bool
+    - name: TryInflictSafeguardStatus
+      address:
+        NA: 0x2318E70
+      description: |-
+        Inflicts the Safeguard status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: TryInflictMistStatus
+      address:
+        NA: 0x2318F10
+      description: |-
+        Inflicts the Mist status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: TryInflictWishStatus
+      address:
+        NA: 0x2318FAC
+      description: |-
+        Inflicts the Wish status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: TryInflictMagicCoatStatus
+      address:
+        NA: 0x231904C
+      description: |-
+        Inflicts the Magic Coat status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: TryInflictLightScreenStatus
+      address:
+        NA: 0x23190EC
+      description: |-
+        Inflicts the Light Screen status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: TryInflictReflectStatus
+      address:
+        NA: 0x231918C
+      description: |-
+        Inflicts the Reflect status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: TryInflictProtectStatus
+      address:
+        NA: 0x231922C
+      description: |-
+        Inflicts the Protect status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: TryInflictMirrorCoatStatus
+      address:
+        NA: 0x23192DC
+      description: |-
+        Inflicts the Mirror Coat status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: TryInflictEndureStatus
+      address:
+        NA: 0x2319378
+      description: |-
+        Inflicts the Endure status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: TryInflictMirrorMoveStatus
+      address:
+        NA: 0x2319418
+      description: |-
+        Inflicts the Mirror Move status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: TryInflictConversion2Status
+      address:
+        NA: 0x23194B8
+      description: |-
+        Inflicts the Conversion2 status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: TryInflictVitalThrowStatus
+      address:
+        NA: 0x2319584
+      description: |-
+        Inflicts the Vital Throw status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
     - name: TryResetStatChanges
       address:
         NA: 0x2319624
