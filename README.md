@@ -24,7 +24,7 @@ This repository contains _annotations_ and _tools_ that are meant to accompany a
 The symbol tables and the C headers are simultaneously human-readable and machine-readable. This repository is designed to have various possible "modes of use":
 
 - For EoS debug info, which can be directly imported into various reverse engineering tools. See [Using Debug Info from `pmdsky-debug`](docs/using-debug-info.md) for more information.
-- Detailed technical documentation for EoS hacking.
+- Detailed technical documentation for EoS hacking, for both beginners and experienced hackers alike.
 - An easy way to share EoS technical research in a standardized format. See [Contributing to `pmdsky-debug`](docs/contributing.md) for more information.
 - For symbol tables and API headers that can be used to link against the EoS binaries.
 
@@ -35,8 +35,10 @@ If you are just reading documentation, this can be done directly in the browser.
 ## A gentler introduction: Why does this repository exist?
 Here's a bit more explanation about what this repository is for, if you're a beginner :). The goal of `pmdsky-debug` is to help people get a foothold in reverse engineering for EoS, and hopefully make it less daunting to get started. The more people there are to help out with research, the easier it becomes for everyone!
 
-Reverse engineering can be a pretty difficult thing to break into because it requires multiple skills, all working together in tandem. See [Other Resources](docs/resources.md) for more words on this, along with some relevant links to help you get started.
+### A centralized resource for getting started
+Reverse engineering can be a pretty difficult thing to break into because it requires multiple skills, all working together in tandem. Think of this repository as a centralized resource to make this journey as easy as possible. Besides assuming a basic knowledge of programming, it contains everything you need to start from scratch with reverse engineering EoS, all in a single place (either directly, or indirectly through targeted links). If you're completely new to reverse engineering, check out the [Other Resources](docs/resources.md) page for pointers to help you get started.
 
+### A shared collection of pre-existing research
 For a mostly unlabeled program like EoS, even once you have all the _skills_ required, there's still one large hurdle you need to overcome: figuring out where the code you care about is actually located within the binaries. This is just "encyclopedic" knowledge; for example, with the North American version of EoS, you either know that 0x208FEA4 in memory has a function that does integer division, or you don't. And if you don't know what the function at 0x208FEA4 does, then it'll be hard to figure out any code that calls into function at 0x208FEA4, and so on.
 
 This makes it hard to go searching for "just one thing" about how the game works when you're just starting out (e.g., how damage calculation works in EoS), because you won't be able to figure out anything substantial without already having a solid foundation. There are a few different ways to build this foundation:

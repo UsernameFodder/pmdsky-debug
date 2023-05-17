@@ -1,5 +1,7 @@
 # Other Resources
-Reverse engineering _Explorers of Sky_ requires multiple skills in varying degrees. Here are some of them, with some links to help you get started:
+Reverse engineering _Explorers of Sky_ requires multiple skills in varying degrees. If you're a complete beginner and just want a single resource to start with, I recommend working through AnonymousRandomPerson's [_Reverse Engineering a DS Game_](https://www.starcubelabs.com/reverse-engineering-ds/), which walks through the basics of reverse engineering using _Explorers of Sky_ as an example.
+
+If you're looking for more granular resources on specific topics, here's a breakdown of some of the individual skills involved in reverse engineering, with relevant links:
 - How to read assembly, and enough low-level knowledge of computers to understand that assembly.
     - For EoS, there are technically _two_ forms of assembly you need to know, ARM and THUMB, although they're extremely similar, and for the most part you only need to know ARM. If you're just getting started, [this guide](https://forums.therockmanexezone.com/intro-to-asm-modding-hooking-t5374.html) is a great introduction to the concepts needed to read assembly, and [this guide](https://www.coranac.com/tonc/text/asm.htm) is a fantastic reference and introduction to the finer details of ARM assembly.
 - Other systems-level knowledge of the Nintendo DS.
@@ -42,4 +44,6 @@ This is a list of tools that I (UsernameFodder) use for EoS research that might 
 - [Hex Fiend](https://hexfiend.com/) (macOS only) and [HxD](https://mh-nexus.de/en/hxd/) (Windows only) on the rare occasion I need to do raw hex editing, but honestly any hex editor works.
 
 ## I don't know any of this and I'm feeling overwhelmed!
-There's a lot to learn if you're just starting out, especially if you don't already have a background in computer science. If you want just _one_ thing to sink your teeth into initially, I recommend installing [Ghidra](https://ghidra-sre.org/) and going through the [Ghidra setup tutorial](ghidra-setup.md). The program is free, it's cross-platform and will work on any operating system, and it'll let you jump right into exploring the EoS code. The tutorial won't teach you how to read assembly, but it'll get you set up so that you can focus _just_ on learning assembly without needing to sweat the other details.
+There's a lot to learn if you're just starting out, especially if you don't already have a background in computer science. If you want just _one_ thing to sink your teeth into initially, I recommend AnonymousRandomPerson's [_Reverse Engineering a DS Game_](https://www.starcubelabs.com/reverse-engineering-ds/). It'll teach you how to read assembly, guide you through setting up and using reverse engineering tools like [Ghidra](https://ghidra-sre.org/), and share basic reverse engineering strategies through practical examples.
+
+After that, I recommend going through the [Ghidra setup tutorial](ghidra-setup.md) (the above article covers some of it, but stops short of actually importing debug info). By this point, you'll be well equipped to start exploring the EoS code on your own.
