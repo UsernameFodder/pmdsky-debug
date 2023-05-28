@@ -68,10 +68,12 @@ enum script_var_id {
     // Despite the name, this is one integer! This controls a wide variety of game functions, such
     // as bag size, Treasure Box spawns, and spawn threshold (i.e. enemies can only spawn when this
     // variable is greater than or equal to a certain value).
+    // Also see GetScenarioBalance.
     VAR_SCENARIO_BALANCE_FLAG = 19,
     // This shares the same features as SCENARIO_BALANCE_FLAG and actually takes priority over it in
     // maingame if this is greater than or equal to 0. Nevertheless, we're fairly certain this is
     // unused in the base game.
+    // Also see GetScenarioBalance.
     VAR_SCENARIO_BALANCE_DEBUG = 20,
     // The following 3 variables are used in the Crystal Cave overworld puzzle when a crystal
     // changes color.
@@ -310,7 +312,7 @@ enum script_var_id {
     //   7: Unused
     // Checked at [NA]0x204CA30.
     VAR_SPECIAL_EPISODE_CONQUEST = 77,
-    // 64 bitflags that serve a wide variety of purposes. For more info, see
+    // 64 bitflags corresponding to various story-based unlocks. Known values:
     // https://docs.google.com/spreadsheets/d/1NK3wkC8mOCu-tVkxULLkhpgPR-glApiD2v3zp-mdW7w
     VAR_PERFORMANCE_PROGRESS_LIST = 78,
     // 256 bitflags used to determine if a dungeon will appear in the crossroads menu. Each bitflag
