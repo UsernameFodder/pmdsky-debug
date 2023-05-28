@@ -3557,6 +3557,24 @@ overlay29:
         r0: attacker pointer
         r1: defender pointer
         return: bool, whether or not the ability was activated
+    - name: TryInflictTerrifiedStatus
+      address:
+        NA: 0x2314E60
+      description: |-
+        Inflicts the Terrified status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: TryInflictGrudgeStatus
+      address:
+        NA: 0x2314EB8
+      description: |-
+        Inflicts the Grudge status condition on a target monster if possible.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: flag to log a message
+        return: Whether or not the status could be inflicted
     - name: TryInflictConfusedStatus
       address:
         EU: 0x2315998
@@ -3904,13 +3922,34 @@ overlay29:
         r0: user entity pointer
         r1: target entity pointer
         return: Whether or not the status could be inflicted
-    - name: RestoreMovePP
+    - name: RestoreAllMovePP
       address:
         EU: 0x2318680
         NA: 0x2317C20
         JP: 0x23190F0
       description: |-
         Restores the PP of all the target's moves by the specified amount.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: PP to restore
+        r3: flag to suppress message logging
+    - name: RestoreMovePP
+      address:
+        NA: 0x2317D58
+      description: |-
+        Restores the PP the target's move in the specified move slot by the specified amount.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: move slot
+        r3: PP to restore
+        stack[0]: flag to suppress message logging
+    - name: RestoreRandomMovePP
+      address:
+        NA: 0x2317E88
+      description: |-
+        Restores the PP of a random one of the target's moves by the specified amount.
         
         r0: user entity pointer
         r1: target entity pointer
@@ -4192,6 +4231,16 @@ overlay29:
         
         r0: pointer to entity
         return: int
+    - name: MistIsActive
+      address:
+        NA: 0x23197CC
+      description: |-
+        Checks if the monster is under the effect of Mist.
+        
+        Returns 1 if the effects is a status, 2 if it comes from an exclusive item, 0 otherwise.
+        
+        r0: pointer to entity
+        return: int
     - name: Conversion2IsActive
       address:
         EU: 0x231A274
@@ -4305,6 +4354,28 @@ overlay29:
         
         r0: entity pointer
         return: type ID
+    - name: ActivateMotorDrive
+      address:
+        NA: 0x231B060
+      description: |-
+        Displays the message and applies the speed boost for the ability Motor Drive.
+        
+        r0: monster pointer
+    - name: TryActivateBadDreams
+      address:
+        NA: 0x231B1B8
+      description: |-
+        Tries to apply the damage from Bad Dreams to all sleeping monsters in the room.
+        
+        r0: monster pointer
+    - name: TryActivateSteadfast
+      address:
+        NA: 0x231B364
+      description: |-
+        Activate the Steadfast ability on the defender, if the monster has it and it's active.
+        
+        r0: attacker pointer
+        r1: defender pointer
     - name: IsInSpawnList
       address:
         EU: 0x231BE5C

@@ -368,6 +368,8 @@ bool ExclusiveItemEffectIsActiveWithLogging(struct entity* user, struct entity* 
                                             bool should_log, int message_id,
                                             enum exclusive_item_effect_id effect_id);
 bool TryActivateQuickFeet(struct entity* attacker, struct entity* defender);
+bool TryInflictTerrifiedStatus(struct entity* user, struct entity* target);
+bool TryInflictGrudgeStatus(struct entity* user, struct entity* target, bool log_message);
 bool TryInflictConfusedStatus(struct entity* user, struct entity* target, bool log_failure,
                               bool check_only);
 bool TryInflictCoweringStatus(struct entity* user, struct entity* target, bool log_failure,
@@ -410,7 +412,10 @@ bool TryInflictCrossEyedStatus(struct entity* user, struct entity* target, bool 
 void TryInflictEyedropStatus(struct entity* user, struct entity* target);
 bool TryInflictSlipStatus(struct entity* user, struct entity* target);
 bool TryInflictDropeyeStatus(struct entity* user, struct entity* target);
-void RestoreMovePP(struct entity* user, struct entity* target, int pp, bool suppress_logs);
+void RestoreAllMovePP(struct entity* user, struct entity* target, int pp, bool suppress_logs);
+void RestoreMovePP(struct entity* user, struct entity* target, int move_slot, int pp,
+                   bool suppress_logs);
+void RestoreRandomMovePP(struct entity* user, struct entity* target, int pp, bool suppress_logs);
 void ApplyProteinEffect(struct entity* user, struct entity* target, int stat_boost);
 void ApplyCalciumEffect(struct entity* user, struct entity* target, int stat_boost);
 void ApplyIronEffect(struct entity* user, struct entity* target, int stat_boost);
@@ -461,6 +466,9 @@ struct move_target_and_range GetEntityMoveTargetAndRange(struct entity* entity, 
                                                          bool is_ai);
 struct natural_gift_item_info* GetEntityNaturalGiftInfo(struct entity* entity);
 enum type_id GetEntityWeatherBallType(struct entity* entity);
+void ActivateMotorDrive(struct entity* entity);
+void TryActivateBadDreams(struct entity* entity);
+void TryActivateSteadfast(struct entity* entity);
 bool IsInSpawnList(undefined* spawn_list, enum monster_id monster_id);
 int ChangeShayminForme(struct entity* entity, int forme);
 void ApplyItemEffect(undefined4 param_1, undefined4 param_2, undefined4 param_3,

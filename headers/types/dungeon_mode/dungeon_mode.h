@@ -196,7 +196,10 @@ struct statuses {
     // 0x5A: Possibly a flag while in action. Could also be a flag to cause the burn from
     // lava, heal a burn from water, and decrease hunger in the walls.
     bool in_action;
-    bool terrified;            // 0x5B: STATUS_TERRIFIED
+    // 0x5B: STATUS_TERRIFIED, interestingly, appears to use 0x1 for the Foe-Fear Orb but
+    // 0x2 for the ability Stench. The distinction only seems to exist for the game to use
+    // a special message for when terrified from stench ends.
+    uint8_t terrified;
     uint8_t terrified_turns;   // 0x5C: Turns left for the terrified status
     uint8_t perish_song_turns; // 0x5D: Turns left before Perish Song takes effect
     // 0x5E: Increases progressively while the No-Slip Cap is held. Capped at 0x13
@@ -213,7 +216,8 @@ struct statuses {
     undefined field_0x61;
     // 0x62: Flag for two-turn moves that haven't concluded yet. This is also a graphical flag.
     // A value of 1 mean "high up" (Fly/Bounce). A value of 2 means some other condition like
-    // Dig, Shadow Force, etc. Other values are treated as invalid.
+    // Dig, Shadow Force, etc. Other values are treated as invalid. Also used for the move
+    // Seismic Toss when throwing up the target.
     uint8_t two_turn_move_invincible;
     // 0x63: Related to handling AI when a decoy is present on the floor?
     // Seems to only be 0, 1, 2
@@ -466,10 +470,14 @@ struct monster {
     undefined field_0x16f;
     // 0x170: Set to make the monster disappear when using the move U-turn.
     bool uturn_hide_monster_flag;
-    undefined field_0x171;
+    // 0x171: Some kind of visual flag? Gets set to 0 temporarily when changing Shaymin form
+    // or when using the Gone Pebble? Also hardcoded to be set to 0 for monsters that generally
+    // tend to float? Otherwise 1?
+    bool field_0x171;
     // 0x172: Set when the leader and falling through a pitfall trap.
     bool pitfall_trap_flag_0x172;
-    undefined field_0x173;
+    // 0x173: Some kind of visual flag?
+    bool field_0x173;
     // 0x174: Set when the leader and falling through a pitfall trap.
     bool pitfall_trap_flag_0x174;
     undefined field_0x175;
@@ -498,8 +506,9 @@ struct monster {
     // (Darkrai exclusive item) may afflict attacking enemies with the nightmare
     // status condition. (Only uses first 21 bits).
     uint32_t exclusive_item_trigger_bitflags;
-    undefined field_0x190;
-    undefined field_0x191;
+    // 0x190: Appears to be related to the item name of the exclusive item that
+    // caused the effect to trigger.
+    int16_t field_0x190;
     // 0x192: Bitflags that cause non-damaging abilities to trigger on the attacker
     // after they have completed their move. Abilites like magnet pull, cute charm,
     // static, and flame body. (Only uses first 11 bits). One exception is the move
@@ -635,7 +644,9 @@ struct monster {
     uint32_t unk_exp_tracker;
     // 0x218: Status icons displayed on top of the monster's sprite
     struct status_icon_flags status_icons;
-    undefined field_0x220;
+    // 0x220: Seems to be related in some way to shadow size and being a water tileset. So
+    // probably controls when the ripple effect when standing on water.
+    uint8_t water_shadow_ripple_tracker;
     // 0x221: Set if the current move being used was copied by Me First
     bool me_first_flag;
     undefined field_0x222;
@@ -645,12 +656,19 @@ struct monster {
     uint8_t exclusive_item_defense_boosts[2]; // 0x226: {def, sp_def}
     // 0x228: Bitvector. See enum exclusive_item_effect_id for the meaning of each bit
     uint32_t exclusive_item_effect_flags[5];
-    undefined field_0x23c;
-    undefined field_0x23d;
+    // 0x23C: Initialized to 0. Probably menu related only seems to be set to true through the
+    // menu.
+    bool field_0x23c;
+    // 0x23F: When reviving a monster, temporarily set to true. Probably a visual indicator
+    // of some kind?
+    bool unk_revive_visual_tracker;
+    // 0x23E: Gets set to 0 before using an attack and gets set to 1 in LevelUp. Seems to stop
+    // the rest of the attacks (ie from Swift Swim) from continuing. Possibly to avoid the
+    // the monster leveling up and trying to use a move that was just overwritten by a new move?
     undefined field_0x23e;
-    // Gets set to 1 when the move used won't use up any PP, but it doesn't seem like the value is
-    // ever read.
-    undefined field_0x23f;
+    // 0x23F: Gets set to 1 when the move used won't use up any PP. Used to check if the
+    // monster should lose extra PP from the ability Pressure.
+   bool should_not_lose_pp;
 };
 ASSERT_SIZE(struct monster, 576);
 
