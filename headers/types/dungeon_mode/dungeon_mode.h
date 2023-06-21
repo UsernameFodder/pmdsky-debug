@@ -297,7 +297,7 @@ struct action_data {
     undefined field_0x7;
     undefined field_0x8;
     undefined field_0x9;
-    undefined field_0xA;
+    uint8_t field_0xA;
     undefined field_0xB;
     undefined field_0xC;
     undefined field_0xD;
@@ -1808,6 +1808,16 @@ struct two_turn_move_and_status {
     struct status_two_turn_id_16 status;
 };
 ASSERT_SIZE(struct two_turn_move_and_status, 4);
+
+// Represents an area on the touchscreen
+// Touchscreen coordinates range from (1,1) (top left corner) to (254, 190) (bottom right corner)
+struct touchscreen_area {
+    int y1; // 0x0: Lower Y coordinate
+    int y2; // 0x4: Upper Y coordinate
+    int x1; // 0x8: Lower X coordinate
+    int x2; // 0xC: Upper X coordinate
+};
+ASSERT_SIZE(struct touchscreen_area, 16);
 
 // Separate this out into its own file because it's massive
 #include "dungeon.h"

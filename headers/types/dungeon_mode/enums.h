@@ -1267,4 +1267,11 @@ enum game_id {
     GAME_DARKNESS = 2,
 };
 
+// Used when determining how a monster's name should be displayed.
+enum display_name_type {
+    NORMAL = 0,  // Display the name as usual
+    UNKNOWN = 1, // Display "(?)"
+    DECOY = 2,   // Display "Decoy"
+};
+
 #endif

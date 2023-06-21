@@ -266,6 +266,18 @@ overlay29:
         Fades the screen to black across several frames.
         
         No params.
+    - name: CheckTouchscreenArea
+      address:
+        EU: 0x22E15F8
+        NA: 0x22E0CB8
+      description: |-
+        Checks if the currently pressed touchscreen position is within the specified area.
+        
+        r0: Area lower X coordinate
+        r1: Area lower Y coordinate
+        r2: Area upper X coordinate
+        r3: Area upper Y coordinate
+        return: True if the specified area contains the currently pressed touchscreen position, false otherwise.
     - name: GetTrapInfo
       address:
         EU: 0x22E1F48
@@ -329,27 +341,28 @@ overlay29:
         
         r0: Entity pointer
         return: True if the entity should be displayed on the minimap
-    - name: ShouldDisplayEntityMessages
+    - name: ShouldDisplayEntity
       address:
         EU: 0x22E2EB4
         NA: 0x22E2574
       description: |-
-        Checks if messages that involve a certain entity should be displayed or suppressed.
+        Checks if an entity should be displayed or not.
         
         For example, it returns false if the entity is an invisible enemy.
+        Also used to determine if messages that involve a certain entity should be displayed or suppressed.
         
         r0: Entity pointer
-        r1: ?
-        return: True if messages involving the entity should be displayed, false if they should be suppressed.
-    - name: ShouldDisplayEntityMessagesWrapper
+        r1: (?) Seems to be 1 for monsters and 0 for items.
+        return: True if the entity and its associated messages should be displayed, false if they shouldn't.
+    - name: ShouldDisplayEntityWrapper
       address:
         EU: 0x22E306C
         NA: 0x22E272C
       description: |-
-        Calls ShouldDisplayEntityMessages with r1 = 0
+        Calls ShouldDisplayEntity with r1 = 0
         
         r0: Entity pointer
-        return: True if messages involving the entity should be displayed, false if they should be suppressed.
+        return: True if the entity and its associated messages should be displayed, false if they shouldn't.
     - name: CanSeeTarget
       address:
         EU: 0x22E308C
@@ -612,7 +625,7 @@ overlay29:
         
         The parameter in r1 can be used to specify how many entries are already present in the buffer. Entries added by this function will be placed after those, and the total returned in r1 will account for existing entries as well.
         
-        r0: (output) Buffer where the result will be stored
+        r0: [output] Buffer where the result will be stored
         r1: Current amount of entries in the buffer
         return: New amount of entries in the buffer
     - name: IsOnMonsterSpawnList
@@ -1041,6 +1054,16 @@ overlay29:
         
         r0: Pointer to the monster's action field
         r1: Direction in which to use the move. Gets stored in monster::action::direction.
+    - name: SetActionUseMovePlayer
+      address:
+        EU: 0x22EC648
+        NA: 0x22EBC98
+      description: |-
+        Sets a monster's action to action::ACTION_USE_MOVE_PLAYER, with a specified monster and move index.
+        
+        r0: Pointer to the monster's action field
+        r1: Index of the monster that is using the move on the entity list. Gets stored in monster::action::action_use_idx.
+        r2: Index of the move to use (0-3). Gets stored in monster::action::field_0xA.
     - name: SetActionUseMoveAi
       address:
         EU: 0x22EC66C
@@ -1347,6 +1370,15 @@ overlay29:
         Returns a pointer to the action data of the current leader (field 0x4A on its monster struct).
         
         No params.
+    - name: GetEntityTouchscreenArea
+      address:
+        EU: 0x22F1560
+        NA: 0x22F0BAC
+      description: |-
+        Returns the area on the touchscreen that contains the sprite of the specified entity
+        
+        r0: Entity pointer
+        r1: [output] struct where the result should be written
     - name: SetLeaderAction
       address:
         EU: 0x22F1890
@@ -1359,6 +1391,14 @@ overlay29:
         The function generally doesn't return until the player has an action set.
         
         No params.
+    - name: ShouldLeaderKeepRunning
+      address:
+        EU: 0x22F3A44
+        NA: 0x22F308C
+      description: |-
+        Determines if the leader should keep running. Returns false if the leader bumps into something, or if an action that should stop the leader takes place.
+        
+        return: True if the leader should keep running, false if it should stop.
     - name: CheckLeaderTile
       address:
         EU: 0x22F3FEC
@@ -2037,6 +2077,15 @@ overlay29:
         
         r0: pointer to entity
         returns: int
+    - name: GetMonsterDisplayNameType
+      address:
+        EU: 0x2300B34
+        NA: 0x2300108
+      description: |-
+        Determines how the name of a monster should be displayed.
+        
+        r0: Entity pointer
+        return: Display name type
     - name: GetMonsterName
       address:
         EU: 0x2300B90
@@ -2218,7 +2267,7 @@ overlay29:
         
         r0: Entity pointer
         r1: Direction
-        r2: (output) True if movement was not possible because there was another monster on the target tile, false otherwise.
+        r2: [output] True if movement was not possible because there was another monster on the target tile, false otherwise.
         return: True if the monster can move in the specified direction, false otherwise.
     - name: ShouldMonsterRunAway
       address:
@@ -6876,7 +6925,14 @@ overlay29:
         EU: 0x234E9F4
         NA: 0x234DDF4
         JP: 0x234F080
-      description: "Note: unverified, ported from Irdkwia's notes"
+      description: |-
+        Opens a menu. The menu to open depends on the specified parameter.
+        
+        It looks like the function takes a parameter in r0, but doesn't use it. r1 doesn't even get set when this function is called.
+        
+        r0: (?) Unused by the function. Seems to be 1 byte long.
+        r1: (?) Unused by the function. Seems to be 1 byte long.
+        r2: True to open the bag menu, false to open the main dungeon menu
     - name: OthersMenuLoop
       address:
         EU: 0x23503CC
