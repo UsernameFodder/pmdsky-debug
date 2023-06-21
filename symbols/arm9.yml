@@ -4643,7 +4643,7 @@ arm9:
           [r0]: group_id
           [r0+1]: group_floor_id
         
-        r0: (output) Struct containing the dungeon group and floor group
+        r0: [output] Struct containing the dungeon group and floor group
         r1: Struct containing the dungeon ID and floor number
     - name: GetGroundNameId
       address:
@@ -6525,7 +6525,7 @@ arm9:
         
         The list of skills is written in the array specified in r0. The array has 69 slots in total. Unused slots are set to 0.
         
-        r0: (output) Array where the list of skills will be written
+        r0: [output] Array where the list of skills will be written
         r1: Monster species
         r2: Monster IQ
         return: Amount of skills written to the output array

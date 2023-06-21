@@ -271,7 +271,7 @@ overlay29:
         EU: 0x22E15F8
         NA: 0x22E0CB8
       description: |-
-        Checks if the currently pressed touchscreen position is withing the specified area.
+        Checks if the currently pressed touchscreen position is within the specified area.
         
         r0: Area lower X coordinate
         r1: Area lower Y coordinate
@@ -625,7 +625,7 @@ overlay29:
         
         The parameter in r1 can be used to specify how many entries are already present in the buffer. Entries added by this function will be placed after those, and the total returned in r1 will account for existing entries as well.
         
-        r0: (output) Buffer where the result will be stored
+        r0: [output] Buffer where the result will be stored
         r1: Current amount of entries in the buffer
         return: New amount of entries in the buffer
     - name: IsOnMonsterSpawnList
@@ -1378,7 +1378,7 @@ overlay29:
         Returns the area on the touchscreen that contains the sprite of the specified entity
         
         r0: Entity pointer
-        r1: (output) struct where the result should be written
+        r1: [output] struct where the result should be written
     - name: SetLeaderAction
       address:
         EU: 0x22F1890
@@ -1398,7 +1398,7 @@ overlay29:
       description: |-
         Determines if the leader should keep running. Returns false if the leader bumps into something, or if an action that should stop the leader takes place.
         
-        return: True if the leader should keep runinng, false if it should stop.
+        return: True if the leader should keep running, false if it should stop.
     - name: CheckLeaderTile
       address:
         EU: 0x22F3FEC
@@ -2267,7 +2267,7 @@ overlay29:
         
         r0: Entity pointer
         r1: Direction
-        r2: (output) True if movement was not possible because there was another monster on the target tile, false otherwise.
+        r2: [output] True if movement was not possible because there was another monster on the target tile, false otherwise.
         return: True if the monster can move in the specified direction, false otherwise.
     - name: ShouldMonsterRunAway
       address:
@@ -6928,7 +6928,7 @@ overlay29:
       description: |-
         Opens a menu. The menu to open depends on the specified parameter.
         
-        It looks like the function takes a paramter in r0, but doesn't use it. r1 doesn't even get set when this function is called.
+        It looks like the function takes a parameter in r0, but doesn't use it. r1 doesn't even get set when this function is called.
         
         r0: (?) Unused by the function. Seems to be 1 byte long.
         r1: (?) Unused by the function. Seems to be 1 byte long.

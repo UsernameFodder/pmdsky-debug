@@ -18,6 +18,7 @@ bool FixedRoomIsSubstituteRoom(void);
 bool StoryRestrictionsEnabled(void);
 int GetScenarioBalanceVeneer(void);
 void FadeToBlack(void);
+bool CheckTouchscreenArea(int x1, int y1, int x2, int y2);
 struct trap* GetTrapInfo(struct entity* trap_entity);
 struct item* GetItemInfo(struct entity* item_entity);
 struct tile* GetTileAtEntity(struct entity* entity);
