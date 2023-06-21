@@ -1372,7 +1372,7 @@ overlay29:
         No params.
     - name: GetEntityTouchscreenArea
       address:
-        EU: 0x22F1540
+        EU: 0x22F1560
         NA: 0x22F0BAC
       description: |-
         Returns the area on the touchscreen that contains the sprite of the specified entity
