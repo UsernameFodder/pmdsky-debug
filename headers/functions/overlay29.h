@@ -25,8 +25,8 @@ struct entity* SpawnTrap(enum trap_id trap_id, struct position* position, uint8_
                          uint8_t flags);
 struct entity* SpawnItemEntity(struct position* position);
 bool ShouldMinimapDisplayEntity(struct entity* entity);
-bool ShouldDisplayEntityMessages(struct entity* entity, undefined param_2);
-bool ShouldDisplayEntityMessagesWrapper(struct entity* entity);
+bool ShouldDisplayEntity(struct entity* entity, undefined param_2);
+bool ShouldDisplayEntityWrapper(struct entity* entity);
 bool CanSeeTarget(struct entity* user, struct entity* target);
 bool CanTargetEntity(struct entity* user, struct entity* target);
 bool CanTargetPosition(struct entity* monster, struct position* position);
@@ -91,6 +91,8 @@ enum action GetItemAction(enum item_id item_id);
 void AddDungeonSubMenuOption(int action_id, bool enabled);
 void DisableDungeonSubMenuOption(int action_id);
 void SetActionRegularAttack(struct action_data* monster_action, enum direction_id direction);
+void SetActionUseMovePlayer(struct action_data* monster_action, uint8_t entity_index,
+                            uint8_t move_index);
 void SetActionUseMoveAi(struct action_data* monster_action, uint8_t move_index,
                         enum direction_id direction);
 void RunFractionalTurn(bool is_first_loop);
@@ -127,7 +129,9 @@ void RevealTrapsNearby(struct entity* monster);
 bool DebugRecruitingEnabled(void);
 bool IsSecretBazaarNpcBehavior(enum monster_behavior behavior);
 struct action_16* GetLeaderAction(void);
+void GetEntityTouchscreenArea(struct entity* entity, struct touchscreen_area* area);
 void SetLeaderAction(void);
+bool ShouldLeaderKeepRunning(void);
 void CheckLeaderTile(void);
 void ChangeLeader(void);
 void ResetDamageData(struct damage_data* damage);
@@ -192,6 +196,7 @@ bool IsInvalidSpawnTile(enum monster_id monster_id, struct tile* tile);
 int CalcSpeedStage(struct entity* entity, int counter_weight);
 int CalcSpeedStageWrapper(struct entity* entity);
 int GetNumberOfAttacks(struct entity* entity);
+enum display_name_type GetMonsterDisplayNameType(struct entity* entity);
 void GetMonsterName(char* buffer, struct monster* target_info);
 bool IsMonsterDrowsy(struct entity* monster);
 bool MonsterHasNonvolatileNonsleepStatus(struct entity* monster);
@@ -734,7 +739,7 @@ void DisplayMessage2(undefined4 param_1, int message_id, bool wait_for_input);
 bool YesNoMenu(undefined param_1, int message_id, int default_option, undefined param_4);
 void DisplayMessageInternal(int message_id, bool wait_for_input, undefined4 param_3,
                             undefined4 param_4, undefined4 param_5, undefined4 param_6);
-void OpenMenu(undefined4 param_1, undefined4 param_2, bool param_3, undefined4 param_4);
+void OpenMenu(undefined param_1, undefined param_2, bool open_bag);
 int OthersMenuLoop(void);
 undefined OthersMenu(void);
 
