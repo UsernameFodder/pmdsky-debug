@@ -510,7 +510,7 @@ struct dungeon {
     uint8_t floor;                      // 0x749: Current floor number
     struct dungeon_group_id_8 group_id; // 0x74A: Same for different segments of a dungeon
     undefined field_0x74b;
-    // 0x74C: Used as an input to CheckDungeonOpen, and uses output to determine if the
+    // 0x74C: Used as an input to GetDungeonMode, and uses output to determine if the
     // override fixed room should be loaded?
     undefined2 field_0x74c;
     undefined field_0x74e;
@@ -535,7 +535,8 @@ struct dungeon {
     // between DUNGEON_HIDDEN_LAND and DUNGEON_TEMPORAL_PINNACLE.
     bool hidden_land_flag;
     // 0x75F: If true, the message log won't be shown and the yellow beam animation won't
-    // appear over team members after the leader faints
+    // appear over team members after the leader faints. It's enabled for dungeons where you don't
+    // get penalized for fainting, but it's not used to perform that check.
     bool skip_faint_animation_flag;
     // 0x760: Info about the next mission destination floor, if applicable
     struct mission_destination_info mission_destination;
