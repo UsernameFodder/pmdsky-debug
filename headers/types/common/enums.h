@@ -3335,9 +3335,9 @@ ENUM_8_BIT(dungeon_group_id);
 // Used to keep track of whether a dungeon has been cleared or not and whether it's accesible or
 // not.
 enum dungeon_mode {
-    DMODE_CLOSED = 0, // Dungeon is locked and uncleared
-    DMODE_OPEN = 1, // Dungeon is unlocked and uncleared
-    DMODE_REQUEST = 2, // Dungeon has been cleared, but cannot be directly accessed
+    DMODE_CLOSED = 0,           // Dungeon is locked and uncleared
+    DMODE_OPEN = 1,             // Dungeon is unlocked and uncleared
+    DMODE_REQUEST = 2,          // Dungeon has been cleared, but cannot be directly accessed
     DMODE_OPEN_AND_REQUEST = 3, // Dunegon is unlocked and cleared
 };
 
