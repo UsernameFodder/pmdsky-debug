@@ -4247,6 +4247,14 @@ arm9:
         Gets the special episode type from the SPECIAL_EPISODE_TYPE script variable.
         
         return: special episode type
+    - name: GetExecuteSpecialEpisodeType
+      address:
+        EU: 0x204CC70
+        NA: 0x204C938
+      description: |-
+        Gets the special episode type from the EXECUTE_SPECIAL_EPISODE_TYPE script variable.
+        
+        return: special episode type
     - name: HasPlayedOldGame
       address:
         EU: 0x204CDA8
@@ -4320,18 +4328,16 @@ arm9:
         
         r0: dungeon ID
         r1: bit_value
-    - name: CheckDungeonOpen
+    - name: GetDungeonMode
       address:
         EU: 0x204D2D4
         NA: 0x204CF9C
         JP: 0x204D2FC
       description: |-
-        Related to dungeon open list
+        Returns the mode of the specified dungeon
         
-        Note: unverified, ported from Irdkwia's notes
-        
-        r0: dungeon ID
-        return: status code?
+        r0: Dungeon ID
+        return: Dungeon mode
     - name: GlobalProgressAlloc
       address:
         EU: 0x204D440
@@ -4571,6 +4577,42 @@ arm9:
         r0: portrait box pointer
         r1: buffer_portrait
         return: exists
+    - name: SetEnterDungeon
+      address:
+        EU: 0x204EC84
+        NA: 0x204E94C
+      description: |-
+        Used to set the dungeon that will be accessed when switching from ground to dungeon mode.
+        
+        r0: Dungeon ID
+    - name: InitDungeonInit
+      address:
+        EU: 0x204ED94
+        NA: 0x204EA5C
+      description: |-
+        Initializes the dungeon_init struct before entering a dungeon.
+        
+        r0: [output] Pointer to the struct to init
+        r1: Dungeon ID
+    - name: IsNoLossPenaltyDungeon
+      address:
+        EU: 0x204F318
+        NA: 0x204EFE0
+      description: |-
+        Returns true if the specified dungeon shouldn't have a loss penalty.
+        
+        If true you won't lose your money and items upon fainting. Also used to initialize dungeon_init::skip_faint_animation_flag.
+        
+        Returns: True for DUNGEON_CRYSTAL_LAKE and DUNGEON_5TH_STATION_CLEARING, as well as for DUNGEON_DEEP_STAR_CAVE_TEAM_ROGUE if the ground variable SIDE01_BOSS2ND is 0; false otherwise.
+    - name: CheckMissionRestrictions
+      address:
+        EU: 0x204F6FC
+        NA: 0x204F3C4
+      description: |-
+        Seems to be used to check if you have any missions that have unmet restrictions when trying to access a dungeon.
+        
+        r0: ?
+        Return: (?) Seems to be composed of multiple bitflags.
     - name: GetNbFloors
       address:
         EU: 0x204F8B4
@@ -4645,6 +4687,16 @@ arm9:
         
         r0: [output] Struct containing the dungeon group and floor group
         r1: Struct containing the dungeon ID and floor number
+    - name: AddGuestMonster
+      address:
+        EU: 0x204FC18
+        NA: 0x204F8E0
+      description: |-
+        Adds a guest monster to the active team
+        
+        r0: dungeon_init struct for the dungeon that is about to be entered
+        r1: Number of the guest monster to add. Used when more than one monster is added.
+        r2: Pointer to the guest monster entry to add to the team (usually located within GUEST_MONSTER_DATA)
     - name: GetGroundNameId
       address:
         EU: 0x204FC90
@@ -5921,6 +5973,15 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         No params.
+    - name: GuestMonsterToGroundMonster
+      address:
+        EU: 0x20531CC
+        NA: 0x2052E50
+      description: |-
+        Inits a ground_monster entry with the given guest_monster struct.
+        
+        r0: [output] ground_monster struct to init
+        r1: guest_monster struct to use
     - name: StrcmpMonsterName
       address:
         EU: 0x205332C
@@ -6987,6 +7048,20 @@ arm9:
         
         r0: index
         return: dungeon ID
+    - name: GetDungeonModeSpecial
+      address:
+        EU: 0x206AB04
+        NA: 0x206A76C
+      description: |-
+        Returns the status of the given dungeon, with some modifications.
+        
+        If the dungeon ID is DUNGEON_BEACH, returns DMODE_REQUEST.
+        If it's DUNGEON_JOINED_AT_UNKNOWN, returns DMODE_OPEN_AND_REQUEST.
+        If it's >= DUNGEON_NORMAL_FLY_MAZE and <= DUNGEON_DOJO_0xD3, returns DMODE_OPEN_AND_REQUEST.
+        Else, calls GetDungeonMode and returns DMODE_REQUEST if the dungeon has been cleared, or DMODE_OPEN if it's not.
+        
+        r0: Dungeon ID
+        return: Dungeon mode
     - name: ResumeBgm
       address:
         EU: 0x206DD54
