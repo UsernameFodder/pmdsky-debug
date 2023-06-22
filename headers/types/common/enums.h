@@ -3332,7 +3332,7 @@ enum dungeon_group_id {
 ENUM_8_BIT(dungeon_group_id);
 #pragma pack(pop)
 
-// Used to keep track of whether a dungeon has been cleared or not and whether it's accesible or
+// Used to keep track of whether a dungeon has been cleared or not and whether it's accessible or
 // not.
 enum dungeon_mode {
     DMODE_CLOSED = 0,           // Dungeon is locked and uncleared

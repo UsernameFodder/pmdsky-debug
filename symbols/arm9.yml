@@ -4582,7 +4582,7 @@ arm9:
         EU: 0x204EC84
         NA: 0x204E94C
       description: |-
-        Used to set the dungeon that will be accessed when witching from ground to dungeon mode.
+        Used to set the dungeon that will be accessed when switching from ground to dungeon mode.
         
         r0: Dungeon ID
     - name: InitDungeonInit
@@ -4695,7 +4695,7 @@ arm9:
         Adds a guest monster to the active team
         
         r0: dungeon_init struct for the dungeon that is about to be entered
-        r1: Number of guest monster to add. Used when more than one monster is added.
+        r1: Number of the guest monster to add. Used when more than one monster is added.
         r2: Pointer to the guest monster entry to add to the team (usually located within GUEST_MONSTER_DATA)
     - name: GetGroundNameId
       address:
@@ -7061,6 +7061,7 @@ arm9:
         Else, calls GetDungeonMode and returns DMODE_REQUEST if the dungeon has been cleared, or DMODE_OPEN if it's not.
         
         r0: Dungeon ID
+        return: Dungeon mode
     - name: ResumeBgm
       address:
         EU: 0x206DD54
