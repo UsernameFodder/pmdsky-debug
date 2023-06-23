@@ -926,11 +926,11 @@ enum damage_source_non_move {
     DAMAGE_SOURCE_DUMMY_630 = 630,
     DAMAGE_SOURCE_DUMMY_631 = 631,
     DAMAGE_SOURCE_DUMMY_632 = 632,
-    DAMAGE_SOURCE_ESCAPE = 633, // "Escaped in the middle of exploration"
-    DAMAGE_SOURCE_DUNGEON_CLEAR = 634, // "cleared the dungeon"
-    DAMAGE_SOURCE_RESCUE_SUCCESS = 635, // "succeeded in the rescue mission"
+    DAMAGE_SOURCE_ESCAPE = 633,           // "Escaped in the middle of exploration"
+    DAMAGE_SOURCE_DUNGEON_CLEAR = 634,    // "cleared the dungeon"
+    DAMAGE_SOURCE_RESCUE_SUCCESS = 635,   // "succeeded in the rescue mission"
     DAMAGE_SOURCE_MISSION_COMPLETE = 636, // "completed a mission! Impressive!"
-    DAMAGE_SOURCE_BEFRIEND_MEW = 637, // "befriended [CS:N]Mew[CR]!"
+    DAMAGE_SOURCE_BEFRIEND_MEW = 637,     // "befriended [CS:N]Mew[CR]!"
 };
 
 // Possible reasons why a monster can take damage or faint
