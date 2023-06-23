@@ -851,7 +851,8 @@ ENUM_8_BIT(mission_status);
 
 // The cause of a monster taking damage, not including the move case.
 // These codes should all be greater than any move ID.
-// Some of the values are used as faint reasons rather than damage sources.
+// Some of the values are used as faint reasons or on the "The Last Outing" screen
+// rather than as damage sources.
 enum damage_source_non_move {
     DAMAGE_SOURCE_TRANSFORM_FRIEND = 563, // "was transformed into a friend"
     DAMAGE_SOURCE_NOT_BEFRIENDED = 564,   // "left without being befriended"
@@ -917,6 +918,19 @@ enum damage_source_non_move {
     DAMAGE_SOURCE_BAD_DREAMS = 622,
     DAMAGE_SOURCE_EXPLOSION = 623,
     DAMAGE_SOURCE_OREN_BERRY = 624,
+    DAMAGE_SOURCE_DUMMY_625 = 625,
+    DAMAGE_SOURCE_DUMMY_626 = 626,
+    DAMAGE_SOURCE_DUMMY_627 = 627,
+    DAMAGE_SOURCE_DUMMY_628 = 628,
+    DAMAGE_SOURCE_DUMMY_629 = 629,
+    DAMAGE_SOURCE_DUMMY_630 = 630,
+    DAMAGE_SOURCE_DUMMY_631 = 631,
+    DAMAGE_SOURCE_DUMMY_632 = 632,
+    DAMAGE_SOURCE_ESCAPE = 633,           // "Escaped in the middle of exploration"
+    DAMAGE_SOURCE_DUNGEON_CLEAR = 634,    // "cleared the dungeon"
+    DAMAGE_SOURCE_RESCUE_SUCCESS = 635,   // "succeeded in the rescue mission"
+    DAMAGE_SOURCE_MISSION_COMPLETE = 636, // "completed a mission! Impressive!"
+    DAMAGE_SOURCE_BEFRIEND_MEW = 637,     // "befriended [CS:N]Mew[CR]!"
 };
 
 // Possible reasons why a monster can take damage or faint
@@ -1214,6 +1228,53 @@ enum fixed_room_id {
 #pragma pack(push, 1)
 ENUM_8_BIT(fixed_room_id);
 #pragma pack(pop)
+
+// Action IDs used to spawn tiles when generating fixed rooms
+enum fixed_room_action_non_entity {
+    FIXED_ACTION_FLOOR_ROOM = 0,
+    FIXED_ACTION_WALL_HALLWAY_AM = 1, // Hallway wall, breakable with Absolute Mover IQ skill
+    FIXED_ACTION_WALL_HALLWAY_IMPASSABLE = 2,
+    FIXED_ACTION_WALL_HALLWAY = 3,
+    FIXED_ACTION_LEADER_SPAWN = 4,
+    FIXED_ACTION_SECONDARY_ROOM = 5, // Secondary terrain tile, part of a room
+    FIXED_ACTION_CHASM_HALLWAY = 6,
+    // If spawned, all tiles outside the fixed room are are turned into impassable chasm tiles
+    FIXED_ACTION_CHASM_ALL_HALLWAY = 7,
+    FIXED_ACTION_WARP_ZONE_ROOM = 8, // Spawns a warp zone
+    FIXED_ACTION_FLOOR_HALLWAY = 9,
+    FIXED_ACTION_CHASM_HALLWAY_IMPASSABLE = 10,
+    FIXED_ACTION_FLOOR_HALLWAY_FLAG_10 = 11, // Enables tile::terrain_flags_unk10
+    // Wall if fixed floor ID < FIXED_SEALED_CHAMBER, floor otherwise. Spawns a locked key door.
+    FIXED_ACTION_FLOOR_WALL_ROOM_KEY_DOOR_LOCKED = 12,
+    // Wall if fixed floor ID < FIXED_SEALED_CHAMBER, floor otherwise. Spawns a locked escort
+    // key door.
+    FIXED_ACTION_FLOOR_WALL_ROOM_KEY_DOOR_ESCORT = 13,
+    FIXED_ACTION_WALL_HALLWAY_IMPASSABLE_14 = 14,
+    FIXED_ACTION_WALL_HALLWAY_15 = 15,
+    FIXED_ACTION_TEAM_MEMBER_2_SPAWN = 96,
+    FIXED_ACTION_TEAM_MEMBER_3_SPAWN = 97,
+    FIXED_ACTION_TEAM_MEMBER_4_SPAWN = 98,
+    // Treated separately by the code, but doesn't seem to spawn anything special
+    FIXED_ACTION_FLOOR_ROOM_99 = 99,
+    FIXED_ACTION_WARP_ZONE_ROOM_107 = 107, // Same as FIXED_ACTION_WARP_ZONE_ROOM
+    // Treated separately by the code, but doesn't seem to spawn anything special
+    FIXED_ACTION_FLOOR_ROOM_108 = 108,
+    // Treated separately by the code, but doesn't seem to spawn anything special
+    FIXED_ACTION_FLOOR_ROOM_109 = 109,
+};
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(fixed_room_action_non_entity);
+#pragma pack(pop)
+
+// Used to determine an action that will be performed when spawining a single tile during fixed
+// room generation. Can spawn an entity or a tile.
+union fixed_room_action {
+    struct fixed_room_action_non_entity_8 tile_action;
+    // If specified, this value - 16 represents the ID of the fixed entity to spawn.
+    uint8_t entity_action;
+};
 
 // Floor layout size during floor generation
 enum floor_size {

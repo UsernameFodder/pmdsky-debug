@@ -777,8 +777,7 @@ struct entity {
     undefined field_0xa5;
     undefined field_0xa6;
     undefined field_0xa7;
-    undefined field_0xa8;
-    undefined field_0xa9;
+    uint16_t sprite_index; // 0xA8
     undefined field_0xaa;
     undefined field_0xab;
     undefined field_0xac;

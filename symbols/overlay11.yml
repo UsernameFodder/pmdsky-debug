@@ -336,6 +336,15 @@ overlay11:
         r1: format
         ...: variadic
         return: number of characters printed, excluding the null-terminator
+    - name: GetExclusiveItemRequirements
+      address:
+        EU: 0x230B8D4
+        NA: 0x230AF38
+      description: |-
+        Used to calculate the items required to get a certain exclusive item in the swap shop.
+        
+        r0: ?
+        r1: ?
     - name: StatusUpdate
       address:
         EU: 0x2314478
