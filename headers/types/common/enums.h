@@ -3659,4 +3659,27 @@ enum monster_gender {
     GENDER_GENDERLESS = 3,
 };
 
+enum mission_rank {
+    MISSION_RANK_E = 1,
+    MISSION_RANK_D = 2,
+    MISSION_RANK_C = 3,
+    MISSION_RANK_B = 4,
+    MISSION_RANK_A = 5,
+    MISSION_RANK_S = 6,
+    MISSION_RANK_1_STAR = 7,
+    MISSION_RANK_2_STAR = 8,
+    MISSION_RANK_3_STAR = 9,
+    MISSION_RANK_4_STAR = 10,
+    MISSION_RANK_5_STAR = 11,
+    MISSION_RANK_6_STAR = 12,
+    MISSION_RANK_7_STAR = 13,
+    MISSION_RANK_8_STAR = 14,
+    MISSION_RANK_9_STAR = 15,
+};
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(mission_rank);
+#pragma pack(pop)
+
 #endif

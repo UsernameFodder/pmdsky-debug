@@ -22,6 +22,8 @@ bool CheckTouchscreenArea(int x1, int y1, int x2, int y2);
 struct trap* GetTrapInfo(struct entity* trap_entity);
 struct item* GetItemInfo(struct entity* item_entity);
 struct tile* GetTileAtEntity(struct entity* entity);
+void UpdateEnityPixelPos(struct entity* entity, struct pixel_position* pixel_pos);
+struct entity* InitEnemyEntity(enum monster_id monster_id);
 struct entity* SpawnTrap(enum trap_id trap_id, struct position* position, uint8_t team,
                          uint8_t flags);
 struct entity* SpawnItemEntity(struct position* position);
@@ -150,6 +152,7 @@ void DeleteAllMonsterSpriteFiles(void);
 void EuFaintCheck(bool non_team_member_fainted, bool set_unk_byte);
 void HandleFaint(struct entity* fainted_entity, union damage_source damage_source,
                  struct entity* killer);
+void MoveMonsterToPos(struct entity* entity, int x_pos, int y_pos, undefined param_4);
 void UpdateAiTargetPos(struct entity* monster);
 void SetMonsterTypeAndAbility(struct entity* target);
 void TryActivateSlowStart(void);
@@ -181,13 +184,16 @@ bool HasLowHealth(struct entity* entity);
 bool AreEntitiesAdjacent(struct entity* first, struct entity* second);
 bool IsSpecialStoryAlly(struct monster* monster);
 bool IsExperienceLocked(struct monster* monster);
+void InitOtherMonsterData(struct entity* entity, int fixed_room_stats_index, enum direction_id dir);
 void SpawnTeam(undefined param_1);
 void SpawnInitialMonsters(void);
 struct entity* SpawnMonster(struct spawned_monster_data* monster_data, bool cannot_be_asleep);
 void InitTeamMember(enum monster_id, int16_t x_position, int16_t y_position,
                     struct team_member* team_member_data, undefined param_5, undefined param_6,
                     undefined param_7, undefined param_8, undefined param_9);
-void InitMonster(struct monster* monster, bool flag);
+void InitMonster(undefined param_1, struct entity* entity, struct spawned_monster_data* spawn_data,
+                 undefined* param_4);
+void SubInitMonster(struct monster* monster, bool flag);
 void MarkShopkeeperSpawn(int x, int y, enum monster_id monster_id, enum monster_behavior behavior);
 void SpawnShopkeepers(void);
 void GetOutlawSpawnData(struct spawned_target_data* outlaw);
@@ -211,6 +217,9 @@ bool IsMonsterMuzzled(struct entity* monster);
 bool MonsterHasMiracleEyeStatus(struct entity* monster);
 bool MonsterHasNegativeStatus(struct entity* monster, bool check_held_item);
 bool IsMonsterSleeping(struct entity* monster);
+bool CanMonsterMoveInDirection(struct entity* monster, enum direction_id direction);
+enum mobility_type GetFinalMobilityType(struct entity* monster, enum mobility_type base_mobility,
+                                        enum direction_id direction);
 bool IsMonsterCornered(struct entity* monster);
 bool CanAttackInDirection(struct entity* monster, enum direction_id direction);
 bool CanAiMonsterMoveInDirection(struct entity* monster, enum direction_id direction,
@@ -555,6 +564,8 @@ struct tile* GetTileSafe(int x, int y);
 bool IsFullFloorFixedRoom(void);
 uint8_t GetStairsRoom(void);
 void UpdateTrapsVisibility(void);
+void DrawTileGrid(struct position* pos, undefined param_2, undefined param_3, undefined param_4);
+void HideTileGrid(void);
 void DiscoverMinimap(struct position* pos);
 bool IsWaterTileset(void);
 enum monster_id GetRandomSpawnMonsterID(void);
@@ -644,6 +655,7 @@ void MarkEnemySpawns(struct floor_properties* floor_props, bool empty_monster_ho
 void SetSecondaryTerrainOnWall(struct tile* tile);
 void GenerateSecondaryTerrainFormations(uint8_t test_flag, struct floor_properties* floor_props);
 bool StairsAlwaysReachable(int x_stairs, int y_stairs, bool mark_unreachable);
+union fixed_room_action GetNextFixedRoomAction(void);
 void ConvertWallsToChasms(void);
 void ResetInnerBoundaryTileRows(void);
 void ResetImportantSpawnPositions(struct dungeon_generation_info* gen_info);
@@ -653,6 +665,8 @@ enum hidden_stairs_type GetHiddenStairsType(struct dungeon_generation_info* gen_
                                             struct floor_properties* floor_props);
 int GetFinalKecleonShopSpawnChance(int base_kecleon_shop_chance);
 void ResetHiddenStairsSpawn(void);
+void PlaceFixedRoomTile(struct tile* tile, union fixed_room_action action, int x, int y);
+enum direction_id FixedRoomActionParamToDirection(uint8_t fixed_room_action_param);
 void ApplyKeyEffect(struct entity* user, struct entity* target);
 void LoadFixedRoomData(void);
 int LoadFixedRoom(int param_1, int param_2, int param_3, undefined4 param_4);

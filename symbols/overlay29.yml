@@ -306,6 +306,26 @@ overlay29:
         
         r0: pointer to entity
         returns: pointer to tile
+    - name: UpdateEnityPixelPos
+      address:
+        EU: 0x22E2380
+        NA: 0x22E1A40
+      description: |-
+        Updates an entity's pixel_pos field using the specified pixel_position struct, or its own pos field if it's null.
+        
+        r0: Entity pointer
+        r1: Pixel position to use, or null to use the entity's own position
+    - name: InitEnemyEntity
+      address:
+        EU: 0x22E2A00
+        NA: 0x22E20C0
+      description: |-
+        Initializes the entity struct of a newly spawned enemy monster. Fails if there's 16 enemies on the floor already.
+        
+        It could also be used to spawn fixed room allies, since those share their slots on the entity list.
+        
+        r0: Monster ID
+        Return: Pointer to the newly initialized entity, or null if the entity couldn't be initialized
     - name: SpawnTrap
       address:
         EU: 0x22E2BA0
@@ -1559,6 +1579,17 @@ overlay29:
         r0: Fainted entity
         r1: Damage source (move ID or greater than the max move id for other causes)
         r2: Entity responsible of the fainting
+    - name: MoveMonsterToPos
+      address:
+        EU: 0x22F8FFC
+        NA: 0x22F85F0
+      description: |-
+        Moves a monster to the target position. Used both for regular movement and special movement (like teleportation).
+        
+        r0: Entity pointer
+        r1: X target position
+        r2: Y target position
+        r3: ?
     - name: UpdateAiTargetPos
       address:
         EU: 0x22F9B50
@@ -1917,6 +1948,18 @@ overlay29:
         
         r0: monster pointer
         return: bool
+    - name: InitOtherMonsterData
+      address:
+        EU: 0x22FC854
+        NA: 0x22FBE58
+      description: |-
+        Initializes stats, IQ skills and moves for a given monster
+        
+        Might only be used when spawning fixed room monsters.
+        
+        r0: Entity pointer
+        r1: Fixed room monster stats index
+        r2: Spawn direction? (when calling this function while spawning a fixed room monster, this is the parameter value associated to the spawn action, after converting it to a direction.)
     - name: SpawnTeam
       address:
         EU: 0x22FCF08
@@ -1967,11 +2010,22 @@ overlay29:
         stack[4]: ?
     - name: InitMonster
       address:
+        EU: 0x22FE3D0
+        NA: 0x22FD9D4
+      description: |-
+        Initializes the monster struct within the provided entity struct.
+        
+        r0: ?
+        r1: Pointer to the entity whose monster struct should be initialized
+        r2: pointer to the entity's spawned_monster_data struct
+        r3: (?) Pointer to something
+    - name: SubInitMonster
+      address:
         EU: 0x22FE7BC
         NA: 0x22FDDC0
         JP: 0x22FF1B0
       description: |-
-        Initializes a monster struct.
+        Called by InitMonster. Initializes some fields on the monster struct.
         
         r0: pointer to monster to initialize
         r1: some flag
@@ -2234,6 +2288,29 @@ overlay29:
         
         r0: entity pointer
         return: bool
+    - name: CanMonsterMoveInDirection
+      address:
+        EU: 0x23018A4
+        NA: 0x230105C
+      description: |-
+        Checks if the given monster can move in the specified direction
+        
+        Returns false if any monster is standing on the target tile
+        
+        r0: Monster entity pointer
+        r1: Direction to check
+    - name: GetFinalMobilityType
+      address:
+        EU: 0x230195C
+        NA: 0x2300F30
+      description: |-
+        Returns the mobility type of a monster, after accounting for things that could affect it (like items or IQ skills)
+        
+        If the specified direction is DIR_NONE, direction checks are skipped. If it's not, MOBILITY_INTANGIBLE is only returned if the direction is not diagonal.
+        
+        r0: Monster entity pointer
+        r1: Base mobility type
+        r2: Direction of mobility
     - name: IsMonsterCornered
       address:
         EU: 0x2301B44
@@ -5142,6 +5219,25 @@ overlay29:
         Exact purpose unknown. Gets called whenever a trap tile is shown or hidden.
         
         No params.
+    - name: DrawTileGrid
+      address:
+        EU: 0x2337FF8
+        NA: 0x2337428
+      description: |-
+        Draws a grid on the nearby walkable tiles. Triggered by pressing Y.
+        
+        r0: Coordinates of the entity around which the grid will be drawn
+        r1: ?
+        r2: ?
+        r3: ?
+    - name: HideTileGrid
+      address:
+        EU: 0x233836C
+        NA: 0x233779C
+      description: |-
+        Hides the grid on the nearby walkable tiles. Triggered by releasing Y.
+        
+        No params.
     - name: DiscoverMinimap
       address:
         EU: 0x233860C
@@ -6035,6 +6131,14 @@ overlay29:
         r1: y coordinate of the stairs
         r2: flag to always return true, but set a special bit on all walkable tiles that aren't reachable from the stairs
         return: bool
+    - name: GetNextFixedRoomAction
+      address:
+        EU: 0x23430B4
+        NA: 0x23424D0
+      description: |-
+        Returns the next action that needs to be performed when spawning a fixed room tile.
+        
+        Return: Next action ID
     - name: ConvertWallsToChasms
       address:
         EU: 0x234312C
@@ -6110,8 +6214,31 @@ overlay29:
         Resets hidden stairs spawn information for the floor. This includes the position on the floor generation status as well as the flag indicating whether the spawn was blocked.
         
         No params.
+    - name: PlaceFixedRoomTile
+      address:
+        EU: 0x2343B14
+        NA: 0x2342F30
+      description: |-
+        Used to spawn a single tile when generating a fixed room. The tile might contain an item or a monster.
+        
+        r0: Pointer to the tile to spawn
+        r1: Fixed room action to perform. Controls what exactly will be spawned. The action is actually 12 bits long, the highest 4 bits are used as a parameter that represents a direction (for example, when spawning a monster).
+        r2: Tile X position
+        r3: Tile Y position
+    - name: FixedRoomActionParamToDirection
+      address:
+        EU: 0x2344550
+        NA: 0x234396C
+      description: |-
+        Converts the parameter stored in a fixed room action value to a direction ID.
+        
+        The conversion is performed by subtracting 1 to the value. If the parameter had a value of 0, DIR_NONE is returned.
+        
+        r0: Parameter value
+        Return: Direction
     - name: ApplyKeyEffect
       address:
+        EU: 0x23448BC
         NA: 0x2343CD8
       description: |-
         Attempts to open a locked door in front of the target if a locked door has not already

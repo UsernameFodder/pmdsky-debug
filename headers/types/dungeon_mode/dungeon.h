@@ -506,7 +506,9 @@ struct dungeon {
     undefined field_0x745;
     undefined field_0x746;
     undefined field_0x747;
-    struct dungeon_id_8 id;             // 0x748
+    // 0x748: Current dungeon ID. Is actually a dungeon_floor_pair struct that also contains
+    // the floor number.
+    struct dungeon_id_8 id;
     uint8_t floor;                      // 0x749: Current floor number
     struct dungeon_group_id_8 group_id; // 0x74A: Same for different segments of a dungeon
     undefined field_0x74b;

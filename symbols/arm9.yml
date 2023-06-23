@@ -1140,6 +1140,17 @@ arm9:
         r1: [output] target buffer
         r2: file index
         return: number of read bytes (identical to the length of the pack from the Table of Content)
+    - name: GetDungeonResultMsg
+      address:
+        EU: 0x200C584
+        NA: 0x200C4FC
+      description: |-
+        Gets the message that is shown on the dungeon results ("The Last Outing") screen, right after the leader's name.
+        
+        r0: Damage source value to use when displaying the cause of fainting or the result of the expedition
+        r1: [output] Buffer where the resulting message will be stored
+        r2: Buffer size
+        r3: (?) Seems to point to a buffer
     - name: GetDamageSource
       address:
         EU: 0x200CADC
@@ -1235,6 +1246,17 @@ arm9:
         
         r0: item ID
         return: bool
+    - name: IsChest
+      address:
+        EU: 0x200CD0C
+        NA: 0x200CC84
+      description: |-
+        Checks if the given item ID is a chest
+        
+        In particular, it checks if the category of the item is CATEGORY_TREASURE_BOXES_1, CATEGORY_TREASURE_BOXES_2 or CATEGORY_TREASURE_BOXES_3.
+        
+        r0: item ID
+        return: True if the item is a chest, false otherwise
     - name: InitItem
       address:
         EU: 0x200CF24
@@ -1719,7 +1741,7 @@ arm9:
         NA: 0x200EE4C
         JP: 0x200EE7C
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Returns the number of items of the given kind in the bag
         
         r0: item ID
         return: count
@@ -2008,6 +2030,15 @@ arm9:
         Implements SPECIAL_PROC_0x39 (see ScriptSpecialProcessCall).
         
         return: bool
+    - name: CountNbItemsOfTypeInStorage
+      address:
+        EU: 0x200FF50
+        NA: 0x200FEA8
+      description: |-
+        Returns the number of items of the given kind in the storage
+        
+        r0: item ID
+        return: count
     - name: CountItemTypeInStorage
       address:
         EU: 0x200FF8C
@@ -3428,6 +3459,21 @@ arm9:
         NA: 0x2024428
         JP: 0x2024478
       description: "Note: unverified, ported from Irdkwia's notes"
+    - name: GetDungeonResultString
+      address:
+        EU: 0x20252A4
+        NA: 0x2024FD8
+      description: |-
+        Returns a string containing some information to be used when displaying the dungeon results screen.
+        
+        The exact string returned depends on the value of r0:
+        0: Name of the move that fainted the leader. Empty string if the leader didn't faint.
+        1-3: Seems to always result in an empty string.
+        4: Name of the pokémon that fainted the leader, or name of the leader if the leader didn't faint.
+        5: Name of the fainted leader. Empty string if the leader didn't faint.
+        
+        r0: String to return
+        return: Pointer to resulting string
     - name: SetQuestionMarks
       address:
         EU: 0x20253B0
@@ -4687,6 +4733,44 @@ arm9:
         
         r0: [output] Struct containing the dungeon group and floor group
         r1: Struct containing the dungeon ID and floor number
+    - name: GetMissionRank
+      address:
+        EU: 0x204FB4C
+        NA: 0x204F814
+      description: |-
+        Gets the mission rank for the given dungeon and floor.
+        
+        If the dungeon ID is >= DUNGEON_NORMAL_FLY_MAZE or the group of the dungeon is > DGROUP_DUMMY_0x63, returns MISSION_RANK_E.
+        
+        r0: Dungeon and floor
+        Return: Mission rank
+    - name: GetOutlawLevel
+      address:
+        EU: 0x204FBC4
+        NA: 0x204F88C
+      description: |-
+        Gets the level that should be used for outlaws for the given dungeon and floor
+        
+        r0: Dungeon and floor
+        Return: Outlaw level
+    - name: GetOutlawLeaderLevel
+      address:
+        EU: 0x204FBE0
+        NA: 0x204F8A8
+      description: |-
+        Gets the level that should be used for team leader outlaws for the given dungeon and floor. Identical to GetOutlawLevel.
+        
+        r0: Dungeon and floor
+        Return: Outlaw leader level
+    - name: GetOutlawMinionLevel
+      address:
+        EU: 0x204FBFC
+        NA: 0x204F8C4
+      description: |-
+        Gets the level that should be used for minion outlaws for the given dungeon and floor.
+        
+        r0: Dungeon and floor
+        Return: Outlaw minion level
     - name: AddGuestMonster
       address:
         EU: 0x204FC18

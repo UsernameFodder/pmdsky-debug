@@ -108,6 +108,8 @@ void OpenPackFile(struct pack_file_opened* pack_file, const char* file_name);
 uint32_t GetFileLengthInPack(struct pack_file_opened* pack_file, uint32_t file_index);
 uint32_t LoadFileInPack(struct pack_file_opened* pack_file, void* output_buffer,
                         uint32_t file_index);
+void GetDungeonResultMsg(union damage_source damage_source_or_result, void* buffer, int buffer_size,
+                         undefined* param_4);
 union damage_source GetDamageSource(enum move_id, enum item_id);
 enum item_category GetItemCategoryVeneer(enum item_id item_id);
 enum move_id GetItemMoveId16(enum item_id item_id);
@@ -117,6 +119,7 @@ bool IsEdible(enum item_id item_id);
 bool IsHM(enum item_id item_id);
 bool IsGummi(enum item_id item_id);
 bool IsAuraBow(enum item_id item_id);
+bool IsChest(enum item_id item_id);
 void InitItem(struct item* item, enum item_id item_id, uint16_t quantity, bool sticky);
 void InitStandardItem(struct item* item, enum item_id item_id, bool sticky);
 int GetDisplayedBuyPrice(struct item* item);
@@ -188,6 +191,7 @@ bool SpecialProcAddItemToBag(struct bulk_item* item);
 bool AddItemToBagNoHeld(struct item* item);
 bool AddItemToBag(struct item* item, int held_by);
 bool ScriptSpecialProcess0x39(void);
+int CountNbItemsOfTypeInStorage(enum item_id item_id);
 int CountItemTypeInStorage(struct bulk_item* item);
 bool RemoveItemsTypeInStorage(struct bulk_item* item);
 bool AddItemToStorage(struct bulk_item* item);
@@ -348,6 +352,7 @@ int PreprocessStringFromMessageId(char* output, int output_size, int message_id,
 void InitPreprocessorArgs(struct preprocessor_args* args);
 char* SetStringAccuracy(char* s, int param_2);
 char* SetStringPower(char* s, int param_2);
+char* GetDungeonResultString(int string_number);
 void SetQuestionMarks(char* s);
 void StrcpySimple(char* dest, const char* src);
 void StrncpySimple(char* dest, const char* src, uint32_t n);
@@ -474,6 +479,10 @@ int GetNbPrecedingFloors(enum dungeon_id dungeon_id);
 int GetNbFloorsDungeonGroup(enum dungeon_id dungeon_id);
 void DungeonFloorToGroupFloor(struct dungeon_group_and_group_floor* out_group_data,
                               struct dungeon_floor_pair* dungeon_and_floor);
+enum mission_rank GetMissionRank(struct dungeon_floor_pair* dungeon_and_floor);
+int GetOutlawLevel(struct dungeon_floor_pair* dungeon_and_floor);
+int GetOutlawLeaderLevel(struct dungeon_floor_pair* dungeon_and_floor);
+int GetOutlawMinionLevel(struct dungeon_floor_pair* dungeon_and_floor);
 void AddGuestMonster(struct dungeon_init* dungeon_init_data, int guest_number,
                      struct guest_monster* guest_monster);
 int GetGroundNameId(int param_1);

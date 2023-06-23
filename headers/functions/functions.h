@@ -10,6 +10,7 @@
 #include "overlay14.h"
 #include "overlay19.h"
 #include "overlay29.h"
+#include "overlay30.h"
 #include "overlay31.h"
 #include "overlay34.h"
 
