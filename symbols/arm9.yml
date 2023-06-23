@@ -1246,17 +1246,17 @@ arm9:
         
         r0: item ID
         return: bool
-    - name: IsChest
+    - name: IsTreasureBox
       address:
         EU: 0x200CD0C
         NA: 0x200CC84
       description: |-
-        Checks if the given item ID is a chest
+        Checks if the given item ID is a treasure box
         
         In particular, it checks if the category of the item is CATEGORY_TREASURE_BOXES_1, CATEGORY_TREASURE_BOXES_2 or CATEGORY_TREASURE_BOXES_3.
         
         r0: item ID
-        return: True if the item is a chest, false otherwise
+        return: True if the item is a treasure box, false otherwise
     - name: InitItem
       address:
         EU: 0x200CF24

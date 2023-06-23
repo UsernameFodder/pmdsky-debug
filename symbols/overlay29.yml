@@ -315,12 +315,12 @@ overlay29:
         
         r0: Entity pointer
         r1: Pixel position to use, or null to use the entity's own position
-    - name: InitEnemyEntity
+    - name: CreateEnemyEntity
       address:
         EU: 0x22E2A00
         NA: 0x22E20C0
       description: |-
-        Initializes the entity struct of a newly spawned enemy monster. Fails if there's 16 enemies on the floor already.
+        Creates and initializes the entity struct of a newly spawned enemy monster. Fails if there's 16 enemies on the floor already.
         
         It could also be used to spawn fixed room allies, since those share their slots on the entity list.
         

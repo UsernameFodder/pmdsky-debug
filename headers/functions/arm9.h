@@ -108,7 +108,7 @@ void OpenPackFile(struct pack_file_opened* pack_file, const char* file_name);
 uint32_t GetFileLengthInPack(struct pack_file_opened* pack_file, uint32_t file_index);
 uint32_t LoadFileInPack(struct pack_file_opened* pack_file, void* output_buffer,
                         uint32_t file_index);
-void GetDungeonResultMsg(union damage_source damage_source_or_result, void* buffer, int buffer_size,
+void GetDungeonResultMsg(union damage_source damage_source_or_result, char* buffer, int buffer_size,
                          undefined* param_4);
 union damage_source GetDamageSource(enum move_id, enum item_id);
 enum item_category GetItemCategoryVeneer(enum item_id item_id);
@@ -119,7 +119,7 @@ bool IsEdible(enum item_id item_id);
 bool IsHM(enum item_id item_id);
 bool IsGummi(enum item_id item_id);
 bool IsAuraBow(enum item_id item_id);
-bool IsChest(enum item_id item_id);
+bool IsTreasureBox(enum item_id item_id);
 void InitItem(struct item* item, enum item_id item_id, uint16_t quantity, bool sticky);
 void InitStandardItem(struct item* item, enum item_id item_id, bool sticky);
 int GetDisplayedBuyPrice(struct item* item);
