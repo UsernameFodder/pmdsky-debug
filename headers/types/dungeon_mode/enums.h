@@ -1232,7 +1232,7 @@ ENUM_8_BIT(fixed_room_id);
 // Action IDs used to spawn tiles when generating fixed rooms
 enum fixed_room_action_non_entity {
     FIXED_ACTION_FLOOR_ROOM = 0,
-    FIXED_ACTION_WALL_HALLWAY_AM = 1, // Halway wall, breakable with Absolute Mover IQ skill
+    FIXED_ACTION_WALL_HALLWAY_AM = 1, // Hallway wall, breakable with Absolute Mover IQ skill
     FIXED_ACTION_WALL_HALLWAY_IMPASSABLE = 2,
     FIXED_ACTION_WALL_HALLWAY = 3,
     FIXED_ACTION_LEADER_SPAWN = 4,

@@ -306,7 +306,7 @@ overlay29:
         
         r0: pointer to entity
         returns: pointer to tile
-    - name: UpdateEnityPixelPos
+    - name: UpdateEntityPixelPos
       address:
         EU: 0x22E2380
         NA: 0x22E1A40
@@ -325,7 +325,7 @@ overlay29:
         It could also be used to spawn fixed room allies, since those share their slots on the entity list.
         
         r0: Monster ID
-        Return: Pointer to the newly initialized entity, or null if the entity couldn't be initialized
+        return: Pointer to the newly initialized entity, or null if the entity couldn't be initialized
     - name: SpawnTrap
       address:
         EU: 0x22E2BA0
@@ -2299,6 +2299,7 @@ overlay29:
         
         r0: Monster entity pointer
         r1: Direction to check
+        return: bool
     - name: GetFinalMobilityType
       address:
         EU: 0x230195C
@@ -2311,6 +2312,7 @@ overlay29:
         r0: Monster entity pointer
         r1: Base mobility type
         r2: Direction of mobility
+        return: Final mobility type
     - name: IsMonsterCornered
       address:
         EU: 0x2301B44
@@ -6138,7 +6140,7 @@ overlay29:
       description: |-
         Returns the next action that needs to be performed when spawning a fixed room tile.
         
-        Return: Next action ID
+        return: Next action ID
     - name: ConvertWallsToChasms
       address:
         EU: 0x234312C
@@ -6235,7 +6237,7 @@ overlay29:
         The conversion is performed by subtracting 1 to the value. If the parameter had a value of 0, DIR_NONE is returned.
         
         r0: Parameter value
-        Return: Direction
+        return: Direction
     - name: ApplyKeyEffect
       address:
         EU: 0x23448BC

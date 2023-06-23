@@ -22,7 +22,7 @@ bool CheckTouchscreenArea(int x1, int y1, int x2, int y2);
 struct trap* GetTrapInfo(struct entity* trap_entity);
 struct item* GetItemInfo(struct entity* item_entity);
 struct tile* GetTileAtEntity(struct entity* entity);
-void UpdateEnityPixelPos(struct entity* entity, struct pixel_position* pixel_pos);
+void UpdateEntityPixelPos(struct entity* entity, struct pixel_position* pixel_pos);
 struct entity* InitEnemyEntity(enum monster_id monster_id);
 struct entity* SpawnTrap(enum trap_id trap_id, struct position* position, uint8_t team,
                          uint8_t flags);

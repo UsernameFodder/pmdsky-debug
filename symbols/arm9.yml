@@ -3875,7 +3875,7 @@ arm9:
         Called whenever a menu option is selected. Returns whether the option is active or not.
         
         r0: ?
-        Return: True if the menu option is enabled, false otherwise.
+        return: True if the menu option is enabled, false otherwise.
     - name: ShowKeyboard
       address:
         EU: 0x2036AE4
@@ -4658,7 +4658,7 @@ arm9:
         Seems to be used to check if you have any missions that have unmet restrictions when trying to access a dungeon.
         
         r0: ?
-        Return: (?) Seems to be composed of multiple bitflags.
+        return: (?) Seems to be composed of multiple bitflags.
     - name: GetNbFloors
       address:
         EU: 0x204F8B4
@@ -4743,7 +4743,7 @@ arm9:
         If the dungeon ID is >= DUNGEON_NORMAL_FLY_MAZE or the group of the dungeon is > DGROUP_DUMMY_0x63, returns MISSION_RANK_E.
         
         r0: Dungeon and floor
-        Return: Mission rank
+        return: Mission rank
     - name: GetOutlawLevel
       address:
         EU: 0x204FBC4
@@ -4752,7 +4752,7 @@ arm9:
         Gets the level that should be used for outlaws for the given dungeon and floor
         
         r0: Dungeon and floor
-        Return: Outlaw level
+        return: Outlaw level
     - name: GetOutlawLeaderLevel
       address:
         EU: 0x204FBE0
@@ -4761,7 +4761,7 @@ arm9:
         Gets the level that should be used for team leader outlaws for the given dungeon and floor. Identical to GetOutlawLevel.
         
         r0: Dungeon and floor
-        Return: Outlaw leader level
+        return: Outlaw leader level
     - name: GetOutlawMinionLevel
       address:
         EU: 0x204FBFC
@@ -4770,7 +4770,7 @@ arm9:
         Gets the level that should be used for minion outlaws for the given dungeon and floor.
         
         r0: Dungeon and floor
-        Return: Outlaw minion level
+        return: Outlaw minion level
     - name: AddGuestMonster
       address:
         EU: 0x204FC18
@@ -7177,7 +7177,7 @@ arm9:
       description: |-
         Enables processor interrupts by clearing the i flag in the program status register (cpsr).
         
-        Return: Old value of cpsr & 0x80 (0x80 if interrupts were disabled, 0x0 if they were already enabled)
+        return: Old value of cpsr & 0x80 (0x80 if interrupts were disabled, 0x0 if they were already enabled)
     - name: EnableIrqFlag
       address:
         EU: 0x207BB7C
@@ -7185,7 +7185,7 @@ arm9:
       description: |-
         Disables processor interrupts by setting the i flag in the program status register (cpsr).
         
-        Return: Old value of cpsr & 0x80 (0x80 if interrupts were already disabled, 0x0 if they were enabled)
+        return: Old value of cpsr & 0x80 (0x80 if interrupts were already disabled, 0x0 if they were enabled)
     - name: SetIrqFlag
       address:
         EU: 0x207BB90
@@ -7194,7 +7194,7 @@ arm9:
         Sets the value of the processor's interrupt flag according to the specified parameter.
         
         r0: Value to set the flag to (0x80 to set it, which disables interrupts; 0x0 to unset it, which enables interrupts)
-        Return: Old value of cpsr & 0x80 (0x80 if interrupts were disabled, 0x0 if they were enabled)
+        return: Old value of cpsr & 0x80 (0x80 if interrupts were disabled, 0x0 if they were enabled)
     - name: EnableIrqFiqFlags
       address:
         EU: 0x207BBA8
@@ -7202,7 +7202,7 @@ arm9:
       description: |-
         Disables processor all interrupts (both standard and fast) by setting the i and f flags in the program status register (cpsr).
         
-        Return: Old value of cpsr & 0xC0 (contains the previous values of the i and f flags)
+        return: Old value of cpsr & 0xC0 (contains the previous values of the i and f flags)
     - name: SetIrqFiqFlags
       address:
         EU: 0x207BBBC
@@ -7211,7 +7211,7 @@ arm9:
         Sets the value of the processor's interrupt flags (i and f) according to the specified parameter.
         
         r0: Value to set the flags to (0xC0 to set both flags, 0x80 to set the i flag and clear the f flag, 0x40 to set the f flag and clear the i flag and 0x0 to clear both flags)
-        Return: Old value of cpsr & 0xC0 (contains the previous values of the i and f flags)
+        return: Old value of cpsr & 0xC0 (contains the previous values of the i and f flags)
     - name: GetIrqFlag
       address:
         EU: 0x207BBD4
@@ -7219,7 +7219,7 @@ arm9:
       description: |-
         Gets the current value of the processor's interrupt request (i) flag
         
-        Return: cpsr & 0x80 (0x80 if interrupts are disabled, 0x0 if they are enabled)
+        return: cpsr & 0x80 (0x80 if interrupts are disabled, 0x0 if they are enabled)
     - name: WaitForever2
       address:
         EU: 0x207BFB8
