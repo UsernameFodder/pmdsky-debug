@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
-# Script to check that all function names present in the C headers are also
-# present in the symbol tables.
+# Script to check that all function and data symbol names present in the C
+# headers are also present in the symbol tables.
 
-from abc import ABC, abstractmethod
+from abc import ABC
 import argparse
 import difflib
 import os
@@ -15,14 +15,6 @@ ROOT_DIR = os.path.relpath(os.path.join(os.path.dirname(__file__), ".."))
 SYMBOLS_DIR = os.path.join(ROOT_DIR, "symbols")
 
 
-def get_headers(header_dir: str) -> Generator[str, None, None]:
-    for root, dirs, files in os.walk(header_dir):
-        dirs.sort()  # Ensure subdirectories are visited in sorted order
-        for f in sorted(files):
-            if f.endswith(".h"):
-                yield os.path.join(root, f)
-
-
 class HeaderSymbolList(ABC):
     """
     A list of all symbols of some type defined for a specific binary file,
@@ -31,6 +23,9 @@ class HeaderSymbolList(ABC):
 
     HEADERS_DIR: str  # Path to directory containing the C headers
     SYMBOL_LIST_KEY: str  # YAML key of the corresponding symbol list
+    # Regex for finding symbol names within C headers, with one capturing group
+    # for the symbol name
+    NAME_REGEX: re.Pattern
 
     header_file: str
     symbol_file: str
@@ -41,6 +36,7 @@ class HeaderSymbolList(ABC):
     def __init__(self, header_file: str):
         assert hasattr(self, "HEADERS_DIR")
         assert hasattr(self, "SYMBOL_LIST_KEY")
+        assert hasattr(self, "NAME_REGEX")
 
         self.cached_header_names = None
         self.cached_symbol_names = None
@@ -84,13 +80,12 @@ class HeaderSymbolList(ABC):
         contents = re.sub(r"/\*.*?\*/", "", contents, flags=re.DOTALL)
         return contents
 
-    @abstractmethod
-    def _names_from_header_file(self) -> List[str]:
-        return []
-
     def names_from_header_file(self) -> List[str]:
         if self.cached_header_names is None:
-            self.cached_header_names = self._names_from_header_file()
+            with open(self.header_file, "r") as f:
+                self.cached_header_names = self.NAME_REGEX.findall(
+                    self.header_file_strip_comments(f.read())
+                )
         return list(self.cached_header_names)
 
     def names_from_symbol_file(self) -> List[str]:
@@ -145,36 +140,25 @@ class HeaderSymbolList(ABC):
 class FunctionList(HeaderSymbolList):
     HEADERS_DIR = os.path.join(ROOT_DIR, "headers", "functions")
     SYMBOL_LIST_KEY = "functions"
-
-    def _names_from_header_file(self) -> List[str]:
-        with open(self.header_file, "r") as f:
-            # Look for words preceding an open parenthesis. Not perfect, but
-            # good enough. This should work for everything except functions
-            # with function pointer parameters, but function pointer parameters
-            # should really be typedef'd for readability anyway.
-            return re.findall(
-                r"\b(\w+)\s*\(", self.header_file_strip_comments(f.read())
-            )
+    # Look for words preceding an open parenthesis. Not perfect, but
+    # good enough. This should work for everything except functions
+    # with function pointer parameters, but function pointer parameters
+    # should really be typedef'd for readability anyway.
+    NAME_REGEX = re.compile(r"\b(\w+)\s*\(")
 
 
 class DataList(HeaderSymbolList):
     HEADERS_DIR = os.path.join(ROOT_DIR, "headers", "data")
     SYMBOL_LIST_KEY = "data"
-
-    def _names_from_header_file(self) -> List[str]:
-        with open(self.header_file, "r") as f:
-            # Look for words preceding a semicolon, with optional closing
-            # parentheses and/or pairs of square brackets in between. This
-            # should work for most things, like:
-            # - normal variables `int x;`
-            # - arrays `int x[10];`
-            # - array pointers `int (*x)[10]`
-            # It won't work for function pointers `int (*f)(int, int)`, but
-            # these should really be typedef'd for readability anyway.
-            return re.findall(
-                r"\b(\w+)(?:\s*(?:\)|\[\s*\w+\s*\]))*\s*;",
-                self.header_file_strip_comments(f.read()),
-            )
+    # Look for words preceding a semicolon, with optional closing
+    # parentheses and/or pairs of square brackets in between. This
+    # should work for most things, like:
+    # - normal variables `int x;`
+    # - arrays `int x[10];`
+    # - array pointers `int (*x)[10]`
+    # It won't work for function pointers `int (*f)(int, int)`, but
+    # these should really be typedef'd for readability anyway.
+    NAME_REGEX = re.compile(r"\b(\w+)(?:\s*(?:\)|\[\s*\w+\s*\]))*\s*;")
 
 
 def run_symbol_check(
