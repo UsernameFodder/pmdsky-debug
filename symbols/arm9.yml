@@ -3167,29 +3167,29 @@ arm9:
       address:
         EU: 0x201DAE0
       description: |-
-        Check if the input Wan file loaded in memory have an animation group with this ID
-        Valid mean that the animation group is in the range of existing animation, and that it have at least one Animation.
+        Check if the input WAN file loaded in memory has an animation group with this ID
+        Valid means that the animation group is in the range of existing animation, and that it has at least one animation.
         
-        r0: pointer to the header of the Wan
+        r0: pointer to the header of the WAN
         r1: id of the animation group
-        return: whether the wan file have the given animation group
+        return: whether the WAN file has the given animation group
     - name: WanTableSpriteHasAnimationGroup
       address:
         EU: 0x201DB1C
       description: |-
-        Check if the sprite in the global wan table have the given animation group
+        Check if the sprite in the global WAN table has the given animation group
         see WanHasAnimationGroup for more detail
         
-        r0: sprite id in the wan table
+        r0: sprite id in the WAN table
         r1: animation group id
-        return: whether the associated sprite have the given animation group
+        return: whether the associated sprite has the given animation group
     - name: SpriteTypeInWanTable
       address:
         EU: 0x201DD0C
       description: |-
-        Lookup the sprite in the wan table, and return it’s type
+        Look up the sprite in the WAN table, and return its type
         
-        r0: sprite id in the wan table
+        r0: sprite id in the WAN table
         return: sprite type
     - name: LoadWteFromRom
       address:

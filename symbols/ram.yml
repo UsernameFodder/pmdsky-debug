@@ -325,7 +325,7 @@ ram:
       length:
         EU: 0x4
       description: |-
-        [Runtime] Pointer to the dynamically allocated structure relating to the currently loaded attack sprite, in Dungeon mode.
+        [Runtime] Pointer to the dynamically allocated structure relating to the currently loaded attack sprite, in dungeon mode.
         
         type: struct loaded_attack_sprite_data*
     - name: ROLLOUT_ICE_BALL_MISSED

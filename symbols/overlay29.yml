@@ -1453,7 +1453,7 @@ overlay29:
       address:
         EU: 0x22F78C8
       description: |-
-        Free among other another data structure the attack sprite storage area/data
+        Among other things, free another data structure in the attack sprite storage area/data
         
         No params.
     - name: SetAndLoadCurrentAttackAnimation
@@ -1470,13 +1470,16 @@ overlay29:
         EU: 0x22F79C0
       description: |-
         Delete the data of the currently loaded attack sprite, if any.
-        Doesn’t free the structure, that can be continued to be used.
+        Doesn’t free the structure, which can continue to be used.
         
         No params.
     - name: GetLoadedAttackSpriteId
       address:
         EU: 0x22F7A08
-      description: "return: the sprite id (in the loaded wan list) of the currently loaded attack sprite (or 0 if none)"
+      description: |-
+        Get the sprite ID (in the loaded WAN list) of the currently loaded attack sprite, or 0 if none.
+        
+        return: sprite ID
     - name: DungeonGetTotalSpriteFileSize
       address:
         EU: 0x22F7A20

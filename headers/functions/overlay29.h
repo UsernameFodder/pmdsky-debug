@@ -138,6 +138,7 @@ bool ShouldLeaderKeepRunning(void);
 void CheckLeaderTile(void);
 void ChangeLeader(void);
 void ResetDamageData(struct damage_data* damage);
+void FreeLoadedAttackSpriteAndMore(void);
 uint16_t SetAndLoadCurrentAttackAnimation(enum pack_file_id pack_id, uint16_t file_index);
 void ClearLoadedAttackSprite(void);
 uint16_t GetLoadedAttackSpriteId(void);

@@ -1,7 +1,7 @@
-#ifndef HEADERS_TYPES_COMMON_GENERIC_H_
-#define HEADERS_TYPES_COMMON_GENERIC_H_
+#ifndef HEADERS_TYPES_COMMON_UTIL_H_
+#define HEADERS_TYPES_COMMON_UTIL_H_
 
-// Common computing data-structure not specific to EOS
+// Common data structures not specific to EoS
 
 // RGBA8 structure. Sometimes alpha is ignored and only used for padding
 struct rgba {

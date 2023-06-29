@@ -331,11 +331,17 @@ overlay11:
     - name: AllocAndInitPartnerFollowDataAndLiveActorList
       address:
         EU: 0x22F865C
-      description: Allocate an initialize the partner follow data and the live actor list (in GROUND_STATE_PTRS)
+      description: |-
+        Allocate and initialize the partner follow data and the live actor list (in GROUND_STATE_PTRS)
+        
+        No params.
     - name: InitPartnerFollowDataAndLiveActorList
       address:
         EU: 0x22F86B8
-      description: "Initialize the partner follow data and the live actor list (in GROUND_STATE_PTRS, doesn’t perform the allocation of those structure)"
+      description: |-
+        Initialize the partner follow data and the live actor list (in GROUND_STATE_PTRS, doesn’t perform the allocation of the structures)
+        
+        No params.
     - name: DeleteLiveActor
       address:
         EU: 0x22F8F18
@@ -346,7 +352,10 @@ overlay11:
     - name: InitPartnerFollowData
       address:
         EU: 0x22FC3C8
-      description: "Initialize the partner follow data structure, without allocating it (in GROUND_STATE_PTRS)"
+      description: |-
+        Initialize the partner follow data structure, without allocating it (in GROUND_STATE_PTRS)
+        
+        No params.
     - name: SprintfStatic
       address:
         EU: 0x2309868
