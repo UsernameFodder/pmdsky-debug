@@ -157,6 +157,8 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
                         .takes_value(true)
                         .short("f")
                         .long("function-names")
+                        .multiple(true)
+                        .number_of_values(1)
                         .set(ArgSettings::CaseInsensitive)
                         .possible_values(&SUPPORTED_NAMING_CONVENTIONS),
                     Arg::with_name("data names")
@@ -164,6 +166,8 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
                         .takes_value(true)
                         .short("d")
                         .long("data-names")
+                        .multiple(true)
+                        .number_of_values(1)
                         .set(ArgSettings::CaseInsensitive)
                         .possible_values(&SUPPORTED_NAMING_CONVENTIONS),
                     Arg::with_name("input")
@@ -347,11 +351,15 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
             if matches.is_present("no overlap") {
                 checks.push(resymgen::Check::NoOverlap);
             }
-            if let Some(conv) = matches.value_of("function names") {
-                checks.push(resymgen::Check::FunctionNames(naming_convention(conv)));
+            if let Some(convs) = matches.values_of("function names") {
+                checks.push(resymgen::Check::FunctionNames(
+                    convs.map(naming_convention).collect(),
+                ));
             }
-            if let Some(conv) = matches.value_of("data names") {
-                checks.push(resymgen::Check::DataNames(naming_convention(conv)));
+            if let Some(convs) = matches.values_of("data names") {
+                checks.push(resymgen::Check::DataNames(
+                    convs.map(naming_convention).collect(),
+                ));
             }
             // This one handles multiple files internally so that check result printing
             // can be merged appropriately

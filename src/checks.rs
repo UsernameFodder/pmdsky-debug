@@ -2,7 +2,7 @@
 
 use std::borrow::Borrow;
 use std::cmp;
-use std::collections::{BTreeMap, HashMap, HashSet};
+use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
 use std::error::Error;
 use std::fmt::{self, Display, Formatter};
 use std::fs::File;
@@ -21,7 +21,7 @@ use super::data_formats::symgen_yml::{
 use super::util::MultiFileError;
 
 /// Naming conventions for symbol names.
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub enum NamingConvention {
     /// Symbol names should be valid identifiers (in accordance with Rust syntax).
     /// This condition implicitly applies to all other variants.
@@ -98,6 +98,11 @@ impl NamingConvention {
         }
     }
 
+    /// Checks if a name is valid under a given set of naming conventions
+    fn check_multiple(convs: &BTreeSet<NamingConvention>, name: &str) -> bool {
+        convs.iter().any(|conv| conv.check(name))
+    }
+
     // Includes camelCase and PascalCase
     fn camel_family_check(name: &str) -> bool {
         let mut consecutive_uppercase = 0;
@@ -122,7 +127,7 @@ impl NamingConvention {
 }
 
 /// Checks that can be run on `resymgen` YAML symbol tables.
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone)]
 pub enum Check {
     /// All addresses and lengths (for both blocks and symbols) must be explicitly listed by version.
     ExplicitVersions,
@@ -140,10 +145,10 @@ pub enum Check {
     /// For a given block and version, function symbols must not overlap with each other, and
     /// subregions must not overlap with other subregions, function symbols, or data symbols.
     NoOverlap,
-    /// Function symbol names must adhere to the specified [`NamingConvention`].
-    FunctionNames(NamingConvention),
-    /// Data symbol names must adhere to the specified [`NamingConvention`].
-    DataNames(NamingConvention),
+    /// Function symbol names must adhere to the specified set of [`NamingConvention`]s.
+    FunctionNames(BTreeSet<NamingConvention>),
+    /// Data symbol names must adhere to the specified set of [`NamingConvention`]s.
+    DataNames(BTreeSet<NamingConvention>),
 }
 
 /// The result of a [`Check`] run on `resymgen` YAML symbol tables.
@@ -166,13 +171,13 @@ impl Check {
             }
             Self::InBoundsSymbols => self.result(check_in_bounds_symbols(symgen)),
             Self::NoOverlap => self.result(check_no_overlap(symgen)),
-            Self::FunctionNames(conv) => self.result(check_function_names(symgen, *conv)),
-            Self::DataNames(conv) => self.result(check_data_names(symgen, *conv)),
+            Self::FunctionNames(convs) => self.result(check_function_names(symgen, convs)),
+            Self::DataNames(convs) => self.result(check_data_names(symgen, convs)),
         }
     }
     fn result(&self, raw_result: Result<(), String>) -> CheckResult {
         CheckResult {
-            check: *self,
+            check: self.clone(), // cloning a Check is expected to be reasonably cheap
             succeeded: raw_result.is_ok(),
             details: raw_result.err(),
         }
@@ -825,7 +830,7 @@ fn check_no_overlap(symgen: &SymGen) -> Result<(), String> {
 
 fn symbols_name_check<'s, F, I>(
     symgen: &'s SymGen,
-    conv: NamingConvention,
+    convs: &BTreeSet<NamingConvention>,
     block_iter: F,
     symbol_type: &str,
 ) -> Result<(), String>
@@ -836,7 +841,7 @@ where
     let mut bad_names: BTreeMap<&OrdString, HashSet<&str>> = BTreeMap::new();
     for (bname, b) in symgen.iter() {
         for s in block_iter(b) {
-            if !conv.check(&s.name) {
+            if !NamingConvention::check_multiple(convs, &s.name) {
                 bad_names.entry(bname).or_default().insert(&s.name);
             }
         }
@@ -858,12 +863,12 @@ where
     })
 }
 
-fn check_function_names(symgen: &SymGen, conv: NamingConvention) -> Result<(), String> {
-    symbols_name_check(symgen, conv, |b: &Block| b.functions.iter(), "function")
+fn check_function_names(symgen: &SymGen, convs: &BTreeSet<NamingConvention>) -> Result<(), String> {
+    symbols_name_check(symgen, convs, |b: &Block| b.functions.iter(), "function")
 }
 
-fn check_data_names(symgen: &SymGen, conv: NamingConvention) -> Result<(), String> {
-    symbols_name_check(symgen, conv, |b: &Block| b.data.iter(), "data")
+fn check_data_names(symgen: &SymGen, convs: &BTreeSet<NamingConvention>) -> Result<(), String> {
+    symbols_name_check(symgen, convs, |b: &Block| b.data.iter(), "data")
 }
 
 /// Validates a given `input_file` under the specified `checks`.
@@ -879,7 +884,7 @@ fn check_data_names(symgen: &SymGen, conv: NamingConvention) -> Result<(), Strin
 ///     "/path/to/symbols.yml",
 ///     &[
 ///         Check::ExplicitVersions,
-///         Check::FunctionNames(NamingConvention::SnakeCase),
+///         Check::FunctionNames([NamingConvention::SnakeCase].into()),
 ///     ],
 ///     true,
 /// )
@@ -1009,7 +1014,7 @@ fn print_report(results: &[(PathBuf, CheckResult)]) -> io::Result<()> {
 ///     ["/path/to/symbols.yml", "/path/to/other_symbols.yml"],
 ///     &[
 ///         Check::ExplicitVersions,
-///         Check::FunctionNames(NamingConvention::SnakeCase),
+///         Check::FunctionNames([NamingConvention::SnakeCase].into()),
 ///     ],
 ///     true,
 /// )
@@ -1119,6 +1124,17 @@ mod tests {
                 ["PascalCase", "Pascal", "WithAWord", "WithANumber1"],
                 ["snake_case", "SCREAMING_SNAKE", "camelCase", "lower"],
             )
+        }
+
+        #[test]
+        fn test_snake_or_pascal_case() {
+            let convs = BTreeSet::from([NamingConvention::SnakeCase, NamingConvention::PascalCase]);
+            assert!(NamingConvention::check_multiple(&convs, "snake_case"));
+            assert!(NamingConvention::check_multiple(&convs, "PascalCase"));
+            assert!(!NamingConvention::check_multiple(
+                &convs,
+                "mixed_snake_PascalCase"
+            ));
         }
     }
 
@@ -1507,8 +1523,8 @@ mod tests {
     #[test]
     fn test_symbols_name_check() {
         let mut symgen = get_test_symgen();
-        assert!(check_function_names(&symgen, NamingConvention::SnakeCase).is_ok());
-        assert!(check_data_names(&symgen, NamingConvention::ScreamingSnakeCase).is_ok());
+        assert!(check_function_names(&symgen, &[NamingConvention::SnakeCase].into()).is_ok());
+        assert!(check_data_names(&symgen, &[NamingConvention::ScreamingSnakeCase].into()).is_ok());
 
         let block = get_main_block(&mut symgen);
         // Set the function to have the wrong case
@@ -1517,12 +1533,24 @@ mod tests {
             .get_mut(0)
             .expect("symgen has no functions")
             .name = "PascalCase".to_string();
-        assert!(check_function_names(&symgen, NamingConvention::SnakeCase).is_err());
+        assert!(check_function_names(&symgen, &[NamingConvention::SnakeCase].into()).is_err());
+        // Loosen the check to accept the wrong case
+        assert!(check_function_names(
+            &symgen,
+            &[NamingConvention::SnakeCase, NamingConvention::PascalCase].into()
+        )
+        .is_ok());
+        // Make sure that if all case conventions don't match, the check still fails
+        assert!(check_function_names(
+            &symgen,
+            &[NamingConvention::SnakeCase, NamingConvention::CamelCase].into()
+        )
+        .is_err());
 
         // reborrow
         let block = get_main_block(&mut symgen);
         // Set the data to have the wrong case
         block.data.get_mut(0).expect("symgen has no data").name = "snake_case".to_string();
-        assert!(check_data_names(&symgen, NamingConvention::ScreamingSnakeCase).is_err());
+        assert!(check_data_names(&symgen, &[NamingConvention::ScreamingSnakeCase].into()).is_err());
     }
 }
