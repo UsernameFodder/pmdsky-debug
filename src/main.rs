@@ -153,7 +153,7 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
                         .short("o")
                         .long("no-overlap"),
                     Arg::with_name("function names")
-                        .help("Enforce a naming convention for function symbols. Note that all conventions implicitly enforce valid identifiers.")
+                        .help("Enforce a naming convention for function symbols. This option can be specified multiple times with different values to enforce that at least one of the specified naming conventions applies for each symbol. Note that all conventions implicitly enforce valid identifiers.")
                         .takes_value(true)
                         .short("f")
                         .long("function-names")
@@ -162,7 +162,7 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
                         .set(ArgSettings::CaseInsensitive)
                         .possible_values(&SUPPORTED_NAMING_CONVENTIONS),
                     Arg::with_name("data names")
-                        .help("Enforce a naming convention for data symbols. Note that all conventions implicitly enforce valid identifiers.")
+                        .help("Enforce a naming convention for data symbols. This option can be specified multiple times with different values to enforce that at least one of the specified naming conventions applies for each symbol. Note that all conventions implicitly enforce valid identifiers.")
                         .takes_value(true)
                         .short("d")
                         .long("data-names")
