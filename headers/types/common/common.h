@@ -11,14 +11,14 @@
 // A slice in the usual programming sense: a pointer, length, and capacity.
 // Used for the implementation of vsprintf(3), but maybe it's used elsewhere as well.
 struct slice {
-    void* data;        // Pointer to the data buffer
-    uint32_t capacity; // How much space is available in total
-    uint32_t length;   // How much space is currently filled
+    void* data;      // Pointer to the data buffer
+    size_t capacity; // How much space is available in total
+    size_t length;   // How much space is currently filled
 };
 ASSERT_SIZE(struct slice, 12);
 
 // Function to append data to a struct slice, and return a success flag.
-typedef bool (*slice_append_fn_t)(struct slice* slice, void* data, uint32_t data_len);
+typedef bool (*slice_append_fn_t)(struct slice* slice, const void* data, size_t data_len);
 
 // Program position info (basically stack trace info) for debug logging.
 struct prog_pos_info {

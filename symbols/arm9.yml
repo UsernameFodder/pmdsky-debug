@@ -589,7 +589,7 @@ arm9:
       description: |-
         A simple implementation of the memset(3) C library function.
         
-        This function was probably manually implemented by the developers. See Memset for what's probably the real libc function.
+        This function was probably manually implemented by the developers. See memset for what's probably the real libc function.
         
         r0: ptr
         r1: value
@@ -613,7 +613,7 @@ arm9:
       description: |-
         A simple implementation of the memcpy(3) C library function.
         
-        This function was probably manually implemented by the developers. See Memcpy for what's probably the real libc function.
+        This function was probably manually implemented by the developers. See memcpy for what's probably the real libc function.
         
         This function copies from src to dst in backwards byte order, so this is safe to call for overlapping src and dst if src <= dst.
         
@@ -1014,7 +1014,7 @@ arm9:
       description: |-
         Would log a printf format string in the debug binary.
         
-        This still constructs the string with Vsprintf, but doesn't actually do anything with it in the final binary.
+        This still constructs the string with vsprintf, but doesn't actually do anything with it in the final binary.
         
         r0: format
         ...: variadic
@@ -1389,9 +1389,9 @@ arm9:
           - 0x2052768
           - 0x2054D98
       description: |-
-        Functionally the same as Sprintf, just defined statically in many different places.
+        Functionally the same as sprintf, just defined statically in many different places.
         
-        Since this is essentially just a wrapper around vsprintf(3), this function was probably statically defined in a header somewhere and included in a bunch of different places. See the actual Sprintf for the one in libc.
+        Since this is essentially just a wrapper around vsprintf(3), this function was probably statically defined in a header somewhere and included in a bunch of different places. See the actual sprintf for the one in libc.
         
         r0: str
         r1: format
@@ -3493,7 +3493,7 @@ arm9:
       description: |-
         A simple implementation of the strcpy(3) C library function.
         
-        This function was probably manually implemented by the developers. See Strcpy for what's probably the real libc function.
+        This function was probably manually implemented by the developers. See strcpy for what's probably the real libc function.
         
         r0: dest
         r1: src
@@ -3505,7 +3505,7 @@ arm9:
       description: |-
         A simple implementation of the strncpy(3) C library function.
         
-        This function was probably manually implemented by the developers. See Strncpy for what's probably the real libc function.
+        This function was probably manually implemented by the developers. See strncpy for what's probably the real libc function.
         
         r0: dest
         r1: src
@@ -3529,7 +3529,7 @@ arm9:
       description: |-
         A simple implementation of the strncmp(3) C library function.
         
-        This function was probably manually implemented by the developers. See Strncmp for what's probably the real libc function.
+        This function was probably manually implemented by the developers. See strncmp for what's probably the real libc function.
         
         r0: s1
         r1: s2
@@ -7252,7 +7252,7 @@ arm9:
         This function must always be called before opening a file.
         
         r0: file_stream pointer
-    - name: Abs
+    - name: abs
       address:
         EU: 0x20868F4
         NA: 0x208655C
@@ -7262,7 +7262,7 @@ arm9:
         
         r0: x
         return: abs(x)
-    - name: Mbtowc
+    - name: mbtowc
       address:
         EU: 0x2087554
         NA: 0x20871BC
@@ -7298,7 +7298,7 @@ arm9:
         r0: pointer
         r1: value
         return: true on success, false on failure
-    - name: Wcstombs
+    - name: wcstombs
       address:
         EU: 0x20875BC
         NA: 0x2087224
@@ -7310,7 +7310,7 @@ arm9:
         r1: src
         r2: n
         return: characters converted
-    - name: Memcpy
+    - name: memcpy
       address:
         EU: 0x2087634
         NA: 0x208729C
@@ -7321,7 +7321,8 @@ arm9:
         r0: dest
         r1: src
         r2: n
-    - name: Memmove
+        return: dest
+    - name: memmove
       address:
         EU: 0x2087654
         NA: 0x20872BC
@@ -7329,12 +7330,13 @@ arm9:
       description: |-
         The memmove(3) C library function.
         
-        The implementation is nearly the same as Memcpy, but it copies bytes from back to front if src < dst.
+        The implementation is nearly the same as memcpy, but it copies bytes from back to front if src < dst.
         
         r0: dest
         r1: src
         r2: n
-    - name: Memset
+        return: dest
+    - name: memset
       address:
         EU: 0x20876A0
         NA: 0x2087308
@@ -7342,13 +7344,13 @@ arm9:
       description: |-
         The memset(3) C library function.
         
-        This is just a wrapper around MemsetInternal that returns the pointer at the end.
+        This is just a wrapper around memset_internal that returns the pointer at the end.
         
         r0: s
         r1: c (int, but must be a single-byte value)
         r2: n
         return: s
-    - name: Memchr
+    - name: memchr
       address:
         EU: 0x20876B4
         NA: 0x208731C
@@ -7360,7 +7362,7 @@ arm9:
         r1: c
         r2: n
         return: pointer to first occurrence of c in s, or a null pointer if no match
-    - name: Memcmp
+    - name: memcmp
       address:
         EU: 0x20876E0
         NA: 0x2087348
@@ -7372,7 +7374,7 @@ arm9:
         r1: s2
         r2: n
         return: comparison value
-    - name: MemsetInternal
+    - name: memset_internal
       address:
         EU: 0x2087720
         NA: 0x2087388
@@ -7385,17 +7387,17 @@ arm9:
         r0: s
         r1: c (int, but must be a single-byte value)
         r2: n
-    - name: VsprintfInternalSlice
+    - name: __vsprintf_internal_slice
       address:
         EU: 0x208900C
         NA: 0x2088C74
         JP: 0x2088F5C
       description: |-
-        This is what implements the bulk of VsprintfInternal.
+        This is what implements the bulk of __vsprintf_internal.
         
         The __vsprintf_internal in the modern-day version of glibc relies on __vfprintf_internal; this function has a slightly different interface, but it serves a similar role.
         
-        r0: function pointer to append to the string being built (VsprintfInternal uses TryAppendToSlice)
+        r0: function pointer to append to the string being built (__vsprintf_internal uses TryAppendToSlice)
         r1: string buffer slice
         r2: format
         r3: ap
@@ -7412,20 +7414,20 @@ arm9:
         r1: buffer of data to append
         r2: number of bytes in the data buffer
         return: true
-    - name: VsprintfInternal
+    - name: __vsprintf_internal
       address:
         EU: 0x2089874
         NA: 0x20894DC
         JP: 0x20897C4
       description: |-
-        This is what implements Vsprintf. It's akin to __vsprintf_internal in the modern-day version of glibc (in fact, it's probably an older version of this).
+        This is what implements vsprintf. It's akin to __vsprintf_internal in the modern-day version of glibc (in fact, it's probably an older version of this).
         
         r0: str
-        r1: maxlen (Vsprintf passes UINT32_MAX for this)
+        r1: maxlen (vsprintf passes UINT32_MAX for this)
         r2: format
         r3: ap
         return: number of characters printed, excluding the null-terminator
-    - name: Vsprintf
+    - name: vsprintf
       address:
         EU: 0x20898DC
         NA: 0x2089544
@@ -7437,7 +7439,7 @@ arm9:
         r1: format
         r2: ap
         return: number of characters printed, excluding the null-terminator
-    - name: Snprintf
+    - name: snprintf
       address:
         EU: 0x20898F4
         NA: 0x208955C
@@ -7445,14 +7447,14 @@ arm9:
       description: |-
         The snprintf(3) C library function.
         
-        This calls VsprintfInternal directly, so it's presumably the real snprintf.
+        This calls __vsprintf_internal directly, so it's presumably the real snprintf.
         
         r0: str
         r1: n
         r2: format
         ...: variadic
         return: number of characters printed, excluding the null-terminator
-    - name: Sprintf
+    - name: sprintf
       address:
         EU: 0x208991C
         NA: 0x2089584
@@ -7460,13 +7462,13 @@ arm9:
       description: |-
         The sprintf(3) C library function.
         
-        This calls VsprintfInternal directly, so it's presumably the real sprintf.
+        This calls __vsprintf_internal directly, so it's presumably the real sprintf.
         
         r0: str
         r1: format
         ...: variadic
         return: number of characters printed, excluding the null-terminator
-    - name: Strlen
+    - name: strlen
       address:
         EU: 0x2089A10
         NA: 0x2089678
@@ -7476,7 +7478,7 @@ arm9:
         
         r0: s
         return: length of s
-    - name: Strcpy
+    - name: strcpy
       address:
         EU: 0x2089A2C
         NA: 0x2089694
@@ -7488,7 +7490,8 @@ arm9:
         
         r0: dest
         r1: src
-    - name: Strncpy
+        return: dest
+    - name: strncpy
       address:
         EU: 0x2089AF4
         NA: 0x208975C
@@ -7499,7 +7502,8 @@ arm9:
         r0: dest
         r1: src
         r2: n
-    - name: Strcat
+        return: dest
+    - name: strcat
       address:
         EU: 0x2089B44
         NA: 0x20897AC
@@ -7509,7 +7513,8 @@ arm9:
         
         r0: dest
         r1: src
-    - name: Strncat
+        return: dest
+    - name: strncat
       address:
         EU: 0x2089B74
         NA: 0x20897DC
@@ -7520,7 +7525,8 @@ arm9:
         r0: dest
         r1: src
         r2: n
-    - name: Strcmp
+        return: dest
+    - name: strcmp
       address:
         EU: 0x2089BC4
         NA: 0x208982C
@@ -7528,12 +7534,12 @@ arm9:
       description: |-
         The strcmp(3) C library function.
         
-        Similarly to Strcpy, this function is optimized to compare characters in aligned 4-byte chunks if possible.
+        Similarly to strcpy, this function is optimized to compare characters in aligned 4-byte chunks if possible.
         
         r0: s1
         r1: s2
         return: comparison value
-    - name: Strncmp
+    - name: strncmp
       address:
         EU: 0x2089CD8
         NA: 0x2089940
@@ -7545,7 +7551,7 @@ arm9:
         r1: s2
         r2: n
         return: comparison value
-    - name: Strchr
+    - name: strchr
       address:
         EU: 0x2089D0C
         NA: 0x2089974
@@ -7556,7 +7562,7 @@ arm9:
         r0: string
         r1: c
         return: pointer to the located byte c, or null pointer if no match
-    - name: Strcspn
+    - name: strcspn
       address:
         EU: 0x2089D48
         NA: 0x20899B0
@@ -7567,7 +7573,7 @@ arm9:
         r0: string
         r1: stopset
         return: offset of the first character in string within stopset
-    - name: Strstr
+    - name: strstr
       address:
         EU: 0x2089E08
         NA: 0x2089A70
@@ -7578,7 +7584,7 @@ arm9:
         r0: haystack
         r1: needle
         return: pointer into haystack where needle starts, or null pointer if no match
-    - name: Wcslen
+    - name: wcslen
       address:
         EU: 0x208B780
         NA: 0x208B3E8
@@ -7588,7 +7594,7 @@ arm9:
         
         r0: ws
         return: length of ws
-    - name: AddFloat
+    - name: __addsf3
       address:
         EU: 0x208F050
         NA: 0x208ECB8
@@ -7599,7 +7605,7 @@ arm9:
         r0: a
         r1: b
         return: a + b
-    - name: DivideFloat
+    - name: __divsf3
       address:
         EU: 0x208F5CC
         NA: 0x208F234
@@ -7610,7 +7616,7 @@ arm9:
         r0: dividend
         r1: divisor
         return: dividend / divisor
-    - name: FloatToDouble
+    - name: __extendsfdf2
       address:
         EU: 0x208F984
         NA: 0x208F5EC
@@ -7620,7 +7626,7 @@ arm9:
         
         r0: float
         return: (double)float
-    - name: FloatToInt
+    - name: __fixsfsi
       address:
         EU: 0x208FA08
         NA: 0x208F670
@@ -7630,7 +7636,7 @@ arm9:
         
         r0: float
         return: (int)float
-    - name: IntToFloat
+    - name: __floatsisf
       address:
         EU: 0x208FA3C
         NA: 0x208F6A4
@@ -7640,7 +7646,7 @@ arm9:
         
         r0: int
         return: (float)int
-    - name: UIntToFloat
+    - name: __floatunsisf
       address:
         EU: 0x208FA84
         NA: 0x208F6EC
@@ -7650,13 +7656,13 @@ arm9:
         
         r0: uint
         return: (float)uint
-    - name: MultiplyFloat
+    - name: __mulsf3
       address:
         EU: 0x208FACC
         NA: 0x208F734
         JP: 0x208FA1C
       description: "This appears to be the libgcc implementation of __mulsf3 (not sure which gcc version), which implements the multiplication operator for IEEE 754 floating-point numbers."
-    - name: Sqrtf
+    - name: sqrtf
       address:
         EU: 0x208FCAC
         NA: 0x208F914
@@ -7666,7 +7672,7 @@ arm9:
         
         r0: x
         return: sqrt(x)
-    - name: SubtractFloat
+    - name: __subsf3
       address:
         EU: 0x208FD9C
         NA: 0x208FA04
@@ -7677,7 +7683,7 @@ arm9:
         r0: a
         r1: b
         return: a - b
-    - name: DivideInt
+    - name: __divsi3
       address:
         EU: 0x209023C
         NA: 0x208FEA4
@@ -7690,7 +7696,7 @@ arm9:
         r0: dividend
         r1: divisor
         return: (quotient) | (remainder << 32)
-    - name: DivideUInt
+    - name: __udivsi3
       address:
         EU: 0x2090448
         NA: 0x20900B0
@@ -7699,18 +7705,18 @@ arm9:
         This appears to be the libgcc implementation of __udivsi3 (not sure which gcc version), which implements the division operator for unsigned ints.
         
         The return value is a 64-bit integer, with the quotient (dividend / divisor) in the lower 32 bits and the remainder (dividend % divisor) in the upper 32 bits. In accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return), this means that the quotient is returned in r0 and the remainder is returned in r1.
-        Note: This function falls through to DivideUIntNoZeroCheck.
+        Note: This function falls through to __udivsi3_no_zero_check.
         
         r0: dividend
         r1: divisor
         return: (quotient) | (remainder << 32)
-    - name: DivideUIntNoZeroCheck
+    - name: __udivsi3_no_zero_check
       address:
         EU: 0x2090450
         NA: 0x20900B8
         JP: 0x20903A0
       description: |-
-        Subsidiary function to DivideUInt. Skips the initial check for divisor == 0.
+        Subsidiary function to __udivsi3. Skips the initial check for divisor == 0.
         
         The return value is a 64-bit integer, with the quotient (dividend / divisor) in the lower 32 bits and the remainder (dividend % divisor) in the upper 32 bits. In accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return), this means that the quotient is returned in r0 and the remainder is returned in r1.
         This function appears to only be called internally.
