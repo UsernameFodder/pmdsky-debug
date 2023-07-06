@@ -13,19 +13,24 @@ endif
 # Structs constrained by ASSERT_SIZE can only compile under both natural
 # alignment and packing if there is no implicit padding between members.
 .PHONY: headers
-headers: headers-aligned headers-packed
+headers: headers-aligned headers-packed headers-no-builtin
 
 # Compile headers with natural struct member alignment by default
 .PHONY: headers-aligned
 headers-aligned:
 # -mno-ms-bitfields is needed for some Windows builds, e.g., MinGW's gcc/clang
-	$(CC) -m32 -fsyntax-only -mno-ms-bitfields pmdsky.h
+	$(CC) -m32 -fshort-wchar -fsyntax-only -mno-ms-bitfields pmdsky.h
 
 # Compile headers with implicit packing by default
 .PHONY: headers-packed
 headers-packed:
 # -mno-ms-bitfields is needed for some Windows builds, e.g., MinGW's gcc/clang
-	$(CC) -m32 -fsyntax-only -mno-ms-bitfields -DIMPLICIT_STRUCT_PACKING pmdsky.h
+	$(CC) -m32 -fshort-wchar -fsyntax-only -mno-ms-bitfields -DIMPLICIT_STRUCT_PACKING pmdsky.h
+
+# Variant of the headers that excludes declarations for common builtin functions. This mode is
+# intended for dev use, if the builtin declarations cause unexpected compilation issues.
+headers-no-builtin:
+	$(CC) -m32 -fshort-wchar -fsyntax-only -mno-ms-bitfields -DPMDSKY_NO_BUILTIN pmdsky.h
 
 # Unsized variant of the headers. This isn't included in the default target because it assumes
 # the presence of system headers. Don't use any funky options here, since this mode is intended
