@@ -377,14 +377,14 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
             let iformat = int_format(matches.is_present("decimal"));
             let fix_formatting = matches.is_present("fix formatting");
             let unmerged_symbols = resymgen::merge_symbols(
-                &symgen_file,
+                symgen_file,
                 &input_files,
                 input_format,
                 &merge_params,
                 iformat,
             )?;
             if fix_formatting {
-                resymgen::format_file(&symgen_file, true, iformat)?;
+                resymgen::format_file(symgen_file, true, iformat)?;
             }
 
             // Print the unmerged symbols from each file, with terminal colors
