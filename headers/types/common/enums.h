@@ -3682,4 +3682,15 @@ enum mission_rank {
 ENUM_8_BIT(mission_rank);
 #pragma pack(pop)
 
+enum wan_source_type {
+    WAN_SOURCE_NULL = 0,
+    WAN_SOURCE_FILE = 1, // Directly loaded from a .wan
+    WAN_SOURCE_PACK = 2, // Loaded from a pack file
+};
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(wan_source_type);
+#pragma pack(pop)
+
 #endif

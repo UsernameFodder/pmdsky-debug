@@ -234,7 +234,7 @@ struct dungeon {
     undefined2 field_0x1de; // 0x1DE: Initialized to 0xFFFF
     // 0x1E0: Color table. Used to apply a tint to the colors shown on screen.
     // Changes depending on the current weather.
-    struct rgb color_table[256];
+    struct rgba color_table[256];
     // 0x5E0: Data for Kecleon shopkeeper spawns. It's weird that there's room for more than one;
     // it seems like only the first entry should ever be filled
     struct spawned_shopkeeper_data shopkeeper_spawns[8];

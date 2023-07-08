@@ -3078,7 +3078,7 @@ arm9:
         NA: 0x201D2D4
         JP: 0x201D32C
       description: |-
-        Search in the given table (in practice always seems to be LOADED_WAN_TABLE_PTR) for an entry with the given file name.
+        Search in the given table (in practice always seems to be WAN_TABLE) for an entry with the given file name.
         
         r0: table pointer
         r1: file name
@@ -3163,6 +3163,34 @@ arm9:
         
         r0: wan_table_ptr
         r1: wan_id
+    - name: WanHasAnimationGroup
+      address:
+        EU: 0x201DAE0
+      description: |-
+        Check if the input WAN file loaded in memory has an animation group with this ID
+        Valid means that the animation group is in the range of existing animation, and that it has at least one animation.
+        
+        r0: pointer to the header of the WAN
+        r1: id of the animation group
+        return: whether the WAN file has the given animation group
+    - name: WanTableSpriteHasAnimationGroup
+      address:
+        EU: 0x201DB1C
+      description: |-
+        Check if the sprite in the global WAN table has the given animation group
+        see WanHasAnimationGroup for more detail
+        
+        r0: sprite id in the WAN table
+        r1: animation group id
+        return: whether the associated sprite has the given animation group
+    - name: SpriteTypeInWanTable
+      address:
+        EU: 0x201DD0C
+      description: |-
+        Look up the sprite in the WAN table, and return its type
+        
+        r0: sprite id in the WAN table
+        return: sprite type
     - name: LoadWteFromRom
       address:
         EU: 0x201DEE8
@@ -5708,9 +5736,10 @@ arm9:
           - 0x2052A44
           - 0x2052A60
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Return the sprite index for this monster (inside m_attack.bin, m_ground.bin and monster.bin)
+        All three sprites have the same index
         
-        r0: id
+        r0: monster id
         return: sprite index
     - name: GetDexNumber
       address:
@@ -9508,15 +9537,16 @@ arm9:
         [Runtime] Points to the contents of the move data table loaded from waza_p.bin
         
         type: struct move_data_table*
-    - name: LOADED_WAN_TABLE_PTR
+    - name: WAN_TABLE
       address:
+        EU: 0x20B0524
         NA: 0x20AFC68
       length:
         NA: 0x4
       description: |-
-        pointer to a wan table
+        pointer to the list of wan sprite loaded in RAM
         
-        Note: unverified, ported from Irdkwia's notes
+        struct wan_table*
     - name: LANGUAGE_INFO_DATA
       address:
         EU: 0x20B05A8
