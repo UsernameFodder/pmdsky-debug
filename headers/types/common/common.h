@@ -125,20 +125,13 @@ struct dialog_box {
 };
 ASSERT_SIZE(struct dialog_box, 224);
 
-// Structure for dialog boxes with portraits?
+// Represent a portrait that appear inside a dialogue box
 struct portrait_box {
-    undefined field_0x0;
-    undefined field_0x1;
-    undefined field_0x2;
+    struct monster_id_16 monster_id;
+    struct portrait_emotion_8 portrait_emotion;
     undefined field_0x3;
-    undefined field_0x4;
-    undefined field_0x5;
-    undefined field_0x6;
-    undefined field_0x7;
-    undefined field_0x8;
-    undefined field_0x9;
-    undefined field_0xa;
-    undefined field_0xb;
+    undefined4 field_0x4;
+    undefined4 field_0x8;
     undefined field_0xc;
     undefined field_0xd;
     undefined field_0xe;

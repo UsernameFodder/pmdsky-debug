@@ -33,6 +33,8 @@ void AllocAndInitPartnerFollowDataAndLiveActorList(void);
 void InitPartnerFollowDataAndLiveActorList(void);
 void DeleteLiveActor(int16_t actor_id);
 void InitPartnerFollowData(void);
+void GetDirectionLiveActor(struct live_actor* actor, struct direction_id_8* target);
+void SetDirectionLiveActor(struct live_actor* actor, struct direction_id_8 direction);
 void GetExclusiveItemRequirements(undefined param_1, undefined param_2);
 void StatusUpdate(void);
 
