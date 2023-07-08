@@ -1818,7 +1818,8 @@ struct touchscreen_area {
 };
 ASSERT_SIZE(struct touchscreen_area, 16);
 
-// Store data about the currently loaded attack sprite, including the sprite itself
+// Store the currently loaded attack sprite
+// It’s a unpacked WAN file
 struct loaded_attack_sprite_data {
     undefined1 file_content[106496];
     uint16_t loaded_sprite_id; // 0 for none

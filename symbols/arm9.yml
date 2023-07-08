@@ -5736,7 +5736,8 @@ arm9:
           - 0x2052A44
           - 0x2052A60
       description: |-
-        Return the index for the three wan sprite of this monster
+        Return the sprite index for this monster (inside m_attack.bin, m_ground.bin and monster.bin)
+        All three sprites have the same index
         
         r0: monster id
         return: sprite index
