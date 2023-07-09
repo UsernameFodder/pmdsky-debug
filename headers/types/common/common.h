@@ -7,7 +7,7 @@
 #include "util.h"
 #include "../dungeon_mode/dungeon_mode_common.h"
 #include "file_io.h"
-#include "./graphics.h"
+#include "graphics.h"
 #include "../files/wan.h"
 
 // Program position info (basically stack trace info) for debug logging.

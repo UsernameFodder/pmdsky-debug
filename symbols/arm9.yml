@@ -3065,7 +3065,7 @@ arm9:
       address:
         EU: 0x201C14C
       description: |-
-        Initialise the animation_control structure, and set a certain value in a bitflag to 1
+        Initialize the animation_control structure, and set a certain value in a bitflag to 1
         
         r0: animation_control
     - name: InitAnimationControlWithSetClone
@@ -3073,7 +3073,7 @@ arm9:
         EU: 0x201C168
       description: |-
         Identical to InitAnimationControlWithSet
-        Initialise the animation_control structure, and set a certain value in a bitflag to 1
+        Initialize the animation_control structure, and set a certain value in a bitflag to 1
         
         r0: animation_control
     - name: DeleteWanTableEntry
@@ -3740,7 +3740,7 @@ arm9:
       address:
         EU: 0x202A1DC
       description: |-
-        Load an initialise the alert sprite, storing the result in ALERT_ANIMATION_CONTROL
+        Load and initialise the alert sprite, storing the result in ALERT_ANIMATION_CONTROL
         
         No params.
     - name: CreateNormalMenu

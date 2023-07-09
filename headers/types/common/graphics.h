@@ -1,10 +1,10 @@
 #ifndef HEADERS_TYPES_COMMON_GRAPHICS_H_
 #define HEADERS_TYPES_COMMON_GRAPHICS_H_
 
-// Structure related to rendering the graphics not specific to any mode
+// Structures related to rendering graphics not specific to any mode
 
-// Contain data relating to animation
-// mentionned under the name of "AnimeCtrl" in a debug message
+// Contains data relating to animation.
+// Mentioned under the name of "AnimeCtrl" in a debug message.
 struct animation_control {
     uint16_t some_bitfield;
     undefined2 field1_0x2;
@@ -15,8 +15,8 @@ struct animation_control {
     undefined2 field6_0xc;
     undefined field7_0xe;
     undefined field8_0xf;
-    undefined2
-        field9_0x10[6]; // appears to be a a structure used for unknown purpose with 6 2-bytes value
+    // appears to be a structure used for unknown purpose with 6 2-byte value
+    undefined2 field9_0x10[6];
     undefined2 field10_0x1c;
     undefined2 field11_0x1e;
     undefined2 field12_0x20;
