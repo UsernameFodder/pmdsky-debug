@@ -236,7 +236,9 @@ ASSERT_SIZE(struct script_object, 12);
 
 // Data relating to animation
 struct animation {
-    undefined fields[196];
+    undefined2 field_0x0[6]; // sometimes copied to field9_0x10 of animation_control
+    struct animation_control* sub;
+    undefined fields[180];
 };
 ASSERT_SIZE(struct animation, 196);
 
@@ -325,9 +327,6 @@ struct live_actor {
     undefined field_0x189;
     undefined field_0x18a;
     undefined field_0x18b;
-    // Probably? This is known to be a 196-byte struct relating to animation.
-    // struct animation is confirmed in a different context than this field,
-    // but it seems too coincidental for this field to be a different struct.
     struct animation animation;
 };
 ASSERT_SIZE(struct live_actor, 592);

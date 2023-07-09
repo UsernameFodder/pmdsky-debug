@@ -307,6 +307,9 @@ void PlaySeFullSpec(int param_1, int param_2, int param_3, int param_4);
 void SeChangeVolume(int param_1, int param_2, int param_3);
 void SeChangePan(int param_1, int param_2, int param_3);
 void StopSe(int param_1, int param_2);
+void InitAnimationControl(struct animation_control*);
+void InitAnimationControlWithSet(struct animation_control*);
+void InitAnimationControlWithSetClone(struct animation_control*);
 void DeleteWanTableEntry(struct wan_table* wan_table, int wan_id);
 int AllocateWanTableEntry(struct wan_table* wan_table);
 int FindWanTableEntry(struct wan_table* wan_table, const char* path);
@@ -373,6 +376,8 @@ int GetTalkLine(int personality_idx, int group_id, int restrictions);
 void SetScreenWindowsColor(int palette_idx, bool upper_screen);
 void SetBothScreensWindowsColor(int palette_idx);
 undefined* GetDialogBoxField0xC(int dbox_id);
+void LoadCursors(void);
+void LoadAlert(void);
 int CreateNormalMenu(undefined* layout, int menu_flags, undefined* additional_info, undefined* menu,
                      int option_id);
 void FreeNormalMenu(int menu_id);
