@@ -57,11 +57,11 @@ struct animation_control {
     undefined field45_0x65;
     undefined field46_0x66;
     undefined field47_0x67;
-    undefined* sprite_override; /* seems to point to a SIRO file containing another sprite, that is
-                                   sometimes used instead of the one specified in loaded_sprite_id
-                                   (maybe it is loaded_sprite_id but looked up?) */
+    // seems to point to a SIRO file containing another sprite, that is sometimes used instead of
+    // the one specified in loaded_sprite_id (maybe it is loaded_sprite_id but looked up?)
+    undefined* sprite_override;
     undefined4 field49_0x6c;
-    uint16_t loaded_sprite_id; /* id in the WAN_TABLE static list */
+    uint16_t loaded_sprite_id; // id in the WAN_TABLE static list
     undefined2 field51_0x72;
     undefined field52_0x74;
     undefined field53_0x75;
