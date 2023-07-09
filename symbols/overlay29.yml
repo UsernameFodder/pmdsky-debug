@@ -976,7 +976,7 @@ overlay29:
         NA: 0x22EAE14
         JP: 0x22EC47C
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Replace the currently playing music with the provided music
         
         r0: music ID
     - name: TrySwitchPlace
@@ -6985,6 +6985,15 @@ overlay29:
         r0: user entity pointer
         r1: message ID
         r2: bool, whether or not to present a message popup
+    - name: InitPortraitDungeon
+      address:
+        EU: 0x234C6C0
+      description: |-
+        Initialize the portrait box structure for the given monster and expression
+        
+        r0: pointer the portrait box data structure to initialize
+        r1: monster id
+        r2: emotion id
     - name: OpenMessageLog
       address:
         EU: 0x234C75C
@@ -7044,7 +7053,7 @@ overlay29:
       description: |-
         Displays a message in a dialogue box that optionally waits for player input before closing.
         
-        r0: ?
+        r0: pointer to the structure representing the desired state of the portrait
         r1: ID of the string to display
         r2: True to wait for player input before closing the dialogue box, false to close it automatically once all the characters get printed.
     - name: DisplayMessage2
@@ -7076,7 +7085,7 @@ overlay29:
         
         r0: ID of the string to display
         r1: True to wait for player input before closing the dialogue box, false to close it automatically once all the characters get printed.
-        r2: ? (r0 in DisplayMessage)
+        r2: pointer to the structure representing the desired state of the portrait
         r3: ?
         stack[0]: ?
         stack[1]: ?

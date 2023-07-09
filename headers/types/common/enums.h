@@ -708,6 +708,35 @@ enum monster_id {
 ENUM_16_BIT(monster_id);
 #pragma pack(pop)
 
+// Emotion for portraits
+enum portrait_emotion {
+    PORTRAIT_NORMAL = 0,
+    PORTRAIT_HAPPY = 1,
+    PORTRAIT_PAIN = 2,
+    PORTRAIT_ANGRY = 3,
+    PORTRAIT_WORRIED = 4,
+    PORTRAIT_SAD = 5,
+    PORTRAIT_CRYING = 6,
+    PORTRAIT_SHOUTING = 7,
+    PORTRAIT_TEARY_EYED = 8,
+    PORTRAIT_DETERMINED = 9,
+    PORTRAIT_JOYOUS = 10,
+    PORTRAIT_INSPIRED = 11,
+    PORTRAIT_SURPRISED = 12,
+    PORTRAIT_DIZZY = 13,
+    PORTRAIT_SPECIAL0 = 14,
+    PORTRAIT_SPECIAL1 = 15,
+    PORTRAIT_SIGH = 16,
+    PORTRAIT_STUNNED = 17,
+    PORTRAIT_SPECIAL2 = 18,
+    PORTRAIT_SPECIAL3 = 19,
+};
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(portrait_emotion);
+#pragma pack(pop)
+
 // Item ID
 enum item_id {
     ITEM_NOTHING = 0,

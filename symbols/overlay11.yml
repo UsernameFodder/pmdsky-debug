@@ -356,6 +356,24 @@ overlay11:
         Initialize the partner follow data structure, without allocating it (in GROUND_STATE_PTRS)
         
         No params.
+    - name: GetDirectionLiveActor
+      address:
+        EU: 0x22FDB48
+      description: |-
+        Put the direction of the actor in the destination
+        
+        r0: live actor
+        r1: destination address (1 byte)
+    - name: SetDirectionLiveActor
+      address:
+        EU: 0x22FDB58
+      description: |-
+        Store the direction in the actor structure
+        -1 input is ignored
+        Unsure if this change the animation
+        
+        r0: live actor
+        r1: direction
     - name: SprintfStatic
       address:
         EU: 0x2309868
