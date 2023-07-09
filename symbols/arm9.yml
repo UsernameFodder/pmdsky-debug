@@ -3063,16 +3063,10 @@ arm9:
         r0: animation_control
     - name: InitAnimationControlWithSet
       address:
-        EU: 0x201C14C
+        EU:
+          - 0x201C14C
+          - 0x201C168
       description: |-
-        Initialize the animation_control structure, and set a certain value in a bitflag to 1
-        
-        r0: animation_control
-    - name: InitAnimationControlWithSetClone
-      address:
-        EU: 0x201C168
-      description: |-
-        Identical to InitAnimationControlWithSet
         Initialize the animation_control structure, and set a certain value in a bitflag to 1
         
         r0: animation_control

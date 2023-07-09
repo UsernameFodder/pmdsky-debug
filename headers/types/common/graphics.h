@@ -1,6 +1,8 @@
 #ifndef HEADERS_TYPES_COMMON_GRAPHICS_H_
 #define HEADERS_TYPES_COMMON_GRAPHICS_H_
 
+#include "../files/wan.h"
+
 // Structures related to rendering graphics not specific to any mode
 
 // Contains data relating to animation.
@@ -43,12 +45,12 @@ struct animation_control {
     undefined field33_0x45;
     undefined field34_0x46;
     undefined field35_0x47;
-    struct WanAnimationFrame** field36_0x48;
-    struct WanAnimationFrame** field37_0x4c;
-    struct WanOffset* wan_offsets;
+    struct wan_animation_frame** field36_0x48;
+    struct wan_animation_frame** field37_0x4c;
+    struct wan_offset* wan_offsets;
     undefined* wan_frames;
     void** wan_fragments_byte_store;
-    struct WanPalettes* wan_palettes;
+    struct wan_palettes* wan_palettes;
     uint16_t wan_is_256_color;
     uint16_t id_of_something;
     undefined field44_0x64;
