@@ -7199,6 +7199,22 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         No params.
+    - name: EnableVramBanksInSetDontSave
+      address:
+        EU: 0x2076744
+        NA: 0x20763AC
+      description: |-
+        Enable the VRAM bank marked in the input set, but don’t mark them as enabled in ENABLED_VRAM_BANKS
+        
+        r0: vram_banks_set
+    - name: EnableVramBanksInSet
+      address:
+        EU: 0x2077460
+        NA: 0x20770C8
+      description: |-
+        Enable the VRAM banks in the input set. Will reset the pointed set to 0, and update ENABLED_VRAM_BANKS
+        
+        r0: vram_banks_set *
     - name: ClearIrqFlag
       address:
         EU: 0x207BB68

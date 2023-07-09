@@ -727,6 +727,8 @@ enum dungeon_mode GetDungeonModeSpecial(enum dungeon_id dungeon_id);
 int ResumeBgm(undefined4 param_1, undefined4 param_2, undefined4 param_3);
 int FlushChannels(undefined* param_1, int param_2, int param_3);
 void UpdateChannels(void);
+void EnableVramBanksInSetDontSave(struct vram_banks_set vram_banks);
+void EnableVramBanksInSet(struct vram_banks_set* vram_banks);
 int ClearIrqFlag(void);
 int EnableIrqFlag(void);
 int SetIrqFlag(int new_value);
