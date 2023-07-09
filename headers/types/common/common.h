@@ -125,7 +125,7 @@ struct dialog_box {
 };
 ASSERT_SIZE(struct dialog_box, 224);
 
-// Represent a portrait that appear inside a dialogue box
+// Represents a portrait that appears inside a dialogue box
 struct portrait_box {
     struct monster_id_16 monster_id;
     struct portrait_emotion_8 portrait_emotion;

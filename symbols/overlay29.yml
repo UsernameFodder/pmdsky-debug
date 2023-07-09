@@ -6989,7 +6989,7 @@ overlay29:
       address:
         EU: 0x234C6C0
       description: |-
-        Initialise the portrait box structure for the given monster and expression
+        Initialize the portrait box structure for the given monster and expression
         
         r0: pointer the portrait box data structure to initialize
         r1: monster id
@@ -7085,7 +7085,7 @@ overlay29:
         
         r0: ID of the string to display
         r1: True to wait for player input before closing the dialogue box, false to close it automatically once all the characters get printed.
-        r2: ? (r0 in DisplayMessage)
+        r2: pointer to the structure representing the desired state of the portrait
         r3: ?
         stack[0]: ?
         stack[1]: ?

@@ -729,7 +729,7 @@ enum portrait_emotion {
     PORTRAIT_SIGH = 16,
     PORTRAIT_STUNNED = 17,
     PORTRAIT_SPECIAL2 = 18,
-    PORTRAIT_SPECIAL3 = 19
+    PORTRAIT_SPECIAL3 = 19,
 };
 
 // This is usually stored as an 8-bit integer
