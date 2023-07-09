@@ -298,6 +298,13 @@ ram:
         See the comments on struct team_member_table for more information.
         
         type: struct team_member_table
+    - name: ENABLED_VRAM_BANKS
+      address:
+        EU: 0x22B9ECC
+      description: |-
+        Bitset of enabled VRAM banks
+        
+        type: vram_banks_set
     - name: FRAMES_SINCE_LAUNCH_TIMES_THREE
       address:
         EU: 0x22BA304

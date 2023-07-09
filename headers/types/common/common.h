@@ -932,6 +932,20 @@ struct wan_table {
 };
 ASSERT_SIZE(struct wan_table, 5392);
 
+// Store one boolean per vram bank
+struct vram_banks_set {
+    bool vram_A : 1;
+    bool vram_B : 1;
+    bool vram_C : 1;
+    bool vram_D : 1;
+    bool vram_E : 1;
+    bool vram_F : 1;
+    bool vram_G : 1;
+    bool vram_H : 1;
+    bool vram_I : 1;
+};
+ASSERT_SIZE(struct vram_banks_set, 2);
+
 // TODO: Add more data file structures, as convenient or needed, especially if the load address
 // or pointers to the load address are known.
 
