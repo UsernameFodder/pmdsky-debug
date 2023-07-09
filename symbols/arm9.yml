@@ -3054,6 +3054,22 @@ arm9:
         NA: 0x201A9E4
         JP: 0x201AA3C
       description: "Note: unverified, ported from Irdkwia's notes"
+    - name: InitAnimationControl
+      address:
+        EU: 0x201C0EC
+      description: |-
+        Initialize the animation_control structure
+        
+        r0: animation_control
+    - name: InitAnimationControlWithSet
+      address:
+        EU:
+          - 0x201C14C
+          - 0x201C168
+      description: |-
+        Initialize the animation_control structure, and set a certain value in a bitflag to 1
+        
+        r0: animation_control
     - name: DeleteWanTableEntry
       address:
         EU: 0x201D278
@@ -3688,6 +3704,13 @@ arm9:
         
         r0: dbox_id
         return: field_0xc
+    - name: LoadCursors
+      address:
+        EU: 0x2029800
+      description: |-
+        Load and initialise the cursor and cursor16 sprites, storing the result in CURSOR_ANIMATION_CONTROL and CURSOR_16_ANIMATION_CONTROL
+        
+        No params.
     - name: Arm9LoadUnkFieldNa0x2029EC8
       address:
         EU: 0x202A1BC
@@ -3707,6 +3730,13 @@ arm9:
         
         r0: id
         r1: value
+    - name: LoadAlert
+      address:
+        EU: 0x202A1DC
+      description: |-
+        Load and initialise the alert sprite, storing the result in ALERT_ANIMATION_CONTROL
+        
+        No params.
     - name: CreateNormalMenu
       address:
         EU: 0x202B3E0
