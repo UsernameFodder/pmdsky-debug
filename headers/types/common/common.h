@@ -943,6 +943,7 @@ struct vram_banks_set {
     bool vram_G : 1;
     bool vram_H : 1;
     bool vram_I : 1;
+    uint8_t _unused : 7;
 };
 ASSERT_SIZE(struct vram_banks_set, 2);
 

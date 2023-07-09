@@ -301,6 +301,10 @@ ram:
     - name: ENABLED_VRAM_BANKS
       address:
         EU: 0x22B9ECC
+        NA: 0x22B958C
+      length:
+        EU: 0x2
+        NA: 0x2
       description: |-
         Bitset of enabled VRAM banks
         
