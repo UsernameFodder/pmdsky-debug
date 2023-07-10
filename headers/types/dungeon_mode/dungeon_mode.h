@@ -1588,8 +1588,10 @@ ASSERT_SIZE(struct message_tip, 8);
 // Map marker entry in the map marker placements list. These determine where a dungeon
 // appears on the Wonder Map.
 struct map_marker {
-    // [Untested] Which map this marker belongs to. For example, the main world, the Hidden Land
+    // Which map this marker belongs to. For example, the main world, the Hidden Land
     // map, maps in the Special Episodes, etc.
+    // The game only use it to check if the marker is correct, but not to decide which map to
+    // display
     uint16_t map_id;
     // If not -1, this map marker is a reference to some other map marker, with an index indicated
     // by this field

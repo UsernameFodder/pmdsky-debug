@@ -36,6 +36,8 @@ void InitPartnerFollowData(void);
 void GetDirectionLiveActor(struct live_actor* actor, struct direction_id_8* target);
 void SetDirectionLiveActor(struct live_actor* actor, struct direction_id_8 direction);
 void GetExclusiveItemRequirements(undefined param_1, undefined param_2);
+void WorldMapSetMode(uint32_t world_map_mode);
+void WorldMapSetCamera(uint32_t map_marker_id);
 void StatusUpdate(void);
 
 #endif

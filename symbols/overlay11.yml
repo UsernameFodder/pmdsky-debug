@@ -395,6 +395,26 @@ overlay11:
         
         r0: ?
         r1: ?
+    - name: WorldMapSetMode
+      address:
+        EU: 0x230F9A0
+        NA: 0x230F004
+      description: |-
+        Function called by the script function "worldmap_SetMode"
+        Define the mode of the world map, which can among other be used to decide if the player character should appear on the world map
+        The mode is set even if no world map is set
+        
+        r0: world map mode
+    - name: WorldMapSetCamera
+      address:
+        EU: 0x230FA60
+        NA: 0x230F0C4
+      description: |-
+        Function called with the script function "worldmap_SetCamera".
+        Set the map marker the worldmap should try to center (while still ensuring it doesn’t goes over the background border)
+        Has no effect if no map is currently set
+        
+        r0: map marker id
     - name: StatusUpdate
       address:
         EU: 0x2314478
