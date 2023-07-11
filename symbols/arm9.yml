@@ -772,6 +772,14 @@ arm9:
         
         r0: group ID of the overlay to unload
         others: ?
+    - name: Rgb8ToBgr5
+      address:
+        EU: 0x2004FCC
+      description: |-
+        Transform the input rgb8 color to a bgr5 color
+        
+        r0: pointer to target bgr5 (2 bytes, aligned to LSB)
+        r1: pointer to source rgb8
     - name: EuclideanNorm
       address:
         EU:
@@ -3070,6 +3078,52 @@ arm9:
         Initialize the animation_control structure, and set a certain value in a bitflag to 1
         
         r0: animation_control
+    - name: SetSpriteIdForAnimationControl
+      address:
+        EU: 0x201C184
+      description: |-
+        Set the sprite id (from WAN_TABLE) into the given animation control
+        Also set field 0x72 to the sprite id if they differ
+        If they differ, it’ll also set field 0x43 to 0xFF
+        
+        r0: animation control
+        r1: sprite id in WAN_TABLE
+    - name: GetWanForAnimationControl
+      address:
+        EU: 0x201C484
+      description: |-
+        Return the wan to use for the given animation control
+        Return the override if it exist, otherwise look-up the sprite id in WAN_TABLE
+        
+        r0: animation_control
+        return: wan_header
+    - name: SwitchAnimationControlToNextFrame
+      address:
+        EU: 0x201C4F4
+      description: |-
+        Handle switching to the next frame of an animation control, including looping.
+        
+        r0: animation_control
+    - name: LoadAnimationFrameAndIncrementInAnimationControl
+      address:
+        EU: 0x201C5FC
+      description: |-
+        Read some value of the input animation frame, and update animation control with it.
+        Also switch next_animation_frame of animation_control to the next animation frame
+        Seems to only be called on said next_animation_frame
+        Also set bit of some_bitfield at 0x0800 to 1
+        
+        r0: animation_control
+        r1: animation_frame
+    - name: AnimationControlGetAllocForMaxFrame
+      address:
+        EU: 0x201D20C
+      description: |-
+        Return the maximum allocation for a frame of this sprite, as stored in the WAN file
+        Return 0 if missing and takes sprite override into account
+        
+        r0: animation_control
+        return: allocation for max frame
     - name: DeleteWanTableEntry
       address:
         EU: 0x201D278
