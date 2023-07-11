@@ -360,7 +360,7 @@ ram:
       length:
         EU: 0x4
         NA: 0x4
-      description: Store the current world map
+      description: The current world map
     - name: SENTRY_DUTY_STRUCT
       address:
         NA: 0x237A5D0
