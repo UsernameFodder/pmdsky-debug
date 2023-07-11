@@ -15,7 +15,7 @@ ASSERT_SIZE(struct rgba, 4);
 // BGR5 color
 struct bgr5 {
     uint8_t r : 5;
-    // the g value is split in two due to how C use those kind of field
+    // Note that the g value is split in two to reflect its actual memory layout
     uint8_t g_low : 3;
     uint8_t g_high : 2;
     uint8_t b : 5;

@@ -49,8 +49,9 @@ struct wan_animation_group {
     // first level is animations, second is frame pointer
     struct wan_animation_frame** pnt;
     uint16_t len;
-    uint16_t loop_start; // The frame offset relative to the first frame of the animation that will
-                         // be used instead of the first frame when looping the animation.
+    // The frame offset relative to the first frame of the animation that will be used instead of
+    // the first frame when looping the animation.
+    uint16_t loop_start;
 };
 ASSERT_SIZE(struct wan_animation_group, 8);
 

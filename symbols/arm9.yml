@@ -3082,7 +3082,7 @@ arm9:
       address:
         EU: 0x201C184
       description: |-
-        Set the sprite id (from WAN_TABLE) into the given animation control
+        Set the sprite id (from WAN_TABLE) in the given animation control
         Also set field 0x72 to the sprite id if they differ
         If they differ, it’ll also set field 0x43 to 0xFF
         
@@ -3092,8 +3092,8 @@ arm9:
       address:
         EU: 0x201C484
       description: |-
-        Return the wan to use for the given animation control
-        Return the override if it exist, otherwise look-up the sprite id in WAN_TABLE
+        Return the WAN to use for the given animation control
+        Return the override if it exists, otherwise look up the sprite id in WAN_TABLE
         
         r0: animation_control
         return: wan_header

@@ -35,9 +35,9 @@ struct animation_control {
     undefined2 field25_0x3c;
     undefined field26_0x3e;
     undefined field27_0x3f;
-    uint8_t palette_pos_high; // Used to determine where to store the palette’s colors. Multiplied
-                              // by 0x100
-    uint8_t palette_pos_low;  // Used to determine where to store the palette’s colors
+    // Used to determine where to store the palette's colors. Multiplied by 0x100
+    uint8_t palette_pos_high;
+    uint8_t palette_pos_low; // Used to determine where to store the palette's colors
     undefined field30_0x42;
     undefined field31_0x43;
     undefined field32_0x44;
