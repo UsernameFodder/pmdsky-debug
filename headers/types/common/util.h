@@ -12,6 +12,17 @@ struct rgba {
 };
 ASSERT_SIZE(struct rgba, 4);
 
+// BGR5 color
+struct bgr5 {
+    uint8_t r : 5;
+    // Note that the g value is split in two to reflect its actual memory layout
+    uint8_t g_low : 3;
+    uint8_t g_high : 2;
+    uint8_t b : 5;
+    uint8_t padding : 1; // maybe transparency sometimes
+};
+ASSERT_SIZE(struct bgr5, 2);
+
 // a 2d uint (32bit) vector
 struct uvec2 {
     uint32_t x;
