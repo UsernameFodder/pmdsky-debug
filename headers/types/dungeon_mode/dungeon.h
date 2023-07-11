@@ -546,7 +546,9 @@ struct dungeon {
     struct mission_destination_info mission_destination;
     undefined field_0x77c;
     undefined field_0x77d;
-    undefined field_0x77e;
+    // 0x77E: Appears to track if the player has already been healed by Mime Jr. to change
+    // the dialogue. Initalized to 0 using MemZero?
+    bool bazaar_mime_jr_heal;
     undefined field_0x77f;
     // 0x780: Controls when a monster at a certain speed stage is able to act.
     // Increased by 1-4 each turn, depending on the team leader's speed level:
@@ -592,7 +594,10 @@ struct dungeon {
     // 0x799: Determines which message to display when the leader's belly reaches 0. Goes up
     // to 0x9 (9), but only displays a unique message for 0x1, 0x2, and 0x3.
     uint8_t leader_hunger_message_tracker;
-    undefined field_0x79a; // 0x79A: Initialized to 0x0.
+    // 0x79A: Keeps track of which animation/message to display as the turn limit ticks down. This ensures
+    // that even if the number of turns given to a player is less than the number where an animation would
+    // play, it will still play.
+    uint8_t turn_limit_warning_tracker;
     // 0x79B: Number of times you can be rescued in this dungeon
     int8_t rescue_attempts_left;
     uint32_t prng_seed;                  // 0x79C: The dungeon PRNG seed, if set
@@ -1084,8 +1089,7 @@ struct dungeon {
     // 0x3DCC: Appears to be a table that holds the statuses::statuses_unique_id value for
     // the monsters. Maybe just for convenience to avoid loading it from every monster?
     uint32_t monster_unique_id[20];
-    // 0x3E1C: Appears to be be an index inside dungeon::active_monsters_unique_statuses_ids.
-    // Uncertain what this index is used for.
+    // 0x3E1C: Appears to be be an index inside or length for dungeon::active_monsters_unique_statuses_ids.
     uint32_t unique_id_index;
     // 0x3E20: Number of valid monster spawn entries (see spawn_entries).
     int monster_spawn_entries_length;
@@ -1144,8 +1148,9 @@ struct dungeon {
     undefined field_0xcd0a;
     undefined field_0xcd0b;
     // 0xCD0C: Appears to be an array for the team. Likely only the first 4 entries are used.
-    // Somehow related to controlling the animations for the team? Initialized to 0xFF (-1).
-    int8_t unk_team_animation_array[8];
+    // Possibly related to dungeon_generation_info::individual_team_spawn_positions? Possibly the direction to spawn each
+    // team member in?
+    enum direction_id unk_team_direction_array[8];
     // Min x of the generated Kecleon shop, if it exists. This reflects the original generation, and
     // is not updated if some shop tiles are deleted by later steps in floor generation
     int kecleon_shop_min_x; // 0xCD14: inclusive
@@ -1313,7 +1318,9 @@ struct dungeon {
     undefined field_0xd2dd;
     undefined field_0xd2de;
     undefined field_0xd2df;
-    undefined field_0xd2e0;
+    // 0xD2E0: Appears to keep track of what tiles are the fixed room tiles when generating
+    // a fixed room that isn't the whole floor.
+    uint8_t fixed_room_room_index;
     undefined field_0xd2e1;
     undefined field_0xd2e2;
     undefined field_0xd2e3;
@@ -1342,6 +1349,7 @@ struct dungeon {
     // since they get initialized together.
     uint16_t unknown_matrix_0x1212C[9][3];
     // 0x12162: Buffer to store some AT4PX file after being decompressed
+    // This is somehow related to tile::texture_id and tile variations?
     uint8_t unknown_file_buffer_0x12162[2352];
     // 0x12A92: Unknown array, probably related to unknown_tile_matrix
     // since they get initialized together.

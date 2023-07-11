@@ -1264,6 +1264,14 @@ overlay29:
         
         r0: attacker entity pointer
         r1: defender entity pointer
+    - name: ApplyStealthRockTrapEffect
+      address:
+        NA: 0x22EEE50
+      description: |-
+        Tries to apply the damage from the stealth rock trap but does nothing if the defender is a rock type.
+        
+        r0: attacker entity pointer
+        r1: defender entity pointer
     - name: ApplyToxicSpikesTrapEffect
       address:
         NA: 0x22EEEEC
@@ -1317,6 +1325,17 @@ overlay29:
         Reveals traps within the monster's viewing range.
         
         r0: entity pointer
+    - name: ShouldMonsterRunAI
+      address:
+        NA: 0x22EF9EC
+      description: |-
+        Checks a monster's monster_behavior to see whether or not the monster should use AI. Only called on monsters with
+        a monster_behavior greater than or equal to 6. Returns false for BEHAVIOR_FIXED_ENEMY, 
+        BEHAVIOR_WANDERING_ENEMY_0x8, BEHAVIOR_SECRET_BAZAAR_KIRLIA, BEHAVIOR_SECRET_BAZAAR_MIME_JR,
+        BEHAVIOR_SECRET_BAZAAR_SWALOT, BEHAVIOR_SECRET_BAZAAR_LICKILICKY, and BEHAVIOR_SECRET_BAZAAR_SHEDINJA.
+        
+        r0: monster entity pointer
+        return: bool
     - name: DebugRecruitingEnabled
       address:
         EU: 0x22F0420
@@ -1328,6 +1347,13 @@ overlay29:
         Seems to be a function used during development to disable recruiting. If it returns false, SpecificRecruitCheck will also return false.
         
         return: true
+    - name: TryActivateIQBooster
+      address:
+        NA: 0x22EFA74
+      description: |-
+        If floor_properties::iq_booster_value is more than 0, increasces the IQ of all team members holding the IQ Booster.
+        
+        No params.
     - name: IsSecretBazaarNpcBehavior
       address:
         EU: 0x22F04B8
@@ -1976,6 +2002,14 @@ overlay29:
         Executes the set action for the specified monster. Used for both AI actions and player-inputted actions. If the action is not ACTION_NOTHING, ACTION_PASS_TURN, ACTION_WALK or ACTION_UNK_4, the monster's already_acted field is set to true. Includes a switch based on the action ID that performs the action, although some of them aren't handled by said swtich.
         
         r0: Pointer to monster entity
+    - name: TryActivateFlashFireOnAllMonsters
+      address:
+        NA: 0x22FF168
+      description: |-
+        Checks every monster for apply_flash_fire_boost. If it's true, activates Flash Fire for the monster and sets
+        apply_flash_fire_boost back to false.
+        
+        No params.
     - name: HasStatusThatPreventsActing
       address:
         EU: 0x22FFBF4
@@ -2633,6 +2667,28 @@ overlay29:
         
         r0: pointer to user
         r1: pointer to target
+    - name: TryRemoveSnatchedMonsterFromDungeonStruct
+      address:
+        NA: 0x23066D8
+      description: |-
+        If the target is afflicted with snatch, change dungeon::snatch_monster and dungeon::snatch_status_unique_id back
+        to NULL and 0 respectively. This function does not actually remove the status and visual flags for snatch from
+        the monster, it simply removes it from the dungeon struct. After calling, the user should ensure the monster
+        does not still have the snatch status.
+        
+        r0: pointer to user
+        r1: pointer to target
+    - name: EndCurseClassStatus
+      address:
+        NA: 0x2306728
+      description: |-
+        Removes the target's curse (1), decoy (2), snatch (3), gastro acid (4), heal block (5), or embargo (6) status
+        due to the action of the user, and prints the event to the log.
+        
+        r0: pointer to user
+        r1: pointer to target
+        r2: curse class status being afflicted after (0 is the status is only being removed)
+        r3: flag to log a message
     - name: EndLeechSeedClassStatus
       address:
         NA: 0x23068C4
@@ -2646,6 +2702,25 @@ overlay29:
         NA: 0x2306950
       description: |-
         Removes the target's sure shot, whiffer, set damage or focus energy status due to the action of the user, and prints the event to the log.
+        
+        r0: pointer to user
+        r1: pointer to target
+    - name: EndInvisibleClassStatus
+      address:
+        NA: 0x2306A00
+      description: |-
+        Removes the target's invisible, transformed, mobile, or slip status due to the action of the user, and prints
+        the event to the log.
+        
+        r0: pointer to user
+        r1: pointer to target
+        r2: flag to not log a message when removing slip status
+    - name: EndBlinkerClassStatus
+      address:
+        NA: 0x2306B28
+      description: |-
+        Removes the target's blinker, cross-eyed, eyedrops, or dropeye status due to the action of the user, and
+        prints the event to the log.
         
         r0: pointer to user
         r1: pointer to target
@@ -2683,6 +2758,31 @@ overlay29:
         r0: user entity pointer
         r1: target entity pointer
         return: Whether or not the status could be transferred
+    - name: EndFrozenStatus
+      address:
+        NA: 0x2307C78
+      description: |-
+        Cures the target's freeze status due to the action of the user.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: EndProtectStatus
+      address:
+        NA: 0x2307D18
+      description: |-
+        Ends the target's protect status due to the action of the user.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+    - name: TryRestoreRoostTyping
+      address:
+        NA: 0x2307D54
+      description: |-
+        Tries to restore the target's original typings before the Roost effect took place. Does nothing if the target
+        is not affected by Roost.
+        
+        r0: user entity pointer
+        r1: target entity pointer
     - name: TryTriggerMonsterHouse
       address:
         EU: 0x2308978
@@ -2867,6 +2967,17 @@ overlay29:
         stack[2]: damage multiplier (as a binary fixed-point number with 8 fraction bits)
         stack[3]: move ID
         stack[4]: flag to account for certain effects (Flash Fire, Reflect, Light Screen, aura bows, Def. Scarf, Zinc Band). Only ever set to false when computing recoil damage for Jump Kick/Hi Jump Kick missing, which is based on the damage that would have been done if the move didn't miss.
+    - name: ApplyDamageAndEffectsWrapper
+      address:
+        NA: 0x230D11C
+      description: |-
+        A wrapper for ApplyDamageAndEffects used for applying damage from sources such as statuses,
+        traps, liquid ooze (ability), hunger, and possibly more.
+        
+        r0: monster entity pointer
+        r1: damage amount
+        r2: damage message
+        r3: damage source
     - name: CalcRecoilDamageFixed
       address:
         EU: 0x230DC00
@@ -2951,6 +3062,16 @@ overlay29:
         
         r0: attacker pointer
         r1: defender pointer
+    - name: UpdateShopkeeperModeAfterTrap
+      address:
+        NA: 0x230D47C
+      description: |-
+        Updates the shopkeeper mode of a monster in response to stepping on a trap.
+        
+        If in the normal shopkeeper mode (not aggressive), nothing happens. Otherwise, the mode is set to SHOPKEEPER_MODE_ATTACK_TEAM if the trap is from a team member or SHOPKEEPER_MODE_ATTACK_ENEMIES otherwise.
+        
+        r0: shopkeeper pointer
+        r1: non team member trap
     - name: ResetDamageCalcDiagnostics
       address:
         EU: 0x230DF9C
@@ -3046,6 +3167,15 @@ overlay29:
         r0: entity pointer
         r1: move category index (0 for physical, 1 for special)
         return: boost
+    - name: TeamMemberHasItemActive
+      address:
+        NA: 0x230F798
+      description: |-
+        Checks if any team member is holding a certain item and puts them into the array given.
+        
+        r0: [output] pointer to array of monsters
+        r1: item ID
+        return: number of team members with the item active
     - name: TeamMemberHasExclusiveItemEffectActive
       address:
         EU: 0x23102B4
@@ -3273,7 +3403,7 @@ overlay29:
         
         r0: user entity pointer
         r1: target entity pointer
-        r2: flag to log a message on failure
+        r2: flag to only perform the check for inflicting without actually inflicting
     - name: TryInflictIngrainStatus
       address:
         EU: 0x2313B90
@@ -3327,8 +3457,8 @@ overlay29:
         r1: target entity pointer
         r2: stat index
         r3: number of stages
-        stack[0]: ?
-        stack[1]: ?
+        stack[0]: flag to check for being protected from stat drops
+        stack[1]: flag to log a message on failure for IsProtectedFromStatDrops
     - name: LowerDefensiveStat
       address:
         EU: 0x2314274
@@ -3341,8 +3471,8 @@ overlay29:
         r1: target entity pointer
         r2: stat index
         r3: number of stages
-        stack[0]: ?
-        stack[1]: ?
+        stack[0]: flag to check for being protected from stat drops
+        stack[1]: flag to log a message on failure for IsProtectedFromStatDrops
     - name: BoostOffensiveStat
       address:
         EU: 0x23143FC
@@ -3380,6 +3510,15 @@ overlay29:
         r0: attacker pointer
         r1: defender pointer
         return: 2 if Flash Fire should activate and raise the defender's boost level, 1 if Flash Fire should activate but the defender's boost level is maxed out, 0 otherwise.
+    - name: ActivateFlashFire
+      address:
+        NA: 0x2313CE4
+      description: |-
+        Actually applies the Flash Fire boost with a message log and animation. Passes the same monster for attacker and
+        defender, but the attacker goes unused.
+        
+        r0: attacker pointer?
+        r1: defender pointer
     - name: ApplyOffensiveStatMultiplier
       address:
         EU: 0x23147A0
@@ -5054,8 +5193,8 @@ overlay29:
         Tries to change the weather based upon the information for each weather type in the
         dungeon struct. Returns whether the weather was succesfully changed or not.
         
-        r0: bool to not play the weather change animation?
-        r1: bool to force weather change? Like play the animation and text for the weather?
+        r0: bool to log message and play animation?
+        r1: bool to force weather change and animation?
         return: True if the weather changed
     - name: DigitCount
       address:
@@ -5147,6 +5286,40 @@ overlay29:
         The first non-full-floor fixed room is 0xA5, which is for Sealed Chambers.
         
         return: bool
+    - name: CountItemsOnFloorForAcuteSniffer
+      address:
+        NA: 0x2336260
+      description: |-
+        Counts the number of items on the floor by checking every tile for an item and stores it into
+        dungeon::item_sniffer_item_count
+        
+        No params.
+    - name: TrySpawnGoldenChamber
+      address:
+        NA: 0x2336224
+      description: |-
+        Changes the tileset and fixed room id of the floor for the Golden Chamber if the floor should be a
+        Golden Chamber.
+        
+        No params.
+    - name: GetStairsSpawnPosition
+      address:
+        NA: 0x23363C0
+      description: |-
+        Gets the spawn position for the stairs and stores it at the passed pointers.
+        
+        r0: [output] pointer to x coordinate
+        r1: [output] pointer to y coordinate
+    - name: PositionIsOnStairs
+      address:
+        NA: 0x23363EC
+      description: |-
+        Checks if this location is on top of the staircase. In the game it is only used to check if an outlaw has reached
+        the staircase.
+        
+        r0: x coordinate
+        r1: y coordinate
+        return: bool
     - name: GetStairsRoom
       address:
         EU: 0x2336FF8
@@ -5156,6 +5329,28 @@ overlay29:
         Returns the index of the room that contains the stairs
         
         return: Room index
+    - name: GetDefaultTileTextureId
+      address:
+        NA: 0x2336450
+      description: |-
+        Returns the texture_id of the default tile?
+        
+        return: texture_id
+    - name: DetermineAllTilesWalkableNeighbors
+      address:
+        NA: 0x2336A4C
+      description: |-
+        Evaluates the walkable_neighbor_flags for all tiles.
+        
+        No params.
+    - name: DetermineTileWalkableNeighbors
+      address:
+        NA: 0x2336A84
+      description: |-
+        Evaluates the walkable_neighbor_flags for the this tile by checking the 8 adjacent tiles.
+        
+        r0: x coordinate
+        r1: y coordinate
     - name: UpdateTrapsVisibility
       address:
         EU: 0x2337B1C
@@ -5174,6 +5369,30 @@ overlay29:
         The discovery radius depends on the visibility range of the floor. If display_data::blinded is true, the function returns early without doing anything.
         
         r0: Position around which the map should be discovered
+    - name: PositionHasItem
+      address:
+        NA: 0x2337B2C
+      description: |-
+        Checks if the tile at the position has an item on it.
+        
+        r0: Position to check
+        return: bool
+    - name: PositionHasMonster
+      address:
+        NA: 0x2337B68
+      description: |-
+        Checks if the tile at the position has a monster on it.
+        
+        r0: Position to check
+        return: bool
+    - name: TrySmashWall
+      address:
+        NA: 0x2337B9C
+      description: |-
+        Checks if the tile at the position is a wall. If so, smash it (turn it into a floor tile), play an animation
+        
+        r0: Position to check
+        return: bool
     - name: IsWaterTileset
       address:
         EU: 0x2338A64
@@ -6422,6 +6641,14 @@ overlay29:
         
         r0: Flag(s) to check (0 = f_exists, 1 = f_in_shop, 2 = f_unpaid, etc.)
         return: True if any of the items of the team has the specified flags set, false otherwise.
+    - name: AddHeldItemToBag
+      address:
+        NA: 0x2346F14
+      description: |-
+        Adds the monster's held item to the bag. This is only called on monsters on the exploration team.
+        monster::is_not_team_member should be checked to be false before calling.
+        
+        r0: monster pointer
     - name: GenerateItem
       address:
         EU: 0x2347EC4

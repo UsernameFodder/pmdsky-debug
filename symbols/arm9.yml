@@ -1235,6 +1235,59 @@ arm9:
         
         r0: item ID
         return: bool
+    - name: IsLosableItem
+      address:
+        NA: 0x200CC38
+      description: |-
+        Checks if an item can be lost after fainting in a dungeon. Specifically calls IsAuraBow and checks item::f_in_shop
+        so that the player can't keep an unpaid aura bow they haven't paid for yet.
+        
+        r0: item pointer
+        return: bool
+    - name: IsStorableItem
+      address:
+        NA: 0x200CCA8
+      description: |-
+        Checks if an item can be put into storage. Specifically checks for the Wonder Egg, Poke, and Used TMs. Used TMs
+        likely can't be stored because the move the TM teaches would be lost when sent to storage.
+        
+        r0: item ID
+        return: bool
+    - name: IsShoppableItem
+      address:
+        NA: 0x200CCE0
+      description: |-
+        Checks if an item can be bought and sold from a Kecleon shop. Includes items like the Gold Thorn, Poke, Golden
+        Mask, Amber Tear, etc. Also has a special check to make sure an items buy and sell price is more than 0.
+        
+        r0: item ID
+        return: bool
+    - name: IsValidTargetItem
+      address:
+        NA: 0x200CDAC
+      description: |-
+        Checks if an item is a valid target item for missions. Returns true for any item less than 363. Appears to check a
+        list for valid items above 363, but the list is empty?
+        
+        r0: item ID
+        return: bool
+    - name: IsItemUsableNow
+      address:
+        NA: 0x200CDF8
+      description: |-
+        Checks if an item can be used right now. Returns true for all items that are not in a shop. If the item is in a
+        shop, specifically checks for TMs/HMs and items that provide permanent buffs (Gummis, Sitrus Berry, Ginseng, etc).
+        
+        r0: item pointer
+        return: bool
+    - name: IsTicketItem
+      address:
+        NA: 0x200CE74
+      description: |-
+        Checks if an item is a ticket that can be used in the recycle shop (items 169, 170, 171, and 172).
+        
+        r0: item ID
+        return: bool
     - name: InitItem
       address:
         EU: 0x200CF24

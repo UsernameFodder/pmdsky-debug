@@ -359,7 +359,9 @@ struct monster {
     struct type_id_8 types[2];     // 0x5E
     struct ability_id_8 abilities[2]; // 0x60
     struct item held_item;            // 0x62
-    struct item_id_16 held_item_id;   // 0x68: Appears to be a mirror of held_item.id
+    // 0x68: Previous held item. Used for whenever taking the X-Ray Specs or Y-Ray Specs on or off in order
+    // to update the camera and minimap. Changed to held_item.id after checking.
+    struct item_id_16 previous_held_item_id;
     // Previous position data is used by the AI
     struct position prev_pos;  // 0x6A: Position 1 turn ago
     struct position prev_pos2; // 0x6E: Position 2 turns ago
@@ -423,9 +425,8 @@ struct monster {
     uint16_t state_flags;
     // 0x15A: The previous value of state_bitflags before the last update
     uint16_t prev_state_flags;
-    // 0x15C: Appears to control if there's a log message upon a Flash Fire boost.
-    // A message will only be logged once.
-    bool flash_fire_boost_logged;
+    // 0x15C: Appears to control if flash fire should activate.
+    bool apply_flash_fire_boost;
     // 0x15D: Appears to be a counter for how many times rollout has hit. Likely to be able to
     // determine how much extra damage consecutive rollout hits should deal.
     uint8_t rollout_hit_counter;
@@ -441,7 +442,8 @@ struct monster {
     bool cannot_give_items;
     // 0x162: Related to using a move and either missing or fainting. Set to 1 right before
     // the function for a move is called and set to 0 (sometimes) in ApplyDamage. Gets set
-    // when the monster faints sometimes with field 0x156. Maybe not?
+    // when the monster faints sometimes with field 0x156. When false, causes random
+    // outcomes with the monster to fail.
     bool field_0x162;
     // 0x163: Related to controlling the number of attacks per move use. Possibly to account
     // for two-turn moves?
@@ -486,7 +488,9 @@ struct monster {
     struct direction_id_8 sleep_talk_direction;
     // 0x178: Appears to be the direction for using snore? Set to DIR_NONE when awake.
     struct direction_id_8 snore_direction;
-    undefined field_0x179;
+    // 0x179: Seems to be set to 4 when the monster initally throws something and probably
+    // related to direction somehow. Checked in a loop for every monster.
+    uint8_t field_0x179;
     // 0x17A: Somehow related to sprite size?
     undefined field_0x17a;
     // 0x17B: Somehow related to sprite size?

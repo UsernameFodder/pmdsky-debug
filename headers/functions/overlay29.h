@@ -117,6 +117,7 @@ void ApplySummonTrapEffect(struct entity* monster, struct position* pos);
 void ApplyPpZeroTrapEffect(struct entity* attacker, struct entity* defender);
 void ApplyPokemonTrapEffect(struct entity* monster, struct position* pos);
 void ApplyTripTrapEffect(struct entity* attacker, struct entity* defender);
+void ApplyStealthRockTrapEffect(struct entity* attacker, struct entity* defender);
 void ApplyToxicSpikesTrapEffect(struct entity* attacker, struct entity* defender);
 bool ApplyRandomTrapEffect(struct trap* trap, struct entity* user, struct entity* target,
                            struct tile* tile, struct position* pos);
@@ -124,7 +125,9 @@ void ApplyGrudgeTrapEffect(struct entity* monster, struct position* pos);
 bool ApplyTrapEffect(struct trap* trap, struct entity* user, struct entity* target,
                      struct tile* tile, struct position* pos, enum trap_id, bool random_trap);
 void RevealTrapsNearby(struct entity* monster);
+bool ShouldMonsterRunAI(struct entity* monster);
 bool DebugRecruitingEnabled(void);
+void TryActivateIQBooster(void);
 bool IsSecretBazaarNpcBehavior(enum monster_behavior behavior);
 struct action_16* GetLeaderAction(void);
 void SetLeaderAction(void);
@@ -187,6 +190,7 @@ void MarkShopkeeperSpawn(int x, int y, enum monster_id monster_id, enum monster_
 void SpawnShopkeepers(void);
 void GetOutlawSpawnData(struct spawned_target_data* outlaw);
 void ExecuteMonsterAction(struct entity* monster);
+void TryActivateFlashFireOnAllMonsters(void);
 bool HasStatusThatPreventsActing(struct entity* monster);
 bool IsInvalidSpawnTile(enum monster_id monster_id, struct tile* tile);
 int CalcSpeedStage(struct entity* entity, int counter_weight);
@@ -250,12 +254,18 @@ void EndBurnClassStatus(struct entity* user, struct entity* target);
 void EndFrozenClassStatus(struct entity* user, struct entity* target, bool log);
 void EndCringeClassStatus(struct entity* user, struct entity* target);
 void EndReflectClassStatus(struct entity* user, struct entity* target);
+void TryRemoveSnatchedMonsterFromDungeonStruct(struct entity* user, struct entity* target);
+void EndCurseClassStatus(struct entity* user, struct entity* target, uint8_t next_curse_class_status_being_applied,
+                         bool log_message);
 void EndLeechSeedClassStatus(struct entity* user, struct entity* target);
 void EndSureShotClassStatus(struct entity* user, struct entity* target);
+void EndInvisibleClassStatus(struct entity* user, struct entity* target, bool no_slip_message);
+void EndBlinkerClassStatus(struct entity* user, struct entity* target);
 void EndMuzzledStatus(struct entity* user, struct entity* target);
 void EndMiracleEyeStatus(struct entity* user, struct entity* target);
 void EndMagnetRiseStatus(struct entity* user, struct entity* target);
 bool TransferNegativeBlinkerClassStatus(struct entity* user, struct entity* target);
+void EndFrozenStatus(struct entity* user, struct entity* target);
 void TryTriggerMonsterHouse(struct entity* entity, bool outside_enemies);
 void RunMonsterAi(struct entity* monster, undefined param_2);
 void ApplyDamageAndEffects(struct entity* attacker, struct entity* defender,
@@ -284,6 +294,8 @@ void CalcRecoilDamageFixed(struct entity* attacker, int fixed_damage, undefined4
                            enum type_id attack_type, union damage_source damage_source,
                            enum damage_message damage_message, undefined4 param_9,
                            undefined4 param_10);
+void ApplyDamageAndEffectsWrapper(struct entity* monster, int damage, enum damage_message message,
+                                  union damage_source damage_source);
 void CalcDamageFixed(struct entity* attacker, struct entity* defender, int fixed_damage,
                      bool exp_on_faint, struct damage_data* damage_out, enum type_id attack_type,
                      enum move_category move_category, union damage_source damage_source,
@@ -299,6 +311,7 @@ void CalcDamageFixedWrapper(struct entity* attacker, struct entity* defender, in
                             union damage_source damage_source, enum damage_message damage_message,
                             undefined4 param_10, undefined4 param_11);
 void UpdateShopkeeperModeAfterAttack(struct entity* attacker, struct entity* defender);
+void UpdateShopkeeperModeAfterTrap(struct entity* shopkeeper, bool non_team_member);
 void ResetDamageCalcDiagnostics(void);
 bool SpecificRecruitCheck(enum monster_id monster_id);
 bool RecruitCheck(struct entity* user, struct entity* target);
@@ -308,6 +321,7 @@ void TryNonLeaderItemPickUp(struct entity* entity);
 bool AuraBowIsActive(struct entity* entity);
 int ExclusiveItemOffenseBoost(struct entity* entity, int move_category_idx);
 int ExclusiveItemDefenseBoost(struct entity* entity, int move_category_idx);
+int TeamMemberHasItemActive(struct entity* monsters, enum item_id item_id);
 bool TeamMemberHasExclusiveItemEffectActive(enum exclusive_item_effect_id effect_id);
 void TrySpawnEnemyItemDrop(struct entity* attacker, struct entity* defender);
 void TickNoSlipCap(struct entity* entity);
@@ -335,18 +349,21 @@ bool TryInflictBadlyPoisonedStatus(struct entity* user, struct entity* target, b
 void TryInflictFrozenStatus(struct entity* user, struct entity* target, bool log_failure);
 void TryInflictConstrictionStatus(struct entity* user, struct entity* target, int animation_id,
                                   bool log_failure);
-void TryInflictShadowHoldStatus(struct entity* user, struct entity* target, bool log_failure);
+void TryInflictShadowHoldStatus(struct entity* user, struct entity* target, bool check_only);
 void TryInflictIngrainStatus(struct entity* user, struct entity* target);
 void TryInflictWrappedStatus(struct entity* user, struct entity* target);
 void FreeOtherWrappedMonsters(struct entity* entity);
 void TryInflictPetrifiedStatus(struct entity* user, struct entity* target);
 void LowerOffensiveStat(struct entity* user, struct entity* target, int stat_idx, int16_t n_stages,
-                        undefined param_5, undefined param_6);
+                        bool check_is_protected_from_stat_drops,
+                        bool log_message_if_protected_from_stat_drops);
 void LowerDefensiveStat(struct entity* user, struct entity* target, int stat_idx, int16_t n_stages,
-                        undefined param_5, undefined param_6);
+                        bool check_is_protected_from_stat_drops,
+                        bool log_message_if_protected_from_stat_drops);
 void BoostOffensiveStat(struct entity* user, struct entity* target, int stat_idx, int16_t n_stages);
 void BoostDefensiveStat(struct entity* user, struct entity* target, int stat_idx, int16_t n_stages);
 int FlashFireShouldActivate(struct entity* attacker, struct entity* defender);
+void ActivateFlashFire(struct entity* attacker, struct entity* defender);
 void ApplyOffensiveStatMultiplier(struct entity* user, struct entity* target, int stat_idx,
                                   int multiplier, undefined param_5);
 void ApplyDefensiveStatMultiplier(struct entity* user, struct entity* target, int stat_idx,
@@ -555,9 +572,18 @@ void DisplayUi(void);
 struct tile* GetTile(int x, int y);
 struct tile* GetTileSafe(int x, int y);
 bool IsFullFloorFixedRoom(void);
+void CountItemsOnFloorForAcuteSniffer(void);
+void TrySpawnGoldenChamber(void);
+void GetStairsSpawnPosition(int16_t* x, int16_t y);
+bool PositionsIsOnStairs(int x, int y);
 uint8_t GetStairsRoom(void);
+uint16_t GetDefaultTileTextureId(void);
+void DetermineAllTilesWalkableNeighbors(void);
+void DetermineTileWalkableNeighbors(int x, int y);
 void UpdateTrapsVisibility(void);
 void DiscoverMinimap(struct position* pos);
+bool PositionHasItem(struct position* pos);
+bool PositionHasMonster(struct position* pos);
 bool IsWaterTileset(void);
 enum monster_id GetRandomSpawnMonsterID(void);
 bool NearbyAllyIqSkillIsEnabled(struct entity* entity, enum iq_skill_id iq_skill);
@@ -686,6 +712,7 @@ bool TryGenerateUnownStoneDrop(struct item* item, enum monster_id monster_id);
 bool HasHeldItem(struct entity* entity, enum item_id item_id);
 void GenerateMoneyQuantity(struct item* item, int max_amount);
 bool CheckTeamItemsFlags(int flags);
+void AddHeldItemToBag(struct monster* monster);
 void GenerateItem(struct item* item, enum item_id item_id, uint16_t quantity,
                   enum gen_item_stickiness sticky_type);
 bool CheckActiveChallengeRequest(void);
