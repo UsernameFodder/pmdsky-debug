@@ -46,10 +46,11 @@ ASSERT_SIZE(struct wan_palettes, 16);
 // An animation group is a set of animations, either a single one or 8 for the eight possible
 // orientations of a monster. An animation is itself made of frames.
 struct wan_animation_group {
-    // first level is the animation groups, second is animations, third is frame pointer
-    struct wan_animation_frame*** pnt;
+    // first level is animations, second is frame pointer
+    struct wan_animation_frame** pnt;
     uint16_t len;
-    undefined2 unk; // likely padding
+    uint16_t loop_start; // The frame offset relative to the first frame of the animation that will
+                         // be used instead of the first frame when looping the animation.
 };
 ASSERT_SIZE(struct wan_animation_group, 8);
 
