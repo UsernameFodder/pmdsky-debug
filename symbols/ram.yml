@@ -353,6 +353,14 @@ ram:
         EU: 0x4
         NA: 0x4
       description: "Starts at 0 when the game is first launched, and ticks up by 3 per frame while the game is running."
+    - name: WORLD_MAP_MODE
+      address:
+        EU: 0x2325924
+        NA: 0x2324DE4
+      length:
+        EU: 0x4
+        NA: 0x4
+      description: The current world map
     - name: SENTRY_DUTY_STRUCT
       address:
         NA: 0x237A5D0
