@@ -4659,11 +4659,27 @@ overlay29:
         Displays the message and applies the speed boost for the ability Motor Drive.
         
         r0: monster pointer
+    - name: TryActivateFrisk
+      address:
+        NA: 0x231B0A4
+      description: |-
+        Tries to activate the Frisk ability on the defender. The attacker has to be on the team and the defender has to be
+        holding an item or be able to drop a treasure box.
+        
+        r0: attacker pointer
+        r1: defender pointer
     - name: TryActivateBadDreams
       address:
         NA: 0x231B1B8
       description: |-
         Tries to apply the damage from Bad Dreams to all sleeping monsters in the room.
+        
+        r0: monster pointer
+    - name: ActivateStench
+      address:
+        NA: 0x231B33C
+      description: |-
+        Activate the Stench ability on the monster.
         
         r0: monster pointer
     - name: TryActivateSteadfast

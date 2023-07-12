@@ -503,8 +503,10 @@ struct move_target_and_range GetEntityMoveTargetAndRange(struct entity* entity, 
 struct natural_gift_item_info* GetEntityNaturalGiftInfo(struct entity* entity);
 enum type_id GetEntityWeatherBallType(struct entity* entity);
 void ActivateMotorDrive(struct entity* entity);
+void TryActivateFrisk(struct entity* attacker, struct entity* defender);
 void TryActivateBadDreams(struct entity* entity);
-void TryActivateSteadfast(struct entity* entity);
+void ActivateStench(struct entity* entity);
+void TryActivateSteadfast(struct entity* attacker, struct entity* defender);
 bool IsInSpawnList(undefined* spawn_list, enum monster_id monster_id);
 int ChangeShayminForme(struct entity* entity, int forme);
 void ApplyItemEffect(undefined4 param_1, undefined4 param_2, undefined4 param_3,

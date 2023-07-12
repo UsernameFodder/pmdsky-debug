@@ -24,7 +24,6 @@ struct dungeon {
     // if this is true. Possibly a boolean for when loading from a quicksave or resuming
     // after being rescued (Guess)?
     undefined field_0x9;
-    // 0xA: 
     undefined field_0xa;
     undefined field_0xb;
     undefined field_0xc; // 0xC: Initialized to 0x0
@@ -550,7 +549,7 @@ struct dungeon {
     undefined field_0x77c;
     undefined field_0x77d;
     // 0x77E: Appears to track if the player has already been healed by Mime Jr. to change
-    // the dialogue. Initalized to 0 using MemZero?
+    // the dialogue. Initialized to 0 using MemZero?
     bool bazaar_mime_jr_heal;
     undefined field_0x77f;
     // 0x780: Controls when a monster at a certain speed stage is able to act.
@@ -656,7 +655,8 @@ struct dungeon {
     // Possibly a 0x8 long array of a struct-like object? Each entry is 4 bytes, but maybe the
     // last byte is unused??
     undefined field_0x7d0;
-    undefined2 field_0x7d1;
+    undefined field_0x7d1;
+    undefined field_0x7d2;
     undefined field_0x7d3;
     undefined field_0x7d4;
     undefined field_0x7d5;
@@ -1673,7 +1673,7 @@ struct dungeon {
     // 0x2CA7C: This is a struct of some kind? This address is passed to a function and then
     // offsets from this location are used to store data about a monster? Somehow related
     // to the fainted monster? If the end of the dungeon is reached, the leaders information
-    // is copied into this struct?
+    // is copied into this struct? Uncertain of exact size.
     undefined faint_related_struct;
     undefined field_0x2ca7d;
     undefined field_0x2ca7e;
@@ -1742,7 +1742,6 @@ struct dungeon {
     undefined field_0x2cabd;
     undefined field_0x2cabe;
     undefined field_0x2cabf;
-    // 
     undefined field_0x2cac0;
     undefined field_0x2cac1;
     undefined field_0x2cac2;
@@ -1827,6 +1826,7 @@ struct dungeon {
     undefined field_0x2cb0f;
     // 0x2CB10: Somehow related to display_data::hallucinating and seems to maybe control
     // the sleeping animations when the camera is pointed away from a hallucinating monster?
+    // Initialized to 0x1.
     bool unk_camera_tracker;
     undefined field_0x2cb11;
     undefined field_0x2cb12;
