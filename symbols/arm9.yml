@@ -589,7 +589,7 @@ arm9:
       description: |-
         A simple implementation of the memset(3) C library function.
         
-        This function was probably manually implemented by the developers. See Memset for what's probably the real libc function.
+        This function was probably manually implemented by the developers. See memset for what's probably the real libc function.
         
         r0: ptr
         r1: value
@@ -613,7 +613,7 @@ arm9:
       description: |-
         A simple implementation of the memcpy(3) C library function.
         
-        This function was probably manually implemented by the developers. See Memcpy for what's probably the real libc function.
+        This function was probably manually implemented by the developers. See memcpy for what's probably the real libc function.
         
         This function copies from src to dst in backwards byte order, so this is safe to call for overlapping src and dst if src <= dst.
         
@@ -772,6 +772,14 @@ arm9:
         
         r0: group ID of the overlay to unload
         others: ?
+    - name: Rgb8ToBgr5
+      address:
+        EU: 0x2004FCC
+      description: |-
+        Transform the input rgb8 color to a bgr5 color
+        
+        r0: pointer to target bgr5 (2 bytes, aligned to LSB)
+        r1: pointer to source rgb8
     - name: EuclideanNorm
       address:
         EU:
@@ -1014,7 +1022,7 @@ arm9:
       description: |-
         Would log a printf format string in the debug binary.
         
-        This still constructs the string with Vsprintf, but doesn't actually do anything with it in the final binary.
+        This still constructs the string with vsprintf, but doesn't actually do anything with it in the final binary.
         
         r0: format
         ...: variadic
@@ -1140,6 +1148,17 @@ arm9:
         r1: [output] target buffer
         r2: file index
         return: number of read bytes (identical to the length of the pack from the Table of Content)
+    - name: GetDungeonResultMsg
+      address:
+        EU: 0x200C584
+        NA: 0x200C4FC
+      description: |-
+        Gets the message that is shown on the dungeon results ("The Last Outing") screen, right after the leader's name.
+        
+        r0: Damage source value to use when displaying the cause of fainting or the result of the expedition
+        r1: [output] Buffer where the resulting message will be stored
+        r2: Buffer size
+        r3: (?) Seems to point to a buffer
     - name: GetDamageSource
       address:
         EU: 0x200CADC
@@ -1244,6 +1263,17 @@ arm9:
         
         r0: item pointer
         return: bool
+    - name: IsTreasureBox
+      address:
+        EU: 0x200CD0C
+        NA: 0x200CC84
+      description: |-
+        Checks if the given item ID is a treasure box
+        
+        In particular, it checks if the category of the item is CATEGORY_TREASURE_BOXES_1, CATEGORY_TREASURE_BOXES_2 or CATEGORY_TREASURE_BOXES_3.
+        
+        r0: item ID
+        return: True if the item is a treasure box, false otherwise
     - name: IsStorableItem
       address:
         NA: 0x200CCA8
@@ -1420,9 +1450,9 @@ arm9:
           - 0x2052768
           - 0x2054D98
       description: |-
-        Functionally the same as Sprintf, just defined statically in many different places.
+        Functionally the same as sprintf, just defined statically in many different places.
         
-        Since this is essentially just a wrapper around vsprintf(3), this function was probably statically defined in a header somewhere and included in a bunch of different places. See the actual Sprintf for the one in libc.
+        Since this is essentially just a wrapper around vsprintf(3), this function was probably statically defined in a header somewhere and included in a bunch of different places. See the actual sprintf for the one in libc.
         
         r0: str
         r1: format
@@ -1772,7 +1802,7 @@ arm9:
         NA: 0x200EE4C
         JP: 0x200EE7C
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Returns the number of items of the given kind in the bag
         
         r0: item ID
         return: count
@@ -2061,6 +2091,15 @@ arm9:
         Implements SPECIAL_PROC_0x39 (see ScriptSpecialProcessCall).
         
         return: bool
+    - name: CountNbItemsOfTypeInStorage
+      address:
+        EU: 0x200FF50
+        NA: 0x200FEA8
+      description: |-
+        Returns the number of items of the given kind in the storage
+        
+        r0: item ID
+        return: count
     - name: CountItemTypeInStorage
       address:
         EU: 0x200FF8C
@@ -3076,6 +3115,68 @@ arm9:
         NA: 0x201A9E4
         JP: 0x201AA3C
       description: "Note: unverified, ported from Irdkwia's notes"
+    - name: InitAnimationControl
+      address:
+        EU: 0x201C0EC
+      description: |-
+        Initialize the animation_control structure
+        
+        r0: animation_control
+    - name: InitAnimationControlWithSet
+      address:
+        EU:
+          - 0x201C14C
+          - 0x201C168
+      description: |-
+        Initialize the animation_control structure, and set a certain value in a bitflag to 1
+        
+        r0: animation_control
+    - name: SetSpriteIdForAnimationControl
+      address:
+        EU: 0x201C184
+      description: |-
+        Set the sprite id (from WAN_TABLE) in the given animation control
+        Also set field 0x72 to the sprite id if they differ
+        If they differ, it’ll also set field 0x43 to 0xFF
+        
+        r0: animation control
+        r1: sprite id in WAN_TABLE
+    - name: GetWanForAnimationControl
+      address:
+        EU: 0x201C484
+      description: |-
+        Return the WAN to use for the given animation control
+        Return the override if it exists, otherwise look up the sprite id in WAN_TABLE
+        
+        r0: animation_control
+        return: wan_header
+    - name: SwitchAnimationControlToNextFrame
+      address:
+        EU: 0x201C4F4
+      description: |-
+        Handle switching to the next frame of an animation control, including looping.
+        
+        r0: animation_control
+    - name: LoadAnimationFrameAndIncrementInAnimationControl
+      address:
+        EU: 0x201C5FC
+      description: |-
+        Read some value of the input animation frame, and update animation control with it.
+        Also switch next_animation_frame of animation_control to the next animation frame
+        Seems to only be called on said next_animation_frame
+        Also set bit of some_bitfield at 0x0800 to 1
+        
+        r0: animation_control
+        r1: animation_frame
+    - name: AnimationControlGetAllocForMaxFrame
+      address:
+        EU: 0x201D20C
+      description: |-
+        Return the maximum allocation for a frame of this sprite, as stored in the WAN file
+        Return 0 if missing and takes sprite override into account
+        
+        r0: animation_control
+        return: allocation for max frame
     - name: DeleteWanTableEntry
       address:
         EU: 0x201D278
@@ -3100,7 +3201,7 @@ arm9:
         NA: 0x201D2D4
         JP: 0x201D32C
       description: |-
-        Search in the given table (in practice always seems to be LOADED_WAN_TABLE_PTR) for an entry with the given file name.
+        Search in the given table (in practice always seems to be WAN_TABLE) for an entry with the given file name.
         
         r0: table pointer
         r1: file name
@@ -3185,6 +3286,34 @@ arm9:
         
         r0: wan_table_ptr
         r1: wan_id
+    - name: WanHasAnimationGroup
+      address:
+        EU: 0x201DAE0
+      description: |-
+        Check if the input WAN file loaded in memory has an animation group with this ID
+        Valid means that the animation group is in the range of existing animation, and that it has at least one animation.
+        
+        r0: pointer to the header of the WAN
+        r1: id of the animation group
+        return: whether the WAN file has the given animation group
+    - name: WanTableSpriteHasAnimationGroup
+      address:
+        EU: 0x201DB1C
+      description: |-
+        Check if the sprite in the global WAN table has the given animation group
+        see WanHasAnimationGroup for more detail
+        
+        r0: sprite id in the WAN table
+        r1: animation group id
+        return: whether the associated sprite has the given animation group
+    - name: SpriteTypeInWanTable
+      address:
+        EU: 0x201DD0C
+      description: |-
+        Look up the sprite in the WAN table, and return its type
+        
+        r0: sprite id in the WAN table
+        return: sprite type
     - name: LoadWteFromRom
       address:
         EU: 0x201DEE8
@@ -3481,6 +3610,21 @@ arm9:
         NA: 0x2024428
         JP: 0x2024478
       description: "Note: unverified, ported from Irdkwia's notes"
+    - name: GetDungeonResultString
+      address:
+        EU: 0x20252A4
+        NA: 0x2024FD8
+      description: |-
+        Returns a string containing some information to be used when displaying the dungeon results screen.
+        
+        The exact string returned depends on the value of r0:
+        0: Name of the move that fainted the leader. Empty string if the leader didn't faint.
+        1-3: Seems to always result in an empty string.
+        4: Name of the pokémon that fainted the leader, or name of the leader if the leader didn't faint.
+        5: Name of the fainted leader. Empty string if the leader didn't faint.
+        
+        r0: String to return
+        return: Pointer to resulting string
     - name: SetQuestionMarks
       address:
         EU: 0x20253B0
@@ -3500,7 +3644,7 @@ arm9:
       description: |-
         A simple implementation of the strcpy(3) C library function.
         
-        This function was probably manually implemented by the developers. See Strcpy for what's probably the real libc function.
+        This function was probably manually implemented by the developers. See strcpy for what's probably the real libc function.
         
         r0: dest
         r1: src
@@ -3512,7 +3656,7 @@ arm9:
       description: |-
         A simple implementation of the strncpy(3) C library function.
         
-        This function was probably manually implemented by the developers. See Strncpy for what's probably the real libc function.
+        This function was probably manually implemented by the developers. See strncpy for what's probably the real libc function.
         
         r0: dest
         r1: src
@@ -3536,7 +3680,7 @@ arm9:
       description: |-
         A simple implementation of the strncmp(3) C library function.
         
-        This function was probably manually implemented by the developers. See Strncmp for what's probably the real libc function.
+        This function was probably manually implemented by the developers. See strncmp for what's probably the real libc function.
         
         r0: s1
         r1: s2
@@ -3667,6 +3811,13 @@ arm9:
         
         r0: dbox_id
         return: field_0xc
+    - name: LoadCursors
+      address:
+        EU: 0x2029800
+      description: |-
+        Load and initialise the cursor and cursor16 sprites, storing the result in CURSOR_ANIMATION_CONTROL and CURSOR_16_ANIMATION_CONTROL
+        
+        No params.
     - name: Arm9LoadUnkFieldNa0x2029EC8
       address:
         EU: 0x202A1BC
@@ -3686,6 +3837,13 @@ arm9:
         
         r0: id
         r1: value
+    - name: LoadAlert
+      address:
+        EU: 0x202A1DC
+      description: |-
+        Load and initialise the alert sprite, storing the result in ALERT_ANIMATION_CONTROL
+        
+        No params.
     - name: CreateNormalMenu
       address:
         EU: 0x202B3E0
@@ -3882,7 +4040,7 @@ arm9:
         Called whenever a menu option is selected. Returns whether the option is active or not.
         
         r0: ?
-        Return: True if the menu option is enabled, false otherwise.
+        return: True if the menu option is enabled, false otherwise.
     - name: ShowKeyboard
       address:
         EU: 0x2036AE4
@@ -4300,6 +4458,14 @@ arm9:
         Gets the special episode type from the SPECIAL_EPISODE_TYPE script variable.
         
         return: special episode type
+    - name: GetExecuteSpecialEpisodeType
+      address:
+        EU: 0x204CC70
+        NA: 0x204C938
+      description: |-
+        Gets the special episode type from the EXECUTE_SPECIAL_EPISODE_TYPE script variable.
+        
+        return: special episode type
     - name: HasPlayedOldGame
       address:
         EU: 0x204CDA8
@@ -4373,18 +4539,16 @@ arm9:
         
         r0: dungeon ID
         r1: bit_value
-    - name: CheckDungeonOpen
+    - name: GetDungeonMode
       address:
         EU: 0x204D2D4
         NA: 0x204CF9C
         JP: 0x204D2FC
       description: |-
-        Related to dungeon open list
+        Returns the mode of the specified dungeon
         
-        Note: unverified, ported from Irdkwia's notes
-        
-        r0: dungeon ID
-        return: status code?
+        r0: Dungeon ID
+        return: Dungeon mode
     - name: GlobalProgressAlloc
       address:
         EU: 0x204D440
@@ -4624,6 +4788,42 @@ arm9:
         r0: portrait box pointer
         r1: buffer_portrait
         return: exists
+    - name: SetEnterDungeon
+      address:
+        EU: 0x204EC84
+        NA: 0x204E94C
+      description: |-
+        Used to set the dungeon that will be accessed when switching from ground to dungeon mode.
+        
+        r0: Dungeon ID
+    - name: InitDungeonInit
+      address:
+        EU: 0x204ED94
+        NA: 0x204EA5C
+      description: |-
+        Initializes the dungeon_init struct before entering a dungeon.
+        
+        r0: [output] Pointer to the struct to init
+        r1: Dungeon ID
+    - name: IsNoLossPenaltyDungeon
+      address:
+        EU: 0x204F318
+        NA: 0x204EFE0
+      description: |-
+        Returns true if the specified dungeon shouldn't have a loss penalty.
+        
+        If true you won't lose your money and items upon fainting. Also used to initialize dungeon_init::skip_faint_animation_flag.
+        
+        Returns: True for DUNGEON_CRYSTAL_LAKE and DUNGEON_5TH_STATION_CLEARING, as well as for DUNGEON_DEEP_STAR_CAVE_TEAM_ROGUE if the ground variable SIDE01_BOSS2ND is 0; false otherwise.
+    - name: CheckMissionRestrictions
+      address:
+        EU: 0x204F6FC
+        NA: 0x204F3C4
+      description: |-
+        Seems to be used to check if you have any missions that have unmet restrictions when trying to access a dungeon.
+        
+        r0: ?
+        return: (?) Seems to be composed of multiple bitflags.
     - name: GetNbFloors
       address:
         EU: 0x204F8B4
@@ -4696,8 +4896,56 @@ arm9:
           [r0]: group_id
           [r0+1]: group_floor_id
         
-        r0: (output) Struct containing the dungeon group and floor group
+        r0: [output] Struct containing the dungeon group and floor group
         r1: Struct containing the dungeon ID and floor number
+    - name: GetMissionRank
+      address:
+        EU: 0x204FB4C
+        NA: 0x204F814
+      description: |-
+        Gets the mission rank for the given dungeon and floor.
+        
+        If the dungeon ID is >= DUNGEON_NORMAL_FLY_MAZE or the group of the dungeon is > DGROUP_DUMMY_0x63, returns MISSION_RANK_E.
+        
+        r0: Dungeon and floor
+        return: Mission rank
+    - name: GetOutlawLevel
+      address:
+        EU: 0x204FBC4
+        NA: 0x204F88C
+      description: |-
+        Gets the level that should be used for outlaws for the given dungeon and floor
+        
+        r0: Dungeon and floor
+        return: Outlaw level
+    - name: GetOutlawLeaderLevel
+      address:
+        EU: 0x204FBE0
+        NA: 0x204F8A8
+      description: |-
+        Gets the level that should be used for team leader outlaws for the given dungeon and floor. Identical to GetOutlawLevel.
+        
+        r0: Dungeon and floor
+        return: Outlaw leader level
+    - name: GetOutlawMinionLevel
+      address:
+        EU: 0x204FBFC
+        NA: 0x204F8C4
+      description: |-
+        Gets the level that should be used for minion outlaws for the given dungeon and floor.
+        
+        r0: Dungeon and floor
+        return: Outlaw minion level
+    - name: AddGuestMonster
+      address:
+        EU: 0x204FC18
+        NA: 0x204F8E0
+      description: |-
+        Adds a guest monster to the active team
+        
+        r0: dungeon_init struct for the dungeon that is about to be entered
+        r1: Number of the guest monster to add. Used when more than one monster is added.
+        r2: Pointer to the guest monster entry to add to the team (usually located within GUEST_MONSTER_DATA)
     - name: GetGroundNameId
       address:
         EU: 0x204FC90
@@ -5625,9 +5873,10 @@ arm9:
           - 0x2052A44
           - 0x2052A60
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Return the sprite index for this monster (inside m_attack.bin, m_ground.bin and monster.bin)
+        All three sprites have the same index
         
-        r0: id
+        r0: monster id
         return: sprite index
     - name: GetDexNumber
       address:
@@ -5974,6 +6223,15 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         No params.
+    - name: GuestMonsterToGroundMonster
+      address:
+        EU: 0x20531CC
+        NA: 0x2052E50
+      description: |-
+        Inits a ground_monster entry with the given guest_monster struct.
+        
+        r0: [output] ground_monster struct to init
+        r1: guest_monster struct to use
     - name: StrcmpMonsterName
       address:
         EU: 0x205332C
@@ -6578,7 +6836,7 @@ arm9:
         
         The list of skills is written in the array specified in r0. The array has 69 slots in total. Unused slots are set to 0.
         
-        r0: (output) Array where the list of skills will be written
+        r0: [output] Array where the list of skills will be written
         r1: Monster species
         r2: Monster IQ
         return: Amount of skills written to the output array
@@ -7040,6 +7298,20 @@ arm9:
         
         r0: index
         return: dungeon ID
+    - name: GetDungeonModeSpecial
+      address:
+        EU: 0x206AB04
+        NA: 0x206A76C
+      description: |-
+        Returns the status of the given dungeon, with some modifications.
+        
+        If the dungeon ID is DUNGEON_BEACH, returns DMODE_REQUEST.
+        If it's DUNGEON_JOINED_AT_UNKNOWN, returns DMODE_OPEN_AND_REQUEST.
+        If it's >= DUNGEON_NORMAL_FLY_MAZE and <= DUNGEON_DOJO_0xD3, returns DMODE_OPEN_AND_REQUEST.
+        Else, calls GetDungeonMode and returns DMODE_REQUEST if the dungeon has been cleared, or DMODE_OPEN if it's not.
+        
+        r0: Dungeon ID
+        return: Dungeon mode
     - name: ResumeBgm
       address:
         EU: 0x206DD54
@@ -7064,6 +7336,22 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         No params.
+    - name: EnableVramBanksInSetDontSave
+      address:
+        EU: 0x2076744
+        NA: 0x20763AC
+      description: |-
+        Enable the VRAM bank marked in the input set, but don’t mark them as enabled in ENABLED_VRAM_BANKS
+        
+        r0: vram_banks_set
+    - name: EnableVramBanksInSet
+      address:
+        EU: 0x2077460
+        NA: 0x20770C8
+      description: |-
+        Enable the VRAM banks in the input set. Will reset the pointed set to 0, and update ENABLED_VRAM_BANKS
+        
+        r0: vram_banks_set *
     - name: ClearIrqFlag
       address:
         EU: 0x207BB68
@@ -7071,7 +7359,7 @@ arm9:
       description: |-
         Enables processor interrupts by clearing the i flag in the program status register (cpsr).
         
-        Return: Old value of cpsr & 0x80 (0x80 if interrupts were disabled, 0x0 if they were already enabled)
+        return: Old value of cpsr & 0x80 (0x80 if interrupts were disabled, 0x0 if they were already enabled)
     - name: EnableIrqFlag
       address:
         EU: 0x207BB7C
@@ -7079,7 +7367,7 @@ arm9:
       description: |-
         Disables processor interrupts by setting the i flag in the program status register (cpsr).
         
-        Return: Old value of cpsr & 0x80 (0x80 if interrupts were already disabled, 0x0 if they were enabled)
+        return: Old value of cpsr & 0x80 (0x80 if interrupts were already disabled, 0x0 if they were enabled)
     - name: SetIrqFlag
       address:
         EU: 0x207BB90
@@ -7088,7 +7376,7 @@ arm9:
         Sets the value of the processor's interrupt flag according to the specified parameter.
         
         r0: Value to set the flag to (0x80 to set it, which disables interrupts; 0x0 to unset it, which enables interrupts)
-        Return: Old value of cpsr & 0x80 (0x80 if interrupts were disabled, 0x0 if they were enabled)
+        return: Old value of cpsr & 0x80 (0x80 if interrupts were disabled, 0x0 if they were enabled)
     - name: EnableIrqFiqFlags
       address:
         EU: 0x207BBA8
@@ -7096,7 +7384,7 @@ arm9:
       description: |-
         Disables processor all interrupts (both standard and fast) by setting the i and f flags in the program status register (cpsr).
         
-        Return: Old value of cpsr & 0xC0 (contains the previous values of the i and f flags)
+        return: Old value of cpsr & 0xC0 (contains the previous values of the i and f flags)
     - name: SetIrqFiqFlags
       address:
         EU: 0x207BBBC
@@ -7105,7 +7393,7 @@ arm9:
         Sets the value of the processor's interrupt flags (i and f) according to the specified parameter.
         
         r0: Value to set the flags to (0xC0 to set both flags, 0x80 to set the i flag and clear the f flag, 0x40 to set the f flag and clear the i flag and 0x0 to clear both flags)
-        Return: Old value of cpsr & 0xC0 (contains the previous values of the i and f flags)
+        return: Old value of cpsr & 0xC0 (contains the previous values of the i and f flags)
     - name: GetIrqFlag
       address:
         EU: 0x207BBD4
@@ -7113,7 +7401,7 @@ arm9:
       description: |-
         Gets the current value of the processor's interrupt request (i) flag
         
-        Return: cpsr & 0x80 (0x80 if interrupts are disabled, 0x0 if they are enabled)
+        return: cpsr & 0x80 (0x80 if interrupts are disabled, 0x0 if they are enabled)
     - name: WaitForever2
       address:
         EU: 0x207BFB8
@@ -7146,7 +7434,7 @@ arm9:
         This function must always be called before opening a file.
         
         r0: file_stream pointer
-    - name: Abs
+    - name: abs
       address:
         EU: 0x20868F4
         NA: 0x208655C
@@ -7156,7 +7444,7 @@ arm9:
         
         r0: x
         return: abs(x)
-    - name: Mbtowc
+    - name: mbtowc
       address:
         EU: 0x2087554
         NA: 0x20871BC
@@ -7192,7 +7480,7 @@ arm9:
         r0: pointer
         r1: value
         return: true on success, false on failure
-    - name: Wcstombs
+    - name: wcstombs
       address:
         EU: 0x20875BC
         NA: 0x2087224
@@ -7204,7 +7492,7 @@ arm9:
         r1: src
         r2: n
         return: characters converted
-    - name: Memcpy
+    - name: memcpy
       address:
         EU: 0x2087634
         NA: 0x208729C
@@ -7215,7 +7503,8 @@ arm9:
         r0: dest
         r1: src
         r2: n
-    - name: Memmove
+        return: dest
+    - name: memmove
       address:
         EU: 0x2087654
         NA: 0x20872BC
@@ -7223,12 +7512,13 @@ arm9:
       description: |-
         The memmove(3) C library function.
         
-        The implementation is nearly the same as Memcpy, but it copies bytes from back to front if src < dst.
+        The implementation is nearly the same as memcpy, but it copies bytes from back to front if src < dst.
         
         r0: dest
         r1: src
         r2: n
-    - name: Memset
+        return: dest
+    - name: memset
       address:
         EU: 0x20876A0
         NA: 0x2087308
@@ -7236,13 +7526,13 @@ arm9:
       description: |-
         The memset(3) C library function.
         
-        This is just a wrapper around MemsetInternal that returns the pointer at the end.
+        This is just a wrapper around memset_internal that returns the pointer at the end.
         
         r0: s
         r1: c (int, but must be a single-byte value)
         r2: n
         return: s
-    - name: Memchr
+    - name: memchr
       address:
         EU: 0x20876B4
         NA: 0x208731C
@@ -7254,7 +7544,7 @@ arm9:
         r1: c
         r2: n
         return: pointer to first occurrence of c in s, or a null pointer if no match
-    - name: Memcmp
+    - name: memcmp
       address:
         EU: 0x20876E0
         NA: 0x2087348
@@ -7266,7 +7556,7 @@ arm9:
         r1: s2
         r2: n
         return: comparison value
-    - name: MemsetInternal
+    - name: memset_internal
       address:
         EU: 0x2087720
         NA: 0x2087388
@@ -7279,17 +7569,17 @@ arm9:
         r0: s
         r1: c (int, but must be a single-byte value)
         r2: n
-    - name: VsprintfInternalSlice
+    - name: __vsprintf_internal_slice
       address:
         EU: 0x208900C
         NA: 0x2088C74
         JP: 0x2088F5C
       description: |-
-        This is what implements the bulk of VsprintfInternal.
+        This is what implements the bulk of __vsprintf_internal.
         
         The __vsprintf_internal in the modern-day version of glibc relies on __vfprintf_internal; this function has a slightly different interface, but it serves a similar role.
         
-        r0: function pointer to append to the string being built (VsprintfInternal uses TryAppendToSlice)
+        r0: function pointer to append to the string being built (__vsprintf_internal uses TryAppendToSlice)
         r1: string buffer slice
         r2: format
         r3: ap
@@ -7306,20 +7596,20 @@ arm9:
         r1: buffer of data to append
         r2: number of bytes in the data buffer
         return: true
-    - name: VsprintfInternal
+    - name: __vsprintf_internal
       address:
         EU: 0x2089874
         NA: 0x20894DC
         JP: 0x20897C4
       description: |-
-        This is what implements Vsprintf. It's akin to __vsprintf_internal in the modern-day version of glibc (in fact, it's probably an older version of this).
+        This is what implements vsprintf. It's akin to __vsprintf_internal in the modern-day version of glibc (in fact, it's probably an older version of this).
         
         r0: str
-        r1: maxlen (Vsprintf passes UINT32_MAX for this)
+        r1: maxlen (vsprintf passes UINT32_MAX for this)
         r2: format
         r3: ap
         return: number of characters printed, excluding the null-terminator
-    - name: Vsprintf
+    - name: vsprintf
       address:
         EU: 0x20898DC
         NA: 0x2089544
@@ -7331,7 +7621,7 @@ arm9:
         r1: format
         r2: ap
         return: number of characters printed, excluding the null-terminator
-    - name: Snprintf
+    - name: snprintf
       address:
         EU: 0x20898F4
         NA: 0x208955C
@@ -7339,14 +7629,14 @@ arm9:
       description: |-
         The snprintf(3) C library function.
         
-        This calls VsprintfInternal directly, so it's presumably the real snprintf.
+        This calls __vsprintf_internal directly, so it's presumably the real snprintf.
         
         r0: str
         r1: n
         r2: format
         ...: variadic
         return: number of characters printed, excluding the null-terminator
-    - name: Sprintf
+    - name: sprintf
       address:
         EU: 0x208991C
         NA: 0x2089584
@@ -7354,13 +7644,13 @@ arm9:
       description: |-
         The sprintf(3) C library function.
         
-        This calls VsprintfInternal directly, so it's presumably the real sprintf.
+        This calls __vsprintf_internal directly, so it's presumably the real sprintf.
         
         r0: str
         r1: format
         ...: variadic
         return: number of characters printed, excluding the null-terminator
-    - name: Strlen
+    - name: strlen
       address:
         EU: 0x2089A10
         NA: 0x2089678
@@ -7370,7 +7660,7 @@ arm9:
         
         r0: s
         return: length of s
-    - name: Strcpy
+    - name: strcpy
       address:
         EU: 0x2089A2C
         NA: 0x2089694
@@ -7382,7 +7672,8 @@ arm9:
         
         r0: dest
         r1: src
-    - name: Strncpy
+        return: dest
+    - name: strncpy
       address:
         EU: 0x2089AF4
         NA: 0x208975C
@@ -7393,7 +7684,8 @@ arm9:
         r0: dest
         r1: src
         r2: n
-    - name: Strcat
+        return: dest
+    - name: strcat
       address:
         EU: 0x2089B44
         NA: 0x20897AC
@@ -7403,7 +7695,8 @@ arm9:
         
         r0: dest
         r1: src
-    - name: Strncat
+        return: dest
+    - name: strncat
       address:
         EU: 0x2089B74
         NA: 0x20897DC
@@ -7414,7 +7707,8 @@ arm9:
         r0: dest
         r1: src
         r2: n
-    - name: Strcmp
+        return: dest
+    - name: strcmp
       address:
         EU: 0x2089BC4
         NA: 0x208982C
@@ -7422,12 +7716,12 @@ arm9:
       description: |-
         The strcmp(3) C library function.
         
-        Similarly to Strcpy, this function is optimized to compare characters in aligned 4-byte chunks if possible.
+        Similarly to strcpy, this function is optimized to compare characters in aligned 4-byte chunks if possible.
         
         r0: s1
         r1: s2
         return: comparison value
-    - name: Strncmp
+    - name: strncmp
       address:
         EU: 0x2089CD8
         NA: 0x2089940
@@ -7439,7 +7733,7 @@ arm9:
         r1: s2
         r2: n
         return: comparison value
-    - name: Strchr
+    - name: strchr
       address:
         EU: 0x2089D0C
         NA: 0x2089974
@@ -7450,7 +7744,7 @@ arm9:
         r0: string
         r1: c
         return: pointer to the located byte c, or null pointer if no match
-    - name: Strcspn
+    - name: strcspn
       address:
         EU: 0x2089D48
         NA: 0x20899B0
@@ -7461,7 +7755,7 @@ arm9:
         r0: string
         r1: stopset
         return: offset of the first character in string within stopset
-    - name: Strstr
+    - name: strstr
       address:
         EU: 0x2089E08
         NA: 0x2089A70
@@ -7472,7 +7766,7 @@ arm9:
         r0: haystack
         r1: needle
         return: pointer into haystack where needle starts, or null pointer if no match
-    - name: Wcslen
+    - name: wcslen
       address:
         EU: 0x208B780
         NA: 0x208B3E8
@@ -7482,7 +7776,7 @@ arm9:
         
         r0: ws
         return: length of ws
-    - name: AddFloat
+    - name: __addsf3
       address:
         EU: 0x208F050
         NA: 0x208ECB8
@@ -7493,7 +7787,7 @@ arm9:
         r0: a
         r1: b
         return: a + b
-    - name: DivideFloat
+    - name: __divsf3
       address:
         EU: 0x208F5CC
         NA: 0x208F234
@@ -7504,7 +7798,7 @@ arm9:
         r0: dividend
         r1: divisor
         return: dividend / divisor
-    - name: FloatToDouble
+    - name: __extendsfdf2
       address:
         EU: 0x208F984
         NA: 0x208F5EC
@@ -7514,7 +7808,7 @@ arm9:
         
         r0: float
         return: (double)float
-    - name: FloatToInt
+    - name: __fixsfsi
       address:
         EU: 0x208FA08
         NA: 0x208F670
@@ -7524,7 +7818,7 @@ arm9:
         
         r0: float
         return: (int)float
-    - name: IntToFloat
+    - name: __floatsisf
       address:
         EU: 0x208FA3C
         NA: 0x208F6A4
@@ -7534,7 +7828,7 @@ arm9:
         
         r0: int
         return: (float)int
-    - name: UIntToFloat
+    - name: __floatunsisf
       address:
         EU: 0x208FA84
         NA: 0x208F6EC
@@ -7544,13 +7838,13 @@ arm9:
         
         r0: uint
         return: (float)uint
-    - name: MultiplyFloat
+    - name: __mulsf3
       address:
         EU: 0x208FACC
         NA: 0x208F734
         JP: 0x208FA1C
       description: "This appears to be the libgcc implementation of __mulsf3 (not sure which gcc version), which implements the multiplication operator for IEEE 754 floating-point numbers."
-    - name: Sqrtf
+    - name: sqrtf
       address:
         EU: 0x208FCAC
         NA: 0x208F914
@@ -7560,7 +7854,7 @@ arm9:
         
         r0: x
         return: sqrt(x)
-    - name: SubtractFloat
+    - name: __subsf3
       address:
         EU: 0x208FD9C
         NA: 0x208FA04
@@ -7571,7 +7865,7 @@ arm9:
         r0: a
         r1: b
         return: a - b
-    - name: DivideInt
+    - name: __divsi3
       address:
         EU: 0x209023C
         NA: 0x208FEA4
@@ -7584,7 +7878,7 @@ arm9:
         r0: dividend
         r1: divisor
         return: (quotient) | (remainder << 32)
-    - name: DivideUInt
+    - name: __udivsi3
       address:
         EU: 0x2090448
         NA: 0x20900B0
@@ -7593,18 +7887,18 @@ arm9:
         This appears to be the libgcc implementation of __udivsi3 (not sure which gcc version), which implements the division operator for unsigned ints.
         
         The return value is a 64-bit integer, with the quotient (dividend / divisor) in the lower 32 bits and the remainder (dividend % divisor) in the upper 32 bits. In accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return), this means that the quotient is returned in r0 and the remainder is returned in r1.
-        Note: This function falls through to DivideUIntNoZeroCheck.
+        Note: This function falls through to __udivsi3_no_zero_check.
         
         r0: dividend
         r1: divisor
         return: (quotient) | (remainder << 32)
-    - name: DivideUIntNoZeroCheck
+    - name: __udivsi3_no_zero_check
       address:
         EU: 0x2090450
         NA: 0x20900B8
         JP: 0x20903A0
       description: |-
-        Subsidiary function to DivideUInt. Skips the initial check for divisor == 0.
+        Subsidiary function to __udivsi3. Skips the initial check for divisor == 0.
         
         The return value is a 64-bit integer, with the quotient (dividend / divisor) in the lower 32 bits and the remainder (dividend % divisor) in the upper 32 bits. In accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return), this means that the quotient is returned in r0 and the remainder is returned in r1.
         This function appears to only be called internally.
@@ -9396,15 +9690,16 @@ arm9:
         [Runtime] Points to the contents of the move data table loaded from waza_p.bin
         
         type: struct move_data_table*
-    - name: LOADED_WAN_TABLE_PTR
+    - name: WAN_TABLE
       address:
+        EU: 0x20B0524
         NA: 0x20AFC68
       length:
         NA: 0x4
       description: |-
-        pointer to a wan table
+        pointer to the list of wan sprite loaded in RAM
         
-        Note: unverified, ported from Irdkwia's notes
+        struct wan_table*
     - name: LANGUAGE_INFO_DATA
       address:
         EU: 0x20B05A8

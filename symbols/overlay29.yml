@@ -266,6 +266,18 @@ overlay29:
         Fades the screen to black across several frames.
         
         No params.
+    - name: CheckTouchscreenArea
+      address:
+        EU: 0x22E15F8
+        NA: 0x22E0CB8
+      description: |-
+        Checks if the currently pressed touchscreen position is within the specified area.
+        
+        r0: Area lower X coordinate
+        r1: Area lower Y coordinate
+        r2: Area upper X coordinate
+        r3: Area upper Y coordinate
+        return: True if the specified area contains the currently pressed touchscreen position, false otherwise.
     - name: GetTrapInfo
       address:
         EU: 0x22E1F48
@@ -294,6 +306,26 @@ overlay29:
         
         r0: pointer to entity
         returns: pointer to tile
+    - name: UpdateEntityPixelPos
+      address:
+        EU: 0x22E2380
+        NA: 0x22E1A40
+      description: |-
+        Updates an entity's pixel_pos field using the specified pixel_position struct, or its own pos field if it's null.
+        
+        r0: Entity pointer
+        r1: Pixel position to use, or null to use the entity's own position
+    - name: CreateEnemyEntity
+      address:
+        EU: 0x22E2A00
+        NA: 0x22E20C0
+      description: |-
+        Creates and initializes the entity struct of a newly spawned enemy monster. Fails if there's 16 enemies on the floor already.
+        
+        It could also be used to spawn fixed room allies, since those share their slots on the entity list.
+        
+        r0: Monster ID
+        return: Pointer to the newly initialized entity, or null if the entity couldn't be initialized
     - name: SpawnTrap
       address:
         EU: 0x22E2BA0
@@ -329,27 +361,28 @@ overlay29:
         
         r0: Entity pointer
         return: True if the entity should be displayed on the minimap
-    - name: ShouldDisplayEntityMessages
+    - name: ShouldDisplayEntity
       address:
         EU: 0x22E2EB4
         NA: 0x22E2574
       description: |-
-        Checks if messages that involve a certain entity should be displayed or suppressed.
+        Checks if an entity should be displayed or not.
         
         For example, it returns false if the entity is an invisible enemy.
+        Also used to determine if messages that involve a certain entity should be displayed or suppressed.
         
         r0: Entity pointer
-        r1: ?
-        return: True if messages involving the entity should be displayed, false if they should be suppressed.
-    - name: ShouldDisplayEntityMessagesWrapper
+        r1: (?) Seems to be 1 for monsters and 0 for items.
+        return: True if the entity and its associated messages should be displayed, false if they shouldn't.
+    - name: ShouldDisplayEntityWrapper
       address:
         EU: 0x22E306C
         NA: 0x22E272C
       description: |-
-        Calls ShouldDisplayEntityMessages with r1 = 0
+        Calls ShouldDisplayEntity with r1 = 0
         
         r0: Entity pointer
-        return: True if messages involving the entity should be displayed, false if they should be suppressed.
+        return: True if the entity and its associated messages should be displayed, false if they shouldn't.
     - name: CanSeeTarget
       address:
         EU: 0x22E308C
@@ -612,7 +645,7 @@ overlay29:
         
         The parameter in r1 can be used to specify how many entries are already present in the buffer. Entries added by this function will be placed after those, and the total returned in r1 will account for existing entries as well.
         
-        r0: (output) Buffer where the result will be stored
+        r0: [output] Buffer where the result will be stored
         r1: Current amount of entries in the buffer
         return: New amount of entries in the buffer
     - name: IsOnMonsterSpawnList
@@ -943,7 +976,7 @@ overlay29:
         NA: 0x22EAE14
         JP: 0x22EC47C
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Replace the currently playing music with the provided music
         
         r0: music ID
     - name: TrySwitchPlace
@@ -1041,6 +1074,16 @@ overlay29:
         
         r0: Pointer to the monster's action field
         r1: Direction in which to use the move. Gets stored in monster::action::direction.
+    - name: SetActionUseMovePlayer
+      address:
+        EU: 0x22EC648
+        NA: 0x22EBC98
+      description: |-
+        Sets a monster's action to action::ACTION_USE_MOVE_PLAYER, with a specified monster and move index.
+        
+        r0: Pointer to the monster's action field
+        r1: Index of the monster that is using the move on the entity list. Gets stored in monster::action::action_use_idx.
+        r2: Index of the move to use (0-3). Gets stored in monster::action::field_0xA.
     - name: SetActionUseMoveAi
       address:
         EU: 0x22EC66C
@@ -1373,6 +1416,15 @@ overlay29:
         Returns a pointer to the action data of the current leader (field 0x4A on its monster struct).
         
         No params.
+    - name: GetEntityTouchscreenArea
+      address:
+        EU: 0x22F1560
+        NA: 0x22F0BAC
+      description: |-
+        Returns the area on the touchscreen that contains the sprite of the specified entity
+        
+        r0: Entity pointer
+        r1: [output] struct where the result should be written
     - name: SetLeaderAction
       address:
         EU: 0x22F1890
@@ -1385,6 +1437,14 @@ overlay29:
         The function generally doesn't return until the player has an action set.
         
         No params.
+    - name: ShouldLeaderKeepRunning
+      address:
+        EU: 0x22F3A44
+        NA: 0x22F308C
+      description: |-
+        Determines if the leader should keep running. Returns false if the leader bumps into something, or if an action that should stop the leader takes place.
+        
+        return: True if the leader should keep running, false if it should stop.
     - name: CheckLeaderTile
       address:
         EU: 0x22F3FEC
@@ -1415,6 +1475,37 @@ overlay29:
         Zeroes the damage data struct, which is output by the damage calculation function.
         
         r0: damage data pointer
+    - name: FreeLoadedAttackSpriteAndMore
+      address:
+        EU: 0x22F78C8
+      description: |-
+        Among other things, free another data structure in the attack sprite storage area/data
+        
+        No params.
+    - name: SetAndLoadCurrentAttackAnimation
+      address:
+        EU: 0x22F7920
+      description: |-
+        Load given sprite into the currently loaded attack sprite structure, replacing the previous one if already loaded.
+        
+        r0: pack id
+        r1: file index
+        return: sprite id in the loaded wan list
+    - name: ClearLoadedAttackSprite
+      address:
+        EU: 0x22F79C0
+      description: |-
+        Delete the data of the currently loaded attack sprite, if any.
+        Doesn’t free the structure, which can continue to be used.
+        
+        No params.
+    - name: GetLoadedAttackSpriteId
+      address:
+        EU: 0x22F7A08
+      description: |-
+        Get the sprite ID (in the loaded WAN list) of the currently loaded attack sprite, or 0 if none.
+        
+        return: sprite ID
     - name: DungeonGetTotalSpriteFileSize
       address:
         EU: 0x22F7A20
@@ -1545,6 +1636,17 @@ overlay29:
         r0: Fainted entity
         r1: Damage source (move ID or greater than the max move id for other causes)
         r2: Entity responsible of the fainting
+    - name: MoveMonsterToPos
+      address:
+        EU: 0x22F8FFC
+        NA: 0x22F85F0
+      description: |-
+        Moves a monster to the target position. Used both for regular movement and special movement (like teleportation).
+        
+        r0: Entity pointer
+        r1: X target position
+        r2: Y target position
+        r3: ?
     - name: UpdateAiTargetPos
       address:
         EU: 0x22F9B50
@@ -1903,6 +2005,18 @@ overlay29:
         
         r0: monster pointer
         return: bool
+    - name: InitOtherMonsterData
+      address:
+        EU: 0x22FC854
+        NA: 0x22FBE58
+      description: |-
+        Initializes stats, IQ skills and moves for a given monster
+        
+        Might only be used when spawning fixed room monsters.
+        
+        r0: Entity pointer
+        r1: Fixed room monster stats index
+        r2: Spawn direction? (when calling this function while spawning a fixed room monster, this is the parameter value associated to the spawn action, after converting it to a direction.)
     - name: SpawnTeam
       address:
         EU: 0x22FCF08
@@ -1953,11 +2067,22 @@ overlay29:
         stack[4]: ?
     - name: InitMonster
       address:
+        EU: 0x22FE3D0
+        NA: 0x22FD9D4
+      description: |-
+        Initializes the monster struct within the provided entity struct.
+        
+        r0: ?
+        r1: Pointer to the entity whose monster struct should be initialized
+        r2: pointer to the entity's spawned_monster_data struct
+        r3: (?) Pointer to something
+    - name: SubInitMonster
+      address:
         EU: 0x22FE7BC
         NA: 0x22FDDC0
         JP: 0x22FF1B0
       description: |-
-        Initializes a monster struct.
+        Called by InitMonster. Initializes some fields on the monster struct.
         
         r0: pointer to monster to initialize
         r1: some flag
@@ -2071,6 +2196,15 @@ overlay29:
         
         r0: pointer to entity
         returns: int
+    - name: GetMonsterDisplayNameType
+      address:
+        EU: 0x2300B34
+        NA: 0x2300108
+      description: |-
+        Determines how the name of a monster should be displayed.
+        
+        r0: Entity pointer
+        return: Display name type
     - name: GetMonsterName
       address:
         EU: 0x2300B90
@@ -2219,6 +2353,31 @@ overlay29:
         
         r0: entity pointer
         return: bool
+    - name: CanMonsterMoveInDirection
+      address:
+        EU: 0x23018A4
+        NA: 0x230105C
+      description: |-
+        Checks if the given monster can move in the specified direction
+        
+        Returns false if any monster is standing on the target tile
+        
+        r0: Monster entity pointer
+        r1: Direction to check
+        return: bool
+    - name: GetFinalMobilityType
+      address:
+        EU: 0x230195C
+        NA: 0x2300F30
+      description: |-
+        Returns the mobility type of a monster, after accounting for things that could affect it (like items or IQ skills)
+        
+        If the specified direction is DIR_NONE, direction checks are skipped. If it's not, MOBILITY_INTANGIBLE is only returned if the direction is not diagonal.
+        
+        r0: Monster entity pointer
+        r1: Base mobility type
+        r2: Direction of mobility
+        return: Final mobility type
     - name: IsMonsterCornered
       address:
         EU: 0x2301B44
@@ -2252,7 +2411,7 @@ overlay29:
         
         r0: Entity pointer
         r1: Direction
-        r2: (output) True if movement was not possible because there was another monster on the target tile, false otherwise.
+        r2: [output] True if movement was not possible because there was another monster on the target tile, false otherwise.
         return: True if the monster can move in the specified direction, false otherwise.
     - name: ShouldMonsterRunAway
       address:
@@ -5359,6 +5518,25 @@ overlay29:
         Exact purpose unknown. Gets called whenever a trap tile is shown or hidden.
         
         No params.
+    - name: DrawTileGrid
+      address:
+        EU: 0x2337FF8
+        NA: 0x2337428
+      description: |-
+        Draws a grid on the nearby walkable tiles. Triggered by pressing Y.
+        
+        r0: Coordinates of the entity around which the grid will be drawn
+        r1: ?
+        r2: ?
+        r3: ?
+    - name: HideTileGrid
+      address:
+        EU: 0x233836C
+        NA: 0x233779C
+      description: |-
+        Hides the grid on the nearby walkable tiles. Triggered by releasing Y.
+        
+        No params.
     - name: DiscoverMinimap
       address:
         EU: 0x233860C
@@ -6276,6 +6454,14 @@ overlay29:
         r1: y coordinate of the stairs
         r2: flag to always return true, but set a special bit on all walkable tiles that aren't reachable from the stairs
         return: bool
+    - name: GetNextFixedRoomAction
+      address:
+        EU: 0x23430B4
+        NA: 0x23424D0
+      description: |-
+        Returns the next action that needs to be performed when spawning a fixed room tile.
+        
+        return: Next action ID
     - name: ConvertWallsToChasms
       address:
         EU: 0x234312C
@@ -6351,8 +6537,31 @@ overlay29:
         Resets hidden stairs spawn information for the floor. This includes the position on the floor generation status as well as the flag indicating whether the spawn was blocked.
         
         No params.
+    - name: PlaceFixedRoomTile
+      address:
+        EU: 0x2343B14
+        NA: 0x2342F30
+      description: |-
+        Used to spawn a single tile when generating a fixed room. The tile might contain an item or a monster.
+        
+        r0: Pointer to the tile to spawn
+        r1: Fixed room action to perform. Controls what exactly will be spawned. The action is actually 12 bits long, the highest 4 bits are used as a parameter that represents a direction (for example, when spawning a monster).
+        r2: Tile X position
+        r3: Tile Y position
+    - name: FixedRoomActionParamToDirection
+      address:
+        EU: 0x2344550
+        NA: 0x234396C
+      description: |-
+        Converts the parameter stored in a fixed room action value to a direction ID.
+        
+        The conversion is performed by subtracting 1 to the value. If the parameter had a value of 0, DIR_NONE is returned.
+        
+        r0: Parameter value
+        return: Direction
     - name: ApplyKeyEffect
       address:
+        EU: 0x23448BC
         NA: 0x2343CD8
       description: |-
         Attempts to open a locked door in front of the target if a locked door has not already
@@ -7074,6 +7283,15 @@ overlay29:
         r0: user entity pointer
         r1: message ID
         r2: bool, whether or not to present a message popup
+    - name: InitPortraitDungeon
+      address:
+        EU: 0x234C6C0
+      description: |-
+        Initialize the portrait box structure for the given monster and expression
+        
+        r0: pointer the portrait box data structure to initialize
+        r1: monster id
+        r2: emotion id
     - name: OpenMessageLog
       address:
         EU: 0x234C75C
@@ -7133,7 +7351,7 @@ overlay29:
       description: |-
         Displays a message in a dialogue box that optionally waits for player input before closing.
         
-        r0: ?
+        r0: pointer to the structure representing the desired state of the portrait
         r1: ID of the string to display
         r2: True to wait for player input before closing the dialogue box, false to close it automatically once all the characters get printed.
     - name: DisplayMessage2
@@ -7165,7 +7383,7 @@ overlay29:
         
         r0: ID of the string to display
         r1: True to wait for player input before closing the dialogue box, false to close it automatically once all the characters get printed.
-        r2: ? (r0 in DisplayMessage)
+        r2: pointer to the structure representing the desired state of the portrait
         r3: ?
         stack[0]: ?
         stack[1]: ?
@@ -7174,7 +7392,14 @@ overlay29:
         EU: 0x234E9F4
         NA: 0x234DDF4
         JP: 0x234F080
-      description: "Note: unverified, ported from Irdkwia's notes"
+      description: |-
+        Opens a menu. The menu to open depends on the specified parameter.
+        
+        It looks like the function takes a parameter in r0, but doesn't use it. r1 doesn't even get set when this function is called.
+        
+        r0: (?) Unused by the function. Seems to be 1 byte long.
+        r1: (?) Unused by the function. Seems to be 1 byte long.
+        r2: True to open the bag menu, false to open the main dungeon menu
     - name: OthersMenuLoop
       address:
         EU: 0x23503CC
@@ -8018,7 +8243,7 @@ overlay29:
         
         Note: unverified, ported from Irdkwia's notes
         
-        type: struct rgb[9]
+        type: struct rgba[9]
     - name: CORNER_CARDINAL_NEIGHBOR_IS_OPEN
       address:
         EU: 0x2353C24
@@ -8113,6 +8338,24 @@ overlay29:
         [Runtime] An array of 5 integers corresponding to the last value generated for each secondary LCG sequence.
         
         Based on the assembly, this appears to be its own global array, separate from DUNGEON_PRNG_STATE.
+    - name: LOADED_ATTACK_SPRITE_FILE_INDEX
+      address:
+        EU: 0x23541AC
+      length:
+        EU: 0x2
+      description: |-
+        [Runtime] The file index of the currently loaded attack sprite.
+        
+        type: uint16_t
+    - name: LOADED_ATTACK_SPRITE_PACK_ID
+      address:
+        EU: 0x23541AE
+      length:
+        EU: 0x2
+      description: |-
+        [Runtime] The pack id of the currently loaded attack sprite. Should correspond to the id of m_attack.bin
+        
+        type: enum pack_file_id
     - name: EXCL_ITEM_EFFECTS_WEATHER_ATK_SPEED_BOOST
       address:
         EU: 0x23541B0

@@ -301,7 +301,7 @@ struct action_data {
     undefined field_0x7;
     undefined field_0x8;
     undefined field_0x9;
-    undefined field_0xA;
+    uint8_t field_0xA;
     undefined field_0xB;
     undefined field_0xC;
     undefined field_0xD;
@@ -701,114 +701,16 @@ struct entity {
     undefined field_0x29;
     undefined field_0x2a;
     undefined field_0x2b;
-    undefined field_0x2c;
-    undefined field_0x2d;
-    undefined field_0x2e;
-    undefined field_0x2f;
-    undefined field_0x30;
-    undefined field_0x31;
-    undefined field_0x32;
-    undefined field_0x33;
-    undefined field_0x34;
-    undefined field_0x35;
-    undefined field_0x36;
-    undefined field_0x37;
-    uint8_t idle_anim_frame; // 0x38: animation frame counter for the idle animation?
-    undefined field_0x39;
-    undefined field_0x3a;
-    undefined field_0x3b;
-    undefined field_0x3c;
-    undefined field_0x3d;
-    undefined field_0x3e;
-    undefined field_0x3f;
-    undefined field_0x40;
-    undefined field_0x41;
-    undefined field_0x42;
-    undefined field_0x43;
-    undefined field_0x44;
-    undefined field_0x45;
-    undefined field_0x46;
-    undefined field_0x47;
-    undefined field_0x48;
-    undefined field_0x49;
-    undefined field_0x4a;
-    undefined field_0x4b;
-    struct position pixel_offset;  // 0x4C: displacement from a monster's normal position
-    struct position shadow_offset; // 0x50: displacement of monster shadow from its normal position
-    undefined field_0x54;
-    undefined field_0x55;
-    undefined field_0x56;
-    undefined field_0x57;
-    undefined field_0x58;
-    undefined field_0x59;
-    undefined field_0x5a;
-    undefined field_0x5b;
-    undefined field_0x5c;
-    undefined field_0x5d;
-    undefined field_0x5e;
-    undefined field_0x5f;
-    undefined field_0x60;
-    undefined field_0x61;
-    undefined field_0x62;
-    undefined field_0x63;
-    undefined field_0x64;
-    undefined field_0x65;
-    uint16_t sprite_id;        // 0x66: Maybe?
-    uint16_t sprite_id_mirror; // 0x68
-    undefined field_0x6a;
-    undefined field_0x6b;
-    undefined field_0x6c;
-    undefined field_0x6d;
-    undefined field_0x6e;
-    undefined field_0x6f;
-    undefined field_0x70;
-    undefined field_0x71;
-    undefined field_0x72;
-    undefined field_0x73;
-    void* field_0x74;
-    void* field_0x78;
-    void* field_0x7c;
-    void* field_0x80;
-    void* field_0x84;
-    void* field_0x88;
-    undefined field_0x8c;
-    undefined field_0x8d;
-    undefined field_0x8e;
-    undefined field_0x8f;
-    undefined field_0x90;
-    undefined field_0x91;
-    undefined field_0x92;
-    undefined field_0x93;
-    undefined field_0x94;
-    undefined field_0x95;
-    undefined field_0x96;
-    undefined field_0x97;
-    undefined field_0x98;
-    undefined field_0x99;
-    undefined field_0x9a;
-    undefined field_0x9b;
-    undefined field_0x9c;
-    undefined field_0x9d;
-    undefined field_0x9e;
-    undefined field_0x9f;
-    undefined field_0xa0;
-    undefined field_0xa1;
-    undefined field_0xa2;
-    undefined field_0xa3;
-    struct direction_id_8 graphical_direction_mirror1; // 0xA4
-    undefined field_0xa5;
-    undefined field_0xa6;
-    undefined field_0xa7;
-    undefined field_0xa8;
-    undefined field_0xa9;
+    struct animation_control anim_ctrl;
+    uint16_t sprite_index; // 0xA8
     undefined field_0xaa;
     undefined field_0xab;
     undefined field_0xac;
     undefined field_0xad;
-    uint8_t anim_id;                           // 0xAE: Maybe?
-    uint8_t anim_id_mirror;                    // 0xAF
-    struct direction_id_8 graphical_direction; // 0xB0: Direction a monster's sprite is facing
-    struct direction_id_8 graphical_direction_mirror0; // 0xB1
+    uint8_t animation_group_id;        // 0xAE
+    uint8_t animation_group_id_mirror; // 0xAF
+    uint8_t animation_id;              // 0xB0
+    uint8_t animation_id_mirror0;      // 0xB1
     undefined field_0xb2;
     undefined field_0xb3;
     void* info; // 0xB4: Points to info struct for monster/item/trap
@@ -1611,8 +1513,10 @@ ASSERT_SIZE(struct message_tip, 8);
 // Map marker entry in the map marker placements list. These determine where a dungeon
 // appears on the Wonder Map.
 struct map_marker {
-    // [Untested] Which map this marker belongs to. For example, the main world, the Hidden Land
+    // Which map this marker belongs to. For example, the main world, the Hidden Land
     // map, maps in the Special Episodes, etc.
+    // The game only uses it to check if the marker is correct, but not to decide which map to
+    // display
     uint16_t map_id;
     // If not -1, this map marker is a reference to some other map marker, with an index indicated
     // by this field
@@ -1830,6 +1734,24 @@ struct two_turn_move_and_status {
     struct status_two_turn_id_16 status;
 };
 ASSERT_SIZE(struct two_turn_move_and_status, 4);
+
+// Represents an area on the touchscreen
+// Touchscreen coordinates range from (1,1) (top left corner) to (254, 190) (bottom right corner)
+struct touchscreen_area {
+    int y1; // 0x0: Lower Y coordinate
+    int y2; // 0x4: Upper Y coordinate
+    int x1; // 0x8: Lower X coordinate
+    int x2; // 0xC: Upper X coordinate
+};
+ASSERT_SIZE(struct touchscreen_area, 16);
+
+// Store the currently loaded attack sprite
+// It’s a unpacked WAN file
+struct loaded_attack_sprite_data {
+    undefined1 file_content[106496];
+    uint16_t loaded_sprite_id; // 0 for none
+};
+ASSERT_SIZE(struct loaded_attack_sprite_data, 106498);
 
 // Separate this out into its own file because it's massive
 #include "dungeon.h"

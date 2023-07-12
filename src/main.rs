@@ -153,17 +153,21 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
                         .short("o")
                         .long("no-overlap"),
                     Arg::with_name("function names")
-                        .help("Enforce a naming convention for function symbols. Note that all conventions implicitly enforce valid identifiers.")
+                        .help("Enforce a naming convention for function symbols. This option can be specified multiple times with different values to enforce that at least one of the specified naming conventions applies for each symbol. Note that all conventions implicitly enforce valid identifiers.")
                         .takes_value(true)
                         .short("f")
                         .long("function-names")
+                        .multiple(true)
+                        .number_of_values(1)
                         .set(ArgSettings::CaseInsensitive)
                         .possible_values(&SUPPORTED_NAMING_CONVENTIONS),
                     Arg::with_name("data names")
-                        .help("Enforce a naming convention for data symbols. Note that all conventions implicitly enforce valid identifiers.")
+                        .help("Enforce a naming convention for data symbols. This option can be specified multiple times with different values to enforce that at least one of the specified naming conventions applies for each symbol. Note that all conventions implicitly enforce valid identifiers.")
                         .takes_value(true)
                         .short("d")
                         .long("data-names")
+                        .multiple(true)
+                        .number_of_values(1)
                         .set(ArgSettings::CaseInsensitive)
                         .possible_values(&SUPPORTED_NAMING_CONVENTIONS),
                     Arg::with_name("input")
@@ -347,11 +351,15 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
             if matches.is_present("no overlap") {
                 checks.push(resymgen::Check::NoOverlap);
             }
-            if let Some(conv) = matches.value_of("function names") {
-                checks.push(resymgen::Check::FunctionNames(naming_convention(conv)));
+            if let Some(convs) = matches.values_of("function names") {
+                checks.push(resymgen::Check::FunctionNames(
+                    convs.map(naming_convention).collect(),
+                ));
             }
-            if let Some(conv) = matches.value_of("data names") {
-                checks.push(resymgen::Check::DataNames(naming_convention(conv)));
+            if let Some(convs) = matches.values_of("data names") {
+                checks.push(resymgen::Check::DataNames(
+                    convs.map(naming_convention).collect(),
+                ));
             }
             // This one handles multiple files internally so that check result printing
             // can be merged appropriately
@@ -377,14 +385,14 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
             let iformat = int_format(matches.is_present("decimal"));
             let fix_formatting = matches.is_present("fix formatting");
             let unmerged_symbols = resymgen::merge_symbols(
-                &symgen_file,
+                symgen_file,
                 &input_files,
                 input_format,
                 &merge_params,
                 iformat,
             )?;
             if fix_formatting {
-                resymgen::format_file(&symgen_file, true, iformat)?;
+                resymgen::format_file(symgen_file, true, iformat)?;
             }
 
             // Print the unmerged symbols from each file, with terminal colors

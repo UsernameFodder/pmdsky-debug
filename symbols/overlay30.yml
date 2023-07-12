@@ -12,7 +12,18 @@ overlay30:
     NA: 0x38A0
     JP: 0x3880
   description: Controls quicksaving in dungeons.
-  functions: []
+  functions:
+    - name: WriteQuicksaveData
+      address:
+        EU: 0x2383868
+        NA: 0x2382C6C
+      description: |-
+        Function responsible for writing dungeon data when quicksaving.
+        
+        Among other things, it contains a loop that goes through all the monsters in the current dungeon, copying their data to the buffer. The data is not copied as-is though, the game uses a reduced version of the monster struct containing only the minimum required data to resume the game later.
+        
+        r0: Pointer to buffer where data should be written
+        r1: Buffer size. Seems to be 0x5800 (22 KB) when the function is called.
   data:
     - name: OVERLAY30_JP_STRING_1
       address:

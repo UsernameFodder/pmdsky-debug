@@ -29,6 +29,15 @@ void SetAnimDataFields2(struct animation* anim, uint32_t flags, uint32_t param_3
 void LoadObjectAnimData(struct animation* anim, int16_t object_id, uint32_t flags);
 void InitAnimDataFromOtherAnimDataVeneer(struct animation* dst, struct animation* src);
 void AnimRelatedFunction(struct animation* anim, undefined4 param_2, undefined4 param_3);
+void AllocAndInitPartnerFollowDataAndLiveActorList(void);
+void InitPartnerFollowDataAndLiveActorList(void);
+void DeleteLiveActor(int16_t actor_id);
+void InitPartnerFollowData(void);
+void GetDirectionLiveActor(struct live_actor* actor, struct direction_id_8* target);
+void SetDirectionLiveActor(struct live_actor* actor, struct direction_id_8 direction);
+void GetExclusiveItemRequirements(undefined param_1, undefined param_2);
+void WorldMapSetMode(uint32_t world_map_mode);
+void WorldMapSetCamera(uint32_t map_marker_id);
 void StatusUpdate(void);
 
 #endif

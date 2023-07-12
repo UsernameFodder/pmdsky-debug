@@ -4,21 +4,11 @@
 #define HEADERS_TYPES_COMMON_H_
 
 #include "enums.h"
+#include "util.h"
 #include "../dungeon_mode/dungeon_mode_common.h"
 #include "file_io.h"
+#include "graphics.h"
 #include "../files/wan.h"
-
-// A slice in the usual programming sense: a pointer, length, and capacity.
-// Used for the implementation of vsprintf(3), but maybe it's used elsewhere as well.
-struct slice {
-    void* data;        // Pointer to the data buffer
-    uint32_t capacity; // How much space is available in total
-    uint32_t length;   // How much space is currently filled
-};
-ASSERT_SIZE(struct slice, 12);
-
-// Function to append data to a struct slice, and return a success flag.
-typedef bool (*slice_append_fn_t)(struct slice* slice, void* data, uint32_t data_len);
 
 // Program position info (basically stack trace info) for debug logging.
 struct prog_pos_info {
@@ -111,14 +101,6 @@ struct mem_arena_getters {
 };
 ASSERT_SIZE(struct mem_arena_getters, 8);
 
-// 64-bit signed fixed-point number with 16 fraction bits.
-// Represents the number ((upper << 16) + (lower >> 16) + (lower & 0xFFFF) * 2^-16)
-struct fx64 {
-    int32_t upper;  // sign bit, plus the 31 most significant integer bits
-    uint32_t lower; // the 32 least significant bits (16 integer + 16 fraction)
-};
-ASSERT_SIZE(struct fx64, 8);
-
 struct overlay_load_entry {
     enum overlay_group_id group;
     // These are function pointers, but not sure of the signature.
@@ -144,20 +126,13 @@ struct dialog_box {
 };
 ASSERT_SIZE(struct dialog_box, 224);
 
-// Structure for dialog boxes with portraits?
+// Represents a portrait that appears inside a dialogue box
 struct portrait_box {
-    undefined field_0x0;
-    undefined field_0x1;
-    undefined field_0x2;
+    struct monster_id_16 monster_id;
+    struct portrait_emotion_8 portrait_emotion;
     undefined field_0x3;
-    undefined field_0x4;
-    undefined field_0x5;
-    undefined field_0x6;
-    undefined field_0x7;
-    undefined field_0x8;
-    undefined field_0x9;
-    undefined field_0xa;
-    undefined field_0xb;
+    undefined4 field_0x4;
+    undefined4 field_0x8;
     undefined field_0xc;
     undefined field_0xd;
     undefined field_0xe;
@@ -766,20 +741,6 @@ struct adventure_log {
 };
 ASSERT_SIZE(struct adventure_log, 636);
 
-// a 2d uint (32bit) vector
-struct uvec2 {
-    uint32_t x;
-    uint32_t y;
-};
-ASSERT_SIZE(struct uvec2, 8);
-
-// a 2d int (32bit) vector
-struct vec2 {
-    int32_t x;
-    int32_t y;
-};
-ASSERT_SIZE(struct vec2, 8);
-
 struct exclusive_item_stat_boost_entry {
     int8_t atk;
     int8_t def;
@@ -897,9 +858,9 @@ ASSERT_SIZE(struct version_exclusive_monster, 4);
 struct wan_table_entry {
     char path[32];                  // 0x0: Needs to be null-terminated. Only used for direct file.
     bool file_externally_allocated; // 0x20: True if the iov_base shouldn’t be freed by this struct.
-    uint8_t source_type;            // 0x21: 1 = direct file, 2 = pack file
-    int16_t pack_id;                // 0x22: for wan in pack file
-    int16_t file_index;             // 0x24: for wan in pack file
+    struct wan_source_type_8 source_type; // 0x21: 1 = direct file, 2 = pack file
+    int16_t pack_id;                      // 0x22: for wan in pack file
+    int16_t file_index;                   // 0x24: for wan in pack file
     undefined field5_0x26;
     undefined field6_0x27;
     uint32_t iov_len;
@@ -931,6 +892,21 @@ struct wan_table {
     undefined field10_0x150f;
 };
 ASSERT_SIZE(struct wan_table, 5392);
+
+// Store one boolean per vram bank
+struct vram_banks_set {
+    bool vram_A : 1;
+    bool vram_B : 1;
+    bool vram_C : 1;
+    bool vram_D : 1;
+    bool vram_E : 1;
+    bool vram_F : 1;
+    bool vram_G : 1;
+    bool vram_H : 1;
+    bool vram_I : 1;
+    uint8_t _unused : 7;
+};
+ASSERT_SIZE(struct vram_banks_set, 2);
 
 // TODO: Add more data file structures, as convenient or needed, especially if the load address
 // or pointers to the load address are known.

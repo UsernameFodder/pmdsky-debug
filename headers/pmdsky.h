@@ -44,9 +44,12 @@ typedef long long int64_t;
 // Define the bool type to be 1 byte
 typedef uint8_t bool;
 
-// Define the wchar_t type to be 2 bytes. Use the built-in short type here because Ghidra's
-// default parser configuration complains if we use int16_t
-typedef short wchar_t;
+// Define size_t for convenience
+typedef unsigned long size_t;
+
+// Define the wchar_t type to be 2 bytes. Use the built-in unsigned short type here because
+// Ghidra's default parser configuration complains if we use uint16_t
+typedef unsigned short wchar_t;
 
 // Based on the code for vsprintf(3), it seems like va_list is implemented in the ARM9 binary
 // by just passing a pointer into the stack, so define va_list to be void*, rather than using
@@ -101,6 +104,12 @@ typedef undefined1 undefined;
 #include <stdbool.h>
 #include <stdint.h>
 #include <wchar.h>
+
+// PMDSKY_UNSIZED_HEADERS implies PMDSKY_NO_BUILTIN, because trying to declare certain builtins
+// will cause the compiler to complain in many typical contexts.
+#ifndef PMDSKY_NO_BUILTIN
+#define PMDSKY_NO_BUILTIN
+#endif
 
 // Stub this out since we don't care about sizes
 #define ASSERT_SIZE(type, size)

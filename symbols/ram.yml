@@ -186,6 +186,42 @@ ram:
         EU: 0x4
         NA: 0x4
       description: The amount of money the player currently has stored in the Duskull Bank.
+    - name: CURSOR_16_SPRITE_ID
+      address:
+        EU: 0x22AB5A4
+      length:
+        EU: 0x2
+      description: "Id of the \"FONT/cursor_16.wan\" sprite loaded in WAN_TABLE"
+    - name: CURSOR_SPRITE_ID
+      address:
+        EU: 0x22AB5A6
+      length:
+        EU: 0x2
+      description: "Id of the \"FONT/cursor.wan\" sprite loaded in WAN_TABLE"
+    - name: CURSOR_ANIMATION_CONTROL
+      address:
+        EU: 0x22AB5C0
+      length:
+        EU: 0x7C
+      description: "animation_control of \"FONT/cursor.wan\""
+    - name: CURSOR_16_ANIMATION_CONTROL
+      address:
+        EU: 0x22AB63C
+      length:
+        EU: 0x7C
+      description: "animation_control of \"FONT/cursor_16.wan\""
+    - name: ALERT_SPRITE_ID
+      address:
+        EU: 0x22AB6B8
+      length:
+        EU: 0x2
+      description: "Id of the \"FONT/alert.wan\" sprite loaded in WAN_TABLE"
+    - name: ALERT_ANIMATION_CONTROL
+      address:
+        EU: 0x22AB6BC
+      length:
+        EU: 0x7C
+      description: "animation_control of \"FONT/alter.wan\""
     - name: DIALOG_BOX_LIST
       address:
         NA: 0x22A88DC
@@ -298,6 +334,17 @@ ram:
         See the comments on struct team_member_table for more information.
         
         type: struct team_member_table
+    - name: ENABLED_VRAM_BANKS
+      address:
+        EU: 0x22B9ECC
+        NA: 0x22B958C
+      length:
+        EU: 0x2
+        NA: 0x2
+      description: |-
+        Bitset of enabled VRAM banks
+        
+        type: vram_banks_set
     - name: FRAMES_SINCE_LAUNCH_TIMES_THREE
       address:
         EU: 0x22BA304
@@ -306,6 +353,14 @@ ram:
         EU: 0x4
         NA: 0x4
       description: "Starts at 0 when the game is first launched, and ticks up by 3 per frame while the game is running."
+    - name: WORLD_MAP_MODE
+      address:
+        EU: 0x2325924
+        NA: 0x2324DE4
+      length:
+        EU: 0x4
+        NA: 0x4
+      description: The current world map
     - name: SENTRY_DUTY_STRUCT
       address:
         NA: 0x237A5D0
@@ -319,6 +374,15 @@ ram:
         EU: 0x1
         NA: 0x1
       description: "[Runtime] Flag for whether the player is turning on the spot (pressing Y)."
+    - name: LOADED_ATTACK_SPRITE_DATA
+      address:
+        EU: 0x237D5AC
+      length:
+        EU: 0x4
+      description: |-
+        [Runtime] Pointer to the dynamically allocated structure relating to the currently loaded attack sprite, in dungeon mode.
+        
+        type: struct loaded_attack_sprite_data*
     - name: ROLLOUT_ICE_BALL_MISSED
       address:
         NA: 0x237CA69
