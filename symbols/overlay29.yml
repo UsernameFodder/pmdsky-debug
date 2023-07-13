@@ -1394,7 +1394,7 @@ overlay29:
       address:
         NA: 0x22EFA74
       description: |-
-        If floor_properties::iq_booster_value is more than 0, increasces the IQ of all team members holding the IQ Booster.
+        If floor_properties::iq_booster_value is more than 0, increases the IQ of all team members holding the IQ Booster.
         
         No params.
     - name: IsSecretBazaarNpcBehavior

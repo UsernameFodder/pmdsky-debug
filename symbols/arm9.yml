@@ -1259,7 +1259,7 @@ arm9:
         NA: 0x200CC38
       description: |-
         Checks if an item can be lost after fainting in a dungeon. Specifically calls IsAuraBow and checks item::f_in_shop
-        so that the player can't keep an unpaid aura bow they haven't paid for yet.
+        so that the player can't keep an aura bow they haven't paid for yet.
         
         r0: item pointer
         return: bool
@@ -1288,7 +1288,7 @@ arm9:
         NA: 0x200CCE0
       description: |-
         Checks if an item can be bought and sold from a Kecleon shop. Includes items like the Gold Thorn, Poke, Golden
-        Mask, Amber Tear, etc. Also has a special check to make sure an items buy and sell price is more than 0.
+        Mask, Amber Tear, etc. Also has a special check to make sure an item's buy and sell price is more than 0.
         
         r0: item ID
         return: bool

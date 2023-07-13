@@ -126,6 +126,7 @@ bool IsStorableItem(enum item_id item_id);
 bool IsShoppableItem(enum item_id item_id);
 bool IsValidTargetItem(enum item_id item_id);
 bool IsItemUsableNow(struct item* item);
+bool IsTicketItem(enum item_id item_id);
 void InitItem(struct item* item, enum item_id item_id, uint16_t quantity, bool sticky);
 void InitStandardItem(struct item* item, enum item_id item_id, bool sticky);
 int GetDisplayedBuyPrice(struct item* item);

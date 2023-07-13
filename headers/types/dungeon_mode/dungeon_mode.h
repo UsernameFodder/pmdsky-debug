@@ -660,7 +660,7 @@ struct monster {
     uint8_t exclusive_item_defense_boosts[2]; // 0x226: {def, sp_def}
     // 0x228: Bitvector. See enum exclusive_item_effect_id for the meaning of each bit
     uint32_t exclusive_item_effect_flags[5];
-    // 0x23C: Initialized to 0. Probably menu related only seems to be set to true through the
+    // 0x23C: Initialized to 0. Probably menu related only, seems to be set to true through the
     // menu.
     bool field_0x23c;
     // 0x23F: When reviving a monster, temporarily set to true. Probably a visual indicator
