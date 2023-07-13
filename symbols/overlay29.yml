@@ -1390,7 +1390,7 @@ overlay29:
         Seems to be a function used during development to disable recruiting. If it returns false, SpecificRecruitCheck will also return false.
         
         return: true
-    - name: TryActivateIQBooster
+    - name: TryActivateIqBooster
       address:
         NA: 0x22EFA74
       description: |-

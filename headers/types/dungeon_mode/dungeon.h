@@ -1153,7 +1153,7 @@ struct dungeon {
     // 0xCD0C: Appears to be an array for the team. Likely only the first 4 entries are used.
     // Possibly related to dungeon_generation_info::individual_team_spawn_positions? Possibly the
     // direction to spawn each team member in?
-    enum direction_id_8 unk_team_direction_array[8];
+    struct direction_id_8 unk_team_direction_array[8];
     // Min x of the generated Kecleon shop, if it exists. This reflects the original generation, and
     // is not updated if some shop tiles are deleted by later steps in floor generation
     int kecleon_shop_min_x; // 0xCD14: inclusive

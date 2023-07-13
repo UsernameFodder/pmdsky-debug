@@ -132,7 +132,7 @@ bool ApplyTrapEffect(struct trap* trap, struct entity* user, struct entity* targ
 void RevealTrapsNearby(struct entity* monster);
 bool ShouldMonsterRunAI(struct entity* monster);
 bool DebugRecruitingEnabled(void);
-void TryActivateIQBooster(void);
+void TryActivateIqBooster(void);
 bool IsSecretBazaarNpcBehavior(enum monster_behavior behavior);
 struct action_16* GetLeaderAction(void);
 void GetEntityTouchscreenArea(struct entity* entity, struct touchscreen_area* area);
@@ -449,8 +449,8 @@ void TryInflictEyedropStatus(struct entity* user, struct entity* target);
 bool TryInflictSlipStatus(struct entity* user, struct entity* target);
 bool TryInflictDropeyeStatus(struct entity* user, struct entity* target);
 void RestoreAllMovePP(struct entity* user, struct entity* target, int pp, bool suppress_logs);
-void RestoreOneMovePP(struct entity* user, struct entity* target, int move_slot,
-                      int pp, bool suppress_logs);
+void RestoreOneMovePP(struct entity* user, struct entity* target, int move_slot, int pp,
+                      bool suppress_logs);
 void RestoreRandomMovePP(struct entity* user, struct entity* target, int pp, bool suppress_logs);
 void ApplyProteinEffect(struct entity* user, struct entity* target, int stat_boost);
 void ApplyCalciumEffect(struct entity* user, struct entity* target, int stat_boost);
@@ -593,8 +593,8 @@ void DisplayUi(void);
 struct tile* GetTile(int x, int y);
 struct tile* GetTileSafe(int x, int y);
 bool IsFullFloorFixedRoom(void);
-void CountItemsOnFloorForAcuteSniffer(void);
 void TrySpawnGoldenChamber(void);
+void CountItemsOnFloorForAcuteSniffer(void);
 void GetStairsSpawnPosition(int16_t* x, int16_t y);
 bool PositionsIsOnStairs(int x, int y);
 uint8_t GetStairsRoom(void);
