@@ -686,7 +686,7 @@ struct dungeon {
     undefined field_0x7ed;
     undefined field_0x7ee;
     undefined field_0x7ef;
-    // Somehow related to dungeon::0x7D0
+    // 0x7F0: Somehow related to dungeon::0x7D0?
     undefined2 field_0x7f0;
     // 0x7D2: May always just be a copy of dungeon::some_monster_sprite_to_load, but may also
     // have another purpose.

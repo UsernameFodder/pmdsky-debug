@@ -123,7 +123,7 @@ bool IsAuraBow(enum item_id item_id);
 bool IsLosableItem(struct item* item);
 bool IsTreasureBox(enum item_id item_id);
 bool IsStorableItem(enum item_id item_id);
-bool IsShopppableItem(enum item_id item_id);
+bool IsShoppableItem(enum item_id item_id);
 bool IsValidTargetItem(enum item_id item_id);
 bool IsItemUsableNow(struct item* item);
 void InitItem(struct item* item, enum item_id item_id, uint16_t quantity, bool sticky);
