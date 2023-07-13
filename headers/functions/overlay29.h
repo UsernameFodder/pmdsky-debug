@@ -596,7 +596,7 @@ bool IsFullFloorFixedRoom(void);
 void TrySpawnGoldenChamber(void);
 void CountItemsOnFloorForAcuteSniffer(void);
 void GetStairsSpawnPosition(int16_t* x, int16_t y);
-bool PositionsIsOnStairs(int x, int y);
+bool PositionIsOnStairs(int x, int y);
 uint8_t GetStairsRoom(void);
 uint16_t GetDefaultTileTextureId(void);
 void DetermineAllTilesWalkableNeighbors(void);
