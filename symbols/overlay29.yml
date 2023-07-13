@@ -3130,8 +3130,8 @@ overlay29:
       address:
         NA: 0x230D11C
       description: |-
-        A wrapper for ApplyDamageAndEffects used for applying damage from sources such as statuses,
-        traps, liquid ooze (ability), hunger, and possibly more.
+        A wrapper for ApplyDamageAndEffects used for applying damage from sources such as statuses, traps, liquid ooze,
+        hunger, and possibly more.
         
         r0: monster entity pointer
         r1: damage amount
@@ -3217,7 +3217,8 @@ overlay29:
       description: |-
         Updates the shopkeeper mode of a monster in response to being struck by an attack.
         
-        If the defender is in normal shopkeeper mode (not aggressive), nothing happens. Otherwise, the mode is set to SHOPKEEPER_MODE_ATTACK_TEAM if the attacker is a team member, or SHOPKEEPER_MODE_ATTACK_ENEMIES otherwise.
+        If the defender is in normal shopkeeper mode (not aggressive), nothing happens. Otherwise, the mode is set to
+        SHOPKEEPER_MODE_ATTACK_TEAM if the attacker is a team member, or SHOPKEEPER_MODE_ATTACK_ENEMIES otherwise.
         
         r0: attacker pointer
         r1: defender pointer
