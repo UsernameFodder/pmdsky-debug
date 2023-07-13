@@ -4232,7 +4232,7 @@ overlay29:
         r1: target entity pointer
         r2: PP to restore
         r3: flag to suppress message logging
-    - name: RestoreMovePP
+    - name: RestoreOneMovePP
       address:
         NA: 0x2317D58
       description: |-

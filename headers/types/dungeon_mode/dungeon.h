@@ -1444,8 +1444,8 @@ struct dungeon {
     undefined field_0x12af5;
     undefined field_0x12af6;
     undefined field_0x12af7;
-    // 0x12AF8: The amount of items "sniffed" by the Item Sniffer iq skill when a floor starts.
-    uint16_t item_sniffer_item_count;
+    // 0x12AF8: The amount of items "sniffed" by the Acute Sniffer iq skill when a floor starts.
+    uint16_t acute_sniffer_item_count;
     // 0x12AFA: Number of normal item spawns. Does not include monster held items and additional
     // items in walls or Monster Houses
     uint16_t n_normal_item_spawns;
@@ -1670,11 +1670,10 @@ struct dungeon {
     uint8_t fainted_monster_defensive_stats[2];
     uint8_t fainted_monster_level; // 0x2CA7A: Copy of fainted monster's level.
     undefined field_0x2ca7b;
-    // 0x2CA7C: This is a struct of some kind? This address is passed to a function and then
-    // offsets from this location are used to store data about a monster? Somehow related
-    // to the fainted monster? If the end of the dungeon is reached, the leaders information
-    // is copied into this struct? Uncertain of exact size.
-    undefined faint_related_struct;
+    // 0x2CA7C: This is probably a struct of some kind? This address is passed to a function and then offsets from this
+    // location are used to store data about a monster? Somehow related to the fainted monster? If the end of the
+    // dungeon is reached, the leaders information is copied into this struct? Uncertain of exact size.
+    undefined field_0x2ca7c;
     undefined field_0x2ca7d;
     undefined field_0x2ca7e;
     undefined field_0x2ca7f;
