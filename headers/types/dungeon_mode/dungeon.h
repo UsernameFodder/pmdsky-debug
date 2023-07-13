@@ -20,9 +20,8 @@ struct dungeon {
     bool quicksave_flag;
     // 0x8: The floor will be advanced at the end of the turn. Set when quicksaving.
     bool end_floor_no_death_check_flag;
-    // 0x9: If this is 0x0 (maybe false), appears to not initalize certain parts of the dungeon
-    // if this is true. Possibly a boolean for when loading from a quicksave or resuming
-    // after being rescued (Guess)?
+    // 0x9: If this is 0x0 (maybe false), appears to not initalize certain parts of the dungeon. Possibly a boolean for
+    // when loading from a quicksave or resuming after being rescued (Guess)?
     undefined field_0x9;
     undefined field_0xa;
     undefined field_0xb;
