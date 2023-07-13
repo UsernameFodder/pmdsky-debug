@@ -20,8 +20,8 @@ struct dungeon {
     bool quicksave_flag;
     // 0x8: The floor will be advanced at the end of the turn. Set when quicksaving.
     bool end_floor_no_death_check_flag;
-    // 0x9: If this is 0x0 (maybe false), appears to not initalize certain parts of the dungeon. Possibly a boolean for
-    // when loading from a quicksave or resuming after being rescued (Guess)?
+    // 0x9: If this is 0x0 (maybe false), appears to not initalize certain parts of the dungeon.
+    // Possibly a boolean for when loading from a quicksave or resuming after being rescued?
     undefined field_0x9;
     undefined field_0xa;
     undefined field_0xb;
@@ -595,9 +595,9 @@ struct dungeon {
     // 0x799: Determines which message to display when the leader's belly reaches 0. Goes up
     // to 0x9 (9), but only displays a unique message for 0x1, 0x2, and 0x3.
     uint8_t leader_hunger_message_tracker;
-    // 0x79A: Keeps track of which animation/message to display as the turn limit ticks down. This ensures
-    // that even if the number of turns given to a player is less than the number where an animation would
-    // play, it will still play.
+    // 0x79A: Keeps track of which animation/message to display as the turn limit ticks down. This
+    // ensures that even if the number of turns given to a player is less than the number where an
+    // animation would play, it will still play.
     uint8_t turn_limit_warning_tracker;
     // 0x79B: Number of times you can be rescued in this dungeon
     int8_t rescue_attempts_left;
@@ -687,7 +687,7 @@ struct dungeon {
     undefined field_0x7ef;
     // 0x7F0: Somehow related to dungeon::0x7D0?
     undefined2 field_0x7f0;
-    // 0x7D2: May always just be a copy of dungeon::some_monster_sprite_to_load, but may also
+    // 0x7F2: May always just be a copy of dungeon::some_monster_sprite_to_load, but may also
     // have another purpose.
     struct monster_id_16 some_monster_sprite;
     struct monster monsters[20]; // 0x7F4: Info for all the monsters currently in the dungeon
@@ -1091,7 +1091,8 @@ struct dungeon {
     // 0x3DCC: Appears to be a table that holds the statuses::statuses_unique_id value for
     // the monsters. Maybe just for convenience to avoid loading it from every monster?
     uint32_t monster_unique_id[20];
-    // 0x3E1C: Appears to be be an index inside or length for dungeon::active_monsters_unique_statuses_ids.
+    // 0x3E1C: Appears to be be an index inside or length for
+    // dungeon::active_monsters_unique_statuses_ids.
     uint32_t unique_id_index;
     // 0x3E20: Number of valid monster spawn entries (see spawn_entries).
     int monster_spawn_entries_length;
@@ -1150,9 +1151,9 @@ struct dungeon {
     undefined field_0xcd0a;
     undefined field_0xcd0b;
     // 0xCD0C: Appears to be an array for the team. Likely only the first 4 entries are used.
-    // Possibly related to dungeon_generation_info::individual_team_spawn_positions? Possibly the direction to spawn each
-    // team member in?
-    enum direction_id unk_team_direction_array[8];
+    // Possibly related to dungeon_generation_info::individual_team_spawn_positions? Possibly the
+    // direction to spawn each team member in?
+    enum direction_id_8 unk_team_direction_array[8];
     // Min x of the generated Kecleon shop, if it exists. This reflects the original generation, and
     // is not updated if some shop tiles are deleted by later steps in floor generation
     int kecleon_shop_min_x; // 0xCD14: inclusive
@@ -1669,9 +1670,10 @@ struct dungeon {
     uint8_t fainted_monster_defensive_stats[2];
     uint8_t fainted_monster_level; // 0x2CA7A: Copy of fainted monster's level.
     undefined field_0x2ca7b;
-    // 0x2CA7C: This is probably a struct of some kind? This address is passed to a function and then offsets from this
-    // location are used to store data about a monster? Somehow related to the fainted monster? If the end of the
-    // dungeon is reached, the leaders information is copied into this struct? Uncertain of exact size.
+    // 0x2CA7C: This is probably a struct of some kind? This address is passed to a function and
+    // then offsets from this location are used to store data about a monster? Somehow related
+    // to the fainted monster? If the end of the dungeon is reached, the leaders information is
+    // copied into this struct? Uncertain of exact size.
     undefined field_0x2ca7c;
     undefined field_0x2ca7d;
     undefined field_0x2ca7e;

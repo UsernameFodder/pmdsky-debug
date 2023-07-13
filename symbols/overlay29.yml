@@ -5462,20 +5462,20 @@ overlay29:
         The first non-full-floor fixed room is 0xA5, which is for Sealed Chambers.
         
         return: bool
-    - name: CountItemsOnFloorForAcuteSniffer
-      address:
-        NA: 0x2336260
-      description: |-
-        Counts the number of items on the floor by checking every tile for an item and stores it into
-        dungeon::item_sniffer_item_count
-        
-        No params.
     - name: TrySpawnGoldenChamber
       address:
         NA: 0x2336224
       description: |-
         Changes the tileset and fixed room id of the floor for the Golden Chamber if the floor should be a
         Golden Chamber.
+        
+        No params.
+    - name: CountItemsOnFloorForAcuteSniffer
+      address:
+        NA: 0x2336260
+      description: |-
+        Counts the number of items on the floor by checking every tile for an item and stores it into
+        dungeon::item_sniffer_item_count
         
         No params.
     - name: GetStairsSpawnPosition

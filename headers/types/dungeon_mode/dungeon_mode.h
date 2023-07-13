@@ -359,8 +359,8 @@ struct monster {
     struct type_id_8 types[2];     // 0x5E
     struct ability_id_8 abilities[2]; // 0x60
     struct item held_item;            // 0x62
-    // 0x68: Previous held item. Used for whenever taking the X-Ray Specs or Y-Ray Specs on or off in order
-    // to update the camera and minimap. Changed to held_item.id after checking.
+    // 0x68: Previous held item. Used for whenever taking the X-Ray Specs or Y-Ray Specs on or off
+    // in order to update the camera and minimap. Changed to held_item.id after checking.
     struct item_id_16 previous_held_item_id;
     // Previous position data is used by the AI
     struct position prev_pos;  // 0x6A: Position 1 turn ago
@@ -672,7 +672,7 @@ struct monster {
     undefined field_0x23e;
     // 0x23F: Gets set to 1 when the move used won't use up any PP. Used to check if the
     // monster should lose extra PP from the ability Pressure.
-   bool should_not_lose_pp;
+    bool should_not_lose_pp;
 };
 ASSERT_SIZE(struct monster, 576);
 
