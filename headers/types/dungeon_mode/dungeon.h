@@ -1655,7 +1655,7 @@ struct dungeon {
     // 0x02CA66: The cause of the mission over. Identical to the damage source in HandleFaint,
     // but can be set to some non-damage related reasons manually by the game. IE: "cleared the
     // dungeon." and "succeeded in the rescue mission."
-    union damage_source fainted_monster_dungeon_end_reason;
+    union damage_source_16 fainted_monster_dungeon_end_reason;
     struct dungeon_id_8 fainted_id; // 0x2CA68: Copied from dungeon::id, upon fainting.
     uint8_t fainted_floor;          // 0x2CA69: Copied from dungeon::floor, upon fainting.
     // 0x2CA6A: Copy of the fainted monster's held item.

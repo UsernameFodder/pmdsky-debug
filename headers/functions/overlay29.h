@@ -451,7 +451,7 @@ void TryInflictEyedropStatus(struct entity* user, struct entity* target);
 bool TryInflictSlipStatus(struct entity* user, struct entity* target);
 bool TryInflictDropeyeStatus(struct entity* user, struct entity* target);
 void RestoreAllMovePP(struct entity* user, struct entity* target, int pp, bool suppress_logs);
-void RestoreOneMovePP(struct entity* user, struct entity* target, int move_slot, int pp,
+void RestoreOneMovePP(struct entity* user, struct entity* target, int move_index, int pp,
                       bool suppress_logs);
 void RestoreRandomMovePP(struct entity* user, struct entity* target, int pp, bool suppress_logs);
 void ApplyProteinEffect(struct entity* user, struct entity* target, int stat_boost);
