@@ -130,7 +130,7 @@ void ApplyGrudgeTrapEffect(struct entity* monster, struct position* pos);
 bool ApplyTrapEffect(struct trap* trap, struct entity* user, struct entity* target,
                      struct tile* tile, struct position* pos, enum trap_id, bool random_trap);
 void RevealTrapsNearby(struct entity* monster);
-bool ShouldMonsterRunAI(struct entity* monster);
+bool ShouldRunMonsterAi(struct entity* monster);
 bool DebugRecruitingEnabled(void);
 void TryActivateIqBooster(void);
 bool IsSecretBazaarNpcBehavior(enum monster_behavior behavior);
@@ -406,7 +406,7 @@ bool ExclusiveItemEffectIsActiveWithLogging(struct entity* user, struct entity* 
                                             bool should_log, int message_id,
                                             enum exclusive_item_effect_id effect_id);
 bool TryActivateQuickFeet(struct entity* attacker, struct entity* defender);
-bool TryInflictTerrifiedStatus(struct entity* user, struct entity* target);
+void TryInflictTerrifiedStatus(struct entity* user, struct entity* target);
 bool TryInflictGrudgeStatus(struct entity* user, struct entity* target, bool log_message);
 bool TryInflictConfusedStatus(struct entity* user, struct entity* target, bool log_failure,
                               bool check_only);

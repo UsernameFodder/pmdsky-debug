@@ -1281,7 +1281,7 @@ arm9:
         Checks if an item can be put into storage. Specifically checks for the Wonder Egg, Poke, and Used TMs. Used TMs
         likely can't be stored because the move the TM teaches would be lost when sent to storage.
         
-        r0: item ID
+        r0: item_id
         return: bool
     - name: IsShoppableItem
       address:
@@ -1290,7 +1290,7 @@ arm9:
         Checks if an item can be bought and sold from a Kecleon shop. Includes items like the Gold Thorn, Poke, Golden
         Mask, Amber Tear, etc. Also has a special check to make sure an item's buy and sell price is more than 0.
         
-        r0: item ID
+        r0: item_id
         return: bool
     - name: IsValidTargetItem
       address:
@@ -1299,7 +1299,7 @@ arm9:
         Checks if an item is a valid target item for missions. Returns true for any item less than 363. Appears to check a
         list for valid items above 363, but the list is empty?
         
-        r0: item ID
+        r0: item_id
         return: bool
     - name: IsItemUsableNow
       address:
@@ -1316,7 +1316,7 @@ arm9:
       description: |-
         Checks if an item is a ticket that can be used in the recycle shop (items 169, 170, 171, and 172).
         
-        r0: item ID
+        r0: item_id
         return: bool
     - name: InitItem
       address:

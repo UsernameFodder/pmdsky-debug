@@ -1368,12 +1368,12 @@ overlay29:
         Reveals traps within the monster's viewing range.
         
         r0: entity pointer
-    - name: ShouldMonsterRunAI
+    - name: ShouldRunMonsterAi
       address:
         NA: 0x22EF9EC
       description: |-
         Checks a monster's monster_behavior to see whether or not the monster should use AI. Only called on monsters with
-        a monster_behavior greater than or equal to 6. Returns false for BEHAVIOR_FIXED_ENEMY, 
+        a monster_behavior greater than or equal to BEHAVIOR_FIXED_ENEMY. Returns false for BEHAVIOR_FIXED_ENEMY, 
         BEHAVIOR_WANDERING_ENEMY_0x8, BEHAVIOR_SECRET_BAZAAR_KIRLIA, BEHAVIOR_SECRET_BAZAAR_MIME_JR,
         BEHAVIOR_SECRET_BAZAAR_SWALOT, BEHAVIOR_SECRET_BAZAAR_LICKILICKY, and BEHAVIOR_SECRET_BAZAAR_SHEDINJA.
         
@@ -1394,7 +1394,8 @@ overlay29:
       address:
         NA: 0x22EFA74
       description: |-
-        If floor_properties::iq_booster_value is more than 0, increases the IQ of all team members holding the IQ Booster.
+        Increases the IQ of all team members holding the IQ Booster by floor_properties::iq_booster_value amount unless the
+        value is 0.
         
         No params.
     - name: IsSecretBazaarNpcBehavior
@@ -3217,8 +3218,7 @@ overlay29:
       description: |-
         Updates the shopkeeper mode of a monster in response to being struck by an attack.
         
-        If the defender is in normal shopkeeper mode (not aggressive), nothing happens. Otherwise, the mode is set to
-        SHOPKEEPER_MODE_ATTACK_TEAM if the attacker is a team member, or SHOPKEEPER_MODE_ATTACK_ENEMIES otherwise.
+        If the defender is in normal shopkeeper mode (not aggressive), nothing happens. Otherwise, the mode is set to SHOPKEEPER_MODE_ATTACK_TEAM if the attacker is a team member, or SHOPKEEPER_MODE_ATTACK_ENEMIES otherwise.
         
         r0: attacker pointer
         r1: defender pointer
@@ -3231,7 +3231,7 @@ overlay29:
         If in the normal shopkeeper mode (not aggressive), nothing happens. Otherwise, the mode is set to SHOPKEEPER_MODE_ATTACK_TEAM if the trap is from a team member or SHOPKEEPER_MODE_ATTACK_ENEMIES otherwise.
         
         r0: shopkeeper pointer
-        r1: non team member trap
+        r1: bool non team member trap
     - name: ResetDamageCalcDiagnostics
       address:
         EU: 0x230DF9C
@@ -3333,7 +3333,7 @@ overlay29:
       description: |-
         Checks if any team member is holding a certain item and puts them into the array given.
         
-        r0: [output] pointer to array of monsters
+        r0: [output] pointer to array of monsters (expected to have space for at least 4 pointers)
         r1: item ID
         return: number of team members with the item active
     - name: TeamMemberHasExclusiveItemEffectActive
@@ -4241,7 +4241,7 @@ overlay29:
         
         r0: user entity pointer
         r1: target entity pointer
-        r2: move slot
+        r2: move index
         r3: PP to restore
         stack[0]: flag to suppress message logging
     - name: RestoreRandomMovePP
@@ -5586,7 +5586,7 @@ overlay29:
       description: |-
         Checks if the tile at the position is a wall. If so, smash it (turn it into a floor tile), play an animation
         
-        r0: Position to check
+        r0: Wall position to smash
         return: bool
     - name: IsWaterTileset
       address:
