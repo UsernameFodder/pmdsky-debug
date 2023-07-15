@@ -933,10 +933,19 @@ enum damage_source_non_move {
     DAMAGE_SOURCE_BEFRIEND_MEW = 637,     // "befriended [CS:N]Mew[CR]!"
 };
 
+// This is usually stored as a 16-bit integer
+#pragma pack(push, 2)
+ENUM_16_BIT(damage_source_non_move);
+#pragma pack(pop)
+
 // Possible reasons why a monster can take damage or faint
 union damage_source {
     enum move_id move;
     enum damage_source_non_move other;
+};
+union damage_source_16 {
+    struct move_id_16 move;
+    struct damage_source_non_move_16 other;
 };
 
 // List of reasons why you can get forcefully kicked out of a dungeon

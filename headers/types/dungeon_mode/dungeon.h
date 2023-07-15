@@ -20,6 +20,8 @@ struct dungeon {
     bool quicksave_flag;
     // 0x8: The floor will be advanced at the end of the turn. Set when quicksaving.
     bool end_floor_no_death_check_flag;
+    // 0x9: If this is 0x0 (maybe false), appears to not initalize certain parts of the dungeon.
+    // Possibly a boolean for when loading from a quicksave or resuming after being rescued?
     undefined field_0x9;
     undefined field_0xa;
     undefined field_0xb;
@@ -226,9 +228,10 @@ struct dungeon {
     // 0x184: Info about the most recent damage calculation. Reset with each call to CalcDamage
     struct damage_calc_diag last_damage_calc;
     // 0x1D8: Somehow related to executing a monster's actions (including leader).
+    // Initialized to 0xFFFF
     undefined2 field_0x1d8;
     // 0x1DA: Somehow related to executing the leader's actions. Also maybe when leader opens
-    // some menus?
+    // some menus? Initialized to 0xFFFF
     undefined2 field_0x1da;
     undefined2 field_0x1dc; // 0x1DC: Initialized to 0xFFFF
     undefined2 field_0x1de; // 0x1DE: Initialized to 0xFFFF
@@ -544,7 +547,9 @@ struct dungeon {
     struct mission_destination_info mission_destination;
     undefined field_0x77c;
     undefined field_0x77d;
-    undefined field_0x77e;
+    // 0x77E: Appears to track if the player has already been healed by Mime Jr. to change
+    // the dialogue. Initialized to 0 using MemZero?
+    bool bazaar_mime_jr_heal;
     undefined field_0x77f;
     // 0x780: Controls when a monster at a certain speed stage is able to act.
     // Increased by 1-4 each turn, depending on the team leader's speed level:
@@ -590,7 +595,10 @@ struct dungeon {
     // 0x799: Determines which message to display when the leader's belly reaches 0. Goes up
     // to 0x9 (9), but only displays a unique message for 0x1, 0x2, and 0x3.
     uint8_t leader_hunger_message_tracker;
-    undefined field_0x79a; // 0x79A: Initialized to 0x0.
+    // 0x79A: Keeps track of which animation/message to display as the turn limit ticks down. This
+    // ensures that even if the number of turns given to a player is less than the number where an
+    // animation would play, it will still play.
+    uint8_t turn_limit_warning_tracker;
     // 0x79B: Number of times you can be rescued in this dungeon
     int8_t rescue_attempts_left;
     uint32_t prng_seed;                  // 0x79C: The dungeon PRNG seed, if set
@@ -642,7 +650,9 @@ struct dungeon {
     // without causing the game to crash as the data from waza_p.bin is still loaded because
     // it's not overwritten by loading waza_p2.bin
     enum game_id dungeon_game_version_id;
-    // 0x7D0: Pointer to spawn list? Uncertain which spawn list?
+    // 0x7D0: Maybe a pointer to a spawn list or related to a spawn list?
+    // Possibly a 0x8 long array of a struct-like object? Each entry is 4 bytes, but maybe the
+    // last byte is unused??
     undefined field_0x7d0;
     undefined field_0x7d1;
     undefined field_0x7d2;
@@ -675,10 +685,11 @@ struct dungeon {
     undefined field_0x7ed;
     undefined field_0x7ee;
     undefined field_0x7ef;
-    undefined field_0x7f0;
-    undefined field_0x7f1;
-    undefined field_0x7f2;
-    undefined field_0x7f3;
+    // 0x7F0: Somehow related to dungeon::0x7D0?
+    undefined2 field_0x7f0;
+    // 0x7F2: May always just be a copy of dungeon::some_monster_sprite_to_load, but may also
+    // have another purpose.
+    struct monster_id_16 some_monster_sprite;
     struct monster monsters[20]; // 0x7F4: Info for all the monsters currently in the dungeon
     // 0x34F4: Array that contains the spawn stats for enemies, which are only calculated
     // once at the start of the floor.
@@ -1074,13 +1085,14 @@ struct dungeon {
     undefined field_0x3b71;
     undefined field_0x3b72;
     undefined field_0x3b73;
-    // 0x3B74: Unknown array, likely one entry per monster species
+    // 0x3B74: Unknown array, likely one entry per monster species. This might be related to
+    // the IQ skill Exp. Go-Getter so the AI knows which monsters to prioritize.
     uint8_t unknown_array_0x3B74[600];
     // 0x3DCC: Appears to be a table that holds the statuses::statuses_unique_id value for
     // the monsters. Maybe just for convenience to avoid loading it from every monster?
     uint32_t monster_unique_id[20];
-    // 0x3E1C: Appears to be be an index inside dungeon::active_monsters_unique_statuses_ids.
-    // Uncertain what this index is used for.
+    // 0x3E1C: Appears to be be an index inside or length for
+    // dungeon::active_monsters_unique_statuses_ids.
     uint32_t unique_id_index;
     // 0x3E20: Number of valid monster spawn entries (see spawn_entries).
     int monster_spawn_entries_length;
@@ -1139,8 +1151,9 @@ struct dungeon {
     undefined field_0xcd0a;
     undefined field_0xcd0b;
     // 0xCD0C: Appears to be an array for the team. Likely only the first 4 entries are used.
-    // Somehow related to controlling the animations for the team? Initialized to 0xFF (-1).
-    int8_t unk_team_animation_array[8];
+    // Possibly related to dungeon_generation_info::individual_team_spawn_positions? Possibly the
+    // direction to spawn each team member in?
+    struct direction_id_8 unk_team_direction_array[8];
     // Min x of the generated Kecleon shop, if it exists. This reflects the original generation, and
     // is not updated if some shop tiles are deleted by later steps in floor generation
     int kecleon_shop_min_x; // 0xCD14: inclusive
@@ -1308,7 +1321,9 @@ struct dungeon {
     undefined field_0xd2dd;
     undefined field_0xd2de;
     undefined field_0xd2df;
-    undefined field_0xd2e0;
+    // 0xD2E0: Appears to keep track of what tiles are the fixed room tiles when generating
+    // a fixed room that isn't the whole floor.
+    uint8_t fixed_room_room_index;
     undefined field_0xd2e1;
     undefined field_0xd2e2;
     undefined field_0xd2e3;
@@ -1337,6 +1352,7 @@ struct dungeon {
     // since they get initialized together.
     uint16_t unknown_matrix_0x1212C[9][3];
     // 0x12162: Buffer to store some AT4PX file after being decompressed
+    // This is somehow related to tile::texture_id and tile variations?
     uint8_t unknown_file_buffer_0x12162[2352];
     // 0x12A92: Unknown array, probably related to unknown_tile_matrix
     // since they get initialized together.
@@ -1428,8 +1444,8 @@ struct dungeon {
     undefined field_0x12af5;
     undefined field_0x12af6;
     undefined field_0x12af7;
-    undefined field_0x12af8;
-    undefined field_0x12af9;
+    // 0x12AF8: The amount of items "sniffed" by the Acute Sniffer iq skill when a floor starts.
+    uint16_t acute_sniffer_item_count;
     // 0x12AFA: Number of normal item spawns. Does not include monster held items and additional
     // items in walls or Monster Houses
     uint16_t n_normal_item_spawns;
@@ -1613,7 +1629,8 @@ struct dungeon {
     undefined field_0x2ca47;
     // 0x2CA48: A monster name that is copied from dungeon::unk_fainted_monster_name. Maybe for
     // situations where the player loses because the partner, escort, or accompanying monster
-    // fainted? Exact size is a guess.
+    // fainted? Another poossible use is when leaving a dungeon after a mission? Exact size is
+    // a guess.
     char loss_related_monster_name[10];
     undefined field_0x2ca52;
     undefined field_0x2ca53;
@@ -1635,8 +1652,10 @@ struct dungeon {
     undefined field_0x2ca63;
     undefined field_0x2ca64;
     undefined field_0x2ca65;
-    undefined field_0x2ca66;
-    undefined field_0x2ca67;
+    // 0x02CA66: The cause of the mission over. Identical to the damage source in HandleFaint,
+    // but can be set to some non-damage related reasons manually by the game. IE: "cleared the
+    // dungeon." and "succeeded in the rescue mission."
+    union damage_source_16 fainted_monster_dungeon_end_reason;
     struct dungeon_id_8 fainted_id; // 0x2CA68: Copied from dungeon::id, upon fainting.
     uint8_t fainted_floor;          // 0x2CA69: Copied from dungeon::floor, upon fainting.
     // 0x2CA6A: Copy of the fainted monster's held item.
@@ -1651,6 +1670,10 @@ struct dungeon {
     uint8_t fainted_monster_defensive_stats[2];
     uint8_t fainted_monster_level; // 0x2CA7A: Copy of fainted monster's level.
     undefined field_0x2ca7b;
+    // 0x2CA7C: This is probably a struct of some kind? This address is passed to a function and
+    // then offsets from this location are used to store data about a monster? Somehow related
+    // to the fainted monster? If the end of the dungeon is reached, the leaders information is
+    // copied into this struct? Uncertain of exact size.
     undefined field_0x2ca7c;
     undefined field_0x2ca7d;
     undefined field_0x2ca7e;
@@ -1803,6 +1826,7 @@ struct dungeon {
     undefined field_0x2cb0f;
     // 0x2CB10: Somehow related to display_data::hallucinating and seems to maybe control
     // the sleeping animations when the camera is pointed away from a hallucinating monster?
+    // Initialized to 0x1.
     bool unk_camera_tracker;
     undefined field_0x2cb11;
     undefined field_0x2cb12;
