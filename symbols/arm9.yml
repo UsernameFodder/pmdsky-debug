@@ -1296,8 +1296,8 @@ arm9:
       address:
         NA: 0x200CDAC
       description: |-
-        Checks if an item is a valid target item for missions. Returns true for any item less than 363. Appears to check a
-        list for valid items above 363, but the list is empty?
+        Checks if an item is a valid target item for missions. Returns true for any item less than ITEM_UNNAMED_0x16B.
+        Appears to check a list for valid items above ITEM_UNNAMED_0x16B, but the list is empty?
         
         r0: item_id
         return: bool
@@ -1314,7 +1314,8 @@ arm9:
       address:
         NA: 0x200CE74
       description: |-
-        Checks if an item is a ticket that can be used in the recycle shop (items 169, 170, 171, and 172).
+        Checks if an item is a ticket that can be used in the recycle shop (ITEM_PRIZE_TICKET, ITEM_SILVER_TICKET,
+        ITEM_GOLD_TICKET, and ITEM_PRISM_TICKET).
         
         r0: item_id
         return: bool
