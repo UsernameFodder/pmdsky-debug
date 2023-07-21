@@ -2343,13 +2343,13 @@ arm9:
         
         r0: pointer to move to initialize
         r1: move ID
-    - name: GetInfoMoveCheckId
+    - name: InitMoveCheckId
       address:
         EU: 0x2013890
         NA: 0x20137E8
         JP: 0x20137B8
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Same as InitMove, but the function ensures that the specified ID is not 0. If it is, the move is initialized as invalid and nothing else happens.
         
         r0: move
         r1: move ID
@@ -2390,10 +2390,12 @@ arm9:
         NA: 0x2013884
         JP: 0x2013854
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Given the ID of a monster in the current dungeon, returns a pointer to the list of moves it learns by leveling up and the level in which each move is learnt.
+        
+        The list contains pairs of <encoded move ID, level>. The move ID is encoded and can be 1 or 2 bytes long. GetEncodedHalfword must be used to decode it. The end of the list is marked by a null byte.
         
         r0: monster ID
-        return: ?
+        return: Pointer to encoded level-up move list
     - name: IsInvalidMoveset
       address:
         EU: 0x2013974
@@ -3611,6 +3613,15 @@ arm9:
         NA: 0x2024428
         JP: 0x2024478
       description: "Note: unverified, ported from Irdkwia's notes"
+    - name: GetBagNameString
+      address:
+        EU: 0x20250C8
+        NA: 0x2024DFC
+      description: |-
+        Returns "One-Item Inventory" or "Treasure Bag" depending on the size of the bag.
+        
+        r0: [output] Pointer to the buffer where the string will be written
+        Return: Pointer to the buffer where the string was written (in other words, the same value passed in r0)
     - name: GetDungeonResultString
       address:
         EU: 0x20252A4
@@ -3845,6 +3856,17 @@ arm9:
         Load and initialise the alert sprite, storing the result in ALERT_ANIMATION_CONTROL
         
         No params.
+    - name: PrintClearMark
+      address:
+        EU: 0x202A6D8
+        NA: 0x202A3E4
+      description: |-
+        Prints the specified clear mark on the screen.
+        
+        r0: Clear mark ID
+        r1: X pos (unknown units, usually ranges between 3 and 27)
+        r2: Y pos (unknown units, normally 14)
+        r3: ?
     - name: CreateNormalMenu
       address:
         EU: 0x202B3E0
@@ -4188,21 +4210,21 @@ arm9:
         NA: 0x2048F24
         JP: 0x2049290
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Calculates the checksum of the save file and stores it at the start of the data.
         
-        r0: buffer
-        r1: size
-    - name: CheckChecksum
+        r0: Pointer to a buffer containing the save data
+        r1: Size in bytes
+    - name: CheckChecksumInvalid
       address:
         EU: 0x2049268
         NA: 0x2048F4C
         JP: 0x20492B8
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Calculates the checksum of the save file and compares it with the one stored in it.
         
-        r0: buffer
-        r1: size
-        return: check_ok
+        r0: Pointer to a buffer containing the save data
+        r1: Size in bytes
+        return: True if the calculated and stored checksums don't match, false if they do.
     - name: NoteSaveBase
       address:
         EU: 0x20492A0
@@ -5436,6 +5458,26 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         r0: buffer
+    - name: GetRankupPoints
+      address:
+        EU: 0x2050EF0
+        NA: 0x2050BB8
+      description: |-
+        Returns the amount of points required to reach the next rank.
+        
+        If PERFORMANCE_PROGRESS_LIST[8] is 0 and the current rank is RANK_MASTER, or if the current rank is RANK_GUILDMASTER, returns 0.
+        
+        Return: Points required to reach the next rank
+    - name: GetRank
+      address:
+        EU: 0x2050FAC
+        NA: 0x2050C74
+      description: |-
+        Returns the team's rank
+        
+        If PERFORMANCE_PROGRESS_LIST[8] is 0, the maximum rank that can be returned is RANK_MASTER.
+        
+        Return: Rank
     - name: SubFixedPoint
       address:
         EU: 0x2051248
@@ -6246,17 +6288,31 @@ arm9:
         r0: string_buffer
         r1: monster ID
         return: bool
-    - name: GetLvlStats
+    - name: GetLvlUpEntry
       address:
         EU: 0x2053B18
         NA: 0x205379C
         JP: 0x2053AD4
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Gets the level-up entry of the given monster ID at the specified level.
         
-        r0: [output] level stats
+        The monster's entire level up data is also decompressed to LEVEL_UP_DATA_DECOMPRESS_BUFFER, and its ID is stored in LEVEL_UP_DATA_MONSTER_ID.
+        
+        r0: [output] Level-up entry
         r1: monster ID
         r2: level
+    - name: GetEncodedHalfword
+      address:
+        EU: 0x2053BC8
+        NA: 0x205384C
+      description: |-
+        Decodes a 2-byte value that may be encoded using 1 or 2 bytes and writes it to the specified buffer.
+        
+        The encoding system uses the most significant bit of the first byte to signal if the value is encoded as a single byte or as a halfword. If the bit is unset, the value is read as (encoded byte) & 0x7F. If it's set, the value is read as ((first encoded byte) & 0x7F << 7) | (second encoded byte) & 0x7F.
+        
+        r0: Pointer to encoded value
+        r1: [output] Buffer where the resulting 2-byte value will be stored.
+        Return: Pointer to the next byte to decode
     - name: GetEvoFamily
       address:
         EU: 0x205414C

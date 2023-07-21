@@ -1339,9 +1339,50 @@ enum game_id {
 
 // Used when determining how a monster's name should be displayed.
 enum display_name_type {
-    NORMAL = 0,  // Display the name as usual
-    UNKNOWN = 1, // Display "(?)"
-    DECOY = 2,   // Display "Decoy"
+    DISPLAY_NAME_NORMAL = 0,  // Display the name as usual
+    DISPLAY_NAME_UNKNOWN = 1, // Display "(?)"
+    DISPLAY_NAME_DECOY = 2,   // Display "Decoy"
+};
+
+// Used to more easily refer to the different item spawn lists of a floor
+enum item_list_type {
+    ITEM_LIST_REGLUAR = 0,         // Standard list
+    ITEM_LIST_SHOP = 1,            // Kecleon shop list
+    ITEM_LIST_MONSTER_HOUSE = 2,   // Monster house list
+    ITEM_LIST_BURIED = 3,          // Buried items list
+    ITEM_LIST_BAZAAR = 4,          // Bazaar grab bag list
+    ITEM_LIST_SECRET_ROOM = 5,     // Secret room chests list
+};
+
+// Special values for union item_index
+enum item_index_special {
+    ITEM_INDEX_GROUND = 0x80,
+    ITEM_INDEX_HELD = 0x81,
+    ITEM_INDEX_UNK_0x82 = 0x82,
+    ITEM_INDEX_UNK_0x83 = 0x83,
+    ITEM_INDEX_UNK_0x84 = 0x84,
+    ITEM_INDEX_UNK_0x85 = 0x85,
+    ITEM_INDEX_UNK_0x86 = 0x86,
+    ITEM_INDEX_UNK_0x87 = 0x87,
+    ITEM_INDEX_UNK_0x88 = 0x88,
+    ITEM_INDEX_UNK_0x89 = 0x89,
+    ITEM_INDEX_UNK_0x8A = 0x8A,
+    ITEM_INDEX_UNK_0x8B = 0x8B,
+    ITEM_INDEX_UNK_0x8C = 0x8C,
+    ITEM_INDEX_UNK_0x8D = 0x8D,
+    ITEM_INDEX_UNK_0x8E = 0x8E,
+    ITEM_INDEX_UNK_0x8F = 0x8F,
+    ITEM_INDEX_HELD_TEAM_MEMBER_1 = 0x90,
+    ITEM_INDEX_HELD_TEAM_MEMBER_2 = 0x91,
+    ITEM_INDEX_HELD_TEAM_MEMBER_3 = 0x92,
+    ITEM_INDEX_HELD_TEAM_MEMBER_4 = 0x93,
+};
+
+// Used to indicate the location of an item, which can be an item in the bag, on the floor or
+// held by a certain monster.
+union item_index {
+    int bag_index;                         // For items in the bag
+    enum item_index_special special_index; // For other items
 };
 
 #endif

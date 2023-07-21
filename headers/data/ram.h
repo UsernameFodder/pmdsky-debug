@@ -32,6 +32,8 @@ extern uint8_t PENDING_STARTING_FLOOR;
 extern uint32_t PLAY_TIME_SECONDS;
 extern uint8_t PLAY_TIME_FRAME_COUNTER;
 extern char TEAM_NAME[10];
+extern struct monster_id_16 LEVEL_UP_DATA_MONSTER_ID;
+extern struct level_up_entry LEVEL_UP_DATA_DECOMPRESS_BUFFER[100];
 extern struct team_member_table TEAM_MEMBER_TABLE;
 extern struct vram_banks_set ENABLED_VRAM_BANKS;
 extern uint32_t FRAMES_SINCE_LAUNCH_TIMES_THREE;

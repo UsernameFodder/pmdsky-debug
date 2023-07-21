@@ -231,11 +231,11 @@ void FormatMoveString(char* string, struct move* move, undefined* type_print);
 void FormatMoveStringMore(undefined* param_1, int param_2, struct move* move,
                           undefined* type_print);
 void InitMove(struct move* move, enum move_id);
-void GetInfoMoveCheckId(struct move* move, enum move_id move_id);
+void InitMoveCheckId(struct move* move, enum move_id move_id);
 void GetInfoMoveGround(struct ground_move* move, enum move_id move_id);
 struct move_target_and_range GetMoveTargetAndRange(struct move* move, bool is_ai);
 enum type_id GetMoveType(struct move* move);
-undefined* GetMovesetLevelUpPtr(enum monster_id monster_id);
+uint8_t* GetMovesetLevelUpPtr(enum monster_id monster_id);
 bool IsInvalidMoveset(int moveset_id);
 undefined* GetMovesetHmTmPtr(enum monster_id monster_id);
 undefined* GetMovesetEggPtr(enum monster_id monster_id);
@@ -370,6 +370,7 @@ int PreprocessStringFromMessageId(char* output, int output_size, int message_id,
 void InitPreprocessorArgs(struct preprocessor_args* args);
 char* SetStringAccuracy(char* s, int param_2);
 char* SetStringPower(char* s, int param_2);
+char* GetBagNameString(char* buffer);
 char* GetDungeonResultString(int string_number);
 void SetQuestionMarks(char* s);
 void StrcpySimple(char* dest, const char* src);
@@ -390,6 +391,7 @@ void SetBothScreensWindowsColor(int palette_idx);
 undefined* GetDialogBoxField0xC(int dbox_id);
 void LoadCursors(void);
 void LoadAlert(void);
+void PrintClearMark(int mark_id, int x, int y, undefined param_4);
 int CreateNormalMenu(undefined* layout, int menu_flags, undefined* additional_info, undefined* menu,
                      int option_id);
 void FreeNormalMenu(int menu_id);
@@ -427,8 +429,8 @@ void ReadStringSave(char* buf);
 bool CheckStringSave(const char* buf);
 int WriteSaveFile(undefined* save_info, undefined* buf, int size);
 int ReadSaveFile(undefined* save_info, undefined* buf, int size);
-void CalcChecksum(int* buf, int size);
-bool CheckChecksum(int* buf, int size);
+void CalcChecksum(undefined* save_info, int size);
+bool CheckChecksumInvalid(undefined* save_info, int size);
 int NoteSaveBase(int param_1);
 void WriteQuickSaveInfo(undefined* buf, int size);
 undefined4 ReadSaveHeader(undefined4* param_1, undefined4 param_2, undefined4 param_3,
@@ -557,6 +559,8 @@ void StoreDefaultTeamName(void);
 void GetTeamNameCheck(undefined* buf);
 void GetTeamName(undefined* buf);
 void SetTeamName(undefined* buf);
+int GetRankupPoints(void);
+enum rank GetRank(void);
 uint32_t SubFixedPoint(uint32_t val_fp, uint32_t dec_fp);
 uint32_t BinToDecFixedPoint(uint32_t* q16);
 int CeilFixedPoint(uint32_t val_fp);
@@ -635,7 +639,8 @@ void LoadM2nAndN2m(void);
 void GuestMonsterToGroundMonster(struct ground_monster* ground_monster,
                                  struct guest_monster* guest_monster);
 bool StrcmpMonsterName(char* string, enum monster_id monster_id);
-void GetLvlStats(undefined* level_stats, enum monster_id monster_id, int level);
+void GetLvlUpEntry(struct level_up_entry* level_up_entry, enum monster_id monster_id, int level);
+uint8_t* GetEncodedHalfword(uint8_t* data_ptr, uint16_t* result);
 int GetEvoFamily(undefined* monster, undefined* evo_family);
 int GetEvolutions(enum monster_id monster_id, enum monster_id* output_list,
                   bool skip_sprite_size_check, bool skip_shedinja_check);

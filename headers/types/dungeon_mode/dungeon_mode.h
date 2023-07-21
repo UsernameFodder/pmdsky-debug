@@ -287,26 +287,23 @@ struct status_icon_flags {
 };
 ASSERT_SIZE(struct status_icon_flags, 8);
 
+// Stores a parameter for an action taken by a monster 
+struct action_parameter {
+    // 0x0: Metadata for the action.
+    // E.g., this is the monster index when taking an action on a monster, the move index when
+    // using a move or a union item_index value when using an item.
+    uint8_t action_use_idx;
+    undefined field_0x1;
+    struct position item_pos; // 0x2: Position of the item to use when using an item on the floor
+};
+ASSERT_SIZE(struct action_parameter, 6);
+
 // Contains data used to describe an action taken by a monster.
 struct action_data {
     struct action_16 action_id;      // 0x0: Action ID
     struct direction_id_8 direction; // 0x2: Direction in which the action will be performed
     undefined field_0x3;
-    // 0x4: Metadata for some action_id values.
-    // E.g., this is the bag item index when using an item, the monster index when taking an action
-    // on a monster or the move index when using a move
-    uint8_t action_use_idx;
-    undefined field_0x5;
-    undefined field_0x6;
-    undefined field_0x7;
-    undefined field_0x8;
-    undefined field_0x9;
-    uint8_t field_0xA;
-    undefined field_0xB;
-    undefined field_0xC;
-    undefined field_0xD;
-    undefined field_0xE;
-    undefined field_0xF;
+    struct action_parameter action_parameters[2]; // 0x4: Parameters for the action
     int16_t field_0x10;
     int16_t field_0x12;
 };
