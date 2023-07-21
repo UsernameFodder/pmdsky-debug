@@ -328,8 +328,7 @@ ram:
       length:
         EU: 0x2
         NA: 0x2
-      description: |-
-        ID of the monster whose level-up data is currently stored in LEVEL_UP_DATA_DECOMPRESS_BUFFER.
+      description: ID of the monster whose level-up data is currently stored in LEVEL_UP_DATA_DECOMPRESS_BUFFER.
     - name: LEVEL_UP_DATA_DECOMPRESS_BUFFER
       address:
         EU: 0x22AC270

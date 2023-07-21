@@ -7021,6 +7021,15 @@ overlay29:
         
         r0: Flag(s) to check (0 = f_exists, 1 = f_in_shop, 2 = f_unpaid, etc.)
         return: True if any of the items of the team has the specified flags set, false otherwise.
+    - name: AddHeldItemToBag
+      address:
+        EU: 0x2347B10
+        NA: 0x2346F14
+      description: |-
+        Adds the monster's held item to the bag. This is only called on monsters on the exploration team.
+        monster::is_not_team_member should be checked to be false before calling.
+        
+        r0: monster pointer
     - name: RemoveEmptyItemsInBagWrapper
       address:
         EU: 0x2347C2C
@@ -7029,14 +7038,6 @@ overlay29:
         Calls RemoveEmptyItemsInBag, then some other function that seems to update the minimap, the map surveyor flag, and other stuff.
         
         No params.
-    - name: AddHeldItemToBag
-      address:
-        NA: 0x2346F14
-      description: |-
-        Adds the monster's held item to the bag. This is only called on monsters on the exploration team.
-        monster::is_not_team_member should be checked to be false before calling.
-        
-        r0: monster pointer
     - name: GenerateItem
       address:
         EU: 0x2347EC4

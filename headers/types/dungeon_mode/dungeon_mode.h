@@ -287,7 +287,7 @@ struct status_icon_flags {
 };
 ASSERT_SIZE(struct status_icon_flags, 8);
 
-// Stores a parameter for an action taken by a monster 
+// Stores a parameter for an action taken by a monster
 struct action_parameter {
     // 0x0: Metadata for the action.
     // E.g., this is the monster index when taking an action on a monster, the move index when

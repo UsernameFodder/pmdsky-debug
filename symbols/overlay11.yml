@@ -404,7 +404,7 @@ overlay11:
         
         r0: [Output] Buffer where the coordinates of the map marker will be stored
         r1: Dungeon ID
-        return: True if the dungeon should be displayed on the map, false otherwise. 
+        return: True if the dungeon should be displayed on the map, false otherwise.
     - name: WorldMapSetMode
       address:
         EU: 0x230F9A0
