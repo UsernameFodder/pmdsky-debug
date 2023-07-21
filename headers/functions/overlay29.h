@@ -45,7 +45,7 @@ int PlayEffectAnimationEntity(struct entity* entity, int effect_id, bool play_no
                               int param_5, undefined param_6, int param_7, undefined2* param_8);
 int PlayEffectAnimationPos(struct position* pos, int effect_id, bool play_now);
 int PlayEffectAnimationPixelPos(struct pixel_position* pixel_pos, int effect_id, bool play_now);
-void PlayWeatherAnimation(undefined param_1);
+void AnimationDelayOrSomething(undefined param_1);
 void UpdateStatusIconFlags(struct entity* entity);
 void PlayEffectAnimation0x171Full(struct entity* entity);
 void PlayEffectAnimation0x171(struct entity* entity);

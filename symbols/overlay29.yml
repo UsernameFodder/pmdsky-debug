@@ -571,12 +571,14 @@ overlay29:
         r1: Effect ID
         r2: Unknown flag (same as the one in PlayEffectAnimationEntity)
         return: Same as PlayEffectAnimationEntity
-    - name: PlayWeatherAnimation
+    - name: AnimationDelayOrSomething
       address:
         EU: 0x22E4290
         NA: 0x22E38E0
       description: |-
-        Plays the corresponding animation when the weather changes.
+        Called whenever most (all?) animations are played. Does not return until the animation is over.
+        
+        Might wait until the animation is done? Contains several loops that call AdvanceFrame.
         
         r0: ?
     - name: UpdateStatusIconFlags
