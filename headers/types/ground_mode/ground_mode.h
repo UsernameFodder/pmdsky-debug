@@ -374,12 +374,4 @@ struct ground_weather_entry {
 };
 ASSERT_SIZE(struct ground_weather_entry, 4);
 
-// Used to store the coordinates of a position on the World Map. The values are shifted 8 bits to
-// the left, so they are probably fixed-point decimals instead of integers.
-struct map_pos {
-    uint32_t x;
-    uint32_t y;
-};
-ASSERT_SIZE(struct map_pos, 8);
-
 #endif

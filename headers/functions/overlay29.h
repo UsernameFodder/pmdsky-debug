@@ -750,10 +750,10 @@ void GenerateCleanItem(struct item* item, enum item_id item_id);
 void TryLeaderItemPickUp(struct position* position, bool flag);
 bool SpawnItem(struct position* position, struct item* item, bool flag);
 void RemoveGroundItem(struct position* position, bool update_shop_counters);
-void PlaceThrownItemWrapper(struct entity* entity, struct position* pos, struct item* item,
-                            undefined4 param_4);
-void PlaceThrownItem(struct entity* entity, struct entity* item_entity, struct item* item,
-                     int param_4, int16_t* dir_xy, undefined param_6);
+void SpawnDroppedItemWrapper(struct entity* entity, struct position* pos, struct item* item,
+                             undefined4 param_4);
+void SpawnDroppedItem(struct entity* entity, struct entity* item_entity, struct item* item,
+                      int param_4, int16_t* dir_xy, undefined param_6);
 bool TryGenerateUnownStoneDrop(struct item* item, enum monster_id monster_id);
 bool HasHeldItem(struct entity* entity, enum item_id item_id);
 void GenerateMoneyQuantity(struct item* item, int max_amount);

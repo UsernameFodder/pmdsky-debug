@@ -3863,6 +3863,8 @@ arm9:
       description: |-
         Prints the specified clear mark on the screen.
         
+        Clear marks are shown on the save file load screen. They are used to show which plot milestones have already been completed.
+        
         r0: Clear mark ID
         r1: X pos (unknown units, usually ranges between 3 and 27)
         r2: Y pos (unknown units, normally 14)

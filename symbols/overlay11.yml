@@ -402,7 +402,7 @@ overlay11:
       description: |-
         Checks if a dungeon should be displayed on the map and the position where it should be displayed if so.
         
-        r0: [Output] Buffer where the coordinates of the map marker will be stored
+        r0: [Output] Buffer where the coordinates of the map marker will be stored. The coordinates are shifted 8 bits to the left, so they are probably fixed-point numbers instead of integers.
         r1: Dungeon ID
         return: True if the dungeon should be displayed on the map, false otherwise.
     - name: WorldMapSetMode

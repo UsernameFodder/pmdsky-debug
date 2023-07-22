@@ -2841,7 +2841,7 @@ overlay29:
         EU: 0x2304544
         NA: 0x2303B18
       description: |-
-        Determines the moveset of a newly spawned Pokémon given its species and level.
+        Determines the moveset of a newly spawned monster given its species and level.
         
         The function loops the monster's learnset, adding moves to the list in level-up order. Once all four slots are filled up, a random existing move gets replaced to make room for the new one. This means that the monster will always have the latest move it can learn given its level.
         
@@ -6952,27 +6952,28 @@ overlay29:
         
         r0: Position where the item is located
         r1: If true, update dungeon::poke_buy_kecleon_shop and dungeon::poke_sold_kecleon_shop
-    - name: PlaceThrownItemWrapper
+    - name: SpawnDroppedItemWrapper
       address:
         EU: 0x2346628
         NA: 0x2345A3C
         JP: 0x2346E00
       description: |-
-        Wraps PlaceThrownItem in a more convenient interface.
+        Wraps SpawnDroppedItem in a more convenient interface.
         
         r0: entity
         r1: position
         r2: item
         r3: ?
-    - name: PlaceThrownItem
+    - name: SpawnDroppedItem
       address:
         EU: 0x23466C4
         NA: 0x2345AD8
         JP: 0x2346E9C
       description: |-
-        Used to place an item that was thrown, with a log message.
+        Used to spawn an item that was thrown or dropped, with a log message.
         
         Determines where exactly the item will land, if it bounces on a trap, etc.
+        Used for thrown items that hit a wall, for certain enemy drops (such as Unown stones or chests) and for certain moves (like Pay Day and Knock Off).
         
         r0: entity who threw the item
         r1: item entity. Contains the coordinates where the item should try to land first.

@@ -36,7 +36,7 @@ void InitPartnerFollowData(void);
 void GetDirectionLiveActor(struct live_actor* actor, struct direction_id_8* target);
 void SetDirectionLiveActor(struct live_actor* actor, struct direction_id_8 direction);
 void GetExclusiveItemRequirements(undefined param_1, undefined param_2);
-bool GetDungeonMapPos(struct map_pos* out_pos, enum dungeon_id dungeon);
+bool GetDungeonMapPos(struct uvec2* out_pos, enum dungeon_id dungeon);
 void WorldMapSetMode(uint32_t world_map_mode);
 void WorldMapSetCamera(uint32_t map_marker_id);
 void StatusUpdate(void);
