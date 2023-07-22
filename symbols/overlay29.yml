@@ -663,7 +663,7 @@ overlay29:
         EU: 0x22E8474
         NA: 0x22E7AC4
       description: |-
-        Get the id of the item to be randomly spawned.
+        Randomly picks an item to spawn using one of the floor's item spawn lists and returns its ID.
         
         If the function fails to properly choose an item (due to, for example, a corrupted item list), ITEM_POKE is returned.
         
@@ -697,7 +697,7 @@ overlay29:
         NA: 0x22E7DA0
         JP: 0x22E9408
       description: |-
-        Get the id of the monster to be randomly spawned.
+        Randomly picks a monster to spawn using the floor's monster spawn list and returns its ID.
         
         r0: the spawn weight to use (0 for normal, 1 for monster house)
         return: monster ID
