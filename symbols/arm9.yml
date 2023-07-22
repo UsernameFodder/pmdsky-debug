@@ -3621,7 +3621,7 @@ arm9:
         Returns "One-Item Inventory" or "Treasure Bag" depending on the size of the bag.
         
         r0: [output] Pointer to the buffer where the string will be written
-        Return: Pointer to the buffer where the string was written (in other words, the same value passed in r0)
+        return: Pointer to the buffer where the string was written (in other words, the same value passed in r0)
     - name: GetDungeonResultString
       address:
         EU: 0x20252A4
@@ -5463,11 +5463,11 @@ arm9:
         EU: 0x2050EF0
         NA: 0x2050BB8
       description: |-
-        Returns the amount of points required to reach the next rank.
+        Returns the number of points required to reach the next rank.
         
         If PERFORMANCE_PROGRESS_LIST[8] is 0 and the current rank is RANK_MASTER, or if the current rank is RANK_GUILDMASTER, returns 0.
         
-        Return: Points required to reach the next rank
+        return: Points required to reach the next rank
     - name: GetRank
       address:
         EU: 0x2050FAC
@@ -5477,7 +5477,7 @@ arm9:
         
         If PERFORMANCE_PROGRESS_LIST[8] is 0, the maximum rank that can be returned is RANK_MASTER.
         
-        Return: Rank
+        return: Rank
     - name: SubFixedPoint
       address:
         EU: 0x2051248
@@ -6312,7 +6312,7 @@ arm9:
         
         r0: Pointer to encoded value
         r1: [output] Buffer where the resulting 2-byte value will be stored.
-        Return: Pointer to the next byte to decode
+        return: Pointer to the next byte to decode
     - name: GetEvoFamily
       address:
         EU: 0x205414C

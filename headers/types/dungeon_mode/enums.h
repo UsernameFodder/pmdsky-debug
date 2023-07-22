@@ -1346,7 +1346,7 @@ enum display_name_type {
 
 // Used to more easily refer to the different item spawn lists of a floor
 enum item_list_type {
-    ITEM_LIST_REGLUAR = 0,       // Standard list
+    ITEM_LIST_REGULAR = 0,       // Standard list
     ITEM_LIST_SHOP = 1,          // Kecleon shop list
     ITEM_LIST_MONSTER_HOUSE = 2, // Monster house list
     ITEM_LIST_BURIED = 3,        // Buried items list

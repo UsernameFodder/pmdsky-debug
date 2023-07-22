@@ -28,6 +28,7 @@ overlay29:
         The returned table contains 1024 color entries.
         
         r0: Weather ID
+        return: color table pointer
     - name: DungeonAlloc
       address:
         EU: 0x22DF39C
@@ -1073,7 +1074,7 @@ overlay29:
         
         r0: Entity pointer
         r1: Item index
-        Return: Pointer to the item
+        return: Pointer to the item
     - name: GetItemAction
       address:
         EU: 0x22EBF88
@@ -1531,7 +1532,7 @@ overlay29:
         EU: 0x22F5CB4
         NA: 0x22F52F8
       description: |-
-        Makes a monster use a the specified single-use item. The item is deleted afterwards.
+        Makes a monster use the specified single-use item. The item is deleted afterwards.
         
         r0: User (monster who used the item)
         r1: Target (monster that consumes the item)
@@ -2216,7 +2217,7 @@ overlay29:
         
         r0: Monster ID
         r1: Monster level
-        Return: Max HP at the given level
+        return: Max HP at the given level
     - name: GetOffensiveStatAtLevel
       address:
         EU: 0x22FED4C
@@ -2226,8 +2227,8 @@ overlay29:
         
         r0: Monster ID
         r1: Monster level
-        r2: Stat type (0: Atk, 1: Sp. Atk)
-        Return: Atk / Sp. Atk at the given level
+        r2: Stat index (0: Atk, 1: Sp. Atk)
+        return: Atk / Sp. Atk at the given level
     - name: GetDefensiveStatAtLevel
       address:
         EU: 0x22FEDB4
@@ -2237,8 +2238,8 @@ overlay29:
         
         r0: Monster ID
         r1: Monster level
-        r2: Stat type (0: Def, 1: Sp. Def)
-        Return: Def / Sp. Def at the given level
+        r2: Stat index (0: Def, 1: Sp. Def)
+        return: Def / Sp. Def at the given level
     - name: GetOutlawSpawnData
       address:
         EU: 0x22FEE1C
@@ -2840,7 +2841,7 @@ overlay29:
         EU: 0x2304544
         NA: 0x2303B18
       description: |-
-        Determines the moveset of a newly spawned pokémon given its species and level.
+        Determines the moveset of a newly spawned Pokémon given its species and level.
         
         The function loops the monster's learnset, adding moves to the list in level-up order. Once all four slots are filled up, a random existing move gets replaced to make room for the new one. This means that the monster will always have the latest move it can learn given its level.
         
