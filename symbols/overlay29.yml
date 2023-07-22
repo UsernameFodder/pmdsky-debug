@@ -6987,9 +6987,9 @@ overlay29:
         Used to spawn an item that was thrown or dropped, with a log message.
         
         Determines where exactly the item will land, if it bounces on a trap, etc.
-        Used for thrown items that hit a wall, for certain enemy drops (such as Unown stones or chests) and for certain moves (like Pay Day and Knock Off).
+        Used for thrown items that hit a wall, for certain enemy drops (such as Unown stones or Treasure Boxes), for certain moves (like Pay Day and Knock Off), and possibly other things.
         
-        r0: entity who threw the item
+        r0: entity that dropped or threw the item
         r1: item entity. Contains the coordinates where the item should try to land first.
         r2: item info
         r3: ?
