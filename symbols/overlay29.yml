@@ -1065,15 +1065,26 @@ overlay29:
         
         r0: Pointer to the monster's action field
         r1: Monster ID
-    - name: GetUsedItem
+    - name: GetItemToUseByIndex
       address:
         EU: 0x22EBDFC
         NA: 0x22EB44C
       description: |-
-        Returns a pointer to the item that is about to be used by a monster.
+        Returns a pointer to the item that is about to be used by a monster given its index.
         
         r0: Entity pointer
         r1: Item index
+        return: Pointer to the item
+    - name: GetItemToUse
+      address:
+        EU: 0x22EBEFC
+        NA: 0x22EB54C
+      description: |-
+        Returns a pointer to the item that is about to be used by a monster.
+        
+        r0: Entity pointer
+        r1: Parameter index in monster::action_data::action_parameters. Will be used to use to determine the index of the used item.
+        r2: Unused
         return: Pointer to the item
     - name: GetItemAction
       address:
@@ -1532,7 +1543,9 @@ overlay29:
         EU: 0x22F5CB4
         NA: 0x22F52F8
       description: |-
-        Makes a monster use the specified single-use item. The item is deleted afterwards.
+        Makes a monster use a single-use item. The item is deleted afterwards.
+        
+        The item to use is determined by the user's monster::action_data::action_parameter[0].
         
         r0: User (monster who used the item)
         r1: Target (monster that consumes the item)
@@ -1541,8 +1554,9 @@ overlay29:
         EU: 0x22F5E78
         NA: 0x22F54BC
       description: |-
-        Makes a monster use the specified throwable item.
+        Makes a monster use a throwable item.
         
+        The item to use is determined by monster::action_data::action_parameter[0].
         If the item's category is CATEGORY_THROWN_LINE or CATEGORY_THROWN_ARC, the game will attempt to decrement the count of the used item by 1. If it's not or there's only 1 item left, it is destroyed instead.
         
         r0: User (monster who used the item)
