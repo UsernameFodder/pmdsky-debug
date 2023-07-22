@@ -18,6 +18,17 @@ overlay29:
   subregions:
     - move_effects.yml
   functions:
+    - name: GetWeatherColorTable
+      address:
+        EU: 0x22DEF60
+        NA: 0x22DE620
+      description: |-
+        Gets a pointer to the floor's color table given the current weather.
+        
+        The returned table contains 1024 color entries.
+        
+        r0: Weather ID
+        return: color table pointer
     - name: DungeonAlloc
       address:
         EU: 0x22DF39C
@@ -561,6 +572,16 @@ overlay29:
         r1: Effect ID
         r2: Unknown flag (same as the one in PlayEffectAnimationEntity)
         return: Same as PlayEffectAnimationEntity
+    - name: AnimationDelayOrSomething
+      address:
+        EU: 0x22E4290
+        NA: 0x22E38E0
+      description: |-
+        Called whenever most (all?) animations are played. Does not return until the animation is over.
+        
+        Might wait until the animation is done? Contains several loops that call AdvanceFrame.
+        
+        r0: ?
     - name: UpdateStatusIconFlags
       address:
         EU: 0x22E4464
@@ -631,11 +652,23 @@ overlay29:
       description: |-
         Note: unverified, ported from Irdkwia's notes
         
-        This function processes the spawn list of the current floor, checking which species can spawn, capping the amount of spawnable species on the floor to 14, randomly choosing which 14 species will spawn and ensuring that the sprite size of all the species combined does not exceed the maximum of 0x58000 bytes (352 KB). Kecleon and the Decoy are always included in the random selection.
+        This function processes the monster spawn list of the current floor, checking which species can spawn, capping the amount of spawnable species on the floor to 14, randomly choosing which 14 species will spawn and ensuring that the sprite size of all the species combined does not exceed the maximum of 0x58000 bytes (352 KB). Kecleon and the Decoy are always included in the random selection.
+        The function also processes the floor's item spawn lists.
         
         r0: quick_saved
         r1: ???
         r2: special_process
+    - name: GetItemIdToSpawn
+      address:
+        EU: 0x22E8474
+        NA: 0x22E7AC4
+      description: |-
+        Randomly picks an item to spawn using one of the floor's item spawn lists and returns its ID.
+        
+        If the function fails to properly choose an item (due to, for example, a corrupted item list), ITEM_POKE is returned.
+        
+        r0: Which item list to use
+        return: Item ID
     - name: MonsterSpawnListPartialCopy
       address:
         EU: 0x22E8610
@@ -664,7 +697,7 @@ overlay29:
         NA: 0x22E7DA0
         JP: 0x22E9408
       description: |-
-        Get the id of the monster to be randomly spawned.
+        Randomly picks a monster to spawn using the floor's monster spawn list and returns its ID.
         
         r0: the spawn weight to use (0 for normal, 1 for monster house)
         return: monster ID
@@ -1032,6 +1065,27 @@ overlay29:
         
         r0: Pointer to the monster's action field
         r1: Monster ID
+    - name: GetItemToUseByIndex
+      address:
+        EU: 0x22EBDFC
+        NA: 0x22EB44C
+      description: |-
+        Returns a pointer to the item that is about to be used by a monster given its index.
+        
+        r0: Entity pointer
+        r1: Item index
+        return: Pointer to the item
+    - name: GetItemToUse
+      address:
+        EU: 0x22EBEFC
+        NA: 0x22EB54C
+      description: |-
+        Returns a pointer to the item that is about to be used by a monster.
+        
+        r0: Entity pointer
+        r1: Parameter index in monster::action_data::action_parameters. Will be used to use to determine the index of the used item.
+        r2: Unused
+        return: Pointer to the item
     - name: GetItemAction
       address:
         EU: 0x22EBF88
@@ -1045,6 +1099,15 @@ overlay29:
         
         r0: Item ID
         return: Action ID associated with the specified item
+    - name: RemoveUsedItem
+      address:
+        EU: 0x22EBFBC
+        NA: 0x22EB60C
+      description: |-
+        Removes an item from the bag or from the floor after using it
+        
+        r0: Pointer to the entity that used the item
+        r1: Parameter index in monster::action_data::action_parameters. Will be used to use to determine the index of the used item.
     - name: AddDungeonSubMenuOption
       address:
         EU: 0x22EC1CC
@@ -1467,6 +1530,36 @@ overlay29:
         Accounts for situations that can prevent changing leaders, such as having stolen from a Kecleon shop. If one of those situations prevents changing leaders, prints the corresponding message to the message log.
         
         No params.
+    - name: UseSingleUseItemWrapper
+      address:
+        EU: 0x22F5C88
+        NA: 0x22F52CC
+      description: |-
+        Same as UseSingleUseItem, but the second parameter is determined automatically from monster::action_data::action_parameter[1]::action_use_idx.
+        
+        r0: User
+    - name: UseSingleUseItem
+      address:
+        EU: 0x22F5CB4
+        NA: 0x22F52F8
+      description: |-
+        Makes a monster use a single-use item. The item is deleted afterwards.
+        
+        The item to use is determined by the user's monster::action_data::action_parameter[0].
+        
+        r0: User (monster who used the item)
+        r1: Target (monster that consumes the item)
+    - name: UseThrowableItem
+      address:
+        EU: 0x22F5E78
+        NA: 0x22F54BC
+      description: |-
+        Makes a monster use a throwable item.
+        
+        The item to use is determined by monster::action_data::action_parameter[0].
+        If the item's category is CATEGORY_THROWN_LINE or CATEGORY_THROWN_ARC, the game will attempt to decrement the count of the used item by 1. If it's not or there's only 1 item left, it is destroyed instead.
+        
+        r0: User (monster who used the item)
     - name: ResetDamageData
       address:
         EU: 0x22F77D0
@@ -2018,6 +2111,25 @@ overlay29:
         r0: Entity pointer
         r1: Fixed room monster stats index
         r2: Spawn direction? (when calling this function while spawning a fixed room monster, this is the parameter value associated to the spawn action, after converting it to a direction.)
+    - name: InitEnemySpawnStats
+      address:
+        EU: 0x22FC954
+        NA: 0x22FBF58
+      description: |-
+        Initializes dungeon::enemy_spawn_stats. Might do something else too.
+        
+        No params.
+    - name: InitEnemyStatsAndMoves
+      address:
+        EU: 0x22FCC30
+        NA: 0x22FC234
+      description: |-
+        Initializes the HP, Atk, Sp. Atk, Def, Sp. Def and moveset of a newly spawned enemy. Might do something else too.
+        
+        r0: Pointer to the monster's move list
+        r1: Pointer to the monster's current HP
+        r2: Pointer to the monster's offensive stats
+        r3: Pointer to the monster's defensive stats
     - name: SpawnTeam
       address:
         EU: 0x22FCF08
@@ -2110,6 +2222,38 @@ overlay29:
         Spawns all the shopkeepers in the dungeon struct's shopkeeper_spawns array.
         
         No params.
+    - name: GetMaxHpAtLevel
+      address:
+        EU: 0x22FECF8
+        NA: 0x22FE2FC
+      description: |-
+        Returns the max HP of a monster given its level.
+        
+        r0: Monster ID
+        r1: Monster level
+        return: Max HP at the given level
+    - name: GetOffensiveStatAtLevel
+      address:
+        EU: 0x22FED4C
+        NA: 0x22FE350
+      description: |-
+        Returns the Atk / Sp. Atk of a monster given its level, capped to 255.
+        
+        r0: Monster ID
+        r1: Monster level
+        r2: Stat index (0: Atk, 1: Sp. Atk)
+        return: Atk / Sp. Atk at the given level
+    - name: GetDefensiveStatAtLevel
+      address:
+        EU: 0x22FEDB4
+        NA: 0x22FE3B8
+      description: |-
+        Returns the Def / Sp. Def of a monster given its level, capped to 255.
+        
+        r0: Monster ID
+        r1: Monster level
+        r2: Stat index (0: Def, 1: Sp. Def)
+        return: Def / Sp. Def at the given level
     - name: GetOutlawSpawnData
       address:
         EU: 0x22FEE1C
@@ -2706,6 +2850,18 @@ overlay29:
         r2: bool message flag?
         r3: bool show level up dialog (for example "Hey, I leveled up!" with a portrait)?
         return: success flag
+    - name: GetMonsterMoves
+      address:
+        EU: 0x2304544
+        NA: 0x2303B18
+      description: |-
+        Determines the moveset of a newly spawned monster given its species and level.
+        
+        The function loops the monster's learnset, adding moves to the list in level-up order. Once all four slots are filled up, a random existing move gets replaced to make room for the new one. This means that the monster will always have the latest move it can learn given its level.
+        
+        r0: [output] Pointer to move ID list (4 entries, 2 bytes each)
+        r1: Monster ID
+        r2: Monster level
     - name: EvolveMonster
       address:
         EU: 0x23046A8
@@ -4362,6 +4518,7 @@ overlay29:
         return: Whether or not the status could be inflicted
     - name: MonsterHasEmbargoStatus
       address:
+        EU: 0x231912C
         NA: 0x23186CC
       description: |-
         Returns true if the monster has the Embargo status condition.
@@ -4370,6 +4527,7 @@ overlay29:
         return: bool
     - name: LogItemBlockedByEmbargo
       address:
+        EU: 0x2319160
         NA: 0x2318700
       description: |-
         Logs the error message when the usage of an item is blocked by Embargo.
@@ -6797,28 +6955,42 @@ overlay29:
         r1: item pointer
         r2: some flag?
         return: success flag
-    - name: SpawnEnemyItemDropWrapper
+    - name: RemoveGroundItem
+      address:
+        EU: 0x23462A8
+        NA: 0x23456BC
+      description: |-
+        Removes an item lying on the ground.
+        
+        Also updates dungeon::n_items.
+        
+        r0: Position where the item is located
+        r1: If true, update dungeon::poke_buy_kecleon_shop and dungeon::poke_sold_kecleon_shop
+    - name: SpawnDroppedItemWrapper
       address:
         EU: 0x2346628
         NA: 0x2345A3C
         JP: 0x2346E00
       description: |-
-        Wraps SpawnEnemyItemDrop in a more convenient interface.
+        Wraps SpawnDroppedItem in a more convenient interface.
         
         r0: entity
         r1: position
         r2: item
         r3: ?
-    - name: SpawnEnemyItemDrop
+    - name: SpawnDroppedItem
       address:
         EU: 0x23466C4
         NA: 0x2345AD8
         JP: 0x2346E9C
       description: |-
-        Appears to spawn an enemy item drop at a specified location, with a log message.
+        Used to spawn an item that was thrown or dropped, with a log message.
         
-        r0: entity
-        r1: item entity
+        Determines where exactly the item will land, if it bounces on a trap, etc.
+        Used for thrown items that hit a wall, for certain enemy drops (such as Unown stones or Treasure Boxes), for certain moves (like Pay Day and Knock Off), and possibly other things.
+        
+        r0: entity that dropped or threw the item
+        r1: item entity. Contains the coordinates where the item should try to land first.
         r2: item info
         r3: ?
         stack[0]: pointer to int16_t[2] for x/y direction (corresponding to DIRECTIONS_XY)
@@ -6869,12 +7041,21 @@ overlay29:
         return: True if any of the items of the team has the specified flags set, false otherwise.
     - name: AddHeldItemToBag
       address:
+        EU: 0x2347B10
         NA: 0x2346F14
       description: |-
         Adds the monster's held item to the bag. This is only called on monsters on the exploration team.
         monster::is_not_team_member should be checked to be false before calling.
         
         r0: monster pointer
+    - name: RemoveEmptyItemsInBagWrapper
+      address:
+        EU: 0x2347C2C
+        NA: 0x2347030
+      description: |-
+        Calls RemoveEmptyItemsInBag, then some other function that seems to update the minimap, the map surveyor flag, and other stuff.
+        
+        No params.
     - name: GenerateItem
       address:
         EU: 0x2347EC4

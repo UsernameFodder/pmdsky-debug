@@ -321,6 +321,25 @@ ram:
         A null-terminated string, with a maximum length of 10. Presumably encoded with the ANSI/Shift JIS encoding the game typically uses.
         
         This is presumably part of a larger struct, together with other nearby data.
+    - name: LEVEL_UP_DATA_MONSTER_ID
+      address:
+        EU: 0x22AC26C
+        NA: 0x22AB92C
+      length:
+        EU: 0x2
+        NA: 0x2
+      description: ID of the monster whose level-up data is currently stored in LEVEL_UP_DATA_DECOMPRESS_BUFFER.
+    - name: LEVEL_UP_DATA_DECOMPRESS_BUFFER
+      address:
+        EU: 0x22AC270
+        NA: 0x22AB930
+      length:
+        EU: 0x4B0
+        NA: 0x4B0
+      description: |-
+        Buffer used to stored a monster's decompressed level up data. Used by GetLvlUpEntry.
+        
+        Exact size is a guess (100 levels * 12 bytes per entry = 1200 = 0x4B0).
     - name: TEAM_MEMBER_TABLE
       address:
         EU: 0x22AC720

@@ -2075,6 +2075,22 @@ enum talk_kind {
     TALK_HERO_FEMALE = 5,
 };
 
+enum rank {
+    RANK_NORMAL = 0,
+    RANK_BRONZE = 1,
+    RANK_SILVER = 2,
+    RANK_GOLD = 3,
+    RANK_DIAMOND = 4,
+    RANK_SUPER = 5,
+    RANK_ULTRA = 6,
+    RANK_HYPER = 7,
+    RANK_MASTER = 8,
+    RANK_MASTER_1_STAR = 9,
+    RANK_MASTER_2_STARS = 10,
+    RANK_MASTER_3_STARS = 11,
+    RANK_GUILDMASTER = 12,
+};
+
 // These are super long, so split them out into a separate file
 #include "version_dep_enums.h"
 

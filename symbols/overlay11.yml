@@ -395,6 +395,16 @@ overlay11:
         
         r0: ?
         r1: ?
+    - name: GetDungeonMapPos
+      address:
+        EU: 0x230F6E4
+        NA: 0x230ED48
+      description: |-
+        Checks if a dungeon should be displayed on the map and the position where it should be displayed if so.
+        
+        r0: [Output] Buffer where the coordinates of the map marker will be stored. The coordinates are shifted 8 bits to the left, so they are probably fixed-point numbers instead of integers.
+        r1: Dungeon ID
+        return: True if the dungeon should be displayed on the map, false otherwise.
     - name: WorldMapSetMode
       address:
         EU: 0x230F9A0

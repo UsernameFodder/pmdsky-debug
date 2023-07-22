@@ -367,6 +367,19 @@ struct team_member_table {
 };
 ASSERT_SIZE(struct team_member_table, 39032);
 
+// Contains information about a monster's level-up data at a certain level
+struct level_up_entry {
+    uint32_t total_exp; // 0x0: Total EXP required to reach this level
+    uint16_t hp;        // 0x4: HP increase
+    uint8_t atk;        // 0x6: Atk increase
+    uint8_t sp_atk;     // 0x7: Sp. Atk increase
+    uint8_t def;        // 0x8: Def increase
+    uint8_t sp_def;     // 0x9: Sp. Def increase
+    undefined field_0xA;
+    undefined field_0xB;
+};
+ASSERT_SIZE(struct level_up_entry, 12);
+
 // A common structure for pairs of dungeon/floor values
 struct dungeon_floor_pair {
     struct dungeon_id_8 dungeon_id;
