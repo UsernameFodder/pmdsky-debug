@@ -123,7 +123,7 @@ overlay10:
         EU: 0x22C2ECC
         NA: 0x22C2574
       description: |-
-        Given a tileset ID, returns whether it's a background or a regular tilestet
+        Given a tileset ID, returns whether it's a background or a regular tileset
         
         In particular, returns r0 >= 0xAA
         

@@ -2333,7 +2333,7 @@ overlay29:
         EU: 0x23002F4
         NA: 0x22FF8C8
       description: |-
-        Modifies the given movility type to account for All-Terrain Hiker and Absolute Mover, if the user has them.
+        Modifies the given mobility type to account for All-Terrain Hiker and Absolute Mover, if the user has them.
         
         r0: Entity pointer
         r1: Mobility type
