@@ -2302,12 +2302,12 @@ overlay29:
         r0: Monster species
         r1: True if the monster can walk on water
         return: Mobility type
-    - name: GetMobilityTypeCheckSlipAndLevitate
+    - name: GetMobilityTypeCheckSlipAndFloating
       address:
         EU: 0x23000A0
         NA: 0x22FF674
       description: |-
-        Returns the mobility type of a monster, accounting for STATUS_SLIP and the result of a call to IsLevitating.
+        Returns the mobility type of a monster, accounting for STATUS_SLIP and the result of a call to IsFloating.
         
         r0: Entity pointer
         r1: Monster species
@@ -4610,13 +4610,13 @@ overlay29:
         
         r0: user entity pointer
         r1: target entity pointer
-    - name: IsLevitating
+    - name: IsFloating
       address:
         EU: 0x23194AC
         NA: 0x2318A4C
         JP: 0x2319F1C
       description: |-
-        Checks if a monster is currently levitating for reasons other than its ability.
+        Checks if a monster is currently floating for reasons other than its ability.
         
         In particular, this checks for Gravity and Magnet Rise.
         

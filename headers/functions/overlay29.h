@@ -223,7 +223,7 @@ void ExecuteMonsterAction(struct entity* monster);
 void TryActivateFlashFireOnAllMonsters(void);
 bool HasStatusThatPreventsActing(struct entity* monster);
 enum mobility_type GetMobilityTypeCheckSlip(enum monster_id species, bool walk_on_water);
-enum mobility_type GetMobilityTypeCheckSlipAndLevitate(struct entity* monster,
+enum mobility_type GetMobilityTypeCheckSlipAndFloating(struct entity* monster,
                                                        enum monster_id species);
 bool IsInvalidSpawnTile(enum monster_id monster_id, struct tile* tile);
 enum mobility_type GetMobilityTypeAfterIqSkills(struct entity* monster,
@@ -497,7 +497,7 @@ bool TryInflictEmbargoStatus(struct entity* user, struct entity* target, bool lo
                              bool check_only);
 bool TryInflictMiracleEyeStatus(struct entity* user, struct entity* target, bool check_only);
 void TryInflictMagnetRiseStatus(struct entity* user, struct entity* target);
-bool IsLevitating(struct entity* entity);
+bool IsFloating(struct entity* entity);
 void TryInflictSafeguardStatus(struct entity* user, struct entity* target);
 void TryInflictMistStatus(struct entity* user, struct entity* target);
 void TryInflictWishStatus(struct entity* user, struct entity* target);
