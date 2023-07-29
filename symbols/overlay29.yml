@@ -2290,6 +2290,28 @@ overlay29:
         
         r0: Entity pointer
         return: True if the specified monster can't act because of a status problem, false otherwise.
+    - name: GetMobilityTypeCheckSlip
+      address:
+        EU: 0x2300058
+        NA: 0x22FF62C
+      description: |-
+        Returns the mobility type of a monster species, accounting for STATUS_SLIP.
+        
+        The function also converts MOBILITY_LAVA and MOBILITY_WATER to other values if required.
+        
+        r0: Monster species
+        r1: True if the monster can walk on water
+        return: Mobility type
+    - name: GetMobilityTypeCheckSlipAndLevitate
+      address:
+        EU: 0x23000A0
+        NA: 0x22FF674
+      description: |-
+        Returns the mobility type of a monster, accounting for STATUS_SLIP and the result of a call to IsLevitating.
+        
+        r0: Entity pointer
+        r1: Monster species
+        return: Mobility type
     - name: IsInvalidSpawnTile
       address:
         EU: 0x23000F0
@@ -2306,6 +2328,31 @@ overlay29:
         r0: monster ID
         r1: tile pointer
         return: true means the monster CANNOT spawn on this tile
+    - name: GetMobilityTypeAfterIqSkills
+      address:
+        EU: 0x23002F4
+        NA: 0x22FF8C8
+      description: |-
+        Modifies the given movility type to account for All-Terrain Hiker and Absolute Mover, if the user has them.
+        
+        r0: Entity pointer
+        r1: Mobility type
+        return: New mobility type, after accounting for the IQ skills mentioned above
+    - name: CannotStandOnTile
+      address:
+        EU: 0x23006C8
+        NA: 0x22FF764
+      description: |-
+        Checks if a given monster cannot stand on a given tile.
+        
+        Reasons include:
+        - The coordinates of the tile are out of bounds
+        - There's another monster on the tile
+        - The monster does not have the required mobility to stand on the tile
+        
+        r0: Entity pointer
+        r1: Tile pointer
+        return: True if the monster cannot stand on the specified tile, false if it can
     - name: CalcSpeedStage
       address:
         EU: 0x2300820
@@ -2510,12 +2557,14 @@ overlay29:
         r0: Monster entity pointer
         r1: Direction to check
         return: bool
-    - name: GetFinalMobilityType
+    - name: GetDirectionalMobilityType
       address:
         EU: 0x230195C
         NA: 0x2300F30
       description: |-
-        Returns the mobility type of a monster, after accounting for things that could affect it (like items or IQ skills)
+        Returns the mobility type of a monster, after accounting for things that could affect it.
+        
+        List of checks: Mobile status, Mobile Scarf, All-Terrain Hiker and Absolute Mover.
         
         If the specified direction is DIR_NONE, direction checks are skipped. If it's not, MOBILITY_INTANGIBLE is only returned if the direction is not diagonal.
         
@@ -4561,15 +4610,15 @@ overlay29:
         
         r0: user entity pointer
         r1: target entity pointer
-    - name: HasConditionalGroundImmunity
+    - name: IsLevitating
       address:
         EU: 0x23194AC
         NA: 0x2318A4C
         JP: 0x2319F1C
       description: |-
-        Checks if a monster is currently immune to Ground-type moves for reasons other than typing and ability.
+        Checks if a monster is currently levitating for reasons other than its ability.
         
-        This includes checks for Gravity and Magnet Rise.
+        In particular, this checks for Gravity and Magnet Rise.
         
         r0: entity pointer
         return: bool
@@ -5168,6 +5217,14 @@ overlay29:
         r1: target entity pointer
         r2: warp type
         r3: position (if warp type is position-based)
+    - name: EnsureCanStandCurrentTile
+      address:
+        EU: 0x2321B6C
+        NA: 0x2321104
+      description: |-
+        Checks that the given monster is standing on a tile it can stand on given its movement type, and warps it to a random location if it's not.
+        
+        r0: Entity pointer
     - name: TryActivateNondamagingDefenderAbility
       address:
         NA: 0x2321A78
@@ -5620,6 +5677,14 @@ overlay29:
         The first non-full-floor fixed room is 0xA5, which is for Sealed Chambers.
         
         return: bool
+    - name: IsCurrentTilesetBackground
+      address:
+        EU: 0x2336DD4
+        NA: 0x2336204
+      description: |-
+        Calls IsBackgroundTileset with the current tileset ID
+        
+        return: True if the current dungeon tileset is a background, false if it's a regular tileset.
     - name: TrySpawnGoldenChamber
       address:
         NA: 0x2336224

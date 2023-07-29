@@ -6009,9 +6009,9 @@ arm9:
         NA: 0x2052874
         JP: 0x2052BAC
       description: |-
-        Gets the mobility type for a given monster.
+        Gets the mobility type for a given monster species.
         
-        r0: monster ID
+        r0: species ID
         return: mobility type
     - name: GetRegenSpeed
       address:

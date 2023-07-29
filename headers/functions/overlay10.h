@@ -10,6 +10,7 @@ int16_t GetTrapAnimation(enum trap_id trap_id);
 int16_t GetItemAnimation1(enum item_id item_id);
 int16_t GetItemAnimation2(enum item_id item_id);
 int GetMoveAnimationSpeed(enum move_id move_id);
+bool IsBackgroundTileset(int tileset_id);
 int CheckEndDungeon(int end_cond);
 
 #endif
