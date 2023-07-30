@@ -3144,6 +3144,37 @@ arm9:
         
         r0: animation control
         r1: sprite id in WAN_TABLE
+    - name: SetAnimationForAnimationControlInternal
+      address:
+        EU: 0x201C218
+      description: |-
+        Set the wan animation (and other related settings) of an animation_control
+        Used by SetAnimationForAnimationControl
+        
+        r0: animation_control
+        r1: wan_header
+        r2: animation group id
+        r3: animation id
+        stack[0]: ?
+        stack[1] (0x4): palette pos low (see the field on animation_control)
+        stack[2] (0x8): ?
+        stack[3] (0xC): ?
+        stack[4] (0x10): palette_bank (directly set to the animation_control field with said name)
+    - name: SetAnimationForAnimationControl
+      address:
+        EU: 0x201C368
+      description: |-
+        Set the animation to play with this animation control, but do not start it.
+        
+        (args same as SetAndPlayAnimationForAnimationControl)
+        r0: animation_control
+        r1: animation key (either an animation or animation group depending on the type of sprite and if it does have animation group with this animation key as index)
+        r2: direction_id (unsure) (the key to the wan_animation in itself, only used when animation key represent a wan_animation_group)
+        r3: ?
+        stack[0]: low_palette_pos
+        stack[1] (0x4): ?
+        stack[2] (0x8): ?
+        stack[3] (0xC): ?
     - name: GetWanForAnimationControl
       address:
         EU: 0x201C484
@@ -3153,6 +3184,20 @@ arm9:
         
         r0: animation_control
         return: wan_header
+    - name: SetAndPlayAnimationForAnimationControl
+      address:
+        EU: 0x201C4B4
+      description: |-
+        Set the animation to play with the animation control, and start it.
+        
+        r0: animation_control
+        r1: animation key (either an animation or animation group depending on the type of sprite and if it does have animation group with this animation key as index)
+        r2: direction_id (unsure) (the key to the wan_animation in itself, only used when animation key represent a wan_animation_group)
+        r3: ?
+        stack[0]: low_palette_pos
+        stack[1] (0x4): ?
+        stack[2] (0x8): ?
+        stack[3] (0xC): ?
     - name: SwitchAnimationControlToNextFrame
       address:
         EU: 0x201C4F4
@@ -3373,6 +3418,62 @@ arm9:
         r1: unk_pal
         r2: unk_tex
         r3: unk_tex_param
+    - name: GeomSetTexImageParam
+      address:
+        EU: 0x201E530
+      description: |-
+        Send the "TEXIMAGE_PARAM" geometry engine command, that define some parameters for the texture
+        See http://problemkaputt.de/gbatek.htm#ds3dtextureattributes for more information on the parameters
+        
+        r0: texture format
+        r1: texture coordinates transformation modes
+        r2: texture S-Size
+        r3: texture T-Size
+        stack[0] (0x0): repeat in S Direction
+        stack[1] (0x4): flip in S direction
+        stack[2] (0x8): What to make of color 0 (bit 29)
+        stack[3] (0xC): Texture VRAM offset (Will be divided by 8)
+    - name: GeomSetVertexCoord16
+      address:
+        EU: 0x201E570
+      description: |-
+        Send the "VTX_16" geometry engine command, that define the coordinate of a point of a polygon, using 16 bits.
+        Inputs are clamped over their 16 lower bits
+        
+        r0: x coordinate
+        r1: y coordinate
+        r2: z coordinate
+    - name: InitRender3dData
+      address:
+        EU: 0x201E5A0
+      description: |-
+        Initialize the global "RENDER_3D" structure.
+        
+        No params.
+    - name: GeomSwapBuffers
+      address:
+        EU: 0x201E7B8
+      description: |-
+        Call the "SWAP_BUFFERS" command. This will swap the geometry buffer. The parameter of 1 is provided, that enable manual Y-sorting of translucent polygon.
+        
+        No params.
+    - name: InitRender3dElement
+      address:
+        EU: 0x201E7CC
+        NA: 0x201E730
+      description: |-
+        Initialize the render_3d_element structure (without performing any drawing or external data access)
+        
+        r0: render_3d_element
+    - name: Generate3dCanvasBorder
+      address:
+        EU: 0x201EA88
+      description: |-
+        Draw the border for dialogue box and other menus, using the 3D engine.
+        The render_3d_element contain certain value that needs to be set to a correct value for it to work.
+        The element is not immediatly sent to the geometry engine, but are queud up in RENDER_3D
+        
+        r0: render_3d_element
     - name: HandleSir0Translation
       address:
         EU: 0x201F550

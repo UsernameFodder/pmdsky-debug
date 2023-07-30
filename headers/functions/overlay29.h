@@ -614,7 +614,7 @@ bool TryActivateWeather(bool param_1, bool param_2);
 int DigitCount(int n);
 void LoadTextureUi(void);
 int DisplayNumberTextureUi(int16_t x, int16_t y, int n, int ally_mode);
-int DisplayCharTextureUi(undefined* call_back_str, int16_t x, int16_t y, int char_id,
+int DisplayCharTextureUi(struct render_3d_element* call_back_str, int16_t x, int16_t y, int char_id,
                          int16_t param_5);
 void DisplayUi(void);
 struct tile* GetTile(int x, int y);

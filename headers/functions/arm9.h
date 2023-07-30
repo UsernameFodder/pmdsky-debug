@@ -317,7 +317,17 @@ void StopSe(int param_1, int param_2);
 void InitAnimationControl(struct animation_control* animation_control);
 void InitAnimationControlWithSet(struct animation_control* animation_control);
 void SetSpriteIdForAnimationControl(struct animation_control* anim_ctrl, uint16_t sprite_id);
+void SetAnimationForAnimationControlInternal(struct animation_control* anim_ctrl,
+                                             struct wan_header* wan_header, int animation_group_id,
+                                             int animation_id, int unk1, int low_palette_pos,
+                                             int unk2, int unk3, int palette_bank);
+void SetAnimationForAnimationControl(struct animation_control* anim_ctrl, int animation_key,
+                                     enum direction_id direction, int unk1, int low_palette_pos,
+                                     int unk2, int unk3);
 struct wan_header* GetWanForAnimationControl(struct animation_control* anim_ctrl);
+void SetAndPlayAnimationForAnimationControl(struct animation_control* anim_ctrl, int animation_key,
+                                            enum direction_id direction, int unk1,
+                                            int low_palette_pos, int unk2, int unk3);
 void SwitchAnimationControlToNextFrame(struct animation_control* anim_ctrl);
 void LoadAnimationFrameAndIncrementInAnimationControl(struct animation_control* anim_ctrl,
                                                       struct wan_animation_frame* anim_frame);
@@ -347,6 +357,14 @@ void UnloadWte(struct wte_handle* handle);
 undefined* LoadWtuFromBin(int bin_file_id, int file_id, int load_type);
 void ProcessWte(undefined* header, undefined4 unk_pal, undefined4 unk_tex,
                 undefined4 unk_tex_param);
+void GeomSetTexImageParam(int texture_format, int texture_coordinates_transformation_modes,
+                          int texture_s_size, int texture_t_size, bool repeat_s, bool flip_s,
+                          bool color_0, bool vram_offset);
+void GeomSetVertexCoord16(int x, int y, int z);
+void InitRender3dData(void);
+void GeomSwapBuffers(void);
+void InitRender3dElement(struct render_3d_element* element);
+void Generate3dCanvasBorder(struct render_3d_element* element);
 int HandleSir0Translation(uint8_t** dst, uint8_t* src);
 void ConvertPointersSir0(undefined* sir0_ptr);
 int HandleSir0TranslationVeneer(uint8_t** dst, uint8_t* src);

@@ -29,6 +29,22 @@ itcm:
     
     In Explorers of Sky, a fixed region of the ARM9 binary appears to be loaded in the ITCM at all times, and seems to contain functions related to the dungeon AI, among other things. The ITCM has a max capacity of 0x8000, although not all of it is used.
   functions:
+    - name: AllocateNewRender3dElement
+      address:
+        EU: 0x20B4938
+        EU-ITCM: 0x1FF8C78
+      description: |-
+        Return a new render_3d_element from RENDER_3D, to be to draw a new element using the 3d render engine later in the frame.
+        
+        return: render_3d_element or NULL if there is no more avalaible space in the stack
+    - name: Render3DStack
+      address:
+        EU: 0x20B4A8C
+        EU-ITCM: 0x1FF8DCC
+      description: |-
+        Perform rendering of the render_stack of RENDER_3D structure. Does nothing if there are no elements, otherwise, sort them based on a value, and render them all consequetively.
+        
+        No params.
     - name: GetKeyN2MSwitch
       address:
         EU: 0x20B50F4
@@ -215,3 +231,11 @@ itcm:
         Note: This symbol isn't actually part of the ITCM, it gets created at runtime on the spot in RAM that used to contain the code that was moved to the ITCM.
         
         type: struct mem_block[256]
+    - name: RENDER_3D_FUNCTIONS
+      address:
+        EU: 0x20B3DE0
+        EU-ITCM: 0x1FF8120
+      description: |-
+        Pointers to the 4 function avalaible from render_3d_element (in ITCM)
+        
+        type: void* [4] // array of 4 pointer to functions. Take 1 parameter, a pointer to the render_3d_element

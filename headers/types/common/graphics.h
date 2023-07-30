@@ -24,12 +24,13 @@ struct animation_control {
     struct vec2_16 anim_frame_offset;
     struct vec2_16 anim_frame_shadow_offset;
     uint32_t anim_frame_flag;
-    uint32_t anim_frame_flag_sum; // ORed from the current WAN animation frame flag
-    undefined2 field18_0x30;
+    uint32_t anim_frame_flag_sum;     // ORed from the current WAN animation frame flag
+    uint16_t animations_or_group_len; // number of animation group Chara sprites, other number of
+                                      // animation in the first animation group
     undefined2 field19_0x32;
     undefined field20_0x34;
     undefined field21_0x35;
-    undefined2 field22_0x36;
+    undefined2 field22_0x36; // seems to be an index into the wan fragments table
     undefined2 field23_0x38;
     uint16_t anim_frame_frame_id;
     undefined2 field25_0x3c;
@@ -70,5 +71,98 @@ struct animation_control {
     undefined field57_0x7b;
 };
 ASSERT_SIZE(struct animation_control, 124);
+
+// Represent a single element to render using the 3D engine
+// This structure is used in two different way. The first one is for planning rendering, that will
+// then call function that will call a function that will then add themm to RENDER_3D for rendering
+// later in the frame.
+struct render_3d_element {
+    undefined2 render_function_id; // range from 0 to 3 (included)
+    undefined2 field1_0x2;         /* appears to be a render priority level. Impact sorting. */
+    undefined4 field2_0x4;
+    undefined4 field3_0x8;
+    uint16_t x_tileset_start;
+    uint16_t y_tileset_start;
+    uint16_t x_tileset_width_offset;
+    uint16_t y_tileset_height_offset;
+    undefined2 field8_0x14;
+    undefined2 x_start_1;
+    undefined2 y_start_1;
+    undefined2 x_end_1;
+    undefined2 y_start_2;
+    undefined2 x_start_2;
+    undefined2 y_end_1;
+    undefined2 x_end_2;
+    undefined2 y_end_2;
+    undefined2 field17_0x26[4];
+    undefined2 field18_0x2e;
+    undefined field19_0x30;
+    char field20_0x31;
+    bool field21_0x32;
+    undefined field22_0x33;
+};
+ASSERT_SIZE(struct render_3d_element, 52);
+
+// A global, unique structure that store element relating to the 3d engine, in particular the list
+// of element to render later in the frame.
+struct render_3d_global {
+    uint16_t current_index;
+    uint16_t max_index; // Seems to consistently be 128, size of render_stack
+    undefined4 field2_0x4;
+    undefined4 field3_0x8;
+    undefined field4_0xc;
+    undefined field5_0xd;
+    undefined field6_0xe;
+    undefined field7_0xf;
+    undefined field8_0x10;
+    undefined field9_0x11;
+    undefined field10_0x12;
+    undefined field11_0x13;
+    undefined field12_0x14;
+    undefined field13_0x15;
+    undefined field14_0x16;
+    undefined field15_0x17;
+    undefined field16_0x18;
+    undefined field17_0x19;
+    undefined field18_0x1a;
+    undefined field19_0x1b;
+    undefined field20_0x1c;
+    undefined field21_0x1d;
+    undefined field22_0x1e;
+    undefined field23_0x1f;
+    undefined field24_0x20;
+    undefined field25_0x21;
+    undefined field26_0x22;
+    undefined field27_0x23;
+    undefined field28_0x24;
+    undefined field29_0x25;
+    undefined field30_0x26;
+    undefined field31_0x27;
+    undefined field32_0x28;
+    undefined field33_0x29;
+    undefined field34_0x2a;
+    undefined field35_0x2b;
+    undefined field36_0x2c;
+    undefined field37_0x2d;
+    undefined field38_0x2e;
+    undefined field39_0x2f;
+    undefined field40_0x30;
+    undefined field41_0x31;
+    undefined field42_0x32;
+    undefined field43_0x33;
+    undefined field44_0x34;
+    undefined field45_0x35;
+    undefined field46_0x36;
+    undefined field47_0x37;
+    undefined field48_0x38;
+    undefined field49_0x39;
+    undefined field50_0x3a;
+    undefined field51_0x3b;
+    undefined field52_0x3c;
+    undefined field53_0x3d;
+    undefined field54_0x3e;
+    undefined field55_0x3f;
+    struct render_3d_element* render_stack[128];
+};
 
 #endif
