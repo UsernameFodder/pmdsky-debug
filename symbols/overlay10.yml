@@ -118,6 +118,17 @@ overlay10:
         
         r0: move_id
         return: anim_ent_ptr (This might be a mistake? It seems to be an integer, not a pointer)
+    - name: IsBackgroundTileset
+      address:
+        EU: 0x22C2ECC
+        NA: 0x22C2574
+      description: |-
+        Given a tileset ID, returns whether it's a background or a regular tileset
+        
+        In particular, returns r0 >= 0xAA
+        
+        r0: Tileset ID
+        return: True if the tileset ID corresponds to a background, false if it corresponds to a regular tileset
     - name: CheckEndDungeon
       address:
         EU: 0x22C31E4

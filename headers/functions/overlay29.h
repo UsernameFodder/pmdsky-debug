@@ -222,7 +222,13 @@ void GetOutlawSpawnData(struct spawned_target_data* outlaw);
 void ExecuteMonsterAction(struct entity* monster);
 void TryActivateFlashFireOnAllMonsters(void);
 bool HasStatusThatPreventsActing(struct entity* monster);
+enum mobility_type GetMobilityTypeCheckSlip(enum monster_id species, bool walk_on_water);
+enum mobility_type GetMobilityTypeCheckSlipAndFloating(struct entity* monster,
+                                                       enum monster_id species);
 bool IsInvalidSpawnTile(enum monster_id monster_id, struct tile* tile);
+enum mobility_type GetMobilityTypeAfterIqSkills(struct entity* monster,
+                                                enum mobility_type mobility_type);
+bool CannotStandOnTile(struct entity* monster, struct tile* tile);
 int CalcSpeedStage(struct entity* entity, int counter_weight);
 int CalcSpeedStageWrapper(struct entity* entity);
 int GetNumberOfAttacks(struct entity* entity);
@@ -241,8 +247,9 @@ bool MonsterHasMiracleEyeStatus(struct entity* monster);
 bool MonsterHasNegativeStatus(struct entity* monster, bool check_held_item);
 bool IsMonsterSleeping(struct entity* monster);
 bool CanMonsterMoveInDirection(struct entity* monster, enum direction_id direction);
-enum mobility_type GetFinalMobilityType(struct entity* monster, enum mobility_type base_mobility,
-                                        enum direction_id direction);
+enum mobility_type GetDirectionalMobilityType(struct entity* monster,
+                                              enum mobility_type base_mobility,
+                                              enum direction_id direction);
 bool IsMonsterCornered(struct entity* monster);
 bool CanAttackInDirection(struct entity* monster, enum direction_id direction);
 bool CanAiMonsterMoveInDirection(struct entity* monster, enum direction_id direction,
@@ -490,7 +497,7 @@ bool TryInflictEmbargoStatus(struct entity* user, struct entity* target, bool lo
                              bool check_only);
 bool TryInflictMiracleEyeStatus(struct entity* user, struct entity* target, bool check_only);
 void TryInflictMagnetRiseStatus(struct entity* user, struct entity* target);
-bool HasConditionalGroundImmunity(struct entity* entity);
+bool IsFloating(struct entity* entity);
 void TryInflictSafeguardStatus(struct entity* user, struct entity* target);
 void TryInflictMistStatus(struct entity* user, struct entity* target);
 void TryInflictWishStatus(struct entity* user, struct entity* target);
@@ -561,6 +568,7 @@ void TryAftermathExplosion(struct entity* user, struct entity* target, struct po
                            int radius, enum type_id attack_type, union damage_source damage_source);
 void TryWarp(struct entity* user, struct entity* target, enum warp_type warp_type,
              struct position* position);
+void EnsureCanStandCurrentTile(struct entity* entity);
 void TryActivateNondamagingDefenderAbility(struct entity* entity);
 void TryActivateNondamagingDefenderExclusiveItem(struct entity* attacker, struct entity* defender);
 int GetMoveRangeDistance(struct entity* user, struct move* move, bool check_two_turn_moves);
@@ -612,6 +620,7 @@ void DisplayUi(void);
 struct tile* GetTile(int x, int y);
 struct tile* GetTileSafe(int x, int y);
 bool IsFullFloorFixedRoom(void);
+bool IsCurrentTilesetBackground(void);
 void TrySpawnGoldenChamber(void);
 void CountItemsOnFloorForAcuteSniffer(void);
 void GetStairsSpawnPosition(int16_t* x, int16_t* y);
