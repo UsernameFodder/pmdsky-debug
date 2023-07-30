@@ -3422,7 +3422,7 @@ arm9:
       address:
         EU: 0x201E530
       description: |-
-        Send the "TEXIMAGE_PARAM" geometry engine command, that define some parameters for the texture
+        Send the "TEXIMAGE_PARAM" geometry engine command, that defines some parameters for the texture
         See http://problemkaputt.de/gbatek.htm#ds3dtextureattributes for more information on the parameters
         
         r0: texture format
@@ -3437,7 +3437,7 @@ arm9:
       address:
         EU: 0x201E570
       description: |-
-        Send the "VTX_16" geometry engine command, that define the coordinate of a point of a polygon, using 16 bits.
+        Send the "VTX_16" geometry engine command, that defines the coordinate of a point of a polygon, using 16 bits.
         Inputs are clamped over their 16 lower bits
         
         r0: x coordinate
@@ -3454,7 +3454,7 @@ arm9:
       address:
         EU: 0x201E7B8
       description: |-
-        Call the "SWAP_BUFFERS" command. This will swap the geometry buffer. The parameter of 1 is provided, that enable manual Y-sorting of translucent polygon.
+        Call the "SWAP_BUFFERS" command. This will swap the geometry buffer. The parameter of 1 is provided, which enables manual Y-sorting of translucent polygons.
         
         No params.
     - name: InitRender3dElement
@@ -3470,8 +3470,8 @@ arm9:
         EU: 0x201EA88
       description: |-
         Draw the border for dialogue box and other menus, using the 3D engine.
-        The render_3d_element contain certain value that needs to be set to a correct value for it to work.
-        The element is not immediatly sent to the geometry engine, but are queud up in RENDER_3D
+        The render_3d_element contains certain value that needs to be set to a correct value for it to work.
+        The element is not immediately sent to the geometry engine, but is queued up in RENDER_3D
         
         r0: render_3d_element
     - name: HandleSir0Translation

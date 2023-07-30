@@ -2,7 +2,7 @@
 #define HEADERS_FUNCTIONS_ARM9_ITCM_H_
 
 struct render_3d_element* AllocateNewRender3dElement(void);
-void Render3DStack(void);
+void Render3dStack(void);
 void GetKeyN2MSwitch(int key, int sw);
 enum monster_id GetKeyN2M(int key);
 enum monster_id GetKeyN2MBaseForm(int key);

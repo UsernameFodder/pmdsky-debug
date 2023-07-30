@@ -73,12 +73,12 @@ struct animation_control {
 ASSERT_SIZE(struct animation_control, 124);
 
 // Represent a single element to render using the 3D engine
-// This structure is used in two different way. The first one is for planning rendering, that will
+// This structure is used in two different ways. The first one is for planning rendering, that will
 // then call function that will call a function that will then add themm to RENDER_3D for rendering
 // later in the frame.
 struct render_3d_element {
     undefined2 render_function_id; // range from 0 to 3 (included)
-    undefined2 field1_0x2;         /* appears to be a render priority level. Impact sorting. */
+    undefined2 field1_0x2;         // appears to be a render priority level. Impact sorting.
     undefined4 field2_0x4;
     undefined4 field3_0x8;
     uint16_t x_tileset_start;
@@ -103,8 +103,8 @@ struct render_3d_element {
 };
 ASSERT_SIZE(struct render_3d_element, 52);
 
-// A global, unique structure that store element relating to the 3d engine, in particular the list
-// of element to render later in the frame.
+// A global, unique structure that stores element relating to the 3d engine, in particular the list
+// of elements to render later in the frame.
 struct render_3d_global {
     uint16_t current_index;
     uint16_t max_index; // Seems to consistently be 128, size of render_stack
