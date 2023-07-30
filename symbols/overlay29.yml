@@ -4616,7 +4616,7 @@ overlay29:
         NA: 0x2318A4C
         JP: 0x2319F1C
       description: |-
-        Checks if a monster is currently floating for reasons other than its ability.
+        Checks if a monster is currently floating for reasons other than its typing or ability.
         
         In particular, this checks for Gravity and Magnet Rise.
         
