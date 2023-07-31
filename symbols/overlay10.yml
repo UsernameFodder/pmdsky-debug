@@ -137,7 +137,7 @@ overlay10:
       description: |-
         Contains several functions that handle switching between ground and dungeon mode. It also handles other situations, like what happens right after exiting a dungeon.
         
-        The name comes from a debug print with the string "MainGame enter dungeon mode %d %d". Despite its name, it's not a main function. It doesn't get called until the player selects the option to resume a saved game, and it might return under certain circumstances.
+        The function doesn't get called until the player selects the option to resume a saved game and doesn't return until the player returns to the main menu.
         
         r0: End condition code? Seems to control what tasks get run and what transition happens when the dungeon ends
         return: return code?

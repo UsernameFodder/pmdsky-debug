@@ -743,6 +743,7 @@ void ScriptSpecialProcess0x3D(void);
 void ScriptSpecialProcess0x3E(void);
 void ScriptSpecialProcess0x17(void);
 void ItemAtTableIdx(int idx, struct bulk_item* item);
+void MainLoop(void);
 int DungeonSwapIdToIdx(enum dungeon_id dungeon_id);
 enum dungeon_id DungeonSwapIdxToId(int idx);
 enum dungeon_mode GetDungeonModeSpecial(enum dungeon_id dungeon_id);

@@ -7337,6 +7337,14 @@ arm9:
         
         r0: table index
         r1: [output] pointer to an owned_item
+    - name: MainLoop
+      address:
+        EU: 0x2066098
+        NA: 0x2065D1C
+      description: |-
+        This function gets called shortly after the game is started. Contains a single infinite loop and has no return statement.
+        
+        No params.
     - name: DungeonSwapIdToIdx
       address:
         EU: 0x206AAAC
