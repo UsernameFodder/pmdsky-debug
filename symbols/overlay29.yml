@@ -7573,7 +7573,7 @@ overlay29:
       description: |-
         This appears to be the top-level function for running dungeon mode.
         
-        It gets called by some code in overlay 10 right after doing the dungeon fade transition, and once it exits, the dungeon results are processed.
+        It gets called by MainGame right after doing the dungeon fade transition, and once it exits, the dungeon results are processed.
         
         This function is presumably in charge of allocating the dungeon struct, setting it up, launching the dungeon engine, etc.
     - name: DisplayDungeonTip
