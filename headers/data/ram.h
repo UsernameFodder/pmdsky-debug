@@ -17,6 +17,7 @@ extern struct bulk_item KECLEON_WARES_ITEMS[4];
 extern struct bulk_item UNUSED_KECLEON_WARES_ITEMS[4];
 extern int32_t MONEY_CARRIED;
 extern int32_t MONEY_STORED;
+extern struct audio_command AUDIO_COMMANDS_BUFFER[16];
 extern uint16_t CURSOR_16_SPRITE_ID;
 extern uint16_t CURSOR_SPRITE_ID;
 extern struct animation_control* CURSOR_ANIMATION_CONTROL;
