@@ -191,8 +191,8 @@ ram:
         EU: 0x22A5599
         NA: 0x22A4C50
       length:
-        EU: 512
-        NA: 512
+        EU: 0x200
+        NA: 0x200
       description: Buffer used to store audio commands. 16 entries in total. Seems like entries are removed at some point (maybe after the commands are read or after they finish executing).
     - name: CURSOR_16_SPRITE_ID
       address:
