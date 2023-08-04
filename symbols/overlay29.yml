@@ -1003,6 +1003,15 @@ overlay29:
         Sets the dungeon PRNG to use the primary LCG for subsequent random number generation.
         
         No params.
+    - name: MusicTableIdxToMusicId
+      address:
+        EU: 0x22EB6B0
+        NA: 0x22EAD00
+      description: |-
+        Used to convert an index that refers to a MUSIC_ID_TABLE entry to a regular music ID.
+        
+        r0: Music table index
+        return: Music ID
     - name: ChangeDungeonMusic
       address:
         EU: 0x22EB7C4

@@ -960,23 +960,23 @@ arm9:
         r0: [output] pointer to an IO struct {ptr, len}
         r1: file path string pointer
         r2: flags
-    - name: GetDebugFlag1
+    - name: GetDebugFlag
       address:
         EU: 0x200C198
         NA: 0x200C110
         JP: 0x200C110
       description: |-
-        Just returns 0 in the final binary.
+        Should return the value of the specified debug flag. Just returns 0 in the final binary.
         
         r0: flag ID
         return: flag value
-    - name: SetDebugFlag1
+    - name: SetDebugFlag
       address:
         EU: 0x200C1A0
         NA: 0x200C118
         JP: 0x200C118
       description: |-
-        A no-op in the final binary.
+        Should set the value of a debug flag. A no-op in the final binary.
         
         r0: flag ID
         r1: flag value
@@ -1026,23 +1026,23 @@ arm9:
         
         r0: format
         ...: variadic
-    - name: GetDebugFlag2
+    - name: GetDebugLogFlag
       address:
         EU: 0x200C2BC
         NA: 0x200C234
         JP: 0x200C234
       description: |-
-        Just returns 0 in the final binary.
+        Should return the value of the specified debug log flag. Just returns 0 in the final binary.
         
         r0: flag ID
         return: flag value
-    - name: SetDebugFlag2
+    - name: SetDebugLogFlag
       address:
         EU: 0x200C2C4
         NA: 0x200C23C
         JP: 0x200C23C
       description: |-
-        A no-op in the final binary.
+        Should set the value of a debug log flag. A no-op in the final binary.
         
         r0: flag ID
         r1: flag value
@@ -3002,6 +3002,53 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         r0: waza_id
+    - name: SendAudioCommandWrapperVeneer
+      address:
+        EU: 0x2017C00
+        NA: 0x2017BE0
+      description: |-
+        Likely a linker-generated veneer for SendAudioCommandWrapper.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
+        
+        r0: Music ID
+        r1: (?) Stored on byte 8 on the struct passed to SendAudioCommand
+        r2: Volume (0-255)
+    - name: SendAudioCommandWrapper
+      address:
+        EU: 0x2017F0C
+        NA: 0x2017E70
+      description: |-
+        Initializes some values and then calls SendAudioCommand.
+        
+        Checks for DEBUG_FLAG_BGM_OFF. If 1, sets the volume to 0 before calling SendAudioCommand.
+        
+        r0: Music ID
+        r1: (?) Stored on byte 8 on the struct passed to SendAudioCommand
+        r2: Volume (0-255)
+    - name: AllocAudioCommand
+      address:
+        EU: 0x2018C08
+        NA: 0x2018B6C
+      description: |-
+        Searches for an entry in AUDIO_COMMANDS_BUFFER that's not currently in use (audio_command::status == 0). Returns the first entry not in use, or null if none was found.
+        
+        Also sets the status of the found entry to the value specified in r0.
+        
+        The game doesn't bother checking if the result of the function is null, so the buffer is not supposed to ever get filled.
+        
+        r0: Status to set the found entry to
+        return: The first unused entry, or null if none was found
+    - name: SendAudioCommand
+      address:
+        EU: 0x2018C44
+        NA: 0x2018BA8
+      description: |-
+        Used to send commands to the audio engine (seems to be used mainly to play and stop music)
+        
+        This function calls a stubbed-out one with the string "audio command list"
+        
+        r0: Command to send
     - name: ManipBgmPlayback
       address:
         EU: 0x2018F40

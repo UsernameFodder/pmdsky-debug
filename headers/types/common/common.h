@@ -921,6 +921,39 @@ struct vram_banks_set {
 };
 ASSERT_SIZE(struct vram_banks_set, 2);
 
+// Used as a parameter to SendAudioCommand. Includes data on which audio to play and how.
+struct audio_command {
+    // 0x0: Seems to be a value that marks the status of this entry. It's probably an enum, maybe a
+    // command ID. Seems to be 0 when the entry is not in use.
+    int status;
+    struct music_id_16 music_id; // 0x4: ID of the music to play
+    uint16_t volume;             // 0x6: Volume (0-255)
+    undefined2 field_0x8;
+    undefined field_0xA;
+    undefined field_0xB;
+    undefined field_0xC;
+    undefined field_0xD;
+    undefined field_0xE;
+    undefined field_0xF;
+    undefined field_0x10;
+    undefined field_0x11;
+    undefined field_0x12;
+    undefined field_0x13;
+    undefined field_0x14;
+    undefined field_0x15;
+    undefined field_0x16;
+    undefined field_0x17;
+    undefined field_0x18;
+    undefined field_0x19;
+    undefined field_0x1A;
+    undefined field_0x1B;
+    undefined field_0x1C;
+    undefined field_0x1D;
+    undefined field_0x1E;
+    undefined field_0x1F;
+};
+ASSERT_SIZE(struct audio_command, 32);
+
 // TODO: Add more data file structures, as convenient or needed, especially if the load address
 // or pointers to the load address are known.
 
