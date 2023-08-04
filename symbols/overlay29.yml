@@ -1008,9 +1008,9 @@ overlay29:
         EU: 0x22EB6B0
         NA: 0x22EAD00
       description: |-
-        Used to convert an ID that refers to a MUSIC_ID_TABLE entry to a regular music ID.
+        Used to convert an index that refers to a MUSIC_ID_TABLE entry to a regular music ID.
         
-        r0: Dungeon music ID
+        r0: Music table index
         return: Music ID
     - name: ChangeDungeonMusic
       address:
