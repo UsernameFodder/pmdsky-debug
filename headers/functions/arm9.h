@@ -95,7 +95,7 @@ void SetDebugFlag(enum debug_flag flag, bool val);
 int AppendProgPos(char* str, struct prog_pos_info* prog_pos, const char* msg);
 void DebugPrintTrace(const char* msg, struct prog_pos_info* prog_pos);
 void DebugPrint0(const char* fmt, ...);
-bool GetDebugLogFlag(enum debug_flag flag);
+bool GetDebugLogFlag(enum debug_log_flag flag);
 void SetDebugLogFlag(enum debug_log_flag flag, bool val);
 void DebugPrint(uint8_t level, const char* fmt, ...);
 void FatalError(struct prog_pos_info prog_pos, const char* fmt, ...);
