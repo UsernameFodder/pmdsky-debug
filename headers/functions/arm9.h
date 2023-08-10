@@ -463,7 +463,7 @@ void SetScenarioScriptVar(enum script_var_id id, uint8_t val0, uint8_t val1);
 int GetSpecialEpisodeType(void);
 int GetExecuteSpecialEpisodeType(void);
 bool HasPlayedOldGame(void);
-int GetPerformanceFlagWithChecks(int flag_id);
+bool GetPerformanceFlagWithChecks(int flag_id);
 int GetScenarioBalance(void);
 void ScenarioFlagBackup(void);
 void InitWorldMapScriptVars(void);
