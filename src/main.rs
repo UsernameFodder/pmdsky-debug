@@ -62,7 +62,7 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
         .setting(AppSettings::ArgRequiredElseHelp)
         .subcommand(
             SubCommand::with_name("gen")
-                .about("Generates one or more symbol tables from a resymgen YAML file")
+                .about("Generates one or more symbol tables from a resymgen YAML file and its subregion files")
                 .args(&[
                     Arg::with_name("format")
                         .help("Symbol table output format")
@@ -79,6 +79,10 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
                         .long("binary-version")
                         .multiple(true)
                         .number_of_values(1),
+                    Arg::with_name("sort")
+                        .help("Within each symbol category (functions, data), generate symbols in order by address")
+                        .short("s")
+                        .long("sort"),
                     Arg::with_name("output directory")
                         .help("Output directory")
                         .takes_value(true)
@@ -97,6 +101,10 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
             SubCommand::with_name("fmt")
                 .about("Formats a resymgen YAML file")
                 .args(&[
+                    Arg::with_name("recursive")
+                        .help("Recursively format the given file and its subregion files")
+                        .short("r")
+                        .long("recursive"),
                     Arg::with_name("check")
                         .help("Run in 'check' mode. If the input is improperly formatted, exit with 1 and print a diff.")
                         .short("c")
@@ -116,12 +124,16 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
             SubCommand::with_name("check")
                 .about("Validates the contents of a resymgen YAML file")
                 .args(&[
+                    Arg::with_name("recursive")
+                        .help("Recursively validate the given file and its subregion files")
+                        .short("r")
+                        .long("recursive"),
                     Arg::with_name("explicit versions")
                         .help("Require versions to be explicitly specified in maps")
                         .short("v")
                         .long("explicit-versions"),
                     Arg::with_name("complete version list")
-                        .help("Require versions used in maps to appear exactly once in the top-level version list")
+                        .help("Require versions used in maps to appear exactly once in the top-level version list. If the --recursive option is specified, also require version lists to contain all versions used in subregions.")
                         .short("V")
                         .long("complete-version-list"),
                     Arg::with_name("nonempty maps")
@@ -129,29 +141,33 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
                         .short("m")
                         .long("nonempty-maps"),
                     Arg::with_name("unique symbols")
-                        .help("Require symbol names to be unique within a block")
+                        .help("Require symbol names to be unique within a block. If the --recursive option is specified, require symbol names to be unique within a block and its subregions, and require subregion names to be unique within a block.")
                         .short("u")
                         .long("unique-symbols"),
                     Arg::with_name("in-bounds symbols")
-                        .help("Require symbols to be within specified per-version block bounds")
+                        .help("Require symbols to be within specified per-version block bounds. If the --recursive option is specified, also require subregions to be within the per-version bounds of their parent blocks.")
                         .short("b")
                         .long("in-bounds-symbols"),
-                    Arg::with_name("no function overlap")
-                        .help("Disallow per-version overlap between functions within a block")
+                    Arg::with_name("no overlap")
+                        .help("Disallow per-version overlap between functions within a block. If the --recursive option is specified, also disallow per-version overlap between a subregion and any other subregion, function, or data within a block.")
                         .short("o")
-                        .long("no-function-overlap"),
+                        .long("no-overlap"),
                     Arg::with_name("function names")
-                        .help("Enforce a naming convention for function symbols. Note that all conventions implicitly enforce valid identifiers.")
+                        .help("Enforce a naming convention for function symbols. This option can be specified multiple times with different values to enforce that at least one of the specified naming conventions applies for each symbol. Note that all conventions implicitly enforce valid identifiers.")
                         .takes_value(true)
                         .short("f")
                         .long("function-names")
+                        .multiple(true)
+                        .number_of_values(1)
                         .set(ArgSettings::CaseInsensitive)
                         .possible_values(&SUPPORTED_NAMING_CONVENTIONS),
                     Arg::with_name("data names")
-                        .help("Enforce a naming convention for data symbols. Note that all conventions implicitly enforce valid identifiers.")
+                        .help("Enforce a naming convention for data symbols. This option can be specified multiple times with different values to enforce that at least one of the specified naming conventions applies for each symbol. Note that all conventions implicitly enforce valid identifiers.")
                         .takes_value(true)
                         .short("d")
                         .long("data-names")
+                        .multiple(true)
+                        .number_of_values(1)
                         .set(ArgSettings::CaseInsensitive)
                         .possible_values(&SUPPORTED_NAMING_CONVENTIONS),
                     Arg::with_name("input")
@@ -163,7 +179,7 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
         )
         .subcommand(
             SubCommand::with_name("merge")
-                .about("Merge one or more data files into a resymgen YAML file")
+                .about("Merge one or more data files into a resymgen YAML file and its subregion files")
                 .args(&[
                     Arg::with_name("format")
                         .help("Input data format")
@@ -231,6 +247,7 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
             };
             let output_versions: Option<Vec<_>> =
                 matches.values_of("binary version").map(|v| v.collect());
+            let sort_output = matches.is_present("sort");
 
             let mut errors = Vec::with_capacity(input_files.len());
             for input_file in input_files {
@@ -243,6 +260,7 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
                         input_file,
                         output_formats.clone(),
                         output_versions.clone(),
+                        sort_output,
                         output_base,
                     )?;
                     Ok(())
@@ -265,12 +283,13 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
             let matches = matches.subcommand_matches("fmt").unwrap();
 
             let input_files = matches.values_of("input").unwrap();
+            let recursive = matches.is_present("recursive");
             let iformat = int_format(matches.is_present("decimal"));
             if matches.is_present("check") {
                 let mut errors = Vec::with_capacity(input_files.len());
                 let mut failed = false;
                 for input_file in input_files {
-                    match resymgen::format_check_file(input_file, iformat) {
+                    match resymgen::format_check_file(input_file, recursive, iformat) {
                         Ok(success) => {
                             if !success {
                                 println!();
@@ -293,7 +312,7 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
             } else {
                 let mut errors = Vec::with_capacity(input_files.len());
                 for input_file in input_files {
-                    if let Err(e) = resymgen::format_file(input_file, iformat) {
+                    if let Err(e) = resymgen::format_file(input_file, recursive, iformat) {
                         errors.push((input_file.to_string(), e));
                     }
                 }
@@ -311,6 +330,7 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
             let matches = matches.subcommand_matches("check").unwrap();
 
             let input_files = matches.values_of("input").unwrap();
+            let recursive = matches.is_present("recursive");
 
             let mut checks = Vec::new();
             if matches.is_present("explicit versions") {
@@ -328,18 +348,23 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
             if matches.is_present("in-bounds symbols") {
                 checks.push(resymgen::Check::InBoundsSymbols);
             }
-            if matches.is_present("no function overlap") {
-                checks.push(resymgen::Check::NoFunctionOverlap);
+            if matches.is_present("no overlap") {
+                checks.push(resymgen::Check::NoOverlap);
             }
-            if let Some(conv) = matches.value_of("function names") {
-                checks.push(resymgen::Check::FunctionNames(naming_convention(conv)));
+            if let Some(convs) = matches.values_of("function names") {
+                checks.push(resymgen::Check::FunctionNames(
+                    convs.map(naming_convention).collect(),
+                ));
             }
-            if let Some(conv) = matches.value_of("data names") {
-                checks.push(resymgen::Check::DataNames(naming_convention(conv)));
+            if let Some(convs) = matches.values_of("data names") {
+                checks.push(resymgen::Check::DataNames(
+                    convs.map(naming_convention).collect(),
+                ));
             }
             // This one handles multiple files internally so that check result printing
             // can be merged appropriately
-            if !resymgen::run_and_print_checks(input_files.collect::<Vec<_>>(), &checks)? {
+            if !resymgen::run_and_print_checks(input_files.collect::<Vec<_>>(), &checks, recursive)?
+            {
                 return Err("Checks did not pass".into());
             }
             Ok(())
@@ -360,14 +385,14 @@ fn run_resymgen() -> Result<(), Box<dyn Error>> {
             let iformat = int_format(matches.is_present("decimal"));
             let fix_formatting = matches.is_present("fix formatting");
             let unmerged_symbols = resymgen::merge_symbols(
-                &symgen_file,
+                symgen_file,
                 &input_files,
                 input_format,
                 &merge_params,
                 iformat,
             )?;
             if fix_formatting {
-                resymgen::format_file(&symgen_file, iformat)?;
+                resymgen::format_file(symgen_file, true, iformat)?;
             }
 
             // Print the unmerged symbols from each file, with terminal colors

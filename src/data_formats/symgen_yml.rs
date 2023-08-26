@@ -8,6 +8,14 @@
 //! A [`Symbol`] represents one or more memory regions containing an identifiable chunk of
 //! instructions or data.
 //!
+//! Optionally, each [`Block`] can also contain a list of [`Subregion`]s. A [`Subregion`]
+//! represents a nested [`SymGen`], which has one or more of its own named [`Block`]s, that is
+//! contained within the parent [`Block`]. In a `resymgen` YAML file, a [`Subregion`] is
+//! represented as a file name. If the `resymgen` YAML file has the file path
+//! `/path/to/parent.yml`, and one of its blocks has a subregion with the name `sub.yml`, then
+//! this subregion name references a corresponding subregion file (which is itself a `resymgen`
+//! YAML file) with the file path `/path/to/parent/sub.yml`.
+//!
 //! # Example
 //! ```yml
 //! main:
@@ -21,6 +29,9 @@
 //!     v1: 0x100000
 //!     v2: 0x100000
 //!   description: The main memory region
+//!   subregions:
+//!     - sub1.yml
+//!     - sub2.yml
 //!   functions:
 //!     - name: function1
 //!       address:

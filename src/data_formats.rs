@@ -6,17 +6,21 @@
 
 pub mod ghidra;
 pub mod ghidra_csv;
+pub mod json;
 pub mod sym;
 pub mod symgen_yml;
 
 use std::error::Error;
+use std::fs::File;
 use std::io::{Read, Write};
+use std::path::Path;
 
 use ghidra::GhidraFormatter;
 use ghidra_csv::CsvLoader;
+use json::JsonFormatter;
 use sym::SymFormatter;
 pub use symgen_yml::Generate;
-use symgen_yml::{Load, LoadParams, SymGen, Symbol};
+use symgen_yml::{Load, LoadParams, Subregion, SymGen, Symbol};
 
 // `OutFormat` is like a poor man's version of trait objects for Generate. Real trait objects don't
 // work because `Generate` isn't object-safe (generate() is generic), so we can't use dynamic
@@ -33,6 +37,8 @@ pub enum OutFormat {
     Ghidra,
     /// [`sym`] format
     Sym,
+    /// [`json`] format
+    Json,
 }
 
 // Technically this makes it redundant to impl Generate for the individual formatters, but I think
@@ -47,6 +53,7 @@ impl Generate for OutFormat {
         match self {
             Self::Ghidra => GhidraFormatter {}.generate(writer, symgen, version),
             Self::Sym => SymFormatter {}.generate(writer, symgen, version),
+            Self::Json => JsonFormatter {}.generate(writer, symgen, version),
         }
     }
 }
@@ -57,6 +64,7 @@ impl OutFormat {
         match name {
             "ghidra" => Some(Self::Ghidra),
             "sym" => Some(Self::Sym),
+            "json" => Some(Self::Json),
             _ => None,
         }
     }
@@ -65,11 +73,12 @@ impl OutFormat {
         match self {
             Self::Ghidra => String::from("ghidra"),
             Self::Sym => String::from("sym"),
+            Self::Json => String::from("json"),
         }
     }
     /// Returns an [`Iterator`] over all [`OutFormat`] variants.
     pub fn all() -> impl Iterator<Item = OutFormat> {
-        [Self::Ghidra, Self::Sym].iter().copied()
+        [Self::Ghidra, Self::Sym, Self::Json].iter().copied()
     }
 }
 
@@ -112,15 +121,30 @@ impl InFormat {
 
     /// Reads data from `rdr` in the format specified by the [`InFormat`], and merges it into
     /// `symgen` using the options specified in `params`.
-    pub fn merge<R: Read>(
+    ///
+    /// If a `file_name` is provided, it may be used for subregion resolution, depending on the
+    /// [`InFormat`].
+    pub fn merge<R, P>(
         &self,
         symgen: &mut SymGen,
         rdr: R,
+        file_name: Option<P>,
         params: &LoadParams,
-    ) -> Result<Vec<Symbol>, Box<dyn Error>> {
+    ) -> Result<Vec<Symbol>, Box<dyn Error>>
+    where
+        R: Read,
+        P: AsRef<Path>,
+    {
         let unmerged = match self {
             Self::Yaml => {
-                symgen.merge_symgen(&SymGen::read_no_init(rdr)?)?;
+                let mut other = SymGen::read_no_init(rdr)?;
+                if let Some(file_name) = file_name {
+                    other
+                        .resolve_subregions(Subregion::subregion_dir(file_name.as_ref()), |p| {
+                            File::open(p)
+                        })?;
+                }
+                symgen.merge_symgen(&other)?;
                 Vec::new()
             }
             Self::Csv => symgen.merge_symbols(CsvLoader::load(rdr, params)?)?,

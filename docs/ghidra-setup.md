@@ -1,5 +1,9 @@
 # Setting up Ghidra for _Pokémon Mystery Dungeon: Explorers of Sky_
-Properly setting up a Ghidra environment for _Explorers of Sky_ can be tricky if you don't do it right. This guide walks you through the whole process, assuming you've already installed Ghidra and just have an EoS ROM file. Steps were originally written for Ghidra 10.1.1, but shouldn't vary significantly between Ghidra versions.
+Properly setting up a Ghidra environment for _Explorers of Sky_ can be tricky if you don't do it right. This guide walks you through the whole process, assuming you've already installed Ghidra and just have an EoS ROM file.
+
+Steps in this guide were originally written for Ghidra 10.1.1, but shouldn't vary significantly between Ghidra versions. There's one exception: **Ghidra 10.2 had a bug that broke the ARMv5 disassembler, so don't use it.** However, the bug was fixed in Ghidra 10.2.1, so using this version or later should be fine.
+
+Note: There is an easy-to-use Ghidra extension for loading Nintendo DS ROMs called [NTRGhidra](https://github.com/pedro-javierf/NTRGhidra). With NTRGhidra installed, you can just load the ROM (i.e., the `.nds` file) directly, then skip to the [Run analyzers](#run-analyzers) section. However, NTRGhidra loads all overlays at once, which reduces the quality of Ghidra's auto-analysis, particularly with cross-overlay branching. For this reason, the setup described below is still preferred when analyzing overlays in depth.
 
 ## Unpack the ROM
 An NDS ROM (`.nds` file) is a [self-contained collection](https://problemkaputt.de/gbatek.htm#dscartridgeheader) that contains everything needed to run a game. This includes multiple binaries (for two separate CPUs!), an entire file system called the [NitroFS](https://problemkaputt.de/gbatek.htm#dscartridgenitroromandnitroarcfilesystems), metadata, and some other stuff. In order to do any reverse engineering, you'll first need to unpack this collection into its constituent parts.
@@ -74,6 +78,17 @@ Once all the binaries have been loaded at the appropriate memory addresses, run 
 
 ## Import debug info
 See the appropriate section of [Using Debug Info from `pmdsky-debug`](using-debug-info.md#ghidra).
+
+## (Optional) Disable register variable names in disassembly
+By default, if Ghidra has variable names in the decompiled code (it usually does), it will try to apply them to the disassembly as well, replacing raw register names in instruction operands with the corresponding variable names. With ARM assembly, this is generally unhelpful, since registers are commonly repurposed in the middle of a function and might not always map to a single logical variable. While it's ultimately up to preference, I recommend disabling this behavior so that the disassembly just shows the bare register names. This makes reading the assembly code more straightforward.
+
+To do this, select Edit > Tool Options..., navigate to Options > Listing Fields > Operands Field, uncheck the box labeled "Markup Register Variable References", then hit "Apply".
+
+   ![Disabling register variable markup](images/ghidra-markup-register-variable-references.png)
+
+With this option disabled, the disassembler will still be _aware_ of variable names from the decompiler, but it won't display them in place of register names in the assembly code.
+
+   ![The effect of disabling register variable markup](images/ghidra-register-variables.png)
 
 ## Reverse engineer!
 You're now ready to actually reverse engineer! Ghidra has [built-in tutorials](https://github.com/NationalSecurityAgency/ghidra/tree/master/GhidraDocs/GhidraClass) (here's an [HTML preview of the beginner class](https://htmlpreview.github.io/?https://github.com/NationalSecurityAgency/ghidra/blob/stable/GhidraDocs/GhidraClass/Beginner/Introduction_to_Ghidra_Student_Guide.html)) that teach you how to use the application. Also see [Other Resources](resources.md) for some links if you're new to reverse engineering, and the Ghidra section of [Using Debug Info from `pmdsky-debug`](using-debug-info.md#ghidra) for some targeted tips.

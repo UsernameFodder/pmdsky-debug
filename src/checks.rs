@@ -1,24 +1,27 @@
 //! Validating the substantive contents of `resymgen` YAML files. Implements the `check` command.
 
+use std::borrow::Borrow;
 use std::cmp;
-use std::collections::{BTreeMap, HashSet};
+use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
 use std::error::Error;
 use std::fmt::{self, Display, Formatter};
 use std::fs::File;
 use std::io::{self, Write};
-use std::path::Path;
+use std::iter;
+use std::path::{Path, PathBuf};
+use std::rc::Rc;
 
 use syn::{self, Ident};
 use termcolor::{Color, ColorChoice, ColorSpec, StandardStream, WriteColor};
 
-use super::data_formats::symgen_yml::bounds;
+use super::data_formats::symgen_yml::bounds::{self, BoundViolation};
 use super::data_formats::symgen_yml::{
-    Block, MaybeVersionDep, OrdString, SymGen, Symbol, Uint, Version, VersionDep,
+    Block, MaybeVersionDep, OrdString, Subregion, SymGen, Symbol, Uint, Version, VersionDep,
 };
 use super::util::MultiFileError;
 
 /// Naming conventions for symbol names.
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub enum NamingConvention {
     /// Symbol names should be valid identifiers (in accordance with Rust syntax).
     /// This condition implicitly applies to all other variants.
@@ -95,6 +98,11 @@ impl NamingConvention {
         }
     }
 
+    /// Checks if a name is valid under a given set of naming conventions
+    fn check_multiple(convs: &BTreeSet<NamingConvention>, name: &str) -> bool {
+        convs.iter().any(|conv| conv.check(name))
+    }
+
     // Includes camelCase and PascalCase
     fn camel_family_check(name: &str) -> bool {
         let mut consecutive_uppercase = 0;
@@ -119,25 +127,28 @@ impl NamingConvention {
 }
 
 /// Checks that can be run on `resymgen` YAML symbol tables.
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone)]
 pub enum Check {
     /// All addresses and lengths (for both blocks and symbols) must be explicitly listed by version.
     ExplicitVersions,
-    /// Any version used within a version-dependent address or length must appear in the version
-    /// list of the parent block.
+    /// Any version used within a version-dependent address or length, or within a subregion
+    /// version list, must appear in the version list of the parent block.
     CompleteVersionList,
     /// YAML maps (key-value pair lists) must have at least one entry.
     NonEmptyMaps,
-    /// Symbol names within a block must be unique.
+    /// Symbol and subregion names within a block must be unique.
     UniqueSymbols,
-    /// Symbols must fall within the address range of the parent block.
+    /// Symbol names must be unique within a block and all its subregions.
+    UniqueSymbolsAcrossSubregions,
+    /// Symbols and subregions must fall within the address range of the parent block.
     InBoundsSymbols,
-    /// Function symbols must not overlap with each other for a given block and version.
-    NoFunctionOverlap,
-    /// Function symbol names must adhere to the specified [`NamingConvention`].
-    FunctionNames(NamingConvention),
-    /// Data symbol names must adhere to the specified [`NamingConvention`].
-    DataNames(NamingConvention),
+    /// For a given block and version, function symbols must not overlap with each other, and
+    /// subregions must not overlap with other subregions, function symbols, or data symbols.
+    NoOverlap,
+    /// Function symbol names must adhere to the specified set of [`NamingConvention`]s.
+    FunctionNames(BTreeSet<NamingConvention>),
+    /// Data symbol names must adhere to the specified set of [`NamingConvention`]s.
+    DataNames(BTreeSet<NamingConvention>),
 }
 
 /// The result of a [`Check`] run on `resymgen` YAML symbol tables.
@@ -155,15 +166,18 @@ impl Check {
             Self::CompleteVersionList => self.result(check_complete_version_list(symgen)),
             Self::NonEmptyMaps => self.result(check_nonempty_maps(symgen)),
             Self::UniqueSymbols => self.result(check_unique_symbols(symgen)),
+            Self::UniqueSymbolsAcrossSubregions => {
+                self.result(check_unique_symbols_across_subregions(symgen))
+            }
             Self::InBoundsSymbols => self.result(check_in_bounds_symbols(symgen)),
-            Self::NoFunctionOverlap => self.result(check_no_function_overlap(symgen)),
-            Self::FunctionNames(conv) => self.result(check_function_names(symgen, *conv)),
-            Self::DataNames(conv) => self.result(check_data_names(symgen, *conv)),
+            Self::NoOverlap => self.result(check_no_overlap(symgen)),
+            Self::FunctionNames(convs) => self.result(check_function_names(symgen, convs)),
+            Self::DataNames(convs) => self.result(check_data_names(symgen, convs)),
         }
     }
     fn result(&self, raw_result: Result<(), String>) -> CheckResult {
         CheckResult {
-            check: *self,
+            check: self.clone(), // cloning a Check is expected to be reasonably cheap
             succeeded: raw_result.is_ok(),
             details: raw_result.err(),
         }
@@ -189,10 +203,10 @@ where
     }
 }
 
-/// Runs a simple boolean check on all address/length fields. The generic <'a> is the lifetime of
-/// the [`SymGen`] object to check, and allows the checker context to hold references to a block if
-/// needed.
-trait SimpleAddrLenChecker<'a> {
+/// Runs a simple boolean check on all address/length fields, and optionally all subregion blocks.
+/// The generic <'a> is the lifetime of the [`SymGen`] object to check, and allows the checker
+/// context to hold references to a block if needed.
+trait SimpleBlockContentsChecker<'a> {
     fn init_context(
         &mut self,
         _block_name: &'a OrdString,
@@ -200,41 +214,53 @@ trait SimpleAddrLenChecker<'a> {
     ) -> Result<(), String> {
         Ok(())
     }
-    fn check_val<T>(&self, val: &'a MaybeVersionDep<T>) -> bool;
-    fn error_stem<T>(&self, val: &'a MaybeVersionDep<T>) -> String;
+    fn should_check_subblocks() -> bool {
+        false
+    }
+    fn check_subblock(&self, _subblock: &'a Block) -> Result<(), String> {
+        Ok(())
+    }
+    fn check_val<T>(&self, val: &'a MaybeVersionDep<T>) -> Result<(), String>;
 
     fn check_symgen(&mut self, symgen: &'a SymGen) -> Result<(), String> {
         for (bname, b) in symgen.iter() {
             self.init_context(bname, b)?;
 
-            assert_check(self.check_val(&b.address), || {
-                format!(
-                    "block \"{}\": address {}",
-                    bname,
-                    self.error_stem(&b.address)
-                )
-            })?;
-            assert_check(self.check_val(&b.length), || {
-                format!("block \"{}\": length {}", bname, self.error_stem(&b.length))
-            })?;
+            if let Some(err_stem) = self.check_val(&b.address).err() {
+                return Err(format!("block \"{}\": address {}", bname, err_stem,));
+            }
+            if let Some(err_stem) = self.check_val(&b.length).err() {
+                return Err(format!("block \"{}\": length {}", bname, err_stem));
+            }
             for s in b.iter() {
-                assert_check(self.check_val(&s.address), || {
-                    format!(
+                if let Some(err_stem) = self.check_val(&s.address).err() {
+                    return Err(format!(
                         "block \"{}\", symbol \"{}\": address {}",
-                        bname,
-                        s.name,
-                        self.error_stem(&s.address)
-                    )
-                })?;
+                        bname, s.name, err_stem
+                    ));
+                }
                 if let Some(l) = &s.length {
-                    assert_check(self.check_val(l), || {
-                        format!(
+                    if let Some(err_stem) = self.check_val(l).err() {
+                        return Err(format!(
                             "block \"{}\", symbol \"{}\": length {}",
+                            bname, s.name, err_stem
+                        ));
+                    }
+                }
+            }
+
+            if Self::should_check_subblocks() {
+                // Use paths relative to the root symgen
+                for subblock in b.cursor(&bname.val, Path::new("")).subblocks() {
+                    if let Some(err_stem) = self.check_subblock(subblock.block()).err() {
+                        return Err(format!(
+                            "block \"{}\": subregion block \"{}::{}\" {}",
                             bname,
-                            s.name,
-                            self.error_stem(l)
-                        )
-                    })?;
+                            subblock.path().display(),
+                            subblock.name(),
+                            err_stem
+                        ));
+                    }
                 }
             }
         }
@@ -244,12 +270,13 @@ trait SimpleAddrLenChecker<'a> {
 
 fn check_explicit_versions(symgen: &SymGen) -> Result<(), String> {
     struct ExplicitVersionChecker {}
-    impl SimpleAddrLenChecker<'_> for ExplicitVersionChecker {
-        fn check_val<T>(&self, val: &MaybeVersionDep<T>) -> bool {
-            !val.is_common()
-        }
-        fn error_stem<T>(&self, _val: &MaybeVersionDep<T>) -> String {
-            "has no version".to_string()
+    impl SimpleBlockContentsChecker<'_> for ExplicitVersionChecker {
+        fn check_val<T>(&self, val: &MaybeVersionDep<T>) -> Result<(), String> {
+            if val.is_common() {
+                Err("has no version".to_string())
+            } else {
+                Ok(())
+            }
         }
     }
 
@@ -261,7 +288,24 @@ fn check_complete_version_list(symgen: &SymGen) -> Result<(), String> {
     struct CompleteVersionListChecker<'a> {
         block_versions: HashSet<&'a Version>,
     }
-    impl<'a> SimpleAddrLenChecker<'a> for CompleteVersionListChecker<'a> {
+    impl<'a> CompleteVersionListChecker<'a> {
+        fn err_stem(&self, versions: &HashSet<&Version>) -> String {
+            let mut vers_diff: Vec<String> = versions
+                .difference(&self.block_versions)
+                .map(|v| v.name().to_string())
+                .collect();
+            vers_diff.sort();
+            format!("contains unknown versions: [{}]", vers_diff.join(", "))
+        }
+        fn check(&self, versions: &HashSet<&Version>) -> Result<(), String> {
+            if versions.is_subset(&self.block_versions) {
+                Ok(())
+            } else {
+                Err(self.err_stem(versions))
+            }
+        }
+    }
+    impl<'a> SimpleBlockContentsChecker<'a> for CompleteVersionListChecker<'a> {
         fn init_context(
             &mut self,
             block_name: &'a OrdString,
@@ -277,20 +321,35 @@ fn check_complete_version_list(symgen: &SymGen) -> Result<(), String> {
             }
             Ok(())
         }
-        fn check_val<T>(&self, val: &MaybeVersionDep<T>) -> bool {
-            val.versions()
-                .collect::<HashSet<_>>()
-                .is_subset(&self.block_versions)
+        fn should_check_subblocks() -> bool {
+            true
         }
-        fn error_stem<T>(&self, val: &MaybeVersionDep<T>) -> String {
-            let mut vers_diff: Vec<String> = val
-                .versions()
-                .collect::<HashSet<_>>()
-                .difference(&self.block_versions)
-                .map(|v| v.name().to_string())
-                .collect();
-            vers_diff.sort();
-            format!("contains unknown versions: {:?}", vers_diff)
+        fn check_subblock(&self, subblock: &Block) -> Result<(), String> {
+            if let Some(versions) = &subblock.versions {
+                self.check(
+                    &versions
+                        .iter()
+                        .map(|v| {
+                            // Need to map versions to the parent block's ordinal space since
+                            // the subblock has its own, possibly incompatible ordinal space.
+                            if let Some(native_v) = self
+                                .block_versions
+                                .iter()
+                                .find(|parent_v| parent_v.name() == v.name())
+                            {
+                                native_v
+                            } else {
+                                v
+                            }
+                        })
+                        .collect::<HashSet<_>>(),
+                )
+            } else {
+                Ok(())
+            }
+        }
+        fn check_val<T>(&self, val: &MaybeVersionDep<T>) -> Result<(), String> {
+            self.check(&val.versions().collect::<HashSet<_>>())
         }
     }
 
@@ -302,12 +361,13 @@ fn check_complete_version_list(symgen: &SymGen) -> Result<(), String> {
 
 fn check_nonempty_maps(symgen: &SymGen) -> Result<(), String> {
     struct NonEmptyMapChecker {}
-    impl SimpleAddrLenChecker<'_> for NonEmptyMapChecker {
-        fn check_val<T>(&self, val: &MaybeVersionDep<T>) -> bool {
-            !val.is_empty()
-        }
-        fn error_stem<T>(&self, _val: &MaybeVersionDep<T>) -> String {
-            "is empty".to_string()
+    impl SimpleBlockContentsChecker<'_> for NonEmptyMapChecker {
+        fn check_val<T>(&self, val: &MaybeVersionDep<T>) -> Result<(), String> {
+            if val.is_empty() {
+                Err("is empty".to_string())
+            } else {
+                Ok(())
+            }
         }
     }
 
@@ -317,6 +377,7 @@ fn check_nonempty_maps(symgen: &SymGen) -> Result<(), String> {
 
 fn check_unique_symbols(symgen: &SymGen) -> Result<(), String> {
     let mut duplicate_names: BTreeMap<&OrdString, HashSet<&str>> = BTreeMap::new();
+    let mut duplicate_subregions: BTreeMap<&OrdString, HashSet<&Path>> = BTreeMap::new();
     for (bname, b) in symgen.iter() {
         let mut names: HashSet<&str> = HashSet::new();
         for name in b.iter().map(|s| &s.name) {
@@ -324,16 +385,135 @@ fn check_unique_symbols(symgen: &SymGen) -> Result<(), String> {
                 duplicate_names.entry(bname).or_default().insert(name);
             }
         }
+        if let Some(subregions) = &b.subregions {
+            let mut snames: HashSet<&Path> = HashSet::new();
+            for sname in subregions.iter().map(|s| &s.name) {
+                if !snames.insert(sname) {
+                    duplicate_subregions.entry(bname).or_default().insert(sname);
+                }
+            }
+        }
     }
-    assert_check(duplicate_names.is_empty(), || {
+    assert_check(
+        duplicate_names.is_empty() && duplicate_subregions.is_empty(),
+        || {
+            let mut components = Vec::with_capacity(2);
+            if !duplicate_names.is_empty() {
+                components.push(format!(
+                    "Found duplicate symbol names:\n{}",
+                    duplicate_names
+                        .into_iter()
+                        .map(|(bname, names)| {
+                            let mut names: Vec<_> = names.into_iter().collect();
+                            names.sort_unstable();
+                            format!("- block \"{}\": [{}]", bname, names.join(", "))
+                        })
+                        .collect::<Vec<_>>()
+                        .join("\n")
+                ));
+            }
+            if !duplicate_subregions.is_empty() {
+                components.push(format!(
+                    "Found duplicate subregion names:\n{}",
+                    duplicate_subregions
+                        .into_iter()
+                        .map(|(bname, subregions)| {
+                            let mut subregions: Vec<_> = subregions
+                                .into_iter()
+                                .map(|p| p.to_string_lossy())
+                                .collect();
+                            subregions.sort();
+                            format!("- block \"{}\": [{}]", bname, subregions.join(", "))
+                        })
+                        .collect::<Vec<_>>()
+                        .join("\n")
+                ));
+            }
+            components.join("\n")
+        },
+    )
+}
+
+fn check_unique_symbols_across_subregions(symgen: &SymGen) -> Result<(), String> {
+    #[derive(PartialEq, Eq, Hash)]
+    struct RcPathKey(Rc<PathBuf>);
+    impl Borrow<Path> for RcPathKey {
+        fn borrow(&self) -> &Path {
+            self.0.as_path()
+        }
+    }
+    struct PathCache(HashSet<RcPathKey>);
+    impl PathCache {
+        fn new() -> Self {
+            Self(HashSet::new())
+        }
+        fn get(&mut self, p: &Path) -> Rc<PathBuf> {
+            if let Some(RcPathKey(existing_path)) = self.0.get(p) {
+                Rc::clone(existing_path)
+            } else {
+                let new_path = Rc::new(p.to_owned());
+                self.0.insert(RcPathKey(Rc::clone(&new_path)));
+                new_path
+            }
+        }
+    }
+    type SymbolLocations<'s> = HashMap<&'s str, Vec<(Rc<PathBuf>, &'s str)>>;
+
+    let mut duplicate_symbols: BTreeMap<&str, SymbolLocations> = BTreeMap::new();
+
+    // Use paths relative to the root symgen
+    for cursor in symgen.cursor(Path::new("")).blocks() {
+        let mut all_symbols: SymbolLocations = HashMap::new();
+        let mut path_cache = PathCache::new();
+        let bname = cursor.name();
+
+        for block in cursor.dtraverse() {
+            let path = path_cache.get(block.path());
+            let symbols: HashSet<&str> = block.block().iter().map(|s| s.name.as_ref()).collect();
+            for symbol in symbols {
+                all_symbols
+                    .entry(symbol)
+                    .or_default()
+                    .push((Rc::clone(&path), block.name()));
+            }
+        }
+        let duplicates: SymbolLocations = all_symbols
+            .into_iter()
+            .filter(|(_, loc)| loc.len() > 1)
+            .collect();
+        if !duplicates.is_empty() {
+            duplicate_symbols.insert(bname, duplicates);
+        }
+    }
+
+    assert_check(duplicate_symbols.is_empty(), || {
         format!(
             "Found duplicate symbol names:\n{}",
-            duplicate_names
-                .iter()
-                .map(|(bname, names)| {
-                    let mut names: Vec<_> = names.iter().collect();
-                    names.sort();
-                    format!("- block \"{}\": {:?}", bname, names)
+            duplicate_symbols
+                .into_iter()
+                .map(|(bname, symbol_locations)| {
+                    let mut repeated_symbols: Vec<_> = symbol_locations
+                        .into_iter()
+                        .map(|(symbol, locations)| {
+                            format!(
+                                "  - \"{}\" repeated in: [{}]",
+                                symbol,
+                                locations
+                                    .into_iter()
+                                    .map(|(path, block)| {
+                                        if path.components().next().is_none() {
+                                            block.to_string()
+                                        } else {
+                                            format!("{}::{}", path.display(), block)
+                                        }
+                                    })
+                                    .collect::<Vec<_>>()
+                                    .join(", ")
+                            )
+                        })
+                        .collect();
+                    repeated_symbols.sort();
+                    format!("- block \"{}\":\n{}", bname, repeated_symbols.join("\n"))
                 })
                 .collect::<Vec<_>>()
                 .join("\n")
@@ -348,104 +528,301 @@ fn check_in_bounds_symbols(symgen: &SymGen) -> Result<(), String> {
             None => format!("{:#X}", addr),
         }
     }
+    fn violation_str(violation: BoundViolation, bname: &OrdString, identifier: String) -> String {
+        if let Some(vers) = &violation.version {
+            format!(
+                "block \"{}\" [{}]: {} at {} is outside of block bounds {}",
+                bname,
+                vers,
+                identifier,
+                range_str(violation.extent),
+                range_str(violation.bound),
+            )
+        } else {
+            format!(
+                "block \"{}\": {} at {} is outside of block bounds {}",
+                bname,
+                identifier,
+                range_str(violation.extent),
+                range_str(violation.bound),
+            )
+        }
+    }
 
     for (bname, b) in symgen.iter() {
         let bounds = b.extent();
         for s in b.iter() {
             if let Some(violation) = bounds::symbol_in_bounds(&bounds, s, &b.versions) {
-                return Err(if let Some(vers) = &violation.version {
+                return Err(violation_str(
+                    violation,
+                    bname,
+                    format!("symbol \"{}\"", s.name),
+                ));
+            }
+        }
+        for subblock in b.cursor(&bname.val, Path::new("")).subblocks() {
+            if let Some(violation) = bounds::block_in_bounds(&bounds, subblock.block()) {
+                return Err(violation_str(
+                    violation,
+                    bname,
                     format!(
-                        "block \"{}\" [{}]: symbol \"{}\" at {} is outside of block bounds {}",
-                        bname,
-                        vers,
-                        s.name,
-                        range_str(violation.extent),
-                        range_str(violation.bound),
-                    )
-                } else {
-                    format!(
-                        "block \"{}\": symbol \"{}\" at {} is outside of block bounds {}",
-                        bname,
-                        s.name,
-                        range_str(violation.extent),
-                        range_str(violation.bound),
-                    )
-                });
+                        "subregion block \"{}::{}\"",
+                        subblock.path().display(),
+                        subblock.name()
+                    ),
+                ));
             }
         }
     }
     Ok(())
 }
 
-fn check_no_function_overlap(symgen: &SymGen) -> Result<(), String> {
+fn check_no_overlap(symgen: &SymGen) -> Result<(), String> {
     type Extent = (Uint, Uint);
+    struct ExtentsByVersion<'a> {
+        versioned: Option<VersionDep<Vec<(Extent, &'a str)>>>,
+        unversioned: Option<Vec<(Extent, &'a str)>>,
+    }
+    impl<'a> ExtentsByVersion<'a> {
+        fn new() -> Self {
+            Self {
+                versioned: None,
+                unversioned: None,
+            }
+        }
+        fn get_ext_endpoints(addr: Uint, len: Option<Uint>) -> Extent {
+            // Every object is considered to have a length of at least 1
+            (addr, addr + cmp::max(1, len.unwrap_or(1)))
+        }
+        fn append(&mut self, vers: Option<Version>, ext: Extent, name: &'a str) {
+            match vers {
+                None => match &mut self.unversioned {
+                    None => {
+                        self.unversioned = Some(vec![(ext, name)]);
+                    }
+                    Some(exts) => {
+                        exts.push((ext, name));
+                    }
+                },
+                Some(vers) => match &mut self.versioned {
+                    None => {
+                        self.versioned = Some([(vers, vec![(ext, name)])].into());
+                    }
+                    Some(exts) => {
+                        exts.entry_native(vers)
+                            .and_modify(|e| e.push((ext, name)))
+                            .or_insert_with(|| vec![(ext, name)]);
+                    }
+                },
+            }
+        }
+        fn append_symbol(&mut self, symbol: &'a Symbol, versions: Option<&[Version]>) {
+            match symbol.extents(versions) {
+                MaybeVersionDep::ByVersion(s_exts) => {
+                    for (vers, (addrs, len)) in s_exts.iter() {
+                        for &addr in addrs.iter() {
+                            self.append(
+                                Some(vers.clone()),
+                                Self::get_ext_endpoints(addr, *len),
+                                &symbol.name,
+                            )
+                        }
+                    }
+                }
+                MaybeVersionDep::Common((addrs, len)) => {
+                    // Version expansion wasn't possible, assume unversioned
+                    for &addr in addrs.iter() {
+                        self.append(None, Self::get_ext_endpoints(addr, len), &symbol.name)
+                    }
+                }
+            }
+        }
+        fn append_block(&mut self, bname: &'a str, block: &'a Block) {
+            match block.extent() {
+                MaybeVersionDep::ByVersion(exts) => {
+                    for (vers, &(addr, len)) in exts.iter() {
+                        // Need to map versions to the internal ordinal space since foreign blocks
+                        // can each have their own, possibly incompatible ordinal space.
+                        let native_vers = self
+                            .versioned
+                            .as_ref()
+                            .and_then(|versioned| versioned.find_native_version(vers))
+                            .unwrap_or(vers)
+                            .clone();
+                        self.append(Some(native_vers), Self::get_ext_endpoints(addr, len), bname)
+                    }
+                }
+                MaybeVersionDep::Common((addr, len)) => {
+                    // Version expansion wasn't possible, assume unversioned
+                    self.append(None, Self::get_ext_endpoints(addr, len), bname)
+                }
+            }
+        }
+        fn check_exts_for_self_overlap(
+            exts: &mut [(Extent, &str)],
+            ext_type: &str,
+        ) -> Result<(), String> {
+            exts.sort_unstable();
+            for pair in exts.windows(2) {
+                let ((start1, end1), name1) = pair[0];
+                let ((start2, end2), name2) = pair[1];
+                assert_check(start2 >= end1, || {
+                    format!(
+                        "overlapping {} \"{}\" ({:#X}-{:#X}) and \"{}\" ({:#X}-{:#X})",
+                        ext_type,
+                        name1,
+                        start1,
+                        end1 - 1,
+                        name2,
+                        start2,
+                        end2 - 1
+                    )
+                })?;
+            }
+            Ok(())
+        }
+        fn check_for_self_overlap(&mut self, bname: &str, ext_type: &str) -> Result<(), String> {
+            if let Some(exts_by_vers) = self.versioned.as_mut() {
+                for (vers, exts) in exts_by_vers.iter_mut() {
+                    if let Some(err_stem) = Self::check_exts_for_self_overlap(exts, ext_type).err()
+                    {
+                        return Err(format!("block \"{}\" [{}]: {}", bname, vers, err_stem));
+                    }
+                }
+            }
+            if let Some(exts) = self.unversioned.as_mut() {
+                if let Some(err_stem) = Self::check_exts_for_self_overlap(exts, ext_type).err() {
+                    return Err(format!("block \"{}\": {}", bname, err_stem));
+                }
+            }
+            Ok(())
+        }
+        fn check_exts_for_mutual_overlap(
+            exts1: &mut [(Extent, &str)],
+            exts2: &mut [(Extent, &str)],
+            ext_type1: &str,
+            ext_type2: &str,
+        ) -> Result<(), String> {
+            exts1.sort_unstable();
+            exts2.sort_unstable();
 
-    fn append_ext<'a>(
-        extents: &mut Option<VersionDep<Vec<(Extent, &'a str)>>>,
-        vers: Version,
-        ext: Extent,
-        name: &'a str,
-    ) {
-        match extents {
-            None => {
-                *extents = Some([(vers, vec![(ext, name)])].into());
+            let (mut iter1, mut iter2) = (exts1.iter(), exts2.iter());
+            let (mut next1, mut next2) = (iter1.next(), iter2.next());
+            while let (Some(val1), Some(val2)) = (next1, next2) {
+                let ((start1, end1), name1) = val1;
+                let ((start2, end2), name2) = val2;
+                if start2 >= end1 {
+                    next1 = iter1.next();
+                } else if start1 >= end2 {
+                    next2 = iter2.next();
+                } else {
+                    return Err(format!(
+                        "{} \"{}\" ({:#X}-{:#X}) overlaps with {} \"{}\" ({:#X}-{:#X})",
+                        ext_type2,
+                        name2,
+                        start2,
+                        end2 - 1,
+                        ext_type1,
+                        name1,
+                        start1,
+                        end1 - 1,
+                    ));
+                }
             }
-            Some(exts) => {
-                exts.entry(vers)
-                    .and_modify(|e| e.push((ext, name)))
-                    .or_insert_with(|| vec![(ext, name)]);
+            Ok(())
+        }
+        fn check_for_overlap_with(
+            &mut self,
+            other: &mut ExtentsByVersion,
+            bname: &str,
+            ext_type_self: &str,
+            ext_type_other: &str,
+        ) -> Result<(), String> {
+            if let (Some(exts_by_vers), Some(other_exts_by_vers)) =
+                (self.versioned.as_mut(), other.versioned.as_mut())
+            {
+                for (vers, exts) in exts_by_vers.iter_mut() {
+                    // Need to use get_mut() since self and other could have different
+                    // version ordinal spaces
+                    if let Some(other_exts) = other_exts_by_vers.get_mut(vers) {
+                        if let Some(err_stem) = Self::check_exts_for_mutual_overlap(
+                            exts,
+                            other_exts,
+                            ext_type_self,
+                            ext_type_other,
+                        )
+                        .err()
+                        {
+                            return Err(format!("block \"{}\" [{}]: {}", bname, vers, err_stem));
+                        }
+                    }
+                }
             }
+            if let (Some(exts), Some(other_exts)) =
+                (self.unversioned.as_mut(), other.unversioned.as_mut())
+            {
+                if let Some(err_stem) = Self::check_exts_for_mutual_overlap(
+                    exts,
+                    other_exts,
+                    ext_type_self,
+                    ext_type_other,
+                )
+                .err()
+                {
+                    return Err(format!("block \"{}\": {}", bname, err_stem));
+                }
+            }
+
+            Ok(())
         }
     }
 
-    for (bname, b) in symgen.iter() {
-        // If there's no version list, use an empty list for Common expansion. It really isn't
-        // reasonable to expect better inference for what versions a Common value represents
-        // because the obvious meaning (any version mentioned by at least one symbol in the list)
-        // is sort of overkill to compute (it would require an entire pass over the symbols to
-        // construct an "inferred version list"). So it's entirely reasonable to assume that
-        // Common values will be ignored when no version list is present. If this is undesired
-        // behavior, the user should run the full-version-list check first to make sure Common
-        // values have a well-defined set to realize to.
-        let versions = b.versions.as_deref().unwrap_or(&[]);
+    for (bname, block) in symgen.iter() {
+        // Common expansion will be done using the version list if present. If there's no version
+        // list, any Common values will only be checked for overlap with other Common values.
+        // It really isn't reasonable to expect better inference for what versions a Common value
+        // represents because the obvious meaning (any version mentioned by at least one symbol in
+        // the list) is sort of overkill to compute (it would require an entire pass over the
+        // symbols to construct an "inferred version list"). So it's entirely reasonable to assume
+        // that Common values will be treated as having "no version" if no version list is present.
+        // If this is undesired behavior, the user should run the full-version-list check first to
+        // make sure Common values have a well-defined set to realize to.
+        let versions = block.versions.as_deref();
         // ((inclusive start, exclusive end), symbol name)
-        let mut extents_by_vers: Option<VersionDep<Vec<(Extent, &str)>>> = None;
+        let mut extents_by_vers = ExtentsByVersion::new();
 
         // Gather all function extents
-        for s in b.functions.iter() {
-            if let MaybeVersionDep::ByVersion(s_exts) = s.extents(Some(versions)) {
-                for (vers, (addrs, len)) in s_exts.iter() {
-                    for addr in addrs.iter() {
-                        // Every function is considered to have a length of at least 1
-                        append_ext(
-                            &mut extents_by_vers,
-                            vers.clone(),
-                            (*addr, *addr + cmp::max(1, len.unwrap_or(1))),
-                            &s.name,
-                        )
-                    }
-                }
-            } else {
-                // This should never happen because versions is never None
-                panic!(
-                    "Symbol::extents({:?}) resolved to Common for {:?}",
-                    versions, s
-                )
-            }
+        for s in block.functions.iter() {
+            extents_by_vers.append_symbol(s, versions);
         }
 
-        // Compare adjacent extents for overlaps
-        if let Some(mut exts_by_vers) = extents_by_vers {
-            for (vers, exts) in exts_by_vers.iter_mut() {
-                exts.sort_unstable();
-                for pair in exts.windows(2) {
-                    let ((start1, end1), name1) = pair[0];
-                    let ((start2, end2), name2) = pair[1];
-                    assert_check(start2 >= end1, || {
-                        format!("block \"{}\" [{}]: overlapping functions \"{}\" ({:#X}-{:#X}) and \"{}\" ({:#X}-{:#X})", bname, vers, name1, start1, end1-1, name2, start2, end2-1)
-                    })?;
-                }
+        // Compare function extents among themselves for overlaps
+        extents_by_vers.check_for_self_overlap(&bname.val, "functions")?;
+
+        let cursor = block.cursor(&bname.val, Path::new(""));
+        if cursor.has_subregions() {
+            // Gather all data extents
+            for s in block.data.iter() {
+                extents_by_vers.append_symbol(s, versions);
             }
+
+            // Gather all subregion extents
+            let mut subregion_extents_by_vers = ExtentsByVersion::new();
+            for subblock in cursor.subblocks() {
+                // For subregions, each subblock has its own version list, so use that for Common
+                // expansion rather than the parent block's version list
+                subregion_extents_by_vers.append_block(subblock.name(), subblock.block());
+            }
+
+            // Compare subregion extents among themselves for overlaps
+            subregion_extents_by_vers.check_for_self_overlap(&bname.val, "subregions")?;
+            // Compare subregion extents with function/data extents for overlaps
+            subregion_extents_by_vers.check_for_overlap_with(
+                &mut extents_by_vers,
+                &bname.val,
+                "subregion",
+                "symbol",
+            )?;
         }
     }
     Ok(())
@@ -453,7 +830,7 @@ fn check_no_function_overlap(symgen: &SymGen) -> Result<(), String> {
 
 fn symbols_name_check<'s, F, I>(
     symgen: &'s SymGen,
-    conv: NamingConvention,
+    convs: &BTreeSet<NamingConvention>,
     block_iter: F,
     symbol_type: &str,
 ) -> Result<(), String>
@@ -464,7 +841,7 @@ where
     let mut bad_names: BTreeMap<&OrdString, HashSet<&str>> = BTreeMap::new();
     for (bname, b) in symgen.iter() {
         for s in block_iter(b) {
-            if !conv.check(&s.name) {
+            if !NamingConvention::check_multiple(convs, &s.name) {
                 bad_names.entry(bname).or_default().insert(&s.name);
             }
         }
@@ -474,11 +851,11 @@ where
             "Found invalid {} names:\n{}",
             symbol_type,
             bad_names
-                .iter()
+                .into_iter()
                 .map(|(bname, names)| {
-                    let mut names: Vec<_> = names.iter().collect();
-                    names.sort();
-                    format!("- block \"{}\": {:?}", bname, names)
+                    let mut names: Vec<_> = names.into_iter().collect();
+                    names.sort_unstable();
+                    format!("- block \"{}\": [{}]", bname, names.join(", "))
                 })
                 .collect::<Vec<_>>()
                 .join("\n")
@@ -486,18 +863,20 @@ where
     })
 }
 
-fn check_function_names(symgen: &SymGen, conv: NamingConvention) -> Result<(), String> {
-    symbols_name_check(symgen, conv, |b: &Block| b.functions.iter(), "function")
+fn check_function_names(symgen: &SymGen, convs: &BTreeSet<NamingConvention>) -> Result<(), String> {
+    symbols_name_check(symgen, convs, |b: &Block| b.functions.iter(), "function")
 }
 
-fn check_data_names(symgen: &SymGen, conv: NamingConvention) -> Result<(), String> {
-    symbols_name_check(symgen, conv, |b: &Block| b.data.iter(), "data")
+fn check_data_names(symgen: &SymGen, convs: &BTreeSet<NamingConvention>) -> Result<(), String> {
+    symbols_name_check(symgen, convs, |b: &Block| b.data.iter(), "data")
 }
 
 /// Validates a given `input_file` under the specified `checks`.
 ///
-/// Returns a [`Vec<CheckResult>`] corresponding to `checks` if all checks were run without
-/// encountering any fatal errors.
+/// In `recursive` mode, subregion files are also validated.
+///
+/// Returns a `Vec<(PathBuf, CheckResult)>` with the results of all checks on all the files
+/// validated, if all checks were run without encountering any fatal errors.
 ///
 /// # Examples
 /// ```ignore
@@ -505,22 +884,67 @@ fn check_data_names(symgen: &SymGen, conv: NamingConvention) -> Result<(), Strin
 ///     "/path/to/symbols.yml",
 ///     &[
 ///         Check::ExplicitVersions,
-///         Check::FunctionNames(NamingConvention::SnakeCase),
+///         Check::FunctionNames([NamingConvention::SnakeCase].into()),
 ///     ],
+///     true,
 /// )
 /// .expect("Fatal error occurred");
 /// ```
 pub fn run_checks<P: AsRef<Path>>(
     input_file: P,
     checks: &[Check],
-) -> Result<Vec<CheckResult>, Box<dyn Error>> {
-    let f = File::open(input_file)?;
-    let contents = SymGen::read(&f)?;
-    Ok(checks.iter().map(|chk| chk.run(&contents)).collect())
+    recursive: bool,
+) -> Result<Vec<(PathBuf, CheckResult)>, Box<dyn Error>> {
+    /// For returning either a [`Once`] iterator or an [`Empty`] iterator, while still allowing
+    /// static dispatch.
+    enum OnceOrEmpty<T> {
+        Once(iter::Once<T>),
+        Empty(iter::Empty<T>),
+    }
+    impl<T> Iterator for OnceOrEmpty<T> {
+        type Item = T;
+
+        fn next(&mut self) -> Option<Self::Item> {
+            match self {
+                Self::Once(o) => o.next(),
+                Self::Empty(e) => e.next(),
+            }
+        }
+    }
+
+    let input_file = input_file.as_ref();
+    let mut contents = {
+        let f = File::open(input_file)?;
+        SymGen::read(&f)?
+    };
+    if recursive {
+        contents.resolve_subregions(Subregion::subregion_dir(input_file), |p| File::open(p))?;
+    }
+    Ok(checks
+        .iter()
+        .flat_map(|chk| {
+            let check_results = contents
+                .cursor(input_file)
+                .dtraverse()
+                .map(move |cursor| (cursor.path().to_owned(), chk.run(cursor.symgen())));
+            if let (Check::UniqueSymbols, true) =
+                (chk, contents.cursor(input_file).has_subregions())
+            {
+                // Recursive UniqueSymbols is a special case.
+                // Add a cross-subregion uniqueness check that spans all subregions
+                check_results.chain(OnceOrEmpty::Once(iter::once((
+                    input_file.to_owned(),
+                    Check::UniqueSymbolsAcrossSubregions.run(&contents),
+                ))))
+            } else {
+                check_results.chain(OnceOrEmpty::Empty(iter::empty()))
+            }
+        })
+        .collect())
 }
 
 /// Prints check results similar to `cargo test` output.
-fn print_report(results: &[(String, CheckResult)]) -> io::Result<()> {
+fn print_report(results: &[(PathBuf, CheckResult)]) -> io::Result<()> {
     let mut stdout = StandardStream::stdout(ColorChoice::Always);
     let mut print_colored_report = || -> io::Result<()> {
         let mut color = ColorSpec::new();
@@ -528,7 +952,7 @@ fn print_report(results: &[(String, CheckResult)]) -> io::Result<()> {
         // Results list
         for (name, r) in results {
             stdout.reset()?;
-            write!(&mut stdout, "check {}::{} ... ", name, r.check)?;
+            write!(&mut stdout, "check {}::{} ... ", name.display(), r.check)?;
             if r.succeeded {
                 stdout.set_color(color.set_fg(Some(Color::Green)))?;
                 writeln!(&mut stdout, "ok")?;
@@ -548,7 +972,7 @@ fn print_report(results: &[(String, CheckResult)]) -> io::Result<()> {
             writeln!(&mut stdout, "failures:")?;
             writeln!(&mut stdout)?;
             for (name, r) in results.iter().filter(|(_, r)| !r.succeeded) {
-                writeln!(&mut stdout, "---- [{}] {} ----", name, r.check)?;
+                writeln!(&mut stdout, "---- [{}] {} ----", name.display(), r.check)?;
                 if let Some(msg) = &r.details {
                     writeln!(&mut stdout, "{}", msg)?;
                 }
@@ -572,15 +996,14 @@ fn print_report(results: &[(String, CheckResult)]) -> io::Result<()> {
     };
     let res = print_colored_report();
     // Always try to clean up color settings before returning
-    if let Err(e) = stdout.reset() {
-        Err(e)
-    } else {
-        res
-    }
+    stdout.reset()?; // throw away Ok() output
+    res
 }
 
 /// Validates a given set of `input_files` under the specified `checks`, and prints a summary of
 /// the results.
+///
+/// In `recursive` mode, subregion files of the given input files are also validated.
 ///
 /// If all checks were run without encountering a fatal error, returns `true` if all checks passed
 /// and `false` otherwise.
@@ -591,26 +1014,28 @@ fn print_report(results: &[(String, CheckResult)]) -> io::Result<()> {
 ///     ["/path/to/symbols.yml", "/path/to/other_symbols.yml"],
 ///     &[
 ///         Check::ExplicitVersions,
-///         Check::FunctionNames(NamingConvention::SnakeCase),
+///         Check::FunctionNames([NamingConvention::SnakeCase].into()),
 ///     ],
+///     true,
 /// )
 /// .expect("Fatal error occurred");
 /// ```
-pub fn run_and_print_checks<I, P>(input_files: I, checks: &[Check]) -> Result<bool, Box<dyn Error>>
+pub fn run_and_print_checks<I, P>(
+    input_files: I,
+    checks: &[Check],
+    recursive: bool,
+) -> Result<bool, Box<dyn Error>>
 where
     P: AsRef<Path>,
     I: AsRef<[P]>,
 {
     let input_files = input_files.as_ref();
+    // At least this many check results, but there could be more in recursive mode
     let mut results = Vec::with_capacity(input_files.len() * checks.len());
     let mut errors = Vec::with_capacity(input_files.len());
     for input_file in input_files {
-        match run_checks(input_file, checks) {
-            Ok(result) => results.extend(
-                result
-                    .into_iter()
-                    .map(|r| (input_file.as_ref().to_string_lossy().into_owned(), r)),
-            ),
+        match run_checks(input_file, checks, recursive) {
+            Ok(result) => results.extend(result.into_iter()),
             Err(e) => errors.push((input_file.as_ref().to_string_lossy().into_owned(), e)),
         }
     }
@@ -630,8 +1055,10 @@ where
 
 #[cfg(test)]
 mod tests {
+    use super::super::data_formats::symgen_yml::test_utils;
     use super::*;
 
+    #[cfg(test)]
     mod naming_convention_tests {
         use super::*;
 
@@ -698,6 +1125,17 @@ mod tests {
                 ["snake_case", "SCREAMING_SNAKE", "camelCase", "lower"],
             )
         }
+
+        #[test]
+        fn test_snake_or_pascal_case() {
+            let convs = BTreeSet::from([NamingConvention::SnakeCase, NamingConvention::PascalCase]);
+            assert!(NamingConvention::check_multiple(&convs, "snake_case"));
+            assert!(NamingConvention::check_multiple(&convs, "PascalCase"));
+            assert!(!NamingConvention::check_multiple(
+                &convs,
+                "mixed_snake_PascalCase"
+            ));
+        }
     }
 
     fn get_test_symgen() -> SymGen {
@@ -739,16 +1177,99 @@ mod tests {
                     v1: 0x1000
                     v2: 0x2000
                   description: foo bar baz
-        "
+            "
             .as_bytes(),
         )
         .expect("Read failed")
+    }
+
+    fn get_test_symgen_with_subregions() -> SymGen {
+        test_utils::get_symgen_with_subregions(
+            r"
+            main:
+              versions:
+                - v1
+                - v2
+                - v3
+              address:
+                v1: 0x2000000
+                v2: 0x2000000
+                v3: 0x2000000
+              length:
+                v1: 0x100000
+                v2: 0x100000
+                v3: 0x100000
+              subregions:
+                - sub1.yml
+                - sub2.yml
+              functions: []
+              data: []
+            ",
+            &[
+                (
+                    "sub1.yml",
+                    r"
+                    sub1:
+                      versions:
+                        - v3
+                        - v1
+                      address:
+                        v3: 0x2000000
+                        v1: 0x2000000
+                      length:
+                        v3: 0x100
+                        v1: 0x100
+                      functions:
+                        - name: sub1_fn
+                          address:
+                            v3: 0x2000000
+                            v1: 0x2000000
+                      data: []
+                    ",
+                ),
+                (
+                    "sub2.yml",
+                    r"
+                    sub2:
+                      versions:
+                        - v2
+                      address:
+                        v2: 0x20FFF00
+                      length:
+                        v2: 0x100
+                      functions: []
+                      data:
+                        - name: sub2_data
+                          address:
+                            v2: 0x20FFF80
+                          length:
+                            v2: 0x80
+                    ",
+                ),
+            ],
+        )
     }
 
     fn get_main_block(symgen: &mut SymGen) -> &mut Block {
         symgen
             .get_mut(&symgen.block_key("main").expect("No block \"main\"").clone())
             .unwrap()
+    }
+
+    fn get_subregion_block(symgen: &mut SymGen, i: usize) -> &mut Block {
+        let subregion = get_main_block(symgen)
+            .subregions
+            .as_mut()
+            .expect("No subregions")
+            .get_mut(i)
+            .expect("Invalid index")
+            .contents
+            .as_mut()
+            .expect("Subregion has no contents");
+        subregion
+            .blocks_mut()
+            .next()
+            .expect("Subregion has no blocks")
     }
 
     #[test]
@@ -763,13 +1284,24 @@ mod tests {
     }
 
     #[test]
-    fn test_complete_versions_list() {
+    fn test_complete_version_list() {
         let mut symgen = get_test_symgen();
         assert!(check_complete_version_list(&symgen).is_ok());
 
         let block = get_main_block(&mut symgen);
         // Delete the block version list
         block.versions = None;
+        assert!(check_complete_version_list(&symgen).is_err());
+    }
+
+    #[test]
+    fn test_complete_version_list_with_subregions() {
+        let mut symgen = get_test_symgen_with_subregions();
+        assert!(check_complete_version_list(&symgen).is_ok());
+
+        let block = get_main_block(&mut symgen);
+        // Delete one of the versions
+        block.versions.as_mut().unwrap().pop();
         assert!(check_complete_version_list(&symgen).is_err());
     }
 
@@ -782,6 +1314,38 @@ mod tests {
         // Copy the function symbols to the data symbols so they clash
         block.data = block.functions.clone();
         assert!(check_unique_symbols(&symgen).is_err());
+    }
+
+    #[test]
+    fn test_unique_subregions() {
+        let mut symgen = get_test_symgen_with_subregions();
+        assert!(check_unique_symbols(&symgen).is_ok());
+
+        let block = get_main_block(&mut symgen);
+        // Add a duplicate subregion
+        let subregion = Subregion {
+            name: block.subregions.as_ref().unwrap()[0].name.clone(),
+            contents: None,
+        };
+        block.subregions.as_mut().unwrap().push(subregion);
+        assert!(check_unique_symbols(&symgen).is_err());
+    }
+
+    #[test]
+    fn test_unique_symbols_across_subregions() {
+        let mut symgen = get_test_symgen_with_subregions();
+        assert!(check_unique_symbols_across_subregions(&symgen).is_ok());
+
+        // Insert a copy of a subregion's symbol into the main block
+        let symbol = get_subregion_block(&mut symgen, 0)
+            .functions
+            .iter()
+            .next()
+            .expect("subregion block has no functions")
+            .clone();
+        let block = get_main_block(&mut symgen);
+        block.functions.push(symbol);
+        assert!(check_unique_symbols_across_subregions(&symgen).is_err());
     }
 
     #[test]
@@ -798,9 +1362,20 @@ mod tests {
     }
 
     #[test]
-    fn test_no_function_overlap() {
+    fn test_in_bounds_subregions() {
+        let mut symgen = get_test_symgen_with_subregions();
+        assert!(check_in_bounds_symbols(&symgen).is_ok());
+
+        let block = get_main_block(&mut symgen);
+        // Shrink the main block so the sub2 subregion ends up out of bounds
+        *block.length.get_mut(Some(&"v2".into())).unwrap() -= 0x80;
+        assert!(check_in_bounds_symbols(&symgen).is_err());
+    }
+
+    #[test]
+    fn test_no_overlap() {
         let mut symgen = get_test_symgen();
-        assert!(check_no_function_overlap(&symgen).is_ok());
+        assert!(check_no_overlap(&symgen).is_ok());
 
         let block = get_main_block(&mut symgen);
         // Swap the address of the second function to match the first, causing an overlap
@@ -816,17 +1391,140 @@ mod tests {
             .next()
             .expect("symgen does not have two functions")
             .clone();
-        let addr = overlapping.address.get_mut(block.version("v1")).unwrap();
-        *addr = function.address.get(block.version("v1")).unwrap().clone();
+        let addr = overlapping
+            .address
+            .get_mut_native(block.version("v1"))
+            .unwrap();
+        *addr = function
+            .address
+            .get_native(block.version("v1"))
+            .unwrap()
+            .clone();
         block.functions = [function, overlapping].into();
-        assert!(check_no_function_overlap(&symgen).is_err());
+        assert!(check_no_overlap(&symgen).is_err());
+    }
+
+    #[test]
+    fn test_no_overlap_common_with_version_list() {
+        let mut symgen = SymGen::read(
+            r"
+            main:
+              versions:
+                - v1
+                - v2
+              address: 0x2000000
+              length: 0x100000
+              functions:
+                - name: fn1
+                  address: 0x2001000
+                  length: 0x1000
+                - name: fn2
+                  address:
+                    v1:
+                      - 0x2000000
+                      - 0x2002000
+                    v2: 0x2004000
+              data: []
+        "
+            .as_bytes(),
+        )
+        .expect("Read failed");
+
+        assert!(check_no_overlap(&symgen).is_ok());
+
+        let block = get_main_block(&mut symgen);
+        // Swap the address of the first function to match one of the versions in the second,
+        // causing an overlap
+        let mut function = block
+            .functions
+            .iter()
+            .next()
+            .expect("symgen has no functions")
+            .clone();
+        let overlapping = block
+            .functions
+            .iter()
+            .next()
+            .expect("symgen does not have two functions")
+            .clone();
+        let addr = function.address.get_mut_native(None).unwrap();
+        *addr = overlapping
+            .address
+            .get_native(block.version("v1"))
+            .unwrap()
+            .clone();
+        block.functions = [function, overlapping].into();
+        assert!(check_no_overlap(&symgen).is_err());
+    }
+
+    #[test]
+    fn test_no_overlap_common_no_version_list() {
+        let mut symgen = SymGen::read(
+            r"
+            main:
+              address: 0x2000000
+              length: 0x100000
+              functions:
+                - name: fn1
+                  address: 0x2001000
+                  length: 0x1000
+                - name: fn2
+                  address:
+                    - 0x2000000
+                    - 0x2002000
+              data: []
+        "
+            .as_bytes(),
+        )
+        .expect("Read failed");
+
+        assert!(check_no_overlap(&symgen).is_ok());
+
+        let block = get_main_block(&mut symgen);
+        // Swap the address of the second function to match the first, causing an overlap
+        let function = block
+            .functions
+            .iter()
+            .next()
+            .expect("symgen has no functions")
+            .clone();
+        let mut overlapping = block
+            .functions
+            .iter()
+            .next()
+            .expect("symgen does not have two functions")
+            .clone();
+        let addr = overlapping.address.get_mut_native(None).unwrap();
+        *addr = function.address.get_native(None).unwrap().clone();
+        block.functions = [function, overlapping].into();
+        assert!(check_no_overlap(&symgen).is_err());
+    }
+
+    #[test]
+    fn test_no_overlap_with_subregions() {
+        let mut symgen = get_test_symgen_with_subregions();
+        assert!(check_no_overlap(&symgen).is_ok());
+
+        // Add a symbol to the main block that overlaps with a subregion symbol
+        let address = *get_subregion_block(&mut symgen, 0)
+            .address
+            .get(Some(&"v1".into()))
+            .unwrap();
+        let block = get_main_block(&mut symgen);
+        block.functions.push(Symbol {
+            name: String::from("main_fn"),
+            address: MaybeVersionDep::ByVersion([("v1".into(), [address].into())].into()),
+            length: None,
+            description: None,
+        });
+        assert!(check_no_overlap(&symgen).is_err());
     }
 
     #[test]
     fn test_symbols_name_check() {
         let mut symgen = get_test_symgen();
-        assert!(check_function_names(&symgen, NamingConvention::SnakeCase).is_ok());
-        assert!(check_data_names(&symgen, NamingConvention::ScreamingSnakeCase).is_ok());
+        assert!(check_function_names(&symgen, &[NamingConvention::SnakeCase].into()).is_ok());
+        assert!(check_data_names(&symgen, &[NamingConvention::ScreamingSnakeCase].into()).is_ok());
 
         let block = get_main_block(&mut symgen);
         // Set the function to have the wrong case
@@ -835,12 +1533,24 @@ mod tests {
             .get_mut(0)
             .expect("symgen has no functions")
             .name = "PascalCase".to_string();
-        assert!(check_function_names(&symgen, NamingConvention::SnakeCase).is_err());
+        assert!(check_function_names(&symgen, &[NamingConvention::SnakeCase].into()).is_err());
+        // Loosen the check to accept the wrong case
+        assert!(check_function_names(
+            &symgen,
+            &[NamingConvention::SnakeCase, NamingConvention::PascalCase].into()
+        )
+        .is_ok());
+        // Make sure that if all case conventions don't match, the check still fails
+        assert!(check_function_names(
+            &symgen,
+            &[NamingConvention::SnakeCase, NamingConvention::CamelCase].into()
+        )
+        .is_err());
 
         // reborrow
         let block = get_main_block(&mut symgen);
         // Set the data to have the wrong case
         block.data.get_mut(0).expect("symgen has no data").name = "snake_case".to_string();
-        assert!(check_data_names(&symgen, NamingConvention::ScreamingSnakeCase).is_err());
+        assert!(check_data_names(&symgen, &[NamingConvention::ScreamingSnakeCase].into()).is_err());
     }
 }

@@ -439,7 +439,7 @@ enum script_level_id_na {
 };
 
 // European version
-enum script_level_eu {
+enum script_level_id_eu {
     LEVEL_EU_S00P01A = 0,
     LEVEL_EU_T00P01 = 1,
     LEVEL_EU_T00P02 = 2,

@@ -19,7 +19,31 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Compile
-        run: make -C headers
+        run: make -C headers headers-aligned
+  implicit-padding-check:
+    runs-on: ubuntu-latest
+    needs: compile
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Compile with implicit packing
+        run: make -C headers headers-packed
+  compile-no-builtin:
+    runs-on: ubuntu-latest
+    needs: compile
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Compile with no builtin function declarations
+        run: make -C headers headers-no-builtin
+  compile-unsized:
+    runs-on: ubuntu-latest
+    needs: compile
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Compile with unsized types
+        run: make -C headers headers-unsized
   format-check:
     runs-on: ubuntu-latest
     steps:
@@ -40,7 +64,7 @@ jobs:
         run: zip clang-format-output.zip $(git diff --relative --name-only)
         working-directory: headers
       - name: Upload reformatted files
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: formatted-headers
           path: headers/clang-format-output.zip

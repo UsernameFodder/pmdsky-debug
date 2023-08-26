@@ -11,4 +11,4 @@ assignees: ''
 What we currently know about this topic.
 
 **Relevant addresses**
-Function, data, or instruction addresses relevant to this topic.
+Function, data, or instruction addresses (and the corresponding binary version(s)) relevant to this topic.

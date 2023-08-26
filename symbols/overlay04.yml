@@ -1,14 +1,16 @@
 overlay4:
   versions:
-    - NA
     - EU
+    - NA
     - JP
   address:
-    NA: 0x233CA80
     EU: 0x233D200
+    NA: 0x233CA80
+    JP: 0x233E300
   length:
-    NA: 0x2BE0
     EU: 0x2BE0
+    NA: 0x2BE0
+    JP: 0x2BE0
   description: Controls the Trade Items submenu within the top menu.
   functions: []
   data: []

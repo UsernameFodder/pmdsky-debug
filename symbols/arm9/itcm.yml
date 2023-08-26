@@ -1,0 +1,241 @@
+itcm:
+  versions:
+    - EU
+    - NA
+    - JP
+    - EU-ITCM
+    - NA-ITCM
+    - JP-ITCM
+  address:
+    EU: 0x20B3CC0
+    NA: 0x20B3380
+    JP: 0x20B4BE0
+    EU-ITCM: 0x1FF8000
+    NA-ITCM: 0x1FF8000
+    JP-ITCM: 0x1FF8000
+  length:
+    EU: 0x4000
+    NA: 0x4000
+    JP: 0x4060
+    EU-ITCM: 0x4000
+    NA-ITCM: 0x4000
+    JP-ITCM: 0x4060
+  description: |-
+    The instruction TCM (tightly-coupled memory) and the corresponding region in the ARM9 binary.
+    
+    The ITCM is a special area of low-latency memory meant for performance-critical routines. It's similar to an instruction cache, but more predictable. See the ARMv5 Architecture Reference Manual, Chapter B7 (https://developer.arm.com/documentation/ddi0100/i).
+    
+    The Nintendo DS ITCM region is located at 0x0-0x7FFF in memory, but the 32 KiB segment is mirrored throughout the 16 MiB block from 0x0-0x1FFFFFF. The Explorers of Sky code seems to reference only the mirror at 0x1FF8000, the closest one to main memory.
+    
+    In Explorers of Sky, a fixed region of the ARM9 binary appears to be loaded in the ITCM at all times, and seems to contain functions related to the dungeon AI, among other things. The ITCM has a max capacity of 0x8000, although not all of it is used.
+  functions:
+    - name: AllocateRender3dElement
+      address:
+        EU: 0x20B4938
+        EU-ITCM: 0x1FF8C78
+      description: |-
+        Return a new render_3d_element from RENDER_3D, to be to draw a new element using the 3d render engine later in the frame.
+        
+        return: render_3d_element or NULL if there is no more available space in the stack
+    - name: Render3dStack
+      address:
+        EU: 0x20B4A8C
+        EU-ITCM: 0x1FF8DCC
+      description: |-
+        Perform rendering of the render_stack of RENDER_3D structure. Does nothing if there are no elements, otherwise, sort them based on a value, and render them all consecutively.
+        
+        No params.
+    - name: GetKeyN2MSwitch
+      address:
+        EU: 0x20B50F4
+        NA: 0x20B47B4
+        JP: 0x20B607C
+        EU-ITCM: 0x1FF9434
+        NA-ITCM: 0x1FF9434
+        JP-ITCM: 0x1FF949C
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: key
+        r1: switch
+    - name: GetKeyN2M
+      address:
+        EU: 0x20B5128
+        NA: 0x20B47E8
+        JP: 0x20B60B0
+        EU-ITCM: 0x1FF9468
+        NA-ITCM: 0x1FF9468
+        JP-ITCM: 0x1FF94D0
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: key
+        return: monster ID
+    - name: GetKeyN2MBaseForm
+      address:
+        EU: 0x20B5194
+        NA: 0x20B4854
+        JP: 0x20B611C
+        EU-ITCM: 0x1FF94D4
+        NA-ITCM: 0x1FF94D4
+        JP-ITCM: 0x1FF953C
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: key
+        return: monster ID
+    - name: GetKeyM2NSwitch
+      address:
+        EU: 0x20B51CC
+        NA: 0x20B488C
+        JP: 0x20B6154
+        EU-ITCM: 0x1FF950C
+        NA-ITCM: 0x1FF950C
+        JP-ITCM: 0x1FF9574
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: monster ID
+        r1: switch
+    - name: GetKeyM2N
+      address:
+        EU: 0x20B5200
+        NA: 0x20B48C0
+        JP: 0x20B6188
+        EU-ITCM: 0x1FF9540
+        NA-ITCM: 0x1FF9540
+        JP-ITCM: 0x1FF95A8
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: monster ID
+        return: key
+    - name: GetKeyM2NBaseForm
+      address:
+        EU: 0x20B526C
+        NA: 0x20B492C
+        JP: 0x20B61F4
+        EU-ITCM: 0x1FF95AC
+        NA-ITCM: 0x1FF95AC
+        JP-ITCM: 0x1FF9614
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: monster ID
+        return: key
+    - name: ShouldMonsterRunAwayVariationOutlawCheck
+      address:
+        EU: 0x20B6050
+        NA: 0x20B5710
+        JP: 0x20B6FD8
+        EU-ITCM: 0x1FFA390
+        NA-ITCM: 0x1FFA390
+        JP-ITCM: 0x1FFA3F8
+      description: |-
+        Calls ShouldMonsterRunAwayVariation. If the result is true, returns true. Otherwise, returns true only if the monster's behavior field is equal to monster_behavior::BEHAVIOR_FLEEING_OUTLAW.
+        
+        r0: Entity pointer
+        r1: ?
+        return: True if ShouldMonsterRunAway returns true or the monster is a fleeing outlaw
+    - name: AiMovement
+      address:
+        EU: 0x20B6084
+        NA: 0x20B5744
+        JP: 0x20B700C
+        EU-ITCM: 0x1FFA3C4
+        NA-ITCM: 0x1FFA3C4
+        JP-ITCM: 0x1FFA42C
+      description: |-
+        Used by the AI to determine the direction in which a monster should move
+        
+        r0: Entity pointer
+        r1: ?
+    - name: CalculateAiTargetPos
+      address:
+        EU: 0x20B6F88
+        NA: 0x20B6648
+        JP: 0x20B7F10
+        EU-ITCM: 0x1FFB2C8
+        NA-ITCM: 0x1FFB2C8
+        JP-ITCM: 0x1FFB330
+      description: |-
+        Calculates the target position of an AI-controlled monster and stores it in the monster's ai_target_pos field
+        
+        r0: Entity pointer
+    - name: ChooseAiMove
+      address:
+        EU: 0x20B7318
+        NA: 0x20B69D8
+        JP: 0x20B82A0
+        EU-ITCM: 0x1FFB658
+        NA-ITCM: 0x1FFB658
+        JP-ITCM: 0x1FFB6C0
+      description: |-
+        Determines if an AI-controlled monster will use a move and which one it will use
+        
+        r0: Entity pointer
+    - name: LightningRodStormDrainCheck
+      address:
+        EU: 0x20B7B1C
+        NA: 0x20B71DC
+        JP: 0x20B8AA4
+        NA-ITCM: 0x1FFBE5C
+      description: |-
+        Appears to check whether LightningRod or Storm Drain should draw in a move.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move pointer
+        r3: true if checking for Storm Drain, false if checking for LightningRod
+        return: whether the move should be drawn in
+  data:
+    - name: MEMORY_ALLOCATION_TABLE
+      address:
+        EU: 0x20B3CC0
+        NA: 0x20B3380
+        JP: 0x20B4BE0
+      length:
+        EU: 0x40
+        NA: 0x40
+      description: |-
+        [Runtime] Keeps track of all active heap allocations.
+        
+        The memory allocator in the ARM9 binary uses region-based memory management (see https://en.wikipedia.org/wiki/Region-based_memory_management). The heap is broken up into smaller contiguous chunks called arenas (struct mem_arena), which are in turn broken up into chunks referred to as blocks (struct mem_block). Most of the time, an allocation results in a block being split off from a free part of an existing memory arena.
+        
+        Note: This symbol isn't actually part of the ITCM, it gets created at runtime on the spot in RAM that used to contain the code that was moved to the ITCM.
+        
+        type: struct mem_alloc_table
+    - name: DEFAULT_MEMORY_ARENA
+      address:
+        EU: 0x20B3CC4
+        NA: 0x20B3384
+      length:
+        EU: 0x1C
+        NA: 0x1C
+      description: |-
+        [Runtime] The default memory allocation arena. This is part of MEMORY_ALLOCATION_TABLE, but is also referenced on its own by various functions.
+        
+        Note: This symbol isn't actually part of the ITCM, it gets created at runtime on the spot in RAM that used to contain the code that was moved to the ITCM.
+        
+        type: struct mem_arena
+    - name: DEFAULT_MEMORY_ARENA_BLOCKS
+      address:
+        EU: 0x20B3D00
+        NA: 0x20B33C0
+      length:
+        EU: 0x1800
+        NA: 0x1800
+      description: |-
+        [Runtime] The block array for DEFAULT_MEMORY_ARENA.
+        
+        Note: This symbol isn't actually part of the ITCM, it gets created at runtime on the spot in RAM that used to contain the code that was moved to the ITCM.
+        
+        type: struct mem_block[256]
+    - name: RENDER_3D_FUNCTIONS
+      address:
+        EU: 0x20B3DE0
+        EU-ITCM: 0x1FF8120
+      description: |-
+        Pointers to the 4 functions available from render_3d_element (in ITCM)
+        
+        type: render_3d_element_concrete[4]

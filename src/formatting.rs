@@ -1,69 +1,88 @@
 //! Formatting `resymgen` YAML files. Implements the `fmt` command.
 
 use std::error::Error;
+use std::fmt::Display;
 use std::fs::{self, File};
 use std::io::{self, Write};
 use std::path::Path;
 
 use similar::TextDiff;
-use tempfile::NamedTempFile;
 use termcolor::{Color, ColorChoice, ColorSpec, StandardStream, WriteColor};
 
-use super::data_formats::symgen_yml::{IntFormat, SymGen};
+use super::data_formats::symgen_yml::{IntFormat, Sort, Subregion, SymGen};
+use super::util;
 
-/// Formats a given `input_file`, using to the given `int_format`.
+/// Formats a given `input_file` using the given `int_format`.
+///
+/// In `recursive` mode, subregion files are also formatted.
 ///
 /// # Examples
 /// ```ignore
-/// format_check_file("/path/to/symbols.yml", IntFormat::Hexadecimal).expect("Format failed");
+/// format_file("/path/to/symbols.yml", false, IntFormat::Hexadecimal).expect("Format failed");
 /// ```
 pub fn format_file<P: AsRef<Path>>(
     input_file: P,
+    recursive: bool,
     int_format: IntFormat,
 ) -> Result<(), Box<dyn Error>> {
-    let contents = {
-        let f = File::open(input_file.as_ref())?;
-        SymGen::read_sorted(&f)?
+    let input_file = input_file.as_ref();
+    let mut contents = {
+        let f = File::open(input_file)?;
+        SymGen::read(&f)?
     };
-    // Write to a tempfile first, then replace the old one atomically.
-    let f_new = NamedTempFile::new()?;
-    contents.write(&f_new, int_format)?;
-    f_new.persist(input_file.as_ref())?;
-    Ok(())
+    if recursive {
+        contents.resolve_subregions(Subregion::subregion_dir(input_file), |p| File::open(p))?;
+    }
+    contents.sort();
+    util::symgen_write_recursive(&contents, input_file, int_format)
 }
 
 /// Checks the format of a given `input_file`, subject to the given `int_format`.
+///
+/// In `recursive` mode, subregion files are also checked.
 ///
 /// On success, returns `true`. On failure, returns `false` and prints a diff.
 ///
 /// # Examples
 /// ```ignore
-/// let succeeded = format_check_file("/path/to/symbols.yml", IntFormat::Hexadecimal)
+/// let succeeded = format_check_file("/path/to/symbols.yml", false, IntFormat::Hexadecimal)
 ///     .expect("Format check failed");
 /// ```
 pub fn format_check_file<P: AsRef<Path>>(
     input_file: P,
+    recursive: bool,
     int_format: IntFormat,
 ) -> Result<bool, Box<dyn Error>> {
-    // Need to read to string in order to diff
-    let text = fs::read_to_string(input_file.as_ref())?;
-    let contents = SymGen::read_sorted(text.as_bytes())?;
-    let formatted_text = contents.write_to_str(int_format)?;
-    if text == formatted_text {
-        Ok(true)
-    } else {
-        print_format_diff(
-            &text,
-            &formatted_text,
-            &format!("{}", input_file.as_ref().display()),
-        )?;
-        Ok(false)
+    let input_file = input_file.as_ref();
+    let mut contents = {
+        let f = File::open(input_file)?;
+        SymGen::read(&f)?
+    };
+    if recursive {
+        contents.resolve_subregions(Subregion::subregion_dir(input_file), |p| File::open(p))?;
     }
+    contents.sort();
+
+    let mut success = true;
+    // Depth-first traversal is more intuitive for reporting formatting issues
+    for cursor in contents.cursor(input_file).dtraverse() {
+        // It's unfortunate we're reading the same file twice, but it's simpler than trying to
+        // resolve subregions manually, and less memory intensive than caching. If this ever
+        // becomes a performance issue, it can be optimized.
+        let text = fs::read_to_string(cursor.path())?;
+        let formatted_text = cursor.symgen().write_to_str(int_format)?;
+        if text != formatted_text {
+            print_format_diff(&text, &formatted_text, cursor.path().display())?;
+            // Keep going to check any other subregion files, but fail the check as a whole
+            success = false;
+        }
+    }
+    Ok(success)
 }
 
 /// Prints a diff between a file and its formatted version in unified diff format.
-/// The title string is printed as part of the diff header.
-fn print_format_diff(old: &str, new: &str, title: &str) -> io::Result<()> {
+/// The title is printed as part of the diff header.
+fn print_format_diff<D: Display>(old: &str, new: &str, title: D) -> io::Result<()> {
     let mut stderr = StandardStream::stderr(ColorChoice::Always);
     let mut print_colored_diff = || -> io::Result<()> {
         let diff = TextDiff::from_lines(old, new)
@@ -76,7 +95,18 @@ fn print_format_diff(old: &str, new: &str, title: &str) -> io::Result<()> {
             // Don't color the first 2 lines from the header
             if i > 1 && line.starts_with('+') {
                 stderr.set_color(color.set_fg(Some(Color::Green)))?;
-                writeln!(&mut stderr, "{}", line)?;
+                let trimmed = line.trim_end();
+                if trimmed.len() < line.len() {
+                    // Trailing whitespace on added lines should be colored red
+                    write!(&mut stderr, "{}", trimmed)?;
+                    stderr.set_color(color.set_bg(Some(Color::Red)))?;
+                    write!(&mut stderr, "{}", &line[trimmed.len()..])?;
+                    color.clear();
+                    stderr.reset()?;
+                    writeln!(&mut stderr)?;
+                } else {
+                    writeln!(&mut stderr, "{}", line)?;
+                }
             } else if i > 1 && line.starts_with('-') {
                 stderr.set_color(color.set_fg(Some(Color::Red)))?;
                 writeln!(&mut stderr, "{}", line)?;
@@ -101,9 +131,6 @@ fn print_format_diff(old: &str, new: &str, title: &str) -> io::Result<()> {
     };
     let res = print_colored_diff();
     // Always try to clean up color settings before returning
-    if let Err(e) = stderr.reset() {
-        Err(e)
-    } else {
-        res
-    }
+    stderr.reset()?; // throw away Ok() output
+    res
 }

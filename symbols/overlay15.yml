@@ -1,21 +1,65 @@
 overlay15:
   versions:
-    - NA
     - EU
+    - NA
     - JP
   address:
-    NA: 0x238A140
     EU: 0x238AC80
+    NA: 0x238A140
+    JP: 0x238B6A0
   length:
-    NA: 0x1060
     EU: 0x1080
+    NA: 0x1060
+    JP: 0x1060
   description: Controls the Duskull Bank.
   functions: []
   data:
     - name: BANK_MAIN_MENU
       address:
-        NA: 0x238B054
         EU: 0x238BBC0
+        NA: 0x238B054
       length:
-        NA: 0x28
         EU: 0x28
+        NA: 0x28
+    - name: BANK_D_BOX_LAYOUT_1
+      address:
+        NA: 0x238B07C
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: BANK_D_BOX_LAYOUT_2
+      address:
+        NA: 0x238B08C
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: BANK_D_BOX_LAYOUT_3
+      address:
+        NA: 0x238B09C
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: BANK_D_BOX_LAYOUT_4
+      address:
+        NA: 0x238B0AC
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: BANK_D_BOX_LAYOUT_5
+      address:
+        NA: 0x238B0BC
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY15_RESERVED_SPACE
+      address:
+        NA: 0x238B164
+      length:
+        NA: 0x1C
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY15_UNKNOWN_POINTER__NA_238B180
+      address:
+        NA: 0x238B180
+      length:
+        NA: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"

@@ -1,12 +1,16 @@
 //! Defines the `resymgen` YAML format and its programmatic representation, the [`SymGen`] struct.
 
+pub mod cursor;
+pub use cursor::{BlockCursor, SymGenCursor};
+
 use std::any;
 use std::borrow::Cow;
 use std::cmp::Ordering;
-use std::collections::{BTreeMap, HashMap};
+use std::collections::{BTreeMap, BTreeSet, HashMap};
 use std::fmt::{self, Display, Formatter};
-use std::io::{Read, Write};
+use std::io::{self, Read, Write};
 use std::ops::Deref;
+use std::path::{Path, PathBuf};
 use std::slice::SliceIndex;
 
 use regex::{Captures, Regex};
@@ -14,7 +18,7 @@ use serde::{Deserialize, Serialize};
 use serde_yaml;
 use syn::{self, LitStr};
 
-use super::error::{Error, Result};
+use super::error::{Error, Result, SubregionError};
 use super::types::*;
 
 /// Specifies how integers should be formatted during serialization.
@@ -46,7 +50,7 @@ pub struct Symbol {
 }
 
 /// Combines possibly version-dependent `addrs` and `opt_len` into a single `MaybeVersionDep`
-/// with the data (addr, opt_len).
+/// with the data (addr, opt_len). Assumes `addrs` and `opt_len` have the same `Version` key space.
 fn zip_addr_len<T>(
     addrs: &MaybeVersionDep<T>,
     opt_len: Option<&MaybeVersionDep<Uint>>,
@@ -59,7 +63,7 @@ where
             let version_dep = match opt_len {
                 Some(len) => addr
                     .iter()
-                    .map(|(v, a)| (v.clone(), (a.clone(), len.get(Some(v)).copied())))
+                    .map(|(v, a)| (v.clone(), (a.clone(), len.get_native(Some(v)).copied())))
                     .collect(),
                 None => addr
                     .iter()
@@ -290,6 +294,9 @@ impl SymbolList {
     pub fn push(&mut self, value: Symbol) {
         self.0.push(value)
     }
+    pub fn append(&mut self, other: &mut SymbolList) {
+        self.0.append(&mut other.0)
+    }
 }
 
 impl Deref for SymbolList {
@@ -306,12 +313,323 @@ impl<const N: usize> From<[Symbol; N]> for SymbolList {
     }
 }
 
+/// A symbol in a [`SymbolList`], potentially augmented by additional addresses for sorting
+#[derive(Debug, PartialEq, Eq, Clone)]
+struct SortSymbol {
+    /// The symbol.
+    symbol: Symbol,
+    /// Addresses temporarily assigned while the parent SymbolList is being sorted.
+    sort_address: Option<VersionDep<Linkable>>,
+}
+
+impl SortSymbol {
+    fn get_native(&self, native_key: &Version) -> Option<&Linkable> {
+        if let Some(addr) = &self.sort_address {
+            return addr.get_native(native_key);
+        } else if let MaybeVersionDep::ByVersion(addr) = &self.symbol.address {
+            return addr.get_native(native_key);
+        }
+        None
+    }
+    fn contains_key_native(&self, native_key: &Version) -> bool {
+        self.get_native(native_key).is_some()
+    }
+    fn insert_native(&mut self, native_key: Version, value: Linkable) -> Option<Linkable> {
+        if let Some(addr) = &mut self.sort_address {
+            addr.insert_native(native_key, value)
+        } else if let MaybeVersionDep::ByVersion(addr) = &self.symbol.address {
+            let mut addr = addr.clone();
+            let old = addr.insert_native(native_key, value);
+            self.sort_address = Some(addr);
+            old
+        } else {
+            self.sort_address = Some([(native_key, value)].into());
+            None
+        }
+    }
+}
+
+impl PartialOrd for SortSymbol {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+impl Ord for SortSymbol {
+    fn cmp(&self, other: &Self) -> Ordering {
+        // Use the sort_address field if present, otherwise fall back to the normal address field
+        match &self.sort_address {
+            Some(self_sort_addr) => match &other.sort_address {
+                Some(other_sort_addr) => self_sort_addr.cmp(other_sort_addr),
+                None => {
+                    MaybeVersionDep::ByVersion(self_sort_addr.clone()).cmp(&other.symbol.address)
+                }
+            },
+            None => match &other.sort_address {
+                Some(other_sort_addr) => self
+                    .symbol
+                    .address
+                    .cmp(&MaybeVersionDep::ByVersion(other_sort_addr.clone())),
+                None => self.symbol.address.cmp(&other.symbol.address),
+            },
+        }
+    }
+}
+
+/// A disjoint set of closed numeric ranges
+#[derive(Debug, PartialEq, Eq)]
+struct RangeSet(Vec<(Uint, Uint)>);
+
+impl From<Vec<(Uint, Uint)>> for RangeSet {
+    fn from(mut ranges: Vec<(Uint, Uint)>) -> Self {
+        ranges.retain(|r| r.0 <= r.1);
+        if ranges.is_empty() {
+            return Self(ranges);
+        }
+        ranges.sort_unstable();
+
+        let mut rangeset = Vec::with_capacity(ranges.len());
+        let mut range_iter = ranges.into_iter();
+        // Buffer the current range so that we can coalesce if needed before pushing
+        let mut current_range = range_iter.next().unwrap();
+        for r in range_iter {
+            // Note: can't just check (r.0 - current_range.1) as i64 <= 1 because of integer
+            // underflow.
+            if r.0 <= current_range.1 || (r.0 - current_range.1 == 1) {
+                // The new range's left endpoint overlaps with or borders current_range, so we can
+                // combine it with current_range.
+                current_range.1 = current_range.1.max(r.1);
+            } else {
+                rangeset.push(current_range);
+                current_range = r;
+            }
+        }
+        rangeset.push(current_range);
+        Self(rangeset)
+    }
+}
+
+impl RangeSet {
+    fn contains(&self, val: Uint) -> bool {
+        self.0
+            .binary_search_by(|r| {
+                if let Ordering::Greater = r.0.cmp(&val) {
+                    Ordering::Greater
+                } else if let Ordering::Less = r.1.cmp(&val) {
+                    Ordering::Less
+                } else {
+                    Ordering::Equal
+                }
+            })
+            .is_ok()
+    }
+}
+
 impl Sort for SymbolList {
     fn sort(&mut self) {
+        // Sort each individual symbol's contents, and gather a sorted list of all versions
+        // inferred from the symbol contents
+        let mut all_versions = BTreeSet::new();
         for symbol in self.0.iter_mut() {
             symbol.sort();
+
+            for v in symbol.address.versions() {
+                all_versions.insert(v);
+            }
         }
-        self.0.sort();
+        let all_versions: Vec<_> = all_versions.into_iter().cloned().collect();
+
+        // Move symbols over to an auxiliary array, since we need to be able to augment the symbol
+        // data for sorting purposes
+        let mut sort_list: Vec<SortSymbol> = Vec::with_capacity(self.len());
+        for symbol in self.0.drain(..) {
+            sort_list.push(SortSymbol {
+                symbol,
+                sort_address: None,
+            });
+        }
+
+        // Realize Common addresses for sorting purposes, if possible. Comparison between
+        // Common/ByVersion variants is not consistent/transitive if the ByVersion variant
+        // is missing some versions, and realization prevents such intransitivity.
+        for ss in sort_list.iter_mut() {
+            if ss.symbol.address.is_common() && !all_versions.is_empty() {
+                ss.sort_address = Some(ss.symbol.address.by_version(&all_versions));
+            }
+        }
+
+        // First pass: naive lexicographic sort.
+        sort_list.sort();
+
+        // The following block performs a more sophisticated sorting algorithm for symbols with
+        // versioned addresses.
+        //
+        // # Motivation
+        // A naive lexicographic sort has limitations when some symbols are missing addresses
+        // for certain versions. For example, say you have a list like this:
+        // ```yml
+        // - name: a
+        //   address:
+        //     v1: 0
+        //     v2: 1
+        // - name: b
+        //   address:
+        //     v1: 10
+        //     v2: 11
+        // - name: c
+        //   address:
+        //     v2: 2
+        // ```
+        // The naive sort will leave "c" at the end, even though it should really be in between
+        // "a" and "b", based on the v2 value.
+        //
+        // However, it's not always possible to unambiguously order symbols with missing addresses.
+        // For example, say you have a list like this:
+        // ```yml
+        // - name: a
+        //   address:
+        //     v1: 0
+        //     v2: 10
+        // - name: b
+        //   address:
+        //     v1: 1
+        //     v2: 2
+        // - name: c
+        //   address:
+        //     v2: 5
+        // ```
+        // Here, it's not clear whether "c" should come before "a", or after "b". A good sorting
+        // algorithm should be able to detect such situations, and leave these symbols at the end
+        // in these cases.
+        //
+        // # Algorithm Overview
+        // Sorting happens over multiple passes, one for each version, in order (with the first
+        // pass being the naive sort in the previous line). The passes accumulate, and by the last
+        // pass, the list will be fully sorted. In each pass (for a version "v"):
+        //
+        // 1. Of the symbols with addresses for version "v" but not for prior versions, determine
+        // which can be unambigously resorted.
+        // 2. Of the good symbols in step 1, figure out where to relocate them, and then do so.
+        //
+        // See subsequent comments for more detail.
+        let mut first_unsorted_idx = 0;
+        for (pass_idx, vpair) in all_versions.windows(2).enumerate() {
+            let vsorted = &vpair[0]; // the previous version, which a pass was already done for
+            let v = &vpair[1]; // the currrent version, which this pass is focused on
+                               // all previous versions for which a pass was already done for
+            let all_vsorted = &all_versions[..=pass_idx];
+
+            // Find the first symbol (that isn't already sorted) whose address set doesn't have
+            // vsorted. This is the first unsorted symbol.
+            for ss in sort_list.iter().skip(first_unsorted_idx) {
+                if ss.contains_key_native(vsorted) {
+                    first_unsorted_idx += 1;
+                } else {
+                    break;
+                }
+            }
+            // Everything is already sorted; nothing to do
+            if first_unsorted_idx == sort_list.len() {
+                break;
+            }
+
+            // Search for sort violations among the vsorted-sorted symbols with v addresses,
+            // and fill in v addresses if missing. A sort violation for version v is when the
+            // sequence of v addresses (the ordering of which is controlled by addresses from prior
+            // versions) is not in sorted order. For example:
+            //
+            // v2: 1, 2, 3, 4, 5, 3, 6, 4, 8, 12, 11
+            //                    ^     ^         ^
+            //                     sort violations
+            //
+            // What we care about is the range of values that are "passed through" when sorting
+            // order is violated. In the above example, we pass from 5 -> 3, 6 -> 4, and 12 -> 11.
+            // This means that we can't sort any currently unsorted symbol with a v address in the
+            // ranges [3, 5], [4, 6], or [11, 12].
+            let mut prev_val = Uint::MIN;
+            let mut contested_ranges = Vec::new();
+            for ss in sort_list.iter_mut().take(first_unsorted_idx) {
+                if let Some(cur_val) = ss.get_native(v).map(|val| val.cmp_key()) {
+                    if cur_val < prev_val {
+                        contested_ranges.push((cur_val, prev_val));
+                    }
+                    prev_val = cur_val;
+                } else {
+                    // We need to fill in an artificial v address so the binary search in the
+                    // next step works properly. We can just use prev_val to maintain the existing
+                    // order.
+                    ss.insert_native(v.clone(), prev_val.into());
+                }
+            }
+            let contested_ranges = RangeSet::from(contested_ranges);
+
+            // Go through each of the unsorted symbols (with v addresses but not vsorted addresses)
+            // and try to assign fake addresses for all the addresses in all_vsorted, such that the
+            // symbols will end up appropriately sorted.
+            let (sorted_slice, unsorted_slice) = sort_list.split_at_mut(first_unsorted_idx);
+            for ss in unsorted_slice.iter_mut() {
+                if let Some(cur_val) = ss.get_native(v).map(|val| val.cmp_key()) {
+                    first_unsorted_idx += 1; // this just saves us some work in the next pass
+
+                    if contested_ranges.contains(cur_val) {
+                        // This symbol is in a contested range...we can't sort it, so just skip
+                        continue;
+                    }
+
+                    // Search for the first fully sorted symbol (had a vsorted address) with a
+                    // version v address that exceeds that of the current unsorted symbol. This
+                    // is the sorted symbol we want to insert the unsorted symbol in front of.
+                    let idx =
+                        sorted_slice.partition_point(|ss| {
+                            ss.get_native(v).expect(
+                            "SymbolList::Sort reference symbol does not have reference value?",
+                        ).cmp_key() <= cur_val
+                        });
+                    // If idx == sorted_slice.len(), there's nothing to do; the current unsorted
+                    // symbol comes after all the currently sorted symbols and should stay at the
+                    // end of the list.
+                    if idx < sorted_slice.len() {
+                        // # Safety
+                        // We just checked that idx < sorted_slice.len()
+                        let ref_ss = unsafe { sorted_slice.get_unchecked(idx) };
+                        // Copy the values for the all_vsorted version from the matched sorted
+                        // symbol to the current unsorted symbol. Since the version v value for
+                        // the current unsorted symbol is less than that of the matched sorted
+                        // symbol by construction, this ensures that the current unsorted symbol
+                        // will end up directly in front of the sorted symbol when we resort the
+                        // list.
+                        for vother in all_vsorted.iter() {
+                            // ref_ss must have a value for v, but not necessarily for the vother's
+                            // before it, since it could've been skipped on previous iterations due
+                            // to contested ranges.
+                            if let Some(vother_val) = ref_ss.get_native(vother) {
+                                ss.insert_native(vother.clone(), vother_val.cmp_key().into());
+                            }
+                        }
+                    }
+                } else {
+                    // This symbol doesn't have a v address. Since sort_list was already
+                    // pre-sorted, none of the later symbols will either. This pass is finished.
+                    break;
+                }
+            }
+
+            // Next pass: now that we've added new sort_addresses, redo the lexicographic sort
+            // to put the symbols with version v addresses but not vsorted addresses in order
+            sort_list.sort();
+        }
+
+        // Transfer the fully sorted symbols back from the auxiliary array
+        for ss in sort_list.into_iter() {
+            self.0.push(ss.symbol);
+        }
+    }
+}
+
+fn option_vec_is_empty<T>(opt: &Option<Vec<T>>) -> bool {
+    match opt {
+        None => true,
+        Some(v) => v.is_empty(),
     }
 }
 
@@ -328,7 +646,7 @@ impl Sort for SymbolList {
 pub struct Block {
     // Metadata
     /// List of [`Version`]s relevant to the block.
-    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(skip_serializing_if = "option_vec_is_empty")]
     pub versions: Option<Vec<Version>>,
     /// The starting address of the block in memory.
     pub address: MaybeVersionDep<Uint>,
@@ -339,6 +657,9 @@ pub struct Block {
     pub description: Option<String>,
 
     // Symbols
+    /// List of subregions.
+    #[serde(skip_serializing_if = "option_vec_is_empty")]
+    pub subregions: Option<Vec<Subregion>>,
     /// List of function symbols.
     pub functions: SymbolList,
     /// List of data symbols.
@@ -368,6 +689,53 @@ impl Block {
         // Init symbols
         self.functions.init(&ctx);
         self.data.init(&ctx);
+    }
+    /// Recursively resolves the contents of all [`Subregion`]s in the [`Block`].
+    ///
+    /// [`Subregion`]s are read from files using `file_opener`, with file paths based on the root
+    /// directory specified by `dir_path`.
+    pub fn resolve_subregions<P, R, F>(&mut self, dir_path: P, file_opener: F) -> Result<()>
+    where
+        P: AsRef<Path>,
+        R: Read,
+        F: Fn(&Path) -> io::Result<R> + Copy,
+    {
+        if let Some(subregions) = &mut self.subregions {
+            for s in subregions.iter_mut() {
+                s.resolve(&dir_path, file_opener)?;
+                // Recursively resolve
+                let subdir_path = dir_path.as_ref().join(Subregion::subregion_dir(&s.name));
+                // Explicitly block symlinks, which could lead to infinite recursion.
+                // If the path itself is invalid, just carry on and let file_opener deal with it.
+                // Note that the documentation on is_symlink() is a bit ambiguous, but this method
+                // (at least on Unix) will still follow symlinks on the path to get to the file,
+                // it just won't follow the file's link if the file itself is a symlink.
+                if subdir_path.is_symlink() {
+                    return Err(Error::Subregion(SubregionError::Symlink(subdir_path)));
+                }
+                s.contents
+                    .as_mut()
+                    .expect("subregion not resolved after Subregion::resolve()")
+                    .resolve_subregions(&subdir_path, file_opener)?;
+            }
+        }
+        Ok(())
+    }
+    /// Moves all symbols within [`Subregion`]s into the [`Block`]'s main symbol lists, destroying
+    /// the [`Subregion`]s in the process.
+    pub fn collapse_subregions(&mut self) {
+        if let Some(subregions) = self.subregions.take() {
+            for s in subregions {
+                if let Some(mut symgen) = s.contents {
+                    // Recursively collapse
+                    symgen.collapse_subregions();
+                    for blocks in symgen.blocks_mut() {
+                        self.functions.append(&mut blocks.functions);
+                        self.data.append(&mut blocks.data);
+                    }
+                }
+            }
+        }
     }
     /// Gets the extent occupied by the [`Block`], possibly by version, represented as
     /// address-length pairs.
@@ -437,6 +805,11 @@ impl Block {
         let version = self.version(version_name);
         self.data.iter().realize(version)
     }
+
+    /// Returns a [`BlockCursor`] for this [`Block`] with the given block name and file path.
+    pub fn cursor<'s, 'p>(&'s self, name: &'s str, path: &'p Path) -> BlockCursor<'s, 'p> {
+        BlockCursor::new(self, name, Cow::Borrowed(path))
+    }
 }
 
 impl PartialOrd for Block {
@@ -453,6 +826,14 @@ impl Ord for Block {
 
 impl Sort for Block {
     fn sort(&mut self) {
+        if let Some(subregions) = &mut self.subregions {
+            subregions.sort();
+            for s in subregions {
+                if let Some(contents) = &mut s.contents {
+                    contents.sort();
+                }
+            }
+        }
         self.functions.sort();
         self.data.sort();
     }
@@ -462,7 +843,7 @@ impl Sort for Block {
 ///
 /// At its core, a [`SymGen`] is just a mapping between block names and [`Block`]s, along with
 /// convenient methods for manipulating the data within those [`Block`]s.
-#[derive(Debug, PartialEq, Clone, Serialize, Deserialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Deserialize)]
 pub struct SymGen(BTreeMap<OrdString, Block>);
 
 impl SymGen {
@@ -700,6 +1081,30 @@ impl SymGen {
         String::from_utf8(bytes).map_err(Error::FromUtf8)
     }
 
+    /// Recursively resolves the contents of all [`Subregion`]s in all [`Block`]s within the
+    /// [`SymGen`].
+    ///
+    /// [`Subregion`]s are read from files using `file_opener`, with file paths based on the root
+    /// directory specified by `dir_path`.
+    pub fn resolve_subregions<P, R, F>(&mut self, dir_path: P, file_opener: F) -> Result<()>
+    where
+        P: AsRef<Path>,
+        R: Read,
+        F: Fn(&Path) -> io::Result<R> + Copy,
+    {
+        for block in self.0.values_mut() {
+            block.resolve_subregions(&dir_path, file_opener)?;
+        }
+        Ok(())
+    }
+    /// Moves all symbols within [`Subregion`]s into their parent [`Block`]s' main symbol lists,
+    /// destroying the [`Subregion`]s in the process.
+    pub fn collapse_subregions(&mut self) {
+        for block in self.0.values_mut() {
+            block.collapse_subregions();
+        }
+    }
+
     /// Expands the versions of all the addresses and lengths contained within the [`SymGen`]
     /// (in all the contained [`Block`]s).
     ///
@@ -776,6 +1181,11 @@ impl SymGen {
         let v = String::from(version_name);
         self.blocks().flat_map(move |b| b.data_realized(&v))
     }
+
+    /// Returns a [`SymGenCursor`] for this [`SymGen`] with the given file path.
+    pub fn cursor<'s, 'p>(&'s self, path: &'p Path) -> SymGenCursor<'s, 'p> {
+        SymGenCursor::new(self, Cow::Borrowed(path))
+    }
 }
 
 impl<const N: usize> From<[(OrdString, Block); N]> for SymGen {
@@ -801,6 +1211,130 @@ impl Sort for SymGen {
         for block in self.0.values_mut() {
             block.sort();
         }
+    }
+}
+
+/// A subsidiary [`SymGen`] (a collection of named [`Block`]s) nested within a parent [`Block`].
+///
+/// A minimal [`Subregion`] consists of just a file name, which may or may not correspond to a
+/// valid file. A [`Subregion`] can be "resolved" by associating a concrete [`SymGen`] with it,
+/// typically by reading the contents of a file corresponding to the [`Subregion`]'s name.
+/// The contents of a resolved [`Subregion`] are logically grouped together, but are ultimately
+/// owned by the parent [`Block`].
+#[derive(Debug, PartialEq, Eq, Clone, Serialize, Deserialize)]
+#[serde(transparent)]
+pub struct Subregion {
+    pub name: PathBuf,
+    // This doesn't actually need to be a Box to compile, but it's more space-efficient for the
+    // common case of an unresolved subregion. It also allows for the null pointer optimization.
+    #[serde(skip)]
+    pub contents: Option<Box<SymGen>>,
+}
+
+impl Subregion {
+    /// Get the canonical directory containing the subregion files for a given parent file path.
+    pub fn subregion_dir<P: AsRef<Path>>(filepath: P) -> PathBuf {
+        filepath.as_ref().with_extension("")
+    }
+
+    /// Whether this [`Subregion`] is associated with a concrete [`SymGen`].
+    pub fn is_resolved(&self) -> bool {
+        self.contents.is_some()
+    }
+
+    /// Resolve this [`Subregion`] with the contents of a file.
+    ///
+    /// The file is read using `file_opener`, with the file path derived from the directory
+    /// specified by `dir_path` and the [`Subregion`]'s name.
+    pub fn resolve<P, R, F>(&mut self, dir_path: P, file_opener: F) -> Result<()>
+    where
+        P: AsRef<Path>,
+        R: Read,
+        F: Fn(&Path) -> io::Result<R> + Copy,
+    {
+        if self.name.components().count() != 1 {
+            return Err(Error::Subregion(SubregionError::InvalidPath(
+                self.name.clone(),
+            )));
+        }
+        let filepath = dir_path.as_ref().join(&self.name);
+        let rdr = file_opener(&filepath).map_err(|e| {
+            Error::Subregion(SubregionError::SymGen((
+                filepath.clone(),
+                Box::new(Error::Io(e)),
+            )))
+        })?;
+        self.contents = Some(Box::new(SymGen::read(rdr).map_err(|e| {
+            Error::Subregion(SubregionError::SymGen((filepath.clone(), Box::new(e))))
+        })?));
+        Ok(())
+    }
+    /// Unresolves this [`Subregion`] by discarding its contents, if any.
+    pub fn unresolve(&mut self) {
+        self.contents = None;
+    }
+}
+
+impl<P> From<P> for Subregion
+where
+    P: AsRef<Path>,
+{
+    fn from(val: P) -> Self {
+        // unresolved subregion
+        Subregion {
+            name: val.as_ref().to_owned(),
+            contents: None,
+        }
+    }
+}
+
+impl<P> PartialEq<P> for Subregion
+where
+    P: AsRef<Path>,
+{
+    fn eq(&self, other: &P) -> bool {
+        self.name == other.as_ref()
+    }
+}
+
+impl PartialOrd for Subregion {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+impl Ord for Subregion {
+    fn cmp(&self, other: &Self) -> Ordering {
+        self.name.cmp(&other.name)
+    }
+}
+
+#[cfg(test)]
+pub mod test_utils {
+    use super::*;
+    use std::collections::HashMap;
+    use std::io;
+    use std::path::{Path, PathBuf};
+
+    pub fn get_symgen_with_subregions<P: AsRef<Path>>(
+        root: &str,
+        subregions: &[(P, &str)],
+    ) -> SymGen {
+        let mut symgen = SymGen::read(root.as_bytes()).expect("Failed to read SymGen");
+        let root_dir = Path::new(file!());
+        let file_map: HashMap<PathBuf, String> = subregions
+            .iter()
+            .map(|(p, s)| (root_dir.join(p.as_ref()), s.to_string()))
+            .collect();
+        symgen
+            .resolve_subregions(root_dir, |p| {
+                file_map
+                    .get(p)
+                    .map(|s| s.as_bytes())
+                    .ok_or_else(|| io::Error::new(io::ErrorKind::NotFound, p.to_string_lossy()))
+            })
+            .expect("Failed to resolve subregions");
+        symgen
     }
 }
 
@@ -1107,6 +1641,423 @@ mod tests {
         }
 
         #[test]
+        fn test_rangeset_from() {
+            let rangeset = RangeSet::from(vec![
+                (11, 19),
+                (10, 20),   // fully subsume (11, 19)
+                (15, 18),   // fully within (10, 20)
+                (5, 12),    // extend (10, 20) leftwards
+                (15, 30),   // extend (5, 20) rightwards
+                (40, 50),   // disjoint
+                (100, 200), // disjoint
+                (1, 55),    // fully subsume (5, 30) + (40, 50)
+                (56, 60),   // extend (1, 55) rightwards
+            ]);
+            assert_eq!(&rangeset, &RangeSet(vec![(1, 60), (100, 200),]));
+        }
+
+        #[test]
+        fn test_rangeset_contains() {
+            let rangeset = RangeSet(vec![(1, 60), (100, 200)]);
+            assert!(!rangeset.contains(0));
+            assert!(rangeset.contains(1));
+            assert!(rangeset.contains(30));
+            assert!(rangeset.contains(60));
+            assert!(!rangeset.contains(75));
+            assert!(rangeset.contains(100));
+            assert!(rangeset.contains(150));
+            assert!(rangeset.contains(200));
+            assert!(!rangeset.contains(300));
+        }
+
+        fn make_symbol_list<const N: usize>(
+            list: [(&str, MaybeVersionDep<Linkable>); N],
+        ) -> SymbolList {
+            let mut versions = BTreeSet::new();
+            for i in list.iter() {
+                for v in i.1.versions() {
+                    versions.insert(v);
+                }
+            }
+            let versions: Vec<_> = versions.into_iter().collect();
+            let version_order = OrdString::get_order_map(Some(&versions));
+            let ctx = BlockContext { version_order };
+
+            let mut slist = SymbolList(
+                list.iter()
+                    .map(|i| Symbol {
+                        name: i.0.to_string(),
+                        address: i.1.clone(),
+                        length: None,
+                        description: None,
+                    })
+                    .collect(),
+            );
+            slist.init(&ctx);
+            slist
+        }
+
+        fn assert_sort_order<const N: usize>(
+            list: [(&str, MaybeVersionDep<Linkable>); N],
+            list_sorted: [(&str, MaybeVersionDep<Linkable>); N],
+        ) {
+            let mut list = make_symbol_list(list);
+            let list_sorted = make_symbol_list(list_sorted);
+            list.sort();
+            assert_eq!(&list, &list_sorted);
+        }
+
+        #[test]
+        fn test_sort_common() {
+            assert_sort_order(
+                [
+                    ("symbol3", MaybeVersionDep::Common(3.into())),
+                    ("symbol1", MaybeVersionDep::Common(1.into())),
+                    ("symbol2", MaybeVersionDep::Common(2.into())),
+                ],
+                [
+                    ("symbol1", MaybeVersionDep::Common(1.into())),
+                    ("symbol2", MaybeVersionDep::Common(2.into())),
+                    ("symbol3", MaybeVersionDep::Common(3.into())),
+                ],
+            );
+        }
+
+        #[test]
+        fn test_sort_multipass() {
+            assert_sort_order(
+                [
+                    (
+                        "symbol1",
+                        MaybeVersionDep::ByVersion(
+                            [
+                                ("v1".into(), 0.into()),
+                                ("v2".into(), 1.into()),
+                                ("v3".into(), 2.into()),
+                            ]
+                            .into(),
+                        ),
+                    ),
+                    (
+                        "symbol3",
+                        MaybeVersionDep::ByVersion(
+                            [("v1".into(), 10.into()), ("v2".into(), 11.into())].into(),
+                        ),
+                    ),
+                    (
+                        "symbol5",
+                        MaybeVersionDep::ByVersion(
+                            [
+                                ("v1".into(), 20.into()),
+                                ("v2".into(), 21.into()),
+                                ("v3".into(), 22.into()),
+                            ]
+                            .into(),
+                        ),
+                    ),
+                    (
+                        "symbol0",
+                        MaybeVersionDep::ByVersion([("v2".into(), 0.into())].into()),
+                    ),
+                    (
+                        "symbol6",
+                        MaybeVersionDep::ByVersion([("v2".into(), 100.into())].into()),
+                    ),
+                    (
+                        "symbol2",
+                        MaybeVersionDep::ByVersion([("v2".into(), 1.into())].into()),
+                    ),
+                    (
+                        "symbol4",
+                        MaybeVersionDep::ByVersion([("v3".into(), 15.into())].into()),
+                    ),
+                ],
+                [
+                    (
+                        "symbol0",
+                        MaybeVersionDep::ByVersion([("v2".into(), 0.into())].into()),
+                    ),
+                    (
+                        "symbol1",
+                        MaybeVersionDep::ByVersion(
+                            [
+                                ("v1".into(), 0.into()),
+                                ("v2".into(), 1.into()),
+                                ("v3".into(), 2.into()),
+                            ]
+                            .into(),
+                        ),
+                    ),
+                    (
+                        "symbol2",
+                        MaybeVersionDep::ByVersion([("v2".into(), 1.into())].into()),
+                    ),
+                    (
+                        "symbol3",
+                        MaybeVersionDep::ByVersion(
+                            [("v1".into(), 10.into()), ("v2".into(), 11.into())].into(),
+                        ),
+                    ),
+                    (
+                        "symbol4",
+                        MaybeVersionDep::ByVersion([("v3".into(), 15.into())].into()),
+                    ),
+                    (
+                        "symbol5",
+                        MaybeVersionDep::ByVersion(
+                            [
+                                ("v1".into(), 20.into()),
+                                ("v2".into(), 21.into()),
+                                ("v3".into(), 22.into()),
+                            ]
+                            .into(),
+                        ),
+                    ),
+                    (
+                        "symbol6",
+                        MaybeVersionDep::ByVersion([("v2".into(), 100.into())].into()),
+                    ),
+                ],
+            );
+        }
+
+        #[test]
+        fn test_sort_multipass_conflict() {
+            assert_sort_order(
+                [
+                    (
+                        "symbol1",
+                        MaybeVersionDep::ByVersion(
+                            [
+                                ("v1".into(), 0.into()),
+                                ("v2".into(), 1.into()),
+                                ("v3".into(), 2.into()),
+                            ]
+                            .into(),
+                        ),
+                    ),
+                    (
+                        "symbol2",
+                        MaybeVersionDep::ByVersion(
+                            [("v1".into(), 10.into()), ("v2".into(), 0.into())].into(),
+                        ),
+                    ),
+                    (
+                        "symbol4",
+                        MaybeVersionDep::ByVersion(
+                            [
+                                ("v1".into(), 20.into()),
+                                ("v2".into(), 21.into()),
+                                ("v3".into(), 22.into()),
+                            ]
+                            .into(),
+                        ),
+                    ),
+                    (
+                        "symbol5",
+                        MaybeVersionDep::ByVersion(
+                            [
+                                ("v1".into(), 30.into()),
+                                ("v2".into(), 20.into()),
+                                ("v3".into(), 32.into()),
+                            ]
+                            .into(),
+                        ),
+                    ),
+                    (
+                        "symbol6",
+                        MaybeVersionDep::ByVersion([("v2".into(), 1.into())].into()),
+                    ),
+                    (
+                        "symbol3a",
+                        MaybeVersionDep::ByVersion([("v2".into(), 10.into())].into()),
+                    ),
+                    (
+                        "symbol3b",
+                        MaybeVersionDep::ByVersion([("v3".into(), 15.into())].into()),
+                    ),
+                    (
+                        "symbol7",
+                        MaybeVersionDep::ByVersion([("v2".into(), 20.into())].into()),
+                    ),
+                ],
+                [
+                    (
+                        "symbol1",
+                        MaybeVersionDep::ByVersion(
+                            [
+                                ("v1".into(), 0.into()),
+                                ("v2".into(), 1.into()),
+                                ("v3".into(), 2.into()),
+                            ]
+                            .into(),
+                        ),
+                    ),
+                    (
+                        "symbol2",
+                        MaybeVersionDep::ByVersion(
+                            [("v1".into(), 10.into()), ("v2".into(), 0.into())].into(),
+                        ),
+                    ),
+                    (
+                        "symbol3a",
+                        MaybeVersionDep::ByVersion([("v2".into(), 10.into())].into()),
+                    ),
+                    (
+                        "symbol3b",
+                        MaybeVersionDep::ByVersion([("v3".into(), 15.into())].into()),
+                    ),
+                    (
+                        "symbol4",
+                        MaybeVersionDep::ByVersion(
+                            [
+                                ("v1".into(), 20.into()),
+                                ("v2".into(), 21.into()),
+                                ("v3".into(), 22.into()),
+                            ]
+                            .into(),
+                        ),
+                    ),
+                    (
+                        "symbol5",
+                        MaybeVersionDep::ByVersion(
+                            [
+                                ("v1".into(), 30.into()),
+                                ("v2".into(), 20.into()),
+                                ("v3".into(), 32.into()),
+                            ]
+                            .into(),
+                        ),
+                    ),
+                    (
+                        "symbol6",
+                        // Conflicts with symbol1/symbol2
+                        MaybeVersionDep::ByVersion([("v2".into(), 1.into())].into()),
+                    ),
+                    (
+                        "symbol7",
+                        // Conflicts with symbol4/symbol5
+                        MaybeVersionDep::ByVersion([("v2".into(), 20.into())].into()),
+                    ),
+                ],
+            );
+        }
+
+        #[test]
+        fn test_sort_multipass_conflict_cascade() {
+            assert_sort_order(
+                [
+                    (
+                        "symbol1",
+                        MaybeVersionDep::ByVersion(
+                            [
+                                ("v1".into(), 0.into()),
+                                ("v2".into(), 1.into()),
+                                ("v3".into(), 2.into()),
+                            ]
+                            .into(),
+                        ),
+                    ),
+                    (
+                        "symbol3",
+                        MaybeVersionDep::ByVersion(
+                            [
+                                ("v1".into(), 10.into()),
+                                ("v2".into(), 0.into()),
+                                ("v3".into(), 12.into()),
+                            ]
+                            .into(),
+                        ),
+                    ),
+                    (
+                        "symbol5",
+                        MaybeVersionDep::ByVersion(
+                            [
+                                ("v1".into(), 20.into()),
+                                ("v2".into(), 21.into()),
+                                ("v3".into(), 22.into()),
+                            ]
+                            .into(),
+                        ),
+                    ),
+                    (
+                        "symbol6",
+                        MaybeVersionDep::ByVersion(
+                            [("v2".into(), 1.into()), ("v3".into(), 13.into())].into(),
+                        ),
+                    ),
+                    (
+                        "symbol4",
+                        MaybeVersionDep::ByVersion([("v2".into(), 10.into())].into()),
+                    ),
+                    (
+                        "symbol7",
+                        MaybeVersionDep::ByVersion([("v3".into(), 15.into())].into()),
+                    ),
+                    (
+                        "symbol2",
+                        MaybeVersionDep::ByVersion([("v3".into(), 10.into())].into()),
+                    ),
+                ],
+                [
+                    (
+                        "symbol1",
+                        MaybeVersionDep::ByVersion(
+                            [
+                                ("v1".into(), 0.into()),
+                                ("v2".into(), 1.into()),
+                                ("v3".into(), 2.into()),
+                            ]
+                            .into(),
+                        ),
+                    ),
+                    (
+                        "symbol2",
+                        MaybeVersionDep::ByVersion([("v3".into(), 10.into())].into()),
+                    ),
+                    (
+                        "symbol3",
+                        MaybeVersionDep::ByVersion(
+                            [
+                                ("v1".into(), 10.into()),
+                                ("v2".into(), 0.into()),
+                                ("v3".into(), 12.into()),
+                            ]
+                            .into(),
+                        ),
+                    ),
+                    (
+                        "symbol4",
+                        MaybeVersionDep::ByVersion([("v2".into(), 10.into())].into()),
+                    ),
+                    (
+                        "symbol5",
+                        MaybeVersionDep::ByVersion(
+                            [
+                                ("v1".into(), 20.into()),
+                                ("v2".into(), 21.into()),
+                                ("v3".into(), 22.into()),
+                            ]
+                            .into(),
+                        ),
+                    ),
+                    (
+                        "symbol6",
+                        // Conflicts with symbol1/symbol3
+                        MaybeVersionDep::ByVersion(
+                            [("v2".into(), 1.into()), ("v3".into(), 13.into())].into(),
+                        ),
+                    ),
+                    (
+                        "symbol7",
+                        // Conflicts with symbol5/symbol6
+                        MaybeVersionDep::ByVersion([("v3".into(), 15.into())].into()),
+                    ),
+                ],
+            );
+        }
+
+        #[test]
         fn test_iter_realize() {
             let (_, versions, _, _, _, list) = get_block_data();
 
@@ -1194,6 +2145,7 @@ mod tests {
         }
     }
 
+    #[cfg(test)]
     mod block_tests {
         use super::*;
 
@@ -1205,6 +2157,7 @@ mod tests {
                 address: addresses.clone(),
                 length: addresses.clone(),
                 description: None,
+                subregions: None,
                 functions: symbols.clone(),
                 data: symbols.clone(),
             };
@@ -1215,8 +2168,14 @@ mod tests {
 
         #[test]
         fn test_init_sort() {
-            let block = get_sorted_block();
+            let mut block = get_sorted_block();
+            // Add some subregions manually
+            block.subregions = Some(vec!["subregion2".into(), "subregion1".into()]);
+            block.sort();
+
             let (_, final_versions, _, final_addresses, _, final_symbols) = get_block_data();
+            let mut final_subregions = block.subregions.clone().unwrap();
+            final_subregions.sort();
             assert_eq!(
                 &block,
                 &Block {
@@ -1224,6 +2183,7 @@ mod tests {
                     address: final_addresses.clone(),
                     length: final_addresses.clone(),
                     description: None,
+                    subregions: Some(final_subregions.clone()),
                     functions: final_symbols.clone(),
                     data: final_symbols.clone(),
                 }
@@ -1273,6 +2233,7 @@ mod tests {
                     address,
                     length,
                     description,
+                    subregions: None,
                     functions: expanded_symbols.clone(),
                     data: expanded_symbols.clone(),
                 }
@@ -1380,6 +2341,7 @@ mod tests {
         }
     }
 
+    #[cfg(test)]
     mod symgen_tests {
         use super::*;
 
@@ -1446,6 +2408,7 @@ other:
                                 [(("v1", 0).into(), 0x100000), (("v2", 1).into(), 0x100004)].into(),
                             ),
                             description: Some("foo".to_string()),
+                            subregions: None,
                             functions: [
                                 Symbol {
                                     name: "fn1".to_string(),
@@ -1497,6 +2460,7 @@ other:
                             address: MaybeVersionDep::Common(0x2100000),
                             length: MaybeVersionDep::Common(0x100000),
                             description: None,
+                            subregions: None,
                             functions: [Symbol {
                                 name: "fn3".to_string(),
                                 address: MaybeVersionDep::Common(0x2100000.into()),
@@ -1511,20 +2475,175 @@ other:
             )
         }
 
-        #[test]
-        fn test_read() {
-            let (input, expected) = get_symgen_data();
+        /// Same as get_symgen_data(), but with 64-bit data
+        fn get_symgen_data_64bit() -> (String, SymGen) {
+            (
+                String::from(
+                    r#"main:
+  versions:
+    - v1
+    - v2
+  address:
+    v1: 0x2000000FF
+    v2: 0x2000000FF
+  length:
+    v1: 0x100000FF
+    v2: 0x100004FF
+  description: foo
+  functions:
+    - name: fn1
+      address:
+        v1: 0x2001000FF
+        v2: 0x2002000FF
+      length: 0x1000
+      description: |-
+        multi
+        line
+        description
+    - name: fn2
+      address:
+        v1:
+          - 0x2002000FF
+          - 0x2003000FF
+        v2: 0x2003000FF
+      description: baz
+  data:
+    - name: SOME_DATA
+      address:
+        v1: 0x2000000FF
+        v2: 0x2000000FF
+      length:
+        v1: 0x1000
+        v2: 0x2000
+      description: foo bar baz
+other:
+  address: 0x2100000FFFF
+  length: 0x100000FFFF
+  functions:
+    - name: fn3
+      address: 0x2100000FFFF
+  data: []
+"#,
+                ),
+                SymGen::from([
+                    (
+                        ("main", 0).into(),
+                        Block {
+                            versions: Some(vec![("v1", 0).into(), ("v2", 1).into()]),
+                            address: MaybeVersionDep::ByVersion(
+                                [
+                                    (("v1", 0).into(), 0x2000000FF),
+                                    (("v2", 1).into(), 0x2000000FF),
+                                ]
+                                .into(),
+                            ),
+                            length: MaybeVersionDep::ByVersion(
+                                [
+                                    (("v1", 0).into(), 0x100000FF),
+                                    (("v2", 1).into(), 0x100004FF),
+                                ]
+                                .into(),
+                            ),
+                            description: Some("foo".to_string()),
+                            subregions: None,
+                            functions: [
+                                Symbol {
+                                    name: "fn1".to_string(),
+                                    address: MaybeVersionDep::ByVersion(
+                                        [
+                                            (("v1", 0).into(), 0x2001000FF.into()),
+                                            (("v2", 1).into(), 0x2002000FF.into()),
+                                        ]
+                                        .into(),
+                                    ),
+                                    length: Some(MaybeVersionDep::Common(0x1000)),
+                                    description: Some("multi\nline\ndescription".to_string()),
+                                },
+                                Symbol {
+                                    name: "fn2".to_string(),
+                                    address: MaybeVersionDep::ByVersion(
+                                        [
+                                            (("v1", 0).into(), [0x2002000FF, 0x2003000FF].into()),
+                                            (("v2", 1).into(), 0x2003000FF.into()),
+                                        ]
+                                        .into(),
+                                    ),
+                                    length: None,
+                                    description: Some("baz".to_string()),
+                                },
+                            ]
+                            .into(),
+                            data: [Symbol {
+                                name: "SOME_DATA".to_string(),
+                                address: MaybeVersionDep::ByVersion(
+                                    [
+                                        (("v1", 0).into(), 0x2000000FF.into()),
+                                        (("v2", 1).into(), 0x2000000FF.into()),
+                                    ]
+                                    .into(),
+                                ),
+                                length: Some(MaybeVersionDep::ByVersion(
+                                    [(("v1", 0).into(), 0x1000), (("v2", 1).into(), 0x2000)].into(),
+                                )),
+                                description: Some("foo bar baz".to_string()),
+                            }]
+                            .into(),
+                        },
+                    ),
+                    (
+                        ("other", 1).into(),
+                        Block {
+                            versions: None,
+                            address: MaybeVersionDep::Common(0x2100000FFFF),
+                            length: MaybeVersionDep::Common(0x100000FFFF),
+                            description: None,
+                            subregions: None,
+                            functions: [Symbol {
+                                name: "fn3".to_string(),
+                                address: MaybeVersionDep::Common(0x2100000FFFF.into()),
+                                length: None,
+                                description: None,
+                            }]
+                            .into(),
+                            data: [].into(),
+                        },
+                    ),
+                ]),
+            )
+        }
+
+        fn read_test_template<F: FnOnce() -> (String, SymGen)>(get_data: F) {
+            let (input, expected) = get_data();
             let obj = SymGen::read(input.as_bytes()).expect("Read failed");
             assert_eq!(&obj, &expected);
         }
 
         #[test]
-        fn test_write() {
-            let (expected, input) = get_symgen_data();
+        fn test_read() {
+            read_test_template(get_symgen_data);
+        }
+
+        #[test]
+        fn test_read_64bit() {
+            read_test_template(get_symgen_data_64bit);
+        }
+
+        fn write_test_template<F: FnOnce() -> (String, SymGen)>(get_data: F) {
+            let (expected, input) = get_data();
             let yaml = input
                 .write_to_str(IntFormat::Hexadecimal)
                 .expect("Write failed");
             assert_eq!(&yaml, &expected);
+        }
+
+        #[test]
+        fn test_write() {
+            write_test_template(get_symgen_data);
+        }
+
+        #[test]
+        fn test_write_64bit() {
+            write_test_template(get_symgen_data_64bit);
         }
 
         #[test]
@@ -1624,6 +2743,262 @@ other:
                 assert_eq!(data_iter.next().as_ref(), Some(e));
             }
             assert_eq!(data_iter.next(), None);
+        }
+    }
+
+    #[cfg(test)]
+    mod subregion_tests {
+        use super::*;
+
+        #[test]
+        fn test_subregion_dir() {
+            assert_eq!(Subregion::subregion_dir("test.yml"), Path::new("test"));
+            assert_eq!(
+                Subregion::subregion_dir("path/to/test.yml"),
+                Path::new("path/to/test")
+            );
+            assert_eq!(
+                Subregion::subregion_dir("/abs/path/to/test.yml"),
+                Path::new("/abs/path/to/test")
+            );
+        }
+
+        fn get_basic_subregion<P: AsRef<Path>>(name: P) -> (Subregion, String) {
+            let text = format!(
+                r#"{}:
+                address: 0x0
+                length: 0x100
+                functions: []
+                data: []
+                "#,
+                Subregion::subregion_dir(&name).display()
+            );
+            let sub = Subregion {
+                name: name.as_ref().to_owned(),
+                contents: Some(Box::new(
+                    SymGen::read(text.as_bytes()).expect("Failed to read SymGen"),
+                )),
+            };
+            (sub, text)
+        }
+
+        fn get_parent_subregion<P: AsRef<Path>>(
+            name: P,
+            subregions: &[(P, Subregion)],
+        ) -> (Subregion, String) {
+            let text = format!(
+                r#"{}:
+                address: 0x0
+                length: 0x100
+                subregions: {:?}
+                functions: []
+                data: []
+                "#,
+                Subregion::subregion_dir(&name).display(),
+                subregions
+                    .iter()
+                    .map(|(p, _)| p.as_ref().display())
+                    .collect::<Vec<_>>()
+            );
+            let mut sub = Subregion {
+                name: name.as_ref().to_owned(),
+                contents: Some(Box::new(
+                    SymGen::read(text.as_bytes()).expect("Failed to read SymGen"),
+                )),
+            };
+            sub.contents
+                .as_mut()
+                .unwrap()
+                .blocks_mut()
+                .next()
+                .unwrap()
+                .subregions = Some(subregions.iter().map(|(_, s)| s.clone()).collect());
+            (sub, text)
+        }
+
+        #[test]
+        fn test_resolve() {
+            let name = "sub.yml";
+            let (resolved, text) = get_basic_subregion(name);
+            let mut subregion = Subregion::from(name);
+            assert!(!subregion.is_resolved());
+            subregion
+                .resolve("", |_| Ok(text.as_bytes()))
+                .expect("Failed to resolve subregion");
+            assert!(subregion.is_resolved());
+            assert_eq!(&subregion, &resolved);
+        }
+
+        #[test]
+        fn test_invalid_path() {
+            let mut subregion = Subregion::from("dir/sub.yml");
+            let res = subregion.resolve("", |_| Ok("".as_bytes()));
+            assert!(matches!(
+                res,
+                Err(Error::Subregion(SubregionError::InvalidPath(_)))
+            ));
+        }
+
+        #[test]
+        fn test_recursive_resolve_subregions() {
+            let (name1, name2, name3) = ("sub1.yml", "sub2.yml", "sub3.yml");
+            let mut symgen = SymGen::read(
+                format!(
+                    r#"main:
+                    address: 0x0
+                    length: 0x100
+                    subregions:
+                      - {}
+                      - {}
+                    functions: []
+                    data: []
+                    "#,
+                    name1, name2
+                )
+                .as_bytes(),
+            )
+            .expect("Failed to read SymGen");
+            let (sub1, text1) = get_basic_subregion(name1);
+            let (sub3, text3) = get_basic_subregion(name3);
+            let (sub2, text2) = get_parent_subregion(name2, &[(name3, sub3)]);
+            // Use this source file path as the root_dir in order to ensure that none of the test
+            // subregion paths are actually real, and thus that the recursive symlink check will
+            // never be set off. Technically this depends on the working directory when the test
+            // binary is run, but this should be a good enough safeguard...
+            let root_dir = Path::new(file!());
+            let file_map: HashMap<PathBuf, String> = [
+                (root_dir.join(name1), text1),
+                (root_dir.join(name2), text2),
+                (
+                    root_dir.join(Subregion::subregion_dir(name2)).join(name3),
+                    text3,
+                ),
+            ]
+            .into();
+
+            symgen
+                .resolve_subregions(root_dir, |p| {
+                    file_map
+                        .get(p)
+                        .map(|s| s.as_bytes())
+                        .ok_or_else(|| io::Error::new(io::ErrorKind::NotFound, p.to_string_lossy()))
+                })
+                .expect("Failed to resolve subregions");
+
+            let block = symgen.blocks().next().unwrap();
+            let block_subregions: Vec<&Subregion> = block
+                .subregions
+                .as_ref()
+                .expect("Block has no subregions?")
+                .iter()
+                .collect();
+            assert_eq!(block_subregions[0], &sub1);
+            assert_eq!(block_subregions[1], &sub2);
+        }
+
+        #[test]
+        fn test_recursive_collapse_subregions() {
+            let (name1, name2, name3) = ("sub1.yml", "sub2.yml", "sub3.yml");
+            let mut symgen = SymGen::read(
+                format!(
+                    r#"main:
+                    address: 0x0
+                    length: 0x100
+                    subregions:
+                      - {}
+                      - {}
+                    functions:
+                      - name: fn0
+                        address: 0x0
+                    data: []
+                    "#,
+                    name1, name2
+                )
+                .as_bytes(),
+            )
+            .expect("Failed to read SymGen");
+            let text1 = r#"sub1:
+                address: 0x0
+                length: 0x100
+                functions: []
+                data:
+                  - name: data1
+                    address: 0x10
+                    length: 0x4
+                "#;
+            let text2 = r#"sub2:
+                address: 0x0
+                length: 0x100
+                subregions:
+                  - sub3.yml
+                functions:
+                  - name: fn2
+                    address: 0x8
+                data:
+                  - name: data2
+                    address: 0x20
+                    length: 0x4
+                "#;
+            let text3 = r#"sub3:
+                address: 0x0
+                length: 0x100
+                functions:
+                  - name: fn3
+                    address: 0xC
+                data:
+                  - name: data3
+                    address: 0x30
+                    length: 0x4
+                "#;
+
+            let collapsed_symgen = SymGen::read(
+                r#"main:
+                address: 0x0
+                length: 0x100
+                functions:
+                  - name: fn0
+                    address: 0x0
+                  - name: fn2
+                    address: 0x8
+                  - name: fn3
+                    address: 0xC
+                data:
+                  - name: data1
+                    address: 0x10
+                    length: 0x4
+                  - name: data2
+                    address: 0x20
+                    length: 0x4
+                  - name: data3
+                    address: 0x30
+                    length: 0x4
+                "#
+                .as_bytes(),
+            )
+            .expect("Failed to read SymGen");
+
+            let root_dir = Path::new(file!());
+            let file_map: HashMap<PathBuf, String> = [
+                (root_dir.join(name1), text1.to_owned()),
+                (root_dir.join(name2), text2.to_owned()),
+                (
+                    root_dir.join(Subregion::subregion_dir(name2)).join(name3),
+                    text3.to_owned(),
+                ),
+            ]
+            .into();
+
+            symgen
+                .resolve_subregions(root_dir, |p| {
+                    file_map
+                        .get(p)
+                        .map(|s| s.as_bytes())
+                        .ok_or_else(|| io::Error::new(io::ErrorKind::NotFound, p.to_string_lossy()))
+                })
+                .expect("Failed to resolve subregions");
+
+            symgen.collapse_subregions();
+            assert_eq!(&symgen, &collapsed_symgen);
         }
     }
 }

@@ -4,30 +4,11 @@
 #define HEADERS_TYPES_COMMON_H_
 
 #include "enums.h"
-
-// Based on the code for vsprintf(3), it seems like va_list is implemented in the ARM9 binary
-// by just passing a pointer into the stack, so define va_list to be void*.
-typedef void* va_list;
-
-// A slice in the usual programming sense: a pointer, length, and capacity.
-// Used for the implementation of vsprintf(3), but maybe it's used elsewhere as well.
-struct slice {
-    void* data;        // Pointer to the data buffer
-    uint32_t capacity; // How much space is available in total
-    uint32_t length;   // How much space is currently filled
-};
-ASSERT_SIZE(struct slice, 12);
-
-// Function to append data to a struct slice, and return a success flag.
-typedef bool (*slice_append_fn_t)(struct slice* slice, void* data, uint32_t data_len);
-
-// This is essentially the standard (32-bit) Unix I/O vector struct.
-// It's used for file I/O and represents a buffer of data with a pointer and a length.
-struct iovec {
-    void* iov_base;
-    uint32_t iov_len;
-};
-ASSERT_SIZE(struct iovec, 8);
+#include "util.h"
+#include "../dungeon_mode/dungeon_mode_common.h"
+#include "file_io.h"
+#include "graphics.h"
+#include "../files/wan.h"
 
 // Program position info (basically stack trace info) for debug logging.
 struct prog_pos_info {
@@ -63,7 +44,7 @@ struct mem_block {
     uint32_t allocator_flags_unused : 28;
 
     // 0x8: Flags passed by the user to the memory allocator API functions when this block was
-    // allocated. The least significant byte are reserved for specifying the memory arena to use,
+    // allocated. The least significant byte is reserved for specifying the memory arena to use,
     // and have functionality determined by the arena locator function currently in use by the
     // game. The upper bytes are the same as the internal memory allocator flags
     // (just left-shifted by 8).
@@ -105,6 +86,10 @@ struct mem_alloc_table {
     struct mem_arena default_arena; // 0x4: The default memory arena for allocations
     // Not actually sure how long this array is, but has at least 4 elements, and can't have
     // more than 8 because it would overlap with default_arena.data
+    // The 4 known arenas are:
+    // - The default arena (used for most things, including dungeon mode)
+    // - Two ground mode arenas (used in some cases, but not all)
+    // - The sound data arena (used by the DSE sound engine)
     struct mem_arena* arenas[8]; // 0x20: Array of global memory arenas
 };
 ASSERT_SIZE(struct mem_alloc_table, 64);
@@ -120,109 +105,44 @@ struct mem_arena_getters {
 };
 ASSERT_SIZE(struct mem_arena_getters, 8);
 
-// This seems to be a simple structure used with utility functions related to managing items in
-// the player's bag and storage.
-struct owned_item {
-    enum item_id id : 16;
-    uint16_t amount; // Probably? This is a guess
+struct overlay_load_entry {
+    enum overlay_group_id group;
+    // These are function pointers, but not sure of the signature.
+    void* entrypoint;
+    void* destructor;
+    void* frame_update; // Possibly?
 };
-ASSERT_SIZE(struct owned_item, 4);
+ASSERT_SIZE(struct overlay_load_entry, 16);
 
-struct rect16_xywh {
-    int16_t x;
-    int16_t y;
-    int16_t w;
-    int16_t h;
+// This seems to be a simple structure used with utility functions related to managing items
+// in bulk, such as in the player's bag, storage, and Kecleon shops.
+struct bulk_item {
+    struct item_id_16 id;
+    uint16_t quantity; // Definitely in some contexts, but not verified in all
 };
-ASSERT_SIZE(struct rect16_xywh, 8);
+ASSERT_SIZE(struct bulk_item, 4);
 
-struct rgb {
-    uint8_t r;
-    uint8_t g;
-    uint8_t b;
+// Structure for dialog boxes?
+struct dialog_box {
+    undefined fields_0x0[12];
+    undefined* field_0xc; // Some struct pointer
+    undefined fields_0xd[208];
 };
-ASSERT_SIZE(struct rgb, 3);
+ASSERT_SIZE(struct dialog_box, 224);
 
-// The 4th byte may sometimes be used, and sometimes it is merely padding
-struct rgbx {
-    uint8_t r;
-    uint8_t b;
-    uint8_t g;
-    uint8_t x;
-};
-ASSERT_SIZE(struct rgbx, 4);
-
-// A structure that represents a file stream for file I/O.
-struct file_stream {
-    undefined4 field_0x0;
+// Represents a portrait that appears inside a dialogue box
+struct portrait_box {
+    struct monster_id_16 monster_id;
+    struct portrait_emotion_8 portrait_emotion;
+    undefined field_0x3;
     undefined4 field_0x4;
     undefined4 field_0x8;
-    undefined4 field_0xc;
-    undefined4 field_0x10;
-    undefined4 field_0x14;
-    undefined4 field_0x18;
-    undefined4 field_0x1c;
-    undefined4 field_0x20;
-    undefined4 field_0x24;
-    undefined4 field_0x28;
-    undefined4 field_0x2c;
-    undefined4 field_0x30;
-    undefined4 field_0x34;
-    undefined4 field_0x38;
-    undefined4 field_0x3c;
-    undefined4 field_0x40;
-    undefined4 field_0x44;
+    undefined field_0xc;
+    undefined field_0xd;
+    undefined field_0xe;
+    undefined field_0xf;
 };
-ASSERT_SIZE(struct file_stream, 72);
-
-/*  Handle to a memory-allocated WTE file.
-
-    The WTE file format is a simple file format found both in file directories
-    and in the ROM filesystem. This format specializes in storing texture data,
-    and is closely linked to the 3D engine, as well as the 3D resource manager!
-
-    While EoS is not a 3D game, the game still utilizes the 3D hardware to draw
-    graphics onto the screen. Examples of its usage are the Dungeon Mode GUI
-    (DUNGEON/dungeon.bin+0x3F4) and the fog (DUNGEON/dungeon.bin+0x401) */
-struct wte_handle {
-    void* content; // Pointer to the heap-allocated WTE data. Only stored for freeing the data
-    struct wte_header* header;
-};
-ASSERT_SIZE(struct wte_handle, 8);
-
-// These arguments are almost directly passed to the TEXIMAGE_PARAM register, just rearranged
-// For more information see:
-// https://problemkaputt.de/gbatek.htm#ds3dtextureattributes
-struct wte_texture_params {
-    uint8_t texture_smult : 3;
-    uint8_t texture_tmult : 3;
-    uint8_t unused6 : 2;
-    enum texture_format format : 3;
-    bool repeat_x : 1;
-    bool repeat_y : 1;
-    uint8_t unusedD : 3;
-};
-ASSERT_SIZE(struct wte_texture_params, 2);
-
-struct wte_header {
-    char signature[4];                // 0x0: Signature bytes (must be "\x57\x54\x45\x00")
-    void* texture;                    // 0x4
-    uint32_t texture_size;            // 0x8
-    struct wte_texture_params params; // 0xC
-    uint16_t _padding_0xe;
-    /*  These bounds are NOT used by the game, but they prove useful to extract the texture out
-        of the file. The offsets are redundant and should be zero
-
-        The width specified here should always be the same as the one specified in the texture
-        params, but the height may be lower. The reason is that just like the width, the height
-        needs to be a power of 2 in the range of 8..1024. The actual texture can have a lower
-        height, but not a lower width, as the width is required to properly read the image */
-    struct rect16_xywh texture_bounds; // 0x10
-    struct rgbx* palette;              // 0x18
-    uint16_t color_amt;                // 0x1C: How many colors are stored in the palette
-    uint16_t _padding_0x1e;
-};
-ASSERT_SIZE(struct wte_header, 32);
+ASSERT_SIZE(struct portrait_box, 16);
 
 // These flags are shared with the function to display text inside message boxes
 // So they might need a rename once more information is found
@@ -235,20 +155,15 @@ ASSERT_SIZE(struct preprocessor_flags, 4);
 
 // Represents arguments that might be passed to the PreprocessString function
 struct preprocessor_args {
-    uint32_t flag_vals[4]; // These are usually IDs with additional flags attached to them
-    uint32_t id_vals[5];
-    int32_t number_vals[5];
-    char* strings[5];
-    // An optional argument that is used to insert the name of a Pokémon
+    uint32_t flag_vals[4];  // 0x0: These are usually IDs with additional flags attached to them
+    uint32_t id_vals[5];    // 0x10
+    int32_t number_vals[5]; // 0x24
+    char* strings[5];       // 0x38
+    // 0x4C: An optional argument that is used to insert the name of a Pokémon
     // When they're talking through a message box. It requires it's respective flag to be on
     uint32_t speaker_id;
 };
 ASSERT_SIZE(struct preprocessor_args, 80);
-
-struct type_matchup_16 {
-    enum type_matchup val : 16;
-};
-ASSERT_SIZE(struct type_matchup_16, 2);
 
 // Type matchup table, not including TYPE_NEUTRAL.
 // Note that Ghost's immunities seem to be hard-coded elsewhere. In this table, both Normal and
@@ -262,21 +177,30 @@ struct type_matchup_table {
 };
 ASSERT_SIZE(struct type_matchup_table, 648);
 
+// Type matchup combinator table, for combining two type matchups into one.
+// This table is symmetric, and maps (type_matchup, type_matchup) -> type_matchup
+struct type_matchup_combinator_table {
+    enum type_matchup combination[4][4];
+};
+ASSERT_SIZE(struct type_matchup_combinator_table, 64);
+
 // In the move data, the target and range are encoded together in the first byte of a single
 // two-byte field. The target is the lower half, and the range is the upper half.
+#pragma pack(push, 2)
 struct move_target_and_range {
-    enum move_target : 4;
-    enum move_range : 4;
-    enum healing_move_type : 4;
+    enum move_target target : 4;
+    enum move_range range : 4;
+    enum move_ai_condition ai_condition : 4;
     uint16_t unused : 4; // At least I'm pretty sure this is unused...
 };
 ASSERT_SIZE(struct move_target_and_range, 2);
+#pragma pack(pop)
 
 // Data for a single move
 struct move_data {
     uint16_t base_power;                          // 0x0
-    enum type_id type : 8;                        // 0x2
-    enum move_category category : 8;              // 0x3
+    struct type_id_8 type;                        // 0x2
+    struct move_category_8 category;              // 0x3
     struct move_target_and_range target_range;    // 0x4
     struct move_target_and_range ai_target_range; // 0x6: Target/range as seen by the AI
     uint8_t pp;                                   // 0x8
@@ -284,8 +208,10 @@ struct move_data {
     // 0xA: Both accuracy values are used to calculate the move's actual accuracy.
     // See the PMD Info Spreadsheet.
     uint8_t accuracy1;
-    uint8_t accuracy2;            // 0xB
-    uint8_t field_0xc;            // unknown
+    uint8_t accuracy2; // 0xB
+    // 0xC: If this move has a random chance AI condition (see enum move_ai_condition),
+    // this is the chance that the AI will consider a potential target as elegible
+    uint8_t ai_condition_random_chance;
     uint8_t strikes;              // 0xD: Number of times the move hits (i.e. for multi-hit moves)
     uint8_t max_ginseng_boost;    // 0xE: Maximum possible Ginseng boost for this move
     uint8_t crit_chance;          // 0xF: The base critical hit chance
@@ -297,7 +223,7 @@ struct move_data {
     bool usable_while_taunted; // 0x14
     // 0x15: Index in the string files of the range string to be displayed in the move info screen
     uint8_t range_string_idx;
-    enum move_id id : 16; // 0x16
+    struct move_id_16 id; // 0x16
     // 0x18: Index in the string files of the message string to be displayed in the dungeon message
     // log when a move is used. E.g., the default (0) is "[User] used [move]!"
     uint16_t message_string_idx;
@@ -309,6 +235,719 @@ struct move_data_table {
     struct move_data entries[559];
 };
 ASSERT_SIZE(struct move_data_table, 14534);
+
+// Reduced version of dungeon_mode::move that stores less info
+// Dungeon mode might also use these entries sometimes
+struct ground_move {
+    // 0x0: flags: 1-byte bitfield
+    // See move::flags0 for details
+    bool f_exists : 1;
+    bool f_subsequent_in_link_chain : 1;
+    bool f_enabled_for_ai : 1;
+    bool f_set : 1;
+    bool f_last_used : 1; // unconfirmed, but probably the same as struct move
+    bool f_disabled : 1;
+    uint8_t flags_unk6 : 2;
+
+    undefined field_0x1;  // Probably padding since it doesn't get initialized
+    struct move_id_16 id; // 0x2
+    uint8_t ginseng;      // 0x4: Ginseng boost
+    undefined field_0x5;  // Probably padding since it doesn't get initialized
+};
+ASSERT_SIZE(struct ground_move, 6);
+
+// Used to store monster data in ground mode
+// (Team members in the assembly, guest pokémon, etc.)
+// Dungeon mode might also use these entries sometimes
+struct ground_monster {
+    bool is_valid;                 // 0x0: True if the entry is valid
+    int8_t level;                  // 0x1: Monster level
+    struct dungeon_id_8 joined_at; // 0x2
+    uint8_t joined_at_floor;       // 0x3: See struct monster::joined_at_floor
+    struct monster_id_16 id;       // 0x4: Monster ID
+    int8_t level_at_first_evo;     // 0x6: Level upon first evolution, or 0 if not applicable
+    int8_t level_at_second_evo;    // 0x7: Level upon second evolution, or 0 if not applicable
+    uint16_t iq;                   // 0x8
+    uint16_t max_hp;               // 0xA
+    int8_t atk;                    // 0xC
+    int8_t sp_atk;                 // 0xD
+    int8_t def;                    // 0xE
+    int8_t sp_def;                 // 0xF
+    int exp;                       // 0x10
+    // 0x14: Bitvector that keeps track of which IQ skills the monster has enabled.
+    // See enum iq_skill_id for the meaning of each bit.
+    uint32_t iq_skill_flags[3];
+    struct tactic_id_8 tactic; // 0x20
+    undefined field_0x21;
+    struct ground_move moves[4]; // 0x22
+    char name[10];               // 0x3A: Display name of the monster
+};
+ASSERT_SIZE(struct ground_monster, 68);
+
+// Stores information about active team members, including those from special episodes.
+// A lot of the fields seem to be analogous to fields on struct monster.
+struct team_member {
+    // 0x0: flags: 1-byte bitfield
+    bool f_is_valid : 1;
+    uint8_t flags_unk1 : 7;
+
+    bool is_leader;                // 0x1
+    uint8_t level;                 // 0x2
+    struct dungeon_id_8 joined_at; // 0x3
+    uint8_t joined_at_floor;       // 0x4
+    undefined field_0x5;
+    uint16_t iq;          // 0x6
+    int16_t member_index; // 0x8: Index in the list of all team members (not just the active ones)
+    int16_t team_index;   // 0xA: In order by team lineup
+    struct monster_id_16 id; // 0xC
+    uint16_t current_hp;     // 0xE
+    uint16_t max_hp;         // 0x10
+    int8_t atk;              // 0x12
+    int8_t sp_atk;           // 0x13
+    int8_t def;              // 0x14
+    int8_t sp_def;           // 0x15
+    undefined field_0x16;
+    undefined field_0x17;
+    int exp;              // 0x18
+    struct move moves[4]; // 0x1C
+    undefined field_0x3C;
+    undefined field_0x3D;
+    struct item held_item;         // 0x3E
+    int16_t belly;                 // 0x44: Integer part
+    int16_t belly_thousandths;     // 0x46
+    int16_t max_belly;             // 0x48: Integer part
+    int16_t max_belly_thousandths; // 0x4A
+    // 0x4C: Bitvector that keeps track of which IQ skills the monster has enabled.
+    // See enum iq_skill_id for the meaning of each bit.
+    uint32_t iq_skill_flags[3];
+    struct tactic_id_8 tactic; // 0x58
+    undefined field_0x59;
+    undefined field_0x5A;
+    undefined field_0x5B;
+    undefined field_0x5C;
+    undefined field_0x5D;
+    char name[10]; // 0x5E: Display name of the monster
+};
+ASSERT_SIZE(struct team_member, 104);
+
+// Table with information about all team members, which are active, and on which teams
+struct team_member_table {
+    // 0x0: List of all recruited team members. Appears to be in chronological order of recruitment.
+    //
+    // The first two entries are fixed to the hero and partner. The next three entries are reserved
+    // for special episode main characters, which differ (and will be updated here) depending on the
+    // special episode. For example, in SE5, the third entry becomes Grovyle, with the fourth and
+    // fifth entries becoming Dusknoir after progressing far enough into the special episode.
+    //
+    // Subsequent entries are normal recruits. If a member is released, all subsequent members will
+    // be shifted up, so there should be no gaps in the list.
+    struct ground_monster members[555];
+    // 0x936C: Currently active team members for each team, listed in team order. The first index is
+    // the team ID (see enum team_id), the second is the roster index within the given team.
+    //
+    // This struct is updated relatively infrequently. For example, in dungeon mode, it's typically
+    // only updated at the start of the floor; refer to DUNGEON_STRUCT instead for live data.
+    struct team_member active_team_rosters[3][4];
+    // 0x984C: Pointer into active_team_rosters for the currently active team, i.e.,
+    // &active_team_rosters[active_team]
+    struct team_member* active_roster;
+    undefined field_0x9850;
+    undefined field_0x9851;
+    undefined field_0x9852;
+    undefined field_0x9853;
+    undefined field_0x9854;
+    undefined field_0x9855;
+    // 0x9856: member indexes (into the members array) for the active rosters of each team
+    int16_t active_team_roster_member_idxs[3][4];
+    undefined field_0x986e;
+    undefined field_0x986f;
+    // 0x9870: Pointer into active_team_roster_member_idxs for the currently active team, i.e.,
+    // &active_team_roster_member_idxs[active_team]
+    int16_t* active_roster_member_idxs;
+    undefined field_0x9874;
+    undefined field_0x9875;
+    undefined field_0x9876;
+    struct team_id_8 active_team; // 0x9877: Currently active team
+};
+ASSERT_SIZE(struct team_member_table, 39032);
+
+// Contains information about a monster's level-up data at a certain level
+struct level_up_entry {
+    uint32_t total_exp; // 0x0: Total EXP required to reach this level
+    uint16_t hp;        // 0x4: HP increase
+    uint8_t atk;        // 0x6: Atk increase
+    uint8_t sp_atk;     // 0x7: Sp. Atk increase
+    uint8_t def;        // 0x8: Def increase
+    uint8_t sp_def;     // 0x9: Sp. Def increase
+    undefined field_0xA;
+    undefined field_0xB;
+};
+ASSERT_SIZE(struct level_up_entry, 12);
+
+// A common structure for pairs of dungeon/floor values
+struct dungeon_floor_pair {
+    struct dungeon_id_8 dungeon_id;
+    uint8_t floor_id;
+};
+ASSERT_SIZE(struct dungeon_floor_pair, 2);
+
+// Unknown struct included in the dungeon_init struct (see below)
+struct unk_dungeon_init {
+    undefined field_0x0;
+    undefined field_0x1;
+    undefined field_0x2;
+    undefined field_0x3;
+    undefined field_0x4;
+    undefined field_0x5;
+    undefined field_0x6;
+    undefined field_0x7;
+    undefined field_0x8;
+    undefined field_0x9;
+    undefined field_0xA;
+    undefined field_0xB;
+    undefined field_0xC;
+    undefined field_0xD;
+    undefined field_0xE;
+    undefined field_0xF;
+    undefined field_0x10;
+    undefined field_0x11;
+    undefined field_0x12;
+    undefined field_0x13;
+    undefined field_0x14;
+    undefined field_0x15;
+    undefined field_0x16;
+    undefined field_0x17;
+    undefined field_0x18;
+    undefined field_0x19;
+    undefined field_0x1A;
+    undefined field_0x1B;
+    undefined field_0x1C;
+    undefined field_0x1D;
+    undefined field_0x1E;
+    undefined field_0x1F;
+    undefined field_0x20;
+    undefined field_0x21;
+    undefined field_0x22;
+    undefined field_0x23;
+    undefined field_0x24;
+    undefined field_0x25;
+    undefined field_0x26;
+    undefined field_0x27;
+    undefined field_0x28;
+    undefined field_0x29;
+    undefined field_0x2A;
+    undefined field_0x2B;
+    undefined field_0x2C;
+    undefined field_0x2D;
+    undefined field_0x2E;
+    undefined field_0x2F;
+    undefined field_0x30;
+    undefined field_0x31;
+    undefined field_0x32;
+    undefined field_0x33;
+    undefined field_0x34;
+    undefined field_0x35;
+    undefined field_0x36;
+    undefined field_0x37;
+    undefined field_0x38;
+    undefined field_0x39;
+    undefined field_0x3A;
+    undefined field_0x3B;
+    undefined field_0x3C;
+    undefined field_0x3D;
+    undefined field_0x3E;
+    undefined field_0x3F;
+    undefined field_0x40;
+    undefined field_0x41;
+    undefined field_0x42;
+    undefined field_0x43;
+    undefined field_0x44;
+    undefined field_0x45;
+    undefined field_0x46;
+    undefined field_0x47;
+    undefined field_0x48;
+    undefined field_0x49;
+    undefined field_0x4A;
+    undefined field_0x4B;
+    undefined field_0x4C;
+    undefined field_0x4D;
+    undefined field_0x4E;
+    undefined field_0x4F;
+    undefined field_0x50;
+    undefined field_0x51;
+    undefined field_0x52;
+    undefined field_0x53;
+    undefined field_0x54;
+    undefined field_0x55;
+    undefined field_0x56;
+    undefined field_0x57;
+    undefined field_0x58;
+    undefined field_0x59;
+    undefined field_0x5A;
+    undefined field_0x5B;
+    undefined field_0x5C;
+    undefined field_0x5D;
+    undefined field_0x5E;
+    undefined field_0x5F;
+    undefined field_0x60;
+    undefined field_0x61;
+    undefined field_0x62;
+    undefined field_0x63;
+    undefined field_0x64;
+    undefined field_0x65;
+    undefined field_0x66;
+    undefined field_0x67;
+    undefined field_0x68;
+    undefined field_0x69;
+    undefined field_0x6A;
+    undefined field_0x6B;
+    undefined field_0x6C;
+    undefined field_0x6D;
+    undefined field_0x6E;
+    undefined field_0x6F;
+    undefined field_0x70;
+    undefined field_0x71;
+    undefined field_0x72;
+    undefined field_0x73;
+    undefined field_0x74;
+    undefined field_0x75;
+    undefined field_0x76;
+    undefined field_0x77;
+    undefined field_0x78;
+    undefined field_0x79;
+    undefined field_0x7A;
+    undefined field_0x7B;
+    undefined field_0x7C;
+    undefined field_0x7D;
+    undefined field_0x7E;
+    undefined field_0x7F;
+    undefined field_0x80;
+    undefined field_0x81;
+    undefined field_0x82;
+    undefined field_0x83;
+    undefined field_0x84;
+    undefined field_0x85;
+    undefined field_0x86;
+    undefined field_0x87;
+    undefined field_0x88;
+    undefined field_0x89;
+    undefined field_0x8A;
+    undefined field_0x8B;
+    undefined field_0x8C;
+    undefined field_0x8D;
+    undefined field_0x8E;
+    undefined field_0x8F;
+    undefined field_0x90;
+    undefined field_0x91;
+    undefined field_0x92;
+    undefined field_0x93;
+    undefined field_0x94;
+    undefined field_0x95;
+    undefined field_0x96;
+    undefined field_0x97;
+    undefined field_0x98;
+    undefined field_0x99;
+    undefined field_0x9A;
+    undefined field_0x9B;
+    undefined field_0x9C;
+    undefined field_0x9D;
+    undefined field_0x9E;
+    undefined field_0x9F;
+    undefined field_0xA0;
+    undefined field_0xA1;
+    undefined field_0xA2;
+    undefined field_0xA3;
+    undefined field_0xA4;
+    undefined field_0xA5;
+    undefined field_0xA6;
+    undefined field_0xA7;
+    undefined field_0xA8;
+    undefined field_0xA9;
+    undefined field_0xAA;
+    undefined field_0xAB;
+    undefined field_0xAC;
+    undefined field_0xAD;
+    undefined field_0xAE;
+    undefined field_0xAF;
+    undefined field_0xB0;
+    undefined field_0xB1;
+    undefined field_0xB2;
+    undefined field_0xB3;
+    undefined field_0xB4;
+    undefined field_0xB5;
+    undefined field_0xB6;
+    undefined field_0xB7;
+    undefined field_0xB8;
+    undefined field_0xB9;
+    undefined field_0xBA;
+    undefined field_0xBB;
+    undefined field_0xBC;
+    undefined field_0xBD;
+    undefined field_0xBE;
+    undefined field_0xBF;
+    undefined field_0xC0;
+    undefined field_0xC1;
+    undefined field_0xC2;
+    undefined field_0xC3;
+    undefined field_0xC4;
+    undefined field_0xC5;
+    undefined field_0xC6;
+    undefined field_0xC7;
+    undefined field_0xC8;
+    undefined field_0xC9;
+    undefined field_0xCA;
+    undefined field_0xCB;
+    undefined field_0xCC;
+    undefined field_0xCD;
+    undefined field_0xCE;
+    undefined field_0xCF;
+    undefined field_0xD0;
+    undefined field_0xD1;
+    undefined field_0xD2;
+    undefined field_0xD3;
+    undefined field_0xD4;
+    undefined field_0xD5;
+    undefined field_0xD6;
+    undefined field_0xD7;
+    undefined field_0xD8;
+    undefined field_0xD9;
+    undefined field_0xDA;
+    undefined field_0xDB;
+    undefined field_0xDC;
+    undefined field_0xDD;
+    undefined field_0xDE;
+    undefined field_0xDF;
+    undefined field_0xE0;
+    undefined field_0xE1;
+    undefined field_0xE2;
+    undefined field_0xE3;
+    undefined field_0xE4;
+    undefined field_0xE5;
+    undefined field_0xE6;
+    undefined field_0xE7;
+};
+ASSERT_SIZE(struct unk_dungeon_init, 232);
+
+// A struct used to init certain values in the dungeon struct when entering dungeon mode.
+// Gets initialized in ground mode.
+struct dungeon_init {
+    struct dungeon_id_8 id; // 0x0: Copied into dungeon::id
+    uint8_t floor;          // 0x1: Copied into dungeon::floor
+    // Copied into dungeon::field_0x74C, might be related to the dungeon being conquered or
+    // the fixed room overrides.
+    undefined2 field_0x2;
+    undefined field_0x4;
+    bool nonstory_flag;      // 0x5: Copied into dungeon::nonstory_flag
+    bool recruiting_enabled; // 0x6: Copied into dungeon::recruiting_enabled
+    // 0x7: If true, dungeon::recruiting_enabled gets set to false. Overrides recruiting_enabled.
+    bool force_disable_recruiting;
+    undefined field_0x8;            // Copied into dungeon::field_0x75A
+    undefined field_0x9;            // Copied into dungeon::field_0x75B
+    bool send_home_disabled;        // 0xA: Copied into dungeon::send_home_disabled
+    bool hidden_land_flag;          // 0xB: Copied into dungeon::hidden_land_flag
+    bool skip_faint_animation_flag; // 0xC: Copied into dungeon::skip_faint_animation_flag
+    // 0xD: Copied into dungeon::dungeon_objective. Read as a signed byte (?).
+    struct dungeon_objective_8 dungeon_objective;
+    int8_t field_0xE;
+    bool has_guest_pokemon; // 0xF: If true, a guest pokémon will be added to your team
+    bool send_help_item;    // 0x10: If true, you recive an item at the start of the dungeon
+    bool show_rescues_left; // 0x11: If true, you get a message saying how many rescue chances you
+                            // have left
+    undefined field_0x12;
+    undefined field_0x13;
+    // 0x14
+    // [EU]0x22DF920 loads this as a word
+    // [EU]0x22DFBAC loads this as a signed byte
+    // ???
+    undefined4 field_0x14; // Copied into dungeon::field_0x750
+    // 0x18: The dungeon PRNG preseed? Copied into dungeon::prng_preseed_23_bit and
+    // dungeon::rescue_prng_preseed_23_bit.
+    uint32_t prng_preseed_23_bit;
+    // 0x1C: Array containing the list of quest pokémon that will join the team in the dungeon
+    // (max 2)
+    struct ground_monster guest_pokemon[2];
+    // 0xA4: Used as a base address at [EU]0x22E0354 and [EU]0x22E03AC.
+    // It's probably a separate struct.
+    undefined field_0xA4;
+    undefined field_0xA5;
+    undefined field_0xA6;
+    undefined field_0xA7;
+    // 0xA8: ID of the item to give to the player if send_help_item is true
+    struct item_id_16 help_item;
+    undefined field_0xAA;
+    undefined field_0xAB;
+    // 0xAC: Controls which version of the dungeon to load. Gets copied into
+    // dungeon::dungeon_game_version_id. Uncertain when the game decides to load the
+    // Time/Darkness version of dungeons.
+    enum game_id dungeon_game_version_id;
+    undefined4 field_0xB0;
+    undefined field_0xB4; // Gets set to dungeon::id during dungeon init
+    undefined field_0xB5; // Gets set to dungeon::floor during dungeon init
+    undefined field_0xB6;
+    undefined field_0xB7;
+    // 0xB8: Used as a base address at [EU]0x22E0ABC.
+    // It's probably a separate struct.
+    undefined field_0xB8; // Gets set to dungeon::id during dungeon init
+    undefined field_0xB9; // Gets set to dungeon::floor during dungeon init
+    undefined field_0xBA;
+    undefined field_0xBB;
+    undefined4 field_0xBC;
+    // 0xC0: Used as a base address at [EU]0x22E0A4C
+    struct unk_dungeon_init field_0xC0;
+    undefined field_0x1A8;
+    // Probably padding, these bytes aren't accessed by the funtion that inits this struct
+    undefined field_0x1A9;
+    undefined field_0x1AA;
+    undefined field_0x1AB;
+};
+ASSERT_SIZE(struct dungeon_init, 428);
+
+// Unverified, ported from Irdkwia's notes
+struct dungeon_unlock_entry {
+    struct dungeon_id_8 dungeon_id;
+    uint8_t scenario_balance_min;
+};
+ASSERT_SIZE(struct dungeon_unlock_entry, 2);
+
+// Unverified, ported from Irdkwia's notes
+struct dungeon_return_status {
+    bool flag;
+    uint8_t _padding;
+    int16_t string_id;
+};
+ASSERT_SIZE(struct dungeon_return_status, 4);
+
+// Structure describing various player progress milestones?
+// Ported directly from Irdkwia's notes. The only confirmed thing is the struct size.
+struct global_progress {
+    undefined unk_pokemon_flags1[148];        // 0x0: unused
+    undefined field_0x94[4];                  // 0x94
+    undefined unk_pokemon_flags2[148];        // 0x98: used
+    undefined exclusive_pokemon_flags[23];    // 0x12C: partially used, only for Time/Darkness
+    undefined dungeon_max_reached_floor[180]; // 0x143: used
+    undefined field_0x1f7;                    // unused
+    undefined4 nb_adventures;                 // 0x1F8: used
+    undefined field_0x1fc[16];                // unknown/unused
+};
+ASSERT_SIZE(struct global_progress, 524);
+
+// The adventure log structure.
+struct adventure_log {
+    uint32_t completion_flags[4];            // 0x0
+    uint32_t nb_dungeons_cleared;            // 0x10
+    uint32_t nb_friend_rescues;              // 0x14
+    uint32_t nb_evolutions;                  // 0x18
+    uint32_t nb_eggs_hatched;                // 0x1C
+    uint32_t successful_steals;              // 0x20: Unused in Sky
+    uint32_t nb_faints;                      // 0x24
+    uint32_t nb_victories_on_one_floor;      // 0x28
+    uint32_t pokemon_joined_counter;         // 0x2C
+    uint32_t pokemon_battled_counter;        // 0x30
+    uint32_t moves_learned_counter;          // 0x34
+    uint32_t nb_big_treasure_wins;           // 0x38
+    uint32_t nb_recycled;                    // 0x3C
+    uint32_t nb_gifts_sent;                  // 0x40
+    uint32_t pokemon_joined_flags[37];       // 0x44
+    uint32_t pokemon_battled_flags[37];      // 0xD8
+    uint32_t moves_learned_flags[17];        // 0x16C
+    uint32_t items_acquired_flags[44];       // 0x1B0
+    uint32_t special_challenge_flags;        // 0x260
+    uint32_t sentry_duty_game_points[5];     // 0x264
+    struct dungeon_floor_pair current_floor; // 0x278
+    uint16_t padding;                        // 0x27A
+};
+ASSERT_SIZE(struct adventure_log, 636);
+
+struct exclusive_item_stat_boost_entry {
+    int8_t atk;
+    int8_t def;
+    int8_t sp_atk;
+    int8_t sp_def;
+};
+ASSERT_SIZE(struct exclusive_item_stat_boost_entry, 4);
+
+struct exclusive_item_effect_entry {
+    struct exclusive_item_effect_id_8 effect_id;
+    uint8_t foreign_idx; // Index into other tables
+};
+ASSERT_SIZE(struct exclusive_item_effect_entry, 2);
+
+struct rankup_table_entry {
+    undefined field_0x0;
+    undefined field_0x1;
+    undefined field_0x2;
+    undefined field_0x3;
+    int field_0x4;
+    int field_0x8;
+    int16_t field_0xc;
+    undefined field_0xe;
+    undefined field_0xf;
+};
+ASSERT_SIZE(struct rankup_table_entry, 16);
+
+// Contains the data for a single mission
+struct mission {
+    struct mission_status_8 status; // 0x0
+    struct mission_type_8 type;     // 0x1
+    union mission_subtype subtype;  // 0x2
+    undefined field_0x3;
+    struct dungeon_id_8 dungeon_id; // 0x4
+    uint8_t floor;                  // 0x5
+    undefined field_0x6;            // Likely padding
+    undefined field_0x7;            // Likely padding
+    int field_0x8;                  // 0x8, changing it seems to affect the text of the mission
+    undefined field_0xc;
+    undefined field_0xd;
+    struct monster_id_16 client; // 0xE
+    struct monster_id_16 target; // 0x10
+    int16_t field_0x12;
+    int16_t field_0x14;
+    struct mission_reward_type_8 reward_type; // 0x16
+    undefined field_0x17;
+    struct item_id_16 item_reward;                      // 0x18
+    struct mission_restriction_type_8 restriction_type; // 0x1A
+    undefined field_0x1b;
+    union mission_restriction restriction; // 0x1C
+    undefined field_0x1e;
+    undefined field_0x1f;
+};
+ASSERT_SIZE(struct mission, 32);
+
+struct mission_floors_forbidden {
+    uint8_t field_0x0;
+    uint8_t field_0x1;
+};
+ASSERT_SIZE(struct mission_floors_forbidden, 2);
+
+// Unverified, ported from Irdkwia's notes
+struct quiz_answer_points_entry {
+    undefined field_0x0;
+    undefined field_0x1;
+    undefined field_0x2;
+    undefined field_0x3;
+    undefined field_0x4;
+    undefined field_0x5;
+    undefined field_0x6;
+    undefined field_0x7;
+    undefined field_0x8;
+    undefined field_0x9;
+    undefined field_0xa;
+    undefined field_0xb;
+    undefined field_0xc;
+    undefined field_0xd;
+    undefined field_0xe;
+    undefined field_0xf;
+};
+ASSERT_SIZE(struct quiz_answer_points_entry, 16);
+
+// Unverified, ported from Irdkwia's notes
+struct status_description {
+    int16_t name_str_id;
+    int16_t desc_str_id;
+};
+ASSERT_SIZE(struct status_description, 4);
+
+// Unverified, ported from Irdkwia's notes
+struct forbidden_forgot_move_entry {
+    struct monster_id_16 monster_id;
+    struct dungeon_id_16 origin_id;
+    struct move_id_16 move_id;
+};
+ASSERT_SIZE(struct forbidden_forgot_move_entry, 6);
+
+struct version_exclusive_monster {
+    struct monster_id_16 id;
+    bool in_eot; // In Explorers of Time
+    bool in_eod; // In Explorers of Darkness
+};
+ASSERT_SIZE(struct version_exclusive_monster, 4);
+
+// An entry correspond to sprite loaded in memory and ready to be displayed
+struct wan_table_entry {
+    char path[32];                  // 0x0: Needs to be null-terminated. Only used for direct file.
+    bool file_externally_allocated; // 0x20: True if the iov_base shouldn’t be freed by this struct.
+    struct wan_source_type_8 source_type; // 0x21: 1 = direct file, 2 = pack file
+    int16_t pack_id;                      // 0x22: for wan in pack file
+    int16_t file_index;                   // 0x24: for wan in pack file
+    undefined field5_0x26;
+    undefined field6_0x27;
+    uint32_t iov_len;
+    // 0x2C: When removing a reference, if it reaches 0, the entry is removed (unless
+    // file_externally_allocated is true, as it is always removed even if there are remaining
+    // references)
+    int16_t reference_counter;
+    undefined field9_0x2e;
+    undefined field10_0x2f;
+    // 0x30: pointer to the beginning of the data section of iov_base.
+    struct wan_header* sprite_start;
+    void* iov_base; // 0x34: points to a sirO
+};
+ASSERT_SIZE(struct wan_table_entry, 56);
+
+// Global structure used to deduplicate loading of wan sprites. Loaded sprites are
+// reference-counted.
+struct wan_table {
+    struct wan_table_entry sprites[96]; // 0x0
+    void* at_decompress_scratch_space;  // 0x1500
+    undefined field2_0x1504;
+    undefined field3_0x1505;
+    undefined field4_0x1506;
+    undefined field5_0x1507;
+    int16_t total_nb_of_entries;  // 0x1508: The total number of entries. Should be equal to 0x60.
+    int16_t next_alloc_start_pos; // 0x150A
+    int16_t field8_0x150c;
+    undefined field9_0x150e;
+    undefined field10_0x150f;
+};
+ASSERT_SIZE(struct wan_table, 5392);
+
+// Store one boolean per vram bank
+struct vram_banks_set {
+    bool vram_A : 1;
+    bool vram_B : 1;
+    bool vram_C : 1;
+    bool vram_D : 1;
+    bool vram_E : 1;
+    bool vram_F : 1;
+    bool vram_G : 1;
+    bool vram_H : 1;
+    bool vram_I : 1;
+    uint8_t _unused : 7;
+};
+ASSERT_SIZE(struct vram_banks_set, 2);
+
+// Used as a parameter to SendAudioCommand. Includes data on which audio to play and how.
+struct audio_command {
+    // 0x0: Seems to be a value that marks the status of this entry. It's probably an enum, maybe a
+    // command ID. Seems to be 0 when the entry is not in use.
+    int status;
+    struct music_id_16 music_id; // 0x4: ID of the music to play
+    uint16_t volume;             // 0x6: Volume (0-255)
+    undefined2 field_0x8;
+    undefined field_0xA;
+    undefined field_0xB;
+    undefined field_0xC;
+    undefined field_0xD;
+    undefined field_0xE;
+    undefined field_0xF;
+    undefined field_0x10;
+    undefined field_0x11;
+    undefined field_0x12;
+    undefined field_0x13;
+    undefined field_0x14;
+    undefined field_0x15;
+    undefined field_0x16;
+    undefined field_0x17;
+    undefined field_0x18;
+    undefined field_0x19;
+    undefined field_0x1A;
+    undefined field_0x1B;
+    undefined field_0x1C;
+    undefined field_0x1D;
+    undefined field_0x1E;
+    undefined field_0x1F;
+};
+ASSERT_SIZE(struct audio_command, 32);
 
 // TODO: Add more data file structures, as convenient or needed, especially if the load address
 // or pointers to the load address are known.

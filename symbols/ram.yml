@@ -1,15 +1,15 @@
-arm9:
+ram:
   versions:
-    - NA
     - EU
+    - NA
     - JP
   address:
-    NA: 0x2000000
     EU: 0x2000000
+    NA: 0x2000000
     JP: 0x2000000
   length:
-    NA: 0x400000
     EU: 0x400000
+    NA: 0x400000
     JP: 0x400000
   description: |-
     Main memory.
@@ -18,24 +18,63 @@ arm9:
     More specifically, this file is a dumping ground for addresses that are useful to know about, but don't fall in the address ranges of any of the other files. Dynamically loaded constructs that do fall within the address range of a relevant binary should be listed in the corresponding YAML file of that binary, since it still has direct utility when reverse-engineering that particular binary.
   functions: []
   data:
+    - name: DEFAULT_MEMORY_ARENA_MEMORY
+      address:
+        NA: 0x20B4BC0
+      length:
+        NA: 0x1E6400
+      description: |-
+        The memory region for the default memory arena.
+        
+        The length is defined by DEFAULT_MEMORY_ARENA_SIZE.
+        
+        One mode that uses this region for heap allocations is dungeon mode.
+    - name: GROUND_MEMORY_ARENA_2
+      address:
+        NA: 0x2145A08
+      length:
+        NA: 0x1C
+      description: |-
+        This is a memory subarena under DEFAULT_MEMORY_ARENA used for some things in ground mode.
+        
+        It's used for user_flags 14.
+        
+        Including the allocator metadata, this arena occupies 0xB0000 bytes of space.
+        
+        type: struct mem_arena
+    - name: GROUND_MEMORY_ARENA_2_BLOCKS
+      address:
+        NA: 0x2145A24
+      length:
+        NA: 0x300
+      description: |-
+        The block array for GROUND_MEMORY_ARENA_2.
+        
+        type: struct mem_block[32]
+    - name: GROUND_MEMORY_ARENA_2_MEMORY
+      address:
+        NA: 0x2145D24
+      length:
+        NA: 0xAFCE4
+      description: The memory region for GROUND_MEMORY_ARENA_2.
     - name: DUNGEON_COLORMAP_PTR
       address:
-        NA: 0x21B9CF4
         EU: 0x21BA634
+        NA: 0x21B9CF4
       length:
-        NA: 0x4
         EU: 0x4
+        NA: 0x4
       description: |-
         Pointer to a colormap used to render colors in a dungeon.
         
         The colormap is a list of 4-byte RGB colors of the form {R, G, B, padding}, which the game indexes into when rendering colors. Some weather conditions modify the colormap, which is how the color scheme changes when it's, e.g., raining.
     - name: DUNGEON_STRUCT
       address:
-        NA: 0x21B9D34
         EU: 0x21BA674
+        NA: 0x21B9D34
       length:
-        NA: 0x2CB14
         EU: 0x2CB14
+        NA: 0x2CB14
       description: |-
         The dungeon context struct used for tons of stuff in dungeon mode. See struct dungeon in the C headers.
         
@@ -44,8 +83,10 @@ arm9:
         type: struct dungeon
     - name: MOVE_DATA_TABLE
       address:
+        EU: 0x2211D0C
         NA: 0x22113CC
       length:
+        EU: 0x38C6
         NA: 0x38C6
       description: |-
         The move data table loaded directly from /BALANCE/waza_p.bin. See struct move_data_table in the C headers.
@@ -53,19 +94,55 @@ arm9:
         Pointed to by MOVE_DATA_TABLE_PTR in the ARM 9 binary.
         
         type: struct move_data_table
+    - name: SOUND_MEMORY_ARENA
+      address:
+        NA: 0x224EFA0
+      length:
+        NA: 0x1C
+      description: |-
+        This is a memory subarena under DEFAULT_MEMORY_ARENA that seems to be used exclusively for sound data.
+        
+        Including allocator metadata, this subarena occupies 0x3C000 bytes of space within the default arena.
+        
+        It's referenced by various sound functions like LoadDseFile, PlaySeLoad, and PlayBgm when allocating memory.
+        
+        type: struct mem_arena
+    - name: SOUND_MEMORY_ARENA_BLOCKS
+      address:
+        NA: 0x224EFBC
+      length:
+        NA: 0x1E0
+      description: |-
+        The block array for SOUND_MEMORY_ARENA.
+        
+        type: struct mem_block[20]
+    - name: SOUND_MEMORY_ARENA_MEMORY
+      address:
+        NA: 0x224F19C
+      length:
+        NA: 0x3BE04
+      description: |-
+        The memory region for SOUND_MEMORY_ARENA.
+        
+        This region appears to be used for sound-related heap allocations, like when loading sound files into memory.
     - name: FRAMES_SINCE_LAUNCH
       address:
+        EU:
+          - 0x22A3E8C
+          - 0x22A3EDC
         NA:
           - 0x22A354C
           - 0x22A359C
-          - 0x22B99C4
       length:
+        EU: 0x4
         NA: 0x4
-      description: "Starts and 0 when the game is first launched, and continuously ticks up (presumably once per frame) while the game is running."
+      description: "Starts at 0 when the game is first launched, and continuously ticks up once per frame while the game is running."
     - name: BAG_ITEMS
       address:
+        EU: 0x22A4164
         NA: 0x22A3824
       length:
+        EU: 0x12C
         NA: 0x12C
       description: |-
         Array of item structs within the player's bag.
@@ -75,25 +152,31 @@ arm9:
         type: struct item[50]
     - name: BAG_ITEMS_PTR
       address:
+        EU: 0x22A44E8
         NA: 0x22A3BA8
       length:
+        EU: 0x4
         NA: 0x4
       description: Pointer to BAG_ITEMS.
     - name: STORAGE_ITEMS
       address:
+        EU: 0x22A44EE
         NA: 0x22A3BAE
       length:
+        EU: 0x7D0
         NA: 0x7D0
       description: |-
         Array of item IDs in the player's item storage.
         
         For stackable items, the quantities are stored elsewhere, in STORAGE_ITEM_QUANTITIES.
         
-        type: {enum item_id:16}[1000]
+        type: struct item_id_16[1000]
     - name: STORAGE_ITEM_QUANTITIES
       address:
+        EU: 0x22A4CBE
         NA: 0x22A437E
       length:
+        EU: 0x7D0
         NA: 0x7D0
       description: |-
         Array of 1000 2-byte (unsigned) quantities corresponding to the item IDs in STORAGE_ITEMS.
@@ -101,62 +184,138 @@ arm9:
         If the corresponding item ID is not a stackable item, the entry in this array is unused, and will be 0.
     - name: KECLEON_SHOP_ITEMS_PTR
       address:
+        EU: 0x22A5490
         NA: 0x22A4B50
       length:
+        EU: 0x4
         NA: 0x4
       description: Pointer to KECLEON_SHOP_ITEMS.
     - name: KECLEON_SHOP_ITEMS
       address:
+        EU: 0x22A5494
         NA: 0x22A4B54
       length:
+        EU: 0x20
         NA: 0x20
       description: |-
-        Array of up to 8 items in the Kecleon Shop of the form {enum item_id:16, uint16_t quantity}.
+        Array of up to 8 items in the Kecleon Shop.
         
         If there are fewer than 8 items, the array is expected to be null-terminated.
+        
+        type: struct bulk_item[8]
     - name: UNUSED_KECLEON_SHOP_ITEMS
       address:
+        EU: 0x22A54B4
         NA: 0x22A4B74
       length:
+        EU: 0x20
         NA: 0x20
       description: "Seems to be another array like KECLEON_SHOP_ITEMS, but don't actually appear to be used by the Kecleon Shop."
     - name: KECLEON_WARES_ITEMS_PTR
       address:
+        EU: 0x22A54D4
         NA: 0x22A4B94
       length:
+        EU: 0x4
         NA: 0x4
       description: Pointer to KECLEON_WARES_ITEMS.
     - name: KECLEON_WARES_ITEMS
       address:
+        EU: 0x22A54D8
         NA: 0x22A4B98
       length:
+        EU: 0x10
         NA: 0x10
       description: |-
-        Array of up to 4 items in Kecleon Wares of the form {enum item_id:16, uint16_t quantity}.
+        Array of up to 4 items in Kecleon Wares.
         
         If there are fewer than 4 items, the array is expected to be null-terminated.
+        
+        type: struct bulk_item[4]
     - name: UNUSED_KECLEON_WARES_ITEMS
       address:
+        EU: 0x22A54E8
         NA: 0x22A4BA8
       length:
+        EU: 0x10
         NA: 0x10
       description: "Seems to be another array like KECLEON_WARES_ITEMS, but don't actually appear to be used by Kecleon Wares."
     - name: MONEY_CARRIED
       address:
+        EU: 0x22A54F8
         NA: 0x22A4BB8
       length:
+        EU: 0x4
         NA: 0x4
       description: The amount of money the player is currently carrying.
     - name: MONEY_STORED
       address:
+        EU: 0x22A5504
         NA: 0x22A4BC4
       length:
+        EU: 0x4
         NA: 0x4
       description: The amount of money the player currently has stored in the Duskull Bank.
+    - name: AUDIO_COMMANDS_BUFFER
+      address:
+        EU: 0x22A5599
+        NA: 0x22A4C50
+      length:
+        EU: 0x200
+        NA: 0x200
+      description: Buffer used to store audio commands. 16 entries in total. Seems like entries are removed at some point (maybe after the commands are read or after they finish executing).
+    - name: CURSOR_16_SPRITE_ID
+      address:
+        EU: 0x22AB5A4
+      length:
+        EU: 0x2
+      description: "Id of the \"FONT/cursor_16.wan\" sprite loaded in WAN_TABLE"
+    - name: CURSOR_SPRITE_ID
+      address:
+        EU: 0x22AB5A6
+      length:
+        EU: 0x2
+      description: "Id of the \"FONT/cursor.wan\" sprite loaded in WAN_TABLE"
+    - name: CURSOR_ANIMATION_CONTROL
+      address:
+        EU: 0x22AB5C0
+      length:
+        EU: 0x7C
+      description: "animation_control of \"FONT/cursor.wan\""
+    - name: CURSOR_16_ANIMATION_CONTROL
+      address:
+        EU: 0x22AB63C
+      length:
+        EU: 0x7C
+      description: "animation_control of \"FONT/cursor_16.wan\""
+    - name: ALERT_SPRITE_ID
+      address:
+        EU: 0x22AB6B8
+      length:
+        EU: 0x2
+      description: "Id of the \"FONT/alert.wan\" sprite loaded in WAN_TABLE"
+    - name: ALERT_ANIMATION_CONTROL
+      address:
+        EU: 0x22AB6BC
+      length:
+        EU: 0x7C
+      description: "animation_control of \"FONT/alter.wan\""
+    - name: SOUND_MEMORY_ARENA_PTR
+      address:
+        NA: 0x22A4E54
+      length:
+        NA: 0x4
+      description: Pointer to SOUND_MEMORY_ARENA.
+    - name: DIALOG_BOX_LIST
+      address:
+        NA: 0x22A88DC
+      description: Array of allocated dialog box structs.
     - name: LAST_NEW_MOVE
       address:
+        EU: 0x22AB78C
         NA: 0x22AAE4C
       length:
+        EU: 0x8
         NA: 0x8
       description: |-
         Move struct of the last new move introduced when learning a new move. Persists even after the move selection is made in the menu.
@@ -164,33 +323,38 @@ arm9:
         type: struct move
     - name: SCRIPT_VARS_VALUES
       address:
-        NA: 0x22AB0AC
         EU: 0x22AB9EC
+        NA: 0x22AB0AC
       length:
-        NA: 0x2B4
-        EU: 0x2B4
-      description: The table of game variable values. Its structure is determined by SCRIPT_VARS.
+        EU: 0x400
+        NA: 0x400
+      description: |-
+        The table of game variable values. Its structure is determined by SCRIPT_VARS.
+        
+        Note that with the script variable list defined in SCRIPT_VARS, the used length of this table is actually only 0x2B4. However, the real length of this table is 0x400 based on the game code.
+        
+        type: struct script_var_value_table
     - name: BAG_LEVEL
       address:
+        EU: 0x22ABA9C
         NA: 0x22AB15C
       length:
+        EU: 0x1
         NA: 0x1
       description: "The player's bag level, which determines the bag capacity. This indexes directly into the BAG_CAPACITY_TABLE in the ARM9 binary."
     - name: DEBUG_SPECIAL_EPISODE_NUMBER
       address:
-        NA: 0x22AB4AC
         EU: 0x22ABDEC
+        NA: 0x22AB4AC
       length:
-        NA: 0x1
         EU: 0x1
+        NA: 0x1
       description: |-
         The number of the special episode currently being played.
         
-        0: normal, Bidoof's Wish
-        1: Igglybuff the Prodigy
-        2: Today's "Oh My Gosh"
-        3: Here Comes Team Charm!
-        4: In the Future of Darkness
+        This backs the EXECUTE_SPECIAL_EPISODE_TYPE script variable.
+        
+        type: struct special_episode_type_8
     - name: KAOMADO_STREAM
       address:
         NA: 0x22AB4B0
@@ -202,37 +366,47 @@ arm9:
         type: struct file_stream
     - name: PENDING_DUNGEON_ID
       address:
+        EU: 0x22ABE3C
         NA: 0x22AB4FC
       length:
+        EU: 0x1
         NA: 0x1
       description: |-
         The ID of the selected dungeon when setting off from the overworld.
         
         Controls the text and map location during the "map cutscene" just before entering a dungeon, as well as the actual dungeon loaded afterwards.
         
-        type: enum dungeon_id:8
+        type: struct dungeon_id_8
     - name: PENDING_STARTING_FLOOR
       address:
+        EU: 0x22ABE3D
         NA: 0x22AB4FD
       length:
+        EU: 0x1
         NA: 0x1
       description: The floor number to start from in the dungeon specified by PENDING_DUNGEON_ID.
     - name: PLAY_TIME_SECONDS
       address:
+        EU: 0x22ABFD4
         NA: 0x22AB694
       length:
+        EU: 0x4
         NA: 0x4
       description: "The player's total play time in seconds."
     - name: PLAY_TIME_FRAME_COUNTER
       address:
+        EU: 0x22ABFD8
         NA: 0x22AB698
       length:
+        EU: 0x1
         NA: 0x1
       description: "Counts from 0-59 in a loop, with the play time being incremented by 1 second with each rollover."
     - name: TEAM_NAME
       address:
+        EU: 0x22AC258
         NA: 0x22AB918
       length:
+        EU: 0xC
         NA: 0xC
       description: |-
         The team name.
@@ -240,82 +414,149 @@ arm9:
         A null-terminated string, with a maximum length of 10. Presumably encoded with the ANSI/Shift JIS encoding the game typically uses.
         
         This is presumably part of a larger struct, together with other nearby data.
-    - name: HERO_SPECIES_ID
+    - name: LEVEL_UP_DATA_MONSTER_ID
       address:
-        NA: 0x22ABDE4
+        EU: 0x22AC26C
+        NA: 0x22AB92C
       length:
+        EU: 0x2
+        NA: 0x2
+      description: ID of the monster whose level-up data is currently stored in LEVEL_UP_DATA_DECOMPRESS_BUFFER.
+    - name: LEVEL_UP_DATA_DECOMPRESS_BUFFER
+      address:
+        EU: 0x22AC270
+        NA: 0x22AB930
+      length:
+        EU: 0x4B0
+        NA: 0x4B0
+      description: |-
+        Buffer used to stored a monster's decompressed level up data. Used by GetLvlUpEntry.
+        
+        Exact size is a guess (100 levels * 12 bytes per entry = 1200 = 0x4B0).
+    - name: TEAM_MEMBER_TABLE
+      address:
+        EU: 0x22AC720
+        NA: 0x22ABDE0
+      length:
+        EU: 0x9878
+        NA: 0x9878
+      description: |-
+        Table with all team members, persistent information about them, and information about which ones are currently active.
+        
+        See the comments on struct team_member_table for more information.
+        
+        type: struct team_member_table
+    - name: ENABLED_VRAM_BANKS
+      address:
+        EU: 0x22B9ECC
+        NA: 0x22B958C
+      length:
+        EU: 0x2
         NA: 0x2
       description: |-
-        The hero's species ID.
+        Bitset of enabled VRAM banks
         
-        This is presumably part of a larger struct, together with other nearby data.
-        
-        type: enum monster_id:16
-    - name: HERO_NICKNAME
+        type: vram_banks_set
+    - name: FRAMES_SINCE_LAUNCH_TIMES_THREE
       address:
-        NA: 0x22ABE1A
+        EU: 0x22BA304
+        NA: 0x22B99C4
       length:
-        NA: 0xA
-      description: |-
-        The hero's nickname.
-        
-        A null-terminated string, with a maximum length of 10. Presumably encoded with the ANSI/Shift JIS encoding the game typically uses.
-        
-        This is presumably part of a larger struct, together with other nearby data.
-    - name: PARTNER_SPECIES_ID
+        EU: 0x4
+        NA: 0x4
+      description: "Starts at 0 when the game is first launched, and ticks up by 3 per frame while the game is running."
+    - name: GROUND_MEMORY_ARENA_1_PTR
       address:
-        NA: 0x22ABE28
+        NA: 0x2324CB4
       length:
-        NA: 0x2
-      description: |-
-        The partner's species ID.
-        
-        This is presumably part of a larger struct, together with other nearby data.
-        
-        type: enum monster_id:16
-    - name: LEADER_IQ_SKILLS
+        NA: 0x4
+      description: Pointer to GROUND_MEMORY_ARENA_1.
+    - name: GROUND_MEMORY_ARENA_2_PTR
       address:
-        NA: 0x22B5198
+        NA: 0x2324CB8
       length:
-        NA: 0xC
-      description: |-
-        Unlocked IQ skills of the current leader, available for selection from the IQ skills menu.
-        
-        One bit per skill (1 if unlocked). Same format as the IQ skills bitvector on the monster info struct.
-        
-        This is presumably part of a larger struct, together with other nearby data.
-    - name: LEADER_NICKNAME
+        NA: 0x4
+      description: Pointer to GROUND_MEMORY_ARENA_2.
+    - name: GROUND_MEMORY_ARENA_1
       address:
-        NA: 0x22B51AA
+        NA: 0x2324FC0
       length:
-        NA: 0xA
+        NA: 0x1C
       description: |-
-        The current leader's nickname.
+        This is a top-level memory arena used for some things in ground mode.
         
-        A null-terminated string, with a maximum length of 10. Presumably encoded with the ANSI/Shift JIS encoding the game typically uses.
+        It's used for user_flags 8, 15, and 16.
         
-        This is presumably part of a larger struct, together with other nearby data.
-    - name: PARTY_MEMBER_2_IQ_SKILLS
+        Including the allocator metadata, this arena occupies 0x64000 bytes of space.
+        
+        type: struct mem_arena
+    - name: GROUND_MEMORY_ARENA_1_BLOCKS
       address:
-        NA: 0x22B5200
+        NA: 0x2324FDC
       length:
-        NA: 0xC
+        NA: 0x4E0
       description: |-
-        Unlocked IQ skills of the second party member, available for selection from the IQ skills menu.
+        The block array for GROUND_MEMORY_ARENA_1.
         
-        One bit per skill (1 if unlocked). Same format as the IQ skills bitvector on the monster info struct.
-        
-        This is presumably part of a larger struct, together with other nearby data.
+        type: struct mem_block[52]
+    - name: GROUND_MEMORY_ARENA_1_MEMORY
+      address:
+        NA: 0x23254BC
+      length:
+        NA: 0x63B04
+      description: The memory region for GROUND_MEMORY_ARENA_1.
+    - name: SENTRY_DUTY_STRUCT
+      address:
+        NA: 0x237A5D0
+      length:
+        NA: 0x38D4
     - name: TURNING_ON_THE_SPOT_FLAG
       address:
+        EU: 0x237D5A6
         NA: 0x237C9A6
       length:
+        EU: 0x1
         NA: 0x1
       description: "[Runtime] Flag for whether the player is turning on the spot (pressing Y)."
+    - name: LOADED_ATTACK_SPRITE_DATA
+      address:
+        EU: 0x237D5AC
+      length:
+        EU: 0x4
+      description: |-
+        [Runtime] Pointer to the dynamically allocated structure relating to the currently loaded attack sprite, in dungeon mode.
+        
+        type: struct loaded_attack_sprite_data*
+    - name: ROLLOUT_ICE_BALL_MISSED
+      address:
+        NA: 0x237CA69
+      length:
+        NA: 0x1
+      description: "[Runtime] Appears to be set to true whenever a hit from Rollout or Ice Ball fails to deal damage."
+    - name: ROLLOUT_ICE_BALL_SUCCESSIVE_HITS
+      address:
+        NA: 0x237CA70
+      length:
+        NA: 0x4
+      description: "[Runtime] Seems to count the number of successive hits by Rollout or Ice Ball."
+    - name: TRIPLE_KICK_SUCCESSIVE_HITS
+      address:
+        NA: 0x237CA7C
+      length:
+        NA: 0x4
+      description: "[Runtime] Seems to count the number of successive hits by Triple Kick."
+    - name: METRONOME_NEXT_INDEX
+      address:
+        NA: 0x237CA88
+      length:
+        NA: 0x4
+      description: "[Runtime] The index into METRONOME_TABLE for the next usage of Metronome."
     - name: FLOOR_GENERATION_STATUS
       address:
+        EU: 0x237DBBC
         NA: 0x237CFBC
       length:
+        EU: 0x40
         NA: 0x40
       description: |-
         [Runtime] Status data related to generation of the current floor in a dungeon.

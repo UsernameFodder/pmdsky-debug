@@ -1,14 +1,16 @@
 overlay7:
   versions:
-    - NA
     - EU
+    - NA
     - JP
   address:
-    NA: 0x233CA80
     EU: 0x233D200
+    NA: 0x233CA80
+    JP: 0x233E300
   length:
-    NA: 0x5100
     EU: 0x3300
+    NA: 0x5100
+    JP: 0x53E0
   description: "Controls the Nintendo WFC submenu within the top menu (under \"Other\")."
   functions: []
   data: []

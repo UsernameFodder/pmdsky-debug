@@ -2,6 +2,9 @@
 - [Using Debug Info from `pmdsky-debug`](#using-debug-info-from-pmdsky-debug)
   - [Ghidra](#ghidra)
     - [Symbols](#symbols)
+      - [Using the built-in import script](#using-the-built-in-import-script)
+      - [Using the custom `pmdsky-debug` import script](#using-the-custom-pmdsky-debug-import-script)
+      - [Using the NTRGhidra import script](#using-the-ntrghidra-import-script)
     - [C headers (types and function signatures)](#c-headers-types-and-function-signatures)
       - [Applying types manually](#applying-types-manually)
       - [Enums](#enums)
@@ -14,19 +17,48 @@
 Ghidra can load both symbols and C source code. These instructions assume a specific Ghidra setup. See the preceding steps in [Setting up Ghidra for _Pokémon Mystery Dungeon: Explorers of Sky_](ghidra-setup.md) first.
 
 ### Symbols
+There are two options for importing `pmdsky-debug` symbols into Ghidra: with the built-in import script (easier) or with a custom one from `pmdsky-debug` (better). Using the built-in script requires slightly less setup, but won't import symbol descriptions, whereas the custom `pmdsky-debug` importer will create plate comments containing the symbol descriptions. The two options are otherwise equivalent.
+
+If you used [NTRGhidra](https://github.com/pedro-javierf/NTRGhidra) to set up your project, you must use a special import script. See [Using the NTRGhidra import script](#using-the-ntrghidra-import-script).
+
+#### Using the built-in import script
 1. Download `symbols-ghidra.zip` from the [latest release package](https://github.com/UsernameFodder/pmdsky-debug/releases/latest) and extract the archive.
 2. In the Ghidra code browser, open the script manager (Window > Script Manager in the menu, or by clicking the image in the top toolbar).
 3. Search for "ImportSymbolsScript.py".
 
    ![ImportSymbolsScript.py](images/ghidra-import-symbols-script.png)
 
-4. When you run the script, it will open a file picker window. Run the import script on each of the `.ghidra` files in the `pmdsky-debug` archive (pick the version subdirectory that matches your ROM) that correspond to a binary you've loaded into the Ghidra program. Alternatively, you can concatenate the contents of all the relevant `.ghidra` files into a single, combined `.ghidra` file and just run the import script once on that file. For example, a combined `.ghidra` file for a North American ROM might look like this:
+4. When you run the script, it will open a file picker window. Run the import script on each of the `.ghidra` files in the `pmdsky-debug` archive that correspond to a binary you've loaded into the Ghidra program (pick the version subdirectory that matches your ROM). **Do _not_ blanket-load every single file**, as this will cause incorrect symbols to be applied (due to [overlays](overlays.md)), which is difficult to correct later.
+
+   Alternatively, you can concatenate the contents of all the relevant `.ghidra` files into a single, combined `.ghidra` file and just run the import script once on that file. For example, a combined `.ghidra` file for a North American ROM might look like this:
 
    ![Example Ghidra symbol table](images/ghidra-symbol-file.png)
 
 5. You should now see symbol names in the code listing and the decompiler:
 
    ![Symbol names in Ghidra](images/ghidra-symbols.png)
+
+#### Using the custom `pmdsky-debug` import script
+1. Download `symbols-json.zip` from the [latest release package](https://github.com/UsernameFodder/pmdsky-debug/releases/latest) and extract the archive.
+2. In the Ghidra code browser, open the script manager (Window > Script Manager in the menu, or by clicking the image in the top toolbar).
+3. Add [`import_symbols_json.py`](../tools/ghidra_scripts/import_symbols_json.py) to the Ghidra Script Manager. There are two ways to do this:
+    1. [Preferred] Add a script directory containing the file (e.g., the `pmdsky-debug/tools/ghidra_scripts` directory) with the "Manage Script Directories" button.
+
+       ![Manage Script Directories](images/ghidra-manage-script-directories.png)
+
+    2. Create a new script with the "Create New Script" button and manually copy the code into the editor (select "Python" for the script type and name it `import_symbols_json.py`).
+
+       ![Create New Script](images/ghidra-create-new-script.png)
+
+4. Search for the "import_symbols_json.py" script you just added and run it. When you run the script, it will open a file picker window. Run the import script on each of the `.json` files in the `pmdsky-debug` archive that correspond to a binary you've loaded into the Ghidra program (pick the version subdirectory that matches your ROM). **Do _not_ blanket-load every single file**, as this will cause incorrect symbols to be applied (due to [overlays](overlays.md)), which is difficult to correct later.
+5. You should now see symbol names and descriptions in the code listing and the decompiler:
+
+   ![Symbol names and descriptions in Ghidra](images/ghidra-symbols-with-descriptions.png)
+
+#### Using the NTRGhidra import script
+Importing into an NTRGhidra project is essentially the same as [using the custom `pmdsky-debug` import script](#using-the-custom-pmdsky-debug-import-script), with the following differences:
+1. Use [`import_symbols_ntr_ghidra.py`](../tools/ghidra_scripts/import_symbols_ntr_ghidra.py) rather than `import_symbols_json.py`.
+2. When the script opens the file picker window, select the version subdirectory within the `symbols-json` archive that matches your ROM (e.g., `symbols-json/NA/` for the North American version), rather than a specific JSON file. The script will import symbols from all the relevant files at once.
 
 ### C headers (types and function signatures)
 Importing C headers is best done after importing symbols, so make sure you've followed the steps in the [previous section](#symbols) before proceeding with this section.
@@ -39,7 +71,7 @@ Importing C headers is best done after importing symbols, so make sure you've fo
     3. Leave the parse options as the defaults.
 4. Click "Parse to Program" and the confirmations in the popups that follow to begin parsing. Some notes:
     1. Annoyingly, sometimes the "Parsing C" loading window can pop up before you've hit all the confirmations, and actually obscure a confirmation window. Make sure you check that there's nothing behind this window (otherwise you'll be waiting forever).
-    2. The Ghidra parser is _slow_, and parsing can easily take over an hour (mainly because the `dungeon.h` header file is so large), so after you've started the parser and see the "Parsing C" loading window (it might be hidden by the configuration window), I recommend doing something else in the meantime while you wait. Alternatively, if you don't need the dungeon struct (or you've loaded it previously and nothing has changed), you can add `-DOMIT_LARGE_FILES` to the "Parse Options" box to skip parsing that file, which should reduce the load time to a few seconds.
+    2. The load time shouldn't take more than a few seconds to a minute.
 
        ![Parsing C loading window](images/ghidra-parsing-c.png)
 
@@ -87,8 +119,6 @@ This is something to be aware of while reading decompiled code. If a field looks
 ### Subsequent imports
 As `pmdsky-debug` is updated, you might want to import the latest debug information into your project. Ghidra is pretty good about checking for repeated information when you import things, so if you've already imported a previous version of the debug info, you should be able to just follow the above steps for importing symbols and headers with the latest `pmdsky-debug` package to add incremental changes. (Although if there are changes to existing things in the debug info rather than just new additions, you might have to do some manual cleanup afterwards.)
 
-If there have been no changes to `dungeon.h` since the last time you imported the C headers, you can also add `-DOMIT_LARGE_FILES` to the "Parse Options" box. This will skip importing `dungeon.h`, which should reduce import times significantly (from about an hour to a few seconds).
-
 ## No$GBA
 The No$GBA debugger supports loading symbol names from a `.sym` file.
 
@@ -97,7 +127,8 @@ The No$GBA debugger supports loading symbol names from a `.sym` file.
 
    ![Example ROM file with its accompanying symbol table](images/nocash-files.png)
 
-3. Figure out which [overlays](overlays.md) will be loaded during the gameplay that you're debugging with No$GBA. Copy the contents of all the corresponding `.sym` files from the `pmdsky-debug` archive (pick the version subdirectory that matches your ROM) into the `.sym` file you just created, concatenating the lines of the different files together. Along with the overlays, you'll always want to include the contents of `arm9.yml`, and if relevant you might also want to include the contents of `ram.yml`. For example, a `.sym` file for a North American ROM might look like this:
+3. Locate which subdirectories you will have to use, which depends on the version of your ROM. You will need the files from all the subdirectories starting with your ROM's version identifier. For example, if you're working with an North American ROM, you'll need the files under the `NA` and `NA-ITCM` subdirectories.
+4. Figure out which [overlays](overlays.md) will be loaded during the gameplay that you're debugging with No$GBA. Copy the contents of all the corresponding `.sym` files from each one of the relevant subdirectories into the `.sym` file you just created, concatenating the lines of the different files together. Make sure to start copying from the `xx-ITCM` subdirectory first. Along with the overlays, you'll always want to include the contents of `arm9_xx.sym`, and if relevant you might also want to include the contents of `ram_xx.sym`. For example, a `.sym` file for a North American ROM might look like this:
 
    ![Example symbol table](images/nocash-symfile.png)
 

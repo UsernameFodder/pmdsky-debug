@@ -5,6 +5,7 @@
 
 // Direction on the dungeon grid
 enum direction_id {
+    DIR_NONE = -1,
     DIR_DOWN = 0,
     DIR_DOWN_RIGHT = 1,
     DIR_RIGHT = 2,
@@ -15,6 +16,11 @@ enum direction_id {
     DIR_DOWN_LEFT = 7,
     DIR_CURRENT = 8, // Current direction of an entity. Used as a special value in some functions
 };
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(direction_id);
+#pragma pack(pop)
 
 // Terrain type for a tile
 enum terrain_type {
@@ -30,6 +36,38 @@ enum secondary_terrain_type {
     SECONDARY_TERRAIN_LAVA = 1,
     SECONDARY_TERRAIN_CHASM = 2,
 };
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(secondary_terrain_type);
+#pragma pack(pop)
+
+// Moves that Nature Power can turn into
+enum nature_power_variant {
+    NATURE_POWER_SURF = 0,
+    NATURE_POWER_STUN_SPORE = 1,
+    NATURE_POWER_SHADOW_BALL = 2,
+    NATURE_POWER_SWIFT = 3,
+    NATURE_POWER_EARTHQUAKE = 4,
+    NATURE_POWER_RAZOR_LEAF = 5,
+    NATURE_POWER_BUBBLEBEAM = 6,
+    NATURE_POWER_ROCK_SLIDE = 7,
+    // This is exactly the same as NATURE_POWER_EARTHQUAKE,
+    // except the move effect handler checks whether the defender
+    // is digging and doubles the damage if so.
+    NATURE_POWER_EARTHQUAKE_2 = 8,
+    NATURE_POWER_TRI_ATTACK = 9,
+    NATURE_POWER_HYDRO_PUMP = 10,
+    NATURE_POWER_BLIZZARD = 11,
+    NATURE_POWER_ICE_BEAM = 12,
+    NATURE_POWER_SEED_BOMB = 13,
+    NATURE_POWER_MUD_BOMB = 14,
+};
+
+// This is usually stored as a 16-bit integer
+#pragma pack(push, 2)
+ENUM_16_BIT(nature_power_variant);
+#pragma pack(pop)
 
 // Mobility types for monsters
 enum mobility_type {
@@ -51,6 +89,9 @@ enum entity_type {
     ENTITY_TRAP = 2,
     ENTITY_ITEM = 3,
     ENTITY_HIDDEN_STAIRS = 5,
+    // Used when a temporary instance of this struct is created to pass it to some
+    // function that requires it as a parameter
+    ENTITY_TEMPORARY = 6,
 };
 
 // Trap ID
@@ -80,7 +121,24 @@ enum trap_id {
     TRAP_TRIP_TRAP = 22,
     TRAP_RANDOM_TRAP = 23,
     TRAP_GRUDGE_TRAP = 24,
+    // Used in fixed room data to indicate that a trap shouldn't be placed on the current tile
+    // Also used to indicate a random non-wonder tile trap should be selected instead during play
+    TRAP_NONE = 25,
+    TRAP_0x1A = 26,
+    TRAP_0x1B = 27,
+    TRAP_0x1C = 28,
+    TRAP_0x1D = 29,
+    TRAP_0x1E = 30,
+    TRAP_0x1F = 31,
+    // Behaves identically to a normal pitfall trap, but uses the sprite where the grate is
+    // already broken. TRAP_PITFALL_TRAP becomes this one when something falls through.
+    TRAP_BROKEN_PITFALL_TRAP = 32,
 };
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(trap_id);
+#pragma pack(pop)
 
 // The type of hidden stairs (i.e. where it leads), if present
 enum hidden_stairs_type {
@@ -208,6 +266,29 @@ enum status_id {
     STATUS_STAIR_SPOTTER = 101,  // Can locate stairs
 };
 
+// Values for the two-turn move status group
+// Corresponds to values 28 to 40 in the status_id enum
+enum status_two_turn_id {
+    STATUS_TWO_TURN_BIDE = 1,
+    STATUS_TWO_TURN_SOLARBEAM = 2,
+    STATUS_TWO_TURN_SKY_ATTACK = 3,
+    STATUS_TWO_TURN_RAZOR_WIND = 4,
+    STATUS_TWO_TURN_FOCUS_PUNCH = 5,
+    STATUS_TWO_TURN_SKULL_BASH = 6,
+    STATUS_TWO_TURN_FLYING = 7,
+    STATUS_TWO_TURN_BOUNCING = 8,
+    STATUS_TWO_TURN_DIVING = 9,
+    STATUS_TWO_TURN_DIGGING = 10,
+    STATUS_TWO_TURN_CHARGING = 11,
+    STATUS_TWO_TURN_ENRAGED = 12,
+    STATUS_TWO_TURN_SHADOW_FORCE = 13,
+};
+
+// This is usually stored as a 16-bit integer
+#pragma pack(push, 2)
+ENUM_16_BIT(status_two_turn_id);
+#pragma pack(pop)
+
 // Tactic ID. These are usually encoded as bitvectors.
 enum tactic_id {
     TACTIC_LETS_GO_TOGETHER = 0,
@@ -223,6 +304,11 @@ enum tactic_id {
     TACTIC_GET_AWAY_FROM_HERE = 10,
 };
 
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(tactic_id);
+#pragma pack(pop)
+
 // Modes related to shopkeeper behavior
 enum shopkeeper_mode {
     SHOPKEEPER_MODE_NORMAL = 0,
@@ -230,6 +316,11 @@ enum shopkeeper_mode {
     SHOPKEEPER_MODE_ATTACK_ENEMIES = 2,
     SHOPKEEPER_MODE_ATTACK_TEAM = 3,
 };
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(shopkeeper_mode);
+#pragma pack(pop)
 
 // Behavior type of NPC monsters
 enum monster_behavior {
@@ -257,6 +348,11 @@ enum monster_behavior {
     BEHAVIOR_WANDERING_ENEMY_0x15 = 21,
 };
 
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(monster_behavior);
+#pragma pack(pop)
+
 // AI objective that controls how an AI acts in the moment.
 // These were probably taken from Rescue Team; need to confirm validity in Explorers.
 enum ai_objective {
@@ -268,6 +364,121 @@ enum ai_objective {
     AI_RUN_AWAY = 5,
     AI_STAND_STILL = 6,
     AI_TAKE_ITEM = 7,
+};
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(ai_objective);
+#pragma pack(pop)
+
+// Actions that a monster can take on its turn
+enum action {
+    ACTION_NOTHING = 0, // 0x0
+    // 0x1: Pass turn. Enemies will print the "is watching carefully" message when performing this
+    // action
+    ACTION_PASS_TURN = 1,
+    ACTION_WALK = 2, // 0x2: Walk
+    ACTION_UNK_3 = 3,
+    ACTION_UNK_4 = 4,
+    ACTION_UNK_5 = 5,
+    ACTION_NEXT = 6,           // 0x6: Switch to next Pokémon when viewing moves
+    ACTION_PREVIOUS = 7,       // 0x7: Switch to previous Pokémon when viewing moves
+    ACTION_PLACE_ITEM = 8,     // 0x8: Place an item on the floor
+    ACTION_PICK_UP_PLAYER = 9, // 0x9: Pick up an item from the floor (player)
+    ACTION_UNK_A = 10,
+    ACTION_THROW_ITEM_PLAYER = 11,      // 0xB: Throw an item
+    ACTION_CHECK_ITEM_DESCRIPTION = 12, // 0xC: Check the description of an item
+    ACTION_EAT_BERRY_SEED_DRINK = 13,   // 0xD: Each a berry or seed, or drink something
+    ACTION_EAT_GUMMI = 14,              // 0xE: Eat a gummi
+    ACTION_UNK_F = 15,
+    ACTION_USE_TM = 16, // 0x10: Use a TM
+    ACTION_UNK_11 = 17,
+    ACTION_USE_ITEM = 18,        // 0x12: Use an item
+    ACTION_TALK_FIELD = 19,      // 0x13: Talk to a teammate by facing them and pressing A
+    ACTION_USE_MOVE_PLAYER = 20, // 0x14: Use a move (player)
+    ACTION_USE_MOVE_AI = 21,     // 0x15: Use a move (AI)
+    ACTION_UNK_16 = 22,
+    ACTION_STRUGGLE = 23, // 0x17: Use Struggle
+    ACTION_UNK_18 = 24,
+    ACTION_CHECK_MOVES = 25,    // 0x19: Check the list of moves
+    ACTION_CHANGE_TACTICS = 26, // 0x1A: Change a teammate's tactic
+    ACTION_CHECK_SUMMARY = 27,  // 0x1B: Check a pokémon's summary
+    ACTION_TALK_MENU = 28,      // 0x1C: Talk to a teammate by using the in-menu option
+    ACTION_UNK_1D = 29,
+    ACTION_SET_MOVE = 30,    // 0x1E: Set a move
+    ACTION_SWITCH_MOVE = 31, // 0x1F: Switch a move on or off
+    ACTION_UNK_20 = 32,
+    ACTION_UNK_21 = 33,
+    ACTION_UNK_22 = 34,
+    ACTION_EAT_AI = 35,        // 0x23: Eat item (AI)
+    ACTION_THROW_ITEM_AI = 36, // 0x24: Throw an item (AI)
+    ACTION_UNK_25 = 37,
+    ACTION_USE_STAIRS = 38,            // 0x26: Use the stairs
+    ACTION_THROW_STRAIGHT_PLAYER = 39, // 0x27: Throw a straight-line item (player)
+    ACTION_UNK_28 = 40,
+    ACTION_UNK_29 = 41,
+    ACTION_UNK_2A = 42,
+    ACTION_QUICKSAVE = 43,    // 0x2B: Quicksave
+    ACTION_USE_LINK_BOX = 44, // 0x2C: Use a Link Box
+    ACTION_UNK_2D = 45,
+    ACTION_GIVE_UP = 46, // 0x2E: Give up
+    ACTION_UNK_2F = 47,
+    ACTION_VIEW_IQ = 48,        // 0x30: Open the IQ skills menu
+    ACTION_USE_ORB = 49,        // 0x31: Use an orb
+    ACTION_REGULAR_ATTACK = 50, // 0x32: Regular Attack
+    ACTION_UNSET_MOVE = 51,     // 0x33: Unset a move
+    ACTION_SEND_HOME = 52,      // 0x34: Send a pokémon home
+    ACTION_UNK_35 = 53,
+    ACTION_GIVE_ITEM = 54, // 0X36: Give held item
+    ACTION_TAKE_ITEM = 35, // 0x37: Take a held item
+    ACTION_UNK_38 = 36,
+    // 0x39: <pokémon> had second thoughts! - Used as a failsafe when trying to take an illegal
+    // action
+    ACTION_SECOND_THOUGHTS = 37,
+    ACTION_SWAP_ITEM = 38,     // 0x3A: Swapping an item
+    ACTION_CHANGE_LEADER = 39, // 0x3B: Change the team's leader
+    ACTION_SET_ITEM = 40,      // 0x3C: Set item
+    ACTION_UNSET_ITEM = 41,    // 0x3D: Unset item
+    ACTION_UNK_3E = 42,
+    ACTION_PICK_UP_AI = 43, // 0x3F: Pick up an item (AI)
+    ACTION_UNK_40 = 44,
+    ACTION_THROW_ARC_PLAYER = 45, // 0x41: Throw a Gravelerock or a similar item (player)
+};
+
+// This is usually stored as a 16-bit integer
+#pragma pack(push, 2)
+ENUM_16_BIT(action);
+#pragma pack(pop)
+
+// Identifies a message displayed when a monster takes damage
+enum damage_message {
+    DAMAGE_MESSAGE_MOVE = 0, // "Took X damage"
+    DAMAGE_MESSAGE_BURN = 1,
+    DAMAGE_MESSAGE_CONSTRICTION = 2, // "Was squeezed for X damage"
+    DAMAGE_MESSAGE_POISON = 3,
+    DAMAGE_MESSAGE_RECOIL_1 = 4, // User deals damage to itself because of their own recoil move
+    DAMAGE_MESSAGE_WRAP = 5,     // "Was wrapped for X damage"
+    DAMAGE_MESSAGE_COUNTER = 6,  // Damage taken from a counterattack
+    DAMAGE_MESSAGE_CURSE = 7,
+    DAMAGE_MESSAGE_NIGHTMARE = 8, // Damage taken when awakening from a nightmare
+    DAMAGE_MESSAGE_LEECH_SEED = 9,
+    DAMAGE_MESSAGE_SPIKES = 10,
+    DAMAGE_MESSAGE_PERISH_SONG = 11,
+    DAMAGE_MESSAGE_DESTINY_BOND = 12,
+    DAMAGE_MESSAGE_SLUDGE = 13, // "Was showered with sludge for X damage"
+    DAMAGE_MESSAGE_HUNGER = 14, // No string associated with hunger, uses 0x0.
+    DAMAGE_MESSAGE_CHESTNUT_1 = 15,
+    DAMAGE_MESSAGE_CHESTNUT_2 = 16,   // Same string as DAMAGE_MESSAGE_CHESTNUT_1
+    DAMAGE_MESSAGE_PITFALL_TRAP = 17, // Same string as DAMAGE_MESSAGE_MOVE
+    DAMAGE_MESSAGE_BAD_WEATHER = 18,
+    DAMAGE_MESSAGE_MISSED_MOVE = 19, // Damage taken from moves that hurt the user when they miss
+    DAMAGE_MESSAGE_RECOIL_2 = 20,    // Same string as DAMAGE_MESSAGE_RECOIL_1
+    DAMAGE_MESSAGE_STEALTH_ROCK = 21,
+    DAMAGE_MESSAGE_TOXIC_SPIKES = 22,
+    DAMAGE_MESSAGE_ALMOST_FAINTED = 23, // "Is on the verge of fainting after using that move"
+    DAMAGE_MESSAGE_BAD_DREAMS = 24,     // "Took X damage because of <ability>"
+    DAMAGE_MESSAGE_SOLAR_POWER = 25,
+    DAMAGE_MESSAGE_DRY_SKIN = 26,
 };
 
 // Exclusive effect ID. These are usually encoded as bitvectors.
@@ -404,15 +615,62 @@ enum exclusive_item_effect_id {
     EXCLUSIVE_EFF_ABSORB_DRAGON_DAMAGE = 126,
     EXCLUSIVE_EFF_ABSORB_DARK_DAMAGE = 127,
     EXCLUSIVE_EFF_ABSORB_STEEL_DAMAGE = 128,
+    EXCLUSIVE_EFF_LAST = 129, // Used as a null-terminator in some places
 };
 
-// Darkness level on a floor. Nonzero values probably correspond to the "visibility radius" that
-// controls how far away you can see enemies in darkness
-enum darkness_level {
-    DARKNESS_BRIGHT = 0,
-    DARKNESS_VERY_DARK = 1,
-    DARKNESS_DARK = 2,
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(exclusive_item_effect_id);
+#pragma pack(pop)
+
+// Affects the chance of items spawning on each tile in a Kecleon Shop
+// The chances (in %) of each tile (in a 3x3 area at the center of the shop)
+// having an item are listed below.
+enum shop_item_positions {
+    // 30  30  30
+    // 100 100 30
+    // 30  30  30
+    SHOP_POSITION_0 = 0,
+    // 30  30  30
+    // 100 30  30
+    // 30  100 30
+    SHOP_POSITION_1 = 1,
+    // 30  30  30
+    // 100 30  30
+    // 30  30  100
+    SHOP_POSITION_2 = 2,
+    // 100 30  30
+    // 30  30  100
+    // 30  30  30
+    SHOP_POSITION_3 = 3,
+    // 100 30  100
+    // 30  30  30
+    // 30  30  30
+    SHOP_POSITION_4 = 4,
+    // 30  30  30
+    // 30  30  100
+    // 100 30  30
+    SHOP_POSITION_5 = 5,
+    // 30  30  30
+    // 100 30  100
+    // 30  30  30
+    // The rest of the entries all have the same layout
+    SHOP_POSITION_6 = 6,
+    SHOP_POSITION_7 = 7,
+    SHOP_POSITION_8 = 8,
+    SHOP_POSITION_9 = 9,
+    SHOP_POSITION_A = 10,
+    SHOP_POSITION_B = 11,
+    SHOP_POSITION_C = 12,
+    SHOP_POSITION_D = 13,
+    SHOP_POSITION_E = 14,
+    SHOP_POSITION_F = 15,
 };
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(shop_item_positions);
+#pragma pack(pop)
 
 // Weather ID
 enum weather_id {
@@ -427,6 +685,11 @@ enum weather_id {
     WEATHER_RANDOM = 8,
 };
 
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(weather_id);
+#pragma pack(pop)
+
 // Dungeon floor type
 enum floor_type {
     FLOOR_TYPE_NORMAL = 0,
@@ -438,8 +701,14 @@ enum floor_type {
 enum dungeon_objective {
     OBJECTIVE_STORY = 0, // This dungeon visit is part of the story
     OBJECTIVE_NORMAL = 1,
-    OBJECTIVE_RESCUE = 2, // Rescuing another player
+    OBJECTIVE_RESCUE = 2,          // Rescuing another player
+    OBJECTIVE_UNK_GAME_MODE_5 = 3, // $GAME_MODE == 5 when entering the dungeon
 };
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(dungeon_objective);
+#pragma pack(pop)
 
 // Mission type on a floor
 enum mission_type {
@@ -458,12 +727,23 @@ enum mission_type {
     MISSION_TREASURE_MEMO = 12,
 };
 
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(mission_type);
+#pragma pack(pop)
+
 // Mission subtype for MISSION_EXPLORE_WITH_CLIENT
 enum mission_subtype_explore {
     MISSION_EXPLORE_NORMAL = 0,
     MISSION_EXPLORE_SEALED_CHAMBER = 1,
     MISSION_EXPLORE_GOLDEN_CHAMBER = 2,
+    MISSION_EXPLORE_NEW_DUNGEON = 3,
 };
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(mission_subtype_explore);
+#pragma pack(pop)
 
 // Mission subtype for MISSION_TAKE_ITEM_FROM_OUTLAW
 enum mission_subtype_take_item {
@@ -471,6 +751,11 @@ enum mission_subtype_take_item {
     MISSION_TAKE_ITEM_HIDDEN_OUTLAW = 1,
     MISSION_TAKE_ITEM_FLEEING_OUTLAW = 2,
 };
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(mission_subtype_take_item);
+#pragma pack(pop)
 
 // Mission subtype for MISSION_ARREST_OUTLAW
 // 0-3 all occur naturally in-game, but don't seem to have any obvious differences?
@@ -485,6 +770,11 @@ enum mission_subtype_outlaw {
     MISSION_OUTLAW_MONSTER_HOUSE = 7,
 };
 
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(mission_subtype_outlaw);
+#pragma pack(pop)
+
 // Mission subtype for MISSION_CHALLENGE_REQUEST
 enum mission_subtype_challenge {
     MISSION_CHALLENGE_NORMAL = 0,
@@ -495,14 +785,191 @@ enum mission_subtype_challenge {
     MISSION_CHALLENGE_JIRACHI = 5,
 };
 
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(mission_subtype_challenge);
+#pragma pack(pop)
+
 // The meaning of the mission subtype depends on the mission type
 union mission_subtype {
-    int none;
-    enum mission_subtype_explore explore;
-    enum mission_subtype_take_item take_item;
-    enum mission_subtype_outlaw outlaw;
-    enum mission_subtype_challenge challenge;
+    uint8_t none;
+    struct mission_subtype_explore_8 explore;
+    struct mission_subtype_take_item_8 take_item;
+    struct mission_subtype_outlaw_8 outlaw;
+    struct mission_subtype_challenge_8 challenge;
 };
+
+// Different types of rewards that a mission can have
+enum mission_reward_type {
+    MISSION_REWARD_MONEY = 0,
+    MISSION_REWARD_MONEY_AND_MORE = 1, // Money + (?)
+    MISSION_REWARD_ITEM = 2,
+    MISSION_REWARD_ITEM_AND_MORE = 3, // Item + (?)
+    MISSION_REWARD_ITEM_HIDDEN = 4,   // Item, displayed as "(?)"
+    MISSION_REWARD_MONEY_HIDDEN = 5,  // Money, displayed as "(?)"
+    // Either an egg or the client requests to join the team, displayed as "(?)"
+    MISSION_REWARD_SPECIAL = 6,
+};
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(mission_reward_type);
+#pragma pack(pop)
+
+// Different types of restrictions that a mission can have
+enum mission_restriction_type {
+    MISSION_RESTRICTION_NONE = 0,
+    MISSION_RESTRICTION_TYPE = 1,    // Requires a pokémon of a certain type on the team
+    MISSION_RESTRICTION_MONSTER = 2, // Requires a certain pokémon on the team
+};
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(mission_restriction_type);
+#pragma pack(pop)
+
+// The restriction of a mission can be a monster ID or a type ID
+union mission_restriction {
+    struct monster_id_16 monster_id;
+    struct type_id_8 type_id;
+};
+
+// Represents the different statuses that a mission can have
+enum mission_status {
+    MISSION_STATUS_INVALID = 0, // Used for empty mission slots
+    MISSION_STATUS_UNK_1 = 1,   // The mission won't display a status
+    MISSION_STATUS_UNK_2 = 2,   // The mission won't display a status
+    MISSION_STATUS_UNK_3 = 3,   // The mission won't display a status
+    MISSION_STATUS_SUSPENDED = 4,
+    MISSION_STATUS_ACCEPTED = 5,
+    MISSION_STATUS_DONE = 6,
+    MISSION_STATUS_UNK_7 = 7, // Shows up as "accepted"
+    MISSION_STATUS_UNK_8 = 8, // Shows up as "accepted"
+};
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(mission_status);
+#pragma pack(pop)
+
+// The cause of a monster taking damage, not including the move case.
+// These codes should all be greater than any move ID.
+// Some of the values are used as faint reasons or on the "The Last Outing" screen
+// rather than as damage sources.
+enum damage_source_non_move {
+    DAMAGE_SOURCE_TRANSFORM_FRIEND = 563, // "was transformed into a friend"
+    DAMAGE_SOURCE_NOT_BEFRIENDED = 564,   // "left without being befriended"
+    DAMAGE_SOURCE_DEBUG_ATTACK = 565,
+    DAMAGE_SOURCE_JUMP_KICK = 566,
+    DAMAGE_SOURCE_HI_JUMP_KICK = 567,
+    DAMAGE_SOURCE_DESTINY_BOND = 568,
+    DAMAGE_SOURCE_SLUDGE = 569,
+    DAMAGE_SOURCE_POWERFUL_MOVE_1 = 570,
+    DAMAGE_SOURCE_POWERFUL_MOVE_2 = 571,
+    DAMAGE_SOURCE_RECOIL = 572,
+    DAMAGE_SOURCE_SPLASH = 573,
+    DAMAGE_SOURCE_ENERGY = 574, // "an enemy's pent-up energy"
+    DAMAGE_SOURCE_POWERFUL_MOVE_3 = 575,
+    DAMAGE_SOURCE_POWERFUL_MOVE_4 = 576,
+    DAMAGE_SOURCE_POWERFUL_MOVE_5 = 577,
+    DAMAGE_SOURCE_POWERFUL_MOVE_6 = 578,
+    DAMAGE_SOURCE_POWERFUL_MOVE_7 = 579,
+    DAMAGE_SOURCE_POWERFUL_MOVE_8 = 580,
+    DAMAGE_SOURCE_SPIKES = 581,
+    DAMAGE_SOURCE_DEBUG_DAMAGE = 582,
+    DAMAGE_SOURCE_BURN = 583,
+    DAMAGE_SOURCE_CONSTRICTION = 584,
+    DAMAGE_SOURCE_POISON = 585,
+    DAMAGE_SOURCE_WRAP = 586,
+    DAMAGE_SOURCE_CURSE = 587,
+    DAMAGE_SOURCE_LEECH_SEED = 588,
+    DAMAGE_SOURCE_PERISH_SONG = 589,
+    DAMAGE_SOURCE_NIGHTMARE = 590,
+    DAMAGE_SOURCE_THROWN_ROCK = 591,
+    DAMAGE_SOURCE_HUNGER = 592,
+    DAMAGE_SOURCE_EXPLODED = 593, // I think this one is only used for the monster that explodes.
+                                  // Other monsters that are hit by the explosion use
+                                  // DAMAGE_SOURCE_EXPLOSION.
+    DAMAGE_SOURCE_CHESTNUT_TRAP = 594,
+    DAMAGE_SOURCE_TRAP = 595,
+    DAMAGE_SOURCE_PITFALL_TRAP = 596,
+    DAMAGE_SOURCE_BLAST_SEED = 597,
+    DAMAGE_SOURCE_THROWN_ITEM = 598,
+    DAMAGE_SOURCE_TRANSFORM_ITEM = 599,
+    DAMAGE_SOURCE_KNOCKED_FLYING = 600,
+    DAMAGE_SOURCE_FLYING_MONSTER = 601,
+    DAMAGE_SOURCE_GAVE_UP = 602,   // "gave up the exploration"
+    DAMAGE_SOURCE_DELETED = 603,   // "was deleted for the sake of an event"
+    DAMAGE_SOURCE_WENT_AWAY = 604, // "went away"
+    DAMAGE_SOURCE_UNSEEN_FORCE = 605,
+    DAMAGE_SOURCE_PARTNER_FAINTED = 606, // "returned with the fallen partner"
+    DAMAGE_SOURCE_WEATHER = 607,
+    DAMAGE_SOURCE_POSSESS = 608,
+    DAMAGE_SOURCE_CLIENT_FAINTED = 609, // "failed to protect the client Pokémon"
+    DAMAGE_SOURCE_ITEM_ORB = 610,
+    DAMAGE_SOURCE_ITEM_NON_ORB = 611,
+    DAMAGE_SOURCE_UNK612 = 612,                // "-"
+    DAMAGE_SOURCE_ESCORT_FAINTED = 613,        // "failed to escort the client Pokémon"
+    DAMAGE_SOURCE_OTHER_MONSTER_FAINTED = 614, // "returned with the fallen [string:2]"
+    DAMAGE_SOURCE_BIDOOF_FAINTED = 615,
+    DAMAGE_SOURCE_GROVYLE_FAINTED = 616,
+    DAMAGE_SOURCE_CELEBI_FAINTED = 617,
+    DAMAGE_SOURCE_CHATOT_FAINTED = 618,
+    DAMAGE_SOURCE_CRESSELIA_FAINTED = 619,
+    DAMAGE_SOURCE_TOXIC_SPIKES = 620,
+    DAMAGE_SOURCE_STEALTH_ROCK = 621,
+    DAMAGE_SOURCE_BAD_DREAMS = 622,
+    DAMAGE_SOURCE_EXPLOSION = 623,
+    DAMAGE_SOURCE_OREN_BERRY = 624,
+    DAMAGE_SOURCE_DUMMY_625 = 625,
+    DAMAGE_SOURCE_DUMMY_626 = 626,
+    DAMAGE_SOURCE_DUMMY_627 = 627,
+    DAMAGE_SOURCE_DUMMY_628 = 628,
+    DAMAGE_SOURCE_DUMMY_629 = 629,
+    DAMAGE_SOURCE_DUMMY_630 = 630,
+    DAMAGE_SOURCE_DUMMY_631 = 631,
+    DAMAGE_SOURCE_DUMMY_632 = 632,
+    DAMAGE_SOURCE_ESCAPE = 633,           // "Escaped in the middle of exploration"
+    DAMAGE_SOURCE_DUNGEON_CLEAR = 634,    // "cleared the dungeon"
+    DAMAGE_SOURCE_RESCUE_SUCCESS = 635,   // "succeeded in the rescue mission"
+    DAMAGE_SOURCE_MISSION_COMPLETE = 636, // "completed a mission! Impressive!"
+    DAMAGE_SOURCE_BEFRIEND_MEW = 637,     // "befriended [CS:N]Mew[CR]!"
+};
+
+// This is usually stored as a 16-bit integer
+#pragma pack(push, 2)
+ENUM_16_BIT(damage_source_non_move);
+#pragma pack(pop)
+
+// Possible reasons why a monster can take damage or faint
+union damage_source {
+    enum move_id move;
+    enum damage_source_non_move other;
+};
+union damage_source_16 {
+    struct move_id_16 move;
+    struct damage_source_non_move_16 other;
+};
+
+// List of reasons why you can get forcefully kicked out of a dungeon
+enum forced_loss_reason {
+    FORCED_LOSS_NONE = 0,            // You don't have to get kicked out of the dungeon
+    FORCED_LOSS_PARTNER_FAINTED = 1, // Your partner fainted (before postgame)
+    FORCED_LOSS_CLIENT_FAINTED = 2,  // Your client fainted
+    FORCED_LOSS_ESCORT_FAINTED = 3,  // The client you had to escort fainted
+    // "Your client [name:0] couldn't join you. Let's return to Treasure Town."
+    FORCED_LOSS_CLIENT_CANT_JOIN = 4,
+};
+
+// Controls whether the loop that runs until the current floor ends should continue
+// iterating or not and why
+enum floor_loop_status {
+    FLOOR_LOOP_CONTINUE = 0,       // The floor loop keeps executing as normal
+    FLOOR_LOOP_LEADER_FAINTED = 1, // The floor loop exits because the leader fainted
+    FLOOR_LOOP_NEXT_FLOOR = 2,     // The floor loop exits because the floor is over
+};
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(floor_loop_status);
+#pragma pack(pop)
 
 // Fixed room ID. Fixed rooms can be full floor layouts, like most end-of-dungeon boss chambers,
 // multi-room layouts in the case of Treasure Memos, or single rooms within a larger floor layout
@@ -766,12 +1233,69 @@ enum fixed_room_id {
     FIXED_UNUSED_0xFF = 255,
 };
 
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(fixed_room_id);
+#pragma pack(pop)
+
+// Action IDs used to spawn tiles when generating fixed rooms
+enum fixed_room_action_non_entity {
+    FIXED_ACTION_FLOOR_ROOM = 0,
+    FIXED_ACTION_WALL_HALLWAY_AM = 1, // Hallway wall, breakable with Absolute Mover IQ skill
+    FIXED_ACTION_WALL_HALLWAY_IMPASSABLE = 2,
+    FIXED_ACTION_WALL_HALLWAY = 3,
+    FIXED_ACTION_LEADER_SPAWN = 4,
+    FIXED_ACTION_SECONDARY_ROOM = 5, // Secondary terrain tile, part of a room
+    FIXED_ACTION_CHASM_HALLWAY = 6,
+    // If spawned, all tiles outside the fixed room are are turned into impassable chasm tiles
+    FIXED_ACTION_CHASM_ALL_HALLWAY = 7,
+    FIXED_ACTION_WARP_ZONE_ROOM = 8, // Spawns a warp zone
+    FIXED_ACTION_FLOOR_HALLWAY = 9,
+    FIXED_ACTION_CHASM_HALLWAY_IMPASSABLE = 10,
+    FIXED_ACTION_FLOOR_HALLWAY_FLAG_10 = 11, // Enables tile::terrain_flags_unk10
+    // Wall if fixed floor ID < FIXED_SEALED_CHAMBER, floor otherwise. Spawns a locked key door.
+    FIXED_ACTION_FLOOR_WALL_ROOM_KEY_DOOR_LOCKED = 12,
+    // Wall if fixed floor ID < FIXED_SEALED_CHAMBER, floor otherwise. Spawns a locked escort
+    // key door.
+    FIXED_ACTION_FLOOR_WALL_ROOM_KEY_DOOR_ESCORT = 13,
+    FIXED_ACTION_WALL_HALLWAY_IMPASSABLE_14 = 14,
+    FIXED_ACTION_WALL_HALLWAY_15 = 15,
+    FIXED_ACTION_TEAM_MEMBER_2_SPAWN = 96,
+    FIXED_ACTION_TEAM_MEMBER_3_SPAWN = 97,
+    FIXED_ACTION_TEAM_MEMBER_4_SPAWN = 98,
+    // Treated separately by the code, but doesn't seem to spawn anything special
+    FIXED_ACTION_FLOOR_ROOM_99 = 99,
+    FIXED_ACTION_WARP_ZONE_ROOM_107 = 107, // Same as FIXED_ACTION_WARP_ZONE_ROOM
+    // Treated separately by the code, but doesn't seem to spawn anything special
+    FIXED_ACTION_FLOOR_ROOM_108 = 108,
+    // Treated separately by the code, but doesn't seem to spawn anything special
+    FIXED_ACTION_FLOOR_ROOM_109 = 109,
+};
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(fixed_room_action_non_entity);
+#pragma pack(pop)
+
+// Used to determine an action that will be performed when spawining a single tile during fixed
+// room generation. Can spawn an entity or a tile.
+union fixed_room_action {
+    struct fixed_room_action_non_entity_8 tile_action;
+    // If specified, this value - 16 represents the ID of the fixed entity to spawn.
+    uint8_t entity_action;
+};
+
 // Floor layout size during floor generation
 enum floor_size {
     FLOOR_SIZE_LARGE = 0,
     FLOOR_SIZE_SMALL = 1,
     FLOOR_SIZE_MEDIUM = 2,
 };
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(floor_size);
+#pragma pack(pop)
 
 // Floor layout type during floor generation
 enum floor_layout {
@@ -791,6 +1315,74 @@ enum floor_layout {
     LAYOUT_UNUSED_0xD = 13,
     LAYOUT_UNUSED_0xE = 14,
     LAYOUT_UNUSED_0xF = 15,
+};
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(floor_layout);
+#pragma pack(pop)
+
+// Used as a parameter when generating items
+enum gen_item_stickiness {
+    // Use the sticky item chance from the floor properties on the dungeon struct
+    GEN_ITEM_STICKY_RANDOM = 0,
+    GEN_ITEM_STICKY_ALWAYS = 1,
+    GEN_ITEM_STICKY_NEVER = 2,
+};
+
+// Used to determine which version of a dungeon to load.
+enum game_id {
+    GAME_SKY = 0,
+    GAME_TIME = 1,
+    GAME_DARKNESS = 2,
+};
+
+// Used when determining how a monster's name should be displayed.
+enum display_name_type {
+    DISPLAY_NAME_NORMAL = 0,  // Display the name as usual
+    DISPLAY_NAME_UNKNOWN = 1, // Display "(?)"
+    DISPLAY_NAME_DECOY = 2,   // Display "Decoy"
+};
+
+// Used to more easily refer to the different item spawn lists of a floor
+enum item_list_type {
+    ITEM_LIST_REGULAR = 0,       // Standard list
+    ITEM_LIST_SHOP = 1,          // Kecleon shop list
+    ITEM_LIST_MONSTER_HOUSE = 2, // Monster house list
+    ITEM_LIST_BURIED = 3,        // Buried items list
+    ITEM_LIST_BAZAAR = 4,        // Bazaar grab bag list
+    ITEM_LIST_SECRET_ROOM = 5,   // Secret room chests list
+};
+
+// Special values for union item_index
+enum item_index_special {
+    ITEM_INDEX_GROUND = 0x80,
+    ITEM_INDEX_HELD = 0x81,
+    ITEM_INDEX_UNK_0x82 = 0x82,
+    ITEM_INDEX_UNK_0x83 = 0x83,
+    ITEM_INDEX_UNK_0x84 = 0x84,
+    ITEM_INDEX_UNK_0x85 = 0x85,
+    ITEM_INDEX_UNK_0x86 = 0x86,
+    ITEM_INDEX_UNK_0x87 = 0x87,
+    ITEM_INDEX_UNK_0x88 = 0x88,
+    ITEM_INDEX_UNK_0x89 = 0x89,
+    ITEM_INDEX_UNK_0x8A = 0x8A,
+    ITEM_INDEX_UNK_0x8B = 0x8B,
+    ITEM_INDEX_UNK_0x8C = 0x8C,
+    ITEM_INDEX_UNK_0x8D = 0x8D,
+    ITEM_INDEX_UNK_0x8E = 0x8E,
+    ITEM_INDEX_UNK_0x8F = 0x8F,
+    ITEM_INDEX_HELD_TEAM_MEMBER_1 = 0x90,
+    ITEM_INDEX_HELD_TEAM_MEMBER_2 = 0x91,
+    ITEM_INDEX_HELD_TEAM_MEMBER_3 = 0x92,
+    ITEM_INDEX_HELD_TEAM_MEMBER_4 = 0x93,
+};
+
+// Used to indicate the location of an item, which can be an item in the bag, on the floor or
+// held by a certain monster.
+union item_index {
+    int bag_index;                         // For items in the bag
+    enum item_index_special special_index; // For other items
 };
 
 #endif

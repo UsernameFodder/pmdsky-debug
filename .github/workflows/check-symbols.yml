@@ -27,7 +27,7 @@ jobs:
       - name: Install resymgen
         uses: ./.github/actions/build-resymgen
       - name: Format check
-        run: resymgen fmt --check symbols/*.yml
+        run: resymgen fmt --recursive --check symbols/*.yml
   format:
     runs-on: ubuntu-latest
     needs: format-check
@@ -38,12 +38,12 @@ jobs:
       - name: Install resymgen
         uses: ./.github/actions/build-resymgen
       - name: Format
-        run: resymgen fmt symbols/*.yml
+        run: resymgen fmt --recursive symbols/*.yml
       - name: Package reformatted files
         run: zip resymgen-fmt-output.zip $(git diff --relative --name-only)
         working-directory: symbols
       - name: Upload reformatted files
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: formatted-symbols
           path: symbols/resymgen-fmt-output.zip
@@ -60,4 +60,4 @@ jobs:
       - name: Install resymgen
         uses: ./.github/actions/build-resymgen
       - name: Test
-        run: resymgen check --complete-version-list --explicit-versions --in-bounds-symbols --no-function-overlap --nonempty-maps --unique-symbols --data-names SCREAMING_SNAKE_CASE --function-names PascalCase symbols/*.yml
+        run: resymgen check --recursive --complete-version-list --explicit-versions --in-bounds-symbols --no-overlap --nonempty-maps --unique-symbols --data-names SCREAMING_SNAKE_CASE --function-names PascalCase --function-names snake_case symbols/*.yml

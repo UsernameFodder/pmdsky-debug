@@ -6,9 +6,9 @@
 //!
 //! # Example
 //! ```csv
-//! 2000000 main
-//! 2400000 function1
-//! 2FFFFFF SOME_DATA
+//! 02000000 main
+//! 02400000 function1
+//! 02FFFFFF SOME_DATA
 //! ```
 
 use std::error::Error;
@@ -26,6 +26,9 @@ fn serialize_as_hex8<S>(x: &Uint, s: S) -> Result<S::Ok, S::Error>
 where
     S: Serializer,
 {
+    // If x is larger than u32::MAX, it'll just be printed with as many characters as needed.
+    // SYM only supports 32-bit numbers by virtue of requiring 8-character hex offsets,
+    // so there isn't really a well defined way to handle this case ¯\_(ツ)_/¯.
     s.serialize_str(&format!("{:08X}", x))
 }
 
@@ -117,6 +120,35 @@ mod tests {
         assert_eq!(
             f.generate_str(&symgen, "v2").expect("generate failed"),
             "02002000 fn1\n02003000 fn2\n02004000 SOME_DATA\n"
+        );
+    }
+
+    #[test]
+    fn test_generate_64bit() {
+        let symgen = SymGen::read(
+            r"
+            main:
+              address: 0x2000000
+              length: 0x10000000000
+              functions:
+                - name: fn1
+                  address: 0x100000000
+                - name: fn2
+                  address: 0x2000000
+                - name: fn3
+                  address: 0xFFFFFFFFFF
+              data: []
+            "
+            .as_bytes(),
+        )
+        .expect("Read failed");
+
+        let f = SymFormatter {};
+        // The format makes no official specification on how 64-bit numbers should behave,
+        // but resymgen should still deal with them in a consistent manner.
+        assert_eq!(
+            f.generate_str(&symgen, "").expect("generate failed"),
+            "100000000 fn1\n02000000 fn2\nFFFFFFFFFF fn3\n"
         );
     }
 }

@@ -8,6 +8,7 @@
     - [Use address lists for duplicated symbols](#use-address-lists-for-duplicated-symbols)
     - [Follow style conventions](#follow-style-conventions)
   - [Local development environment](#local-development-environment)
+  - [Licensing](#licensing)
 
 A "symbol" is a name for a specific offset within a binary. Having descriptive symbol names often dramatically improves the readability of assembly instructions and decompiled code. This directory contains catalogs of symbols within the _Explorers of Sky_ binaries. They use the human-and-machine-readable [YAML](https://en.wikipedia.org/wiki/YAML) format, so they can be used both as documentation and for import into various tools.
 
@@ -15,9 +16,12 @@ Each file defines one or more _blocks_, which are collections of symbols. Both a
 
 Files can have two types of symbols: functions and data (data = everything that isn't a function); each symbol type gets its own list within a YAML file. This distinction is meaningful for certain tools such as Ghidra.
 
+Additionally, blocks can define _subregions_. A subregion is a separate file split off from the block's parent file that contains a subset of symbols within some address range. A subregion's symbols still logically belong to the parent block, but splitting them into a separate subregion can help with organization.
+
 ## Files
-- [`arm9.yml`](arm9.yml) contains all symbols in EoS's main ARM9 binary (usually called `arm9.bin`).
-- The `overlay*.yml` files contain all symbols in their respective [overlays](../docs/overlays.md).
+- [`arm9.yml`](arm9.yml) (and subregions within [`arm9/`](arm9/)) contains all symbols in EoS's main ARM9 binary (usually called `arm9.bin`).
+- [`arm7.yml`](arm7.yml) contains all symbols in EoS's secondary ARM7 binary (usually called `arm7.bin`).
+- The `overlay*.yml` files (and subregions within `overlay*/`) contain all symbols in their respective [overlays](../docs/overlays.md).
 - [`ram.yml`](ram.yml) contains symbols that don't fall within any of the binaries themselves (such as various heap-allocated structures), but are still useful to know about.
 - [`literals.yml`](literals.yml) is a special file for recording the addresses of interesting values that are _arguments for a specific instruction_ rather than standalone data. These "literals" (or "immediate values" in assembly jargon) are often embedded within basic instructions like `mov`, `add`, and `sub`, and hence aren't real symbols, but may be useful regardless. For example, the starting levels for the hero and partner are encoded as literals within the ARM9 binary.
 
@@ -111,11 +115,20 @@ To make things easy, you can run `cargo install`. This will allow you to run the
 
 Refer to the [`resymgen` README](../docs/resymgen.md#usage) for a general overview of the `resymgen` command line utility. For convenience, here are the commands you'll want to run when you're contributing to the `symbols/` directory:
 
-- Run the formatter: `resymgen fmt <symbol files>`
+- Run the formatter: `resymgen fmt -r <symbol files>`
     - On Unix shells that support globbing (the `*` operator), you can use `*.yml` in place of `<symbol files>` to format everything in the directory.
-- Run the tests: `resymgen check -Vvbomu -d screaming_snake_case -f pascalcase <symbol files>`
+    - If you're using Windows and have auto-converted CRLF line endings enabled (`git config --get core.autocrlf` outputs `true`), you may encounter issues when running the formatter, which always uses Unix-style LF line endings. The best way to fix this is to configure Git to use LF line endings within `pmdsky-debug` (most modern text editors on Windows should know how to properly handle LF line endings). To do this, stash or commit any changes you're working on, then run the following commands within the `pmdsky-debug` directory:
+      ```
+      git config core.autocrlf false
+      git rm --cached -r .
+      git reset --hard
+      ```
+- Run the tests: `resymgen check -r -Vvbomu -d screaming_snake_case -f pascalcase -f snake_case <symbol files>`
     - On Unix shells that support globbing (the `*` operator), you can use `*.yml` in place of `<symbol files>` to test everything in the directory.
     - If you're wondering what all the flags mean, see the help text (`resymgen check --help`).
 - Bulk-merge symbols from a CSV file into the symbol tables: `resymgen merge -x -f csv -v <version> -i <CSV file> <YAML symbol file>`
     - The exact CSV format can be exported directly from a Ghidra project from the symbol table (in the code browser: Window > Symbol Table), and is documented in the [`resymgen` library docs](https://docs.rs/resymgen/latest/resymgen/data_formats/ghidra_csv/index.html).
     - If a CSV file contains addresses outside of the range of the block within the YAML file, they will be skipped, which allows you to run this command multiple times to append to multiple YAML files from a single CSV file.
+
+## Licensing
+The `pmdsky-debug` symbol tables are dual-licensed under [GNU GPLv3](../LICENSE.txt) or [MIT](LICENSE.txt). If you are using the symbol tables in your own project, you may choose to use them under either license.

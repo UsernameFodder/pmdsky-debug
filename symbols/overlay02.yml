@@ -1,14 +1,16 @@
 overlay2:
   versions:
-    - NA
     - EU
+    - NA
     - JP
   address:
-    NA: 0x2329520
     EU: 0x2329D40
+    NA: 0x2329520
+    JP: 0x232ACC0
   length:
-    NA: 0x2AFA0
     EU: 0x2AFC0
+    NA: 0x2AFA0
+    JP: 0x2AFA0
   description: "Controls the Nintendo WFC Settings interface, accessed from the top menu (Other > Nintendo WFC > Nintendo WFC Settings). Presumably contains code for Nintendo Wi-Fi setup."
   functions: []
   data: []

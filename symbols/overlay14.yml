@@ -1,21 +1,503 @@
 overlay14:
   versions:
-    - NA
     - EU
+    - NA
     - JP
   address:
-    NA: 0x238A140
     EU: 0x238AC80
+    NA: 0x238A140
+    JP: 0x238B6A0
   length:
-    NA: 0x3AE0
     EU: 0x3B40
+    NA: 0x3AE0
+    JP: 0x3AE0
   description: Runs the sentry duty minigame.
-  functions: []
+  functions:
+    - name: SentrySetupState
+      address:
+        EU: 0x238AC80
+        NA: 0x238A140
+        JP: 0x238B6A0
+      description: |-
+        Allocates and initializes the sentry duty struct.
+        
+        Possibly the entrypoint of this overlay?
+        
+        r0: controls initial game state? If 2, the minigame starts in state 4 rather than state 6.
+        return: always 1
+    - name: SentryUpdateDisplay
+      address:
+        EU: 0x238B93C
+        NA: 0x238ADFC
+        JP: 0x238C360
+      description: |-
+        Seems to update various parts of the display, such as the round number.
+        
+        No params.
+    - name: SentrySetExitingState
+      address:
+        EU: 0x238C218
+        NA: 0x238B6D8
+        JP: 0x238CC3C
+      description: |-
+        Sets the completion state to exiting, triggering the minigame to run its exit sequence.
+        
+        No params.
+    - name: SentryRunState
+      address:
+        EU: 0x238C33C
+        NA: 0x238B7FC
+        JP: 0x238CD60
+      description: |-
+        Run the minigame according to the current game state, or handle the transition to a new state if one has been set.
+        
+        The game is implemented using the state machine programming pattern. This function appears to contain the top-level code for running a single "turn" of the state machine, although presumably there's a higher level game engine that's calling this function in a loop somewhere.
+        
+        return: return code for the engine driving the minigame? Seems like 1 to keep going and 4 to stop
+    - name: SentrySetStateIntermediate
+      address:
+        EU: 0x238CD08
+        NA: 0x238C1C8
+        JP: 0x238D730
+      description: |-
+        Queues up a new intermediate game state to transition to, where the transition handler will be called immediately by SentryRunState after the current state handler has returned.
+        
+        r0: new state
+    - name: SentryState0
+      address:
+        EU: 0x238CD28
+        NA: 0x238C1E8
+        JP: 0x238D750
+      description: No params.
+    - name: SentryState1
+      address:
+        EU: 0x238CD4C
+        NA: 0x238C20C
+        JP: 0x238D774
+      description: No params.
+    - name: SentryState2
+      address:
+        EU: 0x238CDA4
+        NA: 0x238C264
+        JP: 0x238D7CC
+      description: No params.
+    - name: SentryState3
+      address:
+        EU: 0x238CDC8
+        NA: 0x238C288
+        JP: 0x238D7F0
+      description: No params.
+    - name: SentryState4
+      address:
+        EU: 0x238CEF0
+        NA: 0x238C3B0
+        JP: 0x238D918
+      description: No params.
+    - name: SentryStateExit
+      address:
+        NA: 0x238C3D4
+      description: |-
+        State 0x5: Exit (wraps SentrySetExitingState).
+        
+        No params.
+    - name: SentryState6
+      address:
+        EU: 0x238CF20
+        NA: 0x238C3E0
+        JP: 0x238D948
+      description: No params.
+    - name: SentryState7
+      address:
+        EU: 0x238CF44
+        NA: 0x238C404
+        JP: 0x238D96C
+      description: |-
+        This state corresponds to when Loudred tells you the instructions for the minigame (STRING_ID_SENTRY_INSTRUCTIONS).
+        
+        No params.
+    - name: SentryState8
+      address:
+        EU: 0x238CF5C
+        NA: 0x238C41C
+        JP: 0x238D984
+      description: No params.
+    - name: SentryState9
+      address:
+        EU: 0x238CF80
+        NA: 0x238C440
+        JP: 0x238D9A8
+      description: No params.
+    - name: SentryStateA
+      address:
+        EU: 0x238CFA4
+        NA: 0x238C464
+        JP: 0x238D9CC
+      description: |-
+        This state corresponds to when Loudred alerts you that someone is coming (STRING_ID_SENTRY_HERE_COMES).
+        
+        No params.
+    - name: SentryStateB
+      address:
+        EU: 0x238CFBC
+        NA: 0x238C47C
+        JP: 0x238D9E4
+      description: No params.
+    - name: SentryStateGenerateChoices
+      address:
+        EU: 0x238CFD4
+        NA: 0x238C494
+        JP: 0x238D9FC
+      description: |-
+        State 0xC: Generate the four choices for a round.
+        
+        No params.
+    - name: SentryStateGetUserChoice
+      address:
+        EU: 0x238D5D4
+        NA: 0x238CA94
+        JP: 0x238DFFC
+      description: |-
+        State 0xD: Wait for the player to select an answer.
+        
+        No params.
+    - name: SentryStateFinalizeRound
+      address:
+        EU: 0x238DB04
+        NA: 0x238CFC4
+        JP: 0x238E52C
+      description: |-
+        State 0xE: Deal with the bookkeeping after the player has made a final choice for the round.
+        
+        This includes things like incrementing the round counter. It also appears to check the final point count on the last round to determine the player's overall performance.
+        
+        No params.
+    - name: SentryStateF
+      address:
+        EU: 0x238DE48
+        NA: 0x238D308
+        JP: 0x238E870
+      description: No params.
+    - name: SentryState10
+      address:
+        EU: 0x238DE60
+        NA: 0x238D320
+        JP: 0x238E888
+      description: No params.
+    - name: SentryState11
+      address:
+        EU: 0x238DED8
+        NA: 0x238D398
+        JP: 0x238E900
+      description: |-
+        This state corresponds to when the partner tells you to try again after the player makes a wrong selection for the first time (STRING_ID_SENTRY_TRY_AGAIN).
+        
+        No params.
+    - name: SentryState12
+      address:
+        EU: 0x238DEF0
+        NA: 0x238D3B0
+        JP: 0x238E918
+      description: No params.
+    - name: SentryState13
+      address:
+        EU: 0x238DF28
+        NA: 0x238D3E8
+        JP: 0x238E950
+      description: |-
+        This state corresponds to when Loudred tells you that you're out of time (STRING_ID_SENTRY_OUT_OF_TIME).
+        
+        No params.
+    - name: SentryState14
+      address:
+        EU: 0x238DF50
+        NA: 0x238D410
+        JP: 0x238E978
+      description: |-
+        This state corresponds to when the player is shouting their guess (STRING_ID_SENTRY_FOOTPRINT_IS_6EE), and when Loudred tells the visitor to come in (STRING_ID_SENTRY_COME_IN_6EF).
+        
+        No params.
+    - name: SentryState15
+      address:
+        EU: 0x238DF68
+        NA: 0x238D428
+        JP: 0x238E990
+      description: No params.
+    - name: SentryState16
+      address:
+        EU: 0x238DFA8
+        NA: 0x238D468
+        JP: 0x238E9D0
+      description: No params.
+    - name: SentryState17
+      address:
+        EU: 0x238E000
+        NA: 0x238D4C0
+        JP: 0x238EA28
+      description: |-
+        This state corresponds to when Loudred tells the player that they chose the wrong answer (STRING_ID_SENTRY_WRONG, STRING_ID_SENTRY_BUCK_UP).
+        
+        No params.
+    - name: SentryState18
+      address:
+        EU: 0x238E078
+        NA: 0x238D538
+        JP: 0x238EAA0
+      description: No params.
+    - name: SentryState19
+      address:
+        EU: 0x238E0B0
+        NA: 0x238D570
+        JP: 0x238EAD8
+      description: |-
+        This state seems to be similar to state 0x14, when the player is shouting their guess (STRING_ID_SENTRY_FOOTPRINT_IS_6EC), and when Loudred tells the visitor to come in (STRING_ID_SENTRY_COME_IN_6ED), but used in a different context (different state transitions to and from this state).
+        
+        No params.
+    - name: SentryState1A
+      address:
+        EU: 0x238E0C8
+        NA: 0x238D588
+        JP: 0x238EAF0
+      description: No params.
+    - name: SentryStateFinalizePoints
+      address:
+        EU: 0x238E108
+        NA: 0x238D5C8
+        JP: 0x238EB30
+      description: |-
+        State 0x1B: Apply any modifiers to the player's point total, such as granting 2000 bonus points for 100% correctness.
+        
+        No params.
+    - name: SentryState1C
+      address:
+        EU: 0x238E198
+        NA: 0x238D658
+        JP: 0x238EBC0
+      description: |-
+        This state corresponds to when Loudred tells the player that they chose the correct answer ("Yep! Looks like you're right!").
+        
+        No params.
+    - name: SentryState1D
+      address:
+        EU: 0x238E1DC
+        NA: 0x238D69C
+        JP: 0x238EC04
+      description: No params.
+    - name: SentryState1E
+      address:
+        EU: 0x238E240
+        NA: 0x238D700
+        JP: 0x238EC68
+      description: |-
+        This state corresponds to one of the possible dialogue options when you've finished all the rounds (STRING_ID_SENTRY_KEEP_YOU_WAITING, STRING_ID_SENTRY_THATLL_DO_IT).
+        
+        No params.
+    - name: SentryState1F
+      address:
+        EU: 0x238E258
+        NA: 0x238D718
+        JP: 0x238EC80
+      description: No params.
+    - name: SentryState20
+      address:
+        EU: 0x238E2D4
+        NA: 0x238D794
+        JP: 0x238ECFC
+      description: |-
+        This state corresponds to one of the possible dialogue options when you've finished all the rounds (STRING_ID_SENTRY_NO_MORE_VISITORS, STRING_ID_SENTRY_THATS_ALL).
+        
+        No params.
+    - name: SentryState21
+      address:
+        EU: 0x238E2EC
+        NA: 0x238D7AC
+        JP: 0x238ED14
+      description: No params.
   data:
+    - name: SENTRY_DUTY_STRUCT_SIZE
+      address:
+        NA: 0x238A504
+      length:
+        NA: 0x4
+      description: Number of bytes in the sentry duty struct (14548).
+    - name: SENTRY_LOUDRED_MONSTER_ID
+      address:
+        NA: 0x238C14C
+      length:
+        NA: 0x4
+      description: "Monster ID for Loudred, used as the speaker ID for dialog."
+    - name: STRING_ID_SENTRY_TOP_SESSIONS
+      address:
+        NA: 0x238C150
+      length:
+        NA: 0x4
+      description: |-
+        String ID 0x6D9:
+         Here are the rankings for the
+        top sentry sessions.
+    - name: STRING_ID_SENTRY_INSTRUCTIONS
+      address:
+        NA: 0x238C154
+      length:
+        NA: 0x4
+      description: |-
+        String ID 0x6D8:
+         Look at the footprint on the top
+        screen, OK? Then identify the Pokémon![C]
+         You can get only [CS:V]two wrong[CR], OK?
+        [partner] will keep an eye on things!
+    - name: STRING_ID_SENTRY_HERE_COMES
+      address:
+        NA: 0x238C158
+      length:
+        NA: 0x4
+      description: |-
+        String ID 0x6DA:
+         Here comes a Pokémon! Check
+        its footprint and tell me what it is!
+    - name: STRING_ID_SENTRY_WHOSE_FOOTPRINT
+      address:
+        NA: 0x238C15C
+      length:
+        NA: 0x4
+      description: |-
+        String ID 0x6DB:
+         Whose footprint is this?[W:60]
+    - name: STRING_ID_SENTRY_TRY_AGAIN
+      address:
+        NA: 0x238C164
+      length:
+        NA: 0x4
+      description: |-
+        String ID 0x6EB:
+         Huh? I don't think so. Try again!
+    - name: STRING_ID_SENTRY_OUT_OF_TIME
+      address:
+        NA: 0x238C168
+      length:
+        NA: 0x4
+      description: |-
+        String ID 0x6DC:
+         [se_play:0][W:30]Out of time! Pick up the pace![W:75]
+    - name: STRING_ID_SENTRY_FOOTPRINT_IS_6EE
+      address:
+        NA: 0x238C16C
+      length:
+        NA: 0x4
+      description: |-
+        String ID 0x6EE:
+         The footprint is [kind:]'s!
+        The footprint is [kind:]'s![W:60]
+    - name: STRING_ID_SENTRY_COME_IN_6EF
+      address:
+        NA: 0x238C170
+      length:
+        NA: 0x4
+      description: |-
+        String ID 0x6EF:
+         Heard ya! Come in, visitor![W:30]
+    - name: STRING_ID_SENTRY_WRONG
+      address:
+        NA: 0x238C178
+      length:
+        NA: 0x4
+      description: |-
+        String ID 0x6F1:
+         ......[se_play:0][W:30]Huh?! Looks wrong to me![W:50]
+    - name: STRING_ID_SENTRY_BUCK_UP
+      address:
+        NA: 0x238C17C
+      length:
+        NA: 0x4
+      description: |-
+        String ID 0x6F2 (and also used as Loudred's speaker ID after subtracting 0x5B0):
+         The correct answer is
+        [kind:]! Buck up! And snap to it![se_play:0][W:120]
+    - name: STRING_ID_SENTRY_FOOTPRINT_IS_6EC
+      address:
+        NA: 0x238C184
+      length:
+        NA: 0x4
+      description: |-
+        String ID 0x6EC:
+         The footprint is [kind:]'s!
+        The footprint is [kind:]'s![W:60]
+    - name: STRING_ID_SENTRY_COME_IN_6ED
+      address:
+        NA: 0x238C188
+      length:
+        NA: 0x4
+      description: |-
+        String ID 0x6ED:
+         Heard ya! Come in, visitor![W:30]
+    - name: STRING_ID_SENTRY_KEEP_YOU_WAITING
+      address:
+        NA: 0x238C190
+      length:
+        NA: 0x4
+      description: |-
+        String ID 0x6F3:
+         [se_play:0]Sorry to keep you waiting.
+    - name: STRING_ID_SENTRY_THATLL_DO_IT
+      address:
+        NA: 0x238C194
+      length:
+        NA: 0x4
+      description: |-
+        String ID 0x6F4:
+         [partner] and [hero]![C]
+         That'll do it! Now get back here!
+    - name: SENTRY_CHATOT_MONSTER_ID
+      address:
+        NA: 0x238C198
+      length:
+        NA: 0x4
+      description: "Monster ID for Chatot, used as the speaker ID for dialog."
+    - name: STRING_ID_SENTRY_NO_MORE_VISITORS
+      address:
+        NA: 0x238C19C
+      length:
+        NA: 0x4
+      description: |-
+        String ID 0x6F5:
+         [se_play:0]No more visitors! No more
+        visitors! ♪
+    - name: STRING_ID_SENTRY_THATS_ALL
+      address:
+        NA: 0x238C1A0
+      length:
+        NA: 0x4
+      description: |-
+        String ID 0x6F6:
+         OK, got that![C]
+         Hey, [partner] and
+        [hero]![C]
+         That's all for today! Now get
+        back here!
+    - name: SENTRY_GROVYLE_MONSTER_ID
+      address:
+        NA: 0x238CA64
+      length:
+        NA: 0x4
+      description: "Monster ID for Grovyle, which appears to be explicitly excluded when generating species choices."
     - name: FOOTPRINT_DEBUG_MENU
       address:
-        NA: 0x238DAA0
         EU: 0x238E640
+        NA: 0x238DAA0
       length:
-        NA: 0x48
         EU: 0x48
+        NA: 0x48
+    - name: SENTRY_DUTY_PTR
+      address:
+        NA: 0x238DB80
+      length:
+        NA: 0x4
+      description: Pointer to the SENTRY_DUTY_STRUCT.
+    - name: SENTRY_DUTY_STATE_HANDLER_TABLE
+      address:
+        NA: 0x238DB94
+      length:
+        NA: 0x8C
+      description: |-
+        Null-terminated table of handler functions for the different states in the state machine. See SentryRunState.
+        
+        type: state_handler_fn_t[35]

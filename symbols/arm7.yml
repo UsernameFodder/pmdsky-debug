@@ -1,0 +1,30 @@
+arm7:
+  versions:
+    - EU
+    - NA
+    - JP
+  address:
+    EU: 0x2380000
+    NA: 0x2380000
+    JP: 0x2380000
+  length:
+    EU: 0x27080
+    NA: 0x27080
+    JP: 0x27080
+  description: |-
+    The ARM7 binary.
+    
+    This is the secondary binary that gets loaded when the game is launched.
+    
+    Speaking generally, this is the program run by the Nintendo DS's secondary ARM7TDMI CPU, which handles the audio engine, the touch screen, Wi-Fi functions, cryptography, and more.
+  functions:
+    - name: EntryArm7
+      address:
+        EU: 0x2380000
+        NA: 0x2380000
+        JP: 0x2380000
+      description: |-
+        The entrypoint for the ARM7 CPU. This is like the "main" function for the ARM7 subsystem.
+        
+        No params.
+  data: []

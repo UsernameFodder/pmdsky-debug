@@ -1,35 +1,109 @@
 overlay16:
   versions:
-    - NA
     - EU
+    - NA
     - JP
   address:
-    NA: 0x238A140
     EU: 0x238AC80
+    NA: 0x238A140
+    JP: 0x238B6A0
   length:
-    NA: 0x2D20
     EU: 0x2D20
+    NA: 0x2D20
+    JP: 0x2D40
   description: Controls Luminous Spring.
   functions: []
   data:
     - name: EVO_MENU_CONFIRM
       address:
-        NA: 0x238CD08
         EU: 0x238D84C
+        NA: 0x238CD08
       length:
-        NA: 0x18
         EU: 0x18
+        NA: 0x18
+      description: "Irdkwia's notes: 3*0x8"
     - name: EVO_SUBMENU
       address:
-        NA: 0x238CD20
         EU: 0x238D864
+        NA: 0x238CD20
       length:
-        NA: 0x20
         EU: 0x20
+        NA: 0x20
+      description: "Irdkwia's notes: 4*0x8"
     - name: EVO_MAIN_MENU
       address:
-        NA: 0x238CD40
         EU: 0x238D884
+        NA: 0x238CD40
       length:
-        NA: 0x20
         EU: 0x20
+        NA: 0x20
+      description: "Irdkwia's notes: 4*0x8"
+    - name: EVO_MENU_STRING_IDS
+      address:
+        NA: 0x238CD60
+      length:
+        NA: 0x34
+      description: |-
+        26*0x2
+        
+        Note: unverified, ported from Irdkwia's notes
+    - name: EVO_D_BOX_LAYOUT_1
+      address:
+        NA: 0x238CD94
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: EVO_D_BOX_LAYOUT_2
+      address:
+        NA: 0x238CDA4
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: EVO_D_BOX_LAYOUT_3
+      address:
+        NA: 0x238CDB4
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: EVO_D_BOX_LAYOUT_4
+      address:
+        NA: 0x238CDC4
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: EVO_D_BOX_LAYOUT_5
+      address:
+        NA: 0x238CDD4
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: EVO_D_BOX_LAYOUT_6
+      address:
+        NA: 0x238CDE4
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: EVO_D_BOX_LAYOUT_7
+      address:
+        NA: 0x238CDF4
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY16_RESERVED_SPACE
+      address:
+        NA: 0x238CE34
+      length:
+        NA: 0xC
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY16_UNKNOWN_POINTER__NA_238CE40
+      address:
+        NA: 0x238CE40
+      length:
+        NA: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY16_UNKNOWN_POINTER__NA_238CE58
+      address:
+        NA: 0x238CE58
+      length:
+        NA: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"

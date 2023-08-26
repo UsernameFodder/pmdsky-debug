@@ -1,35 +1,109 @@
 overlay25:
   versions:
-    - NA
     - EU
+    - NA
     - JP
   address:
-    NA: 0x238A140
     EU: 0x238AC80
+    NA: 0x238A140
+    JP: 0x238B6A0
   length:
-    NA: 0x14C0
     EU: 0x14C0
+    NA: 0x14C0
+    JP: 0x14C0
   description: Controls Xatu Appraisal.
   functions: []
   data:
+    - name: OVERLAY25_UNKNOWN_STRUCT__NA_238B498
+      address:
+        NA: 0x238B498
+      length:
+        NA: 0xC
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: APPRAISAL_D_BOX_LAYOUT_1
+      address:
+        NA: 0x238B4A4
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
     - name: APPRAISAL_MENU_CONFIRM
       address:
-        NA: 0x238B4B4
         EU: 0x238BFF4
+        NA: 0x238B4B4
       length:
-        NA: 0x18
         EU: 0x18
+        NA: 0x18
     - name: APPRAISAL_MAIN_MENU
       address:
-        NA: 0x238B4CC
         EU: 0x238C00C
+        NA: 0x238B4CC
       length:
-        NA: 0x20
         EU: 0x20
+        NA: 0x20
     - name: APPRAISAL_SUBMENU
       address:
-        NA: 0x238B4EC
         EU: 0x238C02C
+        NA: 0x238B4EC
       length:
-        NA: 0x20
         EU: 0x20
+        NA: 0x20
+    - name: OVERLAY25_UNKNOWN_STRING_IDS
+      address:
+        NA: 0x238B50C
+      length:
+        NA: 0x28
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: APPRAISAL_D_BOX_LAYOUT_2
+      address:
+        NA: 0x238B534
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: APPRAISAL_D_BOX_LAYOUT_3
+      address:
+        NA: 0x238B544
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: APPRAISAL_D_BOX_LAYOUT_4
+      address:
+        NA: 0x238B554
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: APPRAISAL_D_BOX_LAYOUT_5
+      address:
+        NA: 0x238B564
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: APPRAISAL_D_BOX_LAYOUT_6
+      address:
+        NA: 0x238B574
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: APPRAISAL_D_BOX_LAYOUT_7
+      address:
+        NA: 0x238B584
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: APPRAISAL_D_BOX_LAYOUT_8
+      address:
+        NA: 0x238B594
+      length:
+        NA: 0x10
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY25_RESERVED_SPACE
+      address:
+        NA: 0x238B5C4
+      length:
+        NA: 0x1C
+      description: "Note: unverified, ported from Irdkwia's notes"
+    - name: OVERLAY25_UNKNOWN_POINTER__NA_238B5E0
+      address:
+        NA: 0x238B5E0
+      length:
+        NA: 0x4
+      description: "Note: unverified, ported from Irdkwia's notes"

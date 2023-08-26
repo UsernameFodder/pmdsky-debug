@@ -1,0 +1,4077 @@
+move_effects:
+  versions:
+    - EU
+    - NA
+    - JP
+  address:
+    EU: 0x2326828
+    NA: 0x2325DC0
+    JP: 0x232724C
+  length:
+    EU: 0x8A24
+    NA: 0x8A4C
+    JP: 0x89BC
+  description: |-
+    Move effect handlers for individual moves, called by ExecuteMoveEffect (and also the Metronome and Nature Power tables).
+    
+    This subregion contains only the move effect handlers themselves, and not necessarily all the utility functions used by the move effect handlers (such as the damage calculation functions). These supporting utilities are in the main overlay29 block.
+  functions:
+    - name: DoMoveDamage
+      address:
+        NA:
+          - 0x2325DC0
+          - 0x232A500
+          - 0x232B8B0
+          - 0x232DD88
+      description: |-
+        Move effect: Deal damage.
+        Relevant moves: Many!
+        
+        This just wraps DealDamage with a multiplier of 1 (i.e., the fixed-point number 0x100).
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether or not damage was dealt
+    - name: DoMoveIronTail
+      address:
+        NA: 0x2325DE4
+      description: |-
+        Move effect: Iron Tail
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDamageMultihitUntilMiss
+      address:
+        EU: 0x23268CC
+        NA: 0x2325E64
+        JP: 0x23272F0
+      description: |-
+        Move effect: Deal multihit damage until a strike misses
+        Relevant moves: Ice Ball, Rollout
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveYawn
+      address:
+        EU: 0x232692C
+        NA: 0x2325EC4
+        JP: 0x2327350
+      description: |-
+        Move effect: Yawn
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSleep
+      address:
+        EU: 0x2326968
+        NA: 0x2325F00
+      description: |-
+        Move effect: Put target enemies to sleep
+        Relevant moves: Lovely Kiss, Sing, Spore, Grasswhistle, Hypnosis, Sleep Powder, Dark Void
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveNightmare
+      address:
+        EU: 0x23269A4
+        NA: 0x2325F3C
+        JP: 0x23273C8
+      description: |-
+        Move effect: Nightmare
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveMorningSun
+      address:
+        NA: 0x2325F74
+      description: |-
+        Move effect: Morning Sun
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveVitalThrow
+      address:
+        EU: 0x2326A1C
+        NA: 0x2325FB4
+        JP: 0x2327440
+      description: |-
+        Move effect: Vital Throw
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDig
+      address:
+        EU: 0x2326A2C
+        NA: 0x2325FC4
+        JP: 0x2327450
+      description: |-
+        Move effect: Dig
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSweetScent
+      address:
+        NA: 0x2326088
+      description: |-
+        Move effect: Sweet Scent
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveCharm
+      address:
+        EU: 0x2326B10
+        NA: 0x23260A8
+        JP: 0x2327534
+      description: |-
+        Move effect: Charm
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveRainDance
+      address:
+        EU: 0x2326B38
+        NA: 0x23260D0
+      description: |-
+        Move effect: Rain Dance
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveHail
+      address:
+        EU: 0x2326B94
+        NA: 0x232612C
+      description: |-
+        Move effect: Hail
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveHealStatus
+      address:
+        EU: 0x2326BF0
+        NA: 0x2326188
+        JP: 0x2327614
+      description: |-
+        Move effect: Heal the team's status conditions
+        Relevant moves: Aromatherapy, Heal Bell, Refresh
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveBubble
+      address:
+        NA: 0x23261A0
+      description: |-
+        Move effect: Bubble
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveEncore
+      address:
+        EU: 0x2326C74
+        NA: 0x232620C
+        JP: 0x2327698
+      description: |-
+        Move effect: Encore
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveRage
+      address:
+        EU: 0x2326C88
+        NA: 0x2326220
+        JP: 0x23276AC
+      description: |-
+        Move effect: Rage
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSuperFang
+      address:
+        EU: 0x2326CCC
+        NA: 0x2326264
+        JP: 0x23276F0
+      description: |-
+        Move effect: Super Fang
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMovePainSplit
+      address:
+        EU: 0x2326D84
+        NA: 0x232631C
+        JP: 0x23277A8
+      description: |-
+        Move effect: Pain Split
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveTorment
+      address:
+        EU: 0x2326E70
+        NA: 0x2326408
+        JP: 0x2327894
+      description: |-
+        Move effect: Torment
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveStringShot
+      address:
+        EU: 0x2326FB8
+        NA: 0x2326550
+        JP: 0x23279DC
+      description: |-
+        Move effect: String Shot
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSwagger
+      address:
+        EU: 0x2326FD0
+        NA: 0x2326568
+        JP: 0x23279F4
+      description: |-
+        Move effect: Swagger
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSnore
+      address:
+        EU: 0x232700C
+        NA: 0x23265A4
+        JP: 0x2327A30
+      description: |-
+        Move effect: Snore
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveScreech
+      address:
+        EU: 0x23270B0
+        NA: 0x2326648
+        JP: 0x2327AD4
+      description: |-
+        Move effect: Screech
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDamageCringe30
+      address:
+        NA: 0x2326670
+      description: |-
+        Move effect: Deal damage with a 30% chance (ROCK_SLIDE_CRINGE_CHANCE) of inflicting the cringe status on the defender.
+        Relevant moves: Rock Slide, Astonish, Iron Head, Dark Pulse, Air Slash, Zen Headbutt, Dragon Rush
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether or not damage was dealt
+    - name: DoMoveWeatherBall
+      address:
+        EU: 0x2327144
+        NA: 0x23266DC
+        JP: 0x2327B68
+      description: |-
+        Move effect: Weather Ball
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveWhirlpool
+      address:
+        EU: 0x23271B8
+        NA: 0x2326750
+        JP: 0x2327BDC
+      description: |-
+        Move effect: Whirlpool
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveFakeTears
+      address:
+        NA: 0x23267D8
+      description: |-
+        Move effect: Fake Tears
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSpite
+      address:
+        EU: 0x2327274
+        NA: 0x232680C
+        JP: 0x2327C98
+      description: |-
+        Move effect: Spite
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveFocusEnergy
+      address:
+        EU: 0x2327324
+        NA: 0x23268BC
+        JP: 0x2327D44
+      description: |-
+        Move effect: Focus Energy
+        Relevant moves: Focus Energy, MOVE_TAG_0x1AC
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSmokescreen
+      address:
+        EU: 0x2327334
+        NA: 0x23268CC
+        JP: 0x2327D54
+      description: |-
+        Move effect: Smokescreen
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveMirrorMove
+      address:
+        EU: 0x2327370
+        NA: 0x2326908
+        JP: 0x2327D90
+      description: |-
+        Move effect: Mirror Move
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveOverheat
+      address:
+        EU: 0x2327394
+        NA: 0x232692C
+        JP: 0x2327DB4
+      description: |-
+        Move effect: Overheat
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveAuroraBeam
+      address:
+        EU: 0x23273F8
+        NA: 0x2326990
+        JP: 0x2327E18
+      description: |-
+        Move effect: Aurora Beam
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveMemento
+      address:
+        EU: 0x2327474
+        NA: 0x2326A0C
+        JP: 0x2327E94
+      description: |-
+        Move effect: Memento
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveOctazooka
+      address:
+        NA: 0x2326A74
+      description: |-
+        Move effect: Octazooka
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveFlatter
+      address:
+        EU: 0x2327550
+        NA: 0x2326AE8
+        JP: 0x2327F70
+      description: |-
+        Move effect: Flatter
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveWillOWisp
+      address:
+        EU: 0x232758C
+        NA: 0x2326B24
+        JP: 0x2327FAC
+      description: |-
+        Move effect: Will-O-Wisp
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveReturn
+      address:
+        EU: 0x2327628
+        NA: 0x2326BC0
+        JP: 0x2328048
+      description: |-
+        Move effect: Return
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveGrudge
+      address:
+        NA: 0x2326CA4
+      description: |-
+        Move effect: Grudge
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveCounter
+      address:
+        EU: 0x232771C
+        NA: 0x2326CB4
+        JP: 0x232813C
+      description: |-
+        Move effect: Give the user the Counter status
+        Relevant moves: Pursuit, Counter, Payback
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDamageBurn10FlameWheel
+      address:
+        NA: 0x2326CC8
+      description: |-
+        Move effect: Deal damage with a 10% chance (FLAME_WHEEL_BURN_CHANCE) of burning the defender.
+        Relevant moves: Flame Wheel, Lava Plume
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDamageBurn10
+      address:
+        NA: 0x2326D50
+      description: |-
+        Move effect: Deal damage with a 10% chance (FLAMETHROWER_BURN_CHANCE) of burning the defender.
+        Relevant moves: Flamethrower, Fire Blast, Heat Wave, Ember, Fire Punch
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveExpose
+      address:
+        EU: 0x2327840
+        NA: 0x2326DD8
+        JP: 0x2328260
+      description: |-
+        Move effect: Expose all Ghost-type enemies, and reset evasion boosts
+        Relevant moves: Odor Sleuth, Foresight
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDoubleTeam
+      address:
+        NA: 0x2326E04
+      description: |-
+        Move effect: Double Team
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveGust
+      address:
+        EU: 0x2327888
+        NA: 0x2326E20
+        JP: 0x23282A8
+      description: |-
+        Move effect: Gust
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveBoostDefense1
+      address:
+        NA: 0x2326E60
+      description: |-
+        Move effect: Boost the user's defense by one stage
+        Relevant moves: Harden, Withdraw
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveParalyze
+      address:
+        NA:
+          - 0x2326E80
+          - 0x2328230
+          - 0x232B434
+      description: |-
+        Move effect: Paralyze the defender if possible
+        Relevant moves: Disable, Stun Spore, Glare
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveBoostAttack1
+      address:
+        NA: 0x2326E98
+      description: |-
+        Move effect: Boost the user's attack by one stage
+        Relevant moves: Sharpen, Howl, Meditate
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveRazorWind
+      address:
+        EU: 0x2327920
+        NA: 0x2326EB8
+        JP: 0x2328340
+      description: |-
+        Move effect: Razor Wind
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveBide
+      address:
+        EU: 0x23279B0
+        NA: 0x2326F48
+        JP: 0x23283D0
+      description: |-
+        Move effect: Give the user the Bide status
+        Relevant moves: Bide, Revenge, Avalanche
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveBideUnleash
+      address:
+        EU: 0x23279F4
+        NA: 0x2326F8C
+        JP: 0x2328414
+      description: |-
+        Move effect: Unleashes the Bide status
+        Relevant moves: Bide (unleashing), Revenge (unleashing), Avalanche (unleashing)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveCrunch
+      address:
+        EU: 0x2327A9C
+        NA: 0x2327034
+      description: |-
+        Move effect: Deal damage with a 20% chance (CRUNCH_LOWER_DEFENSE_CHANCE) of lowering the defender's defense.
+        Relevant moves: Crunch, Shadow Ball via Nature Power
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether or not damage was dealt
+    - name: DoMoveDamageCringe20
+      address:
+        NA: 0x23270B4
+      description: |-
+        Move effect: Deal damage with a 20% chance (BITE_CRINGE_CHANCE) of inflicting the cringe status on the defender.
+        Relevant moves: Bite, Needle Arm, Stomp, Rolling Kick
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDamageParalyze20
+      address:
+        EU: 0x2327B88
+        NA: 0x2327120
+      description: |-
+        Move effect: Deal damage with a 20% chance (THUNDER_PARALYZE_CHANCE) of paralyzing the defender.
+        Relevant moves: Thunder, ThunderPunch, Force Palm, Discharge
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether or not damage was dealt
+    - name: DoMoveEndeavor
+      address:
+        EU: 0x2327BF4
+        NA: 0x232718C
+        JP: 0x2328614
+      description: |-
+        Move effect: Endeavor
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveFacade
+      address:
+        EU: 0x2327CB4
+        NA: 0x232724C
+        JP: 0x23286D4
+      description: |-
+        Move effect: Facade
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDamageLowerSpeed20
+      address:
+        NA: 0x232728C
+      description: |-
+        Move effect: Deal damage with a 20% chance (CONSTRICT_LOWER_SPEED_CHANCE) of lowering the defender's speed.
+        Relevant moves: Constrict, Bubblebeam
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether or not damage was dealt
+    - name: DoMoveBrickBreak
+      address:
+        EU: 0x2327D60
+        NA: 0x23272F8
+        JP: 0x2328780
+      description: |-
+        Move effect: Brick Break
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDamageLowerSpeed100
+      address:
+        EU: 0x2327DD0
+        NA: 0x2327368
+        JP: 0x23287F0
+      description: |-
+        Move effect: Deal damage and lower the defender's speed.
+        Relevant moves: Rock Tomb, Icy Wind, Mud Shot
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveFocusPunch
+      address:
+        EU: 0x2327E34
+        NA: 0x23273CC
+      description: |-
+        Move effect: Focus Punch
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDamageDrain
+      address:
+        EU: 0x2327EC0
+        NA: 0x2327458
+        JP: 0x23288E0
+      description: |-
+        Move effect: Deal draining damage, healing the attacker by a proportion of the damage dealt.
+        Relevant moves: Giga Drain, Leech Life, Mega Drain, Drain Punch
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether or not damage was dealt
+    - name: DoMoveReversal
+      address:
+        NA: 0x2327598
+      description: |-
+        Move effect: Deal damage with a higher multiplier the lower the attacker's HP is.
+        Relevant moves: Reversal, Flail
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSmellingSalt
+      address:
+        EU: 0x23280B4
+        NA: 0x232764C
+        JP: 0x2328AD4
+      description: |-
+        Move effect: SmellingSalt
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveMetalSound
+      address:
+        EU: 0x232811C
+        NA: 0x23276B4
+        JP: 0x2328B3C
+      description: |-
+        Move effect: Metal Sound
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveTickle
+      address:
+        EU: 0x2328150
+        NA: 0x23276E8
+        JP: 0x2328B70
+      description: |-
+        Move effect: Tickle
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveShadowHold
+      address:
+        EU: 0x23281AC
+        NA: 0x2327744
+        JP: 0x2328BCC
+      description: |-
+        Move effect: Inflict the Shadow Hold status on the defender
+        Relevant moves: Spider Web, Mean Look
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveHaze
+      address:
+        EU: 0x23281C0
+        NA: 0x2327758
+        JP: 0x2328BE0
+      description: |-
+        Move effect: Haze
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDamageMultihitFatigue
+      address:
+        EU: 0x23281D4
+        NA: 0x232776C
+        JP: 0x2328BF4
+      description: |-
+        Move effect: Deal multihit damage, then confuse the attacker
+        Relevant moves: Outrage, Petal Dance
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDamageWeightDependent
+      address:
+        EU: 0x2328220
+        NA: 0x23277B8
+        JP: 0x2328C40
+      description: |-
+        Move effect: Deal damage, multiplied by a weight-dependent factor.
+        Relevant moves: Low Kick, Grass Knot
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether or not damage was dealt
+    - name: DoMoveDamageBoostAllStats
+      address:
+        EU: 0x232826C
+        NA: 0x2327804
+        JP: 0x2328C8C
+      description: |-
+        Move effect: Deal damage, with a 20% (SILVER_WIND_BOOST_CHANCE) to boost the user's attack, special attack, defense, special defense, and speed.
+        Relevant moves: Silver Wind, AncientPower, Ominous Wind
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSynthesis
+      address:
+        NA: 0x23278E8
+      description: |-
+        Move effect: Synthesis
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveBoostSpeed1
+      address:
+        EU: 0x2328390
+        NA: 0x2327928
+        JP: 0x2328DB0
+      description: |-
+        Move effect: Boost the team's movement speed by one stage
+        Relevant moves: Agility, Speed Boost (item effect), MOVE_TAG_0x1AA, Tailwind
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveRapidSpin
+      address:
+        EU: 0x23283A8
+        NA: 0x2327940
+        JP: 0x2328DC8
+      description: |-
+        Move effect: Rapid Spin
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSureShot
+      address:
+        EU: 0x2328414
+        NA: 0x23279AC
+        JP: 0x2328E34
+      description: |-
+        Move effect: Give the user the Sure-Shot status
+        Relevant moves: Mind Reader, Lock-On
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveCosmicPower
+      address:
+        NA: 0x23279E4
+      description: |-
+        Move effect: Cosmic Power
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSkyAttack
+      address:
+        EU: 0x2328490
+        NA: 0x2327A28
+        JP: 0x2328EB0
+      description: |-
+        Move effect: Sky Attack
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDamageFreeze15
+      address:
+        EU: 0x232855C
+        NA: 0x2327AF4
+        JP: 0x2328F7C
+      description: |-
+        Move effect: Deal damage with a 15% chance (POWDER_SNOW_FREEZE_CHANCE) of freezing the defender.
+        Relevant moves: Powder Snow, Blizzard, Ice Punch, Ice Beam
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether or not damage was dealt
+    - name: DoMoveMeteorMash
+      address:
+        EU: 0x23285C4
+        NA: 0x2327B5C
+        JP: 0x2328FE4
+      description: |-
+        Move effect: Meteor Mash
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveEndure
+      address:
+        EU: 0x232864C
+        NA: 0x2327BE0
+        JP: 0x2329068
+      description: |-
+        Move effect: Endure
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveLowerSpeed1
+      address:
+        EU: 0x232865C
+        NA: 0x2327BF0
+        JP: 0x2329078
+      description: |-
+        Move effect: Lower the defender's defense by one stage
+        Relevant moves: Scary Face, Cotton Spore
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDamageConfuse10
+      address:
+        NA: 0x2327C08
+      description: |-
+        Move effect: Deal damage with a 10% chance (PSYBEAM_CONFUSE_CHANCE) of confusing the defender.
+        Relevant moves: Psybeam, Signal Beam, Confusion, Chatter, Rock Climb
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMovePsywave
+      address:
+        EU: 0x23286E0
+        NA: 0x2327C74
+        JP: 0x23290FC
+      description: |-
+        Move effect: Psywave
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDamageLowerDefensiveStatVariable
+      address:
+        EU: 0x2328744
+        NA: 0x2327CD8
+        JP: 0x2329160
+      description: |-
+        Move effect: Deal damage with some chance of lowering one of the defender's defensive stats.
+        Relevant moves: Psychic, Acid, Seed Flare, Earth Power, Bug Buzz, Flash Cannon
+        
+        Note that this move effect handler has a slightly different parameter list than all the others. Which defensive stat is lowered, the chance of lowering, and the number of stages to lower are all specified as arguments by the caller.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: stat index for the defensive stat to lower
+        stack[0]: number of defensive stat stages to lower
+        stack[1]: percentage chance of lowering the defensive stat
+        stack[2]: item ID
+        return: whether the move was successfully used
+    - name: DoMovePsychoBoost
+      address:
+        EU: 0x23287CC
+        NA: 0x2327D60
+        JP: 0x23291E8
+      description: |-
+        Move effect: Psycho Boost
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveUproar
+      address:
+        EU: 0x232883C
+        NA: 0x2327DD0
+        JP: 0x2329258
+      description: |-
+        Move effect: Uproar
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveWaterSpout
+      address:
+        NA: 0x2327DE0
+      description: |-
+        Move effect: Water Spout
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMovePsychUp
+      address:
+        EU: 0x2328900
+        NA: 0x2327E94
+        JP: 0x232931C
+      description: |-
+        Move effect: Psych Up
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDamageWithRecoil
+      address:
+        EU: 0x23289A0
+        NA: 0x2327F34
+        JP: 0x23293BC
+      description: |-
+        Move effect: Deals damage, inflicting recoil damage on the attacker.
+        Relevant moves: Submission, Take Down, Volt Tackle, Wood Hammer, Brave Bird
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: bool, whether or not damage was dealt
+    - name: EntityIsValidMoveEffects
+      address:
+        EU:
+          - 0x2328A78
+          - 0x232AE44
+          - 0x232CF70
+          - 0x232EC90
+        NA:
+          - 0x232800C
+          - 0x232A3D8
+          - 0x232C500
+          - 0x232E250
+      description: "See overlay29.yml::EntityIsValid"
+    - name: DoMoveRecoverHp
+      address:
+        EU: 0x2328A9C
+        NA: 0x2328030
+        JP: 0x23294B8
+      description: |-
+        Move effect: Recover 50% of the user's max HP
+        Relevant moves: Recover, Slack Off
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveEarthquake
+      address:
+        EU: 0x2328AE0
+        NA: 0x2328074
+        JP: 0x23294FC
+      description: |-
+        Move effect: Earthquake
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: GetNaturePowerVariant
+      address:
+        EU: 0x2328B40
+        NA: 0x23280D4
+      description: |-
+        Gets the nature power variant for the current dungeon, based on the tileset ID.
+        
+        return: nature power variant
+    - name: DoMoveNaturePower
+      address:
+        EU: 0x2328B7C
+        NA: 0x2328110
+        JP: 0x2329598
+      description: |-
+        Move effect: Nature Power
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move (unused)
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDamageParalyze10
+      address:
+        NA: 0x232816C
+      description: |-
+        Move effect: Deal damage with a 10% chance (LICK_PARALZYE_CHANCE) of paralyzing the defender.
+        Relevant moves: Lick, Spark, Body Slam, DragonBreath
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSelfdestruct
+      address:
+        EU: 0x2328C44
+        NA: 0x23281D8
+        JP: 0x2329660
+      description: |-
+        Move effect: Selfdestruct
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveShadowBall
+      address:
+        EU: 0x2328CB4
+        NA: 0x2328248
+      description: |-
+        Move effect: Shadow Ball
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveCharge
+      address:
+        EU: 0x2328D34
+        NA: 0x23282C8
+        JP: 0x2329750
+      description: |-
+        Move effect: Charge
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveThunderbolt
+      address:
+        NA: 0x2328328
+      description: |-
+        Move effect: Thunderbolt
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveMist
+      address:
+        EU: 0x2328E00
+        NA: 0x2328394
+        JP: 0x232981C
+      description: |-
+        Move effect: Mist
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveFissure
+      address:
+        EU: 0x2328E10
+        NA: 0x23283A4
+        JP: 0x232982C
+      description: |-
+        Move effect: Fissure
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDamageCringe10
+      address:
+        NA: 0x23284BC
+      description: |-
+        Move effect: Deal damage with a 10% chance (EXTRASENSORY_CRINGE_CHANCE) to inflict the cringe status on the defender.
+        Relevant moves: Extrasensory, Hyper Fang, Bone Club
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSafeguard
+      address:
+        EU: 0x2328F94
+        NA: 0x2328528
+        JP: 0x23299B0
+      description: |-
+        Move effect: Safeguard
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveAbsorb
+      address:
+        EU: 0x2328FA4
+        NA: 0x2328538
+      description: |-
+        Move effect: Absorb
+        
+        This is essentially identical to DoMoveDamageDrain, except the ordering of the instructions is slightly different enough to introduce subtle variations in functionality.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether or not damage was dealt
+    - name: DefenderAbilityIsActiveMoveEffects
+      address:
+        EU:
+          - 0x23290A0
+          - 0x232A980
+          - 0x232C840
+          - 0x232E860
+        NA:
+          - 0x2328634
+          - 0x2329F14
+          - 0x232BDD0
+          - 0x232DE20
+      description: "See overlay29.yml::DefenderAbilityIsActive"
+    - name: DoMoveSkillSwap
+      address:
+        EU: 0x2329104
+        NA: 0x2328698
+        JP: 0x2329B18
+      description: |-
+        Move effect: Skill Swap
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSketch
+      address:
+        EU: 0x2329200
+        NA: 0x2328794
+        JP: 0x2329C14
+      description: |-
+        Move effect: Sketch
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveHeadbutt
+      address:
+        NA: 0x23288C4
+      description: |-
+        Move effect: Headbutt
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDoubleEdge
+      address:
+        EU: 0x232939C
+        NA: 0x2328930
+        JP: 0x2329DB0
+      description: |-
+        Move effect: Double-Edge
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSandstorm
+      address:
+        EU: 0x2329464
+        NA: 0x23289F8
+      description: |-
+        Move effect: Sandstorm
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveLowerAccuracy1
+      address:
+        NA: 0x2328A54
+      description: |-
+        Move effect: Lower the defender's accuracy by one stage
+        Relevant moves: Sand-Attack, Kinesis, Flash
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDamagePoison40
+      address:
+        NA: 0x2328A74
+      description: |-
+        Move effect: Deal damage with a 40% chance (SMOG_POISON_CHANCE) of poisoning the defender.
+        Relevant moves: Smog, Cross Poison, Gunk Shot, Poison Jab
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether or not damage was dealt
+    - name: DoMoveGrowth
+      address:
+        NA: 0x2328AE0
+      description: |-
+        Move effect: Growth
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSacredFire
+      address:
+        NA: 0x2328B00
+      description: |-
+        Move effect: Sacred Fire
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveOhko
+      address:
+        EU: 0x23295F4
+        NA: 0x2328B88
+        JP: 0x232A008
+      description: |-
+        Move effect: Possibly one-hit KO the defender
+        Relevant moves: Sheer Cold, Guillotine
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSolarBeam
+      address:
+        EU: 0x23296E0
+        NA: 0x2328C74
+        JP: 0x232A0F4
+      description: |-
+        Move effect: SolarBeam
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSonicBoom
+      address:
+        NA: 0x2328D44
+      description: |-
+        Move effect: SonicBoom
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveFly
+      address:
+        EU: 0x2329850
+        NA: 0x2328DE4
+        JP: 0x232A264
+      description: |-
+        Move effect: Fly
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveExplosion
+      address:
+        EU: 0x23298E0
+        NA: 0x2328E74
+        JP: 0x232A2F4
+      description: |-
+        Move effect: Explosion
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDive
+      address:
+        EU: 0x2329938
+        NA: 0x2328ECC
+        JP: 0x232A34C
+      description: |-
+        Move effect: Dive
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveWaterfall
+      address:
+        EU: 0x2329A00
+        NA: 0x2328F94
+      description: |-
+        Move effect: Waterfall
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDamageLowerAccuracy40
+      address:
+        NA: 0x2329000
+      description: |-
+        Move effect: Deal damage with a 40% chance (MUDDY_WATER_LOWER_ACCURACY_CHANCE) of lowering the defender's accuracy.
+        Relevant moves: Muddy Water, Mud Bomb, Mirror Shot
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether or not damage was dealt
+    - name: DoMoveStockpile
+      address:
+        EU: 0x2329AE0
+        NA: 0x2329074
+        JP: 0x232A4F4
+      description: |-
+        Move effect: Stockpile
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveTwister
+      address:
+        EU: 0x2329B38
+        NA: 0x23290CC
+        JP: 0x232A54C
+      description: |-
+        Move effect: Twister
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveTwineedle
+      address:
+        EU: 0x2329BC8
+        NA: 0x232915C
+        JP: 0x232A5DC
+      description: |-
+        Move effect: Twineedle
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveRecoverHpTeam
+      address:
+        EU: 0x2329C60
+        NA: 0x23291F4
+        JP: 0x232A674
+      description: |-
+        Move effect: Recover 25% HP for all team members
+        Relevant moves: Softboiled, Milk Drink
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveMinimize
+      address:
+        NA: 0x232923C
+      description: |-
+        Move effect: Minimize
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSeismicToss
+      address:
+        EU: 0x2329CC4
+        NA: 0x2329258
+        JP: 0x232A6D8
+      description: |-
+        Move effect: Seismic Toss
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveConfuse
+      address:
+        EU: 0x2329E38
+        NA: 0x23293CC
+        JP: 0x232A84C
+      description: |-
+        Move effect: Confuse target enemies if possible.
+        Relevant moves: Confuse Ray, Supersonic, Sweet Kiss, Teeter Dance, Totter (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveTaunt
+      address:
+        EU: 0x2329E50
+        NA: 0x23293E4
+        JP: 0x232A864
+      description: |-
+        Move effect: Taunt
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveMoonlight
+      address:
+        NA: 0x23293F8
+      description: |-
+        Move effect: Moonlight
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveHornDrill
+      address:
+        EU: 0x2329EA4
+        NA: 0x2329438
+        JP: 0x232A8B8
+      description: |-
+        Move effect: Horn Drill
+        
+        This is exactly the same as DoMoveOhko, except there's a call to SubstitutePlaceholderStringTags at the end.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSwordsDance
+      address:
+        NA: 0x2329534
+      description: |-
+        Move effect: Swords Dance
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveConversion
+      address:
+        EU: 0x2329FC0
+        NA: 0x2329554
+        JP: 0x232A9D4
+      description: |-
+        Move effect: Conversion
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveConversion2
+      address:
+        EU: 0x232A0D0
+        NA: 0x2329664
+        JP: 0x232AAE4
+      description: |-
+        Move effect: Conversion 2
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveHelpingHand
+      address:
+        EU: 0x232A0E0
+        NA: 0x2329674
+        JP: 0x232AAF4
+      description: |-
+        Move effect: Helping Hand
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveBoostDefense2
+      address:
+        NA: 0x23296D8
+      description: |-
+        Move effect: Boost the defender's defense stat by two stages
+        Relevant moves: Iron Defense, Acid Armor, Barrier
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveWarp
+      address:
+        EU: 0x232A164
+        NA: 0x23296F8
+        JP: 0x232AB78
+      description: |-
+        Move effect: Warp the target to another tile on the floor
+        Relevant moves: Teleport, Warp (item effect), MOVE_TAG_0x1A8
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveThundershock
+      address:
+        NA: 0x2329710
+      description: |-
+        Move effect: Thundershock
+        
+        This is identical to DoMoveDamageParalyze10, except it uses a different data symbol for the paralysis chance (but it's still 10%).
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveThunderWave
+      address:
+        EU: 0x232A1E8
+        NA: 0x232977C
+        JP: 0x232ABFC
+      description: |-
+        Move effect: Thunder Wave
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveZapCannon
+      address:
+        EU: 0x232A25C
+        NA: 0x23297F0
+        JP: 0x232AC6C
+      description: |-
+        Move effect: Zap Cannon
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveBlock
+      address:
+        EU: 0x232A2C0
+        NA: 0x2329854
+        JP: 0x232ACD0
+      description: |-
+        Move effect: Block
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMovePoison
+      address:
+        EU: 0x232A2D4
+        NA: 0x2329868
+        JP: 0x232ACE4
+      description: |-
+        Move effect: Poison the defender if possible
+        Relevant moves: Poison Gas, PoisonPowder
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveToxic
+      address:
+        EU: 0x232A2EC
+        NA: 0x2329880
+        JP: 0x232ACFC
+      description: |-
+        Move effect: Toxic
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMovePoisonFang
+      address:
+        NA: 0x2329898
+      description: |-
+        Move effect: Poison Fang
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDamagePoison18
+      address:
+        EU: 0x232A370
+        NA: 0x2329904
+      description: |-
+        Move effect: Deal damage with an 18% chance (POISON_STING_POISON_CHANCE) to poison the defender.
+        Relevant moves: Poison Sting, Sludge, Sludge Bomb
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveJumpKick
+      address:
+        EU: 0x232A3DC
+        NA: 0x2329970
+        JP: 0x232ADEC
+      description: |-
+        Move effect: Jump Kick
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveBounce
+      address:
+        EU: 0x232A508
+        NA: 0x2329A9C
+        JP: 0x232AF18
+      description: |-
+        Move effect: Bounce
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveHiJumpKick
+      address:
+        EU: 0x232A5D4
+        NA: 0x2329B68
+        JP: 0x232AFE4
+      description: |-
+        Move effect: Hi Jump Kick
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveTriAttack
+      address:
+        EU: 0x232A700
+        NA: 0x2329C94
+        JP: 0x232B110
+      description: |-
+        Move effect: Tri Attack
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSwapItems
+      address:
+        EU: 0x232A7BC
+        NA: 0x2329D50
+        JP: 0x232B1CC
+      description: |-
+        Move effect: Swaps the held items of the attacker and defender.
+        Relevant moves: Trick, Switcheroo
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveTripleKick
+      address:
+        EU: 0x232A9E4
+        NA: 0x2329F78
+        JP: 0x232B3E8
+      description: |-
+        Move effect: Triple Kick
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSport
+      address:
+        EU: 0x232AA20
+        NA: 0x2329FB4
+        JP: 0x232B424
+      description: |-
+        Move effect: Activate the relevant sport condition (Mud Sport, Water Sport) on the floor
+        Relevant moves: Mud Sport, Water Sport
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveMudSlap
+      address:
+        EU: 0x232AA4C
+        NA: 0x2329FE0
+        JP: 0x232B450
+      description: |-
+        Move effect: Mud-Slap
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDamageStealItem
+      address:
+        NA: 0x232A04C
+      description: |-
+        Move effect: Deal damage and steal the defender's item if possible.
+        Relevant moves: Thief, Covet
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveAmnesia
+      address:
+        NA: 0x232A058
+      description: |-
+        Move effect: Amnesia
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveNightShade
+      address:
+        EU: 0x232AAE4
+        NA: 0x232A078
+        JP: 0x232B4E8
+      description: |-
+        Move effect: Night Shade
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveGrowl
+      address:
+        NA: 0x232A118
+      description: |-
+        Move effect: Growl
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSurf
+      address:
+        EU: 0x232ABB4
+        NA: 0x232A148
+        JP: 0x232B5B8
+      description: |-
+        Move effect: Surf
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveRolePlay
+      address:
+        EU: 0x232ABF4
+        NA: 0x232A188
+        JP: 0x232B5F8
+      description: |-
+        Move effect: Role Play
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSunnyDay
+      address:
+        EU: 0x232AC8C
+        NA: 0x232A220
+      description: |-
+        Move effect: Sunny Day
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveLowerDefense1
+      address:
+        NA: 0x232A27C
+      description: |-
+        Move effect: Lower the defender's defense by one stage
+        Relevant moves: Tail Whip, Leer
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveWish
+      address:
+        EU: 0x232AD18
+        NA: 0x232A2AC
+        JP: 0x232B71C
+      description: |-
+        Move effect: Wish
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveFakeOut
+      address:
+        NA: 0x232A2BC
+      description: |-
+        Move effect: Fake Out
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSleepTalk
+      address:
+        EU: 0x232AD94
+        NA: 0x232A328
+      description: |-
+        Move effect: Sleep Talk
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMovePayDay
+      address:
+        EU: 0x232ADAC
+        NA: 0x232A340
+        JP: 0x232B7B0
+      description: |-
+        Move effect: Pay Day
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveAssist
+      address:
+        EU: 0x232AE68
+        NA: 0x232A3FC
+      description: |-
+        Move effect: Assist
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveRest
+      address:
+        EU: 0x232AE80
+        NA: 0x232A414
+        JP: 0x232B884
+      description: |-
+        Move effect: Rest
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveIngrain
+      address:
+        EU: 0x232AEEC
+        NA: 0x232A480
+        JP: 0x232B8F0
+      description: |-
+        Move effect: Ingrain
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSwallow
+      address:
+        EU: 0x232AEFC
+        NA: 0x232A490
+      description: |-
+        Move effect: Swallow
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveCurse
+      address:
+        EU: 0x232AF54
+        NA: 0x232A4E8
+        JP: 0x232B958
+      description: |-
+        Move effect: Curse
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSuperpower
+      address:
+        EU: 0x232AF90
+        NA: 0x232A524
+        JP: 0x232B994
+      description: |-
+        Move effect: Superpower
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSteelWing
+      address:
+        NA: 0x232A5AC
+      description: |-
+        Move effect: Steel Wing
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSpitUp
+      address:
+        EU: 0x232B0AC
+        NA: 0x232A640
+      description: |-
+        Move effect: Spit Up
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDynamicPunch
+      address:
+        EU: 0x232B0F4
+        NA: 0x232A688
+        JP: 0x232BAF4
+      description: |-
+        Move effect: DynamicPunch
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveKnockOff
+      address:
+        EU: 0x232B158
+        NA: 0x232A6EC
+        JP: 0x232BB58
+      description: |-
+        Move effect: Knock Off
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSplash
+      address:
+        EU: 0x232B358
+        NA: 0x232A8EC
+        JP: 0x232BD54
+      description: |-
+        Move effect: Splash
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSetDamage
+      address:
+        EU: 0x232B6B0
+        NA: 0x232AC44
+        JP: 0x232C0A4
+      description: |-
+        Move effect: Give the user the Set Damage status
+        Relevant moves: Doom Desire, Future Sight
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveBellyDrum
+      address:
+        EU: 0x232B6C0
+        NA: 0x232AC54
+        JP: 0x232C0B4
+      description: |-
+        Move effect: Belly Drum
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveLightScreen
+      address:
+        EU: 0x232B774
+        NA: 0x232AD08
+        JP: 0x232C168
+      description: |-
+        Move effect: Light Screen
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSecretPower
+      address:
+        EU: 0x232B784
+        NA: 0x232AD18
+        JP: 0x232C178
+      description: |-
+        Move effect: Secret Power
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDamageConfuse30
+      address:
+        EU: 0x232B95C
+        NA: 0x232AEF0
+      description: |-
+        Move effect: Deal damage with a 30% chance (DIZZY_PUNCH_CONFUSE_CHANCE) to confuse the defender.
+        Relevant moves: Dizzy Punch, Water Pulse
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveBulkUp
+      address:
+        NA: 0x232AF5C
+      description: |-
+        Move effect: Bulk Up
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMovePause
+      address:
+        EU: 0x232BA0C
+        NA: 0x232AFA0
+        JP: 0x232C400
+      description: |-
+        Move effect: Inflicts the Paused status on the defender
+        Relevant moves: Imprison, Observer (item effect), MOVE_TAG_0x1AD
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveFeatherDance
+      address:
+        NA: 0x232AFF0
+      description: |-
+        Move effect: FeatherDance
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveBeatUp
+      address:
+        EU: 0x232BA90
+        NA: 0x232B024
+        JP: 0x232C484
+      description: |-
+        Move effect: Beat Up
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveBlastBurn
+      address:
+        EU: 0x232BB84
+        NA: 0x232B118
+        JP: 0x232C578
+      description: |-
+        Move effect: Blast Burn
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveCrushClaw
+      address:
+        NA: 0x232B164
+      description: |-
+        Move effect: Crush Claw
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveBlazeKick
+      address:
+        NA: 0x232B1E4
+      description: |-
+        Move effect: Blaze Kick
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMovePresent
+      address:
+        EU: 0x232BCD8
+        NA: 0x232B26C
+        JP: 0x232C6CC
+      description: |-
+        Move effect: Present
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveEruption
+      address:
+        EU: 0x232BDD4
+        NA: 0x232B368
+        JP: 0x232C7C8
+      description: |-
+        Move effect: Eruption
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveTransform
+      address:
+        EU: 0x232BEB8
+        NA: 0x232B44C
+        JP: 0x232C8AC
+      description: |-
+        Move effect: Transform
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMovePoisonTail
+      address:
+        NA: 0x232B494
+      description: |-
+        Move effect: Poison Tail
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveBlowback
+      address:
+        EU: 0x232BF6C
+        NA: 0x232B500
+        JP: 0x232C960
+      description: |-
+        Move effect: Blows the defender back
+        Relevant moves: Whirlwind, Roar, Blowback (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveCamouflage
+      address:
+        EU: 0x232BF84
+        NA: 0x232B518
+        JP: 0x232C978
+      description: |-
+        Move effect: Camouflage
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveTailGlow
+      address:
+        NA: 0x232B5C8
+      description: |-
+        Move effect: Tail Glow
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDamageConstrict10
+      address:
+        EU: 0x232C054
+        NA: 0x232B5E8
+        JP: 0x232CA44
+      description: |-
+        Move effect: Deal damage with a 10% (WHIRLPOOL_CONSTRICT_CHANCE) chance to constrict, and with a damage multiplier dependent on the move used.
+        Relevant moves: Clamp, Bind, Sand Tomb, Fire Spin, Magma Storm
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether or not damage was dealt
+    - name: DoMovePerishSong
+      address:
+        EU: 0x232C110
+        NA: 0x232B6A4
+      description: |-
+        Move effect: Perish Song
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveWrap
+      address:
+        EU: 0x232C124
+        NA: 0x232B6B8
+        JP: 0x232CB14
+      description: |-
+        Move effect: Wrap
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSpikes
+      address:
+        EU: 0x232C134
+        NA: 0x232B6C8
+      description: |-
+        Move effect: Spikes
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveMagnitude
+      address:
+        EU: 0x232C1A4
+        NA: 0x232B738
+        JP: 0x232CB84
+      description: |-
+        Move effect: Magnitude
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveMagicCoat
+      address:
+        EU: 0x232C22C
+        NA: 0x232B7C0
+        JP: 0x232CC0C
+      description: |-
+        Move effect: Magic Coat
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveProtect
+      address:
+        EU: 0x232C23C
+        NA: 0x232B7D0
+        JP: 0x232CC1C
+      description: |-
+        Move effect: Try to give the user the Protect status
+        Relevant moves: Protect, Detect
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDefenseCurl
+      address:
+        NA: 0x232B7E0
+      description: |-
+        Move effect: Defense Curl
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDecoy
+      address:
+        EU: 0x232C26C
+        NA: 0x232B800
+        JP: 0x232CC4C
+      description: |-
+        Move effect: Inflict the Decoy status on the target
+        Relevant moves: Follow Me, Substitute, Decoy Maker (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveMistBall
+      address:
+        NA: 0x232B820
+      description: |-
+        Move effect: Mist Ball
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDestinyBond
+      address:
+        EU: 0x232C30C
+        NA: 0x232B8A0
+        JP: 0x232CCEC
+      description: |-
+        Move effect: Destiny Bond
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveMirrorCoat
+      address:
+        EU: 0x232C340
+        NA: 0x232B8D4
+        JP: 0x232CD20
+      description: |-
+        Move effect: Mirror Coat
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveCalmMind
+      address:
+        NA: 0x232B8E4
+      description: |-
+        Move effect: Calm Mind
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveHiddenPower
+      address:
+        EU: 0x232C394
+        NA: 0x232B928
+        JP: 0x232CD74
+      description: |-
+        Move effect: Hidden Power
+        
+        This is exactly the same as DoMoveDamage (both are wrappers around DealDamage), except this function always returns true.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveMetalClaw
+      address:
+        NA: 0x232B940
+      description: |-
+        Move effect: Metal Claw
+        
+         Note that this move effect handler has a slightly different parameter list than all the others. Which offensive stat is boosted is specified by the caller.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: stat index for the offensive stat to boost
+        stack[0]: item ID
+        return: whether the move was successfully used
+    - name: DoMoveAttract
+      address:
+        EU: 0x232C440
+        NA: 0x232B9D0
+        JP: 0x232CE1C
+      description: |-
+        Move effect: Attract
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveCopycat
+      address:
+        EU: 0x232C4B4
+        NA: 0x232BA44
+        JP: 0x232CE94
+      description: |-
+        Move effect: The attacker uses the move last used by enemy it's facing.
+        Relevant moves: Mimic, Copycat
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveFrustration
+      address:
+        EU: 0x232C5BC
+        NA: 0x232BB4C
+        JP: 0x232CFA0
+      description: |-
+        Move effect: Frustration
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveLeechSeed
+      address:
+        EU: 0x232C6A4
+        NA: 0x232BC34
+        JP: 0x232D088
+      description: |-
+        Move effect: Leech Seed
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveMetronome
+      address:
+        EU: 0x232C6D4
+        NA: 0x232BC64
+        JP: 0x232D0B8
+      description: |-
+        Move effect: Metronome
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDreamEater
+      address:
+        EU: 0x232C734
+        NA: 0x232BCC4
+      description: |-
+        Move effect: Dream Eater
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSnatch
+      address:
+        EU: 0x232C8A4
+        NA: 0x232BE34
+        JP: 0x232D280
+      description: |-
+        Move effect: Snatch
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveRecycle
+      address:
+        EU: 0x232C8B4
+        NA: 0x232BE44
+        JP: 0x232D290
+      description: |-
+        Move effect: Recycle
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveReflect
+      address:
+        EU: 0x232C9E8
+        NA: 0x232BF78
+        JP: 0x232D3C4
+      description: |-
+        Move effect: Reflect
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDragonRage
+      address:
+        EU: 0x232C9F8
+        NA: 0x232BF88
+      description: |-
+        Move effect: Dragon Rage
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDragonDance
+      address:
+        EU: 0x232CA98
+        NA: 0x232C028
+        JP: 0x232D474
+      description: |-
+        Move effect: Dragon Dance
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSkullBash
+      address:
+        EU: 0x232CAD4
+        NA: 0x232C064
+        JP: 0x232D4B0
+      description: |-
+        Move effect: Skull Bash
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDamageLowerSpecialDefense50
+      address:
+        EU: 0x232CB64
+        NA: 0x232C0F4
+        JP: 0x232D540
+      description: |-
+        Move effect: Deal damage with a 50% (LUSTER_PURGE_LOWER_SPECIAL_DEFENSE_CHANCE) chance to lower special defense.
+        Relevant moves: Luster Purge, Energy Ball, Focus Blast
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveStruggle
+      address:
+        EU: 0x232CC14
+        NA: 0x232C1A4
+        JP: 0x232D5F0
+      description: |-
+        Move effect: Struggle
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveRockSmash
+      address:
+        EU: 0x232CCEC
+        NA: 0x232C27C
+        JP: 0x232D6C8
+      description: |-
+        Move effect: Rock Smash
+        Relevant moves: Rock Smash, MOVE_UNNAMED_0x169
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSeeTrap
+      address:
+        EU: 0x232CD70
+        NA: 0x232C300
+        JP: 0x232D74C
+      description: |-
+        Move effect: See-Trap (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveTakeaway
+      address:
+        EU: 0x232CD80
+        NA: 0x232C310
+        JP: 0x232D75C
+      description: |-
+        Move effect: Takeaway (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveRebound
+      address:
+        EU: 0x232CF94
+        NA: 0x232C524
+        JP: 0x232D968
+      description: |-
+        Move effect: Rebound (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSwitchPositions
+      address:
+        EU: 0x232CFA8
+        NA: 0x232C538
+      description: |-
+        Move effect: Switches the user's position with positions of other monsters in the room.
+        Relevant moves: Baton Pass, Switcher (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveStayAway
+      address:
+        EU: 0x232CFD0
+        NA: 0x232C560
+        JP: 0x232D9A4
+      description: |-
+        Move effect: Stay Away (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveCleanse
+      address:
+        EU: 0x232CFE8
+        NA: 0x232C578
+        JP: 0x232D9BC
+      description: |-
+        Move effect: Cleanse (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSiesta
+      address:
+        NA: 0x232C6B4
+      description: |-
+        Move effect: Siesta (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveTwoEdge
+      address:
+        EU: 0x232D160
+        NA: 0x232C6F0
+        JP: 0x232DB38
+      description: |-
+        Move effect: Two-Edge (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveNoMove
+      address:
+        EU: 0x232D288
+        NA: 0x232C818
+        JP: 0x232DC60
+      description: |-
+        Move effect: No-Move (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveScan
+      address:
+        EU: 0x232D29C
+        NA: 0x232C82C
+        JP: 0x232DC74
+      description: |-
+        Move effect: Scan (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMovePowerEars
+      address:
+        EU: 0x232D2AC
+        NA: 0x232C83C
+        JP: 0x232DC84
+      description: |-
+        Move effect: Power-Ears (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveTransfer
+      address:
+        EU: 0x232D2BC
+        NA: 0x232C84C
+        JP: 0x232DC94
+      description: |-
+        Move effect: Transfer (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSlowDown
+      address:
+        EU: 0x232D484
+        NA: 0x232CA14
+        JP: 0x232DE5C
+      description: |-
+        Move effect: Slow Down (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSearchlight
+      address:
+        EU: 0x232D49C
+        NA: 0x232CA2C
+        JP: 0x232DE74
+      description: |-
+        Move effect: Searchlight (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMovePetrify
+      address:
+        EU: 0x232D4AC
+        NA: 0x232CA3C
+        JP: 0x232DE84
+      description: |-
+        Move effect: Petrifies the target
+        Relevant moves: Petrify (item effect), MOVE_TAG_0x1A9
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMovePounce
+      address:
+        EU: 0x232D4BC
+        NA: 0x232CA4C
+        JP: 0x232DE94
+      description: |-
+        Move effect: Pounce (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveTrawl
+      address:
+        EU: 0x232D4D0
+        NA: 0x232CA60
+        JP: 0x232DEA8
+      description: |-
+        Move effect: Trawl (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveEscape
+      address:
+        EU: 0x232D4E0
+        NA: 0x232CA70
+        JP: 0x232DEB8
+      description: |-
+        Move effect: Escape (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDrought
+      address:
+        EU: 0x232D578
+        NA: 0x232CB08
+        JP: 0x232DF50
+      description: |-
+        Move effect: Drought (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveTrapBuster
+      address:
+        EU: 0x232D588
+        NA: 0x232CB18
+        JP: 0x232DF60
+      description: |-
+        Move effect: Trap Buster (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveWildCall
+      address:
+        EU: 0x232D734
+        NA: 0x232CCC4
+        JP: 0x232E10C
+      description: |-
+        Move effect: Wild Call (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveInvisify
+      address:
+        EU: 0x232D800
+        NA: 0x232CD90
+        JP: 0x232E1D8
+      description: |-
+        Move effect: Invisify (item effect)
+        
+        This function sets r1 = r0 before calling TryInvisify, so the effect will always be applied to the user regardless of the move settings.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveOneShot
+      address:
+        EU: 0x232D814
+        NA: 0x232CDA4
+        JP: 0x232E1EC
+      description: |-
+        Move effect: One-Shot (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveHpGauge
+      address:
+        EU: 0x232D8B0
+        NA: 0x232CE40
+        JP: 0x232E288
+      description: |-
+        Move effect: HP Gauge (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveVacuumCut
+      address:
+        EU: 0x232D8C0
+        NA: 0x232CE50
+        JP: 0x232E298
+      description: |-
+        Move effect: Vacuum Cut
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveReviver
+      address:
+        EU: 0x232D8EC
+        NA: 0x232CE7C
+      description: |-
+        Move effect: Reviver (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveShocker
+      address:
+        EU: 0x232D904
+        NA: 0x232CE94
+        JP: 0x232E2DC
+      description: |-
+        Move effect: Shocker (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveEcho
+      address:
+        EU: 0x232D91C
+        NA: 0x232CEAC
+        JP: 0x232E2F4
+      description: |-
+        Move effect: Echo (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveFamish
+      address:
+        EU: 0x232D9C4
+        NA: 0x232CF54
+        JP: 0x232E39C
+      description: |-
+        Move effect: Famish (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveOneRoom
+      address:
+        EU: 0x232D9E4
+        NA: 0x232CF74
+        JP: 0x232E3BC
+      description: |-
+        Move effect: One-Room (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveFillIn
+      address:
+        EU: 0x232D9F4
+        NA: 0x232CF84
+        JP: 0x232E3CC
+      description: |-
+        Move effect: Fill-In (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveTrapper
+      address:
+        EU: 0x232DB60
+        NA: 0x232D0F0
+        JP: 0x232E538
+      description: |-
+        Move effect: Trapper (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveItemize
+      address:
+        EU: 0x232DBB8
+        NA: 0x232D148
+        JP: 0x232E58C
+      description: |-
+        Move effect: Itemize (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveHurl
+      address:
+        EU: 0x232DC4C
+        NA: 0x232D1DC
+        JP: 0x232E620
+      description: |-
+        Move effect: Hurls the target
+        Relevant moves: Strength, Hurl (item effect), Fling
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveMobile
+      address:
+        EU: 0x232DC5C
+        NA: 0x232D1EC
+        JP: 0x232E630
+      description: |-
+        Move effect: Mobile (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveSeeStairs
+      address:
+        EU: 0x232DC6C
+        NA: 0x232D1FC
+        JP: 0x232E640
+      description: |-
+        Move effect: See Stairs (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveLongToss
+      address:
+        EU: 0x232DC7C
+        NA: 0x232D20C
+        JP: 0x232E650
+      description: |-
+        Move effect: Long Toss (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMovePierce
+      address:
+        EU: 0x232DC8C
+        NA: 0x232D21C
+        JP: 0x232E660
+      description: |-
+        Move effect: Pierce (item effect)
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveHammerArm
+      address:
+        EU: 0x232DC9C
+        NA: 0x232D22C
+        JP: 0x232E670
+      description: |-
+        Move effect: Hammer Arm
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveAquaRing
+      address:
+        EU: 0x232DCE0
+        NA: 0x232D270
+        JP: 0x232E6B4
+      description: |-
+        Move effect: Aqua Ring
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveGastroAcid
+      address:
+        EU: 0x232DCF0
+        NA: 0x232D280
+        JP: 0x232E6C4
+      description: |-
+        Move effect: Gastro Acid
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveHealingWish
+      address:
+        EU: 0x232DD08
+        NA: 0x232D298
+        JP: 0x232E6DC
+      description: |-
+        Move effect: Healing Wish
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveCloseCombat
+      address:
+        EU: 0x232DD58
+        NA: 0x232D2E8
+        JP: 0x232E72C
+      description: |-
+        Move effect: Close Combat
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveLuckyChant
+      address:
+        EU: 0x232DDD8
+        NA: 0x232D368
+        JP: 0x232E7AC
+      description: |-
+        Move effect: Lucky Chant
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveGuardSwap
+      address:
+        EU: 0x232DDE8
+        NA: 0x232D378
+      description: |-
+        Move effect: Guard Swap
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveHealOrder
+      address:
+        EU: 0x232DE48
+        NA: 0x232D3D8
+        JP: 0x232E81C
+      description: |-
+        Move effect: Heal Order
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveHealBlock
+      address:
+        EU: 0x232DE70
+        NA: 0x232D400
+        JP: 0x232E844
+      description: |-
+        Move effect: Heal Block
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveThunderFang
+      address:
+        EU: 0x232DE88
+        NA: 0x232D418
+        JP: 0x232E85C
+      description: |-
+        Move effect: Thunder Fang
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDefog
+      address:
+        EU: 0x232DF1C
+        NA: 0x232D4AC
+        JP: 0x232E8F0
+      description: |-
+        Move effect: Defog
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveTrumpCard
+      address:
+        EU: 0x232DFD0
+        NA: 0x232D560
+        JP: 0x232E9A4
+      description: |-
+        Move effect: Trump Card
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveIceFang
+      address:
+        EU: 0x232E090
+        NA: 0x232D620
+        JP: 0x232EA64
+      description: |-
+        Move effect: Ice Fang
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMovePsychoShift
+      address:
+        EU: 0x232E120
+        NA: 0x232D6B0
+        JP: 0x232EAF4
+      description: |-
+        Move effect: Psycho Shift
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveEmbargo
+      address:
+        EU: 0x232E140
+        NA: 0x232D6D0
+        JP: 0x232EB14
+      description: |-
+        Move effect: Embargo
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveBrine
+      address:
+        EU: 0x232E158
+        NA: 0x232D6E8
+        JP: 0x232EB2C
+      description: |-
+        Move effect: Deal damage, with a 2x multiplier if the defender is at or below half HP.
+        Relevant moves: Brine, Assurance
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveNaturalGift
+      address:
+        EU: 0x232E1A8
+        NA: 0x232D738
+        JP: 0x232EB7C
+      description: |-
+        Move effect: Natural Gift
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveGyroBall
+      address:
+        EU: 0x232E268
+        NA: 0x232D7F8
+        JP: 0x232EC3C
+      description: |-
+        Move effect: Gyro Ball
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveShadowForce
+      address:
+        EU: 0x232E2D0
+        NA: 0x232D860
+        JP: 0x232ECA4
+      description: |-
+        Move effect: Shadow Force
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveGravity
+      address:
+        EU: 0x232E36C
+        NA: 0x232D8FC
+        JP: 0x232ED40
+      description: |-
+        Move effect: Gravity
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveStealthRock
+      address:
+        EU: 0x232E37C
+        NA: 0x232D90C
+      description: |-
+        Move effect: Stealth Rock
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveChargeBeam
+      address:
+        EU: 0x232E3EC
+        NA: 0x232D97C
+        JP: 0x232EDB0
+      description: |-
+        Move effect: Charge Beam
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDamageEatItem
+      address:
+        EU: 0x232E454
+        NA: 0x232D9E4
+      description: |-
+        Move effect: Deals damage, and eats any beneficial items the defender is holding.
+        Relevant moves: Pluck, Bug Bite
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveAcupressure
+      address:
+        EU: 0x232E510
+        NA: 0x232DAD0
+        JP: 0x232EEEC
+      description: |-
+        Move effect: Acupressure
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveMagnetRise
+      address:
+        EU: 0x232E694
+        NA: 0x232DC54
+        JP: 0x232F06C
+      description: |-
+        Move effect: Magnet Rise
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveToxicSpikes
+      address:
+        EU: 0x232E6A4
+        NA: 0x232DC64
+      description: |-
+        Move effect: Toxic Spikes
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveLastResort
+      address:
+        EU: 0x232E714
+        NA: 0x232DCD4
+        JP: 0x232F0DC
+      description: |-
+        Move effect: Last Resort
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveTrickRoom
+      address:
+        EU: 0x232E7B8
+        NA: 0x232DD78
+        JP: 0x232F180
+      description: |-
+        Move effect: Trick Room
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveWorrySeed
+      address:
+        EU: 0x232E7EC
+        NA: 0x232DDAC
+      description: |-
+        Move effect: Worry Seed
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDamageHpDependent
+      address:
+        EU: 0x232E8C4
+        NA: 0x232DE84
+        JP: 0x232F284
+      description: |-
+        Move effect: Deal damage, with a multiplier dependent on the defender's current HP.
+        Relevant moves: Wring Out, Crush Grip
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveHeartSwap
+      address:
+        EU: 0x232E978
+        NA: 0x232DF38
+        JP: 0x232F338
+      description: |-
+        Move effect: Heart Swap
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveRoost
+      address:
+        EU: 0x232EA08
+        NA: 0x232DFC8
+        JP: 0x232F3C8
+      description: |-
+        Move effect: Roost
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMovePowerSwap
+      address:
+        EU: 0x232EAC4
+        NA: 0x232E084
+      description: |-
+        Move effect: Power Swap
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMovePowerTrick
+      address:
+        EU: 0x232EB24
+        NA: 0x232E0E4
+        JP: 0x232F4E4
+      description: |-
+        Move effect: Power Trick
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveFeint
+      address:
+        EU: 0x232EB38
+        NA: 0x232E0F8
+        JP: 0x232F4F8
+      description: |-
+        Move effect: Feint
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveFlareBlitz
+      address:
+        EU: 0x232EB70
+        NA: 0x232E130
+        JP: 0x232F530
+      description: |-
+        Move effect: Flare Blitz
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDefendOrder
+      address:
+        NA: 0x232E274
+      description: |-
+        Move effect: Defend Order
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveFireFang
+      address:
+        EU: 0x232ECF8
+        NA: 0x232E2B8
+        JP: 0x232F6B8
+      description: |-
+        Move effect: Fire Fang
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveLunarDance
+      address:
+        EU: 0x232EDA8
+        NA: 0x232E368
+        JP: 0x232F768
+      description: |-
+        Move effect: Lunar Dance
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveMiracleEye
+      address:
+        EU: 0x232EE10
+        NA: 0x232E3D0
+        JP: 0x232F7D0
+      description: |-
+        Move effect: Miracle Eye
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveWakeUpSlap
+      address:
+        EU: 0x232EE40
+        NA: 0x232E400
+        JP: 0x232F800
+      description: |-
+        Move effect: Wake-Up Slap
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveMetalBurst
+      address:
+        EU: 0x232EECC
+        NA: 0x232E48C
+        JP: 0x232F88C
+      description: |-
+        Move effect: Metal Burst
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveHeadSmash
+      address:
+        EU: 0x232EEE0
+        NA: 0x232E4A0
+        JP: 0x232F8A0
+      description: |-
+        Move effect: Head Smash
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveCaptivate
+      address:
+        EU: 0x232EFA0
+        NA: 0x232E560
+        JP: 0x232F960
+      description: |-
+        Move effect: Captivate
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveLeafStorm
+      address:
+        EU: 0x232F064
+        NA: 0x232E624
+        JP: 0x232FA20
+      description: |-
+        Move effect: Leaf Storm
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveDracoMeteor
+      address:
+        EU: 0x232F0BC
+        NA: 0x232E67C
+        JP: 0x232FA78
+      description: |-
+        Move effect: Draco Meteor
+        
+        Note that this move effect handler has an extra parameter that can be used to disable the special attack drop.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        r4: disable special attack drop
+        return: whether the move was successfully used
+    - name: DoMoveRockPolish
+      address:
+        EU: 0x232F120
+        NA: 0x232E6E0
+        JP: 0x232FADC
+      description: |-
+        Move effect: Rock Polish
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveNastyPlot
+      address:
+        NA: 0x232E714
+      description: |-
+        Move effect: Nasty Plot
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveTag0x1AB
+      address:
+        NA: 0x232E734
+      description: |-
+        Move effect: MOVE_TAG_0x1AB
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveTag0x1A6
+      address:
+        EU: 0x232F190
+        NA: 0x232E750
+        JP: 0x232FB4C
+      description: |-
+        Move effect: MOVE_TAG_0x1A6
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+    - name: DoMoveTag0x1A7
+      address:
+        EU: 0x232F1D4
+        NA: 0x232E794
+        JP: 0x232FB90
+      description: |-
+        Move effect: MOVE_TAG_0x1A7
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: move
+        r3: item ID
+        return: whether the move was successfully used
+  data:
+    - name: MAX_HP_CAP_MOVE_EFFECTS
+      address:
+        NA:
+          - 0x2327644
+          - 0x2327E8C
+          - 0x232B42C
+          - 0x232D734
+          - 0x232DF30
+      length:
+        NA: 0x4
+      description: "See overlay29.yml::MAX_HP_CAP"
+    - name: LUNAR_DANCE_PP_RESTORATION
+      address:
+        NA: 0x232E3CC
+      length:
+        NA: 0x4
+      description: The amount of PP restored by Lunar Dance (999).

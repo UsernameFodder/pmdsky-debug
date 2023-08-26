@@ -1,14 +1,16 @@
 overlay35:
   versions:
-    - NA
     - EU
+    - NA
     - JP
   address:
-    NA: 0x22BCA80
     EU: 0x22BD3C0
+    NA: 0x22BCA80
+    JP: 0x22BE220
   length:
-    NA: 0x20
     EU: 0x20
+    NA: 0x20
+    JP: 0x20
   description: Unused; all zeroes.
   functions: []
   data: []
