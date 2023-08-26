@@ -4926,13 +4926,13 @@ arm9:
         
         r0: start_address
         r1: total_length
-    - name: InitStreamKaomado
+    - name: InitKaomadoStream
       address:
         NA: 0x204D780
       description: |-
         Inits the stream used to load all Kaomado portraits, called once on game start!
         
-        No params
+        No params.
     - name: InitPortraitBox
       address:
         NA: 0x204D79C

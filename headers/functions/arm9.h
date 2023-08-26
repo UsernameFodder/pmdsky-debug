@@ -507,7 +507,7 @@ void CopyProgressInfoTo(undefined* write_info, undefined4 param_2, undefined4 pa
 undefined4 CopyProgressInfoFromScratchTo(void* start_addr, uint32_t total_len);
 void CopyProgressInfoFrom(undefined* read_info);
 undefined4 CopyProgressInfoFromScratchFrom(void* start_addr, uint32_t total_len);
-void InitStreamKaomado(void);
+void InitKaomadoStream(void);
 void InitPortraitBox(struct portrait_box* portrait);
 void InitPortraitBoxWithMonsterId(struct portrait_box* portrait, enum monster_id monster_id);
 void SetPortraitExpressionId(struct portrait_box* portrait, int expression_id);
