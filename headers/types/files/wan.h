@@ -38,8 +38,9 @@ struct wan_palettes {
     uint16_t unk1;
     uint16_t nb_color;
     uint16_t unk2;
-    uint16_t unk3;
-    uint32_t unk4; // Normally always 0
+    uint8_t unk3;
+    uint8_t unk4;
+    uint32_t unk5; // Normally always 0
 };
 ASSERT_SIZE(struct wan_palettes, 16);
 
@@ -50,7 +51,7 @@ struct wan_animation_group {
     struct wan_animation_frame** pnt;
     uint16_t len;
     // The frame offset relative to the first frame of the animation that will be used instead of
-    // the first frame when looping the animation.
+    // the first frame when looping the animation. (untested)
     uint16_t loop_start;
 };
 ASSERT_SIZE(struct wan_animation_group, 8);
