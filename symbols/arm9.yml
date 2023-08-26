@@ -5016,7 +5016,7 @@ arm9:
         
         r0: portrait box pointer
         r1: kaomado_buffer pointer
-        return: bool
+        return: portrait exists
     - name: SetEnterDungeon
       address:
         EU: 0x204EC84
