@@ -38,7 +38,6 @@ extern struct level_up_entry LEVEL_UP_DATA_DECOMPRESS_BUFFER[100];
 extern struct team_member_table TEAM_MEMBER_TABLE;
 extern struct vram_banks_set ENABLED_VRAM_BANKS;
 extern uint32_t FRAMES_SINCE_LAUNCH_TIMES_THREE;
-extern uint32_t WORLD_MAP_MODE;
 extern struct sentry_duty SENTRY_DUTY_STRUCT;
 extern bool TURNING_ON_THE_SPOT_FLAG;
 extern struct loaded_attack_sprite_data* LOADED_ATTACK_SPRITE_DATA;
