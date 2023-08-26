@@ -146,6 +146,11 @@ overlay11:
       description: |-
         The GetAllocArena function used for ground mode. See SetMemAllocatorParams for more information.
         
+        For (flags & 0xFF):
+          8, 15, 16: GROUND_MEMORY_ARENA_1
+          14: GROUND_MEMORY_ARENA_2
+          other: null (default arena)
+        
         r0: initial memory arena pointer, or null
         r1: flags (see MemAlloc)
         return: memory arena pointer, or null

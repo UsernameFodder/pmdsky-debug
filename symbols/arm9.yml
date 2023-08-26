@@ -59,7 +59,7 @@ arm9:
         
         This includes MEMORY_ALLOCATION_ARENA_GETTERS and some other stuff.
         
-        Dungeon mode uses the default arena getters. Ground mode uses its own arena getters, which are defined in overlay 11 and set (by calling this function) at the start of GroundMainLoop.
+        Dungeon mode uses the default arena getters. Ground mode uses its own arena getters that return custom arenas for some flag values, which are defined in overlay 11 and set (by calling this function) at the start of GroundMainLoop. Note that the sound memory arena is provided explicitly to MemLocateSet in the sound code, so doesn't go through this path.
         
         r0: GetAllocArena function pointer (GetAllocArenaDefault is used if null)
         r1: GetFreeArena function pointer (GetFreeArenaDefault is used if null)
@@ -3049,6 +3049,26 @@ arm9:
         This function calls a stubbed-out one with the string "audio command list"
         
         r0: Command to send
+    - name: InitSoundSystem
+      address:
+        NA: 0x2018C28
+      description: |-
+        Initialize the DSE sound engine?
+        
+        This function is called somewhere in the hierarchy under TaskProcBoot and appears to allocate a bunch of memory (including a dedicated memory arena, see SOUND_MEMORY_ARENA) for sound data, and reads a bunch of core sound files.
+        
+        File paths referenced:
+        - SOUND/SYSTEM/se_sys.swd
+        - SOUND/SYSTEM/se_sys.sed
+        - SOUND/SE/motion.swd
+        - SOUND/SE/motion.sed
+        - SOUND/BGM/bgm.swd (this is the main sample bank, see https://projectpokemon.org/home/docs/mystery-dungeon-nds/pok%C3%A9mon-mystery-dungeon-explorers-r78/)
+        
+        Debug strings:
+        - entry system se swd %04x\n
+        - entry system se sed %04x\n
+        - entry motion se swd %04x\n
+        - entry motion se sed %04x\n
     - name: ManipBgmPlayback
       address:
         EU: 0x2018F40
@@ -7446,15 +7466,27 @@ arm9:
         NA: 0x2070674
         JP: 0x207095C
       description: "Note: unverified, ported from Irdkwia's notes"
+    - name: ParseDseEvents
+      address:
+        NA: 0x2071224
+      description: "From https://projectpokemon.org/docs/mystery-dungeon-nds/procyon-studios-digital-sound-elements-r12/"
+    - name: UpdateSequencerTracks
+      address:
+        NA: 0x20713E8
+      description: "From https://projectpokemon.org/docs/mystery-dungeon-nds/procyon-studios-digital-sound-elements-r12/"
     - name: UpdateChannels
       address:
         EU: 0x2074824
         NA: 0x207448C
         JP: 0x2074774
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        From https://projectpokemon.org/docs/mystery-dungeon-nds/procyon-studios-digital-sound-elements-r12/ and Irdkwia's notes.
         
         No params.
+    - name: UpdateTrackVolumeEnvelopes
+      address:
+        NA: 0x2074E0C
+      description: "From https://projectpokemon.org/docs/mystery-dungeon-nds/procyon-studios-digital-sound-elements-r12/"
     - name: EnableVramBanksInSetDontSave
       address:
         EU: 0x2076744
@@ -9998,7 +10030,10 @@ arm9:
       length:
         EU: 0x1FC
         NA: 0x1FC
-      description: "Irdkwia's notes: named DSEEventFunctionPtrTable with length 0x3C0 (note the disagreement), 240*0x4."
+      description: |-
+        Table of all DSE events, see https://projectpokemon.org/docs/mystery-dungeon-nds/procyon-studios-digital-sound-elements-r12/
+        
+        Irdkwia's notes: named DSEEventFunctionPtrTable with length 0x3C0 (note the disagreement), 240*0x4.
     - name: MUSIC_DURATION_LOOKUP_TABLE_1
       address:
         EU: 0x20B1894

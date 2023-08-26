@@ -44,7 +44,7 @@ struct mem_block {
     uint32_t allocator_flags_unused : 28;
 
     // 0x8: Flags passed by the user to the memory allocator API functions when this block was
-    // allocated. The least significant byte are reserved for specifying the memory arena to use,
+    // allocated. The least significant byte is reserved for specifying the memory arena to use,
     // and have functionality determined by the arena locator function currently in use by the
     // game. The upper bytes are the same as the internal memory allocator flags
     // (just left-shifted by 8).
@@ -86,6 +86,10 @@ struct mem_alloc_table {
     struct mem_arena default_arena; // 0x4: The default memory arena for allocations
     // Not actually sure how long this array is, but has at least 4 elements, and can't have
     // more than 8 because it would overlap with default_arena.data
+    // The 4 known arenas are:
+    // - The default arena (used for most things, including dungeon mode)
+    // - Two ground mode arenas (used in some cases, but not all)
+    // - The sound data arena (used by the DSE sound engine)
     struct mem_arena* arenas[8]; // 0x20: Array of global memory arenas
 };
 ASSERT_SIZE(struct mem_alloc_table, 64);

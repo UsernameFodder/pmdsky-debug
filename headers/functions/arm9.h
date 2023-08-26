@@ -301,6 +301,7 @@ void SendAudioCommandWrapperVeneer(enum music_id music_id, undefined param_2, in
 void SendAudioCommandWrapper(enum music_id music_id, undefined param_2, int volume);
 struct audio_command* AllocAudioCommand(int status);
 void SendAudioCommand(struct audio_command command);
+void InitSoundSystem(void);
 void ManipBgmPlayback(void);
 void SoundDriverReset(void);
 uint32_t LoadDseFile(struct iovec* iov, const char* filename);
@@ -753,7 +754,10 @@ enum dungeon_id DungeonSwapIdxToId(int idx);
 enum dungeon_mode GetDungeonModeSpecial(enum dungeon_id dungeon_id);
 int ResumeBgm(undefined4 param_1, undefined4 param_2, undefined4 param_3);
 int FlushChannels(undefined* param_1, int param_2, int param_3);
+void ParseDseEvents(undefined4 param_1, int param_2, undefined4 param_3, undefined4 param_4);
+void UpdateSequencerTracks(int param_1, undefined4 param_2, undefined4 param_3, undefined4 param_4);
 void UpdateChannels(void);
+void UpdateTrackVolumeEnvelopes(undefined* param_1);
 void EnableVramBanksInSetDontSave(struct vram_banks_set vram_banks);
 void EnableVramBanksInSet(struct vram_banks_set* vram_banks);
 int ClearIrqFlag(void);
