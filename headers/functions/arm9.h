@@ -512,7 +512,7 @@ void InitPortraitBox(struct portrait_box* portrait);
 void InitPortraitBoxWithMonsterId(struct portrait_box* portrait, enum monster_id monster_id);
 void SetPortraitExpressionId(struct portrait_box* portrait, int expression_id);
 void SetPortraitLayout(struct portrait_box* portrait, uint8_t layout_idx);
-void SetPortraitOffset(struct portrait_box* portrait, struct portrait_offset* offset);
+void SetPortraitOffset(struct portrait_box* portrait, struct vec2* offset);
 void AllowPortraitDefault(struct portrait_box* portrait, bool allow);
 bool IsValidPortrait(struct portrait_box* portrait);
 bool LoadPortrait(struct portrait_box* portrait, void* buf);

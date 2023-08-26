@@ -3720,12 +3720,12 @@ enum mission_rank {
 ENUM_8_BIT(mission_rank);
 #pragma pack(pop)
 
-enum kaomado_canvas_state {
-    KAOMADO_CANVAS_HIDDEN = 0,
-    KAOMADO_CANVAS_TRY_UPDATE = 1,
-    KAOMADO_CANVAS_UPDATE = 2,
-    KAOMADO_CANVAS_STANDBY = 3,
-    KAOMADO_CANVAS_HIDE = 4,
+enum portrait_canvas_state {
+    PORTRAIT_CANVAS_HIDDEN = 0,
+    PORTRAIT_CANVAS_TRY_UPDATE = 1,
+    PORTRAIT_CANVAS_UPDATE = 2,
+    PORTRAIT_CANVAS_STANDBY = 3,
+    PORTRAIT_CANVAS_HIDE = 4,
 };
 
 enum wan_source_type {

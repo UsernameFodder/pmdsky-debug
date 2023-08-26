@@ -4985,7 +4985,7 @@ arm9:
         If the species is zero, then it does nothing.
         
         r0: portrait box pointer
-        r1: portrait_offset pointer
+        r1: (x, y) offset in tiles from the original offset, derived from the layout
     - name: AllowPortraitDefault
       address:
         NA: 0x204D894
@@ -8569,7 +8569,7 @@ arm9:
         These variables underpin the various ExplorerScript global variables you can use in the SkyTemple SSB debugger.
         
         type: struct script_var_table
-    - name: KAOMADO_LAYOUTS
+    - name: PORTRAIT_LAYOUTS
       address:
         EU: 0x209E598
         NA: 0x209E014
@@ -8581,7 +8581,7 @@ arm9:
       description: |-
         All the possible layouts a portrait can be placed in by default.
         
-        type: struct kaomado_layout[32]
+        type: struct portrait_layout[32]
     - name: KAOMADO_FILE
       address:
         NA: 0x209E0D4

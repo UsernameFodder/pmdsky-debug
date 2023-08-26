@@ -130,19 +130,58 @@ struct dialog_box {
 };
 ASSERT_SIZE(struct dialog_box, 224);
 
-// Represents a portrait that appears inside a dialogue box
+// Represents the state of a portrait to be displayed inside a dialogue box
 struct portrait_box {
-    struct monster_id_16 monster_id;
+    struct monster_id_16 monster_id; // 0x0: The species id, or the set index inside kaomado.kao
+    // 0x2: Index of the emote in the species set of portraits
     struct portrait_emotion_8 portrait_emotion;
-    undefined field_0x3;
-    undefined4 field_0x4;
-    undefined4 field_0x8;
-    undefined field_0xc;
-    undefined field_0xd;
-    undefined field_0xe;
-    undefined field_0xf;
+    uint8_t layout_idx; // 0x3: Represents the current layout to display the portrait
+    uint32_t offset_x;  // 0x4: Tile offset (x / 8) in the X axis to draw the portrait
+    uint32_t offset_y;  // 0x8: Tile offset (y / 8) in the Y axis to draw the portrait
+    bool try_flip;      // 0xC: Whether to try to get a flipped portrait from kaomado.kao
+    bool has_flip;      // 0xD: Whether the specified emote has a flipped variant
+    bool hw_flip;       // 0xE: Whether the portrait should be flipped using the hardware
+    bool allow_default; // 0xF: If true, try using emote index 0 if the desired emote can't be found
 };
 ASSERT_SIZE(struct portrait_box, 16);
+
+// Identifies a default position for a portrait, as well as whether it'll be flipped
+struct portrait_layout {
+    int16_t offset_x;
+    int16_t offset_y;
+    bool try_flip;
+    uint8_t _padding;
+};
+ASSERT_SIZE(struct portrait_layout, 6);
+
+// Holds portrait image data loaded from kaomado.kao.
+// See https://projectpokemon.org/home/docs/mystery-dungeon-nds/kaomadokao-file-format-r54/
+struct kaomado_buffer {
+    struct rgb palette[16];    // Buffer to load the palette of the portrait
+    uint8_t at4px_buffer[800]; // Buffer to load the portrait image data
+};
+ASSERT_SIZE(struct kaomado_buffer, 848);
+
+// Stores data and state for a specialized Kaomado canvas for rendering portraits
+struct portrait_canvas {
+    uint8_t canvas_handle;
+    uint8_t _padding_0x1;
+    uint8_t _padding_0x2;
+    uint8_t _padding_0x3;
+    enum portrait_canvas_state state;
+    // The buffer_state is the one that receives and stores any commits,
+    // but render_state is only set to the value of buffer_state during
+    // the Kaomado canvas update function
+    struct portrait_box render_state;
+    struct portrait_box buffer_state;
+    bool updated;
+    bool hide;
+    bool framed;
+    uint8_t _padding_0x2b;
+    uint32_t palette_idx;
+    struct kaomado_buffer buffer;
+};
+ASSERT_SIZE(struct portrait_canvas, 896);
 
 // These flags are shared with the function to display text inside message boxes
 // So they might need a rename once more information is found
@@ -951,7 +990,5 @@ ASSERT_SIZE(struct audio_command, 32);
 
 // TODO: Add more data file structures, as convenient or needed, especially if the load address
 // or pointers to the load address are known.
-
-#include "kaomado.h"
 
 #endif
