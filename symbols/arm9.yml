@@ -9866,7 +9866,7 @@ arm9:
       description: |-
         The (seemingly) unique instance render_3d_global in the game
         
-        struct render_3d_global
+        type: struct render_3d_global
     - name: LANGUAGE_INFO_DATA
       address:
         EU: 0x20B05A8

@@ -108,7 +108,7 @@ ASSERT_SIZE(struct render_3d_element, 52);
 
 // Function that will use the relevant 3d render API to render a render_3d_element from the
 // RENDER_3D queue.
-typedef void (*render_3d_element_concrete)(struct render_3d_element*);
+typedef void (*render_3d_element_concrete_fn_t)(struct render_3d_element* element);
 
 // A global, unique structure that stores element relating to the 3d engine, in particular the list
 // of elements to render later in the frame.
