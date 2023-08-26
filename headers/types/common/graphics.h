@@ -74,11 +74,14 @@ ASSERT_SIZE(struct animation_control, 124);
 
 // Represent a single element to render using the 3D engine
 // This structure is used in two different ways. The first one is for planning rendering, that will
-// then call function that will call a function that will then add themm to RENDER_3D for rendering
-// later in the frame.
+// be passed as an argument to a function. Said function will then add them to RENDER_3D
+// for rendering later in the frame (second type of use, with slightly different argument, but that
+// often appear to be a copy of the struct with some value changed)
 struct render_3d_element {
-    undefined2 render_function_id; // range from 0 to 3 (included)
-    undefined2 field1_0x2;         // appears to be a render priority level. Impact sorting.
+    // range from 0 to 3 (included). Function used in the rendering phase, from the
+    // RENDER_3D_FUNCTIONS table
+    undefined2 render_function_id;
+    undefined2 field1_0x2; // appears to be a render priority level. Impact sorting.
     undefined4 field2_0x4;
     undefined4 field3_0x8;
     uint16_t x_tileset_start;
@@ -102,6 +105,10 @@ struct render_3d_element {
     undefined field22_0x33;
 };
 ASSERT_SIZE(struct render_3d_element, 52);
+
+// Function that will use the relevant 3d render API to render a render_3d_element from the
+// RENDER_3D queue.
+typedef void (*render_3d_element_concrete)(struct render_3d_element*);
 
 // A global, unique structure that stores element relating to the 3d engine, in particular the list
 // of elements to render later in the frame.
@@ -162,7 +169,8 @@ struct render_3d_global {
     undefined field53_0x3d;
     undefined field54_0x3e;
     undefined field55_0x3f;
-    struct render_3d_element* render_stack[128];
+    struct render_3d_element* render_stack; // an array that can contain up to max_index entries.
 };
+ASSERT_SIZE(struct render_3d_global, 68);
 
 #endif

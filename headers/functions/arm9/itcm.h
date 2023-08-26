@@ -1,7 +1,7 @@
 #ifndef HEADERS_FUNCTIONS_ARM9_ITCM_H_
 #define HEADERS_FUNCTIONS_ARM9_ITCM_H_
 
-struct render_3d_element* AllocateNewRender3dElement(void);
+struct render_3d_element* AllocateRender3dElement(void);
 void Render3dStack(void);
 void GetKeyN2MSwitch(int key, int sw);
 enum monster_id GetKeyN2M(int key);

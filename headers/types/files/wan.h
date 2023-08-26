@@ -39,8 +39,8 @@ struct wan_palettes {
     uint16_t nb_color;
     uint16_t unk2;
     uint8_t unk3;
-    uint8_t unk5;
-    uint32_t unk4; // Normally always 0
+    uint8_t unk4;
+    uint32_t unk5; // Normally always 0
 };
 ASSERT_SIZE(struct wan_palettes, 16);
 

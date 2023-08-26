@@ -323,11 +323,11 @@ void SetAnimationForAnimationControlInternal(struct animation_control* anim_ctrl
                                              int unk2, int unk3, int palette_bank);
 void SetAnimationForAnimationControl(struct animation_control* anim_ctrl, int animation_key,
                                      enum direction_id direction, int unk1, int low_palette_pos,
-                                     int unk2, int unk3);
+                                     int unk2, int unk3, int unk4);
 struct wan_header* GetWanForAnimationControl(struct animation_control* anim_ctrl);
 void SetAndPlayAnimationForAnimationControl(struct animation_control* anim_ctrl, int animation_key,
                                             enum direction_id direction, int unk1,
-                                            int low_palette_pos, int unk2, int unk3);
+                                            int low_palette_pos, int unk2, int unk3, int unk4);
 void SwitchAnimationControlToNextFrame(struct animation_control* anim_ctrl);
 void LoadAnimationFrameAndIncrementInAnimationControl(struct animation_control* anim_ctrl,
                                                       struct wan_animation_frame* anim_frame);

@@ -9860,6 +9860,13 @@ arm9:
         pointer to the list of wan sprite loaded in RAM
         
         struct wan_table*
+    - name: RENDER_3D
+      address:
+        EU: 0x20B0540
+      description: |-
+        The (seemingly) unique instance render_3d_global in the game
+        
+        struct render_3d_global
     - name: LANGUAGE_INFO_DATA
       address:
         EU: 0x20B05A8

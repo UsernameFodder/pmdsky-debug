@@ -29,7 +29,7 @@ itcm:
     
     In Explorers of Sky, a fixed region of the ARM9 binary appears to be loaded in the ITCM at all times, and seems to contain functions related to the dungeon AI, among other things. The ITCM has a max capacity of 0x8000, although not all of it is used.
   functions:
-    - name: AllocateNewRender3dElement
+    - name: AllocateRender3dElement
       address:
         EU: 0x20B4938
         EU-ITCM: 0x1FF8C78
@@ -238,4 +238,4 @@ itcm:
       description: |-
         Pointers to the 4 functions available from render_3d_element (in ITCM)
         
-        type: void* [4] // array of 4 pointer to functions. Take 1 parameter, a pointer to the render_3d_element
+        type: render_3d_element_concrete[4]
