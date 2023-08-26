@@ -510,12 +510,12 @@ undefined4 CopyProgressInfoFromScratchFrom(void* start_addr, uint32_t total_len)
 void InitKaomadoStream(void);
 void InitPortraitBox(struct portrait_box* portrait);
 void InitPortraitBoxWithMonsterId(struct portrait_box* portrait, enum monster_id monster_id);
-void SetPortraitExpressionId(struct portrait_box* portrait, int expression_id);
+void SetPortraitEmotion(struct portrait_box* portrait, enum portrait_emotion emotion);
 void SetPortraitLayout(struct portrait_box* portrait, uint8_t layout_idx);
 void SetPortraitOffset(struct portrait_box* portrait, struct vec2* offset);
 void AllowPortraitDefault(struct portrait_box* portrait, bool allow);
 bool IsValidPortrait(struct portrait_box* portrait);
-bool LoadPortrait(struct portrait_box* portrait, void* buf);
+bool LoadPortrait(struct portrait_box* portrait, struct kaomado_buffer* buf);
 void SetEnterDungeon(enum dungeon_id dungeon_id);
 void InitDungeonInit(struct dungeon_init* dungeon_init_data, enum dungeon_id dungeon_id);
 bool IsNoLossPenaltyDungeon(enum dungeon_id dungeon_id);

@@ -719,6 +719,7 @@ ENUM_16_BIT(monster_id);
 
 // Emotion for portraits
 enum portrait_emotion {
+    PORTRAIT_NONE = -2,
     PORTRAIT_NORMAL = 0,
     PORTRAIT_HAPPY = 1,
     PORTRAIT_PAIN = 2,

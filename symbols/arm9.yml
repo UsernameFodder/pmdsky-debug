@@ -4930,7 +4930,7 @@ arm9:
       address:
         NA: 0x204D780
       description: |-
-        Inits the stream used to load all Kaomado portraits, called once on game start!
+        Initializes the stream used to load all Kaomado portraits, called once on game start!
         
         No params.
     - name: InitPortraitBox
@@ -4939,7 +4939,7 @@ arm9:
       description: |-
         Initializes a struct portrait_box.
         
-        The emote idx is set to -2 and the layout to the default. Everything else is initialized to 0.
+        The emote is set to PORTRAIT_NONE and the layout to the default. Everything else is initialized to 0.
         
         r0: portrait box pointer
     - name: InitPortraitBoxWithMonsterId
@@ -4948,20 +4948,20 @@ arm9:
         NA: 0x204D7D4
         JP: 0x204DB34
       description: |-
-        Calls InitPortraitBox, and also inits emote to 0 and species to the passed argument.
+        Calls InitPortraitBox, and also initializes emote to PORTRAIT_NORMAL and monster ID to the passed argument.
         
         r0: portrait box pointer
         r1: monster ID
-    - name: SetPortraitExpressionId
+    - name: SetPortraitEmotion
       address:
         EU: 0x204DB2C
         NA: 0x204D7F4
         JP: 0x204DB54
       description: |-
-        Sets the emote in the passed portrait box, only if the species isn't zero.
+        Sets the emote in the passed portrait box, only if the monster ID isn't MONSTER_NONE.
         
         r0: portrait box pointer
-        r1: expression_id
+        r1: emotion ID
     - name: SetPortraitLayout
       address:
         EU: 0x204DB3C
@@ -4970,7 +4970,7 @@ arm9:
       description: |-
         Sets the layout in the passed portrait from the array of possible layouts.
         
-        If the layout is 32 or if the species is zero, then it does nothing.
+        If the layout is 32 or if the monster ID is MONSTER_NONE, then it does nothing.
         
         r0: portrait box pointer
         r1: layout index
@@ -4982,7 +4982,7 @@ arm9:
       description: |-
         Offsets the portrait from the original offset determined by the layout, by the vector passed as argument.
         
-        If the species is zero, then it does nothing.
+        If the monster ID is MONSTER_NONE, then it does nothing.
         
         r0: portrait box pointer
         r1: (x, y) offset in tiles from the original offset, derived from the layout
@@ -4990,7 +4990,7 @@ arm9:
       address:
         NA: 0x204D894
       description: |-
-        Allows the portrait to try and load the default emote (index 0) if it can't find the specified emote.
+        Allows the portrait to try and load the default emote (PORTRAIT_NORMAL) if it can't find the specified emote.
         
         r0: portrait box pointer
         r1: allow default
