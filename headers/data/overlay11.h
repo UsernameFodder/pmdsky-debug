@@ -16,5 +16,6 @@ extern struct monster_id_16 RECRUITMENT_TABLE_SPECIES[22];
 extern struct level_tilemap_list_entry LEVEL_TILEMAP_LIST[81];
 extern struct overlay_load_entry OVERLAY11_OVERLAY_LOAD_TABLE[21];
 extern struct main_ground_data GROUND_STATE_PTRS;
+extern uint32_t WORLD_MAP_MODE;
 
 #endif

@@ -620,3 +620,11 @@ overlay11:
         Host pointers to multiple structure used for performing an overworld scene
         
         type: struct main_ground_data
+    - name: WORLD_MAP_MODE
+      address:
+        EU: 0x2325924
+        NA: 0x2324DE4
+      length:
+        EU: 0x4
+        NA: 0x4
+      description: The current world map
