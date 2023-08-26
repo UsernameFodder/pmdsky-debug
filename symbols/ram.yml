@@ -18,6 +18,45 @@ ram:
     More specifically, this file is a dumping ground for addresses that are useful to know about, but don't fall in the address ranges of any of the other files. Dynamically loaded constructs that do fall within the address range of a relevant binary should be listed in the corresponding YAML file of that binary, since it still has direct utility when reverse-engineering that particular binary.
   functions: []
   data:
+    - name: DEFAULT_MEMORY_ARENA_MEMORY
+      address:
+        NA: 0x20B4BC0
+      length:
+        NA: 0x1E6400
+      description: |-
+        The memory region for the default memory arena.
+        
+        The length is defined by DEFAULT_MEMORY_ARENA_SIZE.
+        
+        One mode that uses this region for heap allocations is dungeon mode.
+    - name: GROUND_MEMORY_ARENA_2
+      address:
+        NA: 0x2145A08
+      length:
+        NA: 0x1C
+      description: |-
+        This is a memory subarena under DEFAULT_MEMORY_ARENA used for some things in ground mode.
+        
+        It's used for user_flags 14.
+        
+        Including the allocator metadata, this arena occupies 0xB0000 bytes of space.
+        
+        type: struct mem_arena
+    - name: GROUND_MEMORY_ARENA_2_BLOCKS
+      address:
+        NA: 0x2145A24
+      length:
+        NA: 0x300
+      description: |-
+        The block array for GROUND_MEMORY_ARENA_2.
+        
+        type: struct mem_block[32]
+    - name: GROUND_MEMORY_ARENA_2_MEMORY
+      address:
+        NA: 0x2145D24
+      length:
+        NA: 0xAFCE4
+      description: The memory region for GROUND_MEMORY_ARENA_2.
     - name: DUNGEON_COLORMAP_PTR
       address:
         EU: 0x21BA634
@@ -55,6 +94,37 @@ ram:
         Pointed to by MOVE_DATA_TABLE_PTR in the ARM 9 binary.
         
         type: struct move_data_table
+    - name: SOUND_MEMORY_ARENA
+      address:
+        NA: 0x224EFA0
+      length:
+        NA: 0x1C
+      description: |-
+        This is a memory subarena under DEFAULT_MEMORY_ARENA that seems to be used exclusively for sound data.
+        
+        Including allocator metadata, this subarena occupies 0x3C000 bytes of space within the default arena.
+        
+        It's referenced by various sound functions like LoadDseFile, PlaySeLoad, and PlayBgm when allocating memory.
+        
+        type: struct mem_arena
+    - name: SOUND_MEMORY_ARENA_BLOCKS
+      address:
+        NA: 0x224EFBC
+      length:
+        NA: 0x1E0
+      description: |-
+        The block array for SOUND_MEMORY_ARENA.
+        
+        type: struct mem_block[20]
+    - name: SOUND_MEMORY_ARENA_MEMORY
+      address:
+        NA: 0x224F19C
+      length:
+        NA: 0x3BE04
+      description: |-
+        The memory region for SOUND_MEMORY_ARENA.
+        
+        This region appears to be used for sound-related heap allocations, like when loading sound files into memory.
     - name: FRAMES_SINCE_LAUNCH
       address:
         EU:
@@ -230,6 +300,12 @@ ram:
       length:
         EU: 0x7C
       description: "animation_control of \"FONT/alter.wan\""
+    - name: SOUND_MEMORY_ARENA_PTR
+      address:
+        NA: 0x22A4E54
+      length:
+        NA: 0x4
+      description: Pointer to SOUND_MEMORY_ARENA.
     - name: DIALOG_BOX_LIST
       address:
         NA: 0x22A88DC
@@ -380,6 +456,46 @@ ram:
         EU: 0x4
         NA: 0x4
       description: "Starts at 0 when the game is first launched, and ticks up by 3 per frame while the game is running."
+    - name: GROUND_MEMORY_ARENA_1_PTR
+      address:
+        NA: 0x2324CB4
+      length:
+        NA: 0x4
+      description: Pointer to GROUND_MEMORY_ARENA_1.
+    - name: GROUND_MEMORY_ARENA_2_PTR
+      address:
+        NA: 0x2324CB8
+      length:
+        NA: 0x4
+      description: Pointer to GROUND_MEMORY_ARENA_2.
+    - name: GROUND_MEMORY_ARENA_1
+      address:
+        NA: 0x2324FC0
+      length:
+        NA: 0x1C
+      description: |-
+        This is a top-level memory arena used for some things in ground mode.
+        
+        It's used for user_flags 8, 15, and 16.
+        
+        Including the allocator metadata, this arena occupies 0x64000 bytes of space.
+        
+        type: struct mem_arena
+    - name: GROUND_MEMORY_ARENA_1_BLOCKS
+      address:
+        NA: 0x2324FDC
+      length:
+        NA: 0x4E0
+      description: |-
+        The block array for GROUND_MEMORY_ARENA_1.
+        
+        type: struct mem_block[52]
+    - name: GROUND_MEMORY_ARENA_1_MEMORY
+      address:
+        NA: 0x23254BC
+      length:
+        NA: 0x63B04
+      description: The memory region for GROUND_MEMORY_ARENA_1.
     - name: SENTRY_DUTY_STRUCT
       address:
         NA: 0x237A5D0
