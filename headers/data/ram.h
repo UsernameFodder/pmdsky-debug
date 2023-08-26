@@ -36,6 +36,7 @@ extern struct move LAST_NEW_MOVE;
 extern struct script_var_value_table SCRIPT_VARS_VALUES;
 extern uint8_t BAG_LEVEL;
 extern struct special_episode_type_8 DEBUG_SPECIAL_EPISODE_NUMBER;
+extern struct file_stream KAOMADO_STREAM;
 extern struct dungeon_id_8 PENDING_DUNGEON_ID;
 extern uint8_t PENDING_STARTING_FLOOR;
 extern uint32_t PLAY_TIME_SECONDS;

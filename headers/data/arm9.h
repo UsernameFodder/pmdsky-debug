@@ -30,6 +30,7 @@ extern struct partner_talk_kind_table_entry PARTNER_TALK_KIND_TABLE[11];
 extern struct script_local_var_table SCRIPT_VARS_LOCALS;
 extern struct script_var_table SCRIPT_VARS;
 extern struct portrait_layout PORTRAIT_LAYOUTS[32];
+extern char KAOMADO_FILEPATH[20];
 extern uint8_t WONDER_MAIL_BITS_MAP[32];
 extern uint8_t WONDER_MAIL_BITS_SWAP[36];
 extern uint8_t WONDER_MAIL_ENCRYPTION_TABLE[256];
