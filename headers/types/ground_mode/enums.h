@@ -930,8 +930,8 @@ enum special_process_id {
     // 57 and 58 are unused but sure do something! Don't know what though.
     // 57 might be "IsStorageFull"?
     SPECIAL_PROC_0x39 = 57,
-    SPECIAL_PROC_0x3A = 58,
-    SPECIAL_PROC_0x3B = 59, // 59 is something related to the lottery.
+    SPECIAL_PROC_INCREMENT_DUNGEONS_CLEARED = 58,
+    SPECIAL_PROC_INCREMENT_BIG_TREASURE_WINS = 59,
     SPECIAL_PROC_SEND_SKY_GIFT_TO_GUILDMASTER = 60,
     // 61 and 62 are unusued but do something.
     SPECIAL_PROC_0x3D = 61,
