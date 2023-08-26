@@ -4938,7 +4938,7 @@ arm9:
         NA: 0x204D79C
       description: |-
         Initializes a struct portrait_box.
-
+        
         The emote idx is set to -2 and the layout to the default. Everything else is initialized to 0.
         
         r0: portrait box pointer
@@ -4969,7 +4969,7 @@ arm9:
         JP: 0x204DB64
       description: |-
         Sets the layout in the passed portrait from the array of possible layouts.
-
+        
         If the layout is 32 or if the species is zero, then it does nothing.
         
         r0: portrait box pointer
@@ -4981,7 +4981,7 @@ arm9:
         JP: 0x204DBA8
       description: |-
         Offsets the portrait from the original offset determined by the layout, by the vector passed as argument.
-
+        
         If the species is zero, then it does nothing.
         
         r0: portrait box pointer
@@ -5009,9 +5009,9 @@ arm9:
         JP: 0x204DC1C
       description: |-
         Tries to load the portrait data associated with the passed portrait box.
-
+        
         Returns whether the operation was successful (the portrait could be found). If the passed buffer is null, the check if performed without loading any data.
-
+        
         This function also modifies the flip fields in the passed portrait box.
         
         r0: portrait box pointer
@@ -8582,7 +8582,7 @@ arm9:
         All the possible layouts a portrait can be placed in by default.
         
         type: struct portrait_layout[32]
-    - name: KAOMADO_FILE
+    - name: KAOMADO_FILEPATH
       address:
         NA: 0x209E0D4
       length:

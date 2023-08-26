@@ -361,7 +361,7 @@ ram:
       length:
         NA: 0x48
       description: |-
-        The file stream utilized for all Kaomado portrait loads
+        The file stream utilized for all Kaomado portrait loads.
         
         type: struct file_stream
     - name: PENDING_DUNGEON_ID
