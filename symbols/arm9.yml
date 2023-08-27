@@ -4926,11 +4926,20 @@ arm9:
         
         r0: start_address
         r1: total_length
+    - name: InitKaomadoStream
+      address:
+        NA: 0x204D780
+      description: |-
+        Initializes the stream used to load all Kaomado portraits, called once on game start!
+        
+        No params.
     - name: InitPortraitBox
       address:
         NA: 0x204D79C
       description: |-
         Initializes a struct portrait_box.
+        
+        The emote is set to PORTRAIT_NONE and the layout to the default. Everything else is initialized to 0.
         
         r0: portrait box pointer
     - name: InitPortraitBoxWithMonsterId
@@ -4939,53 +4948,75 @@ arm9:
         NA: 0x204D7D4
         JP: 0x204DB34
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Calls InitPortraitBox, and also initializes emote to PORTRAIT_NORMAL and monster ID to the passed argument.
         
         r0: portrait box pointer
         r1: monster ID
-    - name: SetPortraitExpressionId
+    - name: SetPortraitEmotion
       address:
         EU: 0x204DB2C
         NA: 0x204D7F4
         JP: 0x204DB54
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Sets the emote in the passed portrait box, only if the monster ID isn't MONSTER_NONE.
         
         r0: portrait box pointer
-        r1: expression_id
-    - name: SetPortraitUnknownAttr
+        r1: emotion ID
+    - name: SetPortraitLayout
       address:
         EU: 0x204DB3C
         NA: 0x204D804
         JP: 0x204DB64
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Sets the layout in the passed portrait from the array of possible layouts.
+        
+        If the layout is 32 or if the monster ID is MONSTER_NONE, then it does nothing.
         
         r0: portrait box pointer
-        r1: attr
-    - name: SetPortraitAttrStruct
+        r1: layout index
+    - name: SetPortraitOffset
       address:
         EU: 0x204DB80
         NA: 0x204D848
         JP: 0x204DBA8
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Offsets the portrait from the original offset determined by the layout, by the vector passed as argument.
+        
+        If the monster ID is MONSTER_NONE, then it does nothing.
         
         r0: portrait box pointer
-        r1: attr_ptr
+        r1: (x, y) offset in tiles from the original offset, derived from the layout
+    - name: AllowPortraitDefault
+      address:
+        NA: 0x204D894
+      description: |-
+        Allows the portrait to try and load the default emote (PORTRAIT_NORMAL) if it can't find the specified emote.
+        
+        r0: portrait box pointer
+        r1: allow default
+    - name: IsValidPortrait
+      address:
+        NA: 0x204D89C
+      description: |-
+        Returns whether this portrait box represents a valid portrait.
+        
+        r0: portrait box pointer
+        return: bool
     - name: LoadPortrait
       address:
         EU: 0x204DBF4
         NA: 0x204D8BC
         JP: 0x204DC1C
       description: |-
-        If buffer_portrait is null, it only checks if it exists
+        Tries to load the portrait data associated with the passed portrait box.
         
-        Note: unverified, ported from Irdkwia's notes
+        Returns whether the operation was successful (the portrait could be found). If the passed buffer is null, the check if performed without loading any data.
+        
+        This function also modifies the flip fields in the passed portrait box.
         
         r0: portrait box pointer
-        r1: buffer_portrait
-        return: exists
+        r1: kaomado_buffer pointer
+        return: portrait exists
     - name: SetEnterDungeon
       address:
         EU: 0x204EC84
@@ -8538,7 +8569,7 @@ arm9:
         These variables underpin the various ExplorerScript global variables you can use in the SkyTemple SSB debugger.
         
         type: struct script_var_table
-    - name: HARDCODED_PORTRAIT_DATA_TABLE
+    - name: PORTRAIT_LAYOUTS
       address:
         EU: 0x209E598
         NA: 0x209E014
@@ -8548,9 +8579,18 @@ arm9:
         NA: 0xC0
         JP: 0xC0
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        All the possible layouts a portrait can be placed in by default.
         
-        type: struct portrait_data_entry[32]
+        type: struct portrait_layout[32]
+    - name: KAOMADO_FILEPATH
+      address:
+        NA: 0x209E0D4
+      length:
+        NA: 0x14
+      description: |-
+        "Path of the file where all the portraits are stored. \"FONT/kaomado.kao\", padded with null to a multiple of 4"
+        
+        type: char[20]
     - name: WONDER_MAIL_BITS_MAP
       address:
         EU: 0x209E66C
