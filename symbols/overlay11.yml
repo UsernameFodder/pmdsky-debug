@@ -146,6 +146,11 @@ overlay11:
       description: |-
         The GetAllocArena function used for ground mode. See SetMemAllocatorParams for more information.
         
+        For (flags & 0xFF):
+          8, 15, 16: GROUND_MEMORY_ARENA_1
+          14: GROUND_MEMORY_ARENA_2
+          other: null (default arena)
+        
         r0: initial memory arena pointer, or null
         r1: flags (see MemAlloc)
         return: memory arena pointer, or null
@@ -395,6 +400,16 @@ overlay11:
         
         r0: ?
         r1: ?
+    - name: GetDungeonMapPos
+      address:
+        EU: 0x230F6E4
+        NA: 0x230ED48
+      description: |-
+        Checks if a dungeon should be displayed on the map and the position where it should be displayed if so.
+        
+        r0: [Output] Buffer where the coordinates of the map marker will be stored. The coordinates are shifted 8 bits to the left, so they are probably fixed-point numbers instead of integers.
+        r1: Dungeon ID
+        return: True if the dungeon should be displayed on the map, false otherwise.
     - name: WorldMapSetMode
       address:
         EU: 0x230F9A0
@@ -610,3 +625,11 @@ overlay11:
         Host pointers to multiple structure used for performing an overworld scene
         
         type: struct main_ground_data
+    - name: WORLD_MAP_MODE
+      address:
+        EU: 0x2325924
+        NA: 0x2324DE4
+      length:
+        EU: 0x4
+        NA: 0x4
+      description: The current world map

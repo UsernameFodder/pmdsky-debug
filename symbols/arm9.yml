@@ -59,7 +59,7 @@ arm9:
         
         This includes MEMORY_ALLOCATION_ARENA_GETTERS and some other stuff.
         
-        Dungeon mode uses the default arena getters. Ground mode uses its own arena getters, which are defined in overlay 11 and set (by calling this function) at the start of GroundMainLoop.
+        Dungeon mode uses the default arena getters. Ground mode uses its own arena getters that return custom arenas for some flag values, which are defined in overlay 11 and set (by calling this function) at the start of GroundMainLoop. Note that the sound memory arena is provided explicitly to MemLocateSet in the sound code, so doesn't go through this path.
         
         r0: GetAllocArena function pointer (GetAllocArenaDefault is used if null)
         r1: GetFreeArena function pointer (GetFreeArenaDefault is used if null)
@@ -960,23 +960,23 @@ arm9:
         r0: [output] pointer to an IO struct {ptr, len}
         r1: file path string pointer
         r2: flags
-    - name: GetDebugFlag1
+    - name: GetDebugFlag
       address:
         EU: 0x200C198
         NA: 0x200C110
         JP: 0x200C110
       description: |-
-        Just returns 0 in the final binary.
+        Should return the value of the specified debug flag. Just returns 0 in the final binary.
         
         r0: flag ID
         return: flag value
-    - name: SetDebugFlag1
+    - name: SetDebugFlag
       address:
         EU: 0x200C1A0
         NA: 0x200C118
         JP: 0x200C118
       description: |-
-        A no-op in the final binary.
+        Should set the value of a debug flag. A no-op in the final binary.
         
         r0: flag ID
         r1: flag value
@@ -1026,23 +1026,23 @@ arm9:
         
         r0: format
         ...: variadic
-    - name: GetDebugFlag2
+    - name: GetDebugLogFlag
       address:
         EU: 0x200C2BC
         NA: 0x200C234
         JP: 0x200C234
       description: |-
-        Just returns 0 in the final binary.
+        Should return the value of the specified debug log flag. Just returns 0 in the final binary.
         
         r0: flag ID
         return: flag value
-    - name: SetDebugFlag2
+    - name: SetDebugLogFlag
       address:
         EU: 0x200C2C4
         NA: 0x200C23C
         JP: 0x200C23C
       description: |-
-        A no-op in the final binary.
+        Should set the value of a debug log flag. A no-op in the final binary.
         
         r0: flag ID
         r1: flag value
@@ -2343,13 +2343,13 @@ arm9:
         
         r0: pointer to move to initialize
         r1: move ID
-    - name: GetInfoMoveCheckId
+    - name: InitMoveCheckId
       address:
         EU: 0x2013890
         NA: 0x20137E8
         JP: 0x20137B8
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Same as InitMove, but the function ensures that the specified ID is not 0. If it is, the move is initialized as invalid and nothing else happens.
         
         r0: move
         r1: move ID
@@ -2390,10 +2390,12 @@ arm9:
         NA: 0x2013884
         JP: 0x2013854
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Given the ID of a monster in the current dungeon, returns a pointer to the list of moves it learns by leveling up and the level in which each move is learnt.
+        
+        The list contains pairs of <encoded move ID, level>. The move ID is encoded and can be 1 or 2 bytes long. GetEncodedHalfword must be used to decode it. The end of the list is marked by a null byte.
         
         r0: monster ID
-        return: ?
+        return: Pointer to encoded level-up move list
     - name: IsInvalidMoveset
       address:
         EU: 0x2013974
@@ -3000,6 +3002,73 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         r0: waza_id
+    - name: SendAudioCommandWrapperVeneer
+      address:
+        EU: 0x2017C00
+        NA: 0x2017BE0
+      description: |-
+        Likely a linker-generated veneer for SendAudioCommandWrapper.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
+        
+        r0: Music ID
+        r1: (?) Stored on byte 8 on the struct passed to SendAudioCommand
+        r2: Volume (0-255)
+    - name: SendAudioCommandWrapper
+      address:
+        EU: 0x2017F0C
+        NA: 0x2017E70
+      description: |-
+        Initializes some values and then calls SendAudioCommand.
+        
+        Checks for DEBUG_FLAG_BGM_OFF. If 1, sets the volume to 0 before calling SendAudioCommand.
+        
+        r0: Music ID
+        r1: (?) Stored on byte 8 on the struct passed to SendAudioCommand
+        r2: Volume (0-255)
+    - name: AllocAudioCommand
+      address:
+        EU: 0x2018C08
+        NA: 0x2018B6C
+      description: |-
+        Searches for an entry in AUDIO_COMMANDS_BUFFER that's not currently in use (audio_command::status == 0). Returns the first entry not in use, or null if none was found.
+        
+        Also sets the status of the found entry to the value specified in r0.
+        
+        The game doesn't bother checking if the result of the function is null, so the buffer is not supposed to ever get filled.
+        
+        r0: Status to set the found entry to
+        return: The first unused entry, or null if none was found
+    - name: SendAudioCommand
+      address:
+        EU: 0x2018C44
+        NA: 0x2018BA8
+      description: |-
+        Used to send commands to the audio engine (seems to be used mainly to play and stop music)
+        
+        This function calls a stubbed-out one with the string "audio command list"
+        
+        r0: Command to send
+    - name: InitSoundSystem
+      address:
+        NA: 0x2018C28
+      description: |-
+        Initialize the DSE sound engine?
+        
+        This function is called somewhere in the hierarchy under TaskProcBoot and appears to allocate a bunch of memory (including a dedicated memory arena, see SOUND_MEMORY_ARENA) for sound data, and reads a bunch of core sound files.
+        
+        File paths referenced:
+        - SOUND/SYSTEM/se_sys.swd
+        - SOUND/SYSTEM/se_sys.sed
+        - SOUND/SE/motion.swd
+        - SOUND/SE/motion.sed
+        - SOUND/BGM/bgm.swd (this is the main sample bank, see https://projectpokemon.org/home/docs/mystery-dungeon-nds/pok%C3%A9mon-mystery-dungeon-explorers-r78/)
+        
+        Debug strings:
+        - entry system se swd %04x\n
+        - entry system se sed %04x\n
+        - entry motion se swd %04x\n
+        - entry motion se sed %04x\n
     - name: ManipBgmPlayback
       address:
         EU: 0x2018F40
@@ -3142,6 +3211,37 @@ arm9:
         
         r0: animation control
         r1: sprite id in WAN_TABLE
+    - name: SetAnimationForAnimationControlInternal
+      address:
+        EU: 0x201C218
+      description: |-
+        Set the wan animation (and other related settings) of an animation_control
+        Used by SetAnimationForAnimationControl
+        
+        r0: animation_control
+        r1: wan_header
+        r2: animation group id
+        r3: animation id
+        stack[0]: ?
+        stack[1] (0x4): palette pos low (see the field on animation_control)
+        stack[2] (0x8): ?
+        stack[3] (0xC): ?
+        stack[4] (0x10): palette_bank (directly set to the animation_control field with said name)
+    - name: SetAnimationForAnimationControl
+      address:
+        EU: 0x201C368
+      description: |-
+        Set the animation to play with this animation control, but do not start it.
+        
+        (args same as SetAndPlayAnimationForAnimationControl)
+        r0: animation_control
+        r1: animation key (either an animation or animation group depending on the type of sprite and if it does have animation group with this animation key as index)
+        r2: direction_id (unsure) (the key to the wan_animation in itself, only used when animation key represent a wan_animation_group)
+        r3: ?
+        stack[0]: low_palette_pos
+        stack[1] (0x4): ?
+        stack[2] (0x8): ?
+        stack[3] (0xC): ?
     - name: GetWanForAnimationControl
       address:
         EU: 0x201C484
@@ -3151,6 +3251,20 @@ arm9:
         
         r0: animation_control
         return: wan_header
+    - name: SetAndPlayAnimationForAnimationControl
+      address:
+        EU: 0x201C4B4
+      description: |-
+        Set the animation to play with the animation control, and start it.
+        
+        r0: animation_control
+        r1: animation key (either an animation or animation group depending on the type of sprite and if it does have animation group with this animation key as index)
+        r2: direction_id (unsure) (the key to the wan_animation in itself, only used when animation key represent a wan_animation_group)
+        r3: ?
+        stack[0]: low_palette_pos
+        stack[1] (0x4): ?
+        stack[2] (0x8): ?
+        stack[3] (0xC): ?
     - name: SwitchAnimationControlToNextFrame
       address:
         EU: 0x201C4F4
@@ -3371,6 +3485,62 @@ arm9:
         r1: unk_pal
         r2: unk_tex
         r3: unk_tex_param
+    - name: GeomSetTexImageParam
+      address:
+        EU: 0x201E530
+      description: |-
+        Send the "TEXIMAGE_PARAM" geometry engine command, that defines some parameters for the texture
+        See http://problemkaputt.de/gbatek.htm#ds3dtextureattributes for more information on the parameters
+        
+        r0: texture format
+        r1: texture coordinates transformation modes
+        r2: texture S-Size
+        r3: texture T-Size
+        stack[0] (0x0): repeat in S Direction
+        stack[1] (0x4): flip in S direction
+        stack[2] (0x8): What to make of color 0 (bit 29)
+        stack[3] (0xC): Texture VRAM offset (Will be divided by 8)
+    - name: GeomSetVertexCoord16
+      address:
+        EU: 0x201E570
+      description: |-
+        Send the "VTX_16" geometry engine command, that defines the coordinate of a point of a polygon, using 16 bits.
+        Inputs are clamped over their 16 lower bits
+        
+        r0: x coordinate
+        r1: y coordinate
+        r2: z coordinate
+    - name: InitRender3dData
+      address:
+        EU: 0x201E5A0
+      description: |-
+        Initialize the global "RENDER_3D" structure.
+        
+        No params.
+    - name: GeomSwapBuffers
+      address:
+        EU: 0x201E7B8
+      description: |-
+        Call the "SWAP_BUFFERS" command. This will swap the geometry buffer. The parameter of 1 is provided, which enables manual Y-sorting of translucent polygons.
+        
+        No params.
+    - name: InitRender3dElement
+      address:
+        EU: 0x201E7CC
+        NA: 0x201E730
+      description: |-
+        Initialize the render_3d_element structure (without performing any drawing or external data access)
+        
+        r0: render_3d_element
+    - name: Generate3dCanvasBorder
+      address:
+        EU: 0x201EA88
+      description: |-
+        Draw the border for dialogue box and other menus, using the 3D engine.
+        The render_3d_element contains certain value that needs to be set to a correct value for it to work.
+        The element is not immediately sent to the geometry engine, but is queued up in RENDER_3D
+        
+        r0: render_3d_element
     - name: HandleSir0Translation
       address:
         EU: 0x201F550
@@ -3611,6 +3781,15 @@ arm9:
         NA: 0x2024428
         JP: 0x2024478
       description: "Note: unverified, ported from Irdkwia's notes"
+    - name: GetBagNameString
+      address:
+        EU: 0x20250C8
+        NA: 0x2024DFC
+      description: |-
+        Returns "One-Item Inventory" or "Treasure Bag" depending on the size of the bag.
+        
+        r0: [output] Pointer to the buffer where the string will be written
+        return: Pointer to the buffer where the string was written (in other words, the same value passed in r0)
     - name: GetDungeonResultString
       address:
         EU: 0x20252A4
@@ -3845,6 +4024,19 @@ arm9:
         Load and initialise the alert sprite, storing the result in ALERT_ANIMATION_CONTROL
         
         No params.
+    - name: PrintClearMark
+      address:
+        EU: 0x202A6D8
+        NA: 0x202A3E4
+      description: |-
+        Prints the specified clear mark on the screen.
+        
+        Clear marks are shown on the save file load screen. They are used to show which plot milestones have already been completed.
+        
+        r0: Clear mark ID
+        r1: X pos (unknown units, usually ranges between 3 and 27)
+        r2: Y pos (unknown units, normally 14)
+        r3: ?
     - name: CreateNormalMenu
       address:
         EU: 0x202B3E0
@@ -4188,21 +4380,21 @@ arm9:
         NA: 0x2048F24
         JP: 0x2049290
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Calculates the checksum of the save file and stores it at the start of the data.
         
-        r0: buffer
-        r1: size
-    - name: CheckChecksum
+        r0: Pointer to a buffer containing the save data
+        r1: Size in bytes
+    - name: CheckChecksumInvalid
       address:
         EU: 0x2049268
         NA: 0x2048F4C
         JP: 0x20492B8
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Calculates the checksum of the save file and compares it with the one stored in it.
         
-        r0: buffer
-        r1: size
-        return: check_ok
+        r0: Pointer to a buffer containing the save data
+        r1: Size in bytes
+        return: True if the calculated and stored checksums don't match, false if they do.
     - name: NoteSaveBase
       address:
         EU: 0x20492A0
@@ -4482,10 +4674,15 @@ arm9:
         NA: 0x204CA94
         JP: 0x204CDF4
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Returns the value of one of the flags in VAR_PERFORMANCE_PROGRESS_LIST, with some edge cases.
         
-        r0: flag_id
-        return: ?
+        List of cases where the function behaves differently:
+        - If the requested flag is 0, returns true if and only if SCENARIO_MAIN == 0x35
+        - If the requested flag is 1 or 2 and GAME_MODE == GAME_MODE_SPECIAL_EPISODE, returns true
+        - If the requested flag is between 3 and 7 (both included) and GAME_MODE == GAME_MODE_SPECIAL_EPISODE, returns false
+        
+        r0: ID of the flag to get
+        return: Value of the flag
     - name: GetScenarioBalance
       address:
         EU: 0x204CECC
@@ -4729,11 +4926,20 @@ arm9:
         
         r0: start_address
         r1: total_length
+    - name: InitKaomadoStream
+      address:
+        NA: 0x204D780
+      description: |-
+        Initializes the stream used to load all Kaomado portraits, called once on game start!
+        
+        No params.
     - name: InitPortraitBox
       address:
         NA: 0x204D79C
       description: |-
         Initializes a struct portrait_box.
+        
+        The emote is set to PORTRAIT_NONE and the layout to the default. Everything else is initialized to 0.
         
         r0: portrait box pointer
     - name: InitPortraitBoxWithMonsterId
@@ -4742,53 +4948,75 @@ arm9:
         NA: 0x204D7D4
         JP: 0x204DB34
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Calls InitPortraitBox, and also initializes emote to PORTRAIT_NORMAL and monster ID to the passed argument.
         
         r0: portrait box pointer
         r1: monster ID
-    - name: SetPortraitExpressionId
+    - name: SetPortraitEmotion
       address:
         EU: 0x204DB2C
         NA: 0x204D7F4
         JP: 0x204DB54
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Sets the emote in the passed portrait box, only if the monster ID isn't MONSTER_NONE.
         
         r0: portrait box pointer
-        r1: expression_id
-    - name: SetPortraitUnknownAttr
+        r1: emotion ID
+    - name: SetPortraitLayout
       address:
         EU: 0x204DB3C
         NA: 0x204D804
         JP: 0x204DB64
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Sets the layout in the passed portrait from the array of possible layouts.
+        
+        If the layout is 32 or if the monster ID is MONSTER_NONE, then it does nothing.
         
         r0: portrait box pointer
-        r1: attr
-    - name: SetPortraitAttrStruct
+        r1: layout index
+    - name: SetPortraitOffset
       address:
         EU: 0x204DB80
         NA: 0x204D848
         JP: 0x204DBA8
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Offsets the portrait from the original offset determined by the layout, by the vector passed as argument.
+        
+        If the monster ID is MONSTER_NONE, then it does nothing.
         
         r0: portrait box pointer
-        r1: attr_ptr
+        r1: (x, y) offset in tiles from the original offset, derived from the layout
+    - name: AllowPortraitDefault
+      address:
+        NA: 0x204D894
+      description: |-
+        Allows the portrait to try and load the default emote (PORTRAIT_NORMAL) if it can't find the specified emote.
+        
+        r0: portrait box pointer
+        r1: allow default
+    - name: IsValidPortrait
+      address:
+        NA: 0x204D89C
+      description: |-
+        Returns whether this portrait box represents a valid portrait.
+        
+        r0: portrait box pointer
+        return: bool
     - name: LoadPortrait
       address:
         EU: 0x204DBF4
         NA: 0x204D8BC
         JP: 0x204DC1C
       description: |-
-        If buffer_portrait is null, it only checks if it exists
+        Tries to load the portrait data associated with the passed portrait box.
         
-        Note: unverified, ported from Irdkwia's notes
+        Returns whether the operation was successful (the portrait could be found). If the passed buffer is null, the check if performed without loading any data.
+        
+        This function also modifies the flip fields in the passed portrait box.
         
         r0: portrait box pointer
-        r1: buffer_portrait
-        return: exists
+        r1: kaomado_buffer pointer
+        return: portrait exists
     - name: SetEnterDungeon
       address:
         EU: 0x204EC84
@@ -5027,7 +5255,7 @@ arm9:
       description: |-
         Increments by 1 the number of dungeons cleared.
         
-        Implements SPECIAL_PROC_0x3A (see ScriptSpecialProcessCall).
+        Implements SPECIAL_PROC_INCREMENT_DUNGEONS_CLEARED (see ScriptSpecialProcessCall).
         
         No params.
     - name: GetNbDungeonsCleared
@@ -5175,7 +5403,7 @@ arm9:
       description: |-
         Increments by 1 the number of big treasure wins.
         
-        Implements SPECIAL_PROC_0x3B (see ScriptSpecialProcessCall).
+        Implements SPECIAL_PROC_INCREMENT_BIG_TREASURE_WINS (see ScriptSpecialProcessCall).
         
         No params.
     - name: SetNbBigTreasureWins
@@ -5436,6 +5664,26 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         r0: buffer
+    - name: GetRankupPoints
+      address:
+        EU: 0x2050EF0
+        NA: 0x2050BB8
+      description: |-
+        Returns the number of points required to reach the next rank.
+        
+        If PERFORMANCE_PROGRESS_LIST[8] is 0 and the current rank is RANK_MASTER, or if the current rank is RANK_GUILDMASTER, returns 0.
+        
+        return: Points required to reach the next rank
+    - name: GetRank
+      address:
+        EU: 0x2050FAC
+        NA: 0x2050C74
+      description: |-
+        Returns the team's rank
+        
+        If PERFORMANCE_PROGRESS_LIST[8] is 0, the maximum rank that can be returned is RANK_MASTER.
+        
+        return: Rank
     - name: SubFixedPoint
       address:
         EU: 0x2051248
@@ -5965,9 +6213,9 @@ arm9:
         NA: 0x2052874
         JP: 0x2052BAC
       description: |-
-        Gets the mobility type for a given monster.
+        Gets the mobility type for a given monster species.
         
-        r0: monster ID
+        r0: species ID
         return: mobility type
     - name: GetRegenSpeed
       address:
@@ -6246,17 +6494,31 @@ arm9:
         r0: string_buffer
         r1: monster ID
         return: bool
-    - name: GetLvlStats
+    - name: GetLvlUpEntry
       address:
         EU: 0x2053B18
         NA: 0x205379C
         JP: 0x2053AD4
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Gets the level-up entry of the given monster ID at the specified level.
         
-        r0: [output] level stats
+        The monster's entire level up data is also decompressed to LEVEL_UP_DATA_DECOMPRESS_BUFFER, and its ID is stored in LEVEL_UP_DATA_MONSTER_ID.
+        
+        r0: [output] Level-up entry
         r1: monster ID
         r2: level
+    - name: GetEncodedHalfword
+      address:
+        EU: 0x2053BC8
+        NA: 0x205384C
+      description: |-
+        Decodes a 2-byte value that may be encoded using 1 or 2 bytes and writes it to the specified buffer.
+        
+        The encoding system uses the most significant bit of the first byte to signal if the value is encoded as a single byte or as a halfword. If the bit is unset, the value is read as (encoded byte) & 0x7F. If it's set, the value is read as ((first encoded byte) & 0x7F << 7) | (second encoded byte) & 0x7F.
+        
+        r0: Pointer to encoded value
+        r1: [output] Buffer where the resulting 2-byte value will be stored.
+        return: Pointer to the next byte to decode
     - name: GetEvoFamily
       address:
         EU: 0x205414C
@@ -7279,6 +7541,14 @@ arm9:
         
         r0: table index
         r1: [output] pointer to an owned_item
+    - name: MainLoop
+      address:
+        EU: 0x2066098
+        NA: 0x2065D1C
+      description: |-
+        This function gets called shortly after the game is started. Contains a single infinite loop and has no return statement.
+        
+        No params.
     - name: DungeonSwapIdToIdx
       address:
         EU: 0x206AAAC
@@ -7328,15 +7598,27 @@ arm9:
         NA: 0x2070674
         JP: 0x207095C
       description: "Note: unverified, ported from Irdkwia's notes"
+    - name: ParseDseEvents
+      address:
+        NA: 0x2071224
+      description: "From https://projectpokemon.org/docs/mystery-dungeon-nds/procyon-studios-digital-sound-elements-r12/"
+    - name: UpdateSequencerTracks
+      address:
+        NA: 0x20713E8
+      description: "From https://projectpokemon.org/docs/mystery-dungeon-nds/procyon-studios-digital-sound-elements-r12/"
     - name: UpdateChannels
       address:
         EU: 0x2074824
         NA: 0x207448C
         JP: 0x2074774
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        From https://projectpokemon.org/docs/mystery-dungeon-nds/procyon-studios-digital-sound-elements-r12/ and Irdkwia's notes.
         
         No params.
+    - name: UpdateTrackVolumeEnvelopes
+      address:
+        NA: 0x2074E0C
+      description: "From https://projectpokemon.org/docs/mystery-dungeon-nds/procyon-studios-digital-sound-elements-r12/"
     - name: EnableVramBanksInSetDontSave
       address:
         EU: 0x2076744
@@ -8287,7 +8569,7 @@ arm9:
         These variables underpin the various ExplorerScript global variables you can use in the SkyTemple SSB debugger.
         
         type: struct script_var_table
-    - name: HARDCODED_PORTRAIT_DATA_TABLE
+    - name: PORTRAIT_LAYOUTS
       address:
         EU: 0x209E598
         NA: 0x209E014
@@ -8297,9 +8579,18 @@ arm9:
         NA: 0xC0
         JP: 0xC0
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        All the possible layouts a portrait can be placed in by default.
         
-        type: struct portrait_data_entry[32]
+        type: struct portrait_layout[32]
+    - name: KAOMADO_FILEPATH
+      address:
+        NA: 0x209E0D4
+      length:
+        NA: 0x14
+      description: |-
+        "Path of the file where all the portraits are stored. \"FONT/kaomado.kao\", padded with null to a multiple of 4"
+        
+        type: char[20]
     - name: WONDER_MAIL_BITS_MAP
       address:
         EU: 0x209E66C
@@ -9701,6 +9992,13 @@ arm9:
         pointer to the list of wan sprite loaded in RAM
         
         struct wan_table*
+    - name: RENDER_3D
+      address:
+        EU: 0x20B0540
+      description: |-
+        The (seemingly) unique instance render_3d_global in the game
+        
+        type: struct render_3d_global
     - name: LANGUAGE_INFO_DATA
       address:
         EU: 0x20B05A8
@@ -9880,7 +10178,10 @@ arm9:
       length:
         EU: 0x1FC
         NA: 0x1FC
-      description: "Irdkwia's notes: named DSEEventFunctionPtrTable with length 0x3C0 (note the disagreement), 240*0x4."
+      description: |-
+        Table of all DSE events, see https://projectpokemon.org/docs/mystery-dungeon-nds/procyon-studios-digital-sound-elements-r12/
+        
+        Irdkwia's notes: named DSEEventFunctionPtrTable with length 0x3C0 (note the disagreement), 240*0x4.
     - name: MUSIC_DURATION_LOOKUP_TABLE_1
       address:
         EU: 0x20B1894

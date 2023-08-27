@@ -3,6 +3,15 @@
 #ifndef HEADERS_TYPES_COMMON_ENUMS_H_
 #define HEADERS_TYPES_COMMON_ENUMS_H_
 
+// Represents one of the two screens the console has. Each screen is linked
+// to a single graphics engine, but which engine it is linked to isn't fixed.
+// Thus, instead of using "lower" and "upper", we use "main" and "sub" screens
+// We need to differentiate them because each engine has different abilities
+enum screen {
+    SCREEN_MAIN = 0, // The screen linked to the main graphics engine (A)
+    SCREEN_SUB = 1,  // The screen linked to the sub graphics engine (B)
+};
+
 // Overlay group ID. Each group ID maps to an overlay number.
 enum overlay_group_id {
     OGROUP_NONE = 0,
@@ -710,6 +719,7 @@ ENUM_16_BIT(monster_id);
 
 // Emotion for portraits
 enum portrait_emotion {
+    PORTRAIT_NONE = -2,
     PORTRAIT_NORMAL = 0,
     PORTRAIT_HAPPY = 1,
     PORTRAIT_PAIN = 2,
@@ -3711,6 +3721,14 @@ enum mission_rank {
 ENUM_8_BIT(mission_rank);
 #pragma pack(pop)
 
+enum portrait_canvas_state {
+    PORTRAIT_CANVAS_HIDDEN = 0,
+    PORTRAIT_CANVAS_TRY_UPDATE = 1,
+    PORTRAIT_CANVAS_UPDATE = 2,
+    PORTRAIT_CANVAS_STANDBY = 3,
+    PORTRAIT_CANVAS_HIDE = 4,
+};
+
 enum wan_source_type {
     WAN_SOURCE_NULL = 0,
     WAN_SOURCE_FILE = 1, // Directly loaded from a .wan
@@ -3721,5 +3739,44 @@ enum wan_source_type {
 #pragma pack(push, 1)
 ENUM_8_BIT(wan_source_type);
 #pragma pack(pop)
+
+// Flags listed in the debug menu
+enum debug_flag {
+    DEBUG_FLAG_TEXT_SPEEDUP = 0,    // Increases text speed (x4)
+    DEBUG_FLAG_NO_SCREEN_FADE = 1,  // The screen doesn't fade to black when it's supposed to
+    DEBUG_FLAG_SOUND_OFF = 2,       // Disables all sounds?
+    DEBUG_FLAG_BGM_OFF = 3,         // Background music won't be played
+    DEBUG_FLAG_SE_OFF = 4,          // Sound effects won't be played
+    DEBUG_FLAG_STAGE_NPC_DUMMY = 5, // Unknown purpose
+    // Was supposed to throw an error if text overflowed the textbox it was contained in, but it
+    // does nothing in the final game.
+    DEBUG_FLAG_TEXT_LIMIT_CHECK = 6,
+    DEBUG_FLAG_NO_CHEAT_CHECK = 7,             // Unknown purpose
+    DEBUG_FLAG_NO_PLUNGE_CHECK = 8,            // Unknown purpose
+    DEBUG_FLAG_DUNGEON_INFINITE_COMEBACK = 10, // Unknown purpose
+    DEBUG_FLAG_GENERAL_DEBUG = 11,             // Enables debug menus
+    // Allows manually overriding the results of a dungeon expedition
+    DEBUG_FLAG_EDIT_MODE = 12,
+};
+
+// Logging flags listed in the debug menu. They enable certain kinds of debug logging.
+enum debug_log_flag {
+    DEBUG_LOG_FLAG_DUNGEON = 0,
+    DEBUG_LOG_FLAG_GROUND = 1,
+    DEBUG_LOG_FLAG_SCRIPT = 2,
+    DEBUG_LOG_FLAG_SCRIPT_DEBUG = 3,
+    DEBUG_LOG_FLAG_SCRIPT_SUPERVISION = 4,
+    DEBUG_LOG_FLAG_SCRIPT_COMMAND = 5,
+    DEBUG_LOG_FLAG_SOUND = 6,
+    DEBUG_LOG_FLAG_BGM = 7,
+    DEBUG_LOG_FLAG_SE = 8,
+    DEBUG_LOG_FLAG_FLAG = 10,
+    DEBUG_LOG_FLAG_FILE = 11,
+    DEBUG_LOG_FLAG_MEMORY = 12,
+    DEBUG_LOG_FLAG_BACKUP = 13,
+    DEBUG_LOG_FLAG_THREAD = 14,
+    DEBUG_LOG_FLAG_KERNEL = 15,
+    DEBUG_LOG_FLAG_PERFORMANCE = 16,
+};
 
 #endif

@@ -3,11 +3,19 @@
 
 // Common data structures not specific to EoS
 
+// RGB8 color
+struct rgb {
+    uint8_t r;
+    uint8_t g;
+    uint8_t b;
+};
+ASSERT_SIZE(struct rgb, 3);
+
 // RGBA8 structure. Sometimes alpha is ignored and only used for padding
 struct rgba {
     uint8_t r;
-    uint8_t b;
     uint8_t g;
+    uint8_t b;
     uint8_t a; // Sometimes used only for padding
 };
 ASSERT_SIZE(struct rgba, 4);

@@ -44,7 +44,7 @@ struct mem_block {
     uint32_t allocator_flags_unused : 28;
 
     // 0x8: Flags passed by the user to the memory allocator API functions when this block was
-    // allocated. The least significant byte are reserved for specifying the memory arena to use,
+    // allocated. The least significant byte is reserved for specifying the memory arena to use,
     // and have functionality determined by the arena locator function currently in use by the
     // game. The upper bytes are the same as the internal memory allocator flags
     // (just left-shifted by 8).
@@ -86,6 +86,10 @@ struct mem_alloc_table {
     struct mem_arena default_arena; // 0x4: The default memory arena for allocations
     // Not actually sure how long this array is, but has at least 4 elements, and can't have
     // more than 8 because it would overlap with default_arena.data
+    // The 4 known arenas are:
+    // - The default arena (used for most things, including dungeon mode)
+    // - Two ground mode arenas (used in some cases, but not all)
+    // - The sound data arena (used by the DSE sound engine)
     struct mem_arena* arenas[8]; // 0x20: Array of global memory arenas
 };
 ASSERT_SIZE(struct mem_alloc_table, 64);
@@ -126,19 +130,58 @@ struct dialog_box {
 };
 ASSERT_SIZE(struct dialog_box, 224);
 
-// Represents a portrait that appears inside a dialogue box
+// Represents the state of a portrait to be displayed inside a dialogue box
 struct portrait_box {
-    struct monster_id_16 monster_id;
+    struct monster_id_16 monster_id; // 0x0: The species id, or the set index inside kaomado.kao
+    // 0x2: Index of the emote in the species set of portraits
     struct portrait_emotion_8 portrait_emotion;
-    undefined field_0x3;
-    undefined4 field_0x4;
-    undefined4 field_0x8;
-    undefined field_0xc;
-    undefined field_0xd;
-    undefined field_0xe;
-    undefined field_0xf;
+    uint8_t layout_idx; // 0x3: Represents the current layout to display the portrait
+    uint32_t offset_x;  // 0x4: Tile offset (x / 8) in the X axis to draw the portrait
+    uint32_t offset_y;  // 0x8: Tile offset (y / 8) in the Y axis to draw the portrait
+    bool try_flip;      // 0xC: Whether to try to get a flipped portrait from kaomado.kao
+    bool has_flip;      // 0xD: Whether the specified emote has a flipped variant
+    bool hw_flip;       // 0xE: Whether the portrait should be flipped using the hardware
+    bool allow_default; // 0xF: If true, try using emote index 0 if the desired emote can't be found
 };
 ASSERT_SIZE(struct portrait_box, 16);
+
+// Identifies a default position for a portrait, as well as whether it'll be flipped
+struct portrait_layout {
+    int16_t offset_x;
+    int16_t offset_y;
+    bool try_flip;
+    uint8_t _padding;
+};
+ASSERT_SIZE(struct portrait_layout, 6);
+
+// Holds portrait image data loaded from kaomado.kao.
+// See https://projectpokemon.org/home/docs/mystery-dungeon-nds/kaomadokao-file-format-r54/
+struct kaomado_buffer {
+    struct rgb palette[16];    // Buffer to load the palette of the portrait
+    uint8_t at4px_buffer[800]; // Buffer to load the portrait image data
+};
+ASSERT_SIZE(struct kaomado_buffer, 848);
+
+// Stores data and state for a specialized Kaomado canvas for rendering portraits
+struct portrait_canvas {
+    uint8_t canvas_handle;
+    uint8_t _padding_0x1;
+    uint8_t _padding_0x2;
+    uint8_t _padding_0x3;
+    enum portrait_canvas_state state;
+    // The buffer_state is the one that receives and stores any commits,
+    // but render_state is only set to the value of buffer_state during
+    // the Kaomado canvas update function
+    struct portrait_box render_state;
+    struct portrait_box buffer_state;
+    bool updated;
+    bool hide;
+    bool framed;
+    uint8_t _padding_0x2b;
+    uint32_t palette_idx;
+    struct kaomado_buffer buffer;
+};
+ASSERT_SIZE(struct portrait_canvas, 896);
 
 // These flags are shared with the function to display text inside message boxes
 // So they might need a rename once more information is found
@@ -366,6 +409,19 @@ struct team_member_table {
     struct team_id_8 active_team; // 0x9877: Currently active team
 };
 ASSERT_SIZE(struct team_member_table, 39032);
+
+// Contains information about a monster's level-up data at a certain level
+struct level_up_entry {
+    uint32_t total_exp; // 0x0: Total EXP required to reach this level
+    uint16_t hp;        // 0x4: HP increase
+    uint8_t atk;        // 0x6: Atk increase
+    uint8_t sp_atk;     // 0x7: Sp. Atk increase
+    uint8_t def;        // 0x8: Def increase
+    uint8_t sp_def;     // 0x9: Sp. Def increase
+    undefined field_0xA;
+    undefined field_0xB;
+};
+ASSERT_SIZE(struct level_up_entry, 12);
 
 // A common structure for pairs of dungeon/floor values
 struct dungeon_floor_pair {
@@ -825,15 +881,6 @@ struct quiz_answer_points_entry {
 ASSERT_SIZE(struct quiz_answer_points_entry, 16);
 
 // Unverified, ported from Irdkwia's notes
-struct portrait_data_entry {
-    int16_t xpos;
-    int16_t ypos;
-    uint8_t portrait;
-    uint8_t _padding;
-};
-ASSERT_SIZE(struct portrait_data_entry, 6);
-
-// Unverified, ported from Irdkwia's notes
 struct status_description {
     int16_t name_str_id;
     int16_t desc_str_id;
@@ -908,6 +955,39 @@ struct vram_banks_set {
     uint8_t _unused : 7;
 };
 ASSERT_SIZE(struct vram_banks_set, 2);
+
+// Used as a parameter to SendAudioCommand. Includes data on which audio to play and how.
+struct audio_command {
+    // 0x0: Seems to be a value that marks the status of this entry. It's probably an enum, maybe a
+    // command ID. Seems to be 0 when the entry is not in use.
+    int status;
+    struct music_id_16 music_id; // 0x4: ID of the music to play
+    uint16_t volume;             // 0x6: Volume (0-255)
+    undefined2 field_0x8;
+    undefined field_0xA;
+    undefined field_0xB;
+    undefined field_0xC;
+    undefined field_0xD;
+    undefined field_0xE;
+    undefined field_0xF;
+    undefined field_0x10;
+    undefined field_0x11;
+    undefined field_0x12;
+    undefined field_0x13;
+    undefined field_0x14;
+    undefined field_0x15;
+    undefined field_0x16;
+    undefined field_0x17;
+    undefined field_0x18;
+    undefined field_0x19;
+    undefined field_0x1A;
+    undefined field_0x1B;
+    undefined field_0x1C;
+    undefined field_0x1D;
+    undefined field_0x1E;
+    undefined field_0x1F;
+};
+ASSERT_SIZE(struct audio_command, 32);
 
 // TODO: Add more data file structures, as convenient or needed, especially if the load address
 // or pointers to the load address are known.

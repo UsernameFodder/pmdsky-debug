@@ -90,13 +90,13 @@ void FileSeek(struct file_stream* file, int offset, int whence);
 void FileClose(struct file_stream* file);
 void UnloadFile(void* ptr);
 void LoadFileFromRom(struct iovec* iov, const char* filepath, uint32_t flags);
-uint32_t GetDebugFlag1(uint32_t flag_id);
-void SetDebugFlag1(uint32_t flag_id, uint32_t val);
+bool GetDebugFlag(enum debug_flag flag);
+void SetDebugFlag(enum debug_flag flag, bool val);
 int AppendProgPos(char* str, struct prog_pos_info* prog_pos, const char* msg);
 void DebugPrintTrace(const char* msg, struct prog_pos_info* prog_pos);
 void DebugPrint0(const char* fmt, ...);
-uint32_t GetDebugFlag2(uint32_t flag_id);
-void SetDebugFlag2(uint32_t flag_id, uint32_t val);
+bool GetDebugLogFlag(enum debug_log_flag flag);
+void SetDebugLogFlag(enum debug_log_flag flag, bool val);
 void DebugPrint(uint8_t level, const char* fmt, ...);
 void FatalError(struct prog_pos_info prog_pos, const char* fmt, ...);
 void OpenAllPackFiles(void);
@@ -231,11 +231,11 @@ void FormatMoveString(char* string, struct move* move, undefined* type_print);
 void FormatMoveStringMore(undefined* param_1, int param_2, struct move* move,
                           undefined* type_print);
 void InitMove(struct move* move, enum move_id);
-void GetInfoMoveCheckId(struct move* move, enum move_id move_id);
+void InitMoveCheckId(struct move* move, enum move_id move_id);
 void GetInfoMoveGround(struct ground_move* move, enum move_id move_id);
 struct move_target_and_range GetMoveTargetAndRange(struct move* move, bool is_ai);
 enum type_id GetMoveType(struct move* move);
-undefined* GetMovesetLevelUpPtr(enum monster_id monster_id);
+uint8_t* GetMovesetLevelUpPtr(enum monster_id monster_id);
 bool IsInvalidMoveset(int moveset_id);
 undefined* GetMovesetHmTmPtr(enum monster_id monster_id);
 undefined* GetMovesetEggPtr(enum monster_id monster_id);
@@ -297,6 +297,11 @@ enum move_category GetMoveCategory(enum move_id move_id);
 int GetPpIncrease(enum monster_id monster_id, uint32_t* iq_skill_flags);
 void OpenWaza(int waza_id);
 void SelectWaza(int waza_id);
+void SendAudioCommandWrapperVeneer(enum music_id music_id, undefined param_2, int volume);
+void SendAudioCommandWrapper(enum music_id music_id, undefined param_2, int volume);
+struct audio_command* AllocAudioCommand(int status);
+void SendAudioCommand(struct audio_command command);
+void InitSoundSystem(void);
 void ManipBgmPlayback(void);
 void SoundDriverReset(void);
 uint32_t LoadDseFile(struct iovec* iov, const char* filename);
@@ -317,7 +322,17 @@ void StopSe(int param_1, int param_2);
 void InitAnimationControl(struct animation_control* animation_control);
 void InitAnimationControlWithSet(struct animation_control* animation_control);
 void SetSpriteIdForAnimationControl(struct animation_control* anim_ctrl, uint16_t sprite_id);
+void SetAnimationForAnimationControlInternal(struct animation_control* anim_ctrl,
+                                             struct wan_header* wan_header, int animation_group_id,
+                                             int animation_id, int unk1, int low_palette_pos,
+                                             int unk2, int unk3, int palette_bank);
+void SetAnimationForAnimationControl(struct animation_control* anim_ctrl, int animation_key,
+                                     enum direction_id direction, int unk1, int low_palette_pos,
+                                     int unk2, int unk3, int unk4);
 struct wan_header* GetWanForAnimationControl(struct animation_control* anim_ctrl);
+void SetAndPlayAnimationForAnimationControl(struct animation_control* anim_ctrl, int animation_key,
+                                            enum direction_id direction, int unk1,
+                                            int low_palette_pos, int unk2, int unk3, int unk4);
 void SwitchAnimationControlToNextFrame(struct animation_control* anim_ctrl);
 void LoadAnimationFrameAndIncrementInAnimationControl(struct animation_control* anim_ctrl,
                                                       struct wan_animation_frame* anim_frame);
@@ -347,6 +362,14 @@ void UnloadWte(struct wte_handle* handle);
 undefined* LoadWtuFromBin(int bin_file_id, int file_id, int load_type);
 void ProcessWte(undefined* header, undefined4 unk_pal, undefined4 unk_tex,
                 undefined4 unk_tex_param);
+void GeomSetTexImageParam(int texture_format, int texture_coordinates_transformation_modes,
+                          int texture_s_size, int texture_t_size, bool repeat_s, bool flip_s,
+                          bool color_0, bool vram_offset);
+void GeomSetVertexCoord16(int x, int y, int z);
+void InitRender3dData(void);
+void GeomSwapBuffers(void);
+void InitRender3dElement(struct render_3d_element* element);
+void Generate3dCanvasBorder(struct render_3d_element* element);
 int HandleSir0Translation(uint8_t** dst, uint8_t* src);
 void ConvertPointersSir0(undefined* sir0_ptr);
 int HandleSir0TranslationVeneer(uint8_t** dst, uint8_t* src);
@@ -370,6 +393,7 @@ int PreprocessStringFromMessageId(char* output, int output_size, int message_id,
 void InitPreprocessorArgs(struct preprocessor_args* args);
 char* SetStringAccuracy(char* s, int param_2);
 char* SetStringPower(char* s, int param_2);
+char* GetBagNameString(char* buffer);
 char* GetDungeonResultString(int string_number);
 void SetQuestionMarks(char* s);
 void StrcpySimple(char* dest, const char* src);
@@ -390,6 +414,7 @@ void SetBothScreensWindowsColor(int palette_idx);
 undefined* GetDialogBoxField0xC(int dbox_id);
 void LoadCursors(void);
 void LoadAlert(void);
+void PrintClearMark(int mark_id, int x, int y, undefined param_4);
 int CreateNormalMenu(undefined* layout, int menu_flags, undefined* additional_info, undefined* menu,
                      int option_id);
 void FreeNormalMenu(int menu_id);
@@ -427,8 +452,8 @@ void ReadStringSave(char* buf);
 bool CheckStringSave(const char* buf);
 int WriteSaveFile(undefined* save_info, undefined* buf, int size);
 int ReadSaveFile(undefined* save_info, undefined* buf, int size);
-void CalcChecksum(int* buf, int size);
-bool CheckChecksum(int* buf, int size);
+void CalcChecksum(undefined* save_info, int size);
+bool CheckChecksumInvalid(undefined* save_info, int size);
 int NoteSaveBase(int param_1);
 void WriteQuickSaveInfo(undefined* buf, int size);
 undefined4 ReadSaveHeader(undefined4* param_1, undefined4 param_2, undefined4 param_3,
@@ -457,7 +482,7 @@ void SetScenarioScriptVar(enum script_var_id id, uint8_t val0, uint8_t val1);
 int GetSpecialEpisodeType(void);
 int GetExecuteSpecialEpisodeType(void);
 bool HasPlayedOldGame(void);
-int GetPerformanceFlagWithChecks(int flag_id);
+bool GetPerformanceFlagWithChecks(int flag_id);
 int GetScenarioBalance(void);
 void ScenarioFlagBackup(void);
 void InitWorldMapScriptVars(void);
@@ -482,12 +507,15 @@ void CopyProgressInfoTo(undefined* write_info, undefined4 param_2, undefined4 pa
 undefined4 CopyProgressInfoFromScratchTo(void* start_addr, uint32_t total_len);
 void CopyProgressInfoFrom(undefined* read_info);
 undefined4 CopyProgressInfoFromScratchFrom(void* start_addr, uint32_t total_len);
+void InitKaomadoStream(void);
 void InitPortraitBox(struct portrait_box* portrait);
 void InitPortraitBoxWithMonsterId(struct portrait_box* portrait, enum monster_id monster_id);
-void SetPortraitExpressionId(struct portrait_box* portrait, int expression_id);
-void SetPortraitUnknownAttr(struct portrait_box* portrait, int attr);
-void SetPortraitAttrStruct(struct portrait_box* portrait, undefined* attr);
-bool LoadPortrait(struct portrait_box* portrait, void* buf);
+void SetPortraitEmotion(struct portrait_box* portrait, enum portrait_emotion emotion);
+void SetPortraitLayout(struct portrait_box* portrait, uint8_t layout_idx);
+void SetPortraitOffset(struct portrait_box* portrait, struct vec2* offset);
+void AllowPortraitDefault(struct portrait_box* portrait, bool allow);
+bool IsValidPortrait(struct portrait_box* portrait);
+bool LoadPortrait(struct portrait_box* portrait, struct kaomado_buffer* buf);
 void SetEnterDungeon(enum dungeon_id dungeon_id);
 void InitDungeonInit(struct dungeon_init* dungeon_init_data, enum dungeon_id dungeon_id);
 bool IsNoLossPenaltyDungeon(enum dungeon_id dungeon_id);
@@ -557,6 +585,8 @@ void StoreDefaultTeamName(void);
 void GetTeamNameCheck(undefined* buf);
 void GetTeamName(undefined* buf);
 void SetTeamName(undefined* buf);
+int GetRankupPoints(void);
+enum rank GetRank(void);
 uint32_t SubFixedPoint(uint32_t val_fp, uint32_t dec_fp);
 uint32_t BinToDecFixedPoint(uint32_t* q16);
 int CeilFixedPoint(uint32_t val_fp);
@@ -635,7 +665,8 @@ void LoadM2nAndN2m(void);
 void GuestMonsterToGroundMonster(struct ground_monster* ground_monster,
                                  struct guest_monster* guest_monster);
 bool StrcmpMonsterName(char* string, enum monster_id monster_id);
-void GetLvlStats(undefined* level_stats, enum monster_id monster_id, int level);
+void GetLvlUpEntry(struct level_up_entry* level_up_entry, enum monster_id monster_id, int level);
+uint8_t* GetEncodedHalfword(uint8_t* data_ptr, uint16_t* result);
 int GetEvoFamily(undefined* monster, undefined* evo_family);
 int GetEvolutions(enum monster_id monster_id, enum monster_id* output_list,
                   bool skip_sprite_size_check, bool skip_shedinja_check);
@@ -738,12 +769,16 @@ void ScriptSpecialProcess0x3D(void);
 void ScriptSpecialProcess0x3E(void);
 void ScriptSpecialProcess0x17(void);
 void ItemAtTableIdx(int idx, struct bulk_item* item);
+void MainLoop(void);
 int DungeonSwapIdToIdx(enum dungeon_id dungeon_id);
 enum dungeon_id DungeonSwapIdxToId(int idx);
 enum dungeon_mode GetDungeonModeSpecial(enum dungeon_id dungeon_id);
 int ResumeBgm(undefined4 param_1, undefined4 param_2, undefined4 param_3);
 int FlushChannels(undefined* param_1, int param_2, int param_3);
+void ParseDseEvents(undefined4 param_1, int param_2, undefined4 param_3, undefined4 param_4);
+void UpdateSequencerTracks(int param_1, undefined4 param_2, undefined4 param_3, undefined4 param_4);
 void UpdateChannels(void);
+void UpdateTrackVolumeEnvelopes(undefined* param_1);
 void EnableVramBanksInSetDontSave(struct vram_banks_set vram_banks);
 void EnableVramBanksInSet(struct vram_banks_set* vram_banks);
 int ClearIrqFlag(void);

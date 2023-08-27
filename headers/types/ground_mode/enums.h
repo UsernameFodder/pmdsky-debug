@@ -930,8 +930,8 @@ enum special_process_id {
     // 57 and 58 are unused but sure do something! Don't know what though.
     // 57 might be "IsStorageFull"?
     SPECIAL_PROC_0x39 = 57,
-    SPECIAL_PROC_0x3A = 58,
-    SPECIAL_PROC_0x3B = 59, // 59 is something related to the lottery.
+    SPECIAL_PROC_INCREMENT_DUNGEONS_CLEARED = 58,
+    SPECIAL_PROC_INCREMENT_BIG_TREASURE_WINS = 59,
     SPECIAL_PROC_SEND_SKY_GIFT_TO_GUILDMASTER = 60,
     // 61 and 62 are unusued but do something.
     SPECIAL_PROC_0x3D = 61,
@@ -2073,6 +2073,22 @@ enum talk_kind {
     TALK_PARTNER_FEMALE_SPECIAL = 3, // Torchic, Chikorita, Eevee, Vulpix, Skitty
     TALK_HERO_MALE = 4,
     TALK_HERO_FEMALE = 5,
+};
+
+enum rank {
+    RANK_NORMAL = 0,
+    RANK_BRONZE = 1,
+    RANK_SILVER = 2,
+    RANK_GOLD = 3,
+    RANK_DIAMOND = 4,
+    RANK_SUPER = 5,
+    RANK_ULTRA = 6,
+    RANK_HYPER = 7,
+    RANK_MASTER = 8,
+    RANK_MASTER_1_STAR = 9,
+    RANK_MASTER_2_STARS = 10,
+    RANK_MASTER_3_STARS = 11,
+    RANK_GUILDMASTER = 12,
 };
 
 // These are super long, so split them out into a separate file

@@ -118,15 +118,26 @@ overlay10:
         
         r0: move_id
         return: anim_ent_ptr (This might be a mistake? It seems to be an integer, not a pointer)
-    - name: CheckEndDungeon
+    - name: IsBackgroundTileset
+      address:
+        EU: 0x22C2ECC
+        NA: 0x22C2574
+      description: |-
+        Given a tileset ID, returns whether it's a background or a regular tileset
+        
+        In particular, returns r0 >= 0xAA
+        
+        r0: Tileset ID
+        return: True if the tileset ID corresponds to a background, false if it corresponds to a regular tileset
+    - name: MainGame
       address:
         EU: 0x22C31E4
         NA: 0x22C288C
         JP: 0x22C3F74
       description: |-
-        Do the stuff when you lose in a dungeon.
+        Contains several functions that handle switching between ground and dungeon mode. It also handles other situations, like what happens right after exiting a dungeon.
         
-        Note: unverified, ported from Irdkwia's notes
+        The function doesn't get called until the player selects the option to resume a saved game and doesn't return until the player returns to the main menu.
         
         r0: End condition code? Seems to control what tasks get run and what transition happens when the dungeon ends
         return: return code?
