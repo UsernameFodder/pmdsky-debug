@@ -632,9 +632,10 @@ overlay29:
         Note: unverified, ported from Irdkwia's notes
         
         This function processes the spawn list of the current floor, checking which species can spawn, capping the amount of spawnable species on the floor to 14, randomly choosing which 14 species will spawn and ensuring that the sprite size of all the species combined does not exceed the maximum of 0x58000 bytes (352 KB). Kecleon and the Decoy are always included in the random selection.
+        When loading fixed rooms from the hidden staircase, the game forces the number of spawnable species to 0.
         
         r0: quick_saved
-        r1: ???
+        r1: bool force spawnable species to 0
         r2: special_process
     - name: MonsterSpawnListPartialCopy
       address:
@@ -4243,7 +4244,7 @@ overlay29:
         r1: target entity pointer
         r2: move index
         r3: PP to restore
-        stack[0]: flag to suppress message logging
+        stack[0]: flag to log message
     - name: RestoreRandomMovePP
       address:
         NA: 0x2317E88
@@ -4253,7 +4254,7 @@ overlay29:
         r0: user entity pointer
         r1: target entity pointer
         r2: PP to restore
-        r3: flag to suppress message logging
+        r3: flag to log message
     - name: ApplyProteinEffect
       address:
         NA: 0x2317F50
@@ -8049,7 +8050,7 @@ overlay29:
     - name: STATUS_ICON_ARRAY_FREEZE
       address:
         EU: 0x2351F80
-        NA: 0x2351274
+        NA: 0x2351374
       length:
         EU: 0x40
         NA: 0x40

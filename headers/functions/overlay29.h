@@ -452,8 +452,8 @@ bool TryInflictSlipStatus(struct entity* user, struct entity* target);
 bool TryInflictDropeyeStatus(struct entity* user, struct entity* target);
 void RestoreAllMovePP(struct entity* user, struct entity* target, int pp, bool suppress_logs);
 void RestoreOneMovePP(struct entity* user, struct entity* target, int move_index, int pp,
-                      bool suppress_logs);
-void RestoreRandomMovePP(struct entity* user, struct entity* target, int pp, bool suppress_logs);
+                      bool log_message);
+void RestoreRandomMovePP(struct entity* user, struct entity* target, int pp, bool log_message);
 void ApplyProteinEffect(struct entity* user, struct entity* target, int stat_boost);
 void ApplyCalciumEffect(struct entity* user, struct entity* target, int stat_boost);
 void ApplyIronEffect(struct entity* user, struct entity* target, int stat_boost);
