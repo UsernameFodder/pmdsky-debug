@@ -651,7 +651,7 @@ overlay29:
         JP: 0x22E862C
       description: |-
         Note: unverified, ported from Irdkwia's notes
-
+        
         This function processes the monster spawn list of the current floor, checking which species can spawn, capping the amount of spawnable species on the floor to 14, randomly choosing which 14 species will spawn and ensuring that the sprite size of all the species combined does not exceed the maximum of 0x58000 bytes (352 KB). Kecleon and the Decoy are always included in the random selection.
         The function also processes the floor's item spawn lists. When loading fixed rooms from the hidden staircase, the game forces the number of spawnable species to 0.
         

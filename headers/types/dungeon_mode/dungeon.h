@@ -546,7 +546,7 @@ struct dungeon {
     // but monsters are still alloweed to hold onto items normally. However, it does not seem to
     // properly add items picked up by team members to the treasure bag (making it impossible to
     // remove through the item menu). Additionally, items already in the bag can be used normally?
-    bool bag_enabled;  
+    bool bag_enabled;
     bool nonstory_flag;      // 0x75C: Allows leader changing and continuing without the partner
     bool send_home_disabled; // 0x75D: Sending teammates home is not allowed in this dungeon
     // 0x75E: Disables sending home/leader changing, lose if partner faints. Set for dungeons
