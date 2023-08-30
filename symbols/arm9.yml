@@ -8214,28 +8214,35 @@ arm9:
       address:
         EU: 0x2000E58
         NA: 0x2000E58
+        JP: 0x2000E58
       length:
         EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: "Length in bytes of the default memory allocation arena, 1991680."
     - name: LOG_MAX_ARG
       address:
         NA: 0x2002220
+        JP: 0x2002220
       length:
         NA: 0x4
+        JP: 0x4
       description: "The maximum argument value for the Log function, 2047."
     - name: DAMAGE_SOURCE_CODE_ORB_ITEM
       address:
         NA: 0x200CA84
+        JP: 0x200CA84
       description: "The damage source value for any item in CATEGORY_ORBS, 0x262."
     - name: DAMAGE_SOURCE_CODE_NON_ORB_ITEM
       address:
         NA: 0x200CA88
+        JP: 0x200CA88
       description: "The damage source value for any item not in CATEGORY_ORBS, 0x263."
     - name: AURA_BOW_ID_LAST
       address:
         EU: 0x200CCBC
         NA: 0x200CC34
+        JP: 0x200CC34
       length:
         EU: 0x4
         NA: 0x4
@@ -8256,14 +8263,17 @@ arm9:
       address:
         EU: 0x200EDF8
         NA: 0x200ED50
+        JP: 0x200ED80
       length:
         EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: "Maximum amount of money the player can carry, 99999."
     - name: MAX_MONEY_STORED
       address:
         EU: 0x20107F8
         NA: 0x2010750
+        JP: 0x2010720
       length:
         EU: 0x4
         NA: 0x4
@@ -8490,9 +8500,11 @@ arm9:
       address:
         EU: 0x20991B8
         NA: 0x2098D74
+        JP: 0x2099068
       length:
         EU: 0x16
         NA: 0x16
+        JP: 0x16
       description: |-
         Null-terminated list of all the recoil moves, as 2-byte move IDs.
         
@@ -8501,9 +8513,11 @@ arm9:
       address:
         EU: 0x20991CE
         NA: 0x2098D8A
+        JP: 0x209907E
       length:
         EU: 0x20
         NA: 0x20
+        JP: 0x20
       description: |-
         Null-terminated list of all the punch moves, as 2-byte move IDs.
         
@@ -8511,8 +8525,10 @@ arm9:
     - name: MOVE_POWER_STARS_TABLE
       address:
         NA: 0x2099CD4
+        JP: 0x2099FC8
       length:
         NA: 0x18
+        JP: 0x18
       description: |-
         Note: unverified, ported from Irdkwia's notes
         
@@ -8520,8 +8536,10 @@ arm9:
     - name: MOVE_ACCURACY_STARS_TABLE
       address:
         NA: 0x2099CEC
+        JP: 0x2099FE0
       length:
         NA: 0x20
+        JP: 0x20
       description: |-
         Note: unverified, ported from Irdkwia's notes
         
@@ -8840,87 +8858,109 @@ arm9:
       address:
         EU: 0x20A1DF0
         NA: 0x20A186C
+        JP: 0x20A2C40
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: Stat boost value for the Special Band.
     - name: MUNCH_BELT_STAT_BOOST
       address:
         EU: 0x20A1E00
         NA: 0x20A187C
+        JP: 0x20A2C50
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: Stat boost value for the Munch Belt.
     - name: GUMMI_STAT_BOOST
       address:
         EU: 0x20A1E0C
         NA: 0x20A1888
+        JP: 0x20A2C5C
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: Stat boost value if a stat boost occurs when eating normal Gummis.
     - name: MIN_IQ_EXCLUSIVE_MOVE_USER
       address:
         EU: 0x20A1E10
         NA: 0x20A188C
+        JP: 0x20A2C60
       length:
         EU: 0x4
         NA: 0x4
+        JP: 0x4
     - name: WONDER_GUMMI_IQ_GAIN
       address:
         EU: 0x20A1E14
         NA: 0x20A1890
+        JP: 0x20A2C64
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: IQ gain when ingesting wonder gummis.
     - name: AURA_BOW_STAT_BOOST
       address:
         EU: 0x20A1E1C
         NA: 0x20A1898
+        JP: 0x20A2C6C
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: Stat boost value for the aura bows.
     - name: MIN_IQ_ITEM_MASTER
       address:
         EU: 0x20A1E28
         NA: 0x20A18A4
+        JP: 0x20A2C60
       length:
         EU: 0x4
         NA: 0x4
+        JP: 0x4
     - name: DEF_SCARF_STAT_BOOST
       address:
         EU: 0x20A1E2C
         NA: 0x20A18A8
+        JP: 0x20A2C7C
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: Stat boost value for the Defense Scarf.
     - name: POWER_BAND_STAT_BOOST
       address:
         EU: 0x20A1E30
         NA: 0x20A18AC
+        JP: 0x20A2C80
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: Stat boost value for the Power Band.
     - name: WONDER_GUMMI_STAT_BOOST
       address:
         EU: 0x20A1E34
         NA: 0x20A18B0
+        JP: 0x20A2C84
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: Stat boost value if a stat boost occurs when eating Wonder Gummis.
     - name: ZINC_BAND_STAT_BOOST
       address:
         EU: 0x20A1E38
         NA: 0x20A18B4
+        JP: 0x20A2C88
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: Stat boost value for the Zinc Band.
     - name: EGG_HP_BONUS
       address:
@@ -8945,8 +8985,10 @@ arm9:
     - name: DAMAGE_FORMULA_FLV_SHIFT
       address:
         NA: 0x20A18CC
+        JP: 0x20A2CA0
       length:
         NA: 0x4
+        JP: 0x4
       description: "The constant shift added to the \"FLV\" intermediate quantity in the damage formula (see dungeon::last_move_damage_calc_flv), as a binary fixed-point number with 8 fraction bits (50)."
     - name: EVOLUTION_PHYSICAL_STAT_BONUSES
       address:
@@ -8964,8 +9006,10 @@ arm9:
     - name: DAMAGE_FORMULA_CONSTANT_SHIFT
       address:
         NA: 0x20A18D4
+        JP: 0x20A2CA8
       length:
         NA: 0x4
+        JP: 0x4
       description: |-
         The constant shift applied to the overall output of the "unshifted base" damage formula (the sum of the scaled AT, DEF, and ClampedLn terms), as a binary fixed-point number with 8 fraction bits (-311).
         
@@ -8973,8 +9017,10 @@ arm9:
     - name: DAMAGE_FORMULA_FLV_DEFICIT_DIVISOR
       address:
         NA: 0x20A18D8
+        JP: 0x20A2CAC
       length:
         NA: 0x4
+        JP: 0x4
       description: "The divisor of the (AT - DEF) term within the \"FLV\" intermediate quantity in the damage formula (see dungeon::last_move_damage_calc_flv), as a binary fixed-point number with 8 fraction bits (8)."
     - name: EGG_STAT_BONUSES
       address:
@@ -9005,32 +9051,42 @@ arm9:
     - name: DAMAGE_FORMULA_NON_TEAM_MEMBER_MODIFIER
       address:
         NA: 0x20A18E8
+        JP: 0x20A2CBC
       length:
         NA: 0x4
+        JP: 0x4
       description: "The divisor applied to the overall output of the \"shifted base\" damage formula (the sum of the scaled AT, Def, ClampedLn, and DAMAGE_FORMULA_CONSTANT_SHIFT terms) if the attacker is not a team member (and the current fixed room is not the substitute room...for some reason), as a binary fixed-point number with 8 fraction bits (85/64)."
     - name: DAMAGE_FORMULA_LN_PREFACTOR
       address:
         NA: 0x20A18EC
+        JP: 0x20A2CC0
       length:
         NA: 0x4
+        JP: 0x4
       description: "The prefactor to the output of the ClampedLn in the damage formula, as a binary fixed-point number with 8 fraction bits (50)."
     - name: DAMAGE_FORMULA_AT_PREFACTOR
       address:
         NA: 0x20A18F4
+        JP: 0x20A2CC8
       length:
         NA: 0x4
+        JP: 0x4
       description: "The prefactor to the \"AT\" (attack) intermediate quantity in the damage formula (see dungeon::last_move_damage_calc_at), as a binary fixed-point number with 8 fraction bits (153/256, which is close to 0.6)."
     - name: DAMAGE_FORMULA_DEF_PREFACTOR
       address:
         NA: 0x20A18F4
+        JP: 0x20A2CC4
       length:
         NA: 0x4
+        JP: 0x4
       description: "The prefactor to the \"DEF\" (defense) intermediate quantity in the damage formula (see dungeon::last_move_damage_calc_def), as a binary fixed-point number with 8 fraction bits (-0.5)."
     - name: DAMAGE_FORMULA_LN_ARG_PREFACTOR
       address:
         NA: 0x20A18F8
+        JP: 0x20A2CCC
       length:
         NA: 0x4
+        JP: 0x4
       description: "The prefactor to the argument of ClampedLn in the damage formula (FLV + DAMAGE_FORMULA_FLV_SHIFT), as a binary fixed-point number with 8 fraction bits (10)."
     - name: FORBIDDEN_FORGOT_MOVE_LIST
       address:
@@ -10007,6 +10063,7 @@ arm9:
     - name: TBL_TALK_GROUP_STRING_ID_START
       address:
         NA: 0x20AFCF8
+        JP: 0x20B1140
       length:
         NA: 0xC
       description: |-
@@ -10045,9 +10102,11 @@ arm9:
       address:
         EU: 0x20B0818
         NA: 0x20AFEFC
+        JP: 0x20B1770
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: |-
         The default monster ID for the hero (0x4: Charmander)
         
@@ -10056,9 +10115,11 @@ arm9:
       address:
         EU: 0x20B081A
         NA: 0x20AFEFE
+        JP: 0x20B1772
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: |-
         The default monster ID for the partner (0x1: Bulbasaur)
         
