@@ -9066,7 +9066,7 @@ arm9:
       description: "The prefactor to the output of the ClampedLn in the damage formula, as a binary fixed-point number with 8 fraction bits (50)."
     - name: DAMAGE_FORMULA_DEF_PREFACTOR
       address:
-        NA: 0x20A18F4
+        NA: 0x20A18F0
         JP: 0x20A2CC4
       length:
         NA: 0x4
