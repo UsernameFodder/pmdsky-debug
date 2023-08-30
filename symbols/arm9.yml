@@ -9064,14 +9064,6 @@ arm9:
         NA: 0x4
         JP: 0x4
       description: "The prefactor to the output of the ClampedLn in the damage formula, as a binary fixed-point number with 8 fraction bits (50)."
-    - name: DAMAGE_FORMULA_AT_PREFACTOR
-      address:
-        NA: 0x20A18F4
-        JP: 0x20A2CC8
-      length:
-        NA: 0x4
-        JP: 0x4
-      description: "The prefactor to the \"AT\" (attack) intermediate quantity in the damage formula (see dungeon::last_move_damage_calc_at), as a binary fixed-point number with 8 fraction bits (153/256, which is close to 0.6)."
     - name: DAMAGE_FORMULA_DEF_PREFACTOR
       address:
         NA: 0x20A18F4
@@ -9080,6 +9072,14 @@ arm9:
         NA: 0x4
         JP: 0x4
       description: "The prefactor to the \"DEF\" (defense) intermediate quantity in the damage formula (see dungeon::last_move_damage_calc_def), as a binary fixed-point number with 8 fraction bits (-0.5)."
+    - name: DAMAGE_FORMULA_AT_PREFACTOR
+      address:
+        NA: 0x20A18F4
+        JP: 0x20A2CC8
+      length:
+        NA: 0x4
+        JP: 0x4
+      description: "The prefactor to the \"AT\" (attack) intermediate quantity in the damage formula (see dungeon::last_move_damage_calc_at), as a binary fixed-point number with 8 fraction bits (153/256, which is close to 0.6)."
     - name: DAMAGE_FORMULA_LN_ARG_PREFACTOR
       address:
         NA: 0x20A18F8
