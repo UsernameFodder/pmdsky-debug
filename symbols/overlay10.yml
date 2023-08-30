@@ -146,9 +146,11 @@ overlay10:
       address:
         EU: 0x22C4D64
         NA: 0x22C440C
+        JP: 0x22C5AF4
       length:
         EU: 0x1
         NA: 0x1
+        JP: 0x1
       description: |-
         The first dungeon that can have extra traps spawn in Monster Houses, Dark Hill
         
@@ -157,81 +159,105 @@ overlay10:
       address:
         EU: 0x22C4D6C
         NA: 0x22C4414
+        JP: 0x22C5AFC
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: The number of turns between passive bad poison (toxic) damage.
     - name: PROTEIN_STAT_BOOST
       address:
         EU: 0x22C4D78
         NA: 0x22C4420
+        JP: 0x22C5B08
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: The permanent attack boost from ingesting a Protein.
     - name: WATERFALL_CRINGE_CHANCE
       address:
         NA: 0x22C4424
+        JP: 0x22C5B0C
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Waterfall inflicting the cringe status, as a percentage (30%)."
     - name: AURORA_BEAM_LOWER_ATTACK_CHANCE
       address:
         NA: 0x22C4428
+        JP: 0x22C5B10
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Aurora Beam halving attack, as a percentage (60%)."
     - name: SPAWN_CAP_NO_MONSTER_HOUSE
       address:
         EU: 0x22C4D88
         NA: 0x22C4430
+        JP: 0x22C5B18
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: The maximum number of enemies that can spawn on a floor without a monster house (15).
     - name: OREN_BERRY_DAMAGE
       address:
         EU: 0x22C4D90
         NA: 0x22C4438
+        JP: 0x22C5B20
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: Damage dealt by eating an Oren Berry.
     - name: IRON_TAIL_LOWER_DEFENSE_CHANCE
       address:
         NA: 0x22C4440
+        JP: 0x22C5B28
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Iron Tail lowering defense, as a percentage (30%)."
     - name: TWINEEDLE_POISON_CHANCE
       address:
         NA: 0x22C4444
+        JP: 0x22C5B2C
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Twineedle poisoning, as a percentage (20%)."
     - name: EXTRASENSORY_CRINGE_CHANCE
       address:
         NA: 0x22C4448
+        JP: 0x22C5B30
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Extrasensory (and others, see DoMoveDamageCringe10) inflicting the cringe status, as a percentage (10%)."
     - name: ROCK_SLIDE_CRINGE_CHANCE
       address:
         NA: 0x22C444C
+        JP: 0x22C5B34
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Rock Slide (and others, see DoMoveDamageCringe30) inflicting the cringe status, as a percentage (30%)"
     - name: CRUNCH_LOWER_DEFENSE_CHANCE
       address:
         NA: 0x22C4450
+        JP: 0x22C5B38
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Crunch (and others, see DoMoveDamageLowerDef20) lowering defense, as a percentage (20%)."
     - name: FOREWARN_FORCED_MISS_CHANCE
       address:
         NA: 0x22C4468
+        JP: 0x22C5B50
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Forewarn forcing a move to miss, as a percentage (20%)."
     - name: UNOWN_STONE_DROP_CHANCE
       address:
@@ -242,104 +268,133 @@ overlay10:
         EU: 0x2
         NA: 0x2
         JP: 0x2
-      description: "The chance of an Unown dropping an Unown stone, as a percentage (21%)."
+      description: "The chance of an Unown dropping an Unown stone, as a percentage (33%)."
     - name: SITRUS_BERRY_HP_RESTORATION
       address:
         EU: 0x22C4DD0
         NA: 0x22C4478
+        JP: 0x22C5B60
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: The amount of HP restored by eating a Sitrus Berry.
     - name: MUDDY_WATER_LOWER_ACCURACY_CHANCE
       address:
         NA: 0x22C4484
+        JP: 0x22C5B6C
       length:
         NA: 0x2
       description: "The chance of Muddy Water (and others, see DoMoveDamageLowerAccuracy40) lowering accuracy, as a percentage (40%)."
     - name: SILVER_WIND_BOOST_CHANCE
       address:
         NA: 0x22C4488
+        JP: 0x22C5B70
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Silver Wind (and others, see DoMoveDamageBoostAllStats) boosting all stats, as a percentage (20%)."
     - name: POISON_TAIL_POISON_CHANCE
       address:
         NA: 0x22C448C
+        JP: 0x22C5B74
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Poison Tail poisoning, as a percentage (10%)."
     - name: THUNDERSHOCK_PARALYZE_CHANCE
       address:
         NA: 0x22C4490
+        JP: 0x22C5B78
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Thundershock paralyzing, as a percentage (10%)."
     - name: BOUNCE_PARALYZE_CHANCE
       address:
         NA: 0x22C4494
+        JP: 0x22C5B7C
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Bounce paralyzing, as a percentage (30%)"
     - name: HEADBUTT_CRINGE_CHANCE
       address:
         NA: 0x22C4498
+        JP: 0x22C5B80
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Headbutt inflicting the cringe status, as a percentage (25%)."
     - name: FIRE_FANG_CRINGE_CHANCE
       address:
         NA: 0x22C449C
+        JP: 0x22C5B84
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Fire Fang inflicting the cringe status, as a percentage (25%)."
     - name: SACRED_FIRE_BURN_CHANCE
       address:
         NA: 0x22C44A0
+        JP: 0x22C5B88
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Sacred Fire burning, as a percentage (50%)."
     - name: WHIRLPOOL_CONSTRICTION_CHANCE
       address:
         NA: 0x22C44A4
+        JP: 0x22C5B8C
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Whirlpool inflicting the constriction status, as a percentage (10%)."
     - name: EXP_ELITE_EXP_BOOST
       address:
         EU: 0x22C4E00
         NA: 0x22C44A8
+        JP: 0x22C5B90
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: The percentage increase in experience from the Exp. Elite IQ skill
     - name: MONSTER_HOUSE_MAX_NON_MONSTER_SPAWNS
       address:
         EU: 0x22C4E04
         NA: 0x22C44AC
+        JP: 0x22C5B94
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: "The maximum number of extra non-monster spawns (items/traps) in a Monster House, 7"
     - name: HEAL_ORDER_HP_RESTORATION
       address:
         NA: 0x22C44B8
+        JP: 0x22C5BA0
       length:
         NA: 0x2
+        JP: 0x2
       description: The amount of HP restored by Heal Order (40).
     - name: STEEL_WING_BOOST_DEFENSE_CHANCE
       address:
         NA: 0x22C44C4
+        JP: 0x22C5BAC
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Steel Wing boosting defense, as a percentage (20%)."
     - name: GOLD_THORN_POWER
       address:
         EU: 0x22C4E28
         NA: 0x22C44D0
+        JP: 0x22C5BB8
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: Attack power for Golden Thorns.
     - name: BURN_DAMAGE
       address:
@@ -357,145 +412,191 @@ overlay10:
       address:
         EU: 0x22C4E34
         NA: 0x22C44DC
+        JP: 0x22C5BC4
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: The number of turns between enemy spawns under normal conditions.
     - name: MIST_BALL_LOWER_SPECIAL_ATTACK_CHANCE
       address:
         NA: 0x22C44E0
+        JP: 0x22C5BC8
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Mist Ball lowering special attack, as a percentage (50%)."
     - name: CHARGE_BEAM_BOOST_SPECIAL_ATTACK_CHANCE
       address:
         NA: 0x22C44F0
+        JP: 0x22C5BD8
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Charge Beam boosting special attack, as a percentage (40%)."
     - name: ORAN_BERRY_FULL_HP_BOOST
       address:
         EU: 0x22C4E4C
         NA: 0x22C44F4
+        JP: 0x22C5BDC
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: The permanent HP boost from eating an Oran Berry at full HP (0).
     - name: LIFE_SEED_HP_BOOST
       address:
         EU: 0x22C4E50
         NA: 0x22C44F8
+        JP: 0x22C5BE0
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: The permanent HP boost from eating a Life Seed.
     - name: OCTAZOOKA_LOWER_ACCURACY_CHANCE
       address:
         NA: 0x22C4500
+        JP: 0x22C5BE8
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Octazooka lowering accuracy, as a percentage (60%)."
     - name: LUSTER_PURGE_LOWER_SPECIAL_DEFENSE_CHANCE
       address:
         NA: 0x22C450C
+        JP: 0x22C5BF4
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Luster Purge (and others, see DoMoveDamageLowerSpecialDefense50) lowering special defense, as a percentage (50%)."
     - name: SUPER_LUCK_CRIT_RATE_BOOST
       address:
         NA: 0x22C4510
+        JP: 0x22C5BF8
       length:
         NA: 0x2
+        JP: 0x2
       description: "The critical hit rate (additive) boost from Super Luck, 10%."
     - name: CONSTRICT_LOWER_SPEED_CHANCE
       address:
         NA: 0x22C4514
+        JP: 0x22C5BFC
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Constrict (and others, see DoMoveDamageLowerSpeed20) lowering speed, as a percentage (20%)."
     - name: ICE_FANG_FREEZE_CHANCE
       address:
         NA: 0x22C4518
+        JP: 0x22C5C00
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Ice Fang freezing, as a percentage (15%)."
     - name: SMOG_POISON_CHANCE
       address:
         NA: 0x22C451C
+        JP: 0x22C5C04
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Smog (and others, see DoMoveDamagePoison40) poisoning, as a percentage (40%)."
     - name: LICK_PARALYZE_CHANCE
       address:
         NA: 0x22C4528
+        JP: 0x22C5C10
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Lick (and others, see DoMoveDamageParalyze10) paralyzing, as a percentage (10%)."
     - name: THUNDER_FANG_PARALYZE_CHANCE
       address:
         NA: 0x22C452C
+        JP: 0x22C5C14
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Thunder Fang paralyzing, as a percentage (10%)."
     - name: BITE_CRINGE_CHANCE
       address:
         NA: 0x22C4534
+        JP: 0x22C5C1C
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Bite (and others, see DoMoveDamageCringe20) inflicting the cringe status, as a percentage (20%)"
     - name: SKY_ATTACK_CRINGE_CHANCE
       address:
         NA: 0x22C4538
+        JP: 0x22C5C20
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Sky Attack inflicting the cringe status, as a percentage (25%)."
     - name: ICE_FANG_CRINGE_CHANCE
       address:
         NA: 0x22C453C
+        JP: 0x22C5C24
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Ice Fang inflicting the cringe status, as a percentage (25%)."
     - name: BLAZE_KICK_BURN_CHANCE
       address:
         NA: 0x22C4540
+        JP: 0x22C5C28
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Blaze Kick burning, as a percentage (10%)."
     - name: FLAMETHROWER_BURN_CHANCE
       address:
         NA: 0x22C4544
+        JP: 0x22C5C2C
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Flamethrower (and others, see DoMoveDamageBurn10) burning, as a percentage (10%)."
     - name: DIZZY_PUNCH_CONFUSE_CHANCE
       address:
         NA: 0x22C4548
+        JP: 0x22C5C30
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Dizzy Punch (and others, see DoMoveDamageConfuse30) confusing, as a percentage (30%)."
     - name: SECRET_POWER_EFFECT_CHANCE
       address:
         NA: 0x22C454C
+        JP: 0x22C5C34
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Secret Power inflicting an effect, as a percentage (30%)."
     - name: METAL_CLAW_BOOST_ATTACK_CHANCE
       address:
         NA: 0x22C4554
+        JP: 0x22C5C3C
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Metal Claw boosting attack, as a percentage (20%)."
     - name: TECHNICIAN_MOVE_POWER_THRESHOLD
       address:
         NA: 0x22C455C
+        JP: 0x22C5C44
       length:
         NA: 0x2
+        JP: 0x2
       description: "The move power threshold for Technician (4). Moves whose base power doesn't exceed this value will receive a 50% damage boost."
     - name: SONICBOOM_FIXED_DAMAGE
       address:
         NA: 0x22C4568
+        JP: 0x22C5C50
       length:
         NA: 0x2
+        JP: 0x2
       description: The amount of fixed damage dealt by SonicBoom (20).
     - name: RAIN_ABILITY_BONUS_REGEN
       address:
@@ -513,99 +614,127 @@ overlay10:
       address:
         EU: 0x22C4EE4
         NA: 0x22C458C
+        JP: 0x22C5C74
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: The percentage increase in experience from exp-boosting exclusive items.
     - name: AFTERMATH_CHANCE
       address:
         EU: 0x22C4EEC
         NA: 0x22C4594
+        JP: 0x22C5C7C
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: "The chance of the Aftermath ability activating, as a percentage (50%)."
     - name: SET_DAMAGE_STATUS_DAMAGE
       address:
         NA: 0x22C4598
+        JP: 0x22C5C80
       length:
         NA: 0x2
+        JP: 0x2
       description: The fixed amount of damage dealt when the Set Damage status condition is active (30).
     - name: INTIMIDATOR_ACTIVATION_CHANCE
       address:
         EU: 0x22C4F10
         NA: 0x22C45B8
+        JP: 0x22C5CA0
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: The percentage chance that Intimidator will activate.
     - name: TYPE_ADVANTAGE_MASTER_CRIT_RATE
       address:
         NA: 0x22C45E0
+        JP: 0x22C5CC8
       length:
         NA: 0x2
+        JP: 0x2
       description: "The flat critical hit rate with Type-Advantage Master, 40%."
     - name: ORAN_BERRY_HP_RESTORATION
       address:
         EU: 0x22C4F44
         NA: 0x22C45EC
+        JP: 0x22C5CD4
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: The amount of HP restored by eating a Oran Berry.
     - name: SITRUS_BERRY_FULL_HP_BOOST
       address:
         EU: 0x22C4F4C
         NA: 0x22C45F4
+        JP: 0x22C5CDC
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: The permanent HP boost from eating a Sitrus Berry at full HP.
     - name: SNORE_CRINGE_CHANCE
       address:
         NA: 0x22C4600
+        JP: 0x22C5CE8
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Snore inflicting the cringe status, as a percentage (30%)."
     - name: METEOR_MASH_BOOST_ATTACK_CHANCE
       address:
         NA: 0x22C4604
+        JP: 0x22C5CEC
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Meteor Mash boosting attack, as a percentage (20%)."
     - name: CRUSH_CLAW_LOWER_DEFENSE_CHANCE
       address:
         NA: 0x22C4608
+        JP: 0x22C5CF0
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Crush Claw lowering defense, as a percentage (50%)."
     - name: BURN_DAMAGE_COOLDOWN
       address:
         EU: 0x22C4F68
         NA: 0x22C4610
+        JP: 0x22C5CF8
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: The number of turns between passive burn damage.
     - name: SHADOW_BALL_LOWER_SPECIAL_DEFENSE_CHANCE
       address:
         NA: 0x22C461C
+        JP: 0x22C5D04
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Shadow Ball lowering special defense, as a percentage (20%)."
     - name: STICK_POWER
       address:
         EU: 0x22C4F7C
         NA: 0x22C4624
+        JP: 0x22C5D0C
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: Attack power for Sticks.
     - name: BUBBLE_LOWER_SPEED_CHANCE
       address:
         NA: 0x22C462C
+        JP: 0x22C5D14
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Bubble lowering speed, as a percentage (10%)."
     - name: ICE_BODY_BONUS_REGEN
       address:
@@ -616,28 +745,36 @@ overlay10:
     - name: POWDER_SNOW_FREEZE_CHANCE
       address:
         NA: 0x22C4634
+        JP: 0x22C5D1C
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Powder Snow (and others, see DoMoveDamageFreeze15) freezing, as a percentage (15%)."
     - name: POISON_STING_POISON_CHANCE
       address:
         NA: 0x22C463C
+        JP: 0x22C5D24
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Poison Sting (and others, see DoMoveDamagePoison18) poisoning, as a percentage (18%)."
     - name: SPAWN_COOLDOWN_THIEF_ALERT
       address:
         EU: 0x22C4F98
         NA: 0x22C4640
+        JP: 0x22C5D28
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: The number of turns between enemy spawns when the Thief Alert condition is active.
     - name: POISON_FANG_POISON_CHANCE
       address:
         NA: 0x22C4644
+        JP: 0x22C5D2C
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Poison Fang poisoning, as a percentage (30%)."
     - name: WEATHER_MOVE_TURN_COUNT
       address:
@@ -648,104 +785,134 @@ overlay10:
     - name: THUNDER_PARALYZE_CHANCE
       address:
         NA: 0x22C4658
+        JP: 0x22C5D40
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Thunder (and others, see DoMoveDamageParalyze20) paralyzing, as a percentage (20%)"
     - name: THUNDERBOLT_PARALYZE_CHANCE
       address:
         NA: 0x22C465C
+        JP: 0x22C5D44
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Thunderbolt paralyzing, as a percentage (15%)."
     - name: MONSTER_HOUSE_MAX_MONSTER_SPAWNS
       address:
         EU: 0x22C4FB8
         NA: 0x22C4660
+        JP: 0x22C5D48
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: "The maximum number of monster spawns in a Monster House, 30, but multiplied by 2/3 for some reason (so the actual maximum is 45)"
     - name: TWISTER_CRINGE_CHANCE
       address:
         NA: 0x22C4668
+        JP: 0x22C5D50
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Twister inflicting the cringe status, as a percentage (10%)."
     - name: SPEED_BOOST_TURNS
       address:
         EU: 0x22C4FC4
         NA: 0x22C466C
+        JP: 0x22C5D54
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: Number of turns (250) after which Speed Boost will trigger and increase speed by one stage.
     - name: FAKE_OUT_CRINGE_CHANCE
       address:
         NA: 0x22C4670
+        JP: 0x22C5D58
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Fake Out inflicting the cringe status, as a percentage (35%)."
     - name: THUNDER_FANG_CRINGE_CHANCE
       address:
         NA: 0x22C4678
+        JP: 0x22C5D60
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Thunder Fang inflicting the cringe status, as a percentage (25%)."
     - name: FLARE_BLITZ_BURN_CHANCE
       address:
         NA: 0x22C4684
+        JP: 0x22C5D6C
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Flare Blitz burning, as a percentage (25%). This value is also used for the Fire Fang burn chance."
     - name: FLAME_WHEEL_BURN_CHANCE
       address:
         NA: 0x22C4688
+        JP: 0x22C5D70
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Flame Wheel (and others, see DoMoveDamageBurn10FlameWheel) burning, as a percentage (10%)."
     - name: PSYBEAM_CONFUSE_CHANCE
       address:
         NA: 0x22C4690
+        JP: 0x22C5D78
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Psybeam (and others, see DoMoveDamageConfuse10) confusing, as a percentage (10%)."
     - name: TRI_ATTACK_STATUS_CHANCE
       address:
         NA: 0x22C4694
+        JP: 0x22C5D7C
       length:
         NA: 0x2
+        JP: 0x2
       description: "The chance of Tri Attack inflicting any status condition, as a percentage (20%)."
     - name: MIRACLE_CHEST_EXP_BOOST
       address:
         EU: 0x22C4FF0
         NA: 0x22C4698
+        JP: 0x22C5D80
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: The percentage increase in experience from the Miracle Chest item
     - name: WONDER_CHEST_EXP_BOOST
       address:
         EU: 0x22C4FF4
         NA: 0x22C469C
+        JP: 0x22C5D84
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: The percentage increase in experience from the Wonder Chest item
     - name: SPAWN_CAP_WITH_MONSTER_HOUSE
       address:
         EU: 0x22C4FFC
         NA: 0x22C46A4
+        JP: 0x22C5D8C
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: "The maximum number of enemies that can spawn on a floor with a monster house, not counting those in the monster house (4)."
     - name: POISON_DAMAGE_COOLDOWN
       address:
         EU: 0x22C5000
         NA: 0x22C46A8
+        JP: 0x22C5D90
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: The number of turns between passive poison damage.
     - name: LEECH_SEED_DAMAGE_COOLDOWN
       address:
@@ -757,57 +924,71 @@ overlay10:
       address:
         EU: 0x22C500C
         NA: 0x22C46B4
+        JP: 0x22C5D9C
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: Damage dealt by Geo Pebbles.
     - name: GRAVELEROCK_DAMAGE
       address:
         EU: 0x22C5010
         NA: 0x22C46B8
+        JP: 0x22C5DA0
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: Damage dealt by Gravelerocks.
     - name: RARE_FOSSIL_DAMAGE
       address:
         EU: 0x22C5014
         NA: 0x22C46BC
+        JP: 0x22C5DA4
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: Damage dealt by Rare Fossils.
     - name: GINSENG_CHANCE_3
       address:
         EU: 0x22C5018
         NA: 0x22C46C0
+        JP: 0x22C5DA8
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: The percentage chance for...something to be set to 3 in a calculation related to the Ginseng boost.
     - name: ZINC_STAT_BOOST
       address:
         EU: 0x22C501C
         NA: 0x22C46C4
+        JP: 0x22C5DAC
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: The permanent special defense boost from ingesting a Zinc.
     - name: IRON_STAT_BOOST
       address:
         EU: 0x22C5020
         NA: 0x22C46C8
+        JP: 0x22C5DB0
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: The permanent defense boost from ingesting an Iron.
     - name: CALCIUM_STAT_BOOST
       address:
         EU: 0x22C5024
         NA: 0x22C46CC
+        JP: 0x22C5DB4
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: The permanent special attack boost from ingesting a Calcium.
     - name: WISH_BONUS_REGEN
       address:
@@ -818,78 +999,100 @@ overlay10:
     - name: DRAGON_RAGE_FIXED_DAMAGE
       address:
         NA: 0x22C46D4
+        JP: 0x22C5DBC
       length:
         NA: 0x2
+        JP: 0x2
       description: The amount of fixed damage dealt by Dragon Rage (30).
     - name: CORSOLA_TWIG_POWER
       address:
         EU: 0x22C5030
         NA: 0x22C46D8
+        JP: 0x22C5DC0
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: Attack power for Corsola Twigs.
     - name: CACNEA_SPIKE_POWER
       address:
         EU: 0x22C5034
         NA: 0x22C46DC
+        JP: 0x22C5DC4
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: Attack power for Cacnea Spikes.
     - name: GOLD_FANG_POWER
       address:
         EU: 0x22C5038
         NA: 0x22C46E0
+        JP: 0x22C5DC8
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: Attack power for Gold Fangs.
     - name: SILVER_SPIKE_POWER
       address:
         EU: 0x22C503C
         NA: 0x22C46E4
+        JP: 0x22C5DCC
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: Attack power for Silver Spikes.
     - name: IRON_THORN_POWER
       address:
         EU: 0x22C5040
         NA: 0x22C46E8
+        JP: 0x22C5DD0
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: Attack power for Iron Thorns.
     - name: SCOPE_LENS_CRIT_RATE_BOOST
       address:
         NA: 0x22C46F0
+        JP: 0x22C5DD8
       length:
         NA: 0x2
+        JP: 0x2
       description: "The critical hit rate (additive) boost from the Scope Lens/Patsy Band items and the Sharpshooter IQ skill, 15%."
     - name: HEALING_WISH_HP_RESTORATION
       address:
         NA: 0x22C46F4
+        JP: 0x22C5DDC
       length:
         NA: 0x2
+        JP: 0x2
       description: The amount of HP restored by Healing Wish (999). This also applies to Lunar Dance.
     - name: ME_FIRST_MULTIPLIER
       address:
         NA: 0x22C4710
+        JP: 0x22C5DE8
       length:
         NA: 0x4
+        JP: 0x4
       description: "The damage multiplier applied to attacks copied by Me First, as a fixed-point number with 8 fraction bits (1.5)."
     - name: FACADE_DAMAGE_MULTIPLIER
       address:
         NA: 0x22C4718
+        JP: 0x22C5E00
       length:
         NA: 0x4
+        JP: 0x4
       description: "The Facade damage multiplier for users with a status condition, as a binary fixed-point number with 8 fraction bits (0x200 -> 2x)."
     - name: IMPRISON_TURN_RANGE
       address:
         NA: 0x22C471C
+        JP: 0x22C5E00
       length:
         NA: 0x4
+        JP: 0x4
       description: |-
         The turn range for the Paused status inflicted by Imprison, [3, 6).
         
@@ -898,9 +1101,11 @@ overlay10:
       address:
         EU: 0x22C5078
         NA: 0x22C4720
+        JP: 0x22C5E08
       length:
         EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: |-
         Appears to control the range of turns for which the sleep condition can last.
         
@@ -908,8 +1113,10 @@ overlay10:
     - name: NIGHTMARE_TURN_RANGE
       address:
         NA: 0x22C4724
+        JP: 0x22C5E0C
       length:
         NA: 0x4
+        JP: 0x4
       description: |-
         The turn range for the Nightmare status inflicted by Nightmare, [4, 8).
         
@@ -917,8 +1124,10 @@ overlay10:
     - name: BURN_DAMAGE_MULTIPLIER
       address:
         NA: 0x22C4744
+        JP: 0x22C5E2C
       length:
         NA: 0x4
+        JP: 0x4
       description: |-
         The extra damage multiplier for moves when the attacker is burned, as a fixed-point number with 8 fraction bits (the raw value is 0xCC, which is close to 0.8).
         
@@ -926,8 +1135,10 @@ overlay10:
     - name: REST_TURN_RANGE
       address:
         NA: 0x22C4748
+        JP: 0x22C5E30
       length:
         NA: 0x4
+        JP: 0x4
       description: |-
         The turn range for the Napping status inflicted by Rest, [1, 4).
         
@@ -935,8 +1146,10 @@ overlay10:
     - name: MATCHUP_SUPER_EFFECTIVE_MULTIPLIER_ERRATIC_PLAYER
       address:
         NA: 0x22C474C
+        JP: 0x22C5E34
       length:
         NA: 0x4
+        JP: 0x4
       description: "The damage multiplier corresponding to MATCHUP_SUPER_EFFECTIVE when Erratic Player is active, as a fixed-point number with 8 fraction bits (the raw value is 0x1B3, the closest possible representation of 1.7)."
     - name: MATCHUP_IMMUNE_MULTIPLIER
       address:
@@ -947,8 +1160,10 @@ overlay10:
     - name: SPORT_CONDITION_TURN_RANGE
       address:
         NA: 0x22C478C
+        JP: 0x22C5E74
       length:
         NA: 0x4
+        JP: 0x4
       description: |-
         The turn range for the sport conditions activated by Mud Sport and Water Sport, [10, 12).
         
@@ -956,8 +1171,10 @@ overlay10:
     - name: SURE_SHOT_TURN_RANGE
       address:
         NA: 0x22C4798
+        JP: 0x22C5E80
       length:
         NA: 0x4
+        JP: 0x4
       description: |-
         The turn range for the Sure Shot status inflicted by Mind Reader and Lock-On, [10, 12).
         
@@ -965,20 +1182,26 @@ overlay10:
     - name: DETECT_BAND_MOVE_ACCURACY_DROP
       address:
         NA: 0x22C47A8
+        JP: 0x22C5E90
       length:
         NA: 0x4
+        JP: 0x4
       description: The (subtractive) move accuracy drop induced on an attacker if the defender is wearing a Detect Band (30).
     - name: TINTED_LENS_MULTIPLIER
       address:
         NA: 0x22C47C0
+        JP: 0x22C5EA8
       length:
         NA: 0x4
+        JP: 0x4
       description: "The extra damage multiplier for not-very-effective moves when Tinted Lens is active, as a fixed-point number with 8 fraction bits (the raw value is 0x133, the closest possible representation of 1.2)."
     - name: SMOKESCREEN_TURN_RANGE
       address:
         NA: 0x22C47C4
+        JP: 0x22C5EAC
       length:
         NA: 0x4
+        JP: 0x4
       description: |-
         The turn range for the Whiffer status inflicted by Smokescreen, [1, 4).
         
@@ -986,104 +1209,136 @@ overlay10:
     - name: SHADOW_FORCE_DAMAGE_MULTIPLIER
       address:
         NA: 0x22C47DC
+        JP: 0x22C5EC4
       length:
         NA: 0x4
+        JP: 0x4
       description: "The damage multiplier for Shadow Force, as a fixed-point number with 8 fraction bits (2)."
     - name: DIG_DAMAGE_MULTIPLIER
       address:
         NA: 0x22C47E4
+        JP: 0x22C5ECC
       length:
         NA: 0x4
+        JP: 0x4
       description: "The damage multiplier for Dig, as a fixed-point number with 8 fraction bits (2)."
     - name: DIVE_DAMAGE_MULTIPLIER
       address:
         NA: 0x22C47E8
+        JP: 0x22C5ED0
       length:
         NA: 0x4
+        JP: 0x4
       description: "The damage multiplier for Dive, as a fixed-point number with 8 fraction bits (2)."
     - name: BOUNCE_DAMAGE_MULTIPLIER
       address:
         NA: 0x22C47EC
+        JP: 0x22C5ED4
       length:
         NA: 0x4
+        JP: 0x4
       description: "The damage multiplier for Bounce, as a fixed-point number with 8 fraction bits (2)."
     - name: POWER_PITCHER_DAMAGE_MULTIPLIER
       address:
         EU: 0x22C5150
         NA: 0x22C47F8
+        JP: 0x22C5EE0
       length:
         EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: "The multiplier for projectile damage from Power Pitcher (1.5), as a binary fixed-point number (8 fraction bits)"
     - name: QUICK_DODGER_MOVE_ACCURACY_DROP
       address:
         NA: 0x22C4808
+        JP: 0x22C5EF0
       length:
         NA: 0x4
+        JP: 0x4
       description: The (subtractive) move accuracy drop induced on an attacker if the defender has the Quick Dodger IQ skill (10).
     - name: MATCHUP_NOT_VERY_EFFECTIVE_MULTIPLIER
       address:
         NA: 0x22C4810
+        JP: 0x22C5EF8
       length:
         NA: 0x4
+        JP: 0x4
       description: "The damage multiplier corresponding to MATCHUP_NOT_VERY_EFFECTIVE, as a fixed-point number with 8 fraction bits (the raw value is 0x1B4, the closest possible representation of 1/√2)."
     - name: MATCHUP_SUPER_EFFECTIVE_MULTIPLIER
       address:
         NA: 0x22C4818
+        JP: 0x22C5F00
       length:
         NA: 0x4
+        JP: 0x4
       description: "The damage multiplier corresponding to MATCHUP_SUPER_EFFECTIVE, as a fixed-point number with 8 fraction bits (the raw value is 0x166, the closest possible representation of 1.4)."
     - name: MATCHUP_NEUTRAL_MULTIPLIER
       address:
         NA: 0x22C481C
+        JP: 0x22C5F04
       length:
         NA: 0x4
+        JP: 0x4
       description: "The damage multiplier corresponding to MATCHUP_NEUTRAL, as a fixed-point number with 8 fraction bits (1)."
     - name: MATCHUP_IMMUNE_MULTIPLIER_ERRATIC_PLAYER
       address:
         NA: 0x22C4820
+        JP: 0x22C5F08
       length:
         NA: 0x4
+        JP: 0x4
       description: "The damage multiplier corresponding to MATCHUP_IMMUNE when Erratic Player is active, as a fixed-point number with 8 fraction bits (0.25)."
     - name: MATCHUP_NOT_VERY_EFFECTIVE_MULTIPLIER_ERRATIC_PLAYER
       address:
         NA: 0x22C4824
+        JP: 0x22C5F0C
       length:
         NA: 0x4
+        JP: 0x4
       description: "The damage multiplier corresponding to MATCHUP_NOT_VERY_EFFECTIVE when Erratic Player is active, as a fixed-point number with 8 fraction bits (0.5)."
     - name: MATCHUP_NEUTRAL_MULTIPLIER_ERRATIC_PLAYER
       address:
         NA: 0x22C482C
+        JP: 0x22C5F14
       length:
         NA: 0x4
+        JP: 0x4
       description: "The damage multiplier corresponding to MATCHUP_NEUTRAL when Erratic Player is active, as a fixed-point number with 8 fraction bits (1)."
     - name: AIR_BLADE_DAMAGE_MULTIPLIER
       address:
         EU: 0x22C519C
         NA: 0x22C4844
+        JP: 0x22C5F2C
       length:
         EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: "The multiplier for damage from the Air Blade (1.5), as a binary fixed-point number (8 fraction bits)"
     - name: KECLEON_SHOP_BOOST_CHANCE_MULTIPLIER
       address:
         NA: 0x22C484C
+        JP: 0x22C5F34
       length:
         NA: 0x4
+        JP: 0x4
       description: The boosted kecleon shop spawn chance multiplier (~1.2) as a binary fixed-point number (8 fraction bits).
     - name: HIDDEN_STAIRS_SPAWN_CHANCE_MULTIPLIER
       address:
         EU: 0x22C51A8
         NA: 0x22C4850
+        JP: 0x22C5F38
       length:
         EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: "The hidden stairs spawn chance multiplier (~1.2) as a binary fixed-point number (8 fraction bits), if applicable. See ShouldBoostHiddenStairsSpawnChance in overlay 29."
     - name: YAWN_TURN_RANGE
       address:
         NA: 0x22C4860
+        JP: 0x22C5F48
       length:
         NA: 0x4
+        JP: 0x4
       description: |-
         The turn range for the Yawning status inflicted by Yawn, [2, 2].
         
@@ -1092,9 +1347,11 @@ overlay10:
       address:
         EU: 0x22C51E0
         NA: 0x22C4888
+        JP: 0x22C5F70
       length:
         EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: |-
         Appears to control the range of turns for which a speed boost can last.
         
@@ -1102,44 +1359,57 @@ overlay10:
     - name: SOLARBEAM_DAMAGE_MULTIPLIER
       address:
         NA: 0x22C48A4
+        JP: 0x22C5F8C
       length:
         NA: 0x4
+        JP: 0x4
       description: "The default damage multiplier for SolarBeam, as a fixed-point number with 8 fraction bits (2)."
     - name: SKY_ATTACK_DAMAGE_MULTIPLIER
       address:
         NA: 0x22C48B0
+        JP: 0x22C5F90
       length:
         NA: 0x4
+        JP: 0x4
       description: "The damage multiplier for Sky Attack, as a fixed-point number with 8 fraction bits (2)."
     - name: RAZOR_WIND_DAMAGE_MULTIPLIER
       address:
         NA: 0x22C48B0
+        JP: 0x22C5F98
       length:
         NA: 0x4
+        JP: 0x4
       description: "The damage multiplier for Razor Wind, as a fixed-point number with 8 fraction bits (2)."
     - name: FOCUS_PUNCH_DAMAGE_MULTIPLIER
       address:
         NA: 0x22C48B4
+        JP: 0x22C5F9C
       length:
         NA: 0x4
       description: "The damage multiplier for Focus Punch, as a fixed-point number with 8 fraction bits (2)."
     - name: SKULL_BASH_DAMAGE_MULTIPLIER
       address:
         NA: 0x22C48BC
+        JP: 0x22C5FA4
       length:
         NA: 0x4
+        JP: 0x4
       description: "The damage multiplier for Skull Bash, as a fixed-point number with 8 fraction bits (2)."
     - name: FLY_DAMAGE_MULTIPLIER
       address:
         NA: 0x22C48C0
+        JP: 0x22C5FA8
       length:
         NA: 0x4
+        JP: 0x4
       description: "The damage multiplier for Fly, as a fixed-point number with 8 fraction bits (2)."
     - name: WEATHER_BALL_TYPE_TABLE
       address:
         NA: 0x22C48DC
+        JP: 0x22C5FC4
       length:
         NA: 0x8
+        JP: 0x8
       description: |-
         Maps each weather type (by index, see enum weather_id) to the corresponding Weather Ball type.
         
@@ -1147,8 +1417,10 @@ overlay10:
     - name: LAST_RESORT_DAMAGE_MULT_TABLE
       address:
         NA: 0x22C4944
+        JP: 0x22C602C
       length:
         NA: 0x10
+        JP: 0x10
       description: |-
         Table of damage multipliers for Last Resort for different numbers of moves out of PP, where each entry is a binary fixed-point number with 8 fraction bits.
         
@@ -1158,8 +1430,10 @@ overlay10:
     - name: SYNTHESIS_HP_RESTORATION_TABLE
       address:
         NA: 0x22C4954
+        JP: 0x22C603C
       length:
         NA: 0x10
+        JP: 0x10
       description: |-
         Maps each weather type (by index, see enum weather_id) to the corresponding HP restoration value for Synthesis.
         
@@ -1167,8 +1441,10 @@ overlay10:
     - name: ROOST_HP_RESTORATION_TABLE
       address:
         NA: 0x22C4964
+        JP: 0x22C604C
       length:
         NA: 0x10
+        JP: 0x10
       description: |-
         Maps each weather type (by index, see enum weather_id) to the corresponding HP restoration value for Roost.
         
@@ -1178,8 +1454,10 @@ overlay10:
     - name: MOONLIGHT_HP_RESTORATION_TABLE
       address:
         NA: 0x22C4974
+        JP: 0x22C605C
       length:
         NA: 0x10
+        JP: 0x10
       description: |-
         Maps each weather type (by index, see enum weather_id) to the corresponding HP restoration value for Moonlight.
         
@@ -1187,8 +1465,10 @@ overlay10:
     - name: MORNING_SUN_HP_RESTORATION_TABLE
       address:
         NA: 0x22C4984
+        JP: 0x22C606C
       length:
         NA: 0x10
+        JP: 0x10
       description: |-
         Maps each weather type (by index, see enum weather_id) to the corresponding HP restoration value for Morning Sun.
         
@@ -1196,8 +1476,10 @@ overlay10:
     - name: REVERSAL_DAMAGE_MULT_TABLE
       address:
         NA: 0x22C4994
+        JP: 0x22C607C
       length:
         NA: 0x10
+        JP: 0x10
       description: |-
         Table of damage multipliers for Reversal/Flail at different HP ranges, where each entry is a binary fixed-point number with 8 fraction bits.
         
@@ -1205,8 +1487,10 @@ overlay10:
     - name: WATER_SPOUT_DAMAGE_MULT_TABLE
       address:
         NA: 0x22C49A4
+        JP: 0x22C608C
       length:
         NA: 0x10
+        JP: 0x10
       description: |-
         Table of damage multipliers for Water Spout at different HP ranges, where each entry is a binary fixed-point number with 8 fraction bits.
         
@@ -1214,8 +1498,10 @@ overlay10:
     - name: WRING_OUT_DAMAGE_MULT_TABLE
       address:
         NA: 0x22C49B4
+        JP: 0x22C609C
       length:
         NA: 0x10
+        JP: 0x10
       description: |-
         Table of damage multipliers for Wring Out/Crush Grip at different HP ranges, where each entry is a binary fixed-point number with 8 fraction bits.
         
@@ -1223,8 +1509,10 @@ overlay10:
     - name: ERUPTION_DAMAGE_MULT_TABLE
       address:
         NA: 0x22C49C4
+        JP: 0x22C60AC
       length:
         NA: 0x10
+        JP: 0x10
       description: |-
         Table of damage multipliers for Eruption at different HP ranges, where each entry is a binary fixed-point number with 8 fraction bits.
         
@@ -1232,8 +1520,10 @@ overlay10:
     - name: WEATHER_BALL_DAMAGE_MULT_TABLE
       address:
         NA: 0x22C4B54
+        JP: 0x22C623C
       length:
         NA: 0x20
+        JP: 0x20
       description: |-
         Maps each weather type (by index, see enum weather_id) to the corresponding Weather Ball damage multiplier, where each entry is a binary fixed-point number with 8 fraction bits.
         
@@ -1262,14 +1552,17 @@ overlay10:
     - name: BAD_POISON_DAMAGE_TABLE
       address:
         NA: 0x22C4C9C
+        JP: 0x22C6384
       length:
         NA: 0x3C
       description: "Table for how much damage each tick of badly poisoned should deal. The table is filled with 0x0006, but could use different values for each entry."
     - name: TYPE_MATCHUP_COMBINATOR_TABLE
       address:
         NA: 0x22C4D14
+        JP: 0x22C63FC
       length:
         NA: 0x40
+        JP: 0x40
       description: |-
         Table of type matchup combinations.
         
@@ -1280,17 +1573,21 @@ overlay10:
       address:
         EU: 0x22C56F0
         NA: 0x22C4D98
+        JP: 0x22C6480
       length:
         EU: 0x54
         NA: 0x54
+        JP: 0x54
       description: "Table of multipliers for offensive stats (attack/special attack) for each stage 0-20, as binary fixed-point numbers (8 fraction bits)"
     - name: DEFENSIVE_STAT_STAGE_MULTIPLIERS
       address:
         EU: 0x22C5744
         NA: 0x22C4DEC
+        JP: 0x22C64D4
       length:
         EU: 0x54
         NA: 0x54
+        JP: 0x54
       description: "Table of multipliers for defensive stats (defense/special defense) for each stage 0-20, as binary fixed-point numbers (8 fraction bits)"
     - name: NATURE_POWER_TABLE
       address:
