@@ -4,8 +4,14 @@
 // Dungeon state
 struct dungeon {
     undefined field_0x0; // 0x0: Initialized to 0x0.
-    undefined field_0x1; // 0x1: Initialized to 0x0.
-    undefined field_0x2; // 0x2: Initialized to 0x0.
+    // 0x1: Set to true with mission_destination_info::target_enemy_is_defeated. Used to ensure
+    // the mission complete message only shows once (ie: "Yes! Knocked out challenger
+    // [string:1]!". Set to false after the message is shown.
+    bool target_enemy_defeated_message;
+    // 0x2: Set to true when the hidden outlaw mission item is dropped. Appears to be used to check
+    // if the message "Huh?[K] [item:] was dropped![P]Yes![K][string:1] was the outlaw!" should
+    // be shown when target_enemy_defeated_message is true.
+    bool hidden_outlaw_defeated_message;
     // 0x3: If true and there's an active mission on the floor, the message
     // "You've reached a destination floor! But where is the target pokémon..." will be displayed.
     bool target_monster_not_found_flag;
@@ -20,7 +26,7 @@ struct dungeon {
     bool quicksave_flag;
     // 0x8: The floor will be advanced at the end of the turn. Set when quicksaving.
     bool end_floor_no_death_check_flag;
-    // 0x9: If this is 0x0 (maybe false), appears to not initalize certain parts of the dungeon.
+    // 0x9: If this is 0x0 (maybe false), appears to not initialize certain parts of the dungeon.
     // Possibly a boolean for when loading from a quicksave or resuming after being rescued?
     undefined field_0x9;
     undefined field_0xa;
@@ -532,8 +538,15 @@ struct dungeon {
     // 0x758: Whether the current floor should continue or end and why
     struct floor_loop_status_8 floor_loop_status;
     bool recruiting_enabled; // 0x759: Recruitment is allowed in this dungeon
+    // 0x75A: If this is 0, the game wont use GetMonsterEvoStatus when gathering information for
+    // the monster's summary (in stuff like the team menu).
     undefined field_0x75a;
-    undefined field_0x75b;   // 0x75B: Initialized to 0x1.
+    // 0x75B: When the dungeon is initialized this value gets forced to true. Likely because this
+    // effect seems incomplete. When false the game will stop items from being added to the bag
+    // but monsters are still alloweed to hold onto items normally. However, it does not seem to
+    // properly add items picked up by team members to the treasure bag (making it impossible to
+    // remove through the item menu). Additionally, items already in the bag can be used normally?
+    bool bag_enabled;
     bool nonstory_flag;      // 0x75C: Allows leader changing and continuing without the partner
     bool send_home_disabled; // 0x75D: Sending teammates home is not allowed in this dungeon
     // 0x75E: Disables sending home/leader changing, lose if partner faints. Set for dungeons
@@ -1799,17 +1812,15 @@ struct dungeon {
     undefined field_0x2caf5;
     undefined field_0x2caf6;
     undefined field_0x2caf7;
-    undefined field_0x2caf8;
-    undefined field_0x2caf9;
-    undefined field_0x2cafa;
-    undefined field_0x2cafb;
+    // 0x2CAF8: Related to playing dungeon music? Initialized to 0x4.
+    undefined4 field_0x2caf8;
     // Related to playing dungeon music?
     undefined field_0x2cafc;
     undefined field_0x2cafd;
     undefined field_0x2cafe;
     undefined field_0x2caff;
-    undefined field_0x2cb00;
-    undefined field_0x2cb01;
+    // Related to playing dungeon music?
+    undefined2 field_0x2cb00;
     // Related to playing dungeon music?
     undefined2 field_0x2cb02;
     // 0x2CB04: Related to playing dungeon music?

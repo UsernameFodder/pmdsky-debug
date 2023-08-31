@@ -39,7 +39,7 @@ overlay13:
         NA: 0x238A1C8
         JP: 0x238B728
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Handles the 'return' value from MENU_PERSONALITY_TEST called by scripts. 
         
         return: int?
     - name: Overlay13SwitchFunctionNa238A574
@@ -48,7 +48,7 @@ overlay13:
         NA: 0x238A574
         JP: 0x238BAD4
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Handles the menus and dialogue boxes associated with the personality quiz.
         
         No params.
     - name: GetPersonality

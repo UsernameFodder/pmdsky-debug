@@ -977,8 +977,11 @@ struct dungeon_generation_info {
     // should be over after knocking them out?
     undefined unk_fixed_room_static_monster_tracker;
     undefined field_0x7;
-    enum hidden_stairs_type hidden_stairs_type; // 0x8
-    undefined4 field_0xc;
+    // 0x8: The type of the hidden stairs on the current floor.
+    enum hidden_stairs_type hidden_stairs_type;
+    // 0xC: Used to check to load the corresponding hidden fixed room and information for
+    // the corresponding type of hidden floor.
+    enum hidden_stairs_type hidden_floor_type;
     uint8_t tileset_id; // 0x10
     undefined field_0x11;
     // 0x12: Music table index (see the same field in struct floor_properties)
