@@ -656,7 +656,7 @@ overlay29:
         The function also processes the floor's item spawn lists. When loading fixed rooms from the hidden staircase, the game forces the number of spawnable species to 0.
         
         r0: quick_saved
-        r1: bool force spawnable species to 0
+        r1: disable_monsters
         r2: special_process
     - name: GetItemIdToSpawn
       address:
