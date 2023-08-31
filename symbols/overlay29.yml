@@ -7765,17 +7765,21 @@ overlay29:
       address:
         EU: 0x22F7DBC
         NA: 0x22F7404
+        JP: 0x22F89CC
       length:
         EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: "0x3D7 (983). Used when spawning Kecleon on an even numbered floor."
     - name: KECLEON_MALE_ID
       address:
         EU: 0x22F7DC0
         NA: 0x22F7408
+        JP: 0x22F89D0
       length:
         EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: "0x17F (383). Used when spawning Kecleon on an odd numbered floor."
     - name: MSG_ID_SLOW_START
       address:
@@ -7797,9 +7801,11 @@ overlay29:
       address:
         EU: 0x230CECC
         NA: 0x230C458
+        JP: 0x230D9A8
       length:
         EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: |-
         Move ID for Judgment (0x1D3)
         
@@ -7808,9 +7814,11 @@ overlay29:
       address:
         EU: 0x230CED0
         NA: 0x230C45C
+        JP: 0x230D9AC
       length:
         EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: |-
         Move ID for the regular attack (0x163)
         
@@ -7819,9 +7827,11 @@ overlay29:
       address:
         EU: 0x230CED4
         NA: 0x230C460
+        JP: 0x230D9B0
       length:
         EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: |-
         Monster ID for Deoxys in Attack Forme (0x1A3)
         
@@ -7830,9 +7840,11 @@ overlay29:
       address:
         EU: 0x230CED8
         NA: 0x230C464
+        JP: 0x230D9B4
       length:
         EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: |-
         Monster ID for Deoxys in Speed Forme (0x1A5)
         
@@ -7841,9 +7853,11 @@ overlay29:
       address:
         EU: 0x230CEDC
         NA: 0x230C468
+        JP: 0x230D9B8
       length:
         EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: |-
         Monster ID for Giratina in Altered Forme (0x211)
         
@@ -7852,9 +7866,11 @@ overlay29:
       address:
         EU: 0x230CEE0
         NA: 0x230C46C
+        JP: 0x230D9BC
       length:
         EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: |-
         Move ID for Punishment (0x1BD)
         
@@ -7944,41 +7960,51 @@ overlay29:
       address:
         EU: 0x2335E78
         NA: 0x2335438
+        JP: 0x2336824
       length:
         EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: "Castform's male normal form ID (0x17B)"
     - name: CASTFORM_NORMAL_FORM_FEMALE_ID
       address:
         EU: 0x2335E7C
         NA: 0x233543C
+        JP: 0x2336828
       length:
         EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: "Castform's female normal form ID (0x3D3)"
     - name: CHERRIM_SUNSHINE_FORM_MALE_ID
       address:
         EU: 0x2335E80
         NA: 0x2335440
+        JP: 0x233682C
       length:
         EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: "Cherrim's male sunshine form ID (0x1CD)"
     - name: CHERRIM_OVERCAST_FORM_FEMALE_ID
       address:
         EU: 0x2335E84
         NA: 0x2335444
+        JP: 0x2336830
       length:
         EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: "Cherrim's female overcast form ID (0x424)"
     - name: CHERRIM_SUNSHINE_FORM_FEMALE_ID
       address:
         EU: 0x2335E88
         NA: 0x2335448
+        JP: 0x2336834
       length:
         EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: "Cherrim's female sunshine form ID (0x425)"
     - name: FLOOR_GENERATION_STATUS_PTR
       address:

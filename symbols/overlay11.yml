@@ -541,9 +541,11 @@ overlay11:
       address:
         EU: 0x23213C4
         NA: 0x2320894
+        JP: 0x2321DF8
       length:
         EU: 0x16
         NA: 0x16
+        JP: 0x16
       description: |-
         Table of dungeon IDs corresponding to entries in RECRUITMENT_TABLE_SPECIES.
         
@@ -552,9 +554,11 @@ overlay11:
       address:
         EU: 0x23213DC
         NA: 0x23208AC
+        JP: 0x2321E10
       length:
         EU: 0x2C
         NA: 0x2C
+        JP: 0x2C
       description: |-
         Table of levels for recruited Pokémon, corresponding to entries in RECRUITMENT_TABLE_SPECIES.
         
@@ -563,9 +567,11 @@ overlay11:
       address:
         EU: 0x2321408
         NA: 0x23208D8
+        JP: 0x2321E3C
       length:
         EU: 0x2C
         NA: 0x2C
+        JP: 0x2C
       description: |-
         Table of Pokémon recruited at special locations, such as at the ends of certain dungeons (e.g., Dialga or the Seven Treasures legendaries) or during a cutscene (e.g., Cresselia and Manaphy).
         
@@ -576,6 +582,7 @@ overlay11:
       address:
         EU: 0x232185C
         NA: 0x2320D2C
+        JP: 0x2322290
       length:
         EU: 0x288
         NA: 0x288

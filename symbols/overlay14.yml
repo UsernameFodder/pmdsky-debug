@@ -449,12 +449,15 @@ overlay14:
     - name: SENTRY_CHATOT_MONSTER_ID
       address:
         NA: 0x238C198
+        JP: 0x238D700
       length:
         NA: 0x4
+        JP: 0x4
       description: "Monster ID for Chatot, used as the speaker ID for dialog."
     - name: STRING_ID_SENTRY_NO_MORE_VISITORS
       address:
         NA: 0x238C19C
+        JP: 0x238D704
       length:
         NA: 0x4
       description: |-
@@ -464,8 +467,10 @@ overlay14:
     - name: STRING_ID_SENTRY_THATS_ALL
       address:
         NA: 0x238C1A0
+        JP: 0x238D708
       length:
         NA: 0x4
+        JP: 0x4
       description: |-
         String ID 0x6F6:
          OK, got that![C]
@@ -476,8 +481,10 @@ overlay14:
     - name: SENTRY_GROVYLE_MONSTER_ID
       address:
         NA: 0x238CA64
+        JP: 0x238DFCC
       length:
         NA: 0x4
+        JP: 0x4
       description: "Monster ID for Grovyle, which appears to be explicitly excluded when generating species choices."
     - name: FOOTPRINT_DEBUG_MENU
       address:

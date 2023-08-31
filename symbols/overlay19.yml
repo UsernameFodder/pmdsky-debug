@@ -72,8 +72,10 @@ overlay19:
     - name: BAR_RECRUITABLE_MONSTER_TABLE
       address:
         NA: 0x238DAF4
+        JP: 0x238F04C
       length:
         NA: 0xD8
+        JP: 0xD8
       description: |-
         Note: unverified, ported from Irdkwia's notes
         

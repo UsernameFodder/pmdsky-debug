@@ -244,17 +244,21 @@ ram:
       address:
         EU: 0x22A54F8
         NA: 0x22A4BB8
+        JP: 0x22A6418
       length:
         EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: The amount of money the player is currently carrying.
     - name: MONEY_STORED
       address:
         EU: 0x22A5504
         NA: 0x22A4BC4
+        JP: 0x22A6424
       length:
         EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: The amount of money the player currently has stored in the Duskull Bank.
     - name: AUDIO_COMMANDS_BUFFER
       address:
