@@ -109,6 +109,7 @@ overlay29:
       address:
         EU: 0x231CDE4
         NA: 0x231C384
+        JP: 0x231D850
       description: IQ boost from ingesting Nectar.
 overlay34:
   versions:

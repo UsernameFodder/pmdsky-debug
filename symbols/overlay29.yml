@@ -7902,9 +7902,11 @@ overlay29:
       address:
         EU: 0x23114D0
         NA: 0x2310A70
+        JP: 0x2311F98
       length:
         EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: |-
         The base value by which belly is decreased every turn.
         
@@ -8429,17 +8431,21 @@ overlay29:
       address:
         EU: 0x2353374
         NA: 0x2352768
+        JP: 0x23539E8
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: The additional amount by which belly is decreased every turn when inside walls (integer part)
     - name: BELLY_DRAIN_IN_WALLS_THOUSANDTHS
       address:
         EU: 0x2353376
         NA: 0x235276A
+        JP: 0x23539EA
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: The additional amount by which belly is decreased every turn when inside walls (fractional thousandths)
     - name: DAMAGE_MULTIPLIER_0_5
       address:
@@ -8579,9 +8585,11 @@ overlay29:
       address:
         EU: 0x2354138
         NA: 0x2353538
+        JP: 0x23547B8
       length:
         EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: |-
         [Runtime] Pointer to the dungeon struct in dungeon mode.
         
