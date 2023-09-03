@@ -142,9 +142,9 @@ class FillCounter:
     """Counters for printed summary statistics"""
 
     def __init__(self, filled: int = 0, unfilled: int = 0, skipped: int = 0):
-        self.filled = 0
-        self.unfilled = 0
-        self.skipped = 0
+        self.filled = filled
+        self.unfilled = unfilled
+        self.skipped = skipped
 
     def __iadd__(self, other: "FillCounter") -> "FillCounter":
         self.filled += other.filled
