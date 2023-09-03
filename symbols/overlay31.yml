@@ -194,10 +194,10 @@ overlay31:
         EU: 0x238AAF4
         NA: 0x2389ED0
         JP: 0x238B198
-        JP: 0x20
       length:
         EU: 0x20
         NA: 0x20
+        JP: 0x20
     - name: OVERLAY31_UNKNOWN_STRUCT__NA_2389EF0
       address:
         NA: 0x2389EF0
