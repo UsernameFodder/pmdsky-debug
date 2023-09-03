@@ -32,6 +32,8 @@ binary files. It uses the following strategies to this end:
     - Imposing a minimum instruction count on matches based on adaptive symbol
       length inference. By default, the inferred length will always be at least
       the length of 4 instructions.
+    - By default (can be disabled), discarding inferred addresses that are out
+      of order relative to existing addresses of neighboring functions.
 
 Note that this program has a "fast mode", which can be enabled with the --fast
 flag. The only thing this changes is the number of times the formatter is run.
@@ -59,7 +61,7 @@ from pathlib import Path
 import re
 import subprocess
 import sys
-from typing import Dict, Generator, Iterable, List, Optional, Union
+from typing import Dict, Generator, Iterable, List, NamedTuple, Optional, Union
 import yaml
 
 import arm5find
@@ -141,26 +143,97 @@ def find_binary_files(dirname: str, binaries: Iterable[str]) -> Dict[str, str]:
 class FillCounter:
     """Counters for printed summary statistics"""
 
-    def __init__(self, filled: int = 0, unfilled: int = 0, skipped: int = 0):
+    def __init__(
+        self, filled: int = 0, unfilled: int = 0, discarded: int = 0, skipped: int = 0
+    ):
         self.filled = filled
         self.unfilled = unfilled
+        self.discarded = discarded
         self.skipped = skipped
 
     def __iadd__(self, other: "FillCounter") -> "FillCounter":
         self.filled += other.filled
         self.unfilled += other.unfilled
+        self.discarded += other.discarded
         self.skipped += other.skipped
         return self
 
     def __add__(self, other: "FillCounter") -> "FillCounter":
-        s = FillCounter(self.filled, self.unfilled, self.skipped)
+        s = FillCounter(self.filled, self.unfilled, self.discarded, self.skipped)
         s += other
         return s
 
     def summary(self, indent=2):
         print(f"{' ' * indent}{self.filled} addresses filled")
         print(f"{' ' * indent}{self.unfilled} filling failures")
+        print(f"{' ' * indent}{self.discarded} filling discards")
         print(f"{' ' * indent}{self.skipped} symbols skipped")
+
+
+class AddressBounds(NamedTuple):
+    """Bounds for inferred symbol addresses."""
+
+    lower: Optional[int] = None
+    upper: Optional[int] = None
+
+    def __str__(self) -> str:
+        lower_str = f"0x{self.lower:X}" if self.lower is not None else str(None)
+        upper_str = f"0x{self.upper:X}" if self.upper is not None else str(None)
+        return f"({lower_str}, {upper_str})"
+
+
+def calc_symbol_addr_bounds(symbol_list: List[dict]) -> List[Dict[str, AddressBounds]]:
+    """Calculate bounds for inferred addresses of each symbol in the list.
+
+    Bounds are per-version, and are based on the addresses of immediate
+    neighbors of a symbol.
+
+    Args:
+        symbol_list (List[dict]): resymgen symbol list
+
+    Returns:
+        List[Dict[str, AddressBounds]]: List of per-version address bounds
+            corresponding to each symbol in the input list
+    """
+
+    bounds_list: List[Dict[str, AddressBounds]] = [{} for _ in symbol_list]
+
+    last_addr_by_vers = {}
+    # First pass, iterate forward to establish lower bounds
+    for symbol, bounds in zip(symbol_list, bounds_list):
+        for vers, addr in last_addr_by_vers.items():
+            # Use the first address if there are multiple, since that's the
+            # expected list sorting key
+            if isinstance(addr, list):
+                if not addr:
+                    continue
+                addr = addr[0]
+            bounds[vers] = AddressBounds(lower=addr)
+        last_addr_by_vers.update(symbol["address"])
+
+    # Second pass, iterate backwards to establish upper bounds. Also
+    # simultaneously perform validation; if upper < lower, it means the
+    # existing symbol list had an out-of-order jump, so force no bounds.
+    last_addr_by_vers = {}
+    for symbol, bounds in zip(reversed(symbol_list), reversed(bounds_list)):
+        for vers, addr in last_addr_by_vers.items():
+            # Use the first address if there are multiple, since that's the
+            # expected list sorting key
+            if isinstance(addr, list):
+                if not addr:
+                    continue
+                addr = addr[0]
+
+            if vers not in bounds:
+                bounds[vers] = AddressBounds(upper=addr)
+            elif bounds[vers].lower <= addr:
+                bounds[vers] = bounds[vers]._replace(upper=addr)
+            else:
+                # Out of order jump; delete the bound
+                del bounds[vers]
+        last_addr_by_vers.update(symbol["address"])
+
+    return bounds_list
 
 
 def function_fill_versions(
@@ -170,6 +243,7 @@ def function_fill_versions(
     bin_name: str,
     *,
     min_instr_count: int = 4,
+    addr_bounds: Optional[Dict[str, AddressBounds]] = None,
     verbosity: int = 0,
     dry_run: bool = False,
 ) -> FillCounter:
@@ -183,6 +257,8 @@ def function_fill_versions(
         bin_name (str): short name of the binary containing the function
         min_instr_count (int, optional): minimum instruction count for adaptive
             length search. Defaults to 4.
+        addr_bounds (Optional[Dict[str, AddressBounds]], optional): per-version
+            bounds on inferred addresses. Defaults to None.
         verbosity (int, optional): verbosity (0-4). Defaults to 0.
         dry_run (bool, optional): enable dry run mode. Defaults to False.
 
@@ -351,6 +427,22 @@ def function_fill_versions(
             match_addr = offsets.convert_offsets(dst_vers, [bin_name], [match.start()])[
                 0
             ].get_mapped()[0]
+
+            if addr_bounds is not None and dst_vers in addr_bounds:
+                # Check that the inferred address falls in the expected bounds
+                bounds = addr_bounds[dst_vers]
+                debug(f"{log_prefix}verifying against address bounds {bounds}")
+                if not (
+                    (bounds.lower is None or bounds.lower < match_addr)
+                    and (bounds.upper is None or match_addr < bounds.upper)
+                ):
+                    report(
+                        f"{log_prefix}discarding out-of-order inferred address 0x{match_addr:X}",
+                        1,
+                    )
+                    counter.discarded += 1
+                    continue
+
             report(
                 f"{log_prefix}found address 0x{match_addr:X}",
                 0 if dry_run else 2,
@@ -369,6 +461,7 @@ def symbols_fill_versions(
     binaries: Dict[str, Dict[str, str]],
     *,
     min_instr_count: int = 4,
+    respect_sort_order: bool = False,
     verbosity: int = 0,
     dry_run: bool = False,
     fast_mode: bool = False,
@@ -380,6 +473,8 @@ def symbols_fill_versions(
             name (outer key) and game version (inner key)
         min_instr_count (int, optional): minimum instruction count for adaptive
             length search. Defaults to 4.
+        respect_sort_order(bool, optional): respect the sort ordering of
+            existing symbols when filling new addresses. Defaults to False.
         verbosity (int, optional): verbosity (0-4). Defaults to 0.
         dry_run (bool, optional): enable dry run mode. Defaults to False.
         fast_mode (bool, optional): enable fast mode. Defaults to False.
@@ -407,13 +502,25 @@ def symbols_fill_versions(
                 # could pretty easily be used in multiple different contexts
                 # (which we would consider to be different symbols). So, only
                 # try to fill in function addresses.
-                for function in block["functions"]:
+                functions = block["functions"]
+
+                # If we need to respect sort order, build a list of by-version
+                # lower/upper bounds from the existing symbol addresses
+                functions_addr_bounds = None
+                if respect_sort_order:
+                    functions_addr_bounds = calc_symbol_addr_bounds(functions)
+
+                for i, function in enumerate(functions):
+                    addr_bounds = None
+                    if functions_addr_bounds is not None:
+                        addr_bounds = functions_addr_bounds[i]
                     table_counter += function_fill_versions(
                         function,
                         binary_contents,
                         file_by_version,
                         bin_name,
                         min_instr_count=min_instr_count,
+                        addr_bounds=addr_bounds,
                         verbosity=verbosity,
                         dry_run=dry_run,
                     )
@@ -456,6 +563,14 @@ if __name__ == "__main__":
         help="minimum instruction count for adaptive symbol lengths",
     )
     parser.add_argument(
+        "-S",
+        "--ignore-sort-order",
+        action="store_true",
+        default=False,
+        help="allow inferred addresses that violate the existing address"
+        + "ordering of existing symbols for the corresponding version",
+    )
+    parser.add_argument(
         "-v", "--verbose", action="count", default=0, help="verbosity level"
     )
     parser.add_argument("-n", "--dry-run", action="store_true", help="dry run")
@@ -494,6 +609,7 @@ if __name__ == "__main__":
     counters = symbols_fill_versions(
         files_by_version,
         min_instr_count=args.min_instr_count,
+        respect_sort_order=not args.ignore_sort_order,
         verbosity=args.verbose,
         dry_run=args.dry_run,
         fast_mode=args.fast,
