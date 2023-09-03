@@ -24,44 +24,56 @@ overlay21:
       address:
         EU: 0x238D578
         NA: 0x238CA38
+        JP: 0x238DFA8
       length:
         EU: 0x18
         NA: 0x18
+        JP: 0x18
     - name: SWAP_SHOP_SUBMENU_1
       address:
         EU: 0x238D590
         NA: 0x238CA50
+        JP: 0x238DFC0
       length:
         EU: 0x18
         NA: 0x18
+        JP: 0x18
     - name: SWAP_SHOP_SUBMENU_2
       address:
         EU: 0x238D5A8
         NA: 0x238CA68
+        JP: 0x238DFD8
       length:
         EU: 0x20
         NA: 0x20
+        JP: 0x20
     - name: SWAP_SHOP_MAIN_MENU_1
       address:
         EU: 0x238D5C8
         NA: 0x238CA88
+        JP: 0x238DFF8
       length:
         EU: 0x20
         NA: 0x20
+        JP: 0x20
     - name: SWAP_SHOP_MAIN_MENU_2
       address:
         EU: 0x238D5E8
         NA: 0x238CAA8
+        JP: 0x238E018
       length:
         EU: 0x28
         NA: 0x28
+        JP: 0x28
     - name: SWAP_SHOP_SUBMENU_3
       address:
         EU: 0x238D610
         NA: 0x238CAD0
+        JP: 0x238E040
       length:
         EU: 0x30
         NA: 0x30
+        JP: 0x30
     - name: OVERLAY21_UNKNOWN_STRING_IDS
       address:
         NA: 0x238CB00

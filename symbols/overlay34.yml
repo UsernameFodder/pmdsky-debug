@@ -40,9 +40,11 @@ overlay34:
       address:
         EU: 0x22DD8CC
         NA: 0x22DD024
+        JP: 0x22DE62C
       length:
         EU: 0x18
         NA: 0x18
+        JP: 0x18
       description: "Irdkwia's notes: 3*0x8"
     - name: OVERLAY34_UNKNOWN_STRUCT__NA_22DD03C
       address:
@@ -57,9 +59,11 @@ overlay34:
       address:
         EU: 0x22DD8F4
         NA: 0x22DD04C
+        JP: 0x22DE654
       length:
         EU: 0x28
         NA: 0x28
+        JP: 0x28
       description: "Irdkwia's notes: 5*0x8"
     - name: OVERLAY34_RESERVED_SPACE
       address:

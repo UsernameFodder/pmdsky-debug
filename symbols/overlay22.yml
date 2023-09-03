@@ -36,30 +36,38 @@ overlay22:
       address:
         EU: 0x238F3A8
         NA: 0x238E868
+        JP: 0x238FDC8
       length:
         EU: 0x18
         NA: 0x18
+        JP: 0x18
     - name: SHOP_MAIN_MENU_1
       address:
         EU: 0x238F3C0
         NA: 0x238E880
+        JP: 0x238FDE0
       length:
         EU: 0x20
         NA: 0x20
+        JP: 0x20
     - name: SHOP_MAIN_MENU_2
       address:
         EU: 0x238F3E0
         NA: 0x238E8A0
+        JP: 0x238FE00
       length:
         EU: 0x20
         NA: 0x20
+        JP: 0x20
     - name: SHOP_MAIN_MENU_3
       address:
         EU: 0x238F400
         NA: 0x238E8C0
+        JP: 0x238FE20
       length:
         EU: 0x30
         NA: 0x30
+        JP: 0x30
     - name: OVERLAY22_UNKNOWN_STRING_IDS
       address:
         NA: 0x238E8F0

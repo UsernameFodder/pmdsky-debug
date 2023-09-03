@@ -30,23 +30,29 @@ overlay25:
       address:
         EU: 0x238BFF4
         NA: 0x238B4B4
+        JP: 0x238CA14
       length:
         EU: 0x18
         NA: 0x18
+        JP: 0x18
     - name: APPRAISAL_MAIN_MENU
       address:
         EU: 0x238C00C
         NA: 0x238B4CC
+        JP: 0x238CA2C
       length:
         EU: 0x20
         NA: 0x20
+        JP: 0x20
     - name: APPRAISAL_SUBMENU
       address:
         EU: 0x238C02C
         NA: 0x238B4EC
+        JP: 0x238CA4C
       length:
         EU: 0x20
         NA: 0x20
+        JP: 0x20
     - name: OVERLAY25_UNKNOWN_STRING_IDS
       address:
         NA: 0x238B50C
