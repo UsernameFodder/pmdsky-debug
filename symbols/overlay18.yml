@@ -151,6 +151,7 @@ overlay18:
       length:
         EU: 0x48
         NA: 0x48
+        JP: 0x48
     - name: MOVES_SUBMENU_7
       address:
         EU: 0x238DFC0
