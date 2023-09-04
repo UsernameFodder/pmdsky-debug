@@ -32,7 +32,11 @@ itcm:
     - name: AllocateRender3dElement
       address:
         EU: 0x20B4938
+        NA: 0x20B3FF8
+        JP: 0x20B5858
         EU-ITCM: 0x1FF8C78
+        NA-ITCM: 0x1FF8C78
+        JP-ITCM: 0x1FF8C78
       description: |-
         Return a new render_3d_element from RENDER_3D, to be to draw a new element using the 3d render engine later in the frame.
         
@@ -40,7 +44,11 @@ itcm:
     - name: Render3dStack
       address:
         EU: 0x20B4A8C
+        NA: 0x20B414C
+        JP: 0x20B59AC
         EU-ITCM: 0x1FF8DCC
+        NA-ITCM: 0x1FF8DCC
+        JP-ITCM: 0x1FF8DCC
       description: |-
         Perform rendering of the render_stack of RENDER_3D structure. Does nothing if there are no elements, otherwise, sort them based on a value, and render them all consecutively.
         
@@ -179,7 +187,9 @@ itcm:
         EU: 0x20B7B1C
         NA: 0x20B71DC
         JP: 0x20B8AA4
+        EU-ITCM: 0x1FFBE5C
         NA-ITCM: 0x1FFBE5C
+        JP-ITCM: 0x1FFBEC4
       description: |-
         Appears to check whether LightningRod or Storm Drain should draw in a move.
         

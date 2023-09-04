@@ -22,6 +22,7 @@ overlay29:
       address:
         EU: 0x22DEF60
         NA: 0x22DE620
+        JP: 0x22DFCC0
       description: |-
         Gets a pointer to the floor's color table given the current weather.
         
@@ -281,6 +282,7 @@ overlay29:
       address:
         EU: 0x22E15F8
         NA: 0x22E0CB8
+        JP: 0x22E2348
       description: |-
         Checks if the currently pressed touchscreen position is within the specified area.
         
@@ -293,6 +295,7 @@ overlay29:
       address:
         EU: 0x22E1F48
         NA: 0x22E1608
+        JP: 0x22E2C98
       description: |-
         Given a trap entity, returns the pointer to the trap info struct it contains.
         
@@ -302,6 +305,7 @@ overlay29:
       address:
         EU: 0x22E1F50
         NA: 0x22E1610
+        JP: 0x22E2CA0
       description: |-
         Given an item entity, returns the pointer to the item info struct it contains.
         
@@ -321,6 +325,7 @@ overlay29:
       address:
         EU: 0x22E2380
         NA: 0x22E1A40
+        JP: 0x22E30D0
       description: |-
         Updates an entity's pixel_pos field using the specified pixel_position struct, or its own pos field if it's null.
         
@@ -330,6 +335,7 @@ overlay29:
       address:
         EU: 0x22E2A00
         NA: 0x22E20C0
+        JP: 0x22E3750
       description: |-
         Creates and initializes the entity struct of a newly spawned enemy monster. Fails if there's 16 enemies on the floor already.
         
@@ -367,6 +373,7 @@ overlay29:
       address:
         EU: 0x22E2DD8
         NA: 0x22E2498
+        JP: 0x22E3B2C
       description: |-
         Checks if a given entity should be displayed on the minimap
         
@@ -376,6 +383,7 @@ overlay29:
       address:
         EU: 0x22E2EB4
         NA: 0x22E2574
+        JP: 0x22E3C08
       description: |-
         Checks if an entity should be displayed or not.
         
@@ -554,6 +562,7 @@ overlay29:
       address:
         EU: 0x22E418C
         NA: 0x22E37DC
+        JP: 0x22E4E4C
       description: |-
         Takes a position struct in r0 and converts it to a pixel position struct before calling PlayEffectAnimationPixelPos
         
@@ -565,6 +574,7 @@ overlay29:
       address:
         EU: 0x22E41D0
         NA: 0x22E3820
+        JP: 0x22E4E90
       description: |-
         Seems like a variant of PlayEffectAnimationEntity that uses pixel coordinates as its first parameter instead of an entity pointer.
         
@@ -576,6 +586,7 @@ overlay29:
       address:
         EU: 0x22E4290
         NA: 0x22E38E0
+        JP: 0x22E4F50
       description: |-
         Called whenever most (all?) animations are played. Does not return until the animation is over.
         
@@ -662,6 +673,7 @@ overlay29:
       address:
         EU: 0x22E8474
         NA: 0x22E7AC4
+        JP: 0x22E9130
       description: |-
         Randomly picks an item to spawn using one of the floor's item spawn lists and returns its ID.
         
@@ -673,6 +685,7 @@ overlay29:
       address:
         EU: 0x22E8610
         NA: 0x22E7C60
+        JP: 0x22E92CC
       description: |-
         Copies all entries in the floor's monster spawn list that have a sprite size >= 6 to the specified buffer.
         
@@ -1007,6 +1020,7 @@ overlay29:
       address:
         EU: 0x22EB6B0
         NA: 0x22EAD00
+        JP: 0x22EC368
       description: |-
         Used to convert an index that refers to a MUSIC_ID_TABLE entry to a regular music ID.
         
@@ -1037,6 +1051,7 @@ overlay29:
       address:
         EU: 0x22EBD78
         NA: 0x22EB3C8
+        JP: 0x22ECA30
       description: |-
         Sets the leader's monster::action::action_id to the specified value.
         
@@ -1078,6 +1093,7 @@ overlay29:
       address:
         EU: 0x22EBDFC
         NA: 0x22EB44C
+        JP: 0x22ECAB4
       description: |-
         Returns a pointer to the item that is about to be used by a monster given its index.
         
@@ -1088,6 +1104,7 @@ overlay29:
       address:
         EU: 0x22EBEFC
         NA: 0x22EB54C
+        JP: 0x22ECBB4
       description: |-
         Returns a pointer to the item that is about to be used by a monster.
         
@@ -1112,6 +1129,7 @@ overlay29:
       address:
         EU: 0x22EBFBC
         NA: 0x22EB60C
+        JP: 0x22ECC74
       description: |-
         Removes an item from the bag or from the floor after using it
         
@@ -1150,6 +1168,7 @@ overlay29:
       address:
         EU: 0x22EC648
         NA: 0x22EBC98
+        JP: 0x22ED300
       description: |-
         Sets a monster's action to action::ACTION_USE_MOVE_PLAYER, with a specified monster and move index.
         
@@ -1261,7 +1280,9 @@ overlay29:
         stack[0]: visibility flag
     - name: PrepareTrapperTrap
       address:
+        EU: 0x22EE584
         NA: 0x22EDBD4
+        JP: 0x22EF238
       description: |-
         Saves the relevant information in the dungeon struct to later place a trap at the
         location of the entity. (Only called with trap ID 0x19 (TRAP_NONE), but could be used 
@@ -1272,7 +1293,9 @@ overlay29:
         r2: team (see struct trap::team)
     - name: TrySpawnTrap
       address:
+        EU: 0x22EE66C
         NA: 0x22EDCBC
+        JP: 0x22EF320
       description: |-
         Checks if the a trap can be placed on the tile. If the trap ID is >= TRAP_NONE (the
         last value for a trap), randomly select another trap (except for wonder tile). After
@@ -1286,7 +1309,9 @@ overlay29:
         return: true if a trap was spawned succesfully
     - name: TrySpawnTrapperTrap
       address:
+        EU: 0x22EE784
         NA: 0x22EDDD4
+        JP: 0x22EF438
       description: |-
         If the flag for a trapper trap is set, handles spawning a trap based upon the
         information inside the dungeon struct. Uses the entity for logging a message
@@ -1309,7 +1334,9 @@ overlay29:
         r3: ?
     - name: ApplyMudTrapEffect
       address:
+        EU: 0x22EED1C
         NA: 0x22EE36C
+        JP: 0x22EF9C8
       description: |-
         Randomly lowers attack, special attack, defense, or special defense of the defender by 3 stages.
         
@@ -1317,7 +1344,9 @@ overlay29:
         r1: defender entity pointer
     - name: ApplyStickyTrapEffect
       address:
+        EU: 0x22EEDE4
         NA: 0x22EE434
+        JP: 0x22EFA90
       description: |-
         If the defender is the leader, randomly try to make something in the bag sticky. Otherwise, try to make the item the monster is holding sticky.
         
@@ -1325,7 +1354,9 @@ overlay29:
         r1: defender entity pointer
     - name: ApplyGrimyTrapEffect
       address:
+        EU: 0x22EEFE0
         NA: 0x22EE62C
+        JP: 0x22EFC8C
       description: |-
         If the defender is the leader, randomly try to turn food items in the toolbox into
         grimy food. Otherwise, try to make the food item the monster is holding grimy food.
@@ -1334,6 +1365,7 @@ overlay29:
         r1: defender entity pointer
     - name: ApplyPitfallTrapEffect
       address:
+        EU: 0x22EF1D4
         NA: 0x22EE820
       description: |-
         If the defender is the leader, end the current floor unless it has a rescue point.
@@ -1346,7 +1378,9 @@ overlay29:
         r3: bool caused by random trap
     - name: ApplySummonTrapEffect
       address:
+        EU: 0x22EF348
         NA: 0x22EE994
+        JP: 0x22EFFE8
       description: |-
         Randomly spawns 2-4 enemy monsters around the position. The entity is only used for
         logging messages.
@@ -1355,7 +1389,9 @@ overlay29:
         r1: position
     - name: ApplyPpZeroTrapEffect
       address:
+        EU: 0x22EF3E4
         NA: 0x22EEA30
+        JP: 0x22F0084
       description: |-
         Tries to reduce the PP of one of the defender's moves to 0.
         
@@ -1363,7 +1399,9 @@ overlay29:
         r1: defender entity pointer
     - name: ApplyPokemonTrapEffect
       address:
+        EU: 0x22EF4CC
         NA: 0x22EEB18
+        JP: 0x22F016C
       description: |-
         Turns item in the same room as the tile at the position (usually just the entities's
         position) into monsters. If the position is in a hallway, convert items in a 3x3 area
@@ -1373,7 +1411,9 @@ overlay29:
         r1: position
     - name: ApplyTripTrapEffect
       address:
+        EU: 0x22EF6E0
         NA: 0x22EED2C
+        JP: 0x22F0380
       description: |-
         Tries to drop the defender's item and places it on the floor.
         
@@ -1381,6 +1421,7 @@ overlay29:
         r1: defender entity pointer
     - name: ApplyStealthRockTrapEffect
       address:
+        EU: 0x22EF804
         NA: 0x22EEE50
       description: |-
         Tries to apply the damage from the stealth rock trap but does nothing if the defender is a rock type.
@@ -1389,6 +1430,7 @@ overlay29:
         r1: defender entity pointer
     - name: ApplyToxicSpikesTrapEffect
       address:
+        EU: 0x22EF8A0
         NA: 0x22EEEEC
       description: |-
         Tries to inflict 10 damage on the defender and then tries to poison them.
@@ -1397,6 +1439,7 @@ overlay29:
         r1: defender entity pointer
     - name: ApplyRandomTrapEffect
       address:
+        EU: 0x22EF8F4
         NA: 0x22EEF40
       description: |-
         Selects a random trap that isn't a wonder tile and isn't a random trap and calls
@@ -1409,6 +1452,7 @@ overlay29:
         stack[0]: position
     - name: ApplyGrudgeTrapEffect
       address:
+        EU: 0x22EFA28
         NA: 0x22EF074
       description: |-
         Spawns several monsters around the position and gives all monsters on the floor the
@@ -1420,6 +1464,7 @@ overlay29:
       address:
         EU: 0x22EFB08
         NA: 0x22EF154
+        JP: 0x22F0730
       description: |-
         Performs the effect of a triggered trap.
         
@@ -1435,14 +1480,18 @@ overlay29:
         return: True if the trap should be destroyed after the effect is applied
     - name: RevealTrapsNearby
       address:
+        EU: 0x22EFF8C
         NA: 0x22EF5D8
+        JP: 0x22F0BDC
       description: |-
         Reveals traps within the monster's viewing range.
         
         r0: entity pointer
     - name: ShouldRunMonsterAi
       address:
+        EU: 0x22F03A0
         NA: 0x22EF9EC
+        JP: 0x22F0FF0
       description: |-
         Checks a monster's monster_behavior to see whether or not the monster should use AI. Only called on monsters with
         a monster_behavior greater than or equal to BEHAVIOR_FIXED_ENEMY. Returns false for BEHAVIOR_FIXED_ENEMY, 
@@ -1464,7 +1513,9 @@ overlay29:
         return: true
     - name: TryActivateIqBooster
       address:
+        EU: 0x22F0428
         NA: 0x22EFA74
+        JP: 0x22F1078
       description: |-
         Increases the IQ of all team members holding the IQ Booster by floor_properties::iq_booster_value amount unless the
         value is 0.
@@ -1493,6 +1544,7 @@ overlay29:
       address:
         EU: 0x22F1560
         NA: 0x22F0BAC
+        JP: 0x22F21AC
       description: |-
         Returns the area on the touchscreen that contains the sprite of the specified entity
         
@@ -1514,6 +1566,7 @@ overlay29:
       address:
         EU: 0x22F3A44
         NA: 0x22F308C
+        JP: 0x22F4684
       description: |-
         Determines if the leader should keep running. Returns false if the leader bumps into something, or if an action that should stop the leader takes place.
         
@@ -1522,6 +1575,7 @@ overlay29:
       address:
         EU: 0x22F3FEC
         NA: 0x22F3634
+        JP: 0x22F4C2C
       description: |-
         Checks the tile the leader just stepped on and performs any required actions, such as picking up items, triggering traps, etc.
         
@@ -1543,6 +1597,7 @@ overlay29:
       address:
         EU: 0x22F5C88
         NA: 0x22F52CC
+        JP: 0x22F68C4
       description: |-
         Same as UseSingleUseItem, but the second parameter is determined automatically from monster::action_data::action_parameter[1]::action_use_idx.
         
@@ -1551,6 +1606,7 @@ overlay29:
       address:
         EU: 0x22F5CB4
         NA: 0x22F52F8
+        JP: 0x22F68F0
       description: |-
         Makes a monster use a single-use item. The item is deleted afterwards.
         
@@ -1562,6 +1618,7 @@ overlay29:
       address:
         EU: 0x22F5E78
         NA: 0x22F54BC
+        JP: 0x22F6AB4
       description: |-
         Makes a monster use a throwable item.
         
@@ -1581,6 +1638,8 @@ overlay29:
     - name: FreeLoadedAttackSpriteAndMore
       address:
         EU: 0x22F78C8
+        NA: 0x22F6F10
+        JP: 0x22F84DC
       description: |-
         Among other things, free another data structure in the attack sprite storage area/data
         
@@ -1588,6 +1647,8 @@ overlay29:
     - name: SetAndLoadCurrentAttackAnimation
       address:
         EU: 0x22F7920
+        NA: 0x22F6F68
+        JP: 0x22F8534
       description: |-
         Load given sprite into the currently loaded attack sprite structure, replacing the previous one if already loaded.
         
@@ -1597,6 +1658,8 @@ overlay29:
     - name: ClearLoadedAttackSprite
       address:
         EU: 0x22F79C0
+        NA: 0x22F7008
+        JP: 0x22F85D4
       description: |-
         Delete the data of the currently loaded attack sprite, if any.
         Doesn’t free the structure, which can continue to be used.
@@ -1605,6 +1668,8 @@ overlay29:
     - name: GetLoadedAttackSpriteId
       address:
         EU: 0x22F7A08
+        NA: 0x22F7050
+        JP: 0x22F861C
       description: |-
         Get the sprite ID (in the loaded WAN list) of the currently loaded attack sprite, or 0 if none.
         
@@ -1743,6 +1808,7 @@ overlay29:
       address:
         EU: 0x22F8FFC
         NA: 0x22F85F0
+        JP: 0x22F9BB4
       description: |-
         Moves a monster to the target position. Used both for regular movement and special movement (like teleportation).
         
@@ -1801,7 +1867,9 @@ overlay29:
         return: ?
     - name: TryActivateTraceAndColorChange
       address:
+        EU: 0x22F9EFC
         NA: 0x22F94F0
+        JP: 0x22FAAB4
       description: |-
         Tries to activate the abilities trace and color change if possible. Called after using
         a move.
@@ -1865,7 +1933,9 @@ overlay29:
         return: bool
     - name: TryActivateConversion2
       address:
+        EU: 0x22FA150
         NA: 0x22F9744
+        JP: 0x22FACFC
       description: |-
         Checks for the conversion2 status and applies the type change if applicable. Called
         after using a move.
@@ -1906,7 +1976,9 @@ overlay29:
         r0: pointer to entity whose moves will be restored
     - name: BoostIQ
       address:
+        EU: 0x22FAB50
         NA: 0x22FA144
+        JP: 0x22FB6EC
       description: |-
         Tries to boost the target's IQ.
         
@@ -1938,7 +2010,9 @@ overlay29:
         return: bool
     - name: TryEndStatusWithAbility
       address:
+        EU: 0x22FB1E8
         NA: 0x22FA7DC
+        JP: 0x22FBD84
       description: |-
         Checks if any of the defender's active abilities would end one of their current status
         conditions. For example, if the ability Own Tempo will stop confusion.
@@ -2040,6 +2114,7 @@ overlay29:
       address:
         EU: 0x22FBC20
         NA: 0x22FB214
+        JP: 0x22FC79C
       description: |-
         The user attempts to eat an item from the target.
         
@@ -2112,6 +2187,7 @@ overlay29:
       address:
         EU: 0x22FC854
         NA: 0x22FBE58
+        JP: 0x22FD248
       description: |-
         Initializes stats, IQ skills and moves for a given monster
         
@@ -2124,6 +2200,7 @@ overlay29:
       address:
         EU: 0x22FC954
         NA: 0x22FBF58
+        JP: 0x22FD348
       description: |-
         Initializes dungeon::enemy_spawn_stats. Might do something else too.
         
@@ -2132,6 +2209,7 @@ overlay29:
       address:
         EU: 0x22FCC30
         NA: 0x22FC234
+        JP: 0x22FD624
       description: |-
         Initializes the HP, Atk, Sp. Atk, Def, Sp. Def and moveset of a newly spawned enemy. Might do something else too.
         
@@ -2191,6 +2269,7 @@ overlay29:
       address:
         EU: 0x22FE3D0
         NA: 0x22FD9D4
+        JP: 0x22FEDC4
       description: |-
         Initializes the monster struct within the provided entity struct.
         
@@ -2235,6 +2314,7 @@ overlay29:
       address:
         EU: 0x22FECF8
         NA: 0x22FE2FC
+        JP: 0x22FF6E4
       description: |-
         Returns the max HP of a monster given its level.
         
@@ -2245,6 +2325,7 @@ overlay29:
       address:
         EU: 0x22FED4C
         NA: 0x22FE350
+        JP: 0x22FF738
       description: |-
         Returns the Atk / Sp. Atk of a monster given its level, capped to 255.
         
@@ -2256,6 +2337,7 @@ overlay29:
       address:
         EU: 0x22FEDB4
         NA: 0x22FE3B8
+        JP: 0x22FF7A0
       description: |-
         Returns the Def / Sp. Def of a monster given its level, capped to 255.
         
@@ -2283,7 +2365,9 @@ overlay29:
         r0: Pointer to monster entity
     - name: TryActivateFlashFireOnAllMonsters
       address:
+        EU: 0x22FFB94
         NA: 0x22FF168
+        JP: 0x2300558
       description: |-
         Checks every monster for apply_flash_fire_boost. If it's true, activates Flash Fire for the monster and sets
         apply_flash_fire_boost back to false.
@@ -2303,6 +2387,7 @@ overlay29:
       address:
         EU: 0x2300058
         NA: 0x22FF62C
+        JP: 0x2300A1C
       description: |-
         Returns the mobility type of a monster species, accounting for STATUS_SLIP.
         
@@ -2315,6 +2400,7 @@ overlay29:
       address:
         EU: 0x23000A0
         NA: 0x22FF674
+        JP: 0x2300A64
       description: |-
         Returns the mobility type of a monster, accounting for STATUS_SLIP and the result of a call to IsFloating.
         
@@ -2351,6 +2437,7 @@ overlay29:
       address:
         EU: 0x23006C8
         NA: 0x22FF764
+        JP: 0x2300B54
       description: |-
         Checks if a given monster cannot stand on a given tile.
         
@@ -2639,7 +2726,9 @@ overlay29:
         return: Result of the call to ShouldMonsterRunAway
     - name: SafeguardIsActive
       address:
+        EU: 0x230236C
         NA: 0x2301940
+        JP: 0x2302EAC
       description: |-
         Checks if the monster is under the effect of Safeguard.
         
@@ -2649,7 +2738,9 @@ overlay29:
         return: bool
     - name: LeafGuardIsActive
       address:
+        EU: 0x23023C0
         NA: 0x2301994
+        JP: 0x2302F00
       description: |-
         Checks if the monster is protected by the ability Leaf Guard.
         
@@ -2659,7 +2750,9 @@ overlay29:
         return: bool
     - name: IsProtectedFromStatDrops
       address:
+        EU: 0x2302558
         NA: 0x2301B2C
+        JP: 0x230308C
       description: |-
         Checks if the target monster is protected from getting their stats dropped by the user.
         
@@ -2837,7 +2930,9 @@ overlay29:
         return: whether or not any of the masked bits changed from the previous state
     - name: IsProtectedFromNegativeStatus
       address:
+        EU: 0x2302E5C
         NA: 0x2302430
+        JP: 0x2303980
       description: |-
         Checks if the target monster is protected from getting a negative status condition.
         
@@ -2873,7 +2968,9 @@ overlay29:
         r0: entity pointer
     - name: LevelUpItemEffect
       address:
+        EU: 0x2303488
         NA: 0x2302A5C
+        JP: 0x2303FAC
       description: |-
         Attempts to level up the the target. Calls LevelUp with a few extra checks and messages
         for using as an item. Used for the Joy Seed and Golden Seed.
@@ -2912,6 +3009,7 @@ overlay29:
       address:
         EU: 0x2304544
         NA: 0x2303B18
+        JP: 0x2305068
       description: |-
         Determines the moveset of a newly spawned monster given its species and level.
         
@@ -2958,6 +3056,7 @@ overlay29:
       address:
         EU: 0x23060C0
         NA: 0x2305694
+        JP: 0x2306BE4
       description: |-
         Similar to CheckLeaderTile, but for other monsters.
         
@@ -2966,7 +3065,9 @@ overlay29:
         r0: Entity pointer
     - name: EndNegativeStatusCondition
       address:
+        EU: 0x23062F0
         NA: 0x23058C4
+        JP: 0x2306E14
       description: |-
         Cures the target's negative status conditions. The game rarely (if not never) calls
         this function with the bool to remove the wrapping status false.
@@ -2979,7 +3080,9 @@ overlay29:
         return: bool succesfully removed negative status
     - name: EndNegativeStatusConditionWrapper
       address:
+        EU: 0x2306654
         NA: 0x2305C28
+        JP: 0x2307178
       description: |-
         Calls EndNegativeStatusCondition with remove wrapping status false.
         
@@ -2990,7 +3093,9 @@ overlay29:
         return: bool succesfully removed negative status
     - name: TransferNegativeStatusCondition
       address:
+        EU: 0x2306668
         NA: 0x2305C3C
+        JP: 0x230718C
       description: |-
         Transfers all negative status conditions the user has and gives then to the target.
         
@@ -2998,7 +3103,9 @@ overlay29:
         r1: target entity pointer
     - name: EndSleepClassStatus
       address:
+        EU: 0x2306A08
         NA: 0x2305FDC
+        JP: 0x230752C
       description: |-
         Cures the target's sleep, sleepless, nightmare, yawn or napping status due to the action of the user, and prints the event to the log.
         
@@ -3006,7 +3113,9 @@ overlay29:
         r1: pointer to target
     - name: EndBurnClassStatus
       address:
+        EU: 0x2306BD4
         NA: 0x23061A8
+        JP: 0x23076F8
       description: |-
         Cures the target's burned, poisoned, badly poisoned or paralysis status due to the action of the user, and prints the event to the log.
         
@@ -3035,7 +3144,9 @@ overlay29:
         r1: pointer to target
     - name: EndReflectClassStatus
       address:
+        EU: 0x2306F20
         NA: 0x23064F4
+        JP: 0x2307A24
       description: |-
         Removes the target's reflect, safeguard, light screen, counter, magic coat, wish, protect, mirror coat, endure, mini counter?, mirror move, conversion 2, vital throw, mist, metal burst, aqua ring or lucky chant status due to the action of the user, and prints the event to the log.
         
@@ -3043,7 +3154,9 @@ overlay29:
         r1: pointer to target
     - name: TryRemoveSnatchedMonsterFromDungeonStruct
       address:
+        EU: 0x2307104
         NA: 0x23066D8
+        JP: 0x2307C08
       description: |-
         If the target is afflicted with snatch, change dungeon::snatch_monster and dungeon::snatch_status_unique_id back
         to NULL and 0 respectively. This function does not actually remove the status and visual flags for snatch from
@@ -3054,7 +3167,9 @@ overlay29:
         r1: pointer to target
     - name: EndCurseClassStatus
       address:
+        EU: 0x2307154
         NA: 0x2306728
+        JP: 0x2307C58
       description: |-
         Removes the target's curse (1), decoy (2), snatch (3), gastro acid (4), heal block (5), or embargo (6) status
         due to the action of the user, and prints the event to the log.
@@ -3065,7 +3180,9 @@ overlay29:
         r3: flag to log a message
     - name: EndLeechSeedClassStatus
       address:
+        EU: 0x23072F0
         NA: 0x23068C4
+        JP: 0x2307DF4
       description: |-
         Cures the target's leech seed or destiny bond status due to the action of the user, and prints the event to the log.
         
@@ -3073,7 +3190,9 @@ overlay29:
         r1: pointer to target
     - name: EndSureShotClassStatus
       address:
+        EU: 0x230737C
         NA: 0x2306950
+        JP: 0x2307E80
       description: |-
         Removes the target's sure shot, whiffer, set damage or focus energy status due to the action of the user, and prints the event to the log.
         
@@ -3081,7 +3200,9 @@ overlay29:
         r1: pointer to target
     - name: EndInvisibleClassStatus
       address:
+        EU: 0x230742C
         NA: 0x2306A00
+        JP: 0x2307F30
       description: |-
         Removes the target's invisible, transformed, mobile, or slip status due to the action of the user, and prints
         the event to the log.
@@ -3091,7 +3212,9 @@ overlay29:
         r2: flag to not log a message when removing slip status
     - name: EndBlinkerClassStatus
       address:
+        EU: 0x2307554
         NA: 0x2306B28
+        JP: 0x2308058
       description: |-
         Removes the target's blinker, cross-eyed, eyedrops, or dropeye status due to the action of the user, and
         prints the event to the log.
@@ -3100,7 +3223,9 @@ overlay29:
         r1: pointer to target
     - name: EndMuzzledStatus
       address:
+        EU: 0x2307624
         NA: 0x2306BF8
+        JP: 0x2308128
       description: |-
         Removes the target's muzzled status due to the action of the user, and prints the event to the log.
         
@@ -3108,7 +3233,9 @@ overlay29:
         r1: pointer to target
     - name: EndMiracleEyeStatus
       address:
+        EU: 0x2307690
         NA: 0x2306C64
+        JP: 0x2308194
       description: |-
         Removes the target's miracle eye status due to the action of the user, and prints the event to the log.
         
@@ -3116,7 +3243,9 @@ overlay29:
         r1: pointer to target
     - name: EndMagnetRiseStatus
       address:
+        EU: 0x23076FC
         NA: 0x2306CD0
+        JP: 0x2308200
       description: |-
         Removes the target's magnet rise status due to the action of the user, and prints the event to the log.
         
@@ -3124,7 +3253,9 @@ overlay29:
         r1: pointer to target
     - name: TransferNegativeBlinkerClassStatus
       address:
+        EU: 0x2308318
         NA: 0x23078EC
+        JP: 0x2308E1C
       description: |-
         Tries to transfer the the negative blinker class status conditions from the user to
         the target.
@@ -3134,7 +3265,9 @@ overlay29:
         return: Whether or not the status could be transferred
     - name: EndFrozenStatus
       address:
+        EU: 0x23086A4
         NA: 0x2307C78
+        JP: 0x23091A8
       description: |-
         Cures the target's freeze status due to the action of the user.
         
@@ -3142,7 +3275,9 @@ overlay29:
         r1: target entity pointer
     - name: EndProtectStatus
       address:
+        EU: 0x2308744
         NA: 0x2307D18
+        JP: 0x2309248
       description: |-
         Ends the target's protect status due to the action of the user.
         
@@ -3150,7 +3285,9 @@ overlay29:
         r1: target entity pointer
     - name: TryRestoreRoostTyping
       address:
+        EU: 0x2308780
         NA: 0x2307D54
+        JP: 0x2309284
       description: |-
         Tries to restore the target's original typings before the Roost effect took place. Does nothing if the target
         is not affected by Roost.
@@ -3343,7 +3480,9 @@ overlay29:
         stack[4]: flag to account for certain effects (Flash Fire, Reflect, Light Screen, aura bows, Def. Scarf, Zinc Band). Only ever set to false when computing recoil damage for Jump Kick/Hi Jump Kick missing, which is based on the damage that would have been done if the move didn't miss.
     - name: ApplyDamageAndEffectsWrapper
       address:
+        EU: 0x230DB90
         NA: 0x230D11C
+        JP: 0x230E65C
       description: |-
         A wrapper for ApplyDamageAndEffects used for applying damage from sources such as statuses, traps, liquid ooze,
         hunger, and possibly more.
@@ -3438,7 +3577,9 @@ overlay29:
         r1: defender pointer
     - name: UpdateShopkeeperModeAfterTrap
       address:
+        EU: 0x230DEF0
         NA: 0x230D47C
+        JP: 0x230E9B8
       description: |-
         Updates the shopkeeper mode of a monster in response to stepping on a trap.
         
@@ -3543,7 +3684,9 @@ overlay29:
         return: boost
     - name: TeamMemberHasItemActive
       address:
+        EU: 0x231020C
         NA: 0x230F798
+        JP: 0x2310CD4
       description: |-
         Checks if any team member is holding a certain item and puts them into the array given.
         
@@ -3614,7 +3757,9 @@ overlay29:
         r3: flag to log a message on failure
     - name: IsProtectedFromSleepClassStatus
       address:
+        EU: 0x2312444
         NA: 0x23119E4
+        JP: 0x2312EFC
       description: |-
         Checks if the monster is immune to sleep class status conditions.
         
@@ -3886,7 +4031,9 @@ overlay29:
         return: 2 if Flash Fire should activate and raise the defender's boost level, 1 if Flash Fire should activate but the defender's boost level is maxed out, 0 otherwise.
     - name: ActivateFlashFire
       address:
+        EU: 0x2314744
         NA: 0x2313CE4
+        JP: 0x23151C8
       description: |-
         Actually applies the Flash Fire boost with a message log and animation. Passes the same monster for attacker and
         defender, but the attacker goes unused.
@@ -4072,7 +4219,9 @@ overlay29:
         return: bool, whether or not the ability was activated
     - name: TryInflictTerrifiedStatus
       address:
+        EU: 0x23158C0
         NA: 0x2314E60
+        JP: 0x2316334
       description: |-
         Inflicts the Terrified status condition on a target monster if possible.
         
@@ -4080,7 +4229,9 @@ overlay29:
         r1: target entity pointer
     - name: TryInflictGrudgeStatus
       address:
+        EU: 0x2315918
         NA: 0x2314EB8
+        JP: 0x231638C
       description: |-
         Inflicts the Grudge status condition on a target monster if possible.
         
@@ -4195,7 +4346,9 @@ overlay29:
         r1: target entity pointer
     - name: TryInflictSureShotStatus
       address:
+        EU: 0x23165D0
         NA: 0x2315B70
+        JP: 0x2317048
       description: |-
         Inflicts the Sure Shot status condition on a target monster if possible.
         
@@ -4203,7 +4356,9 @@ overlay29:
         r1: target entity pointer
     - name: TryInflictWhifferStatus
       address:
+        EU: 0x2316660
         NA: 0x2315C00
+        JP: 0x23170D8
       description: |-
         Inflicts the Whiffer status condition on a target monster if possible.
         
@@ -4211,7 +4366,9 @@ overlay29:
         r1: target entity pointer
     - name: TryInflictSetDamageStatus
       address:
+        EU: 0x2316748
         NA: 0x2315CE8
+        JP: 0x23171C0
       description: |-
         Inflicts the Set Damage status condition on a target monster if possible.
         
@@ -4219,7 +4376,9 @@ overlay29:
         r1: target entity pointer
     - name: TryInflictFocusEnergyStatus
       address:
+        EU: 0x23167E4
         NA: 0x2315D84
+        JP: 0x231725C
       description: |-
         Inflicts the Focus Energy status condition on a target monster if possible.
         
@@ -4227,7 +4386,9 @@ overlay29:
         r1: target entity pointer
     - name: TryInflictDecoyStatus
       address:
+        EU: 0x2316884
         NA: 0x2315E24
+        JP: 0x23172FC
       description: |-
         Inflicts the Decoy status condition on a target monster if possible.
         
@@ -4236,7 +4397,9 @@ overlay29:
         return: Whether or not the status could be inflicted
     - name: TryInflictCurseStatus
       address:
+        EU: 0x2316B3C
         NA: 0x23160DC
+        JP: 0x23175B4
       description: |-
         Inflicts the Curse status condition on a target monster if possible and if the user is
         a ghost type. Otherwise, just boost the user's defense and attack then lower the user's
@@ -4246,7 +4409,9 @@ overlay29:
         r1: target entity pointer
     - name: TryInflictSnatchStatus
       address:
+        EU: 0x2316CE0
         NA: 0x2316280
+        JP: 0x2317758
       description: |-
         Inflicts the Snatch status condition on a target monster if possible.
         
@@ -4254,7 +4419,9 @@ overlay29:
         r1: target entity pointer
     - name: TryInflictTauntStatus
       address:
+        EU: 0x2316E08
         NA: 0x23163A8
+        JP: 0x2317880
       description: |-
         Inflicts the Taunt status condition on a target monster if possible.
         
@@ -4263,7 +4430,9 @@ overlay29:
         return: Whether or not the status could be inflicted
     - name: TryInflictStockpileStatus
       address:
+        EU: 0x2316F38
         NA: 0x23164D8
+        JP: 0x23179AC
       description: |-
         Inflicts the Stockpile condition on a target monster if possible. Won't boost the level
         of stockpiling above 3.
@@ -4275,6 +4444,7 @@ overlay29:
       address:
         EU: 0x2316FDC
         NA: 0x231657C
+        JP: 0x2317A50
       description: |-
         Attempts to turn the target invisible.
         
@@ -4284,7 +4454,9 @@ overlay29:
         r1: target entity pointer
     - name: TryInflictPerishSongStatus
       address:
+        EU: 0x231708C
         NA: 0x231662C
+        JP: 0x2317B00
       description: |-
         Inflicts the Perish Song status condition on a target monster if possible.
         
@@ -4294,7 +4466,9 @@ overlay29:
         return: Whether or not the status could be inflicted
     - name: TryInflictEncoreStatus
       address:
+        EU: 0x2317180
         NA: 0x2316720
+        JP: 0x2317BF4
       description: |-
         Inflicts the Encore status condition on a target monster if possible.
         
@@ -4304,7 +4478,9 @@ overlay29:
         return: Whether or not the status could be inflicted
     - name: TryDecreaseBelly
       address:
+        EU: 0x2317338
         NA: 0x23168D8
+        JP: 0x2317DA8
       description: |-
         Tries to reduce the belly size of the target. Only when max belly shrink is 0, the
         current belly is reduced by belly to lose. If both are non-zero, only the max belly
@@ -4316,7 +4492,9 @@ overlay29:
         r3: max belly shrink
     - name: TryIncreaseBelly
       address:
+        EU: 0x2317610
         NA: 0x2316BB0
+        JP: 0x2318080
       description: |-
         Restore belly and possibly boost max belly of the target monster if possible.
         
@@ -4327,7 +4505,9 @@ overlay29:
         stack[0]: flag to log a message
     - name: TryInflictMuzzledStatus
       address:
+        EU: 0x2317B84
         NA: 0x2317124
+        JP: 0x23185F4
       description: |-
         Inflicts the Muzzled status condition on a target monster if possible.
         
@@ -4339,6 +4519,7 @@ overlay29:
       address:
         EU: 0x2317C7C
         NA: 0x231721C
+        JP: 0x23186EC
       description: |-
         Attempts to transform the target into the species of a random monster contained in the list returned by MonsterSpawnListPartialCopy.
         
@@ -4348,7 +4529,9 @@ overlay29:
         r1: target entity pointer
     - name: TryInflictMobileStatus
       address:
+        EU: 0x2317E6C
         NA: 0x231740C
+        JP: 0x23188DC
       description: |-
         Inflicts the Mobile status condition on a target monster if possible.
         
@@ -4356,7 +4539,9 @@ overlay29:
         r1: target entity pointer
     - name: TryInflictExposedStatus
       address:
+        EU: 0x2317F28
         NA: 0x23174C8
+        JP: 0x2318998
       description: |-
         Inflicts the Exposed status condition on a target monster if possible. Only applies to
         Ghost types and monsters with raised evasion. If the animation effect ID is 0,
@@ -4370,7 +4555,9 @@ overlay29:
         return: Whether or not the status could be inflicted
     - name: TryActivateIdentifyCondition
       address:
+        EU: 0x23180A8
         NA: 0x2317648
+        JP: 0x2318B18
       description: |-
         Sets the flag for the identify orb which causes monsters holding items to be shown with
         a blue exclamation mark status icon.
@@ -4379,7 +4566,9 @@ overlay29:
         r1: target entity pointer
     - name: TryInflictBlinkerStatus
       address:
+        EU: 0x231812C
         NA: 0x23176CC
+        JP: 0x2318B9C
       description: |-
         Inflicts the Blinker status condition on a target monster if possible.
         
@@ -4401,7 +4590,9 @@ overlay29:
         return: bool
     - name: TryInflictCrossEyedStatus
       address:
+        EU: 0x23182A4
         NA: 0x2317844
+        JP: 0x2318D14
       description: |-
         Inflicts the Cross-Eyed status condition on a target monster if possible.
         
@@ -4411,7 +4602,9 @@ overlay29:
         return: Whether or not the status could be inflicted
     - name: TryInflictEyedropStatus
       address:
+        EU: 0x23183BC
         NA: 0x231795C
+        JP: 0x2318E2C
       description: |-
         Inflicts the Eyedrop status condition on a target monster if possible.
         
@@ -4419,7 +4612,9 @@ overlay29:
         r1: target entity pointer
     - name: TryInflictSlipStatus
       address:
+        EU: 0x231846C
         NA: 0x2317A0C
+        JP: 0x2318EDC
       description: |-
         Inflicts the Slip status condition on a target monster if possible.
         
@@ -4428,7 +4623,9 @@ overlay29:
         return: Whether or not the status could be inflicted
     - name: TryInflictDropeyeStatus
       address:
+        EU: 0x2318554
         NA: 0x2317AF4
+        JP: 0x2318FC4
       description: |-
         Inflicts the Dropeye status condition on a target monster if possible.
         
@@ -4449,7 +4646,9 @@ overlay29:
         r3: flag to suppress message logging
     - name: RestoreOneMovePP
       address:
+        EU: 0x23187B8
         NA: 0x2317D58
+        JP: 0x2319228
       description: |-
         Restores the PP the target's move in the specified move slot by the specified amount.
         
@@ -4460,7 +4659,9 @@ overlay29:
         stack[0]: flag to log message
     - name: RestoreRandomMovePP
       address:
+        EU: 0x23188E8
         NA: 0x2317E88
+        JP: 0x2319358
       description: |-
         Restores the PP of a random one of the target's moves by the specified amount.
         
@@ -4470,7 +4671,9 @@ overlay29:
         r3: flag to log message
     - name: ApplyProteinEffect
       address:
+        EU: 0x23189B0
         NA: 0x2317F50
+        JP: 0x2319420
       description: |-
         Tries to boost the target's attack stat.
         
@@ -4479,7 +4682,9 @@ overlay29:
         r2: attack boost
     - name: ApplyCalciumEffect
       address:
+        EU: 0x2318A44
         NA: 0x2317FE4
+        JP: 0x23194B4
       description: |-
         Tries to boost the target's special attack stat.
         
@@ -4488,7 +4693,9 @@ overlay29:
         r2: special attack boost
     - name: ApplyIronEffect
       address:
+        EU: 0x2318AD8
         NA: 0x2318078
+        JP: 0x2319548
       description: |-
         Tries to boost the target's defense stat.
         
@@ -4497,7 +4704,9 @@ overlay29:
         r2: defense boost
     - name: ApplyZincEffect
       address:
+        EU: 0x2318B6C
         NA: 0x231810C
+        JP: 0x23195DC
       description: |-
         Tries to boost the target's special defense stat.
         
@@ -4506,7 +4715,9 @@ overlay29:
         r2: special defense boost
     - name: TryInflictLongTossStatus
       address:
+        EU: 0x2318C00
         NA: 0x23181A0
+        JP: 0x2319670
       description: |-
         Inflicts the Long Toss status condition on a target monster if possible.
         
@@ -4514,7 +4725,9 @@ overlay29:
         r1: target entity pointer
     - name: TryInflictPierceStatus
       address:
+        EU: 0x2318C70
         NA: 0x2318210
+        JP: 0x23196E0
       description: |-
         Inflicts the Pierce status condition on a target monster if possible.
         
@@ -4522,7 +4735,9 @@ overlay29:
         r1: target entity pointer
     - name: TryInflictGastroAcidStatus
       address:
+        EU: 0x2318CDC
         NA: 0x231827C
+        JP: 0x231974C
       description: |-
         Inflicts the Gastro Acid status condition on a target monster if possible.
         
@@ -4542,14 +4757,18 @@ overlay29:
         r0: pointer to entity
     - name: ApplyAquaRingHealing
       address:
+        EU: 0x2318E48
         NA: 0x23183E8
+        JP: 0x23198B8
       description: |-
         Applies the passive healing gained from the Aqua Ring status.
         
         r0: pointer to entity
     - name: TryInflictAquaRingStatus
       address:
+        EU: 0x2318EBC
         NA: 0x231845C
+        JP: 0x231992C
       description: |-
         Inflicts the Aqua Ring status condition on a target monster if possible.
         
@@ -4557,7 +4776,9 @@ overlay29:
         r1: target entity pointer
     - name: TryInflictLuckyChantStatus
       address:
+        EU: 0x2318F68
         NA: 0x2318508
+        JP: 0x23199D8
       description: |-
         Inflicts the Lucky Chant status condition on a target monster if possible.
         
@@ -4565,7 +4786,9 @@ overlay29:
         r1: target entity pointer
     - name: TryInflictHealBlockStatus
       address:
+        EU: 0x2319008
         NA: 0x23185A8
+        JP: 0x2319A78
       description: |-
         Inflicts the Heal Block status condition on a target monster if possible.
         
@@ -4578,6 +4801,7 @@ overlay29:
       address:
         EU: 0x231912C
         NA: 0x23186CC
+        JP: 0x2319B9C
       description: |-
         Returns true if the monster has the Embargo status condition.
         
@@ -4587,13 +4811,16 @@ overlay29:
       address:
         EU: 0x2319160
         NA: 0x2318700
+        JP: 0x2319BD0
       description: |-
         Logs the error message when the usage of an item is blocked by Embargo.
         
         r0: pointer to entity
     - name: TryInflictEmbargoStatus
       address:
+        EU: 0x231918C
         NA: 0x231872C
+        JP: 0x2319BFC
       description: |-
         Inflicts the Embargo status condition on a target monster if possible.
         
@@ -4604,7 +4831,9 @@ overlay29:
         return: Whether or not the status could be inflicted
     - name: TryInflictMiracleEyeStatus
       address:
+        EU: 0x23192B0
         NA: 0x2318850
+        JP: 0x2319D20
       description: |-
         Inflicts the Miracle Eye status condition on a target monster if possible.
         
@@ -4613,7 +4842,9 @@ overlay29:
         r2: flag to only perform the check for inflicting without actually inflicting
     - name: TryInflictMagnetRiseStatus
       address:
+        EU: 0x23193E4
         NA: 0x2318984
+        JP: 0x2319E54
       description: |-
         Inflicts the Magnet Rise status condition on a target monster if possible.
         
@@ -4633,7 +4864,9 @@ overlay29:
         return: bool
     - name: TryInflictSafeguardStatus
       address:
+        EU: 0x23198D0
         NA: 0x2318E70
+        JP: 0x231A340
       description: |-
         Inflicts the Safeguard status condition on a target monster if possible.
         
@@ -4641,7 +4874,9 @@ overlay29:
         r1: target entity pointer
     - name: TryInflictMistStatus
       address:
+        EU: 0x2319970
         NA: 0x2318F10
+        JP: 0x231A3E0
       description: |-
         Inflicts the Mist status condition on a target monster if possible.
         
@@ -4649,7 +4884,9 @@ overlay29:
         r1: target entity pointer
     - name: TryInflictWishStatus
       address:
+        EU: 0x2319A0C
         NA: 0x2318FAC
+        JP: 0x231A47C
       description: |-
         Inflicts the Wish status condition on a target monster if possible.
         
@@ -4657,7 +4894,9 @@ overlay29:
         r1: target entity pointer
     - name: TryInflictMagicCoatStatus
       address:
+        EU: 0x2319AAC
         NA: 0x231904C
+        JP: 0x231A51C
       description: |-
         Inflicts the Magic Coat status condition on a target monster if possible.
         
@@ -4665,7 +4904,9 @@ overlay29:
         r1: target entity pointer
     - name: TryInflictLightScreenStatus
       address:
+        EU: 0x2319B4C
         NA: 0x23190EC
+        JP: 0x231A5BC
       description: |-
         Inflicts the Light Screen status condition on a target monster if possible.
         
@@ -4673,7 +4914,9 @@ overlay29:
         r1: target entity pointer
     - name: TryInflictReflectStatus
       address:
+        EU: 0x2319BEC
         NA: 0x231918C
+        JP: 0x231A65C
       description: |-
         Inflicts the Reflect status condition on a target monster if possible.
         
@@ -4681,7 +4924,9 @@ overlay29:
         r1: target entity pointer
     - name: TryInflictProtectStatus
       address:
+        EU: 0x2319C8C
         NA: 0x231922C
+        JP: 0x231A6FC
       description: |-
         Inflicts the Protect status condition on a target monster if possible.
         
@@ -4689,7 +4934,9 @@ overlay29:
         r1: target entity pointer
     - name: TryInflictMirrorCoatStatus
       address:
+        EU: 0x2319D3C
         NA: 0x23192DC
+        JP: 0x231A7AC
       description: |-
         Inflicts the Mirror Coat status condition on a target monster if possible.
         
@@ -4697,7 +4944,9 @@ overlay29:
         r1: target entity pointer
     - name: TryInflictEndureStatus
       address:
+        EU: 0x2319DD8
         NA: 0x2319378
+        JP: 0x231A848
       description: |-
         Inflicts the Endure status condition on a target monster if possible.
         
@@ -4705,7 +4954,9 @@ overlay29:
         r1: target entity pointer
     - name: TryInflictMirrorMoveStatus
       address:
+        EU: 0x2319E78
         NA: 0x2319418
+        JP: 0x231A8E8
       description: |-
         Inflicts the Mirror Move status condition on a target monster if possible.
         
@@ -4713,7 +4964,9 @@ overlay29:
         r1: target entity pointer
     - name: TryInflictConversion2Status
       address:
+        EU: 0x2319F18
         NA: 0x23194B8
+        JP: 0x231A988
       description: |-
         Inflicts the Conversion2 status condition on a target monster if possible.
         
@@ -4721,7 +4974,9 @@ overlay29:
         r1: target entity pointer
     - name: TryInflictVitalThrowStatus
       address:
+        EU: 0x2319FE4
         NA: 0x2319584
+        JP: 0x231AA54
       description: |-
         Inflicts the Vital Throw status condition on a target monster if possible.
         
@@ -4729,7 +4984,9 @@ overlay29:
         r1: target entity pointer
     - name: TryResetStatChanges
       address:
+        EU: 0x231A084
         NA: 0x2319624
+        JP: 0x231AAF4
       description: |-
         Tries to reset the stat changes of the defender.
         
@@ -4738,7 +4995,9 @@ overlay29:
         r3: bool to force animation
     - name: MirrorMoveIsActive
       address:
+        EU: 0x231A1A8
         NA: 0x2319748
+        JP: 0x231AC18
       description: |-
         Checks if the monster is under the effect of Mirror Move.
         
@@ -4748,7 +5007,9 @@ overlay29:
         return: int
     - name: MistIsActive
       address:
+        EU: 0x231A22C
         NA: 0x23197CC
+        JP: 0x231AC9C
       description: |-
         Checks if the monster is under the effect of Mist.
         
@@ -4871,6 +5132,7 @@ overlay29:
         return: type ID
     - name: ActivateMotorDrive
       address:
+        EU: 0x231BAC0
         NA: 0x231B060
       description: |-
         Displays the message and applies the speed boost for the ability Motor Drive.
@@ -4878,7 +5140,9 @@ overlay29:
         r0: monster pointer
     - name: TryActivateFrisk
       address:
+        EU: 0x231BB04
         NA: 0x231B0A4
+        JP: 0x231C570
       description: |-
         Tries to activate the Frisk ability on the defender. The attacker has to be on the team and the defender has to be
         holding an item or be able to drop a treasure box.
@@ -4887,21 +5151,27 @@ overlay29:
         r1: defender pointer
     - name: TryActivateBadDreams
       address:
+        EU: 0x231BC18
         NA: 0x231B1B8
+        JP: 0x231C684
       description: |-
         Tries to apply the damage from Bad Dreams to all sleeping monsters in the room.
         
         r0: monster pointer
     - name: ActivateStench
       address:
+        EU: 0x231BD9C
         NA: 0x231B33C
+        JP: 0x231C808
       description: |-
         Activate the Stench ability on the monster.
         
         r0: monster pointer
     - name: TryActivateSteadfast
       address:
+        EU: 0x231BDC4
         NA: 0x231B364
+        JP: 0x231C830
       description: |-
         Activate the Steadfast ability on the defender, if the monster has it and it's active.
         
@@ -4952,7 +5222,9 @@ overlay29:
         others: ?
     - name: ApplyCheriBerryEffect
       address:
+        EU: 0x231D654
         NA: 0x231CBEC
+        JP: 0x231E0B8
       description: |-
         Tries to heal the paralysis status condition. Prints a message on failure.
         
@@ -4960,7 +5232,9 @@ overlay29:
         r1: target entity pointer
     - name: ApplyPechaBerryEffect
       address:
+        EU: 0x231D680
         NA: 0x231CC18
+        JP: 0x231E0E4
       description: |-
         Tries to heal the poisoned and badly poisoned status condition. Prints a message on
         failure.
@@ -4969,7 +5243,9 @@ overlay29:
         r1: target entity pointer
     - name: ApplyRawstBerryEffect
       address:
+        EU: 0x231D6B4
         NA: 0x231CC4C
+        JP: 0x231E118
       description: |-
         Tries to heal the burn status condition. Prints a message on failure.
         
@@ -4977,7 +5253,9 @@ overlay29:
         r1: target entity pointer
     - name: ApplyHungerSeedEffect
       address:
+        EU: 0x231D6FC
         NA: 0x231CC94
+        JP: 0x231E160
       description: |-
         Empties the targets belly to cause Hungry Pal status in non-leader monsters and
         Famished in the leader monster.
@@ -4986,7 +5264,9 @@ overlay29:
         r1: target entity pointer
     - name: ApplyVileSeedEffect
       address:
+        EU: 0x231D7E8
         NA: 0x231CD80
+        JP: 0x231E24C
       description: |-
         Reduces the targets defense and special defense stages to the lowest level.
         
@@ -5003,7 +5283,9 @@ overlay29:
         r1: target entity pointer
     - name: ApplyGinsengEffect
       address:
+        EU: 0x231D8D0
         NA: 0x231CE68
+        JP: 0x231E32C
       description: |-
         Boosts the power of the move at the top of the target's Move List. Appears to have a
         leftover check to boost the power of a move by 3 instead of 1 that always fails because
@@ -5013,7 +5295,9 @@ overlay29:
         r1: target entity pointer
     - name: ApplyBlastSeedEffect
       address:
+        EU: 0x231D9EC
         NA: 0x231CF84
+        JP: 0x231E44C
       description: |-
         If thrown, unfreeze and deal fixed damage to the defender. If not thrown, try to find 
         a monster in front of the attacker. If a monster is found unfreeze and dedal fixed 
@@ -5039,6 +5323,7 @@ overlay29:
       address:
         EU: 0x231DF0C
         NA: 0x231D4A4
+        JP: 0x231E96C
       description: |-
         Checks whether a monster can use a certain item.
         
@@ -5050,7 +5335,9 @@ overlay29:
         return: True if the monster can use the item, false otherwise
     - name: ApplyGrimyFoodEffect
       address:
+        EU: 0x231DF9C
         NA: 0x231D534
+        JP: 0x231E9FC
       description: |-
         Randomly inflicts poison, shadow hold, burn, paralysis, or an offensive stat debuff
         to the target. If the survivalist iq skill or gluttony ability is active, the target
@@ -5060,7 +5347,9 @@ overlay29:
         r1: target entity pointer
     - name: ApplyMixElixirEffect
       address:
+        EU: 0x231E0E8
         NA: 0x231D680
+        JP: 0x231EB48
       description: |-
         If the target monster is a Linoone, restores all the PP of all the target's moves.
         
@@ -5068,7 +5357,9 @@ overlay29:
         r1: target entity pointer
     - name: ApplyDoughSeedEffect
       address:
+        EU: 0x231E148
         NA: 0x231D6E0
+        JP: 0x231EBA8
       description: |-
         If the target monster is a team member, set dough_seed_extra_poke_flag to true to 
         make extra poke spawn on the next floor. Otherwise, do nothing.
@@ -5077,7 +5368,9 @@ overlay29:
         r1: target entity pointer
     - name: ApplyViaSeedEffect
       address:
+        EU: 0x231E1B4
         NA: 0x231D74C
+        JP: 0x231EC14
       description: |-
         Tries to randomly teleport the target with a message for eating the seed.
         
@@ -5085,7 +5378,9 @@ overlay29:
         r1: target entity pointer
     - name: ApplyGravelyrockEffect
       address:
+        EU: 0x231E228
         NA: 0x231D7C0
+        JP: 0x231EC88
       description: |-
         Restores 10 hunger to the target and will raise the target's IQ if they are a bonsly
         or sudowoodo.
@@ -5094,7 +5389,9 @@ overlay29:
         r1: target entity pointer
     - name: ApplyGonePebbleEffect
       address:
+        EU: 0x231E2A0
         NA: 0x231D838
+        JP: 0x231ED00
       description: |-
         Causes a few visual effects, temporarily changes the dungeon music to the Goodnight
         track, and gives the target the enduring status.
@@ -5103,7 +5400,9 @@ overlay29:
         r1: target entity pointer
     - name: ApplyGracideaEffect
       address:
+        EU: 0x231E428
         NA: 0x231D9C0
+        JP: 0x231EE7C
       description: |-
         If the target is Shaymin, attempt to change the target's form to Shaymin Sky Forme. Otherwise, do nothing.
         
@@ -5113,6 +5412,7 @@ overlay29:
       address:
         EU: 0x231F3F8
         NA: 0x231E990
+        JP: 0x231FE3C
       description: |-
         Checks if a given item should be eaten by the TryEatItem effect.
         
@@ -5154,6 +5454,7 @@ overlay29:
       address:
         EU: 0x231FFFC
         NA: 0x231F594
+        JP: 0x2320A40
       description: |-
         Attempts to drain all water from the current floor.
         
@@ -5230,13 +5531,16 @@ overlay29:
       address:
         EU: 0x2321B6C
         NA: 0x2321104
+        JP: 0x23225B0
       description: |-
         Checks that the given monster is standing on a tile it can stand on given its movement type, and warps it to a random location if it's not.
         
         r0: Entity pointer
     - name: TryActivateNondamagingDefenderAbility
       address:
+        EU: 0x23224E0
         NA: 0x2321A78
+        JP: 0x2322F24
       description: |-
         Applies the effects of a defender's ability on an attacker. After a move is used,
         this function is called to see if any of the bitflags for an ability were set and
@@ -5246,7 +5550,9 @@ overlay29:
         r0: entity pointer
     - name: TryActivateNondamagingDefenderExclusiveItem
       address:
+        EU: 0x2322758
         NA: 0x2321CF0
+        JP: 0x232319C
       description: |-
         Applies the effects of a defender's item on an attacker. After a move is used,
         this function is called to see if any of the bitflags for an item were set and
@@ -5258,6 +5564,7 @@ overlay29:
       address:
         EU: 0x2322D0C
         NA: 0x23222A4
+        JP: 0x2323750
       description: |-
         Returns the maximum reach distance of a move, based on its AI range value.
         
@@ -5298,6 +5605,7 @@ overlay29:
       address:
         EU: 0x232500C
         NA: 0x23245A4
+        JP: 0x2325A34
       description: |-
         Checks if a monster is currently charging the specified two-turn move.
         
@@ -5411,7 +5719,9 @@ overlay29:
         return: (short) x
     - name: PlayMoveAnimation
       address:
+        EU: 0x232611C
         NA: 0x23256B4
+        JP: 0x2326B40
       description: |-
         Handles the process of getting and playing all the animations for a move. Waits
         until the animation has no more frames before returning.
@@ -5589,6 +5899,7 @@ overlay29:
       address:
         EU: 0x2335F04
         NA: 0x23354C4
+        JP: 0x23368B0
       description: |-
         Tries to change the weather based upon the information for each weather type in the
         dungeon struct. Returns whether the weather was succesfully changed or not.
@@ -5696,7 +6007,9 @@ overlay29:
         return: True if the current dungeon tileset is a background, false if it's a regular tileset.
     - name: TrySpawnGoldenChamber
       address:
+        EU: 0x2336DF4
         NA: 0x2336224
+        JP: 0x23375F4
       description: |-
         Changes the tileset and fixed room id of the floor for the Golden Chamber if the floor should be a
         Golden Chamber.
@@ -5704,7 +6017,9 @@ overlay29:
         No params.
     - name: CountItemsOnFloorForAcuteSniffer
       address:
+        EU: 0x2336E30
         NA: 0x2336260
+        JP: 0x2337630
       description: |-
         Counts the number of items on the floor by checking every tile for an item and stores it into
         dungeon::item_sniffer_item_count
@@ -5712,6 +6027,7 @@ overlay29:
         No params.
     - name: GetStairsSpawnPosition
       address:
+        EU: 0x2336F90
         NA: 0x23363C0
       description: |-
         Gets the spawn position for the stairs and stores it at the passed pointers.
@@ -5720,7 +6036,9 @@ overlay29:
         r1: [output] pointer to y coordinate
     - name: PositionIsOnStairs
       address:
+        EU: 0x2336FBC
         NA: 0x23363EC
+        JP: 0x23377BC
       description: |-
         Checks if this location is on top of the staircase. In the game it is only used to check if an outlaw has reached
         the staircase.
@@ -5746,14 +6064,18 @@ overlay29:
         return: texture_id
     - name: DetermineAllTilesWalkableNeighbors
       address:
+        EU: 0x233761C
         NA: 0x2336A4C
+        JP: 0x2337E14
       description: |-
         Evaluates the walkable_neighbor_flags for all tiles.
         
         No params.
     - name: DetermineTileWalkableNeighbors
       address:
+        EU: 0x2337654
         NA: 0x2336A84
+        JP: 0x2337E4C
       description: |-
         Evaluates the walkable_neighbor_flags for the this tile by checking the 8 adjacent tiles.
         
@@ -5763,6 +6085,7 @@ overlay29:
       address:
         EU: 0x2337B1C
         NA: 0x2336F4C
+        JP: 0x2338314
       description: |-
         Exact purpose unknown. Gets called whenever a trap tile is shown or hidden.
         
@@ -5771,6 +6094,7 @@ overlay29:
       address:
         EU: 0x2337FF8
         NA: 0x2337428
+        JP: 0x23387F0
       description: |-
         Draws a grid on the nearby walkable tiles. Triggered by pressing Y.
         
@@ -5782,6 +6106,7 @@ overlay29:
       address:
         EU: 0x233836C
         NA: 0x233779C
+        JP: 0x2338B60
       description: |-
         Hides the grid on the nearby walkable tiles. Triggered by releasing Y.
         
@@ -5790,6 +6115,7 @@ overlay29:
       address:
         EU: 0x233860C
         NA: 0x2337A3C
+        JP: 0x2338E00
       description: |-
         Discovers the tiles around the specified position on the minimap.
         
@@ -5798,7 +6124,9 @@ overlay29:
         r0: Position around which the map should be discovered
     - name: PositionHasItem
       address:
+        EU: 0x23386FC
         NA: 0x2337B2C
+        JP: 0x2338EF0
       description: |-
         Checks if the tile at the position has an item on it.
         
@@ -5806,7 +6134,9 @@ overlay29:
         return: bool
     - name: PositionHasMonster
       address:
+        EU: 0x2338738
         NA: 0x2337B68
+        JP: 0x2338F2C
       description: |-
         Checks if the tile at the position has a monster on it.
         
@@ -5814,7 +6144,9 @@ overlay29:
         return: bool
     - name: TrySmashWall
       address:
+        EU: 0x233876C
         NA: 0x2337B9C
+        JP: 0x2338F60
       description: |-
         Checks if the tile at the position is a wall. If so, smash it (turn it into a floor tile), play an animation
         
@@ -5892,6 +6224,7 @@ overlay29:
         No params.
     - name: SetDoughSeedFlag
       address:
+        EU: 0x2339118
         NA: 0x2338548
       description: |-
         Sets the dough_seed_extra_money_flag field on the dungeon struct to the given value.
@@ -5899,7 +6232,9 @@ overlay29:
         r0: bool to set the flag to
     - name: TrySpawnDoughSeedPoke
       address:
+        EU: 0x2339130
         NA: 0x2338560
+        JP: 0x2339924
       description: |-
         Checks the dough_seed_extra_money_flag field on the dungeon struct and tries to spawn
         extra poke if it is set.
@@ -5959,6 +6294,7 @@ overlay29:
       address:
         EU: 0x23392A8
         NA: 0x23386D8
+        JP: 0x2339A9C
       description: |-
         Checks if the hidden stairs are present on this floor.
         
@@ -5969,6 +6305,7 @@ overlay29:
       address:
         EU: 0x2339364
         NA: 0x2338794
+        JP: 0x2339B58
       description: |-
         Called whenever the leader steps on the hidden stairs.
         
@@ -5992,6 +6329,7 @@ overlay29:
       address:
         EU: 0x2339DBC
         NA: 0x23391EC
+        JP: 0x233A5B0
       description: |-
         Draws a single tile on the minimap.
         
@@ -6001,6 +6339,7 @@ overlay29:
       address:
         EU: 0x233A8B8
         NA: 0x2339CE8
+        JP: 0x233B0AC
       description: |-
         Graphically updates the minimap
         
@@ -6034,6 +6373,7 @@ overlay29:
       address:
         EU: 0x233AE74
         NA: 0x233A290
+        JP: 0x233B654
       description: |-
         Initializes the matrix at minimap_display_data+0xE000. Seems to overflow said matrix when doing so.
         
@@ -6042,6 +6382,7 @@ overlay29:
       address:
         EU: 0x233AED4
         NA: 0x233A2F0
+        JP: 0x233B6B4
       description: |-
         Used to initialize an instance of struct minimap_display_tile
         
@@ -6707,6 +7048,7 @@ overlay29:
       address:
         EU: 0x23430B4
         NA: 0x23424D0
+        JP: 0x2343890
       description: |-
         Returns the next action that needs to be performed when spawning a fixed room tile.
         
@@ -6769,7 +7111,9 @@ overlay29:
         return: enum hidden_stairs_type
     - name: GetFinalKecleonShopSpawnChance
       address:
+        EU: 0x2343AA0
         NA: 0x2342EBC
+        JP: 0x2344280
       description: |-
         Gets the kecleon shop spawn chance for the floor.
         
@@ -6790,6 +7134,7 @@ overlay29:
       address:
         EU: 0x2343B14
         NA: 0x2342F30
+        JP: 0x23442F4
       description: |-
         Used to spawn a single tile when generating a fixed room. The tile might contain an item or a monster.
         
@@ -6801,6 +7146,7 @@ overlay29:
       address:
         EU: 0x2344550
         NA: 0x234396C
+        JP: 0x2344D30
       description: |-
         Converts the parameter stored in a fixed room action value to a direction ID.
         
@@ -6812,6 +7158,7 @@ overlay29:
       address:
         EU: 0x23448BC
         NA: 0x2343CD8
+        JP: 0x234509C
       description: |-
         Attempts to open a locked door in front of the target if a locked door has not already
         been open on the floor.
@@ -7033,6 +7380,7 @@ overlay29:
       address:
         EU: 0x23462A8
         NA: 0x23456BC
+        JP: 0x2346A80
       description: |-
         Removes an item lying on the ground.
         
@@ -7117,6 +7465,7 @@ overlay29:
       address:
         EU: 0x2347B10
         NA: 0x2346F14
+        JP: 0x23482D4
       description: |-
         Adds the monster's held item to the bag. This is only called on monsters on the exploration team.
         monster::is_not_team_member should be checked to be false before calling.
@@ -7126,6 +7475,7 @@ overlay29:
       address:
         EU: 0x2347C2C
         NA: 0x2347030
+        JP: 0x23483F0
       description: |-
         Calls RemoveEmptyItemsInBag, then some other function that seems to update the minimap, the map surveyor flag, and other stuff.
         
@@ -7558,6 +7908,8 @@ overlay29:
     - name: InitPortraitDungeon
       address:
         EU: 0x234C6C0
+        NA: 0x234BAC0
+        JP: 0x234CD24
       description: |-
         Initialize the portrait box structure for the given monster and expression
         

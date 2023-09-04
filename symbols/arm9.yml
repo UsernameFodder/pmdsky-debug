@@ -775,6 +775,8 @@ arm9:
     - name: Rgb8ToBgr5
       address:
         EU: 0x2004FCC
+        NA: 0x2004FCC
+        JP: 0x2004FCC
       description: |-
         Transform the input rgb8 color to a bgr5 color
         
@@ -1152,6 +1154,7 @@ arm9:
       address:
         EU: 0x200C584
         NA: 0x200C4FC
+        JP: 0x200C4FC
       description: |-
         Gets the message that is shown on the dungeon results ("The Last Outing") screen, right after the leader's name.
         
@@ -1256,7 +1259,9 @@ arm9:
         return: bool
     - name: IsLosableItem
       address:
+        EU: 0x200CCC0
         NA: 0x200CC38
+        JP: 0x200CC38
       description: |-
         Checks if an item can be lost after fainting in a dungeon. Specifically calls IsAuraBow and checks item::f_in_shop
         so that the player can't keep an aura bow they haven't paid for yet.
@@ -1267,6 +1272,7 @@ arm9:
       address:
         EU: 0x200CD0C
         NA: 0x200CC84
+        JP: 0x200CC84
       description: |-
         Checks if the given item ID is a treasure box
         
@@ -1276,7 +1282,9 @@ arm9:
         return: True if the item is a treasure box, false otherwise
     - name: IsStorableItem
       address:
+        EU: 0x200CD30
         NA: 0x200CCA8
+        JP: 0x200CCA8
       description: |-
         Checks if an item can be put into storage. Specifically checks for the Wonder Egg, Poke, and Used TMs. Used TMs
         likely can't be stored because the move the TM teaches would be lost when sent to storage.
@@ -1285,7 +1293,9 @@ arm9:
         return: bool
     - name: IsShoppableItem
       address:
+        EU: 0x200CD68
         NA: 0x200CCE0
+        JP: 0x200CCE0
       description: |-
         Checks if an item can be bought and sold from a Kecleon shop. Includes items like the Gold Thorn, Poke, Golden
         Mask, Amber Tear, etc. Also has a special check to make sure an item's buy and sell price is more than 0.
@@ -1294,7 +1304,9 @@ arm9:
         return: bool
     - name: IsValidTargetItem
       address:
+        EU: 0x200CE34
         NA: 0x200CDAC
+        JP: 0x200CDAC
       description: |-
         Checks if an item is a valid target item for missions. Returns true for any item less than ITEM_UNNAMED_0x16B.
         Appears to check a list for valid items above ITEM_UNNAMED_0x16B, but the list is empty?
@@ -1303,7 +1315,9 @@ arm9:
         return: bool
     - name: IsItemUsableNow
       address:
+        EU: 0x200CE80
         NA: 0x200CDF8
+        JP: 0x200CDF8
       description: |-
         Checks if an item can be used right now. Returns true for all items that are not in a shop. If the item is in a
         shop, specifically checks for TMs/HMs and items that provide permanent buffs (Gummis, Sitrus Berry, Ginseng, etc).
@@ -1312,7 +1326,9 @@ arm9:
         return: bool
     - name: IsTicketItem
       address:
+        EU: 0x200CEFC
         NA: 0x200CE74
+        JP: 0x200CE74
       description: |-
         Checks if an item is a ticket that can be used in the recycle shop (ITEM_PRIZE_TICKET, ITEM_SILVER_TICKET,
         ITEM_GOLD_TICKET, and ITEM_PRISM_TICKET).
@@ -1764,7 +1780,9 @@ arm9:
         r0: new value
     - name: AddMoneyCarried
       address:
+        EU: 0x200EE00
         NA: 0x200ED58
+        JP: 0x200ED88
       description: |-
         Adds the amount of money to the player's current amount of money. Just calls
         SetMoneyCarried with the current money + money gained.
@@ -2096,6 +2114,7 @@ arm9:
       address:
         EU: 0x200FF50
         NA: 0x200FEA8
+        JP: 0x200FE78
       description: |-
         Returns the number of items of the given kind in the storage
         
@@ -3018,6 +3037,7 @@ arm9:
       address:
         EU: 0x2017F0C
         NA: 0x2017E70
+        JP: 0x2017EC8
       description: |-
         Initializes some values and then calls SendAudioCommand.
         
@@ -3030,6 +3050,7 @@ arm9:
       address:
         EU: 0x2018C08
         NA: 0x2018B6C
+        JP: 0x2018BC4
       description: |-
         Searches for an entry in AUDIO_COMMANDS_BUFFER that's not currently in use (audio_command::status == 0). Returns the first entry not in use, or null if none was found.
         
@@ -3043,6 +3064,7 @@ arm9:
       address:
         EU: 0x2018C44
         NA: 0x2018BA8
+        JP: 0x2018C00
       description: |-
         Used to send commands to the audio engine (seems to be used mainly to play and stop music)
         
@@ -3051,7 +3073,9 @@ arm9:
         r0: Command to send
     - name: InitSoundSystem
       address:
+        EU: 0x2018CC4
         NA: 0x2018C28
+        JP: 0x2018C80
       description: |-
         Initialize the DSE sound engine?
         
@@ -3188,6 +3212,8 @@ arm9:
     - name: InitAnimationControl
       address:
         EU: 0x201C0EC
+        NA: 0x201C050
+        JP: 0x201C0A8
       description: |-
         Initialize the animation_control structure
         
@@ -3204,6 +3230,8 @@ arm9:
     - name: SetSpriteIdForAnimationControl
       address:
         EU: 0x201C184
+        NA: 0x201C0E8
+        JP: 0x201C140
       description: |-
         Set the sprite id (from WAN_TABLE) in the given animation control
         Also set field 0x72 to the sprite id if they differ
@@ -3214,6 +3242,8 @@ arm9:
     - name: SetAnimationForAnimationControlInternal
       address:
         EU: 0x201C218
+        NA: 0x201C17C
+        JP: 0x201C1D4
       description: |-
         Set the wan animation (and other related settings) of an animation_control
         Used by SetAnimationForAnimationControl
@@ -3230,6 +3260,8 @@ arm9:
     - name: SetAnimationForAnimationControl
       address:
         EU: 0x201C368
+        NA: 0x201C2CC
+        JP: 0x201C324
       description: |-
         Set the animation to play with this animation control, but do not start it.
         
@@ -3245,6 +3277,8 @@ arm9:
     - name: GetWanForAnimationControl
       address:
         EU: 0x201C484
+        NA: 0x201C3E8
+        JP: 0x201C440
       description: |-
         Return the WAN to use for the given animation control
         Return the override if it exists, otherwise look up the sprite id in WAN_TABLE
@@ -3254,6 +3288,8 @@ arm9:
     - name: SetAndPlayAnimationForAnimationControl
       address:
         EU: 0x201C4B4
+        NA: 0x201C418
+        JP: 0x201C470
       description: |-
         Set the animation to play with the animation control, and start it.
         
@@ -3268,6 +3304,8 @@ arm9:
     - name: SwitchAnimationControlToNextFrame
       address:
         EU: 0x201C4F4
+        NA: 0x201C458
+        JP: 0x201C4B0
       description: |-
         Handle switching to the next frame of an animation control, including looping.
         
@@ -3275,6 +3313,8 @@ arm9:
     - name: LoadAnimationFrameAndIncrementInAnimationControl
       address:
         EU: 0x201C5FC
+        NA: 0x201C560
+        JP: 0x201C5B8
       description: |-
         Read some value of the input animation frame, and update animation control with it.
         Also switch next_animation_frame of animation_control to the next animation frame
@@ -3286,6 +3326,8 @@ arm9:
     - name: AnimationControlGetAllocForMaxFrame
       address:
         EU: 0x201D20C
+        NA: 0x201D170
+        JP: 0x201D1C8
       description: |-
         Return the maximum allocation for a frame of this sprite, as stored in the WAN file
         Return 0 if missing and takes sprite override into account
@@ -3305,6 +3347,8 @@ arm9:
     - name: AllocateWanTableEntry
       address:
         EU: 0x201D2E0
+        NA: 0x201D244
+        JP: 0x201D29C
       description: |-
         Return the identifier to a free wan table entry (-1 if none are avalaible). The entry is zeroed.
         
@@ -3336,6 +3380,8 @@ arm9:
     - name: InitWanTable
       address:
         EU: 0x201D458
+        NA: 0x201D3BC
+        JP: 0x201D414
       description: |-
         Initialize the input WAN table with 0x60 free entries (it needs a length of 0x1510 bytes)
         
@@ -3355,6 +3401,8 @@ arm9:
     - name: LoadWanTableEntryFromPack
       address:
         EU: 0x201D520
+        NA: 0x201D484
+        JP: 0x201D4DC
       description: |-
         Return an already allocated entry for this sprite if it exists, otherwise allocate a new one and load the optionally compressed sprite.
         
@@ -3367,6 +3415,8 @@ arm9:
     - name: LoadWanTableEntryFromPackUseProvidedMemory
       address:
         EU: 0x201D62C
+        NA: 0x201D590
+        JP: 0x201D5E8
       description: |-
         Return an already allocated entry for this sprite if it exists, otherwise allocate a new one and load the optionally compressed sprite into the provided memory area. Mark the sprite as externally allocated.
         
@@ -3404,6 +3454,8 @@ arm9:
     - name: WanHasAnimationGroup
       address:
         EU: 0x201DAE0
+        NA: 0x201DA44
+        JP: 0x201DA9C
       description: |-
         Check if the input WAN file loaded in memory has an animation group with this ID
         Valid means that the animation group is in the range of existing animation, and that it has at least one animation.
@@ -3414,6 +3466,8 @@ arm9:
     - name: WanTableSpriteHasAnimationGroup
       address:
         EU: 0x201DB1C
+        NA: 0x201DA80
+        JP: 0x201DAD8
       description: |-
         Check if the sprite in the global WAN table has the given animation group
         see WanHasAnimationGroup for more detail
@@ -3424,6 +3478,8 @@ arm9:
     - name: SpriteTypeInWanTable
       address:
         EU: 0x201DD0C
+        NA: 0x201DC70
+        JP: 0x201DCC8
       description: |-
         Look up the sprite in the WAN table, and return its type
         
@@ -3488,6 +3544,8 @@ arm9:
     - name: GeomSetTexImageParam
       address:
         EU: 0x201E530
+        NA: 0x201E494
+        JP: 0x201E4EC
       description: |-
         Send the "TEXIMAGE_PARAM" geometry engine command, that defines some parameters for the texture
         See http://problemkaputt.de/gbatek.htm#ds3dtextureattributes for more information on the parameters
@@ -3503,6 +3561,8 @@ arm9:
     - name: GeomSetVertexCoord16
       address:
         EU: 0x201E570
+        NA: 0x201E4D4
+        JP: 0x201E52C
       description: |-
         Send the "VTX_16" geometry engine command, that defines the coordinate of a point of a polygon, using 16 bits.
         Inputs are clamped over their 16 lower bits
@@ -3513,6 +3573,8 @@ arm9:
     - name: InitRender3dData
       address:
         EU: 0x201E5A0
+        NA: 0x201E504
+        JP: 0x201E55C
       description: |-
         Initialize the global "RENDER_3D" structure.
         
@@ -3520,6 +3582,8 @@ arm9:
     - name: GeomSwapBuffers
       address:
         EU: 0x201E7B8
+        NA: 0x201E71C
+        JP: 0x201E774
       description: |-
         Call the "SWAP_BUFFERS" command. This will swap the geometry buffer. The parameter of 1 is provided, which enables manual Y-sorting of translucent polygons.
         
@@ -3528,6 +3592,7 @@ arm9:
       address:
         EU: 0x201E7CC
         NA: 0x201E730
+        JP: 0x201E788
       description: |-
         Initialize the render_3d_element structure (without performing any drawing or external data access)
         
@@ -3535,6 +3600,8 @@ arm9:
     - name: Generate3dCanvasBorder
       address:
         EU: 0x201EA88
+        NA: 0x201E9EC
+        JP: 0x201EA44
       description: |-
         Draw the border for dialogue box and other menus, using the 3D engine.
         The render_3d_element contains certain value that needs to be set to a correct value for it to work.
@@ -3785,6 +3852,7 @@ arm9:
       address:
         EU: 0x20250C8
         NA: 0x2024DFC
+        JP: 0x2024E4C
       description: |-
         Returns "One-Item Inventory" or "Treasure Bag" depending on the size of the bag.
         
@@ -3994,6 +4062,8 @@ arm9:
     - name: LoadCursors
       address:
         EU: 0x2029800
+        NA: 0x202950C
+        JP: 0x2029864
       description: |-
         Load and initialise the cursor and cursor16 sprites, storing the result in CURSOR_ANIMATION_CONTROL and CURSOR_16_ANIMATION_CONTROL
         
@@ -4020,6 +4090,8 @@ arm9:
     - name: LoadAlert
       address:
         EU: 0x202A1DC
+        NA: 0x2029EE8
+        JP: 0x202A240
       description: |-
         Load and initialise the alert sprite, storing the result in ALERT_ANIMATION_CONTROL
         
@@ -4028,6 +4100,7 @@ arm9:
       address:
         EU: 0x202A6D8
         NA: 0x202A3E4
+        JP: 0x202A73C
       description: |-
         Prints the specified clear mark on the screen.
         
@@ -4655,6 +4728,7 @@ arm9:
       address:
         EU: 0x204CC70
         NA: 0x204C938
+        JP: 0x204CC98
       description: |-
         Gets the special episode type from the EXECUTE_SPECIAL_EPISODE_TYPE script variable.
         
@@ -4928,14 +5002,18 @@ arm9:
         r1: total_length
     - name: InitKaomadoStream
       address:
+        EU: 0x204DAB8
         NA: 0x204D780
+        JP: 0x204DAE0
       description: |-
         Initializes the stream used to load all Kaomado portraits, called once on game start!
         
         No params.
     - name: InitPortraitBox
       address:
+        EU: 0x204DAD4
         NA: 0x204D79C
+        JP: 0x204DAFC
       description: |-
         Initializes a struct portrait_box.
         
@@ -4988,7 +5066,9 @@ arm9:
         r1: (x, y) offset in tiles from the original offset, derived from the layout
     - name: AllowPortraitDefault
       address:
+        EU: 0x204DBCC
         NA: 0x204D894
+        JP: 0x204DBF4
       description: |-
         Allows the portrait to try and load the default emote (PORTRAIT_NORMAL) if it can't find the specified emote.
         
@@ -4996,7 +5076,9 @@ arm9:
         r1: allow default
     - name: IsValidPortrait
       address:
+        EU: 0x204DBD4
         NA: 0x204D89C
+        JP: 0x204DBFC
       description: |-
         Returns whether this portrait box represents a valid portrait.
         
@@ -5021,6 +5103,7 @@ arm9:
       address:
         EU: 0x204EC84
         NA: 0x204E94C
+        JP: 0x204ECA4
       description: |-
         Used to set the dungeon that will be accessed when switching from ground to dungeon mode.
         
@@ -5029,6 +5112,7 @@ arm9:
       address:
         EU: 0x204ED94
         NA: 0x204EA5C
+        JP: 0x204EDB4
       description: |-
         Initializes the dungeon_init struct before entering a dungeon.
         
@@ -5038,6 +5122,7 @@ arm9:
       address:
         EU: 0x204F318
         NA: 0x204EFE0
+        JP: 0x204F338
       description: |-
         Returns true if the specified dungeon shouldn't have a loss penalty.
         
@@ -5048,6 +5133,7 @@ arm9:
       address:
         EU: 0x204F6FC
         NA: 0x204F3C4
+        JP: 0x204F71C
       description: |-
         Seems to be used to check if you have any missions that have unmet restrictions when trying to access a dungeon.
         
@@ -5131,6 +5217,7 @@ arm9:
       address:
         EU: 0x204FB4C
         NA: 0x204F814
+        JP: 0x204FB68
       description: |-
         Gets the mission rank for the given dungeon and floor.
         
@@ -5169,6 +5256,7 @@ arm9:
       address:
         EU: 0x204FC18
         NA: 0x204F8E0
+        JP: 0x204FC34
       description: |-
         Adds a guest monster to the active team
         
@@ -5668,6 +5756,7 @@ arm9:
       address:
         EU: 0x2050EF0
         NA: 0x2050BB8
+        JP: 0x2050F08
       description: |-
         Returns the number of points required to reach the next rank.
         
@@ -5678,6 +5767,7 @@ arm9:
       address:
         EU: 0x2050FAC
         NA: 0x2050C74
+        JP: 0x2050FC4
       description: |-
         Returns the team's rank
         
@@ -6476,6 +6566,7 @@ arm9:
       address:
         EU: 0x20531CC
         NA: 0x2052E50
+        JP: 0x2053188
       description: |-
         Inits a ground_monster entry with the given guest_monster struct.
         
@@ -6511,6 +6602,7 @@ arm9:
       address:
         EU: 0x2053BC8
         NA: 0x205384C
+        JP: 0x2053B84
       description: |-
         Decodes a 2-byte value that may be encoded using 1 or 2 bytes and writes it to the specified buffer.
         
@@ -6821,7 +6913,9 @@ arm9:
         r0: recruit_str
     - name: IsValidTeamMember
       address:
+        EU: 0x205570C
         NA: 0x2055390
+        JP: 0x205572C
       description: |-
         Returns whether or not the team member at the given index is valid for the current game mode.
         
@@ -6831,7 +6925,9 @@ arm9:
         return: bool
     - name: IsMainCharacter
       address:
+        EU: 0x20558A4
         NA: 0x2055528
+        JP: 0x20558C4
       description: |-
         Returns whether or not the team member at the given index is a "main character".
         
@@ -6965,7 +7061,9 @@ arm9:
         return: team member index of the first available slot
     - name: IsMonsterNotNicknamed
       address:
+        EU: 0x20563EC
         NA: 0x2056070
+        JP: 0x205640C
       description: |-
         Checks if the string_buffer matches the name of the species
         
@@ -6995,7 +7093,9 @@ arm9:
         return: bool
     - name: SetActiveTeam
       address:
+        EU: 0x2056648
         NA: 0x20562CC
+        JP: 0x2056668
       description: |-
         Sets the specified team to active in TEAM_MEMBER_TABLE.
         
@@ -7545,6 +7645,7 @@ arm9:
       address:
         EU: 0x2066098
         NA: 0x2065D1C
+        JP: 0x2066004
       description: |-
         This function gets called shortly after the game is started. Contains a single infinite loop and has no return statement.
         
@@ -7573,6 +7674,7 @@ arm9:
       address:
         EU: 0x206AB04
         NA: 0x206A76C
+        JP: 0x206AA60
       description: |-
         Returns the status of the given dungeon, with some modifications.
         
@@ -7600,11 +7702,15 @@ arm9:
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: ParseDseEvents
       address:
+        EU: 0x20715BC
         NA: 0x2071224
+        JP: 0x207150C
       description: "From https://projectpokemon.org/docs/mystery-dungeon-nds/procyon-studios-digital-sound-elements-r12/"
     - name: UpdateSequencerTracks
       address:
+        EU: 0x2071780
         NA: 0x20713E8
+        JP: 0x20716D0
       description: "From https://projectpokemon.org/docs/mystery-dungeon-nds/procyon-studios-digital-sound-elements-r12/"
     - name: UpdateChannels
       address:
@@ -7617,12 +7723,15 @@ arm9:
         No params.
     - name: UpdateTrackVolumeEnvelopes
       address:
+        EU: 0x20751A4
         NA: 0x2074E0C
+        JP: 0x20750F4
       description: "From https://projectpokemon.org/docs/mystery-dungeon-nds/procyon-studios-digital-sound-elements-r12/"
     - name: EnableVramBanksInSetDontSave
       address:
         EU: 0x2076744
         NA: 0x20763AC
+        JP: 0x2076694
       description: |-
         Enable the VRAM bank marked in the input set, but don’t mark them as enabled in ENABLED_VRAM_BANKS
         
@@ -7631,6 +7740,7 @@ arm9:
       address:
         EU: 0x2077460
         NA: 0x20770C8
+        JP: 0x20773B0
       description: |-
         Enable the VRAM banks in the input set. Will reset the pointed set to 0, and update ENABLED_VRAM_BANKS
         
@@ -7639,6 +7749,7 @@ arm9:
       address:
         EU: 0x207BB68
         NA: 0x207B7D0
+        JP: 0x207BAB8
       description: |-
         Enables processor interrupts by clearing the i flag in the program status register (cpsr).
         
@@ -7647,6 +7758,7 @@ arm9:
       address:
         EU: 0x207BB7C
         NA: 0x207B7E4
+        JP: 0x207BACC
       description: |-
         Disables processor interrupts by setting the i flag in the program status register (cpsr).
         
@@ -7655,6 +7767,7 @@ arm9:
       address:
         EU: 0x207BB90
         NA: 0x207B7F8
+        JP: 0x207BAE0
       description: |-
         Sets the value of the processor's interrupt flag according to the specified parameter.
         
@@ -7664,6 +7777,7 @@ arm9:
       address:
         EU: 0x207BBA8
         NA: 0x207B810
+        JP: 0x207BAF8
       description: |-
         Disables processor all interrupts (both standard and fast) by setting the i and f flags in the program status register (cpsr).
         
@@ -7672,6 +7786,7 @@ arm9:
       address:
         EU: 0x207BBBC
         NA: 0x207B824
+        JP: 0x207BB0C
       description: |-
         Sets the value of the processor's interrupt flags (i and f) according to the specified parameter.
         
@@ -7681,6 +7796,7 @@ arm9:
       address:
         EU: 0x207BBD4
         NA: 0x207B83C
+        JP: 0x207BB24
       description: |-
         Gets the current value of the processor's interrupt request (i) flag
         
@@ -7689,6 +7805,7 @@ arm9:
       address:
         EU: 0x207BFB8
         NA: 0x207BC20
+        JP: 0x207BF08
       description: |-
         Calls EnableIrqFlag and WaitForInterrupt in an infinite loop.
         
