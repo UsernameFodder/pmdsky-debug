@@ -68,6 +68,8 @@ import arm5find
 import offsets
 from resymgen import resymgen
 
+REAL_BINARY_NAMES = [b for b in offsets.BINARY_NAMES if not b.endswith(".itcm")]
+
 
 class SymbolTable:
     """A symbol table from pmdsky-debug"""
@@ -79,7 +81,7 @@ class SymbolTable:
             self.path = arg
             return
         binary: str = arg
-        if binary not in offsets.BINARY_NAMES:
+        if binary not in REAL_BINARY_NAMES:
             raise ValueError(f'Invalid binary: "{binary}"')
         if binary.startswith("overlay"):
             # overlay0 -> overlay00, etc.
@@ -551,7 +553,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "-b",
         "--binary",
-        choices=offsets.BINARY_NAMES,
+        choices=REAL_BINARY_NAMES,
         action="append",
         help="EoS binary",
     )
@@ -584,7 +586,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if not args.binary:
-        args.binary = offsets.BINARY_NAMES
+        args.binary = REAL_BINARY_NAMES
 
     data_dirs = {
         vers: getattr(args, f"dir_{vers.lower()}")
