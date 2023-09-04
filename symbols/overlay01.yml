@@ -109,23 +109,29 @@ overlay1:
       address:
         EU: 0x233BCB4
         NA: 0x233B568
+        JP: 0x233CDE8
       length:
         EU: 0x20
         NA: 0x20
+        JP: 0x20
     - name: SUBMENU
       address:
         EU: 0x233BCD4
         NA: 0x233B588
+        JP: 0x233CE08
       length:
         EU: 0x48
         NA: 0x48
+        JP: 0x48
     - name: MAIN_MENU
       address:
         EU: 0x233BD1C
         NA: 0x233B5D0
+        JP: 0x233CE50
       length:
         EU: 0xA0
         NA: 0xA0
+        JP: 0xA0
     - name: OVERLAY1_D_BOX_LAYOUT_5
       address:
         NA: 0x233B71C
@@ -167,9 +173,11 @@ overlay1:
       address:
         EU: 0x233BF5C
         NA: 0x233B810
+        JP: 0x233D088
       length:
         EU: 0x60
         NA: 0x60
+        JP: 0x60
     - name: OVERLAY1_D_BOX_LAYOUT_10
       address:
         NA: 0x233B870
@@ -180,6 +188,8 @@ overlay1:
       address:
         EU: 0x233BFDC
         NA: 0x233B890
+        JP: 0x233D108
       length:
         EU: 0x38
         NA: 0x38
+        JP: 0x38
