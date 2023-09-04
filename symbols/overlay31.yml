@@ -102,26 +102,34 @@ overlay31:
     - name: DUNGEON_D_BOX_LAYOUT_1
       address:
         NA: 0x2389D94
+        JP: 0x238B05C
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DUNGEON_D_BOX_LAYOUT_2
       address:
         NA: 0x2389DA4
+        JP: 0x238B06C
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DUNGEON_D_BOX_LAYOUT_3
       address:
         NA: 0x2389DB4
+        JP: 0x238B07C
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DUNGEON_D_BOX_LAYOUT_4
       address:
         NA: 0x2389DC4
+        JP: 0x238B08C
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DUNGEON_MAIN_MENU
       address:
@@ -135,32 +143,42 @@ overlay31:
     - name: OVERLAY31_UNKNOWN_STRING_IDS
       address:
         NA: 0x2389E20
+        JP: 0x238B0E8
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY31_UNKNOWN_STRUCT__NA_2389E30
       address:
         NA: 0x2389E30
+        JP: 0x238B0F8
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DUNGEON_D_BOX_LAYOUT_5
       address:
         NA: 0x2389E40
+        JP: 0x238B108
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DUNGEON_D_BOX_LAYOUT_6
       address:
         NA: 0x2389E50
+        JP: 0x238B118
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DUNGEON_D_BOX_LAYOUT_7
       address:
         NA: 0x2389E60
+        JP: 0x238B128
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DUNGEON_SUBMENU_1
       address:
@@ -201,128 +219,170 @@ overlay31:
     - name: OVERLAY31_UNKNOWN_STRUCT__NA_2389EF0
       address:
         NA: 0x2389EF0
+        JP: 0x238B1B8
       length:
         NA: 0xC
+        JP: 0xC
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DUNGEON_D_BOX_LAYOUT_8
       address:
         NA: 0x2389EFC
+        JP: 0x238B1C4
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DUNGEON_D_BOX_LAYOUT_9
       address:
         NA: 0x2389F0C
+        JP: 0x238B1D4
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DUNGEON_D_BOX_LAYOUT_10
       address:
         NA: 0x2389F1C
+        JP: 0x238B1E4
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DUNGEON_D_BOX_LAYOUT_11
       address:
         NA: 0x2389F2C
+        JP: 0x238B1F4
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DUNGEON_D_BOX_LAYOUT_12
       address:
         NA: 0x2389F3C
+        JP: 0x238B204
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DUNGEON_D_BOX_LAYOUT_13
       address:
         NA: 0x2389F4C
+        JP: 0x238B214
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY31_JP_STRING
       address:
         NA: 0x2389F64
+        JP: 0x238B22C
       length:
         NA: 0x24
+        JP: 0x24
       description: "\\n\\n----　 初期ポジション=%d　----- \\n"
     - name: DUNGEON_D_BOX_LAYOUT_14
       address:
         NA: 0x2389F88
+        JP: 0x238B250
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DUNGEON_D_BOX_LAYOUT_15
       address:
         NA: 0x2389F98
+        JP: 0x238B260
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DUNGEON_D_BOX_LAYOUT_16
       address:
         NA: 0x2389FA8
+        JP: 0x238B270
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DUNGEON_D_BOX_LAYOUT_17
       address:
         NA: 0x2389FB8
+        JP: 0x238B280
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DUNGEON_D_BOX_LAYOUT_18
       address:
         NA: 0x2389FC8
+        JP: 0x238B290
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DUNGEON_D_BOX_LAYOUT_19
       address:
         NA: 0x2389FD8
+        JP: 0x238B2A0
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY31_UNKNOWN_STRUCT__NA_2389FE8
       address:
         NA: 0x2389FE8
+        JP: 0x238B2B0
       length:
         NA: 0xC
+        JP: 0xC
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DUNGEON_D_BOX_LAYOUT_20
       address:
         NA: 0x2389FF4
+        JP: 0x238B2BC
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DUNGEON_D_BOX_LAYOUT_21
       address:
         NA: 0x238A004
+        JP: 0x238B2CC
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DUNGEON_D_BOX_LAYOUT_22
       address:
         NA: 0x238A014
+        JP: 0x238B2DC
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DUNGEON_D_BOX_LAYOUT_23
       address:
         NA: 0x238A024
+        JP: 0x238B2EC
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DUNGEON_D_BOX_LAYOUT_24
       address:
         NA: 0x238A034
+        JP: 0x238B2FC
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DUNGEON_D_BOX_LAYOUT_25
       address:
         NA: 0x238A10C
+        JP: 0x238B3D4
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DUNGEON_SUBMENU_5
       address:
@@ -336,32 +396,42 @@ overlay31:
     - name: DUNGEON_D_BOX_LAYOUT_26
       address:
         NA: 0x238A134
+        JP: 0x238B3FC
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY31_UNKNOWN_STRUCT__NA_238A144
       address:
         NA: 0x238A144
+        JP: 0x238B40C
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DUNGEON_D_BOX_LAYOUT_27
       address:
         NA: 0x238A170
+        JP: 0x238B438
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DUNGEON_D_BOX_LAYOUT_28
       address:
         NA: 0x238A180
+        JP: 0x238B448
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY31_UNKNOWN_STRUCT__NA_238A190
       address:
         NA: 0x238A190
+        JP: 0x238B458
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DUNGEON_SUBMENU_6
       address:
@@ -375,102 +445,136 @@ overlay31:
     - name: DUNGEON_D_BOX_LAYOUT_29
       address:
         NA: 0x238A1E8
+        JP: 0x238B4B0
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DUNGEON_D_BOX_LAYOUT_30
       address:
         NA: 0x238A1F8
+        JP: 0x238B4C0
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DUNGEON_D_BOX_LAYOUT_31
       address:
         NA: 0x238A208
+        JP: 0x238B4D0
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DUNGEON_D_BOX_LAYOUT_32
       address:
         NA: 0x238A218
+        JP: 0x238B4E0
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY31_RESERVED_SPACE
       address:
         NA: 0x238A250
+        JP: 0x238B518
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY31_UNKNOWN_POINTER__NA_238A260
       address:
         NA: 0x238A260
+        JP: 0x238B528
       length:
         NA: 0x4
+        JP: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY31_UNKNOWN_VALUE__NA_238A264
       address:
         NA: 0x238A264
+        JP: 0x238B52C
       length:
         NA: 0x4
+        JP: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY31_UNKNOWN_POINTER__NA_238A268
       address:
         NA: 0x238A268
+        JP: 0x238B530
       length:
         NA: 0x4
+        JP: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY31_UNKNOWN_POINTER__NA_238A26C
       address:
         NA: 0x238A26C
+        JP: 0x238B534
       length:
         NA: 0x4
+        JP: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY31_UNKNOWN_POINTER__NA_238A270
       address:
         NA: 0x238A270
+        JP: 0x238B538
       length:
         NA: 0x4
+        JP: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY31_UNKNOWN_POINTER__NA_238A274
       address:
         NA: 0x238A274
+        JP: 0x238B53C
       length:
         NA: 0x4
+        JP: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY31_UNKNOWN_POINTER__NA_238A278
       address:
         NA: 0x238A278
+        JP: 0x238B540
       length:
         NA: 0x4
+        JP: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY31_UNKNOWN_POINTER__NA_238A27C
       address:
         NA: 0x238A27C
+        JP: 0x238B544
       length:
         NA: 0x4
+        JP: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY31_UNKNOWN_POINTER__NA_238A280
       address:
         NA: 0x238A280
+        JP: 0x238B548
       length:
         NA: 0x4
+        JP: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY31_UNKNOWN_POINTER__NA_238A284
       address:
         NA: 0x238A284
+        JP: 0x238B54C
       length:
         NA: 0x4
+        JP: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY31_UNKNOWN_POINTER__NA_238A288
       address:
         NA: 0x238A288
+        JP: 0x238B550
       length:
         NA: 0x4
+        JP: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY31_UNKNOWN_POINTER__NA_238A28C
       address:
         NA: 0x238A28C
+        JP: 0x238B554
       length:
         NA: 0x4
+        JP: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"
