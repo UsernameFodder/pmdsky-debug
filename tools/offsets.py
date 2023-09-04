@@ -28,24 +28,41 @@ from typing import List, Optional, Union
 class Binary:
     """Represents a binary file"""
 
-    def __init__(self, address: int, length: int):
+    def __init__(self, address: int, length: int, file_offset: int = 0):
         self.address = address
         self.length = length
+        self.file_offset = file_offset
         if self.address < 0:
             raise ValueError("binary load address must be nonnegative")
         if self.length <= 0:
             raise ValueError("binary length must be positive")
+        if self.file_offset < 0:
+            raise ValueError("binary file offset must be nonnegative")
 
-    def __repr__(self) -> str:
-        return f"0x{self.address:X}..0x{self.address + self.length:X}"
+    def __str__(self) -> str:
+        s = f"0x{self.address:X}..0x{self.address + self.length:X}"
+        if self.file_offset != 0:
+            s += f" [file offset = 0x{self.file_offset:X}]"
+        return s
 
     def __contains__(self, address: int) -> bool:
         return address >= self.address and address < self.address + self.length
+
+    def absolute(self, relative: int) -> int:
+        if relative >= self.file_offset and relative < self.file_offset + self.length:
+            return self.address + relative - self.file_offset
+        raise ValueError(f"relative offset {hex(relative)} is out of binary range")
+
+    def relative(self, absolute: int) -> int:
+        if absolute in self:
+            return absolute - self.address + self.file_offset
+        raise ValueError(f"absolute offset {hex(absolute)} is out of binary range")
 
 
 BINARIES = {
     "NA": {
         "arm9": Binary(0x2000000, 0xB73F8),
+        "arm9.itcm": Binary(0x1FF8000, 0x4000, file_offset=0xB3380),
         "arm7": Binary(0x2380000, 0x27080),
         "overlay0": Binary(0x22BCA80, 0x609A0),
         "overlay1": Binary(0x2329520, 0x12D20),
@@ -86,6 +103,7 @@ BINARIES = {
     },
     "EU": {
         "arm9": Binary(0x2000000, 0xB7D38),
+        "arm9.itcm": Binary(0x1FF8000, 0x4000, file_offset=0xB3CC0),
         "arm7": Binary(0x2380000, 0x27080),
         "overlay0": Binary(0x22BD3C0, 0x60880),
         "overlay1": Binary(0x2329D40, 0x12C80),
@@ -126,6 +144,7 @@ BINARIES = {
     },
     "JP": {
         "arm9": Binary(0x2000000, 0xB8CB8),
+        "arm9.itcm": Binary(0x1FF8000, 0x4060, file_offset=0xB4BE0),
         "arm7": Binary(0x2380000, 0x27080),
         "overlay0": Binary(0x22BE220, 0x609A0),
         "overlay1": Binary(0x232ACC0, 0x12E00),
@@ -259,12 +278,13 @@ def convert_offsets(
                 else:
                     mapping.add(val, bname)
 
-            if is_relative:
-                if offset < b.length:
-                    add_to_mapping(b.address + offset)
-            elif is_absolute:
-                if offset in b:
-                    add_to_mapping(offset - b.address)
+            try:
+                if is_relative:
+                    add_to_mapping(b.absolute(offset))
+                elif is_absolute:
+                    add_to_mapping(b.relative(offset))
+            except ValueError:
+                continue
         offset_mappings.append(mapping)
 
     return offset_mappings
