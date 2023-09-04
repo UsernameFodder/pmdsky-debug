@@ -122,6 +122,7 @@ overlay10:
       address:
         EU: 0x22C2ECC
         NA: 0x22C2574
+        JP: 0x22C3C5C
       description: |-
         Given a tileset ID, returns whether it's a background or a regular tileset
         
