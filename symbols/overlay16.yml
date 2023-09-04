@@ -18,25 +18,31 @@ overlay16:
       address:
         EU: 0x238D84C
         NA: 0x238CD08
+        JP: 0x238E288
       length:
         EU: 0x18
         NA: 0x18
+        JP: 0x18
       description: "Irdkwia's notes: 3*0x8"
     - name: EVO_SUBMENU
       address:
         EU: 0x238D864
         NA: 0x238CD20
+        JP: 0x238E2A0
       length:
         EU: 0x20
         NA: 0x20
+        JP: 0x20
       description: "Irdkwia's notes: 4*0x8"
     - name: EVO_MAIN_MENU
       address:
         EU: 0x238D884
         NA: 0x238CD40
+        JP: 0x238E2C0
       length:
         EU: 0x20
         NA: 0x20
+        JP: 0x20
       description: "Irdkwia's notes: 4*0x8"
     - name: EVO_MENU_STRING_IDS
       address:
