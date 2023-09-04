@@ -36,30 +36,38 @@ overlay27:
       address:
         EU: 0x238D49C
         NA: 0x238C95C
+        JP: 0x238DEEC
       length:
         EU: 0x18
         NA: 0x18
+        JP: 0x18
     - name: DISCARD_ITEMS_SUBMENU_1
       address:
         EU: 0x238D4B4
         NA: 0x238C974
+        JP: 0x238DF04
       length:
         EU: 0x20
         NA: 0x20
+        JP: 0x20
     - name: DISCARD_ITEMS_SUBMENU_2
       address:
         EU: 0x238D4D4
         NA: 0x238C994
+        JP: 0x238DF24
       length:
         EU: 0x20
         NA: 0x20
+        JP: 0x20
     - name: DISCARD_ITEMS_MAIN_MENU
       address:
         EU: 0x238D4F4
         NA: 0x238C9B4
+        JP: 0x238DF44
       length:
         EU: 0x28
         NA: 0x28
+        JP: 0x28
     - name: OVERLAY27_UNKNOWN_STRING_IDS
       address:
         NA: 0x238C9DC

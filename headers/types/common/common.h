@@ -680,8 +680,9 @@ struct dungeon_init {
     bool recruiting_enabled; // 0x6: Copied into dungeon::recruiting_enabled
     // 0x7: If true, dungeon::recruiting_enabled gets set to false. Overrides recruiting_enabled.
     bool force_disable_recruiting;
-    undefined field_0x8;            // Copied into dungeon::field_0x75A
-    undefined field_0x9;            // Copied into dungeon::field_0x75B
+    undefined field_0x8; // Copied into dungeon::field_0x75A
+    // 0x9: Copied into dungeon::field_0x75B, but the value is immediately overwritten with TRUE.
+    bool field_0x9;
     bool send_home_disabled;        // 0xA: Copied into dungeon::send_home_disabled
     bool hidden_land_flag;          // 0xB: Copied into dungeon::hidden_land_flag
     bool skip_faint_animation_flag; // 0xC: Copied into dungeon::skip_faint_animation_flag

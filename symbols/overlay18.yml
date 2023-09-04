@@ -84,65 +84,83 @@ overlay18:
       address:
         EU: 0x238DE60
         NA: 0x238D320
+        JP: 0x238E88C
       length:
         EU: 0x18
         NA: 0x18
+        JP: 0x18
     - name: MOVES_SUBMENU_1
       address:
         EU: 0x238DE78
         NA: 0x238D338
+        JP: 0x238E8A4
       length:
         EU: 0x20
         NA: 0x20
+        JP: 0x20
     - name: MOVES_SUBMENU_2
       address:
         EU: 0x238DE98
         NA: 0x238D358
+        JP: 0x238E8C4
       length:
         EU: 0x20
         NA: 0x20
+        JP: 0x20
     - name: MOVES_MAIN_MENU
       address:
         EU: 0x238DEB8
         NA: 0x238D378
+        JP: 0x238E8E4
       length:
         EU: 0x20
         NA: 0x20
+        JP: 0x20
     - name: MOVES_SUBMENU_3
       address:
         EU: 0x238DED8
         NA: 0x238D398
+        JP: 0x238E904
       length:
         EU: 0x28
         NA: 0x28
+        JP: 0x28
     - name: MOVES_SUBMENU_4
       address:
         EU: 0x238DF00
         NA: 0x238D3C0
+        JP: 0x238E92C
       length:
         EU: 0x30
         NA: 0x30
+        JP: 0x30
     - name: MOVES_SUBMENU_5
       address:
         EU: 0x238DF30
         NA: 0x238D3F0
+        JP: 0x238E95C
       length:
         EU: 0x48
         NA: 0x48
+        JP: 0x48
     - name: MOVES_SUBMENU_6
       address:
         EU: 0x238DF78
         NA: 0x238D438
+        JP: 0x238E9A4
       length:
         EU: 0x48
         NA: 0x48
+        JP: 0x48
     - name: MOVES_SUBMENU_7
       address:
         EU: 0x238DFC0
         NA: 0x238D480
+        JP: 0x238E9EC
       length:
         EU: 0x48
         NA: 0x48
+        JP: 0x48
     - name: OVERLAY18_FUNCTION_POINTER_TABLE
       address:
         NA: 0x238D4C8

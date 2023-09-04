@@ -36,37 +36,47 @@ overlay23:
       address:
         EU: 0x238DE3C
         NA: 0x238D2FC
+        JP: 0x238E8B4
       length:
         EU: 0x18
         NA: 0x18
+        JP: 0x18
     - name: STORAGE_MAIN_MENU_1
       address:
         EU: 0x238DE54
         NA: 0x238D314
+        JP: 0x238E8CC
       length:
         EU: 0x20
         NA: 0x20
+        JP: 0x20
     - name: STORAGE_MAIN_MENU_2
       address:
         EU: 0x238DE74
         NA: 0x238D334
+        JP: 0x238E8EC
       length:
         EU: 0x20
         NA: 0x20
+        JP: 0x20
     - name: STORAGE_MAIN_MENU_3
       address:
         EU: 0x238DE94
         NA: 0x238D354
+        JP: 0x238E90C
       length:
         EU: 0x20
         NA: 0x20
+        JP: 0x20
     - name: STORAGE_MAIN_MENU_4
       address:
         EU: 0x238DEB4
         NA: 0x238D374
+        JP: 0x238E92C
       length:
         EU: 0x28
         NA: 0x28
+        JP: 0x28
     - name: OVERLAY23_UNKNOWN_STRING_IDS
       address:
         NA: 0x238D39C

@@ -127,9 +127,11 @@ overlay31:
       address:
         EU: 0x238A9F8
         NA: 0x2389DD4
+        JP: 0x238B09C
       length:
         EU: 0x40
         NA: 0x40
+        JP: 0x40
     - name: OVERLAY31_UNKNOWN_STRING_IDS
       address:
         NA: 0x2389E20
@@ -164,30 +166,38 @@ overlay31:
       address:
         EU: 0x238AA94
         NA: 0x2389E70
+        JP: 0x238B138
       length:
         EU: 0x20
         NA: 0x20
+        JP: 0x20
     - name: DUNGEON_SUBMENU_2
       address:
         EU: 0x238AAB4
         NA: 0x2389E90
+        JP: 0x238B158
       length:
         EU: 0x20
         NA: 0x20
+        JP: 0x20
     - name: DUNGEON_SUBMENU_3
       address:
         EU: 0x238AAD4
         NA: 0x2389EB0
+        JP: 0x238B178
       length:
         EU: 0x20
         NA: 0x20
+        JP: 0x20
     - name: DUNGEON_SUBMENU_4
       address:
         EU: 0x238AAF4
         NA: 0x2389ED0
+        JP: 0x238B198
       length:
         EU: 0x20
         NA: 0x20
+        JP: 0x20
     - name: OVERLAY31_UNKNOWN_STRUCT__NA_2389EF0
       address:
         NA: 0x2389EF0
@@ -318,9 +328,11 @@ overlay31:
       address:
         EU: 0x238AD40
         NA: 0x238A11C
+        JP: 0x238B3E4
       length:
         EU: 0x18
         NA: 0x18
+        JP: 0x18
     - name: DUNGEON_D_BOX_LAYOUT_26
       address:
         NA: 0x238A134
@@ -355,9 +367,11 @@ overlay31:
       address:
         EU: 0x238ADC4
         NA: 0x238A1A0
+        JP: 0x238B468
       length:
         EU: 0x48
         NA: 0x48
+        JP: 0x48
     - name: DUNGEON_D_BOX_LAYOUT_29
       address:
         NA: 0x238A1E8

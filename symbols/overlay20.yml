@@ -24,37 +24,47 @@ overlay20:
       address:
         EU: 0x238DAC4
         NA: 0x238CF84
+        JP: 0x238E4E0
       length:
         EU: 0x18
         NA: 0x18
+        JP: 0x18
     - name: RECYCLE_MENU_CONFIRM_2
       address:
         EU: 0x238DADC
         NA: 0x238CF9C
+        JP: 0x238E4F8
       length:
         EU: 0x18
         NA: 0x18
+        JP: 0x18
     - name: RECYCLE_SUBMENU_1
       address:
         EU: 0x238DAF4
         NA: 0x238CFB4
+        JP: 0x238E510
       length:
         EU: 0x18
         NA: 0x18
+        JP: 0x18
     - name: RECYCLE_SUBMENU_2
       address:
         EU: 0x238DB0C
         NA: 0x238CFCC
+        JP: 0x238E528
       length:
         EU: 0x20
         NA: 0x20
+        JP: 0x20
     - name: RECYCLE_MAIN_MENU_1
       address:
         EU: 0x238DB2C
         NA: 0x238CFEC
+        JP: 0x238E548
       length:
         EU: 0x28
         NA: 0x28
+        JP: 0x28
     - name: OVERLAY20_UNKNOWN_TABLE__NA_238D014
       address:
         NA: 0x238D014
@@ -101,9 +111,11 @@ overlay20:
       address:
         EU: 0x238DBC8
         NA: 0x238D088
+        JP: 0x238E5E4
       length:
         EU: 0x20
         NA: 0x20
+        JP: 0x20
     - name: RECYCLE_D_BOX_LAYOUT_7
       address:
         NA: 0x238D0A8

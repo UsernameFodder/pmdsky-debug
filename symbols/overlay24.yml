@@ -30,16 +30,20 @@ overlay24:
       address:
         EU: 0x238D060
         NA: 0x238C520
+        JP: 0x238DA88
       length:
         EU: 0x18
         NA: 0x18
+        JP: 0x18
     - name: DAYCARE_MAIN_MENU
       address:
         EU: 0x238D078
         NA: 0x238C538
+        JP: 0x238DAA0
       length:
         EU: 0x20
         NA: 0x20
+        JP: 0x20
     - name: OVERLAY24_UNKNOWN_STRING_IDS
       address:
         NA: 0x238C558
