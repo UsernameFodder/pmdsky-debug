@@ -17,24 +17,29 @@ arm9:
       address:
         EU: 0x20118B8
         NA: 0x2011810
+        JP: 0x20117E0
       length:
         EU: 0x1
         NA: 0x1
+        JP: 0x1
       description: IQ gain when ingesting nectar at the Juice Bar.
     - name: TEXT_SPEED
       address:
         EU: 0x2020DF0
         NA: 0x2020C98
+        JP: 0x2020CE8
       description: Controls text speed.
     - name: HERO_START_LEVEL
       address:
         EU: 0x2048B9C
         NA: 0x2048880
+        JP: 0x2048BEC
       description: Starting level of the hero.
     - name: PARTNER_START_LEVEL
       address:
         EU: 0x2048C0C
         NA: 0x20488F0
+        JP: 0x2048C5C
       description: Starting level of the partner.
 overlay0:
   versions:
@@ -56,6 +61,7 @@ overlay0:
       address:
         EU: 0x22BE9B4
         NA: 0x22BE1A0
+        JP: 0x22BF948
       description: Music ID to play in the top menu.
 overlay10:
   versions:
@@ -275,6 +281,7 @@ overlay9:
       address:
         EU: 0x233E080
         NA: 0x233D900
+        JP: 0x233F120
       description: Song playing in the main menu when returning from the Sky Jukebox.
 overlay30:
   versions:

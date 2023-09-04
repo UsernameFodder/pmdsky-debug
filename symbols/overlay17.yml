@@ -48,72 +48,92 @@ overlay17:
       address:
         EU: 0x238C6C4
         NA: 0x238BB84
+        JP: 0x238D0E0
       length:
         EU: 0x18
         NA: 0x18
+        JP: 0x18
     - name: ASSEMBLY_MAIN_MENU_1
       address:
         EU: 0x238C6DC
         NA: 0x238BB9C
+        JP: 0x238D0F8
       length:
         EU: 0x18
         NA: 0x18
+        JP: 0x18
     - name: ASSEMBLY_MAIN_MENU_2
       address:
         EU: 0x238C6F4
         NA: 0x238BBB4
+        JP: 0x238D110
       length:
         EU: 0x20
         NA: 0x20
+        JP: 0x20
     - name: ASSEMBLY_SUBMENU_1
       address:
         EU: 0x238C714
         NA: 0x238BBD4
+        JP: 0x238D130
       length:
         EU: 0x28
         NA: 0x28
+        JP: 0x28
     - name: ASSEMBLY_SUBMENU_2
       address:
         EU: 0x238C73C
         NA: 0x238BBFC
+        JP: 0x238D158
       length:
         EU: 0x30
         NA: 0x30
+        JP: 0x30
     - name: ASSEMBLY_SUBMENU_3
       address:
         EU: 0x238C76C
         NA: 0x238BC2C
+        JP: 0x238D188
       length:
         EU: 0x30
         NA: 0x30
+        JP: 0x30
     - name: ASSEMBLY_SUBMENU_4
       address:
         EU: 0x238C79C
         NA: 0x238BC5C
+        JP: 0x238D1B8
       length:
         EU: 0x38
         NA: 0x38
+        JP: 0x38
     - name: ASSEMBLY_SUBMENU_5
       address:
         EU: 0x238C7D4
         NA: 0x238BC94
+        JP: 0x238D1F0
       length:
         EU: 0x38
         NA: 0x38
+        JP: 0x38
     - name: ASSEMBLY_SUBMENU_6
       address:
         EU: 0x238C80C
         NA: 0x238BCCC
+        JP: 0x238D228
       length:
         EU: 0x38
         NA: 0x38
+        JP: 0x38
     - name: ASSEMBLY_SUBMENU_7
       address:
         EU: 0x238C844
         NA: 0x238BD04
+        JP: 0x238D260
       length:
         EU: 0x40
         NA: 0x40
+        JP: 0x40
     - name: OVERLAY17_FUNCTION_POINTER_TABLE
       address:
         NA: 0x238BD44

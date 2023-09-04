@@ -329,9 +329,11 @@ ram:
       address:
         EU: 0x22AB9EC
         NA: 0x22AB0AC
+        JP: 0x22AC868
       length:
         EU: 0x400
         NA: 0x400
+        JP: 0x400
       description: |-
         The table of game variable values. Its structure is determined by SCRIPT_VARS.
         
@@ -350,9 +352,11 @@ ram:
       address:
         EU: 0x22ABDEC
         NA: 0x22AB4AC
+        JP: 0x22ACC68
       length:
         EU: 0x1
         NA: 0x1
+        JP: 0x1
       description: |-
         The number of the special episode currently being played.
         

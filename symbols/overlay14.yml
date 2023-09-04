@@ -490,9 +490,11 @@ overlay14:
       address:
         EU: 0x238E640
         NA: 0x238DAA0
+        JP: 0x238F008
       length:
         EU: 0x48
         NA: 0x48
+        JP: 0x48
     - name: SENTRY_DUTY_PTR
       address:
         NA: 0x238DB80

@@ -18,9 +18,11 @@ overlay15:
       address:
         EU: 0x238BBC0
         NA: 0x238B054
+        JP: 0x238C5CC
       length:
         EU: 0x28
         NA: 0x28
+        JP: 0x28
     - name: BANK_D_BOX_LAYOUT_1
       address:
         NA: 0x238B07C

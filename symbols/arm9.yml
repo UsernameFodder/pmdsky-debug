@@ -10061,9 +10061,11 @@ arm9:
       address:
         EU: 0x20AFAD4
         NA: 0x20AF234
+        JP: 0x20B0674
       length:
         EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: |-
         [Runtime] The overlay group ID of the overlay currently loaded in slot 1. A group ID of 0 denotes no overlay.
         
@@ -10116,14 +10118,17 @@ arm9:
       address:
         EU: 0x20AFF70
         NA: 0x20AF6B8
+        JP: 0x20B0AF8
       description: "[Runtime]"
     - name: BAG_ITEMS_PTR_MIRROR
       address:
         EU: 0x20AFF70
         NA: 0x20AF6B8
+        JP: 0x20B0AF8
       length:
         EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: |-
         [Runtime] Probably a mirror of ram.yml::BAG_ITEMS_PTR?
         
@@ -10176,6 +10181,7 @@ arm9:
       address:
         EU: 0x20B05A8
         NA: 0x20AFCE8
+        JP: 0x20B1128
       description: "[Runtime]"
     - name: TBL_TALK_GROUP_STRING_ID_START
       address:
