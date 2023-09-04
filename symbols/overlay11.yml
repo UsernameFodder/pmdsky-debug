@@ -627,11 +627,13 @@ overlay11:
       address:
         EU: 0x23257E4
         NA: 0x2324CA4
+        JP: 0x2326204
       description: "[Runtime]"
     - name: GROUND_STATE_MAP
       address:
         EU: 0x2325800
         NA: 0x2324CC0
+        JP: 0x2326220
       description: "[Runtime]"
     - name: GROUND_STATE_WEATHER
       address:
@@ -641,9 +643,11 @@ overlay11:
       address:
         EU: 0x2325834
         NA: 0x2324CF4
+        JP: 0x2326254
       length:
         EU: 0x18
         NA: 0x18
+        JP: 0x18
       description: |-
         Host pointers to multiple structure used for performing an overworld scene
         
