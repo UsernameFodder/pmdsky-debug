@@ -68,13 +68,17 @@ import arm5find
 import offsets
 from resymgen import resymgen
 
-REAL_BINARY_NAMES = [b for b in offsets.BINARY_NAMES if not b.endswith(".itcm")]
+ITCM_BINARY_SUFFIX = ".itcm"
+REAL_BINARY_NAMES = [
+    b for b in offsets.BINARY_NAMES if not b.endswith(ITCM_BINARY_SUFFIX)
+]
 
 
 class SymbolTable:
     """A symbol table from pmdsky-debug"""
 
     SYMBOL_DIR: Path = Path(__file__).resolve().parent.parent / "symbols"
+    ITCM_VERSION_SUFFIX: str = "-ITCM"
 
     def __init__(self, arg: Union[str, Path]):
         if isinstance(arg, Path):
@@ -118,6 +122,10 @@ class SymbolTable:
             # formatting everything at once at the end of the program, but this
             # gives better atomicity if the program terminates prematurely.
             SymbolTable.fmt(str(self.path))
+
+    @staticmethod
+    def version_is_itcm(version: str) -> bool:
+        return version.endswith(SymbolTable.ITCM_VERSION_SUFFIX)
 
 
 def find_binary_files(dirname: str, binaries: Iterable[str]) -> Dict[str, str]:
@@ -279,6 +287,9 @@ def function_fill_versions(
         raise ValueError("minimum instruction count must be positive")
 
     versions = set(file_by_version.keys())
+    is_itcm_symbol = any(
+        SymbolTable.version_is_itcm(v) for v in function["address"].keys()
+    )
     known = versions & set(function["address"].keys())
     if not known or len(known) == len(versions):
         # This address is totally unknown (should be impossible
@@ -445,12 +456,41 @@ def function_fill_versions(
                     counter.discarded += 1
                     continue
 
-            report(
-                f"{log_prefix}found address 0x{match_addr:X}",
-                0 if dry_run else 2,
-            )
+            # If the original symbol has any ITCM addresses, also try to add
+            # the ITCM address for the target version
+            itcm_addr = None
+            if is_itcm_symbol:
+                # Convert to the ITCM absolute address
+                itcm_mappings = offsets.convert_offsets(
+                    dst_vers, [bin_name + ITCM_BINARY_SUFFIX], [match.start()]
+                )
+                # Do the check regardless of whether or not we end up adding
+                if not itcm_mappings:
+                    report(
+                        f"{log_prefix}discarding non-ITCM inferred address "
+                        + f"0x{match_addr:X} for ITCM function symbol",
+                        1,
+                    )
+                    counter.discarded += 1
+                    continue
+                # Don't override an existing ITCM address for this version
+                if (
+                    dst_vers + SymbolTable.ITCM_VERSION_SUFFIX
+                    not in function["address"]
+                ):
+                    itcm_addr = itcm_mappings[0].get_mapped()[0]
+
+            report_str = f"{log_prefix}found address 0x{match_addr:X}"
+            if itcm_addr is not None:
+                report_str += f" (ITCM: 0x{itcm_addr:X})"
+            report(report_str, 0 if dry_run else 2)
             if not dry_run:
                 function["address"][dst_vers] = match_addr
+                if itcm_addr is not None:
+                    function["address"][
+                        dst_vers + SymbolTable.ITCM_VERSION_SUFFIX
+                    ] = itcm_addr
+            # ITCM addresses don't count towards the total filled counter
             counter.filled += 1
         else:
             report(f"{log_prefix}no match found", 1)
