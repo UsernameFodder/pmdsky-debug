@@ -29,12 +29,14 @@ headers-packed:
 
 # Variant of the headers that excludes declarations for common builtin functions. This mode is
 # intended for dev use, if the builtin declarations cause unexpected compilation issues.
+.PHONY: headers-no-builtin
 headers-no-builtin:
 	$(CC) -m32 -fshort-wchar -fsyntax-only -mno-ms-bitfields -DPMDSKY_NO_BUILTIN pmdsky.h
 
 # Unsized variant of the headers. This isn't included in the default target because it assumes
 # the presence of system headers. Don't use any funky options here, since this mode is intended
 # for normal dev use.
+.PHONY: headers-unsized
 headers-unsized:
 	$(CC) -fsyntax-only -DPMDSKY_UNSIZED_HEADERS pmdsky.h
 
