@@ -8,6 +8,7 @@
     - [Struct packing](#struct-packing)
     - [Pointer size](#pointer-size)
     - [Enum size](#enum-size)
+    - [Version differences](#version-differences)
   - [Contributing](#contributing)
     - [Provide explicit struct sizes with `ASSERT_SIZE` when possible](#provide-explicit-struct-sizes-with-assert_size-when-possible)
     - [Add comments for types and fields](#add-comments-for-types-and-fields)
@@ -18,7 +19,7 @@
 
 The C headers in this directory contain _type information_, including struct definitions, enum definitions, function signatures, and global variable declarations. They also contain _documentation_ in the form of comments. They don't contain "code" in the sense of executable instructions (that would be in the realm of a decompilation project).
 
-The top-level entrypoint for the headers is [`pmdsky.h`](pmdsky.h). These headers are real, valid C that can be compiled with standard tools (`gcc` or `clang`). They also use a subset of C supported by Ghidra's C parser with no additional environment configuration (so no GCC extensions, etc.). This makes them versatile and compatible with the mature ecosystem of tools available for C programming.
+The top-level entrypoint for the headers is [`pmdsky.h`](pmdsky.h) (there are also version-specific variants, named `pmdsky_*.h`, which are wrappers around `pmdsky.h`). These headers are real, valid C that can be compiled with standard tools (`gcc` or `clang`). They also use a subset of C supported by Ghidra's C parser with no additional environment configuration (so no GCC extensions, etc.). This makes them versatile and compatible with the mature ecosystem of tools available for C programming.
 
 ## Working with the C headers
 This section is geared towards beginners, and aims to ensure a baseline level of knowledge so that the C headers can be used as documentation by experts and non-experts alike. It describes some of the basics about C types in relation to raw memory layouts, and is not totally related to _Explorers of Sky_ itself. If you already have a good grasp on the fundamentals, this section can be skipped or skimmed.
@@ -196,6 +197,55 @@ struct two_byte_struct {
 ```
 
 _Note_: Technically enum size is a detail that depends on the C compiler implementation, but in practice, most standard compilers targeting standard platforms represent enums as 4 bytes by default, including Ghidra's C parser. Both `gcc` and `clang` support the `-fshort-enums` option, but Ghidra's C parser doesn't, so auxiliary structs and bitfields are a sane and portable way to represent smaller-sized enums in struct fields.
+
+### Version differences
+Occasionally, the C headers may need to define things differently between different game versions. For example, a struct in the North American version of the game might have a field that doesn't exist in the Japanese version of the game, or an enum may have an entirely different set of values.
+
+In these cases, you can use the `PMDSKY_VERSION` preprocessor variable alongside the versions defined in [`versions.h`](versions.h) to define different C header content for different versions. For example:
+
+```c
+struct version_dependent_struct {
+    uint32_t common;
+
+#if PMDSKY_VERSION == PMDSKY_EU
+    // This field only exists in the EU version
+    uint32_t eu_only_field;
+#endif
+
+#if PMDSKY_VERSION == PMDSKY_JP
+#else
+    // This field exists in the NA and EU versions, but not the JP version
+    uint32_t not_in_jp;
+#endif
+};
+// If the size varies by version, you'll also need a version-dependent ASSERT_SIZE.
+// Note that a more compact way to type this would be to make only the arguments to
+// ASSERT_SIZE conditional. This would be valid C, but it unfortunately gives the
+// Ghidra C parser trouble, so stick to writing the full ASSERT_SIZE for each version.
+#if PMDSKY_VERSION == PMDSKY_NA
+ASSERT_SIZE(struct version_dependent_struct, 8);
+#elif PMDSKY_VERSION == PMDSKY_EU
+ASSERT_SIZE(struct version_dependent_struct, 12);
+#elif PMDSKY_VERSION == PMDSKY_JP
+ASSERT_SIZE(struct version_dependent_struct, 4);
+#endif
+
+enum version_dependent_enum {
+#if PMDSKY_VERSION == PMDSKY_NA
+    // Enum levels in the NA version
+    LABEL_ABC = 0,
+    LABEL_DEF = 1,
+#elif PMDSKY_VERSION == PMDSKY_EU
+    // Enum levels in the EU version
+    LABEL_123 = 0,
+    LABEL_456 = 1,
+#elif PMDSKY_VERSION == PMDSKY_JP
+    // Enum levels in the JP version
+    LABEL_X = 0,
+    LABEL_Y = 1,
+#endif
+};
+```
 
 ## Contributing
 In addition to the concepts discussed in the [previous section](#working-with-the-c-headers), there are a few more conventions to follow when contributing to the C headers.
