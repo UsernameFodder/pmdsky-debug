@@ -602,6 +602,7 @@ overlay11:
       length:
         EU: 0x288
         NA: 0x288
+        JP: 0x288
       description: |-
         Irdkwia's notes: FIXED_FLOOR_GROUND_ASSOCIATION
         
