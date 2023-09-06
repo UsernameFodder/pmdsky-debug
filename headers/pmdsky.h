@@ -1,6 +1,13 @@
 #ifndef HEADERS_PMDSKY_H_
 #define HEADERS_PMDSKY_H_
 
+#include "versions.h"
+
+// Default to NA if there's no predefined version
+#ifndef PMDSKY_VERSION
+#define PMDSKY_VERSION PMDSKY_NA
+#endif
+
 #ifndef PMDSKY_UNSIZED_HEADERS
 // ======== BEGIN NORMAL PREAMBLE ========
 // This is the normal include preamble.

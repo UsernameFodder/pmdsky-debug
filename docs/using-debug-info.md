@@ -67,7 +67,7 @@ Importing C headers is best done after importing symbols, so make sure you've fo
 2. Open the C parser in the menu with File > Parse C Source...
 3. Configure the appropriate settings:
     1. For the parse configuration, select `generic_clib_32.prf` (`clib.prf` should work too). I haven't tested all of the default profiles, but this one is most aligned with the `pmdsky-debug` C headers.
-    2. Remove all the existing "Source files to parse" by highlighting them all and hitting the red 'x' button (`pmdsky-debug`'s headers are standalone, so this would just be extra cruft). Then hit the green '+' button and select `pmdsky.h` from the `pmdsky-debug` headers package. After this step, `pmdsky.h` should be the only file in the list.
+    2. Remove all the existing "Source files to parse" by highlighting them all and hitting the red 'x' button (`pmdsky-debug`'s headers are standalone, so this would just be extra cruft). Then hit the green '+' button and select one of `pmdsky_na.h` (North American), `pmdsky_eu.h` (European), or `pmdsky_jp.h` (Japanese) from the `pmdsky-debug` headers package, depending on your game version. After this step, the variant of `pmdsky_*.h` should be the only file in the list.
     3. Leave the parse options as the defaults.
 4. Click "Parse to Program" and the confirmations in the popups that follow to begin parsing. Some notes:
     1. Annoyingly, sometimes the "Parsing C" loading window can pop up before you've hit all the confirmations, and actually obscure a confirmation window. Make sure you check that there's nothing behind this window (otherwise you'll be waiting forever).
