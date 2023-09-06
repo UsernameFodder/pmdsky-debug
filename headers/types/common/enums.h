@@ -2973,7 +2973,7 @@ enum ability_id {
     ABILITY_FLOWER_GIFT = 113,
     ABILITY_POISON_HEAL = 114,
     ABILITY_MAGIC_GUARD = 115,
-    ABILITY_UNNAMED_0x74 = 116, // Named "$$$" in game
+    ABILITY_MULTITYPE = 116, // Named "$$$" in game in NA/EU
     ABILITY_HONEY_GATHER = 117,
     ABILITY_AFTERMATH = 118,
     ABILITY_SNOW_CLOAK = 119,
