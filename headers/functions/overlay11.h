@@ -1,6 +1,12 @@
 #ifndef HEADERS_FUNCTIONS_OVERLAY11_H_
 #define HEADERS_FUNCTIONS_OVERLAY11_H_
 
+void FuncThatCallsCommandParsing(void);
+void ScriptCommandParsing(void);
+void SsbLoad2(void);
+void StationLoadHanger(void);
+void ScriptStationLoadTalk(void);
+void SsbLoad1(void);
 int ScriptSpecialProcessCall(undefined4* param_1, enum special_process_id id, int arg1, int arg2);
 enum monster_id GetSpecialRecruitmentSpecies(int idx);
 void PrepareMenuAcceptTeamMember(int idx);
