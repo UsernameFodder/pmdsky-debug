@@ -26,6 +26,17 @@ overlay11:
         EU: 0x22DE6A4
         NA: 0x22DDD64
         JP: 0x22DF404
+    - name: LoadFileFromRomVeneer
+      address:
+        NA: 0x22E46DC
+      description: |-
+        Likely a linker-generated veneer for LoadFileFromRom.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
+        
+        r0: [output] pointer to an IO struct {ptr, len}
+        r1: file path string pointer
+        r2: flags
     - name: SsbLoad2
       address:
         EU: 0x22E503C

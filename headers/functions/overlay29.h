@@ -184,6 +184,8 @@ void TryActivateConversion2(struct entity* attacker, struct entity* defender, st
 void TryActivateTruant(struct entity* entity);
 void TryPointCameraToMonster(struct entity* entity, undefined param_2, undefined param_3);
 void RestorePpAllMovesSetFlags(struct entity* entity);
+bool CheckTeamMemberIdxVeneer(int member_idx);
+bool IsMonsterIdInNormalRangeVeneer(enum monster_id monster_id);
 void BoostIQ(struct entity* entity, int iq_boost, bool suppress_logs);
 bool ShouldMonsterHeadToStairs(struct entity* entity);
 bool MewSpawnCheck(enum monster_id monster_id, bool fail_if_mew);
@@ -755,6 +757,7 @@ void GenerateItemExplicit(struct item* item, enum item_id item_id, uint16_t quan
 void GenerateAndSpawnItem(enum item_id item_id, int16_t x, int16_t y, uint16_t quantity,
                           bool sticky, bool check_in_bag);
 bool IsHiddenStairsFloor(void);
+bool IsSecretBazaarVeneer(void);
 void GenerateStandardItem(struct item* item, enum item_id item_id,
                           enum gen_item_stickiness sticky_type);
 void GenerateCleanItem(struct item* item, enum item_id item_id);

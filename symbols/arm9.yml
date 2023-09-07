@@ -29,7 +29,19 @@ arm9:
   subregions:
     - itcm.yml
   functions:
-    - name: EntryArm9
+    - name: SvcWaitByLoop
+      address:
+        NA: 0x2000088
+      description: Software interrupt.
+    - name: SvcSoftReset
+      address:
+        NA: 0x2000566
+      description: Software interrupt.
+    - name: SvcCpuSet
+      address:
+        NA: 0x200078E
+      description: Software interrupt.
+    - name: _start
       address:
         EU: 0x2000800
         NA: 0x2000800
@@ -38,6 +50,26 @@ arm9:
         The entrypoint for the ARM9 CPU. This is like the "main" function for the ARM9 subsystem.
         
         No params.
+    - name: MIiUncompressBackward
+      address:
+        NA: 0x2000970
+      description: "Startup routine in the program's crt0 (https://en.wikipedia.org/wiki/Crt0)."
+    - name: do_autoload
+      address:
+        NA: 0x2000A1C
+      description: "Startup routine in the program's crt0 (https://en.wikipedia.org/wiki/Crt0)."
+    - name: StartAutoloadDoneCallback
+      address:
+        NA: 0x2000AAC
+      description: "Startup routine in the program's crt0 (https://en.wikipedia.org/wiki/Crt0)."
+    - name: OSiReferSymbol
+      address:
+        NA: 0x2000B9C
+      description: "Startup routine in the program's crt0 (https://en.wikipedia.org/wiki/Crt0)."
+    - name: NitroMain
+      address:
+        NA: 0x2000C6C
+      description: "Entrypoint into NitroSDK, the DS devkit library."
     - name: InitMemAllocTable
       address:
         EU: 0x2000DE0
@@ -3827,6 +3859,27 @@ arm9:
         r2: message ID
         r3: preprocessor flags
         stack[0]: pointer to preprocessor args
+    - name: StrcmpTagVeneer
+      address:
+        NA: 0x20235F8
+      description: |-
+        Likely a linker-generated veneer for StrcmpTag.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
+        
+        r0: s1
+        r1: s2
+        return: bool
+    - name: StoiTagVeneer
+      address:
+        NA: 0x2023604
+      description: |-
+        Likely a linker-generated veneer for StoiTag.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
+        
+        r0: s
+        return: int
     - name: InitPreprocessorArgs
       address:
         EU: 0x20238B4
@@ -4377,6 +4430,15 @@ arm9:
         Sets NOTIFY_NOTE to the given value.
         
         r0: bool
+    - name: EventFlagBackupVeneer
+      address:
+        NA: 0x2048758
+      description: |-
+        Likely a linker-generated veneer for EventFlagBackup.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
+        
+        No params.
     - name: InitMainTeamAfterQuiz
       address:
         EU: 0x2048AE0
