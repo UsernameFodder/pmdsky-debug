@@ -193,9 +193,12 @@ struct statuses {
     // prevent a recently recruited ally from evolving after and or to add a monster to the
     // assembly after the completion of a dungeon?
     undefined field_0x59;
+#if PMDSKY_VERSION == PMDSKY_JP
+#else
     // 0x5A: Possibly a flag while in action. Could also be a flag to cause the burn from
     // lava, heal a burn from water, and decrease hunger in the walls.
     bool in_action;
+#endif
     // 0x5B: STATUS_TERRIFIED, interestingly, appears to use 0x1 for the Foe-Fear Orb but
     // 0x2 for the ability Stench. The distinction only seems to exist for the game to use
     // a special message for when terrified from stench ends.
@@ -222,9 +225,12 @@ struct statuses {
     // 0x63: Related to handling AI when a decoy is present on the floor?
     // Seems to only be 0, 1, 2
     undefined decoy_ai_tracker;
+#if PMDSKY_VERSION == PMDSKY_JP
+#else
     undefined field_0x64;
     undefined field_0x65;
     undefined field_0x66;
+#endif
     // 0x67: 1 means normal. 0 means half speed. 2, 3, and 4 mean 2x, 3x, and 4x speed.
     int speed_stage;
     // Each counter ticks down to 0 turn by turn. The current speed_stage is calculated as:
@@ -233,7 +239,11 @@ struct statuses {
     uint8_t speed_down_counters[5]; // 0x70
     uint8_t stockpile_stage;        // 0x75: Goes from 0-3. STATUS_STOCKPILING if nonzero
 };
+#if PMDSKY_VERSION == PMDSKY_JP
+ASSERT_SIZE(struct statuses, 114);
+#else
 ASSERT_SIZE(struct statuses, 118);
+#endif
 #pragma pack(pop)
 
 // A bitfield where every bit controls one of the icons that can appear on top of a monster's sprite
@@ -671,7 +681,11 @@ struct monster {
     // monster should lose extra PP from the ability Pressure.
     bool should_not_lose_pp;
 };
+#if PMDSKY_VERSION == PMDSKY_JP
+ASSERT_SIZE(struct monster, 572);
+#else
 ASSERT_SIZE(struct monster, 576);
+#endif
 
 // Generic entity data
 struct entity {
