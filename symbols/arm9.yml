@@ -53,19 +53,19 @@ arm9:
     - name: MIiUncompressBackward
       address:
         NA: 0x2000970
-      description: Startup routine in crt0.
+      description: "Startup routine in the program's crt0 (https://en.wikipedia.org/wiki/Crt0)."
     - name: do_autoload
       address:
         NA: 0x2000A1C
-      description: Startup routine in crt0.
+      description: "Startup routine in the program's crt0 (https://en.wikipedia.org/wiki/Crt0)."
     - name: StartAutoloadDoneCallback
       address:
         NA: 0x2000AAC
-      description: Startup routine in crt0.
+      description: "Startup routine in the program's crt0 (https://en.wikipedia.org/wiki/Crt0)."
     - name: OSiReferSymbol
       address:
         NA: 0x2000B9C
-      description: Startup routine in crt0.
+      description: "Startup routine in the program's crt0 (https://en.wikipedia.org/wiki/Crt0)."
     - name: NitroMain
       address:
         NA: 0x2000C6C
