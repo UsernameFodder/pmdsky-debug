@@ -1974,6 +1974,26 @@ overlay29:
         Called when a monster is revived.
         
         r0: pointer to entity whose moves will be restored
+    - name: CheckTeamMemberIdxVeneer
+      address:
+        NA: 0x22F9C34
+      description: |-
+        Likely a linker-generated veneer for CheckTeamMemberIdx.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
+        
+        r0: member index
+        return: True if the value is equal to 0x55AA or 0x5AA5
+    - name: IsMonsterIdInNormalRangeVeneer
+      address:
+        NA: 0x22F9C68
+      description: |-
+        Likely a linker-generated veneer for IsMonsterIdInNormalRange.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
+        
+        r0: monster ID
+        return: bool
     - name: BoostIQ
       address:
         EU: 0x22FAB50
@@ -7329,6 +7349,15 @@ overlay29:
         JP: 0x23458D0
       description: |-
         Checks if the current floor is either the Secret Bazaar or a Secret Room.
+        
+        return: bool
+    - name: IsSecretBazaarVeneer
+      address:
+        NA: 0x2344538
+      description: |-
+        Likely a linker-generated veneer for IsSecretBazaar.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
         
         return: bool
     - name: GenerateStandardItem

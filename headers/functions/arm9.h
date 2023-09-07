@@ -3,7 +3,15 @@
 
 #include "arm9/itcm.h"
 
-void EntryArm9(void);
+void SvcWaitByLoop(void);
+void SvcSoftReset(void);
+void SvcCpuSet(void);
+void _start(void);
+void MIiUncompressBackward(void);
+void do_autoload(void);
+void StartAutoloadDoneCallback(void);
+void OSiReferSymbol(void);
+void NitroMain(void);
 void InitMemAllocTable(void);
 void SetMemAllocatorParams(get_alloc_arena_fn_t get_alloc_arena,
                            get_free_arena_fn_t get_free_arena);
@@ -390,6 +398,8 @@ int PreprocessString(char* output, int output_size, const char* format,
                      struct preprocessor_flags flags, struct preprocessor_args* args);
 int PreprocessStringFromMessageId(char* output, int output_size, int message_id,
                                   struct preprocessor_flags flags, struct preprocessor_args* args);
+bool StrcmpTagVeneer(const char* s1, const char* s2);
+int StoiTagVeneer(const char* s);
 void InitPreprocessorArgs(struct preprocessor_args* args);
 char* SetStringAccuracy(char* s, int param_2);
 char* SetStringPower(char* s, int param_2);
@@ -445,6 +455,7 @@ void PrintIqSkillsMenu(enum monster_id monster_id, uint32_t* iq_skills_flags, in
                        bool is_blinded);
 bool GetNotifyNote(void);
 void SetNotifyNote(bool flag);
+void EventFlagBackupVeneer(void);
 void InitMainTeamAfterQuiz(void);
 void ScriptSpecialProcess0x3(void);
 void ScriptSpecialProcess0x4(void);

@@ -2,3 +2,4 @@
 Cargo.lock
 /out
 __pycache__
+.vscode

@@ -3,6 +3,7 @@
 
 void FuncThatCallsCommandParsing(void);
 void ScriptCommandParsing(void);
+void LoadFileFromRomVeneer(struct iovec* iov, const char* filepath, uint32_t flags);
 void SsbLoad2(void);
 void StationLoadHanger(void);
 void ScriptStationLoadTalk(void);
