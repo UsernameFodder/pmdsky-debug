@@ -36,3 +36,5 @@ other parts of the project, feel free to add yourself to this file!
 - The rest of the contributors to the PMD Info Spreadsheet,
   which can be found here:
   https://docs.google.com/spreadsheets/d/18utO_lCpWQ7iXY9wpbtxXpgmzebEI2IRjADp6IrUKZ0
+- The rest of the contributors to the pmd-sky decompilation project,
+  which can be found here: https://github.com/pret/pmd-sky
