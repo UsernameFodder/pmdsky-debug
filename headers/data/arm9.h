@@ -109,6 +109,7 @@ extern uint16_t PRNG_SEQUENCE_NUM;
 extern enum overlay_group_id LOADED_OVERLAY_GROUP_0;
 extern enum overlay_group_id LOADED_OVERLAY_GROUP_1;
 extern enum overlay_group_id LOADED_OVERLAY_GROUP_2;
+extern bool DEBUG_IS_INITIALIZED;
 extern struct pack_file_opened* PACK_FILE_OPENED;
 extern const char* PACK_FILE_PATHS_TABLE[6];
 extern struct item* BAG_ITEMS_PTR_MIRROR;

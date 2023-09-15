@@ -10197,11 +10197,18 @@ arm9:
         - 0x3 (overlay 35)
         
         type: enum overlay_group_id
+    - name: DEBUG_IS_INITIALIZED
+      address:
+        NA: 0x20AF698
+      length:
+        NA: 0x4
     - name: PACK_FILE_OPENED
       address:
         EU: 0x20AFF54
+        NA: 0x20AF69C
       length:
         EU: 0x4
+        NA: 0x4
       description: |-
         [Runtime] A pointer to the 6 opened Pack files (listed at PACK_FILE_PATHS_TABLE)
         
