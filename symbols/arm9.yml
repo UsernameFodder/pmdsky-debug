@@ -1004,7 +1004,7 @@ arm9:
       address:
         NA: 0x200C10C
       description: |-
-        Would have initialised the debug flags.
+        Would have initialized the debug flags.
         Does nothing in release binary.
     - name: GetDebugFlag
       address:
@@ -1100,7 +1100,7 @@ arm9:
       address:
         NA: 0x200C230
       description: |-
-        Would have initialised the debug log flags.
+        Would have initialized the debug log flags.
         Does nothing in release binary.
     - name: GetDebugLogFlag
       address:
@@ -1213,7 +1213,7 @@ arm9:
         NA: 0x200C3E0
         JP: 0x200C3E0
       description: |-
-        Open a Pack file, to be read later. Initialise the output structure.
+        Open a Pack file, to be read later. Initialize the output structure.
         
         r0: [output] pack file struct
         r1: file name
@@ -4176,7 +4176,7 @@ arm9:
         NA: 0x202950C
         JP: 0x2029864
       description: |-
-        Load and initialise the cursor and cursor16 sprites, storing the result in CURSOR_ANIMATION_CONTROL and CURSOR_16_ANIMATION_CONTROL
+        Load and initialize the cursor and cursor16 sprites, storing the result in CURSOR_ANIMATION_CONTROL and CURSOR_16_ANIMATION_CONTROL
         
         No params.
     - name: Arm9LoadUnkFieldNa0x2029EC8
@@ -4204,7 +4204,7 @@ arm9:
         NA: 0x2029EE8
         JP: 0x202A240
       description: |-
-        Load and initialise the alert sprite, storing the result in ALERT_ANIMATION_CONTROL
+        Load and initialize the alert sprite, storing the result in ALERT_ANIMATION_CONTROL
         
         No params.
     - name: PrintClearMark
