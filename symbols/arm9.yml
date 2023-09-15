@@ -1000,13 +1000,13 @@ arm9:
       description: |-
         Would have initialized debugging-related things, if they were not removed.
         As for the release version, does nothing but set DEBUG_IS_INITIALIZED to true.
-    - name: InitDebugFlag1
+    - name: InitDebugFlag
       address:
         NA: 0x200C10C
       description: |-
-        Would have initialised the first set of debug flags.
+        Would have initialised the debug flags.
         Does nothing in release binary.
-    - name: GetDebugFlag1
+    - name: GetDebugFlag
       address:
         EU: 0x200C198
         NA: 0x200C110
@@ -1016,7 +1016,7 @@ arm9:
         
         r0: flag ID
         return: flag value
-    - name: SetDebugFlag1
+    - name: SetDebugFlag
       address:
         EU: 0x200C1A0
         NA: 0x200C118
@@ -1080,13 +1080,13 @@ arm9:
         
         r0: format
         ...: variadic
-    - name: InitDebugFlag2
+    - name: InitDebugLogFlag
       address:
         NA: 0x200C230
       description: |-
-        Would have initialised the second set of debug flags.
+        Would have initialised the debug log flags.
         Does nothing in release binary.
-    - name: GetDebugFlag2
+    - name: GetDebugLogFlag
       address:
         EU: 0x200C2BC
         NA: 0x200C234
@@ -1096,7 +1096,7 @@ arm9:
         
         r0: flag ID
         return: flag value
-    - name: SetDebugFlag2
+    - name: SetDebugLogFlag
       address:
         EU: 0x200C2C4
         NA: 0x200C23C
@@ -10201,7 +10201,7 @@ arm9:
       address:
         NA: 0x20AF698
       length:
-        NA: 0x4
+        NA: 0x1
     - name: PACK_FILE_OPENED
       address:
         EU: 0x20AFF54
