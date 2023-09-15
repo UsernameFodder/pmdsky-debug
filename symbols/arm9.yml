@@ -1062,21 +1062,37 @@ arm9:
         
         r0: message
         r1: program position info (can be null)
-    - name: DebugPrint0
+    - name: DebugDisplay
       address:
         EU:
           - 0x200C250
-          - 0x200C284
         NA:
           - 0x200C1C8
-          - 0x200C1FC
         JP:
           - 0x200C1C8
+      description: |-
+        Would display a printf format string on the top screen in the debug binary.
+        
+        This still constructs the string with vsprintf, but doesn't actually do anything with it in the final binary.
+        
+        Identical to DebugPrint0 in release builds.
+        
+        r0: format
+        ...: variadic
+    - name: DebugPrint0
+      address:
+        EU:
+          - 0x200C284
+        NA:
+          - 0x200C1FC
+        JP:
           - 0x200C1FC
       description: |-
         Would log a printf format string in the debug binary.
         
         This still constructs the string with vsprintf, but doesn't actually do anything with it in the final binary.
+        
+        Identical to DebugDisplay in release builds.
         
         r0: format
         ...: variadic

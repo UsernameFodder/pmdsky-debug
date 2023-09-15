@@ -106,6 +106,7 @@ void InitDebugStripped6(void);
 int AppendProgPos(char* str, struct prog_pos_info* prog_pos, const char* msg);
 void InitDebugStripped5(void);
 void DebugPrintTrace(const char* msg, struct prog_pos_info* prog_pos);
+void DebugDisplay(const char* fmt, ...);
 void DebugPrint0(const char* fmt, ...);
 void InitDebugLogFlag(void);
 bool GetDebugLogFlag(enum debug_log_flag flag);
