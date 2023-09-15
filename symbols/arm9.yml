@@ -994,6 +994,18 @@ arm9:
         r0: [output] pointer to an IO struct {ptr, len}
         r1: file path string pointer
         r2: flags
+    - name: InitDebug
+      address:
+        NA: 0x200C0D4
+      description: |-
+        Would have initialized debugging-related things, if they were not removed.
+        As for the release version, does nothing but set DEBUG_IS_INITIALIZED to true.
+    - name: InitDebugFlag
+      address:
+        NA: 0x200C10C
+      description: |-
+        Would have initialised the debug flags.
+        Does nothing in release binary.
     - name: GetDebugFlag
       address:
         EU: 0x200C198
@@ -1014,6 +1026,10 @@ arm9:
         
         r0: flag ID
         r1: flag value
+    - name: InitDebugStripped6
+      address:
+        NA: 0x200C11C
+      description: "Does nothing, only called in the debug initialisation function."
     - name: AppendProgPos
       address:
         EU: 0x200C1A8
@@ -1028,6 +1044,10 @@ arm9:
         r1: program position info
         r2: base message
         return: number of characters printed, excluding the null-terminator
+    - name: InitDebugStripped5
+      address:
+        NA: 0x200C168
+      description: "Does nothing, only called in the debug initialisation function."
     - name: DebugPrintTrace
       address:
         EU: 0x200C1F4
@@ -1042,24 +1062,46 @@ arm9:
         
         r0: message
         r1: program position info (can be null)
-    - name: DebugPrint0
+    - name: DebugDisplay
       address:
         EU:
           - 0x200C250
-          - 0x200C284
         NA:
           - 0x200C1C8
-          - 0x200C1FC
         JP:
           - 0x200C1C8
+      description: |-
+        Would display a printf format string on the top screen in the debug binary.
+        
+        This still constructs the string with vsprintf, but doesn't actually do anything with it in the final binary.
+        
+        Identical to DebugPrint0 in release builds.
+        
+        r0: format
+        ...: variadic
+    - name: DebugPrint0
+      address:
+        EU:
+          - 0x200C284
+        NA:
+          - 0x200C1FC
+        JP:
           - 0x200C1FC
       description: |-
         Would log a printf format string in the debug binary.
         
         This still constructs the string with vsprintf, but doesn't actually do anything with it in the final binary.
         
+        Identical to DebugDisplay in release builds.
+        
         r0: format
         ...: variadic
+    - name: InitDebugLogFlag
+      address:
+        NA: 0x200C230
+      description: |-
+        Would have initialised the debug log flags.
+        Does nothing in release binary.
     - name: GetDebugLogFlag
       address:
         EU: 0x200C2BC
@@ -1091,6 +1133,22 @@ arm9:
         r0: log level
         r1: format
         ...: variadic
+    - name: InitDebugStripped4
+      address:
+        NA: 0x200C24C
+      description: "Does nothing, only called in the debug initialisation function."
+    - name: InitDebugStripped3
+      address:
+        NA: 0x200C250
+      description: "Does nothing, only called in the debug initialisation function."
+    - name: InitDebugStripped2
+      address:
+        NA: 0x200C254
+      description: "Does nothing, only called in the debug initialisation function."
+    - name: InitDebugStripped1
+      address:
+        NA: 0x200C258
+      description: "Does nothing, only called in the debug initialisation function."
     - name: FatalError
       address:
         EU: 0x200C2E4
@@ -10155,11 +10213,18 @@ arm9:
         - 0x3 (overlay 35)
         
         type: enum overlay_group_id
+    - name: DEBUG_IS_INITIALIZED
+      address:
+        NA: 0x20AF698
+      length:
+        NA: 0x1
     - name: PACK_FILE_OPENED
       address:
         EU: 0x20AFF54
+        NA: 0x20AF69C
       length:
         EU: 0x4
+        NA: 0x4
       description: |-
         [Runtime] A pointer to the 6 opened Pack files (listed at PACK_FILE_PATHS_TABLE)
         
