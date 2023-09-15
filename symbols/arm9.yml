@@ -994,7 +994,19 @@ arm9:
         r0: [output] pointer to an IO struct {ptr, len}
         r1: file path string pointer
         r2: flags
-    - name: GetDebugFlag
+    - name: InitDebug
+      address:
+        NA: 0x200C0D4
+      description: |-
+        Would have initialized debugging-related things, if they were not removed.
+        As for the release version, does nothing but set DEBUG_IS_INITIALIZED to true.
+    - name: InitDebugFlag1
+      address:
+        NA: 0x200C10C
+      description: |-
+        Would have initialised the first set of debug flags.
+        Does nothing in release binary.
+    - name: GetDebugFlag1
       address:
         EU: 0x200C198
         NA: 0x200C110
@@ -1004,7 +1016,7 @@ arm9:
         
         r0: flag ID
         return: flag value
-    - name: SetDebugFlag
+    - name: SetDebugFlag1
       address:
         EU: 0x200C1A0
         NA: 0x200C118
@@ -1014,6 +1026,10 @@ arm9:
         
         r0: flag ID
         r1: flag value
+    - name: InitDebugStripped6
+      address:
+        NA: 0x200C11C
+      description: "Does nothing, only called in the debug initialisation function."
     - name: AppendProgPos
       address:
         EU: 0x200C1A8
@@ -1028,6 +1044,10 @@ arm9:
         r1: program position info
         r2: base message
         return: number of characters printed, excluding the null-terminator
+    - name: InitDebugStripped5
+      address:
+        NA: 0x200C168
+      description: "Does nothing, only called in the debug initialisation function."
     - name: DebugPrintTrace
       address:
         EU: 0x200C1F4
@@ -1060,7 +1080,13 @@ arm9:
         
         r0: format
         ...: variadic
-    - name: GetDebugLogFlag
+    - name: InitDebugFlag2
+      address:
+        NA: 0x200C230
+      description: |-
+        Would have initialised the second set of debug flags.
+        Does nothing in release binary.
+    - name: GetDebugFlag2
       address:
         EU: 0x200C2BC
         NA: 0x200C234
@@ -1070,7 +1096,7 @@ arm9:
         
         r0: flag ID
         return: flag value
-    - name: SetDebugLogFlag
+    - name: SetDebugFlag2
       address:
         EU: 0x200C2C4
         NA: 0x200C23C
@@ -1091,6 +1117,22 @@ arm9:
         r0: log level
         r1: format
         ...: variadic
+    - name: InitDebugStripped4
+      address:
+        NA: 0x200C24C
+      description: "Does nothing, only called in the debug initialisation function."
+    - name: InitDebugStripped3
+      address:
+        NA: 0x200C250
+      description: "Does nothing, only called in the debug initialisation function."
+    - name: InitDebugStripped2
+      address:
+        NA: 0x200C254
+      description: "Does nothing, only called in the debug initialisation function."
+    - name: InitDebugStripped1
+      address:
+        NA: 0x200C258
+      description: "Does nothing, only called in the debug initialisation function."
     - name: FatalError
       address:
         EU: 0x200C2E4
