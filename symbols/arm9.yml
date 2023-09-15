@@ -1029,7 +1029,7 @@ arm9:
     - name: InitDebugStripped6
       address:
         NA: 0x200C11C
-      description: "Does nothing, only called in the debug initialisation function."
+      description: "Does nothing, only called in the debug initialization function."
     - name: AppendProgPos
       address:
         EU: 0x200C1A8
@@ -1047,7 +1047,7 @@ arm9:
     - name: InitDebugStripped5
       address:
         NA: 0x200C168
-      description: "Does nothing, only called in the debug initialisation function."
+      description: "Does nothing, only called in the debug initialization function."
     - name: DebugPrintTrace
       address:
         EU: 0x200C1F4
@@ -1136,19 +1136,19 @@ arm9:
     - name: InitDebugStripped4
       address:
         NA: 0x200C24C
-      description: "Does nothing, only called in the debug initialisation function."
+      description: "Does nothing, only called in the debug initialization function."
     - name: InitDebugStripped3
       address:
         NA: 0x200C250
-      description: "Does nothing, only called in the debug initialisation function."
+      description: "Does nothing, only called in the debug initialization function."
     - name: InitDebugStripped2
       address:
         NA: 0x200C254
-      description: "Does nothing, only called in the debug initialisation function."
+      description: "Does nothing, only called in the debug initialization function."
     - name: InitDebugStripped1
       address:
         NA: 0x200C258
-      description: "Does nothing, only called in the debug initialisation function."
+      description: "Does nothing, only called in the debug initialization function."
     - name: FatalError
       address:
         EU: 0x200C2E4
@@ -1168,7 +1168,7 @@ arm9:
         NA: 0x200C2DC
         JP: 0x200C2DC
       description: |-
-        Open the 6 files at PACK_FILE_PATHS_TABLE into PACK_FILE_OPENED. Called during game initialisation.
+        Open the 6 files at PACK_FILE_PATHS_TABLE into PACK_FILE_OPENED. Called during game initialization.
         
         No params.
     - name: GetFileLengthInPackWithPackNb
