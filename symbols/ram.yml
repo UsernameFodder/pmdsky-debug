@@ -445,9 +445,11 @@ ram:
       address:
         EU: 0x22AC720
         NA: 0x22ABDE0
+        JP: 0x22AD598
       length:
         EU: 0x9878
         NA: 0x9878
+        JP: 0x9878
       description: |-
         Table with all team members, persistent information about them, and information about which ones are currently active.
         
