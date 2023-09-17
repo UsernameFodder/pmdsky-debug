@@ -19,7 +19,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Compile
-        run: make -C headers headers-aligned
+        run: make -C headers headers-aligned CFLAGS='-Wno-incompatible-library-redeclaration'
   implicit-padding-check:
     runs-on: ubuntu-latest
     needs: compile
@@ -27,7 +27,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Compile with implicit packing
-        run: make -C headers headers-packed
+        run: make -C headers headers-packed CFLAGS='-Wno-incompatible-library-redeclaration'
   compile-no-builtin:
     runs-on: ubuntu-latest
     needs: compile
