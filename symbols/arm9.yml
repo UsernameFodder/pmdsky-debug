@@ -7943,6 +7943,103 @@ arm9:
         This just calls (in Ghidra terminology) coproc_moveto_Wait_for_interrupt(0). See https://en.wikipedia.org/wiki/ARM_architecture_family#Coprocessors.
         
         No params.
+    - name: ArrayFill16
+      address:
+        NA: 0x207C2B8
+      description: |-
+        Fills an array of 16-bit values with a given value.
+        
+        r0: value
+        r1: ptr
+        r2: len (# bytes)
+    - name: ArrayCopy16
+      address:
+        NA: 0x207C2E0
+      description: |-
+        Copies an array of 16-bit values to another array of 16-bit values.
+        
+        This is essentially an alternate implementation of Memcpy16, but with a different parameter order.
+        
+        r0: src
+        r1: dest
+        r2: len (# bytes)
+    - name: ArrayFill32
+      address:
+        NA: 0x207C314
+      description: |-
+        Fills an array of 32-bit values with a given value.
+        
+        This is essentially an alternate implementation of Memset32, but with a different parameter order.
+        
+        r0: value
+        r1: ptr
+        r2: len (# bytes)
+    - name: ArrayCopy32
+      address:
+        NA: 0x207C330
+      description: |-
+        Copies an array of 32-bit values to another array of 32-bit values.
+        
+        This is essentially an alternate implementation of Memcpy32, but with a different parameter order.
+        
+        r0: src
+        r1: dest
+        r2: len (# bytes)
+    - name: ArrayFill32Fast
+      address:
+        NA: 0x207C358
+      description: |-
+        Does the same thing as ArrayFill32, except the implementation uses an unrolled loop that sets 8 values per iteration, taking advantage of the stmia instruction.
+        
+        r0: value
+        r1: ptr
+        r2: len (# bytes)
+    - name: ArrayCopy32Fast
+      address:
+        NA: 0x207C3B4
+      description: |-
+        Does the same thing as ArrayCopy32, except the implementation uses an unrolled loop that copies 8 values per iteration, taking advantage of the ldmia/stmia instructions.
+        
+        r0: src
+        r1: dest
+        r2: len (# bytes)
+    - name: MemsetFast
+      address:
+        NA: 0x207C40C
+      description: |-
+        A semi-optimized implementation of the memset(3) C library function.
+        
+        This function was probably manually implemented by the developers, or was included as part of a library other than libc (the Nitro SDK probably?). See memset for what's probably the real libc function.
+        
+        This function is optimized to set values in 4-byte chunks, properly dealing with pointer alignment. However, unlike the libc memset, there are no loop unrolling optimizations.
+        
+        r0: ptr
+        r1: value
+        r2: len (# bytes)
+    - name: MemcpyFast
+      address:
+        NA: 0x207C4C8
+      description: |-
+        Copies bytes from one buffer to another, similar to memcpy(3). Note that the source/destination buffer parameters swapped relative to the standard memcpy.
+        
+        This function was probably manually implemented by the developers, or was included as part of a library other than libc (the Nitro SDK probably?). See memcpy for what's probably the real libc function.
+        
+        This function is optimized to copy values in 4-byte chunks, properly dealing with pointer alignment.
+        
+        r0: src
+        r1: dest
+        r2: n (# bytes)
+    - name: AtomicExchange
+      address:
+        NA: 0x207C648
+      description: |-
+        Atomically replaces a pointer's pointee with a desired value, and returns the previous value.
+        
+        This function is just a single swp instruction.
+        
+        r0: desired value
+        r1: ptr
+        return: previous value
     - name: FileInit
       address:
         EU: 0x207F77C
