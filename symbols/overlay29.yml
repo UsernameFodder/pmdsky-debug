@@ -5969,7 +5969,7 @@ overlay29:
       description: |-
         Note: unverified, ported from Irdkwia's notes
         
-        r0: render_3d_element
+        r0: render_3d_element_64
         r1: x position
         r2: y position
         r3: char_id

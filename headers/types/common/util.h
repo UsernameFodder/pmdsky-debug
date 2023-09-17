@@ -20,16 +20,14 @@ struct rgba {
 };
 ASSERT_SIZE(struct rgba, 4);
 
-// BGR5 color
-struct bgr5 {
-    uint8_t r : 5;
-    // Note that the g value is split in two to reflect its actual memory layout
-    uint8_t g_low : 3;
-    uint8_t g_high : 2;
-    uint8_t b : 5;
-    uint8_t padding : 1; // maybe transparency sometimes
+// RGB5 color
+struct rgb5 {
+    uint16_t r : 5;
+    uint16_t g : 5;
+    uint16_t b : 5;
+    uint16_t padding : 1; // maybe transparency sometimes
 };
-ASSERT_SIZE(struct bgr5, 2);
+ASSERT_SIZE(struct rgb5, 2);
 
 // a 2d uint (32bit) vector
 struct uvec2 {
@@ -78,4 +76,21 @@ struct fx64 {
     uint32_t lower; // the 32 least significant bits (16 integer + 16 fraction)
 };
 ASSERT_SIZE(struct fx64, 8);
+
+// 4x3 matrix for the 3D geometry engine, stored in row-major format.
+// Each element is a signed fixed-point number with 12 fraction bits.
+// See https://problemkaputt.de/gbatek.htm#ds3dmatrixtypes
+struct matrix_4x3 {
+    int32_t entry[4][3];
+};
+ASSERT_SIZE(struct matrix_4x3, 48);
+
+// TRIG_TABLE entry containing the value of sine/cosine at some angle
+// Each value is a signed fixed-point number with 12 fraction bits.
+struct trig_values {
+    int16_t sin;
+    int16_t cos;
+};
+ASSERT_SIZE(struct trig_values, 4);
+
 #endif
