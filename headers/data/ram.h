@@ -32,6 +32,7 @@ extern struct animation_control* CURSOR_16_ANIMATION_CONTROL;
 extern uint16_t ALERT_SPRITE_ID;
 extern struct animation_control* ALERT_ANIMATION_CONTROL;
 extern struct mem_arena* SOUND_MEMORY_ARENA_PTR;
+extern struct dialog_box_list DIALOG_BOX_LIST;
 extern struct move LAST_NEW_MOVE;
 extern struct script_var_value_table SCRIPT_VARS_VALUES;
 extern uint8_t BAG_LEVEL;
