@@ -810,6 +810,15 @@ int SetIrqFiqFlags(int new_value);
 int GetIrqFlag(void);
 void WaitForever2(void);
 void WaitForInterrupt(void);
+void ArrayFill16(uint16_t val, void* ptr, int len);
+void ArrayCopy16(void* src, void* dest, int len);
+void ArrayFill32(uint32_t val, void* ptr, int len);
+void ArrayCopy32(void* src, void* dest, int len);
+void ArrayFill32Fast(uint32_t val, void* ptr, int len);
+void ArrayCopy32Fast(void* src, void* dest, int len);
+void MemsetFast(void* ptr, char val, uint32_t len);
+void MemcpyFast(void* src, void* dest, uint32_t n);
+uint32_t AtomicExchange(uint32_t desired, void* ptr);
 void FileInit(struct file_stream* file);
 
 // If declaring these builtins causes issues, you can disable them
