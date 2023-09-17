@@ -3,6 +3,8 @@
 #ifndef HEADERS_TYPES_COMMON_FILE_IO_H_
 #define HEADERS_TYPES_COMMON_FILE_IO_H_
 
+#include "enums.h"
+
 // This is essentially the standard (32-bit) Unix I/O vector struct.
 // It's used for file I/O and represents a buffer of data with a pointer and a length.
 struct iovec {
@@ -41,16 +43,6 @@ struct file_stream {
     undefined4 field_0x44;
 };
 ASSERT_SIZE(struct file_stream, 72);
-
-// Correspond to a .bin pack archive
-enum pack_file_id {
-    PACK_ARCHIVE_MONSTER = 0,
-    PACK_ARCHIVE_M_ATTACK = 1,
-    PACK_ARCHIVE_M_GROUND = 2,
-    PACK_ARCHIVE_EFFECT = 3,
-    PACK_ARCHIVE_DUNGEON = 4,
-    PACK_ARCHIVE_M_LEVEL = 5
-};
 
 // Contain information about a single file contained inside a Pack archive
 struct pack_file_table_of_content {
