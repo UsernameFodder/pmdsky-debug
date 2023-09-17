@@ -438,10 +438,12 @@ char* StringFromMessageId(int message_id);
 void CopyStringFromMessageId(char* buf, int string_id, int buf_len);
 void LoadTblTalk(void);
 int GetTalkLine(int personality_idx, int group_id, int restrictions);
+int NewDialogBox(struct dialog_box_hdr* hdr, uint8_t param_2);
 void SetScreenWindowsColor(int palette_idx, bool upper_screen);
 void SetBothScreensWindowsColor(int palette_idx);
 undefined* GetDialogBoxField0xC(int dbox_id);
 void LoadCursors(void);
+void InitDialogBoxTrailer(struct dialog_box_trailer* trailer);
 void LoadAlert(void);
 void PrintClearMark(int mark_id, int x, int y, undefined param_4);
 int CreateNormalMenu(undefined* layout, int menu_flags, undefined* additional_info, undefined* menu,

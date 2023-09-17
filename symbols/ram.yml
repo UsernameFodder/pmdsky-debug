@@ -313,7 +313,10 @@ ram:
     - name: DIALOG_BOX_LIST
       address:
         NA: 0x22A88DC
-      description: Array of allocated dialog box structs.
+      description: |-
+        Array of all dialog box structs. Newly created dialog box structs are taken from slots in this array.
+        
+        type: struct dialog_box_list
     - name: LAST_NEW_MOVE
       address:
         EU: 0x22AB78C

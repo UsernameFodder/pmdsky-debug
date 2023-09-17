@@ -122,13 +122,101 @@ struct bulk_item {
 };
 ASSERT_SIZE(struct bulk_item, 4);
 
+// Placeholder name; not sure what this struct is
+struct dialog_box_hdr {
+    undefined field_0x0;
+    undefined field_0x1;
+    undefined field_0x2;
+    undefined field_0x3;
+    undefined field_0x4;
+    undefined field_0x5;
+    uint8_t field_0x6;
+    uint8_t field_0x7;
+    uint8_t field_0x8;
+    int8_t field_0x9;
+    undefined field_0xa;
+    undefined field_0xb;
+    undefined* field_0xc; // some struct pointer
+};
+ASSERT_SIZE(struct dialog_box_hdr, 16);
+
+// Placeholder name; not sure what this struct is
+struct dialog_box_trailer {
+    int field_0x0;
+    uint8_t field_0x4;
+    undefined field_0x5;
+    undefined field_0x6;
+    undefined field_0x7;
+    undefined field_0x8;
+    undefined field_0x9;
+    undefined field_0xa;
+    undefined field_0xb;
+    undefined field_0xc;
+    undefined field_0xd;
+    undefined field_0xe;
+    undefined field_0xf;
+    undefined field_0x10;
+    undefined field_0x11;
+    undefined field_0x12;
+    undefined field_0x13;
+    undefined field_0x14;
+    undefined field_0x15;
+    undefined field_0x16;
+    undefined field_0x17;
+    uint8_t field_0x18;
+    uint8_t field_0x19;
+    // Not actually sure where this struct ends; these might just be part of the parent dialog_box
+    undefined field_0x1a;
+    undefined field_0x1b;
+    undefined field_0x1c;
+    undefined field_0x1d;
+    undefined field_0x1e;
+    undefined field_0x1f;
+    undefined field_0x20;
+    undefined field_0x21;
+    undefined field_0x22;
+    undefined field_0x23;
+};
+ASSERT_SIZE(struct dialog_box_trailer, 36);
+
 // Structure for dialog boxes?
 struct dialog_box {
-    undefined fields_0x0[12];
-    undefined* field_0xc; // Some struct pointer
-    undefined fields_0xd[208];
+    struct dialog_box_hdr hdr; // 0x0
+    uint8_t field_0x10;
+    uint8_t field_0x11;
+    uint16_t field_0x12;
+    // Some heap-allocated struct pointer with size (hdr.field_0x7 * hdr.field_0x6 * 0x40)
+    undefined* field_0x14;
+    int field_0x18;
+    int field_0x1c; // hdr.field_0x6 * hdr.field_0x7 * 0x40
+    uint32_t field_0x20;
+    undefined field_0x24;
+    undefined field_0x25;
+    undefined field_0x26;
+    undefined field_0x27;
+    int field_0x28;
+    undefined field_0x2c;
+    undefined field_0x2d;
+    undefined field_0x2e;
+    undefined field_0x2f;
+    uint16_t field_0x30;
+    undefined field_0x32;
+    undefined field_0x33;
+    struct render_3d_element_64 backdrop; // 0x34: type RENDER64_RECTANGLE
+    struct render_3d_element_64 border;   // 0x74: type RENDER64_BORDER
+    uint8_t field_0xb4;
+    undefined field_0xb5;
+    int8_t valid; // 0xB6
+    uint8_t field_0xb7;
+    int32_t field_0xb8;
+    struct dialog_box_trailer trailer; // 0xBC
 };
 ASSERT_SIZE(struct dialog_box, 224);
+
+struct dialog_box_list {
+    struct dialog_box boxes[20];
+};
+ASSERT_SIZE(struct dialog_box_list, 4480);
 
 // Represents the state of a portrait to be displayed inside a dialogue box
 struct portrait_box {

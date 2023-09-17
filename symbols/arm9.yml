@@ -4220,6 +4220,17 @@ arm9:
         r1: group_id
         r2: restrictions
         return: ?
+    - name: NewDialogBox
+      address:
+        NA: 0x20276C0
+      description: |-
+        Seems to return the ID of a newly initialized dialog box in the next available slot in DIALOG_BOX_LIST, given some starting information.
+        
+        If DIALOG_BOX_LIST is full, it will be overflowed, with the slot with an ID of 20 being initialized and returned.
+        
+        r0: dialog_box_hdr pointer to be copied by value into dialog_box::hdr in the new dialog box
+        r1: ?
+        return: dialog box ID
     - name: SetScreenWindowsColor
       address:
         EU: 0x2027D5C
@@ -4258,6 +4269,13 @@ arm9:
         Load and initialize the cursor and cursor16 sprites, storing the result in CURSOR_ANIMATION_CONTROL and CURSOR_16_ANIMATION_CONTROL
         
         No params.
+    - name: InitDialogBoxTrailer
+      address:
+        NA: 0x2029670
+      description: |-
+        Seems to initialize a dialog_box_trailer within a new dialog_box.
+        
+        r0: dialog_box_trailer pointer
     - name: Arm9LoadUnkFieldNa0x2029EC8
       address:
         EU: 0x202A1BC
