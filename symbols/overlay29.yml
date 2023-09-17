@@ -2992,7 +2992,7 @@ overlay29:
         NA: 0x2302A5C
         JP: 0x2303FAC
       description: |-
-        Attempts to level up the the target. Calls LevelUp with a few extra checks and messages
+        Attempts to level up the target. Calls LevelUp with a few extra checks and messages
         for using as an item. Used for the Joy Seed and Golden Seed.
         
         r0: user entity pointer
@@ -3018,7 +3018,7 @@ overlay29:
         NA: 0x230303C
         JP: 0x2304588
       description: |-
-        Attempts to level up the the target. Fails if the target's level can't be raised. The show show level up dialog bool does nothing for monsters not on the team.
+        Attempts to level up the target. Fails if the target's level can't be raised. The show show level up dialog bool does nothing for monsters not on the team.
         
         r0: user entity pointer
         r1: target entity pointer
@@ -3277,7 +3277,7 @@ overlay29:
         NA: 0x23078EC
         JP: 0x2308E1C
       description: |-
-        Tries to transfer the the negative blinker class status conditions from the user to
+        Tries to transfer the negative blinker class status conditions from the user to
         the target.
         
         r0: user entity pointer
