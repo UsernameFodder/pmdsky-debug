@@ -81,7 +81,7 @@ void HaltProcessDisp(int status);
 bool OverlayIsLoaded(enum overlay_group_id group_id);
 void LoadOverlay(enum overlay_group_id group_id);
 void UnloadOverlay(enum overlay_group_id group_id);
-void Rgb8ToBgr5(struct bgr5* target, struct rgba* source);
+void Rgb8ToRgb5(struct rgb5* target, struct rgba* source);
 float EuclideanNorm(int* vec2);
 void ClampComponentAbs(int* vec2, int max);
 bool GetHeldButtons(int controller, undefined* btn_ptr);
@@ -381,13 +381,22 @@ undefined* LoadWtuFromBin(int bin_file_id, int file_id, int load_type);
 void ProcessWte(undefined* header, undefined4 unk_pal, undefined4 unk_tex,
                 undefined4 unk_tex_param);
 void GeomSetTexImageParam(int texture_format, int texture_coordinates_transformation_modes,
-                          int texture_s_size, int texture_t_size, bool repeat_s, bool flip_s,
-                          bool color_0, bool vram_offset);
+                          int texture_s_size, int texture_t_size, int repeat_s_t, int flip_s_t,
+                          bool color_0, int vram_offset);
 void GeomSetVertexCoord16(int x, int y, int z);
 void InitRender3dData(void);
 void GeomSwapBuffers(void);
-void InitRender3dElement(struct render_3d_element* element);
-void Generate3dCanvasBorder(struct render_3d_element* element);
+void InitRender3dElement64(struct render_3d_element_64* element64);
+void Render3d64Texture0x7(struct render_3d_element_64* element64);
+void Render3d64Border(struct render_3d_element_64* element64);
+void EnqueueRender3d64Tiling(struct render_3d_element_64* element64);
+void Render3d64Tiling(struct render_3d_element_64* element64);
+void Render3d64Quadrilateral(struct render_3d_element_64* element64);
+void Render3d64RectangleMulticolor(struct render_3d_element_64* element64);
+void Render3d64Rectangle(struct render_3d_element_64* element64);
+void Render3d64Nothing(struct render_3d_element_64* element64);
+void Render3d64Texture(struct render_3d_element_64* element64);
+void Render3dElement64(struct render_3d_element_64* element64);
 int HandleSir0Translation(uint8_t** dst, uint8_t* src);
 void ConvertPointersSir0(undefined* sir0_ptr);
 int HandleSir0TranslationVeneer(uint8_t** dst, uint8_t* src);
@@ -802,6 +811,9 @@ void UpdateChannels(void);
 void UpdateTrackVolumeEnvelopes(undefined* param_1);
 void EnableVramBanksInSetDontSave(struct vram_banks_set vram_banks);
 void EnableVramBanksInSet(struct vram_banks_set* vram_banks);
+void GeomMtxLoad4x3(struct matrix_4x3* matrix);
+void GeomMtxMult4x3(struct matrix_4x3* matrix);
+void GeomGxFifoSendMtx4x3(struct matrix_4x3* matrix, void* gxfifo);
 int ClearIrqFlag(void);
 int EnableIrqFlag(void);
 int SetIrqFlag(int new_value);

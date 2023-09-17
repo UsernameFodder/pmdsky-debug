@@ -29,7 +29,88 @@ itcm:
     
     In Explorers of Sky, a fixed region of the ARM9 binary appears to be loaded in the ITCM at all times, and seems to contain functions related to the dungeon AI, among other things. The ITCM has a max capacity of 0x8000, although not all of it is used.
   functions:
-    - name: AllocateRender3dElement
+    - name: Render3dSetTextureParams
+      address:
+        NA: 0x20B34B0
+        NA-ITCM: 0x1FF8130
+      description: |-
+        A wrapper around GeomSetTexImageParam that caches the VRAM offset on RENDER_3D.
+        
+        Always disables flipping and sets color values of 0 to be transparent.
+        
+        r0: render_3d_texture_params pointer
+        r1: texture VRAM offset
+    - name: Render3dSetPaletteBase
+      address:
+        NA: 0x20B354C
+        NA-ITCM: 0x1FF81CC
+      description: |-
+        Send the PLTT_BASE geometry engine command, that sets the texture palette base address. Also caches the base address on RENDER_3D.
+        See http://problemkaputt.de/gbatek.htm#ds3dtextureattributes for more information on the parameters.
+        
+        r0: render_3d_texture_params pointer
+        r1: palette base address
+    - name: Render3dRectangle
+      address:
+        NA: 0x20B35A4
+        NA-ITCM: 0x1FF8224
+      description: |-
+        RENDER_3D_FUNCTIONS[0]. Renders a render_3d_element with type RENDER_RECTANGLE.
+        
+        r0: render_3d_rectangle
+    - name: GeomSetPolygonAttributes
+      address:
+        NA: 0x20B3800
+        NA-ITCM: 0x1FF8480
+      description: |-
+        Send the POLYGON_ATTR geometry engine command, that defines some polygon attributes for rendering.
+        See https://problemkaputt.de/gbatek.htm#ds3dpolygonattributes for more information
+        
+        r0: polygon ID
+        r1: alpha
+    - name: Render3dQuadrilateral
+      address:
+        NA: 0x20B381C
+        NA-ITCM: 0x1FF849C
+      description: |-
+        RENDER_3D_FUNCTIONS[1]. Renders a render_3d_element with type RENDER_QUADRILATERAL.
+        
+        r0: render_3d_quadrilateral
+    - name: Render3dTiling
+      address:
+        NA: 0x20B3AA8
+        NA-ITCM: 0x1FF8728
+      description: |-
+        RENDER_3D_FUNCTIONS[2]. Renders a render_3d_element with type RENDER_TILING.
+        
+        r0: render_3d_tiling
+    - name: Render3dTextureInternal
+      address:
+        NA-ITCM: 0x1FF8A10
+      description: |-
+        Implements most of the rendering logic for Render3dTexture.
+        
+        r0: render_3d_texture
+    - name: Render3dTexture
+      address:
+        NA: 0x20B3FA8
+        NA-ITCM: 0x1FF8C28
+      description: |-
+        RENDER_3D_FUNCTIONS[3]. Renders a render_3d_element with type RENDER_TEXTURE.
+        
+        This is primarily just a wrapper around Render3dTextureInternal, with a preceding alpha check and calls to Render3dSetTextureParams and Render3dSetPaletteBase.
+        
+        r0: render_3d_texture
+    - name: Render3dTextureNoSetup
+      address:
+        NA-ITCM: 0x1FF8C60
+      description: |-
+        Same as Render3dTexture except without calls to Render3dSetTextureParams and Render3dSetPaletteBase to set up geometry engine parameters.
+        
+        Presumably used to render multiple texture tiles with the same parameters without the extra setup overhead? But this function doesn't actually seem to be referenced anywhere.
+        
+        r0: render_3d_texture
+    - name: NewRender3dElement
       address:
         EU: 0x20B4938
         NA: 0x20B3FF8
@@ -38,10 +119,60 @@ itcm:
         NA-ITCM: 0x1FF8C78
         JP-ITCM: 0x1FF8C78
       description: |-
-        Return a new render_3d_element from RENDER_3D, to be to draw a new element using the 3d render engine later in the frame.
+        Return a new render_3d_element from RENDER_3D's render queue, to draw a new element using the 3d render engine later in the frame.
         
-        return: render_3d_element or NULL if there is no more available space in the stack
-    - name: Render3dStack
+        return: render_3d_element or NULL if there is no more available space in the queue
+    - name: EnqueueRender3dTexture
+      address:
+        NA: 0x20B402C
+        NA-ITCM: 0x1FF8CAC
+      description: |-
+        Copies the first 40 bytes of a render_3d_element onto the render queue of RENDER_3D, with type set to RENDER_TEXTURE.
+        
+        r0: render_3d_element
+    - name: EnqueueRender3dTiling
+      address:
+        NA: 0x20B405C
+        NA-ITCM: 0x1FF8CDC
+      description: |-
+        Copies a render_3d_element onto the render queue of RENDER_3D, with type set to RENDER_TILING.
+        
+        r0: render_3d_element
+    - name: NewRender3dRectangle
+      address:
+        NA: 0x20B408C
+        NA-ITCM: 0x1FF8D0C
+      description: |-
+        Return a render_3d_element from NewRender3dElement with a type of RENDER_RECTANGLE, and all other fields in the first 38 bytes zeroed.
+        
+        return: render_3d_element or NULL if there is no more available space in the queue
+    - name: NewRender3dQuadrilateral
+      address:
+        NA: 0x20B40BC
+        NA-ITCM: 0x1FF8D3C
+      description: |-
+        Return a render_3d_element from NewRender3dElement with a type of RENDER_QUADRILATERAL, and all other fields in the first 38 bytes zeroed.
+        
+        return: render_3d_element or NULL if there is no more available space in the queue
+    - name: NewRender3dTexture
+      address:
+        NA: 0x20B40EC
+        NA-ITCM: 0x1FF8D6C
+      description: |-
+        Return a render_3d_element from NewRender3dElement with a type of RENDER_TEXTURE, and all other fields in the first 40 bytes zeroed.
+        
+        return: render_3d_element or NULL if there is no more available space in the queue
+    - name: NewRender3dTiling
+      address:
+        EU: 0x20B4A5C
+        NA: 0x20B411C
+        EU-ITCM: 0x1FF8D9C
+        NA-ITCM: 0x1FF8D9C
+      description: |-
+        Return a render_3d_element from NewRender3dElement with a type of RENDER_TILING, and all other fields zeroed.
+        
+        return: render_3d_element or NULL if there is no more available space in the queue
+    - name: Render3dProcessQueue
       address:
         EU: 0x20B4A8C
         NA: 0x20B414C
@@ -50,7 +181,7 @@ itcm:
         NA-ITCM: 0x1FF8DCC
         JP-ITCM: 0x1FF8DCC
       description: |-
-        Perform rendering of the render_stack of RENDER_3D structure. Does nothing if there are no elements, otherwise, sort them based on a value, and render them all consecutively.
+        Perform rendering of the render queue of RENDER_3D structure. Does nothing if there are no elements, otherwise, sort them based on a value, and render them all consecutively.
         
         No params.
     - name: GetKeyN2MSwitch
@@ -244,8 +375,10 @@ itcm:
     - name: RENDER_3D_FUNCTIONS
       address:
         EU: 0x20B3DE0
+        NA: 0x20B34A0
         EU-ITCM: 0x1FF8120
+        NA-ITCM: 0x1FF8120
       description: |-
-        Pointers to the 4 functions available from render_3d_element (in ITCM)
+        Pointers to the 4 functions available for rendering a render_3d_element (in ITCM)
         
-        type: render_3d_element_concrete[4]
+        type: render_3d_element_fn_t[4]
