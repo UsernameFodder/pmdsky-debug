@@ -8651,7 +8651,7 @@ arm9:
         r1: divisor
         return: (quotient) | (remainder << 32)
   data:
-    - name: ARM9_HEADER
+    - name: SECURE
       address:
         EU: 0x2000000
         NA: 0x2000000
@@ -8660,8 +8660,8 @@ arm9:
         EU: 0x800
         NA: 0x800
         JP: 0x800
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: SDK_STRINGS
+      description: "The header of the DS cartridge secure area. See https://problemkaputt.de/gbatek.htm#dscartridgesecurearea"
+    - name: START_MODULE_PARAMS
       address:
         EU: 0x2000BA0
         NA: 0x2000BA0
@@ -8670,7 +8670,7 @@ arm9:
         EU: 0xCC
         NA: 0xCC
         JP: 0xCC
-      description: "Note: unverified, ported from Irdkwia's notes"
+      description: Parameters used by the NitroSDK to read the ROM.
     - name: DEFAULT_MEMORY_ARENA_SIZE
       address:
         EU: 0x2000E58
@@ -8803,6 +8803,81 @@ arm9:
         EU: 0x2000
         NA: 0x4000
         JP: 0x2000
+    - name: STRING_DEBUG_EMPTY
+      address:
+        NA: 0x2094AFC
+      length:
+        NA: 0x4
+    - name: STRING_DEBUG_FORMAT_LINE_FILE
+      address:
+        NA: 0x2094B00
+      length:
+        NA: 0x1C
+    - name: STRING_DEBUG_NO_PROG_POS
+      address:
+        NA: 0x2094B1C
+      length:
+        NA: 0x18
+    - name: STRING_DEBUG_SPACED_PRINT
+      address:
+        NA: 0x2094B34
+      length:
+        NA: 0xC
+    - name: STRING_DEBUG_FATAL
+      address:
+        NA: 0x2094B40
+      length:
+        NA: 0x14
+    - name: STRING_DEBUG_NEWLINE
+      address:
+        NA: 0x2094B54
+      length:
+        NA: 0x4
+    - name: STRING_DEBUG_LOG_NULL
+      address:
+        NA: 0x2094B58
+      length:
+        NA: 0x8
+    - name: STRING_DEBUG_STRING_NEWLINE
+      address:
+        NA: 0x2094B60
+      length:
+        NA: 0x4
+    - name: STRING_EFFECT_EFFECT_BIN
+      address:
+        NA: 0x2094B64
+      length:
+        NA: 0x14
+    - name: STRING_MONSTER_MONSTER_BIN
+      address:
+        NA: 0x2094B78
+      length:
+        NA: 0x14
+    - name: STRING_BALANCE_M_LEVEL_BIN
+      address:
+        NA: 0x2094B8C
+      length:
+        NA: 0x14
+    - name: STRING_DUNGEON_DUNGEON_BIN
+      address:
+        NA: 0x2094BA0
+      length:
+        NA: 0x14
+    - name: STRING_MONSTER_M_ATTACK_BIN
+      address:
+        NA: 0x2094BB4
+      length:
+        NA: 0x18
+    - name: STRING_MONSTER_M_GROUND_BIN
+      address:
+        NA: 0x2094BCC
+      length:
+        NA: 0x18
+    - name: STRING_FILE_DIRECTORY_INIT
+      address:
+        NA: 0x2094BE4
+      length:
+        NA: 0x28
     - name: AVAILABLE_ITEMS_IN_GROUP_TABLE
       address:
         EU: 0x2095130
@@ -10457,7 +10532,7 @@ arm9:
         NA: 0x20AF698
       length:
         NA: 0x1
-    - name: PACK_FILE_OPENED
+    - name: PACK_FILES_OPENED
       address:
         EU: 0x20AFF54
         NA: 0x20AF69C
