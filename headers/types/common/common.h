@@ -10,6 +10,20 @@
 #include "graphics.h"
 #include "../files/wan.h"
 
+// Parameters used by the NitroSDK to read the ROM.
+struct start_module_params {
+    void* autoload_list;
+    void* autoload_list_end;
+    void* autoload_start;
+    void* static_bss_start;
+    void* static_bss_end;
+    uint32_t compressed_static_end;
+    uint32_t version_id;
+    uint32_t nitrocode_be;
+    uint32_t nitrocode_le;
+};
+ASSERT_SIZE(struct start_module_params, 36);
+
 // Program position info (basically stack trace info) for debug logging.
 struct prog_pos_info {
     char* file; // file name

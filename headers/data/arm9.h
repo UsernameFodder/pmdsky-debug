@@ -3,6 +3,7 @@
 
 #include "arm9/itcm.h"
 
+extern struct start_module_params* START_MODULE_PARAMS;
 extern uint32_t DEFAULT_MEMORY_ARENA_SIZE;
 extern int LOG_MAX_ARG;
 extern enum damage_source_non_move DAMAGE_SOURCE_CODE_ORB_ITEM;
@@ -17,21 +18,21 @@ extern uint32_t MONSTER_ID_LIMIT;
 extern uint32_t MAX_RECRUITABLE_TEAM_MEMBERS;
 extern int16_t NATURAL_LOG_VALUE_TABLE[2048];
 extern undefined CART_REMOVED_IMG_DATA[0]; // Length differs between versions
-extern char STRING_DEBUG_EMPTY[0];
-extern char STRING_DEBUG_FORMAT_LINE_FILE[26];
-extern char STRING_DEBUG_NO_PROG_POS[20];
-extern char STRING_DEBUG_SPACED_PRINT[9];
-extern char STRING_DEBUG_FATAL[18];
-extern char STRING_DEBUG_NEWLINE[1];
-extern char STRING_DEBUG_LOG_NULL[7];
-extern char STRING_DEBUG_STRING_NEWLINE[3];
-extern char STRING_EFFECT_EFFECT_BIN[17];
-extern char STRING_MONSTER_MONSTER_BIN[19];
-extern char STRING_BALANCE_M_LEVEL_BIN[19];
-extern char STRING_DUNGEON_DUNGEON_BIN[19];
-extern char STRING_MONSTER_M_ATTACK_BIN[20];
-extern char STRING_MONSTER_M_GROUND_BIN[20];
-extern char STRING_FILE_DIRECTORY_INIT[36];
+extern char STRING_DEBUG_EMPTY[1];
+extern char STRING_DEBUG_FORMAT_LINE_FILE[27];
+extern char STRING_DEBUG_NO_PROG_POS[21];
+extern char STRING_DEBUG_SPACED_PRINT[10];
+extern char STRING_DEBUG_FATAL[19];
+extern char STRING_DEBUG_NEWLINE[2];
+extern char STRING_DEBUG_LOG_NULL[8];
+extern char STRING_DEBUG_STRING_NEWLINE[4];
+extern char STRING_EFFECT_EFFECT_BIN[18];
+extern char STRING_MONSTER_MONSTER_BIN[20];
+extern char STRING_BALANCE_M_LEVEL_BIN[20];
+extern char STRING_DUNGEON_DUNGEON_BIN[20];
+extern char STRING_MONSTER_M_ATTACK_BIN[21];
+extern char STRING_MONSTER_M_GROUND_BIN[21];
+extern char STRING_FILE_DIRECTORY_INIT[37];
 extern enum item_id KECLEON_SHOP_ITEM_TABLE_LISTS_1[4];
 extern enum item_id KECLEON_SHOP_ITEM_TABLE_LISTS_2[4];
 extern struct exclusive_item_stat_boost_entry EXCLUSIVE_ITEM_STAT_BOOST_DATA[15];
