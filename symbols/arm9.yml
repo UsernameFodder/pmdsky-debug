@@ -8801,7 +8801,7 @@ arm9:
         JP: 0x2092DD0
       length:
         EU: 0x2000
-        NA: 0x4000
+        NA: 0x2000
         JP: 0x2000
     - name: STRING_DEBUG_EMPTY
       address:
