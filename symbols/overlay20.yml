@@ -119,40 +119,52 @@ overlay20:
     - name: RECYCLE_D_BOX_LAYOUT_7
       address:
         NA: 0x238D0A8
+        JP: 0x238E604
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: RECYCLE_D_BOX_LAYOUT_8
       address:
         NA: 0x238D0B8
+        JP: 0x238E614
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: RECYCLE_D_BOX_LAYOUT_9
       address:
         NA: 0x238D0C8
+        JP: 0x238E624
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: RECYCLE_D_BOX_LAYOUT1_0
       address:
         NA: 0x238D0D8
+        JP: 0x238E634
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: RECYCLE_D_BOX_LAYOUT1_1
       address:
         NA: 0x238D0E8
+        JP: 0x238E644
       length:
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: RECYCLE_MAIN_MENU_3
       address:
         EU: 0x238DC38
         NA: 0x238D0F8
+        JP: 0x238E654
       length:
         EU: 0x18
         NA: 0x18
+        JP: 0x18
     - name: OVERLAY20_RESERVED_SPACE
       address:
         NA: 0x238D110
@@ -162,24 +174,32 @@ overlay20:
     - name: OVERLAY20_UNKNOWN_POINTER__NA_238D120
       address:
         NA: 0x238D120
+        JP: 0x238E680
       length:
         NA: 0x4
+        JP: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY20_UNKNOWN_POINTER__NA_238D124
       address:
         NA: 0x238D124
+        JP: 0x238E684
       length:
         NA: 0x4
+        JP: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY20_UNKNOWN_POINTER__NA_238D128
       address:
         NA: 0x238D128
+        JP: 0x238E688
       length:
         NA: 0x4
+        JP: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY20_UNKNOWN_POINTER__NA_238D12C
       address:
         NA: 0x238D12C
+        JP: 0x238E68C
       length:
         NA: 0x4
+        JP: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"
