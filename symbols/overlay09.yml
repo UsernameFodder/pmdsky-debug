@@ -12,5 +12,63 @@ overlay9:
     NA: 0x2D80
     JP: 0x2D20
   description: Controls the Sky Jukebox.
-  functions: []
+  functions:
+    - name: CreateJukeboxTrackMenu
+      address:
+        NA: 0x233E030
+      description: |-
+        Creates a window containing the track selection menu for the Sky Jukebox. Also see struct jukebox_track_menu.
+        
+        r0: window_params
+        r1: ?
+        r2: ?
+        r3: ?
+        stack[0]: ?
+        return: window_id
+    - name: UpdateJukeboxTrackMenu
+      address:
+        NA: 0x233E3DC
+      description: |-
+        Window update function for jukebox track menus.
+        
+        r0: window pointer
+    - name: CreatePlaybackControlsMenu
+      address:
+        NA: 0x233E918
+      description: |-
+        Creates a window containing the playback controls menu for a selected song. Also see struct simple_menu.
+        
+        r0: window_params
+        r1: ?
+        r2: ?
+        r3: ?
+        stack[0]: ?
+        stack[1]: ?
+        return: window_id
+    - name: UpdatePlaybackControlsMenu
+      address:
+        NA: 0x233ED84
+      description: |-
+        Window update function for playback controls menus.
+        
+        r0: window pointer
+    - name: CreateInputLockBox
+      address:
+        NA: 0x233F210
+      description: |-
+        Creates a window containing the "Locked" text when inputs are locked while a song is playing. Also see struct input_lock_box.
+        
+        r0: window_params
+        r1: ?
+        r2: ?
+        r3: ?
+        stack[0]: ?
+        return: window_id
+    - name: UpdateInputLockBox
+      address:
+        NA: 0x233F3FC
+      description: |-
+        Window update function for input lock boxes.
+        
+        r0: window pointer
   data: []

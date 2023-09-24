@@ -324,7 +324,7 @@ overlay14:
         NA: 0x238C14C
       length:
         NA: 0x4
-      description: "Monster ID for Loudred, used as the speaker ID for dialog."
+      description: "Monster ID for Loudred, used as the speaker ID for dialogue."
     - name: STRING_ID_SENTRY_TOP_SESSIONS
       address:
         NA: 0x238C150
@@ -453,7 +453,7 @@ overlay14:
       length:
         NA: 0x4
         JP: 0x4
-      description: "Monster ID for Chatot, used as the speaker ID for dialog."
+      description: "Monster ID for Chatot, used as the speaker ID for dialogue."
     - name: STRING_ID_SENTRY_NO_MORE_VISITORS
       address:
         NA: 0x238C19C

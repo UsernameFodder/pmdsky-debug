@@ -8,9 +8,14 @@
 // Thus, instead of using "lower" and "upper", we use "main" and "sub" screens
 // We need to differentiate them because each engine has different abilities
 enum screen {
-    SCREEN_MAIN = 0, // The screen linked to the main graphics engine (A)
-    SCREEN_SUB = 1,  // The screen linked to the sub graphics engine (B)
+    SCREEN_MAIN = 0, // The screen linked to the main graphics engine (A); bottom screen
+    SCREEN_SUB = 1,  // The screen linked to the sub graphics engine (B); top screen
 };
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(screen);
+#pragma pack(pop)
 
 // Overlay group ID. Each group ID maps to an overlay number.
 enum overlay_group_id {
@@ -3752,9 +3757,9 @@ enum render_type_64 {
     // repeated tiling of a single texture, used for, e.g., health bar
     // based on RENDER_TILING
     RENDER64_TILING = 5,
-    // border surrounding dialog boxes, menus, etc.
+    // frame surrounding windows
     // based on RENDER_TILING
-    RENDER64_BORDER = 6,
+    RENDER64_WINDOW_FRAME = 6,
     // seemingly just renders a single texture tile, but with a weird useless loop over a 10x8 grid
     // to offset the tile somewhat, which always ends up picking the last (bottom-right) grid cell
     // based on RENDER_TEXTURE
@@ -3766,12 +3771,20 @@ enum render_type_64 {
 ENUM_8_BIT(render_type_64);
 #pragma pack(pop)
 
-enum portrait_canvas_state {
-    PORTRAIT_CANVAS_HIDDEN = 0,
-    PORTRAIT_CANVAS_TRY_UPDATE = 1,
-    PORTRAIT_CANVAS_UPDATE = 2,
-    PORTRAIT_CANVAS_STANDBY = 3,
-    PORTRAIT_CANVAS_HIDE = 4,
+enum dialogue_box_state {
+    DIALOGUE_BOX_STATE_INACTIVE = 0,
+    DIALOGUE_BOX_STATE_1 = 1,
+    DIALOGUE_BOX_STATE_2 = 2,
+    DIALOGUE_BOX_STATE_3 = 3,
+    DIALOGUE_BOX_STATE_4 = 4,
+};
+
+enum portrait_box_state {
+    PORTRAIT_BOX_HIDDEN = 0,
+    PORTRAIT_BOX_TRY_UPDATE = 1,
+    PORTRAIT_BOX_UPDATE = 2,
+    PORTRAIT_BOX_STANDBY = 3,
+    PORTRAIT_BOX_HIDE = 4,
 };
 
 // Correspond to a .bin pack archive

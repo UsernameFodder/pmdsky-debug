@@ -483,6 +483,20 @@ overlay11:
         
         r0: live actor
         r1: direction
+    - name: CreateTeamInfoBox
+      address:
+        NA: 0x22FEE94
+      description: |-
+        Creates a window containing team information (rank and money carried) for the top-level menu in ground mode. Also see struct team_info_box.
+        
+        return: window_id
+    - name: UpdateTeamInfoBox
+      address:
+        NA: 0x22FEFA4
+      description: |-
+        Window update function for team info boxes.
+        
+        r0: window pointer
     - name: SprintfStatic
       address:
         EU: 0x2309868

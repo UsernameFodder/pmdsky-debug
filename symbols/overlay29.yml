@@ -3009,7 +3009,7 @@ overlay29:
         r1: target entity pointer
         r2: number of levels
         r3: bool message flag?
-        stack[0]: bool show level up dialog (for example "Hey, I leveled up!" with a portrait)?
+        stack[0]: bool show level up dialogue (for example "Hey, I leveled up!" with a portrait)?
     - name: TryDecreaseLevel
       address:
         EU: 0x23039B4
@@ -3028,12 +3028,12 @@ overlay29:
         NA: 0x230303C
         JP: 0x2304588
       description: |-
-        Attempts to level up the target. Fails if the target's level can't be raised. The show show level up dialog bool does nothing for monsters not on the team.
+        Attempts to level up the target. Fails if the target's level can't be raised. The show level up dialogue bool does nothing for monsters not on the team.
         
         r0: user entity pointer
         r1: target entity pointer
         r2: bool message flag?
-        r3: bool show level up dialog (for example "Hey, I leveled up!" with a portrait)?
+        r3: bool show level up dialogue (for example "Hey, I leveled up!" with a portrait)?
         return: success flag
     - name: GetMonsterMoves
       address:

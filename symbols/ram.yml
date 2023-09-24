@@ -310,13 +310,15 @@ ram:
       length:
         NA: 0x4
       description: Pointer to SOUND_MEMORY_ARENA.
-    - name: DIALOG_BOX_LIST
+    - name: WINDOW_LIST
       address:
         NA: 0x22A88DC
       description: |-
-        Array of all dialog box structs. Newly created dialog box structs are taken from slots in this array.
+        Array of all window structs. Newly created window structs are taken from slots in this array.
         
-        type: struct dialog_box_list
+        Note that this array isn't strictly ordered in any way. A newly created window will occupy the first available slot. If a window in an early slot is destroyed, windows that are still active in later slots won't be shifted back unless destroyed and recreated.
+        
+        type: struct window_list
     - name: LAST_NEW_MOVE
       address:
         EU: 0x22AB78C
