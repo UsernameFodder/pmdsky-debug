@@ -456,7 +456,7 @@ void InitRender3dData(void);
 void GeomSwapBuffers(void);
 void InitRender3dElement64(struct render_3d_element_64* element64);
 void Render3d64Texture0x7(struct render_3d_element_64* element64);
-void Render3d64Border(struct render_3d_element_64* element64);
+void Render3d64WindowFrame(struct render_3d_element_64* element64);
 void EnqueueRender3d64Tiling(struct render_3d_element_64* element64);
 void Render3d64Tiling(struct render_3d_element_64* element64);
 void Render3d64Quadrilateral(struct render_3d_element_64* element64);
@@ -510,39 +510,88 @@ void CopyNStringFromMessageId(char* buf, int string_id, int buf_len);
 void LoadTblTalk(void);
 int GetTalkLine(int personality_idx, int group_id, int restrictions);
 bool IsAOrBPressed(void);
-int NewDialogBox(struct dialog_box_hdr* hdr, uint8_t param_2);
+int NewWindowScreenCheck(struct window_params* params, uint8_t param_2);
+int NewWindow(struct window_params* params, uint8_t param_2);
 void SetScreenWindowsColor(int palette_idx, bool upper_screen);
 void SetBothScreensWindowsColor(int palette_idx);
-undefined* GetDialogBoxField0xC(int dbox_id);
+void* GetWindowContents(int window_id);
 void LoadCursors(void);
-void InitDialogBoxTrailer(struct dialog_box_trailer* trailer);
+void InitWindowTrailer(struct window_trailer* trailer);
 void LoadAlert(void);
 void PrintClearMark(int mark_id, int x, int y, undefined param_4);
-int CreateNormalMenu(struct dbox_layout* layout, struct menu_flags menu_flags,
-                     struct menu_additional_info* menu_additional_info,
-                     struct normal_menu_option* menu_options, int option_id);
-void FreeNormalMenu(int menu_id);
-bool IsNormalMenuActive(int menu_id);
-int GetNormalMenuResult(int menu_id);
-int CreateAdvancedMenu(struct dbox_layout* layout, struct menu_flags menu_flags,
+int CreateParentMenu(struct window_params* params, uint32_t param_2, undefined* param_3,
+                     undefined4 param_4);
+void UpdateParentMenu(struct window* window);
+int CreateSimpleMenuWrapper(struct window_params* params, struct menu_flags menu_flags,
+                            struct menu_additional_info* menu_additional_info,
+                            struct simple_menu_option* menu_options, int option_id);
+int CreateSimpleMenu(struct window_params* params, struct menu_flags menu_flags,
+                     struct menu_additional_info* menu_additional_info, char* param_3,
+                     int option_id);
+void FreeSimpleMenu(int window_id);
+bool IsSimpleMenuActive(int window_id);
+int GetSimpleMenuResult(int window_id);
+void UpdateSimpleMenu(struct window* window);
+int CreateAdvancedMenu(struct window_params* params, struct menu_flags menu_flags,
                        struct menu_additional_info* menu_additional_info,
                        advanced_menu_entry_fn_t* entry_fn, int n_options, int n_opt_per_page);
-void FreeAdvancedMenu(int menu_id);
-bool IsAdvancedMenuActive(int menu_id);
-int GetAdvancedMenuCurrentOption(int menu_id);
-int GetAdvancedMenuResult(int menu_id);
-int CreateDBox(struct dbox_layout* layout);
-void FreeDBox(int dbox_id);
-bool IsDBoxActive(int dbox_id);
-void ShowMessageInDBox(int dbox_id, struct preprocessor_flags flags, int string_id,
-                       struct preprocessor_args* args);
-void ShowStringInDBox(int dbox_id, struct preprocessor_flags flags, char* string,
-                      struct preprocessor_args* args);
-void ShowDBox(int dbox_id);
-int CreatePortraitBox(undefined param_1, undefined4 param_2, int param_3);
-void FreePortraitBox(int dbox_id);
-void ShowPortraitBox(int dbox_id, struct portrait_box* portrait);
-void HidePortraitBox(int dbox_id);
+void FreeAdvancedMenu(int window_id);
+bool IsAdvancedMenuActive(int window_id);
+int GetAdvancedMenuCurrentOption(int window_id);
+int GetAdvancedMenuResult(int window_id);
+void UpdateAdvancedMenu(struct window* window);
+int CreateCollectionMenu(struct window_params* params, uint32_t param_2, undefined* param_3,
+                         undefined* param_4, undefined4 param_5, int param_6, int param_7);
+void UpdateCollectionMenu(struct window* window);
+int CreateOptionsMenu(struct window_params* params, uint32_t param_2, undefined* param_3,
+                      undefined* param_4, int param_5, undefined4* param_6);
+void UpdateOptionsMenu(struct window* window);
+int CreateDebugMenu(struct window_params* params, uint32_t param_2, undefined* param_3,
+                    uint16_t param_4, int param_5, undefined* param_6);
+void UpdateDebugMenu(struct window* window);
+int CreateScrollBox1(struct window_params* params, uint32_t param_2, undefined* param_3,
+                     uint16_t param_4, undefined* param_5, uint16_t param_6, undefined* param_7);
+int CreateScrollBox2(struct window_params* params, uint32_t param_2, undefined* param_3,
+                     int param_4, uint16_t* param_5, undefined* param_6, uint16_t* param_7,
+                     undefined* param_8);
+void UpdateScrollBox(struct window* window);
+int CreateDialogueBox(struct window_params* params);
+void FreeDialogueBox(int window_id);
+bool IsDialogueBoxActive(int window_id);
+void ShowMessageInDialogueBox(int window_id, struct preprocessor_flags flags, int string_id,
+                              struct preprocessor_args* args);
+void ShowStringInDialogueBox(int window_id, struct preprocessor_flags flags, char* string,
+                             struct preprocessor_args* args);
+void ShowDialogueBox(int window_id);
+void UpdateDialogueBox(struct window* window);
+int CreatePortraitBox(enum screen screen, uint32_t palette_idx, bool framed);
+void FreePortraitBox(int window_id);
+void ShowPortraitBox(int window_id, struct portrait_box* portrait);
+void HidePortraitBox(int window_id);
+void UpdatePortraitBox(struct window* window);
+int CreateTextBox1(struct window_params* params, undefined4 param_2);
+int CreateTextBox2(struct window_params* params, undefined4 param_2, undefined4 param_3);
+struct text_box* CreateTextBoxInternal(struct window_params* params);
+void UpdateTextBox(struct window* window);
+int CreateDynamicTextBox(struct window_params* params, uint32_t param_2, undefined* param_3,
+                         uint32_t id);
+void UpdateDynamicTextBox(struct window* window);
+int CreateControlsChart(struct window_params* params, undefined4 param_2, undefined* param_3,
+                        uint16_t param_4);
+void UpdateControlsChart(struct window* window);
+int CreateAlertBox(struct window_params* params);
+void UpdateAlertBox(struct window* window);
+int CreateAdvancedTextBox1(struct window_params* params, uint32_t param_2, undefined* param_3,
+                           undefined4 param_4, undefined4 param_5);
+int CreateAdvancedTextBox2(struct window_params* params, uint32_t param_2, undefined* param_3,
+                           undefined4 param_4, undefined4 param_5, undefined4 param_6);
+struct advanced_text_box* CreateAdvancedTextBoxInternal(struct window_params* params,
+                                                        uint32_t param_2, undefined* param_3,
+                                                        undefined4 param_4, int param_5);
+void UpdateAdvancedTextBox(struct window* window);
+int CreateTeamSelectionMenu(struct window_params* params, uint32_t param_2, undefined* param_3,
+                            undefined* param_4, int param_5, int param_6);
+void UpdateTeamSelectionMenu(struct window* window);
 bool IsMenuOptionActive(undefined* param_1);
 void PlayMenuOptionSound(undefined* param_1, int index);
 int ShowKeyboard(int message_id, char* buffer1, int param_3, char* buffer2);

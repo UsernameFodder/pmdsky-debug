@@ -186,7 +186,8 @@ struct sentry_duty {
     undefined field_0xa1;
     undefined field_0xa2;
     undefined field_0xa3;
-    struct preprocessor_args dialog_args; // 0xA4: Args for PreprocessString when displaying dialog
+    // 0xA4: Args for PreprocessString when displaying dialogue
+    struct preprocessor_args dialogue_args;
     undefined field_0xf4;
     undefined field_0xf5;
     undefined field_0xf6;
@@ -212,7 +213,7 @@ struct sentry_duty {
     // 0x110: The next game state to transition to. Transition handlers set this variable rather
     // than the actual game state, and the main game loop handles the transition internals properly
     int next_game_state;
-    int prev_dialog_str_id; // 0x114: previous string ID displayed in the dialog box
+    int prev_dialogue_str_id; // 0x114: previous string ID displayed in the dialogue window
     int field_0x118;
     int field_0x11c;
     struct animation field_0x120;

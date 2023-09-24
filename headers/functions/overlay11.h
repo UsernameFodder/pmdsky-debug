@@ -48,6 +48,8 @@ void ChangeActorAnimation(undefined param_1, uint16_t setanimation_param);
 void InitPartnerFollowData(void);
 void GetDirectionLiveActor(struct live_actor* actor, struct direction_id_8* target);
 void SetDirectionLiveActor(struct live_actor* actor, struct direction_id_8 direction);
+int CreateTeamInfoBox(void);
+void UpdateTeamInfoBox(struct window* window);
 void GetExclusiveItemRequirements(undefined param_1, undefined param_2);
 bool GetDungeonMapPos(struct uvec2* out_pos, enum dungeon_id dungeon);
 void WorldMapSetMode(uint32_t world_map_mode);

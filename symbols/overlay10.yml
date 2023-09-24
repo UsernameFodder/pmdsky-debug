@@ -13,6 +13,30 @@ overlay10:
     JP: 0x1F6A0
   description: "Appears to be used both during ground mode and dungeon mode. With dungeon mode, whereas overlay 29 contains the main dungeon engine, this overlay seems to contain routines and data for dungeon mechanics."
   functions:
+    - name: CreateInventoryMenu
+      address:
+        NA: 0x22BCA80
+      description: |-
+        Creates a window containing a menu for inventory management. Also see struct inventory_menu.
+        
+        This is used for the Treasure Bag menu, the item information/price window in dungeon Kecleon shops, and possibly other things.
+        
+        r0: window_params
+        r1: ?
+        r2: ?
+        r3: some function pointer?
+        stack[0]: ?
+        stack[1]: ?
+        stack[2]: ?
+        stack[3]: ?
+        return: window_id
+    - name: UpdateInventoryMenu
+      address:
+        NA: 0x22BCE74
+      description: |-
+        Window update function for inventory menus.
+        
+        r0: window pointer
     - name: SprintfStatic
       address:
         EU:
@@ -118,6 +142,20 @@ overlay10:
         
         r0: move_id
         return: anim_ent_ptr (This might be a mistake? It seems to be an integer, not a pointer)
+    - name: ProcessTeamStatsLvHp
+      address:
+        NA: 0x22C1748
+      description: |-
+        Appears to populate the Lv./HP row in the "Team stats" top screen.
+        
+        r0: index of some kind
+    - name: ProcessTeamStatsNameGender
+      address:
+        NA: 0x22C1864
+      description: |-
+        Appears to populate the name/gender row in the "Team stats" top screen.
+        
+        r0: index of some kind
     - name: IsBackgroundTileset
       address:
         EU: 0x22C2ECC
