@@ -450,9 +450,9 @@ ram:
         NA: 0x22ABDE0
         JP: 0x22AD598
       length:
-        EU: 0x9878
-        NA: 0x9878
-        JP: 0x9878
+        EU: 0x99A8
+        NA: 0x99A8
+        JP: 0x99A8
       description: |-
         Table with all team members, persistent information about them, and information about which ones are currently active.
         

@@ -379,7 +379,7 @@ struct stat_bitflag {
 ASSERT_SIZE(struct stat_bitflag, 2);
 
 struct gummi_result {
-    enum gummi_compatability gummi_compatability;
+    struct gummi_compatability_16 gummi_compatability;
     struct stat_bitflag stats_increased;
 };
 ASSERT_SIZE(struct gummi_result, 4);

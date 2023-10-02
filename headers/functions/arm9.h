@@ -182,7 +182,7 @@ enum move_id GetItemMoveId(enum item_id item_id);
 bool TestItemAiFlag(enum item_id item_id, int bit_id);
 bool IsItemInTimeDarkness(enum item_id item_id);
 bool IsItemValidVeneer(enum item_id item_id);
-void SetActiveInventory(int inventory);
+void SetActiveInventory(enum team_id team_id);
 int GetMoneyCarried(void);
 void SetMoneyCarried(int amount);
 void AddMoneyCarried(int amount);
@@ -223,6 +223,7 @@ int CountNbItemsOfTypeInStorage(enum item_id item_id);
 int CountItemTypeInStorage(struct bulk_item* item);
 bool RemoveItemsTypeInStorage(struct bulk_item* item);
 bool AddItemToStorage(struct bulk_item* item);
+int GetMoneyStored(void);
 void SetMoneyStored(int amount);
 void SortKecleonItems1(void);
 void GenerateKecleonItems1(enum kecleon_shop_version kecleon_shop_version);
@@ -262,7 +263,7 @@ int ApplyNectarBoostToGroundMonster(struct ground_monster* ground_monster,
 bool IsMonsterAffectedByGravelyrockGroundMode(struct ground_monster* ground_monster);
 int ApplyGravelyrockBoostToGroundMonster(struct ground_monster* ground_monster,
                                          int* attempted_iq_boost_out);
-void ApplyGummiBoostsGroundMode(uint16_t* monster_id, uint16_t* monster_iq,
+void ApplyGummiBoostsGroundMode(struct monster_id_16* monster_id, uint16_t* monster_iq,
                                 uint8_t* monster_offensive_stats, uint8_t* monster_defensive_stats,
                                 enum item_id item_id, bool not_boost_stats,
                                 struct gummi_result* gummi_result);
@@ -450,7 +451,7 @@ int StoiTagVeneer(const char* s);
 void InitPreprocessorArgs(struct preprocessor_args* args);
 char* SetStringAccuracy(char* s, int param_2);
 char* SetStringPower(char* s, int param_2);
-char* GetCurrentTeamNameString(char* buffer);
+char* GetCurrentTeamNameString(char* buffer, int param_2);
 char* GetBagNameString(char* buffer);
 char* GetDungeonResultString(int string_number);
 void SetQuestionMarks(char* s);
@@ -459,8 +460,8 @@ void StrncpySimple(char* dest, const char* src, uint32_t n);
 void StrncpySimpleNoPad(char* dest, const char* src, uint32_t n);
 int StrncmpSimple(const char* s1, const char* s2, uint32_t n);
 void StrncpySimpleNoPadSafe(char* dest, const char* src, uint32_t n);
-void SpecialStrcpy(char* dest, const char* src);
-void SpecialNStrcpy(char* dest, const char* src, uint32_t n);
+void StrcpyName(char* dest, const char* src);
+void StrncpyName(char* dest, const char* src, uint32_t n);
 void GetStringFromFile(char* buf, int string_id);
 void LoadStringFile(void);
 void GetStringFromFileVeneer(char* buf, int string_id);
@@ -644,7 +645,7 @@ void CopyLogFrom(undefined* read_info);
 void GetAbilityString(undefined* buf, enum ability_id ability_id);
 int GetAbilityDescStringId(enum ability_id ability_id);
 int GetTypeStringId(enum type_id type_id);
-int GetConversion2ConvertToType(enum type_id attack_type_id);
+enum type_id GetConversion2ConvertToType(enum type_id attack_type_id);
 void CopyBitsTo(undefined* write_info, void* buf_write, int nbits);
 void CopyBitsFrom(undefined* read_info, void* buf_read, int nbits);
 void StoreDefaultTeamData(void);
@@ -789,15 +790,19 @@ int GetPartyMembers(uint16_t* party_members);
 void RefillTeam(void);
 int ClearItem(int team_id, bool check);
 void ChangeGiratinaFormIfSkyDungeon(enum dungeon_id dungeon_id);
-int GetIqSkillStringId(enum tactic_id tactic_id);
+int GetIqSkillStringId(enum iq_skill_id iq_skill);
 bool DoesTacticFollowLeader(enum tactic_id tactic_id);
-void GetUnlockedTactics(bool* tactic_unlock_flags, int level);
+void GetUnlockedTactics(enum tactic_id* unlocked_tactics, int level);
+void GetUnlockedTacticFlags(bool* tactic_unlock_flags, int level);
 bool CanLearnIqSkill(int iq_amount, enum iq_skill_id iq_id);
 int GetLearnableIqSkills(struct iq_skill_id_8* out_iq_skill_id, enum monster_id monster_id,
                          int monster_iq);
 void DisableIqSkill(uint32_t* iq_skills_flags, enum iq_skill_id iq_id);
 void EnableIqSkill(uint32_t* iq_skills_flags, enum iq_skill_id iq_id);
 enum iq_skill_id GetSpeciesIqSkill(enum monster_id monster_id, int index);
+void DisableAllIqSkills(uint32_t* iq_skills_flags);
+void EnableAllLearnableIqSkills(uint32_t* iq_skills_flags, enum monster_id monster_id
+                                int monster_iq);
 bool IqSkillFlagTest(uint32_t* iq_skill_flags, enum iq_skill_id iq_id);
 enum iq_skill_id GetNextIqSkill(enum monster_id monster_id, int monster_iq);
 void GetExplorerMazeTeamName(char* buffer);
@@ -808,7 +813,7 @@ void WriteMonsterToSave(undefined* write_info, struct ground_monster* monster);
 void ReadMonsterFromSave(undefined* read_info, struct ground_monster* monster);
 void GetEvolutionPossibilities(struct ground_monster* monster, undefined* evo);
 int GetMonsterEvoStatus(struct ground_monster* monster);
-bool CopyTacticString(char* buffer, enum tactic_id tactic_id);
+void CopyTacticString(char* buffer, enum tactic_id tactic_id);
 int GetSosMailCount(int param_1, bool param_2);
 bool IsMissionValid(struct mission* mission);
 enum mission_generation_result GenerateMission(undefined* param_1, struct mission* mission_data);

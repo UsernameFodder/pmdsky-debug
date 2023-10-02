@@ -3803,7 +3803,7 @@ enum gummi_compatability {
 };
 
 // This is usually stored as an 16-bit integer
-#pragma pack(push, 1)
+#pragma pack(push, 2)
 ENUM_16_BIT(gummi_compatability);
 #pragma pack(pop)
 

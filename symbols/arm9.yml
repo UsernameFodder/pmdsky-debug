@@ -1474,8 +1474,8 @@ arm9:
       description: |-
         Convert an item into an equivalent bulk_item.
         
-        r0: pointer to item to initialize
-        r1: pointer to bulk_item
+        r0: pointer to bulk_item to initialize
+        r1: pointer to item
     - name: GetDisplayedBuyPrice
       address:
         EU: 0x200D158
@@ -1876,7 +1876,7 @@ arm9:
         Changes the currently active inventory. Has one for the main team, rescue team, and the special
         episode team?
         
-        r0: inventory to mark as active (0, 1, 2)
+        r0: team ID
     - name: GetMoneyCarried
       address:
         EU: 0x200EDA4
@@ -2454,7 +2454,7 @@ arm9:
         NA: 0x20115F8
         JP: 0x20115C8
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Attempts to apply a ginseng boost to the highest valid move that the ground monster knows.
         
         r0: ground monster pointer
         r1: [output] move ID
@@ -4312,7 +4312,7 @@ arm9:
         r0: dest
         r1: src
         r2: n
-    - name: SpecialStrcpy
+    - name: StrcpyName
       address:
         EU: 0x20254FC
         NA: 0x2025230
@@ -4323,11 +4323,11 @@ arm9:
         
         r0: dst
         r1: src
-    - name: SpecialNStrcpy
+    - name: StrncpyName
       address:
         NA: 0x2025314
       description: |-
-        A special version of strcpy for handling names. Appears to use character 0x7E as some kind of
+        A special version of strncpy for handling names. Appears to use character 0x7E as some kind of
         formatting character in NA? Copies at most n characters.
         
         r0: dst
@@ -6110,7 +6110,7 @@ arm9:
         NA: 0x205093C
         JP: 0x2050C88
       description: |-
-        Gets the ability descripting string ID for the corresponding ability.
+        Gets the ability description string ID for the corresponding ability.
         
         r0: ability ID
         return: string ID
@@ -7645,6 +7645,7 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         r0: iq skill id
+        return: iq skill string id
     - name: DoesTacticFollowLeader
       address:
         NA: 0x2058C3C
@@ -7668,7 +7669,7 @@ arm9:
       description: |-
         Returns an array with an entry for each tactic and if they're unlocked at the passed level.
         
-        r0: [output] bool Array where the unlocked status of tactics.
+        r0: [output] bool Array where the unlocked status of each tactic is stored
         r1: Monster level
     - name: CanLearnIqSkill
       address:
