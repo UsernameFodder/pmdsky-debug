@@ -517,7 +517,7 @@ struct team_member_table {
     // 0x9898: The 4 explorer maze monsters from selecting 'Team Trade'.
     struct ground_monster explorer_maze_monsters[4];
 };
-ASSERT_SIZE(struct team_member_table, 39268);
+ASSERT_SIZE(struct team_member_table, 39336);
 
 // Contains information about a monster's level-up data at a certain level
 struct level_up_entry {
