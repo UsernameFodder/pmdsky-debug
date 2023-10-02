@@ -182,8 +182,8 @@ enum move_id GetItemMoveId(enum item_id item_id);
 bool TestItemAiFlag(enum item_id item_id, int bit_id);
 bool IsItemInTimeDarkness(enum item_id item_id);
 bool IsItemValidVeneer(enum item_id item_id);
-void SetGold(int val);
-int GetGold(void);
+void SetActiveInventory(int inventory);
+int GetMoneyCarried(void);
 void SetMoneyCarried(int amount);
 void AddMoneyCarried(int amount);
 int GetCurrentBagCapacity(void);
@@ -241,19 +241,19 @@ enum item_id BagHasExclusiveItemTypeForMonster(int excl_type, enum monster_id mo
                                                enum type_id type1, enum type_id type2);
 void ApplyGummiBoostsToGroundMonster(struct ground_monster* ground_monster, enum item_id item_id,
                                     bool not_boost_stats, struct gummi_result* gummi_result);
-void ApplyGummiBoostsToGroundMonster(struct team_member* team_member, enum item_id item_id,
+void ApplyGummiBoostsToTeamMonster(struct team_member* team_member, enum item_id item_id,
                                     bool not_boost_stats, struct gummi_result* gummi_result);
 int ApplySitrusBerryToGroundMonster(struct ground_monster* ground_monster, int* attempted_hp_boost_out);
-int ApplyLifeSeedToGroundMonster(struct ground_monster* ground_monster, int* attempted_hp_boost_out);
+int ApplyLifeSeedBoostToGroundMonster(struct ground_monster* ground_monster, int* attempted_hp_boost_out);
 int ApplyGinsengToGroundMonster(struct ground_monster* ground_monster, struct move_id_16* move_id_out,
                                 int* move_boost_out);
-int ApplyProteinToGroundMonster(struct ground_monster* ground_monster, int* attempted_attack_boost_out);
-int ApplyCalciumToGroundMonster(struct ground_monster* ground_monster, int* attempted_sp_attack_boost_out);
-int ApplyIronToGroundMonster(struct ground_monster* ground_monster, int* attempted_defense_boost_out);
-int ApplyZincToGroundMonster(struct ground_monster* ground_monster, int* attempted_sp_defense_boost_out);
-int ApplyNectarToGroundMonster(struct ground_monster* ground_monster, int* attempted_iq_boost_out);
+int ApplyProteinBoostToGroundMonster(struct ground_monster* ground_monster, int* attempted_attack_boost_out);
+int ApplyCalciumBoostToGroundMonster(struct ground_monster* ground_monster, int* attempted_sp_attack_boost_out);
+int ApplyIronBoostToGroundMonster(struct ground_monster* ground_monster, int* attempted_defense_boost_out);
+int ApplyZincBoostToGroundMonster(struct ground_monster* ground_monster, int* attempted_sp_defense_boost_out);
+int ApplyNectarBoostToGroundMonster(struct ground_monster* ground_monster, int* attempted_iq_boost_out);
 bool IsMonsterAffectedByGravelyrockGroundMode(struct ground_monster* ground_monster);
-int ApplyGravelyrockToGroundMonster(struct ground_monster* ground_monster, int* attempted_iq_boost_out);
+int ApplyGravelyrockBoostToGroundMonster(struct ground_monster* ground_monster, int* attempted_iq_boost_out);
 void ApplyGummiBoostsGroundMode(uint16_t* monster_id, uint16_t* monster_iq, uint8_t* monster_offensive_stats,
                                 uint8_t* monster_defensive_stats, enum item_id item_id, bool not_boost_stats,
                                 struct gummi_result* gummi_result);
@@ -638,9 +638,9 @@ int GetConversion2ConvertToType(enum type_id attack_type_id);
 void CopyBitsTo(undefined* write_info, void* buf_write, int nbits);
 void CopyBitsFrom(undefined* read_info, void* buf_read, int nbits);
 void StoreDefaultTeamData(void);
-void GetMainTeamNameWitchCheck(char* buf);
+void GetMainTeamNameWithCheck(char* buf);
 void GetMainTeamName(char* buf);
-void SetTeamName(char* buf);
+void SetMainTeamName(char* buf);
 int GetRankupPoints(void);
 enum rank GetRank(void);
 uint32_t SubFixedPoint(uint32_t val_fp, uint32_t dec_fp);
@@ -779,7 +779,7 @@ int GetPartyMembers(uint16_t* party_members);
 void RefillTeam(void);
 int ClearItem(int team_id, bool check);
 void ChangeGiratinaFormIfSkyDungeon(enum dungeon_id dungeon_id);
-int GetIqSkillMessageId (enum tactic_id tactic_id);
+int GetIqSkillStringId(enum tactic_id tactic_id);
 bool DoesTacticFollowLeader(enum tactic_id tactic_id);
 void GetUnlockedTactics(bool* tactic_unlock_flags, int level);
 bool CanLearnIqSkill(int iq_amount, enum iq_skill_id iq_id);

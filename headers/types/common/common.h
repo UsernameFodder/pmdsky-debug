@@ -438,9 +438,9 @@ struct team_member {
     uint16_t iq;          // 0x6
     int16_t member_index; // 0x8: Index in the list of all team members (not just the active ones)
     int16_t team_index;   // 0xA: In order by team lineup
-    struct monster_id_16 id; // 0xC
-    uint16_t current_hp;     // 0xE
-    uint16_t max_hp;         // 0x10
+    struct monster_id_16 id;    // 0xC
+    uint16_t current_hp;        // 0xE
+    uint16_t max_hp;            // 0x10
     uint8_t offensive_stats[2]; // 0x12: {atk, sp_atk}
     uint8_t defensive_stats[2]; // 0x14: {def, sp_def}
     undefined field_0x16;
@@ -498,19 +498,19 @@ struct team_member_table {
     // 0x9870: Pointer into active_team_roster_member_idxs for the currently active team, i.e.,
     // &active_team_roster_member_idxs[active_team]
     int16_t* active_roster_member_idxs;
-    undefined field_0x9874; // Related to TEAM_MAIN (Guess)
-    undefined field_0x9875; // Related to TEAM_SPECIAL_EPISODE
-    undefined field_0x9876; // Related to TEAM_RESCUE
+    undefined field_0x9874;       // Related to TEAM_MAIN (Guess)
+    undefined field_0x9875;       // Related to TEAM_SPECIAL_EPISODE
+    undefined field_0x9876;       // Related to TEAM_RESCUE
     struct team_id_8 active_team; // 0x9877: Currently active team
-    undefined4 field_0x9878; // Somehow related to explorer maze team.
-    undefined4 field_0x987C; // Somehow related to explorer maze team.
+    undefined4 field_0x9878;      // Somehow related to explorer maze team.
+    undefined4 field_0x987C;      // Somehow related to explorer maze team.
     // 0x9880: language type of explorer maze team
     int8_t explorer_maze_team_native_language;
     undefined field_0x9881; // Somehow related to explorer maze team.
-    // 0x9882: Name of the explorer maze team. If the native language of the team doesn't match our native
-    // language, use the default team name ("Pokémones" for NA) for the explorer maze team. When initally
-    // saving the team name, it will use all 20 bytes, but when copying the name to use in game, it will
-    // only use the first 10 bytes.
+    // 0x9882: Name of the explorer maze team. If the native language of the team doesn't match
+    // our native language, use the default team name ("Pokémones" for NA) for the explorer
+    // maze team. When initally saving the team name, it will use all 20 bytes, but when
+    // copying the name to use in game, it will only use the first 10 bytes.
     char explorer_maze_team_name[21];
     // 0x9898: The 4 explorer maze monsters from selecting 'Team Trade'.
     struct ground_monster explorer_maze_monsters[4];

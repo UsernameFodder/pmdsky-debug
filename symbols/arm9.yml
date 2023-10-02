@@ -1867,15 +1867,16 @@ arm9:
         
         r0: item ID
         return: bool
-    - name: SetGold
+    - name: SetActiveInventory
       address:
         EU: 0x200ED80
         NA: 0x200ECD8
         JP: 0x200ED08
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Changes the currently active inventory. Has one for the main team, rescue team, and the special
+        episode team?
         
-        r0: new value
+        r0: inventory to mark as active (0, 1, 2)
     - name: GetMoneyCarried
       address:
         EU: 0x200EDA4
@@ -7512,21 +7513,6 @@ arm9:
         
         r0: ground monster pointer
         return: bool
-    - name: IsMonsterNotNicknamed
-      address:
-        NA: 0x2056070
-      description: |-
-        Checks if the string_buffer matches the name of the species
-        
-        r0: ground monster pointer
-        return: bool
-    - name: 
-      address:
-        NA: 0x20560C8
-      description: |-
-        Removes all of the active monsters on every type of team from the team member table.
-        
-        No params.
     - name: RemoveActiveMembersFromAllTeams
       address:
         NA: 0x20560C8
@@ -7773,17 +7759,6 @@ arm9:
         r0: IQ skill bitvector to test
         r1: IQ skill ID
         return: bool
-    - name: IqSkillFlagTest
-      address:
-        EU: 0x2059280
-        NA: 0x2058F04
-        JP: 0x2059200
-      description: |-
-        Tests whether an IQ skill with a given ID is active.
-        
-        r0: IQ skill bitvector to test
-        r1: IQ skill ID
-        return: bool
     - name: GetNextIqSkill
       address:
         EU: 0x20592A0
@@ -7803,7 +7778,6 @@ arm9:
         language of selected in this game a default team name is written to the buffer instead.
         
         r0: [output] Buffer
-        r1: String ID
     - name: GetExplorerMazeMonster
       address:
         EU: 0x2059474
