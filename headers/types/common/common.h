@@ -511,11 +511,13 @@ struct team_member_table {
     // our native language, use the default team name ("Pokémones" for NA) for the explorer
     // maze team. When initally saving the team name, it will use all 20 bytes, but when
     // copying the name to use in game, it will only use the first 10 bytes.
-    char explorer_maze_team_name[21];
+    char explorer_maze_team_name[20];
+    undefined field_0x9896; // Padding?
+    undefined field_0x9897; // Padding?
     // 0x9898: The 4 explorer maze monsters from selecting 'Team Trade'.
     struct ground_monster explorer_maze_monsters[4];
 };
-ASSERT_SIZE(struct team_member_table, 39336);
+ASSERT_SIZE(struct team_member_table, 39268);
 
 // Contains information about a monster's level-up data at a certain level
 struct level_up_entry {
