@@ -1464,8 +1464,8 @@ struct dungeon {
     uint16_t n_normal_item_spawns;
     bool gravity; // 0x12AFC: Gravity is in effect
     undefined field_0x12afd;
-    undefined field_0x12afe;
-    undefined field_0x12aff;
+    // 0x12AFE: Victories on one floor counter.
+    int16_t victory_counter
     undefined field_0x12b00;
     undefined field_0x12b01;
     undefined field_0x12b02;

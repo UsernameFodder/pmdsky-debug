@@ -3328,6 +3328,15 @@ overlay29:
         
         r0: entity for which the Monster House should be triggered
         r1: allow outside enemies flag (in practice this is always set to dungeon_generation_info::force_create_monster_house)
+    - name: ShouldMonsterFollowLeader
+      address:
+        NA: 0x23082A0
+      description: |-
+        Checks if the monster should follow the leader. Always returns false for enemy monsters.
+        This function may actually be should monster target leader position.
+        
+        r0: Pointer to monster
+        return: bool
     - name: RunMonsterAi
       address:
         EU: 0x2308D6C
@@ -6217,6 +6226,13 @@ overlay29:
         Checks if gravity is active on the floor.
         
         return: bool
+    - name: TryActivateGravity
+      address:
+        NA: 0x23383BC
+      description: |-
+        Attempts to activate Gravity for this dungeon floor.
+        
+        return: whether or not gravity was activated
     - name: ShouldBoostKecleonShopSpawnChance
       address:
         EU: 0x2339090

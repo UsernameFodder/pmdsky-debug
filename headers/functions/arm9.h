@@ -147,6 +147,9 @@ bool IsItemUsableNow(struct item* item);
 bool IsTicketItem(enum item_id item_id);
 void InitItem(struct item* item, enum item_id item_id, uint16_t quantity, bool sticky);
 void InitStandardItem(struct item* item, enum item_id item_id, bool sticky);
+void InitBulkItem(struct bulk_item* item, enum item_id item_id);
+void BulkItemToItem(struct item* item, struct bulk_item* bulk_item);
+void ItemToBulkItem(struct bulk_item* bulk_item, struct item* item);
 int GetDisplayedBuyPrice(struct item* item);
 int GetDisplayedSellPrice(struct item* item);
 int GetActualBuyPrice(struct item* item);
@@ -221,8 +224,10 @@ int CountItemTypeInStorage(struct bulk_item* item);
 bool RemoveItemsTypeInStorage(struct bulk_item* item);
 bool AddItemToStorage(struct bulk_item* item);
 void SetMoneyStored(int amount);
-void GetKecleonItems1(int param_1);
-void GetKecleonItems2(int param_1);
+void SortKecleonItems1(void);
+void GenerateKecleonItems1(enum kecleon_shop_version kecleon_shop_version);
+void SortKecleonItems2(void);
+void GenerateKecleonItems2(enum kecleon_shop_version kecleon_shop_version);
 int GetExclusiveItemOffset(enum item_id item_id);
 void ApplyExclusiveItemStatBoosts(enum item_id item_id, uint8_t* atk_boost, uint8_t* sp_atk_boost,
                                   uint8_t* def_boost, uint8_t* sp_def_boost);
@@ -234,10 +239,24 @@ bool IsExclusiveItemForMonster(struct item* item, enum monster_id monster_id, en
                                enum type_id type2);
 enum item_id BagHasExclusiveItemTypeForMonster(int excl_type, enum monster_id monster_id,
                                                enum type_id type1, enum type_id type2);
-int ProcessGinsengOverworld(undefined* target, struct move_id_16* move_id_out, int* move_boost_out);
-void ApplyGummiBoostsGroundMode(undefined2* param_1, undefined2* param_2, undefined* param_3,
-                                undefined* param_4, undefined2 param_5, undefined param_6,
-                                void* buffer);
+void ApplyGummiBoostsToGroundMonster(struct ground_monster* ground_monster, enum item_id item_id,
+                                    bool not_boost_stats, struct gummi_result* gummi_result);
+void ApplyGummiBoostsToGroundMonster(struct team_member* team_member, enum item_id item_id,
+                                    bool not_boost_stats, struct gummi_result* gummi_result);
+int ApplySitrusBerryToGroundMonster(struct ground_monster* ground_monster, int* attempted_hp_boost_out);
+int ApplyLifeSeedToGroundMonster(struct ground_monster* ground_monster, int* attempted_hp_boost_out);
+int ApplyGinsengToGroundMonster(struct ground_monster* ground_monster, struct move_id_16* move_id_out,
+                                int* move_boost_out);
+int ApplyProteinToGroundMonster(struct ground_monster* ground_monster, int* attempted_attack_boost_out);
+int ApplyCalciumToGroundMonster(struct ground_monster* ground_monster, int* attempted_sp_attack_boost_out);
+int ApplyIronToGroundMonster(struct ground_monster* ground_monster, int* attempted_defense_boost_out);
+int ApplyZincToGroundMonster(struct ground_monster* ground_monster, int* attempted_sp_defense_boost_out);
+int ApplyNectarToGroundMonster(struct ground_monster* ground_monster, int* attempted_iq_boost_out);
+bool IsMonsterAffectedByGravelyrockGroundMode(struct ground_monster* ground_monster);
+int ApplyGravelyrockToGroundMonster(struct ground_monster* ground_monster, int* attempted_iq_boost_out);
+void ApplyGummiBoostsGroundMode(uint16_t* monster_id, uint16_t* monster_iq, uint8_t* monster_offensive_stats,
+                                uint8_t* monster_defensive_stats, enum item_id item_id, bool not_boost_stats,
+                                struct gummi_result* gummi_result);
 bool LoadSynthBin(void);
 void CloseSynthBin(void);
 undefined* GetSynthItem(int param_1);
@@ -422,6 +441,7 @@ int StoiTagVeneer(const char* s);
 void InitPreprocessorArgs(struct preprocessor_args* args);
 char* SetStringAccuracy(char* s, int param_2);
 char* SetStringPower(char* s, int param_2);
+char* GetCurrentTeamNameString(char* buffer);
 char* GetBagNameString(char* buffer);
 char* GetDungeonResultString(int string_number);
 void SetQuestionMarks(char* s);
@@ -431,13 +451,16 @@ void StrncpySimpleNoPad(char* dest, const char* src, uint32_t n);
 int StrncmpSimple(const char* s1, const char* s2, uint32_t n);
 void StrncpySimpleNoPadSafe(char* dest, const char* src, uint32_t n);
 void SpecialStrcpy(char* dest, const char* src);
+void SpecialNStrcpy(char* dest, const char* src, uint32_t n);
 void GetStringFromFile(char* buf, int string_id);
 void LoadStringFile(void);
 void GetStringFromFileVeneer(char* buf, int string_id);
 char* StringFromMessageId(int message_id);
-void CopyStringFromMessageId(char* buf, int string_id, int buf_len);
+void CopyStringFromMessageId(char* buf, int string_id);
+void CopyNStringFromMessageId(char* buf, int string_id, int buf_len);
 void LoadTblTalk(void);
 int GetTalkLine(int personality_idx, int group_id, int restrictions);
+bool IsAOrBPressed(void);
 int NewDialogBox(struct dialog_box_hdr* hdr, uint8_t param_2);
 void SetScreenWindowsColor(int palette_idx, bool upper_screen);
 void SetBothScreensWindowsColor(int palette_idx);
@@ -611,12 +634,13 @@ void CopyLogFrom(undefined* read_info);
 void GetAbilityString(undefined* buf, enum ability_id ability_id);
 int GetAbilityDescStringId(enum ability_id ability_id);
 int GetTypeStringId(enum type_id type_id);
+int GetConversion2ConvertToType(enum type_id attack_type_id);
 void CopyBitsTo(undefined* write_info, void* buf_write, int nbits);
 void CopyBitsFrom(undefined* read_info, void* buf_read, int nbits);
-void StoreDefaultTeamName(void);
-void GetTeamNameCheck(undefined* buf);
-void GetTeamName(undefined* buf);
-void SetTeamName(undefined* buf);
+void StoreDefaultTeamData(void);
+void GetMainTeamNameWitchCheck(char* buf);
+void GetMainTeamName(char* buf);
+void SetTeamName(char* buf);
 int GetRankupPoints(void);
 enum rank GetRank(void);
 uint32_t SubFixedPoint(uint32_t val_fp, uint32_t dec_fp);
@@ -755,6 +779,9 @@ int GetPartyMembers(uint16_t* party_members);
 void RefillTeam(void);
 int ClearItem(int team_id, bool check);
 void ChangeGiratinaFormIfSkyDungeon(enum dungeon_id dungeon_id);
+int GetIqSkillMessageId (enum tactic_id tactic_id);
+bool DoesTacticFollowLeader(enum tactic_id tactic_id);
+void GetUnlockedTactics(bool* tactic_unlock_flags, int level);
 bool CanLearnIqSkill(int iq_amount, enum iq_skill_id iq_id);
 int GetLearnableIqSkills(struct iq_skill_id_8* out_iq_skill_id, enum monster_id monster_id,
                          int monster_iq);
@@ -763,6 +790,7 @@ void EnableIqSkill(uint32_t* iq_skills_flags, enum iq_skill_id iq_id);
 enum iq_skill_id GetSpeciesIqSkill(enum monster_id monster_id, int index);
 bool IqSkillFlagTest(uint32_t* iq_skill_flags, enum iq_skill_id iq_id);
 enum iq_skill_id GetNextIqSkill(enum monster_id monster_id, int monster_iq);
+void GetExplorerMazeTeamName(char* buffer);
 struct ground_monster* GetExplorerMazeMonster(uint8_t entry_number);
 undefined4 WriteMonsterInfoToSave(void* start_addr, uint32_t total_len);
 undefined4 ReadMonsterInfoFromSave(void* start_addr, uint32_t total_len);

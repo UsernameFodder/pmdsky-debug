@@ -467,11 +467,11 @@ struct monster {
     bool anger_point_flag;
     undefined field_0x168;
     undefined field_0x169;
-    // 0x16A: If true, after the monster spawns, it will turn in the specified direction and
+    // 0x16A: When not DIR_NONE, monster will turn in the specified direction and
     // its AI will be forced to target the tile next to it in that direction.
     // Used to prevent bosses from turning towards team members the moment the boss fight
-    // starts (which would override their intended starting facing direction)
-    bool force_turn;
+    // starts (which would override their intended starting facing direction).
+    struct direction_id_8 force_turn;
     undefined field_0x16b;
     undefined field_0x16c;
     undefined field_0x16d;

@@ -368,6 +368,22 @@ struct bar_item {
 };
 ASSERT_SIZE(struct bar_item, 22);
 
+struct stat_bitflag {
+    bool f_attack : 1;
+    bool f_special_attack : 1;
+    bool f_defense : 1;
+    bool f_special_defense : 1;
+    // Probably padding/unsued
+    bool f_unused : 12
+}
+ASSERT_SIZE(struct stat_bitflag, 2);
+
+struct gummi_result {
+    enum gummi_compatability;
+    struct stat_bitflag stats_increased;
+};
+ASSERT_SIZE(struct bar_item, 4);
+
 struct ground_weather_entry {
     int16_t field_0x0;
     int16_t field_0x2;
