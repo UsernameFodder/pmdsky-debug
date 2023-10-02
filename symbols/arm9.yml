@@ -4379,7 +4379,7 @@ arm9:
         NA: 0x20258E4
       description: |-
         Gets the string corresponding to a given message ID and copies it to the buffer specified in r0.
-
+        
         r0: Buffer
         r1: String ID
     - name: CopyNStringFromMessageId
@@ -6167,9 +6167,9 @@ arm9:
         No params.
     - name: GetMainTeamNameWithCheck
       address:
-        EU: 0x2050EB4
-        NA: 0x2050B7C
-        JP: 0x2050ECC
+        EU: 0x2050E48
+        NA: 0x2050B10
+        JP: 0x2050E60
       description: |-
         Gets the name of the team for the main story with an additional check if the team name should be
         "???" because the story has not progressed enough.

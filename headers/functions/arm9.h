@@ -239,20 +239,16 @@ bool IsExclusiveItemForMonster(struct item* item, enum monster_id monster_id, en
                                enum type_id type2);
 enum item_id BagHasExclusiveItemTypeForMonster(int excl_type, enum monster_id monster_id,
                                                enum type_id type1, enum type_id type2);
-void ApplyGummiBoostsToGroundMonster(struct ground_monster* ground_monster,
-                                     enum item_id item_id,
-                                     bool not_boost_stats,
-                                     struct gummi_result* gummi_result);
-void ApplyGummiBoostsToTeamMember(struct team_member* team_member,
-                                  enum item_id item_id, bool not_boost_stats,
-                                  struct gummi_result* gummi_result);
+void ApplyGummiBoostsToGroundMonster(struct ground_monster* ground_monster, enum item_id item_id,
+                                     bool not_boost_stats, struct gummi_result* gummi_result);
+void ApplyGummiBoostsToTeamMember(struct team_member* team_member, enum item_id item_id,
+                                  bool not_boost_stats, struct gummi_result* gummi_result);
 int ApplySitrusBerryBoostToGroundMonster(struct ground_monster* ground_monster,
                                          int* attempted_hp_boost_out);
 int ApplyLifeSeedBoostToGroundMonster(struct ground_monster* ground_monster,
                                       int* attempted_hp_boost_out);
 int ApplyGinsengToGroundMonster(struct ground_monster* ground_monster,
-                                struct move_id_16* move_id_out,
-                                int* attempted_move_boost_out);
+                                struct move_id_16* move_id_out, int* attempted_move_boost_out);
 int ApplyProteinBoostToGroundMonster(struct ground_monster* ground_monster,
                                      int* attempted_attack_boost_out);
 int ApplyCalciumBoostToGroundMonster(struct ground_monster* ground_monster,
@@ -267,8 +263,7 @@ bool IsMonsterAffectedByGravelyrockGroundMode(struct ground_monster* ground_mons
 int ApplyGravelyrockBoostToGroundMonster(struct ground_monster* ground_monster,
                                          int* attempted_iq_boost_out);
 void ApplyGummiBoostsGroundMode(uint16_t* monster_id, uint16_t* monster_iq,
-                                uint8_t* monster_offensive_stats,
-                                uint8_t* monster_defensive_stats,
+                                uint8_t* monster_offensive_stats, uint8_t* monster_defensive_stats,
                                 enum item_id item_id, bool not_boost_stats,
                                 struct gummi_result* gummi_result);
 bool LoadSynthBin(void);

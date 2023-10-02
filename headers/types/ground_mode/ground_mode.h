@@ -374,7 +374,7 @@ struct stat_bitflag {
     bool f_defense : 1;
     bool f_special_defense : 1;
     // Probably padding/unsued
-    bool f_unused : 12;
+    uint16_t f_unused : 12;
 };
 ASSERT_SIZE(struct stat_bitflag, 2);
 
