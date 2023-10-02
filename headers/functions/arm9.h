@@ -239,23 +239,37 @@ bool IsExclusiveItemForMonster(struct item* item, enum monster_id monster_id, en
                                enum type_id type2);
 enum item_id BagHasExclusiveItemTypeForMonster(int excl_type, enum monster_id monster_id,
                                                enum type_id type1, enum type_id type2);
-void ApplyGummiBoostsToGroundMonster(struct ground_monster* ground_monster, enum item_id item_id,
-                                    bool not_boost_stats, struct gummi_result* gummi_result);
-void ApplyGummiBoostsToTeamMonster(struct team_member* team_member, enum item_id item_id,
-                                    bool not_boost_stats, struct gummi_result* gummi_result);
-int ApplySitrusBerryToGroundMonster(struct ground_monster* ground_monster, int* attempted_hp_boost_out);
-int ApplyLifeSeedBoostToGroundMonster(struct ground_monster* ground_monster, int* attempted_hp_boost_out);
-int ApplyGinsengToGroundMonster(struct ground_monster* ground_monster, struct move_id_16* move_id_out,
-                                int* move_boost_out);
-int ApplyProteinBoostToGroundMonster(struct ground_monster* ground_monster, int* attempted_attack_boost_out);
-int ApplyCalciumBoostToGroundMonster(struct ground_monster* ground_monster, int* attempted_sp_attack_boost_out);
-int ApplyIronBoostToGroundMonster(struct ground_monster* ground_monster, int* attempted_defense_boost_out);
-int ApplyZincBoostToGroundMonster(struct ground_monster* ground_monster, int* attempted_sp_defense_boost_out);
-int ApplyNectarBoostToGroundMonster(struct ground_monster* ground_monster, int* attempted_iq_boost_out);
+void ApplyGummiBoostsToGroundMonster(struct ground_monster* ground_monster,
+                                     enum item_id item_id,
+                                     bool not_boost_stats,
+                                     struct gummi_result* gummi_result);
+void ApplyGummiBoostsToTeamMember(struct team_member* team_member,
+                                  enum item_id item_id, bool not_boost_stats,
+                                  struct gummi_result* gummi_result);
+int ApplySitrusBerryBoostToGroundMonster(struct ground_monster* ground_monster,
+                                         int* attempted_hp_boost_out);
+int ApplyLifeSeedBoostToGroundMonster(struct ground_monster* ground_monster,
+                                      int* attempted_hp_boost_out);
+int ApplyGinsengToGroundMonster(struct ground_monster* ground_monster,
+                                struct move_id_16* move_id_out,
+                                int* attempted_move_boost_out);
+int ApplyProteinBoostToGroundMonster(struct ground_monster* ground_monster,
+                                     int* attempted_attack_boost_out);
+int ApplyCalciumBoostToGroundMonster(struct ground_monster* ground_monster,
+                                     int* attempted_sp_attack_boost_out);
+int ApplyIronBoostToGroundMonster(struct ground_monster* ground_monster,
+                                  int* attempted_defense_boost_out);
+int ApplyZincBoostToGroundMonster(struct ground_monster* ground_monster,
+                                  int* attempted_sp_defense_boost_out);
+int ApplyNectarBoostToGroundMonster(struct ground_monster* ground_monster,
+                                    int* attempted_iq_boost_out);
 bool IsMonsterAffectedByGravelyrockGroundMode(struct ground_monster* ground_monster);
-int ApplyGravelyrockBoostToGroundMonster(struct ground_monster* ground_monster, int* attempted_iq_boost_out);
-void ApplyGummiBoostsGroundMode(uint16_t* monster_id, uint16_t* monster_iq, uint8_t* monster_offensive_stats,
-                                uint8_t* monster_defensive_stats, enum item_id item_id, bool not_boost_stats,
+int ApplyGravelyrockBoostToGroundMonster(struct ground_monster* ground_monster,
+                                         int* attempted_iq_boost_out);
+void ApplyGummiBoostsGroundMode(uint16_t* monster_id, uint16_t* monster_iq,
+                                uint8_t* monster_offensive_stats,
+                                uint8_t* monster_defensive_stats,
+                                enum item_id item_id, bool not_boost_stats,
                                 struct gummi_result* gummi_result);
 bool LoadSynthBin(void);
 void CloseSynthBin(void);
@@ -529,6 +543,7 @@ int LoadScriptVariableValueSum(void* local_var_vals, enum script_var_id id);
 void LoadScriptVariableValueBytes(enum script_var_id id, void* dest, uint32_t n);
 void SaveScriptVariableValueBytes(enum script_var_id id, void* src, uint32_t n);
 bool ScriptVariablesEqual(void* local_var_vals, enum script_var_id id1, enum script_var_id id2);
+void EventFlagResume(void);
 void EventFlagBackup(void);
 int DumpScriptVariableValues(void* dest);
 bool RestoreScriptVariableValues(void* src);
@@ -798,6 +813,7 @@ void WriteMonsterToSave(undefined* write_info, struct ground_monster* monster);
 void ReadMonsterFromSave(undefined* read_info, struct ground_monster* monster);
 void GetEvolutionPossibilities(struct ground_monster* monster, undefined* evo);
 int GetMonsterEvoStatus(struct ground_monster* monster);
+bool CopyTacticString(char* buffer, enum tactic_id tactic_id);
 int GetSosMailCount(int param_1, bool param_2);
 bool IsMissionValid(struct mission* mission);
 enum mission_generation_result GenerateMission(undefined* param_1, struct mission* mission_data);

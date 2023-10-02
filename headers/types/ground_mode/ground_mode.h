@@ -375,14 +375,14 @@ struct stat_bitflag {
     bool f_special_defense : 1;
     // Probably padding/unsued
     bool f_unused : 12;
-}
+};
 ASSERT_SIZE(struct stat_bitflag, 2);
 
 struct gummi_result {
-    enum gummi_compatability;
+    enum gummi_compatability gummi_compatability;
     struct stat_bitflag stats_increased;
 };
-ASSERT_SIZE(struct bar_item, 4);
+ASSERT_SIZE(struct gummi_result, 4);
 
 struct ground_weather_entry {
     int16_t field_0x0;

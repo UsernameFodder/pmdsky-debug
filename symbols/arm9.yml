@@ -2410,7 +2410,7 @@ arm9:
         return: item ID
     - name: ApplyGummiBoostsToGroundMonster
       address:
-        NA: 0x2011554
+        NA: 0x2011528
       description: |-
         Applies the IQ boosts from eating a Gummi to the target monster. Basically a wrapper around
         ApplyGummiBoostsGroundMode for struct ground_monster.
@@ -2421,7 +2421,7 @@ arm9:
         r3: [output] pointer to a struct gummi_result to fill out
     - name: ApplyGummiBoostsToTeamMember
       address:
-        NA: 0x2011528
+        NA: 0x2011554
       description: |-
         Applies the IQ boosts from eating a Gummi to the target monster. Basically a wrapper around
         ApplyGummiBoostsGroundMode for struct team_member.
@@ -2459,7 +2459,7 @@ arm9:
         r0: ground monster pointer
         r1: [output] move ID
         r2: [output] move boost
-        return: boost
+        return: actual move boost
     - name: ApplyProteinBoostToGroundMonster
       address:
         NA: 0x201170C
@@ -4204,7 +4204,7 @@ arm9:
         NA: 0x2024428
         JP: 0x2024478
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: GetCurrentTeamName
+    - name: GetCurrentTeamNameString
       address:
         NA: 0x2024C6C
       description: |-
@@ -4319,18 +4319,16 @@ arm9:
         JP: 0x20252B8
       description: |-
         A special version of strcpy for handling names. Appears to use character 0x7E as some kind of
-        formatting input.
+        formatting character in NA?
         
         r0: dst
         r1: src
     - name: SpecialNStrcpy
       address:
-        EU: 0x20254FC
-        NA: 0x2025230
-        JP: 0x20252B8
+        NA: 0x2025314
       description: |-
         A special version of strcpy for handling names. Appears to use character 0x7E as some kind of
-        formatting input. Copies at most n characters.
+        formatting character in NA? Copies at most n characters.
         
         r0: dst
         r1: src
@@ -4378,13 +4376,12 @@ arm9:
         return: string from the string files with the given message ID
     - name: CopyStringFromMessageId
       address:
-        NA: 0x202590C
+        NA: 0x20258E4
       description: |-
         Gets the string corresponding to a given message ID and copies it to the buffer specified in r0.
-        
+
         r0: Buffer
         r1: String ID
-        r2: Buffer length
     - name: CopyNStringFromMessageId
       address:
         EU: 0x2025BD8
@@ -5085,7 +5082,7 @@ arm9:
         return: true if values are equal, false otherwise
     - name: EventFlagResume
       address:
-        NA: 0x204C1E4
+        NA: 0x204BFC0
       description: |-
         Restores BACKUP event flag script variables (see the code for an exhaustive list) to their
         respective script variables, but only in certain game modes.
@@ -7855,11 +7852,9 @@ arm9:
         return: evo_status
     - name: CopyTacticString
       address:
-        EU: 0x2025BD8
-        NA: 0x202590C
-        JP: 0x20258EC
+        NA: 0x205A430
       description: |-
-        Gets the string corresponding to the given tactic.
+        Gets the string corresponding to a given message ID and copies it to the buffer specified in r0.
         
         This function won't write more than 64 bytes.
         
