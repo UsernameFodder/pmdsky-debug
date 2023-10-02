@@ -801,7 +801,7 @@ void DisableIqSkill(uint32_t* iq_skills_flags, enum iq_skill_id iq_id);
 void EnableIqSkill(uint32_t* iq_skills_flags, enum iq_skill_id iq_id);
 enum iq_skill_id GetSpeciesIqSkill(enum monster_id monster_id, int index);
 void DisableAllIqSkills(uint32_t* iq_skills_flags);
-void EnableAllLearnableIqSkills(uint32_t* iq_skills_flags, enum monster_id monster_id
+void EnableAllLearnableIqSkills(uint32_t* iq_skills_flags, enum monster_id monster_id,
                                 int monster_iq);
 bool IqSkillFlagTest(uint32_t* iq_skill_flags, enum iq_skill_id iq_id);
 enum iq_skill_id GetNextIqSkill(enum monster_id monster_id, int monster_iq);
