@@ -2489,7 +2489,7 @@ arm9:
         return: actual defense boost
     - name: ApplyZincBoostToGroundMonster
       address:
-        NA: 0x2011784
+        NA: 0x20117C0
       description: |-
         Applies the special defense boost from Zinc to the target monster.
         
