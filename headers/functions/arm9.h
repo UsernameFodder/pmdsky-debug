@@ -225,6 +225,7 @@ bool RemoveItemsTypeInStorage(struct bulk_item* item);
 bool AddItemToStorage(struct bulk_item* item);
 int GetMoneyStored(void);
 void SetMoneyStored(int amount);
+void AddMoneyStored(int amount);
 void SortKecleonItems1(void);
 void GenerateKecleonItems1(enum kecleon_shop_version kecleon_shop_version);
 void SortKecleonItems2(void);

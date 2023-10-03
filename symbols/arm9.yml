@@ -2273,7 +2273,7 @@ arm9:
       description: |-
         Gets the amount of money the player has stored in the Duskull Bank.
         
-        r0: new value
+        return: amount of money stored
     - name: SetMoneyStored
       address:
         EU: 0x20107CC
