@@ -450,9 +450,9 @@ ram:
         NA: 0x22ABDE0
         JP: 0x22AD598
       length:
-        EU: 0x9878
-        NA: 0x9878
-        JP: 0x9878
+        EU: 0x99A8
+        NA: 0x99A8
+        JP: 0x99A8
       description: |-
         Table with all team members, persistent information about them, and information about which ones are currently active.
         
@@ -546,12 +546,36 @@ ram:
       length:
         NA: 0x1
       description: "[Runtime] Appears to be set to true whenever a hit from Rollout or Ice Ball fails to deal damage."
+    - name: MULTIHIT_FATIGUE_MOVE_USED
+      address:
+        NA: 0x237CA6A
+      length:
+        NA: 0x1
+      description: "[Runtime] Appears to be set to true whenever a multihit fatigue move deals damage."
+    - name: TWINEEDLE_HIT_TRACKER
+      address:
+        NA: 0x237CA6B
+      length:
+        NA: 0x1
+      description: "[Runtime] Appears to be set to true whenever Twineedle hits and deals damage. So that even if the second attack misses, it will still try to poison the target."
+    - name: RAPID_SPIN_BINDING_REMOVAL
+      address:
+        NA: 0x237CA6D
+      length:
+        NA: 0x1
+      description: "[Runtime] Appears to be set to true when using Rapid Spin to later remove any binding effects and Leech Seed."
     - name: ROLLOUT_ICE_BALL_SUCCESSIVE_HITS
       address:
         NA: 0x237CA70
       length:
         NA: 0x4
       description: "[Runtime] Seems to count the number of successive hits by Rollout or Ice Ball."
+    - name: MULTIHIT_MOVE_SUCCESSIVE_HITS
+      address:
+        NA: 0x237CA78
+      length:
+        NA: 0x4
+      description: "[Runtime] Seems to count the number of successive hits for multihit moves. This is used by Twineedle to check to attempt to apply Poison after the second attack."
     - name: TRIPLE_KICK_SUCCESSIVE_HITS
       address:
         NA: 0x237CA7C

@@ -3795,6 +3795,27 @@ enum wan_source_type {
 ENUM_8_BIT(wan_source_type);
 #pragma pack(pop)
 
+enum gummi_compatability {
+    GUMMI_BIG_FAVORITE = 0,
+    GUMMI_FAVORITE = 1,
+    GUMMI_DOESNT_DISLIKE = 2,
+    GUMMI_LTTLE_SATISFIED = 3,
+};
+
+// This is usually stored as an 16-bit integer
+#pragma pack(push, 2)
+ENUM_16_BIT(gummi_compatability);
+#pragma pack(pop)
+
+// The version of the shop table to use. As the player progresses the story,
+// the table changes.
+enum kecleon_shop_version {
+    KECLEON_SHOP_1 = 0,
+    KECLEON_SHOP_2 = 1,
+    KECLEON_SHOP_3 = 2,
+    KECLEON_SHOP_4 = 3,
+};
+
 // Flags listed in the debug menu
 enum debug_flag {
     DEBUG_FLAG_TEXT_SPEEDUP = 0,    // Increases text speed (x4)

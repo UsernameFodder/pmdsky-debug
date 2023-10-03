@@ -410,10 +410,8 @@ struct ground_monster {
     int8_t level_at_second_evo;    // 0x7: Level upon second evolution, or 0 if not applicable
     uint16_t iq;                   // 0x8
     uint16_t max_hp;               // 0xA
-    int8_t atk;                    // 0xC
-    int8_t sp_atk;                 // 0xD
-    int8_t def;                    // 0xE
-    int8_t sp_def;                 // 0xF
+    uint8_t offensive_stats[2];    // 0xC: {atk, sp_atk}
+    uint8_t defensive_stats[2];    // 0xE: {def, sp_def}
     int exp;                       // 0x10
     // 0x14: Bitvector that keeps track of which IQ skills the monster has enabled.
     // See enum iq_skill_id for the meaning of each bit.
@@ -440,13 +438,11 @@ struct team_member {
     uint16_t iq;          // 0x6
     int16_t member_index; // 0x8: Index in the list of all team members (not just the active ones)
     int16_t team_index;   // 0xA: In order by team lineup
-    struct monster_id_16 id; // 0xC
-    uint16_t current_hp;     // 0xE
-    uint16_t max_hp;         // 0x10
-    int8_t atk;              // 0x12
-    int8_t sp_atk;           // 0x13
-    int8_t def;              // 0x14
-    int8_t sp_def;           // 0x15
+    struct monster_id_16 id;    // 0xC
+    uint16_t current_hp;        // 0xE
+    uint16_t max_hp;            // 0x10
+    uint8_t offensive_stats[2]; // 0x12: {atk, sp_atk}
+    uint8_t defensive_stats[2]; // 0x14: {def, sp_def}
     undefined field_0x16;
     undefined field_0x17;
     int exp;              // 0x18
@@ -492,12 +488,9 @@ struct team_member_table {
     // 0x984C: Pointer into active_team_rosters for the currently active team, i.e.,
     // &active_team_rosters[active_team]
     struct team_member* active_roster;
-    undefined field_0x9850;
-    undefined field_0x9851;
-    undefined field_0x9852;
-    undefined field_0x9853;
-    undefined field_0x9854;
-    undefined field_0x9855;
+    undefined2 field_0x9850; // Related to TEAM_MAIN (Guess)
+    undefined2 field_0x9852; // Related to TEAM_SPECIAL_EPISODE
+    undefined2 field_0x9854; // Related to TEAM_RESCUE
     // 0x9856: member indexes (into the members array) for the active rosters of each team
     int16_t active_team_roster_member_idxs[3][4];
     undefined field_0x986e;
@@ -505,12 +498,26 @@ struct team_member_table {
     // 0x9870: Pointer into active_team_roster_member_idxs for the currently active team, i.e.,
     // &active_team_roster_member_idxs[active_team]
     int16_t* active_roster_member_idxs;
-    undefined field_0x9874;
-    undefined field_0x9875;
-    undefined field_0x9876;
+    undefined field_0x9874;       // Related to TEAM_MAIN (Guess)
+    undefined field_0x9875;       // Related to TEAM_SPECIAL_EPISODE
+    undefined field_0x9876;       // Related to TEAM_RESCUE
     struct team_id_8 active_team; // 0x9877: Currently active team
+    undefined4 field_0x9878;      // Somehow related to explorer maze team.
+    undefined4 field_0x987C;      // Somehow related to explorer maze team.
+    // 0x9880: language type of explorer maze team
+    int8_t explorer_maze_team_native_language;
+    undefined field_0x9881; // Somehow related to explorer maze team.
+    // 0x9882: Name of the explorer maze team. If the native language of the team doesn't match
+    // our native language, use the default team name ("Pokémones" for NA) for the explorer
+    // maze team. When initally saving the team name, it will use all 20 bytes, but when
+    // copying the name to use in game, it will only use the first 10 bytes.
+    char explorer_maze_team_name[20];
+    undefined field_0x9896; // Padding?
+    undefined field_0x9897; // Padding?
+    // 0x9898: The 4 explorer maze monsters from selecting 'Team Trade'.
+    struct ground_monster explorer_maze_monsters[4];
 };
-ASSERT_SIZE(struct team_member_table, 39032);
+ASSERT_SIZE(struct team_member_table, 39336);
 
 // Contains information about a monster's level-up data at a certain level
 struct level_up_entry {

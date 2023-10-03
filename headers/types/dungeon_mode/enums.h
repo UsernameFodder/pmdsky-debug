@@ -302,6 +302,7 @@ enum tactic_id {
     TACTIC_KEEP_YOUR_DISTANCE = 8,
     TACTIC_WAIT_THERE = 9,
     TACTIC_GET_AWAY_FROM_HERE = 10,
+    TACTIC_NONE = 11, // used as an empty placeholder in menus (and maybe other things).
 };
 
 // This is usually stored as an 8-bit integer
