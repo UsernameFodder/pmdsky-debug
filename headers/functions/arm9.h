@@ -221,7 +221,7 @@ bool SpecialProcAddItemToBag(struct bulk_item* item);
 bool AddItemToBagNoHeld(struct item* item);
 bool AddItemToBag(struct item* item, int held_by);
 void CleanStickyItemsInBag(void);
-int CountStickyItemsInbag(void);
+int CountStickyItemsInBag(void);
 bool TransmuteHeldItemInBag(struct item* item);
 void SetFlagsForHeldItemInBag(int held_by);
 void RemoveHolderForItemInBag(struct item* item);
