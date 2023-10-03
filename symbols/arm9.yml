@@ -1600,6 +1600,16 @@ arm9:
         Zero-initializes an item struct.
         
         r0: item
+    - name: AreItemsEquivalent
+      address:
+        NA: 0x200D834
+      description: |-
+        Checks whether two items are equivalent and only checks the bitflags specified by the bitmask.
+        
+        r0: item
+        r1: item
+        r2: bitmask
+        return: bool
     - name: WriteItemsToSave
       address:
         EU: 0x200D9E4
@@ -1655,10 +1665,20 @@ arm9:
         NA: 0x200E1F8
         JP: 0x200E228
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        If the item is a treasure box return the first version of the treasure box in the item list.
+        Otherwise, return the same item ID.
         
         r0: item ID
         return: normalized item ID
+    - name: SortItemList
+      address:
+        NA: 0x200E3A0
+      description: |-
+        Attempts to combine stacks of throwable items, sort the list, and then remove empty items.
+        Appears to use selection sort to sort the list in place.
+        
+        r0: item array
+        r1: number of items in array
     - name: RemoveEmptyItems
       address:
         EU: 0x200E698
@@ -2203,37 +2223,128 @@ arm9:
         NA: 0x200F874
         JP: 0x200F844
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        A wrapper around AddItemToBag with held_by being 0 (no holder).
         
         r0: item_str
-        return: ?
+        return: bool item was successfully added to the bag
     - name: AddItemToBag
       address:
         EU: 0x200F92C
         NA: 0x200F884
         JP: 0x200F854
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Attempts to add an item to the bag.
         
         r0: item_str
         r1: held_by
-        return: ?
-    - name: ScriptSpecialProcess0x39
+        return: bool item was successfully added to the bag
+    - name: CleanStickyItemsInBag
+      address:
+        NA: 0x200F910
+      description: |-
+        Removes the sticky flag from all the items currently in the bag.
+        
+        No params.
+    - name: CountStickyItemsInBag
+      address:
+        NA: 0x200F940
+      description: |-
+        Counts the number of sticky items currently in the bag.
+        
+        return: number of sticky items
+    - name: TransmuteHeldItemInBag
+      address:
+        NA: 0x200FA68
+      description: |-
+        Looks for an item in the bag that has the same holder (held_by) as the transmute item and convert
+        their equivalent item in the treasure bag into the transmute item. The monster's held item on
+        their struct should be updated accordingly directly before or after calling this function.
+        
+        r0: transmute_item
+        return: bool whether or not the item could be transmuted
+    - name: SetFlagsForHeldItemInBag
+      address:
+        NA: 0x200FAEC
+      description: |-
+        Looks for an item in the bag that has the holder (held_by) as the item and make their equivalent
+        item in the treasure bag sticky. The monster's held item on their struct should be updated
+        accordingly directly before or after calling this function. Mostly used for making existing items
+        sticky.
+        
+        r0: held_by
+        r1: item bitflags
+    - name: RemoveHolderForItemInBag
+      address:
+        NA: 0x200FB54
+      description: |-
+        Looks for an item in the bag that is equivalent and make the holder none. The monster's held item
+        on their struct should be updated accordingly directly before or after calling this function.
+        
+        r0: pointer to an item
+    - name: SetHolderForItemInBag
+      address:
+        NA: 0x200FBE0
+      description: |-
+        Modifies the item at the index to be held by the monster specified and updates the item with the
+        holder as well. This only modifies the flags and held_by of the item.
+        
+        r0: item index
+        r1: pointer to an item
+        r2: held_by
+    - name: SortItemsInBag
+      address:
+        NA: 0x200FC24
+      description: |-
+        Sorts the current items in the item bag but first checks if any gold is in the bag to remove. If
+        gold is gound, add it to money carried.
+        
+        No params.
+    - name: RemoveGoldItemsInBag
+      address:
+        NA: 0x200FCAC
+      description: |-
+        Checks the bag for any gold and removes it after adding it to money carried.
+        
+        No params.
+    - name: IsStorageFull
       address:
         EU: 0x200FDFC
         NA: 0x200FD54
         JP: 0x200FD24
       description: |-
+        Checks if the storage is full accounting for the current rank of the team.
         Implements SPECIAL_PROC_0x39 (see ScriptSpecialProcessCall).
         
         return: bool
+    - name: CountNbOfItemsInStorage
+      address:
+        NA: 0x200FD78
+      description: |-
+        Counts the number of items currently in storage (including invalid items).
+        
+        return: number of items in storage
+    - name: CountNbOfValidItemsInStorage
+      address:
+        NA: 0x200FDB0
+      description: |-
+        Counts the number of items currently in storage that are valid.
+        
+        return: number of valid items in storage
+    - name: CountNbOfValidItemsInTimeDarknessInStorage
+      address:
+        NA: 0x200FE00
+      description: |-
+        Counts the number of items currently in storage that are valid and in time and darkness.
+        
+        return: number of valid items in storage
     - name: CountNbItemsOfTypeInStorage
       address:
         EU: 0x200FF50
         NA: 0x200FEA8
         JP: 0x200FE78
       description: |-
-        Returns the number of items of the given kind in the storage
+        Counts the number of instances of an item in storage not accounting for the number of items
+        in a stack.
         
         r0: item ID
         return: count
@@ -2243,30 +2354,102 @@ arm9:
         NA: 0x200FEE4
         JP: 0x200FEB4
       description: |-
+        Counts the number of a certain item in storage accounting for stackable items.
         Implements SPECIAL_PROC_COUNT_ITEM_TYPE_IN_STORAGE (see ScriptSpecialProcessCall).
         
-        r0: pointer to an owned_item
+        r0: pointer to an bulk_item
         return: number of items of the specified ID in storage
-    - name: RemoveItemsTypeInStorage
+    - name: GetEquivBulkItemIdxInStorage
+      address:
+        NA: 0x200FF50
+      description: |-
+        Checks for a storage item equivalent to the bulk_item and returns the index of the item in storage.
+        Returns -1 if unable to find an equivalent item.
+        
+        r0: pointer to a bulk_item
+        return: index in storage
+    - name: ConvertStorageItemAtIdxToBulkItem
+      address:
+        NA: 0x200FFAC
+      description: |-
+        Get an item in storage and converts it into an equivalent bulk_item. This does not remove the
+        item from storage.
+        
+        r0: item index
+        r1: [output] pointer to a bulk_item
+        return: bool whether or not the item id is not 0
+    - name: ConvertStorageItemAtIdxToItem
+      address:
+        NA: 0x200FFF4
+      description: |-
+        Get an item in storage and converts it into an equivalent item. The item does NOT have the exists
+        flag set to true. This does not remove the item from storage.
+        
+        r0: item index
+        r1: [output] pointer to an item
+        return: bool whether or not the item id is not 0
+    - name: RemoveItemAtIdxInStorage
+      address:
+        NA: 0x20101A0
+      description: |-
+        Remove an item at the specified index from storage.
+        
+        r0: storage item idx
+    - name: RemoveBulkItemInStorage
       address:
         EU: 0x201028C
         NA: 0x20101E4
         JP: 0x20101B4
       description: |-
+        Removes a storage item equivalent to the bulk_item passed from storage.
         Probably? Implements SPECIAL_PROC_0x2A (see ScriptSpecialProcessCall).
         
-        r0: pointer to an owned_item
-        return: bool
-    - name: AddItemToStorage
+        r0: pointer to a bulk_item
+        return: bool whether an item was removed
+    - name: RemoveItemInStorage
+      address:
+        NA: 0x2010260
+      description: |-
+        Removes a storage item equivalent to the item passed from storage.
+        
+        r0: pointer to an item
+        return: bool whether an item was removed
+    - name: StorageZInit
+      address:
+        NA: 0x20102DC
+      description: |-
+        Initializes the storage to be empty.
+        
+        No params.
+    - name: AddBulkItemToStorage
       address:
         EU: 0x20103C4
         NA: 0x201031C
         JP: 0x20102EC
       description: |-
+        Attempts to add the bulk_item to storage.
         Implements SPECIAL_PROC_ADD_ITEM_TO_STORAGE (see ScriptSpecialProcessCall).
         
-        r0: pointer to an owned_item
-        return: bool
+        r0: pointer to a bulk_item
+        return: bool whether an item was removed
+    - name: AddItemToStorage
+      address:
+        NA: 0x20103AC
+      description: |-
+        Attempts to add the item to storage.
+        
+        r0: pointer to an item
+        return: bool whether an item was removed
+    - name: SortItemsInStorage
+      address:
+        NA: 0x2010424
+      description: |-
+        Sorts the item in storage by making converting them into normal items in a temporary list and
+        using SortItemList on them. After, it puts the list of items back into storage. This may also have
+        another use or do something broader than just sorting because it outputs a bool array.
+        
+        r0: [output] bool array?
+        r1: number of items to sort (usually just the current size of storage)
     - name: GetMoneyStored
       address:
         NA: 0x201070C
@@ -2401,13 +2584,34 @@ arm9:
         NA: 0x20110D8
         JP: 0x20110A8
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Checks the bag for any exclusive item that applies to the monster or type(s) and gets the item ID.
         
         r0: excl_type
         r1: monster ID
         r2: type ID 1
         r3: type ID 2
-        return: item ID
+        return: exclusive item ID
+    - name: GetExclusiveItemForMonsterFromBag
+      address:
+        NA: 0x201116C
+      description: |-
+        Checks the bag for any exclusive item that applies to the monster or type(s) and copies that item
+        into the passed item struct.
+        
+        r0: [output] item_struct
+        r1: excl_type
+        r2: monster ID
+        r3: type ID 1
+        stack[0]: type ID 2
+        return: bool whether an exclusive item was found
+    - name: GetHpBoostFromExclusiveItems
+      address:
+        NA: 0x2011394
+      description: |-
+        Calculates the current HP boost from exclusive items. If none are active, return 0.
+        
+        r0: some struct that has species ID in it?
+        return: max HP boost from exclusive items
     - name: ApplyGummiBoostsToGroundMonster
       address:
         NA: 0x2011528
@@ -6215,6 +6419,13 @@ arm9:
         If PERFORMANCE_PROGRESS_LIST[8] is 0, the maximum rank that can be returned is RANK_MASTER.
         
         return: Rank
+    - name: GetRankStorageSize
+      address:
+        NA: 0x2050CE4
+      description: |-
+        Gets the size of storage for the current rank.
+        
+        return: storage size
     - name: SubFixedPoint
       address:
         EU: 0x2051248
