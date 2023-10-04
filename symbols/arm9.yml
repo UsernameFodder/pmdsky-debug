@@ -8073,6 +8073,27 @@ arm9:
         
         r0: [output] buffer
         r1: tactic_id
+    - name: GetStatBoostsForMonsterSummary
+      address:
+        NA: 0x205A450
+      description: |-
+        Gets the stat boosts from held items, exclusive items, and iq skills and stores them into the
+        monster_summary struct.
+        
+        r0: monster_summary
+        r1: enum monster_id monster_id
+        r2: pointer to held item
+        r3: iq
+        stack[0]: bool if Klutz is active
+    - name: CreateMonsterSummaryFromTeamMember
+      address:
+        NA: 0x205AE28
+      description: |-
+        Creates a snapshot of the condition of a team_member struct in a monster_summary struct.
+        
+        r0: [output] monster_summary
+        r1: team_member
+        r2: bool is leader
     - name: GetSosMailCount
       address:
         EU: 0x205BCF8

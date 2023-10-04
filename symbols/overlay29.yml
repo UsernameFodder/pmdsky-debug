@@ -1816,6 +1816,14 @@ overlay29:
         r1: X target position
         r2: Y target position
         r3: ?
+    - name: CreateMonsterSummaryFromMonster
+      address:
+        NA: 0x22F89CC
+      description: |-
+        Creates a snapshot of the condition of a monster struct in a monster_summary struct.
+        
+        r0: [output] monster_summary
+        r1: monster
     - name: UpdateAiTargetPos
       address:
         EU: 0x22F9B50

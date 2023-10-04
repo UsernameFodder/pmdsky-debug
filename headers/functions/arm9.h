@@ -843,6 +843,11 @@ void ReadMonsterFromSave(undefined* read_info, struct ground_monster* monster);
 void GetEvolutionPossibilities(struct ground_monster* monster, undefined* evo);
 int GetMonsterEvoStatus(struct ground_monster* monster);
 void CopyTacticString(char* buffer, enum tactic_id tactic_id);
+void GetStatBoostForMonsterSummary(struct monster_summary* monster_summary,
+                         enum monster_id monster_id, struct item* item, int iq,
+                         bool klutz_active);
+void CreateMonsterSummaryFromTeamMember(struct monster_summary* monster_summary,
+                                        struct team_member* team_member, bool is_leader);
 int GetSosMailCount(int param_1, bool param_2);
 bool IsMissionValid(struct mission* mission);
 enum mission_generation_result GenerateMission(undefined* param_1, struct mission* mission_data);
