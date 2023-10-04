@@ -2295,15 +2295,15 @@ arm9:
       address:
         NA: 0x200FC24
       description: |-
-        Sorts the current items in the item bag but first checks if any gold is in the bag to remove. If
-        gold is gound, add it to money carried.
+        Sorts the current items in the item bag but first checks if any Poke is in the bag to remove. If
+        Poke is found, add it to money carried.
         
         No params.
-    - name: RemoveGoldItemsInBag
+    - name: RemovePokeItemsInBag
       address:
         NA: 0x200FCAC
       description: |-
-        Checks the bag for any gold and removes it after adding it to money carried.
+        Checks the bag for any Poke and removes it after adding it to money carried.
         
         No params.
     - name: IsStorageFull
@@ -2395,6 +2395,7 @@ arm9:
         Remove an item at the specified index from storage.
         
         r0: storage item idx
+        return: bool whether or not the item was removed (fails if there is no storage item at the index)
     - name: RemoveBulkItemInStorage
       address:
         EU: 0x201028C
@@ -2431,7 +2432,7 @@ arm9:
         Implements SPECIAL_PROC_ADD_ITEM_TO_STORAGE (see ScriptSpecialProcessCall).
         
         r0: pointer to a bulk_item
-        return: bool whether an item was removed
+        return: bool whether an item was added
     - name: AddItemToStorage
       address:
         NA: 0x20103AC
@@ -2439,7 +2440,7 @@ arm9:
         Attempts to add the item to storage.
         
         r0: pointer to an item
-        return: bool whether an item was removed
+        return: bool whether an item was added
     - name: SortItemsInStorage
       address:
         NA: 0x2010424
