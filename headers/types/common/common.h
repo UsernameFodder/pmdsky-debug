@@ -1102,7 +1102,7 @@ ASSERT_SIZE(struct audio_command, 32);
 struct monster_summary {
     struct monster_id_16 id; // 0x0
     char monster_name[10];   // 0x2
-    undefined field_0xC
+    undefined field_0xC;
     undefined field_0xD;
     undefined field_0xE;
     undefined field_0xF;
@@ -1150,6 +1150,7 @@ struct monster_summary {
     undefined field_0x57;
     // 0x58: Appears to be a list of all the currently inflicted statues in their enum form. The
     // last entry (30th) appears to always be STATUS_NONE to serve as a terminator for the list.
+    // While in ground mode, it's always filled with STATUS_NONE.
     struct status_id_8 active_statuses[30];
 };
 ASSERT_SIZE(struct monster_summary, 118);
