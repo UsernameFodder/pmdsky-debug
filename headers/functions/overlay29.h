@@ -170,7 +170,8 @@ void EuFaintCheck(bool non_team_member_fainted, bool set_unk_byte);
 void HandleFaint(struct entity* fainted_entity, union damage_source damage_source,
                  struct entity* killer);
 void MoveMonsterToPos(struct entity* entity, int x_pos, int y_pos, undefined param_4);
-void CreateMonsterSummaryFromMonster(struct monster_summary* monster_summary, struct monster* monster);
+void CreateMonsterSummaryFromMonster(struct monster_summary* monster_summary,
+                                     struct monster* monster);
 void UpdateAiTargetPos(struct entity* monster);
 void SetMonsterTypeAndAbility(struct entity* target);
 void TryActivateSlowStart(void);

@@ -1101,7 +1101,8 @@ ASSERT_SIZE(struct audio_command, 32);
 // Used in menus and the post-dungeon summary.
 struct monster_summary {
     struct monster_id_16 id; // 0x0
-    char  monster_name[10];  // 0x2
+    char monster_name[10];   // 0x2
+    undefined field_0xC
     undefined field_0xD;
     undefined field_0xE;
     undefined field_0xF;
@@ -1116,13 +1117,15 @@ struct monster_summary {
     struct dungeon_id_8 joined_at;    // 0x1A
     uint8_t joined_at_floor;          // 0x1B
     struct item held_item;            // 0x1C
-    int32_t hp;     // 0x24: Current HP
-    int32_t max_hp; // 0x28: Actual max HP (hp + hp boost)
-    uint32_t level; // 0x2C
-    int exp;        // 0x30
-    uint8_t offensive_stats[2]; // 0x34: {atk, sp_atk}
-    uint8_t defensive_stats[2]; // 0x36: {def, sp_def}
-    bool is_team_leader;        // 0x38
+    undefined field_0x22;
+    undefined field_0x23;
+    int32_t hp;                    // 0x24: Current HP
+    int32_t max_hp;                // 0x28: Actual max HP (hp + hp boost)
+    uint32_t level;                // 0x2C`
+    int exp;                       // 0x30
+    uint8_t offensive_stats[2];    // 0x34: {atk, sp_atk}
+    uint8_t defensive_stats[2];    // 0x36: {def, sp_def}
+    bool is_team_leader;           // 0x38
     uint8_t attack_boost;          // 0x39: from things like Power Band, Munch Belt
     uint8_t special_attack_boost;  // 0x3A
     uint8_t defense_boost;         // 0x3B
@@ -1145,9 +1148,9 @@ struct monster_summary {
     undefined field_0x55;
     undefined field_0x56;
     undefined field_0x57;
-    // 0x58: Appears to be a list of all the currently inflicted statues in their enum form. The last
-    // entry (30th) appears to always be STATUS_NONE to serve as a terminator for the list.
-    enum status_id active_statuses[30];
+    // 0x58: Appears to be a list of all the currently inflicted statues in their enum form. The
+    // last entry (30th) appears to always be STATUS_NONE to serve as a terminator for the list.
+    struct status_id_8 active_statuses[30];
 };
 ASSERT_SIZE(struct monster_summary, 118);
 
