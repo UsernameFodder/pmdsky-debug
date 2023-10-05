@@ -117,8 +117,7 @@ struct monster_summary {
     // last entry (30th) appears to always be STATUS_NONE to serve as a terminator for the list.
     // While in ground mode, it's always filled with STATUS_NONE.
     struct status_id_8 active_statuses[30];
-    undefined field_0x76; // Padding
-    undefined field_0x77; // Padding
+    undefined2 _padding_0x76;
 };
 ASSERT_SIZE(struct monster_summary, 120);
 
