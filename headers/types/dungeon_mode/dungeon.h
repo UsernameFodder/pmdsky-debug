@@ -1683,8 +1683,8 @@ struct dungeon {
     uint8_t fainted_monster_defensive_stats[2];
     uint8_t fainted_monster_level; // 0x2CA7A: Copy of fainted monster's level.
     undefined field_0x2ca7b;
-    // 0x2CA7C: This is a monster summary related to the menu when leaving a dungeon. When succesfully
-    // exiting a dungeon it is the leader. May be other allies when they faint?
+    // 0x2CA7C: This is a monster summary related to the menu when leaving a dungeon. When
+    // succesfully exiting a dungeon it is the leader. May be other allies when they faint?
     struct monster_summary getout_monster_summary;
     // 0x2CAF4: One more than the maximum number of floors in the current dungeon
     uint8_t n_floors_plus_one;
