@@ -86,7 +86,7 @@ struct monster_summary {
     undefined field_0x23;
     int32_t hp;                    // 0x24: Current HP
     int32_t max_hp;                // 0x28: Actual max HP (hp + hp boost)
-    uint32_t level;                // 0x2C`
+    uint32_t level;                // 0x2C
     int exp;                       // 0x30
     uint8_t offensive_stats[2];    // 0x34: {atk, sp_atk}
     uint8_t defensive_stats[2];    // 0x36: {def, sp_def}
@@ -117,7 +117,9 @@ struct monster_summary {
     // last entry (30th) appears to always be STATUS_NONE to serve as a terminator for the list.
     // While in ground mode, it's always filled with STATUS_NONE.
     struct status_id_8 active_statuses[30];
+    undefined field_0x76; // Padding
+    undefined field_0x77; // Padding
 };
-ASSERT_SIZE(struct monster_summary, 118);
+ASSERT_SIZE(struct monster_summary, 120);
 
 #endif
