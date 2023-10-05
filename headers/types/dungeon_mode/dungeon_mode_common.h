@@ -63,4 +63,62 @@ struct move {
 };
 ASSERT_SIZE(struct move, 8);
 
+// Used in menus and the post-dungeon summary.
+struct monster_summary {
+    struct monster_id_16 id; // 0x0
+    char monster_name[10];   // 0x2
+    undefined field_0xC;
+    undefined field_0xD;
+    undefined field_0xE;
+    undefined field_0xF;
+    undefined field_0x10;
+    undefined field_0x11;
+    undefined field_0x12;
+    undefined field_0x13;
+    undefined field_0x14;
+    undefined field_0x15;
+    struct type_id_8 types[2];        // 0x16
+    struct ability_id_8 abilities[2]; // 0x18
+    struct dungeon_id_8 joined_at;    // 0x1A
+    uint8_t joined_at_floor;          // 0x1B
+    struct item held_item;            // 0x1C
+    undefined field_0x22;
+    undefined field_0x23;
+    int32_t hp;                    // 0x24: Current HP
+    int32_t max_hp;                // 0x28: Actual max HP (hp + hp boost)
+    uint32_t level;                // 0x2C
+    int exp;                       // 0x30
+    uint8_t offensive_stats[2];    // 0x34: {atk, sp_atk}
+    uint8_t defensive_stats[2];    // 0x36: {def, sp_def}
+    bool is_team_leader;           // 0x38
+    uint8_t attack_boost;          // 0x39: from things like Power Band, Munch Belt
+    uint8_t special_attack_boost;  // 0x3A
+    uint8_t defense_boost;         // 0x3B
+    uint8_t special_defense_boost; // 0x3C
+    undefined field_0x3D;
+    int16_t iq; // 0x3E
+    undefined field_0x40;
+    undefined field_0x41;
+    // 0x42: Level upon first evolution. Set to 0 in dungeon mode.
+    uint8_t level_at_first_evo;
+    // 0x43: Level upon first evolution. Set to 0 in dungeon mode.
+    uint8_t level_at_second_evo;
+    // 0x44: Evolution status. In ground_mode, accounts for luminous spring being unlocked.
+    uint8_t evo_status;
+    bool inflicted_with_gastro_acid; // 0x45
+    undefined field_0x46;
+    undefined field_0x47;
+    uint32_t iq_skill_flags[3]; // 0x48
+    struct tactic_id_8 tactic;  // 0x54
+    undefined field_0x55;
+    undefined field_0x56;
+    undefined field_0x57;
+    // 0x58: Appears to be a list of all the currently inflicted statues in their enum form. The
+    // last entry (30th) appears to always be STATUS_NONE to serve as a terminator for the list.
+    // While in ground mode, it's always filled with STATUS_NONE.
+    struct status_id_8 active_statuses[30];
+    undefined2 _padding_0x76;
+};
+ASSERT_SIZE(struct monster_summary, 120);
+
 #endif

@@ -266,6 +266,11 @@ enum status_id {
     STATUS_STAIR_SPOTTER = 101,  // Can locate stairs
 };
 
+// This is can be stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(status_id);
+#pragma pack(pop)
+
 // Values for the two-turn move status group
 // Corresponds to values 28 to 40 in the status_id enum
 enum status_two_turn_id {
