@@ -19,7 +19,8 @@ struct item {
     // types of missions? (Uncertain)
     bool f_unk_mission_item1 : 1;
     // For stolen items to recover from outlaws (has red X)? Could be for other items for other
-    // types of missions? (Uncertain)
+    // types of missions? (Uncertain) Definitely used temporarily when sorting the items in
+    // storage.
     bool f_unk_mission_item2 : 1;
     // 0x1: For bag items. 0 for none, 1 if held by the leader, 2 for the second party member, etc.
     uint8_t held_by;
