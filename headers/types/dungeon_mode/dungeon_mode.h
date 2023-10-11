@@ -996,8 +996,7 @@ struct dungeon_generation_info {
     // 0xC: Used to check to load the corresponding hidden fixed room and information for
     // the corresponding type of hidden floor.
     enum hidden_stairs_type hidden_floor_type;
-    uint8_t tileset_id; // 0x10
-    undefined field_0x11;
+    int16_t tileset_id; // 0x10
     // 0x12: Music table index (see the same field in struct floor_properties)
     uint16_t music_table_idx;
     // 0x14: Controls which trap graphics to use for the staircase. Usually 0x2B (27) and
