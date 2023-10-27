@@ -504,18 +504,21 @@ void LoadCursors(void);
 void InitDialogBoxTrailer(struct dialog_box_trailer* trailer);
 void LoadAlert(void);
 void PrintClearMark(int mark_id, int x, int y, undefined param_4);
-int CreateNormalMenu(undefined* layout, int menu_flags, undefined* additional_info, undefined* menu,
+int CreateNormalMenu(struct dbox_layout* layout, struct menu_flags menu_flags,
+                     struct menu_additional_info* menu_additional_info,
+                     struct normal_menu_option* menu_options,
                      int option_id);
 void FreeNormalMenu(int menu_id);
 bool IsNormalMenuActive(int menu_id);
 int GetNormalMenuResult(int menu_id);
-int CreateAdvancedMenu(undefined* layout, int menu_flags, undefined* additional_info,
-                       undefined* entry_fn, int n_options, int n_opt_pp);
+int CreateAdvancedMenu(struct dbox_layout* layout, struct menu_flags menu_flags,
+                       struct menu_additional_info* menu_additional_info,
+                       advanced_menu_entry_fn_t* entry_fn, int n_options, int n_opt_pp);
 void FreeAdvancedMenu(int menu_id);
 bool IsAdvancedMenuActive(int menu_id);
 int GetAdvancedMenuCurrentOption(int menu_id);
 int GetAdvancedMenuResult(int menu_id);
-int CreateDBox(undefined* layout);
+int CreateDBox(struct dbox_layout* layout);
 void FreeDBox(int dbox_id);
 bool IsDBoxActive(int dbox_id);
 void ShowMessageInDBox(int dbox_id, struct preprocessor_flags flags, int string_id,

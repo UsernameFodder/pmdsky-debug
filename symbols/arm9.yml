@@ -4732,12 +4732,14 @@ arm9:
         NA: 0x202B0EC
         JP: 0x202B444
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Creates a normal menu. If the pointer to a layout struct is null, has a default menu to fall back
+        on. A NULL additional_menu_info struct pointer works so long as the window does not have any of the
+        flags set for the information contained inside.
         
         r0: layout_struct_ptr
         r1: menu_flags
-        r2: additional_info_ptr
-        r3: menu_struct_ptr
+        r2: additional_menu_info struct
+        r3: normal_menu_option struct array
         stack[0]: option_id
         return: menu_id
     - name: FreeNormalMenu
@@ -4775,14 +4777,17 @@ arm9:
         NA: 0x202BA20
         JP: 0x202BD78
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Creates a menu with multiple pages (if needed) that can be flipped through. If the layout struct
+        is null, has a default layout to fall back on. The entry function is used to get the strings for
+        all currently available options, so when the page is flipped the entry function is used to get the
+        strings for the entries on the other page?
         
         r0: layout_struct_ptr
         r1: menu_flags
-        r2: additional_info_ptr
+        r2: additional_menu_info struct
         r3: entry_function
         stack[0]: nb_options
-        stack[1]: nb_opt_pp
+        stack[1]: nb_opt_per_page
         return: menu_id
     - name: FreeAdvancedMenu
       address:
