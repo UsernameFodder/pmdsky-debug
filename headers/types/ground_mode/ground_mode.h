@@ -7,7 +7,8 @@
 
 // Scripting coroutine located in unionall
 struct script_coroutine {
-    uint16_t offset;    // 0x0: Offset (in halfwords) where the coroutine starts, relative to the start of unionall
+    // 0x0: Offset (in halfwords) where the coroutine starts, relative to the start of unionall
+    uint16_t offset;
     uint16_t type;      // 0x2: Not confirmed
     uint16_t linked_to; // 0x4: From SkyTemple's source code. Purpose unknown.
 };

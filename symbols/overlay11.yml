@@ -46,6 +46,16 @@ overlay11:
         Contains a switch statement based on the opcode ([r0+1C]).
         
         r0: Looks like a pointer to some struct containing data about the current state of scripting engine
+    - name: CheckUnlocks
+      address:
+        EU: 0x22E4C90
+        NA: 0x22E4350
+      description: |-
+        Checks if an script unlock happened by reading entries from LOCK_NOTIFY_ARRAY.
+        
+        If the global unlock flag is not set, returns immediately. If it is, the function loops LOCK_NOTIFY_ARRAY, checking for true values. If it finds one, resets it back to 0 and handles the unlock.
+        
+        No params.
     - name: LoadFileFromRomVeneer
       address:
         NA: 0x22E46DC
@@ -57,16 +67,6 @@ overlay11:
         r0: [output] pointer to an IO struct {ptr, len}
         r1: file path string pointer
         r2: flags
-    - name: CheckUnlocks
-      address:
-        EU: 0x22E4C90
-        NA: 0x22E4350
-      description: |-
-        Checks if an script unlock happened by reading entries from LOCK_NOTIFY_ARRAY.
-        
-        If the global unlock flag is not set, returns immediately. If it is, the function loops LOCK_NOTIFY_ARRAY, checking for true values. If it finds one, resets it back to 0 and handles the unlock.
-        
-        No params.
     - name: SsbLoad2
       address:
         EU: 0x22E503C
