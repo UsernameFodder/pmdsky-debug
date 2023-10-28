@@ -307,7 +307,7 @@ struct dbox_layout {
     // 0xC: If this is pointer is NULL, menu still works normally?
     void* unk_pointer;
 };
-ASSERT_SIZE(struct portrait_canvas, 16);
+ASSERT_SIZE(struct dbox_layout, 16);
 
 // Used in an array for all the options for a normal menu.
 struct normal_menu_option {
