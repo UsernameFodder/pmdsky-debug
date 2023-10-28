@@ -490,6 +490,17 @@ ram:
       length:
         NA: 0x4
       description: Pointer to GROUND_MEMORY_ARENA_2.
+    - name: LOCK_NOTIFY_ARRAY
+      address:
+        EU: 0x23259F4
+        NA: 0x2324EB4
+      length:
+        EU: 0x16
+        NA: 0x16
+      description: |-
+        Used to notify scripts waiting for a certain lock to unlock so they can resume their execution.
+        
+        1 byte per lock. Exact size isn't confirmed, it could potentially be longer.
     - name: GROUND_MEMORY_ARENA_1
       address:
         NA: 0x2324FC0

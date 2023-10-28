@@ -7799,6 +7799,25 @@ arm9:
         
         r0: team member index
         return: roster index if the team member is active, -1 otherwise
+    - name: TryAddRosterMonsterToTeam
+      address:
+        EU: 0x2056AD0
+        NA: 0x2056754
+      description: |-
+        Attempts to add a monster from the roster to the active team.
+        
+        Returns the team index of the newly added monster. If the monster was already on the team, returns its current team index. If the monster is not on the team and there's no space left, returns -1.
+        
+        r0: roster index
+        return: Team index
+    - name: RemoveActiveMembersFromMainTeam
+      address:
+        EU: 0x2056CDC
+        NA: 0x2056960
+      description: |-
+        Removes the active monsters on the Main Team from the team member table.
+        
+        No params.
     - name: SetTeamSetupHeroAndPartnerOnly
       address:
         EU: 0x2056D48
@@ -8696,6 +8715,7 @@ arm9:
         r2: len (# bytes)
     - name: MemcpyFast
       address:
+        EU: 0x207C860
         NA: 0x207C4C8
       description: |-
         Copies bytes from one buffer to another, similar to memcpy(3). Note that the source/destination buffer parameters swapped relative to the standard memcpy.
@@ -8729,6 +8749,36 @@ arm9:
         This function must always be called before opening a file.
         
         r0: file_stream pointer
+    - name: GetOverlayInfo
+      address:
+        EU: 0x2080034
+        NA: 0x207FC9C
+      description: |-
+        Returns the y9.bin entry for the specified overlay
+        
+        r0: [output] Overlay info struct
+        r1: ?
+        r2: Overlay ID
+        return: True if the entry could be loaded successfully?
+    - name: LoadOverlayInternal
+      address:
+        EU: 0x2080130
+        NA: 0x207FD98
+      description: |-
+        Called by LoadOverlay to load an overlay into RAM given its info struct
+        
+        r0: Overlay info struct
+        Return: True if the overlay was loaded successfully?
+    - name: InitOverlay
+      address:
+        EU: 0x2080254
+        NA: 0x207FEBC
+      description: |-
+        Performs overlay initialization right after loading an overlay with LoadOverlayInternal.
+        
+        This function is responsible for jumping to all the pointers located in the overlay's static init array, among other things.
+        
+        r0: Overlay info struct
     - name: abs
       address:
         EU: 0x20868F4
@@ -11318,7 +11368,7 @@ arm9:
         type: enum monster_id*[28]
     - name: TEAM_MEMBER_TABLE_PTR
       address:
-        EU: 0x20B1364
+        EU: 0x20B138C
         NA: 0x20B0A48
         JP: 0x20B22BC
       length:

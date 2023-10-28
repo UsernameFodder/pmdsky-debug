@@ -5,6 +5,35 @@
 
 #include "enums.h"
 
+// Scripting coroutine located in unionall
+struct script_coroutine {
+    uint16_t offset;    // 0x0: Offset (in halfwords) where the coroutine starts, relative to the start of unionall
+    uint16_t type;      // 0x2: Not confirmed
+    uint16_t linked_to; // 0x4: From SkyTemple's source code. Purpose unknown.
+};
+ASSERT_SIZE(struct script_coroutine, 6);
+
+// Contains additional info about a scripting coroutine
+struct coroutine_info {
+    void* unionall_start;  // 0x0: RAM address where unionall starts
+    void* coroutine_start; // 0x4: RAM address where the coroutine starts
+    undefined4 field_0x8;
+    undefined field_0xc;
+    undefined field_0xd;
+    undefined field_0xe;
+    undefined field_0xf;
+    undefined field_0x10;
+    undefined field_0x11;
+    undefined field_0x12;
+    undefined field_0x13;
+    undefined2 field_0x14;
+    undefined field_0x16;
+    undefined field_0x17; // Likely padding
+    undefined2 field_0x18;
+    undefined padding[2];
+};
+ASSERT_SIZE(struct coroutine_info, 28);
+
 // Variables that track game state, available to the script engine.
 struct script_var {
     struct script_var_type_16 type; // 0x0: type of data contained in this variable
@@ -242,6 +271,18 @@ struct animation {
 };
 ASSERT_SIZE(struct animation, 196);
 
+// Holds data about an animation and how it should be played
+struct animation_data {
+    uint8_t animation_id; // 0x0: ID of the animation in the monster's animation sheet
+    // 0x1: speed + flags: 1-byte bitfield
+    enum animation_speed animation_speed : 2;
+    bool f_unk1 : 1;
+    bool loop : 1;
+    bool f_unk3 : 1;
+    bool f_unused : 3;
+};
+ASSERT_SIZE(struct animation_data, 2);
+
 // represent an actor present in the scene in the overworld (both during cutscenes and free-roams)
 struct live_actor {
     struct monster_id_16
@@ -343,9 +384,9 @@ struct main_ground_data {
     undefined*
         partner_follow_data; // 0x4: pointer to the data related to the partner following the player
     struct live_actor_list* actors; // 0x8: pointer to the actors
-    undefined* objects;             // 0x12: pointer to the objects
-    undefined* performers;          // 0x16: pointer to the performers
-    undefined* events;              // 0x20: pointer to the events
+    undefined* objects;             // 0xC: pointer to the objects
+    undefined* performers;          // 0x10: pointer to the performers
+    undefined* events;              // 0x14: pointer to the events
 };
 ASSERT_SIZE(struct main_ground_data, 24);
 

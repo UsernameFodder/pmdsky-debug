@@ -2091,6 +2091,13 @@ enum rank {
     RANK_GUILDMASTER = 12,
 };
 
+enum animation_speed {
+    ANIMATION_SPEED_NORMAL = 0,
+    ANIMATION_SPEED_SLOW = 1,
+    ANIMATION_SPEED_FAST = 2,
+    ANIMATION_SPEED_FREEZE = 3,
+};
+
 // These are super long, so split them out into a separate file
 #include "version_dep_enums.h"
 
