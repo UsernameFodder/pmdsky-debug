@@ -512,7 +512,7 @@ bool IsNormalMenuActive(int menu_id);
 int GetNormalMenuResult(int menu_id);
 int CreateAdvancedMenu(struct dbox_layout* layout, struct menu_flags menu_flags,
                        struct menu_additional_info* menu_additional_info,
-                       advanced_menu_entry_fn_t* entry_fn, int n_options, int n_opt_pp);
+                       advanced_menu_entry_fn_t* entry_fn, int n_options, int n_opt_per_page);
 void FreeAdvancedMenu(int menu_id);
 bool IsAdvancedMenuActive(int menu_id);
 int GetAdvancedMenuCurrentOption(int menu_id);

@@ -285,7 +285,7 @@ struct portrait_canvas {
 };
 ASSERT_SIZE(struct portrait_canvas, 896);
 
-// Stores data for the dimensions and appearence of a dialouge box. (Seems to be
+// Stores data for the dimensions and appearance of a dialogue box. (Seems to be
 // used for both generic text boxes and menus.)
 struct dbox_layout {
     // 0x0: A function related to updating the layout?
@@ -300,7 +300,7 @@ struct dbox_layout {
     uint8_t y_width;
     // 0x8: If true, shows the menu on the top screen.
     bool top_screen;
-    // 0x9: The type of the border around the window. 
+    // 0x9: The type of the border around the window.
     uint8_t border_type;
     undefined field_0xA;
     undefined field_0xB;
@@ -328,7 +328,7 @@ struct menu_flags {
     bool up_down_buttons : 1;
     bool se_on : 1;
     bool set_choice : 1;
-    uint8_t unknown6 : 3;
+    uint32_t unknown6 : 3;
     bool unknown9 : 1; // Breaks the first choice?
     bool custom_height : 1;
     bool menu_title : 1;
@@ -338,7 +338,7 @@ struct menu_flags {
     bool unknown_15 : 1; // Set to true when initalizing an advanced and normal menu?
     bool first_last_page_buttons : 1;
     bool up_down : 1;
-    uint8_t unknown18 : 2;
+    uint32_t unknown18 : 2;
     bool y_pos_end : 1;
     bool x_pos_end : 1;
     bool partial_menu : 1;
@@ -348,7 +348,7 @@ struct menu_flags {
     bool invisible_cursor : 1;
     bool only_list : 1;
     bool no_accept_button : 1;
-    uint8_t unknown29 : 3;
+    uint32_t unknown29 : 3;
 };
 ASSERT_SIZE(struct menu_flags, 4);
 

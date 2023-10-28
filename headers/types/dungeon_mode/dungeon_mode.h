@@ -908,8 +908,8 @@ struct display_data {
     // Derived from internal direction in leader info block
     struct direction_id_8 leader_target_direction;        // 0x36
     struct direction_id_8 leader_target_direction_mirror; // 0x37
-    undefined2 field_0x38;              // 0x38: Initialized to 0xFFFF (-1).
-    undefined2 field_0x3A;              // 0x3A: Initialized to 0xFFFF (-1).
+    undefined2 field_0x38;                                // 0x38: Initialized to 0xFFFF (-1).
+    undefined2 field_0x3A;                                // 0x3A: Initialized to 0xFFFF (-1).
     int16_t floor_touch_screen;         // 0x3C: Floor number displayed on the touch screen
     int16_t leader_level_touch_screen;  // 0x3E: Leader's level displayed on the touch screen
     int16_t leader_hp_touch_screen;     // 0x40: Leader's current HP displayed on the touch screen
