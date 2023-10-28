@@ -273,6 +273,7 @@ struct animation {
 ASSERT_SIZE(struct animation, 196);
 
 // Holds data about an animation and how it should be played
+#pragma pack(push, 2)
 struct animation_data {
     uint8_t animation_id; // 0x0: ID of the animation in the monster's animation sheet
     // 0x1: speed + flags: 1-byte bitfield
@@ -280,9 +281,10 @@ struct animation_data {
     bool f_unk1 : 1;
     bool loop : 1;
     bool f_unk3 : 1;
-    bool f_unused : 3;
+    uint8_t f_unused : 3;
 };
 ASSERT_SIZE(struct animation_data, 2);
+#pragma pack(pop)
 
 // represent an actor present in the scene in the overworld (both during cutscenes and free-roams)
 struct live_actor {
