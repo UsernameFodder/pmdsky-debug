@@ -506,8 +506,7 @@ void LoadAlert(void);
 void PrintClearMark(int mark_id, int x, int y, undefined param_4);
 int CreateNormalMenu(struct dbox_layout* layout, struct menu_flags menu_flags,
                      struct menu_additional_info* menu_additional_info,
-                     struct normal_menu_option* menu_options,
-                     int option_id);
+                     struct normal_menu_option* menu_options, int option_id);
 void FreeNormalMenu(int menu_id);
 bool IsNormalMenuActive(int menu_id);
 int GetNormalMenuResult(int menu_id);

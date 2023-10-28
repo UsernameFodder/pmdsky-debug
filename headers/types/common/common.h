@@ -322,33 +322,33 @@ ASSERT_SIZE(struct normal_menu_option, 8);
 
 // These flags are used to modify menus by adding (or taking away) elements.
 struct menu_flags {
-    bool a_accept: 1;
-    bool b_cancel: 1; // Also adds screen button.
-    bool accept_button: 1;
-    bool up_down_buttons: 1;
-    bool se_on: 1;
-    bool set_choice: 1;
-    uint8_t unknown6: 3;
-    bool unknown9: 1; // Breaks the first choice?
-    bool custom_height: 1;
-    bool menu_title: 1;
-    bool menu_lower_bar: 1;
-    bool list_button: 1;
-    bool search_button: 1;
-    bool unknown_15: 1; // Set to true when initalizing an advanced and normal menu?
-    bool first_last_page_buttons: 1;
-    bool up_down: 1;
-    uint8_t unknown18: 2;
-    bool y_pos_end: 1;
-    bool x_pos_end: 1;
-    bool partial_menu: 1;
-    bool no_cursor: 1;
-    bool no_up_down: 1;
-    bool no_left_right: 1;
-    bool invisible_cursor: 1;
-    bool only_list: 1;
-    bool no_accept_button: 1;
-    uint8_t unknown29: 3;
+    bool a_accept : 1;
+    bool b_cancel : 1; // Also adds screen button.
+    bool accept_button : 1;
+    bool up_down_buttons : 1;
+    bool se_on : 1;
+    bool set_choice : 1;
+    uint8_t unknown6 : 3;
+    bool unknown9 : 1; // Breaks the first choice?
+    bool custom_height : 1;
+    bool menu_title : 1;
+    bool menu_lower_bar : 1;
+    bool list_button : 1;
+    bool search_button : 1;
+    bool unknown_15 : 1; // Set to true when initalizing an advanced and normal menu?
+    bool first_last_page_buttons : 1;
+    bool up_down : 1;
+    uint8_t unknown18 : 2;
+    bool y_pos_end : 1;
+    bool x_pos_end : 1;
+    bool partial_menu : 1;
+    bool no_cursor : 1;
+    bool no_up_down : 1;
+    bool no_left_right : 1;
+    bool invisible_cursor : 1;
+    bool only_list : 1;
+    bool no_accept_button : 1;
+    uint8_t unknown29 : 3;
 };
 ASSERT_SIZE(struct menu_flags, 4);
 
@@ -366,7 +366,7 @@ struct menu_additional_info {
     // 0xC: Height of the title?
     uint32_t title_height;
     // 0x10: Preprocess arguments for the title.
-    struct preprocessor_args* title_args
+    struct preprocessor_args* title_args;
     undefined field_0x14;
     undefined field_0x15;
     undefined field_0x16;
