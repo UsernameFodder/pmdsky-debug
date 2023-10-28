@@ -889,27 +889,27 @@ struct display_data {
     // status_id::STATUS_CROSS_EYED effect.
     // Causes all entities to be displayed as green circles on the map.
     bool hallucinating;
-    bool can_see_stairs; // 0x2A: True if stairs are being shown on the map
-    undefined field_0x2B;
+    bool can_see_stairs;  // 0x2A: True if stairs are being shown on the map
+    undefined field_0x2B; // 0x2B: Initialized to 0
     undefined field_0x2C;
-    bool darkness; // 0x2D: True if there's darkness on the floor
-    undefined field_0x2E;
+    bool darkness;        // 0x2D: True if there's darkness on the floor
+    undefined field_0x2E; // 0x2E: Initialized to 1
     // 0x2F: True if the leader is being pointed by the camera right now. If false, UI digits will
     // be displayed in green.
     bool leader_pointed;
-    undefined field_0x30;
+    undefined field_0x30; // 0x30: Initialized to 1
     // 0x31: Set to 1 when losing in a dungeon. Seems to cause display_data::0x38 to
     // display_data::leader_max_hp_touch_screen to become 0xFFFF (-1).
     bool unk_fade_to_black_tracker;
-    undefined field_0x32;
-    undefined field_0x33;
-    undefined field_0x34;
+    undefined field_0x32;   // 0x32: Initialized to 0
+    undefined field_0x33;   // 0x33: Initialized to 0
+    undefined field_0x34;   // 0x34: Is used, related to lighting?
     bool team_menu_or_grid; // 0x35: True when the team menu is opened or while Y is being held
     // Derived from internal direction in leader info block
     struct direction_id_8 leader_target_direction;        // 0x36
     struct direction_id_8 leader_target_direction_mirror; // 0x37
-    undefined2 field_0x38;
-    undefined2 field_0x3A;
+    undefined2 field_0x38;                                // 0x38: Initialized to 0xFFFF (-1).
+    undefined2 field_0x3A;                                // 0x3A: Initialized to 0xFFFF (-1).
     int16_t floor_touch_screen;         // 0x3C: Floor number displayed on the touch screen
     int16_t leader_level_touch_screen;  // 0x3E: Leader's level displayed on the touch screen
     int16_t leader_hp_touch_screen;     // 0x40: Leader's current HP displayed on the touch screen

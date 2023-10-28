@@ -285,6 +285,227 @@ struct portrait_canvas {
 };
 ASSERT_SIZE(struct portrait_canvas, 896);
 
+// Stores data for the dimensions and appearance of a dialogue box. (Seems to be
+// used for both generic text boxes and menus.)
+struct dbox_layout {
+    // 0x0: A function related to updating the layout?
+    void* update_function;
+    // 0x4: Canvas top left corner x coordinate, divided by 8.
+    uint8_t x_start;
+    // 0x5: Canvas top left corner y coordinate, divided by 8.
+    uint8_t y_start;
+    // 0x6: Canvas width x length, divided by 8.
+    uint8_t x_width;
+    // 0x7: Canvas width y length, divided by 8.
+    uint8_t y_width;
+    // 0x8: If true, shows the menu on the top screen.
+    bool top_screen;
+    // 0x9: The type of the border around the window.
+    uint8_t border_type;
+    undefined field_0xA;
+    undefined field_0xB;
+    // 0xC: If this is pointer is NULL, menu still works normally?
+    void* unk_pointer;
+};
+ASSERT_SIZE(struct dbox_layout, 16);
+
+// Used in an array for all the options for a normal menu.
+struct normal_menu_option {
+    // 0x0: Message ID
+    uint16_t option_msg_id;
+    undefined field_0x2;
+    undefined field_0x3;
+    // 0x4: The result value for selecting this option?
+    uint32_t option_result_value;
+};
+ASSERT_SIZE(struct normal_menu_option, 8);
+
+// These flags are used to modify menus by adding (or taking away) elements.
+struct menu_flags {
+    bool a_accept : 1;
+    bool b_cancel : 1; // Also adds screen button.
+    bool accept_button : 1;
+    bool up_down_buttons : 1;
+    bool se_on : 1;
+    bool set_choice : 1;
+    uint32_t unknown6 : 3;
+    bool unknown9 : 1; // Breaks the first choice?
+    bool custom_height : 1;
+    bool menu_title : 1;
+    bool menu_lower_bar : 1;
+    bool list_button : 1;
+    bool search_button : 1;
+    bool unknown_15 : 1; // Set to true when initalizing an advanced and normal menu?
+    bool first_last_page_buttons : 1;
+    bool up_down : 1;
+    uint32_t unknown18 : 2;
+    bool y_pos_end : 1;
+    bool x_pos_end : 1;
+    bool partial_menu : 1;
+    bool no_cursor : 1;
+    bool no_up_down : 1;
+    bool no_left_right : 1;
+    bool invisible_cursor : 1;
+    bool only_list : 1;
+    bool no_accept_button : 1;
+    uint32_t unknown29 : 3;
+};
+ASSERT_SIZE(struct menu_flags, 4);
+
+// This struct is used when a menu needs additional information like the title
+// and custom height.
+struct menu_additional_info {
+    // 0x0: The choice to have selected initally when menu_flags::set_choice is true.
+    uint32_t set_choice_id;
+    // 0x4: Custom height value?
+    uint32_t custom_height;
+    // 0x8: Menu title string id
+    uint16_t title_message_id;
+    undefined field_0xA;
+    undefined field_0xB;
+    // 0xC: Height of the title?
+    uint32_t title_height;
+    // 0x10: Preprocess arguments for the title.
+    struct preprocessor_args* title_args;
+    undefined field_0x14;
+    undefined field_0x15;
+    undefined field_0x16;
+    undefined field_0x17;
+    undefined field_0x18;
+    undefined field_0x19;
+    undefined field_0x1A;
+    undefined field_0x1B;
+    undefined field_0x1C;
+    undefined field_0x1D;
+    undefined field_0x1E;
+    undefined field_0x1F;
+    undefined field_0x20;
+    undefined field_0x21;
+    undefined field_0x22;
+    undefined field_0x23;
+    undefined field_0x24;
+    undefined field_0x25;
+    undefined field_0x26;
+    undefined field_0x27;
+    undefined field_0x28;
+    undefined field_0x29;
+    undefined field_0x2A;
+    undefined field_0x2B;
+    undefined field_0x2C;
+    undefined field_0x2D;
+    undefined field_0x2E;
+    undefined field_0x2F;
+    undefined field_0x30;
+    undefined field_0x31;
+    undefined field_0x32;
+    undefined field_0x33;
+    undefined field_0x34;
+    undefined field_0x35;
+    undefined field_0x36;
+    undefined field_0x37;
+    undefined field_0x38;
+    undefined field_0x39;
+    undefined field_0x3A;
+    undefined field_0x3B;
+    undefined field_0x3C;
+    undefined field_0x3D;
+    undefined field_0x3E;
+    undefined field_0x3F;
+    undefined field_0x40;
+    undefined field_0x41;
+    undefined field_0x42;
+    undefined field_0x43;
+    undefined field_0x44;
+    undefined field_0x45;
+    undefined field_0x46;
+    undefined field_0x47;
+    undefined field_0x48;
+    undefined field_0x49;
+    undefined field_0x4A;
+    undefined field_0x4B;
+    undefined field_0x4C;
+    undefined field_0x4D;
+    undefined field_0x4E;
+    undefined field_0x4F;
+    undefined field_0x50;
+    undefined field_0x51;
+    undefined field_0x52;
+    undefined field_0x53;
+    undefined field_0x54;
+    undefined field_0x55;
+    undefined field_0x56;
+    undefined field_0x57;
+    undefined field_0x58;
+    undefined field_0x59;
+    undefined field_0x5A;
+    undefined field_0x5B;
+    undefined field_0x5C;
+    undefined field_0x5D;
+    undefined field_0x5E;
+    undefined field_0x5F;
+    undefined field_0x60;
+    undefined field_0x61;
+    undefined field_0x62;
+    undefined field_0x63;
+    undefined field_0x64;
+    undefined field_0x65;
+    undefined field_0x66;
+    undefined field_0x67;
+    undefined field_0x68;
+    undefined field_0x69;
+    undefined field_0x6A;
+    undefined field_0x6B;
+    undefined field_0x6C;
+    undefined field_0x6D;
+    undefined field_0x6E;
+    undefined field_0x6F;
+    undefined field_0x70;
+    undefined field_0x71;
+    undefined field_0x72;
+    undefined field_0x73;
+    undefined field_0x74;
+    undefined field_0x75;
+    undefined field_0x76;
+    undefined field_0x77;
+    undefined field_0x78;
+    undefined field_0x79;
+    undefined field_0x7A;
+    undefined field_0x7B;
+    undefined field_0x7C;
+    undefined field_0x7D;
+    undefined field_0x7E;
+    undefined field_0x7F;
+    undefined field_0x80;
+    undefined field_0x81;
+    undefined field_0x82;
+    undefined field_0x83;
+    undefined field_0x84;
+    undefined field_0x85;
+    undefined field_0x86;
+    undefined field_0x87;
+    undefined field_0x88;
+    undefined field_0x89;
+    undefined field_0x8A;
+    undefined field_0x8B;
+    undefined field_0x8C;
+    undefined field_0x8D;
+    undefined field_0x8E;
+    undefined field_0x8F;
+    undefined field_0x90;
+    undefined field_0x91;
+    undefined field_0x92;
+    undefined field_0x93;
+    undefined field_0x94;
+    undefined field_0x95;
+    undefined field_0x96;
+    undefined field_0x97;
+};
+ASSERT_SIZE(struct menu_additional_info, 152);
+
+// Functions for advanced menus to get the strings for the current list of options.
+// Returns the input buffer.
+typedef char* (*advanced_menu_entry_fn_t)(char* buffer, int option_id);
+
 // These flags are shared with the function to display text inside message boxes
 // So they might need a rename once more information is found
 struct preprocessor_flags {
@@ -488,9 +709,12 @@ struct team_member_table {
     // 0x984C: Pointer into active_team_rosters for the currently active team, i.e.,
     // &active_team_rosters[active_team]
     struct team_member* active_roster;
-    undefined2 field_0x9850; // Related to TEAM_MAIN (Guess)
-    undefined2 field_0x9852; // Related to TEAM_SPECIAL_EPISODE
-    undefined2 field_0x9854; // Related to TEAM_RESCUE
+    // 0x9850: Number of active members on TEAM_MAIN
+    int16_t number_active_team_members_main;
+    // 0x9852: Number of active members on TEAM_SPECIAL_EPISODE
+    int16_t number_active_team_members_se;
+    // 0x9854: Number of active members on TEAM_RESCUE
+    int16_t number_active_team_members_rescue;
     // 0x9856: member indexes (into the members array) for the active rosters of each team
     int16_t active_team_roster_member_idxs[3][4];
     undefined field_0x986e;
