@@ -82,5 +82,7 @@ arm7:
       description: |-
         Gets the processor's current operating mode.
         
+        See https://problemkaputt.de/gbatek.htm#armcpuflagsconditionfieldcond
+        
         return: cpsr & 0x1f (the cpsr mode bits M4-M0)
   data: []
