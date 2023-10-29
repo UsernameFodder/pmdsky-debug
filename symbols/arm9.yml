@@ -7799,16 +7799,16 @@ arm9:
         
         r0: team member index
         return: roster index if the team member is active, -1 otherwise
-    - name: TryAddRosterMonsterToTeam
+    - name: TryAddMonsterToActiveTeam
       address:
         EU: 0x2056AD0
         NA: 0x2056754
       description: |-
-        Attempts to add a monster from the roster to the active team.
+        Attempts to add a monster from the team member table to the active team.
         
         Returns the team index of the newly added monster. If the monster was already on the team, returns its current team index. If the monster is not on the team and there's no space left, returns -1.
         
-        r0: roster index
+        r0: member index
         return: Team index
     - name: RemoveActiveMembersFromMainTeam
       address:

@@ -23,7 +23,7 @@ overlay11:
       description: |-
         Unlocks a scripting lock.
         
-        Sets the corresponding byte to 1 on LOCK_NOTIFY_ARRAY. Also sets a global unlock flag, used to tell the scripting engine that the state of locks have changed and they should be checked again.
+        Sets the corresponding byte to 1 on LOCK_NOTIFY_ARRAY to signal that the scripting engine should handle the unlock. Also sets a global unlock flag, used to tell the scripting engine that the state of locks have changed and they should be checked again.
         
         r0: ID of the lock to unlock
     - name: FuncThatCallsRunNextOpcode
@@ -46,12 +46,12 @@ overlay11:
         Contains a switch statement based on the opcode ([r0+1C]).
         
         r0: Looks like a pointer to some struct containing data about the current state of scripting engine
-    - name: CheckUnlocks
+    - name: HandleUnlocks
       address:
         EU: 0x22E4C90
         NA: 0x22E4350
       description: |-
-        Checks if an script unlock happened by reading entries from LOCK_NOTIFY_ARRAY.
+        Checks if a script unlock happened by reading entries from LOCK_NOTIFY_ARRAY and handles the ones that were set.
         
         If the global unlock flag is not set, returns immediately. If it is, the function loops LOCK_NOTIFY_ARRAY, checking for true values. If it finds one, resets it back to 0 and handles the unlock.
         

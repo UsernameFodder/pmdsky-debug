@@ -4,7 +4,7 @@
 void UnlockScriptingLock(int lock_id);
 void FuncThatCallsRunNextOpcode(undefined* script_engine_state);
 void RunNextOpcode(undefined* script_engine_state);
-void CheckUnlocks(void);
+void HandleUnlocks(void);
 void LoadFileFromRomVeneer(struct iovec* iov, const char* filepath, uint32_t flags);
 void SsbLoad2(void);
 uint16_t ProcessScriptParam(uint16_t parameter);
@@ -12,7 +12,7 @@ void StationLoadHanger(void);
 void ScriptStationLoadTalk(void);
 void SsbLoad1(void);
 int ScriptSpecialProcessCall(undefined4* param_1, enum special_process_id id, int arg1, int arg2);
-bool GetCoroutineInfo(struct coroutine_info* coroutine_info, int coroutine_id);
+bool GetCoroutineInfo(struct coroutine_info* coroutine_info, enum coroutine_id);
 enum monster_id GetSpecialRecruitmentSpecies(int idx);
 void PrepareMenuAcceptTeamMember(int idx);
 void InitRandomNpcJobs(int job_type, undefined2 param_2);

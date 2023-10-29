@@ -815,7 +815,7 @@ bool IsMonsterIdInNormalRange(enum monster_id monster_id);
 void SetActiveTeam(enum team_id team_id);
 struct team_member* GetActiveTeamMember(int roster_idx);
 int GetActiveRosterIndex(int member_idx);
-int TryAddRosterMonsterToTeam(int roster_idx);
+int TryAddMonsterToActiveTeam(int member_idx);
 void RemoveActiveMembersFromMainTeam(void);
 void SetTeamSetupHeroAndPartnerOnly(void);
 void SetTeamSetupHeroOnly(void);
