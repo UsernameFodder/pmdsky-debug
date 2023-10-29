@@ -74,4 +74,15 @@ arm7:
         
         r0: Value to set the flags to (0xC0 to set both flags, 0x80 to set the i flag and clear the f flag, 0x40 to set the f flag and clear the i flag and 0x0 to clear both flags)
         return: Old value of cpsr & 0xC0 (contains the previous values of the i and f flags)
+    - name: GetProcessorMode
+      address:
+        EU: 0x2385F40
+        NA: 0x2385F40
+        JP: 0x2385F40
+      description: |-
+        Gets the processor's current operating mode.
+        
+        See https://problemkaputt.de/gbatek.htm#armcpuflagsconditionfieldcond
+        
+        return: cpsr & 0x1f (the cpsr mode bits M4-M0)
   data: []

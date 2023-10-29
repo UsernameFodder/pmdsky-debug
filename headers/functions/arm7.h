@@ -7,5 +7,6 @@ int EnableIrqFlag(void);
 int SetIrqFlag(int new_value);
 int EnableIrqFiqFlags(void);
 int SetIrqFiqFlags(int new_value);
+int GetProcessorMode(void);
 
 #endif
