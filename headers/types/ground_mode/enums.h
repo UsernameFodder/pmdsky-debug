@@ -298,7 +298,8 @@ enum script_var_id {
     //   7: Unused
     VAR_SPECIAL_EPISODE_OPEN = 75,
     // Eight bitflags that are seemingly related to Special Episodes? We're fairly certain that
-    // they're unused, but can't say anything for sure.
+    // they're unused, but can't say anything for sure. Gets set as the hero is initalized for the
+    // corresponding special episode.
     VAR_SPECIAL_EPISODE_OPEN_OLD = 76,
     // Eight bitflags used to mark if a Special Episode has been beaten. These are typically set in
     // an Acting script.

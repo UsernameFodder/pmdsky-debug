@@ -1887,6 +1887,35 @@ arm9:
         
         r0: item ID
         return: bool
+    - name: SetActiveInventoryToMain
+      address:
+        NA: 0x200EBCC
+      description: |-
+        Changes the currently active inventory to TEAM_MAIN.
+        
+        No params.
+    - name: AllInventoriesZInit
+      address:
+        NA: 0x200EBDC
+      description: |-
+        Initializes all inventories (TEAM_MAIN, TEAM_SPECIAL_EPISODE, TEAM_RESCUE) to empty and sets the active inventory
+        to TEAM_MAIN.
+        
+        No params.
+    - name: SpecialEpisodeInventoryZInit
+      address:
+        NA: 0x200EC48
+      description: |-
+        Initializes the TEAM_SPECIAL_EPISODE inventory to be empty.
+        
+        No params.
+    - name: RescueInventoryZInit
+      address:
+        NA: 0x200EC90
+      description: |-
+        Initializes the TEAM_RESCUE inventory to be empty.
+        
+        No params.
     - name: SetActiveInventory
       address:
         EU: 0x200ED80
@@ -1894,7 +1923,7 @@ arm9:
         JP: 0x200ED08
       description: |-
         Changes the currently active inventory. Has one for the main team, rescue team, and the special
-        episode team?
+        episode team.
         
         r0: team ID
     - name: GetMoneyCarried
@@ -2451,6 +2480,29 @@ arm9:
         
         r0: [output] bool array?
         r1: number of items to sort (usually just the current size of storage)
+    - name: AllKecleonShopsZInit
+      address:
+        NA: 0x2010594
+      description: |-
+        Empties the Kecleon shop for both TEAM_MAIN and TEAM_SPECIAL_EPISODE. TEAM_RESCUE does not appear to have its own
+        Kecleon shop.
+        
+        No params.
+    - name: SpecialEpisodeKecleonShopZInit
+      address:
+        NA: 0x2010654
+      description: |-
+        Empties the special episode Kecleon shop.
+        
+        No params.
+    - name: SetActiveKecleonShop
+      address:
+        NA: 0x20106C4
+      description: |-
+        Changes the currently active Kecleon shop. Has one for TEAM_MAIN and TEAM_SPECIAL_EPISODE. TEAM_RESCUE does not
+        appear to have its own copy of the Kecleon shop it seems to use TEAM_MAIN intead of TEAM_RESCUE.
+        
+        r0: team ID
     - name: GetMoneyStored
       address:
         NA: 0x201070C
@@ -4863,11 +4915,21 @@ arm9:
         NA: 0x202F1B4
         JP: 0x202F4F8
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Preprocesses the corresponding string_id message in the text file and puts it into the dialouge box.
         
         r0: dbox_id
         r1: preprocessor flags (see PreprocessString)
         r2: string_id
+        r3: pointer to preprocessor args (see PreprocessString)
+    - name: ShowStringInDBox
+      address:
+        NA: 0x202F23C
+      description: |-
+        Preprocesses the passed string and puts it into the dialouge box.
+        
+        r0: dbox_id
+        r1: preprocessor flags (see PreprocessString)
+        r2: string
         r3: pointer to preprocessor args (see PreprocessString)
     - name: ShowDBox
       address:
@@ -4998,6 +5060,15 @@ arm9:
         Sets NOTIFY_NOTE to the given value.
         
         r0: bool
+    - name: InitSpecialEpisodeHero
+      address:
+        NA: 0x20484E8
+      description: |-
+        Removes/invalidates the special episode member slots, zero inits the special episode treasure bag, zero inits the
+        special episode Kecleon shops, zero inits VAR_WORLD_MAP_MARK_LIST_SPECIAL, sets VAR_SPECIAL_EPISODE_OPEN_OLD for
+        the corresponding special episode, and initializes the hero for the special episode.
+        
+        No params.
     - name: EventFlagBackupVeneer
       address:
         NA: 0x2048758
@@ -5016,21 +5087,24 @@ arm9:
         Implements SPECIAL_PROC_INIT_MAIN_TEAM_AFTER_QUIZ (see ScriptSpecialProcessCall).
         
         No params.
-    - name: ScriptSpecialProcess0x3
+    - name: InitSpecialEpisodePartners
       address:
         EU: 0x2048D28
         NA: 0x2048A0C
         JP: 0x2048D78
       description: |-
-        Implements SPECIAL_PROC_0x3 (see ScriptSpecialProcessCall).
+        Initializes the partners for the current special episode and sets the team to be the hero and partner only.
+        Implements SPECIAL_PROC_0x3 (see ScriptSpecialProcessCall). 
         
         No params.
-    - name: ScriptSpecialProcess0x4
+    - name: InitSpecialEpisodeExtraPartner
       address:
         EU: 0x2048DA0
         NA: 0x2048A84
         JP: 0x2048DF0
       description: |-
+        Initializes any partners/special episode members that join the team later in a special episode. This is used to add
+        Celebi in the In the Future of Darkness special episode.
         Implements SPECIAL_PROC_0x4 (see ScriptSpecialProcessCall).
         
         No params.
@@ -6371,7 +6445,7 @@ arm9:
         NA: 0x2050ACC
         JP: 0x2050E18
       description: |-
-        Sets the name of the team for the main story to the default team name Poképals. Also initalizes
+        Sets the name of the team for the main story to the default team name Poképals. Also initializes
         the team to Normal Rank and possibly set Secret Rank unlocked to false?
         
         No params.
@@ -8370,31 +8444,43 @@ arm9:
         
         r0: actor_id
         return: storage ID
-    - name: ScriptSpecialProcess0x3D
+    - name: SetActorTalkMainAndActorTalkSub
+      address:
+        NA: 0x2065B3C
+      description: |-
+        Sets ACTOR_TALK_MAIN to have actor_id.
+        Implements SPECIAL_PROC_0x3D (see ScriptSpecialProcessCall).
+        
+        r0: actor_id for ACTOR_TALK_MAIN
+        r1: actor_id for ACTOR_TALK_SUB
+    - name: SetActorTalkMain
       address:
         EU: 0x2065ECC
         NA: 0x2065B50
         JP: 0x2065E38
       description: |-
+        Sets ACTOR_TALK_MAIN to be actor_id.
         Implements SPECIAL_PROC_0x3D (see ScriptSpecialProcessCall).
         
-        No params.
-    - name: ScriptSpecialProcess0x3E
+        r0: actor_id
+    - name: SetActorTalkSub
       address:
         EU: 0x2065EDC
         NA: 0x2065B60
         JP: 0x2065E48
       description: |-
+        Sets ACTOR_TALK_SUB to be actor_id.
         Implements SPECIAL_PROC_0x3E (see ScriptSpecialProcessCall).
         
         No params.
-    - name: ScriptSpecialProcess0x17
+    - name: RandomizeDemoActors
       address:
         EU: 0x2065FC4
         NA: 0x2065C48
         JP: 0x2065F30
       description: |-
-        Implements SPECIAL_PROC_0x17 (see ScriptSpecialProcessCall).
+        Randomly picks one of the 18 teams from DEMO_TEAMS and sets ACTOR_NPC_DEMO_HERO and ACTOR_NPC_DEMO_PARTNER
+        to the randomly selected hero and partner.
         
         No params.
     - name: ItemAtTableIdx
