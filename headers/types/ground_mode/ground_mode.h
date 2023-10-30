@@ -5,36 +5,6 @@
 
 #include "enums.h"
 
-// Scripting coroutine located in unionall
-struct script_coroutine {
-    // 0x0: Offset (in halfwords) where the coroutine starts, relative to the start of unionall
-    uint16_t offset;
-    uint16_t type;      // 0x2: Not confirmed
-    uint16_t linked_to; // 0x4: From SkyTemple's source code. Purpose unknown.
-};
-ASSERT_SIZE(struct script_coroutine, 6);
-
-// Contains additional info about a scripting coroutine
-struct coroutine_info {
-    void* unionall_start;  // 0x0: RAM address where unionall starts
-    void* coroutine_start; // 0x4: RAM address where the coroutine starts
-    undefined4 field_0x8;
-    undefined field_0xc;
-    undefined field_0xd;
-    undefined field_0xe;
-    undefined field_0xf;
-    undefined field_0x10;
-    undefined field_0x11;
-    undefined field_0x12;
-    undefined field_0x13;
-    undefined2 field_0x14;
-    undefined field_0x16;
-    undefined field_0x17; // Likely padding
-    undefined2 field_0x18;
-    undefined padding[2];
-};
-ASSERT_SIZE(struct coroutine_info, 28);
-
 // Variables that track game state, available to the script engine.
 struct script_var {
     struct script_var_type_16 type; // 0x0: type of data contained in this variable
@@ -252,6 +222,37 @@ struct common_routine_table {
     struct common_routine routines[701];
 };
 ASSERT_SIZE(struct common_routine_table, 5608);
+
+// Scripting coroutine located in unionall.ssb. Seems to represent coroutines when they are loaded
+// in-RAM, unlike common_routine.
+struct script_coroutine {
+    // 0x0: Offset (in halfwords) where the coroutine starts, relative to the start of unionall
+    uint16_t offset;
+    uint16_t type;      // 0x2: Not confirmed
+    uint16_t linked_to; // 0x4: From SkyTemple's source code. Purpose unknown.
+};
+ASSERT_SIZE(struct script_coroutine, 6);
+
+// Contains additional info about a scripting coroutine loaded in RAM.
+struct coroutine_info {
+    void* unionall_start;  // 0x0: RAM address where unionall starts
+    void* coroutine_start; // 0x4: RAM address where the coroutine starts
+    undefined4 field_0x8;
+    undefined field_0xc;
+    undefined field_0xd;
+    undefined field_0xe;
+    undefined field_0xf;
+    undefined field_0x10;
+    undefined field_0x11;
+    undefined field_0x12;
+    undefined field_0x13;
+    undefined2 field_0x14;
+    undefined field_0x16;
+    undefined field_0x17; // Likely padding
+    undefined2 field_0x18;
+    undefined padding[2];
+};
+ASSERT_SIZE(struct coroutine_info, 28);
 
 // An object is a non-entity, usually inanimate object that can be statically placed in a scene.
 struct script_object {

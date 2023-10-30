@@ -133,7 +133,7 @@ struct overlay_info_entry {
     int overlay_id;                // 0x0
     int ram_address;               // 0x4
     int size;                      // 0x8
-    int bss_size;                  // 0xC: "Size of BSS data region"
+    int bss_size;                  // 0xC: Size of BSS data region
     int static_init_start_address; // 0x10
     int static_init_end_address;   // 0x14
     int file_id;                   // 0x18: File ID of this overlay in the ROM's FAT
