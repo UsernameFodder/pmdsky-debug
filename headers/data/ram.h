@@ -50,6 +50,7 @@ extern struct vram_banks_set ENABLED_VRAM_BANKS;
 extern uint32_t FRAMES_SINCE_LAUNCH_TIMES_THREE;
 extern struct mem_arena* GROUND_MEMORY_ARENA_1_PTR;
 extern struct mem_arena* GROUND_MEMORY_ARENA_2_PTR;
+extern bool LOCK_NOTIFY_ARRAY[20];
 extern struct mem_arena GROUND_MEMORY_ARENA_1;
 extern struct mem_block GROUND_MEMORY_ARENA_1_BLOCKS[52];
 extern uint8_t GROUND_MEMORY_ARENA_1_MEMORY[408324];

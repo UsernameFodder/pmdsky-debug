@@ -16,16 +16,46 @@ overlay11:
     
     This is the "main" overlay of ground mode. The script engine is what runs the ground mode scripts contained in the SCRIPT folder, which are written in a custom scripting language. These scripts encode things like cutscenes, screen transitions, ground mode events, and tons of other things related to ground mode.
   functions:
-    - name: FuncThatCallsCommandParsing
+    - name: UnlockScriptingLock
+      address:
+        EU: 0x22DDA70
+        NA: 0x22DD130
+      description: |-
+        Unlocks a scripting lock.
+        
+        Sets the corresponding byte to 1 on LOCK_NOTIFY_ARRAY to signal that the scripting engine should handle the unlock. Also sets a global unlock flag, used to tell the scripting engine that the state of locks have changed and they should be checked again.
+        
+        r0: ID of the lock to unlock
+    - name: FuncThatCallsRunNextOpcode
       address:
         EU: 0x22DDAA4
         NA: 0x22DD164
         JP: 0x22DE804
-    - name: ScriptCommandParsing
+      description: |-
+        Called up to 16 times per frame. Exact purpose unknown.
+        
+        r0: Looks like a pointer to some struct containing data about the current state of scripting engine
+    - name: RunNextOpcode
       address:
         EU: 0x22DE6A4
         NA: 0x22DDD64
         JP: 0x22DF404
+      description: |-
+        Runs the next scripting opcode.
+        
+        Contains a switch statement based on the opcode ([r0+1C]).
+        
+        r0: Looks like a pointer to some struct containing data about the current state of scripting engine
+    - name: HandleUnlocks
+      address:
+        EU: 0x22E4C90
+        NA: 0x22E4350
+      description: |-
+        Checks if a script unlock happened by reading entries from LOCK_NOTIFY_ARRAY and handles the ones that were set.
+        
+        If the global unlock flag is not set, returns immediately. If it is, the function loops LOCK_NOTIFY_ARRAY, checking for true values. If it finds one, resets it back to 0 and handles the unlock.
+        
+        No params.
     - name: LoadFileFromRomVeneer
       address:
         NA: 0x22E46DC
@@ -42,6 +72,14 @@ overlay11:
         EU: 0x22E503C
         NA: 0x22E46FC
         JP: 0x22E5D28
+    - name: ProcessScriptParam
+      address:
+        EU: 0x22E51EC
+        NA: 0x22E48AC
+      description: |-
+        Checks if the two most significant bits (0x8000 and 0x4000) are set on a given script opcode parameter, and modifies the value if so.
+        
+        r0: On input, the parameter. On output, the modified parameter if either of the two bits listed above is set, same parameter otherwise.
     - name: StationLoadHanger
       address:
         EU: 0x22E5514
@@ -70,6 +108,18 @@ overlay11:
         r2: first argument, if relevant? Probably corresponds to the second parameter of OPCODE_PROCESS_SPECIAL
         r3: second argument, if relevant? Probably corresponds to the third parameter of OPCODE_PROCESS_SPECIAL
         return: return value of the special process if it has one, otherwise 0
+    - name: GetCoroutineInfo
+      address:
+        EU: 0x22E88F8
+        NA: 0x22E7FB8
+      description: |-
+        Returns information about a coroutine in unionall
+        
+        It's used by the CallCommon code to pull the data required to call the coroutine, so maybe the function returns data required to call a coroutine instead of info about the coroutine itself.
+        
+        r0: [output] Coroutine info
+        r1: Coroutine ID
+        return: True if the coroutine is valid? It's false only if the coroutine's offset is 0.
     - name: GetSpecialRecruitmentSpecies
       address:
         EU: 0x22E897C
@@ -309,6 +359,18 @@ overlay11:
         r0: animation pointer
         r1: flags
         r2: ?
+    - name: GetIdleAnimationType
+      address:
+        EU: 0x22F66F0
+        NA: 0x22F5D50
+      description: |-
+        Given a monster species, returns the type of idle animation it should have.
+        
+        Possible values are "freeze animation #0" (0x300), "loop animation #7" (0x807) and "freeze animation #7" (0x307).
+        
+        r0: Monster ID
+        r1: (?) Could contain data about the animation the monster is currently playing
+        return: Animation data
     - name: LoadObjectAnimData
       address:
         EU: 0x22F7800
@@ -371,6 +433,17 @@ overlay11:
         Remove the actor from the overworld actor list (in GROUND_STATE_PTRS)
         
         r0: the index of the actor in the live actor list
+    - name: ChangeActorAnimation
+      address:
+        EU: 0x22F9D68
+        NA: 0x22F93C8
+      description: |-
+        Used by the SetAnimation opcode to change the animation of an actor.
+        
+        It's responsible for breaking down the SetAnimation parameter and determining which animation to play and which flags to set.
+        
+        r0: ?
+        r1: SetAnimation parameter
     - name: InitPartnerFollowData
       address:
         EU: 0x22FC3C8
@@ -618,6 +691,17 @@ overlay11:
         Irdkwia's notes: FIXED_FLOOR_GROUND_ASSOCIATION
         
         type: struct level_tilemap_list_entry[81]
+    - name: SETANIMATION_TABLE
+      address:
+        EU: 0x23223FC
+        NA: 0x23218CC
+      length:
+        EU: 0xA8
+        NA: 0xA8
+      description: |-
+        Table that associates the parameter of the SetAnimation scripting opcode to animation data.
+        
+        The first entry is unused and has a value of 0xFFFF.
     - name: OVERLAY11_OVERLAY_LOAD_TABLE
       address:
         EU: 0x2323B9C

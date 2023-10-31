@@ -815,6 +815,8 @@ bool IsMonsterIdInNormalRange(enum monster_id monster_id);
 void SetActiveTeam(enum team_id team_id);
 struct team_member* GetActiveTeamMember(int roster_idx);
 int GetActiveRosterIndex(int member_idx);
+int TryAddMonsterToActiveTeam(int member_idx);
+void RemoveActiveMembersFromMainTeam(void);
 void SetTeamSetupHeroAndPartnerOnly(void);
 void SetTeamSetupHeroOnly(void);
 int GetPartyMembers(uint16_t* party_members);
@@ -914,6 +916,9 @@ void MemsetFast(void* ptr, char val, uint32_t len);
 void MemcpyFast(void* src, void* dest, uint32_t n);
 uint32_t AtomicExchange(uint32_t desired, void* ptr);
 void FileInit(struct file_stream* file);
+bool GetOverlayInfo(struct overlay_info_entry* overlay_info, undefined param_2, int overlay_id);
+bool LoadOverlayInternal(struct overlay_info_entry* overlay_info);
+void InitOverlay(struct overlay_info_entry* overlay_info);
 
 // If declaring these builtins causes issues, you can disable them
 #ifndef PMDSKY_NO_BUILTIN
