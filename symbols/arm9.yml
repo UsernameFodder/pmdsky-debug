@@ -8479,7 +8479,7 @@ arm9:
         NA: 0x2065C48
         JP: 0x2065F30
       description: |-
-        Randomly picks one of the 18 teams from DEMO_TEAMS and sets ACTOR_NPC_DEMO_HERO and ACTOR_NPC_DEMO_PARTNER
+        Randomly picks one of the 18 teams from DEMO_TEAMS and sets ENTITY_NPC_DEMO_HERO and ENTITY_NPC_DEMO_PARTNER
         to the randomly selected hero and partner.
         
         No params.
