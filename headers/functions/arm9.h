@@ -530,7 +530,7 @@ bool IsDBoxActive(int dbox_id);
 void ShowMessageInDBox(int dbox_id, struct preprocessor_flags flags, int string_id,
                        struct preprocessor_args* args);
 void ShowStringInDBox(int dbox_id, struct preprocessor_flags flags, char* string,
-                       struct preprocessor_args* args);
+                      struct preprocessor_args* args);
 void ShowDBox(int dbox_id);
 int CreatePortraitBox(undefined param_1, undefined4 param_2, int param_3);
 void FreePortraitBox(int dbox_id);

@@ -4915,7 +4915,7 @@ arm9:
         NA: 0x202F1B4
         JP: 0x202F4F8
       description: |-
-        Preprocesses the corresponding string_id message in the text file and puts it into the dialouge box.
+        Preprocesses the corresponding string_id message in the text file and puts it into the dialogue box.
         
         r0: dbox_id
         r1: preprocessor flags (see PreprocessString)
@@ -4925,7 +4925,7 @@ arm9:
       address:
         NA: 0x202F23C
       description: |-
-        Preprocesses the passed string and puts it into the dialouge box.
+        Preprocesses the passed string and puts it into the dialogue box.
         
         r0: dbox_id
         r1: preprocessor flags (see PreprocessString)
@@ -8448,7 +8448,7 @@ arm9:
       address:
         NA: 0x2065B3C
       description: |-
-        Sets ACTOR_TALK_MAIN to have actor_id.
+        Sets ACTOR_TALK_MAIN and ACTOR_TALK_SUB to given actor IDs.
         Implements SPECIAL_PROC_0x3D (see ScriptSpecialProcessCall).
         
         r0: actor_id for ACTOR_TALK_MAIN
