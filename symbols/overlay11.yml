@@ -79,8 +79,7 @@ overlay11:
       description: |-
         Checks if the two most significant bits (0x8000 and 0x4000) are set on a given script opcode parameter, and modifies the value if so.
         
-        r0: Parameter
-        ret r0: Modified parameter if either of the two bits listed above is set, same parameter otherwise.
+        r0: On input, the parameter. On output, the modified parameter if either of the two bits listed above is set, same parameter otherwise.
     - name: StationLoadHanger
       address:
         EU: 0x22E5514
