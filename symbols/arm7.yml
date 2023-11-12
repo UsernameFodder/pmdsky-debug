@@ -20,7 +20,7 @@ arm7:
     NA-RAM: 0x27E0000
     JP-RAM: 0x27E0000
   length:
-    EU: 0x27080    #0x1E8 long ENTRY block
+    EU: 0x27080
     NA: 0x27080
     JP: 0x27080
     EU-WRAM: 0xF608
@@ -35,6 +35,8 @@ arm7:
     This is the secondary binary that gets loaded when the game is launched.
     
     Speaking generally, this is the program run by the Nintendo DS's secondary ARM7TDMI CPU, which handles the audio I/O, the touch screen, Wi-Fi functions, cryptography, and more.
+
+    Note that while the length for the main EU/NA/JP block is defined as 0x27080 above, after memory mappings, the block located at that address is only a 0x1E8 long ENTRY block, containing 3 functions solely used for the initial memory mapping. The memory following this block is reused and its purpose is undocumented at the moment.
   functions:
     - name: EntryArm7
       address:
