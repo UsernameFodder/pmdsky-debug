@@ -115,6 +115,8 @@ arm7:
         JP: 0x37FDD58
       description: |-
         Gets the processor's current operating mode.
+
+        See https://problemkaputt.de/gbatek.htm#armcpuflagsconditionfieldcond
         
         return: cpsr & 0x1f (the cpsr mode bits M4-M0)
     - name: __divsi3
