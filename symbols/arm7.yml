@@ -1,34 +1,34 @@
 arm7:
   versions:
-    - EU-ENTRY
-    - NA-ENTRY
-    - JP-ENTRY
+    - EU
+    - NA
+    - JP
     - EU-WRAM
     - NA-WRAM
     - JP-WRAM
-    - EU-SLOW
-    - NA-SLOW
-    - JP-SLOW
+    - EU-RAM
+    - NA-RAM
+    - JP-RAM
   address:
-    EU-ENTRY: 0x2380000
-    NA-ENTRY: 0x2380000
-    JP-ENTRY: 0x2380000
+    EU: 0x2380000
+    NA: 0x2380000
+    JP: 0x2380000
     EU-WRAM: 0x37F8000
     NA-WRAM: 0x37F8000
     JP-WRAM: 0x37F8000
-    EU-SLOW: 0x27E0000
-    NA-SLOW: 0x27E0000
-    JP-SLOW: 0x27E0000
+    EU-RAM: 0x27E0000
+    NA-RAM: 0x27E0000
+    JP-RAM: 0x27E0000
   length:
-    EU-ENTRY: 0x1E8
-    NA-ENTRY: 0x1E8
-    JP-ENTRY: 0x1E8
+    EU: 0x27080    #0x1E8 long ENTRY block
+    NA: 0x27080
+    JP: 0x27080
     EU-WRAM: 0xF608
     NA-WRAM: 0xF608
     JP-WRAM: 0xF608
-    EU-SLOW: 0x17878
-    NA-SLOW: 0x17878
-    JP-SLOW: 0x17878
+    EU-RAM: 0x17878
+    NA-RAM: 0x17878
+    JP-RAM: 0x17878
   description: |-
     The ARM7 binary.
     
@@ -54,36 +54,48 @@ arm7:
         No params.
     - name: MainArm7
       address:
-        EU: 0x37F8000
-        NA: 0x37F8000
-        JP: 0x37F8000
+        EU: 0x23801E8
+        NA: 0x23801E8
+        JP: 0x23801E8
+        EU-WRAM: 0x37F8000
+        NA-WRAM: 0x37F8000
+        JP-WRAM: 0x37F8000
       description: |-
         This main function for the ARM7 subsystem. Contains the main event loop.
 
         No params.
     - name: ClearIrqFlag
       address:
-        EU: 0x37FDCEC
-        NA: 0x37FDCEC
-        JP: 0x37FDCEC
+        EU: 0x2385ED4
+        NA: 0x2385ED4
+        JP: 0x2385ED4
+        EU-WRAM: 0x37FDCEC
+        NA-WRAM: 0x37FDCEC
+        JP-WRAM: 0x37FDCEC
       description: |-
         Copy of the ARM9 function. See arm9.yml for more information.
         
         return: Old value of cpsr & 0x80 (0x80 if interrupts were disabled, 0x0 if they were already enabled)
     - name: EnableIrqFlag
       address:
-        EU: 0x37FDD00
-        NA: 0x37FDD00
-        JP: 0x37FDD00
+        EU: 0x2385EE8
+        NA: 0x2385EE8
+        JP: 0x2385EE8
+        EU-WRAM: 0x37FDD00
+        NA-WRAM: 0x37FDD00
+        JP-WRAM: 0x37FDD00
       description: |-
         Copy of the ARM9 function. See arm9.yml for more information.
         
         return: Old value of cpsr & 0x80 (0x80 if interrupts were already disabled, 0x0 if they were enabled)
     - name: SetIrqFlag
       address:
-        EU: 0x37FDD14
-        NA: 0x37FDD14
-        JP: 0x37FDD14
+        EU: 0x2385EFC
+        NA: 0x2385EFC
+        JP: 0x2385EFC
+        EU-WRAM: 0x37FDD14
+        NA-WRAM: 0x37FDD14
+        JP-WRAM: 0x37FDD14
       description: |-
         Copy of the ARM9 function. See arm9.yml for more information.
         
@@ -91,18 +103,24 @@ arm7:
         return: Old value of cpsr & 0x80 (0x80 if interrupts were disabled, 0x0 if they were enabled)
     - name: EnableIrqFiqFlags
       address:
-        EU: 0x37FDD2C
-        NA: 0x37FDD2C
-        JP: 0x37FDD2C
+        EU: 0x2385F14
+        NA: 0x2385F14
+        JP: 0x2385F14
+        EU-WRAM: 0x37FDD2C
+        NA-WRAM: 0x37FDD2C
+        JP-WRAM: 0x37FDD2C
       description: |-
         Copy of the ARM9 function. See arm9.yml for more information.
         
         return: Old value of cpsr & 0xC0 (contains the previous values of the i and f flags)
     - name: SetIrqFiqFlags
       address:
-        EU: 0x37FDD40
-        NA: 0x37FDD40
-        JP: 0x37FDD40
+        EU: 0x2385F28
+        NA: 0x2385F28
+        JP: 0x2385F28
+        EU-WRAM: 0x37FDD40
+        NA-WRAM: 0x37FDD40
+        JP-WRAM: 0x37FDD40
       description: |-
         Copy of the ARM9 function. See arm9.yml for more information.
         
@@ -110,9 +128,12 @@ arm7:
         return: Old value of cpsr & 0xC0 (contains the previous values of the i and f flags)
     - name: GetProcessorMode
       address:
-        EU: 0x37FDD58
-        NA: 0x37FDD58
-        JP: 0x37FDD58
+        EU: 0x2385F40
+        NA: 0x2385F40
+        JP: 0x2385F40
+        EU-WRAM: 0x37FDD58
+        NA-WRAM: 0x37FDD58
+        JP-WRAM: 0x37FDD58
       description: |-
         Gets the processor's current operating mode.
 
@@ -121,9 +142,9 @@ arm7:
         return: cpsr & 0x1f (the cpsr mode bits M4-M0)
     - name: __divsi3
       address:
-        EU: 0x3806BC8
-        NA: 0x3806BC8
-        JP: 0x3806BC8
+        EU-WRAM: 0x3806BC8
+        NA-WRAM: 0x3806BC8
+        JP-WRAM: 0x3806BC8
       description: |-
         Copy of the ARM9 function. See arm9.yml for more information.
         
@@ -132,9 +153,9 @@ arm7:
         return: (quotient) | (remainder << 32)
     - name: __udivsi3
       address:
-        EU: 0x3806DD4
-        NA: 0x3806DD4
-        JP: 0x3806DD4
+        EU-WRAM: 0x3806DD4
+        NA-WRAM: 0x3806DD4
+        JP-WRAM: 0x3806DD4
       description: |-
         Copy of the ARM9 function. See arm9.yml for more information.
         
@@ -143,9 +164,9 @@ arm7:
         return: (quotient) | (remainder << 32)
     - name: __udivsi3_no_zero_check
       address:
-        EU: 0x3806DDC
-        NA: 0x3806DDC
-        JP: 0x3806DDC
+        EU-WRAM: 0x3806DDC
+        NA-WRAM: 0x3806DDC
+        JP-WRAM: 0x3806DDC
       description: |-
         Copy of the ARM9 function. See arm9.yml for more information.
         
