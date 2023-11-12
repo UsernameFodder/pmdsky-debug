@@ -38,7 +38,7 @@ arm7:
 
     Memory map: (binary is initially loaded at 0x2380000)
     0x2380000-0x23801E8 => Contains EntryArm7 and two more methods, all related to memory mapping.
-    0x23801E8-0x238F7F0 => Mapped to 0x37F8000, contains MainArm7 and functions crucial to execution.
+    0x23801E8-0x238F7F0 => Mapped to 0x37F8000, contains NitroSpMain and functions crucial to execution.
     0x238F7F0-0x23A7068 => Mapped to 0x27E0000, contains everything else that won't fit in the fast WRAM.
 
     Note that while the length for the main EU/NA/JP block is defined as 0x27080 above, after memory mappings, the block located at that address is only a 0x1E8 long ENTRY block, containing 3 functions solely used for the initial memory mapping. The memory following this block is reused and its purpose is undocumented at the moment.
@@ -53,10 +53,10 @@ arm7:
         
         Handles mapping the ARM7 binary into the various memory areas that the program will be using.
         
-        Once the memory mapping has been completed, a constant containing the address to MainArm7 is loaded into a register (r1), and a `bx` branch will jump to MainArm7.
+        Once the memory mapping has been completed, a constant containing the address to NitroSpMain is loaded into a register (r1), and a `bx` branch will jump to NitroSpMain.
 
         No params.
-    - name: MainArm7
+    - name: NitroSpMain
       address:
         EU: 0x23801E8
         NA: 0x23801E8
