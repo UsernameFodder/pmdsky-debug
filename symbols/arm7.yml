@@ -4,19 +4,31 @@ arm7:
     - NA
     - JP
   address:
-    EU: 0x2380000
-    NA: 0x2380000
-    JP: 0x2380000
+    EU-ENTRY: 0x2380000
+    NA-ENTRY: 0x2380000
+    JP-ENTRY: 0x2380000
+    EU-WRAM: 0x37F8000
+    NA-WRAM: 0x37F8000
+    JP-WRAM: 0x37F8000
+    EU-SLOW: 0x27E0000
+    NA-SLOW: 0x27E0000
+    JP-SLOW: 0x27E0000
   length:
-    EU: 0x27080
-    NA: 0x27080
-    JP: 0x27080
+    EU-ENTRY: 0x1E8
+    NA-ENTRY: 0x1E8
+    JP-ENTRY: 0x1E8
+    EU-WRAM: 0xF608
+    NA-WRAM: 0xF608
+    JP-WRAM: 0xF608
+    EU-SLOW: 0x17878
+    NA-SLOW: 0x17878
+    JP-SLOW: 0x17878
   description: |-
     The ARM7 binary.
     
     This is the secondary binary that gets loaded when the game is launched.
     
-    Speaking generally, this is the program run by the Nintendo DS's secondary ARM7TDMI CPU, which handles the audio engine, the touch screen, Wi-Fi functions, cryptography, and more.
+    Speaking generally, this is the program run by the Nintendo DS's secondary ARM7TDMI CPU, which handles the audio I/O, the touch screen, Wi-Fi functions, cryptography, and more.
   functions:
     - name: EntryArm7
       address:
@@ -24,32 +36,48 @@ arm7:
         NA: 0x2380000
         JP: 0x2380000
       description: |-
-        The entrypoint for the ARM7 CPU. This is like the "main" function for the ARM7 subsystem.
+        The entrypoint for the ARM7 CPU.
         
+        Handles mapping the ARM7 binary into the various memory areas that the program will be using:
+
+        Memory map: (binary is initially loaded at 0x2380000)
+        0x2380000-0x23801E8 => Contains EntryArm7 and two more methods, all related to memory mapping.
+        0x23801E8-0x238F7F0 => Mapped to 0x37F8000, contains MainArm7 and functions crucial to execution.
+        0x238F7F0-0x23A7068 => Mapped to 0x27E0000, contains everything else that won't fit in the fast WRAM.
+        
+        No params.
+    - name: MainArm7
+      address:
+        EU: 0x37F8000
+        NA: 0x37F8000
+        JP: 0x37F8000
+      description: |-
+        This main function for the ARM7 subsystem. Contains the main event loop.
+
         No params.
     - name: ClearIrqFlag
       address:
-        EU: 0x2385ED4
-        NA: 0x2385ED4
-        JP: 0x2385ED4
+        EU: 0x37FDCEC
+        NA: 0x37FDCEC
+        JP: 0x37FDCEC
       description: |-
         Enables processor interrupts by clearing the i flag in the program status register (cpsr).
         
         return: Old value of cpsr & 0x80 (0x80 if interrupts were disabled, 0x0 if they were already enabled)
     - name: EnableIrqFlag
       address:
-        EU: 0x2385EE8
-        NA: 0x2385EE8
-        JP: 0x2385EE8
+        EU: 0x37FDD00
+        NA: 0x37FDD00
+        JP: 0x37FDD00
       description: |-
         Disables processor interrupts by setting the i flag in the program status register (cpsr).
         
         return: Old value of cpsr & 0x80 (0x80 if interrupts were already disabled, 0x0 if they were enabled)
     - name: SetIrqFlag
       address:
-        EU: 0x2385EFC
-        NA: 0x2385EFC
-        JP: 0x2385EFC
+        EU: 0x37FDD14
+        NA: 0x37FDD14
+        JP: 0x37FDD14
       description: |-
         Sets the value of the processor's interrupt flag according to the specified parameter.
         
@@ -57,18 +85,18 @@ arm7:
         return: Old value of cpsr & 0x80 (0x80 if interrupts were disabled, 0x0 if they were enabled)
     - name: EnableIrqFiqFlags
       address:
-        EU: 0x2385F14
-        NA: 0x2385F14
-        JP: 0x2385F14
+        EU: 0x37FDD2C
+        NA: 0x37FDD2C
+        JP: 0x37FDD2C
       description: |-
         Disables processor all interrupts (both standard and fast) by setting the i and f flags in the program status register (cpsr).
         
         return: Old value of cpsr & 0xC0 (contains the previous values of the i and f flags)
     - name: SetIrqFiqFlags
       address:
-        EU: 0x2385F28
-        NA: 0x2385F28
-        JP: 0x2385F28
+        EU: 0x37FDD40
+        NA: 0x37FDD40
+        JP: 0x37FDD40
       description: |-
         Sets the value of the processor's interrupt flags (i and f) according to the specified parameter.
         
@@ -76,13 +104,52 @@ arm7:
         return: Old value of cpsr & 0xC0 (contains the previous values of the i and f flags)
     - name: GetProcessorMode
       address:
-        EU: 0x2385F40
-        NA: 0x2385F40
-        JP: 0x2385F40
+        EU: 0x37FDD58
+        NA: 0x37FDD58
+        JP: 0x37FDD58
       description: |-
         Gets the processor's current operating mode.
         
-        See https://problemkaputt.de/gbatek.htm#armcpuflagsconditionfieldcond
-        
         return: cpsr & 0x1f (the cpsr mode bits M4-M0)
+    - name: __divsi3
+      address:
+        EU: 0x3806BC8
+        NA: 0x3806BC8
+        JP: 0x3806BC8
+      description: |-
+        This appears to be the libgcc implementation of __divsi3 (not sure which gcc version), which implements the division operator for signed ints.
+        
+        The return value is a 64-bit integer, with the quotient (dividend / divisor) in the lower 32 bits and the remainder (dividend % divisor) in the upper 32 bits. In accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return), this means that the quotient is returned in r0 and the remainder is returned in r1.
+        
+        r0: dividend
+        r1: divisor
+        return: (quotient) | (remainder << 32)
+    - name: __udivsi3
+      address:
+        EU: 0x3806DD4
+        NA: 0x3806DD4
+        JP: 0x3806DD4
+      description: |-
+        This appears to be the libgcc implementation of __udivsi3 (not sure which gcc version), which implements the division operator for unsigned ints.
+        
+        The return value is a 64-bit integer, with the quotient (dividend / divisor) in the lower 32 bits and the remainder (dividend % divisor) in the upper 32 bits. In accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return), this means that the quotient is returned in r0 and the remainder is returned in r1.
+        Note: This function falls through to __udivsi3_no_zero_check.
+        
+        r0: dividend
+        r1: divisor
+        return: (quotient) | (remainder << 32)
+    - name: __udivsi3_no_zero_check
+      address:
+        EU: 0x3806DDC
+        NA: 0x3806DDC
+        JP: 0x3806DDC
+      description: |-
+        Subsidiary function to __udivsi3. Skips the initial check for divisor == 0.
+        
+        The return value is a 64-bit integer, with the quotient (dividend / divisor) in the lower 32 bits and the remainder (dividend % divisor) in the upper 32 bits. In accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return), this means that the quotient is returned in r0 and the remainder is returned in r1.
+        This function appears to only be called internally.
+        
+        r0: dividend
+        r1: divisor
+        return: (quotient) | (remainder << 32)
   data: []

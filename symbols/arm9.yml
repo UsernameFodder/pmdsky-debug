@@ -940,6 +940,8 @@ arm9:
         Reads the contents of a file into the given buffer, and moves the file cursor accordingly.
         
         Data transfer mode must have been initialized (with DataTransferInit) prior to calling this function. This function looks like it's doing something akin to calling read(2) or fread(3) in a loop until all the bytes have been successfully read.
+
+        Note: If code is running from IRQ mode, it appears that FileRead hangs the game. When the processor mode is forced into SYSTEM mode FileRead once again works, so it appears that ROM access only works in certain processor modes. Note that forcing the processor into a different mode is generally a bad idea and should be avoided as it will easily corrupt that processor mode's states.
         
         r0: file_stream pointer
         r1: [output] buffer
