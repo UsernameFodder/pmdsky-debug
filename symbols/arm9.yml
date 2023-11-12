@@ -49,6 +49,8 @@ arm9:
       description: |-
         The entrypoint for the ARM9 CPU. This is like the "main" function for the ARM9 subsystem.
         
+        Once the entry function reaches the end, a constant containing the address to NitroMain is loaded into a register (r1), and a `bx` branch will jump to NitroMain.
+
         No params.
     - name: MIiUncompressBackward
       address:

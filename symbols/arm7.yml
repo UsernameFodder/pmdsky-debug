@@ -53,6 +53,8 @@ arm7:
         
         Handles mapping the ARM7 binary into the various memory areas that the program will be using.
         
+        Once the memory mapping has been completed, a constant containing the address to MainArm7 is loaded into a register (r1), and a `bx` branch will jump to MainArm7.
+
         No params.
     - name: MainArm7
       address:
