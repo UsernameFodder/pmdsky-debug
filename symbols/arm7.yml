@@ -1,8 +1,14 @@
 arm7:
   versions:
-    - EU
-    - NA
-    - JP
+    - EU-ENTRY
+    - NA-ENTRY
+    - JP-ENTRY
+    - EU-WRAM
+    - NA-WRAM
+    - JP-WRAM
+    - EU-SLOW
+    - NA-SLOW
+    - JP-SLOW
   address:
     EU-ENTRY: 0x2380000
     NA-ENTRY: 0x2380000
