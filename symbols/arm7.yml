@@ -35,12 +35,12 @@ arm7:
     This is the secondary binary that gets loaded when the game is launched.
     
     Speaking generally, this is the program run by the Nintendo DS's secondary ARM7TDMI CPU, which handles the audio I/O, the touch screen, Wi-Fi functions, cryptography, and more.
-
+    
     Memory map: (binary is initially loaded at 0x2380000)
     0x2380000-0x23801E8 => Contains EntryArm7 and two more methods, all related to memory mapping.
     0x23801E8-0x238F7F0 => Mapped to 0x37F8000, contains NitroSpMain and functions crucial to execution.
     0x238F7F0-0x23A7068 => Mapped to 0x27E0000, contains everything else that won't fit in the fast WRAM.
-
+    
     Note that while the length for the main EU/NA/JP block is defined as 0x27080 above, after memory mappings, the block located at that address is only a 0x1E8 long ENTRY block, containing 3 functions solely used for the initial memory mapping. The memory following this block is reused and its purpose is undocumented at the moment.
   functions:
     - name: EntryArm7
@@ -54,7 +54,7 @@ arm7:
         Handles mapping the ARM7 binary into the various memory areas that the program will be using.
         
         Once the memory mapping has been completed, a constant containing the address to NitroSpMain is loaded into a register (r1), and a `bx` branch will jump to NitroSpMain.
-
+        
         No params.
     - name: NitroSpMain
       address:
@@ -66,7 +66,7 @@ arm7:
         JP-WRAM: 0x37F8000
       description: |-
         This main function for the ARM7 subsystem. Contains the main event loop.
-
+        
         No params.
     - name: ClearIrqFlag
       address:
@@ -140,7 +140,7 @@ arm7:
         JP-WRAM: 0x37FDD58
       description: |-
         Gets the processor's current operating mode.
-
+        
         See https://problemkaputt.de/gbatek.htm#armcpuflagsconditionfieldcond
         
         return: cpsr & 0x1f (the cpsr mode bits M4-M0)

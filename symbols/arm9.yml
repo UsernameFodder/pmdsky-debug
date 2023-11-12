@@ -50,7 +50,7 @@ arm9:
         The entrypoint for the ARM9 CPU. This is like the "main" function for the ARM9 subsystem.
         
         Once the entry function reaches the end, a constant containing the address to NitroMain is loaded into a register (r1), and a `bx` branch will jump to NitroMain.
-
+        
         No params.
     - name: MIiUncompressBackward
       address:
@@ -942,7 +942,7 @@ arm9:
         Reads the contents of a file into the given buffer, and moves the file cursor accordingly.
         
         Data transfer mode must have been initialized (with DataTransferInit) prior to calling this function. This function looks like it's doing something akin to calling read(2) or fread(3) in a loop until all the bytes have been successfully read.
-
+        
         Note: If code is running from IRQ mode, it appears that FileRead hangs the game. When the processor mode is forced into SYSTEM mode FileRead once again works, so it appears that ROM access only works in certain processor modes. Note that forcing the processor into a different mode is generally a bad idea and should be avoided as it will easily corrupt that processor mode's states.
         
         r0: file_stream pointer
