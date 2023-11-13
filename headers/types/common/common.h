@@ -1361,7 +1361,6 @@ struct track_data {
 };
 ASSERT_SIZE(struct track_data, 32); // Exact size hasn't been confirmed
 
-
 // Data about a wavi container
 struct wavi_data {
     undefined field_0x0;
@@ -1372,7 +1371,7 @@ struct wavi_data {
     undefined field_0x5;
     undefined field_0x6;
     undefined field_0x7;
-    int16_t num_entries;       // 0x8: Number of entries in the container
+    int16_t num_entries; // 0x8: Number of entries in the container
     undefined field_0xA;
     undefined field_0xB;
     undefined field_0xC;

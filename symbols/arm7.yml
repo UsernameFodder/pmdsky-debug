@@ -115,6 +115,16 @@ arm7:
         
         r0: Flag to clear
         return: Previous value of the Interrupt Enable flags
+    - name: GetCurrentPlaybackTime
+      address:
+        EU-WRAM: 0x37FD21C
+        NA-WRAM: 0x37FD21C
+      description: |-
+        Returns the time that the current song has been playing for. Might have a more generic purpose.
+        
+        The time is obtained using a couple of RAM counters and the hardware timers for additional precision.
+        The game uses this value to know when a given note should stop being played. It doesn't seem to be used to keep track of the
+        current time instant within the song.
     - name: ClearIrqFlag
       address:
         EU: 0x2385ED4
@@ -127,16 +137,6 @@ arm7:
         Copy of the ARM9 function. See arm9.yml for more information.
         
         return: Old value of cpsr & 0x80 (0x80 if interrupts were disabled, 0x0 if they were already enabled)
-    - name: GetCurrentPlaybackTime
-      address:
-        EU-WRAM: 0x37FD21C
-        NA-WRAM: 0x37FD21C
-      description: |-
-        Returns the time that the current song has been playing for. Might have a more generic purpose.
-        
-        The time is obtained using a couple of RAM counters and the hardware timers for additional precision.
-        The game uses this value to know when a given note should stop being played. It doesn't seem to be used to keep track of the
-        current time instant within the song.
     - name: EnableIrqFlag
       address:
         EU: 0x2385EE8
@@ -197,6 +197,8 @@ arm7:
         JP-WRAM: 0x37FDD58
       description: |-
         Copy of the ARM9 function. See arm9.yml for more information.
+        
+        return: cpsr & 0x1f (the cpsr mode bits M4-M0)
     - name: __divsi3
       address:
         EU: 0x238EDB0

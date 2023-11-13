@@ -927,6 +927,13 @@ overlay10:
         NA: 0x2
         JP: 0x2
       description: The number of turns between passive poison damage.
+    - name: LEECH_SEED_DAMAGE_COOLDOWN
+      address:
+        EU: 0x22C5004
+        NA: 0x22C46AC
+      length:
+        NA: 0x2
+      description: The number of turns between leech seed health drain.
     - name: ITEM_HIT_CHANCE
       address:
         EU: 0x22C5008
@@ -936,12 +943,6 @@ overlay10:
         NA: 0x2
         JP: 0x2
       description: Chance of a hurled item hitting the target (90%).
-    - name: LEECH_SEED_DAMAGE_COOLDOWN
-      address:
-        NA: 0x22C46AC
-      length:
-        NA: 0x2
-      description: The number of turns between leech seed health drain.
     - name: GEO_PEBBLE_DAMAGE
       address:
         EU: 0x22C500C
