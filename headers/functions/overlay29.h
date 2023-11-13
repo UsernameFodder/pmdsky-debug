@@ -780,6 +780,7 @@ void AddHeldItemToBag(struct monster* monster);
 void RemoveEmptyItemsInBagWrapper(void);
 void GenerateItem(struct item* item, enum item_id item_id, uint16_t quantity,
                   enum gen_item_stickiness sticky_type);
+bool DoesProjectileHitTarget(struct entity* user, struct entity* target);
 bool CheckActiveChallengeRequest(void);
 struct mission_destination_info* GetMissionDestination(void);
 bool IsOutlawOrChallengeRequestFloor(void);
