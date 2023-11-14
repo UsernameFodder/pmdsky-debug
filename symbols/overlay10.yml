@@ -934,7 +934,7 @@ overlay10:
       length:
         NA: 0x2
       description: The number of turns between leech seed health drain.
-    - name: ITEM_HIT_CHANCE
+    - name: THROWN_ITEM_HIT_CHANCE
       address:
         EU: 0x22C5008
         NA: 0x22C46B0

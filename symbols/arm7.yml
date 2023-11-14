@@ -70,6 +70,8 @@ arm7:
         No params.
     - name: HardwareInterrupt
       address:
+        EU: 0x2383670
+        NA: 0x2383670
         EU-WRAM: 0x37FB488
         NA-WRAM: 0x37FB488
       description: |-
@@ -82,6 +84,8 @@ arm7:
         No params.
     - name: ReturnFromInterrupt
       address:
+        EU: 0x23836DC
+        NA: 0x23836DC
         EU-WRAM: 0x37FB4F4
         NA-WRAM: 0x37FB4F4
       description: |-
@@ -90,6 +94,8 @@ arm7:
         No params.
     - name: AudioInterrupt
       address:
+        EU: 0x2383824
+        NA: 0x2383824
         EU-WRAM: 0x37FB63C
         NA-WRAM: 0x37FB63C
       description: |-
@@ -100,6 +106,8 @@ arm7:
         r0: Index of the function to jump to
     - name: ClearImeFlag
       address:
+        EU: 0x2383AC0
+        NA: 0x2383AC0
         EU-WRAM: 0x37FB8D8
         NA-WRAM: 0x37FB8D8
       description: |-
@@ -108,6 +116,8 @@ arm7:
         return: Previous IME value
     - name: ClearIeFlag
       address:
+        EU: 0x2383B10
+        NA: 0x2383B10
         EU-WRAM: 0x37FB928
         NA-WRAM: 0x37FB928
       description: |-
@@ -117,6 +127,8 @@ arm7:
         return: Previous value of the Interrupt Enable flags
     - name: GetCurrentPlaybackTime
       address:
+        EU: 0x2385404
+        NA: 0x2385404
         EU-WRAM: 0x37FD21C
         NA-WRAM: 0x37FD21C
       description: |-
@@ -125,6 +137,8 @@ arm7:
         The time is obtained using a couple of RAM counters and the hardware timers for additional precision.
         The game uses this value to know when a given note should stop being played. It doesn't seem to be used to keep track of the
         current time instant within the song.
+        
+        return: Playback time. Units unknown.
     - name: ClearIrqFlag
       address:
         EU: 0x2385ED4
