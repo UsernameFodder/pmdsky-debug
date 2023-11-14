@@ -61,16 +61,45 @@ from pathlib import Path
 import re
 import subprocess
 import sys
-from typing import Dict, Generator, Iterable, List, NamedTuple, Optional, Union
+from typing import Dict, Generator, Iterable, List, NamedTuple, Optional, Tuple, Union
 import yaml
 
 import arm5find
 import offsets
 from resymgen import resymgen
 
-ITCM_BINARY_SUFFIX = ".itcm"
+
+class DependentVersion:
+    def __init__(self, display_name: str, binary_suffix: str, version_suffix: str):
+        self.display_name = display_name
+        self.binary_suffix = binary_suffix
+        self.version_suffix = version_suffix
+
+    def __str__(self) -> str:
+        return self.display_name
+
+    def match_binary(self, bin_name: str) -> bool:
+        return bin_name.endswith(self.binary_suffix)
+
+    def convert_binary(self, bin_name: str) -> str:
+        return bin_name + self.binary_suffix
+
+    def match_version(self, version: str) -> bool:
+        return version.endswith(self.version_suffix)
+
+    def convert_version(self, version: str) -> str:
+        return version + self.version_suffix
+
+
+DEPENDENT_VERSIONS = [
+    DependentVersion("ITCM", ".itcm", "-ITCM"),
+    DependentVersion("WRAM", ".wram", "-WRAM"),
+    DependentVersion("RAM", ".ram", "-RAM"),
+]
 REAL_BINARY_NAMES = [
-    b for b in offsets.BINARY_NAMES if not b.endswith(ITCM_BINARY_SUFFIX)
+    b
+    for b in offsets.BINARY_NAMES
+    if not any(v.match_binary(b) for v in DEPENDENT_VERSIONS)
 ]
 
 
@@ -78,7 +107,6 @@ class SymbolTable:
     """A symbol table from pmdsky-debug"""
 
     SYMBOL_DIR: Path = Path(__file__).resolve().parent.parent / "symbols"
-    ITCM_VERSION_SUFFIX: str = "-ITCM"
 
     def __init__(self, arg: Union[str, Path]):
         if isinstance(arg, Path):
@@ -122,10 +150,6 @@ class SymbolTable:
             # formatting everything at once at the end of the program, but this
             # gives better atomicity if the program terminates prematurely.
             SymbolTable.fmt(str(self.path))
-
-    @staticmethod
-    def version_is_itcm(version: str) -> bool:
-        return version.endswith(SymbolTable.ITCM_VERSION_SUFFIX)
 
 
 def find_binary_files(dirname: str, binaries: Iterable[str]) -> Dict[str, str]:
@@ -287,9 +311,11 @@ def function_fill_versions(
         raise ValueError("minimum instruction count must be positive")
 
     versions = set(file_by_version.keys())
-    is_itcm_symbol = any(
-        SymbolTable.version_is_itcm(v) for v in function["address"].keys()
-    )
+    dep_versions = [
+        d
+        for d in DEPENDENT_VERSIONS
+        if any(d.match_version(v) for v in function["address"].keys())
+    ]
     known = versions & set(function["address"].keys())
     if not known or len(known) == len(versions):
         # This address is totally unknown (should be impossible
@@ -456,41 +482,44 @@ def function_fill_versions(
                     counter.discarded += 1
                     continue
 
-            # If the original symbol has any ITCM addresses, also try to add
-            # the ITCM address for the target version
-            itcm_addr = None
-            if is_itcm_symbol:
-                # Convert to the ITCM absolute address
-                itcm_mappings = offsets.convert_offsets(
-                    dst_vers, [bin_name + ITCM_BINARY_SUFFIX], [match.start()]
+            # If the original symbol has any dependent addresses
+            # (ITCM/WRAM/RAM), also try to add the corresponding addresses for
+            # the target version
+            dep_addrs: List[Tuple[DependentVersion, int]] = []
+            dep_mismatch = False
+            for dep_vers in dep_versions:
+                # Convert to the dependent version's absolute address
+                dep_mappings = offsets.convert_offsets(
+                    dst_vers, [dep_vers.convert_binary(bin_name)], [match.start()]
                 )
                 # Do the check regardless of whether or not we end up adding
-                if not itcm_mappings:
+                if not dep_mappings:
                     report(
-                        f"{log_prefix}discarding non-ITCM inferred address "
-                        + f"0x{match_addr:X} for ITCM function symbol",
+                        f"{log_prefix}discarding non-{dep_vers} inferred "
+                        + f"address 0x{match_addr:X} for {dep_vers} function "
+                        + "symbol",
                         1,
                     )
                     counter.discarded += 1
-                    continue
-                # Don't override an existing ITCM address for this version
-                if (
-                    dst_vers + SymbolTable.ITCM_VERSION_SUFFIX
-                    not in function["address"]
-                ):
-                    itcm_addr = itcm_mappings[0].get_mapped()[0]
+                    dep_mismatch = True
+                    break
+                # Don't override an existing address for this version
+                if dep_vers.convert_version(dst_vers) not in function["address"]:
+                    # Successful mapping
+                    dep_addrs.append((dep_vers, dep_mappings[0].get_mapped()[0]))
+            if dep_mismatch:
+                continue
 
             report_str = f"{log_prefix}found address 0x{match_addr:X}"
-            if itcm_addr is not None:
-                report_str += f" (ITCM: 0x{itcm_addr:X})"
+            if dep_addrs:
+                dep_str = ", ".join([f"{v}: 0x{a:X}" for v, a in dep_addrs])
+                report_str += f" ({dep_str})"
             report(report_str, 0 if dry_run else 2)
             if not dry_run:
                 function["address"][dst_vers] = match_addr
-                if itcm_addr is not None:
-                    function["address"][
-                        dst_vers + SymbolTable.ITCM_VERSION_SUFFIX
-                    ] = itcm_addr
-            # ITCM addresses don't count towards the total filled counter
+                for dep_vers, dep_addr in dep_addrs:
+                    function["address"][dep_vers.convert_version(dst_vers)] = dep_addr
+            # Dependent addresses don't count towards the total filled counter
             counter.filled += 1
         else:
             report(f"{log_prefix}no match found", 1)
