@@ -11,6 +11,7 @@ int16_t GetItemAnimation1(enum item_id item_id);
 int16_t GetItemAnimation2(enum item_id item_id);
 int GetMoveAnimationSpeed(enum move_id move_id);
 bool IsBackgroundTileset(int tileset_id);
+void InitTilesetBuffer(void* buffer, int tileset_id, uint32_t malloc_flags);
 int MainGame(int end_cond);
 
 #endif

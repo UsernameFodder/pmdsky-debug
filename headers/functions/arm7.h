@@ -3,6 +3,11 @@
 
 void EntryArm7(void);
 void NitroSpMain(void);
-int GetProcessorMode(void);
+void HardwareInterrupt(void);
+void ReturnFromInterrupt(void);
+void AudioInterrupt(int function_index);
+bool ClearImeFlag(void);
+int ClearIeFlag(int flag_id);
+long long GetCurrentPlaybackTime(void);
 
 #endif

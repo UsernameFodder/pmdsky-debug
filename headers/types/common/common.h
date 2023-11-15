@@ -1335,6 +1335,53 @@ struct audio_command {
 };
 ASSERT_SIZE(struct audio_command, 32);
 
+// Contains data for an audio track that is being played
+struct track_data {
+    undefined field_0x0;
+    undefined field_0x1;
+    bool active; // 0x2: True if the track is active
+    undefined field_0x3;
+    undefined field_0x4;
+    undefined field_0x5;
+    undefined field_0x6;
+    undefined field_0x7;
+    int play_amount; // 0x8: Number of times the track has been played so far
+    // 0xC: Delay (in frames, probably) before the next DSE event on this track begins
+    int event_delay;
+    undefined field_0x10;
+    undefined field_0x11;
+    undefined field_0x12;
+    undefined field_0x13;
+    undefined field_0x14;
+    undefined field_0x15;
+    undefined field_0x16;
+    undefined field_0x17;
+    void* track_data_start; // 0x18: Pointer to the start of the track's audio data
+    void* current_event;    // 0x1C: Pointer to the current DSE event
+};
+ASSERT_SIZE(struct track_data, 32); // Exact size hasn't been confirmed
+
+// Data about a wavi container
+struct wavi_data {
+    undefined field_0x0;
+    undefined field_0x1;
+    undefined field_0x2;
+    undefined field_0x3;
+    undefined field_0x4;
+    undefined field_0x5;
+    undefined field_0x6;
+    undefined field_0x7;
+    int16_t num_entries; // 0x8: Number of entries in the container
+    undefined field_0xA;
+    undefined field_0xB;
+    undefined field_0xC;
+    undefined field_0xD;
+    undefined field_0xE;
+    undefined field_0xF;
+    void* pointer_table_start; // 0x10: Pointer to the start of the pointer table
+};
+ASSERT_SIZE(struct wavi_data, 20); // Likely longer
+
 // TODO: Add more data file structures, as convenient or needed, especially if the load address
 // or pointers to the load address are known.
 

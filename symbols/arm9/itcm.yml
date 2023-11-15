@@ -262,6 +262,31 @@ itcm:
         
         r0: monster ID
         return: key
+    - name: HardwareInterrupt
+      address:
+        EU: 0x20B52A8
+        NA: 0x20B4968
+        EU-ITCM: 0x1FF95E8
+        NA-ITCM: 0x1FF95E8
+      description: |-
+        Called whenever a hardware interrupt takes place.
+        
+        Returns immediately if the IME flag is 0 or if none of the devices that requested an interrupt has the corresponding Interrupt Enable flag set.
+        It searches for the first device that requested an interrupt, clears its Interrupt Request flag, then jumps to the start of the corresponding interrupt function. The return address is manually set to ReturnFromInterrupt.
+        The address of the function to jump to is read from the interrupt vector at the start of the DTCM region (0x27E0000).
+        This function does not return.
+        
+        No params.
+    - name: ReturnFromInterrupt
+      address:
+        EU: 0x20B5310
+        NA: 0x20B49D0
+        EU-ITCM: 0x1FF9650
+        NA-ITCM: 0x1FF9650
+      description: |-
+        The execution returns to this function after a hardware interrupt function is run.
+        
+        No params.
     - name: ShouldMonsterRunAwayVariationOutlawCheck
       address:
         EU: 0x20B6050

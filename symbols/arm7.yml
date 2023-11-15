@@ -68,6 +68,89 @@ arm7:
         This main function for the ARM7 subsystem. Contains the main event loop.
         
         No params.
+    - name: HardwareInterrupt
+      address:
+        EU: 0x2383670
+        NA: 0x2383670
+        JP: 0x2383670
+        EU-WRAM: 0x37FB488
+        NA-WRAM: 0x37FB488
+        JP-WRAM: 0x37FB488
+      description: |-
+        Called whenever a hardware interrupt takes place.
+        
+        Returns immediately if the IME flag is 0 or if none of the devices that requested an interrupt has the corresponding Interrupt Enable flag set.
+        It searches for the first device that requested an interrupt, clears its Interrupt Request flag, then jumps to the start of the corresponding interrupt function. The return address is manually set to ReturnFromInterrupt.
+        This function does not return.
+        
+        No params.
+    - name: ReturnFromInterrupt
+      address:
+        EU: 0x23836DC
+        NA: 0x23836DC
+        JP: 0x23836DC
+        EU-WRAM: 0x37FB4F4
+        NA-WRAM: 0x37FB4F4
+        JP-WRAM: 0x37FB4F4
+      description: |-
+        The execution returns to this function after a hardware interrupt function is run.
+        
+        No params.
+    - name: AudioInterrupt
+      address:
+        EU: 0x2383824
+        NA: 0x2383824
+        JP: 0x2383824
+        EU-WRAM: 0x37FB63C
+        NA-WRAM: 0x37FB63C
+        JP-WRAM: 0x37FB63C
+      description: |-
+        Called when handling a hardware interrupt from the audio system.
+        
+        Its parameter is used to index a list of function pointers. The game then jumps to the read pointer.
+        
+        r0: Index of the function to jump to
+    - name: ClearImeFlag
+      address:
+        EU: 0x2383AC0
+        NA: 0x2383AC0
+        JP: 0x2383AC0
+        EU-WRAM: 0x37FB8D8
+        NA-WRAM: 0x37FB8D8
+        JP-WRAM: 0x37FB8D8
+      description: |-
+        Clears the Interrupt Master Enable flag, which disables all hardware interrupts.
+        
+        return: Previous IME value
+    - name: ClearIeFlag
+      address:
+        EU: 0x2383B10
+        NA: 0x2383B10
+        JP: 0x2383B10
+        EU-WRAM: 0x37FB928
+        NA-WRAM: 0x37FB928
+        JP-WRAM: 0x37FB928
+      description: |-
+        Clears the specified Interrupt Enable flag, which disables interrupts for the specified hardware component.
+        
+        r0: Flag to clear
+        return: Previous value of the Interrupt Enable flags
+    - name: GetCurrentPlaybackTime
+      address:
+        EU: 0x2385404
+        NA: 0x2385404
+        JP: 0x2385404
+        EU-WRAM: 0x37FD21C
+        NA-WRAM: 0x37FD21C
+        JP-WRAM: 0x37FD21C
+      description: |-
+        Returns the time that the current song has been playing for. Might have a more generic purpose.
+        
+        The time is obtained using a couple of RAM counters and the hardware timers for additional precision.
+        The game uses this value to know when a given note should stop being played. It doesn't seem to be used to keep track of the
+        current time instant within the song.
+        
+        return: Playback time. Units unknown.
     - name: ClearIrqFlag
       address:
         EU: 0x2385ED4
@@ -139,9 +222,7 @@ arm7:
         NA-WRAM: 0x37FDD58
         JP-WRAM: 0x37FDD58
       description: |-
-        Gets the processor's current operating mode.
-        
-        See https://problemkaputt.de/gbatek.htm#armcpuflagsconditionfieldcond
+        Copy of the ARM9 function. See arm9.yml for more information.
         
         return: cpsr & 0x1f (the cpsr mode bits M4-M0)
     - name: __divsi3

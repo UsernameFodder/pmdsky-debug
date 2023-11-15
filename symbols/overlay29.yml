@@ -7547,6 +7547,18 @@ overlay29:
         r1: item ID
         r2: quantity
         r3: stickiness type (enum gen_item_stickiness)
+    - name: DoesProjectileHitTarget
+      address:
+        EU: 0x2348C20
+        NA: 0x2348020
+      description: |-
+        Determines if a hurled projectile will impact on a target or if the target will dodge it instead.
+        
+        Contains a random chance using THROWN_ITEM_HIT_CHANCE, as well as some additional checks involving certain items (Whiff Specs, Lockon Specs and Dodge Scarf), exclusive item effects (EXCLUSIVE_EFF_THROWN_ITEM_PROTECTION) or pokémon (Kecleon, clients, secret bazaar NPCs).
+        
+        r0: Monster that throws the item
+        r1: Target monster
+        return: True if the item impacts on the target, false if the target dodges the item.
     - name: CheckActiveChallengeRequest
       address:
         EU: 0x2349D4C

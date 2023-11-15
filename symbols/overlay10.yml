@@ -130,6 +130,18 @@ overlay10:
         
         r0: Tileset ID
         return: True if the tileset ID corresponds to a background, false if it corresponds to a regular tileset
+    - name: InitTilesetBuffer
+      address:
+        EU: 0x22C3014
+        NA: 0x22C26BC
+      description: |-
+        Initializes a buffer that contains data related to tilesets (such as dungeon::unknown_file_buffer_0x102A8).
+        
+        Calls AllocAndLoadFileInPack and DecompressAtNormalVeneer.
+        
+        r0: Pointer to the buffer to init
+        r1: Tileset ID
+        r2: Memory allocation flags
     - name: MainGame
       address:
         EU: 0x22C31E4
@@ -917,10 +929,20 @@ overlay10:
       description: The number of turns between passive poison damage.
     - name: LEECH_SEED_DAMAGE_COOLDOWN
       address:
+        EU: 0x22C5004
         NA: 0x22C46AC
       length:
         NA: 0x2
       description: The number of turns between leech seed health drain.
+    - name: THROWN_ITEM_HIT_CHANCE
+      address:
+        EU: 0x22C5008
+        NA: 0x22C46B0
+      length:
+        EU: 0x2
+        NA: 0x2
+        JP: 0x2
+      description: Chance of a hurled item hitting the target (90%).
     - name: GEO_PEBBLE_DAMAGE
       address:
         EU: 0x22C500C

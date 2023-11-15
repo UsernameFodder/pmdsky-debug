@@ -3538,31 +3538,86 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         r0: waza_id
-    - name: SendAudioCommandWrapperVeneer
+    - name: PlayBgmByIdVeneer
+      address:
+        EU: 0x2017BF4
+        NA: 0x2017BD4
+      description: |-
+        Likely a linker-generated veneer for PlayBgmById.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
+        
+        r0: Music ID
+    - name: PlayBgmByIdVolumeVeneer
       address:
         EU: 0x2017C00
         NA: 0x2017BE0
       description: |-
-        Likely a linker-generated veneer for SendAudioCommandWrapper.
+        Likely a linker-generated veneer for PlayBgmByIdVolume.
         
         See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
         
         r0: Music ID
         r1: (?) Stored on byte 8 on the struct passed to SendAudioCommand
         r2: Volume (0-255)
-    - name: SendAudioCommandWrapper
+    - name: PlaySeVolumeWrapper
+      address:
+        EU: 0x2017D68
+        NA: 0x2017CCC
+      description: |-
+        Wrapper for PlaySeVolume. Takes an index and uses it to determine the ID of the sound to play.
+        
+        r0: Index
+    - name: PlayBgmById
+      address:
+        EU: 0x2017E90
+        NA: 0x2018024
+      description: |-
+        Initializes some values and then calls SendAudioCommand to play a BGM track.
+        
+        Checks for DEBUG_FLAG_BGM_OFF. The volume is set to either 0 or 255 depending on the flag before calling SendAudioCommand.
+        
+        r0: Music ID
+    - name: PlayBgmByIdVolume
       address:
         EU: 0x2017F0C
-        NA: 0x2017E70
+        NA: 0x20180A0
         JP: 0x2017EC8
       description: |-
-        Initializes some values and then calls SendAudioCommand.
+        Initializes some values and then calls SendAudioCommand to play a BGM track.
         
         Checks for DEBUG_FLAG_BGM_OFF. If 1, sets the volume to 0 before calling SendAudioCommand.
         
         r0: Music ID
         r1: (?) Stored on byte 8 on the struct passed to SendAudioCommand
         r2: Volume (0-255)
+    - name: StopBgmCommand
+      address:
+        EU: 0x2017F84
+        NA: 0x2017EE8
+      description: |-
+        Stops the BGM that is being currently played by calling SendAudioCommand.
+        
+        No params.
+    - name: PlaySeByIdVolume
+      address:
+        EU: 0x2018354
+        NA: 0x20182B8
+      description: |-
+        Plays the specified sound effect with the specified volume.
+        
+        Checks for DEBUG_FLAG_SE_OFF and sets the volume to 0 if the flag is set. Calls SendAudioCommand2.
+        
+        r0: Sound effect ID
+        r1: Volume (0-255)
+    - name: SendAudioCommand2
+      address:
+        EU: 0x2018B80
+        NA: 0x2018AE4
+      description: |-
+        Very similar to SendAudioCommand. Contains an additional function call.
+        
+        r0: Command to send
     - name: AllocAudioCommand
       address:
         EU: 0x2018C08
@@ -3645,6 +3700,14 @@ arm9:
         NA: 0x2019574
         JP: 0x20195CC
       description: "Note: unverified, ported from Irdkwia's notes"
+    - name: IsSongOver
+      address:
+        EU: 0x20198EC
+        NA: 0x2019850
+      description: |-
+        True if the song that is currently being played has finished playing.
+        
+        return: True if the current song is over
     - name: PlayBgm
       address:
         EU: 0x2019954
@@ -4994,6 +5057,15 @@ arm9:
         
         r0: ?
         return: True if the menu option is enabled, false otherwise.
+    - name: PlayMenuOptionSound
+      address:
+        EU: 0x2032C54
+        NA: 0x2032960
+      description: |-
+        Plays a "beep" sound when choosing a menu option.
+        
+        r0: ?
+        r1: Some kind of index used to determine the ID of the sound to play
     - name: ShowKeyboard
       address:
         EU: 0x2036AE4
@@ -7206,8 +7278,6 @@ arm9:
         Base Formula = ((Level-1)*ExpYield)//10+ExpYield
         Note: Defeating an enemy without using a move will divide this amount by 2
         
-        Note: unverified, ported from Irdkwia's notes
-        
         r0: id
         r1: level
         return: exp
@@ -8562,6 +8632,16 @@ arm9:
         
         r0: Dungeon ID
         return: Dungeon mode
+    - name: ReadWaviEntry
+      address:
+        EU: 0x206D8F0
+        NA: 0x206D558
+      description: |-
+        Reads an entry from the pointer table of a wavi container and returns a pointer to the data of said entry, which contains information about a particular sample.
+        
+        r0: Wavi data struct
+        r1: Entry index
+        retrun: Pointer to the entry's data
     - name: ResumeBgm
       address:
         EU: 0x206DD54
@@ -8571,18 +8651,38 @@ arm9:
         Uncertain.
         
         Note: unverified, ported from Irdkwia's notes
+    - name: FindSmdlSongChunk
+      address:
+        EU: 0x206E880
+        NA: 0x206E4E8
+      description: |-
+        Finds the first song chunk within an SMDL file that has the specified value on its 0x10 field.
+        
+        See https://projectpokemon.org/home/docs/mystery-dungeon-nds/dse-smdl-format-r13/.
+        
+        r0: Pointer to the start of the SMDL file
+        r1: Value to search for
+        return: Pointer to the first chunk that has the specified value + 0x10, or null if no chunk was found.
     - name: FlushChannels
       address:
         EU: 0x2070A0C
         NA: 0x2070674
         JP: 0x207095C
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: ParseDseEvents
+    - name: ParseDseEvent
       address:
         EU: 0x20715BC
         NA: 0x2071224
         JP: 0x207150C
-      description: "From https://projectpokemon.org/docs/mystery-dungeon-nds/procyon-studios-digital-sound-elements-r12/"
+      description: |-
+        Parses and executes a DSE event for the specified track, if necessary.
+        
+        The function checks the time left before the next event (track_data::event_delay), and parses it if said time is 0.
+        
+        See also https://projectpokemon.org/docs/mystery-dungeon-nds/procyon-studios-digital-sound-elements-r12/
+        
+        r0: Pointer to some struct that seems to hold the state of the audio engine
+        r1: Pointer to track data
     - name: UpdateSequencerTracks
       address:
         EU: 0x2071780
@@ -8652,6 +8752,14 @@ arm9:
         
         r0: matrix_4x3 pointer
         r1: GXFIFO pointer
+    - name: GetTimer0Control
+      address:
+        EU: 0x207B27C
+        NA: 0x207AEE4
+      description: |-
+        Returns the value of the control register for hardware timer 0
+        
+        return: Value of the control register
     - name: ClearIrqFlag
       address:
         EU: 0x207BB68
@@ -8708,6 +8816,16 @@ arm9:
         Gets the current value of the processor's interrupt request (i) flag
         
         return: cpsr & 0x80 (0x80 if interrupts are disabled, 0x0 if they are enabled)
+    - name: GetProcessorMode
+      address:
+        EU: 0x207BBE0
+        NA: 0x207B848
+      description: |-
+        Gets the processor's current operating mode.
+        
+        See https://problemkaputt.de/gbatek.htm#armcpuflagsconditionfieldcond
+        
+        return: cpsr & 0x1f (the cpsr mode bits M4-M0)
     - name: WaitForever2
       address:
         EU: 0x207BFB8
@@ -8732,6 +8850,7 @@ arm9:
         No params.
     - name: ArrayFill16
       address:
+        EU: 0x207C650
         NA: 0x207C2B8
       description: |-
         Fills an array of 16-bit values with a given value.
@@ -8741,6 +8860,7 @@ arm9:
         r2: len (# bytes)
     - name: ArrayCopy16
       address:
+        EU: 0x207C678
         NA: 0x207C2E0
       description: |-
         Copies an array of 16-bit values to another array of 16-bit values.
@@ -8752,6 +8872,7 @@ arm9:
         r2: len (# bytes)
     - name: ArrayFill32
       address:
+        EU: 0x207C6AC
         NA: 0x207C314
       description: |-
         Fills an array of 32-bit values with a given value.
@@ -8763,6 +8884,7 @@ arm9:
         r2: len (# bytes)
     - name: ArrayCopy32
       address:
+        EU: 0x207C6C8
         NA: 0x207C330
       description: |-
         Copies an array of 32-bit values to another array of 32-bit values.
@@ -8774,6 +8896,7 @@ arm9:
         r2: len (# bytes)
     - name: ArrayFill32Fast
       address:
+        EU: 0x207C6F0
         NA: 0x207C358
       description: |-
         Does the same thing as ArrayFill32, except the implementation uses an unrolled loop that sets 8 values per iteration, taking advantage of the stmia instruction.
@@ -8783,6 +8906,7 @@ arm9:
         r2: len (# bytes)
     - name: ArrayCopy32Fast
       address:
+        EU: 0x207C74C
         NA: 0x207C3B4
       description: |-
         Does the same thing as ArrayCopy32, except the implementation uses an unrolled loop that copies 8 values per iteration, taking advantage of the ldmia/stmia instructions.
@@ -8792,6 +8916,7 @@ arm9:
         r2: len (# bytes)
     - name: MemsetFast
       address:
+        EU: 0x207C7A4
         NA: 0x207C40C
       description: |-
         A semi-optimized implementation of the memset(3) C library function.
@@ -8819,6 +8944,7 @@ arm9:
         r2: n (# bytes)
     - name: AtomicExchange
       address:
+        EU: 0x207C9E0
         NA: 0x207C648
       description: |-
         Atomically replaces a pointer's pointee with a desired value, and returns the previous value.
