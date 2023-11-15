@@ -72,8 +72,10 @@ arm7:
       address:
         EU: 0x2383670
         NA: 0x2383670
+        JP: 0x2383670
         EU-WRAM: 0x37FB488
         NA-WRAM: 0x37FB488
+        JP-WRAM: 0x37FB488
       description: |-
         Called whenever a hardware interrupt takes place.
         
@@ -86,8 +88,10 @@ arm7:
       address:
         EU: 0x23836DC
         NA: 0x23836DC
+        JP: 0x23836DC
         EU-WRAM: 0x37FB4F4
         NA-WRAM: 0x37FB4F4
+        JP-WRAM: 0x37FB4F4
       description: |-
         The execution returns to this function after a hardware interrupt function is run.
         
@@ -96,8 +100,10 @@ arm7:
       address:
         EU: 0x2383824
         NA: 0x2383824
+        JP: 0x2383824
         EU-WRAM: 0x37FB63C
         NA-WRAM: 0x37FB63C
+        JP-WRAM: 0x37FB63C
       description: |-
         Called when handling a hardware interrupt from the audio system.
         
@@ -108,8 +114,10 @@ arm7:
       address:
         EU: 0x2383AC0
         NA: 0x2383AC0
+        JP: 0x2383AC0
         EU-WRAM: 0x37FB8D8
         NA-WRAM: 0x37FB8D8
+        JP-WRAM: 0x37FB8D8
       description: |-
         Clears the Interrupt Master Enable flag, which disables all hardware interrupts.
         
@@ -118,8 +126,10 @@ arm7:
       address:
         EU: 0x2383B10
         NA: 0x2383B10
+        JP: 0x2383B10
         EU-WRAM: 0x37FB928
         NA-WRAM: 0x37FB928
+        JP-WRAM: 0x37FB928
       description: |-
         Clears the specified Interrupt Enable flag, which disables interrupts for the specified hardware component.
         
@@ -129,8 +139,10 @@ arm7:
       address:
         EU: 0x2385404
         NA: 0x2385404
+        JP: 0x2385404
         EU-WRAM: 0x37FD21C
         NA-WRAM: 0x37FD21C
+        JP-WRAM: 0x37FD21C
       description: |-
         Returns the time that the current song has been playing for. Might have a more generic purpose.
         
