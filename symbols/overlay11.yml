@@ -20,6 +20,7 @@ overlay11:
       address:
         EU: 0x22DDA70
         NA: 0x22DD130
+        JP: 0x22DE7D0
       description: |-
         Unlocks a scripting lock.
         
@@ -50,6 +51,7 @@ overlay11:
       address:
         EU: 0x22E4C90
         NA: 0x22E4350
+        JP: 0x22E597C
       description: |-
         Checks if a script unlock happened by reading entries from LOCK_NOTIFY_ARRAY and handles the ones that were set.
         
@@ -58,7 +60,9 @@ overlay11:
         No params.
     - name: LoadFileFromRomVeneer
       address:
+        EU: 0x22E501C
         NA: 0x22E46DC
+        JP: 0x22E5D08
       description: |-
         Likely a linker-generated veneer for LoadFileFromRom.
         
@@ -76,6 +80,7 @@ overlay11:
       address:
         EU: 0x22E51EC
         NA: 0x22E48AC
+        JP: 0x22E5ED8
       description: |-
         Checks if the two most significant bits (0x8000 and 0x4000) are set on a given script opcode parameter, and modifies the value if so.
         
@@ -112,6 +117,7 @@ overlay11:
       address:
         EU: 0x22E88F8
         NA: 0x22E7FB8
+        JP: 0x22E95EC
       description: |-
         Returns information about a coroutine in unionall
         
@@ -363,6 +369,7 @@ overlay11:
       address:
         EU: 0x22F66F0
         NA: 0x22F5D50
+        JP: 0x22F73D4
       description: |-
         Given a monster species, returns the type of idle animation it should have.
         
@@ -437,6 +444,7 @@ overlay11:
       address:
         EU: 0x22F9D68
         NA: 0x22F93C8
+        JP: 0x22FAA4C
       description: |-
         Used by the SetAnimation opcode to change the animation of an actor.
         
