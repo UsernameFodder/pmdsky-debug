@@ -862,10 +862,13 @@ enum special_process_id {
     SPECIAL_PROC_0x3 = 3,
     SPECIAL_PROC_0x4 = 4,
     SPECIAL_PROC_NEXT_DAY = 5,
-    // Special 6 is unused but definitely does a lot of things! No arguments though (it seems)
+    // Appears to check if the dungeon had a request done, but also checks if the
+    // dungeon's mode is DMODE_REQUEST or DMODE_OPEN_AND_REQUEST?
     SPECIAL_PROC_0x6 = 6,
     SPECIAL_PROC_DUNGEON_HAD_REQUEST_DONE = 7, // Returns true if the player finished a mission
-    // Special 8 and 9 are unused again but also do something.
+    // Special 8 and 9 are unused but are checks related to active missions in the pending
+    // dungeon. Special 8 appears to check for any active missions while Special 9 also checks
+    // for any active missions and (if applicable) if the required item is in the treasure bag.
     SPECIAL_PROC_0x8 = 8,
     SPECIAL_PROC_0x9 = 9,
     SPECIAL_PROC_GET_SOS_MAIL_COUNT = 10,
@@ -878,19 +881,19 @@ enum special_process_id {
     SPECIAL_PROC_ACCEPT_RANDOM_NPC_JOB = 16,
     // 17 just returns 0, probably a removed debug function. Might be related to some kind of
     // debug camera control. 18 seems to execute the debug camera.
-    SPECIAL_PROC_0x11 = 17,
-    SPECIAL_PROC_0x12 = 18,
+    SPECIAL_PROC_INIT_SPECIAL_EPISODE_PARTNERS = 17,
+    SPECIAL_PROC_INIT_EXTRA_SPECIAL_EPISODE_PARTNERS = 18,
     SPECIAL_PROC_KEY_WAIT_PRESS = 19, // Equivalent to SPECIAL_PROC_KEY_WAIT_CHECK
     SPECIAL_PROC_KEY_WAIT_INIT = 20,
     SPECIAL_PROC_KEY_WAIT_CHECK = 21,
-    // 22 and 23 have something to do with processing inputs during the title screen sequence, but
+    // 22 has something to do with processing inputs during the title screen sequence, but
     // I'm not 100% sure which one does what. 24 too, and seems to indicate that the sequence is
     // only skipable if a save file exits?
     SPECIAL_PROC_0x16 = 22,
-    SPECIAL_PROC_0x17 = 23,
+    SPECIAL_PROC_RANDOMIZE_DEMO_ACTORS = 23,
     SPECIAL_PROC_0x18 = 24, // Equivalent to SPECIAL_PROC_JUMP_TO_TITLE_SCREEN
     SPECIAL_PROC_JUMP_TO_TITLE_SCREEN = 25,
-    SPECIAL_PROC_0x1A = 26, // 26 does something related the demo title screen sequence.
+    SPECIAL_PROC_0x1A = 26, // Possibly jumps to the menu version of the title screen?
     SPECIAL_PROC_RETURN_TO_TITLE_SCREEN = 27,
     SPECIAL_PROC_IS_RECRUITABLE_IN_TEAM = 28,
     SPECIAL_PROC_GET_RECRUITABLE_CURRENT_LEVEL = 29,
@@ -906,10 +909,8 @@ enum special_process_id {
     SPECIAL_PROC_ADD_TABLE_ITEM_TO_STORAGE = 39,
     SPECIAL_PROC_REMOVE_ITEMS_TYPE_IN_BAG = 40,
     SPECIAL_PROC_REMOVE_TABLE_ITEMS_TYPE_IN_BAG = 41,
-    // 42 is unused but probably also item related, maybe RemoveItemsTypeInStorage?
-    SPECIAL_PROC_0x2A = 42,
-    // 43 is unused but probably also item related, maybe RemoveTableItemsTypeInStorage?
-    SPECIAL_PROC_0x2B = 43,
+    SPECIAL_PROC_REMOVE_ITEM_TYPE_IN_STORAGE = 42,
+    SPECIAL_PROC_REMOVE_TABLE_ITEM_TYPE_IN_STORAGE = 43,
     SPECIAL_PROC_PREPARE_MENU_ACCEPT_TEAM_MEMBER = 44,
     SPECIAL_PROC_GET_HERO_KIND = 45,
     SPECIAL_PROC_GET_PARTNER_KIND = 46,
@@ -934,9 +935,8 @@ enum special_process_id {
     SPECIAL_PROC_INCREMENT_DUNGEONS_CLEARED = 58,
     SPECIAL_PROC_INCREMENT_BIG_TREASURE_WINS = 59,
     SPECIAL_PROC_SEND_SKY_GIFT_TO_GUILDMASTER = 60,
-    // 61 and 62 are unusued but do something.
-    SPECIAL_PROC_0x3D = 61,
-    SPECIAL_PROC_0x3E = 62,
+    SPECIAL_PROC_SET_ACTOR_TALK_MAIN = 61,
+    SPECIAL_PROC_SET_ACTOR_TALK_SUB = 62,
 };
 
 // Common routines (often abbreviated as "coroutine" or "coro" by the community) available to the

@@ -8472,7 +8472,6 @@ arm9:
         NA: 0x2065B3C
       description: |-
         Sets ACTOR_TALK_MAIN and ACTOR_TALK_SUB to given actor IDs.
-        Implements SPECIAL_PROC_0x3D (see ScriptSpecialProcessCall).
         
         r0: actor_id for ACTOR_TALK_MAIN
         r1: actor_id for ACTOR_TALK_SUB
@@ -8495,7 +8494,7 @@ arm9:
         Sets ACTOR_TALK_SUB to be actor_id.
         Implements SPECIAL_PROC_0x3E (see ScriptSpecialProcessCall).
         
-        No params.
+        r0: actor_id
     - name: RandomizeDemoActors
       address:
         EU: 0x2065FC4
@@ -8504,6 +8503,7 @@ arm9:
       description: |-
         Randomly picks one of the 18 teams from DEMO_TEAMS and sets ENTITY_NPC_DEMO_HERO and ENTITY_NPC_DEMO_PARTNER
         to the randomly selected hero and partner.
+        Implements SPECIAL_PROC_0x17 (see ScriptSpecialProcessCall).
         
         No params.
     - name: ItemAtTableIdx
