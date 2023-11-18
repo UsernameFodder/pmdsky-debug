@@ -2508,7 +2508,7 @@ arm9:
         JP: 0x20101B4
       description: |-
         Removes a storage item equivalent to the bulk_item passed from storage.
-        Probably? Implements SPECIAL_PROC_0x2A (see ScriptSpecialProcessCall).
+        Probably? Implements SPECIAL_PROC_REMOVE_ITEM_TYPE_IN_STORAGE (see ScriptSpecialProcessCall).
         
         r0: pointer to a bulk_item
         return: bool whether an item was removed
@@ -9076,7 +9076,6 @@ arm9:
         JP: 0x2065E24
       description: |-
         Sets ACTOR_TALK_MAIN and ACTOR_TALK_SUB to given actor IDs.
-        Implements SPECIAL_PROC_0x3D (see ScriptSpecialProcessCall).
         
         r0: actor_id for ACTOR_TALK_MAIN
         r1: actor_id for ACTOR_TALK_SUB
@@ -9087,7 +9086,7 @@ arm9:
         JP: 0x2065E38
       description: |-
         Sets ACTOR_TALK_MAIN to be actor_id.
-        Implements SPECIAL_PROC_0x3D (see ScriptSpecialProcessCall).
+        Implements SPECIAL_PROC_SET_ACTOR_TALK_MAIN (see ScriptSpecialProcessCall).
         
         r0: actor_id
     - name: SetActorTalkSub
@@ -9097,9 +9096,9 @@ arm9:
         JP: 0x2065E48
       description: |-
         Sets ACTOR_TALK_SUB to be actor_id.
-        Implements SPECIAL_PROC_0x3E (see ScriptSpecialProcessCall).
+        Implements SPECIAL_PROC_SET_ACTOR_TALK_SUB (see ScriptSpecialProcessCall).
         
-        No params.
+        r0: actor_id
     - name: RandomizeDemoActors
       address:
         EU: 0x2065FC4
@@ -9108,6 +9107,7 @@ arm9:
       description: |-
         Randomly picks one of the 18 teams from DEMO_TEAMS and sets ENTITY_NPC_DEMO_HERO and ENTITY_NPC_DEMO_PARTNER
         to the randomly selected hero and partner.
+        Implements SPECIAL_PROC_RANDOMIZE_DEMO_ACTORS (see ScriptSpecialProcessCall).
         
         No params.
     - name: ItemAtTableIdx
