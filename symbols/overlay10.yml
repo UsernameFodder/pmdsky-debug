@@ -13,6 +13,30 @@ overlay10:
     JP: 0x1F6A0
   description: "Appears to be used both during ground mode and dungeon mode. With dungeon mode, whereas overlay 29 contains the main dungeon engine, this overlay seems to contain routines and data for dungeon mechanics."
   functions:
+    - name: CreateInventoryMenu
+      address:
+        NA: 0x22BCA80
+      description: |-
+        Creates a window containing a menu for inventory management. Also see struct inventory_menu.
+        
+        This is used for the Treasure Bag menu, the item information/price window in dungeon Kecleon shops, and possibly other things.
+        
+        r0: window_params
+        r1: ?
+        r2: ?
+        r3: some function pointer?
+        stack[0]: ?
+        stack[1]: ?
+        stack[2]: ?
+        stack[3]: ?
+        return: window_id
+    - name: UpdateInventoryMenu
+      address:
+        NA: 0x22BCE74
+      description: |-
+        Window update function for inventory menus.
+        
+        r0: window pointer
     - name: SprintfStatic
       address:
         EU:
@@ -118,6 +142,20 @@ overlay10:
         
         r0: move_id
         return: anim_ent_ptr (This might be a mistake? It seems to be an integer, not a pointer)
+    - name: ProcessTeamStatsLvHp
+      address:
+        NA: 0x22C1748
+      description: |-
+        Appears to populate the Lv./HP row in the "Team stats" top screen.
+        
+        r0: index of some kind
+    - name: ProcessTeamStatsNameGender
+      address:
+        NA: 0x22C1864
+      description: |-
+        Appears to populate the name/gender row in the "Team stats" top screen.
+        
+        r0: index of some kind
     - name: IsBackgroundTileset
       address:
         EU: 0x22C2ECC
@@ -130,6 +168,19 @@ overlay10:
         
         r0: Tileset ID
         return: True if the tileset ID corresponds to a background, false if it corresponds to a regular tileset
+    - name: InitTilesetBuffer
+      address:
+        EU: 0x22C3014
+        NA: 0x22C26BC
+        JP: 0x22C3DA4
+      description: |-
+        Initializes a buffer that contains data related to tilesets (such as dungeon::unknown_file_buffer_0x102A8).
+        
+        Calls AllocAndLoadFileInPack and DecompressAtNormalVeneer.
+        
+        r0: Pointer to the buffer to init
+        r1: Tileset ID
+        r2: Memory allocation flags
     - name: MainGame
       address:
         EU: 0x22C31E4
@@ -917,10 +968,20 @@ overlay10:
       description: The number of turns between passive poison damage.
     - name: LEECH_SEED_DAMAGE_COOLDOWN
       address:
+        EU: 0x22C5004
         NA: 0x22C46AC
       length:
         NA: 0x2
       description: The number of turns between leech seed health drain.
+    - name: THROWN_ITEM_HIT_CHANCE
+      address:
+        EU: 0x22C5008
+        NA: 0x22C46B0
+      length:
+        EU: 0x2
+        NA: 0x2
+        JP: 0x2
+      description: Chance of a hurled item hitting the target (90%).
     - name: GEO_PEBBLE_DAMAGE
       address:
         EU: 0x22C500C

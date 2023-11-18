@@ -31,8 +31,12 @@ itcm:
   functions:
     - name: Render3dSetTextureParams
       address:
+        EU: 0x20B3DF0
         NA: 0x20B34B0
+        JP: 0x20B4D10
+        EU-ITCM: 0x1FF8130
         NA-ITCM: 0x1FF8130
+        JP-ITCM: 0x1FF8130
       description: |-
         A wrapper around GeomSetTexImageParam that caches the VRAM offset on RENDER_3D.
         
@@ -42,8 +46,12 @@ itcm:
         r1: texture VRAM offset
     - name: Render3dSetPaletteBase
       address:
+        EU: 0x20B3E8C
         NA: 0x20B354C
+        JP: 0x20B4DAC
+        EU-ITCM: 0x1FF81CC
         NA-ITCM: 0x1FF81CC
+        JP-ITCM: 0x1FF81CC
       description: |-
         Send the PLTT_BASE geometry engine command, that sets the texture palette base address. Also caches the base address on RENDER_3D.
         See http://problemkaputt.de/gbatek.htm#ds3dtextureattributes for more information on the parameters.
@@ -52,16 +60,24 @@ itcm:
         r1: palette base address
     - name: Render3dRectangle
       address:
+        EU: 0x20B3EE4
         NA: 0x20B35A4
+        JP: 0x20B4E04
+        EU-ITCM: 0x1FF8224
         NA-ITCM: 0x1FF8224
+        JP-ITCM: 0x1FF8224
       description: |-
         RENDER_3D_FUNCTIONS[0]. Renders a render_3d_element with type RENDER_RECTANGLE.
         
         r0: render_3d_rectangle
     - name: GeomSetPolygonAttributes
       address:
+        EU: 0x20B4140
         NA: 0x20B3800
+        JP: 0x20B5060
+        EU-ITCM: 0x1FF8480
         NA-ITCM: 0x1FF8480
+        JP-ITCM: 0x1FF8480
       description: |-
         Send the POLYGON_ATTR geometry engine command, that defines some polygon attributes for rendering.
         See https://problemkaputt.de/gbatek.htm#ds3dpolygonattributes for more information
@@ -70,16 +86,24 @@ itcm:
         r1: alpha
     - name: Render3dQuadrilateral
       address:
+        EU: 0x20B415C
         NA: 0x20B381C
+        JP: 0x20B507C
+        EU-ITCM: 0x1FF849C
         NA-ITCM: 0x1FF849C
+        JP-ITCM: 0x1FF849C
       description: |-
         RENDER_3D_FUNCTIONS[1]. Renders a render_3d_element with type RENDER_QUADRILATERAL.
         
         r0: render_3d_quadrilateral
     - name: Render3dTiling
       address:
+        EU: 0x20B43E8
         NA: 0x20B3AA8
+        JP: 0x20B5308
+        EU-ITCM: 0x1FF8728
         NA-ITCM: 0x1FF8728
+        JP-ITCM: 0x1FF8728
       description: |-
         RENDER_3D_FUNCTIONS[2]. Renders a render_3d_element with type RENDER_TILING.
         
@@ -93,8 +117,12 @@ itcm:
         r0: render_3d_texture
     - name: Render3dTexture
       address:
+        EU: 0x20B48E8
         NA: 0x20B3FA8
+        JP: 0x20B5808
+        EU-ITCM: 0x1FF8C28
         NA-ITCM: 0x1FF8C28
+        JP-ITCM: 0x1FF8C28
       description: |-
         RENDER_3D_FUNCTIONS[3]. Renders a render_3d_element with type RENDER_TEXTURE.
         
@@ -124,40 +152,60 @@ itcm:
         return: render_3d_element or NULL if there is no more available space in the queue
     - name: EnqueueRender3dTexture
       address:
+        EU: 0x20B496C
         NA: 0x20B402C
+        JP: 0x20B588C
+        EU-ITCM: 0x1FF8CAC
         NA-ITCM: 0x1FF8CAC
+        JP-ITCM: 0x1FF8CAC
       description: |-
         Copies the first 40 bytes of a render_3d_element onto the render queue of RENDER_3D, with type set to RENDER_TEXTURE.
         
         r0: render_3d_element
     - name: EnqueueRender3dTiling
       address:
+        EU: 0x20B499C
         NA: 0x20B405C
+        JP: 0x20B58BC
+        EU-ITCM: 0x1FF8CDC
         NA-ITCM: 0x1FF8CDC
+        JP-ITCM: 0x1FF8CDC
       description: |-
         Copies a render_3d_element onto the render queue of RENDER_3D, with type set to RENDER_TILING.
         
         r0: render_3d_element
     - name: NewRender3dRectangle
       address:
+        EU: 0x20B49CC
         NA: 0x20B408C
+        JP: 0x20B58EC
+        EU-ITCM: 0x1FF8D0C
         NA-ITCM: 0x1FF8D0C
+        JP-ITCM: 0x1FF8D0C
       description: |-
         Return a render_3d_element from NewRender3dElement with a type of RENDER_RECTANGLE, and all other fields in the first 38 bytes zeroed.
         
         return: render_3d_element or NULL if there is no more available space in the queue
     - name: NewRender3dQuadrilateral
       address:
+        EU: 0x20B49FC
         NA: 0x20B40BC
+        JP: 0x20B591C
+        EU-ITCM: 0x1FF8D3C
         NA-ITCM: 0x1FF8D3C
+        JP-ITCM: 0x1FF8D3C
       description: |-
         Return a render_3d_element from NewRender3dElement with a type of RENDER_QUADRILATERAL, and all other fields in the first 38 bytes zeroed.
         
         return: render_3d_element or NULL if there is no more available space in the queue
     - name: NewRender3dTexture
       address:
+        EU: 0x20B4A2C
         NA: 0x20B40EC
+        JP: 0x20B594C
+        EU-ITCM: 0x1FF8D6C
         NA-ITCM: 0x1FF8D6C
+        JP-ITCM: 0x1FF8D6C
       description: |-
         Return a render_3d_element from NewRender3dElement with a type of RENDER_TEXTURE, and all other fields in the first 40 bytes zeroed.
         
@@ -166,8 +214,10 @@ itcm:
       address:
         EU: 0x20B4A5C
         NA: 0x20B411C
+        JP: 0x20B597C
         EU-ITCM: 0x1FF8D9C
         NA-ITCM: 0x1FF8D9C
+        JP-ITCM: 0x1FF8D9C
       description: |-
         Return a render_3d_element from NewRender3dElement with a type of RENDER_TILING, and all other fields zeroed.
         
@@ -262,6 +312,35 @@ itcm:
         
         r0: monster ID
         return: key
+    - name: HardwareInterrupt
+      address:
+        EU: 0x20B52A8
+        NA: 0x20B4968
+        JP: 0x20B6230
+        EU-ITCM: 0x1FF95E8
+        NA-ITCM: 0x1FF95E8
+        JP-ITCM: 0x1FF9650
+      description: |-
+        Called whenever a hardware interrupt takes place.
+        
+        Returns immediately if the IME flag is 0 or if none of the devices that requested an interrupt has the corresponding Interrupt Enable flag set.
+        It searches for the first device that requested an interrupt, clears its Interrupt Request flag, then jumps to the start of the corresponding interrupt function. The return address is manually set to ReturnFromInterrupt.
+        The address of the function to jump to is read from the interrupt vector at the start of the DTCM region (0x27E0000).
+        This function does not return.
+        
+        No params.
+    - name: ReturnFromInterrupt
+      address:
+        EU: 0x20B5310
+        NA: 0x20B49D0
+        JP: 0x20B6298
+        EU-ITCM: 0x1FF9650
+        NA-ITCM: 0x1FF9650
+        JP-ITCM: 0x1FF96B8
+      description: |-
+        The execution returns to this function after a hardware interrupt function is run.
+        
+        No params.
     - name: ShouldMonsterRunAwayVariationOutlawCheck
       address:
         EU: 0x20B6050

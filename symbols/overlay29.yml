@@ -1818,7 +1818,9 @@ overlay29:
         r3: ?
     - name: CreateMonsterSummaryFromMonster
       address:
+        EU: 0x22F93D8
         NA: 0x22F89CC
+        JP: 0x22F9F90
       description: |-
         Creates a snapshot of the condition of a monster struct in a monster_summary struct.
         
@@ -3007,7 +3009,7 @@ overlay29:
         r1: target entity pointer
         r2: number of levels
         r3: bool message flag?
-        stack[0]: bool show level up dialog (for example "Hey, I leveled up!" with a portrait)?
+        stack[0]: bool show level up dialogue (for example "Hey, I leveled up!" with a portrait)?
     - name: TryDecreaseLevel
       address:
         EU: 0x23039B4
@@ -3026,12 +3028,12 @@ overlay29:
         NA: 0x230303C
         JP: 0x2304588
       description: |-
-        Attempts to level up the target. Fails if the target's level can't be raised. The show show level up dialog bool does nothing for monsters not on the team.
+        Attempts to level up the target. Fails if the target's level can't be raised. The show level up dialogue bool does nothing for monsters not on the team.
         
         r0: user entity pointer
         r1: target entity pointer
         r2: bool message flag?
-        r3: bool show level up dialog (for example "Hey, I leveled up!" with a portrait)?
+        r3: bool show level up dialogue (for example "Hey, I leveled up!" with a portrait)?
         return: success flag
     - name: GetMonsterMoves
       address:
@@ -3338,7 +3340,9 @@ overlay29:
         r1: allow outside enemies flag (in practice this is always set to dungeon_generation_info::force_create_monster_house)
     - name: ShouldMonsterFollowLeader
       address:
+        EU: 0x2308CCC
         NA: 0x23082A0
+        JP: 0x23097D4
       description: |-
         Checks if the monster should follow the leader. Always returns false for enemy monsters.
         This function may actually be should monster target leader position.
@@ -6236,7 +6240,9 @@ overlay29:
         return: bool
     - name: TryActivateGravity
       address:
+        EU: 0x2338F8C
         NA: 0x23383BC
+        JP: 0x2339780
       description: |-
         Attempts to activate Gravity for this dungeon floor.
         
@@ -7547,6 +7553,19 @@ overlay29:
         r1: item ID
         r2: quantity
         r3: stickiness type (enum gen_item_stickiness)
+    - name: DoesProjectileHitTarget
+      address:
+        EU: 0x2348C20
+        NA: 0x2348020
+        JP: 0x23493A8
+      description: |-
+        Determines if a hurled projectile will impact on a target or if the target will dodge it instead.
+        
+        Contains a random chance using THROWN_ITEM_HIT_CHANCE, as well as some additional checks involving certain items (Whiff Specs, Lockon Specs and Dodge Scarf), exclusive item effects (EXCLUSIVE_EFF_THROWN_ITEM_PROTECTION) or pokémon (Kecleon, clients, secret bazaar NPCs).
+        
+        r0: Monster that throws the item
+        r1: Target monster
+        return: True if the item impacts on the target, false if the target dodges the item.
     - name: CheckActiveChallengeRequest
       address:
         EU: 0x2349D4C

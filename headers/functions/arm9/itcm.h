@@ -24,6 +24,8 @@ enum monster_id GetKeyN2MBaseForm(int key);
 void GetKeyM2NSwitch(enum monster_id monster_id, int sw);
 int GetKeyM2N(enum monster_id monster_id);
 int GetKeyM2NBaseForm(enum monster_id monster_id);
+void HardwareInterrupt(void);
+void ReturnFromInterrupt(void);
 bool ShouldMonsterRunAwayVariationOutlawCheck(struct entity* monster, undefined param_2);
 void AiMovement(struct entity* monster, undefined param_2);
 void CalculateAiTargetPos(struct entity* monster);

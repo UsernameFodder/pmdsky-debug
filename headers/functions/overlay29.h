@@ -283,9 +283,9 @@ bool IsProtectedFromNegativeStatus(struct entity* user, struct entity* target, b
 void AddExpSpecial(struct entity* attacker, struct entity* defender, int base_exp);
 void EnemyEvolution(struct entity* entity);
 void LevelUpItemEffect(struct entity* user, struct entity* target, int levels, bool message,
-                       bool dialog);
+                       bool dialogue);
 bool TryDecreaseLevel(struct entity* user, struct entity* target, int n_levels);
-bool LevelUp(struct entity* user, struct entity* target, bool message, bool dialog);
+bool LevelUp(struct entity* user, struct entity* target, bool message, bool dialogue);
 void GetMonsterMoves(struct move_id_16* out_moves, enum monster_id monster_id, int level);
 void EvolveMonster(struct entity* user, struct entity* target, enum monster_id new_monster_id);
 uint8_t GetSleepAnimationId(struct entity* entity);
@@ -780,6 +780,7 @@ void AddHeldItemToBag(struct monster* monster);
 void RemoveEmptyItemsInBagWrapper(void);
 void GenerateItem(struct item* item, enum item_id item_id, uint16_t quantity,
                   enum gen_item_stickiness sticky_type);
+bool DoesProjectileHitTarget(struct entity* user, struct entity* target);
 bool CheckActiveChallengeRequest(void);
 struct mission_destination_info* GetMissionDestination(void);
 bool IsOutlawOrChallengeRequestFloor(void);

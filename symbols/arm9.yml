@@ -54,15 +54,21 @@ arm9:
         No params.
     - name: MIiUncompressBackward
       address:
+        EU: 0x2000970
         NA: 0x2000970
+        JP: 0x2000970
       description: "Startup routine in the program's crt0 (https://en.wikipedia.org/wiki/Crt0)."
     - name: do_autoload
       address:
+        EU: 0x2000A1C
         NA: 0x2000A1C
+        JP: 0x2000A1C
       description: "Startup routine in the program's crt0 (https://en.wikipedia.org/wiki/Crt0)."
     - name: StartAutoloadDoneCallback
       address:
+        EU: 0x2000AAC
         NA: 0x2000AAC
+        JP: 0x2000AAC
       description: "Startup routine in the program's crt0 (https://en.wikipedia.org/wiki/Crt0)."
     - name: OSiReferSymbol
       address:
@@ -70,7 +76,9 @@ arm9:
       description: "Startup routine in the program's crt0 (https://en.wikipedia.org/wiki/Crt0)."
     - name: NitroMain
       address:
+        EU: 0x2000C6C
         NA: 0x2000C6C
+        JP: 0x2000C6C
       description: "Entrypoint into NitroSDK, the DS devkit library."
     - name: InitMemAllocTable
       address:
@@ -1000,13 +1008,17 @@ arm9:
         r2: flags
     - name: InitDebug
       address:
+        EU: 0x200C15C
         NA: 0x200C0D4
+        JP: 0x200C0D4
       description: |-
         Would have initialized debugging-related things, if they were not removed.
         As for the release version, does nothing but set DEBUG_IS_INITIALIZED to true.
     - name: InitDebugFlag
       address:
+        EU: 0x200C194
         NA: 0x200C10C
+        JP: 0x200C10C
       description: |-
         Would have initialized the debug flags.
         Does nothing in release binary.
@@ -1032,7 +1044,9 @@ arm9:
         r1: flag value
     - name: InitDebugStripped6
       address:
+        EU: 0x200C1A4
         NA: 0x200C11C
+        JP: 0x200C11C
       description: "Does nothing, only called in the debug initialization function."
     - name: AppendProgPos
       address:
@@ -1050,7 +1064,9 @@ arm9:
         return: number of characters printed, excluding the null-terminator
     - name: InitDebugStripped5
       address:
+        EU: 0x200C1F0
         NA: 0x200C168
+        JP: 0x200C168
       description: "Does nothing, only called in the debug initialization function."
     - name: DebugPrintTrace
       address:
@@ -1102,7 +1118,9 @@ arm9:
         ...: variadic
     - name: InitDebugLogFlag
       address:
+        EU: 0x200C2B8
         NA: 0x200C230
+        JP: 0x200C230
       description: |-
         Would have initialized the debug log flags.
         Does nothing in release binary.
@@ -1139,19 +1157,27 @@ arm9:
         ...: variadic
     - name: InitDebugStripped4
       address:
+        EU: 0x200C2D4
         NA: 0x200C24C
+        JP: 0x200C24C
       description: "Does nothing, only called in the debug initialization function."
     - name: InitDebugStripped3
       address:
+        EU: 0x200C2D8
         NA: 0x200C250
+        JP: 0x200C250
       description: "Does nothing, only called in the debug initialization function."
     - name: InitDebugStripped2
       address:
+        EU: 0x200C2DC
         NA: 0x200C254
+        JP: 0x200C254
       description: "Does nothing, only called in the debug initialization function."
     - name: InitDebugStripped1
       address:
+        EU: 0x200C2E0
         NA: 0x200C258
+        JP: 0x200C258
       description: "Does nothing, only called in the debug initialization function."
     - name: FatalError
       address:
@@ -1456,7 +1482,9 @@ arm9:
         r2: sticky flag
     - name: InitBulkItem
       address:
+        EU: 0x200D000
         NA: 0x200CF78
+        JP: 0x200CF78
       description: |-
         Initialize a struct bulk_item with the given information.
         
@@ -1466,7 +1494,9 @@ arm9:
         r1: item ID
     - name: BulkItemToItem
       address:
+        EU: 0x200D078
         NA: 0x200CFF0
+        JP: 0x200CFF0
       description: |-
         Convert a bulk_item into an equivalent item.
         
@@ -1474,7 +1504,9 @@ arm9:
         r1: pointer to bulk_item
     - name: ItemToBulkItem
       address:
+        EU: 0x200D128
         NA: 0x200D0A0
+        JP: 0x200D0A0
       description: |-
         Convert an item into an equivalent bulk_item.
         
@@ -1606,7 +1638,9 @@ arm9:
         r0: item
     - name: AreItemsEquivalent
       address:
+        EU: 0x200D8BC
         NA: 0x200D834
+        JP: 0x200D864
       description: |-
         Checks whether two items are equivalent and only checks the bitflags specified by the bitmask.
         
@@ -1676,7 +1710,9 @@ arm9:
         return: normalized item ID
     - name: SortItemList
       address:
+        EU: 0x200E428
         NA: 0x200E3A0
+        JP: 0x200E3D0
       description: |-
         Attempts to combine stacks of throwable items, sort the list, and then remove empty items.
         Appears to use selection sort to sort the list in place.
@@ -1900,7 +1936,9 @@ arm9:
         No params.
     - name: AllInventoriesZInit
       address:
+        EU: 0x200EC84
         NA: 0x200EBDC
+        JP: 0x200EC0C
       description: |-
         Initializes all inventories (TEAM_MAIN, TEAM_SPECIAL_EPISODE, TEAM_RESCUE) to empty and sets the active inventory
         to TEAM_MAIN.
@@ -1908,14 +1946,18 @@ arm9:
         No params.
     - name: SpecialEpisodeInventoryZInit
       address:
+        EU: 0x200ECF0
         NA: 0x200EC48
+        JP: 0x200EC78
       description: |-
         Initializes the TEAM_SPECIAL_EPISODE inventory to be empty.
         
         No params.
     - name: RescueInventoryZInit
       address:
+        EU: 0x200ED38
         NA: 0x200EC90
+        JP: 0x200ECC0
       description: |-
         Initializes the TEAM_RESCUE inventory to be empty.
         
@@ -2273,21 +2315,27 @@ arm9:
         return: bool item was successfully added to the bag
     - name: CleanStickyItemsInBag
       address:
+        EU: 0x200F9B8
         NA: 0x200F910
+        JP: 0x200F8E0
       description: |-
         Removes the sticky flag from all the items currently in the bag.
         
         No params.
     - name: CountStickyItemsInBag
       address:
+        EU: 0x200F9E8
         NA: 0x200F940
+        JP: 0x200F910
       description: |-
         Counts the number of sticky items currently in the bag.
         
         return: number of sticky items
     - name: TransmuteHeldItemInBag
       address:
+        EU: 0x200FB10
         NA: 0x200FA68
+        JP: 0x200FA38
       description: |-
         Looks for an item in the bag that has the same holder (held_by) as the transmute item and convert
         their equivalent item in the treasure bag into the transmute item. The monster's held item on
@@ -2297,7 +2345,9 @@ arm9:
         return: bool whether or not the item could be transmuted
     - name: SetFlagsForHeldItemInBag
       address:
+        EU: 0x200FB94
         NA: 0x200FAEC
+        JP: 0x200FABC
       description: |-
         Looks for an item in the bag that has the holder (held_by) as the item and make their equivalent
         item in the treasure bag sticky. The monster's held item on their struct should be updated
@@ -2308,7 +2358,9 @@ arm9:
         r1: item bitflags
     - name: RemoveHolderForItemInBag
       address:
+        EU: 0x200FBFC
         NA: 0x200FB54
+        JP: 0x200FB24
       description: |-
         Looks for an item in the bag that is equivalent and make the holder none. The monster's held item
         on their struct should be updated accordingly directly before or after calling this function.
@@ -2316,7 +2368,9 @@ arm9:
         r0: pointer to an item
     - name: SetHolderForItemInBag
       address:
+        EU: 0x200FC88
         NA: 0x200FBE0
+        JP: 0x200FBB0
       description: |-
         Modifies the item at the index to be held by the monster specified and updates the item with the
         holder as well. This only modifies the flags and held_by of the item.
@@ -2326,7 +2380,9 @@ arm9:
         r2: held_by
     - name: SortItemsInBag
       address:
+        EU: 0x200FCCC
         NA: 0x200FC24
+        JP: 0x200FBF4
       description: |-
         Sorts the current items in the item bag but first checks if any Poke is in the bag to remove. If
         Poke is found, add it to money carried.
@@ -2334,7 +2390,9 @@ arm9:
         No params.
     - name: RemovePokeItemsInBag
       address:
+        EU: 0x200FD54
         NA: 0x200FCAC
+        JP: 0x200FC7C
       description: |-
         Checks the bag for any Poke and removes it after adding it to money carried.
         
@@ -2351,21 +2409,27 @@ arm9:
         return: bool
     - name: CountNbOfItemsInStorage
       address:
+        EU: 0x200FE20
         NA: 0x200FD78
+        JP: 0x200FD48
       description: |-
         Counts the number of items currently in storage (including invalid items).
         
         return: number of items in storage
     - name: CountNbOfValidItemsInStorage
       address:
+        EU: 0x200FE58
         NA: 0x200FDB0
+        JP: 0x200FD80
       description: |-
         Counts the number of items currently in storage that are valid.
         
         return: number of valid items in storage
     - name: CountNbOfValidItemsInTimeDarknessInStorage
       address:
+        EU: 0x200FEA8
         NA: 0x200FE00
+        JP: 0x200FDD0
       description: |-
         Counts the number of items currently in storage that are valid and in time and darkness.
         
@@ -2394,7 +2458,9 @@ arm9:
         return: number of items of the specified ID in storage
     - name: GetEquivBulkItemIdxInStorage
       address:
+        EU: 0x200FFF8
         NA: 0x200FF50
+        JP: 0x200FF20
       description: |-
         Checks for a storage item equivalent to the bulk_item and returns the index of the item in storage.
         Returns -1 if unable to find an equivalent item.
@@ -2403,7 +2469,9 @@ arm9:
         return: index in storage
     - name: ConvertStorageItemAtIdxToBulkItem
       address:
+        EU: 0x2010054
         NA: 0x200FFAC
+        JP: 0x200FF7C
       description: |-
         Get an item in storage and converts it into an equivalent bulk_item. This does not remove the
         item from storage.
@@ -2413,7 +2481,9 @@ arm9:
         return: bool whether or not the item id is not 0
     - name: ConvertStorageItemAtIdxToItem
       address:
+        EU: 0x201009C
         NA: 0x200FFF4
+        JP: 0x200FFC4
       description: |-
         Get an item in storage and converts it into an equivalent item. The item does NOT have the exists
         flag set to true. This does not remove the item from storage.
@@ -2423,7 +2493,9 @@ arm9:
         return: bool whether or not the item id is not 0
     - name: RemoveItemAtIdxInStorage
       address:
+        EU: 0x2010248
         NA: 0x20101A0
+        JP: 0x2010170
       description: |-
         Remove an item at the specified index from storage.
         
@@ -2442,7 +2514,9 @@ arm9:
         return: bool whether an item was removed
     - name: RemoveItemInStorage
       address:
+        EU: 0x2010308
         NA: 0x2010260
+        JP: 0x2010230
       description: |-
         Removes a storage item equivalent to the item passed from storage.
         
@@ -2450,7 +2524,9 @@ arm9:
         return: bool whether an item was removed
     - name: StorageZInit
       address:
+        EU: 0x2010384
         NA: 0x20102DC
+        JP: 0x20102AC
       description: |-
         Initializes the storage to be empty.
         
@@ -2468,7 +2544,9 @@ arm9:
         return: bool whether an item was added
     - name: AddItemToStorage
       address:
+        EU: 0x2010454
         NA: 0x20103AC
+        JP: 0x201037C
       description: |-
         Attempts to add the item to storage.
         
@@ -2476,7 +2554,9 @@ arm9:
         return: bool whether an item was added
     - name: SortItemsInStorage
       address:
+        EU: 0x20104CC
         NA: 0x2010424
+        JP: 0x20103F4
       description: |-
         Sorts the item in storage by making converting them into normal items in a temporary list and
         using SortItemList on them. After, it puts the list of items back into storage. This may also have
@@ -2486,7 +2566,9 @@ arm9:
         r1: number of items to sort (usually just the current size of storage)
     - name: AllKecleonShopsZInit
       address:
+        EU: 0x201063C
         NA: 0x2010594
+        JP: 0x2010564
       description: |-
         Empties the Kecleon shop for both TEAM_MAIN and TEAM_SPECIAL_EPISODE. TEAM_RESCUE does not appear to have its own
         Kecleon shop.
@@ -2494,14 +2576,18 @@ arm9:
         No params.
     - name: SpecialEpisodeKecleonShopZInit
       address:
+        EU: 0x20106FC
         NA: 0x2010654
+        JP: 0x2010624
       description: |-
         Empties the special episode Kecleon shop.
         
         No params.
     - name: SetActiveKecleonShop
       address:
+        EU: 0x201076C
         NA: 0x20106C4
+        JP: 0x2010694
       description: |-
         Changes the currently active Kecleon shop. Has one for TEAM_MAIN and TEAM_SPECIAL_EPISODE. TEAM_RESCUE does not
         appear to have its own copy of the Kecleon shop it seems to use TEAM_MAIN intead of TEAM_RESCUE.
@@ -2509,7 +2595,9 @@ arm9:
         r0: team ID
     - name: GetMoneyStored
       address:
+        EU: 0x20107B4
         NA: 0x201070C
+        JP: 0x20106DC
       description: |-
         Gets the amount of money the player has stored in the Duskull Bank.
         
@@ -2525,14 +2613,18 @@ arm9:
         r0: new value
     - name: AddMoneyStored
       address:
+        EU: 0x2010800
         NA: 0x2010758
+        JP: 0x2010728
       description: |-
         Adds money to the amount of money the player has stored in the Duskull Bank. Just calls SetMoneyStored with the current money + money gained.
         
         r0: money gained (can be negative)
     - name: SortKecleonItems1
       address:
+        EU: 0x20109FC
         NA: 0x2010954
+        JP: 0x2010924
       description: |-
         Sorts the items for the normal Kecleon Shop items in Treasure Town.
         
@@ -2551,7 +2643,9 @@ arm9:
         r0: kecleon_shop_version to use
     - name: SortKecleonItems2
       address:
+        EU: 0x2010D08
         NA: 0x2010C60
+        JP: 0x2010C30
       description: |-
         Sorts the items for the Orb/TM Kecleon Shop items in Treasure Town.
         
@@ -2650,7 +2744,9 @@ arm9:
         return: exclusive item ID
     - name: GetExclusiveItemForMonsterFromBag
       address:
+        EU: 0x2011214
         NA: 0x201116C
+        JP: 0x201113C
       description: |-
         Checks the bag for any exclusive item that applies to the monster or type(s) and copies that item
         into the passed item struct.
@@ -2663,7 +2759,9 @@ arm9:
         return: bool whether an exclusive item was found
     - name: GetHpBoostFromExclusiveItems
       address:
+        EU: 0x201143C
         NA: 0x2011394
+        JP: 0x2011364
       description: |-
         Calculates the current HP boost from exclusive items. If none are active, return 0.
         
@@ -2671,7 +2769,9 @@ arm9:
         return: max HP boost from exclusive items
     - name: ApplyGummiBoostsToGroundMonster
       address:
+        EU: 0x20115D0
         NA: 0x2011528
+        JP: 0x20114F8
       description: |-
         Applies the IQ boosts from eating a Gummi to the target monster. Basically a wrapper around
         ApplyGummiBoostsGroundMode for struct ground_monster.
@@ -2682,7 +2782,9 @@ arm9:
         r3: [output] pointer to a struct gummi_result to fill out
     - name: ApplyGummiBoostsToTeamMember
       address:
+        EU: 0x20115FC
         NA: 0x2011554
+        JP: 0x2011524
       description: |-
         Applies the IQ boosts from eating a Gummi to the target monster. Basically a wrapper around
         ApplyGummiBoostsGroundMode for struct team_member.
@@ -2723,7 +2825,9 @@ arm9:
         return: actual move boost
     - name: ApplyProteinBoostToGroundMonster
       address:
+        EU: 0x20117B4
         NA: 0x201170C
+        JP: 0x20116DC
       description: |-
         Applies the attack boost from Protein to the target monster.
         
@@ -2732,7 +2836,9 @@ arm9:
         return: actual attack boost
     - name: ApplyCalciumBoostToGroundMonster
       address:
+        EU: 0x20117F0
         NA: 0x2011748
+        JP: 0x2011718
       description: |-
         Applies the special attack boost from Calcium to the target monster.
         
@@ -2741,7 +2847,9 @@ arm9:
         return: actual special attack boost
     - name: ApplyIronBoostToGroundMonster
       address:
+        EU: 0x201182C
         NA: 0x2011784
+        JP: 0x2011754
       description: |-
         Applies the defense boost from Iron to the target monster.
         
@@ -2750,7 +2858,9 @@ arm9:
         return: actual defense boost
     - name: ApplyZincBoostToGroundMonster
       address:
+        EU: 0x2011868
         NA: 0x20117C0
+        JP: 0x2011790
       description: |-
         Applies the special defense boost from Zinc to the target monster.
         
@@ -2759,7 +2869,9 @@ arm9:
         return: actual special defense boost
     - name: ApplyNectarBoostToGroundMonster
       address:
+        EU: 0x20118A4
         NA: 0x20117FC
+        JP: 0x20117CC
       description: |-
         Applies the iq boost from Nectar to the target monster.
         
@@ -2768,7 +2880,9 @@ arm9:
         return: actual iq boost
     - name: IsMonsterAffectedByGravelyrockGroundMode
       address:
+        EU: 0x20118D8
         NA: 0x2011830
+        JP: 0x2011800
       description: |-
         Checks if the monster is Bonsly or Sudowoodo.
         
@@ -2776,7 +2890,9 @@ arm9:
         return: bool
     - name: ApplyGravelyrockBoostToGroundMonster
       address:
+        EU: 0x20118F8
         NA: 0x2011850
+        JP: 0x2011820
       description: |-
         Applies the iq boost from Gravelyrock to the target monster. Only Bonsly and Sudowoodo gain IQ from the Gravelyrock.
         
@@ -3538,31 +3654,90 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         r0: waza_id
-    - name: SendAudioCommandWrapperVeneer
+    - name: PlayBgmByIdVeneer
+      address:
+        EU: 0x2017BF4
+        NA: 0x2017BD4
+      description: |-
+        Likely a linker-generated veneer for PlayBgmById.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
+        
+        r0: Music ID
+    - name: PlayBgmByIdVolumeVeneer
       address:
         EU: 0x2017C00
         NA: 0x2017BE0
       description: |-
-        Likely a linker-generated veneer for SendAudioCommandWrapper.
+        Likely a linker-generated veneer for PlayBgmByIdVolume.
         
         See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
         
         r0: Music ID
         r1: (?) Stored on byte 8 on the struct passed to SendAudioCommand
         r2: Volume (0-255)
-    - name: SendAudioCommandWrapper
+    - name: PlaySeVolumeWrapper
+      address:
+        EU: 0x2017D68
+        NA: 0x2017CCC
+        JP: 0x2017D24
+      description: |-
+        Wrapper for PlaySeVolume. Takes an index and uses it to determine the ID of the sound to play.
+        
+        r0: Index
+    - name: PlayBgmById
+      address:
+        EU: 0x2017E90
+        NA: 0x2018024
+      description: |-
+        Initializes some values and then calls SendAudioCommand to play a BGM track.
+        
+        Checks for DEBUG_FLAG_BGM_OFF. The volume is set to either 0 or 255 depending on the flag before calling SendAudioCommand.
+        
+        r0: Music ID
+    - name: PlayBgmByIdVolume
       address:
         EU: 0x2017F0C
-        NA: 0x2017E70
+        NA: 0x20180A0
         JP: 0x2017EC8
       description: |-
-        Initializes some values and then calls SendAudioCommand.
+        Initializes some values and then calls SendAudioCommand to play a BGM track.
         
         Checks for DEBUG_FLAG_BGM_OFF. If 1, sets the volume to 0 before calling SendAudioCommand.
         
         r0: Music ID
         r1: (?) Stored on byte 8 on the struct passed to SendAudioCommand
         r2: Volume (0-255)
+    - name: StopBgmCommand
+      address:
+        EU: 0x2017F84
+        NA: 0x2017EE8
+        JP: 0x2017F40
+      description: |-
+        Stops the BGM that is being currently played by calling SendAudioCommand.
+        
+        No params.
+    - name: PlaySeByIdVolume
+      address:
+        EU: 0x2018354
+        NA: 0x20182B8
+        JP: 0x2018310
+      description: |-
+        Plays the specified sound effect with the specified volume.
+        
+        Checks for DEBUG_FLAG_SE_OFF and sets the volume to 0 if the flag is set. Calls SendAudioCommand2.
+        
+        r0: Sound effect ID
+        r1: Volume (0-255)
+    - name: SendAudioCommand2
+      address:
+        EU: 0x2018B80
+        NA: 0x2018AE4
+        JP: 0x2018B3C
+      description: |-
+        Very similar to SendAudioCommand. Contains an additional function call.
+        
+        r0: Command to send
     - name: AllocAudioCommand
       address:
         EU: 0x2018C08
@@ -3645,6 +3820,15 @@ arm9:
         NA: 0x2019574
         JP: 0x20195CC
       description: "Note: unverified, ported from Irdkwia's notes"
+    - name: IsSongOver
+      address:
+        EU: 0x20198EC
+        NA: 0x2019850
+        JP: 0x20198A8
+      description: |-
+        True if the song that is currently being played has finished playing.
+        
+        return: True if the current song is over
     - name: PlayBgm
       address:
         EU: 0x2019954
@@ -4116,38 +4300,43 @@ arm9:
         r0: render_3d_element_64
     - name: Render3d64Texture0x7
       address:
+        EU: 0x201E8E0
         NA: 0x201E844
+        JP: 0x201E89C
       description: |-
         RENDER_3D_FUNCTIONS_64[7]. Renders a render_3d_element_64 with type RENDER64_TEXTURE_0x7.
         
         Converts the render_3d_element_64 to a render_3d_element on the render queue of RENDER_3D, with type RENDER_TEXTURE.
         
         r0: render_3d_element_64
-    - name: Render3d64Border
+    - name: Render3d64WindowFrame
       address:
         EU: 0x201EA88
         NA: 0x201E9EC
         JP: 0x201EA44
       description: |-
-        Draw the border for dialogue box and other menus, using the 3D engine.
+        Draw the frame for a window, using the 3D engine.
         
         The render_3d_element_64 contains certain value that needs to be set to a correct value for it to work.
         The element is not immediately sent to the geometry engine, but is converted to a render_3d_element and queued up in RENDER_3D.
         
-        RENDER_3D_FUNCTIONS_64[6], corresponding to a type of RENDER64_BORDER.
+        RENDER_3D_FUNCTIONS_64[6], corresponding to a type of RENDER64_WINDOW_FRAME.
         
         r0: render_3d_element_64
     - name: EnqueueRender3d64Tiling
       address:
         EU: 0x201ED38
         NA: 0x201EC9C
+        JP: 0x201ECF4
       description: |-
         Converts a render_3d_element_64 with type RENDER64_TILING to a render_3d_element on the render queue of RENDER_3D, with type RENDER_TILING.
         
         r0: render_3d_element_64
     - name: Render3d64Tiling
       address:
+        EU: 0x201EE24
         NA: 0x201ED88
+        JP: 0x201EDE0
       description: |-
         RENDER_3D_FUNCTIONS_64[5]. Renders a render_3d_element_64 with type RENDER64_TILING.
         
@@ -4156,7 +4345,9 @@ arm9:
         r0: render_3d_element_64
     - name: Render3d64Quadrilateral
       address:
+        EU: 0x201EEEC
         NA: 0x201EE50
+        JP: 0x201EEA8
       description: |-
         RENDER_3D_FUNCTIONS_64[4]. Renders a render_3d_element_64 with type RENDER64_QUADRILATERAL.
         
@@ -4165,7 +4356,9 @@ arm9:
         r0: render_3d_element_64
     - name: Render3d64RectangleMulticolor
       address:
+        EU: 0x201EF8C
         NA: 0x201EEF0
+        JP: 0x201EF48
       description: |-
         RENDER_3D_FUNCTIONS_64[3]. Renders a render_3d_element_64 with type RENDER64_RECTANGLE_MULTICOLOR.
         
@@ -4174,7 +4367,9 @@ arm9:
         r0: render_3d_element_64
     - name: Render3d64Rectangle
       address:
+        EU: 0x201F0F8
         NA: 0x201F05C
+        JP: 0x201F0B4
       description: |-
         RENDER_3D_FUNCTIONS_64[2]. Renders a render_3d_element_64 with type RENDER64_RECTANGLE.
         
@@ -4183,14 +4378,18 @@ arm9:
         r0: render_3d_element_64
     - name: Render3d64Nothing
       address:
+        EU: 0x201F1A4
         NA: 0x201F108
+        JP: 0x201F160
       description: |-
         RENDER_3D_FUNCTIONS_64[1]. Renders a render_3d_element_64 with type RENDER64_NOTHING. This function is entirely empty.
         
         r0: render_3d_element_64
     - name: Render3d64Texture
       address:
+        EU: 0x201F1A8
         NA: 0x201F10C
+        JP: 0x201F164
       description: |-
         RENDER_3D_FUNCTIONS_64[0]. Renders a render_3d_element_64 with type RENDER64_TEXTURE.
         
@@ -4199,7 +4398,9 @@ arm9:
         r0: render_3d_element_64
     - name: Render3dElement64
       address:
+        EU: 0x201F270
         NA: 0x201F1D4
+        JP: 0x201F22C
       description: |-
         Dispatches a render_3d_element_64 to the render function corresponding to its type.
         
@@ -4467,7 +4668,9 @@ arm9:
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: GetCurrentTeamNameString
       address:
+        EU: 0x2024F00
         NA: 0x2024C6C
+        JP: 0x2024CBC
       description: |-
         Returns the current team name with a check for special episodes and story progression. If the story
         has not progressed enough or the special episode is not for Team Charm, "???" will be displayed.
@@ -4586,6 +4789,7 @@ arm9:
         r1: src
     - name: StrncpyName
       address:
+        EU: 0x20255E0
         NA: 0x2025314
       description: |-
         A special version of strncpy for handling names. Appears to use character 0x7E as some kind of
@@ -4637,7 +4841,9 @@ arm9:
         return: string from the string files with the given message ID
     - name: CopyStringFromMessageId
       address:
+        EU: 0x2025BB0
         NA: 0x20258E4
+        JP: 0x20258C4
       description: |-
         Gets the string corresponding to a given message ID and copies it to the buffer specified in r0.
         
@@ -4679,22 +4885,35 @@ arm9:
         return: ?
     - name: IsAOrBPressed
       address:
+        EU: 0x20261CC
         NA: 0x2025EE8
+        JP: 0x2025FC0
       description: |-
         Checks if A or B is currently being held.
         
         return: bool
-    - name: NewDialogBox
+    - name: NewWindowScreenCheck
       address:
-        NA: 0x20276C0
+        NA: 0x2027648
       description: |-
-        Seems to return the ID of a newly initialized dialog box in the next available slot in DIALOG_BOX_LIST, given some starting information.
+        Calls NewWindow, with a pre-check for any valid existing windows in WINDOW_LIST on each screen.
         
-        If DIALOG_BOX_LIST is full, it will be overflowed, with the slot with an ID of 20 being initialized and returned.
-        
-        r0: dialog_box_hdr pointer to be copied by value into dialog_box::hdr in the new dialog box
+        r0: window_params (see NewWindow)
         r1: ?
-        return: dialog box ID
+        return: window_id
+    - name: NewWindow
+      address:
+        EU: 0x20279B4
+        NA: 0x20276C0
+        JP: 0x2027A20
+      description: |-
+        Seems to return the ID of a newly initialized window in the next available slot in WINDOW_LIST, given some starting information.
+        
+        If WINDOW_LIST is full, it will be overflowed, with the slot with an ID of 20 being initialized and returned.
+        
+        r0: window_params pointer to be copied by value into window::hdr in the new window
+        r1: ?
+        return: window_id
     - name: SetScreenWindowsColor
       address:
         EU: 0x2027D5C
@@ -4714,16 +4933,16 @@ arm9:
         Sets the palette of the frames of windows in both screens
         
         r0: palette index
-    - name: GetDialogBoxField0xC
+    - name: GetWindowContents
       address:
         EU: 0x2028630
         NA: 0x202833C
         JP: 0x202869C
       description: |-
-        Gets field_0xc from the dialog box of the given ID.
+        Gets the contents structure from the window with the given ID.
         
-        r0: dbox_id
-        return: field_0xc
+        r0: window_id
+        return: contents
     - name: LoadCursors
       address:
         EU: 0x2029800
@@ -4733,13 +4952,15 @@ arm9:
         Load and initialize the cursor and cursor16 sprites, storing the result in CURSOR_ANIMATION_CONTROL and CURSOR_16_ANIMATION_CONTROL
         
         No params.
-    - name: InitDialogBoxTrailer
+    - name: InitWindowTrailer
       address:
+        EU: 0x2029964
         NA: 0x2029670
+        JP: 0x20299C8
       description: |-
-        Seems to initialize a dialog_box_trailer within a new dialog_box.
+        Seems to initialize a window_trailer within a new window.
         
-        r0: dialog_box_trailer pointer
+        r0: window_trailer pointer
     - name: Arm9LoadUnkFieldNa0x2029EC8
       address:
         EU: 0x202A1BC
@@ -4782,23 +5003,59 @@ arm9:
         r1: X pos (unknown units, usually ranges between 3 and 27)
         r2: Y pos (unknown units, normally 14)
         r3: ?
-    - name: CreateNormalMenu
+    - name: CreateParentMenu
+      address:
+        NA: 0x202A75C
+      description: |-
+        Creates a window containing a simple textual menu with a list of options that might open submenus when selected. Also see struct simple_menu.
+        
+        Multiple levels of nesting is possible, i.e., a submenu could itself be a parent menu.
+        
+        This is used in various menus that lead to submenus. For example, the top-level ground and dungeon mode menus.
+        
+        r0: window_params
+        r1: ?
+        r2: ?
+        r3: ?
+        return: window_id
+    - name: UpdateParentMenu
+      address:
+        NA: 0x202ABFC
+      description: |-
+        Window update function for parent menus.
+        
+        r0: window pointer
+    - name: CreateSimpleMenuWrapper
       address:
         EU: 0x202B3E0
         NA: 0x202B0EC
         JP: 0x202B444
       description: |-
-        Creates a normal menu. If the pointer to a layout struct is null, has a default menu to fall back
-        on. A NULL additional_menu_info struct pointer works so long as the window does not have any of the
-        flags set for the information contained inside.
+        A wrapper around CreateSimpleMenu, with a more convenient interface for defining menu options.
         
-        r0: layout_struct_ptr
+        r0: window_params
         r1: menu_flags
         r2: additional_menu_info struct
-        r3: normal_menu_option struct array
+        r3: simple_menu_option struct array
         stack[0]: option_id
-        return: menu_id
-    - name: FreeNormalMenu
+        return: window_id
+    - name: CreateSimpleMenu
+      address:
+        NA: 0x202B284
+      description: |-
+        Creates a window containing a simple textual menu with a list of options. Also see struct simple_menu.
+        
+        If the pointer to window_params is null, has a default menu to fall back on. A NULL additional_menu_info struct pointer works so long as the window does not have any of the flags set for the information contained inside.
+        
+        This is used in lots of places. For example, some simple Yes/No prompts.
+        
+        r0: window_params
+        r1: menu_flags
+        r2: additional_menu_info struct
+        r3: some string with menu options?
+        stack[0]: option_id
+        return: window_id
+    - name: FreeSimpleMenu
       address:
         EU: 0x202B7B8
         NA: 0x202B4C4
@@ -4806,8 +5063,8 @@ arm9:
       description: |-
         Note: unverified, ported from Irdkwia's notes
         
-        r0: menu_id
-    - name: IsNormalMenuActive
+        r0: window_id
+    - name: IsSimpleMenuActive
       address:
         EU: 0x202B7E4
         NA: 0x202B4F0
@@ -4815,9 +5072,9 @@ arm9:
       description: |-
         Note: unverified, ported from Irdkwia's notes
         
-        r0: menu_id
+        r0: window_id
         return: bool
-    - name: GetNormalMenuResult
+    - name: GetSimpleMenuResult
       address:
         EU: 0x202B870
         NA: 0x202B57C
@@ -4825,26 +5082,34 @@ arm9:
       description: |-
         Note: unverified, ported from Irdkwia's notes
         
-        r0: menu_id
+        r0: window_id
         return: ?
+    - name: UpdateSimpleMenu
+      address:
+        NA: 0x202B5C8
+      description: |-
+        Window update function for simple menus.
+        
+        r0: window pointer
     - name: CreateAdvancedMenu
       address:
         EU: 0x202BD14
         NA: 0x202BA20
         JP: 0x202BD78
       description: |-
-        Creates a menu with multiple pages (if needed) that can be flipped through. If the layout struct
-        is null, has a default layout to fall back on. The entry function is used to get the strings for
-        all currently available options, so when the page is flipped the entry function is used to get the
-        strings for the entries on the other page?
+        Creates a window containing a textual menu with complex layout and functionality (e.g., paging through multiple pages). Also see struct advanced_menu.
         
-        r0: layout_struct_ptr
+        If window_params is null, has a default layout to fall back on. The entry function is used to get the strings for all currently available options, so when the page is flipped the entry function is used to get the strings for the entries on the other page?
+        
+        This is used for menus like the IQ skills menu, and the dungeon selection menu from the overworld crossroads. Curiously, it's also used in some non-interactive contexts like the Adventure Log.
+        
+        r0: window_params
         r1: menu_flags
         r2: additional_menu_info struct
         r3: entry_function
         stack[0]: nb_options
         stack[1]: nb_opt_per_page
-        return: menu_id
+        return: window_id
     - name: FreeAdvancedMenu
       address:
         EU: 0x202BF38
@@ -4853,7 +5118,7 @@ arm9:
       description: |-
         Note: unverified, ported from Irdkwia's notes
         
-        r0: menu_id
+        r0: window_id
     - name: IsAdvancedMenuActive
       address:
         EU: 0x202BFD0
@@ -4862,7 +5127,7 @@ arm9:
       description: |-
         Note: unverified, ported from Irdkwia's notes
         
-        r0: menu_id
+        r0: window_id
         return: bool
     - name: GetAdvancedMenuCurrentOption
       address:
@@ -4872,7 +5137,7 @@ arm9:
       description: |-
         Note: unverified, ported from Irdkwia's notes
         
-        r0: menu_id
+        r0: window_id
         return: ?
     - name: GetAdvancedMenuResult
       address:
@@ -4882,19 +5147,141 @@ arm9:
       description: |-
         Note: unverified, ported from Irdkwia's notes
         
-        r0: menu_id
+        r0: window_id
         return: ?
-    - name: CreateDBox
+    - name: UpdateAdvancedMenu
+      address:
+        NA: 0x202BD64
+      description: |-
+        Window update function for advanced menus.
+        
+        r0: window pointer
+    - name: CreateCollectionMenu
+      address:
+        NA: 0x202C3A8
+      description: |-
+        Creates a window containing a menu for manipulating a collection of objects, with complex layout and functionality (e.g., paging). Also see struct collection_menu.
+        
+        Collection menus seem similar to advanced menus, but are used for certain menus involving item management (Kangaskhan Storage, Kecleon shop, Croagunk Swap Shop), missions (job selection, bulletin board), and possibly other things.
+        
+        r0: window_params
+        r1: ?
+        r2: ?
+        r3: some function pointer?
+        stack[0]: ?
+        stack[1]: ?
+        stack[2]: ?
+        return: window_id
+    - name: UpdateCollectionMenu
+      address:
+        NA: 0x202C808
+      description: |-
+        Window update function for collection menus.
+        
+        r0: window pointer
+    - name: CreateOptionsMenu
+      address:
+        NA: 0x202D1F0
+      description: |-
+        Creates a window containing a menu controlling game options. Also see struct options_menu.
+        
+        This is used for the options and window options menus, and possibly other things.
+        
+        r0: window_params
+        r1: ?
+        r2: ?
+        r3: ?
+        stack[0]: ?
+        stack[1]: ?
+        return: window_id
+    - name: UpdateOptionsMenu
+      address:
+        NA: 0x202D618
+      description: |-
+        Window update function for options menus.
+        
+        r0: window pointer
+    - name: CreateDebugMenu
+      address:
+        NA: 0x202DC50
+      description: |-
+        Creates a window containing the debug menu (probably). Also see struct debug_menu.
+        
+        This is an educated guess, since this function references string IDs of debug menu strings.
+        
+        See enum debug_flag and enum debug_log_flag.
+        
+        r0: window_params
+        r1: ?
+        r2: ?
+        r3: ?
+        stack[0]: ?
+        stack[1]: ?
+        return: window_id
+    - name: UpdateDebugMenu
+      address:
+        NA: 0x202DF98
+      description: |-
+        Window update function for debug menus.
+        
+        r0: window pointer
+    - name: CreateScrollBox1
+      address:
+        NA: 0x202E3CC
+      description: |-
+        Creates a text window that scrolls vertically on overflow. Also see struct scroll_box.
+        
+        This includes things like descriptions for items and moves.
+        
+        It's unclear how this function differs from CreateScrollBox2.
+        
+        r0: window_params
+        r1: ?
+        r2: ?
+        r3: ?
+        stack[0]: ?
+        stack[1]: ?
+        stack[2]: ?
+        return: window_id
+    - name: CreateScrollBox2
+      address:
+        NA: 0x202E518
+      description: |-
+        Creates a text window that scrolls vertically on overflow. Also see struct scroll_box.
+        
+        This includes things like descriptions for items and moves.
+        
+        It's unclear how this function differs from CreateScrollBox1.
+        
+        r0: window_params
+        r1: ?
+        r2: ?
+        r3: ?
+        stack[0]: ?
+        stack[1]: ?
+        stack[2]: ?
+        stack[3]: ?
+        return: window_id
+    - name: UpdateScrollBox
+      address:
+        NA: 0x202E708
+      description: |-
+        Window update function for scroll boxes.
+        
+        r0: window pointer
+    - name: CreateDialogueBox
       address:
         EU: 0x202F3A4
         NA: 0x202F0B0
         JP: 0x202F3F4
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Creates a window containing text that is gradually revealed via scrolling, and pages on overflow. Also see struct dialogue_box.
         
-        r0: layout_struct_ptr
-        return: dbox_id
-    - name: FreeDBox
+        This is primarily used for character dialogue, hence the name. However, it can also be used for other types of messages. The defining feature of this window type is the scrolling/paging behavior.
+        
+        r0: window_params
+        return: window_id
+    - name: FreeDialogueBox
       address:
         EU: 0x202F43C
         NA: 0x202F148
@@ -4902,8 +5289,8 @@ arm9:
       description: |-
         Note: unverified, ported from Irdkwia's notes
         
-        r0: dbox_id
-    - name: IsDBoxActive
+        r0: window_id
+    - name: IsDialogueBoxActive
       address:
         EU: 0x202F474
         NA: 0x202F180
@@ -4911,9 +5298,9 @@ arm9:
       description: |-
         Note: unverified, ported from Irdkwia's notes
         
-        r0: dbox_id
+        r0: window_id
         return: bool
-    - name: ShowMessageInDBox
+    - name: ShowMessageInDialogueBox
       address:
         EU: 0x202F4A8
         NA: 0x202F1B4
@@ -4921,21 +5308,23 @@ arm9:
       description: |-
         Preprocesses the corresponding string_id message in the text file and puts it into the dialogue box.
         
-        r0: dbox_id
+        r0: window_id
         r1: preprocessor flags (see PreprocessString)
         r2: string_id
         r3: pointer to preprocessor args (see PreprocessString)
-    - name: ShowStringInDBox
+    - name: ShowStringInDialogueBox
       address:
+        EU: 0x202F530
         NA: 0x202F23C
+        JP: 0x202F580
       description: |-
         Preprocesses the passed string and puts it into the dialogue box.
         
-        r0: dbox_id
+        r0: window_id
         r1: preprocessor flags (see PreprocessString)
         r2: string
         r3: pointer to preprocessor args (see PreprocessString)
-    - name: ShowDBox
+    - name: ShowDialogueBox
       address:
         EU: 0x202F698
         NA: 0x202F3A4
@@ -4943,19 +5332,28 @@ arm9:
       description: |-
         Note: unverified, ported from Irdkwia's notes
         
-        r0: dbox_id
+        r0: window_id
+    - name: UpdateDialogueBox
+      address:
+        NA: 0x202F488
+      description: |-
+        Window update function for dialogue boxes.
+        
+        r0: window pointer
     - name: CreatePortraitBox
       address:
         EU: 0x202F8A0
         NA: 0x202F5AC
         JP: 0x202F8F0
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Creates a window containing a character portrait. Also see struct portrait_box.
         
-        r0: ???
-        r1: ???
-        r2: ???
-        return: dbox_id
+        This is commonly paired with a dialogue box, but can also be used standalone.
+        
+        r0: screen index
+        r1: palette_idx
+        r2: framed
+        return: window_id
     - name: FreePortraitBox
       address:
         EU: 0x202F944
@@ -4964,7 +5362,7 @@ arm9:
       description: |-
         Note: unverified, ported from Irdkwia's notes
         
-        r0: dbox_id
+        r0: window_id
     - name: ShowPortraitBox
       address:
         EU: 0x202F984
@@ -4973,7 +5371,7 @@ arm9:
       description: |-
         Note: unverified, ported from Irdkwia's notes
         
-        r0: dbox_id
+        r0: window_id
         r1: portrait box pointer
     - name: HidePortraitBox
       address:
@@ -4983,7 +5381,173 @@ arm9:
       description: |-
         Note: unverified, ported from Irdkwia's notes
         
-        r0: dbox_id
+        r0: window_id
+    - name: UpdatePortraitBox
+      address:
+        NA: 0x202F70C
+      description: |-
+        Window update function for portrait boxes.
+        
+        r0: window pointer
+    - name: CreateTextBox1
+      address:
+        NA: 0x202F8C4
+      description: |-
+        Calls CreateTextBoxInternal, sets field_0x4 to the argument in r1, and returns the window_id.
+        
+        r0: window_params
+        r1: ?
+        return: window_id
+    - name: CreateTextBox2
+      address:
+        NA: 0x202F8DC
+      description: |-
+        Calls CreateTextBoxInternal, sets field_0x8 and field_0x14 to the arguments in r1 and r2, respectively, and returns the window_id.
+        
+        r0: window_params
+        r1: ?
+        r2: ?
+        return: window_id
+    - name: CreateTextBoxInternal
+      address:
+        NA: 0x202F9DC
+      description: |-
+        Creates a window containing simple text, without much advanced functionality. Also see struct text_box.
+        
+        r0: window_params
+        return: text_box pointer
+    - name: UpdateTextBox
+      address:
+        NA: 0x202FA5C
+      description: |-
+        Window update function for text boxes.
+        
+        r0: window pointer
+    - name: CreateDynamicTextBox
+      address:
+        NA: 0x202FBBC
+      description: |-
+        Creates a window containing dynamically determined text (probably?). Also see struct dynamic_text_box.
+        
+        This is used for the "area name" text box in the top-level menus in ground/dungeon mode.
+        
+        r0: window_params
+        r1: ?
+        r2: ?
+        r3: ID (for preprocessor_args)
+        return: window_id
+    - name: UpdateDynamicTextBox
+      address:
+        NA: 0x202FD8C
+      description: |-
+        Window update function for dynamic text boxes.
+        
+        r0: window pointer
+    - name: CreateControlsChart
+      address:
+        NA: 0x202FE2C
+      description: |-
+        Creates a window containing a chart of player controls for some context. Also see struct controls_chart.
+        
+        This is usually used for static top-screen control reference charts.
+        
+        r0: window_params
+        r1: ?
+        r2: ?
+        r3: ?
+        return: window_id
+    - name: UpdateControlsChart
+      address:
+        NA: 0x202FF10
+      description: |-
+        Window update function for controls charts.
+        
+        r0: window pointer
+    - name: CreateAlertBox
+      address:
+        NA: 0x202FFB0
+      description: |-
+        Creates a window containing text that will disappear after a certain amount of time. Also see struct alert_box.
+        
+        This is only used in dungeon mode, for the "popup alert" messages about things happening in the dungeon (which will also be accessible in the message logs).
+        
+        r0: window_params
+        return: window_id
+    - name: UpdateAlertBox
+      address:
+        NA: 0x2030274
+      description: |-
+        Window update function for alert boxes.
+        
+        r0: window pointer
+    - name: CreateAdvancedTextBox1
+      address:
+        NA: 0x20305B4
+      description: |-
+        Calls CreateAdvancedTextBoxInternal(r0, r1, r2, stack[0]), sets field_0x1a4 to the argument in r3, and returns the window_id.
+        
+        r0: window_params
+        r1: ?
+        r2: ?
+        r3: ?
+        stack[0]: ?
+        return: window_id
+    - name: CreateAdvancedTextBox2
+      address:
+        NA: 0x20305E4
+      description: |-
+        Calls CreateAdvancedTextBoxInternal(r0, r1, r2, stack[1]), setsfield_0x1a8 and field_0x1ac to the argument in r3 and stack[0],respectively, and returns the window_id.
+        
+        r0: window_params
+        r1: ?
+        r2: ?
+        r3: ?
+        stack[0]: ?
+        stack[1]: ?
+        return: window_id
+    - name: CreateAdvancedTextBoxInternal
+      address:
+        NA: 0x203061C
+      description: |-
+        Creates a window containing text formatted in complex, potentially sectioned layouts. Also see struct advanced_text_box.
+        
+        This is usually used to display text with "pretty" formatting in certain contexts, such as the message log, the move selection menu, team member summaries, etc.
+        
+        r0: window_params
+        r1: ?
+        r2: ?
+        r3: ?
+        stack[0]: ?
+        return: advanced_text_box pointer
+    - name: UpdateAdvancedTextBox
+      address:
+        NA: 0x2030AE8
+      description: |-
+        Window update function for advanced text boxes.
+        
+        r0: window pointer
+    - name: CreateTeamSelectionMenu
+      address:
+        NA: 0x2030F44
+      description: |-
+        Creates a window containing a menu for selecting a single team member. Also see struct simple_menu.
+        
+        This appears to be used for various shop (and shop-like) interfaces when a single team member needs to be selected. For example, the Electivire Link Shop, the Chimecho Assembly, the Croagunk Swap Shop, and Luminous Spring. It's unknown if this is used for other contexts besides team member selection.
+        
+        r0: window_params
+        r1: ?
+        r2: ?
+        r3: some function pointer?
+        stack[0]: ?
+        stack[1]: ?
+        return: window_id
+    - name: UpdateTeamSelectionMenu
+      address:
+        NA: 0x203123C
+      description: |-
+        Window update function for team selection menus.
+        
+        r0: window pointer
     - name: IsMenuOptionActive
       address:
         EU: 0x2032768
@@ -4994,6 +5558,16 @@ arm9:
         
         r0: ?
         return: True if the menu option is enabled, false otherwise.
+    - name: PlayMenuOptionSound
+      address:
+        EU: 0x2032C54
+        NA: 0x2032960
+        JP: 0x2032C80
+      description: |-
+        Plays a "beep" sound when choosing a menu option.
+        
+        r0: ?
+        r1: Some kind of index used to determine the ID of the sound to play
     - name: ShowKeyboard
       address:
         EU: 0x2036AE4
@@ -5066,7 +5640,9 @@ arm9:
         r0: bool
     - name: InitSpecialEpisodeHero
       address:
+        EU: 0x2048804
         NA: 0x20484E8
+        JP: 0x2048854
       description: |-
         Removes/invalidates the special episode member slots, zero inits the special episode treasure bag, zero inits the
         special episode Kecleon shops, zero inits VAR_WORLD_MAP_MARK_LIST_SPECIAL, sets VAR_SPECIAL_EPISODE_OPEN_OLD for
@@ -5370,7 +5946,9 @@ arm9:
         return: true if values are equal, false otherwise
     - name: EventFlagResume
       address:
+        EU: 0x204C2F8
         NA: 0x204BFC0
+        JP: 0x204C320
       description: |-
         Restores BACKUP event flag script variables (see the code for an exhaustive list) to their
         respective script variables, but only in certain game modes.
@@ -6505,7 +7083,9 @@ arm9:
         return: Rank
     - name: GetRankStorageSize
       address:
+        EU: 0x205101C
         NA: 0x2050CE4
+        JP: 0x2051034
       description: |-
         Gets the size of storage for the current rank.
         
@@ -7206,8 +7786,6 @@ arm9:
         Base Formula = ((Level-1)*ExpYield)//10+ExpYield
         Note: Defeating an enemy without using a move will divide this amount by 2
         
-        Note: unverified, ported from Irdkwia's notes
-        
         r0: id
         r1: level
         return: exp
@@ -7807,21 +8385,27 @@ arm9:
         return: bool
     - name: RemoveActiveMembersFromAllTeams
       address:
+        EU: 0x2056444
         NA: 0x20560C8
+        JP: 0x2056464
       description: |-
         Removes all of the active monsters on every type of team from the team member table.
         
         No params.
     - name: RemoveActiveMembersFromSpecialEpisodeTeam
       address:
+        EU: 0x20564D4
         NA: 0x2056158
+        JP: 0x20564F4
       description: |-
         Removes the active monsters on the Special Episode Team from the team member table.
         
         No params.
     - name: RemoveActiveMembersFromRescueTeam
       address:
+        EU: 0x205653C
         NA: 0x20561C0
+        JP: 0x205655C
       description: |-
         Removes the active monsters on the Rescue Team from the team member table.
         
@@ -7881,6 +8465,7 @@ arm9:
       address:
         EU: 0x2056AD0
         NA: 0x2056754
+        JP: 0x2056AF0
       description: |-
         Attempts to add a monster from the team member table to the active team.
         
@@ -7892,6 +8477,7 @@ arm9:
       address:
         EU: 0x2056CDC
         NA: 0x2056960
+        JP: 0x2056CFC
       description: |-
         Removes the active monsters on the Main Team from the team member table.
         
@@ -7970,7 +8556,9 @@ arm9:
         return: bool
     - name: GetUnlockedTactics
       address:
+        EU: 0x2058FC8
         NA: 0x2058C4C
+        JP: 0x2058F48
       description: |-
         Returns an array with all the enabled tactics. TACTIC_NONE is used to fill the empty/unused entries
         in the array.
@@ -7979,7 +8567,9 @@ arm9:
         r1: Monster level
     - name: GetUnlockedTacticFlags
       address:
+        EU: 0x2059018
         NA: 0x2058C9C
+        JP: 0x2058F98
       description: |-
         Returns an array with an entry for each tactic and if they're unlocked at the passed level.
         
@@ -8045,14 +8635,18 @@ arm9:
         return: IQ skill ID
     - name: DisableAllIqSkills
       address:
+        EU: 0x2059208
         NA: 0x2058E8C
+        JP: 0x2059188
       description: |-
         Disables all IQ skills in the bitarray.
         
         r0: Pointer to the bitarray containing the list of enabled IQ skills
     - name: EnableAllLearnableIqSkills
       address:
+        EU: 0x205922C
         NA: 0x2058EB0
+        JP: 0x20591AC
       description: |-
         Attempts to enable all the IQ skills available to the monster. If there are incompatible IQ skils,
         the one with the highest ID will be activated while the others will be inactivated.
@@ -8084,7 +8678,9 @@ arm9:
         return: ID of the next skill learned by the monster, or IQ_NONE if the monster won't learn any more skills.
     - name: GetExplorerMazeTeamName
       address:
+        EU: 0x20593DC
         NA: 0x2059060
+        JP: 0x205935C
       description: |-
         Returns the name of the explorer maze team. If the language of the team name is different from the
         language of selected in this game a default team name is written to the buffer instead.
@@ -8167,7 +8763,9 @@ arm9:
         return: evo_status
     - name: CopyTacticString
       address:
+        EU: 0x205A7AC
         NA: 0x205A430
+        JP: 0x205A72C
       description: |-
         Gets the string corresponding to a given message ID and copies it to the buffer specified in r0.
         
@@ -8177,7 +8775,9 @@ arm9:
         r1: tactic_id
     - name: GetStatBoostsForMonsterSummary
       address:
+        EU: 0x205A7CC
         NA: 0x205A450
+        JP: 0x205A74C
       description: |-
         Gets the stat boosts from held items, exclusive items, and iq skills and stores them into the
         monster_summary struct.
@@ -8189,7 +8789,9 @@ arm9:
         stack[0]: bool if Klutz is active
     - name: CreateMonsterSummaryFromTeamMember
       address:
+        EU: 0x205B1A4
         NA: 0x205AE28
+        JP: 0x205B128
       description: |-
         Creates a snapshot of the condition of a team_member struct in a monster_summary struct.
         
@@ -8469,7 +9071,9 @@ arm9:
         return: storage ID
     - name: SetActorTalkMainAndActorTalkSub
       address:
+        EU: 0x2065EB8
         NA: 0x2065B3C
+        JP: 0x2065E24
       description: |-
         Sets ACTOR_TALK_MAIN and ACTOR_TALK_SUB to given actor IDs.
         
@@ -8562,6 +9166,17 @@ arm9:
         
         r0: Dungeon ID
         return: Dungeon mode
+    - name: ReadWaviEntry
+      address:
+        EU: 0x206D8F0
+        NA: 0x206D558
+        JP: 0x206D840
+      description: |-
+        Reads an entry from the pointer table of a wavi container and returns a pointer to the data of said entry, which contains information about a particular sample.
+        
+        r0: Wavi data struct
+        r1: Entry index
+        retrun: Pointer to the entry's data
     - name: ResumeBgm
       address:
         EU: 0x206DD54
@@ -8571,18 +9186,39 @@ arm9:
         Uncertain.
         
         Note: unverified, ported from Irdkwia's notes
+    - name: FindSmdlSongChunk
+      address:
+        EU: 0x206E880
+        NA: 0x206E4E8
+        JP: 0x206E7D0
+      description: |-
+        Finds the first song chunk within an SMDL file that has the specified value on its 0x10 field.
+        
+        See https://projectpokemon.org/home/docs/mystery-dungeon-nds/dse-smdl-format-r13/.
+        
+        r0: Pointer to the start of the SMDL file
+        r1: Value to search for
+        return: Pointer to the first chunk that has the specified value + 0x10, or null if no chunk was found.
     - name: FlushChannels
       address:
         EU: 0x2070A0C
         NA: 0x2070674
         JP: 0x207095C
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: ParseDseEvents
+    - name: ParseDseEvent
       address:
         EU: 0x20715BC
         NA: 0x2071224
         JP: 0x207150C
-      description: "From https://projectpokemon.org/docs/mystery-dungeon-nds/procyon-studios-digital-sound-elements-r12/"
+      description: |-
+        Parses and executes a DSE event for the specified track, if necessary.
+        
+        The function checks the time left before the next event (track_data::event_delay), and parses it if said time is 0.
+        
+        See also https://projectpokemon.org/docs/mystery-dungeon-nds/procyon-studios-digital-sound-elements-r12/
+        
+        r0: Pointer to some struct that seems to hold the state of the audio engine
+        r1: Pointer to track data
     - name: UpdateSequencerTracks
       address:
         EU: 0x2071780
@@ -8624,7 +9260,9 @@ arm9:
         r0: vram_banks_set *
     - name: GeomMtxLoad4x3
       address:
+        EU: 0x2077B24
         NA: 0x207778C
+        JP: 0x2077A74
       description: |-
         Send the MTX_LOAD_4x3 geometry engine command, through a GXFIFO command. See https://problemkaputt.de/gbatek.htm#ds3dgeometrycommands and https://problemkaputt.de/gbatek.htm#ds3dmatrixloadmultiply for more information.
         
@@ -8633,7 +9271,9 @@ arm9:
         r0: matrix_4x3 pointer
     - name: GeomMtxMult4x3
       address:
+        EU: 0x2077B40
         NA: 0x20777A8
+        JP: 0x2077A90
       description: |-
         Send the MTX_MULT_4x3 geometry engine command, through a GXFIFO command. See https://problemkaputt.de/gbatek.htm#ds3dgeometrycommands and https://problemkaputt.de/gbatek.htm#ds3dmatrixloadmultiply for more information.
         
@@ -8642,7 +9282,9 @@ arm9:
         r0: matrix_4x3 pointer
     - name: GeomGxFifoSendMtx4x3
       address:
+        EU: 0x2078C58
         NA: 0x20788C0
+        JP: 0x2078BA8
       description: |-
         Send a 4x3 matrix argument for a GXFIFO geometry engine command.
         
@@ -8652,6 +9294,15 @@ arm9:
         
         r0: matrix_4x3 pointer
         r1: GXFIFO pointer
+    - name: GetTimer0Control
+      address:
+        EU: 0x207B27C
+        NA: 0x207AEE4
+        JP: 0x207B1CC
+      description: |-
+        Returns the value of the control register for hardware timer 0
+        
+        return: Value of the control register
     - name: ClearIrqFlag
       address:
         EU: 0x207BB68
@@ -8708,6 +9359,17 @@ arm9:
         Gets the current value of the processor's interrupt request (i) flag
         
         return: cpsr & 0x80 (0x80 if interrupts are disabled, 0x0 if they are enabled)
+    - name: GetProcessorMode
+      address:
+        EU: 0x207BBE0
+        NA: 0x207B848
+        JP: 0x207BB30
+      description: |-
+        Gets the processor's current operating mode.
+        
+        See https://problemkaputt.de/gbatek.htm#armcpuflagsconditionfieldcond
+        
+        return: cpsr & 0x1f (the cpsr mode bits M4-M0)
     - name: WaitForever2
       address:
         EU: 0x207BFB8
@@ -8732,7 +9394,9 @@ arm9:
         No params.
     - name: ArrayFill16
       address:
+        EU: 0x207C650
         NA: 0x207C2B8
+        JP: 0x207C5A0
       description: |-
         Fills an array of 16-bit values with a given value.
         
@@ -8741,7 +9405,9 @@ arm9:
         r2: len (# bytes)
     - name: ArrayCopy16
       address:
+        EU: 0x207C678
         NA: 0x207C2E0
+        JP: 0x207C5C8
       description: |-
         Copies an array of 16-bit values to another array of 16-bit values.
         
@@ -8752,7 +9418,9 @@ arm9:
         r2: len (# bytes)
     - name: ArrayFill32
       address:
+        EU: 0x207C6AC
         NA: 0x207C314
+        JP: 0x207C5FC
       description: |-
         Fills an array of 32-bit values with a given value.
         
@@ -8763,7 +9431,9 @@ arm9:
         r2: len (# bytes)
     - name: ArrayCopy32
       address:
+        EU: 0x207C6C8
         NA: 0x207C330
+        JP: 0x207C618
       description: |-
         Copies an array of 32-bit values to another array of 32-bit values.
         
@@ -8774,7 +9444,9 @@ arm9:
         r2: len (# bytes)
     - name: ArrayFill32Fast
       address:
+        EU: 0x207C6F0
         NA: 0x207C358
+        JP: 0x207C640
       description: |-
         Does the same thing as ArrayFill32, except the implementation uses an unrolled loop that sets 8 values per iteration, taking advantage of the stmia instruction.
         
@@ -8783,7 +9455,9 @@ arm9:
         r2: len (# bytes)
     - name: ArrayCopy32Fast
       address:
+        EU: 0x207C74C
         NA: 0x207C3B4
+        JP: 0x207C69C
       description: |-
         Does the same thing as ArrayCopy32, except the implementation uses an unrolled loop that copies 8 values per iteration, taking advantage of the ldmia/stmia instructions.
         
@@ -8792,7 +9466,9 @@ arm9:
         r2: len (# bytes)
     - name: MemsetFast
       address:
+        EU: 0x207C7A4
         NA: 0x207C40C
+        JP: 0x207C6F4
       description: |-
         A semi-optimized implementation of the memset(3) C library function.
         
@@ -8807,6 +9483,7 @@ arm9:
       address:
         EU: 0x207C860
         NA: 0x207C4C8
+        JP: 0x207C7B0
       description: |-
         Copies bytes from one buffer to another, similar to memcpy(3). Note that the source/destination buffer parameters swapped relative to the standard memcpy.
         
@@ -8819,7 +9496,9 @@ arm9:
         r2: n (# bytes)
     - name: AtomicExchange
       address:
+        EU: 0x207C9E0
         NA: 0x207C648
+        JP: 0x207C930
       description: |-
         Atomically replaces a pointer's pointee with a desired value, and returns the previous value.
         
@@ -8843,6 +9522,7 @@ arm9:
       address:
         EU: 0x2080034
         NA: 0x207FC9C
+        JP: 0x207FF84
       description: |-
         Returns the y9.bin entry for the specified overlay
         
@@ -8854,6 +9534,7 @@ arm9:
       address:
         EU: 0x2080130
         NA: 0x207FD98
+        JP: 0x2080080
       description: |-
         Called by LoadOverlay to load an overlay into RAM given its info struct
         
@@ -8863,6 +9544,7 @@ arm9:
       address:
         EU: 0x2080254
         NA: 0x207FEBC
+        JP: 0x20801A4
       description: |-
         Performs overlay initialization right after loading an overlay with LoadOverlayInternal.
         
@@ -9430,12 +10112,12 @@ arm9:
         EU: 0x4
         NA: 0x4
       description: "Maximum amount of money the player can store in the Duskull Bank, 9999999."
-    - name: DIALOG_BOX_LIST_PTR
+    - name: WINDOW_LIST_PTR
       address:
         NA: 0x2028350
       length:
         NA: 0x4
-      description: Hard-coded pointer to DIALOG_BOX_LIST.
+      description: Hard-coded pointer to WINDOW_LIST.
     - name: SCRIPT_VARS_VALUES_PTR
       address:
         EU:
