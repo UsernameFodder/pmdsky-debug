@@ -893,7 +893,7 @@ enum special_process_id {
     SPECIAL_PROC_RANDOMIZE_DEMO_ACTORS = 23,
     SPECIAL_PROC_0x18 = 24, // Equivalent to SPECIAL_PROC_JUMP_TO_TITLE_SCREEN
     SPECIAL_PROC_JUMP_TO_TITLE_SCREEN = 25,
-    SPECIAL_PROC_0x1A = 26, // Possibly jumps to the menu version of the title screen?
+    SPECIAL_PROC_0x1A = 26, // Possibly jumps to the demo version of the title screen?
     SPECIAL_PROC_RETURN_TO_TITLE_SCREEN = 27,
     SPECIAL_PROC_IS_RECRUITABLE_IN_TEAM = 28,
     SPECIAL_PROC_GET_RECRUITABLE_CURRENT_LEVEL = 29,
