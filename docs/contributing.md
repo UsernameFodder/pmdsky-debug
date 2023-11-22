@@ -1,5 +1,5 @@
 # Contributing to `pmdsky-debug`
-Contributions are welcome, no matter how small! This can be new symbols, new type definitions, changes to `resymgen`, bug fixes, documentation, etc. Make sure add yourself to [`CREDITS.txt`](../CREDITS.txt) if you're a new contributor!
+Contributions are welcome, no matter how small! This can be new symbols, new type definitions, changes to `resymgen`, bug fixes, documentation, etc. Make sure to add yourself to [`CREDITS.txt`](../CREDITS.txt) if you're a new contributor!
 
 You can contribute by opening a pull request. If you've never done this before, [this tutorial](https://github.com/firstcontributions/first-contributions/blob/main/README.md) is a friendly introduction to the process. You can also follow GitHub's official [quickstart guide](https://docs.github.com/en/get-started/quickstart/contributing-to-projects), if you prefer.
 
