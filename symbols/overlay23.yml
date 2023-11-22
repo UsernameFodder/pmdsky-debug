@@ -16,18 +16,21 @@ overlay23:
   data:
     - name: OVERLAY23_UNKNOWN_VALUE__NA_238D2E8
       address:
+        EU: 0x238DE28
         NA: 0x238D2E8
       length:
         NA: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY23_UNKNOWN_VALUE__NA_238D2EC
       address:
+        EU: 0x238DE2C
         NA: 0x238D2EC
       length:
         NA: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY23_UNKNOWN_STRUCT__NA_238D2F0
       address:
+        EU: 0x238DE30
         NA: 0x238D2F0
       length:
         NA: 0xC
@@ -103,30 +106,35 @@ overlay23:
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: STORAGE_D_BOX_LAYOUT_4
       address:
+        EU: 0x238DF38
         NA: 0x238D3F8
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: STORAGE_D_BOX_LAYOUT_5
       address:
+        EU: 0x238DF48
         NA: 0x238D408
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: STORAGE_D_BOX_LAYOUT_6
       address:
+        EU: 0x238DF58
         NA: 0x238D418
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: STORAGE_D_BOX_LAYOUT_7
       address:
+        EU: 0x238DF68
         NA: 0x238D428
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: STORAGE_D_BOX_LAYOUT_8
       address:
+        EU: 0x238DF78
         NA: 0x238D438
       length:
         NA: 0x10
@@ -139,6 +147,7 @@ overlay23:
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY23_UNKNOWN_POINTER__NA_238D8A0
       address:
+        EU: 0x238E3E0
         NA: 0x238D8A0
       length:
         NA: 0x4

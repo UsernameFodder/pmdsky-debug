@@ -101,6 +101,7 @@ overlay29:
           - 0x2305FB8
           - 0x2306630
           - 0x2308924
+          - 0x2308CA8
           - 0x23099E8
           - 0x230F364
           - 0x230FA7C
@@ -635,6 +636,13 @@ overlay29:
         r0: entity pointer
     - name: PlayEffectAnimation0x1A9
       address:
+        EU:
+          - 0x22E6AE0
+          - 0x22E6B2C
+          - 0x22E6B78
+          - 0x22E6BC4
+          - 0x22E6E74
+          - 0x22E6EC0
         NA:
           - 0x22E6130
           - 0x22E617C
@@ -811,6 +819,7 @@ overlay29:
         return: whether a tile was successfully found
     - name: FindClosestUnoccupiedTileWithin2
       address:
+        EU: 0x22EA3A0
         NA: 0x22E99F0
       description: |-
         Searches for the closest unoccupied tile within 2 steps of the given origin.
@@ -823,6 +832,7 @@ overlay29:
         return: whether a tile was successfully found
     - name: FindFarthestUnoccupiedTileWithin2
       address:
+        EU: 0x22EA3BC
         NA: 0x22E9A0C
       description: |-
         Searches for the farthest unoccupied tile within 2 steps of the given origin.
@@ -1986,6 +1996,7 @@ overlay29:
         r0: pointer to entity whose moves will be restored
     - name: CheckTeamMemberIdxVeneer
       address:
+        EU: 0x22FA64C
         NA: 0x22F9C40
       description: |-
         Likely a linker-generated veneer for CheckTeamMemberIdx.
@@ -1996,6 +2007,7 @@ overlay29:
         return: True if the value is equal to 0x55AA or 0x5AA5
     - name: IsMonsterIdInNormalRangeVeneer
       address:
+        EU: 0x22FA674
         NA: 0x22F9C68
       description: |-
         Likely a linker-generated veneer for IsMonsterIdInNormalRange.
@@ -6098,6 +6110,7 @@ overlay29:
         return: Room index
     - name: GetDefaultTileTextureId
       address:
+        EU: 0x2337020
         NA: 0x2336450
       description: |-
         Returns the texture_id of the default tile?
@@ -7383,6 +7396,7 @@ overlay29:
         return: bool
     - name: IsSecretBazaarVeneer
       address:
+        EU: 0x234511C
         NA: 0x2344538
       description: |-
         Likely a linker-generated veneer for IsSecretBazaar.
@@ -8798,6 +8812,7 @@ overlay29:
         Directions start with 0=down and proceed counterclockwise (see enum direction_id). Displacements for x and y are interleaved and encoded as 2-byte signed integers. For example, the first two integers are [0, 1], which correspond to the x and y displacements for the "down" direction (positive y means down).
     - name: DISPLACEMENTS_WITHIN_2_LARGEST_FIRST
       address:
+        EU: 0x23523E8
         NA: 0x23517DC
       length:
         NA: 0x68
@@ -8809,6 +8824,7 @@ overlay29:
         type: position[26]
     - name: DISPLACEMENTS_WITHIN_2_SMALLEST_FIRST
       address:
+        EU: 0x2352450
         NA: 0x2351844
       length:
         NA: 0x68
@@ -8820,6 +8836,7 @@ overlay29:
         type: position[26]
     - name: DISPLACEMENTS_WITHIN_3
       address:
+        EU: 0x23524B8
         NA: 0x23518AC
       length:
         NA: 0xC8
@@ -8873,36 +8890,42 @@ overlay29:
       description: The additional amount by which belly is decreased every turn when inside walls (fractional thousandths)
     - name: DAMAGE_MULTIPLIER_0_5
       address:
+        EU: 0x2353448
         NA: 0x235283C
       length:
         NA: 0x8
       description: "A generic damage multiplier of 0.5 used in various places, as a 64-bit fixed-point number with 16 fraction bits."
     - name: DAMAGE_MULTIPLIER_1_5
       address:
+        EU: 0x2353450
         NA: 0x2352844
       length:
         NA: 0x8
       description: "A generic damage multiplier of 1.5 used in various places, as a 64-bit fixed-point number with 16 fraction bits."
     - name: DAMAGE_MULTIPLIER_2
       address:
+        EU: 0x2353458
         NA: 0x235284C
       length:
         NA: 0x8
       description: "A generic damage multiplier of 2 used in various places, as a 64-bit fixed-point number with 16 fraction bits."
     - name: CLOUDY_DAMAGE_MULTIPLIER
       address:
+        EU: 0x2353468
         NA: 0x235285C
       length:
         NA: 0x8
       description: "The extra damage multiplier for non-Normal-type moves when the weather is Cloudy, as a 64-bit fixed-point number with 16 fraction bits (0.75)."
     - name: SOLID_ROCK_MULTIPLIER
       address:
+        EU: 0x2353470
         NA: 0x2352864
       length:
         NA: 0x8
       description: "The extra damage multiplier for super-effective moves when Solid Rock or Filter is active, as a 64-bit fixed-point number with 16 fraction bits (0.75)."
     - name: DAMAGE_FORMULA_MAX_BASE
       address:
+        EU: 0x2353478
         NA: 0x235286C
       length:
         NA: 0x8
@@ -8915,12 +8938,14 @@ overlay29:
       description: "The damage multiplier for moves affected by Wonder Guard, as a 64-bit fixed-point number with 16 fraction bits (0)."
     - name: DAMAGE_FORMULA_MIN_BASE
       address:
+        EU: 0x2353488
         NA: 0x235287C
       length:
         NA: 0x8
       description: "The minimum value of the base damage formula (after DAMAGE_FORMULA_NON_TEAM_MEMBER_MODIFIER application, if relevant), as a 64-bit binary fixed-point number with 16 fraction bits (1)."
     - name: TYPE_DAMAGE_NEGATING_EXCLUSIVE_ITEM_EFFECTS
       address:
+        EU: 0x23534B0
         NA: 0x23528A4
       length:
         NA: 0xE0
@@ -8954,6 +8979,7 @@ overlay29:
       description: "The index (0) of the attack entry in internal stat structs, such as the stat modifier array for a monster."
     - name: ROLLOUT_DAMAGE_MULT_TABLE
       address:
+        EU: 0x23536FC
         NA: 0x2352AF0
       length:
         NA: 0x28
@@ -8963,6 +8989,7 @@ overlay29:
         type: int32_t[10]
     - name: MAP_COLOR_TABLE
       address:
+        EU: 0x2353BDC
         NA: 0x2352FD0
       length:
         NA: 0x24
@@ -8987,20 +9014,23 @@ overlay29:
         Note that this array is only used for the cardinal directions. The elements at odd indexes are unused and unconditionally set to 0.
         
         This array is used by the dungeon generation algorithm when generating room imperfections. See GenerateRoomImperfections.
-    - name: GUMMI_LIKE_STRING_IDS
-      address:
-        NA: 0x23532D0
-      length:
-        NA: 0x8
-      description: List that holds the message IDs for how much a monster liked a gummi in decreasing order.
     - name: GUMMI_IQ_STRING_IDS
       address:
+        EU: 0x2353EE0
         NA: 0x23532D0
       length:
         NA: 0xA
       description: "List that holds the message IDs for how much a monster's IQ was raised by in decreasing order."
+    - name: GUMMI_LIKE_STRING_IDS
+      address:
+        EU: 0x2353EE0
+        NA: 0x23532D0
+      length:
+        NA: 0x8
+      description: List that holds the message IDs for how much a monster liked a gummi in decreasing order.
     - name: DAMAGE_STRING_IDS
       address:
+        EU: 0x2353F48
         NA: 0x2353330
       length:
         NA: 0x36
@@ -9071,6 +9101,7 @@ overlay29:
     - name: LOADED_ATTACK_SPRITE_FILE_INDEX
       address:
         EU: 0x23541AC
+        NA: 0x23535AC
       length:
         EU: 0x2
       description: |-

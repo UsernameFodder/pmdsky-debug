@@ -16,6 +16,7 @@ overlay20:
   data:
     - name: OVERLAY20_UNKNOWN_POINTER__NA_238CF7C
       address:
+        EU: 0x238DABC
         NA: 0x238CF7C
       length:
         NA: 0x8
@@ -67,42 +68,49 @@ overlay20:
         JP: 0x28
     - name: OVERLAY20_UNKNOWN_TABLE__NA_238D014
       address:
+        EU: 0x238DB54
         NA: 0x238D014
       length:
         NA: 0x14
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: RECYCLE_D_BOX_LAYOUT_1
       address:
+        EU: 0x238DB68
         NA: 0x238D028
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: RECYCLE_D_BOX_LAYOUT_2
       address:
+        EU: 0x238DB78
         NA: 0x238D038
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: RECYCLE_D_BOX_LAYOUT_3
       address:
+        EU: 0x238DB88
         NA: 0x238D048
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: RECYCLE_D_BOX_LAYOUT_4
       address:
+        EU: 0x238DB98
         NA: 0x238D058
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: RECYCLE_D_BOX_LAYOUT_5
       address:
+        EU: 0x238DBA8
         NA: 0x238D068
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: RECYCLE_D_BOX_LAYOUT_6
       address:
+        EU: 0x238DBB8
         NA: 0x238D078
       length:
         NA: 0x10
@@ -118,6 +126,7 @@ overlay20:
         JP: 0x20
     - name: RECYCLE_D_BOX_LAYOUT_7
       address:
+        EU: 0x238DBE8
         NA: 0x238D0A8
         JP: 0x238E604
       length:
@@ -126,6 +135,7 @@ overlay20:
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: RECYCLE_D_BOX_LAYOUT_8
       address:
+        EU: 0x238DBF8
         NA: 0x238D0B8
         JP: 0x238E614
       length:
@@ -134,6 +144,7 @@ overlay20:
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: RECYCLE_D_BOX_LAYOUT_9
       address:
+        EU: 0x238DC08
         NA: 0x238D0C8
         JP: 0x238E624
       length:
@@ -142,6 +153,7 @@ overlay20:
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: RECYCLE_D_BOX_LAYOUT1_0
       address:
+        EU: 0x238DC18
         NA: 0x238D0D8
         JP: 0x238E634
       length:
@@ -150,6 +162,7 @@ overlay20:
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: RECYCLE_D_BOX_LAYOUT1_1
       address:
+        EU: 0x238DC28
         NA: 0x238D0E8
         JP: 0x238E644
       length:
@@ -173,6 +186,7 @@ overlay20:
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY20_UNKNOWN_POINTER__NA_238D120
       address:
+        EU: 0x238DC60
         NA: 0x238D120
         JP: 0x238E680
       length:
@@ -181,6 +195,7 @@ overlay20:
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY20_UNKNOWN_POINTER__NA_238D124
       address:
+        EU: 0x238DC64
         NA: 0x238D124
         JP: 0x238E684
       length:
@@ -189,6 +204,7 @@ overlay20:
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY20_UNKNOWN_POINTER__NA_238D128
       address:
+        EU: 0x238DC68
         NA: 0x238D128
         JP: 0x238E688
       length:
@@ -197,6 +213,7 @@ overlay20:
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY20_UNKNOWN_POINTER__NA_238D12C
       address:
+        EU: 0x238DC6C
         NA: 0x238D12C
         JP: 0x238E68C
       length:

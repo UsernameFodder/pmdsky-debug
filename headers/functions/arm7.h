@@ -1,7 +1,7 @@
 #ifndef HEADERS_FUNCTIONS_ARM7_H_
 #define HEADERS_FUNCTIONS_ARM7_H_
 
-void EntryArm7(void);
+void _start_arm7(void);
 void NitroSpMain(void);
 void HardwareInterrupt(void);
 void ReturnFromInterrupt(void);

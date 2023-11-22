@@ -16,18 +16,21 @@ overlay27:
   data:
     - name: OVERLAY27_UNKNOWN_VALUE__NA_238C948
       address:
+        EU: 0x238D488
         NA: 0x238C948
       length:
         NA: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY27_UNKNOWN_VALUE__NA_238C94C
       address:
+        EU: 0x238D48C
         NA: 0x238C94C
       length:
         NA: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY27_UNKNOWN_STRUCT__NA_238C950
       address:
+        EU: 0x238D490
         NA: 0x238C950
       length:
         NA: 0xC
@@ -100,18 +103,21 @@ overlay27:
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DISCARD_D_BOX_LAYOUT_5
       address:
+        EU: 0x238D58C
         NA: 0x238CA4C
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DISCARD_D_BOX_LAYOUT_6
       address:
+        EU: 0x238D59C
         NA: 0x238CA5C
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DISCARD_D_BOX_LAYOUT_7
       address:
+        EU: 0x238D5AC
         NA: 0x238CA6C
       length:
         NA: 0x10
@@ -130,12 +136,14 @@ overlay27:
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY27_UNKNOWN_POINTER__NA_238CE80
       address:
+        EU: 0x238D9C0
         NA: 0x238CE80
       length:
         NA: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY27_UNKNOWN_POINTER__NA_238CE84
       address:
+        EU: 0x238D9C4
         NA: 0x238CE84
       length:
         NA: 0x4

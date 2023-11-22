@@ -485,6 +485,7 @@ overlay11:
         r1: direction
     - name: CreateTeamInfoBox
       address:
+        EU: 0x22FF834
         NA: 0x22FEE94
       description: |-
         Creates a window containing team information (rank and money carried) for the top-level menu in ground mode. Also see struct team_info_box.
@@ -492,6 +493,7 @@ overlay11:
         return: window_id
     - name: UpdateTeamInfoBox
       address:
+        EU: 0x22FF944
         NA: 0x22FEFA4
       description: |-
         Window update function for team info boxes.
@@ -575,12 +577,14 @@ overlay11:
         type: undefined4[40]
     - name: SCRIPT_COMMAND_PARSING_DATA
       address:
+        EU: 0x23174B8
         NA: 0x2316AD8
       length:
         NA: 0x20
       description: Used by ScriptCommandParsing somehow
     - name: SCRIPT_OP_CODE_NAMES
       address:
+        EU: 0x23174D8
         NA: 0x2316AF8
       length:
         NA: 0x1B18
@@ -602,12 +606,14 @@ overlay11:
         type: struct script_opcode_table
     - name: OVERLAY11_DEBUG_STRINGS
       address:
+        EU: 0x2319BE8
         NA: 0x2319208
       length:
         NA: 0x8E4
       description: Strings used with various debug printing functions throughout the overlay
     - name: C_ROUTINE_NAMES
       address:
+        EU: 0x231A4CC
         NA: 0x2319AEC
       length:
         NA: 0x2D3C
@@ -628,6 +634,7 @@ overlay11:
         type: struct common_routine_table
     - name: GROUND_WEATHER_TABLE
       address:
+        EU: 0x231E7F0
         NA: 0x231DE10
       length:
         NA: 0x30
