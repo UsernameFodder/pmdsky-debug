@@ -1986,7 +1986,7 @@ overlay29:
         r0: pointer to entity whose moves will be restored
     - name: CheckTeamMemberIdxVeneer
       address:
-        NA: 0x22F9C34
+        NA: 0x22F9C40
       description: |-
         Likely a linker-generated veneer for CheckTeamMemberIdx.
         
@@ -2466,7 +2466,7 @@ overlay29:
     - name: CannotStandOnTile
       address:
         EU: 0x23006C8
-        NA: 0x22FF764
+        NA: 0x22FFC9C
         JP: 0x2300B54
       description: |-
         Checks if a given monster cannot stand on a given tile.
@@ -2674,7 +2674,7 @@ overlay29:
     - name: CanMonsterMoveInDirection
       address:
         EU: 0x23018A4
-        NA: 0x230105C
+        NA: 0x2300E78
       description: |-
         Checks if the given monster can move in the specified direction
         
@@ -8842,7 +8842,7 @@ overlay29:
         Each entry is 2 bytes long.
     - name: FRACTIONAL_TURN_SEQUENCE
       address:
-        EU: 0x2352EC2
+        EU: 0x2352E90
         NA: 0x2352284
       length:
         EU: 0xFA

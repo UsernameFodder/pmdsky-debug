@@ -1428,7 +1428,7 @@ overlay10:
       description: "The default damage multiplier for SolarBeam, as a fixed-point number with 8 fraction bits (2)."
     - name: SKY_ATTACK_DAMAGE_MULTIPLIER
       address:
-        NA: 0x22C48B0
+        NA: 0x22C48A8
         JP: 0x22C5F90
       length:
         NA: 0x4
