@@ -3657,7 +3657,7 @@ arm9:
     - name: PlayBgmByIdVeneer
       address:
         EU: 0x2017BF4
-        NA: 0x2017BD4
+        NA: 0x2017B58
       description: |-
         Likely a linker-generated veneer for PlayBgmById.
         
@@ -3667,7 +3667,7 @@ arm9:
     - name: PlayBgmByIdVolumeVeneer
       address:
         EU: 0x2017C00
-        NA: 0x2017BE0
+        NA: 0x2017B64
       description: |-
         Likely a linker-generated veneer for PlayBgmByIdVolume.
         
@@ -3688,7 +3688,7 @@ arm9:
     - name: PlayBgmById
       address:
         EU: 0x2017E90
-        NA: 0x2018024
+        NA: 0x2017DF4
       description: |-
         Initializes some values and then calls SendAudioCommand to play a BGM track.
         
@@ -3698,7 +3698,7 @@ arm9:
     - name: PlayBgmByIdVolume
       address:
         EU: 0x2017F0C
-        NA: 0x20180A0
+        NA: 0x2017E70
         JP: 0x2017EC8
       description: |-
         Initializes some values and then calls SendAudioCommand to play a BGM track.
@@ -8413,7 +8413,7 @@ arm9:
     - name: CheckTeamMemberIdx
       address:
         EU: 0x20565E0
-        NA: 0x2056228
+        NA: 0x2056264
         JP: 0x20565C4
       description: |-
         Checks if a team member's member index (team_member::member_idx) is equal to certain values.
@@ -12125,7 +12125,7 @@ arm9:
       description: "Irdkwia's notes: 26*0x4, uses MISSION_FLOOR_RANKS_AND_ITEM_LISTS"
     - name: UNOWN_SPECIES_ADDITIONAL_CHAR_PTR_TABLE
       address:
-        EU: 0x20B12F4
+        EU: 0x20B131C
         NA: 0x20B09D8
         JP: 0x20B224C
       length:

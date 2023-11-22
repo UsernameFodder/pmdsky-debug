@@ -392,7 +392,7 @@ overlay11:
     - name: InitAnimDataFromOtherAnimDataVeneer
       address:
         EU: 0x22F78A8
-        NA: 0x22F6F0C
+        NA: 0x22F6F08
       description: |-
         Likely a linker-generated veneer for InitAnimDataFromOtherAnimData.
         
