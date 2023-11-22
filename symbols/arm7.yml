@@ -56,12 +56,12 @@ arm7:
         Once the memory mapping has been completed, a constant containing the address to NitroSpMain is loaded into a register (r1), and a `bx` branch will jump to NitroSpMain.
         
         No params.
-    - name: do_autoload
+    - name: do_autoload_arm7
       address:
         EU: 0x2380118
         NA: 0x2380118
         JP: 0x2380118
-    - name: StartAutoloadDoneCallback
+    - name: StartAutoloadDoneCallbackArm7
       address:
         EU: 0x2380188
         NA: 0x2380188
