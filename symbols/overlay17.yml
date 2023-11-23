@@ -16,30 +16,35 @@ overlay17:
   data:
     - name: ASSEMBLY_D_BOX_LAYOUT_1
       address:
+        EU: 0x238C674
         NA: 0x238BB34
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: ASSEMBLY_D_BOX_LAYOUT_2
       address:
+        EU: 0x238C684
         NA: 0x238BB44
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: ASSEMBLY_D_BOX_LAYOUT_3
       address:
+        EU: 0x238C694
         NA: 0x238BB54
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: ASSEMBLY_D_BOX_LAYOUT_4
       address:
+        EU: 0x238C6A4
         NA: 0x238BB64
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: ASSEMBLY_D_BOX_LAYOUT_5
       address:
+        EU: 0x238C6B4
         NA: 0x238BB74
       length:
         NA: 0x10
@@ -136,6 +141,7 @@ overlay17:
         JP: 0x40
     - name: OVERLAY17_FUNCTION_POINTER_TABLE
       address:
+        EU: 0x238C884
         NA: 0x238BD44
       length:
         NA: 0xA8
@@ -148,6 +154,7 @@ overlay17:
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY17_UNKNOWN_POINTER__NA_238BE00
       address:
+        EU: 0x238C940
         NA: 0x238BE00
       length:
         NA: 0x4

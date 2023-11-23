@@ -95,6 +95,7 @@ overlay14:
       description: No params.
     - name: SentryStateExit
       address:
+        EU: 0x238CF14
         NA: 0x238C3D4
       description: |-
         State 0x5: Exit (wraps SentrySetExitingState).
@@ -497,12 +498,14 @@ overlay14:
         JP: 0x48
     - name: SENTRY_DUTY_PTR
       address:
+        EU: 0x238E720
         NA: 0x238DB80
       length:
         NA: 0x4
       description: Pointer to the SENTRY_DUTY_STRUCT.
     - name: SENTRY_DUTY_STATE_HANDLER_TABLE
       address:
+        EU: 0x238E734
         NA: 0x238DB94
       length:
         NA: 0x8C

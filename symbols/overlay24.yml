@@ -16,12 +16,14 @@ overlay24:
   data:
     - name: OVERLAY24_UNKNOWN_STRUCT__NA_238C508
       address:
+        EU: 0x238D048
         NA: 0x238C508
       length:
         NA: 0xC
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY24_UNKNOWN_STRUCT__NA_238C514
       address:
+        EU: 0x238D054
         NA: 0x238C514
       length:
         NA: 0xC
@@ -70,6 +72,7 @@ overlay24:
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DAYCARE_D_BOX_LAYOUT_4
       address:
+        EU: 0x238D100
         NA: 0x238C5C0
       length:
         NA: 0x10
@@ -88,6 +91,7 @@ overlay24:
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY24_UNKNOWN_POINTER__NA_238C600
       address:
+        EU: 0x238D140
         NA: 0x238C600
       length:
         NA: 0x4

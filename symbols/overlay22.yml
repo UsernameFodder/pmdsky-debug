@@ -16,18 +16,21 @@ overlay22:
   data:
     - name: SHOP_D_BOX_LAYOUT_1
       address:
+        EU: 0x238F35C
         NA: 0x238E81C
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: SHOP_D_BOX_LAYOUT_2
       address:
+        EU: 0x238F37C
         NA: 0x238E83C
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY22_UNKNOWN_STRUCT__NA_238E85C
       address:
+        EU: 0x238F39C
         NA: 0x238E85C
       length:
         NA: 0xC
@@ -70,6 +73,7 @@ overlay22:
         JP: 0x30
     - name: OVERLAY22_UNKNOWN_STRING_IDS
       address:
+        EU: 0x238F430
         NA: 0x238E8F0
       length:
         NA: 0x60
@@ -94,30 +98,35 @@ overlay22:
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: SHOP_D_BOX_LAYOUT_6
       address:
+        EU: 0x238F4C0
         NA: 0x238E980
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: SHOP_D_BOX_LAYOUT_7
       address:
+        EU: 0x238F4D0
         NA: 0x238E990
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: SHOP_D_BOX_LAYOUT_8
       address:
+        EU: 0x238F4E0
         NA: 0x238E9A0
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: SHOP_D_BOX_LAYOUT_9
       address:
+        EU: 0x238F4F0
         NA: 0x238E9B0
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: SHOP_D_BOX_LAYOUT_10
       address:
+        EU: 0x238F500
         NA: 0x238E9C0
       length:
         NA: 0x10
@@ -130,6 +139,7 @@ overlay22:
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY22_UNKNOWN_POINTER__NA_238EC60
       address:
+        EU: 0x238F7A0
         NA: 0x238EC60
       length:
         NA: 0x4
@@ -142,6 +152,7 @@ overlay22:
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY22_UNKNOWN_POINTER__NA_238EC68
       address:
+        EU: 0x238F7A8
         NA: 0x238EC68
       length:
         NA: 0x4
@@ -154,6 +165,7 @@ overlay22:
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY22_UNKNOWN_POINTER__NA_238EC70
       address:
+        EU: 0x238F7B0
         NA: 0x238EC70
       length:
         NA: 0x4

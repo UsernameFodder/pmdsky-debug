@@ -16,6 +16,7 @@ overlay26:
   data:
     - name: OVERLAY26_UNKNOWN_TABLE__NA_238AE20
       address:
+        EU: 0x238B960
         NA: 0x238AE20
       length:
         NA: 0x8C
@@ -31,30 +32,35 @@ overlay26:
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY26_UNKNOWN_POINTER__NA_238AF60
       address:
+        EU: 0x238BAA0
         NA: 0x238AF60
       length:
         NA: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY26_UNKNOWN_POINTER__NA_238AF64
       address:
+        EU: 0x238BAA4
         NA: 0x238AF64
       length:
         NA: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY26_UNKNOWN_POINTER__NA_238AF68
       address:
+        EU: 0x238BAA8
         NA: 0x238AF68
       length:
         NA: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY26_UNKNOWN_POINTER__NA_238AF6C
       address:
+        EU: 0x238BAAC
         NA: 0x238AF6C
       length:
         NA: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY26_UNKNOWN_POINTER5__NA_238AF70
       address:
+        EU: 0x238BAB0
         NA: 0x238AF70
       length:
         NA: 0x4

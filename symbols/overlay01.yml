@@ -134,18 +134,21 @@ overlay1:
         JP: 0xA0
     - name: OVERLAY1_D_BOX_LAYOUT_5
       address:
+        EU: 0x233BE68
         NA: 0x233B71C
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY1_D_BOX_LAYOUT_6
       address:
+        EU: 0x233BE78
         NA: 0x233B72C
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY1_D_BOX_LAYOUT_7
       address:
+        EU: 0x233BE88
         NA: 0x233B73C
       length:
         NA: 0x10
@@ -159,12 +162,14 @@ overlay1:
         NA: 0x18
     - name: OVERLAY1_D_BOX_LAYOUT_8
       address:
+        EU: 0x233BF1C
         NA: 0x233B7D0
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY1_D_BOX_LAYOUT_9
       address:
+        EU: 0x233BF3C
         NA: 0x233B7F0
       length:
         NA: 0x10
@@ -180,6 +185,7 @@ overlay1:
         JP: 0x60
     - name: OVERLAY1_D_BOX_LAYOUT_10
       address:
+        EU: 0x233BFBC
         NA: 0x233B870
       length:
         NA: 0x10

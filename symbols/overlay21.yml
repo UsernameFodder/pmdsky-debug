@@ -16,6 +16,7 @@ overlay21:
   data:
     - name: SWAP_SHOP_D_BOX_LAYOUT_1
       address:
+        EU: 0x238D568
         NA: 0x238CA28
       length:
         NA: 0x10
@@ -100,36 +101,42 @@ overlay21:
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: SWAP_SHOP_D_BOX_LAYOUT_5
       address:
+        EU: 0x238D6A8
         NA: 0x238CB68
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: SWAP_SHOP_D_BOX_LAYOUT_6
       address:
+        EU: 0x238D6B8
         NA: 0x238CB78
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: SWAP_SHOP_D_BOX_LAYOUT_7
       address:
+        EU: 0x238D6C8
         NA: 0x238CB88
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: SWAP_SHOP_D_BOX_LAYOUT_8
       address:
+        EU: 0x238D6D8
         NA: 0x238CB98
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: SWAP_SHOP_D_BOX_LAYOUT_9
       address:
+        EU: 0x238D6E8
         NA: 0x238CBA8
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY21_JP_STRING
       address:
+        EU: 0x238DA5C
         NA: 0x238CF1C
       length:
         NA: 0x8
@@ -142,6 +149,7 @@ overlay21:
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY21_UNKNOWN_POINTER__NA_238CF40
       address:
+        EU: 0x238DA80
         NA: 0x238CF40
       length:
         NA: 0x4

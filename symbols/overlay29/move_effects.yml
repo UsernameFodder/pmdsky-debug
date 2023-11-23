@@ -18,6 +18,11 @@ move_effects:
   functions:
     - name: DoMoveDamage
       address:
+        EU:
+          - 0x2326828
+          - 0x232AF6C
+          - 0x232C31C
+          - 0x232E7C8
         NA:
           - 0x2325DC0
           - 0x232A500
@@ -36,6 +41,7 @@ move_effects:
         return: whether or not damage was dealt
     - name: DoMoveIronTail
       address:
+        EU: 0x232684C
         NA: 0x2325DE4
       description: |-
         Move effect: Iron Tail
@@ -100,6 +106,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveMorningSun
       address:
+        EU: 0x23269DC
         NA: 0x2325F74
       description: |-
         Move effect: Morning Sun
@@ -137,6 +144,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveSweetScent
       address:
+        EU: 0x2326AF0
         NA: 0x2326088
       description: |-
         Move effect: Sweet Scent
@@ -199,6 +207,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveBubble
       address:
+        EU: 0x2326C08
         NA: 0x23261A0
       description: |-
         Move effect: Bubble
@@ -327,6 +336,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveDamageCringe30
       address:
+        EU: 0x23270D8
         NA: 0x2326670
       description: |-
         Move effect: Deal damage with a 30% chance (ROCK_SLIDE_CRINGE_CHANCE) of inflicting the cringe status on the defender.
@@ -365,6 +375,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveFakeTears
       address:
+        EU: 0x2327240
         NA: 0x23267D8
       description: |-
         Move effect: Fake Tears
@@ -468,6 +479,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveOctazooka
       address:
+        EU: 0x23274DC
         NA: 0x2326A74
       description: |-
         Move effect: Octazooka
@@ -518,6 +530,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveGrudge
       address:
+        EU: 0x232770C
         NA: 0x2326CA4
       description: |-
         Move effect: Grudge
@@ -543,6 +556,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveDamageBurn10FlameWheel
       address:
+        EU: 0x2327730
         NA: 0x2326CC8
       description: |-
         Move effect: Deal damage with a 10% chance (FLAME_WHEEL_BURN_CHANCE) of burning the defender.
@@ -555,6 +569,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveDamageBurn10
       address:
+        EU: 0x23277B8
         NA: 0x2326D50
       description: |-
         Move effect: Deal damage with a 10% chance (FLAMETHROWER_BURN_CHANCE) of burning the defender.
@@ -581,6 +596,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveDoubleTeam
       address:
+        EU: 0x232786C
         NA: 0x2326E04
       description: |-
         Move effect: Double Team
@@ -605,6 +621,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveBoostDefense1
       address:
+        EU: 0x23278C8
         NA: 0x2326E60
       description: |-
         Move effect: Boost the user's defense by one stage
@@ -617,6 +634,10 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveParalyze
       address:
+        EU:
+          - 0x23278E8
+          - 0x2328C9C
+          - 0x232BEA0
         NA:
           - 0x2326E80
           - 0x2328230
@@ -632,6 +653,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveBoostAttack1
       address:
+        EU: 0x2327900
         NA: 0x2326E98
       description: |-
         Move effect: Boost the user's attack by one stage
@@ -698,6 +720,7 @@ move_effects:
         return: whether or not damage was dealt
     - name: DoMoveDamageCringe20
       address:
+        EU: 0x2327B1C
         NA: 0x23270B4
       description: |-
         Move effect: Deal damage with a 20% chance (BITE_CRINGE_CHANCE) of inflicting the cringe status on the defender.
@@ -749,6 +772,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveDamageLowerSpeed20
       address:
+        EU: 0x2327CF4
         NA: 0x232728C
       description: |-
         Move effect: Deal damage with a 20% chance (CONSTRICT_LOWER_SPEED_CHANCE) of lowering the defender's speed.
@@ -814,6 +838,7 @@ move_effects:
         return: whether or not damage was dealt
     - name: DoMoveReversal
       address:
+        EU: 0x2328000
         NA: 0x2327598
       description: |-
         Move effect: Deal damage with a higher multiplier the lower the attacker's HP is.
@@ -934,6 +959,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveSynthesis
       address:
+        EU: 0x2328350
         NA: 0x23278E8
       description: |-
         Move effect: Synthesis
@@ -986,6 +1012,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveCosmicPower
       address:
+        EU: 0x232844C
         NA: 0x23279E4
       description: |-
         Move effect: Cosmic Power
@@ -1064,6 +1091,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveDamageConfuse10
       address:
+        EU: 0x2328674
         NA: 0x2327C08
       description: |-
         Move effect: Deal damage with a 10% chance (PSYBEAM_CONFUSE_CHANCE) of confusing the defender.
@@ -1134,6 +1162,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveWaterSpout
       address:
+        EU: 0x232884C
         NA: 0x2327DE0
       description: |-
         Move effect: Water Spout
@@ -1233,6 +1262,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveDamageParalyze10
       address:
+        EU: 0x2328BD8
         NA: 0x232816C
       description: |-
         Move effect: Deal damage with a 10% chance (LICK_PARALZYE_CHANCE) of paralyzing the defender.
@@ -1283,6 +1313,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveThunderbolt
       address:
+        EU: 0x2328D94
         NA: 0x2328328
       description: |-
         Move effect: Thunderbolt
@@ -1320,6 +1351,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveDamageCringe10
       address:
+        EU: 0x2328F28
         NA: 0x23284BC
       description: |-
         Move effect: Deal damage with a 10% chance (EXTRASENSORY_CRINGE_CHANCE) to inflict the cringe status on the defender.
@@ -1398,6 +1430,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveHeadbutt
       address:
+        EU: 0x2329330
         NA: 0x23288C4
       description: |-
         Move effect: Headbutt
@@ -1434,6 +1467,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveLowerAccuracy1
       address:
+        EU: 0x23294C0
         NA: 0x2328A54
       description: |-
         Move effect: Lower the defender's accuracy by one stage
@@ -1446,6 +1480,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveDamagePoison40
       address:
+        EU: 0x23294E0
         NA: 0x2328A74
       description: |-
         Move effect: Deal damage with a 40% chance (SMOG_POISON_CHANCE) of poisoning the defender.
@@ -1458,6 +1493,7 @@ move_effects:
         return: whether or not damage was dealt
     - name: DoMoveGrowth
       address:
+        EU: 0x232954C
         NA: 0x2328AE0
       description: |-
         Move effect: Growth
@@ -1469,6 +1505,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveSacredFire
       address:
+        EU: 0x232956C
         NA: 0x2328B00
       description: |-
         Move effect: Sacred Fire
@@ -1507,6 +1544,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveSonicBoom
       address:
+        EU: 0x23297B0
         NA: 0x2328D44
       description: |-
         Move effect: SonicBoom
@@ -1569,6 +1607,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveDamageLowerAccuracy40
       address:
+        EU: 0x2329A6C
         NA: 0x2329000
       description: |-
         Move effect: Deal damage with a 40% chance (MUDDY_WATER_LOWER_ACCURACY_CHANCE) of lowering the defender's accuracy.
@@ -1634,6 +1673,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveMinimize
       address:
+        EU: 0x2329CA8
         NA: 0x232923C
       description: |-
         Move effect: Minimize
@@ -1685,6 +1725,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveMoonlight
       address:
+        EU: 0x2329E64
         NA: 0x23293F8
       description: |-
         Move effect: Moonlight
@@ -1711,6 +1752,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveSwordsDance
       address:
+        EU: 0x2329FA0
         NA: 0x2329534
       description: |-
         Move effect: Swords Dance
@@ -1761,6 +1803,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveBoostDefense2
       address:
+        EU: 0x232A144
         NA: 0x23296D8
       description: |-
         Move effect: Boost the defender's defense stat by two stages
@@ -1787,6 +1830,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveThundershock
       address:
+        EU: 0x232A17C
         NA: 0x2329710
       description: |-
         Move effect: Thundershock
@@ -1866,6 +1910,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMovePoisonFang
       address:
+        EU: 0x232A304
         NA: 0x2329898
       description: |-
         Move effect: Poison Fang
@@ -1996,6 +2041,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveDamageStealItem
       address:
+        EU: 0x232AAB8
         NA: 0x232A04C
       description: |-
         Move effect: Deal damage and steal the defender's item if possible.
@@ -2008,6 +2054,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveAmnesia
       address:
+        EU: 0x232AAC4
         NA: 0x232A058
       description: |-
         Move effect: Amnesia
@@ -2032,6 +2079,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveGrowl
       address:
+        EU: 0x232AB84
         NA: 0x232A118
       description: |-
         Move effect: Growl
@@ -2081,6 +2129,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveLowerDefense1
       address:
+        EU: 0x232ACE8
         NA: 0x232A27C
       description: |-
         Move effect: Lower the defender's defense by one stage
@@ -2106,6 +2155,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveFakeOut
       address:
+        EU: 0x232AD28
         NA: 0x232A2BC
       description: |-
         Move effect: Fake Out
@@ -2218,6 +2268,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveSteelWing
       address:
+        EU: 0x232B018
         NA: 0x232A5AC
       description: |-
         Move effect: Steel Wing
@@ -2346,6 +2397,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveBulkUp
       address:
+        EU: 0x232B9C8
         NA: 0x232AF5C
       description: |-
         Move effect: Bulk Up
@@ -2371,6 +2423,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveFeatherDance
       address:
+        EU: 0x232BA5C
         NA: 0x232AFF0
       description: |-
         Move effect: FeatherDance
@@ -2408,6 +2461,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveCrushClaw
       address:
+        EU: 0x232BBD0
         NA: 0x232B164
       description: |-
         Move effect: Crush Claw
@@ -2419,6 +2473,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveBlazeKick
       address:
+        EU: 0x232BC50
         NA: 0x232B1E4
       description: |-
         Move effect: Blaze Kick
@@ -2469,6 +2524,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMovePoisonTail
       address:
+        EU: 0x232BF00
         NA: 0x232B494
       description: |-
         Move effect: Poison Tail
@@ -2507,6 +2563,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveTailGlow
       address:
+        EU: 0x232C034
         NA: 0x232B5C8
       description: |-
         Move effect: Tail Glow
@@ -2609,6 +2666,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveDefenseCurl
       address:
+        EU: 0x232C24C
         NA: 0x232B7E0
       description: |-
         Move effect: Defense Curl
@@ -2634,6 +2692,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveMistBall
       address:
+        EU: 0x232C28C
         NA: 0x232B820
       description: |-
         Move effect: Mist Ball
@@ -2671,6 +2730,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveCalmMind
       address:
+        EU: 0x232C350
         NA: 0x232B8E4
       description: |-
         Move effect: Calm Mind
@@ -2697,6 +2757,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveMetalClaw
       address:
+        EU: 0x232C3AC
         NA: 0x232B940
       description: |-
         Move effect: Metal Claw
@@ -2985,6 +3046,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveSiesta
       address:
+        EU: 0x232D124
         NA: 0x232C6B4
       description: |-
         Move effect: Siesta (item effect)
@@ -3867,6 +3929,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveDefendOrder
       address:
+        EU: 0x232ECB4
         NA: 0x232E274
       description: |-
         Move effect: Defend Order
@@ -4011,6 +4074,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveNastyPlot
       address:
+        EU: 0x232F154
         NA: 0x232E714
       description: |-
         Move effect: Nasty Plot
@@ -4022,6 +4086,7 @@ move_effects:
         return: whether the move was successfully used
     - name: DoMoveTag0x1AB
       address:
+        EU: 0x232F174
         NA: 0x232E734
       description: |-
         Move effect: MOVE_TAG_0x1AB

@@ -31,18 +31,21 @@ overlay15:
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: BANK_D_BOX_LAYOUT_2
       address:
+        EU: 0x238BBF8
         NA: 0x238B08C
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: BANK_D_BOX_LAYOUT_3
       address:
+        EU: 0x238BC08
         NA: 0x238B09C
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: BANK_D_BOX_LAYOUT_4
       address:
+        EU: 0x238BC18
         NA: 0x238B0AC
       length:
         NA: 0x10
@@ -61,6 +64,7 @@ overlay15:
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY15_UNKNOWN_POINTER__NA_238B180
       address:
+        EU: 0x238BCE0
         NA: 0x238B180
       length:
         NA: 0x4

@@ -3,8 +3,8 @@
 
 #include "arm9/itcm.h"
 
-void SvcWaitByLoop(void);
 void SvcSoftReset(void);
+void SvcWaitByLoop(void);
 void SvcCpuSet(void);
 void _start(void);
 void MIiUncompressBackward(void);

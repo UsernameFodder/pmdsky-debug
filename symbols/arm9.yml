@@ -29,16 +29,19 @@ arm9:
   subregions:
     - itcm.yml
   functions:
-    - name: SvcWaitByLoop
-      address:
-        NA: 0x2000088
-      description: Software interrupt.
     - name: SvcSoftReset
       address:
+        EU: 0x20001A4
         NA: 0x2000566
+      description: Software interrupt.
+    - name: SvcWaitByLoop
+      address:
+        EU: 0x20006B0
+        NA: 0x2000088
       description: Software interrupt.
     - name: SvcCpuSet
       address:
+        EU: 0x200079E
         NA: 0x200078E
       description: Software interrupt.
     - name: _start
@@ -72,6 +75,7 @@ arm9:
       description: "Startup routine in the program's crt0 (https://en.wikipedia.org/wiki/Crt0)."
     - name: OSiReferSymbol
       address:
+        EU: 0x2000B9C
         NA: 0x2000B9C
       description: "Startup routine in the program's crt0 (https://en.wikipedia.org/wiki/Crt0)."
     - name: NitroMain
@@ -1929,6 +1933,7 @@ arm9:
         return: bool
     - name: SetActiveInventoryToMain
       address:
+        EU: 0x200EC74
         NA: 0x200EBCC
       description: |-
         Changes the currently active inventory to TEAM_MAIN.
@@ -2795,6 +2800,7 @@ arm9:
         r3: [output] pointer to a struct gummi_result to fill out
     - name: ApplySitrusBerryBoostToGroundMonster
       address:
+        EU: 0x2011628
         NA: 0x2011580
       description: |-
         Applies the hp boost from the Sitrus Berry to the target monster.
@@ -2804,6 +2810,7 @@ arm9:
         return: actual hp boost
     - name: ApplyLifeSeedBoostToGroundMonster
       address:
+        EU: 0x2011664
         NA: 0x20115BC
       description: |-
         Applies the hp boost from the Life Seed to the target monster.
@@ -3924,6 +3931,9 @@ arm9:
         EU:
           - 0x201C14C
           - 0x201C168
+        NA:
+          - 0x201C0B0
+          - 0x201C0CC
       description: |-
         Initialize the animation_control structure, and set a certain value in a bitflag to 1
         
@@ -4626,6 +4636,7 @@ arm9:
         stack[0]: pointer to preprocessor args
     - name: StrcmpTagVeneer
       address:
+        EU: 0x20237F4
         NA: 0x20235F8
       description: |-
         Likely a linker-generated veneer for StrcmpTag.
@@ -4637,6 +4648,7 @@ arm9:
         return: bool
     - name: StoiTagVeneer
       address:
+        EU: 0x2023800
         NA: 0x2023604
       description: |-
         Likely a linker-generated veneer for StoiTag.
@@ -4894,6 +4906,7 @@ arm9:
         return: bool
     - name: NewWindowScreenCheck
       address:
+        EU: 0x202793C
         NA: 0x2027648
       description: |-
         Calls NewWindow, with a pre-check for any valid existing windows in WINDOW_LIST on each screen.
@@ -5005,6 +5018,7 @@ arm9:
         r3: ?
     - name: CreateParentMenu
       address:
+        EU: 0x202AA50
         NA: 0x202A75C
       description: |-
         Creates a window containing a simple textual menu with a list of options that might open submenus when selected. Also see struct simple_menu.
@@ -5020,6 +5034,7 @@ arm9:
         return: window_id
     - name: UpdateParentMenu
       address:
+        EU: 0x202AEF0
         NA: 0x202ABFC
       description: |-
         Window update function for parent menus.
@@ -5041,6 +5056,7 @@ arm9:
         return: window_id
     - name: CreateSimpleMenu
       address:
+        EU: 0x202B578
         NA: 0x202B284
       description: |-
         Creates a window containing a simple textual menu with a list of options. Also see struct simple_menu.
@@ -5086,6 +5102,7 @@ arm9:
         return: ?
     - name: UpdateSimpleMenu
       address:
+        EU: 0x202B8BC
         NA: 0x202B5C8
       description: |-
         Window update function for simple menus.
@@ -5151,6 +5168,7 @@ arm9:
         return: ?
     - name: UpdateAdvancedMenu
       address:
+        EU: 0x202C058
         NA: 0x202BD64
       description: |-
         Window update function for advanced menus.
@@ -5158,6 +5176,7 @@ arm9:
         r0: window pointer
     - name: CreateCollectionMenu
       address:
+        EU: 0x202C69C
         NA: 0x202C3A8
       description: |-
         Creates a window containing a menu for manipulating a collection of objects, with complex layout and functionality (e.g., paging). Also see struct collection_menu.
@@ -5174,6 +5193,7 @@ arm9:
         return: window_id
     - name: UpdateCollectionMenu
       address:
+        EU: 0x202CAFC
         NA: 0x202C808
       description: |-
         Window update function for collection menus.
@@ -5181,6 +5201,7 @@ arm9:
         r0: window pointer
     - name: CreateOptionsMenu
       address:
+        EU: 0x202D4E4
         NA: 0x202D1F0
       description: |-
         Creates a window containing a menu controlling game options. Also see struct options_menu.
@@ -5196,6 +5217,7 @@ arm9:
         return: window_id
     - name: UpdateOptionsMenu
       address:
+        EU: 0x202D90C
         NA: 0x202D618
       description: |-
         Window update function for options menus.
@@ -5203,6 +5225,7 @@ arm9:
         r0: window pointer
     - name: CreateDebugMenu
       address:
+        EU: 0x202DF44
         NA: 0x202DC50
       description: |-
         Creates a window containing the debug menu (probably). Also see struct debug_menu.
@@ -5220,6 +5243,7 @@ arm9:
         return: window_id
     - name: UpdateDebugMenu
       address:
+        EU: 0x202E28C
         NA: 0x202DF98
       description: |-
         Window update function for debug menus.
@@ -5227,6 +5251,7 @@ arm9:
         r0: window pointer
     - name: CreateScrollBox1
       address:
+        EU: 0x202E6C0
         NA: 0x202E3CC
       description: |-
         Creates a text window that scrolls vertically on overflow. Also see struct scroll_box.
@@ -5245,6 +5270,7 @@ arm9:
         return: window_id
     - name: CreateScrollBox2
       address:
+        EU: 0x202E80C
         NA: 0x202E518
       description: |-
         Creates a text window that scrolls vertically on overflow. Also see struct scroll_box.
@@ -5264,6 +5290,7 @@ arm9:
         return: window_id
     - name: UpdateScrollBox
       address:
+        EU: 0x202E9FC
         NA: 0x202E708
       description: |-
         Window update function for scroll boxes.
@@ -5335,6 +5362,7 @@ arm9:
         r0: window_id
     - name: UpdateDialogueBox
       address:
+        EU: 0x202F77C
         NA: 0x202F488
       description: |-
         Window update function for dialogue boxes.
@@ -5384,6 +5412,7 @@ arm9:
         r0: window_id
     - name: UpdatePortraitBox
       address:
+        EU: 0x202FA00
         NA: 0x202F70C
       description: |-
         Window update function for portrait boxes.
@@ -5391,6 +5420,7 @@ arm9:
         r0: window pointer
     - name: CreateTextBox1
       address:
+        EU: 0x202FBB8
         NA: 0x202F8C4
       description: |-
         Calls CreateTextBoxInternal, sets field_0x4 to the argument in r1, and returns the window_id.
@@ -5400,6 +5430,7 @@ arm9:
         return: window_id
     - name: CreateTextBox2
       address:
+        EU: 0x202FBD0
         NA: 0x202F8DC
       description: |-
         Calls CreateTextBoxInternal, sets field_0x8 and field_0x14 to the arguments in r1 and r2, respectively, and returns the window_id.
@@ -5410,6 +5441,7 @@ arm9:
         return: window_id
     - name: CreateTextBoxInternal
       address:
+        EU: 0x202FCD0
         NA: 0x202F9DC
       description: |-
         Creates a window containing simple text, without much advanced functionality. Also see struct text_box.
@@ -5418,6 +5450,7 @@ arm9:
         return: text_box pointer
     - name: UpdateTextBox
       address:
+        EU: 0x202FD50
         NA: 0x202FA5C
       description: |-
         Window update function for text boxes.
@@ -5425,6 +5458,7 @@ arm9:
         r0: window pointer
     - name: CreateDynamicTextBox
       address:
+        EU: 0x202FEB0
         NA: 0x202FBBC
       description: |-
         Creates a window containing dynamically determined text (probably?). Also see struct dynamic_text_box.
@@ -5438,6 +5472,7 @@ arm9:
         return: window_id
     - name: UpdateDynamicTextBox
       address:
+        EU: 0x2030080
         NA: 0x202FD8C
       description: |-
         Window update function for dynamic text boxes.
@@ -5445,6 +5480,7 @@ arm9:
         r0: window pointer
     - name: CreateControlsChart
       address:
+        EU: 0x2030120
         NA: 0x202FE2C
       description: |-
         Creates a window containing a chart of player controls for some context. Also see struct controls_chart.
@@ -5458,6 +5494,7 @@ arm9:
         return: window_id
     - name: UpdateControlsChart
       address:
+        EU: 0x2030204
         NA: 0x202FF10
       description: |-
         Window update function for controls charts.
@@ -5465,6 +5502,7 @@ arm9:
         r0: window pointer
     - name: CreateAlertBox
       address:
+        EU: 0x20302A4
         NA: 0x202FFB0
       description: |-
         Creates a window containing text that will disappear after a certain amount of time. Also see struct alert_box.
@@ -5475,6 +5513,7 @@ arm9:
         return: window_id
     - name: UpdateAlertBox
       address:
+        EU: 0x2030568
         NA: 0x2030274
       description: |-
         Window update function for alert boxes.
@@ -5482,6 +5521,7 @@ arm9:
         r0: window pointer
     - name: CreateAdvancedTextBox1
       address:
+        EU: 0x20308A8
         NA: 0x20305B4
       description: |-
         Calls CreateAdvancedTextBoxInternal(r0, r1, r2, stack[0]), sets field_0x1a4 to the argument in r3, and returns the window_id.
@@ -5494,6 +5534,7 @@ arm9:
         return: window_id
     - name: CreateAdvancedTextBox2
       address:
+        EU: 0x20308D8
         NA: 0x20305E4
       description: |-
         Calls CreateAdvancedTextBoxInternal(r0, r1, r2, stack[1]), setsfield_0x1a8 and field_0x1ac to the argument in r3 and stack[0],respectively, and returns the window_id.
@@ -5507,6 +5548,7 @@ arm9:
         return: window_id
     - name: CreateAdvancedTextBoxInternal
       address:
+        EU: 0x2030910
         NA: 0x203061C
       description: |-
         Creates a window containing text formatted in complex, potentially sectioned layouts. Also see struct advanced_text_box.
@@ -5521,6 +5563,7 @@ arm9:
         return: advanced_text_box pointer
     - name: UpdateAdvancedTextBox
       address:
+        EU: 0x2030DDC
         NA: 0x2030AE8
       description: |-
         Window update function for advanced text boxes.
@@ -5528,6 +5571,7 @@ arm9:
         r0: window pointer
     - name: CreateTeamSelectionMenu
       address:
+        EU: 0x2031238
         NA: 0x2030F44
       description: |-
         Creates a window containing a menu for selecting a single team member. Also see struct simple_menu.
@@ -5543,6 +5587,7 @@ arm9:
         return: window_id
     - name: UpdateTeamSelectionMenu
       address:
+        EU: 0x2031530
         NA: 0x203123C
       description: |-
         Window update function for team selection menus.
@@ -5651,6 +5696,7 @@ arm9:
         No params.
     - name: EventFlagBackupVeneer
       address:
+        EU: 0x2048A74
         NA: 0x2048758
       description: |-
         Likely a linker-generated veneer for EventFlagBackup.
@@ -6992,6 +7038,7 @@ arm9:
         return: string ID
     - name: GetConversion2ConvertToType
       address:
+        EU: 0x2050C9C
         NA: 0x2050964
       description: |-
         Determines which type a monster with Conversion2 should turn into after being hit by a certain
@@ -8540,6 +8587,7 @@ arm9:
         r0: dungeon ID
     - name: GetIqSkillStringId
       address:
+        EU: 0x2058F98
         NA: 0x2058C1C
       description: |-
         Note: unverified, ported from Irdkwia's notes
@@ -8548,6 +8596,7 @@ arm9:
         return: iq skill string id
     - name: DoesTacticFollowLeader
       address:
+        EU: 0x2058FB8
         NA: 0x2058C3C
       description: |-
         Returns whether or not the tactic involves following the team leader.
@@ -10156,6 +10205,7 @@ arm9:
       description: "555, appears to be the maximum number of members recruited to an exploration team, at least for the purposes of some checks that need to iterate over all team members."
     - name: NATURAL_LOG_VALUE_TABLE
       address:
+        EU: 0x20917E0
         NA: 0x2091448
       length:
         NA: 0x1000
@@ -10178,76 +10228,91 @@ arm9:
         JP: 0x2000
     - name: STRING_DEBUG_EMPTY
       address:
+        EU: 0x2094EF8
         NA: 0x2094AFC
       length:
         NA: 0x4
     - name: STRING_DEBUG_FORMAT_LINE_FILE
       address:
+        EU: 0x2094EFC
         NA: 0x2094B00
       length:
         NA: 0x1C
     - name: STRING_DEBUG_NO_PROG_POS
       address:
+        EU: 0x2094F18
         NA: 0x2094B1C
       length:
         NA: 0x18
     - name: STRING_DEBUG_SPACED_PRINT
       address:
+        EU: 0x2094F30
         NA: 0x2094B34
       length:
         NA: 0xC
     - name: STRING_DEBUG_FATAL
       address:
+        EU: 0x2094F3C
         NA: 0x2094B40
       length:
         NA: 0x14
     - name: STRING_DEBUG_NEWLINE
       address:
+        EU: 0x2094F50
         NA: 0x2094B54
       length:
         NA: 0x4
     - name: STRING_DEBUG_LOG_NULL
       address:
+        EU: 0x2094F54
         NA: 0x2094B58
       length:
         NA: 0x8
     - name: STRING_DEBUG_STRING_NEWLINE
       address:
+        EU: 0x2094F5C
         NA: 0x2094B60
       length:
         NA: 0x4
     - name: STRING_EFFECT_EFFECT_BIN
       address:
+        EU: 0x2094F60
         NA: 0x2094B64
       length:
         NA: 0x14
     - name: STRING_MONSTER_MONSTER_BIN
       address:
+        EU: 0x2094F74
         NA: 0x2094B78
       length:
         NA: 0x14
     - name: STRING_BALANCE_M_LEVEL_BIN
       address:
+        EU: 0x2094F88
         NA: 0x2094B8C
       length:
         NA: 0x14
     - name: STRING_DUNGEON_DUNGEON_BIN
       address:
+        EU: 0x2094F9C
         NA: 0x2094BA0
       length:
         NA: 0x14
     - name: STRING_MONSTER_M_ATTACK_BIN
       address:
+        EU: 0x2094FB0
         NA: 0x2094BB4
       length:
         NA: 0x18
     - name: STRING_MONSTER_M_GROUND_BIN
       address:
+        EU: 0x2094FC8
         NA: 0x2094BCC
       length:
         NA: 0x18
     - name: STRING_FILE_DIRECTORY_INIT
       address:
+        EU: 0x2094FE0
         NA: 0x2094BE4
       length:
         NA: 0x28
@@ -10433,6 +10498,7 @@ arm9:
         type: struct move_id_16[16]
     - name: MOVE_POWER_STARS_TABLE
       address:
+        EU: 0x209A150
         NA: 0x2099CD4
         JP: 0x2099FC8
       length:
@@ -10444,6 +10510,7 @@ arm9:
         type: int[6]
     - name: MOVE_ACCURACY_STARS_TABLE
       address:
+        EU: 0x209A168
         NA: 0x2099CEC
         JP: 0x2099FE0
       length:
@@ -10511,6 +10578,7 @@ arm9:
         type: struct portrait_layout[32]
     - name: KAOMADO_FILEPATH
       address:
+        EU: 0x209E658
         NA: 0x209E0D4
       length:
         NA: 0x14
@@ -10893,6 +10961,7 @@ arm9:
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: DAMAGE_FORMULA_FLV_SHIFT
       address:
+        EU: 0x20A1E50
         NA: 0x20A18CC
         JP: 0x20A2CA0
       length:
@@ -10914,6 +10983,7 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
     - name: DAMAGE_FORMULA_CONSTANT_SHIFT
       address:
+        EU: 0x20A1E58
         NA: 0x20A18D4
         JP: 0x20A2CA8
       length:
@@ -10925,6 +10995,7 @@ arm9:
         The value of -311 is notably equal to -round[DAMAGE_FORMULA_LN_PREFACTOR * ln(DAMAGE_FORMULA_LN_ARG_PREFACTOR * DAMAGE_FORMULA_FLV_SHIFT)]. This is probably not a coincidence.
     - name: DAMAGE_FORMULA_FLV_DEFICIT_DIVISOR
       address:
+        EU: 0x20A1E5C
         NA: 0x20A18D8
         JP: 0x20A2CAC
       length:
@@ -10959,6 +11030,7 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
     - name: DAMAGE_FORMULA_NON_TEAM_MEMBER_MODIFIER
       address:
+        EU: 0x20A1E6C
         NA: 0x20A18E8
         JP: 0x20A2CBC
       length:
@@ -10967,6 +11039,7 @@ arm9:
       description: "The divisor applied to the overall output of the \"shifted base\" damage formula (the sum of the scaled AT, Def, ClampedLn, and DAMAGE_FORMULA_CONSTANT_SHIFT terms) if the attacker is not a team member (and the current fixed room is not the substitute room...for some reason), as a binary fixed-point number with 8 fraction bits (85/64)."
     - name: DAMAGE_FORMULA_LN_PREFACTOR
       address:
+        EU: 0x20A1E70
         NA: 0x20A18EC
         JP: 0x20A2CC0
       length:
@@ -10975,6 +11048,7 @@ arm9:
       description: "The prefactor to the output of the ClampedLn in the damage formula, as a binary fixed-point number with 8 fraction bits (50)."
     - name: DAMAGE_FORMULA_DEF_PREFACTOR
       address:
+        EU: 0x20A1E74
         NA: 0x20A18F0
         JP: 0x20A2CC4
       length:
@@ -10983,6 +11057,7 @@ arm9:
       description: "The prefactor to the \"DEF\" (defense) intermediate quantity in the damage formula (see dungeon::last_move_damage_calc_def), as a binary fixed-point number with 8 fraction bits (-0.5)."
     - name: DAMAGE_FORMULA_AT_PREFACTOR
       address:
+        EU: 0x20A1E78
         NA: 0x20A18F4
         JP: 0x20A2CC8
       length:
@@ -10991,6 +11066,7 @@ arm9:
       description: "The prefactor to the \"AT\" (attack) intermediate quantity in the damage formula (see dungeon::last_move_damage_calc_at), as a binary fixed-point number with 8 fraction bits (153/256, which is close to 0.6)."
     - name: DAMAGE_FORMULA_LN_ARG_PREFACTOR
       address:
+        EU: 0x20A1E7C
         NA: 0x20A18F8
         JP: 0x20A2CCC
       length:
@@ -11902,6 +11978,7 @@ arm9:
         type: enum overlay_group_id
     - name: DEBUG_IS_INITIALIZED
       address:
+        EU: 0x20AFF50
         NA: 0x20AF698
       length:
         NA: 0x1
@@ -12014,6 +12091,7 @@ arm9:
       description: "[Runtime]"
     - name: TBL_TALK_GROUP_STRING_ID_START
       address:
+        EU: 0x20B0614
         NA: 0x20AFCF8
         JP: 0x20B1140
       length:

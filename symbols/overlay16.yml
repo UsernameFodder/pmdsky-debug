@@ -73,18 +73,21 @@ overlay16:
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: EVO_D_BOX_LAYOUT_4
       address:
+        EU: 0x238D908
         NA: 0x238CDC4
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: EVO_D_BOX_LAYOUT_5
       address:
+        EU: 0x238D918
         NA: 0x238CDD4
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: EVO_D_BOX_LAYOUT_6
       address:
+        EU: 0x238D928
         NA: 0x238CDE4
       length:
         NA: 0x10
@@ -103,6 +106,7 @@ overlay16:
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY16_UNKNOWN_POINTER__NA_238CE40
       address:
+        EU: 0x238D980
         NA: 0x238CE40
       length:
         NA: 0x4

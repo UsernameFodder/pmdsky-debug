@@ -53,6 +53,7 @@ overlay19:
   data:
     - name: OVERLAY19_UNKNOWN_TABLE__NA_238DAE0
       address:
+        EU: 0x238E614
         NA: 0x238DAE0
       length:
         NA: 0x8
@@ -62,6 +63,7 @@ overlay19:
         Note: unverified, ported from Irdkwia's notes
     - name: BAR_UNLOCKABLE_DUNGEONS_TABLE
       address:
+        EU: 0x238E61C
         NA: 0x238DAE8
       length:
         NA: 0xC
@@ -71,6 +73,7 @@ overlay19:
         type: struct dungeon_id_16[6]
     - name: BAR_RECRUITABLE_MONSTER_TABLE
       address:
+        EU: 0x238E628
         NA: 0x238DAF4
         JP: 0x238F04C
       length:
@@ -82,6 +85,7 @@ overlay19:
         type: struct monster_id_16[108]
     - name: BAR_AVAILABLE_ITEMS
       address:
+        EU: 0x238E700
         NA: 0x238DBCC
       length:
         NA: 0x5AC
@@ -91,12 +95,14 @@ overlay19:
         type: struct bar_item[66]
     - name: OVERLAY19_UNKNOWN_STRING_IDS__NA_238E178
       address:
+        EU: 0x238ECAC
         NA: 0x238E178
       length:
         NA: 0x2C
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY19_UNKNOWN_STRUCT__NA_238E1A4
       address:
+        EU: 0x238ECD8
         NA: 0x238E1A4
       length:
         NA: 0x28
@@ -106,24 +112,28 @@ overlay19:
         Note: unverified, ported from Irdkwia's notes
     - name: OVERLAY19_UNKNOWN_STRING_IDS__NA_238E1CC
       address:
+        EU: 0x238ED00
         NA: 0x238E1CC
       length:
         NA: 0xC
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: BAR_D_BOX_LAYOUT_1
       address:
+        EU: 0x238ED0C
         NA: 0x238E1D8
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: BAR_D_BOX_LAYOUT_2
       address:
+        EU: 0x238ED1C
         NA: 0x238E1E8
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: BAR_D_BOX_LAYOUT_3
       address:
+        EU: 0x238ED2C
         NA: 0x238E1F8
       length:
         NA: 0x10
@@ -148,6 +158,7 @@ overlay19:
         JP: 0x18
     - name: OVERLAY19_UNKNOWN_STRING_IDS__NA_238E238
       address:
+        EU: 0x238ED6C
         NA: 0x238E238
       length:
         NA: 0x18
@@ -187,6 +198,7 @@ overlay19:
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY19_UNKNOWN_POINTER__NA_238E360
       address:
+        EU: 0x238EE80
         NA: 0x238E360
       length:
         NA: 0x4

@@ -16,12 +16,14 @@ overlay25:
   data:
     - name: OVERLAY25_UNKNOWN_STRUCT__NA_238B498
       address:
+        EU: 0x238BFD8
         NA: 0x238B498
       length:
         NA: 0xC
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: APPRAISAL_D_BOX_LAYOUT_1
       address:
+        EU: 0x238BFE4
         NA: 0x238B4A4
       length:
         NA: 0x10
@@ -79,24 +81,28 @@ overlay25:
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: APPRAISAL_D_BOX_LAYOUT_5
       address:
+        EU: 0x238C0A4
         NA: 0x238B564
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: APPRAISAL_D_BOX_LAYOUT_6
       address:
+        EU: 0x238C0B4
         NA: 0x238B574
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: APPRAISAL_D_BOX_LAYOUT_7
       address:
+        EU: 0x238C0C4
         NA: 0x238B584
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: APPRAISAL_D_BOX_LAYOUT_8
       address:
+        EU: 0x238C0D4
         NA: 0x238B594
       length:
         NA: 0x10
@@ -109,6 +115,7 @@ overlay25:
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY25_UNKNOWN_POINTER__NA_238B5E0
       address:
+        EU: 0x238C120
         NA: 0x238B5E0
       length:
         NA: 0x4

@@ -18,6 +18,7 @@ overlay34:
   functions:
     - name: ExplorersOfSkyMain
       address:
+        EU: 0x22DCB80
         NA: 0x22DC240
       description: |-
         The main function for Explorers of Sky.
@@ -29,6 +30,7 @@ overlay34:
   data:
     - name: OVERLAY34_UNKNOWN_STRUCT__NA_22DD014
       address:
+        EU: 0x22DD8BC
         NA: 0x22DD014
       length:
         NA: 0x10
@@ -48,6 +50,7 @@ overlay34:
       description: "Irdkwia's notes: 3*0x8"
     - name: OVERLAY34_UNKNOWN_STRUCT__NA_22DD03C
       address:
+        EU: 0x22DD8E4
         NA: 0x22DD03C
       length:
         NA: 0x10
@@ -73,12 +76,14 @@ overlay34:
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY34_UNKNOWN_POINTER__NA_22DD080
       address:
+        EU: 0x22DD920
         NA: 0x22DD080
       length:
         NA: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY34_UNKNOWN_POINTER__NA_22DD084
       address:
+        EU: 0x22DD924
         NA: 0x22DD084
       length:
         NA: 0x4
@@ -91,6 +96,7 @@ overlay34:
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY34_UNKNOWN_POINTER__NA_22DD08C
       address:
+        EU: 0x22DD92C
         NA: 0x22DD08C
       length:
         NA: 0x4
