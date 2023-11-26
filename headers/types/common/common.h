@@ -1048,7 +1048,8 @@ struct thread {
     // 0x68: Pointer to the next thread. This forms a linked list sorted in ascending order
     // according to sorting_order
     struct thread* next_thread;
-    int thread_id;           // 0x6C: Seems to be a thread ID that gets incremented for each new thread created.
+    // 0x6C: Seems to be a thread ID that gets incremented for each new thread created.
+    int thread_id;
     int sorting_order;       // 0x70: Unknown. Used to sort threads.
     undefined4 field_0x74;   // Initialized to 0
     undefined4 field_0x78;   // Initialized to 0
