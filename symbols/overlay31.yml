@@ -42,6 +42,24 @@ overlay31:
         This function does not get called when opening the leader's move menu.
         
         r0: Pointer to an action struct containing the index of the monster whose moves will be checked in the action_use_idx field.
+    - name: HandleMovesMenuWrapper0
+      address:
+        EU: 0x2385FBC
+        NA: 0x23853BC
+      description: |-
+        Sets some field on a struct to 0 and calls HandleMovesMenu.
+        
+        Parameters: Same as HandleMovesMenu
+        Return: Same as HandleMovesMenu
+    - name: HandleMovesMenuWrapper1
+      address:
+        EU: 0x2385FE0
+        NA: 0x23853E0
+      description: |-
+        Sets some field on a struct to 1 and calls HandleMovesMenu.
+        
+        Parameters: Same as HandleMovesMenu
+        Return: Same as HandleMovesMenu
     - name: HandleMovesMenu
       address:
         EU: 0x2386004
@@ -52,7 +70,7 @@ overlay31:
         
         This function also takes care of updating the fields in the action_data struct it receives when a menu option is chosen.
         
-        r0: Pointer to pointer to the entity that opened the menu. The chosen action will be written on its action field.
+        r0: Pointer to some struct that was created by a previous function. Contains a pointer to the monster whose moves are being displayed at offset 0x0.
         r1: ?
         r2: ?
         r3: Index of the monster whose moves are going to be displayed on the menu. Unused.

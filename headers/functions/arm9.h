@@ -968,6 +968,13 @@ void EnableVramBanksInSet(struct vram_banks_set* vram_banks);
 void GeomMtxLoad4x3(struct matrix_4x3* matrix);
 void GeomMtxMult4x3(struct matrix_4x3* matrix);
 void GeomGxFifoSendMtx4x3(struct matrix_4x3* matrix, void* gxfifo);
+int IncrementThreadCount(void);
+void InsertThreadOnList(struct thread* thread);
+void ThreadStart(struct thread* thread, void* function, struct thread* param_3, void* stack_area,
+                 int stack_size, int param_6);
+void ThreadExit(void);
+void SetThreadField0xB4(struct thread* thread, int value);
+void InitThread(struct thread* thread, void* function, void* stack_area_minus_4);
 uint16_t GetTimer0Control(void);
 int ClearIrqFlag(void);
 int EnableIrqFlag(void);
