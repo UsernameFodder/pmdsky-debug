@@ -1118,7 +1118,7 @@ struct thread_info {
     undefined field_0x27;
     undefined* field_0x28;
     // 0x2C: Points to the first thread on the linked list sorted by thread::sort_order
-    struct thread* first_thread;
+    struct thread* thread_list_head;
     undefined field_0x30;
     undefined field_0x31;
     undefined field_0x32;

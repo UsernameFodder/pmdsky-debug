@@ -969,7 +969,7 @@ void GeomMtxLoad4x3(struct matrix_4x3* matrix);
 void GeomMtxMult4x3(struct matrix_4x3* matrix);
 void GeomGxFifoSendMtx4x3(struct matrix_4x3* matrix, void* gxfifo);
 int IncrementThreadCount(void);
-void InsertThreadOnList(struct thread* thread);
+void InsertThreadIntoList(struct thread* thread);
 void ThreadStart(struct thread* thread, void* function, struct thread* param_3, void* stack_area,
                  int stack_size, int param_6);
 void ThreadExit(void);

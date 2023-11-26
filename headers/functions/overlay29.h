@@ -75,8 +75,8 @@ bool FindFarthestUnoccupiedTileWithin2(struct position* pos_out, struct position
 bool FindUnoccupiedTileWithin3(struct position* pos_out, struct position* origin, bool random_room);
 uint8_t TickStatusTurnCounter(uint8_t* counter);
 void AdvanceFrame(undefined param_1);
-void DisplayDamageNumbers(int amount, struct entity* entity, bool display_sign,
-                          enum number_color number_color);
+void DisplayAnimatedNumbers(int amount, struct entity* entity, bool display_sign,
+                            enum number_color number_color);
 void SetDungeonRngPreseed23Bit(uint32_t preseed23);
 uint32_t GenerateDungeonRngSeed(void);
 uint32_t GetDungeonRngPreseed(void);

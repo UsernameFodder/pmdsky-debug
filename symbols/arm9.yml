@@ -9350,15 +9350,15 @@ arm9:
       description: |-
         Increments thread_info::thread_count by 1 and returns the new value.
         
-        return: thread_info::thread_count + 1
-    - name: InsertThreadOnList
+        return: New thread count
+    - name: InsertThreadIntoList
       address:
         EU: 0x2079630
         NA: 0x2079298
       description: |-
-        Inserts a new thread on the linked thread list (see thread_info::first_thread).
+        Inserts a new thread into the linked thread list (see thread_info::thread_list_head).
         
-        The order of the list will be maintained.
+        The thread is inserted in sorted order.
         
         r0: Thread to insert
     - name: ThreadStart

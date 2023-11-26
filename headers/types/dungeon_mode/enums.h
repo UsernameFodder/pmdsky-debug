@@ -1406,7 +1406,8 @@ enum number_color {
     NUMBER_COLOR_UNK_0x7 = 7,
     NUMBER_COLOR_UNK_0x8 = 8,
     NUMBER_COLOR_UNK_0x9 = 9,
-    NUMBER_COLOR_GREEN_0xA = 0xA,
+    NUMBER_COLOR_GREEN_0xA = 10,
+    NUMBER_COLOR_LIGHT_BLUE = 11,
 };
 
 #endif

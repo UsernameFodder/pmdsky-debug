@@ -886,17 +886,17 @@ overlay29:
         Advances one frame. Does not return until the next frame starts.
         
         r0: ? - Unused by the function
-    - name: DisplayDamageNumbers
+    - name: DisplayAnimatedNumbers
       address:
         EU: 0x22EB0C8
         NA: 0x22EA718
       description: |-
-        Displays damage numbers or the "MISS" text above a monster.
+        Displays numbers or the "MISS" text above a monster. Normally used to display damage amounts, although it also has other uses (such as showing the stockpile count).
         
-        r0: Damage amount. Can be negative. 9999 displays "MISS" instead.
+        r0: Amount to display. Can be negative. 9999 displays "MISS" instead.
         r1: Entity above which the numbers will be displayed
         r2: True to display a plus or minus sign before the numbers, false to hide it
-        r3: Color of the numbers. -1 to determine it automatically.
+        r3: Color of the numbers. NUMBER_COLOR_AUTO to determine it automatically.
     - name: SetDungeonRngPreseed23Bit
       address:
         EU: 0x22EB318
