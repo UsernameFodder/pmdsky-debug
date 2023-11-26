@@ -49,8 +49,11 @@ overlay31:
       description: |-
         Sets some field on a struct to 0 and calls HandleMovesMenu.
         
-        Parameters: Same as HandleMovesMenu
-        Return: Same as HandleMovesMenu
+        r0: struct pointer, see HandleMovesMenu
+        r1: See HandleMovesMenu
+        r2: See HandleMovesMenu
+        r3: monster index, see HandleMovesMenu
+        return: bool, see HandleMovesMenu
     - name: HandleMovesMenuWrapper1
       address:
         EU: 0x2385FE0
@@ -58,8 +61,11 @@ overlay31:
       description: |-
         Sets some field on a struct to 1 and calls HandleMovesMenu.
         
-        Parameters: Same as HandleMovesMenu
-        Return: Same as HandleMovesMenu
+        r0: struct pointer, see HandleMovesMenu
+        r1: See HandleMovesMenu
+        r2: See HandleMovesMenu
+        r3: monster index, see HandleMovesMenu
+        return: bool, see HandleMovesMenu
     - name: HandleMovesMenu
       address:
         EU: 0x2386004
