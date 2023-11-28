@@ -992,7 +992,7 @@ struct wavi_data {
 };
 ASSERT_SIZE(struct wavi_data, 20); // Likely longer
 
-// Specifies a function called when a thread starts running
+// Specifies an entry function for a thread's execution
 typedef void (*thread_entry_fn_t)(void);
 // Specifies a function called when a thread exits
 typedef void (*thread_exit_fn_t)(void);
