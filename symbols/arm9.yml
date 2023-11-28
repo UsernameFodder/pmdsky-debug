@@ -9361,7 +9361,7 @@ arm9:
         The thread is inserted in sorted order.
         
         r0: Thread to insert
-    - name: ThreadStart
+    - name: StartThread
       address:
         EU: 0x20798F8
         NA: 0x2079560
