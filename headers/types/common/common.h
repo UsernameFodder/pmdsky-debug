@@ -992,6 +992,11 @@ struct wavi_data {
 };
 ASSERT_SIZE(struct wavi_data, 20); // Likely longer
 
+// Specifies a function called when a thread starts running
+typedef void (*thread_entry_fn_t)(void);
+// Specifies a function called when a thread exits
+typedef void (*thread_exit_fn_t)(void);
+
 // Contains information about a running thread
 struct thread {
     int flags;                // Probably a flags field. Usually 0x1F.
@@ -1013,7 +1018,7 @@ struct thread {
     // aligned to 8 bytes.
     void* usable_stack_pointer;
     // 0x3C: Address of the function to return to once the thread exits. Usually ThreadExit.
-    void* return_address;
+    thread_exit_fn_t exit_function;
     void* function_address_plus_4; // 0x40: Pointer to the function to run + 4
     void* stack_pointer_minus_4;   // 0x44: Pointer to the start of the stack area - 4
     undefined field_0x48;
