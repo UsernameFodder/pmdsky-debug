@@ -1391,4 +1391,23 @@ union item_index {
     enum item_index_special special_index; // For other items
 };
 
+// Determines the color of damage numbers displayed above a monster
+// Values of this enum are actually passed to I/O registers, so the color probably depends on the
+// color pallettes that are currently loaded in memory.
+enum number_color {
+    NUMBER_COLOR_AUTO = -1,
+    NUMBER_COLOR_GREEN_0x0 = 0,
+    NUMBER_COLOR_RED_0x1 = 1,
+    NUMBER_COLOR_DARK_GREEN = 2,
+    NUMBER_COLOR_YELLOW = 3,
+    NUMBER_COLOR_UNK_0x4 = 4,
+    NUMBER_COLOR_UNK_0x5 = 5,
+    NUMBER_COLOR_RED_0x6 = 6,
+    NUMBER_COLOR_UNK_0x7 = 7,
+    NUMBER_COLOR_UNK_0x8 = 8,
+    NUMBER_COLOR_UNK_0x9 = 9,
+    NUMBER_COLOR_GREEN_0xA = 10,
+    NUMBER_COLOR_LIGHT_BLUE = 11,
+};
+
 #endif

@@ -544,6 +544,16 @@ overlay29:
         Returns dungeon::display_data::visibility_range. If the visibility range is 0, returns 2 instead.
         
         return: Visibility range of the current floor, or 2 if the visibility is 0.
+    - name: RevealWholeFloor
+      address:
+        EU: 0x22E3DE0
+        NA: 0x22E3430
+      description: |-
+        Sets the luminous state for the floor and marks all the tiles on the floor as revealed.
+        
+        More specifically, sets dungeon::display_data::luminous to 1, sets visibility_flags::f_revealed for all tiles on the floor, calls UpdateCamera, UpdateTrapsVisibility, UpdateMinimap and logs the message "It became brighter on the floor!".
+        
+        r0: Pointer to the entity who revealed the floor
     - name: PlayEffectAnimationEntity
       address:
         EU: 0x22E3F94
@@ -876,6 +886,17 @@ overlay29:
         Advances one frame. Does not return until the next frame starts.
         
         r0: ? - Unused by the function
+    - name: DisplayAnimatedNumbers
+      address:
+        EU: 0x22EB0C8
+        NA: 0x22EA718
+      description: |-
+        Displays numbers or the "MISS" text above a monster. Normally used to display damage amounts, although it also has other uses (such as showing the stockpile count).
+        
+        r0: Amount to display. Can be negative. 9999 displays "MISS" instead.
+        r1: Entity above which the numbers will be displayed
+        r2: True to display a plus or minus sign before the numbers, false to hide it
+        r3: Color of the numbers. NUMBER_COLOR_AUTO to determine it automatically.
     - name: SetDungeonRngPreseed23Bit
       address:
         EU: 0x22EB318
@@ -6459,6 +6480,16 @@ overlay29:
         Likely a linker-generated veneer for LoadFixedRoomData.
         
         See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
+        
+        No params.
+    - name: UnloadFixedRoomData
+      address:
+        EU: 0x233B214
+        NA: 0x233A630
+      description: |-
+        Unloads fixed room data from the buffer pointed to by FIXED_ROOM_DATA_PTR, then clears the pointer.
+        
+        Also clears dungeon::unk_fixed_room_pointer.
         
         No params.
     - name: IsNormalFloor

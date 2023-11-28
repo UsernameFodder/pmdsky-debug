@@ -41,6 +41,7 @@ void PointCameraToMonster(struct entity* entity, undefined param_2);
 void UpdateCamera(undefined param_1);
 bool ItemIsActive(struct entity* entity, enum item_id item_id);
 int GetVisibilityRange(void);
+void RevealWholeFloor(struct entity* entity);
 int PlayEffectAnimationEntity(struct entity* entity, int effect_id, bool play_now, int param_4,
                               int param_5, undefined param_6, int param_7, undefined2* param_8);
 int PlayEffectAnimationPos(struct position* pos, int effect_id, bool play_now);
@@ -74,6 +75,8 @@ bool FindFarthestUnoccupiedTileWithin2(struct position* pos_out, struct position
 bool FindUnoccupiedTileWithin3(struct position* pos_out, struct position* origin, bool random_room);
 uint8_t TickStatusTurnCounter(uint8_t* counter);
 void AdvanceFrame(undefined param_1);
+void DisplayAnimatedNumbers(int amount, struct entity* entity, bool display_sign,
+                            enum number_color number_color);
 void SetDungeonRngPreseed23Bit(uint32_t preseed23);
 uint32_t GenerateDungeonRngSeed(void);
 uint32_t GetDungeonRngPreseed(void);
@@ -671,6 +674,7 @@ void SetMinimapDataE448(uint8_t value);
 void InitWeirdMinimapMatrix(void);
 void InitMinimapDisplayTile(struct minimap_display_tile* minimap_display_tile, undefined* ptr);
 void LoadFixedRoomDataVeneer(void);
+void UnloadFixedRoomData(void);
 bool IsNormalFloor(void);
 void GenerateFloor(void);
 enum terrain_type GetTileTerrain(struct tile* tile);

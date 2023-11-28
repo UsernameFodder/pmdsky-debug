@@ -47,6 +47,7 @@ extern struct monster_id_16 LEVEL_UP_DATA_MONSTER_ID;
 extern struct level_up_entry LEVEL_UP_DATA_DECOMPRESS_BUFFER[100];
 extern struct team_member_table TEAM_MEMBER_TABLE;
 extern struct vram_banks_set ENABLED_VRAM_BANKS;
+extern struct thread_info THREAD_INFO_STRUCT;
 extern uint32_t FRAMES_SINCE_LAUNCH_TIMES_THREE;
 extern struct mem_arena* GROUND_MEMORY_ARENA_1_PTR;
 extern struct mem_arena* GROUND_MEMORY_ARENA_2_PTR;

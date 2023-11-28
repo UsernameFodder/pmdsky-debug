@@ -9343,6 +9343,71 @@ arm9:
         
         r0: matrix_4x3 pointer
         r1: GXFIFO pointer
+    - name: IncrementThreadCount
+      address:
+        EU: 0x20794E8
+        NA: 0x2079150
+      description: |-
+        Increments thread_info::thread_count by 1 and returns the new value.
+        
+        return: New thread count
+    - name: InsertThreadIntoList
+      address:
+        EU: 0x2079630
+        NA: 0x2079298
+      description: |-
+        Inserts a new thread into the linked thread list (see thread_info::thread_list_head).
+        
+        The thread is inserted in sorted order.
+        
+        r0: Thread to insert
+    - name: StartThread
+      address:
+        EU: 0x20798F8
+        NA: 0x2079560
+      description: |-
+        Called to start a new thread.
+        
+        Initializes the specified thread struct and some values on its stack area.
+        
+        r0: Struct of the thread to init
+        r1: Pointer to the function to run on this thread
+        r2: Pointer to a thread struct. Sometimes equal to r0. Sometimes null.
+        r3: Pointer to the stack area for this thread. Not all the space is usable. See thread::usable_stack_pointer for more info.
+        stack[0]: Stack size
+        stack[1]: (?) Used to sort threads on a list
+    - name: ThreadExit
+      address:
+        EU: 0x20799F4
+        NA: 0x207965C
+      description: |-
+        Function called by threads on exit.
+        
+        Base functions that contain an infinite loop that is not supposed to return and that have their stacks in main RAM have this function as their return address.
+        
+        No params.
+    - name: SetThreadField0xB4
+      address:
+        EU: 0x207A014
+        NA: 0x2079C7C
+      description: |-
+        Sets the given thread's field_0xB4 to the specified value.
+        
+        r0: Thread
+        r1: Value to set
+    - name: InitThread
+      address:
+        EU: 0x207A01C
+        NA: 0x2079C84
+      description: |-
+        Initializes some fields of the given thread struct.
+        
+        Most notably, thread::flags, thread::function_address_plus_4, thread::stack_pointer_minus_4 and thread::usable_stack_pointer. Also initializes a few more fields with a value of 0.
+        thread::flags is initialized to 0x1F, unless the address of the function is odd (???), in which case it's initialized to 0x3F.
+        
+        r0: Pointer to the thread to initialize
+        r1: Pointer to the function the thread will run
+        r2: Pointer to the start of the thread's stack area - 4
     - name: GetTimer0Control
       address:
         EU: 0x207B27C

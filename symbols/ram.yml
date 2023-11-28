@@ -472,6 +472,11 @@ ram:
         Bitset of enabled VRAM banks
         
         type: vram_banks_set
+    - name: THREAD_INFO_STRUCT
+      address:
+        EU: 0x22B9F88
+        NA: 0x22B9648
+      description: thread_info struct that contains global state about threads
     - name: FRAMES_SINCE_LAUNCH_TIMES_THREE
       address:
         EU: 0x22BA304
