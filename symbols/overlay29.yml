@@ -9045,20 +9045,22 @@ overlay29:
         Note that this array is only used for the cardinal directions. The elements at odd indexes are unused and unconditionally set to 0.
         
         This array is used by the dungeon generation algorithm when generating room imperfections. See GenerateRoomImperfections.
-    - name: GUMMI_IQ_STRING_IDS
-      address:
-        EU: 0x2353EE0
-        NA: 0x23532D0
-      length:
-        NA: 0xA
-      description: "List that holds the message IDs for how much a monster's IQ was raised by in decreasing order."
     - name: GUMMI_LIKE_STRING_IDS
       address:
         EU: 0x2353EE0
         NA: 0x23532D0
       length:
+        EU: 0x8
         NA: 0x8
       description: List that holds the message IDs for how much a monster liked a gummi in decreasing order.
+    - name: GUMMI_IQ_STRING_IDS
+      address:
+        EU: 0x2353F3C
+        NA: 0x2353324
+      length:
+        EU: 0xA
+        NA: 0xA
+      description: "List that holds the message IDs for how much a monster's IQ was raised by in decreasing order."
     - name: DAMAGE_STRING_IDS
       address:
         EU: 0x2353F48
