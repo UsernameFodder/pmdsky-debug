@@ -8028,9 +8028,9 @@ overlay29:
         NA: 0x234BAC0
         JP: 0x234CD24
       description: |-
-        Initialize the portrait box structure for the given monster and expression
+        Initialize the portrait params structure for the given monster and expression
         
-        r0: pointer the portrait box data structure to initialize
+        r0: pointer the portrait params data structure to initialize
         r1: monster id
         r2: emotion id
     - name: OpenMessageLog
