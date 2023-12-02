@@ -829,17 +829,17 @@ void LogMessageByIdWithPopup(struct entity* user, int message_id);
 void LogMessageWithPopup(struct entity* user, const char* message);
 void LogMessage(struct entity* user, const char* message, bool show_popup);
 void LogMessageById(struct entity* user, int message_id, bool show_popup);
-void InitPortraitDungeon(struct portrait_box* portrait, enum monster_id monster_id,
+void InitPortraitDungeon(struct portrait_params* portrait, enum monster_id monster_id,
                          enum portrait_emotion emotion);
 void OpenMessageLog(undefined4 param_1, undefined4 param_2);
 bool RunDungeonMode(undefined4* param_1, undefined4 param_2);
 void DisplayDungeonTip(struct message_tip* message_tip, bool log);
 void SetBothScreensWindowColorToDefault(void);
 int GetPersonalityIndex(struct monster* monster);
-void DisplayMessage(struct portrait_box* portrait, int message_id, bool wait_for_input);
-void DisplayMessage2(struct portrait_box* portrait, int message_id, bool wait_for_input);
+void DisplayMessage(struct portrait_params* portrait, int message_id, bool wait_for_input);
+void DisplayMessage2(struct portrait_params* portrait, int message_id, bool wait_for_input);
 bool YesNoMenu(undefined param_1, int message_id, int default_option, undefined param_4);
-void DisplayMessageInternal(int message_id, bool wait_for_input, struct portrait_box* portrait,
+void DisplayMessageInternal(int message_id, bool wait_for_input, struct portrait_params* portrait,
                             undefined4 param_4, undefined4 param_5, undefined4 param_6);
 void OpenMenu(undefined param_1, undefined param_2, bool open_bag);
 int OthersMenuLoop(void);
