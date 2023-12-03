@@ -20,12 +20,23 @@ overlay9:
       description: |-
         Creates a window containing the track selection menu for the Sky Jukebox. Also see struct jukebox_track_menu.
         
+        If window_params is NULL, JUKEBOX_TRACK_MENU_DEFAULT_WINDOW_PARAMS will be used. Otherwise, it will be copied onto the window, ignoring the update and contents fields. If window_params::width and/or window_params::height are 0, they will be computed based on the contained text.
+        
+        If window_extra_info is non-NULL, it will be copied onto the window. Note that window_extra_info can only be NULL if there are no window_flags set that require extra info.
+        
         r0: window_params
-        r1: ?
-        r2: ?
-        r3: ?
-        stack[0]: ?
+        r1: window_flags
+        r2: window_extra_info pointer
+        r3: simple_menu_id_item struct array, terminated with an item with string_id 0
+        stack[0]: number of menu items
         return: window_id
+    - name: CloseJukeboxTrackMenu
+      address:
+        NA: 0x233E34C
+      description: |-
+        Closes a window created with CreateJukeboxTrackMenu.
+        
+        r0: window_id
     - name: UpdateJukeboxTrackMenu
       address:
         EU: 0x233EB5C
@@ -39,15 +50,26 @@ overlay9:
         EU: 0x233F098
         NA: 0x233E918
       description: |-
-        Creates a window containing the playback controls menu for a selected song. Also see struct simple_menu.
+        Creates a window containing the playback controls menu for a selected song. Also see struct playback_controls_menu.
+        
+        If window_params is NULL, PLAYBACK_CONTROLS_MENU_DEFAULT_WINDOW_PARAMS will be used. Otherwise, it will be copied onto the window, ignoring the update and contents fields. If window_params::width and/or window_params::height are 0, they will be computed based on the contained text.
+        
+        If window_extra_info is non-NULL, it will be copied onto the window. Note that window_extra_info can only be NULL if there are no window_flags set that require extra info.
         
         r0: window_params
-        r1: ?
-        r2: ?
+        r1: window_flags
+        r2: window_extra_info pointer
         r3: ?
-        stack[0]: ?
-        stack[1]: ?
+        stack[0]: simple_menu_id_item struct array 1, terminated with an item with string_id 0
+        stack[1]: simple_menu_id_item struct array 2, terminated with an item with string_id 0
         return: window_id
+    - name: ClosePlaybackControlsMenu
+      address:
+        NA: 0x233EC58
+      description: |-
+        Closes a window created with CreatePlaybackControlsMenu.
+        
+        r0: window_id
     - name: UpdatePlaybackControlsMenu
       address:
         EU: 0x233F504
@@ -63,12 +85,23 @@ overlay9:
       description: |-
         Creates a window containing the "Locked" text when inputs are locked while a song is playing. Also see struct input_lock_box.
         
+        If window_params is NULL, INPUT_LOCK_BOX_DEFAULT_WINDOW_PARAMS will be used. Otherwise, it will be copied onto the window, ignoring the update and contents fields. If window_params::height is 0, it will default to 2.
+        
+        If window_extra_info is non-NULL, it will be copied onto the window. Note that window_extra_info can only be NULL if there are no window_flags set that require extra info.
+        
         r0: window_params
-        r1: ?
-        r2: ?
+        r1: window_flags
+        r2: window_extra_info pointer
         r3: ?
-        stack[0]: ?
+        stack[0]: string ID
         return: window_id
+    - name: CloseInputLockBox
+      address:
+        NA: 0x233F3C0
+      description: |-
+        Closes a window created with InputLockBox.
+        
+        r0: window_id
     - name: UpdateInputLockBox
       address:
         EU: 0x233FB7C
@@ -77,4 +110,32 @@ overlay9:
         Window update function for input lock boxes.
         
         r0: window pointer
-  data: []
+  data:
+    - name: JUKEBOX_TRACK_MENU_DEFAULT_WINDOW_PARAMS
+      address:
+        NA: 0x233F794
+      length:
+        NA: 0x10
+      description: |-
+        Default window_params for a jukebox_track_menu.
+        
+        Note that x_offset and y_offset refer to the right and bottom edges, since they will be paired with the x_offset_end and y_offset_end window flags in CreateJukeboxTrackMenu.
+        
+        Additionally, width and height are 0, and will be computed in CreateJukeboxTrackMenu.
+    - name: PLAYBACK_CONTROLS_MENU_DEFAULT_WINDOW_PARAMS
+      address:
+        NA: 0x233F7A4
+      length:
+        NA: 0x10
+      description: |-
+        Default window_params for a playback_controls_menu.
+        
+        Note that x_offset and y_offset refer to the right and bottom edges, since they will be paired with the x_offset_end and y_offset_end window flags in CreatePlaybackControlsMenu.
+        
+        Additionally, width and height are 0, and will be computed in CreatePlaybackControlsMenu.
+    - name: INPUT_LOCK_BOX_DEFAULT_WINDOW_PARAMS
+      address:
+        NA: 0x233F7B4
+      length:
+        NA: 0x10
+      description: Default window_params for an input_lock_box.

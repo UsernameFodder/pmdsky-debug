@@ -4906,6 +4906,14 @@ arm9:
         Checks if A or B is currently being held.
         
         return: bool
+    - name: GetWindow
+      address:
+        NA: 0x20275F8
+      description: |-
+        Get the window with a given ID from WINDOW_LIST.
+        
+        r0: window_id
+        return: window
     - name: NewWindowScreenCheck
       address:
         EU: 0x202793C
@@ -4948,6 +4956,21 @@ arm9:
         Sets the palette of the frames of windows in both screens
         
         r0: palette index
+    - name: DeleteWindow
+      address:
+        NA: 0x2028194
+      description: |-
+        Seems to uninitialize an active window in WINDOW_LIST with a given ID, freeing the slot for reuse by another window.
+        
+        r0: window_id
+    - name: GetWindowRectangle
+      address:
+        NA: 0x2028284
+      description: |-
+        Get the rectangle defined by a window.
+        
+        r0: window_id
+        r1: [output] rectangle
     - name: GetWindowContents
       address:
         EU: 0x2028630
@@ -5018,7 +5041,39 @@ arm9:
         r1: X pos (unknown units, usually ranges between 3 and 27)
         r2: Y pos (unknown units, normally 14)
         r3: ?
+    - name: CreateParentMenuFromStringIds
+      address:
+        NA: 0x202A5CC
+      description: |-
+        A wrapper around CreateParentMenuInternal, where the menu items can be defined by string ID instead of as strings.
+        
+        r0: window_params
+        r1: window_flags
+        r2: window_extra_info pointer
+        r3: simple_menu_id_item struct array, terminated with an item with string_id 0
+        return: window_id
+    - name: IsEmptyString
+      address:
+        NA: 0x202A66C
+      description: |-
+        Checks if a null-terminated string is empty. A NULL pointer counts as empty.
+        
+        r0: string
+        return: whether the string is NULL or empty
     - name: CreateParentMenu
+      address:
+        NA: 0x202A690
+      description: |-
+        A wrapper around CreateParentMenuInternal where ownership of the items array parameter won't be transferred to the menu.
+        
+        The menu item array will be copied onto a new array on the heap. This means the argument doesn't need to remain valid after the function returns (e.g., it can be stack-allocated).
+        
+        r0: window_params
+        r1: window_flags
+        r2: window_extra_info pointer
+        r3: simple_menu_ptr_item struct array, terminated with an item with an NULL string pointer
+        return: window_id
+    - name: CreateParentMenuInternal
       address:
         EU: 0x202AA50
         NA: 0x202A75C
@@ -5029,11 +5084,22 @@ arm9:
         
         This is used in various menus that lead to submenus. For example, the top-level ground and dungeon mode menus.
         
+        If window_params is NULL, PARENT_MENU_DEFAULT_WINDOW_PARAMS will be used. Otherwise, it will be copied onto the window, ignoring the update and contents fields. If window_params::width and/or window_params::height are 0, they will be computed based on the contained text.
+        
+        If window_extra_info is non-NULL, it will be copied onto the window. Note that window_extra_info can only be NULL if there are no window_flags set that require extra info.
+        
         r0: window_params
-        r1: ?
-        r2: ?
-        r3: ?
+        r1: window_flags
+        r2: window_extra_info pointer
+        r3: heap-allocated simple_menu_items array, the menu takes ownership
         return: window_id
+    - name: CloseParentMenu
+      address:
+        NA: 0x202AABC
+      description: |-
+        Closes a window created with CreateParentMenu or CreateParentMenuFromStringIds.
+        
+        r0: window_id
     - name: UpdateParentMenu
       address:
         EU: 0x202AEF0
@@ -5042,44 +5108,60 @@ arm9:
         Window update function for parent menus.
         
         r0: window pointer
-    - name: CreateSimpleMenuWrapper
+    - name: CreateSimpleMenuFromStringIds
       address:
         EU: 0x202B3E0
         NA: 0x202B0EC
         JP: 0x202B444
       description: |-
-        A wrapper around CreateSimpleMenu, with a more convenient interface for defining menu options.
+        A wrapper around CreateSimpleMenuInternal, where the menu items can be defined by string ID instead of as strings.
         
         r0: window_params
-        r1: menu_flags
-        r2: additional_menu_info struct
-        r3: simple_menu_option struct array
-        stack[0]: option_id
+        r1: window_flags
+        r2: window_extra_info pointer
+        r3: simple_menu_id_item struct array, terminated with an item with string_id 0
+        stack[0]: number of items
         return: window_id
     - name: CreateSimpleMenu
+      address:
+        NA: 0x202B1AC
+      description: |-
+        A wrapper around CreateSimpleMenuInternal where ownership of the simple_menu_items array parameter won't be transferred to the menu.
+        
+        The menu item array will be copied onto a new array on the heap. This means the argument doesn't need to remain valid after the function returns (e.g., it can be stack-allocated).
+        
+        r0: window_params
+        r1: window_flags
+        r2: window_extra_info pointer
+        r3: simple_menu_items array
+        stack[0]: number of items
+        return: window_id
+    - name: CreateSimpleMenuInternal
       address:
         EU: 0x202B578
         NA: 0x202B284
       description: |-
         Creates a window containing a simple textual menu with a list of options. Also see struct simple_menu.
         
-        If the pointer to window_params is null, has a default menu to fall back on. A NULL additional_menu_info struct pointer works so long as the window does not have any of the flags set for the information contained inside.
-        
         This is used in lots of places. For example, some simple Yes/No prompts.
         
+        If window_params is NULL, SIMPLE_MENU_DEFAULT_WINDOW_PARAMS will be used. Otherwise, it will be copied onto the window, ignoring the update and contents fields. If window_params::width and/or window_params::height are 0, they will be computed based on the contained text.
+        
+        If window_extra_info is non-NULL, it will be copied onto the window. Note that window_extra_info can only be NULL if there are no window_flags set that require extra info.
+        
         r0: window_params
-        r1: menu_flags
-        r2: additional_menu_info struct
-        r3: some string with menu options?
-        stack[0]: option_id
+        r1: window_flags
+        r2: window_extra_info pointer
+        r3: heap-allocated simple_menu_items array, the menu takes ownership
+        stack[0]: number of items
         return: window_id
-    - name: FreeSimpleMenu
+    - name: CloseSimpleMenu
       address:
         EU: 0x202B7B8
         NA: 0x202B4C4
         JP: 0x202B81C
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Closes a window created with CreateSimpleMenu or CreateSimpleMenuFromStringIds.
         
         r0: window_id
     - name: IsSimpleMenuActive
@@ -5089,6 +5171,8 @@ arm9:
         JP: 0x202B848
       description: |-
         Note: unverified, ported from Irdkwia's notes
+        
+        Checks if the menu state is anything other than 7 or 8.
         
         r0: window_id
         return: bool
@@ -5118,24 +5202,28 @@ arm9:
       description: |-
         Creates a window containing a textual menu with complex layout and functionality (e.g., paging through multiple pages). Also see struct advanced_menu.
         
-        If window_params is null, has a default layout to fall back on. The entry function is used to get the strings for all currently available options, so when the page is flipped the entry function is used to get the strings for the entries on the other page?
-        
         This is used for menus like the IQ skills menu, and the dungeon selection menu from the overworld crossroads. Curiously, it's also used in some non-interactive contexts like the Adventure Log.
         
+        If window_params is NULL, ADVANCED_MENU_DEFAULT_WINDOW_PARAMS will be used. Otherwise, it will be copied onto the window, ignoring the update and contents fields. If window_params::width and/or window_params::height are 0, they will be computed based on the contained text.
+        
+        If window_extra_info is non-NULL, it will be copied onto the window. Note that window_extra_info can only be NULL if there are no window_flags set that require extra info.
+        
+        The entry function is used to get the strings for all currently available options, so when the page is flipped the entry function is used to get the strings for the entries on the other page?
+        
         r0: window_params
-        r1: menu_flags
-        r2: additional_menu_info struct
+        r1: window_flags
+        r2: window_extra_info pointer
         r3: entry_function
-        stack[0]: nb_options
-        stack[1]: nb_opt_per_page
+        stack[0]: total number of options
+        stack[1]: number of options per page
         return: window_id
-    - name: FreeAdvancedMenu
+    - name: CloseAdvancedMenu
       address:
         EU: 0x202BF38
         NA: 0x202BC44
         JP: 0x202BF9C
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Closes a window created with CreateAdvancedMenu.
         
         r0: window_id
     - name: IsAdvancedMenuActive
@@ -5185,14 +5273,25 @@ arm9:
         
         Collection menus seem similar to advanced menus, but are used for certain menus involving item management (Kangaskhan Storage, Kecleon shop, Croagunk Swap Shop), missions (job selection, bulletin board), and possibly other things.
         
+        If window_params is NULL, COLLECTION_MENU_DEFAULT_WINDOW_PARAMS will be used. Otherwise, it will be copied onto the window, ignoring the update and contents fields. If window_params::width and/or window_params::height are 0, they will be computed based on the contained text.
+        
+        If window_extra_info is non-NULL, it will be copied onto the window. Note that window_extra_info can only be NULL if there are no window_flags set that require extra info.
+        
         r0: window_params
-        r1: ?
-        r2: ?
+        r1: window_flags
+        r2: window_extra_info pointer
         r3: some function pointer?
         stack[0]: ?
-        stack[1]: ?
-        stack[2]: ?
+        stack[1]: total number of options
+        stack[2]: number of options per page
         return: window_id
+    - name: CloseCollectionMenu
+      address:
+        NA: 0x202C70C
+      description: |-
+        Closes a window created with CreateCollectionMenu.
+        
+        r0: window_id
     - name: UpdateCollectionMenu
       address:
         EU: 0x202CAFC
@@ -5208,15 +5307,26 @@ arm9:
       description: |-
         Creates a window containing a menu controlling game options. Also see struct options_menu.
         
-        This is used for the options and window options menus, and possibly other things.
+        This is used for the options and window options menus, among other things.
+        
+        If window_params is NULL, OPTIONS_MENU_DEFAULT_WINDOW_PARAMS will be used. Otherwise, it will be copied onto the window, ignoring the update and contents fields. If window_params::width and/or window_params::height are 0, they will be computed based on the contained text.
+        
+        If window_extra_info is non-NULL, it will be copied onto the window. Note that window_extra_info can only be NULL if there are no window_flags set that require extra info.
         
         r0: window_params
-        r1: ?
-        r2: ?
-        r3: ?
-        stack[0]: ?
+        r1: window_flags
+        r2: window_extra_info pointer
+        r3: options_menu_id_item struct array, terminated with an item with msg_id 0
+        stack[0]: number of items
         stack[1]: ?
         return: window_id
+    - name: CloseOptionsMenu
+      address:
+        NA: 0x202D530
+      description: |-
+        Closes a window created with CreateOptionsMenu.
+        
+        r0: window_id
     - name: UpdateOptionsMenu
       address:
         EU: 0x202D90C
@@ -5236,13 +5346,24 @@ arm9:
         
         See enum debug_flag and enum debug_log_flag.
         
+        If window_params is NULL, DEBUG_MENU_DEFAULT_WINDOW_PARAMS will be used. Otherwise, it will be copied onto the window, ignoring the update and contents fields. If window_params::width and/or window_params::height are 0, they will be computed based on the contained text.
+        
+        If window_extra_info is non-NULL, it will be copied onto the window. Note that window_extra_info can only be NULL if there are no window_flags set that require extra info.
+        
         r0: window_params
-        r1: ?
-        r2: ?
-        r3: ?
-        stack[0]: ?
+        r1: window_flags
+        r2: window_extra_info pointer
+        r3: array of menu item string IDs
+        stack[0]: number of menu items
         stack[1]: ?
         return: window_id
+    - name: CloseDebugMenu
+      address:
+        NA: 0x202DEF8
+      description: |-
+        Closes a window created with CreateDebugMenu.
+        
+        r0: window_id
     - name: UpdateDebugMenu
       address:
         EU: 0x202E28C
@@ -5251,45 +5372,56 @@ arm9:
         Window update function for debug menus.
         
         r0: window pointer
-    - name: CreateScrollBox1
+    - name: CreateScrollBoxSingle
       address:
         EU: 0x202E6C0
         NA: 0x202E3CC
       description: |-
-        Creates a text window that scrolls vertically on overflow. Also see struct scroll_box.
+        Creates window containing text that pages vertically on overflow, with a single pair of strings. Also see struct scroll_box.
         
         This includes things like descriptions for items and moves.
         
-        It's unclear how this function differs from CreateScrollBox2.
+        If window_params is NULL, SCROLL_BOX_DEFAULT_WINDOW_PARAMS will be used. Otherwise, it will be copied onto the window, ignoring the update and contents fields.
+        
+        If window_extra_info is non-NULL, it will be copied onto the window. Note that window_extra_info can only be NULL if there are no window_flags set that require extra info.
         
         r0: window_params
-        r1: ?
-        r2: ?
-        r3: ?
-        stack[0]: ?
-        stack[1]: ?
-        stack[2]: ?
+        r1: window_flags
+        r2: window_extra_info pointer
+        r3: string ID 1
+        stack[0]: preprocessor args 1
+        stack[1]: string ID 2
+        stack[2]: preprocessor args 2
         return: window_id
-    - name: CreateScrollBox2
+    - name: CreateScrollBoxMulti
       address:
         EU: 0x202E80C
         NA: 0x202E518
       description: |-
-        Creates a text window that scrolls vertically on overflow. Also see struct scroll_box.
+        Creates window containing text that pages vertically on overflow, with an array of string pairs. Also see struct scroll_box.
         
         This includes things like descriptions for items and moves.
         
-        It's unclear how this function differs from CreateScrollBox1.
+        If window_params is NULL, SCROLL_BOX_DEFAULT_WINDOW_PARAMS will be used. Otherwise, it will be copied onto the window, ignoring the update and contents fields.
+        
+        If window_extra_info is non-NULL, it will be copied onto the window. Note that window_extra_info can only be NULL if there are no window_flags set that require extra info.
         
         r0: window_params
-        r1: ?
-        r2: ?
-        r3: ?
-        stack[0]: ?
-        stack[1]: ?
-        stack[2]: ?
-        stack[3]: ?
+        r1: window_flags
+        r2: window_extra_info pointer
+        r3: number of string pairs
+        stack[0]: string ID 1 array
+        stack[1]: preprocessor args 1 array
+        stack[2]: string ID 2 array
+        stack[3]: preprocessor args 2 array
         return: window_id
+    - name: CloseScrollBox
+      address:
+        NA: 0x202E6C8
+      description: |-
+        Closes a window created with CreateScrollBoxSingle or CreateScrollBoxMulti.
+        
+        r0: window_id
     - name: UpdateScrollBox
       address:
         EU: 0x202E9FC
@@ -5308,15 +5440,17 @@ arm9:
         
         This is primarily used for character dialogue, hence the name. However, it can also be used for other types of messages. The defining feature of this window type is the scrolling/paging behavior.
         
+        If window_params is NULL, DIALOGUE_BOX_DEFAULT_WINDOW_PARAMS will be used. Otherwise, it will be copied onto the window, ignoring the update and contents fields.
+        
         r0: window_params
         return: window_id
-    - name: FreeDialogueBox
+    - name: CloseDialogueBox
       address:
         EU: 0x202F43C
         NA: 0x202F148
         JP: 0x202F48C
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Closes a window created with CreateDialogueBox.
         
         r0: window_id
     - name: IsDialogueBoxActive
@@ -5380,19 +5514,31 @@ arm9:
         
         This is commonly paired with a dialogue box, but can also be used standalone.
         
+        If framed, the window box type will be 0xFC, otherwise it will be 0xF9.
+        
+        The new window will always default to PORTRAIT_BOX_DEFAULT_WINDOW_PARAMS.
+        
         r0: screen index
         r1: palette_idx
         r2: framed
         return: window_id
-    - name: FreePortraitBox
+    - name: ClosePortraitBox
       address:
         EU: 0x202F944
         NA: 0x202F650
         JP: 0x202F994
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Closes a window created with CreatePortraitBox.
         
         r0: window_id
+    - name: PortraitBoxNeedsUpdate
+      address:
+        NA: 0x202F66C
+      description: |-
+        Checks if a portrait box has a state of PORTRAIT_BOX_TRY_UPDATE or PORTRAIT_BOX_UPDATE.
+        
+        r0: window_id
+        return: bool
     - name: ShowPortraitInPortraitBox
       address:
         EU: 0x202F984
@@ -5411,7 +5557,7 @@ arm9:
         NA: 0x202F6DC
         JP: 0x202FA20
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Flags a portrait box to be hidden at next update (sets portrait_box::hide) if it's not already in the PORTRAIT_BOX_HIDDEN state, and resets its buffer state.
         
         r0: window_id
     - name: UpdatePortraitBox
@@ -5422,33 +5568,49 @@ arm9:
         Window update function for portrait boxes.
         
         r0: window pointer
-    - name: CreateTextBox1
+    - name: CreateTextBox
       address:
         EU: 0x202FBB8
         NA: 0x202F8C4
       description: |-
-        Calls CreateTextBoxInternal, sets field_0x4 to the argument in r1, and returns the window_id.
+        Calls CreateTextBoxInternal, sets the callback without an argument, and returns the window_id.
         
         r0: window_params
-        r1: ?
+        r1: text box callback function
         return: window_id
-    - name: CreateTextBox2
+    - name: CreateTextBoxWithArg
       address:
         EU: 0x202FBD0
         NA: 0x202F8DC
       description: |-
-        Calls CreateTextBoxInternal, sets field_0x8 and field_0x14 to the arguments in r1 and r2, respectively, and returns the window_id.
+        Calls CreateTextBoxInternal, sets the callback with an argument, and returns the window_id.
         
         r0: window_params
-        r1: ?
-        r2: ?
+        r1: text box callback with arg function
+        r2: callback argument
         return: window_id
+    - name: CloseTextBox
+      address:
+        NA: 0x202F8FC
+      description: |-
+        Closes a window created with CreateTextBox or CreateTextBoxWithArg.
+        
+        r0: window_id
+    - name: CloseTextBox2
+      address:
+        NA: 0x202F918
+      description: |-
+        Seems to do some things with the text box, before doing the same things that CloseTextBox does.
+        
+        r0: window_id
     - name: CreateTextBoxInternal
       address:
         EU: 0x202FCD0
         NA: 0x202F9DC
       description: |-
         Creates a window containing simple text, without much advanced functionality. Also see struct text_box.
+        
+        If window_params is NULL, TEXT_BOX_DEFAULT_WINDOW_PARAMS will be used. Otherwise, it will be copied onto the window, ignoring the update and contents fields.
         
         r0: window_params
         return: text_box pointer
@@ -5460,26 +5622,37 @@ arm9:
         Window update function for text boxes.
         
         r0: window pointer
-    - name: CreateDynamicTextBox
+    - name: CreateAreaNameBox
       address:
         EU: 0x202FEB0
         NA: 0x202FBBC
       description: |-
-        Creates a window containing dynamically determined text (probably?). Also see struct dynamic_text_box.
+        Creates a window containing the area name, as resolved from the "[area:0]" tag.
         
-        This is used for the "area name" text box in the top-level menus in ground/dungeon mode.
+        This only seems to be used for the "area name" text box in the top-level menu in ground mode (not dungeon mode), and the analogous text box on the world map transition screen before entering a dungeon.
+        
+        If window_params is NULL, AREA_NAME_BOX_DEFAULT_WINDOW_PARAMS will be used. Otherwise, it will be copied onto the window, ignoring the update and contents fields. If window_params::width is 0, it will be computed based on the contained text. If window_params::height is 0, it will default to 2.
+        
+        If window_extra_info is non-NULL, it will be copied onto the window. Note that window_extra_info can only be NULL if there are no window_flags set that require extra info.
         
         r0: window_params
-        r1: ?
-        r2: ?
+        r1: window_flags
+        r2: window_extra_info pointer
         r3: ID (for preprocessor_args)
         return: window_id
-    - name: UpdateDynamicTextBox
+    - name: CloseAreaNameBox
+      address:
+        NA: 0x202FD50
+      description: |-
+        Closes a window created with CreateAreaNameBox.
+        
+        r0: window_id
+    - name: UpdateAreaNameBox
       address:
         EU: 0x2030080
         NA: 0x202FD8C
       description: |-
-        Window update function for dynamic text boxes.
+        Window update function for area name boxes.
         
         r0: window pointer
     - name: CreateControlsChart
@@ -5491,11 +5664,22 @@ arm9:
         
         This is usually used for static top-screen control reference charts.
         
+        If window_params is NULL, CONTROLS_CHART_DEFAULT_WINDOW_PARAMS will be used. Otherwise, it will be copied onto the window, ignoring the update and contents fields.
+        
+        If window_extra_info is non-NULL, it will be copied onto the window. Note that window_extra_info can only be NULL if there are no window_flags set that require extra info.
+        
         r0: window_params
-        r1: ?
-        r2: ?
-        r3: ?
+        r1: window_flags
+        r2: window_extra_info pointer
+        r3: string ID
         return: window_id
+    - name: CloseControlsChart
+      address:
+        NA: 0x202FED4
+      description: |-
+        Closes a window created with CreateControlsChart.
+        
+        r0: window_id
     - name: UpdateControlsChart
       address:
         EU: 0x2030204
@@ -5513,8 +5697,17 @@ arm9:
         
         This is only used in dungeon mode, for the "popup alert" messages about things happening in the dungeon (which will also be accessible in the message logs).
         
+        If window_params is NULL, ALERT_BOX_DEFAULT_WINDOW_PARAMS will be used. Otherwise, it will be copied onto the window, ignoring the update and contents fields.
+        
         r0: window_params
         return: window_id
+    - name: CloseAlertBox
+      address:
+        NA: 0x2030044
+      description: |-
+        Closes a window created with CreateAlertBox.
+        
+        r0: window_id
     - name: UpdateAlertBox
       address:
         EU: 0x2030568
@@ -5523,32 +5716,36 @@ arm9:
         Window update function for alert boxes.
         
         r0: window pointer
-    - name: CreateAdvancedTextBox1
+    - name: CreateAdvancedTextBox
       address:
         EU: 0x20308A8
         NA: 0x20305B4
       description: |-
-        Calls CreateAdvancedTextBoxInternal(r0, r1, r2, stack[0]), sets field_0x1a4 to the argument in r3, and returns the window_id.
+        Calls CreateAdvancedTextBoxInternal with all the selectable items on one page (n_items_per_page = n_items), sets the callback without an argument, and returns the window_id.
+        
+        If window_params is NULL, ADVANCED_TEXT_BOX_DEFAULT_WINDOW_PARAMS will be used. Otherwise, it will be copied onto the window, ignoring the update and contents fields.
+        
+        If window_extra_info is non-NULL, it will be copied onto the window. Note that window_extra_info can only be NULL if there are no window_flags set that require extra info.
         
         r0: window_params
-        r1: ?
-        r2: ?
-        r3: ?
-        stack[0]: ?
+        r1: window_flags
+        r2: window_extra_info pointer
+        r3: text box callback function
+        stack[0]: number of selectable items
         return: window_id
-    - name: CreateAdvancedTextBox2
+    - name: CreateAdvancedTextBoxWithArg
       address:
         EU: 0x20308D8
         NA: 0x20305E4
       description: |-
-        Calls CreateAdvancedTextBoxInternal(r0, r1, r2, stack[1]), setsfield_0x1a8 and field_0x1ac to the argument in r3 and stack[0],respectively, and returns the window_id.
+        Calls CreateAdvancedTextBoxInternal with all the selectable items on one page (n_items_per_page = n_items), sets the callback with an argument, and returns the window_id.
         
         r0: window_params
-        r1: ?
-        r2: ?
-        r3: ?
-        stack[0]: ?
-        stack[1]: ?
+        r1: window_flags
+        r2: window_extra_info pointer
+        r3: text box callback with arg function
+        stack[0]: callback argument
+        stack[1]: number of selectable items
         return: window_id
     - name: CreateAdvancedTextBoxInternal
       address:
@@ -5560,11 +5757,25 @@ arm9:
         This is usually used to display text with "pretty" formatting in certain contexts, such as the message log, the move selection menu, team member summaries, etc.
         
         r0: window_params
-        r1: ?
-        r2: ?
-        r3: ?
-        stack[0]: ?
+        r1: window_flags
+        r2: window_extra_info pointer
+        r3: total number of selectable items
+        stack[0]: number of selectable items per page
         return: advanced_text_box pointer
+    - name: CloseAdvancedTextBox2
+      address:
+        NA: 0x2030850
+      description: |-
+        Seems to do some things with the text box, before doing the same things that CloseAdvancedTextBox does.
+        
+        r0: window_id
+    - name: CloseAdvancedTextBox
+      address:
+        NA: 0x20308A0
+      description: |-
+        Closes a window created with CreateAdvancedTextBox or CreateAdvancedTextBoxWithArg.
+        
+        r0: window_id
     - name: UpdateAdvancedTextBox
       address:
         EU: 0x2030DDC
@@ -5578,17 +5789,26 @@ arm9:
         EU: 0x2031238
         NA: 0x2030F44
       description: |-
-        Creates a window containing a menu for selecting a single team member. Also see struct simple_menu.
+        Creates a window containing a menu for selecting a single team member. Also see struct team_selection_menu.
+        
+        If window_params::width and/or window_params::height are 0, they will be computed based on the contained text.
         
         This appears to be used for various shop (and shop-like) interfaces when a single team member needs to be selected. For example, the Electivire Link Shop, the Chimecho Assembly, the Croagunk Swap Shop, and Luminous Spring. It's unknown if this is used for other contexts besides team member selection.
         
         r0: window_params
-        r1: ?
-        r2: ?
-        r3: some function pointer?
-        stack[0]: ?
-        stack[1]: ?
+        r1: window_flags
+        r2: window_extra_info pointer
+        r3: function to get the menu item text for a given team member
+        stack[0]: total number of options
+        stack[1]: number of options per page
         return: window_id
+    - name: CloseTeamSelectionMenu
+      address:
+        NA: 0x2031198
+      description: |-
+        Closes a window created with CreateTeamSelectionMenu.
+        
+        r0: window_id
     - name: UpdateTeamSelectionMenu
       address:
         EU: 0x2031530
@@ -5597,6 +5817,33 @@ arm9:
         Window update function for team selection menus.
         
         r0: window pointer
+    - name: CalcMenuHeightDiv8
+      address:
+        NA:
+          - 0x2031AA4
+          - 0x20329E4
+      description: |-
+        Calculates the window height (divided by 8, as in struct window_params) of a menu, given its items and input flags.
+        
+        For certain input flags, the number of options per page will be clamped to the total number of options if the per-page count exceeds the total.
+        
+        r0: window_flags
+        r1: window_extra_info pointer
+        r2: total number of options
+        r3: number of options per page
+        return: height / 8
+    - name: InitWindowInput
+      address:
+        NA: 0x2031AF8
+      description: |-
+        This seems to be called when creating most interactive windows that respond to user input, like menus (but also other interactive windows like scroll boxes and advanced text boxes). It presumably sets up the state necessary for detecting and responding to user input.
+        
+        r0: window_input_ctx pointer
+        r1: window_flags
+        r2: window_extra_info pointer
+        r3: window rectangle
+        stack[0]: total number of selectable items
+        stack[1]: number of selectable items per page
     - name: IsMenuOptionActive
       address:
         EU: 0x2032768
@@ -5607,16 +5854,29 @@ arm9:
         
         r0: ?
         return: True if the menu option is enabled, false otherwise.
-    - name: PlayMenuOptionSound
+    - name: PlayWindowInputSound
       address:
         EU: 0x2032C54
         NA: 0x2032960
         JP: 0x2032C80
       description: |-
-        Plays a "beep" sound when choosing a menu option.
+        Plays a "beep" sound when giving an input to an interactive window (typically, when choosing a menu option).
         
-        r0: ?
+        r0: window_input_ctx pointer
         r1: Some kind of index used to determine the ID of the sound to play
+    - name: InitInventoryMenuInput
+      address:
+        NA: 0x2032A38
+      description: |-
+        Almost exactly the same as InitWindowInput, except two differences in field assignments on the window input context, one of which uses an extra parameter.
+        
+        r0: inventory_menu_input_ctx pointer
+        r1: window_flags
+        r2: window_extra_info pointer
+        r3: window rectangle
+        stack[0]: total number of selectable items
+        stack[1]: number of selectable items per page
+        stack[2]: ?
     - name: ShowKeyboard
       address:
         EU: 0x2036AE4
@@ -5648,6 +5908,15 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         return: ?
+    - name: TeamSelectionMenuGetItem
+      address:
+        NA: 0x203A75C
+      description: |-
+        Gets the menu item text (member name) for a given team member for a team selection menu.
+        
+        r0: buffer
+        r1: team member index
+        return: menu item text (points into buffer)
     - name: PrintMoveOptionMenu
       address:
         EU: 0x20405BC
@@ -10589,6 +10858,142 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         type: int[8]
+    - name: PARENT_MENU_DEFAULT_WINDOW_PARAMS
+      address:
+        NA: 0x209AE90
+      length:
+        NA: 0x10
+      description: |-
+        Default window_params for a simple_menu created with CreateParentMenuInternal.
+        
+        Note that x_offset and y_offset refer to the right and bottom edges, since they will be paired with the x_offset_end and y_offset_end window flags in CreateParentMenuInternal.
+        
+        Additionally, width and height are 0, and will be computed in CreateParentMenuInternal.
+    - name: SIMPLE_MENU_DEFAULT_WINDOW_PARAMS
+      address:
+        NA: 0x209AEA0
+      length:
+        NA: 0x10
+      description: |-
+        Default window_params for a simple_menu.
+        
+        Note that x_offset and y_offset refer to the right and bottom edges, since they will be paired with the x_offset_end and y_offset_end window flags in CreateSimpleMenuInternal.
+        
+        Additionally, width and height are 0, and will be computed in CreateSimpleMenuInternal.
+    - name: ADVANCED_MENU_DEFAULT_WINDOW_PARAMS
+      address:
+        NA: 0x209AEB0
+      length:
+        NA: 0x10
+      description: |-
+        Default window_params for an advanced_menu.
+        
+        Note that x_offset and y_offset refer to the right and bottom edges, since they will be paired with the x_offset_end and y_offset_end window flags in CreateAdvancedMenu.
+        
+        Additionally, width and height are 0, and will be computed in CreateAdvancedMenu.
+    - name: COLLECTION_MENU_DEFAULT_WINDOW_PARAMS
+      address:
+        NA: 0x209AEC0
+      length:
+        NA: 0x10
+      description: |-
+        Default window_params for a collection_menu.
+        
+        Note that x_offset and y_offset refer to the right and bottom edges, since they will be paired with the x_offset_end and y_offset_end window flags in CreateCollectionMenu.
+        
+        Additionally, width and height are 0, and will be computed in CreateCollectionMenu.
+    - name: OPTIONS_MENU_DEFAULT_WINDOW_PARAMS
+      address:
+        NA: 0x209AED0
+      length:
+        NA: 0x10
+      description: |-
+        Default window_params for an options_menu.
+        
+        Note that x_offset and y_offset refer to the right and bottom edges, since they will be paired with the x_offset_end and y_offset_end window flags in CreateOptionsMenu.
+        
+        Additionally, width and height are 0, and will be computed in CreateOptionsMenu.
+    - name: DEBUG_MENU_DEFAULT_WINDOW_PARAMS
+      address:
+        NA: 0x209AF0C
+      length:
+        NA: 0x10
+      description: |-
+        Default window_params for a debug_menu.
+        
+        Note that x_offset and y_offset refer to the right and bottom edges, since they will be paired with the x_offset_end and y_offset_end window flags in CreateDebugMenu.
+        
+        Additionally, width and height are 0, and will be computed in CreateDebugMenu.
+    - name: SCROLL_BOX_DEFAULT_WINDOW_PARAMS
+      address:
+        NA: 0x209AF1C
+      length:
+        NA: 0x10
+      description: Default window_params for a scroll_box.
+    - name: DIALOGUE_BOX_DEFAULT_WINDOW_PARAMS
+      address:
+        NA: 0x209AF2C
+      length:
+        NA: 0x10
+      description: Default window_params for a dialogue_box.
+    - name: PORTRAIT_BOX_DEFAULT_WINDOW_PARAMS
+      address:
+        NA: 0x209AF3C
+      length:
+        NA: 0x10
+      description: |-
+        Default window_params for a portrait_box.
+        
+        Note that the screen and box type are unset, and are determined in CreatePortraitBox.
+    - name: TEXT_BOX_DEFAULT_WINDOW_PARAMS
+      address:
+        NA: 0x209AF4C
+      length:
+        NA: 0x10
+      description: Default window_params for a text_box.
+    - name: AREA_NAME_BOX_DEFAULT_WINDOW_PARAMS
+      address:
+        NA: 0x209AF5C
+      length:
+        NA: 0x10
+      description: |-
+        Default window_params for an area_name_box.
+        
+        Note that x_offset and y_offset refer to the right and bottom edges, since they will be paired with the x_offset_end and y_offset_end window flags in CreateAreaNameBox.
+        
+        Additionally, width and height are 0, and will be computed in CreateAreaNameBox.
+    - name: CONTROLS_CHART_DEFAULT_WINDOW_PARAMS
+      address:
+        NA: 0x209AF78
+      length:
+        NA: 0x10
+      description: Default window_params for a controls_chart.
+    - name: ALERT_BOX_DEFAULT_WINDOW_PARAMS
+      address:
+        NA: 0x209AF94
+      length:
+        NA: 0x10
+      description: Default window_params for an alert_box.
+    - name: ADVANCED_TEXT_BOX_DEFAULT_WINDOW_PARAMS
+      address:
+        NA: 0x209AFA4
+      length:
+        NA: 0x10
+      description: |-
+        Default window_params for an advanced_text_box.
+        
+        Note that x_offset and y_offset refer to the right and bottom edges, since they will be paired with the x_offset_end and y_offset_end window flags in CreateAdvancedTextBoxInternal.
+    - name: TEAM_SELECTION_MENU_DEFAULT_WINDOW_PARAMS
+      address:
+        NA: 0x209AFB4
+      length:
+        NA: 0x10
+      description: |-
+        Default window_params for a team_selection_menu.
+        
+        Note that x_offset and y_offset refer to the right and bottom edges, since they will be paired with the x_offset_end and y_offset_end window flags in CreateTeamSelectionMenu.
+        
+        Additionally, width and height are 0, and will be computed in CreateTeamSelectionMenu.
     - name: PARTNER_TALK_KIND_TABLE
       address:
         EU: 0x209D268

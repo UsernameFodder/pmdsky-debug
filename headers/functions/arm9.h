@@ -510,53 +510,79 @@ void CopyNStringFromId(char* buf, int string_id, int buf_len);
 void LoadTblTalk(void);
 int GetTalkLine(int personality_idx, int group_id, int restrictions);
 bool IsAOrBPressed(void);
+struct window* GetWindow(int window_id);
 int NewWindowScreenCheck(struct window_params* params, uint8_t param_2);
 int NewWindow(struct window_params* params, uint8_t param_2);
 void SetScreenWindowsColor(int palette_idx, bool upper_screen);
 void SetBothScreensWindowsColor(int palette_idx);
+void DeleteWindow(int window_id);
+void GetWindowRectangle(int window_id, struct window_rectangle* rect_out);
 void* GetWindowContents(int window_id);
 void LoadCursors(void);
 void InitWindowTrailer(struct window_trailer* trailer);
 void LoadAlert(void);
 void PrintClearMark(int mark_id, int x, int y, undefined param_4);
-int CreateParentMenu(struct window_params* params, uint32_t param_2, undefined* param_3,
-                     undefined4 param_4);
+int CreateParentMenuFromStringIds(struct window_params* params, struct window_flags flags,
+                                  struct window_extra_info* window_extra_info,
+                                  struct simple_menu_id_item* menu_items);
+bool IsEmptyString(const char* s);
+int CreateParentMenu(struct window_params* params, struct window_flags flags,
+                     struct window_extra_info* window_extra_info,
+                     struct simple_menu_ptr_item* menu_items);
+int CreateParentMenuInternal(struct window_params* params, struct window_flags flags,
+                             struct window_extra_info* window_extra_info,
+                             struct simple_menu_item* menu_items);
+void CloseParentMenu(int window_id);
 void UpdateParentMenu(struct window* window);
-int CreateSimpleMenuWrapper(struct window_params* params, struct menu_flags menu_flags,
-                            struct menu_additional_info* menu_additional_info,
-                            struct simple_menu_option* menu_options, int option_id);
-int CreateSimpleMenu(struct window_params* params, struct menu_flags menu_flags,
-                     struct menu_additional_info* menu_additional_info, char* param_3,
-                     int option_id);
-void FreeSimpleMenu(int window_id);
+int CreateSimpleMenuFromStringIds(struct window_params* params, struct window_flags flags,
+                                  struct window_extra_info* window_extra_info,
+                                  struct simple_menu_id_item* menu_items, int n_items);
+int CreateSimpleMenu(struct window_params* params, struct window_flags flags,
+                     struct window_extra_info* window_extra_info,
+                     struct simple_menu_item* menu_items, int n_items);
+int CreateSimpleMenuInternal(struct window_params* params, struct window_flags flags,
+                             struct window_extra_info* window_extra_info,
+                             struct simple_menu_item* menu_items, int n_items);
+void CloseSimpleMenu(int window_id);
 bool IsSimpleMenuActive(int window_id);
 int GetSimpleMenuResult(int window_id);
 void UpdateSimpleMenu(struct window* window);
-int CreateAdvancedMenu(struct window_params* params, struct menu_flags menu_flags,
-                       struct menu_additional_info* menu_additional_info,
+int CreateAdvancedMenu(struct window_params* params, struct window_flags flags,
+                       struct window_extra_info* window_extra_info,
                        advanced_menu_entry_fn_t* entry_fn, int n_options, int n_opt_per_page);
-void FreeAdvancedMenu(int window_id);
+void CloseAdvancedMenu(int window_id);
 bool IsAdvancedMenuActive(int window_id);
 int GetAdvancedMenuCurrentOption(int window_id);
 int GetAdvancedMenuResult(int window_id);
 void UpdateAdvancedMenu(struct window* window);
-int CreateCollectionMenu(struct window_params* params, uint32_t param_2, undefined* param_3,
-                         undefined* param_4, undefined4 param_5, int param_6, int param_7);
+int CreateCollectionMenu(struct window_params* params, struct window_flags flags,
+                         struct window_extra_info* window_extra_info,
+                         unk_collection_menu_fn_t* param_4, undefined4 param_5, int n_options,
+                         int n_opt_per_page);
+void CloseCollectionMenu(int window_id);
 void UpdateCollectionMenu(struct window* window);
-int CreateOptionsMenu(struct window_params* params, uint32_t param_2, undefined* param_3,
-                      undefined* param_4, int param_5, undefined4* param_6);
+int CreateOptionsMenu(struct window_params* params, struct window_flags flags,
+                      struct window_extra_info* window_extra_info,
+                      struct options_menu_id_item* menu_items, int n_items, undefined4* param_6);
+void CloseOptionsMenu(int window_id);
 void UpdateOptionsMenu(struct window* window);
-int CreateDebugMenu(struct window_params* params, uint32_t param_2, undefined* param_3,
-                    uint16_t param_4, int param_5, undefined* param_6);
+int CreateDebugMenu(struct window_params* params, struct window_flags flags,
+                    struct window_extra_info* window_extra_info, uint16_t* menu_item_string_ids,
+                    int n_items, undefined* param_6);
+void CloseDebugMenu(int window_id);
 void UpdateDebugMenu(struct window* window);
-int CreateScrollBox1(struct window_params* params, uint32_t param_2, undefined* param_3,
-                     uint16_t param_4, undefined* param_5, uint16_t param_6, undefined* param_7);
-int CreateScrollBox2(struct window_params* params, uint32_t param_2, undefined* param_3,
-                     int param_4, uint16_t* param_5, undefined* param_6, uint16_t* param_7,
-                     undefined* param_8);
+int CreateScrollBoxSingle(struct window_params* params, struct window_flags flags,
+                          struct window_extra_info* window_extra_info, uint16_t string_id1,
+                          struct preprocessor_args* args1, uint16_t string_id2,
+                          struct preprocessor_args* args2);
+int CreateScrollBoxMulti(struct window_params* params, struct window_flags flags,
+                         struct window_extra_info* window_extra_info, int n_strings,
+                         uint16_t* string_ids1, struct preprocessor_args* args1,
+                         uint16_t* string_ids2, struct preprocessor_args* args2);
+void CloseScrollBox(int window_id);
 void UpdateScrollBox(struct window* window);
 int CreateDialogueBox(struct window_params* params);
-void FreeDialogueBox(int window_id);
+void CloseDialogueBox(int window_id);
 bool IsDialogueBoxActive(int window_id);
 void ShowStringIdInDialogueBox(int window_id, struct preprocessor_flags flags, int string_id,
                                struct preprocessor_args* args);
@@ -565,38 +591,63 @@ void ShowStringInDialogueBox(int window_id, struct preprocessor_flags flags, cha
 void ShowDialogueBox(int window_id);
 void UpdateDialogueBox(struct window* window);
 int CreatePortraitBox(enum screen screen, uint32_t palette_idx, bool framed);
-void FreePortraitBox(int window_id);
+void ClosePortraitBox(int window_id);
+bool PortraitBoxNeedsUpdate(int window_id);
 void ShowPortraitInPortraitBox(int window_id, struct portrait_params* portrait);
 void HidePortraitBox(int window_id);
 void UpdatePortraitBox(struct window* window);
-int CreateTextBox1(struct window_params* params, undefined4 param_2);
-int CreateTextBox2(struct window_params* params, undefined4 param_2, undefined4 param_3);
+int CreateTextBox(struct window_params* params, text_box_callback_fn_t cb);
+int CreateTextBoxWithArg(struct window_params* params, text_box_callback_with_arg_fn_t cb,
+                         void* cb_arg);
+void CloseTextBox(int window_id);
+void CloseTextBox2(int window_id);
 struct text_box* CreateTextBoxInternal(struct window_params* params);
 void UpdateTextBox(struct window* window);
-int CreateDynamicTextBox(struct window_params* params, uint32_t param_2, undefined* param_3,
-                         uint32_t id);
-void UpdateDynamicTextBox(struct window* window);
-int CreateControlsChart(struct window_params* params, undefined4 param_2, undefined* param_3,
-                        uint16_t param_4);
+int CreateAreaNameBox(struct window_params* params, struct window_flags flags,
+                      struct window_extra_info* window_extra_info, uint32_t id);
+void CloseAreaNameBox(int window_id);
+void UpdateAreaNameBox(struct window* window);
+int CreateControlsChart(struct window_params* params, struct window_flags flags,
+                        struct window_extra_info* window_extra_info, uint16_t string_id);
+void CloseControlsChart(int window_id);
 void UpdateControlsChart(struct window* window);
 int CreateAlertBox(struct window_params* params);
+void CloseAlertBox(int window_id);
 void UpdateAlertBox(struct window* window);
-int CreateAdvancedTextBox1(struct window_params* params, uint32_t param_2, undefined* param_3,
-                           undefined4 param_4, undefined4 param_5);
-int CreateAdvancedTextBox2(struct window_params* params, uint32_t param_2, undefined* param_3,
-                           undefined4 param_4, undefined4 param_5, undefined4 param_6);
+int CreateAdvancedTextBox(struct window_params* params, struct window_flags flags,
+                          struct window_extra_info* extra_info, text_box_callback_fn_t cb,
+                          int n_items);
+int CreateAdvancedTextBoxWithArg(struct window_params* params, struct window_flags flags,
+                                 struct window_extra_info* extra_info,
+                                 text_box_callback_with_arg_fn_t cb, void* cb_arg, int n_items);
 struct advanced_text_box* CreateAdvancedTextBoxInternal(struct window_params* params,
-                                                        uint32_t param_2, undefined* param_3,
-                                                        undefined4 param_4, int param_5);
+                                                        struct window_flags flags,
+                                                        struct window_extra_info* extra_info,
+                                                        int n_items, int n_items_per_page);
+void CloseAdvancedTextBox2(int window_id);
+void CloseAdvancedTextBox(int window_id);
 void UpdateAdvancedTextBox(struct window* window);
-int CreateTeamSelectionMenu(struct window_params* params, uint32_t param_2, undefined* param_3,
-                            undefined* param_4, int param_5, int param_6);
+int CreateTeamSelectionMenu(struct window_params* params, struct window_flags flags,
+                            struct window_extra_info* window_extra_info,
+                            team_selection_menu_get_item_fn_t get_item, int n_items,
+                            int n_items_per_page);
+void CloseTeamSelectionMenu(int window_id);
 void UpdateTeamSelectionMenu(struct window* window);
+int CalcMenuHeightDiv8(struct window_flags flags, struct window_extra_info* extra_info,
+                       int* n_options, int* n_opt_per_page);
+void InitWindowInput(struct window_input_ctx* input_ctx, struct window_flags flags,
+                     struct window_extra_info* window_extra_info, struct window_rectangle* rect,
+                     int n_items, int n_items_per_page);
 bool IsMenuOptionActive(undefined* param_1);
-void PlayMenuOptionSound(undefined* param_1, int index);
+void PlayWindowInputSound(struct window_input_ctx* input_ctx, int index);
+void InitInventoryMenuInput(struct inventory_menu_input_ctx* input_ctx, struct window_flags flags,
+                            struct window_extra_info* window_extra_info,
+                            struct window_rectangle* rect, int n_items, int n_items_per_page,
+                            undefined param_7);
 int ShowKeyboard(int string_id, char* buffer1, int param_3, char* buffer2);
 int GetKeyboardStatus(void);
 int GetKeyboardStringResult(void);
+char* TeamSelectionMenuGetItem(char* buffer, int member_idx);
 void PrintMoveOptionMenu(void);
 void PrintIqSkillsMenu(enum monster_id monster_id, uint32_t* iq_skills_flags, int monster_iq,
                        bool is_blinded);

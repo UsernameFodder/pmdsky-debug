@@ -2,6 +2,7 @@
 #define HEADERS_DATA_H_
 
 #include "arm9.h"
+#include "overlay09.h"
 #include "overlay10.h"
 #include "overlay11.h"
 #include "overlay13.h"

@@ -1,0 +1,8 @@
+#ifndef HEADERS_DATA_OVERLAY09_H_
+#define HEADERS_DATA_OVERLAY09_H_
+
+extern struct window_params JUKEBOX_TRACK_MENU_DEFAULT_WINDOW_PARAMS;
+extern struct window_params PLAYBACK_CONTROLS_MENU_DEFAULT_WINDOW_PARAMS;
+extern struct window_params INPUT_LOCK_BOX_DEFAULT_WINDOW_PARAMS;
+
+#endif
