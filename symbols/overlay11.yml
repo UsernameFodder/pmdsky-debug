@@ -490,7 +490,16 @@ overlay11:
       description: |-
         Creates a window containing team information (rank and money carried) for the top-level menu in ground mode. Also see struct team_info_box.
         
+        The new window will always default to TEAM_INFO_BOX_DEFAULT_WINDOW_PARAMS.
+        
         return: window_id
+    - name: CloseTeamInfoBox
+      address:
+        NA: 0x22FEF4C
+      description: |-
+        Closes a window created with CreateTeamInfoBox.
+        
+        r0: window_id
     - name: UpdateTeamInfoBox
       address:
         EU: 0x22FF944
@@ -731,6 +740,12 @@ overlay11:
         Table that associates the parameter of the SetAnimation scripting opcode to animation data.
         
         The first entry is unused and has a value of 0xFFFF.
+    - name: TEAM_INFO_BOX_DEFAULT_WINDOW_PARAMS
+      address:
+        NA: 0x232245C
+      length:
+        NA: 0x10
+      description: Default window_params for a team_info_box.
     - name: OVERLAY11_OVERLAY_LOAD_TABLE
       address:
         EU: 0x2323B9C

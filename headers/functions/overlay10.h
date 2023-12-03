@@ -1,9 +1,10 @@
 #ifndef HEADERS_FUNCTIONS_OVERLAY10_H_
 #define HEADERS_FUNCTIONS_OVERLAY10_H_
 
-int CreateInventoryMenu(struct window_params* params, uint32_t param_2, undefined* param_3,
-                        undefined* param_4, undefined4 param_5, int param_6, int param_7,
-                        uint8_t param_8);
+int CreateInventoryMenu(struct window_params* params, struct window_flags flags,
+                        struct window_extra_info* window_extra_info, undefined* param_4,
+                        undefined4 param_5, int n_items, int n_items_per_page, uint8_t param_8);
+void CloseInventoryMenu(int window_id);
 void UpdateInventoryMenu(struct window* window);
 int GetEffectAnimationField0x19(int anim_id);
 bool AnimationHasMoreFrames(int param_1);

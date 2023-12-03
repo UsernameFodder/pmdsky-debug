@@ -22,15 +22,26 @@ overlay10:
         
         This is used for the Treasure Bag menu, the item information/price window in dungeon Kecleon shops, and possibly other things.
         
+        If window_params is NULL, INVENTORY_MENU_DEFAULT_WINDOW_PARAMS will be used. Otherwise, it will be copied onto the window, ignoring the update and contents fields. If window_params::width and/or window_params::height are 0, they will be computed based on the contained text.
+        
+        If window_extra_info is non-NULL, it will be copied onto the window. Note that window_extra_info can only be NULL if there are no window_flags set that require extra info.
+        
         r0: window_params
-        r1: ?
-        r2: ?
+        r1: window_flags
+        r2: window_extra_info pointer
         r3: some function pointer?
         stack[0]: ?
-        stack[1]: ?
-        stack[2]: ?
+        stack[1]: total number of items
+        stack[2]: number of items per page
         stack[3]: ?
         return: window_id
+    - name: CloseInventoryMenu
+      address:
+        NA: 0x22BCCF4
+      description: |-
+        Closes a window created with CreateInventoryMenu.
+        
+        r0: window_id
     - name: UpdateInventoryMenu
       address:
         EU: 0x22BD7B4
@@ -198,6 +209,17 @@ overlay10:
         r0: End condition code? Seems to control what tasks get run and what transition happens when the dungeon ends
         return: return code?
   data:
+    - name: INVENTORY_MENU_DEFAULT_WINDOW_PARAMS
+      address:
+        NA: 0x22C4394
+      length:
+        NA: 0x10
+      description: |-
+        Default window_params for an inventory_menu.
+        
+        Note that x_offset and y_offset refer to the right and bottom edges, since they will be paired with the x_offset_end and y_offset_end window flags in CreateInventoryMenu.
+        
+        Additionally, width and height are 0, and will be computed in CreateInventoryMenu.
     - name: FIRST_DUNGEON_WITH_MONSTER_HOUSE_TRAPS
       address:
         EU: 0x22C4D64
