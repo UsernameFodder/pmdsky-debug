@@ -4623,17 +4623,17 @@ arm9:
         r2: input format string
         r3: preprocessor flags
         stack[0]: pointer to preprocessor args
-    - name: PreprocessStringFromMessageId
+    - name: PreprocessStringFromId
       address:
         EU: 0x20237B4
         NA: 0x20235B8
         JP: 0x2023608
       description: |-
-        Calls PreprocessString after resolving the given message ID to a string.
+        Calls PreprocessString after resolving the given string ID to a string.
         
         r0: [output] formatted string
         r1: maximum capacity of the output buffer
-        r2: message ID
+        r2: string ID
         r3: preprocessor flags
         stack[0]: pointer to preprocessor args
     - name: StrcmpTagVeneer
@@ -4843,39 +4843,39 @@ arm9:
         
         r0: Buffer
         r1: String ID
-    - name: StringFromMessageId
+    - name: StringFromId
       address:
         EU: 0x2025B90
         NA: 0x20258C4
         JP: 0x20258A4
       description: |-
-        Gets the string corresponding to a given message ID.
+        Gets the string corresponding to a given string ID.
         
-        r0: message ID
-        return: string from the string files with the given message ID
-    - name: CopyStringFromMessageId
+        r0: string ID
+        return: string from the string files with the given string ID
+    - name: CopyStringFromId
       address:
         EU: 0x2025BB0
         NA: 0x20258E4
         JP: 0x20258C4
       description: |-
-        Gets the string corresponding to a given message ID and copies it to the buffer specified in r0.
+        Gets the string corresponding to a given string ID and copies it to the buffer specified in r0.
         
-        r0: Buffer
-        r1: String ID
-    - name: CopyNStringFromMessageId
+        r0: buffer
+        r1: string ID
+    - name: CopyNStringFromId
       address:
         EU: 0x2025BD8
         NA: 0x202590C
         JP: 0x20258EC
       description: |-
-        Gets the string corresponding to a given message ID and copies it to the buffer specified in r0.
+        Gets the string corresponding to a given string ID and copies it to the buffer specified in r0.
         
         This function won't write more than <buffer length> bytes.
         
-        r0: Buffer
-        r1: String ID
-        r2: Buffer length
+        r0: buffer
+        r1: string ID
+        r2: buffer length
     - name: LoadTblTalk
       address:
         EU: 0x2025C08
@@ -5329,7 +5329,7 @@ arm9:
         
         r0: window_id
         return: bool
-    - name: ShowMessageInDialogueBox
+    - name: ShowStringIdInDialogueBox
       address:
         EU: 0x202F4A8
         NA: 0x202F1B4
@@ -5625,7 +5625,7 @@ arm9:
       description: |-
         Note: unverified, ported from Irdkwia's notes
         
-        r0: MessageID
+        r0: string ID
         r1: buffer1
         r2: ???
         r3: buffer2
@@ -8820,7 +8820,7 @@ arm9:
         NA: 0x205A430
         JP: 0x205A72C
       description: |-
-        Gets the string corresponding to a given message ID and copies it to the buffer specified in r0.
+        Gets the string corresponding to a given string ID and copies it to the buffer specified in r0.
         
         This function won't write more than 64 bytes.
         

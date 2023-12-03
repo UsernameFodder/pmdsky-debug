@@ -483,8 +483,8 @@ int AtoiTag(const char* s);
 int AnalyzeText(undefined* buf);
 int PreprocessString(char* output, int output_size, const char* format,
                      struct preprocessor_flags flags, struct preprocessor_args* args);
-int PreprocessStringFromMessageId(char* output, int output_size, int message_id,
-                                  struct preprocessor_flags flags, struct preprocessor_args* args);
+int PreprocessStringFromId(char* output, int output_size, int string_id,
+                           struct preprocessor_flags flags, struct preprocessor_args* args);
 bool StrcmpTagVeneer(const char* s1, const char* s2);
 int AtoiTagVeneer(const char* s);
 void InitPreprocessorArgs(struct preprocessor_args* args);
@@ -504,9 +504,9 @@ void StrncpyName(char* dest, const char* src, uint32_t n);
 void GetStringFromFile(char* buf, int string_id);
 void LoadStringFile(void);
 void GetStringFromFileVeneer(char* buf, int string_id);
-char* StringFromMessageId(int message_id);
-void CopyStringFromMessageId(char* buf, int string_id);
-void CopyNStringFromMessageId(char* buf, int string_id, int buf_len);
+char* StringFromId(int string_id);
+void CopyStringFromId(char* buf, int string_id);
+void CopyNStringFromId(char* buf, int string_id, int buf_len);
 void LoadTblTalk(void);
 int GetTalkLine(int personality_idx, int group_id, int restrictions);
 bool IsAOrBPressed(void);
@@ -558,8 +558,8 @@ void UpdateScrollBox(struct window* window);
 int CreateDialogueBox(struct window_params* params);
 void FreeDialogueBox(int window_id);
 bool IsDialogueBoxActive(int window_id);
-void ShowMessageInDialogueBox(int window_id, struct preprocessor_flags flags, int string_id,
-                              struct preprocessor_args* args);
+void ShowStringIdInDialogueBox(int window_id, struct preprocessor_flags flags, int string_id,
+                               struct preprocessor_args* args);
 void ShowStringInDialogueBox(int window_id, struct preprocessor_flags flags, char* string,
                              struct preprocessor_args* args);
 void ShowDialogueBox(int window_id);
@@ -594,7 +594,7 @@ int CreateTeamSelectionMenu(struct window_params* params, uint32_t param_2, unde
 void UpdateTeamSelectionMenu(struct window* window);
 bool IsMenuOptionActive(undefined* param_1);
 void PlayMenuOptionSound(undefined* param_1, int index);
-int ShowKeyboard(int message_id, char* buffer1, int param_3, char* buffer2);
+int ShowKeyboard(int string_id, char* buffer1, int param_3, char* buffer2);
 int GetKeyboardStatus(void);
 int GetKeyboardStringResult(void);
 void PrintMoveOptionMenu(void);

@@ -7,7 +7,7 @@
 
 #include "enums.h"
 
-// These flags are shared with the function to display text inside message boxes
+// These flags are shared with the function to display text inside windows
 // So they might need a rename once more information is found
 struct preprocessor_flags {
     uint16_t flags_0 : 13;
@@ -23,7 +23,7 @@ struct preprocessor_args {
     int32_t number_vals[5]; // 0x24
     char* strings[5];       // 0x38
     // 0x4C: An optional argument that is used to insert the name of a Pokémon
-    // When they're talking through a message box. It requires it's respective flag to be on
+    // When they're talking through a window. It requires its respective flag to be on
     uint32_t speaker_id;
 };
 ASSERT_SIZE(struct preprocessor_args, 80);

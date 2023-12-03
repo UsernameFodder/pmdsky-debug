@@ -838,7 +838,7 @@ void SetBothScreensWindowColorToDefault(void);
 int GetPersonalityIndex(struct monster* monster);
 void DisplayMessage(struct portrait_params* portrait, int message_id, bool wait_for_input);
 void DisplayMessage2(struct portrait_params* portrait, int message_id, bool wait_for_input);
-bool YesNoMenu(undefined param_1, int message_id, int default_option, undefined param_4);
+bool YesNoMenu(undefined param_1, int string_id, int default_option, undefined param_4);
 void DisplayMessageInternal(int message_id, bool wait_for_input, struct portrait_params* portrait,
                             undefined4 param_4, undefined4 param_5, undefined4 param_6);
 void OpenMenu(undefined param_1, undefined param_2, bool open_bag);
