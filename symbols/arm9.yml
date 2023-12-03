@@ -4577,20 +4577,22 @@ arm9:
         NA: 0x20208C8
         JP: 0x2020918
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Checks if a null-terminated string s1 either exactly equals a null-terminated string s2, or starts with s2 followed by a ':' or a ']'.
         
         r0: s1
         r1: s2
         return: bool
-    - name: StoiTag
+    - name: AtoiTag
       address:
         EU: 0x2020A64
         NA: 0x202090C
         JP: 0x202095C
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Parses a null-terminated string to a base-10 integer, reading digit characters between '0' and '9' until ':', ']', or the end of the string is encountered.
         
-        r0: s
+        Any characters that are not digits, ':', or ']' are ignored, and the string is converted as if those characters were removed from the string.
+        
+        r0: string to convert
         return: int
     - name: AnalyzeText
       address:
@@ -4646,12 +4648,12 @@ arm9:
         r0: s1
         r1: s2
         return: bool
-    - name: StoiTagVeneer
+    - name: AtoiTagVeneer
       address:
         EU: 0x2023800
         NA: 0x2023604
       description: |-
-        Likely a linker-generated veneer for StoiTag.
+        Likely a linker-generated veneer for AtoiTag.
         
         See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
         
