@@ -479,14 +479,14 @@ int GetAtSize(undefined* at_ptr, int param_2);
 int GetLanguageType(void);
 int GetLanguage(void);
 bool StrcmpTag(const char* s1, const char* s2);
-int StoiTag(const char* s);
+int AtoiTag(const char* s);
 int AnalyzeText(undefined* buf);
 int PreprocessString(char* output, int output_size, const char* format,
                      struct preprocessor_flags flags, struct preprocessor_args* args);
 int PreprocessStringFromMessageId(char* output, int output_size, int message_id,
                                   struct preprocessor_flags flags, struct preprocessor_args* args);
 bool StrcmpTagVeneer(const char* s1, const char* s2);
-int StoiTagVeneer(const char* s);
+int AtoiTagVeneer(const char* s);
 void InitPreprocessorArgs(struct preprocessor_args* args);
 char* SetStringAccuracy(char* s, int param_2);
 char* SetStringPower(char* s, int param_2);
