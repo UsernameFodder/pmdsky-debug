@@ -529,10 +529,16 @@ bool IsEmptyString(const char* s);
 int CreateParentMenu(struct window_params* params, struct window_flags flags,
                      struct window_extra_info* window_extra_info,
                      struct simple_menu_ptr_item* menu_items);
+int CreateParentMenuWrapper(struct window_params* params, struct window_flags flags,
+                            struct window_extra_info* window_extra_info,
+                            struct simple_menu_ptr_item* menu_items);
 int CreateParentMenuInternal(struct window_params* params, struct window_flags flags,
                              struct window_extra_info* window_extra_info,
                              struct simple_menu_item* menu_items);
+void SetParentMenuState7(int window_id);
 void CloseParentMenu(int window_id);
+bool IsParentMenuActive(int window_id);
+bool CheckParentMenuField0x1A0(int window_id);
 void UpdateParentMenu(struct window* window);
 int CreateSimpleMenuFromStringIds(struct window_params* params, struct window_flags flags,
                                   struct window_extra_info* window_extra_info,
@@ -545,12 +551,16 @@ int CreateSimpleMenuInternal(struct window_params* params, struct window_flags f
                              struct simple_menu_item* menu_items, int n_items);
 void CloseSimpleMenu(int window_id);
 bool IsSimpleMenuActive(int window_id);
+bool CheckSimpleMenuField0x1A0(int window_id);
+int GetSimpleMenuField0x1A4(int window_id);
 int GetSimpleMenuResult(int window_id);
 void UpdateSimpleMenu(struct window* window);
+void SetSimpleMenuField0x1AC(int window_id, int value);
 int CreateAdvancedMenu(struct window_params* params, struct window_flags flags,
                        struct window_extra_info* window_extra_info,
                        advanced_menu_entry_fn_t* entry_fn, int n_options, int n_opt_per_page);
 void CloseAdvancedMenu(int window_id);
+bool IsAdvancedMenuActive2(int window_id);
 bool IsAdvancedMenuActive(int window_id);
 int GetAdvancedMenuCurrentOption(int window_id);
 int GetAdvancedMenuResult(int window_id);
@@ -559,17 +569,30 @@ int CreateCollectionMenu(struct window_params* params, struct window_flags flags
                          struct window_extra_info* window_extra_info,
                          unk_collection_menu_fn_t* param_4, undefined4 param_5, int n_options,
                          int n_opt_per_page);
+void SetCollectionMenuField0x1BC(int window_id, int value);
+void SetCollectionMenuWidth(int window_id, int width);
 void CloseCollectionMenu(int window_id);
+bool IsCollectionMenuActive(int window_id);
+void SetCollectionMenuField0x1C8(int window_id, uint8_t value);
+void SetCollectionMenuField0x1A0(int window_id, undefined4 value);
+void SetCollectionMenuField0x1A4(int window_id, undefined4 value);
+void SetCollectionMenuVoidFn(int window_id, unk_collection_menu_void_fn_t fn);
 void UpdateCollectionMenu(struct window* window);
+void SetCollectionMenuField0x1B2(int window_id, undefined4 value);
+bool IsCollectionMenuState3(int window_id);
 int CreateOptionsMenu(struct window_params* params, struct window_flags flags,
                       struct window_extra_info* window_extra_info,
                       struct options_menu_id_item* menu_items, int n_items, undefined4* param_6);
 void CloseOptionsMenu(int window_id);
+bool IsOptionsMenuActive(int window_id);
+bool CheckOptionsMenuField0x1A4(int window_id);
 void UpdateOptionsMenu(struct window* window);
 int CreateDebugMenu(struct window_params* params, struct window_flags flags,
                     struct window_extra_info* window_extra_info, uint16_t* menu_item_string_ids,
                     int n_items, undefined* param_6);
 void CloseDebugMenu(int window_id);
+bool IsDebugMenuActive(int window_id);
+bool CheckDebugMenuField0x1A4(int window_id);
 void UpdateDebugMenu(struct window* window);
 int CreateScrollBoxSingle(struct window_params* params, struct window_flags flags,
                           struct window_extra_info* window_extra_info, uint16_t string_id1,
@@ -579,7 +602,9 @@ int CreateScrollBoxMulti(struct window_params* params, struct window_flags flags
                          struct window_extra_info* window_extra_info, int n_strings,
                          uint16_t* string_ids1, struct preprocessor_args* args1,
                          uint16_t* string_ids2, struct preprocessor_args* args2);
+void SetScrollBoxState7(int window_id);
 void CloseScrollBox(int window_id);
+bool IsScrollBoxActive(int window_id);
 void UpdateScrollBox(struct window* window);
 int CreateDialogueBox(struct window_params* params);
 void CloseDialogueBox(int window_id);
@@ -589,6 +614,7 @@ void ShowStringIdInDialogueBox(int window_id, struct preprocessor_flags flags, i
 void ShowStringInDialogueBox(int window_id, struct preprocessor_flags flags, char* string,
                              struct preprocessor_args* args);
 void ShowDialogueBox(int window_id);
+void ReadStringFromDialogueBox(int window_id, char* buffer, uint32_t n);
 void UpdateDialogueBox(struct window* window);
 int CreatePortraitBox(enum screen screen, uint32_t palette_idx, bool framed);
 void ClosePortraitBox(int window_id);
@@ -603,16 +629,21 @@ void CloseTextBox(int window_id);
 void CloseTextBox2(int window_id);
 struct text_box* CreateTextBoxInternal(struct window_params* params);
 void UpdateTextBox(struct window* window);
+bool IsTextBoxActive(int window_id);
 int CreateAreaNameBox(struct window_params* params, struct window_flags flags,
                       struct window_extra_info* window_extra_info, uint32_t id);
+void SetAreaNameBoxState3(int window_id);
 void CloseAreaNameBox(int window_id);
+bool IsAreaNameBoxActive(int window_id);
 void UpdateAreaNameBox(struct window* window);
 int CreateControlsChart(struct window_params* params, struct window_flags flags,
                         struct window_extra_info* window_extra_info, uint16_t string_id);
 void CloseControlsChart(int window_id);
+bool IsControlsChartActive(int window_id);
 void UpdateControlsChart(struct window* window);
 int CreateAlertBox(struct window_params* params);
 void CloseAlertBox(int window_id);
+bool IsAlertBoxActive(int window_id);
 void UpdateAlertBox(struct window* window);
 int CreateAdvancedTextBox(struct window_params* params, struct window_flags flags,
                           struct window_extra_info* extra_info, text_box_callback_fn_t cb,
@@ -624,15 +655,26 @@ struct advanced_text_box* CreateAdvancedTextBoxInternal(struct window_params* pa
                                                         struct window_flags flags,
                                                         struct window_extra_info* extra_info,
                                                         int n_items, int n_items_per_page);
+void SetAdvancedTextBoxPartialMenu(int window_id, bool partial_menu);
+void SetAdvancedTextBoxField0x1C4(int window_id, uint8_t value);
+void SetAdvancedTextBoxField0x1C2(int window_id);
 void CloseAdvancedTextBox2(int window_id);
+void SetAdvancedTextBoxState5(int window_id);
 void CloseAdvancedTextBox(int window_id);
+bool IsAdvancedTextBoxActive(int window_id);
+uint32_t GetAdvancedTextBoxFlags2(int window_id);
+void SetUnkAdvancedTextBoxFn(int window_id, unk_advanced_text_box_fn_t fn);
+void SetUnkAdvancedTextBoxWindowFn(int window_id, unk_advanced_text_box_window_fn_t fn);
 void UpdateAdvancedTextBox(struct window* window);
+void PlayAdvancedTextBoxInputSound(int window_id, int index);
 int CreateTeamSelectionMenu(struct window_params* params, struct window_flags flags,
                             struct window_extra_info* window_extra_info,
                             team_selection_menu_get_item_fn_t get_item, int n_items,
                             int n_items_per_page);
 void CloseTeamSelectionMenu(int window_id);
+bool IsTeamSelectionMenuActive(int window_id);
 void UpdateTeamSelectionMenu(struct window* window);
+bool IsTeamSelectionMenuState3(int window_id);
 int CalcMenuHeightDiv8(struct window_flags flags, struct window_extra_info* extra_info,
                        int* n_options, int* n_opt_per_page);
 void InitWindowInput(struct window_input_ctx* input_ctx, struct window_flags flags,
