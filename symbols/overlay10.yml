@@ -275,6 +275,7 @@ overlay10:
   data:
     - name: INVENTORY_MENU_DEFAULT_WINDOW_PARAMS
       address:
+        EU: 0x22C4CEC
         NA: 0x22C4394
       length:
         NA: 0x10

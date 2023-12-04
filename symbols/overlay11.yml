@@ -758,6 +758,7 @@ overlay11:
         The first entry is unused and has a value of 0xFFFF.
     - name: TEAM_INFO_BOX_DEFAULT_WINDOW_PARAMS
       address:
+        EU: 0x2322F8C
         NA: 0x232245C
       length:
         NA: 0x10
