@@ -17,6 +17,7 @@ overlay9:
       address:
         EU: 0x233E7B0
         NA: 0x233E030
+        JP: 0x233F858
       description: |-
         Creates a window containing the track selection menu for the Sky Jukebox. Also see struct jukebox_track_menu.
         
@@ -32,14 +33,18 @@ overlay9:
         return: window_id
     - name: CloseJukeboxTrackMenu
       address:
+        EU: 0x233EACC
         NA: 0x233E34C
+        JP: 0x233FB74
       description: |-
         Closes a window created with CreateJukeboxTrackMenu.
         
         r0: window_id
     - name: IsJukeboxTrackMenuActive
       address:
+        EU: 0x233EB04
         NA: 0x233E384
+        JP: 0x233FBAC
       description: |-
         This is a guess.
         
@@ -51,6 +56,7 @@ overlay9:
       address:
         EU: 0x233EB5C
         NA: 0x233E3DC
+        JP: 0x233FC04
       description: |-
         Window update function for jukebox track menus.
         
@@ -59,6 +65,7 @@ overlay9:
       address:
         EU: 0x233F098
         NA: 0x233E918
+        JP: 0x2340144
       description: |-
         Creates a window containing the playback controls menu for a selected song. Also see struct playback_controls_menu.
         
@@ -75,14 +82,18 @@ overlay9:
         return: window_id
     - name: ClosePlaybackControlsMenu
       address:
+        EU: 0x233F3D8
         NA: 0x233EC58
+        JP: 0x2340484
       description: |-
         Closes a window created with CreatePlaybackControlsMenu.
         
         r0: window_id
     - name: IsPlaybackControlsMenuActive
       address:
+        EU: 0x233F47C
         NA: 0x233ECFC
+        JP: 0x2340528
       description: |-
         This is a guess.
         
@@ -94,6 +105,7 @@ overlay9:
       address:
         EU: 0x233F504
         NA: 0x233ED84
+        JP: 0x23405B0
       description: |-
         Window update function for playback controls menus.
         
@@ -102,6 +114,7 @@ overlay9:
       address:
         EU: 0x233F990
         NA: 0x233F210
+        JP: 0x2340A3C
       description: |-
         Creates a window containing the "Locked" text when inputs are locked while a song is playing. Also see struct input_lock_box.
         
@@ -117,14 +130,18 @@ overlay9:
         return: window_id
     - name: CloseInputLockBox
       address:
+        EU: 0x233FB40
         NA: 0x233F3C0
+        JP: 0x2340BEC
       description: |-
         Closes a window created with InputLockBox.
         
         r0: window_id
     - name: IsInputLockBoxActive
       address:
+        EU: 0x233FB5C
         NA: 0x233F3DC
+        JP: 0x2340C08
       description: |-
         This is a guess.
         
@@ -136,6 +153,7 @@ overlay9:
       address:
         EU: 0x233FB7C
         NA: 0x233F3FC
+        JP: 0x2340C28
       description: |-
         Window update function for input lock boxes.
         

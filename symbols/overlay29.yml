@@ -548,6 +548,7 @@ overlay29:
       address:
         EU: 0x22E3DE0
         NA: 0x22E3430
+        JP: 0x22E4AA0
       description: |-
         Sets the luminous state for the floor and marks all the tiles on the floor as revealed.
         
@@ -890,6 +891,7 @@ overlay29:
       address:
         EU: 0x22EB0C8
         NA: 0x22EA718
+        JP: 0x22EBD80
       description: |-
         Displays numbers or the "MISS" text above a monster. Normally used to display damage amounts, although it also has other uses (such as showing the stockpile count).
         
@@ -6486,6 +6488,7 @@ overlay29:
       address:
         EU: 0x233B214
         NA: 0x233A630
+        JP: 0x233B9F4
       description: |-
         Unloads fixed room data from the buffer pointed to by FIXED_ROOM_DATA_PTR, then clears the pointer.
         

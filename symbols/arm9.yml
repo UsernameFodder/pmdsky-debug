@@ -3696,6 +3696,7 @@ arm9:
       address:
         EU: 0x2017E90
         NA: 0x2017DF4
+        JP: 0x2017E4C
       description: |-
         Initializes some values and then calls SendAudioCommand to play a BGM track.
         
@@ -4908,7 +4909,9 @@ arm9:
         return: bool
     - name: GetWindow
       address:
+        EU: 0x20278EC
         NA: 0x20275F8
+        JP: 0x2027940
       description: |-
         Get the window with a given ID from WINDOW_LIST.
         
@@ -4918,6 +4921,7 @@ arm9:
       address:
         EU: 0x202793C
         NA: 0x2027648
+        JP: 0x20279A8
       description: |-
         Calls NewWindow, with a pre-check for any valid existing windows in WINDOW_LIST on each screen.
         
@@ -4958,14 +4962,18 @@ arm9:
         r0: palette index
     - name: DeleteWindow
       address:
+        EU: 0x2028488
         NA: 0x2028194
+        JP: 0x20284F4
       description: |-
         Seems to uninitialize an active window in WINDOW_LIST with a given ID, freeing the slot for reuse by another window.
         
         r0: window_id
     - name: GetWindowRectangle
       address:
+        EU: 0x2028578
         NA: 0x2028284
+        JP: 0x20285E4
       description: |-
         Get the rectangle defined by a window.
         
@@ -5043,7 +5051,9 @@ arm9:
         r3: ?
     - name: CreateParentMenuFromStringIds
       address:
+        EU: 0x202A8C0
         NA: 0x202A5CC
+        JP: 0x202A924
       description: |-
         A wrapper around CreateParentMenuInternal, where the menu items can be defined by string ID instead of as strings.
         
@@ -5054,7 +5064,9 @@ arm9:
         return: window_id
     - name: IsEmptyString
       address:
+        EU: 0x202A960
         NA: 0x202A66C
+        JP: 0x202A9C4
       description: |-
         Checks if a null-terminated string is empty. A NULL pointer counts as empty.
         
@@ -5062,7 +5074,9 @@ arm9:
         return: whether the string is NULL or empty
     - name: CreateParentMenu
       address:
+        EU: 0x202A984
         NA: 0x202A690
+        JP: 0x202A9E8
       description: |-
         A wrapper around CreateParentMenuInternal where ownership of the items array parameter won't be transferred to the menu.
         
@@ -5075,7 +5089,9 @@ arm9:
         return: window_id
     - name: CreateParentMenuWrapper
       address:
+        EU: 0x202AA24
         NA: 0x202A730
+        JP: 0x202AA88
       description: |-
         A wrapper around CreateParentMenu that sets field_0x1b0 to 1 if the returned window_id is not -2.
         
@@ -5088,6 +5104,7 @@ arm9:
       address:
         EU: 0x202AA50
         NA: 0x202A75C
+        JP: 0x202AAB4
       description: |-
         Creates a window containing a simple textual menu with a list of options that might open submenus when selected. Also see struct simple_menu.
         
@@ -5106,21 +5123,27 @@ arm9:
         return: window_id
     - name: SetParentMenuState7
       address:
+        EU: 0x202AD9C
         NA: 0x202AAA8
+        JP: 0x202AE00
       description: |-
         Sets the state of a parent menu to 7.
         
         r0: window_id
     - name: CloseParentMenu
       address:
+        EU: 0x202ADB0
         NA: 0x202AABC
+        JP: 0x202AE14
       description: |-
         Closes a window created with CreateParentMenu or CreateParentMenuFromStringIds.
         
         r0: window_id
     - name: IsParentMenuActive
       address:
+        EU: 0x202AE34
         NA: 0x202AB40
+        JP: 0x202AE98
       description: |-
         This is a guess.
         
@@ -5130,7 +5153,9 @@ arm9:
         return: bool
     - name: CheckParentMenuField0x1A0
       address:
+        EU: 0x202AE54
         NA: 0x202AB60
+        JP: 0x202AEB8
       description: |-
         Checks if a parent menu's field_0x1a0 is 0.
         
@@ -5140,6 +5165,7 @@ arm9:
       address:
         EU: 0x202AEF0
         NA: 0x202ABFC
+        JP: 0x202AF54
       description: |-
         Window update function for parent menus.
         
@@ -5160,7 +5186,9 @@ arm9:
         return: window_id
     - name: CreateSimpleMenu
       address:
+        EU: 0x202B4A0
         NA: 0x202B1AC
+        JP: 0x202B504
       description: |-
         A wrapper around CreateSimpleMenuInternal where ownership of the simple_menu_items array parameter won't be transferred to the menu.
         
@@ -5176,6 +5204,7 @@ arm9:
       address:
         EU: 0x202B578
         NA: 0x202B284
+        JP: 0x202B5DC
       description: |-
         Creates a window containing a simple textual menu with a list of options. Also see struct simple_menu.
         
@@ -5214,7 +5243,9 @@ arm9:
         return: bool
     - name: CheckSimpleMenuField0x1A0
       address:
+        EU: 0x202B804
         NA: 0x202B510
+        JP: 0x202B868
       description: |-
         Checks if simple_menu::field_0x1a0 is 0.
         
@@ -5222,7 +5253,9 @@ arm9:
         return: bool
     - name: GetSimpleMenuField0x1A4
       address:
+        EU: 0x202B84C
         NA: 0x202B558
+        JP: 0x202B8B0
       description: |-
         Gets the value of simple_menu::field_0x1a4.
         
@@ -5242,13 +5275,16 @@ arm9:
       address:
         EU: 0x202B8BC
         NA: 0x202B5C8
+        JP: 0x202B920
       description: |-
         Window update function for simple menus.
         
         r0: window pointer
     - name: SetSimpleMenuField0x1AC
       address:
+        EU: 0x202BD00
         NA: 0x202BA0C
+        JP: 0x202BD64
       description: |-
         Sets simple_menu::field_0x1ac to the given value.
         
@@ -5288,7 +5324,9 @@ arm9:
         r0: window_id
     - name: IsAdvancedMenuActive2
       address:
+        EU: 0x202BFB0
         NA: 0x202BCBC
+        JP: 0x202C014
       description: |-
         This is a guess, by analogy to IsSimpleMenuActive, which does the same thing. Most of window types also have an analogous function that checks the state value. It's unclear how this relates to the other IsAdvancedMenuActive, or if this guess is completely wrong.
         
@@ -5334,6 +5372,7 @@ arm9:
       address:
         EU: 0x202C058
         NA: 0x202BD64
+        JP: 0x202C0BC
       description: |-
         Window update function for advanced menus.
         
@@ -5342,6 +5381,7 @@ arm9:
       address:
         EU: 0x202C69C
         NA: 0x202C3A8
+        JP: 0x202C700
       description: |-
         Creates a window containing a menu for manipulating a collection of objects, with complex layout and functionality (e.g., paging). Also see struct collection_menu.
         
@@ -5361,7 +5401,9 @@ arm9:
         return: window_id
     - name: SetCollectionMenuField0x1BC
       address:
+        EU: 0x202C8D4
         NA: 0x202C5E0
+        JP: 0x202C938
       description: |-
         Sets collection_menu::field_0x1bc to the given value.
         
@@ -5369,7 +5411,9 @@ arm9:
         r1: value
     - name: SetCollectionMenuWidth
       address:
+        EU: 0x202C8E8
         NA: 0x202C5F4
+        JP: 0x202C94C
       description: |-
         Sets collection_menu::width to a new value, clamped to be no greater than (window_params::width * 8 - 1) for the window.
         
@@ -5377,14 +5421,18 @@ arm9:
         r1: width
     - name: CloseCollectionMenu
       address:
+        EU: 0x202CA00
         NA: 0x202C70C
+        JP: 0x202CA64
       description: |-
         Closes a window created with CreateCollectionMenu.
         
         r0: window_id
     - name: IsCollectionMenuActive
       address:
+        EU: 0x202CA1C
         NA: 0x202C728
+        JP: 0x202CA80
       description: |-
         This is a guess.
         
@@ -5394,7 +5442,9 @@ arm9:
         return: bool
     - name: SetCollectionMenuField0x1C8
       address:
+        EU: 0x202CA88
         NA: 0x202C794
+        JP: 0x202CAEC
       description: |-
         Sets collection_menu::field_0x1c8 to the given value.
         
@@ -5402,7 +5452,9 @@ arm9:
         r1: value
     - name: SetCollectionMenuField0x1A0
       address:
+        EU: 0x202CA9C
         NA: 0x202C7A8
+        JP: 0x202CB00
       description: |-
         Sets collection_menu::field_0x1a0 to the given value.
         
@@ -5410,7 +5462,9 @@ arm9:
         r1: value
     - name: SetCollectionMenuField0x1A4
       address:
+        EU: 0x202CAB0
         NA: 0x202C7BC
+        JP: 0x202CB14
       description: |-
         Sets collection_menu::field_0x1a4 to the given value.
         
@@ -5418,7 +5472,9 @@ arm9:
         r1: value
     - name: SetCollectionMenuVoidFn
       address:
+        EU: 0x202CAC4
         NA: 0x202C7D0
+        JP: 0x202CB28
       description: |-
         Sets collection_menu::field_0x1a8 to the given function pointer.
         
@@ -5428,13 +5484,16 @@ arm9:
       address:
         EU: 0x202CAFC
         NA: 0x202C808
+        JP: 0x202CB60
       description: |-
         Window update function for collection menus.
         
         r0: window pointer
     - name: SetCollectionMenuField0x1B2
       address:
+        EU: 0x202D3CC
         NA: 0x202D0D8
+        JP: 0x202D430
       description: |-
         Sets collection_menu::field_0x1b2 to the given value.
         
@@ -5442,7 +5501,9 @@ arm9:
         r1: value
     - name: IsCollectionMenuState3
       address:
+        EU: 0x202D408
         NA: 0x202D114
+        JP: 0x202D46C
       description: |-
         Checks if a collection menu has a state value of 3.
         
@@ -5452,6 +5513,7 @@ arm9:
       address:
         EU: 0x202D4E4
         NA: 0x202D1F0
+        JP: 0x202D548
       description: |-
         Creates a window containing a menu controlling game options. Also see struct options_menu.
         
@@ -5470,14 +5532,18 @@ arm9:
         return: window_id
     - name: CloseOptionsMenu
       address:
+        EU: 0x202D824
         NA: 0x202D530
+        JP: 0x202D888
       description: |-
         Closes a window created with CreateOptionsMenu.
         
         r0: window_id
     - name: IsOptionsMenuActive
       address:
+        EU: 0x202D850
         NA: 0x202D55C
+        JP: 0x202D8B4
       description: |-
         This is a guess.
         
@@ -5487,7 +5553,9 @@ arm9:
         return: bool
     - name: CheckOptionsMenuField0x1A4
       address:
+        EU: 0x202D870
         NA: 0x202D57C
+        JP: 0x202D8D4
       description: |-
         Checks if options_menu::field_0x1a4 is 0.
         
@@ -5497,6 +5565,7 @@ arm9:
       address:
         EU: 0x202D90C
         NA: 0x202D618
+        JP: 0x202D970
       description: |-
         Window update function for options menus.
         
@@ -5505,6 +5574,7 @@ arm9:
       address:
         EU: 0x202DF44
         NA: 0x202DC50
+        JP: 0x202DFA8
       description: |-
         Creates a window containing the debug menu (probably). Also see struct debug_menu.
         
@@ -5525,14 +5595,18 @@ arm9:
         return: window_id
     - name: CloseDebugMenu
       address:
+        EU: 0x202E1EC
         NA: 0x202DEF8
+        JP: 0x202E24C
       description: |-
         Closes a window created with CreateDebugMenu.
         
         r0: window_id
     - name: IsDebugMenuActive
       address:
+        EU: 0x202E218
         NA: 0x202DF24
+        JP: 0x202E278
       description: |-
         This is a guess.
         
@@ -5542,7 +5616,9 @@ arm9:
         return: bool
     - name: CheckDebugMenuField0x1A4
       address:
+        EU: 0x202E238
         NA: 0x202DF44
+        JP: 0x202E298
       description: |-
         Checks if debug_menu::field_0x1a4 is 0.
         
@@ -5552,6 +5628,7 @@ arm9:
       address:
         EU: 0x202E28C
         NA: 0x202DF98
+        JP: 0x202E2EC
       description: |-
         Window update function for debug menus.
         
@@ -5560,6 +5637,7 @@ arm9:
       address:
         EU: 0x202E6C0
         NA: 0x202E3CC
+        JP: 0x202E720
       description: |-
         Creates window containing text that pages vertically on overflow, with a single pair of strings. Also see struct scroll_box.
         
@@ -5581,6 +5659,7 @@ arm9:
       address:
         EU: 0x202E80C
         NA: 0x202E518
+        JP: 0x202E86C
       description: |-
         Creates window containing text that pages vertically on overflow, with an array of string pairs. Also see struct scroll_box.
         
@@ -5601,21 +5680,27 @@ arm9:
         return: window_id
     - name: SetScrollBoxState7
       address:
+        EU: 0x202E9A4
         NA: 0x202E6B0
+        JP: 0x202EA04
       description: |-
         Sets the state of a scroll box to 7.
         
         r0: window_id
     - name: CloseScrollBox
       address:
+        EU: 0x202E9BC
         NA: 0x202E6C8
+        JP: 0x202EA1C
       description: |-
         Closes a window created with CreateScrollBoxSingle or CreateScrollBoxMulti.
         
         r0: window_id
     - name: IsScrollBoxActive
       address:
+        EU: 0x202E9D8
         NA: 0x202E6E4
+        JP: 0x202EA38
       description: |-
         This is a guess.
         
@@ -5627,6 +5712,7 @@ arm9:
       address:
         EU: 0x202E9FC
         NA: 0x202E708
+        JP: 0x202EA5C
       description: |-
         Window update function for scroll boxes.
         
@@ -5699,7 +5785,9 @@ arm9:
         r0: window_id
     - name: ReadStringFromDialogueBox
       address:
+        EU: 0x202F740
         NA: 0x202F44C
+        JP: 0x202F790
       description: |-
         Copies data from the dialogue box's string buffer into an output buffer.
         
@@ -5710,6 +5798,7 @@ arm9:
       address:
         EU: 0x202F77C
         NA: 0x202F488
+        JP: 0x202F7CC
       description: |-
         Window update function for dialogue boxes.
         
@@ -5743,7 +5832,9 @@ arm9:
         r0: window_id
     - name: PortraitBoxNeedsUpdate
       address:
+        EU: 0x202F960
         NA: 0x202F66C
+        JP: 0x202F9B0
       description: |-
         Checks if a portrait box has a state of PORTRAIT_BOX_TRY_UPDATE or PORTRAIT_BOX_UPDATE.
         
@@ -5774,6 +5865,7 @@ arm9:
       address:
         EU: 0x202FA00
         NA: 0x202F70C
+        JP: 0x202FA50
       description: |-
         Window update function for portrait boxes.
         
@@ -5782,6 +5874,7 @@ arm9:
       address:
         EU: 0x202FBB8
         NA: 0x202F8C4
+        JP: 0x202FC08
       description: |-
         Calls CreateTextBoxInternal, sets the callback without an argument, and returns the window_id.
         
@@ -5792,6 +5885,7 @@ arm9:
       address:
         EU: 0x202FBD0
         NA: 0x202F8DC
+        JP: 0x202FC20
       description: |-
         Calls CreateTextBoxInternal, sets the callback with an argument, and returns the window_id.
         
@@ -5801,14 +5895,18 @@ arm9:
         return: window_id
     - name: CloseTextBox
       address:
+        EU: 0x202FBF0
         NA: 0x202F8FC
+        JP: 0x202FC40
       description: |-
         Closes a window created with CreateTextBox or CreateTextBoxWithArg.
         
         r0: window_id
     - name: CloseTextBox2
       address:
+        EU: 0x202FC0C
         NA: 0x202F918
+        JP: 0x202FC5C
       description: |-
         Seems to do some things with the text box, before doing the same things that CloseTextBox does.
         
@@ -5817,6 +5915,7 @@ arm9:
       address:
         EU: 0x202FCD0
         NA: 0x202F9DC
+        JP: 0x202FD20
       description: |-
         Creates a window containing simple text, without much advanced functionality. Also see struct text_box.
         
@@ -5828,13 +5927,16 @@ arm9:
       address:
         EU: 0x202FD50
         NA: 0x202FA5C
+        JP: 0x202FDA0
       description: |-
         Window update function for text boxes.
         
         r0: window pointer
     - name: IsTextBoxActive
       address:
+        EU: 0x202FE90
         NA: 0x202FB9C
+        JP: 0x202FEE0
       description: |-
         This is a guess.
         
@@ -5846,6 +5948,7 @@ arm9:
       address:
         EU: 0x202FEB0
         NA: 0x202FBBC
+        JP: 0x202FF00
       description: |-
         Creates a window containing the area name, as resolved from the "[area:0]" tag.
         
@@ -5862,21 +5965,27 @@ arm9:
         return: window_id
     - name: SetAreaNameBoxState3
       address:
+        EU: 0x2030030
         NA: 0x202FD3C
+        JP: 0x2030080
       description: |-
         Sets the state of an area name box to 3.
         
         r0: window_id
     - name: CloseAreaNameBox
       address:
+        EU: 0x2030044
         NA: 0x202FD50
+        JP: 0x2030094
       description: |-
         Closes a window created with CreateAreaNameBox.
         
         r0: window_id
     - name: IsAreaNameBoxActive
       address:
+        EU: 0x2030060
         NA: 0x202FD6C
+        JP: 0x20300B0
       description: |-
         This is a guess.
         
@@ -5888,6 +5997,7 @@ arm9:
       address:
         EU: 0x2030080
         NA: 0x202FD8C
+        JP: 0x20300D0
       description: |-
         Window update function for area name boxes.
         
@@ -5896,6 +6006,7 @@ arm9:
       address:
         EU: 0x2030120
         NA: 0x202FE2C
+        JP: 0x2030170
       description: |-
         Creates a window containing a chart of player controls for some context. Also see struct controls_chart.
         
@@ -5912,14 +6023,18 @@ arm9:
         return: window_id
     - name: CloseControlsChart
       address:
+        EU: 0x20301C8
         NA: 0x202FED4
+        JP: 0x2030218
       description: |-
         Closes a window created with CreateControlsChart.
         
         r0: window_id
     - name: IsControlsChartActive
       address:
+        EU: 0x20301E4
         NA: 0x202FEF0
+        JP: 0x2030234
       description: |-
         This is a guess.
         
@@ -5931,6 +6046,7 @@ arm9:
       address:
         EU: 0x2030204
         NA: 0x202FF10
+        JP: 0x2030254
       description: |-
         Window update function for controls charts.
         
@@ -5939,6 +6055,7 @@ arm9:
       address:
         EU: 0x20302A4
         NA: 0x202FFB0
+        JP: 0x20302F4
       description: |-
         Creates a window containing text that will disappear after a certain amount of time. Also see struct alert_box.
         
@@ -5950,14 +6067,18 @@ arm9:
         return: window_id
     - name: CloseAlertBox
       address:
+        EU: 0x2030338
         NA: 0x2030044
+        JP: 0x2030388
       description: |-
         Closes a window created with CreateAlertBox.
         
         r0: window_id
     - name: IsAlertBoxActive
       address:
+        EU: 0x20304E8
         NA: 0x20301F4
+        JP: 0x2030538
       description: |-
         This is a guess.
         
@@ -5969,6 +6090,7 @@ arm9:
       address:
         EU: 0x2030568
         NA: 0x2030274
+        JP: 0x20305B8
       description: |-
         Window update function for alert boxes.
         
@@ -5977,6 +6099,7 @@ arm9:
       address:
         EU: 0x20308A8
         NA: 0x20305B4
+        JP: 0x20308F8
       description: |-
         Calls CreateAdvancedTextBoxInternal with all the selectable items on one page (n_items_per_page = n_items), sets the callback without an argument, and returns the window_id.
         
@@ -5994,6 +6117,7 @@ arm9:
       address:
         EU: 0x20308D8
         NA: 0x20305E4
+        JP: 0x2030928
       description: |-
         Calls CreateAdvancedTextBoxInternal with all the selectable items on one page (n_items_per_page = n_items), sets the callback with an argument, and returns the window_id.
         
@@ -6008,6 +6132,7 @@ arm9:
       address:
         EU: 0x2030910
         NA: 0x203061C
+        JP: 0x2030960
       description: |-
         Creates a window containing text formatted in complex, potentially sectioned layouts. Also see struct advanced_text_box.
         
@@ -6021,7 +6146,9 @@ arm9:
         return: advanced_text_box pointer
     - name: SetAdvancedTextBoxPartialMenu
       address:
+        EU: 0x2030A70
         NA: 0x203077C
+        JP: 0x2030AC0
       description: |-
         Seems to set advanced_text_box::flags::partial_menu to the given value?
         
@@ -6029,7 +6156,9 @@ arm9:
         r1: partial_menu flag value
     - name: SetAdvancedTextBoxField0x1C4
       address:
+        EU: 0x2030A98
         NA: 0x20307A4
+        JP: 0x2030AE8
       description: |-
         Sets the value of advanced_text_box::field_0x1c4 to the given value.
         
@@ -6037,35 +6166,45 @@ arm9:
         r1: value
     - name: SetAdvancedTextBoxField0x1C2
       address:
+        EU: 0x2030B30
         NA: 0x203083C
+        JP: 0x2030B80
       description: |-
         Sets advanced_text_box::field_0x1c2 to 1.
         
         r0: window_id
     - name: CloseAdvancedTextBox2
       address:
+        EU: 0x2030B44
         NA: 0x2030850
+        JP: 0x2030B94
       description: |-
         Seems to do some things with the text box, before doing the same things that CloseAdvancedTextBox does.
         
         r0: window_id
     - name: SetAdvancedTextBoxState5
       address:
+        EU: 0x2030B80
         NA: 0x203088C
+        JP: 0x2030BD0
       description: |-
         Sets the state of an advanced text box to 5.
         
         r0: window_id
     - name: CloseAdvancedTextBox
       address:
+        EU: 0x2030B94
         NA: 0x20308A0
+        JP: 0x2030BE4
       description: |-
         Closes a window created with CreateAdvancedTextBox or CreateAdvancedTextBoxWithArg.
         
         r0: window_id
     - name: IsAdvancedTextBoxActive
       address:
+        EU: 0x2030BB8
         NA: 0x20308C4
+        JP: 0x2030C08
       description: |-
         This is a guess.
         
@@ -6075,7 +6214,9 @@ arm9:
         return: bool
     - name: GetAdvancedTextBoxFlags2
       address:
+        EU: 0x2030D34
         NA: 0x2030A40
+        JP: 0x2030D60
       description: |-
         Gets the value of advanced_text_box::flags2.
         
@@ -6083,7 +6224,9 @@ arm9:
         return: flags2
     - name: SetUnkAdvancedTextBoxFn
       address:
+        EU: 0x2030DB4
         NA: 0x2030AC0
+        JP: 0x2030DE0
       description: |-
         Sets the value of advanced_text_box::field_0x1b4 to the given function pointer.
         
@@ -6091,7 +6234,9 @@ arm9:
         r1: some function pointer?
     - name: SetUnkAdvancedTextBoxWindowFn
       address:
+        EU: 0x2030DC8
         NA: 0x2030AD4
+        JP: 0x2030DF4
       description: |-
         Sets the value of advanced_text_box::field_0x1b8 to the given function pointer.
         
@@ -6101,13 +6246,16 @@ arm9:
       address:
         EU: 0x2030DDC
         NA: 0x2030AE8
+        JP: 0x2030E08
       description: |-
         Window update function for advanced text boxes.
         
         r0: window pointer
     - name: PlayAdvancedTextBoxInputSound
       address:
+        EU: 0x203121C
         NA: 0x2030F28
+        JP: 0x2031248
       description: |-
         Calls PlayWindowInputSound for an advanced text box.
         
@@ -6117,6 +6265,7 @@ arm9:
       address:
         EU: 0x2031238
         NA: 0x2030F44
+        JP: 0x2031264
       description: |-
         Creates a window containing a menu for selecting a single team member. Also see struct team_selection_menu.
         
@@ -6133,14 +6282,18 @@ arm9:
         return: window_id
     - name: CloseTeamSelectionMenu
       address:
+        EU: 0x203148C
         NA: 0x2031198
+        JP: 0x20314B8
       description: |-
         Closes a window created with CreateTeamSelectionMenu.
         
         r0: window_id
     - name: IsTeamSelectionMenuActive
       address:
+        EU: 0x20314A8
         NA: 0x20311B4
+        JP: 0x20314D4
       description: |-
         This is a guess.
         
@@ -6152,13 +6305,16 @@ arm9:
       address:
         EU: 0x2031530
         NA: 0x203123C
+        JP: 0x203155C
       description: |-
         Window update function for team selection menus.
         
         r0: window pointer
     - name: IsTeamSelectionMenuState3
       address:
+        EU: 0x2031BA4
         NA: 0x20318B0
+        JP: 0x2031BD0
       description: |-
         Checks if the state of a team selection menu is 3.
         
@@ -6180,7 +6336,9 @@ arm9:
         return: height / 8
     - name: InitWindowInput
       address:
+        EU: 0x2031DEC
         NA: 0x2031AF8
+        JP: 0x2031E18
       description: |-
         This seems to be called when creating most interactive windows that respond to user input, like menus (but also other interactive windows like scroll boxes and advanced text boxes). It presumably sets up the state necessary for detecting and responding to user input.
         
@@ -6212,7 +6370,9 @@ arm9:
         r1: Some kind of index used to determine the ID of the sound to play
     - name: InitInventoryMenuInput
       address:
+        EU: 0x2032D2C
         NA: 0x2032A38
+        JP: 0x2032D58
       description: |-
         Almost exactly the same as InitWindowInput, except two differences in field assignments on the window input context, one of which uses an extra parameter.
         
@@ -6256,6 +6416,7 @@ arm9:
         return: ?
     - name: TeamSelectionMenuGetItem
       address:
+        EU: 0x203AA58
         NA: 0x203A75C
       description: |-
         Gets the menu item text (member name) for a given team member for a team selection menu.
@@ -9966,6 +10127,7 @@ arm9:
       address:
         EU: 0x20794E8
         NA: 0x2079150
+        JP: 0x2079438
       description: |-
         Increments thread_info::thread_count by 1 and returns the new value.
         
@@ -9974,6 +10136,7 @@ arm9:
       address:
         EU: 0x2079630
         NA: 0x2079298
+        JP: 0x2079580
       description: |-
         Inserts a new thread into the linked thread list (see thread_info::thread_list_head).
         
@@ -9984,6 +10147,7 @@ arm9:
       address:
         EU: 0x20798F8
         NA: 0x2079560
+        JP: 0x2079848
       description: |-
         Called to start a new thread.
         
@@ -9999,6 +10163,7 @@ arm9:
       address:
         EU: 0x20799F4
         NA: 0x207965C
+        JP: 0x2079944
       description: |-
         Function called by threads on exit.
         
@@ -10009,6 +10174,7 @@ arm9:
       address:
         EU: 0x207A014
         NA: 0x2079C7C
+        JP: 0x2079F64
       description: |-
         Sets the given thread's field_0xB4 to the specified value.
         
@@ -10018,6 +10184,7 @@ arm9:
       address:
         EU: 0x207A01C
         NA: 0x2079C84
+        JP: 0x2079F6C
       description: |-
         Initializes some fields of the given thread struct.
         
