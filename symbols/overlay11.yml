@@ -487,6 +487,7 @@ overlay11:
       address:
         EU: 0x22FF834
         NA: 0x22FEE94
+        JP: 0x23004FC
       description: |-
         Creates a window containing team information (rank and money carried) for the top-level menu in ground mode. Also see struct team_info_box.
         
@@ -495,14 +496,18 @@ overlay11:
         return: window_id
     - name: CloseTeamInfoBox
       address:
+        EU: 0x22FF8EC
         NA: 0x22FEF4C
+        JP: 0x23005B4
       description: |-
         Closes a window created with CreateTeamInfoBox.
         
         r0: window_id
     - name: IsTeamInfoBoxActive
       address:
+        EU: 0x22FF924
         NA: 0x22FEF84
+        JP: 0x23005EC
       description: |-
         This is a guess.
         
@@ -514,6 +519,7 @@ overlay11:
       address:
         EU: 0x22FF944
         NA: 0x22FEFA4
+        JP: 0x230060C
       description: |-
         Window update function for team info boxes.
         

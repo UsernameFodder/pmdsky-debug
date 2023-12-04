@@ -46,6 +46,7 @@ overlay31:
       address:
         EU: 0x2385FBC
         NA: 0x23853BC
+        JP: 0x238662C
       description: |-
         Sets some field on a struct to 0 and calls HandleMovesMenu.
         
@@ -58,6 +59,7 @@ overlay31:
       address:
         EU: 0x2385FE0
         NA: 0x23853E0
+        JP: 0x2386650
       description: |-
         Sets some field on a struct to 1 and calls HandleMovesMenu.
         

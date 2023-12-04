@@ -17,6 +17,7 @@ overlay10:
       address:
         EU: 0x22BD3C0
         NA: 0x22BCA80
+        JP: 0x22BE220
       description: |-
         Creates a window containing a menu for inventory management. Also see struct inventory_menu.
         
@@ -37,28 +38,36 @@ overlay10:
         return: window_id
     - name: SetInventoryMenuState0
       address:
+        EU: 0x22BD60C
         NA: 0x22BCCCC
+        JP: 0x22BE46C
       description: |-
         Sets an inventory menu to state 0.
         
         r0: window_id
     - name: SetInventoryMenuState6
       address:
+        EU: 0x22BD620
         NA: 0x22BCCE0
+        JP: 0x22BE480
       description: |-
         Sets an inventory menu to state 6.
         
         r0: window_id
     - name: CloseInventoryMenu
       address:
+        EU: 0x22BD634
         NA: 0x22BCCF4
+        JP: 0x22BE494
       description: |-
         Closes a window created with CreateInventoryMenu.
         
         r0: window_id
     - name: IsInventoryMenuActive
       address:
+        EU: 0x22BD6A8
         NA: 0x22BCD68
+        JP: 0x22BE508
       description: |-
         This is a guess.
         
@@ -68,7 +77,9 @@ overlay10:
         return: bool
     - name: CheckInventoryMenuField0x1A0
       address:
+        EU: 0x22BD6C8
         NA: 0x22BCD88
+        JP: 0x22BE528
       description: |-
         Checks if inventory_menu::field_0x1a0 is 0.
         
@@ -76,7 +87,9 @@ overlay10:
         return: bool
     - name: PopInventoryMenuField0x1A3
       address:
+        EU: 0x22BD798
         NA: 0x22BCE58
+        JP: 0x22BE5F8
       description: |-
         Sets inventory_menu::field_0x1a3 to 0 and returns the old value.
         
@@ -86,13 +99,16 @@ overlay10:
       address:
         EU: 0x22BD7B4
         NA: 0x22BCE74
+        JP: 0x22BE614
       description: |-
         Window update function for inventory menus.
         
         r0: window pointer
     - name: IsInventoryMenuState3
       address:
+        EU: 0x22BDCB4
         NA: 0x22BD374
+        JP: 0x22BEB14
       description: |-
         Checks if an inventory menu has a state value of 3.
         
