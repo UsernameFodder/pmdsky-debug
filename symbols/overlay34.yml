@@ -38,7 +38,7 @@ overlay34:
         1*0x4 + 3*0x4
         
         Note: unverified, ported from Irdkwia's notes
-    - name: START_MENU_CONFIRM
+    - name: START_MENU_ITEMS_CONFIRM
       address:
         EU: 0x22DD8CC
         NA: 0x22DD024
@@ -47,7 +47,6 @@ overlay34:
         EU: 0x18
         NA: 0x18
         JP: 0x18
-      description: "Irdkwia's notes: 3*0x8"
     - name: OVERLAY34_UNKNOWN_STRUCT__NA_22DD03C
       address:
         EU: 0x22DD8E4
@@ -58,7 +57,7 @@ overlay34:
         1*0x4 + 3*0x4
         
         Note: unverified, ported from Irdkwia's notes
-    - name: DUNGEON_DEBUG_MENU
+    - name: DUNGEON_DEBUG_MENU_ITEMS
       address:
         EU: 0x22DD8F4
         NA: 0x22DD04C
@@ -67,7 +66,6 @@ overlay34:
         EU: 0x28
         NA: 0x28
         JP: 0x28
-      description: "Irdkwia's notes: 5*0x8"
     - name: OVERLAY34_RESERVED_SPACE
       address:
         NA: 0x22DD074

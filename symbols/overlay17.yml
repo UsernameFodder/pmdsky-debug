@@ -14,42 +14,47 @@ overlay17:
   description: Controls the Chimecho Assembly.
   functions: []
   data:
-    - name: ASSEMBLY_D_BOX_LAYOUT_1
+    - name: ASSEMBLY_WINDOW_PARAMS_1
       address:
         EU: 0x238C674
         NA: 0x238BB34
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: ASSEMBLY_D_BOX_LAYOUT_2
+    - name: ASSEMBLY_WINDOW_PARAMS_2
       address:
         EU: 0x238C684
         NA: 0x238BB44
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: ASSEMBLY_D_BOX_LAYOUT_3
+    - name: ASSEMBLY_WINDOW_PARAMS_3
       address:
         EU: 0x238C694
         NA: 0x238BB54
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: ASSEMBLY_D_BOX_LAYOUT_4
+    - name: ASSEMBLY_WINDOW_PARAMS_4
       address:
         EU: 0x238C6A4
         NA: 0x238BB64
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: ASSEMBLY_D_BOX_LAYOUT_5
+    - name: ASSEMBLY_WINDOW_PARAMS_5
       address:
         EU: 0x238C6B4
         NA: 0x238BB74
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: ASSEMBLY_MENU_CONFIRM
+    - name: ASSEMBLY_MENU_ITEMS_CONFIRM
       address:
         EU: 0x238C6C4
         NA: 0x238BB84
@@ -58,7 +63,7 @@ overlay17:
         EU: 0x18
         NA: 0x18
         JP: 0x18
-    - name: ASSEMBLY_MAIN_MENU_1
+    - name: ASSEMBLY_MAIN_MENU_ITEMS_1
       address:
         EU: 0x238C6DC
         NA: 0x238BB9C
@@ -67,7 +72,7 @@ overlay17:
         EU: 0x18
         NA: 0x18
         JP: 0x18
-    - name: ASSEMBLY_MAIN_MENU_2
+    - name: ASSEMBLY_MAIN_MENU_ITEMS_2
       address:
         EU: 0x238C6F4
         NA: 0x238BBB4
@@ -76,7 +81,7 @@ overlay17:
         EU: 0x20
         NA: 0x20
         JP: 0x20
-    - name: ASSEMBLY_SUBMENU_1
+    - name: ASSEMBLY_SUBMENU_ITEMS_1
       address:
         EU: 0x238C714
         NA: 0x238BBD4
@@ -85,7 +90,7 @@ overlay17:
         EU: 0x28
         NA: 0x28
         JP: 0x28
-    - name: ASSEMBLY_SUBMENU_2
+    - name: ASSEMBLY_SUBMENU_ITEMS_2
       address:
         EU: 0x238C73C
         NA: 0x238BBFC
@@ -94,7 +99,7 @@ overlay17:
         EU: 0x30
         NA: 0x30
         JP: 0x30
-    - name: ASSEMBLY_SUBMENU_3
+    - name: ASSEMBLY_SUBMENU_ITEMS_3
       address:
         EU: 0x238C76C
         NA: 0x238BC2C
@@ -103,7 +108,7 @@ overlay17:
         EU: 0x30
         NA: 0x30
         JP: 0x30
-    - name: ASSEMBLY_SUBMENU_4
+    - name: ASSEMBLY_SUBMENU_ITEMS_4
       address:
         EU: 0x238C79C
         NA: 0x238BC5C
@@ -112,7 +117,7 @@ overlay17:
         EU: 0x38
         NA: 0x38
         JP: 0x38
-    - name: ASSEMBLY_SUBMENU_5
+    - name: ASSEMBLY_SUBMENU_ITEMS_5
       address:
         EU: 0x238C7D4
         NA: 0x238BC94
@@ -121,7 +126,7 @@ overlay17:
         EU: 0x38
         NA: 0x38
         JP: 0x38
-    - name: ASSEMBLY_SUBMENU_6
+    - name: ASSEMBLY_SUBMENU_ITEMS_6
       address:
         EU: 0x238C80C
         NA: 0x238BCCC
@@ -130,7 +135,7 @@ overlay17:
         EU: 0x38
         NA: 0x38
         JP: 0x38
-    - name: ASSEMBLY_SUBMENU_7
+    - name: ASSEMBLY_SUBMENU_ITEMS_7
       address:
         EU: 0x238C844
         NA: 0x238BD04

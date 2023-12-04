@@ -35,7 +35,7 @@ overlay27:
       length:
         NA: 0xC
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DISCARD_ITEMS_MENU_CONFIRM
+    - name: DISCARD_ITEMS_MENU_ITEMS_CONFIRM
       address:
         EU: 0x238D49C
         NA: 0x238C95C
@@ -44,7 +44,7 @@ overlay27:
         EU: 0x18
         NA: 0x18
         JP: 0x18
-    - name: DISCARD_ITEMS_SUBMENU_1
+    - name: DISCARD_ITEMS_SUBMENU_ITEMS_1
       address:
         EU: 0x238D4B4
         NA: 0x238C974
@@ -53,7 +53,7 @@ overlay27:
         EU: 0x20
         NA: 0x20
         JP: 0x20
-    - name: DISCARD_ITEMS_SUBMENU_2
+    - name: DISCARD_ITEMS_SUBMENU_ITEMS_2
       address:
         EU: 0x238D4D4
         NA: 0x238C994
@@ -62,7 +62,7 @@ overlay27:
         EU: 0x20
         NA: 0x20
         JP: 0x20
-    - name: DISCARD_ITEMS_MAIN_MENU
+    - name: DISCARD_ITEMS_MAIN_MENU_ITEMS
       address:
         EU: 0x238D4F4
         NA: 0x238C9B4
@@ -77,52 +77,55 @@ overlay27:
       length:
         NA: 0x30
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DISCARD_D_BOX_LAYOUT_1
+    - name: DISCARD_WINDOW_PARAMS_1
       address:
         NA: 0x238CA0C
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DISCARD_D_BOX_LAYOUT_2
+    - name: DISCARD_WINDOW_PARAMS_2
       address:
         NA: 0x238CA1C
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DISCARD_D_BOX_LAYOUT_3
+    - name: DISCARD_WINDOW_PARAMS_3
       address:
         NA: 0x238CA2C
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DISCARD_D_BOX_LAYOUT_4
+    - name: DISCARD_WINDOW_PARAMS_4
       address:
         NA: 0x238CA3C
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DISCARD_D_BOX_LAYOUT_5
+    - name: DISCARD_WINDOW_PARAMS_5
       address:
         EU: 0x238D58C
         NA: 0x238CA4C
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DISCARD_D_BOX_LAYOUT_6
+    - name: DISCARD_WINDOW_PARAMS_6
       address:
         EU: 0x238D59C
         NA: 0x238CA5C
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DISCARD_D_BOX_LAYOUT_7
+    - name: DISCARD_WINDOW_PARAMS_7
       address:
         EU: 0x238D5AC
         NA: 0x238CA6C
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DISCARD_D_BOX_LAYOUT_8
+    - name: DISCARD_WINDOW_PARAMS_8
       address:
         NA: 0x238CA7C
       length:

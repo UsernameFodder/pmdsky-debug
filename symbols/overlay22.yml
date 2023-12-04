@@ -14,18 +14,20 @@ overlay22:
   description: Controls the Kecleon Shop in Treasure Town.
   functions: []
   data:
-    - name: SHOP_D_BOX_LAYOUT_1
+    - name: SHOP_WINDOW_PARAMS_1
       address:
         EU: 0x238F35C
         NA: 0x238E81C
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: SHOP_D_BOX_LAYOUT_2
+    - name: SHOP_WINDOW_PARAMS_2
       address:
         EU: 0x238F37C
         NA: 0x238E83C
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY22_UNKNOWN_STRUCT__NA_238E85C
@@ -35,7 +37,7 @@ overlay22:
       length:
         NA: 0xC
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: SHOP_MENU_CONFIRM
+    - name: SHOP_MENU_ITEMS_CONFIRM
       address:
         EU: 0x238F3A8
         NA: 0x238E868
@@ -44,7 +46,7 @@ overlay22:
         EU: 0x18
         NA: 0x18
         JP: 0x18
-    - name: SHOP_MAIN_MENU_1
+    - name: SHOP_MAIN_MENU_ITEMS_1
       address:
         EU: 0x238F3C0
         NA: 0x238E880
@@ -53,7 +55,7 @@ overlay22:
         EU: 0x20
         NA: 0x20
         JP: 0x20
-    - name: SHOP_MAIN_MENU_2
+    - name: SHOP_MAIN_MENU_ITEMS_2
       address:
         EU: 0x238F3E0
         NA: 0x238E8A0
@@ -62,7 +64,7 @@ overlay22:
         EU: 0x20
         NA: 0x20
         JP: 0x20
-    - name: SHOP_MAIN_MENU_3
+    - name: SHOP_MAIN_MENU_ITEMS_3
       address:
         EU: 0x238F400
         NA: 0x238E8C0
@@ -78,57 +80,62 @@ overlay22:
       length:
         NA: 0x60
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: SHOP_D_BOX_LAYOUT_3
+    - name: SHOP_WINDOW_PARAMS_3
       address:
         NA: 0x238E950
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: SHOP_D_BOX_LAYOUT_4
+    - name: SHOP_WINDOW_PARAMS_4
       address:
         NA: 0x238E960
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: SHOP_D_BOX_LAYOUT_5
+    - name: SHOP_WINDOW_PARAMS_5
       address:
         NA: 0x238E970
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: SHOP_D_BOX_LAYOUT_6
+    - name: SHOP_WINDOW_PARAMS_6
       address:
         EU: 0x238F4C0
         NA: 0x238E980
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: SHOP_D_BOX_LAYOUT_7
+    - name: SHOP_WINDOW_PARAMS_7
       address:
         EU: 0x238F4D0
         NA: 0x238E990
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: SHOP_D_BOX_LAYOUT_8
+    - name: SHOP_WINDOW_PARAMS_8
       address:
         EU: 0x238F4E0
         NA: 0x238E9A0
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: SHOP_D_BOX_LAYOUT_9
+    - name: SHOP_WINDOW_PARAMS_9
       address:
         EU: 0x238F4F0
         NA: 0x238E9B0
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: SHOP_D_BOX_LAYOUT_10
+    - name: SHOP_WINDOW_PARAMS_10
       address:
         EU: 0x238F500
         NA: 0x238E9C0
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY22_RESERVED_SPACE

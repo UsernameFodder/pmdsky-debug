@@ -14,7 +14,7 @@ overlay16:
   description: Controls Luminous Spring.
   functions: []
   data:
-    - name: EVO_MENU_CONFIRM
+    - name: EVO_MENU_ITEMS_CONFIRM
       address:
         EU: 0x238D84C
         NA: 0x238CD08
@@ -23,8 +23,7 @@ overlay16:
         EU: 0x18
         NA: 0x18
         JP: 0x18
-      description: "Irdkwia's notes: 3*0x8"
-    - name: EVO_SUBMENU
+    - name: EVO_SUBMENU_ITEMS
       address:
         EU: 0x238D864
         NA: 0x238CD20
@@ -33,8 +32,7 @@ overlay16:
         EU: 0x20
         NA: 0x20
         JP: 0x20
-      description: "Irdkwia's notes: 4*0x8"
-    - name: EVO_MAIN_MENU
+    - name: EVO_MAIN_MENU_ITEMS
       address:
         EU: 0x238D884
         NA: 0x238CD40
@@ -43,7 +41,6 @@ overlay16:
         EU: 0x20
         NA: 0x20
         JP: 0x20
-      description: "Irdkwia's notes: 4*0x8"
     - name: EVO_MENU_STRING_IDS
       address:
         NA: 0x238CD60
@@ -53,46 +50,49 @@ overlay16:
         26*0x2
         
         Note: unverified, ported from Irdkwia's notes
-    - name: EVO_D_BOX_LAYOUT_1
+    - name: EVO_WINDOW_PARAMS_1
       address:
         NA: 0x238CD94
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: EVO_D_BOX_LAYOUT_2
+    - name: EVO_WINDOW_PARAMS_2
       address:
         NA: 0x238CDA4
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: EVO_D_BOX_LAYOUT_3
+    - name: EVO_WINDOW_PARAMS_3
       address:
         NA: 0x238CDB4
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: EVO_D_BOX_LAYOUT_4
+    - name: EVO_WINDOW_PARAMS_4
       address:
         EU: 0x238D908
         NA: 0x238CDC4
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: EVO_D_BOX_LAYOUT_5
+    - name: EVO_WINDOW_PARAMS_5
       address:
         EU: 0x238D918
         NA: 0x238CDD4
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: EVO_D_BOX_LAYOUT_6
+    - name: EVO_WINDOW_PARAMS_6
       address:
         EU: 0x238D928
         NA: 0x238CDE4
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: EVO_D_BOX_LAYOUT_7
+    - name: EVO_WINDOW_PARAMS_7
       address:
         NA: 0x238CDF4
       length:

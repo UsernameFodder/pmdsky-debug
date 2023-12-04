@@ -14,14 +14,15 @@ overlay21:
   description: Controls the Croagunk Swap Shop.
   functions: []
   data:
-    - name: SWAP_SHOP_D_BOX_LAYOUT_1
+    - name: SWAP_SHOP_WINDOW_PARAMS_1
       address:
         EU: 0x238D568
         NA: 0x238CA28
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: SWAP_SHOP_MENU_CONFIRM
+    - name: SWAP_SHOP_MENU_ITEMS_CONFIRM
       address:
         EU: 0x238D578
         NA: 0x238CA38
@@ -30,7 +31,7 @@ overlay21:
         EU: 0x18
         NA: 0x18
         JP: 0x18
-    - name: SWAP_SHOP_SUBMENU_1
+    - name: SWAP_SHOP_SUBMENU_ITEMS_1
       address:
         EU: 0x238D590
         NA: 0x238CA50
@@ -39,7 +40,7 @@ overlay21:
         EU: 0x18
         NA: 0x18
         JP: 0x18
-    - name: SWAP_SHOP_SUBMENU_2
+    - name: SWAP_SHOP_SUBMENU_ITEMS_2
       address:
         EU: 0x238D5A8
         NA: 0x238CA68
@@ -48,7 +49,7 @@ overlay21:
         EU: 0x20
         NA: 0x20
         JP: 0x20
-    - name: SWAP_SHOP_MAIN_MENU_1
+    - name: SWAP_SHOP_MAIN_MENU_ITEMS_1
       address:
         EU: 0x238D5C8
         NA: 0x238CA88
@@ -57,7 +58,7 @@ overlay21:
         EU: 0x20
         NA: 0x20
         JP: 0x20
-    - name: SWAP_SHOP_MAIN_MENU_2
+    - name: SWAP_SHOP_MAIN_MENU_ITEMS_2
       address:
         EU: 0x238D5E8
         NA: 0x238CAA8
@@ -66,7 +67,7 @@ overlay21:
         EU: 0x28
         NA: 0x28
         JP: 0x28
-    - name: SWAP_SHOP_SUBMENU_3
+    - name: SWAP_SHOP_SUBMENU_ITEMS_3
       address:
         EU: 0x238D610
         NA: 0x238CAD0
@@ -81,57 +82,62 @@ overlay21:
       length:
         NA: 0x38
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: SWAP_SHOP_D_BOX_LAYOUT_2
+    - name: SWAP_SHOP_WINDOW_PARAMS_2
       address:
         NA: 0x238CB38
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: SWAP_SHOP_D_BOX_LAYOUT_3
+    - name: SWAP_SHOP_WINDOW_PARAMS_3
       address:
         NA: 0x238CB48
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: SWAP_SHOP_D_BOX_LAYOUT_4
+    - name: SWAP_SHOP_WINDOW_PARAMS_4
       address:
         NA: 0x238CB58
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: SWAP_SHOP_D_BOX_LAYOUT_5
+    - name: SWAP_SHOP_WINDOW_PARAMS_5
       address:
         EU: 0x238D6A8
         NA: 0x238CB68
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: SWAP_SHOP_D_BOX_LAYOUT_6
+    - name: SWAP_SHOP_WINDOW_PARAMS_6
       address:
         EU: 0x238D6B8
         NA: 0x238CB78
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: SWAP_SHOP_D_BOX_LAYOUT_7
+    - name: SWAP_SHOP_WINDOW_PARAMS_7
       address:
         EU: 0x238D6C8
         NA: 0x238CB88
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: SWAP_SHOP_D_BOX_LAYOUT_8
+    - name: SWAP_SHOP_WINDOW_PARAMS_8
       address:
         EU: 0x238D6D8
         NA: 0x238CB98
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: SWAP_SHOP_D_BOX_LAYOUT_9
+    - name: SWAP_SHOP_WINDOW_PARAMS_9
       address:
         EU: 0x238D6E8
         NA: 0x238CBA8
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY21_JP_STRING

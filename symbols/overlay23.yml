@@ -35,7 +35,7 @@ overlay23:
       length:
         NA: 0xC
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: STORAGE_MENU_CONFIRM
+    - name: STORAGE_MENU_ITEMS_CONFIRM
       address:
         EU: 0x238DE3C
         NA: 0x238D2FC
@@ -44,7 +44,7 @@ overlay23:
         EU: 0x18
         NA: 0x18
         JP: 0x18
-    - name: STORAGE_MAIN_MENU_1
+    - name: STORAGE_MAIN_MENU_ITEMS_1
       address:
         EU: 0x238DE54
         NA: 0x238D314
@@ -53,7 +53,7 @@ overlay23:
         EU: 0x20
         NA: 0x20
         JP: 0x20
-    - name: STORAGE_MAIN_MENU_2
+    - name: STORAGE_MAIN_MENU_ITEMS_2
       address:
         EU: 0x238DE74
         NA: 0x238D334
@@ -62,7 +62,7 @@ overlay23:
         EU: 0x20
         NA: 0x20
         JP: 0x20
-    - name: STORAGE_MAIN_MENU_3
+    - name: STORAGE_MAIN_MENU_ITEMS_3
       address:
         EU: 0x238DE94
         NA: 0x238D354
@@ -71,7 +71,7 @@ overlay23:
         EU: 0x20
         NA: 0x20
         JP: 0x20
-    - name: STORAGE_MAIN_MENU_4
+    - name: STORAGE_MAIN_MENU_ITEMS_4
       address:
         EU: 0x238DEB4
         NA: 0x238D374
@@ -86,57 +86,62 @@ overlay23:
       length:
         NA: 0x2C
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: STORAGE_D_BOX_LAYOUT_1
+    - name: STORAGE_WINDOW_PARAMS_1
       address:
         NA: 0x238D3C8
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: STORAGE_D_BOX_LAYOUT_2
+    - name: STORAGE_WINDOW_PARAMS_2
       address:
         NA: 0x238D3D8
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: STORAGE_D_BOX_LAYOUT_3
+    - name: STORAGE_WINDOW_PARAMS_3
       address:
         NA: 0x238D3E8
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: STORAGE_D_BOX_LAYOUT_4
+    - name: STORAGE_WINDOW_PARAMS_4
       address:
         EU: 0x238DF38
         NA: 0x238D3F8
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: STORAGE_D_BOX_LAYOUT_5
+    - name: STORAGE_WINDOW_PARAMS_5
       address:
         EU: 0x238DF48
         NA: 0x238D408
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: STORAGE_D_BOX_LAYOUT_6
+    - name: STORAGE_WINDOW_PARAMS_6
       address:
         EU: 0x238DF58
         NA: 0x238D418
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: STORAGE_D_BOX_LAYOUT_7
+    - name: STORAGE_WINDOW_PARAMS_7
       address:
         EU: 0x238DF68
         NA: 0x238D428
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: STORAGE_D_BOX_LAYOUT_8
+    - name: STORAGE_WINDOW_PARAMS_8
       address:
         EU: 0x238DF78
         NA: 0x238D438
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: OVERLAY23_RESERVED_SPACE

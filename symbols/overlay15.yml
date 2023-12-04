@@ -14,7 +14,7 @@ overlay15:
   description: Controls the Duskull Bank.
   functions: []
   data:
-    - name: BANK_MAIN_MENU
+    - name: BANK_MAIN_MENU_ITEMS
       address:
         EU: 0x238BBC0
         NA: 0x238B054
@@ -23,34 +23,37 @@ overlay15:
         EU: 0x28
         NA: 0x28
         JP: 0x28
-    - name: BANK_D_BOX_LAYOUT_1
+    - name: BANK_WINDOW_PARAMS_1
       address:
         NA: 0x238B07C
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: BANK_D_BOX_LAYOUT_2
+    - name: BANK_WINDOW_PARAMS_2
       address:
         EU: 0x238BBF8
         NA: 0x238B08C
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: BANK_D_BOX_LAYOUT_3
+    - name: BANK_WINDOW_PARAMS_3
       address:
         EU: 0x238BC08
         NA: 0x238B09C
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: BANK_D_BOX_LAYOUT_4
+    - name: BANK_WINDOW_PARAMS_4
       address:
         EU: 0x238BC18
         NA: 0x238B0AC
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: BANK_D_BOX_LAYOUT_5
+    - name: BANK_WINDOW_PARAMS_5
       address:
         NA: 0x238B0BC
       length:

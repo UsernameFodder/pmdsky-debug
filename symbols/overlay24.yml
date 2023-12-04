@@ -28,7 +28,7 @@ overlay24:
       length:
         NA: 0xC
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DAYCARE_MENU_CONFIRM
+    - name: DAYCARE_MENU_ITEMS_CONFIRM
       address:
         EU: 0x238D060
         NA: 0x238C520
@@ -37,7 +37,7 @@ overlay24:
         EU: 0x18
         NA: 0x18
         JP: 0x18
-    - name: DAYCARE_MAIN_MENU
+    - name: DAYCARE_MAIN_MENU_ITEMS
       address:
         EU: 0x238D078
         NA: 0x238C538
@@ -52,32 +52,33 @@ overlay24:
       length:
         NA: 0x38
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DAYCARE_D_BOX_LAYOUT_1
+    - name: DAYCARE_WINDOW_PARAMS_1
       address:
         NA: 0x238C590
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DAYCARE_D_BOX_LAYOUT_2
+    - name: DAYCARE_WINDOW_PARAMS_2
       address:
         NA: 0x238C5A0
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DAYCARE_D_BOX_LAYOUT_3
+    - name: DAYCARE_WINDOW_PARAMS_3
       address:
         NA: 0x238C5B0
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DAYCARE_D_BOX_LAYOUT_4
+    - name: DAYCARE_WINDOW_PARAMS_4
       address:
         EU: 0x238D100
         NA: 0x238C5C0
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DAYCARE_D_BOX_LAYOUT_5
+    - name: DAYCARE_WINDOW_PARAMS_5
       address:
         NA: 0x238C5D0
       length:

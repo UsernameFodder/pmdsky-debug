@@ -487,7 +487,7 @@ overlay14:
         NA: 0x4
         JP: 0x4
       description: "Monster ID for Grovyle, which appears to be explicitly excluded when generating species choices."
-    - name: FOOTPRINT_DEBUG_MENU
+    - name: SENTRY_DEBUG_MENU_ITEMS
       address:
         EU: 0x238E640
         NA: 0x238DAA0

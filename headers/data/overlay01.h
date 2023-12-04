@@ -1,0 +1,18 @@
+#ifndef HEADERS_DATA_OVERLAY01_H_
+#define HEADERS_DATA_OVERLAY01_H_
+
+extern struct window_params MAIN_MENU_WINDOW_PARAMS_1;
+extern struct window_params MAIN_MENU_WINDOW_PARAMS_2;
+extern struct window_params MAIN_MENU_WINDOW_PARAMS_3;
+extern struct window_params MAIN_MENU_WINDOW_PARAMS_4;
+extern struct window_params MAIN_MENU_WINDOW_PARAMS_5;
+extern struct window_params MAIN_MENU_WINDOW_PARAMS_6;
+extern struct window_params MAIN_MENU_WINDOW_PARAMS_7;
+extern struct simple_menu_id_item MAIN_MENU_ITEMS_CONFIRM[3];
+extern struct window_params MAIN_MENU_WINDOW_PARAMS_8;
+extern struct window_params MAIN_MENU_WINDOW_PARAMS_9;
+extern struct simple_menu_id_item MAIN_DEBUG_MENU_ITEMS_1[12];
+extern struct window_params MAIN_MENU_WINDOW_PARAMS_10;
+extern struct simple_menu_id_item MAIN_DEBUG_MENU_ITEMS_2[7];
+
+#endif
