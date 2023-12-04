@@ -50,6 +50,7 @@ void GetDirectionLiveActor(struct live_actor* actor, struct direction_id_8* targ
 void SetDirectionLiveActor(struct live_actor* actor, struct direction_id_8 direction);
 int CreateTeamInfoBox(void);
 void CloseTeamInfoBox(int window_id);
+bool IsTeamInfoBoxActive(int window_id);
 void UpdateTeamInfoBox(struct window* window);
 void GetExclusiveItemRequirements(undefined param_1, undefined param_2);
 bool GetDungeonMapPos(struct uvec2* out_pos, enum dungeon_id dungeon);

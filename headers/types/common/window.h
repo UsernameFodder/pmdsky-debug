@@ -698,7 +698,7 @@ struct advanced_text_box {
     uint8_t field_0x1c0;
     uint8_t field_0x1c1;
     uint8_t field_0x1c2;
-    uint8_t field_0x1c3;
+    bool partial_menu; // 0x1C3: seems coupled to flags::partial_menu
     uint8_t field_0x1c4;
     undefined field_0x1c5;
     undefined field_0x1c6;
@@ -910,7 +910,7 @@ struct collection_menu {
     undefined4 field_0x1b4;
     undefined4 field_0x1b8;
     int field_0x1bc;
-    int width; // 0x1c0: computed as (window_params::width * 8 - 1)
+    int width; // 0x1c0: initially computed as (window_params::width * 8 - 1)
     uint8_t field_0x1c4;
     uint8_t field_0x1c5;
     uint8_t field_0x1c6;

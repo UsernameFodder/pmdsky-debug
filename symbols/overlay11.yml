@@ -500,6 +500,16 @@ overlay11:
         Closes a window created with CreateTeamInfoBox.
         
         r0: window_id
+    - name: IsTeamInfoBoxActive
+      address:
+        NA: 0x22FEF84
+      description: |-
+        This is a guess.
+        
+        Checks if the state of a team info box is not 5.
+        
+        r0: window_id
+        return: bool
     - name: UpdateTeamInfoBox
       address:
         EU: 0x22FF944

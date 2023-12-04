@@ -35,6 +35,20 @@ overlay10:
         stack[2]: number of items per page
         stack[3]: ?
         return: window_id
+    - name: SetInventoryMenuState0
+      address:
+        NA: 0x22BCCCC
+      description: |-
+        Sets an inventory menu to state 0.
+        
+        r0: window_id
+    - name: SetInventoryMenuState6
+      address:
+        NA: 0x22BCCE0
+      description: |-
+        Sets an inventory menu to state 6.
+        
+        r0: window_id
     - name: CloseInventoryMenu
       address:
         NA: 0x22BCCF4
@@ -42,6 +56,32 @@ overlay10:
         Closes a window created with CreateInventoryMenu.
         
         r0: window_id
+    - name: IsInventoryMenuActive
+      address:
+        NA: 0x22BCD68
+      description: |-
+        This is a guess.
+        
+        Checks if the state of an inventory menu is something other than 7 or 8
+        
+        r0: window_id
+        return: bool
+    - name: CheckInventoryMenuField0x1A0
+      address:
+        NA: 0x22BCD88
+      description: |-
+        Checks if inventory_menu::field_0x1a0 is 0.
+        
+        r0: window_id
+        return: bool
+    - name: PopInventoryMenuField0x1A3
+      address:
+        NA: 0x22BCE58
+      description: |-
+        Sets inventory_menu::field_0x1a3 to 0 and returns the old value.
+        
+        r0: window_id
+        return: old value
     - name: UpdateInventoryMenu
       address:
         EU: 0x22BD7B4
@@ -50,6 +90,14 @@ overlay10:
         Window update function for inventory menus.
         
         r0: window pointer
+    - name: IsInventoryMenuState3
+      address:
+        NA: 0x22BD374
+      description: |-
+        Checks if an inventory menu has a state value of 3.
+        
+        r0: window_id
+        return: bool
     - name: SprintfStatic
       address:
         EU:

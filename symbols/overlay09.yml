@@ -37,6 +37,16 @@ overlay9:
         Closes a window created with CreateJukeboxTrackMenu.
         
         r0: window_id
+    - name: IsJukeboxTrackMenuActive
+      address:
+        NA: 0x233E384
+      description: |-
+        This is a guess.
+        
+        Checks if the state of a jukebox track menu is something other than 7 or 8.
+        
+        r0: window_id
+        return: bool
     - name: UpdateJukeboxTrackMenu
       address:
         EU: 0x233EB5C
@@ -70,6 +80,16 @@ overlay9:
         Closes a window created with CreatePlaybackControlsMenu.
         
         r0: window_id
+    - name: IsPlaybackControlsMenuActive
+      address:
+        NA: 0x233ECFC
+      description: |-
+        This is a guess.
+        
+        Checks if the state of a playback controls menu is something other than 7 or 8.
+        
+        r0: window_id
+        return: bool
     - name: UpdatePlaybackControlsMenu
       address:
         EU: 0x233F504
@@ -102,6 +122,16 @@ overlay9:
         Closes a window created with InputLockBox.
         
         r0: window_id
+    - name: IsInputLockBoxActive
+      address:
+        NA: 0x233F3DC
+      description: |-
+        This is a guess.
+        
+        Checks if the state of an input lock box is not 4.
+        
+        r0: window_id
+        return: bool
     - name: UpdateInputLockBox
       address:
         EU: 0x233FB7C
