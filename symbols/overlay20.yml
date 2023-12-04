@@ -21,7 +21,7 @@ overlay20:
       length:
         NA: 0x8
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: RECYCLE_MENU_CONFIRM_1
+    - name: RECYCLE_MENU_ITEMS_CONFIRM_1
       address:
         EU: 0x238DAC4
         NA: 0x238CF84
@@ -30,7 +30,7 @@ overlay20:
         EU: 0x18
         NA: 0x18
         JP: 0x18
-    - name: RECYCLE_MENU_CONFIRM_2
+    - name: RECYCLE_MENU_ITEMS_CONFIRM_2
       address:
         EU: 0x238DADC
         NA: 0x238CF9C
@@ -39,7 +39,7 @@ overlay20:
         EU: 0x18
         NA: 0x18
         JP: 0x18
-    - name: RECYCLE_SUBMENU_1
+    - name: RECYCLE_SUBMENU_ITEMS_1
       address:
         EU: 0x238DAF4
         NA: 0x238CFB4
@@ -48,7 +48,7 @@ overlay20:
         EU: 0x18
         NA: 0x18
         JP: 0x18
-    - name: RECYCLE_SUBMENU_2
+    - name: RECYCLE_SUBMENU_ITEMS_2
       address:
         EU: 0x238DB0C
         NA: 0x238CFCC
@@ -57,7 +57,7 @@ overlay20:
         EU: 0x20
         NA: 0x20
         JP: 0x20
-    - name: RECYCLE_MAIN_MENU_1
+    - name: RECYCLE_MAIN_MENU_ITEMS_1
       address:
         EU: 0x238DB2C
         NA: 0x238CFEC
@@ -73,49 +73,55 @@ overlay20:
       length:
         NA: 0x14
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: RECYCLE_D_BOX_LAYOUT_1
+    - name: RECYCLE_WINDOW_PARAMS_1
       address:
         EU: 0x238DB68
         NA: 0x238D028
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: RECYCLE_D_BOX_LAYOUT_2
+    - name: RECYCLE_WINDOW_PARAMS_2
       address:
         EU: 0x238DB78
         NA: 0x238D038
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: RECYCLE_D_BOX_LAYOUT_3
+    - name: RECYCLE_WINDOW_PARAMS_3
       address:
         EU: 0x238DB88
         NA: 0x238D048
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: RECYCLE_D_BOX_LAYOUT_4
+    - name: RECYCLE_WINDOW_PARAMS_4
       address:
         EU: 0x238DB98
         NA: 0x238D058
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: RECYCLE_D_BOX_LAYOUT_5
+    - name: RECYCLE_WINDOW_PARAMS_5
       address:
         EU: 0x238DBA8
         NA: 0x238D068
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: RECYCLE_D_BOX_LAYOUT_6
+    - name: RECYCLE_WINDOW_PARAMS_6
       address:
         EU: 0x238DBB8
         NA: 0x238D078
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: RECYCLE_MAIN_MENU_2
+    - name: RECYCLE_MAIN_MENU_ITEMS_2
       address:
         EU: 0x238DBC8
         NA: 0x238D088
@@ -124,52 +130,57 @@ overlay20:
         EU: 0x20
         NA: 0x20
         JP: 0x20
-    - name: RECYCLE_D_BOX_LAYOUT_7
+    - name: RECYCLE_WINDOW_PARAMS_7
       address:
         EU: 0x238DBE8
         NA: 0x238D0A8
         JP: 0x238E604
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: RECYCLE_D_BOX_LAYOUT_8
+    - name: RECYCLE_WINDOW_PARAMS_8
       address:
         EU: 0x238DBF8
         NA: 0x238D0B8
         JP: 0x238E614
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: RECYCLE_D_BOX_LAYOUT_9
+    - name: RECYCLE_WINDOW_PARAMS_9
       address:
         EU: 0x238DC08
         NA: 0x238D0C8
         JP: 0x238E624
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: RECYCLE_D_BOX_LAYOUT1_0
+    - name: RECYCLE_WINDOW_PARAMS_10
       address:
         EU: 0x238DC18
         NA: 0x238D0D8
         JP: 0x238E634
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: RECYCLE_D_BOX_LAYOUT1_1
+    - name: RECYCLE_WINDOW_PARAMS_11
       address:
         EU: 0x238DC28
         NA: 0x238D0E8
         JP: 0x238E644
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: RECYCLE_MAIN_MENU_3
+    - name: RECYCLE_MAIN_MENU_ITEMS_3
       address:
         EU: 0x238DC38
         NA: 0x238D0F8

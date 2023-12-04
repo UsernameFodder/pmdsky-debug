@@ -123,43 +123,47 @@ overlay31:
         
         return: int (Actually, this is probably some sort of enum shared by all the MenuLoop functions)
   data:
-    - name: DUNGEON_D_BOX_LAYOUT_1
+    - name: DUNGEON_WINDOW_PARAMS_1
       address:
         EU: 0x238A9B8
         NA: 0x2389D94
         JP: 0x238B05C
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DUNGEON_D_BOX_LAYOUT_2
+    - name: DUNGEON_WINDOW_PARAMS_2
       address:
         EU: 0x238A9C8
         NA: 0x2389DA4
         JP: 0x238B06C
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DUNGEON_D_BOX_LAYOUT_3
+    - name: DUNGEON_WINDOW_PARAMS_3
       address:
         EU: 0x238A9D8
         NA: 0x2389DB4
         JP: 0x238B07C
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DUNGEON_D_BOX_LAYOUT_4
+    - name: DUNGEON_WINDOW_PARAMS_4
       address:
         EU: 0x238A9E8
         NA: 0x2389DC4
         JP: 0x238B08C
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DUNGEON_MAIN_MENU
+    - name: DUNGEON_MAIN_MENU_ITEMS
       address:
         EU: 0x238A9F8
         NA: 0x2389DD4
@@ -186,34 +190,37 @@ overlay31:
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DUNGEON_D_BOX_LAYOUT_5
+    - name: DUNGEON_WINDOW_PARAMS_5
       address:
         EU: 0x238AA64
         NA: 0x2389E40
         JP: 0x238B108
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DUNGEON_D_BOX_LAYOUT_6
+    - name: DUNGEON_WINDOW_PARAMS_6
       address:
         EU: 0x238AA74
         NA: 0x2389E50
         JP: 0x238B118
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DUNGEON_D_BOX_LAYOUT_7
+    - name: DUNGEON_WINDOW_PARAMS_7
       address:
         EU: 0x238AA84
         NA: 0x2389E60
         JP: 0x238B128
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DUNGEON_SUBMENU_1
+    - name: DUNGEON_SUBMENU_ITEMS_1
       address:
         EU: 0x238AA94
         NA: 0x2389E70
@@ -222,7 +229,7 @@ overlay31:
         EU: 0x20
         NA: 0x20
         JP: 0x20
-    - name: DUNGEON_SUBMENU_2
+    - name: DUNGEON_SUBMENU_ITEMS_2
       address:
         EU: 0x238AAB4
         NA: 0x2389E90
@@ -231,7 +238,7 @@ overlay31:
         EU: 0x20
         NA: 0x20
         JP: 0x20
-    - name: DUNGEON_SUBMENU_3
+    - name: DUNGEON_SUBMENU_ITEMS_3
       address:
         EU: 0x238AAD4
         NA: 0x2389EB0
@@ -240,7 +247,7 @@ overlay31:
         EU: 0x20
         NA: 0x20
         JP: 0x20
-    - name: DUNGEON_SUBMENU_4
+    - name: DUNGEON_SUBMENU_ITEMS_4
       address:
         EU: 0x238AAF4
         NA: 0x2389ED0
@@ -258,57 +265,63 @@ overlay31:
         NA: 0xC
         JP: 0xC
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DUNGEON_D_BOX_LAYOUT_8
+    - name: DUNGEON_WINDOW_PARAMS_8
       address:
         EU: 0x238AB20
         NA: 0x2389EFC
         JP: 0x238B1C4
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DUNGEON_D_BOX_LAYOUT_9
+    - name: DUNGEON_WINDOW_PARAMS_9
       address:
         EU: 0x238AB30
         NA: 0x2389F0C
         JP: 0x238B1D4
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DUNGEON_D_BOX_LAYOUT_10
+    - name: DUNGEON_WINDOW_PARAMS_10
       address:
         EU: 0x238AB40
         NA: 0x2389F1C
         JP: 0x238B1E4
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DUNGEON_D_BOX_LAYOUT_11
+    - name: DUNGEON_WINDOW_PARAMS_11
       address:
         EU: 0x238AB50
         NA: 0x2389F2C
         JP: 0x238B1F4
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DUNGEON_D_BOX_LAYOUT_12
+    - name: DUNGEON_WINDOW_PARAMS_12
       address:
         EU: 0x238AB60
         NA: 0x2389F3C
         JP: 0x238B204
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DUNGEON_D_BOX_LAYOUT_13
+    - name: DUNGEON_WINDOW_PARAMS_13
       address:
         EU: 0x238AB70
         NA: 0x2389F4C
         JP: 0x238B214
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
@@ -321,57 +334,63 @@ overlay31:
         NA: 0x24
         JP: 0x24
       description: "\\n\\n----　 初期ポジション=%d　----- \\n"
-    - name: DUNGEON_D_BOX_LAYOUT_14
+    - name: DUNGEON_WINDOW_PARAMS_14
       address:
         EU: 0x238ABAC
         NA: 0x2389F88
         JP: 0x238B250
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DUNGEON_D_BOX_LAYOUT_15
+    - name: DUNGEON_WINDOW_PARAMS_15
       address:
         EU: 0x238ABBC
         NA: 0x2389F98
         JP: 0x238B260
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DUNGEON_D_BOX_LAYOUT_16
+    - name: DUNGEON_WINDOW_PARAMS_16
       address:
         EU: 0x238ABCC
         NA: 0x2389FA8
         JP: 0x238B270
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DUNGEON_D_BOX_LAYOUT_17
+    - name: DUNGEON_WINDOW_PARAMS_17
       address:
         EU: 0x238ABDC
         NA: 0x2389FB8
         JP: 0x238B280
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DUNGEON_D_BOX_LAYOUT_18
+    - name: DUNGEON_WINDOW_PARAMS_18
       address:
         EU: 0x238ABEC
         NA: 0x2389FC8
         JP: 0x238B290
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DUNGEON_D_BOX_LAYOUT_19
+    - name: DUNGEON_WINDOW_PARAMS_19
       address:
         EU: 0x238ABFC
         NA: 0x2389FD8
         JP: 0x238B2A0
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
@@ -384,61 +403,67 @@ overlay31:
         NA: 0xC
         JP: 0xC
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DUNGEON_D_BOX_LAYOUT_20
+    - name: DUNGEON_WINDOW_PARAMS_20
       address:
         EU: 0x238AC18
         NA: 0x2389FF4
         JP: 0x238B2BC
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DUNGEON_D_BOX_LAYOUT_21
+    - name: DUNGEON_WINDOW_PARAMS_21
       address:
         EU: 0x238AC28
         NA: 0x238A004
         JP: 0x238B2CC
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DUNGEON_D_BOX_LAYOUT_22
+    - name: DUNGEON_WINDOW_PARAMS_22
       address:
         EU: 0x238AC38
         NA: 0x238A014
         JP: 0x238B2DC
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DUNGEON_D_BOX_LAYOUT_23
+    - name: DUNGEON_WINDOW_PARAMS_23
       address:
         EU: 0x238AC48
         NA: 0x238A024
         JP: 0x238B2EC
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DUNGEON_D_BOX_LAYOUT_24
+    - name: DUNGEON_WINDOW_PARAMS_24
       address:
         EU: 0x238AC58
         NA: 0x238A034
         JP: 0x238B2FC
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DUNGEON_D_BOX_LAYOUT_25
+    - name: DUNGEON_WINDOW_PARAMS_25
       address:
         EU: 0x238AD30
         NA: 0x238A10C
         JP: 0x238B3D4
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DUNGEON_SUBMENU_5
+    - name: DUNGEON_SUBMENU_ITEMS_5
       address:
         EU: 0x238AD40
         NA: 0x238A11C
@@ -447,12 +472,13 @@ overlay31:
         EU: 0x18
         NA: 0x18
         JP: 0x18
-    - name: DUNGEON_D_BOX_LAYOUT_26
+    - name: DUNGEON_WINDOW_PARAMS_26
       address:
         EU: 0x238AD58
         NA: 0x238A134
         JP: 0x238B3FC
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
@@ -465,21 +491,23 @@ overlay31:
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DUNGEON_D_BOX_LAYOUT_27
+    - name: DUNGEON_WINDOW_PARAMS_27
       address:
         EU: 0x238AD94
         NA: 0x238A170
         JP: 0x238B438
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DUNGEON_D_BOX_LAYOUT_28
+    - name: DUNGEON_WINDOW_PARAMS_28
       address:
         EU: 0x238ADA4
         NA: 0x238A180
         JP: 0x238B448
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
@@ -492,7 +520,7 @@ overlay31:
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DUNGEON_SUBMENU_6
+    - name: DUNGEON_SUBMENU_ITEMS_6
       address:
         EU: 0x238ADC4
         NA: 0x238A1A0
@@ -501,39 +529,43 @@ overlay31:
         EU: 0x48
         NA: 0x48
         JP: 0x48
-    - name: DUNGEON_D_BOX_LAYOUT_29
+    - name: DUNGEON_WINDOW_PARAMS_29
       address:
         EU: 0x238AE0C
         NA: 0x238A1E8
         JP: 0x238B4B0
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DUNGEON_D_BOX_LAYOUT_30
+    - name: DUNGEON_WINDOW_PARAMS_30
       address:
         EU: 0x238AE1C
         NA: 0x238A1F8
         JP: 0x238B4C0
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DUNGEON_D_BOX_LAYOUT_31
+    - name: DUNGEON_WINDOW_PARAMS_31
       address:
         EU: 0x238AE2C
         NA: 0x238A208
         JP: 0x238B4D0
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DUNGEON_D_BOX_LAYOUT_32
+    - name: DUNGEON_WINDOW_PARAMS_32
       address:
         EU: 0x238AE3C
         NA: 0x238A218
         JP: 0x238B4E0
       length:
+        EU: 0x10
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"

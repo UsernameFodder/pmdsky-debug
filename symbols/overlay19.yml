@@ -117,28 +117,31 @@ overlay19:
       length:
         NA: 0xC
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: BAR_D_BOX_LAYOUT_1
+    - name: BAR_WINDOW_PARAMS_1
       address:
         EU: 0x238ED0C
         NA: 0x238E1D8
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: BAR_D_BOX_LAYOUT_2
+    - name: BAR_WINDOW_PARAMS_2
       address:
         EU: 0x238ED1C
         NA: 0x238E1E8
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: BAR_D_BOX_LAYOUT_3
+    - name: BAR_WINDOW_PARAMS_3
       address:
         EU: 0x238ED2C
         NA: 0x238E1F8
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: BAR_MENU_CONFIRM_1
+    - name: BAR_MENU_ITEMS_CONFIRM_1
       address:
         EU: 0x238ED3C
         NA: 0x238E208
@@ -147,7 +150,7 @@ overlay19:
         EU: 0x18
         NA: 0x18
         JP: 0x18
-    - name: BAR_MENU_CONFIRM_2
+    - name: BAR_MENU_ITEMS_CONFIRM_2
       address:
         EU: 0x238ED54
         NA: 0x238E220
@@ -163,7 +166,7 @@ overlay19:
       length:
         NA: 0x18
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: BAR_MAIN_MENU
+    - name: BAR_MAIN_MENU_ITEMS
       address:
         EU: 0x238ED84
         NA: 0x238E250
@@ -172,7 +175,7 @@ overlay19:
         EU: 0x20
         NA: 0x20
         JP: 0x20
-    - name: BAR_SUBMENU_1
+    - name: BAR_SUBMENU_ITEMS_1
       address:
         EU: 0x238EDA4
         NA: 0x238E270
@@ -181,7 +184,7 @@ overlay19:
         EU: 0x20
         NA: 0x20
         JP: 0x20
-    - name: BAR_SUBMENU_2
+    - name: BAR_SUBMENU_ITEMS_2
       address:
         EU: 0x238EDC4
         NA: 0x238E290

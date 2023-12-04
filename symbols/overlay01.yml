@@ -73,7 +73,7 @@ overlay1:
         62*0x8
         
         Note: unverified, ported from Irdkwia's notes
-    - name: OVERLAY1_D_BOX_LAYOUT_1
+    - name: MAIN_MENU_WINDOW_PARAMS_1
       address:
         EU: 0x233BC64
         NA: 0x233B518
@@ -81,7 +81,7 @@ overlay1:
         EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: OVERLAY1_D_BOX_LAYOUT_2
+    - name: MAIN_MENU_WINDOW_PARAMS_2
       address:
         EU: 0x233BC74
         NA: 0x233B528
@@ -89,7 +89,7 @@ overlay1:
         EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: OVERLAY1_D_BOX_LAYOUT_3
+    - name: MAIN_MENU_WINDOW_PARAMS_3
       address:
         EU: 0x233BC84
         NA: 0x233B538
@@ -97,7 +97,7 @@ overlay1:
         EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: OVERLAY1_D_BOX_LAYOUT_4
+    - name: MAIN_MENU_WINDOW_PARAMS_4
       address:
         EU: 0x233BC94
         NA: 0x233B548
@@ -132,49 +132,54 @@ overlay1:
         EU: 0xA0
         NA: 0xA0
         JP: 0xA0
-    - name: OVERLAY1_D_BOX_LAYOUT_5
+    - name: MAIN_MENU_WINDOW_PARAMS_5
       address:
         EU: 0x233BE68
         NA: 0x233B71C
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: OVERLAY1_D_BOX_LAYOUT_6
+    - name: MAIN_MENU_WINDOW_PARAMS_6
       address:
         EU: 0x233BE78
         NA: 0x233B72C
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: OVERLAY1_D_BOX_LAYOUT_7
+    - name: MAIN_MENU_WINDOW_PARAMS_7
       address:
         EU: 0x233BE88
         NA: 0x233B73C
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: MAIN_MENU_CONFIRM
+    - name: MAIN_MENU_ITEMS_CONFIRM
       address:
         EU: 0x233BE98
         NA: 0x233B74C
       length:
         EU: 0x18
         NA: 0x18
-    - name: OVERLAY1_D_BOX_LAYOUT_8
+    - name: MAIN_MENU_WINDOW_PARAMS_8
       address:
         EU: 0x233BF1C
         NA: 0x233B7D0
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: OVERLAY1_D_BOX_LAYOUT_9
+    - name: MAIN_MENU_WINDOW_PARAMS_9
       address:
         EU: 0x233BF3C
         NA: 0x233B7F0
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: MAIN_DEBUG_MENU_1
+    - name: MAIN_DEBUG_MENU_ITEMS_1
       address:
         EU: 0x233BF5C
         NA: 0x233B810
@@ -183,14 +188,15 @@ overlay1:
         EU: 0x60
         NA: 0x60
         JP: 0x60
-    - name: OVERLAY1_D_BOX_LAYOUT_10
+    - name: MAIN_MENU_WINDOW_PARAMS_10
       address:
         EU: 0x233BFBC
         NA: 0x233B870
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: MAIN_DEBUG_MENU_2
+    - name: MAIN_DEBUG_MENU_ITEMS_2
       address:
         EU: 0x233BFDC
         NA: 0x233B890
