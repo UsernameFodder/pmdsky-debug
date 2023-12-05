@@ -6321,6 +6321,9 @@ arm9:
         r0: window_id
     - name: CalcMenuHeightDiv8
       address:
+        EU:
+          - 0x2031D98
+          - 0x2032CD8
         NA:
           - 0x2031AA4
           - 0x20329E4
@@ -11373,6 +11376,7 @@ arm9:
         type: int[8]
     - name: PARENT_MENU_DEFAULT_WINDOW_PARAMS
       address:
+        EU: 0x209B3CC
         NA: 0x209AE90
       length:
         NA: 0x10
@@ -11384,6 +11388,7 @@ arm9:
         Additionally, width and height are 0, and will be computed in CreateParentMenuInternal.
     - name: SIMPLE_MENU_DEFAULT_WINDOW_PARAMS
       address:
+        EU: 0x209B3DC
         NA: 0x209AEA0
       length:
         NA: 0x10
@@ -11395,6 +11400,7 @@ arm9:
         Additionally, width and height are 0, and will be computed in CreateSimpleMenuInternal.
     - name: ADVANCED_MENU_DEFAULT_WINDOW_PARAMS
       address:
+        EU: 0x209B3EC
         NA: 0x209AEB0
       length:
         NA: 0x10
@@ -11406,6 +11412,7 @@ arm9:
         Additionally, width and height are 0, and will be computed in CreateAdvancedMenu.
     - name: COLLECTION_MENU_DEFAULT_WINDOW_PARAMS
       address:
+        EU: 0x209B3FC
         NA: 0x209AEC0
       length:
         NA: 0x10
@@ -11417,6 +11424,7 @@ arm9:
         Additionally, width and height are 0, and will be computed in CreateCollectionMenu.
     - name: OPTIONS_MENU_DEFAULT_WINDOW_PARAMS
       address:
+        EU: 0x209B40C
         NA: 0x209AED0
       length:
         NA: 0x10
@@ -11428,6 +11436,7 @@ arm9:
         Additionally, width and height are 0, and will be computed in CreateOptionsMenu.
     - name: DEBUG_MENU_DEFAULT_WINDOW_PARAMS
       address:
+        EU: 0x209B448
         NA: 0x209AF0C
       length:
         NA: 0x10
@@ -11439,18 +11448,21 @@ arm9:
         Additionally, width and height are 0, and will be computed in CreateDebugMenu.
     - name: SCROLL_BOX_DEFAULT_WINDOW_PARAMS
       address:
+        EU: 0x209B458
         NA: 0x209AF1C
       length:
         NA: 0x10
       description: Default window_params for a scroll_box.
     - name: DIALOGUE_BOX_DEFAULT_WINDOW_PARAMS
       address:
+        EU: 0x209B468
         NA: 0x209AF2C
       length:
         NA: 0x10
       description: Default window_params for a dialogue_box.
     - name: PORTRAIT_BOX_DEFAULT_WINDOW_PARAMS
       address:
+        EU: 0x209B478
         NA: 0x209AF3C
       length:
         NA: 0x10
@@ -11460,12 +11472,14 @@ arm9:
         Note that the screen and box type are unset, and are determined in CreatePortraitBox.
     - name: TEXT_BOX_DEFAULT_WINDOW_PARAMS
       address:
+        EU: 0x209B488
         NA: 0x209AF4C
       length:
         NA: 0x10
       description: Default window_params for a text_box.
     - name: AREA_NAME_BOX_DEFAULT_WINDOW_PARAMS
       address:
+        EU: 0x209B498
         NA: 0x209AF5C
       length:
         NA: 0x10
@@ -11477,18 +11491,21 @@ arm9:
         Additionally, width and height are 0, and will be computed in CreateAreaNameBox.
     - name: CONTROLS_CHART_DEFAULT_WINDOW_PARAMS
       address:
+        EU: 0x209B4B4
         NA: 0x209AF78
       length:
         NA: 0x10
       description: Default window_params for a controls_chart.
     - name: ALERT_BOX_DEFAULT_WINDOW_PARAMS
       address:
+        EU: 0x209B4D0
         NA: 0x209AF94
       length:
         NA: 0x10
       description: Default window_params for an alert_box.
     - name: ADVANCED_TEXT_BOX_DEFAULT_WINDOW_PARAMS
       address:
+        EU: 0x209B4E0
         NA: 0x209AFA4
       length:
         NA: 0x10
@@ -11498,6 +11515,7 @@ arm9:
         Note that x_offset and y_offset refer to the right and bottom edges, since they will be paired with the x_offset_end and y_offset_end window flags in CreateAdvancedTextBoxInternal.
     - name: TEAM_SELECTION_MENU_DEFAULT_WINDOW_PARAMS
       address:
+        EU: 0x209B4F0
         NA: 0x209AFB4
       length:
         NA: 0x10

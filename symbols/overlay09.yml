@@ -161,6 +161,7 @@ overlay9:
   data:
     - name: JUKEBOX_TRACK_MENU_DEFAULT_WINDOW_PARAMS
       address:
+        EU: 0x233FF1C
         NA: 0x233F794
       length:
         NA: 0x10
@@ -172,6 +173,7 @@ overlay9:
         Additionally, width and height are 0, and will be computed in CreateJukeboxTrackMenu.
     - name: PLAYBACK_CONTROLS_MENU_DEFAULT_WINDOW_PARAMS
       address:
+        EU: 0x233FF2C
         NA: 0x233F7A4
       length:
         NA: 0x10
@@ -183,6 +185,7 @@ overlay9:
         Additionally, width and height are 0, and will be computed in CreatePlaybackControlsMenu.
     - name: INPUT_LOCK_BOX_DEFAULT_WINDOW_PARAMS
       address:
+        EU: 0x233FF3C
         NA: 0x233F7B4
       length:
         NA: 0x10
