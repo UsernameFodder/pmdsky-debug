@@ -78,7 +78,12 @@ arm7:
         This main function for the ARM7 subsystem. Contains the main event loop.
         
         No params.
-    - name: HardwareInterrupt
+    - name: Irq7HandlerWifi
+      address:
+        NA: 0x23814C4
+        NA-WRAM: 0x37F92DC
+      description: "IRQ handler for interrupt type 24: Wifi (see https://problemkaputt.de/gbatek.htm#dsinterrupts)."
+    - name: Irq7Handler
       address:
         EU: 0x2383670
         NA: 0x2383670
@@ -87,14 +92,14 @@ arm7:
         NA-WRAM: 0x37FB488
         JP-WRAM: 0x37FB488
       description: |-
-        Called whenever a hardware interrupt takes place.
+        The ARM7 IRQ handler. Called whenever a hardware interrupt takes place.
         
         Returns immediately if the IME flag is 0 or if none of the devices that requested an interrupt has the corresponding Interrupt Enable flag set.
         It searches for the first device that requested an interrupt, clears its Interrupt Request flag, then jumps to the start of the corresponding interrupt function. The return address is manually set to ReturnFromInterrupt.
         This function does not return.
         
         No params.
-    - name: ReturnFromInterrupt
+    - name: ReturnFromInterrupt7
       address:
         EU: 0x23836DC
         NA: 0x23836DC
@@ -106,7 +111,26 @@ arm7:
         The execution returns to this function after a hardware interrupt function is run.
         
         No params.
-    - name: AudioInterrupt
+    - name: Irq7HandlerEmpty
+      address:
+        NA: 0x2383820
+        NA-WRAM: 0x37FB638
+      description: |-
+        An empty IRQ handler that returns immediately. Assigned to the following interrupt types (see https://problemkaputt.de/gbatek.htm#dsinterrupts) in the interrupt vector:
+        - 1: LCD H-Blank
+        - 2: LCD V-Counter Match
+        - 12: Keypad
+        - 13: GBA-Slot
+        - 14: unused
+        - 15: unused
+        - 16: IPC Sync
+        - 17: IPC Send FIFO Empty
+        - 19: NDS-Slot Game Card Data Transfer Completion
+        - 20: NDS-Slot Game Card IREQ_MC
+        - 21: Geometry Command FIFO
+        - 22: Screens unfolding
+        - 23: SPI bus
+    - name: Irq7HandleTimerOverflowAndDma
       address:
         EU: 0x2383824
         NA: 0x2383824
@@ -115,11 +139,82 @@ arm7:
         NA-WRAM: 0x37FB63C
         JP-WRAM: 0x37FB63C
       description: |-
-        Called when handling a hardware interrupt from the audio system.
+        Implementation of the IRQ handlers for all ARM7 timer overflow and DMA interrupts.
+        
+        One way this is used is for hardware interrupts from the audio system.
         
         Its parameter is used to index a list of function pointers. The game then jumps to the read pointer.
         
         r0: Index of the function to jump to
+    - name: Irq7HandlerDma0
+      address:
+        NA: 0x23838B0
+        NA-WRAM: 0x37FB6C8
+      description: |-
+        IRQ handler for interrupt type 8, DMA 0 (see https://problemkaputt.de/gbatek.htm#dsinterrupts).
+        
+        Calls Irq7HandleTimerOverflowAndDma(0)
+    - name: Irq7HandlerDma1
+      address:
+        NA: 0x23838C0
+        NA-WRAM: 0x37FB6D8
+      description: |-
+        IRQ handler for interrupt type 9, DMA 1 (see https://problemkaputt.de/gbatek.htm#dsinterrupts).
+        
+        Calls Irq7HandleTimerOverflowAndDma(1)
+    - name: Irq7HandlerDma2
+      address:
+        NA: 0x23838D0
+        NA-WRAM: 0x37FB6E8
+      description: |-
+        IRQ handler for interrupt type 10, DMA 2 (see https://problemkaputt.de/gbatek.htm#dsinterrupts).
+        
+        Calls Irq7HandleTimerOverflowAndDma(2)
+    - name: Irq7HandlerDma3
+      address:
+        NA: 0x23838E0
+        NA-WRAM: 0x37FB6F8
+      description: |-
+        IRQ handler for interrupt type 11, DMA 3 (see https://problemkaputt.de/gbatek.htm#dsinterrupts).
+        
+        Calls Irq7HandleTimerOverflowAndDma(3)
+    - name: Irq7HandlerTimer0Overflow
+      address:
+        NA: 0x23838F0
+        NA-WRAM: 0x37FB708
+      description: |-
+        IRQ handler for interrupt type 3, Timer 0 Overflow (see https://problemkaputt.de/gbatek.htm#dsinterrupts).
+        
+        Calls Irq7HandleTimerOverflowAndDma(4)
+    - name: Irq7HandlerTimer1Overflow
+      address:
+        NA: 0x2383900
+        NA-WRAM: 0x37FB718
+      description: |-
+        IRQ handler for interrupt type 4, Timer 1 Overflow (see https://problemkaputt.de/gbatek.htm#dsinterrupts).
+        
+        Calls Irq7HandleTimerOverflowAndDma(5)
+    - name: Irq7HandlerTimer2Overflow
+      address:
+        NA: 0x2383910
+        NA-WRAM: 0x37FB728
+      description: |-
+        IRQ handler for interrupt type 5, Timer 2 Overflow (see https://problemkaputt.de/gbatek.htm#dsinterrupts).
+        
+        Calls Irq7HandleTimerOverflowAndDma(6)
+    - name: Irq7HandlerTimer3Overflow
+      address:
+        NA: 0x2383920
+        NA-WRAM: 0x37FB738
+      description: |-
+        IRQ handler for interrupt type 6, Timer 3 Overflow (see https://problemkaputt.de/gbatek.htm#dsinterrupts).
+        
+        Calls Irq7HandleTimerOverflowAndDma(7)
+    - name: Irq7HandlerLcdVBlank
+      address:
+        NA: 0x2383930
+        NA-WRAM: 0x37FB748
+      description: "IRQ handler for interrupt type 0, LCD V-Blank (see https://problemkaputt.de/gbatek.htm#dsinterrupts)."
     - name: ClearImeFlag
       address:
         EU: 0x2383AC0
@@ -235,6 +330,11 @@ arm7:
         Copy of the ARM9 function. See arm9.yml for more information.
         
         return: cpsr & 0x1f (the cpsr mode bits M4-M0)
+    - name: Irq7HandlerIpcRecvFifoNotEmpty
+      address:
+        NA: 0x2386690
+        NA-WRAM: 0x37FE4A8
+      description: "IRQ handler for interrupt type 18, IPC Recv FIFO Not Empty (see https://problemkaputt.de/gbatek.htm#dsinterrupts)."
     - name: _s32_div_f
       aliases:
         - __divsi3
@@ -283,4 +383,23 @@ arm7:
         r0: dividend
         r1: divisor
         return: (quotient) | (remainder << 32)
-  data: []
+    - name: Irq7HandlerSioRcntRtc
+      address:
+        NA: 0x23A5D1C
+        NA-RAM: 0x27F652C
+      description: "IRQ handler for interrupt type 7, SIO/RCNT/RTC (see https://problemkaputt.de/gbatek.htm#dsinterrupts)."
+  data:
+    - name: INTERRUPT7_VECTOR_PTR
+      address:
+        NA: 0x23836D4
+        NA-WRAM: 0x37FB4EC
+      description: Pointer to the ARM7 interrupt vector (referenced by Irq7Handler).
+    - name: RETURN_FROM_INTERRUPT_PTR
+      address:
+        NA: 0x23836D8
+        NA-WRAM: 0x37FB4F0
+      description: Pointer to the ReturnFromInterrupt7 function (referenced by Irq7Handler).
+    - name: INTERRUPT7_VECTOR
+      address:
+        NA-WRAM: 0x38074F4
+      description: "The ARM7 interrupt vector, containing 25 function pointers, one for each type of hardware interrupt from 0-24."

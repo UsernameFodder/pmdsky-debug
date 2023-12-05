@@ -84,6 +84,7 @@ arm9:
         EU: 0x2000AB0
         NA: 0x2000AB0
         JP: 0x2000AB0
+      description: "Runs a bunch of mcr p15 (writes to the CP15 system control coprocessor, see https://problemkaputt.de/gbatek.htm#armcp15systemcontrolcoprocessor) instructions to configure the system. This includes configuring the ITCM (virtual size of 0x2000000) and DTCM (base of DTCM_BASE and virtual size of 0x4000)."
     - name: OSi_ReferSymbol
       address:
         EU: 0x2000B9C
@@ -560,6 +561,15 @@ arm9:
         This is called on fatal errors to hang the program indefinitely.
         
         No params.
+    - name: StartThreadWrapper
+      address:
+        NA: 0x2002778
+      description: |-
+        Seems to wrap StartThread with some other logic.
+        
+        r0: some struct pointer containing the thread to start
+        r1: some struct pointer containing the thread function to run
+        r2: some thread pointer (r2 for StartThread)
     - name: InterruptMasterDisable
       address:
         EU: 0x20030CC
@@ -721,6 +731,14 @@ arm9:
         See https://problemkaputt.de/gbatek.htm#dsiomaps.
         
         return: old value in the IME register
+    - name: IrqHandlerLcdVBlank
+      address:
+        NA: 0x2003704
+      description: "IRQ handler for interrupt type 0, LCD V-Blank (see https://problemkaputt.de/gbatek.htm#dsinterrupts)."
+    - name: ThreadMain
+      address:
+        NA: 0x2003780
+      description: "The thread function for the \"main\" thread that calls MainLoop. This thread is started from TaskProcBoot."
     - name: GetTime
       address:
         EU: 0x20037B4
@@ -741,6 +759,10 @@ arm9:
         See https://problemkaputt.de/gbatek.htm#dsiomaps.
         
         return: old value in the IME register
+    - name: RegisterCoroutine
+      address:
+        NA: 0x200383C
+      description: Seems to be the function called by GroundMainLoop/RunDungeonMode to register its maintenance coroutine (CoroutineGroundMain/CoroutineDungeonMaint) to be called in the TaskProcBoot loop.
     - name: SoundResume
       address:
         EU: 0x2003CC4
@@ -5126,6 +5148,13 @@ arm9:
         
         r0: window_id
         return: contents
+    - name: UpdateWindows
+      address:
+        NA: 0x2028848
+      description: |-
+        Appears to call the update function on all active windows.
+        
+        In ground mode, this is called within GroundMainLoop repeatedly. In dungeon mode, this is called by CoroutineDungeonMaint repeatedly.
     - name: LoadCursors
       address:
         EU: 0x2029800
@@ -10344,6 +10373,12 @@ arm9:
         NA: 0x800
         JP: 0x800
       description: "The header of the DS cartridge secure area. See https://problemkaputt.de/gbatek.htm#dscartridgesecurearea"
+    - name: DTCM_BASE
+      address:
+        NA: 0x2000B7C
+      length:
+        NA: 0x4
+      description: "The base offset of the DTCM, configured by the game with mcr p15,0,*,cr9,cr1,0"
     - name: START_MODULE_PARAMS
       address:
         EU: 0x2000BA0

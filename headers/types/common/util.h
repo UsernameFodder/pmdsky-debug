@@ -111,7 +111,7 @@ struct thread {
     undefined4 field_0x20;    // Initialized to 0
     undefined4 field_0x24;    // Initialized to 0
     undefined4 field_0x28;    // Initialized to 0
-    undefined4 field_0x2C;    // Initialized to 0
+    struct thread* field_0x2C;    // Initialized to 0
     undefined4 field_0x30;    // Initialized to 0
     undefined4 field_0x34;    // Initialized to 0
     // 0x38: Points to the area of the allocated stack area that can actually be used to store data.

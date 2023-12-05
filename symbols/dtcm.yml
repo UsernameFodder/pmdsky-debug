@@ -1,0 +1,27 @@
+ram:
+  versions:
+    - EU
+    - NA
+    - JP
+  address:
+    EU: 0x27E0000
+    NA: 0x27E0000
+    JP: 0x27E0000
+  length:
+    EU: 0x4000
+    NA: 0x4000
+    JP: 0x4000
+  description: |-
+    The data TCM (tightly-coupled memory).
+    
+    The DTCM is a special area of low-latency memory meant for performance-critical data. It's similar to a data cache, but more predictable. See the ARMv5 Architecture Reference Manual, Chapter B7 (https://developer.arm.com/documentation/ddi0100/i).
+    
+    The Nintendo DS DTCM region is a movable 16 KiB region of memory. By default it's located at 0x27C0000, but Explorers of Sky apparently configures it to be at 0x27E0000 instead. It is interesting that this happens to line up with the ARM7 "slow RAM" region (see arm7.yml); this may or may not be coincidental.
+    
+    Explorers of Sky seems to use this region for threading and coroutine execution info, among other things.
+  functions: []
+  data:
+    - name: INTERRUPT_VECTOR
+      address:
+        NA: 0x27E0000
+      description: "The interrupt vector, containing 25 function pointers, one for each type of hardware interrupt from 0-24."

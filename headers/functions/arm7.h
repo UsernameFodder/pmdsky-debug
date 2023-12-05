@@ -5,7 +5,7 @@ void _start_arm7(void);
 void do_autoload_arm7(void);
 void StartAutoloadDoneCallbackArm7(void);
 void NitroSpMain(void);
-void HardwareInterrupt(void);
+void IrqHandler(void);
 void ReturnFromInterrupt(void);
 void AudioInterrupt(int function_index);
 bool ClearImeFlag(void);

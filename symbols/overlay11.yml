@@ -205,6 +205,10 @@ overlay11:
         
         r0: mode, which is stored globally and used in switch statements for dispatch
         return: return code
+    - name: CoroutineGroundMaint
+      address:
+        NA: 0x22E9258
+      description: "Coroutine called by TaskProcBoot in a loop in ground mode, analogous to CoroutineDungeonMaint in dungeon mode. Registered in GroundMainLoop (analogous to how CoroutineDungeonMaint is registered in RunDungeonMode)."
     - name: GetAllocArenaGround
       address:
         EU: 0x22E9C9C

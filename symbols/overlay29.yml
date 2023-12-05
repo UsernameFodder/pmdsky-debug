@@ -18,6 +18,20 @@ overlay29:
   subregions:
     - move_effects.yml
   functions:
+    - name: YieldToRunDungeon
+      address:
+        NA: 0x22DDE30
+      description: |-
+        Seems to yield execution from the DungeonMaint (TaskProcBoot) thread to the RunDungeon thread.
+        
+        It functions by storing the current values of r0-r12 and lr on the stack, storing the stack pointer at a fixed address in the DTCM, and restoring r0-r12 and pc to a different value on the DTCM.
+    - name: YieldToDungeonMaint
+      address:
+        NA: 0x22DDEF8
+      description: |-
+        Seems to yield execution from the RunDungeon thread to the DungeonMaint (TaskProcBoot) thread.
+        
+        It functions by storing the current values of r0-r12 and lr on the stack, storing the stack pointer at a fixed address in the DTCM, and restoring r0-r12 and pc to a different value on the DTCM.
     - name: GetWeatherColorTable
       address:
         EU: 0x22DEF60
@@ -8171,6 +8185,13 @@ overlay29:
         
         r0: ?
         r1: ?
+    - name: CoroutineRunDungeon
+      address:
+        NA: 0x234BBE8
+      description: |-
+        Coroutine that calls RunDungeon, which runs all "dungeon logic".
+        
+        This coroutine calls YieldToDungeonMaint at various points (often deep within the call stack) to transfer execution back to CoroutineDungeonMaint. It's registered somewhere when dungeon mode is being set up by RunDungeonMode.
     - name: RunDungeonMode
       address:
         EU: 0x234CB28
@@ -8181,7 +8202,14 @@ overlay29:
         
         It gets called by MainGame right after doing the dungeon fade transition, and once it exits, the dungeon results are processed.
         
-        This function is presumably in charge of allocating the dungeon struct, setting it up, launching the dungeon engine, etc.
+        This function is presumably in charge of allocating the dungeon struct, setting it up, launching the dungeon engine, registering the RunDungeon and DungeonMaint coroutines, etc.
+    - name: CoroutineDungeonMaint
+      address:
+        NA: 0x234C1D8
+      description: |-
+        Coroutine that (presumably) performs maintenance tasks that keeps the game running while there isn't "dungeon logic" to be executed. This includes things like running animations, keeping the game running while the player is idle, keeping windows updated, and probably much more.
+        
+        This coroutine calls YieldToRunDungeon at various points to transfer execution back to CoroutineRunDungeon. It's registered somewhere globally when dungeon mode is being set up by RunDungeonMode, where it's called in the infinite loop within TaskProcBoot.
     - name: StartFadeDungeon
       address:
         EU: 0x234D008
@@ -8334,6 +8362,18 @@ overlay29:
         
         return: Always 0
   data:
+    - name: COROUTINE_DUNGEON_MAINT_EXEC_STATE_PTR
+      address:
+        NA:
+          - 0x22DDEDC
+          - 0x22DDFEC
+      description: Pointer to COROUTINE_DUNGEON_MAINT_EXEC_STATE.
+    - name: COROUTINE_RUN_DUNGEON_EXEC_STATE_PTR
+      address:
+        NA:
+          - 0x22DDEF0
+          - 0x22DDFD8
+      description: Pointer to COROUTINE_RUN_DUNGEON_EXEC_STATE.
     - name: DUNGEON_STRUCT_SIZE
       address:
         EU:

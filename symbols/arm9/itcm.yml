@@ -312,7 +312,7 @@ itcm:
         
         r0: monster ID
         return: key
-    - name: HardwareInterrupt
+    - name: IrqHandler
       address:
         EU: 0x20B52A8
         NA: 0x20B4968
@@ -321,7 +321,7 @@ itcm:
         NA-ITCM: 0x1FF95E8
         JP-ITCM: 0x1FF9650
       description: |-
-        Called whenever a hardware interrupt takes place.
+        The ARM9 IRQ handler. Called whenever a hardware interrupt takes place.
         
         Returns immediately if the IME flag is 0 or if none of the devices that requested an interrupt has the corresponding Interrupt Enable flag set.
         It searches for the first device that requested an interrupt, clears its Interrupt Request flag, then jumps to the start of the corresponding interrupt function. The return address is manually set to ReturnFromInterrupt.
@@ -461,3 +461,13 @@ itcm:
         Pointers to the 4 functions available for rendering a render_3d_element (in ITCM)
         
         type: render_3d_element_fn_t[4]
+    - name: INTERRUPT_VECTOR_PTR
+      address:
+        NA: 0x20B49C8
+        NA-ITCM: 0x1FF9648
+      description: "Pointer to the interrupt vector (referenced by IrqHandler), which is at the beginning of the DTCM (0x27E0000)."
+    - name: RETURN_FROM_INTERRUPT_PTR
+      address:
+        NA: 0x20B49CC
+        NA-ITCM: 0x1FF964C
+      description: Pointer to the ReturnFromInterrupt function (referenced by IrqHandler).

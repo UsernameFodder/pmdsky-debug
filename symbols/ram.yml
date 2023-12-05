@@ -570,6 +570,14 @@ ram:
       length:
         NA: 0x63B04
       description: The memory region for GROUND_MEMORY_ARENA_1.
+    - name: COROUTINE_RUN_DUNGEON_EXEC_STATE
+      address:
+        NA: 0x23735F4
+      description: "Suspended execution state {r0-r12, lr} of the RunDungeon coroutine while yielded."
+    - name: COROUTINE_DUNGEON_MAINT_EXEC_STATE
+      address:
+        NA: 0x23735F8
+      description: "Suspended execution state {r0-r12, lr} of the DungeonMaint coroutine while yielded."
     - name: SENTRY_DUTY_STRUCT
       address:
         NA: 0x237A5D0
