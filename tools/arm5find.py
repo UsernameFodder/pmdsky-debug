@@ -46,6 +46,20 @@ class Segment:
     def __ne__(self, other: "Segment") -> bool:
         return not (self == other)
 
+    def __lt__(self, other: "Segment") -> bool:
+        return self.offset < other.offset or (
+            self.offset == other.offset and self.length < other.length
+        )
+
+    def __le__(self, other: "Segment") -> bool:
+        return self < other or self == other
+
+    def __gt__(self, other: "Segment") -> bool:
+        return not (self <= other)
+
+    def __ge__(self, other: "Segment") -> bool:
+        return not (self < other)
+
     def __hash__(self) -> int:
         return hash((self.offset, self.length))
 
