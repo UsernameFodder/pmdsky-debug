@@ -1055,7 +1055,19 @@ int FlushChannels(undefined* param_1, int param_2, int param_3);
 void ParseDseEvent(undefined* audio_state, struct track_data* track_data);
 void UpdateSequencerTracks(int param_1, undefined4 param_2, undefined4 param_3, undefined4 param_4);
 void UpdateChannels(void);
-void UpdateTrackVolumeEnvelopes(undefined* param_1);
+void SoundEnvelopeReset(struct sound_envelope* envelope);
+void SoundEnvelopeParametersReset(struct sound_envelope_parameters* parameters);
+void SoundEnvelopeParametersCheckValidity(struct sound_envelope_parameters* parameters);
+void SoundEnvelopeSetParameters(struct sound_envelope* envelope,
+                                struct sound_envelope_parameters* parameters);
+void SoundEnvelopeSetSlide(struct sound_envelope* envelope, int32_t target_volume,
+                           int32_t msec_tab_index);
+void UpdateTrackVolumeEnvelopes(struct sound_envelope* envelope);
+void SoundEnvelopeRelease(struct sound_envelope* envelope);
+void SoundEnvelopeStop(struct sound_envelope* envelope);
+void SoundEnvelopeForceVolume(struct sound_envelope* envelope, int32_t volume);
+void SoundEnvelopeStop2(struct sound_envelope* envelope);
+int8_t SoundEnvelopeTick(struct sound_envelope* envelope);
 void EnableVramBanksInSetDontSave(struct vram_banks_set vram_banks);
 void EnableVramBanksInSet(struct vram_banks_set* vram_banks);
 void GeomMtxLoad4x3(struct matrix_4x3* matrix);
