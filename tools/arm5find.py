@@ -35,7 +35,10 @@ class Segment:
             raise ValueError("segment length must be positive")
 
     def __repr__(self) -> str:
-        return f"{self.offset:#x}..{self.offset + self.length:#x}"
+        return f"{self.offset:#x}..{self.end():#x}"
+
+    def __str__(self) -> str:
+        return f"{self.offset:#x}..{self.end():#x}"
 
     def __eq__(self, other: "Segment") -> bool:
         return self.offset == other.offset and self.length == other.length
@@ -137,7 +140,7 @@ def armv5_search(
         if verbose:
             # Print the regexes in verbose mode
             for seg, regex in zip(segments, search_regexes):
-                print(f"{seg} regex: {regex.pattern}")
+                print(f"{seg!r} regex: {regex.pattern}")
 
         # The outer loop is over target files to search. Only load one at a time.
         for t, target_fname in enumerate(target_filenames):
@@ -220,7 +223,7 @@ if __name__ == "__main__":
     # Report search results
     print(f"*** SOURCE FILE: {args.source} ***")
     for seg, seg_matches in zip(segments, search_results):
-        print(f"== Matches for {seg} ==")
+        print(f"== Matches for {seg!r} ==")
         for tname, file_matches in zip(args.target, seg_matches):
             for match in file_matches:
                 print(f"  - [{tname}]: {match}")
