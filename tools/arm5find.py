@@ -49,6 +49,9 @@ class Segment:
     def __hash__(self) -> int:
         return hash((self.offset, self.length))
 
+    def end(self) -> int:
+        return self.offset + self.length
+
     def read(self, file: BinaryIO) -> bytes:
         """Read a file at the specified segment"""
         file.seek(self.offset)
