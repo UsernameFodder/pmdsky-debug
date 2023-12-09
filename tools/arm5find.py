@@ -66,14 +66,24 @@ class Segment:
     def end(self) -> int:
         return self.offset + self.length
 
-    def read(self, file: BinaryIO) -> bytes:
+    def read_from_file(self, file: BinaryIO) -> bytes:
         """Read a file at the specified segment"""
         file.seek(self.offset)
         return file.read(self.length)
 
-    def regex(self, file: BinaryIO) -> re.Pattern:
-        """Get regex for the contents of the specified segment within a file"""
-        return re.compile(re.escape(self.read(file)))
+    def read_from_buf(self, buf: bytes) -> bytes:
+        """Read a raw buffer at the specified segment"""
+        return buf[self.offset : self.offset + self.length]
+
+    def read(self, stream: Union[BinaryIO, bytes]) -> bytes:
+        """Read a file or raw buffer at the specified segment"""
+        if isinstance(stream, bytes):
+            return self.read_from_buf(stream)
+        return self.read_from_file(stream)
+
+    def regex(self, stream: Union[BinaryIO, bytes]) -> re.Pattern:
+        """Get regex for the contents of the specified segment within a file or raw buffer"""
+        return re.compile(re.escape(self.read(stream)))
 
 
 class AsmSegment(Segment):
@@ -84,9 +94,9 @@ class AsmSegment(Segment):
     def __repr__(self) -> str:
         return f"asm: {super().__repr__()}"
 
-    def instructions(self, file: BinaryIO) -> Iterator[bytes]:
+    def instructions(self, stream: Union[BinaryIO, bytes]) -> Iterator[bytes]:
         """Iterator over instructions as raw little endian 4-byte arrays"""
-        raw = self.read(file)
+        raw = self.read(stream)
         return (
             raw[i : i + AsmSegment.INSTRUCTION_SIZE]
             for i in range(0, len(raw), AsmSegment.INSTRUCTION_SIZE)
@@ -100,9 +110,9 @@ class AsmSegment(Segment):
             and (instruction[-1] & 0b1111) == 0b1011
         )
 
-    def regex(self, file: BinaryIO) -> re.Pattern:
+    def regex(self, stream: Union[BinaryIO, bytes]) -> re.Pattern:
         pattern = b""
-        for instr in self.instructions(file):
+        for instr in self.instructions(stream):
             if AsmSegment.instruction_is_bl(instr):
                 # Allow any offset (least significant 3 bytes) for bl instructions
                 pattern += (
