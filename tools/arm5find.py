@@ -110,15 +110,115 @@ class AsmSegment(Segment):
             and (instruction[-1] & 0b1111) == 0b1011
         )
 
-    def regex(self, stream: Union[BinaryIO, bytes]) -> re.Pattern:
+    @staticmethod
+    def instruction_is_b(instruction: bytes) -> bool:
+        """Checks if an instruction (as a little endian 4-byte array) is `b{l}`"""
+        return (
+            len(instruction) == AsmSegment.INSTRUCTION_SIZE
+            and (instruction[-1] & 0b1110) == 0b1010
+        )
+
+    @staticmethod
+    def instruction_is_addr_mode2(instruction: bytes) -> bool:
+        # Reference manual A5-18: LDR{B}{T}, STR{B}{T}
+        return len(instruction) == AsmSegment.INSTRUCTION_SIZE and (
+            # LDR, LDRB, STR, STRB
+            ((instruction[3] & 0b1100) == 0b0100)
+            or
+            # LDRT, LDRBT, STRT, STRBT
+            (
+                (instruction[3] & 0b1101) == 0b0100
+                and (instruction[2] & 0b00100000) == 0b00100000
+            )
+        )
+
+    @staticmethod
+    def instruction_is_addr_mode3(instruction: bytes) -> bool:
+        # Reference manual A5-33: LDRD, LDREX, LDRH, LDRSB, LDRSH, STRD, STREX, STRH
+        return len(instruction) == AsmSegment.INSTRUCTION_SIZE and (
+            # LDRD and LDRSB
+            (
+                (instruction[3] & 0b1110) == 0
+                and (instruction[0] & 0b11110000) == 0b11010000
+            )
+            or
+            # LDREX and STREX
+            (
+                (instruction[3] & 0b1111) == 0b0001
+                and (instruction[2] & 0b11100000) == 0b10000000
+                and (instruction[0] & 0b11110000) == 0b10010000
+            )
+            or
+            # LDRH and LDRSH
+            (
+                (instruction[3] & 0b1110) == 0
+                and (instruction[2] & 0b00010000) == 0b00010000
+                and (instruction[0] & 0b10110000) == 0b10110000
+            )
+            or
+            # STRD
+            (
+                (instruction[3] & 0b1110) == 0
+                and (instruction[2] & 0b00010000 == 0)
+                and (instruction[0] & 0b11110000) == 0b11110000
+            )
+            or
+            # STRH
+            (
+                (instruction[3] & 0b1110) == 0
+                and (instruction[2] & 0b00010000) == 0
+                and (instruction[0] & 0b11110000) == 0b10110000
+            )
+        )
+
+    @staticmethod
+    def bit_prefix_to_re(byte: int, bits: int) -> bytes:
+        mask = ((1 << bits) - 1) << (8 - bits)
+        inv_mask = mask ^ 0b11111111
+        prefix = byte & mask
+        return (
+            "[".encode()
+            + re.escape(bytes([prefix]))
+            + "-".encode()
+            + re.escape(bytes([prefix + inv_mask]))
+            + "]".encode()
+        )
+
+    def regex(
+        self,
+        stream: Union[BinaryIO, bytes],
+        *,
+        ignore_ldr_str_offset: bool = False,
+        ignore_b_offset: bool = False,
+    ) -> re.Pattern:
         pattern = b""
         for instr in self.instructions(stream):
-            if AsmSegment.instruction_is_bl(instr):
+            if (
+                ignore_b_offset and AsmSegment.instruction_is_b(instr)
+            ) or AsmSegment.instruction_is_bl(instr):
                 # Allow any offset (least significant 3 bytes) for bl instructions
                 pattern += (
                     f".{{{AsmSegment.INSTRUCTION_SIZE - 1}}}".encode()
                     + re.escape(instr[-1:])
                 )
+            elif ignore_ldr_str_offset and AsmSegment.instruction_is_addr_mode2(instr):
+                # Allow any addr_mode (last 12 bits) for addr mode 2 instructions
+                rd = instr[1] & 0b11110000
+                pattern += (
+                    ".".encode()
+                    + AsmSegment.bit_prefix_to_re(rd, 4)
+                    + re.escape(instr[2:])
+                )
+            elif ignore_ldr_str_offset and AsmSegment.instruction_is_addr_mode3(instr):
+                # Allow any addr_mode (bits 0-3, 8-11) for addr mode 3 instructions
+                rd = instr[1] & 0b11110000
+                typ = instr[0] & 0b11110000
+                pattern += (
+                    AsmSegment.bit_prefix_to_re(typ, 4)
+                    + AsmSegment.bit_prefix_to_re(rd, 4)
+                    + re.escape(instr[2:])
+                )
+                pass
             else:
                 pattern += re.escape(instr)
         return re.compile(pattern, flags=re.DOTALL)
@@ -137,6 +237,8 @@ def armv5_search(
     segments: List[Segment],
     *,
     self_matches: bool = False,
+    ignore_ldr_str_offset: bool = False,
+    ignore_b_offset: bool = False,
     verbose: bool = False,
 ) -> List[List[List[Segment]]]:
     """Search through target ARMv5 binary files for contents from a source file
@@ -146,6 +248,8 @@ def armv5_search(
         target_filenames (List[str]): target file names
         segments (List[Segment]): segments within the source file to match
         self_matches (bool, optional): include self-matches if searching the source file. Defaults to False.
+        ignore_ldr_str_offset (bool, optional): ignore the offset of ldr and str assembly instructions. Defaults to False.
+        ignore_b_offset (bool, optional): ignore the offset of b assembly instructions. Defaults to False.
         verbose (bool, optional): verbose printing. Defaults to False.
 
     Returns:
@@ -163,7 +267,16 @@ def armv5_search(
         # each target file. The combined size of all search segments is bounded by
         # the source file size, so it shouldn't be an issue to load everything
         # into memory at once
-        search_regexes = [seg.regex(src_file) for seg in segments]
+        search_regexes = [
+            seg.regex(
+                src_file,
+                ignore_ldr_str_offset=ignore_ldr_str_offset,
+                ignore_b_offset=ignore_b_offset,
+            )
+            if isinstance(seg, AsmSegment)
+            else seg.regex(src_file)
+            for seg in segments
+        ]
         if verbose:
             # Print the regexes in verbose mode
             for seg, regex in zip(segments, search_regexes):
@@ -222,6 +335,16 @@ if __name__ == "__main__":
         action="store_true",
         help="include self-matches from the source file in search results",
     )
+    parser.add_argument(
+        "--ignore-ldr-str-offset",
+        action="store_true",
+        help="ignore the offset of ldr/str assembly instructions",
+    )
+    parser.add_argument(
+        "--ignore-b-offset",
+        action="store_true",
+        help="ignore the offset of b assembly instructions",
+    )
     parser.add_argument("-v", "--verbose", action="store_true", help="verbose output")
     parser.add_argument(
         "source", help="source binary file to take search segments from"
@@ -244,6 +367,8 @@ if __name__ == "__main__":
         args.target,
         segments,
         self_matches=args.include_self_matches,
+        ignore_ldr_str_offset=args.ignore_ldr_str_offset,
+        ignore_b_offset=args.ignore_b_offset,
         verbose=args.verbose,
     )
 
