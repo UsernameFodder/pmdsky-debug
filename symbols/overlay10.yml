@@ -1313,7 +1313,7 @@ overlay10:
       address:
         EU: 0x22C5074
         NA: 0x22C471C
-        JP: 0x22C5E00
+        JP: 0x22C5E04
       length:
         NA: 0x4
         JP: 0x4

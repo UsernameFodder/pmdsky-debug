@@ -11961,7 +11961,7 @@ arm9:
       address:
         EU: 0x20A1E28
         NA: 0x20A18A4
-        JP: 0x20A2C60
+        JP: 0x20A2C78
       length:
         EU: 0x4
         NA: 0x4
