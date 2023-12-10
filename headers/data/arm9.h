@@ -183,6 +183,6 @@ extern const char* RANK_STRING_PTR_TABLE[16];
 extern void* SMD_EVENTS_FUN_TABLE[127];
 extern int16_t MUSIC_DURATION_LOOKUP_TABLE_1[128];
 extern int32_t MUSIC_DURATION_LOOKUP_TABLE_2[128];
-extern SoundLfoWaveformCallback LFO_WAVEFORM_CALLBACKS[16];
+extern sound_lfo_waveform_callback LFO_WAVEFORM_CALLBACKS[16];
 
 #endif

@@ -927,7 +927,7 @@ ASSERT_SIZE(struct sound_envelope, 32);
 
 struct dse_lfo;
 
-typedef int (*SoundLfoWaveformCallback)(struct dse_lfo* lfo);
+typedef int (*sound_lfo_waveform_callback)(struct dse_lfo* lfo);
 
 struct dse_lfo {
     uint8_t phase_flags;
@@ -946,7 +946,7 @@ struct dse_lfo {
     int envelope_level;
     int envelope_delta;
     int16_t* output_ptr;
-    SoundLfoWaveformCallback waveform_callback;
+    sound_lfo_waveform_callback waveform_callback;
     struct dse_lfo* next;
 };
 ASSERT_SIZE(struct dse_lfo, 52);
