@@ -9998,6 +9998,11 @@ arm9:
         
         r0: Dungeon ID
         return: Dungeon mode
+    - name: SoundUtilGetRandomNumber
+      address:
+        EU: 0x206CC8C
+        NA: 0x206C8F4
+      description: "return: random number in the range [0, 32767]"
     - name: ReadWaviEntry
       address:
         EU: 0x206D8F0
@@ -10134,6 +10139,96 @@ arm9:
       description: |-
         r0: Sound envelope pointer
         return: Current volume
+    - name: SoundLfoBankReset
+      address:
+        EU: 0x2075434
+        NA: 0x207509C
+      description: "r0: LFO bank pointer"
+    - name: SoundLfoBankSet
+      address:
+        EU: 0x207544C
+        NA: 0x20750B4
+      description: |-
+        r0: LFO bank pointer
+        r1: LFO settings pointer
+        r2: Envelope level
+    - name: SoundLfoBankSetConstEnvelopes
+      address:
+        EU: 0x2075644
+        NA: 0x20752AC
+      description: |-
+        r0: LFO bank pointer
+        r1: Level
+    - name: SoundLfoBankTick
+      address:
+        EU: 0x2075690
+        NA: 0x20752F8
+      description: |-
+        r0: LFO bank pointer
+        return: New voice update flags
+    - name: SoundLfoWaveInvalidFunc
+      address:
+        EU: 0x2075744
+        NA: 0x20753AC
+      description: |-
+        r0: LFO pointer
+        return: 0
+    - name: SoundLfoWaveHalfSquareFunc
+      address:
+        EU: 0x2075758
+        NA: 0x20753C0
+      description: |-
+        r0: LFO pointer
+        return: LFO current output
+    - name: SoundLfoWaveFullSquareFunc
+      address:
+        EU: 0x2075794
+        NA: 0x20753FC
+      description: |-
+        r0: LFO pointer
+        return: LFO current output
+    - name: SoundLfoWaveHalfTriangleFunc
+      address:
+        EU: 0x20757DC
+        NA: 0x2075444
+      description: |-
+        r0: LFO pointer
+        return: LFO current output
+    - name: SoundLfoWaveFullTriangleFunc
+      address:
+        EU: 0x2075830
+        NA: 0x2075498
+      description: |-
+        r0: LFO pointer
+        return: LFO current output
+    - name: SoundLfoWaveSawFunc
+      address:
+        EU: 0x2075894
+        NA: 0x20754FC
+      description: |-
+        r0: LFO pointer
+        return: LFO current output
+    - name: SoundLfoWaveReverseSawFunc
+      address:
+        EU: 0x20758D0
+        NA: 0x2075538
+      description: |-
+        r0: LFO pointer
+        return: LFO current output
+    - name: SoundLfoWaveHalfNoiseFunc
+      address:
+        EU: 0x207590C
+        NA: 0x2075574
+      description: |-
+        r0: LFO pointer
+        return: LFO current output
+    - name: SoundLfoWaveFullNoiseFunc
+      address:
+        EU: 0x2075950
+        NA: 0x20755B8
+      description: |-
+        r0: LFO pointer
+        return: LFO current output
     - name: EnableVramBanksInSetDontSave
       address:
         EU: 0x2076744
@@ -12904,6 +12999,13 @@ arm9:
         See the struct definitions and End45's dungeon data document for more info.
         
         type: struct map_marker[310]
+    - name: LFO_OUTPUT_VOICE_UPDATE_FLAGS
+      address:
+        EU: 0x20AA840
+        NA: 0x20A9FA0
+      length:
+        EU: 0x10
+        NA: 0x10
     - name: TRIG_TABLE
       address:
         EU: 0x20AA850
@@ -13366,3 +13468,10 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         type: int32_t[128]
+    - name: LFO_WAVEFORM_CALLBACKS
+      address:
+        EU: 0x20B1B94
+        NA: 0x20B1250
+      length:
+        EU: 0x40
+        NA: 0x40

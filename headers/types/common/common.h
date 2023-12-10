@@ -925,6 +925,57 @@ struct sound_envelope {
 };
 ASSERT_SIZE(struct sound_envelope, 32);
 
+struct dse_lfo;
+
+typedef int (*sound_lfo_waveform_callback)(struct dse_lfo* lfo);
+
+struct dse_lfo {
+    uint8_t phase_flags;
+    uint8_t type;
+    uint16_t voice_update_flags;
+    uint16_t ticks_per_phase_change;
+    uint16_t ticks_until_phase_change;
+    int current_output;
+    int amplitude;
+    uint32_t field_0x10;
+    int output_delta;
+    uint16_t field_0x18;
+    uint16_t ticks_until_lfo_started;
+    uint16_t field_0x1c;
+    uint16_t lfo_envelope_ticks_left;
+    int envelope_level;
+    int envelope_delta;
+    int16_t* output_ptr;
+    sound_lfo_waveform_callback waveform_callback;
+    struct dse_lfo* next;
+};
+ASSERT_SIZE(struct dse_lfo, 52);
+
+struct dse_lfo_bank {
+    int16_t outputs[6];
+    struct dse_lfo* lfo_list;
+    struct dse_lfo lfos[4]; // Size: 4 * 0x34 = 0xd0
+};
+ASSERT_SIZE(struct dse_lfo_bank, 224);
+
+struct dse_lfo_settings {
+    uint8_t field_0x0;
+    uint8_t type;
+    uint8_t output_type;
+    uint8_t lfo_waveform_index;
+    int amplitude;
+    uint16_t lfo_phase_change_msec;
+    uint16_t msec_until_lfo_started;
+    uint16_t lfo_envelope_len_msec;
+    uint16_t _unused;
+};
+ASSERT_SIZE(struct dse_lfo_settings, 16);
+
+struct dse_voice_update_flags {
+    uint16_t flags[8];
+};
+ASSERT_SIZE(struct dse_voice_update_flags, 16);
+
 // Store one boolean per vram bank
 struct vram_banks_set {
     bool vram_A : 1;

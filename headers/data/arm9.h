@@ -150,6 +150,7 @@ extern struct simple_menu_id_item JOB_MENU_ITEMS_13[4];
 extern struct window_params JOB_WINDOW_PARAMS_2;
 extern struct dungeon_id_8 DUNGEON_SWAP_ID_TABLE[212];
 extern struct map_marker MAP_MARKER_PLACEMENTS[310];
+extern struct dse_voice_update_flags LFO_OUTPUT_VOICE_UPDATE_FLAGS;
 extern struct trig_values TRIG_TABLE[4096];
 extern struct mem_arena_getters MEMORY_ALLOCATION_ARENA_GETTERS;
 extern uint16_t PRNG_SEQUENCE_NUM;
@@ -182,5 +183,6 @@ extern const char* RANK_STRING_PTR_TABLE[16];
 extern void* SMD_EVENTS_FUN_TABLE[127];
 extern int16_t MUSIC_DURATION_LOOKUP_TABLE_1[128];
 extern int32_t MUSIC_DURATION_LOOKUP_TABLE_2[128];
+extern sound_lfo_waveform_callback LFO_WAVEFORM_CALLBACKS[16];
 
 #endif
