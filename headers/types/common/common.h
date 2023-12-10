@@ -900,8 +900,8 @@ ASSERT_SIZE(struct wan_table, 5392);
 struct sound_envelope_parameters {
     uint8_t use_envelope;
     uint8_t slide_time_multiplier;
-    uint16_t field2_0x2;
-    uint32_t field3_0x4;
+    uint16_t field_0x2;
+    uint32_t field_0x4;
     uint8_t attack_begin;
     uint8_t attack_time;
     uint8_t decay_time;
@@ -909,15 +909,15 @@ struct sound_envelope_parameters {
     uint8_t hold_time;
     uint8_t sustain_time;
     uint8_t release_time;
-    uint8_t field11_0xe;
+    uint8_t field_0xe;
 };
 ASSERT_SIZE(struct sound_envelope_parameters, 16);
 
 struct sound_envelope {
     struct sound_envelope_parameters parameters;
-    int32_t current_volume;
-    int32_t volume_delta;
-    int32_t ticks_left;
+    int current_volume;
+    int volume_delta;
+    int ticks_left;
     uint8_t state;
     uint8_t target_volume;
     uint8_t update_volume;

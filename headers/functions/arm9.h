@@ -1060,12 +1060,11 @@ void SoundEnvelopeParametersReset(struct sound_envelope_parameters* parameters);
 void SoundEnvelopeParametersCheckValidity(struct sound_envelope_parameters* parameters);
 void SoundEnvelopeSetParameters(struct sound_envelope* envelope,
                                 struct sound_envelope_parameters* parameters);
-void SoundEnvelopeSetSlide(struct sound_envelope* envelope, int32_t target_volume,
-                           int32_t msec_tab_index);
+void SoundEnvelopeSetSlide(struct sound_envelope* envelope, int target_volume, int msec_tab_index);
 void UpdateTrackVolumeEnvelopes(struct sound_envelope* envelope);
 void SoundEnvelopeRelease(struct sound_envelope* envelope);
 void SoundEnvelopeStop(struct sound_envelope* envelope);
-void SoundEnvelopeForceVolume(struct sound_envelope* envelope, int32_t volume);
+void SoundEnvelopeForceVolume(struct sound_envelope* envelope, int volume);
 void SoundEnvelopeStop2(struct sound_envelope* envelope);
 int8_t SoundEnvelopeTick(struct sound_envelope* envelope);
 void EnableVramBanksInSetDontSave(struct vram_banks_set vram_banks);
