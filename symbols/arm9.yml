@@ -10066,12 +10066,74 @@ arm9:
         From https://projectpokemon.org/docs/mystery-dungeon-nds/procyon-studios-digital-sound-elements-r12/ and Irdkwia's notes.
         
         No params.
+    - name: SoundEnvelopeReset
+      address:
+        EU: 0x2075008
+        NA: 0x2074C70
+      description: "r0: Sound envelope pointer"
+    - name: SoundEnvelopeParametersReset
+      address:
+        EU: 0x207501C
+        NA: 0x2074C84
+      description: "r0: Sound envelope parameters pointer"
+    - name: SoundEnvelopeParametersCheckValidity
+      address:
+        EU: 0x2075038
+        NA: 0x2074CA0
+      description: "r0: Sound envelope parameters pointer"
+    - name: SoundEnvelopeSetParameters
+      address:
+        EU: 0x207508C
+        NA: 0x2074CF4
+      description: |-
+        r0: Sound envelope pointer
+        r1: Sound envelope parameters pointer
+    - name: SoundEnvelopeSetSlide
+      address:
+        EU: 0x20750F0
+        NA: 0x2074D58
+      description: |-
+        r0: Sound envelope pointer
+        r1: Target volume
+        r2: Music duration lookup table index
     - name: UpdateTrackVolumeEnvelopes
       address:
         EU: 0x20751A4
         NA: 0x2074E0C
         JP: 0x20750F4
-      description: "From https://projectpokemon.org/docs/mystery-dungeon-nds/procyon-studios-digital-sound-elements-r12/"
+      description: |-
+        From https://projectpokemon.org/docs/mystery-dungeon-nds/procyon-studios-digital-sound-elements-r12/
+        
+        r0: Sound envelope pointer
+    - name: SoundEnvelopeRelease
+      address:
+        EU: 0x2075270
+        NA: 0x2074ED8
+      description: "r0: Sound envelope pointer"
+    - name: SoundEnvelopeStop
+      address:
+        EU: 0x207529C
+        NA: 0x2074F04
+      description: "r0: Sound envelope pointer"
+    - name: SoundEnvelopeForceVolume
+      address:
+        EU: 0x20752B4
+        NA: 0x2074F1C
+      description: |-
+        r0: Sound envelope pointer
+        r1: Volume
+    - name: SoundEnvelopeStop2
+      address:
+        EU: 0x20752D4
+        NA: 0x2074F3C
+      description: "r0: Sound envelope pointer"
+    - name: SoundEnvelopeTick
+      address:
+        EU: 0x20752EC
+        NA: 0x2074F54
+      description: |-
+        r0: Sound envelope pointer
+        return: Current volume
     - name: EnableVramBanksInSetDontSave
       address:
         EU: 0x2076744
