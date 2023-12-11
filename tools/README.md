@@ -23,3 +23,6 @@ similar code across different ARMv5 binaries. See the help text (`python3 arm5co
 
 ## `symdiff.py`
 `symdiff.py` is a command line diff utility for comparing the `pmdsky-debug` [symbol tables](../symbols) across different revisions. It has a similar interface to `git diff`, but runs a specialized diffing algorithm. See the help text (`python3 symdiff.py --help`) for usage instructions, and see the description in [`symdiff.py`](symdiff.py) itself for more details.
+
+## `xmapcorrelate.py`
+`xmapcorrelate.py` is a command line utility for correlating identical symbols across different ARMv5 binaries annotated with xMAP files. See the help text (`python3 xmapcorrelate.py --help`) for usage instructions, and see the description in [`xmapcorrelate.py`](xmapcorrelate.py) itself for more details.
