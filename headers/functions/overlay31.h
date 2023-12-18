@@ -13,5 +13,6 @@ undefined TeamMenu(struct entity* leader);
 void RestMenu(void);
 int RecruitmentSearchMenuLoop(void);
 int HelpMenuLoop(void);
+void DrawDungeonMenuStatusWindow(int param_1);
 
 #endif

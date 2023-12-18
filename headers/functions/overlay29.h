@@ -844,5 +844,18 @@ void DisplayMessageInternal(int message_id, bool wait_for_input, struct portrait
 void OpenMenu(undefined param_1, undefined param_2, bool open_bag);
 int OthersMenuLoop(void);
 undefined OthersMenu(void);
+void HandleTopScreenFades();
+int UpdateTeamStatsWrapper();
+void AssignTopScreenHandlers(void** funcs, void* init, void* update, void* param_4, void* free);
+int FreeTopScreen();
+int FreeTeamStatsWrapper();
+int IsSecretBazaarOrRoom();
+void DisplayFloorCard(int duration);
+void HandleFloorCard(dungeon_id dungeon_id, uint8_t floor, int duration, int secret_bazaar_or_room);
+void StartFadeDungeon(dungeon_fade* fstruct, int time, fade_status_dungeon fade_status);
+void HandleFadesDungeon(screen screen);
+void FreeTopScreenStatus();
+void InitializeTeamStats();
+undefined4 DrawTeamStats(undefined4 param_1, int param_2, undefined4 param_3, uint32_t param_4);
 
 #endif

@@ -764,7 +764,7 @@ overlay29:
       description: |-
         Sets the handler functions of the top screen type.
 
-        r0: Array of the handler functions.
+        r0: Array where the handler function pointers get written to.
         r1: init_func
         r2: update_func
         stack[0]: free_func

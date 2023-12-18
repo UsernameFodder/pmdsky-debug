@@ -239,6 +239,11 @@ overlay10:
         EU: 0x22C2024
       description: |-
         Handles the procedure to close the map and team top screen display.
+    - name: DrawTeamStats
+      address:
+        EU: 0x22C1328
+      description: |-
+        Handles creating the windows for the team stats top screen display.
     - name: ProcessTeamStatsLvHp
       address:
         EU: 0x22C2094

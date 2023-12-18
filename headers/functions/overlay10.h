@@ -26,5 +26,8 @@ void ProcessTeamStatsNameGender(int idx);
 bool IsBackgroundTileset(int tileset_id);
 void InitTilesetBuffer(void* buffer, int tileset_id, uint32_t malloc_flags);
 int MainGame(int end_cond);
+void UpdateTeamStats();
+int FreeTeamStats();
+int FreeMapAndTeam();
 
 #endif
