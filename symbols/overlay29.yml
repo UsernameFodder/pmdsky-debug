@@ -8133,6 +8133,19 @@ overlay29:
         r0: Dungeon fade struct
         r1: Change of brightness per frame
         r2: Fade type
+    - name: StartFadeDungeonWrapper
+      address:
+        EU: 0x234D268
+      description: |-
+        Calls StartFadeDungeon to initiate a screen fade in dungeon mode.
+
+        Sets the status field in the dungeon_fades struct to the fade type, then uses
+        a switch-case to create a mapping of the status enums to different ones for some reason.
+        This mapped value is then used in the StartFadeDungeon call.
+
+        r0: Fade type
+        r1: Change of brightness per frame
+        r2: Screen to fade
     - name: HandleFadesDungeon
       address:
         EU: 0x234D3D4
