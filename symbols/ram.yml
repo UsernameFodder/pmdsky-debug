@@ -389,6 +389,8 @@ ram:
         
         Controls the text and map location during the "map cutscene" just before entering a dungeon, as well as the actual dungeon loaded afterwards.
         
+        This field is actually part of a larger struct that also contains PENDING_STARTING_FLOOR.
+        
         type: struct dungeon_id_8
     - name: PENDING_STARTING_FLOOR
       address:
