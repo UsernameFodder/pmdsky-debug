@@ -87,7 +87,7 @@ extern int16_t GUMMI_IQ_STRING_IDS[5];
 extern int16_t DAMAGE_STRING_IDS[27];
 extern struct dungeon* DUNGEON_PTR;
 extern struct dungeon* DUNGEON_PTR_MASTER;
-extern struct top_screen_status TOP_SCREEN_STATUS;
+extern struct top_screen_status* TOP_SCREEN_STATUS_PTR;
 extern struct entity* LEADER_PTR;
 extern struct prng_state DUNGEON_PRNG_STATE;
 extern uint32_t DUNGEON_PRNG_STATE_SECONDARY_VALUES[5];

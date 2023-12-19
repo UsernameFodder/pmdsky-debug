@@ -59,6 +59,7 @@ int MonsterSpawnListPartialCopy(struct monster_spawn_entry* buffer, int current_
 bool IsOnMonsterSpawnList(enum monster_id monster_id);
 enum monster_id GetMonsterIdToSpawn(int spawn_weight);
 uint8_t GetMonsterLevelToSpawn(enum monster_id monster_id);
+void AllocTopScreenStatus();
 void FreeTopScreenStatus();
 int InitializeTeamStats();
 int UpdateTeamStatsWrapper();

@@ -743,11 +743,18 @@ overlay29:
         
         r0: monster ID
         return: Level of the monster to be spawned, or 1 if the specified ID can't be found on the floor's spawn table.
+    - name: AllocTopScreenStatus
+      adderss:
+        EU: 0x22E8874
+      description: |-
+        Allocates and initializes the top_screen_status struct when entering dungeon mode.
+
+        No params.
     - name: FreeTopScreenStatus
       address:
         EU: 0x22E88F4
       description: |-
-        Gets called when leaving dungeon mode, calls FreeTopScreen and then also frees the allocated memory to the top screen status struct.
+        Gets called when leaving dungeon mode, calls FreeTopScreen and then also frees the allocated memory to the top_screen_status struct.
         
         No params.
     - name: InitializeTeamStats
@@ -9217,13 +9224,13 @@ overlay29:
         This is a "master copy" of the dungeon pointer. The game uses this pointer when doing low-level memory work (allocation, freeing, zeroing). The normal DUNGEON_PTR is used for most other dungeon mode work.
         
         type: struct dungeon*
-    - name: TOP_SCREEN_STATUS
+    - name: TOP_SCREEN_STATUS_PTR
       address:
         EU: 0x2354154
       length:
-        EU: 0x24
+        EU: 0x4
       description: |-
-        Struct for handling the status of the top screen in dungeon mode.
+        [Runtime] Pointer for struct for handling the status of the top screen in dungeon mode.
         
         type: struct top_screen_status
     - name: LEADER_PTR

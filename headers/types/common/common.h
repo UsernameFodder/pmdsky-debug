@@ -1214,7 +1214,6 @@ ASSERT_SIZE(struct thread_info, 52); // Could be shorter
 // or pointers to the load address are known.
 
 // State of the screen fade in all other modes except dungeon mode
-#pragma pack(push, 1)
 struct screen_fade {
     undefined field0_0x0;
     undefined field1_0x1;
@@ -1231,9 +1230,9 @@ struct screen_fade {
     // 0x14: Current brightness of the fade. Positive numbers turn the screen white, negative to
     // black
     int16_t delta_brightness;
+    int16_t _padding;
 };
-#pragma pack(pop)
-ASSERT_SIZE(struct screen_fade, 22);
+ASSERT_SIZE(struct screen_fade, 24);
 
 // The file timer. Counts every frame spent on the file, except loading, lag, saving and being
 // in the main menu.
