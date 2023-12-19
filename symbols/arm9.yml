@@ -7952,6 +7952,27 @@ arm9:
         Gets the size of storage for the current rank.
         
         return: storage size
+    - name: ResetPlayTimer
+      address:
+        EU: 0x2051140
+      description: |-
+        Reset the file timer.
+
+        r0: play_time
+    - name: PlayTimerTick
+      address:
+        EU: 0x2051150
+      description: |-
+        Advance the file timer by 1 frame.
+
+        r0: play_time
+    - name: GetPlayTimeSeconds
+      address:
+        EU: 0x205118C
+      description: |-
+        Returns the current play time in seconds.
+
+        return: play time in seconds
     - name: SubFixedPoint
       address:
         EU: 0x2051248
@@ -11226,6 +11247,15 @@ arm9:
         EU: 0x4
         NA: 0x4
       description: Hard-coded pointer to SCRIPT_VARS_VALUES.
+    - name: MAX_IGT
+      address:
+        EU: 0x2051188
+      length:
+        EU: 0x4
+      description: |-
+        Maximum number of seconds that the file timer counts up to.
+
+        35999999 seconds (one second under 10000 hours).
     - name: MONSTER_ID_LIMIT
       address:
         EU: 0x2054818

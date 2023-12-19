@@ -1232,4 +1232,11 @@ struct screen_fade {
 };
 ASSERT_SIZE(struct screen_fade, 22);
 
+// The file timer. Counts every frame spent on the file, except loading, lag, saving and being
+// in the main menu.
+struct play_time {
+    uint32_t seconds;
+    uint8_t frames;
+}
+
 #endif

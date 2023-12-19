@@ -1164,6 +1164,9 @@ unsigned long long __udivsi3_no_zero_check(uint32_t dividend, uint32_t divisor);
 int GetFadeStatus(struct screen_fade* fstruct);
 void UpdateFadeStatus(struct screen_fade* fstruct, int param_2, int duration);
 bool HandleFades(struct screen_fade* fstruct);
+void ResetPlayTimer(struct play_time* igt);
+void PlayTimerTick(struct play_time* igt);
+uint32_t GetPlayTimeSeconds(struct play_time* igt);
 #endif // #ifndef PMDSKY_NO_BUILTIN
 
 #endif

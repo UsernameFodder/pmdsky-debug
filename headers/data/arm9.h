@@ -184,5 +184,6 @@ extern void* SMD_EVENTS_FUN_TABLE[127];
 extern int16_t MUSIC_DURATION_LOOKUP_TABLE_1[128];
 extern int32_t MUSIC_DURATION_LOOKUP_TABLE_2[128];
 extern sound_lfo_waveform_callback LFO_WAVEFORM_CALLBACKS[16];
+extern uint32_t MAX_IGT;
 
 #endif
