@@ -64,7 +64,7 @@ void FreeTopScreenStatus();
 int InitializeTeamStats();
 int UpdateTeamStatsWrapper();
 int FreeTeamStatsWrapper();
-void AssignTopScreenHandlers(void** funcs, void* init, void* update, void* param_4, void* free);
+void AssignTopScreenHandlers(void** funcs, void* init_func, void* update_func, void* param_4, void* free_func);
 void HandleTopScreenFades();
 int FreeTopScreen();
 enum direction_id GetDirectionTowardsPosition(struct position* origin, struct position* target);
