@@ -28,6 +28,7 @@ void GroundMainNextDay(void);
 bool JumpToTitleScreen(int arg);
 bool ReturnToTitleScreen(uint32_t fade_duration);
 void ScriptSpecialProcess0x16(bool param_1);
+bool IsScreenFadeNotDone();
 void LoadBackgroundAttributes(struct bg_list_entry* entry, int bg_id);
 void LoadMapType10(void* buf, int map_id, undefined* dungeon_info_str, undefined4 additional_info);
 void LoadMapType11(void* buf, int map_id, undefined* dungeon_info_str, undefined4 additional_info);
@@ -53,12 +54,11 @@ void CloseTeamInfoBox(int window_id);
 bool IsTeamInfoBoxActive(int window_id);
 void UpdateTeamInfoBox(struct window* window);
 void GetExclusiveItemRequirements(undefined param_1, undefined param_2);
+void HandleControlsTopScreenGround();
 bool GetDungeonMapPos(struct uvec2* out_pos, enum dungeon_id dungeon);
 void WorldMapSetMode(uint32_t world_map_mode);
 void WorldMapSetCamera(uint32_t map_marker_id);
 void StatusUpdate(void);
-bool IsTopScreenFadeNotDone();
 void HandleTeamStatsGround();
-void HandleControlsTopScreenGround();
 
 #endif

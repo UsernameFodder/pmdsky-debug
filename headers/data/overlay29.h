@@ -87,6 +87,7 @@ extern int16_t GUMMI_IQ_STRING_IDS[5];
 extern int16_t DAMAGE_STRING_IDS[27];
 extern struct dungeon* DUNGEON_PTR;
 extern struct dungeon* DUNGEON_PTR_MASTER;
+extern struct top_screen_status TOP_SCREEN_STATUS;
 extern struct entity* LEADER_PTR;
 extern struct prng_state DUNGEON_PRNG_STATE;
 extern uint32_t DUNGEON_PRNG_STATE_SECONDARY_VALUES[5];
@@ -99,7 +100,6 @@ extern struct exclusive_item_effect_id_8 EXCL_ITEM_EFFECTS_EVASION_BOOST[8];
 extern struct tile DEFAULT_TILE;
 extern bool HIDDEN_STAIRS_SPAWN_BLOCKED;
 extern void* FIXED_ROOM_DATA_PTR;
-extern struct top_screen_status TOP_SCREEN_STATUS;
 extern struct dungeon_fades* DUNGEON_FADES_PTR;
 
 #endif

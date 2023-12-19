@@ -59,6 +59,12 @@ int MonsterSpawnListPartialCopy(struct monster_spawn_entry* buffer, int current_
 bool IsOnMonsterSpawnList(enum monster_id monster_id);
 enum monster_id GetMonsterIdToSpawn(int spawn_weight);
 uint8_t GetMonsterLevelToSpawn(enum monster_id monster_id);
+void FreeTopScreenStatus();
+void InitializeTeamStats();
+void HandleTopScreenFades();
+int UpdateTeamStatsWrapper();
+void AssignTopScreenHandlers(void** funcs, void* init, void* update, void* param_4, void* free);
+int FreeTopScreen();
 enum direction_id GetDirectionTowardsPosition(struct position* origin, struct position* target);
 int GetChebyshevDistance(struct position* position_a, struct position* position_b);
 bool IsPositionActuallyInSight(struct position* origin, struct position* target,
@@ -93,6 +99,7 @@ void DungeonRngSetPrimary(void);
 enum music_id MusicTableIdxToMusicId(int music_table_idx);
 void ChangeDungeonMusic(enum music_id music_id);
 void TrySwitchPlace(struct entity* user, struct entity* target);
+int FreeTeamStatsWrapper();
 void SetLeaderActionFields(enum action action_id);
 void ClearMonsterActionFields(struct action_data* monster_action);
 void SetMonsterActionFields(struct action_data* monster_action, enum action action_id);
@@ -662,6 +669,7 @@ void SetShouldBoostHiddenStairsSpawnChance(bool value);
 void UpdateShouldBoostHiddenStairsSpawnChance(void);
 bool IsSecretRoom(void);
 bool IsSecretFloor(void);
+int IsSecretBazaarOrRoom();
 bool HiddenStairsPresent(void);
 void HiddenStairsTrigger(bool show_message);
 undefined4 GetDungeonGenInfoUnk0C(void);
@@ -785,6 +793,9 @@ void RemoveEmptyItemsInBagWrapper(void);
 void GenerateItem(struct item* item, enum item_id item_id, uint16_t quantity,
                   enum gen_item_stickiness sticky_type);
 bool DoesProjectileHitTarget(struct entity* user, struct entity* target);
+void DisplayFloorCard(int duration);
+void HandleFloorCard(enum dungeon_id dungeon_id, uint8_t floor, int duration,
+                     int secret_bazaar_or_room);
 bool CheckActiveChallengeRequest(void);
 struct mission_destination_info* GetMissionDestination(void);
 bool IsOutlawOrChallengeRequestFloor(void);
@@ -833,6 +844,11 @@ void InitPortraitDungeon(struct portrait_params* portrait, enum monster_id monst
                          enum portrait_emotion emotion);
 void OpenMessageLog(undefined4 param_1, undefined4 param_2);
 bool RunDungeonMode(undefined4* param_1, undefined4 param_2);
+void StartFadeDungeon(struct dungeon_fade* fstruct, int delta_delta_brightness,
+                      enum fade_status_dungeon fade_type);
+void StartFadeDungeonWrapper(int fade_type, int delta_delta_brightness, enum screen screen);
+void HandleFadesDungeon(enum screen screen);
+void HandleFadesDungeonBothScreens();
 void DisplayDungeonTip(struct message_tip* message_tip, bool log);
 void SetBothScreensWindowColorToDefault(void);
 int GetPersonalityIndex(struct monster* monster);
@@ -844,19 +860,5 @@ void DisplayMessageInternal(int message_id, bool wait_for_input, struct portrait
 void OpenMenu(undefined param_1, undefined param_2, bool open_bag);
 int OthersMenuLoop(void);
 undefined OthersMenu(void);
-void HandleTopScreenFades();
-int UpdateTeamStatsWrapper();
-void AssignTopScreenHandlers(void** funcs, void* init, void* update, void* param_4, void* free);
-int FreeTopScreen();
-int FreeTeamStatsWrapper();
-int IsSecretBazaarOrRoom();
-void DisplayFloorCard(int duration);
-void HandleFloorCard(enum dungeon_id dungeon_id, uint8_t floor, int duration, int secret_bazaar_or_room);
-void StartFadeDungeon(struct dungeon_fade* fstruct, int delta_delta_brightness, enum fade_status_dungeon fade_type);
-void StartFadeDungeonWrapper(int fade_type, int delta_delta_brightness, screen screen);
-void HandleFadesDungeon(screen screen);
-void FreeTopScreenStatus();
-void InitializeTeamStats();
-undefined4 DrawTeamStats(undefined4 param_1, int param_2, undefined4 param_3, uint32_t param_4);
 
 #endif

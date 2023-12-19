@@ -743,6 +743,19 @@ overlay29:
         
         r0: monster ID
         return: Level of the monster to be spawned, or 1 if the specified ID can't be found on the floor's spawn table.
+    - name: FreeTopScreenStatus
+      address:
+        EU: 0x22E88F4
+      description: |-
+        Gets called when leaving dungeon mode, calls FreeTopScreen and then also frees the allocated memory
+        to the top screen status struct.
+
+        No params.
+    - name: InitializeTeamStats
+      address:
+        EU: 0x22E8AE0
+      description:
+        Initializes the team stats top screen.
     - name: HandleTopScreenFades
       address:
         EU: 0x022E921C
@@ -8154,6 +8167,8 @@ overlay29:
 
         r0: enum screen
     - name: HandleFadesDungeonBothScreens
+      address:
+        EU: 0x234D5E4
       description: |-
         Calls HandleFadesDungeon for both screens.
 
@@ -8314,19 +8329,6 @@ overlay29:
         EU: 0x4
         NA: 0x4
       description: "Equal to 10,000 (0x2710). Used as parameter for DungeonRandInt to generate the random number which determines the entity to spawn."
-    - name: FreeTopScreenStatus
-      address:
-        EU: 0x22E88F4
-      description: |-
-        Gets called when leaving dungeon mode, calls FreeTopScreen and then also frees the allocated memory
-        to the top screen status struct.
-
-        No params.
-    - name: InitializeTeamStats
-      address:
-        EU: 0x22E8AE0
-      description:
-        Initializes the team stats top screen.
     - name: DUNGEON_PRNG_LCG_MULTIPLIER
       address:
         EU:

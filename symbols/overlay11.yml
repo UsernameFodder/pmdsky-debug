@@ -555,7 +555,7 @@ overlay11:
         r0: ?
         r1: ?
     - name: HandleControlsTopScreenGround
-      addresss:
+      address:
         EU: 0x230EFB4
       description: |-
         Handles the controls top screen display in the overworld.

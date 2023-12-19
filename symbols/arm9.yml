@@ -5010,7 +5010,7 @@ arm9:
       description: |-
         Clears the window, at least in the case of a text box.
 
-        The low number of XREFs makes it seem that there might be more such functions.
+        The low number of XREFs makes it seem like there might be more such functions.
 
         r0: window_id
     - name: DeleteWindow

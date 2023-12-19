@@ -1767,10 +1767,11 @@ struct loaded_attack_sprite_data {
 ASSERT_SIZE(struct loaded_attack_sprite_data, 106498);
 
 // Stores the state of the top screen in dungeon mode
+#pragma pack(push, 1)
 struct top_screen_status {
     undefined field0_0x0;
     undefined field1_0x1;
-    char field2_0x2;
+    int8_t field2_0x2;
     undefined field3_0x3;
     enum top_screen_fade_status fade_status; // Status of the top screen fade
     undefined field5_0x8;
@@ -1779,22 +1780,13 @@ struct top_screen_status {
     undefined field8_0xe;
     undefined field9_0xf;
     enum top_screen_type top_screen_type; // Top screen type setting
-    void* init_func; // Function that is used to initialize the given type of top screen layout
+    void* init_func;   // Function that is used to initialize the given type of top screen layout
     void* update_func; // Function that is used to update the given type of top screen layout
     void* field13_0x1c;
     void* free_func; // Function that is used to close the given type of top screen layout
 };
-ASSERT_SIZE(struct top_screen_status, 32);
-
-// Stores the dungeon_fade struct for both screens and some associated status value that is used in
-// a switch case in HandleFadesDungeon.
-struct dungeon_fades {
-    struct dungeon_fade bottom_screen_dungeon_fade;
-    struct dungeon_fade top_screen_dungeon_fade;
-    int bottom_screen_status;
-    int top_screen_status;
-};
-ASSERT_SIZE(struct dungeon_fades, 320);
+#pragma pack(pop)
+ASSERT_SIZE(struct top_screen_status, 36);
 
 // Stores the state of the screen fade for one screen in dungeon mode. Probably also does something
 // else given how many unknowns there are.
@@ -1948,6 +1940,16 @@ struct dungeon_fade {
     undefined field146_0x9b;
 };
 ASSERT_SIZE(struct dungeon_fade, 156);
+
+// Stores the dungeon_fade struct for both screens and some associated status value that is used in
+// a switch case in HandleFadesDungeon.
+struct dungeon_fades {
+    struct dungeon_fade bottom_screen_dungeon_fade;
+    struct dungeon_fade top_screen_dungeon_fade;
+    int bottom_screen_status;
+    int top_screen_status;
+};
+ASSERT_SIZE(struct dungeon_fades, 320);
 
 // Separate this out into its own file because it's massive
 #include "dungeon.h"

@@ -21,13 +21,14 @@ int16_t GetTrapAnimation(enum trap_id trap_id);
 int16_t GetItemAnimation1(enum item_id item_id);
 int16_t GetItemAnimation2(enum item_id item_id);
 int GetMoveAnimationSpeed(enum move_id move_id);
+undefined4 DrawTeamStats(undefined4 param_1, int param_2, undefined4 param_3, uint32_t param_4);
+void UpdateTeamStats();
+int FreeTeamStats();
+int FreeMapAndTeam();
 void ProcessTeamStatsLvHp(int idx);
 void ProcessTeamStatsNameGender(int idx);
 bool IsBackgroundTileset(int tileset_id);
 void InitTilesetBuffer(void* buffer, int tileset_id, uint32_t malloc_flags);
 int MainGame(int end_cond);
-void UpdateTeamStats();
-int FreeTeamStats();
-int FreeMapAndTeam();
 
 #endif

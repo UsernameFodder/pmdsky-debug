@@ -1428,10 +1428,6 @@ enum top_screen_type {
 };
 
 // Used in dungeon_fade to store what kind of fade a screen is currently in, if any.
-enum fade_status_dungeon {
-    DUNGEON_FADE_NONE=1,
-    DUNGEON_FADE_IN=2,
-    DUNGEON_FADE_OUT=3
-} 
+enum fade_status_dungeon { DUNGEON_FADE_NONE = 1, DUNGEON_FADE_IN = 2, DUNGEON_FADE_OUT = 3 };
 
 #endif
