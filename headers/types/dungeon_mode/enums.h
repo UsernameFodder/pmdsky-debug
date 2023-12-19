@@ -1418,7 +1418,7 @@ enum top_screen_fade_status {
     TOP_SCREEN_FADE_0x3 = 3,
     TOP_SCREEN_FADE_FADE_IN = 4,
     TOP_SCREEN_FADE_NO_FADE = 5,
-    TOP_SCREEN_FADE_FADE_OUT = 6
+    TOP_SCREEN_FADE_FADE_OUT = 6,
 };
 
 // Top screen type as set in the settings
@@ -1427,7 +1427,7 @@ enum top_screen_type {
     TOP_SCREEN_TYPE_TEAM_STATS = 1,
     TOP_SCREEN_TYPE_CONTROLS = 2,
     TOP_SCREEN_TYPE_MAP_AND_TEAM = 3,
-    TOP_SCREEN_TYPE_JOB = 4
+    TOP_SCREEN_TYPE_JOB = 4,
 };
 
 // Used in dungeon_fade to store what kind of fade a screen is currently in, if any.

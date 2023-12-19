@@ -1169,7 +1169,6 @@ float __subsf3(float a, float b);
 unsigned long long __divsi3(int dividend, int divisor);
 unsigned long long __udivsi3(uint32_t dividend, uint32_t divisor);
 unsigned long long __udivsi3_no_zero_check(uint32_t dividend, uint32_t divisor);
-
 #endif // #ifndef PMDSKY_NO_BUILTIN
 
 #endif
