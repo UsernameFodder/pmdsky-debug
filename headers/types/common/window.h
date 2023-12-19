@@ -42,8 +42,7 @@ struct window_params {
     uint8_t width;          // 0x6: Window width, divided by 8.
     uint8_t height;         // 0x7: Window height, divided by 8.
     struct screen_8 screen; // 0x8: Screen where the window resides
-    // 0x9: The box type can affect the window frame and/or the backdrop. For example, 0xFA makes
-    // both the frame and backdrop invisible
+    // 0x9: The box type can affect the window frame and/or the backdrop.
     struct box_type_8 box_type;
     undefined field_0xa;
     undefined field_0xb;
