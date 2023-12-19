@@ -1793,7 +1793,7 @@ struct top_screen_status {
     undefined field19_0x28;
     undefined field20_0x29;
     undefined field21_0x2a;
-    char field22_0x2b;
+    uint8_t field22_0x2b;
     undefined field23_0x2c;
     undefined field24_0x2d;
     undefined field25_0x2e;
