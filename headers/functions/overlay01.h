@@ -3,7 +3,7 @@
 
 void CreateMainMenus(void);
 void AddMainMenuOption(int action_id, bool enabled);
-void ProcessContinueScreenContents(undefined4 param_1);
 void AddSubMenuOption(int action_id, bool enabled);
+void ProcessContinueScreenContents(undefined4 param_1);
 
 #endif
