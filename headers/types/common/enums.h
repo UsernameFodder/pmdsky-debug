@@ -3874,10 +3874,18 @@ enum debug_log_flag {
 
 // Fade status. Fade in means increasing brightness and fade out means decreasing.
 // As a result, fading the screen to white is considered a fade in.
-enum fade_status { FADE_NONE = 0, FADE_COMPLETE = 1, FADE_IN = 2, FADE_OUT = 3 };
+enum fade_status {
+    FADE_NONE = 0,
+    FADE_COMPLETE = 1,
+    FADE_IN = 2,
+    FADE_OUT = 3,
+};
 
 // The box type of a window.
-enum box_type { BOX_TYPE_NORMAL = 0xFE, BOX_TYPE_INVISIBLE = 0xFB };
+enum box_type {
+    BOX_TYPE_NORMAL = 0xFE,
+    BOX_TYPE_INVISIBLE = 0xFB,
+};
 
 #pragma pack(push, 1)
 ENUM_8_BIT(box_type);
