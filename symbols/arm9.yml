@@ -1015,13 +1015,13 @@ arm9:
         EU: 0x200BA18
       description: |-
         Updates the given screen_fade struct to initiate a fade for example.
-
+        
         In addition to initiating a fade this is called when a fade out is complete
         to set a flag for that in the struct.
-
+        
         r0: screen_fade
         r1: probably the type of the fade
-        r2: duration   
+        r2: duration
     - name: HandleFades
       address:
         EU: 0x200BA90
@@ -1031,7 +1031,7 @@ arm9:
         Gets called every frame for both screens, analyzes the fade_struct and does appropriate actions.
         If there's a fade in progress, it calculates the brightness on the next frame
         and updates the structure accordingly.
-
+        
         r0: screen_fade
         return: bool
     - name: GetFadeStatus
@@ -1039,7 +1039,7 @@ arm9:
         EU: 0x200BDB4
       description: |-
         Returns 1 if fading to black, 2 if fading to white, 0 otherwise.
-
+        
         r0: screen_fade
         return: int
     - name: InitDebug
@@ -4944,10 +4944,10 @@ arm9:
         EU: 0x20264F8
       description: |-
         Seems to be responsible for drawing the text in a window.
-
+        
         Needs a call to UpdateWindow after to actually display the contents.
         Unclear if this is generic for windows or just text boxes.
-
+        
         r0: window_id
         r1: x offset within window
         r2: y offset within window
@@ -5009,9 +5009,9 @@ arm9:
         EU: 0x2027E4C
       description: |-
         Clears the window, at least in the case of a text box.
-
+        
         The low number of XREFs makes it seem like there might be more such functions.
-
+        
         r0: window_id
     - name: DeleteWindow
       address:
@@ -7978,21 +7978,21 @@ arm9:
         EU: 0x2051140
       description: |-
         Reset the file timer.
-
+        
         r0: play_time
     - name: PlayTimerTick
       address:
         EU: 0x2051150
       description: |-
         Advance the file timer by 1 frame.
-
+        
         r0: play_time
     - name: GetPlayTimeSeconds
       address:
         EU: 0x205118C
       description: |-
         Returns the current play time in seconds.
-
+        
         return: play time in seconds
     - name: SubFixedPoint
       address:
@@ -11275,7 +11275,7 @@ arm9:
         EU: 0x4
       description: |-
         Maximum number of seconds that the file timer counts up to.
-
+        
         35999999 seconds (one second under 10000 hours).
     - name: MONSTER_ID_LIMIT
       address:

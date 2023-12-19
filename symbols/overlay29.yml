@@ -749,38 +749,40 @@ overlay29:
       description: |-
         Gets called when leaving dungeon mode, calls FreeTopScreen and then also frees the allocated memory
         to the top screen status struct.
-
+        
         No params.
     - name: InitializeTeamStats
       address:
         EU: 0x22E8AE0
-      description:
-        Initializes the team stats top screen.
-    - name: HandleTopScreenFades
-      address:
-        EU: 0x022E921C
-      description: |-
-        Used to initialize and uninitialize the top screen in dungeon mode in conjunction with handling the fade status of the screen.
-        
-        For example, when a fade out is done, it calls the necessary functions to close the top screen windows. When it starts
-        fading in again, it re-creates all the necessary windows corresponding to the top screen type setting.
-
-        No params.
+      description: Initializes the team stats top screen.
     - name: UpdateTeamStatsWrapper
       address:
         EU: 0x22E8B40
-      description: |-
-        Contains a check and calls UpdateTeamStats in overlay10.
+      description: Contains a check and calls UpdateTeamStats in overlay10.
+    - name: FreeTeamStatsWrapper
+      address:
+        EU: 0x22E8B98
+      description: Calls a function that calls FreeTeamStats in overlay10.
     - name: AssignTopScreenHandlers
       address:
         EU: 0x22E9078
       description: |-
         Sets the handler functions of the top screen type.
-
+        
         r0: Array where the handler function pointers get written to.
         r1: init_func
         r2: update_func
         stack[0]: free_func
+    - name: HandleTopScreenFades
+      address:
+        EU: 0x22E921C
+      description: |-
+        Used to initialize and uninitialize the top screen in dungeon mode in conjunction with handling the fade status of the screen.
+        
+        For example, when a fade out is done, it calls the necessary functions to close the top screen windows. When it starts
+        fading in again, it re-creates all the necessary windows corresponding to the top screen type setting.
+        
+        No params.
     - name: FreeTopScreen
       address:
         EU: 0x22E95FC
@@ -1124,11 +1126,6 @@ overlay29:
         
         r0: pointer to user entity
         r1: pointer to target entity
-    - name: FreeTeamStatsWrapper
-      address:
-        EU: 0x22E8B98
-      description: |-
-        Calls a function that calls FreeTeamStats in overlay10.
     - name: SetLeaderActionFields
       address:
         EU: 0x22EBD78
@@ -6430,7 +6427,7 @@ overlay29:
         EU: 0x2339280
       description: |-
         Checks if the current floor is a secret bazaar or a secret room and returns which one it is.
-
+        
         return: 1 if floor is Secret Bazaar, 2 if floor is Secret Room, 0 otherwise
     - name: HiddenStairsPresent
       address:
@@ -7675,19 +7672,19 @@ overlay29:
         EU: 0x2348ED4
       description: |-
         Dispatches the splash screen between floors showing the dungeon name and the current floor.
-
+        
         First it checks whether the current floor is a secret bazaar or secret room, then it calls
         HandleFloorCard.
-
+        
         r0: Duration in frames
     - name: HandleFloorCard
       address:
         EU: 0x2348F0C
       description: |-
         Handles the display of the splash screen between floors showing the dungeon name and the current floor.
-
+        
         Seems to enter a loop where it calls AdvanceFrame until the desired number of frames is waited or A is pressed.
-
+        
         r0: dungeon_id
         r1: Floor
         r2: Duration
@@ -8140,9 +8137,9 @@ overlay29:
         EU: 0x234D008
       description: |-
         Initiates a screen fade in dungeon mode.
-
+        
         Sets the fields of the dungeon_fade struct to appropriate values given in the args.
-
+        
         r0: Dungeon fade struct
         r1: Change of brightness per frame
         r2: Fade type
@@ -8151,11 +8148,11 @@ overlay29:
         EU: 0x234D268
       description: |-
         Calls StartFadeDungeon to initiate a screen fade in dungeon mode.
-
+        
         Sets the status field in the dungeon_fades struct to the fade type, then uses
         a switch-case to create a mapping of the status enums to different ones for some reason.
         This mapped value is then used in the StartFadeDungeon call.
-
+        
         r0: Fade type
         r1: Change of brightness per frame
         r2: Screen to fade
@@ -8164,14 +8161,14 @@ overlay29:
         EU: 0x234D3D4
       description: |-
         Gets called every frame for both screens in dungeon mode. Handles the status of the screen fades.
-
+        
         r0: enum screen
     - name: HandleFadesDungeonBothScreens
       address:
         EU: 0x234D5E4
       description: |-
         Calls HandleFadesDungeon for both screens.
-
+        
         No params.
     - name: DisplayDungeonTip
       address:
@@ -9217,10 +9214,10 @@ overlay29:
         type: struct dungeon*
     - name: TOP_SCREEN_STATUS
       address:
-        EU: 0x02354154
+        EU: 0x2354154
       description: |-
         Struct for handling the status of the top screen in dungeon mode.
-
+        
         type: struct top_screen_status
     - name: LEADER_PTR
       address:

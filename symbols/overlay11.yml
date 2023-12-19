@@ -285,7 +285,7 @@ overlay11:
       description: |-
         Used for example in the handler functions of the top screen types in ground mode
         to check whether the top screen fade is complete or not.
-
+        
         return: bool
     - name: LoadBackgroundAttributes
       address:
@@ -559,13 +559,13 @@ overlay11:
         EU: 0x230EFB4
       description: |-
         Handles the controls top screen display in the overworld.
-
+        
         For some reason the implementation seems considerably jankier in ground mode.
         In dungeon mode there's this structure for the top screen that has handlers for
         creating, updating and closing the various top screen layouts in a sort of polymorphic way.
         Here there's just a separate function for every layout that gets called every frame and seems
         to have a switch-case to handle everything about it.
-
+        
         No params.
     - name: GetDungeonMapPos
       address:
@@ -614,13 +614,13 @@ overlay11:
         EU: 0x23144BC
       description: |-
         Handles the team stats top screen display in the overworld.
-
+        
         For some reason the implementation seems considerably jankier in ground mode.
         In dungeon mode there's this structure for the top screen that has handlers for
         creating, updating and closing the various top screen layouts in a sort of polymorphic way.
         Here there's just a separate function for every layout that gets called every frame and seems
         to have a switch-case to handle everything about it.
-
+        
         No params.
   data:
     - name: OVERLAY11_UNKNOWN_TABLE__NA_2316A38
