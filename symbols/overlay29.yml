@@ -744,7 +744,7 @@ overlay29:
         r0: monster ID
         return: Level of the monster to be spawned, or 1 if the specified ID can't be found on the floor's spawn table.
     - name: AllocTopScreenStatus
-      adderss:
+      address:
         EU: 0x22E8874
       description: |-
         Allocates and initializes the top_screen_status struct when entering dungeon mode.
