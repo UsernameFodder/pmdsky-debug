@@ -748,7 +748,7 @@ overlay29:
         EU: 0x22E8874
       description: |-
         Allocates and initializes the top_screen_status struct when entering dungeon mode.
-
+        
         No params.
     - name: FreeTopScreenStatus
       address:
