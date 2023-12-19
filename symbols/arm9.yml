@@ -4939,6 +4939,18 @@ arm9:
         Checks if A or B is currently being held.
         
         return: bool
+    - name: DrawTextInWindow
+      address:
+        EU: 0x20264F8
+      description: |-
+        Seems to be responsible for drawing the text in a window.
+
+        Needs a call to UpdateWindow after to actually display the contents.
+        Unclear if this is generic for windows or just text boxes.
+
+        r0: window_id
+        r1: x offset within window
+        r2: y offset within window
     - name: GetWindow
       address:
         EU: 0x20278EC
@@ -4992,6 +5004,15 @@ arm9:
         Sets the palette of the frames of windows in both screens
         
         r0: palette index
+    - name: ClearWindow
+      address:
+        EU: 0x2027E4C
+      description: |-
+        Clears the window, at least in the case of a text box.
+
+        The low number of XREFs makes it seem that there might be more such functions.
+
+        r0: window_id
     - name: DeleteWindow
       address:
         EU: 0x2028488
