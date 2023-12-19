@@ -1412,10 +1412,13 @@ enum number_color {
 
 // Used in top_screen_status to store what kind of fade the screen is currently in, if any.
 enum top_screen_fade_status {
-    TOP_SCREEN_BLACK = 2,
-    TOP_SCREEN_FADE_IN = 4,
-    TOP_SCREEN_NO_FADE = 5,
-    TOP_SCREEN_FADE_OUT = 6
+    TOP_SCREEN_FADE_0x0 = 0,
+    TOP_SCREEN_FADE_0x1 = 1,
+    TOP_SCREEN_FADE_BLACK = 2,
+    TOP_SCREEN_FADE_0x3 = 3,
+    TOP_SCREEN_FADE_FADE_IN = 4,
+    TOP_SCREEN_FADE_NO_FADE = 5,
+    TOP_SCREEN_FADE_FADE_OUT = 6
 };
 
 // Top screen type as set in the settings
