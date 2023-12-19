@@ -1239,6 +1239,6 @@ ASSERT_SIZE(struct screen_fade, 22);
 struct play_time {
     uint32_t seconds;
     uint8_t frames;
-}
+};
 
 #endif
