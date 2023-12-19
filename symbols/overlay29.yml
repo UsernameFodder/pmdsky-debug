@@ -787,6 +787,7 @@ overlay29:
         r0: Array where the handler function pointers get written to.
         r1: init_func
         r2: update_func
+        r3: ?
         stack[0]: free_func
     - name: HandleTopScreenFades
       address:
