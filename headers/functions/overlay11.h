@@ -57,5 +57,8 @@ bool GetDungeonMapPos(struct uvec2* out_pos, enum dungeon_id dungeon);
 void WorldMapSetMode(uint32_t world_map_mode);
 void WorldMapSetCamera(uint32_t map_marker_id);
 void StatusUpdate(void);
+bool IsTopScreenFadeNotDone();
+void HandleTeamStatsGround();
+void HandleControlsTopScreenGround();
 
 #endif

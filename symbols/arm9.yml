@@ -1010,6 +1010,38 @@ arm9:
         r0: [output] pointer to an IO struct {ptr, len}
         r1: file path string pointer
         r2: flags
+    - name: UpdateFadeStatus
+      address:
+        EU: 0x200BA18
+      description: |-
+        Updates the given screen_fade struct to initiate a fade for example.
+
+        In addition to initiating a fade this is called when a fade out is complete
+        to set a flag for that in the struct.
+
+        r0: screen_fade
+        r1: probably the type of the fade
+        r2: duration   
+    - name: HandleFades
+      address:
+        EU: 0x200BA90
+      description: |-
+        Handles updating the screen_fade struct in all modes except dungeon mode.
+        
+        Gets called every frame for both screens, analyzes the fade_struct and does appropriate actions.
+        If there's a fade in progress, it calculates the brightness on the next frame
+        and updates the structure accordingly.
+
+        r0: screen_fade
+        return: bool
+    - name: GetFadeStatus
+      address:
+        EU: 0x200BDB4
+      description: |-
+        Returns 1 if fading to black, 2 if fading to white, 0 otherwise.
+
+        r0: screen_fade
+        return: int
     - name: InitDebug
       address:
         EU: 0x200C15C

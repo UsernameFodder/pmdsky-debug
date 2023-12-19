@@ -279,6 +279,14 @@ overlay11:
         Implements SPECIAL_PROC_0x16 (see ScriptSpecialProcessCall).
         
         r0: bool
+    - name: IsScreenFadeNotDone
+      address:
+        EU: 0x22EA8B8
+      description: |-
+        Used for example in the handler functions of the top screen types in ground mode
+        to check whether the top screen fade is complete or not.
+
+        return: bool
     - name: LoadBackgroundAttributes
       address:
         EU: 0x22EC480
@@ -546,6 +554,19 @@ overlay11:
         
         r0: ?
         r1: ?
+    - name: HandleControlsTopScreenGround
+      addresss:
+        EU: 0x230EFB4
+      description: |-
+        Handles the controls top screen display in the overworld.
+
+        For some reason the implementation seems considerably jankier in ground mode.
+        In dungeon mode there's this structure for the top screen that has handlers for
+        creating, updating and closing the various top screen layouts in a sort of polymorphic way.
+        Here there's just a separate function for every layout that gets called every frame and seems
+        to have a switch-case to handle everything about it.
+
+        No params.
     - name: GetDungeonMapPos
       address:
         EU: 0x230F6E4
@@ -587,6 +608,19 @@ overlay11:
       description: |-
         Implements SPECIAL_PROC_STATUS_UPDATE (see ScriptSpecialProcessCall).
         
+        No params.
+    - name: HandleTeamStatsGround
+      address:
+        EU: 0x23144BC
+      description: |-
+        Handles the team stats top screen display in the overworld.
+
+        For some reason the implementation seems considerably jankier in ground mode.
+        In dungeon mode there's this structure for the top screen that has handlers for
+        creating, updating and closing the various top screen layouts in a sort of polymorphic way.
+        Here there's just a separate function for every layout that gets called every frame and seems
+        to have a switch-case to handle everything about it.
+
         No params.
   data:
     - name: OVERLAY11_UNKNOWN_TABLE__NA_2316A38

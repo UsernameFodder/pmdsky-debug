@@ -3868,4 +3868,13 @@ enum debug_log_flag {
     DEBUG_LOG_FLAG_PERFORMANCE = 16,
 };
 
+// Fade status. Fade in means increasing brightness and fade out means decreasing.
+// As a result, fading the screen to white is considered a fade in.
+enum fade_status {
+    FADE_NONE=0,
+    FADE_COMPLETE=1,
+    FADE_IN=2,
+    FADE_OUT=3
+};
+
 #endif

@@ -1213,4 +1213,23 @@ ASSERT_SIZE(struct thread_info, 52); // Could be shorter
 // TODO: Add more data file structures, as convenient or needed, especially if the load address
 // or pointers to the load address are known.
 
+// State of the screen fade in all other modes except dungeon mode
+struct screen_fade {
+    undefined field0_0x0;
+    undefined field1_0x1;
+    undefined field2_0x2;
+    undefined field3_0x3;
+    enum fade_status status;
+    int remaining_frames;
+    // Initial duration of the fade in frames
+    int duration;
+    // What brightness the fade ends at. 256 means fade to white, -256 means fade to black
+    short target_delta_brightness;
+    // Max absolute value of the brightness during the fade. 256 means a full fade
+    short max_brightness;
+    // Current brightness of the fade. Positive numbers turn the screen white, negative to black
+    short delta_brightness;
+};
+ASSERT_SIZE(struct screen_fade, 22);
+
 #endif
