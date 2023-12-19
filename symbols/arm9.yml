@@ -1016,8 +1016,7 @@ arm9:
       description: |-
         Updates the given screen_fade struct to initiate a fade for example.
         
-        In addition to initiating a fade this is called when a fade out is complete
-        to set a flag for that in the struct.
+        In addition to initiating a fade this is called when a fade out is complete to set a flag for that in the struct.
         
         r0: screen_fade
         r1: probably the type of the fade
@@ -1028,9 +1027,7 @@ arm9:
       description: |-
         Handles updating the screen_fade struct in all modes except dungeon mode.
         
-        Gets called every frame for both screens, analyzes the fade_struct and does appropriate actions.
-        If there's a fade in progress, it calculates the brightness on the next frame
-        and updates the structure accordingly.
+        Gets called every frame for both screens, analyzes the fade_struct and does appropriate actions. If there's a fade in progress, it calculates the brightness on the next frame and updates the structure accordingly.
         
         r0: screen_fade
         return: bool

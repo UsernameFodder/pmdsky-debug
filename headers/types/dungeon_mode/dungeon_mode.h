@@ -1773,17 +1773,20 @@ struct top_screen_status {
     undefined field1_0x1;
     int8_t field2_0x2;
     undefined field3_0x3;
-    enum top_screen_fade_status fade_status; // Status of the top screen fade
+    enum top_screen_fade_status fade_status; // 0x4: Status of the top screen fade
     undefined field5_0x8;
     undefined field6_0x9;
     int field7_0xa;
     undefined field8_0xe;
     undefined field9_0xf;
-    enum top_screen_type top_screen_type; // Top screen type setting
-    void* init_func;   // Function that is used to initialize the given type of top screen layout
-    void* update_func; // Function that is used to update the given type of top screen layout
+    enum top_screen_type top_screen_type; // 0x10: Top screen type setting
+    // 0x14: Function that is used to initialize the given type of top screen layout
+    void* init_func;
+    // 0x18: Function that is used to update the given type of top screen layout
+    void* update_func;
     void* field13_0x1c;
-    void* free_func; // Function that is used to close the given type of top screen layout
+    // 0x20: Function that is used to close the given type of top screen layout
+    void* free_func;
 };
 #pragma pack(pop)
 ASSERT_SIZE(struct top_screen_status, 36);
@@ -1931,10 +1934,13 @@ struct dungeon_fade {
     undefined field137_0x89;
     undefined field138_0x8a;
     undefined field139_0x8b;
-    enum fade_status_dungeon fade_type; // What kind of fade the screen is currently in, if any
-    undefined4 delta_brightness; // Brightness change of screen at the current stage of the fade
-    undefined4 delta_delta_brightness; // Change of brightness per step of the fade
-    bool is_fading;
+    // 0x8C: What kind of fade the screen is currently in, if any
+    enum fade_status_dungeon fade_type;
+    // 0x90: Brightness change of screen at the current stage of the fade
+    int delta_brightness;
+    // 0x94 Change of brightness per step of the fade
+    int delta_delta_brightness;
+    bool is_fading; // 0x98
     undefined field144_0x99;
     undefined field145_0x9a;
     undefined field146_0x9b;
@@ -1944,10 +1950,10 @@ ASSERT_SIZE(struct dungeon_fade, 156);
 // Stores the dungeon_fade struct for both screens and some associated status value that is used in
 // a switch case in HandleFadesDungeon.
 struct dungeon_fades {
-    struct dungeon_fade bottom_screen_dungeon_fade;
-    struct dungeon_fade top_screen_dungeon_fade;
-    int bottom_screen_status;
-    int top_screen_status;
+    struct dungeon_fade bottom_screen_dungeon_fade; // 0x0
+    struct dungeon_fade top_screen_dungeon_fade;    // 0x4
+    int bottom_screen_status;                       // 0x8
+    int top_screen_status;                          // 0xC
 };
 ASSERT_SIZE(struct dungeon_fades, 320);
 

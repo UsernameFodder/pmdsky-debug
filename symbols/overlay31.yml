@@ -25,7 +25,10 @@ overlay31:
     - name: DrawDungeonMenuStatusWindow
       address:
         EU: 0x2383464
-      description: "Draws the contents shown in the main dungeon menu status window showing the player's belly, money, play time, etc."
+      description: |-
+        Draws the contents shown in the main dungeon menu status window showing the player's belly, money, play time, etc.
+        
+        r0: int
     - name: DungeonMenuSwitch
       address:
         EU: 0x23836C0

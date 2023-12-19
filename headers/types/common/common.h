@@ -1228,7 +1228,8 @@ struct screen_fade {
     int16_t target_delta_brightness;
     // 0x12: Max absolute value of the brightness during the fade. 256 means a full fade
     int16_t max_brightness;
-    // 0x14: Current brightness of the fade. Positive numbers turn the screen white, negative to black
+    // 0x14: Current brightness of the fade. Positive numbers turn the screen white, negative to
+    // black
     int16_t delta_brightness;
 };
 #pragma pack(pop)
@@ -1237,8 +1238,8 @@ ASSERT_SIZE(struct screen_fade, 22);
 // The file timer. Counts every frame spent on the file, except loading, lag, saving and being
 // in the main menu.
 struct play_time {
-    uint32_t seconds;
-    uint8_t frames;
+    uint32_t seconds; // 0x0
+    uint8_t frames;   // 0x4
 };
 
 #endif

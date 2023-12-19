@@ -59,6 +59,8 @@ overlay1:
       description: |-
         Fetches the required data and creates all the strings to display the contents shown in the window
         when choosing continue in the main menu.
+        
+        r0: undefined4
   data:
     - name: PRINTS_STRINGS
       address:
