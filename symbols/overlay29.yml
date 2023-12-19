@@ -756,21 +756,21 @@ overlay29:
       description: |-
         Initializes the team stats top screen.
         
-        return: alawys 1, seems unused
+        return: always 1, seems unused
     - name: UpdateTeamStatsWrapper
       address:
         EU: 0x22E8B40
       description: |-
         Contains a check and calls UpdateTeamStats in overlay10.
         
-        return: alawys 1, seems unused
+        return: always 1, seems unused
     - name: FreeTeamStatsWrapper
       address:
         EU: 0x22E8B98
       description: |-
         Calls a function that calls FreeTeamStats in overlay10.
         
-        return: alawys 1, seems unused
+        return: always 1, seems unused
     - name: AssignTopScreenHandlers
       address:
         EU: 0x22E9078
@@ -796,7 +796,7 @@ overlay29:
       description: |-
         Gets called twice when fading out the top screen. First it calls the free_func of the top screen type and sets the handlers to null and on the second pass it just returns.
         
-        return: alawys 1, seems unused
+        return: always 1, seems unused
     - name: GetDirectionTowardsPosition
       address:
         EU: 0x22E99D0
