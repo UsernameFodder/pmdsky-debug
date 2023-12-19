@@ -60,12 +60,12 @@ bool IsOnMonsterSpawnList(enum monster_id monster_id);
 enum monster_id GetMonsterIdToSpawn(int spawn_weight);
 uint8_t GetMonsterLevelToSpawn(enum monster_id monster_id);
 void FreeTopScreenStatus();
-void InitializeTeamStats();
-void UpdateTeamStatsWrapper();
-void FreeTeamStatsWrapper();
+int InitializeTeamStats();
+int UpdateTeamStatsWrapper();
+int FreeTeamStatsWrapper();
 void AssignTopScreenHandlers(void** funcs, void* init, void* update, void* param_4, void* free);
 void HandleTopScreenFades();
-void FreeTopScreen();
+int FreeTopScreen();
 enum direction_id GetDirectionTowardsPosition(struct position* origin, struct position* target);
 int GetChebyshevDistance(struct position* position_a, struct position* position_b);
 bool IsPositionActuallyInSight(struct position* origin, struct position* target,
