@@ -3840,12 +3840,16 @@ enum debug_flag {
     // Was supposed to throw an error if text overflowed the textbox it was contained in, but it
     // does nothing in the final game.
     DEBUG_FLAG_TEXT_LIMIT_CHECK = 6,
-    DEBUG_FLAG_NO_CHEAT_CHECK = 7,             // Unknown purpose
-    DEBUG_FLAG_NO_PLUNGE_CHECK = 8,            // Unknown purpose
-    DEBUG_FLAG_DUNGEON_INFINITE_COMEBACK = 10, // Unknown purpose
-    DEBUG_FLAG_GENERAL_DEBUG = 11,             // Enables debug menus
+    // Was supposed to toggle additional checks in IsMissionValid, but it does nothing in the final
+    // game. The checks are always enabled.
+    DEBUG_FLAG_NO_CHEAT_CHECK = 7,
+    // Was supposed to toggle a check to ensure the required parameters before entering a dungeon
+    // are set. Does nothing in the final game.
+    DEBUG_FLAG_NO_PLUNGE_CHECK = 8,
+    DEBUG_FLAG_DUNGEON_INFINITE_COMEBACK = 9, // Unknown purpose
+    DEBUG_FLAG_GENERAL_DEBUG = 10,            // Enables debug menus
     // Allows manually overriding the results of a dungeon expedition
-    DEBUG_FLAG_EDIT_MODE = 12,
+    DEBUG_FLAG_EDIT_MODE = 11,
 };
 
 // Logging flags listed in the debug menu. They enable certain kinds of debug logging.

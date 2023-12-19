@@ -1802,7 +1802,9 @@ arm9:
         NA: 0x200E7C0
         JP: 0x200E7F0
       description: |-
-        Checks if an item ID is valid(?).
+        Checks if an item is valid given its ID.
+        
+        In particular, checks if the "is valid" flag is set on its item_p.bin entry.
         
         r0: item ID
         return: bool
@@ -9721,10 +9723,13 @@ arm9:
         NA: 0x205CA40
         JP: 0x205CD40
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Checks if a mission contains valid fields.
         
-        r0: mission
-        return: bool
+        For example, a mission will be considered invalid if the ID of the monsters or items involved are out of bounds, if their entries are marked as invalid, if the destination floor does not exist, etc.
+        If the mission fails one of the checks, the game will print an error message explaining what is wrong using DebugPrint0.
+        
+        r0: mission to check
+        return: True if the mission is valid, false if it's not.
     - name: GenerateMission
       address:
         EU: 0x205D5A0
