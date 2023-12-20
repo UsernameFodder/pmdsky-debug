@@ -59,6 +59,16 @@ int MonsterSpawnListPartialCopy(struct monster_spawn_entry* buffer, int current_
 bool IsOnMonsterSpawnList(enum monster_id monster_id);
 enum monster_id GetMonsterIdToSpawn(int spawn_weight);
 uint8_t GetMonsterLevelToSpawn(enum monster_id monster_id);
+void AllocTopScreenStatus(void);
+void FreeTopScreenStatus(void);
+int InitializeTeamStats(void);
+int UpdateTeamStatsWrapper(void);
+int FreeTeamStatsWrapper(void);
+void AssignTopScreenHandlers(void** funcs, top_screen_status_fn_t init_func,
+                             top_screen_status_fn_t update_func, void* param_4,
+                             top_screen_status_fn_t free_func);
+void HandleTopScreenFades(void);
+int FreeTopScreen(void);
 enum direction_id GetDirectionTowardsPosition(struct position* origin, struct position* target);
 int GetChebyshevDistance(struct position* position_a, struct position* position_b);
 bool IsPositionActuallyInSight(struct position* origin, struct position* target,
@@ -662,6 +672,7 @@ void SetShouldBoostHiddenStairsSpawnChance(bool value);
 void UpdateShouldBoostHiddenStairsSpawnChance(void);
 bool IsSecretRoom(void);
 bool IsSecretFloor(void);
+enum hidden_stairs_type GetCurrentHiddenStairsType(void);
 bool HiddenStairsPresent(void);
 void HiddenStairsTrigger(bool show_message);
 undefined4 GetDungeonGenInfoUnk0C(void);
@@ -785,6 +796,9 @@ void RemoveEmptyItemsInBagWrapper(void);
 void GenerateItem(struct item* item, enum item_id item_id, uint16_t quantity,
                   enum gen_item_stickiness sticky_type);
 bool DoesProjectileHitTarget(struct entity* user, struct entity* target);
+void DisplayFloorCard(int duration);
+void HandleFloorCard(enum dungeon_id dungeon_id, uint8_t floor, int duration,
+                     enum hidden_stairs_type hidden_stairs_type);
 bool CheckActiveChallengeRequest(void);
 struct mission_destination_info* GetMissionDestination(void);
 bool IsOutlawOrChallengeRequestFloor(void);
@@ -833,6 +847,11 @@ void InitPortraitDungeon(struct portrait_params* portrait, enum monster_id monst
                          enum portrait_emotion emotion);
 void OpenMessageLog(undefined4 param_1, undefined4 param_2);
 bool RunDungeonMode(undefined4* param_1, undefined4 param_2);
+void StartFadeDungeon(struct dungeon_fade* fstruct, int delta_delta_brightness,
+                      enum fade_status_dungeon fade_type);
+void StartFadeDungeonWrapper(int fade_type, int delta_delta_brightness, enum screen screen);
+void HandleFadesDungeon(enum screen screen);
+void HandleFadesDungeonBothScreens();
 void DisplayDungeonTip(struct message_tip* message_tip, bool log);
 void SetBothScreensWindowColorToDefault(void);
 int GetPersonalityIndex(struct monster* monster);

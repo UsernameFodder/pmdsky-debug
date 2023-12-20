@@ -14,6 +14,7 @@ extern uint32_t MAX_MONEY_CARRIED;
 extern uint32_t MAX_MONEY_STORED;
 extern struct window_list* WINDOW_LIST_PTR;
 extern struct script_var_value_table* SCRIPT_VARS_VALUES_PTR;
+extern uint32_t MAX_PLAY_TIME;
 extern uint32_t MONSTER_ID_LIMIT;
 extern uint32_t MAX_RECRUITABLE_TEAM_MEMBERS;
 extern int16_t NATURAL_LOG_VALUE_TABLE[2048];

@@ -53,6 +53,14 @@ overlay1:
         
         r0: Action ID
         r1: True if the option should be enabled, false otherwise
+    - name: ProcessContinueScreenContents
+      address:
+        EU: 0x23336D8
+      description: |-
+        Fetches the required data and creates all the strings to display the contents shown in the window
+        when choosing continue in the main menu.
+        
+        r0: undefined4
   data:
     - name: PRINTS_STRINGS
       address:
