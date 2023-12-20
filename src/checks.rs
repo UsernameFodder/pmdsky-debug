@@ -34,6 +34,16 @@ pub enum NamingConvention {
     CamelCase,
     /// PascalCase
     PascalCase,
+    /// camel_Snake_Case (camelCase_Then_PascalCase)
+    CamelSnakeCase,
+    /// underscoreSeparated_camelCase
+    UnderscoreSeparatedCamelCase,
+    /// Pascal_Snake_Case (UnderscoreSeparated_PascalCase)
+    PascalSnakeCase,
+    /// flatcase
+    FlatCase,
+    /// UPPERFLATCASE
+    UpperFlatCase,
 }
 
 impl NamingConvention {
@@ -95,6 +105,23 @@ impl NamingConvention {
                 }
                 NamingConvention::camel_family_check(name)
             }
+            Self::CamelSnakeCase => {
+                let mut parts_iter = name.split('_');
+                if let Some(first_part) = parts_iter.next() {
+                    if !Self::CamelCase.check(first_part) {
+                        return false;
+                    }
+                }
+                parts_iter.all(|part| Self::PascalCase.check(part))
+            }
+            Self::UnderscoreSeparatedCamelCase => {
+                name.split('_').all(|part| Self::CamelCase.check(part))
+            }
+            Self::PascalSnakeCase => name.split('_').all(|part| Self::PascalCase.check(part)),
+            // Note: !is_uppercase() is less restrictive than is_lowercase()
+            Self::FlatCase => name.chars().all(|c| !c.is_uppercase() && c != '_'),
+            // Note: !is_lowercase() is less restrictive than is_uppercase()
+            Self::UpperFlatCase => name.chars().all(|c| !c.is_lowercase() && c != '_'),
         }
     }
 
@@ -1123,6 +1150,105 @@ mod tests {
                 NamingConvention::PascalCase,
                 ["PascalCase", "Pascal", "WithAWord", "WithANumber1"],
                 ["snake_case", "SCREAMING_SNAKE", "camelCase", "lower"],
+            )
+        }
+
+        #[test]
+        fn test_camel_snake_case() {
+            run_name_checks(
+                NamingConvention::CamelSnakeCase,
+                [
+                    "camelCase",
+                    "camel",
+                    "withAWord",
+                    "withANumber1",
+                    "camelPart_PascalPart",
+                    "camelPart1_PascalPart2_PascalPart3",
+                ],
+                [
+                    "snake_case",
+                    "SCREAMING_SNAKE",
+                    "PascalCase",
+                    "Caps",
+                    "camelPart_camelPart",
+                    "PascalPart_camelPart",
+                ],
+            )
+        }
+
+        #[test]
+        fn test_underscore_separated_camel_case() {
+            run_name_checks(
+                NamingConvention::UnderscoreSeparatedCamelCase,
+                [
+                    "camelCase",
+                    "snake_case",
+                    "camel",
+                    "withAWord",
+                    "withANumber1",
+                    "camelPart_camelPart",
+                    "camelPart1_camelPart2_camelPart3",
+                ],
+                [
+                    "SCREAMING_SNAKE",
+                    "PascalCase",
+                    "Caps",
+                    "camelPart_PascalPart",
+                    "PascalPart_camelPart",
+                ],
+            )
+        }
+
+        #[test]
+        fn test_pascal_snake_case() {
+            run_name_checks(
+                NamingConvention::PascalSnakeCase,
+                [
+                    "PascalCase",
+                    "Pascal",
+                    "WithAWord",
+                    "WithANumber1",
+                    "PascalPart_PascalPart",
+                    "PascalPart1_PascalPart2_PascalPart3",
+                ],
+                [
+                    "snake_case",
+                    "SCREAMING_SNAKE",
+                    "camelCase",
+                    "lower",
+                    "camelPart_PascalPart",
+                    "PascalPart_camelPart",
+                ],
+            )
+        }
+
+        #[test]
+        fn test_flatcase() {
+            run_name_checks(
+                NamingConvention::FlatCase,
+                ["flatcase", "withanumber1"],
+                [
+                    "snake_case",
+                    "SCREAMING_SNAKE",
+                    "camelCase",
+                    "Caps",
+                    "UPPER",
+                ],
+            )
+        }
+
+        #[test]
+        fn test_upper_flatcase() {
+            run_name_checks(
+                NamingConvention::UpperFlatCase,
+                ["UPPERFLATCASE", "WITHANUMBER1"],
+                [
+                    "snake_case",
+                    "SCREAMING_SNAKE",
+                    "camelCase",
+                    "Caps",
+                    "lower",
+                ],
             )
         }
 
