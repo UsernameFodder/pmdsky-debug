@@ -6438,13 +6438,13 @@ overlay29:
         Checks if the current floor is a secret bazaar or a secret room.
         
         return: bool
-    - name: IsSecretBazaarOrRoom
+    - name: GetCurrentHiddenStairsType
       address:
         EU: 0x2339280
       description: |-
         Checks if the current floor is a secret bazaar or a secret room and returns which one it is.
         
-        return: 1 if floor is Secret Bazaar, 2 if floor is Secret Room, 0 otherwise
+        return: enum hidden_stairs_type
     - name: HiddenStairsPresent
       address:
         EU: 0x23392A8
@@ -7701,9 +7701,9 @@ overlay29:
         Seems to enter a loop where it calls AdvanceFrame until the desired number of frames is waited or A is pressed.
         
         r0: dungeon_id
-        r1: Floor
-        r2: Duration
-        r3: 1 if floor is Secret Bazaar, 2 if floor is Secret Room, 0 otherwise
+        r1: floor
+        r2: duration
+        r3: enum hidden_stairs_type
     - name: CheckActiveChallengeRequest
       address:
         EU: 0x2349D4C

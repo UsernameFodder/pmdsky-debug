@@ -4949,6 +4949,7 @@ arm9:
         
         r0: window_id
         r1: x offset within window
+
         r2: y offset within window
     - name: GetWindow
       address:

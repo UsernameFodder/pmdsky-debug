@@ -28,7 +28,7 @@ void GroundMainNextDay(void);
 bool JumpToTitleScreen(int arg);
 bool ReturnToTitleScreen(uint32_t fade_duration);
 void ScriptSpecialProcess0x16(bool param_1);
-bool IsScreenFadeNotDone(void);
+bool IsScreenFadeInProgress(void);
 void LoadBackgroundAttributes(struct bg_list_entry* entry, int bg_id);
 void LoadMapType10(void* buf, int map_id, undefined* dungeon_info_str, undefined4 additional_info);
 void LoadMapType11(void* buf, int map_id, undefined* dungeon_info_str, undefined4 additional_info);

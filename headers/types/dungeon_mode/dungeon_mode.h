@@ -1766,6 +1766,8 @@ struct loaded_attack_sprite_data {
 };
 ASSERT_SIZE(struct loaded_attack_sprite_data, 106498);
 
+typedef int (*top_screen_status_fn_t)(void);
+
 // Stores the state of the top screen in dungeon mode
 struct top_screen_status {
     undefined field0_0x0;
@@ -1780,12 +1782,12 @@ struct top_screen_status {
     int field9_0xc;
     enum top_screen_type top_screen_type; // 0x10: Top screen type setting
     // 0x14: Function that is used to initialize the given type of top screen layout
-    void* init_func;
+    top_screen_status_fn_t init_func;
     // 0x18: Function that is used to update the given type of top screen layout
-    void* update_func;
+    top_screen_status_fn_t update_func;
     void* field13_0x1c;
     // 0x20: Function that is used to close the given type of top screen layout
-    void* free_func;
+    top_screen_status_fn_t free_func;
     undefined field15_0x24;
     undefined field16_0x25;
     undefined field17_0x26;

@@ -64,8 +64,9 @@ void FreeTopScreenStatus(void);
 int InitializeTeamStats(void);
 int UpdateTeamStatsWrapper(void);
 int FreeTeamStatsWrapper(void);
-void AssignTopScreenHandlers(void** funcs, void* init_func, void* update_func, void* param_4,
-                             void* free_func);
+void AssignTopScreenHandlers(void** funcs, top_screen_status_fn_t init_func,
+                             top_screen_status_fn_t update_func, void* param_4,
+                             top_screen_status_fn_t free_func);
 void HandleTopScreenFades(void);
 int FreeTopScreen(void);
 enum direction_id GetDirectionTowardsPosition(struct position* origin, struct position* target);
@@ -671,7 +672,7 @@ void SetShouldBoostHiddenStairsSpawnChance(bool value);
 void UpdateShouldBoostHiddenStairsSpawnChance(void);
 bool IsSecretRoom(void);
 bool IsSecretFloor(void);
-int IsSecretBazaarOrRoom();
+enum hidden_stairs_type GetCurrentHiddenStairsType(void);
 bool HiddenStairsPresent(void);
 void HiddenStairsTrigger(bool show_message);
 undefined4 GetDungeonGenInfoUnk0C(void);

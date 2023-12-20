@@ -279,7 +279,7 @@ overlay11:
         Implements SPECIAL_PROC_0x16 (see ScriptSpecialProcessCall).
         
         r0: bool
-    - name: IsScreenFadeNotDone
+    - name: IsScreenFadeInProgress
       address:
         EU: 0x22EA8B8
       description: |-
