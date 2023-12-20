@@ -282,6 +282,7 @@ overlay11:
     - name: IsScreenFadeInProgress
       address:
         EU: 0x22EA8B8
+        NA: 0x22E9F78
       description: |-
         Used for example in the handler functions of the top screen types in ground mode to check whether the top screen fade is complete or not.
         
@@ -556,6 +557,7 @@ overlay11:
     - name: HandleControlsTopScreenGround
       address:
         EU: 0x230EFB4
+        NA: 0x230E618
       description: |-
         Handles the controls top screen display in the overworld.
         
@@ -607,6 +609,7 @@ overlay11:
     - name: HandleTeamStatsGround
       address:
         EU: 0x23144BC
+        NA: 0x2313ADC
       description: |-
         Handles the team stats top screen display in the overworld.
         

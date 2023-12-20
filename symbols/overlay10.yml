@@ -222,6 +222,7 @@ overlay10:
     - name: DrawTeamStats
       address:
         EU: 0x22C1328
+        NA: 0x22C09E8
       description: |-
         Handles creating the windows, sprites, etc. for the team stats top screen display.
         
@@ -233,6 +234,7 @@ overlay10:
     - name: UpdateTeamStats
       address:
         EU: 0x22C1620
+        NA: 0x22C0CE0
       description: |-
         Handles updating the team stats top screen display.
         
@@ -240,6 +242,7 @@ overlay10:
     - name: FreeTeamStats
       address:
         EU: 0x22C1CF4
+        NA: 0x22C13B4
       description: |-
         Handles the procedure to close the team stats top screen display.
         
@@ -249,6 +252,7 @@ overlay10:
     - name: FreeMapAndTeam
       address:
         EU: 0x22C2024
+        NA: 0x22C16D8
       description: |-
         Handles the procedure to close the map and team top screen display.
         
