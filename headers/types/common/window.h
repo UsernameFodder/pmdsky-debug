@@ -70,7 +70,7 @@ struct window_flags {
     bool se_on : 1;           // 4 (0x10)
     bool set_choice : 1;      // 5 (0x20)
     uint32_t unknown6 : 3;    // 6-8 (0x40-0x100)
-    bool disable_options : 1; // 9 (0x200): If false, all options will be enabled. If true, reads from window_extra_info::option_states
+    bool disable_options : 1; // 9 (0x200): If true, see window_extra_info::option_states
     bool custom_height : 1;   // 10 (0x400)
     bool menu_title : 1;      // 11 (0x800)
     bool menu_lower_bar : 1;  // 12 (0x1000)
@@ -185,7 +185,7 @@ struct window_extra_info {
     undefined field_0x5D;
     undefined field_0x5E;
     undefined field_0x5F;
-    // 0x60: A list of "states" per menu option. Controls whether an option is enabled (0x0) or disabled (0x3).
+    // 0x60: A list of states per menu option. Enabled is 0x0 and Disabled is 0x3.
     uint8_t* option_states;
     undefined field_0x64;
     undefined field_0x65;
