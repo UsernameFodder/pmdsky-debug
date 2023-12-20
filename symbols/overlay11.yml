@@ -532,6 +532,42 @@ overlay11:
         Window update function for team info boxes.
         
         r0: window pointer
+    - name: CreateTopGroundMenu
+      address:
+        EU: 0x2301724
+        NA: 0x2300D88
+        JP: 0x23023DC
+      description: |-
+        Creates a parent menu (containing Items, Team, etc.) and two other windows upon pressing X in the overworld.
+        
+        return: always 1
+    - name: CloseTopGroundMenu
+      address:
+        EU: 0x2301890
+        NA: 0x2300EF4
+        JP: 0x2302548
+      description: |-
+        Closes the three windows created by CreateOverworldMenu.
+        
+        No params.
+    - name: UpdateTopGroundMenu
+      address:
+        EU: 0x23018EC
+        NA: 0x2300F50
+        JP: 0x23025A4
+      description: |-
+        Window update function for the top-level ground mode menu.
+        
+        return: status code
+    - name: IsBagNotEmpty
+      address:
+        EU: 0x2305460
+        NA: 0x2304AC4
+        JP: 0x2306128
+      description: |-
+        Checks if the bag has at least one valid item. Notably used in CreateTopGroundMenu to decide if the "Items" option should be enabled.
+        
+        return: bool
     - name: SprintfStatic
       address:
         EU: 0x2309868
