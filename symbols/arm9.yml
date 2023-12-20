@@ -11270,7 +11270,7 @@ arm9:
         EU: 0x4
         NA: 0x4
       description: Hard-coded pointer to SCRIPT_VARS_VALUES.
-    - name: MAX_IGT
+    - name: MAX_PLAY_TIME
       address:
         EU: 0x2051188
       length:
