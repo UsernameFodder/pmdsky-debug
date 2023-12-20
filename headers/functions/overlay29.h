@@ -798,7 +798,7 @@ void GenerateItem(struct item* item, enum item_id item_id, uint16_t quantity,
 bool DoesProjectileHitTarget(struct entity* user, struct entity* target);
 void DisplayFloorCard(int duration);
 void HandleFloorCard(enum dungeon_id dungeon_id, uint8_t floor, int duration,
-                     int secret_bazaar_or_room);
+                     enum hidden_stairs_type hidden_stairs_type);
 bool CheckActiveChallengeRequest(void);
 struct mission_destination_info* GetMissionDestination(void);
 bool IsOutlawOrChallengeRequestFloor(void);

@@ -4951,6 +4951,7 @@ arm9:
         r1: x offset within window
 
         r2: y offset within window
+        r3: text to draw
     - name: GetWindow
       address:
         EU: 0x20278EC
