@@ -245,11 +245,14 @@ overlay10:
         
         First it deletes the sprites, then it closes the portrait boxes and then the text boxes containing the stats for all 4 team members.
         
-        No params.
+        return: always 1, seems unused
     - name: FreeMapAndTeam
       address:
         EU: 0x22C2024
-      description: Handles the procedure to close the map and team top screen display.
+      description: |-
+        Handles the procedure to close the map and team top screen display.
+        
+        return: always 1, seems unused
     - name: ProcessTeamStatsLvHp
       address:
         EU: 0x22C2094
