@@ -123,7 +123,7 @@ Refer to the [`resymgen` README](../docs/resymgen.md#usage) for a general overvi
       git rm --cached -r .
       git reset --hard
       ```
-- Run the tests: `resymgen check -r -Vvbomu -d screaming_snake_case -f pascalcase -f snake_case <symbol files>`
+- Run the tests: `resymgen check -r -Vvbomu -d screaming_snake_case -f pascal_snake_case -f snake_case <symbol files>`
     - On Unix shells that support globbing (the `*` operator), you can use `*.yml` in place of `<symbol files>` to test everything in the directory.
     - If you're wondering what all the flags mean, see the help text (`resymgen check --help`).
 - Bulk-merge symbols from a CSV file into the symbol tables: `resymgen merge -x -f csv -v <version> -i <CSV file> <YAML symbol file>`

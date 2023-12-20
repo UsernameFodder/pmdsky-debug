@@ -60,4 +60,4 @@ jobs:
       - name: Install resymgen
         uses: ./.github/actions/build-resymgen
       - name: Test
-        run: resymgen check --recursive --complete-version-list --explicit-versions --in-bounds-symbols --no-overlap --nonempty-maps --unique-symbols --data-names SCREAMING_SNAKE_CASE --function-names PascalCase --function-names snake_case symbols/*.yml
+        run: resymgen check --recursive --complete-version-list --explicit-versions --in-bounds-symbols --no-overlap --nonempty-maps --unique-symbols --data-names SCREAMING_SNAKE_CASE --function-names Pascal_Snake_Case --function-names snake_case symbols/*.yml
