@@ -746,6 +746,7 @@ overlay29:
     - name: AllocTopScreenStatus
       address:
         EU: 0x22E8874
+        NA: 0x22E7EC4
       description: |-
         Allocates and initializes the top_screen_status struct when entering dungeon mode.
         
@@ -753,6 +754,7 @@ overlay29:
     - name: FreeTopScreenStatus
       address:
         EU: 0x22E88F4
+        NA: 0x22E7F44
       description: |-
         Gets called when leaving dungeon mode, calls FreeTopScreen and then also frees the allocated memory to the top_screen_status struct.
         
@@ -760,6 +762,7 @@ overlay29:
     - name: InitializeTeamStats
       address:
         EU: 0x22E8AE0
+        NA: 0x22E8130
       description: |-
         Initializes the team stats top screen.
         
@@ -767,6 +770,7 @@ overlay29:
     - name: UpdateTeamStatsWrapper
       address:
         EU: 0x22E8B40
+        NA: 0x22E8190
       description: |-
         Contains a check and calls UpdateTeamStats in overlay10.
         
@@ -774,6 +778,7 @@ overlay29:
     - name: FreeTeamStatsWrapper
       address:
         EU: 0x22E8B98
+        NA: 0x22E81E8
       description: |-
         Calls a function that calls FreeTeamStats in overlay10.
         
@@ -781,6 +786,7 @@ overlay29:
     - name: AssignTopScreenHandlers
       address:
         EU: 0x22E9078
+        NA: 0x22E86C8
       description: |-
         Sets the handler functions of the top screen type.
         
@@ -792,6 +798,7 @@ overlay29:
     - name: HandleTopScreenFades
       address:
         EU: 0x22E921C
+        NA: 0x22E886C
       description: |-
         Used to initialize and uninitialize the top screen in dungeon mode in conjunction with handling the fade status of the screen.
         
@@ -801,6 +808,7 @@ overlay29:
     - name: FreeTopScreen
       address:
         EU: 0x22E95FC
+        NA: 0x22E8C4C
       description: |-
         Gets called twice when fading out the top screen. First it calls the free_func of the top screen type and sets the handlers to null and on the second pass it just returns.
         
@@ -6441,6 +6449,7 @@ overlay29:
     - name: GetCurrentHiddenStairsType
       address:
         EU: 0x2339280
+        NA: 0x23386B0
       description: |-
         Checks if the current floor is a secret bazaar or a secret room and returns which one it is.
         
@@ -7686,6 +7695,7 @@ overlay29:
     - name: DisplayFloorCard
       address:
         EU: 0x2348ED4
+        NA: 0x23482D4
       description: |-
         Dispatches the splash screen between floors showing the dungeon name and the current floor.
         
@@ -7695,6 +7705,7 @@ overlay29:
     - name: HandleFloorCard
       address:
         EU: 0x2348F0C
+        NA: 0x234830C
       description: |-
         Handles the display of the splash screen between floors showing the dungeon name and the current floor.
         
@@ -8150,6 +8161,7 @@ overlay29:
     - name: StartFadeDungeon
       address:
         EU: 0x234D008
+        NA: 0x234C408
       description: |-
         Initiates a screen fade in dungeon mode.
         
@@ -8161,6 +8173,7 @@ overlay29:
     - name: StartFadeDungeonWrapper
       address:
         EU: 0x234D268
+        NA: 0x234C668
       description: |-
         Calls StartFadeDungeon to initiate a screen fade in dungeon mode.
         
@@ -8172,6 +8185,7 @@ overlay29:
     - name: HandleFadesDungeon
       address:
         EU: 0x234D3D4
+        NA: 0x234C7D4
       description: |-
         Gets called every frame for both screens in dungeon mode. Handles the status of the screen fades.
         
@@ -8179,6 +8193,7 @@ overlay29:
     - name: HandleFadesDungeonBothScreens
       address:
         EU: 0x234D5E4
+        NA: 0x234C9E4
       description: |-
         Calls HandleFadesDungeon for both screens.
         
@@ -9228,6 +9243,7 @@ overlay29:
     - name: TOP_SCREEN_STATUS_PTR
       address:
         EU: 0x2354154
+        NA: 0x2353554
       length:
         EU: 0x4
       description: |-
@@ -9357,6 +9373,7 @@ overlay29:
     - name: DUNGEON_FADES_PTR
       address:
         EU: 0x23543F8
+        NA: 0x23537E0
       length:
         EU: 0x4
       description: "[Runtime] Pointer to the dungeon fades struct that maintains the status of screen fades in dungeon mode."

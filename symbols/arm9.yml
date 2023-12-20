@@ -1013,6 +1013,7 @@ arm9:
     - name: UpdateFadeStatus
       address:
         EU: 0x200BA18
+        NA: 0x200B990
       description: |-
         Updates the given screen_fade struct to initiate a fade for example.
         
@@ -1024,6 +1025,7 @@ arm9:
     - name: HandleFades
       address:
         EU: 0x200BA90
+        NA: 0x200BA08
       description: |-
         Handles updating the screen_fade struct in all modes except dungeon mode.
         
@@ -1034,6 +1036,7 @@ arm9:
     - name: GetFadeStatus
       address:
         EU: 0x200BDB4
+        NA: 0x200BD2C
       description: |-
         Returns 1 if fading to black, 2 if fading to white, 0 otherwise.
         
@@ -4941,6 +4944,7 @@ arm9:
     - name: DrawTextInWindow
       address:
         EU: 0x20264F8
+        NA: 0x2026214
       description: |-
         Seems to be responsible for drawing the text in a window.
         
@@ -5007,6 +5011,7 @@ arm9:
     - name: ClearWindow
       address:
         EU: 0x2027E4C
+        NA: 0x2027B58
       description: |-
         Clears the window, at least in the case of a text box.
         
@@ -7976,6 +7981,7 @@ arm9:
     - name: ResetPlayTimer
       address:
         EU: 0x2051140
+        NA: 0x2050E08
       description: |-
         Reset the file timer.
         
@@ -7983,6 +7989,7 @@ arm9:
     - name: PlayTimerTick
       address:
         EU: 0x2051150
+        NA: 0x2050E18
       description: |-
         Advance the file timer by 1 frame.
         
@@ -7990,6 +7997,7 @@ arm9:
     - name: GetPlayTimeSeconds
       address:
         EU: 0x205118C
+        NA: 0x2050E54
       description: |-
         Returns the current play time in seconds.
         
