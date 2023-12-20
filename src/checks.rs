@@ -56,7 +56,7 @@ impl NamingConvention {
                         return false;
                     }
                 }
-                if let Some(c) = name.chars().rev().next() {
+                if let Some(c) = name.chars().next_back() {
                     if c.is_whitespace() {
                         return false;
                     }

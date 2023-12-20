@@ -500,9 +500,9 @@ impl SymbolManager {
             let i = imap.get(symbol_name).copied();
             self.0
                 .entry(subregion_path.clone())
-                .or_insert_with(HashMap::new)
+                .or_default()
                 .entry(block_name.to_owned())
-                .or_insert_with(HashMap::new)
+                .or_default()
                 .entry(*symbol_type)
                 .or_insert(imap);
             i
