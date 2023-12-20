@@ -20,12 +20,17 @@ fn int_format(write_as_decimal: bool) -> resymgen::IntFormat {
     }
 }
 
-const SUPPORTED_NAMING_CONVENTIONS: [&str; 5] = [
+const SUPPORTED_NAMING_CONVENTIONS: [&str; 10] = [
     "identifier",
     "snake_case",
     "SCREAMING_SNAKE_CASE",
     "camelCase",
     "PascalCase",
+    "camel_Snake_Case",
+    "underscoreSeparated_camelCase",
+    "Pascal_Snake_Case",
+    "flatcase",
+    "UPPERFLATCASE",
 ];
 
 // name is assumed to be in SUPPORTED_NAMING_CONVENTIONS (case-insensitive)
@@ -36,6 +41,11 @@ fn naming_convention(name: &str) -> resymgen::NamingConvention {
         "screaming_snake_case" => resymgen::NamingConvention::ScreamingSnakeCase,
         "camelcase" => resymgen::NamingConvention::CamelCase,
         "pascalcase" => resymgen::NamingConvention::PascalCase,
+        "camel_snake_case" => resymgen::NamingConvention::CamelSnakeCase,
+        "underscoreseparated_camelcase" => resymgen::NamingConvention::UnderscoreSeparatedCamelCase,
+        "pascal_snake_case" => resymgen::NamingConvention::PascalSnakeCase,
+        "flatcase" => resymgen::NamingConvention::FlatCase,
+        "upperflatcase" => resymgen::NamingConvention::UpperFlatCase,
         _ => panic!("Unsupported naming convention '{}'", name), // control should never reach this point
     }
 }
