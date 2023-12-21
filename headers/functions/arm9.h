@@ -519,6 +519,7 @@ int NewWindowScreenCheck(struct window_params* params, uint8_t param_2);
 int NewWindow(struct window_params* params, uint8_t param_2);
 void SetScreenWindowsColor(int palette_idx, bool upper_screen);
 void SetBothScreensWindowsColor(int palette_idx);
+void UpdateWindow(int window_id);
 void ClearWindow(int window_id);
 void DeleteWindow(int window_id);
 void GetWindowRectangle(int window_id, struct window_rectangle* rect_out);

@@ -10,7 +10,10 @@
 // These flags are shared with the function to display text inside windows
 // So they might need a rename once more information is found
 struct preprocessor_flags {
-    uint16_t flags_0 : 13;
+    bool timer_1 : 1; // Enabled when creating the play time string
+    uint16_t flags_1 : 9;
+    bool timer_2 : 1; // Enabled when creating the play time string
+    uint16_t flags_11 : 2;
     bool show_speaker : 1;
     uint16_t flags_14 : 2;
 };
