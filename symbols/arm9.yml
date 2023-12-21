@@ -5008,6 +5008,15 @@ arm9:
         Sets the palette of the frames of windows in both screens
         
         r0: palette index
+    - name: UpdateWindow
+      address:
+        EU: 0x2027DE4
+      description: |-
+        Seems to cause updated window contents to be displayed.
+           
+        Gets called for example at the end of a text box window update and seems to "commit" the update, but in general also gets called with all kinds of window updates. 
+        
+        r0: window_id
     - name: ClearWindow
       address:
         EU: 0x2027E4C
