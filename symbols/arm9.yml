@@ -5011,6 +5011,7 @@ arm9:
     - name: UpdateWindow
       address:
         EU: 0x2027DE4
+        NA: 0x2027AF0
       description: |-
         Seems to cause updated window contents to be displayed.
            
