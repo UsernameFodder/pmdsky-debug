@@ -3,14 +3,14 @@
 
 #include "arm9/itcm.h"
 
-void SvcSoftReset(void);
-void SvcWaitByLoop(void);
-void SvcCpuSet(void);
+void Svc_SoftReset(void);
+void Svc_WaitByLoop(void);
+void Svc_CpuSet(void);
 void _start(void);
-void MIiUncompressBackward(void);
+void MIi_UncompressBackward(void);
 void do_autoload(void);
 void StartAutoloadDoneCallback(void);
-void OSiReferSymbol(void);
+void OSi_ReferSymbol(void);
 void NitroMain(void);
 void InitMemAllocTable(void);
 void SetMemAllocatorParams(get_alloc_arena_fn_t get_alloc_arena,
