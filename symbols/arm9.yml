@@ -11048,74 +11048,263 @@ arm9:
         
         r0: ws
         return: length of ws
-    - name: __addsf3
+    - name: _dadd
+      address:
+        EU: 0x208E260
+        NA: 0x208DEC8
+      description: |-
+        Implements the addition operator for IEEE 754 double-precision floating-point numbers.
+        
+        The result is returned in r0 and r1, in accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return).
+        
+        r0: a (low bits)
+        r1: a (high bits)
+        r2: b (low bits)
+        r3: b (high bits)
+        return: a + b
+    - name: _d2f
+      address:
+        EU: 0x208E578
+        NA: 0x208E1E0
+      description: |-
+        Implements the double to float cast operator for IEEE 754 floating-point numbers.
+        
+        r0: double (low bits)
+        r1: double (high bits)
+        return: (float)double
+    - name: _ll_ufrom_d
+      address:
+        EU: 0x208E67C
+        NA: 0x208E2E4
+      description: |-
+        Implements the double to unsigned long long cast operation for IEEE 754 floating-point numbers.
+        
+        The result is returned in r0 and r1, in accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return).
+        
+        r0: double (low bits)
+        r1: double (high bits)
+        return: (unsigned long long)double
+    - name: _dflt
+      address:
+        EU: 0x208E708
+        NA: 0x208E370
+      description: |-
+        Implements the int to double cast operation for IEEE 754 floating-point numbers.
+        
+        The result is returned in r0 and r1, in accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return).
+        
+        r0: int
+        return: (double)int
+    - name: _dfltu
+      address:
+        EU: 0x208E748
+        NA: 0x208E3B0
+      description: |-
+        Implements the unsigned int to double cast operation for IEEE 754 floating-point numbers.
+        
+        The result is returned in r0 and r1, in accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return).
+        
+        r0: uint
+        return: (double)uint
+    - name: _dmul
+      address:
+        EU: 0x208E784
+        NA: 0x208E3EC
+      description: |-
+        Implements the multiplication operator for IEEE 754 double-precision floating-point numbers.
+        
+        The result is returned in r0 and r1, in accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return).
+        
+        r0: a (low bits)
+        r1: a (high bits)
+        r2: b (low bits)
+        r3: b (high bits)
+        return: a * b
+    - name: _dsqrt
+      address:
+        EU: 0x208EAE8
+        NA: 0x208E750
+      description: |-
+        Analogous to the sqrt(3) C library function.
+        
+        The result is returned in r0 and r1, in accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return).
+        
+        r0: x (low bits)
+        r1: x (high bits)
+        return: sqrt(x)
+    - name: _dsub
+      address:
+        EU: 0x208EC9C
+        NA: 0x208E904
+      description: |-
+        Implements the subtraction operator for IEEE 754 double-precision floating-point numbers.
+        
+        The result is returned in r0 and r1, in accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return).
+        
+        r0: a (low bits)
+        r1: a (high bits)
+        r2: b (low bits)
+        r3: b (high bits)
+        return: a - b
+    - name: _fadd
       address:
         EU: 0x208F050
         NA: 0x208ECB8
         JP: 0x208EFA0
       description: |-
-        This appears to be the libgcc implementation of __addsf3 (not sure which gcc version), which implements the addition operator for IEEE 754 floating-point numbers.
+        Implements the addition operator for IEEE 754 floating-point numbers.
+        
+        Analogous to __addsf3 in libgcc.
         
         r0: a
         r1: b
         return: a + b
-    - name: __divsf3
+    - name: _dgeq
+      address:
+        EU: 0x208F274
+        NA: 0x208EEDC
+      description: |-
+        Implements the >= operator for IEEE 754 double-precision floating-point numbers.
+        
+        r0: a (low bits)
+        r1: a (high bits)
+        r2: b (low bits)
+        r3: b (high bits)
+        return: a >= b
+    - name: _dleq
+      address:
+        EU: 0x208F30C
+        NA: 0x208EF74
+      description: |-
+        Implements the <= operator for IEEE 754 double-precision floating-point numbers.
+        
+        r0: a (low bits)
+        r1: a (high bits)
+        r2: b (low bits)
+        r3: b (high bits)
+        return: a <= b
+    - name: _dls
+      address:
+        EU: 0x208F3B0
+        NA: 0x208F018
+      description: |-
+        Implements the < operator for IEEE 754 double-precision floating-point numbers.
+        
+        r0: a (low bits)
+        r1: a (high bits)
+        r2: b (low bits)
+        r3: b (high bits)
+        return: a < b
+    - name: _deq
+      address:
+        EU: 0x208F44C
+        NA: 0x208F0B4
+      description: |-
+        Implements the == operator for IEEE 754 double-precision floating-point numbers.
+        
+        r0: a (low bits)
+        r1: a (high bits)
+        r2: b (low bits)
+        r3: b (high bits)
+        return: a == b
+    - name: _dneq
+      address:
+        EU: 0x208F4D8
+        NA: 0x208F140
+      description: |-
+        Implements the != operator for IEEE 754 double-precision floating-point numbers.
+        
+        r0: a (low bits)
+        r1: a (high bits)
+        r2: b (low bits)
+        r3: b (high bits)
+        return: a != b
+    - name: _fls
+      address:
+        EU: 0x208F564
+        NA: 0x208F1CC
+      description: |-
+        Implements the < operator for IEEE 754 floating-point numbers.
+        
+        r0: a
+        r1: b
+        return: a < b
+    - name: _fdiv
       address:
         EU: 0x208F5CC
         NA: 0x208F234
         JP: 0x208F51C
       description: |-
-        This appears to be the libgcc implementation of __divsf3 (not sure which gcc version), which implements the division operator for IEEE 754 floating-point numbers.
+        Implements the division operator for IEEE 754 floating-point numbers.
+        
+        Analogous to __divsf3 in libgcc.
         
         r0: dividend
         r1: divisor
         return: dividend / divisor
-    - name: __extendsfdf2
+    - name: _f2d
       address:
         EU: 0x208F984
         NA: 0x208F5EC
         JP: 0x208F8D4
       description: |-
-        This appears to be the libgcc implementation of __extendsfdf2 (not sure which gcc version), which implements the float to double cast operation for IEEE 754 floating-point numbers.
+        Implements the float to double cast operation for IEEE 754 floating-point numbers.
+        
+        Analogous to __extendsfdf2 in libgcc.
+        
+        The result is returned in r0 and r1, in accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return).
         
         r0: float
         return: (double)float
-    - name: __fixsfsi
+    - name: _ffix
       address:
         EU: 0x208FA08
         NA: 0x208F670
         JP: 0x208F958
       description: |-
-        This appears to be the libgcc implementation of __fixsfsi (not sure which gcc version), which implements the float to int cast operation for IEEE 754 floating-point numbers. The output saturates if the input is out of the representable range for the int type.
+        Implements the float to int cast operation for IEEE 754 floating-point numbers. The output saturates if the input is out of the representable range for the int type.
+        
+        Analogous to __fixsfsi in libgcc.
         
         r0: float
         return: (int)float
-    - name: __floatsisf
+    - name: _fflt
       address:
         EU: 0x208FA3C
         NA: 0x208F6A4
         JP: 0x208F98C
       description: |-
-        This appears to be the libgcc implementation of __floatsisf (not sure which gcc version), which implements the int to float cast operation for IEEE 754 floating-point numbers.
+        Implements the int to float cast operation for IEEE 754 floating-point numbers.
+        
+        Analogous to __floatsisf in libgcc.
         
         r0: int
         return: (float)int
-    - name: __floatunsisf
+    - name: _ffltu
       address:
         EU: 0x208FA84
         NA: 0x208F6EC
         JP: 0x208F9D4
       description: |-
-        This appears to be the libgcc implementation of __floatunsisf (not sure which gcc version), which implements the unsigned int to float cast operation for IEEE 754 floating-point numbers.
+        Implements the unsigned int to float cast operation for IEEE 754 floating-point numbers.
+        
+        Analogous to __floatunsisf in libgcc.
         
         r0: uint
         return: (float)uint
-    - name: __mulsf3
+    - name: _fmul
       address:
         EU: 0x208FACC
         NA: 0x208F734
         JP: 0x208FA1C
-      description: "This appears to be the libgcc implementation of __mulsf3 (not sure which gcc version), which implements the multiplication operator for IEEE 754 floating-point numbers."
+      description: |-
+        Implements the multiplication operator for IEEE 754 floating-point numbers.
+        
+        Analogous to __mulsf3 in libgcc.
+        
+        r0: a
+        r1: b
+        return: a * b
     - name: sqrtf
       address:
         EU: 0x208FCAC
@@ -11126,51 +11315,127 @@ arm9:
         
         r0: x
         return: sqrt(x)
-    - name: __subsf3
+    - name: _fsub
       address:
         EU: 0x208FD9C
         NA: 0x208FA04
         JP: 0x208FCEC
       description: |-
-        This appears to be the libgcc implementation of __subsf3 (not sure which gcc version), which implements the subtraction operator for IEEE 754 floating-point numbers.
+        Implements the subtraction operator for IEEE 754 floating-point numbers.
+        
+        Analogous to __subsf3 in libgcc.
         
         r0: a
         r1: b
         return: a - b
-    - name: __divsi3
+    - name: _ll_mod
+      address:
+        EU: 0x2090014
+        NA: 0x208FC7C
+      description: |-
+        Implements the modulus operator for signed long longs.
+        
+        The result is returned in r0 and r1, in accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return).
+        
+        r0: dividend (low bits)
+        r1: dividend (high bits)
+        r2: divisor (low bits)
+        r3: divisor (high bits)
+        return: dividend % divisor
+    - name: _ll_sdiv
+      address:
+        EU: 0x2090024
+        NA: 0x208FC8C
+      description: |-
+        Implements the division operator for signed long longs.
+        
+        The result is returned in r0 and r1, in accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return).
+        
+        r0: dividend (low bits)
+        r1: dividend (high bits)
+        r2: divisor (low bits)
+        r3: divisor (high bits)
+        return: dividend / divisor
+    - name: _ll_udiv
+      address:
+        EU: 0x20901D4
+        NA: 0x208FE3C
+      description: |-
+        Implements the division operator for unsigned long longs.
+        
+        The result is returned in r0 and r1, in accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return).
+        
+        r0: dividend (low bits)
+        r1: dividend (high bits)
+        r2: divisor (low bits)
+        r3: divisor (high bits)
+        return: dividend / divisor
+    - name: _ull_mod
+      address:
+        EU: 0x20901E0
+        NA: 0x208FE48
+      description: |-
+        Implements the modulus operator for unsigned long longs.
+        
+        The result is returned in r0 and r1, in accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return).
+        
+        r0: dividend (low bits)
+        r1: dividend (high bits)
+        r2: divisor (low bits)
+        r3: divisor (high bits)
+        return: dividend % divisor
+    - name: _ll_mul
+      address:
+        EU: 0x209021C
+        NA: 0x208FE84
+      description: |-
+        Implements the multiplication operator for signed long longs.
+        
+        The result is returned in r0 and r1, in accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return).
+        
+        r0: a (low bits)
+        r1: a (high bits)
+        r2: b (low bits)
+        r3: b (high bits)
+        return: a * b
+    - name: _s32_div_f
       address:
         EU: 0x209023C
         NA: 0x208FEA4
         JP: 0x209018C
       description: |-
-        This appears to be the libgcc implementation of __divsi3 (not sure which gcc version), which implements the division operator for signed ints.
+        Implements the division operator for signed ints.
+        
+        Analogous to __divsi3 in libgcc.
         
         The return value is a 64-bit integer, with the quotient (dividend / divisor) in the lower 32 bits and the remainder (dividend % divisor) in the upper 32 bits. In accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return), this means that the quotient is returned in r0 and the remainder is returned in r1.
         
         r0: dividend
         r1: divisor
         return: (quotient) | (remainder << 32)
-    - name: __udivsi3
+    - name: _u32_div_f
       address:
         EU: 0x2090448
         NA: 0x20900B0
         JP: 0x2090398
       description: |-
-        This appears to be the libgcc implementation of __udivsi3 (not sure which gcc version), which implements the division operator for unsigned ints.
+        Implements the division operator for unsigned ints.
+        
+        Analogous to __udivsi3 in libgcc.
         
         The return value is a 64-bit integer, with the quotient (dividend / divisor) in the lower 32 bits and the remainder (dividend % divisor) in the upper 32 bits. In accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return), this means that the quotient is returned in r0 and the remainder is returned in r1.
-        Note: This function falls through to __udivsi3_no_zero_check.
+        Note: This function falls through to _u32_div_not_0_f.
         
         r0: dividend
         r1: divisor
         return: (quotient) | (remainder << 32)
-    - name: __udivsi3_no_zero_check
+    - name: _u32_div_not_0_f
       address:
         EU: 0x2090450
         NA: 0x20900B8
         JP: 0x20903A0
       description: |-
-        Subsidiary function to __udivsi3. Skips the initial check for divisor == 0.
+        Subsidiary function to _u32_div_f. Skips the initial check for divisor == 0.
         
         The return value is a 64-bit integer, with the quotient (dividend / divisor) in the lower 32 bits and the remainder (dividend % divisor) in the upper 32 bits. In accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return), this means that the quotient is returned in r0 and the remainder is returned in r1.
         This function appears to only be called internally.
@@ -11178,6 +11443,44 @@ arm9:
         r0: dividend
         r1: divisor
         return: (quotient) | (remainder << 32)
+    - name: _drdiv
+      address:
+        EU: 0x209062C
+        NA: 0x2090294
+      description: |-
+        The same as _ddiv, but with the parameters reversed.
+        
+        This simply swaps the first and second parameters, then falls through to _ddiv.
+        
+        The result is returned in r0 and r1, in accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return).
+        
+        r0: divisor (low bits)
+        r1: divisor (high bits)
+        r2: dividend (low bits)
+        r3: dividend (high bits)
+        return: dividend / divisor
+    - name: _ddiv
+      address:
+        EU: 0x2090644
+        NA: 0x20902AC
+      description: |-
+        Implements the division operator for IEEE 754 double-precision floating-point numbers.
+        
+        The result is returned in r0 and r1, in accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return).
+        
+        r0: dividend (low bits)
+        r1: dividend (high bits)
+        r2: divisor (low bits)
+        r3: divisor (high bits)
+        return: dividend / divisor
+    - name: _fp_init
+      address:
+        EU: 0x2090B88
+        NA: 0x20907F0
+      description: |-
+        Meant to do set up for floating point calculations? Does nothing.
+        
+        No params.
   data:
     - name: SECURE
       address:
