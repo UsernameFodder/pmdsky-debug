@@ -235,7 +235,7 @@ arm7:
         Copy of the ARM9 function. See arm9.yml for more information.
         
         return: cpsr & 0x1f (the cpsr mode bits M4-M0)
-    - name: __divsi3
+    - name: _s32_div_f
       address:
         EU: 0x238EDB0
         NA: 0x238EDB0
@@ -249,7 +249,7 @@ arm7:
         r0: dividend
         r1: divisor
         return: (quotient) | (remainder << 32)
-    - name: __udivsi3
+    - name: _u32_div_f
       address:
         EU: 0x238EFBC
         NA: 0x238EFBC
@@ -263,7 +263,7 @@ arm7:
         r0: dividend
         r1: divisor
         return: (quotient) | (remainder << 32)
-    - name: __udivsi3_no_zero_check
+    - name: _u32_div_not_0_f
       address:
         EU: 0x238EFC4
         NA: 0x238EFC4
