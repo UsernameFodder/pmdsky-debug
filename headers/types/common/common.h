@@ -791,14 +791,15 @@ struct mission {
     uint8_t floor;                  // 0x5
     undefined field_0x6;            // Likely padding
     undefined field_0x7;            // Likely padding
-    int field_0x8;                  // 0x8, changing it seems to affect the text of the mission
-    undefined field_0xc;
+    // 0x8: changing it seems to affect the text of the mission, maybe a string ID?
+    int description_id;
+    uint8_t unique_map_id; // 0xC: for challenges/treasure hunts/certain outlaws
     undefined field_0xd;
-    struct monster_id_16 client; // 0xE
-    struct monster_id_16 target; // 0x10
-    int16_t field_0x12;
-    int16_t field_0x14;
-    struct mission_reward_type_8 reward_type; // 0x16
+    struct monster_id_16 client;                // 0xE
+    struct monster_id_16 target;                // 0x10
+    struct monster_id_16 outlaw_backup_species; // 0x12
+    struct item_id_16 item_wanted;              // 0x14
+    struct mission_reward_type_8 reward_type;   // 0x16
     undefined field_0x17;
     struct item_id_16 item_reward;                      // 0x18
     struct mission_restriction_type_8 restriction_type; // 0x1A
