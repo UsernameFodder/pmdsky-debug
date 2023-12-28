@@ -29,17 +29,17 @@ arm9:
   subregions:
     - itcm.yml
   functions:
-    - name: SvcSoftReset
+    - name: Svc_SoftReset
       address:
         EU: 0x20001A4
         NA: 0x2000566
       description: Software interrupt.
-    - name: SvcWaitByLoop
+    - name: Svc_WaitByLoop
       address:
         EU: 0x20006B0
         NA: 0x2000088
       description: Software interrupt.
-    - name: SvcCpuSet
+    - name: Svc_CpuSet
       address:
         EU: 0x200079E
         NA: 0x200078E
@@ -55,7 +55,7 @@ arm9:
         Once the entry function reaches the end, a constant containing the address to NitroMain is loaded into a register (r1), and a `bx` branch will jump to NitroMain.
         
         No params.
-    - name: MIiUncompressBackward
+    - name: MIi_UncompressBackward
       address:
         EU: 0x2000970
         NA: 0x2000970
@@ -73,7 +73,7 @@ arm9:
         NA: 0x2000AAC
         JP: 0x2000AAC
       description: "Startup routine in the program's crt0 (https://en.wikipedia.org/wiki/Crt0)."
-    - name: OSiReferSymbol
+    - name: OSi_ReferSymbol
       address:
         EU: 0x2000B9C
         NA: 0x2000B9C
