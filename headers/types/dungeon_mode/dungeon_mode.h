@@ -1123,7 +1123,7 @@ struct floor_properties {
     // 0x6: Controls how many enemies will be spawned. If 0, no enemies will spawn, even as the
     // player walks. If > 0, the final value will be randomized between density / 2 and density - 1.
     // If < 0, its absolute value will be used without adding a random variation.
-    uint8_t enemy_density;
+    int8_t enemy_density;
     uint8_t kecleon_shop_spawn_chance;  // 0x7: Percentage chance from 0-100
     uint8_t monster_house_spawn_chance; // 0x8: Percentage chance from 0-100
     uint8_t maze_room_chance;           // 0x9: Percentage chance from 0-100
