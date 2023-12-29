@@ -293,7 +293,7 @@ overlay10:
       description: |-
         Initializes a buffer that contains data related to tilesets (such as dungeon::unknown_file_buffer_0x102A8).
         
-        Calls AllocAndLoadFileInPack and DecompressAtNormalVeneer.
+        Calls DirectoryFileMngr_OpenDirectoryFile and DecompressAtNormalVeneer.
         
         r0: Pointer to the buffer to init
         r1: Tileset ID

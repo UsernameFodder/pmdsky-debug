@@ -919,7 +919,7 @@ arm9:
       description: |-
         Finalizes data transfer from the ROM cartridge.
         
-        This function must always be called if DataTransferInit was called, or the game will crash.
+        This function must always be called if FileRom_InitDataTransfer was called, or the game will crash.
         
         No params.
     - name: FileRom_Veneer_FileInit
@@ -961,9 +961,9 @@ arm9:
       description: |-
         Reads the contents of a file into the given buffer, and moves the file cursor accordingly.
         
-        Data transfer mode must have been initialized (with DataTransferInit) prior to calling this function. This function looks like it's doing something akin to calling read(2) or fread(3) in a loop until all the bytes have been successfully read.
+        Data transfer mode must have been initialized (with FileRom_InitDataTransfer) prior to calling this function. This function looks like it's doing something akin to calling read(2) or fread(3) in a loop until all the bytes have been successfully read.
         
-        Note: If code is running from IRQ mode, it appears that FileRead hangs the game. When the processor mode is forced into SYSTEM mode FileRead once again works, so it appears that ROM access only works in certain processor modes. Note that forcing the processor into a different mode is generally a bad idea and should be avoided as it will easily corrupt that processor mode's states.
+        Note: If code is running from IRQ mode, it appears that FileRom_HandleRead hangs the game. When the processor mode is forced into SYSTEM mode FileRom_HandleRead once again works, so it appears that ROM access only works in certain processor modes. Note that forcing the processor into a different mode is generally a bad idea and should be avoided as it will easily corrupt that processor mode's states.
         
         r0: file_stream pointer
         r1: [output] buffer
@@ -993,7 +993,7 @@ arm9:
       description: |-
         Closes a file.
         
-        Data transfer mode must have been initialized (with DataTransferInit) prior to calling this function.
+        Data transfer mode must have been initialized (with FileRom_InitDataTransfer) prior to calling this function.
         
         Note: It is possible to keep a file stream open even if data transfer mode has been stopped, in which case the file stream can be used again if data transfer mode is reinitialized.
         
@@ -1139,7 +1139,7 @@ arm9:
         
         This still constructs the string with vsprintf, but doesn't actually do anything with it in the final binary.
         
-        Identical to DebugPrint0 in release builds.
+        Identical to Debug_Print0 in release builds.
         
         r0: format
         ...: variadic
@@ -1242,7 +1242,7 @@ arm9:
         NA: 0x200C2DC
         JP: 0x200C2DC
       description: |-
-        Open the 6 files at PACK_FILE_PATHS_TABLE into PACK_FILES_OPENED. Called during game initialization.
+        Open the 6 files at DIRECTORY_FILE_TABLE into DIRECTORY_FILES_EXTRACTED. Called during game initialization.
         
         No params.
     - name: DirectoryFileMngr_GetDirectoryFileSize
@@ -1251,7 +1251,7 @@ arm9:
         NA: 0x200C33C
         JP: 0x200C33C
       description: |-
-        Call GetFileLengthInPack after looking up the global Pack archive by its number
+        Call DirectoryFile_GetDirectoryFileSize after looking up the global Pack archive by its number
         
         r0: pack file number
         r1: file number
@@ -1262,7 +1262,7 @@ arm9:
         NA: 0x200C35C
         JP: 0x200C35C
       description: |-
-        Call LoadFileInPack after looking up the global Pack archive by its identifier
+        Call DirectoryFile_LoadDirectoryFile after looking up the global Pack archive by its identifier
         
         r0: pack file identifier
         r1: file index
@@ -9750,7 +9750,7 @@ arm9:
         Checks if a mission contains valid fields.
         
         For example, a mission will be considered invalid if the ID of the monsters or items involved are out of bounds, if their entries are marked as invalid, if the destination floor does not exist, etc.
-        If the mission fails one of the checks, the game will print an error message explaining what is wrong using DebugPrint0.
+        If the mission fails one of the checks, the game will print an error message explaining what is wrong using Debug_Print0.
         
         r0: mission to check
         return: True if the mission is valid, false if it's not.
@@ -14077,7 +14077,7 @@ arm9:
         EU: 0x4
         NA: 0x4
       description: |-
-        [Runtime] A pointer to the 6 opened Pack files (listed at PACK_FILE_PATHS_TABLE)
+        [Runtime] A pointer to the 6 opened Pack files (listed at DIRECTORY_FILE_TABLE)
         
         type: struct pack_file_opened*
     - name: DIRECTORY_FILE_TABLE
