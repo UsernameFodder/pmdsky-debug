@@ -1121,8 +1121,10 @@ struct floor_properties {
     // 0x5: Controls how many connections will be made between grid cells
     uint8_t floor_connectivity;
     // 0x6: Controls how many enemies will be spawned. If 0, no enemies will spawn, even as the
-    // player walks. If > 0, the final value will be randomized between density / 2 and density - 1.
-    // If < 0, its absolute value will be used without adding a random variation.
+    // player walks. The final value will be randomized between density / 2 and density - 1.
+    // The game contains a check that, if the value is < 0, will take absolute value of the density
+    // without adding a random variation; however, the check never passes since the value is
+    // unsigned.
     uint8_t enemy_density;
     uint8_t kecleon_shop_spawn_chance;  // 0x7: Percentage chance from 0-100
     uint8_t monster_house_spawn_chance; // 0x8: Percentage chance from 0-100
