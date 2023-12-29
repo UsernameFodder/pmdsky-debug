@@ -55,6 +55,10 @@ arm9:
         Once the entry function reaches the end, a constant containing the address to NitroMain is loaded into a register (r1), and a `bx` branch will jump to NitroMain.
         
         No params.
+    - name: InitI_CpuClear32
+      address:
+        EU: 0x2000954
+        NA: 0x2000954
     - name: MIi_UncompressBackward
       address:
         EU: 0x2000970
@@ -73,6 +77,10 @@ arm9:
         NA: 0x2000AAC
         JP: 0x2000AAC
       description: "Startup routine in the program's crt0 (https://en.wikipedia.org/wiki/Crt0)."
+    - name: init_cp15
+      address:
+        EU: 0x2000AB0
+        NA: 0x2000AB0
     - name: OSi_ReferSymbol
       address:
         EU: 0x2000B9C
@@ -10324,6 +10332,102 @@ arm9:
       description: |-
         r0: LFO pointer
         return: LFO current output
+    - name: Crypto_RC4Init
+      address:
+        EU: 0x2075AB8
+        NA: 0x2075720
+    - name: Mtx_LookAt
+      address:
+        EU: 0x2075BC0
+        NA: 0x2075828
+    - name: Mtx_OrthoW
+      address:
+        EU: 0x2075CC8
+        NA: 0x2075930
+    - name: FX_Div
+      address:
+        EU: 0x2075ED0
+        NA: 0x2075B38
+    - name: FX_GetDivResultFx64c
+      address:
+        EU: 0x2075EE0
+        NA: 0x2075B48
+    - name: FX_GetDivResult
+      address:
+        EU: 0x2075F04
+        NA: 0x2075B6C
+    - name: FX_InvAsync
+      address:
+        EU: 0x2075F3C
+        NA: 0x2075BA4
+    - name: FX_DivAsync
+      address:
+        EU: 0x2075F6C
+        NA: 0x2075BD4
+    - name: FX_DivS32
+      address:
+        EU: 0x2075F94
+        NA: 0x2075BFC
+    - name: FX_ModS32
+      address:
+        EU: 0x2075FD0
+        NA: 0x2075C38
+    - name: Vec_DotProduct
+      address:
+        EU: 0x207600C
+        NA: 0x2075C74
+    - name: Vec_CrossProduct
+      address:
+        EU: 0x2076048
+        NA: 0x2075CB0
+    - name: Vec_Normalize
+      address:
+        EU: 0x20760CC
+        NA: 0x2075D34
+    - name: Vec_Distance
+      address:
+        EU: 0x20761E4
+        NA: 0x2075E4C
+    - name: FX_Atan2Idx
+      address:
+        EU: 0x2076260
+        NA: 0x2075EC8
+    - name: GX_Init
+      address:
+        EU: 0x207640C
+        NA: 0x2076074
+    - name: GX_HBlankIntr
+      address:
+        EU: 0x2076558
+        NA: 0x20761C0
+    - name: GX_VBlankIntr
+      address:
+        EU: 0x2076580
+        NA: 0x20761E8
+    - name: GX_DispOff
+      address:
+        EU: 0x20765B4
+        NA: 0x207621C
+    - name: GX_DispOn
+      address:
+        EU: 0x20765F0
+        NA: 0x2076258
+    - name: GX_SetGraphicsMode
+      address:
+        EU: 0x2076638
+        NA: 0x20762A0
+    - name: Gxs_SetGraphicsMode
+      address:
+        EU: 0x20766A0
+        NA: 0x2076308
+    - name: GXx_SetMasterBrightness
+      address:
+        EU: 0x20766BC
+        NA: 0x2076324
+    - name: GX_InitGxState
+      address:
+        EU: 0x20766E4
+        NA: 0x207634C
     - name: EnableVramBanksInSetDontSave
       address:
         EU: 0x2076744
@@ -10333,6 +10437,58 @@ arm9:
         Enable the VRAM bank marked in the input set, but don’t mark them as enabled in ENABLED_VRAM_BANKS
         
         r0: vram_banks_set
+    - name: GX_SetBankForBg
+      address:
+        EU: 0x20767FC
+        NA: 0x2076464
+    - name: GX_SetBankForObj
+      address:
+        EU: 0x2076A8C
+        NA: 0x20766F4
+    - name: GX_SetBankForBgExtPltt
+      address:
+        EU: 0x2076BDC
+        NA: 0x2076844
+    - name: GX_SetBankForObjExtPltt
+      address:
+        EU: 0x2076CDC
+        NA: 0x2076944
+    - name: GX_SetBankForTex
+      address:
+        EU: 0x2076D88
+        NA: 0x20769F0
+    - name: GX_SetBankForTexPltt
+      address:
+        EU: 0x2076F60
+        NA: 0x2076BC8
+    - name: GX_SetBankForClearImage
+      address:
+        EU: 0x2077048
+        NA: 0x2076CB0
+    - name: GX_SetBankForArm7
+      address:
+        EU: 0x207717C
+        NA: 0x2076DE4
+    - name: GX_SetBankForLcdc
+      address:
+        EU: 0x2077228
+        NA: 0x2076E90
+    - name: GX_SetBankForSubBg
+      address:
+        EU: 0x2077248
+        NA: 0x2076EB0
+    - name: GX_SetBankForSubObj
+      address:
+        EU: 0x20772F0
+        NA: 0x2076F58
+    - name: GX_SetBankForSubBgExtPltt
+      address:
+        EU: 0x2077360
+        NA: 0x2076FC8
+    - name: GX_SetBankForSubObjExtPltt
+      address:
+        EU: 0x20773E0
+        NA: 0x2077048
     - name: EnableVramBanksInSet
       address:
         EU: 0x2077460
@@ -10342,7 +10498,151 @@ arm9:
         Enable the VRAM banks in the input set. Will reset the pointed set to 0, and update ENABLED_VRAM_BANKS
         
         r0: vram_banks_set *
-    - name: GeomMtxLoad4x3
+    - name: GX_ResetBankForBgExtPltt
+      address:
+        EU: 0x2077494
+        NA: 0x20770FC
+    - name: GX_ResetBankForObjExtPltt
+      address:
+        EU: 0x20774B8
+        NA: 0x2077120
+    - name: GX_ResetBankForTex
+      address:
+        EU: 0x20774DC
+        NA: 0x2077144
+    - name: GX_ResetBankForTexPltt
+      address:
+        EU: 0x20774F0
+        NA: 0x2077158
+    - name: GX_ResetBankForSubBgExtPltt
+      address:
+        EU: 0x2077504
+        NA: 0x207716C
+    - name: GX_ResetBankForSubObjExtPltt
+      address:
+        EU: 0x207752C
+        NA: 0x2077194
+    - name: DisableBankForX
+      address:
+        EU: 0x2077554
+        NA: 0x20771BC
+    - name: GX_DisableBankForBg
+      address:
+        EU: 0x2077634
+        NA: 0x207729C
+    - name: GX_DisableBankForObj
+      address:
+        EU: 0x2077648
+        NA: 0x20772B0
+    - name: GX_DisableBankForBgExtPltt
+      address:
+        EU: 0x207765C
+        NA: 0x20772C4
+    - name: GX_DisableBankForObjExtPltt
+      address:
+        EU: 0x2077680
+        NA: 0x20772E8
+    - name: GX_DisableBankForTex
+      address:
+        EU: 0x20776A4
+        NA: 0x207730C
+    - name: GX_DisableBankForTexPltt
+      address:
+        EU: 0x20776B8
+        NA: 0x2077320
+    - name: GX_DisableBankForClearImage
+      address:
+        EU: 0x20776CC
+        NA: 0x2077334
+    - name: GX_DisableBankForArm7
+      address:
+        EU: 0x20776E0
+        NA: 0x2077348
+    - name: GX_DisableBankForLcdc
+      address:
+        EU: 0x20776F4
+        NA: 0x207735C
+    - name: GX_DisableBankForSubBg
+      address:
+        EU: 0x2077708
+        NA: 0x2077370
+    - name: GX_DisableBankForSubObj
+      address:
+        EU: 0x207771C
+        NA: 0x2077384
+    - name: GX_DisableBankForSubBgExtPltt
+      address:
+        EU: 0x2077730
+        NA: 0x2077398
+    - name: GX_DisableBankForSubObjExtPltt
+      address:
+        EU: 0x2077758
+        NA: 0x20773C0
+    - name: G2_GetBG0ScrPtr
+      address:
+        EU: 0x2077780
+        NA: 0x20773E8
+    - name: G2S_GetBG0ScrPtr
+      address:
+        EU: 0x20777B4
+        NA: 0x207741C
+    - name: G2_GetBG1ScrPtr
+      address:
+        EU: 0x20777D4
+        NA: 0x207743C
+    - name: G2S_GetBG1ScrPtr
+      address:
+        EU: 0x2077808
+        NA: 0x2077470
+    - name: G2_GetBG2ScrPtr
+      address:
+        EU: 0x2077828
+        NA: 0x2077490
+    - name: G2_GetBG3ScrPtr
+      address:
+        EU: 0x20778AC
+        NA: 0x2077514
+    - name: G2_GetBG0CharPtr
+      address:
+        EU: 0x2077930
+        NA: 0x2077598
+    - name: G2S_GetBG0CharPtr
+      address:
+        EU: 0x2077964
+        NA: 0x20775CC
+    - name: G2_GetBG1CharPtr
+      address:
+        EU: 0x2077984
+        NA: 0x20775EC
+    - name: G2S_GetBG1CharPtr
+      address:
+        EU: 0x20779B8
+        NA: 0x2077620
+    - name: G2_GetBG2CharPtr
+      address:
+        EU: 0x20779D8
+        NA: 0x2077640
+    - name: G2_GetBG3CharPtr
+      address:
+        EU: 0x2077A28
+        NA: 0x2077690
+    - name: G2x_SetBlendAlpha
+      address:
+        EU: 0x2077A80
+        NA: 0x20776E8
+    - name: G2x_SetBlendBrightness
+      address:
+        EU: 0x2077A9C
+        NA: 0x2077704
+    - name: G2x_ChangeBlendBrightness
+      address:
+        EU: 0x2077AC4
+        NA: 0x207772C
+    - name: G3_LoadMtx44
+      address:
+        EU: 0x2077B08
+        NA: 0x2077770
+    - name: G3_LoadMtx43
       address:
         EU: 0x2077B24
         NA: 0x207778C
@@ -10353,7 +10653,7 @@ arm9:
         This pops the top of the current matrix stack (https://problemkaputt.de/gbatek.htm#ds3dmatrixstack) and sets it as the engine's "current" matrix. It's commonly preceded by a MTX_PUSH command to populate the matrix stack with a matrix.
         
         r0: matrix_4x3 pointer
-    - name: GeomMtxMult4x3
+    - name: G3_MultMtx43
       address:
         EU: 0x2077B40
         NA: 0x20777A8
@@ -10364,6 +10664,186 @@ arm9:
         This pops the top of the current matrix stack (https://problemkaputt.de/gbatek.htm#ds3dmatrixstack) and left-multiplies the engine's "current" matrix by the new matrix. It's commonly preceded by a MTX_PUSH command to populate the matrix stack with a matrix.
         
         r0: matrix_4x3 pointer
+    - name: G3X_Init
+      address:
+        EU: 0x2077B5C
+        NA: 0x20777C4
+    - name: G3X_Reset
+      address:
+        EU: 0x2077C68
+        NA: 0x20778D0
+    - name: G3X_ClearFifo
+      address:
+        EU: 0x2077CD4
+        NA: 0x207793C
+    - name: G3X_InitMtxStack
+      address:
+        EU: 0x2077CFC
+        NA: 0x2077964
+    - name: G3X_ResetMtxStack
+      address:
+        EU: 0x2077D94
+        NA: 0x20779FC
+    - name: G3X_SetClearColor
+      address:
+        EU: 0x2077E24
+        NA: 0x2077A8C
+    - name: G3X_InitTable
+      address:
+        EU: 0x2077E4C
+        NA: 0x2077AB4
+    - name: G3X_GetMtxStackLevelPV
+      address:
+        EU: 0x2077EEC
+        NA: 0x2077B54
+    - name: G3X_GetMtxStackLevelPJ
+      address:
+        EU: 0x2077F1C
+        NA: 0x2077B84
+    - name: GXi_NopClearFifo128
+      address:
+        EU: 0x2077F4C
+        NA: 0x2077BB4
+    - name: G3i_OrthoW
+      address:
+        EU: 0x2077FE0
+        NA: 0x2077C48
+    - name: G3i_LookAt
+      address:
+        EU: 0x2078044
+        NA: 0x2077CAC
+    - name: GX_LoadBgPltt
+      address:
+        EU: 0x2078090
+        NA: 0x2077CF8
+    - name: Gxs_LoadBgPltt
+      address:
+        EU: 0x20780E4
+        NA: 0x2077D4C
+    - name: GX_LoadObjPltt
+      address:
+        EU: 0x207813C
+        NA: 0x2077DA4
+    - name: Gxs_LoadObjPltt
+      address:
+        EU: 0x2078194
+        NA: 0x2077DFC
+    - name: GX_LoadOam
+      address:
+        EU: 0x20781EC
+        NA: 0x2077E54
+    - name: Gxs_LoadOam
+      address:
+        EU: 0x2078240
+        NA: 0x2077EA8
+    - name: GX_LoadObj
+      address:
+        EU: 0x2078298
+        NA: 0x2077F00
+    - name: Gxs_LoadObj
+      address:
+        EU: 0x20782F0
+        NA: 0x2077F58
+    - name: GX_LoadBg0Scr
+      address:
+        EU: 0x2078348
+        NA: 0x2077FB0
+    - name: GX_LoadBg1Scr
+      address:
+        EU: 0x20783A8
+        NA: 0x2078010
+    - name: Gxs_LoadBg1Scr
+      address:
+        EU: 0x2078408
+        NA: 0x2078070
+    - name: GX_LoadBg2Scr
+      address:
+        EU: 0x2078468
+        NA: 0x20780D0
+    - name: GX_LoadBg3Scr
+      address:
+        EU: 0x20784C8
+        NA: 0x2078130
+    - name: GX_LoadBg0Char
+      address:
+        EU: 0x2078528
+        NA: 0x2078190
+    - name: Gxs_LoadBg0Char
+      address:
+        EU: 0x2078588
+        NA: 0x20781F0
+    - name: GX_LoadBg1Char
+      address:
+        EU: 0x20785E8
+        NA: 0x2078250
+    - name: Gxs_LoadBg1Char
+      address:
+        EU: 0x2078648
+        NA: 0x20782B0
+    - name: GX_LoadBg2Char
+      address:
+        EU: 0x20786A8
+        NA: 0x2078310
+    - name: GX_LoadBg3Char
+      address:
+        EU: 0x2078708
+        NA: 0x2078370
+    - name: GX_BeginLoadBgExtPltt
+      address:
+        EU: 0x2078768
+        NA: 0x20783D0
+    - name: GX_EndLoadBgExtPltt
+      address:
+        EU: 0x2078808
+        NA: 0x2078470
+    - name: GX_BeginLoadObjExtPltt
+      address:
+        EU: 0x2078850
+        NA: 0x20784B8
+    - name: GX_EndLoadObjExtPltt
+      address:
+        EU: 0x2078898
+        NA: 0x2078500
+    - name: Gxs_BeginLoadBgExtPltt
+      address:
+        EU: 0x20788DC
+        NA: 0x2078544
+    - name: Gxs_EndLoadBgExtPltt
+      address:
+        EU: 0x20788F4
+        NA: 0x207855C
+    - name: Gxs_BeginLoadObjExtPltt
+      address:
+        EU: 0x2078934
+        NA: 0x207859C
+    - name: Gxs_EndLoadObjExtPltt
+      address:
+        EU: 0x207894C
+        NA: 0x20785B4
+    - name: GX_BeginLoadTex
+      address:
+        EU: 0x207898C
+        NA: 0x20785F4
+    - name: GX_LoadTex
+      address:
+        EU: 0x20789E8
+        NA: 0x2078650
+    - name: GX_EndLoadTex
+      address:
+        EU: 0x2078B28
+        NA: 0x2078790
+    - name: GX_BeginLoadTexPltt
+      address:
+        EU: 0x2078B74
+        NA: 0x20787DC
+    - name: GX_LoadTexPltt
+      address:
+        EU: 0x2078BA8
+        NA: 0x2078810
+    - name: GX_EndLoadTexPltt
+      address:
+        EU: 0x2078C14
+        NA: 0x207887C
     - name: GeomGxFifoSendMtx4x3
       address:
         EU: 0x2078C58
@@ -10378,6 +10858,14 @@ arm9:
         
         r0: matrix_4x3 pointer
         r1: GXFIFO pointer
+    - name: GX_SendFifo64B
+      address:
+        EU: 0x2078C7C
+        NA: 0x20788E4
+    - name: OS_GetLockID
+      address:
+        EU: 0x20793C4
+        NA: 0x207902C
     - name: IncrementThreadCount
       address:
         EU: 0x20794E8
@@ -10525,6 +11013,15 @@ arm9:
         See https://problemkaputt.de/gbatek.htm#armcpuflagsconditionfieldcond
         
         return: cpsr & 0x1f (the cpsr mode bits M4-M0)
+    - name: CountLeadingZeros
+      address:
+        EU: 0x207BE24
+        NA: 0x207BA8C
+      description: |-
+        Counts the number of leading zeros in a 32-bit integer.
+        
+        r0: x
+        return: clz(x)
     - name: WaitForever2
       address:
         EU: 0x207BFB8
@@ -13428,19 +13925,33 @@ arm9:
         More precisely, the trig_values entry at index i corresponds to {sin(i * 2π/4096), cos(i * 2π/4096)} (each division is ~1/10 of a degree). Values are stored as signed fixed-point numbers with 12 fraction bits.
         
         type: struct trig_values[4096]
-    - name: ARM9_UNKNOWN_TABLE__NA_20ADFB0
+    - name: FX_ATAN_IDX_TABLE
       address:
         EU: 0x20AE850
         NA: 0x20ADFB0
         JP: 0x20AF3F8
       length:
-        EU: 0x974
-        NA: 0x974
-        JP: 0x974
+        EU: 0x102
+        NA: 0x102
+        JP: 0x102
       description: |-
-        701*0x4
+        Table of arctangent values at 129 divisions over the domain [0, 1].
         
-        Note: unverified, ported from Irdkwia's notes (split from TRIG_TABLE)
+        More precisely, entry at index i corresponds to (atan(i/128) / (π/2)). Values are stored as signed fixed-point numbers with 14 fraction bits.
+    - name: TEX_PLTT_START_ADDR_TABLE
+      address:
+        EU: 0x20AE954
+        NA: 0x20AE0B4
+      length:
+        EU: 0x10
+        NA: 0x10
+    - name: TEX_START_ADDR_TABLE
+      address:
+        EU: 0x20AE964
+        NA: 0x20AE0C4
+      length:
+        EU: 0x60
+        NA: 0x60
     - name: ARM9_UNKNOWN_TABLE__NA_20AE924
       address:
         EU: 0x20AF1C4
@@ -13882,3 +14393,17 @@ arm9:
       length:
         EU: 0x40
         NA: 0x40
+    - name: IS_DISP_ON
+      address:
+        EU: 0x20B34D8
+        NA: 0x20B2B94
+      length:
+        EU: 0x1
+        NA: 0x1
+    - name: GXI_DMA_ID
+      address:
+        EU: 0x20B34DC
+        NA: 0x20B2B98
+      length:
+        EU: 0x4
+        NA: 0x4
