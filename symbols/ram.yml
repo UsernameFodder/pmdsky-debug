@@ -463,6 +463,10 @@ ram:
         See the comments on struct team_member_table for more information.
         
         type: struct team_member_table
+    - name: DRIVER_WORK
+      address:
+        EU: 0x22B7C70
+        NA: 0x22B7330
     - name: ENABLED_VRAM_BANKS
       address:
         EU: 0x22B9ECC
