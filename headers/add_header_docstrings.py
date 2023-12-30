@@ -92,7 +92,7 @@ class TextWrapFormatter(Formatter):
 
 
 class HeaderDocstringAdder:
-    PREAMBLE_LINE = "/// THIS DOCSTRING WAS GENERATED AUTOMATICALLY\n"
+    PREAMBLE_LINE = "// THIS DOCSTRING WAS GENERATED AUTOMATICALLY\n"
 
     def __init__(
         self, symbol_list: HeaderSymbolList, *, formatter: Optional[Formatter] = None
