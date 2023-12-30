@@ -1,7 +1,7 @@
 #ifndef HEADERS_FUNCTIONS_ARM9_LIBS_H_
 #define HEADERS_FUNCTIONS_ARM9_LIBS_H_
 
-int SoundUtilGetRandomNumber(void);
+int SoundUtil_GetRandomNumber(void);
 void* ReadWaviEntry(struct wavi_data* wavi_data, int entry_index);
 int ResumeBgm(undefined4 param_1, undefined4 param_2, undefined4 param_3);
 void* FindSmdlSongChunk(void* smdl_data, uint16_t value_to_search);
@@ -9,32 +9,32 @@ int FlushChannels(undefined* param_1, int param_2, int param_3);
 void ParseDseEvent(undefined* audio_state, struct track_data* track_data);
 void UpdateSequencerTracks(int param_1, undefined4 param_2, undefined4 param_3, undefined4 param_4);
 void UpdateChannels(void);
-void SoundEnvelopeReset(struct sound_envelope* envelope);
-void SoundEnvelopeParametersReset(struct sound_envelope_parameters* parameters);
-void SoundEnvelopeParametersCheckValidity(struct sound_envelope_parameters* parameters);
-void SoundEnvelopeSetParameters(struct sound_envelope* envelope,
-                                struct sound_envelope_parameters* parameters);
-void SoundEnvelopeSetSlide(struct sound_envelope* envelope, int target_volume, int msec_tab_index);
+void SoundEnvelope_Reset(struct sound_envelope* envelope);
+void SoundEnvelopeParameters_Reset(struct sound_envelope_parameters* parameters);
+void SoundEnvelopeParameters_CheckValidity(struct sound_envelope_parameters* parameters);
+void SoundEnvelope_SetParameters(struct sound_envelope* envelope,
+                                 struct sound_envelope_parameters* parameters);
+void SoundEnvelope_SetSlide(struct sound_envelope* envelope, int target_volume, int msec_tab_index);
 void UpdateTrackVolumeEnvelopes(struct sound_envelope* envelope);
-void SoundEnvelopeRelease(struct sound_envelope* envelope);
-void SoundEnvelopeStop(struct sound_envelope* envelope);
-void SoundEnvelopeForceVolume(struct sound_envelope* envelope, int volume);
-void SoundEnvelopeStop2(struct sound_envelope* envelope);
-int8_t SoundEnvelopeTick(struct sound_envelope* envelope);
-void SoundLfoBankReset(struct dse_lfo_bank* lfo_bank);
-void SoundLfoBankSet(struct dse_lfo_bank* lfo_bank, struct dse_lfo_settings* lfo_settings,
-                     int8_t const_envelope_level);
-void SoundLfoBankSetConstEnvelopes(struct dse_lfo_bank* lfo_bank, int8_t level);
-uint16_t SoundLfoBankTick(struct dse_lfo_bank* lfo_bank);
-int SoundLfoWaveInvalidFunc(struct dse_lfo* lfo);
-int SoundLfoWaveHalfSquareFunc(struct dse_lfo* lfo);
-int SoundLfoWaveFullSquareFunc(struct dse_lfo* lfo);
-int SoundLfoWaveHalfTriangleFunc(struct dse_lfo* lfo);
-int SoundLfoWaveFullTriangleFunc(struct dse_lfo* lfo);
-int SoundLfoWaveSawFunc(struct dse_lfo* lfo);
-int SoundLfoWaveReverseSawFunc(struct dse_lfo* lfo);
-int SoundLfoWaveHalfNoiseFunc(struct dse_lfo* lfo);
-int SoundLfoWaveFullNoiseFunc(struct dse_lfo* lfo);
+void SoundEnvelope_Release(struct sound_envelope* envelope);
+void SoundEnvelope_Stop(struct sound_envelope* envelope);
+void SoundEnvelope_ForceVolume(struct sound_envelope* envelope, int volume);
+void SoundEnvelope_Stop2(struct sound_envelope* envelope);
+int8_t SoundEnvelope_Tick(struct sound_envelope* envelope);
+void SoundLfoBank_Reset(struct dse_lfo_bank* lfo_bank);
+void SoundLfoBank_Set(struct dse_lfo_bank* lfo_bank, struct dse_lfo_settings* lfo_settings,
+                      int8_t const_envelope_level);
+void SoundLfoBank_SetConstEnvelopes(struct dse_lfo_bank* lfo_bank, int8_t level);
+uint16_t SoundLfoBank_Tick(struct dse_lfo_bank* lfo_bank);
+int SoundLfoWave_InvalidFunc(struct dse_lfo* lfo);
+int SoundLfoWave_HalfSquareFunc(struct dse_lfo* lfo);
+int SoundLfoWave_FullSquareFunc(struct dse_lfo* lfo);
+int SoundLfoWave_HalfTriangleFunc(struct dse_lfo* lfo);
+int SoundLfoWave_FullTriangleFunc(struct dse_lfo* lfo);
+int SoundLfoWave_SawFunc(struct dse_lfo* lfo);
+int SoundLfoWave_ReverseSawFunc(struct dse_lfo* lfo);
+int SoundLfoWave_HalfNoiseFunc(struct dse_lfo* lfo);
+int SoundLfoWave_FullNoiseFunc(struct dse_lfo* lfo);
 void EnableVramBanksInSetDontSave(struct vram_banks_set vram_banks);
 void EnableVramBanksInSet(struct vram_banks_set* vram_banks);
 void G3_LoadMtx43(struct matrix_4x3* matrix);
