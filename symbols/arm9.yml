@@ -903,7 +903,7 @@ arm9:
         Implements (most of?) SPECIAL_PROC_KEY_WAIT_INIT (see ScriptSpecialProcessCall).
         
         No params.
-    - name: FileRom_InitDataTransfer
+    - name: DataTransferInit
       address:
         EU: 0x2008168
         NA: 0x2008168
@@ -912,7 +912,7 @@ arm9:
         Initializes data transfer mode to get data from the ROM cartridge.
         
         No params.
-    - name: FileRom_StopDataTransfer
+    - name: DataTransferStop
       address:
         EU: 0x2008194
         NA: 0x2008194
@@ -920,10 +920,10 @@ arm9:
       description: |-
         Finalizes data transfer from the ROM cartridge.
         
-        This function must always be called if FileRom_InitDataTransfer was called, or the game will crash.
+        This function must always be called if DataTransferInit was called, or the game will crash.
         
         No params.
-    - name: FileRom_Veneer_FileInit
+    - name: FileInitVeneer
       address:
         EU: 0x2008204
         NA: 0x2008204
@@ -934,7 +934,7 @@ arm9:
         See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
         
         r0: file_stream pointer
-    - name: FileRom_HandleOpen
+    - name: FileOpen
       address:
         EU: 0x2008210
         NA: 0x2008210
@@ -954,7 +954,7 @@ arm9:
         
         r0: file_stream pointer
         return: file size
-    - name: FileRom_HandleRead
+    - name: FileRead
       address:
         EU: 0x2008254
         NA: 0x2008254
@@ -962,15 +962,15 @@ arm9:
       description: |-
         Reads the contents of a file into the given buffer, and moves the file cursor accordingly.
         
-        Data transfer mode must have been initialized (with FileRom_InitDataTransfer) prior to calling this function. This function looks like it's doing something akin to calling read(2) or fread(3) in a loop until all the bytes have been successfully read.
+        Data transfer mode must have been initialized (with DataTransferInit) prior to calling this function. This function looks like it's doing something akin to calling read(2) or fread(3) in a loop until all the bytes have been successfully read.
         
-        Note: If code is running from IRQ mode, it appears that FileRom_HandleRead hangs the game. When the processor mode is forced into SYSTEM mode FileRom_HandleRead once again works, so it appears that ROM access only works in certain processor modes. Note that forcing the processor into a different mode is generally a bad idea and should be avoided as it will easily corrupt that processor mode's states.
+        Note: If code is running from IRQ mode, it appears that FileRead hangs the game. When the processor mode is forced into SYSTEM mode FileRead once again works, so it appears that ROM access only works in certain processor modes. Note that forcing the processor into a different mode is generally a bad idea and should be avoided as it will easily corrupt that processor mode's states.
         
         r0: file_stream pointer
         r1: [output] buffer
         r2: number of bytes to read
         return: number of bytes read
-    - name: FileRom_HandleSeek
+    - name: FileSeek
       address:
         EU: 0x20082A8
         NA: 0x20082A8
@@ -994,7 +994,7 @@ arm9:
       description: |-
         Closes a file.
         
-        Data transfer mode must have been initialized (with FileRom_InitDataTransfer) prior to calling this function.
+        Data transfer mode must have been initialized (with DataTransferInit) prior to calling this function.
         
         Note: It is possible to keep a file stream open even if data transfer mode has been stopped, in which case the file stream can be used again if data transfer mode is reinitialized.
         
@@ -1051,7 +1051,7 @@ arm9:
         
         r0: screen_fade
         return: int
-    - name: Debug_Init
+    - name: InitDebug
       address:
         EU: 0x200C15C
         NA: 0x200C0D4
@@ -1059,7 +1059,7 @@ arm9:
       description: |-
         Would have initialized debugging-related things, if they were not removed.
         As for the release version, does nothing but set DEBUG_IS_INITIALIZED to true.
-    - name: Debug_InitDebugFlag
+    - name: InitDebugFlag
       address:
         EU: 0x200C194
         NA: 0x200C10C
@@ -1067,7 +1067,7 @@ arm9:
       description: |-
         Would have initialized the debug flags.
         Does nothing in release binary.
-    - name: Debug_GetDebugFlag
+    - name: GetDebugFlag
       address:
         EU: 0x200C198
         NA: 0x200C110
@@ -1077,7 +1077,7 @@ arm9:
         
         r0: flag ID
         return: flag value
-    - name: Debug_SetDebugFlag
+    - name: SetDebugFlag
       address:
         EU: 0x200C1A0
         NA: 0x200C118
@@ -1087,7 +1087,7 @@ arm9:
         
         r0: flag ID
         r1: flag value
-    - name: Debug_Stripped6
+    - name: InitDebugStripped6
       address:
         EU: 0x200C1A4
         NA: 0x200C11C
@@ -1107,13 +1107,13 @@ arm9:
         r1: program position info
         r2: base message
         return: number of characters printed, excluding the null-terminator
-    - name: Debug_Stripped5
+    - name: InitDebugStripped5
       address:
         EU: 0x200C1F0
         NA: 0x200C168
         JP: 0x200C168
       description: "Does nothing, only called in the debug initialization function."
-    - name: Debug_PrintTrace
+    - name: DebugPrintTrace
       address:
         EU: 0x200C1F4
         NA: 0x200C16C
@@ -1140,11 +1140,11 @@ arm9:
         
         This still constructs the string with vsprintf, but doesn't actually do anything with it in the final binary.
         
-        Identical to Debug_Print0 in release builds.
+        Identical to DebugPrint0 in release builds.
         
         r0: format
         ...: variadic
-    - name: Debug_Print0
+    - name: DebugPrint0
       address:
         EU:
           - 0x200C284
@@ -1161,7 +1161,7 @@ arm9:
         
         r0: format
         ...: variadic
-    - name: Debug_InitLogFlag
+    - name: InitDebugLogFlag
       address:
         EU: 0x200C2B8
         NA: 0x200C230
@@ -1169,7 +1169,7 @@ arm9:
       description: |-
         Would have initialized the debug log flags.
         Does nothing in release binary.
-    - name: Debug_GetLogFlag
+    - name: GetDebugLogFlag
       address:
         EU: 0x200C2BC
         NA: 0x200C234
@@ -1179,7 +1179,7 @@ arm9:
         
         r0: flag ID
         return: flag value
-    - name: Debug_SetLogFlag
+    - name: SetDebugLogFlag
       address:
         EU: 0x200C2C4
         NA: 0x200C23C
@@ -1189,7 +1189,7 @@ arm9:
         
         r0: flag ID
         r1: flag value
-    - name: Debug_Print
+    - name: DebugPrint
       address:
         EU: 0x200C2C8
         NA: 0x200C240
@@ -1200,31 +1200,31 @@ arm9:
         r0: log level
         r1: format
         ...: variadic
-    - name: Debug_Stripped4
+    - name: InitDebugStripped4
       address:
         EU: 0x200C2D4
         NA: 0x200C24C
         JP: 0x200C24C
       description: "Does nothing, only called in the debug initialization function."
-    - name: Debug_Stripped3
+    - name: InitDebugStripped3
       address:
         EU: 0x200C2D8
         NA: 0x200C250
         JP: 0x200C250
       description: "Does nothing, only called in the debug initialization function."
-    - name: Debug_Stripped2
+    - name: InitDebugStripped2
       address:
         EU: 0x200C2DC
         NA: 0x200C254
         JP: 0x200C254
       description: "Does nothing, only called in the debug initialization function."
-    - name: Debug_Stripped1
+    - name: InitDebugStripped1
       address:
         EU: 0x200C2E0
         NA: 0x200C258
         JP: 0x200C258
       description: "Does nothing, only called in the debug initialization function."
-    - name: Debug_FatalError
+    - name: FatalError
       address:
         EU: 0x200C2E4
         NA: 0x200C25C
@@ -1237,39 +1237,39 @@ arm9:
         r0: program position info
         r1: format
         ...: variadic
-    - name: DirectoryFileMngr_ExtractAllDirectoryFiles
+    - name: OpenAllPackFiles
       address:
         EU: 0x200C364
         NA: 0x200C2DC
         JP: 0x200C2DC
       description: |-
-        Open the 6 files at DIRECTORY_FILE_TABLE into DIRECTORY_FILES_EXTRACTED. Called during game initialization.
+        Open the 6 files at PACK_FILE_PATHS_TABLE into PACK_FILES_OPENED. Called during game initialization.
         
         No params.
-    - name: DirectoryFileMngr_GetDirectoryFileSize
+    - name: GetFileLengthInPackWithPackNb
       address:
         EU: 0x200C3C4
         NA: 0x200C33C
         JP: 0x200C33C
       description: |-
-        Call DirectoryFile_GetDirectoryFileSize after looking up the global Pack archive by its number
+        Call GetFileLengthInPack after looking up the global Pack archive by its number
         
         r0: pack file number
         r1: file number
         return: size of the file in bytes from the Pack Table of Content
-    - name: DirectoryFileMngr_LoadDirectoryFile
+    - name: LoadFileInPackWithPackId
       address:
         EU: 0x200C3E4
         NA: 0x200C35C
         JP: 0x200C35C
       description: |-
-        Call DirectoryFile_LoadDirectoryFile after looking up the global Pack archive by its identifier
+        Call LoadFileInPack after looking up the global Pack archive by its identifier
         
         r0: pack file identifier
         r1: file index
         r2: [output] target buffer
         return: number of read bytes (identical to the length of the pack from the Table of Content)
-    - name: DirectoryFileMngr_OpenDirectoryFile
+    - name: AllocAndLoadFileInPack
       address:
         EU: 0x200C410
         NA: 0x200C388
@@ -1282,7 +1282,7 @@ arm9:
         r1: file index
         r2: [output] result struct (will contain length and pointer)
         r3: allocation flags
-    - name: DirectoryFile_ExtractDirectoryFile
+    - name: OpenPackFile
       address:
         EU: 0x200C468
         NA: 0x200C3E0
@@ -1292,7 +1292,7 @@ arm9:
         
         r0: [output] pack file struct
         r1: file name
-    - name: DirectoryFile_GetDirectoryFileSize
+    - name: GetFileLengthInPack
       address:
         EU: 0x200C4FC
         NA: 0x200C474
@@ -1303,7 +1303,7 @@ arm9:
         r0: pack file struct
         r1: file index
         return: size of the file in bytes from the Pack Table of Content
-    - name: DirectoryFile_LoadDirectoryFile
+    - name: LoadFileInPack
       address:
         EU: 0x200C50C
         NA: 0x200C484
@@ -9751,7 +9751,7 @@ arm9:
         Checks if a mission contains valid fields.
         
         For example, a mission will be considered invalid if the ID of the monsters or items involved are out of bounds, if their entries are marked as invalid, if the destination floor does not exist, etc.
-        If the mission fails one of the checks, the game will print an error message explaining what is wrong using Debug_Print0.
+        If the mission fails one of the checks, the game will print an error message explaining what is wrong using DebugPrint0.
         
         r0: mission to check
         return: True if the mission is valid, false if it's not.
@@ -12193,7 +12193,7 @@ arm9:
         NA: 0x20AF698
       length:
         NA: 0x1
-    - name: DIRECTORY_FILES_EXTRACTED
+    - name: PACK_FILES_OPENED
       address:
         EU: 0x20AFF54
         NA: 0x20AF69C
@@ -12201,10 +12201,10 @@ arm9:
         EU: 0x4
         NA: 0x4
       description: |-
-        [Runtime] A pointer to the 6 opened Pack files (listed at DIRECTORY_FILE_TABLE)
+        [Runtime] A pointer to the 6 opened Pack files (listed at PACK_FILE_PATHS_TABLE)
         
         type: struct pack_file_opened*
-    - name: DIRECTORY_FILE_TABLE
+    - name: PACK_FILE_PATHS_TABLE
       address:
         EU: 0x20AFF58
         NA: 0x20AF6A0

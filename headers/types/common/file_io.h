@@ -65,7 +65,7 @@ struct pack_file_opened {
 };
 ASSERT_SIZE(struct pack_file_opened, 84);
 
-// Data to return result of the DirectoryFileMngr_OpenDirectoryFile function
+// Data to return result of the AllocAndLoadFileInPack function
 struct pack_alloc_and_load_result {
     void* data;
     uint32_t length;

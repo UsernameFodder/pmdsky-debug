@@ -89,50 +89,48 @@ bool GetHeldButtons(int controller, undefined* btn_ptr);
 bool GetPressedButtons(int controller, undefined* btn_ptr);
 bool GetReleasedStylus(undefined* stylus_ptr);
 void KeyWaitInit(void);
-void FileRom_InitDataTransfer(void);
-void FileRom_StopDataTransfer(void);
-void FileRom_Veneer_FileInit(struct file_stream* file);
-void FileRom_HandleOpen(struct file_stream* file, const char* filepath);
+void DataTransferInit(void);
+void DataTransferStop(void);
+void FileInitVeneer(struct file_stream* file);
+void FileOpen(struct file_stream* file, const char* filepath);
 uint32_t FileGetSize(struct file_stream* file);
-uint32_t FileRom_HandleRead(struct file_stream* file, void* buf, uint32_t size);
-void FileRom_HandleSeek(struct file_stream* file, int offset, int whence);
+uint32_t FileRead(struct file_stream* file, void* buf, uint32_t size);
+void FileSeek(struct file_stream* file, int offset, int whence);
 void FileClose(struct file_stream* file);
 void UnloadFile(void* ptr);
 void LoadFileFromRom(struct iovec* iov, const char* filepath, uint32_t flags);
 void UpdateFadeStatus(struct screen_fade* fstruct, int param_2, int duration);
 bool HandleFades(struct screen_fade* fstruct);
 int GetFadeStatus(struct screen_fade* fstruct);
-void Debug_Init(void);
-void Debug_InitDebugFlag(void);
-bool Debug_GetDebugFlag(enum debug_flag flag);
-void Debug_SetDebugFlag(enum debug_flag flag, bool val);
-void Debug_Stripped6(void);
+void InitDebug(void);
+void InitDebugFlag(void);
+bool GetDebugFlag(enum debug_flag flag);
+void SetDebugFlag(enum debug_flag flag, bool val);
+void InitDebugStripped6(void);
 int AppendProgPos(char* str, struct prog_pos_info* prog_pos, const char* msg);
-void Debug_Stripped5(void);
-void Debug_PrintTrace(const char* msg, struct prog_pos_info* prog_pos);
+void InitDebugStripped5(void);
+void DebugPrintTrace(const char* msg, struct prog_pos_info* prog_pos);
 void DebugDisplay(const char* fmt, ...);
-void Debug_Print0(const char* fmt, ...);
-void Debug_InitLogFlag(void);
-bool Debug_GetLogFlag(enum debug_log_flag flag);
-void Debug_SetLogFlag(enum debug_log_flag flag, bool val);
-void Debug_Print(uint8_t level, const char* fmt, ...);
-void Debug_Stripped4(void);
-void Debug_Stripped3(void);
-void Debug_Stripped2(void);
-void Debug_Stripped1(void);
-void Debug_FatalError(struct prog_pos_info prog_pos, const char* fmt, ...);
-void DirectoryFileMngr_ExtractAllDirectoryFiles(void);
-uint32_t DirectoryFileMngr_GetDirectoryFileSize(enum pack_file_id pack_id, uint32_t file_index);
-uint32_t DirectoryFileMngr_LoadDirectoryFile(enum pack_file_id pack_id, uint32_t file_index,
-                                             void* output_buffer);
-void DirectoryFileMngr_OpenDirectoryFile(enum pack_file_id pack_id, uint32_t file_index,
-                                         struct pack_alloc_and_load_result* output,
-                                         uint32_t malloc_flags);
-void DirectoryFile_ExtractDirectoryFile(struct pack_file_opened* pack_file, const char* file_name);
-uint32_t DirectoryFile_GetDirectoryFileSize(struct pack_file_opened* pack_file,
-                                            uint32_t file_index);
-uint32_t DirectoryFile_LoadDirectoryFile(struct pack_file_opened* pack_file, void* output_buffer,
-                                         uint32_t file_index);
+void DebugPrint0(const char* fmt, ...);
+void InitDebugLogFlag(void);
+bool GetDebugLogFlag(enum debug_log_flag flag);
+void SetDebugLogFlag(enum debug_log_flag flag, bool val);
+void DebugPrint(uint8_t level, const char* fmt, ...);
+void InitDebugStripped4(void);
+void InitDebugStripped3(void);
+void InitDebugStripped2(void);
+void InitDebugStripped1(void);
+void FatalError(struct prog_pos_info prog_pos, const char* fmt, ...);
+void OpenAllPackFiles(void);
+uint32_t GetFileLengthInPackWithPackNb(enum pack_file_id pack_id, uint32_t file_index);
+uint32_t LoadFileInPackWithPackId(enum pack_file_id pack_id, uint32_t file_index,
+                                  void* output_buffer);
+void AllocAndLoadFileInPack(enum pack_file_id pack_id, uint32_t file_index,
+                            struct pack_alloc_and_load_result* output, uint32_t malloc_flags);
+void OpenPackFile(struct pack_file_opened* pack_file, const char* file_name);
+uint32_t GetFileLengthInPack(struct pack_file_opened* pack_file, uint32_t file_index);
+uint32_t LoadFileInPack(struct pack_file_opened* pack_file, void* output_buffer,
+                        uint32_t file_index);
 void GetDungeonResultMsg(union damage_source damage_source_or_result, char* buffer, int buffer_size,
                          undefined* param_4);
 union damage_source GetDamageSource(enum move_id, enum item_id);
