@@ -314,6 +314,7 @@ impl Merge for SymbolList {
         for symbol in other.iter() {
             match name_to_idx.get(&symbol.name) {
                 Some(&i) => unsafe {
+                    // # Safety
                     // Never out of bounds since it comes from the list, which never shrinks
                     MergeConflict::wrap(self.get_unchecked_mut(i).merge(symbol), &symbol.name)?;
                 },
@@ -456,36 +457,67 @@ impl Merge for SymGen {
     }
 }
 
+type IndexMap = HashMap<String, usize>;
+
+/// Subsidiary type to [`SymbolManager`] for interacting with a particular [`SymbolList`].
+struct SymbolListManager<'m, 's> {
+    imap: &'m mut IndexMap,
+    slist: &'s mut SymbolList,
+}
+
+impl<'m, 's> SymbolListManager<'m, 's> {
+    /// Gets a mutable reference to a [`Symbol`] from within the managed [`SymbolList`] with a name
+    /// matching the given `symbol`, if present. Otherwise, appends `symbol` onto `slist`, update
+    /// the manager cache, and return `None`.
+    fn get_or_insert(self, symbol: &Symbol) -> Option<&'s mut Symbol> {
+        if let Some(idx) = self.imap.get(&symbol.name).copied() {
+            // # Safety
+            // The only way to get a `SymbolListManager` instance is by calling
+            // `SymbolManager::manage_list()`, which requires that a given cache key (and thus
+            // `imap`) must always correspond to the same `slist`. Since `imap` is constructed to
+            // be an index map into `slist`, this means that any value within `imap` should be a
+            // valid index, so we can skip the check.
+            return Some(unsafe { self.slist.get_unchecked_mut(idx) });
+        }
+        self.imap.insert(symbol.name.clone(), self.slist.len());
+        self.slist.push(symbol.clone());
+        None
+    }
+}
+
 type BySymbolListId<T> = HashMap<Option<PathBuf>, HashMap<String, HashMap<SymbolType, T>>>;
 
 /// For [`SymbolList`] lookup and insertion, managed by a cache that stores
 /// index by subregion path, by block name, by symbol type, by symbol name.
-struct SymbolManager(BySymbolListId<HashMap<String, usize>>);
+struct SymbolManager(BySymbolListId<IndexMap>);
 
 impl SymbolManager {
     fn new() -> Self {
         Self(HashMap::new())
     }
 
-    /// Gets a mutable reference to a [`Symbol`] from within `slist`, with the given
-    /// cache key (`block_name`, `symbol_type`, `symbol_name`), if present in `slist`.
-    /// If the symbol is present but not within the [`SymbolManager`] cache, it will be
-    /// added the cache for future lookups.
-    fn get<'s>(
+    /// Put the given [`SymbolList`] under the management of the [`SymbolManager`], and return a
+    /// [`SymbolListManager`] through which to interact with the [`SymbolList`],
+    ///
+    /// If this [`SymbolList`] has not been seen by the manager yet, its entries will be indexed
+    /// by symbol name for future cache lookups.
+    ///
+    /// # Safety
+    /// `slist` must always be the same for a given (`subregion_path`, `block_name`, `symbol_type`).
+    unsafe fn manage_list<'s>(
         &mut self,
         slist: &'s mut SymbolList,
         subregion_path: &Option<PathBuf>,
         block_name: &str,
         symbol_type: &SymbolType,
-        symbol_name: &str,
-    ) -> Option<&'s mut Symbol> {
-        let idx = if let Some(imap) = self
+    ) -> SymbolListManager<'_, 's> {
+        let imap_ref: &mut IndexMap = if let Some(imap) = self
             .0
-            .get(subregion_path)
-            .and_then(|m| m.get(block_name))
-            .and_then(|m| m.get(symbol_type))
+            .get_mut(subregion_path)
+            .and_then(|m| m.get_mut(block_name))
+            .and_then(|m| m.get_mut(symbol_type))
         {
-            imap.get(symbol_name).copied()
+            imap
         } else {
             let imap = slist.iter().enumerate().fold(
                 HashMap::with_capacity(slist.len()),
@@ -497,38 +529,25 @@ impl SymbolManager {
                     m
                 },
             );
-            let i = imap.get(symbol_name).copied();
             self.0
                 .entry(subregion_path.clone())
                 .or_default()
                 .entry(block_name.to_owned())
                 .or_default()
                 .entry(*symbol_type)
-                .or_insert(imap);
-            i
+                .or_insert(imap)
         };
-        idx.map(move |i| unsafe { slist.get_unchecked_mut(i) })
-    }
-
-    /// Appends `symbol` onto `slist`, and update the [`SymbolManager`] cache with a given
-    /// `block_name` and `symbol_type`.
-    fn insert(
-        &mut self,
-        slist: &mut SymbolList,
-        subregion_path: &Option<PathBuf>,
-        block_name: &str,
-        symbol_type: &SymbolType,
-        symbol: Symbol,
-    ) {
-        if let Some(imap) = self
-            .0
-            .get_mut(subregion_path)
-            .and_then(|m| m.get_mut(block_name))
-            .and_then(|m| m.get_mut(symbol_type))
-        {
-            imap.insert(symbol.name.clone(), slist.len());
+        SymbolListManager {
+            // # Safety
+            // imap_ref will always be a mutable reference to some value in self.0. Since we need
+            // to return this reference (with the same lifetime as self), it forces the mutable
+            // borrows against self.0 in both arms of the if-else clause to have the self lifetime,
+            // which causes the borrow checker to complain because the mutable references "overlap",
+            // even though they're mutually exclusive. To silence the borrow checker, just cast
+            // imap_ref to a pointer and back to a reference.
+            imap: unsafe { &mut *(imap_ref as *mut IndexMap) },
+            slist,
         }
-        slist.push(symbol);
     }
 }
 
@@ -665,6 +684,7 @@ impl SymGen {
                 }
             }
             if let Some(block_match) = block_matches.resolve(&to_add.symbol.name)? {
+                // # Safety
                 // block_match contains direct references into a block in a subregion, which itself
                 // is contained within block.subregions. This means that if we try to return it
                 // directly, the compiler will infer the lifetimes of the references within
@@ -720,26 +740,24 @@ impl SymGen {
                 SymbolType::Function => &mut block.functions,
                 SymbolType::Data => &mut block.data,
             };
-            let sym = sym_manager.get(slist, &sub_path, bname, &to_add.stype, &to_add.symbol.name);
-            match sym {
-                Some(s) => {
-                    let to_merge = if let Some(vers) = &block.versions {
-                        let mut cpy = to_add.symbol.clone();
-                        cpy.expand_versions(vers);
-                        Cow::Owned(cpy)
-                    } else {
-                        Cow::Borrowed(&to_add.symbol)
-                    };
-                    s.merge(&to_merge).map_err(MergeError::Conflict)?;
-                }
-                None => sym_manager.insert(
-                    slist,
-                    &sub_path,
-                    bname,
-                    &to_add.stype,
-                    to_add.symbol.clone(),
-                ),
+            let list_manager = unsafe {
+                // # Safety
+                // `assignment` (`sub_path`, `bname`, `block` -> `slist`) always come from
+                // `to_add` via `self.assign_block()`, which always returns references into self.
+                // This means that for a given (`sub_path`, `bname, `to_add.stype`), `slist` will
+                // always be the same list. This satisfies the invariant of `manage_list`.
+                sym_manager.manage_list(slist, &sub_path, bname, &to_add.stype)
             };
+            if let Some(sym) = list_manager.get_or_insert(&to_add.symbol) {
+                let to_merge = if let Some(vers) = &block.versions {
+                    let mut cpy = to_add.symbol.clone();
+                    cpy.expand_versions(vers);
+                    Cow::Owned(cpy)
+                } else {
+                    Cow::Borrowed(&to_add.symbol)
+                };
+                sym.merge(&to_merge).map_err(MergeError::Conflict)?;
+            }
         }
         // Reinit because merging can introduce new OrdStrings/Versions
         self.init();
