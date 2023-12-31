@@ -150,7 +150,7 @@ impl Ord for Symbol {
 }
 
 /// A concrete realization of a [`Symbol`] for some [`Version`] (which can be [`None`]).
-#[derive(Debug, PartialEq, Eq, Clone, Copy, Serialize, Deserialize)]
+#[derive(Debug, PartialEq, Eq, Clone, Copy, Serialize)]
 pub struct RealizedSymbol<'a> {
     pub name: &'a str,
     pub address: Uint,
