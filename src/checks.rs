@@ -407,7 +407,7 @@ fn check_unique_symbols(symgen: &SymGen) -> Result<(), String> {
     let mut duplicate_subregions: BTreeMap<&OrdString, HashSet<&Path>> = BTreeMap::new();
     for (bname, b) in symgen.iter() {
         let mut names: HashSet<&str> = HashSet::new();
-        for name in b.iter().map(|s| &s.name) {
+        for name in b.iter().flat_map(|s| s.iter_names()) {
             if !names.insert(name) {
                 duplicate_names.entry(bname).or_default().insert(name);
             }
@@ -496,7 +496,8 @@ fn check_unique_symbols_across_subregions(symgen: &SymGen) -> Result<(), String>
 
         for block in cursor.dtraverse() {
             let path = path_cache.get(block.path());
-            let symbols: HashSet<&str> = block.block().iter().map(|s| s.name.as_ref()).collect();
+            let symbols: HashSet<&str> =
+                block.block().iter().flat_map(|s| s.iter_names()).collect();
             for symbol in symbols {
                 all_symbols
                     .entry(symbol)
@@ -870,6 +871,11 @@ where
         for s in block_iter(b) {
             if !NamingConvention::check_multiple(convs, &s.name) {
                 bad_names.entry(bname).or_default().insert(&s.name);
+            }
+            for a in s.iter_aliases() {
+                if !NamingConvention::check_multiple(convs, a) {
+                    bad_names.entry(bname).or_default().insert(a);
+                }
             }
         }
     }
@@ -1443,6 +1449,36 @@ mod tests {
     }
 
     #[test]
+    fn test_unique_symbols_with_aliases() {
+        let mut symgen = get_test_symgen();
+        assert!(check_unique_symbols(&symgen).is_ok());
+
+        let block = get_main_block(&mut symgen);
+        // Give one function an alias that clashes with another symbol
+        block
+            .functions
+            .get_mut(0)
+            .expect("symgen has no functions")
+            .aliases = Some(vec![block.functions[1].name.clone()]);
+        assert!(check_unique_symbols(&symgen).is_err());
+
+        let mut symgen = get_test_symgen();
+        let block = get_main_block(&mut symgen);
+        // Give functions clashing aliases
+        block
+            .functions
+            .get_mut(0)
+            .expect("symgen has no functions")
+            .aliases = Some(vec!["alias".to_string()]);
+        block
+            .functions
+            .get_mut(1)
+            .expect("symgen doesn't have two functions")
+            .aliases = Some(vec!["alias".to_string()]);
+        assert!(check_unique_symbols(&symgen).is_err());
+    }
+
+    #[test]
     fn test_unique_subregions() {
         let mut symgen = get_test_symgen_with_subregions();
         assert!(check_unique_symbols(&symgen).is_ok());
@@ -1469,6 +1505,25 @@ mod tests {
             .next()
             .expect("subregion block has no functions")
             .clone();
+        let block = get_main_block(&mut symgen);
+        block.functions.push(symbol);
+        assert!(check_unique_symbols_across_subregions(&symgen).is_err());
+    }
+
+    #[test]
+    fn test_unique_symbols_with_aliases_across_subregions() {
+        let mut symgen = get_test_symgen_with_subregions();
+        assert!(check_unique_symbols_across_subregions(&symgen).is_ok());
+
+        // Insert an aliased copy of a subregion's symbol into the main block
+        let mut symbol = get_subregion_block(&mut symgen, 0)
+            .functions
+            .iter()
+            .next()
+            .expect("subregion block has no functions")
+            .clone();
+        symbol.aliases = Some(vec![symbol.name]);
+        symbol.name = "aliased_fn".to_string();
         let block = get_main_block(&mut symgen);
         block.functions.push(symbol);
         assert!(check_unique_symbols_across_subregions(&symgen).is_err());
@@ -1639,6 +1694,7 @@ mod tests {
         let block = get_main_block(&mut symgen);
         block.functions.push(Symbol {
             name: String::from("main_fn"),
+            aliases: None,
             address: MaybeVersionDep::ByVersion([("v1".into(), [address].into())].into()),
             length: None,
             description: None,
@@ -1677,6 +1733,29 @@ mod tests {
         let block = get_main_block(&mut symgen);
         // Set the data to have the wrong case
         block.data.get_mut(0).expect("symgen has no data").name = "snake_case".to_string();
+        assert!(check_data_names(&symgen, &[NamingConvention::ScreamingSnakeCase].into()).is_err());
+    }
+
+    #[test]
+    fn test_symbols_alias_name_check() {
+        let mut symgen = get_test_symgen();
+        assert!(check_function_names(&symgen, &[NamingConvention::SnakeCase].into()).is_ok());
+        assert!(check_data_names(&symgen, &[NamingConvention::ScreamingSnakeCase].into()).is_ok());
+
+        let block = get_main_block(&mut symgen);
+        // Set the function to have an alias with the wrong case
+        block
+            .functions
+            .get_mut(0)
+            .expect("symgen has no functions")
+            .aliases = Some(vec!["PascalCase".to_string()]);
+        assert!(check_function_names(&symgen, &[NamingConvention::SnakeCase].into()).is_err());
+
+        // reborrow
+        let block = get_main_block(&mut symgen);
+        // Set the data to have an alias with the wrong case
+        block.data.get_mut(0).expect("symgen has no data").aliases =
+            Some(vec!["snake_case".to_string()]);
         assert!(check_data_names(&symgen, &[NamingConvention::ScreamingSnakeCase].into()).is_err());
     }
 }

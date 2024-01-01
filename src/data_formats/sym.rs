@@ -2,7 +2,7 @@
 //!
 //! The SYM format is a simple symbol table format. Each symbol is listed on a separate line, and
 //! consists of a memory address (as a raw, 8-character hexadecimal number) and a name separated
-//! by spaces.
+//! by spaces. Symbols are always listed by their primary name; any aliases are ignored.
 //!
 //! # Example
 //! ```csv
@@ -51,6 +51,7 @@ impl Generate for SymFormatter {
             .has_headers(false)
             .from_writer(writer);
         for s in symgen.symbols_realized(version) {
+            // NOTE: aliases are ignored here on purpose; only write the primary name
             wtr.serialize(Entry {
                 address: s.address,
                 name: s.name,
@@ -80,6 +81,8 @@ mod tests {
               description: foo
               functions:
                 - name: fn1
+                  aliases:
+                    - fn1_alias
                   address:
                     v1: 0x2000000
                     v2: 0x2002000

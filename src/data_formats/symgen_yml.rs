@@ -34,6 +34,9 @@
 //!     - sub2.yml
 //!   functions:
 //!     - name: function1
+//!       aliases:
+//!         - function1_alias1
+//!         - function1_alias2
 //!       address:
 //!         v1: 0x2001000
 //!         v2: 0x2012000

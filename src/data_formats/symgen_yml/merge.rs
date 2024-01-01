@@ -8,6 +8,7 @@ use std::borrow::Cow;
 use std::collections::HashMap;
 use std::error::Error;
 use std::fmt::{self, Debug, Display, Formatter};
+use std::ops::Deref;
 use std::path::{Path, PathBuf};
 
 use super::adapter::{AddSymbol, SymbolType};
@@ -274,7 +275,7 @@ fn truncate(s: &str) -> String {
 
 impl Merge for Symbol {
     fn merge(&mut self, other: &Self) -> Result<(), MergeConflict> {
-        if self.name != other.name {
+        if !self.iter_names().any(|n| n == other.name) {
             return Err(MergeConflict::new(&self.name, &other.name));
         }
         if let Some(other_desc) = &other.description {
@@ -300,6 +301,20 @@ impl Merge for Symbol {
                 Some(len) => MergeConflict::wrap(len.merge(other_len), "length")?,
             };
         }
+        // Slight optimization since most merges probably won't involve aliases
+        if self.name != other.name || other.aliases.is_some() {
+            let mut aliases = self.aliases.clone().unwrap_or_default();
+            for alias in other.iter_names().filter(|&n| n != self.name) {
+                // We don't expect more than a few aliases, so a linear search is probably going
+                // to be faster than a using a set
+                if !aliases.iter().any(|a| a == alias) {
+                    aliases.push(alias.to_owned());
+                }
+            }
+            if !aliases.is_empty() {
+                self.aliases = Some(aliases);
+            }
+        }
         Ok(())
     }
 }
@@ -309,7 +324,8 @@ impl Merge for SymbolList {
         let mut name_to_idx: HashMap<_, _> = self
             .iter()
             .enumerate()
-            .map(|(i, s)| (s.name.clone(), i))
+            // look for matches on all symbol names, including aliases
+            .flat_map(|(i, s)| s.iter_names().map(move |n| (n.to_owned(), i)))
             .collect();
         for symbol in other.iter() {
             match name_to_idx.get(&symbol.name) {
@@ -479,7 +495,15 @@ impl<'m, 's> SymbolListManager<'m, 's> {
             // valid index, so we can skip the check.
             return Some(unsafe { self.slist.get_unchecked_mut(idx) });
         }
-        self.imap.insert(symbol.name.clone(), self.slist.len());
+        let new_idx = self.slist.len();
+        self.imap.insert(symbol.name.clone(), new_idx);
+        for alias in symbol.iter_aliases() {
+            // The new symbol's aliases could still overlap with some other name, even if its
+            // primary name doesn't, so we still need to check this
+            if !self.imap.contains_key(alias) {
+                self.imap.insert(alias.to_owned(), new_idx);
+            }
+        }
         self.slist.push(symbol.clone());
         None
     }
@@ -519,12 +543,18 @@ impl SymbolManager {
         {
             imap
         } else {
-            let imap = slist.iter().enumerate().fold(
+            let name_iter = slist.iter().enumerate().map(|(i, s)| (i, s.name.deref()));
+            let alias_iter = slist
+                .iter()
+                .enumerate()
+                .flat_map(|(i, s)| s.iter_aliases().map(move |a| (i, a)));
+            let imap = name_iter.chain(alias_iter).fold(
                 HashMap::with_capacity(slist.len()),
                 |mut m, (i, x)| {
-                    // Give the first appearance of a symbol name precedence
-                    if !m.contains_key(&x.name) {
-                        m.insert(x.name.clone(), i);
+                    // Give the first appearance of a symbol name precedence, and give primary
+                    // names precedence over aliases
+                    if !m.contains_key(x) {
+                        m.insert(x.to_owned(), i);
                     }
                     m
                 },
@@ -918,6 +948,7 @@ mod tests {
     fn test_merge_symbol() {
         let mut x = Symbol {
             name: "function".to_string(),
+            aliases: None,
             address: MaybeVersionDep::ByVersion(
                 [("v1".into(), 1.into()), ("v2".into(), 2.into())].into(),
             ),
@@ -927,6 +958,7 @@ mod tests {
         assert!(x
             .merge(&Symbol {
                 name: "function".to_string(),
+                aliases: None,
                 address: MaybeVersionDep::ByVersion([("v3".into(), 3.into())].into()),
                 length: Some(MaybeVersionDep::Common(5)),
                 description: Some("desc".to_string()),
@@ -936,6 +968,7 @@ mod tests {
             &x,
             &Symbol {
                 name: "function".to_string(),
+                aliases: None,
                 address: MaybeVersionDep::ByVersion(
                     [
                         ("v1".into(), 1.into()),
@@ -952,9 +985,71 @@ mod tests {
         assert!(x
             .merge(&Symbol {
                 name: "function".to_string(),
+                aliases: None,
                 address: MaybeVersionDep::ByVersion([("v3".into(), 3.into())].into()),
                 length: None,
                 description: Some("other desc".to_string()),
+            })
+            .is_err())
+    }
+
+    #[test]
+    fn test_merge_symbol_aliases() {
+        let mut x = Symbol {
+            name: "function".to_string(),
+            aliases: Some(vec!["function_alias1".to_string()]),
+            address: MaybeVersionDep::Common(1.into()),
+            length: None,
+            description: None,
+        };
+        assert!(x
+            .merge(&Symbol {
+                name: "function".to_string(),
+                aliases: None,
+                address: MaybeVersionDep::Common(1.into()),
+                length: None,
+                description: None,
+            })
+            .is_ok());
+        assert!(x
+            .merge(&Symbol {
+                name: "function".to_string(),
+                aliases: Some(vec!["function_alias1".to_string()]), // should be deduped
+                address: MaybeVersionDep::Common(1.into()),
+                length: None,
+                description: None,
+            })
+            .is_ok());
+        assert!(x
+            .merge(&Symbol {
+                name: "function_alias1".to_string(),
+                aliases: Some(vec!["function_alias2".to_string(), "function".to_string()]),
+                address: MaybeVersionDep::Common(1.into()),
+                length: Some(MaybeVersionDep::Common(5)),
+                description: Some("desc".to_string()),
+            })
+            .is_ok());
+        assert_eq!(
+            &x,
+            &Symbol {
+                name: "function".to_string(),
+                aliases: Some(vec![
+                    "function_alias1".to_string(),
+                    "function_alias2".to_string()
+                ]),
+                address: MaybeVersionDep::Common(1.into()),
+                length: Some(MaybeVersionDep::Common(5)),
+                description: Some("desc".to_string()),
+            }
+        );
+
+        assert!(x
+            .merge(&Symbol {
+                name: "function_alias3".to_string(),
+                aliases: Some(vec!["function".to_string()]),
+                address: MaybeVersionDep::Common(1.into()),
+                length: None,
+                description: None,
             })
             .is_err())
     }
@@ -964,12 +1059,14 @@ mod tests {
         let mut x = SymbolList::from([
             Symbol {
                 name: "function1".to_string(),
+                aliases: None,
                 address: MaybeVersionDep::Common(1.into()),
                 length: None,
                 description: None,
             },
             Symbol {
                 name: "function2".to_string(),
+                aliases: Some(vec!["function2_alias".to_string()]),
                 address: MaybeVersionDep::Common(2.into()),
                 length: None,
                 description: None,
@@ -979,13 +1076,22 @@ mod tests {
             .merge(&SymbolList::from([
                 Symbol {
                     name: "function3".to_string(),
+                    aliases: Some(vec!["function3_alias".to_string()]),
                     address: MaybeVersionDep::Common(3.into()),
                     length: None,
                     description: None,
                 },
                 Symbol {
                     name: "function2".to_string(),
+                    aliases: None,
                     address: MaybeVersionDep::Common(4.into()),
+                    length: None,
+                    description: Some("desc".to_string()),
+                },
+                Symbol {
+                    name: "function2_alias".to_string(),
+                    aliases: Some(vec!["function2_alias2".to_string()]),
+                    address: MaybeVersionDep::Common(5.into()),
                     length: None,
                     description: Some("desc".to_string()),
                 },
@@ -996,18 +1102,24 @@ mod tests {
             &SymbolList::from([
                 Symbol {
                     name: "function1".to_string(),
+                    aliases: None,
                     address: MaybeVersionDep::Common(1.into()),
                     length: None,
                     description: None,
                 },
                 Symbol {
                     name: "function2".to_string(),
-                    address: MaybeVersionDep::Common([2, 4].into()),
+                    aliases: Some(vec![
+                        "function2_alias".to_string(),
+                        "function2_alias2".to_string()
+                    ]),
+                    address: MaybeVersionDep::Common([2, 4, 5].into()),
                     length: None,
                     description: Some("desc".to_string()),
                 },
                 Symbol {
                     name: "function3".to_string(),
+                    aliases: Some(vec!["function3_alias".to_string()]),
                     address: MaybeVersionDep::Common(3.into()),
                     length: None,
                     description: None,
@@ -1026,6 +1138,7 @@ mod tests {
             subregions: None,
             functions: [Symbol {
                 name: "function1".to_string(),
+                aliases: None,
                 address: MaybeVersionDep::ByVersion([("v1".into(), 1.into())].into()),
                 length: None,
                 description: None,
@@ -1042,6 +1155,7 @@ mod tests {
                 subregions: None,
                 functions: [Symbol {
                     name: "function2".to_string(),
+                    aliases: None,
                     address: MaybeVersionDep::ByVersion([("v2".into(), 1.into())].into()),
                     length: None,
                     description: None,
@@ -1049,6 +1163,7 @@ mod tests {
                 .into(),
                 data: [Symbol {
                     name: "data".to_string(),
+                    aliases: None,
                     address: MaybeVersionDep::ByVersion([("v1".into(), 1.into())].into()),
                     length: None,
                     description: None,
@@ -1067,12 +1182,14 @@ mod tests {
                 functions: [
                     Symbol {
                         name: "function1".to_string(),
+                        aliases: None,
                         address: MaybeVersionDep::ByVersion([("v1".into(), 1.into())].into()),
                         length: None,
                         description: None,
                     },
                     Symbol {
                         name: "function2".to_string(),
+                        aliases: None,
                         address: MaybeVersionDep::ByVersion([("v2".into(), 1.into())].into()),
                         length: None,
                         description: None,
@@ -1081,6 +1198,7 @@ mod tests {
                 .into(),
                 data: [Symbol {
                     name: "data".to_string(),
+                    aliases: None,
                     address: MaybeVersionDep::ByVersion([("v1".into(), 1.into())].into()),
                     length: None,
                     description: None,
@@ -1100,6 +1218,7 @@ mod tests {
             subregions: None,
             functions: [Symbol {
                 name: "function1".to_string(),
+                aliases: None,
                 address: MaybeVersionDep::ByVersion([("v1".into(), 1.into())].into()),
                 length: None,
                 description: None,
@@ -1117,12 +1236,14 @@ mod tests {
                 functions: [
                     Symbol {
                         name: "function1".to_string(),
+                        aliases: None,
                         address: MaybeVersionDep::Common(1.into()),
                         length: None,
                         description: None,
                     },
                     Symbol {
                         name: "function2".to_string(),
+                        aliases: None,
                         address: MaybeVersionDep::Common(1.into()),
                         length: None,
                         description: None,
@@ -1131,6 +1252,7 @@ mod tests {
                 .into(),
                 data: [Symbol {
                     name: "data".to_string(),
+                    aliases: None,
                     address: MaybeVersionDep::Common(1.into()),
                     length: None,
                     description: None,
@@ -1149,6 +1271,7 @@ mod tests {
                 functions: [
                     Symbol {
                         name: "function1".to_string(),
+                        aliases: None,
                         address: MaybeVersionDep::ByVersion(
                             [("v1".into(), 1.into()), ("v2".into(), 1.into())].into()
                         ),
@@ -1157,6 +1280,7 @@ mod tests {
                     },
                     Symbol {
                         name: "function2".to_string(),
+                        aliases: None,
                         address: MaybeVersionDep::ByVersion([("v2".into(), 1.into())].into()),
                         length: None,
                         description: None,
@@ -1165,6 +1289,7 @@ mod tests {
                 .into(),
                 data: [Symbol {
                     name: "data".to_string(),
+                    aliases: None,
                     address: MaybeVersionDep::ByVersion([("v2".into(), 1.into())].into()),
                     length: None,
                     description: None,
@@ -1187,6 +1312,8 @@ mod tests {
               description: foo
               functions:
                 - name: fn1
+                  aliases:
+                    - fn1_alias
                   address:
                     v1: 0x2001000
                   description: bar
@@ -1223,6 +1350,9 @@ mod tests {
                           length:
                             v1: 0x1000
                             v2: 0x1000
+                        - name: fn1_alias
+                          address:
+                            v3: 0x2003000
                         - name: fn2
                           address:
                             v1:
@@ -1269,9 +1399,12 @@ mod tests {
                   description: foo
                   functions:
                     - name: fn1
+                      aliases:
+                        - fn1_alias
                       address:
                         v1: 0x2001000
                         v2: 0x2002000
+                        v3: 0x2003000
                       length:
                         v1: 0x1000
                         v2: 0x1000
@@ -1490,6 +1623,7 @@ mod tests {
                 AddSymbol {
                     symbol: Symbol {
                         name: "fn1".to_string(),
+                        aliases: None,
                         address: MaybeVersionDep::ByVersion(
                             [("v1".into(), 0x2002000.into())].into(),
                         ),
@@ -1501,7 +1635,21 @@ mod tests {
                 },
                 AddSymbol {
                     symbol: Symbol {
+                        name: "fn1_alias".to_string(),
+                        aliases: Some(vec!["fn1_alias2".to_string()]),
+                        address: MaybeVersionDep::ByVersion(
+                            [("v1".into(), 0x2003000.into())].into(),
+                        ),
+                        length: None,
+                        description: None,
+                    },
+                    stype: SymbolType::Function,
+                    block_name: Some("main".to_string()),
+                },
+                AddSymbol {
+                    symbol: Symbol {
                         name: "SOME_DATA".to_string(),
+                        aliases: None,
                         address: MaybeVersionDep::ByVersion(
                             [("v1".into(), 0x2003000.into())].into(),
                         ),
@@ -1524,10 +1672,14 @@ mod tests {
                   description: foo
                   functions:
                     - name: fn1
+                      aliases:
+                        - fn1_alias
+                        - fn1_alias2
                       address:
                         v1:
                           - 0x2001000
                           - 0x2002000
+                          - 0x2003000
                       description: bar
                   data:
                     - name: SOME_DATA
@@ -1559,6 +1711,7 @@ mod tests {
         // Add a symbol for which block inference will fail
         let unmerged_symbol = Symbol {
             name: "fn3".to_string(),
+            aliases: None,
             address: MaybeVersionDep::ByVersion([("v1".into(), 0x2200000.into())].into()),
             length: None,
             description: None,
@@ -1638,6 +1791,7 @@ mod tests {
         let mut x = get_merge_target_with_subregions();
         let unmerged_symbol = Symbol {
             name: "unmerged".to_string(),
+            aliases: None,
             address: MaybeVersionDep::Common(0x100.into()),
             length: None,
             description: None,
@@ -1646,6 +1800,7 @@ mod tests {
             AddSymbol {
                 symbol: Symbol {
                     name: "main_fn".to_string(),
+                    aliases: None,
                     address: MaybeVersionDep::Common(0x80.into()),
                     length: None,
                     description: None,
@@ -1656,6 +1811,7 @@ mod tests {
             AddSymbol {
                 symbol: Symbol {
                     name: "sub1_data".to_string(),
+                    aliases: None,
                     address: MaybeVersionDep::Common(0x0.into()),
                     length: Some(MaybeVersionDep::Common(0x4)),
                     description: None,
@@ -1666,6 +1822,7 @@ mod tests {
             AddSymbol {
                 symbol: Symbol {
                     name: "sub2_fn".to_string(),
+                    aliases: None,
                     address: MaybeVersionDep::Common(0x50.into()),
                     length: None,
                     description: None,
@@ -1676,6 +1833,7 @@ mod tests {
             AddSymbol {
                 symbol: Symbol {
                     name: "sub3_data".to_string(),
+                    aliases: None,
                     address: MaybeVersionDep::Common(0x60.into()),
                     length: Some(MaybeVersionDep::Common(0x4)),
                     description: None,
@@ -1687,6 +1845,7 @@ mod tests {
             AddSymbol {
                 symbol: Symbol {
                     name: "sub3_fn".to_string(),
+                    aliases: None,
                     address: MaybeVersionDep::Common(0x64.into()),
                     length: None,
                     description: None,
@@ -1770,6 +1929,7 @@ mod tests {
                 vec![AddSymbol {
                     symbol: Symbol {
                         name: "fn1".to_string(),
+                        aliases: None,
                         address: MaybeVersionDep::Common(0x40.into()), // Fits in both sub1 and sub2
                         length: None,
                         description: None,

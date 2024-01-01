@@ -9,6 +9,7 @@ use std::cmp::Ordering;
 use std::collections::{BTreeMap, BTreeSet, HashMap};
 use std::fmt::{self, Display, Formatter};
 use std::io::{self, Read, Write};
+use std::iter;
 use std::ops::Deref;
 use std::path::{Path, PathBuf};
 use std::slice::SliceIndex;
@@ -33,12 +34,22 @@ struct BlockContext {
     version_order: Option<HashMap<String, u64>>,
 }
 
+fn option_vec_is_empty<T>(opt: &Option<Vec<T>>) -> bool {
+    match opt {
+        None => true,
+        Some(v) => v.is_empty(),
+    }
+}
+
 /// A symbol in a `resymgen` symbol table, with some metadata.
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct Symbol {
     /// The symbol name.
     pub name: String,
+    /// Aliases for the symbol.
+    #[serde(skip_serializing_if = "option_vec_is_empty")]
+    pub aliases: Option<Vec<String>>,
     /// The starting address of the symbol in memory.
     pub address: MaybeVersionDep<Linkable>,
     /// The length of the symbol in memory (in bytes).
@@ -128,11 +139,28 @@ impl Symbol {
             None => zip_addr_len(&self.address, self.length.as_ref()),
         }
     }
+    /// Returns an [`Iterator`] over references to all the [`Symbol`]'s names.
+    ///
+    /// The [`Symbol`]'s primary name is yielded first, then any aliases.
+    pub fn iter_names(&self) -> impl Iterator<Item = &str> {
+        iter::once(self.name.deref()).chain(self.iter_aliases())
+    }
+    /// Returns an [`Iterator`] over references to all the [`Symbol`]'s aliases.
+    pub fn iter_aliases(&self) -> impl Iterator<Item = &str> {
+        self.aliases
+            .as_deref()
+            .unwrap_or_default()
+            .iter()
+            .map(|s| s.deref())
+    }
 }
 
 impl Sort for Symbol {
     // Note: only applies to the address values. Version keys will always be sorted.
     fn sort(&mut self) {
+        if let Some(aliases) = &mut self.aliases {
+            aliases.sort();
+        }
         self.address.sort();
     }
 }
@@ -153,6 +181,8 @@ impl Ord for Symbol {
 #[derive(Debug, PartialEq, Eq, Clone, Copy, Serialize)]
 pub struct RealizedSymbol<'a> {
     pub name: &'a str,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub aliases: Option<&'a [String]>,
     pub address: Uint,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub length: Option<Uint>,
@@ -201,6 +231,7 @@ where
                 self.cur = Some((symbol, addrs, len));
                 return Some(RealizedSymbol {
                     name: &symbol.name,
+                    aliases: symbol.aliases.as_deref(),
                     address: a,
                     length: len.copied(),
                     description: symbol.description.as_deref(),
@@ -623,13 +654,6 @@ impl Sort for SymbolList {
         for ss in sort_list.into_iter() {
             self.0.push(ss.symbol);
         }
-    }
-}
-
-fn option_vec_is_empty<T>(opt: &Option<Vec<T>>) -> bool {
-    match opt {
-        None => true,
-        Some(v) => v.is_empty(),
     }
 }
 
@@ -1354,6 +1378,7 @@ mod tests {
 
             let mut symbol = Symbol {
                 name: "c".to_string(),
+                aliases: Some(vec!["speed_of_light".to_string(), "lightspeed".to_string()]),
                 address: MaybeVersionDep::ByVersion(
                     [
                         ("SI".into(), Linkable::from([1080000000, 299792458])),
@@ -1379,6 +1404,7 @@ mod tests {
                 &symbol,
                 &Symbol {
                     name: "c".to_string(),
+                    aliases: Some(vec!["lightspeed".to_string(), "speed_of_light".to_string()]),
                     address: MaybeVersionDep::ByVersion(
                         [
                             (("SI", 0).into(), Linkable::from([299792458, 1080000000])),
@@ -1418,6 +1444,7 @@ mod tests {
             );
             let mut function = Symbol {
                 name: "function".to_string(),
+                aliases: None,
                 address: address.clone(),
                 length: Some(MaybeVersionDep::Common(0x100)),
                 description: None,
@@ -1430,6 +1457,7 @@ mod tests {
                 &function,
                 &Symbol {
                     name: "function".to_string(),
+                    aliases: None,
                     address: address.clone(),
                     length: Some(MaybeVersionDep::ByVersion(
                         [
@@ -1453,6 +1481,7 @@ mod tests {
             ];
             let function1 = Symbol {
                 name: "function1".to_string(),
+                aliases: None,
                 address: MaybeVersionDep::ByVersion(
                     [
                         (versions[0].clone(), Linkable::from([0x2100000, 0x2100100])),
@@ -1481,6 +1510,7 @@ mod tests {
             // Weird edge case where we have versions for length but not address
             let function2 = Symbol {
                 name: "function2".to_string(),
+                aliases: None,
                 address: MaybeVersionDep::Common(Linkable::from(0x2100000)),
                 length: Some(MaybeVersionDep::ByVersion(
                     [(versions[0].clone(), 0x100), (versions[1].clone(), 0x200)].into(),
@@ -1531,6 +1561,7 @@ mod tests {
 
             let mut function1 = Symbol {
                 name: "function1".to_string(),
+                aliases: None,
                 address: MaybeVersionDep::ByVersion(
                     [
                         ("NA".into(), Linkable::from(0x2100000)),
@@ -1546,6 +1577,7 @@ mod tests {
 
             let mut function2 = Symbol {
                 name: "function2".to_string(),
+                aliases: None,
                 address: MaybeVersionDep::ByVersion(
                     [
                         ("NA".into(), Linkable::from(0x2101000)),
@@ -1584,12 +1616,14 @@ mod tests {
             SymbolList::from([
                 Symbol {
                     name: "function2".to_string(),
+                    aliases: None,
                     address: MaybeVersionDep::Common(Linkable::from([0x2101000, 0x2101100])),
                     length: None,
                     description: None,
                 },
                 Symbol {
                     name: "function1".to_string(),
+                    aliases: Some(vec!["function1_alias".to_string()]),
                     address: MaybeVersionDep::ByVersion(
                         [
                             ("EU".into(), Linkable::from(0x2100c00)),
@@ -1604,6 +1638,7 @@ mod tests {
             SymbolList::from([
                 Symbol {
                     name: "function1".to_string(),
+                    aliases: Some(vec!["function1_alias".to_string()]),
                     address: MaybeVersionDep::ByVersion(
                         [
                             (("NA", 0).into(), Linkable::from([0x2100000, 0x2100100])),
@@ -1616,6 +1651,7 @@ mod tests {
                 },
                 Symbol {
                     name: "function2".to_string(),
+                    aliases: None,
                     address: MaybeVersionDep::Common(Linkable::from([0x2101000, 0x2101100])),
                     length: None,
                     description: None,
@@ -1687,6 +1723,7 @@ mod tests {
                 list.iter()
                     .map(|i| Symbol {
                         name: i.0.to_string(),
+                        aliases: None,
                         address: i.1.clone(),
                         length: None,
                         description: None,
@@ -2062,27 +2099,32 @@ mod tests {
             let (_, versions, _, _, _, list) = get_block_data();
 
             let mut iter0 = list.iter().realize(Some(&versions[0]));
+            let function1_aliases = ["function1_alias".to_string()];
             let exp0 = [
                 RealizedSymbol {
                     name: &"function1",
+                    aliases: Some(&function1_aliases),
                     address: 0x2100000,
                     length: Some(0x100),
                     description: None,
                 },
                 RealizedSymbol {
                     name: &"function1",
+                    aliases: Some(&function1_aliases),
                     address: 0x2100100,
                     length: Some(0x100),
                     description: None,
                 },
                 RealizedSymbol {
                     name: &"function2",
+                    aliases: None,
                     address: 0x2101000,
                     length: None,
                     description: None,
                 },
                 RealizedSymbol {
                     name: &"function2",
+                    aliases: None,
                     address: 0x2101100,
                     length: None,
                     description: None,
@@ -2094,21 +2136,25 @@ mod tests {
             assert_eq!(iter0.next(), None);
 
             let mut iter1 = list.iter().realize(Some(&versions[1]));
+            let function1_aliases = ["function1_alias".to_string()];
             let exp1 = [
                 RealizedSymbol {
                     name: &"function1",
+                    aliases: Some(&function1_aliases),
                     address: 0x2100c00,
                     length: Some(0x100),
                     description: None,
                 },
                 RealizedSymbol {
                     name: &"function2",
+                    aliases: None,
                     address: 0x2101000,
                     length: None,
                     description: None,
                 },
                 RealizedSymbol {
                     name: &"function2",
+                    aliases: None,
                     address: 0x2101100,
                     length: None,
                     description: None,
@@ -2127,12 +2173,14 @@ mod tests {
             let exp = [
                 RealizedSymbol {
                     name: &"function2",
+                    aliases: None,
                     address: 0x2101000,
                     length: None,
                     description: None,
                 },
                 RealizedSymbol {
                     name: &"function2",
+                    aliases: None,
                     address: 0x2101100,
                     length: None,
                     description: None,
@@ -2200,6 +2248,7 @@ mod tests {
             let expanded_symbols = SymbolList::from([
                 Symbol {
                     name: "function1".to_string(),
+                    aliases: Some(vec!["function1_alias".to_string()]),
                     address: MaybeVersionDep::ByVersion(
                         [
                             (("NA", 0).into(), Linkable::from([0x2100000, 0x2100100])),
@@ -2214,6 +2263,7 @@ mod tests {
                 },
                 Symbol {
                     name: "function2".to_string(),
+                    aliases: None,
                     address: MaybeVersionDep::ByVersion(
                         [
                             (("NA", 0).into(), Linkable::from([0x2101000, 0x2101100])),
@@ -2272,27 +2322,32 @@ mod tests {
             let mut iter = block.iter_realized("NA");
             let mut function_iter = block.functions_realized("NA");
             let mut data_iter = block.data_realized("NA");
+            let function1_aliases = ["function1_alias".to_string()];
             let exp = [
                 RealizedSymbol {
                     name: &"function1",
+                    aliases: Some(&function1_aliases),
                     address: 0x2100000,
                     length: Some(0x100),
                     description: None,
                 },
                 RealizedSymbol {
                     name: &"function1",
+                    aliases: Some(&function1_aliases),
                     address: 0x2100100,
                     length: Some(0x100),
                     description: None,
                 },
                 RealizedSymbol {
                     name: &"function2",
+                    aliases: None,
                     address: 0x2101000,
                     length: None,
                     description: None,
                 },
                 RealizedSymbol {
                     name: &"function2",
+                    aliases: None,
                     address: 0x2101100,
                     length: None,
                     description: None,
@@ -2323,12 +2378,14 @@ mod tests {
             let exp = [
                 RealizedSymbol {
                     name: &"function2",
+                    aliases: None,
                     address: 0x2101000,
                     length: None,
                     description: None,
                 },
                 RealizedSymbol {
                     name: &"function2",
+                    aliases: None,
                     address: 0x2101100,
                     length: None,
                     description: None,
@@ -2362,6 +2419,8 @@ mod tests {
   description: foo
   functions:
     - name: fn1
+      aliases:
+        - fn1_alias
       address:
         v1: 0x2001000
         v2: 0x2002000
@@ -2412,6 +2471,7 @@ other:
                             functions: [
                                 Symbol {
                                     name: "fn1".to_string(),
+                                    aliases: Some(vec!["fn1_alias".to_string()]),
                                     address: MaybeVersionDep::ByVersion(
                                         [
                                             (("v1", 0).into(), 0x2001000.into()),
@@ -2424,6 +2484,7 @@ other:
                                 },
                                 Symbol {
                                     name: "fn2".to_string(),
+                                    aliases: None,
                                     address: MaybeVersionDep::ByVersion(
                                         [
                                             (("v1", 0).into(), [0x2002000, 0x2003000].into()),
@@ -2438,6 +2499,7 @@ other:
                             .into(),
                             data: [Symbol {
                                 name: "SOME_DATA".to_string(),
+                                aliases: None,
                                 address: MaybeVersionDep::ByVersion(
                                     [
                                         (("v1", 0).into(), 0x2000000.into()),
@@ -2463,6 +2525,7 @@ other:
                             subregions: None,
                             functions: [Symbol {
                                 name: "fn3".to_string(),
+                                aliases: None,
                                 address: MaybeVersionDep::Common(0x2100000.into()),
                                 length: None,
                                 description: None,
@@ -2549,6 +2612,7 @@ other:
                             functions: [
                                 Symbol {
                                     name: "fn1".to_string(),
+                                    aliases: None,
                                     address: MaybeVersionDep::ByVersion(
                                         [
                                             (("v1", 0).into(), 0x2001000FF.into()),
@@ -2561,6 +2625,7 @@ other:
                                 },
                                 Symbol {
                                     name: "fn2".to_string(),
+                                    aliases: None,
                                     address: MaybeVersionDep::ByVersion(
                                         [
                                             (("v1", 0).into(), [0x2002000FF, 0x2003000FF].into()),
@@ -2575,6 +2640,7 @@ other:
                             .into(),
                             data: [Symbol {
                                 name: "SOME_DATA".to_string(),
+                                aliases: None,
                                 address: MaybeVersionDep::ByVersion(
                                     [
                                         (("v1", 0).into(), 0x2000000FF.into()),
@@ -2600,6 +2666,7 @@ other:
                             subregions: None,
                             functions: [Symbol {
                                 name: "fn3".to_string(),
+                                aliases: None,
                                 address: MaybeVersionDep::Common(0x2100000FFFF.into()),
                                 length: None,
                                 description: None,
@@ -2688,21 +2755,25 @@ other:
         fn test_symbols_realized() {
             let (_, symgen) = get_symgen_data();
             let version_str = "v1";
+            let fn1_aliases = ["fn1_alias".to_string()];
             let functions_main_exp = [
                 RealizedSymbol {
                     name: &"fn1",
+                    aliases: Some(&fn1_aliases),
                     address: 0x2001000,
                     length: Some(0x1000),
                     description: Some(&"multi\nline\ndescription"),
                 },
                 RealizedSymbol {
                     name: &"fn2",
+                    aliases: None,
                     address: 0x2002000,
                     length: None,
                     description: Some(&"baz"),
                 },
                 RealizedSymbol {
                     name: &"fn2",
+                    aliases: None,
                     address: 0x2003000,
                     length: None,
                     description: Some(&"baz"),
@@ -2710,12 +2781,14 @@ other:
             ];
             let data_main_exp = [RealizedSymbol {
                 name: &"SOME_DATA",
+                aliases: None,
                 address: 0x2000000,
                 length: Some(0x1000),
                 description: Some(&"foo bar baz"),
             }];
             let functions_other_exp = [RealizedSymbol {
                 name: &"fn3",
+                aliases: None,
                 address: 0x2100000,
                 length: None,
                 description: None,
