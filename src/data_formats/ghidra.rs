@@ -3,6 +3,7 @@
 //! This format is the symbol table format read by the `ImportSymbolsScript.py` Ghidra script.
 //! Each symbol is listed on a separate line, and consists of a name, a memory address (as raw
 //! hexadecimal), and a letter identifying the symbol type ('f' for functions and 'l' for labels).
+//! If a symbol has aliases, each alias is listed on a separate line.
 //!
 //! # Example
 //! ```csv
@@ -72,6 +73,15 @@ impl Generate for GhidraFormatter {
                 address: f.address,
                 stype: SymbolType::Function,
             })?;
+            if let Some(aliases) = f.aliases {
+                for alias in aliases {
+                    wtr.serialize(Entry {
+                        name: alias,
+                        address: f.address,
+                        stype: SymbolType::Function,
+                    })?;
+                }
+            }
         }
         for d in symgen.data_realized(version) {
             wtr.serialize(Entry {
@@ -79,6 +89,15 @@ impl Generate for GhidraFormatter {
                 address: d.address,
                 stype: SymbolType::Label,
             })?;
+            if let Some(aliases) = d.aliases {
+                for alias in aliases {
+                    wtr.serialize(Entry {
+                        name: alias,
+                        address: d.address,
+                        stype: SymbolType::Label,
+                    })?;
+                }
+            }
         }
         Ok(())
     }
@@ -104,6 +123,8 @@ mod tests {
               description: foo
               functions:
                 - name: fn1
+                  aliases:
+                    - fn1_alias
                   address:
                     v1: 0x2000000
                     v2: 0x2002000
@@ -139,11 +160,11 @@ mod tests {
         let f = GhidraFormatter {};
         assert_eq!(
             f.generate_str(&symgen, "v1").expect("generate failed"),
-            "fn1 2000000 f\nfn2 2001000 f\nfn2 2002000 f\nSOME_DATA 2003000 l\n"
+            "fn1 2000000 f\nfn1_alias 2000000 f\nfn2 2001000 f\nfn2 2002000 f\nSOME_DATA 2003000 l\n"
         );
         assert_eq!(
             f.generate_str(&symgen, "v2").expect("generate failed"),
-            "fn1 2002000 f\nfn2 2003000 f\nSOME_DATA 2004000 l\n"
+            "fn1 2002000 f\nfn1_alias 2002000 f\nfn2 2003000 f\nSOME_DATA 2004000 l\n"
         );
     }
 }

@@ -30,6 +30,7 @@ Each block is tagged with some metadata, including a starting memory address, a 
 
 A _symbol_ represents one or more memory regions containing an identifiable chunk of instructions or data. Each symbol has the following fields:
 - A name (required)
+- Zero or more _aliases_ (optional), which are alternate names for the symbol
 - An address (required) and a length (optional). Similar to blocks, the address and length fields are allowed to be version-dependent.
     - Additionally, the address (or each address, if version-dependent) can be either a single value or a list of values. This is useful when a data symbol was defined as a constant or inlined, and was placed in multiple different locations (usually in data pools) by the compiler. This is also useful for functions that were defined with a static linkage in a C header and macro-included in multiple different source files, since this can result in the same function existing in multiple places in the compiled binary.
 - A description (optional)
@@ -52,12 +53,18 @@ Subregions are useful for splitting up large `resymgen` YAML files. If a parent 
     ...
   functions:
     - name: <string>
+      aliases (optional):
+        - <string>
+        ...
       address: MaybeVersionDep[ScalarOrList[number]]
       length (optional): MaybeVersionDep[number]
       description (optional): <string>
     ...
   data:
     - name: <string>
+      aliases (optional):
+        - <string>
+        ...
       address: MaybeVersionDep[ScalarOrList[number]]
       length (optional): MaybeVersionDep[number]
       description (optional): <string>
@@ -89,6 +96,9 @@ main:
     - sub2.yml
   functions:
     - name: function1
+      aliases:
+        - function1_alias1
+        - function1_alias2
       address:
         v1: 0x2001000
         v2: 0x2012000

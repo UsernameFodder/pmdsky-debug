@@ -2,7 +2,7 @@
 //!
 //! The JSON file contains a single array. Each element is a symbol, and contains the properties
 //! "type" (which can be "function" or "data"), "name", "address" (integer),
-//! optional "length" (integer), and optional "description".
+//! optional "length" (integer), optional "description", and optional "aliases" (array of strings).
 //!
 //! # Example
 //! Note: The following example shows pretty-printed JSON for readability. However, the actual
@@ -18,6 +18,7 @@
 //!     {
 //!         "type": "function",
 //!         "name": "function1",
+//!         "aliases": ["function1_alias1", "function1_alias2"],
 //!         "address": 37748736
 //!     },
 //!     {
@@ -51,6 +52,8 @@ struct Entry<'a> {
     #[serde(rename(serialize = "type"))]
     stype: SymbolType,
     name: &'a str,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    aliases: Option<&'a [String]>,
     address: Uint,
     #[serde(skip_serializing_if = "Option::is_none")]
     length: Option<Uint>,
@@ -76,6 +79,7 @@ impl Generate for JsonFormatter {
                 &Entry {
                     stype: SymbolType::Function,
                     name: f.name,
+                    aliases: f.aliases,
                     address: f.address,
                     length: f.length,
                     description: f.description,
@@ -92,6 +96,7 @@ impl Generate for JsonFormatter {
                 &Entry {
                     stype: SymbolType::Data,
                     name: d.name,
+                    aliases: d.aliases,
                     address: d.address,
                     length: d.length,
                     description: d.description,
@@ -124,6 +129,8 @@ mod tests {
               description: foo
               functions:
                 - name: fn1
+                  aliases:
+                    - fn1_alias
                   address:
                     v1: 0x2000000
                     v2: 0x2002000
@@ -162,6 +169,7 @@ mod tests {
                 {
                     "type": "function",
                     "name": "fn1",
+                    "aliases": ["fn1_alias"],
                     "address": 33554432,
                     "length": 4096,
                     "description": "bar"
@@ -193,6 +201,7 @@ mod tests {
                 {
                     "type": "function",
                     "name": "fn1",
+                    "aliases": ["fn1_alias"],
                     "address": 33562624,
                     "length": 4096,
                     "description": "bar"

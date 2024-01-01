@@ -97,6 +97,7 @@ impl Iterator for CsvLoader {
         self.entries.next().map(|entry| AddSymbol {
             symbol: Symbol {
                 name: entry.name,
+                aliases: None,
                 address: match &self.params.default_version_name {
                     Some(vers) => MaybeVersionDep::ByVersion(
                         [(vers.as_str().into(), entry.location.into())].into(),
@@ -153,6 +154,7 @@ mod tests {
             Some(AddSymbol {
                 symbol: Symbol {
                     name: "fn1".to_string(),
+                    aliases: None,
                     address: MaybeVersionDep::Common(0x2000000.into()),
                     length: None,
                     description: None,
@@ -166,6 +168,7 @@ mod tests {
             Some(AddSymbol {
                 symbol: Symbol {
                     name: "SOME_DATA".to_string(),
+                    aliases: None,
                     address: MaybeVersionDep::Common(0x2010000.into()),
                     length: None,
                     description: None,
@@ -195,6 +198,7 @@ mod tests {
             Some(AddSymbol {
                 symbol: Symbol {
                     name: "fn1".to_string(),
+                    aliases: None,
                     address: MaybeVersionDep::ByVersion(
                         [(("v1", 0).into(), 0x2000000.into())].into()
                     ),
@@ -210,6 +214,7 @@ mod tests {
             Some(AddSymbol {
                 symbol: Symbol {
                     name: "SOME_DATA".to_string(),
+                    aliases: None,
                     address: MaybeVersionDep::ByVersion(
                         [(("v1", 0).into(), 0x2010000.into())].into()
                     ),
