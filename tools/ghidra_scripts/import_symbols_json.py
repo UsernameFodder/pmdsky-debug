@@ -37,7 +37,7 @@ for s in symbols:
             )
     else:
         print("Created label {} at address {}".format(name, address))
-        createLabel(address, name, False)
+        createLabel(address, name, True)
 
     if description:
         comment = getPlateComment(address)
