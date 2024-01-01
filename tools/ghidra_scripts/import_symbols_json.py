@@ -36,8 +36,11 @@ for s in symbols:
                 )
             )
     else:
-        print("Created label {} at address {}".format(name, address))
+        print("Created primary label {} at address {}".format(name, address))
         createLabel(address, name, True)
+    for alias in s.get("aliases", []):
+        print("Created label {} at address {}".format(alias, address))
+        createLabel(address, alias, False)
 
     if description:
         comment = getPlateComment(address)
