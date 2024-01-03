@@ -18,7 +18,7 @@ libs:
     
     Where the library region starts and ends is a guess, but there appear to be fairly sharp boundaries. The function directly before it calls functions at lower memory addresses outside of the region, while all functions in the region only call other functions within the region. The bytes after the region seem to be the start of a global data region, used by both the libraries and the rest of ARM9.
   functions:
-    - name: SoundUtilGetRandomNumber
+    - name: SoundUtil_GetRandomNumber
       address:
         EU: 0x206CC8C
         NA: 0x206C8F4
@@ -91,29 +91,29 @@ libs:
         From https://projectpokemon.org/docs/mystery-dungeon-nds/procyon-studios-digital-sound-elements-r12/ and Irdkwia's notes.
         
         No params.
-    - name: SoundEnvelopeReset
+    - name: SoundEnvelope_Reset
       address:
         EU: 0x2075008
         NA: 0x2074C70
       description: "r0: Sound envelope pointer"
-    - name: SoundEnvelopeParametersReset
+    - name: SoundEnvelopeParameters_Reset
       address:
         EU: 0x207501C
         NA: 0x2074C84
       description: "r0: Sound envelope parameters pointer"
-    - name: SoundEnvelopeParametersCheckValidity
+    - name: SoundEnvelopeParameters_CheckValidity
       address:
         EU: 0x2075038
         NA: 0x2074CA0
       description: "r0: Sound envelope parameters pointer"
-    - name: SoundEnvelopeSetParameters
+    - name: SoundEnvelope_SetParameters
       address:
         EU: 0x207508C
         NA: 0x2074CF4
       description: |-
         r0: Sound envelope pointer
         r1: Sound envelope parameters pointer
-    - name: SoundEnvelopeSetSlide
+    - name: SoundEnvelope_SetSlide
       address:
         EU: 0x20750F0
         NA: 0x2074D58
@@ -130,41 +130,41 @@ libs:
         From https://projectpokemon.org/docs/mystery-dungeon-nds/procyon-studios-digital-sound-elements-r12/
         
         r0: Sound envelope pointer
-    - name: SoundEnvelopeRelease
+    - name: SoundEnvelope_Release
       address:
         EU: 0x2075270
         NA: 0x2074ED8
       description: "r0: Sound envelope pointer"
-    - name: SoundEnvelopeStop
+    - name: SoundEnvelope_Stop
       address:
         EU: 0x207529C
         NA: 0x2074F04
       description: "r0: Sound envelope pointer"
-    - name: SoundEnvelopeForceVolume
+    - name: SoundEnvelope_ForceVolume
       address:
         EU: 0x20752B4
         NA: 0x2074F1C
       description: |-
         r0: Sound envelope pointer
         r1: Volume
-    - name: SoundEnvelopeStop2
+    - name: SoundEnvelope_Stop2
       address:
         EU: 0x20752D4
         NA: 0x2074F3C
       description: "r0: Sound envelope pointer"
-    - name: SoundEnvelopeTick
+    - name: SoundEnvelope_Tick
       address:
         EU: 0x20752EC
         NA: 0x2074F54
       description: |-
         r0: Sound envelope pointer
         return: Current volume
-    - name: SoundLfoBankReset
+    - name: SoundLfoBank_Reset
       address:
         EU: 0x2075434
         NA: 0x207509C
       description: "r0: LFO bank pointer"
-    - name: SoundLfoBankSet
+    - name: SoundLfoBank_Set
       address:
         EU: 0x207544C
         NA: 0x20750B4
@@ -172,77 +172,77 @@ libs:
         r0: LFO bank pointer
         r1: LFO settings pointer
         r2: Envelope level
-    - name: SoundLfoBankSetConstEnvelopes
+    - name: SoundLfoBank_SetConstEnvelopes
       address:
         EU: 0x2075644
         NA: 0x20752AC
       description: |-
         r0: LFO bank pointer
         r1: Level
-    - name: SoundLfoBankTick
+    - name: SoundLfoBank_Tick
       address:
         EU: 0x2075690
         NA: 0x20752F8
       description: |-
         r0: LFO bank pointer
         return: New voice update flags
-    - name: SoundLfoWaveInvalidFunc
+    - name: SoundLfoWave_InvalidFunc
       address:
         EU: 0x2075744
         NA: 0x20753AC
       description: |-
         r0: LFO pointer
         return: 0
-    - name: SoundLfoWaveHalfSquareFunc
+    - name: SoundLfoWave_HalfSquareFunc
       address:
         EU: 0x2075758
         NA: 0x20753C0
       description: |-
         r0: LFO pointer
         return: LFO current output
-    - name: SoundLfoWaveFullSquareFunc
+    - name: SoundLfoWave_FullSquareFunc
       address:
         EU: 0x2075794
         NA: 0x20753FC
       description: |-
         r0: LFO pointer
         return: LFO current output
-    - name: SoundLfoWaveHalfTriangleFunc
+    - name: SoundLfoWave_HalfTriangleFunc
       address:
         EU: 0x20757DC
         NA: 0x2075444
       description: |-
         r0: LFO pointer
         return: LFO current output
-    - name: SoundLfoWaveFullTriangleFunc
+    - name: SoundLfoWave_FullTriangleFunc
       address:
         EU: 0x2075830
         NA: 0x2075498
       description: |-
         r0: LFO pointer
         return: LFO current output
-    - name: SoundLfoWaveSawFunc
+    - name: SoundLfoWave_SawFunc
       address:
         EU: 0x2075894
         NA: 0x20754FC
       description: |-
         r0: LFO pointer
         return: LFO current output
-    - name: SoundLfoWaveReverseSawFunc
+    - name: SoundLfoWave_ReverseSawFunc
       address:
         EU: 0x20758D0
         NA: 0x2075538
       description: |-
         r0: LFO pointer
         return: LFO current output
-    - name: SoundLfoWaveHalfNoiseFunc
+    - name: SoundLfoWave_HalfNoiseFunc
       address:
         EU: 0x207590C
         NA: 0x2075574
       description: |-
         r0: LFO pointer
         return: LFO current output
-    - name: SoundLfoWaveFullNoiseFunc
+    - name: SoundLfoWave_FullNoiseFunc
       address:
         EU: 0x2075950
         NA: 0x20755B8
