@@ -80,12 +80,14 @@ class HeaderSymbolList(ABC):
         contents = re.sub(r"/\*.*?\*/", "", contents, flags=re.DOTALL)
         return contents
 
+    @classmethod
+    def names_from_c_header(cls, fpath: str) -> List[str]:
+        with open(fpath, "r") as f:
+            return cls.NAME_REGEX.findall(cls.header_file_strip_comments(f.read()))
+
     def names_from_header_file(self) -> List[str]:
         if self.cached_header_names is None:
-            with open(self.header_file, "r") as f:
-                self.cached_header_names = self.NAME_REGEX.findall(
-                    self.header_file_strip_comments(f.read())
-                )
+            self.cached_header_names = self.names_from_c_header(self.header_file)
         return list(self.cached_header_names)
 
     def names_from_symbol_file(self) -> List[str]:
