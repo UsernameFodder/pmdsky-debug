@@ -160,7 +160,8 @@ class HeaderAugmenter:
             if in_c_style_comment and "*/" in line:
                 in_c_style_comment = False
 
-    def add_aliases(self):
+    def add_aliases(self) -> int:
+        add_count = 0
         symbol_names = self.load_symbol_names()
         with open(self.input_header_file(), "r") as f:
             lines = f.readlines()
@@ -206,18 +207,21 @@ class HeaderAugmenter:
                                 symbol_declaration[0].replace(aliased_symbol, alias, 1)
                             )
                             f.write("".join(symbol_declaration[1:]))
+                            add_count += 1
                         aliased_symbol = None
                         prev_aliases = aliases
                         aliases = []
                         symbol_declaration = []
         self.commit_header_file()
+        return add_count
 
     def get_docstring(self, symbol: str) -> Optional[str]:
         if symbol not in self.symbol_descriptions:
             return None
         return self.formatter.format_docstring(self.symbol_descriptions[symbol])
 
-    def add_docstrings(self):
+    def add_docstrings(self) -> int:
+        add_count = 0
         symbol_names = self.load_symbol_names()
         with open(self.input_header_file(), "r") as f:
             lines = f.readlines()
@@ -238,8 +242,10 @@ class HeaderAugmenter:
                             if docstring is not None:
                                 f.write(HeaderAugmenter.DOCSTRING_PREAMBLE_LINE)
                                 f.write(docstring)
+                                add_count += 1
                 f.write(line)
         self.commit_header_file()
+        return add_count
 
 
 def add_header_content(
@@ -250,7 +256,7 @@ def add_header_content(
     docstrings: bool = True,
     formatter: Optional[Formatter] = None,
     filter: Optional[str] = None,
-    verbose: bool = False,
+    verbosity: int = 0,
 ):
     for header_file in symbol_list_cls.headers():
         if filter is not None and not fnmatch.fnmatch(header_file, filter):
@@ -264,13 +270,13 @@ def add_header_content(
             continue
 
         if aliases:
-            augmenter.add_aliases()
-            if verbose:
-                print(f"Added alias declarations to {header_file}")
+            count = augmenter.add_aliases()
+            if verbosity >= 2 or (verbosity >= 1 and count > 0):
+                print(f"Added {count} alias declaration(s) to {header_file}")
         if docstrings:
-            augmenter.add_docstrings()
-            if verbose:
-                print(f"Added docstrings to {header_file}")
+            count = augmenter.add_docstrings()
+            if verbosity >= 2 or (verbosity >= 1 and count > 0):
+                print(f"Added {count} docstring(s) to {header_file}")
 
 
 if __name__ == "__main__":
@@ -300,7 +306,9 @@ if __name__ == "__main__":
         "--filter",
         help="Unix filename path filter for header files to process",
     )
-    parser.add_argument("-v", "--verbose", action="store_true", help="verbose output")
+    parser.add_argument(
+        "-v", "--verbose", action="count", default=0, help="verbosity level"
+    )
     args = parser.parse_args()
 
     # Prefer formatting with clang-format if possible
@@ -323,7 +331,7 @@ if __name__ == "__main__":
         docstrings=args.docstrings,
         formatter=formatter,
         filter=args.filter,
-        verbose=args.verbose,
+        verbosity=args.verbose,
     )
     add_header_content(
         DataList,
@@ -332,5 +340,5 @@ if __name__ == "__main__":
         docstrings=args.docstrings,
         formatter=formatter,
         filter=args.filter,
-        verbose=args.verbose,
+        verbosity=args.verbose,
     )
