@@ -14,7 +14,7 @@ import os
 import re
 import subprocess
 import textwrap
-from typing import Dict, Optional
+from typing import Dict, Iterator, Optional, Set, Tuple
 import yaml
 
 from symbol_check import (
@@ -93,14 +93,19 @@ class TextWrapFormatter(Formatter):
 
 class HeaderDocstringAdder:
     PREAMBLE_LINE = "// THIS DOCSTRING WAS GENERATED AUTOMATICALLY\n"
+    CPP_COMMENT_RE = re.compile(r"\s*//")
 
     def __init__(
-        self, symbol_list: HeaderSymbolList, *, formatter: Optional[Formatter] = None
+        self,
+        symbol_list: HeaderSymbolList,
+        *,
+        extension: str = "",
+        formatter: Optional[Formatter] = None,
     ):
         self.slist = symbol_list
+        self.in_extension = ""
+        self.out_extension = extension
         self.formatter = formatter if formatter is not None else TextWrapFormatter()
-        # Parse symbol names from the header file
-        self.symbol_names = set(symbol_list.names_from_header_file())
         # Parse symbol descriptions from the YAML symbol table
         with open(symbol_list.symbol_file, "r") as f:
             self.symbol_descriptions: Dict[str, str] = {
@@ -110,37 +115,63 @@ class HeaderDocstringAdder:
                 if "description" in symbol
             }
 
+    def input_header_file(self):
+        return self.slist.header_file + self.in_extension
+
+    def output_header_file(self):
+        return self.slist.header_file + self.out_extension
+
+    def commit_header_file(self):
+        self.formatter.format_file(self.output_header_file())
+        self.in_extension = self.out_extension
+
+    def load_symbol_names(self) -> Set[str]:
+        return set(self.slist.names_from_c_header(self.input_header_file()))
+
+    @staticmethod
+    def _input_header_lines(lines) -> Iterator[Tuple[str, bool, bool]]:
+        in_docstring = False
+        in_c_style_comment = False
+        for line in lines:
+            in_cpp_style_comment = False
+            if line == HeaderDocstringAdder.PREAMBLE_LINE:
+                in_docstring = True
+                in_cpp_style_comment = True
+                in_c_style_comment = False
+            else:
+                if HeaderDocstringAdder.CPP_COMMENT_RE.match(line):
+                    in_cpp_style_comment = True
+                elif not in_c_style_comment and "/*" in line:
+                    in_c_style_comment = True
+
+            in_comment = in_c_style_comment or in_cpp_style_comment
+            if not in_comment:
+                in_docstring = False
+
+            yield line, in_comment, in_docstring
+
+            if in_c_style_comment and "*/" in line:
+                in_c_style_comment = False
+
     def get_docstring(self, symbol: str) -> Optional[str]:
         if symbol not in self.symbol_descriptions:
             return None
         return self.formatter.format_docstring(self.symbol_descriptions[symbol])
 
-    def add_docstrings(self, extension: str):
-        with open(self.slist.header_file, "r") as f:
+    def add_docstrings(self):
+        symbol_names = self.load_symbol_names()
+        with open(self.input_header_file(), "r") as f:
             lines = f.readlines()
-        ofname = self.slist.header_file + extension
-        with open(ofname, "w") as f:
-            in_docstring = False
-            in_c_style_comment = False
-            for line in lines:
-                in_cpp_style_comment = False
-                if line == HeaderDocstringAdder.PREAMBLE_LINE:
-                    # Skip until the next matching symbol name
-                    in_docstring = True
-                    in_cpp_style_comment = True
-                    in_c_style_comment = False
+        with open(self.output_header_file(), "w") as f:
+            for line, in_comment, in_docstring in self._input_header_lines(lines):
+                if in_docstring:
+                    # Skip over docstrings
                     continue
-                else:
-                    if re.match(r"\s*//", line):
-                        in_cpp_style_comment = True
-                    elif not in_c_style_comment and "/*" in line:
-                        in_c_style_comment = True
-                if not (in_cpp_style_comment or in_c_style_comment):
+                if not in_comment:
                     match = self.slist.NAME_REGEX.search(line)
                     if match:
                         symbol = match[1]
-                        if symbol in self.symbol_names:
-                            in_docstring = False
+                        if symbol in symbol_names:  # safety check
                             # Insert a docstring before writing this line
                             # NOTE: This assumes the symbol name is on the
                             # first line of the symbol declaration
@@ -148,33 +179,32 @@ class HeaderDocstringAdder:
                             if docstring is not None:
                                 f.write(HeaderDocstringAdder.PREAMBLE_LINE)
                                 f.write(docstring)
-                if not in_docstring:
-                    f.write(line)
-                if in_c_style_comment and "*/" in line:
-                    in_c_style_comment = False
-        self.formatter.format_file(ofname)
+                f.write(line)
+        self.commit_header_file()
 
 
 def add_header_docstrings(
-    symbol_list: HeaderSymbolList,
+    symbol_list_cls: HeaderSymbolList,
     extension: str,
     *,
-    formatter: Optional[Formatter],
-    filter: Optional[str],
-    verbose: bool,
+    formatter: Optional[Formatter] = None,
+    filter: Optional[str] = None,
+    verbose: bool = False,
 ):
-    for header_file in symbol_list.headers():
+    for header_file in symbol_list_cls.headers():
         if filter is not None and not fnmatch.fnmatch(header_file, filter):
             continue
         try:
-            HeaderDocstringAdder(
-                symbol_list(header_file), formatter=formatter
-            ).add_docstrings(extension)
-            if verbose:
-                print(f"Annotated {header_file}")
+            adder = HeaderDocstringAdder(
+                symbol_list_cls(header_file), extension=extension, formatter=formatter
+            )
         except ValueError:
             # File doesn't correspond to a symbol file; skip
-            pass
+            continue
+
+        adder.add_docstrings()
+        if verbose:
+            print(f"Added docstrings to {header_file}")
 
 
 if __name__ == "__main__":
