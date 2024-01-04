@@ -53,12 +53,37 @@ CYAN_BG = Code("46")
 WHITE_BG = Code("47")
 
 # This is how the termcolor Rust crate checks for ANSI support
+# The effect of this variable may still be overridden by the PYTHON_TERM_COLOR
+# environment variable, see ansi_enabled() below.
 ALLOWED_IN_ENV = bool(
     "NO_COLOR" not in os.environ
     and "TERM" in os.environ
     and os.environ["TERM"] != "dumb"
     and (os.name != "nt" or os.environ["TERM"] != "cygwin")
 )
+
+
+def ansi_enabled(file=None):
+    """
+    Checks if ansi.print() should use ANSI escape codes for a given file.
+
+    Args:
+        file (IO, optional): file being written to, same as in the print() function.
+            If None, sys.stdout will be used.
+    """
+    # The PYTHON_TERM_COLOR environment variable mimics the CARGO_TERM_COLOR
+    # environment variable that cargo uses
+    PYTHON_TERM_COLOR = os.getenv("PYTHON_TERM_COLOR", "auto")
+    if PYTHON_TERM_COLOR == "always":
+        return True
+    if PYTHON_TERM_COLOR == "never":
+        return False
+
+    if file is None:
+        file = sys.stdout
+    # Only print ANSI codes if they're supported in the environment and the
+    # output file is a tty
+    return ALLOWED_IN_ENV and file.isatty()
 
 
 _builtin_print = print
@@ -73,9 +98,7 @@ def print(code, *args, **kwargs):
     Args:
         code (Code): ANSI escape code sequence to use while printing
     """
-    # Only print ANSI codes if they're supported in the environment and the
-    # output file is a tty
-    if ALLOWED_IN_ENV and kwargs.get("file", sys.stdout).isatty():
+    if ansi_enabled(kwargs.get("file")):
         flush = kwargs.get("flush", False)
         end = kwargs.get("end")
         kwargs["flush"] = False
