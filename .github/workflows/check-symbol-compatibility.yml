@@ -1,0 +1,27 @@
+name: Check Symbol Compatibility
+
+on:
+  pull_request:
+    paths:
+      - 'symbols/**.yml'
+    branches:
+      - master
+
+env:
+  PYTHON_TERM_COLOR: always
+
+jobs:
+  compat-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Symbol compatibility check
+        # HEAD is $GITHUB_SHA, which is the PR merge commit; see:
+        # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request
+        # This means that HEAD^ should be the target branch head, i.e., master
+        run: tools/symcompat.py --warn HEAD^
+        # Ideally there would be an "allow-failure" option (continue-on-error isn't it); see:
+        # https://github.com/actions/runner/issues/2347
