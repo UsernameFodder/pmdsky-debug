@@ -1020,31 +1020,14 @@ def get_modified_paths(base: str, target: Optional[str]) -> List[Path]:
     return sorted(SYMBOL_DIR / t for t in tables)
 
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        description="Compare Git revisions of the pmdsky-debug symbol tables.",
-    )
-    parser.add_argument(
-        "-v",
-        "--verbose",
-        action="store_true",
-        help="verbose output (with symbol modification details)",
-    )
-    parser.add_argument(
-        "-s",
-        "--subregion-resolution",
-        action="store_true",
-        help=(
-            "count symbols moving around subregions within the same"
-            + " top-level block as a modification"
-        ),
-    )
-    parser.add_argument(
-        "-d",
-        "--descriptions",
-        action="store_true",
-        help="count symbol description changes as a modification",
-    )
+def symdiff_parse_args(parser: argparse.ArgumentParser) -> argparse.Namespace:
+    """Like parser.parse_args(), but with added processing similar to git.
+
+    This appends the following optional arguments to the end of the parser:
+      [base] [target] [--] [path ...]
+    With appropriate help text, processing, and validation for symbol table
+    diffing.
+    """
     parser.add_argument(
         "base", nargs="?", default="HEAD", help="base revision against which to compare"
     )
@@ -1112,6 +1095,36 @@ if __name__ == "__main__":
     if nonrepo_paths:
         path_list_str = ", ".join(f"'{p}'" for p in nonrepo_paths)
         raise SystemExit(f"error: paths outside of git repository: {path_list_str}")
+
+    return args
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description="Compare Git revisions of the pmdsky-debug symbol tables.",
+    )
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="store_true",
+        help="verbose output (with symbol modification details)",
+    )
+    parser.add_argument(
+        "-s",
+        "--subregion-resolution",
+        action="store_true",
+        help=(
+            "count symbols moving around subregions within the same"
+            + " top-level block as a modification"
+        ),
+    )
+    parser.add_argument(
+        "-d",
+        "--descriptions",
+        action="store_true",
+        help="count symbol description changes as a modification",
+    )
+    args = symdiff_parse_args(parser)
 
     preceding_newline = False
     for path in args.path:
