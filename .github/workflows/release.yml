@@ -45,7 +45,7 @@ jobs:
       RELEASE_HASH_FILE: release-assets.sha256
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install resymgen
         uses: ./.github/actions/build-resymgen
       - name: Generate symbols

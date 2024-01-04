@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install resymgen
         uses: ./.github/actions/build-resymgen
       - name: Format check
@@ -34,7 +34,7 @@ jobs:
     if: failure() && !inputs.no-format-on-check-fail
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install resymgen
         uses: ./.github/actions/build-resymgen
       - name: Format
@@ -43,7 +43,7 @@ jobs:
         run: zip resymgen-fmt-output.zip $(git diff --relative --name-only)
         working-directory: symbols
       - name: Upload reformatted files
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: formatted-symbols
           path: symbols/resymgen-fmt-output.zip
@@ -56,7 +56,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install resymgen
         uses: ./.github/actions/build-resymgen
       - name: Test

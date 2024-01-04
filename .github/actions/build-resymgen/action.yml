@@ -5,7 +5,7 @@ runs:
   steps:
     - name: Check cache
       id: cache-lookup
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: |
           ~/.cargo/bin/resymgen

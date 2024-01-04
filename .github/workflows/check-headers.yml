@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Compile
         run: make -C headers headers-aligned CFLAGS='-Wno-incompatible-library-redeclaration'
   implicit-padding-check:
@@ -25,7 +25,7 @@ jobs:
     needs: compile
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Compile with implicit packing
         run: make -C headers headers-packed CFLAGS='-Wno-incompatible-library-redeclaration'
   compile-no-builtin:
@@ -33,7 +33,7 @@ jobs:
     needs: compile
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Compile with no builtin function declarations
         run: make -C headers headers-no-builtin
   compile-unsized:
@@ -41,14 +41,14 @@ jobs:
     needs: compile
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Compile with unsized types
         run: make -C headers headers-unsized
   format-check:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Format check
         run: make -C headers format-check
   format:
@@ -57,14 +57,14 @@ jobs:
     if: failure() && !inputs.no-format-on-check-fail
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Format
         run: make -C headers format
       - name: Package reformatted files
         run: zip clang-format-output.zip $(git diff --relative --name-only)
         working-directory: headers
       - name: Upload reformatted files
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: formatted-headers
           path: headers/clang-format-output.zip
