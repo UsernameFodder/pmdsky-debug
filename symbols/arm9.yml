@@ -904,6 +904,8 @@ arm9:
         
         No params.
     - name: DataTransferInit
+      aliases:
+        - FileRom_InitDataTransfer
       address:
         EU: 0x2008168
         NA: 0x2008168
@@ -913,6 +915,8 @@ arm9:
         
         No params.
     - name: DataTransferStop
+      aliases:
+        - FileRom_StopDataTransfer
       address:
         EU: 0x2008194
         NA: 0x2008194
@@ -924,6 +928,8 @@ arm9:
         
         No params.
     - name: FileInitVeneer
+      aliases:
+        - FileRom_Veneer_FileInit
       address:
         EU: 0x2008204
         NA: 0x2008204
@@ -935,6 +941,8 @@ arm9:
         
         r0: file_stream pointer
     - name: FileOpen
+      aliases:
+        - FileRom_HandleOpen
       address:
         EU: 0x2008210
         NA: 0x2008210
@@ -955,6 +963,8 @@ arm9:
         r0: file_stream pointer
         return: file size
     - name: FileRead
+      aliases:
+        - FileRom_HandleRead
       address:
         EU: 0x2008254
         NA: 0x2008254
@@ -971,6 +981,8 @@ arm9:
         r2: number of bytes to read
         return: number of bytes read
     - name: FileSeek
+      aliases:
+        - FileRom_HandleSeek
       address:
         EU: 0x20082A8
         NA: 0x20082A8
@@ -1052,6 +1064,8 @@ arm9:
         r0: screen_fade
         return: int
     - name: InitDebug
+      aliases:
+        - Debug_Init
       address:
         EU: 0x200C15C
         NA: 0x200C0D4
@@ -1060,6 +1074,8 @@ arm9:
         Would have initialized debugging-related things, if they were not removed.
         As for the release version, does nothing but set DEBUG_IS_INITIALIZED to true.
     - name: InitDebugFlag
+      aliases:
+        - Debug_InitDebugFlag
       address:
         EU: 0x200C194
         NA: 0x200C10C
@@ -1068,6 +1084,8 @@ arm9:
         Would have initialized the debug flags.
         Does nothing in release binary.
     - name: GetDebugFlag
+      aliases:
+        - Debug_GetDebugFlag
       address:
         EU: 0x200C198
         NA: 0x200C110
@@ -1078,6 +1096,8 @@ arm9:
         r0: flag ID
         return: flag value
     - name: SetDebugFlag
+      aliases:
+        - Debug_SetDebugFlag
       address:
         EU: 0x200C1A0
         NA: 0x200C118
@@ -1088,6 +1108,8 @@ arm9:
         r0: flag ID
         r1: flag value
     - name: InitDebugStripped6
+      aliases:
+        - Debug_Stripped6
       address:
         EU: 0x200C1A4
         NA: 0x200C11C
@@ -1108,12 +1130,16 @@ arm9:
         r2: base message
         return: number of characters printed, excluding the null-terminator
     - name: InitDebugStripped5
+      aliases:
+        - Debug_Stripped5
       address:
         EU: 0x200C1F0
         NA: 0x200C168
         JP: 0x200C168
       description: "Does nothing, only called in the debug initialization function."
     - name: DebugPrintTrace
+      aliases:
+        - Debug_PrintTrace
       address:
         EU: 0x200C1F4
         NA: 0x200C16C
@@ -1142,6 +1168,8 @@ arm9:
         r0: format
         ...: variadic
     - name: DebugPrint0
+      aliases:
+        - Debug_Print0
       address:
         EU: 0x200C284
         NA: 0x200C1FC
@@ -1156,6 +1184,8 @@ arm9:
         r0: format
         ...: variadic
     - name: InitDebugLogFlag
+      aliases:
+        - Debug_InitLogFlag
       address:
         EU: 0x200C2B8
         NA: 0x200C230
@@ -1164,6 +1194,8 @@ arm9:
         Would have initialized the debug log flags.
         Does nothing in release binary.
     - name: GetDebugLogFlag
+      aliases:
+        - Debug_GetLogFlag
       address:
         EU: 0x200C2BC
         NA: 0x200C234
@@ -1174,6 +1206,8 @@ arm9:
         r0: flag ID
         return: flag value
     - name: SetDebugLogFlag
+      aliases:
+        - Debug_SetLogFlag
       address:
         EU: 0x200C2C4
         NA: 0x200C23C
@@ -1184,6 +1218,8 @@ arm9:
         r0: flag ID
         r1: flag value
     - name: DebugPrint
+      aliases:
+        - Debug_Print
       address:
         EU: 0x200C2C8
         NA: 0x200C240
@@ -1195,30 +1231,40 @@ arm9:
         r1: format
         ...: variadic
     - name: InitDebugStripped4
+      aliases:
+        - Debug_Stripped4
       address:
         EU: 0x200C2D4
         NA: 0x200C24C
         JP: 0x200C24C
       description: "Does nothing, only called in the debug initialization function."
     - name: InitDebugStripped3
+      aliases:
+        - Debug_Stripped3
       address:
         EU: 0x200C2D8
         NA: 0x200C250
         JP: 0x200C250
       description: "Does nothing, only called in the debug initialization function."
     - name: InitDebugStripped2
+      aliases:
+        - Debug_Stripped2
       address:
         EU: 0x200C2DC
         NA: 0x200C254
         JP: 0x200C254
       description: "Does nothing, only called in the debug initialization function."
     - name: InitDebugStripped1
+      aliases:
+        - Debug_Stripped1
       address:
         EU: 0x200C2E0
         NA: 0x200C258
         JP: 0x200C258
       description: "Does nothing, only called in the debug initialization function."
     - name: FatalError
+      aliases:
+        - Debug_FatalError
       address:
         EU: 0x200C2E4
         NA: 0x200C25C
@@ -1232,6 +1278,8 @@ arm9:
         r1: format
         ...: variadic
     - name: OpenAllPackFiles
+      aliases:
+        - DirectoryFileMngr_ExtractAllDirectoryFiles
       address:
         EU: 0x200C364
         NA: 0x200C2DC
@@ -1241,6 +1289,8 @@ arm9:
         
         No params.
     - name: GetFileLengthInPackWithPackNb
+      aliases:
+        - DirectoryFileMngr_GetDirectoryFileSize
       address:
         EU: 0x200C3C4
         NA: 0x200C33C
@@ -1252,6 +1302,8 @@ arm9:
         r1: file number
         return: size of the file in bytes from the Pack Table of Content
     - name: LoadFileInPackWithPackId
+      aliases:
+        - DirectoryFileMngr_LoadDirectoryFile
       address:
         EU: 0x200C3E4
         NA: 0x200C35C
@@ -1264,6 +1316,8 @@ arm9:
         r2: [output] target buffer
         return: number of read bytes (identical to the length of the pack from the Table of Content)
     - name: AllocAndLoadFileInPack
+      aliases:
+        - DirectoryFileMngr_OpenDirectoryFile
       address:
         EU: 0x200C410
         NA: 0x200C388
@@ -1277,6 +1331,8 @@ arm9:
         r2: [output] result struct (will contain length and pointer)
         r3: allocation flags
     - name: OpenPackFile
+      aliases:
+        - DirectoryFile_ExtractDirectoryFile
       address:
         EU: 0x200C468
         NA: 0x200C3E0
@@ -1287,6 +1343,8 @@ arm9:
         r0: [output] pack file struct
         r1: file name
     - name: GetFileLengthInPack
+      aliases:
+        - DirectoryFile_GetDirectoryFileSize
       address:
         EU: 0x200C4FC
         NA: 0x200C474
@@ -1298,6 +1356,8 @@ arm9:
         r1: file index
         return: size of the file in bytes from the Pack Table of Content
     - name: LoadFileInPack
+      aliases:
+        - DirectoryFile_LoadDirectoryFile
       address:
         EU: 0x200C50C
         NA: 0x200C484
@@ -12180,6 +12240,8 @@ arm9:
       length:
         NA: 0x1
     - name: PACK_FILES_OPENED
+      aliases:
+        - DIRECTORY_FILES_EXTRACTED
       address:
         EU: 0x20AFF54
         NA: 0x20AF69C
@@ -12191,6 +12253,8 @@ arm9:
         
         type: struct pack_file_opened*
     - name: PACK_FILE_PATHS_TABLE
+      aliases:
+        - DIRECTORY_FILE_TABLE
       address:
         EU: 0x20AFF58
         NA: 0x20AF6A0
