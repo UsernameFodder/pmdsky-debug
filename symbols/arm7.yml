@@ -236,6 +236,8 @@ arm7:
         
         return: cpsr & 0x1f (the cpsr mode bits M4-M0)
     - name: _s32_div_f
+      aliases:
+        - __divsi3
       address:
         EU: 0x238EDB0
         NA: 0x238EDB0
@@ -250,6 +252,8 @@ arm7:
         r1: divisor
         return: (quotient) | (remainder << 32)
     - name: _u32_div_f
+      aliases:
+        - __udivsi3
       address:
         EU: 0x238EFBC
         NA: 0x238EFBC
@@ -264,6 +268,8 @@ arm7:
         r1: divisor
         return: (quotient) | (remainder << 32)
     - name: _u32_div_not_0_f
+      aliases:
+        - __udivsi3_no_zero_check
       address:
         EU: 0x238EFC4
         NA: 0x238EFC4

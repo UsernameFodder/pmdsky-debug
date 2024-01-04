@@ -1471,6 +1471,8 @@ libs:
         
         The result is returned in r0 and r1, in accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return).
         
+        Analogous to __adddf3 in libgcc.
+        
         r0: a (low bits)
         r1: a (high bits)
         r2: b (low bits)
@@ -1482,6 +1484,8 @@ libs:
         NA: 0x208E1E0
       description: |-
         Implements the double to float cast operator for IEEE 754 floating-point numbers.
+        
+        Analogous to __truncdfsf2 in libgcc.
         
         r0: double (low bits)
         r1: double (high bits)
@@ -1495,6 +1499,8 @@ libs:
         
         The result is returned in r0 and r1, in accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return).
         
+        Analogous to __fixunsdfti in libgcc.
+        
         r0: double (low bits)
         r1: double (high bits)
         return: (unsigned long long)double
@@ -1507,6 +1513,8 @@ libs:
         
         The result is returned in r0 and r1, in accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return).
         
+        Analogous to __floatsidf in libgcc.
+        
         r0: int
         return: (double)int
     - name: _dfltu
@@ -1518,6 +1526,8 @@ libs:
         
         The result is returned in r0 and r1, in accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return).
         
+        Analogous to __floatunsidf in libgcc.
+        
         r0: uint
         return: (double)uint
     - name: _dmul
@@ -1528,6 +1538,8 @@ libs:
         Implements the multiplication operator for IEEE 754 double-precision floating-point numbers.
         
         The result is returned in r0 and r1, in accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return).
+        
+        Analogous to __muldf3 in libgcc.
         
         r0: a (low bits)
         r1: a (high bits)
@@ -1555,12 +1567,16 @@ libs:
         
         The result is returned in r0 and r1, in accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return).
         
+        Analogous to __subdf3 in libgcc.
+        
         r0: a (low bits)
         r1: a (high bits)
         r2: b (low bits)
         r3: b (high bits)
         return: a - b
     - name: _fadd
+      aliases:
+        - __addsf3
       address:
         EU: 0x208F050
         NA: 0x208ECB8
@@ -1644,6 +1660,8 @@ libs:
         r1: b
         return: a < b
     - name: _fdiv
+      aliases:
+        - __divsf3
       address:
         EU: 0x208F5CC
         NA: 0x208F234
@@ -1657,6 +1675,8 @@ libs:
         r1: divisor
         return: dividend / divisor
     - name: _f2d
+      aliases:
+        - __extendsfdf2
       address:
         EU: 0x208F984
         NA: 0x208F5EC
@@ -1671,6 +1691,8 @@ libs:
         r0: float
         return: (double)float
     - name: _ffix
+      aliases:
+        - __fixsfsi
       address:
         EU: 0x208FA08
         NA: 0x208F670
@@ -1683,6 +1705,8 @@ libs:
         r0: float
         return: (int)float
     - name: _fflt
+      aliases:
+        - __floatsisf
       address:
         EU: 0x208FA3C
         NA: 0x208F6A4
@@ -1695,6 +1719,8 @@ libs:
         r0: int
         return: (float)int
     - name: _ffltu
+      aliases:
+        - __floatunsisf
       address:
         EU: 0x208FA84
         NA: 0x208F6EC
@@ -1707,6 +1733,8 @@ libs:
         r0: uint
         return: (float)uint
     - name: _fmul
+      aliases:
+        - __mulsf3
       address:
         EU: 0x208FACC
         NA: 0x208F734
@@ -1730,6 +1758,8 @@ libs:
         r0: x
         return: sqrt(x)
     - name: _fsub
+      aliases:
+        - __subsf3
       address:
         EU: 0x208FD9C
         NA: 0x208FA04
@@ -1751,6 +1781,8 @@ libs:
         
         The result is returned in r0 and r1, in accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return).
         
+        Analogous to __modti3 in libgcc.
+        
         r0: dividend (low bits)
         r1: dividend (high bits)
         r2: divisor (low bits)
@@ -1764,6 +1796,8 @@ libs:
         Implements the division operator for signed long longs.
         
         The result is returned in r0 and r1, in accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return).
+        
+        Analogous to __divti3 in libgcc.
         
         r0: dividend (low bits)
         r1: dividend (high bits)
@@ -1779,6 +1813,8 @@ libs:
         
         The result is returned in r0 and r1, in accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return).
         
+        Analogous to __udivti3 in libgcc.
+        
         r0: dividend (low bits)
         r1: dividend (high bits)
         r2: divisor (low bits)
@@ -1792,6 +1828,8 @@ libs:
         Implements the modulus operator for unsigned long longs.
         
         The result is returned in r0 and r1, in accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return).
+        
+        Analogous to __umodti3 in libgcc.
         
         r0: dividend (low bits)
         r1: dividend (high bits)
@@ -1807,12 +1845,16 @@ libs:
         
         The result is returned in r0 and r1, in accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return).
         
+        Analogous to __multi3 in libgcc.
+        
         r0: a (low bits)
         r1: a (high bits)
         r2: b (low bits)
         r3: b (high bits)
         return: a * b
     - name: _s32_div_f
+      aliases:
+        - __divsi3
       address:
         EU: 0x209023C
         NA: 0x208FEA4
@@ -1828,6 +1870,8 @@ libs:
         r1: divisor
         return: (quotient) | (remainder << 32)
     - name: _u32_div_f
+      aliases:
+        - __udivsi3
       address:
         EU: 0x2090448
         NA: 0x20900B0
@@ -1844,6 +1888,8 @@ libs:
         r1: divisor
         return: (quotient) | (remainder << 32)
     - name: _u32_div_not_0_f
+      aliases:
+        - __udivsi3_no_zero_check
       address:
         EU: 0x2090450
         NA: 0x20900B8
@@ -1881,6 +1927,8 @@ libs:
         Implements the division operator for IEEE 754 double-precision floating-point numbers.
         
         The result is returned in r0 and r1, in accordance with the Procedure Call Standard for the Arm Architecture (see https://github.com/ARM-software/abi-aa/blob/60a8eb8c55e999d74dac5e368fc9d7e36e38dda4/aapcs32/aapcs32.rst#result-return).
+        
+        Analogous to __divdf3 in libgcc.
         
         r0: dividend (low bits)
         r1: dividend (high bits)
