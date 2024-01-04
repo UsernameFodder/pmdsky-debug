@@ -18,21 +18,21 @@ python3 symcompat.py HEAD~5 HEAD~2 -- </path/to/arm9.yml> </path/to/overlay29.ym
 
 import argparse
 from pathlib import Path
-from typing import Dict, Optional
+from typing import List, Optional
 
 import ansi
 import symdiff
 
 
-def get_symbols(table: symdiff.SymbolTable) -> Dict[str, symdiff.Symbol]:
+def get_symbols(table: symdiff.SymbolTable) -> List[str]:
     """Get all symbols in a given a SymbolTable, including aliases."""
-    return {
-        name: s
+    return [
+        name
         for block in table.blocks.values()
         for l in [block.functions, block.data]
         for s in l
         for name in [s.name] + s.aliases
-    }
+    ]
 
 
 def print_help_text():
@@ -64,8 +64,9 @@ def check_symbol_compatibility(
         return True
 
     old_symbols = get_symbols(old_table)
-    new_symbols = get_symbols(new_table)
-    removed_symbols = old_symbols.keys() - new_symbols.keys()
+    new_symbols_set = set(get_symbols(new_table))
+    # Maintain symbol order for reporting determinism
+    removed_symbols = [s for s in old_symbols if s not in new_symbols_set]
     if not removed_symbols:
         return True
 
