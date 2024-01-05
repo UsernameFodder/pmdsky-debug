@@ -22,6 +22,7 @@ libs:
       address:
         EU: 0x206CC8C
         NA: 0x206C8F4
+        JP: 0x206CBDC
       description: "return: random number in the range [0, 32767]"
     - name: ReadWaviEntry
       address:
@@ -95,21 +96,25 @@ libs:
       address:
         EU: 0x2075008
         NA: 0x2074C70
+        JP: 0x2074F58
       description: "r0: Sound envelope pointer"
     - name: SoundEnvelopeParameters_Reset
       address:
         EU: 0x207501C
         NA: 0x2074C84
+        JP: 0x2074F6C
       description: "r0: Sound envelope parameters pointer"
     - name: SoundEnvelopeParameters_CheckValidity
       address:
         EU: 0x2075038
         NA: 0x2074CA0
+        JP: 0x2074F88
       description: "r0: Sound envelope parameters pointer"
     - name: SoundEnvelope_SetParameters
       address:
         EU: 0x207508C
         NA: 0x2074CF4
+        JP: 0x2074FDC
       description: |-
         r0: Sound envelope pointer
         r1: Sound envelope parameters pointer
@@ -117,6 +122,7 @@ libs:
       address:
         EU: 0x20750F0
         NA: 0x2074D58
+        JP: 0x2075040
       description: |-
         r0: Sound envelope pointer
         r1: Target volume
@@ -134,16 +140,19 @@ libs:
       address:
         EU: 0x2075270
         NA: 0x2074ED8
+        JP: 0x20751C0
       description: "r0: Sound envelope pointer"
     - name: SoundEnvelope_Stop
       address:
         EU: 0x207529C
         NA: 0x2074F04
+        JP: 0x20751EC
       description: "r0: Sound envelope pointer"
     - name: SoundEnvelope_ForceVolume
       address:
         EU: 0x20752B4
         NA: 0x2074F1C
+        JP: 0x2075204
       description: |-
         r0: Sound envelope pointer
         r1: Volume
@@ -151,11 +160,13 @@ libs:
       address:
         EU: 0x20752D4
         NA: 0x2074F3C
+        JP: 0x2075224
       description: "r0: Sound envelope pointer"
     - name: SoundEnvelope_Tick
       address:
         EU: 0x20752EC
         NA: 0x2074F54
+        JP: 0x207523C
       description: |-
         r0: Sound envelope pointer
         return: Current volume
@@ -163,11 +174,13 @@ libs:
       address:
         EU: 0x2075434
         NA: 0x207509C
+        JP: 0x2075384
       description: "r0: LFO bank pointer"
     - name: SoundLfoBank_Set
       address:
         EU: 0x207544C
         NA: 0x20750B4
+        JP: 0x207539C
       description: |-
         r0: LFO bank pointer
         r1: LFO settings pointer
@@ -176,6 +189,7 @@ libs:
       address:
         EU: 0x2075644
         NA: 0x20752AC
+        JP: 0x2075594
       description: |-
         r0: LFO bank pointer
         r1: Level
@@ -183,6 +197,7 @@ libs:
       address:
         EU: 0x2075690
         NA: 0x20752F8
+        JP: 0x20755E0
       description: |-
         r0: LFO bank pointer
         return: New voice update flags
@@ -190,6 +205,7 @@ libs:
       address:
         EU: 0x2075744
         NA: 0x20753AC
+        JP: 0x2075694
       description: |-
         r0: LFO pointer
         return: 0
@@ -197,6 +213,7 @@ libs:
       address:
         EU: 0x2075758
         NA: 0x20753C0
+        JP: 0x20756A8
       description: |-
         r0: LFO pointer
         return: LFO current output
@@ -204,6 +221,7 @@ libs:
       address:
         EU: 0x2075794
         NA: 0x20753FC
+        JP: 0x20756E4
       description: |-
         r0: LFO pointer
         return: LFO current output
@@ -211,6 +229,7 @@ libs:
       address:
         EU: 0x20757DC
         NA: 0x2075444
+        JP: 0x207572C
       description: |-
         r0: LFO pointer
         return: LFO current output
@@ -218,6 +237,7 @@ libs:
       address:
         EU: 0x2075830
         NA: 0x2075498
+        JP: 0x2075780
       description: |-
         r0: LFO pointer
         return: LFO current output
@@ -225,6 +245,7 @@ libs:
       address:
         EU: 0x2075894
         NA: 0x20754FC
+        JP: 0x20757E4
       description: |-
         r0: LFO pointer
         return: LFO current output
@@ -232,6 +253,7 @@ libs:
       address:
         EU: 0x20758D0
         NA: 0x2075538
+        JP: 0x2075820
       description: |-
         r0: LFO pointer
         return: LFO current output
@@ -239,6 +261,7 @@ libs:
       address:
         EU: 0x207590C
         NA: 0x2075574
+        JP: 0x207585C
       description: |-
         r0: LFO pointer
         return: LFO current output
@@ -246,6 +269,7 @@ libs:
       address:
         EU: 0x2075950
         NA: 0x20755B8
+        JP: 0x20758A0
       description: |-
         r0: LFO pointer
         return: LFO current output
@@ -253,98 +277,122 @@ libs:
       address:
         EU: 0x2075AB8
         NA: 0x2075720
+        JP: 0x2075A08
     - name: Mtx_LookAt
       address:
         EU: 0x2075BC0
         NA: 0x2075828
+        JP: 0x2075B10
     - name: Mtx_OrthoW
       address:
         EU: 0x2075CC8
         NA: 0x2075930
+        JP: 0x2075C18
     - name: FX_Div
       address:
         EU: 0x2075ED0
         NA: 0x2075B38
+        JP: 0x2075E20
     - name: FX_GetDivResultFx64c
       address:
         EU: 0x2075EE0
         NA: 0x2075B48
+        JP: 0x2075E30
     - name: FX_GetDivResult
       address:
         EU: 0x2075F04
         NA: 0x2075B6C
+        JP: 0x2075E54
     - name: FX_InvAsync
       address:
         EU: 0x2075F3C
         NA: 0x2075BA4
+        JP: 0x2075E8C
     - name: FX_DivAsync
       address:
         EU: 0x2075F6C
         NA: 0x2075BD4
+        JP: 0x2075EBC
     - name: FX_DivS32
       address:
         EU: 0x2075F94
         NA: 0x2075BFC
+        JP: 0x2075EE4
     - name: FX_ModS32
       address:
         EU: 0x2075FD0
         NA: 0x2075C38
+        JP: 0x2075F20
     - name: Vec_DotProduct
       address:
         EU: 0x207600C
         NA: 0x2075C74
+        JP: 0x2075F5C
     - name: Vec_CrossProduct
       address:
         EU: 0x2076048
         NA: 0x2075CB0
+        JP: 0x2075F98
     - name: Vec_Normalize
       address:
         EU: 0x20760CC
         NA: 0x2075D34
+        JP: 0x207601C
     - name: Vec_Distance
       address:
         EU: 0x20761E4
         NA: 0x2075E4C
+        JP: 0x2076134
     - name: FX_Atan2Idx
       address:
         EU: 0x2076260
         NA: 0x2075EC8
+        JP: 0x20761B0
     - name: GX_Init
       address:
         EU: 0x207640C
         NA: 0x2076074
+        JP: 0x207635C
     - name: GX_HBlankIntr
       address:
         EU: 0x2076558
         NA: 0x20761C0
+        JP: 0x20764A8
     - name: GX_VBlankIntr
       address:
         EU: 0x2076580
         NA: 0x20761E8
+        JP: 0x20764D0
     - name: GX_DispOff
       address:
         EU: 0x20765B4
         NA: 0x207621C
+        JP: 0x2076504
     - name: GX_DispOn
       address:
         EU: 0x20765F0
         NA: 0x2076258
+        JP: 0x2076540
     - name: GX_SetGraphicsMode
       address:
         EU: 0x2076638
         NA: 0x20762A0
+        JP: 0x2076588
     - name: Gxs_SetGraphicsMode
       address:
         EU: 0x20766A0
         NA: 0x2076308
+        JP: 0x20765F0
     - name: GXx_SetMasterBrightness
       address:
         EU: 0x20766BC
         NA: 0x2076324
+        JP: 0x207660C
     - name: GX_InitGxState
       address:
         EU: 0x20766E4
         NA: 0x207634C
+        JP: 0x2076634
     - name: EnableVramBanksInSetDontSave
       address:
         EU: 0x2076744
@@ -358,54 +406,67 @@ libs:
       address:
         EU: 0x20767FC
         NA: 0x2076464
+        JP: 0x207674C
     - name: GX_SetBankForObj
       address:
         EU: 0x2076A8C
         NA: 0x20766F4
+        JP: 0x20769DC
     - name: GX_SetBankForBgExtPltt
       address:
         EU: 0x2076BDC
         NA: 0x2076844
+        JP: 0x2076B2C
     - name: GX_SetBankForObjExtPltt
       address:
         EU: 0x2076CDC
         NA: 0x2076944
+        JP: 0x2076C2C
     - name: GX_SetBankForTex
       address:
         EU: 0x2076D88
         NA: 0x20769F0
+        JP: 0x2076CD8
     - name: GX_SetBankForTexPltt
       address:
         EU: 0x2076F60
         NA: 0x2076BC8
+        JP: 0x2076EB0
     - name: GX_SetBankForClearImage
       address:
         EU: 0x2077048
         NA: 0x2076CB0
+        JP: 0x2076F98
     - name: GX_SetBankForArm7
       address:
         EU: 0x207717C
         NA: 0x2076DE4
+        JP: 0x20770CC
     - name: GX_SetBankForLcdc
       address:
         EU: 0x2077228
         NA: 0x2076E90
+        JP: 0x2077178
     - name: GX_SetBankForSubBg
       address:
         EU: 0x2077248
         NA: 0x2076EB0
+        JP: 0x2077198
     - name: GX_SetBankForSubObj
       address:
         EU: 0x20772F0
         NA: 0x2076F58
+        JP: 0x2077240
     - name: GX_SetBankForSubBgExtPltt
       address:
         EU: 0x2077360
         NA: 0x2076FC8
+        JP: 0x20772B0
     - name: GX_SetBankForSubObjExtPltt
       address:
         EU: 0x20773E0
         NA: 0x2077048
+        JP: 0x2077330
     - name: EnableVramBanksInSet
       address:
         EU: 0x2077460
@@ -443,6 +504,7 @@ libs:
       address:
         EU: 0x2077554
         NA: 0x20771BC
+        JP: 0x20774A4
     - name: GX_DisableBankForBg
       address:
         EU: 0x2077634
@@ -499,66 +561,82 @@ libs:
       address:
         EU: 0x2077780
         NA: 0x20773E8
+        JP: 0x20776D0
     - name: G2S_GetBG0ScrPtr
       address:
         EU: 0x20777B4
         NA: 0x207741C
+        JP: 0x2077704
     - name: G2_GetBG1ScrPtr
       address:
         EU: 0x20777D4
         NA: 0x207743C
+        JP: 0x2077724
     - name: G2S_GetBG1ScrPtr
       address:
         EU: 0x2077808
         NA: 0x2077470
+        JP: 0x2077758
     - name: G2_GetBG2ScrPtr
       address:
         EU: 0x2077828
         NA: 0x2077490
+        JP: 0x2077778
     - name: G2_GetBG3ScrPtr
       address:
         EU: 0x20778AC
         NA: 0x2077514
+        JP: 0x20777FC
     - name: G2_GetBG0CharPtr
       address:
         EU: 0x2077930
         NA: 0x2077598
+        JP: 0x2077880
     - name: G2S_GetBG0CharPtr
       address:
         EU: 0x2077964
         NA: 0x20775CC
+        JP: 0x20778B4
     - name: G2_GetBG1CharPtr
       address:
         EU: 0x2077984
         NA: 0x20775EC
+        JP: 0x20778D4
     - name: G2S_GetBG1CharPtr
       address:
         EU: 0x20779B8
         NA: 0x2077620
+        JP: 0x2077908
     - name: G2_GetBG2CharPtr
       address:
         EU: 0x20779D8
         NA: 0x2077640
+        JP: 0x2077928
     - name: G2_GetBG3CharPtr
       address:
         EU: 0x2077A28
         NA: 0x2077690
+        JP: 0x2077978
     - name: G2x_SetBlendAlpha
       address:
         EU: 0x2077A80
         NA: 0x20776E8
+        JP: 0x20779D0
     - name: G2x_SetBlendBrightness
       address:
         EU: 0x2077A9C
         NA: 0x2077704
+        JP: 0x20779EC
     - name: G2x_ChangeBlendBrightness
       address:
         EU: 0x2077AC4
         NA: 0x207772C
+        JP: 0x2077A14
     - name: G3_LoadMtx44
       address:
         EU: 0x2077B08
         NA: 0x2077770
+        JP: 0x2077A58
     - name: G3_LoadMtx43
       address:
         EU: 0x2077B24
@@ -585,82 +663,102 @@ libs:
       address:
         EU: 0x2077B5C
         NA: 0x20777C4
+        JP: 0x2077AAC
     - name: G3X_Reset
       address:
         EU: 0x2077C68
         NA: 0x20778D0
+        JP: 0x2077BB8
     - name: G3X_ClearFifo
       address:
         EU: 0x2077CD4
         NA: 0x207793C
+        JP: 0x2077C24
     - name: G3X_InitMtxStack
       address:
         EU: 0x2077CFC
         NA: 0x2077964
+        JP: 0x2077C4C
     - name: G3X_ResetMtxStack
       address:
         EU: 0x2077D94
         NA: 0x20779FC
+        JP: 0x2077CE4
     - name: G3X_SetClearColor
       address:
         EU: 0x2077E24
         NA: 0x2077A8C
+        JP: 0x2077D74
     - name: G3X_InitTable
       address:
         EU: 0x2077E4C
         NA: 0x2077AB4
+        JP: 0x2077D9C
     - name: G3X_GetMtxStackLevelPV
       address:
         EU: 0x2077EEC
         NA: 0x2077B54
+        JP: 0x2077E3C
     - name: G3X_GetMtxStackLevelPJ
       address:
         EU: 0x2077F1C
         NA: 0x2077B84
+        JP: 0x2077E6C
     - name: GXi_NopClearFifo128
       address:
         EU: 0x2077F4C
         NA: 0x2077BB4
+        JP: 0x2077E9C
     - name: G3i_OrthoW
       address:
         EU: 0x2077FE0
         NA: 0x2077C48
+        JP: 0x2077F30
     - name: G3i_LookAt
       address:
         EU: 0x2078044
         NA: 0x2077CAC
+        JP: 0x2077F94
     - name: GX_LoadBgPltt
       address:
         EU: 0x2078090
         NA: 0x2077CF8
+        JP: 0x2077FE0
     - name: Gxs_LoadBgPltt
       address:
         EU: 0x20780E4
         NA: 0x2077D4C
+        JP: 0x2078034
     - name: GX_LoadObjPltt
       address:
         EU: 0x207813C
         NA: 0x2077DA4
+        JP: 0x207808C
     - name: Gxs_LoadObjPltt
       address:
         EU: 0x2078194
         NA: 0x2077DFC
+        JP: 0x20780E4
     - name: GX_LoadOam
       address:
         EU: 0x20781EC
         NA: 0x2077E54
+        JP: 0x207813C
     - name: Gxs_LoadOam
       address:
         EU: 0x2078240
         NA: 0x2077EA8
+        JP: 0x2078190
     - name: GX_LoadObj
       address:
         EU: 0x2078298
         NA: 0x2077F00
+        JP: 0x20781E8
     - name: Gxs_LoadObj
       address:
         EU: 0x20782F0
         NA: 0x2077F58
+        JP: 0x2078240
     - name: GX_LoadBg0Scr
       address:
         EU: 0x2078348
@@ -709,58 +807,72 @@ libs:
       address:
         EU: 0x2078768
         NA: 0x20783D0
+        JP: 0x20786B8
     - name: GX_EndLoadBgExtPltt
       address:
         EU: 0x2078808
         NA: 0x2078470
+        JP: 0x2078758
     - name: GX_BeginLoadObjExtPltt
       address:
         EU: 0x2078850
         NA: 0x20784B8
+        JP: 0x20787A0
     - name: GX_EndLoadObjExtPltt
       address:
         EU: 0x2078898
         NA: 0x2078500
+        JP: 0x20787E8
     - name: Gxs_BeginLoadBgExtPltt
       address:
         EU: 0x20788DC
         NA: 0x2078544
+        JP: 0x207882C
     - name: Gxs_EndLoadBgExtPltt
       address:
         EU: 0x20788F4
         NA: 0x207855C
+        JP: 0x2078844
     - name: Gxs_BeginLoadObjExtPltt
       address:
         EU: 0x2078934
         NA: 0x207859C
+        JP: 0x2078884
     - name: Gxs_EndLoadObjExtPltt
       address:
         EU: 0x207894C
         NA: 0x20785B4
+        JP: 0x207889C
     - name: GX_BeginLoadTex
       address:
         EU: 0x207898C
         NA: 0x20785F4
+        JP: 0x20788DC
     - name: GX_LoadTex
       address:
         EU: 0x20789E8
         NA: 0x2078650
+        JP: 0x2078938
     - name: GX_EndLoadTex
       address:
         EU: 0x2078B28
         NA: 0x2078790
+        JP: 0x2078A78
     - name: GX_BeginLoadTexPltt
       address:
         EU: 0x2078B74
         NA: 0x20787DC
+        JP: 0x2078AC4
     - name: GX_LoadTexPltt
       address:
         EU: 0x2078BA8
         NA: 0x2078810
+        JP: 0x2078AF8
     - name: GX_EndLoadTexPltt
       address:
         EU: 0x2078C14
         NA: 0x207887C
+        JP: 0x2078B64
     - name: GeomGxFifoSendMtx4x3
       address:
         EU: 0x2078C58
@@ -779,10 +891,12 @@ libs:
       address:
         EU: 0x2078C7C
         NA: 0x20788E4
+        JP: 0x2078BCC
     - name: OS_GetLockID
       address:
         EU: 0x20793C4
         NA: 0x207902C
+        JP: 0x2079314
     - name: IncrementThreadCount
       address:
         EU: 0x20794E8
@@ -934,6 +1048,7 @@ libs:
       address:
         EU: 0x207BE24
         NA: 0x207BA8C
+        JP: 0x207BD74
       description: |-
         Counts the number of leading zeros in a 32-bit integer.
         
@@ -1466,6 +1581,7 @@ libs:
       address:
         EU: 0x208E260
         NA: 0x208DEC8
+        JP: 0x208E1B0
       description: |-
         Implements the addition operator for IEEE 754 double-precision floating-point numbers.
         
@@ -1482,6 +1598,7 @@ libs:
       address:
         EU: 0x208E578
         NA: 0x208E1E0
+        JP: 0x208E4C8
       description: |-
         Implements the double to float cast operator for IEEE 754 floating-point numbers.
         
@@ -1494,6 +1611,7 @@ libs:
       address:
         EU: 0x208E67C
         NA: 0x208E2E4
+        JP: 0x208E5CC
       description: |-
         Implements the double to unsigned long long cast operation for IEEE 754 floating-point numbers.
         
@@ -1508,6 +1626,7 @@ libs:
       address:
         EU: 0x208E708
         NA: 0x208E370
+        JP: 0x208E658
       description: |-
         Implements the int to double cast operation for IEEE 754 floating-point numbers.
         
@@ -1521,6 +1640,7 @@ libs:
       address:
         EU: 0x208E748
         NA: 0x208E3B0
+        JP: 0x208E698
       description: |-
         Implements the unsigned int to double cast operation for IEEE 754 floating-point numbers.
         
@@ -1534,6 +1654,7 @@ libs:
       address:
         EU: 0x208E784
         NA: 0x208E3EC
+        JP: 0x208E6D4
       description: |-
         Implements the multiplication operator for IEEE 754 double-precision floating-point numbers.
         
@@ -1550,6 +1671,7 @@ libs:
       address:
         EU: 0x208EAE8
         NA: 0x208E750
+        JP: 0x208EA38
       description: |-
         Analogous to the sqrt(3) C library function.
         
@@ -1562,6 +1684,7 @@ libs:
       address:
         EU: 0x208EC9C
         NA: 0x208E904
+        JP: 0x208EBEC
       description: |-
         Implements the subtraction operator for IEEE 754 double-precision floating-point numbers.
         
@@ -1593,6 +1716,7 @@ libs:
       address:
         EU: 0x208F274
         NA: 0x208EEDC
+        JP: 0x208F1C4
       description: |-
         Implements the >= operator for IEEE 754 double-precision floating-point numbers.
         
@@ -1605,6 +1729,7 @@ libs:
       address:
         EU: 0x208F30C
         NA: 0x208EF74
+        JP: 0x208F25C
       description: |-
         Implements the <= operator for IEEE 754 double-precision floating-point numbers.
         
@@ -1617,6 +1742,7 @@ libs:
       address:
         EU: 0x208F3B0
         NA: 0x208F018
+        JP: 0x208F300
       description: |-
         Implements the < operator for IEEE 754 double-precision floating-point numbers.
         
@@ -1629,6 +1755,7 @@ libs:
       address:
         EU: 0x208F44C
         NA: 0x208F0B4
+        JP: 0x208F39C
       description: |-
         Implements the == operator for IEEE 754 double-precision floating-point numbers.
         
@@ -1641,6 +1768,7 @@ libs:
       address:
         EU: 0x208F4D8
         NA: 0x208F140
+        JP: 0x208F428
       description: |-
         Implements the != operator for IEEE 754 double-precision floating-point numbers.
         
@@ -1653,6 +1781,7 @@ libs:
       address:
         EU: 0x208F564
         NA: 0x208F1CC
+        JP: 0x208F4B4
       description: |-
         Implements the < operator for IEEE 754 floating-point numbers.
         
@@ -1776,6 +1905,7 @@ libs:
       address:
         EU: 0x2090014
         NA: 0x208FC7C
+        JP: 0x208FF64
       description: |-
         Implements the modulus operator for signed long longs.
         
@@ -1792,6 +1922,7 @@ libs:
       address:
         EU: 0x2090024
         NA: 0x208FC8C
+        JP: 0x208FF74
       description: |-
         Implements the division operator for signed long longs.
         
@@ -1808,6 +1939,7 @@ libs:
       address:
         EU: 0x20901D4
         NA: 0x208FE3C
+        JP: 0x2090124
       description: |-
         Implements the division operator for unsigned long longs.
         
@@ -1824,6 +1956,7 @@ libs:
       address:
         EU: 0x20901E0
         NA: 0x208FE48
+        JP: 0x2090130
       description: |-
         Implements the modulus operator for unsigned long longs.
         
@@ -1840,6 +1973,7 @@ libs:
       address:
         EU: 0x209021C
         NA: 0x208FE84
+        JP: 0x209016C
       description: |-
         Implements the multiplication operator for signed long longs.
         
@@ -1907,6 +2041,7 @@ libs:
       address:
         EU: 0x209062C
         NA: 0x2090294
+        JP: 0x209057C
       description: |-
         The same as _ddiv, but with the parameters reversed.
         
@@ -1923,6 +2058,7 @@ libs:
       address:
         EU: 0x2090644
         NA: 0x20902AC
+        JP: 0x2090594
       description: |-
         Implements the division operator for IEEE 754 double-precision floating-point numbers.
         
@@ -1939,6 +2075,7 @@ libs:
       address:
         EU: 0x2090B88
         NA: 0x20907F0
+        JP: 0x2090AD8
       description: |-
         Meant to do set up for floating point calculations? Does nothing.
         

@@ -283,6 +283,7 @@ overlay11:
       address:
         EU: 0x22EA8B8
         NA: 0x22E9F78
+        JP: 0x22EB5AC
       description: |-
         Used for example in the handler functions of the top screen types in ground mode to check whether the top screen fade is complete or not.
         
@@ -594,6 +595,7 @@ overlay11:
       address:
         EU: 0x230EFB4
         NA: 0x230E618
+        JP: 0x230FBC4
       description: |-
         Handles the controls top screen display in the overworld.
         
@@ -646,6 +648,7 @@ overlay11:
       address:
         EU: 0x23144BC
         NA: 0x2313ADC
+        JP: 0x2315040
       description: |-
         Handles the team stats top screen display in the overworld.
         
