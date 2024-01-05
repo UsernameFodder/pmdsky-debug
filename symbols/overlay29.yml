@@ -747,6 +747,7 @@ overlay29:
       address:
         EU: 0x22E8874
         NA: 0x22E7EC4
+        JP: 0x22E952C
       description: |-
         Allocates and initializes the top_screen_status struct when entering dungeon mode.
         
@@ -755,6 +756,7 @@ overlay29:
       address:
         EU: 0x22E88F4
         NA: 0x22E7F44
+        JP: 0x22E95AC
       description: |-
         Gets called when leaving dungeon mode, calls FreeTopScreen and then also frees the allocated memory to the top_screen_status struct.
         
@@ -763,6 +765,7 @@ overlay29:
       address:
         EU: 0x22E8AE0
         NA: 0x22E8130
+        JP: 0x22E9798
       description: |-
         Initializes the team stats top screen.
         
@@ -771,6 +774,7 @@ overlay29:
       address:
         EU: 0x22E8B40
         NA: 0x22E8190
+        JP: 0x22E97F8
       description: |-
         Contains a check and calls UpdateTeamStats in overlay10.
         
@@ -779,6 +783,7 @@ overlay29:
       address:
         EU: 0x22E8B98
         NA: 0x22E81E8
+        JP: 0x22E9850
       description: |-
         Calls a function that calls FreeTeamStats in overlay10.
         
@@ -787,6 +792,7 @@ overlay29:
       address:
         EU: 0x22E9078
         NA: 0x22E86C8
+        JP: 0x22E9D30
       description: |-
         Sets the handler functions of the top screen type.
         
@@ -799,6 +805,7 @@ overlay29:
       address:
         EU: 0x22E921C
         NA: 0x22E886C
+        JP: 0x22E9ED4
       description: |-
         Used to initialize and uninitialize the top screen in dungeon mode in conjunction with handling the fade status of the screen.
         
@@ -809,6 +816,7 @@ overlay29:
       address:
         EU: 0x22E95FC
         NA: 0x22E8C4C
+        JP: 0x22EA2B4
       description: |-
         Gets called twice when fading out the top screen. First it calls the free_func of the top screen type and sets the handlers to null and on the second pass it just returns.
         
@@ -6450,6 +6458,7 @@ overlay29:
       address:
         EU: 0x2339280
         NA: 0x23386B0
+        JP: 0x2339A74
       description: |-
         Checks if the current floor is a secret bazaar or a secret room and returns which one it is.
         
@@ -7696,6 +7705,7 @@ overlay29:
       address:
         EU: 0x2348ED4
         NA: 0x23482D4
+        JP: 0x234965C
       description: |-
         Dispatches the splash screen between floors showing the dungeon name and the current floor.
         
@@ -7706,6 +7716,7 @@ overlay29:
       address:
         EU: 0x2348F0C
         NA: 0x234830C
+        JP: 0x2349694
       description: |-
         Handles the display of the splash screen between floors showing the dungeon name and the current floor.
         
@@ -8162,6 +8173,7 @@ overlay29:
       address:
         EU: 0x234D008
         NA: 0x234C408
+        JP: 0x234D66C
       description: |-
         Initiates a screen fade in dungeon mode.
         
@@ -8174,6 +8186,7 @@ overlay29:
       address:
         EU: 0x234D268
         NA: 0x234C668
+        JP: 0x234D8CC
       description: |-
         Calls StartFadeDungeon to initiate a screen fade in dungeon mode.
         
@@ -8186,6 +8199,7 @@ overlay29:
       address:
         EU: 0x234D3D4
         NA: 0x234C7D4
+        JP: 0x234DA38
       description: |-
         Gets called every frame for both screens in dungeon mode. Handles the status of the screen fades.
         
@@ -8194,6 +8208,7 @@ overlay29:
       address:
         EU: 0x234D5E4
         NA: 0x234C9E4
+        JP: 0x234DC48
       description: |-
         Calls HandleFadesDungeon for both screens.
         

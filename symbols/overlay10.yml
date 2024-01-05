@@ -235,6 +235,7 @@ overlay10:
       address:
         EU: 0x22C1620
         NA: 0x22C0CE0
+        JP: 0x22C2488
       description: |-
         Handles updating the team stats top screen display.
         
@@ -243,6 +244,7 @@ overlay10:
       address:
         EU: 0x22C1CF4
         NA: 0x22C13B4
+        JP: 0x22C2B08
       description: |-
         Handles the procedure to close the team stats top screen display.
         
@@ -253,6 +255,7 @@ overlay10:
       address:
         EU: 0x22C2024
         NA: 0x22C16D8
+        JP: 0x22C2E2C
       description: |-
         Handles the procedure to close the map and team top screen display.
         

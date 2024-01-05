@@ -60,6 +60,7 @@ arm9:
       address:
         EU: 0x2000954
         NA: 0x2000954
+        JP: 0x2000954
     - name: MIi_UncompressBackward
       address:
         EU: 0x2000970
@@ -82,6 +83,7 @@ arm9:
       address:
         EU: 0x2000AB0
         NA: 0x2000AB0
+        JP: 0x2000AB0
     - name: OSi_ReferSymbol
       address:
         EU: 0x2000B9C
@@ -1035,6 +1037,7 @@ arm9:
       address:
         EU: 0x200BA18
         NA: 0x200B990
+        JP: 0x200B990
       description: |-
         Updates the given screen_fade struct to initiate a fade for example.
         
@@ -1047,6 +1050,7 @@ arm9:
       address:
         EU: 0x200BA90
         NA: 0x200BA08
+        JP: 0x200BA08
       description: |-
         Handles updating the screen_fade struct in all modes except dungeon mode.
         
@@ -1058,6 +1062,7 @@ arm9:
       address:
         EU: 0x200BDB4
         NA: 0x200BD2C
+        JP: 0x200BD2C
       description: |-
         Returns 1 if fading to black, 2 if fading to white, 0 otherwise.
         
@@ -5008,6 +5013,7 @@ arm9:
       address:
         EU: 0x20264F8
         NA: 0x2026214
+        JP: 0x20262EC
       description: |-
         Seems to be responsible for drawing the text in a window.
         
@@ -5075,6 +5081,7 @@ arm9:
       address:
         EU: 0x2027DE4
         NA: 0x2027AF0
+        JP: 0x2027E50
       description: |-
         Seems to cause updated window contents to be displayed.
            
@@ -5085,6 +5092,7 @@ arm9:
       address:
         EU: 0x2027E4C
         NA: 0x2027B58
+        JP: 0x2027EB8
       description: |-
         Clears the window, at least in the case of a text box.
         
@@ -8055,6 +8063,7 @@ arm9:
       address:
         EU: 0x2051140
         NA: 0x2050E08
+        JP: 0x2051158
       description: |-
         Reset the file timer.
         
@@ -8063,6 +8072,7 @@ arm9:
       address:
         EU: 0x2051150
         NA: 0x2050E18
+        JP: 0x2051168
       description: |-
         Advance the file timer by 1 frame.
         
@@ -8071,6 +8081,7 @@ arm9:
       address:
         EU: 0x205118C
         NA: 0x2050E54
+        JP: 0x20511A4
       description: |-
         Returns the current play time in seconds.
         
