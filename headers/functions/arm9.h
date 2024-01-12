@@ -1034,7 +1034,7 @@ bool IsMissionSuspendedAndValid(struct mission* mission);
 bool AreMissionsEquivalent(struct mission* mission1, struct mission* mission2);
 bool IsMissionValid(struct mission* mission);
 enum mission_generation_result GenerateMission(undefined* param_1, struct mission* mission_data);
-bool IsMissionSpecialEpisodeTransmission(struct mission* mission);
+bool IsMissionTypeSpecialEpisode(struct mission* mission);
 void GenerateDailyMissions(void);
 bool AlreadyHaveMission(struct mission* mission);
 int CountJobListMissions(void);
