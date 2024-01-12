@@ -10077,7 +10077,7 @@ arm9:
         JP: 0x205FAE4
       description: |-
         Attempts to add dungeon IDs 1 (DUNGEON_TEST_DUNGEON) through 179 (DUNGEON_RESCUE) as entries to a heap-allocated list.
-
+        
         If no dungeons are valid mission targets, the heap-allocated list is freed. Otherwise, sets MISSION_DUNGEON_LIST_PTR and MISSION_DUNGEON_COUNT.
         
         return: Number of dungeons usable for a mission
@@ -10097,7 +10097,7 @@ arm9:
         JP: 0x205FBC0
       description: |-
         Attempts to add all items in ITEM_DELIVERY_TABLE as entries to a heap-allocated list.
-
+        
         If no items are valid for a delivery mission, the heap-allocated list is freed. Otherwise, sets MISSION_DELIVER_LIST_PTR and MISSION_DELIVER_COUNT.
         
         return: Number of deliverable items for a mission
