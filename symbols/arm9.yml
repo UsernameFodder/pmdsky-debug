@@ -10057,7 +10057,7 @@ arm9:
         JP: 0x205FA48
       description: |-
         Attempts to add monster IDs 1 (Bulbasaur) through 535 (Shaymin Sky) as entries to a heap-allocated list.
-
+        
         If no monsters are valid mission targets, the heap-allocated list is freed. Otherwise, sets MISSION_MONSTER_LIST_PTR and MISSION_MONSTER_COUNT.
         
         return: Number of monsters usable for a mission
