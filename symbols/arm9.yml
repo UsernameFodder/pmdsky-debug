@@ -1780,9 +1780,7 @@ arm9:
         NA: 0x200E00C
         JP: 0x200E03C
       description: |-
-        Checks one specific bit from table [NA]2094D34
-        
-        Note: unverified, ported from Irdkwia's notes
+        Checks one specific bit from AVAILABLE_ITEMS_IN_GROUP_TABLE?
         
         r0: dungeon ID
         r1: item ID
@@ -5260,6 +5258,15 @@ arm9:
         r2: window_extra_info pointer
         r3: heap-allocated simple_menu_items array, the menu takes ownership
         return: window_id
+    - name: ResumeParentMenu
+      address:
+        EU: 0x202AC48
+        NA: 0x202A954
+        JP: 0x202ACAC
+      description: |-
+        Resumes input for a window created with CreateParentMenuInternal. Used for menus that do not close even after selecting an option.
+        
+        r0: window_id
     - name: SetParentMenuState7
       address:
         EU: 0x202AD9C
@@ -5359,6 +5366,15 @@ arm9:
         r3: heap-allocated simple_menu_items array, the menu takes ownership
         stack[0]: number of items
         return: window_id
+    - name: ResumeSimpleMenu
+      address:
+        EU: 0x202B784
+        NA: 0x202B490
+        JP: 0x202B7E8
+      description: |-
+        Resumes input for a window created with CreateSimpleMenuInternal. Used for menus that do not close even after selecting an option.
+        
+        r0: window_id
     - name: CloseSimpleMenu
       address:
         EU: 0x202B7B8
@@ -5452,6 +5468,15 @@ arm9:
         stack[0]: total number of options
         stack[1]: number of options per page
         return: window_id
+    - name: ResumeAdvancedMenu
+      address:
+        EU: 0x202BEE4
+        NA: 0x202BBF0
+        JP: 0x202BF48
+      description: |-
+        Resumes input for a window created with CreateAdvancedMenu. Used for menus that do not close even after selecting an option.
+        
+        r0: window_id
     - name: CloseAdvancedMenu
       address:
         EU: 0x202BF38
@@ -6988,6 +7013,15 @@ arm9:
         Gets the special episode type from the SPECIAL_EPISODE_TYPE script variable.
         
         return: special episode type
+    - name: SetSpecialEpisodeType
+      address:
+        EU: 0x204CC38
+        NA: 0x204C900
+        JP: 0x204CC60
+      description: |-
+        Sets the special episode type by changing the SPECIAL_EPISODE_TYPE script variable.
+        
+        r0: value to save
     - name: GetExecuteSpecialEpisodeType
       address:
         EU: 0x204CC70
@@ -6997,6 +7031,16 @@ arm9:
         Gets the special episode type from the EXECUTE_SPECIAL_EPISODE_TYPE script variable.
         
         return: special episode type
+    - name: IsSpecialEpisodeOpen
+      address:
+        EU: 0x204CC84
+        NA: 0x204C94C
+        JP: 0x204CCAC
+      description: |-
+        Checks if a special episode is unlocked from the SPECIAL_EPISODE_OPEN script variable.
+        
+        r0: index
+        return: bool
     - name: HasPlayedOldGame
       address:
         EU: 0x204CDA8
@@ -7363,6 +7407,19 @@ arm9:
         r0: portrait params pointer
         r1: kaomado_buffer pointer
         return: portrait exists
+    - name: WonderMailPasswordToMission
+      address:
+        EU: 0x204E0B8
+        NA: 0x204DD80
+        JP: 0x204E0E0
+      description: |-
+        Tries to convert a Wonder Mail S password to a mission struct.
+        
+        Returns whether the conversion was successful. This function does not include any checks if the mission itself is valid, only if the code is valid.
+        
+        r0: string
+        r1: Pointer to the struct where the data of the converted mission will be written to
+        return: successful conversion
     - name: SetEnterDungeon
       address:
         EU: 0x204EC84
@@ -9357,6 +9414,18 @@ arm9:
         In normal play, this will be null. During special episodes, this will be the third special episode main character (index 4) if one is present.
         
         return: ground monster pointer
+    - name: GetFirstMatchingMemberIdx
+      address:
+        EU: 0x2055C70
+        NA: 0x20558F4
+        JP: 0x2055C90
+      description: |-
+        Gets the first team member index (in the Chimecho Assembly) that has a specific monster ID, or -1 if there is none.
+        
+        If valid, this will always be 5 or greater, since indexes 0-4 are reserved for main characters.
+        
+        r0: monster ID
+        return: team member index of the first matching slot
     - name: GetFirstEmptyMemberIdx
       address:
         EU: 0x2055CE0
@@ -9365,7 +9434,7 @@ arm9:
       description: |-
         Gets the first unoccupied team member index (in the Chimecho Assembly), or -1 if there is none.
         
-        If valid, this will always be at least 5, since indexes 0-4 are reserved for main characters.
+        If valid, this will always be 5 or greater, since indexes 0-4 are reserved for main characters.
         
         r0: ?
         return: team member index of the first available slot
@@ -9807,6 +9876,27 @@ arm9:
         r0: ?
         r1: some flag?
         return: SOS mail count
+    - name: IsMissionSuspendedAndValid
+      address:
+        EU: 0x205CBD0
+        NA: 0x205C854
+        JP: 0x205CB54
+      description: |-
+        Checks if a mission is currently suspended and contains valid fields. Calls IsMissionValid for the validity check.
+        
+        r0: mission to check
+        return: bool
+    - name: AreMissionsEquivalent
+      address:
+        EU: 0x205CCB0
+        NA: 0x205C934
+        JP: 0x205CC34
+      description: |-
+        Checks if two missions are equivalent.
+        
+        r0: mission1
+        r1: mission2
+        return: bool
     - name: IsMissionValid
       address:
         EU: 0x205CDBC
@@ -9831,6 +9921,16 @@ arm9:
         r0: Pointer to something
         r1: Pointer to the struct where the data of the generated mission will be written to
         return: MISSION_GENERATION_SUCCESS if the mission was successfully generated, MISSION_GENERATION_FAILURE if it failed and MISSION_GENERATION_GLOBAL_FAILURE if it failed and the game shouldn't try to generate more.
+    - name: IsMissionTypeSpecialEpisode
+      address:
+        EU: 0x205E5B4
+        NA: 0x205E238
+        JP: 0x205E538
+      description: |-
+        Checks if a mission is for a Special Episode Transmission, which unlocks Special Episode 3. This specifically checks for a mission of type MISSION_SPECIAL_EPISODE and subtype 0x2.
+        
+        r0: mission pointer
+        return: bool
     - name: GenerateDailyMissions
       address:
         EU: 0x205E94C
@@ -9840,6 +9940,25 @@ arm9:
         Generates the missions displayed on the Job Bulletin Board and the Outlaw Notice Board.
         
         No params.
+    - name: AlreadyHaveMission
+      address:
+        EU: 0x205F014
+        NA: 0x205EC98
+        JP: 0x205EF98
+      description: |-
+        Checks if a specified mission already exists in the Job List.
+        
+        r0: mission to check
+        return: bool
+    - name: CountJobListMissions
+      address:
+        EU: 0x205F100
+        NA: 0x205ED84
+        JP: 0x205F084
+      description: |-
+        Gets the number of missions currently in the Job List.
+        
+        return: number of missions
     - name: DungeonRequestsDone
       address:
         EU: 0x205F120
@@ -9873,6 +9992,15 @@ arm9:
         
         r0: ?
         return: bool: whether the number of missions completed is greater than 0
+    - name: AddMissionToJobList
+      address:
+        EU: 0x205F434
+        NA: 0x205F0B8
+        JP: 0x205F3B8
+      description: |-
+        Adds a mission to the Job List.
+        
+        r0: mission to add
     - name: GetAcceptedMission
       address:
         EU: 0x205F454
@@ -9912,22 +10040,34 @@ arm9:
         r1: Pointer to some struct that contains the subtype of the mission to check on its first byte
         r2: Dungeon ID
         return: True if at least one mission meets the specified requirements, false otherwise.
+    - name: GetAllPossibleMonsters
+      address:
+        EU: 0x205FAB4
+        NA: 0x205F738
+        JP: 0x205FA28
+      description: |-
+        Stores MISSION_MONSTER_LIST_PTR into the passed buffer and retreives the number of monsters that can be used in a mission.
+        
+        r0: buffer
+        return: Number of monsters usable for a mission
     - name: GenerateAllPossibleMonstersList
       address:
         EU: 0x205FAD4
         NA: 0x205F758
         JP: 0x205FA48
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Attempts to add monster IDs 1 (Bulbasaur) through 535 (Shaymin Sky) as entries to a heap-allocated list.
+
+        If no monsters are valid mission targets, the heap-allocated list is freed. Otherwise, sets MISSION_MONSTER_LIST_PTR and MISSION_MONSTER_COUNT.
         
-        return: ?
+        return: Number of monsters usable for a mission
     - name: DeleteAllPossibleMonstersList
       address:
         EU: 0x205FB40
         NA: 0x205F7C4
         JP: 0x205FAB4
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        If MISSION_MONSTER_LIST_PTR is not null, frees its heap-allocated list and nulls MISSION_MONSTER_LIST_PTR and MISSION_MONSTER_COUNT.
         
         No params.
     - name: GenerateAllPossibleDungeonsList
@@ -9936,16 +10076,18 @@ arm9:
         NA: 0x205F7F4
         JP: 0x205FAE4
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Attempts to add dungeon IDs 1 (DUNGEON_TEST_DUNGEON) through 179 (DUNGEON_RESCUE) as entries to a heap-allocated list.
+
+        If no dungeons are valid mission targets, the heap-allocated list is freed. Otherwise, sets MISSION_DUNGEON_LIST_PTR and MISSION_DUNGEON_COUNT.
         
-        return: ?
+        return: Number of dungeons usable for a mission
     - name: DeleteAllPossibleDungeonsList
       address:
         EU: 0x205FC1C
         NA: 0x205F8A0
         JP: 0x205FB90
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        If MISSION_DUNGEON_LIST_PTR is not null, frees its heap-allocated list and nulls MISSION_DUNGEON_LIST_PTR and MISSION_DUNGEON_COUNT.
         
         No params.
     - name: GenerateAllPossibleDeliverList
@@ -9954,16 +10096,18 @@ arm9:
         NA: 0x205F8D0
         JP: 0x205FBC0
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Attempts to add all items in ITEM_DELIVERY_TABLE as entries to a heap-allocated list.
+
+        If no items are valid for a delivery mission, the heap-allocated list is freed. Otherwise, sets MISSION_DELIVER_LIST_PTR and MISSION_DELIVER_COUNT.
         
-        return: ?
+        return: Number of deliverable items for a mission
     - name: DeleteAllPossibleDeliverList
       address:
         EU: 0x205FC88
         NA: 0x205F90C
         JP: 0x205FBFC
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        If MISSION_DELIVER_LIST_PTR is not null, frees its heap-allocated list and nulls MISSION_DELIVER_LIST_PTR and MISSION_DELIVER_COUNT.
         
         No params.
     - name: ClearMissionData
@@ -10027,13 +10171,25 @@ arm9:
         
         r0: Monster ID
         return: True if PERFOMANCE_PROGRESS_FLAG[9] is true, false if it isn't and the monster ID (after converting it) is contained in MISSION_BANNED_STORY_MONSTERS or if it's the ID of the player or the partner, true otherwise.
+    - name: CanDungeonBeUsedForMission
+      address:
+        EU: 0x2062F34
+        NA: 0x2062BB8
+        JP: 0x2062EA0
+      description: |-
+        Returns whether a certain dungeon can be used when generating a mission.
+        
+        Excluded dungeons include DUNGEON_ICE_AEGIS_CAVE, DUNGEON_DESTINY_TOWER, all Special Episode dungeons, dungeons with IDs greater than 174 (DUNGEON_STAR_CAVE), DUNGEON_CRYSTAL_CAVE and DUNGEON_CRYSTAL_CROSSING if PERFORMANCE_PROGRESS_LIST[9] is false, and any dungeon that does not have a dungeon mode of DMODE_OPEN_AND_REQUEST.
+        
+        r0: Dungeon ID
+        return: True if the specified dungeon can be part of a mission
     - name: CanSendItem
       address:
         EU: 0x2063158
         NA: 0x2062DDC
         JP: 0x20630C4
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Returns whether a certain item can be sent to another player via Wonder Mail.
         
         r0: item ID
         r1: to_sky
@@ -10044,7 +10200,9 @@ arm9:
         NA: 0x206345C
         JP: 0x2063744
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Checks if a certain item is valid to be used in delivery missions. 
+        
+        Validity entails a loop throughout all dungeons, checking if they have been visited before (via a call to GetMaxReachedFloor), and checking if the item is available within a dungeon's group (via a call to IsItemAvailableInDungeonGroup).
         
         r0: item ID
         return: bool
@@ -10054,12 +10212,10 @@ arm9:
         NA: 0x20634A8
         JP: 0x2063790
       description: |-
-        Uncertain.
-        
-        Note: unverified, ported from Irdkwia's notes
+        Iterates through ITEM_DELIVERY_TABLE and checks if each entry is valid to be used in delivery missions.
         
         r0: item_buffer
-        return: nb_items
+        return: Number of deliverable items for a mission
     - name: GetActorMatchingStorageId
       address:
         EU: 0x2065D14
@@ -10132,6 +10288,16 @@ arm9:
         This function gets called shortly after the game is started. Contains a single infinite loop and has no return statement.
         
         No params.
+    - name: CreateJobSummary
+      address:
+        EU: 0x2069B98
+        NA: 0x2069800
+        JP: 0x2069AF0
+      description: |-
+        Creates a window containing a summary of a specific mission on the Top Screen.
+        
+        r0: mission pointer
+        r1: ?
     - name: DungeonSwapIdToIdx
       address:
         EU: 0x206AAAC
@@ -11720,7 +11886,7 @@ arm9:
         NA: 0x6
         JP: 0x6
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        A list of items that are forbidden from being used in a mission sent by Wonder Mail.
         
         type: struct item_id_16[3]
     - name: ARM9_UNKNOWN_TABLE__NA_20A3CC8
@@ -11788,9 +11954,7 @@ arm9:
         NA: 0x2E
         JP: 0x2E
       description: |-
-        Maybe it is the Item table used for Item Deliveries
-        
-        Note: unverified, ported from Irdkwia's notes
+        A list of valid items used for delivering an item for a mission client.
         
         type: struct item_id_16[23]
     - name: MISSION_RANK_POINTS
@@ -12498,6 +12662,66 @@ arm9:
         NA: 0x4
         JP: 0x4
       description: Pointer to TEAM_MEMBER_TABLE
+    - name: MISSION_DELIVER_LIST_PTR
+      address:
+        EU: 0x20B13A4
+        NA: 0x20B0A60
+        JP: 0x20B22D4
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: A pointer to a heap-allocated list of items usable for delivery missions
+    - name: MISSION_DELIVER_COUNT
+      address:
+        EU: 0x20B13A8
+        NA: 0x20B0A64
+        JP: 0x20B22D8
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: The total number of items usable for delivery missions
+    - name: MISSION_DUNGEON_LIST_PTR
+      address:
+        EU: 0x20B13AC
+        NA: 0x20B0A68
+        JP: 0x20B22DC
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: A pointer to a heap-allocated list of dungeons usable for missions
+    - name: MISSION_DUNGEON_COUNT
+      address:
+        EU: 0x20B13B0
+        NA: 0x20B0A6C
+        JP: 0x20B22E0
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: The total number of dungeons usable for missions
+    - name: MISSION_MONSTER_LIST_PTR
+      address:
+        EU: 0x20B13B4
+        NA: 0x20B0A70
+        JP: 0x20B22E4
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: A pointer to a heap-allocated list of monsters usable for missions
+    - name: MISSION_MONSTER_COUNT
+      address:
+        EU: 0x20B13B8
+        NA: 0x20B0A74
+        JP: 0x20B22E8
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: The total number of monsters usable for missions
     - name: MISSION_LIST_PTR
       address:
         EU: 0x20B13BC

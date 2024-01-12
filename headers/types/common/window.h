@@ -85,7 +85,7 @@ struct window_flags {
     uint32_t unknown18 : 2;           // 18-19 (0x40000-0x80000)
     bool y_offset_end : 1;  // 20 (0x100000): If set, window_params::y_offset sets the bottom edge
     bool x_offset_end : 1;  // 21 (0x200000): If set, window_params::x_offset sets the right edge
-    bool partial_menu : 1;  // 22 (0x400000)
+    bool partial_menu : 1;  // 22 (0x400000): If set, menu will not close upon selecting an option
     bool no_cursor : 1;     // 23 (0x800000)
     bool no_up_down : 1;    // 24 (0x1000000)
     bool no_left_right : 1; // 25 (0x2000000)
