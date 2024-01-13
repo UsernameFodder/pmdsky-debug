@@ -743,7 +743,7 @@ bool RestoreScriptVariableValues(void* src);
 void InitScenarioScriptVars(void);
 void SetScenarioScriptVar(enum script_var_id id, uint8_t val0, uint8_t val1);
 int GetSpecialEpisodeType(void);
-void SetSpecialEpisodeType(int val);
+void SetSpecialEpisodeType(enum special_episode_type special_episode_type);
 int GetExecuteSpecialEpisodeType(void);
 bool IsSpecialEpisodeOpen(int idx);
 bool HasPlayedOldGame(void);

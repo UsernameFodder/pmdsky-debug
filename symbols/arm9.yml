@@ -7021,7 +7021,7 @@ arm9:
       description: |-
         Sets the special episode type by changing the SPECIAL_EPISODE_TYPE script variable.
         
-        r0: value to save
+        r0: special episode type
     - name: GetExecuteSpecialEpisodeType
       address:
         EU: 0x204CC70
@@ -7039,7 +7039,7 @@ arm9:
       description: |-
         Checks if a special episode is unlocked from the SPECIAL_EPISODE_OPEN script variable.
         
-        r0: index
+        r0: special episode type
         return: bool
     - name: HasPlayedOldGame
       address:
@@ -10046,7 +10046,7 @@ arm9:
         NA: 0x205F738
         JP: 0x205FA28
       description: |-
-        Stores MISSION_MONSTER_LIST_PTR into the passed buffer and retreives the number of monsters that can be used in a mission.
+        Stores MISSION_MONSTER_LIST_PTR into the passed buffer and retrieves the number of monsters that can be used in a mission.
         
         r0: buffer
         return: Number of monsters usable for a mission
