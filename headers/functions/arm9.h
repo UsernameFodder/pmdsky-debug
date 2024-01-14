@@ -542,6 +542,7 @@ int CreateParentMenuWrapper(struct window_params* params, struct window_flags fl
 int CreateParentMenuInternal(struct window_params* params, struct window_flags flags,
                              struct window_extra_info* window_extra_info,
                              struct simple_menu_item* menu_items);
+void ResumeParentMenu(int window_id);
 void SetParentMenuState7(int window_id);
 void CloseParentMenu(int window_id);
 bool IsParentMenuActive(int window_id);
@@ -556,6 +557,7 @@ int CreateSimpleMenu(struct window_params* params, struct window_flags flags,
 int CreateSimpleMenuInternal(struct window_params* params, struct window_flags flags,
                              struct window_extra_info* window_extra_info,
                              struct simple_menu_item* menu_items, int n_items);
+void ResumeSimpleMenu(int window_id);
 void CloseSimpleMenu(int window_id);
 bool IsSimpleMenuActive(int window_id);
 bool CheckSimpleMenuField0x1A0(int window_id);
@@ -566,6 +568,7 @@ void SetSimpleMenuField0x1AC(int window_id, int value);
 int CreateAdvancedMenu(struct window_params* params, struct window_flags flags,
                        struct window_extra_info* window_extra_info,
                        advanced_menu_entry_fn_t* entry_fn, int n_options, int n_opt_per_page);
+void ResumeAdvancedMenu(int window_id);
 void CloseAdvancedMenu(int window_id);
 bool IsAdvancedMenuActive2(int window_id);
 bool IsAdvancedMenuActive(int window_id);
@@ -740,7 +743,9 @@ bool RestoreScriptVariableValues(void* src);
 void InitScenarioScriptVars(void);
 void SetScenarioScriptVar(enum script_var_id id, uint8_t val0, uint8_t val1);
 int GetSpecialEpisodeType(void);
+void SetSpecialEpisodeType(enum special_episode_type special_episode_type);
 int GetExecuteSpecialEpisodeType(void);
+bool IsSpecialEpisodeOpen(enum special_episode_type special_episode_type);
 bool HasPlayedOldGame(void);
 bool GetPerformanceFlagWithChecks(int flag_id);
 int GetScenarioBalance(void);
@@ -776,6 +781,7 @@ void SetPortraitOffset(struct portrait_params* portrait, struct vec2* offset);
 void AllowPortraitDefault(struct portrait_params* portrait, bool allow);
 bool IsValidPortrait(struct portrait_params* portrait);
 bool LoadPortrait(struct portrait_params* portrait, struct kaomado_buffer* buf);
+bool WonderMailPasswordToMission(char* password, struct mission* mission_data);
 void SetEnterDungeon(enum dungeon_id dungeon_id);
 void InitDungeonInit(struct dungeon_init* dungeon_init_data, enum dungeon_id dungeon_id);
 bool IsNoLossPenaltyDungeon(enum dungeon_id dungeon_id);
@@ -975,6 +981,7 @@ struct ground_monster* GetPartner(void);
 struct ground_monster* GetMainCharacter1(void);
 struct ground_monster* GetMainCharacter2(void);
 struct ground_monster* GetMainCharacter3(void);
+int GetFirstMatchingMemberIdx(enum monster_id monster_id);
 int GetFirstEmptyMemberIdx(int param_1);
 bool IsMonsterNotNicknamed(struct ground_monster* monster);
 void RemoveActiveMembersFromAllTeams(void);
@@ -1023,17 +1030,24 @@ void GetStatBoostsForMonsterSummary(struct monster_summary* monster_summary,
 void CreateMonsterSummaryFromTeamMember(struct monster_summary* monster_summary,
                                         struct team_member* team_member, bool is_leader);
 int GetSosMailCount(int param_1, bool param_2);
+bool IsMissionSuspendedAndValid(struct mission* mission);
+bool AreMissionsEquivalent(struct mission* mission1, struct mission* mission2);
 bool IsMissionValid(struct mission* mission);
 enum mission_generation_result GenerateMission(undefined* param_1, struct mission* mission_data);
+bool IsMissionTypeSpecialEpisode(struct mission* mission);
 void GenerateDailyMissions(void);
+bool AlreadyHaveMission(struct mission* mission);
+int CountJobListMissions(void);
 int DungeonRequestsDone(uint8_t param_1, bool param_2);
 int DungeonRequestsDoneWrapper(uint8_t param_1);
 bool AnyDungeonRequestsDone(uint8_t param_1);
+void AddMissionToJobList(struct mission* mission);
 int GetAcceptedMission(int mission_id);
 int GetMissionByTypeAndDungeon(int start_index, enum mission_type mission_type,
                                undefined* subtype_struct, enum dungeon_id dungeon_id);
 bool CheckAcceptedMissionByTypeAndDungeon(enum mission_type mission_type, undefined* subtype_struct,
                                           enum dungeon_id dungeon_id);
+int GetAllPossibleMonsters(void* buf);
 int GenerateAllPossibleMonstersList(void);
 void DeleteAllPossibleMonstersList(void);
 int GenerateAllPossibleDungeonsList(void);
@@ -1045,6 +1059,7 @@ bool IsMonsterMissionAllowed(enum monster_id monster_id);
 bool CanMonsterBeUsedForMissionWrapper(enum monster_id monster_id);
 bool CanMonsterBeUsedForMission(enum monster_id monster_id, bool check_story_banned);
 bool IsMonsterMissionAllowedStory(enum monster_id monster_id);
+bool CanDungeonBeUsedForMission(enum dungeon_id dungeon_id);
 bool CanSendItem(enum item_id item_id, bool to_sky);
 bool IsAvailableItem(enum item_id item_id);
 int GetAvailableItemDeliveryList(undefined* item_buffer);
@@ -1055,6 +1070,7 @@ void SetActorTalkSub(int actor_id);
 void RandomizeDemoActors(void);
 void ItemAtTableIdx(int idx, struct bulk_item* item);
 void MainLoop(void);
+void CreateJobSummary(struct mission* mission, int param_2);
 int DungeonSwapIdToIdx(enum dungeon_id dungeon_id);
 enum dungeon_id DungeonSwapIdxToId(int idx);
 enum dungeon_mode GetDungeonModeSpecial(enum dungeon_id dungeon_id);
