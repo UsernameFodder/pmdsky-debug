@@ -70,7 +70,7 @@ libs:
       address:
         EU: 0x206CD54
         NA: 0x206C9BC
-    - name: DseMem_Alloc2
+    - name: DseMem_AllocateThreadStack
       address:
         EU: 0x206CE64
         NA: 0x206CACC
@@ -86,6 +86,18 @@ libs:
       address:
         EU: 0x206D0B4
         NA: 0x206CD1C
+    - name: DseSwd_SysInit
+      address:
+        EU: 0x206D134
+        NA: 0x206CD9C
+    - name: DseSwd_SysQuit
+      address:
+        EU: 0x206D1C0
+        NA: 0x206CE28
+    - name: DseSwd_SampleLoaderMain
+      address:
+        EU: 0x206D200
+        NA: 0x206CE68
     - name: DseSwd_MainBankDummyCallback
       address:
         EU: 0x206D260
@@ -98,11 +110,15 @@ libs:
       address:
         EU: 0x206D4A0
         NA: 0x206D108
-    - name: DseSwd_LoadBankWavesFromMainBank
+    - name: DseSwd_IsBankLoading
+      address:
+        EU: 0x206D6A4
+        NA: 0x206D30C
+    - name: DseSwd_LoadWaves
       address:
         EU: 0x206D6C0
         NA: 0x206D328
-    - name: DseSwd_LoadWaves
+    - name: DseSwd_LoadWavesInternal
       address:
         EU: 0x206D770
         NA: 0x206D3D8
@@ -206,6 +222,14 @@ libs:
       address:
         EU: 0x206E108
         NA: 0x206DD70
+    - name: DseSequence_GetParameter
+      address:
+        EU: 0x206E3FC
+        NA: 0x206E064
+    - name: DseSequence_GetSmallestNumLoops
+      address:
+        EU: 0x206E5B0
+        NA: 0x206E218
     - name: DseSequence_Reset
       address:
         EU: 0x206E604
@@ -247,6 +271,10 @@ libs:
       address:
         EU: 0x206EBF4
         NA: 0x206E85C
+    - name: DseBgm_SysSetupNoteList
+      address:
+        EU: 0x206EC44
+        NA: 0x206E8AC
     - name: DseSe_SysReset
       address:
         EU: 0x206ECB8
@@ -313,6 +341,14 @@ libs:
       address:
         EU: 0x20711A4
         NA: 0x2070E0C
+    - name: DseDriver_StartTickTimer
+      address:
+        EU: 0x2071274
+        NA: 0x2070EDC
+    - name: DseDriver_NotifyTick
+      address:
+        EU: 0x207136C
+        NA: 0x2070FD4
     - name: DseDriver_Main
       address:
         EU: 0x20713AC
@@ -697,7 +733,7 @@ libs:
       address:
         EU: 0x2074070
         NA: 0x2073CD8
-    - name: DseChannel_ReleaseNote
+    - name: DseChannel_ReleaseNoteInternal
       address:
         EU: 0x2074100
         NA: 0x2073D68
@@ -705,7 +741,7 @@ libs:
       address:
         EU: 0x20741A8
         NA: 0x2073E10
-    - name: DseChannel_ReleaseNote2
+    - name: DseChannel_ReleaseNote
       address:
         EU: 0x2074238
         NA: 0x2073EA0
