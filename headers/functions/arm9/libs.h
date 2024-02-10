@@ -1,14 +1,291 @@
 #ifndef HEADERS_FUNCTIONS_ARM9_LIBS_H_
 #define HEADERS_FUNCTIONS_ARM9_LIBS_H_
 
+void DseDriver_LoadDefaultSettings(struct dse_driver_settings* settings);
+uint32_t DseDriver_IsSettingsValid(struct dse_driver_settings* settings);
+int DseDriver_ConfigureHeap(struct dse_driver_settings* settings, void* location, uint32_t size);
+int DseDriver_Init(struct dse_driver_settings* settings);
+
+void Dse_SetError(int error_code, uint32_t data, uint32_t data2);
+void Dse_SetError2(int error_code, uint32_t data, uint32_t data2);
+
+uint32_t DseUtil_ByteSwap32(uint32_t value);
 int SoundUtil_GetRandomNumber(void);
+
+uint32_t DseMem_Init(void* heap_location, uint32_t heap_size, struct dse_heap_allocator* allocator);
+void DseMem_Quit(void);
+void* DseMem_AllocateUser(uint32_t size, uint32_t alignment);
+void* DseMem_Allocate(uint32_t size, uint32_t alignment, uint32_t label);
+void* DseMem_AllocateThreadStack(uint32_t size, uint32_t alignment, uint32_t label);
+int DseMem_Free(void* ptr);
+void DseMem_Clear(void* ptr, uint32_t size);
+
+int DseFile_CheckHeader(void* file, uint32_t signature, uint16_t version);
+
+void DseSwd_SysInit(uint8_t loader_thread_priority);
+void DseSwd_SysQuit(void);
+void DseSwd_SampleLoaderMain(void);
+int DseSwd_MainBankDummyCallback(struct dse_mainbank_reading* reading, void* arg);
+int DseSwd_LoadMainBank(char* path, int max_read_size, void* callback, void* callback_param);
+int DseSwd_LoadBank(void* file, uint32_t unused, void* pcm_data_buffer);
+int DseSwd_IsBankLoading(void);
+int DseSwd_LoadWaves(uint16_t id, void* pcm_data);
+int DseSwd_LoadWavesInternal(struct dse_wavebank* bank, void* samples);
+int DseSwd_Unload(uint16_t id);
 void* ReadWaviEntry(struct wavi_data* wavi_data, int entry_index);
+struct dse_instrument* DseSwd_GetInstrument(struct dse_wavebank* bank, int16_t index);
+struct dse_instrument_split* DseSwd_GetNextSplitInRange(struct dse_instrument* instrument,
+                                                        struct dse_instrument_split* split,
+                                                        uint8_t note_num, uint8_t volume);
+struct dse_mainbank* DseSwd_GetMainBankById(uint16_t id);
+struct dse_wavebank* DseSwd_GetBankById(uint16_t id);
+int DseSwd_InitMainBankFileReader(struct file_stream* file);
+int DseSwd_OpenMainBankFileReader(struct file_stream* file);
+int DseSwd_CloseMainBankFileReader(struct file_stream* file);
+int DseSwd_ReadMainBank(struct file_stream* file, void* buffer, int size, int offset,
+                        struct dse_mainbank_reading* reading);
+
+int DseBgm_DefaultSignalCallback(int sequence_id, int signal_type, int signal_data,
+                                 void* user_param);
+int DseBgm_Load(void* file);
+int DseBgm_Unload(uint16_t id);
+int DseBgm_SetSignalCallback(uint16_t id, void* callback, void* callback_arg);
+int DseBgm_IsPlaying(uint16_t id);
 int ResumeBgm(undefined4 param_1, undefined4 param_2, undefined4 param_3);
+int DseBgm_Stop(uint16_t id, int fadeout_msec);
+void DseBgm_StopAll(int fadeout_msec);
+int DseBgm_SetFades(uint16_t id, struct dse_fade_params* fade);
+
+int DseSequence_Start(struct dse_sequence* seq, uint16_t unknown, uint8_t effect_id,
+                      struct dse_fade_params* fadein);
+int DseSequence_PauseList(struct dse_sequence* seq);
+void DseSequence_SetFades(struct dse_sequence* seq, struct dse_fade_params* fade);
+int DseSequence_GetParameter(uint16_t id, int which, int* out);
+uint32_t DseSequence_GetSmallestNumLoops(struct dse_sequence* seq);
+int DseSequence_Reset(struct dse_sequence* seq);
+int DseSequence_Stop(struct dse_sequence* seq, int fadeout_msec, int is_effect_sequence);
 void* FindSmdlSongChunk(void* smdl_data, uint16_t value_to_search);
+int DseSequence_LoadSong(struct dse_sequence* seq, struct dse_song* song);
+struct dse_sequence* DseSequence_GetById(uint16_t id);
+struct dse_sequence* DseSequence_AllocateNew(uint8_t num_tracks, uint8_t num_channels,
+                                             uint32_t type_label);
+int DseSequence_Unload(struct dse_sequence* seq);
+void DseSequence_InitTracks(struct dse_sequence* seq);
+void DseBgm_SysSetupNoteList(void);
+
+int DseSe_SysReset(uint16_t num_sequences, uint16_t tracks_per_sequence);
+int DseSe_Load(void* file);
+int DseSe_Unload(uint16_t id);
+int DseSe_GetUsedBankIDs(uint16_t id, uint16_t* wavebank_ids, int max_num_wavebank_ids);
+int DseSe_HasPlayingInstances(uint16_t id, uint32_t unknown);
+int DseSe_Play(uint16_t id, uint16_t unknown, struct dse_fade_params* fadein);
+struct dse_song* DseSe_GetEffectSong(void* file, int song_index, void* seq_chunk_data);
+int DseSe_CheckTooManyInstances(uint16_t id, int max_instances, int8_t unknown);
+struct dse_se_bank* DseSe_GetById(uint16_t id);
+
 int FlushChannels(undefined* param_1, int param_2, int param_3);
+
+int DseDriver_StartMainThread(void);
+int DseDriver_StartTickTimer(void);
+void DseDriver_NotifyTick(void);
+void DseDriver_Main(void);
+void DseSequence_TickNotes(struct dse_sequence* sequence);
 void ParseDseEvent(undefined* audio_state, struct track_data* track_data);
 void UpdateSequencerTracks(int param_1, undefined4 param_2, undefined4 param_3, undefined4 param_4);
+void DseSequence_TickFades(struct dse_sequence* seq);
+uint8_t* DseTrackEvent_Invalid(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                               struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_WaitSame(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_WaitDelta(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                 struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_Wait8(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                             struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_Wait16(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                              struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_Wait24(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                              struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_WaitUntilFadeout(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                        struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_EndTrack(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_MainLoopBegin(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                     struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_SubLoopBegin(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                    struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_SubLoopEnd(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                  struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_SubLoopBreakOnLastIteration(uint8_t* ptr_next_byte,
+                                                   struct dse_sequence* sequence,
+                                                   struct dse_track* track,
+                                                   struct dse_channel* channel);
+uint8_t* DseTrackEvent_SetOctave(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                 struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_OctaveDelta(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                   struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_SetBpm(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                              struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_SetBpm2(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                               struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_SetBank(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                               struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_SetBankMsb(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                  struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_SetBankLsb(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                  struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_Dummy1Byte(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                  struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_SetInstrument(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                     struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_SongVolumeFade(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                      struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_RestoreEnvelopeDefaults(uint8_t* ptr_next_byte,
+                                               struct dse_sequence* sequence,
+                                               struct dse_track* track,
+                                               struct dse_channel* channel);
+uint8_t* DseTrackEvent_SetEnvelopeAttackBegin(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                              struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_SetEnvelopeAttackTime(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                             struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_SetEnvelopeHoldTime(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                           struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_SetEnvelopeDecayTimeAndSustainLevel(uint8_t* ptr_next_byte,
+                                                           struct dse_sequence* sequence,
+                                                           struct dse_track* track,
+                                                           struct dse_channel* channel);
+uint8_t* DseTrackEvent_SetEnvelopeSustainTime(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                              struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_SetEnvelopeReleaseTime(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                              struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_SetNoteDurationMultiplier(uint8_t* ptr_next_byte,
+                                                 struct dse_sequence* sequence,
+                                                 struct dse_track* track,
+                                                 struct dse_channel* channel);
+uint8_t* DseTrackEvent_ForceLfoEnvelopeLevel(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                             struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_SetHoldNotes(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                    struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_SetFlagBit1Unknown(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                          struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_SetOptionalVolume(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                         struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_Dummy2Bytes(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                   struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_SetTuning(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                 struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_TuningDeltaCoarse(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                         struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_TuningDeltaFine(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                       struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_TuningDeltaFull(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                       struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_TuningFade(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                  struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_SetNoteRandomRegion(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                           struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_SetTuningJitterAmplitude(uint8_t* ptr_next_byte,
+                                                struct dse_sequence* sequence,
+                                                struct dse_track* track,
+                                                struct dse_channel* channel);
+uint8_t* DseTrackEvent_SetKeyBend(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                  struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_SetUnknown2(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                   struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_SetKeyBendRange(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                       struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_SetupKeyBendLfo(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                       struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_SetupKeyBendLfoEnvelope(uint8_t* ptr_next_byte,
+                                               struct dse_sequence* sequence,
+                                               struct dse_track* track,
+                                               struct dse_channel* channel);
+uint8_t* DseTrackEvent_UseKeyBendLfo(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                     struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_SetVolume(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                 struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_VolumeDelta(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                   struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_VolumeFade(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                  struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_SetExpression(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                     struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_SetupVolumeLfo(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                      struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_SetupVolumeLfoEnvelope(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                              struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_UseVolumeLfo(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                    struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_SetPan(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                              struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_PanDelta(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_PanFade(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                               struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_SetupPanLfo(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                   struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_SetupPanLfoEnvelope(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                           struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_UsePanLfo(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                 struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_SetupLfo(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_SetupLfoEnvelope(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                        struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_SetLfoParameter(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                       struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_UseLfo(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                              struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_Signal(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                              struct dse_track* track, struct dse_channel* channel);
+uint8_t* DseTrackEvent_Dummy2Bytes2(uint8_t* ptr_next_byte, struct dse_sequence* sequence,
+                                    struct dse_track* track, struct dse_channel* channel);
+
+void DseSynth_Reset(struct dse_synth* synth);
+struct dse_synth* DseSynth_AllocateNew(int num_channels, uint32_t label);
+void DseSynth_Unload(struct dse_synth* synth);
+void DseSynth_ClearHeldNotes(struct dse_synth* synth);
+void DseSynth_ResetAndSetBankAndSequence(struct dse_synth* synth, uint16_t bank_id,
+                                         uint16_t sequence_id);
+void DseSynth_StopChannels(struct dse_synth* synth);
+void DseSynth_ResetAllVoiceTimersAndVolumes(struct dse_synth* synth, int clear_volume_and_timer);
+void DseSynth_RestoreHeldNotes(struct dse_synth* synth);
+void DseSynth_SetGlobalVolumeIndex(struct dse_synth* synth, uint32_t global_volume_index,
+                                   int notify_update);
+void DseSynth_SetBend(struct dse_synth* synth, uint16_t bend);
+void DseSynth_SetVolume(struct dse_synth* synth, int8_t volume);
+void DseSynth_SetPan(struct dse_synth* synth, int8_t pan);
+void DseSynth_SetBankAndSequence(struct dse_synth* synth, uint16_t bank_id, uint16_t sequence_id);
+
+void DseChannel_Init(struct dse_channel* channel, uint32_t sequence_id);
+void DseChannel_DeallocateVoices(struct dse_channel* channel);
+void DseChannel_ResetTimerAndVolumeForVoices(struct dse_channel* channel,
+                                             int clear_volume_and_timer);
+void DseChannel_SetBank(struct dse_channel* channel, uint16_t swd_id);
+int DseChannel_SetInstrument(struct dse_channel* channel, int16_t instrument_index);
+void DseChannel_SetKeyBend(struct dse_channel* channel, int16_t bend);
+struct dse_note* DseChannel_AllocateNote(struct dse_channel* channel, struct dse_note* note);
+void DseChannel_ReleaseNoteInternal(struct dse_channel* channel, struct dse_note* note);
+void DseChannel_ChangeNote(struct dse_channel* channel, struct dse_note* note,
+                           uint32_t note_number);
+void DseChannel_ReleaseNote(struct dse_channel* channel, struct dse_note* note);
+
+void DseVoice_PlayNote(struct dse_channel* channel, struct dse_note* note);
+void DseVoice_ReleaseNote(struct dse_channel* channel, struct dse_note* note);
+void DseVoice_UpdateParameters(void);
+void DseVoice_ResetAll(void);
+void DseVoice_ResetHW(int16_t num_voices);
 void UpdateChannels(void);
+struct dse_voice* DseVoice_Allocate(struct dse_channel* channel, struct dse_keygroup* keygroup,
+                                    uint32_t channel_and_keygroup_indices, int keygroup_priority);
+void DseVoice_Start(struct dse_channel* channel, struct dse_voice* voice, int group_priority);
+void DseVoice_ReleaseHeld(struct dse_channel* channel);
+void DseVoice_Release(struct dse_channel* channel, struct dse_voice* voice);
+void DseVoice_Deallocate(struct dse_voice* voice);
+void DseVoice_FlagForActivation(struct dse_voice* voice);
+void DseVoice_FlagForDeactivation(struct dse_voice* voice);
+int DseVoice_CountNumActiveInChannel(struct dse_channel* channel);
+void DseVoice_UpdateHardware(void);
+
 void SoundEnvelope_Reset(struct sound_envelope* envelope);
 void SoundEnvelopeParameters_Reset(struct sound_envelope_parameters* parameters);
 void SoundEnvelopeParameters_CheckValidity(struct sound_envelope_parameters* parameters);

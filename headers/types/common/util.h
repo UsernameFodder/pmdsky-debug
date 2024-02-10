@@ -93,4 +93,143 @@ struct trig_values {
 };
 ASSERT_SIZE(struct trig_values, 4);
 
+// Specifies an entry function for a thread's execution
+typedef void (*thread_entry_fn_t)(void);
+// Specifies a function called when a thread exits
+typedef void (*thread_exit_fn_t)(void);
+
+// Contains information about a running thread
+struct thread {
+    int flags;                // Probably a flags field. Usually 0x1F.
+    struct thread* field_0x4; // r2 parameter in ThreadStart
+    undefined4 field_0x8;     // Initialized to 0
+    undefined4 field_0xC;     // Initialized to 0
+    undefined4 field_0x10;    // Initialized to 0
+    undefined4 field_0x14;    // Initialized to 0
+    undefined4 field_0x18;    // Initialized to 0
+    undefined4 field_0x1C;    // Initialized to 0
+    undefined4 field_0x20;    // Initialized to 0
+    undefined4 field_0x24;    // Initialized to 0
+    undefined4 field_0x28;    // Initialized to 0
+    undefined4 field_0x2C;    // Initialized to 0
+    undefined4 field_0x30;    // Initialized to 0
+    undefined4 field_0x34;    // Initialized to 0
+    // 0x38: Points to the area of the allocated stack area that can actually be used to store data.
+    // This is equal to stack_pointer - 0x44, with an additional - 4 if the resulting addess is not
+    // aligned to 8 bytes.
+    void* usable_stack_pointer;
+    // 0x3C: Address of the function to return to once the thread exits. Usually ThreadExit.
+    thread_exit_fn_t exit_function;
+    void* function_address_plus_4; // 0x40: Pointer to the function to run + 4
+    void* stack_pointer_minus_4;   // 0x44: Pointer to the start of the stack area - 4
+    undefined field_0x48;
+    undefined field_0x49;
+    undefined field_0x4A;
+    undefined field_0x4B;
+    undefined field_0x4C;
+    undefined field_0x4D;
+    undefined field_0x4E;
+    undefined field_0x4F;
+    undefined field_0x50;
+    undefined field_0x51;
+    undefined field_0x52;
+    undefined field_0x53;
+    undefined field_0x54;
+    undefined field_0x55;
+    undefined field_0x56;
+    undefined field_0x57;
+    undefined field_0x58;
+    undefined field_0x59;
+    undefined field_0x5A;
+    undefined field_0x5B;
+    undefined field_0x5C;
+    undefined field_0x5D;
+    undefined field_0x5E;
+    undefined field_0x5F;
+    undefined field_0x60;
+    undefined field_0x61;
+    undefined field_0x62;
+    undefined field_0x63;
+    undefined4 field_0x64; // Initialized to 0
+    // 0x68: Pointer to the next thread. This forms a linked list sorted in ascending order
+    // according to sorting_order
+    struct thread* next_thread;
+    // 0x6C: Seems to be a thread ID that gets incremented for each new thread created.
+    int thread_id;
+    int sorting_order;       // 0x70: Unknown. Used to sort threads.
+    undefined4 field_0x74;   // Initialized to 0
+    undefined4 field_0x78;   // Initialized to 0
+    undefined4 field_0x7C;   // Initialized to 0
+    undefined4 field_0x80;   // Initialized to 0
+    undefined4 field_0x84;   // Initialized to 0
+    undefined4 field_0x88;   // Initialized to 0
+    undefined4 field_0x8C;   // Initialized to 0
+    void* stack_end_pointer; // 0x90: Pointer to the end of the stack area (exclusive)
+    void* stack_pointer;     // 0x94: Pointer to the start of the stack area (inclusive)
+    undefined4 field_0x98;   // Initialized to 0
+    undefined4 field_0x9C;   // Initialized to 0
+    undefined4 field_0xA0;   // Initialized to 0
+    // Initialized to 0. Actually part of a separate struct alongside field_0xA8 and field_0xAC.
+    undefined4 field_0xA4;
+    undefined4 field_0xA8; // Initialized to 0
+    undefined4 field_0xAC; // Initialized to 0
+    undefined4 field_0xB0; // Initialized to 0
+    undefined4 field_0xB4; // Initialized to 0
+    undefined field_0xB8;
+    undefined field_0xB9;
+    undefined field_0xBA;
+    undefined field_0xBB;
+    undefined field_0xBC;
+    undefined field_0xBD;
+    undefined field_0xBE;
+    undefined field_0xBF;
+};
+ASSERT_SIZE(struct thread, 192); // Last 8 bytes are not confirmed
+
+// Seems to be used to hold some global state about threads
+struct thread_info {
+    undefined field_0x0;
+    undefined field_0x1;
+    undefined field_0x2;
+    undefined field_0x3;
+    undefined field_0x4;
+    undefined field_0x5;
+    undefined field_0x6;
+    undefined field_0x7;
+    undefined* field_0x8;
+    undefined field_0xC;
+    undefined field_0xD;
+    undefined field_0xE;
+    undefined field_0xF;
+    undefined field_0x10;
+    undefined field_0x11;
+    undefined field_0x12;
+    undefined field_0x13;
+    undefined field_0x14;
+    undefined field_0x15;
+    undefined field_0x16;
+    undefined field_0x17;
+    undefined field_0x18;
+    undefined field_0x19;
+    undefined field_0x1A;
+    undefined field_0x1B;
+    undefined field_0x1C;
+    undefined field_0x1D;
+    undefined field_0x1E;
+    undefined field_0x1F;
+    int thread_count; // 0x20: Total amount of threads (or maybe just the active ones?)
+    undefined field_0x24;
+    undefined field_0x25;
+    undefined field_0x26;
+    undefined field_0x27;
+    undefined* field_0x28;
+    // 0x2C: Points to the first thread on the linked list sorted by thread::sort_order
+    struct thread* thread_list_head;
+    undefined field_0x30;
+    undefined field_0x31;
+    undefined field_0x32;
+    undefined field_0x33;
+};
+ASSERT_SIZE(struct thread_info, 52); // Could be shorter
+
 #endif

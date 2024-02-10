@@ -2,8 +2,8 @@
 // on top of an optional backdrop, surrounded by an optional frame. For example, a window can
 // contain text, scrolling character dialogue, portraits, menu text, etc.
 
-#ifndef HEADERS_TYPES_WINDOW_H_
-#define HEADERS_TYPES_WINDOW_H_
+#ifndef HEADERS_TYPES_COMMON_WINDOW_H_
+#define HEADERS_TYPES_COMMON_WINDOW_H_
 
 #include "enums.h"
 
