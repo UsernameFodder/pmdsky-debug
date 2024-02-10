@@ -3,7 +3,7 @@
 #ifndef HEADERS_TYPES_SOUND_H_
 #define HEADERS_TYPES_SOUND_H_
 
-#include "../common/common.h"
+#include "common.h"
 
 struct sound_envelope_parameters {
     uint8_t use_envelope;
