@@ -2,8 +2,7 @@
 #define HEADERS_FUNCTIONS_ARM9_LIBS_H_
 
 void DseDriver_LoadDefaultSettings(struct dse_driver_settings* settings);
-uint32_t DseDriver_IsSettingsValid(
-    struct dse_driver_settings* settings); // Returns flags specifying what settings are invalid
+uint32_t DseDriver_IsSettingsValid(struct dse_driver_settings* settings);
 int DseDriver_ConfigureHeap(struct dse_driver_settings* settings, void* location, uint32_t size);
 int DseDriver_Init(struct dse_driver_settings* settings);
 
@@ -40,10 +39,10 @@ struct dse_instrument_split* DseSwd_GetNextSplitInRange(struct dse_instrument* i
                                                         uint8_t note_num, uint8_t volume);
 struct dse_mainbank* DseSwd_GetMainBankById(uint16_t id);
 struct dse_wavebank* DseSwd_GetBankById(uint16_t id);
-int DseSwd_InitMainBankFileReader(struct dse_file_wrapper* file);
-int DseSwd_OpenMainBankFileReader(struct dse_file_wrapper* file);
-int DseSwd_CloseMainBankFileReader(struct dse_file_wrapper* file);
-int DseSwd_ReadMainBank(struct dse_file_wrapper* file, void* buffer, int size, int offset,
+int DseSwd_InitMainBankFileReader(struct file_stream* file);
+int DseSwd_OpenMainBankFileReader(struct file_stream* file);
+int DseSwd_CloseMainBankFileReader(struct file_stream* file);
+int DseSwd_ReadMainBank(struct file_stream* file, void* buffer, int size, int offset,
                         struct dse_mainbank_reading* reading);
 
 int DseBgm_DefaultSignalCallback(int sequence_id, int signal_type, int signal_data,

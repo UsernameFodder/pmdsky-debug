@@ -26,6 +26,9 @@ libs:
       address:
         EU: 0x206C5F0
         NA: 0x206C258
+      description: |-
+        r0: DSE driver settings
+        return: Flags specifying what settings are invalid.
     - name: DseDriver_ConfigureHeap
       address:
         EU: 0x206C6D4
@@ -136,7 +139,7 @@ libs:
         
         r0: Wavi data struct
         r1: Entry index
-        retrun: Pointer to the entry's data
+        return: Pointer to the entry's data
     - name: DseSwd_GetInstrument
       address:
         EU: 0x206D928
