@@ -648,7 +648,7 @@ struct dse_driver_work {
     uint32_t field_1D10;
     uint32_t field_1D14;
 
-    struct thread* driver_thread[48];
+    struct thread driver_thread;
     void* driver_stack;
 
     uint32_t field_0x1DDC;
@@ -661,7 +661,7 @@ struct dse_driver_work {
     uint8_t field_0x1DF1;
     int8_t quit_sample_loader;
     int8_t is_sample_loader_sleeping;
-    struct thread* sample_loader_thread[48];
+    struct thread sample_loader_thread;
     void* sample_loader_thread_stack;
     struct dse_wavebank* loading_bank;
     void* loading_bank_pcm_data;
