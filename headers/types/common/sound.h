@@ -1,9 +1,11 @@
 // Types used by the DSE sound library.
 
-#ifndef HEADERS_TYPES_SOUND_H_
-#define HEADERS_TYPES_SOUND_H_
+#ifndef HEADERS_TYPES_COMMON_SOUND_H_
+#define HEADERS_TYPES_COMMON_SOUND_H_
 
-#include "common.h"
+#include "enums.h"
+#include "file_io.h"
+#include "util.h"
 
 struct sound_envelope_parameters {
     uint8_t use_envelope;
