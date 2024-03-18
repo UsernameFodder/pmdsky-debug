@@ -567,7 +567,7 @@ void UpdateSimpleMenu(struct window* window);
 void SetSimpleMenuField0x1AC(int window_id, int value);
 int CreateAdvancedMenu(struct window_params* params, struct window_flags flags,
                        struct window_extra_info* window_extra_info,
-                       advanced_menu_entry_fn_t* entry_fn, int n_options, int n_opt_per_page);
+                       advanced_menu_entry_fn_t entry_fn, int n_options, int n_opt_per_page);
 void ResumeAdvancedMenu(int window_id);
 void CloseAdvancedMenu(int window_id);
 bool IsAdvancedMenuActive2(int window_id);
@@ -577,7 +577,7 @@ int GetAdvancedMenuResult(int window_id);
 void UpdateAdvancedMenu(struct window* window);
 int CreateCollectionMenu(struct window_params* params, struct window_flags flags,
                          struct window_extra_info* window_extra_info,
-                         unk_collection_menu_fn_t* param_4, undefined4 param_5, int n_options,
+                         unk_collection_menu_fn_t param_4, undefined4 param_5, int n_options,
                          int n_opt_per_page);
 void SetCollectionMenuField0x1BC(int window_id, int value);
 void SetCollectionMenuWidth(int window_id, int width);
