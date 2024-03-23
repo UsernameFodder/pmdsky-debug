@@ -3186,8 +3186,6 @@ overlay29:
         r1: ID of the animation to set
         r2: Direction to turn the monster in, or DIR_NONE to keep the current direction
     - name: GetIdleAnimationId
-      aliases:
-        - GetSleepAnimationId
       address:
         EU: 0x23054E0
         NA: 0x2304AB4
