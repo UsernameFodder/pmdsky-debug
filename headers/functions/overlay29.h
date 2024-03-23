@@ -301,7 +301,9 @@ bool TryDecreaseLevel(struct entity* user, struct entity* target, int n_levels);
 bool LevelUp(struct entity* user, struct entity* target, bool message, bool dialogue);
 void GetMonsterMoves(struct move_id_16* out_moves, enum monster_id monster_id, int level);
 void EvolveMonster(struct entity* user, struct entity* target, enum monster_id new_monster_id);
-uint8_t GetSleepAnimationId(struct entity* entity);
+void ChangeMonsterAnimation(struct entity* monster, int8_t animation_id,
+                            enum direction_id direction);
+uint8_t GetIdleAnimationId(struct entity* entity);
 bool DisplayActions(struct entity* param_1);
 void CheckNonLeaderTile(struct entity* entity);
 bool EndNegativeStatusCondition(struct entity* user, struct entity* target, bool animation,
