@@ -3173,15 +3173,27 @@ overlay29:
         r0: user entity pointer?
         r1: target pointer to the entity to evolve
         r2: Species to evolve into
-    - name: GetSleepAnimationId
+    - name: ChangeMonsterAnimation
+      address:
+        EU: 0x23053D4
+        NA: 0x23049A8
+      description: |-
+        Changes the animation a monster is currently playing. Optionally changes their direction as well.
+        
+        Does nothing if the provided entity is not a monster.
+        
+        r0: Entity pointer
+        r1: ID of the animation to set
+        r2: Direction to turn the monster in, or DIR_NONE to keep the current direction
+    - name: GetIdleAnimationId
       address:
         EU: 0x23054E0
         NA: 0x2304AB4
         JP: 0x2306004
       description: |-
-        Returns the animation id to be applied to a monster that has the sleep, napping, nightmare or bide status.
+        Returns the animation id to be applied to a monster that is currently idling.
         
-        Returns a different animation for sudowoodo and for monsters with infinite sleep turns (0x7F).
+        Returns a different animation for monsters with the sleep, napping, nightmare or bide status, as well as for sudowoodo and for monsters with infinite sleep turns (0x7F).
         
         r0: pointer to entity
         return: animation ID
