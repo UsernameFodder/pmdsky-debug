@@ -237,7 +237,7 @@ uint16_t GetMaxHpAtLevel(enum monster_id monster_id, int level);
 uint8_t GetOffensiveStatAtLevel(enum monster_id monster_id, int level, int stat_idx);
 uint8_t GetDefensiveStatAtLevel(enum monster_id monster_id, int level, int stat_idx);
 void GetOutlawSpawnData(struct spawned_target_data* outlaw);
-void ExecuteMonsterAction(struct entity* monster);
+bool ExecuteMonsterAction(struct entity* monster);
 void TryActivateFlashFireOnAllMonsters(void);
 bool HasStatusThatPreventsActing(struct entity* monster);
 enum mobility_type GetMobilityTypeCheckSlip(enum monster_id species, bool walk_on_water);

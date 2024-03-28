@@ -2506,6 +2506,7 @@ overlay29:
         Executes the set action for the specified monster. Used for both AI actions and player-inputted actions. If the action is not ACTION_NOTHING, ACTION_PASS_TURN, ACTION_WALK or ACTION_UNK_4, the monster's already_acted field is set to true. Includes a switch based on the action ID that performs the action, although some of them aren't handled by said swtich.
         
         r0: Pointer to monster entity
+        return: If the result is true, the AI is run again for the current ally, and it performs another action. This can happen up to three times.
     - name: TryActivateFlashFireOnAllMonsters
       address:
         EU: 0x22FFB94
