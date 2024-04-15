@@ -76,15 +76,39 @@ overlay11:
         EU: 0x22E503C
         NA: 0x22E46FC
         JP: 0x22E5D28
-    - name: ProcessScriptParam
+    - name: ScriptParamToInt
+      aliases:
+        - ProcessScriptParam
       address:
         EU: 0x22E51EC
         NA: 0x22E48AC
         JP: 0x22E5ED8
       description: |-
-        Checks if the two most significant bits (0x8000 and 0x4000) are set on a given script opcode parameter, and modifies the value if so.
+        Converts the given opcode parameter to a signed integer.
         
-        r0: On input, the parameter. On output, the modified parameter if either of the two bits listed above is set, same parameter otherwise.
+        The parameter will be returned unchanged unless one of its two most significant bits (0x8000 and 0x4000) are set, in which case both bit will be cleared and the original value will be modified according to the following two rules:
+        - If the 0x4000 bit is set (negative flag), the value will be set to -16384 + value.
+        - If the 0x8000 bit is set (decimal flag), the value will be set to value / 256, rounded down.
+        Both rules can be applied, in the same order as listed, if both conditions are met.
+        
+        r0: Parameter to convert
+        return: The input parameter, as a signed integer
+    - name: ScriptParamToDecimal
+      address:
+        EU: 0x22E5220
+        NA: 0x22E48E0
+      description: |-
+        Converts the given opcode parameter to a signed decimal number with 8 decimal bits.
+        
+        The resulting number is encoded as (value) * 256, with the last byte acting as a fraction byte capable of representing multiples of 1/256.
+        
+        The parameter will wither be returned unchanged or modified depending on which of its two most significant bits (0x8000 and 0x4000) are set. Both bits are unset before running the operations listed below:
+        - If the 0x4000 bit is set (negative flag), the value will be set to -16384 + value.
+        - If the 0x8000 bit is set (decimal flag), nothing else happens. If it's not set, the value will be set to value * 256.
+        Both rules can be applied, in the same order as listed, if both conditions are met.
+        
+        r0: Parameter to convert
+        return: The input parameter, as a signed decimal
     - name: StationLoadHanger
       address:
         EU: 0x22E5514
