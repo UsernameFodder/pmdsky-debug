@@ -53,6 +53,7 @@ extern undefined4 SUB_BG_EXT_PLTT;
 extern undefined4 CLR_IMG;
 extern struct thread_info THREAD_INFO_STRUCT;
 extern uint32_t FRAMES_SINCE_LAUNCH_TIMES_THREE;
+extern struct touchscreen_status TOUCHSCREEN_STATUS;
 extern struct mem_arena* GROUND_MEMORY_ARENA_1_PTR;
 extern struct mem_arena* GROUND_MEMORY_ARENA_2_PTR;
 extern bool LOCK_NOTIFY_ARRAY[20];
