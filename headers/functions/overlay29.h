@@ -854,7 +854,9 @@ void StartFadeDungeon(struct dungeon_fade* fstruct, int delta_delta_brightness,
 void StartFadeDungeonWrapper(int fade_type, int delta_delta_brightness, enum screen screen);
 void HandleFadesDungeon(enum screen screen);
 void HandleFadesDungeonBothScreens();
-void DisplayDungeonTip(struct message_tip* message_tip, bool log);
+bool DisplayFloorTip(void);
+bool DisplayItemTip(enum item_id item_id);
+bool DisplayDungeonTip(struct message_tip* message_tip, bool log);
 void SetBothScreensWindowColorToDefault(void);
 int GetPersonalityIndex(struct monster* monster);
 void DisplayMessage(struct portrait_params* portrait, int message_id, bool wait_for_input);

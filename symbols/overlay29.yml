@@ -8226,6 +8226,26 @@ overlay29:
         Calls HandleFadesDungeon for both screens.
         
         No params.
+    - name: DisplayFloorTip
+      address:
+        EU: 0x234D788
+        NA: 0x234CB88
+      description: |-
+        Display the dungeon tip that display on floor change, based on which tips has already been displayed.
+        
+        No params.
+        
+        return: 1 if a tip has been displayed, 0 otherwise
+    - name: DisplayItemTip
+      address:
+        EU: 0x234D8B4
+        NA: 0x234CCB4
+      description: |-
+        Display the dungeon tip if not already displayed matching the (presumably newly acquired) item
+        
+        r0: item id
+        
+        return: 1 if a tip has been displayed, 0 otherwise
     - name: DisplayDungeonTip
       address:
         EU: 0x234DAF0
@@ -8236,6 +8256,8 @@ overlay29:
         
         r0: Pointer to the message_tip struct of the message that should be displayed
         r1: True to log the message in the message log
+        
+        return: 1 if the message has been displayed, 0 if it wasn’t
     - name: SetBothScreensWindowColorToDefault
       address:
         EU: 0x234DB60
