@@ -450,8 +450,8 @@ void LoadWteFromFileDirectory(struct wte_handle* handle, enum pack_file_id, uint
                               uint32_t malloc_flags);
 void UnloadWte(struct wte_handle* handle);
 undefined* LoadWtuFromBin(int bin_file_id, int file_id, int load_type);
-void ProcessWte(undefined* header, undefined4 unk_pal, undefined4 unk_tex,
-                undefined4 unk_tex_param);
+void ProcessWte(undefined* wte_header_ptr, undefined4 pal_vram_offset,
+                undefined4 pal_texture_vram_offset_upper, undefined4 pal_texture_vram_offset_lower);
 void GeomSetTexImageParam(int texture_format, int texture_coordinates_transformation_modes,
                           int texture_s_size, int texture_t_size, int repeat_s_t, int flip_s_t,
                           bool color_0, int vram_offset);
