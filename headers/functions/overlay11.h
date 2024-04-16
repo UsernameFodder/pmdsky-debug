@@ -8,7 +8,7 @@ void HandleUnlocks(void);
 void LoadFileFromRomVeneer(struct iovec* iov, const char* filepath, uint32_t flags);
 void SsbLoad2(void);
 int16_t ScriptParamToInt(uint16_t parameter);
-int16_t ScriptParamToDecimal(uint16_t parameter);
+int16_t ScriptParamToFixedPoint16(uint16_t parameter);
 void StationLoadHanger(void);
 void ScriptStationLoadTalk(void);
 void SsbLoad1(void);

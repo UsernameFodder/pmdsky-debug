@@ -86,29 +86,29 @@ overlay11:
       description: |-
         Converts the given opcode parameter to a signed integer.
         
-        The parameter will be returned unchanged unless one of its two most significant bits (0x8000 and 0x4000) are set, in which case both bit will be cleared and the original value will be modified according to the following two rules:
-        - If the 0x4000 bit is set (negative flag), the value will be set to -16384 + value.
-        - If the 0x8000 bit is set (decimal flag), the value will be set to value / 256, rounded down.
+        The parameter will be returned unchanged unless one of its two most significant bits (0x8000 and 0x4000) are set, in which case both bits will be cleared and the original value will be modified according to the following two rules:
+        - If the 0x4000 bit is set (sign bit), the value will be set to -16384 + value.
+        - If the 0x8000 bit is set (fixed-point flag), the value will be set to value / 256, rounded down.
         Both rules can be applied, in the same order as listed, if both conditions are met.
         
         r0: Parameter to convert
         return: The input parameter, as a signed integer
-    - name: ScriptParamToDecimal
+    - name: ScriptParamToFixedPoint16
       address:
         EU: 0x22E5220
         NA: 0x22E48E0
       description: |-
-        Converts the given opcode parameter to a signed decimal number with 8 decimal bits.
+        Converts the given opcode parameter to a 16-bit signed fixed-point number with 8 fraction bits.
         
         The resulting number is encoded as (value) * 256, with the last byte acting as a fraction byte capable of representing multiples of 1/256.
         
-        The parameter will wither be returned unchanged or modified depending on which of its two most significant bits (0x8000 and 0x4000) are set. Both bits are unset before running the operations listed below:
-        - If the 0x4000 bit is set (negative flag), the value will be set to -16384 + value.
-        - If the 0x8000 bit is set (decimal flag), nothing else happens. If it's not set, the value will be set to value * 256.
+        The parameter will either be returned unchanged or modified depending on which of its two most significant bits (0x8000 and 0x4000) are set. Both bits are unset before running the operations listed below:
+        - If the 0x4000 bit is set (sign bit), the value will be set to -16384 + value.
+        - If the 0x8000 bit is set (fixed-point flag), the raw value is interpreted as being fixed-point already, and nothing else happens. Otherwise, it's assumed to be a normal integer and is converted to fixed-point by left-shifting it by 8 (moving the integer part to its proper place).
         Both rules can be applied, in the same order as listed, if both conditions are met.
         
         r0: Parameter to convert
-        return: The input parameter, as a signed decimal
+        return: The input parameter, as a 16-bit signed fixed-point number with 8 fraction bits
     - name: StationLoadHanger
       address:
         EU: 0x22E5514
