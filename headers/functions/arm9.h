@@ -446,8 +446,8 @@ bool WanHasAnimationGroup(struct wan_header* wan_header, uint16_t animation_grou
 bool WanTableSpriteHasAnimationGroup(uint16_t sprite_id, uint16_t animation_group_id);
 enum wan_sprite_type SpriteTypeInWanTable(uint16_t sprite_id);
 void LoadWteFromRom(struct wte_handle* handle, const char* path, uint32_t flags);
-void LoadWteFromFileDirectory(struct wte_handle* handle, enum pack_file_id, uint16_t file_index,
-                              uint32_t malloc_flags);
+void LoadWteFromFileDirectory(struct wte_handle* handle, enum pack_file_id pack_id,
+                              uint16_t file_index, uint32_t malloc_flags);
 void UnloadWte(struct wte_handle* handle);
 undefined* LoadWtuFromBin(int bin_file_id, int file_id, int load_type);
 void ProcessWte(undefined* wte_header_ptr, undefined4 pal_vram_offset,

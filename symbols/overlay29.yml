@@ -8231,7 +8231,7 @@ overlay29:
         EU: 0x234D788
         NA: 0x234CB88
       description: |-
-        Display the dungeon tip that display on floor change, based on which tips has already been displayed.
+        Display the dungeon tip that displays on floor change, based on which tips have already been displayed.
         
         No params.
         
@@ -8244,7 +8244,6 @@ overlay29:
         Display the dungeon tip if not already displayed matching the (presumably newly acquired) item
         
         r0: item id
-        
         return: 1 if a tip has been displayed, 0 otherwise
     - name: DisplayDungeonTip
       address:
