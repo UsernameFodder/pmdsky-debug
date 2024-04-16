@@ -4347,12 +4347,16 @@ arm9:
         NA: 0x201E0B0
         JP: 0x201E108
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Prepare a WTE data to be loaded into VRAM. Seems to need to be called with another undocumented function (at 0x0201e1d8 (EU))
+        It skips the texture and/or the palette if missing from the file. The texture VRAM has 128KiB of space, and palette has 16KiB.
+        The true palette VRAM offset will be upper_part*0x100+lower_part
         
-        r0: header_ptr
-        r1: unk_pal
-        r2: unk_tex
-        r3: unk_tex_param
+        This may or may not be the function that adds to the queue so it can be added during VBlank.
+        
+        r0: pointer to the WTE file header loaded in memory
+        r1: where the WTE texture will be loaded in the VRAM (from 0 to 0x1FFFF)
+        r2: upper part of the palette VRAM
+        r3: lower part of the palette VRAM
     - name: GeomSetTexImageParam
       address:
         EU: 0x201E530
