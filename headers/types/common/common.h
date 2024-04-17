@@ -947,4 +947,67 @@ struct play_time {
 };
 ASSERT_SIZE(struct play_time, 8);
 
+// Represents a position in the touchscreen, in pixels from the top left corner
+struct touchscreen_position {
+    // 0x0: X position in pixels. Ranges from 1 (left border) to 254 (right border). Can also have
+    // a value of -1 to represent the lack of a position.
+    int x_pos;
+    // 0x4: Y position in pixels. Ranges from 1 (top border) to 190 (bottom border). Can also have
+    // a value of -1 to represent the lack of a position.
+    int y_pos;
+    // 0x8: 1 if the position represented by this struct is valid, 0 otherwise.
+    // If 0, both x_pos and y_pos will have a value of -1.
+    int is_valid;
+};
+ASSERT_SIZE(struct touchscreen_position, 12);
+
+// Keeps track of touchscreen-related data
+struct touchscreen_status {
+    // 0x0: Screen position currently being pressed. Invalid (-1, -1, 0) if the touchscreen
+    // is not being pressed.
+    struct touchscreen_position current_position;
+    undefined field_0xC;
+    undefined field_0xD;
+    undefined field_0xE;
+    undefined field_0xF;
+    // 0x10: How many frames the screen has been pressed for. 0 if it's not currently being pressed.
+    int pressed_frames;
+    // 0x14: How many frames the screen has been unpressed for. 0 if it's currently being pressed.
+    int unpressed_frames;
+    int x_pos_mirror; // 0x18: Seemingly a mirror of current_position::x_pos.
+    int y_pos_mirror; // 0x1C: Seemingly a mirror of current_position::y_pos.
+    // 0x20: Last X position that was pressed. Its value remains unchanged even after the screen
+    // stops being pressed.
+    int last_x_pos;
+    // 0x24: Last Y position that was pressed. Its value remains unchanged even after the screen
+    // stops being pressed.
+    int last_y_pos;
+    // 0x28: First X position that was pressed. Its value remains unchanged even after the screen
+    // stops being pressed. Only reset when the screen starts being pressed again.
+    int first_x_pos;
+    // 0x2C: First Y position that was pressed. Its value remains unchanged even after the screen
+    // stops being pressed. Only reset when the screen starts being pressed again.
+    int first_y_pos;
+    undefined field_0x30;
+    undefined field_0x31;
+    undefined field_0x32;
+    undefined field_0x33;
+    undefined field_0x34;
+    undefined field_0x35;
+    undefined field_0x36;
+    undefined field_0x37;
+    // 0x38: Seemingly a mirror of current_position.
+    struct touchscreen_position current_position_mirror;
+    // 0x44: Seemingly a mirror of current_position. Seems to be updated with a small delay
+    // (1 frame?)
+    struct touchscreen_position current_position_mirror_1;
+    // 0x50: Seemingly a mirror of current_position. Seems to be updated with a small delay
+    // (2 frames?)
+    struct touchscreen_position current_position_mirror_2;
+    // 0x5C: Seemingly a mirror of current_position. Seems to be updated with a small delay
+    // (3 frames?)
+    struct touchscreen_position current_position_mirror_3;
+};
+ASSERT_SIZE(struct touchscreen_status, 104);
+
 #endif

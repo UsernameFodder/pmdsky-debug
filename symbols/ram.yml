@@ -137,6 +137,14 @@ ram:
         EU: 0x4
         NA: 0x4
       description: "Starts at 0 when the game is first launched, and continuously ticks up once per frame while the game is running."
+    - name: TOUCHSCREEN_STATUS
+      address:
+        EU: 0x22A3F1C
+        NA: 0x22A35DC
+      length:
+        EU: 0x104
+        NA: 0x104
+      description: "Status of the touchscreen, including the coordinates of the currently pressed position in pixels."
     - name: BAG_ITEMS
       address:
         EU: 0x22A4164

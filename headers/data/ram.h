@@ -12,6 +12,7 @@ extern struct mem_arena SOUND_MEMORY_ARENA;
 extern struct mem_block SOUND_MEMORY_ARENA_BLOCKS[20];
 extern uint8_t SOUND_MEMORY_ARENA_MEMORY[245252];
 extern uint32_t FRAMES_SINCE_LAUNCH;
+extern struct touchscreen_status TOUCHSCREEN_STATUS;
 extern struct item BAG_ITEMS[50];
 extern struct item* BAG_ITEMS_PTR;
 extern struct item_id_16 STORAGE_ITEMS[1000];
