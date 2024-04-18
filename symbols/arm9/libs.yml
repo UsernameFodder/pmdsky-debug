@@ -22,10 +22,12 @@ libs:
       address:
         EU: 0x206C558
         NA: 0x206C1C0
+        JP: 0x206C4A8
     - name: DseDriver_IsSettingsValid
       address:
         EU: 0x206C5F0
         NA: 0x206C258
+        JP: 0x206C540
       description: |-
         r0: DSE driver settings
         return: Flags specifying what settings are invalid.
@@ -33,22 +35,27 @@ libs:
       address:
         EU: 0x206C6D4
         NA: 0x206C33C
+        JP: 0x206C624
     - name: DseDriver_Init
       address:
         EU: 0x206C778
         NA: 0x206C3E0
+        JP: 0x206C6C8
     - name: Dse_SetError
       address:
         EU: 0x206CBEC
         NA: 0x206C854
+        JP: 0x206CB3C
     - name: Dse_SetError2
       address:
         EU: 0x206CC20
         NA: 0x206C888
+        JP: 0x206CB70
     - name: DseUtil_ByteSwap32
       address:
         EU: 0x206CC5C
         NA: 0x206C8C4
+        JP: 0x206CBAC
     - name: SoundUtil_GetRandomNumber
       aliases:
         - DseUtil_GetRandomNumber
@@ -61,10 +68,12 @@ libs:
       address:
         EU: 0x206CCB4
         NA: 0x206C91C
+        JP: 0x206CC04
     - name: DseMem_Quit
       address:
         EU: 0x206CD24
         NA: 0x206C98C
+        JP: 0x206CC74
     - name: DseMem_AllocateUser
       address:
         EU: 0x206CD40
@@ -73,62 +82,77 @@ libs:
       address:
         EU: 0x206CD54
         NA: 0x206C9BC
+        JP: 0x206CCA4
     - name: DseMem_AllocateThreadStack
       address:
         EU: 0x206CE64
         NA: 0x206CACC
+        JP: 0x206CDB4
     - name: DseMem_Free
       address:
         EU: 0x206CFAC
         NA: 0x206CC14
+        JP: 0x206CEFC
     - name: DseMem_Clear
       address:
         EU: 0x206D054
         NA: 0x206CCBC
+        JP: 0x206CFA4
     - name: DseFile_CheckHeader
       address:
         EU: 0x206D0B4
         NA: 0x206CD1C
+        JP: 0x206D004
     - name: DseSwd_SysInit
       address:
         EU: 0x206D134
         NA: 0x206CD9C
+        JP: 0x206D084
     - name: DseSwd_SysQuit
       address:
         EU: 0x206D1C0
         NA: 0x206CE28
+        JP: 0x206D110
     - name: DseSwd_SampleLoaderMain
       address:
         EU: 0x206D200
         NA: 0x206CE68
+        JP: 0x206D150
     - name: DseSwd_MainBankDummyCallback
       address:
         EU: 0x206D260
         NA: 0x206CEC8
+        JP: 0x206D1B0
     - name: DseSwd_LoadMainBank
       address:
         EU: 0x206D268
         NA: 0x206CED0
+        JP: 0x206D1B8
     - name: DseSwd_LoadBank
       address:
         EU: 0x206D4A0
         NA: 0x206D108
+        JP: 0x206D3F0
     - name: DseSwd_IsBankLoading
       address:
         EU: 0x206D6A4
         NA: 0x206D30C
+        JP: 0x206D5F4
     - name: DseSwd_LoadWaves
       address:
         EU: 0x206D6C0
         NA: 0x206D328
+        JP: 0x206D610
     - name: DseSwd_LoadWavesInternal
       address:
         EU: 0x206D770
         NA: 0x206D3D8
+        JP: 0x206D6C0
     - name: DseSwd_Unload
       address:
         EU: 0x206D87C
         NA: 0x206D4E4
+        JP: 0x206D7CC
     - name: ReadWaviEntry
       address:
         EU: 0x206D8F0
@@ -144,54 +168,67 @@ libs:
       address:
         EU: 0x206D928
         NA: 0x206D590
+        JP: 0x206D878
     - name: DseSwd_GetNextSplitInRange
       address:
         EU: 0x206D960
         NA: 0x206D5C8
+        JP: 0x206D8B0
     - name: DseSwd_GetMainBankById
       address:
         EU: 0x206D9E8
         NA: 0x206D650
+        JP: 0x206D938
     - name: DseSwd_GetBankById
       address:
         EU: 0x206DA38
         NA: 0x206D6A0
+        JP: 0x206D988
     - name: DseSwd_InitMainBankFileReader
       address:
         EU: 0x206DA88
         NA: 0x206D6F0
+        JP: 0x206D9D8
     - name: DseSwd_OpenMainBankFileReader
       address:
         EU: 0x206DA98
         NA: 0x206D700
+        JP: 0x206D9E8
     - name: DseSwd_CloseMainBankFileReader
       address:
         EU: 0x206DAC4
         NA: 0x206D72C
+        JP: 0x206DA14
     - name: DseSwd_ReadMainBank
       address:
         EU: 0x206DAD4
         NA: 0x206D73C
+        JP: 0x206DA24
     - name: DseBgm_DefaultSignalCallback
       address:
         EU: 0x206DB98
         NA: 0x206D800
+        JP: 0x206DAE8
     - name: DseBgm_Load
       address:
         EU: 0x206DBA0
         NA: 0x206D808
+        JP: 0x206DAF0
     - name: DseBgm_Unload
       address:
         EU: 0x206DCA4
         NA: 0x206D90C
+        JP: 0x206DBF4
     - name: DseBgm_SetSignalCallback
       address:
         EU: 0x206DCDC
         NA: 0x206D944
+        JP: 0x206DC2C
     - name: DseBgm_IsPlaying
       address:
         EU: 0x206DD3C
         NA: 0x206D9A4
+        JP: 0x206DC8C
     - name: ResumeBgm
       address:
         EU: 0x206DD54
@@ -205,42 +242,52 @@ libs:
       address:
         EU: 0x206DE34
         NA: 0x206DA9C
+        JP: 0x206DD84
     - name: DseBgm_StopAll
       address:
         EU: 0x206DE74
         NA: 0x206DADC
+        JP: 0x206DDC4
     - name: DseBgm_SetFades
       address:
         EU: 0x206DED4
         NA: 0x206DB3C
+        JP: 0x206DE24
     - name: DseSequence_Start
       address:
         EU: 0x206DF14
         NA: 0x206DB7C
+        JP: 0x206DE64
     - name: DseSequence_PauseList
       address:
         EU: 0x206DFA4
         NA: 0x206DC0C
+        JP: 0x206DEF4
     - name: DseSequence_SetFades
       address:
         EU: 0x206E108
         NA: 0x206DD70
+        JP: 0x206E058
     - name: DseSequence_GetParameter
       address:
         EU: 0x206E3FC
         NA: 0x206E064
+        JP: 0x206E34C
     - name: DseSequence_GetSmallestNumLoops
       address:
         EU: 0x206E5B0
         NA: 0x206E218
+        JP: 0x206E500
     - name: DseSequence_Reset
       address:
         EU: 0x206E604
         NA: 0x206E26C
+        JP: 0x206E554
     - name: DseSequence_Stop
       address:
         EU: 0x206E75C
         NA: 0x206E3C4
+        JP: 0x206E6AC
     - name: FindSmdlSongChunk
       address:
         EU: 0x206E880
@@ -258,82 +305,102 @@ libs:
       address:
         EU: 0x206E8EC
         NA: 0x206E554
+        JP: 0x206E83C
     - name: DseSequence_GetById
       address:
         EU: 0x206E9EC
         NA: 0x206E654
+        JP: 0x206E93C
     - name: DseSequence_AllocateNew
       address:
         EU: 0x206EA38
         NA: 0x206E6A0
+        JP: 0x206E988
     - name: DseSequence_Unload
       address:
         EU: 0x206EB70
         NA: 0x206E7D8
+        JP: 0x206EAC0
     - name: DseSequence_InitTracks
       address:
         EU: 0x206EBF4
         NA: 0x206E85C
+        JP: 0x206EB44
     - name: DseBgm_SysSetupNoteList
       address:
         EU: 0x206EC44
         NA: 0x206E8AC
+        JP: 0x206EB94
     - name: DseSe_SysReset
       address:
         EU: 0x206ECB8
         NA: 0x206E920
+        JP: 0x206EC08
     - name: DseSe_Load
       address:
         EU: 0x206EDB0
         NA: 0x206EA18
+        JP: 0x206ED00
     - name: DseSe_Unload
       address:
         EU: 0x206EF64
         NA: 0x206EBCC
+        JP: 0x206EEB4
     - name: DseSe_GetUsedBankIDs
       address:
         EU: 0x206EFF4
         NA: 0x206EC5C
+        JP: 0x206EF44
     - name: DseSe_HasPlayingInstances
       address:
         EU: 0x206F0C8
         NA: 0x206ED30
+        JP: 0x206F018
     - name: DseSe_Play
       address:
         EU: 0x206F194
         NA: 0x206EDFC
+        JP: 0x206F0E4
     - name: DseSe_GetEffectSong
       address:
         EU: 0x206F348
         NA: 0x206EFB0
+        JP: 0x206F298
     - name: DseSe_CheckTooManyInstances
       address:
         EU: 0x206F390
         NA: 0x206EFF8
+        JP: 0x206F2E0
     - name: DseSe_CheckTooManyInstancesInGroup
       address:
         EU: 0x206F498
         NA: 0x206F100
+        JP: 0x206F3E8
     - name: DseSe_GetBestSeqAllocation
       address:
         EU: 0x206F65C
         NA: 0x206F2C4
+        JP: 0x206F5AC
     - name: DseSe_GetById
       address:
         EU: 0x206F6D8
         NA: 0x206F340
+        JP: 0x206F628
     - name: DseSe_Stop
       address:
         EU: 0x206F724
         NA: 0x206F38C
+        JP: 0x206F674
     - name: DseSe_StopAll
       address:
         EU: 0x206F878
         NA: 0x206F4E0
+        JP: 0x206F7C8
     - name: DseSe_StopSeq
       address:
         EU: 0x206F8E4
         NA: 0x206F54C
+        JP: 0x206F834
     - name: FlushChannels
       address:
         EU: 0x2070A0C
@@ -344,22 +411,27 @@ libs:
       address:
         EU: 0x20711A4
         NA: 0x2070E0C
+        JP: 0x20710F4
     - name: DseDriver_StartTickTimer
       address:
         EU: 0x2071274
         NA: 0x2070EDC
+        JP: 0x20711C4
     - name: DseDriver_NotifyTick
       address:
         EU: 0x207136C
         NA: 0x2070FD4
+        JP: 0x20712BC
     - name: DseDriver_Main
       address:
         EU: 0x20713AC
         NA: 0x2071014
+        JP: 0x20712FC
     - name: DseSequence_TickNotes
       address:
         EU: 0x20714F8
         NA: 0x2071160
+        JP: 0x2071448
     - name: ParseDseEvent
       address:
         EU: 0x20715BC
@@ -384,390 +456,487 @@ libs:
       address:
         EU: 0x2071B1C
         NA: 0x2071784
+        JP: 0x2071A6C
     - name: DseTrackEvent_Invalid
       address:
         EU: 0x2071CB4
         NA: 0x207191C
+        JP: 0x2071C04
     - name: DseTrackEvent_WaitSame
       address:
         EU: 0x2071CC0
         NA: 0x2071928
+        JP: 0x2071C10
     - name: DseTrackEvent_WaitDelta
       address:
         EU: 0x2071CCC
         NA: 0x2071934
+        JP: 0x2071C1C
     - name: DseTrackEvent_Wait8
       address:
         EU: 0x2071CE4
         NA: 0x207194C
+        JP: 0x2071C34
     - name: DseTrackEvent_Wait16
       address:
         EU: 0x2071CF4
         NA: 0x207195C
+        JP: 0x2071C44
     - name: DseTrackEvent_Wait24
       address:
         EU: 0x2071D10
         NA: 0x2071978
+        JP: 0x2071C60
     - name: DseTrackEvent_WaitUntilFadeout
       address:
         EU: 0x2071D34
         NA: 0x207199C
+        JP: 0x2071C84
     - name: DseTrackEvent_EndTrack
       address:
         EU: 0x2071D60
         NA: 0x20719C8
+        JP: 0x2071CB0
     - name: DseTrackEvent_MainLoopBegin
       address:
         EU: 0x2071DAC
         NA: 0x2071A14
+        JP: 0x2071CFC
     - name: DseTrackEvent_SubLoopBegin
       address:
         EU: 0x2071DB4
         NA: 0x2071A1C
+        JP: 0x2071D04
     - name: DseTrackEvent_SubLoopEnd
       address:
         EU: 0x2071DF4
         NA: 0x2071A5C
+        JP: 0x2071D44
     - name: DseTrackEvent_SubLoopBreakOnLastIteration
       address:
         EU: 0x2071E30
         NA: 0x2071A98
+        JP: 0x2071D80
     - name: DseTrackEvent_SetOctave
       address:
         EU: 0x2071E58
         NA: 0x2071AC0
+        JP: 0x2071DA8
     - name: DseTrackEvent_OctaveDelta
       address:
         EU: 0x2071E64
         NA: 0x2071ACC
+        JP: 0x2071DB4
     - name: DseTrackEvent_SetBpm
       address:
         EU: 0x2071E78
         NA: 0x2071AE0
+        JP: 0x2071DC8
     - name: DseTrackEvent_SetBpm2
       address:
         EU: 0x2071EB8
         NA: 0x2071B20
+        JP: 0x2071E08
     - name: DseTrackEvent_SetBank
       address:
         EU: 0x2071EF8
         NA: 0x2071B60
+        JP: 0x2071E48
     - name: DseTrackEvent_SetBankMsb
       address:
         EU: 0x2071F24
         NA: 0x2071B8C
+        JP: 0x2071E74
     - name: DseTrackEvent_SetBankLsb
       address:
         EU: 0x2071F54
         NA: 0x2071BBC
+        JP: 0x2071EA4
     - name: DseTrackEvent_Dummy1Byte
       address:
         EU: 0x2071F84
         NA: 0x2071BEC
+        JP: 0x2071ED4
     - name: DseTrackEvent_SetInstrument
       address:
         EU: 0x2071F8C
         NA: 0x2071BF4
+        JP: 0x2071EDC
     - name: DseTrackEvent_SongVolumeFade
       address:
         EU: 0x2071FD4
         NA: 0x2071C3C
+        JP: 0x2071F24
     - name: DseTrackEvent_RestoreEnvelopeDefaults
       address:
         EU: 0x2072060
         NA: 0x2071CC8
+        JP: 0x2071FB0
     - name: DseTrackEvent_SetEnvelopeAttackBegin
       address:
         EU: 0x2072078
         NA: 0x2071CE0
+        JP: 0x2071FC8
     - name: DseTrackEvent_SetEnvelopeAttackTime
       address:
         EU: 0x2072098
         NA: 0x2071D00
+        JP: 0x2071FE8
     - name: DseTrackEvent_SetEnvelopeHoldTime
       address:
         EU: 0x20720B8
         NA: 0x2071D20
+        JP: 0x2072008
     - name: DseTrackEvent_SetEnvelopeDecayTimeAndSustainLevel
       address:
         EU: 0x20720D8
         NA: 0x2071D40
+        JP: 0x2072028
     - name: DseTrackEvent_SetEnvelopeSustainTime
       address:
         EU: 0x2072108
         NA: 0x2071D70
+        JP: 0x2072058
     - name: DseTrackEvent_SetEnvelopeReleaseTime
       address:
         EU: 0x2072128
         NA: 0x2071D90
+        JP: 0x2072078
     - name: DseTrackEvent_SetNoteDurationMultiplier
       address:
         EU: 0x2072148
         NA: 0x2071DB0
+        JP: 0x2072098
     - name: DseTrackEvent_ForceLfoEnvelopeLevel
       address:
         EU: 0x2072154
         NA: 0x2071DBC
+        JP: 0x20720A4
     - name: DseTrackEvent_SetHoldNotes
       address:
         EU: 0x2072170
         NA: 0x2071DD8
+        JP: 0x20720C0
     - name: DseTrackEvent_SetFlagBit1Unknown
       address:
         EU: 0x20721A8
         NA: 0x2071E10
+        JP: 0x20720F8
     - name: DseTrackEvent_SetOptionalVolume
       address:
         EU: 0x20721B8
         NA: 0x2071E20
+        JP: 0x2072108
     - name: DseTrackEvent_Dummy2Bytes
       address:
         EU: 0x20721C4
         NA: 0x2071E2C
+        JP: 0x2072114
     - name: DseTrackEvent_SetTuning
       address:
         EU: 0x20721CC
         NA: 0x2071E34
+        JP: 0x207211C
     - name: DseTrackEvent_TuningDeltaCoarse
       address:
         EU: 0x207224C
         NA: 0x2071EB4
+        JP: 0x207219C
     - name: DseTrackEvent_TuningDeltaFine
       address:
         EU: 0x20722D4
         NA: 0x2071F3C
+        JP: 0x2072224
     - name: DseTrackEvent_TuningDeltaFull
       address:
         EU: 0x207235C
         NA: 0x2071FC4
+        JP: 0x20722AC
     - name: DseTrackEvent_TuningFade
       address:
         EU: 0x20723EC
         NA: 0x2072054
+        JP: 0x207233C
     - name: DseTrackEvent_SetNoteRandomRegion
       address:
         EU: 0x20724DC
         NA: 0x2072144
+        JP: 0x207242C
     - name: DseTrackEvent_SetTuningJitterAmplitude
       address:
         EU: 0x2072504
         NA: 0x207216C
+        JP: 0x2072454
     - name: DseTrackEvent_SetKeyBend
       address:
         EU: 0x207251C
         NA: 0x2072184
+        JP: 0x207246C
     - name: DseTrackEvent_SetUnknown2
       address:
         EU: 0x2072548
         NA: 0x20721B0
+        JP: 0x2072498
     - name: DseTrackEvent_SetKeyBendRange
       address:
         EU: 0x2072560
         NA: 0x20721C8
+        JP: 0x20724B0
     - name: DseTrackEvent_SetupKeyBendLfo
       address:
         EU: 0x207256C
         NA: 0x20721D4
+        JP: 0x20724BC
     - name: DseTrackEvent_SetupKeyBendLfoEnvelope
       address:
         EU: 0x20725C4
         NA: 0x207222C
+        JP: 0x2072514
     - name: DseTrackEvent_UseKeyBendLfo
       address:
         EU: 0x20725EC
         NA: 0x2072254
+        JP: 0x207253C
     - name: DseTrackEvent_SetVolume
       address:
         EU: 0x2072614
         NA: 0x207227C
+        JP: 0x2072564
     - name: DseTrackEvent_VolumeDelta
       address:
         EU: 0x20726A8
         NA: 0x2072310
+        JP: 0x20725F8
     - name: DseTrackEvent_VolumeFade
       address:
         EU: 0x2072758
         NA: 0x20723C0
+        JP: 0x20726A8
     - name: DseTrackEvent_SetExpression
       address:
         EU: 0x20727B4
         NA: 0x207241C
+        JP: 0x2072704
     - name: DseTrackEvent_SetupVolumeLfo
       address:
         EU: 0x2072840
         NA: 0x20724A8
+        JP: 0x2072790
     - name: DseTrackEvent_SetupVolumeLfoEnvelope
       address:
         EU: 0x207289C
         NA: 0x2072504
+        JP: 0x20727EC
     - name: DseTrackEvent_UseVolumeLfo
       address:
         EU: 0x20728C4
         NA: 0x207252C
+        JP: 0x2072814
     - name: DseTrackEvent_SetPan
       address:
         EU: 0x20728EC
         NA: 0x2072554
+        JP: 0x207283C
     - name: DseTrackEvent_PanDelta
       address:
         EU: 0x207296C
         NA: 0x20725D4
+        JP: 0x20728BC
     - name: DseTrackEvent_PanFade
       address:
         EU: 0x2072A00
         NA: 0x2072668
+        JP: 0x2072950
     - name: DseTrackEvent_SetupPanLfo
       address:
         EU: 0x2072A5C
         NA: 0x20726C4
+        JP: 0x20729AC
     - name: DseTrackEvent_SetupPanLfoEnvelope
       address:
         EU: 0x2072AB8
         NA: 0x2072720
+        JP: 0x2072A08
     - name: DseTrackEvent_UsePanLfo
       address:
         EU: 0x2072AE0
         NA: 0x2072748
+        JP: 0x2072A30
     - name: DseTrackEvent_SetupLfo
       address:
         EU: 0x2072B08
         NA: 0x2072770
+        JP: 0x2072A58
     - name: DseTrackEvent_SetupLfoEnvelope
       address:
         EU: 0x2072B60
         NA: 0x20727C8
+        JP: 0x2072AB0
     - name: DseTrackEvent_SetLfoParameter
       address:
         EU: 0x2072B94
         NA: 0x20727FC
+        JP: 0x2072AE4
     - name: DseTrackEvent_UseLfo
       address:
         EU: 0x2072CD0
         NA: 0x2072938
+        JP: 0x2072C20
     - name: DseTrackEvent_Signal
       address:
         EU: 0x2072D04
         NA: 0x207296C
+        JP: 0x2072C54
     - name: DseTrackEvent_Dummy2Bytes2
       address:
         EU: 0x2072D34
         NA: 0x207299C
+        JP: 0x2072C84
     - name: DseSynth_Reset
       address:
         EU: 0x20735A0
         NA: 0x2073208
+        JP: 0x20734F0
     - name: DseSynth_AllocateNew
       address:
         EU: 0x2073618
         NA: 0x2073280
+        JP: 0x2073568
     - name: DseSynth_Unload
       address:
         EU: 0x20736E8
         NA: 0x2073350
+        JP: 0x2073638
     - name: DseSynth_ClearHeldNotes
       address:
         EU: 0x2073754
         NA: 0x20733BC
+        JP: 0x20736A4
     - name: DseSynth_ResetAndSetBankAndSequence
       address:
         EU: 0x20737F0
         NA: 0x2073458
+        JP: 0x2073740
     - name: DseSynth_StopChannels
       address:
         EU: 0x2073818
         NA: 0x2073480
+        JP: 0x2073768
     - name: DseSynth_ResetAllVoiceTimersAndVolumes
       address:
         EU: 0x2073844
         NA: 0x20734AC
+        JP: 0x2073794
     - name: DseSynth_RestoreHeldNotes
       address:
         EU: 0x207389C
         NA: 0x2073504
+        JP: 0x20737EC
     - name: DseSynth_SetGlobalVolumeIndex
       address:
         EU: 0x2073904
         NA: 0x207356C
+        JP: 0x2073854
     - name: DseSynth_SetBend
       address:
         EU: 0x20739EC
         NA: 0x2073654
+        JP: 0x207393C
     - name: DseSynth_SetVolume
       address:
         EU: 0x2073A80
         NA: 0x20736E8
+        JP: 0x20739D0
     - name: DseSynth_SetPan
       address:
         EU: 0x2073B50
         NA: 0x20737B8
+        JP: 0x2073AA0
     - name: DseSynth_SetBankAndSequence
       address:
         EU: 0x2073BE4
         NA: 0x207384C
+        JP: 0x2073B34
     - name: DseChannel_Init
       address:
         EU: 0x2073C74
         NA: 0x20738DC
+        JP: 0x2073BC4
     - name: DseChannel_DeallocateVoices
       address:
         EU: 0x2073E28
         NA: 0x2073A90
+        JP: 0x2073D78
     - name: DseChannel_ResetTimerAndVolumeForVoices
       address:
         EU: 0x2073EAC
         NA: 0x2073B14
+        JP: 0x2073DFC
     - name: DseChannel_SetBank
       address:
         EU: 0x2073F28
         NA: 0x2073B90
+        JP: 0x2073E78
     - name: DseChannel_SetInstrument
       address:
         EU: 0x2073F60
         NA: 0x2073BC8
+        JP: 0x2073EB0
     - name: DseChannel_SetLfoConstEnvelopeLevel
       address:
         EU: 0x2073FF4
         NA: 0x2073C5C
+        JP: 0x2073F44
     - name: DseChannel_SetKeyBend
       address:
         EU: 0x2074028
         NA: 0x2073C90
+        JP: 0x2073F78
     - name: DseChannel_AllocateNote
       address:
         EU: 0x2074070
         NA: 0x2073CD8
+        JP: 0x2073FC0
     - name: DseChannel_ReleaseNoteInternal
       address:
         EU: 0x2074100
         NA: 0x2073D68
+        JP: 0x2074050
     - name: DseChannel_ChangeNote
       address:
         EU: 0x20741A8
         NA: 0x2073E10
+        JP: 0x20740F8
     - name: DseChannel_ReleaseNote
       address:
         EU: 0x2074238
         NA: 0x2073EA0
+        JP: 0x2074188
     - name: DseVoice_PlayNote
       address:
         EU: 0x2074274
         NA: 0x2073EDC
+        JP: 0x20741C4
     - name: DseVoice_ReleaseNote
       address:
         EU: 0x20744E8
         NA: 0x2074150
+        JP: 0x2074438
     - name: DseVoice_UpdateParameters
       address:
         EU: 0x207452C
         NA: 0x2074194
+        JP: 0x207447C
     - name: DseVoice_ResetAll
       address:
         EU: 0x20746D0
         NA: 0x2074338
+        JP: 0x2074620
     - name: DseVoice_ResetHW
       address:
         EU: 0x2074774
         NA: 0x20743DC
+        JP: 0x20746C4
     - name: UpdateChannels
       address:
         EU: 0x2074824
@@ -781,42 +950,52 @@ libs:
       address:
         EU: 0x2074914
         NA: 0x207457C
+        JP: 0x2074864
     - name: DseVoice_Allocate
       address:
         EU: 0x20749B0
         NA: 0x2074618
+        JP: 0x2074900
     - name: DseVoice_Start
       address:
         EU: 0x2074B18
         NA: 0x2074780
+        JP: 0x2074A68
     - name: DseVoice_ReleaseHeld
       address:
         EU: 0x2074B74
         NA: 0x20747DC
+        JP: 0x2074AC4
     - name: DseVoice_Release
       address:
         EU: 0x2074BF4
         NA: 0x207485C
+        JP: 0x2074B44
     - name: DseVoice_Deallocate
       address:
         EU: 0x2074C38
         NA: 0x20748A0
+        JP: 0x2074B88
     - name: DseVoice_FlagForActivation
       address:
         EU: 0x2074D3C
         NA: 0x20749A4
+        JP: 0x2074C8C
     - name: DseVoice_FlagForDeactivation
       address:
         EU: 0x2074D8C
         NA: 0x20749F4
+        JP: 0x2074CDC
     - name: DseVoice_CountNumActiveInChannel
       address:
         EU: 0x2074DC4
         NA: 0x2074A2C
+        JP: 0x2074D14
     - name: DseVoice_UpdateHardware
       address:
         EU: 0x2074DF0
         NA: 0x2074A58
+        JP: 0x2074D40
     - name: SoundEnvelope_Reset
       address:
         EU: 0x2075008

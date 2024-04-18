@@ -97,6 +97,7 @@ overlay11:
       address:
         EU: 0x22E5220
         NA: 0x22E48E0
+        JP: 0x22E5F0C
       description: |-
         Converts the given opcode parameter to a 16-bit signed fixed-point number with 8 fraction bits.
         

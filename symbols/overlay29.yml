@@ -3178,6 +3178,7 @@ overlay29:
       address:
         EU: 0x23053D4
         NA: 0x23049A8
+        JP: 0x2305EF8
       description: |-
         Changes the animation a monster is currently playing. Optionally changes their direction as well.
         
@@ -8230,6 +8231,7 @@ overlay29:
       address:
         EU: 0x234D788
         NA: 0x234CB88
+        JP: 0x234DDEC
       description: |-
         Display the dungeon tip that displays on floor change, based on which tips have already been displayed.
         
@@ -8240,6 +8242,7 @@ overlay29:
       address:
         EU: 0x234D8B4
         NA: 0x234CCB4
+        JP: 0x234DF18
       description: |-
         Display the dungeon tip if not already displayed matching the (presumably newly acquired) item
         
