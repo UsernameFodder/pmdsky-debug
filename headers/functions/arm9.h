@@ -43,9 +43,11 @@ bool FixedPoint64IsZero(struct fx64_16* x);
 bool FixedPoint64IsNegative(struct fx64_16* x);
 bool FixedPoint64CmpLt(struct fx64_16* x, struct fx64_16* y);
 void MultiplyFixedPoint64(struct fx64_16* prod, struct fx64_16* x, struct fx64_16* y);
-void DivideFixedPoint64(struct fx64_16* quotient, struct fx64_16* dividend, struct fx64_16* divisor);
+void DivideFixedPoint64(struct fx64_16* quotient, struct fx64_16* dividend,
+                        struct fx64_16* divisor);
 void UMultiplyFixedPoint64(struct fx64_16* prod, struct fx64_16* x, struct fx64_16* y);
-void UDivideFixedPoint64(struct fx64_16* quotient, struct fx64_16* dividend, struct fx64_16* divisor);
+void UDivideFixedPoint64(struct fx64_16* quotient, struct fx64_16* dividend,
+                         struct fx64_16* divisor);
 void AddFixedPoint64(struct fx64_16* sum, struct fx64_16* x, struct fx64_16* y);
 void ClampedLn(struct fx64_16* out, int x);
 uint16_t GetRngSeed(void);
