@@ -3846,7 +3846,7 @@ enum debug_flag {
     // Was supposed to toggle a check to ensure the required parameters before entering a dungeon
     // are set. Does nothing in the final game.
     DEBUG_FLAG_NO_PLUNGE_CHECK = 8,
-    DEBUG_FLAG_DUNGEON_INFINITE_COMEBACK = 9, // Unknown purpose
+    DEBUG_FLAG_DUNGEON_INFINITE_COMEBACK = 9, // Allows reusing dungeon quicksaves
     DEBUG_FLAG_GENERAL_DEBUG = 10,            // Enables debug menus
     // Allows manually overriding the results of a dungeon expedition
     DEBUG_FLAG_EDIT_MODE = 11,
