@@ -77,6 +77,15 @@ struct fx64_16 {
 };
 ASSERT_SIZE(struct fx64_16, 8);
 
+// Define custom types for fixed-point numbers
+typedef int fx32_16;       // 32-bit signed fixed-point number with 16 fraction bits
+typedef int fx32_12;       // 32-bit signed fixed-point number with 12 fraction bits
+typedef int fx32_8;        // 32-bit signed fixed-point number with 8 fraction bits
+typedef int16_t fx16_14;   // 16-bit signed fixed-point number with 14 fraction bits
+typedef int16_t fx16_12;   // 16-bit signed fixed-point number with 12 fraction bits
+typedef uint32_t ufx32_16; // 32-bit unsigned fixed-point number with 16 fraction bits
+typedef uint32_t ufx32_8;  // 32-bit unsigned fixed-point number with 8 fraction bits
+
 // 4x3 matrix for the 3D geometry engine, stored in row-major format.
 // Each element is a signed fixed-point number with 12 fraction bits.
 // See https://problemkaputt.de/gbatek.htm#ds3dmatrixtypes
