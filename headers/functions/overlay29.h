@@ -348,12 +348,12 @@ bool IsTypeIneffectiveAgainstGhost(enum type_id attack_type);
 bool GhostImmunityIsActive(struct entity* attacker, struct entity* defender, int target_type_idx);
 enum type_matchup GetTypeMatchup(struct entity* attacker, struct entity* defender,
                                  int target_type_idx, enum type_id attack_type);
-bool CalcTypeBasedDamageEffects(struct fx64* damage_mult_out, struct entity* attacker,
+bool CalcTypeBasedDamageEffects(struct fx64_16* damage_mult_out, struct entity* attacker,
                                 struct entity* defender, int attack_power, enum type_id attack_type,
                                 struct damage_data* damage_out, bool partial);
 void CalcDamage(struct entity* attacker, struct entity* defender, enum type_id attack_type,
                 int attack_power, int crit_chance, struct damage_data* damage_out,
-                int damage_mult_fp, enum move_id move_id, bool full_calc);
+                fx32_8 damage_mult_fp, enum move_id move_id, bool full_calc);
 void ApplyDamageAndEffectsWrapper(struct entity* monster, int damage, enum damage_message message,
                                   union damage_source damage_source);
 void CalcRecoilDamageFixed(struct entity* attacker, int fixed_damage, undefined4 param_3,
@@ -617,14 +617,14 @@ void ExecuteMoveEffect(undefined4* param_1, struct entity* attacker, struct move
 bool DoMoveDamageInlined(struct entity* attacker, struct entity* defender, struct move* move,
                          enum item_id item_id);
 int DealDamage(struct entity* attacker, struct entity* defender, struct move* move,
-               int damage_mult_fp, enum item_id item_id);
+               fx32_8 damage_mult_fp, enum item_id item_id);
 int DealDamageWithTypeAndPowerBoost(struct entity* attacker, struct entity* defender,
-                                    struct move* move, int damage_mult_fp, enum item_id item_id,
+                                    struct move* move, fx32_8 damage_mult_fp, enum item_id item_id,
                                     enum type_id attack_type, int16_t power_boost);
 int DealDamageProjectile(struct entity* attacker, struct entity* defender, struct move* move,
-                         int power, int damage_mult_fp, enum item_id item_id);
+                         int power, fx32_8 damage_mult_fp, enum item_id item_id);
 int DealDamageWithType(struct entity* attacker, struct entity* defender, enum type_id attack_type,
-                       struct move* move, int damage_mult_fp, enum item_id item_id);
+                       struct move* move, fx32_8 damage_mult_fp, enum item_id item_id);
 int PerformDamageSequence(struct entity* attacker, struct entity* defender, struct move* move,
                           struct damage_data* damage_out, union damage_source damage_source);
 bool StatusCheckerCheck(struct entity* attacker, struct move* move);

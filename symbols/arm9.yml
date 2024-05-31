@@ -10490,7 +10490,7 @@ arm9:
         
         The value at an input of 0 is just listed as 0; the Log function makes sure the input is always at least 1 before reading the table.
         
-        type: int16_t[2048]
+        type: fx16_12[2048]
     - name: CART_REMOVED_IMG_DATA
       address:
         EU: 0x2092EE4

@@ -71,25 +71,34 @@ typedef bool (*slice_append_fn_t)(struct slice* slice, const void* data, size_t 
 
 // 64-bit signed fixed-point number with 16 fraction bits.
 // Represents the number ((upper << 16) + (lower >> 16) + (lower & 0xFFFF) * 2^-16)
-struct fx64 {
+struct fx64_16 {
     int32_t upper;  // sign bit, plus the 31 most significant integer bits
     uint32_t lower; // the 32 least significant bits (16 integer + 16 fraction)
 };
-ASSERT_SIZE(struct fx64, 8);
+ASSERT_SIZE(struct fx64_16, 8);
+
+// Define custom types for fixed-point numbers
+typedef int fx32_16;       // 32-bit signed fixed-point number with 16 fraction bits
+typedef int fx32_12;       // 32-bit signed fixed-point number with 12 fraction bits
+typedef int fx32_8;        // 32-bit signed fixed-point number with 8 fraction bits
+typedef int16_t fx16_14;   // 16-bit signed fixed-point number with 14 fraction bits
+typedef int16_t fx16_12;   // 16-bit signed fixed-point number with 12 fraction bits
+typedef uint32_t ufx32_16; // 32-bit unsigned fixed-point number with 16 fraction bits
+typedef uint32_t ufx32_8;  // 32-bit unsigned fixed-point number with 8 fraction bits
 
 // 4x3 matrix for the 3D geometry engine, stored in row-major format.
 // Each element is a signed fixed-point number with 12 fraction bits.
 // See https://problemkaputt.de/gbatek.htm#ds3dmatrixtypes
 struct matrix_4x3 {
-    int32_t entry[4][3];
+    fx32_12 entry[4][3];
 };
 ASSERT_SIZE(struct matrix_4x3, 48);
 
 // TRIG_TABLE entry containing the value of sine/cosine at some angle
 // Each value is a signed fixed-point number with 12 fraction bits.
 struct trig_values {
-    int16_t sin;
-    int16_t cos;
+    fx16_12 sin;
+    fx16_12 cos;
 };
 ASSERT_SIZE(struct trig_values, 4);
 
