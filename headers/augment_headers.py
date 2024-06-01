@@ -160,7 +160,7 @@ class HeaderAugmenter:
             if in_c_style_comment and "*/" in line:
                 in_c_style_comment = False
 
-    def add_aliases(self) -> int:
+    def add_aliases(self, mark_as_deprecated: bool) -> int:
         add_count = 0
         symbol_names = self.load_symbol_names()
         with open(self.input_header_file(), "r") as f:
@@ -203,6 +203,9 @@ class HeaderAugmenter:
                     if ";" in line.split("//", 1)[0]:
                         # Symbol declaration is finished; add aliases
                         for alias in aliases:
+                            if mark_as_deprecated:
+                                f.write(f"__attribute((deprecated(\"Renamed to '{aliased_symbol}'\"))) ")
+
                             f.write(
                                 symbol_declaration[0].replace(aliased_symbol, alias, 1)
                             )
@@ -253,6 +256,7 @@ def add_header_content(
     extension: str,
     *,
     aliases: bool = True,
+    mark_aliases_as_deprecated: bool = True,
     docstrings: bool = True,
     formatter: Optional[Formatter] = None,
     filter: Optional[str] = None,
@@ -270,7 +274,7 @@ def add_header_content(
             continue
 
         if aliases:
-            count = augmenter.add_aliases()
+            count = augmenter.add_aliases(mark_aliases_as_deprecated)
             if verbosity >= 2 or (verbosity >= 1 and count > 0):
                 print(f"Added {count} alias declaration(s) to {header_file}")
         if docstrings:
@@ -288,6 +292,13 @@ if __name__ == "__main__":
         "--aliases",
         action="store_true",
         help="add alias declarations",
+    )
+    parser.add_argument(
+        "-ad",
+        "--mark_aliases_deprecated",
+        action="store_true",
+        help="mark aliases as deprecated (if --aliases is set)",
+        default=True
     )
     parser.add_argument(
         "-d",
@@ -328,6 +339,7 @@ if __name__ == "__main__":
         FunctionList,
         args.extension,
         aliases=args.aliases,
+        mark_aliases_as_deprecated=args.mark_aliases_deprecated,
         docstrings=args.docstrings,
         formatter=formatter,
         filter=args.filter,
@@ -337,6 +349,7 @@ if __name__ == "__main__":
         DataList,
         args.extension,
         aliases=args.aliases,
+        mark_aliases_as_deprecated=args.mark_aliases_deprecated,
         docstrings=args.docstrings,
         formatter=formatter,
         filter=args.filter,
