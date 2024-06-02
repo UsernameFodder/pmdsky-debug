@@ -18,17 +18,21 @@ arm9:
         EU: 0x20118B8
         NA: 0x2011810
         JP: 0x20117E0
-      length:
-        EU: 0x1
-        NA: 0x1
-        JP: 0x1
       description: IQ gain when ingesting nectar at the Juice Bar.
-    - name: TEXT_SPEED
+    - name: DEBUG_TEXT_SPEED
+      address:
+        EU: 0x2020DEC
+        NA: 0x2020C94
+        JP: 0x2020CE4
+      description: Text speed when debug flag DEBUG_FLAG_TEXT_SPEEDUP is enabled.
+    - name: REGULAR_TEXT_SPEED
+      aliases:
+        - TEXT_SPEED
       address:
         EU: 0x2020DF0
         NA: 0x2020C98
         JP: 0x2020CE8
-      description: Controls text speed.
+      description: Text speed when debug flag DEBUG_FLAG_TEXT_SPEEDUP is disabled.
     - name: HERO_START_LEVEL
       address:
         EU: 0x2048B9C
