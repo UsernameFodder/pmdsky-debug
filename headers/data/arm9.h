@@ -196,10 +196,10 @@ extern int32_t MUSIC_DURATION_LOOKUP_TABLE_2[128];
 extern sound_lfo_waveform_callback LFO_WAVEFORM_CALLBACKS[16];
 extern bool IS_DISP_ON;
 extern uint32_t GXI_DMA_ID;
-extern struct data_processing_instruction JUICE_BAR_NECTAR_IQ_GAIN;
-extern struct data_processing_instruction DEBUG_TEXT_SPEED;
-extern struct data_processing_instruction REGULAR_TEXT_SPEED;
-extern struct data_processing_instruction HERO_START_LEVEL;
-extern struct data_processing_instruction PARTNER_START_LEVEL;
+extern const struct data_processing_instruction JUICE_BAR_NECTAR_IQ_GAIN;
+extern const struct data_processing_instruction DEBUG_TEXT_SPEED;
+extern const struct data_processing_instruction REGULAR_TEXT_SPEED;
+extern const struct data_processing_instruction HERO_START_LEVEL;
+extern const struct data_processing_instruction PARTNER_START_LEVEL;
 
 #endif
