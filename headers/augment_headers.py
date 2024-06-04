@@ -136,9 +136,10 @@ class HeaderAugmenter:
         return set(self.slist.names_from_c_header(self.input_header_file()))
 
     @staticmethod
-    def _input_header_lines(lines) -> Iterator[Tuple[str, bool, bool]]:
+    def _input_header_lines(lines) -> Iterator[Tuple[str, bool, bool, bool]]:
         in_docstring = False
         in_c_style_comment = False
+        is_attribute = False
         for line in lines:
             in_cpp_style_comment = False
             if line == HeaderAugmenter.DOCSTRING_PREAMBLE_LINE:
@@ -155,7 +156,9 @@ class HeaderAugmenter:
             if not in_comment:
                 in_docstring = False
 
-            yield line, in_comment, in_docstring
+            is_attribute = not in_comment and line.startswith("__attribute__((")
+
+            yield line, in_comment, in_docstring, is_attribute
 
             if in_c_style_comment and "*/" in line:
                 in_c_style_comment = False
@@ -174,7 +177,11 @@ class HeaderAugmenter:
             ignored_symbol = None
             prev_aliases = []
 
-            for line, in_comment, _in_docstring in self._input_header_lines(lines):
+            for line, in_comment, _in_docstring, is_attribute in self._input_header_lines(lines):
+                if is_attribute:
+                    # Skip existing attributes (we ensure that line with attributes don't contain symbol names)
+                    continue
+
                 if not in_comment and aliased_symbol is None and ignored_symbol is None:
                     match = self.slist.NAME_REGEX.search(line)
                     if match:
@@ -204,7 +211,9 @@ class HeaderAugmenter:
                         # Symbol declaration is finished; add aliases
                         for alias in aliases:
                             if mark_as_deprecated:
-                                f.write(f"__attribute((deprecated(\"Renamed to '{aliased_symbol}'\"))) ")
+                                # Attributes should end with a comment and newline; this is a somewhat hacky workaround
+                                # to ensure that attributes are not matched by `NAME_REGEX`.
+                                f.write(f"__attribute__((deprecated(\"Renamed to '{aliased_symbol}'\"))) // alias\n")
 
                             f.write(
                                 symbol_declaration[0].replace(aliased_symbol, alias, 1)
@@ -226,10 +235,15 @@ class HeaderAugmenter:
     def add_docstrings(self) -> int:
         add_count = 0
         symbol_names = self.load_symbol_names()
+        buffered_attribute = None
         with open(self.input_header_file(), "r") as f:
             lines = f.readlines()
         with open(self.output_header_file(), "w") as f:
-            for line, in_comment, in_docstring in self._input_header_lines(lines):
+            for line, in_comment, in_docstring, is_attribute in self._input_header_lines(lines):
+                if is_attribute:
+                    # Write attributes after docstrings
+                    buffered_attribute = line
+                    continue
                 if in_docstring:
                     # Skip over docstrings
                     continue
@@ -245,7 +259,13 @@ class HeaderAugmenter:
                             if docstring is not None:
                                 f.write(HeaderAugmenter.DOCSTRING_PREAMBLE_LINE)
                                 f.write(docstring)
+
+                                if buffered_attribute:
+                                    f.write(buffered_attribute)
+                                    buffered_attribute = None
+
                                 add_count += 1
+
                 f.write(line)
         self.commit_header_file()
         return add_count
@@ -294,11 +314,9 @@ if __name__ == "__main__":
         help="add alias declarations",
     )
     parser.add_argument(
-        "-ad",
-        "--mark_aliases_deprecated",
+        "--deprecate-aliases",
         action="store_true",
-        help="mark aliases as deprecated (if --aliases is set)",
-        default=True
+        help="mark aliases with __attribute__((deprecated)) if --aliases is set"
     )
     parser.add_argument(
         "-d",
@@ -339,7 +357,7 @@ if __name__ == "__main__":
         FunctionList,
         args.extension,
         aliases=args.aliases,
-        mark_aliases_as_deprecated=args.mark_aliases_deprecated,
+        mark_aliases_as_deprecated=args.deprecate_aliases,
         docstrings=args.docstrings,
         formatter=formatter,
         filter=args.filter,
@@ -349,7 +367,7 @@ if __name__ == "__main__":
         DataList,
         args.extension,
         aliases=args.aliases,
-        mark_aliases_as_deprecated=args.mark_aliases_deprecated,
+        mark_aliases_as_deprecated=args.deprecate_aliases,
         docstrings=args.docstrings,
         formatter=formatter,
         filter=args.filter,
