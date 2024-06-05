@@ -101,6 +101,5 @@ extern struct tile DEFAULT_TILE;
 extern bool HIDDEN_STAIRS_SPAWN_BLOCKED;
 extern void* FIXED_ROOM_DATA_PTR;
 extern struct dungeon_fades* DUNGEON_FADES_PTR;
-extern const struct data_processing_instruction NECTAR_IQ_BOOST;
 
 #endif
