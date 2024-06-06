@@ -11,10 +11,10 @@ extern const struct data_processing_instruction PARTNER_START_LEVEL;
 // Overlay 0
 extern const struct data_processing_instruction TOP_MENU_MUSIC_ID;
 
-// Overlay 9
-extern const struct data_processing_instruction TOP_MENU_RETURN_MUSIC_ID;
-
 // Overlay 29
 extern const struct data_processing_instruction NECTAR_IQ_BOOST;
+
+// Overlay 9
+extern const struct data_processing_instruction TOP_MENU_RETURN_MUSIC_ID;
 
 #endif
