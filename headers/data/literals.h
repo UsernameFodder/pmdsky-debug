@@ -1,7 +1,7 @@
 #ifndef HEADERS_DATA_LITERALS_H_
 #define HEADERS_DATA_LITERALS_H_
 
-// Arm9
+// ARM9
 extern const struct data_processing_instruction JUICE_BAR_NECTAR_IQ_GAIN;
 extern const struct data_processing_instruction DEBUG_TEXT_SPEED;
 extern const struct data_processing_instruction REGULAR_TEXT_SPEED;
