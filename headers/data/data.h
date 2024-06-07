@@ -23,6 +23,7 @@
 #include "overlay29.h"
 #include "overlay31.h"
 #include "overlay34.h"
+#include "literals.h"
 #include "ram.h"
 
 #endif

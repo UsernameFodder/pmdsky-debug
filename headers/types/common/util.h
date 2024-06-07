@@ -86,6 +86,22 @@ typedef int16_t fx16_12;   // 16-bit signed fixed-point number with 12 fraction 
 typedef uint32_t ufx32_16; // 32-bit unsigned fixed-point number with 16 fraction bits
 typedef uint32_t ufx32_8;  // 32-bit unsigned fixed-point number with 8 fraction bits
 
+// A raw ARMv5 data-processing instruction, such as MOV, ADD, AND, CMP, etc.
+// See the ARMv5 Architecture Reference Manual, Section A3.4.1
+// https://developer.arm.com/documentation/ddi0100/latest/
+struct data_processing_instruction {
+    // second source operand, either a shifted immediate value or a register, see Section A5.1
+    uint32_t shifter_operand : 12;
+    uint32_t rd : 4;     // destination register
+    uint32_t rn : 4;     // first source operand register
+    uint32_t s : 1;      // status flag, set if the instruction updates the status registers
+    uint32_t opcode : 4; // see Section A3.4, Table A3-2
+    uint32_t i : 1;      // immediate flag, set if shifter_operand represents an immediate
+    uint32_t _zero : 2;  // always 0
+    uint32_t cond : 4;   // condition code, see Section A3.2
+};
+ASSERT_SIZE(struct data_processing_instruction, 4);
+
 // 4x3 matrix for the 3D geometry engine, stored in row-major format.
 // Each element is a signed fixed-point number with 12 fraction bits.
 // See https://problemkaputt.de/gbatek.htm#ds3dmatrixtypes
