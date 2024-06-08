@@ -96,7 +96,7 @@ class TextWrapFormatter(Formatter):
 class HeaderAugmenter:
     DOCSTRING_PREAMBLE_LINE = "// THIS DOCSTRING WAS GENERATED AUTOMATICALLY\n"
     CPP_COMMENT_RE = re.compile(r"\s*//")
-    DEPRECATED_MACRO_GUARD_RE = re.compile(r"#define HEADERS_[A-Z0-9_]+_H_?")
+    INCLUDE_GUARD_RE = re.compile(r"\s*#define HEADERS_[A-Z0-9_]+_H_?")
 
     def __init__(
         self,
@@ -129,7 +129,7 @@ class HeaderAugmenter:
     def output_header_file(self):
         return self.slist.header_file + self.out_extension
 
-    def commit_header_file(self, format = True):
+    def commit_header_file(self, format: bool = True):
         if format:
             self.formatter.format_file(self.output_header_file())
         self.in_extension = self.out_extension
@@ -138,9 +138,10 @@ class HeaderAugmenter:
         return set(self.slist.names_from_c_header(self.input_header_file()))
 
     @staticmethod
-    def _input_header_lines(lines) -> Iterator[Tuple[str, bool, bool, bool]]:
+    def _input_header_lines(lines) -> Iterator[Tuple[str, bool, bool, bool, bool]]:
         in_docstring = False
         in_c_style_comment = False
+        in_directive = False
         is_deprecated_macro = False
         for line in lines:
             in_cpp_style_comment = False
@@ -158,9 +159,10 @@ class HeaderAugmenter:
             if not in_comment:
                 in_docstring = False
 
-            is_deprecated_macro = not in_comment and line.startswith("DEPRECATED(")
+            in_directive = not in_comment and line.lstrip().startswith("#")
+            is_deprecated_macro = not in_comment and line.lstrip().startswith("DEPRECATED(")
 
-            yield line, in_comment, in_docstring, is_deprecated_macro
+            yield line, in_comment, in_docstring, in_directive, is_deprecated_macro
 
             if in_c_style_comment and "*/" in line:
                 in_c_style_comment = False
@@ -179,12 +181,12 @@ class HeaderAugmenter:
             ignored_symbol = None
             prev_aliases = []
 
-            for line, in_comment, _in_docstring, is_deprecated_macro in self._input_header_lines(lines):
+            for line, in_comment, _in_docstring, in_directive, is_deprecated_macro in self._input_header_lines(lines):
                 if is_deprecated_macro:
                     # Skip existing deprecated macros (we ensure that this line don't contain symbol names)
                     continue
 
-                if not in_comment and aliased_symbol is None and ignored_symbol is None:
+                if not in_comment and not in_directive and aliased_symbol is None and ignored_symbol is None:
                     match = self.slist.NAME_REGEX.search(line)
                     if match:
                         symbol: str = match[1]
@@ -228,9 +230,11 @@ class HeaderAugmenter:
         return add_count
     
     def add_deprecated_macro(self):
-        # Adds the `DEPRECATED(message)` macro to the header file if it doesn't exist yet.
-        # This is a workaround for compatibility with clang-format
-        # (see https://stackoverflow.com/questions/76898417/make-clang-format-break-after-attribute)
+        """
+        Adds the `DEPRECATED(name)` macro to the header file if it doesn't exist yet.
+        This is a workaround for compatibility with clang-format
+        (see https://stackoverflow.com/questions/76898417/make-clang-format-break-after-attribute)
+        """
 
         macro = textwrap.dedent("""
             #ifndef DEPRECATED
@@ -250,10 +254,10 @@ class HeaderAugmenter:
                 if not in_guard:
                     f.write(line)
                 
-                if line.strip() == "#endif" and in_guard:
+                if in_guard and line.strip() == "#endif":
                     in_guard = False
 
-                if HeaderAugmenter.DEPRECATED_MACRO_GUARD_RE.match(line):
+                if HeaderAugmenter.INCLUDE_GUARD_RE.match(line):
                     f.write(macro)
 
         self.commit_header_file()
@@ -270,7 +274,7 @@ class HeaderAugmenter:
         with open(self.input_header_file(), "r") as f:
             lines = f.readlines()
         with open(self.output_header_file(), "w") as f:
-            for line, in_comment, in_docstring, is_deprecated_macro in self._input_header_lines(lines):
+            for line, in_comment, in_docstring, in_directive, is_deprecated_macro in self._input_header_lines(lines):
                 if is_deprecated_macro:
                     # Write attributes after docstrings
                     buffered_attribute = line
@@ -278,7 +282,7 @@ class HeaderAugmenter:
                 if in_docstring:
                     # Skip over docstrings
                     continue
-                if not in_comment:
+                if not in_comment and not in_directive:
                     match = self.slist.NAME_REGEX.search(line)
                     if match:
                         symbol = match[1]
