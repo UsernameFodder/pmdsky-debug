@@ -96,6 +96,7 @@ class TextWrapFormatter(Formatter):
 class HeaderAugmenter:
     DOCSTRING_PREAMBLE_LINE = "// THIS DOCSTRING WAS GENERATED AUTOMATICALLY\n"
     CPP_COMMENT_RE = re.compile(r"\s*//")
+    INCLUDE_GUARD_RE = re.compile(r"\s*#define HEADERS_[A-Z0-9_]+_H_?")
 
     def __init__(
         self,
@@ -128,17 +129,20 @@ class HeaderAugmenter:
     def output_header_file(self):
         return self.slist.header_file + self.out_extension
 
-    def commit_header_file(self):
-        self.formatter.format_file(self.output_header_file())
+    def commit_header_file(self, format: bool = True):
+        if format:
+            self.formatter.format_file(self.output_header_file())
         self.in_extension = self.out_extension
 
     def load_symbol_names(self) -> Set[str]:
         return set(self.slist.names_from_c_header(self.input_header_file()))
 
     @staticmethod
-    def _input_header_lines(lines) -> Iterator[Tuple[str, bool, bool]]:
+    def _input_header_lines(lines) -> Iterator[Tuple[str, bool, bool, bool, bool]]:
         in_docstring = False
         in_c_style_comment = False
+        in_directive = False
+        is_deprecated_macro = False
         for line in lines:
             in_cpp_style_comment = False
             if line == HeaderAugmenter.DOCSTRING_PREAMBLE_LINE:
@@ -155,12 +159,15 @@ class HeaderAugmenter:
             if not in_comment:
                 in_docstring = False
 
-            yield line, in_comment, in_docstring
+            in_directive = not in_comment and line.lstrip().startswith("#")
+            is_deprecated_macro = not in_comment and line.lstrip().startswith("DEPRECATED(")
+
+            yield line, in_comment, in_docstring, in_directive, is_deprecated_macro
 
             if in_c_style_comment and "*/" in line:
                 in_c_style_comment = False
 
-    def add_aliases(self) -> int:
+    def add_aliases(self, mark_as_deprecated: bool) -> int:
         add_count = 0
         symbol_names = self.load_symbol_names()
         with open(self.input_header_file(), "r") as f:
@@ -174,8 +181,12 @@ class HeaderAugmenter:
             ignored_symbol = None
             prev_aliases = []
 
-            for line, in_comment, _in_docstring in self._input_header_lines(lines):
-                if not in_comment and aliased_symbol is None and ignored_symbol is None:
+            for line, in_comment, _in_docstring, in_directive, is_deprecated_macro in self._input_header_lines(lines):
+                if is_deprecated_macro:
+                    # Skip existing deprecated macros (we ensure that this line don't contain symbol names)
+                    continue
+
+                if not in_comment and not in_directive and aliased_symbol is None and ignored_symbol is None:
                     match = self.slist.NAME_REGEX.search(line)
                     if match:
                         symbol: str = match[1]
@@ -203,6 +214,9 @@ class HeaderAugmenter:
                     if ";" in line.split("//", 1)[0]:
                         # Symbol declaration is finished; add aliases
                         for alias in aliases:
+                            if mark_as_deprecated:
+                                f.write(f'DEPRECATED("{aliased_symbol}")\n')
+
                             f.write(
                                 symbol_declaration[0].replace(aliased_symbol, alias, 1)
                             )
@@ -214,6 +228,39 @@ class HeaderAugmenter:
                         symbol_declaration = []
         self.commit_header_file()
         return add_count
+    
+    def add_deprecated_macro(self):
+        """
+        Adds the `DEPRECATED(name)` macro to the header file if it doesn't exist yet.
+        This is a workaround for compatibility with clang-format
+        (see https://stackoverflow.com/questions/76898417/make-clang-format-break-after-attribute)
+        """
+
+        macro = textwrap.dedent("""
+            #ifndef DEPRECATED
+            #define DEPRECATED(name) __attribute__((deprecated("Renamed to '" name "'")))
+            #endif
+        """)
+
+        with open(self.input_header_file(), "r") as f:
+            lines = f.readlines()
+
+        with open(self.output_header_file(), "w") as f:
+            in_guard = False
+            for line in lines:
+                if line.strip() == "#ifndef DEPRECATED":
+                    in_guard = True
+
+                if not in_guard:
+                    f.write(line)
+                
+                if in_guard and line.strip() == "#endif":
+                    in_guard = False
+
+                if HeaderAugmenter.INCLUDE_GUARD_RE.match(line):
+                    f.write(macro)
+
+        self.commit_header_file()
 
     def get_docstring(self, symbol: str) -> Optional[str]:
         if symbol not in self.symbol_descriptions:
@@ -223,14 +270,19 @@ class HeaderAugmenter:
     def add_docstrings(self) -> int:
         add_count = 0
         symbol_names = self.load_symbol_names()
+        buffered_attribute = None
         with open(self.input_header_file(), "r") as f:
             lines = f.readlines()
         with open(self.output_header_file(), "w") as f:
-            for line, in_comment, in_docstring in self._input_header_lines(lines):
+            for line, in_comment, in_docstring, in_directive, is_deprecated_macro in self._input_header_lines(lines):
+                if is_deprecated_macro:
+                    # Write attributes after docstrings
+                    buffered_attribute = line
+                    continue
                 if in_docstring:
                     # Skip over docstrings
                     continue
-                if not in_comment:
+                if not in_comment and not in_directive:
                     match = self.slist.NAME_REGEX.search(line)
                     if match:
                         symbol = match[1]
@@ -242,7 +294,13 @@ class HeaderAugmenter:
                             if docstring is not None:
                                 f.write(HeaderAugmenter.DOCSTRING_PREAMBLE_LINE)
                                 f.write(docstring)
+
+                                if buffered_attribute:
+                                    f.write(buffered_attribute)
+                                    buffered_attribute = None
+
                                 add_count += 1
+
                 f.write(line)
         self.commit_header_file()
         return add_count
@@ -253,6 +311,7 @@ def add_header_content(
     extension: str,
     *,
     aliases: bool = True,
+    mark_aliases_as_deprecated: bool = True,
     docstrings: bool = True,
     formatter: Optional[Formatter] = None,
     filter: Optional[str] = None,
@@ -270,9 +329,14 @@ def add_header_content(
             continue
 
         if aliases:
-            count = augmenter.add_aliases()
+            count = augmenter.add_aliases(mark_aliases_as_deprecated)
             if verbosity >= 2 or (verbosity >= 1 and count > 0):
                 print(f"Added {count} alias declaration(s) to {header_file}")
+
+            if count > 0 and mark_aliases_as_deprecated:
+                augmenter.add_deprecated_macro()
+                if verbosity >= 1:
+                    print(f"Added `DEPRECATED` macro to {header_file}")
         if docstrings:
             count = augmenter.add_docstrings()
             if verbosity >= 2 or (verbosity >= 1 and count > 0):
@@ -288,6 +352,11 @@ if __name__ == "__main__":
         "--aliases",
         action="store_true",
         help="add alias declarations",
+    )
+    parser.add_argument(
+        "--deprecate-aliases",
+        action="store_true",
+        help="mark aliases with __attribute__((deprecated)) if --aliases is set"
     )
     parser.add_argument(
         "-d",
@@ -328,6 +397,7 @@ if __name__ == "__main__":
         FunctionList,
         args.extension,
         aliases=args.aliases,
+        mark_aliases_as_deprecated=args.deprecate_aliases,
         docstrings=args.docstrings,
         formatter=formatter,
         filter=args.filter,
@@ -337,6 +407,7 @@ if __name__ == "__main__":
         DataList,
         args.extension,
         aliases=args.aliases,
+        mark_aliases_as_deprecated=args.deprecate_aliases,
         docstrings=args.docstrings,
         formatter=formatter,
         filter=args.filter,
