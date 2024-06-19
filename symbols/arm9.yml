@@ -11287,6 +11287,7 @@ arm9:
         EU: 0x4
         NA: 0x4
         JP: 0x4
+      description: Minimum IQ required for enemies to use Exclusive-Move User
     - name: WONDER_GUMMI_IQ_GAIN
       address:
         EU: 0x20A1E14
@@ -11316,6 +11317,7 @@ arm9:
         EU: 0x4
         NA: 0x4
         JP: 0x4
+      description: Minimum IQ required for enemies to use Item Master
     - name: DEF_SCARF_STAT_BOOST
       address:
         EU: 0x20A1E2C

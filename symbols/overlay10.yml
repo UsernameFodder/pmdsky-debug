@@ -1217,7 +1217,7 @@ overlay10:
         EU: 0x2
         NA: 0x2
         JP: 0x2
-      description: The percentage chance for...something to be set to 3 in a calculation related to the Ginseng boost.
+      description: The percentage chance for Ginseng to boost a move's power by 3 (12 %).
     - name: ZINC_STAT_BOOST
       address:
         EU: 0x22C501C
