@@ -260,7 +260,7 @@ overlay13:
       address:
         EU: 0x238D9E0
         NA: 0x238CEA0
-        JP: 0x238E408
+        JP: 0x238E400
       length:
         EU: 0x4
         NA: 0x4
@@ -270,7 +270,7 @@ overlay13:
       address:
         EU: 0x238D9E4
         NA: 0x238CEA4
-        JP: 0x238E40C
+        JP: 0x238E404
       length:
         EU: 0x4
         NA: 0x4
@@ -290,7 +290,7 @@ overlay13:
       address:
         EU: 0x238D9EC
         NA: 0x238CEAC
-        JP: 0x238E414
+        JP: 0x238E40C
       length:
         EU: 0x10
         NA: 0x10
@@ -300,7 +300,7 @@ overlay13:
       address:
         EU: 0x238D9FC
         NA: 0x238CEBC
-        JP: 0x238E424
+        JP: 0x238E41C
       length:
         EU: 0x10
         NA: 0x10
@@ -310,7 +310,7 @@ overlay13:
       address:
         EU: 0x238DA0C
         NA: 0x238CECC
-        JP: 0x238E434
+        JP: 0x238E42C
       length:
         EU: 0x48
         NA: 0x48
@@ -330,7 +330,7 @@ overlay13:
       address:
         EU: 0x238DA64
         NA: 0x238CF24
-        JP: 0x238E48C
+        JP: 0x238E484
       length:
         EU: 0x84
         NA: 0x84

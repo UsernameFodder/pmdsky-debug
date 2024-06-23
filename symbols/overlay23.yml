@@ -18,6 +18,7 @@ overlay23:
       address:
         EU: 0x238DE28
         NA: 0x238D2E8
+        JP: 0x238E8A0
       length:
         NA: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"
@@ -25,6 +26,7 @@ overlay23:
       address:
         EU: 0x238DE2C
         NA: 0x238D2EC
+        JP: 0x238E8A4
       length:
         NA: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"
@@ -32,6 +34,7 @@ overlay23:
       address:
         EU: 0x238DE30
         NA: 0x238D2F0
+        JP: 0x238E8A8
       length:
         NA: 0xC
       description: "Note: unverified, ported from Irdkwia's notes"
@@ -108,6 +111,7 @@ overlay23:
       address:
         EU: 0x238DF38
         NA: 0x238D3F8
+        JP: 0x238E9B0
       length:
         EU: 0x10
         NA: 0x10
@@ -116,6 +120,7 @@ overlay23:
       address:
         EU: 0x238DF48
         NA: 0x238D408
+        JP: 0x238E9C0
       length:
         EU: 0x10
         NA: 0x10
@@ -124,6 +129,7 @@ overlay23:
       address:
         EU: 0x238DF58
         NA: 0x238D418
+        JP: 0x238E9D0
       length:
         EU: 0x10
         NA: 0x10
@@ -132,6 +138,7 @@ overlay23:
       address:
         EU: 0x238DF68
         NA: 0x238D428
+        JP: 0x238E9E0
       length:
         EU: 0x10
         NA: 0x10
@@ -140,6 +147,7 @@ overlay23:
       address:
         EU: 0x238DF78
         NA: 0x238D438
+        JP: 0x238E9F0
       length:
         EU: 0x10
         NA: 0x10
@@ -154,6 +162,7 @@ overlay23:
       address:
         EU: 0x238E3E0
         NA: 0x238D8A0
+        JP: 0x238EE60
       length:
         NA: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"

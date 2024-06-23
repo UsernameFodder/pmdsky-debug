@@ -18,6 +18,7 @@ overlay20:
       address:
         EU: 0x238DABC
         NA: 0x238CF7C
+        JP: 0x238E4D8
       length:
         NA: 0x8
       description: "Note: unverified, ported from Irdkwia's notes"
@@ -70,6 +71,7 @@ overlay20:
       address:
         EU: 0x238DB54
         NA: 0x238D014
+        JP: 0x238E570
       length:
         NA: 0x14
       description: "Note: unverified, ported from Irdkwia's notes"
@@ -77,6 +79,7 @@ overlay20:
       address:
         EU: 0x238DB68
         NA: 0x238D028
+        JP: 0x238E584
       length:
         EU: 0x10
         NA: 0x10
@@ -85,6 +88,7 @@ overlay20:
       address:
         EU: 0x238DB78
         NA: 0x238D038
+        JP: 0x238E594
       length:
         EU: 0x10
         NA: 0x10
@@ -93,6 +97,7 @@ overlay20:
       address:
         EU: 0x238DB88
         NA: 0x238D048
+        JP: 0x238E5A4
       length:
         EU: 0x10
         NA: 0x10
@@ -101,6 +106,7 @@ overlay20:
       address:
         EU: 0x238DB98
         NA: 0x238D058
+        JP: 0x238E5B4
       length:
         EU: 0x10
         NA: 0x10
@@ -109,6 +115,7 @@ overlay20:
       address:
         EU: 0x238DBA8
         NA: 0x238D068
+        JP: 0x238E5C4
       length:
         EU: 0x10
         NA: 0x10
@@ -117,6 +124,7 @@ overlay20:
       address:
         EU: 0x238DBB8
         NA: 0x238D078
+        JP: 0x238E5D4
       length:
         EU: 0x10
         NA: 0x10

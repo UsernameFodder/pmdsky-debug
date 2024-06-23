@@ -163,6 +163,7 @@ overlay9:
       address:
         EU: 0x233FF1C
         NA: 0x233F794
+        JP: 0x2340FC0
       length:
         NA: 0x10
       description: |-
@@ -175,6 +176,7 @@ overlay9:
       address:
         EU: 0x233FF2C
         NA: 0x233F7A4
+        JP: 0x2340FD0
       length:
         NA: 0x10
       description: |-
@@ -187,6 +189,7 @@ overlay9:
       address:
         EU: 0x233FF3C
         NA: 0x233F7B4
+        JP: 0x2340FE0
       length:
         NA: 0x10
       description: Default window_params for an input_lock_box.

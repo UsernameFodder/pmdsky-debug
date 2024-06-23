@@ -122,6 +122,9 @@ overlay10:
         NA:
           - 0x22BD44C
           - 0x22C183C
+        JP:
+          - 0x22BEBEC
+          - 0x22C2FA8
       description: |-
         Statically defined copy of sprintf(3) in overlay 10. See arm9.yml for more information.
         
@@ -203,7 +206,7 @@ overlay10:
       address:
         EU: 0x22C0844
         NA: 0x22BFF04
-        JP: 0x22C16A4
+        JP: 0x22C16A8
       description: |-
         Note: unverified, ported from Irdkwia's notes
         
@@ -223,6 +226,7 @@ overlay10:
       address:
         EU: 0x22C1328
         NA: 0x22C09E8
+        JP: 0x22C218C
       description: |-
         Handles creating the windows, sprites, etc. for the team stats top screen display.
         
@@ -264,6 +268,7 @@ overlay10:
       address:
         EU: 0x22C2094
         NA: 0x22C1748
+        JP: 0x22C2E9C
       description: |-
         Appears to populate the Lv./HP row in the "Team stats" top screen.
         
@@ -272,6 +277,7 @@ overlay10:
       address:
         EU: 0x22C21BC
         NA: 0x22C1864
+        JP: 0x22C2FD0
       description: |-
         Appears to populate the name/gender row in the "Team stats" top screen.
         
@@ -318,6 +324,7 @@ overlay10:
       address:
         EU: 0x22C4CEC
         NA: 0x22C4394
+        JP: 0x22C5A7C
       length:
         NA: 0x10
       description: |-
@@ -603,6 +610,7 @@ overlay10:
       address:
         EU: 0x22C4E2C
         NA: 0x22C44D4
+        JP: 0x22C5BBC
       length:
         NA: 0x2
       description: Damage dealt by the burn status condition.
@@ -610,6 +618,7 @@ overlay10:
       address:
         EU: 0x22C4E30
         NA: 0x22C44D8
+        JP: 0x22C5BC0
       length:
         NA: 0x2
       description: Damage dealt by the poison status condition.
@@ -827,6 +836,7 @@ overlay10:
       address:
         EU: 0x22C4ED0
         NA: 0x22C4578
+        JP: 0x22C5C60
       length:
         NA: 0x2
       description: The passive bonus health regen given when the weather is rain for the abilities rain dish and dry skin.
@@ -834,6 +844,7 @@ overlay10:
       address:
         EU: 0x22C4EE0
         NA: 0x22C4588
+        JP: 0x22C5C70
       length:
         NA: 0x2
       description: The amount of health drained by leech seed status.
@@ -974,6 +985,7 @@ overlay10:
       address:
         EU: 0x22C4F88
         NA: 0x22C4630
+        JP: 0x22C5D18
       length:
         EU: 0x2
       description: The passive bonus health regen given when the weather is hail for the ability ice body.
@@ -1018,6 +1030,7 @@ overlay10:
       address:
         EU: 0x22C4FAC
         NA: 0x22C4654
+        JP: 0x22C5D3C
       length:
         NA: 0x2
       description: "The number of turns the moves rain dance, hail, sandstorm, sunny day and defog change the weather for. (3000)"
@@ -1166,6 +1179,7 @@ overlay10:
       address:
         EU: 0x22C5004
         NA: 0x22C46AC
+        JP: 0x22C5D94
       length:
         NA: 0x2
       description: The number of turns between leech seed health drain.
@@ -1173,6 +1187,7 @@ overlay10:
       address:
         EU: 0x22C5008
         NA: 0x22C46B0
+        JP: 0x22C5D98
       length:
         EU: 0x2
         NA: 0x2
@@ -1252,6 +1267,7 @@ overlay10:
       address:
         EU: 0x22C5028
         NA: 0x22C46D0
+        JP: 0x22C5DB8
       length:
         NA: 0x2
       description: The passive bonus regen given by the wish status condition.
@@ -1336,7 +1352,7 @@ overlay10:
       address:
         EU: 0x22C5068
         NA: 0x22C4710
-        JP: 0x22C5DE8
+        JP: 0x22C5DF8
       length:
         NA: 0x4
         JP: 0x4
@@ -1424,6 +1440,7 @@ overlay10:
       address:
         EU: 0x22C50B0
         NA: 0x22C4758
+        JP: 0x22C5E40
       length:
         NA: 0x4
       description: "The damage multiplier corresponding to MATCHUP_IMMUNE, as a fixed-point number with 8 fraction bits (0.5)."
@@ -1837,6 +1854,7 @@ overlay10:
       address:
         EU: 0x22C54CC
         NA: 0x22C4B74
+        JP: 0x22C625C
       length:
         EU: 0x48
         NA: 0x48

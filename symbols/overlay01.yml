@@ -57,6 +57,7 @@ overlay1:
       address:
         EU: 0x23336D8
         NA: 0x2332EF4
+        JP: 0x23346A4
       description: |-
         Fetches the required data and creates all the strings to display the contents shown in the window
         when choosing continue in the main menu.
@@ -67,6 +68,7 @@ overlay1:
       address:
         EU: 0x233B878
         NA: 0x233B12C
+        JP: 0x233C9AC
       length:
         EU: 0x1E8
         NA: 0x1E8
@@ -75,6 +77,7 @@ overlay1:
       address:
         EU: 0x233BA60
         NA: 0x233B314
+        JP: 0x233CB94
       length:
         EU: 0x1F0
         NA: 0x1F0
@@ -86,6 +89,7 @@ overlay1:
       address:
         EU: 0x233BC64
         NA: 0x233B518
+        JP: 0x233CD98
       length:
         EU: 0x10
         NA: 0x10
@@ -94,6 +98,7 @@ overlay1:
       address:
         EU: 0x233BC74
         NA: 0x233B528
+        JP: 0x233CDA8
       length:
         EU: 0x10
         NA: 0x10
@@ -102,6 +107,7 @@ overlay1:
       address:
         EU: 0x233BC84
         NA: 0x233B538
+        JP: 0x233CDB8
       length:
         EU: 0x10
         NA: 0x10
@@ -110,6 +116,7 @@ overlay1:
       address:
         EU: 0x233BC94
         NA: 0x233B548
+        JP: 0x233CDC8
       length:
         EU: 0x10
         NA: 0x10
@@ -145,6 +152,7 @@ overlay1:
       address:
         EU: 0x233BE68
         NA: 0x233B71C
+        JP: 0x233CF94
       length:
         EU: 0x10
         NA: 0x10
@@ -153,6 +161,7 @@ overlay1:
       address:
         EU: 0x233BE78
         NA: 0x233B72C
+        JP: 0x233CFA4
       length:
         EU: 0x10
         NA: 0x10
@@ -161,6 +170,7 @@ overlay1:
       address:
         EU: 0x233BE88
         NA: 0x233B73C
+        JP: 0x233CFB4
       length:
         EU: 0x10
         NA: 0x10
@@ -169,6 +179,7 @@ overlay1:
       address:
         EU: 0x233BE98
         NA: 0x233B74C
+        JP: 0x233CFC4
       length:
         EU: 0x18
         NA: 0x18
@@ -176,6 +187,7 @@ overlay1:
       address:
         EU: 0x233BF1C
         NA: 0x233B7D0
+        JP: 0x233D048
       length:
         EU: 0x10
         NA: 0x10
@@ -184,6 +196,7 @@ overlay1:
       address:
         EU: 0x233BF3C
         NA: 0x233B7F0
+        JP: 0x233D068
       length:
         EU: 0x10
         NA: 0x10
@@ -201,6 +214,7 @@ overlay1:
       address:
         EU: 0x233BFBC
         NA: 0x233B870
+        JP: 0x233D0E8
       length:
         EU: 0x10
         NA: 0x10

@@ -427,6 +427,7 @@ overlay11:
       address:
         EU: 0x22F78A8
         NA: 0x22F6F08
+        JP: 0x22F858C
       description: |-
         Likely a linker-generated veneer for InitAnimDataFromOtherAnimData.
         
@@ -442,6 +443,9 @@ overlay11:
         NA:
           - 0x22F6F14
           - 0x22F7064
+        JP:
+          - 0x22F8598
+          - 0x22F86E8
       description: |-
         Does more stuff related to animations...probably?
         
@@ -696,6 +700,7 @@ overlay11:
       address:
         EU: 0x23174B8
         NA: 0x2316AD8
+        JP: 0x231803C
       length:
         NA: 0x20
       description: Used by ScriptCommandParsing somehow
@@ -703,6 +708,7 @@ overlay11:
       address:
         EU: 0x23174D8
         NA: 0x2316AF8
+        JP: 0x231805C
       length:
         NA: 0x1B18
       description: "Opcode name strings pointed to by entries in SCRIPT_OP_CODES (script_opcode::name)"
@@ -725,6 +731,7 @@ overlay11:
       address:
         EU: 0x2319BE8
         NA: 0x2319208
+        JP: 0x231A76C
       length:
         NA: 0x8E4
       description: Strings used with various debug printing functions throughout the overlay
@@ -732,6 +739,7 @@ overlay11:
       address:
         EU: 0x231A4CC
         NA: 0x2319AEC
+        JP: 0x231B050
       length:
         NA: 0x2D3C
       description: "Common routine name strings pointed to by entries in C_ROUTINES (common_routine::name)"
@@ -753,6 +761,7 @@ overlay11:
       address:
         EU: 0x231E7F0
         NA: 0x231DE10
+        JP: 0x231F374
       length:
         NA: 0x30
       description: |-
@@ -763,6 +772,7 @@ overlay11:
       address:
         EU: 0x231E820
         NA: 0x231DE40
+        JP: 0x231F3A4
       length:
         EU: 0x10BC
         NA: 0x1014
@@ -841,6 +851,7 @@ overlay11:
       address:
         EU: 0x23223FC
         NA: 0x23218CC
+        JP: 0x2322E30
       length:
         EU: 0xA8
         NA: 0xA8
@@ -852,6 +863,7 @@ overlay11:
       address:
         EU: 0x2322F8C
         NA: 0x232245C
+        JP: 0x23239C0
       length:
         NA: 0x10
       description: Default window_params for a team_info_box.
@@ -859,6 +871,7 @@ overlay11:
       address:
         EU: 0x2323B9C
         NA: 0x232306C
+        JP: 0x23245E8
       length:
         EU: 0x150
         NA: 0x150
@@ -905,6 +918,7 @@ overlay11:
       address:
         EU: 0x2325924
         NA: 0x2324DE4
+        JP: 0x2326344
       length:
         EU: 0x4
         NA: 0x4

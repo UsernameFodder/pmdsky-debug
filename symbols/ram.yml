@@ -475,10 +475,12 @@ ram:
       address:
         EU: 0x22B7C70
         NA: 0x22B7330
+        JP: 0x22B8AE8
     - name: DISP_MODE
       address:
         EU: 0x22B9EC8
         NA: 0x22B9588
+        JP: 0x22BAD40
       length:
         EU: 0x2
         NA: 0x2
@@ -486,6 +488,7 @@ ram:
       address:
         EU: 0x22B9ECA
         NA: 0x22B958A
+        JP: 0x22BAD42
       length:
         EU: 0x2
         NA: 0x2
@@ -493,6 +496,7 @@ ram:
       address:
         EU: 0x22B9ECC
         NA: 0x22B958C
+        JP: 0x22BAD44
       length:
         EU: 0x2
         NA: 0x2
@@ -504,6 +508,7 @@ ram:
       address:
         EU: 0x22B9EE8
         NA: 0x22B95A8
+        JP: 0x22BAD60
       length:
         EU: 0x4
         NA: 0x4
@@ -511,6 +516,7 @@ ram:
       address:
         EU: 0x22B9F04
         NA: 0x22B95C4
+        JP: 0x22BAD7C
       length:
         EU: 0x4
         NA: 0x4
