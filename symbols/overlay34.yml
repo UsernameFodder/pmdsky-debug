@@ -20,6 +20,7 @@ overlay34:
       address:
         EU: 0x22DCB80
         NA: 0x22DC240
+        JP: 0x22DD8E0
       description: |-
         The main function for Explorers of Sky.
         
@@ -32,6 +33,7 @@ overlay34:
       address:
         EU: 0x22DD8BC
         NA: 0x22DD014
+        JP: 0x22DE618
       length:
         NA: 0x10
       description: |-
@@ -42,7 +44,7 @@ overlay34:
       address:
         EU: 0x22DD8CC
         NA: 0x22DD024
-        JP: 0x22DE62C
+        JP: 0x22DE628
       length:
         EU: 0x18
         NA: 0x18
@@ -51,6 +53,7 @@ overlay34:
       address:
         EU: 0x22DD8E4
         NA: 0x22DD03C
+        JP: 0x22DE640
       length:
         NA: 0x10
       description: |-
@@ -61,7 +64,7 @@ overlay34:
       address:
         EU: 0x22DD8F4
         NA: 0x22DD04C
-        JP: 0x22DE654
+        JP: 0x22DE650
       length:
         EU: 0x28
         NA: 0x28
@@ -76,6 +79,7 @@ overlay34:
       address:
         EU: 0x22DD920
         NA: 0x22DD080
+        JP: 0x22DE680
       length:
         NA: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"
@@ -83,6 +87,7 @@ overlay34:
       address:
         EU: 0x22DD924
         NA: 0x22DD084
+        JP: 0x22DE684
       length:
         NA: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"
@@ -96,6 +101,7 @@ overlay34:
       address:
         EU: 0x22DD92C
         NA: 0x22DD08C
+        JP: 0x22DE68C
       length:
         NA: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"

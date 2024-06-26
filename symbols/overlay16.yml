@@ -72,6 +72,7 @@ overlay16:
       address:
         EU: 0x238D908
         NA: 0x238CDC4
+        JP: 0x238E344
       length:
         EU: 0x10
         NA: 0x10
@@ -80,6 +81,7 @@ overlay16:
       address:
         EU: 0x238D918
         NA: 0x238CDD4
+        JP: 0x238E354
       length:
         EU: 0x10
         NA: 0x10
@@ -88,6 +90,7 @@ overlay16:
       address:
         EU: 0x238D928
         NA: 0x238CDE4
+        JP: 0x238E364
       length:
         EU: 0x10
         NA: 0x10
@@ -108,6 +111,7 @@ overlay16:
       address:
         EU: 0x238D980
         NA: 0x238CE40
+        JP: 0x238E3C0
       length:
         NA: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"

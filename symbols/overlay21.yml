@@ -18,6 +18,7 @@ overlay21:
       address:
         EU: 0x238D568
         NA: 0x238CA28
+        JP: 0x238DF98
       length:
         EU: 0x10
         NA: 0x10
@@ -104,6 +105,7 @@ overlay21:
       address:
         EU: 0x238D6A8
         NA: 0x238CB68
+        JP: 0x238E0D8
       length:
         EU: 0x10
         NA: 0x10
@@ -112,6 +114,7 @@ overlay21:
       address:
         EU: 0x238D6B8
         NA: 0x238CB78
+        JP: 0x238E0E8
       length:
         EU: 0x10
         NA: 0x10
@@ -120,6 +123,7 @@ overlay21:
       address:
         EU: 0x238D6C8
         NA: 0x238CB88
+        JP: 0x238E0F8
       length:
         EU: 0x10
         NA: 0x10
@@ -128,6 +132,7 @@ overlay21:
       address:
         EU: 0x238D6D8
         NA: 0x238CB98
+        JP: 0x238E108
       length:
         EU: 0x10
         NA: 0x10
@@ -136,6 +141,7 @@ overlay21:
       address:
         EU: 0x238D6E8
         NA: 0x238CBA8
+        JP: 0x238E118
       length:
         EU: 0x10
         NA: 0x10
@@ -144,6 +150,7 @@ overlay21:
       address:
         EU: 0x238DA5C
         NA: 0x238CF1C
+        JP: 0x238E48C
       length:
         NA: 0x8
       description: 合成：
@@ -157,6 +164,7 @@ overlay21:
       address:
         EU: 0x238DA80
         NA: 0x238CF40
+        JP: 0x238E4C0
       length:
         NA: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"

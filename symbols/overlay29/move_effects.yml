@@ -28,6 +28,11 @@ move_effects:
           - 0x232A500
           - 0x232B8B0
           - 0x232DD88
+        JP:
+          - 0x232724C
+          - 0x232B970
+          - 0x232CCFC
+          - 0x232F190
       description: |-
         Move effect: Deal damage.
         Relevant moves: Many!
@@ -43,6 +48,7 @@ move_effects:
       address:
         EU: 0x232684C
         NA: 0x2325DE4
+        JP: 0x2327270
       description: |-
         Move effect: Iron Tail
         
@@ -82,6 +88,7 @@ move_effects:
       address:
         EU: 0x2326968
         NA: 0x2325F00
+        JP: 0x232738C
       description: |-
         Move effect: Put target enemies to sleep
         Relevant moves: Lovely Kiss, Sing, Spore, Grasswhistle, Hypnosis, Sleep Powder, Dark Void
@@ -108,6 +115,7 @@ move_effects:
       address:
         EU: 0x23269DC
         NA: 0x2325F74
+        JP: 0x2327400
       description: |-
         Move effect: Morning Sun
         
@@ -146,6 +154,7 @@ move_effects:
       address:
         EU: 0x2326AF0
         NA: 0x2326088
+        JP: 0x2327514
       description: |-
         Move effect: Sweet Scent
         
@@ -171,6 +180,7 @@ move_effects:
       address:
         EU: 0x2326B38
         NA: 0x23260D0
+        JP: 0x232755C
       description: |-
         Move effect: Rain Dance
         
@@ -183,6 +193,7 @@ move_effects:
       address:
         EU: 0x2326B94
         NA: 0x232612C
+        JP: 0x23275B8
       description: |-
         Move effect: Hail
         
@@ -209,6 +220,7 @@ move_effects:
       address:
         EU: 0x2326C08
         NA: 0x23261A0
+        JP: 0x232762C
       description: |-
         Move effect: Bubble
         
@@ -338,6 +350,7 @@ move_effects:
       address:
         EU: 0x23270D8
         NA: 0x2326670
+        JP: 0x2327AFC
       description: |-
         Move effect: Deal damage with a 30% chance (ROCK_SLIDE_CRINGE_CHANCE) of inflicting the cringe status on the defender.
         Relevant moves: Rock Slide, Astonish, Iron Head, Dark Pulse, Air Slash, Zen Headbutt, Dragon Rush
@@ -377,6 +390,7 @@ move_effects:
       address:
         EU: 0x2327240
         NA: 0x23267D8
+        JP: 0x2327C64
       description: |-
         Move effect: Fake Tears
         
@@ -481,6 +495,7 @@ move_effects:
       address:
         EU: 0x23274DC
         NA: 0x2326A74
+        JP: 0x2327EFC
       description: |-
         Move effect: Octazooka
         
@@ -532,6 +547,7 @@ move_effects:
       address:
         EU: 0x232770C
         NA: 0x2326CA4
+        JP: 0x232812C
       description: |-
         Move effect: Grudge
         
@@ -558,6 +574,7 @@ move_effects:
       address:
         EU: 0x2327730
         NA: 0x2326CC8
+        JP: 0x2328150
       description: |-
         Move effect: Deal damage with a 10% chance (FLAME_WHEEL_BURN_CHANCE) of burning the defender.
         Relevant moves: Flame Wheel, Lava Plume
@@ -571,6 +588,7 @@ move_effects:
       address:
         EU: 0x23277B8
         NA: 0x2326D50
+        JP: 0x23281D8
       description: |-
         Move effect: Deal damage with a 10% chance (FLAMETHROWER_BURN_CHANCE) of burning the defender.
         Relevant moves: Flamethrower, Fire Blast, Heat Wave, Ember, Fire Punch
@@ -598,6 +616,7 @@ move_effects:
       address:
         EU: 0x232786C
         NA: 0x2326E04
+        JP: 0x232828C
       description: |-
         Move effect: Double Team
         
@@ -623,6 +642,7 @@ move_effects:
       address:
         EU: 0x23278C8
         NA: 0x2326E60
+        JP: 0x23282E8
       description: |-
         Move effect: Boost the user's defense by one stage
         Relevant moves: Harden, Withdraw
@@ -642,6 +662,10 @@ move_effects:
           - 0x2326E80
           - 0x2328230
           - 0x232B434
+        JP:
+          - 0x2328308
+          - 0x23296B8
+          - 0x232C894
       description: |-
         Move effect: Paralyze the defender if possible
         Relevant moves: Disable, Stun Spore, Glare
@@ -655,6 +679,7 @@ move_effects:
       address:
         EU: 0x2327900
         NA: 0x2326E98
+        JP: 0x2328320
       description: |-
         Move effect: Boost the user's attack by one stage
         Relevant moves: Sharpen, Howl, Meditate
@@ -709,6 +734,7 @@ move_effects:
       address:
         EU: 0x2327A9C
         NA: 0x2327034
+        JP: 0x23284BC
       description: |-
         Move effect: Deal damage with a 20% chance (CRUNCH_LOWER_DEFENSE_CHANCE) of lowering the defender's defense.
         Relevant moves: Crunch, Shadow Ball via Nature Power
@@ -722,6 +748,7 @@ move_effects:
       address:
         EU: 0x2327B1C
         NA: 0x23270B4
+        JP: 0x232853C
       description: |-
         Move effect: Deal damage with a 20% chance (BITE_CRINGE_CHANCE) of inflicting the cringe status on the defender.
         Relevant moves: Bite, Needle Arm, Stomp, Rolling Kick
@@ -735,6 +762,7 @@ move_effects:
       address:
         EU: 0x2327B88
         NA: 0x2327120
+        JP: 0x23285A8
       description: |-
         Move effect: Deal damage with a 20% chance (THUNDER_PARALYZE_CHANCE) of paralyzing the defender.
         Relevant moves: Thunder, ThunderPunch, Force Palm, Discharge
@@ -774,6 +802,7 @@ move_effects:
       address:
         EU: 0x2327CF4
         NA: 0x232728C
+        JP: 0x2328714
       description: |-
         Move effect: Deal damage with a 20% chance (CONSTRICT_LOWER_SPEED_CHANCE) of lowering the defender's speed.
         Relevant moves: Constrict, Bubblebeam
@@ -814,6 +843,7 @@ move_effects:
       address:
         EU: 0x2327E34
         NA: 0x23273CC
+        JP: 0x2328854
       description: |-
         Move effect: Focus Punch
         
@@ -840,6 +870,7 @@ move_effects:
       address:
         EU: 0x2328000
         NA: 0x2327598
+        JP: 0x2328A20
       description: |-
         Move effect: Deal damage with a higher multiplier the lower the attacker's HP is.
         Relevant moves: Reversal, Flail
@@ -961,6 +992,7 @@ move_effects:
       address:
         EU: 0x2328350
         NA: 0x23278E8
+        JP: 0x2328D70
       description: |-
         Move effect: Synthesis
         
@@ -1014,6 +1046,7 @@ move_effects:
       address:
         EU: 0x232844C
         NA: 0x23279E4
+        JP: 0x2328E6C
       description: |-
         Move effect: Cosmic Power
         
@@ -1093,6 +1126,7 @@ move_effects:
       address:
         EU: 0x2328674
         NA: 0x2327C08
+        JP: 0x2329090
       description: |-
         Move effect: Deal damage with a 10% chance (PSYBEAM_CONFUSE_CHANCE) of confusing the defender.
         Relevant moves: Psybeam, Signal Beam, Confusion, Chatter, Rock Climb
@@ -1164,6 +1198,7 @@ move_effects:
       address:
         EU: 0x232884C
         NA: 0x2327DE0
+        JP: 0x2329268
       description: |-
         Move effect: Water Spout
         
@@ -1211,6 +1246,11 @@ move_effects:
           - 0x232A3D8
           - 0x232C500
           - 0x232E250
+        JP:
+          - 0x2329494
+          - 0x232B848
+          - 0x232D944
+          - 0x232F650
       description: "See overlay29.yml::EntityIsValid"
     - name: DoMoveRecoverHp
       address:
@@ -1243,6 +1283,7 @@ move_effects:
       address:
         EU: 0x2328B40
         NA: 0x23280D4
+        JP: 0x232955C
       description: |-
         Gets the nature power variant for the current dungeon, based on the tileset ID.
         
@@ -1264,6 +1305,7 @@ move_effects:
       address:
         EU: 0x2328BD8
         NA: 0x232816C
+        JP: 0x23295F4
       description: |-
         Move effect: Deal damage with a 10% chance (LICK_PARALZYE_CHANCE) of paralyzing the defender.
         Relevant moves: Lick, Spark, Body Slam, DragonBreath
@@ -1290,6 +1332,7 @@ move_effects:
       address:
         EU: 0x2328CB4
         NA: 0x2328248
+        JP: 0x23296D0
       description: |-
         Move effect: Shadow Ball
         
@@ -1315,6 +1358,7 @@ move_effects:
       address:
         EU: 0x2328D94
         NA: 0x2328328
+        JP: 0x23297B0
       description: |-
         Move effect: Thunderbolt
         
@@ -1353,6 +1397,7 @@ move_effects:
       address:
         EU: 0x2328F28
         NA: 0x23284BC
+        JP: 0x2329944
       description: |-
         Move effect: Deal damage with a 10% chance (EXTRASENSORY_CRINGE_CHANCE) to inflict the cringe status on the defender.
         Relevant moves: Extrasensory, Hyper Fang, Bone Club
@@ -1379,6 +1424,7 @@ move_effects:
       address:
         EU: 0x2328FA4
         NA: 0x2328538
+        JP: 0x23299C0
       description: |-
         Move effect: Absorb
         
@@ -1401,6 +1447,11 @@ move_effects:
           - 0x2329F14
           - 0x232BDD0
           - 0x232DE20
+        JP:
+          - 0x2329AB8
+          - 0x232B388
+          - 0x232D220
+          - 0x232F224
       description: "See overlay29.yml::DefenderAbilityIsActive"
     - name: DoMoveSkillSwap
       address:
@@ -1432,6 +1483,7 @@ move_effects:
       address:
         EU: 0x2329330
         NA: 0x23288C4
+        JP: 0x2329D44
       description: |-
         Move effect: Headbutt
         
@@ -1457,6 +1509,7 @@ move_effects:
       address:
         EU: 0x2329464
         NA: 0x23289F8
+        JP: 0x2329E78
       description: |-
         Move effect: Sandstorm
         
@@ -1469,6 +1522,7 @@ move_effects:
       address:
         EU: 0x23294C0
         NA: 0x2328A54
+        JP: 0x2329ED4
       description: |-
         Move effect: Lower the defender's accuracy by one stage
         Relevant moves: Sand-Attack, Kinesis, Flash
@@ -1482,6 +1536,7 @@ move_effects:
       address:
         EU: 0x23294E0
         NA: 0x2328A74
+        JP: 0x2329EF4
       description: |-
         Move effect: Deal damage with a 40% chance (SMOG_POISON_CHANCE) of poisoning the defender.
         Relevant moves: Smog, Cross Poison, Gunk Shot, Poison Jab
@@ -1495,6 +1550,7 @@ move_effects:
       address:
         EU: 0x232954C
         NA: 0x2328AE0
+        JP: 0x2329F60
       description: |-
         Move effect: Growth
         
@@ -1507,6 +1563,7 @@ move_effects:
       address:
         EU: 0x232956C
         NA: 0x2328B00
+        JP: 0x2329F80
       description: |-
         Move effect: Sacred Fire
         
@@ -1546,6 +1603,7 @@ move_effects:
       address:
         EU: 0x23297B0
         NA: 0x2328D44
+        JP: 0x232A1C4
       description: |-
         Move effect: SonicBoom
         
@@ -1597,6 +1655,7 @@ move_effects:
       address:
         EU: 0x2329A00
         NA: 0x2328F94
+        JP: 0x232A414
       description: |-
         Move effect: Waterfall
         
@@ -1609,6 +1668,7 @@ move_effects:
       address:
         EU: 0x2329A6C
         NA: 0x2329000
+        JP: 0x232A480
       description: |-
         Move effect: Deal damage with a 40% chance (MUDDY_WATER_LOWER_ACCURACY_CHANCE) of lowering the defender's accuracy.
         Relevant moves: Muddy Water, Mud Bomb, Mirror Shot
@@ -1675,6 +1735,7 @@ move_effects:
       address:
         EU: 0x2329CA8
         NA: 0x232923C
+        JP: 0x232A6BC
       description: |-
         Move effect: Minimize
         
@@ -1727,6 +1788,7 @@ move_effects:
       address:
         EU: 0x2329E64
         NA: 0x23293F8
+        JP: 0x232A878
       description: |-
         Move effect: Moonlight
         
@@ -1754,6 +1816,7 @@ move_effects:
       address:
         EU: 0x2329FA0
         NA: 0x2329534
+        JP: 0x232A9B4
       description: |-
         Move effect: Swords Dance
         
@@ -1805,6 +1868,7 @@ move_effects:
       address:
         EU: 0x232A144
         NA: 0x23296D8
+        JP: 0x232AB58
       description: |-
         Move effect: Boost the defender's defense stat by two stages
         Relevant moves: Iron Defense, Acid Armor, Barrier
@@ -1832,6 +1896,7 @@ move_effects:
       address:
         EU: 0x232A17C
         NA: 0x2329710
+        JP: 0x232AB90
       description: |-
         Move effect: Thundershock
         
@@ -1912,6 +1977,7 @@ move_effects:
       address:
         EU: 0x232A304
         NA: 0x2329898
+        JP: 0x232AD14
       description: |-
         Move effect: Poison Fang
         
@@ -1924,6 +1990,7 @@ move_effects:
       address:
         EU: 0x232A370
         NA: 0x2329904
+        JP: 0x232AD80
       description: |-
         Move effect: Deal damage with an 18% chance (POISON_STING_POISON_CHANCE) to poison the defender.
         Relevant moves: Poison Sting, Sludge, Sludge Bomb
@@ -2043,6 +2110,7 @@ move_effects:
       address:
         EU: 0x232AAB8
         NA: 0x232A04C
+        JP: 0x232B4BC
       description: |-
         Move effect: Deal damage and steal the defender's item if possible.
         Relevant moves: Thief, Covet
@@ -2056,6 +2124,7 @@ move_effects:
       address:
         EU: 0x232AAC4
         NA: 0x232A058
+        JP: 0x232B4C8
       description: |-
         Move effect: Amnesia
         
@@ -2081,6 +2150,7 @@ move_effects:
       address:
         EU: 0x232AB84
         NA: 0x232A118
+        JP: 0x232B588
       description: |-
         Move effect: Growl
         
@@ -2119,6 +2189,7 @@ move_effects:
       address:
         EU: 0x232AC8C
         NA: 0x232A220
+        JP: 0x232B690
       description: |-
         Move effect: Sunny Day
         
@@ -2131,6 +2202,7 @@ move_effects:
       address:
         EU: 0x232ACE8
         NA: 0x232A27C
+        JP: 0x232B6EC
       description: |-
         Move effect: Lower the defender's defense by one stage
         Relevant moves: Tail Whip, Leer
@@ -2157,6 +2229,7 @@ move_effects:
       address:
         EU: 0x232AD28
         NA: 0x232A2BC
+        JP: 0x232B72C
       description: |-
         Move effect: Fake Out
         
@@ -2169,6 +2242,7 @@ move_effects:
       address:
         EU: 0x232AD94
         NA: 0x232A328
+        JP: 0x232B798
       description: |-
         Move effect: Sleep Talk
         
@@ -2194,6 +2268,7 @@ move_effects:
       address:
         EU: 0x232AE68
         NA: 0x232A3FC
+        JP: 0x232B86C
       description: |-
         Move effect: Assist
         
@@ -2232,6 +2307,7 @@ move_effects:
       address:
         EU: 0x232AEFC
         NA: 0x232A490
+        JP: 0x232B900
       description: |-
         Move effect: Swallow
         
@@ -2270,6 +2346,7 @@ move_effects:
       address:
         EU: 0x232B018
         NA: 0x232A5AC
+        JP: 0x232BA1C
       description: |-
         Move effect: Steel Wing
         
@@ -2282,6 +2359,7 @@ move_effects:
       address:
         EU: 0x232B0AC
         NA: 0x232A640
+        JP: 0x232BAAC
       description: |-
         Move effect: Spit Up
         
@@ -2386,6 +2464,7 @@ move_effects:
       address:
         EU: 0x232B95C
         NA: 0x232AEF0
+        JP: 0x232C350
       description: |-
         Move effect: Deal damage with a 30% chance (DIZZY_PUNCH_CONFUSE_CHANCE) to confuse the defender.
         Relevant moves: Dizzy Punch, Water Pulse
@@ -2399,6 +2478,7 @@ move_effects:
       address:
         EU: 0x232B9C8
         NA: 0x232AF5C
+        JP: 0x232C3BC
       description: |-
         Move effect: Bulk Up
         
@@ -2425,6 +2505,7 @@ move_effects:
       address:
         EU: 0x232BA5C
         NA: 0x232AFF0
+        JP: 0x232C450
       description: |-
         Move effect: FeatherDance
         
@@ -2463,6 +2544,7 @@ move_effects:
       address:
         EU: 0x232BBD0
         NA: 0x232B164
+        JP: 0x232C5C4
       description: |-
         Move effect: Crush Claw
         
@@ -2475,6 +2557,7 @@ move_effects:
       address:
         EU: 0x232BC50
         NA: 0x232B1E4
+        JP: 0x232C644
       description: |-
         Move effect: Blaze Kick
         
@@ -2526,6 +2609,7 @@ move_effects:
       address:
         EU: 0x232BF00
         NA: 0x232B494
+        JP: 0x232C8F4
       description: |-
         Move effect: Poison Tail
         
@@ -2565,6 +2649,7 @@ move_effects:
       address:
         EU: 0x232C034
         NA: 0x232B5C8
+        JP: 0x232CA24
       description: |-
         Move effect: Tail Glow
         
@@ -2591,6 +2676,7 @@ move_effects:
       address:
         EU: 0x232C110
         NA: 0x232B6A4
+        JP: 0x232CB00
       description: |-
         Move effect: Perish Song
         
@@ -2616,6 +2702,7 @@ move_effects:
       address:
         EU: 0x232C134
         NA: 0x232B6C8
+        JP: 0x232CB24
       description: |-
         Move effect: Spikes
         
@@ -2668,6 +2755,7 @@ move_effects:
       address:
         EU: 0x232C24C
         NA: 0x232B7E0
+        JP: 0x232CC2C
       description: |-
         Move effect: Defense Curl
         
@@ -2694,6 +2782,7 @@ move_effects:
       address:
         EU: 0x232C28C
         NA: 0x232B820
+        JP: 0x232CC6C
       description: |-
         Move effect: Mist Ball
         
@@ -2732,6 +2821,7 @@ move_effects:
       address:
         EU: 0x232C350
         NA: 0x232B8E4
+        JP: 0x232CD30
       description: |-
         Move effect: Calm Mind
         
@@ -2759,6 +2849,7 @@ move_effects:
       address:
         EU: 0x232C3AC
         NA: 0x232B940
+        JP: 0x232CD8C
       description: |-
         Move effect: Metal Claw
         
@@ -2840,6 +2931,7 @@ move_effects:
       address:
         EU: 0x232C734
         NA: 0x232BCC4
+        JP: 0x232D118
       description: |-
         Move effect: Dream Eater
         
@@ -2891,6 +2983,7 @@ move_effects:
       address:
         EU: 0x232C9F8
         NA: 0x232BF88
+        JP: 0x232D3D4
       description: |-
         Move effect: Dragon Rage
         
@@ -3009,6 +3102,7 @@ move_effects:
       address:
         EU: 0x232CFA8
         NA: 0x232C538
+        JP: 0x232D97C
       description: |-
         Move effect: Switches the user's position with positions of other monsters in the room.
         Relevant moves: Baton Pass, Switcher (item effect)
@@ -3048,6 +3142,7 @@ move_effects:
       address:
         EU: 0x232D124
         NA: 0x232C6B4
+        JP: 0x232DAFC
       description: |-
         Move effect: Siesta (item effect)
         
@@ -3297,6 +3392,7 @@ move_effects:
       address:
         EU: 0x232D8EC
         NA: 0x232CE7C
+        JP: 0x232E2C4
       description: |-
         Move effect: Reviver (item effect)
         
@@ -3544,6 +3640,7 @@ move_effects:
       address:
         EU: 0x232DDE8
         NA: 0x232D378
+        JP: 0x232E7BC
       description: |-
         Move effect: Guard Swap
         
@@ -3726,6 +3823,7 @@ move_effects:
       address:
         EU: 0x232E37C
         NA: 0x232D90C
+        JP: 0x232ED50
       description: |-
         Move effect: Stealth Rock
         
@@ -3751,6 +3849,7 @@ move_effects:
       address:
         EU: 0x232E454
         NA: 0x232D9E4
+        JP: 0x232EE18
       description: |-
         Move effect: Deals damage, and eats any beneficial items the defender is holding.
         Relevant moves: Pluck, Bug Bite
@@ -3790,6 +3889,7 @@ move_effects:
       address:
         EU: 0x232E6A4
         NA: 0x232DC64
+        JP: 0x232F07C
       description: |-
         Move effect: Toxic Spikes
         
@@ -3828,6 +3928,7 @@ move_effects:
       address:
         EU: 0x232E7EC
         NA: 0x232DDAC
+        JP: 0x232F1B4
       description: |-
         Move effect: Worry Seed
         
@@ -3880,6 +3981,7 @@ move_effects:
       address:
         EU: 0x232EAC4
         NA: 0x232E084
+        JP: 0x232F484
       description: |-
         Move effect: Power Swap
         
@@ -3931,6 +4033,7 @@ move_effects:
       address:
         EU: 0x232ECB4
         NA: 0x232E274
+        JP: 0x232F674
       description: |-
         Move effect: Defend Order
         
@@ -4076,6 +4179,7 @@ move_effects:
       address:
         EU: 0x232F154
         NA: 0x232E714
+        JP: 0x232FB10
       description: |-
         Move effect: Nasty Plot
         
@@ -4088,6 +4192,7 @@ move_effects:
       address:
         EU: 0x232F174
         NA: 0x232E734
+        JP: 0x232FB30
       description: |-
         Move effect: MOVE_TAG_0x1AB
         

@@ -34,16 +34,19 @@ arm9:
       address:
         EU: 0x20001A4
         NA: 0x2000566
+        JP: 0x2000154
       description: Software interrupt.
     - name: Svc_WaitByLoop
       address:
         EU: 0x20006B0
         NA: 0x2000088
+        JP: 0x200073A
       description: Software interrupt.
     - name: Svc_CpuSet
       address:
         EU: 0x200079E
         NA: 0x200078E
+        JP: 0x2000226
       description: Software interrupt.
     - name: _start
       address:
@@ -88,6 +91,7 @@ arm9:
       address:
         EU: 0x2000B9C
         NA: 0x2000B9C
+        JP: 0x2000B9C
       description: "Startup routine in the program's crt0 (https://en.wikipedia.org/wiki/Crt0)."
     - name: NitroMain
       address:
@@ -845,6 +849,9 @@ arm9:
           - 0x2005050
           - 0x20050B0
         NA:
+          - 0x2005050
+          - 0x20050B0
+        JP:
           - 0x2005050
           - 0x20050B0
       description: |-
@@ -1722,6 +1729,7 @@ arm9:
           - 0x2042DF4
           - 0x2052768
           - 0x2054D98
+          - 0x2060CD8
       description: |-
         Functionally the same as sprintf, just defined statically in many different places.
         
@@ -2035,6 +2043,7 @@ arm9:
       address:
         EU: 0x200EC74
         NA: 0x200EBCC
+        JP: 0x200EBFC
       description: |-
         Changes the currently active inventory to TEAM_MAIN.
         
@@ -2902,6 +2911,7 @@ arm9:
       address:
         EU: 0x2011628
         NA: 0x2011580
+        JP: 0x2011550
       description: |-
         Applies the hp boost from the Sitrus Berry to the target monster.
         
@@ -2912,6 +2922,7 @@ arm9:
       address:
         EU: 0x2011664
         NA: 0x20115BC
+        JP: 0x201158C
       description: |-
         Applies the hp boost from the Life Seed to the target monster.
         
@@ -3765,6 +3776,7 @@ arm9:
       address:
         EU: 0x2017BF4
         NA: 0x2017B58
+        JP: 0x2017BB0
       description: |-
         Likely a linker-generated veneer for PlayBgmById.
         
@@ -3775,6 +3787,7 @@ arm9:
       address:
         EU: 0x2017C00
         NA: 0x2017B64
+        JP: 0x2017BBC
       description: |-
         Likely a linker-generated veneer for PlayBgmByIdVolume.
         
@@ -4035,6 +4048,9 @@ arm9:
         NA:
           - 0x201C0B0
           - 0x201C0CC
+        JP:
+          - 0x201C108
+          - 0x201C124
       description: |-
         Initialize the animation_control structure, and set a certain value in a bitflag to 1
         
@@ -4745,6 +4761,7 @@ arm9:
       address:
         EU: 0x20237F4
         NA: 0x20235F8
+        JP: 0x2023648
       description: |-
         Likely a linker-generated veneer for StrcmpTag.
         
@@ -4757,6 +4774,7 @@ arm9:
       address:
         EU: 0x2023800
         NA: 0x2023604
+        JP: 0x2023654
       description: |-
         Likely a linker-generated veneer for AtoiTag.
         
@@ -4812,6 +4830,7 @@ arm9:
       address:
         EU: 0x20252A4
         NA: 0x2024FD8
+        JP: 0x2025028
       description: |-
         Returns a string containing some information to be used when displaying the dungeon results screen.
         
@@ -4910,6 +4929,7 @@ arm9:
       address:
         EU: 0x20255E0
         NA: 0x2025314
+        JP: 0x202536C
       description: |-
         A special version of strncpy for handling names. Appears to use character 0x7E as some kind of
         formatting character in NA? Copies at most n characters.
@@ -6495,6 +6515,9 @@ arm9:
         NA:
           - 0x2031AA4
           - 0x20329E4
+        JP:
+          - 0x2031DC4
+          - 0x2032D04
       description: |-
         Calculates the window height (divided by 8, as in struct window_params) of a menu, given its items and input flags.
         
@@ -6589,6 +6612,7 @@ arm9:
       address:
         EU: 0x203AA58
         NA: 0x203A75C
+        JP: 0x203AB68
       description: |-
         Gets the menu item text (member name) for a given team member for a team selection menu.
         
@@ -6649,6 +6673,7 @@ arm9:
       address:
         EU: 0x2048A74
         NA: 0x2048758
+        JP: 0x2048AC4
       description: |-
         Likely a linker-generated veneer for EventFlagBackup.
         
@@ -7554,6 +7579,7 @@ arm9:
       address:
         EU: 0x204FBC4
         NA: 0x204F88C
+        JP: 0x204FBE0
       description: |-
         Gets the level that should be used for outlaws for the given dungeon and floor
         
@@ -7563,6 +7589,7 @@ arm9:
       address:
         EU: 0x204FBE0
         NA: 0x204F8A8
+        JP: 0x204FBFC
       description: |-
         Gets the level that should be used for team leader outlaws for the given dungeon and floor. Identical to GetOutlawLevel.
         
@@ -7572,6 +7599,7 @@ arm9:
       address:
         EU: 0x204FBFC
         NA: 0x204F8C4
+        JP: 0x204FC18
       description: |-
         Gets the level that should be used for minion outlaws for the given dungeon and floor.
         
@@ -8023,6 +8051,7 @@ arm9:
       address:
         EU: 0x2050C9C
         NA: 0x2050964
+        JP: 0x2050CB0
       description: |-
         Determines which type a monster with Conversion2 should turn into after being hit by a certain
         type of move.
@@ -9483,7 +9512,7 @@ arm9:
       address:
         EU: 0x20565E0
         NA: 0x2056264
-        JP: 0x20565C4
+        JP: 0x2056600
       description: |-
         Checks if a team member's member index (team_member::member_idx) is equal to certain values.
         
@@ -9611,6 +9640,7 @@ arm9:
       address:
         EU: 0x2058F98
         NA: 0x2058C1C
+        JP: 0x2058F18
       description: |-
         Note: unverified, ported from Irdkwia's notes
         
@@ -9620,6 +9650,7 @@ arm9:
       address:
         EU: 0x2058FB8
         NA: 0x2058C3C
+        JP: 0x2058F38
       description: |-
         Returns whether or not the tactic involves following the team leader.
         
@@ -10481,6 +10512,7 @@ arm9:
       address:
         EU: 0x20917E0
         NA: 0x2091448
+        JP: 0x2091730
       length:
         NA: 0x1000
       description: |-
@@ -10504,90 +10536,105 @@ arm9:
       address:
         EU: 0x2094EF8
         NA: 0x2094AFC
+        JP: 0x2094DE4
       length:
         NA: 0x4
     - name: STRING_DEBUG_FORMAT_LINE_FILE
       address:
         EU: 0x2094EFC
         NA: 0x2094B00
+        JP: 0x2094DE8
       length:
         NA: 0x1C
     - name: STRING_DEBUG_NO_PROG_POS
       address:
         EU: 0x2094F18
         NA: 0x2094B1C
+        JP: 0x2094E04
       length:
         NA: 0x18
     - name: STRING_DEBUG_SPACED_PRINT
       address:
         EU: 0x2094F30
         NA: 0x2094B34
+        JP: 0x2094E1C
       length:
         NA: 0xC
     - name: STRING_DEBUG_FATAL
       address:
         EU: 0x2094F3C
         NA: 0x2094B40
+        JP: 0x2094E28
       length:
         NA: 0x14
     - name: STRING_DEBUG_NEWLINE
       address:
         EU: 0x2094F50
         NA: 0x2094B54
+        JP: 0x2094E3C
       length:
         NA: 0x4
     - name: STRING_DEBUG_LOG_NULL
       address:
         EU: 0x2094F54
         NA: 0x2094B58
+        JP: 0x2094E40
       length:
         NA: 0x8
     - name: STRING_DEBUG_STRING_NEWLINE
       address:
         EU: 0x2094F5C
         NA: 0x2094B60
+        JP: 0x2094E48
       length:
         NA: 0x4
     - name: STRING_EFFECT_EFFECT_BIN
       address:
         EU: 0x2094F60
         NA: 0x2094B64
+        JP: 0x2094E4C
       length:
         NA: 0x14
     - name: STRING_MONSTER_MONSTER_BIN
       address:
         EU: 0x2094F74
         NA: 0x2094B78
+        JP: 0x2094E60
       length:
         NA: 0x14
     - name: STRING_BALANCE_M_LEVEL_BIN
       address:
         EU: 0x2094F88
         NA: 0x2094B8C
+        JP: 0x2094E74
       length:
         NA: 0x14
     - name: STRING_DUNGEON_DUNGEON_BIN
       address:
         EU: 0x2094F9C
         NA: 0x2094BA0
+        JP: 0x2094E88
       length:
         NA: 0x14
     - name: STRING_MONSTER_M_ATTACK_BIN
       address:
         EU: 0x2094FB0
         NA: 0x2094BB4
+        JP: 0x2094E9C
       length:
         NA: 0x18
     - name: STRING_MONSTER_M_GROUND_BIN
       address:
         EU: 0x2094FC8
         NA: 0x2094BCC
+        JP: 0x2094EB4
       length:
         NA: 0x18
     - name: STRING_FILE_DIRECTORY_INIT
       address:
         EU: 0x2094FE0
         NA: 0x2094BE4
+        JP: 0x2094ECC
       length:
         NA: 0x28
     - name: AVAILABLE_ITEMS_IN_GROUP_TABLE
@@ -10709,6 +10756,7 @@ arm9:
       address:
         EU: 0x2098569
         NA: 0x2098125
+        JP: 0x2098419
       length:
         EU: 0x777
         NA: 0x777
@@ -10790,6 +10838,7 @@ arm9:
       address:
         EU: 0x209B3CC
         NA: 0x209AE90
+        JP: 0x209B7E4
       length:
         NA: 0x10
       description: |-
@@ -10802,6 +10851,7 @@ arm9:
       address:
         EU: 0x209B3DC
         NA: 0x209AEA0
+        JP: 0x209B7F4
       length:
         NA: 0x10
       description: |-
@@ -10814,6 +10864,7 @@ arm9:
       address:
         EU: 0x209B3EC
         NA: 0x209AEB0
+        JP: 0x209B804
       length:
         NA: 0x10
       description: |-
@@ -10826,6 +10877,7 @@ arm9:
       address:
         EU: 0x209B3FC
         NA: 0x209AEC0
+        JP: 0x209B814
       length:
         NA: 0x10
       description: |-
@@ -10838,6 +10890,7 @@ arm9:
       address:
         EU: 0x209B40C
         NA: 0x209AED0
+        JP: 0x209B824
       length:
         NA: 0x10
       description: |-
@@ -10850,6 +10903,7 @@ arm9:
       address:
         EU: 0x209B448
         NA: 0x209AF0C
+        JP: 0x209B860
       length:
         NA: 0x10
       description: |-
@@ -10862,6 +10916,7 @@ arm9:
       address:
         EU: 0x209B458
         NA: 0x209AF1C
+        JP: 0x209B870
       length:
         NA: 0x10
       description: Default window_params for a scroll_box.
@@ -10869,6 +10924,7 @@ arm9:
       address:
         EU: 0x209B468
         NA: 0x209AF2C
+        JP: 0x209B880
       length:
         NA: 0x10
       description: Default window_params for a dialogue_box.
@@ -10876,6 +10932,7 @@ arm9:
       address:
         EU: 0x209B478
         NA: 0x209AF3C
+        JP: 0x209B890
       length:
         NA: 0x10
       description: |-
@@ -10886,6 +10943,7 @@ arm9:
       address:
         EU: 0x209B488
         NA: 0x209AF4C
+        JP: 0x209B8A0
       length:
         NA: 0x10
       description: Default window_params for a text_box.
@@ -10893,6 +10951,7 @@ arm9:
       address:
         EU: 0x209B498
         NA: 0x209AF5C
+        JP: 0x209B8B0
       length:
         NA: 0x10
       description: |-
@@ -10905,6 +10964,7 @@ arm9:
       address:
         EU: 0x209B4B4
         NA: 0x209AF78
+        JP: 0x209B8CC
       length:
         NA: 0x10
       description: Default window_params for a controls_chart.
@@ -10912,6 +10972,7 @@ arm9:
       address:
         EU: 0x209B4D0
         NA: 0x209AF94
+        JP: 0x209B8E8
       length:
         NA: 0x10
       description: Default window_params for an alert_box.
@@ -10919,6 +10980,7 @@ arm9:
       address:
         EU: 0x209B4E0
         NA: 0x209AFA4
+        JP: 0x209B8F8
       length:
         NA: 0x10
       description: |-
@@ -10929,6 +10991,7 @@ arm9:
       address:
         EU: 0x209B4F0
         NA: 0x209AFB4
+        JP: 0x209B908
       length:
         NA: 0x10
       description: |-
@@ -10997,6 +11060,7 @@ arm9:
       address:
         EU: 0x209E658
         NA: 0x209E0D4
+        JP: 0x209F4A8
       length:
         NA: 0x14
       description: |-
@@ -11817,7 +11881,7 @@ arm9:
       address:
         EU: 0x20A416C
         NA: 0x20A3B6C
-        JP: 0x20A4F50
+        JP: 0x20A4F60
       length:
         EU: 0x30
         NA: 0x30
@@ -11827,7 +11891,7 @@ arm9:
       address:
         EU: 0x20A419C
         NA: 0x20A3B9C
-        JP: 0x20A4F80
+        JP: 0x20A4F50
       length:
         EU: 0x10
         NA: 0x10
@@ -12258,6 +12322,7 @@ arm9:
       address:
         EU: 0x20AA840
         NA: 0x20A9FA0
+        JP: 0x20AB3E8
       length:
         EU: 0x10
         NA: 0x10
@@ -12293,6 +12358,7 @@ arm9:
       address:
         EU: 0x20AE954
         NA: 0x20AE0B4
+        JP: 0x20AF4FC
       length:
         EU: 0x10
         NA: 0x10
@@ -12300,6 +12366,7 @@ arm9:
       address:
         EU: 0x20AE964
         NA: 0x20AE0C4
+        JP: 0x20AF50C
       length:
         EU: 0x60
         NA: 0x60
@@ -12320,6 +12387,7 @@ arm9:
       address:
         EU: 0x20AF7A0
         NA: 0x20AEF00
+        JP: 0x20B0340
       length:
         EU: 0x8
         NA: 0x8
@@ -12341,6 +12409,7 @@ arm9:
       address:
         EU: 0x20AFAD0
         NA: 0x20AF230
+        JP: 0x20B0670
       length:
         EU: 0x4
         NA: 0x4
@@ -12418,6 +12487,7 @@ arm9:
       address:
         EU: 0x20AFF50
         NA: 0x20AF698
+        JP: 0x20B0AD8
       length:
         NA: 0x1
     - name: PACK_FILES_OPENED
@@ -12470,6 +12540,7 @@ arm9:
       address:
         EU: 0x20AFF78
         NA: 0x20AF6C0
+        JP: 0x20B0B00
       length:
         EU: 0xC
         NA: 0xC
@@ -12481,6 +12552,7 @@ arm9:
       address:
         EU: 0x20AFFA8
         NA: 0x20AF6DC
+        JP: 0x20B0B1C
       description: "[Runtime] Seems to be some sort of region (a table of tables?) that holds pointers to various important tables related to moves."
     - name: MOVE_DATA_TABLE_PTR
       address:
@@ -12497,6 +12569,7 @@ arm9:
       address:
         EU: 0x20B0524
         NA: 0x20AFC68
+        JP: 0x20B10A8
       length:
         NA: 0x4
       description: |-
@@ -12507,6 +12580,7 @@ arm9:
       address:
         EU: 0x20B0540
         NA: 0x20AFC80
+        JP: 0x20B10C0
       length:
         EU: 0x44
         NA: 0x44
@@ -12518,6 +12592,7 @@ arm9:
       address:
         EU: 0x20B0584
         NA: 0x20AFCC4
+        JP: 0x20B1104
       length:
         EU: 0x20
         NA: 0x20
@@ -12613,6 +12688,7 @@ arm9:
       address:
         EU: 0x20B0890
         NA: 0x20AFF74
+        JP: 0x20B17E8
       length:
         EU: 0x4
         NA: 0x4
@@ -12768,6 +12844,7 @@ arm9:
       address:
         EU: 0x20B14D4
         NA: 0x20B0B90
+        JP: 0x20B2404
       length:
         EU: 0x1FC
         NA: 0x1FC
@@ -12805,6 +12882,7 @@ arm9:
       address:
         EU: 0x20B1B94
         NA: 0x20B1250
+        JP: 0x20B2AC4
       length:
         EU: 0x40
         NA: 0x40
@@ -12812,6 +12890,7 @@ arm9:
       address:
         EU: 0x20B34D8
         NA: 0x20B2B94
+        JP: 0x20B4408
       length:
         EU: 0x1
         NA: 0x1
@@ -12819,6 +12898,7 @@ arm9:
       address:
         EU: 0x20B34DC
         NA: 0x20B2B98
+        JP: 0x20B440C
       length:
         EU: 0x4
         NA: 0x4

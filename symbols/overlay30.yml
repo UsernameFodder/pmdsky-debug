@@ -17,7 +17,7 @@ overlay30:
       address:
         EU: 0x2383868
         NA: 0x2382C68
-        JP: 0x2383EDC
+        JP: 0x2383ED8
       description: |-
         Function responsible for writing dungeon data when quicksaving.
         

@@ -18,6 +18,7 @@ overlay18:
       address:
         EU: 0x238DDB0
         NA: 0x238D270
+        JP: 0x238E7DC
       length:
         EU: 0x10
         NA: 0x10
@@ -26,6 +27,7 @@ overlay18:
       address:
         EU: 0x238DDC0
         NA: 0x238D280
+        JP: 0x238E7EC
       length:
         EU: 0x10
         NA: 0x10
@@ -34,6 +36,7 @@ overlay18:
       address:
         EU: 0x238DDD0
         NA: 0x238D290
+        JP: 0x238E7FC
       length:
         EU: 0x10
         NA: 0x10
@@ -42,6 +45,7 @@ overlay18:
       address:
         EU: 0x238DDE0
         NA: 0x238D2A0
+        JP: 0x238E80C
       length:
         EU: 0x10
         NA: 0x10
@@ -50,6 +54,7 @@ overlay18:
       address:
         EU: 0x238DDF0
         NA: 0x238D2B0
+        JP: 0x238E81C
       length:
         EU: 0x10
         NA: 0x10
@@ -58,6 +63,7 @@ overlay18:
       address:
         EU: 0x238DE00
         NA: 0x238D2C0
+        JP: 0x238E82C
       length:
         EU: 0x10
         NA: 0x10
@@ -66,6 +72,7 @@ overlay18:
       address:
         EU: 0x238DE10
         NA: 0x238D2D0
+        JP: 0x238E83C
       length:
         EU: 0x10
         NA: 0x10
@@ -74,6 +81,7 @@ overlay18:
       address:
         EU: 0x238DE20
         NA: 0x238D2E0
+        JP: 0x238E84C
       length:
         EU: 0x10
         NA: 0x10
@@ -82,6 +90,7 @@ overlay18:
       address:
         EU: 0x238DE30
         NA: 0x238D2F0
+        JP: 0x238E85C
       length:
         EU: 0x10
         NA: 0x10
@@ -90,6 +99,7 @@ overlay18:
       address:
         EU: 0x238DE40
         NA: 0x238D300
+        JP: 0x238E86C
       length:
         EU: 0x10
         NA: 0x10
@@ -98,6 +108,7 @@ overlay18:
       address:
         EU: 0x238DE50
         NA: 0x238D310
+        JP: 0x238E87C
       length:
         EU: 0x10
         NA: 0x10
@@ -187,6 +198,7 @@ overlay18:
       address:
         EU: 0x238E008
         NA: 0x238D4C8
+        JP: 0x238EA34
       length:
         NA: 0x130
       description: "Note: unverified, ported from Irdkwia's notes"
@@ -200,6 +212,7 @@ overlay18:
       address:
         EU: 0x238E160
         NA: 0x238D620
+        JP: 0x238EBA0
       length:
         NA: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"

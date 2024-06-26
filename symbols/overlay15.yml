@@ -33,6 +33,7 @@ overlay15:
       address:
         EU: 0x238BBF8
         NA: 0x238B08C
+        JP: 0x238C604
       length:
         EU: 0x10
         NA: 0x10
@@ -41,6 +42,7 @@ overlay15:
       address:
         EU: 0x238BC08
         NA: 0x238B09C
+        JP: 0x238C614
       length:
         EU: 0x10
         NA: 0x10
@@ -49,6 +51,7 @@ overlay15:
       address:
         EU: 0x238BC18
         NA: 0x238B0AC
+        JP: 0x238C624
       length:
         EU: 0x10
         NA: 0x10
@@ -69,6 +72,7 @@ overlay15:
       address:
         EU: 0x238BCE0
         NA: 0x238B180
+        JP: 0x238C6E0
       length:
         NA: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"

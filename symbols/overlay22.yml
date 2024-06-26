@@ -18,6 +18,7 @@ overlay22:
       address:
         EU: 0x238F35C
         NA: 0x238E81C
+        JP: 0x238FD7C
       length:
         EU: 0x10
         NA: 0x10
@@ -26,6 +27,7 @@ overlay22:
       address:
         EU: 0x238F37C
         NA: 0x238E83C
+        JP: 0x238FD9C
       length:
         EU: 0x10
         NA: 0x10
@@ -34,6 +36,7 @@ overlay22:
       address:
         EU: 0x238F39C
         NA: 0x238E85C
+        JP: 0x238FDBC
       length:
         NA: 0xC
       description: "Note: unverified, ported from Irdkwia's notes"
@@ -77,6 +80,7 @@ overlay22:
       address:
         EU: 0x238F430
         NA: 0x238E8F0
+        JP: 0x238FE50
       length:
         NA: 0x60
       description: "Note: unverified, ported from Irdkwia's notes"
@@ -102,6 +106,7 @@ overlay22:
       address:
         EU: 0x238F4C0
         NA: 0x238E980
+        JP: 0x238FEE0
       length:
         EU: 0x10
         NA: 0x10
@@ -110,6 +115,7 @@ overlay22:
       address:
         EU: 0x238F4D0
         NA: 0x238E990
+        JP: 0x238FEF0
       length:
         EU: 0x10
         NA: 0x10
@@ -118,6 +124,7 @@ overlay22:
       address:
         EU: 0x238F4E0
         NA: 0x238E9A0
+        JP: 0x238FF00
       length:
         EU: 0x10
         NA: 0x10
@@ -126,6 +133,7 @@ overlay22:
       address:
         EU: 0x238F4F0
         NA: 0x238E9B0
+        JP: 0x238FF10
       length:
         EU: 0x10
         NA: 0x10
@@ -134,6 +142,7 @@ overlay22:
       address:
         EU: 0x238F500
         NA: 0x238E9C0
+        JP: 0x238FF20
       length:
         EU: 0x10
         NA: 0x10
@@ -148,6 +157,7 @@ overlay22:
       address:
         EU: 0x238F7A0
         NA: 0x238EC60
+        JP: 0x23901C0
       length:
         NA: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"
@@ -161,6 +171,7 @@ overlay22:
       address:
         EU: 0x238F7A8
         NA: 0x238EC68
+        JP: 0x23901C8
       length:
         NA: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"
@@ -174,6 +185,7 @@ overlay22:
       address:
         EU: 0x238F7B0
         NA: 0x238EC70
+        JP: 0x23901D0
       length:
         NA: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"

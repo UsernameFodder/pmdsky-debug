@@ -18,6 +18,7 @@ overlay17:
       address:
         EU: 0x238C674
         NA: 0x238BB34
+        JP: 0x238D090
       length:
         EU: 0x10
         NA: 0x10
@@ -26,6 +27,7 @@ overlay17:
       address:
         EU: 0x238C684
         NA: 0x238BB44
+        JP: 0x238D0A0
       length:
         EU: 0x10
         NA: 0x10
@@ -34,6 +36,7 @@ overlay17:
       address:
         EU: 0x238C694
         NA: 0x238BB54
+        JP: 0x238D0B0
       length:
         EU: 0x10
         NA: 0x10
@@ -42,6 +45,7 @@ overlay17:
       address:
         EU: 0x238C6A4
         NA: 0x238BB64
+        JP: 0x238D0C0
       length:
         EU: 0x10
         NA: 0x10
@@ -50,6 +54,7 @@ overlay17:
       address:
         EU: 0x238C6B4
         NA: 0x238BB74
+        JP: 0x238D0D0
       length:
         EU: 0x10
         NA: 0x10
@@ -148,6 +153,7 @@ overlay17:
       address:
         EU: 0x238C884
         NA: 0x238BD44
+        JP: 0x238D2A0
       length:
         NA: 0xA8
       description: "Note: unverified, ported from Irdkwia's notes"
@@ -161,6 +167,7 @@ overlay17:
       address:
         EU: 0x238C940
         NA: 0x238BE00
+        JP: 0x238D360
       length:
         NA: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"

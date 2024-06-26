@@ -592,7 +592,7 @@ overlay31:
       address:
         EU: 0x238AE80
         NA: 0x238A260
-        JP: 0x238B528
+        JP: 0x238B520
       length:
         NA: 0x4
         JP: 0x4
@@ -600,7 +600,7 @@ overlay31:
     - name: OVERLAY31_UNKNOWN_VALUE__NA_238A264
       address:
         NA: 0x238A264
-        JP: 0x238B52C
+        JP: 0x238B524
       length:
         NA: 0x4
         JP: 0x4
@@ -609,7 +609,7 @@ overlay31:
       address:
         EU: 0x238AE88
         NA: 0x238A268
-        JP: 0x238B530
+        JP: 0x238B528
       length:
         NA: 0x4
         JP: 0x4
@@ -618,7 +618,7 @@ overlay31:
       address:
         EU: 0x238AE8C
         NA: 0x238A26C
-        JP: 0x238B534
+        JP: 0x238B52C
       length:
         NA: 0x4
         JP: 0x4
@@ -627,7 +627,7 @@ overlay31:
       address:
         EU: 0x238AE90
         NA: 0x238A270
-        JP: 0x238B538
+        JP: 0x238B530
       length:
         NA: 0x4
         JP: 0x4

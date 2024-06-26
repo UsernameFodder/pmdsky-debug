@@ -78,6 +78,7 @@ libs:
       address:
         EU: 0x206CD40
         NA: 0x206C9A8
+        JP: 0x206CC90
     - name: DseMem_Allocate
       address:
         EU: 0x206CD54
@@ -1384,26 +1385,32 @@ libs:
       address:
         EU: 0x2077494
         NA: 0x20770FC
+        JP: 0x20773E4
     - name: GX_ResetBankForObjExtPltt
       address:
         EU: 0x20774B8
         NA: 0x2077120
+        JP: 0x2077408
     - name: GX_ResetBankForTex
       address:
         EU: 0x20774DC
         NA: 0x2077144
+        JP: 0x207742C
     - name: GX_ResetBankForTexPltt
       address:
         EU: 0x20774F0
         NA: 0x2077158
+        JP: 0x2077440
     - name: GX_ResetBankForSubBgExtPltt
       address:
         EU: 0x2077504
         NA: 0x207716C
+        JP: 0x2077454
     - name: GX_ResetBankForSubObjExtPltt
       address:
         EU: 0x207752C
         NA: 0x2077194
+        JP: 0x207747C
     - name: DisableBankForX
       address:
         EU: 0x2077554
@@ -1413,54 +1420,67 @@ libs:
       address:
         EU: 0x2077634
         NA: 0x207729C
+        JP: 0x2077584
     - name: GX_DisableBankForObj
       address:
         EU: 0x2077648
         NA: 0x20772B0
+        JP: 0x2077598
     - name: GX_DisableBankForBgExtPltt
       address:
         EU: 0x207765C
         NA: 0x20772C4
+        JP: 0x20775AC
     - name: GX_DisableBankForObjExtPltt
       address:
         EU: 0x2077680
         NA: 0x20772E8
+        JP: 0x20775D0
     - name: GX_DisableBankForTex
       address:
         EU: 0x20776A4
         NA: 0x207730C
+        JP: 0x20775F4
     - name: GX_DisableBankForTexPltt
       address:
         EU: 0x20776B8
         NA: 0x2077320
+        JP: 0x2077608
     - name: GX_DisableBankForClearImage
       address:
         EU: 0x20776CC
         NA: 0x2077334
+        JP: 0x207761C
     - name: GX_DisableBankForArm7
       address:
         EU: 0x20776E0
         NA: 0x2077348
+        JP: 0x2077630
     - name: GX_DisableBankForLcdc
       address:
         EU: 0x20776F4
         NA: 0x207735C
+        JP: 0x2077644
     - name: GX_DisableBankForSubBg
       address:
         EU: 0x2077708
         NA: 0x2077370
+        JP: 0x2077658
     - name: GX_DisableBankForSubObj
       address:
         EU: 0x207771C
         NA: 0x2077384
+        JP: 0x207766C
     - name: GX_DisableBankForSubBgExtPltt
       address:
         EU: 0x2077730
         NA: 0x2077398
+        JP: 0x2077680
     - name: GX_DisableBankForSubObjExtPltt
       address:
         EU: 0x2077758
         NA: 0x20773C0
+        JP: 0x20776A8
     - name: G2_GetBG0ScrPtr
       address:
         EU: 0x2077780
@@ -1667,46 +1687,57 @@ libs:
       address:
         EU: 0x2078348
         NA: 0x2077FB0
+        JP: 0x2078298
     - name: GX_LoadBg1Scr
       address:
         EU: 0x20783A8
         NA: 0x2078010
+        JP: 0x20782F8
     - name: Gxs_LoadBg1Scr
       address:
         EU: 0x2078408
         NA: 0x2078070
+        JP: 0x2078358
     - name: GX_LoadBg2Scr
       address:
         EU: 0x2078468
         NA: 0x20780D0
+        JP: 0x20783B8
     - name: GX_LoadBg3Scr
       address:
         EU: 0x20784C8
         NA: 0x2078130
+        JP: 0x2078418
     - name: GX_LoadBg0Char
       address:
         EU: 0x2078528
         NA: 0x2078190
+        JP: 0x2078478
     - name: Gxs_LoadBg0Char
       address:
         EU: 0x2078588
         NA: 0x20781F0
+        JP: 0x20784D8
     - name: GX_LoadBg1Char
       address:
         EU: 0x20785E8
         NA: 0x2078250
+        JP: 0x2078538
     - name: Gxs_LoadBg1Char
       address:
         EU: 0x2078648
         NA: 0x20782B0
+        JP: 0x2078598
     - name: GX_LoadBg2Char
       address:
         EU: 0x20786A8
         NA: 0x2078310
+        JP: 0x20785F8
     - name: GX_LoadBg3Char
       address:
         EU: 0x2078708
         NA: 0x2078370
+        JP: 0x2078658
     - name: GX_BeginLoadBgExtPltt
       address:
         EU: 0x2078768

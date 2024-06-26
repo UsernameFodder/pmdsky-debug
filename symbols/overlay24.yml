@@ -18,6 +18,7 @@ overlay24:
       address:
         EU: 0x238D048
         NA: 0x238C508
+        JP: 0x238DA70
       length:
         NA: 0xC
       description: "Note: unverified, ported from Irdkwia's notes"
@@ -25,6 +26,7 @@ overlay24:
       address:
         EU: 0x238D054
         NA: 0x238C514
+        JP: 0x238DA7C
       length:
         NA: 0xC
       description: "Note: unverified, ported from Irdkwia's notes"
@@ -74,6 +76,7 @@ overlay24:
       address:
         EU: 0x238D100
         NA: 0x238C5C0
+        JP: 0x238DB28
       length:
         EU: 0x10
         NA: 0x10
@@ -94,6 +97,7 @@ overlay24:
       address:
         EU: 0x238D140
         NA: 0x238C600
+        JP: 0x238DB60
       length:
         NA: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"

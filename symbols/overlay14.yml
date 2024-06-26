@@ -97,6 +97,7 @@ overlay14:
       address:
         EU: 0x238CF14
         NA: 0x238C3D4
+        JP: 0x238D93C
       description: |-
         State 0x5: Exit (wraps SentrySetExitingState).
         
@@ -500,6 +501,7 @@ overlay14:
       address:
         EU: 0x238E720
         NA: 0x238DB80
+        JP: 0x238F0E0
       length:
         NA: 0x4
       description: Pointer to the SENTRY_DUTY_STRUCT.
@@ -507,6 +509,7 @@ overlay14:
       address:
         EU: 0x238E734
         NA: 0x238DB94
+        JP: 0x238F0F4
       length:
         NA: 0x8C
       description: |-

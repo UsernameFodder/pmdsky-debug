@@ -45,6 +45,7 @@ overlay29:
       address:
         EU: 0x22DF3C0
         NA: 0x22DEA80
+        JP: 0x22E0120
       description: |-
         Returns the master dungeon pointer (a global, see DUNGEON_PTR_MASTER).
         
@@ -62,6 +63,7 @@ overlay29:
       address:
         EU: 0x22DF3F0
         NA: 0x22DEAB0
+        JP: 0x22E0150
       description: |-
         Frees the dungeons struct pointer to by the master dungeon pointer, and nullifies the pointer.
         
@@ -182,10 +184,55 @@ overlay29:
           - 0x234DDD0
           - 0x234EC14
         JP:
+          - 0x22E19EC
+          - 0x22E30AC
+          - 0x22E4958
+          - 0x22E4E28
+          - 0x22EAC5C
+          - 0x22EDC70
+          - 0x22EE424
+          - 0x22EF9A4
+          - 0x22F0DA4
+          - 0x22F1B94
+          - 0x22F6884
+          - 0x22F788C
+          - 0x22F8930
+          - 0x22FDD90
+          - 0x2300188
+          - 0x2301514
+          - 0x2303F88
+          - 0x2305D08
+          - 0x2306ADC
+          - 0x2307154
+          - 0x230942C
+          - 0x23097B0
+          - 0x230A574
+          - 0x230FE2C
+          - 0x2310544
           - 0x2312538
           - 0x2312DCC
           - 0x23165F0
+          - 0x231A204
+          - 0x231A31C
+          - 0x231B45C
+          - 0x231C660
+          - 0x231E094
+          - 0x2320284
+          - 0x2320A1C
+          - 0x23210A8
+          - 0x2321628
+          - 0x2321C10
+          - 0x23228E4
+          - 0x2326AAC
+          - 0x232FC3C
+          - 0x2335398
           - 0x23364C4
+          - 0x233906C
+          - 0x2345EBC
+          - 0x2346A5C
+          - 0x234AB6C
+          - 0x234F05C
+          - 0x234FE98
       description: |-
         Checks if an entity pointer points to a valid entity (not entity type 0, which represents no entity).
         
@@ -247,6 +294,7 @@ overlay29:
       address:
         EU: 0x22E120C
         NA: 0x22E08CC
+        JP: 0x22E1F5C
       description: |-
         Checks if the current fixed room is the "substitute room" (ID 0x6E).
         
@@ -266,6 +314,7 @@ overlay29:
       address:
         EU: 0x22E129C
         NA: 0x22E095C
+        JP: 0x22E1FEC
       description: |-
         Likely a linker-generated veneer for GetScenarioBalance.
         
@@ -363,6 +412,7 @@ overlay29:
       address:
         EU: 0x22E2C54
         NA: 0x22E2314
+        JP: 0x22E39A4
       description: |-
         Spawns a blank item entity on the floor. Fails if there are more than 64 items already on the floor.
         
@@ -398,6 +448,7 @@ overlay29:
       address:
         EU: 0x22E306C
         NA: 0x22E272C
+        JP: 0x22E3DC0
       description: |-
         Calls ShouldDisplayEntity with r1 = 0
         
@@ -528,8 +579,19 @@ overlay29:
           - 0x231513C
           - 0x2347B50
         JP:
+          - 0x22E497C
+          - 0x22EF974
+          - 0x22F6F90
           - 0x2300CA8
+          - 0x2303C1C
+          - 0x2309450
+          - 0x230BF58
+          - 0x230FAB4
+          - 0x2310D4C
+          - 0x231255C
+          - 0x2313104
           - 0x2316614
+          - 0x2348F00
       description: |-
         Checks if a monster is holding a certain item that isn't disabled by Klutz.
         
@@ -540,6 +602,7 @@ overlay29:
       address:
         EU: 0x22E3CEC
         NA: 0x22E333C
+        JP: 0x22E49AC
       description: |-
         Returns dungeon::display_data::visibility_range. If the visibility range is 0, returns 2 instead.
         
@@ -661,6 +724,13 @@ overlay29:
           - 0x22E6214
           - 0x22E64C4
           - 0x22E6510
+        JP:
+          - 0x22E77A0
+          - 0x22E77EC
+          - 0x22E7838
+          - 0x22E7884
+          - 0x22E7B34
+          - 0x22E7B80
       description: |-
         Just a guess. Calls PlayEffectAnimation with data from animation ID 0x1A9.
         
@@ -910,6 +980,7 @@ overlay29:
       address:
         EU: 0x22EA3A0
         NA: 0x22E99F0
+        JP: 0x22EB058
       description: |-
         Searches for the closest unoccupied tile within 2 steps of the given origin.
         
@@ -923,6 +994,7 @@ overlay29:
       address:
         EU: 0x22EA3BC
         NA: 0x22E9A0C
+        JP: 0x22EB074
       description: |-
         Searches for the farthest unoccupied tile within 2 steps of the given origin.
         
@@ -1123,6 +1195,7 @@ overlay29:
       address:
         EU: 0x22EB614
         NA: 0x22EAC64
+        JP: 0x22EC2CC
       description: |-
         Sets the dungeon PRNG to use the primary LCG for subsequent random number generation.
         
@@ -1434,6 +1507,7 @@ overlay29:
       address:
         EU: 0x22EE950
         NA: 0x22EDFA0
+        JP: 0x22EF604
       description: |-
         Called whenever a monster steps on a trap.
         
@@ -1478,6 +1552,7 @@ overlay29:
       address:
         EU: 0x22EF1D4
         NA: 0x22EE820
+        JP: 0x22EFE80
       description: |-
         If the defender is the leader, end the current floor unless it has a rescue point.
         Otherwise, make the entity faint and ignore reviver seeds. If not called by a random
@@ -1534,6 +1609,7 @@ overlay29:
       address:
         EU: 0x22EF804
         NA: 0x22EEE50
+        JP: 0x22F04A4
       description: |-
         Tries to apply the damage from the stealth rock trap but does nothing if the defender is a rock type.
         
@@ -1552,6 +1628,7 @@ overlay29:
       address:
         EU: 0x22EF8F4
         NA: 0x22EEF40
+        JP: 0x22F0540
       description: |-
         Selects a random trap that isn't a wonder tile and isn't a random trap and calls
         ApplyTrapEffect on all monsters that is different from the trap's team.
@@ -1565,6 +1642,7 @@ overlay29:
       address:
         EU: 0x22EFA28
         NA: 0x22EF074
+        JP: 0x22F066C
       description: |-
         Spawns several monsters around the position and gives all monsters on the floor the
         grudge status condition.
@@ -1801,6 +1879,7 @@ overlay29:
       address:
         EU: 0x22F7D40
         NA: 0x22F7388
+        JP: 0x22F8954
       description: |-
         Gets the sprite index of the specified monster on this floor
         
@@ -1810,6 +1889,7 @@ overlay29:
       address:
         EU: 0x22F7D60
         NA: 0x22F73A8
+        JP: 0x22F8970
       description: |-
         Likely a linker-generated veneer for arm9::JoinedAtRangeCheck2.
         
@@ -2014,7 +2094,13 @@ overlay29:
           - 0x2311B94
           - 0x2322D64
           - 0x2332A0C
-        JP: 0x2302F74
+        JP:
+          - 0x22FAC8C
+          - 0x2302F74
+          - 0x230BEC4
+          - 0x23130A4
+          - 0x232420C
+          - 0x2333E00
       description: |-
         Checks if a defender has an active ability that isn't disabled by an attacker's Mold Breaker.
         
@@ -2047,6 +2133,16 @@ overlay29:
           - 0x231B318
           - 0x2322DB8
           - 0x234D460
+        JP:
+          - 0x22FACD8
+          - 0x2302FC0
+          - 0x230BF10
+          - 0x2310EBC
+          - 0x2319F80
+          - 0x231BEA4
+          - 0x231C7E4
+          - 0x2324258
+          - 0x234E6EC
       description: |-
         Checks if an entity is a monster (entity type 1).
         
@@ -2090,6 +2186,7 @@ overlay29:
       address:
         EU: 0x22FA480
         NA: 0x22F9A74
+        JP: 0x22FB02C
       description: |-
         Restores PP for all moves, clears flags move::f_consume_2_pp, move::flags2_unk5 and move::flags2_unk7, and sets flag move::f_consume_pp.
         Called when a monster is revived.
@@ -2099,6 +2196,7 @@ overlay29:
       address:
         EU: 0x22FA64C
         NA: 0x22F9C40
+        JP: 0x22FB1F8
       description: |-
         Likely a linker-generated veneer for CheckTeamMemberIdx.
         
@@ -2110,6 +2208,7 @@ overlay29:
       address:
         EU: 0x22FA674
         NA: 0x22F9C68
+        JP: 0x22FB220
       description: |-
         Likely a linker-generated veneer for IsMonsterIdInNormalRange.
         
@@ -2194,7 +2293,17 @@ overlay29:
           - 0x2347B80
           - 0x23482B0
         JP:
+          - 0x22FC224
+          - 0x2301358
+          - 0x230BF34
+          - 0x2310DE8
+          - 0x231258C
           - 0x2315CC0
+          - 0x231AC78
+          - 0x231BD4C
+          - 0x2324DB8
+          - 0x2333DDC
+          - 0x2348F30
           - 0x2349638
       description: |-
         Checks if a monster is a team member under the effects of a certain exclusive item effect.
@@ -2236,6 +2345,7 @@ overlay29:
       address:
         EU: 0x22FBAB4
         NA: 0x22FB0A8
+        JP: 0x22FC630
       description: |-
         Returns how many of a monster's move are out of PP.
         
@@ -2581,7 +2691,7 @@ overlay29:
       address:
         EU: 0x23006C8
         NA: 0x22FFC9C
-        JP: 0x2300B54
+        JP: 0x23010AC
       description: |-
         Checks if a given monster cannot stand on a given tile.
         
@@ -2611,6 +2721,7 @@ overlay29:
       address:
         EU: 0x2300978
         NA: 0x22FFF4C
+        JP: 0x230137C
       description: |-
         Calls CalcSpeedStage with a speed counter weight of 1.
         
@@ -2789,6 +2900,7 @@ overlay29:
       address:
         EU: 0x23018A4
         NA: 0x2300E78
+        JP: 0x230225C
       description: |-
         Checks if the given monster can move in the specified direction
         
@@ -3065,6 +3177,7 @@ overlay29:
       address:
         EU: 0x2302DEC
         NA: 0x23023C0
+        JP: 0x2303910
       description: |-
         Updates monster::state_flags and monster::prev_state_flags with new values.
         
@@ -3480,6 +3593,7 @@ overlay29:
       address:
         EU: 0x2308D6C
         NA: 0x2308340
+        JP: 0x2309874
       description: |-
         Runs the AI for a single monster to determine whether the monster can act and which action it should perform if so
         
@@ -3605,6 +3719,7 @@ overlay29:
       address:
         EU: 0x230B778
         NA: 0x230AD04
+        JP: 0x230C27C
       description: |-
         Calculates type-based effects on damage.
         
@@ -3792,6 +3907,7 @@ overlay29:
       address:
         EU: 0x230EAD8
         NA: 0x230E064
+        JP: 0x230F5A4
       description: |-
         Asks the player if they would like to recruit the enemy that was just defeated and handles the recruitment if they accept.
         
@@ -3834,6 +3950,7 @@ overlay29:
       address:
         EU: 0x23101EC
         NA: 0x230F778
+        JP: 0x2310CB4
       description: |-
         Gets the exclusive item boost for attack/special attack for a monster
         
@@ -3844,6 +3961,7 @@ overlay29:
       address:
         EU: 0x23101FC
         NA: 0x230F788
+        JP: 0x2310CC4
       description: |-
         Gets the exclusive item boost for defense/special defense for a monster
         
@@ -5302,6 +5420,7 @@ overlay29:
       address:
         EU: 0x231BAC0
         NA: 0x231B060
+        JP: 0x231C530
       description: |-
         Displays the message and applies the speed boost for the ability Motor Drive.
         
@@ -5444,6 +5563,7 @@ overlay29:
       address:
         EU: 0x231D884
         NA: 0x231CE1C
+        JP: 0x231E2E8
       description: |-
         Boosts the target's offensive stats stages to the max.
         
@@ -5657,6 +5777,7 @@ overlay29:
       address:
         EU: 0x2320EB0
         NA: 0x2320448
+        JP: 0x23218F4
       description: |-
         Creates an explosion if possible.
         
@@ -5672,6 +5793,7 @@ overlay29:
       address:
         EU: 0x23211F0
         NA: 0x2320788
+        JP: 0x2321C34
       description: |-
         Creates the explosion for the ability aftermath if possible.
         
@@ -5794,6 +5916,7 @@ overlay29:
       address:
         EU: 0x23252BC
         NA: 0x2324854
+        JP: 0x2325CE4
       description: |-
         Checks if a move should miss a monster due to the monster being in the middle of Fly, Bounce, Dive, Dig, Shadow Force, or some other two-turn move that grants pseudo-invincibility.
         
@@ -6169,6 +6292,7 @@ overlay29:
       address:
         EU: 0x2336DD4
         NA: 0x2336204
+        JP: 0x23375D4
       description: |-
         Calls IsBackgroundTileset with the current tileset ID
         
@@ -6197,6 +6321,7 @@ overlay29:
       address:
         EU: 0x2336F90
         NA: 0x23363C0
+        JP: 0x2337790
       description: |-
         Gets the spawn position for the stairs and stores it at the passed pointers.
         
@@ -6227,6 +6352,7 @@ overlay29:
       address:
         EU: 0x2337020
         NA: 0x2336450
+        JP: 0x2337820
       description: |-
         Returns the texture_id of the default tile?
         
@@ -6325,6 +6451,7 @@ overlay29:
       address:
         EU: 0x2338A64
         NA: 0x2337E94
+        JP: 0x2339258
       description: |-
         Returns flag tileset_property::is_water_tileset for the current tileset
         
@@ -6362,6 +6489,7 @@ overlay29:
       address:
         EU: 0x2338F60
         NA: 0x2338390
+        JP: 0x2339754
       description: |-
         Checks if gravity is active on the floor.
         
@@ -6379,6 +6507,7 @@ overlay29:
       address:
         EU: 0x2339090
         NA: 0x23384C0
+        JP: 0x2339884
       description: |-
         Gets the boost_kecleon_shop_spawn_chance field on the dungeon struct.
         
@@ -6387,6 +6516,7 @@ overlay29:
       address:
         EU: 0x23390A8
         NA: 0x23384D8
+        JP: 0x233989C
       description: |-
         Sets the boost_kecleon_shop_spawn_chance field on the dungeon struct to the given value.
         
@@ -6404,6 +6534,7 @@ overlay29:
       address:
         EU: 0x2339118
         NA: 0x2338548
+        JP: 0x233990C
       description: |-
         Sets the dough_seed_extra_money_flag field on the dungeon struct to the given value.
         
@@ -6422,6 +6553,7 @@ overlay29:
       address:
         EU: 0x2339194
         NA: 0x23385C4
+        JP: 0x2339988
       description: |-
         Checks if the current floor is the Secret Bazaar.
         
@@ -6430,6 +6562,7 @@ overlay29:
       address:
         EU: 0x23391BC
         NA: 0x23385EC
+        JP: 0x23399B0
       description: |-
         Gets the boost_hidden_stairs_spawn_chance field on the dungeon struct.
         
@@ -6438,6 +6571,7 @@ overlay29:
       address:
         EU: 0x23391D4
         NA: 0x2338604
+        JP: 0x23399C8
       description: |-
         Sets the boost_hidden_stairs_spawn_chance field on the dungeon struct to the given value.
         
@@ -6455,6 +6589,7 @@ overlay29:
       address:
         EU: 0x233922C
         NA: 0x233865C
+        JP: 0x2339A20
       description: |-
         Checks if the current floor is the Secret Room fixed floor (from hidden stairs).
         
@@ -6503,11 +6638,13 @@ overlay29:
       address:
         EU: 0x2339450
         NA: 0x2338880
+        JP: 0x2339C44
       description: "return: dungeon_generation_info::field_0xc"
     - name: GetMinimapData
       address:
         EU: 0x2339CE8
         NA: 0x2339118
+        JP: 0x233A4DC
       description: |-
         Returns a pointer to the minimap_display_data struct in the dungeon struct.
         
@@ -6579,6 +6716,7 @@ overlay29:
       address:
         EU: 0x233B208
         NA: 0x233A624
+        JP: 0x233B9E8
       description: |-
         Likely a linker-generated veneer for LoadFixedRoomData.
         
@@ -6771,6 +6909,7 @@ overlay29:
       address:
         EU: 0x233CF10
         NA: 0x233C32C
+        JP: 0x233D6F0
       description: |-
         Handles fixed room generation if the floor contains a fixed room.
         
@@ -7299,6 +7438,7 @@ overlay29:
       address:
         EU: 0x2343980
         NA: 0x2342D9C
+        JP: 0x234415C
       description: |-
         Gets the hidden stairs type for a given floor.
         
@@ -7533,6 +7673,7 @@ overlay29:
       address:
         EU: 0x234511C
         NA: 0x2344538
+        JP: 0x23458FC
       description: |-
         Likely a linker-generated veneer for IsSecretBazaar.
         
@@ -8910,6 +9051,7 @@ overlay29:
       address:
         EU: 0x2351DC8
         NA: 0x23511BC
+        JP: 0x235243C
       length:
         EU: 0x10
         NA: 0x10
@@ -8918,6 +9060,7 @@ overlay29:
       address:
         EU: 0x2351DD8
         NA: 0x23511CC
+        JP: 0x235244C
       length:
         EU: 0x10
         NA: 0x10
@@ -8926,6 +9069,7 @@ overlay29:
       address:
         EU: 0x2351DF8
         NA: 0x23511EC
+        JP: 0x235246C
       length:
         EU: 0x18
         NA: 0x18
@@ -8934,6 +9078,7 @@ overlay29:
       address:
         EU: 0x2351E08
         NA: 0x23511FC
+        JP: 0x235247C
       length:
         EU: 0x18
         NA: 0x18
@@ -8942,6 +9087,7 @@ overlay29:
       address:
         EU: 0x2351E20
         NA: 0x2351214
+        JP: 0x2352494
       length:
         EU: 0x18
         NA: 0x18
@@ -8950,6 +9096,7 @@ overlay29:
       address:
         EU: 0x2351E78
         NA: 0x235126C
+        JP: 0x23524EC
       length:
         EU: 0x28
         NA: 0x28
@@ -8958,6 +9105,7 @@ overlay29:
       address:
         EU: 0x2351EA0
         NA: 0x2351294
+        JP: 0x2352514
       length:
         EU: 0x28
         NA: 0x28
@@ -8966,6 +9114,7 @@ overlay29:
       address:
         EU: 0x2351EC8
         NA: 0x23512BC
+        JP: 0x235253C
       length:
         EU: 0x28
         NA: 0x28
@@ -8974,6 +9123,7 @@ overlay29:
       address:
         EU: 0x2351EF0
         NA: 0x23512E4
+        JP: 0x2352564
       length:
         EU: 0x28
         NA: 0x28
@@ -8982,6 +9132,7 @@ overlay29:
       address:
         EU: 0x2351F18
         NA: 0x235130C
+        JP: 0x235258C
       length:
         EU: 0x40
         NA: 0x40
@@ -8990,6 +9141,7 @@ overlay29:
       address:
         EU: 0x2351F48
         NA: 0x235133C
+        JP: 0x23525BC
       length:
         EU: 0x38
         NA: 0x38
@@ -8998,6 +9150,7 @@ overlay29:
       address:
         EU: 0x2351F80
         NA: 0x2351374
+        JP: 0x23525F4
       length:
         EU: 0x40
         NA: 0x40
@@ -9006,6 +9159,7 @@ overlay29:
       address:
         EU: 0x2351FC0
         NA: 0x23513B4
+        JP: 0x2352634
       length:
         EU: 0x40
         NA: 0x40
@@ -9014,6 +9168,7 @@ overlay29:
       address:
         EU: 0x2352000
         NA: 0x23513F4
+        JP: 0x2352674
       length:
         EU: 0x70
         NA: 0x70
@@ -9022,6 +9177,7 @@ overlay29:
       address:
         EU: 0x2352100
         NA: 0x23514F4
+        JP: 0x2352774
       length:
         EU: 0x90
         NA: 0x90
@@ -9030,6 +9186,7 @@ overlay29:
       address:
         EU: 0x2352328
         NA: 0x235171C
+        JP: 0x235299C
       length:
         EU: 0x20
         NA: 0x20
@@ -9041,6 +9198,7 @@ overlay29:
       address:
         EU: 0x23523E8
         NA: 0x23517DC
+        JP: 0x2352A5C
       length:
         NA: 0x68
       description: |-
@@ -9053,6 +9211,7 @@ overlay29:
       address:
         EU: 0x2352450
         NA: 0x2351844
+        JP: 0x2352AC4
       length:
         NA: 0x68
       description: |-
@@ -9065,6 +9224,7 @@ overlay29:
       address:
         EU: 0x23524B8
         NA: 0x23518AC
+        JP: 0x2352B2C
       length:
         NA: 0xC8
       description: |-
@@ -9077,6 +9237,7 @@ overlay29:
       address:
         EU: 0x2352C1C
         NA: 0x2352010
+        JP: 0x2353290
       length:
         EU: 0x20
         NA: 0x20
@@ -9088,6 +9249,7 @@ overlay29:
       address:
         EU: 0x2352E90
         NA: 0x2352284
+        JP: 0x2353504
       length:
         EU: 0xFA
         NA: 0xFA
@@ -9119,6 +9281,7 @@ overlay29:
       address:
         EU: 0x2353448
         NA: 0x235283C
+        JP: 0x2353ABC
       length:
         NA: 0x8
       description: "A generic damage multiplier of 0.5 used in various places, as a 64-bit fixed-point number with 16 fraction bits."
@@ -9126,6 +9289,7 @@ overlay29:
       address:
         EU: 0x2353450
         NA: 0x2352844
+        JP: 0x2353AC4
       length:
         NA: 0x8
       description: "A generic damage multiplier of 1.5 used in various places, as a 64-bit fixed-point number with 16 fraction bits."
@@ -9133,6 +9297,7 @@ overlay29:
       address:
         EU: 0x2353458
         NA: 0x235284C
+        JP: 0x2353ACC
       length:
         NA: 0x8
       description: "A generic damage multiplier of 2 used in various places, as a 64-bit fixed-point number with 16 fraction bits."
@@ -9140,6 +9305,7 @@ overlay29:
       address:
         EU: 0x2353468
         NA: 0x235285C
+        JP: 0x2353ADC
       length:
         NA: 0x8
       description: "The extra damage multiplier for non-Normal-type moves when the weather is Cloudy, as a 64-bit fixed-point number with 16 fraction bits (0.75)."
@@ -9147,6 +9313,7 @@ overlay29:
       address:
         EU: 0x2353470
         NA: 0x2352864
+        JP: 0x2353AE4
       length:
         NA: 0x8
       description: "The extra damage multiplier for super-effective moves when Solid Rock or Filter is active, as a 64-bit fixed-point number with 16 fraction bits (0.75)."
@@ -9154,6 +9321,7 @@ overlay29:
       address:
         EU: 0x2353478
         NA: 0x235286C
+        JP: 0x2353AEC
       length:
         NA: 0x8
       description: "The maximum value of the base damage formula (after DAMAGE_FORMULA_NON_TEAM_MEMBER_MODIFIER application, if relevant), as a 64-bit binary fixed-point number with 16 fraction bits (999)."
@@ -9167,6 +9335,7 @@ overlay29:
       address:
         EU: 0x2353488
         NA: 0x235287C
+        JP: 0x2353AFC
       length:
         NA: 0x8
       description: "The minimum value of the base damage formula (after DAMAGE_FORMULA_NON_TEAM_MEMBER_MODIFIER application, if relevant), as a 64-bit binary fixed-point number with 16 fraction bits (1)."
@@ -9174,6 +9343,7 @@ overlay29:
       address:
         EU: 0x23534B0
         NA: 0x23528A4
+        JP: 0x2353B24
       length:
         NA: 0xE0
       description: |-
@@ -9184,6 +9354,7 @@ overlay29:
       address:
         EU: 0x23536B8
         NA: 0x2352AAC
+        JP: 0x2353D2C
       length:
         EU: 0x2C
         NA: 0x2C
@@ -9192,6 +9363,7 @@ overlay29:
       address:
         EU: 0x23536F4
         NA: 0x2352AE8
+        JP: 0x2353D68
       length:
         EU: 0x4
         NA: 0x4
@@ -9200,6 +9372,7 @@ overlay29:
       address:
         EU: 0x23536F8
         NA: 0x2352AEC
+        JP: 0x2353D6C
       length:
         EU: 0x4
         NA: 0x4
@@ -9208,6 +9381,7 @@ overlay29:
       address:
         EU: 0x23536FC
         NA: 0x2352AF0
+        JP: 0x2353D70
       length:
         NA: 0x28
       description: |-
@@ -9218,6 +9392,7 @@ overlay29:
       address:
         EU: 0x2353BDC
         NA: 0x2352FD0
+        JP: 0x2354250
       length:
         NA: 0x24
       description: |-
@@ -9230,6 +9405,7 @@ overlay29:
       address:
         EU: 0x2353C24
         NA: 0x2353010
+        JP: 0x2354290
       length:
         EU: 0x20
         NA: 0x20
@@ -9245,6 +9421,7 @@ overlay29:
       address:
         EU: 0x2353EE0
         NA: 0x23532D0
+        JP: 0x2354550
       length:
         EU: 0x8
         NA: 0x8
@@ -9253,6 +9430,7 @@ overlay29:
       address:
         EU: 0x2353F3C
         NA: 0x2353324
+        JP: 0x23545A4
       length:
         EU: 0xA
         NA: 0xA
@@ -9261,6 +9439,7 @@ overlay29:
       address:
         EU: 0x2353F48
         NA: 0x2353330
+        JP: 0x23545B0
       length:
         NA: 0x36
       description: List that matches the damage_message ID to their corresponding string ID. The null entry at 0xE in the middle is for hunger. The last entry is null.
@@ -9296,6 +9475,7 @@ overlay29:
       address:
         EU: 0x2354154
         NA: 0x2353554
+        JP: 0x23547D4
       length:
         EU: 0x4
       description: |-
@@ -9306,6 +9486,7 @@ overlay29:
       address:
         EU: 0x235415C
         NA: 0x235355C
+        JP: 0x23547DC
       length:
         EU: 0x4
         NA: 0x4
@@ -9317,6 +9498,7 @@ overlay29:
       address:
         EU: 0x2354170
         NA: 0x2353570
+        JP: 0x23547F0
       length:
         EU: 0x14
         NA: 0x14
@@ -9330,6 +9512,7 @@ overlay29:
       address:
         EU: 0x2354184
         NA: 0x2353584
+        JP: 0x2354804
       length:
         EU: 0x14
         NA: 0x14
@@ -9341,6 +9524,7 @@ overlay29:
       address:
         EU: 0x23541AC
         NA: 0x23535AC
+        JP: 0x235482C
       length:
         EU: 0x2
       description: |-
@@ -9360,6 +9544,7 @@ overlay29:
       address:
         EU: 0x23541B0
         NA: 0x23535B0
+        JP: 0x2354830
       length:
         EU: 0x8
         NA: 0x8
@@ -9368,6 +9553,7 @@ overlay29:
       address:
         EU: 0x23541B8
         NA: 0x23535B8
+        JP: 0x2354838
       length:
         EU: 0x8
         NA: 0x8
@@ -9376,6 +9562,7 @@ overlay29:
       address:
         EU: 0x23541C0
         NA: 0x23535C0
+        JP: 0x2354840
       length:
         EU: 0x8
         NA: 0x8
@@ -9384,6 +9571,7 @@ overlay29:
       address:
         EU: 0x2354310
         NA: 0x2353710
+        JP: 0x2354990
       length:
         EU: 0x8
         NA: 0x8
@@ -9392,6 +9580,7 @@ overlay29:
       address:
         EU: 0x235433C
         NA: 0x2353724
+        JP: 0x235499C
       length:
         EU: 0x14
         NA: 0x14
@@ -9405,6 +9594,7 @@ overlay29:
       address:
         EU: 0x23543A4
         NA: 0x235378C
+        JP: 0x2354A04
       length:
         EU: 0x1
         NA: 0x1
@@ -9418,6 +9608,7 @@ overlay29:
       address:
         EU: 0x23543AC
         NA: 0x2353794
+        JP: 0x2354A0C
       length:
         EU: 0x4
         NA: 0x4
@@ -9426,6 +9617,7 @@ overlay29:
       address:
         EU: 0x23543F8
         NA: 0x23537E0
+        JP: 0x2354A58
       length:
         EU: 0x4
       description: "[Runtime] Pointer to the dungeon fades struct that maintains the status of screen fades in dungeon mode."
