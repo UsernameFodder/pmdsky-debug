@@ -914,7 +914,7 @@ enum mobility_type GetMobilityType(enum monster_id monster_id);
 int GetRegenSpeed(enum monster_id monster_id);
 bool GetCanMoveFlag(enum monster_id monster_id);
 int GetChanceAsleep(enum monster_id monster_id);
-fx32_8 GetLowKickMultiplier(enum monster_id monster_id);
+fx32_8 GetWeightMultiplier(enum monster_id monster_id);
 int GetSize(enum monster_id monster_id);
 int GetBaseHp(enum monster_id monster_id);
 bool CanThrowItems(enum monster_id monster_id);

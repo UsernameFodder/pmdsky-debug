@@ -8739,16 +8739,18 @@ arm9:
         
         r0: id
         return: chance asleep
-    - name: GetLowKickMultiplier
+    - name: GetWeightMultiplier
+      aliases:
+        - GetLowKickMultiplier
       address:
         EU: 0x2052C34
         NA: 0x20528FC
         JP: 0x2052C34
       description: |-
-        Gets the Low Kick (and Grass Knot) damage multiplier (i.e., weight) for the given species.
+        Gets the weight multiplier value for the given species. This value is passed as the damage_mult_fp parameter to DealDamage when calculating the damage dealt by Low Kick and Grass Knot.
         
         r0: monster ID
-        return: multiplier as a binary fixed-point number with 8 fraction bits.
+        return: Monster weight multiplier, as a binary fixed-point number with 8 fraction bits.
     - name: GetSize
       address:
         EU: 0x2052C50
