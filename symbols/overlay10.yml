@@ -2118,7 +2118,7 @@ overlay10:
         
         This is an array of 256 12-byte entries containing properties for a given fixed room ID.
         
-        See the struct definitions and End45's dungeon data document for more info.
+        See the struct definitions and Frostbyte's dungeon data document for more info.
         
         type: struct fixed_room_properties_entry[256]
     - name: TRAP_ANIMATION_INFO

@@ -16,7 +16,7 @@ This is a nonexhaustive list, and only contains subjectively "large" collections
 - [Project Pokémon technical docs.](https://projectpokemon.org/docs/mystery-dungeon-nds/)
 - [SkyTemple](https://skytemple.org/) and the associated [Discord server](https://discord.gg/skytemple) (the `#tech-docs` channel has some links not listed here). Also see [this directory in skytemple-files](https://github.com/SkyTemple/skytemple-files/tree/master/skytemple_files/_resources/ppmdu_config), which has XML files with various collections of useful data, and [this other directory](https://github.com/SkyTemple/skytemple-files/tree/master/skytemple_files/graphics) with various graphics file format docs.
 - Other (older) tools for EoS include [Sky Editor](https://projectpokemon.org/home/files/file/4003-sky-editor-rom-editor/) and [PPMDU](https://github.com/PsyCommando/ppmdu).
-- End45's [dungeon data doc](https://docs.google.com/document/d/1UfiFz4xAPtGd-1X2JNE0Jy2z-BLkze1PE4Fo9u-QeYo) and [map generation doc](https://docs.google.com/document/d/1HuJIEOtTYCtSHK6R-sp4LC2gk1RDL_mfoFL6Qn_wdkE).
+- Frostbyte's [dungeon data doc](https://docs.google.com/document/d/1UfiFz4xAPtGd-1X2JNE0Jy2z-BLkze1PE4Fo9u-QeYo) and [map generation doc](https://docs.google.com/document/d/1HuJIEOtTYCtSHK6R-sp4LC2gk1RDL_mfoFL6Qn_wdkE).
 - UsernameFodder's [EoS RAM notes](https://docs.google.com/document/d/1_Q_7BGmNx5wJtJ9iJEwlK1WITjiCcEQxE9C82RECJbg).
 - UsernameFodder's [enum collection](https://drive.google.com/drive/folders/1-jQNhtZ-Ao-QrwoaG5LY1iVh5gUoMxlH). Most have been ported to the C headers in `pmdsky-debug`, but this still has some obscure additional info.
 - ShinxHijinx's [PMD Info Spreadsheet](https://docs.google.com/spreadsheets/d/18utO_lCpWQ7iXY9wpbtxXpgmzebEI2IRjADp6IrUKZ0/edit).

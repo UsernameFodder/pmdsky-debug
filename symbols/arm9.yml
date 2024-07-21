@@ -11163,7 +11163,7 @@ arm9:
         
         This is an array of 180 dungeon data list entry structs. Each entry is 4 bytes, and contains floor count information along with an index into the bulk of the dungeon's data in mappa_s.bin.
         
-        See the struct definitions and End45's dungeon data document for more info.
+        See the struct definitions and Frostbyte's dungeon data document for more info.
         
         type: struct dungeon_data_list_entry[180]
     - name: ADVENTURE_LOG_ENCOUNTERS_MONSTER_IDS
@@ -11311,7 +11311,7 @@ arm9:
         
         This is an array of 256 dungeon restriction structs. Each entry is 12 bytes, and contains information about restrictions within the given dungeon.
         
-        See the struct definitions and End45's dungeon data document for more info.
+        See the struct definitions and Frostbyte's dungeon data document for more info.
         
         type: struct dungeon_restriction[256]
     - name: SPECIAL_BAND_STAT_BOOST
@@ -11810,7 +11810,7 @@ arm9:
         
         Array of 18 36-byte entries.
         
-        See the struct definitions and End45's dungeon data document for more info.
+        See the struct definitions and Frostbyte's dungeon data document for more info.
         
         type: struct guest_monster[18]
     - name: RANK_UP_TABLE
@@ -12317,7 +12317,7 @@ arm9:
         
         This is an array of 310 map marker structs. Each entry is 8 bytes, and contains positional information about a dungeon on the map.
         
-        See the struct definitions and End45's dungeon data document for more info.
+        See the struct definitions and Frostbyte's dungeon data document for more info.
         
         type: struct map_marker[310]
     - name: LFO_OUTPUT_VOICE_UPDATE_FLAGS

@@ -10,7 +10,7 @@ other parts of the project, feel free to add yourself to this file!
 - psy_commando
 - evandixon
 - Capypara
-- End45
+- Frostbyte
 - irdkwia
 - Nov
 - AnonymousRandomPerson
@@ -35,7 +35,7 @@ other parts of the project, feel free to add yourself to this file!
 - The rest of the contributors to Project Pokémon's technical documentation
   for the NDS Mystery Dungeon games, which can be found here:
   https://projectpokemon.org/home/docs/mystery-dungeon-nds/
-- The rest of the contributors to End45's dungeon data doc,
+- The rest of the contributors to Frostbyte's dungeon data doc,
   which can be found here:
   https://docs.google.com/document/d/1UfiFz4xAPtGd-1X2JNE0Jy2z-BLkze1PE4Fo9u-QeYo
 - The rest of the contributors to the PMD Info Spreadsheet,
