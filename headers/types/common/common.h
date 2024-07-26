@@ -1010,4 +1010,11 @@ struct touchscreen_status {
 };
 ASSERT_SIZE(struct touchscreen_status, 104);
 
+// Contains information about the sprite size and sprite file size of a monster
+struct monster_sprite_data_entry {
+    uint8_t sprite_size;      // 0x0
+    uint8_t sprite_file_size; // 0x1
+};
+ASSERT_SIZE(struct monster_sprite_data_entry, 2);
+
 #endif
