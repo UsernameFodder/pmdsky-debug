@@ -11869,7 +11869,7 @@ arm9:
         EU: 0x4B0
         NA: 0x4B0
         JP: 0x4B0
-      description: "Contains information about the sprite size and sprite file size of each monster"
+      description: Contains information about the sprite size and sprite file size of each monster
     - name: REMOTE_STRINGS
       address:
         EU: 0x20A4140
