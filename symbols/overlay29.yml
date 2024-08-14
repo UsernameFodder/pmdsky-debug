@@ -1140,9 +1140,11 @@ overlay29:
       description: |-
         Compute a pseudorandom value between two integers using the dungeon PRNG.
         
+        If both input integers are the same, the first is returned.
+        
         r0: x
         r1: y
-        return: pseudorandom integer on the interval [min(x, y), max(x, y) - 1]
+        return: pseudorandom integer on the interval [min(x, y), max(x, y) - 1], or x if x == y.
     - name: DungeonRandOutcome
       address:
         EU:

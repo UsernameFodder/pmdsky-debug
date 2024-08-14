@@ -1498,6 +1498,19 @@ overlay10:
         The turn range for the Whiffer status inflicted by Smokescreen, [1, 4).
         
         type: int16_t[2]
+    - name: PERISH_SONG_TURN_RANGE
+      address:
+        EU: 0x22C5128
+        NA: 0x22C47D0
+        JP: 0x22C5EB8
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the status inflicted by Perish Song, [3, 3).
+        
+        type: int16_t[2]
     - name: SHADOW_FORCE_DAMAGE_MULTIPLIER
       address:
         EU: 0x22C5134
