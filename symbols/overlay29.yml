@@ -8569,6 +8569,16 @@ overlay29:
         EU: 0x4
         NA: 0x4
       description: "The increment for the dungeon PRNG's secondary LCGs, 2531011 (0x269EC3). This happens to be the same increment that the Microsoft Visual C++ runtime library uses in its implementation of the rand() function."
+    - name: ATTACK_SPRITE_BUFFER_SIZE
+      address:
+        EU: 0x22F7890
+        NA: 0x22F6ED8
+        JP: 0x22F84A8
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: "Size of the buffer used to store the current attack sprite file."
     - name: KECLEON_FEMALE_ID
       address:
         EU: 0x22F7DBC
