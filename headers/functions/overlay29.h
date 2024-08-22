@@ -867,5 +867,8 @@ void DisplayMessageInternal(int message_id, bool wait_for_input, struct portrait
 void OpenMenu(undefined param_1, undefined param_2, bool open_bag);
 int OthersMenuLoop(void);
 undefined OthersMenu(void);
+int GetAiUseItemProbability(struct entity* item_consumer, struct item* used_item, int unknown);
+bool IsAdjacentToEnemy(struct entity* entity);
+enum relation GetRelationBetweenMonsters(struct entity* entity_1, struct entity* entity_2, bool unknown_1, bool unknown_2);
 
 #endif
