@@ -13,6 +13,7 @@ extern const struct data_processing_instruction TOP_MENU_MUSIC_ID;
 
 // Overlay 29
 extern const struct data_processing_instruction NECTAR_IQ_BOOST;
+extern const struct data_processing_instruction COMPRESSED_SPRITE_BUFFER_SIZE;
 
 // Overlay 9
 extern const struct data_processing_instruction TOP_MENU_RETURN_MUSIC_ID;
