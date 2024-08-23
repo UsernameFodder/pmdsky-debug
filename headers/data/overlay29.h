@@ -9,6 +9,7 @@ extern uint32_t OFFSET_OF_DUNGEON_FLOOR_PROPERTIES;
 extern int32_t SPAWN_RAND_MAX;
 extern uint32_t DUNGEON_PRNG_LCG_MULTIPLIER;
 extern uint32_t DUNGEON_PRNG_LCG_INCREMENT_SECONDARY;
+extern int32_t ATTACK_SPRITE_BUFFER_SIZE;
 extern enum monster_id KECLEON_FEMALE_ID;
 extern enum monster_id KECLEON_MALE_ID;
 extern int32_t MSG_ID_SLOW_START;

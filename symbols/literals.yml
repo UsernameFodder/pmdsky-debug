@@ -121,6 +121,12 @@ overlay29:
         NA: 0x231C384
         JP: 0x231D850
       description: IQ boost from ingesting Nectar.
+    - name: COMPRESSED_SPRITE_BUFFER_SIZE
+      address:
+        EU: 0x234CB6C
+        NA: 0x234BF6C
+        JP: 0x234D1D0
+      description: Size of the buffer to store the current sprite to decompress.
 overlay34:
   versions:
     - EU
