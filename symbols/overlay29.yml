@@ -2988,13 +2988,13 @@ overlay29:
         NA: 0x230157C
         JP: 0x23027FC
       description: |-
-        Called to check if two monsters are allies, enemies, or neither (one is a shopkeeper, decoy, etc.)
+        Called to check if two monsters are allies, enemies, or neither.
+        (Examples of the neither case: target is a shopkeeper, there is a decoy on the floor, etc.)
         
         r0: Pointer to entity 1
         r1: Pointer to entity 2
-        r2: ? (If == 0, will make function return 2 if r1 is invisible and r0 can see invisible monsters)
-        r3: ? (If != 0, will make function return 2 if r0 is a team member and r1 has some sort of status)
-        return: 0 if allies, 1 if enemies, 2 if other
+        r2: If true, entity 1 will target enemies even if they are invisible
+        r3: If true and entity 1 is a team member, entity 1 will ignore petrified targets
     - name: SafeguardIsActive
       address:
         EU: 0x230236C
@@ -5721,7 +5721,7 @@ overlay29:
         
         r0: Pointer to either the user if it is an item used by the AI or the target if it is an item thrown by the AI
         r1: Pointer to item
-        r2: Unknown 2-bit bitvector. Bit 1 influences only the Warp Seed case, while Bit 0 influences various items.
+        r2: Size-2 bitvector: if bit 0 is set, the AI is throwing the item. If bit 1 is set, it is targeting an ally with the item.
         return: Integer in range [0, 100]
     - name: IsAdjacentToEnemy
       address:

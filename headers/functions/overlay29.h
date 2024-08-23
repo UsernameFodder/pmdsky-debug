@@ -274,6 +274,7 @@ bool CanAiMonsterMoveInDirection(struct entity* monster, enum direction_id direc
                                  bool* out_monster_in_target_position);
 bool ShouldMonsterRunAway(struct entity* monster);
 bool ShouldMonsterRunAwayVariation(struct entity* monster, undefined param_2);
+enum monster_relation GetRelationBetweenMonsters(struct entity* entity1, struct entity* entity2, bool param_3, bool param_4);
 bool SafeguardIsActive(struct entity* user, struct entity* target, bool log_message);
 bool LeafGuardIsActive(struct entity* user, struct entity* target, bool log_message);
 bool IsProtectedFromStatDrops(struct entity* user, struct entity* target, bool log_message);
@@ -576,6 +577,8 @@ void ApplyViaSeedEffect(struct entity* user, struct entity* target);
 void ApplyGravelyrockEffect(struct entity* user, struct entity* target);
 void ApplyGonePebbleEffect(struct entity* user, struct entity* target);
 void ApplyGracideaEffect(struct entity* user, struct entity* target);
+int GetAiUseItemProbability(struct entity* item_consumer, struct item* item, uint32_t flags);
+bool IsAdjacentToEnemy(struct entity* entity);
 bool ShouldTryEatItem(enum item_id item_id);
 int GetMaxPpWrapper(struct move* move);
 bool MoveIsNotPhysical(enum move_id move_id);
@@ -867,8 +870,5 @@ void DisplayMessageInternal(int message_id, bool wait_for_input, struct portrait
 void OpenMenu(undefined param_1, undefined param_2, bool open_bag);
 int OthersMenuLoop(void);
 undefined OthersMenu(void);
-int GetAiUseItemProbability(struct entity* item_consumer, struct item* used_item, int unknown);
-bool IsAdjacentToEnemy(struct entity* entity);
-enum relation GetRelationBetweenMonsters(struct entity* entity_1, struct entity* entity_2, bool unknown_1, bool unknown_2);
 
 #endif
