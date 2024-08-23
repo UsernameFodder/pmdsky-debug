@@ -1442,7 +1442,7 @@ enum fade_status_dungeon {
     DUNGEON_FADE_0x5 = 5,
 };
 
-// Used to indicate whether two monsters are allies, enemies, or neither (one is a shopkeeper, decoy, etc.)
+// Used to indicate whether two monsters are allies, enemies, or neither, such as when one is a shopkeeper, decoy, etc.
 enum monster_relation {
     RELATION_ALLY = 0,
     RELATION_ENEMY = 1,
