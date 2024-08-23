@@ -8578,7 +8578,7 @@ overlay29:
         EU: 0x4
         NA: 0x4
         JP: 0x4
-      description: "Size of the buffer used to store the current attack sprite file."
+      description: Size of the buffer used to store the current attack sprite file.
     - name: KECLEON_FEMALE_ID
       address:
         EU: 0x22F7DBC
