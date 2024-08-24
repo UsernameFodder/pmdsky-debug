@@ -8559,13 +8559,13 @@ overlay29:
         r0: Entity pointer
         r1: If true, return 1 if entity is blinded
         return: bool
-    - name: IsChargingTwoTurnMove
+    - name: IsChargingAnyTwoTurnMove
       address:
         EU: 0x2325084
         NA: 0x2324478
         JP: 0x23256F8
       description: |-
-        Returns a boolean indicating whether or not the given entity is charging a two-turn move.
+        Returns a boolean indicating whether or not the given entity is charging any two-turn move.
 
         r0: Entity pointer
         r1: Unused boolean
@@ -8582,7 +8582,7 @@ overlay29:
 
         r0: Entity pointer
         return: bool
-    - name: CanThrowItems
+    - name: MonsterCanThrowItems
       address:
         EU: 0x2302D94
         NA: 0x2302188
@@ -8605,7 +8605,6 @@ overlay29:
         r1: Item struct pointer
         r2: Array of size 20 for storing x and y positions
         r3: If false, will roll GetAiUseItemProbability every time a position is checked and not add it if it rolls false.
-        return: bool
   data:
     - name: DUNGEON_STRUCT_SIZE
       address:
