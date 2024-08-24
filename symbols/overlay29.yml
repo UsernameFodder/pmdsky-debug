@@ -8592,13 +8592,13 @@ overlay29:
 
         r0: Monster pointer
         return: bool
-    - name: GetPossibleItemTargets
+    - name: GetPossibleAiItemTargets
       address:
         EU: 0x230FAA0
         NA: 0x230EE94
         JP: 0x2310114
       description: |-
-        Gets the positions of all targets that an entity can hit with a thrown item such as a Gravelerock.
+        Gets the positions of all targets that an AI can hit with a thrown item such as a Gravelerock.
         The number of positions in the array will be stored at 0x023542FC.
 
         r0: Entity pointer
