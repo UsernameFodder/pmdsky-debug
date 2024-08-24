@@ -8603,7 +8603,7 @@ overlay29:
 
         r0: Entity pointer
         r1: Item struct pointer
-        r2: Array of size 20 for storing x and y positions
+        r2: Array of size 20 for storing position structs
         r3: If false, will roll GetAiUseItemProbability every time a position is checked and not add it if it rolls false.
   data:
     - name: DUNGEON_STRUCT_SIZE
