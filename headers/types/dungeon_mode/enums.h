@@ -1442,11 +1442,11 @@ enum fade_status_dungeon {
     DUNGEON_FADE_0x5 = 5,
 };
 
-// Used to indicate whether two monsters are allies, enemies, or neither.
-enum monster_relation {
-    RELATION_ALLY = 0,
-    RELATION_ENEMY = 1,
-    RELATION_OTHER = 2,
+// Used to indicate how a given monster should target another.
+enum monster_treatment {
+    TREATMENT_TREAT_AS_ALLY = 0,
+    TREATMENT_TREAT_AS_ENEMY = 1,
+    TREATMENT_IGNORE = 2,
 };
 
 #endif
