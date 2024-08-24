@@ -2982,6 +2982,20 @@ overlay29:
         r0: Entity pointer
         r1: ?
         return: Result of the call to ShouldMonsterRunAway
+    - name: GetTreatmentBetweenMonsters
+      address:
+        EU: 0x2302188
+        NA: 0x230157C
+        JP: 0x23027FC
+      description: |-
+        Called to check if a monster should treat another as an ally, enemy, or ignore it.
+        (Examples of the "ignore" case: target is a shopkeeper, there is a decoy on the floor, etc.)
+        
+        r0: Pointer to entity 1
+        r1: Pointer to entity 2
+        r2: If false, return TREATMENT_IGNORE if entity 2 is invisible and entity 1 cannot see invisible monsters
+        r3: If true, return TREATMENT_IGNORE if entity 1 is a team member and entity 2 has the STATUS_PETRIFIED status
+        return: Treatment that monster 1 should apply to monster 2
     - name: SafeguardIsActive
       address:
         EU: 0x230236C
@@ -5698,6 +5712,28 @@ overlay29:
         
         r0: user entity pointer
         r1: target entity pointer
+    - name: GetAiUseItemProbability
+      address:
+        EU: 0x231EAC4
+        NA: 0x231DEB8
+        JP: 0x231F138
+      description: |-
+        Called to get the probability of an item being used or thrown by an AI on the current turn.
+        
+        r0: Pointer to either the user if it is an item used by the AI or the target if it is an item thrown by the AI
+        r1: Pointer to item
+        r2: Size-2 bitvector: if bit 0 is set, the AI is throwing the item. If bit 1 is set, it is targeting an ally with the item.
+        return: Integer in range [0, 100]
+    - name: IsAdjacentToEnemy
+      address:
+        EU: 0x231F358
+        NA: 0x231E74C
+        JP: 0x231F9CC
+      description: |-
+        Called to check if a hostile entity is present in any of the tiles adjacent to an entity.
+        
+        r0: Pointer to entity
+        return: True if yes, false if no
     - name: ShouldTryEatItem
       address:
         EU: 0x231F3F8

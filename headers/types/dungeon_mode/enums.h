@@ -1442,4 +1442,11 @@ enum fade_status_dungeon {
     DUNGEON_FADE_0x5 = 5,
 };
 
+// Used to indicate how a given monster should target another.
+enum monster_treatment {
+    TREATMENT_TREAT_AS_ALLY = 0,
+    TREATMENT_TREAT_AS_ENEMY = 1,
+    TREATMENT_IGNORE = 2,
+};
+
 #endif
