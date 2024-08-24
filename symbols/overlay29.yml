@@ -2982,19 +2982,20 @@ overlay29:
         r0: Entity pointer
         r1: ?
         return: Result of the call to ShouldMonsterRunAway
-    - name: GetRelationBetweenMonsters
+    - name: GetTreatmentBetweenMonsters
       address:
         EU: 0x2302188
         NA: 0x230157C
         JP: 0x23027FC
       description: |-
-        Called to check if two monsters are allies, enemies, or neither.
-        (Examples of the neither case: target is a shopkeeper, there is a decoy on the floor, etc.)
+        Called to check if a monster should treat another as an ally, enemy, or ignore it.
+        (Examples of the "ignore" case: target is a shopkeeper, there is a decoy on the floor, etc.)
         
         r0: Pointer to entity 1
         r1: Pointer to entity 2
-        r2: If true, entity 1 will target enemies even if they are invisible
-        r3: If true and entity 1 is a team member, entity 1 will ignore petrified targets
+        r2: If false, return TREATMENT_IGNORE if entity 2 is invisible and entity 1 cannot see invisible monsters
+        r3: If true, return TREATMENT_IGNORE if entity 1 is a team member and entity 2 has the STATUS_PETRIFIED status
+        return: Treatment that monster 1 should apply to monster 2
     - name: SafeguardIsActive
       address:
         EU: 0x230236C
