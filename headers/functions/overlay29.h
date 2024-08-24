@@ -877,7 +877,8 @@ bool CheckVariousStatuses2(struct entity* entity, bool blind_check);
 bool IsChargingAnyTwoTurnMove(struct entity* entity, bool unused);
 bool CheckVariousConditions(struct entity* entity);
 bool MonsterCanThrowItems(struct monster* monster);
-void GetPossibleAiItemTargets(struct entity* user, struct item* item, struct position* positions, 
-                                                                      bool always_add_position);
+void GetPossibleAiItemTargets(struct entity* user, struct item* item, 
+                                                   struct position* positions, 
+                                                   bool always_add_position);
 
 #endif
