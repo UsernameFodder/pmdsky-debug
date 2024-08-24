@@ -274,7 +274,7 @@ bool CanAiMonsterMoveInDirection(struct entity* monster, enum direction_id direc
                                  bool* out_monster_in_target_position);
 bool ShouldMonsterRunAway(struct entity* monster);
 bool ShouldMonsterRunAwayVariation(struct entity* monster, undefined param_2);
-enum monster_relation GetRelationBetweenMonsters(struct entity* entity1, struct entity* entity2,
+enum monster_treatment GetTreatmentBetweenMonsters(struct entity* entity1, struct entity* entity2,
                                                  bool see_invisible_targets,
                                                  bool ignore_petrified_targets);
 bool SafeguardIsActive(struct entity* user, struct entity* target, bool log_message);
