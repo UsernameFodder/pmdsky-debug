@@ -2985,8 +2985,8 @@ overlay29:
     - name: GetTreatmentBetweenMonsters
       address:
         EU: 0x2302188
-        NA: 0x230157C
-        JP: 0x23027FC
+        NA: 0x230175C
+        JP: 0x2302CCC
       description: |-
         Called to check if a monster should treat another as an ally, enemy, or ignore it.
         (Examples of the "ignore" case: target is a shopkeeper, there is a decoy on the floor, etc.)
@@ -5715,8 +5715,8 @@ overlay29:
     - name: GetAiUseItemProbability
       address:
         EU: 0x231EAC4
-        NA: 0x231DEB8
-        JP: 0x231F138
+        NA: 0x231E05C
+        JP: 0x231F508
       description: |-
         Called to get the probability of an item being used or thrown by an AI on the current turn.
         
@@ -5727,8 +5727,8 @@ overlay29:
     - name: IsAdjacentToEnemy
       address:
         EU: 0x231F358
-        NA: 0x231E74C
-        JP: 0x231F9CC
+        NA: 0x231E8F0
+        JP: 0x231FD9C
       description: |-
         Called to check if a hostile entity is present in any of the tiles adjacent to an entity.
         
