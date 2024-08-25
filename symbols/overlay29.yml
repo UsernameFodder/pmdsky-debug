@@ -8539,8 +8539,6 @@ overlay29:
     - name: CheckVariousStatuses
       address:
         EU: 0x23016DC
-        NA: 0x2300AD0
-        JP: 0x2301D50
       description: |-
         Returns 0 if none of these conditions holds for the given entity: asleep, frozen, petrified, biding.
 
@@ -8549,8 +8547,6 @@ overlay29:
     - name: CheckVariousStatuses2
       address:
         EU: 0x2301244
-        NA: 0x2300638
-        JP: 0x23018B8
       description: |-
         Returns 0 if none of these conditions holds for the given entity: 
         blinded (checked only if blind_check == 1), 
@@ -8562,8 +8558,6 @@ overlay29:
     - name: IsChargingAnyTwoTurnMove
       address:
         EU: 0x2325084
-        NA: 0x2324478
-        JP: 0x23256F8
       description: |-
         Returns a boolean indicating whether or not the given entity is charging any two-turn move.
 
@@ -8573,8 +8567,6 @@ overlay29:
     - name: CheckVariousConditions
       address:
         EU: 0x230156C
-        NA: 0x2300960
-        JP: 0x2301BE0
       description: |-
         Returns 0 if none of these conditions holds for the given entity: is a rescue client, 
         doesn’t gain experience (a mission client/story teammate?), is a terrified non-team-leader, 
@@ -8585,8 +8577,6 @@ overlay29:
     - name: MonsterCanThrowItems
       address:
         EU: 0x2302D94
-        NA: 0x2302188
-        JP: 0x2303408
       description: |-
         Returns a boolean indicating whether or not the given monster can throw items based on its monster id.
 
@@ -8595,8 +8585,6 @@ overlay29:
     - name: GetPossibleAiItemTargets
       address:
         EU: 0x230FAA0
-        NA: 0x230EE94
-        JP: 0x2310114
       description: |-
         Gets the positions of all targets that an AI can hit with a thrown item such as a Gravelerock.
         The number of positions in the array will be stored at 0x023542FC.
