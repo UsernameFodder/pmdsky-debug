@@ -8583,11 +8583,11 @@ overlay29:
 
         r0: Monster pointer
         return: bool
-    - name: GetPossibleAiThrownItemTargets
+    - name: GetPossibleAiArcItemTargets
       address:
         EU: 0x230FAA0
       description: |-
-        Gets the positions of all targets that an AI can hit with a thrown item such as a Gravelerock.
+        Gets the positions of all targets that an AI can hit with an item thrown in an arc, such as a Gravelerock.
         The number of positions in the array will be stored at POSITIONS_COUNTER.
 
         r0: Entity pointer
