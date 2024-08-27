@@ -102,6 +102,9 @@ extern struct tile DEFAULT_TILE;
 extern bool HIDDEN_STAIRS_SPAWN_BLOCKED;
 extern void* FIXED_ROOM_DATA_PTR;
 extern struct dungeon_fades* DUNGEON_FADES_PTR;
-extern uint32_t POSITIONS_COUNTER;
+extern uint32_t AI_THROWN_ITEM_ACTION_CHOICE_COUNT;
+extern bool DIRECTION_BOOLS[8];
+extern uint32_t THROWN_ITEM_DIRECTIONS[8];
+extern uint32_t THROWN_ITEM_PROBABILITIES[8];
 
 #endif

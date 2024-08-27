@@ -8588,12 +8588,50 @@ overlay29:
         EU: 0x230FAA0
       description: |-
         Gets the positions of all targets that an AI can hit with an item thrown in an arc, such as a Gravelerock.
-        The number of positions in the array will be stored at POSITIONS_COUNTER.
+        The number of positions in the array will be stored in AI_THROWN_ITEM_ACTION_CHOICE_COUNT.
 
         r0: Entity pointer
         r1: Item struct pointer
         r2: [output] Array of size 20 for storing position structs
         r3: If false, will roll GetAiUseItemProbability every time a position is checked and not add it if it rolls false.
+    - name: GetPossibleAiThrownItemDirections
+      address:
+        EU: 0x230F824
+      description: |-
+        If the entity can throw an item at a target in a certain direction, adds that direction to THROWN_ITEM_DIRECTIONS and the probability of throwing it to THROWN_ITEM_PROBABILITIES.
+        The size of the arrays will be stored in AI_THROWN_ITEM_ACTION_CHOICE_COUNT.
+        The caller function will select the direction to throw the item by iterating through the array(s), rolling the probability, and then throwing in that direction if the roll succeeds.
+        Nothing will be thrown if all rolls fail.
+
+        r0: Entity pointer
+        r1: Integer in {1, 2}. If 1, target allies; if 2, target enemies.
+        r2: Item struct pointer
+        r3: If false, will call GetAiUseItemProbability to get the probability of throwing in a certain direction.
+        If true, the added probability will always be 100.
+    - name: SetDecoyTracker
+      address:
+        EU: 0x22FBF44
+      description: |-
+        If there is a decoy on the floor that the entity can see, sets the entity's decoy_ai_tracker to 1 or 2, 
+        depending on whether the attacker who caused the decoy status is on the team or not, respectively.
+
+        r0: Entity pointer
+    - name: AiDecideUseItem
+      address:
+        EU: 0x230F388
+      description: |-
+        Decides whether or not an AI should use its held item and updates its action_data fields accordingly.
+
+        r0: Entity pointer
+    - name: TestItemAiFlag
+      address:
+        EU: 0x200EB48
+      description: |-
+        Returns a boolean indicating whether the item is consumable, throwable at an ally, or throwable at an enemy.
+        The table used for this is inaccessible in the code, as it is loaded from a file in the ROM at runtime.
+
+        r0: item_id enum
+        r1: Integer in {0, 1, 2}. If 0, test if consumable; if 1, test if throwable at ally; if 2, test if throwable at enemy.
   data:
     - name: DUNGEON_STRUCT_SIZE
       address:
@@ -9727,9 +9765,27 @@ overlay29:
       length:
         EU: 0x4
       description: "[Runtime] Pointer to the dungeon fades struct that maintains the status of screen fades in dungeon mode."
-    - name: POSITIONS_COUNTER
+    - name: AI_THROWN_ITEM_ACTION_CHOICE_COUNT
       address:
         EU: 0x23542FC
       length:
         EU: 0x4
-      description: "[Runtime] Used to store the number of positions output by GetPossibleAiThrownItemTargets."
+      description: "[Runtime] Used to store the number of positions output by GetPossibleAiArcItemTargets and the number of directions/probabilities output by GetPossibleAiThrownItemDirections."
+    - name: DIRECTION_BOOLS
+      address:
+        EU: 0x237D5D0
+      length:
+        EU: 0x8
+      description: "[Runtime] Used in GetPossibleAiThrownItemDirections to indicate whether a certain direction enum value is already being used or not."
+    - name: THROWN_ITEM_DIRECTIONS
+      address:
+        EU: 0x237D5D8
+      length:
+        EU: 0x20
+      description: "[Runtime] Used to store the directions output by GetPossibleAiThrownItemDirections."
+    - name: THROWN_ITEM_PROBABILITIES
+      address:
+        EU: 0x237D5F8
+      length:
+        EU: 0x20
+      description: "[Runtime] Used to store the probabilities matching the directions in THROWN_ITEM_DIRECTIONS."
