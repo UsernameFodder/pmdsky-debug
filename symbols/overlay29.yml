@@ -8632,6 +8632,7 @@ overlay29:
 
         r0: item_id enum
         r1: Integer in {0, 1, 2}. If 0, test if consumable; if 1, test if throwable at ally; if 2, test if throwable at enemy.
+        return: bool
   data:
     - name: DUNGEON_STRUCT_SIZE
       address:
