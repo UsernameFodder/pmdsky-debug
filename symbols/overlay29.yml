@@ -9763,7 +9763,7 @@ overlay29:
       length:
         EU: 0x4
       description: "[Runtime] Used to store the number of positions output by GetPossibleAiArcItemTargets and the number of directions/probabilities output by GetPossibleAiThrownItemDirections."
-    - name: AI_DIRECTION_BOOLS
+    - name: AI_THROWN_ITEM_DIRECTION_IS_USED
       address:
         EU: 0x237D5D0
       length:

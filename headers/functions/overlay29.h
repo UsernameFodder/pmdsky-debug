@@ -881,7 +881,7 @@ void GetPossibleAiArcItemTargets(struct entity* user, struct item* item,
                                  struct position* positions, bool always_add_position);
 void GetPossibleAiThrownItemDirections(struct entity* entity, int ally_or_enemy, 
                                        struct item* item, bool always_add);
-void SetDecoyTracker(struct entity* entity);
+void SetDecoyAiTracker(struct entity* entity);
 void AiDecideUseItem(struct entity* entity);
 
 #endif
