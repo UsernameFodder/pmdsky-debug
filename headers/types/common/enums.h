@@ -3887,6 +3887,13 @@ enum box_type {
     BOX_TYPE_INVISIBLE = 0xFB,
 };
 
+// Flags indicating allowed AI actions with an item.
+enum item_flag {
+    ITEM_FLAG_CONSUMABLE = 0,
+    ITEM_FLAG_THROWABLE_AT_ALLY = 1,
+    ITEM_FLAG_THROWABLE_AT_ENEMY = 2,
+};
+
 #pragma pack(push, 1)
 ENUM_8_BIT(box_type);
 #pragma pack(pop)

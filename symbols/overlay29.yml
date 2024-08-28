@@ -8598,7 +8598,8 @@ overlay29:
       address:
         EU: 0x230F824
       description: |-
-        If the entity can throw an item at a target in a certain direction, adds that direction to THROWN_ITEM_DIRECTIONS and the probability of throwing it to THROWN_ITEM_PROBABILITIES.
+        If the entity can throw an item at a target in a certain direction,
+        adds that direction to AI_THROWN_ITEM_DIRECTIONS and the probability of throwing it to AI_THROWN_ITEM_PROBABILITIES (if it is not already present).
         The size of the arrays will be stored in AI_THROWN_ITEM_ACTION_CHOICE_COUNT.
         The caller function will select the direction to throw the item by iterating through the array(s), rolling the probability, and then throwing in that direction if the roll succeeds.
         Nothing will be thrown if all rolls fail.
@@ -8608,7 +8609,7 @@ overlay29:
         r2: Item struct pointer
         r3: If false, will call GetAiUseItemProbability to get the probability of throwing in a certain direction.
         If true, the added probability will always be 100.
-    - name: SetDecoyTracker
+    - name: SetDecoyAiTracker
       address:
         EU: 0x22FBF44
       description: |-
@@ -8623,16 +8624,6 @@ overlay29:
         Decides whether or not an AI should use its held item and updates its action_data fields accordingly.
 
         r0: Entity pointer
-    - name: TestItemAiFlag
-      address:
-        EU: 0x200EB48
-      description: |-
-        Returns a boolean indicating whether the item is consumable, throwable at an ally, or throwable at an enemy.
-        The table used for this is inaccessible in the code, as it is loaded from a file in the ROM at runtime.
-
-        r0: item_id enum
-        r1: Integer in {0, 1, 2}. If 0, test if consumable; if 1, test if throwable at ally; if 2, test if throwable at enemy.
-        return: bool
   data:
     - name: DUNGEON_STRUCT_SIZE
       address:
@@ -9772,19 +9763,19 @@ overlay29:
       length:
         EU: 0x4
       description: "[Runtime] Used to store the number of positions output by GetPossibleAiArcItemTargets and the number of directions/probabilities output by GetPossibleAiThrownItemDirections."
-    - name: DIRECTION_BOOLS
+    - name: AI_DIRECTION_BOOLS
       address:
         EU: 0x237D5D0
       length:
         EU: 0x8
       description: "[Runtime] Used in GetPossibleAiThrownItemDirections to indicate whether a certain direction enum value is already being used or not."
-    - name: THROWN_ITEM_DIRECTIONS
+    - name: AI_THROWN_ITEM_DIRECTIONS
       address:
         EU: 0x237D5D8
       length:
         EU: 0x20
       description: "[Runtime] Used to store the directions output by GetPossibleAiThrownItemDirections."
-    - name: THROWN_ITEM_PROBABILITIES
+    - name: AI_THROWN_ITEM_PROBABILITIES
       address:
         EU: 0x237D5F8
       length:

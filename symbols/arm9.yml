@@ -10370,6 +10370,16 @@ arm9:
         
         r0: Dungeon ID
         return: Dungeon mode
+    - name: TestItemAiFlag
+      address:
+        EU: 0x200EB48
+      description: |-
+        Returns a boolean indicating whether the item is consumable, throwable at an ally, or throwable at an enemy, depending on item_flag.
+        The table used for this is inaccessible in the code, as it is loaded from a file in the ROM at runtime.
+
+        r0: item_id enum
+        r1: item_flag enum. Function will test a different allowed AI action depending on the value.
+        return: bool
   data:
     - name: SECURE
       address:
