@@ -314,8 +314,7 @@ struct action_data {
     struct direction_id_8 direction; // 0x2: Direction in which the action will be performed
     undefined field_0x3;
     struct action_parameter action_parameters[2]; // 0x4: Parameters for the action
-    int16_t arc_item_target_pos_x; // 0x10: Used for storing the target position of an item thrown in an arc, such as a Gravelerock
-    int16_t arc_item_target_pos_y; // 0x12: Used for storing the target position of an item thrown in an arc, such as a Gravelerock
+    struct position arc_item_target_pos; // 0x10: Used for storing the target position of an item thrown in an arc, such as a Gravelerock
 };
 ASSERT_SIZE(struct action_data, 20);
 
