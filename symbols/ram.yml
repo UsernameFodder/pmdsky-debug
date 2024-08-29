@@ -667,12 +667,6 @@ ram:
         This data is populated as the dungeon floor is generated.
         
         type: struct floor_generation_status
-    - name: AI_THROWN_ITEM_ACTION_CHOICE_COUNT
-      address:
-        EU: 0x23542FC
-      length:
-        EU: 0x4
-      description: "[Runtime] Used to store the number of positions output by GetPossibleAiArcItemTargets and the number of directions/probabilities output by GetPossibleAiThrownItemDirections."
     - name: AI_THROWN_ITEM_DIRECTION_IS_USED
       address:
         EU: 0x237D5D0
