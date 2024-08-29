@@ -9757,27 +9757,3 @@ overlay29:
       length:
         EU: 0x4
       description: "[Runtime] Pointer to the dungeon fades struct that maintains the status of screen fades in dungeon mode."
-    - name: AI_THROWN_ITEM_ACTION_CHOICE_COUNT
-      address:
-        EU: 0x23542FC
-      length:
-        EU: 0x4
-      description: "[Runtime] Used to store the number of positions output by GetPossibleAiArcItemTargets and the number of directions/probabilities output by GetPossibleAiThrownItemDirections."
-    - name: AI_THROWN_ITEM_DIRECTION_IS_USED
-      address:
-        EU: 0x237D5D0
-      length:
-        EU: 0x8
-      description: "[Runtime] Used in GetPossibleAiThrownItemDirections to indicate whether a certain direction enum value is already being used or not."
-    - name: AI_THROWN_ITEM_DIRECTIONS
-      address:
-        EU: 0x237D5D8
-      length:
-        EU: 0x20
-      description: "[Runtime] Used to store the directions output by GetPossibleAiThrownItemDirections."
-    - name: AI_THROWN_ITEM_PROBABILITIES
-      address:
-        EU: 0x237D5F8
-      length:
-        EU: 0x20
-      description: "[Runtime] Used to store the probabilities matching the directions in THROWN_ITEM_DIRECTIONS."
