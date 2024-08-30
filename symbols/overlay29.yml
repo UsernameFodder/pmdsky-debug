@@ -2911,6 +2911,7 @@ overlay29:
       address:
         EU: 0x2301244
         NA: 0x2300818
+        JP: 0x2301BFC
       description: |-
         Returns 0 if none of these conditions holds for the given entity:
         blinded (checked only if blind_check == 1),
@@ -9722,6 +9723,8 @@ overlay29:
     - name: AI_THROWN_ITEM_ACTION_CHOICE_COUNT
       address:
         EU: 0x23542FC
+        NA: 0x23536FC
+        JP: 0x235497C
       length:
         EU: 0x4
       description: "[Runtime] Used to store the number of positions output by GetPossibleAiArcItemTargets and the number of directions/probabilities output by GetPossibleAiThrownItemDirections."
