@@ -2382,6 +2382,7 @@ overlay29:
     - name: SetDecoyAiTracker
       address:
         EU: 0x22FBF44
+        NA: 0x22FB538
       description: |-
         If there is a decoy on the floor that the entity can see, sets the entity's decoy_ai_tracker to 1 or 2,
         depending on whether the attacker who caused the decoy status is on the team or not, respectively.
@@ -2909,6 +2910,7 @@ overlay29:
     - name: CheckVariousStatuses2
       address:
         EU: 0x2301244
+        NA: 0x2300818
       description: |-
         Returns 0 if none of these conditions holds for the given entity:
         blinded (checked only if blind_check == 1),
@@ -2920,6 +2922,8 @@ overlay29:
     - name: CheckVariousConditions
       address:
         EU: 0x230156C
+        NA: 0x2300B40
+        JP: 0x2301F24
       description: |-
         Returns 0 if none of these conditions holds for the given entity: is a rescue client,
         doesn’t gain experience (a mission client/story teammate?), is a terrified non-team-leader,
@@ -2930,6 +2934,8 @@ overlay29:
     - name: CheckVariousStatuses
       address:
         EU: 0x23016DC
+        NA: 0x2300CB0
+        JP: 0x2302094
       description: |-
         Returns 0 if none of these conditions holds for the given entity: asleep, frozen, petrified, biding.
         
@@ -3229,6 +3235,8 @@ overlay29:
     - name: MonsterCanThrowItems
       address:
         EU: 0x2302D94
+        NA: 0x2302368
+        JP: 0x23038B8
       description: |-
         Returns a boolean indicating whether or not the given monster can throw items based on its monster id.
         
@@ -3989,6 +3997,8 @@ overlay29:
     - name: AiDecideUseItem
       address:
         EU: 0x230F388
+        NA: 0x230E914
+        JP: 0x230FE50
       description: |-
         Decides whether or not an AI should use its held item and updates its action_data fields accordingly.
         
@@ -3996,6 +4006,8 @@ overlay29:
     - name: GetPossibleAiThrownItemDirections
       address:
         EU: 0x230F824
+        NA: 0x230EDB0
+        JP: 0x23102EC
       description: |-
         If the entity can throw an item at a target in a certain direction,
         adds that direction to AI_THROWN_ITEM_DIRECTIONS and the probability of throwing it to AI_THROWN_ITEM_PROBABILITIES (if it is not already present).
@@ -4011,6 +4023,8 @@ overlay29:
     - name: GetPossibleAiArcItemTargets
       address:
         EU: 0x230FAA0
+        NA: 0x230F02C
+        JP: 0x2310568
       description: |-
         Gets the positions of all targets that an AI can hit with an item thrown in an arc, such as a Gravelerock.
         The number of positions in the array will be stored in AI_THROWN_ITEM_ACTION_CHOICE_COUNT.
@@ -6021,6 +6035,8 @@ overlay29:
     - name: IsChargingAnyTwoTurnMove
       address:
         EU: 0x2325084
+        NA: 0x232461C
+        JP: 0x2325AAC
       description: |-
         Returns a boolean indicating whether or not the given entity is charging any two-turn move.
         
