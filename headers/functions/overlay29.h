@@ -213,6 +213,7 @@ int CountMovesOutOfPp(struct entity* entity);
 bool HasSuperEffectiveMoveAgainstUser(struct entity* user, struct entity* target,
                                       bool ignore_moves_with_max_ginseng_not_99);
 bool TryEatItem(struct entity* user, struct entity* target);
+void SetDecoyAiTracker(struct entity* entity);
 bool CheckSpawnThreshold(enum monster_id monster_id);
 bool HasLowHealth(struct entity* entity);
 bool AreEntitiesAdjacent(struct entity* first, struct entity* second);
@@ -264,6 +265,9 @@ bool IsMonsterMuzzled(struct entity* monster);
 bool MonsterHasMiracleEyeStatus(struct entity* monster);
 bool MonsterHasNegativeStatus(struct entity* monster, bool check_held_item);
 bool IsMonsterSleeping(struct entity* monster);
+bool CheckVariousStatuses2(struct entity* entity, bool blind_check);
+bool CheckVariousConditions(struct entity* entity);
+bool CheckVariousStatuses(struct entity* entity);
 bool CanMonsterMoveInDirection(struct entity* monster, enum direction_id direction);
 enum mobility_type GetDirectionalMobilityType(struct entity* monster,
                                               enum mobility_type base_mobility,
@@ -294,6 +298,7 @@ bool IqSkillIsEnabled(struct entity* entity, enum iq_skill_id iq_id);
 void UpdateIqSkills(struct monster* monster);
 enum type_id GetMoveTypeForMonster(struct entity* entity, struct move* move);
 int GetMovePower(struct entity* entity, struct move* move);
+bool MonsterCanThrowItems(struct monster* monster);
 bool UpdateStateFlags(struct monster* monster, uint16_t mask, bool set_flags);
 bool IsProtectedFromNegativeStatus(struct entity* user, struct entity* target, bool log_message);
 void AddExpSpecial(struct entity* attacker, struct entity* defender, int base_exp);
@@ -385,6 +390,11 @@ bool SpecificRecruitCheck(enum monster_id monster_id);
 bool RecruitCheck(struct entity* user, struct entity* target);
 bool TryRecruit(struct entity* user, struct entity* recruit);
 void TrySpawnMonsterAndTickSpawnCounter(void);
+void AiDecideUseItem(struct entity* entity);
+void GetPossibleAiThrownItemDirections(struct entity* entity, int ally_or_enemy, struct item* item,
+                                       bool always_add);
+void GetPossibleAiArcItemTargets(struct entity* user, struct item* item, struct position* positions,
+                                 bool always_add_position);
 void TryNonLeaderItemPickUp(struct entity* entity);
 bool AuraBowIsActive(struct entity* entity);
 int ExclusiveItemOffenseBoost(struct entity* entity, int move_category_idx);
@@ -602,6 +612,7 @@ bool MoveHitCheck(struct entity* attacker, struct entity* defender, struct move*
                   bool use_second_accuracy, bool never_miss_self);
 bool IsHyperBeamVariant(struct move* move);
 bool IsChargingTwoTurnMove(struct entity* user, struct move* move);
+bool IsChargingAnyTwoTurnMove(struct entity* entity, bool charge_check_unused);
 bool HasMaxGinsengBoost99(struct move* move);
 bool TwoTurnMoveForcedMiss(struct entity* target, struct move* move);
 bool DungeonRandOutcomeUserTargetInteraction(struct entity* user, struct entity* target,

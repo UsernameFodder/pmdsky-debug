@@ -2011,11 +2011,12 @@ arm9:
         NA: 0x200EAA0
         JP: 0x200EAD0
       description: |-
-        Used to check the AI flags for an item. Tests bit 7 if r1 is 0, bit 6 if r1 is 1, bit
-        5 otherwise.
+        Returns a boolean indicating whether the item is consumable, throwable at an ally, or throwable at an enemy, depending on item_flag.
+        The table used for this is inaccessible in the code, as it is loaded from a file in the ROM at runtime.
+        Bit 7 in the table corresponds to ITEM_FLAG_CONSUMABLE, bit 6 to ITEM_FLAG_THROWABLE_AT_ALLY, and bit 5 to ITEM_FLAG_THROWABLE_AT_ENEMY.
         
-        r0: item ID
-        r1: bit_id
+        r0: item_id enum
+        r1: item_flag enum. Function will test a different allowed AI action depending on the value.
         return: bool
     - name: IsItemInTimeDarkness
       address:

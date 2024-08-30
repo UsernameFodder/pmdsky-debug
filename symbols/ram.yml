@@ -606,6 +606,24 @@ ram:
         [Runtime] Pointer to the dynamically allocated structure relating to the currently loaded attack sprite, in dungeon mode.
         
         type: struct loaded_attack_sprite_data*
+    - name: AI_THROWN_ITEM_DIRECTION_IS_USED
+      address:
+        EU: 0x237D5D0
+      length:
+        EU: 0x8
+      description: "[Runtime] Used in GetPossibleAiThrownItemDirections to indicate whether a certain direction enum value is already being used or not."
+    - name: AI_THROWN_ITEM_DIRECTIONS
+      address:
+        EU: 0x237D5D8
+      length:
+        EU: 0x20
+      description: "[Runtime] Used to store the directions output by GetPossibleAiThrownItemDirections."
+    - name: AI_THROWN_ITEM_PROBABILITIES
+      address:
+        EU: 0x237D5F8
+      length:
+        EU: 0x20
+      description: "[Runtime] Used to store the probabilities matching the directions in THROWN_ITEM_DIRECTIONS."
     - name: ROLLOUT_ICE_BALL_MISSED
       address:
         NA: 0x237CA69
