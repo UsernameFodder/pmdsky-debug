@@ -97,11 +97,11 @@ extern enum pack_file_id LOADED_ATTACK_SPRITE_PACK_ID;
 extern struct exclusive_item_effect_id_8 EXCL_ITEM_EFFECTS_WEATHER_ATK_SPEED_BOOST[8];
 extern struct exclusive_item_effect_id_8 EXCL_ITEM_EFFECTS_WEATHER_MOVE_SPEED_BOOST[8];
 extern struct exclusive_item_effect_id_8 EXCL_ITEM_EFFECTS_WEATHER_NO_STATUS[8];
+extern uint32_t AI_THROWN_ITEM_ACTION_CHOICE_COUNT;
 extern struct exclusive_item_effect_id_8 EXCL_ITEM_EFFECTS_EVASION_BOOST[8];
 extern struct tile DEFAULT_TILE;
 extern bool HIDDEN_STAIRS_SPAWN_BLOCKED;
 extern void* FIXED_ROOM_DATA_PTR;
 extern struct dungeon_fades* DUNGEON_FADES_PTR;
-extern uint32_t AI_THROWN_ITEM_ACTION_CHOICE_COUNT;
 
 #endif

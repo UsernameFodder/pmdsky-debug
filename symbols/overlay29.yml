@@ -2379,6 +2379,14 @@ overlay29:
         r0: User
         r1: Target
         return: True if the attempt was successful
+    - name: SetDecoyAiTracker
+      address:
+        EU: 0x22FBF44
+      description: |-
+        If there is a decoy on the floor that the entity can see, sets the entity's decoy_ai_tracker to 1 or 2,
+        depending on whether the attacker who caused the decoy status is on the team or not, respectively.
+        
+        r0: Entity pointer
     - name: CheckSpawnThreshold
       address:
         EU: 0x22FBFF8
@@ -2898,6 +2906,35 @@ overlay29:
         
         r0: entity pointer
         return: bool
+    - name: CheckVariousStatuses2
+      address:
+        EU: 0x2301244
+      description: |-
+        Returns 0 if none of these conditions holds for the given entity:
+        blinded (checked only if blind_check == 1),
+        asleep, paused, infatuated, wrapping, wrapped, biding, petrified, or terrified.
+        
+        r0: Entity pointer
+        r1: If true, return 1 if entity is blinded
+        return: bool
+    - name: CheckVariousConditions
+      address:
+        EU: 0x230156C
+      description: |-
+        Returns 0 if none of these conditions holds for the given entity: is a rescue client,
+        doesn’t gain experience (a mission client/story teammate?), is a terrified non-team-leader,
+        meets any of the conditions in CheckVariousStatuses2 (with blind_check = 0), is charging a two-turn move.
+        
+        r0: Entity pointer
+        return: bool
+    - name: CheckVariousStatuses
+      address:
+        EU: 0x23016DC
+      description: |-
+        Returns 0 if none of these conditions holds for the given entity: asleep, frozen, petrified, biding.
+        
+        r0: Entity pointer
+        return: bool
     - name: CanMonsterMoveInDirection
       address:
         EU: 0x23018A4
@@ -3189,6 +3226,14 @@ overlay29:
         r0: user pointer
         r1: move pointer
         return: move power
+    - name: MonsterCanThrowItems
+      address:
+        EU: 0x2302D94
+      description: |-
+        Returns a boolean indicating whether or not the given monster can throw items based on its monster id.
+        
+        r0: Monster pointer
+        return: bool
     - name: UpdateStateFlags
       address:
         EU: 0x2302DEC
@@ -3941,6 +3986,39 @@ overlay29:
         If the spawn counter is greater than 900, it will instead perform the special spawn caused by the ability Illuminate.
         
         No params.
+    - name: AiDecideUseItem
+      address:
+        EU: 0x230F388
+      description: |-
+        Decides whether or not an AI should use its held item and updates its action_data fields accordingly.
+        
+        r0: Entity pointer
+    - name: GetPossibleAiThrownItemDirections
+      address:
+        EU: 0x230F824
+      description: |-
+        If the entity can throw an item at a target in a certain direction,
+        adds that direction to AI_THROWN_ITEM_DIRECTIONS and the probability of throwing it to AI_THROWN_ITEM_PROBABILITIES (if it is not already present).
+        The size of the arrays will be stored in AI_THROWN_ITEM_ACTION_CHOICE_COUNT.
+        The caller function will select the direction to throw the item by iterating through the array(s), rolling the probability, and then throwing in that direction if the roll succeeds.
+        Nothing will be thrown if all rolls fail.
+        
+        r0: Entity pointer
+        r1: Integer in {1, 2}. If 1, target allies; if 2, target enemies.
+        r2: Item struct pointer
+        r3: If false, will call GetAiUseItemProbability to get the probability of throwing in a certain direction.
+        If true, the added probability will always be 100.
+    - name: GetPossibleAiArcItemTargets
+      address:
+        EU: 0x230FAA0
+      description: |-
+        Gets the positions of all targets that an AI can hit with an item thrown in an arc, such as a Gravelerock.
+        The number of positions in the array will be stored in AI_THROWN_ITEM_ACTION_CHOICE_COUNT.
+        
+        r0: Entity pointer
+        r1: Item struct pointer
+        r2: [output] Array of size 20 for storing position structs
+        r3: If false, will roll GetAiUseItemProbability every time a position is checked and not add it if it rolls false.
     - name: TryNonLeaderItemPickUp
       address:
         EU: 0x230FBD8
@@ -5940,6 +6018,16 @@ overlay29:
         r0: User entity pointer
         r1: Move pointer
         return: True if the user is charging the specified two-turn move, false otherwise.
+    - name: IsChargingAnyTwoTurnMove
+      address:
+        EU: 0x2325084
+      description: |-
+        Returns a boolean indicating whether or not the given entity is charging any two-turn move.
+        
+        r0: Entity pointer
+        r1: Unused boolean which was supposed to make function return true if the entity is under the effect of Charge (the Electric-type move).
+            However, the conditional which uses this boolean will never be activated, as the loop will always terminate before getting to it.
+        return: bool
     - name: HasMaxGinsengBoost99
       address:
         EU: 0x2325200
@@ -8536,94 +8624,6 @@ overlay29:
         Called when the in-dungeon "others" menu is open. Does not return until the menu is closed.
         
         return: Always 0
-    - name: CheckVariousStatuses
-      address:
-        EU: 0x23016DC
-      description: |-
-        Returns 0 if none of these conditions holds for the given entity: asleep, frozen, petrified, biding.
-
-        r0: Entity pointer
-        return: bool
-    - name: CheckVariousStatuses2
-      address:
-        EU: 0x2301244
-      description: |-
-        Returns 0 if none of these conditions holds for the given entity: 
-        blinded (checked only if blind_check == 1), 
-        asleep, paused, infatuated, wrapping, wrapped, biding, petrified, or terrified.
-
-        r0: Entity pointer
-        r1: If true, return 1 if entity is blinded
-        return: bool
-    - name: IsChargingAnyTwoTurnMove
-      address:
-        EU: 0x2325084
-      description: |-
-        Returns a boolean indicating whether or not the given entity is charging any two-turn move.
-
-        r0: Entity pointer
-        r1: Unused boolean which was supposed to make function return true if the entity is under the effect of Charge (the Electric-type move).
-            However, the conditional which uses this boolean will never be activated, as the loop will always terminate before getting to it.
-        return: bool
-    - name: CheckVariousConditions
-      address:
-        EU: 0x230156C
-      description: |-
-        Returns 0 if none of these conditions holds for the given entity: is a rescue client, 
-        doesn’t gain experience (a mission client/story teammate?), is a terrified non-team-leader, 
-        meets any of the conditions in CheckVariousStatuses2 (with blind_check = 0), is charging a two-turn move.
-
-        r0: Entity pointer
-        return: bool
-    - name: MonsterCanThrowItems
-      address:
-        EU: 0x2302D94
-      description: |-
-        Returns a boolean indicating whether or not the given monster can throw items based on its monster id.
-
-        r0: Monster pointer
-        return: bool
-    - name: GetPossibleAiArcItemTargets
-      address:
-        EU: 0x230FAA0
-      description: |-
-        Gets the positions of all targets that an AI can hit with an item thrown in an arc, such as a Gravelerock.
-        The number of positions in the array will be stored in AI_THROWN_ITEM_ACTION_CHOICE_COUNT.
-
-        r0: Entity pointer
-        r1: Item struct pointer
-        r2: [output] Array of size 20 for storing position structs
-        r3: If false, will roll GetAiUseItemProbability every time a position is checked and not add it if it rolls false.
-    - name: GetPossibleAiThrownItemDirections
-      address:
-        EU: 0x230F824
-      description: |-
-        If the entity can throw an item at a target in a certain direction,
-        adds that direction to AI_THROWN_ITEM_DIRECTIONS and the probability of throwing it to AI_THROWN_ITEM_PROBABILITIES (if it is not already present).
-        The size of the arrays will be stored in AI_THROWN_ITEM_ACTION_CHOICE_COUNT.
-        The caller function will select the direction to throw the item by iterating through the array(s), rolling the probability, and then throwing in that direction if the roll succeeds.
-        Nothing will be thrown if all rolls fail.
-
-        r0: Entity pointer
-        r1: Integer in {1, 2}. If 1, target allies; if 2, target enemies.
-        r2: Item struct pointer
-        r3: If false, will call GetAiUseItemProbability to get the probability of throwing in a certain direction.
-        If true, the added probability will always be 100.
-    - name: SetDecoyAiTracker
-      address:
-        EU: 0x22FBF44
-      description: |-
-        If there is a decoy on the floor that the entity can see, sets the entity's decoy_ai_tracker to 1 or 2, 
-        depending on whether the attacker who caused the decoy status is on the team or not, respectively.
-
-        r0: Entity pointer
-    - name: AiDecideUseItem
-      address:
-        EU: 0x230F388
-      description: |-
-        Decides whether or not an AI should use its held item and updates its action_data fields accordingly.
-
-        r0: Entity pointer
   data:
     - name: DUNGEON_STRUCT_SIZE
       address:
@@ -9703,6 +9703,12 @@ overlay29:
         EU: 0x8
         NA: 0x8
       description: Array of IDs for exclusive item effects that grant status immunity with certain weather conditions.
+    - name: AI_THROWN_ITEM_ACTION_CHOICE_COUNT
+      address:
+        EU: 0x23542FC
+      length:
+        EU: 0x4
+      description: "[Runtime] Used to store the number of positions output by GetPossibleAiArcItemTargets and the number of directions/probabilities output by GetPossibleAiThrownItemDirections."
     - name: EXCL_ITEM_EFFECTS_EVASION_BOOST
       address:
         EU: 0x2354310
@@ -9757,9 +9763,3 @@ overlay29:
       length:
         EU: 0x4
       description: "[Runtime] Pointer to the dungeon fades struct that maintains the status of screen fades in dungeon mode."
-    - name: AI_THROWN_ITEM_ACTION_CHOICE_COUNT
-      address:
-        EU: 0x23542FC
-      length:
-        EU: 0x4
-      description: "[Runtime] Used to store the number of positions output by GetPossibleAiArcItemTargets and the number of directions/probabilities output by GetPossibleAiThrownItemDirections."
