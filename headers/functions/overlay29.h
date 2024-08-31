@@ -883,5 +883,8 @@ void DisplayMessageInternal(int message_id, bool wait_for_input, struct portrait
 void OpenMenu(undefined param_1, undefined param_2, bool open_bag);
 int OthersMenuLoop(void);
 undefined OthersMenu(void);
+bool GetExclusiveItemWithEffectFromBag(struct entity* entity, enum exclusive_item_effect_id effect_id, 
+                                       struct item* item);
+bool CanHitWithRegularAttack(struct entity* attacker, struct entity* defender);
 
 #endif
