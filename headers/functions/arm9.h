@@ -275,8 +275,8 @@ bool IsExclusiveItemForMonster(struct item* item, enum monster_id monster_id, en
                                enum type_id type2);
 enum item_id BagHasExclusiveItemTypeForMonster(enum exclusive_item_effect_id effect_id, enum monster_id monster_id,
                                                enum type_id type1, enum type_id type2);
-bool GetExclusiveItemForMonsterFromBag(struct item* item, enum exclusive_item_effect_id effect_id, enum monster_id monster_id,
-                                       enum type_id type1, enum type_id type2);
+bool GetExclusiveItemForMonsterFromBag(struct item* item, enum exclusive_item_effect_id effect_id, 
+                                       enum monster_id monster_id, enum type_id type1, enum type_id type2);
 int GetHpBoostFromExclusiveItems(undefined* param_1);
 void ApplyGummiBoostsToGroundMonster(struct ground_monster* ground_monster, enum item_id item_id,
                                      bool not_boost_stats, struct gummi_result* gummi_result);
