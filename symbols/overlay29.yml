@@ -4045,6 +4045,16 @@ overlay29:
         Used both for enemies and team members.
         
         r0: entity pointer
+    - name: GetExclusiveItemWithEffectFromBag
+      address:
+        EU: 0x23100C8
+      description: |-
+        If an exclusive item with a certain effect is present in the bag and works for the entity, returns true and copies the item struct to the address at item. Otherwise, returns false.
+        
+        r0: Entity pointer
+        r1: exclusive_item_effect_id enum
+        r2: [output] Item pointer
+        return: bool
     - name: AuraBowIsActive
       address:
         EU: 0x231013C
@@ -6290,6 +6300,16 @@ overlay29:
         r3: [output] struct containing info about the damage calculation
         stack[0]: Damage source
         return: Calculated damage
+    - name: CanHitWithRegularAttack
+      address:
+        EU: 0x2333A08
+      description: |-
+        Returns true if the defender is adjacent to the attacker and can hit them with a regular attack.
+        Notably, this check is what prevents ranged moves, moves that cut corners, etc. from being reflected by Magic Coat and Mirror Move.
+        
+        r0: Entity pointer (attacker)
+        r1: Entity pointer (defender)
+        return: bool
     - name: StatusCheckerCheck
       address:
         EU: 0x2333AB4
