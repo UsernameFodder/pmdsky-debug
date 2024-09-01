@@ -396,7 +396,7 @@ void GetPossibleAiThrownItemDirections(struct entity* entity, int ally_or_enemy,
 void GetPossibleAiArcItemTargets(struct entity* user, struct item* item, struct position* positions,
                                  bool always_add_position);
 void TryNonLeaderItemPickUp(struct entity* entity);
-bool GetExclusiveItemWithEffectFromBag(struct entity* entity, 
+bool GetExclusiveItemWithEffectFromBag(struct entity* entity,
                                        enum exclusive_item_effect_id effect_id,
                                        struct item* item);
 bool AuraBowIsActive(struct entity* entity);
