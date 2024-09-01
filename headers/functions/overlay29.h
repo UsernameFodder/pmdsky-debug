@@ -396,6 +396,8 @@ void GetPossibleAiThrownItemDirections(struct entity* entity, int ally_or_enemy,
 void GetPossibleAiArcItemTargets(struct entity* user, struct item* item, struct position* positions,
                                  bool always_add_position);
 void TryNonLeaderItemPickUp(struct entity* entity);
+bool GetExclusiveItemWithEffectFromBag(struct entity* entity, enum exclusive_item_effect_id effect_id, 
+                                       struct item* item);
 bool AuraBowIsActive(struct entity* entity);
 int ExclusiveItemOffenseBoost(struct entity* entity, int move_category_idx);
 int ExclusiveItemDefenseBoost(struct entity* entity, int move_category_idx);
@@ -643,6 +645,7 @@ int DealDamageWithType(struct entity* attacker, struct entity* defender, enum ty
                        struct move* move, fx32_8 damage_mult_fp, enum item_id item_id);
 int PerformDamageSequence(struct entity* attacker, struct entity* defender, struct move* move,
                           struct damage_data* damage_out, union damage_source damage_source);
+bool CanHitWithRegularAttack(struct entity* attacker, struct entity* defender);
 bool StatusCheckerCheck(struct entity* attacker, struct move* move);
 enum weather_id GetApparentWeather(struct entity* entity);
 void TryWeatherFormChange(struct entity* entity);
@@ -883,8 +886,5 @@ void DisplayMessageInternal(int message_id, bool wait_for_input, struct portrait
 void OpenMenu(undefined param_1, undefined param_2, bool open_bag);
 int OthersMenuLoop(void);
 undefined OthersMenu(void);
-bool GetExclusiveItemWithEffectFromBag(struct entity* entity, enum exclusive_item_effect_id effect_id, 
-                                       struct item* item);
-bool CanHitWithRegularAttack(struct entity* attacker, struct entity* defender);
 
 #endif
