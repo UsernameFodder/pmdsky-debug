@@ -273,7 +273,8 @@ bool IsExclusiveItemIdForMonster(enum item_id item_id, enum monster_id monster_i
                                  enum type_id type1, enum type_id type2);
 bool IsExclusiveItemForMonster(struct item* item, enum monster_id monster_id, enum type_id type1,
                                enum type_id type2);
-enum item_id BagHasExclusiveItemTypeForMonster(enum exclusive_item_effect_id effect_id, enum monster_id monster_id,
+enum item_id BagHasExclusiveItemTypeForMonster(enum exclusive_item_effect_id effect_id, 
+                                               enum monster_id monster_id,
                                                enum type_id type1, enum type_id type2);
 bool GetExclusiveItemForMonsterFromBag(struct item* item, enum exclusive_item_effect_id effect_id,
                                        enum monster_id monster_id, enum type_id type1, enum type_id type2);
