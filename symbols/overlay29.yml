@@ -6790,6 +6790,14 @@ overlay29:
         The function checks that dungeon_generation_info::hidden_stairs_pos isn't (-1, -1)
         
         return: True if the hidden stairs are present on this floor, false otherwise.
+    - name: PositionIsOnHiddenStairs
+      address:
+        EU: 0x23392D8
+      description: |-
+        Checks if this location is on top of the hidden stairs.
+        
+        r0: position pointer
+        return: bool
     - name: HiddenStairsTrigger
       address:
         EU: 0x2339364
@@ -6801,12 +6809,36 @@ overlay29:
         If the stairs hadn't been revealed yet, plays the corresponding animation.
         
         r0: True to display a message if the stairs are revealed, false to omit it.
-    - name: GetDungeonGenInfoUnk0C
+    - name: GetHiddenStairsField
+      address:
+        EU: 0x2339420
+      description: |-
+        Gets the hidden_stairs_type variable from dungeon::dungeon_generation_info.
+        
+        return: enum hidden_stairs_type
+    - name: SetHiddenStairsField
+      address:
+        EU: 0x2339438
+      description: |-
+        Sets the hidden_stairs_type variable from dungeon::dungeon_generation_info to a certain value.
+        
+        r0: New value
+    - name: GetHiddenFloorField
       address:
         EU: 0x2339450
         NA: 0x2338880
         JP: 0x2339C44
-      description: "return: dungeon_generation_info::field_0xc"
+      description: |-
+        Gets the hidden_floor_type variable from dungeon::dungeon_generation_info.
+        
+        return: enum hidden_stairs_type
+    - name: SetHiddenFloorField
+      address:
+        EU: 0x2339468
+      description: |-
+        Sets the hidden_floor_type variable from dungeon::dungeon_generation_info to a certain value.
+        
+        r0: New value
     - name: GetMinimapData
       address:
         EU: 0x2339CE8
