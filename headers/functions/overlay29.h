@@ -695,7 +695,7 @@ bool IsSecretRoom(void);
 bool IsSecretFloor(void);
 enum hidden_stairs_type GetCurrentHiddenStairsType(void);
 bool HiddenStairsPresent(void);
-bool PositionIsOnHiddenStairs(struct position* position)
+bool PositionIsOnHiddenStairs(struct position* position);
 void HiddenStairsTrigger(bool show_message);
 enum hidden_stairs_type GetHiddenStairsType(void);
 void SetHiddenStairsType(enum hidden_stairs_type);
