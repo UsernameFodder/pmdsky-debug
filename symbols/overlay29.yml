@@ -6815,7 +6815,7 @@ overlay29:
       description: |-
         Gets the hidden_stairs_type variable from dungeon::dungeon_generation_info.
 
-        return: hidden_stairs_type
+        return: enum hidden_stairs_type
     - name: SetHiddenStairsField
       address:
         EU: 0x2339438
@@ -6831,7 +6831,7 @@ overlay29:
       description: |-
         Gets the hidden_floor_type variable from dungeon::dungeon_generation_info.
 
-        return: hidden_stairs_type
+        return: enum hidden_stairs_type
     - name: SetHiddenFloorField
       address:
         EU: 0x2339468
