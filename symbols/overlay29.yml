@@ -6814,14 +6814,14 @@ overlay29:
         EU: 0x2339420
       description: |-
         Gets the hidden_stairs_type variable from dungeon::dungeon_generation_info.
-
+        
         return: enum hidden_stairs_type
     - name: SetHiddenStairsField
       address:
         EU: 0x2339438
       description: |-
         Sets the hidden_stairs_type variable from dungeon::dungeon_generation_info to a certain value.
-
+        
         r0: New value
     - name: GetHiddenFloorField
       address:
@@ -6830,14 +6830,14 @@ overlay29:
         JP: 0x2339C44
       description: |-
         Gets the hidden_floor_type variable from dungeon::dungeon_generation_info.
-
+        
         return: enum hidden_stairs_type
     - name: SetHiddenFloorField
       address:
         EU: 0x2339468
       description: |-
         Sets the hidden_floor_type variable from dungeon::dungeon_generation_info to a certain value.
-
+        
         r0: New value
     - name: GetMinimapData
       address:
