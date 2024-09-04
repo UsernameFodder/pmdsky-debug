@@ -6793,6 +6793,8 @@ overlay29:
     - name: PositionIsOnHiddenStairs
       address:
         EU: 0x23392D8
+        NA: 0x2338708
+        JP: 0x2339ACC
       description: |-
         Checks if this location is on top of the hidden stairs.
         
@@ -6812,6 +6814,8 @@ overlay29:
     - name: GetHiddenStairsField
       address:
         EU: 0x2339420
+        NA: 0x2338850
+        JP: 0x2339C14
       description: |-
         Gets the hidden_stairs_type variable from dungeon::dungeon_generation_info.
         
@@ -6819,6 +6823,8 @@ overlay29:
     - name: SetHiddenStairsField
       address:
         EU: 0x2339438
+        NA: 0x2338868
+        JP: 0x2339C2C
       description: |-
         Sets the hidden_stairs_type variable from dungeon::dungeon_generation_info to a certain value.
         
@@ -6835,6 +6841,8 @@ overlay29:
     - name: SetHiddenFloorField
       address:
         EU: 0x2339468
+        NA: 0x2338898
+        JP: 0x2339C5C
       description: |-
         Sets the hidden_floor_type variable from dungeon::dungeon_generation_info to a certain value.
         
