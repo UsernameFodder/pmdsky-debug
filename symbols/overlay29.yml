@@ -495,7 +495,10 @@ overlay29:
     - name: PopulateActiveMonsterPtrs
       address:
         EU: 0x22E32B8
-      description: Populates active_monster_ptrs with all valid monsters in the monster_slot_headers array.
+      description: |-
+        Populates active_monster_ptrs with all valid monsters in the monster_slot_headers array.
+        
+        No params.
     - name: GetTeamMemberIndex
       address:
         EU: 0x22E3378
