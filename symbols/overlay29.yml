@@ -779,7 +779,7 @@ overlay29:
         EU: 0x22E8598
       description: |-
         Copies the array at spawn_entries_master, starting from offset, to spawn_entries and returns the number of elements copied.
-
+        
         r0: [output] Size 16 monster_spawn_entry array
         r1: Offset (always 0 in practice)
         return: int
