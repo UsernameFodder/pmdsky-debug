@@ -34,7 +34,7 @@ bool ShouldDisplayEntityWrapper(struct entity* entity);
 bool CanSeeTarget(struct entity* user, struct entity* target);
 bool CanTargetEntity(struct entity* user, struct entity* target);
 bool CanTargetPosition(struct entity* monster, struct position* position);
-void PopulateActiveMonsterPtrs();
+void PopulateActiveMonsterPtrs(void);
 int GetTeamMemberIndex(struct entity* monster);
 void SubstitutePlaceholderStringTags(int string_id, struct entity* entity, undefined4 param_3);
 bool UpdateMapSurveyorFlag(void);
