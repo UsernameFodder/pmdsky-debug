@@ -492,6 +492,13 @@ overlay29:
         r0: Entity pointer
         r1: Target position
         return: True if the specified monster can target the target position, false otherwise.
+    - name: PopulateActiveMonsterPtrs
+      address:
+        EU: 0x22E32B8
+      description: |-
+        Populates active_monster_ptrs with all valid monsters in the monster_slot_headers array.
+        
+        No params.
     - name: GetTeamMemberIndex
       address:
         EU: 0x22E3378
@@ -770,6 +777,15 @@ overlay29:
         
         r0: Which item list to use
         return: Item ID
+    - name: CopySpawnEntriesMaster
+      address:
+        EU: 0x22E8598
+      description: |-
+        Copies the array at spawn_entries_master, starting from offset, to spawn_entries and returns the number of elements copied.
+        
+        r0: [output] Size 16 monster_spawn_entry array
+        r1: Offset (always 0 in practice)
+        return: int
     - name: MonsterSpawnListPartialCopy
       address:
         EU: 0x22E8610
