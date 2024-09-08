@@ -495,6 +495,8 @@ overlay29:
     - name: PopulateActiveMonsterPtrs
       address:
         EU: 0x22E32B8
+        NA: 0x22E2978
+        JP: 0x22E400C
       description: |-
         Populates active_monster_ptrs with all valid monsters in the monster_slot_headers array.
         
@@ -780,6 +782,8 @@ overlay29:
     - name: CopySpawnEntriesMaster
       address:
         EU: 0x22E8598
+        NA: 0x22E7BE8
+        JP: 0x22E9254
       description: |-
         Copies the array at spawn_entries_master, starting from offset, to spawn_entries and returns the number of elements copied.
         
