@@ -82,7 +82,12 @@ overlay10:
     JP: 0x1F6A0
   description: Hard-coded immediate values (literals) in instructions within overlay 10.
   functions: []
-  data: []
+  data:
+    - name: DEFEAT_ITEM_LOSS_CHANCE
+      address:
+        EU: 0x22C3560
+        NA: 0x22C2C08
+      description: Chance of losing each individual bag item after being defeated in a dungeon (50%).
 overlay11:
   versions:
     - EU
