@@ -717,6 +717,14 @@ overlay29:
         Displays the graphical effect on a monster that just recovered PP.
         
         r0: entity pointer
+    - name: ShouldDisplayEntityAdvanced
+      address:
+        EU: 0x22E6880
+      description: |-
+        Returns whether or not the entity should be displayed, using the same checks as ShouldDisplayEntity except also checking whether it is visible and whether the camera entity is blinded.
+        
+        r0: entity pointer
+        return: bool
     - name: PlayEffectAnimation0x1A9
       address:
         EU:
@@ -2935,7 +2943,7 @@ overlay29:
       description: |-
         Returns 0 if none of these conditions holds for the given entity:
         blinded (checked only if blind_check == 1),
-        asleep, paused, infatuated, wrapping, wrapped, biding, petrified, or terrified.
+        asleep, frozen, paused, infatuated, wrapping, wrapped, biding, petrified, or terrified.
         
         r0: Entity pointer
         r1: If true, return 1 if entity is blinded

@@ -483,11 +483,11 @@ struct monster {
     // or when using the Gone Pebble? Also hardcoded to be set to 0 for monsters that generally
     // tend to float? Otherwise 1?
     bool field_0x171;
-    // 0x172: Set when the leader and falling through a pitfall trap.
+    // 0x172: Set when the leader and falling through a pitfall trap. If both this and pitfall_trap_flag_0x174 are set, the sprite will disappear.
     bool pitfall_trap_flag_0x172;
     // 0x173: Some kind of visual flag?
     bool field_0x173;
-    // 0x174: Set when the leader and falling through a pitfall trap.
+    // 0x174: Set when the leader and falling through a pitfall trap. If both this and pitfall_trap_flag_0x172 are set, the sprite will disappear.
     bool pitfall_trap_flag_0x174;
     undefined field_0x175;
     undefined field_0x176;
@@ -533,7 +533,7 @@ struct monster {
     undefined field_0x199;
     undefined field_0x19a;
     undefined field_0x19b;
-    struct position pos; // 0x19C: Mirror of the position on the entity struct
+    struct position pos; // 0x19C: Mirror of the position on the entity struct. Is not updated properly in certain cases, such as in MoveMonsterToPos.
     undefined field_0x1a0;
     undefined field_0x1a1;
     undefined field_0x1a2;
@@ -1247,7 +1247,7 @@ struct effect_animation {
     int field_0x14;
     uint8_t field_0x18;
     int8_t field_0x19;
-    uint8_t field_0x1a;
+    uint8_t is_non_blocking; // Is non-zero if the animation is non-blocking. In this case, the animation will be delayed until the next time AnimationDelayOrSomething is called.
     uint8_t field_0x1b;
 };
 ASSERT_SIZE(struct effect_animation, 28);
