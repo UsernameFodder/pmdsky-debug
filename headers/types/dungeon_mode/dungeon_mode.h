@@ -535,7 +535,7 @@ struct monster {
     undefined field_0x199;
     undefined field_0x19a;
     undefined field_0x19b;
-    struct position pos; // 0x19C: Mirror of the position on the entity struct. Is not 
+    struct position pos; // 0x19C: Mirror of the position on the entity struct. Is not
     // updated properly in certain cases, such as in MoveMonsterToPos.
     undefined field_0x1a0;
     undefined field_0x1a1;
