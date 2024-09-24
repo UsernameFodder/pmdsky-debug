@@ -1247,7 +1247,7 @@ struct effect_animation {
     int field_0x8;
     int animation_index; // 0xC: Some sort of index into the file. Related animations are
     // grouped together into the same file and indexed with this. Is used as the
-    // animation_id parameter in SetAnimationForAnimationControlInternal.
+    // animation_key parameter in SetAnimationForAnimationControl.
     int se_id; // 0x10: Sound effect id, passed to PlaySeByIdVolume
     int field_0x14;
     uint8_t field_0x18;
