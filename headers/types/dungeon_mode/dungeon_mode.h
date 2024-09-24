@@ -1243,16 +1243,18 @@ ASSERT_SIZE(struct trap_animation, 2);
 // Unverified, ported from Irdkwia's notes
 struct effect_animation {
     int field_0x0;
-    int field_0x4;
+    int file_index; // 0x4: File index in pack 3 (effect.bin)
     int field_0x8;
-    int field_0xc;
-    int field_0x10;
+    int animation_index; // 0xC: Some sort of index into the file. Related animations are
+    // grouped together into the same file and indexed with this. Is used as the
+    // animation_id parameter in SetAnimationForAnimationControlInternal.
+    int se_id; // 0x10: Sound effect id, passed to PlaySeByIdVolume
     int field_0x14;
     uint8_t field_0x18;
     int8_t field_0x19;
-    uint8_t is_non_blocking; // Is non-zero if the animation is non-blocking. In this case,
+    uint8_t is_non_blocking; // 0x1A: Is non-zero if the animation is non-blocking. In this case,
     // the animation will be delayed until the next time AnimationDelayOrSomething is called.
-    uint8_t field_0x1b;
+    uint8_t unk_repeat; // 0x1B: If non-zero, makes the animation repeat a bunch of times
 };
 ASSERT_SIZE(struct effect_animation, 28);
 
