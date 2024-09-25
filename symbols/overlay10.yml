@@ -149,6 +149,7 @@ overlay10:
         JP: 0x22C10A8
       description: |-
         Just a guess. This is called in a loop in PlayEffectAnimation, and the output controls whether or not AdvanceFrame continues to be called.
+        If the current effect animation's is_non_blocking field is set, the function will return false the very first time it is called.
         
         r0: ?
         return: whether or not the animation still has more frames left?
