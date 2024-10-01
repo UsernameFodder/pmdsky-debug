@@ -483,13 +483,13 @@ struct monster {
     // or when using the Gone Pebble? Also hardcoded to be set to 0 for monsters that generally
     // tend to float? Otherwise 1?
     bool field_0x171;
-    // 0x172: Set when the leader and falling through a pitfall trap. If both this
-    // and pitfall_trap_flag_0x174 are set, the sprite will disappear.
+    // 0x172: Set when the leader and falling through a pitfall trap.
+    // If both this and pitfall_trap_flag_0x174 are set, the sprite will disappear.
     bool pitfall_trap_flag_0x172;
     // 0x173: Some kind of visual flag?
     bool field_0x173;
-    // 0x174: Set when the leader and falling through a pitfall trap. If both this
-    // and pitfall_trap_flag_0x172 are set, the sprite will disappear.
+    // 0x174: Set when the leader and falling through a pitfall trap.
+    // If both this and pitfall_trap_flag_0x172 are set, the sprite will disappear.
     bool pitfall_trap_flag_0x174;
     undefined field_0x175;
     undefined field_0x176;
@@ -535,8 +535,9 @@ struct monster {
     undefined field_0x199;
     undefined field_0x19a;
     undefined field_0x19b;
-    struct position pos; // 0x19C: Mirror of the position on the entity struct. Is not
-    // updated properly in certain cases, such as in MoveMonsterToPos.
+    // 0x19C: Mirror of the position on the entity struct.
+    // Is not updated properly in certain cases, such as in MoveMonsterToPos.
+    struct position pos;
     undefined field_0x1a0;
     undefined field_0x1a1;
     undefined field_0x1a2;
@@ -1245,15 +1246,17 @@ struct effect_animation {
     int field_0x0;
     int file_index; // 0x4: File index in pack 3 (effect.bin)
     int field_0x8;
-    int animation_index; // 0xC: Some sort of index into the file. Related animations are
-    // grouped together into the same file and indexed with this. Is used as the
-    // animation_key parameter in SetAnimationForAnimationControl.
+    // 0xC: Some sort of index into the file. Related animations are grouped together into the same
+    // file and indexed with this. Is used as the animation_key parameter in
+    // SetAnimationForAnimationControl.
+    int animation_index;
     int se_id; // 0x10: Sound effect id, passed to PlaySeByIdVolume
     int field_0x14;
     uint8_t field_0x18;
     int8_t field_0x19;
-    uint8_t is_non_blocking; // 0x1A: Is non-zero if the animation is non-blocking. In this case,
-    // the animation will be delayed until the next time AnimationDelayOrSomething is called.
+    // 0x1A: Is non-zero if the animation is non-blocking. In this case, the animation will be
+    // delayed until the next time AnimationDelayOrSomething is called.
+    uint8_t is_non_blocking;
     uint8_t unk_repeat; // 0x1B: If non-zero, makes the animation repeat a bunch of times
 };
 ASSERT_SIZE(struct effect_animation, 28);
