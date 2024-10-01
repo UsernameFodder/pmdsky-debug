@@ -45,7 +45,7 @@ overlay31:
         EU: 0x2383AD4
       description: |-
         Called when the leader steps on any stairs tile (regular, warp zone, rescue point, hidden stairs).
-
+        
         Allocates a stairs_menu struct at the address pointed to by STAIRS_MENU_PTR with information for HandleStairsMenu.
 
         r0: Entity pointer (in practice, always the leader)
@@ -61,7 +61,7 @@ overlay31:
         EU: 0x2383BBC
       description: |-
         Handles displaying the stairs menu and is called on each frame while it is open, also updating the leader's action fields.
-        
+
         Uses a switch statement based on the state field in stairs_menu to determine what actions to take.
         
         return: int
