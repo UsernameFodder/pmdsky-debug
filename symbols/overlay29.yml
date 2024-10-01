@@ -248,7 +248,7 @@ overlay29:
         
         Floor types:
           0 appears to mean the current floor is "normal"
-          1 means the current floor is a fixed floor with Is Free Layout enabled
+          1 means the current floor is a fixed floor with warp zones enabled
           2 means the current floor has a rescue point
         
         return: floor type
