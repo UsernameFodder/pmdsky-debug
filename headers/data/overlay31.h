@@ -40,6 +40,5 @@ extern struct window_params DUNGEON_WINDOW_PARAMS_29;
 extern struct window_params DUNGEON_WINDOW_PARAMS_30;
 extern struct window_params DUNGEON_WINDOW_PARAMS_31;
 extern struct window_params DUNGEON_WINDOW_PARAMS_32;
-extern struct stairs_menu* STAIRS_MENU_PTR;
 
 #endif
