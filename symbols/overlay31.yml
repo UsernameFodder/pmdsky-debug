@@ -47,14 +47,14 @@ overlay31:
         Called when the leader steps on any stairs tile (regular, warp zone, rescue point, hidden stairs).
         
         Allocates a stairs_menu struct at the address pointed to by STAIRS_MENU_PTR with information for HandleStairsMenu.
-
+        
         r0: Entity pointer (in practice, always the leader)
     - name: StairsSubheadingCallback
       address:
         EU: 0x2383B68
       description: |-
         Callback function passed to CreateAdvancedTextBox for creating the subheading for the stairs menu.
-
+        
         r0: window_id
     - name: HandleStairsMenu
       address:
