@@ -40,6 +40,31 @@ overlay31:
         Note: unverified, ported from Irdkwia's notes
         
         r0: appears to be an index of some sort, probably the menu index based on the function name?
+    - name: CreateStairsMenuState
+      address:
+        EU: 0x2383AD4
+      description: |-
+        Called when the leader steps on any stairs tile (regular, warp zone, rescue point, hidden stairs).
+
+        Allocates a stairs_menu struct at the address pointed to by STAIRS_MENU_PTR with information for HandleStairsMenu.
+
+        r0: Entity pointer (in practice, always the leader)
+    - name: StairsSubheadingCallback
+      address:
+        EU: 0x2383B68
+      description: |-
+        Callback function passed to CreateAdvancedTextBox for creating the subheading for the stairs menu.
+
+        r0: window_id
+    - name: HandleStairsMenu
+      address:
+        EU: 0x2383BBC
+      description: |-
+        Handles displaying the stairs menu and is called on each frame while it is open, also updating the leader's action fields.
+
+        Uses a switch statement based on the state field in stairs_menu to determine what actions to take.
+
+        return: int
     - name: MovesMenu
       address:
         EU: 0x2385DC0
@@ -693,3 +718,10 @@ overlay31:
         NA: 0x4
         JP: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"
+    - name: STAIRS_MENU_PTR
+      address:
+        EU: 0x238AEC4
+      length:
+        NA: 0x4
+        JP: 0x4
+      description: Pointer to the stairs_menu struct.
