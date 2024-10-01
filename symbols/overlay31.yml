@@ -61,7 +61,7 @@ overlay31:
         EU: 0x2383BBC
       description: |-
         Handles displaying the stairs menu and is called on each frame while it is open, also updating the leader's action fields.
-
+        
         Uses a switch statement based on the state field in stairs_menu to determine what actions to take.
         
         return: int
