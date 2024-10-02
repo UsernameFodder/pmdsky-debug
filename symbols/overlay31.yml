@@ -43,6 +43,8 @@ overlay31:
     - name: CreateStairsMenuState
       address:
         EU: 0x2383AD4
+        NA: 0x2382ED4
+        JP: 0x2384154
       description: |-
         Called when the leader steps on any stairs tile (regular, warp zone, rescue point, hidden stairs).
         
@@ -52,6 +54,8 @@ overlay31:
     - name: StairsSubheadingCallback
       address:
         EU: 0x2383B68
+        NA: 0x2382F68
+        JP: 0x23841E8
       description: |-
         Callback function passed to CreateAdvancedTextBox for creating the subheading for the stairs menu.
         
@@ -59,6 +63,8 @@ overlay31:
     - name: HandleStairsMenu
       address:
         EU: 0x2383BBC
+        NA: 0x2382FBC
+        JP: 0x238423C
       description: |-
         Handles displaying the stairs menu and is called on each frame while it is open, also updating the leader's action fields.
         
