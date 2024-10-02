@@ -3894,6 +3894,14 @@ enum item_flag {
     ITEM_FLAG_THROWABLE_AT_ENEMY = 2,
 };
 
+// Type of stairs
+enum stairs_type {
+    STAIRS_TYPE_NORMAL = 0,
+    STAIRS_TYPE_WARP_ZONE = 1,
+    STAIRS_TYPE_RESCUE_POINT = 2,
+    STAIRS_TYPE_HIDDEN = 3,
+};
+
 #pragma pack(push, 1)
 ENUM_8_BIT(box_type);
 #pragma pack(pop)

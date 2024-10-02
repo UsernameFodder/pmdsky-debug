@@ -1077,4 +1077,18 @@ struct inventory_menu {
 };
 ASSERT_SIZE(struct inventory_menu, 420);
 
+// Used for creating the stairs menu.
+struct stairs_menu {
+    undefined4 field_0x0;
+    undefined4 field_0x4;
+    struct entity* entity; // 0x8: Seems to always point to the leader?
+    // 0xC: Used for switching in HandleStairsMenu.
+    // Seems to be 0 when opening the main stairs menu, 1 when the main stairs menu is open,
+    // 3 when opening the info menu, and 4 when the info menu is open.
+    int state;
+    undefined4 unk_info_menu_var; // 0x10: Has something to do with opening the "Info" menu
+    enum stairs_type stairs_type; // 0x14: Which stairs menu to display
+};
+ASSERT_SIZE(struct stairs_menu, 24);
+
 #endif

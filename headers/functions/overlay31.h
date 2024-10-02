@@ -4,6 +4,9 @@
 void EntryOverlay31(void);
 void DrawDungeonMenuStatusWindow(int param_1);
 void DungeonMenuSwitch(int idx);
+void CreateStairsMenuState(struct entity* entity);
+void StairsSubheadingCallback(int window_id);
+int HandleStairsMenu(void);
 void MovesMenu(struct action_data* action);
 bool HandleMovesMenuWrapper0(undefined* param_1, undefined param_2, undefined param_3,
                              int monster_index);
