@@ -720,6 +720,8 @@ overlay29:
     - name: ShouldDisplayEntityAdvanced
       address:
         EU: 0x22E6880
+        NA: 0x22E5ED0
+        JP: 0x22E7540
       description: |-
         Returns whether or not the entity should be displayed, using the same checks as ShouldDisplayEntity except also checking whether it is visible and whether the camera entity is blinded.
         
