@@ -4810,7 +4810,7 @@ arm9:
       description: |-
         Gets the string corresponding to the player's current explorer rank.
         
-        r0: [output] str
+        r0: [output] Pointer to the buffer where the string will be written
         r1: First 16 bits contain the rank, next 4 are some sort of bitflags
         return: r0 if flags are 0, pointer to some static address otherwise
     - name: GetCurrentTeamNameString
