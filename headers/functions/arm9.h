@@ -498,6 +498,7 @@ int AtoiTagVeneer(const char* s);
 void InitPreprocessorArgs(struct preprocessor_args* args);
 char* SetStringAccuracy(char* s, int param_2);
 char* SetStringPower(char* s, int param_2);
+char* GetRankString(char* s, int rank_and_flags);
 char* GetCurrentTeamNameString(char* buffer, int param_2);
 char* GetBagNameString(char* buffer);
 char* GetDungeonResultString(int string_number);
@@ -533,6 +534,8 @@ void LoadCursors(void);
 void InitWindowTrailer(struct window_trailer* trailer);
 void LoadAlert(void);
 void PrintClearMark(int mark_id, int x, int y, undefined param_4);
+void PrintBadgeMark(enum rank badge_id, int x, int y, undefined param_4);
+void PrintMark(int file, int id_in_file, int x, int y, undefined param_5);
 int CreateParentMenuFromStringIds(struct window_params* params, struct window_flags flags,
                                   struct window_extra_info* window_extra_info,
                                   struct simple_menu_id_item* menu_items);

@@ -4804,6 +4804,15 @@ arm9:
         NA: 0x2024428
         JP: 0x2024478
       description: "Note: unverified, ported from Irdkwia's notes"
+    - name: GetRankString
+      address:
+        EU: 0x2024D88
+      description: |-
+        Gets the string corresponding to the player's current explorer rank.
+        
+        r0: [output] Pointer to the buffer where the string will be written
+        r1: First 16 bits contain the rank, next 4 are some sort of bitflags
+        return: r0 if flags are 0, pointer to some static address otherwise
     - name: GetCurrentTeamNameString
       address:
         EU: 0x2024F00
@@ -5211,6 +5220,29 @@ arm9:
         r1: X pos (unknown units, usually ranges between 3 and 27)
         r2: Y pos (unknown units, normally 14)
         r3: ?
+    - name: PrintBadgeMark
+      address:
+        EU: 0x202A728
+      description: |-
+        Prints the specified badge mark on the screen.
+        
+        The badge mark is shown when opening the menu in the overworld.
+        
+        r0: Badge ID
+        r1: X pos (unknown units, always 3)
+        r2: Y pos (unknown units, always 18)
+        r3: ? (always 3)
+    - name: PrintMark
+      address:
+        EU: 0x202A750
+      description: |-
+        Prints a mark from one of the .w16 files in FONT.
+        
+        r0: 0 if file is clrmark1.w16, 1 if file is clrmark2.w16, 2 if file is rankmark.w16.
+        r1: Mark ID in file
+        r2: X pos (unknown units)
+        r3: Y pos (unknown units)
+        stack[0]: ?
     - name: CreateParentMenuFromStringIds
       address:
         EU: 0x202A8C0
