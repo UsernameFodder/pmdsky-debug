@@ -381,6 +381,24 @@ overlay29:
         
         r0: Entity pointer
         r1: Pixel position to use, or null to use the entity's own position
+    - name: SetEntityPixelPosXY
+      address:
+        EU: 0x22E23C4
+        NA: 0x22E1A84
+        JP: 0x22E3114
+      description: |-
+        r0: Entity pointer
+        r1: x
+        r2: y
+    - name: IncrementEntityPixelPosXY
+      address:
+        EU: 0x22E23D0
+        NA: 0x22E1A90
+        JP: 0x22E3120
+      description: |-
+        r0: Entity pointer
+        r1: x
+        r2: y
     - name: CreateEnemyEntity
       address:
         EU: 0x22E2A00
