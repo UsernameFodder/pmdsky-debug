@@ -4807,6 +4807,8 @@ arm9:
     - name: GetRankString
       address:
         EU: 0x2024D88
+        NA: 0x2024AF4
+        JP: 0x2024B44
       description: |-
         Gets the string corresponding to the player's current explorer rank.
         
@@ -5223,6 +5225,8 @@ arm9:
     - name: PrintBadgeMark
       address:
         EU: 0x202A728
+        NA: 0x202A434
+        JP: 0x202A78C
       description: |-
         Prints the specified badge mark on the screen.
         
@@ -5235,6 +5239,8 @@ arm9:
     - name: PrintMark
       address:
         EU: 0x202A750
+        NA: 0x202A45C
+        JP: 0x202A7B4
       description: |-
         Prints a mark from one of the .w16 files in FONT.
         

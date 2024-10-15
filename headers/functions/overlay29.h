@@ -24,6 +24,8 @@ struct trap* GetTrapInfo(struct entity* trap_entity);
 struct item* GetItemInfo(struct entity* item_entity);
 struct tile* GetTileAtEntity(struct entity* entity);
 void UpdateEntityPixelPos(struct entity* entity, struct pixel_position* pixel_pos);
+void SetEntityPixelPosXY(struct entity* entity, uint32_t x, uint32_t y);
+void IncrementEntityPixelPosXY(struct entity* entity, uint32_t x, uint32_t y);
 struct entity* CreateEnemyEntity(enum monster_id monster_id);
 struct entity* SpawnTrap(enum trap_id trap_id, struct position* position, uint8_t team,
                          uint8_t flags);
