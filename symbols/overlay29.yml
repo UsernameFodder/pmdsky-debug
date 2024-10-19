@@ -6745,6 +6745,15 @@ overlay29:
         Sets the boost_kecleon_shop_spawn_chance field on the dungeon struct depending on if a team member has the exclusive item effect for more kecleon shops.
         
         No params.
+    - name: GetDoughSeedFlag
+      address:
+        EU: 0x2339100
+        NA: 0x2338530
+        JP: 0x23398F4
+      description: |-
+        Gets the dough_seed_extra_money_flag field on the dungeon struct.
+        
+        return: bool
     - name: SetDoughSeedFlag
       address:
         EU: 0x2339118

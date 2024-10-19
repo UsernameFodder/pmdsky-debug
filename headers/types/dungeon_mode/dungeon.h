@@ -1382,7 +1382,7 @@ struct dungeon {
     struct position trapper_orb_trap_pos;
     // 0x12AAE: Trap ID to spawn the trap by trapper_orb_flag. Notably, the game
     // will always set this to 0x19, but could work with other values.
-    struct trap_id_8 traper_orb_trap_id;
+    struct trap_id_8 trapper_orb_trap_id;
     // 0x12AAF: Alignment to spawn the trap by trapper_orb_flag.
     uint8_t trapper_orb_trap_team;
     undefined field_0x12ab0;

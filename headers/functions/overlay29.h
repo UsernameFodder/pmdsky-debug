@@ -690,6 +690,7 @@ bool TryActivateGravity(void);
 bool ShouldBoostKecleonShopSpawnChance(void);
 void SetShouldBoostKecleonShopSpawnChance(bool value);
 void UpdateShouldBoostKecleonShopSpawnChance(void);
+bool GetDoughSeedFlag(void);
 void SetDoughSeedFlag(bool value);
 void TrySpawnDoughSeedPoke(void);
 bool IsSecretBazaar(void);
