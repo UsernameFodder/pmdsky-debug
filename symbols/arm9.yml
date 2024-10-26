@@ -4968,6 +4968,12 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         No params.
+    - name: AllocateTemp1024ByteBufferFromPool
+      address:
+        EU: 0x2025B54
+        NA: 0x2025888
+        JP: 0x2025868
+      description: "return: Pointer to byte buffer"
     - name: GetStringFromFileVeneer
       address:
         EU: 0x2025B84
@@ -12538,6 +12544,7 @@ arm9:
       address:
         EU: 0x20AFF54
         NA: 0x20AF69C
+        JP: 0x20B0ADC
       length:
         EU: 0x4
         NA: 0x4
@@ -12551,6 +12558,7 @@ arm9:
       address:
         EU: 0x20AFF58
         NA: 0x20AF6A0
+        JP: 0x20B0AE0
       length:
         EU: 0x18
         NA: 0x18

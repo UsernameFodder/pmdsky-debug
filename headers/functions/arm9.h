@@ -512,6 +512,7 @@ void StrcpyName(char* dest, const char* src);
 void StrncpyName(char* dest, const char* src, uint32_t n);
 void GetStringFromFile(char* buf, int string_id);
 void LoadStringFile(void);
+uint8_t* AllocateTemp1024ByteBufferFromPool(void);
 void GetStringFromFileVeneer(char* buf, int string_id);
 char* StringFromId(int string_id);
 void CopyStringFromId(char* buf, int string_id);
