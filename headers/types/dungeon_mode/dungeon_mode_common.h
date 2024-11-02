@@ -55,7 +55,7 @@ struct move {
     uint16_t flags2_unk7 : 1;
     bool f_multitalent_iq_pp_boost : 1; // The IQ skill Multitalent is actively boosting move PP
     bool f_exclusive_item_pp_boost : 1; // A PP-boosting exclusive item is in effect
-    bool f_unknown_pp_boost: 1; // A PP-boosting effect? Possibly unused?
+    bool f_unknown_pp_boost : 1;        // A PP-boosting effect? Possibly unused?
     uint16_t flags3_unk11 : 5;
 
     struct move_id_16 id; // 0x4
