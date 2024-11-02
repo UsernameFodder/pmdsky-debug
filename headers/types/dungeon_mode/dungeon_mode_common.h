@@ -53,9 +53,10 @@ struct move {
     // Consume 4 PP this turn. No effect unless f_consume_pp is set, overrides f_consume_2_pp
     bool f_consume_4_pp : 1;
     uint16_t flags2_unk7 : 1;
-    uint16_t flags2_unk8 : 1;
+    bool f_multitalent_iq_pp_boost : 1; // The IQ skill Multitalent is actively boosting move PP
     bool f_exclusive_item_pp_boost : 1; // A PP-boosting exclusive item is in effect
-    uint16_t flags3_unk10 : 6;
+    bool f_unknown_pp_boost: 1; // A PP-boosting effect? Possibly unused?
+    uint16_t flags3_unk11 : 5;
 
     struct move_id_16 id; // 0x4
     uint8_t pp;           // 0x6: Current PP

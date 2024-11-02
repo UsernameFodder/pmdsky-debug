@@ -9334,6 +9334,16 @@ arm9:
         r0: id1
         r1: id2
         return: bool
+    - name: GendersOppositeNotGenderless
+      address:
+        NA: 0x2054EC8
+      description: |-
+        Checks if the genders for two monster IDs are not equal. Always returns false
+        if either gender is GENDER_GENDERLESS.
+        
+        r0: id1
+        r1: id2
+        return: bool
     - name: IsMonsterOnTeam
       address:
         EU: 0x20554C4
