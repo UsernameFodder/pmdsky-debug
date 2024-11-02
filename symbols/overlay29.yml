@@ -6026,8 +6026,8 @@ overlay29:
         JP: 0x23225B0
       description: |-
         Checks that the given monster is standing on a tile it can stand on given its
-        movement type. If the monster is a non-leader ally, they will be warped to the
-        leader. Otherwise, the monster is warped randomly.
+        movement type and warps it if not. If the monster is a non-leader ally, they
+        will be warped to the leader. Otherwise, the monster is warped randomly.
         
         r0: Entity pointer
     - name: TryActivateNondamagingDefenderAbility
