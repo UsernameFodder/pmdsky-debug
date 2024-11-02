@@ -1697,9 +1697,6 @@ struct dungeon {
     // 0x2CAFC: Related to playing dungeon music? Initialized to 0x0 at their
     // address 0x22EAF6C [NA]?
     undefined4 field_0x2cafc;
-    undefined field_0x2cafd;
-    undefined field_0x2cafe;
-    undefined field_0x2caff;
     // Related to playing dungeon music?
     undefined2 field_0x2cb00;
     // Related to playing dungeon music?
