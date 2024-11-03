@@ -9334,7 +9334,7 @@ arm9:
         r0: id1
         r1: id2
         return: bool
-    - name: GendersOppositeNotGenderless
+    - name: GendersNotEqualNotGenderless
       address:
         NA: 0x2054EC8
       description: |-

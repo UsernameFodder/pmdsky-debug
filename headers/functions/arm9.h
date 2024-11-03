@@ -974,7 +974,7 @@ bool BaseFormsEqual(enum monster_id monster1, enum monster_id monster2);
 bool DexNumbersEqual(enum monster_id monster1, enum monster_id monster2);
 bool GendersEqual(enum monster_id monster1, enum monster_id monster2);
 bool GendersEqualNotGenderless(enum monster_id monster1, enum monster_id monster2);
-bool GendersOppositeNotGenderless(enum monster_id monster1, enum monster_id monster2);
+bool GendersNotEqualNotGenderless(enum monster_id monster1, enum monster_id monster2);
 bool IsMonsterOnTeam(enum monster_id monster_id, int recruit_strategy);
 void GetNbRecruited(undefined* recruit);
 bool IsValidTeamMember(int member_idx);
