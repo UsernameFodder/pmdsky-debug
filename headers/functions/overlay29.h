@@ -136,6 +136,7 @@ void SpawnEnemyTrapAtPos(enum trap_id trap_id, int16_t x, int16_t y, uint8_t fla
 void PrepareTrapperTrap(struct entity* entity, enum trap_id trap_id, uint8_t team);
 bool TrySpawnTrap(struct position* pos, enum trap_id trap_id, uint8_t team, bool visible);
 bool TrySpawnTrapperTrap(struct entity* entity);
+bool TryRemoveTrap(struct position* pos, bool update_trap_visibility);
 void TryTriggerTrap(struct entity* entity, struct position* pos, undefined param_3,
                     undefined param_4);
 void ApplyMudTrapEffect(struct entity* attacker, struct entity* defender);

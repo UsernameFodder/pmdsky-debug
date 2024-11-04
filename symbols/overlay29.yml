@@ -1553,6 +1553,17 @@ overlay29:
         
         r0: entity pointer
         return: true if a trap was spawned succesfully
+    - name: TryRemoveTrap
+      address:
+        EU: 0x22EE82C
+        NA: 0x22EDE7C
+      description: |-
+        Tries to remove a trap from the tile at the passed position. It does nothing
+        if there is no trap on the tile at that position.
+        
+        r0: position
+        r1: bool update trap visibility
+        return: whether a trap was succesfully removed or not
     - name: TryTriggerTrap
       address:
         EU: 0x22EE950
@@ -6014,7 +6025,9 @@ overlay29:
         NA: 0x2321104
         JP: 0x23225B0
       description: |-
-        Checks that the given monster is standing on a tile it can stand on given its movement type, and warps it to a random location if it's not.
+        Checks that the given monster is standing on a tile it can stand on given its
+        movement type and warps it if not. If the monster is a non-leader ally, they
+        will be warped to the leader. Otherwise, the monster is warped randomly.
         
         r0: Entity pointer
     - name: TryActivateNondamagingDefenderAbility

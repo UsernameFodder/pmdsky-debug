@@ -602,7 +602,7 @@ struct dungeon {
     bool monster_house_triggered_event;
     undefined field_0x795;
     // 0x796: Seems to often be 0x3E7 (999)? Somehow related to controlling or managing the
-    // playing music?
+    // playing music? Initialized to 999 at 0x22EAF7C [NA]?
     undefined2 field_0x796;
     struct dungeon_objective_8 dungeon_objective; // 0x798: Objective of the current dungeon
     // 0x799: Determines which message to display when the leader's belly reaches 0. Goes up
@@ -1691,13 +1691,12 @@ struct dungeon {
     undefined field_0x2caf5;
     undefined field_0x2caf6;
     undefined field_0x2caf7;
-    // 0x2CAF8: Related to playing dungeon music? Initialized to 0x4.
+    // 0x2CAF8: Related to playing dungeon music? Initialized to 0x0 at the
+    // address 0x22EAF64 [NA]?
     undefined4 field_0x2caf8;
-    // Related to playing dungeon music?
-    undefined field_0x2cafc;
-    undefined field_0x2cafd;
-    undefined field_0x2cafe;
-    undefined field_0x2caff;
+    // 0x2CAFC: Related to playing dungeon music? Initialized to 0x0 at their
+    // address 0x22EAF6C [NA]?
+    undefined4 field_0x2cafc;
     // Related to playing dungeon music?
     undefined2 field_0x2cb00;
     // Related to playing dungeon music?

@@ -638,12 +638,14 @@ ram:
       description: "[Runtime] Appears to be set to true whenever a multihit fatigue move deals damage."
     - name: TWINEEDLE_HIT_TRACKER
       address:
+        EU: 0x237D66B
         NA: 0x237CA6B
       length:
         NA: 0x1
       description: "[Runtime] Appears to be set to true whenever Twineedle hits and deals damage. So that even if the second attack misses, it will still try to poison the target."
     - name: RAPID_SPIN_BINDING_REMOVAL
       address:
+        EU: 0x237D66D
         NA: 0x237CA6D
       length:
         NA: 0x1
@@ -656,12 +658,14 @@ ram:
       description: "[Runtime] Seems to count the number of successive hits by Rollout or Ice Ball."
     - name: MULTIHIT_MOVE_SUCCESSIVE_HITS
       address:
+        EU: 0x237D678
         NA: 0x237CA78
       length:
         NA: 0x4
       description: "[Runtime] Seems to count the number of successive hits for multihit moves. This is used by Twineedle to check to attempt to apply Poison after the second attack."
     - name: TRIPLE_KICK_SUCCESSIVE_HITS
       address:
+        EU: 0x237D67C
         NA: 0x237CA7C
       length:
         NA: 0x4
