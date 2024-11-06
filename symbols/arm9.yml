@@ -1040,6 +1040,12 @@ arm9:
         r0: [output] pointer to an IO struct {ptr, len}
         r1: file path string pointer
         r2: flags
+    - name: TransformPaletteDataWithFlushDivideFade
+      address:
+        EU: 0x200AE38
+        NA: 0x200AE38
+        JP: 0x200AE38
+      description: "r0: palette_data"
     - name: UpdateFadeStatus
       address:
         EU: 0x200BA18
