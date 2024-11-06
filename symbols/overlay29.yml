@@ -1557,6 +1557,7 @@ overlay29:
       address:
         EU: 0x22EE82C
         NA: 0x22EDE7C
+        JP: 0x22EF4E0
       description: |-
         Tries to remove a trap from the tile at the passed position. It does nothing
         if there is no trap on the tile at that position.

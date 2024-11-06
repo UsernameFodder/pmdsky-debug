@@ -9336,7 +9336,9 @@ arm9:
         return: bool
     - name: GendersNotEqualNotGenderless
       address:
+        EU: 0x2055244
         NA: 0x2054EC8
+        JP: 0x2055200
       description: |-
         Checks if the genders for two monster IDs are not equal. Always returns false
         if either gender is GENDER_GENDERLESS.
