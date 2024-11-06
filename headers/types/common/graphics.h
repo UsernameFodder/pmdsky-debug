@@ -356,9 +356,9 @@ struct render_3d_global {
 ASSERT_SIZE(struct render_3d_global, 68);
 
 struct palette_data_substruct {
-    uint32_t
-        skip_certain_color_for_effect; // 0x0: skip certain color when applying effects when value
-                                       // is 2 (are they the portrait and text box color?)
+    // 0x0: skip certain color when applying effects when value is 2 (are they the portrait and text
+    // box color?)
+    uint32_t skip_certain_color_for_effect;
     int32_t count; // 0x4: number of element in the alloc at offset 0x10 of this struct
     uint8_t field2_0x8;
     uint8_t field3_0x9;
@@ -371,7 +371,7 @@ ASSERT_SIZE(struct palette_data_substruct, 20);
 
 struct palette_data;
 
-typedef void (*refresh_command)(struct palette_data* data);
+typedef void (*refresh_command_fn_t)(struct palette_data* data);
 
 struct palette_data {
     struct palette_data_substruct* palette_data_sub;
@@ -381,7 +381,7 @@ struct palette_data {
     uint16_t fade_opposite;
     struct rgba flush_colors;
     uint32_t field6_0x10;
-    refresh_command refresh_command_func;
+    refresh_command_fn_t refresh_command;
     struct rgba* rgba_palette;
     uint16_t* raw_palette;
     struct palette_data* previous_palette;
