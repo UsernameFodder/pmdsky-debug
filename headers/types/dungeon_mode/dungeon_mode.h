@@ -211,8 +211,8 @@ struct statuses {
     // 0x5F: Determines how much experience the monster will reward after being defeated
     // 0 = 0.5x, 1 = 1.0x, 2 = 1.5x
     uint8_t exp_yield;
-    // 0x60: Appears to be set when the held item of the monster is going to be used?
-    bool unk_item_use_action;
+    // 0x60: Set when the held item of the monster is going to be used.
+    bool use_held_item;
     // 0x61: Is initalized to 0x63 (99). Changing it from this value causes the monster to
     // begin rendering differently? For example, it causes entity::0xB3 to be 1 and forces
     // entity::0x28 to be 0.
@@ -413,7 +413,8 @@ struct monster {
     bool ai_next_to_target; // 0x14F: This NPC monster is next to its current target
     // 0x150: Set if monster::is_team_leader is true and belly is empty.
     bool famished;
-    undefined field_0x151;
+    // 0x151: True if the AI decided to do nothing this turn.
+    bool waiting;
     // 0x152: Seems to be true if the monster has already acted this turn: attacked, used an item,
     // or seemingly anything other than moving/resting. Also true when the monster faints.
     bool already_acted;

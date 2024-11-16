@@ -3728,7 +3728,7 @@ overlay29:
         Runs the AI for a single monster to determine whether the monster can act and which action it should perform if so
         
         r0: Pointer to monster
-        r1: ?
+        r1: Unused
     - name: ApplyDamageAndEffects
       address:
         EU: 0x2309068
