@@ -2269,7 +2269,7 @@ overlay29:
         No params.
     - name: GetRandomExplorerMazeMonster
       address:
-        NA: 0x22F9970
+        NA: 0x22F99EC
       description: |-
         Checks if any enemy monsters on the floor have the behavior BEHAVIOR_EXPLORER_MAZE_1, 
         BEHAVIOR_EXPLORER_MAZE_2, BEHAVIOR_EXPLORER_MAZE_3 or BEHAVIOR_EXPLORER_MAZE_4 and returns
