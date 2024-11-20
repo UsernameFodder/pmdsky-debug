@@ -502,7 +502,10 @@ struct monster {
     undefined field_0x17a;
     // 0x17B: Somehow related to sprite size?
     undefined field_0x17b;
-    undefined field_0x17c;
+    // 0x17C: Tracks the number of turns since the last warp scarf activation if it is
+    // held. The number is capped at 20 because it's used to lookup the chance to warp
+    // on a table.
+    uint8_t turns_since_last_warp_scarf;
     undefined field_0x17d;
     struct position target_pos; // 0x17E: The AI's target's position on screen
     struct position pixel_pos;  // 0x182: The monster's graphical position on screen?
@@ -989,9 +992,10 @@ struct dungeon_generation_info {
     bool dough_seed_extra_poke_flag;
     // 0x5: Room index of Monster House on the floor. 0xFF if there's no Monster House
     uint8_t monster_house_room;
-    // 0x6: Related to when a monster from a fixed room faints. Maybe to check if the floor
-    // should be over after knocking them out?
-    undefined unk_fixed_room_static_monster_tracker;
+    // 0x6: It's set to 0 when it's not a fixed room, 1 when it's a fixed room with no boss fight,
+    // and 2 when it's a fixed room with a boss fight. If this tracker is 0, 1, or 3 the floor
+    // will not automatically end when there are no monsters with is_ally being false.
+    uint8_t fixed_room_boss_tracker;
     undefined field_0x7;
     // 0x8: The type of the hidden stairs on the current floor.
     enum hidden_stairs_type hidden_stairs_type;
