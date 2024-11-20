@@ -1573,6 +1573,7 @@ overlay29:
       address:
         EU: 0x22EE82C
         NA: 0x22EDE7C
+        JP: 0x22EF4E0
       description: |-
         Tries to remove a trap from the tile at the passed position. It does nothing
         if there is no trap on the tile at that position.
@@ -3780,7 +3781,7 @@ overlay29:
         Runs the AI for a single monster to determine whether the monster can act and which action it should perform if so
         
         r0: Pointer to monster
-        r1: ?
+        r1: Unused
     - name: ApplyDamageAndEffects
       address:
         EU: 0x2309068
