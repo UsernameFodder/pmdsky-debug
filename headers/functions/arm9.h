@@ -101,6 +101,7 @@ void FileSeek(struct file_stream* file, int offset, int whence);
 void FileClose(struct file_stream* file);
 void UnloadFile(void* ptr);
 void LoadFileFromRom(struct iovec* iov, const char* filepath, uint32_t flags);
+void TransformPaletteDataWithFlushDivideFade(struct palette_data* palette);
 void UpdateFadeStatus(struct screen_fade* fstruct, int param_2, int duration);
 bool HandleFades(struct screen_fade* fstruct);
 int GetFadeStatus(struct screen_fade* fstruct);
