@@ -2266,6 +2266,8 @@ overlay29:
       description: |-
         Checks if any monsters on the floor has the snatch status and stores the corresponding info
         onto the dungeon struct. This is only called when reinitalizing a dungeon from a quicksave.
+        Normally, the game will try to prevent multiple monsters from having snatch, but will pick
+        the first one in the list if multiple have the status.
         
         No params.
     - name: GetRandomExplorerMazeMonster
@@ -3479,7 +3481,7 @@ overlay29:
       address:
         NA: 0x2304B64
       description: |-
-        Change all monster's shadow to be approppriate for their size and the tile they're
+        Change all monsters' shadows to be appropriate for their sizes and the tile they're
         standing on. It simply calls DetermineMontersShadow for all monsters in the dungeon.
         
         No params.
@@ -3487,7 +3489,7 @@ overlay29:
       address:
         NA: 0x2304BAC
       description: |-
-        Changes the monster's shadow to be approppriate for its size and the tile its standing on.
+        Changes the monster's shadow to be appropriate for its size and the tile it's standing on.
         If the tile is a floor and it's a water tileset, it changes the monster to use the water
         shadows. If the tile is secondary terrain and secondary terrain is water, it also uses the
         water shadows. If the tile is a chasm, it changes nothing and returns 6. Otherwise, use
