@@ -2264,7 +2264,7 @@ overlay29:
       address:
         NA: 0x22F9970
       description: |-
-        Checks if any monsters on the floor has the snatch status and stores the corresponding info
+        Checks if any monster on the floor has the snatch status and stores the corresponding info
         onto the dungeon struct. This is only called when reinitalizing a dungeon from a quicksave.
         Normally, the game will try to prevent multiple monsters from having snatch, but will pick
         the first one in the list if multiple have the status.
