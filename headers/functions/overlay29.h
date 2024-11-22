@@ -128,9 +128,11 @@ bool RunLeaderTurn(undefined param_1);
 void TrySpawnMonsterAndActivatePlusMinus(void);
 bool IsFloorOver(void);
 void DecrementWindCounter(void);
+bool IsDungeonEndReasonFailure(void);
 void SetForcedLossReason(enum forced_loss_reason forced_loss_reason);
 enum forced_loss_reason GetForcedLossReason(void);
 void BindTrapToTile(struct tile* tile, struct entity* trap, bool is_visible);
+bool AreLateGameTrapsEnabledWrapper(void);
 void SpawnEnemyTrapAtPos(enum trap_id trap_id, int16_t x, int16_t y, uint8_t flags,
                          bool is_visible);
 void PrepareTrapperTrap(struct entity* entity, enum trap_id trap_id, uint8_t team);
@@ -204,6 +206,8 @@ bool IsMonster(struct entity* entity);
 void TryActivateConversion2(struct entity* attacker, struct entity* defender, struct move* move);
 void TryActivateTruant(struct entity* entity);
 void TryPointCameraToMonster(struct entity* entity, undefined param_2, undefined param_3);
+void ReevaluateSnatchMonster(void);
+struct entity* GetRandomExplorerMazeMonster(void);
 void RestorePpAllMovesSetFlags(struct entity* entity);
 bool CheckTeamMemberIdxVeneer(int member_idx);
 bool IsMonsterIdInNormalRangeVeneer(enum monster_id monster_id);
@@ -318,6 +322,8 @@ void EvolveMonster(struct entity* user, struct entity* target, enum monster_id n
 void ChangeMonsterAnimation(struct entity* monster, int8_t animation_id,
                             enum direction_id direction);
 uint8_t GetIdleAnimationId(struct entity* entity);
+void DetermineAllMonsterShadow(void);
+uint8_t DetermineMonsterShadow(struct entity* monster);
 bool DisplayActions(struct entity* param_1);
 void CheckNonLeaderTile(struct entity* entity);
 bool EndNegativeStatusCondition(struct entity* user, struct entity* target, bool animation,

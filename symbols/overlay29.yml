@@ -1470,6 +1470,14 @@ overlay29:
         Decrements dungeon::wind_turns and displays a wind warning message if required.
         
         No params.
+    - name: IsDungeonEndReasonFailure
+      address:
+        NA: 0x22ECF44
+      description: |-
+        Checks if the damage_source of the dungeon ending is because of a failure to complete the dungeon.
+        Specifically checks fainted_monster_dungeon_end_reason to be less than DAMAGE_SOURCE_ESCAPE.
+        
+        return: bool
     - name: SetForcedLossReason
       address:
         EU: 0x22ED9B8
@@ -1499,6 +1507,14 @@ overlay29:
         r0: tile pointer
         r1: entity pointer
         r2: visibility flag
+    - name: AreLateGameTrapsEnabledWrapper
+      address:
+        EU: 0x22EE218
+        NA: 0x22ED868
+      description: |-
+        A wrapper around AreLateGameTrapsEnabled that passes the fixed room for the floor.
+        
+        return: bool
     - name: SpawnEnemyTrapAtPos
       address:
         EU: 0x22EE320
@@ -2244,6 +2260,25 @@ overlay29:
         r0: Entity pointer. Must be a monster, otherwise the function does nothing.
         r1: ?
         r2: ?
+    - name: ReevaluateSnatchMonster
+      address:
+        NA: 0x22F9970
+      description: |-
+        Checks if any monster on the floor has the snatch status and stores the corresponding info
+        onto the dungeon struct. This is only called when reinitalizing a dungeon from a quicksave.
+        Normally, the game will try to prevent multiple monsters from having snatch, but will pick
+        the first one in the list if multiple have the status.
+        
+        No params.
+    - name: GetRandomExplorerMazeMonster
+      address:
+        NA: 0x22F99EC
+      description: |-
+        Checks if any enemy monsters on the floor have the behavior BEHAVIOR_EXPLORER_MAZE_1, 
+        BEHAVIOR_EXPLORER_MAZE_2, BEHAVIOR_EXPLORER_MAZE_3 or BEHAVIOR_EXPLORER_MAZE_4 and returns
+        one at random. If none can be found, it returns NULL.
+        
+        return: monster entity pointer
     - name: RestorePpAllMovesSetFlags
       address:
         EU: 0x22FA480
@@ -3442,6 +3477,26 @@ overlay29:
         
         r0: pointer to entity
         return: animation ID
+    - name: DetermineAllMonsterShadow
+      address:
+        NA: 0x2304B64
+      description: |-
+        Change all monsters' shadows to be appropriate for their sizes and the tile they're
+        standing on. It simply calls DetermineMontersShadow for all monsters in the dungeon.
+        
+        No params.
+    - name: DetermineMonsterShadow
+      address:
+        NA: 0x2304BAC
+      description: |-
+        Changes the monster's shadow to be appropriate for its size and the tile it's standing on.
+        If the tile is a floor and it's a water tileset, it changes the monster to use the water
+        shadows. If the tile is secondary terrain and secondary terrain is water, it also uses the
+        water shadows. If the tile is a chasm, it changes nothing and returns 6. Otherwise, use
+        the default land shadow.
+        
+        r0: monster entity pointer
+        return: the type of shadow used?
     - name: DisplayActions
       address:
         EU: 0x2305A0C
