@@ -3279,7 +3279,7 @@ overlay29:
         
         r0: Entity pointer
         return: True if the monster can see invisible monsters.
-    - name: HasTactic
+    - name: IsTacticSet
       address:
         EU: 0x230294C
         NA: 0x2301F20

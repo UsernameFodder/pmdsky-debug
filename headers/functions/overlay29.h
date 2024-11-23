@@ -303,7 +303,7 @@ bool MonsterIsType(struct entity* entity, enum type_id type_id);
 bool IsTypeAffectedByGravity(struct entity* entity, enum type_id type_id);
 bool HasTypeAffectedByGravity(struct entity* entity, enum type_id type_id);
 bool CanSeeInvisibleMonsters(struct entity* entity);
-bool HasTactic(struct entity* entity, enum tactic_id tactic_id);
+bool IsTacticSet(struct entity* entity, enum tactic_id tactic_id);
 bool HasDropeyeStatus(struct entity* entity);
 bool IqSkillIsEnabled(struct entity* entity, enum iq_skill_id iq_id);
 void UpdateIqSkills(struct monster* monster);
