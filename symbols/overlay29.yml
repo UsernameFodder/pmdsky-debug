@@ -1472,7 +1472,9 @@ overlay29:
         No params.
     - name: IsDungeonEndReasonFailure
       address:
+        EU: 0x22ED8F4
         NA: 0x22ECF44
+        JP: 0x22EE5A8
       description: |-
         Checks if the damage_source of the dungeon ending is because of a failure to complete the dungeon.
         Specifically checks fainted_monster_dungeon_end_reason to be less than DAMAGE_SOURCE_ESCAPE.
@@ -1511,6 +1513,7 @@ overlay29:
       address:
         EU: 0x22EE218
         NA: 0x22ED868
+        JP: 0x22EEECC
       description: |-
         A wrapper around AreLateGameTrapsEnabled that passes the fixed room for the floor.
         
@@ -2262,7 +2265,9 @@ overlay29:
         r2: ?
     - name: ReevaluateSnatchMonster
       address:
+        EU: 0x22FA37C
         NA: 0x22F9970
+        JP: 0x22FAF28
       description: |-
         Checks if any monster on the floor has the snatch status and stores the corresponding info
         onto the dungeon struct. This is only called when reinitalizing a dungeon from a quicksave.
@@ -2272,7 +2277,9 @@ overlay29:
         No params.
     - name: GetRandomExplorerMazeMonster
       address:
+        EU: 0x22FA3F8
         NA: 0x22F99EC
+        JP: 0x22FAFA4
       description: |-
         Checks if any enemy monsters on the floor have the behavior BEHAVIOR_EXPLORER_MAZE_1, 
         BEHAVIOR_EXPLORER_MAZE_2, BEHAVIOR_EXPLORER_MAZE_3 or BEHAVIOR_EXPLORER_MAZE_4 and returns
@@ -3479,7 +3486,9 @@ overlay29:
         return: animation ID
     - name: DetermineAllMonsterShadow
       address:
+        EU: 0x2305590
         NA: 0x2304B64
+        JP: 0x23060B4
       description: |-
         Change all monsters' shadows to be appropriate for their sizes and the tile they're
         standing on. It simply calls DetermineMontersShadow for all monsters in the dungeon.
@@ -3487,7 +3496,9 @@ overlay29:
         No params.
     - name: DetermineMonsterShadow
       address:
+        EU: 0x23055D8
         NA: 0x2304BAC
+        JP: 0x23060FC
       description: |-
         Changes the monster's shadow to be appropriate for its size and the tile it's standing on.
         If the tile is a floor and it's a water tileset, it changes the monster to use the water
