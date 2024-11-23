@@ -2545,7 +2545,7 @@ overlay29:
       description: |-
         Checks if a monster does not gain experience.
         
-        This basically just inverts IsSpecialStoryAlly, with the exception of also checking for the "Joined At" field being DUNGEON_CLIENT (is this set for mission clients?).
+        This basically just inverts IsSpecialStoryAlly, with the exception of also checking for the "Joined At" field being DUNGEON_CLIENT (set for mission clients).
         
         r0: monster pointer
         return: bool
@@ -3279,6 +3279,17 @@ overlay29:
         
         r0: Entity pointer
         return: True if the monster can see invisible monsters.
+    - name: HasTactic
+      address:
+        EU: 0x230294C
+        NA: 0x2301F20
+        JP: 0x2303470
+      description: |-
+        Returns whether a monster is set to use a specific tactic.
+        
+        r0: Entity pointer
+        r1: Enum tactic_id
+        return: True if the monster is set to the given tactic.
     - name: HasDropeyeStatus
       address:
         EU: 0x230297C
