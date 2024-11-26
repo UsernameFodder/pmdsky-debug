@@ -4636,7 +4636,7 @@ overlay29:
         r0: user entity pointer
         r1: target entity pointer
         r2: stat index
-        r3: ? (Irdkwia's notes say this is the number of stages, but I'm pretty sure that's incorrect)
+        r3: flag to log a message on failure
     - name: TryInflictCringeStatus
       address:
         EU: 0x2314E48
