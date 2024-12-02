@@ -381,6 +381,24 @@ overlay29:
         
         r0: Entity pointer
         r1: Pixel position to use, or null to use the entity's own position
+    - name: SetEntityPixelPosXY
+      address:
+        EU: 0x22E23C4
+        NA: 0x22E1A84
+        JP: 0x22E3114
+      description: |-
+        r0: Entity pointer
+        r1: x
+        r2: y
+    - name: IncrementEntityPixelPosXY
+      address:
+        EU: 0x22E23D0
+        NA: 0x22E1A90
+        JP: 0x22E3120
+      description: |-
+        r0: Entity pointer
+        r1: x
+        r2: y
     - name: CreateEnemyEntity
       address:
         EU: 0x22E2A00
@@ -1452,6 +1470,16 @@ overlay29:
         Decrements dungeon::wind_turns and displays a wind warning message if required.
         
         No params.
+    - name: IsDungeonEndReasonFailure
+      address:
+        EU: 0x22ED8F4
+        NA: 0x22ECF44
+        JP: 0x22EE5A8
+      description: |-
+        Checks if the damage_source of the dungeon ending is because of a failure to complete the dungeon.
+        Specifically checks fainted_monster_dungeon_end_reason to be less than DAMAGE_SOURCE_ESCAPE.
+        
+        return: bool
     - name: SetForcedLossReason
       address:
         EU: 0x22ED9B8
@@ -1481,6 +1509,15 @@ overlay29:
         r0: tile pointer
         r1: entity pointer
         r2: visibility flag
+    - name: AreLateGameTrapsEnabledWrapper
+      address:
+        EU: 0x22EE218
+        NA: 0x22ED868
+        JP: 0x22EEECC
+      description: |-
+        A wrapper around AreLateGameTrapsEnabled that passes the fixed room for the floor.
+        
+        return: bool
     - name: SpawnEnemyTrapAtPos
       address:
         EU: 0x22EE320
@@ -1535,6 +1572,18 @@ overlay29:
         
         r0: entity pointer
         return: true if a trap was spawned succesfully
+    - name: TryRemoveTrap
+      address:
+        EU: 0x22EE82C
+        NA: 0x22EDE7C
+        JP: 0x22EF4E0
+      description: |-
+        Tries to remove a trap from the tile at the passed position. It does nothing
+        if there is no trap on the tile at that position.
+        
+        r0: position
+        r1: bool update trap visibility
+        return: whether a trap was succesfully removed or not
     - name: TryTriggerTrap
       address:
         EU: 0x22EE950
@@ -2214,6 +2263,29 @@ overlay29:
         r0: Entity pointer. Must be a monster, otherwise the function does nothing.
         r1: ?
         r2: ?
+    - name: ReevaluateSnatchMonster
+      address:
+        EU: 0x22FA37C
+        NA: 0x22F9970
+        JP: 0x22FAF28
+      description: |-
+        Checks if any monster on the floor has the snatch status and stores the corresponding info
+        onto the dungeon struct. This is only called when reinitalizing a dungeon from a quicksave.
+        Normally, the game will try to prevent multiple monsters from having snatch, but will pick
+        the first one in the list if multiple have the status.
+        
+        No params.
+    - name: GetRandomExplorerMazeMonster
+      address:
+        EU: 0x22FA3F8
+        NA: 0x22F99EC
+        JP: 0x22FAFA4
+      description: |-
+        Checks if any enemy monsters on the floor have the behavior BEHAVIOR_EXPLORER_MAZE_1, 
+        BEHAVIOR_EXPLORER_MAZE_2, BEHAVIOR_EXPLORER_MAZE_3 or BEHAVIOR_EXPLORER_MAZE_4 and returns
+        one at random. If none can be found, it returns NULL.
+        
+        return: monster entity pointer
     - name: RestorePpAllMovesSetFlags
       address:
         EU: 0x22FA480
@@ -2473,7 +2545,7 @@ overlay29:
       description: |-
         Checks if a monster does not gain experience.
         
-        This basically just inverts IsSpecialStoryAlly, with the exception of also checking for the "Joined At" field being DUNGEON_CLIENT (is this set for mission clients?).
+        This basically just inverts IsSpecialStoryAlly, with the exception of also checking for the "Joined At" field being DUNGEON_CLIENT (set for mission clients).
         
         r0: monster pointer
         return: bool
@@ -3207,6 +3279,17 @@ overlay29:
         
         r0: Entity pointer
         return: True if the monster can see invisible monsters.
+    - name: IsTacticSet
+      address:
+        EU: 0x230294C
+        NA: 0x2301F20
+        JP: 0x2303470
+      description: |-
+        Returns whether a monster is set to use a specific tactic.
+        
+        r0: Entity pointer
+        r1: Enum tactic_id
+        return: True if the monster is set to the given tactic.
     - name: HasDropeyeStatus
       address:
         EU: 0x230297C
@@ -3412,6 +3495,30 @@ overlay29:
         
         r0: pointer to entity
         return: animation ID
+    - name: DetermineAllMonsterShadow
+      address:
+        EU: 0x2305590
+        NA: 0x2304B64
+        JP: 0x23060B4
+      description: |-
+        Change all monsters' shadows to be appropriate for their sizes and the tile they're
+        standing on. It simply calls DetermineMontersShadow for all monsters in the dungeon.
+        
+        No params.
+    - name: DetermineMonsterShadow
+      address:
+        EU: 0x23055D8
+        NA: 0x2304BAC
+        JP: 0x23060FC
+      description: |-
+        Changes the monster's shadow to be appropriate for its size and the tile it's standing on.
+        If the tile is a floor and it's a water tileset, it changes the monster to use the water
+        shadows. If the tile is secondary terrain and secondary terrain is water, it also uses the
+        water shadows. If the tile is a chasm, it changes nothing and returns 6. Otherwise, use
+        the default land shadow.
+        
+        r0: monster entity pointer
+        return: the type of shadow used?
     - name: DisplayActions
       address:
         EU: 0x2305A0C
@@ -3698,7 +3805,7 @@ overlay29:
         Runs the AI for a single monster to determine whether the monster can act and which action it should perform if so
         
         r0: Pointer to monster
-        r1: ?
+        r1: Unused
     - name: ApplyDamageAndEffects
       address:
         EU: 0x2309068
@@ -4529,7 +4636,7 @@ overlay29:
         r0: user entity pointer
         r1: target entity pointer
         r2: stat index
-        r3: ? (Irdkwia's notes say this is the number of stages, but I'm pretty sure that's incorrect)
+        r3: flag to log a message on failure
     - name: TryInflictCringeStatus
       address:
         EU: 0x2314E48
@@ -5996,7 +6103,9 @@ overlay29:
         NA: 0x2321104
         JP: 0x23225B0
       description: |-
-        Checks that the given monster is standing on a tile it can stand on given its movement type, and warps it to a random location if it's not.
+        Checks that the given monster is standing on a tile it can stand on given its
+        movement type and warps it if not. If the monster is a non-leader ally, they
+        will be warped to the leader. Otherwise, the monster is warped randomly.
         
         r0: Entity pointer
     - name: TryActivateNondamagingDefenderAbility
@@ -6727,6 +6836,15 @@ overlay29:
         Sets the boost_kecleon_shop_spawn_chance field on the dungeon struct depending on if a team member has the exclusive item effect for more kecleon shops.
         
         No params.
+    - name: GetDoughSeedFlag
+      address:
+        EU: 0x2339100
+        NA: 0x2338530
+        JP: 0x23398F4
+      description: |-
+        Gets the dough_seed_extra_money_flag field on the dungeon struct.
+        
+        return: bool
     - name: SetDoughSeedFlag
       address:
         EU: 0x2339118

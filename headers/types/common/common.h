@@ -304,11 +304,10 @@ struct team_member {
     uint32_t iq_skill_flags[3];
     struct tactic_id_8 tactic; // 0x58
     undefined field_0x59;
-    undefined field_0x5A;
-    undefined field_0x5B;
-    undefined field_0x5C;
-    undefined field_0x5D;
-    char name[10]; // 0x5E: Display name of the monster
+    int16_t hidden_power_base_power;    // 0x5A
+    struct type_id_8 hidden_power_type; // 0x5C
+    undefined field_0x5D;               // Gets copied to monster->field_0x47.
+    char name[10];                      // 0x5E: Display name of the monster
 };
 ASSERT_SIZE(struct team_member, 104);
 

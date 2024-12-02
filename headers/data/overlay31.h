@@ -6,6 +6,7 @@ extern struct window_params DUNGEON_WINDOW_PARAMS_2;
 extern struct window_params DUNGEON_WINDOW_PARAMS_3;
 extern struct window_params DUNGEON_WINDOW_PARAMS_4;
 extern struct simple_menu_id_item DUNGEON_MAIN_MENU_ITEMS[8];
+extern char DUNGEON_MENU_SWITCH_STR1[12];
 extern struct window_params DUNGEON_WINDOW_PARAMS_5;
 extern struct window_params DUNGEON_WINDOW_PARAMS_6;
 extern struct window_params DUNGEON_WINDOW_PARAMS_7;

@@ -214,6 +214,15 @@ overlay31:
         EU: 0x40
         NA: 0x40
         JP: 0x40
+    - name: DUNGEON_MENU_SWITCH_STR1
+      address:
+        EU: 0x238AA38
+        NA: 0x2389E14
+        JP: 0x238B0DC
+      length:
+        EU: 0xC
+        NA: 0xC
+        JP: 0xC
     - name: OVERLAY31_UNKNOWN_STRING_IDS
       address:
         EU: 0x238AA44

@@ -211,8 +211,8 @@ struct statuses {
     // 0x5F: Determines how much experience the monster will reward after being defeated
     // 0 = 0.5x, 1 = 1.0x, 2 = 1.5x
     uint8_t exp_yield;
-    // 0x60: Appears to be set when the held item of the monster is going to be used?
-    bool unk_item_use_action;
+    // 0x60: Set when the held item of the monster is going to be used.
+    bool use_held_item;
     // 0x61: Is initalized to 0x63 (99). Changing it from this value causes the monster to
     // begin rendering differently? For example, it causes entity::0xB3 to be 1 and forces
     // entity::0x28 to be 0.
@@ -413,7 +413,8 @@ struct monster {
     bool ai_next_to_target; // 0x14F: This NPC monster is next to its current target
     // 0x150: Set if monster::is_team_leader is true and belly is empty.
     bool famished;
-    undefined field_0x151;
+    // 0x151: True if the AI decided to do nothing this turn.
+    bool waiting;
     // 0x152: Seems to be true if the monster has already acted this turn: attacked, used an item,
     // or seemingly anything other than moving/resting. Also true when the monster faints.
     bool already_acted;
@@ -479,9 +480,7 @@ struct monster {
     undefined field_0x16f;
     // 0x170: Set to make the monster disappear when using the move U-turn.
     bool uturn_hide_monster_flag;
-    // 0x171: Some kind of visual flag? Gets set to 0 temporarily when changing Shaymin form
-    // or when using the Gone Pebble? Also hardcoded to be set to 0 for monsters that generally
-    // tend to float? Otherwise 1?
+    // 0x171: Setting this with entity->0xB3 causes the monster's animations to freeze.
     bool field_0x171;
     // 0x172: Set when the leader and falling through a pitfall trap.
     // If both this and pitfall_trap_flag_0x174 are set, the sprite will disappear.
@@ -504,7 +503,10 @@ struct monster {
     undefined field_0x17a;
     // 0x17B: Somehow related to sprite size?
     undefined field_0x17b;
-    undefined field_0x17c;
+    // 0x17C: Tracks the number of turns since the last warp scarf activation if it is
+    // held. The number is capped at 20 because it's used to lookup the chance to warp
+    // on a table.
+    uint8_t turns_since_last_warp_scarf;
     undefined field_0x17d;
     struct position target_pos; // 0x17E: The AI's target's position on screen
     struct position pixel_pos;  // 0x182: The monster's graphical position on screen?
@@ -832,14 +834,14 @@ ASSERT_SIZE(struct tile, 20);
 struct room_data {
     uint8_t room_id;
     undefined field_0x1;                 // Initialized to 0
-    struct position bottom_right_corner; // 0x2
-    struct position top_left_corner;     // 0x6
+    struct position top_left_corner;     // 0x2
+    struct position bottom_right_corner; // 0x6
     undefined field_0xa;                 // Doesn't get initialized, likely padding
     undefined field_0xb;                 // Doesn't get initialized, likely padding
-    undefined4 field_0xc;                // Initialized to (bottom_right_corner.x - 1) * 0x1C
-    undefined4 field_0x10;               // Initialized to (bottom_right_corner.y - 1) * 0x1C
-    undefined4 field_0x14;               // Initialized to (top_left_corner.x + 1) * 0x1C
-    undefined4 field_0x18;               // Initialized to (top_left_corner.y + 1) * 0x1C
+    undefined4 field_0xc;                // Initialized to (top_left_corner.x - 1) * 0x1C
+    undefined4 field_0x10;               // Initialized to (top_left_corner.y - 1) * 0x1C
+    undefined4 field_0x14;               // Initialized to (bottom_right_corner.x + 1) * 0x1C
+    undefined4 field_0x18;               // Initialized to (bottom_right_corner.y + 1) * 0x1C
 };
 ASSERT_SIZE(struct room_data, 28);
 
@@ -991,9 +993,10 @@ struct dungeon_generation_info {
     bool dough_seed_extra_poke_flag;
     // 0x5: Room index of Monster House on the floor. 0xFF if there's no Monster House
     uint8_t monster_house_room;
-    // 0x6: Related to when a monster from a fixed room faints. Maybe to check if the floor
-    // should be over after knocking them out?
-    undefined unk_fixed_room_static_monster_tracker;
+    // 0x6: It's set to 0 when it's not a fixed room, 1 when it's a fixed room with no boss fight,
+    // and 2 when it's a fixed room with a boss fight. If this tracker is 0, 1, or 3 the floor
+    // will not automatically end when there are no monsters with is_ally being false.
+    uint8_t fixed_room_boss_tracker;
     undefined field_0x7;
     // 0x8: The type of the hidden stairs on the current floor.
     enum hidden_stairs_type hidden_stairs_type;

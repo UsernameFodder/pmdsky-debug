@@ -24,6 +24,8 @@ struct trap* GetTrapInfo(struct entity* trap_entity);
 struct item* GetItemInfo(struct entity* item_entity);
 struct tile* GetTileAtEntity(struct entity* entity);
 void UpdateEntityPixelPos(struct entity* entity, struct pixel_position* pixel_pos);
+void SetEntityPixelPosXY(struct entity* entity, uint32_t x, uint32_t y);
+void IncrementEntityPixelPosXY(struct entity* entity, uint32_t x, uint32_t y);
 struct entity* CreateEnemyEntity(enum monster_id monster_id);
 struct entity* SpawnTrap(enum trap_id trap_id, struct position* position, uint8_t team,
                          uint8_t flags);
@@ -126,14 +128,17 @@ bool RunLeaderTurn(undefined param_1);
 void TrySpawnMonsterAndActivatePlusMinus(void);
 bool IsFloorOver(void);
 void DecrementWindCounter(void);
+bool IsDungeonEndReasonFailure(void);
 void SetForcedLossReason(enum forced_loss_reason forced_loss_reason);
 enum forced_loss_reason GetForcedLossReason(void);
 void BindTrapToTile(struct tile* tile, struct entity* trap, bool is_visible);
+bool AreLateGameTrapsEnabledWrapper(void);
 void SpawnEnemyTrapAtPos(enum trap_id trap_id, int16_t x, int16_t y, uint8_t flags,
                          bool is_visible);
 void PrepareTrapperTrap(struct entity* entity, enum trap_id trap_id, uint8_t team);
 bool TrySpawnTrap(struct position* pos, enum trap_id trap_id, uint8_t team, bool visible);
 bool TrySpawnTrapperTrap(struct entity* entity);
+bool TryRemoveTrap(struct position* pos, bool update_trap_visibility);
 void TryTriggerTrap(struct entity* entity, struct position* pos, undefined param_3,
                     undefined param_4);
 void ApplyMudTrapEffect(struct entity* attacker, struct entity* defender);
@@ -201,6 +206,8 @@ bool IsMonster(struct entity* entity);
 void TryActivateConversion2(struct entity* attacker, struct entity* defender, struct move* move);
 void TryActivateTruant(struct entity* entity);
 void TryPointCameraToMonster(struct entity* entity, undefined param_2, undefined param_3);
+void ReevaluateSnatchMonster(void);
+struct entity* GetRandomExplorerMazeMonster(void);
 void RestorePpAllMovesSetFlags(struct entity* entity);
 bool CheckTeamMemberIdxVeneer(int member_idx);
 bool IsMonsterIdInNormalRangeVeneer(enum monster_id monster_id);
@@ -296,6 +303,7 @@ bool MonsterIsType(struct entity* entity, enum type_id type_id);
 bool IsTypeAffectedByGravity(struct entity* entity, enum type_id type_id);
 bool HasTypeAffectedByGravity(struct entity* entity, enum type_id type_id);
 bool CanSeeInvisibleMonsters(struct entity* entity);
+bool IsTacticSet(struct entity* entity, enum tactic_id tactic_id);
 bool HasDropeyeStatus(struct entity* entity);
 bool IqSkillIsEnabled(struct entity* entity, enum iq_skill_id iq_id);
 void UpdateIqSkills(struct monster* monster);
@@ -315,6 +323,8 @@ void EvolveMonster(struct entity* user, struct entity* target, enum monster_id n
 void ChangeMonsterAnimation(struct entity* monster, int8_t animation_id,
                             enum direction_id direction);
 uint8_t GetIdleAnimationId(struct entity* entity);
+void DetermineAllMonsterShadow(void);
+uint8_t DetermineMonsterShadow(struct entity* monster);
 bool DisplayActions(struct entity* param_1);
 void CheckNonLeaderTile(struct entity* entity);
 bool EndNegativeStatusCondition(struct entity* user, struct entity* target, bool animation,
@@ -688,6 +698,7 @@ bool TryActivateGravity(void);
 bool ShouldBoostKecleonShopSpawnChance(void);
 void SetShouldBoostKecleonShopSpawnChance(bool value);
 void UpdateShouldBoostKecleonShopSpawnChance(void);
+bool GetDoughSeedFlag(void);
 void SetDoughSeedFlag(bool value);
 void TrySpawnDoughSeedPoke(void);
 bool IsSecretBazaar(void);

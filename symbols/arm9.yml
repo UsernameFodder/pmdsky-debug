@@ -1040,6 +1040,12 @@ arm9:
         r0: [output] pointer to an IO struct {ptr, len}
         r1: file path string pointer
         r2: flags
+    - name: TransformPaletteDataWithFlushDivideFade
+      address:
+        EU: 0x200AE38
+        NA: 0x200AE38
+        JP: 0x200AE38
+      description: "r0: palette_data"
     - name: UpdateFadeStatus
       address:
         EU: 0x200BA18
@@ -4807,6 +4813,8 @@ arm9:
     - name: GetRankString
       address:
         EU: 0x2024D88
+        NA: 0x2024AF4
+        JP: 0x2024B44
       description: |-
         Gets the string corresponding to the player's current explorer rank.
         
@@ -4966,6 +4974,12 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         No params.
+    - name: AllocateTemp1024ByteBufferFromPool
+      address:
+        EU: 0x2025B54
+        NA: 0x2025888
+        JP: 0x2025868
+      description: "return: Pointer to byte buffer"
     - name: GetStringFromFileVeneer
       address:
         EU: 0x2025B84
@@ -5223,6 +5237,8 @@ arm9:
     - name: PrintBadgeMark
       address:
         EU: 0x202A728
+        NA: 0x202A434
+        JP: 0x202A78C
       description: |-
         Prints the specified badge mark on the screen.
         
@@ -5235,6 +5251,8 @@ arm9:
     - name: PrintMark
       address:
         EU: 0x202A750
+        NA: 0x202A45C
+        JP: 0x202A7B4
       description: |-
         Prints a mark from one of the .w16 files in FONT.
         
@@ -9322,6 +9340,18 @@ arm9:
         r0: id1
         r1: id2
         return: bool
+    - name: GendersNotEqualNotGenderless
+      address:
+        EU: 0x2055244
+        NA: 0x2054EC8
+        JP: 0x2055200
+      description: |-
+        Checks if the genders for two monster IDs are not equal. Always returns false
+        if either gender is GENDER_GENDERLESS.
+        
+        r0: id1
+        r1: id2
+        return: bool
     - name: IsMonsterOnTeam
       address:
         EU: 0x20554C4
@@ -12532,6 +12562,7 @@ arm9:
       address:
         EU: 0x20AFF54
         NA: 0x20AF69C
+        JP: 0x20B0ADC
       length:
         EU: 0x4
         NA: 0x4
@@ -12545,6 +12576,7 @@ arm9:
       address:
         EU: 0x20AFF58
         NA: 0x20AF6A0
+        JP: 0x20B0AE0
       length:
         EU: 0x18
         NA: 0x18
