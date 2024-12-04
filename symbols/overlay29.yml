@@ -1017,7 +1017,7 @@ overlay29:
         If none are found, try to randomly select a valid tile that is not a hallway.
         If none are found, try to randomly select a valid tile.
         If none are found, return 0.
-
+        
         A valid tile is defined as a floor tile that has no object or monster on it and also does not have a key door (if r1 is true).
         
         r0: [output] position
