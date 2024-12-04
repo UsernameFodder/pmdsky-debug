@@ -1,7 +1,7 @@
 #ifndef HEADERS_FUNCTIONS_ARM9_ITCM_H_
 #define HEADERS_FUNCTIONS_ARM9_ITCM_H_
 
-void CopyAndInterleave(int* dst, int* src, int len, int val);
+void CopyAndInterleave(uint16_t* dst, uint16_t* src, int len, uint8_t val);
 void Render3dSetTextureParams(struct render_3d_texture_params* params, int vram_offset);
 void Render3dSetPaletteBase(struct render_3d_texture_params* params, uint32_t palette_base_addr);
 void Render3dRectangle(struct render_3d_rectangle* rectangle);
@@ -27,7 +27,7 @@ int GetKeyM2N(enum monster_id monster_id);
 int GetKeyM2NBaseForm(enum monster_id monster_id);
 void HardwareInterrupt(void);
 void ReturnFromInterrupt(void);
-void InitDmaTransfer_Standard(int channel, int* src, int* dst, uint16_t word_count);
+void InitDmaTransfer_Standard(int channel, void* src, void* dst, uint16_t word_count);
 bool ShouldMonsterRunAwayVariationOutlawCheck(struct entity* monster, undefined param_2);
 void AiMovement(struct entity* monster, undefined param_2);
 void CalculateAiTargetPos(struct entity* monster);
