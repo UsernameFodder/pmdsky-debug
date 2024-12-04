@@ -520,6 +520,7 @@ void CopyStringFromId(char* buf, int string_id);
 void CopyNStringFromId(char* buf, int string_id, int buf_len);
 void LoadTblTalk(void);
 int GetTalkLine(int personality_idx, int group_id, int restrictions);
+int GetColorCodePaletteOffset(char symbol);
 bool IsAOrBPressed(void);
 void DrawTextInWindow(int window_id, int x, int y, char* string);
 struct window* GetWindow(int window_id);

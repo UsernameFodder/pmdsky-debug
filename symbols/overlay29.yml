@@ -1006,6 +1006,23 @@ overlay29:
         Returns a pointer to the monster data of the current leader.
         
         No params.
+    - name: GetRandomTile
+      address:
+        EU: 0x22E9FD8
+      description: |-
+        Gets a random valid tile. Used for warping as well as several other things.
+        
+        The selection algorithm is as follows:
+        First, try to randomly select a valid tile that is not a hallway and at least 6 tiles away from the leader in either direction.
+        If none are found, try to randomly select a valid tile that is not a hallway.
+        If none are found, try to randomly select a valid tile.
+        If none are found, return 0.
+
+        A valid tile is defined as a floor tile that has no object or monster on it and also does not have a key door (if r1 is true).
+        
+        r0: [output] position
+        r1: boolean indicating whether or not to exclude key doors
+        return: whether a tile was successfully found
     - name: FindNearbyUnoccupiedTile
       address:
         EU: 0x22EA1F4
