@@ -1013,7 +1013,7 @@ overlay29:
         Gets a random valid tile. Used for warping as well as several other things.
         
         The selection algorithm is as follows:
-        First, try to randomly select a valid tile that is not a hallway and at least 6 tiles away from the leader in either direction.
+        First, try to randomly select a valid tile that is not a hallway and is at least 6 tiles away from the leader in either direction.
         If none are found, try to randomly select a valid tile that is not a hallway.
         If none are found, try to randomly select a valid tile.
         If none are found, return 0.
