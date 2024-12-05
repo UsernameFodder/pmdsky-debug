@@ -1009,6 +1009,8 @@ overlay29:
     - name: GetRandomTile
       address:
         EU: 0x22E9FD8
+        NA: 0x22E9628
+        JP: 0x22EAC90
       description: |-
         Gets a random valid tile. Used for warping as well as several other things.
         

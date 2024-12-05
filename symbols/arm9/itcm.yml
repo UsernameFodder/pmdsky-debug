@@ -32,7 +32,11 @@ itcm:
     - name: CopyAndInterleave
       address:
         EU: 0x20B3CC0
+        NA: 0x20B3380
+        JP: 0x20B4BE0
         EU-ITCM: 0x1FF8000
+        NA-ITCM: 0x1FF8000
+        JP-ITCM: 0x1FF8000
       description: |-
         Copies data from src to dst, placing the last 4 bits of val after every 4 bits copied.
         
@@ -123,7 +127,12 @@ itcm:
         r0: render_3d_tiling
     - name: Render3dTextureInternal
       address:
+        EU: 0x20B46D0
+        NA: 0x20B3D90
+        JP: 0x20B55F0
+        EU-ITCM: 0x1FF8A10
         NA-ITCM: 0x1FF8A10
+        JP-ITCM: 0x1FF8A10
       description: |-
         Implements most of the rendering logic for Render3dTexture.
         
@@ -144,7 +153,12 @@ itcm:
         r0: render_3d_texture
     - name: Render3dTextureNoSetup
       address:
+        EU: 0x20B4920
+        NA: 0x20B3FE0
+        JP: 0x20B5840
+        EU-ITCM: 0x1FF8C60
         NA-ITCM: 0x1FF8C60
+        JP-ITCM: 0x1FF8C60
       description: |-
         Same as Render3dTexture except without calls to Render3dSetTextureParams and Render3dSetPaletteBase to set up geometry engine parameters.
         
@@ -357,7 +371,11 @@ itcm:
     - name: InitDmaTransfer_Standard
       address:
         EU: 0x20B5728
+        NA: 0x20B4DE8
+        JP: 0x20B66B0
         EU-ITCM: 0x1FF9A68
+        NA-ITCM: 0x1FF9A68
+        JP-ITCM: 0x1FF9AD0
       description: |-
         Initiates a DMA transfer.
         
