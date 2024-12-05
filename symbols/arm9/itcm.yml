@@ -29,6 +29,19 @@ itcm:
     
     In Explorers of Sky, a fixed region of the ARM9 binary appears to be loaded in the ITCM at all times, and seems to contain functions related to the dungeon AI, among other things. The ITCM has a max capacity of 0x8000, although not all of it is used.
   functions:
+    - name: CopyAndInterleave
+      address:
+        EU: 0x20B3CC0
+        EU-ITCM: 0x1FF8000
+      description: |-
+        Copies data from src to dst, placing the last 4 bits of val after every 4 bits copied.
+        
+        In total, the number of bytes copied from src will be 2 * len, while the number of bytes pasted will be 4 * len.
+        
+        r0: [output] dst
+        r1: src
+        r2: len (in words)
+        r3: val
     - name: Render3dSetTextureParams
       address:
         EU: 0x20B3DF0
@@ -341,6 +354,19 @@ itcm:
         The execution returns to this function after a hardware interrupt function is run.
         
         No params.
+    - name: InitDmaTransfer_Standard
+      address:
+        EU: 0x20B5728
+        EU-ITCM: 0x1FF9A68
+      description: |-
+        Initiates a DMA transfer.
+        
+        See https://problemkaputt.de/gbatek-gba-dma-transfers.htm and https://en.wikipedia.org/wiki/Direct_memory_access
+        
+        r0: channel id
+        r1: source address
+        r2: destination address
+        r3: word count
     - name: ShouldMonsterRunAwayVariationOutlawCheck
       address:
         EU: 0x20B6050

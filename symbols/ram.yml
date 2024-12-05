@@ -694,4 +694,4 @@ ram:
         EU: 0x238AEC4
       length:
         EU: 0x4
-      description: Pointer to the stairs_menu struct.
+      description: Pointer to the stairs_menu struct during dungeon mode.

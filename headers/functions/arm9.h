@@ -522,6 +522,7 @@ void LoadTblTalk(void);
 int GetTalkLine(int personality_idx, int group_id, int restrictions);
 bool IsAOrBPressed(void);
 void DrawTextInWindow(int window_id, int x, int y, char* string);
+int GetColorCodePaletteOffset(char symbol);
 struct window* GetWindow(int window_id);
 int NewWindowScreenCheck(struct window_params* params, uint8_t param_2);
 int NewWindow(struct window_params* params, uint8_t param_2);

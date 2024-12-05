@@ -81,6 +81,7 @@ bool IsPositionActuallyInSight(struct position* origin, struct position* target,
 bool IsPositionInSight(struct position* origin, struct position* target, bool user_has_dropeye);
 struct entity* GetLeader(void);
 struct monster* GetLeaderMonster(void);
+bool GetRandomTile(struct position* pos_out, bool exclude_key_doors);
 bool FindNearbyUnoccupiedTile(struct position* pos_out, struct position* origin,
                               struct position* search_list, int search_list_len, bool random_room);
 bool FindClosestUnoccupiedTileWithin2(struct position* pos_out, struct position* origin,

@@ -5070,6 +5070,18 @@ arm9:
         r1: x offset within window
         r2: y offset within window
         r3: text to draw
+    - name: GetColorCodePaletteOffset
+      address:
+        EU: 0x20268A8
+        NA: 0x20265C4
+        JP: 0x202669C
+      description: |-
+        Gets the offset of a text color symbol's 2-byte RGB5 color in the palette stored in VRAM at 0x6882000.
+        
+        The offset minus 0x10 will also be the corresponding 4-byte RGBX color's position in FONT/text_pal.pal.
+        
+        r0: char
+        return: offset
     - name: GetWindow
       address:
         EU: 0x20278EC
