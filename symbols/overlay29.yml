@@ -370,7 +370,7 @@ overlay29:
         Returns a pointer to the tile where an entity is located.
         
         r0: pointer to entity
-        returns: pointer to tile
+        return: pointer to tile
     - name: UpdateEntityPixelPos
       address:
         EU: 0x22E2380
@@ -2870,7 +2870,7 @@ overlay29:
         Checks for the abilities Swift Swim, Chlorophyll, Unburden, and for exclusive items.
         
         r0: pointer to entity
-        returns: int
+        return: int
     - name: GetMonsterDisplayNameType
       address:
         EU: 0x2300B34
@@ -3547,7 +3547,7 @@ overlay29:
         Graphically displays any pending actions that have happened but haven't been shown on screen yet. All actions are displayed at the same time. For example, this delayed display system is used to display multiple monsters moving at once even though they take turns sequentially.
         
         r0: Pointer to an entity. Can be null.
-        returns: Seems to be true if there were any pending actions to display.
+        return: Seems to be true if there were any pending actions to display.
     - name: CheckNonLeaderTile
       address:
         EU: 0x23060C0
@@ -6179,7 +6179,7 @@ overlay29:
         r2: Pointer to move data
         r3: False if the move's first accuracy (accuracy1) should be used, true if its second accuracy (accuracy2) should be used instead.
         stack[0]: If true, always hit if the attacker and defender are the same. Otherwise, moves can miss no matter what the attacker and defender are.
-        returns: True if the move hits, false if it misses.
+        return: True if the move hits, false if it misses.
     - name: IsHyperBeamVariant
       address:
         EU: 0x2324F9C
@@ -6249,7 +6249,7 @@ overlay29:
         r0: user entity pointer
         r1: target entity pointer
         r2: base success percentage (100*p). 0 is treated specially and guarantees success.
-        returns: True if the random check passed, false otherwise.
+        return: True if the random check passed, false otherwise.
     - name: DungeonRandOutcomeUserAction
       address:
         EU: 0x2325488
@@ -6262,7 +6262,7 @@ overlay29:
         
         r0: entity pointer
         r1: base success percentage (100*p). 0 is treated specially and guarantees success.
-        returns: True if the random check passed, false otherwise.
+        return: True if the random check passed, false otherwise.
     - name: CanAiUseMove
       address:
         EU: 0x23254DC
