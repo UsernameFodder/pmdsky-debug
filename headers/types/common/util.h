@@ -277,7 +277,7 @@ struct user_settings {
     uint16_t nickname[10]; // UTF-16 string
     undefined2 field_0x18; // always 0; null terminator for nickname?
     uint16_t nickname_length;
-    uint16_t message[26]; // UTF-16 string
+    uint16_t message[26];  // UTF-16 string
     undefined2 field_0x50; // always 0; null terminator for message?
     uint16_t message_length;
 };
