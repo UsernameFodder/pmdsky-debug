@@ -258,7 +258,6 @@ struct thread_info {
 ASSERT_SIZE(struct thread_info, 52); // Could be shorter
 
 // Language and flags of the DS firmware user settings.
-// Although in total, the language and flags consist of two bytes, calling GetDsFirmwareUserSettings only results in the lower byte being saved.
 struct language_and_flags {
     uint8_t language : 3;
     bool gba_mode_screen : 1;
@@ -286,13 +285,13 @@ ASSERT_SIZE(struct user_settings, 84);
 
 // Fields of the DS system clock.
 struct system_clock {
-  undefined4 field_0x0; // always 0
-  int second;
-  int minute;
-  int hour;
-  int day;
-  int month;
-  int year;
+    undefined4 field_0x0; // always 0
+    int second;
+    int minute;
+    int hour;
+    int day;
+    int month;
+    int year;
 };
 ASSERT_SIZE(struct system_clock, 28);
 

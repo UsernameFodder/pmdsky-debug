@@ -1986,9 +1986,9 @@ libs:
         JP: 0x207BCF0
       description: |-
         Gets the user settings of the DS firmware.
-
+        
         See https://problemkaputt.de/gbatek.htm#dsfirmwareusersettings
-
+        
         r0: user_settings pointer
     - name: CountLeadingZeros
       address:

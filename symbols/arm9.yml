@@ -930,7 +930,7 @@ arm9:
         JP: 0x2006EF8
       description: |-
         This function prints the debug message "Now date & time" followed by the current date and time of the DS system clock. Called on boot.
-
+        
         No params.
     - name: GetSystemClock
       address:
@@ -948,7 +948,7 @@ arm9:
         JP: 0x2006FB8
       description: |-
         Calls sprintf to format a string using the fields of the DS system clock as "year/month/day hour:minute:second". Used in DebugPrintSystemClock.
-
+        
         r0: system_clock pointer
         r1: str
     - name: DataTransferInit
@@ -5116,7 +5116,7 @@ arm9:
         JP: 0x2026624
       description: |-
         Gets the width of a text char.
-
+        
         r0: char
         return: char width
     - name: GetColorCodePaletteOffset
@@ -5138,7 +5138,7 @@ arm9:
         JP: 0x2026844
       description: |-
         Draws a single char within a window. This function is also responsible for drawing the shadows of a char.
-
+        
         r0: window_id
         r1: x offset within window
         r2: y offset within window
@@ -5882,7 +5882,7 @@ arm9:
         JP: 0x202D908
       description: |-
         Gets all the option menu states; used to determine what options the user has selected in a menu. Each option state corresponds a options_menu_id_item.
-
+        
         r0: window_id
         r1: option_states pointer
     - name: GetOptionsMenuResult
@@ -5892,7 +5892,7 @@ arm9:
         JP: 0x202D93C
       description: |-
         Returns whether or not the options menu was confirmed or canceled (e.g., by pressing the B button).
-
+        
         r0: window_id
         return: bool
     - name: UpdateOptionsMenu
