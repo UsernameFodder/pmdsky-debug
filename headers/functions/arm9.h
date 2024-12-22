@@ -84,6 +84,7 @@ void HaltProcessDisp(int status);
 bool OverlayIsLoaded(enum overlay_group_id group_id);
 void LoadOverlay(enum overlay_group_id group_id);
 void UnloadOverlay(enum overlay_group_id group_id);
+void GetDsFirmwareUserSettingsVeneer(struct user_settings* settings);
 void Rgb8ToRgb5(struct rgb5* target, struct rgba* source);
 float EuclideanNorm(int* vec2);
 void ClampComponentAbs(int* vec2, int max);
@@ -91,6 +92,9 @@ bool GetHeldButtons(int controller, undefined* btn_ptr);
 bool GetPressedButtons(int controller, undefined* btn_ptr);
 bool GetReleasedStylus(undefined* stylus_ptr);
 void KeyWaitInit(void);
+void DebugPrintSystemClock(void);
+void GetSystemClock(struct system_clock* clock);
+void SprintfSystemClock(struct system_clock* clock, char* str);
 void DataTransferInit(void);
 void DataTransferStop(void);
 void FileInitVeneer(struct file_stream* file);
@@ -522,7 +526,9 @@ void LoadTblTalk(void);
 int GetTalkLine(int personality_idx, int group_id, int restrictions);
 bool IsAOrBPressed(void);
 void DrawTextInWindow(int window_id, int x, int y, char* string);
+uint8_t GetCharWidth(char symbol);
 int GetColorCodePaletteOffset(char symbol);
+uint8_t DrawChar(int window_id, int x, int y, char symbol, int color_offset);
 struct window* GetWindow(int window_id);
 int NewWindowScreenCheck(struct window_params* params, uint8_t param_2);
 int NewWindow(struct window_params* params, uint8_t param_2);
@@ -602,10 +608,12 @@ void SetCollectionMenuField0x1B2(int window_id, undefined4 value);
 bool IsCollectionMenuState3(int window_id);
 int CreateOptionsMenu(struct window_params* params, struct window_flags flags,
                       struct window_extra_info* window_extra_info,
-                      struct options_menu_id_item* menu_items, int n_items, undefined4* param_6);
+                      struct options_menu_id_item* menu_items, int n_items, int* option_states);
 void CloseOptionsMenu(int window_id);
 bool IsOptionsMenuActive(int window_id);
 bool CheckOptionsMenuField0x1A4(int window_id);
+void GetOptionsMenuStates(int window_id, int* option_states);
+bool GetOptionsMenuResult(int window_id);
 void UpdateOptionsMenu(struct window* window);
 int CreateDebugMenu(struct window_params* params, struct window_flags flags,
                     struct window_extra_info* window_extra_info, uint16_t* menu_item_string_ids,

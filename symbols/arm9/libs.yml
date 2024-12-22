@@ -1979,6 +1979,17 @@ libs:
         See https://problemkaputt.de/gbatek.htm#armcpuflagsconditionfieldcond
         
         return: cpsr & 0x1f (the cpsr mode bits M4-M0)
+    - name: GetDsFirmwareUserSettings
+      address:
+        EU: 0x207BDA0
+        NA: 0x207BA08
+        JP: 0x207BCF0
+      description: |-
+        Gets the user settings of the DS firmware.
+        
+        See https://problemkaputt.de/gbatek.htm#dsfirmwareusersettings
+        
+        r0: user_settings pointer
     - name: CountLeadingZeros
       address:
         EU: 0x207BE24

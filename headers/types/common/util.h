@@ -257,4 +257,42 @@ struct thread_info {
 };
 ASSERT_SIZE(struct thread_info, 52); // Could be shorter
 
+// Language and flags of the DS firmware user settings.
+struct language_and_flags {
+    uint8_t language : 3;
+    bool gba_mode_screen : 1;
+    uint8_t backlight_level : 2;
+    bool bootmenu_disable : 1;
+    undefined field_0x7 : 1;
+};
+ASSERT_SIZE(struct language_and_flags, 1);
+
+// Various pieces of user settings originating from the DS firmware.
+// See https://problemkaputt.de/gbatek.htm#dsfirmwareusersettings
+struct user_settings {
+    struct language_and_flags language_and_flags;
+    uint8_t favorite_color;
+    uint8_t birthday_month;
+    uint8_t birthday_day;
+    uint16_t nickname[10]; // UTF-16 string
+    undefined2 field_0x18; // always 0; null terminator for nickname?
+    uint16_t nickname_length;
+    uint16_t message[26];  // UTF-16 string
+    undefined2 field_0x50; // always 0; null terminator for message?
+    uint16_t message_length;
+};
+ASSERT_SIZE(struct user_settings, 84);
+
+// Fields of the DS system clock.
+struct system_clock {
+    undefined4 field_0x0; // always 0
+    int second;
+    int minute;
+    int hour;
+    int day;
+    int month;
+    int year;
+};
+ASSERT_SIZE(struct system_clock, 28);
+
 #endif

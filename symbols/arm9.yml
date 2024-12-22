@@ -833,6 +833,17 @@ arm9:
         
         r0: group ID of the overlay to unload
         others: ?
+    - name: GetDsFirmwareUserSettingsVeneer
+      address:
+        EU: 0x2004F74
+        NA: 0x2004F74
+        JP: 0x2004F74
+      description: |-
+        Likely a linker-generated veneer for GetDsFirmwareUserSettings.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
+        
+        r0: user_settings pointer
     - name: Rgb8ToRgb5
       address:
         EU: 0x2004FCC
@@ -912,6 +923,34 @@ arm9:
         Implements (most of?) SPECIAL_PROC_KEY_WAIT_INIT (see ScriptSpecialProcessCall).
         
         No params.
+    - name: DebugPrintSystemClock
+      address:
+        EU: 0x2006EF8
+        NA: 0x2006EF8
+        JP: 0x2006EF8
+      description: |-
+        This function prints the debug message "Now date & time" followed by the current date and time of the DS system clock. Called on boot.
+        
+        No params.
+    - name: GetSystemClock
+      address:
+        EU: 0x2006F68
+        NA: 0x2006F68
+        JP: 0x2006F68
+      description: |-
+        Gets information surrounding the DS system clock, such as the current month, day, etc.
+        
+        r0: system_clock pointer
+    - name: SprintfSystemClock
+      address:
+        EU: 0x2006FB8
+        NA: 0x2006FB8
+        JP: 0x2006FB8
+      description: |-
+        Calls sprintf to format a string using the fields of the DS system clock as "year/month/day hour:minute:second". Used in DebugPrintSystemClock.
+        
+        r0: system_clock pointer
+        r1: str
     - name: DataTransferInit
       aliases:
         - FileRom_InitDataTransfer
@@ -5070,6 +5109,16 @@ arm9:
         r1: x offset within window
         r2: y offset within window
         r3: text to draw
+    - name: GetCharWidth
+      address:
+        EU: 0x2026830
+        NA: 0x202654C
+        JP: 0x2026624
+      description: |-
+        Gets the width of a text char.
+        
+        r0: char
+        return: char width
     - name: GetColorCodePaletteOffset
       address:
         EU: 0x20268A8
@@ -5082,6 +5131,20 @@ arm9:
         
         r0: char
         return: offset
+    - name: DrawChar
+      address:
+        EU: 0x2026A50
+        NA: 0x202676C
+        JP: 0x2026844
+      description: |-
+        Draws a single char within a window. This function is also responsible for drawing the shadows of a char.
+        
+        r0: window_id
+        r1: x offset within window
+        r2: y offset within window
+        r3: char
+        stack[0]: color offset
+        return: char width
     - name: GetWindow
       address:
         EU: 0x20278EC
@@ -5779,7 +5842,7 @@ arm9:
         r2: window_extra_info pointer
         r3: options_menu_id_item struct array, terminated with an item with msg_id 0
         stack[0]: number of items
-        stack[1]: ?
+        stack[1]: option_states pointer
         return: window_id
     - name: CloseOptionsMenu
       address:
@@ -5809,6 +5872,26 @@ arm9:
         JP: 0x202D8D4
       description: |-
         Checks if options_menu::field_0x1a4 is 0.
+        
+        r0: window_id
+        return: bool
+    - name: GetOptionsMenuStates
+      address:
+        EU: 0x202D8A4
+        NA: 0x202D5B0
+        JP: 0x202D908
+      description: |-
+        Gets all the option menu states; used to determine what options the user has selected in a menu. Each option state corresponds a options_menu_id_item.
+        
+        r0: window_id
+        r1: option_states pointer
+    - name: GetOptionsMenuResult
+      address:
+        EU: 0x202D8D8
+        NA: 0x202D5E4
+        JP: 0x202D93C
+      description: |-
+        Returns whether or not the options menu was confirmed or canceled (e.g., by pressing the B button).
         
         r0: window_id
         return: bool

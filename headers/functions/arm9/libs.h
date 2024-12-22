@@ -332,6 +332,7 @@ int EnableIrqFiqFlags(void);
 int SetIrqFiqFlags(int new_value);
 int GetIrqFlag(void);
 int GetProcessorMode(void);
+void GetDsFirmwareUserSettings(struct user_settings* settings);
 uint32_t CountLeadingZeros(uint32_t x);
 void WaitForever2(void);
 void WaitForInterrupt(void);
