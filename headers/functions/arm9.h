@@ -418,6 +418,7 @@ void PlaySeFullSpec(int param_1, int param_2, int param_3, int param_4);
 void SeChangeVolume(int param_1, int param_2, int param_3);
 void SeChangePan(int param_1, int param_2, int param_3);
 void StopSe(int param_1, int param_2);
+void CopyAndInterleaveWrapper(uint16_t* dst, uint16_t* src, uint32_t len, uint8_t val);
 void InitAnimationControl(struct animation_control* animation_control);
 void InitAnimationControlWithSet(struct animation_control* animation_control);
 void SetSpriteIdForAnimationControl(struct animation_control* anim_ctrl, uint16_t sprite_id);
