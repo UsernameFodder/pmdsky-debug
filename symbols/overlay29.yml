@@ -7019,7 +7019,7 @@ overlay29:
         EU: 0x2339480
       description: |-
         Loads the 1001.wte, 1005.wte, and 1031.wte files in dungeon.bin, which are used for the 3D effects for the tileset weather as well as the Sandstorm weather condition.
-
+        
         No params.
     - name: RenderWeather3D
       address:
@@ -7052,7 +7052,7 @@ overlay29:
         EU: 0x233A5F4
       description: |-
         Seems to control flashing the leader's icon on the minimap when r0 = 0? Doesn't seem to ever be called when r0 = 1.
-
+        
         r0: ?
     - name: UpdateMinimap
       address:
