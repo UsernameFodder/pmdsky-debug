@@ -7032,7 +7032,7 @@ overlay29:
         return: minimap_display_data*
     - name: RenderWeather3D
       address:
-        EU: 0x02339694
+        EU: 0x2339694
       description: |-
         Renders the 3D effects for the tileset weather as well as the Sandstorm weather condition.
 
