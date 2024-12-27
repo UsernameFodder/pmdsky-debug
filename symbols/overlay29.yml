@@ -7018,14 +7018,14 @@ overlay29:
       address:
         EU: 0x2339480
       description: |-
-        Loads the 1001.wte, 1005.wte, and 1031.wte files in dungeon.bin, which are used for the 3D effects for the tileset weather as well as the Sandstorm weather condition.
+        Loads the 1001.wte, 1005.wte, and 1031.wte files in dungeon.bin, which are used for the 3D effects for the tileset weather as well as the Sandstorm/Fog weather conditions.
         
         No params.
     - name: RenderWeather3D
       address:
         EU: 0x2339694
       description: |-
-        Renders the 3D effects for the tileset weather as well as the Sandstorm weather condition.
+        Renders the 3D effects for the tileset weather as well as the Sandstorm/Fog weather conditions.
         
         No params.
     - name: GetMinimapData
