@@ -4079,7 +4079,7 @@ arm9:
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: CopyAndInterleaveWrapper
       address:
-        EU: 0x0201C08C
+        EU: 0x201C08C
       description: |-
         Calls CopyAndInterleave with the passed len divided by 2.
         

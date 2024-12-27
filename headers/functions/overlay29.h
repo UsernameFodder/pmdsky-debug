@@ -716,7 +716,7 @@ enum hidden_stairs_type GetHiddenStairsField(void);
 void SetHiddenStairsField(enum hidden_stairs_type hidden_stairs);
 enum hidden_stairs_type GetHiddenFloorField(void);
 void SetHiddenFloorField(enum hidden_stairs_type hidden_floor);
-void InitializeWeather3DFiles(void);
+void LoadWeather3DFiles(void);
 struct minimap_display_data* GetMinimapData(void);
 void RenderWeather3D(void);
 void DrawMinimapTile(int x, int y);
