@@ -7014,6 +7014,20 @@ overlay29:
         Sets the hidden_floor_type variable from dungeon::dungeon_generation_info to a certain value.
         
         r0: New value
+    - name: LoadWeather3DFiles
+      address:
+        EU: 0x2339480
+      description: |-
+        Loads the 1001.wte, 1005.wte, and 1031.wte files in dungeon.bin, which are used for the 3D effects for the tileset weather as well as the Sandstorm/Fog weather conditions.
+        
+        No params.
+    - name: RenderWeather3D
+      address:
+        EU: 0x2339694
+      description: |-
+        Renders the 3D effects for the tileset weather as well as the Sandstorm/Fog weather conditions.
+        
+        No params.
     - name: GetMinimapData
       address:
         EU: 0x2339CE8
@@ -7033,6 +7047,13 @@ overlay29:
         
         r0: X position
         r1: Y position
+    - name: FlashLeaderIcon
+      address:
+        EU: 0x233A5F4
+      description: |-
+        Seems to control flashing the leader's icon on the minimap when r0 = 0? Doesn't seem to ever be called when r0 = 1.
+        
+        r0: ?
     - name: UpdateMinimap
       address:
         EU: 0x233A8B8

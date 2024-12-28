@@ -4077,6 +4077,16 @@ arm9:
         NA: 0x201A9E4
         JP: 0x201AA3C
       description: "Note: unverified, ported from Irdkwia's notes"
+    - name: CopyAndInterleaveWrapper
+      address:
+        EU: 0x201C08C
+      description: |-
+        Calls CopyAndInterleave with the passed len divided by 2.
+        
+        r0: dst
+        r1: src
+        r2: len (in bytes, will be divided by 2 in the call to CopyAndInterleave)
+        r3: val
     - name: InitAnimationControl
       address:
         EU: 0x201C0EC
@@ -4857,7 +4867,7 @@ arm9:
       description: |-
         Gets the string corresponding to the player's current explorer rank.
         
-        r0: [output] Pointer to the buffer where the string will be written
+        r0: [output] Pointer to the buffer where the string will be written (if flags are 0)
         r1: First 16 bits contain the rank, next 4 are some sort of bitflags
         return: r0 if flags are 0, pointer to some static address otherwise
     - name: GetCurrentTeamNameString

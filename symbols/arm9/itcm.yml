@@ -40,11 +40,11 @@ itcm:
       description: |-
         Copies data from src to dst, placing the last 4 bits of val after every 4 bits copied.
         
-        In total, the number of bytes copied from src will be 2 * len, while the number of bytes pasted will be 4 * len.
+        In total, the number of bytes copied from src will be len, while the number of bytes pasted will be 2 * len.
         
         r0: [output] dst
         r1: src
-        r2: len (in words)
+        r2: len (in bytes)
         r3: val
     - name: Render3dSetTextureParams
       address:
