@@ -7017,6 +7017,8 @@ overlay29:
     - name: LoadWeather3DFiles
       address:
         EU: 0x2339480
+        NA: 0x23388B0
+        JP: 0x2339C74
       description: |-
         Loads the 1001.wte, 1005.wte, and 1031.wte files in dungeon.bin, which are used for the 3D effects for the tileset weather as well as the Sandstorm/Fog weather conditions.
         
@@ -7024,6 +7026,8 @@ overlay29:
     - name: RenderWeather3D
       address:
         EU: 0x2339694
+        NA: 0x2338AC4
+        JP: 0x2339E88
       description: |-
         Renders the 3D effects for the tileset weather as well as the Sandstorm/Fog weather conditions.
         
@@ -7050,6 +7054,8 @@ overlay29:
     - name: FlashLeaderIcon
       address:
         EU: 0x233A5F4
+        NA: 0x2339A24
+        JP: 0x233ADE8
       description: |-
         Seems to control flashing the leader's icon on the minimap when r0 = 0? Doesn't seem to ever be called when r0 = 1.
         
@@ -9755,6 +9761,16 @@ overlay29:
         List of exclusive item effects that negate damage of a certain type, terminated by a TYPE_NEUTRAL entry.
         
         type: struct damage_negating_exclusive_eff_entry[28]
+    - name: TWO_TURN_STATUSES
+      address:
+        EU: 0x235366C
+        NA: 0x2352A60
+        JP: 0x2353CE0
+      length:
+        EU: 0xB
+        NA: 0xB
+        JP: 0xB
+      description: Lists all status IDs that are for two-turn moves. The last entry is null.
     - name: TWO_TURN_MOVES_AND_STATUSES
       address:
         EU: 0x23536B8

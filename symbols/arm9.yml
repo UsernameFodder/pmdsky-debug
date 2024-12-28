@@ -4080,6 +4080,8 @@ arm9:
     - name: CopyAndInterleaveWrapper
       address:
         EU: 0x201C08C
+        NA: 0x201BFF0
+        JP: 0x201C048
       description: |-
         Calls CopyAndInterleave with the passed len divided by 2.
         

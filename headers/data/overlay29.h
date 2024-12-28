@@ -77,6 +77,7 @@ extern struct fx64_16 DAMAGE_FORMULA_MAX_BASE;
 extern struct fx64_16 WONDER_GUARD_MULTIPLIER;
 extern struct fx64_16 DAMAGE_FORMULA_MIN_BASE;
 extern struct damage_negating_exclusive_eff_entry TYPE_DAMAGE_NEGATING_EXCLUSIVE_ITEM_EFFECTS[28];
+extern uint8_t TWO_TURN_STATUSES[11];
 extern struct two_turn_move_and_status TWO_TURN_MOVES_AND_STATUSES[22];
 extern int32_t SPATK_STAT_IDX;
 extern int32_t ATK_STAT_IDX;
