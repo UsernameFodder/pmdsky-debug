@@ -271,9 +271,65 @@ enum status_id {
 ENUM_8_BIT(status_id);
 #pragma pack(pop)
 
+enum status_sleep_id {
+    STATUS_SLEEP_NONE = 0,
+    STATUS_SLEEP_SLEEP = 1,
+    STATUS_SLEEP_SLEEPLESS = 2,
+    STATUS_SLEEP_NIGHTMARE = 3,
+    STATUS_SLEEP_YAWNING = 4,
+    STATUS_SLEEP_NAPPING = 5,
+};
+
+#pragma pack(push, 1)
+ENUM_8_BIT(status_sleep_id);
+#pragma pack(pop)
+
+enum status_burn_id {
+    STATUS_BURN_NONE = 0,
+    STATUS_BURN_BURN = 1,
+    STATUS_BURN_POISONED = 2,
+    STATUS_BURN_BADLY_POISONED = 3,
+    STATUS_BURN_PARALYSIS = 4,
+};
+
+#pragma pack(push, 1)
+ENUM_8_BIT(status_burn_id);
+#pragma pack(pop)
+
+enum status_frozen_id {
+    STATUS_FROZEN_NONE = 0,
+    STATUS_FROZEN_FROZEN = 1,
+    STATUS_FROZEN_SHADOW_HOLD = 2,
+    STATUS_FROZEN_WRAP = 3,
+    STATUS_FROZEN_WRAPPED = 4,
+    STATUS_FROZEN_INGRAIN = 5,
+    STATUS_FROZEN_PETRIFIED = 6,
+    STATUS_FROZEN_CONSTRICTION = 7,
+};
+
+#pragma pack(push, 1)
+ENUM_8_BIT(status_frozen_id);
+#pragma pack(pop)
+
+enum status_cringe_id {
+    STATUS_CRINGE_NONE = 0,
+    STATUS_CRINGE_CRINGE = 1,
+    STATUS_CRINGE_CONFUSED = 2,
+    STATUS_CRINGE_PAUSED = 3,
+    STATUS_CRINGE_COWERING = 4,
+    STATUS_CRINGE_TAUNTED = 5,
+    STATUS_CRINGE_ENCORE = 6,
+    STATUS_CRINGE_INFATUATED = 7,
+};
+
+#pragma pack(push, 1)
+ENUM_8_BIT(status_cringe_id);
+#pragma pack(pop)
+
 // Values for the two-turn move status group
 // Corresponds to values 28 to 40 in the status_id enum
 enum status_two_turn_id {
+    STATUS_TWO_TURN_NONE = 0,
     STATUS_TWO_TURN_BIDE = 1,
     STATUS_TWO_TURN_SOLARBEAM = 2,
     STATUS_TWO_TURN_SKY_ATTACK = 3,
@@ -289,9 +345,107 @@ enum status_two_turn_id {
     STATUS_TWO_TURN_SHADOW_FORCE = 13,
 };
 
-// This is usually stored as a 16-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(status_two_turn_id);
+#pragma pack(pop)
+
 #pragma pack(push, 2)
 ENUM_16_BIT(status_two_turn_id);
+#pragma pack(pop)
+
+enum status_reflect_id {
+    STATUS_REFLECT_NONE = 0,
+    STATUS_REFLECT_REFLECT = 1,
+    STATUS_REFLECT_SAFEGUARD = 2,
+    STATUS_REFLECT_LIGHT_SCREEN = 3,
+    STATUS_REFLECT_COUNTER = 4,
+    STATUS_REFLECT_MAGIC_COAT = 5,
+    STATUS_REFLECT_WISH = 6,
+    STATUS_REFLECT_PROTECT = 7,
+    STATUS_REFLECT_MIRROR_COAT = 8,
+    STATUS_REFLECT_ENDURING = 9,
+    STATUS_REFLECT_MINI_COUNTER = 10,
+    STATUS_REFLECT_MIRROR_MOVE = 11,
+    STATUS_REFLECT_CONVERSION2 = 12,
+    STATUS_REFLECT_VITAL_THROW = 13,
+    STATUS_REFLECT_MIST = 14,
+    STATUS_REFLECT_METAL_BURST = 15,
+    STATUS_REFLECT_AQUA_RING = 16,
+    STATUS_REFLECT_LUCKY_CHANT = 17,
+};
+
+#pragma pack(push, 1)
+ENUM_8_BIT(status_reflect_id);
+#pragma pack(pop)
+
+enum status_curse_id {
+    STATUS_CURSE_NONE = 0,
+    STATUS_CURSE_CURSED = 1,
+    STATUS_CURSE_DECOY = 2,
+    STATUS_CURSE_SNATCH = 3,
+    STATUS_CURSE_GASTRO_ACID = 4,
+    STATUS_CURSE_HEAL_BLOCK = 5,
+    STATUS_CURSE_EMBARGO = 6,
+};
+
+#pragma pack(push, 1)
+ENUM_8_BIT(status_curse_id);
+#pragma pack(pop)
+
+enum status_leech_seed_id {
+    STATUS_LEECH_SEED_NONE = 0,
+    STATUS_LEECH_SEED_LEECH_SEED = 1,
+    STATUS_LEECH_SEED_DESTINY_BOND = 2,
+};
+
+#pragma pack(push, 1)
+ENUM_8_BIT(status_leech_seed_id);
+#pragma pack(pop)
+
+enum status_sure_shot_id {
+    STATUS_SURE_SHOT_NONE = 0,
+    STATUS_SURE_SHOT_SURE_SHOT = 1,
+    STATUS_SURE_SHOT_WHIFFER = 2,
+    STATUS_SURE_SHOT_SET_DAMAGE = 3,
+    STATUS_SURE_SHOT_FOCUS_ENERGY = 4,
+};
+
+#pragma pack(push, 1)
+ENUM_8_BIT(status_sure_shot_id);
+#pragma pack(pop)
+
+enum status_long_toss_id {
+    STATUS_LONG_TOSS_NONE = 0,
+    STATUS_LONG_TOSS_LONG_TOSS = 1,
+    STATUS_LONG_TOSS_PIERCE = 2,
+};
+
+#pragma pack(push, 1)
+ENUM_8_BIT(status_long_toss_id);
+#pragma pack(pop)
+
+enum status_invisible_id {
+    STATUS_INVISIBLE_NONE = 0,
+    STATUS_INVISIBLE_INVISIBLE = 1,
+    STATUS_INVISIBLE_TRANSFORMED = 2,
+    STATUS_INVISIBLE_MOBILE = 3,
+    STATUS_INVISIBLE_SLIP = 4,
+};
+
+#pragma pack(push, 1)
+ENUM_8_BIT(status_invisible_id);
+#pragma pack(pop)
+
+enum status_blinker_id {
+    STATUS_BLINKER_NONE = 0,
+    STATUS_BLINKER_BLINKER = 1,
+    STATUS_BLINKER_CROSS_EYED = 2,
+    STATUS_BLINKER_EYEDROPS = 3,
+    STATUS_BLINKER_DROPEYE = 4,
+};
+
+#pragma pack(push, 1)
+ENUM_8_BIT(status_blinker_id);
 #pragma pack(pop)
 
 // Tactic ID. These are usually encoded as bitvectors.
