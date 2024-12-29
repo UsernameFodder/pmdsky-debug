@@ -590,19 +590,19 @@ enum action {
     ACTION_SEND_HOME = 52,      // 0x34: Send a pokémon home
     ACTION_UNK_35 = 53,
     ACTION_GIVE_ITEM = 54, // 0X36: Give held item
-    ACTION_TAKE_ITEM = 35, // 0x37: Take a held item
-    ACTION_UNK_38 = 36,
+    ACTION_TAKE_ITEM = 55, // 0x37: Take a held item
+    ACTION_UNK_38 = 56,
     // 0x39: <pokémon> had second thoughts! - Used as a failsafe when trying to take an illegal
     // action
-    ACTION_SECOND_THOUGHTS = 37,
-    ACTION_SWAP_ITEM = 38,     // 0x3A: Swapping an item
-    ACTION_CHANGE_LEADER = 39, // 0x3B: Change the team's leader
-    ACTION_SET_ITEM = 40,      // 0x3C: Set item
-    ACTION_UNSET_ITEM = 41,    // 0x3D: Unset item
-    ACTION_UNK_3E = 42,
-    ACTION_PICK_UP_AI = 43, // 0x3F: Pick up an item (AI)
-    ACTION_UNK_40 = 44,
-    ACTION_THROW_ARC_PLAYER = 45, // 0x41: Throw a Gravelerock or a similar item (player)
+    ACTION_SECOND_THOUGHTS = 57,
+    ACTION_SWAP_ITEM = 58,     // 0x3A: Swapping an item
+    ACTION_CHANGE_LEADER = 59, // 0x3B: Change the team's leader
+    ACTION_SET_ITEM = 60,      // 0x3C: Set item
+    ACTION_UNSET_ITEM = 61,    // 0x3D: Unset item
+    ACTION_UNK_3E = 62,
+    ACTION_PICK_UP_AI = 63, // 0x3F: Pick up an item (AI)
+    ACTION_UNK_40 = 64,
+    ACTION_THROW_ARC_PLAYER = 65, // 0x41: Throw a Gravelerock or a similar item (player)
 };
 
 // This is usually stored as a 16-bit integer
