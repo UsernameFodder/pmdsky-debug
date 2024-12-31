@@ -43,7 +43,12 @@ extern struct dungeon_id_8 PENDING_DUNGEON_ID;
 extern uint8_t PENDING_STARTING_FLOOR;
 extern uint32_t PLAY_TIME_SECONDS;
 extern uint8_t PLAY_TIME_FRAME_COUNTER;
-extern char TEAM_NAME[10];
+#if PMDSKY_VERSION == PMDSKY_JP
+#define TEAM_NAME_LENGTH 8
+#else
+#define TEAM_NAME_LENGTH 12
+#endif
+extern char TEAM_NAME[TEAM_NAME_LENGTH];
 extern struct monster_id_16 LEVEL_UP_DATA_MONSTER_ID;
 extern struct level_up_entry LEVEL_UP_DATA_DECOMPRESS_BUFFER[100];
 extern struct team_member_table TEAM_MEMBER_TABLE;
