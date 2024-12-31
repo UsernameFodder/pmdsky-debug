@@ -476,13 +476,13 @@ ram:
         NA: 0x22AB918
         JP: 0x22AD0D4
       length:
-        EU: 0xC
-        NA: 0xC
-        JP: 0x8
+        EU: 0xA
+        NA: 0xA
+        JP: 0x5
       description: |-
         The team name.
         
-        A null-terminated string, with a maximum length of 12 (or 8 in JP). Presumably encoded with the ANSI/Shift JIS encoding the game typically uses.
+        A null-terminated string, with a maximum length of 10 (or 5 in JP). Presumably encoded with the ANSI/Shift JIS encoding the game typically uses.
         
         This is presumably part of a larger struct, together with other nearby data.
     - name: LEVEL_UP_DATA_MONSTER_ID
