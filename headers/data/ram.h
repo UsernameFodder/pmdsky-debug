@@ -26,14 +26,14 @@ extern struct bulk_item UNUSED_KECLEON_WARES_ITEMS[4];
 extern int32_t MONEY_CARRIED;
 extern int32_t MONEY_STORED;
 extern struct audio_command AUDIO_COMMANDS_BUFFER[16];
+extern struct mem_arena* SOUND_MEMORY_ARENA_PTR;
+extern struct window_list WINDOW_LIST;
 extern uint16_t CURSOR_16_SPRITE_ID;
 extern uint16_t CURSOR_SPRITE_ID;
 extern struct animation_control* CURSOR_ANIMATION_CONTROL;
 extern struct animation_control* CURSOR_16_ANIMATION_CONTROL;
 extern uint16_t ALERT_SPRITE_ID;
 extern struct animation_control* ALERT_ANIMATION_CONTROL;
-extern struct mem_arena* SOUND_MEMORY_ARENA_PTR;
-extern struct window_list WINDOW_LIST;
 extern struct move LAST_NEW_MOVE;
 extern struct script_var_value_table SCRIPT_VARS_VALUES;
 extern uint8_t BAG_LEVEL;
@@ -43,7 +43,12 @@ extern struct dungeon_id_8 PENDING_DUNGEON_ID;
 extern uint8_t PENDING_STARTING_FLOOR;
 extern uint32_t PLAY_TIME_SECONDS;
 extern uint8_t PLAY_TIME_FRAME_COUNTER;
-extern char TEAM_NAME[10];
+#if PMDSKY_VERSION == PMDSKY_JP
+#define TEAM_NAME_LENGTH_ 5
+#else
+#define TEAM_NAME_LENGTH_ 10
+#endif
+extern char TEAM_NAME[TEAM_NAME_LENGTH_];
 extern struct monster_id_16 LEVEL_UP_DATA_MONSTER_ID;
 extern struct level_up_entry LEVEL_UP_DATA_DECOMPRESS_BUFFER[100];
 extern struct team_member_table TEAM_MEMBER_TABLE;
@@ -64,8 +69,8 @@ extern struct sentry_duty SENTRY_DUTY_STRUCT;
 extern bool TURNING_ON_THE_SPOT_FLAG;
 extern struct loaded_attack_sprite_data* LOADED_ATTACK_SPRITE_DATA;
 extern bool AI_THROWN_ITEM_DIRECTION_IS_USED[8];
-extern uint32_t AI_THROWN_ITEM_DIRECTIONS[8];
 extern uint32_t AI_THROWN_ITEM_PROBABILITIES[8];
+extern uint32_t AI_THROWN_ITEM_DIRECTIONS[8];
 extern bool ROLLOUT_ICE_BALL_MISSED;
 extern bool MULTIHIT_FATIGUE_MOVE_USED;
 extern bool TWINEEDLE_HIT_TRACKER;

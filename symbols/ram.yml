@@ -20,9 +20,13 @@ ram:
   data:
     - name: DEFAULT_MEMORY_ARENA_MEMORY
       address:
+        EU: 0x20B5500
         NA: 0x20B4BC0
+        JP: 0x20B6420
       length:
+        EU: 0x1E6400
         NA: 0x1E6400
+        JP: 0x1E6400
       description: |-
         The memory region for the default memory arena.
         
@@ -141,17 +145,21 @@ ram:
       address:
         EU: 0x22A3F1C
         NA: 0x22A35DC
+        JP: 0x22A4E3C
       length:
         EU: 0x104
         NA: 0x104
+        JP: 0x104
       description: "Status of the touchscreen, including the coordinates of the currently pressed position in pixels."
     - name: BAG_ITEMS
       address:
         EU: 0x22A4164
         NA: 0x22A3824
+        JP: 0x22A5084
       length:
         EU: 0x12C
         NA: 0x12C
+        JP: 0x12C
       description: |-
         Array of item structs within the player's bag.
         
@@ -270,17 +278,44 @@ ram:
       description: The amount of money the player currently has stored in the Duskull Bank.
     - name: AUDIO_COMMANDS_BUFFER
       address:
-        EU: 0x22A5599
+        EU: 0x22A5590
         NA: 0x22A4C50
+        JP: 0x22A64B0
       length:
         EU: 0x200
         NA: 0x200
+        JP: 0x200
       description: Buffer used to store audio commands. 16 entries in total. Seems like entries are removed at some point (maybe after the commands are read or after they finish executing).
+    - name: SOUND_MEMORY_ARENA_PTR
+      address:
+        NA: 0x22A4E54
+      length:
+        NA: 0x4
+      description: Pointer to SOUND_MEMORY_ARENA.
+    - name: WINDOW_LIST
+      address:
+        EU: 0x22A921C
+        NA: 0x22A88DC
+        JP: 0x22AA0E8
+      length:
+        EU: 0x1180
+        NA: 0x1180
+        JP: 0x1180
+      description: |-
+        Array of all window structs. Newly created window structs are taken from slots in this array.
+        
+        Note that this array isn't strictly ordered in any way. A newly created window will occupy the first available slot. If a window in an early slot is destroyed, windows that are still active in later slots won't be shifted back unless destroyed and recreated.
+        
+        type: struct window_list
     - name: CURSOR_16_SPRITE_ID
       address:
         EU: 0x22AB5A4
+        NA: 0x22AAC64
+        JP: 0x22AC470
       length:
         EU: 0x2
+        NA: 0x2
+        JP: 0x2
       description: "Id of the \"FONT/cursor_16.wan\" sprite loaded in WAN_TABLE"
     - name: CURSOR_SPRITE_ID
       address:
@@ -291,49 +326,52 @@ ram:
     - name: CURSOR_ANIMATION_CONTROL
       address:
         EU: 0x22AB5C0
+        NA: 0x22AAC80
+        JP: 0x22AC48C
       length:
         EU: 0x7C
+        NA: 0x7C
+        JP: 0x7C
       description: "animation_control of \"FONT/cursor.wan\""
     - name: CURSOR_16_ANIMATION_CONTROL
       address:
         EU: 0x22AB63C
+        NA: 0x22AACFC
+        JP: 0x22AC508
       length:
         EU: 0x7C
+        NA: 0x7C
+        JP: 0x7C
       description: "animation_control of \"FONT/cursor_16.wan\""
     - name: ALERT_SPRITE_ID
       address:
         EU: 0x22AB6B8
+        NA: 0x22AAD78
+        JP: 0x22AC584
       length:
         EU: 0x2
+        NA: 0x2
+        JP: 0x2
       description: "Id of the \"FONT/alert.wan\" sprite loaded in WAN_TABLE"
     - name: ALERT_ANIMATION_CONTROL
       address:
         EU: 0x22AB6BC
+        NA: 0x22AAD7C
+        JP: 0x22AC588
       length:
         EU: 0x7C
+        NA: 0x7C
+        JP: 0x7C
       description: "animation_control of \"FONT/alter.wan\""
-    - name: SOUND_MEMORY_ARENA_PTR
-      address:
-        NA: 0x22A4E54
-      length:
-        NA: 0x4
-      description: Pointer to SOUND_MEMORY_ARENA.
-    - name: WINDOW_LIST
-      address:
-        NA: 0x22A88DC
-      description: |-
-        Array of all window structs. Newly created window structs are taken from slots in this array.
-        
-        Note that this array isn't strictly ordered in any way. A newly created window will occupy the first available slot. If a window in an early slot is destroyed, windows that are still active in later slots won't be shifted back unless destroyed and recreated.
-        
-        type: struct window_list
     - name: LAST_NEW_MOVE
       address:
         EU: 0x22AB78C
         NA: 0x22AAE4C
+        JP: 0x22AC658
       length:
         EU: 0x8
         NA: 0x8
+        JP: 0x8
       description: |-
         Move struct of the last new move introduced when learning a new move. Persists even after the move selection is made in the menu.
         
@@ -378,9 +416,13 @@ ram:
         type: struct special_episode_type_8
     - name: KAOMADO_STREAM
       address:
+        EU: 0x22ABDF0
         NA: 0x22AB4B0
+        JP: 0x22ACC6C
       length:
+        EU: 0x48
         NA: 0x48
+        JP: 0x48
       description: |-
         The file stream utilized for all Kaomado portrait loads.
         
@@ -389,9 +431,11 @@ ram:
       address:
         EU: 0x22ABE3C
         NA: 0x22AB4FC
+        JP: 0x22ACCB8
       length:
         EU: 0x1
         NA: 0x1
+        JP: 0x1
       description: |-
         The ID of the selected dungeon when setting off from the overworld.
         
@@ -412,9 +456,11 @@ ram:
       address:
         EU: 0x22ABFD4
         NA: 0x22AB694
+        JP: 0x22ACE50
       length:
         EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: "The player's total play time in seconds."
     - name: PLAY_TIME_FRAME_COUNTER
       address:
@@ -428,30 +474,36 @@ ram:
       address:
         EU: 0x22AC258
         NA: 0x22AB918
+        JP: 0x22AD0D4
       length:
-        EU: 0xC
-        NA: 0xC
+        EU: 0xA
+        NA: 0xA
+        JP: 0x5
       description: |-
         The team name.
         
-        A null-terminated string, with a maximum length of 10. Presumably encoded with the ANSI/Shift JIS encoding the game typically uses.
+        A null-terminated string, with a maximum length of 10 (or 5 in JP). Presumably encoded with the ANSI/Shift JIS encoding the game typically uses.
         
         This is presumably part of a larger struct, together with other nearby data.
     - name: LEVEL_UP_DATA_MONSTER_ID
       address:
         EU: 0x22AC26C
         NA: 0x22AB92C
+        JP: 0x22AD0E4
       length:
         EU: 0x2
         NA: 0x2
+        JP: 0x2
       description: ID of the monster whose level-up data is currently stored in LEVEL_UP_DATA_DECOMPRESS_BUFFER.
     - name: LEVEL_UP_DATA_DECOMPRESS_BUFFER
       address:
         EU: 0x22AC270
         NA: 0x22AB930
+        JP: 0x22AD0E8
       length:
         EU: 0x4B0
         NA: 0x4B0
+        JP: 0x4B0
       description: |-
         Buffer used to stored a monster's decompressed level up data. Used by GetLvlUpEntry.
         
@@ -524,6 +576,7 @@ ram:
       address:
         EU: 0x22B9F88
         NA: 0x22B9648
+        JP: 0x22BAE00
       description: thread_info struct that contains global state about threads
     - name: FRAMES_SINCE_LAUNCH_TIMES_THREE
       address:
@@ -549,18 +602,24 @@ ram:
       address:
         EU: 0x23259F4
         NA: 0x2324EB4
+        JP: 0x2326414
       length:
-        EU: 0x14
-        NA: 0x14
+        EU: 0x18
+        NA: 0x18
+        JP: 0x18
       description: |-
         Used to notify scripts waiting for a certain lock to unlock so they can resume their execution.
         
-        1 byte per lock. Exact size isn't confirmed, it could potentially be longer.
+        1 byte per lock.
     - name: GROUND_MEMORY_ARENA_1
       address:
+        EU: 0x2325B00
         NA: 0x2324FC0
+        JP: 0x2326520
       length:
+        EU: 0x1C
         NA: 0x1C
+        JP: 0x1C
       description: |-
         This is a top-level memory arena used for some things in ground mode.
         
@@ -600,8 +659,12 @@ ram:
     - name: LOADED_ATTACK_SPRITE_DATA
       address:
         EU: 0x237D5AC
+        NA: 0x237C9AC
+        JP: 0x237DC2C
       length:
         EU: 0x4
+        NA: 0x4
+        JP: 0x4
       description: |-
         [Runtime] Pointer to the dynamically allocated structure relating to the currently loaded attack sprite, in dungeon mode.
         
@@ -609,80 +672,122 @@ ram:
     - name: AI_THROWN_ITEM_DIRECTION_IS_USED
       address:
         EU: 0x237D5D0
+        NA: 0x237C9D0
+        JP: 0x237DC50
       length:
         EU: 0x8
+        NA: 0x8
+        JP: 0x8
       description: "[Runtime] Used in GetPossibleAiThrownItemDirections to indicate whether a certain direction enum value is already being used or not."
-    - name: AI_THROWN_ITEM_DIRECTIONS
-      address:
-        EU: 0x237D5D8
-      length:
-        EU: 0x20
-      description: "[Runtime] Used to store the directions output by GetPossibleAiThrownItemDirections."
     - name: AI_THROWN_ITEM_PROBABILITIES
       address:
-        EU: 0x237D5F8
+        EU: 0x237D5D8
+        NA: 0x237C9D8
+        JP: 0x237DC58
       length:
         EU: 0x20
+        NA: 0x20
+        JP: 0x20
       description: "[Runtime] Used to store the probabilities matching the directions in THROWN_ITEM_DIRECTIONS."
+    - name: AI_THROWN_ITEM_DIRECTIONS
+      address:
+        EU: 0x237D5F8
+        NA: 0x237C9F8
+        JP: 0x237DC78
+      length:
+        EU: 0x20
+        NA: 0x20
+        JP: 0x20
+      description: "[Runtime] Used to store the directions output by GetPossibleAiThrownItemDirections."
     - name: ROLLOUT_ICE_BALL_MISSED
       address:
+        EU: 0x237D669
         NA: 0x237CA69
+        JP: 0x237DCE9
       length:
+        EU: 0x1
         NA: 0x1
+        JP: 0x1
       description: "[Runtime] Appears to be set to true whenever a hit from Rollout or Ice Ball fails to deal damage."
     - name: MULTIHIT_FATIGUE_MOVE_USED
       address:
+        EU: 0x237D66A
         NA: 0x237CA6A
+        JP: 0x237DCEA
       length:
+        EU: 0x1
         NA: 0x1
+        JP: 0x1
       description: "[Runtime] Appears to be set to true whenever a multihit fatigue move deals damage."
     - name: TWINEEDLE_HIT_TRACKER
       address:
         EU: 0x237D66B
         NA: 0x237CA6B
+        JP: 0x237DCEB
       length:
+        EU: 0x1
         NA: 0x1
+        JP: 0x1
       description: "[Runtime] Appears to be set to true whenever Twineedle hits and deals damage. So that even if the second attack misses, it will still try to poison the target."
     - name: RAPID_SPIN_BINDING_REMOVAL
       address:
         EU: 0x237D66D
         NA: 0x237CA6D
+        JP: 0x237DCED
       length:
+        EU: 0x1
         NA: 0x1
+        JP: 0x1
       description: "[Runtime] Appears to be set to true when using Rapid Spin to later remove any binding effects and Leech Seed."
     - name: ROLLOUT_ICE_BALL_SUCCESSIVE_HITS
       address:
+        EU: 0x237D670
         NA: 0x237CA70
+        JP: 0x237DCF0
       length:
+        EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: "[Runtime] Seems to count the number of successive hits by Rollout or Ice Ball."
     - name: MULTIHIT_MOVE_SUCCESSIVE_HITS
       address:
         EU: 0x237D678
         NA: 0x237CA78
+        JP: 0x237DCF8
       length:
+        EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: "[Runtime] Seems to count the number of successive hits for multihit moves. This is used by Twineedle to check to attempt to apply Poison after the second attack."
     - name: TRIPLE_KICK_SUCCESSIVE_HITS
       address:
         EU: 0x237D67C
         NA: 0x237CA7C
+        JP: 0x237DCFC
       length:
+        EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: "[Runtime] Seems to count the number of successive hits by Triple Kick."
     - name: METRONOME_NEXT_INDEX
       address:
+        EU: 0x237D688
         NA: 0x237CA88
+        JP: 0x237DD08
       length:
+        EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: "[Runtime] The index into METRONOME_TABLE for the next usage of Metronome."
     - name: FLOOR_GENERATION_STATUS
       address:
         EU: 0x237DBBC
         NA: 0x237CFBC
+        JP: 0x237E23C
       length:
         EU: 0x40
         NA: 0x40
+        JP: 0x40
       description: |-
         [Runtime] Status data related to generation of the current floor in a dungeon.
         
