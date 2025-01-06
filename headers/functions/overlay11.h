@@ -46,10 +46,35 @@ void AnimRelatedFunction(struct animation* anim, undefined4 param_2, undefined4 
 void AllocAndInitPartnerFollowDataAndLiveActorList(void);
 void InitPartnerFollowDataAndLiveActorList(void);
 void DeleteLiveActor(int16_t actor_id);
-void ChangeActorAnimation(undefined param_1, uint16_t setanimation_param);
-void InitPartnerFollowData(void);
+void SetAttributeBitfieldLiveActor(int16_t live_actor_id, uint32_t attribute_bitfield);
+void ResetAttributeBitfieldLiveActor(int16_t live_actor_id, uint32_t attribute_bitfield);
+void ChangeActorAnimation(struct live_actor* actor, uint16_t setanimation_param);
+void SetPositionLiveActor(struct live_actor* actor, struct vec2* pos);
+int16_t GetIdLiveActor(struct live_actor* actor);
+void GetCollisionBoxLiveActor(struct live_actor* actor, struct uvec2* collision_box);
+void SetPositionInitialLiveActor(struct live_actor* actor, struct vec2* offset);
+void SetMovementRangeLiveActor(struct live_actor* actor, struct vec2* limit_min_pos,
+                               struct vec2* limit_max_pos);
+void GetCollisionBoxCenterLiveActor(struct live_actor* actor, struct uvec2* collision_box_center);
+void SetPositionLiveActorVeneer(struct live_actor* actor, struct vec2* pos);
+void GetHeightLiveActor(struct live_actor* actor, int* height, int* second_height);
+void SetHeightLiveActor(struct live_actor* actor, int height);
 void GetDirectionLiveActor(struct live_actor* actor, struct direction_id_8* target);
 void SetDirectionLiveActor(struct live_actor* actor, struct direction_id_8 direction);
+void SetAnimationLiveActor(struct live_actor* actor, uint16_t setanimation_param);
+void SetEffectLiveActor(struct live_actor* actor, bool flag, int16_t effect_id,
+                        int position_marker);
+int GetAnimationStatusLiveActor(struct live_actor* actor);
+int GetEffectStatusLiveActor(struct live_actor* actor);
+void GetAttributeBitfieldLiveActor(struct live_actor* actor, uint32_t* attribute_bitfield);
+void SetAttributeBitfieldLiveActorWrapper(struct live_actor* actor, uint32_t attribute_bitfield);
+void ResetAttributeBitfieldLiveActorWrapper(struct live_actor* actor, uint32_t attribute_bitfield);
+void SetBlinkLiveActor(struct live_actor* actor, uint16_t interval_blink_in,
+                       uint16_t interval_blink_out);
+void SetPositionOffsetLiveActor(struct live_actor* actor, struct vec2* offset);
+void InitPartnerFollowData(void);
+void GetDirectionLiveObject(undefined object, struct direction_id_8* target);
+void SetDirectionLiveObject(undefined object, struct direction_id_8 direction);
 int CreateTeamInfoBox(void);
 void CloseTeamInfoBox(int window_id);
 bool IsTeamInfoBoxActive(int window_id);

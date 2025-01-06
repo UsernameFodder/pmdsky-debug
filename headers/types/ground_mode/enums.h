@@ -2099,6 +2099,18 @@ enum animation_speed {
     ANIMATION_SPEED_FREEZE = 3,
 };
 
+enum script_routine {
+    ROUTINE_MAIN = 1,
+    ROUTINE_0x2 = 2,
+    ROUTINE_ACTOR = 3,
+    ROUTINE_OBJECT = 4,
+    ROUTINE_PERFORMER = 5,
+    ROUTINE_0x6 = 6,
+    ROUTINE_0x7 = 7,
+    ROUTINE_0x8 = 8,
+    ROUTINE_UNIONALL = 9,
+};
+
 // These are super long, so split them out into a separate file
 #include "version_dep_enums.h"
 

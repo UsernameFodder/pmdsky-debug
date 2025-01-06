@@ -289,8 +289,8 @@ ASSERT_SIZE(struct animation_data, 2);
 
 // represent an actor present in the scene in the overworld (both during cutscenes and free-roams)
 struct live_actor {
-    struct monster_id_16
-        species_id;     // The id of the Actor in the actor list. Internally named type.
+    int16_t id; // The ID of this live actor, used to index an actor within the statically-allocated
+                // list.
     uint16_t entity_id; // The ID of the actor in the ENTITIES table. Internally named kind.
     bool is_enabled; // true when the actor is loaded, false otherwise (should be checked if unsure)
     undefined field_0x5;
@@ -298,27 +298,20 @@ struct live_actor {
     uint8_t sector;
     int8_t field_0x9;
     int16_t field_0xa;
-    struct uvec2 collision_box; // The size of the collision box of the pokemon
-    undefined field_0x14;
-    undefined field_0x15;
-    undefined field_0x16;
-    undefined field_0x17;
-    struct uvec2 size_div2; // The size of the collision box divided by two
-    undefined field_0x20;
-    undefined field_0x21;
-    undefined field_0x22;
-    undefined field_0x23;
-    undefined field_0x24;
-    undefined field_0x25;
-    undefined field_0x26;
-    undefined field_0x27;
+    struct uvec2 collision_box; // The size of the collision box of the actor
+    struct uvec2 size_div2;     // The size of the collision box divided by two
+    struct direction_id_8 initial_direction;
+    undefined field_0x1d;
+    undefined field_0x1e;
+    undefined field_0x1f;
+    struct vec2 initial_position;
     struct vec2 limit_min_pos;         // minimum possible coordinates, for random move in free roam
     struct vec2 limit_max_pos;         // maximum possible coordinates, for random move in free roam
     undefined maybe_command_data[236]; // Seems to be a script-related struct
     int16_t field_0x124;
     undefined field_0x126;
     undefined field_0x127;
-    uint32_t bitfied_collision_layer; // not sure
+    uint32_t attribute_bitfield; // Changed by various "Attribute" opcodes
     int32_t field_0x12c;
     struct direction_id_8 current_direction; // not sure
     undefined field_0x131;
@@ -353,9 +346,12 @@ struct live_actor {
     undefined field_0x15b;
     struct vec2 coord_min; // the top-left coordinate of the collision box of the actor
     struct vec2 coord_max; // the bottom-right coordinate of the collision box of the actor
-    undefined4 field_0x16c;
-    undefined4 field_0x170;
-    int8_t field_0x174;
+    int32_t height;
+    int32_t second_height;        // Unsure; GetHeightLiveActor references this field, but
+                                  // SetHeightLiveActor doesn't
+    bool direction_should_change; // Seems to be set to 1 whenever direction is changed; see
+                                  // SetDirectionLiveActor and SetPositionInitialLiveActor for
+                                  // examples
     int8_t field_0x175;
     int16_t field_0x176;
     int16_t field_0x178;
@@ -376,7 +372,7 @@ struct live_actor {
 };
 ASSERT_SIZE(struct live_actor, 592);
 
-// A list of 24 actors, which is the number of statically allocated live actor
+// A list of 24 actors, which is the number of statically allocated live actors
 struct live_actor_list {
     struct live_actor actors[24];
 };
@@ -434,5 +430,30 @@ struct ground_weather_entry {
     int16_t field_0x2;
 };
 ASSERT_SIZE(struct ground_weather_entry, 4);
+
+struct ground_entity_function_pointer_table {
+    enum script_routine routine_type;
+    int16_t (*get_id)(void* ground_entity);
+    void (*get_collision_box)(void* ground_entity, struct uvec2* collision_box);
+    void (*get_collision_box_center)(void* ground_entity, struct uvec2* collision_box_center);
+    void (*get_height)(void* ground_entity, int* height, int* second_height);
+    void (*get_direction)(void* ground_entity, struct direction_id_8* target);
+    void (*get_attribute_bitfield)(void* ground_entity, uint32_t* attribute_bitfield);
+    void (*set_position_initial)(void* ground_entity, struct vec2* offset);
+    void (*set_movement_range)(void* ground_entity, struct vec2* limit_min_pos,
+                               struct vec2* limit_max_pos);
+    void (*set_position)(void* ground_entity, struct vec2* pos);
+    void (*set_height)(void* ground_entity, int height);
+    void (*set_direction)(void* ground_entity, struct direction_id_8 direction);
+    void (*set_animation)(void* ground_entity, uint16_t setanimation_param);
+    void (*set_effect)(void* ground_entity, bool flag, int16_t effect_id, int position_marker);
+    void (*set_attribute_bitfield_wrapper)(void* ground_entity, uint32_t attribute_bitfield);
+    void (*reset_attribute_bitfield_wrapper)(void* ground_entity, uint32_t attribute_bitfield);
+    void (*set_blink)(void* ground_entity, uint16_t interval_blink_in, uint16_t interval_blink_out);
+    void (*set_position_offset)(void* ground_entity, struct vec2* offset);
+    int (*get_animation_status)(void* ground_entity);
+    int (*get_effect_status)(void* ground_entity);
+};
+ASSERT_SIZE(struct ground_entity_function_pointer_table, 80);
 
 #endif
