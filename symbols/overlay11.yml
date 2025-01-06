@@ -1095,8 +1095,7 @@ overlay11:
         EU: 0x50
         NA: 0x50
         JP: 0x50
-      description: |-
-        A function pointer table accessed when performing script opcodes on actors.
+      description: A function pointer table accessed when performing script opcodes on actors.
     - name: SETANIMATION_TABLE
       address:
         EU: 0x23223FC
@@ -1118,8 +1117,7 @@ overlay11:
         EU: 0x50
         NA: 0x50
         JP: 0x50
-      description: |-
-        A function pointer table accessed when performing script opcodes on objects.
+      description: A function pointer table accessed when performing script opcodes on objects.
     - name: PERFORMER_FUNCTION_POINTER_TABLE
       address:
         EU: 0x2322C78
@@ -1129,8 +1127,7 @@ overlay11:
         EU: 0x50
         NA: 0x50
         JP: 0x50
-      description: |-
-        A function pointer table accessed when performing script opcodes on performers.
+      description: A function pointer table accessed when performing script opcodes on performers.
     - name: TEAM_INFO_BOX_DEFAULT_WINDOW_PARAMS
       address:
         EU: 0x2322F8C
