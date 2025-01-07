@@ -498,6 +498,19 @@ overlay11:
         
         r0: live actor id
         r1: attribute bitfield
+    - name: GetCollidingActorId
+      address:
+        EU: 0x22F9B20
+        NA: 0x22F9180
+        JP: 0x22FA804
+      description: |-
+        Returns the first colliding actor given a series of vector coordinates.
+        
+        r0: live actor id (used only to ignore an actor colliding with itself)
+        r1: attribute bitfield to test actors against
+        r2: pointer to coord_min
+        r3: pointer to coord_max
+        return: The first colliding actor's id, or -1 if no is collision detected
     - name: ChangeActorAnimation
       address:
         EU: 0x22F9D68
@@ -738,28 +751,254 @@ overlay11:
         Initialize the partner follow data structure, without allocating it (in GROUND_STATE_PTRS)
         
         No params.
+    - name: SetAttributeBitfieldLiveObject
+      address:
+        EU: 0x22FCF98
+        NA: 0x22FC5F8
+        JP: 0x22FDC70
+      description: |-
+        Sets bits of the attribute bitfield of a currently loaded object.
+        
+        r0: live object id
+        r1: attribute bitfield
+    - name: ResetAttributeBitfieldLiveObject
+      address:
+        EU: 0x22FCFD8
+        NA: 0x22FC638
+        JP: 0x22FDCB0
+      description: |-
+        Clears bits of the attribute bitfield of a currently loaded object.
+        
+        r0: live object id
+        r1: attribute bitfield
+    - name: GetCollidingObjectId
+      address:
+        EU: 0x22FD6B8
+        NA: 0x22FCD18
+        JP: 0x22FE390
+      description: |-
+        Returns the first colliding object given a series of vector coordinates.
+        
+        r0: attribute bitfield to test objects against
+        r1: pointer to coord_min
+        r2: pointer to coord_max
+        return: The first colliding object's id, or -1 if no is collision detected
+    - name: SetPositionLiveObject
+      address:
+        EU: 0x22FD910
+        NA: 0x22FCF70
+        JP: 0x22FE5E8
+      description: |-
+        Sets the position for a currently loaded object.
+        
+        r0: live object
+        r1: pointer to a position vector
+    - name: GetIdLiveObject
+      address:
+        EU: 0x22FDA00
+        NA: 0x22FD060
+        JP: 0x22FE6D8
+      description: |-
+        Returns the ID of a currently loaded object. This ID can then be used to index GROUND_STATE_PTRS::objects.
+        
+        r0: live object
+        return: id
+    - name: GetCollisionBoxLiveObject
+      address:
+        EU: 0x22FDA08
+        NA: 0x22FD068
+        JP: 0x22FE6E0
+      description: |-
+        Gets the collision box of a currently loaded object.
+        
+        r0: live object
+        r1: [output] collision box buffer
+    - name: SetPositionInitialLiveObject
+      address:
+        EU: 0x22FDA1C
+        NA: 0x22FD07C
+        JP: 0x22FE6F4
+      description: |-
+        Sets a currently loaded object to return to its initial position.
+        
+        r0: live object
+        r1: pointer to an position vector; if null, object will return to its initial position
+    - name: SetMovementRangeLiveObject
+      address:
+        EU: 0x22FDAD8
+        NA: 0x22FD138
+        JP: 0x22FE7B0
+      description: |-
+        Sets a currently loaded object's random movement range.
+        
+        r0: live object
+        r1: pointer to limit_min_pos
+        r2: pointer to limit_max_pos
+    - name: GetCollisionBoxCenterLiveObject
+      address:
+        EU: 0x22FDAFC
+        NA: 0x22FD15C
+        JP: 0x22FE7D4
+      description: |-
+        Gets the center of a collision box of a currently loaded object.
+        
+        This simply adds the object's minimum coordinates by half the size of the object's collision box.
+        
+        r0: live object
+        r1: [output] collision box center buffer
+    - name: SetPositionLiveObjectVeneer
+      address:
+        EU: 0x22FDB20
+        NA: 0x22FD180
+        JP: 0x22FE7F8
+      description: |-
+        Likely a linker-generated veneer for SetPositionLiveObject.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
+        
+        r0: live object
+        r1: pointer to a position vector
+    - name: GetHeightLiveObject
+      address:
+        EU: 0x22FDB2C
+        NA: 0x22FD18C
+        JP: 0x22FE804
+      description: |-
+        Gets the two height values of a currently loaded object.
+        
+        r0: live object
+        r1: [output] pointer to first height value
+        r2: [output] pointer to second height value, which is curiously not referenced by SetHeightLiveObject
+    - name: SetHeightLiveObject
+      address:
+        EU: 0x22FDB40
+        NA: 0x22FD1A0
+        JP: 0x22FE818
+      description: |-
+        Sets the height of a currently loaded object.
+        
+        r0: live object
+        r1: height
     - name: GetDirectionLiveObject
       address:
         EU: 0x22FDB48
         NA: 0x22FD1A8
         JP: 0x22FE820
       description: |-
-        Put the direction of the object in the destination
+        Gets the direction of a currently loaded object.
         
         r0: live object
-        r1: destination address (1 byte)
+        r1: [output] pointer to direction
     - name: SetDirectionLiveObject
       address:
         EU: 0x22FDB58
         NA: 0x22FD1B8
         JP: 0x22FE830
       description: |-
-        Store the direction in the object structure
-        -1 input is ignored
-        Unsure if this change the animation
+        Sets the direction of a currently loaded object. Does nothing if the direction value passed is -1.
         
         r0: live object
         r1: direction
+    - name: SetAnimationLiveObject
+      address:
+        EU: 0x22FDB68
+        NA: 0x22FD1C8
+        JP: 0x22FE840
+      description: |-
+        Sets the animation of a currently loaded object.
+        
+        r0: live object
+        r1: SetAnimation parameter
+    - name: SetEffectLiveObject
+      address:
+        EU: 0x22FDC28
+        NA: 0x22FD288
+        JP: 0x22FE900
+      description: |-
+        Sets the effect of a currently loaded object.
+        
+        r0: live object
+        r1: flag (true if effect id is 0?)
+        r2: effect id
+    - name: GetAnimationStatusLiveObject
+      address:
+        EU: 0x22FDC38
+        NA: 0x22FD298
+        JP: 0x22FE910
+      description: |-
+        Gets the animation status of a currently loaded object.
+        
+        Used to determine if the animation has finished via script opcodes like WaitAnimation and WaitEndAnimation.
+        
+        r0: live object
+        return: status
+    - name: GetEffectStatusLiveObject
+      address:
+        EU: 0x22FDC58
+        NA: 0x22FD2B8
+        JP: 0x22FE930
+      description: |-
+        Gets the effect status of a currently loaded object.
+        
+        Used to determine if an effect has finished via the script opcode WaitEffect.
+        
+        r0: live object
+        return: status
+    - name: GetAttributeBitfieldLiveObject
+      address:
+        EU: 0x22FDC7C
+        NA: 0x22FD2DC
+        JP: 0x22FE954
+      description: |-
+        Gets the attribute bitfield of a currently loaded object.
+        
+        r0: live object
+        r1: [output] pointer to attribute bitfield
+    - name: SetAttributeBitfieldLiveObjectWrapper
+      address:
+        EU: 0x22FDC88
+        NA: 0x22FD2E8
+        JP: 0x22FE960
+      description: |-
+        Sets bits of the attribute bitfield of a currently loaded object.
+        
+        Is a wrapper around SetAttributeBitfieldLiveObject, meaning this calls SetAttributeBitfieldLiveObject with a first parameter of live_object::id.
+        
+        r0: live object
+        r1: attribute bitfield
+    - name: ResetAttributeBitfieldLiveObjectWrapper
+      address:
+        EU: 0x22FDC98
+        NA: 0x22FD2F8
+        JP: 0x22FE970
+      description: |-
+        Clears bits of the attribute bitfield of a currently loaded object.
+        
+        Is a wrapper around ResetAttributeBitfieldLiveObject, meaning this calls ResetAttributeBitfieldLiveObject with a first parameter of live_object::id.
+        
+        r0: live object
+        r1: attribute bitfield
+    - name: SetBlinkLiveObject
+      address:
+        EU: 0x22FDCA8
+        NA: 0x22FD308
+        JP: 0x22FE980
+      description: |-
+        Sets the object to blink in and out of sight at certain intervals.
+        
+        r0: live object
+        r1: frame interval for blinking in
+        r2: frame interval for blinking out
+    - name: SetPositionOffsetLiveObject
+      address:
+        EU: 0x22FDCB8
+        NA: 0x22FD318
+        JP: 0x22FE990
+      description: |-
+        Offsets a currently loaded object's position.
+        
+        r0: live object
+        r1: pointer to an position offset vector
     - name: CreateTeamInfoBox
       address:
         EU: 0x22FF834

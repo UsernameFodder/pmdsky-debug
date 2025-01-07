@@ -48,6 +48,8 @@ void InitPartnerFollowDataAndLiveActorList(void);
 void DeleteLiveActor(int16_t actor_id);
 void SetAttributeBitfieldLiveActor(int16_t live_actor_id, uint32_t attribute_bitfield);
 void ResetAttributeBitfieldLiveActor(int16_t live_actor_id, uint32_t attribute_bitfield);
+int GetCollidingActorId(int16_t live_actor_id, uint32_t attribute_bitfield, struct vec2* coord_min,
+                        struct vec2* coord_max);
 void ChangeActorAnimation(struct live_actor* actor, uint16_t setanimation_param);
 void SetPositionLiveActor(struct live_actor* actor, struct vec2* pos);
 int16_t GetIdLiveActor(struct live_actor* actor);
@@ -59,8 +61,8 @@ void GetCollisionBoxCenterLiveActor(struct live_actor* actor, struct uvec2* coll
 void SetPositionLiveActorVeneer(struct live_actor* actor, struct vec2* pos);
 void GetHeightLiveActor(struct live_actor* actor, int* height, int* second_height);
 void SetHeightLiveActor(struct live_actor* actor, int height);
-void GetDirectionLiveActor(struct live_actor* actor, struct direction_id_8* target);
-void SetDirectionLiveActor(struct live_actor* actor, struct direction_id_8 direction);
+void GetDirectionLiveActor(struct live_actor* actor, enum direction_id* target);
+void SetDirectionLiveActor(struct live_actor* actor, enum direction_id direction);
 void SetAnimationLiveActor(struct live_actor* actor, uint16_t setanimation_param);
 void SetEffectLiveActor(struct live_actor* actor, bool flag, int16_t effect_id,
                         int position_marker);
@@ -73,8 +75,34 @@ void SetBlinkLiveActor(struct live_actor* actor, uint16_t interval_blink_in,
                        uint16_t interval_blink_out);
 void SetPositionOffsetLiveActor(struct live_actor* actor, struct vec2* offset);
 void InitPartnerFollowData(void);
-void GetDirectionLiveObject(undefined object, struct direction_id_8* target);
-void SetDirectionLiveObject(undefined object, struct direction_id_8 direction);
+void SetAttributeBitfieldLiveObject(int16_t live_object_id, uint32_t attribute_bitfield);
+void ResetAttributeBitfieldLiveObject(int16_t live_object_id, uint32_t attribute_bitfield);
+int GetCollidingObjectId(uint32_t attribute_bitfield, struct vec2* coord_min,
+                         struct vec2* coord_max);
+void SetPositionLiveObject(struct live_object* object, struct vec2* pos);
+int16_t GetIdLiveObject(struct live_object* object);
+void GetCollisionBoxLiveObject(struct live_object* object, struct uvec2* collision_box);
+void SetPositionInitialLiveObject(struct live_object* object, struct vec2* offset);
+void SetMovementRangeLiveObject(struct live_object* object, struct vec2* limit_min_pos,
+                                struct vec2* limit_max_pos);
+void GetCollisionBoxCenterLiveObject(struct live_object* object,
+                                     struct uvec2* collision_box_center);
+void SetPositionLiveObjectVeneer(struct live_object* object, struct vec2* pos);
+void GetHeightLiveObject(struct live_object* object, int* height, int* second_height);
+void SetHeightLiveObject(struct live_object* object, int height);
+void GetDirectionLiveObject(struct live_object* object, enum direction_id* target);
+void SetDirectionLiveObject(struct live_object* object, enum direction_id direction);
+void SetAnimationLiveObject(struct live_object* object, uint16_t setanimation_param);
+void SetEffectLiveObject(struct live_object* object, bool flag, int16_t effect_id);
+int GetAnimationStatusLiveObject(struct live_object* object);
+int GetEffectStatusLiveObject(struct live_object* object);
+void GetAttributeBitfieldLiveObject(struct live_object* object, uint32_t* attribute_bitfield);
+void SetAttributeBitfieldLiveObjectWrapper(struct live_object* object, uint32_t attribute_bitfield);
+void ResetAttributeBitfieldLiveObjectWrapper(struct live_object* object,
+                                             uint32_t attribute_bitfield);
+void SetBlinkLiveObject(struct live_object* object, uint16_t interval_blink_in,
+                        uint16_t interval_blink_out);
+void SetPositionOffsetLiveObject(struct live_object* object, struct vec2* offset);
 int CreateTeamInfoBox(void);
 void CloseTeamInfoBox(int window_id);
 bool IsTeamInfoBoxActive(int window_id);
