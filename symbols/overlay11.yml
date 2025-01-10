@@ -16,6 +16,26 @@ overlay11:
     
     This is the "main" overlay of ground mode. The script engine is what runs the ground mode scripts contained in the SCRIPT folder, which are written in a custom scripting language. These scripts encode things like cutscenes, screen transitions, ground mode events, and tons of other things related to ground mode.
   functions:
+    - name: InitScriptOpcodeStatuses
+      address:
+        EU: 0x22DD170
+        NA: 0x22DC830
+        JP: 0x22DDED0
+      description: |-
+        Initializes the various fields of script_opcode_statuses, a struct that seems relevant when handling script opcode operations.
+        
+        r0: script_opcode_statuses pointer
+    - name: InitLiveEntityInfo
+      address:
+        EU: 0x22DD228
+        NA: 0x22DC8E8
+        JP: 0x22DDF88
+      description: |-
+        Initializes the various fields of live_entity_info.
+        
+        r0: live entity info
+        r1: ground entity function table pointer
+        r2: live entity pointer
     - name: UnlockScriptingLock
       address:
         EU: 0x22DDA70

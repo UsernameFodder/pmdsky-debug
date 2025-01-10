@@ -1,6 +1,9 @@
 #ifndef HEADERS_FUNCTIONS_OVERLAY11_H_
 #define HEADERS_FUNCTIONS_OVERLAY11_H_
 
+void InitScriptOpcodeStatuses(struct script_opcode_statuses* statuses);
+void InitLiveEntityInfo(struct live_entity_info* info,
+                        struct ground_entity_function_table* function_table, void* live_entity);
 void UnlockScriptingLock(int lock_id);
 void FuncThatCallsRunNextOpcode(undefined* script_engine_state);
 void RunNextOpcode(undefined* script_engine_state);
@@ -131,8 +134,8 @@ void ResetAttributeBitfieldLivePerformerWrapper(struct live_performer* performer
 void SetBlinkLivePerformer(struct live_performer* performer, uint16_t interval_blink_in,
                            uint16_t interval_blink_out);
 void SetPositionOffsetLivePerformer(struct live_performer* performer, struct vec2* offset);
-void GetCollidingEventId(uint32_t attribute_bitfield, struct vec2* coord_min,
-                         struct vec2* coord_max);
+int GetCollidingEventId(uint32_t attribute_bitfield, struct vec2* coord_min,
+                        struct vec2* coord_max);
 int CreateTeamInfoBox(void);
 void CloseTeamInfoBox(int window_id);
 bool IsTeamInfoBoxActive(int window_id);
