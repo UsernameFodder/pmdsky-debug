@@ -1573,7 +1573,7 @@ overlay11:
         Irdkwia's notes: FIXED_FLOOR_GROUND_ASSOCIATION
         
         type: struct level_tilemap_list_entry[81]
-    - name: ACTOR_FUNCTION_POINTER_TABLE
+    - name: ACTOR_FUNCTION_TABLE
       address:
         EU: 0x23223F0
         NA: 0x232187C
@@ -1595,7 +1595,7 @@ overlay11:
         Table that associates the parameter of the SetAnimation scripting opcode to animation data.
         
         The first entry is unused and has a value of 0xFFFF.
-    - name: OBJECT_FUNCTION_POINTER_TABLE
+    - name: OBJECT_FUNCTION_TABLE
       address:
         EU: 0x2322970
         NA: 0x2321DFC
@@ -1605,7 +1605,7 @@ overlay11:
         NA: 0x50
         JP: 0x50
       description: A function pointer table accessed when performing script opcodes on objects.
-    - name: PERFORMER_FUNCTION_POINTER_TABLE
+    - name: PERFORMER_FUNCTION_TABLE
       address:
         EU: 0x2322C78
         NA: 0x2322110
