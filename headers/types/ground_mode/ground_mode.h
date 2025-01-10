@@ -287,27 +287,114 @@ struct animation_data {
 ASSERT_SIZE(struct animation_data, 2);
 #pragma pack(pop)
 
-// Represents an actor currently loaded in a script scene (both during cutscenes and free-roam)
-struct live_actor {
-    int16_t id; // The ID of this live actor, used to index an actor within the statically-allocated
-                // list.
-    uint16_t kind;   // The ID of the actor in the ENTITIES table. Internally named kind.
-    bool is_enabled; // true when the actor is loaded, false otherwise (should be checked if unsure)
+// Keeps track of data used by script opcodes on a live entity
+struct script_opcode_statuses {
+    int16_t execution_status; // used in "WaitExecute" opcodes
+    int16_t field_0x2;        // also used in "WaitExecute" opcodes?
+    int16_t field_0x4;
+    int8_t field_0x6;
+    undefined field_0x7;
+    undefined4 field_0x8;
+    undefined4 field_0xc;
+    undefined4 field_0x10;
+    undefined field_0x14;
+    undefined field_0x15;
+    undefined field_0x16;
+    undefined field_0x17;
+    undefined4 field_0x18;
+    undefined4 field_0x1c;
+    undefined4 field_0x20;
+    undefined field_0x24;
+    undefined field_0x25;
+    undefined field_0x26;
+    undefined field_0x27;
+    undefined4 field_0x28;
+    undefined field_0x2c;
+    undefined field_0x2d;
+    undefined field_0x2e;
+    undefined field_0x2f;
+    undefined field_0x30;
+    undefined field_0x31;
+    int16_t field_0x32;
+    int16_t field_0x34;
+    int8_t field_0x36;
+    undefined field_0x37;
+    int16_t field_0x38;
+    int16_t field_0x3a;
+    int16_t field_0x3c;
+    undefined field_0x3e;
+    undefined field_0x3f;
+    undefined4 field_0x40;
+    undefined field_0x44;
+    undefined field_0x45;
+    undefined field_0x46;
+    undefined field_0x47;
+    undefined field_0x48;
+    undefined field_0x49;
+    undefined field_0x4a;
+    undefined field_0x4b;
+    undefined field_0x4c;
+    undefined field_0x4d;
+    undefined field_0x4e;
+    undefined field_0x4f;
+    undefined field_0x50;
+    undefined field_0x51;
+    undefined field_0x52;
+    undefined field_0x53;
+    undefined field_0x54;
+    undefined field_0x55;
+    undefined field_0x56;
+    undefined field_0x57;
+    undefined field_0x58;
+    undefined field_0x59;
+    undefined field_0x5a;
+    undefined field_0x5b;
+    undefined field_0x5c;
+    undefined field_0x5d;
+    undefined field_0x5e;
+    undefined field_0x5f;
+    undefined4 field_0x60[4];
+};
+ASSERT_SIZE(struct script_opcode_statuses, 112);
+
+// A common struct used to hold data surrounding a live entity
+struct live_entity_info {
+    struct ground_entity_function_table* function_table;
+    void* ground_entity;                   // Actor, object, or performer
+    struct script_routine_16 routine_type; // Same as ground_entity_function_table::routine_type
+    int16_t id;                            // Same as live_entity::id
+    struct script_opcode_statuses statuses[2];
+};
+ASSERT_SIZE(struct live_entity_info, 236);
+
+// Represents a generic ground entity shared by actors, objects, and performers
+struct live_entity {
+    int16_t id; // The ID of this live entity, used to index within its statically-allocated list in
+                // GROUND_STATE_PTRS
+    int16_t kind; // The ID of the entity in its respective table (ENTITIES, OBJECTS, etc.)
+    bool
+        is_enabled; // True when the entity is loaded, false otherwise (should be checked if unsure)
     undefined field_0x5;
     uint16_t hanger;
     uint8_t sector;
     int8_t field_0x9;
-    int16_t field_0xa;          // Related to animation?
-    struct uvec2 collision_box; // The size of the collision box of the actor
-    struct uvec2 size_div2;     // The size of the collision box divided by two
+    int16_t field_0xa;                    // Related to animation?
+    struct uvec2 collision_box_size;      // The size of the collision box of the entity
+    struct uvec2 collision_box_size_div2; // The size of the collision box divided by two
     struct direction_id_8 initial_direction;
     undefined field_0x1d;
     undefined field_0x1e;
     undefined field_0x1f;
-    struct vec2 initial_position;
-    struct vec2 limit_min_pos;         // minimum possible coordinates, for random move in free roam
-    struct vec2 limit_max_pos;         // maximum possible coordinates, for random move in free roam
-    undefined maybe_command_data[236]; // Seems to be a script-related struct
+    struct vec2 initial_pos;
+    struct vec2 limit_min_pos; // minimum possible coordinates, for random move in free roam
+    struct vec2 limit_max_pos; // maximum possible coordinates, for random move in free roam
+    struct live_entity_info info;
+};
+ASSERT_SIZE(struct live_entity, 292);
+
+// Represents an actor currently loaded in a script scene (both during cutscenes and free-roam)
+struct live_actor {
+    struct live_entity entity;
     int16_t field_0x124;
     undefined field_0x126;
     undefined field_0x127;
@@ -375,27 +462,7 @@ struct live_object {
     undefined field_0x1;
     undefined field_0x2;
     undefined field_0x3;
-    int16_t id;    // The ID of this live object, used to index an object within the
-                   // statically-allocated list.
-    uint16_t kind; // The ID of the object in the OBJECTS table. Internally named kind.
-    bool
-        is_enabled; // true when the object is loaded, false otherwise (should be checked if unsure)
-    undefined field_0x9;
-    uint16_t hanger;
-    uint8_t sector;
-    undefined field_0xd;
-    undefined field_0xe;
-    undefined field_0xf;
-    struct uvec2 collision_box; // The size of the collision box of the object
-    struct uvec2 size_div2;     // The size of the collision box divided by two
-    struct direction_id_8 initial_direction;
-    undefined field_0x21;
-    undefined field_0x22;
-    undefined field_0x23;
-    struct vec2 initial_position;
-    struct vec2 limit_min_pos;         // minimum possible coordinates, for random move in free roam
-    struct vec2 limit_max_pos;         // maximum possible coordinates, for random move in free roam
-    undefined maybe_command_data[236]; // Seems to be a script-related struct
+    struct live_entity live_entity;
     undefined field_0x128;
     undefined field_0x129;
     undefined field_0x12a;
@@ -420,6 +487,51 @@ struct live_object {
 };
 ASSERT_SIZE(struct live_object, 536);
 
+// Represents a performer currently loaded in a script scene (both during cutscenes and free-roam)
+struct live_performer {
+    undefined field_0x0;
+    undefined field_0x1;
+    undefined field_0x2;
+    undefined field_0x3;
+    struct live_entity live_entity;
+    uint32_t attribute_bitfield; // Changed by various "Attribute" opcodes
+    struct direction_id_8 direction;
+    undefined field_0x12d;
+    undefined field_0x12e;
+    undefined field_0x12f;
+    struct vec2 coord_min; // the top-left coordinate of the collision box of the performer
+    struct vec2 coord_max; // the bottom-right coordinate of the collision box of the performer
+    int32_t height;
+    int32_t second_height;
+    bool direction_should_change; // Seems to be set to 1 in SetPositionInitialLivePerformer if
+                                  // initial_direction != direction
+    undefined field_0x149;
+    undefined field_0x14a;
+    undefined field_0x14b;
+    int16_t effect_flag; // not sure
+    int16_t effect_id;
+    struct animation animation;
+};
+ASSERT_SIZE(struct live_performer, 532);
+
+// Represents an event currently loaded in a script scene during free-roam
+struct live_event {
+    int16_t id;
+    uint16_t coroutine_id;
+    uint16_t hanger;
+    uint8_t sector;
+    undefined field_0x7;
+    int16_t script_id; // If -1, the event will attempt loading the Unionall coroutine specified by
+                       // coroutine_id
+    undefined field_0xa;
+    undefined field_0xb;
+    int32_t attribute_bitfield; // Either 0x800 or 0x1800, dependent on the value of field_0x2 from
+                                // the coroutine related to this event
+    struct vec2 coord_min;      // the top-left coordinate of the collision box of the event
+    struct vec2 coord_max;      // the bottom-right coordinate of the collision box of the event
+};
+ASSERT_SIZE(struct live_event, 32);
+
 // A list of 24 actors, which is the maximum number of statically allocated live actors
 struct live_actor_list {
     struct live_actor actors[24];
@@ -432,15 +544,27 @@ struct live_object_list {
 };
 ASSERT_SIZE(struct live_object_list, 8576);
 
+// A list of 16 performers, which is the maximum number of statically allocated live performers
+struct live_performer_list {
+    struct live_performer performers[16];
+};
+ASSERT_SIZE(struct live_performer_list, 8512);
+
+// A list of 32 events, which is the maximum number of statically allocated live events
+struct live_event_list {
+    struct live_event events[32];
+};
+ASSERT_SIZE(struct live_event_list, 1024);
+
 // A global structure holding various pointers to important structures for ground mode
 struct main_ground_data {
     undefined* script; // 0x0: pointer to script structure
     undefined*
         partner_follow_data; // 0x4: pointer to the data related to the partner following the player
-    struct live_actor_list* actors;   // 0x8: pointer to the actors
-    struct live_object_list* objects; // 0xC: pointer to the objects
-    undefined* performers;            // 0x10: pointer to the performers
-    undefined* events;                // 0x14: pointer to the events
+    struct live_actor_list* actors;         // 0x8: pointer to the actors
+    struct live_object_list* objects;       // 0xC: pointer to the objects
+    struct live_performer_list* performers; // 0x10: pointer to the performers
+    struct live_event_list* events;         // 0x14: pointer to the events
 };
 ASSERT_SIZE(struct main_ground_data, 24);
 
@@ -486,12 +610,13 @@ struct ground_weather_entry {
 ASSERT_SIZE(struct ground_weather_entry, 4);
 
 struct ground_entity_function_table {
-    enum script_routine routine_type;
+    struct script_routine_16 routine_type;
+    uint16_t padding;
     int16_t (*get_id)(void* ground_entity);
     void (*get_collision_box)(void* ground_entity, struct uvec2* collision_box);
     void (*get_collision_box_center)(void* ground_entity, struct uvec2* collision_box_center);
     void (*get_height)(void* ground_entity, int* height, int* second_height);
-    void (*get_direction)(void* ground_entity, enum direction_id* target);
+    void (*get_direction)(void* ground_entity, struct direction_id_8* target);
     void (*get_attribute_bitfield)(void* ground_entity, uint32_t* attribute_bitfield);
     void (*set_position_initial)(void* ground_entity, struct vec2* offset);
     void (*set_movement_range)(void* ground_entity, struct vec2* limit_min_pos,

@@ -999,6 +999,254 @@ overlay11:
         
         r0: live object
         r1: pointer to an position offset vector
+    - name: SetAttributeBitfieldLivePerformer
+      address:
+        EU: 0x22FE738
+        NA: 0x22FDD98
+        JP: 0x22FF408
+      description: |-
+        Sets bits of the attribute bitfield of a currently loaded performer.
+        
+        r0: live performer id
+        r1: attribute bitfield
+    - name: ResetAttributeBitfieldLivePerformer
+      address:
+        EU: 0x22FE778
+        NA: 0x22FDDD8
+        JP: 0x22FF448
+      description: |-
+        Clears bits of the attribute bitfield of a currently loaded performer.
+        
+        r0: live performer id
+        r1: attribute bitfield
+    - name: SetPositionLivePerformer
+      address:
+        EU: 0x22FEDA4
+        NA: 0x22FE404
+        JP: 0x22FFA74
+      description: |-
+        Sets the position for a currently loaded performer.
+        
+        r0: live performer
+        r1: pointer to a position vector
+    - name: GetIdLivePerformer
+      address:
+        EU: 0x22FEE30
+        NA: 0x22FE490
+        JP: 0x22FFB00
+      description: |-
+        Returns the ID of a currently loaded performer. This ID can then be used to index GROUND_STATE_PTRS::performers.
+        
+        r0: live performer
+        return: id
+    - name: GetCollisionBoxLivePerformer
+      address:
+        EU: 0x22FEE38
+        NA: 0x22FE498
+        JP: 0x22FFB08
+      description: |-
+        Gets the collision box of a currently loaded performer.
+        
+        r0: live performer
+        r1: [output] collision box buffer
+    - name: SetPositionInitialLivePerformer
+      address:
+        EU: 0x22FEE4C
+        NA: 0x22FE4AC
+        JP: 0x22FFB1C
+      description: |-
+        Sets a currently loaded performer to return to its initial position.
+        
+        r0: live performer
+        r1: pointer to an position vector; if null, performer will return to its initial position
+    - name: SetMovementRangeLivePerformer
+      address:
+        EU: 0x22FEF08
+        NA: 0x22FE568
+        JP: 0x22FFBD8
+      description: |-
+        Sets a currently loaded performer's random movement range.
+        
+        r0: live performer
+        r1: pointer to limit_min_pos
+        r2: pointer to limit_max_pos
+    - name: GetCollisionBoxCenterLivePerformer
+      address:
+        EU: 0x22FEF2C
+        NA: 0x22FE58C
+        JP: 0x22FFBFC
+      description: |-
+        Gets the center of a collision box of a currently loaded performer.
+        
+        This simply adds the performer's minimum coordinates by half the size of the performer's collision box.
+        
+        r0: live performer
+        r1: [output] collision box center buffer
+    - name: SetPositionLivePerformerVeneer
+      address:
+        EU: 0x22FEF50
+        NA: 0x22FE5B0
+        JP: 0x22FFC20
+      description: |-
+        Likely a linker-generated veneer for SetPositionLivePerformer.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
+        
+        r0: live performer
+        r1: pointer to a position vector
+    - name: GetHeightLivePerformer
+      address:
+        EU: 0x22FEF5C
+        NA: 0x22FE5BC
+        JP: 0x22FFC2C
+      description: |-
+        Gets the two height values of a currently loaded performer.
+        
+        r0: live performer
+        r1: [output] pointer to first height value
+        r2: [output] pointer to second height value, which is curiously not referenced by SetHeightLivePerformer
+    - name: SetHeightLivePerformer
+      address:
+        EU: 0x22FEF70
+        NA: 0x22FE5D0
+        JP: 0x22FFC40
+      description: |-
+        Sets the height of a currently loaded performer.
+        
+        r0: live performer
+        r1: height
+    - name: GetDirectionLivePerformer
+      address:
+        EU: 0x22FEF78
+        NA: 0x22FE5D8
+        JP: 0x22FFC48
+      description: |-
+        Gets the direction of a currently loaded performer.
+        
+        r0: live performer
+        r1: [output] pointer to direction
+    - name: SetDirectionLivePerformer
+      address:
+        EU: 0x22FEF88
+        NA: 0x22FE5E8
+        JP: 0x22FFC58
+      description: |-
+        Sets the direction of a currently loaded performer. Does nothing if the direction value passed is -1.
+        
+        r0: live performer
+        r1: direction
+    - name: SetAnimationLivePerformer
+      address:
+        EU: 0x22FEF98
+        NA: 0x22FE5F8
+        JP: 0x22FFC68
+      description: |-
+        Sets the animation of a currently loaded performer.
+        
+        r0: live performer
+        r1: SetAnimation parameter
+    - name: SetEffectLivePerformer
+      address:
+        EU: 0x22FF058
+        NA: 0x22FE6B8
+        JP: 0x22FFD28
+      description: |-
+        Sets the effect of a currently loaded performer.
+        
+        r0: live performer
+        r1: flag (true if effect id is 0?)
+        r2: effect id
+    - name: GetAnimationStatusLivePerformer
+      address:
+        EU: 0x22FF068
+        NA: 0x22FE6C8
+        JP: 0x22FFD38
+      description: |-
+        Gets the animation status of a currently loaded performer.
+        
+        Used to determine if the animation has finished via script opcodes like WaitAnimation and WaitEndAnimation.
+        
+        r0: live performer
+        return: status
+    - name: GetEffectStatusLivePerformer
+      address:
+        EU: 0x22FF088
+        NA: 0x22FE6E8
+        JP: 0x22FFD58
+      description: |-
+        Gets the effect status of a currently loaded performer.
+        
+        Used to determine if an effect has finished via the script opcode WaitEffect.
+        
+        r0: live performer
+        return: status
+    - name: GetAttributeBitfieldLivePerformer
+      address:
+        EU: 0x22FF0C0
+        NA: 0x22FE720
+        JP: 0x22FFD90
+      description: |-
+        Gets the attribute bitfield of a currently loaded performer.
+        
+        r0: live performer
+        r1: [output] pointer to attribute bitfield
+    - name: SetAttributeBitfieldLivePerformerWrapper
+      address:
+        EU: 0x22FF0CC
+        NA: 0x22FE72C
+        JP: 0x22FFD9C
+      description: |-
+        Sets bits of the attribute bitfield of a currently loaded performer.
+        
+        Is a wrapper around SetAttributeBitfieldLivePerformer, meaning this calls SetAttributeBitfieldLivePerformer with a first parameter of live_performer::id.
+        
+        r0: live performer
+        r1: attribute bitfield
+    - name: ResetAttributeBitfieldLivePerformerWrapper
+      address:
+        EU: 0x22FF0DC
+        NA: 0x22FE73C
+        JP: 0x22FFDAC
+      description: |-
+        Clears bits of the attribute bitfield of a currently loaded performer.
+        
+        Is a wrapper around ResetAttributeBitfieldLivePerformer, meaning this calls ResetAttributeBitfieldLivePerformer with a first parameter of live_performer::id.
+        
+        r0: live performer
+        r1: attribute bitfield
+    - name: SetBlinkLivePerformer
+      address:
+        EU: 0x22FF0EC
+        NA: 0x22FE74C
+        JP: 0x22FFDBC
+      description: |-
+        Sets the performer to blink in and out of sight at certain intervals.
+        
+        r0: live performer
+        r1: frame interval for blinking in
+        r2: frame interval for blinking out
+    - name: SetPositionOffsetLivePerformer
+      address:
+        EU: 0x22FF0FC
+        NA: 0x22FE75C
+        JP: 0x22FFDCC
+      description: |-
+        Offsets a currently loaded performer's position.
+        
+        r0: live performer
+        r1: pointer to an position offset vector
+    - name: GetCollidingEventId
+      address:
+        EU: 0x22FF798
+        NA: 0x22FEDF8
+        JP: 0x2300460
+      description: |-
+        Returns the first colliding event given a series of vector coordinates.
+        
+        r0: attribute bitfield to test events against
+        r1: pointer to coord_min
+        r2: pointer to coord_max
+        return: The first colliding event's id, or -1 if no is collision detected
     - name: CreateTeamInfoBox
       address:
         EU: 0x22FF834

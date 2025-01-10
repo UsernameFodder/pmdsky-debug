@@ -2111,6 +2111,11 @@ enum script_routine {
     ROUTINE_UNIONALL = 9,
 };
 
+// This is usually stored as a 16-bit integer
+#pragma pack(push, 2)
+ENUM_16_BIT(script_routine);
+#pragma pack(pop)
+
 // These are super long, so split them out into a separate file
 #include "version_dep_enums.h"
 

@@ -61,7 +61,7 @@ void GetCollisionBoxCenterLiveActor(struct live_actor* actor, struct uvec2* coll
 void SetPositionLiveActorVeneer(struct live_actor* actor, struct vec2* pos);
 void GetHeightLiveActor(struct live_actor* actor, int* height, int* second_height);
 void SetHeightLiveActor(struct live_actor* actor, int height);
-void GetDirectionLiveActor(struct live_actor* actor, enum direction_id* target);
+void GetDirectionLiveActor(struct live_actor* actor, struct direction_id_8* target);
 void SetDirectionLiveActor(struct live_actor* actor, enum direction_id direction);
 void SetAnimationLiveActor(struct live_actor* actor, uint16_t setanimation_param);
 void SetEffectLiveActor(struct live_actor* actor, bool flag, int16_t effect_id,
@@ -90,7 +90,7 @@ void GetCollisionBoxCenterLiveObject(struct live_object* object,
 void SetPositionLiveObjectVeneer(struct live_object* object, struct vec2* pos);
 void GetHeightLiveObject(struct live_object* object, int* height, int* second_height);
 void SetHeightLiveObject(struct live_object* object, int height);
-void GetDirectionLiveObject(struct live_object* object, enum direction_id* target);
+void GetDirectionLiveObject(struct live_object* object, struct direction_id_8* target);
 void SetDirectionLiveObject(struct live_object* object, enum direction_id direction);
 void SetAnimationLiveObject(struct live_object* object, uint16_t setanimation_param);
 void SetEffectLiveObject(struct live_object* object, bool flag, int16_t effect_id);
@@ -103,6 +103,36 @@ void ResetAttributeBitfieldLiveObjectWrapper(struct live_object* object,
 void SetBlinkLiveObject(struct live_object* object, uint16_t interval_blink_in,
                         uint16_t interval_blink_out);
 void SetPositionOffsetLiveObject(struct live_object* object, struct vec2* offset);
+void SetAttributeBitfieldLivePerformer(int16_t live_performer_id, uint32_t attribute_bitfield);
+void ResetAttributeBitfieldLivePerformer(int16_t live_performer_id, uint32_t attribute_bitfield);
+void SetPositionLivePerformer(struct live_performer* performer, struct vec2* pos);
+int16_t GetIdLivePerformer(struct live_performer* performer);
+void GetCollisionBoxLivePerformer(struct live_performer* performer, struct uvec2* collision_box);
+void SetPositionInitialLivePerformer(struct live_performer* performer, struct vec2* offset);
+void SetMovementRangeLivePerformer(struct live_performer* performer, struct vec2* limit_min_pos,
+                                   struct vec2* limit_max_pos);
+void GetCollisionBoxCenterLivePerformer(struct live_performer* performer,
+                                        struct uvec2* collision_box_center);
+void SetPositionLivePerformerVeneer(struct live_performer* performer, struct vec2* pos);
+void GetHeightLivePerformer(struct live_performer* performer, int* height, int* second_height);
+void SetHeightLivePerformer(struct live_performer* performer, int height);
+void GetDirectionLivePerformer(struct live_performer* performer, struct direction_id_8* target);
+void SetDirectionLivePerformer(struct live_performer* performer, enum direction_id direction);
+void SetAnimationLivePerformer(struct live_performer* performer, uint16_t setanimation_param);
+void SetEffectLivePerformer(struct live_performer* performer, bool flag, int16_t effect_id);
+int GetAnimationStatusLivePerformer(struct live_performer* performer);
+int GetEffectStatusLivePerformer(struct live_performer* performer);
+void GetAttributeBitfieldLivePerformer(struct live_performer* performer,
+                                       uint32_t* attribute_bitfield);
+void SetAttributeBitfieldLivePerformerWrapper(struct live_performer* performer,
+                                              uint32_t attribute_bitfield);
+void ResetAttributeBitfieldLivePerformerWrapper(struct live_performer* performer,
+                                                uint32_t attribute_bitfield);
+void SetBlinkLivePerformer(struct live_performer* performer, uint16_t interval_blink_in,
+                           uint16_t interval_blink_out);
+void SetPositionOffsetLivePerformer(struct live_performer* performer, struct vec2* offset);
+void GetCollidingEventId(uint32_t attribute_bitfield, struct vec2* coord_min,
+                         struct vec2* coord_max);
 int CreateTeamInfoBox(void);
 void CloseTeamInfoBox(int window_id);
 bool IsTeamInfoBoxActive(int window_id);
