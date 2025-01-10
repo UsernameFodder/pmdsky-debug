@@ -462,7 +462,7 @@ struct live_object {
     undefined field_0x1;
     undefined field_0x2;
     undefined field_0x3;
-    struct live_entity live_entity;
+    struct live_entity entity;
     undefined field_0x128;
     undefined field_0x129;
     undefined field_0x12a;
@@ -493,7 +493,7 @@ struct live_performer {
     undefined field_0x1;
     undefined field_0x2;
     undefined field_0x3;
-    struct live_entity live_entity;
+    struct live_entity entity;
     uint32_t attribute_bitfield; // Changed by various "Attribute" opcodes
     struct direction_id_8 direction;
     undefined field_0x12d;
