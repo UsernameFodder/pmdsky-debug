@@ -2099,7 +2099,7 @@ enum animation_speed {
     ANIMATION_SPEED_FREEZE = 3,
 };
 
-enum script_routine {
+enum script_routine_kind {
     ROUTINE_MAIN = 1,
     ROUTINE_0x2 = 2,
     ROUTINE_ACTOR = 3,
@@ -2113,7 +2113,7 @@ enum script_routine {
 
 // This is usually stored as a 16-bit integer
 #pragma pack(push, 2)
-ENUM_16_BIT(script_routine);
+ENUM_16_BIT(script_routine_kind);
 #pragma pack(pop)
 
 // These are super long, so split them out into a separate file

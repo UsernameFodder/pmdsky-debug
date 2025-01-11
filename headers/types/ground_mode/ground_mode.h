@@ -361,8 +361,9 @@ struct script_routine {
                          // (but NOT strictly the live_entity type). This means any entity
                          // self-references itself with this pointer; this is necessary because
                          // RunNextOpcode has a script_routine pointer as a parameter.
-    struct script_routine_16 routine_type; // Same as ground_entity_function_table::routine_type
-    int16_t id;                            // Same as live_entity::id
+    struct script_routine_kind_16
+        routine_kind; // Same as ground_entity_function_table::routine_kind
+    int16_t id;       // Same as live_entity::id
     struct script_routine_state states[2];
 };
 ASSERT_SIZE(struct script_routine, 236);
@@ -610,7 +611,7 @@ struct ground_weather_entry {
 ASSERT_SIZE(struct ground_weather_entry, 4);
 
 struct ground_entity_function_table {
-    struct script_routine_16 routine_type;
+    struct script_routine_kind_16 routine_kind;
     uint16_t padding;
     int16_t (*get_id)(void* ground_entity);
     void (*get_collision_box)(void* ground_entity, struct uvec2* collision_box);
