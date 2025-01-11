@@ -295,7 +295,7 @@ struct ssb_runtime_info {
                                 // return addresses for opcodes like Call, Return, Flash, and more.
     void* strings; // A pointer to strings in a ssb file; halfword offsets followed by strings?
 };
-ASSERT_SIZE(struct ssb_runtime_info, 16)
+ASSERT_SIZE(struct ssb_runtime_info, 16);
 
 // Keeps track of data used by script opcodes on a routine that's being executed
 struct script_routine_state {
