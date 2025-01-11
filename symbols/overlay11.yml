@@ -16,26 +16,48 @@ overlay11:
     
     This is the "main" overlay of ground mode. The script engine is what runs the ground mode scripts contained in the SCRIPT folder, which are written in a custom scripting language. These scripts encode things like cutscenes, screen transitions, ground mode events, and tons of other things related to ground mode.
   functions:
-    - name: InitScriptOpcodeStatuses
+    - name: InitScriptRoutineState
       address:
         EU: 0x22DD170
         NA: 0x22DC830
         JP: 0x22DDED0
       description: |-
-        Initializes the various fields of script_opcode_statuses, a struct that seems relevant when handling script opcode operations.
+        Initializes the various fields of script_routine_state, a struct that seems relevant when handling script opcode operations.
         
-        r0: script_opcode_statuses pointer
-    - name: InitLiveEntityInfo
+        r0: script_routine_state pointer
+    - name: InitScriptRoutine
       address:
         EU: 0x22DD228
         NA: 0x22DC8E8
         JP: 0x22DDF88
       description: |-
-        Initializes the various fields of live_entity_info.
+        Initializes the various fields of script_routine.
         
-        r0: live entity info
+        r0: routine pointer
         r1: ground entity function table pointer
         r2: live entity pointer
+    - name: LockRoutine
+      address:
+        EU: 0x22DD82C
+        NA: 0x22DCEEC
+        JP: 0x22DE58C
+      description: |-
+        Sets a routine to be locked via the Lock opcode.
+        
+        r0: script routine pointer
+        r1: lock id
+        return: Always 1, but this does seem to get checked in RunNextOpcode for some reason
+    - name: UnlockRoutine
+      address:
+        EU: 0x22DDA2C
+        NA: 0x22DD0EC
+        JP: 0x22DE78C
+      description: |-
+        Attempts to unlock a script routine via the Unlock opcode.
+        
+        r0: script routine pointer
+        r1: lock id
+        return: True if the script routine was successfully unlocked
     - name: UnlockScriptingLock
       address:
         EU: 0x22DDA70
@@ -55,7 +77,7 @@ overlay11:
       description: |-
         Called up to 16 times per frame. Exact purpose unknown.
         
-        r0: Looks like a pointer to some struct containing data about the current state of scripting engine
+        r0: script routine pointer
     - name: RunNextOpcode
       address:
         EU: 0x22DE6A4
@@ -64,9 +86,20 @@ overlay11:
       description: |-
         Runs the next scripting opcode.
         
-        Contains a switch statement based on the opcode ([r0+1C]).
+        Contains a switch statement based on the routine's next opcode to run.
         
-        r0: Looks like a pointer to some struct containing data about the current state of scripting engine
+        r0: script routine pointer
+        return: status
+    - name: GetSsbString
+      address:
+        EU: 0x22E4B88
+        NA: 0x22E4248
+        JP: 0x22E5874
+      description: |-
+        Returns a string from a given SSB runtime struct.
+        
+        r0: ssb runtime info pointer
+        r1: idx
     - name: HandleUnlocks
       address:
         EU: 0x22E4C90
@@ -471,6 +504,16 @@ overlay11:
         
         r0: animation pointer?
         others: ?
+    - name: UnlockMainRoutine
+      address:
+        EU: 0x22F7FF0
+        NA: 0x22F7650
+        JP: 0x22F8CD4
+      description: |-
+        Unlocks the main routine of the current script, as specified in GROUND_STATE_PTRS::main_routine.
+        
+        r0: lock id
+        return: True if the script routine was successfully unlocked
     - name: AllocAndInitPartnerFollowDataAndLiveActorList
       address:
         EU: 0x22F865C
@@ -486,16 +529,26 @@ overlay11:
         NA: 0x22F7D18
         JP: 0x22F939C
       description: |-
-        Initialize the partner follow data and the live actor list (in GROUND_STATE_PTRS, doesn’t perform the allocation of the structures)
+        Initialize the partner follow data and the live actor list (in GROUND_STATE_PTRS, doesn't perform the allocation of the structures)
         
         No params.
+    - name: GetLiveActorIdxFromScriptEntityId
+      address:
+        EU: 0x22F87B0
+        NA: 0x22F7E10
+        JP: 0x22F9494
+      description: |-
+        Searches through the live actor list to find the first matching actor who has an ID matching that of a script_entity_id.
+        
+        r0: script_entity_id
+        return: index of the live actor, or -1 if the specified actor could not be found
     - name: DeleteLiveActor
       address:
         EU: 0x22F8F18
         NA: 0x22F8578
         JP: 0x22F9BFC
       description: |-
-        Remove the actor from the overworld actor list (in GROUND_STATE_PTRS)
+        Remove the actor from the actor list (in GROUND_STATE_PTRS)
         
         r0: the index of the actor in the live actor list
     - name: SetAttributeBitfieldLiveActor
@@ -518,6 +571,16 @@ overlay11:
         
         r0: live actor id
         r1: attribute bitfield
+    - name: UnlockActorRoutines
+      address:
+        EU: 0x22F99B8
+        NA: 0x22F9018
+        JP: 0x22FA69C
+      description: |-
+        Attempts to unlock all live actor routines of the current script.
+        
+        r0: lock id
+        return: True if any script routine was successfully unlocked
     - name: GetCollidingActorId
       address:
         EU: 0x22F9B20
@@ -771,6 +834,15 @@ overlay11:
         Initialize the partner follow data structure, without allocating it (in GROUND_STATE_PTRS)
         
         No params.
+    - name: DeleteLiveObject
+      address:
+        EU: 0x22FCDEC
+        NA: 0x22FC44C
+        JP: 0x22FDAC4
+      description: |-
+        Remove the object from the object list (in GROUND_STATE_PTRS)
+        
+        r0: the index of the object in the live object list
     - name: SetAttributeBitfieldLiveObject
       address:
         EU: 0x22FCF98
@@ -791,6 +863,16 @@ overlay11:
         
         r0: live object id
         r1: attribute bitfield
+    - name: UnlockObjectRoutines
+      address:
+        EU: 0x22FD5E4
+        NA: 0x22FCC44
+        JP: 0x22FE2BC
+      description: |-
+        Attempts to unlock all live object routines of the current script.
+        
+        r0: lock id
+        return: True if any script routine was successfully unlocked
     - name: GetCollidingObjectId
       address:
         EU: 0x22FD6B8
@@ -1019,6 +1101,15 @@ overlay11:
         
         r0: live object
         r1: pointer to an position offset vector
+    - name: DeleteLivePerformer
+      address:
+        EU: 0x22FE58C
+        NA: 0x22FDBEC
+        JP: 0x22FF25C
+      description: |-
+        Remove the performer from the performer list (in GROUND_STATE_PTRS)
+        
+        r0: the index of the performer in the live performer list
     - name: SetAttributeBitfieldLivePerformer
       address:
         EU: 0x22FE738
@@ -1039,6 +1130,16 @@ overlay11:
         
         r0: live performer id
         r1: attribute bitfield
+    - name: UnlockPerformerRoutines
+      address:
+        EU: 0x22FECF4
+        NA: 0x22FE354
+        JP: 0x22FF9C4
+      description: |-
+        Attempts to unlock all live performer routines of the current script.
+        
+        r0: lock id
+        return: True if any script routine was successfully unlocked
     - name: SetPositionLivePerformer
       address:
         EU: 0x22FEDA4
@@ -1255,6 +1356,15 @@ overlay11:
         
         r0: live performer
         r1: pointer to an position offset vector
+    - name: DeleteLiveEvent
+      address:
+        EU: 0x22FF608
+        NA: 0x22FEC68
+        JP: 0x23002D0
+      description: |-
+        Remove the event from the event list (in GROUND_STATE_PTRS)
+        
+        r0: the index of the event in the live event list
     - name: GetCollidingEventId
       address:
         EU: 0x22FF798

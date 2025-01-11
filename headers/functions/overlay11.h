@@ -1,12 +1,15 @@
 #ifndef HEADERS_FUNCTIONS_OVERLAY11_H_
 #define HEADERS_FUNCTIONS_OVERLAY11_H_
 
-void InitScriptOpcodeStatuses(struct script_opcode_statuses* statuses);
-void InitLiveEntityInfo(struct live_entity_info* info,
-                        struct ground_entity_function_table* function_table, void* live_entity);
+void InitScriptRoutineState(struct script_routine_state* state);
+void InitScriptRoutine(struct script_routine* routine,
+                       struct ground_entity_function_table* function_table, void* live_entity);
+bool LockRoutine(struct script_routine* routine, int16_t lock_id);
+bool UnlockRoutine(struct script_routine* routine, int16_t lock_id);
 void UnlockScriptingLock(int lock_id);
-void FuncThatCallsRunNextOpcode(undefined* script_engine_state);
-void RunNextOpcode(undefined* script_engine_state);
+void FuncThatCallsRunNextOpcode(struct script_routine* routine);
+int16_t RunNextOpcode(struct script_routine* routine);
+char* GetSsbString(struct ssb_runtime_info* ssb_info, int idx);
 void HandleUnlocks(void);
 void LoadFileFromRomVeneer(struct iovec* iov, const char* filepath, uint32_t flags);
 void SsbLoad2(void);
@@ -46,11 +49,14 @@ struct animation_data GetIdleAnimationType(enum monster_id, undefined* param_2);
 void LoadObjectAnimData(struct animation* anim, int16_t object_id, uint32_t flags);
 void InitAnimDataFromOtherAnimDataVeneer(struct animation* dst, struct animation* src);
 void AnimRelatedFunction(struct animation* anim, undefined4 param_2, undefined4 param_3);
+bool UnlockMainRoutine(int16_t lock_id);
 void AllocAndInitPartnerFollowDataAndLiveActorList(void);
 void InitPartnerFollowDataAndLiveActorList(void);
+int GetLiveActorIdxFromScriptEntityId(enum script_entity_id);
 void DeleteLiveActor(int16_t actor_id);
 void SetAttributeBitfieldLiveActor(int16_t live_actor_id, uint32_t attribute_bitfield);
 void ResetAttributeBitfieldLiveActor(int16_t live_actor_id, uint32_t attribute_bitfield);
+bool UnlockActorRoutines(int16_t lock_id);
 int GetCollidingActorId(int16_t live_actor_id, uint32_t attribute_bitfield, struct vec2* coord_min,
                         struct vec2* coord_max);
 void ChangeActorAnimation(struct live_actor* actor, uint16_t setanimation_param);
@@ -78,8 +84,10 @@ void SetBlinkLiveActor(struct live_actor* actor, uint16_t interval_blink_in,
                        uint16_t interval_blink_out);
 void SetPositionOffsetLiveActor(struct live_actor* actor, struct vec2* offset);
 void InitPartnerFollowData(void);
+void DeleteLiveObject(int16_t object_id);
 void SetAttributeBitfieldLiveObject(int16_t live_object_id, uint32_t attribute_bitfield);
 void ResetAttributeBitfieldLiveObject(int16_t live_object_id, uint32_t attribute_bitfield);
+bool UnlockObjectRoutines(int16_t lock_id);
 int GetCollidingObjectId(uint32_t attribute_bitfield, struct vec2* coord_min,
                          struct vec2* coord_max);
 void SetPositionLiveObject(struct live_object* object, struct vec2* pos);
@@ -106,8 +114,10 @@ void ResetAttributeBitfieldLiveObjectWrapper(struct live_object* object,
 void SetBlinkLiveObject(struct live_object* object, uint16_t interval_blink_in,
                         uint16_t interval_blink_out);
 void SetPositionOffsetLiveObject(struct live_object* object, struct vec2* offset);
+void DeleteLivePerformer(int16_t performer_id);
 void SetAttributeBitfieldLivePerformer(int16_t live_performer_id, uint32_t attribute_bitfield);
 void ResetAttributeBitfieldLivePerformer(int16_t live_performer_id, uint32_t attribute_bitfield);
+bool UnlockPerformerRoutines(int16_t lock_id);
 void SetPositionLivePerformer(struct live_performer* performer, struct vec2* pos);
 int16_t GetIdLivePerformer(struct live_performer* performer);
 void GetCollisionBoxLivePerformer(struct live_performer* performer, struct uvec2* collision_box);
@@ -134,6 +144,7 @@ void ResetAttributeBitfieldLivePerformerWrapper(struct live_performer* performer
 void SetBlinkLivePerformer(struct live_performer* performer, uint16_t interval_blink_in,
                            uint16_t interval_blink_out);
 void SetPositionOffsetLivePerformer(struct live_performer* performer, struct vec2* offset);
+void DeleteLiveEvent(int16_t event_id);
 int GetCollidingEventId(uint32_t attribute_bitfield, struct vec2* coord_min,
                         struct vec2* coord_max);
 int CreateTeamInfoBox(void);

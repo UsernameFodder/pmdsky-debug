@@ -287,44 +287,41 @@ struct animation_data {
 ASSERT_SIZE(struct animation_data, 2);
 #pragma pack(pop)
 
-// Keeps track of data used by script opcodes on a live entity
-struct script_opcode_statuses {
-    int16_t execution_status; // used in "WaitExecute" opcodes
-    int16_t field_0x2;        // also used in "WaitExecute" opcodes?
+// Runtime pointers of a currently-loaded ssb script in memory
+struct ssb_runtime_info {
+    void* file;                 // Pointer to start of ssb file in memory?
+    void* opcodes;              // Pointer to start of ssb opcodes in memory?
+    uint16_t* next_opcode_addr; // Address of next opcode to be run; this can also be used for local
+                                // return addresses for opcodes like Call, Return, Flash, and more.
+    void* strings; // A pointer to strings in a ssb file; halfword offsets followed by strings?
+};
+ASSERT_SIZE(struct ssb_runtime_info, 16)
+
+// Keeps track of data used by script opcodes on a routine that's being executed
+struct script_routine_state {
+    int16_t execution_status; // Used in "WaitExecute" opcodes
+    int16_t last_return_val;  // Return value of RunNextOpcode
     int16_t field_0x4;
     int8_t field_0x6;
     undefined field_0x7;
-    undefined4 field_0x8;
-    undefined4 field_0xc;
-    undefined4 field_0x10;
-    undefined field_0x14;
-    undefined field_0x15;
-    undefined field_0x16;
-    undefined field_0x17;
-    undefined4 field_0x18;
-    undefined4 field_0x1c;
-    undefined4 field_0x20;
-    undefined field_0x24;
-    undefined field_0x25;
-    undefined field_0x26;
-    undefined field_0x27;
-    undefined4 field_0x28;
-    undefined field_0x2c;
-    undefined field_0x2d;
-    undefined field_0x2e;
-    undefined field_0x2f;
-    undefined field_0x30;
-    undefined field_0x31;
-    int16_t field_0x32;
+    struct ssb_runtime_info
+        ssb_info[2]; // The first entry is used for the current ssb file being run. The
+                     // second entry is used to store data due to a "call" operation, like Call,
+                     // CallCommon, and others. When the "Return" opcode runs, the second entry
+                     // gets copied back to the first.
+    uint16_t* current_opcode_addr; // Address of current opcode
+    uint16_t* current_param_addr;  // Address of current opcode parameter
+    int16_t opcode_param_count;
+    int16_t lock_id; // ID of the lock this routine is currently hanging on; -1 if no lock
     int16_t field_0x34;
     int8_t field_0x36;
     undefined field_0x37;
     int16_t field_0x38;
-    int16_t field_0x3a;
+    int16_t timer; // Used in opcodes that require a frame timer, like Wait and PursueTurnLives
     int16_t field_0x3c;
     undefined field_0x3e;
     undefined field_0x3f;
-    undefined4 field_0x40;
+    int current_variadic_param; // Maybe?
     undefined field_0x44;
     undefined field_0x45;
     undefined field_0x46;
@@ -355,17 +352,20 @@ struct script_opcode_statuses {
     undefined field_0x5f;
     undefined4 field_0x60[4];
 };
-ASSERT_SIZE(struct script_opcode_statuses, 112);
+ASSERT_SIZE(struct script_routine_state, 112);
 
-// A common struct used to hold data surrounding a live entity
-struct live_entity_info {
+// A routine executed at runtime, whether "targeted" on an entity or the main routine in a script
+struct script_routine {
     struct ground_entity_function_table* function_table;
-    void* ground_entity;                   // Actor, object, or performer
+    void* parent_entity; // The parent entity of this routine: An actor, object, performer, or null
+                         // (but NOT strictly the live_entity type). This means any entity
+                         // self-references itself with this pointer; this is necessary because
+                         // RunNextOpcode has a script_routine pointer as a parameter.
     struct script_routine_16 routine_type; // Same as ground_entity_function_table::routine_type
     int16_t id;                            // Same as live_entity::id
-    struct script_opcode_statuses statuses[2];
+    struct script_routine_state states[2];
 };
-ASSERT_SIZE(struct live_entity_info, 236);
+ASSERT_SIZE(struct script_routine, 236);
 
 // Represents a generic ground entity shared by actors, objects, and performers
 struct live_entity {
@@ -388,7 +388,7 @@ struct live_entity {
     struct vec2 initial_pos;
     struct vec2 limit_min_pos; // minimum possible coordinates, for random move in free roam
     struct vec2 limit_max_pos; // maximum possible coordinates, for random move in free roam
-    struct live_entity_info info;
+    struct script_routine routine;
 };
 ASSERT_SIZE(struct live_entity, 292);
 
@@ -558,7 +558,7 @@ ASSERT_SIZE(struct live_event_list, 1024);
 
 // A global structure holding various pointers to important structures for ground mode
 struct main_ground_data {
-    undefined* script; // 0x0: pointer to script structure
+    struct script_routine* main_routine; // 0x0: pointer to script structure
     undefined*
         partner_follow_data; // 0x4: pointer to the data related to the partner following the player
     struct live_actor_list* actors;         // 0x8: pointer to the actors
