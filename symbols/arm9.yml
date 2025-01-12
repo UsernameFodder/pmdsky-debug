@@ -6735,6 +6735,18 @@ arm9:
         stack[0]: total number of selectable items
         stack[1]: number of selectable items per page
         stack[2]: ?
+    - name: SetupAndShowKeyboard
+      address:
+        EU: 0x2036AA8
+        NA: 0x20367B4
+        JP: 0x2036ACC
+      description: |-
+        Calls a function that seems to sets up info for the keyboard menu before ending with a call to ShowKeyboard.
+        
+        r0: menu type
+        r1: buffer1
+        r2: buffer2
+        return: ?
     - name: ShowKeyboard
       address:
         EU: 0x2036AE4
@@ -6743,7 +6755,7 @@ arm9:
       description: |-
         Note: unverified, ported from Irdkwia's notes
         
-        r0: string ID
+        r0: menu type
         r1: buffer1
         r2: ???
         r3: buffer2
@@ -9132,6 +9144,15 @@ arm9:
         
         r0: [output] ground_monster struct to init
         r1: guest_monster struct to use
+    - name: SetBaseStatsMovesGroundMonster
+      address:
+        EU: 0x2053278
+        NA: 0x2052EFC
+        JP: 0x2053234
+      description: |-
+        Sets a ground monster to have the base stats and Level 1 moves of its species, along with 1 IQ.
+        
+        r0: ground monster pointer
     - name: StrcmpMonsterName
       address:
         EU: 0x205332C
@@ -9299,6 +9320,17 @@ arm9:
         
         r0: pointer to the monster spawn entry
         return: uint8_t
+    - name: ApplyLevelUpBoostsToGroundMonster
+      address:
+        EU: 0x2054844
+        NA: 0x20544C8
+        JP: 0x2054800
+      description: |-
+        Applies the level up boosts to stats and moves (until moveset is full) to a target monster.
+        
+        r0: ground monster pointer
+        r1: level
+        r2: flag that enables further editing of the monster
     - name: GetMonsterGenderVeneer
       address:
         EU: 0x2054ADC

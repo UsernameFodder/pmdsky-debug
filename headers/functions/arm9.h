@@ -715,7 +715,8 @@ void InitInventoryMenuInput(struct inventory_menu_input_ctx* input_ctx, struct w
                             struct window_extra_info* window_extra_info,
                             struct window_rectangle* rect, int n_items, int n_items_per_page,
                             undefined param_7);
-int ShowKeyboard(int string_id, char* buffer1, int param_3, char* buffer2);
+int SetupAndShowKeyboard(int menu_type, char* buffer1, char* buffer2);
+int ShowKeyboard(int menu_type, char* buffer1, int param_3, char* buffer2);
 int GetKeyboardStatus(void);
 int GetKeyboardStringResult(void);
 char* TeamSelectionMenuGetItem(char* buffer, int member_idx);
@@ -954,6 +955,7 @@ int GetFamilyIndex(enum monster_id monster_id);
 void LoadM2nAndN2m(void);
 void GuestMonsterToGroundMonster(struct ground_monster* ground_monster,
                                  struct guest_monster* guest_monster);
+void SetBaseStatsMovesGroundMonster(struct ground_monster* ground_monster);
 bool StrcmpMonsterName(char* string, enum monster_id monster_id);
 void GetLvlUpEntry(struct level_up_entry* level_up_entry, enum monster_id monster_id, int level);
 uint8_t* GetEncodedHalfword(uint8_t* data_ptr, uint16_t* result);
@@ -971,6 +973,7 @@ void SetMonsterId(struct monster_spawn_entry* monster_spawn, enum monster_id mon
 void SetMonsterLevelAndId(struct monster_spawn_entry* monster_spawn, int level,
                           enum monster_id monster_id);
 uint8_t GetMonsterLevelFromSpawnEntry(struct monster_spawn_entry* entry);
+void ApplyLevelUpBoostsToGroundMonster(struct ground_monster* ground_monster, int level, bool flag);
 enum monster_gender GetMonsterGenderVeneer(enum monster_id monster_id);
 bool IsMonsterValid(enum monster_id monster_id);
 bool IsUnown(enum monster_id monster_id);
