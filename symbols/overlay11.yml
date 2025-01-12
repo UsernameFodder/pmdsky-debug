@@ -1716,7 +1716,7 @@ overlay11:
         type: struct level_tilemap_list_entry[81]
     - name: ACTOR_FUNCTION_TABLE
       address:
-        EU: 0x23223F0
+        EU: 0x23223AC
         NA: 0x232187C
         JP: 0x2322DE0
       length:
@@ -1738,7 +1738,7 @@ overlay11:
         The first entry is unused and has a value of 0xFFFF.
     - name: OBJECT_FUNCTION_TABLE
       address:
-        EU: 0x2322970
+        EU: 0x232292C
         NA: 0x2321DFC
         JP: 0x2323360
       length:
@@ -1748,7 +1748,7 @@ overlay11:
       description: A function pointer table accessed when performing script opcodes on objects.
     - name: PERFORMER_FUNCTION_TABLE
       address:
-        EU: 0x2322C78
+        EU: 0x2322C40
         NA: 0x2322110
         JP: 0x2323674
       length:
