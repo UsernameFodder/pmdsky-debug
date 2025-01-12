@@ -6741,7 +6741,7 @@ arm9:
         NA: 0x20367B4
         JP: 0x2036ACC
       description: |-
-        Calls a function that seems to sets up info for the keyboard menu before ending with a call to ShowKeyboard.
+        Calls a function that seems to set up info for the keyboard menu before ending with a call to ShowKeyboard.
         
         r0: menu type
         r1: buffer1
