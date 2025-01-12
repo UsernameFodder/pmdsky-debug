@@ -52,7 +52,7 @@ void AnimRelatedFunction(struct animation* anim, undefined4 param_2, undefined4 
 bool UnlockMainRoutine(int16_t lock_id);
 void AllocAndInitPartnerFollowDataAndLiveActorList(void);
 void InitPartnerFollowDataAndLiveActorList(void);
-int GetLiveActorIdxFromScriptEntityId(enum script_entity_id);
+int GetLiveActorIdxFromScriptEntityId(enum script_entity_id entity_id);
 void DeleteLiveActor(int16_t actor_id);
 void SetAttributeBitfieldLiveActor(int16_t live_actor_id, uint32_t attribute_bitfield);
 void ResetAttributeBitfieldLiveActor(int16_t live_actor_id, uint32_t attribute_bitfield);
