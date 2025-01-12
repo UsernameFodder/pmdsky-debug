@@ -11,7 +11,7 @@ void FuncThatCallsRunNextOpcode(struct script_routine* routine);
 int16_t RunNextOpcode(struct script_routine* routine);
 char* GetSsbString(struct ssb_runtime_info* ssb_info, int idx);
 void HandleUnlocks(void);
-uint16_t* ScriptCaseProcess(struct script_routine* routine, int case);
+uint16_t* ScriptCaseProcess(struct script_routine* routine, int case_id);
 void LoadFileFromRomVeneer(struct iovec* iov, const char* filepath, uint32_t flags);
 void SsbLoad2(void);
 int16_t ScriptParamToInt(uint16_t parameter);
