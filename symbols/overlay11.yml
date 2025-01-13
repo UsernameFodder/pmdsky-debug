@@ -111,6 +111,17 @@ overlay11:
         If the global unlock flag is not set, returns immediately. If it is, the function loops LOCK_NOTIFY_ARRAY, checking for true values. If it finds one, resets it back to 0 and handles the unlock.
         
         No params.
+    - name: ScriptCaseProcess
+      address:
+        EU: 0x22E4D28
+        NA: 0x22E43E8
+        JP: 0x22E5A14
+      description: |-
+        Calculates the next opcode address for a script routine as the result of a switch-statement.
+        
+        r0: script routine pointer
+        r1: case id
+        return: Next opcode address for the routine to execute
     - name: LoadFileFromRomVeneer
       address:
         EU: 0x22E501C
