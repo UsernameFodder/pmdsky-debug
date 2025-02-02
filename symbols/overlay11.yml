@@ -16,6 +16,48 @@ overlay11:
     
     This is the "main" overlay of ground mode. The script engine is what runs the ground mode scripts contained in the SCRIPT folder, which are written in a custom scripting language. These scripts encode things like cutscenes, screen transitions, ground mode events, and tons of other things related to ground mode.
   functions:
+    - name: InitScriptRoutineState
+      address:
+        EU: 0x22DD170
+        NA: 0x22DC830
+        JP: 0x22DDED0
+      description: |-
+        Initializes the various fields of script_routine_state, a struct that seems relevant when handling script opcode operations.
+        
+        r0: script_routine_state pointer
+    - name: InitScriptRoutine
+      address:
+        EU: 0x22DD228
+        NA: 0x22DC8E8
+        JP: 0x22DDF88
+      description: |-
+        Initializes the various fields of script_routine.
+        
+        r0: routine pointer
+        r1: ground entity function table pointer
+        r2: live entity pointer
+    - name: LockRoutine
+      address:
+        EU: 0x22DD82C
+        NA: 0x22DCEEC
+        JP: 0x22DE58C
+      description: |-
+        Sets a routine to be locked via the Lock opcode.
+        
+        r0: script routine pointer
+        r1: lock id
+        return: Always 1, but this does seem to get checked in RunNextOpcode for some reason
+    - name: UnlockRoutine
+      address:
+        EU: 0x22DDA2C
+        NA: 0x22DD0EC
+        JP: 0x22DE78C
+      description: |-
+        Attempts to unlock a script routine via the Unlock opcode.
+        
+        r0: script routine pointer
+        r1: lock id
+        return: True if the script routine was successfully unlocked
     - name: UnlockScriptingLock
       address:
         EU: 0x22DDA70
@@ -35,7 +77,7 @@ overlay11:
       description: |-
         Called up to 16 times per frame. Exact purpose unknown.
         
-        r0: Looks like a pointer to some struct containing data about the current state of scripting engine
+        r0: script routine pointer
     - name: RunNextOpcode
       address:
         EU: 0x22DE6A4
@@ -44,9 +86,20 @@ overlay11:
       description: |-
         Runs the next scripting opcode.
         
-        Contains a switch statement based on the opcode ([r0+1C]).
+        Contains a switch statement based on the routine's next opcode to run.
         
-        r0: Looks like a pointer to some struct containing data about the current state of scripting engine
+        r0: script routine pointer
+        return: status
+    - name: GetSsbString
+      address:
+        EU: 0x22E4B88
+        NA: 0x22E4248
+        JP: 0x22E5874
+      description: |-
+        Returns a string from a given SSB runtime struct.
+        
+        r0: ssb runtime info pointer
+        r1: idx
     - name: HandleUnlocks
       address:
         EU: 0x22E4C90
@@ -58,6 +111,17 @@ overlay11:
         If the global unlock flag is not set, returns immediately. If it is, the function loops LOCK_NOTIFY_ARRAY, checking for true values. If it finds one, resets it back to 0 and handles the unlock.
         
         No params.
+    - name: ScriptCaseProcess
+      address:
+        EU: 0x22E4D28
+        NA: 0x22E43E8
+        JP: 0x22E5A14
+      description: |-
+        Calculates the next opcode address for a script routine as the result of a switch-statement.
+        
+        r0: script routine pointer
+        r1: case id
+        return: Next opcode address for the routine to execute
     - name: LoadFileFromRomVeneer
       address:
         EU: 0x22E501C
@@ -451,6 +515,16 @@ overlay11:
         
         r0: animation pointer?
         others: ?
+    - name: UnlockMainRoutine
+      address:
+        EU: 0x22F7FF0
+        NA: 0x22F7650
+        JP: 0x22F8CD4
+      description: |-
+        Unlocks the main routine of the current script, as specified in GROUND_STATE_PTRS::main_routine.
+        
+        r0: lock id
+        return: True if the script routine was successfully unlocked
     - name: AllocAndInitPartnerFollowDataAndLiveActorList
       address:
         EU: 0x22F865C
@@ -466,18 +540,71 @@ overlay11:
         NA: 0x22F7D18
         JP: 0x22F939C
       description: |-
-        Initialize the partner follow data and the live actor list (in GROUND_STATE_PTRS, doesn’t perform the allocation of the structures)
+        Initialize the partner follow data and the live actor list (in GROUND_STATE_PTRS, doesn't perform the allocation of the structures)
         
         No params.
+    - name: GetLiveActorIdxFromScriptEntityId
+      address:
+        EU: 0x22F87B0
+        NA: 0x22F7E10
+        JP: 0x22F9494
+      description: |-
+        Searches through the live actor list to find the first matching actor who has an ID matching that of a script_entity_id.
+        
+        r0: script_entity_id
+        return: index of the live actor, or -1 if the specified actor could not be found
     - name: DeleteLiveActor
       address:
         EU: 0x22F8F18
         NA: 0x22F8578
         JP: 0x22F9BFC
       description: |-
-        Remove the actor from the overworld actor list (in GROUND_STATE_PTRS)
+        Remove the actor from the actor list (in GROUND_STATE_PTRS)
         
         r0: the index of the actor in the live actor list
+    - name: SetAttributeBitfieldLiveActor
+      address:
+        EU: 0x22F90CC
+        NA: 0x22F872C
+        JP: 0x22F9DB0
+      description: |-
+        Sets bits of the attribute bitfield of a currently loaded actor.
+        
+        r0: live actor id
+        r1: attribute bitfield
+    - name: ResetAttributeBitfieldLiveActor
+      address:
+        EU: 0x22F9158
+        NA: 0x22F87B8
+        JP: 0x22F9E3C
+      description: |-
+        Clears bits of the attribute bitfield of a currently loaded actor.
+        
+        r0: live actor id
+        r1: attribute bitfield
+    - name: UnlockActorRoutines
+      address:
+        EU: 0x22F99B8
+        NA: 0x22F9018
+        JP: 0x22FA69C
+      description: |-
+        Attempts to unlock all live actor routines of the current script.
+        
+        r0: lock id
+        return: True if any script routine was successfully unlocked
+    - name: GetCollidingActorId
+      address:
+        EU: 0x22F9B20
+        NA: 0x22F9180
+        JP: 0x22FA804
+      description: |-
+        Returns the first colliding actor given a series of vector coordinates.
+        
+        r0: live actor id (used only to ignore an actor colliding with itself)
+        r1: attribute bitfield to test actors against
+        r2: pointer to coord_min
+        r3: pointer to coord_max
+        return: The first colliding actor's id, or -1 if no is collision detected
     - name: ChangeActorAnimation
       address:
         EU: 0x22F9D68
@@ -488,8 +615,227 @@ overlay11:
         
         It's responsible for breaking down the SetAnimation parameter and determining which animation to play and which flags to set.
         
-        r0: ?
+        r0: live actor
         r1: SetAnimation parameter
+    - name: SetPositionLiveActor
+      address:
+        EU: 0x22F9EC8
+        NA: 0x22F9528
+        JP: 0x22FABAC
+      description: |-
+        Sets the position for a currently loaded actor.
+        
+        r0: live actor
+        r1: pointer to a position vector
+    - name: GetIdLiveActor
+      address:
+        EU: 0x22FB3A4
+        NA: 0x22FAA04
+        JP: 0x22FC088
+      description: |-
+        Returns the ID of a currently loaded actor. This ID can then be used to index GROUND_STATE_PTRS::actors.
+        
+        r0: live actor
+        return: id
+    - name: GetCollisionBoxLiveActor
+      address:
+        EU: 0x22FB3AC
+        NA: 0x22FAA0C
+        JP: 0x22FC090
+      description: |-
+        Gets the collision box of a currently loaded actor.
+        
+        r0: live actor
+        r1: [output] collision box buffer
+    - name: SetPositionInitialLiveActor
+      address:
+        EU: 0x22FB3C0
+        NA: 0x22FAA20
+        JP: 0x22FC0A4
+      description: |-
+        Sets a currently loaded actor to return to its initial position.
+        
+        r0: live actor
+        r1: pointer to an position vector; if null, actor will return to its initial position
+    - name: SetMovementRangeLiveActor
+      address:
+        EU: 0x22FB47C
+        NA: 0x22FAADC
+        JP: 0x22FC160
+      description: |-
+        Sets a currently loaded actor's random movement range.
+        
+        r0: live actor
+        r1: pointer to limit_min_pos
+        r2: pointer to limit_max_pos
+    - name: GetCollisionBoxCenterLiveActor
+      address:
+        EU: 0x22FB4A0
+        NA: 0x22FAB00
+        JP: 0x22FC184
+      description: |-
+        Gets the center of a collision box of a currently loaded actor.
+        
+        This simply adds the actor's minimum coordinates by half the size of the actor's collision box.
+        
+        r0: live actor
+        r1: [output] collision box center buffer
+    - name: SetPositionLiveActorVeneer
+      address:
+        EU: 0x22FB4C4
+        NA: 0x22FAB24
+        JP: 0x22FC1A8
+      description: |-
+        Likely a linker-generated veneer for SetPositionLiveActor.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
+        
+        r0: live actor
+        r1: pointer to a position vector
+    - name: GetHeightLiveActor
+      address:
+        EU: 0x22FB4D0
+        NA: 0x22FAB30
+        JP: 0x22FC1B4
+      description: |-
+        Gets the two height values of a currently loaded actor.
+        
+        r0: live actor
+        r1: [output] pointer to first height value
+        r2: [output] pointer to second height value, which is curiously not referenced by SetHeightLiveActor
+    - name: SetHeightLiveActor
+      address:
+        EU: 0x22FB4E4
+        NA: 0x22FAB44
+        JP: 0x22FC1C8
+      description: |-
+        Sets the height of a currently loaded actor.
+        
+        r0: live actor
+        r1: height
+    - name: GetDirectionLiveActor
+      address:
+        EU: 0x22FB4EC
+        NA: 0x22FAB4C
+        JP: 0x22FC1D0
+      description: |-
+        Gets the direction of a currently loaded actor.
+        
+        r0: live actor
+        r1: [output] pointer to direction
+    - name: SetDirectionLiveActor
+      address:
+        EU: 0x22FB4FC
+        NA: 0x22FAB5C
+        JP: 0x22FC1E0
+      description: |-
+        Sets the direction of a currently loaded actor. Does nothing if the direction value passed is -1.
+        
+        r0: live actor
+        r1: direction
+    - name: SetAnimationLiveActor
+      address:
+        EU: 0x22FB524
+        NA: 0x22FAB84
+        JP: 0x22FC208
+      description: |-
+        Sets the animation of a currently loaded actor. Leads up to a final ChangeActorAnimation call.
+        
+        Includes a check for if live_actor::id is less than 3 and if live_actor::field_0xa is equal to 0x119, which ultimately may perform ((SetAnimation parameter) & 0x1f00 | 0x53).
+        
+        r0: live actor
+        r1: SetAnimation parameter
+    - name: SetEffectLiveActor
+      address:
+        EU: 0x22FB570
+        NA: 0x22FABD0
+        JP: 0x22FC254
+      description: |-
+        Sets the effect of a currently loaded actor.
+        
+        r0: live actor
+        r1: flag (true if effect id is 0?)
+        r2: effect id
+        r3: effect position marker
+    - name: GetAnimationStatusLiveActor
+      address:
+        EU: 0x22FB584
+        NA: 0x22FABE4
+        JP: 0x22FC268
+      description: |-
+        Gets the animation status of a currently loaded actor.
+        
+        Used to determine if the animation has finished via script opcodes like WaitAnimation and WaitEndAnimation.
+        
+        r0: live actor
+        return: status
+    - name: GetEffectStatusLiveActor
+      address:
+        EU: 0x22FB5A4
+        NA: 0x22FAC04
+        JP: 0x22FC288
+      description: |-
+        Gets the effect status of a currently loaded actor.
+        
+        Used to determine if an effect has finished via the script opcode WaitEffect.
+        
+        r0: live actor
+        return: status
+    - name: GetAttributeBitfieldLiveActor
+      address:
+        EU: 0x22FB5C8
+        NA: 0x22FAC28
+        JP: 0x22FC2AC
+      description: |-
+        Gets the attribute bitfield of a currently loaded actor.
+        
+        r0: live actor
+        r1: [output] pointer to attribute bitfield
+    - name: SetAttributeBitfieldLiveActorWrapper
+      address:
+        EU: 0x22FB5D4
+        NA: 0x22FAC34
+        JP: 0x22FC2B8
+      description: |-
+        Sets bits of the attribute bitfield of a currently loaded actor.
+        
+        Is a wrapper around SetAttributeBitfieldLiveActor, meaning this calls SetAttributeBitfieldLiveActor with a first parameter of live_actor::id.
+        
+        r0: live actor
+        r1: attribute bitfield
+    - name: ResetAttributeBitfieldLiveActorWrapper
+      address:
+        EU: 0x22FB5E4
+        NA: 0x22FAC44
+        JP: 0x22FC2C8
+      description: |-
+        Clears bits of the attribute bitfield of a currently loaded actor.
+        
+        Is a wrapper around ResetAttributeBitfieldLiveActor, meaning this calls ResetAttributeBitfieldLiveActor with a first parameter of live_actor::id.
+        
+        r0: live actor
+        r1: attribute bitfield
+    - name: SetBlinkLiveActor
+      address:
+        EU: 0x22FB5F4
+        NA: 0x22FAC54
+        JP: 0x22FC2D8
+      description: |-
+        Sets the actor to blink in and out of sight at certain intervals.
+        
+        r0: live actor
+        r1: frame interval for blinking in
+        r2: frame interval for blinking out
+    - name: SetPositionOffsetLiveActor
+      address:
+        EU: 0x22FB604
+        NA: 0x22FAC64
+        JP: 0x22FC2E8
+      description: |-
+        Offsets a currently loaded actor's position.
+        
+        r0: live actor
+        r1: pointer to an position offset vector
     - name: InitPartnerFollowData
       address:
         EU: 0x22FC3C8
@@ -499,28 +845,549 @@ overlay11:
         Initialize the partner follow data structure, without allocating it (in GROUND_STATE_PTRS)
         
         No params.
-    - name: GetDirectionLiveActor
+    - name: DeleteLiveObject
+      address:
+        EU: 0x22FCDEC
+        NA: 0x22FC44C
+        JP: 0x22FDAC4
+      description: |-
+        Remove the object from the object list (in GROUND_STATE_PTRS)
+        
+        r0: the index of the object in the live object list
+    - name: SetAttributeBitfieldLiveObject
+      address:
+        EU: 0x22FCF98
+        NA: 0x22FC5F8
+        JP: 0x22FDC70
+      description: |-
+        Sets bits of the attribute bitfield of a currently loaded object.
+        
+        r0: live object id
+        r1: attribute bitfield
+    - name: ResetAttributeBitfieldLiveObject
+      address:
+        EU: 0x22FCFD8
+        NA: 0x22FC638
+        JP: 0x22FDCB0
+      description: |-
+        Clears bits of the attribute bitfield of a currently loaded object.
+        
+        r0: live object id
+        r1: attribute bitfield
+    - name: UnlockObjectRoutines
+      address:
+        EU: 0x22FD5E4
+        NA: 0x22FCC44
+        JP: 0x22FE2BC
+      description: |-
+        Attempts to unlock all live object routines of the current script.
+        
+        r0: lock id
+        return: True if any script routine was successfully unlocked
+    - name: GetCollidingObjectId
+      address:
+        EU: 0x22FD6B8
+        NA: 0x22FCD18
+        JP: 0x22FE390
+      description: |-
+        Returns the first colliding object given a series of vector coordinates.
+        
+        r0: attribute bitfield to test objects against
+        r1: pointer to coord_min
+        r2: pointer to coord_max
+        return: The first colliding object's id, or -1 if no is collision detected
+    - name: SetPositionLiveObject
+      address:
+        EU: 0x22FD910
+        NA: 0x22FCF70
+        JP: 0x22FE5E8
+      description: |-
+        Sets the position for a currently loaded object.
+        
+        r0: live object
+        r1: pointer to a position vector
+    - name: GetIdLiveObject
+      address:
+        EU: 0x22FDA00
+        NA: 0x22FD060
+        JP: 0x22FE6D8
+      description: |-
+        Returns the ID of a currently loaded object. This ID can then be used to index GROUND_STATE_PTRS::objects.
+        
+        r0: live object
+        return: id
+    - name: GetCollisionBoxLiveObject
+      address:
+        EU: 0x22FDA08
+        NA: 0x22FD068
+        JP: 0x22FE6E0
+      description: |-
+        Gets the collision box of a currently loaded object.
+        
+        r0: live object
+        r1: [output] collision box buffer
+    - name: SetPositionInitialLiveObject
+      address:
+        EU: 0x22FDA1C
+        NA: 0x22FD07C
+        JP: 0x22FE6F4
+      description: |-
+        Sets a currently loaded object to return to its initial position.
+        
+        r0: live object
+        r1: pointer to an position vector; if null, object will return to its initial position
+    - name: SetMovementRangeLiveObject
+      address:
+        EU: 0x22FDAD8
+        NA: 0x22FD138
+        JP: 0x22FE7B0
+      description: |-
+        Sets a currently loaded object's random movement range.
+        
+        r0: live object
+        r1: pointer to limit_min_pos
+        r2: pointer to limit_max_pos
+    - name: GetCollisionBoxCenterLiveObject
+      address:
+        EU: 0x22FDAFC
+        NA: 0x22FD15C
+        JP: 0x22FE7D4
+      description: |-
+        Gets the center of a collision box of a currently loaded object.
+        
+        This simply adds the object's minimum coordinates by half the size of the object's collision box.
+        
+        r0: live object
+        r1: [output] collision box center buffer
+    - name: SetPositionLiveObjectVeneer
+      address:
+        EU: 0x22FDB20
+        NA: 0x22FD180
+        JP: 0x22FE7F8
+      description: |-
+        Likely a linker-generated veneer for SetPositionLiveObject.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
+        
+        r0: live object
+        r1: pointer to a position vector
+    - name: GetHeightLiveObject
+      address:
+        EU: 0x22FDB2C
+        NA: 0x22FD18C
+        JP: 0x22FE804
+      description: |-
+        Gets the two height values of a currently loaded object.
+        
+        r0: live object
+        r1: [output] pointer to first height value
+        r2: [output] pointer to second height value, which is curiously not referenced by SetHeightLiveObject
+    - name: SetHeightLiveObject
+      address:
+        EU: 0x22FDB40
+        NA: 0x22FD1A0
+        JP: 0x22FE818
+      description: |-
+        Sets the height of a currently loaded object.
+        
+        r0: live object
+        r1: height
+    - name: GetDirectionLiveObject
       address:
         EU: 0x22FDB48
         NA: 0x22FD1A8
         JP: 0x22FE820
       description: |-
-        Put the direction of the actor in the destination
+        Gets the direction of a currently loaded object.
         
-        r0: live actor
-        r1: destination address (1 byte)
-    - name: SetDirectionLiveActor
+        r0: live object
+        r1: [output] pointer to direction
+    - name: SetDirectionLiveObject
       address:
         EU: 0x22FDB58
         NA: 0x22FD1B8
         JP: 0x22FE830
       description: |-
-        Store the direction in the actor structure
-        -1 input is ignored
-        Unsure if this change the animation
+        Sets the direction of a currently loaded object. Does nothing if the direction value passed is -1.
         
-        r0: live actor
+        r0: live object
         r1: direction
+    - name: SetAnimationLiveObject
+      address:
+        EU: 0x22FDB68
+        NA: 0x22FD1C8
+        JP: 0x22FE840
+      description: |-
+        Sets the animation of a currently loaded object.
+        
+        r0: live object
+        r1: SetAnimation parameter
+    - name: SetEffectLiveObject
+      address:
+        EU: 0x22FDC28
+        NA: 0x22FD288
+        JP: 0x22FE900
+      description: |-
+        Sets the effect of a currently loaded object.
+        
+        r0: live object
+        r1: flag (true if effect id is 0?)
+        r2: effect id
+    - name: GetAnimationStatusLiveObject
+      address:
+        EU: 0x22FDC38
+        NA: 0x22FD298
+        JP: 0x22FE910
+      description: |-
+        Gets the animation status of a currently loaded object.
+        
+        Used to determine if the animation has finished via script opcodes like WaitAnimation and WaitEndAnimation.
+        
+        r0: live object
+        return: status
+    - name: GetEffectStatusLiveObject
+      address:
+        EU: 0x22FDC58
+        NA: 0x22FD2B8
+        JP: 0x22FE930
+      description: |-
+        Gets the effect status of a currently loaded object.
+        
+        Used to determine if an effect has finished via the script opcode WaitEffect.
+        
+        r0: live object
+        return: status
+    - name: GetAttributeBitfieldLiveObject
+      address:
+        EU: 0x22FDC7C
+        NA: 0x22FD2DC
+        JP: 0x22FE954
+      description: |-
+        Gets the attribute bitfield of a currently loaded object.
+        
+        r0: live object
+        r1: [output] pointer to attribute bitfield
+    - name: SetAttributeBitfieldLiveObjectWrapper
+      address:
+        EU: 0x22FDC88
+        NA: 0x22FD2E8
+        JP: 0x22FE960
+      description: |-
+        Sets bits of the attribute bitfield of a currently loaded object.
+        
+        Is a wrapper around SetAttributeBitfieldLiveObject, meaning this calls SetAttributeBitfieldLiveObject with a first parameter of live_object::id.
+        
+        r0: live object
+        r1: attribute bitfield
+    - name: ResetAttributeBitfieldLiveObjectWrapper
+      address:
+        EU: 0x22FDC98
+        NA: 0x22FD2F8
+        JP: 0x22FE970
+      description: |-
+        Clears bits of the attribute bitfield of a currently loaded object.
+        
+        Is a wrapper around ResetAttributeBitfieldLiveObject, meaning this calls ResetAttributeBitfieldLiveObject with a first parameter of live_object::id.
+        
+        r0: live object
+        r1: attribute bitfield
+    - name: SetBlinkLiveObject
+      address:
+        EU: 0x22FDCA8
+        NA: 0x22FD308
+        JP: 0x22FE980
+      description: |-
+        Sets the object to blink in and out of sight at certain intervals.
+        
+        r0: live object
+        r1: frame interval for blinking in
+        r2: frame interval for blinking out
+    - name: SetPositionOffsetLiveObject
+      address:
+        EU: 0x22FDCB8
+        NA: 0x22FD318
+        JP: 0x22FE990
+      description: |-
+        Offsets a currently loaded object's position.
+        
+        r0: live object
+        r1: pointer to an position offset vector
+    - name: DeleteLivePerformer
+      address:
+        EU: 0x22FE58C
+        NA: 0x22FDBEC
+        JP: 0x22FF25C
+      description: |-
+        Remove the performer from the performer list (in GROUND_STATE_PTRS)
+        
+        r0: the index of the performer in the live performer list
+    - name: SetAttributeBitfieldLivePerformer
+      address:
+        EU: 0x22FE738
+        NA: 0x22FDD98
+        JP: 0x22FF408
+      description: |-
+        Sets bits of the attribute bitfield of a currently loaded performer.
+        
+        r0: live performer id
+        r1: attribute bitfield
+    - name: ResetAttributeBitfieldLivePerformer
+      address:
+        EU: 0x22FE778
+        NA: 0x22FDDD8
+        JP: 0x22FF448
+      description: |-
+        Clears bits of the attribute bitfield of a currently loaded performer.
+        
+        r0: live performer id
+        r1: attribute bitfield
+    - name: UnlockPerformerRoutines
+      address:
+        EU: 0x22FECF4
+        NA: 0x22FE354
+        JP: 0x22FF9C4
+      description: |-
+        Attempts to unlock all live performer routines of the current script.
+        
+        r0: lock id
+        return: True if any script routine was successfully unlocked
+    - name: SetPositionLivePerformer
+      address:
+        EU: 0x22FEDA4
+        NA: 0x22FE404
+        JP: 0x22FFA74
+      description: |-
+        Sets the position for a currently loaded performer.
+        
+        r0: live performer
+        r1: pointer to a position vector
+    - name: GetIdLivePerformer
+      address:
+        EU: 0x22FEE30
+        NA: 0x22FE490
+        JP: 0x22FFB00
+      description: |-
+        Returns the ID of a currently loaded performer. This ID can then be used to index GROUND_STATE_PTRS::performers.
+        
+        r0: live performer
+        return: id
+    - name: GetCollisionBoxLivePerformer
+      address:
+        EU: 0x22FEE38
+        NA: 0x22FE498
+        JP: 0x22FFB08
+      description: |-
+        Gets the collision box of a currently loaded performer.
+        
+        r0: live performer
+        r1: [output] collision box buffer
+    - name: SetPositionInitialLivePerformer
+      address:
+        EU: 0x22FEE4C
+        NA: 0x22FE4AC
+        JP: 0x22FFB1C
+      description: |-
+        Sets a currently loaded performer to return to its initial position.
+        
+        r0: live performer
+        r1: pointer to an position vector; if null, performer will return to its initial position
+    - name: SetMovementRangeLivePerformer
+      address:
+        EU: 0x22FEF08
+        NA: 0x22FE568
+        JP: 0x22FFBD8
+      description: |-
+        Sets a currently loaded performer's random movement range.
+        
+        r0: live performer
+        r1: pointer to limit_min_pos
+        r2: pointer to limit_max_pos
+    - name: GetCollisionBoxCenterLivePerformer
+      address:
+        EU: 0x22FEF2C
+        NA: 0x22FE58C
+        JP: 0x22FFBFC
+      description: |-
+        Gets the center of a collision box of a currently loaded performer.
+        
+        This simply adds the performer's minimum coordinates by half the size of the performer's collision box.
+        
+        r0: live performer
+        r1: [output] collision box center buffer
+    - name: SetPositionLivePerformerVeneer
+      address:
+        EU: 0x22FEF50
+        NA: 0x22FE5B0
+        JP: 0x22FFC20
+      description: |-
+        Likely a linker-generated veneer for SetPositionLivePerformer.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
+        
+        r0: live performer
+        r1: pointer to a position vector
+    - name: GetHeightLivePerformer
+      address:
+        EU: 0x22FEF5C
+        NA: 0x22FE5BC
+        JP: 0x22FFC2C
+      description: |-
+        Gets the two height values of a currently loaded performer.
+        
+        r0: live performer
+        r1: [output] pointer to first height value
+        r2: [output] pointer to second height value, which is curiously not referenced by SetHeightLivePerformer
+    - name: SetHeightLivePerformer
+      address:
+        EU: 0x22FEF70
+        NA: 0x22FE5D0
+        JP: 0x22FFC40
+      description: |-
+        Sets the height of a currently loaded performer.
+        
+        r0: live performer
+        r1: height
+    - name: GetDirectionLivePerformer
+      address:
+        EU: 0x22FEF78
+        NA: 0x22FE5D8
+        JP: 0x22FFC48
+      description: |-
+        Gets the direction of a currently loaded performer.
+        
+        r0: live performer
+        r1: [output] pointer to direction
+    - name: SetDirectionLivePerformer
+      address:
+        EU: 0x22FEF88
+        NA: 0x22FE5E8
+        JP: 0x22FFC58
+      description: |-
+        Sets the direction of a currently loaded performer. Does nothing if the direction value passed is -1.
+        
+        r0: live performer
+        r1: direction
+    - name: SetAnimationLivePerformer
+      address:
+        EU: 0x22FEF98
+        NA: 0x22FE5F8
+        JP: 0x22FFC68
+      description: |-
+        Sets the animation of a currently loaded performer.
+        
+        r0: live performer
+        r1: SetAnimation parameter
+    - name: SetEffectLivePerformer
+      address:
+        EU: 0x22FF058
+        NA: 0x22FE6B8
+        JP: 0x22FFD28
+      description: |-
+        Sets the effect of a currently loaded performer.
+        
+        r0: live performer
+        r1: flag (true if effect id is 0?)
+        r2: effect id
+    - name: GetAnimationStatusLivePerformer
+      address:
+        EU: 0x22FF068
+        NA: 0x22FE6C8
+        JP: 0x22FFD38
+      description: |-
+        Gets the animation status of a currently loaded performer.
+        
+        Used to determine if the animation has finished via script opcodes like WaitAnimation and WaitEndAnimation.
+        
+        r0: live performer
+        return: status
+    - name: GetEffectStatusLivePerformer
+      address:
+        EU: 0x22FF088
+        NA: 0x22FE6E8
+        JP: 0x22FFD58
+      description: |-
+        Gets the effect status of a currently loaded performer.
+        
+        Used to determine if an effect has finished via the script opcode WaitEffect.
+        
+        r0: live performer
+        return: status
+    - name: GetAttributeBitfieldLivePerformer
+      address:
+        EU: 0x22FF0C0
+        NA: 0x22FE720
+        JP: 0x22FFD90
+      description: |-
+        Gets the attribute bitfield of a currently loaded performer.
+        
+        r0: live performer
+        r1: [output] pointer to attribute bitfield
+    - name: SetAttributeBitfieldLivePerformerWrapper
+      address:
+        EU: 0x22FF0CC
+        NA: 0x22FE72C
+        JP: 0x22FFD9C
+      description: |-
+        Sets bits of the attribute bitfield of a currently loaded performer.
+        
+        Is a wrapper around SetAttributeBitfieldLivePerformer, meaning this calls SetAttributeBitfieldLivePerformer with a first parameter of live_performer::id.
+        
+        r0: live performer
+        r1: attribute bitfield
+    - name: ResetAttributeBitfieldLivePerformerWrapper
+      address:
+        EU: 0x22FF0DC
+        NA: 0x22FE73C
+        JP: 0x22FFDAC
+      description: |-
+        Clears bits of the attribute bitfield of a currently loaded performer.
+        
+        Is a wrapper around ResetAttributeBitfieldLivePerformer, meaning this calls ResetAttributeBitfieldLivePerformer with a first parameter of live_performer::id.
+        
+        r0: live performer
+        r1: attribute bitfield
+    - name: SetBlinkLivePerformer
+      address:
+        EU: 0x22FF0EC
+        NA: 0x22FE74C
+        JP: 0x22FFDBC
+      description: |-
+        Sets the performer to blink in and out of sight at certain intervals.
+        
+        r0: live performer
+        r1: frame interval for blinking in
+        r2: frame interval for blinking out
+    - name: SetPositionOffsetLivePerformer
+      address:
+        EU: 0x22FF0FC
+        NA: 0x22FE75C
+        JP: 0x22FFDCC
+      description: |-
+        Offsets a currently loaded performer's position.
+        
+        r0: live performer
+        r1: pointer to an position offset vector
+    - name: DeleteLiveEvent
+      address:
+        EU: 0x22FF608
+        NA: 0x22FEC68
+        JP: 0x23002D0
+      description: |-
+        Remove the event from the event list (in GROUND_STATE_PTRS)
+        
+        r0: the index of the event in the live event list
+    - name: GetCollidingEventId
+      address:
+        EU: 0x22FF798
+        NA: 0x22FEDF8
+        JP: 0x2300460
+      description: |-
+        Returns the first colliding event given a series of vector coordinates.
+        
+        r0: attribute bitfield to test events against
+        r1: pointer to coord_min
+        r2: pointer to coord_max
+        return: The first colliding event's id, or -1 if no is collision detected
     - name: CreateTeamInfoBox
       address:
         EU: 0x22FF834
@@ -847,6 +1714,16 @@ overlay11:
         Irdkwia's notes: FIXED_FLOOR_GROUND_ASSOCIATION
         
         type: struct level_tilemap_list_entry[81]
+    - name: ACTOR_FUNCTION_TABLE
+      address:
+        EU: 0x23223AC
+        NA: 0x232187C
+        JP: 0x2322DE0
+      length:
+        EU: 0x50
+        NA: 0x50
+        JP: 0x50
+      description: A function pointer table accessed when performing script opcodes on actors.
     - name: SETANIMATION_TABLE
       address:
         EU: 0x23223FC
@@ -859,6 +1736,26 @@ overlay11:
         Table that associates the parameter of the SetAnimation scripting opcode to animation data.
         
         The first entry is unused and has a value of 0xFFFF.
+    - name: OBJECT_FUNCTION_TABLE
+      address:
+        EU: 0x232292C
+        NA: 0x2321DFC
+        JP: 0x2323360
+      length:
+        EU: 0x50
+        NA: 0x50
+        JP: 0x50
+      description: A function pointer table accessed when performing script opcodes on objects.
+    - name: PERFORMER_FUNCTION_TABLE
+      address:
+        EU: 0x2322C40
+        NA: 0x2322110
+        JP: 0x2323674
+      length:
+        EU: 0x50
+        NA: 0x50
+        JP: 0x50
+      description: A function pointer table accessed when performing script opcodes on performers.
     - name: TEAM_INFO_BOX_DEFAULT_WINDOW_PARAMS
       address:
         EU: 0x2322F8C

@@ -102,10 +102,12 @@ struct statuses {
     // 0xF: Tracks the damage taken to deal when bide status ends. Max 0x3E7 (999).
     uint32_t bide_damage_tally;
     struct monster_behavior_8 monster_behavior; // 0x13
-    uint8_t sleep;                              // 0x14: STATUS_SLEEP if 1
+    // 0x14: If non-zero, the corresponding status in status_sleep_id is active.
+    struct status_sleep_id_8 sleep;
     uint8_t sleep_turns; // 0x15: Turns left for the status in statuses::sleep
-    uint8_t burn;        // 0x16: STATUS_BURN if 1
-    uint8_t burn_turns;  // 0x17: Turns left for the status in statuses::burn
+    // 0x16: If non-zero, the corresponding status in status_burn_id is active.
+    struct status_burn_id_8 burn;
+    uint8_t burn_turns; // 0x17: Turns left for the status in statuses::burn
     // 0x18: Turns left until residual damage for the status in statuses::burn, if applicable
     uint8_t burn_damage_countdown;
     // 0x19: The number of times the statuses::burn_damage_countdown has reached 0. Only used
@@ -114,7 +116,8 @@ struct statuses {
     // on is filled with 0x6
     uint8_t badly_poisoned_damage_count;
     undefined field_0x1a;
-    uint8_t freeze; // 0x1B: STATUS_FROZEN if 1
+    // 0x1B: If non-zero, the corresponding status in status_frozen_id is active.
+    struct status_frozen_id_8 freeze;
     undefined field_0x1c;
     undefined field_0x1d;
     undefined field_0x1e;
@@ -127,16 +130,20 @@ struct statuses {
     uint8_t freeze_damage_countdown;
     undefined field_0x25;
     undefined field_0x26;
-    uint8_t cringe;         // 0x27: STATUS_CRINGE if 1
-    uint8_t cringe_turns;   // 0x28: Turns left for the status in statuses::cringe
-    uint8_t bide;           // 0x29: STATUS_BIDE if 1
+    // 0x27: If non-zero, the corresponding status in status_cringe_id is active.
+    struct status_cringe_id_8 cringe;
+    uint8_t cringe_turns; // 0x28: Turns left for the status in statuses::cringe
+    // 0x29: If non-zero, the corresponding status in status_two_turn_id is active.
+    struct status_two_turn_id_8 bide;
     uint8_t bide_turns;     // 0x2A: Turns left for the status in statuses::bide
     uint8_t bide_move_slot; // 0x2B: Slot in the user's move list
-    uint8_t reflect;        // 0x2C: STATUS_REFLECT if 1
-    uint8_t reflect_turns;  // 0x2D: Turns left for the status in statuses::reflect
+    // 0x2C: If non-zero, the corresponding status in status_reflect_id is active.
+    struct status_reflect_id_8 reflect;
+    uint8_t reflect_turns; // 0x2D: Turns left for the status in statuses::reflect
     // 0x2E: Turns left until residual healing for the status in statuses::reflect, if applicable
     uint8_t reflect_damage_countdown;
-    uint8_t curse; // 0x2F: STATUS_CURSED if 1
+    // 0x2F: If non-zero, the corresponding status in status_curse_id is active.
+    struct status_curse_id_8 curse;
     // 0x30: Set to monster::is_not_team_member of the attacker (the one causing the decoy status).
     uint8_t curse_applier_non_team_member_flag;
     // 0x31: Set to 1 on a Pokemon when inflicted with the Decoy status.
@@ -147,7 +154,8 @@ struct statuses {
     undefined field_0x34;
     undefined field_0x35;
     undefined field_0x36;
-    uint8_t leech_seed; // 0x37: STATUS_LEECH_SEED if 1
+    // 0x37: If non-zero, the corresponding status in status_leech_seed_id is active.
+    struct status_leech_seed_id_8 leech_seed;
     undefined field_0x38;
     undefined field_0x39;
     undefined field_0x3a;
@@ -162,12 +170,16 @@ struct statuses {
     // Behaves weirdly without an afflictor
     uint8_t leech_seed_damage_countdown;
     undefined field_0x42;
-    uint8_t sure_shot;         // 0x43: STATUS_SURE_SHOT if 1
-    uint8_t sure_shot_turns;   // 0x44: Turns left for the status in statuses::sure_shot
-    uint8_t long_toss;         // 0x45: STATUS_LONG_TOSS if 1
-    uint8_t invisible;         // 0x46: STATUS_INVISIBLE if 1
-    uint8_t invisible_turns;   // 0x47: Turns left for the status in statuses::invisible
-    uint8_t blinded;           // 0x48: STATUS_BLINKER if 1
+    // 0x43: If non-zero, the corresponding status in status_sure_shot_id is active.
+    struct status_sure_shot_id_8 sure_shot;
+    uint8_t sure_shot_turns; // 0x44: Turns left for the status in statuses::sure_shot
+    // 0x45: If non-zero, the corresponding status in status_long_toss_id is active.
+    struct status_long_toss_id_8 long_toss;
+    // 0x46: If non-zero, the corresponding status in status_invisible_id is active.
+    struct status_invisible_id_8 invisible;
+    uint8_t invisible_turns; // 0x47: Turns left for the status in statuses::invisible
+    // 0x48: If non-zero, the corresponding status in status_blinker_id is active.
+    struct status_blinker_id_8 blinded;
     uint8_t blinded_turns;     // 0x49: Turns left for the status in statuses::blinded
     uint8_t muzzled;           // 0x4A: STATUS_MUZZLED if 1
     uint8_t muzzled_turns;     // 0x4B: Turns left for the status in statuses::muzzled
