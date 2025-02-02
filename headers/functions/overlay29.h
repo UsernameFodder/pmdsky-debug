@@ -906,8 +906,8 @@ bool YesNoMenu(undefined param_1, int string_id, int default_option, undefined p
 void DisplayMessageInternal(int message_id, bool wait_for_input, struct portrait_params* portrait,
                             undefined4 param_4, undefined4 param_5, undefined4 param_6);
 void OpenMenu(undefined param_1, undefined param_2, bool open_bag);
-int DungeonModeSetupAndShowNameKeyboard(char* str_keyboard_result, char* buffer,
-                                        undefined4 param_2, undefined4 param_3);
+int DungeonModeSetupAndShowNameKeyboard(char* str_keyboard_result, char* buffer, undefined4 param_2,
+                                        undefined4 param_3);
 int OthersMenuLoop(void);
 undefined OthersMenu(void);
 
