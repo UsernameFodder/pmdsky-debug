@@ -265,10 +265,14 @@ void SetActiveKecleonShop(enum team_id team_id);
 int GetMoneyStored(void);
 void SetMoneyStored(int amount);
 void AddMoneyStored(int amount);
+bool RemoveItemFromKecleonShop1(int slot);
 void SortKecleonItems1(void);
 void GenerateKecleonItems1(enum kecleon_shop_version kecleon_shop_version);
+bool AddItemToKecleonShop1(enum item_id item_id);
+bool RemoveItemFromKecleonShop2(int slot);
 void SortKecleonItems2(void);
 void GenerateKecleonItems2(enum kecleon_shop_version kecleon_shop_version);
+bool AddItemToKecleonShop2(enum item_id item_id);
 int GetExclusiveItemOffset(enum item_id item_id);
 void ApplyExclusiveItemStatBoosts(enum item_id item_id, uint8_t* atk_boost, uint8_t* sp_atk_boost,
                                   uint8_t* def_boost, uint8_t* sp_def_boost);
