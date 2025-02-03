@@ -2780,6 +2780,13 @@ arm9:
         Adds money to the amount of money the player has stored in the Duskull Bank. Just calls SetMoneyStored with the current money + money gained.
         
         r0: money gained (can be negative)
+    - name: RemoveItemFromKecleonShop1
+      address:
+        EU: 0x2010914
+      description: |-
+        Removes an item from the first Kecleon Shop at a specific slot in the shop list.
+        
+        r0: item slot (0-7)
     - name: SortKecleonItems1
       address:
         EU: 0x20109FC
@@ -2801,6 +2808,21 @@ arm9:
         GenerateKecleonItems2.
         
         r0: kecleon_shop_version to use
+    - name: AddItemToKecleonShop1
+      address:
+        EU: 0x2010B70
+      description: |-
+        Tries to add the item to the first Kecleon shop. If there is no space, no item is added.
+        
+        r0: item ID
+        return: whether the item was added succesfully
+    - name: RemoveItemFromKecleonShop2
+      address:
+        EU: 0x2010C20
+      description: |-
+        Removes an item from the second Kecleon Shop at a specific slot in the shop list.
+        
+        r0: item slot (0-4)
     - name: SortKecleonItems2
       address:
         EU: 0x2010D08
@@ -2819,6 +2841,14 @@ arm9:
         Generates the Kecleon Shop items for the TMs/Orbs shop in Treasure Town.
         
         r0: kecleon_shop_version to use
+    - name: AddItemToKecleonShop2
+      address:
+        EU: 0x2010E74
+      description: |-
+        Tries to add the item to the second Kecleon shop. If there is no space, no item is added.
+        
+        r0: item ID
+        return: whether the item was added succesfully
     - name: GetExclusiveItemOffset
       address:
         EU: 0x2010EE8

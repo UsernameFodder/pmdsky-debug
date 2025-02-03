@@ -859,8 +859,8 @@ enum special_process_id {
     // Special 3 and 4 branch off into functions with a LOT of switch cases.
     // Both seem to reset the active roster to the main characters most of the time...?
     // Both seem to be team management functions for their special episodes...?
-    SPECIAL_PROC_0x3 = 3,
-    SPECIAL_PROC_0x4 = 4,
+    SPECIAL_PROC_INIT_SPECIAL_EPISODE_PARTNERS = 3,
+    SPECIAL_PROC_INIT_EXTRA_SPECIAL_EPISODE_PARTNERS = 4,
     SPECIAL_PROC_NEXT_DAY = 5,
     // Appears to check if the dungeon had a request done, but also checks if the
     // dungeon's mode is DMODE_REQUEST or DMODE_OPEN_AND_REQUEST?
@@ -881,8 +881,8 @@ enum special_process_id {
     SPECIAL_PROC_ACCEPT_RANDOM_NPC_JOB = 16,
     // 17 just returns 0, probably a removed debug function. Might be related to some kind of
     // debug camera control. 18 seems to execute the debug camera.
-    SPECIAL_PROC_INIT_SPECIAL_EPISODE_PARTNERS = 17,
-    SPECIAL_PROC_INIT_EXTRA_SPECIAL_EPISODE_PARTNERS = 18,
+    SPECIAL_PROC_0x11 = 17,
+    SPECIAL_PROC_0x12 = 18,
     SPECIAL_PROC_KEY_WAIT_PRESS = 19, // Equivalent to SPECIAL_PROC_KEY_WAIT_CHECK
     SPECIAL_PROC_KEY_WAIT_INIT = 20,
     SPECIAL_PROC_KEY_WAIT_CHECK = 21,
