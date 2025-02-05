@@ -1888,7 +1888,7 @@ overlay29:
       description: |-
         Gets the gender of the player.
         
-        return: bool
+        return: monster_gender
     - name: UseSingleUseItemWrapper
       address:
         EU: 0x22F5C88
