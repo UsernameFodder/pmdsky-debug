@@ -169,7 +169,7 @@ void SetLeaderAction(void);
 bool ShouldLeaderKeepRunning(void);
 void CheckLeaderTile(void);
 void ChangeLeader(void);
-bool GetPlayerGender(void);
+enum monster_gender GetPlayerGender(void);
 void UseSingleUseItemWrapper(struct entity* user);
 void UseSingleUseItem(struct entity* user, struct entity* target);
 void UseThrowableItem(struct entity* user);
