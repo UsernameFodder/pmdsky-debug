@@ -870,7 +870,7 @@ enum monster_id GetMissionEnemyMinionGroup(int i);
 void SetTargetMonsterNotFoundFlag(bool value);
 bool GetTargetMonsterNotFoundFlag(void);
 bool FloorHasMissionMonster(struct mission_destination_info* mission_dst);
-mission* MissionIsActiveOnFloor(enum dungeon_floor_pair* dungeon_floor_pair, uint8_t mission_id);
+mission* MissionIsActiveOnFloor(struct dungeon_floor_pair* dungeon_floor_pair, uint8_t mission_id);
 void GenerateMissionEggMonster(struct mission* mission);
 void LogMessageByIdWithPopupCheckParticipants(struct entity* user, struct entity* target,
                                               int message_id, int idx, int16_t val);
