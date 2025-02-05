@@ -2783,6 +2783,8 @@ arm9:
     - name: RemoveItemFromKecleonShop1
       address:
         EU: 0x2010914
+        NA: 0x201086C
+        JP: 0x201083C
       description: |-
         Removes an item from the first Kecleon Shop at a specific slot in the shop list.
         
@@ -2811,6 +2813,8 @@ arm9:
     - name: AddItemToKecleonShop1
       address:
         EU: 0x2010B70
+        NA: 0x2010AC8
+        JP: 0x2010A98
       description: |-
         Tries to add the item to the first Kecleon shop. If there is no space, no item is added.
         
@@ -2819,6 +2823,8 @@ arm9:
     - name: RemoveItemFromKecleonShop2
       address:
         EU: 0x2010C20
+        NA: 0x2010B78
+        JP: 0x2010B48
       description: |-
         Removes an item from the second Kecleon Shop at a specific slot in the shop list.
         
@@ -2844,6 +2850,8 @@ arm9:
     - name: AddItemToKecleonShop2
       address:
         EU: 0x2010E74
+        NA: 0x2010DCC
+        JP: 0x2010D9C
       description: |-
         Tries to add the item to the second Kecleon shop. If there is no space, no item is added.
         
