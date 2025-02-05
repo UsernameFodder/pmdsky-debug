@@ -795,7 +795,7 @@ struct mission {
     int description_id;
     uint8_t unique_map_id; // 0xC: for challenges/treasure hunts/certain outlaws
     undefined field_0xd;
-    struct monster_id_16 client; // 0xE
+    struct monster_id_16 client;                // 0xE
     // 0x10: Repurposed for storing the second team member of a normal challenge mission
     struct monster_id_16 target;
     // 0x12: Repurposed for storing the third team member of a normal challenge mission
