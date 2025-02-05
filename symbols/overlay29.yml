@@ -8879,6 +8879,18 @@ overlay29:
         r0: (?) Unused by the function. Seems to be 1 byte long.
         r1: (?) Unused by the function. Seems to be 1 byte long.
         r2: True to open the bag menu, false to open the main dungeon menu
+    - name: DungeonModeSetupAndShowNameKeyboard
+      address:
+        EU: 0x234FC14
+        NA: 0x234F008
+        JP: 0x235028C
+      description: |-
+        Sets up and opens the naming keyboard in dungeon mode.
+        
+        r0: [output] keyboard result, also the inital string
+        r1: buffer?
+        r2: ?
+        return: ?
     - name: OthersMenuLoop
       address:
         EU: 0x23503CC
