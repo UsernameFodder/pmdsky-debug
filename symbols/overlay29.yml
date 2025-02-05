@@ -8882,6 +8882,8 @@ overlay29:
     - name: DungeonModeSetupAndShowNameKeyboard
       address:
         EU: 0x234FC14
+        NA: 0x234F008
+        JP: 0x235028C
       description: |-
         Sets up and opens the naming keyboard in dungeon mode.
         
