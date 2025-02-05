@@ -806,6 +806,7 @@ void AllowPortraitDefault(struct portrait_params* portrait, bool allow);
 bool IsValidPortrait(struct portrait_params* portrait);
 bool LoadPortrait(struct portrait_params* portrait, struct kaomado_buffer* buf);
 bool WonderMailPasswordToMission(char* password, struct mission* mission_data);
+void MissionToWonderMailPassword(char* password, struct mission* mission_data);
 void SetEnterDungeon(enum dungeon_id dungeon_id);
 void InitDungeonInit(struct dungeon_init* dungeon_init_data, enum dungeon_id dungeon_id);
 bool IsNoLossPenaltyDungeon(enum dungeon_id dungeon_id);
@@ -1069,7 +1070,7 @@ int DungeonRequestsDone(uint8_t param_1, bool param_2);
 int DungeonRequestsDoneWrapper(uint8_t param_1);
 bool AnyDungeonRequestsDone(uint8_t param_1);
 void AddMissionToJobList(struct mission* mission);
-int GetAcceptedMission(int mission_id);
+int GetAcceptedMission(uint8_t mission_id);
 int GetMissionByTypeAndDungeon(int start_index, enum mission_type mission_type,
                                undefined* subtype_struct, enum dungeon_id dungeon_id);
 bool CheckAcceptedMissionByTypeAndDungeon(enum mission_type mission_type, undefined* subtype_struct,
@@ -1082,6 +1083,7 @@ void DeleteAllPossibleDungeonsList(void);
 int GenerateAllPossibleDeliverList(void);
 void DeleteAllPossibleDeliverList(void);
 void ClearMissionData(struct mission* mission);
+bool ValidateNormalChallengeMission(undefined* param_1, struct mission* mission);
 bool IsMonsterMissionAllowed(enum monster_id monster_id);
 bool CanMonsterBeUsedForMissionWrapper(enum monster_id monster_id);
 bool CanMonsterBeUsedForMission(enum monster_id monster_id, bool check_story_banned);
