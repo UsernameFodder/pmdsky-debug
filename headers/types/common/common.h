@@ -829,8 +829,8 @@ struct mission_rescue_bin {
     undefined field_0x5;
     undefined field_0x6;
     undefined field_0x7;
-    // 0x8: For challenge missions, is used as a boolean to indicate whether or not accepting the
-    // mission unlocks its dungeon. For other missions, its purpose is unknown.
+    // 0x8: For legendary challenge missions, is used as a boolean to indicate whether or not
+    // accepting the mission unlocks its dungeon. For other missions, its purpose is unknown.
     uint8_t unk_unlock_flag;
     undefined field_0x9;
     undefined field_0xa;
