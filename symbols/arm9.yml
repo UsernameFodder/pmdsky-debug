@@ -10410,9 +10410,18 @@ arm9:
       address:
         EU: 0x2060B80
       description: |-
-        Validates a normal challenge letter mission by checking whether its client (leader), target (second member), and outlaw_backup_species (third member) match some hardcoded ids (alongside some other conditions).
+        Validates a normal challenge letter mission by checking whether its client (leader), target (second member), and outlaw_backup_species (third member) match those of some mission_rescue_bin struct (alongside some other conditions).
         
-        r0: ?
+        r0: mission_rescue_bin struct pointer
+        r1: mission struct pointer
+        return: bool
+    - name: ValidateLegendaryChallengeMission
+      address:
+        EU: 0x2060C80
+      description: |-
+        Validates a legendary challenge letter mission by checking whether its dungeon matches the restricted dungeon of some mission_rescue_bin struct (alongside some other conditions).
+        
+        r0: mission_rescue_bin struct pointer
         r1: mission struct pointer
         return: bool
     - name: IsMonsterMissionAllowed

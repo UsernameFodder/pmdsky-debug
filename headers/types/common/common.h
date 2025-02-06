@@ -818,6 +818,47 @@ struct mission_floors_forbidden {
 };
 ASSERT_SIZE(struct mission_floors_forbidden, 2);
 
+// Information about a valid mission; a list of these structs is stored in and directly loaded from RESCUE/rescue.bin.
+// Used for validation as well as possibly for loading certain missions?
+struct mission_rescue_bin {
+    undefined field_0x0;
+    undefined field_0x1;
+    undefined field_0x2;
+    undefined field_0x3;
+    undefined field_0x4;
+    undefined field_0x5;
+    undefined field_0x6;
+    undefined field_0x7;
+    // 0x8: For challenge missions, is used as a boolean to indicate whether or not the mission unlocks its dungeon.
+    // For other missions, it is usually 0x4 and its purpose is unknown.
+    uint8_t unk_unlock_flag;
+    undefined field_0x9;
+    undefined field_0xa;
+    undefined field_0xb;
+    int8_t restricted_dungeon;                  // 0xC: Dungeon this mission is restricted to, or 0xFF if none
+    undefined field_0xd;
+    undefined field_0xe;
+    undefined field_0xf;
+    undefined field_0x10;
+    undefined field_0x11;
+    struct monster_id_16 client;                // 0x12: Repurposed for storing the leader in challenge letters
+    undefined field_0x13;
+    undefined field_0x14;
+    undefined field_0x15;
+    undefined field_0x16;
+    undefined field_0x17;
+    struct monster_id_16 client;                // 0x18: Repurposed for storing team member 2 in normal challenge letters
+    undefined field_0x19;
+    undefined field_0x1a;
+    undefined field_0x1b;
+    undefined field_0x1c;
+    undefined field_0x1d;
+    struct monster_id_16 outlaw_backup_species; // 0x1e: Repurposed for storing team member 3 in normal challenge letters
+    undefined field_0x1f;
+    struct mission_type_8 type;                 // 0x20
+    union mission_subtype subtype;              // 0x21
+}
+
 // Unverified, ported from Irdkwia's notes
 struct quiz_answer_points_entry {
     undefined field_0x0;
