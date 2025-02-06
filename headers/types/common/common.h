@@ -847,7 +847,7 @@ struct mission_rescue_bin {
     undefined field_0x15;
     undefined field_0x16;
     undefined field_0x17;
-    struct monster_id_16 client;                // 0x18: Repurposed for storing team member 2 in normal challenge letters
+    struct monster_id_16 target;                // 0x18: Repurposed for storing team member 2 in normal challenge letters
     undefined field_0x19;
     undefined field_0x1a;
     undefined field_0x1b;
