@@ -830,8 +830,7 @@ struct mission_rescue_bin {
     undefined field_0x6;
     undefined field_0x7;
     // 0x8: For challenge missions, is used as a boolean to indicate whether or not accepting the
-    // mission unlocks its dungeon. For other missions, it is usually 0x4 and its purpose is
-    // unknown.
+    // mission unlocks its dungeon. For other missions, its purpose is unknown.
     uint8_t unk_unlock_flag;
     undefined field_0x9;
     undefined field_0xa;
@@ -848,15 +847,15 @@ struct mission_rescue_bin {
     undefined field_0x15;
     undefined field_0x16;
     undefined field_0x17;
-    struct monster_id_16
-        target; // 0x18: Repurposed for storing team member 2 in normal challenge letters
+    // 0x18: Repurposed for storing team member 2 in normal challenge letters
+    struct monster_id_16 target;
     undefined field_0x19;
     undefined field_0x1a;
     undefined field_0x1b;
     undefined field_0x1c;
     undefined field_0x1d;
-    struct monster_id_16 outlaw_backup_species; // 0x1e: Repurposed for storing team member 3 in
-                                                // normal challenge letters
+    // 0x1E: Repurposed for storing team member 3 in normal challenge letters
+    struct monster_id_16 outlaw_backup_species;
     undefined field_0x1f;
     struct mission_type_8 type;    // 0x20
     union mission_subtype subtype; // 0x21
