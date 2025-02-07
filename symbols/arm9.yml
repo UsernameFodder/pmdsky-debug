@@ -7655,8 +7655,16 @@ arm9:
         Returns whether the conversion was successful. This function does not include any checks if the mission itself is valid, only if the code is valid.
         
         r0: string
-        r1: Pointer to the struct where the data of the converted mission will be written to
+        r1: [output] Pointer to the struct where the data of the converted mission will be written to
         return: successful conversion
+    - name: MissionToWonderMailPassword
+      address:
+        EU: 0x204E1B4
+      description: |-
+        Converts a mission struct to a Wonder Mail S password.
+        
+        r0: [output] Pointer to the buffer where the string will be written
+        r1: mission struct pointer
     - name: SetEnterDungeon
       address:
         EU: 0x204EC84
@@ -10284,10 +10292,10 @@ arm9:
         NA: 0x205F0D8
         JP: 0x205F3D8
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Gets the mission struct corresponding to a certain mission number in the player's job list.
         
-        r0: mission_id
-        return: mission
+        r0: mission id in player's job list
+        return: mission struct pointer
     - name: GetMissionByTypeAndDungeon
       address:
         EU: 0x205F728
@@ -10393,11 +10401,29 @@ arm9:
         NA: 0x205F9B8
         JP: 0x205FCA8
       description: |-
-        Given a mission struct, clears some of it fields.
+        Given a mission struct, clears some of its fields.
         
         In particular, mission::status is set to mission_status::MISSION_STATUS_INVALID, mission::dungeon_id is set to -1, mission::floor is set to 0 and mission::reward_type is set to mission_reward_type::MISSION_REWARD_MONEY.
         
         r0: Pointer to the mission to clear
+    - name: ValidateNormalChallengeMission
+      address:
+        EU: 0x2060B80
+      description: |-
+        Validates a normal (non-legendary) challenge letter mission by checking whether its client (leader), target (second member), and outlaw_backup_species (third member) match those of some mission_rescue_bin struct (alongside some other conditions).
+        
+        r0: mission_rescue_bin struct pointer
+        r1: mission struct pointer
+        return: bool
+    - name: ValidateLegendaryChallengeMission
+      address:
+        EU: 0x2060C80
+      description: |-
+        Validates a legendary challenge letter mission by checking whether its dungeon matches the restricted dungeon of some mission_rescue_bin struct (alongside some other conditions).
+        
+        r0: mission_rescue_bin struct pointer
+        r1: mission struct pointer
+        return: bool
     - name: IsMonsterMissionAllowed
       address:
         EU: 0x2062D90

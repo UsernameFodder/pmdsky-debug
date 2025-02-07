@@ -1882,6 +1882,13 @@ overlay29:
         Accounts for situations that can prevent changing leaders, such as having stolen from a Kecleon shop. If one of those situations prevents changing leaders, prints the corresponding message to the message log.
         
         No params.
+    - name: GetPlayerGender
+      address:
+        EU: 0x22F4C94
+      description: |-
+        Gets the gender of the player.
+        
+        return: monster_gender
     - name: UseSingleUseItemWrapper
       address:
         EU: 0x22F5C88
@@ -8282,6 +8289,13 @@ overlay29:
         r1: floor
         r2: duration
         r3: enum hidden_stairs_type
+    - name: FillMissionDestinationInfo
+      address:
+        EU: 0x23490A0
+      description: |-
+        Fills the dungeon::mission_destination_info field with information from the currently active mission on the floor, if one is present.
+        
+        No params.
     - name: CheckActiveChallengeRequest
       address:
         EU: 0x2349D4C
@@ -8541,6 +8555,15 @@ overlay29:
         
         r0: mission destination info pointer
         return: bool
+    - name: GetMissionIfActiveOnFloor
+      address:
+        EU: 0x234A390
+      description: |-
+        If the current dungeon floor has the mission corresponding to the mission number active on it, returns its mission struct.
+        
+        r0: dungeon_floor_pair struct pointer
+        r1: mission id in player's job list
+        return: mission struct pointer
     - name: GenerateMissionEggMonster
       address:
         EU: 0x234A4A0
