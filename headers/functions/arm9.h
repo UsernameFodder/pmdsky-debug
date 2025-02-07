@@ -1070,7 +1070,7 @@ int DungeonRequestsDone(uint8_t param_1, bool param_2);
 int DungeonRequestsDoneWrapper(uint8_t param_1);
 bool AnyDungeonRequestsDone(uint8_t param_1);
 void AddMissionToJobList(struct mission* mission);
-mission* GetAcceptedMission(uint8_t mission_id);
+struct mission* GetAcceptedMission(uint8_t mission_id);
 int GetMissionByTypeAndDungeon(int start_index, enum mission_type mission_type,
                                undefined* subtype_struct, enum dungeon_id dungeon_id);
 bool CheckAcceptedMissionByTypeAndDungeon(enum mission_type mission_type, undefined* subtype_struct,
@@ -1083,9 +1083,9 @@ void DeleteAllPossibleDungeonsList(void);
 int GenerateAllPossibleDeliverList(void);
 void DeleteAllPossibleDeliverList(void);
 void ClearMissionData(struct mission* mission);
-bool ValidateNormalChallengeMission(struct mission_rescue_bin* mission_rescue_bin,
+bool ValidateNormalChallengeMission(struct mission_rescue_bin* valid_mission_info,
                                     struct mission* mission);
-bool ValidateLegendaryChallengeMission(struct mission_rescue_bin* mission_rescue_bin,
+bool ValidateLegendaryChallengeMission(struct mission_rescue_bin* valid_mission_info,
                                        struct mission* mission);
 bool IsMonsterMissionAllowed(enum monster_id monster_id);
 bool CanMonsterBeUsedForMissionWrapper(enum monster_id monster_id);
