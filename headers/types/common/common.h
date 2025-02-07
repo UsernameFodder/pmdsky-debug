@@ -841,22 +841,19 @@ struct mission_rescue_bin {
     undefined field_0xf;
     undefined field_0x10;
     undefined field_0x11;
-    struct monster_id_16 client; // 0xE: For challenge letter missions, stores the leader
-    undefined field_0x13;
+    struct monster_id_16 client; // 0x12: For challenge letter missions, stores the leader
     undefined field_0x14;
     undefined field_0x15;
     undefined field_0x16;
     undefined field_0x17;
-    // 0x10: For non-legendary challenge letter missions, stores the second team member
+    // 0x18: For non-legendary challenge letter missions, stores the second team member
     struct monster_id_16 target;
-    undefined field_0x19;
     undefined field_0x1a;
     undefined field_0x1b;
     undefined field_0x1c;
     undefined field_0x1d;
-    // 0x10: For non-legendary challenge letter missions, stores the third team member
+    // 0x1E: For non-legendary challenge letter missions, stores the third team member
     struct monster_id_16 outlaw_backup_species;
-    undefined field_0x1f;
     struct mission_type_8 type;    // 0x20
     union mission_subtype subtype; // 0x21
 };
