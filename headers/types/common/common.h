@@ -795,10 +795,10 @@ struct mission {
     int description_id;
     uint8_t unique_map_id; // 0xC: for challenges/treasure hunts/certain outlaws
     undefined field_0xd;
-    struct monster_id_16 client; // 0xE
-    // 0x10: Repurposed for storing the second team member of a normal challenge mission
+    struct monster_id_16 client; // 0xE: For challenge letter missions, stores the leader
+    // 0x10: For non-legendary challenge letter missions, stores the second team member
     struct monster_id_16 target;
-    // 0x12: Repurposed for storing the third team member of a normal challenge mission
+    // 0x12: For non-legendary challenge letter missions, stores the third team member
     struct monster_id_16 outlaw_backup_species;
     struct item_id_16 item_wanted;            // 0x14
     struct mission_reward_type_8 reward_type; // 0x16
@@ -841,20 +841,20 @@ struct mission_rescue_bin {
     undefined field_0xf;
     undefined field_0x10;
     undefined field_0x11;
-    struct monster_id_16 client; // 0x12: Repurposed for storing the leader in challenge letters
+    struct monster_id_16 client; // 0xE: For challenge letter missions, stores the leader
     undefined field_0x13;
     undefined field_0x14;
     undefined field_0x15;
     undefined field_0x16;
     undefined field_0x17;
-    // 0x18: Repurposed for storing team member 2 in normal challenge letters
+    // 0x10: For non-legendary challenge letter missions, stores the second team member
     struct monster_id_16 target;
     undefined field_0x19;
     undefined field_0x1a;
     undefined field_0x1b;
     undefined field_0x1c;
     undefined field_0x1d;
-    // 0x1E: Repurposed for storing team member 3 in normal challenge letters
+    // 0x10: For non-legendary challenge letter missions, stores the third team member
     struct monster_id_16 outlaw_backup_species;
     undefined field_0x1f;
     struct mission_type_8 type;    // 0x20

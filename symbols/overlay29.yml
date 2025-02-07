@@ -8555,7 +8555,7 @@ overlay29:
         
         r0: mission destination info pointer
         return: bool
-    - name: MissionIsActiveOnFloor
+    - name: GetMissionIfActiveOnFloor
       address:
         EU: 0x234A390
       description: |-
