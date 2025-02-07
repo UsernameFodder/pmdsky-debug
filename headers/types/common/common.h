@@ -860,6 +860,7 @@ struct mission_rescue_bin {
     struct mission_type_8 type;    // 0x20
     union mission_subtype subtype; // 0x21
 };
+ASSERT_SIZE(struct mission_rescue_bin, 34);
 
 // Unverified, ported from Irdkwia's notes
 struct quiz_answer_points_entry {
