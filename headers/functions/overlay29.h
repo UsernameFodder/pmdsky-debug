@@ -169,6 +169,7 @@ void SetLeaderAction(void);
 bool ShouldLeaderKeepRunning(void);
 void CheckLeaderTile(void);
 void ChangeLeader(void);
+enum monster_gender GetPlayerGender(void);
 void UseSingleUseItemWrapper(struct entity* user);
 void UseSingleUseItem(struct entity* user, struct entity* target);
 void UseThrowableItem(struct entity* user);
@@ -842,6 +843,7 @@ bool DoesProjectileHitTarget(struct entity* user, struct entity* target);
 void DisplayFloorCard(int duration);
 void HandleFloorCard(enum dungeon_id dungeon_id, uint8_t floor, int duration,
                      enum hidden_stairs_type hidden_stairs_type);
+void FillMissionDestinationInfo(void);
 bool CheckActiveChallengeRequest(void);
 struct mission_destination_info* GetMissionDestination(void);
 bool IsOutlawOrChallengeRequestFloor(void);
@@ -868,6 +870,7 @@ enum monster_id GetMissionEnemyMinionGroup(int i);
 void SetTargetMonsterNotFoundFlag(bool value);
 bool GetTargetMonsterNotFoundFlag(void);
 bool FloorHasMissionMonster(struct mission_destination_info* mission_dst);
+struct mission* GetMissionIfActiveOnFloor(struct dungeon_floor_pair* pair, uint8_t mission_id);
 void GenerateMissionEggMonster(struct mission* mission);
 void LogMessageByIdWithPopupCheckParticipants(struct entity* user, struct entity* target,
                                               int message_id, int idx, int16_t val);
