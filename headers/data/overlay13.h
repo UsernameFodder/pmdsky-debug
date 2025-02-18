@@ -16,5 +16,7 @@ extern struct window_params QUIZ_WINDOW_PARAMS_5;
 extern struct window_params QUIZ_WINDOW_PARAMS_6;
 extern struct simple_menu_id_item QUIZ_DEBUG_MENU_ITEMS[9];
 extern uint16_t QUIZ_QUESTION_ANSWER_ASSOCIATIONS[66];
+extern uint32_t PARTNER_SELECT_MENU_OPTION_TIMER;
+extern uint32_t PARTNER_SELECT_MENU_OPTION_TRACKER;
 
 #endif
