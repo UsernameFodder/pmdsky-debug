@@ -12,11 +12,11 @@ extern uint16_t STARTERS_STRINGS[48];
 extern uint16_t QUIZ_QUESTION_STRINGS[66];
 extern uint16_t QUIZ_ANSWER_STRINGS[176];
 extern struct quiz_answer_points_entry QUIZ_ANSWER_POINTS[174];
+extern uint32_t PARTNER_SELECT_MENU_OPTION_TIMER;
+extern uint32_t PARTNER_SELECT_MENU_OPTION_TRACKER;
 extern struct window_params QUIZ_WINDOW_PARAMS_5;
 extern struct window_params QUIZ_WINDOW_PARAMS_6;
 extern struct simple_menu_id_item QUIZ_DEBUG_MENU_ITEMS[9];
 extern uint16_t QUIZ_QUESTION_ANSWER_ASSOCIATIONS[66];
-extern uint32_t PARTNER_SELECT_MENU_OPTION_TIMER;
-extern uint32_t PARTNER_SELECT_MENU_OPTION_TRACKER;
 
 #endif
