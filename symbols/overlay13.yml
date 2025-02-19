@@ -266,7 +266,7 @@ overlay13:
         NA: 0x4
         JP: 0x4
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: OVERLAY13_UNKNOWN_POINTER__NA_238CEA4
+    - name: PARTNER_SELECT_MENU_OPTION_TRACKER
       address:
         EU: 0x238D9E4
         NA: 0x238CEA4
@@ -275,8 +275,10 @@ overlay13:
         EU: 0x4
         NA: 0x4
         JP: 0x4
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: OVERLAY13_UNKNOWN_POINTER__NA_238CEA8
+      description: |-
+        Keeps track of the currently hovered option in the partner menu to change
+        the portrait when the another option is hovered.
+    - name: PARTNER_SELECT_MENU_OPTION_TIMER
       address:
         EU: 0x238D9E8
         NA: 0x238CEA8
@@ -285,7 +287,10 @@ overlay13:
         EU: 0x4
         NA: 0x4
         JP: 0x4
-      description: "Note: unverified, ported from Irdkwia's notes"
+      description: |-
+        Keeps track of how long the currently hovered option in the partner menu
+        has been hovered over. Used to change the portrait to happy after some time
+        has elapsed.
     - name: QUIZ_WINDOW_PARAMS_5
       address:
         EU: 0x238D9EC
