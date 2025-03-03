@@ -457,7 +457,7 @@ overlay10:
       length:
         NA: 0x2
         JP: 0x2
-      description: "The chance of Trap Buster activating (30%)."
+      description: The chance of Trap Buster activating (30%).
     - name: FOREWARN_FORCED_MISS_CHANCE
       address:
         EU: 0x22C4DC0
