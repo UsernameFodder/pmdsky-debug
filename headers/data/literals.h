@@ -15,6 +15,8 @@ extern const struct data_processing_instruction TOP_MENU_MUSIC_ID;
 extern const struct data_processing_instruction DEFEAT_ITEM_LOSS_CHANCE;
 
 // Overlay 29
+extern const struct data_processing_instruction VISIBLE_TRAP_FAIL_CHANCE;
+extern const struct data_processing_instruction HIDDEN_TRAP_FAIL_CHANCE;
 extern const struct data_processing_instruction NECTAR_IQ_BOOST;
 extern const struct data_processing_instruction COMPRESSED_SPRITE_BUFFER_SIZE;
 
