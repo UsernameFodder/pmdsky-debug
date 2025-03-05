@@ -9728,7 +9728,7 @@ overlay29:
         NA: 0x2
         JP: 0x2
       description: The additional amount by which belly is decreased every turn when inside walls (fractional thousandths)
-    - name: TREATMENT_DATA
+    - name: MONSTER_TREATMENT_DATA
       address:
         EU: 0x23533AC
         NA: 0x23527A0
