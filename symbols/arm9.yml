@@ -7660,6 +7660,8 @@ arm9:
     - name: MissionToWonderMailPassword
       address:
         EU: 0x204E1B4
+        NA: 0x204DE7C
+        JP: 0x204E1DC
       description: |-
         Converts a mission struct to a Wonder Mail S password.
         
@@ -10409,6 +10411,8 @@ arm9:
     - name: ValidateNormalChallengeMission
       address:
         EU: 0x2060B80
+        NA: 0x2060804
+        JP: 0x2060AF4
       description: |-
         Validates a normal (non-legendary) challenge letter mission by checking whether its client (leader), target (second member), and outlaw_backup_species (third member) match those of some mission_rescue_bin struct (alongside some other conditions).
         
@@ -10418,6 +10422,8 @@ arm9:
     - name: ValidateLegendaryChallengeMission
       address:
         EU: 0x2060C80
+        NA: 0x2060904
+        JP: 0x2060BF4
       description: |-
         Validates a legendary challenge letter mission by checking whether its dungeon matches the restricted dungeon of some mission_rescue_bin struct (alongside some other conditions).
         
