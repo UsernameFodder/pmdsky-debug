@@ -1885,6 +1885,8 @@ overlay29:
     - name: GetPlayerGender
       address:
         EU: 0x22F4C94
+        NA: 0x22F42D8
+        JP: 0x22F58D0
       description: |-
         Gets the gender of the player.
         
@@ -8292,6 +8294,8 @@ overlay29:
     - name: FillMissionDestinationInfo
       address:
         EU: 0x23490A0
+        NA: 0x23484A0
+        JP: 0x2349828
       description: |-
         Fills the dungeon::mission_destination_info field with information from the currently active mission on the floor, if one is present.
         
@@ -8558,6 +8562,7 @@ overlay29:
     - name: GetMissionIfActiveOnFloor
       address:
         EU: 0x234A390
+        NA: 0x2349790
       description: |-
         If the current dungeon floor has the mission corresponding to the mission number active on it, returns its mission struct.
         
@@ -9723,6 +9728,23 @@ overlay29:
         NA: 0x2
         JP: 0x2
       description: The additional amount by which belly is decreased every turn when inside walls (fractional thousandths)
+    - name: MONSTER_TREATMENT_DATA
+      address:
+        EU: 0x23533AC
+        NA: 0x23527A0
+        JP: 0x2353A20
+      length:
+        EU: 0x20
+        NA: 0x20
+        JP: 0x20
+      description: |-
+        A 4D array of monster_treatment enum values. Used by GetTreatmentBetweenMonsters to determine treatment based on several parameters.
+        The parameters are (in order of how the array is indexed):
+        1. Value from 0-3 based on entity1's decoy_ai_tracker value.
+          If decoy_ai_tracker is 0 and the entity is the leader, this value is 0. Otherwise it is decoy_ai_tracker + 1
+        2. Boolean value for whether entity1 is a wild Pokémon.
+        3. Boolean value for whether entity2 is a wild Pokémon.
+        4. Boolean value for whether entity2 is a decoy.
     - name: DAMAGE_MULTIPLIER_0_5
       address:
         EU: 0x2353448
