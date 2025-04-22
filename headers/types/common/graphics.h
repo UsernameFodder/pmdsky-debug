@@ -20,8 +20,7 @@ struct animation_control {
     undefined field8_0xf;
     // appears to be a structure used for unknown purpose with 6 2-byte value
     undefined2 field9_0x10[6];
-    undefined2 field10_0x1c;
-    undefined2 field11_0x1e;
+    struct vec2_16 position;
     struct vec2_16 anim_frame_offset;
     struct vec2_16 anim_frame_shadow_offset;
     uint32_t anim_frame_flag;
@@ -33,7 +32,7 @@ struct animation_control {
     undefined field21_0x35;
     undefined2 field22_0x36; // seems to be an index into the wan fragments table
     undefined2 field23_0x38;
-    uint16_t anim_frame_frame_id;
+    uint16_t frame_id;
     undefined2 field25_0x3c;
     undefined field26_0x3e;
     undefined field27_0x3f;
@@ -49,7 +48,7 @@ struct animation_control {
     struct wan_animation_frame* first_animation_frame; // first frame in animation group
     struct wan_animation_frame* next_animation_frame;
     struct wan_offset* wan_offsets;
-    undefined* wan_frames;
+    struct wan_fragment** wan_frames;
     void** wan_fragments_byte_store;
     struct wan_palettes* wan_palettes;
     uint16_t wan_is_256_color;
