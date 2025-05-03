@@ -7,7 +7,7 @@ enum wan_sprite_type {
     WAN_SPRITE_PROPS_UI = 0, // for object and UI objects
     WAN_SPRITE_CHARA = 1,    // for monster sprites
     WAN_SPRITE_UNK_2 = 2,
-    WAN_SPRITE_UNK_3 = 3,
+    WAN_SPRITE_UNK_3 = 3, // use the 3D engine for rendering. Used by a few sprites in effect.bin.
 };
 
 // This is usually stored as a 16-bit integer
@@ -16,7 +16,7 @@ ENUM_16_BIT(wan_sprite_type);
 #pragma pack(pop)
 
 struct wan_animation_header {
-    void* frames;
+    struct wan_fragment** frames; // first level is a frame, pointing to a list of fragments
     struct wan_offset* frame_offsets;
     struct wan_animation_group* animations;
     uint16_t nb_animation_groups;
@@ -26,7 +26,7 @@ struct wan_animation_header {
     undefined field7_0x12;
     undefined field8_0x13;
     // appears to always be 0, but the game seems to still decode it
-    // the image header is missing for some reason
+    // if the image header is missing for some reason
     uint16_t is_256_color_alt;
     undefined field9_0x16;
     undefined field10_0x17;
@@ -94,5 +94,35 @@ struct wan_header {
 };
 #pragma pack(pop)
 ASSERT_SIZE(struct wan_header, 10);
+
+struct wan_fragment {
+    // negative mean using the previous defined fragment bytes (or to not update it?)
+    int16_t fragment_bytes_index;
+    int8_t unk1;
+    int8_t unk2;
+
+    // 2 bytes
+    int8_t offset_y : 8;
+    bool unk3 : 1;
+    bool unk4 : 1;
+    uint8_t likely_padding_1 : 3;
+    bool is_mosaic : 1;
+    uint8_t shape_indice : 2; // as used in OBJ attribute 1
+
+    // 2 bytes
+    uint16_t offset_x : 9; // The value to be used is this - 256, which can end up negative.
+    bool likely_padding_2 : 1;
+    bool unk5 : 1;
+    bool is_last : 1;
+    bool h_flip : 1;
+    bool v_flip : 1;
+    uint8_t size_indice : 2; // as used in OBJ attribute 0
+
+    // 2 bytes
+    uint16_t fragment_alloc_counter : 10;
+    uint8_t likely_padding_3 : 2;
+    uint8_t palette_id : 4;
+};
+ASSERT_SIZE(struct wan_fragment, 10);
 
 #endif
