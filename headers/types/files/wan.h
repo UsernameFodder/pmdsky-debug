@@ -126,9 +126,9 @@ struct wan_fragment {
 };
 ASSERT_SIZE(struct wan_fragment, 10);
 
-// Structure used to store an wan fragment while removing contiguous zeros.
+// Structure used to store a wan fragment while removing contiguous zeros.
 struct wan_fragment_bytes_assembly_entry {
-    void* pixel_src; // if null, the space is filed with 0
+    void* pixel_src; // if null, the space is filled with 0
     // byte amount of the pointed pixel_src. If 0, then the last entry is reached (this final 0 one
     // is ignored)
     uint32_t byte_amount;

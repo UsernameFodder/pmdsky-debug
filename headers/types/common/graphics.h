@@ -392,10 +392,10 @@ enum copy_to_obj_vram_order_type {
 ENUM_8_BIT(copy_to_obj_vram_order_type);
 #pragma pack(pop)
 
-// This appear to be run either immediatly (when displaying a WAN sprite) or somewhat delayed via
-// some global struct See at delayed_texture_vram_order instead for the 3D engine texture
+// This appears to be run either immediately (when displaying a WAN sprite) or somewhat delayed via
+// some global struct. See delayed_texture_vram_order instead for the 3D engine texture
 struct copy_to_obj_vram_order {
-    // bytes to be copied into the destination (may differ compared to the size of input size)
+    // bytes to be copied into the destination (may differ from the input size)
     uint32_t len_output;
     void* src; // if null, will instead fill the destination with zeros
     void* dst;

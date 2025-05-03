@@ -709,7 +709,7 @@ arm9:
         NA: 0x2003328
         JP: 0x2003328
       description: |-
-        Boot the game and run the main loop. Use dynamic code dispatch to run code depending on the context (in the like of Dungeon/Overlay/Menu mode/etc).
+        Boot the game and run the main loop. Use dynamic code dispatch to run code depending on the context (like dungeon mode, overlay, menu mode, etc).
         
         This function prints the debug message "task proc boot".
         
@@ -4119,7 +4119,7 @@ arm9:
       address:
         EU: 0x201ABA8
       description: |-
-        Immediatly execute the command contained in a copy_to_obj_vram_order struct, copying content as described.
+        Immediately execute the command contained in a copy_to_obj_vram_order struct, copying content as described.
         
         r0: command
     - name: DecodeFragmentByteAssemblyTable
@@ -4478,8 +4478,8 @@ arm9:
         Prepare and plan a WTE data to be loaded into VRAM.
         It skips the texture and/or the palette if missing from the file. The texture VRAM has 128KiB of space, and palette has 16KiB.
         The true palette VRAM offset will be upper_part*0x100+lower_part.
-        Will ensure it get copied next time PerformPlannedTextureVramTransfer is called by the game.
-        Will not automatically free the data once done. That can be done with DelayWteFree, which seems systematicly called in the game’s code.
+        Will ensure it gets copied next time PerformPlannedTextureVramTransfer is called by the game.
+        Will not automatically free the data once done. That can be done with DelayWteFree, which seems systematically called in the game’s code.
         
         r0: pointer to the WTE file header loaded in memory
         r1: where the WTE texture will be loaded in the VRAM (from 0 to 0x1FFFF)
@@ -4490,7 +4490,7 @@ arm9:
         EU: 0x201E1D8
         NA: 0x201E13C
       description: |-
-        Add a command to free the input wte handle once all previously registered commands that would edit the texture VRAM has been executed.
+        Add a command to free the input WTE handle once all previously registered commands that would edit the texture VRAM have been executed.
         Also nullify the structure’s two pointers.
         The error caused by the lack of place to store the command is ignored.
         
@@ -4514,7 +4514,7 @@ arm9:
         r1: pointer to the bytes to be copied in CPU-accessible RAM
         r2: offset to copy too in texture VRAM
         r3: number of bytes to copy
-        Stack[0] (0x0): type of command to perform
+        stack[0]: type of command to perform
     - name: PerformPlannedTextureVramTransfer
       address:
         EU: 0x201E2CC
