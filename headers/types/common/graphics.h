@@ -383,9 +383,9 @@ struct delayed_texture_vram_container {
 ASSERT_SIZE(struct delayed_texture_vram_container, 14);
 
 enum copy_to_obj_vram_order_type {
-    COPY_TO_FLAT_VRAM_STANDARD = 0,    // use ArrayCopy32
-    COPY_TO_FLAT_VRAM_INTERLEAVED = 1, // use CopyAndInterleave
-    COPY_TO_FLAT_VRAM_TYPE2 = 2,       // use CopyWithSomeTransformation
+    COPY_TO_FLAT_VRAM_STANDARD = 0,     // use ArrayCopy32
+    COPY_TO_FLAT_VRAM_INTERLEAVED = 1,  // use CopyAndInterleave
+    COPY_TO_FLAT_VRAM_INTERLEAVED0 = 2, // use CopyAndInterleave0
 };
 
 #pragma pack(push, 1)
