@@ -46,6 +46,19 @@ itcm:
         r1: src
         r2: len (in bytes)
         r3: val
+    - name: CopyWithSomeTransformation
+      address:
+        EU-ITCM: 0x1FF80B0
+      description: |-
+        Copies data, 2 (input) bytes at a time, performing some transformation on the way.
+        
+        The output is twice as long as the input.
+        
+        See also the nearby CopyAndInterleave, with similar arguments.
+        
+        r0: [output] dst, len * 2 bytes long
+        r1: src, len bytes long
+        r2: len, number of bytes in src (should be even)
     - name: Render3dSetTextureParams
       address:
         EU: 0x20B3DF0

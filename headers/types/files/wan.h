@@ -66,7 +66,8 @@ struct wan_animation_frame {
 ASSERT_SIZE(struct wan_animation_frame, 12);
 
 struct wan_image_header {
-    void** fragments_bytes_store;
+    // first level is a group of assembly entry, that can be used to build a fragment_bytes
+    struct wan_fragment_bytes_assembly_entry** fragments_bytes_store;
     struct wan_palettes* palettes;
     uint16_t unk1;
     bool is_256_color;
@@ -125,4 +126,13 @@ struct wan_fragment {
 };
 ASSERT_SIZE(struct wan_fragment, 10);
 
+// Structure used to store an wan fragment while removing contiguous zeros.
+struct wan_fragment_bytes_assembly_entry {
+    void* pixel_src; // if null, the space is filed with 0
+    // byte amount of the pointed pixel_src. If 0, then the last entry is reached (this final 0 one
+    // is ignored)
+    uint32_t byte_amount;
+    uint32_t z_index; // presumably
+};
+ASSERT_SIZE(struct wan_fragment_bytes_assembly_entry, 12);
 #endif

@@ -2,6 +2,7 @@
 #define HEADERS_FUNCTIONS_ARM9_ITCM_H_
 
 void CopyAndInterleave(uint16_t* dst, uint16_t* src, uint32_t len, uint8_t val);
+void CopyWithSomeTransformation(uint16_t* dst, uint16_t* src, int len);
 void Render3dSetTextureParams(struct render_3d_texture_params* params, int vram_offset);
 void Render3dSetPaletteBase(struct render_3d_texture_params* params, uint32_t palette_base_addr);
 void Render3dRectangle(struct render_3d_rectangle* rectangle);
