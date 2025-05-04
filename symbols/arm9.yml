@@ -709,7 +709,7 @@ arm9:
         NA: 0x2003328
         JP: 0x2003328
       description: |-
-        Boot the game and run the main loop. Use dynamic code dispatch to run code depending on the context (like dungeon mode, overlay, menu mode, etc.).
+        Boot the game and run the main loop. Use dynamic code dispatch to run code depending on the context (like dungeon mode, ground mode, menu mode, etc.).
         
         This function prints the debug message "task proc boot".
         
