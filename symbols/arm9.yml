@@ -709,7 +709,7 @@ arm9:
         NA: 0x2003328
         JP: 0x2003328
       description: |-
-        Probably related to booting the game?
+        Boot the game and run the main loop. Use dynamic code dispatch to run code depending on the context (like dungeon mode, ground mode, menu mode, etc.).
         
         This function prints the debug message "task proc boot".
         
@@ -4115,6 +4115,22 @@ arm9:
         NA: 0x201A9E4
         JP: 0x201AA3C
       description: "Note: unverified, ported from Irdkwia's notes"
+    - name: ExecuteCopyToFlatVramCommand
+      address:
+        EU: 0x201ABA8
+      description: |-
+        Immediately execute the command contained in a copy_to_obj_vram_order struct, copying content as described.
+        
+        r0: command
+    - name: DecodeFragmentByteAssemblyTable
+      address:
+        EU: 0x201AC48
+      description: |-
+        Decode the sprite texture stored in each fragment byte assembly entry into the dst output, until the final one is reached.
+        
+        r0: pointer to array of fragment byte assembly entry, final (otherwise unused) one should have byte_amount = 0
+        r1: dst
+        return: number of decoded bytes
     - name: CopyAndInterleaveWrapper
       address:
         EU: 0x201C08C
@@ -4459,16 +4475,53 @@ arm9:
         NA: 0x201E0B0
         JP: 0x201E108
       description: |-
-        Prepare a WTE data to be loaded into VRAM. Seems to need to be called with another undocumented function (at 0x0201e1d8 (EU))
+        Prepare and plan a WTE data to be loaded into VRAM.
         It skips the texture and/or the palette if missing from the file. The texture VRAM has 128KiB of space, and palette has 16KiB.
-        The true palette VRAM offset will be upper_part*0x100+lower_part
-        
-        This may or may not be the function that adds to the queue so it can be added during VBlank.
+        The true palette VRAM offset will be upper_part*0x100+lower_part.
+        Will ensure it gets copied next time PerformPlannedTextureVramTransfer is called by the game.
+        Will not automatically free the data once done. That can be done with DelayWteFree, which seems systematically called in the game’s code.
         
         r0: pointer to the WTE file header loaded in memory
         r1: where the WTE texture will be loaded in the VRAM (from 0 to 0x1FFFF)
         r2: upper part of the palette VRAM
         r3: lower part of the palette VRAM
+    - name: DelayWteFree
+      address:
+        EU: 0x201E1D8
+        NA: 0x201E13C
+      description: |-
+        Add a command to free the input WTE handle once all previously registered commands that would edit the texture VRAM have been executed.
+        Also nullify the structure’s two pointers.
+        The error caused by the lack of place to store the command is ignored.
+        
+        r0: wte handle to eventually free
+    - name: ResetPlannedVramTransfer
+      address:
+        EU: 0x201E270
+      description: |-
+        Reset the command array of input container
+        Does not reset its other field
+        
+        r0: the container to reset
+    - name: PlanCopyTextureToTextureVram
+      address:
+        EU: 0x201E27C
+      description: |-
+        Add a command in the container (r1) that will be executed later by PerformPlannedTextureVramTransfer to copy part of the RAM into the texture VRAM (or free the source allocated memory depending of the specified type of command).
+        Check for overflow. If an overflow would occur, do not add the command to the container, and return -1 instead.
+        
+        r0: Container that contain the command list to add to
+        r1: pointer to the bytes to be copied in CPU-accessible RAM
+        r2: offset to copy too in texture VRAM
+        r3: number of bytes to copy
+        stack[0]: type of command to perform
+    - name: PerformPlannedTextureVramTransfer
+      address:
+        EU: 0x201E2CC
+      description: |-
+        Execute the texture VRAM edition command of the input container. Does not reset it, or alter its state in any way.
+        
+        r0: container that contains the command list to execute
     - name: GeomSetTexImageParam
       address:
         EU: 0x201E530
