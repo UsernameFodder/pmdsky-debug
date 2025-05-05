@@ -6192,7 +6192,7 @@ overlay29:
     - name: BuildMoveTargetList
       address:
         EU: 0x2324A98
-        NA: 
+        NA: 0x2324030
       description: |-
         Builds the list of targets of a given move for a given user
         
