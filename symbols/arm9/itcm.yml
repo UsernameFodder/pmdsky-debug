@@ -68,8 +68,10 @@ itcm:
       address:
         EU: 0x20B3D70
         NA: 0x20B3430
+        JP: 0x20B4C90
         EU-ITCM: 0x1FF80B0
         NA-ITCM: 0x1FF80B0
+        JP-ITCM: 0x1FF80B0
       description: |-
         Equivalent to CopyAndInterleave with an interleaved value of 0.
         

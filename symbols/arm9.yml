@@ -4118,6 +4118,8 @@ arm9:
     - name: ExecuteCopyToFlatVramCommand
       address:
         EU: 0x201ABA8
+        NA: 0x201AB0C
+        JP: 0x201AB64
       description: |-
         Immediately execute the command contained in a copy_to_obj_vram_order struct, copying content as described.
         
@@ -4125,6 +4127,8 @@ arm9:
     - name: DecodeFragmentByteAssemblyTable
       address:
         EU: 0x201AC48
+        NA: 0x201ABAC
+        JP: 0x201AC04
       description: |-
         Decode the sprite texture stored in each fragment byte assembly entry into the dst output, until the final one is reached.
         
@@ -4489,6 +4493,7 @@ arm9:
       address:
         EU: 0x201E1D8
         NA: 0x201E13C
+        JP: 0x201E194
       description: |-
         Add a command to free the input WTE handle once all previously registered commands that would edit the texture VRAM have been executed.
         Also nullify the structure’s two pointers.
@@ -4498,6 +4503,8 @@ arm9:
     - name: ResetPlannedVramTransfer
       address:
         EU: 0x201E270
+        NA: 0x201E1D4
+        JP: 0x201E22C
       description: |-
         Reset the command array of input container
         Does not reset its other field
@@ -4506,6 +4513,8 @@ arm9:
     - name: PlanCopyTextureToTextureVram
       address:
         EU: 0x201E27C
+        NA: 0x201E1E0
+        JP: 0x201E238
       description: |-
         Add a command in the container (r1) that will be executed later by PerformPlannedTextureVramTransfer to copy part of the RAM into the texture VRAM (or free the source allocated memory depending of the specified type of command).
         Check for overflow. If an overflow would occur, do not add the command to the container, and return -1 instead.
@@ -4518,6 +4527,8 @@ arm9:
     - name: PerformPlannedTextureVramTransfer
       address:
         EU: 0x201E2CC
+        NA: 0x201E230
+        JP: 0x201E288
       description: |-
         Execute the texture VRAM edition command of the input container. Does not reset it, or alter its state in any way.
         
