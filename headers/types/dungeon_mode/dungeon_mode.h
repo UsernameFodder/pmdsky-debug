@@ -2515,7 +2515,6 @@ struct target_list {
 };
 ASSERT_SIZE(struct target_list, 256);
 
-
 // Separate this out into its own file because it's massive
 #include "dungeon.h"
 
