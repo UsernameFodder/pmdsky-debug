@@ -414,7 +414,9 @@ struct monster {
     // random exit. If nonzero, the monster will instead move in a random direction every turn.
     int random_movement;
     struct move moves[4]; // 0x124
-    uint8_t move_flags;   // 0x144: 1-byte bitfield
+    // 0x144: Move flags for the move Struggle, which a monster uses when they can't use any other
+    // moves. Same bitflag structure as the move struct's flags.
+    uint8_t struggle_move_flags;
     undefined field_0x145;
     int16_t belly;                 // 0x146: Integer part
     int16_t belly_thousandths;     // 0x148

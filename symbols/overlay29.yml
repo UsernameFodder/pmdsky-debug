@@ -3215,6 +3215,7 @@ overlay29:
         Checks if a monster does not have the Gastro Acid status.
         
         r0: entity pointer
+        r1: ability ID (unused)
         return: bool
     - name: AbilityIsActive
       address:

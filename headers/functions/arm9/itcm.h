@@ -30,7 +30,7 @@ void HardwareInterrupt(void);
 void ReturnFromInterrupt(void);
 void InitDmaTransfer_Standard(uint8_t channel, void* src, void* dst, uint16_t word_count);
 bool ShouldMonsterRunAwayVariationOutlawCheck(struct entity* monster, undefined param_2);
-void AiMovement(struct entity* monster, undefined param_2);
+void AiMovement(struct entity* monster, bool show_run_away_effect);
 void CalculateAiTargetPos(struct entity* monster);
 void ChooseAiMove(struct entity* monster);
 bool LightningRodStormDrainCheck(struct entity* attacker, struct entity* defender,
