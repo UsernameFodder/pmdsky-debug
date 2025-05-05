@@ -2509,6 +2509,13 @@ struct dungeon_fades {
 };
 ASSERT_SIZE(struct dungeon_fades, 320);
 
+// Contains the list of targets of a move. The last entry is always a null pointer.
+struct target_list {
+    struct entity* targets[64];
+};
+ASSERT_SIZE(struct target_list, 256);
+
+
 // Separate this out into its own file because it's massive
 #include "dungeon.h"
 

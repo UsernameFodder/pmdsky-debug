@@ -627,6 +627,7 @@ void TryActivateNondamagingDefenderExclusiveItem(struct entity* attacker, struct
 int GetMoveRangeDistance(struct entity* user, struct move* move, bool check_two_turn_moves);
 bool MoveHitCheck(struct entity* attacker, struct entity* defender, struct move* move,
                   bool use_second_accuracy, bool never_miss_self);
+void BuildMoveTargetList(struct target_list* output, struct entity* user, struct move* move);
 bool IsHyperBeamVariant(struct move* move);
 bool IsChargingTwoTurnMove(struct entity* user, struct move* move);
 bool IsChargingAnyTwoTurnMove(struct entity* entity, bool charge_check_unused);
@@ -645,7 +646,7 @@ void PlayMoveAnimation(struct entity* user, struct entity* target, struct move* 
 uint16_t GetMoveAnimationId(struct move* move, enum weather_id apparent_weather,
                             bool should_play_alternative_animation);
 bool ShouldMovePlayAlternativeAnimation(struct entity* user, struct move* move);
-void ExecuteMoveEffect(undefined4* param_1, struct entity* attacker, struct move* move,
+void ExecuteMoveEffect(struct target_list* targets, struct entity* attacker, struct move* move,
                        undefined4 param_4, undefined4 param_5);
 bool DoMoveDamageInlined(struct entity* attacker, struct entity* defender, struct move* move,
                          enum item_id item_id);
