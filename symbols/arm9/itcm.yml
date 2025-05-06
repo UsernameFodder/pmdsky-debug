@@ -68,8 +68,10 @@ itcm:
       address:
         EU: 0x20B3D70
         NA: 0x20B3430
+        JP: 0x20B4C90
         EU-ITCM: 0x1FF80B0
         NA-ITCM: 0x1FF80B0
+        JP-ITCM: 0x1FF80B0
       description: |-
         Equivalent to CopyAndInterleave with an interleaved value of 0.
         
@@ -449,7 +451,7 @@ itcm:
         Used by the AI to determine the direction in which a monster should move
         
         r0: Entity pointer
-        r1: ?
+        r1: Boolean value. If the monster becomes terrified, this flag determines whether the "poof" visual effect will show.
     - name: CalculateAiTargetPos
       address:
         EU: 0x20B6F88

@@ -182,7 +182,7 @@ int GetExclusiveItemOffsetEnsureValid(enum item_id item_id);
 bool IsItemValid(enum item_id item_id);
 int16_t GetExclusiveItemParameter(enum item_id item_id);
 enum item_category GetItemCategory(enum item_id item_id);
-enum item_id EnsureValidItem(enum item_id);
+enum item_id EnsureValidItem(enum item_id item_id);
 char* GetItemName(enum item_id item_id);
 void GetItemNameFormatted(char* name_out, enum item_id item_id, bool flag1, bool flag2);
 uint16_t GetItemBuyPrice(enum item_id item_id);
