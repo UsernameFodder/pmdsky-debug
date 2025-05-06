@@ -6194,6 +6194,7 @@ overlay29:
       address:
         EU: 0x2324A98
         NA: 0x2324030
+        JP: 0x23254C0
       description: |-
         Builds the list of targets of a given move for a given user
         
