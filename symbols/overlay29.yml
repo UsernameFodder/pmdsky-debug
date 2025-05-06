@@ -6190,6 +6190,16 @@ overlay29:
         r3: False if the move's first accuracy (accuracy1) should be used, true if its second accuracy (accuracy2) should be used instead.
         stack[0]: If true, always hit if the attacker and defender are the same. Otherwise, moves can miss no matter what the attacker and defender are.
         return: True if the move hits, false if it misses.
+    - name: BuildMoveTargetList
+      address:
+        EU: 0x2324A98
+        NA: 0x2324030
+      description: |-
+        Builds the list of targets of a given move for a given user
+        
+        r0: [output] Buffer where the resulting list should be stored
+        r1: Pointer to entity using the move
+        r2: Pointer to move data
     - name: IsHyperBeamVariant
       address:
         EU: 0x2324F9C
@@ -6376,7 +6386,7 @@ overlay29:
       description: |-
         Handles the effects that happen after a move is used. Includes a loop that is run for each target, mutiple ability checks and the giant switch statement that executes the effect of the move used given its ID.
         
-        r0: pointer to some struct
+        r0: pointer to list of targets
         r1: attacker pointer
         r2: pointer to move data
         r3: ?
