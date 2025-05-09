@@ -11660,6 +11660,16 @@ arm9:
         NA: 0x2
         JP: 0x2
       description: Stat boost value for the Special Band.
+    - name: UNKNOWN_PP_BOOST_AMOUNT
+      address:
+        EU: 0x20A1DF8
+        NA: 0x20A1874
+        JP: 0x20A2C48
+      length:
+        EU: 0x2
+        NA: 0x2
+        JP: 0x2
+      description: PP boost value for an unknown effect. Corresponds to the flag f_unknown_pp_boost in struct move.
     - name: MUNCH_BELT_STAT_BOOST
       address:
         EU: 0x20A1E00
@@ -11710,6 +11720,16 @@ arm9:
         NA: 0x2
         JP: 0x2
       description: Stat boost value for the aura bows.
+    - name: MULTITALENT_PP_BOOST_AMOUNT
+      address:
+        EU: 0x20A1E24
+        NA: 0x20A18A0
+        JP: 0x20A2C74
+      length:
+        EU: 0x2
+        NA: 0x2
+        JP: 0x2
+      description: PP boost value for the Multitalent IQ skill.
     - name: MIN_IQ_ITEM_MASTER
       address:
         EU: 0x20A1E28
@@ -11780,6 +11800,16 @@ arm9:
         NA: 0x2
         JP: 0x2
       description: "Note: unverified, ported from Irdkwia's notes"
+    - name: EXCLUSIVE_ITEM_PP_BOOST_AMOUNT
+      address:
+        EU: 0x20A1E4C
+        NA: 0x20A18C8
+        JP: 0x20A2C9C
+      length:
+        EU: 0x2
+        NA: 0x2
+        JP: 0x2
+      description: PP boost value for exclusive items that boost move PP.
     - name: DAMAGE_FORMULA_FLV_SHIFT
       address:
         EU: 0x20A1E50
