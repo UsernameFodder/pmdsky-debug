@@ -13109,6 +13109,12 @@ arm9:
         NA: 0x68
         JP: 0x68
       description: "Irdkwia's notes: 26*0x4, uses MISSION_FLOOR_RANKS_AND_ITEM_LISTS"
+    - name: MONSTER_DATA_TABLE_PTR
+      address:
+        EU: 0x20B12D0
+        NA: 0x20B09B4
+        JP: 0x20B2228
+      description: "[Runtime] Points to data about monster species."
     - name: UNOWN_SPECIES_ADDITIONAL_CHAR_PTR_TABLE
       address:
         EU: 0x20B131C

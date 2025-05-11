@@ -182,6 +182,7 @@ extern uint8_t GAME_MODE;
 extern struct global_progress* GLOBAL_PROGRESS_PTR;
 extern struct adventure_log* ADVENTURE_LOG_PTR;
 extern void* ITEM_TABLES_PTRS_1[26];
+extern void* MONSTER_DATA_TABLE_PTR;
 extern enum monster_id* UNOWN_SPECIES_ADDITIONAL_CHAR_PTR_TABLE[28];
 extern struct team_member_table* TEAM_MEMBER_TABLE_PTR;
 extern undefined* MISSION_DELIVER_LIST_PTR;
