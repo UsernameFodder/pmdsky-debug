@@ -21,6 +21,6 @@ overlay0:
           EU: 0x22BF12C
         description: |-
           Selects a random background from the BACK/s09p04-10a.bgp files to be used as the background for the top menu.
-
+          
           No params.
   data: []
