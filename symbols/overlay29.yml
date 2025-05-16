@@ -708,6 +708,23 @@ overlay29:
         Also sets icon flags for statuses::exposed, statuses::grudge, critical HP and lowered stats with explicit checks, and applies the effect of the Identifier Orb (see dungeon::identify_orb_flag).
         
         r0: entity pointer
+    - name: PlayQuestionMarkEffect
+      address:
+        EU: 0x22E4788
+      description: |-
+        Plays the question mark effect (id = 0x144) on an entity.
+        
+        r0: entity pointer
+    - name: PlayExclamationPointEffect
+      address:
+        EU:
+          - 0x22E47D4
+          - 0x22E4880
+          - 0x22E5D4C
+      description: |-
+        Plays the exclamation point effect (id = 0x143) on an entity.
+        
+        r0: entity pointer
     - name: PlayEffectAnimation0x171Full
       address:
         EU: 0x22E49C8
@@ -726,6 +743,14 @@ overlay29:
         Just a guess. Calls PlayEffectAnimation with data from animation ID 0x171.
         
         r0: entity pointer
+    - name: PlayEffectAnimationEntityStandard
+      address:
+        EU: 0x22E4C98
+      description: |-
+        Calls PlayEffectAnimationEntity with standard parameters used in various functions throughout the game.
+        
+        r0: entity pointer
+        r1: effect id
     - name: ShowPpRestoreEffect
       address:
         EU: 0x22E5314
