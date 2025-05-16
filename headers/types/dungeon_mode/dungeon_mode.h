@@ -414,7 +414,9 @@ struct monster {
     // random exit. If nonzero, the monster will instead move in a random direction every turn.
     int random_movement;
     struct move moves[4]; // 0x124
-    uint8_t move_flags;   // 0x144: 1-byte bitfield
+    // 0x144: Move flags for the move Struggle, which a monster uses when they can't use any other
+    // moves. Same bitflag structure as the move struct's flags.
+    uint8_t struggle_move_flags;
     undefined field_0x145;
     int16_t belly;                 // 0x146: Integer part
     int16_t belly_thousandths;     // 0x148
@@ -2508,6 +2510,12 @@ struct dungeon_fades {
     int top_screen_status;                          // 0xC
 };
 ASSERT_SIZE(struct dungeon_fades, 320);
+
+// Contains the list of targets of a move. The last entry is always a null pointer.
+struct target_list {
+    struct entity* targets[64];
+};
+ASSERT_SIZE(struct target_list, 256);
 
 // Separate this out into its own file because it's massive
 #include "dungeon.h"

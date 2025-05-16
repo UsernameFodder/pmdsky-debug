@@ -2,6 +2,7 @@
 #define HEADERS_FUNCTIONS_ARM9_ITCM_H_
 
 void CopyAndInterleave(uint16_t* dst, uint16_t* src, uint32_t len, uint8_t val);
+void CopyAndInterleave0(uint16_t* dst, uint16_t* src, int len);
 void Render3dSetTextureParams(struct render_3d_texture_params* params, int vram_offset);
 void Render3dSetPaletteBase(struct render_3d_texture_params* params, uint32_t palette_base_addr);
 void Render3dRectangle(struct render_3d_rectangle* rectangle);
@@ -29,7 +30,7 @@ void HardwareInterrupt(void);
 void ReturnFromInterrupt(void);
 void InitDmaTransfer_Standard(uint8_t channel, void* src, void* dst, uint16_t word_count);
 bool ShouldMonsterRunAwayVariationOutlawCheck(struct entity* monster, undefined param_2);
-void AiMovement(struct entity* monster, undefined param_2);
+void AiMovement(struct entity* monster, bool show_run_away_effect);
 void CalculateAiTargetPos(struct entity* monster);
 void ChooseAiMove(struct entity* monster);
 bool LightningRodStormDrainCheck(struct entity* attacker, struct entity* defender,

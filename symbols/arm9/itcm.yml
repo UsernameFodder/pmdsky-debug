@@ -38,14 +38,54 @@ itcm:
         NA-ITCM: 0x1FF8000
         JP-ITCM: 0x1FF8000
       description: |-
-        Copies data from src to dst, placing the last 4 bits of val after every 4 bits copied.
+        Copies data from src to dst, interleaving the lower 4 bits of val with every 4 bits copied (if the copied bits are nonzero).
         
         In total, the number of bytes copied from src will be len, while the number of bytes pasted will be 2 * len.
         
-        r0: [output] dst
-        r1: src
-        r2: len (in bytes)
+        For example, for arbitrary inputs (assuming little-endian byte order)
+          src[i] = {76543210 fedcba98}
+              {3210} != 0
+              {7654} != 0
+              {ba98} != 0
+              {fedc} != 0
+          val & 0xF = {vwxy}
+        The output written to dst will be:
+          dst[2*i] = {vwxy7654 vwxy3210}
+          dst[2*i+1] = {vwxyfedc vwxyba98}
+        
+        If any 4-bit nibble is 0, the corresponding byte written to dst is interleaved with 0 rather than the low bits of val. For example, if 'z' represents a 0 bit, given the inputs:
+          src[i] = {zzzz3210 fedczzzz}
+          val & 0xF = {vwxy}
+        The output written to dst will be:
+          dst[2*i] = {zzzzzzzz vwxy3210}
+          dst[2*i+1] = {vwxyfedc zzzzzzzz}
+        
+        r0: [output] dst (2 * len bytes long)
+        r1: src (len bytes long)
+        r2: len (in bytes, must be even)
         r3: val
+    - name: CopyAndInterleave0
+      address:
+        EU: 0x20B3D70
+        NA: 0x20B3430
+        JP: 0x20B4C90
+        EU-ITCM: 0x1FF80B0
+        NA-ITCM: 0x1FF80B0
+        JP-ITCM: 0x1FF80B0
+      description: |-
+        Equivalent to CopyAndInterleave with an interleaved value of 0.
+        
+        In total, the number of bytes copied from src will be len, while the number of bytes pasted will be 2 * len.
+        
+        For example, for arbitrary input (assuming little-endian byte order):
+          src[i] = {76543210 fedcba98}
+        Then the output written to dst will be (where 'z' is a 0 bit):
+          dst[2*i] = {zzzz7654 zzzz3210}
+          dst[2*i+1] = {zzzzfedc zzzzba98}
+        
+        r0: [output] dst (2 * len bytes long)
+        r1: src (len bytes long)
+        r2: len (in bytes, must be even)
     - name: Render3dSetTextureParams
       address:
         EU: 0x20B3DF0
@@ -411,7 +451,7 @@ itcm:
         Used by the AI to determine the direction in which a monster should move
         
         r0: Entity pointer
-        r1: ?
+        r1: Boolean value. If the monster becomes terrified, this flag determines whether the "poof" visual effect will show.
     - name: CalculateAiTargetPos
       address:
         EU: 0x20B6F88

@@ -6,6 +6,7 @@ arm9:
   address:
     EU: 0x2000000
     NA: 0x2000000
+    JP: 0x2000000
   length:
     EU: 0xB7D38
     NA: 0xB73F8
@@ -120,6 +121,18 @@ overlay29:
   description: Hard-coded immediate values (literals) in instructions within overlay 29.
   functions: []
   data:
+    - name: VISIBLE_TRAP_FAIL_CHANCE
+      address:
+        EU: 0x22EEA9C
+        NA: 0x22EE0EC
+        JP: 0x22EF750
+      description: Chance of visible traps failing to work (0%)
+    - name: HIDDEN_TRAP_FAIL_CHANCE
+      address:
+        EU: 0x22EEAB0
+        NA: 0x22EE100
+        JP: 0x22EF764
+      description: Chance of hidden traps failing to work (15%)
     - name: NECTAR_IQ_BOOST
       address:
         EU: 0x231CDE4

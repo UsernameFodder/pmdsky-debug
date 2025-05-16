@@ -268,8 +268,8 @@ ASSERT_SIZE(struct script_object, 12);
 // Data relating to animation
 struct animation {
     undefined2 field_0x0[6]; // sometimes copied to field9_0x10 of animation_control
-    struct animation_control* sub;
-    undefined fields[180];
+    struct animation_control ctrl;
+    undefined fields[60];
 };
 ASSERT_SIZE(struct animation, 196);
 

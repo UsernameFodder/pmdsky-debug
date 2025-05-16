@@ -20,8 +20,7 @@ struct animation_control {
     undefined field8_0xf;
     // appears to be a structure used for unknown purpose with 6 2-byte value
     undefined2 field9_0x10[6];
-    undefined2 field10_0x1c;
-    undefined2 field11_0x1e;
+    struct vec2_16 position;
     struct vec2_16 anim_frame_offset;
     struct vec2_16 anim_frame_shadow_offset;
     uint32_t anim_frame_flag;
@@ -33,7 +32,7 @@ struct animation_control {
     undefined field21_0x35;
     undefined2 field22_0x36; // seems to be an index into the wan fragments table
     undefined2 field23_0x38;
-    uint16_t anim_frame_frame_id;
+    uint16_t frame_id;
     undefined2 field25_0x3c;
     undefined field26_0x3e;
     undefined field27_0x3f;
@@ -49,7 +48,7 @@ struct animation_control {
     struct wan_animation_frame* first_animation_frame; // first frame in animation group
     struct wan_animation_frame* next_animation_frame;
     struct wan_offset* wan_offsets;
-    undefined* wan_frames;
+    struct wan_fragment** wan_frames;
     void** wan_fragments_byte_store;
     struct wan_palettes* wan_palettes;
     uint16_t wan_is_256_color;
@@ -354,6 +353,58 @@ struct render_3d_global {
     union render_3d_element* render_queue; // 0x40: array that can contain up to max_index entries.
 };
 ASSERT_SIZE(struct render_3d_global, 68);
+
+enum delayed_texture_vram_order_type {
+    PLACE_VRAM_ORDER_TYPE0 = 0, // The one used in ProcessWTE
+    PLACE_VRAM_ORDER_TYPE1 = 1,
+    PLACE_VRAM_ORDER_FREE = 2, // Free the source image (and nothing else)
+};
+
+struct delayed_texture_vram_order {
+    uint32_t unk1;
+    uint32_t bytes_length; // size of input
+    void* source_image_pointer;
+    uint32_t vram_offset;
+    enum delayed_texture_vram_order_type task_type;
+    uint8_t unk2[4]; // possibly just a single byte with 3 padding
+    uint32_t unk3;
+};
+ASSERT_SIZE(struct delayed_texture_vram_order, 28);
+
+#pragma pack(push, 2)
+// Used to order copy of bytes into 3D texture VRAM when it is safe to do so.
+struct delayed_texture_vram_container {
+    struct delayed_texture_vram_order (*orders)[128];
+    uint32_t address_in_bank_D_3DTex;
+    uint32_t address_in_bank_F_3DPal;
+    uint16_t next_order_to_use; // Max value is 0x80 a.k.a 128
+};
+#pragma pack(pop)
+ASSERT_SIZE(struct delayed_texture_vram_container, 14);
+
+enum copy_to_obj_vram_order_type {
+    COPY_TO_FLAT_VRAM_STANDARD = 0,     // use ArrayCopy32
+    COPY_TO_FLAT_VRAM_INTERLEAVED = 1,  // use CopyAndInterleave
+    COPY_TO_FLAT_VRAM_INTERLEAVED0 = 2, // use CopyAndInterleave0
+};
+
+#pragma pack(push, 1)
+ENUM_8_BIT(copy_to_obj_vram_order_type);
+#pragma pack(pop)
+
+// This appears to be run either immediately (when displaying a WAN sprite) or somewhat delayed via
+// some global struct. See delayed_texture_vram_order instead for the 3D engine texture
+struct copy_to_obj_vram_order {
+    // bytes to be copied into the destination (may differ from the input size)
+    uint32_t len_output;
+    void* src; // if null, will instead fill the destination with zeros
+    void* dst;
+    // Value to interleave when using the COPY_TO_FLAT_VRAM_INTERLEAVED copy type
+    uint16_t interleave_with;
+    struct copy_to_obj_vram_order_type_8 copy_type;
+    uint8_t maybe_padding;
+};
+ASSERT_SIZE(struct copy_to_obj_vram_order, 16);
 
 struct palette_data_substruct {
     // 0x0: skip certain color when applying effects when value is 2 (are they the portrait and text

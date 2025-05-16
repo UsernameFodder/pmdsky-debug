@@ -299,7 +299,7 @@ enum monster_treatment GetTreatmentBetweenMonsters(struct entity* entity1, struc
 bool SafeguardIsActive(struct entity* user, struct entity* target, bool log_message);
 bool LeafGuardIsActive(struct entity* user, struct entity* target, bool log_message);
 bool IsProtectedFromStatDrops(struct entity* user, struct entity* target, bool log_message);
-bool NoGastroAcidStatus(struct entity* entity);
+bool NoGastroAcidStatus(struct entity* entity, enum ability_id ability_id);
 bool AbilityIsActive(struct entity* entity, enum ability_id ability_id);
 bool AbilityIsActiveVeneer(struct entity* entity, enum ability_id ability_id);
 bool OtherMonsterAbilityIsActive(struct entity* user, enum ability_id ability_id);
@@ -358,7 +358,7 @@ void EndProtectStatus(struct entity* user, struct entity* target);
 void TryRestoreRoostTyping(struct entity* user, struct entity* target);
 void TryTriggerMonsterHouse(struct entity* entity, bool outside_enemies);
 bool ShouldMonsterFollowLeader(struct entity* monster);
-void RunMonsterAi(struct entity* monster, undefined param_2);
+void RunMonsterAi(struct entity* monster, int unused);
 void ApplyDamageAndEffects(struct entity* attacker, struct entity* defender,
                            struct damage_data* damage_data, bool false_swipe, bool exp_on_faint,
                            union damage_source damage_source, bool defender_response);
@@ -630,6 +630,7 @@ void TryActivateNondamagingDefenderExclusiveItem(struct entity* attacker, struct
 int GetMoveRangeDistance(struct entity* user, struct move* move, bool check_two_turn_moves);
 bool MoveHitCheck(struct entity* attacker, struct entity* defender, struct move* move,
                   bool use_second_accuracy, bool never_miss_self);
+void BuildMoveTargetList(struct target_list* output, struct entity* user, struct move* move);
 bool IsHyperBeamVariant(struct move* move);
 bool IsChargingTwoTurnMove(struct entity* user, struct move* move);
 bool IsChargingAnyTwoTurnMove(struct entity* entity, bool charge_check_unused);
@@ -648,7 +649,7 @@ void PlayMoveAnimation(struct entity* user, struct entity* target, struct move* 
 uint16_t GetMoveAnimationId(struct move* move, enum weather_id apparent_weather,
                             bool should_play_alternative_animation);
 bool ShouldMovePlayAlternativeAnimation(struct entity* user, struct move* move);
-void ExecuteMoveEffect(undefined4* param_1, struct entity* attacker, struct move* move,
+void ExecuteMoveEffect(struct target_list* targets, struct entity* attacker, struct move* move,
                        undefined4 param_4, undefined4 param_5);
 bool DoMoveDamageInlined(struct entity* attacker, struct entity* defender, struct move* move,
                          enum item_id item_id);

@@ -182,7 +182,7 @@ int GetExclusiveItemOffsetEnsureValid(enum item_id item_id);
 bool IsItemValid(enum item_id item_id);
 int16_t GetExclusiveItemParameter(enum item_id item_id);
 enum item_category GetItemCategory(enum item_id item_id);
-enum item_id EnsureValidItem(enum item_id);
+enum item_id EnsureValidItem(enum item_id item_id);
 char* GetItemName(enum item_id item_id);
 void GetItemNameFormatted(char* name_out, enum item_id item_id, bool flag1, bool flag2);
 uint16_t GetItemBuyPrice(enum item_id item_id);
@@ -422,6 +422,9 @@ void PlaySeFullSpec(int param_1, int param_2, int param_3, int param_4);
 void SeChangeVolume(int param_1, int param_2, int param_3);
 void SeChangePan(int param_1, int param_2, int param_3);
 void StopSe(int param_1, int param_2);
+void ExecuteCopyToFlatVramCommand(struct copy_to_obj_vram_order* order);
+uint32_t DecodeFragmentByteAssemblyTable(struct wan_fragment_bytes_assembly_entry* entry,
+                                         void* dst);
 void CopyAndInterleaveWrapper(uint16_t* dst, uint16_t* src, uint32_t len, uint8_t val);
 void InitAnimationControl(struct animation_control* animation_control);
 void InitAnimationControlWithSet(struct animation_control* animation_control);
@@ -466,6 +469,13 @@ void UnloadWte(struct wte_handle* handle);
 undefined* LoadWtuFromBin(int bin_file_id, int file_id, int load_type);
 void ProcessWte(undefined* wte_header_ptr, undefined4 pal_vram_offset,
                 undefined4 pal_texture_vram_offset_upper, undefined4 pal_texture_vram_offset_lower);
+void DelayWteFree(struct wte_handle* handle);
+void ResetPlannedVramTransfer(struct delayed_texture_vram_container* container);
+uint32_t PlanCopyTextureToTextureVram(struct delayed_texture_vram_container* container,
+                                      void* image_pointer, uint32_t dest_vram_offset,
+                                      uint32_t image_length,
+                                      enum delayed_texture_vram_order_type order_type);
+void PerformPlannedTextureVramTransfer(struct delayed_texture_vram_container* container);
 void GeomSetTexImageParam(int texture_format, int texture_coordinates_transformation_modes,
                           int texture_s_size, int texture_t_size, int repeat_s_t, int flip_s_t,
                           bool color_0, int vram_offset);
