@@ -1038,7 +1038,7 @@ int GetPartyMembers(uint16_t* party_members);
 void RefillTeam(void);
 int ClearItem(int team_id, bool check);
 void ChangeGiratinaFormIfSkyDungeon(enum dungeon_id dungeon_id);
-void RevertGiratinaAndShaymin(uint8_t member_idx, undefined4 param_2);
+void RevertGiratinaAndShaymin(uint8_t member_idx, undefined param_2);
 int GetIqSkillStringId(enum iq_skill_id iq_skill);
 bool DoesTacticFollowLeader(enum tactic_id tactic_id);
 void GetUnlockedTactics(enum tactic_id* unlocked_tactics, int level);
