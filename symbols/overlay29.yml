@@ -9670,6 +9670,21 @@ overlay29:
         EU: 0x90
         NA: 0x90
       description: "Array of bit masks used to set monster::status_icon. Indexed by monster::statuses::reflect * 8. See UpdateStatusIconFlags for details."
+    - name: POSITION_DISPLACEMENT_TO_DIRECTION
+      address:
+        EU: 0x2352210
+        NA: 0x2351604
+        JP: 0x2352884
+      length:
+        EU: 0x24
+        NA: 0x24
+        JP: 0x24
+      description: |-
+        An array mapping position displacements (y, then x) to directions. Used by GetDirectionTowardsPosition.
+        
+        Given two positions, displacements are either 0, 1, or 2 depending on whether the second position's x/y coordinate is less than, equal, or greater
+        than the first position's corresponding coordinates. For example, POSITION_DISPLACEMENT_TO_DIRECTION[0][2] (DIRECTION_NORTHEAST)
+        indicates that the second y coordinate is less than the first, and the second x coordinate is greater than the first.
     - name: DIRECTIONS_XY
       address:
         EU: 0x2352328
