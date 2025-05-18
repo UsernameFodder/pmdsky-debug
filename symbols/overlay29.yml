@@ -711,6 +711,8 @@ overlay29:
     - name: PlayQuestionMarkEffect
       address:
         EU: 0x22E4788
+        NA: 0x22E3DD8
+        JP: 0x22E5448
       description: |-
         Plays the question mark effect (id = 0x144) on an entity.
         
@@ -721,6 +723,14 @@ overlay29:
           - 0x22E47D4
           - 0x22E4880
           - 0x22E5D4C
+        NA:
+          - 0x22E3E24
+          - 0x22E3ED0
+          - 0x22E539C
+        JP:
+          - 0x22E5494
+          - 0x22E5540
+          - 0x22E6A0C
       description: |-
         Plays the exclamation point effect (id = 0x143) on an entity.
         
@@ -746,6 +756,8 @@ overlay29:
     - name: PlayEffectAnimationEntityStandard
       address:
         EU: 0x22E4C98
+        NA: 0x22E42E8
+        JP: 0x22E5958
       description: |-
         Calls PlayEffectAnimationEntity with standard parameters used in various functions throughout the game.
         

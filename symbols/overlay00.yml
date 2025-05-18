@@ -19,6 +19,8 @@ overlay0:
     - name: SelectRandomBackground
       address:
         EU: 0x22BF12C
+        NA: 0x22BE918
+        JP: 0x22C00C4
       description: |-
         Selects a random background from the BACK/s09p04-10a.bgp files to be used as the background for the top menu.
           
