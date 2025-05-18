@@ -17,10 +17,10 @@ overlay0:
     This is loaded together with overlay 1 while in the top menu. Since it's in overlay group 2 (together with overlay 10, which is another "data" overlay), this overlay probably plays a similar role. It mentions several files from the BACK folder that are known backgrounds for the top menu.
   functions:
     - name: SelectRandomBackground
-        address:
-          EU: 0x22BF12C
-        description: |-
-          Selects a random background from the BACK/s09p04-10a.bgp files to be used as the background for the top menu.
+      address:
+        EU: 0x22BF12C
+      description: |-
+        Selects a random background from the BACK/s09p04-10a.bgp files to be used as the background for the top menu.
           
-          No params.
+        No params.
   data: []
