@@ -9952,6 +9952,15 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         r0: dungeon ID
+    - name: RevertGiratinaAndShaymin
+      address:
+        EU: 0x20589F0
+        NA: 0x2058674
+      description: |-
+        Reverts Giratina and Shaymin party members to their standard forms.
+        
+        r0: team member index in party
+        r1: ?
     - name: GetIqSkillStringId
       address:
         EU: 0x2058F98
@@ -10544,6 +10553,16 @@ arm9:
         
         r0: Monster ID
         return: True if PERFOMANCE_PROGRESS_FLAG[9] is true, false if it isn't and the monster ID (after converting it) is contained in MISSION_BANNED_STORY_MONSTERS or if it's the ID of the player or the partner, true otherwise.
+    - name: IsMonsterIllegalForMissions
+      address:
+        EU: 0x2062EE0
+      description: |-
+        Checks if the monster index is illegal to be used for any mission.
+        
+        Illegal indexes include Shaymin-Sky, Giratina-Origin, Purple Kecleon, Shiny Celebi, Primal Dialga, and all the unused Arceus forms.
+        
+        r0: Monster ID
+        return: True if the specified monster is illegal for missions
     - name: CanDungeonBeUsedForMission
       address:
         EU: 0x2062F34
