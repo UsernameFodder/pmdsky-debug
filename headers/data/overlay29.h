@@ -60,6 +60,7 @@ extern struct status_icon_flags STATUS_ICON_ARRAY_FREEZE[8];
 extern struct status_icon_flags STATUS_ICON_ARRAY_CRINGE[8];
 extern struct status_icon_flags STATUS_ICON_ARRAY_BIDE[14];
 extern struct status_icon_flags STATUS_ICON_ARRAY_REFLECT[18];
+extern enum direction_id POSITION_DISPLACEMENT_TO_DIRECTION[3][3];
 extern int16_t DIRECTIONS_XY[8][2];
 extern struct position DISPLACEMENTS_WITHIN_2_LARGEST_FIRST[26];
 extern struct position DISPLACEMENTS_WITHIN_2_SMALLEST_FIRST[26];

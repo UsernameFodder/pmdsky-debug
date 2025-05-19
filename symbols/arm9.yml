@@ -9956,6 +9956,7 @@ arm9:
       address:
         EU: 0x20589F0
         NA: 0x2058674
+        JP: 0x2058974
       description: |-
         Reverts Giratina and Shaymin party members to their standard forms.
         
@@ -10556,6 +10557,8 @@ arm9:
     - name: IsMonsterIllegalForMissions
       address:
         EU: 0x2062EE0
+        NA: 0x2062B64
+        JP: 0x2062E4C
       description: |-
         Checks if the monster index is illegal to be used for any mission.
         
@@ -13109,6 +13112,12 @@ arm9:
         NA: 0x68
         JP: 0x68
       description: "Irdkwia's notes: 26*0x4, uses MISSION_FLOOR_RANKS_AND_ITEM_LISTS"
+    - name: MONSTER_DATA_TABLE_PTR
+      address:
+        EU: 0x20B12D0
+        NA: 0x20B09B4
+        JP: 0x20B2228
+      description: "[Runtime] Points to data about monster species."
     - name: UNOWN_SPECIES_ADDITIONAL_CHAR_PTR_TABLE
       address:
         EU: 0x20B131C
