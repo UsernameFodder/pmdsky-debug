@@ -9792,6 +9792,16 @@ overlay29:
         NA: 0x2
         JP: 0x2
       description: The additional amount by which belly is decreased every turn when inside walls (fractional thousandths)
+    - name: DIRECTIONAL_BIT_MASKS
+      address:
+        EU: 0x23533A4
+        NA: 0x2352798
+        JP: 0x2353A18
+      length:
+        EU: 0x8
+        NA: 0x8
+        JP: 0x8
+      description: "An array of one-hot bit masks corresponding to each direction_id. Used alongside tile->walkable_neighbor_flags to determine whether it's possible to move to a tile."
     - name: MONSTER_TREATMENT_DATA
       address:
         EU: 0x23533AC

@@ -69,6 +69,7 @@ extern struct action_16 ITEM_CATEGORY_ACTIONS[16];
 extern int16_t FRACTIONAL_TURN_SEQUENCE[125];
 extern uint16_t BELLY_DRAIN_IN_WALLS_INT;
 extern uint16_t BELLY_DRAIN_IN_WALLS_THOUSANDTHS;
+extern uint8_t DIRECTIONAL_BIT_MASKS[8];
 extern enum monster_treatment MONSTER_TREATMENT_DATA[4][2][2][2];
 extern struct fx64_16 DAMAGE_MULTIPLIER_0_5;
 extern struct fx64_16 DAMAGE_MULTIPLIER_1_5;
