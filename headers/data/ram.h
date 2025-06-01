@@ -68,6 +68,7 @@ extern uint8_t GROUND_MEMORY_ARENA_1_MEMORY[408324];
 extern struct sentry_duty SENTRY_DUTY_STRUCT;
 extern bool TURNING_ON_THE_SPOT_FLAG;
 extern struct loaded_attack_sprite_data* LOADED_ATTACK_SPRITE_DATA;
+extern enum mobility_type MOBILITY_TYPE_TO_DUNGEON_MOBILITY_TYPE[8];
 extern bool AI_THROWN_ITEM_DIRECTION_IS_USED[8];
 extern uint32_t AI_THROWN_ITEM_PROBABILITIES[8];
 extern uint32_t AI_THROWN_ITEM_DIRECTIONS[8];
