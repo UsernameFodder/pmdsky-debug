@@ -820,9 +820,32 @@ ASSERT_SIZE(struct mission_floors_forbidden, 2);
 
 
 
+struct mission_weighted_categories {
+    // 0x0: Weight for this category to appear on the Job Board
+    uint16_t job_board_weight;
+    // 0x2: Weight for this category to appear on the Outlaw Board
+    uint16_t outlaw_board_weight;
+    // 0x4: Weight for this category to appear from a client in Spinda's Cafe
+    uint16_t cafe_weight;
+    // 0x6: Weight for this category to appear in a bottle on the beach
+    uint16_t bottle_weight;
+    // 0x8: Minimum Guild Rank required for this category to be considered
+    rank minimum_rank;
+    // 0x9: Is 0x2 for the gabite mission category, and 0x0 otherwise.
+    // Likely related to SCENARIO_BALANCE_FLAG.
+    uint8_t gabite_flag;
+    // 0xA: Boolean for whether Secret Rank is required for this mission.
+    uint16_t secret_rank_needed;
+    // 0xC: Number of mission_template structs within this category
+    uint16_t number_of_templates;
+    // 0xE: Index of the first mission_template struct within this category
+    uint16_t first_template_index;
+}
+ASSERT_SIZE(struct mission_weighted_categories, 16);
 
 // Information about a valid mission; a list of these structs is stored in and directly loaded from
-// RESCUE/rescue.bin. Used for validation as well as possibly for loading certain missions?
+// RESCUE/rescue.bin at 0x1560, where 600 of these structs exist. These are templates for mission generation,
+// which are categorized by mission_weighted_categories above.
 struct mission_template {
     // 0x0 This field is populated with a value that might be used for flavor text. 
     // Benford's Law suggests that it's one field, not two. As does context...
