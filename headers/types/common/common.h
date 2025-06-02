@@ -818,46 +818,63 @@ struct mission_floors_forbidden {
 };
 ASSERT_SIZE(struct mission_floors_forbidden, 2);
 
+
+
+
 // Information about a valid mission; a list of these structs is stored in and directly loaded from
 // RESCUE/rescue.bin. Used for validation as well as possibly for loading certain missions?
-struct mission_rescue_bin {
-    undefined field_0x0;
-    undefined field_0x1;
-    undefined field_0x2;
-    undefined field_0x3;
-    undefined field_0x4;
-    undefined field_0x5;
-    undefined field_0x6;
-    undefined field_0x7;
-    // 0x8: For legendary challenge missions, is used as a boolean to indicate whether or not
-    // accepting the mission unlocks its dungeon. For other missions, its purpose is unknown.
-    uint8_t unk_unlock_flag;
-    undefined field_0x9;
+struct mission_template {
+    // 0x0 This field is populated with a value that might be used for flavor text. 
+    // Benford's Law suggests that it's one field, not two. As does context...
+    uint_16 field_0x0;
+    // 0x2: Called in a switch case at 0x0205DED4 [EU] during mission generation 
+    // which affect how the template_item_data are interpreted
+    enum mission_template_item_case item_case;
+    // 0x4: Ignored if mission_template_item_case is not "0x2". 
+    union mission_template_item_data_1 template_item_data_1;
+    // 0x6: Ignored if mission_template_item_case is "0x4".
+    // Usually stores the item_id of an item used in the mission
+    union mission_template_item_data_2 template_item_data_2;
+    // 0x8: Called in a switch case at 0x0205DED4 [EU] during mission generation 
+    // For legendary challenge missions, is also used as a boolean to indicate whether or not
+    // accepting the mission unlocks its dungeon.
+    enum mission_template_dungeon_case dungeon_case;
+    // 0xA: Always Zero in the template, not referenced during mission generation.
     undefined field_0xa;
+    // 0xB: Always Zero in the template, not referenced during mission generation.
     undefined field_0xb;
-    int8_t restricted_dungeon; // 0xC: Dungeon this mission is restricted to, or 0xFF if none
-    undefined field_0xd;
-    undefined field_0xe;
-    undefined field_0xf;
-    undefined field_0x10;
-    undefined field_0x11;
-    struct monster_id_16 client; // 0x12: For challenge letter missions, stores the leader
-    undefined field_0x14;
-    undefined field_0x15;
-    undefined field_0x16;
-    undefined field_0x17;
-    // 0x18: For non-legendary challenge letter missions, stores the second team member
-    struct monster_id_16 target;
-    undefined field_0x1a;
-    undefined field_0x1b;
-    undefined field_0x1c;
-    undefined field_0x1d;
-    // 0x1E: For non-legendary challenge letter missions, stores the third team member
-    struct monster_id_16 outlaw_backup_species;
+    // 0xC: Dungeon this mission is restricted to, or 0xFF if none. 
+    // Use is governed by mission_template_dungeon_case
+    int16_t restricted_dungeon; 
+    // 0xE: Called in a switch case at 0x0205D8C4 [EU] during mission generation
+    enum mission_template_client_case client_case;
+    // 0x10: Ignored if mission_template_client_case is not "0x2"
+    union mission_template_client_data_1 template_client_data_1;
+    // 0x12: Ignored if mission_template_client_case is "0x4"
+    // For challenge letter missions, stores the leader (who is ALSO the client)    
+    // Usually stores a monster_id
+    union mission_template_client_data_2 template_client_data_2;
+    // 0x14: Called in a looped switch case at 0x0205DBEC[EU] during mission generation 
+    enum mission_template_target_case target_case_1;
+    // 0x16: Ignored if mission_template_target_case (at 0x14) is not "0x2"
+    union mission_template_target_data_1 template_target_data_1;
+    // 0x18: Ignored if mission_template_target_case (at 0x14) is "0x4" or "0x6"
+    // For non-legendary challenge letter missions, stores the second team member
+    union mission_template_target_data_2 template_target_data_2;
+    // 0x1A: Called in the same looped switch case at 0x0205DBEC[EU] during mission generation
+    enum mission_template_target_case target_backup_case_1;
+    // 0x1C: Ignored if mission_template_target_case (at 0x1A) is not "0x2"
+    union mission_template_target_data_1 target_backup_data_1;
+    // 0x1E: Ignored if mission_template_target_case (at 0x1A) is "0x4" or "0x6"
+    // For non-legendary challenge letter missions, stores the third team member
+    union mission_template_target_data_2 target_backup_data_2;
     struct mission_type_8 type;    // 0x20
     union mission_subtype subtype; // 0x21
 };
 ASSERT_SIZE(struct mission_rescue_bin, 34);
+
+
+
 
 // Unverified, ported from Irdkwia's notes
 struct quiz_answer_points_entry {
