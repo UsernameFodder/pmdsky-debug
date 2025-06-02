@@ -1094,9 +1094,9 @@ void DeleteAllPossibleDungeonsList(void);
 int GenerateAllPossibleDeliverList(void);
 void DeleteAllPossibleDeliverList(void);
 void ClearMissionData(struct mission* mission);
-bool ValidateNormalChallengeMission(struct mission_rescue_bin* valid_mission_info,
+bool ValidateNormalChallengeMission(struct mission_template* valid_mission_info,
                                     struct mission* mission);
-bool ValidateLegendaryChallengeMission(struct mission_rescue_bin* valid_mission_info,
+bool ValidateLegendaryChallengeMission(struct mission_template* valid_mission_info,
                                        struct mission* mission);
 bool IsMonsterMissionAllowed(enum monster_id monster_id);
 bool CanMonsterBeUsedForMissionWrapper(enum monster_id monster_id);
