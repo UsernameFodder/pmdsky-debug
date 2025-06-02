@@ -819,8 +819,10 @@ struct mission_floors_forbidden {
 ASSERT_SIZE(struct mission_floors_forbidden, 2);
 
 
-
-struct mission_weighted_categories {
+// Information valid mission; a list of these structs is stored in and directly loaded from
+// RESCUE/rescue.bin at 0x6520, where 40 of these structs exist. One of these categories is picked
+// at random during mission generation, after which a template is chosen from within that category.
+struct mission_weighted_category {
     // 0x0: Weight for this category to appear on the Job Board
     uint16_t job_board_weight;
     // 0x2: Weight for this category to appear on the Outlaw Board
@@ -841,11 +843,11 @@ struct mission_weighted_categories {
     // 0xE: Index of the first mission_template struct within this category
     uint16_t first_template_index;
 }
-ASSERT_SIZE(struct mission_weighted_categories, 16);
+ASSERT_SIZE(struct mission_weighted_category, 16);
 
 // Information about a valid mission; a list of these structs is stored in and directly loaded from
 // RESCUE/rescue.bin at 0x1560, where 600 of these structs exist. These are templates for mission generation,
-// which are categorized by mission_weighted_categories above.
+// which are categorized by mission_weighted_category above.
 struct mission_template {
     // 0x0 This field is populated with a value that might be used for flavor text. 
     // Benford's Law suggests that it's one field, not two. As does context...
