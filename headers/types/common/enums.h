@@ -3726,6 +3726,100 @@ enum mission_rank {
 ENUM_8_BIT(mission_rank);
 #pragma pack(pop)
 
+
+enum mission_template_item_case {
+    // Treated same as CASE_SPECIFIC_ITEM, unused in template
+    CASE_UNK_0 = 0, 
+    // mission_template_item_data_1 is ignored, and mission_template_item_data_2 is an item_id
+    CASE_SPECIFIC_ITEM = 1, 
+    // mission_template_item_data_1 and mission_template_item_data_2 are indices to a table
+    CASE_USE_ITEM_TABLE = 2, 
+    // Has a distinct case menu, unused in template.
+    CASE_UNK_3 = 3, 
+    // mission_template_item_data_1 and mission_template_item_data_2 are ignored
+    CASE_NO_ITEM = 4 
+}
+
+union mission_template_item_data_1 {
+    uint16_t none;
+    uint16_t template_item_table_id; // if CASE_USE_ITEM_TABLE
+}
+
+union mission_template_item_data_2 {
+    uint16_t none;
+    uint16_t template_item_table_id; // if CASE_USE_ITEM_TABLE
+    struct item_id_16 mission_item_id; // if CASE_SPECIFIC_ITEM
+}
+
+
+
+enum mission_template_dungeon_case {
+    CASE_SPECIFIC_OPENED = 0, // Used for Legendary Challenge Letters, among other things
+    CASE_SPECIFIC_CLOSED = 1, // Used for Jirachi Challenge Letter and Togetic Mission
+    CASE_UNK_2 = 2, // Treated same as CASE_REVEALED_AND_UNLOCKED
+    CASE_UNK_3 = 3, // Treated same as CASE_REVEALED_AND_UNLOCKED
+    CASE_RANDOM_OPEN = 4, // Used for most missions
+    CASE_RANDOM_CLOSED = 5 // Used for EXPLORE_NEW_DUNGEON subtype
+}
+
+enum mission_template_client_case {
+    // Must be attacked in a dungeon to yield a valid mission
+    CASE_FIXED_CLIENT_OLD = 0, 
+    // Does not need to be attacked in a dungeon to yield a valid mission
+    // Examples include magnemite/magnezone, and legendary challenge letters
+    CASE_FIXED_CLIENT_NEW = 1,
+    // mission_template_client_data_1 and mission_template_client_data_2 are indices to a table
+    // This determines the final client in a more restricted manner. 
+    // Only used for MISSION_GUIDE_CLIENT in the template
+    CASE_TABLE_CLIENT = 2,
+    // Has a distinct case menu, unused in template.
+    CASE_UNK_3 = 3,
+    // Client is selected at random from GetAllPossibleMonsters. Most missions use this.
+    CASE_RANDOM_CLIENT = 4,
+}
+
+union mission_template_client_data_1 {
+    uint16_t none; 
+    uint16_t template_client_table_id; // if CASE_TABLE_CLIENT
+}
+
+union mission_template_client_data_2 {
+    uint16_t none; // If CASE_RANDOM_CLIENT
+    uint16_t template_client_table_id; // if CASE_TABLE_CLIENT
+    struct monster_id_16 client; // if CASE_FIXED_CLIENT_OLD or CASE_FIXED_CLIENT_NEW
+}
+
+enum mission_template_target_case {
+    // Must be attacked in a dungeon to yield a valid mission
+    CASE_FIXED_TARGET_OLD = 0, 
+    // Does not need to be attacked in a dungeon to yield a valid mission
+    // Not present in template.
+    CASE_FIXED_TARGET_NEW = 1,
+    // mission_template_target_data_1 and mission_template_target_data_2 are indices to a table
+    // This determines the final target in a more restricted manner. 
+    // Primarily used for outlaw missions in the template
+    CASE_TABLE_TARGET = 2,
+    // Has a distinct case menu, unused in template.
+    CASE_UNK_3 = 3,
+    // Target is selected at random from GetAllPossibleMonsters. Most missions use this.
+    CASE_RANDOM_TARGET = 4,
+    CASE_UNK_5 = 5,
+    // Used by HIDDEN_OUTLAW, seems identical to CASE_RANDOM_TARGET?
+    CASE_RANDOM_TARGET_06 = 6,
+}
+
+union mission_template_target_data_1 {
+    uint16_t none; 
+    uint16_t template_target_table_id; // if CASE_TABLE_CLIENT
+}
+
+union mission_template_target_data_2 {
+    uint16_t none; // If CASE_RANDOM_TARGET or CASE_RANDOM_TARGET_06
+    uint16_t template_target_table_id; // if CASE_TABLE_TARGET
+    struct monster_id_16 target; // if CASE_FIXED_TARGET_OLD
+}
+
+
 // base-level 3D rendering variants
 enum render_type {
     // solid rectangle
