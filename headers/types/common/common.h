@@ -819,6 +819,7 @@ struct mission_floors_forbidden {
 ASSERT_SIZE(struct mission_floors_forbidden, 2);
 
 
+
 // Information valid mission; a list of these structs is stored in and directly loaded from
 // RESCUE/rescue.bin at 0x6520, where 40 of these structs exist. One of these categories is picked
 // at random during mission generation, after which a template is chosen from within that category.
@@ -833,9 +834,9 @@ struct mission_weighted_category {
     uint16_t bottle_weight;
     // 0x8: Minimum Guild Rank required for this category to be considered
     rank minimum_rank;
-    // 0x9: Is 0x2 for the gabite mission category, and 0x0 otherwise.
-    // Likely related to SCENARIO_BALANCE_FLAG.
-    uint8_t gabite_flag;
+    // 0x9: Minimum SCENARIO_BALANCE_FLAG required for this category to be considered.
+    // Is 0x2 for the gabite scale mission category, and 0x0 for all other categories.
+    uint8_t min_scenario_balance;
     // 0xA: Boolean for whether Secret Rank is required for this mission.
     uint16_t secret_rank_needed;
     // 0xC: Number of mission_template structs within this category
@@ -849,9 +850,10 @@ ASSERT_SIZE(struct mission_weighted_category, 16);
 // RESCUE/rescue.bin at 0x1560, where 600 of these structs exist. These are templates for mission generation,
 // which are categorized by mission_weighted_category above.
 struct mission_template {
-    // 0x0 This field is populated with a value that might be used for flavor text. 
-    // Benford's Law suggests that it's one field, not two. As does context...
-    uint_16 field_0x0;
+    // 0x0: Points to an index for mission_title_groups and mission_summary_groups
+    // These structs contain data for an appropriate range of titles/summaries 
+    // for the mission template from MISSION_STRING_IDS.
+    uint_16 text_string_offset;
     // 0x2: Called in a switch case at 0x0205DED4 [EU] during mission generation 
     // which affect how the template_item_data are interpreted
     enum mission_template_item_case item_case;
