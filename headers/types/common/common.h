@@ -1021,7 +1021,7 @@ struct mission_weighted_category {
     // 0x6: Weight for this category to appear in a bottle on the beach
     uint16_t bottle_weight;
     // 0x8: Minimum Guild Rank required for this category to be considered
-    enum rank minimum_rank;
+    uint8_t minimum_rank;
     // 0x9: Minimum SCENARIO_BALANCE_FLAG required for this category to be considered.
     // Is 0x2 for the gabite scale mission category, and 0x0 for all other categories.
     uint8_t min_scenario_balance;
