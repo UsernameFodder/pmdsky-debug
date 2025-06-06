@@ -821,7 +821,7 @@ ASSERT_SIZE(struct mission_floors_forbidden, 2);
 
 
 // Used throughout the process of displaying a mission
-struct mission_window_details {
+struct mission_details {
     undefined field_0x0;
     undefined field_0x1;
     undefined field_0x2;
@@ -920,6 +920,9 @@ struct mission_window_details {
     // 0x60: pointer to mission_template struct
     struct mission_template *template_ptr;
 }
+// mission_details is at least this big. unclear bigger it actually is.
+ASSERT_SIZE(struct mission_details, 100);
+
 
 // Information about a valid mission; a list of these structs is stored in and directly loaded from
 // RESCUE/rescue.bin at 0x20, where 481 of these structs exist. These are used to select a string
