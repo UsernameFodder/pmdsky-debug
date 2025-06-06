@@ -129,6 +129,10 @@ extern int16_t MISSION_MENU_STRING_IDS_1[8];
 extern int16_t MISSION_MENU_STRING_IDS_2[8];
 extern struct dungeon_unlock_entry MISSION_DUNGEON_UNLOCK_TABLE[3];
 extern struct item_id_16 NO_SEND_ITEM_TABLE[3];
+extern uint16_t CAFE_MISSION_REWARD_TYPE_WEIGHTS[7];
+extern uint16_t OUTLAW_MISSION_REWARD_TYPE_WEIGHTS[7];
+extern uint16_t DEFAULT_MISSION_REWARD_TYPE_WEIGHTS[7];
+extern int32_t MISSION_VALIDATION_FUNCTION_LIST[8]; // Functions
 extern struct monster_id_16 MISSION_BANNED_STORY_MONSTERS[21];
 extern struct item_id_16 ITEM_DELIVERY_TABLE[23];
 extern int MISSION_RANK_POINTS[16];
