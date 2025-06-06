@@ -1094,10 +1094,16 @@ void DeleteAllPossibleDungeonsList(void);
 int GenerateAllPossibleDeliverList(void);
 void DeleteAllPossibleDeliverList(void);
 void ClearMissionData(struct mission* mission);
+void GenerateMissionDetailsStruct(struct mission* mission, struct mission_details* details,
+                                                    undefined unk_2, undefined unk_3);
 bool ValidateNormalChallengeMission(struct mission_template* valid_mission_info,
                                     struct mission* mission);
 bool ValidateLegendaryChallengeMission(struct mission_template* valid_mission_info,
                                        struct mission* mission);
+void AppendMissonTitle(char* main_buffer, char* temp_buffer, struct preprocessor_args* args,
+                       struct mission_details* details);
+void AppendMissonSummary(char* main_buffer, char* temp_buffer, struct preprocessor_args* args,
+                       int window_id, int y_offset, struct mission_details* details);
 bool IsMonsterMissionAllowed(enum monster_id monster_id);
 bool CanMonsterBeUsedForMissionWrapper(enum monster_id monster_id);
 bool CanMonsterBeUsedForMission(enum monster_id monster_id, bool check_story_banned);
