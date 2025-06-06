@@ -3753,7 +3753,7 @@ ENUM_8_BIT(mission_type);
 
 // Mission subtype for mission types without distinct subtypes
 enum mission_subtype_other {
-    MISSION_TEMPLATE_DEFAULT = 0;
+    MISSION_TEMPLATE_DEFAULT = 0
 };
 
 // This is usually stored as an 8-bit integer
