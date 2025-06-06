@@ -791,7 +791,8 @@ struct mission {
     uint8_t floor;                  // 0x5
     undefined field_0x6;            // Likely padding
     undefined field_0x7;            // Likely padding
-    // 0x8: changing it seems to affect the text of the mission, maybe a string ID?
+    // 0x8: A random value determined FUN_0205146C [EU], which is used to randomly generate
+    // 
     int description_id;
     uint8_t unique_map_id; // 0xC: for challenges/treasure hunts/certain outlaws
     undefined field_0xd;
@@ -820,31 +821,35 @@ ASSERT_SIZE(struct mission_floors_forbidden, 2);
 
 
 
-// Information valid mission; a list of these structs is stored in and directly loaded from
-// RESCUE/rescue.bin at 0x6520, where 40 of these structs exist. One of these categories is picked
-// at random during mission generation, after which a template is chosen from within that category.
-struct mission_weighted_category {
-    // 0x0: Weight for this category to appear on the Job Board
-    uint16_t job_board_weight;
-    // 0x2: Weight for this category to appear on the Outlaw Board
-    uint16_t outlaw_board_weight;
-    // 0x4: Weight for this category to appear from a client in Spinda's Cafe
-    uint16_t cafe_weight;
-    // 0x6: Weight for this category to appear in a bottle on the beach
-    uint16_t bottle_weight;
-    // 0x8: Minimum Guild Rank required for this category to be considered
-    rank minimum_rank;
-    // 0x9: Minimum SCENARIO_BALANCE_FLAG required for this category to be considered.
-    // Is 0x2 for the gabite scale mission category, and 0x0 for all other categories.
-    uint8_t min_scenario_balance;
-    // 0xA: Boolean for whether Secret Rank is required for this mission.
-    uint16_t secret_rank_needed;
-    // 0xC: Number of mission_template structs within this category
-    uint16_t number_of_templates;
-    // 0xE: Index of the first mission_template struct within this category
-    uint16_t first_template_index;
+// Information about a valid mission; a list of these structs is stored in and directly loaded from
+// RESCUE/rescue.bin at 0x20, where 481 of these structs exist. These are used to select a string
+// from MISSION_STRING_IDS at random, to provide variance to mission flavor text.
+struct rescue_str_variant_group {
+    // 0x0: Index of MISSION_STRING_IDS the group starts from. 
+    uint16_t starting_index;
+    // 0x2: Number of other MISSION_STRING_IDS entries the group contains. A random int on the range 
+    // [0, group_size) is added to starting_index to produce the final MISSION_STRING_ID entry.
+    // This final index is reused to select an index in rescue_str_continuity_table
+    uint16_t group_size;
 }
-ASSERT_SIZE(struct mission_weighted_category, 16);
+
+ASSERT_SIZE(struct rescue_str_variant_group, 4);
+
+
+// Information about a valid mission; a list of these structs is stored in and directly loaded from
+// RESCUE/rescue.bin at 0x7C0, where 964 of these structs exist. These correspond to each string in
+// MISSION_STRING_IDS, and determines whether other strings should be appended to them.
+struct rescue_str_continuity {
+    /* This field is interpreted as follows:
+     * If 0xFFFF, there is no next string.
+     * If 0x1NNN, index 0xNNN is for a summary string, NOT a title string.
+     * If 0x0NNN, index 0xNNN is for a title string, NOT a summary string.
+    */
+    uint16_t next_variant_table_id;
+}
+
+ASSERT_SIZE(struct rescue_str_continuity, 4);
+
 
 // Information about a valid mission; a list of these structs is stored in and directly loaded from
 // RESCUE/rescue.bin at 0x1560, where 600 of these structs exist. These are templates for mission generation,
@@ -900,7 +905,31 @@ struct mission_template {
 };
 ASSERT_SIZE(struct mission_rescue_bin, 34);
 
-
+// Information valid mission; a list of these structs is stored in and directly loaded from
+// RESCUE/rescue.bin at 0x6520, where 40 of these structs exist. One of these categories is picked
+// at random during mission generation, after which a template is chosen from within that category.
+struct mission_weighted_category {
+    // 0x0: Weight for this category to appear on the Job Board
+    uint16_t job_board_weight;
+    // 0x2: Weight for this category to appear on the Outlaw Board
+    uint16_t outlaw_board_weight;
+    // 0x4: Weight for this category to appear from a client in Spinda's Cafe
+    uint16_t cafe_weight;
+    // 0x6: Weight for this category to appear in a bottle on the beach
+    uint16_t bottle_weight;
+    // 0x8: Minimum Guild Rank required for this category to be considered
+    rank minimum_rank;
+    // 0x9: Minimum SCENARIO_BALANCE_FLAG required for this category to be considered.
+    // Is 0x2 for the gabite scale mission category, and 0x0 for all other categories.
+    uint8_t min_scenario_balance;
+    // 0xA: Boolean for whether Secret Rank is required for this mission.
+    uint16_t secret_rank_needed;
+    // 0xC: Number of mission_template structs within this category
+    uint16_t number_of_templates;
+    // 0xE: Index of the first mission_template struct within this category
+    uint16_t first_template_index;
+}
+ASSERT_SIZE(struct mission_weighted_category, 16);
 
 
 // Unverified, ported from Irdkwia's notes
