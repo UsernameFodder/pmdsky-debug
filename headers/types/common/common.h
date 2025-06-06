@@ -1006,6 +1006,7 @@ struct mission_template {
     struct mission_type_8 type;    // 0x20
     union mission_subtype subtype; // 0x21
 };
+
 ASSERT_SIZE(struct mission_rescue_bin, 34);
 
 // Information valid mission; a list of these structs is stored in and directly loaded from
@@ -1031,7 +1032,8 @@ struct mission_weighted_category {
     uint16_t number_of_templates;
     // 0xE: Index of the first mission_template struct within this category
     uint16_t first_template_index;
-}
+};
+
 ASSERT_SIZE(struct mission_weighted_category, 16);
 
 
