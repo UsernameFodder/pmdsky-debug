@@ -1007,7 +1007,7 @@ struct mission_template {
     union mission_subtype subtype; // 0x21
 };
 
-ASSERT_SIZE(struct mission_rescue_bin, 34);
+ASSERT_SIZE(struct mission_template, 34);
 
 // Information valid mission; a list of these structs is stored in and directly loaded from
 // RESCUE/rescue.bin at 0x6520, where 40 of these structs exist. One of these categories is picked
