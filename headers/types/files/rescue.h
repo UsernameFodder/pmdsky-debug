@@ -26,7 +26,8 @@ struct rescue_header {
 
 ASSERT_SIZE(struct rescue_header, 32);
 
-
+// Table of rescue_str_variant_group structs, corresponding to the "text_string_offset" field of
+// a mission_template struct or equivalently of a rescue_str_continuity struct.
 // 0x20 in rescue.bin
 struct rescue_str_variant_table {
     struct rescue_str_variant_group string_groups[481];
@@ -37,36 +38,15 @@ ASSERT_SIZE(struct rescue_str_variant_table, 1952);
 
 
 
-struct rescue_str_variant_group {
-    // 0x0: Index of MISSION_STRING_IDS the group starts from. 
-    uint16_t starting_index;
-    // 0x2: Number of other MISSION_STRING_ID entries the group contains. A random int on the range 
-    // [0, group_size) is added to starting_index to produce the final MISSION_STRING_ID entry.
-    // This final index is then used again to select an index in rescue_str_continuity_table
-    uint16_t group_size;
-}
-ASSERT_SIZE(struct rescue_str_variant_group, 4);
 
-
+// Table of rescue_str_continuity structs, corresponding to each string in MISSION_TEXT_STRINGS
+// and determines what index of the rescue_str_variant_table should follow each one (if any).
 // 0x7C0 in rescue.bin
 struct rescue_str_continuity_table {
     struct rescue_str_continuity continuities[964];
 }
 
 ASSERT_SIZE(struct rescue_str_continuity_table, 1952);
-
-
-// Determines the entry in rescue_str_variant_table for the next string in sequence, if any.
-struct rescue_str_continuity {
-    /* This field is interpreted as follows:
-     * If 0xFFFF, there is no next string.
-     * If 0x1NNN, index 0xNNN is for a summary string, NOT a title string.
-     * If 0x0NNN, index 0xNNN is for a title string, NOT a summary string.
-    */
-    uint16_t next_variant_table_id;
-}
-
-ASSERT_SIZE(struct rescue_str_continuity, 4);
 
 
 // Item tables used by certain mission templates. This could be considered as one table,
@@ -131,54 +111,11 @@ struct rescue_monster_tables {
 ASSERT_SIZE(struct rescue_monster_tables, 2944);
 
 
-
-
+// Table of mission templates used for mission generation. A template is chosen from range indicated by the
+// selected mission_weighted_category, and GenerateMission converts the template into a mission struct.
+// 0x1560 in rescue.bin
 struct mission_templates_table {
-    struct mission_template hideout_magnemite_1[8];
-    struct mission_template hideout_magnemite_2[5];
-    struct mission_template hideout_magnezone_1[9];
-    struct mission_template hideout_magnezone_2[8];
-    struct mission_template outlaw_monster_house[1];
-    struct mission_template magnemite_escort[1];
-    struct mission_template magnezone_escort[1];
-    struct mission_template arrest_fleeing[1];
-    struct mission_template arrest_normal_0[1];
-    struct mission_template arrest_normal_1[1];
-    struct mission_template arrest_normal_2[1];
-    struct mission_template arrest_normal_3[1];
-    struct mission_template escort_random[1];
-    struct mission_template escort_specific[12];
-    struct mission_template explore_normal[1];
-    struct mission_template explore_sealed[1];
-    struct mission_template explore_golden[1];
-    struct mission_template explore_new[1];
-    struct mission_template prospect_random[1];
-    struct mission_template prospect_fixed[6];
-    struct mission_template guide_client[1];
-    struct mission_template rescue_client[1];
-    struct mission_template rescue_target_random[1];
-    struct mission_template rescue_target_child[18];
-    struct mission_template rescue_friends[24];
-    struct mission_template rescue_lovers_rivals[23];
-    struct mission_template search_for_target[1];
-    struct mission_template challenge_mewtwo[1];
-    struct mission_template challenge_entei[1];
-    struct mission_template challenge_raikou[1];
-    struct mission_template challenge_suicune[1];
-    struct mission_template challenge_jirachi[1];
-    struct mission_template challenge_other[28];
-    struct mission_template take_outlaw_0[1];
-    struct mission_template take_outlaw_1[1];
-    struct mission_template take_hidden_outlaw[1];
-    struct mission_template take_fleeing_outlaw[1];
-    struct mission_template find_item_common[1];
-    struct mission_template find_item_rare[1];
-    struct mission_template find_favorite_gummi[324];
-    struct mission_template find_evo_item[43];
-    struct mission_template deliver_item[1];
-    struct mission_template seven_treasures[7];
-    struct mission_template gabite_scale[1];
-    struct mission_template treasure_memo[54];
+    struct mission_template [600];
     uint16 padding[4];
 }
 ASSERT_SIZE(struct mission_templates_table, 20416);
@@ -187,89 +124,11 @@ ASSERT_SIZE(struct mission_templates_table, 20416);
 // One of these categories is selected via weighted random whenever the game tries to generate a mission.
 // Each category corresponds to a range of templates in mission_template_table, which contains the specifics
 // of the missions themselves. This struct is primarily used for generation restrictions. 
+// 0x6520 in rescue.bin
 struct mission_categories_table {
-    // [0]: Outlaw Hideout (0/10/10/0) Requirements: {None} Templates: [0, 30)
-    struct mission_weighted_category cat_hideout;
-    // [1]: Outlaw Monster House (0/10/5/0) Requirements: {None} Templates: [30, 31)
-    struct mission_weighted_category cat_monster_house;
-    // [2]: Outlaw Escort Magnezone/Magnemite (0/10/5/0) Requirements: {Rank >= Gold} Templates: [31, 33)
-    struct mission_weighted_category cat_escort_magnet;
-    // [3]: Outlaw Fleeing (0/10/10/0) Requirements: {None} Templates: [33, 34)
-    struct mission_weighted_category cat_fleeing_outlaw;
-    // [4]: Outlaw Normal 0 (0/10/10/0) Requirements: {None} Templates: [34, 35)
-    struct mission_weighted_category cat_outlaw_norm_0;
-    // [5]: Outlaw Normal 1 (0/10/10/0) Requirements: {None} Templates: [35, 36)
-    struct mission_weighted_category cat_outlaw_norm_1;
-    // [6]: Outlaw Normal 2 (0/10/10/0) Requirements: {None} Templates: [36, 37)
-    struct mission_weighted_category cat_outlaw_norm_2;
-    // [7]: Outlaw Normal 3 (0/10/10/0) Requirements: {None} Templates: [37, 38)
-    struct mission_weighted_category cat_outlaw_norm_3;
-    // [8]: Escort To Target (Random) (10/0/10/0) Requirements: {Rank >= Bronze} Templates: [38, 39)
-    struct mission_weighted_category cat_escort_random;
-    // [9]: Escort to Target (Specific) (10/0/10/0) Requirements: {Rank >= Silver} Templates: [39, 51)
-    struct mission_weighted_category cat_escort_specific;
-    // [10]: Explore Client Normal (10/0/10/0) Requirements: {Rank >= Gold} Templates: [51, 52)
-    struct mission_weighted_category cat_explore_normal;
-    // [11]: Explore Client Sealed Chamber (5/0/5/0) Requirements: {Rank >= Diamond} Templates: [52, 53)
-    struct mission_weighted_category cat_explore_sealed;
-    // [12]: Explore Client Gold Chamber (5/0/5/0) Requirements: {Rank >= Diamond} Templates: [53, 54)
-    struct mission_weighted_category cat_explore_gold;
-    // [13]: Explore Client New Dungeon (10/0/10/0) Requirements: {Rank >= Bronze} Templates: [54, 55)
-    struct mission_weighted_category cat_explore_new;
-    // [14]: Prospect With Client (5/0/5/0) Requirements: {Rank >= Diamond} Templates: [55, 62)
-    struct mission_weighted_category cat_prospect;
-    // [15]: Guide Client (10/0/10/0) Requirements: {Rank >= Silver} Templates: [62, 63)
-    struct mission_weighted_category cat_guide_client;
-    // [16]: Rescue Client (10/0/0/10) Requirements: {None} Templates: [63, 64)
-    struct mission_weighted_category cat_rescue_random_client;
-    // [17]: Rescue Target (Random) (10/0/10/0) Requirements: {None} Templates: [64, 65)
-    struct mission_weighted_category cat_rescue_random_target;
-    // [18]: Rescue Target (Child) (10/0/10/0) Requirements: {None} Templates: [65, 83)
-    struct mission_weighted_category cat_rescue_child;
-    // [19]: Rescue Species (10/0/10/0) Requirements: {None} Templates: [83, 107)
-    struct mission_weighted_category cat_rescue_species;
-    // [20]: Rescue Lover/Rival (10/0/10/0) Requirements: {None} Templates: [107, 130)
-    struct mission_weighted_category cat_rescue_lover_rival;
-    // [21]: Search For Target (10/0/10/0) Requirements: {None} Templates: [130, 131)
-    struct mission_weighted_category cat_search_target;
-    // [22]: Challenge Mewtwo (0/0/5/0) Requirements: {Secret Rank} Templates: [131, 132)
-    struct mission_weighted_category cat_challenge_mewtwo;
-    // [23]: Challenge Entei (0/0/5/0) Requirements: {Secret Rank} Templates: [132, 133)
-    struct mission_weighted_category cat_challenge_entei;
-    // [24]: Challenge Raikou (0/0/5/0) Requirements: {Secret Rank} Templates: [133, 134)
-    struct mission_weighted_category cat_challenge_raikou;
-    // [25]: Challenge Suicune (0/0/5/0) Requirements: {Secret Rank} Templates: [134, 135)
-    struct mission_weighted_category cat_challenge_suicune;
-    // [26]: Challenge Jirachi (0/0/5/0) Requirements: {Secret Rank} Templates: [135, 136)
-    // Additional requirements are checked during generation!
-    struct mission_weighted_category cat_challenge_jirachi;
-    // [27]: Challenge Normal (0/0/10/0) Requirements: {None} Templates: [136, 164)
-    struct mission_weighted_category cat_challenge_other;
-    // [28]: Take From Outlaw (0/10/10/0) Requirements: {None} Templates: [164, 166)
-    struct mission_weighted_category cat_take_outlaw_norm;
-    // [29]: Take Hidden Outlaw (0/10/10/0) Requirements: {None} Templates: [166, 167)
-    struct mission_weighted_category cat_take_outlaw_hidden;
-    // [30]: Take Fleeing Outlaw (0/10/10/0) Requirements: {None} Templates: [167, 168)
-    struct mission_weighted_category cat_take_outlaw_fleeing;
-    // [31]: Find Item (Random) (10/0/10/0) Requirements: {None} Templates: [168, 169)
-    struct mission_weighted_category cat_find_item_random;
-    // [32]: Find Item (Table) (5/0/5/0) Requirements: {None} Templates: [169, 170)
-    struct mission_weighted_category cat_find_table_item;
-    // [33]: Find Item Gummi (10/0/10/0) Requirements: {None} Templates: [170, 494)
-    struct mission_weighted_category cat_find_specific_gummi;
-    // [34]: Find Item Evolve (3/0/5/0) Requirements: {None} Templates: [494, 537)
-    struct mission_weighted_category cat_find_evo_item;
-    // [35]: Deliver Item (Random) (10/0/0/10) Requirements: {None} Templates: [537, 538)
-    struct mission_weighted_category cat_deliver_item_random;
-    // [36]: 7 Treasure Mission (0/0/300/0) Requirements: {Secret Rank} Templates: [538, 545)
-    struct mission_weighted_category cat_7_treasure_mission;
-    // [37]: Gabite Scale (0/0/150/0) Requirements: {Balance Flag >= 2} Templates: [545, 546)
-    struct mission_weighted_category cat_gabite_scale_mission;
-    // [38]: Treasure Memo (0/0/0/10) Requirements: {None} Templates: [546, 600)
-    struct mission_weighted_category cat_treasure_memo;
-    // [39]: No Job (Failsafe) (0/0/0/0) Requirements: {None} Templates: [0, 0)
-    // This category is used in the event that no other categories are available.
-    struct mission_weighted_category cat_failsafe_job;
+    struct mission_weighted_category mission_categories[39];
+    // Initially thought this to be a failsafe mission category, but this seems to just be padding.
+    uint16 padding[4];
 }
 
 ASSERT_SIZE(struct mission_categories_table, 640);
