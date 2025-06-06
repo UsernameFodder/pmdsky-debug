@@ -919,9 +919,9 @@ struct mission_details {
     undefined field_0x5f;
     // 0x60: pointer to mission_template struct
     struct mission_template *template_ptr;
-}
+};
 // mission_details is at least this big. unclear bigger it actually is.
-ASSERT_SIZE(struct mission_details, 100);
+ASSERT_SIZE(struct mission_details, 104);
 
 
 // Information about a valid mission; a list of these structs is stored in and directly loaded from
@@ -934,7 +934,7 @@ struct rescue_str_variant_group {
     // [0, group_size) is added to starting_index to produce the final MISSION_STRING_ID entry.
     // This final index is reused to select an index in rescue_str_continuity_table
     uint16_t group_size;
-}
+};
 
 ASSERT_SIZE(struct rescue_str_variant_group, 4);
 
@@ -949,9 +949,9 @@ struct rescue_str_continuity {
      * If 0x0NNN, index 0xNNN is for a title string, NOT a summary string.
     */
     uint16_t next_variant_table_id;
-}
+};
 
-ASSERT_SIZE(struct rescue_str_continuity, 4);
+ASSERT_SIZE(struct rescue_str_continuity, 2);
 
 
 // Information about a valid mission; a list of these structs is stored in and directly loaded from
@@ -961,7 +961,7 @@ struct mission_template {
     // 0x0: Points to an index for mission_title_groups and mission_summary_groups
     // These structs contain data for an appropriate range of titles/summaries 
     // for the mission template from MISSION_STRING_IDS.
-    uint_16 text_string_offset;
+    uint16_t text_string_offset;
     // 0x2: Called in a switch case at 0x0205DED4 [EU] during mission generation 
     // which affect how the template_item_data are interpreted
     enum mission_template_item_case item_case;
@@ -1021,7 +1021,7 @@ struct mission_weighted_category {
     // 0x6: Weight for this category to appear in a bottle on the beach
     uint16_t bottle_weight;
     // 0x8: Minimum Guild Rank required for this category to be considered
-    rank minimum_rank;
+    enum rank minimum_rank;
     // 0x9: Minimum SCENARIO_BALANCE_FLAG required for this category to be considered.
     // Is 0x2 for the gabite scale mission category, and 0x0 for all other categories.
     uint8_t min_scenario_balance;
