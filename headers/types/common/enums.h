@@ -3834,12 +3834,12 @@ ENUM_8_BIT(mission_subtype_guide_client);
 
 // Mission subtype for MISSION_FIND_ITEM
 enum mission_subtype_find_item { 
-    // Item Table parameters are 0x16, 0x00
+    // In the template, pulls from the "common" table in rescue_item_tables.
     // Client is random
-    MISSION_ITEM_TABLE_16_00 = 0, 
-    // Item Table parameters are 0x14, 0x16
+    MISSION_ITEM_COMMON_TABLE = 0, 
+    // In the template, pulls from the "rare" table in rescue_item_tables.
     // Client is random
-    MISSION_ITEM_TABLE_14_16 = 1, 
+    MISSION_ITEM_RARE_TABLE = 1, 
     // Item is an evolution item for the client
     // (IE: Gloom/Leaf Stone, Dusclops/Reaper Cloth, Magmar/Magmarizer)
     MISSION_ITEM_EVOLVES_CLIENT = 2, 
@@ -3891,8 +3891,8 @@ ENUM_8_BIT(mission_subtype_take_item);
 #pragma pack(pop)
 
 // Mission subtype for MISSION_ARREST_OUTLAW
-// 0-3 all occur naturally in-game, but don't seem to have any obvious differences?
-// The distinction might be intensity or perceived difficulty?
+// 0-3 all occur naturally in-game, the distinction is in intensity of the mission.
+// Each uses a different table of outlaws (see and the client for 0-1 is Magnezone 
 enum mission_subtype_outlaw {
     MISSION_OUTLAW_NORMAL_0 = 0, // in mission_template, client is magnezone
     MISSION_OUTLAW_NORMAL_1 = 1, // in mission_template, client is magnezone
@@ -3990,9 +3990,15 @@ enum mission_reward_type {
     MISSION_REWARD_MONEY_AND_MORE = 1, // Money + (?)
     MISSION_REWARD_ITEM = 2,
     MISSION_REWARD_ITEM_AND_MORE = 3, // Item + (?)
-    MISSION_REWARD_ITEM_HIDDEN = 4,   // Item, displayed as "(?)"
-    MISSION_REWARD_MONEY_HIDDEN = 5,  // Money, displayed as "(?)"
+    // Exclusive Item, displayed as "(?)" (Will be 1 star, and beneficial of the client/target)
+    // $SCENARIO_MAIN must be [8, 0] or above AND mission rank must be >=5 stars to be selected.
+    // Also used for the Togetic Wing given from the Gabite Scale mission.
+    MISSION_REWARD_EXCLUSIVE_ITEM = 4, 
+    // Money, displayed as "(?)" 
+    // $SCENARIO_MAIN must be [12, 0] or above to be selected.
+    MISSION_REWARD_MONEY_HIDDEN = 5,
     // Either an egg or the client requests to join the team, displayed as "(?)"
+    // $SCENARIO_MAIN must be [6, 0] or above for this to be selected
     MISSION_REWARD_SPECIAL = 6,
 };
 // This is usually stored as an 8-bit integer
