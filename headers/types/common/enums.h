@@ -3751,30 +3751,30 @@ enum mission_type {
 ENUM_8_BIT(mission_type);
 #pragma pack(pop)
 
-// Mission subtype for MISSION_RESCUE_CLIENT
-enum mission_subtype_rescue_client { 
-    MISSION_TEMPLATE_DEFAULT = 0 // Random Client
+// Mission subtype for mission types without distinct subtypes
+enum mission_subtype_other {
+    MISSION_TEMPLATE_DEFAULT = 0;
 };
 
 // This is usually stored as an 8-bit integer
 #pragma pack(push, 1)
-ENUM_8_BIT(mission_subtype_rescue_client);
+ENUM_8_BIT(mission_subtype_other);
 #pragma pack(pop)
 
 // Mission subtype for MISSION_RESCUE_TARGET
 // The distinction is mainly for dialogue
 enum mission_subtype_rescue_target { 
     // Client and Target are randomly selected
-    MISSION_CLIENT_TARGET_RANDOM = 0,
+    MISSION_RESCUE_CLIENT_TARGET_RANDOM = 0,
     // Client is the evolved form of the target 
     // (IE: Beedrill/Weedle, Aggron/Aron)
-    MISSION_CLIENT_TARGET_CHILD = 1, 
+    MISSION_RESCUE_CLIENT_TARGET_CHILD = 1, 
     // Client and Target are deeply similar 
     // (IE: Dodrio/Exeggutor, Muk/Swalot, Magikarp/Feebas)
-    MISSION_CLIENT_TARGET_SIMILAR_FRIENDS = 2, 
+    MISSION_RESCUE_CLIENT_TARGET_SIMILAR_FRIENDS = 2, 
     // Client and Target are lovers or rivals 
     // (IE: Nidoking/Nidoqueen, Seviper/Zangoose, Volbeat/Illumise)
-    MISSION_CLIENT_TARGET_LOVERS_RIVALS = 3
+    MISSION_RESCUE_CLIENT_TARGET_LOVERS_RIVALS = 3
 };
 
 // This is usually stored as an 8-bit integer
@@ -3785,10 +3785,10 @@ ENUM_8_BIT(mission_subtype_rescue_target);
 // Mission subtype for MISSION_ESCORT_TO_TARGET
 enum mission_subtype_escort_to_target { 
     // Client and Target are randomly selected
-    MISSION_CLIENT_TARGET_RANDOM = 0, 
+    MISSION_ESCORT_CLIENT_TARGET_RANDOM = 0, 
     // Client and Target are counterparts 
     // (IE: Nidoran-M/Nidoran-F, Volbeat/Illumise, Miltank/Tauros)
-    MISSION_CLIENT_TARGET_SPECIFIC = 1
+    MISSION_ESCORT_CLIENT_TARGET_SPECIFIC = 1
 };
 
 // This is usually stored as an 8-bit integer
@@ -3809,43 +3809,21 @@ enum mission_subtype_explore {
 ENUM_8_BIT(mission_subtype_explore);
 #pragma pack(pop)
 
-// Mission subtype for MISSION_PROSPECT_WITH_CLIENT
-// There seems to be no distinction between prospecting 
-// for a random or specific item in this subtype.
-enum mission_subtype_prospect_with_client { 
-    MISSION_TEMPLATE_DEFAULT = 0
-};
-
-// This is usually stored as an 8-bit integer
-#pragma pack(push, 1)
-ENUM_8_BIT(mission_subtype_prospect_with_client);
-#pragma pack(pop)
-
-
-// Mission subtype for MISSION_GUIDE_CLIENT
-enum mission_subtype_guide_client { 
-    MISSION_TEMPLATE_DEFAULT = 0
-};
-
-// This is usually stored as an 8-bit integer
-#pragma pack(push, 1)
-ENUM_8_BIT(mission_subtype_guide_client);
-#pragma pack(pop)
 
 // Mission subtype for MISSION_FIND_ITEM
 enum mission_subtype_find_item { 
     // In the template, pulls from the "common" table in rescue_item_tables.
     // Client is random
-    MISSION_ITEM_COMMON_TABLE = 0, 
+    MISSION_FIND_ITEM_COMMON_TABLE = 0, 
     // In the template, pulls from the "rare" table in rescue_item_tables.
     // Client is random
-    MISSION_ITEM_RARE_TABLE = 1, 
+    MISSION_FIND_ITEM_RARE_TABLE = 1, 
     // Item is an evolution item for the client
     // (IE: Gloom/Leaf Stone, Dusclops/Reaper Cloth, Magmar/Magmarizer)
-    MISSION_ITEM_EVOLVES_CLIENT = 2, 
+    MISSION_FIND_ITEM_EVOLVES_CLIENT = 2, 
     // Item is a gummi of one of the client's types
     // (IE: Flaafy/Yellow Gummi, Baltoy/Brown Gummi, Dratini/Royal Gummi)
-    MISSION_ITEM_CLIENT_FAVORITE_GUMMI = 3, 
+    MISSION_FIND_ITEM_CLIENT_FAVORITE_GUMMI = 3, 
     // This is the special Togetic Mission that unlocks Labyrinth Cave
     MISSION_TOGETIC_GABITE_SCALE = 4
 };
@@ -3853,28 +3831,6 @@ enum mission_subtype_find_item {
 // This is usually stored as an 8-bit integer
 #pragma pack(push, 1)
 ENUM_8_BIT(mission_subtype_find_item);
-#pragma pack(pop)
-
-// Mission subtype for MISSION_DELIVER_ITEM
-enum mission_subtype_deliver_item { 
-    // Random Client, Item from table 0x16 0x00
-    MISSION_TEMPLATE_DEFAULT = 0
-};
-
-// This is usually stored as an 8-bit integer
-#pragma pack(push, 1)
-ENUM_8_BIT(mission_subtype_deliver_item);
-#pragma pack(pop)
-
-
-// Mission subtype for MISSION_SEARCH_FOR_TARGET
-enum mission_subtype_search_for_target { 
-    MISSION_TEMPLATE_DEFAULT = 0 // Random Client and Target
-};
-
-// This is usually stored as an 8-bit integer
-#pragma pack(push, 1)
-ENUM_8_BIT(mission_subtype_search_for_target);
 #pragma pack(pop)
 
 // Mission subtype for MISSION_TAKE_ITEM_FROM_OUTLAW
@@ -3892,7 +3848,7 @@ ENUM_8_BIT(mission_subtype_take_item);
 
 // Mission subtype for MISSION_ARREST_OUTLAW
 // 0-3 all occur naturally in-game, the distinction is in intensity of the mission.
-// Each uses a different table of outlaws (see and the client for 0-1 is Magnezone 
+// Each uses a different table of outlaws of varying difficulties.
 enum mission_subtype_outlaw {
     MISSION_OUTLAW_NORMAL_0 = 0, // in mission_template, client is magnezone
     MISSION_OUTLAW_NORMAL_1 = 1, // in mission_template, client is magnezone
@@ -3927,23 +3883,13 @@ enum mission_subtype_challenge {
 ENUM_8_BIT(mission_subtype_challenge);
 #pragma pack(pop)
 
-// Mission subtype for MISSION_TREASURE_MEMO
-enum mission_subtype_treasure_memo { 
-    MISSION_TEMPLATE_DEFAULT = 0
-};
-
-// This is usually stored as an 8-bit integer
-#pragma pack(push, 1)
-ENUM_8_BIT(mission_subtype_treasure_memo);
-#pragma pack(pop)
-
 
 // Mission subtype for MISSION_SPECIAL_EPISODE
 enum mission_subtype_special_episode { 
-    MISSION_UNK_0 = 0, 
+    MISSION_SE_UNK_0 = 0, 
     // Checked for at 0x0205E2E0 [EU] when determining mission restrictions
-    MISSION_UNK_1 = 1, 
-    MISSION_UNK_2 = 2
+    MISSION_SE_UNK_1 = 1, 
+    MISSION_SE_UNK_2 = 2
 };
 
 // This is usually stored as an 8-bit integer
@@ -3953,9 +3899,9 @@ ENUM_8_BIT(mission_subtype_special_episode);
 
 // Mission subtype for MISSION_SEVEN_TREASURE
 enum mission_subtype_seven_treasure { 
-    MISSION_UNK_0 = 0, 
+    MISSION_SEVEN_UNK_0 = 0, 
     // Subtype 0x1 is used in the template, NOT 0x0
-    MISSION_TEMPLATE_DEFAULT = 1
+    MISSION_SEVEN_TEMPLATE = 1
 };
 
 // This is usually stored as an 8-bit integer
@@ -3965,23 +3911,16 @@ ENUM_8_BIT(mission_subtype_seven_treasure);
 
 // The meaning of the mission subtype depends on the mission type
 union mission_subtype {
-    uint8_t none;
-    struct mission_subtype_rescue_client_8 rescue_client;
     struct mission_subtype_rescue_target_8 rescue_target;
     struct mission_subtype_escort_to_target_8 escort;
     struct mission_subtype_explore_8 explore;
-    struct mission_subtype_prospect_with_client_8 prospect;
-    struct mission_subtype_guide_client_8 guide;
     struct mission_subtype_find_item_8 find_item;
-    struct mission_subtype_deliver_item_8 deliver_item;
-    struct mission_subtype_search_for_target_8 search_target;
     struct mission_subtype_take_item_8 take_item;
     struct mission_subtype_outlaw_8 outlaw;
     struct mission_subtype_challenge_8 challenge;
-    struct mission_subtype_treasure_memo_8 treasure_memo;
-    // unk_0xd
     struct mission_subtype_special_episode_8 special_episode;
     struct mission_subtype_seven_treasure_8 seven_treasure;
+    struct mission_subtype_other_8 other;
 };
 
 // Different types of rewards that a mission can have
@@ -4052,29 +3991,29 @@ enum mission_template_item_case {
     CASE_UNK_3 = 3, 
     // mission_template_item_data_1 and mission_template_item_data_2 are ignored
     CASE_NO_ITEM = 4 
-}
+};
 
 union mission_template_item_data_1 {
     uint16_t none;
     uint16_t template_item_table_id; // if CASE_USE_ITEM_TABLE
-}
+};
 
 union mission_template_item_data_2 {
     uint16_t none;
     uint16_t template_item_table_id; // if CASE_USE_ITEM_TABLE
     struct item_id_16 mission_item_id; // if CASE_SPECIFIC_ITEM
-}
+};
 
 
 
 enum mission_template_dungeon_case {
     CASE_SPECIFIC_OPENED = 0, // Used for Legendary Challenge Letters, among other things
     CASE_SPECIFIC_CLOSED = 1, // Used for Jirachi Challenge Letter and Togetic Mission
-    CASE_UNK_2 = 2, // Treated same as CASE_REVEALED_AND_UNLOCKED
-    CASE_UNK_3 = 3, // Treated same as CASE_REVEALED_AND_UNLOCKED
+    CASE_UNK_02 = 2, // Treated same as CASE_REVEALED_AND_UNLOCKED
+    CASE_UNK_03 = 3, // Treated same as CASE_REVEALED_AND_UNLOCKED
     CASE_RANDOM_OPEN = 4, // Used for most missions
     CASE_RANDOM_CLOSED = 5 // Used for EXPLORE_NEW_DUNGEON subtype
-}
+};
 
 enum mission_template_client_case {
     // Must be attacked in a dungeon to yield a valid mission
@@ -4090,18 +4029,18 @@ enum mission_template_client_case {
     CASE_UNK_3 = 3,
     // Client is selected at random from GetAllPossibleMonsters. Most missions use this.
     CASE_RANDOM_CLIENT = 4,
-}
+};
 
 union mission_template_client_data_1 {
     uint16_t none; 
     uint16_t template_client_table_id; // if CASE_TABLE_CLIENT
-}
+};
 
 union mission_template_client_data_2 {
     uint16_t none; // If CASE_RANDOM_CLIENT
     uint16_t template_client_table_id; // if CASE_TABLE_CLIENT
     struct monster_id_16 client; // if CASE_FIXED_CLIENT_OLD or CASE_FIXED_CLIENT_NEW
-}
+};
 
 enum mission_template_target_case {
     // Must be attacked in a dungeon to yield a valid mission
@@ -4114,24 +4053,24 @@ enum mission_template_target_case {
     // Primarily used for outlaw missions in the template
     CASE_TABLE_TARGET = 2,
     // Has a distinct case menu, unused in template.
-    CASE_UNK_3 = 3,
+    CASE_UNK_003 = 3,
     // Target is selected at random from GetAllPossibleMonsters. Most missions use this.
     CASE_RANDOM_TARGET = 4,
-    CASE_UNK_5 = 5,
+    CASE_UNK_005 = 5,
     // Used by HIDDEN_OUTLAW, seems identical to CASE_RANDOM_TARGET?
     CASE_RANDOM_TARGET_06 = 6,
-}
+};
 
 union mission_template_target_data_1 {
     uint16_t none; 
     uint16_t template_target_table_id; // if CASE_TABLE_CLIENT
-}
+};
 
 union mission_template_target_data_2 {
     uint16_t none; // If CASE_RANDOM_TARGET or CASE_RANDOM_TARGET_06
     uint16_t template_target_table_id; // if CASE_TABLE_TARGET
     struct monster_id_16 target; // if CASE_FIXED_TARGET_OLD
-}
+};
 
 
 // base-level 3D rendering variants
