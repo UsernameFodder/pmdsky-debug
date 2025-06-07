@@ -3998,14 +3998,11 @@ union mission_template_item_data_1 {
     uint16_t template_item_table_id; // if ITEM_CASE_USE_ITEM_TABLE
 };
 
-
 union mission_template_item_data_2 {
     uint16_t none;
     uint16_t template_item_table_id;   // if ITEM_CASE_USE_ITEM_TABLE
     struct item_id_16 mission_item_id; // if ITEM_CASE_SPECIFIC_ITEM
 };
-
-
 
 enum mission_template_dungeon_case {
     DUNGEON_CASE_SPECIFIC_OPENED = 0, // Used for Legendary Challenge Letters, among other things
@@ -4019,7 +4016,6 @@ enum mission_template_dungeon_case {
 #pragma pack(push, 2)
 ENUM_16_BIT(mission_template_dungeon_case);
 #pragma pack(pop)
-
 
 enum mission_template_client_case {
     // Must be attacked in a dungeon to yield a valid mission
@@ -4040,7 +4036,6 @@ enum mission_template_client_case {
 #pragma pack(push, 2)
 ENUM_16_BIT(mission_template_client_case);
 #pragma pack(pop)
-
 
 union mission_template_client_data_1 {
     uint16_t none;
@@ -4075,7 +4070,6 @@ enum mission_template_target_case {
 #pragma pack(push, 2)
 ENUM_16_BIT(mission_template_target_case);
 #pragma pack(pop)
-
 
 union mission_template_target_data_1 {
     uint16_t none;
