@@ -10485,8 +10485,6 @@ arm9:
     - name: GenerateMissionDetailsStruct
       address:
         EU: 0x2060B80
-        NA: 
-        JP: 
       description: |-
         Generates a mission_details struct, to be used for printing mission details such as the title, summary, and objective.
         
@@ -10519,8 +10517,6 @@ arm9:
     - name: AppendMissionTitle
       address:
         EU: 0x02060D8C
-        NA: 
-        JP: 
       description: |-
         Generates the mission title of the mission, and appends it to the string location. 
         r0: [output] output buffer
@@ -10530,8 +10526,6 @@ arm9:
     - name: AppendMissionTitle
       address:
         EU: 0x02060D8C
-        NA: 
-        JP: 
       description: |-
         Generates the mission title of a mission, and appends it to the string location.
         r0: [output] output buffer
@@ -10541,8 +10535,6 @@ arm9:
     - name: AppendMissionSummary
       address:
         EU: 0x02060D8C
-        NA: 
-        JP: 
       description: |-
         Generates the mission title of a mission, and appends it to the string location.
         r0: [output] main string location
