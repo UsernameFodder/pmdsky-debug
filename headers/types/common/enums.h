@@ -3752,9 +3752,7 @@ ENUM_8_BIT(mission_type);
 #pragma pack(pop)
 
 // Mission subtype for mission types without distinct subtypes
-enum mission_subtype_other {
-    MISSION_TEMPLATE_DEFAULT = 0
-};
+enum mission_subtype_other { MISSION_TEMPLATE_DEFAULT = 0 };
 
 // This is usually stored as an 8-bit integer
 #pragma pack(push, 1)
@@ -3763,16 +3761,16 @@ ENUM_8_BIT(mission_subtype_other);
 
 // Mission subtype for MISSION_RESCUE_TARGET
 // The distinction is mainly for dialogue
-enum mission_subtype_rescue_target { 
+enum mission_subtype_rescue_target {
     // Client and Target are randomly selected
     MISSION_RESCUE_CLIENT_TARGET_RANDOM = 0,
-    // Client is the evolved form of the target 
+    // Client is the evolved form of the target
     // (IE: Beedrill/Weedle, Aggron/Aron)
-    MISSION_RESCUE_CLIENT_TARGET_CHILD = 1, 
-    // Client and Target are deeply similar 
+    MISSION_RESCUE_CLIENT_TARGET_CHILD = 1,
+    // Client and Target are deeply similar
     // (IE: Dodrio/Exeggutor, Muk/Swalot, Magikarp/Feebas)
-    MISSION_RESCUE_CLIENT_TARGET_SIMILAR_FRIENDS = 2, 
-    // Client and Target are lovers or rivals 
+    MISSION_RESCUE_CLIENT_TARGET_SIMILAR_FRIENDS = 2,
+    // Client and Target are lovers or rivals
     // (IE: Nidoking/Nidoqueen, Seviper/Zangoose, Volbeat/Illumise)
     MISSION_RESCUE_CLIENT_TARGET_LOVERS_RIVALS = 3
 };
@@ -3783,10 +3781,10 @@ ENUM_8_BIT(mission_subtype_rescue_target);
 #pragma pack(pop)
 
 // Mission subtype for MISSION_ESCORT_TO_TARGET
-enum mission_subtype_escort_to_target { 
+enum mission_subtype_escort_to_target {
     // Client and Target are randomly selected
-    MISSION_ESCORT_CLIENT_TARGET_RANDOM = 0, 
-    // Client and Target are counterparts 
+    MISSION_ESCORT_CLIENT_TARGET_RANDOM = 0,
+    // Client and Target are counterparts
     // (IE: Nidoran-M/Nidoran-F, Volbeat/Illumise, Miltank/Tauros)
     MISSION_ESCORT_CLIENT_TARGET_SPECIFIC = 1
 };
@@ -3809,21 +3807,20 @@ enum mission_subtype_explore {
 ENUM_8_BIT(mission_subtype_explore);
 #pragma pack(pop)
 
-
 // Mission subtype for MISSION_FIND_ITEM
-enum mission_subtype_find_item { 
+enum mission_subtype_find_item {
     // In the template, pulls from the "common" table in rescue_item_tables.
     // Client is random
-    MISSION_FIND_ITEM_COMMON_TABLE = 0, 
+    MISSION_FIND_ITEM_COMMON_TABLE = 0,
     // In the template, pulls from the "rare" table in rescue_item_tables.
     // Client is random
-    MISSION_FIND_ITEM_RARE_TABLE = 1, 
+    MISSION_FIND_ITEM_RARE_TABLE = 1,
     // Item is an evolution item for the client
     // (IE: Gloom/Leaf Stone, Dusclops/Reaper Cloth, Magmar/Magmarizer)
-    MISSION_FIND_ITEM_EVOLVES_CLIENT = 2, 
+    MISSION_FIND_ITEM_EVOLVES_CLIENT = 2,
     // Item is a gummi of one of the client's types
     // (IE: Flaafy/Yellow Gummi, Baltoy/Brown Gummi, Dratini/Royal Gummi)
-    MISSION_FIND_ITEM_CLIENT_FAVORITE_GUMMI = 3, 
+    MISSION_FIND_ITEM_CLIENT_FAVORITE_GUMMI = 3,
     // This is the special Togetic Mission that unlocks Labyrinth Cave
     MISSION_TOGETIC_GABITE_SCALE = 4
 };
@@ -3868,8 +3865,9 @@ ENUM_8_BIT(mission_subtype_outlaw);
 
 // Mission subtype for MISSION_CHALLENGE_REQUEST
 enum mission_subtype_challenge {
-    // One of 28 specific pairings 
-    // (IE: Charizard/Blastoise/Venusaur, Hitmontop/Hitmonchan/HitmonLee, Nidoking/Nidorina/Nidorino)
+    // One of 28 specific pairings
+    // (IE: Charizard/Blastoise/Venusaur, Hitmontop/Hitmonchan/HitmonLee,
+    // Nidoking/Nidorina/Nidorino)
     MISSION_CHALLENGE_NORMAL = 0,
     MISSION_CHALLENGE_MEWTWO = 1,
     MISSION_CHALLENGE_ENTEI = 2,
@@ -3883,12 +3881,11 @@ enum mission_subtype_challenge {
 ENUM_8_BIT(mission_subtype_challenge);
 #pragma pack(pop)
 
-
 // Mission subtype for MISSION_SPECIAL_EPISODE
-enum mission_subtype_special_episode { 
-    MISSION_SE_UNK_0 = 0, 
+enum mission_subtype_special_episode {
+    MISSION_SE_UNK_0 = 0,
     // Checked for at 0x0205E2E0 [EU] when determining mission restrictions
-    MISSION_SE_UNK_1 = 1, 
+    MISSION_SE_UNK_1 = 1,
     MISSION_SE_UNK_2 = 2
 };
 
@@ -3898,8 +3895,8 @@ ENUM_8_BIT(mission_subtype_special_episode);
 #pragma pack(pop)
 
 // Mission subtype for MISSION_SEVEN_TREASURE
-enum mission_subtype_seven_treasure { 
-    MISSION_SEVEN_UNK_0 = 0, 
+enum mission_subtype_seven_treasure {
+    MISSION_SEVEN_UNK_0 = 0,
     // Subtype 0x1 is used in the template, NOT 0x0
     MISSION_SEVEN_TEMPLATE = 1
 };
@@ -3932,8 +3929,8 @@ enum mission_reward_type {
     // Exclusive Item, displayed as "(?)" (Will be 1 star, and beneficial of the client/target)
     // $SCENARIO_MAIN must be [8, 0] or above AND mission rank must be >=5 stars to be selected.
     // Also used for the Togetic Wing given from the Gabite Scale mission.
-    MISSION_REWARD_EXCLUSIVE_ITEM = 4, 
-    // Money, displayed as "(?)" 
+    MISSION_REWARD_EXCLUSIVE_ITEM = 4,
+    // Money, displayed as "(?)"
     // $SCENARIO_MAIN must be [12, 0] or above to be selected.
     MISSION_REWARD_MONEY_HIDDEN = 5,
     // Either an egg or the client requests to join the team, displayed as "(?)"
@@ -3979,18 +3976,17 @@ enum mission_status {
 ENUM_8_BIT(mission_status);
 #pragma pack(pop)
 
-
 enum mission_template_item_case {
     // Treated same as ITEM_CASE_SPECIFIC_ITEM, unused in template
-    ITEM_CASE_UNK_0 = 0, 
+    ITEM_CASE_UNK_0 = 0,
     // mission_template_item_data_1 is ignored, and mission_template_item_data_2 is an item_id
-    ITEM_CASE_SPECIFIC_ITEM = 1, 
+    ITEM_CASE_SPECIFIC_ITEM = 1,
     // mission_template_item_data_1 and mission_template_item_data_2 are indices to a table
-    ITEM_CASE_USE_ITEM_TABLE = 2, 
+    ITEM_CASE_USE_ITEM_TABLE = 2,
     // Has a distinct case menu, unused in template.
-    ITEM_CASE_UNK_3 = 3, 
+    ITEM_CASE_UNK_3 = 3,
     // mission_template_item_data_1 and mission_template_item_data_2 are ignored
-    ITEM_CASE_NO_ITEM = 4 
+    ITEM_CASE_NO_ITEM = 4
 };
 
 union mission_template_item_data_1 {
@@ -4000,29 +3996,27 @@ union mission_template_item_data_1 {
 
 union mission_template_item_data_2 {
     uint16_t none;
-    uint16_t template_item_table_id; // if ITEM_CASE_USE_ITEM_TABLE
+    uint16_t template_item_table_id;   // if ITEM_CASE_USE_ITEM_TABLE
     struct item_id_16 mission_item_id; // if ITEM_CASE_SPECIFIC_ITEM
 };
-
-
 
 enum mission_template_dungeon_case {
     DUNGEON_CASE_SPECIFIC_OPENED = 0, // Used for Legendary Challenge Letters, among other things
     DUNGEON_CASE_SPECIFIC_CLOSED = 1, // Used for Jirachi Challenge Letter and Togetic Mission
-    DUNGEON_CASE_UNK_2 = 2, // Treated same as DUNGEON_CASE_REVEALED_AND_UNLOCKED
-    DUNGEON_CASE_UNK_3 = 3, // Treated same as DUNGEON_CASE_REVEALED_AND_UNLOCKED
-    DUNGEON_CASE_RANDOM_OPEN = 4, // Used for most missions
-    DUNGEON_CASE_RANDOM_CLOSED = 5 // Used for EXPLORE_NEW_DUNGEON subtype
+    DUNGEON_CASE_UNK_2 = 2,           // Treated same as DUNGEON_CASE_REVEALED_AND_UNLOCKED
+    DUNGEON_CASE_UNK_3 = 3,           // Treated same as DUNGEON_CASE_REVEALED_AND_UNLOCKED
+    DUNGEON_CASE_RANDOM_OPEN = 4,     // Used for most missions
+    DUNGEON_CASE_RANDOM_CLOSED = 5    // Used for EXPLORE_NEW_DUNGEON subtype
 };
 
 enum mission_template_client_case {
     // Must be attacked in a dungeon to yield a valid mission
-    CLIENT_CASE_FIXED_CLIENT_OLD = 0, 
+    CLIENT_CASE_FIXED_CLIENT_OLD = 0,
     // Does not need to be attacked in a dungeon to yield a valid mission
     // Examples include magnemite/magnezone, and legendary challenge letters
     CLIENT_CASE_FIXED_CLIENT_NEW = 1,
     // mission_template_client_data_1 and mission_template_client_data_2 are indices to a table
-    // This determines the final client in a more restricted manner. 
+    // This determines the final client in a more restricted manner.
     // Only used for MISSION_GUIDE_CLIENT in the template
     CLIENT_CASE_TABLE_CLIENT = 2,
     // Has a distinct case menu, unused in template.
@@ -4032,24 +4026,24 @@ enum mission_template_client_case {
 };
 
 union mission_template_client_data_1 {
-    uint16_t none; 
+    uint16_t none;
     uint16_t template_client_table_id; // if CLIENT_CASE_TABLE_CLIENT
 };
 
 union mission_template_client_data_2 {
-    uint16_t none; // If CLIENT_CASE_RANDOM_CLIENT
+    uint16_t none;                     // If CLIENT_CASE_RANDOM_CLIENT
     uint16_t template_client_table_id; // if CLIENT_CASE_TABLE_CLIENT
     struct monster_id_16 client; // if CLIENT_CASE_FIXED_CLIENT_OLD or CLIENT_CASE_FIXED_CLIENT_NEW
 };
 
 enum mission_template_target_case {
     // Must be attacked in a dungeon to yield a valid mission
-    TARGET_CASE_FIXED_TARGET_OLD = 0, 
+    TARGET_CASE_FIXED_TARGET_OLD = 0,
     // Does not need to be attacked in a dungeon to yield a valid mission
     // Not present in template.
     TARGET_CASE_FIXED_TARGET_NEW = 1,
     // mission_template_target_data_1 and mission_template_target_data_2 are indices to a table
-    // This determines the final target in a more restricted manner. 
+    // This determines the final target in a more restricted manner.
     // Primarily used for outlaw missions in the template
     TARGET_CASE_TABLE_TARGET = 2,
     // Has a distinct case menu, unused in template.
@@ -4062,16 +4056,15 @@ enum mission_template_target_case {
 };
 
 union mission_template_target_data_1 {
-    uint16_t none; 
+    uint16_t none;
     uint16_t template_target_table_id; // if TARGET_CASE_TABLE_CLIENT
 };
 
 union mission_template_target_data_2 {
-    uint16_t none; // If CASE_RANDOM_TARGET or TARGET_CASE_RANDOM_TARGET_06
+    uint16_t none;                     // If CASE_RANDOM_TARGET or TARGET_CASE_RANDOM_TARGET_06
     uint16_t template_target_table_id; // if TARGET_CASE_TABLE_TARGET
-    struct monster_id_16 target; // if TARGET_CASE_FIXED_TARGET_OLD
+    struct monster_id_16 target;       // if TARGET_CASE_FIXED_TARGET_OLD
 };
-
 
 // base-level 3D rendering variants
 enum render_type {

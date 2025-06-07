@@ -819,7 +819,6 @@ struct mission_floors_forbidden {
 };
 ASSERT_SIZE(struct mission_floors_forbidden, 2);
 
-
 // Used throughout the process of displaying a mission
 struct mission_details {
     undefined field_0x0;
@@ -831,7 +830,7 @@ struct mission_details {
     undefined field_0x6;
     undefined field_0x7;
     // 0x8: Pointer to mission struct + 0x4 (new substruct?)
-    struct mission *mission_ptr;
+    struct mission* mission_ptr;
     undefined field_0xb;
     undefined field_0xc;
     undefined field_0xd;
@@ -918,26 +917,24 @@ struct mission_details {
     undefined field_0x5e;
     undefined field_0x5f;
     // 0x60: pointer to mission_template struct
-    struct mission_template *template_ptr;
+    struct mission_template* template_ptr;
 };
 // mission_details is at least this big. unclear bigger it actually is.
 ASSERT_SIZE(struct mission_details, 104);
-
 
 // Information about a valid mission; a list of these structs is stored in and directly loaded from
 // RESCUE/rescue.bin at 0x20, where 481 of these structs exist. These are used to select a string
 // from MISSION_STRING_IDS at random, to provide variance to mission flavor text.
 struct rescue_str_variant_group {
-    // 0x0: Index of MISSION_STRING_IDS the group starts from. 
+    // 0x0: Index of MISSION_STRING_IDS the group starts from.
     uint16_t starting_index;
-    // 0x2: Number of other MISSION_STRING_IDS entries the group contains. A random int on the range 
+    // 0x2: Number of other MISSION_STRING_IDS entries the group contains. A random int on the range
     // [0, group_size) is added to starting_index to produce the final MISSION_STRING_ID entry.
     // This final index is reused to select an index in rescue_str_continuity_table
     uint16_t group_size;
 };
 
 ASSERT_SIZE(struct rescue_str_variant_group, 4);
-
 
 // Information about a valid mission; a list of these structs is stored in and directly loaded from
 // RESCUE/rescue.bin at 0x7C0, where 964 of these structs exist. These correspond to each string in
@@ -947,30 +944,29 @@ struct rescue_str_continuity {
      * If 0xFFFF, there is no next string.
      * If 0x1NNN, index 0xNNN is for a summary string, NOT a title string.
      * If 0x0NNN, index 0xNNN is for a title string, NOT a summary string.
-    */
+     */
     uint16_t next_variant_table_id;
 };
 
 ASSERT_SIZE(struct rescue_str_continuity, 2);
 
-
 // Information about a valid mission; a list of these structs is stored in and directly loaded from
-// RESCUE/rescue.bin at 0x1560, where 600 of these structs exist. These are templates for mission generation,
-// which are categorized by mission_weighted_category above.
+// RESCUE/rescue.bin at 0x1560, where 600 of these structs exist. These are templates for mission
+// generation, which are categorized by mission_weighted_category above.
 struct mission_template {
     // 0x0: Points to an index for mission_title_groups and mission_summary_groups
-    // These structs contain data for an appropriate range of titles/summaries 
+    // These structs contain data for an appropriate range of titles/summaries
     // for the mission template from MISSION_STRING_IDS.
     uint16_t text_string_offset;
-    // 0x2: Called in a switch case at 0x0205DED4 [EU] during mission generation 
+    // 0x2: Called in a switch case at 0x0205DED4 [EU] during mission generation
     // which affect how the template_item_data are interpreted
     enum mission_template_item_case item_case : 2;
-    // 0x4: Ignored if mission_template_item_case is not "0x2". 
+    // 0x4: Ignored if mission_template_item_case is not "0x2".
     union mission_template_item_data_1 template_item_data_1;
     // 0x6: Ignored if mission_template_item_case is "0x4".
     // Usually stores the item_id of an item used in the mission
     union mission_template_item_data_2 template_item_data_2;
-    // 0x8: Called in a switch case at 0x0205DED4 [EU] during mission generation 
+    // 0x8: Called in a switch case at 0x0205DED4 [EU] during mission generation
     // For legendary challenge missions, is also used as a boolean to indicate whether or not
     // accepting the mission unlocks its dungeon.
     enum mission_template_dungeon_case dungeon_case : 2;
@@ -978,18 +974,18 @@ struct mission_template {
     undefined field_0xa;
     // 0xB: Always Zero in the template, not referenced during mission generation.
     undefined field_0xb;
-    // 0xC: Dungeon this mission is restricted to, or 0xFF if none. 
+    // 0xC: Dungeon this mission is restricted to, or 0xFF if none.
     // Use is governed by mission_template_dungeon_case
-    int16_t restricted_dungeon; 
+    int16_t restricted_dungeon;
     // 0xE: Called in a switch case at 0x0205D8C4 [EU] during mission generation
     enum mission_template_client_case client_case : 2;
     // 0x10: Ignored if mission_template_client_case is not "0x2"
     union mission_template_client_data_1 template_client_data_1;
     // 0x12: Ignored if mission_template_client_case is "0x4"
-    // For challenge letter missions, stores the leader (who is ALSO the client)    
+    // For challenge letter missions, stores the leader (who is ALSO the client)
     // Usually stores a monster_id
     union mission_template_client_data_2 template_client_data_2;
-    // 0x14: Called in a looped switch case at 0x0205DBEC[EU] during mission generation 
+    // 0x14: Called in a looped switch case at 0x0205DBEC[EU] during mission generation
     enum mission_template_target_case target_case_1 : 2;
     // 0x16: Ignored if mission_template_target_case (at 0x14) is not "0x2"
     union mission_template_target_data_1 template_target_data_1;
@@ -1035,7 +1031,6 @@ struct mission_weighted_category {
 };
 
 ASSERT_SIZE(struct mission_weighted_category, 16);
-
 
 // Unverified, ported from Irdkwia's notes
 struct quiz_answer_points_entry {

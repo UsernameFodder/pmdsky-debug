@@ -870,7 +870,6 @@ enum dungeon_objective {
 ENUM_8_BIT(dungeon_objective);
 #pragma pack(pop)
 
-
 // The cause of a monster taking damage, not including the move case.
 // These codes should all be greater than any move ID.
 // Some of the values are used as faint reasons or on the "The Last Outing" screen
