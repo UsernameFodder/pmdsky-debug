@@ -964,7 +964,7 @@ struct mission_template {
     uint16_t text_string_offset;
     // 0x2: Called in a switch case at 0x0205DED4 [EU] during mission generation 
     // which affect how the template_item_data are interpreted
-    enum mission_template_item_case item_case;
+    enum mission_template_item_case item_case : 2;
     // 0x4: Ignored if mission_template_item_case is not "0x2". 
     union mission_template_item_data_1 template_item_data_1;
     // 0x6: Ignored if mission_template_item_case is "0x4".
@@ -973,7 +973,7 @@ struct mission_template {
     // 0x8: Called in a switch case at 0x0205DED4 [EU] during mission generation 
     // For legendary challenge missions, is also used as a boolean to indicate whether or not
     // accepting the mission unlocks its dungeon.
-    enum mission_template_dungeon_case dungeon_case;
+    enum mission_template_dungeon_case dungeon_case : 2;
     // 0xA: Always Zero in the template, not referenced during mission generation.
     undefined field_0xa;
     // 0xB: Always Zero in the template, not referenced during mission generation.
@@ -982,7 +982,7 @@ struct mission_template {
     // Use is governed by mission_template_dungeon_case
     int16_t restricted_dungeon; 
     // 0xE: Called in a switch case at 0x0205D8C4 [EU] during mission generation
-    enum mission_template_client_case client_case;
+    enum mission_template_client_case client_case : 2;
     // 0x10: Ignored if mission_template_client_case is not "0x2"
     union mission_template_client_data_1 template_client_data_1;
     // 0x12: Ignored if mission_template_client_case is "0x4"
@@ -990,14 +990,14 @@ struct mission_template {
     // Usually stores a monster_id
     union mission_template_client_data_2 template_client_data_2;
     // 0x14: Called in a looped switch case at 0x0205DBEC[EU] during mission generation 
-    enum mission_template_target_case target_case_1;
+    enum mission_template_target_case target_case_1 : 2;
     // 0x16: Ignored if mission_template_target_case (at 0x14) is not "0x2"
     union mission_template_target_data_1 template_target_data_1;
     // 0x18: Ignored if mission_template_target_case (at 0x14) is "0x4" or "0x6"
     // For non-legendary challenge letter missions, stores the second team member
     union mission_template_target_data_2 template_target_data_2;
     // 0x1A: Called in the same looped switch case at 0x0205DBEC[EU] during mission generation
-    enum mission_template_target_case target_backup_case_1;
+    enum mission_template_target_case target_backup_case_1 : 2;
     // 0x1C: Ignored if mission_template_target_case (at 0x1A) is not "0x2"
     union mission_template_target_data_1 target_backup_data_1;
     // 0x1E: Ignored if mission_template_target_case (at 0x1A) is "0x4" or "0x6"
