@@ -10490,8 +10490,8 @@ arm9:
         
         r0: mission struct pointer
         r1: [output] location of mission_details struct
-        r2: unknown
-        r3: unknown
+        r2: ?
+        r3: ?
     - name: ValidateNormalChallengeMission
       address:
         EU: 0x2060B80
