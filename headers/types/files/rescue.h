@@ -14,14 +14,14 @@ struct rescue_header {
     struct mission_templates_table* template_table_pointer;       // 0x10
     struct mission_categories_table* category_table_pointer;      // 0x14
     // Likely Padding
-    undefined field1_0x18;
-    undefined field1_0x19;
-    undefined field1_0x1A;
-    undefined field1_0x1B;
-    undefined field1_0x1C;
-    undefined field1_0x1D;
-    undefined field1_0x1E;
-    undefined field1_0x1F;
+    undefined field_0x18;
+    undefined field_0x19;
+    undefined field_0x1A;
+    undefined field_0x1B;
+    undefined field_0x1C;
+    undefined field_0x1D;
+    undefined field_0x1E;
+    undefined field_0x1F;
 };
 
 ASSERT_SIZE(struct rescue_header, 32);
@@ -30,8 +30,8 @@ ASSERT_SIZE(struct rescue_header, 32);
 // a mission_template struct or equivalently of a rescue_str_continuity struct.
 // 0x20 in rescue.bin
 struct rescue_str_variant_table {
-    struct rescue_str_variant_group string_groups[481];
-    uint32_t padding[7]; // 0x00000000
+    struct rescue_str_variant_group string_groups[482];
+    struct rescue_str_variant_group unused[6];
 };
 
 ASSERT_SIZE(struct rescue_str_variant_table, 1952);
@@ -60,7 +60,7 @@ struct rescue_item_tables {
     // is also present. Sitrus Berries and Reviver Seeds are ALSO on this table, for some reason.
     struct item_id_16 rare_table[20];
     // If this is an item table, it's always zero and unused by any template.
-    uint16_t padding[2];
+    uint16_t unused_item_table_entries[2];
 };
 
 ASSERT_SIZE(struct rescue_item_tables, 176);
@@ -74,7 +74,7 @@ struct rescue_monster_tables {
     // fully-evolved pokemon like Masquerain and Beautifly. Seem to be stronger on average than
     // those in normal_outlaw_3_table.
     struct monster_id_16 normal_outlaw_2_table[65];
-    // [65, 106): Used exclusively for the OUTLAW_NORMAL_2 mission subtype, and consists mostly of
+    // [65, 106): Used exclusively for the OUTLAW_NORMAL_3 mission subtype, and consists mostly of
     // basic Pokemon, such as Lotad, Teddiursa, and Abra. Also contains all 3 forms of Burmy and
     // Wormadam.
     struct monster_id_16 normal_outlaw_3_table[41];
@@ -108,7 +108,7 @@ struct rescue_monster_tables {
     // Tyranitar, Torterra, and Gengar. Outliers exists, such as Gligar, Golbat, Cubone, and
     // Cranidos.
     struct monster_id_16 normal_outlaw_1_table[143];
-    uint16_t padding[11];
+    uint16_t unused_monster_table_entries[11];
 };
 
 ASSERT_SIZE(struct rescue_monster_tables, 2944);
@@ -118,7 +118,8 @@ ASSERT_SIZE(struct rescue_monster_tables, 2944);
 // mission struct. 0x1560 in rescue.bin
 struct mission_templates_table {
     struct mission_template[600];
-    uint16 padding[4];
+    // This is the perfect size for a mission_category, but not for a template...
+    uint16_t unused[4];
 };
 ASSERT_SIZE(struct mission_templates_table, 20416);
 
@@ -128,8 +129,8 @@ ASSERT_SIZE(struct mission_templates_table, 20416);
 // restrictions. 0x6520 in rescue.bin
 struct mission_categories_table {
     struct mission_weighted_category mission_categories[39];
-    // Initially thought this to be a failsafe mission category, but this seems to just be padding.
-    uint16 padding[4];
+    // This category is never read, but that might be a one-instruction change.
+    struct mission_weighted_category unused_category;
 };
 
 ASSERT_SIZE(struct mission_categories_table, 640);
