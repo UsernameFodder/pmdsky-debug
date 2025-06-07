@@ -832,7 +832,7 @@ struct mission_details {
     undefined field_0x6;
     undefined field_0x7;
     // 0x8: Pointer to mission struct + 0x4 (new substruct?)
-    struct mission* mission_ptr;
+    struct mission *mission_ptr;
     undefined field_0xb;
     undefined field_0xc;
     undefined field_0xd;
@@ -919,9 +919,8 @@ struct mission_details {
     undefined field_0x5e;
     undefined field_0x5f;
     // 0x60: pointer to mission_template struct
-    struct mission_template* template_ptr;
+    struct mission_template *template_ptr;
 };
-
 #pragma pack(pop) // Go back to the default packing behavior
 
 // mission_details is at least this big. unclear bigger it actually is.
