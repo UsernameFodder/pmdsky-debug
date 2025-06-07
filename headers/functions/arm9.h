@@ -1101,9 +1101,9 @@ bool ValidateNormalChallengeMission(struct mission_template* valid_mission_info,
 bool ValidateLegendaryChallengeMission(struct mission_template* valid_mission_info,
                                        struct mission* mission);
 void AppendMissionTitle(char* main_buffer, char* temp_buffer, struct preprocessor_args* args,
-                        struct mission_details* details);
+                       struct mission_details* details);
 void AppendMissionSummary(char* main_buffer, char* temp_buffer, struct preprocessor_args* args,
-                          int window_id, int y_offset, struct mission_details* details);
+                         int window_id, int y_offset, struct mission_details* details);
 bool IsMonsterMissionAllowed(enum monster_id monster_id);
 bool CanMonsterBeUsedForMissionWrapper(enum monster_id monster_id);
 bool CanMonsterBeUsedForMission(enum monster_id monster_id, bool check_story_banned);
