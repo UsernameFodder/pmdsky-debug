@@ -920,7 +920,7 @@ struct mission_details {
 };
 
 // mission_details is at least this big. Unclear how much bigger it actually is.
-ASSERT_SIZE(struct mission_details, 104);
+ASSERT_SIZE(struct mission_details, 100);
 
 // Information about a valid mission; a list of these structs is stored in and directly loaded from
 // RESCUE/rescue.bin at 0x20, where 481 of these structs exist. These are used to select a string
