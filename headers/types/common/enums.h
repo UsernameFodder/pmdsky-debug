@@ -3751,14 +3751,6 @@ enum mission_type {
 ENUM_8_BIT(mission_type);
 #pragma pack(pop)
 
-// Mission subtype for mission types without distinct subtypes
-enum mission_subtype_other { MISSION_TEMPLATE_DEFAULT = 0 };
-
-// This is usually stored as an 8-bit integer
-#pragma pack(push, 1)
-ENUM_8_BIT(mission_subtype_other);
-#pragma pack(pop)
-
 // Mission subtype for MISSION_RESCUE_TARGET
 // The distinction is mainly for dialogue
 enum mission_subtype_rescue_target {
@@ -3917,7 +3909,7 @@ union mission_subtype {
     struct mission_subtype_challenge_8 challenge;
     struct mission_subtype_special_episode_8 special_episode;
     struct mission_subtype_seven_treasure_8 seven_treasure;
-    struct mission_subtype_other_8 other;
+    uint8_t other;
 };
 
 // Different types of rewards that a mission can have
@@ -3993,12 +3985,8 @@ enum mission_template_item_case {
 ENUM_16_BIT(mission_template_item_case);
 #pragma pack(pop)
 
-union mission_template_item_data_1 {
-    uint16_t none;
-    uint16_t template_item_table_id; // if ITEM_CASE_USE_ITEM_TABLE
-};
 
-union mission_template_item_data_2 {
+union mission_template_item_data {
     uint16_t none;
     uint16_t template_item_table_id;   // if ITEM_CASE_USE_ITEM_TABLE
     struct item_id_16 mission_item_id; // if ITEM_CASE_SPECIFIC_ITEM
@@ -4037,12 +4025,7 @@ enum mission_template_client_case {
 ENUM_16_BIT(mission_template_client_case);
 #pragma pack(pop)
 
-union mission_template_client_data_1 {
-    uint16_t none;
-    uint16_t template_client_table_id; // if CLIENT_CASE_TABLE_CLIENT
-};
-
-union mission_template_client_data_2 {
+union mission_template_client_data {
     uint16_t none;                     // If CLIENT_CASE_RANDOM_CLIENT
     uint16_t template_client_table_id; // if CLIENT_CASE_TABLE_CLIENT
     struct monster_id_16 client; // if CLIENT_CASE_FIXED_CLIENT_OLD or CLIENT_CASE_FIXED_CLIENT_NEW
@@ -4071,12 +4054,8 @@ enum mission_template_target_case {
 ENUM_16_BIT(mission_template_target_case);
 #pragma pack(pop)
 
-union mission_template_target_data_1 {
-    uint16_t none;
-    uint16_t template_target_table_id; // if TARGET_CASE_TABLE_CLIENT
-};
 
-union mission_template_target_data_2 {
+union mission_template_target_data {
     uint16_t none;                     // If CASE_RANDOM_TARGET or TARGET_CASE_RANDOM_TARGET_06
     uint16_t template_target_table_id; // if TARGET_CASE_TABLE_TARGET
     struct monster_id_16 target;       // if TARGET_CASE_FIXED_TARGET_OLD
