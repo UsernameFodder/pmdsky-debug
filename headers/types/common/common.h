@@ -824,9 +824,9 @@ ASSERT_SIZE(struct mission_floors_forbidden, 2);
 
 struct mission_details {
     undefined field_1[8];
-    // 0x8: Pointer to mission struct + 0x4 (new substruct?)
+    // 0x8: Pointer to "mission struct + 0x4" (new substruct?)
     struct mission *mission_ptr;
-    undefined field_2[54];
+    undefined field_2[88];
     // 0x60: pointer to mission_template struct
     struct mission_template *template_ptr;
 };
