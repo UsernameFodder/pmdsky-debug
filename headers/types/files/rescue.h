@@ -32,7 +32,7 @@ ASSERT_SIZE(struct rescue_header, 32);
 struct rescue_str_variant_table {
     struct rescue_str_variant_group string_groups[481];
     uint32_t padding[7]; // 0x00000000
-}
+};
 
 ASSERT_SIZE(struct rescue_str_variant_table, 1952);
 
@@ -41,7 +41,7 @@ ASSERT_SIZE(struct rescue_str_variant_table, 1952);
 // 0x7C0 in rescue.bin
 struct rescue_str_continuity_table {
     struct rescue_str_continuity continuities[964];
-}
+};
 
 ASSERT_SIZE(struct rescue_str_continuity_table, 1952);
 
@@ -61,7 +61,7 @@ struct rescue_item_tables {
     struct item_id_16 rare_table[20];
     // If this is an item table, it's always zero and unused by any template.
     uint16_t padding[2];
-}
+};
 
 ASSERT_SIZE(struct rescue_item_tables, 176);
 
@@ -91,7 +91,7 @@ struct rescue_monster_tables {
     // Metagross, Dragonite, Garchomp, Tyranitar, and Salamence. Every Pokemon on this list is fully
     // evolved if it has evolutions. This list is the same regardless of Whether Magnezone or
     // Magnemite accompanies you. Overlaps with the range used by the GUIDE_CLIENT template.
-
+    //
     // [227, 471): Used for the GUIDE_CLIENT mission type, and consists of a wide variety of Pokemon
     // defying categorization. Outside of the overlap, the list seems to contain mostly weaker
     // Pokemon. There is one invalid Pokemon entry in this table, 0x0CBE. Likely intended to be
@@ -109,7 +109,7 @@ struct rescue_monster_tables {
     // Cranidos.
     struct monster_id_16 normal_outlaw_1_table[143];
     uint16_t padding[11];
-}
+};
 
 ASSERT_SIZE(struct rescue_monster_tables, 2944);
 
@@ -119,7 +119,8 @@ ASSERT_SIZE(struct rescue_monster_tables, 2944);
 struct mission_templates_table {
     struct mission_template[600];
     uint16 padding[4];
-} ASSERT_SIZE(struct mission_templates_table, 20416);
+};
+ASSERT_SIZE(struct mission_templates_table, 20416);
 
 // One of these categories is selected via weighted random whenever the game tries to generate a
 // mission. Each category corresponds to a range of templates in mission_template_table, which
@@ -129,6 +130,6 @@ struct mission_categories_table {
     struct mission_weighted_category mission_categories[39];
     // Initially thought this to be a failsafe mission category, but this seems to just be padding.
     uint16 padding[4];
-}
+};
 
 ASSERT_SIZE(struct mission_categories_table, 640);

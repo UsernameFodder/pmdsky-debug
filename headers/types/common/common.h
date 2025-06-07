@@ -832,7 +832,7 @@ struct mission_details {
 };
 #pragma pack(pop) // Go back to the default packing behavior
 
-// mission_details is at least this big. unclear bigger it actually is.
+// mission_details is at least this big. Unclear how much bigger it actually is.
 ASSERT_SIZE(struct mission_details, 104);
 
 // Information about a valid mission; a list of these structs is stored in and directly loaded from

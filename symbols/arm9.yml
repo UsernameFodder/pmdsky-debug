@@ -10519,6 +10519,7 @@ arm9:
         EU: 0x2060D8C
       description: |-
         Generates the mission title of a mission, and appends it to the string location.
+        
         r0: [output] output buffer
         r1: intermediate buffer, filled then concatenated to output buffer
         r2: pointer to preprocessor args
@@ -12404,7 +12405,7 @@ arm9:
         NA: 0x1C
         JP: 0x1C
       description: |-
-        Weights for each possible mission_reward_type, exclusively for the ARREST_OUTLAW mision type.
+        Weights for each possible mission_reward_type, exclusively for the ARREST_OUTLAW mission type.
         Takes priority over CAFE_MISSION_REWARD_TYPE_WEIGHTS and CAFE_MISSION_REWARD_TYPE_WEIGHTS.
         
         type: int16_t[7]
