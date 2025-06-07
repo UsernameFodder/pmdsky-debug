@@ -12381,8 +12381,6 @@ arm9:
         Alias covers both this and the next table.
         type: struct item_id_16[3]
     - name: CAFE_MISSION_REWARD_TYPE_WEIGHTS
-      aliases: 
-        - ARM9_UNKNOWN_TABLE__NA_20A3CC8 
       address:
         EU: 0x20A42C8
         NA: 0x20A3CC8
@@ -12397,8 +12395,6 @@ arm9:
         Alias covers both this and the prior table.
         type: int16_t[7]
     - name: OUTLAW_MISSION_REWARD_TYPE_WEIGHTS
-      aliases: 
-        - ARM9_UNKNOWN_TABLE__NA_20A3CC8 
       address:
         EU: 0x20A42D6
         NA: 0x20A3CD6
@@ -12413,8 +12409,6 @@ arm9:
         
         type: int16_t[7]
     - name: DEFAULT_MISSION_REWARD_TYPE_WEIGHTS
-      aliases: 
-        - ARM9_UNKNOWN_TABLE__NA_20A3CE4
       address:
         EU: 0x20A42E4
         NA: 0x20A3CE4
@@ -12429,8 +12423,6 @@ arm9:
         
         type: int16_t[7]
     - name: MISSION_VALIDATION_FUNCTION_LIST
-      aliases:
-        - ARM9_UNKNOWN_FUNCTION_TABLE__NA_20A3CF4
       address:
         EU: 0x20A42F4
         NA: 0x20A3CF4
