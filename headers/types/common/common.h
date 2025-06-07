@@ -960,10 +960,12 @@ struct mission_template {
     // which affect how the template_item_data are interpreted
     struct mission_template_item_case_16 item_case;
     // 0x4: Ignored if mission_template_item_case is not "0x2".
-    union mission_template_item_data_1 template_item_data_1;
+    // If not ignored, stores a table index.
+    union mission_template_item_data template_item_data_1;
     // 0x6: Ignored if mission_template_item_case is "0x4".
-    // Usually stores the item_id of an item used in the mission
-    union mission_template_item_data_2 template_item_data_2;
+    // Usually stores the item_id of an item used in the mission.
+    // Can instead store a table index.
+    union mission_template_item_data template_item_data_2;
     // 0x8: Called in a switch case at 0x0205DED4 [EU] during mission generation
     // For legendary challenge missions, is also used as a boolean to indicate whether or not
     // accepting the mission unlocks its dungeon.
@@ -978,25 +980,26 @@ struct mission_template {
     // 0xE: Called in a switch case at 0x0205D8C4 [EU] during mission generation
     struct mission_template_client_case_16 client_case;
     // 0x10: Ignored if mission_template_client_case is not "0x2"
-    union mission_template_client_data_1 template_client_data_1;
+    // If not ignored, stores a table index.
+    union mission_template_client_data template_client_data_1;
     // 0x12: Ignored if mission_template_client_case is "0x4"
     // For challenge letter missions, stores the leader (who is ALSO the client)
-    // Usually stores a monster_id
-    union mission_template_client_data_2 template_client_data_2;
+    // Usually stores a monster_id, but could instead store a table index.
+    union mission_template_client_data template_client_data_2;
     // 0x14: Called in a looped switch case at 0x0205DBEC[EU] during mission generation
     struct mission_template_target_case_16 target_case;
     // 0x16: Ignored if mission_template_target_case (at 0x14) is not "0x2"
-    union mission_template_target_data_1 template_target_data_1;
+    union mission_template_target_data template_target_data_1;
     // 0x18: Ignored if mission_template_target_case (at 0x14) is "0x4" or "0x6"
     // For non-legendary challenge letter missions, stores the second team member
-    union mission_template_target_data_2 template_target_data_2;
+    union mission_template_target_data template_target_data_2;
     // 0x1A: Called in the same looped switch case at 0x0205DBEC[EU] during mission generation
     struct mission_template_target_case_16 target_backup_case;
     // 0x1C: Ignored if mission_template_target_case (at 0x1A) is not "0x2"
-    union mission_template_target_data_1 target_backup_data_1;
+    union mission_template_target_data target_backup_data_1;
     // 0x1E: Ignored if mission_template_target_case (at 0x1A) is "0x4" or "0x6"
     // For non-legendary challenge letter missions, stores the third team member
-    union mission_template_target_data_2 target_backup_data_2;
+    union mission_template_target_data target_backup_data_2;
     struct mission_type_8 type;    // 0x20
     union mission_subtype subtype; // 0x21
 };
