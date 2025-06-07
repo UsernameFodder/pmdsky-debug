@@ -10525,7 +10525,7 @@ arm9:
         r3: pointer to mission_window_details struct
     - name: AppendMissionSummary
       address:
-        EU: 0x02060D8C
+        EU: 0x02061230
       description: |-
         Generates the mission title of a mission, and appends it to the string location.
         r0: [output] main string location
