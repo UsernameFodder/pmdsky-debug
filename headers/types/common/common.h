@@ -820,6 +820,8 @@ struct mission_floors_forbidden {
 ASSERT_SIZE(struct mission_floors_forbidden, 2);
 
 // Used throughout the process of displaying a mission
+#pragma pack(push, 1) // Align all members to a 1-byte boundary
+
 struct mission_details {
     undefined field_0x0;
     undefined field_0x1;
@@ -919,6 +921,9 @@ struct mission_details {
     // 0x60: pointer to mission_template struct
     struct mission_template* template_ptr;
 };
+
+#pragma pack(pop) // Go back to the default packing behavior
+
 // mission_details is at least this big. unclear bigger it actually is.
 ASSERT_SIZE(struct mission_details, 104);
 
