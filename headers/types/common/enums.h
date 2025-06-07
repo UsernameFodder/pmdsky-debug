@@ -3989,16 +3989,23 @@ enum mission_template_item_case {
     ITEM_CASE_NO_ITEM = 4
 };
 
+#pragma pack(push, 2)
+ENUM_16_BIT(mission_template_item_case);
+#pragma pack(pop)
+
 union mission_template_item_data_1 {
     uint16_t none;
     uint16_t template_item_table_id; // if ITEM_CASE_USE_ITEM_TABLE
 };
+
 
 union mission_template_item_data_2 {
     uint16_t none;
     uint16_t template_item_table_id;   // if ITEM_CASE_USE_ITEM_TABLE
     struct item_id_16 mission_item_id; // if ITEM_CASE_SPECIFIC_ITEM
 };
+
+
 
 enum mission_template_dungeon_case {
     DUNGEON_CASE_SPECIFIC_OPENED = 0, // Used for Legendary Challenge Letters, among other things
@@ -4008,6 +4015,11 @@ enum mission_template_dungeon_case {
     DUNGEON_CASE_RANDOM_OPEN = 4,     // Used for most missions
     DUNGEON_CASE_RANDOM_CLOSED = 5    // Used for EXPLORE_NEW_DUNGEON subtype
 };
+
+#pragma pack(push, 2)
+ENUM_16_BIT(mission_template_dungeon_case);
+#pragma pack(pop)
+
 
 enum mission_template_client_case {
     // Must be attacked in a dungeon to yield a valid mission
@@ -4024,6 +4036,11 @@ enum mission_template_client_case {
     // Client is selected at random from GetAllPossibleMonsters. Most missions use this.
     CLIENT_CASE_RANDOM_CLIENT = 4,
 };
+
+#pragma pack(push, 2)
+ENUM_16_BIT(mission_template_client_case);
+#pragma pack(pop)
+
 
 union mission_template_client_data_1 {
     uint16_t none;
@@ -4054,6 +4071,11 @@ enum mission_template_target_case {
     // Used by HIDDEN_OUTLAW, seems identical to TARGET_CASE_RANDOM_TARGET?
     TARGET_CASE_RANDOM_TARGET_06 = 6,
 };
+
+#pragma pack(push, 2)
+ENUM_16_BIT(mission_template_target_case);
+#pragma pack(pop)
+
 
 union mission_template_target_data_1 {
     uint16_t none;
