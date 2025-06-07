@@ -1095,7 +1095,7 @@ int GenerateAllPossibleDeliverList(void);
 void DeleteAllPossibleDeliverList(void);
 void ClearMissionData(struct mission* mission);
 void GenerateMissionDetailsStruct(struct mission* mission, struct mission_details* details,
-                                  undefined unk_2, undefined unk_3);
+                                  undefined param_3, undefined param_4);
 bool ValidateNormalChallengeMission(struct mission_template* valid_mission_info,
                                     struct mission* mission);
 bool ValidateLegendaryChallengeMission(struct mission_template* valid_mission_info,
