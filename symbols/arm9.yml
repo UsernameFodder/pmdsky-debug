@@ -10484,14 +10484,14 @@ arm9:
         r0: Pointer to the mission to clear
     - name: GenerateMissionDetailsStruct
       address:
-        EU: 0x2060B80
+        EU: 0x20604CC
       description: |-
         Generates a mission_details struct, to be used for printing mission details such as the title, summary, and objective.
         
         r0: mission struct pointer
         r1: [output] location of mission_details struct
         r2: unknown
-        r3: unknown   
+        r3: unknown
     - name: ValidateNormalChallengeMission
       address:
         EU: 0x2060B80
@@ -10516,16 +10516,7 @@ arm9:
         return: bool
     - name: AppendMissionTitle
       address:
-        EU: 0x02060D8C
-      description: |-
-        Generates the mission title of the mission, and appends it to the string location. 
-        r0: [output] output buffer
-        r1: intermediate buffer, filled then concatenated to output buffer
-        r2: pointer to preprocessor args
-        r3: pointer to "mission details" struct (Spooky Struct)
-    - name: AppendMissionTitle
-      address:
-        EU: 0x02060D8C
+        EU: 0x2060D8C
       description: |-
         Generates the mission title of a mission, and appends it to the string location.
         r0: [output] output buffer
@@ -10534,7 +10525,7 @@ arm9:
         r3: pointer to mission_window_details struct
     - name: AppendMissionSummary
       address:
-        EU: 0x02060D8C
+        EU: 0x2061230
       description: |-
         Generates the mission title of a mission, and appends it to the string location.
         r0: [output] main string location
@@ -12387,25 +12378,23 @@ arm9:
         JP: 0x6
       description: |-
         A list of items that are forbidden from being used in a mission sent by Wonder Mail.
-        
+        Alias covers both this and the next table.
         type: struct item_id_16[3]
     - name: CAFE_MISSION_REWARD_TYPE_WEIGHTS
-      aliases: ARM9_UNKNOWN_TABLE__NA_20A3CC8 // Covers both this and the next table
       address:
         EU: 0x20A42C8
         NA: 0x20A3CC8
         JP: 0x20A50AC
-      length: 
+      length:
         EU: 0xE
         NA: 0xE
         JP: 0xE
       description: |-
         Weights for each possible mission_reward_type, used only by cafe mission generation.
         Seems identical to DEFAULT_MISSION_REWARD_TYPE_WEIGHTS.
-        
+        Alias covers both this and the prior table.
         type: int16_t[7]
     - name: OUTLAW_MISSION_REWARD_TYPE_WEIGHTS
-      aliases: ARM9_UNKNOWN_TABLE__NA_20A3CC8 // Covers both this and the prior table
       address:
         EU: 0x20A42D6
         NA: 0x20A3CD6
@@ -12420,7 +12409,6 @@ arm9:
         
         type: int16_t[7]
     - name: DEFAULT_MISSION_REWARD_TYPE_WEIGHTS
-      aliases: ARM9_UNKNOWN_TABLE__NA_20A3CE4
       address:
         EU: 0x20A42E4
         NA: 0x20A3CE4
@@ -12435,7 +12423,6 @@ arm9:
         
         type: int16_t[7]
     - name: MISSION_VALIDATION_FUNCTION_LIST
-      aliases: ARM9_UNKNOWN_FUNCTION_TABLE__NA_20A3CF4
       address:
         EU: 0x20A42F4
         NA: 0x20A3CF4
