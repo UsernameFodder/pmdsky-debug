@@ -12379,7 +12379,7 @@ arm9:
         JP: 0x6
       description: |-
         A list of items that are forbidden from being used in a mission sent by Wonder Mail.
-
+        
         type: struct item_id_16[3]
     - name: CAFE_MISSION_REWARD_TYPE_WEIGHTS
       address:
@@ -12393,7 +12393,7 @@ arm9:
       description: |-
         Weights for each possible mission_reward_type, used only by cafe mission generation.
         Seems identical to DEFAULT_MISSION_REWARD_TYPE_WEIGHTS.
-
+        
         type: int16_t[7]
     - name: OUTLAW_MISSION_REWARD_TYPE_WEIGHTS
       address:
@@ -12407,7 +12407,6 @@ arm9:
       description: |-
         Weights for each possible mission_reward_type, exclusively for the ARREST_OUTLAW mission type.
         Takes priority over CAFE_MISSION_REWARD_TYPE_WEIGHTS and CAFE_MISSION_REWARD_TYPE_WEIGHTS.
-        
     - name: DEFAULT_MISSION_REWARD_TYPE_WEIGHTS
       address:
         EU: 0x20A42E4
@@ -12420,7 +12419,6 @@ arm9:
       description: |-
         Weights for each possible mission_reward_type, used for non-cafe missions.
         Seems identical to CAFE_MISSION_REWARD_TYPE_WEIGHTS.
-
     - name: MISSION_VALIDATION_FUNCTION_LIST
       address:
         EU: 0x20A42F4
