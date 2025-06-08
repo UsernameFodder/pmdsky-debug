@@ -10489,7 +10489,7 @@ arm9:
         Generates a mission_details struct, to be used for printing mission details such as the title, summary, and objective.
         
         r0: mission struct pointer
-        r1: [output] location of mission_details struct
+        r1: [output] mission_details struct pointer
         r2: ?
         r3: ?
     - name: ValidateNormalChallengeMission
@@ -10523,7 +10523,7 @@ arm9:
         r0: [output] output buffer
         r1: intermediate buffer, filled then concatenated to output buffer
         r2: pointer to preprocessor args
-        r3: pointer to mission_window_details struct
+        r3: pointer to mission_details struct
     - name: AppendMissionSummary
       address:
         EU: 0x2061230
@@ -10534,7 +10534,7 @@ arm9:
         r2: window_id for DrawTextInWindow
         r3: y offset for DrawTextInWindow
         stack[0]: pointer to preprocessor args
-        stack[1]: pointer to mission_window_details struct
+        stack[1]: pointer to mission_details struct
     - name: IsMonsterMissionAllowed
       address:
         EU: 0x2062D90
@@ -12379,7 +12379,7 @@ arm9:
         JP: 0x6
       description: |-
         A list of items that are forbidden from being used in a mission sent by Wonder Mail.
-        Alias covers both this and the next table.
+
         type: struct item_id_16[3]
     - name: CAFE_MISSION_REWARD_TYPE_WEIGHTS
       address:
@@ -12393,7 +12393,7 @@ arm9:
       description: |-
         Weights for each possible mission_reward_type, used only by cafe mission generation.
         Seems identical to DEFAULT_MISSION_REWARD_TYPE_WEIGHTS.
-        Alias covers both this and the prior table.
+
         type: int16_t[7]
     - name: OUTLAW_MISSION_REWARD_TYPE_WEIGHTS
       address:
@@ -12408,7 +12408,6 @@ arm9:
         Weights for each possible mission_reward_type, exclusively for the ARREST_OUTLAW mission type.
         Takes priority over CAFE_MISSION_REWARD_TYPE_WEIGHTS and CAFE_MISSION_REWARD_TYPE_WEIGHTS.
         
-        type: int16_t[7]
     - name: DEFAULT_MISSION_REWARD_TYPE_WEIGHTS
       address:
         EU: 0x20A42E4
@@ -12421,8 +12420,7 @@ arm9:
       description: |-
         Weights for each possible mission_reward_type, used for non-cafe missions.
         Seems identical to CAFE_MISSION_REWARD_TYPE_WEIGHTS.
-        
-        type: int16_t[7]
+
     - name: MISSION_VALIDATION_FUNCTION_LIST
       address:
         EU: 0x20A42F4
