@@ -1,7 +1,6 @@
 #ifndef HEADERS_TYPES_FILES_RESCUE_H_
 #define HEADERS_TYPES_FILES_RESCUE_H_
 
-#include "../common/util.h" // (?)
 #include "../common/common.h"
 #include "../common/enums.h"
 
