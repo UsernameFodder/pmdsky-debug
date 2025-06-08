@@ -3985,7 +3985,6 @@ enum mission_template_item_case {
 ENUM_16_BIT(mission_template_item_case);
 #pragma pack(pop)
 
-
 union mission_template_item_data {
     uint16_t none;
     uint16_t template_item_table_id;   // if ITEM_CASE_USE_ITEM_TABLE
@@ -4053,7 +4052,6 @@ enum mission_template_target_case {
 #pragma pack(push, 2)
 ENUM_16_BIT(mission_template_target_case);
 #pragma pack(pop)
-
 
 union mission_template_target_data {
     uint16_t none;                     // If CASE_RANDOM_TARGET or TARGET_CASE_RANDOM_TARGET_06
