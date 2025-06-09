@@ -918,7 +918,6 @@ struct mission_details {
     // 0x60: pointer to mission_template struct
     struct mission_template* template_ptr;
 };
-
 // mission_details is at least this big. Unclear how much bigger it actually is.
 ASSERT_SIZE(struct mission_details, 100);
 
