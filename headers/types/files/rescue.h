@@ -16,11 +16,11 @@ struct rescue_header {
     undefined field_0x18;
     undefined field_0x19;
     undefined field_0x1a;
-    undefined field_0x1B;
-    undefined field_0x1C;
-    undefined field_0x1D;
-    undefined field_0x1E;
-    undefined field_0x1F;
+    undefined field_0x1b;
+    undefined field_0x1c;
+    undefined field_0x1d;
+    undefined field_0x1e;
+    undefined field_0x1f;
 };
 ASSERT_SIZE(struct rescue_header, 32);
 
@@ -31,7 +31,6 @@ struct rescue_str_variant_table {
     struct rescue_str_variant_group string_groups[482];
     struct rescue_str_variant_group unused[6];
 };
-
 ASSERT_SIZE(struct rescue_str_variant_table, 1952);
 
 // Table of rescue_str_continuity structs, corresponding to each string in MISSION_TEXT_STRINGS
@@ -40,7 +39,6 @@ ASSERT_SIZE(struct rescue_str_variant_table, 1952);
 struct rescue_str_continuity_table {
     struct rescue_str_continuity continuities[964];
 };
-
 ASSERT_SIZE(struct rescue_str_continuity_table, 1952);
 
 // Item tables used by certain mission templates. This could be considered as one table,
@@ -60,7 +58,6 @@ struct rescue_item_tables {
     // If this is an item table, it's always zero and unused by any template.
     uint16_t unused_item_table_entries[2];
 };
-
 ASSERT_SIZE(struct rescue_item_tables, 176);
 
 // Pokemon tables used by certain mission templates. This could be considered as one table,
@@ -108,7 +105,6 @@ struct rescue_monster_tables {
     struct monster_id_16 normal_outlaw_1_table[143];
     uint16_t unused_monster_table_entries[11];
 };
-
 ASSERT_SIZE(struct rescue_monster_tables, 2944);
 
 // Table of mission templates used for mission generation. A template is chosen from range indicated
@@ -130,5 +126,4 @@ struct mission_categories_table {
     // This category is never read, but that might be a one-instruction change.
     struct mission_weighted_category unused_category;
 };
-
 ASSERT_SIZE(struct mission_categories_table, 640);
