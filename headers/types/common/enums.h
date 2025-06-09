@@ -3742,7 +3742,7 @@ enum mission_type {
     MISSION_CHALLENGE_REQUEST = 11,
     MISSION_TREASURE_MEMO = 12,
     MISSION_TYPE_UNK_0xD = 13,
-    MISSION_TYPE_SEVEN_TREASURE = 14
+    MISSION_TYPE_CONSUMABLE = 14 // Used for SE3 wondermail and Seven Treasures!
 };
 
 // This is usually stored as an 8-bit integer
@@ -3872,29 +3872,19 @@ enum mission_subtype_challenge {
 ENUM_8_BIT(mission_subtype_challenge);
 #pragma pack(pop)
 
-// Mission subtype for MISSION_SPECIAL_EPISODE
-enum mission_subtype_special_episode {
-    MISSION_SE_UNK_0 = 0,
-    // Checked for at 0x0205E2E0 [EU] when determining mission restrictions
-    MISSION_SE_UNK_1 = 1,
-    MISSION_SE_UNK_2 = 2
+
+// Mission subtype for MISSION_TYPE_CONSUMABLE
+enum mission_subtype_consumable {
+    MISSION_CONSUMABLE_UNK_0 = 0,
+    // Subtype 0x1 is used in the template for seven-treasure missions
+    MISSION_SEVEN_TREASURE = 1,
+    // Subtype 0x2 is used by the SE3 wondermail
+    MISSION_SPECIAL_EPISODE = 2
 };
 
 // This is usually stored as an 8-bit integer
 #pragma pack(push, 1)
-ENUM_8_BIT(mission_subtype_special_episode);
-#pragma pack(pop)
-
-// Mission subtype for MISSION_SEVEN_TREASURE
-enum mission_subtype_seven_treasure {
-    MISSION_SEVEN_UNK_0 = 0,
-    // Subtype 0x1 is used in the template, NOT 0x0
-    MISSION_SEVEN_TEMPLATE = 1
-};
-
-// This is usually stored as an 8-bit integer
-#pragma pack(push, 1)
-ENUM_8_BIT(mission_subtype_seven_treasure);
+ENUM_8_BIT(mission_subtype_consumable);
 #pragma pack(pop)
 
 // The meaning of the mission subtype depends on the mission type
@@ -3906,8 +3896,7 @@ union mission_subtype {
     struct mission_subtype_take_item_8 take_item;
     struct mission_subtype_outlaw_8 outlaw;
     struct mission_subtype_challenge_8 challenge;
-    struct mission_subtype_special_episode_8 special_episode;
-    struct mission_subtype_seven_treasure_8 seven_treasure;
+    struct mission_subtype_consumable_8 seven_treasure;
     uint8_t other;
 };
 
