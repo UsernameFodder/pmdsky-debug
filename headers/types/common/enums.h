@@ -3872,7 +3872,6 @@ enum mission_subtype_challenge {
 ENUM_8_BIT(mission_subtype_challenge);
 #pragma pack(pop)
 
-
 // Mission subtype for MISSION_TYPE_CONSUMABLE
 enum mission_subtype_consumable {
     MISSION_CONSUMABLE_UNK_0 = 0,
