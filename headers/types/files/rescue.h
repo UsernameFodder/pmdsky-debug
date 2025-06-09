@@ -15,14 +15,13 @@ struct rescue_header {
     // Likely Padding
     undefined field_0x18;
     undefined field_0x19;
-    undefined field_0x1A;
+    undefined field_0x1a;
     undefined field_0x1B;
     undefined field_0x1C;
     undefined field_0x1D;
     undefined field_0x1E;
     undefined field_0x1F;
 };
-
 ASSERT_SIZE(struct rescue_header, 32);
 
 // Table of rescue_str_variant_group structs, corresponding to the "text_string_offset" field of
