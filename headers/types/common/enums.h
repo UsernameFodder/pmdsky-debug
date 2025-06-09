@@ -3742,8 +3742,7 @@ enum mission_type {
     MISSION_CHALLENGE_REQUEST = 11,
     MISSION_TREASURE_MEMO = 12,
     MISSION_TYPE_UNK_0xD = 13,
-    MISSION_SPECIAL_EPISODE = 14,
-    MISSION_TYPE_SEVEN_TREASURE = 15
+    MISSION_TYPE_SEVEN_TREASURE = 14
 };
 
 // This is usually stored as an 8-bit integer
