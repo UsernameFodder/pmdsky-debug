@@ -10529,6 +10529,7 @@ arm9:
         EU: 0x2061230
       description: |-
         Generates the mission title of a mission, and appends it to the string location.
+        
         r0: [output] main string location
         r1: temporary string buffer, concatenated to main string
         r2: window_id for DrawTextInWindow
@@ -12393,17 +12394,15 @@ arm9:
       description: |-
         Weights for each possible mission_reward_type, used only by cafe mission generation.
         Seems identical to DEFAULT_MISSION_REWARD_TYPE_WEIGHTS.
-        
-        type: int16_t[7]
     - name: OUTLAW_MISSION_REWARD_TYPE_WEIGHTS
       address:
         EU: 0x20A42D6
         NA: 0x20A3CD6
         JP: 0x20A50BA
       length:
-        EU: 0x1C
-        NA: 0x1C
-        JP: 0x1C
+        EU: 0xE
+        NA: 0xE
+        JP: 0xE
       description: |-
         Weights for each possible mission_reward_type, exclusively for the ARREST_OUTLAW mission type.
         Takes priority over CAFE_MISSION_REWARD_TYPE_WEIGHTS and CAFE_MISSION_REWARD_TYPE_WEIGHTS.
