@@ -1325,8 +1325,10 @@ struct mission_destination_info {
     // 0x1B: Will be set after the target enemy has been defeated.
     // If there are minions, this flag applies just to the main outlaw.
     bool target_enemy_is_defeated;
+    // 0x1C: Initalized to 100 when the floor has a fleeing outlaw mission.
+    uint8_t fleeing_outlaw_tracker;
 };
-ASSERT_SIZE(struct mission_destination_info, 28);
+ASSERT_SIZE(struct mission_destination_info, 29);
 
 // Entry for a single dungeon in the dungeon data list
 struct dungeon_data_list_entry {

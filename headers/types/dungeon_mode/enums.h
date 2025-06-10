@@ -1430,7 +1430,8 @@ enum fixed_room_action_non_entity {
     FIXED_ACTION_WARP_ZONE_ROOM_107 = 107, // Same as FIXED_ACTION_WARP_ZONE_ROOM
     // Treated separately by the code, but doesn't seem to spawn anything special
     FIXED_ACTION_FLOOR_ROOM_108 = 108,
-    // Treated separately by the code, but doesn't seem to spawn anything special
+    // Tries to spawn a TRAP_SEAL_TRAP and stores that location to the dungeon struct?
+    // 0x2343C2C EU?
     FIXED_ACTION_FLOOR_ROOM_109 = 109,
 };
 
