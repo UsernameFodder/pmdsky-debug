@@ -242,7 +242,7 @@ struct dungeon {
     struct entity thrown_item;
     // 0x184: Info about the most recent damage calculation. Reset with each call to CalcDamage
     struct damage_calc_diag last_damage_calc;
-    // 0x1D8: The positon targetted when pressing the touchscreen. The leader will attempt to
+    // 0x1D8: The position targeted when pressing the touchscreen. The leader will attempt to
     // walk to this position. If there is an obstacle or the position is reached, the value is
     // set back to 0xFFFF.
     struct position touchscreen_target_position;
