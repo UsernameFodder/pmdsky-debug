@@ -567,7 +567,6 @@ struct dungeon {
     bool skip_faint_animation_flag;
     // 0x760: Info about the next mission destination floor, if applicable
     struct mission_destination_info mission_destination;
-    undefined field_0x77d;
     // 0x77E: Appears to track if the player has already been healed by Mime Jr. to change
     // the dialogue. Initialized to 0 using MemZero?
     bool bazaar_mime_jr_heal;

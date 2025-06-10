@@ -1327,8 +1327,9 @@ struct mission_destination_info {
     bool target_enemy_is_defeated;
     // 0x1C: Initalized to 100 when the floor has a fleeing outlaw mission.
     uint8_t fleeing_outlaw_tracker;
+    undefined field_0x1d;
 };
-ASSERT_SIZE(struct mission_destination_info, 29);
+ASSERT_SIZE(struct mission_destination_info, 30);
 
 // Entry for a single dungeon in the dungeon data list
 struct dungeon_data_list_entry {
