@@ -15,6 +15,7 @@ struct dungeon {
     // 0x3: If true and there's an active mission on the floor, the message
     // "You've reached a destination floor! But where is the target pokémon..." will be displayed.
     bool target_monster_not_found_flag;
+    // 0x4: Initialized to 0x1. (0x22E01E8 EU)
     undefined field_0x4;
     bool stepped_on_stairs; // 0x5: True if the leader just stepped on the stairs.
     // 0x6: If equal to 1 or 2, the floor will be advanced at the end of the turn,
@@ -29,10 +30,15 @@ struct dungeon {
     // 0x9: If this is 0x0 (maybe false), appears to not initialize certain parts of the dungeon.
     // Possibly a boolean for when loading from a quicksave or resuming after being rescued?
     undefined field_0x9;
-    undefined field_0xa;
-    undefined field_0xb;
-    undefined field_0xc; // 0xC: Initialized to 0x0
-    undefined field_0xd; // 0xD: Initialized to 0x0
+    // 0xA: Initialized to 0x0. Possibly related to saying yes to a rescue?
+    bool field_0xa;
+    undefined field_0xb; // 0xB: Initialized to 0x0.
+    // 0xC: There appears to be a check to popup a menu asking if the player is
+    // certain they want to return to the guild with a delivery item? However,
+    // right before checking if this value is true, it sets it to 0 and does
+    // nothing with the return value of IsCurrentMissionType.
+    bool mission_deliver_item_check; // 0xC: Initialized to 0x0
+    undefined field_0xd;             // 0xD: Initialized to 0x0
     // 0xE: If true, artificial weather abilities will be activated on this turn.
     // Set to false by TryActivateArtificialWeatherAbilities
     bool activate_artificial_weather_flag;
@@ -40,7 +46,9 @@ struct dungeon {
     // May also have a niche usage if an enemy gets enough experience to level up through
     // something like the Joy Ribbon?
     bool should_enemy_evolve;
-    undefined field_0x10; // 0x10: Initialized to 0x0.
+    // 0x10: Initialized to false. Set to true when leader swaps positions with an ally.
+    // Used to see if a monster should have its turned skipped when true?
+    bool swapping_places;
     // 0x11: True if the leader isn't doing anything right now. False if it's currently performing
     // an action (such as walking or attacking)
     bool no_action_in_progress;
@@ -52,9 +60,10 @@ struct dungeon {
     // 0x18: Appears to be set to 1 when using the escape orb and set to 2 when completing
     // a mission. dungeon::end_floor_no_death_check_flag gets set whenever this is changed.
     uint32_t successful_exit_tracker;
-    // 0x1C: Increased once per frame until 0x64. Resets to 0 when the leader acts.
-    undefined field_0x1c;
-    undefined field_0x1d;
+    // 0x1C: Increased once per frame until 0x64. Used to count the number of frames before
+    // switching the camera to a monster (if it's not already being pointed at). Once
+    // it reaches 0x3C, the camera will point to the monster.
+    int16_t camera_frame_counter;
     // 0x1E: Number of floors completed? (Guess). Initialized to 0.
     // If this is a floor tracker, odd it is not a uint16_t like the others.
     uint8_t number_completed_floors;
@@ -233,14 +242,13 @@ struct dungeon {
     struct entity thrown_item;
     // 0x184: Info about the most recent damage calculation. Reset with each call to CalcDamage
     struct damage_calc_diag last_damage_calc;
-    // 0x1D8: Somehow related to executing a monster's actions (including leader).
-    // Initialized to 0xFFFF
-    undefined2 field_0x1d8;
-    // 0x1DA: Somehow related to executing the leader's actions. Also maybe when leader opens
-    // some menus? Initialized to 0xFFFF
-    undefined2 field_0x1da;
-    undefined2 field_0x1dc; // 0x1DC: Initialized to 0xFFFF
-    undefined2 field_0x1de; // 0x1DE: Initialized to 0xFFFF
+    // 0x1D8: The position targeted when pressing the touchscreen. The leader will attempt to
+    // walk to this position. If there is an obstacle or the position is reached, the value is
+    // set back to 0xFFFF.
+    struct position touchscreen_target_position;
+    // 0x1DC: Some position related to the leader, monster->field_0x20c, monster->field_0x20d
+    // monster->field_0x20e, monster->field_0x20f?
+    struct position unknown_leader_position;
     // 0x1E0: Color table. Used to apply a tint to the colors shown on screen.
     // Changes depending on the current weather.
     struct rgba color_table[256];
@@ -249,7 +257,9 @@ struct dungeon {
     struct spawned_shopkeeper_data shopkeeper_spawns[8];
     // 0x610: Number of valid shopkeeper spawns
     int shopkeeper_spawn_count;
-    undefined4 field_0x614;
+    // 0x614: Initialized to 0xFFFFFFFF. Set to 4 when the leader picks up an item by
+    // walking over it?
+    int field_0x614;
     // 0x618: Something related to animiations?  Could be ID?
     undefined4 unk1_animation1_value;
     undefined4 unk2_animation1_value;
@@ -265,10 +275,8 @@ struct dungeon {
     undefined4 unk2_animation3_value;
     undefined4 unk3_animation3_value;
     struct entity* animation3_entity; // 0x644: Monster pointer for the animation?
-    // 0x648: Some type of monster name related to fainting. Used for the partner, escort or
-    // accompanying monster, but may be be changed when any monster faints (but might not be
-    // used for them).
-    char unk_fainted_monster_name[10];
+    // 0x648: Used to store the name of the monster that caused a forced loss.
+    char fallen_ally_monster_name[10];
     undefined field_0x652;
     undefined field_0x653;
     undefined field_0x654;
@@ -518,16 +526,17 @@ struct dungeon {
     // 0x748: Current dungeon ID. Is actually a dungeon_floor_pair struct that also contains
     // the floor number.
     struct dungeon_id_8 id;
-    uint8_t floor;                      // 0x749: Current floor number
-    struct dungeon_group_id_8 group_id; // 0x74A: Same for different segments of a dungeon
-    undefined field_0x74b;
+    uint8_t floor; // 0x749: Current floor number
+    // 0x74A: The dungeon group and the floor within that group.
+    struct dungeon_group_and_group_floor group_and_group_floor_id;
     // 0x74C: Used as an input to GetDungeonMode, and uses output to determine if the
-    // override fixed room should be loaded?
+    // override fixed room should be loaded? Also used to determine the objective?
+    // Value copied from dungeon_init_data->field_0x2?
     undefined2 field_0x74c;
     undefined field_0x74e;
     undefined field_0x74f;
-    // 0x750: A ldr instruction is used at this address? Maybe used for something else before
-    // the rescue floor number is set?
+    // 0x750: A ldr instruction is used at this address? Copied from dungeon_init_data->field_0x14?
+    // Maybe a struct encompassing dungeon_id, rescue_floor?
     undefined field_0x750;
     uint8_t rescue_floor; // 0x751: Floor number where the rescue point is, if applicable
     undefined field_0x752;
@@ -558,8 +567,6 @@ struct dungeon {
     bool skip_faint_animation_flag;
     // 0x760: Info about the next mission destination floor, if applicable
     struct mission_destination_info mission_destination;
-    undefined field_0x77c;
-    undefined field_0x77d;
     // 0x77E: Appears to track if the player has already been healed by Mime Jr. to change
     // the dialogue. Initialized to 0 using MemZero?
     bool bazaar_mime_jr_heal;
@@ -581,9 +588,13 @@ struct dungeon {
     // 0x78B: True if the leader is running. Causes the leader's action for the next turn
     // to be set to action::ACTION_WALK until it hits an obstacle.
     bool leader_running;
-    // 0x78C: Likely related to the actions of the leader because it is set to 0 in
-    // SetLeaderAction and this value gets bitwise or'd with 0x78B and then saved back to here.
-    undefined field_0x78c;
+    // 0x78C: When opening and closing menus or doing certain actions, prevent certain actions
+    // from being done until the appropriate button combination is no longer being held. For
+    // example, if the leader runs onto the staircase, doesn't let go of the direction pad
+    // and holds B to close the menu this prevents them from immediately running after
+    // closing the menu. After the player stops holding a direction on the direction pad
+    // or the b button, it allows the player to run like normal.
+    bool prevent_misinputs;
     // 0x78D: This flag is set by the move 0x189 ("HP Gauge") which is the
     // effect of the Identify Orb. If true, monsters not in the team that are
     // holding an item will be marked by a blue exclamation mark icon.
@@ -616,8 +627,9 @@ struct dungeon {
     int8_t rescue_attempts_left;
     uint32_t prng_seed;                  // 0x79C: The dungeon PRNG seed, if set
     uint32_t rescue_prng_preseed_23_bit; // 0x7A0: The 23 bit dungeon PRNG preseed for rescues?
-    undefined2 field_0x7a4;              // 0x7A4: Initialized to 0x63.
-    undefined2 field_0x7a6;              // 0x7A6: Initialized to 0x63.
+    // 0x7A4: Appears to be a position? Stores the position of FIXED_ACTION_FLOOR_ROOM_109?
+    // Initialized to 99?
+    struct position fixed_room_action_109_position;
     // 0x7A8: Holds some data for a monster id to loads its sprite. If this value is non-zero,
     // it gets loaded after loading the dungeon floor monster spawn entries. Maybe for monsters
     // that need a specific item to spawn?
@@ -663,9 +675,9 @@ struct dungeon {
     // without causing the game to crash as the data from waza_p.bin is still loaded because
     // it's not overwritten by loading waza_p2.bin
     enum game_id dungeon_game_version_id;
-    // 0x7D0: Maybe a pointer to a spawn list or related to a spawn list?
-    // Possibly a 0x8 long array of a struct-like object? Each entry is 4 bytes, but maybe the
-    // last byte is unused??
+    // 0x7D0: Maybe a pointer to a spawn list or related to a spawn list for monsters that
+    // need items to spawn? Possibly a 0x8 long array of a struct-like object? Holding some
+    // byte value, byte padding, and monster species?
     undefined field_0x7d0;
     undefined field_0x7d1;
     undefined field_0x7d2;
@@ -698,8 +710,8 @@ struct dungeon {
     undefined field_0x7ed;
     undefined field_0x7ee;
     undefined field_0x7ef;
-    // 0x7F0: Somehow related to dungeon::0x7D0?
-    undefined2 field_0x7f0;
+    // 0x7F0: Number of entries in 0x7D0?
+    undefined2 num_entries_for_field_0x7d0;
     // 0x7F2: May always just be a copy of dungeon::some_monster_sprite_to_load, but may also
     // have another purpose.
     struct monster_id_16 some_monster_sprite;
@@ -1143,8 +1155,9 @@ struct dungeon {
     undefined field_0x3e3f;
     struct item items[64]; // 0x3E40: Info for all the items on the ground
     uint16_t n_items;      // 0x3FC0: Number of active items in the above items array
-    undefined field_0x3fc2;
-    undefined field_0x3fc3;
+    // 0x3FC2: Number of items spawned in while making the fixed room. This number is
+    // added to n_items after regular dungeon items are spawned.
+    int16_t n_fixed_room_items;
     struct trap traps[64];                   // 0x3FC4: Info for all the traps on the floor
     struct dungeon_generation_info gen_info; // 0x40C4: Stuff involved with dungeon generation
     undefined field_0xccfc;
@@ -1538,10 +1551,8 @@ struct dungeon {
     // 0x1A21C: Data about the map, the camera and the touchscreen numbers
     struct display_data display_data;
     struct minimap_display_data minimap_display_data; // 0x1A264: Data used to display the minimap
-    // 0x286B0: Initialized to 0xFF, then set to a copy of dungeon::group_id
-    struct dungeon_group_id_8 group_id_copy;
-    // 0x286B1: Initialized to 0xFF, then set to a copy of dungeon::0x74B
-    undefined field_0x286b1;
+    // 0x286B0: Initialized to 0xFF, then set to a copy of group_and_group_floor_id.
+    struct dungeon_group_and_group_floor group_and_group_floor_id_copy;
     struct floor_properties floor_properties; // 0x286B2: Properties about the current floor
     // 0x286D2: Maybe a 0x10 long array?
     undefined2 field_0x286d2;
@@ -1595,76 +1606,13 @@ struct dungeon {
     uint16_t spawn_table_entries_chosen[16];
     undefined field_0x2ca0a;
     undefined field_0x2ca0b;
-    // 0x2CA0C: Holds the name for the entity that caused the faint. The exact size is a guess.
-    // Likely larger because of entities like the Explosion Trap.
-    char fainted_monster_cause_entity_name[10];
-    undefined field_0x2ca16;
-    undefined field_0x2ca17;
-    undefined field_0x2ca18;
-    undefined field_0x2ca19;
-    undefined field_0x2ca1a;
-    undefined field_0x2ca1b;
-    undefined field_0x2ca1c;
-    undefined field_0x2ca1d;
-    undefined field_0x2ca1e;
-    undefined field_0x2ca1f;
-    undefined field_0x2ca20;
-    undefined field_0x2ca21;
-    undefined field_0x2ca22;
-    undefined field_0x2ca23;
-    undefined field_0x2ca24;
-    undefined field_0x2ca25;
-    undefined field_0x2ca26;
-    undefined field_0x2ca27;
-    undefined field_0x2ca28;
-    undefined field_0x2ca29;
-    // 0x2CA2A: Holds the name for the monster that fainted. The exact size is a guess.
-    char fainted_monster_name[10];
-    undefined field_0x2ca34;
-    undefined field_0x2ca35;
-    undefined field_0x2ca36;
-    undefined field_0x2ca37;
-    undefined field_0x2ca38;
-    undefined field_0x2ca39;
-    undefined field_0x2ca3a;
-    undefined field_0x2ca3b;
-    undefined field_0x2ca3c;
-    undefined field_0x2ca3d;
-    undefined field_0x2ca3e;
-    undefined field_0x2ca3f;
-    undefined field_0x2ca40;
-    undefined field_0x2ca41;
-    undefined field_0x2ca42;
-    undefined field_0x2ca43;
-    undefined field_0x2ca44;
-    undefined field_0x2ca45;
-    undefined field_0x2ca46;
-    undefined field_0x2ca47;
-    // 0x2CA48: A monster name that is copied from dungeon::unk_fainted_monster_name. Maybe for
-    // situations where the player loses because the partner, escort, or accompanying monster
-    // fainted? Another poossible use is when leaving a dungeon after a mission? Exact size is
-    // a guess.
-    char loss_related_monster_name[10];
-    undefined field_0x2ca52;
-    undefined field_0x2ca53;
-    undefined field_0x2ca54;
-    undefined field_0x2ca55;
-    undefined field_0x2ca56;
-    undefined field_0x2ca57;
-    undefined field_0x2ca58;
-    undefined field_0x2ca59;
-    undefined field_0x2ca5a;
-    undefined field_0x2ca5b;
-    undefined field_0x2ca5c;
-    undefined field_0x2ca5d;
-    undefined field_0x2ca5e;
-    undefined field_0x2ca5f;
-    undefined field_0x2ca60;
-    undefined field_0x2ca61;
-    undefined field_0x2ca62;
-    undefined field_0x2ca63;
-    undefined field_0x2ca64;
-    undefined field_0x2ca65;
+    // 0x2CA0C: Holds the name for the entity that caused the faint.
+    char fainted_monster_cause_entity_name[30];
+    // 0x2CA2A: Holds the name for the monster that fainted.
+    char fainted_monster_name[30];
+    // 0x2CA48: The name of the escort that fainted during the mission. Specifically
+    // used for "returned with the fallen [string:2]".
+    char fallen_escort_monster_name[30];
     // 0x02CA66: The cause of the mission over. Identical to the damage source in HandleFaint,
     // but can be set to some non-damage related reasons manually by the game. IE: "cleared the
     // dungeon." and "succeeded in the rescue mission."
