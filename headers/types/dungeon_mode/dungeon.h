@@ -676,7 +676,7 @@ struct dungeon {
     // it's not overwritten by loading waza_p2.bin
     enum game_id dungeon_game_version_id;
     // 0x7D0: Maybe a pointer to a spawn list or related to a spawn list for monsters that
-    // need items to spwn? Possibly a 0x8 long array of a struct-like object? Holding some
+    // need items to spawn? Possibly a 0x8 long array of a struct-like object? Holding some
     // byte value, byte padding, and monster species?
     undefined field_0x7d0;
     undefined field_0x7d1;
