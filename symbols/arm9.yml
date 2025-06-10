@@ -12427,8 +12427,7 @@ arm9:
         EU: 0x20
         NA: 0x20
         JP: 0x20
-      description: |-
-        A list of functions used to validate missions of different types at 02060CEC [EU].
+      description: "A list of functions used to validate missions of different types at 02060CEC [EU]."
     - name: MISSION_BANNED_STORY_MONSTERS
       address:
         EU: 0x20A4314
