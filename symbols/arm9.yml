@@ -10482,6 +10482,16 @@ arm9:
         In particular, mission::status is set to mission_status::MISSION_STATUS_INVALID, mission::dungeon_id is set to -1, mission::floor is set to 0 and mission::reward_type is set to mission_reward_type::MISSION_REWARD_MONEY.
         
         r0: Pointer to the mission to clear
+    - name: GenerateMissionDetailsStruct
+      address:
+        EU: 0x20604CC
+      description: |-
+        Generates a mission_details struct, to be used for printing mission details such as the title, summary, and objective.
+        
+        r0: mission struct pointer
+        r1: [output] mission_details struct pointer
+        r2: ?
+        r3: ?
     - name: ValidateNormalChallengeMission
       address:
         EU: 0x2060B80
@@ -10490,7 +10500,7 @@ arm9:
       description: |-
         Validates a normal (non-legendary) challenge letter mission by checking whether its client (leader), target (second member), and outlaw_backup_species (third member) match those of some mission_rescue_bin struct (alongside some other conditions).
         
-        r0: mission_rescue_bin struct pointer
+        r0: mission_template struct pointer
         r1: mission struct pointer
         return: bool
     - name: ValidateLegendaryChallengeMission
@@ -10501,9 +10511,31 @@ arm9:
       description: |-
         Validates a legendary challenge letter mission by checking whether its dungeon matches the restricted dungeon of some mission_rescue_bin struct (alongside some other conditions).
         
-        r0: mission_rescue_bin struct pointer
+        r0: mission_template struct pointer
         r1: mission struct pointer
         return: bool
+    - name: AppendMissionTitle
+      address:
+        EU: 0x2060D8C
+      description: |-
+        Generates the mission title of a mission, and appends it to the string location.
+        
+        r0: [output] output buffer
+        r1: intermediate buffer, filled then concatenated to output buffer
+        r2: pointer to preprocessor args
+        r3: pointer to mission_details struct
+    - name: AppendMissionSummary
+      address:
+        EU: 0x2061230
+      description: |-
+        Generates the mission title of a mission, and appends it to the string location.
+        
+        r0: [output] main string location
+        r1: temporary string buffer, concatenated to main string
+        r2: window_id for DrawTextInWindow
+        r3: y offset for DrawTextInWindow
+        stack[0]: pointer to preprocessor args
+        stack[1]: pointer to mission_details struct
     - name: IsMonsterMissionAllowed
       address:
         EU: 0x2062D90
@@ -12350,34 +12382,43 @@ arm9:
         A list of items that are forbidden from being used in a mission sent by Wonder Mail.
         
         type: struct item_id_16[3]
-    - name: ARM9_UNKNOWN_TABLE__NA_20A3CC8
+    - name: CAFE_MISSION_REWARD_TYPE_WEIGHTS
       address:
         EU: 0x20A42C8
         NA: 0x20A3CC8
         JP: 0x20A50AC
       length:
-        EU: 0x1C
-        NA: 0x1C
-        JP: 0x1C
+        EU: 0xE
+        NA: 0xE
+        JP: 0xE
       description: |-
-        14*0x2
-        Linked to ARM9_UNKNOWN_TABLE__NA_20A3CE4
-        
-        Note: unverified, ported from Irdkwia's notes
-    - name: ARM9_UNKNOWN_TABLE__NA_20A3CE4
+        Weights for each possible mission_reward_type, used only by cafe mission generation.
+        Seems identical to DEFAULT_MISSION_REWARD_TYPE_WEIGHTS.
+    - name: OUTLAW_MISSION_REWARD_TYPE_WEIGHTS
+      address:
+        EU: 0x20A42D6
+        NA: 0x20A3CD6
+        JP: 0x20A50BA
+      length:
+        EU: 0xE
+        NA: 0xE
+        JP: 0xE
+      description: |-
+        Weights for each possible mission_reward_type, exclusively for the ARREST_OUTLAW mission type.
+        Takes priority over CAFE_MISSION_REWARD_TYPE_WEIGHTS and CAFE_MISSION_REWARD_TYPE_WEIGHTS.
+    - name: DEFAULT_MISSION_REWARD_TYPE_WEIGHTS
       address:
         EU: 0x20A42E4
         NA: 0x20A3CE4
         JP: 0x20A50C8
       length:
-        EU: 0x10
-        NA: 0x10
-        JP: 0x10
+        EU: 0xE
+        NA: 0xE
+        JP: 0xE
       description: |-
-        8*0x2
-        
-        Note: unverified, ported from Irdkwia's notes
-    - name: ARM9_UNKNOWN_FUNCTION_TABLE__NA_20A3CF4
+        Weights for each possible mission_reward_type, used for non-cafe missions.
+        Seems identical to CAFE_MISSION_REWARD_TYPE_WEIGHTS.
+    - name: MISSION_VALIDATION_FUNCTION_LIST
       address:
         EU: 0x20A42F4
         NA: 0x20A3CF4
@@ -12386,10 +12427,7 @@ arm9:
         EU: 0x20
         NA: 0x20
         JP: 0x20
-      description: |-
-        Could be related to missions
-        
-        Note: unverified, ported from Irdkwia's notes
+      description: "A list of functions used to validate missions of different types at 02060CEC [EU]."
     - name: MISSION_BANNED_STORY_MONSTERS
       address:
         EU: 0x20A4314
@@ -12454,7 +12492,8 @@ arm9:
         NA: 0x788
         JP: 0x788
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        String IDs for mission title and summary flavor-text.
+        Used by GenerateMissionTitle and GenerateMissionSummary.
         
         type: int16_t[964]
     - name: LEVEL_LIST
