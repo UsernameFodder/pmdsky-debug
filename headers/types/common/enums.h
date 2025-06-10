@@ -3895,7 +3895,7 @@ union mission_subtype {
     struct mission_subtype_take_item_8 take_item;
     struct mission_subtype_outlaw_8 outlaw;
     struct mission_subtype_challenge_8 challenge;
-    struct mission_subtype_consumable_8 seven_treasure;
+    struct mission_subtype_consumable_8 consumable;
     uint8_t other;
 };
 
