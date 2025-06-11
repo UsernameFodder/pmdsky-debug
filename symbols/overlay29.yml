@@ -1454,6 +1454,16 @@ overlay29:
         
         r0: Pointer to the monster's action field
         r1: Direction in which to use the move. Gets stored in monster::action::direction.
+    - name: SetActionStruggle
+      address:
+        EU: 0x22EC624
+        NA: 0x22EBC74
+        JP: 0x22ED2DC
+      description: |-
+        Sets a monster's action to action::ACTION_STRUGGLE, with a specified direction.
+        
+        r0: Pointer to the monster's action field
+        r1: Direction in which to use the move. Gets stored in monster::action::direction.
     - name: SetActionUseMovePlayer
       address:
         EU: 0x22EC648
@@ -3108,6 +3118,17 @@ overlay29:
         Returns 0 if none of these conditions holds for the given entity: asleep, frozen, petrified, biding.
         
         r0: Entity pointer
+        return: bool
+    - name: MonsterCannotAttack
+      address:
+        EU: 0x23017F8
+        NA: 0x2300DCC
+        JP: 0x23021B0
+      description: |-
+        Returns 0 if the entity has any of these conditions: sleep, nightmare, napping, frozen, wrapped/wrapping, petrified, cringe, paused, infatuated, paralysis. Also returns 0 if ShouldMonsterRunAway returns 1.
+        
+        r0: Entity pointer
+        r1: If true, ignore sleep conditions (sleep, nightmare, napping) when checking if the entity cannot attack.
         return: bool
     - name: CanMonsterMoveInDirection
       address:
@@ -5683,6 +5704,18 @@ overlay29:
         r3: Move pointer
         stack[0]: True to check all the possible move_ai_condition values, false to only check for move_ai_condition::AI_CONDITION_RANDOM (if the move has a different ai condition, the result will be false).
         return: True if the target is eligible, false otherwise
+    - name: TargetRegularAttack
+      address:
+        EU: 0x231AEC0
+        NA: 0x231A460
+        JP: 0x231B930
+      description: |-
+        Decides which direction the AI will use its regular attack in.
+        
+        r0: User entity pointer
+        r1: Output pointer to the direction the regular attack should be targeted at.
+        r2: If true, the AI will ignore enemies that are petrified. If false, the AI will include petrified enemies when targeting.
+        return: True if there is a target for the regular attack, false if there is no target.
     - name: IsTargetInRange
       address:
         EU: 0x231B0F4
