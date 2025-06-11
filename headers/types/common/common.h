@@ -891,7 +891,8 @@ struct mission_details {
     undefined field_0x45;
     undefined field_0x46;
     undefined field_0x47;
-    undefined field_0x48;
+    // Used to pull a string from MISSION_MENU_STRING_IDS_1
+    uint8_t mission_menu_string_index;
     undefined field_0x49;
     undefined field_0x4a;
     undefined field_0x4b;
