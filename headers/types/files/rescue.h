@@ -61,7 +61,7 @@ struct rescue_item_tables {
 ASSERT_SIZE(struct rescue_item_tables, 176);
 
 // Pokemon tables used by certain mission templates. This could be considered as one table,
-// though barring one exception, none of the ranges overlap.
+// though none of the ranges overlap.
 // 0xFA0 in rescue.bin
 struct rescue_monster_tables {
     // [0, 65): Used exclusively for the OUTLAW_NORMAL_2 mission subtype, and consists mostly of
@@ -86,13 +86,10 @@ struct rescue_monster_tables {
     // Metagross, Dragonite, Garchomp, Tyranitar, and Salamence. Every Pokemon on this list is fully
     // evolved if it has evolutions. This list is the same regardless of Whether Magnezone or
     // Magnemite accompanies you. Overlaps with the range used by the GUIDE_CLIENT template.
-    //
-    // [227, 471): Used for the GUIDE_CLIENT mission type, and consists of a wide variety of Pokemon
-    // defying categorization. Outside of the overlap, the list seems to contain mostly weaker
-    // Pokemon. There is one invalid Pokemon entry in this table, 0x0CBE. Likely intended to be
-    // Aipom (0xBE). Should be filtered out by mission generation. Because these two tables overlap,
-    // it is most efficient to merge them in this struct.
-    struct monster_id_16 magnet_escort_and_guide_client_table[260];
+    struct monster_id_16 magnet_escort_table[33];
+    // [244, 471): Used for the GUIDE_CLIENT mission type, and consists of mostly weaker Pokemon,
+    // such as Torchic, Masquerain, and Squirtle. 
+    struct monster_id_16 guide_client_table[227];
     // [471, 582): Used for the OUTLAW_NORMAL_0 mission type, as well as one of the
     // TAKE_ITEM_NORMAL_OUTLAW templates. Consists mostly of unevolved Pokemon, such as Anorith,
     // Weedle, Magby, and Buizel. Outliers exist, such as Victreebel, Hitmonlee, and Hitmonchan, but
