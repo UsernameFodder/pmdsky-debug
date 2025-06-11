@@ -4005,9 +4005,11 @@ enum mission_template_client_case {
     // mission_template_client_data_1 and mission_template_client_data_2 are indices to a table
     // This determines the final client in a more restricted manner.
     // Only used for MISSION_GUIDE_CLIENT in the template
-    CLIENT_CASE_TABLE_CLIENT = 2,
-    // Has a distinct case menu, unused in template.
-    CLIENT_CASE_UNK_3 = 3,
+    // Also ensures that the client and target are not the same species?
+    CLIENT_CASE_TABLE_UNIQUE_CLIENT = 2,
+    // Has a distinct case menu, but seems to do the same as CLIENT_CASE_TABLE_UNIQUE_CLIENT.
+    // However, no check for uniqueness between target and client is done. Unused in template
+    CLIENT_CASE_TABLE_CLIENT = 3,
     // Client is selected at random from GetAllPossibleMonsters. Most missions use this.
     CLIENT_CASE_RANDOM_CLIENT = 4,
 };
@@ -4031,9 +4033,9 @@ enum mission_template_target_case {
     // mission_template_target_data_1 and mission_template_target_data_2 are indices to a table
     // This determines the final target in a more restricted manner.
     // Primarily used for outlaw missions in the template
-    TARGET_CASE_TABLE_TARGET = 2,
+    TARGET_CASE_TABLE_UNIQUE_TARGET = 2,
     // Has a distinct case menu, unused in template.
-    TARGET_CASE_UNK_3 = 3,
+    TARGET_CASE_TABLE_TARGET = 3,
     // Target is selected at random from GetAllPossibleMonsters. Most missions use this.
     CASE_RANDOM_TARGET = 4,
     TARGET_CASE_UNK_5 = 5,
