@@ -3956,16 +3956,21 @@ ENUM_8_BIT(mission_status);
 #pragma pack(pop)
 
 enum mission_template_item_case {
-    // Treated same as ITEM_CASE_SPECIFIC_ITEM, unused in template
-    ITEM_CASE_UNK_0 = 0,
+    // Treated same as ITEM_CASE_SPECIFIC_ITEM, but the item ID must also be obtainable for the player.
+    // Unused by the template.
+    ITEM_CASE_SPECIFIC_AVAILABLE_ITEM = 0,
     // mission_template_item_data_1 is ignored, and mission_template_item_data_2 is an item_id
     ITEM_CASE_SPECIFIC_ITEM = 1,
     // mission_template_item_data_1 and mission_template_item_data_2 are indices to a table
-    ITEM_CASE_USE_ITEM_TABLE = 2,
-    // Has a distinct case menu, unused in template.
-    ITEM_CASE_UNK_3 = 3,
-    // mission_template_item_data_1 and mission_template_item_data_2 are ignored
-    ITEM_CASE_NO_ITEM = 4
+    ITEM_CASE_TABLE_AVAILABLE_ITEM = 2,
+    // similar to ITEM_CASE_TABLE_ITEM, but without a check for availability. Unused in template.
+    ITEM_CASE_TABLE_ITEM = 3,
+    // mission_template_item_data_1 and mission_template_item_data_2 are ignored. Instead, pulls from
+    // MISSION_DELIVERY_LIST if possible, or an oran berry (0x46) if not.
+    // If that gives item ID 0, and this isn't a DELIVERY or FIND_ITEM mission, runs RetrieveFromItemList2
+    // with a table_id determined by mission rank, ignoring thrown/unstorable items. 
+    // Used mainly by templates without mission-relevant items, or where the item ID is intended to be random.
+    ITEM_CASE_IGNORED = 4
 };
 
 #pragma pack(push, 2)
@@ -3981,8 +3986,8 @@ union mission_template_item_data {
 enum mission_template_dungeon_case {
     DUNGEON_CASE_SPECIFIC_OPENED = 0, // Used for Legendary Challenge Letters, among other things
     DUNGEON_CASE_SPECIFIC_CLOSED = 1, // Used for Jirachi Challenge Letter and Togetic Mission
-    DUNGEON_CASE_UNK_2 = 2,           // Treated same as DUNGEON_CASE_REVEALED_AND_UNLOCKED
-    DUNGEON_CASE_UNK_3 = 3,           // Treated same as DUNGEON_CASE_REVEALED_AND_UNLOCKED
+    DUNGEON_CASE_UNK_2 = 2,           // Treated same as DUNGEON_CASE_RANDOM_OPEN
+    DUNGEON_CASE_UNK_3 = 3,           // Treated same as DUNGEON_CASE_RANDOM_OPEN
     DUNGEON_CASE_RANDOM_OPEN = 4,     // Used for most missions
     DUNGEON_CASE_RANDOM_CLOSED = 5    // Used for EXPLORE_NEW_DUNGEON subtype
 };
