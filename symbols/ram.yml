@@ -669,6 +669,16 @@ ram:
         [Runtime] Pointer to the dynamically allocated structure relating to the currently loaded attack sprite, in dungeon mode.
         
         type: struct loaded_attack_sprite_data*
+    - name: MOBILITY_TYPE_TO_DUNGEON_MOBILITY_TYPE
+      address:
+        EU: 0x237D5B8
+        NA: 0x237C9B8
+        JP: 0x237DC38
+      length:
+        EU: 0x8
+        NA: 0x8
+        JP: 0x8
+      description: "[Runtime] Used by GetMobilityTypeCheckSlip to determine if a monster with a mobility type of MOBILITY_WATER or MOBILITY_LAVA can cross the current dungeon's liquid (lava or water). Only the values at indexes 4 (MOBILITY_LAVA) and 5 (MOBILITY_WATER) are used. If the mobility type can cross the liquid in the current dungeon, the array value at the mobility type's index is MOBILITY_WATER. If not, the array value is MOBILITY_NORMAL."
     - name: AI_THROWN_ITEM_DIRECTION_IS_USED
       address:
         EU: 0x237D5D0

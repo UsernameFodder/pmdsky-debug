@@ -850,6 +850,16 @@ overlay10:
       length:
         NA: 0x2
       description: The passive bonus health regen given when the weather is rain for the abilities rain dish and dry skin.
+    - name: AI_CONFUSED_NO_ATTACK_CHANCE
+      address:
+        EU: 0x22C4ED8
+        NA: 0x22C4580
+        JP: 0x22C5C68
+      length:
+        EU: 0x2
+        NA: 0x2
+        JP: 0x2
+      description: The percentage chance of the AI not attacking when it is confused.
     - name: LEECH_SEED_HP_DRAIN
       address:
         EU: 0x22C4EE0
@@ -1749,6 +1759,20 @@ overlay10:
         Maps each weather type (by index, see enum weather_id) to the corresponding Weather Ball type.
         
         type: struct type_id_8[8]
+    - name: AI_REGULAR_ATTACK_WEIGHTS
+      address:
+        EU: 0x22C5258
+        NA: 0x22C4900
+        JP: 0x22C5FE8
+      length:
+        EU: 0xA
+        NA: 0xA
+        JP: 0xA
+      description: |-
+        The weight of the regular attack in the weighted random when the AI is deciding which move to use, depending on how many other attacks the AI can currently use.
+        Each index in the array corresponds to the number of attacks (0-4) the AI can use (i.e., is enabled and has PP remaining).
+        
+        type: uint16_t[5]
     - name: LAST_RESORT_DAMAGE_MULT_TABLE
       address:
         EU: 0x22C529C
