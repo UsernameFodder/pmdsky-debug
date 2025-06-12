@@ -5713,7 +5713,7 @@ overlay29:
         Decides which direction the AI will use its regular attack in.
         
         r0: User entity pointer
-        r1: Output pointer to the direction the regular attack should be targeted at.
+        r1: [output] direction that the regular attack should be targeted at.
         r2: If true, the AI will ignore enemies that are petrified. If false, the AI will include petrified enemies when targeting.
         return: True if there is a target for the regular attack, false if there is no target.
     - name: IsTargetInRange

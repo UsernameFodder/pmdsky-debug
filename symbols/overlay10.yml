@@ -855,6 +855,10 @@ overlay10:
         EU: 0x22C4ED8
         NA: 0x22C4580
         JP: 0x22C5C68
+      length:
+        EU: 0x2
+        NA: 0x2
+        JP: 0x2
       description: The percentage chance of the AI not attacking when it is confused.
     - name: LEECH_SEED_HP_DRAIN
       address:

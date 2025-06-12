@@ -284,7 +284,7 @@ bool IsMonsterSleeping(struct entity* monster);
 bool CheckVariousStatuses2(struct entity* entity, bool blind_check);
 bool CheckVariousConditions(struct entity* entity);
 bool CheckVariousStatuses(struct entity* entity);
-void MonsterCannotAttack(struct entity* entity, bool skip_sleep);
+bool MonsterCannotAttack(struct entity* entity, bool skip_sleep);
 bool CanMonsterMoveInDirection(struct entity* monster, enum direction_id direction);
 enum mobility_type GetDirectionalMobilityType(struct entity* monster,
                                               enum mobility_type base_mobility,
@@ -577,7 +577,7 @@ int TryAddTargetToAiTargetList(int current_num_targets, struct move_target_and_r
                                bool check_all_conditions);
 bool IsAiTargetEligible(struct move_target_and_range move_ai_range, struct entity* user,
                         struct entity* target, struct move* move, bool check_all_conditions);
-void TargetRegularAttack(struct entity* user, enum direction_id direction, bool check_petrified);
+bool TargetRegularAttack(struct entity* user, enum direction_id* direction, bool skip_petrified);
 bool IsTargetInRange(struct entity* user, struct entity* target, enum direction_id direction,
                      int n_tiles);
 bool ShouldUsePp(struct entity* entity);
