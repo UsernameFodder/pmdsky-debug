@@ -757,6 +757,7 @@ undefined4 ReadSaveHeader(undefined4* param_1, undefined4 param_2, undefined4 pa
 int NoteLoadBase(void);
 int ReadQuickSaveInfo(undefined* buf, int size);
 enum game_mode GetGameMode(void);
+bool8 IsGameModeRescue();
 void InitScriptVariableValues(void);
 void InitEventFlagScriptVars(void);
 void ZinitScriptVariable(void* local_var_vals, enum script_var_id id);
