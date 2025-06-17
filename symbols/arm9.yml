@@ -7106,6 +7106,15 @@ arm9:
         Gets the value of GAME_MODE.
         
         return: game mode
+    - name: IsGameModeRescue
+      address:
+        EU: 0x204B330
+        NA: 0x204AFF8
+        JP: 0x204B360
+      description: |-
+        Returns true if the value of GAME_MODE is GAME_MODE_RESCUE.
+        
+        return: True if GAME_MODE is GAME_MODE_RESCUE.
     - name: InitScriptVariableValues
       address:
         EU: 0x204B384

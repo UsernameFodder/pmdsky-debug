@@ -59,6 +59,7 @@ void PlayEffectAnimationEntityStandard(struct entity* entity, int effect_id);
 void ShowPpRestoreEffect(struct entity* entity);
 bool ShouldDisplayEntityAdvanced(struct entity* entity);
 void PlayEffectAnimation0x1A9(struct entity* entity);
+void PlayEffectAnimation0x29(struct entity* entity);
 void PlayEffectAnimation0x18E(struct entity* entity);
 void LoadMappaFileAttributes(int quick_saved, bool disable_monsters, undefined* special_process);
 enum item_id GetItemIdToSpawn(enum item_list_type item_list);
@@ -294,7 +295,8 @@ bool CanAttackInDirection(struct entity* monster, enum direction_id direction);
 bool CanAiMonsterMoveInDirection(struct entity* monster, enum direction_id direction,
                                  bool* out_monster_in_target_position);
 bool ShouldMonsterRunAway(struct entity* monster);
-bool ShouldMonsterRunAwayVariation(struct entity* monster, undefined param_2);
+bool ShouldMonsterRunAwayAndShowEffect(struct entity* monster, bool show_run_away_effect);
+void DisplayRunAwayIfTriggered(struct entity* monster, bool show_run_away_effect);
 enum monster_treatment GetTreatmentBetweenMonsters(struct entity* entity1, struct entity* entity2,
                                                    bool see_invisible_targets,
                                                    bool ignore_petrified_targets);
