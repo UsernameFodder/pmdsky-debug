@@ -809,6 +809,15 @@ overlay29:
         Just a guess. Calls PlayEffectAnimation with data from animation ID 0x1A9.
         
         r0: entity pointer
+    - name: PlayEffectAnimation0x29
+      address:
+        EU: 0x22E6C58
+        NA: 0x22E62A8
+        JP: 0x22E7918
+      description: |-
+        Calls PlayEffectAnimation with data from animation ID 0x29.
+        
+        r0: entity pointer
     - name: PlayEffectAnimation0x18E
       address:
         EU: 0x22E6D88
@@ -3203,17 +3212,29 @@ overlay29:
         
         r0: Entity pointer
         return: True if the monster should run away, false otherwise
-    - name: ShouldMonsterRunAwayVariation
+    - name: ShouldMonsterRunAwayAndShowEffect
+      aliases:
+        - ShouldMonsterRunAwayVariation
       address:
         EU: 0x23020D4
         NA: 0x23016A8
         JP: 0x2302C18
       description: |-
-        Calls ShouldMonsterRunAway and returns its result. It also calls another function if the result was true.
+        Calls ShouldMonsterRunAway and returns its result. It also calls DisplayRunAwayIfTriggered if the result was true.
         
         r0: Entity pointer
-        r1: ?
+        r1: Boolean value. If true, display a visual "poof" effect if the Run Away ability caused the monster to run away.
         return: Result of the call to ShouldMonsterRunAway
+    - name: DisplayRunAwayIfTriggered
+      address:
+        EU: 0x2302104
+        NA: 0x23016D8
+        JP: 0x2302C48
+      description: |-
+        If the Run Away ability has triggered on the entity and r1 is true, displays the visual "poof" effect indicating Run Away.
+        
+        r0: Entity pointer
+        r1: Boolean value. If true, display a visual "poof" effect if the Run Away ability caused the monster to run away.
     - name: GetTreatmentBetweenMonsters
       address:
         EU: 0x2302188
