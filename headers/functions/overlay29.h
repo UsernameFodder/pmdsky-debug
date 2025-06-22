@@ -573,6 +573,7 @@ void TryResetStatChanges(struct entity* attacker, struct entity* defender, bool 
 int MirrorMoveIsActive(struct entity* entity);
 int MistIsActive(struct entity* entity);
 int Conversion2IsActive(struct entity* entity);
+void ResetAiCanAttackInDirection(void);
 int AiConsiderMove(struct ai_possible_move* ai_possible_move, struct entity* monster,
                    struct move* move);
 int TryAddTargetToAiTargetList(int current_num_targets, struct move_target_and_range move_ai_range,

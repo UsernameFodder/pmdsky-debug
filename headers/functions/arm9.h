@@ -350,7 +350,7 @@ bool IsAffectedByTaunt(struct move* move);
 uint8_t GetMoveRangeId(struct move* move);
 int GetMoveActualAccuracy(enum move_id move_id);
 int GetMoveBasePowerFromId(enum move_id move_id);
-bool IsMoveRangeString19(struct move* move);
+bool IsMoveRangeStringUser(struct move* move);
 char* GetMoveMessageFromId(enum move_id move_id);
 int GetNbMoves(undefined* moveset);
 int GetMovesetIdx(undefined* moveset, enum move_id move_id);

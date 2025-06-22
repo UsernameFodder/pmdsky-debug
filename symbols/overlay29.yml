@@ -5694,6 +5694,12 @@ overlay29:
         
         r0: pointer to entity
         return: int
+    - name: ResetAiCanAttackInDirection
+      address:
+        EU: 0x231A2BC
+        NA: 0x231985C
+        JP: 0x231AD2C
+      description: Resets all entries in AI_CAN_ATTACK_IN_DIRECTION to false.
     - name: AiConsiderMove
       address:
         EU: 0x231A2E0
