@@ -709,6 +709,46 @@ ram:
         NA: 0x20
         JP: 0x20
       description: "[Runtime] Used to store the directions output by GetPossibleAiThrownItemDirections."
+    - name: AI_CAN_ATTACK_IN_DIRECTION
+      address:
+        EU: 0x237D618
+        NA: 0x237CA18
+        JP: 0x237DC98
+      length:
+        EU: 0x8
+        NA: 0x8
+        JP: 0x8
+      description: "[Runtime] Stores whether the AI can use an attack in each direction."
+    - name: AI_POTENTIAL_ATTACK_TARGET_DIRECTIONS
+      address:
+        EU: 0x237D620
+        NA: 0x237CA20
+        JP: 0x237DCA0
+      length:
+        EU: 0x8
+        NA: 0x8
+        JP: 0x8
+      description: "[Runtime] Stores the directions that the AI can use an attack in. Parallel to AI_POTENTIAL_ATTACK_TARGET_WEIGHTS and AI_POTENTIAL_ATTACK_TARGETS."
+    - name: AI_POTENTIAL_ATTACK_TARGET_WEIGHTS
+      address:
+        EU: 0x237D628
+        NA: 0x237CA28
+        JP: 0x237DCA8
+      length:
+        EU: 0x20
+        NA: 0x20
+        JP: 0x20
+      description: "[Runtime] Stores the targeting weights for each direction the AI can use an attack in. Parallel to AI_POTENTIAL_ATTACK_TARGET_DIRECTIONS and AI_POTENTIAL_ATTACK_TARGETS."
+    - name: AI_POTENTIAL_ATTACK_TARGETS
+      address:
+        EU: 0x237D648
+        NA: 0x237CA48
+        JP: 0x237DCC8
+      length:
+        EU: 0x20
+        NA: 0x20
+        JP: 0x20
+      description: "[Runtime] Stores the target entity for each direction the AI can use an attack in. Parallel to AI_POTENTIAL_ATTACK_TARGET_DIRECTIONS and AI_POTENTIAL_ATTACK_TARGET_DIRECTIONS."
     - name: ROLLOUT_ICE_BALL_MISSED
       address:
         EU: 0x237D669

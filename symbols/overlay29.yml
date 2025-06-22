@@ -3177,6 +3177,19 @@ overlay29:
         
         r0: Entity pointer
         return: True if the monster can't move in any direction, false otherwise.
+    - name: CanMonsterMoveOrSwapWithAllyInDirection
+      address:
+        EU: 0x2301B84
+        NA: 0x2301158
+        JP: 0x230255C
+      description: |-
+        Checks if the given monster can move in the specified direction. Includes if an allied or neutral monster is standing on an adjacent tile, as the monsters can swap places.
+        
+        Returns false if an enemy monster is standing on the target tile
+        
+        r0: Monster entity pointer
+        r1: Direction to check
+        return: bool
     - name: CanAttackInDirection
       address:
         EU: 0x2301C60
@@ -5687,10 +5700,12 @@ overlay29:
         NA: 0x2319880
         JP: 0x231AD50
       description: |-
-        The AI uses this function to check if a move has any potential targets, to calculate the list of potential targets and to calculate the move's special weight.
-        This weight will be higher if the pokémon has weak-type picker and the target is weak to the move (allies only, enemies always get a result of 1 even if the move is super effective). More things could affect the result.
+        The AI uses this function to check if a move has any potential targets, to calculate the list of potential targets and to calculate the move's special weight. The weight is calculated using WeightMoveWithIqSkills.
         This function also sets the flag can_be_used on the ai_possible_move struct if it makes sense to use it.
-        More research is needed. There's more documentation about this special weight. Does all the documented behavior happen in this function?
+        
+        The weight returned by this function is not the same as GetMoveAiWeight. If the AI does not have Weak-Type Picker, AiConsiderMove is called after the AI has selected which move it will use (using GetMoveAiWeight). It determines whether it makes sense for the AI to actually use the chosen move (i.e., whether targets are in range), and which direction the AI will use the move in if so. The return value of this function is not used anywhere in this case.
+        
+        If the AI has Weak-Type Picker, the AI calls this function earlier in the AI logic to determine which move to use, using the returned special weight to find which move has the most advantageous type matchups.
         
         r0: ai_possible_move struct for this move
         r1: Entity pointer
@@ -5725,6 +5740,19 @@ overlay29:
         r3: Move pointer
         stack[0]: True to check all the possible move_ai_condition values, false to only check for move_ai_condition::AI_CONDITION_RANDOM (if the move has a different ai condition, the result will be false).
         return: True if the target is eligible, false otherwise
+    - name: WeightMoveWithIqSkills
+      address:
+        EU: 0x231ADC4
+        NA: 0x231A364
+        JP: 0x231B834
+      description: |-
+        Calculates a move weight used for deciding which target the move should be used on. If the user is an ally, the target is an enemy Pokémon, and the user has Exp. Go-Getter, Efficiency Expert, or Weak-Type Picker enabled, this function calculates a move weight based on that IQ skill's functionality. Otherwise, this function returns a weight of 1.
+        
+        r0: User entity pointer
+        r1: Move's AI range field
+        r2: Target entity pointer
+        r3: Move type
+        return: Move weight for deciding move targeting.
     - name: TargetRegularAttack
       address:
         EU: 0x231AEC0
@@ -9848,9 +9876,27 @@ overlay29:
       description: The additional amount by which belly is decreased every turn when inside walls (fractional thousandths)
     - name: DIRECTIONAL_BIT_MASKS
       address:
-        EU: 0x23533A4
-        NA: 0x2352798
-        JP: 0x2353A18
+        EU:
+          - 0x235337C
+          - 0x2353384
+          - 0x235338C
+          - 0x2353394
+          - 0x235339C
+          - 0x23533A4
+        NA:
+          - 0x2352770
+          - 0x2352778
+          - 0x2352780
+          - 0x2352788
+          - 0x2352790
+          - 0x2352798
+        JP:
+          - 0x23539F0
+          - 0x23539F8
+          - 0x2353A00
+          - 0x2353A08
+          - 0x2353A10
+          - 0x2353A18
       length:
         EU: 0x8
         NA: 0x8
