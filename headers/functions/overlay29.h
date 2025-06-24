@@ -581,8 +581,8 @@ int TryAddTargetToAiTargetList(int current_num_targets, struct move_target_and_r
                                bool check_all_conditions);
 bool IsAiTargetEligible(struct move_target_and_range move_ai_range, struct entity* user,
                         struct entity* target, struct move* move, bool check_all_conditions);
-void WeightMoveWithIqSkills(struct entity* user, struct move_target_and_range move_ai_range,
-                            struct entity* target, enum type_id move_type);
+int WeightMoveWithIqSkills(struct entity* user, struct move_target_and_range move_ai_range,
+                           struct entity* target, enum type_id move_type);
 bool TargetRegularAttack(struct entity* user, enum direction_id* direction, bool skip_petrified);
 bool IsTargetInRange(struct entity* user, struct entity* target, enum direction_id direction,
                      int n_tiles);
