@@ -291,6 +291,7 @@ enum mobility_type GetDirectionalMobilityType(struct entity* monster,
                                               enum mobility_type base_mobility,
                                               enum direction_id direction);
 bool IsMonsterCornered(struct entity* monster);
+bool CanMonsterMoveOrSwapWithAllyInDirection(struct entity* monster, enum direction_id direction);
 bool CanAttackInDirection(struct entity* monster, enum direction_id direction);
 bool CanAiMonsterMoveInDirection(struct entity* monster, enum direction_id direction,
                                  bool* out_monster_in_target_position);
@@ -572,6 +573,7 @@ void TryResetStatChanges(struct entity* attacker, struct entity* defender, bool 
 int MirrorMoveIsActive(struct entity* entity);
 int MistIsActive(struct entity* entity);
 int Conversion2IsActive(struct entity* entity);
+void ResetAiCanAttackInDirection(void);
 int AiConsiderMove(struct ai_possible_move* ai_possible_move, struct entity* monster,
                    struct move* move);
 int TryAddTargetToAiTargetList(int current_num_targets, struct move_target_and_range move_ai_range,
@@ -579,6 +581,8 @@ int TryAddTargetToAiTargetList(int current_num_targets, struct move_target_and_r
                                bool check_all_conditions);
 bool IsAiTargetEligible(struct move_target_and_range move_ai_range, struct entity* user,
                         struct entity* target, struct move* move, bool check_all_conditions);
+int WeightMoveWithIqSkills(struct entity* user, struct move_target_and_range move_ai_range,
+                           struct entity* target, enum type_id move_type);
 bool TargetRegularAttack(struct entity* user, enum direction_id* direction, bool skip_petrified);
 bool IsTargetInRange(struct entity* user, struct entity* target, enum direction_id direction,
                      int n_tiles);

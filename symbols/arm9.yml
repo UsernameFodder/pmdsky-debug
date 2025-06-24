@@ -3435,7 +3435,9 @@ arm9:
         
         r0: move ID
         return: base power
-    - name: IsMoveRangeString19
+    - name: IsMoveRangeStringUser
+      aliases:
+        - IsMoveRangeString19
       address:
         EU: 0x2013CAC
         NA: 0x2013C04
