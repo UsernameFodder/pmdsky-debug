@@ -5699,7 +5699,10 @@ overlay29:
         EU: 0x231A2BC
         NA: 0x231985C
         JP: 0x231AD2C
-      description: Resets all entries in AI_CAN_ATTACK_IN_DIRECTION to false.
+      description: |-
+        Resets all entries in AI_CAN_ATTACK_IN_DIRECTION to false.
+        
+        No params.
     - name: AiConsiderMove
       address:
         EU: 0x231A2E0
