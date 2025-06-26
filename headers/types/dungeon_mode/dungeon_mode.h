@@ -1197,7 +1197,7 @@ struct tileset_property {
     int32_t field_0x0;
     uint8_t field_0x4;
     uint8_t field_0x5;
-    uint8_t field_0x6;
+    struct type_id_8 camouflage_type;
     uint8_t _padding;
     struct nature_power_variant_16 nature_power_variant;
     uint8_t field_0xa;

@@ -142,6 +142,7 @@ bool AreLateGameTrapsEnabledWrapper(void);
 void SpawnEnemyTrapAtPos(enum trap_id trap_id, int16_t x, int16_t y, uint8_t flags,
                          bool is_visible);
 void PrepareTrapperTrap(struct entity* entity, enum trap_id trap_id, uint8_t team);
+bool CanLayTrap(struct position* pos);
 bool TrySpawnTrap(struct position* pos, enum trap_id trap_id, uint8_t team, bool visible);
 bool TrySpawnTrapperTrap(struct entity* entity);
 bool TryRemoveTrap(struct position* pos, bool update_trap_visibility);
@@ -704,6 +705,7 @@ void DiscoverMinimap(struct position* pos);
 bool PositionHasItem(struct position* pos);
 bool PositionHasMonster(struct position* pos);
 bool TrySmashWall(struct position* pos);
+bool IsTileGround(struct position* pos);
 bool IsWaterTileset(void);
 enum monster_id GetRandomSpawnMonsterID(void);
 bool NearbyAllyIqSkillIsEnabled(struct entity* entity, enum iq_skill_id iq_skill);

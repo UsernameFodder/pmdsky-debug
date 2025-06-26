@@ -1619,6 +1619,16 @@ overlay29:
         r0: entity pointer
         r1: trap ID
         r2: team (see struct trap::team)
+    - name: CanLayTrap
+      address:
+        EU: 0x22EE5E0
+        NA: 0x22EDC30
+        JP: 0x22EF294
+      description: |-
+        Checks if a trap can be placed on the tile.
+        
+        r0: position
+        return: true if a trap can be spawned at the given position.
     - name: TrySpawnTrap
       address:
         EU: 0x22EE66C
@@ -6921,6 +6931,17 @@ overlay29:
         
         r0: Wall position to smash
         return: bool
+    - name: IsTileGround
+      address:
+        EU: 0x23389FC
+        NA: 0x2337E2C
+        JP: 0x23391F0
+      description: |-
+        Returns true if the given position is a ground tile, meaning that Dig can be used and Dive cannot be used.
+        This depends on the terrain type of the position and the dungeon tileset.
+        
+        r0: Position
+        return: True if the current tile is a ground tile.
     - name: IsWaterTileset
       address:
         EU: 0x2338A64
