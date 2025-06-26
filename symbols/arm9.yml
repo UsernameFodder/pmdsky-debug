@@ -3393,18 +3393,18 @@ arm9:
         
         r0: move
         return: bool
-    - name: IsAffectedByTaunt
+    - name: IsUsableWhileTaunted
+      aliases:
+        - IsAffectedByTaunt
       address:
         EU: 0x2013BF8
         NA: 0x2013B50
         JP: 0x2013B20
       description: |-
-        Note: unverified, ported from Irdkwia's notes
-        
-        Based on struct move_data, maybe this should be IsUsableWhileTaunted?
+        Returns true if the given move can be used while the user is affected by Taunt, or false if the move cannot be used while taunted.
         
         r0: move
-        return: bool
+        return: bool whether the move can be used while taunted.
     - name: GetMoveRangeId
       address:
         EU: 0x2013C18
