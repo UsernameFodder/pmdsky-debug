@@ -2943,7 +2943,7 @@ overlay29:
       description: |-
         Determines how the name of a monster should be displayed.
         
-        r0: Entity pointer
+        r0: Monster pointer
         return: Display name type
     - name: GetMonsterName
       address:
