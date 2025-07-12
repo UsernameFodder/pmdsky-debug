@@ -268,7 +268,7 @@ bool CannotStandOnTile(struct entity* monster, struct tile* tile);
 int CalcSpeedStage(struct entity* entity, int counter_weight);
 int CalcSpeedStageWrapper(struct entity* entity);
 int GetNumberOfAttacks(struct entity* entity);
-enum display_name_type GetMonsterDisplayNameType(struct entity* entity);
+enum display_name_type GetMonsterDisplayNameType(struct monster* monster);
 void GetMonsterName(char* buffer, struct monster* target_info);
 bool IsMonsterDrowsy(struct entity* monster);
 bool MonsterHasNonvolatileNonsleepStatus(struct entity* monster);
