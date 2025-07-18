@@ -346,7 +346,7 @@ uint8_t GetMoveMaxGinsengBoost(struct move* move);
 uint8_t GetMoveMaxGinsengBoostGround(struct ground_move* move);
 int GetMoveCritChance(struct move* move);
 bool IsThawingMove(struct move* move);
-bool IsAffectedByTaunt(struct move* move);
+bool IsUsableWhileTaunted(struct move* move);
 uint8_t GetMoveRangeId(struct move* move);
 int GetMoveActualAccuracy(enum move_id move_id);
 int GetMoveBasePowerFromId(enum move_id move_id);

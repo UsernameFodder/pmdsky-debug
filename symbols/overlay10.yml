@@ -1046,6 +1046,16 @@ overlay10:
         NA: 0x2
         JP: 0x2
       description: "The chance of Poison Fang poisoning, as a percentage (30%)."
+    - name: CHATOT_SCARF_BOUNCE_CHANCE
+      address:
+        EU: 0x22C4FA0
+        NA: 0x22C4648
+        JP: 0x22C5D30
+      length:
+        EU: 0x2
+        NA: 0x2
+        JP: 0x2
+      description: "The chance of the Chatot Scarf bouncing back a move, as a percentage (20%)."
     - name: WEATHER_MOVE_TURN_COUNT
       address:
         EU: 0x22C4FAC
