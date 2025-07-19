@@ -829,6 +829,12 @@ ram:
         NA: 0x4
         JP: 0x4
       description: "[Runtime] The index into METRONOME_TABLE for the next usage of Metronome."
+    - name: DEFAULT_TILE_COPY
+      address:
+        EU: 0x237D6B8
+        NA: 0x237CAB8
+        JP: 0x237DD38
+      description: "A copy of DEFAULT_TILE. Used to hold the default tile returned from GetTileSafe."
     - name: FLOOR_GENERATION_STATUS
       address:
         EU: 0x237DBBC
