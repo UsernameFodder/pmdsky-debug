@@ -292,6 +292,16 @@ arm9:
         
         r0: number
         return: number // 256
+    - name: sin_4096
+      address:
+        EU: 0x20018D0
+        NA: 0x20018D0
+        JP: 0x20018D0
+      description: |-
+        This function computes the sine of the absolute value of r0 using a lookup table. The period of the function is 4096, and the range is [-256, 256].
+        
+        r0: The value to get the sine of.
+        return: floor(256 * sin(pi * abs(x) / 2048)) as a signed 32-bit integer.
     - name: UFixedPoint64CmpLt
       address:
         EU: 0x2001A30

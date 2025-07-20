@@ -3878,6 +3878,17 @@ overlay29:
         r0: user entity pointer
         r1: target entity pointer
         return: Whether or not the status could be transferred
+    - name: TryEndPetrifiedOrSleepStatus
+      address:
+        EU: 0x2308608
+        NA: 0x2307BDC
+        JP: 0x230910C
+      description: |-
+        Ends the target's petrified status unconditionally, and the target's sleep status if the status turns have run out.
+        
+        r0: user entity who attacked the target
+        r1: target entity to try ending a status for.
+        return: Whether or not the target's status ended.
     - name: EndFrozenStatus
       address:
         EU: 0x23086A4
@@ -8431,6 +8442,19 @@ overlay29:
         r1: item ID
         r2: quantity
         r3: stickiness type (enum gen_item_stickiness)
+    - name: HandleCurvedProjectileThrow
+      address:
+        EU: 0x23487C8
+        NA: 0x2347BC8
+        JP: 0x2348F54
+      description: |-
+        Throws an item in a curved arc, like a Gravelerock.
+        
+        r0: monster entity throwing the item
+        r1: item being thrown
+        r2: position to start throwing the item from
+        r3: position to throw the item to
+        stack[0]: Metadata about the item being thrown
     - name: DoesProjectileHitTarget
       address:
         EU: 0x2348C20

@@ -32,6 +32,7 @@ struct mem_arena* CreateMemArena(struct iovec* mem, uint32_t max_blocks);
 void* MemLocateSet(struct mem_arena* arena, uint32_t len, uint32_t flags);
 void MemLocateUnset(struct mem_arena* arena, void* ptr);
 int RoundUpDiv256(int x);
+int sin_4096(int x);
 bool UFixedPoint64CmpLt(int32_t x_upper, uint32_t x_lower, int32_t y_upper, uint32_t y_lower);
 int MultiplyByFixedPoint(int x, fx32_8 mult_fp);
 uint32_t UMultiplyByFixedPoint(uint32_t x, ufx32_8 mult_fp);
