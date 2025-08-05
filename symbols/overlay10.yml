@@ -1440,6 +1440,16 @@ overlay10:
         The turn range for the Nightmare status inflicted by Nightmare, [4, 8).
         
         type: int16_t[2]
+    - name: REFLECT_LIGHT_SCREEN_TURN_RANGE
+      address:
+        EU: 0x22C5084
+      length:
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Reflect and Light Screen statuses, [10, 12).
+        
+        type: int16_t[2]
     - name: BURN_DAMAGE_MULTIPLIER
       address:
         EU: 0x22C509C
@@ -1481,6 +1491,17 @@ overlay10:
       length:
         NA: 0x4
       description: "The damage multiplier corresponding to MATCHUP_IMMUNE, as a fixed-point number with 8 fraction bits (0.5)."
+    - name: GASTRO_ACID_TURN_RANGE
+      address:
+        EU: 0x22C50C4
+        NA: 0x22C476C
+      length:
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Gastro Acid status, [4, 10).
+        
+        type: int16_t[2]
     - name: SPORT_CONDITION_TURN_RANGE
       address:
         EU: 0x22C50E4
