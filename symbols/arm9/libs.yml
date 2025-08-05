@@ -2189,7 +2189,6 @@ libs:
       description: |-
         Powers off the system.
         
-        No params.
         return: ?
     - name: abs
       address:
