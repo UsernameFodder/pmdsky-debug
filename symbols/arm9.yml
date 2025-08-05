@@ -5027,9 +5027,9 @@ arm9:
         EU: 0x20252B4
       description: |-
         Sets what item's name should be displayed in place of the [item:r0] tag when printing a string.
-
+        
         Is almost always accompanied by a SetPreprocessorArgsIdVal(0, tag id | 0x40000) call in dungeon mode.
-
+        
         r0: tag id
         r1: item struct pointer
         r2: some static address related to storing the item (always the same throughout the code)
