@@ -791,7 +791,8 @@ struct mission {
     uint8_t floor;                  // 0x5
     undefined field_0x6;            // Likely padding
     undefined field_0x7;            // Likely padding
-    // 0x8: changing it seems to affect the text of the mission, maybe a string ID?
+    // 0x8: A random value determined by FUN_0205146C [EU], which is used to
+    // randomly generate the mission title and description.
     int description_id;
     uint8_t unique_map_id; // 0xC: for challenges/treasure hunts/certain outlaws
     undefined field_0xd;
@@ -818,9 +819,8 @@ struct mission_floors_forbidden {
 };
 ASSERT_SIZE(struct mission_floors_forbidden, 2);
 
-// Information about a valid mission; a list of these structs is stored in and directly loaded from
-// RESCUE/rescue.bin. Used for validation as well as possibly for loading certain missions?
-struct mission_rescue_bin {
+// Used throughout the process of displaying a mission
+struct mission_details {
     undefined field_0x0;
     undefined field_0x1;
     undefined field_0x2;
@@ -829,35 +829,206 @@ struct mission_rescue_bin {
     undefined field_0x5;
     undefined field_0x6;
     undefined field_0x7;
-    // 0x8: For legendary challenge missions, is used as a boolean to indicate whether or not
-    // accepting the mission unlocks its dungeon. For other missions, its purpose is unknown.
-    uint8_t unk_unlock_flag;
-    undefined field_0x9;
-    undefined field_0xa;
-    undefined field_0xb;
-    int8_t restricted_dungeon; // 0xC: Dungeon this mission is restricted to, or 0xFF if none
+    // 0x8: Pointer to "mission struct + 0x4" (new substruct?)
+    struct mission* mission_ptr;
+    undefined field_0xc;
     undefined field_0xd;
     undefined field_0xe;
     undefined field_0xf;
     undefined field_0x10;
     undefined field_0x11;
-    struct monster_id_16 client; // 0x12: For challenge letter missions, stores the leader
+    undefined field_0x12;
+    undefined field_0x13;
     undefined field_0x14;
     undefined field_0x15;
     undefined field_0x16;
     undefined field_0x17;
-    // 0x18: For non-legendary challenge letter missions, stores the second team member
-    struct monster_id_16 target;
+    undefined field_0x18;
+    undefined field_0x19;
     undefined field_0x1a;
     undefined field_0x1b;
     undefined field_0x1c;
     undefined field_0x1d;
-    // 0x1E: For non-legendary challenge letter missions, stores the third team member
-    struct monster_id_16 outlaw_backup_species;
+    undefined field_0x1e;
+    undefined field_0x1f;
+    undefined field_0x20;
+    undefined field_0x21;
+    undefined field_0x22;
+    undefined field_0x23;
+    undefined field_0x24;
+    undefined field_0x25;
+    undefined field_0x26;
+    undefined field_0x27;
+    undefined field_0x28;
+    undefined field_0x29;
+    undefined field_0x2a;
+    undefined field_0x2b;
+    undefined field_0x2c;
+    undefined field_0x2d;
+    undefined field_0x2e;
+    undefined field_0x2f;
+    undefined field_0x30;
+    undefined field_0x31;
+    undefined field_0x32;
+    undefined field_0x33;
+    undefined field_0x34;
+    undefined field_0x35;
+    undefined field_0x36;
+    undefined field_0x37;
+    undefined field_0x38;
+    undefined field_0x39;
+    undefined field_0x3a;
+    undefined field_0x3b;
+    undefined field_0x3c;
+    undefined field_0x3d;
+    undefined field_0x3e;
+    undefined field_0x3f;
+    undefined field_0x40;
+    undefined field_0x41;
+    undefined field_0x42;
+    undefined field_0x43;
+    undefined field_0x44;
+    undefined field_0x45;
+    undefined field_0x46;
+    undefined field_0x47;
+    undefined field_0x48;
+    undefined field_0x49;
+    undefined field_0x4a;
+    undefined field_0x4b;
+    undefined field_0x4c;
+    undefined field_0x4d;
+    undefined field_0x4e;
+    undefined field_0x4f;
+    undefined field_0x50;
+    undefined field_0x51;
+    undefined field_0x52;
+    undefined field_0x53;
+    undefined field_0x54;
+    undefined field_0x55;
+    undefined field_0x56;
+    undefined field_0x57;
+    undefined field_0x58;
+    undefined field_0x59;
+    undefined field_0x5a;
+    undefined field_0x5b;
+    undefined field_0x5c;
+    undefined field_0x5d;
+    undefined field_0x5e;
+    undefined field_0x5f;
+    // 0x60: pointer to mission_template struct
+    struct mission_template* template_ptr;
+};
+// mission_details is at least this big. Unclear how much bigger it actually is.
+ASSERT_SIZE(struct mission_details, 100);
+
+// Information about a valid mission; a list of these structs is stored in and directly loaded from
+// RESCUE/rescue.bin at 0x20, where 481 of these structs exist. These are used to select a string
+// from MISSION_STRING_IDS at random, to provide variance to mission flavor text.
+struct rescue_str_variant_group {
+    // 0x0: Index of MISSION_STRING_IDS the group starts from.
+    uint16_t starting_index;
+    // 0x2: Number of other MISSION_STRING_IDS entries the group contains. A random int on the range
+    // [0, group_size) is added to starting_index to produce the final MISSION_STRING_ID entry.
+    // This final index is reused to select an index in rescue_str_continuity_table
+    uint16_t group_size;
+};
+ASSERT_SIZE(struct rescue_str_variant_group, 4);
+
+// Information about a valid mission; a list of these structs is stored in and directly loaded from
+// RESCUE/rescue.bin at 0x7C0, where 964 of these structs exist. These correspond to each string in
+// MISSION_STRING_IDS, and determines whether other strings should be appended to them.
+struct rescue_str_continuity {
+    /* This field is interpreted as follows:
+     * If 0xFFFF, there is no next string.
+     * If 0x1NNN, index 0xNNN is for a summary string, NOT a title string.
+     * If 0x0NNN, index 0xNNN is for a title string, NOT a summary string.
+     */
+    uint16_t next_variant_table_id;
+};
+ASSERT_SIZE(struct rescue_str_continuity, 2);
+
+// Information about a valid mission; a list of these structs is stored in and directly loaded from
+// RESCUE/rescue.bin at 0x1560, where 600 of these structs exist. These are templates for mission
+// generation, which are categorized by mission_weighted_category above.
+struct mission_template {
+    // 0x0: Points to an index for mission_title_groups and mission_summary_groups
+    // These structs contain data for an appropriate range of titles/summaries
+    // for the mission template from MISSION_STRING_IDS.
+    uint16_t text_string_offset;
+    // 0x2: Called in a switch case at 0x0205DED4 [EU] during mission generation
+    // which affect how the template_item_data are interpreted
+    struct mission_template_item_case_16 item_case;
+    // 0x4: Ignored if mission_template_item_case is not "0x2".
+    // If not ignored, stores a table index.
+    union mission_template_item_data template_item_data_1;
+    // 0x6: Ignored if mission_template_item_case is "0x4".
+    // Usually stores the item_id of an item used in the mission.
+    // Can instead store a table index.
+    union mission_template_item_data template_item_data_2;
+    // 0x8: Called in a switch case at 0x0205DED4 [EU] during mission generation
+    // For legendary challenge missions, is also used as a boolean to indicate whether or not
+    // accepting the mission unlocks its dungeon.
+    struct mission_template_dungeon_case_16 dungeon_case;
+    // 0xA: Always Zero in the template, not referenced during mission generation.
+    undefined field_0xa;
+    // 0xB: Always Zero in the template, not referenced during mission generation.
+    undefined field_0xb;
+    // 0xC: Dungeon this mission is restricted to, or 0xFF if none.
+    // Use is governed by mission_template_dungeon_case
+    int16_t restricted_dungeon;
+    // 0xE: Called in a switch case at 0x0205D8C4 [EU] during mission generation
+    struct mission_template_client_case_16 client_case;
+    // 0x10: Ignored if mission_template_client_case is not "0x2"
+    // If not ignored, stores a table index.
+    union mission_template_client_data template_client_data_1;
+    // 0x12: Ignored if mission_template_client_case is "0x4"
+    // For challenge letter missions, stores the leader (who is ALSO the client)
+    // Usually stores a monster_id, but could instead store a table index.
+    union mission_template_client_data template_client_data_2;
+    // 0x14: Called in a looped switch case at 0x0205DBEC[EU] during mission generation
+    struct mission_template_target_case_16 target_case;
+    // 0x16: Ignored if mission_template_target_case (at 0x14) is not "0x2"
+    union mission_template_target_data template_target_data_1;
+    // 0x18: Ignored if mission_template_target_case (at 0x14) is "0x4" or "0x6"
+    // For non-legendary challenge letter missions, stores the second team member
+    union mission_template_target_data template_target_data_2;
+    // 0x1A: Called in the same looped switch case at 0x0205DBEC[EU] during mission generation
+    struct mission_template_target_case_16 target_backup_case;
+    // 0x1C: Ignored if mission_template_target_case (at 0x1A) is not "0x2"
+    union mission_template_target_data target_backup_data_1;
+    // 0x1E: Ignored if mission_template_target_case (at 0x1A) is "0x4" or "0x6"
+    // For non-legendary challenge letter missions, stores the third team member
+    union mission_template_target_data target_backup_data_2;
     struct mission_type_8 type;    // 0x20
     union mission_subtype subtype; // 0x21
 };
-ASSERT_SIZE(struct mission_rescue_bin, 34);
+ASSERT_SIZE(struct mission_template, 34);
+
+// Information valid mission; a list of these structs is stored in and directly loaded from
+// RESCUE/rescue.bin at 0x6520, where 40 of these structs exist. One of these categories is picked
+// at random during mission generation, after which a template is chosen from within that category.
+struct mission_weighted_category {
+    // 0x0: Weight for this category to appear on the Job Board
+    uint16_t job_board_weight;
+    // 0x2: Weight for this category to appear on the Outlaw Board
+    uint16_t outlaw_board_weight;
+    // 0x4: Weight for this category to appear from a client in Spinda's Cafe
+    uint16_t cafe_weight;
+    // 0x6: Weight for this category to appear in a bottle on the beach
+    uint16_t bottle_weight;
+    // 0x8: Minimum Guild Rank required for this category to be considered
+    uint8_t minimum_rank;
+    // 0x9: Minimum SCENARIO_BALANCE_FLAG required for this category to be considered.
+    // Is 0x2 for the gabite scale mission category, and 0x0 for all other categories.
+    uint8_t min_scenario_balance;
+    // 0xA: Boolean for whether Secret Rank is required for this mission.
+    uint16_t secret_rank_needed;
+    // 0xC: Number of mission_template structs within this category
+    uint16_t number_of_templates;
+    // 0xE: Index of the first mission_template struct within this category
+    uint16_t first_template_index;
+};
+ASSERT_SIZE(struct mission_weighted_category, 16);
 
 // Unverified, ported from Irdkwia's notes
 struct quiz_answer_points_entry {

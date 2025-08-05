@@ -711,6 +711,8 @@ overlay29:
     - name: PlayQuestionMarkEffect
       address:
         EU: 0x22E4788
+        NA: 0x22E3DD8
+        JP: 0x22E5448
       description: |-
         Plays the question mark effect (id = 0x144) on an entity.
         
@@ -721,6 +723,14 @@ overlay29:
           - 0x22E47D4
           - 0x22E4880
           - 0x22E5D4C
+        NA:
+          - 0x22E3E24
+          - 0x22E3ED0
+          - 0x22E539C
+        JP:
+          - 0x22E5494
+          - 0x22E5540
+          - 0x22E6A0C
       description: |-
         Plays the exclamation point effect (id = 0x143) on an entity.
         
@@ -746,6 +756,8 @@ overlay29:
     - name: PlayEffectAnimationEntityStandard
       address:
         EU: 0x22E4C98
+        NA: 0x22E42E8
+        JP: 0x22E5958
       description: |-
         Calls PlayEffectAnimationEntity with standard parameters used in various functions throughout the game.
         
@@ -795,6 +807,15 @@ overlay29:
           - 0x22E7B80
       description: |-
         Just a guess. Calls PlayEffectAnimation with data from animation ID 0x1A9.
+        
+        r0: entity pointer
+    - name: PlayEffectAnimation0x29
+      address:
+        EU: 0x22E6C58
+        NA: 0x22E62A8
+        JP: 0x22E7918
+      description: |-
+        Calls PlayEffectAnimation with data from animation ID 0x29.
         
         r0: entity pointer
     - name: PlayEffectAnimation0x18E
@@ -1442,6 +1463,16 @@ overlay29:
         
         r0: Pointer to the monster's action field
         r1: Direction in which to use the move. Gets stored in monster::action::direction.
+    - name: SetActionStruggle
+      address:
+        EU: 0x22EC624
+        NA: 0x22EBC74
+        JP: 0x22ED2DC
+      description: |-
+        Sets a monster's action to action::ACTION_STRUGGLE, with a specified direction.
+        
+        r0: Pointer to the monster's action field
+        r1: Direction in which to use the move. Gets stored in monster::action::direction.
     - name: SetActionUseMovePlayer
       address:
         EU: 0x22EC648
@@ -1588,6 +1619,16 @@ overlay29:
         r0: entity pointer
         r1: trap ID
         r2: team (see struct trap::team)
+    - name: CanLayTrap
+      address:
+        EU: 0x22EE5E0
+        NA: 0x22EDC30
+        JP: 0x22EF294
+      description: |-
+        Checks if a trap can be placed on the tile.
+        
+        r0: position
+        return: true if a trap can be spawned at the given position.
     - name: TrySpawnTrap
       address:
         EU: 0x22EE66C
@@ -2912,7 +2953,7 @@ overlay29:
       description: |-
         Determines how the name of a monster should be displayed.
         
-        r0: Entity pointer
+        r0: Monster pointer
         return: Display name type
     - name: GetMonsterName
       address:
@@ -3097,6 +3138,17 @@ overlay29:
         
         r0: Entity pointer
         return: bool
+    - name: MonsterCannotAttack
+      address:
+        EU: 0x23017F8
+        NA: 0x2300DCC
+        JP: 0x23021B0
+      description: |-
+        Returns 0 if the entity has any of these conditions: sleep, nightmare, napping, frozen, wrapped/wrapping, petrified, cringe, paused, infatuated, paralysis. Also returns 0 if ShouldMonsterRunAway returns 1.
+        
+        r0: Entity pointer
+        r1: If true, ignore sleep conditions (sleep, nightmare, napping) when checking if the entity cannot attack.
+        return: bool
     - name: CanMonsterMoveInDirection
       address:
         EU: 0x23018A4
@@ -3135,6 +3187,19 @@ overlay29:
         
         r0: Entity pointer
         return: True if the monster can't move in any direction, false otherwise.
+    - name: CanMonsterMoveOrSwapWithAllyInDirection
+      address:
+        EU: 0x2301B84
+        NA: 0x2301158
+        JP: 0x230255C
+      description: |-
+        Checks if the given monster can move in the specified direction. Includes if an allied or neutral monster is standing on an adjacent tile, as the monsters can swap places.
+        
+        Returns false if an enemy monster is standing on the target tile
+        
+        r0: Monster entity pointer
+        r1: Direction to check
+        return: bool
     - name: CanAttackInDirection
       address:
         EU: 0x2301C60
@@ -3170,17 +3235,29 @@ overlay29:
         
         r0: Entity pointer
         return: True if the monster should run away, false otherwise
-    - name: ShouldMonsterRunAwayVariation
+    - name: ShouldMonsterRunAwayAndShowEffect
+      aliases:
+        - ShouldMonsterRunAwayVariation
       address:
         EU: 0x23020D4
         NA: 0x23016A8
         JP: 0x2302C18
       description: |-
-        Calls ShouldMonsterRunAway and returns its result. It also calls another function if the result was true.
+        Calls ShouldMonsterRunAway and returns its result. It also calls DisplayRunAwayIfTriggered if the result was true.
         
         r0: Entity pointer
-        r1: ?
+        r1: Boolean value. If true, display a visual "poof" effect if the Run Away ability caused the monster to run away.
         return: Result of the call to ShouldMonsterRunAway
+    - name: DisplayRunAwayIfTriggered
+      address:
+        EU: 0x2302104
+        NA: 0x23016D8
+        JP: 0x2302C48
+      description: |-
+        If the Run Away ability has triggered on the entity and r1 is true, displays the visual "poof" effect indicating Run Away.
+        
+        r0: Entity pointer
+        r1: Boolean value. If true, display a visual "poof" effect if the Run Away ability caused the monster to run away.
     - name: GetTreatmentBetweenMonsters
       address:
         EU: 0x2302188
@@ -5627,16 +5704,27 @@ overlay29:
         
         r0: pointer to entity
         return: int
+    - name: ResetAiCanAttackInDirection
+      address:
+        EU: 0x231A2BC
+        NA: 0x231985C
+        JP: 0x231AD2C
+      description: |-
+        Resets all entries in AI_CAN_ATTACK_IN_DIRECTION to false.
+        
+        No params.
     - name: AiConsiderMove
       address:
         EU: 0x231A2E0
         NA: 0x2319880
         JP: 0x231AD50
       description: |-
-        The AI uses this function to check if a move has any potential targets, to calculate the list of potential targets and to calculate the move's special weight.
-        This weight will be higher if the pokémon has weak-type picker and the target is weak to the move (allies only, enemies always get a result of 1 even if the move is super effective). More things could affect the result.
+        The AI uses this function to check if a move has any potential targets, to calculate the list of potential targets and to calculate the move's special weight. The weight is calculated using WeightMoveWithIqSkills.
         This function also sets the flag can_be_used on the ai_possible_move struct if it makes sense to use it.
-        More research is needed. There's more documentation about this special weight. Does all the documented behavior happen in this function?
+        
+        The weight returned by this function is not the same as GetMoveAiWeight. If the AI does not have Weak-Type Picker, AiConsiderMove is called after the AI has selected which move it will use (using GetMoveAiWeight). It determines whether it makes sense for the AI to actually use the chosen move (i.e., whether targets are in range), and which direction the AI will use the move in if so. The return value of this function is not used anywhere in this case.
+        
+        If the AI has Weak-Type Picker, the AI calls this function earlier in the AI logic to determine which move to use, using the returned special weight to find which move has the most advantageous type matchups.
         
         r0: ai_possible_move struct for this move
         r1: Entity pointer
@@ -5671,6 +5759,31 @@ overlay29:
         r3: Move pointer
         stack[0]: True to check all the possible move_ai_condition values, false to only check for move_ai_condition::AI_CONDITION_RANDOM (if the move has a different ai condition, the result will be false).
         return: True if the target is eligible, false otherwise
+    - name: WeightMoveWithIqSkills
+      address:
+        EU: 0x231ADC4
+        NA: 0x231A364
+        JP: 0x231B834
+      description: |-
+        Calculates a move weight used for deciding which target the move should be used on. If the user is an ally, the target is an enemy Pokémon, and the user has Exp. Go-Getter, Efficiency Expert, or Weak-Type Picker enabled, this function calculates a move weight based on that IQ skill's functionality. Otherwise, this function returns a weight of 1.
+        
+        r0: User entity pointer
+        r1: Move's AI range field
+        r2: Target entity pointer
+        r3: Move type
+        return: Move weight for deciding move targeting.
+    - name: TargetRegularAttack
+      address:
+        EU: 0x231AEC0
+        NA: 0x231A460
+        JP: 0x231B930
+      description: |-
+        Decides which direction the AI will use its regular attack in.
+        
+        r0: User entity pointer
+        r1: [output] direction that the regular attack should be targeted at.
+        r2: If true, the AI will ignore enemies that are petrified. If false, the AI will include petrified enemies when targeting.
+        return: True if there is a target for the regular attack, false if there is no target.
     - name: IsTargetInRange
       address:
         EU: 0x231B0F4
@@ -6818,6 +6931,17 @@ overlay29:
         
         r0: Wall position to smash
         return: bool
+    - name: IsTileGround
+      address:
+        EU: 0x23389FC
+        NA: 0x2337E2C
+        JP: 0x23391F0
+      description: |-
+        Returns true if the given position is a ground tile, meaning that Dig can be used and Dive cannot be used.
+        This depends on the terrain type of the position and the dungeon tileset.
+        
+        r0: Position
+        return: True if the current tile is a ground tile.
     - name: IsWaterTileset
       address:
         EU: 0x2338A64
@@ -9670,6 +9794,21 @@ overlay29:
         EU: 0x90
         NA: 0x90
       description: "Array of bit masks used to set monster::status_icon. Indexed by monster::statuses::reflect * 8. See UpdateStatusIconFlags for details."
+    - name: POSITION_DISPLACEMENT_TO_DIRECTION
+      address:
+        EU: 0x2352210
+        NA: 0x2351604
+        JP: 0x2352884
+      length:
+        EU: 0x24
+        NA: 0x24
+        JP: 0x24
+      description: |-
+        An array mapping position displacements (y, then x) to directions. Used by GetDirectionTowardsPosition.
+        
+        Given two positions, displacements are either 0, 1, or 2 depending on whether the second position's x/y coordinate is less than, equal, or greater
+        than the first position's corresponding coordinates. For example, POSITION_DISPLACEMENT_TO_DIRECTION[0][2] (DIR_UP_RIGHT)
+        indicates that the second y coordinate is less than the first, and the second x coordinate is greater than the first.
     - name: DIRECTIONS_XY
       address:
         EU: 0x2352328
@@ -9765,6 +9904,34 @@ overlay29:
         NA: 0x2
         JP: 0x2
       description: The additional amount by which belly is decreased every turn when inside walls (fractional thousandths)
+    - name: DIRECTIONAL_BIT_MASKS
+      address:
+        EU:
+          - 0x235337C
+          - 0x2353384
+          - 0x235338C
+          - 0x2353394
+          - 0x235339C
+          - 0x23533A4
+        NA:
+          - 0x2352770
+          - 0x2352778
+          - 0x2352780
+          - 0x2352788
+          - 0x2352790
+          - 0x2352798
+        JP:
+          - 0x23539F0
+          - 0x23539F8
+          - 0x2353A00
+          - 0x2353A08
+          - 0x2353A10
+          - 0x2353A18
+      length:
+        EU: 0x8
+        NA: 0x8
+        JP: 0x8
+      description: "An array of one-hot bit masks corresponding to each direction_id. Used alongside tile->walkable_neighbor_flags to determine whether it's possible to move to a tile."
     - name: MONSTER_TREATMENT_DATA
       address:
         EU: 0x23533AC

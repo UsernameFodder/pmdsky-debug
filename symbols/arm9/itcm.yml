@@ -425,7 +425,9 @@ itcm:
         r1: source address
         r2: destination address
         r3: word count
-    - name: ShouldMonsterRunAwayVariationOutlawCheck
+    - name: ShouldMonsterRunAwayAndShowEffectOutlawCheck
+      aliases:
+        - ShouldMonsterRunAwayVariationOutlawCheck
       address:
         EU: 0x20B6050
         NA: 0x20B5710
@@ -434,10 +436,10 @@ itcm:
         NA-ITCM: 0x1FFA390
         JP-ITCM: 0x1FFA3F8
       description: |-
-        Calls ShouldMonsterRunAwayVariation. If the result is true, returns true. Otherwise, returns true only if the monster's behavior field is equal to monster_behavior::BEHAVIOR_FLEEING_OUTLAW.
+        Calls ShouldMonsterRunAwayAndShowEffect. If the result is true, returns true. Otherwise, returns true only if the monster's behavior field is equal to monster_behavior::BEHAVIOR_FLEEING_OUTLAW.
         
         r0: Entity pointer
-        r1: ?
+        r1: Boolean value. If true, display a visual "poof" effect if the Run Away ability caused the monster to run away.
         return: True if ShouldMonsterRunAway returns true or the monster is a fleeing outlaw
     - name: AiMovement
       address:
@@ -539,8 +541,10 @@ itcm:
       address:
         EU: 0x20B3DE0
         NA: 0x20B34A0
+        JP: 0x20B4D00
         EU-ITCM: 0x1FF8120
         NA-ITCM: 0x1FF8120
+        JP-ITCM: 0x1FF8120
       description: |-
         Pointers to the 4 functions available for rendering a render_3d_element (in ITCM)
         

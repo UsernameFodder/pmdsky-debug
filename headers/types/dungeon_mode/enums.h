@@ -870,147 +870,6 @@ enum dungeon_objective {
 ENUM_8_BIT(dungeon_objective);
 #pragma pack(pop)
 
-// Mission type on a floor
-enum mission_type {
-    MISSION_RESCUE_CLIENT = 0,
-    MISSION_RESCUE_TARGET = 1,
-    MISSION_ESCORT_TO_TARGET = 2,
-    MISSION_EXPLORE_WITH_CLIENT = 3,
-    MISSION_PROSPECT_WITH_CLIENT = 4,
-    MISSION_GUIDE_CLIENT = 5,
-    MISSION_FIND_ITEM = 6,
-    MISSION_DELIVER_ITEM = 7,
-    MISSION_SEARCH_FOR_TARGET = 8,
-    MISSION_TAKE_ITEM_FROM_OUTLAW = 9,
-    MISSION_ARREST_OUTLAW = 10,
-    MISSION_CHALLENGE_REQUEST = 11,
-    MISSION_TREASURE_MEMO = 12,
-    MISSION_TYPE_UNK_0xD = 13,
-    MISSION_SPECIAL_EPISODE = 14,
-};
-
-// This is usually stored as an 8-bit integer
-#pragma pack(push, 1)
-ENUM_8_BIT(mission_type);
-#pragma pack(pop)
-
-// Mission subtype for MISSION_EXPLORE_WITH_CLIENT
-enum mission_subtype_explore {
-    MISSION_EXPLORE_NORMAL = 0,
-    MISSION_EXPLORE_SEALED_CHAMBER = 1,
-    MISSION_EXPLORE_GOLDEN_CHAMBER = 2,
-    MISSION_EXPLORE_NEW_DUNGEON = 3,
-};
-
-// This is usually stored as an 8-bit integer
-#pragma pack(push, 1)
-ENUM_8_BIT(mission_subtype_explore);
-#pragma pack(pop)
-
-// Mission subtype for MISSION_TAKE_ITEM_FROM_OUTLAW
-enum mission_subtype_take_item {
-    MISSION_TAKE_ITEM_NORMAL_OUTLAW = 0,
-    MISSION_TAKE_ITEM_HIDDEN_OUTLAW = 1,
-    MISSION_TAKE_ITEM_FLEEING_OUTLAW = 2,
-};
-
-// This is usually stored as an 8-bit integer
-#pragma pack(push, 1)
-ENUM_8_BIT(mission_subtype_take_item);
-#pragma pack(pop)
-
-// Mission subtype for MISSION_ARREST_OUTLAW
-// 0-3 all occur naturally in-game, but don't seem to have any obvious differences?
-enum mission_subtype_outlaw {
-    MISSION_OUTLAW_NORMAL_0 = 0,
-    MISSION_OUTLAW_NORMAL_1 = 1,
-    MISSION_OUTLAW_NORMAL_2 = 2,
-    MISSION_OUTLAW_NORMAL_3 = 3,
-    MISSION_OUTLAW_ESCORT = 4,
-    MISSION_OUTLAW_FLEEING = 5,
-    MISSION_OUTLAW_HIDEOUT = 6,
-    MISSION_OUTLAW_MONSTER_HOUSE = 7,
-};
-
-// This is usually stored as an 8-bit integer
-#pragma pack(push, 1)
-ENUM_8_BIT(mission_subtype_outlaw);
-#pragma pack(pop)
-
-// Mission subtype for MISSION_CHALLENGE_REQUEST
-enum mission_subtype_challenge {
-    MISSION_CHALLENGE_NORMAL = 0,
-    MISSION_CHALLENGE_MEWTWO = 1,
-    MISSION_CHALLENGE_ENTEI = 2,
-    MISSION_CHALLENGE_RAIKOU = 3,
-    MISSION_CHALLENGE_SUICUNE = 4,
-    MISSION_CHALLENGE_JIRACHI = 5,
-};
-
-// This is usually stored as an 8-bit integer
-#pragma pack(push, 1)
-ENUM_8_BIT(mission_subtype_challenge);
-#pragma pack(pop)
-
-// The meaning of the mission subtype depends on the mission type
-union mission_subtype {
-    uint8_t none;
-    struct mission_subtype_explore_8 explore;
-    struct mission_subtype_take_item_8 take_item;
-    struct mission_subtype_outlaw_8 outlaw;
-    struct mission_subtype_challenge_8 challenge;
-};
-
-// Different types of rewards that a mission can have
-enum mission_reward_type {
-    MISSION_REWARD_MONEY = 0,
-    MISSION_REWARD_MONEY_AND_MORE = 1, // Money + (?)
-    MISSION_REWARD_ITEM = 2,
-    MISSION_REWARD_ITEM_AND_MORE = 3, // Item + (?)
-    MISSION_REWARD_ITEM_HIDDEN = 4,   // Item, displayed as "(?)"
-    MISSION_REWARD_MONEY_HIDDEN = 5,  // Money, displayed as "(?)"
-    // Either an egg or the client requests to join the team, displayed as "(?)"
-    MISSION_REWARD_SPECIAL = 6,
-};
-// This is usually stored as an 8-bit integer
-#pragma pack(push, 1)
-ENUM_8_BIT(mission_reward_type);
-#pragma pack(pop)
-
-// Different types of restrictions that a mission can have
-enum mission_restriction_type {
-    MISSION_RESTRICTION_NONE = 0,
-    MISSION_RESTRICTION_TYPE = 1,    // Requires a pokémon of a certain type on the team
-    MISSION_RESTRICTION_MONSTER = 2, // Requires a certain pokémon on the team
-};
-// This is usually stored as an 8-bit integer
-#pragma pack(push, 1)
-ENUM_8_BIT(mission_restriction_type);
-#pragma pack(pop)
-
-// The restriction of a mission can be a monster ID or a type ID
-union mission_restriction {
-    struct monster_id_16 monster_id;
-    struct type_id_8 type_id;
-};
-
-// Represents the different statuses that a mission can have
-enum mission_status {
-    MISSION_STATUS_INVALID = 0, // Used for empty mission slots
-    MISSION_STATUS_UNK_1 = 1,   // The mission won't display a status
-    MISSION_STATUS_UNK_2 = 2,   // The mission won't display a status
-    MISSION_STATUS_UNK_3 = 3,   // The mission won't display a status
-    MISSION_STATUS_SUSPENDED = 4,
-    MISSION_STATUS_ACCEPTED = 5,
-    MISSION_STATUS_DONE = 6,
-    MISSION_STATUS_UNK_7 = 7, // Shows up as "accepted"
-    MISSION_STATUS_UNK_8 = 8, // Shows up as "accepted"
-};
-// This is usually stored as an 8-bit integer
-#pragma pack(push, 1)
-ENUM_8_BIT(mission_status);
-#pragma pack(pop)
-
 // The cause of a monster taking damage, not including the move case.
 // These codes should all be greater than any move ID.
 // Some of the values are used as faint reasons or on the "The Last Outing" screen
@@ -1430,7 +1289,8 @@ enum fixed_room_action_non_entity {
     FIXED_ACTION_WARP_ZONE_ROOM_107 = 107, // Same as FIXED_ACTION_WARP_ZONE_ROOM
     // Treated separately by the code, but doesn't seem to spawn anything special
     FIXED_ACTION_FLOOR_ROOM_108 = 108,
-    // Treated separately by the code, but doesn't seem to spawn anything special
+    // Tries to spawn a TRAP_SEAL_TRAP and stores that location to the dungeon struct?
+    // 0x2343C2C EU?
     FIXED_ACTION_FLOOR_ROOM_109 = 109,
 };
 

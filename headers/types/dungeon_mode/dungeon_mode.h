@@ -1197,7 +1197,7 @@ struct tileset_property {
     int32_t field_0x0;
     uint8_t field_0x4;
     uint8_t field_0x5;
-    uint8_t field_0x6;
+    struct type_id_8 camouflage_type;
     uint8_t _padding;
     struct nature_power_variant_16 nature_power_variant;
     uint8_t field_0xa;
@@ -1325,8 +1325,11 @@ struct mission_destination_info {
     // 0x1B: Will be set after the target enemy has been defeated.
     // If there are minions, this flag applies just to the main outlaw.
     bool target_enemy_is_defeated;
+    // 0x1C: Initalized to 100 when the floor has a fleeing outlaw mission.
+    uint8_t fleeing_outlaw_tracker;
+    undefined field_0x1d;
 };
-ASSERT_SIZE(struct mission_destination_info, 28);
+ASSERT_SIZE(struct mission_destination_info, 30);
 
 // Entry for a single dungeon in the dungeon data list
 struct dungeon_data_list_entry {

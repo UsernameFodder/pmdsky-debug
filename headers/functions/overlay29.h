@@ -59,6 +59,7 @@ void PlayEffectAnimationEntityStandard(struct entity* entity, int effect_id);
 void ShowPpRestoreEffect(struct entity* entity);
 bool ShouldDisplayEntityAdvanced(struct entity* entity);
 void PlayEffectAnimation0x1A9(struct entity* entity);
+void PlayEffectAnimation0x29(struct entity* entity);
 void PlayEffectAnimation0x18E(struct entity* entity);
 void LoadMappaFileAttributes(int quick_saved, bool disable_monsters, undefined* special_process);
 enum item_id GetItemIdToSpawn(enum item_list_type item_list);
@@ -123,6 +124,7 @@ void RemoveUsedItem(struct entity* entity, int param_index);
 void AddDungeonSubMenuOption(int action_id, bool enabled);
 void DisableDungeonSubMenuOption(int action_id);
 void SetActionRegularAttack(struct action_data* monster_action, enum direction_id direction);
+void SetActionStruggle(struct action_data* monster_action, enum direction_id direction);
 void SetActionUseMovePlayer(struct action_data* monster_action, uint8_t entity_index,
                             uint8_t move_index);
 void SetActionUseMoveAi(struct action_data* monster_action, uint8_t move_index,
@@ -140,6 +142,7 @@ bool AreLateGameTrapsEnabledWrapper(void);
 void SpawnEnemyTrapAtPos(enum trap_id trap_id, int16_t x, int16_t y, uint8_t flags,
                          bool is_visible);
 void PrepareTrapperTrap(struct entity* entity, enum trap_id trap_id, uint8_t team);
+bool CanLayTrap(struct position* pos);
 bool TrySpawnTrap(struct position* pos, enum trap_id trap_id, uint8_t team, bool visible);
 bool TrySpawnTrapperTrap(struct entity* entity);
 bool TryRemoveTrap(struct position* pos, bool update_trap_visibility);
@@ -266,7 +269,7 @@ bool CannotStandOnTile(struct entity* monster, struct tile* tile);
 int CalcSpeedStage(struct entity* entity, int counter_weight);
 int CalcSpeedStageWrapper(struct entity* entity);
 int GetNumberOfAttacks(struct entity* entity);
-enum display_name_type GetMonsterDisplayNameType(struct entity* entity);
+enum display_name_type GetMonsterDisplayNameType(struct monster* monster);
 void GetMonsterName(char* buffer, struct monster* target_info);
 bool IsMonsterDrowsy(struct entity* monster);
 bool MonsterHasNonvolatileNonsleepStatus(struct entity* monster);
@@ -283,16 +286,19 @@ bool IsMonsterSleeping(struct entity* monster);
 bool CheckVariousStatuses2(struct entity* entity, bool blind_check);
 bool CheckVariousConditions(struct entity* entity);
 bool CheckVariousStatuses(struct entity* entity);
+bool MonsterCannotAttack(struct entity* entity, bool skip_sleep);
 bool CanMonsterMoveInDirection(struct entity* monster, enum direction_id direction);
 enum mobility_type GetDirectionalMobilityType(struct entity* monster,
                                               enum mobility_type base_mobility,
                                               enum direction_id direction);
 bool IsMonsterCornered(struct entity* monster);
+bool CanMonsterMoveOrSwapWithAllyInDirection(struct entity* monster, enum direction_id direction);
 bool CanAttackInDirection(struct entity* monster, enum direction_id direction);
 bool CanAiMonsterMoveInDirection(struct entity* monster, enum direction_id direction,
                                  bool* out_monster_in_target_position);
 bool ShouldMonsterRunAway(struct entity* monster);
-bool ShouldMonsterRunAwayVariation(struct entity* monster, undefined param_2);
+bool ShouldMonsterRunAwayAndShowEffect(struct entity* monster, bool show_run_away_effect);
+void DisplayRunAwayIfTriggered(struct entity* monster, bool show_run_away_effect);
 enum monster_treatment GetTreatmentBetweenMonsters(struct entity* entity1, struct entity* entity2,
                                                    bool see_invisible_targets,
                                                    bool ignore_petrified_targets);
@@ -568,6 +574,7 @@ void TryResetStatChanges(struct entity* attacker, struct entity* defender, bool 
 int MirrorMoveIsActive(struct entity* entity);
 int MistIsActive(struct entity* entity);
 int Conversion2IsActive(struct entity* entity);
+void ResetAiCanAttackInDirection(void);
 int AiConsiderMove(struct ai_possible_move* ai_possible_move, struct entity* monster,
                    struct move* move);
 int TryAddTargetToAiTargetList(int current_num_targets, struct move_target_and_range move_ai_range,
@@ -575,6 +582,9 @@ int TryAddTargetToAiTargetList(int current_num_targets, struct move_target_and_r
                                bool check_all_conditions);
 bool IsAiTargetEligible(struct move_target_and_range move_ai_range, struct entity* user,
                         struct entity* target, struct move* move, bool check_all_conditions);
+int WeightMoveWithIqSkills(struct entity* user, struct move_target_and_range move_ai_range,
+                           struct entity* target, enum type_id move_type);
+bool TargetRegularAttack(struct entity* user, enum direction_id* direction, bool skip_petrified);
 bool IsTargetInRange(struct entity* user, struct entity* target, enum direction_id direction,
                      int n_tiles);
 bool ShouldUsePp(struct entity* entity);
@@ -695,6 +705,7 @@ void DiscoverMinimap(struct position* pos);
 bool PositionHasItem(struct position* pos);
 bool PositionHasMonster(struct position* pos);
 bool TrySmashWall(struct position* pos);
+bool IsTileGround(struct position* pos);
 bool IsWaterTileset(void);
 enum monster_id GetRandomSpawnMonsterID(void);
 bool NearbyAllyIqSkillIsEnabled(struct entity* entity, enum iq_skill_id iq_skill);

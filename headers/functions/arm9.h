@@ -346,11 +346,11 @@ uint8_t GetMoveMaxGinsengBoost(struct move* move);
 uint8_t GetMoveMaxGinsengBoostGround(struct ground_move* move);
 int GetMoveCritChance(struct move* move);
 bool IsThawingMove(struct move* move);
-bool IsAffectedByTaunt(struct move* move);
+bool IsUsableWhileTaunted(struct move* move);
 uint8_t GetMoveRangeId(struct move* move);
 int GetMoveActualAccuracy(enum move_id move_id);
 int GetMoveBasePowerFromId(enum move_id move_id);
-bool IsMoveRangeString19(struct move* move);
+bool IsMoveRangeStringUser(struct move* move);
 char* GetMoveMessageFromId(enum move_id move_id);
 int GetNbMoves(undefined* moveset);
 int GetMovesetIdx(undefined* moveset, enum move_id move_id);
@@ -757,6 +757,7 @@ undefined4 ReadSaveHeader(undefined4* param_1, undefined4 param_2, undefined4 pa
 int NoteLoadBase(void);
 int ReadQuickSaveInfo(undefined* buf, int size);
 enum game_mode GetGameMode(void);
+bool IsGameModeRescue(void);
 void InitScriptVariableValues(void);
 void InitEventFlagScriptVars(void);
 void ZinitScriptVariable(void* local_var_vals, enum script_var_id id);
@@ -1094,10 +1095,16 @@ void DeleteAllPossibleDungeonsList(void);
 int GenerateAllPossibleDeliverList(void);
 void DeleteAllPossibleDeliverList(void);
 void ClearMissionData(struct mission* mission);
-bool ValidateNormalChallengeMission(struct mission_rescue_bin* valid_mission_info,
+void GenerateMissionDetailsStruct(struct mission* mission, struct mission_details* details,
+                                  undefined param_3, undefined param_4);
+bool ValidateNormalChallengeMission(struct mission_template* valid_mission_info,
                                     struct mission* mission);
-bool ValidateLegendaryChallengeMission(struct mission_rescue_bin* valid_mission_info,
+bool ValidateLegendaryChallengeMission(struct mission_template* valid_mission_info,
                                        struct mission* mission);
+void AppendMissionTitle(char* main_buffer, char* temp_buffer, struct preprocessor_args* args,
+                        struct mission_details* details);
+void AppendMissionSummary(char* main_buffer, char* temp_buffer, int window_id, int y_offset,
+                          struct preprocessor_args* args, struct mission_details* details);
 bool IsMonsterMissionAllowed(enum monster_id monster_id);
 bool CanMonsterBeUsedForMissionWrapper(enum monster_id monster_id);
 bool CanMonsterBeUsedForMission(enum monster_id monster_id, bool check_story_banned);
