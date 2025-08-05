@@ -176,6 +176,7 @@ bool ShouldLeaderKeepRunning(void);
 void CheckLeaderTile(void);
 void ChangeLeader(void);
 enum monster_gender GetPlayerGender(void);
+void HandleHeldItemSwaps(struct entity* entity);
 void UseSingleUseItemWrapper(struct entity* user);
 void UseSingleUseItem(struct entity* user, struct entity* target);
 void UseThrowableItem(struct entity* user);
@@ -887,6 +888,7 @@ bool GetTargetMonsterNotFoundFlag(void);
 bool FloorHasMissionMonster(struct mission_destination_info* mission_dst);
 struct mission* GetMissionIfActiveOnFloor(struct dungeon_floor_pair* pair, uint8_t mission_id);
 void GenerateMissionEggMonster(struct mission* mission);
+void SetPreprocessorArgsIdVal(uint8_t pos, uint32_t val);
 void LogMessageByIdWithPopupCheckParticipants(struct entity* user, struct entity* target,
                                               int message_id, int idx, int16_t val);
 void LogMessageByIdWithPopupCheckUser(struct entity* user, int message_id);

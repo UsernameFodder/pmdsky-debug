@@ -734,6 +734,13 @@ overlay10:
         NA: 0x2
         JP: 0x2
       description: "The chance of Smog (and others, see DoMoveDamagePoison40) poisoning, as a percentage (40%)."
+    - name: CUTE_CHARM_INFATUATE_CHANCE
+      address:
+        EU: 0x22C4E7C
+      length:
+        NA: 0x2
+        JP: 0x2
+      description: "The chance of Cute Charm infatuating, as a percentage (12%)."
     - name: LICK_PARALYZE_CHANCE
       address:
         EU: 0x22C4E80
