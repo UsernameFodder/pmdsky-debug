@@ -5022,6 +5022,17 @@ arm9:
         
         r0: String to return
         return: Pointer to resulting string
+    - name: SubstitutePlaceholderItemTags
+      address:
+        EU: 0x20252B4
+      description: |-
+        Sets what item's name should be displayed in place of the [item:r0] tag when printing a string.
+
+        Is almost always accompanied by a SetPreprocessorArgsIdVal(0, tag id | 0x40000) call in dungeon mode.
+
+        r0: tag id
+        r1: item struct pointer
+        r2: some static address related to storing the item (always the same throughout the code)
     - name: SetQuestionMarks
       address:
         EU: 0x20253B0
@@ -5136,17 +5147,6 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         No params.
-    - name: SubstitutePlaceholderItemTags
-      address:
-        EU: 0x20252B4
-      description: |-
-        Sets what item's name should be displayed in place of the [item:r0] tag when printing a string.
-
-        Is almost always accompanied by a SetPreprocessorArgsIdVal(0, tag id | 0x40000) call in dungeon mode.
-
-        r0: tag id
-        r1: item struct pointer
-        r2: some static address related to storing the item (always the same throughout the code)
     - name: AllocateTemp1024ByteBufferFromPool
       address:
         EU: 0x2025B54
