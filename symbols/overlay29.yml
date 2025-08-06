@@ -1957,6 +1957,13 @@ overlay29:
         Gets the gender of the player.
         
         return: monster_gender
+    - name: HandleHeldItemSwaps
+      address:
+        EU: 0x22F4F88
+      description: |-
+        Handles giving/taking held items to/from a party member (and likely other things).
+        
+        r0: entity pointer
     - name: UseSingleUseItemWrapper
       address:
         EU: 0x22F5C88
@@ -8251,6 +8258,16 @@ overlay29:
         See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
         
         return: bool
+    - name: PrepareItemForPrinting
+      address:
+        EU:
+          - 0x2345728
+          - 0x2345754
+      description: |-
+        Calls functions to prepare an item to be printed in place of the [item:r0] tag.
+        
+        r0: tag id
+        r1: item struct pointer
     - name: GenerateStandardItem
       address:
         EU: 0x23457B4
@@ -8741,6 +8758,14 @@ overlay29:
         Note: unverified, ported from Irdkwia's notes
         
         r0: mission struct
+    - name: SetPreprocessorArgsIdVal
+      address:
+        EU: 0x234BC84
+      description: |-
+        Sets an id_vals element in the global preprocessor_args struct passed throughout the code to PreprocessString to a specified value.
+        
+        r0: position in id_vals array
+        r1: value
     - name: LogMessageByIdWithPopupCheckParticipants
       address:
         EU: 0x234BE50

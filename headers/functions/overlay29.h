@@ -176,6 +176,7 @@ bool ShouldLeaderKeepRunning(void);
 void CheckLeaderTile(void);
 void ChangeLeader(void);
 enum monster_gender GetPlayerGender(void);
+void HandleHeldItemSwaps(struct entity* entity);
 void UseSingleUseItemWrapper(struct entity* user);
 void UseSingleUseItem(struct entity* user, struct entity* target);
 void UseThrowableItem(struct entity* user);
@@ -836,6 +837,7 @@ void GenerateAndSpawnItem(enum item_id item_id, int16_t x, int16_t y, uint16_t q
                           bool sticky, bool check_in_bag);
 bool IsHiddenStairsFloor(void);
 bool IsSecretBazaarVeneer(void);
+void PrepareItemForPrinting(uint8_t tag_id, struct item* item);
 void GenerateStandardItem(struct item* item, enum item_id item_id,
                           enum gen_item_stickiness sticky_type);
 void GenerateCleanItem(struct item* item, enum item_id item_id);
@@ -887,6 +889,7 @@ bool GetTargetMonsterNotFoundFlag(void);
 bool FloorHasMissionMonster(struct mission_destination_info* mission_dst);
 struct mission* GetMissionIfActiveOnFloor(struct dungeon_floor_pair* pair, uint8_t mission_id);
 void GenerateMissionEggMonster(struct mission* mission);
+void SetPreprocessorArgsIdVal(uint8_t pos, uint32_t val);
 void LogMessageByIdWithPopupCheckParticipants(struct entity* user, struct entity* target,
                                               int message_id, int idx, int16_t val);
 void LogMessageByIdWithPopupCheckUser(struct entity* user, int message_id);

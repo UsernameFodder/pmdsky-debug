@@ -3882,6 +3882,13 @@ arm9:
         r0: Music ID
         r1: (?) Stored on byte 8 on the struct passed to SendAudioCommand
         r2: Volume (0-255)
+    - name: PlaySeByIdVolumeWrapper
+      address:
+        EU: 0x2017D1C
+      description: |-
+        Wrapper for PlaySeByIdVolume with 0x100 as the volume.
+        
+        r0: Index
     - name: PlaySeVolumeWrapper
       address:
         EU: 0x2017D68
@@ -5015,6 +5022,17 @@ arm9:
         
         r0: String to return
         return: Pointer to resulting string
+    - name: SubstitutePlaceholderItemTags
+      address:
+        EU: 0x20252B4
+      description: |-
+        Sets what item's name should be displayed in place of the [item:r0] tag when printing a string.
+        
+        Is almost always accompanied by a SetPreprocessorArgsIdVal(0, tag id | 0x40000) call in dungeon mode.
+        
+        r0: tag id
+        r1: item struct pointer
+        r2: some static address related to storing the item (always the same throughout the code)
     - name: SetQuestionMarks
       address:
         EU: 0x20253B0
