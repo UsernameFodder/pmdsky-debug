@@ -349,6 +349,7 @@ void FileInit(struct file_stream* file);
 bool GetOverlayInfo(struct overlay_info_entry* overlay_info, undefined param_2, int overlay_id);
 bool LoadOverlayInternal(struct overlay_info_entry* overlay_info);
 void InitOverlay(struct overlay_info_entry* overlay_info);
+uint32_t PM_ForceToPowerOff(void);
 
 // If declaring these builtins causes issues, you can disable them
 #ifndef PMDSKY_NO_BUILTIN

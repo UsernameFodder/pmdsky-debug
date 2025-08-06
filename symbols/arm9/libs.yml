@@ -2181,6 +2181,15 @@ libs:
         This function is responsible for jumping to all the pointers located in the overlay's static init array, among other things.
         
         r0: Overlay info struct
+    - name: PM_ForceToPowerOff
+      address:
+        EU: 0x20823A4
+        NA: 0x208200C
+        JP: 0x20822F4
+      description: |-
+        Powers off the system.
+        
+        return: ?
     - name: abs
       address:
         EU: 0x20868F4
