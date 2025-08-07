@@ -1285,8 +1285,8 @@ ASSERT_SIZE(struct monster_data_table, 78540);
 
 // Format of the monster.md file.
 struct monster_data_table_full {
-    undefined magic_number; // 0x0: The string "MD\0\0".
-    uint16_t nb_entries;    // 0x4: The number of entries in the body of the table.
+    char magic_number[4]; // 0x0: The string "MD\0\0".
+    uint32_t nb_entries;    // 0x4: The number of entries in the body of the table.
     struct monster_data_table table; // 0x8: The main contents of the data table.
 };
 ASSERT_SIZE(struct monster_data_table_full, 78548);
