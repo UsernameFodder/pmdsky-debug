@@ -1235,13 +1235,13 @@ struct monster_data_table_full {
     undefined magic_number; // 0x0: The string "MD\0\0".
     uint16_t nb_entries;    // 0x4: The number of entries in the body of the table.
     struct monster_data_table table; // 0x8: The main contents of the data table.
-}
+};
 ASSERT_SIZE(struct monster_data_table_full, 78548);
 
 // The monter.md file without the header. This is what MONSTER_DATA_TABLE_PTR points to, though the monster_data_table_full struct is present.
 struct monster_data_table {
     struct monster_data_table_entry entries[1155];
-}
+};
 ASSERT_SIZE(struct monster_data_table, 78540);
 
 // Holds basic information about a monster.
@@ -1288,7 +1288,7 @@ struct monster_data_table_entry {
   int16_t unk28;              // 0x3E: Unknown. Often 0xF.
   int16_t unk29;              // 0x40: Unknown.
   int16_t unk30;              // 0x42: Unknown.
-}
+};
 ASSERT_SIZE(struct monster_data_table_entry, 68);
 
 #endif
