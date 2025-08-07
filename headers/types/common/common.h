@@ -1231,19 +1231,20 @@ struct monster_sprite_data_entry {
 ASSERT_SIZE(struct monster_sprite_data_entry, 2);
 
 // Format of the monster.md file.
+struct monster_data_table_full {
+    undefined magic_number; // 0x0: The string "MD\0\0".
+    uint16_t nb_entries;    // 0x4: The number of entries in the body of the table.
+    struct monster_data_table table; // 0x8: The main contents of the data table.
+}
+ASSERT_SIZE(struct monster_data_table_full, 78548);
+
+// The monter.md file without the header. This is what MONSTER_DATA_TABLE_PTR points to, though the monster_data_table_full struct is present.
 struct monster_data_table {
-  struct monster_data_table_header header; // 0x0: An 8-byte header for the table.
-  struct monster_data_table_entry monsters[1155]; // 0x8: The main contents of the data table.
+    struct monster_data_table_entry entries[1155];
 }
-ASSERT_SIZE(struct monster_data_table, 78548);
+ASSERT_SIZE(struct monster_data_table, 78540);
 
-// The first 8 bytes of the monster_data_table.
-struct monster_data_table_header {
-  undefined magic_number; // 0x0: The string "MD\0\0".
-  uint16_t nb_entries;    // 0x4: The number of entries in the body of the monster_data_table.
-}
-ASSERT_SIZE(struct monster_data_table_header, 8);
-
+// Holds basic information about a monster.
 struct monster_data_table_entry {
   uint16_t entity_id;         // 0x0: A entity-unique ID to identify the entity in both of its 2 entries. (Independent from file index)
   uint16_t unk31;             // 0x2: Unknown. Pokemon with the same category string have the same value in here.
