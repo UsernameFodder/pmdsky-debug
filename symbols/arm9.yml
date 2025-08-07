@@ -3895,6 +3895,8 @@ arm9:
     - name: PlaySeByIdVolumeWrapper
       address:
         EU: 0x2017D1C
+        NA: 0x2017C80
+        JP: 0x2017CD8
       description: |-
         Wrapper for PlaySeByIdVolume with 0x100 as the volume.
         
@@ -5035,6 +5037,8 @@ arm9:
     - name: SubstitutePlaceholderItemTags
       address:
         EU: 0x20252B4
+        NA: 0x2024FE8
+        JP: 0x2025038
       description: |-
         Sets what item's name should be displayed in place of the [item:r0] tag when printing a string.
         

@@ -71,6 +71,19 @@ overlay31:
         Uses a switch statement based on the state field in stairs_menu to determine what actions to take.
         
         return: int
+    - name: EntityIsValid
+      address:
+        EU:
+          - 0x2384258
+        NA:
+          - 0x2383658
+        JP:
+          - 0x23848D8
+      description: |-
+        Checks if an entity pointer points to a valid entity (not entity type 0, which represents no entity).
+        
+        r0: entity pointer
+        return: bool
     - name: MovesMenu
       address:
         EU: 0x2385DC0

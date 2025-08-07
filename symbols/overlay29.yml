@@ -1960,6 +1960,8 @@ overlay29:
     - name: HandleHeldItemSwaps
       address:
         EU: 0x22F4F88
+        NA: 0x22F45CC
+        JP: 0x22F5BC4
       description: |-
         Handles giving/taking held items to/from a party member (and likely other things).
         
@@ -8286,6 +8288,12 @@ overlay29:
         EU:
           - 0x2345728
           - 0x2345754
+        NA:
+          - 0x2344B44
+          - 0x2344B70
+        JP:
+          - 0x2345F08
+          - 0x2345F34
       description: |-
         Calls functions to prepare an item to be printed in place of the [item:r0] tag.
         
@@ -8797,6 +8805,8 @@ overlay29:
     - name: SetPreprocessorArgsIdVal
       address:
         EU: 0x234BC84
+        NA: 0x234B084
+        JP: 0x234C2F4
       description: |-
         Sets an id_vals element in the global preprocessor_args struct passed throughout the code to PreprocessString to a specified value.
         
