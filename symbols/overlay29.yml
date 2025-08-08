@@ -1960,6 +1960,8 @@ overlay29:
     - name: HandleHeldItemSwaps
       address:
         EU: 0x22F4F88
+        NA: 0x22F45CC
+        JP: 0x22F5BC4
       description: |-
         Handles giving/taking held items to/from a party member (and likely other things).
         
@@ -3878,6 +3880,17 @@ overlay29:
         r0: user entity pointer
         r1: target entity pointer
         return: Whether or not the status could be transferred
+    - name: TryEndPetrifiedOrSleepStatus
+      address:
+        EU: 0x2308608
+        NA: 0x2307BDC
+        JP: 0x230910C
+      description: |-
+        Ends the target's petrified status unconditionally, and the target's sleep status if the status turns have run out.
+        
+        r0: user entity who attacked the target
+        r1: target entity to try ending a status for.
+        return: Whether or not the target's status ended.
     - name: EndFrozenStatus
       address:
         EU: 0x23086A4
@@ -6644,11 +6657,23 @@ overlay29:
         NA: 0x2333074
         JP: 0x2334460
       description: |-
-        Determines if using a given move against its intended targets would be redundant because all of them already have the effect caused by said move.
+        Determines if using a given move against its intended targets would be redundant because all of them already have the effect caused by said move. Used for moves that affect the user or allies.
         
         r0: Pointer to the entity that is considering using the move
         r1: Move pointer
         return: True if it makes sense to use the move, false if it would be redundant given the effects it causes and the effects that all the targets already have.
+    - name: StatusCheckerCheckOnTarget
+      address:
+        EU: 0x2334A10
+        NA: 0x2333FD0
+        JP: 0x23353BC
+      description: |-
+        Determines if using a given move against its intended target would be redundant because all of them already have the effect caused by said move. Used for moves that affect enemies.
+        
+        r0: Pointer to the entity that is considering using the move
+        r2: Pointer to the entity being targeted by the move
+        r1: Move pointer
+        return: True if it makes sense to use the move, false if it would be redundant given the effects it causes and the effects that the target already has.
     - name: GetApparentWeather
       address:
         EU: 0x2335748
@@ -8263,6 +8288,12 @@ overlay29:
         EU:
           - 0x2345728
           - 0x2345754
+        NA:
+          - 0x2344B44
+          - 0x2344B70
+        JP:
+          - 0x2345F08
+          - 0x2345F34
       description: |-
         Calls functions to prepare an item to be printed in place of the [item:r0] tag.
         
@@ -8431,6 +8462,19 @@ overlay29:
         r1: item ID
         r2: quantity
         r3: stickiness type (enum gen_item_stickiness)
+    - name: HandleCurvedProjectileThrow
+      address:
+        EU: 0x23487C8
+        NA: 0x2347BC8
+        JP: 0x2348F54
+      description: |-
+        Throws an item in a curved arc, like a Gravelerock.
+        
+        r0: monster entity throwing the item
+        r1: item being thrown
+        r2: position to start throwing the item from
+        r3: position to throw the item to
+        stack[0]: Metadata about the item being thrown
     - name: DoesProjectileHitTarget
       address:
         EU: 0x2348C20
@@ -8761,6 +8805,8 @@ overlay29:
     - name: SetPreprocessorArgsIdVal
       address:
         EU: 0x234BC84
+        NA: 0x234B084
+        JP: 0x234C2F4
       description: |-
         Sets an id_vals element in the global preprocessor_args struct passed throughout the code to PreprocessString to a specified value.
         
@@ -10299,6 +10345,7 @@ overlay29:
       length:
         EU: 0x14
         NA: 0x14
+        JP: 0x14
       description: |-
         The default tile struct.
         

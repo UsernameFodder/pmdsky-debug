@@ -360,6 +360,7 @@ void EndMuzzledStatus(struct entity* user, struct entity* target);
 void EndMiracleEyeStatus(struct entity* user, struct entity* target);
 void EndMagnetRiseStatus(struct entity* user, struct entity* target);
 bool TransferNegativeBlinkerClassStatus(struct entity* user, struct entity* target);
+bool TryEndPetrifiedOrSleepStatus(struct entity* user, struct entity* target);
 void EndFrozenStatus(struct entity* user, struct entity* target);
 void EndProtectStatus(struct entity* user, struct entity* target);
 void TryRestoreRoostTyping(struct entity* user, struct entity* target);
@@ -677,6 +678,7 @@ int PerformDamageSequence(struct entity* attacker, struct entity* defender, stru
                           struct damage_data* damage_out, union damage_source damage_source);
 bool CanHitWithRegularAttack(struct entity* attacker, struct entity* defender);
 bool StatusCheckerCheck(struct entity* attacker, struct move* move);
+bool StatusCheckerCheckOnTarget(struct entity* attacker, struct entity* target, struct move* move);
 enum weather_id GetApparentWeather(struct entity* entity);
 void TryWeatherFormChange(struct entity* entity);
 void ActivateSportCondition(bool water_sport);
@@ -856,6 +858,9 @@ void AddHeldItemToBag(struct monster* monster);
 void RemoveEmptyItemsInBagWrapper(void);
 void GenerateItem(struct item* item, enum item_id item_id, uint16_t quantity,
                   enum gen_item_stickiness sticky_type);
+void HandleCurvedProjectileThrow(struct entity* user, struct item* item, struct position* start_pos,
+                                 struct position* target_pos,
+                                 struct projectile_throw_info* projectile_throw_info);
 bool DoesProjectileHitTarget(struct entity* user, struct entity* target);
 void DisplayFloorCard(int duration);
 void HandleFloorCard(enum dungeon_id dungeon_id, uint8_t floor, int duration,

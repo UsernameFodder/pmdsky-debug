@@ -391,7 +391,7 @@ double _dmul(double a, double b);
 double _dsqrt(double x);
 double _dsub(double a, double b);
 float _fadd(float a, float b);
-bool _dgeq(double a, double b);
+bool _dgr(double a, double b);
 bool _dleq(double a, double b);
 bool _dls(double a, double b);
 bool _deq(double a, double b);
