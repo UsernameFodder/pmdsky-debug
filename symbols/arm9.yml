@@ -3404,6 +3404,8 @@ arm9:
         r0: move
         return: bool
     - name: IsUsableWhileTaunted
+      aliases:
+        - IsAffectedByTaunt
       address:
         EU: 0x2013BF8
         NA: 0x2013B50

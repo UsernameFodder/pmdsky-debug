@@ -834,6 +834,10 @@ ram:
         EU: 0x237D6B8
         NA: 0x237CAB8
         JP: 0x237DD38
+      length:
+        EU: 0x14
+        NA: 0x14
+        JP: 0x14
       description: A copy of DEFAULT_TILE. Used to hold the default tile returned from GetTileSafe.
     - name: FLOOR_GENERATION_STATUS
       address:

@@ -10345,6 +10345,7 @@ overlay29:
       length:
         EU: 0x14
         NA: 0x14
+        JP: 0x14
       description: |-
         The default tile struct.
         
