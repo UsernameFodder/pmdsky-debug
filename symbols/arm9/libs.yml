@@ -2667,19 +2667,21 @@ libs:
         r0: a
         r1: b
         return: a + b
-    - name: _dgeq
+    - name: _dgr
+      aliases:
+        - _dgeq
       address:
         EU: 0x208F274
         NA: 0x208EEDC
         JP: 0x208F1C4
       description: |-
-        Implements the >= operator for IEEE 754 double-precision floating-point numbers.
+        Implements the > operator for IEEE 754 double-precision floating-point numbers.
         
         r0: a (low bits)
         r1: a (high bits)
         r2: b (low bits)
         r3: b (high bits)
-        return: a >= b
+        return: a > b
     - name: _dleq
       address:
         EU: 0x208F30C
