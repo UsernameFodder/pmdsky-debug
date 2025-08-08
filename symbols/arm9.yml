@@ -292,7 +292,7 @@ arm9:
         
         r0: number
         return: number // 256
-    - name: sin_4096
+    - name: SinAbs4096
       address:
         EU: 0x20018D0
         NA: 0x20018D0
@@ -3404,8 +3404,6 @@ arm9:
         r0: move
         return: bool
     - name: IsUsableWhileTaunted
-      aliases:
-        - IsAffectedByTaunt
       address:
         EU: 0x2013BF8
         NA: 0x2013B50

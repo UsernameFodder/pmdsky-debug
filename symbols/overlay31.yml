@@ -71,7 +71,7 @@ overlay31:
         Uses a switch statement based on the state field in stairs_menu to determine what actions to take.
         
         return: int
-    - name: EntityIsValid
+    - name: EntityIsValidOverlay31
       address:
         EU:
           - 0x2384258

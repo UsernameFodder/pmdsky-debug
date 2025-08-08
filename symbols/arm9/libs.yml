@@ -2668,8 +2668,6 @@ libs:
         r1: b
         return: a + b
     - name: _dgr
-      aliases:
-        - _dgeq
       address:
         EU: 0x208F274
         NA: 0x208EEDC

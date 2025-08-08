@@ -7,7 +7,7 @@ void DungeonMenuSwitch(int idx);
 void CreateStairsMenuState(struct entity* entity);
 void StairsSubheadingCallback(int window_id);
 int HandleStairsMenu(void);
-bool EntityIsValid(struct entity* entity);
+bool EntityIsValidOverlay31(struct entity* entity);
 void MovesMenu(struct action_data* action);
 bool HandleMovesMenuWrapper0(undefined* param_1, undefined param_2, undefined param_3,
                              int monster_index);
