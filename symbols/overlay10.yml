@@ -737,6 +737,8 @@ overlay10:
     - name: CUTE_CHARM_INFATUATE_CHANCE
       address:
         EU: 0x22C4E7C
+        NA: 0x22C4524
+        JP: 0x22C5C0C
       length:
         NA: 0x2
         JP: 0x2
@@ -1443,6 +1445,8 @@ overlay10:
     - name: REFLECT_LIGHT_SCREEN_TURN_RANGE
       address:
         EU: 0x22C5084
+        NA: 0x22C472C
+        JP: 0x22C5E14
       length:
         NA: 0x4
         JP: 0x4
@@ -1495,6 +1499,7 @@ overlay10:
       address:
         EU: 0x22C50C4
         NA: 0x22C476C
+        JP: 0x22C5E54
       length:
         NA: 0x4
         JP: 0x4

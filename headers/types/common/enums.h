@@ -2856,8 +2856,8 @@ enum move_ai_condition {
     AI_CONDITION_HP_25 = 2,           // Target has HP <= 25%
     AI_CONDITION_STATUS = 3,          // Target has a negative status condition
     AI_CONDITION_ASLEEP = 4,          // Target is asleep, napping or in a nightmare
-    AI_CONDITION_GHOST = 5,           // Target is ghost-type and not exposed
-    AI_CONDITION_HP_25_OR_STATUS = 6, // Target has HP <= 25% or a negative status condition
+    AI_CONDITION_HP_25_OR_STATUS = 5, // Target has HP <= 25% or a negative status condition
+    AI_CONDITION_GHOST = 6,           // Target is ghost-type and not exposed
 };
 
 // Ability ID

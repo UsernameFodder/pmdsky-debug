@@ -84,6 +84,7 @@ extern int ROLLOUT_ICE_BALL_SUCCESSIVE_HITS;
 extern int MULTIHIT_MOVE_SUCCESSIVE_HITS;
 extern int TRIPLE_KICK_SUCCESSIVE_HITS;
 extern int METRONOME_NEXT_INDEX;
+extern struct tile DEFAULT_TILE_COPY;
 extern struct floor_generation_status FLOOR_GENERATION_STATUS;
 extern struct stairs_menu* STAIRS_MENU_PTR;
 

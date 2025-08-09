@@ -2181,6 +2181,15 @@ libs:
         This function is responsible for jumping to all the pointers located in the overlay's static init array, among other things.
         
         r0: Overlay info struct
+    - name: PM_ForceToPowerOff
+      address:
+        EU: 0x20823A4
+        NA: 0x208200C
+        JP: 0x20822F4
+      description: |-
+        Powers off the system.
+        
+        return: ?
     - name: abs
       address:
         EU: 0x20868F4
@@ -2658,19 +2667,19 @@ libs:
         r0: a
         r1: b
         return: a + b
-    - name: _dgeq
+    - name: _dgr
       address:
         EU: 0x208F274
         NA: 0x208EEDC
         JP: 0x208F1C4
       description: |-
-        Implements the >= operator for IEEE 754 double-precision floating-point numbers.
+        Implements the > operator for IEEE 754 double-precision floating-point numbers.
         
         r0: a (low bits)
         r1: a (high bits)
         r2: b (low bits)
         r3: b (high bits)
-        return: a >= b
+        return: a > b
     - name: _dleq
       address:
         EU: 0x208F30C
