@@ -6,6 +6,7 @@
 #include "enums.h"
 #include "util.h"
 #include "../dungeon_mode/dungeon_mode_common.h"
+#include "../dungeon_mode/enums.h"
 #include "file_io.h"
 #include "graphics.h"
 #include "sound.h"
@@ -1235,10 +1236,9 @@ struct monster_data_table_entry {
     uint16_t entity_id; // 0x0: A entity-unique ID to identify the entity in both of its 2 entries.
                         // (Independent from file index)
     uint16_t
-        unk31; // 0x2: Unknown. Pokemon with the same category string have the same value in here.
+        unk_0x2; // 0x2: Unknown. Pokemon with the same category string have the same value in here.
     uint16_t pokedex_number; // 0x4: The national Pokedex number, as displayed in Chimecho Assembly.
-    uint16_t unk1; // 0x6: Unknown, seems to be 0x1 for most Pokemon. (smaller than 1 => Slowed down
-                   // status, 1 = no status, bigger than 1 => Sped up status)
+    uint16_t base_movement_speed; // 0x6: The base movement speed in dungeons.
     uint16_t pre_evolution_idx; // 0x8: The INDEX of the pre-evolution inside the "monster.md" file.
                                 // Not the Pokedex number, or the Entity ID! Is 0 if none.
     uint16_t evolution_method;  // 0xA: The evolution method required to evolve to this Pokemon from
@@ -1249,52 +1249,72 @@ struct monster_data_table_entry {
         evolution_param_2; // 0xE: The second parameter for the evolution method. Null if unused.
     uint16_t sprite_index; // 0x10: The index of the entity's sprite. It's the index inside the
                            // three Pokemon sprite files inside the "/MONSTER/" directory!
-    uint8_t gender;    // 0x12: Gender of this particular entity entry. (0 = Invalid, 1 = Male, 2 =
-                       // Female, 3 = Genderless)
+    struct monster_gender_8 gender; // 0x12: Gender of this particular entity entry.
     uint8_t body_size; // 0x13: The body size of the Pokemon. Used when determining how many Pokemon
                        // fits in the party.
-    uint8_t primary_type;   // 0x14: The Pokemon's primary type.
-    uint8_t secondary_type; // 0x15: The Pokemon's secondary type.
-    uint8_t movement_type; // 0x16: This decides what terrains the entity can move over, and whether
-                           // its hovering or not.
-    uint8_t iq_group;      // 0x17: The IQ group the Pokemon belongs to.
-    uint8_t primary_ability;   // 0x18: The Pokemon's primary ability's ID.
-    uint8_t secondary_ability; // 0x19: The Pokemon's secondary ability's ID.
-    uint16_t bitflag_1; // 0x1A:  Most likely used to store bitflags! Bit 4: 0 if the Pokémon can't
-                        // move inside dungeons (used for some species like Cascoon) Bit 7: 1 if the
-                        // Pokémon needs a special item to spawn
-    uint16_t exp_yield; // 0x1C: The Exp yield.
-    int16_t recruit_rate_1; // 0x1E: Another recruit rate, this one is usually closer to 0 when
-                            // RecruitRate1 and RecruitRate2 are different!
-    int16_t base_hp;        // 0x20: The HP the Pokemon has at lvl 1.
-    int16_t recruit_rate_2; // 0x22: Recruit rate.
-    int8_t base_atk;        // 0x24: The attack stat of the Pokemon at lvl 1.
-    int8_t base_sp_atk;     // 0x25: The special attack stat of the Pokemon at lvl 1.
-    int8_t base_def;        // 0x26: The defense stat of the pokemon at lvl 1.
-    int8_t base_sp_def;     // 0x27: The base special defense of the pokemon at lvl 1.
-    int16_t weight;         // 0x28: The weight tier for weight based damages.
-    int16_t size;           // 0x2A: The size tier for size based damages.
-    int8_t unk17;           // 0x2C: Unknown. Most of the time 0xA.
-    int8_t unk18;           // 0x2D: Unknown. Most of the time 0xA.
-    int8_t unk19;           // 0x2E: Unknown. Value seems between.
-    int8_t unk20;           // 0x2F: Unknown. Most of the 0x8.
-    int16_t unk21;          // 0x30: Always 0x64. Possibly max level for the Pokemon ?
-    int16_t base_form_idx;  // 0x32: Seems to match the index in the "monster.md" file of the
-                            // Pokemon's first form's first entry. Its always the index of the entry
-                            // within the 0 to 600 range! Never the one between 600 and 1155!
-    int16_t exclusive_item_1; // 0x34: The first 1-star exclusive item for this Pokemon. Null if NA.
-                              // The first 1-star exclusive item for this Pokemon. Null if NA.
-    int16_t exclusive_item_2; // 0x36:
-    int16_t exclusive_item_3; // 0x38: The 2-star exclusive item for this Pokemon. Null if NA.
-    int16_t exclusive_item_4; // 0x3A: The 3-star exclusive item for this Pokemon. Null if NA.
-    int16_t unk27;            // 0x3C: Unknown.
-    int16_t unk28;            // 0x3E: Unknown. Often 0xF.
-    int16_t unk29;            // 0x40: Unknown.
-    int16_t unk30;            // 0x42: Unknown.
+    struct type_id_8 primary_type;        // 0x14: The Pokemon's primary type.
+    struct type_id_8 secondary_type;      // 0x15: The Pokemon's secondary type.
+    struct mobility_type_8 movement_type; // 0x16: This decides what terrains the entity can move
+                                          // over, and whether its hovering or not.
+    struct iq_group_id_8 iq_group;        // 0x17: The IQ group the Pokemon belongs to.
+    uint8_t primary_ability;              // 0x18: The Pokemon's primary ability's ID.
+    uint8_t secondary_ability;            // 0x19: The Pokemon's secondary ability's ID.
+    // 0x1A: A bitfield. Most likely used to store bitflags.
+    bool unk_0x1a_0 : 1; // Bit 0: Unknown.
+    bool unk_0x1a_2 : 1; // Bit 2: Unknown.
+    bool unk_0x1a_3 : 1; // Bit 3: Unknown.
+    bool can_move : 1;   // Bit 4: If false, the Pokemon can't move inside dungeons (used for some
+                         // species like Cascoon.)
+    bool can_throw_items : 1; // Bit 5: If false, the Pokemon will not be able to throw items..
+    bool can_evolve : 1; // Bit 6: If false, the Pokemon will not be allowed to evolve at Luminous
+                         // Spring, even if it has an evolution.
+    bool item_required_to_spawn : 1; // Bit 7: True if the Pokemon needs a special item to spawn.
+    bool unk_0x1b_1 : 1;             // Bit 8: Unknown.
+    bool unk_0x1b_2 : 1;             // Bit 9: Unknown.
+    bool unk_0x1b_3 : 1;             // Bit 10: Unknown.
+    bool unk_0x1b_4 : 1;             // Bit 11: Unknown.
+    bool unk_0x1b_5 : 1;             // Bit 12: Unknown.
+    bool unk_0x1b_6 : 1;             // Bit 13: Unknown.
+    bool unk_0x1b_7 : 1;             // Bit 14: Unknown.
+    bool unk_0x1b_8 : 1;             // Bit 15: Unknown.
+    uint16_t exp_yield;              // 0x1C: The Exp yield.
+    int16_t recruit_rate_1;     // 0x1E: Another recruit rate, this one is usually closer to 0 when
+                                // RecruitRate1 and RecruitRate2 are different!
+    int16_t base_hp;            // 0x20: The HP the Pokemon has at lvl 1.
+    int16_t recruit_rate_2;     // 0x22: Recruit rate.
+    int8_t base_atk;            // 0x24: The attack stat of the Pokemon at lvl 1.
+    int8_t base_sp_atk;         // 0x25: The special attack stat of the Pokemon at lvl 1.
+    int8_t base_def;            // 0x26: The defense stat of the pokemon at lvl 1.
+    int8_t base_sp_def;         // 0x27: The base special defense of the pokemon at lvl 1.
+    int16_t weight;             // 0x28: The weight tier for weight based damages.
+    int16_t size;               // 0x2A: The size tier for size based damages.
+    int8_t unk_0x2c;            // 0x2C: Unknown. Most of the time 0xA.
+    int8_t unk_0x2d;            // 0x2D: Unknown. Most of the time 0xA.
+    int8_t shadow_size;         // 0x2E: The size of the Pokemon's shadow.
+    int8_t spawn_asleep_chance; // 0x2F: The percent chance that a Pokemon will spawn asleep. Most
+                                // of the 0x8.
+    uint8_t hp_regeneration;    // 0x30: The rate at which a Pokemon regenerates HP. Always 0x64.
+    int8_t unk_0x31;            // 0x31: Unknown.
+    struct monster_id_16
+        base_form_idx; // 0x32: Seems to match the index in the "monster.md" file of the
+                       // Pokemon's first form's first entry. Its always the index of the entry
+                       // within the 0 to 600 range! Never the one between 600 and 1155!
+    struct item_id_16
+        exclusive_item_1; // 0x34: The first 1-star exclusive item for this Pokemon. Null if NA.
+                          // The first 1-star exclusive item for this Pokemon. Null if NA.
+    struct item_id_16 exclusive_item_2; // 0x36:
+    struct item_id_16
+        exclusive_item_3; // 0x38: The 2-star exclusive item for this Pokemon. Null if NA.
+    struct item_id_16
+        exclusive_item_4; // 0x3A: The 3-star exclusive item for this Pokemon. Null if NA.
+    int16_t unk_0x3c;     // 0x3C: Unknown.
+    int16_t unk_0x3e;     // 0x3E: Unknown. Often 0xF.
+    int16_t unk_0x40;     // 0x40: Unknown.
+    int16_t unk_0x42;     // 0x42: Unknown.
 };
 ASSERT_SIZE(struct monster_data_table_entry, 68);
 
-// The monter.md file without the header. This is what MONSTER_DATA_TABLE_PTR points to, though the
+// The monster.md file without the header. This is what MONSTER_DATA_TABLE_PTR points to, though the
 // monster_data_table_full struct is present.
 struct monster_data_table {
     struct monster_data_table_entry entries[1155];

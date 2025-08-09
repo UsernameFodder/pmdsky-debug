@@ -3696,12 +3696,22 @@ enum iq_group_id {
     IQ_GROUP_NONE = 15,
 };
 
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(iq_group_id);
+#pragma pack(pop)
+
 enum monster_gender {
     GENDER_INVALID = 0,
     GENDER_MALE = 1,
     GENDER_FEMALE = 2,
     GENDER_GENDERLESS = 3,
 };
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(monster_gender);
+#pragma pack(pop)
 
 enum mission_rank {
     MISSION_RANK_E = 1,
