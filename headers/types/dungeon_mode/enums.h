@@ -82,6 +82,11 @@ enum mobility_type {
     MOBILITY_WATER = 5,
 };
 
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(mobility_type);
+#pragma pack(pop)
+
 // Entity type. This is used to tag generic entity pointers.
 enum entity_type {
     ENTITY_NOTHING = 0,
