@@ -5042,7 +5042,7 @@ arm9:
       description: |-
         Sets what item's name should be displayed in place of the [item:r0] tag when printing a string.
         
-        Is almost always accompanied by a SetPreprocessorArgsIdVal(0, tag id | 0x40000) call in dungeon mode.
+        Is almost always accompanied by a SetPreprocessorArgsIdVal(tag id, tag id | 0x40000) call in dungeon mode.
         
         r0: tag id
         r1: item struct pointer
@@ -10385,7 +10385,7 @@ arm9:
         Calls DungeonRequestsDone with the second argument set to false.
         
         r0: ?
-        return: number of mission completed
+        return: number of missions completed
     - name: AnyDungeonRequestsDone
       address:
         EU: 0x205F19C
@@ -10405,6 +10405,7 @@ arm9:
         Adds a mission to the Job List.
         
         r0: mission to add
+        return: bool (0 if mission was successfully added)
     - name: GetAcceptedMission
       address:
         EU: 0x205F454
