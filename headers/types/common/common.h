@@ -1259,9 +1259,9 @@ struct monster_data_table_entry {
     struct ability_id_8 primary_ability;   // 0x18: The Pokemon's primary ability's ID.
     struct ability_id_8 secondary_ability; // 0x19: The Pokemon's secondary ability's ID.
     // 0x1A: A bitfield. Most likely used to store bitflags.
-    bool unk_flags_0 : 4; // Bits 0-3: Unknown.
-    bool f_can_move : 1;  // Bit 4: If false, the Pokemon can't move inside dungeons (used for some
-                          // species like Cascoon.)
+    uint16_t unk_flags_0 : 4; // Bits 0-3: Unknown.
+    bool f_can_move : 1; // Bit 4: If false, the Pokemon can't move inside dungeons (used for some
+                         // species like Cascoon.)
     bool f_can_throw_items : 1; // Bit 5: If false, the Pokemon will not be able to throw items..
     bool f_can_evolve : 1; // Bit 6: If false, the Pokemon will not be allowed to evolve at Luminous
                            // Spring, even if it has an evolution.
