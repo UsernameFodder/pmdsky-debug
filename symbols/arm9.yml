@@ -10693,13 +10693,13 @@ arm9:
         
         r0: item_buffer
         return: Number of deliverable items for a mission
-    - name: UnkMonsterIdFunc
+    - name: GetActorMonsterId
       address:
         EU: 0x2065CF0
       description: |-
-        When called with r0 = 0x2F, returns the monster id of the current team member the player is talking to in the overworld (or 0 if none).
+        Returns the monster id of the actor given by the actor id.
         
-        r0: ?
+        r0: actor_id
         return: monster id
     - name: GetActorMatchingStorageId
       address:
