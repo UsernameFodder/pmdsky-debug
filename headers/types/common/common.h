@@ -754,6 +754,24 @@ struct adventure_log {
 };
 ASSERT_SIZE(struct adventure_log, 636);
 
+struct monster_synth_data {
+    // 0x0: Number of Exclusive Items Checked
+    int32_t num_items_looped;
+    // 0x4: Sum of all num_to_trade in stored templates
+    int32_t total_num_to_trade;
+    // 0x8: synth_templates with exclusive items applicable to the species
+    struct synth_template* applicable_templates[5];
+}
+ASSERT_SIZE(struct monster_synth_data, 28);
+
+struct type_synth_data {
+    // 0x0: A bitfield of which types have species exclusive items.
+    // Presumably for determining type-specific exclusive items? Croagunk doesn't sell these...
+    bool type_is_available[20];
+}
+ASSERT_SIZE(struct type_synth_data, 20);
+
+
 struct synth_template {
     // 0x0: Item ID of the exclusive item.
     enum item_id_16 exc_item_id;
