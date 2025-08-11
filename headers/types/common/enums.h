@@ -2856,8 +2856,8 @@ enum move_ai_condition {
     AI_CONDITION_HP_25 = 2,           // Target has HP <= 25%
     AI_CONDITION_STATUS = 3,          // Target has a negative status condition
     AI_CONDITION_ASLEEP = 4,          // Target is asleep, napping or in a nightmare
-    AI_CONDITION_GHOST = 5,           // Target is ghost-type and not exposed
-    AI_CONDITION_HP_25_OR_STATUS = 6, // Target has HP <= 25% or a negative status condition
+    AI_CONDITION_HP_25_OR_STATUS = 5, // Target has HP <= 25% or a negative status condition
+    AI_CONDITION_GHOST = 6,           // Target is ghost-type and not exposed
 };
 
 // Ability ID
@@ -3696,12 +3696,22 @@ enum iq_group_id {
     IQ_GROUP_NONE = 15,
 };
 
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(iq_group_id);
+#pragma pack(pop)
+
 enum monster_gender {
     GENDER_INVALID = 0,
     GENDER_MALE = 1,
     GENDER_FEMALE = 2,
     GENDER_GENDERLESS = 3,
 };
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(monster_gender);
+#pragma pack(pop)
 
 enum mission_rank {
     MISSION_RANK_E = 1,
