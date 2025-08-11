@@ -762,20 +762,20 @@ struct monster_synth_data {
     int32_t total_num_to_trade;
     // 0x8: synth_templates with exclusive items applicable to the species
     struct synth_template* applicable_templates[5];
-}
+};
 ASSERT_SIZE(struct monster_synth_data, 28);
 
 struct type_synth_data {
     // 0x0: A bitfield of which types have species exclusive items.
     // Presumably for determining type-specific exclusive items? Croagunk doesn't sell these...
     bool type_is_available[20];
-}
+};
 ASSERT_SIZE(struct type_synth_data, 20);
 
 struct baby_exclusive_item_pair {
     enum item_id_16 exc_item_id;
     struct monster_id_16 baby_monster;
-}
+};
 ASSERT_SIZE(struct baby_exclusive_item_pair, 4);
 
 struct synth_template {
@@ -788,7 +788,7 @@ struct synth_template {
     // 0x6: Minimum $SCENARIO_BALANCE_FLAG value for it to spawn.
     // Only used for the Water Float (6) and the Phione/Manaphy items (7).
     int16_t min_balance_flag;
-}
+};
 ASSERT_SIZE(struct synth_template, 8);
 
 // Structure of SYNTH/synth.bin file, which is used for the Croagunk Swap Shop.
@@ -796,9 +796,8 @@ struct synth_file {
     struct synth_template synth_templates[780];
     // The last 4 templates appear to be empty, with 0 weight. 
     struct synth_template unused_templates[4];
-}
-ASSERT_SIZE(struct synth_file, 4);
-
+};
+ASSERT_SIZE(struct synth_file, 6272);
 
 struct exclusive_item_stat_boost_entry {
     int8_t atk;
