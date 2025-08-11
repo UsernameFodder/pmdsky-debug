@@ -756,7 +756,7 @@ ASSERT_SIZE(struct adventure_log, 636);
 
 struct synth_template {
     // 0x0: Item ID of the exclusive item.
-    struct item_id_16 exc_item_id;
+    enum item_id_16 exc_item_id;
     // 0x2: Number of items that need to be traded to Croagunk for that item.
     int16_t num_to_trade;
     // 0x4: Likely weights for the items to be rolled in the Swap Shop.
