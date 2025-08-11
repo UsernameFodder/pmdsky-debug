@@ -3133,7 +3133,10 @@ arm9:
         EU: 0x20132F8
         NA: 0x2013250
         JP: 0x2013220
-      description: "Note: unverified, ported from Irdkwia's notes"
+      description: |-
+        Searches synth_template in SYNTH/synth.bin for a matching exclusive item.
+        r0: item_id of an exclusive item.
+        return: pointer to synth_template containing that item. 0 if no match was found.
     - name: LoadWazaP
       address:
         EU: 0x201346C
