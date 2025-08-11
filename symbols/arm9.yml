@@ -10695,7 +10695,7 @@ arm9:
         return: Number of deliverable items for a mission
     - name: UnkMonsterIdFunc
       address:
-        EU: 0x02065CF0
+        EU: 0x2065CF0
       description: |-
         When called with r0 = 0x2F, returns the monster id of the current team member the player is talking to in the overworld (or 0 if none).
         
