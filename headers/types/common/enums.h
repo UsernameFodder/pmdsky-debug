@@ -4234,7 +4234,7 @@ enum stairs_type {
 
 enum talk_type {
     TALK_TYPE_HEALTHY = 0,
-    TALK_TYPE_HALF_LFIE = 1,
+    TALK_TYPE_HALF_LIFE = 1,
     TALK_TYPE_PINCH = 2,
     TALK_TYPE_LEVEL_UP = 3,
     TALK_TYPE_WAIT = 4,
