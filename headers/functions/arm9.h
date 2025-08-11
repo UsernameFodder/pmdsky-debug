@@ -1117,7 +1117,7 @@ bool CanDungeonBeUsedForMission(enum dungeon_id dungeon_id);
 bool CanSendItem(enum item_id item_id, bool to_sky);
 bool IsAvailableItem(enum item_id item_id);
 int GetAvailableItemDeliveryList(undefined* item_buffer);
-enum monster_id UnkMonsterIdFunc(int actor_id);
+enum monster_id GetActorMonsterId(int actor_id);
 int GetActorMatchingStorageId(int actor_id);
 void SetActorTalkMainAndActorTalkSub(int actor_id_main, int actor_id_sub);
 void SetActorTalkMain(int actor_id);
