@@ -318,7 +318,7 @@ void ApplyGummiBoostsGroundMode(struct monster_id_16* monster_id, uint16_t* mons
                                 struct gummi_result* gummi_result);
 bool LoadSynthBin(void);
 void CloseSynthBin(void);
-undefined* GetSynthItem(int param_1);
+synth_template* GetSynthItem(enum item_id_16 exclusive_item);
 void LoadWazaP(void);
 void LoadWazaP2(void);
 void UnloadCurrentWazaP(void);
