@@ -771,6 +771,11 @@ struct type_synth_data {
 }
 ASSERT_SIZE(struct type_synth_data, 20);
 
+struct baby_exclusive_item_pair {
+    enum item_id_16 exc_item_id;
+    struct monster_id_16 baby_monster;
+}
+ASSERT_SIZE(struct baby_exclusive_item_pair, 4);
 
 struct synth_template {
     // 0x0: Item ID of the exclusive item.
