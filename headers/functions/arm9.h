@@ -195,6 +195,7 @@ enum move_id GetItemMoveId(enum item_id item_id);
 bool TestItemAiFlag(enum item_id item_id, enum item_flag flag);
 bool IsItemInTimeDarkness(enum item_id item_id);
 bool IsItemValidVeneer(enum item_id item_id);
+enum item_id_16 ReturnEggExclusiveItem(struct monster_id_16);
 void SetActiveInventoryToMain(void);
 void AllInventoriesZInit(void);
 void SpecialEpisodeInventoryZInit(void);
@@ -318,7 +319,9 @@ void ApplyGummiBoostsGroundMode(struct monster_id_16* monster_id, uint16_t* mons
                                 struct gummi_result* gummi_result);
 bool LoadSynthBin(void);
 void CloseSynthBin(void);
+bool GenerateCroagunkItems(void);
 synth_template* GetSynthItem(enum item_id_16 exclusive_item);
+bool GetValidSynthsForSpecies(struct monster_id_16 monster_id, struct monster_synth_data* monster_synth_data, struct type_synth_data* type_synth_data);
 void LoadWazaP(void);
 void LoadWazaP2(void);
 void UnloadCurrentWazaP(void);
