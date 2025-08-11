@@ -5227,12 +5227,12 @@ arm9:
         NA: 0x202598C
         JP: 0x202596C
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Gets the string id to be displayed for dialogue with a team member.
         
-        r0: personality_index
-        r1: group_id
+        r0: personality_index (either a monster id or some constant)
+        r1: talk type
         r2: restrictions
-        return: ?
+        return: string id
     - name: IsAOrBPressed
       address:
         EU: 0x20261CC
@@ -10693,6 +10693,14 @@ arm9:
         
         r0: item_buffer
         return: Number of deliverable items for a mission
+    - name: UnkMonsterIdFunc
+      address:
+        EU: 0x02065CF0
+      description: |-
+        When called with r0 = 0x2F, returns the monster id of the current team member the player is talking to in the overworld (or 0 if none).
+        
+        r0: ?
+        return: monster id
     - name: GetActorMatchingStorageId
       address:
         EU: 0x2065D14
