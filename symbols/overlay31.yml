@@ -71,6 +71,15 @@ overlay31:
         Uses a switch statement based on the state field in stairs_menu to determine what actions to take.
         
         return: int
+    - name: EntityIsValidOverlay31
+      address:
+        EU:
+          - 0x2384258
+        NA:
+          - 0x2383658
+        JP:
+          - 0x23848D8
+      description: "See overlay29.yml::EntityIsValid"
     - name: MovesMenu
       address:
         EU: 0x2385DC0

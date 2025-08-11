@@ -349,6 +349,7 @@ void FileInit(struct file_stream* file);
 bool GetOverlayInfo(struct overlay_info_entry* overlay_info, undefined param_2, int overlay_id);
 bool LoadOverlayInternal(struct overlay_info_entry* overlay_info);
 void InitOverlay(struct overlay_info_entry* overlay_info);
+uint32_t PM_ForceToPowerOff(void);
 
 // If declaring these builtins causes issues, you can disable them
 #ifndef PMDSKY_NO_BUILTIN
@@ -390,7 +391,7 @@ double _dmul(double a, double b);
 double _dsqrt(double x);
 double _dsub(double a, double b);
 float _fadd(float a, float b);
-bool _dgeq(double a, double b);
+bool _dgr(double a, double b);
 bool _dleq(double a, double b);
 bool _dls(double a, double b);
 bool _deq(double a, double b);

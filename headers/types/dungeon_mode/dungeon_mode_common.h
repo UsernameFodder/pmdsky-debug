@@ -122,4 +122,12 @@ struct monster_summary {
 };
 ASSERT_SIZE(struct monster_summary, 120);
 
+// Parameters used when throwing a projectile item.
+struct projectile_throw_info {
+    uint8_t field_0x0;
+    uint8_t field_0x1;
+    int16_t field_0x2;
+};
+ASSERT_SIZE(struct projectile_throw_info, 4);
+
 #endif

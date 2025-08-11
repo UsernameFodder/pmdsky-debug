@@ -19,7 +19,7 @@ struct sound_envelope_parameters {
     uint8_t hold_time;
     uint8_t sustain_time;
     uint8_t release_time;
-    uint8_t field_0xe;
+    uint8_t field_0xf;
 };
 ASSERT_SIZE(struct sound_envelope_parameters, 16);
 
@@ -190,21 +190,36 @@ struct dse_fade_params {
 };
 ASSERT_SIZE(struct dse_fade_params, 20);
 
+struct dse_note_parameters {
+    uint8_t field_0x0;
+    uint8_t channel_idx;
+    uint8_t key;
+    uint8_t volume;
+};
+ASSERT_SIZE(struct dse_note_parameters, 4);
+
+struct dse_note_list {
+    struct dse_note_parameters parameters;
+    int32_t duration;
+    struct dse_note_list* next;
+};
+ASSERT_SIZE(struct dse_note_list, 12);
+
 struct dse_channel {
     uint32_t sequence_id;
     uint8_t channel_flags;
     uint8_t channel_index;
+    uint8_t field_0x6;
     uint8_t field_0x7;
     uint8_t field_0x8;
-    uint8_t field_0x9;
     int8_t total_num_voices;
     int16_t bend_jitter_amplitude;
     uint8_t note_random_region_begin;
     uint8_t note_random_region_end;
     uint16_t swd_id;
     int16_t selected_instrument_index;
+    int16_t field_0x12;
     int16_t field_0x14;
-    int16_t field_0x16;
     uint16_t bend_final;
     uint16_t volume_final;
     int16_t pan_final;
@@ -486,9 +501,9 @@ struct dse_sequence {
     struct dse_synth* synth;
     int id;
     uint16_t field_0x2C; // Something to do with sound effects
-    uint16_t field_0x30;
+    uint16_t field_0x2E;
     int total_driver_ticks_at_reset;
-    int field_0x38;
+    int field_0x34;
     int seq_tick_counter;
     int time_since_last_seq_tick;
     int beatsplit_times_ticktime;

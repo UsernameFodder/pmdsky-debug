@@ -292,6 +292,16 @@ arm9:
         
         r0: number
         return: number // 256
+    - name: SinAbs4096
+      address:
+        EU: 0x20018D0
+        NA: 0x20018D0
+        JP: 0x20018D0
+      description: |-
+        This function computes the sine of the absolute value of r0 using a lookup table. The period of the function is 4096, and the range is [-256, 256].
+        
+        r0: The value to get the sine of.
+        return: floor(256 * sin(pi * abs(x) / 2048)) as a signed 32-bit integer.
     - name: UFixedPoint64CmpLt
       address:
         EU: 0x2001A30
@@ -3419,18 +3429,18 @@ arm9:
         
         r0: move
         return: bool
-    - name: IsAffectedByTaunt
+    - name: IsUsableWhileTaunted
+      aliases:
+        - IsAffectedByTaunt
       address:
         EU: 0x2013BF8
         NA: 0x2013B50
         JP: 0x2013B20
       description: |-
-        Note: unverified, ported from Irdkwia's notes
-        
-        Based on struct move_data, maybe this should be IsUsableWhileTaunted?
+        Returns true if the given move can be used while the user is affected by Taunt, or false if the move cannot be used while taunted.
         
         r0: move
-        return: bool
+        return: bool whether the move can be used while taunted.
     - name: GetMoveRangeId
       address:
         EU: 0x2013C18
@@ -3461,7 +3471,9 @@ arm9:
         
         r0: move ID
         return: base power
-    - name: IsMoveRangeString19
+    - name: IsMoveRangeStringUser
+      aliases:
+        - IsMoveRangeString19
       address:
         EU: 0x2013CAC
         NA: 0x2013C04
@@ -3906,6 +3918,15 @@ arm9:
         r0: Music ID
         r1: (?) Stored on byte 8 on the struct passed to SendAudioCommand
         r2: Volume (0-255)
+    - name: PlaySeByIdVolumeWrapper
+      address:
+        EU: 0x2017D1C
+        NA: 0x2017C80
+        JP: 0x2017CD8
+      description: |-
+        Wrapper for PlaySeByIdVolume with 0x100 as the volume.
+        
+        r0: Index
     - name: PlaySeVolumeWrapper
       address:
         EU: 0x2017D68
@@ -5039,6 +5060,19 @@ arm9:
         
         r0: String to return
         return: Pointer to resulting string
+    - name: SubstitutePlaceholderItemTags
+      address:
+        EU: 0x20252B4
+        NA: 0x2024FE8
+        JP: 0x2025038
+      description: |-
+        Sets what item's name should be displayed in place of the [item:r0] tag when printing a string.
+        
+        Is almost always accompanied by a SetPreprocessorArgsIdVal(tag id, tag id | 0x40000) call in dungeon mode.
+        
+        r0: tag id
+        r1: item struct pointer
+        r2: some static address related to storing the item (always the same throughout the code)
     - name: SetQuestionMarks
       address:
         EU: 0x20253B0
@@ -7132,6 +7166,15 @@ arm9:
         Gets the value of GAME_MODE.
         
         return: game mode
+    - name: IsGameModeRescue
+      address:
+        EU: 0x204B330
+        NA: 0x204AFF8
+        JP: 0x204B360
+      description: |-
+        Returns true if the value of GAME_MODE is GAME_MODE_RESCUE.
+        
+        return: True if GAME_MODE is GAME_MODE_RESCUE.
     - name: InitScriptVariableValues
       address:
         EU: 0x204B384
@@ -10368,7 +10411,7 @@ arm9:
         Calls DungeonRequestsDone with the second argument set to false.
         
         r0: ?
-        return: number of mission completed
+        return: number of missions completed
     - name: AnyDungeonRequestsDone
       address:
         EU: 0x205F19C
@@ -10388,6 +10431,7 @@ arm9:
         Adds a mission to the Job List.
         
         r0: mission to add
+        return: bool (0 if mission was successfully added)
     - name: GetAcceptedMission
       address:
         EU: 0x205F454
@@ -10511,6 +10555,8 @@ arm9:
     - name: GenerateMissionDetailsStruct
       address:
         EU: 0x20604CC
+        NA: 0x2060150
+        JP: 0x2060440
       description: |-
         Generates a mission_details struct, to be used for printing mission details such as the title, summary, and objective.
         
@@ -10543,6 +10589,8 @@ arm9:
     - name: AppendMissionTitle
       address:
         EU: 0x2060D8C
+        NA: 0x2060A10
+        JP: 0x2060D00
       description: |-
         Generates the mission title of a mission, and appends it to the string location.
         
@@ -10553,6 +10601,8 @@ arm9:
     - name: AppendMissionSummary
       address:
         EU: 0x2061230
+        NA: 0x2060EB4
+        JP: 0x20611A0
       description: |-
         Generates the mission title of a mission, and appends it to the string location.
         
