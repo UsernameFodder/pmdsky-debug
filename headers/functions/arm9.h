@@ -196,7 +196,7 @@ enum move_id GetItemMoveId(enum item_id item_id);
 bool TestItemAiFlag(enum item_id item_id, enum item_flag flag);
 bool IsItemInTimeDarkness(enum item_id item_id);
 bool IsItemValidVeneer(enum item_id item_id);
-enum item_id ReturnEggExclusiveItem(enum monster_id);
+enum item_id ReturnEggExclusiveItem(enum monster_id monster_id);
 void SetActiveInventoryToMain(void);
 void AllInventoriesZInit(void);
 void SpecialEpisodeInventoryZInit(void);
