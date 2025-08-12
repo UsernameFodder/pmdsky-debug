@@ -10695,7 +10695,7 @@ arm9:
         return: Number of deliverable items for a mission
     - name: GetScriptEntityActorId
       address:
-        EU: 0x2065CF0
+        EU: 0x20653CC
       description: |-
         Returns the actor id of the script entity given by the id.
         
