@@ -766,7 +766,7 @@ struct monster_synth_data {
 ASSERT_SIZE(struct monster_synth_data, 28);
 
 struct type_synth_data {
-    // 0x0: A bitfield of which types can have exclusive items.
+    // 0x0: A list of which pokemon types can have exclusive items.
     // For determining applicability of type-specific exclusive items.
     // Croagunk doesn't sell these, because no templates for type-specific items are present.
     bool type_is_available[20];
