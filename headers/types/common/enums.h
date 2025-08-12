@@ -3974,7 +3974,8 @@ enum mission_template_item_case {
     ITEM_CASE_SPECIFIC_ITEM = 1,
     // mission_template_item_data_1 and mission_template_item_data_2 are indices to a table
     ITEM_CASE_TABLE_AVAILABLE_ITEM = 2,
-    // similar to ITEM_CASE_TABLE_AVAILABLE_ITEM, but without a check for availability. Unused in template.
+    // similar to ITEM_CASE_TABLE_AVAILABLE_ITEM, but without a check for availability. Unused in
+    // template.
     ITEM_CASE_TABLE_ITEM = 3,
     // mission_template_item_data_1 and mission_template_item_data_2 are ignored. Instead, pulls
     // from
