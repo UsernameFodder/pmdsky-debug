@@ -10693,6 +10693,14 @@ arm9:
         
         r0: item_buffer
         return: Number of deliverable items for a mission
+    - name: GetScriptEntityActorId
+      address:
+        EU: 0x2065CF0
+      description: |-
+        Returns the actor id of the script entity given by the id.
+        
+        r0: script_entity_id
+        return: actor_id
     - name: GetScriptEntityMonsterId
       address:
         EU: 0x2065CF0
