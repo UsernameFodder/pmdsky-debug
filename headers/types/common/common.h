@@ -773,14 +773,14 @@ struct type_synth_data {
 ASSERT_SIZE(struct type_synth_data, 20);
 
 struct baby_exclusive_item_pair {
-    enum item_id_16 exc_item_id;
+    struct item_id_16 exc_item_id;
     struct monster_id_16 baby_monster;
 };
 ASSERT_SIZE(struct baby_exclusive_item_pair, 4);
 
 struct synth_template {
     // 0x0: Item ID of the exclusive item.
-    enum item_id_16 exc_item_id;
+    struct item_id_16 exc_item_id;
     // 0x2: Number of items that need to be traded to Croagunk for that item.
     int16_t num_to_trade;
     // 0x4: Likely weights for the items to be rolled in the Swap Shop.
