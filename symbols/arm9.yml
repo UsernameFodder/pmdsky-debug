@@ -3167,7 +3167,7 @@ arm9:
       description: |-
         Fills out monster_synth_data for the specified monster, containing the synth templates that apply to said monster.
         r0: monster_id of the monster
-        r1: Pointer to an empty monster_synth_data, to be filled by the function.
+        r1: [output] Pointer to an empty monster_synth_data, to be filled by the function.
         r2: Pointer to a type_synth_data, so the monster's types can be enabled in the bitfield.
         return: 1 if at least one synth_template matches the species, and 0 if not.
     - name: LoadWazaP
