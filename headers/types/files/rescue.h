@@ -88,7 +88,7 @@ struct rescue_monster_tables {
     // Magnemite accompanies you. Overlaps with the range used by the GUIDE_CLIENT template.
     struct monster_id_16 magnet_escort_table[33];
     // [244, 471): Used for the GUIDE_CLIENT mission type, and consists of mostly weaker Pokemon,
-    // such as Torchic, Masquerain, and Squirtle. 
+    // such as Torchic, Masquerain, and Squirtle.
     struct monster_id_16 guide_client_table[227];
     // [471, 582): Used for the OUTLAW_NORMAL_0 mission type, as well as one of the
     // TAKE_ITEM_NORMAL_OUTLAW templates. Consists mostly of unevolved Pokemon, such as Anorith,

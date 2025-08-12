@@ -794,7 +794,7 @@ ASSERT_SIZE(struct synth_template, 8);
 // Structure of SYNTH/synth.bin file, which is used for the Croagunk Swap Shop.
 struct synth_file {
     struct synth_template synth_templates[780];
-    // The last 4 templates appear to be empty, with 0 weight. 
+    // The last 4 templates appear to be empty, with 0 weight.
     struct synth_template unused_templates[4];
 };
 ASSERT_SIZE(struct synth_file, 6272);

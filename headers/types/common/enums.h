@@ -3966,7 +3966,8 @@ ENUM_8_BIT(mission_status);
 #pragma pack(pop)
 
 enum mission_template_item_case {
-    // Treated same as ITEM_CASE_SPECIFIC_ITEM, but the item ID must also be obtainable for the player.
+    // Treated same as ITEM_CASE_SPECIFIC_ITEM, but the item ID must also be obtainable for the
+    // player.
     // Unused by the template.
     ITEM_CASE_SPECIFIC_AVAILABLE_ITEM = 0,
     // mission_template_item_data_1 is ignored, and mission_template_item_data_2 is an item_id
@@ -3975,11 +3976,14 @@ enum mission_template_item_case {
     ITEM_CASE_TABLE_AVAILABLE_ITEM = 2,
     // similar to ITEM_CASE_TABLE_ITEM, but without a check for availability. Unused in template.
     ITEM_CASE_TABLE_ITEM = 3,
-    // mission_template_item_data_1 and mission_template_item_data_2 are ignored. Instead, pulls from
+    // mission_template_item_data_1 and mission_template_item_data_2 are ignored. Instead, pulls
+    // from
     // MISSION_DELIVERY_LIST if possible, or an oran berry (0x46) if not.
-    // If that gives item ID 0, and this isn't a DELIVERY or FIND_ITEM mission, runs RetrieveFromItemList2
-    // with a table_id determined by mission rank, ignoring thrown/unstorable items. 
-    // Used mainly by templates without mission-relevant items, or where the item ID is intended to be random.
+    // If that gives item ID 0, and this isn't a DELIVERY or FIND_ITEM mission, runs
+    // RetrieveFromItemList2
+    // with a table_id determined by mission rank, ignoring thrown/unstorable items.
+    // Used mainly by templates without mission-relevant items, or where the item ID is intended to
+    // be random.
     ITEM_CASE_IGNORED = 4
 };
 

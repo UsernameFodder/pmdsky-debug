@@ -322,7 +322,9 @@ bool LoadSynthBin(void);
 void CloseSynthBin(void);
 bool GenerateCroagunkItems(void);
 struct synth_template* GetSynthItem(struct item_id_16 exclusive_item);
-bool GetValidSynthsForSpecies(struct monster_id_16 monster_id, struct monster_synth_data* monster_synth_data, struct type_synth_data* type_synth_data);
+bool GetValidSynthsForSpecies(struct monster_id_16 monster_id,
+                              struct monster_synth_data* monster_synth_data,
+                              struct type_synth_data* type_synth_data);
 void LoadWazaP(void);
 void LoadWazaP2(void);
 void UnloadCurrentWazaP(void);
