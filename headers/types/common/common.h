@@ -781,10 +781,10 @@ ASSERT_SIZE(struct baby_exclusive_item_pair, 4);
 struct synth_template {
     // 0x0: Item ID of the exclusive item.
     struct item_id_16 exc_item_id;
-    // 0x2: Number of items that need to be traded to Croagunk for that item.
-    int16_t num_to_trade;
-    // 0x4: Likely weights for the items to be rolled in the Swap Shop.
-    int16_t weights_perhaps;
+    // 0x2: Weight for that item to appear in the swap shop.  
+    int16_t item_weight;
+    // 0x4: Seem to be powers of 2, some kind of bitfield perhaps?
+    int16_t unk_0x4;
     // 0x6: Minimum $SCENARIO_BALANCE_FLAG value for it to spawn.
     // Only used for the Water Float (6) and the Phione/Manaphy items (7).
     int16_t min_balance_flag;
