@@ -2098,6 +2098,8 @@ arm9:
     - name: ReturnEggExclusiveItem
       address:
         EU: 0x200EC38
+        NA: 0x200EB90
+        JP: 0x200EBC0
       description: |-
         Checks if a species has an egg exclusive item, for the purposes of the Croagunk Swap Shop.
         Pulls from BABY_EXCLUSIVE_ITEM_PAIRS, so Pichu/Thundershard is not correctly accounted for by this function.
@@ -3149,6 +3151,8 @@ arm9:
     - name: GenerateCroagunkItems
       address:
         EU: 0x2012C24
+        NA: 0x2012B7C
+        JP: 0x2012B4C
       description: |-
         Generates the Croagunk Swap Shop items for Croagunk in Wigglytuff's Guild.
         return: 1 if at least one item generated, 0 otherwise.
@@ -3164,6 +3168,8 @@ arm9:
     - name: GetValidSynthsForSpecies
       address:
         EU: 0x201334C
+        NA: 0x20132A4
+        JP: 0x2013274
       description: |-
         Fills out monster_synth_data for the specified monster, containing the synth templates that apply to said monster.
         r0: monster_id of the monster
@@ -10722,6 +10728,8 @@ arm9:
     - name: GetScriptEntityMonsterId
       address:
         EU: 0x2065CF0
+        NA: 0x2065974
+        JP: 0x2065C5C
       description: |-
         Returns the monster id of the script entity given by the id.
         
