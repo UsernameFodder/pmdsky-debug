@@ -10710,6 +10710,8 @@ arm9:
         r0: script_entity_id
         return: monster id
     - name: GetScriptEntityMatchingStorageId
+      aliases:
++        - GetActorMatchingStorageId
       address:
         EU: 0x2065D14
         NA: 0x2065998
