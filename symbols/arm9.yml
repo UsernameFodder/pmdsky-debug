@@ -5253,12 +5253,12 @@ arm9:
         NA: 0x202598C
         JP: 0x202596C
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Gets the string id to be displayed for dialogue with a team member.
         
-        r0: personality_index
-        r1: group_id
+        r0: personality_index (either a monster id or some constant)
+        r1: talk type
         r2: restrictions
-        return: ?
+        return: string id
     - name: IsAOrBPressed
       address:
         EU: 0x20261CC
@@ -10719,15 +10719,33 @@ arm9:
         
         r0: item_buffer
         return: Number of deliverable items for a mission
-    - name: GetActorMatchingStorageId
+    - name: ScriptEntityIdToActorId
+      address:
+        EU: 0x20653CC
+      description: |-
+        When between 0x2e-0x31, converts a script entity id to an actor id (index in the entities table). Otherwise, its behavior is unknown.
+        
+        r0: [output] script_entity_id, becomes actor_id
+        return: ? (-1 if invalid)
+    - name: GetScriptEntityMonsterId
+      address:
+        EU: 0x2065CF0
+      description: |-
+        Returns the monster id of the script entity given by the id.
+        
+        r0: script_entity_id
+        return: monster id
+    - name: GetScriptEntityMatchingStorageId
+      aliases:
+        - GetActorMatchingStorageId
       address:
         EU: 0x2065D14
         NA: 0x2065998
         JP: 0x2065C80
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Returns the storage id matching the script entity given by the id.
         
-        r0: actor_id
+        r0: script_entity_id
         return: storage ID
     - name: SetActorTalkMainAndActorTalkSub
       address:
