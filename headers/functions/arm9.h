@@ -1124,7 +1124,8 @@ bool IsAvailableItem(enum item_id item_id);
 int GetAvailableItemDeliveryList(undefined* item_buffer);
 enum monster_id GetScriptEntityMonsterId(enum script_entity_id entity_id);
 int GetScriptEntityMatchingStorageId(enum script_entity_id entity_id);
-void SetActorTalkMainAndActorTalkSub(enum script_entity_id actor_id_main, enum script_entity_id actor_id_sub);
+void SetActorTalkMainAndActorTalkSub(enum script_entity_id actor_id_main,
+                                     enum script_entity_id actor_id_sub);
 void SetActorTalkMain(enum script_entity_id actor_id);
 void SetActorTalkSub(enum script_entity_id actor_id);
 void RandomizeDemoActors(void);
