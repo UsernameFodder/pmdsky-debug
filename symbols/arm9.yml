@@ -5254,7 +5254,6 @@ arm9:
         JP: 0x202596C
       description: |-
         Gets the string id to be displayed for dialogue with a team member.
-        Gets the string id to be displayed for dialogue with a team member.
         
         r0: personality_index (either a monster id or some constant)
         r1: talk type

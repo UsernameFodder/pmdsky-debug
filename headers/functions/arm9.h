@@ -547,7 +547,6 @@ void CopyStringFromId(char* buf, int string_id);
 void CopyNStringFromId(char* buf, int string_id, int buf_len);
 void LoadTblTalk(void);
 int GetTalkLine(int personality_idx, enum talk_type talk_type, int restrictions);
-int GetTalkLine(int personality_idx, enum talk_type talk_type, int restrictions);
 bool IsAOrBPressed(void);
 void DrawTextInWindow(int window_id, int x, int y, char* string);
 uint8_t GetCharWidth(char symbol);
