@@ -10697,7 +10697,7 @@ arm9:
       address:
         EU: 0x20653CC
       description: |-
-        Converts a script entity id to an actor id (index in the entities table).
+        When between 0x2e-0x31, converts a script entity id to an actor id (index in the entities table). Otherwise, its behavior is unknown.
         
         r0: [output] script_entity_id, becomes actor_id
         return: ? (-1 if invalid)
