@@ -2095,6 +2095,14 @@ arm9:
         
         r0: item ID
         return: bool
+    - name: ReturnEggExclusiveItem
+      address:
+        EU: 0x200EC38
+      description: |-
+        Checks if a species has an egg exclusive item, for the purposes of the Croagunk Swap Shop.
+        Pulls from BABY_EXCLUSIVE_ITEM_PAIRS, so Pichu/Thundershard is not correctly accounted for by this function.
+        r0: monster ID
+        return: Exclusive item_id for that monster, 0 if none found.
     - name: SetActiveInventoryToMain
       address:
         EU: 0x200EC74
@@ -3138,12 +3146,30 @@ arm9:
         NA: 0x2012B34
         JP: 0x2012B04
       description: "Note: unverified, ported from Irdkwia's notes"
+    - name: GenerateCroagunkItems
+      address:
+        EU: 0x2012C24
+      description: |-
+        Generates the Croagunk Swap Shop items for Croagunk in Wigglytuff's Guild.
+        return: 1 if at least one item generated, 0 otherwise.
     - name: GetSynthItem
       address:
         EU: 0x20132F8
         NA: 0x2013250
         JP: 0x2013220
-      description: "Note: unverified, ported from Irdkwia's notes"
+      description: |-
+        Searches synth_template in SYNTH/synth.bin for a matching exclusive item.
+        r0: item_id of an exclusive item.
+        return: pointer to synth_template containing that item. 0 if no match was found.
+    - name: GetValidSynthsForSpecies
+      address:
+        EU: 0x201334C
+      description: |-
+        Fills out monster_synth_data for the specified monster, containing the synth templates that apply to said monster.
+        r0: monster_id of the monster
+        r1: [output] Pointer to an empty monster_synth_data, to be filled by the function.
+        r2: Pointer to a type_synth_data, so the monster's types can be enabled in the bitfield.
+        return: 1 if at least one synth_template matches the species, and 0 if not.
     - name: LoadWazaP
       address:
         EU: 0x201346C
@@ -11093,7 +11119,7 @@ arm9:
         Linked to the dungeon group id
         
         Note: unverified, ported from Irdkwia's notes
-    - name: ARM9_UNKNOWN_TABLE__NA_2097FF8
+    - name: BABY_EXCLUSIVE_ITEM_PAIRS
       address:
         EU: 0x2098444
         NA: 0x2097FF8
@@ -11102,10 +11128,7 @@ arm9:
         EU: 0x40
         NA: 0x40
         JP: 0x40
-      description: |-
-        16*0x4 (0x2+0x2)
-        
-        Note: unverified, ported from Irdkwia's notes
+      description: "Stores the IDs of each baby Pokemon (and Phione), as well as the exclusive item they hatch with."
     - name: KECLEON_SHOP_ITEM_TABLE_LISTS_1
       address:
         EU: 0x2098504

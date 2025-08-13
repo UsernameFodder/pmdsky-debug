@@ -755,6 +755,50 @@ struct adventure_log {
 };
 ASSERT_SIZE(struct adventure_log, 636);
 
+struct monster_synth_data {
+    // 0x0: Number of Exclusive Items Checked
+    int32_t num_items_looped;
+    // 0x4: Sum of all num_to_trade in stored templates
+    int32_t total_num_to_trade;
+    // 0x8: synth_templates with exclusive items applicable to the species
+    struct synth_template* applicable_templates[5];
+};
+ASSERT_SIZE(struct monster_synth_data, 28);
+
+struct type_synth_data {
+    // 0x0: A list of which pokemon types can have exclusive items.
+    // For determining applicability of type-specific exclusive items.
+    // Croagunk doesn't sell these, because no templates for type-specific items are present.
+    bool type_is_available[20];
+};
+ASSERT_SIZE(struct type_synth_data, 20);
+
+struct baby_exclusive_item_pair {
+    struct item_id_16 exc_item_id;
+    struct monster_id_16 baby_monster;
+};
+ASSERT_SIZE(struct baby_exclusive_item_pair, 4);
+
+struct synth_template {
+    // 0x0: Item ID of the exclusive item.
+    struct item_id_16 exc_item_id;
+    // 0x2: Weight for that item to appear in the swap shop.
+    int16_t item_weight;
+    // 0x4: Seem to be powers of 2: 2/4/8/16/32. Possibly unused weights from EoTD?
+    int16_t unk_0x4;
+    // 0x6: Minimum $SCENARIO_BALANCE_FLAG value for it to spawn.
+    // Only used for the Water Float (6) and the Phione/Manaphy items (7).
+    int16_t min_balance_flag;
+};
+ASSERT_SIZE(struct synth_template, 8);
+
+// Structure of SYNTH/synth.bin file, which is used for the Croagunk Swap Shop.
+struct synth_file {
+    // The last 4 templates appear to be empty, with 0 weight.
+    struct synth_template synth_templates[784];
+};
+ASSERT_SIZE(struct synth_file, 6272);
+
 struct exclusive_item_stat_boost_entry {
     int8_t atk;
     int8_t def;
@@ -892,7 +936,8 @@ struct mission_details {
     undefined field_0x45;
     undefined field_0x46;
     undefined field_0x47;
-    undefined field_0x48;
+    // Used to pull a string from MISSION_MENU_STRING_IDS_1
+    uint8_t mission_menu_string_index;
     undefined field_0x49;
     undefined field_0x4a;
     undefined field_0x4b;

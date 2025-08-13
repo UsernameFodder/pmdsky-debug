@@ -34,6 +34,7 @@ extern char STRING_DUNGEON_DUNGEON_BIN[20];
 extern char STRING_MONSTER_M_ATTACK_BIN[24];
 extern char STRING_MONSTER_M_GROUND_BIN[24];
 extern char STRING_FILE_DIRECTORY_INIT[40];
+extern struct baby_exclusive_item_pair BABY_EXCLUSIVE_ITEM_PAIRS[16];
 extern enum item_id KECLEON_SHOP_ITEM_TABLE_LISTS_1[4];
 extern enum item_id KECLEON_SHOP_ITEM_TABLE_LISTS_2[4];
 extern struct exclusive_item_stat_boost_entry EXCLUSIVE_ITEM_STAT_BOOST_DATA[15];
