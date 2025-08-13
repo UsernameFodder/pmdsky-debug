@@ -196,6 +196,7 @@ enum move_id GetItemMoveId(enum item_id item_id);
 bool TestItemAiFlag(enum item_id item_id, enum item_flag flag);
 bool IsItemInTimeDarkness(enum item_id item_id);
 bool IsItemValidVeneer(enum item_id item_id);
+enum item_id ReturnEggExclusiveItem(enum monster_id monster_id);
 void SetActiveInventoryToMain(void);
 void AllInventoriesZInit(void);
 void SpecialEpisodeInventoryZInit(void);
@@ -319,7 +320,11 @@ void ApplyGummiBoostsGroundMode(struct monster_id_16* monster_id, uint16_t* mons
                                 struct gummi_result* gummi_result);
 bool LoadSynthBin(void);
 void CloseSynthBin(void);
-undefined* GetSynthItem(int param_1);
+bool GenerateCroagunkItems(void);
+struct synth_template* GetSynthItem(enum item_id exclusive_item);
+bool GetValidSynthsForSpecies(enum monster_id monster_id,
+                              struct monster_synth_data* monster_synth_data,
+                              struct type_synth_data* type_synth_data);
 void LoadWazaP(void);
 void LoadWazaP2(void);
 void UnloadCurrentWazaP(void);
@@ -541,6 +546,7 @@ char* StringFromId(int string_id);
 void CopyStringFromId(char* buf, int string_id);
 void CopyNStringFromId(char* buf, int string_id, int buf_len);
 void LoadTblTalk(void);
+int GetTalkLine(int personality_idx, enum talk_type talk_type, int restrictions);
 int GetTalkLine(int personality_idx, enum talk_type talk_type, int restrictions);
 bool IsAOrBPressed(void);
 void DrawTextInWindow(int window_id, int x, int y, char* string);
