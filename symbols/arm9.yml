@@ -10697,10 +10697,10 @@ arm9:
       address:
         EU: 0x20653CC
       description: |-
-        Converts a script entity id to an actor id (index in the entities table), or -1 if invalid.
+        Converts a script entity id to an actor id (index in the entities table).
         
-        r0: script_entity_id
-        return: actor_id
+        r0: [output] script_entity_id, becomes actor_id
+        return: ? (-1 if invalid)
     - name: GetScriptEntityMonsterId
       address:
         EU: 0x2065CF0
