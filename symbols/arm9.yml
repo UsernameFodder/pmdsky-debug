@@ -10711,7 +10711,7 @@ arm9:
         return: monster id
     - name: GetScriptEntityMatchingStorageId
       aliases:
-+        - GetActorMatchingStorageId
+        - GetActorMatchingStorageId
       address:
         EU: 0x2065D14
         NA: 0x2065998
