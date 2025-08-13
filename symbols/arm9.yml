@@ -10755,7 +10755,7 @@ arm9:
         NA: 0x2065B50
         JP: 0x2065E38
       description: |-
-        Sets ACTOR_TALK_MAIN to be entity_id.
+        Sets ACTOR_TALK_MAIN to be actor_id.
         Implements SPECIAL_PROC_SET_ACTOR_TALK_MAIN (see ScriptSpecialProcessCall).
         
         r0: script_entity_id
@@ -10765,7 +10765,7 @@ arm9:
         NA: 0x2065B60
         JP: 0x2065E48
       description: |-
-        Sets ACTOR_TALK_SUB to be entity_id.
+        Sets ACTOR_TALK_SUB to be actor_id.
         Implements SPECIAL_PROC_SET_ACTOR_TALK_SUB (see ScriptSpecialProcessCall).
         
         r0: script_entity_id
