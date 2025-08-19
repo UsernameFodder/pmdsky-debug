@@ -784,7 +784,7 @@ struct synth_template {
     struct item_id_16 exc_item_id;
     // 0x2: The individual weight for the item to be selected.
     int16_t item_weight;
-    // 0x2: Number of items required to trade for that item in the shop. Seems to match even for items with specific requirements.
+    // 0x4: Number of items required to trade for that item in the shop. Seems to match even for items with specific requirements.
     int16_t num_to_trade;
     // 0x6: Minimum $SCENARIO_BALANCE_FLAG value for it to spawn.
     // Only used for the Water Float (6) and the Phione/Manaphy items (7).
