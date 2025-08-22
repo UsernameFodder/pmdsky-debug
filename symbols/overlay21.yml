@@ -22,6 +22,28 @@ overlay21:
         Often calls SwapShopInventoryManager, and is often called by SwapShopMainManager.
         
         r0: New current_switch_case value.
+    - name: GetFirstExclusivePrerequisite
+      address:
+        EU: 0x238C468
+      description: |-
+        Retrieves the item ID of the first item needed to trade for the specified item. There are hardcoded exceptions for the Eeveelution/Hitmontrio items,
+        but outside of that, the output will be as follows.
+          output_id = input_id - ((input_id - 0x1FA) % 4)
+        r0: item ID of the exclusive item to be checked.
+        return: item ID of the first exclusive item required to trade for the input.
+    - name: SwapShopEntryPoint
+      address:
+        EU: 0x238C388
+      description: |-
+        Is the entrypoint of the overlay_load_entry, and seems to run once to initiate the Swap Shop. Is not called anywhere else.
+        Allocates space for [TO BE NAMED astruct_9], and initializes many of its fields. 
+        return: Always returns 1.
+    - name: SwapShopEntryPoint
+      address:
+        EU: 0x238C43C
+      description: |-
+        Is the destructor of the overlay_load_entry, and seems to run once on closing the Swap Shop. Is not called anywhere else.
+        Frees up the allocated space for [TO BE NAMED astruct_9] if it is not already empty. 
     - name: SwapShopMainManager
       address:
         EU: 0x238C468
