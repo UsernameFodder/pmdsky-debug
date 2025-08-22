@@ -12,7 +12,25 @@ overlay21:
     NA: 0x2E20
     JP: 0x2E40
   description: Controls the Croagunk Swap Shop.
-  functions: []
+  functions:
+    - name: SwapShopDialogueManager
+      address:
+        EU: 0x238AC80
+      description: |-
+        Called primarily to fill dialogue boxes or display portraits, this function exists to print the next portrait, dialogue, or input for the Swap Shop. 
+        Consistently writes the provided input to shared_switch_case, and occasionally writes to next_switch_case.  
+        Often calls SwapShopInventoryManager, and is often called by SwapShopMainManager.
+        
+        r0: New current_switch_case value.
+    - name: SwapShopMainManager
+      address:
+        EU: 0x238C468
+      description: |-
+        Called every frame the Croagunk Swap Shop is open, acting as a parent function for the various processes the Swap Shop is responsible for. 
+        Primarily handles displaying dialogue boxes, retrieving menu selections, and contributing updates to the various switch case indices.
+        Often calls SwapShopDialogueManager, either with an immediate or with the designated next_switch_case value. 
+        
+        return: Typically returns 1, but seems to return 4 to exit the Swap Shop. Possibly related to the explorerscript output?
   data:
     - name: SWAP_SHOP_WINDOW_PARAMS_1
       address:
