@@ -636,7 +636,7 @@ struct ground_entity_function_table {
 };
 ASSERT_SIZE(struct ground_entity_function_table, 80);
 
-struct swap_menu_manager {
+struct swap_shop_menu_manager {
     // 0x0: The switch case index shared by SwapShopMainManager and SwapShopDialogueManager.
     int32_t shared_switch_case;
     // 0x4: The "next" switch case index to be shared, typically assigned by SwapShopMainManager.
@@ -705,7 +705,7 @@ struct swap_menu_manager {
     undefined field_0x93a;
     undefined field_0x93b;
 }
-ASSERT_SIZE(struct swap_menu_manager, 2364);
+ASSERT_SIZE(struct swap_shop_menu_manager, 2364);
 
 
 #endif
