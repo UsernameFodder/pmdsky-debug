@@ -45,6 +45,6 @@ extern char SWAP_SHOP_DEBUG_STRING_25[36];
 extern int16_t OVERLAY21_JP_STRING[3];
 extern char SWAP_SHOP_GOLD_STRING[18];
 extern byte OVERLAY21_RESERVED_SPACE[8];
-extern astruct_9* SWAP_SHOP_[TO BE NAMED astruct_9]_PTR;
+extern astruct_9* SWAP_SHOP_MENU_MANAGER_PTR;
 extern undefined* OVERLAY21_UNKNOWN_POINTER__NA_238CF44;
 #endif
