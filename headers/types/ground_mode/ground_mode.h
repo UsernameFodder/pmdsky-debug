@@ -636,4 +636,76 @@ struct ground_entity_function_table {
 };
 ASSERT_SIZE(struct ground_entity_function_table, 80);
 
+struct swap_menu_manager {
+    // 0x0: The switch case index shared by SwapShopMainManager and SwapShopDialogueManager.
+    int32_t shared_switch_case;
+    // 0x4: The "next" switch case index to be shared, typically assigned by SwapShopMainManager.
+    int32_t next_switch_case;
+    // 0x8: Used exclusively by SwapShopMainManager. More research needed.
+    int32_t unk_windows_counter;
+    // 0xC: If true, croagunk will not ask the player if they want to continue swapping.
+    bool croagunk_out_of_swaps;
+    undefined field_0xd;
+    // 0xE: The item the player will receive by swapping.
+    struct bulk_item received_item;
+    undefined field_0x12;
+    undefined field_0x13;
+    undefined field_0x14;
+    undefined field_0x15;
+    undefined field_0x16;
+    undefined field_0x17;
+    // 0x18: While selecting which items to give croagunk, this field is filled when selecting "info" on an item in the list.
+    struct bulk_item described_item;
+    // 0x1C: Whenever a simple menu is run, this field is where the result is stored.
+    int32_t simple_menu_result;
+    // 0x20: Zeroed in SwapShopEntryPoint, but never modified
+    struct undefined4 unk_int_1;
+    // 0x24: Zeroed in SwapShopEntryPoint, but never modified
+    struct undefined4 unk_int_2;
+    // 0x28: Emotion for croagunk's portrait.
+    int32_t emotion_id;
+    // 0x2C: The case menu for a smaller switch case at the top of SwapShopMainManager.
+    int32_t window_manager_case;
+    // 0x30: Stores preprocessor_args for the next window.
+    struct preprocessor_args preprocessor_args;
+    // 0x80: The window_id of the current dialogue box window. -2 if none are present.
+    int8_t dialogue_window_id;
+    // 0x81: The window_id of the current portrait window. -2 if none are present.
+    int8_t portrait_window_id;
+    // 0x82: The window_id of the current advanced textbox window. -2 if none are present.
+    int8_t advanced_textbox_window_id;
+    // 0x83: The window_id of the current simple menu window. -2 if none are present.
+    int8_t simple_menu_window_id;
+    // 0x84: The window_id of the current text box window. -2 if none are present.
+    int8_t text_window_id;
+    // 0x85: The window_id of the current scroll box window. -2 if none are present.
+    int8_t scroll_box_window_id;
+    // 0x86: A small buffer for preprocessed text strings.
+    char text_string[66];
+    // 0xC8: Stores portrait_params for croagunk's next portrait.
+    struct portrait_params portrait_params;
+    // 0xD8: Stores the number of items required to trade for the current trade.
+    int16_t exc_item_trade_count;
+    // 0xDA: The number of exclusive items currently in the bag.
+    int16_t exc_bag_item_count;
+    // 0xDC: The individual item IDs of the exclusive items present in the bag.
+    struct item_id_16 exc_bag_item_ids[50];
+    // 0x140: The number of exclusive items currently in storage.
+    int16_t exc_storage_item_count;
+    // 0x142: The individual item IDs of the exclusive items in storage.
+    struct item_id_16 exc_storage_item_ids[1000];
+    undefined field_0x912;
+    undefined field_0x913;
+    // 0x914: The team member slot whose exclusive items are about to be viewed.
+    int32_t selected_team_member_slot;
+    // 0x918: The move slot to create an info menu for.
+    int16_t selected_move_slot;
+    // 0x91A: The four moves known by selected_team_member_slot.
+    struct move known_moves[4];
+    undefined field_0x93a;
+    undefined field_0x93b;
+}
+ASSERT_SIZE(struct swap_menu_manager, 2364);
+
+
 #endif
