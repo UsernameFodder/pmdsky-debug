@@ -379,9 +379,7 @@ overlay21:
       length:
         EU: 0x25
       description: MENU_SYNTHESIS_MODE_SELECT_THANKS:\n
-    - name: SWAP_SHOP_DEBUG_STRING_26
-      aliases:
-        - OVERLAY21_JP_STRING
+    - name: OVERLAY21_JP_STRING
       address:
         EU: 0x238DA5C
         NA: 0x238CF1C
@@ -389,7 +387,7 @@ overlay21:
       length:
         NA: 0x8
       description: 合成：("synthesis: " in Japanese)
-    - name: SWAP_SHOP_DEBUG_STRING_27
+    - name: SWAP_SHOP_GOLD_STRING
       address:
         EU: 0x238DA64
       length:
