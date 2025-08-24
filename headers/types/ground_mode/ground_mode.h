@@ -704,7 +704,7 @@ struct swap_shop_menu_manager {
     struct move known_moves[4];
     undefined field_0x93a;
     undefined field_0x93b;
-}
+};
 ASSERT_SIZE(struct swap_shop_menu_data, 2364);
 
 struct swap_shop_inventory_ptrs {
@@ -712,10 +712,10 @@ struct swap_shop_inventory_ptrs {
     undefined* temp_variable;
     // 0x4: A pointer to the swap_shop_inventory_data struct.
     struct swap_shop_inventory_data* inventory_data;
-}
+};
 ASSERT_SIZE(struct exc_item_trade_slot, 8);
 
-// 
+
 struct swap_shop_inventory_data {
     // 0x0: switch case id for SwapShopInventoryManager
     int32_t inventory_case_id;
@@ -758,7 +758,7 @@ struct swap_shop_inventory_data {
     struct item_id_16 selected_item_id;
     undefined field_0x46d2;
     undefined field_0x46d3;
-}
+};
 ASSERT_SIZE(struct swap_shop_inventory_data, 18132);
 
 struct exc_item_trade_slot {
@@ -769,7 +769,7 @@ struct exc_item_trade_slot {
     // 0x4: If the player has enough exclusive items to swap for the item, this will be true.
     bool can_afford_item;
     undefined unk_0x5;
-}
+};
 ASSERT_SIZE(struct exc_item_trade_slot, 6);
 
 #endif
