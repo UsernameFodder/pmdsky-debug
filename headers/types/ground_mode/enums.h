@@ -2116,7 +2116,6 @@ enum script_routine_kind {
 ENUM_16_BIT(script_routine_kind);
 #pragma pack(pop)
 
-
 enum swap_shop_shared_case {
     SWAP_SHARED_CASE_TALK_WELCOME = 0,
     SWAP_SHARED_CASE_TALK_CONTINUE_SWAP = 1,
@@ -2127,7 +2126,8 @@ enum swap_shop_shared_case {
     SWAP_SHARED_CASE_TALK_SWAP_BROKE = 6,
     SWAP_SHARED_CASE_TALK_SWAP_POOR = 7,
     // Seems to be an identical copy of SWAP_SHARED_CASE_TALK_SEND_TO_STORAGE.
-    // Perhaps this was once intended for trying to swap with a full storage, which is impossible by design.
+    // Perhaps this was once intended for trying to swap with a full storage, which is impossible by
+    // design.
     SWAP_SHARED_CASE_UNK_0x8 = 8,
     SWAP_SHARED_CASE_TALK_WHAT_ITEMS = 9,
     SWAP_SHARED_CASE_TALK_VALUABLE_SWAP = 10,
@@ -2191,20 +2191,26 @@ enum swap_shop_shared_case {
 };
 // Used exclusively by SwapShopMainManager.
 enum swap_shop_main_manager_case {
-    SWAP_MAIN_CASE_ENTRY_POINT = 0, // Assigned by SwapShopEntryPoint. Seems to set the script output case to 0, perhaps resetting it?
+    SWAP_MAIN_CASE_ENTRY_POINT = 0,     // Assigned by SwapShopEntryPoint. Seems to set the script
+                                        // output case to 0, perhaps resetting it?
     SWAP_MAIN_CASE_USE_SHARED_CASE = 1, // Will navigate to the shared_case-specific index.
-    SWAP_MAIN_CASE_CLOSE_PORTRAIT_AND_TEXTBOX = 2, // Subsequently sets the case to SWAP_MAIN_CASE_EXIT_SWAP_SHOP
-    SWAP_MAIN_CASE_EXIT_SWAP_SHOP = 3, // Also sets the script output case to -1.
-    SWAP_MAIN_CASE_RUN_SCRIPT_ACTION = 4, // Called after each script action, and the entry point. Possibly enables the script to run?
-    SWAP_MAIN_CASE_UNK_0x5 = 5, // Always returns 1. Seems unused. 
-    SWAP_MAIN_CASE_SET_SCRIPT_ACTION_1 = 6, // Sets script output to 1, allowing croagunk to turn towards the cauldron.
-    SWAP_MAIN_CASE_SET_SCRIPT_ACTION_2 = 7, // Sets script output to 2, causing flashing lights and earthquake effects
-    SWAP_MAIN_CASE_SET_SCRIPT_ACTION_3 = 8, // Sets script output to 3, causing croagunk to turn towards the player.
+    SWAP_MAIN_CASE_CLOSE_PORTRAIT_AND_TEXTBOX =
+        2, // Subsequently sets the case to SWAP_MAIN_CASE_EXIT_SWAP_SHOP
+    SWAP_MAIN_CASE_EXIT_SWAP_SHOP = 3,    // Also sets the script output case to -1.
+    SWAP_MAIN_CASE_RUN_SCRIPT_ACTION = 4, // Called after each script action, and the entry point.
+                                          // Possibly enables the script to run?
+    SWAP_MAIN_CASE_UNK_0x5 = 5,           // Always returns 1. Seems unused.
+    SWAP_MAIN_CASE_SET_SCRIPT_ACTION_1 =
+        6, // Sets script output to 1, allowing croagunk to turn towards the cauldron.
+    SWAP_MAIN_CASE_SET_SCRIPT_ACTION_2 =
+        7, // Sets script output to 2, causing flashing lights and earthquake effects
+    SWAP_MAIN_CASE_SET_SCRIPT_ACTION_3 =
+        8, // Sets script output to 3, causing croagunk to turn towards the player.
 };
 
 enum swap_shop_inventory_case {
     SWAP_INV_CASE_SHOP_ITEMS = 0,
-    SWAP_INV_CASE_UNK_0x1 = 1,  
+    SWAP_INV_CASE_UNK_0x1 = 1,
     SWAP_INV_CASE_SPECIES_EXC_ITEM_LIST = 2,
     SWAP_INV_CASE_CHOOSE_TRADE_AWAY_ITEMS_LIST = 3,
 };
