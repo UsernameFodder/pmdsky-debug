@@ -679,7 +679,6 @@ int PerformDamageSequence(struct entity* attacker, struct entity* defender, stru
 bool CanHitWithRegularAttack(struct entity* attacker, struct entity* defender);
 bool StatusCheckerCheck(struct entity* attacker, struct move* move);
 bool StatusCheckerCheckOnTarget(struct entity* attacker, struct entity* target, struct move* move);
-bool HasLastUsedMove(struct move* moves);
 enum weather_id GetApparentWeather(struct entity* entity);
 void TryWeatherFormChange(struct entity* entity);
 void ActivateSportCondition(bool water_sport);
