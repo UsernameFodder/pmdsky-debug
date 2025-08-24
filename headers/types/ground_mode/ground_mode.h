@@ -765,7 +765,7 @@ struct exc_item_trade_slot {
     // 0x0: The trade type the item slot uses.  
     int16_t trade_type;
     // 0x2: This is likely either the item_id of the slot, or the index of the slot. It might vary depending on the trade_type.
-    undefined2 unk_0x2;
+    int16_t unk_0x2;
     // 0x4: If the player has enough exclusive items to swap for the item, this will be true.
     bool can_afford_item;
     undefined unk_0x5;
