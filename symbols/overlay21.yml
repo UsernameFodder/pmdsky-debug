@@ -24,7 +24,7 @@ overlay21:
         r0: New current_switch_case value.
     - name: GetFirstExclusivePrerequisite
       address:
-        EU: 0x0238C320
+        EU: 0x238C320
       description: |-
         Retrieves the item ID of the first item needed to trade for the specified item. There are hardcoded exceptions for the Eeveelution/Hitmontrio items,
         but outside of that, the output will be as follows.
@@ -43,7 +43,7 @@ overlay21:
         EU: 0x238C43C
       description: |-
         Is the destructor of the overlay_load_entry, and seems to run once on closing the Swap Shop. Is not called anywhere else.
-        Frees up the allocated space for swap_shop_menu_data if it is not already empty. 
+        Frees up the allocated space for swap_shop_menu_data if it is not already empty.
     - name: SwapShopMainManager
       address:
         EU: 0x238C468
@@ -56,7 +56,7 @@ overlay21:
     - name: CloseTextboxAndSimpleMenu
       address:
         EU: 0x238D460
-      description: Checks both the text_window_id and menu_window_id for -2. If either are not -2, close the textbox/simple menu, and assign the id to -2.
+      description: "Checks both the text_window_id and menu_window_id for -2. If either are not -2, close the textbox/simple menu, and assign the id to -2."
     - name: SwapShopPrintCurrentGold
       address:
         EU: 0x238D4E4
@@ -136,29 +136,29 @@ overlay21:
       description: Used alongside SWAP_SHOP_WINDOW_PARAMS_9.
     - name: OVERLAY21_UNKNOWN_STRING_IDS
       address:
-        NA: 0x238CB00
         EU: 0x238D640
+        NA: 0x238CB00
       length:
         NA: 0x38
-      description: Seem to be completely unused by the Swap Shop, but the strings are 1:1 for the ones that are in use elsewhere in the shop.
+      description: "Seem to be completely unused by the Swap Shop, but the strings are 1:1 for the ones that are in use elsewhere in the shop."
     - name: SWAP_SHOP_WINDOW_PARAMS_2
       address:
-        NA: 0x238CB38
         EU: 0x238D678
-      length:
-        NA: 0x10
-      description: Seem to be completely unused by the Swap Shop.
-    - name: SWAP_SHOP_WINDOW_PARAMS_3
-      address:
-        NA: 0x238CB48
-        EU: 0x238d6A8
+        NA: 0x238CB38
       length:
         NA: 0x10
       description: Seem to be completely unused by the Swap Shop.
     - name: SWAP_SHOP_WINDOW_PARAMS_4
       address:
-        NA: 0x238CB58
         EU: 0x238D698
+        NA: 0x238CB58
+      length:
+        NA: 0x10
+      description: Seem to be completely unused by the Swap Shop.
+    - name: SWAP_SHOP_WINDOW_PARAMS_3
+      address:
+        EU: 0x238D6A8
+        NA: 0x238CB48
       length:
         NA: 0x10
       description: Seem to be completely unused by the Swap Shop.
@@ -197,7 +197,7 @@ overlay21:
       length:
         EU: 0x10
         NA: 0x10
-      description: Used alone, seemingly for the exclusive item description window.
+      description: "Used alone, seemingly for the exclusive item description window."
     - name: SWAP_SHOP_WINDOW_PARAMS_9
       address:
         EU: 0x238D6E8
@@ -212,175 +212,151 @@ overlay21:
         EU: 0x238D6F8
       length:
         EU: 0x1D
-      description: MENU_SYNTHESIS_MODE_START:\n
-
+      description: "MENU_SYNTHESIS_MODE_START:\\n"
     - name: SWAP_SHOP_DEBUG_STRING_2
       address:
         EU: 0x238D714
       length:
         EU: 0x22
-      description: MENU_SYNTHESIS_MODE_SELECTMENU:\n
-
+      description: "MENU_SYNTHESIS_MODE_SELECTMENU:\\n"
     - name: SWAP_SHOP_DEBUG_STRING_3
       address:
         EU: 0x238D738
       length:
         EU: 0x1F
-      description: MENU_SYNTHESIS_MODE_RESTART:\n
-
+      description: "MENU_SYNTHESIS_MODE_RESTART:\\n"
     - name: SWAP_SHOP_DEBUG_STRING_4
       address:
         EU: 0x238D758
       length:
         EU: 0x23
-      description: MENU_SYNTHESIS_MODE_EXPLANATION:\n
-
+      description: "MENU_SYNTHESIS_MODE_EXPLANATION:\\n"
     - name: SWAP_SHOP_DEBUG_STRING_5
       address:
         EU: 0x238D77C
       length:
         EU: 0x1E
-      description: MENU_SYNTHESIS_MODE_THANKS:\n
-
+      description: "MENU_SYNTHESIS_MODE_THANKS:\\n"
     - name: SWAP_SHOP_DEBUG_STRING_6
       address:
         EU: 0x238D79C
       length:
         EU: 0x20
-      description: MENU_SYNTHESIS_MODE_ITEM_NON:\n
-
+      description: "MENU_SYNTHESIS_MODE_ITEM_NON:\\n"
     - name: SWAP_SHOP_DEBUG_STRING_7
       address:
         EU: 0x238D7BC
       length:
         EU: 0x1F
-      description: MENU_SYNTHESIS_MODE_GOLD_NON\n
-
+      description: "MENU_SYNTHESIS_MODE_GOLD_NON\\n"
     - name: SWAP_SHOP_DEBUG_STRING_8
       address:
         EU: 0x238D7DC
       length:
         EU: 0x14
       description: MENU_SYNTHESIS_GOLD
-
     - name: SWAP_SHOP_DEBUG_STRING_9
       address:
         EU: 0x238D800
       length:
         EU: 0x23
-      description: MENU_SYNTHESIS_MODE_SELECT_FULL:\n
-
+      description: "MENU_SYNTHESIS_MODE_SELECT_FULL:\\n"
     - name: SWAP_SHOP_DEBUG_STRING_10
       address:
         EU: 0x238D824
       length:
         EU: 0x1B
-      description: MENU_SYNTHESIS_MODE_QUIT\n
-
+      description: "MENU_SYNTHESIS_MODE_QUIT\\n"
     - name: SWAP_SHOP_DEBUG_STRING_11
       address:
         EU: 0x238D840
       length:
         EU: 0x24
-      description: MENU_SYNTHESIS_MODE_SELECT_START:\n
-
+      description: "MENU_SYNTHESIS_MODE_SELECT_START:\\n"
     - name: SWAP_SHOP_DEBUG_STRING_12
       address:
         EU: 0x238D864
       length:
         EU: 0x20
-      description: MENU_SYNTHESIS_MODE__RESTART:\n
-
+      description: "MENU_SYNTHESIS_MODE__RESTART:\\n"
     - name: SWAP_SHOP_DEBUG_STRING_13
       address:
         EU: 0x238D884
       length:
         EU: 0x23
-      description: MENU_SYNTHESIS_MODE_SELECT_INIT:\n
-
+      description: "MENU_SYNTHESIS_MODE_SELECT_INIT:\\n"
     - name: SWAP_SHOP_DEBUG_STRING_14
       address:
         EU: 0x238D8A8
       length:
         EU: 0x25
-      description: MENU_SYNTHESIS_MODE_SELECT_SELECT:\n
-
+      description: "MENU_SYNTHESIS_MODE_SELECT_SELECT:\\n"
     - name: SWAP_SHOP_DEBUG_STRING_15
       address:
         EU: 0x238D8CC
       length:
         EU: 0x27
-      description: MENU_SYNTHESIS_MODE_SELECT_RESELECT:\n
-
+      description: "MENU_SYNTHESIS_MODE_SELECT_RESELECT:\\n"
     - name: SWAP_SHOP_DEBUG_STRING_16
       address:
         EU: 0x238D8F4
       length:
         EU: 0x29
-      description: \tMENU_SYNTHESIS_MODE_SELECT_SUB_MENU:\n
-
+      description: "\\tMENU_SYNTHESIS_MODE_SELECT_SUB_MENU:\\n"
     - name: SWAP_SHOP_DEBUG_STRING_17
       address:
         EU: 0x238D91C
       length:
         EU: 0x23
-      description: MENU_SYNTHESIS_MODE_SELECT_EXPLA\n
-
+      description: "MENU_SYNTHESIS_MODE_SELECT_EXPLA\\n"
     - name: SWAP_SHOP_DEBUG_STRING_18
       address:
         EU: 0x238D940
       length:
         EU: 0x9
       description: "[item:0]"
-
     - name: SWAP_SHOP_DEBUG_STRING_19
       address:
         EU: 0x238D94C
       length:
         EU: 0x28
-      description: MENU_SYNTHESIS_MODE_SELECT_CONFIRM_1:\n
-
+      description: "MENU_SYNTHESIS_MODE_SELECT_CONFIRM_1:\\n"
     - name: SWAP_SHOP_DEBUG_STRING_20
       address:
         EU: 0x238D974
       length:
         EU: 0x16
-      description: _SELL_CONFIRM NEW_1\n
-
+      description: "_SELL_CONFIRM NEW_1\\n"
     - name: SWAP_SHOP_DEBUG_STRING_21
       address:
         EU: 0x238D98C
       length:
         EU: 0x2C
-      description: MENU_SYNTHESIS_MODE_SELECT_THANKS_ACTION:\n
-
+      description: "MENU_SYNTHESIS_MODE_SELECT_THANKS_ACTION:\\n"
     - name: SWAP_SHOP_DEBUG_STRING_22
       address:
         EU: 0x238D9B8
       length:
         EU: 0x2D
-      description: MENU_SYNTHESIS_MODE_SELECT_THANKS_ACTION2:\n
-
+      description: "MENU_SYNTHESIS_MODE_SELECT_THANKS_ACTION2:\\n"
     - name: SWAP_SHOP_DEBUG_STRING_23
       address:
         EU: 0x238D9E4
       length:
         EU: 0x2D
-      description: MENU_SYNTHESIS_MODE_SELECT_THANKS_ACTION3:\n
-
+      description: "MENU_SYNTHESIS_MODE_SELECT_THANKS_ACTION3:\\n"
     - name: SWAP_SHOP_DEBUG_STRING_24
       address:
         EU: 0x238DA10
       length:
         EU: 0x27
-      description: MENU_SYNTHESIS_MODE_SELECT_THANKS_1:\n
-
+      description: "MENU_SYNTHESIS_MODE_SELECT_THANKS_1:\\n"
     - name: SWAP_SHOP_DEBUG_STRING_25
       address:
         EU: 0x238DA38
       length:
         EU: 0x25
-      description: MENU_SYNTHESIS_MODE_SELECT_THANKS:\n
+      description: "MENU_SYNTHESIS_MODE_SELECT_THANKS:\\n"
     - name: OVERLAY21_JP_STRING
       address:
         EU: 0x238DA5C

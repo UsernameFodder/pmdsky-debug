@@ -766,8 +766,9 @@ struct monster_synth_data {
 ASSERT_SIZE(struct monster_synth_data, 28);
 
 struct type_synth_data {
-    // 0x0: A bitfield of which types have species exclusive items.
-    // Presumably for determining type-specific exclusive items? Croagunk doesn't sell these...
+    // 0x0: A list of which pokemon types can have exclusive items.
+    // For determining applicability of type-specific exclusive items.
+    // Croagunk doesn't sell these, because no templates for type-specific items are present.
     bool type_is_available[20];
 };
 ASSERT_SIZE(struct type_synth_data, 20);
@@ -781,10 +782,11 @@ ASSERT_SIZE(struct baby_exclusive_item_pair, 4);
 struct synth_template {
     // 0x0: Item ID of the exclusive item.
     struct item_id_16 exc_item_id;
-    // 0x2: Number of items that need to be traded to Croagunk for that item.
+    // 0x2: The individual weight for the item to be selected.
+    int16_t item_weight;
+    // 0x4: Number of items required to trade for that item in the shop. Seems to match even for
+    // items with specific requirements.
     int16_t num_to_trade;
-    // 0x4: Likely weights for the items to be rolled in the Swap Shop.
-    int16_t weights_perhaps;
     // 0x6: Minimum $SCENARIO_BALANCE_FLAG value for it to spawn.
     // Only used for the Water Float (6) and the Phione/Manaphy items (7).
     int16_t min_balance_flag;
@@ -793,9 +795,8 @@ ASSERT_SIZE(struct synth_template, 8);
 
 // Structure of SYNTH/synth.bin file, which is used for the Croagunk Swap Shop.
 struct synth_file {
-    struct synth_template synth_templates[780];
     // The last 4 templates appear to be empty, with 0 weight.
-    struct synth_template unused_templates[4];
+    struct synth_template synth_templates[784];
 };
 ASSERT_SIZE(struct synth_file, 6272);
 
@@ -1361,5 +1362,4 @@ struct monster_file_contents {
     struct monster_data_table table; // 0x8: The main contents of the data table.
 };
 ASSERT_SIZE(struct monster_file_contents, 78548);
-
 #endif

@@ -654,7 +654,8 @@ struct swap_shop_menu_data {
     undefined field_0x15;
     undefined field_0x16;
     undefined field_0x17;
-    // 0x18: While selecting which items to give croagunk, this field is filled when selecting "info" on an item in the list.
+    // 0x18: While selecting which items to give croagunk, this field is filled when selecting
+    // "info" on an item in the list.
     struct bulk_item described_item;
     // 0x1C: Whenever a simple menu is run, this field is where the result is stored.
     int32_t simple_menu_result;
@@ -716,9 +717,10 @@ struct swap_shop_inventory_ptrs {
 ASSERT_SIZE(struct swap_shop_inventory_ptrs, 8);
 
 struct exc_item_trade_slot {
-    // 0x0: The trade type the item slot uses.  
+    // 0x0: The trade type the item slot uses.
     int16_t trade_type;
-    // 0x2: This is likely either the item_id of the slot, or the index of the slot. It might vary depending on the trade_type.
+    // 0x2: This is likely either the item_id of the slot, or the index of the slot. It might vary
+    // depending on the trade_type.
     int16_t unk_0x2;
     // 0x4: If the player has enough exclusive items to swap for the item, this will be true.
     bool can_afford_item;
@@ -738,7 +740,7 @@ struct swap_shop_inventory_data {
     // 0x14E4: Seems to be a window_id for a collection menu.
     int8_t collection_menu_window_id;
     undefined field_0x14e5;
-    // 0x14E6: Seems to be a struct for each item in the shop. 
+    // 0x14E6: Seems to be a struct for each item in the shop.
     struct exc_item_trade_slot exc_item_trade_slots[1068];
     // 0x2DEE: For each item in the swap list, is the number of that item available?
     int16_t item_quantities[1068];
@@ -763,8 +765,9 @@ struct swap_shop_inventory_data {
     undefined field_0x46c7;
     // 0x46C8
     int32_t textbox_window_id;
-    struct text_box * textbox_ptr;
-    // 0x46D0: The item ID the player selects when choosing items to give croagunk. Used to check the item info.
+    struct text_box* textbox_ptr;
+    // 0x46D0: The item ID the player selects when choosing items to give croagunk. Used to check
+    // the item info.
     struct item_id_16 selected_item_id;
     undefined field_0x46d2;
     undefined field_0x46d3;
