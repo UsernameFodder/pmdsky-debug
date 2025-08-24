@@ -38,8 +38,14 @@ bool ReturnToTitleScreen(uint32_t fade_duration);
 void ScriptSpecialProcess0x16(bool param_1);
 bool IsScreenFadeInProgress(void);
 void LoadBackgroundAttributes(struct bg_list_entry* entry, int bg_id);
+void GroundBg_Init(struct ground_bg* ground_bg, const struct ground_bg_sub_struct_2bc* param_2);
+void GroundBg_FreeAll(struct ground_bg* ground_bg);
+void GroundBg_CloseOpenedFiles(struct ground_bg* ground_bg);
 void LoadMapType10(void* buf, int map_id, undefined* dungeon_info_str, undefined4 additional_info);
 void LoadMapType11(void* buf, int map_id, undefined* dungeon_info_str, undefined4 additional_info);
+const uint8_t* BmaLayerNrlDecompressor(uint16_t** dst_array, const uint8_t* bma_data,
+                                       struct ground_bg_sub_struct_2bc* param_3,
+                                       struct bma_header* bma_header);
 void GetSpecialLayoutBackground(int bg_id, undefined* dungeon_info_str, undefined4 additional_info,
                                 bool copy_fixed_room_layout);
 void SetAnimDataFields(struct animation* anim, uint16_t param_2);
