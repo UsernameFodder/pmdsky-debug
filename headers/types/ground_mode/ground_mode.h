@@ -705,7 +705,71 @@ struct swap_shop_menu_manager {
     undefined field_0x93a;
     undefined field_0x93b;
 }
-ASSERT_SIZE(struct swap_shop_menu_manager, 2364);
+ASSERT_SIZE(struct swap_shop_menu_data, 2364);
 
+struct swap_shop_inventory_ptrs {
+    // 0x0: Seems to be a pointer to some kind of temporary variable?
+    undefined* temp_variable;
+    // 0x4: A pointer to the swap_shop_inventory_data struct.
+    struct swap_shop_inventory_data* inventory_data;
+}
+ASSERT_SIZE(struct exc_item_trade_slot, 8);
+
+// 
+struct swap_shop_inventory_data {
+    // 0x0: switch case id for SwapShopInventoryManager
+    int32_t inventory_case_id;
+    // 0x4: A copy of num_valid_shop_items to be used by CreateCollectionMenu?
+    int32_t num_valid_shop_items_temp;
+    // 0x8: Seemingly unused, these are zeroed for some reason?
+    int32_t mystery_ints[1068];
+    // 0x10B8: If the item is purchasable, this field will be 0x2. Otherwise, it will be 0x0.
+    int8_t is_item_purchasable[1068];
+    // 0x14E4: Seems to be a window_id for a collection menu.
+    int8_t collection_menu_window_id;
+    undefined field_0x14e5;
+    // 0x14E6: Seems to be a struct for each item in the shop. 
+    struct exc_item_trade_slot exc_item_trade_slots[1068];
+    // 0x2DEE: For each item in the swap list, is the number of that item available?
+    struct int16_t item_quantities[1068];
+    // 0x3646: List of every exclusive item the player owns.
+    struct item_id_16 owned_exclusive_items[1000];
+    // 0x3E16: List of how much of each owned_exclusive_item the player owns.
+    struct int16_t owned_item_quantities[1000];
+    // 0x45E6: The synth_templates matching today's rolled swap shop items.
+    struct synth_template shop_synth_templates[8];
+    // 0x4626: Total number of items for sale in the swap shop.
+    int16_t num_valid_shop_items;
+    // 0x4628: Number of items required to be traded to croagunk for the selected item.
+    int16_t num_required_trade_items;
+    undefined field_0x462a;
+    undefined field_0x462b;
+    // 0x462C
+    struct window_extra_info window_extra_info_ptr;
+    // 0x46C4: Whether or not the synth.bin file is open.
+    struct bool synth_bin_open;
+    undefined field_0x46c5;
+    undefined field_0x46c6;
+    undefined field_0x46c7;
+    // 0x46C8
+    int32_t textbox_window_id;
+    struct text_box * textbox_ptr;
+    // 0x46D0: The item ID the player selects when choosing items to give croagunk. Used to check the item info.
+    struct item_id_16 selected_item_id;
+    undefined field_0x46d2;
+    undefined field_0x46d3;
+}
+ASSERT_SIZE(struct swap_shop_inventory_data, 18132);
+
+struct exc_item_trade_slot {
+    // 0x0: The trade type the item slot uses.  
+    enum trade_type trade_type;
+    // 0x2: This is likely either the item_id of the slot, or the index of the slot. It might vary depending on the trade_type.
+    undefined2 unk_0x2;
+    // 0x4: If the player has enough exclusive items to swap for the item, this will be true.
+    bool can_afford_item;
+    undefined unk_0x5;
+}
+ASSERT_SIZE(struct exc_item_trade_slot, 6);
 
 #endif
