@@ -196,7 +196,7 @@ enum move_id GetItemMoveId(enum item_id item_id);
 bool TestItemAiFlag(enum item_id item_id, enum item_flag flag);
 bool IsItemInTimeDarkness(enum item_id item_id);
 bool IsItemValidVeneer(enum item_id item_id);
-struct item_id_16 ReturnEggExclusiveItem(struct monster_id_16);
+enum item_id ReturnEggExclusiveItem(enum monster_id monster_id);
 void SetActiveInventoryToMain(void);
 void AllInventoriesZInit(void);
 void SpecialEpisodeInventoryZInit(void);
@@ -321,8 +321,8 @@ void ApplyGummiBoostsGroundMode(struct monster_id_16* monster_id, uint16_t* mons
 bool LoadSynthBin(void);
 void CloseSynthBin(void);
 bool GenerateCroagunkItems(void);
-struct synth_template* GetSynthItem(struct item_id_16 exclusive_item);
-bool GetValidSynthsForSpecies(struct monster_id_16 monster_id,
+struct synth_template* GetSynthItem(enum item_id exclusive_item);
+bool GetValidSynthsForSpecies(enum monster_id monster_id,
                               struct monster_synth_data* monster_synth_data,
                               struct type_synth_data* type_synth_data);
 void LoadWazaP(void);
@@ -546,7 +546,7 @@ char* StringFromId(int string_id);
 void CopyStringFromId(char* buf, int string_id);
 void CopyNStringFromId(char* buf, int string_id, int buf_len);
 void LoadTblTalk(void);
-int GetTalkLine(int personality_idx, int group_id, int restrictions);
+int GetTalkLine(int personality_idx, enum talk_type talk_type, int restrictions);
 bool IsAOrBPressed(void);
 void DrawTextInWindow(int window_id, int x, int y, char* string);
 uint8_t GetCharWidth(char symbol);
@@ -1122,10 +1122,12 @@ bool CanDungeonBeUsedForMission(enum dungeon_id dungeon_id);
 bool CanSendItem(enum item_id item_id, bool to_sky);
 bool IsAvailableItem(enum item_id item_id);
 int GetAvailableItemDeliveryList(undefined* item_buffer);
-int GetScriptEntityMatchingStorageId(int actor_id);
-void SetActorTalkMainAndActorTalkSub(int actor_id_main, int actor_id_sub);
-void SetActorTalkMain(int actor_id);
-void SetActorTalkSub(int actor_id);
+enum monster_id GetScriptEntityMonsterId(enum script_entity_id entity_id);
+int GetScriptEntityMatchingStorageId(enum script_entity_id entity_id);
+void SetActorTalkMainAndActorTalkSub(enum script_entity_id actor_id_main,
+                                     enum script_entity_id actor_id_sub);
+void SetActorTalkMain(enum script_entity_id actor_id);
+void SetActorTalkSub(enum script_entity_id actor_id);
 void RandomizeDemoActors(void);
 void ItemAtTableIdx(int idx, struct bulk_item* item);
 void MainLoop(void);
