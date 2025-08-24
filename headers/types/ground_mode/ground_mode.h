@@ -731,11 +731,11 @@ struct swap_shop_inventory_data {
     // 0x14E6: Seems to be a struct for each item in the shop. 
     struct exc_item_trade_slot exc_item_trade_slots[1068];
     // 0x2DEE: For each item in the swap list, is the number of that item available?
-    struct int16_t item_quantities[1068];
+    int16_t item_quantities[1068];
     // 0x3646: List of every exclusive item the player owns.
     struct item_id_16 owned_exclusive_items[1000];
     // 0x3E16: List of how much of each owned_exclusive_item the player owns.
-    struct int16_t owned_item_quantities[1000];
+    int16_t owned_item_quantities[1000];
     // 0x45E6: The synth_templates matching today's rolled swap shop items.
     struct synth_template shop_synth_templates[8];
     // 0x4626: Total number of items for sale in the swap shop.
