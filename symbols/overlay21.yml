@@ -148,17 +148,17 @@ overlay21:
       length:
         NA: 0x10
       description: Seem to be completely unused by the Swap Shop.
+    - name: SWAP_SHOP_WINDOW_PARAMS_3
+      address:
+        EU: 0x238D688
+        NA: 0x238CB48
+      length:
+        NA: 0x10
+      description: Seem to be completely unused by the Swap Shop.
     - name: SWAP_SHOP_WINDOW_PARAMS_4
       address:
         EU: 0x238D698
         NA: 0x238CB58
-      length:
-        NA: 0x10
-      description: Seem to be completely unused by the Swap Shop.
-    - name: SWAP_SHOP_WINDOW_PARAMS_3
-      address:
-        EU: 0x238D6A8
-        NA: 0x238CB48
       length:
         NA: 0x10
       description: Seem to be completely unused by the Swap Shop.
