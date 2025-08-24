@@ -36,14 +36,14 @@ overlay21:
         EU: 0x238C388
       description: |-
         Is the entrypoint of the overlay_load_entry, and seems to run once to initiate the Swap Shop. Is not called anywhere else.
-        Allocates space for the swap_shop_menu_manager, and initializes many of its fields. 
+        Allocates space for swap_shop_menu_data, and initializes many of its fields. 
         return: Always returns 1.
     - name: SwapShopDestructor
       address:
         EU: 0x238C43C
       description: |-
         Is the destructor of the overlay_load_entry, and seems to run once on closing the Swap Shop. Is not called anywhere else.
-        Frees up the allocated space for the swap_shop_menu_manager if it is not already empty. 
+        Frees up the allocated space for swap_shop_menu_data if it is not already empty. 
     - name: SwapShopMainManager
       address:
         EU: 0x238C468
@@ -399,14 +399,14 @@ overlay21:
       length:
         NA: 0x8
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: SWAP_SHOP_MENU_MANAGER_PTR
+    - name: SWAP_SHOP_MENU_DATA_PTR
       address:
         EU: 0x238DA80
         NA: 0x238CF40
         JP: 0x238E4C0
       length:
         NA: 0x4
-      description: Pointer to the swap_shop_menu_manager that governs the operations of most overlay_21 functions.
+      description: Pointer to the swap_shop_menu_data that governs the operations of most overlay_21 functions.
     - name: OVERLAY21_UNKNOWN_POINTER__NA_238CF44
       address:
         NA: 0x238CF44
