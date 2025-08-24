@@ -21,6 +21,7 @@ extern struct ground_entity_function_table PERFORMER_FUNCTION_TABLE;
 extern struct window_params TEAM_INFO_BOX_DEFAULT_WINDOW_PARAMS;
 extern struct overlay_load_entry OVERLAY11_OVERLAY_LOAD_TABLE[21];
 extern struct main_ground_data GROUND_STATE_PTRS;
+extern struct swap_shop_inventory_ptrs SWAP_SHOP_INVENTORY_PTRS;
 extern uint32_t WORLD_MAP_MODE;
 
 #endif
