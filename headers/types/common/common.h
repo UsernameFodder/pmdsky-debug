@@ -782,7 +782,7 @@ ASSERT_SIZE(struct baby_exclusive_item_pair, 4);
 struct synth_template {
     // 0x0: Item ID of the exclusive item.
     struct item_id_16 exc_item_id;
-    // 0x2: The individual weight for the item to be selected.
+    // 0x2: Weight for that item to appear in the swap shop.
     int16_t item_weight;
     // 0x4: Number of items required to trade for that item in the shop. Seems to match even for
     // items with specific requirements.
@@ -1362,4 +1362,5 @@ struct monster_file_contents {
     struct monster_data_table table; // 0x8: The main contents of the data table.
 };
 ASSERT_SIZE(struct monster_file_contents, 78548);
+
 #endif
