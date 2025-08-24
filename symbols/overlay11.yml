@@ -1827,9 +1827,7 @@ overlay11:
         EU: 0x23258E4
       length:
         EU: 0x8
-      description: |-
-        Host pointers to multiple structures used for performing internal Swap Shop checks. 
-
+      description: "Host pointers to multiple structures used for performing internal Swap Shop checks."
     - name: WORLD_MAP_MODE
       address:
         EU: 0x2325924
