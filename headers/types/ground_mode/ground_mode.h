@@ -747,7 +747,7 @@ struct swap_shop_inventory_data {
     // 0x462C
     struct window_extra_info window_extra_info_ptr;
     // 0x46C4: Whether or not the synth.bin file is open.
-    struct bool synth_bin_open;
+    bool synth_bin_open;
     undefined field_0x46c5;
     undefined field_0x46c6;
     undefined field_0x46c7;
@@ -763,7 +763,7 @@ ASSERT_SIZE(struct swap_shop_inventory_data, 18132);
 
 struct exc_item_trade_slot {
     // 0x0: The trade type the item slot uses.  
-    enum trade_type trade_type;
+    int16_t trade_type;
     // 0x2: This is likely either the item_id of the slot, or the index of the slot. It might vary depending on the trade_type.
     undefined2 unk_0x2;
     // 0x4: If the player has enough exclusive items to swap for the item, this will be true.
