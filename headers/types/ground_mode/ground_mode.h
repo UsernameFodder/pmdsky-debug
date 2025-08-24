@@ -638,9 +638,9 @@ ASSERT_SIZE(struct ground_entity_function_table, 80);
 
 struct swap_shop_menu_data {
     // 0x0: The switch case index shared by SwapShopMainManager and SwapShopDialogueManager.
-    int32_t shared_switch_case;
+    enum swap_shop_shared_case current_shared_case;
     // 0x4: The "next" switch case index to be shared, typically assigned by SwapShopMainManager.
-    int32_t next_switch_case;
+    enum swap_shop_shared_case next_shared_case;
     // 0x8: Used exclusively by SwapShopMainManager. More research needed.
     int32_t unk_windows_counter;
     // 0xC: If true, croagunk will not ask the player if they want to continue swapping.
@@ -666,7 +666,7 @@ struct swap_shop_menu_data {
     // 0x28: Emotion for croagunk's portrait.
     enum portrait_emotion emotion_id;
     // 0x2C: The case menu for a smaller switch case at the top of SwapShopMainManager.
-    int32_t window_manager_case;
+    enum swap_shop_main_manager_case main_manager_case;
     // 0x30: Stores preprocessor_args for the next window.
     struct preprocessor_args preprocessor_args;
     // 0x80: The window_id of the current dialogue box window. -2 if none are present.
@@ -730,7 +730,7 @@ ASSERT_SIZE(struct exc_item_trade_slot, 6);
 
 struct swap_shop_inventory_data {
     // 0x0: switch case id for SwapShopInventoryManager
-    int32_t inventory_case_id;
+    enum swap_shop_inventory_case inventory_case;
     // 0x4: A copy of num_valid_shop_items to be used by CreateCollectionMenu?
     int32_t num_valid_shop_items_temp;
     // 0x8: Seemingly unused, these are zeroed for some reason?
