@@ -664,7 +664,7 @@ struct swap_shop_menu_data {
     // 0x24: Zeroed in SwapShopEntryPoint, but never modified
     undefined4 unk_int_2;
     // 0x28: Emotion for croagunk's portrait.
-    int32_t emotion_id;
+    enum portrait_emotion emotion_id;
     // 0x2C: The case menu for a smaller switch case at the top of SwapShopMainManager.
     int32_t window_manager_case;
     // 0x30: Stores preprocessor_args for the next window.
@@ -690,11 +690,11 @@ struct swap_shop_menu_data {
     // 0xDA: The number of exclusive items currently in the bag.
     int16_t exc_bag_item_count;
     // 0xDC: The individual item IDs of the exclusive items present in the bag.
-    struct item_id_16 exc_bag_item_ids[50];
+    struct item_id_16 exc_bag_items[50];
     // 0x140: The number of exclusive items currently in storage.
     int16_t exc_storage_item_count;
     // 0x142: The individual item IDs of the exclusive items in storage.
-    struct item_id_16 exc_storage_item_ids[1000];
+    struct item_id_16 exc_storage_items[1000];
     undefined field_0x912;
     undefined field_0x913;
     // 0x914: The team member slot whose exclusive items are about to be viewed.
@@ -734,7 +734,7 @@ struct swap_shop_inventory_data {
     // 0x4: A copy of num_valid_shop_items to be used by CreateCollectionMenu?
     int32_t num_valid_shop_items_temp;
     // 0x8: Seemingly unused, these are zeroed for some reason?
-    int32_t mystery_ints[1068];
+    int32_t field_0x8[1068];
     // 0x10B8: If the item is purchasable, this field will be 0x2. Otherwise, it will be 0x0.
     int8_t is_item_purchasable[1068];
     // 0x14E4: Seems to be a window_id for a collection menu.
@@ -757,7 +757,7 @@ struct swap_shop_inventory_data {
     undefined field_0x462a;
     undefined field_0x462b;
     // 0x462C
-    struct window_extra_info window_extra_info_ptr;
+    struct window_extra_info window_extra_info;
     // 0x46C4: Whether or not the synth.bin file is open.
     bool synth_bin_open;
     undefined field_0x46c5;
