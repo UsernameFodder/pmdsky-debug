@@ -60,7 +60,8 @@ overlay21:
     - name: SwapShopPrintCurrentGold
       address:
         EU: 0x238D4E4
-      description: A text box callback function containing the player's current gold, seen on the Swap Shop main menu. 
+      description: |-
+        A text box callback function containing the player's current gold, seen on the Swap Shop main menu. 
         
         r0: window_id of the textbox
   data:
