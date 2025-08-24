@@ -1822,6 +1822,14 @@ overlay11:
         Host pointers to multiple structure used for performing an overworld scene
         
         type: struct main_ground_data
+    - name: SWAP_SHOP_INVENTORY_PTRS
+      address:
+        EU: 0x23258E4
+      length:
+        EU: 0x8
+      description: |-
+        Host pointers to multiple structures used for performing internal Swap Shop checks. 
+
     - name: WORLD_MAP_MODE
       address:
         EU: 0x2325924
