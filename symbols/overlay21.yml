@@ -388,7 +388,7 @@ overlay21:
         JP: 0x238E48C
       length:
         NA: 0x8
-      description: 合成：("synthesis: " in Japanese)
+      description: 合成：(synthesis in Japanese)
     - name: SWAP_SHOP_GOLD_STRING
       address:
         EU: 0x238DA64
