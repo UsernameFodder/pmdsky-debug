@@ -768,7 +768,7 @@ struct swap_shop_inventory_data {
     struct text_box* textbox_ptr;
     // 0x46D0: The item ID the player selects when choosing items to give croagunk. Used to check
     // the item info.
-    struct item_id_16 selected_item_id;
+    struct item_id_16 selected_item;
     undefined field_0x46d2;
     undefined field_0x46d3;
 };
