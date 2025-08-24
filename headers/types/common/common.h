@@ -1362,4 +1362,139 @@ struct monster_file_contents {
 };
 ASSERT_SIZE(struct monster_file_contents, 78548);
 
+struct swap_shop_menu_manager {
+    // 0x0: The switch case index shared by SwapShopMainManager and SwapShopDialogueManager.
+    int32_t shared_switch_case;
+    // 0x4: The "next" switch case index to be shared, typically assigned by SwapShopMainManager.
+    int32_t next_switch_case;
+    // 0x8: Used exclusively by SwapShopMainManager. More research needed.
+    int32_t unk_windows_counter;
+    // 0xC: If true, croagunk will not ask the player if they want to continue swapping.
+    bool croagunk_out_of_swaps;
+    undefined field_0xd;
+    // 0xE: The item the player will receive by swapping.
+    struct bulk_item received_item;
+    undefined field_0x12;
+    undefined field_0x13;
+    undefined field_0x14;
+    undefined field_0x15;
+    undefined field_0x16;
+    undefined field_0x17;
+    // 0x18: While selecting which items to give croagunk, this field is filled when selecting "info" on an item in the list.
+    struct bulk_item described_item;
+    // 0x1C: Whenever a simple menu is run, this field is where the result is stored.
+    int32_t simple_menu_result;
+    // 0x20: Zeroed in SwapShopEntryPoint, but never modified
+    undefined4 unk_int_1;
+    // 0x24: Zeroed in SwapShopEntryPoint, but never modified
+    undefined4 unk_int_2;
+    // 0x28: Emotion for croagunk's portrait.
+    int32_t emotion_id;
+    // 0x2C: The case menu for a smaller switch case at the top of SwapShopMainManager.
+    int32_t window_manager_case;
+    // 0x30: Stores preprocessor_args for the next window.
+    struct preprocessor_args preprocessor_args;
+    // 0x80: The window_id of the current dialogue box window. -2 if none are present.
+    int8_t dialogue_window_id;
+    // 0x81: The window_id of the current portrait window. -2 if none are present.
+    int8_t portrait_window_id;
+    // 0x82: The window_id of the current advanced textbox window. -2 if none are present.
+    int8_t advanced_textbox_window_id;
+    // 0x83: The window_id of the current simple menu window. -2 if none are present.
+    int8_t simple_menu_window_id;
+    // 0x84: The window_id of the current text box window. -2 if none are present.
+    int8_t text_window_id;
+    // 0x85: The window_id of the current scroll box window. -2 if none are present.
+    int8_t scroll_box_window_id;
+    // 0x86: A small buffer for preprocessed text strings.
+    char text_string[66];
+    // 0xC8: Stores portrait_params for croagunk's next portrait.
+    struct portrait_params portrait_params;
+    // 0xD8: Stores the number of items required to trade for the current trade.
+    int16_t exc_item_trade_count;
+    // 0xDA: The number of exclusive items currently in the bag.
+    int16_t exc_bag_item_count;
+    // 0xDC: The individual item IDs of the exclusive items present in the bag.
+    struct item_id_16 exc_bag_item_ids[50];
+    // 0x140: The number of exclusive items currently in storage.
+    int16_t exc_storage_item_count;
+    // 0x142: The individual item IDs of the exclusive items in storage.
+    struct item_id_16 exc_storage_item_ids[1000];
+    undefined field_0x912;
+    undefined field_0x913;
+    // 0x914: The team member slot whose exclusive items are about to be viewed.
+    int32_t selected_team_member_slot;
+    // 0x918: The move slot to create an info menu for.
+    int16_t selected_move_slot;
+    // 0x91A: The four moves known by selected_team_member_slot.
+    struct move known_moves[4];
+    undefined field_0x93a;
+    undefined field_0x93b;
+};
+ASSERT_SIZE(struct swap_shop_menu_data, 2364);
+
+struct swap_shop_inventory_ptrs {
+    // 0x0: Seems to be a pointer to some kind of temporary variable?
+    undefined* temp_variable;
+    // 0x4: A pointer to the swap_shop_inventory_data struct.
+    struct swap_shop_inventory_data* inventory_data;
+};
+ASSERT_SIZE(struct exc_item_trade_slot, 8);
+
+struct exc_item_trade_slot {
+    // 0x0: The trade type the item slot uses.  
+    int16_t trade_type;
+    // 0x2: This is likely either the item_id of the slot, or the index of the slot. It might vary depending on the trade_type.
+    int16_t unk_0x2;
+    // 0x4: If the player has enough exclusive items to swap for the item, this will be true.
+    bool can_afford_item;
+    undefined unk_0x5;
+};
+ASSERT_SIZE(struct exc_item_trade_slot, 6);
+
+struct swap_shop_inventory_data {
+    // 0x0: switch case id for SwapShopInventoryManager
+    int32_t inventory_case_id;
+    // 0x4: A copy of num_valid_shop_items to be used by CreateCollectionMenu?
+    int32_t num_valid_shop_items_temp;
+    // 0x8: Seemingly unused, these are zeroed for some reason?
+    int32_t mystery_ints[1068];
+    // 0x10B8: If the item is purchasable, this field will be 0x2. Otherwise, it will be 0x0.
+    int8_t is_item_purchasable[1068];
+    // 0x14E4: Seems to be a window_id for a collection menu.
+    int8_t collection_menu_window_id;
+    undefined field_0x14e5;
+    // 0x14E6: Seems to be a struct for each item in the shop. 
+    struct exc_item_trade_slot exc_item_trade_slots[1068];
+    // 0x2DEE: For each item in the swap list, is the number of that item available?
+    int16_t item_quantities[1068];
+    // 0x3646: List of every exclusive item the player owns.
+    struct item_id_16 owned_exclusive_items[1000];
+    // 0x3E16: List of how much of each owned_exclusive_item the player owns.
+    int16_t owned_item_quantities[1000];
+    // 0x45E6: The synth_templates matching today's rolled swap shop items.
+    struct synth_template shop_synth_templates[8];
+    // 0x4626: Total number of items for sale in the swap shop.
+    int16_t num_valid_shop_items;
+    // 0x4628: Number of items required to be traded to croagunk for the selected item.
+    int16_t num_required_trade_items;
+    undefined field_0x462a;
+    undefined field_0x462b;
+    // 0x462C
+    struct window_extra_info window_extra_info_ptr;
+    // 0x46C4: Whether or not the synth.bin file is open.
+    bool synth_bin_open;
+    undefined field_0x46c5;
+    undefined field_0x46c6;
+    undefined field_0x46c7;
+    // 0x46C8
+    int32_t textbox_window_id;
+    struct text_box * textbox_ptr;
+    // 0x46D0: The item ID the player selects when choosing items to give croagunk. Used to check the item info.
+    struct item_id_16 selected_item_id;
+    undefined field_0x46d2;
+    undefined field_0x46d3;
+};
+ASSERT_SIZE(struct swap_shop_inventory_data, 18132);
+
 #endif
