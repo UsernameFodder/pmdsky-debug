@@ -214,7 +214,7 @@ overlay21:
         EU: 0x10
         NA: 0x10
       description: Used alongside SWAP_SHOP_SUBMENU_ITEMS_3.
-- name: SWAP_SHOP_TALK_WELCOME_DEBUG_STRING
+    - name: SWAP_SHOP_TALK_WELCOME_DEBUG_STRING
       address:
         EU: 0x238D6F8
       length:
