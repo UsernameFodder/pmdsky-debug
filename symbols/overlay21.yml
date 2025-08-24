@@ -61,9 +61,9 @@ overlay21:
       address:
         EU: 0x238D460
       description: |-
-      Checks both the text_window_id and menu_window_id for -2. If either are not -2, close the textbox/simple menu, and assign the id to -2.
-
-      No params.
+        Checks both the text_window_id and menu_window_id for -2. If either are not -2, close the textbox/simple menu, and assign the id to -2.
+        
+        No params.
     - name: SwapShopPrintCurrentGold
       address:
         EU: 0x238D4E4
