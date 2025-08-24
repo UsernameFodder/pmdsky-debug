@@ -1492,9 +1492,9 @@ overlay11:
       address:
         EU: 0x230BBA8
       description: |-
-        Called primarily to fill dialogue boxes or display portraits, this function exists to print the next portrait, dialogue, or input for the Swap Shop. 
-        Consistently writes the provided input to shared_switch_case, and occasionally writes to next_switch_case.  
-        Is the parent function to SwapShopInventoryManager.
+        Called primarily handle the display and preparation of the swap shop inventory list, exclusive items list, and the item trade list. 
+        Creates a swap_shop_inventory_data struct if one does not already exist.  
+        Is the child function to SwapShopDialogueManager.
         
         r0: switch case index for the function: 0 = Swap List Inventory, 1 = Unknown, 2 = Species Exclusive Item List, 3 = Item Trade Away Selection List.
         r1: Depends on r0. If case 2: ID of the monster to retrieve an exclusive item list for. If case 3: Number of Exclusive Items the player owns.
