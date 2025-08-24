@@ -1827,8 +1827,6 @@ overlay11:
       length:
         EU: 0x8
       description: Host pointers to multiple structures used for performing internal Swap Shop checks.
-
-        type: struct swap_shop_inventory_ptrs
     - name: WORLD_MAP_MODE
       address:
         EU: 0x2325924
