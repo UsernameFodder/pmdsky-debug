@@ -394,7 +394,7 @@ overlay21:
         EU: 0x238DA64
       length:
         EU: 0x13
-      description: [CS：V][gold：0][CR]
+      description: The amount of gold specified, in the proper color.
     - name: OVERLAY21_RESERVED_SPACE
       address:
         NA: 0x238CF38
