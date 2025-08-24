@@ -659,9 +659,9 @@ struct swap_shop_menu_manager {
     // 0x1C: Whenever a simple menu is run, this field is where the result is stored.
     int32_t simple_menu_result;
     // 0x20: Zeroed in SwapShopEntryPoint, but never modified
-    struct undefined4 unk_int_1;
+    undefined4 unk_int_1;
     // 0x24: Zeroed in SwapShopEntryPoint, but never modified
-    struct undefined4 unk_int_2;
+    undefined4 unk_int_2;
     // 0x28: Emotion for croagunk's portrait.
     int32_t emotion_id;
     // 0x2C: The case menu for a smaller switch case at the top of SwapShopMainManager.
