@@ -331,7 +331,7 @@ overlay21:
         EU: 0x238D940
       length:
         EU: 0x9
-      description: [item:0]
+      description: "[item:0]"
 
     - name: SWAP_SHOP_DEBUG_STRING_19
       address:
@@ -394,7 +394,7 @@ overlay21:
         EU: 0x238DA64
       length:
         EU: 0x13
-      description: The amount of gold specified, in the proper color.
+      description: "[CS:V][gold:0][CR]"
     - name: OVERLAY21_RESERVED_SPACE
       address:
         NA: 0x238CF38
@@ -414,4 +414,4 @@ overlay21:
         NA: 0x238CF44
       length:
         NA: 0x4
-      description: "Note: unverified, ported from Irdkwia's notes". Unable to locate, may be unused.
+      description: "Note: unverified, ported from Irdkwia's notes."
