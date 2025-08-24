@@ -262,7 +262,7 @@ overlay21:
       length:
         EU: 0x14
       description: MENU_SYNTHESIS_GOLD
-    - name: SWAP_SHOP_UNK_0x8_DEBUG_STRING
+    - name: SWAP_SHOP_UNK_8_DEBUG_STRING
       address:
         EU: 0x238D800
       length:
