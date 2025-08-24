@@ -262,103 +262,103 @@ overlay21:
       length:
         EU: 0x14
       description: MENU_SYNTHESIS_GOLD
-    - name: SWAP_SHOP_UNK_8_DEBUG_STRING
+    - name: SWAP_SHOP_UNK_0x8_DEBUG_STRING
       address:
         EU: 0x238D800
       length:
         EU: 0x23
       description: "MENU_SYNTHESIS_MODE_SELECT_FULL:\\n"
-    - name: SWAP_SHOP_TALK_WELCOME_DEBUG_STRING0
+    - name: SWAP_SHOP_TALK_WELCOME_DEBUG_STRING
       address:
         EU: 0x238D824
       length:
         EU: 0x1B
       description: "MENU_SYNTHESIS_MODE_QUIT\\n"
-    - name: SWAP_SHOP_TALK_WELCOME_DEBUG_STRING1
+    - name: SWAP_SHOP_TALK_WELCOME_DEBUG_STRING
       address:
         EU: 0x238D840
       length:
         EU: 0x24
       description: "MENU_SYNTHESIS_MODE_SELECT_START:\\n"
-    - name: SWAP_SHOP_TALK_WELCOME_DEBUG_STRING2
+    - name: SWAP_SHOP_TALK_WELCOME_DEBUG_STRING
       address:
         EU: 0x238D864
       length:
         EU: 0x20
       description: "MENU_SYNTHESIS_MODE__RESTART:\\n"
-    - name: SWAP_SHOP_TALK_WELCOME_DEBUG_STRING3
+    - name: SWAP_SHOP_TALK_WELCOME_DEBUG_STRING
       address:
         EU: 0x238D884
       length:
         EU: 0x23
       description: "MENU_SYNTHESIS_MODE_SELECT_INIT:\\n"
-    - name: SWAP_SHOP_TALK_WELCOME_DEBUG_STRING4
+    - name: SWAP_SHOP_TALK_WELCOME_DEBUG_STRING
       address:
         EU: 0x238D8A8
       length:
         EU: 0x25
       description: "MENU_SYNTHESIS_MODE_SELECT_SELECT:\\n"
-    - name: SWAP_SHOP_TALK_WELCOME_DEBUG_STRING5
+    - name: SWAP_SHOP_TALK_WELCOME_DEBUG_STRING
       address:
         EU: 0x238D8CC
       length:
         EU: 0x27
       description: "MENU_SYNTHESIS_MODE_SELECT_RESELECT:\\n"
-    - name: SWAP_SHOP_TALK_WELCOME_DEBUG_STRING6
+    - name: SWAP_SHOP_TALK_WELCOME_DEBUG_STRING
       address:
         EU: 0x238D8F4
       length:
         EU: 0x29
       description: "\\tMENU_SYNTHESIS_MODE_SELECT_SUB_MENU:\\n"
-    - name: SWAP_SHOP_TALK_WELCOME_DEBUG_STRING7
+    - name: SWAP_SHOP_TALK_WELCOME_DEBUG_STRING
       address:
         EU: 0x238D91C
       length:
         EU: 0x23
       description: "MENU_SYNTHESIS_MODE_SELECT_EXPLA\\n"
-    - name: SWAP_SHOP_TALK_WELCOME_DEBUG_STRING8
+    - name: SWAP_SHOP_TALK_WELCOME_DEBUG_STRING
       address:
         EU: 0x238D940
       length:
         EU: 0x9
       description: "[item:0]"
-    - name: SWAP_SHOP_TALK_WELCOME_DEBUG_STRING9
+    - name: SWAP_SHOP_TALK_WELCOME_DEBUG_STRING
       address:
         EU: 0x238D94C
       length:
         EU: 0x28
       description: "MENU_SYNTHESIS_MODE_SELECT_CONFIRM_1:\\n"
-    - name: SWAP_SHOP_MAIN_MENU_OPTIONS_DEBUG_STRING0
+    - name: SWAP_SHOP_MAIN_MENU_OPTIONS_DEBUG_STRING
       address:
         EU: 0x238D974
       length:
         EU: 0x16
       description: "_SELL_CONFIRM NEW_1\\n"
-    - name: SWAP_SHOP_MAIN_MENU_OPTIONS_DEBUG_STRING1
+    - name: SWAP_SHOP_MAIN_MENU_OPTIONS_DEBUG_STRING
       address:
         EU: 0x238D98C
       length:
         EU: 0x2C
       description: "MENU_SYNTHESIS_MODE_SELECT_THANKS_ACTION:\\n"
-    - name: SWAP_SHOP_MAIN_MENU_OPTIONS_DEBUG_STRING2
+    - name: SWAP_SHOP_MAIN_MENU_OPTIONS_DEBUG_STRING
       address:
         EU: 0x238D9B8
       length:
         EU: 0x2D
       description: "MENU_SYNTHESIS_MODE_SELECT_THANKS_ACTION2:\\n"
-    - name: SWAP_SHOP_MAIN_MENU_OPTIONS_DEBUG_STRING3
+    - name: SWAP_SHOP_MAIN_MENU_OPTIONS_DEBUG_STRING
       address:
         EU: 0x238D9E4
       length:
         EU: 0x2D
       description: "MENU_SYNTHESIS_MODE_SELECT_THANKS_ACTION3:\\n"
-    - name: SWAP_SHOP_MAIN_MENU_OPTIONS_DEBUG_STRING4
+    - name: SWAP_SHOP_MAIN_MENU_OPTIONS_DEBUG_STRING
       address:
         EU: 0x238DA10
       length:
         EU: 0x27
       description: "MENU_SYNTHESIS_MODE_SELECT_THANKS_1:\\n"
-    - name: SWAP_SHOP_MAIN_MENU_OPTIONS_DEBUG_STRING5
+    - name: SWAP_SHOP_MAIN_MENU_OPTIONS_DEBUG_STRING
       address:
         EU: 0x238DA38
       length:
