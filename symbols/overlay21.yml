@@ -24,7 +24,7 @@ overlay21:
         r0: New current_switch_case value.
     - name: GetFirstExclusivePrerequisite
       address:
-        EU: 0x238C468
+        EU: 0x0238C320
       description: |-
         Retrieves the item ID of the first item needed to trade for the specified item. There are hardcoded exceptions for the Eeveelution/Hitmontrio items,
         but outside of that, the output will be as follows.
