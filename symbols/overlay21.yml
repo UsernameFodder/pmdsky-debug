@@ -37,8 +37,8 @@ overlay21:
         EU: 0x238C388
       description: |-
         Is the entrypoint of the overlay_load_entry, and seems to run once to initiate the Swap Shop. Is not called anywhere else.
-        Allocates space for swap_shop_menu_data, and initializes many of its fields. 
-        
+        Allocates space for swap_shop_menu_data, and initializes many of its fields.
+
         return: Always returns 1.
     - name: SwapShopDestructor
       address:
