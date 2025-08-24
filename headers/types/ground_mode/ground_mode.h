@@ -636,4 +636,207 @@ struct ground_entity_function_table {
 };
 ASSERT_SIZE(struct ground_entity_function_table, 80);
 
+struct ground_bg_sub_struct_4 {
+    int16_t field_0x0;
+    int16_t field_0x2;
+    const void* unk4;
+    const void* unk8;
+};
+ASSERT_SIZE(struct ground_bg_sub_struct_2, 12);
+
+struct ground_bg_sub_struct_c4 {
+    uint8_t field_0x0;
+    uint8_t field_0x1;
+    int16_t field_0x2;
+    int16_t field_0x4;
+    uint16_t field_0x6;
+    struct iovec bpa_file;
+    const void* unk10;
+    const void* unk14;
+    const void* unk18;
+    const void* unk1c;
+    void* unk20;
+    uint32_t field_0x24;
+    uint32_t field_0x28;
+};
+ASSERT_SIZE(struct ground_bg_sub_struct_c4, 44);
+
+struct ground_bg_sub_struct_194 {
+    uint8_t field_0x0;
+    uint8_t field_0x1;
+    uint8_t field_0x2;
+    uint8_t field_0x3;
+    uint8_t field_0x4;
+    uint8_t field_0x5;
+    uint8_t field_0x6;
+    uint8_t field_0x7;
+    uint8_t field_0x8;
+    uint8_t field_0x9;
+    uint8_t field_0xa;
+    uint8_t field_0xb;
+};
+ASSERT_SIZE(struct ground_bg_sub_struct_194, 12);
+
+struct ground_bg_sub_struct_1a0 {
+    uint8_t field_0x0;
+    uint8_t field_0x1;
+    uint8_t field_0x2;
+    uint8_t field_0x3;
+    uint8_t field_0x4;
+    uint8_t field_0x5;
+    uint8_t field_0x6;
+    uint8_t field_0x7;
+    uint8_t field_0x8;
+    uint8_t field_0x9;
+    uint8_t field_0xa;
+    uint8_t field_0xb;
+    uint8_t field_0xc;
+    uint8_t field_0xd;
+    uint8_t field_0xe;
+    uint8_t field_0xf;
+    uint8_t field_0x10;
+    uint8_t field_0x11;
+    uint8_t field_0x12;
+    uint8_t field_0x13;
+    uint8_t field_0x14;
+    uint8_t field_0x15;
+    uint8_t field_0x16;
+    uint8_t field_0x17;
+};
+ASSERT_SIZE(struct ground_bg_sub_struct_1a0, 24);
+
+struct map_render {
+    int16_t chunk_dimensions;
+    int16_t field_0x2;
+    int16_t num_bgs;
+    bool wrap_around;
+    uint8_t field_0x7;
+    int width_chunks;
+    int height_chunks;
+    struct pixel_position map_size_pixels;
+    void (*tilemap_render_func)(struct map_render*);
+};
+ASSERT_SIZE(struct map_render, 28);
+
+struct bma_header {
+    uint8_t map_width_tiles;
+    uint8_t map_height_tiles;
+
+    uint8_t map_width_chunks;
+    uint8_t map_height_chunks;
+
+    uint16_t num_layers;
+    uint16_t has_data_layer;
+    uint16_t has_collision;
+};
+ASSERT_SIZE(struct bma_header, 10);
+
+struct ground_bg_sub_struct_2bc {
+    uint8_t field_0x0;
+    uint8_t field_0x1;
+    int16_t field_0x2;
+    int16_t num_layers;
+    int16_t field_0x6;
+    int16_t field_0x8;
+    int16_t field_0xa;
+    int16_t field_0xc;
+    int16_t field_0xe[2];
+    int16_t field_0x12;
+    int16_t field_0x14;
+    int16_t field_0x16;
+    void (*unk18)(void*, const void*, struct bma_header*, int);
+};
+ASSERT_SIZE(struct ground_bg_sub_struct_2bc, 28);
+
+struct ground_bg {
+    int16_t field_0x0;
+    int16_t field_0x2;
+    struct ground_bg_sub_struct_4 field_0x4[16];
+    struct ground_bg_sub_struct_c4 field_0xc4[4];
+    struct iovec bpl_file; // 0x174
+    struct iovec field_0x17c;
+    struct iovec bpc_file; // 0x184
+    struct iovec bma_file; // 0x18c
+    struct ground_bg_sub_struct_194 field_0x194;
+    struct ground_bg_sub_struct_1a0 field_0x1a0;
+    uint8_t field_0x1b8;
+    uint8_t field_0x1b9;
+    uint8_t field_0x1ba;
+    uint8_t field_0x1bb;
+    uint8_t field_0x1bc;
+    uint8_t field_0x1bd;
+    int16_t field_0x1be;
+    uint8_t field_0x1c0;
+    uint8_t field_0x1c1;
+    uint8_t field_0x1c2;
+    uint8_t field_0x1c3;
+    uint8_t field_0x1c4;
+    uint8_t field_0x1c5;
+    uint8_t field_0x1c6;
+    uint8_t field_0x1c7;
+    uint8_t field_0x1c8;
+    uint8_t field_0x1c9;
+    uint8_t field_0x1ca;
+    uint8_t field_0x1cb;
+    uint8_t field_0x1cc;
+    uint8_t field_0x1cd;
+    uint8_t field_0x1ce;
+    uint8_t field_0x1cf;
+    uint8_t field_0x1d0;
+    uint8_t field_0x1d1;
+    uint8_t field_0x1d2;
+    uint8_t field_0x1d3;
+    uint8_t field_0x1d4;
+    uint8_t field_0x1d5;
+    uint8_t field_0x1d6;
+    uint8_t field_0x1d7;
+    uint8_t field_0x1d8;
+    uint8_t field_0x1d9;
+    uint8_t field_0x1da;
+    uint8_t field_0x1db;
+    uint8_t field_0x1dc;
+    uint8_t field_0x1dd;
+    uint8_t field_0x1de;
+    uint8_t field_0x1df;
+    uint8_t field_0x1e0;
+    uint8_t field_0x1e1;
+    uint8_t field_0x1e2;
+    uint8_t field_0x1e3;
+    uint8_t field_0x1e4;
+    uint8_t field_0x1e5;
+    uint8_t field_0x1e6;
+    uint8_t field_0x1e7;
+    uint8_t field_0x1e8;
+    uint8_t field_0x1e9;
+    uint8_t field_0x1ea;
+    uint8_t field_0x1eb;
+    uint8_t field_0x1ec;
+    uint8_t field_0x1ed;
+    uint8_t field_0x1ee;
+    uint8_t field_0x1ef;
+    int field_0x1f0;
+    int field_0x1f4;
+    uint8_t field_0x1f8;
+    uint8_t field_0x1f9;
+    uint8_t field_0x1fa;
+    uint8_t field_0x1fb;
+    uint8_t field_0x1fc;
+    uint8_t field_0x1fd;
+    uint8_t field_0x1fe;
+    uint8_t field_0x1ff;
+    struct pixel_position camera_pixel_position[2]; // 0x200
+    struct map_render map_render[2];                // 0x210
+    uint8_t field_0x248[112];
+    int16_t field_0x2b8;
+    uint8_t field_0x2ba;
+    uint8_t field_0x2bb;
+    struct ground_bg_sub_struct_2bc field_0x2bc; // 2bc
+    uint16_t* unk2d8;
+    uint16_t* unk2dc[2];
+    uint16_t* unk2e4[2];
+    uint16_t* unk2ec[2];
+    uint8_t unk2f0[616];
+};
+ASSERT_SIZE(struct ground_bg, 1372);
+
 #endif
