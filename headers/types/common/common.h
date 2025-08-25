@@ -784,8 +784,9 @@ struct synth_template {
     struct item_id_16 exc_item_id;
     // 0x2: Weight for that item to appear in the swap shop.
     int16_t item_weight;
-    // 0x4: Seem to be powers of 2: 2/4/8/16/32. Possibly unused weights from EoTD?
-    int16_t unk_0x4;
+    // 0x4: Number of items required to trade for that item in the shop. Seems to match even for
+    // items with specific requirements.
+    int16_t num_to_trade;
     // 0x6: Minimum $SCENARIO_BALANCE_FLAG value for it to spawn.
     // Only used for the Water Float (6) and the Phione/Manaphy items (7).
     int16_t min_balance_flag;
