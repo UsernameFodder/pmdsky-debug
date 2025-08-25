@@ -157,7 +157,8 @@ void CloseTopGroundMenu(void);
 int UpdateTopGroundMenu(void);
 bool IsBagNotEmpty(void);
 void GetExclusiveItemRequirements(undefined param_1, undefined param_2);
-void SwapShopInventoryManager(enum swap_shop_inventory_case inventory_case, int monster_id_or_exc_item_count);
+void SwapShopInventoryManager(enum swap_shop_inventory_case inventory_case,
+                              int monster_id_or_exc_item_count);
 void HandleControlsTopScreenGround(void);
 bool GetDungeonMapPos(struct uvec2* out_pos, enum dungeon_id dungeon);
 void WorldMapSetMode(uint32_t world_map_mode);
