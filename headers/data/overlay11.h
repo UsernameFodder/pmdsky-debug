@@ -13,6 +13,7 @@ extern struct script_object OBJECTS[0]; // Length differs by version
 extern struct dungeon_id_16 RECRUITMENT_TABLE_LOCATIONS[22];
 extern int16_t RECRUITMENT_TABLE_LEVELS[22];
 extern struct monster_id_16 RECRUITMENT_TABLE_SPECIES[22];
+extern struct pixel_position POSITION_ZERO;
 extern struct level_tilemap_list_entry LEVEL_TILEMAP_LIST[81];
 extern struct ground_entity_function_table ACTOR_FUNCTION_TABLE;
 extern struct animation_data SETANIMATION_TABLE[84];

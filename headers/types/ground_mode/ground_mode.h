@@ -774,4 +774,198 @@ struct swap_shop_inventory_data {
 };
 ASSERT_SIZE(struct swap_shop_inventory_data, 18132);
 
+struct ground_bg_sub_struct_4 {
+    int16_t field_0x0;
+    int16_t field_0x2;
+    const void* unk4;
+    const void* unk8;
+};
+ASSERT_SIZE(struct ground_bg_sub_struct_4, 12);
+
+struct ground_bg_sub_struct_c4 {
+    uint8_t field_0x0;
+    uint8_t field_0x1;
+    int16_t field_0x2;
+    int16_t field_0x4;
+    uint16_t field_0x6;
+    struct iovec bpa_file;
+    const struct bpa_header* unk10;
+    const void* unk14;
+    const void* unk18;
+    const void* unk1c;
+    void* unk20;
+    void* field_0x24;
+    uint32_t field_0x28;
+};
+ASSERT_SIZE(struct ground_bg_sub_struct_c4, 44);
+
+struct ground_bg_sub_struct_194 {
+    uint8_t field_0x0;
+    uint8_t field_0x1;
+    uint8_t field_0x2;
+    uint8_t field_0x3;
+    uint8_t field_0x4;
+    uint8_t field_0x5;
+    uint8_t field_0x6;
+    uint8_t field_0x7;
+    int field_0x8;
+};
+ASSERT_SIZE(struct ground_bg_sub_struct_194, 12);
+
+struct ground_bg_sub_struct_1a0 {
+    uint8_t field_0x0;
+    uint8_t field_0x1;
+    uint8_t field_0x2;
+    uint8_t field_0x3;
+    uint8_t field_0x4;
+    uint8_t field_0x5;
+    uint8_t field_0x6;
+    uint8_t field_0x7;
+    uint8_t field_0x8;
+    uint8_t field_0x9;
+    uint8_t field_0xa;
+    uint8_t field_0xb;
+    uint8_t field_0xc;
+    uint8_t field_0xd;
+    uint8_t field_0xe;
+    uint8_t field_0xf;
+    uint8_t field_0x10;
+    uint8_t field_0x11;
+    uint8_t field_0x12;
+    uint8_t field_0x13;
+    uint8_t field_0x14;
+    uint8_t field_0x15;
+    uint8_t field_0x16;
+    uint8_t field_0x17;
+};
+ASSERT_SIZE(struct ground_bg_sub_struct_1a0, 24);
+
+struct layer_specs {
+    int16_t num_tiles; // The number of tiles stored in the data + 1. The +1 is the null tile at the
+                       // beginning of tiles.
+    int16_t bpa_slot_num_tiles[4]; // The number of tiles in the BPA on this slot. 0 if no BPA is
+                                   // assigned.
+    int16_t num_chunks; // Number of chunks in the tilemap + 1. The +1 is the null chunk at the
+                        // beginning of tile mappings, that is not stored.
+};
+ASSERT_SIZE(struct layer_specs, 12);
+
+struct bpa_header {
+    uint8_t num_tiles;         // The number of individual tiles.
+    int16_t num_frames;        // The number of frames for each tile.
+    int duration_per_frame[0]; // Settings for each frame. One entry per frame.
+};
+
+struct bma_header {
+    // Map width/height that the camera in game will travel in tiles. Also the width/height of the
+    // collision and unknown data layers! For most maps (Map Width Chunks) * (Tiling Width) = (Map
+    // Width Camera).
+    uint8_t map_width_tiles;
+    uint8_t map_height_tiles;
+
+    // Map width/height in chunks. Also the width/height of the chunk mappings.
+    uint8_t map_width_chunks;
+    uint8_t map_height_chunks;
+
+    uint16_t num_layers; // Number of layers in this map. Must match BPC layer size. Allowed values
+                         // are only 1 or 2.
+    uint16_t has_data_layer; // Seems to be a boolean flag (0 or 1). If >0, the Unknown Data Layer
+                             // exists.
+    uint16_t has_collision;  // Number of Collision layers. 0, 1 or 2.
+};
+ASSERT_SIZE(struct bma_header, 10);
+
+struct bpl_header {
+    int16_t num_palettes;
+    int16_t has_pal_animations;
+};
+ASSERT_SIZE(struct bpl_header, 4);
+
+struct animation_specification {
+    int16_t duration_per_frame; // Time in game frames to hold a single palette frame for
+    int16_t num_frames; // Number of frames. This is also usually the length of frames in animation
+                        // palette, but it can also be less.
+};
+ASSERT_SIZE(struct animation_specification, 4);
+
+struct map_render {
+    int16_t chunk_dimensions;
+    int16_t field_0x2;
+    int16_t num_bgs;
+    bool wrap_around;
+    uint8_t field_0x7;
+    int width_chunks;
+    int height_chunks;
+    struct pixel_position map_size_pixels;
+    void (*tilemap_render_func)(struct map_render*);
+};
+ASSERT_SIZE(struct map_render, 28);
+
+struct ground_bg_sub_struct_2bc {
+    uint8_t field_0x0;
+    uint8_t field_0x1;
+    int16_t field_0x2;
+    int16_t num_layers;
+    int16_t field_0x6;
+    int16_t field_0x8;
+    int16_t field_0xa;
+    int16_t field_0xc;
+    int16_t field_0xe[2];
+    int16_t field_0x12;
+    int16_t field_0x14;
+    int16_t field_0x16;
+    void (*unk18)(void*, const void*, void*, int);
+};
+ASSERT_SIZE(struct ground_bg_sub_struct_2bc, 28);
+
+struct ground_bg {
+    int16_t field_0x0;
+    int16_t field_0x2;
+    struct ground_bg_sub_struct_4 field_0x4[16];
+    struct ground_bg_sub_struct_c4 field_0xc4[4];
+    struct iovec bpl_file; // 0x174
+    struct iovec field_0x17c;
+    struct iovec bpc_file; // 0x184
+    struct iovec bma_file; // 0x18c
+    struct ground_bg_sub_struct_194 field_0x194;
+    struct ground_bg_sub_struct_1a0 field_0x1a0;
+    void* field_0x1b8;
+    uint8_t field_0x1bc;
+    uint8_t field_0x1bd;
+    int16_t field_0x1be;
+    uint8_t field_0x1c0;
+    uint8_t field_0x1c1;
+    uint8_t field_0x1c2;
+    uint8_t field_0x1c3;
+    int field_0x1c4;
+    struct layer_specs layer_specs[2]; // 1c8
+    struct bma_header bma_header;
+    struct bpl_header bpl_header;
+    uint8_t field_0x1ee;
+    uint8_t field_0x1ef;
+    const void* field_0x1f0;
+    const struct animation_specification* animation_specifications; // 0x1F4
+    uint8_t field_0x1f8;
+    uint8_t field_0x1f9;
+    uint8_t field_0x1fa;
+    uint8_t field_0x1fb;
+    uint8_t field_0x1fc;
+    uint8_t field_0x1fd;
+    uint8_t field_0x1fe;
+    uint8_t field_0x1ff;
+    struct pixel_position camera_pixel_position[2]; // 0x200
+    struct map_render map_render[2];                // 0x210
+    uint8_t field_0x248[112];
+    int16_t field_0x2b8;
+    uint8_t field_0x2ba;
+    uint8_t field_0x2bb;
+    struct ground_bg_sub_struct_2bc field_0x2bc; // 2bc
+    uint16_t* unk2d8;
+    uint16_t* unk2dc[2];
+    uint16_t* unk2e4[2];
+    uint16_t* unk2ec[2];
+    uint8_t unk2f0[616];
+};
+ASSERT_SIZE(struct ground_bg, 1372);
+
 #endif
