@@ -777,8 +777,8 @@ ASSERT_SIZE(struct swap_shop_inventory_data, 18132);
 struct ground_bg_sub_struct_4 {
     int16_t field_0x0;
     int16_t field_0x2;
-    const void* unk4;
-    const void* unk8;
+    undefined* field_0x4;
+    undefined* field_0x8;
 };
 ASSERT_SIZE(struct ground_bg_sub_struct_4, 12);
 
@@ -789,12 +789,12 @@ struct ground_bg_sub_struct_c4 {
     int16_t field_0x4;
     uint16_t field_0x6;
     struct iovec bpa_file;
-    const struct bpa_header* unk10;
-    const void* unk14;
-    const void* unk18;
-    const void* unk1c;
-    void* unk20;
-    void* field_0x24;
+    struct bpa_header* bpa_header;
+    undefined* field_0x14;
+    undefined* field_0x18;
+    undefined* field_0x1c;
+    undefined* field_0x20;
+    undefined* field_0x24;
     uint32_t field_0x28;
 };
 ASSERT_SIZE(struct ground_bg_sub_struct_c4, 44);
@@ -914,7 +914,7 @@ struct ground_bg_sub_struct_2bc {
     int16_t field_0x12;
     int16_t field_0x14;
     int16_t field_0x16;
-    void (*unk18)(void*, const void*, void*, int);
+    void (*field_0x18)(void*, void*, void*, int);
 };
 ASSERT_SIZE(struct ground_bg_sub_struct_2bc, 28);
 
@@ -943,8 +943,8 @@ struct ground_bg {
     struct bpl_header bpl_header;
     uint8_t field_0x1ee;
     uint8_t field_0x1ef;
-    const void* field_0x1f0;
-    const struct animation_specification* animation_specifications; // 0x1F4
+    undefined* field_0x1f0;
+    struct animation_specification* animation_specifications; // 0x1F4
     uint8_t field_0x1f8;
     uint8_t field_0x1f9;
     uint8_t field_0x1fa;
@@ -960,11 +960,11 @@ struct ground_bg {
     uint8_t field_0x2ba;
     uint8_t field_0x2bb;
     struct ground_bg_sub_struct_2bc field_0x2bc; // 2bc
-    uint16_t* unk2d8;
-    uint16_t* unk2dc[2];
-    uint16_t* unk2e4[2];
-    uint16_t* unk2ec[2];
-    uint8_t unk2f0[616];
+    uint16_t* field_0x2d8;
+    uint16_t* field_0x2dc[2];
+    uint16_t* field_0x2e4[2];
+    uint16_t* field_0x2ec[2];
+    uint8_t field_0x2f0[616];
 };
 ASSERT_SIZE(struct ground_bg, 1372);
 

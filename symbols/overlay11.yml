@@ -390,7 +390,7 @@ overlay11:
         
         r0: [output] The entry
         r1: background ID
-    - name: GroundBg_Init
+    - name: GroundBgInit
       address:
         EU: 0x22EC558
         NA: 0x22EBC18
@@ -400,7 +400,7 @@ overlay11:
         
         r0: ground_bg struct pointer
         r1: Unknown sub-struct of ground_bg (offset 0x52C)
-    - name: GroundBg_FreeAll
+    - name: GroundBgFreeAll
       address:
         EU: 0x22EC7EC
         NA: 0x22EBEAC
@@ -409,7 +409,7 @@ overlay11:
         Frees memory and closes any open files in the ground_bg struct.
         
         r0: ground_bg struct pointer
-    - name: GroundBg_CloseOpenedFiles
+    - name: GroundBgCloseOpenedFiles
       address:
         EU: 0x22EC908
         NA: 0x22EBFC8

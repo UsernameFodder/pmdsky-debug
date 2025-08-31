@@ -38,9 +38,9 @@ bool ReturnToTitleScreen(uint32_t fade_duration);
 void ScriptSpecialProcess0x16(bool param_1);
 bool IsScreenFadeInProgress(void);
 void LoadBackgroundAttributes(struct bg_list_entry* entry, int bg_id);
-void GroundBg_Init(struct ground_bg* ground_bg, const struct ground_bg_sub_struct_2bc* param_2);
-void GroundBg_FreeAll(struct ground_bg* ground_bg);
-void GroundBg_CloseOpenedFiles(struct ground_bg* ground_bg);
+void GroundBgInit(struct ground_bg* ground_bg, const struct ground_bg_sub_struct_2bc* param_2);
+void GroundBgFreeAll(struct ground_bg* ground_bg);
+void GroundBgCloseOpenedFiles(struct ground_bg* ground_bg);
 void LoadMapType10(void* buf, int map_id, undefined* dungeon_info_str, undefined4 additional_info);
 void LoadMapType11(void* buf, int map_id, undefined* dungeon_info_str, undefined4 additional_info);
 const uint8_t* BmaLayerNrlDecompressor(uint16_t** dst_array, const uint8_t* bma_data,
