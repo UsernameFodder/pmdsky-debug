@@ -12,7 +12,79 @@ overlay21:
     NA: 0x2E20
     JP: 0x2E40
   description: Controls the Croagunk Swap Shop.
-  functions: []
+  functions:
+    - name: SwapShopDialogueManager
+      address:
+        EU: 0x238AC80
+        NA: 0x238A140
+        JP: 0x238B6A0
+      description: |-
+        Called primarily to fill dialogue boxes or display portraits, this function exists to print the next portrait, dialogue, or input for the Swap Shop. 
+        Consistently writes the provided input to shared_switch_case, and occasionally writes to next_switch_case.  
+        Often calls SwapShopInventoryManager, and is often called by SwapShopMainManager.
+        
+        r0: New current_switch_case value.
+    - name: GetFirstExclusivePrerequisite
+      address:
+        EU: 0x238C320
+        NA: 0x238B7E0
+        JP: 0x238CD58
+      description: |-
+        Retrieves the item ID of the first item needed to trade for the specified item. There are hardcoded exceptions for the Eeveelution/Hitmontrio items,
+        but outside of that, the output will be as follows.
+          output_id = input_id - ((input_id - 0x1FA) % 4)
+        
+        r0: item ID of the exclusive item to be checked.
+        return: item ID of the first exclusive item required to trade for the input.
+    - name: SwapShopEntryPoint
+      address:
+        EU: 0x238C388
+        NA: 0x238B848
+        JP: 0x238CDC0
+      description: |-
+        Is the entrypoint of the overlay_load_entry, and seems to run once to initiate the Swap Shop. Is not called anywhere else.
+        Allocates space for swap_shop_menu_data, and initializes many of its fields.
+        
+        return: Always returns 1.
+    - name: SwapShopDestructor
+      address:
+        EU: 0x238C43C
+        NA: 0x238B8FC
+        JP: 0x238CE74
+      description: |-
+        Is the destructor of the overlay_load_entry, and seems to run once on closing the Swap Shop. Is not called anywhere else.
+        Frees up the allocated space for swap_shop_menu_data if it is not already empty.
+        
+        No params.
+    - name: SwapShopMainManager
+      address:
+        EU: 0x238C468
+        NA: 0x238B928
+        JP: 0x238CEA0
+      description: |-
+        Called every frame the Croagunk Swap Shop is open, acting as a parent function for the various processes the Swap Shop is responsible for. 
+        Primarily handles displaying dialogue boxes, retrieving menu selections, and contributing updates to the various switch case indices.
+        Often calls SwapShopDialogueManager, either with an immediate or with the designated next_switch_case value. 
+        
+        return: Typically returns 1, but seems to return 4 to exit the Swap Shop. Possibly related to the explorerscript output?
+    - name: CloseTextboxAndSimpleMenu
+      address:
+        EU: 0x238D460
+        NA: 0x238C920
+        JP: 0x238DE94
+      description: |-
+        Checks both the text_window_id and menu_window_id for -2. If either are not -2, close the textbox/simple menu, and assign the id to -2.
+        
+        No params.
+    - name: SwapShopPrintCurrentGold
+      address:
+        EU: 0x238D4E4
+        NA: 0x238C9A4
+        JP: 0x238DF18
+      description: |-
+        A text box callback function containing the player's current gold using SWAP_SHOP_GOLD_STRING, as seen on the Swap Shop main menu.
+        
+        r0: window_id of the textbox
   data:
     - name: SWAP_SHOP_WINDOW_PARAMS_1
       address:
@@ -22,7 +94,7 @@ overlay21:
       length:
         EU: 0x10
         NA: 0x10
-      description: "Note: unverified, ported from Irdkwia's notes"
+      description: Used with SwapShopPrintCurrentGold for a simple textbox.
     - name: SWAP_SHOP_MENU_ITEMS_CONFIRM
       address:
         EU: 0x238D578
@@ -32,6 +104,7 @@ overlay21:
         EU: 0x18
         NA: 0x18
         JP: 0x18
+      description: Used with SWAP_SHOP_WINDOW_PARAMS_7.
     - name: SWAP_SHOP_SUBMENU_ITEMS_1
       address:
         EU: 0x238D590
@@ -41,6 +114,7 @@ overlay21:
         EU: 0x18
         NA: 0x18
         JP: 0x18
+      description: Used with SWAP_SHOP_WINDOW_PARAMS_6.
     - name: SWAP_SHOP_SUBMENU_ITEMS_2
       address:
         EU: 0x238D5A8
@@ -50,6 +124,7 @@ overlay21:
         EU: 0x20
         NA: 0x20
         JP: 0x20
+      description: Used with SWAP_SHOP_WINDOW_PARAMS_7.
     - name: SWAP_SHOP_MAIN_MENU_ITEMS_1
       address:
         EU: 0x238D5C8
@@ -59,6 +134,7 @@ overlay21:
         EU: 0x20
         NA: 0x20
         JP: 0x20
+      description: Used with SWAP_SHOP_WINDOW_PARAMS_6.
     - name: SWAP_SHOP_MAIN_MENU_ITEMS_2
       address:
         EU: 0x238D5E8
@@ -68,6 +144,7 @@ overlay21:
         EU: 0x28
         NA: 0x28
         JP: 0x28
+      description: Used alongside SWAP_SHOP_WINDOW_PARAMS_5.
     - name: SWAP_SHOP_SUBMENU_ITEMS_3
       address:
         EU: 0x238D610
@@ -77,30 +154,35 @@ overlay21:
         EU: 0x30
         NA: 0x30
         JP: 0x30
+      description: Used alongside SWAP_SHOP_WINDOW_PARAMS_9.
     - name: OVERLAY21_UNKNOWN_STRING_IDS
       address:
+        EU: 0x238D640
         NA: 0x238CB00
       length:
         NA: 0x38
-      description: "Note: unverified, ported from Irdkwia's notes"
+      description: "Seem to be completely unused by the Swap Shop, but the strings are 1:1 for the ones that are in use elsewhere in the shop."
     - name: SWAP_SHOP_WINDOW_PARAMS_2
       address:
+        EU: 0x238D678
         NA: 0x238CB38
       length:
         NA: 0x10
-      description: "Note: unverified, ported from Irdkwia's notes"
+      description: Seem to be completely unused by the Swap Shop.
     - name: SWAP_SHOP_WINDOW_PARAMS_3
       address:
+        EU: 0x238D688
         NA: 0x238CB48
       length:
         NA: 0x10
-      description: "Note: unverified, ported from Irdkwia's notes"
+      description: Seem to be completely unused by the Swap Shop.
     - name: SWAP_SHOP_WINDOW_PARAMS_4
       address:
+        EU: 0x238D698
         NA: 0x238CB58
       length:
         NA: 0x10
-      description: "Note: unverified, ported from Irdkwia's notes"
+      description: Seem to be completely unused by the Swap Shop.
     - name: SWAP_SHOP_WINDOW_PARAMS_5
       address:
         EU: 0x238D6A8
@@ -109,7 +191,7 @@ overlay21:
       length:
         EU: 0x10
         NA: 0x10
-      description: "Note: unverified, ported from Irdkwia's notes"
+      description: Used alongside SWAP_SHOP_MAIN_MENU_ITEMS_2.
     - name: SWAP_SHOP_WINDOW_PARAMS_6
       address:
         EU: 0x238D6B8
@@ -118,7 +200,7 @@ overlay21:
       length:
         EU: 0x10
         NA: 0x10
-      description: "Note: unverified, ported from Irdkwia's notes"
+      description: Used alongside both SWAP_SHOP_MAIN_MENU_ITEMS_1 and SWAP_SHOP_SUBMENU_ITEMS_1.
     - name: SWAP_SHOP_WINDOW_PARAMS_7
       address:
         EU: 0x238D6C8
@@ -127,7 +209,7 @@ overlay21:
       length:
         EU: 0x10
         NA: 0x10
-      description: "Note: unverified, ported from Irdkwia's notes"
+      description: Used alongside both SWAP_SHOP_MENU_ITEMS_CONFIRM and SWAP_SHOP_SUBMENU_ITEMS_2.
     - name: SWAP_SHOP_WINDOW_PARAMS_8
       address:
         EU: 0x238D6D8
@@ -136,7 +218,7 @@ overlay21:
       length:
         EU: 0x10
         NA: 0x10
-      description: "Note: unverified, ported from Irdkwia's notes"
+      description: "Used alone, seemingly for the exclusive item description window."
     - name: SWAP_SHOP_WINDOW_PARAMS_9
       address:
         EU: 0x238D6E8
@@ -145,7 +227,207 @@ overlay21:
       length:
         EU: 0x10
         NA: 0x10
-      description: "Note: unverified, ported from Irdkwia's notes"
+      description: Used alongside SWAP_SHOP_SUBMENU_ITEMS_3.
+    - name: SWAP_SHOP_TALK_WELCOME_DEBUG_STRING
+      address:
+        EU: 0x238D6F8
+        NA: 0x238CBB8
+        JP: 0x238E128
+      length:
+        EU: 0x1D
+      description: "MENU_SYNTHESIS_MODE_START:\\n"
+    - name: SWAP_SHOP_MAIN_MENU_OPTIONS_DEBUG_STRING
+      address:
+        EU: 0x238D714
+        NA: 0x238CBD4
+        JP: 0x238E144
+      length:
+        EU: 0x22
+      description: "MENU_SYNTHESIS_MODE_SELECTMENU:\\n"
+    - name: SWAP_SHOP_TALK_CONTINUE_SWAP_DEBUG_STRING
+      address:
+        EU: 0x238D738
+        NA: 0x238CBF8
+        JP: 0x238E168
+      length:
+        EU: 0x1F
+      description: "MENU_SYNTHESIS_MODE_RESTART:\\n"
+    - name: SWAP_SHOP_TALK_SUBINFO_DEBUG_STRING
+      address:
+        EU: 0x238D758
+        NA: 0x238CC18
+        JP: 0x238E188
+      length:
+        EU: 0x23
+      description: "MENU_SYNTHESIS_MODE_EXPLANATION:\\n"
+    - name: SWAP_SHOP_TALK_COME_AGAIN_DEBUG_STRING
+      address:
+        EU: 0x238D77C
+        NA: 0x238CC3C
+        JP: 0x238E1AC
+      length:
+        EU: 0x1E
+      description: "MENU_SYNTHESIS_MODE_THANKS:\\n"
+    - name: SWAP_SHOP_TALK_LACKING_SWAP_ITEMS_DEBUG_STRING
+      address:
+        EU: 0x238D79C
+        NA: 0x238CC5C
+        JP: 0x238E1CC
+      length:
+        EU: 0x20
+      description: "MENU_SYNTHESIS_MODE_ITEM_NON:\\n"
+    - name: SWAP_SHOP_TALK_SWAP_BROKE_DEBUG_STRING
+      address:
+        EU: 0x238D7BC
+        NA: 0x238CC7C
+        JP: 0x238E1EC
+      length:
+        EU: 0x1F
+      description: "MENU_SYNTHESIS_MODE_GOLD_NON\\n"
+    - name: SWAP_SHOP_TALK_SWAP_POOR_DEBUG_STRING
+      address:
+        EU: 0x238D7DC
+        NA: 0x238CC9C
+        JP: 0x238E20C
+      length:
+        EU: 0x14
+      description: MENU_SYNTHESIS_GOLD
+    - name: SWAP_SHOP_UNK_8_DEBUG_STRING
+      address:
+        EU: 0x238D800
+        NA: 0x238CCC0
+        JP: 0x238E230
+      length:
+        EU: 0x23
+      description: "MENU_SYNTHESIS_MODE_SELECT_FULL:\\n"
+    - name: SWAP_SHOP_CLOSE_SHOP_DEBUG_STRING
+      address:
+        EU: 0x238D824
+        NA: 0x238CCE4
+        JP: 0x238E254
+      length:
+        EU: 0x1B
+      description: "MENU_SYNTHESIS_MODE_QUIT\\n"
+    - name: SWAP_SHOP_TALK_WHAT_ITEMS_DEBUG_STRING
+      address:
+        EU: 0x238D840
+        NA: 0x238CD00
+        JP: 0x238E270
+      length:
+        EU: 0x24
+      description: "MENU_SYNTHESIS_MODE_SELECT_START:\\n"
+    - name: SWAP_SHOP_TALK_VALUABLE_SWAP_DEBUG_STRING
+      address:
+        EU: 0x238D864
+        NA: 0x238CD24
+        JP: 0x238E294
+      length:
+        EU: 0x20
+      description: "MENU_SYNTHESIS_MODE__RESTART:\\n"
+    - name: SWAP_SHOP_INIT_SWAP_ITEMS_MENU_DEBUG_STRING
+      address:
+        EU: 0x238D884
+        NA: 0x238CD44
+        JP: 0x238E2B4
+      length:
+        EU: 0x23
+      description: "MENU_SYNTHESIS_MODE_SELECT_INIT:\\n"
+    - name: SWAP_SHOP_SWAP_ITEMS_MENU_DEBUG_STRING
+      address:
+        EU: 0x238D8A8
+        NA: 0x238CD68
+        JP: 0x238E2D8
+      length:
+        EU: 0x25
+      description: "MENU_SYNTHESIS_MODE_SELECT_SELECT:\\n"
+    - name: SWAP_SHOP_RETURN_SWAP_ITEMS_MENU_DEBUG_STRING
+      address:
+        EU: 0x238D8CC
+        NA: 0x238CD8C
+        JP: 0x238E2FC
+      length:
+        EU: 0x27
+      description: "MENU_SYNTHESIS_MODE_SELECT_RESELECT:\\n"
+    - name: SWAP_SHOP_SELECT_SWAP_ITEM_OPTIONS_DEBUG_STRING
+      address:
+        EU: 0x238D8F4
+        NA: 0x238CDB4
+        JP: 0x238E324
+      length:
+        EU: 0x29
+      description: "\\tMENU_SYNTHESIS_MODE_SELECT_SUB_MENU:\\n"
+    - name: SWAP_SHOP_SWAP_ITEM_GET_INFO_DEBUG_STRING
+      address:
+        EU: 0x238D91C
+        NA: 0x238CDDC
+        JP: 0x238E34C
+      length:
+        EU: 0x23
+      description: "MENU_SYNTHESIS_MODE_SELECT_EXPLA\\n"
+    - name: SWAP_SHOP_ITEM_ZERO_STRING
+      address:
+        EU: 0x238D940
+        NA: 0x238CE00
+        JP: 0x238E370
+      length:
+        EU: 0x9
+      description: "[item:0]"
+    - name: SWAP_SHOP_TALK_CONFIRM_SWAP_DEBUG_STRING
+      address:
+        EU: 0x238D94C
+        NA: 0x238CE0C
+        JP: 0x238E37C
+      length:
+        EU: 0x28
+      description: "MENU_SYNTHESIS_MODE_SELECT_CONFIRM_1:\\n"
+    - name: SWAP_SHOP_CONFIRM_CHOICE_DEBUG_STRING
+      address:
+        EU: 0x238D974
+        NA: 0x238CE34
+        JP: 0x238E3A4
+      length:
+        EU: 0x16
+      description: "_SELL_CONFIRM NEW_1\\n"
+    - name: SWAP_SHOP_INIT_SCRIPT_ACTION_1_DEBUG_STRING
+      address:
+        EU: 0x238D98C
+        NA: 0x238CE4C
+        JP: 0x238E3BC
+      length:
+        EU: 0x2C
+      description: "MENU_SYNTHESIS_MODE_SELECT_THANKS_ACTION:\\n"
+    - name: SWAP_SHOP_INIT_SCRIPT_ACTION_2_DEBUG_STRING
+      address:
+        EU: 0x238D9B8
+        NA: 0x238CE78
+        JP: 0x238E3E8
+      length:
+        EU: 0x2D
+      description: "MENU_SYNTHESIS_MODE_SELECT_THANKS_ACTION2:\\n"
+    - name: SWAP_SHOP_INIT_SCRIPT_ACTION_3_DEBUG_STRING
+      address:
+        EU: 0x238D9E4
+        NA: 0x238CEA4
+        JP: 0x238E414
+      length:
+        EU: 0x2D
+      description: "MENU_SYNTHESIS_MODE_SELECT_THANKS_ACTION3:\\n"
+    - name: SWAP_SHOP_TEXT_PUT_IN_CAULDRON_DEBUG_STRING
+      address:
+        EU: 0x238DA10
+        NA: 0x238CED0
+        JP: 0x238E440
+      length:
+        EU: 0x27
+      description: "MENU_SYNTHESIS_MODE_SELECT_THANKS_1:\\n"
+    - name: SWAP_SHOP_DO_SWAP_THEN_TALK_DEBUG_STRING
+      address:
+        EU: 0x238DA38
+        NA: 0x238CEF8
+        JP: 0x238E468
+      length:
+        EU: 0x25
+      description: "MENU_SYNTHESIS_MODE_SELECT_THANKS:\\n"
     - name: OVERLAY21_JP_STRING
       address:
         EU: 0x238DA5C
@@ -153,21 +435,29 @@ overlay21:
         JP: 0x238E48C
       length:
         NA: 0x8
-      description: 合成：
+      description: 合成：(synthesis in Japanese)
+    - name: SWAP_SHOP_GOLD_STRING
+      address:
+        EU: 0x238DA64
+        NA: 0x238CF24
+        JP: 0x238E494
+      length:
+        EU: 0x13
+      description: "[CS:V][gold:0][CR]"
     - name: OVERLAY21_RESERVED_SPACE
       address:
         NA: 0x238CF38
       length:
         NA: 0x8
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: OVERLAY21_UNKNOWN_POINTER__NA_238CF40
+    - name: SWAP_SHOP_MENU_DATA_PTR
       address:
         EU: 0x238DA80
         NA: 0x238CF40
         JP: 0x238E4C0
       length:
         NA: 0x4
-      description: "Note: unverified, ported from Irdkwia's notes"
+      description: Pointer to the swap_shop_menu_data that governs the operations of most overlay_21 functions.
     - name: OVERLAY21_UNKNOWN_POINTER__NA_238CF44
       address:
         NA: 0x238CF44

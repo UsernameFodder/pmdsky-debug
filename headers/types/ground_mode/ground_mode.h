@@ -636,4 +636,336 @@ struct ground_entity_function_table {
 };
 ASSERT_SIZE(struct ground_entity_function_table, 80);
 
+struct swap_shop_menu_data {
+    // 0x0: The switch case index shared by SwapShopMainManager and SwapShopDialogueManager.
+    enum swap_shop_shared_case current_shared_case;
+    // 0x4: The "next" switch case index to be shared, typically assigned by SwapShopMainManager.
+    enum swap_shop_shared_case next_shared_case;
+    // 0x8: Used exclusively by SwapShopMainManager. More research needed.
+    int32_t unk_windows_counter;
+    // 0xC: If true, croagunk will not ask the player if they want to continue swapping.
+    bool croagunk_out_of_swaps;
+    undefined field_0xd;
+    // 0xE: The item the player will receive by swapping.
+    struct bulk_item received_item;
+    undefined field_0x12;
+    undefined field_0x13;
+    undefined field_0x14;
+    undefined field_0x15;
+    undefined field_0x16;
+    undefined field_0x17;
+    // 0x18: While selecting which items to give croagunk, this field is filled when selecting
+    // "info" on an item in the list.
+    struct bulk_item described_item;
+    // 0x1C: Whenever a simple menu is run, this field is where the result is stored.
+    int32_t simple_menu_result;
+    // 0x20: Zeroed in SwapShopEntryPoint, but never modified
+    undefined4 unk_int_1;
+    // 0x24: Zeroed in SwapShopEntryPoint, but never modified
+    undefined4 unk_int_2;
+    // 0x28: Emotion for croagunk's portrait.
+    enum portrait_emotion emotion_id;
+    // 0x2C: The case menu for a smaller switch case at the top of SwapShopMainManager.
+    enum swap_shop_main_manager_case main_manager_case;
+    // 0x30: Stores preprocessor_args for the next window.
+    struct preprocessor_args preprocessor_args;
+    // 0x80: The window_id of the current dialogue box window. -2 if none are present.
+    int8_t dialogue_window_id;
+    // 0x81: The window_id of the current portrait window. -2 if none are present.
+    int8_t portrait_window_id;
+    // 0x82: The window_id of the current advanced textbox window. -2 if none are present.
+    int8_t advanced_textbox_window_id;
+    // 0x83: The window_id of the current simple menu window. -2 if none are present.
+    int8_t simple_menu_window_id;
+    // 0x84: The window_id of the current text box window. -2 if none are present.
+    int8_t text_window_id;
+    // 0x85: The window_id of the current scroll box window. -2 if none are present.
+    int8_t scroll_box_window_id;
+    // 0x86: A small buffer for preprocessed text strings.
+    char text_string[66];
+    // 0xC8: Stores portrait_params for croagunk's next portrait.
+    struct portrait_params portrait_params;
+    // 0xD8: Stores the number of items required to trade for the current trade.
+    int16_t exc_item_trade_count;
+    // 0xDA: The number of exclusive items currently in the bag.
+    int16_t exc_bag_item_count;
+    // 0xDC: The individual item IDs of the exclusive items present in the bag.
+    struct item_id_16 exc_bag_items[50];
+    // 0x140: The number of exclusive items currently in storage.
+    int16_t exc_storage_item_count;
+    // 0x142: The individual item IDs of the exclusive items in storage.
+    struct item_id_16 exc_storage_items[1000];
+    undefined field_0x912;
+    undefined field_0x913;
+    // 0x914: The team member slot whose exclusive items are about to be viewed.
+    int32_t selected_team_member_slot;
+    // 0x918: The move slot to create an info menu for.
+    int16_t selected_move_slot;
+    // 0x91A: The four moves known by selected_team_member_slot.
+    struct move known_moves[4];
+    undefined field_0x93a;
+    undefined field_0x93b;
+};
+ASSERT_SIZE(struct swap_shop_menu_data, 2364);
+
+struct swap_shop_inventory_ptrs {
+    // 0x0: Seems to be a pointer to some kind of temporary variable?
+    undefined* temp_variable;
+    // 0x4: A pointer to the swap_shop_inventory_data struct.
+    struct swap_shop_inventory_data* inventory_data;
+};
+ASSERT_SIZE(struct swap_shop_inventory_ptrs, 8);
+
+struct exc_item_trade_slot {
+    // 0x0: The trade type the item slot uses.
+    int16_t trade_type;
+    // 0x2: This is likely either the item_id of the slot, or the index of the slot. It might vary
+    // depending on the trade_type.
+    int16_t unk_0x2;
+    // 0x4: If the player has enough exclusive items to swap for the item, this will be true.
+    bool can_afford_item;
+    undefined unk_0x5;
+};
+ASSERT_SIZE(struct exc_item_trade_slot, 6);
+
+struct swap_shop_inventory_data {
+    // 0x0: switch case id for SwapShopInventoryManager
+    enum swap_shop_inventory_case inventory_case;
+    // 0x4: A copy of num_valid_shop_items to be used by CreateCollectionMenu?
+    int32_t num_valid_shop_items_temp;
+    // 0x8: Seemingly unused, these are zeroed for some reason?
+    int32_t field_0x8[1068];
+    // 0x10B8: If the item is purchasable, this field will be 0x2. Otherwise, it will be 0x0.
+    int8_t is_item_purchasable[1068];
+    // 0x14E4: Seems to be a window_id for a collection menu.
+    int8_t collection_menu_window_id;
+    undefined field_0x14e5;
+    // 0x14E6: Seems to be a struct for each item in the shop.
+    struct exc_item_trade_slot exc_item_trade_slots[1068];
+    // 0x2DEE: For each item in the swap list, is the number of that item available?
+    int16_t item_quantities[1068];
+    // 0x3646: List of every exclusive item the player owns.
+    struct item_id_16 owned_exclusive_items[1000];
+    // 0x3E16: List of how much of each owned_exclusive_item the player owns.
+    int16_t owned_item_quantities[1000];
+    // 0x45E6: The synth_templates matching today's rolled swap shop items.
+    struct synth_template shop_synth_templates[8];
+    // 0x4626: Total number of items for sale in the swap shop.
+    int16_t num_valid_shop_items;
+    // 0x4628: Number of items required to be traded to croagunk for the selected item.
+    int16_t num_required_trade_items;
+    undefined field_0x462a;
+    undefined field_0x462b;
+    // 0x462C
+    struct window_extra_info window_extra_info;
+    // 0x46C4: Whether or not the synth.bin file is open.
+    bool synth_bin_open;
+    undefined field_0x46c5;
+    undefined field_0x46c6;
+    undefined field_0x46c7;
+    // 0x46C8
+    int32_t textbox_window_id;
+    struct text_box* textbox_ptr;
+    // 0x46D0: The item ID the player selects when choosing items to give croagunk. Used to check
+    // the item info.
+    struct item_id_16 selected_item;
+    undefined field_0x46d2;
+    undefined field_0x46d3;
+};
+ASSERT_SIZE(struct swap_shop_inventory_data, 18132);
+
+struct ground_bg_sub_struct_4 {
+    int16_t field_0x0;
+    int16_t field_0x2;
+    undefined* field_0x4;
+    undefined* field_0x8;
+};
+ASSERT_SIZE(struct ground_bg_sub_struct_4, 12);
+
+struct ground_bg_sub_struct_c4 {
+    uint8_t field_0x0;
+    uint8_t field_0x1;
+    int16_t field_0x2;
+    int16_t field_0x4;
+    uint16_t field_0x6;
+    struct iovec bpa_file;
+    struct bpa_header* bpa_header;
+    undefined* field_0x14;
+    undefined* field_0x18;
+    undefined* field_0x1c;
+    undefined* field_0x20;
+    undefined* field_0x24;
+    uint32_t field_0x28;
+};
+ASSERT_SIZE(struct ground_bg_sub_struct_c4, 44);
+
+struct ground_bg_sub_struct_194 {
+    uint8_t field_0x0;
+    uint8_t field_0x1;
+    uint8_t field_0x2;
+    uint8_t field_0x3;
+    uint8_t field_0x4;
+    uint8_t field_0x5;
+    uint8_t field_0x6;
+    uint8_t field_0x7;
+    int field_0x8;
+};
+ASSERT_SIZE(struct ground_bg_sub_struct_194, 12);
+
+struct ground_bg_sub_struct_1a0 {
+    uint8_t field_0x0;
+    uint8_t field_0x1;
+    uint8_t field_0x2;
+    uint8_t field_0x3;
+    uint8_t field_0x4;
+    uint8_t field_0x5;
+    uint8_t field_0x6;
+    uint8_t field_0x7;
+    uint8_t field_0x8;
+    uint8_t field_0x9;
+    uint8_t field_0xa;
+    uint8_t field_0xb;
+    uint8_t field_0xc;
+    uint8_t field_0xd;
+    uint8_t field_0xe;
+    uint8_t field_0xf;
+    uint8_t field_0x10;
+    uint8_t field_0x11;
+    uint8_t field_0x12;
+    uint8_t field_0x13;
+    uint8_t field_0x14;
+    uint8_t field_0x15;
+    uint8_t field_0x16;
+    uint8_t field_0x17;
+};
+ASSERT_SIZE(struct ground_bg_sub_struct_1a0, 24);
+
+struct layer_specs {
+    int16_t num_tiles; // The number of tiles stored in the data + 1. The +1 is the null tile at the
+                       // beginning of tiles.
+    int16_t bpa_slot_num_tiles[4]; // The number of tiles in the BPA on this slot. 0 if no BPA is
+                                   // assigned.
+    int16_t num_chunks; // Number of chunks in the tilemap + 1. The +1 is the null chunk at the
+                        // beginning of tile mappings, that is not stored.
+};
+ASSERT_SIZE(struct layer_specs, 12);
+
+struct bpa_header {
+    uint8_t num_tiles;         // The number of individual tiles.
+    int16_t num_frames;        // The number of frames for each tile.
+    int duration_per_frame[0]; // Settings for each frame. One entry per frame.
+};
+
+struct bma_header {
+    // Map width/height that the camera in game will travel in tiles. Also the width/height of the
+    // collision and unknown data layers! For most maps (Map Width Chunks) * (Tiling Width) = (Map
+    // Width Camera).
+    uint8_t map_width_tiles;
+    uint8_t map_height_tiles;
+
+    // Map width/height in chunks. Also the width/height of the chunk mappings.
+    uint8_t map_width_chunks;
+    uint8_t map_height_chunks;
+
+    uint16_t num_layers; // Number of layers in this map. Must match BPC layer size. Allowed values
+                         // are only 1 or 2.
+    uint16_t has_data_layer; // Seems to be a boolean flag (0 or 1). If >0, the Unknown Data Layer
+                             // exists.
+    uint16_t has_collision;  // Number of Collision layers. 0, 1 or 2.
+};
+ASSERT_SIZE(struct bma_header, 10);
+
+struct bpl_header {
+    int16_t num_palettes;
+    int16_t has_pal_animations;
+};
+ASSERT_SIZE(struct bpl_header, 4);
+
+struct animation_specification {
+    int16_t duration_per_frame; // Time in game frames to hold a single palette frame for
+    int16_t num_frames; // Number of frames. This is also usually the length of frames in animation
+                        // palette, but it can also be less.
+};
+ASSERT_SIZE(struct animation_specification, 4);
+
+struct map_render {
+    int16_t chunk_dimensions;
+    int16_t field_0x2;
+    int16_t num_bgs;
+    bool wrap_around;
+    uint8_t field_0x7;
+    int width_chunks;
+    int height_chunks;
+    struct pixel_position map_size_pixels;
+    void (*tilemap_render_func)(struct map_render*);
+};
+ASSERT_SIZE(struct map_render, 28);
+
+struct ground_bg_sub_struct_2bc {
+    uint8_t field_0x0;
+    uint8_t field_0x1;
+    int16_t field_0x2;
+    int16_t num_layers;
+    int16_t field_0x6;
+    int16_t field_0x8;
+    int16_t field_0xa;
+    int16_t field_0xc;
+    int16_t field_0xe[2];
+    int16_t field_0x12;
+    int16_t field_0x14;
+    int16_t field_0x16;
+    void (*field_0x18)(void*, void*, void*, int);
+};
+ASSERT_SIZE(struct ground_bg_sub_struct_2bc, 28);
+
+struct ground_bg {
+    int16_t field_0x0;
+    int16_t field_0x2;
+    struct ground_bg_sub_struct_4 field_0x4[16];
+    struct ground_bg_sub_struct_c4 field_0xc4[4];
+    struct iovec bpl_file; // 0x174
+    struct iovec field_0x17c;
+    struct iovec bpc_file; // 0x184
+    struct iovec bma_file; // 0x18c
+    struct ground_bg_sub_struct_194 field_0x194;
+    struct ground_bg_sub_struct_1a0 field_0x1a0;
+    void* field_0x1b8;
+    uint8_t field_0x1bc;
+    uint8_t field_0x1bd;
+    int16_t field_0x1be;
+    uint8_t field_0x1c0;
+    uint8_t field_0x1c1;
+    uint8_t field_0x1c2;
+    uint8_t field_0x1c3;
+    int field_0x1c4;
+    struct layer_specs layer_specs[2]; // 1c8
+    struct bma_header bma_header;
+    struct bpl_header bpl_header;
+    uint8_t field_0x1ee;
+    uint8_t field_0x1ef;
+    undefined* field_0x1f0;
+    struct animation_specification* animation_specifications; // 0x1F4
+    uint8_t field_0x1f8;
+    uint8_t field_0x1f9;
+    uint8_t field_0x1fa;
+    uint8_t field_0x1fb;
+    uint8_t field_0x1fc;
+    uint8_t field_0x1fd;
+    uint8_t field_0x1fe;
+    uint8_t field_0x1ff;
+    struct pixel_position camera_pixel_position[2]; // 0x200
+    struct map_render map_render[2];                // 0x210
+    uint8_t field_0x248[112];
+    int16_t field_0x2b8;
+    uint8_t field_0x2ba;
+    uint8_t field_0x2bb;
+    struct ground_bg_sub_struct_2bc field_0x2bc; // 2bc
+    uint16_t* field_0x2d8;
+    uint16_t* field_0x2dc[2];
+    uint16_t* field_0x2e4[2];
+    uint16_t* field_0x2ec[2];
+    uint8_t field_0x2f0[616];
+};
+ASSERT_SIZE(struct ground_bg, 1372);
+
 #endif
