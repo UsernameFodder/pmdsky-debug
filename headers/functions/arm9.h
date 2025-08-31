@@ -614,7 +614,7 @@ bool IsAdvancedMenuActive(int window_id);
 int GetAdvancedMenuCurrentOption(int window_id);
 int GetAdvancedMenuResult(int window_id);
 void UpdateAdvancedMenu(struct window* window);
-void HandleCheckIQMenu(struct window* window);
+void HandleCheckIqMenu(struct window* window);
 int CreateCollectionMenu(struct window_params* params, struct window_flags flags,
                          struct window_extra_info* window_extra_info,
                          unk_collection_menu_fn_t param_4, undefined4 param_5, int n_options,
