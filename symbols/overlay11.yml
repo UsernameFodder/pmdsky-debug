@@ -390,6 +390,34 @@ overlay11:
         
         r0: [output] The entry
         r1: background ID
+    - name: GroundBgInit
+      address:
+        EU: 0x22EC558
+        NA: 0x22EBC18
+        JP: 0x22ED24C
+      description: |-
+        Initializes the ground_bg struct by setting most fields to 0 and allocating memory for sub-structs.
+        
+        r0: ground_bg struct pointer
+        r1: Unknown sub-struct of ground_bg (offset 0x52C)
+    - name: GroundBgFreeAll
+      address:
+        EU: 0x22EC7EC
+        NA: 0x22EBEAC
+        JP: 0x22ED4E0
+      description: |-
+        Frees memory and closes any open files in the ground_bg struct.
+        
+        r0: ground_bg struct pointer
+    - name: GroundBgCloseOpenedFiles
+      address:
+        EU: 0x22EC908
+        NA: 0x22EBFC8
+        JP: 0x22ED5FC
+      description: |-
+        Closes any open files in the ground_bg struct.
+        
+        r0: ground_bg struct pointer
     - name: LoadMapType10
       address:
         EU: 0x22ED664
@@ -414,6 +442,19 @@ overlay11:
         r1: map_id
         r2: dungeon_info_str
         r3: additional_info
+    - name: BmaLayerNrlDecompressor
+      address:
+        EU: 0x22EEC14
+        NA: 0x22EE2D4
+        JP: 0x22EF908
+      description: |-
+        Decompresses the NRL-compressed data in a .bma file.
+        
+        r0: [output] Array to hold the decompressed data
+        r1: Pointer to the start of the compressed .bma data to decompress
+        r2: Unknown ground_bg sub-struct (offset 0x52C)
+        r3: .bma file header
+        return: Pointer at the end of the .bma data
     - name: GetSpecialLayoutBackground
       address:
         EU: 0x22F1F00
@@ -1490,6 +1531,8 @@ overlay11:
     - name: SwapShopInventoryManager
       address:
         EU: 0x230BBA8
+        NA: 0x230B20C
+        JP: 0x230C7B0
       description: |-
         Called primarily handle the display and preparation of the swap shop inventory list, exclusive items list, and the item trade list. 
         Creates a swap_shop_inventory_data struct if one does not already exist.  
@@ -1711,6 +1754,19 @@ overlay11:
         Interestingly, this includes both Heatran genders. It also includes Darkrai for some reason?
         
         type: struct monster_id_16[22]
+    - name: POSITION_ZERO
+      address:
+        EU: 0x2321728
+        NA: 0x2320BF8
+        JP: 0x232215C
+      length:
+        EU: 0x8
+        NA: 0x8
+        JP: 0x8
+      description: |-
+        A pixel_position struct initialized at position (0, 0). Used to initialize the camera_pixel_position field in the ground_bg struct.
+        
+        type: struct pixel_position
     - name: LEVEL_TILEMAP_LIST
       address:
         EU: 0x232185C
@@ -1824,6 +1880,8 @@ overlay11:
     - name: SWAP_SHOP_INVENTORY_PTRS
       address:
         EU: 0x23258E4
+        NA: 0x2324DA4
+        JP: 0x2326304
       length:
         EU: 0x8
       description: Host pointers to multiple structures used for performing internal Swap Shop checks.
