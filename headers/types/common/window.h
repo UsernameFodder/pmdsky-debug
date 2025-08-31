@@ -325,8 +325,8 @@ struct window_list {
 };
 ASSERT_SIZE(struct window_list, 4480);
 
-// Appears to be used to track state related to interactive windows?
-// Probably used for various things?
+// Tracks state related to interactive windows.
+// A pointer to this struct is always at +0x4 of the various window contents structs stored in window_params / returned by GetWindowContents.
 struct window_input_ctx {
     undefined fields_0x0[180];
     uint32_t first_item_y_offset; // 0xB4: Y-offset for first item on page
