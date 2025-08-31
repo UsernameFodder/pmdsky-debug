@@ -17,6 +17,7 @@ bool HandleMovesMenu(undefined* param_1, undefined param_2, undefined param_3, i
 undefined TeamMenu(struct entity* leader);
 void RestMenu(void);
 int RecruitmentSearchMenuLoop(void);
+void DrawDungeonHintContents(int window_id);
 int HelpMenuLoop(void);
 
 #endif

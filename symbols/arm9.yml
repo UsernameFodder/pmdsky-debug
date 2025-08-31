@@ -5871,6 +5871,13 @@ arm9:
         Window update function for advanced menus.
         
         r0: window pointer
+    - name: HandleCheckIQMenu
+      address:
+        EU: 0x202C554
+      description: |-
+        Handles displaying the Check IQ menu in both dungeon and ground mode.
+        
+        r0: window pointer
     - name: CreateCollectionMenu
       address:
         EU: 0x202C69C
@@ -6726,6 +6733,14 @@ arm9:
         
         r0: window_id
         return: bool
+    - name: GetWindowIdPageStart
+      address:
+        EU: 0x2030D0C
+      description: |-
+        Gets the item the current menu page of a given window id starts on (the current page id times the maximum number of items on one page).
+        
+        r0: window id
+        return: first item on page
     - name: GetAdvancedTextBoxFlags2
       address:
         EU: 0x2030D34
@@ -6878,6 +6893,31 @@ arm9:
         
         r0: ?
         return: True if the menu option is enabled, false otherwise.
+    - name: GetPageStart
+      address:
+        EU: 0x203285C
+      description: |-
+        Gets the item the current menu page starts on (the current page id times the maximum number of items on one page).
+        
+        r0: window_input_ctx struct pointer
+        return: first item on page
+    - name: GetNumItemsOnPage
+      address:
+        EU: 0x2032888
+      description: |-
+        Gets the number of items on the current manu page.
+        
+        r0: window_input_ctx struct pointer
+        return: number of items on page
+    - name: GetPageItemYOffset
+      address:
+        EU: 0x2032BCC
+      description: |-
+        Gets the y-offset of a given item on the current manu page.
+        
+        r0: window_input_ctx struct pointer
+        r1: item
+        return: y-offset
     - name: PlayWindowInputSound
       address:
         EU: 0x2032C54

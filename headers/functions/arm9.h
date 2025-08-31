@@ -614,6 +614,7 @@ bool IsAdvancedMenuActive(int window_id);
 int GetAdvancedMenuCurrentOption(int window_id);
 int GetAdvancedMenuResult(int window_id);
 void UpdateAdvancedMenu(struct window* window);
+void HandleCheckIQMenu(struct window* window);
 int CreateCollectionMenu(struct window_params* params, struct window_flags flags,
                          struct window_extra_info* window_extra_info,
                          unk_collection_menu_fn_t param_4, undefined4 param_5, int n_options,
@@ -713,6 +714,7 @@ void CloseAdvancedTextBox2(int window_id);
 void SetAdvancedTextBoxState5(int window_id);
 void CloseAdvancedTextBox(int window_id);
 bool IsAdvancedTextBoxActive(int window_id);
+uint8_t GetWindowIdPageStart(int window_id);
 uint32_t GetAdvancedTextBoxFlags2(int window_id);
 void SetUnkAdvancedTextBoxFn(int window_id, unk_advanced_text_box_fn_t fn);
 void SetUnkAdvancedTextBoxWindowFn(int window_id, unk_advanced_text_box_window_fn_t fn);
@@ -732,6 +734,9 @@ void InitWindowInput(struct window_input_ctx* input_ctx, struct window_flags fla
                      struct window_extra_info* window_extra_info, struct window_rectangle* rect,
                      int n_items, int n_items_per_page);
 bool IsMenuOptionActive(undefined* param_1);
+uint8_t GetPageStart(struct window_input_ctx* input_ctx);
+uint8_t GetNumItemsOnPage(struct window_input_ctx* input_ctx);
+int GetPageItemYOffset(struct window_input_ctx* input_ctx, uint8_t item);
 void PlayWindowInputSound(struct window_input_ctx* input_ctx, int index);
 void InitInventoryMenuInput(struct inventory_menu_input_ctx* input_ctx, struct window_flags flags,
                             struct window_extra_info* window_extra_info,

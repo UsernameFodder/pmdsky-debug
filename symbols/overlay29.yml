@@ -2628,6 +2628,22 @@ overlay29:
         r0: First entity
         r1: Second entity
         return: True if both entities are adjacent, false otherwise.
+    - name: IsHero
+      address:
+        EU: 0x22FC0F0
+      description: |-
+        Checks if an entity is the hero, returning true if the "Joined At" field of its monster struct is DUNGEON_JOINED_AT_QUESTION_MARKS (reserved for the hero).
+        
+        r0: entity pointer
+        return: bool
+    - name: IsSpecialStoryAllyOrClient
+      address:
+        EU: 0x22FC46C
+      description: |-
+        Same as IsSpecialStoryAlly, except taking an entity pointer and also checking if it is a client.
+        
+        r0: entity pointer
+        return: bool
     - name: IsSpecialStoryAlly
       address:
         EU: 0x22FC4CC

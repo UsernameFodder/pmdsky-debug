@@ -328,7 +328,14 @@ ASSERT_SIZE(struct window_list, 4480);
 // Appears to be used to track state related to interactive windows?
 // Probably used for various things?
 struct window_input_ctx {
-    undefined fields_0x0[244];
+    undefined fields_0x0[180];
+    uint32_t first_item_y_offset; // 0xB4: Y-offset for first item on page
+    uint32_t y_offset_diff; // 0xB8: Difference in the Y-offset between one item and the next, shifted left by 8 bits
+    undefined4 field_0xbc;
+    uint32_t n_items_on_page; // 0xC0: Number of items on the page
+    uint32_t max_items_on_page; // 0xC4: Maximum possible number of items on the page
+    uint32_t current_page_id; // 0xC8: Current page the user is on (starts at 0)
+    undefined fields_0xcc[40];
     uint8_t field_0xf4;
     undefined field_0xf5;
     undefined field_0xf6;

@@ -236,6 +236,8 @@ void SetDecoyAiTracker(struct entity* entity);
 bool CheckSpawnThreshold(enum monster_id monster_id);
 bool HasLowHealth(struct entity* entity);
 bool AreEntitiesAdjacent(struct entity* first, struct entity* second);
+bool IsHero(struct entity* entity);
+bool IsSpecialStoryAllyOrClient(struct entity* entity);
 bool IsSpecialStoryAlly(struct monster* monster);
 bool IsExperienceLocked(struct monster* monster);
 void InitOtherMonsterData(struct entity* entity, int fixed_room_stats_index, enum direction_id dir);
