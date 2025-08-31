@@ -334,7 +334,7 @@ struct window_input_ctx {
     // 0xB8: Difference in the Y-offset between one item and the next, shifted left by 8 bits
     uint32_t y_offset_diff;
     undefined4 field_0xbc;
-    uint32_t n_items_on_page;   // 0xC0: Number of items on the page
+    uint32_t n_items_on_page;   // 0xC0: Actual number of items on the page
     uint32_t max_items_on_page; // 0xC4: Maximum possible number of items on the page
     uint32_t current_page_id;   // 0xC8: Current page the user is on (starts at 0)
     undefined fields_0xcc[40];
