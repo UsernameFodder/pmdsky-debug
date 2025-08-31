@@ -450,7 +450,7 @@ overlay11:
       description: |-
         Decompresses the NRL-compressed data in a .bma file.
         
-        r0: Array to hold the decompressed data
+        r0: [output] Array to hold the decompressed data
         r1: Pointer to the start of the compressed .bma data to decompress
         r2: Unknown ground_bg sub-struct (offset 0x52C)
         r3: .bma file header
