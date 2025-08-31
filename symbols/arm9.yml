@@ -5871,7 +5871,7 @@ arm9:
         Window update function for advanced menus.
         
         r0: window pointer
-    - name: HandleCheckIQMenu
+    - name: HandleCheckIqMenu
       address:
         EU: 0x202C554
       description: |-
