@@ -5871,19 +5871,11 @@ arm9:
         Window update function for advanced menus.
         
         r0: window pointer
-<<<<<<< HEAD
     - name: DrawAdvancedMenu
       address:
         EU: 0x202C554
       description: |-
         Draws the contents of an advanced menu on the screen.
-=======
-    - name: HandleCheckIqMenu
-      address:
-        EU: 0x202C554
-      description: |-
-        Handles displaying the Check IQ menu in both dungeon and ground mode.
->>>>>>> cef6772bd776748d4867540e251e01e69c0d72fc
         
         r0: window pointer
     - name: CreateCollectionMenu
@@ -6913,11 +6905,7 @@ arm9:
       address:
         EU: 0x2032888
       description: |-
-<<<<<<< HEAD
-        Gets the number of items on the current manu page.
-=======
         Gets the number of items on the current menu page.
->>>>>>> cef6772bd776748d4867540e251e01e69c0d72fc
         
         r0: window_input_ctx struct pointer
         return: number of items on page
@@ -6925,11 +6913,7 @@ arm9:
       address:
         EU: 0x2032BCC
       description: |-
-<<<<<<< HEAD
-        Gets the y-offset of a given item on the current manu page.
-=======
         Gets the y-offset of a given item on the current menu page.
->>>>>>> cef6772bd776748d4867540e251e01e69c0d72fc
         
         r0: window_input_ctx struct pointer
         r1: item
