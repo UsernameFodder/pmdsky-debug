@@ -7028,7 +7028,7 @@ arm9:
         
         r0: [output] buffer
         r1: id in team member's IQ skill list
-        return: buffer
+        return: input buffer
     - name: GetNotifyNote
       address:
         EU: 0x20487BC
