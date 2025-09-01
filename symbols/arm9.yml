@@ -6913,7 +6913,7 @@ arm9:
       address:
         EU: 0x2032BCC
       description: |-
-        Gets the y-offset of a given item on the current manu page.
+        Gets the y-offset of a given item on the current menu page.
         
         r0: window_input_ctx struct pointer
         r1: item
