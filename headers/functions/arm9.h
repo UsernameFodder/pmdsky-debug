@@ -750,7 +750,7 @@ char* TeamSelectionMenuGetItem(char* buffer, int member_idx);
 void PrintMoveOptionMenu(void);
 void PrintIqSkillsMenu(enum monster_id monster_id, uint32_t* iq_skills_flags, int monster_iq,
                        bool is_blinded);
-char* GetCheckIqMenuSkillString(char* buf, int monster_iq_id);
+char* GetCheckIqMenuSkillString(char* buf, int iq_entry_idx);
 bool GetNotifyNote(void);
 void SetNotifyNote(bool flag);
 void InitSpecialEpisodeHero(void);
