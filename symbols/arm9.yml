@@ -6905,7 +6905,7 @@ arm9:
       address:
         EU: 0x2032888
       description: |-
-        Gets the number of items on the current manu page.
+        Gets the number of items on the current menu page.
         
         r0: window_input_ctx struct pointer
         return: number of items on page
