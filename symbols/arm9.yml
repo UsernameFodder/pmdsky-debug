@@ -7023,7 +7023,7 @@ arm9:
         EU: 0x2042438
       description: |-
         Gets the string for a team member's IQ skill to be displayed in the Check IQ menu.
-
+        
         Is stored as an advanced_menu_entry_fn_t in the advanced_menu struct.
         
         r0: [output] buffer
