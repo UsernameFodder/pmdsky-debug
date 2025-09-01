@@ -162,6 +162,13 @@ overlay31:
         Called on each frame while the in-dungeon "recruitment search" menu is open.
         
         return: int (Actually, this is probably some sort of enum shared by all the MenuLoop functions)
+    - name: DrawDungeonHintContents
+      address:
+        EU: 0x2389DCC
+      description: |-
+        Draws the contents of the current dungeon hint that is to be displayed in the Dungeon Hints menu.
+        
+        r0: window id
     - name: HelpMenuLoop
       address:
         EU: 0x2389E20
