@@ -852,9 +852,9 @@ struct team_selection_menu {
 };
 ASSERT_SIZE(struct team_selection_menu, 436);
 
-// Functions for advanced menus to get the strings for the current list of options.
+// Functions for advanced menus to get the string for an item on the page.
 // Returns the input buffer.
-typedef char* (*advanced_menu_entry_fn_t)(char* buffer, int option_id);
+typedef char* (*advanced_menu_entry_fn_t)(char* buffer, int item);
 
 // Also see CreateAdvancedMenu
 // Menu with complex layout and functionality, like paging.
@@ -868,10 +868,7 @@ struct advanced_menu {
     struct window_input_ctx input_ctx; // 0x4
     int field_0xfc;
     struct window_extra_info extra_info; // 0x100
-    undefined field_0x198;
-    undefined field_0x199;
-    undefined field_0x19a;
-    undefined field_0x19b;
+    advanced_menu_entry_fn_t get_item_string; // 0x198
     int state; // 0x19C: appears to be a state value
     uint8_t field_0x1a0;
     uint8_t field_0x1a1;

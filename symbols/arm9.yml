@@ -5871,11 +5871,11 @@ arm9:
         Window update function for advanced menus.
         
         r0: window pointer
-    - name: HandleCheckIqMenu
+    - name: DrawAdvancedMenu
       address:
         EU: 0x202C554
       description: |-
-        Handles displaying the Check IQ menu in both dungeon and ground mode.
+        Draws the contents of an advanced menu on the screen.
         
         r0: window pointer
     - name: CreateCollectionMenu
@@ -7018,6 +7018,17 @@ arm9:
         r1: Pointer to bitarray where the enabled skills will be written when enabling or disabling them in the menu
         r2: Monster IQ
         r3: True if the monster is blinded
+    - name: GetCheckIqMenuSkillString
+      address:
+        EU: 0x2042438
+      description: |-
+        Gets the string for a team member's IQ skill to be displayed in the Check IQ menu.
+
+        Is stored as an advanced_menu_entry_fn_t in the advanced_menu struct.
+        
+        r0: [output] buffer
+        r1: id in team member's IQ skill list
+        return: buffer
     - name: GetNotifyNote
       address:
         EU: 0x20487BC

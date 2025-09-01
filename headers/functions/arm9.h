@@ -614,7 +614,7 @@ bool IsAdvancedMenuActive(int window_id);
 int GetAdvancedMenuCurrentOption(int window_id);
 int GetAdvancedMenuResult(int window_id);
 void UpdateAdvancedMenu(struct window* window);
-void HandleCheckIqMenu(struct window* window);
+void DrawAdvancedMenu(struct window* window);
 int CreateCollectionMenu(struct window_params* params, struct window_flags flags,
                          struct window_extra_info* window_extra_info,
                          unk_collection_menu_fn_t param_4, undefined4 param_5, int n_options,
@@ -750,6 +750,7 @@ char* TeamSelectionMenuGetItem(char* buffer, int member_idx);
 void PrintMoveOptionMenu(void);
 void PrintIqSkillsMenu(enum monster_id monster_id, uint32_t* iq_skills_flags, int monster_iq,
                        bool is_blinded);
+char* GetCheckIqMenuSkillString(char* buf, int monster_iq_id);
 bool GetNotifyNote(void);
 void SetNotifyNote(bool flag);
 void InitSpecialEpisodeHero(void);
