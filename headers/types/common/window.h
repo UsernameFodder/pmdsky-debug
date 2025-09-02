@@ -867,9 +867,9 @@ struct advanced_menu {
     update_window_fn_t update;         // 0x0
     struct window_input_ctx input_ctx; // 0x4
     int field_0xfc;
-    struct window_extra_info extra_info;      // 0x100
-    advanced_menu_entry_fn_t get_item_string; // 0x198
-    int state;                                // 0x19C: appears to be a state value
+    struct window_extra_info extra_info;       // 0x100
+    advanced_menu_entry_fn_t get_entry_string; // 0x198
+    int state;                                 // 0x19C: appears to be a state value
     uint8_t field_0x1a0;
     uint8_t field_0x1a1;
     undefined field_0x1a2;
