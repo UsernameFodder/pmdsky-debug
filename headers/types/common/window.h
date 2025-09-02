@@ -854,7 +854,7 @@ ASSERT_SIZE(struct team_selection_menu, 436);
 
 // Functions for advanced menus to get the strings for the current list of options.
 // Returns the input buffer.
-typedef char* (*advanced_menu_entry_fn_t)(char* buffer, int item);
+typedef char* (*advanced_menu_entry_fn_t)(char* buffer, int option_id);
 
 // Also see CreateAdvancedMenu
 // Menu with complex layout and functionality, like paging.
