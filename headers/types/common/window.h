@@ -336,7 +336,7 @@ struct window_input_ctx {
     undefined4 field_0xbc;
     uint32_t n_entries_on_page;   // 0xC0: Actual number of entries on the page
     uint32_t max_entries_on_page; // 0xC4: Maximum possible number of entries on the page
-    uint32_t current_page_id;   // 0xC8: Current page the user is on (starts at 0)
+    uint32_t current_page_id;     // 0xC8: Current page the user is on (starts at 0)
     undefined fields_0xcc[40];
     uint8_t field_0xf4;
     undefined field_0xf5;
