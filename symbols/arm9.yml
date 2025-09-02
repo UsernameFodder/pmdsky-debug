@@ -6662,8 +6662,8 @@ arm9:
         r0: window_params
         r1: window_flags
         r2: window_extra_info pointer
-        r3: total number of selectable items
-        stack[0]: number of selectable items per page
+        r3: total number of selectable entries
+        stack[0]: number of selectable entries per page
         return: advanced_text_box pointer
     - name: SetAdvancedTextBoxPartialMenu
       address:
@@ -6881,8 +6881,8 @@ arm9:
         r1: window_flags
         r2: window_extra_info pointer
         r3: window rectangle
-        stack[0]: total number of selectable items
-        stack[1]: number of selectable items per page
+        stack[0]: total number of selectable entries
+        stack[1]: number of selectable entries per page
     - name: IsMenuOptionActive
       address:
         EU: 0x2032768
@@ -6897,26 +6897,26 @@ arm9:
       address:
         EU: 0x203285C
       description: |-
-        Gets the item the current menu page starts on (the current page id times the maximum number of items on one page).
+        Gets the index of the entry the current menu page starts on (the current page id times the maximum number of entries on one page).
         
         r0: window_input_ctx struct pointer
-        return: first item on page
-    - name: GetNumItemsOnPage
+        return: index of first entry on page
+    - name: GetNumEntriesOnPage
       address:
         EU: 0x2032888
       description: |-
-        Gets the number of items on the current menu page.
+        Gets the number of entries on the current menu page.
         
         r0: window_input_ctx struct pointer
-        return: number of items on page
-    - name: GetPageItemYOffset
+        return: number of entries on page
+    - name: GetPageEntryYOffset
       address:
         EU: 0x2032BCC
       description: |-
-        Gets the y-offset of a given item on the current menu page.
+        Gets the y-offset of a given entry on the current menu page.
         
         r0: window_input_ctx struct pointer
-        r1: item
+        r1: entry index
         return: y-offset
     - name: PlayWindowInputSound
       address:
@@ -6940,8 +6940,8 @@ arm9:
         r1: window_flags
         r2: window_extra_info pointer
         r3: window rectangle
-        stack[0]: total number of selectable items
-        stack[1]: number of selectable items per page
+        stack[0]: total number of selectable entries
+        stack[1]: number of selectable entries per page
         stack[2]: ?
     - name: SetupAndShowKeyboard
       address:
