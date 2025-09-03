@@ -6662,8 +6662,8 @@ arm9:
         r0: window_params
         r1: window_flags
         r2: window_extra_info pointer
-        r3: total number of selectable entries
-        stack[0]: number of selectable entries per page
+        r3: total number of selectable items
+        stack[0]: number of selectable items per page
         return: advanced_text_box pointer
     - name: SetAdvancedTextBoxPartialMenu
       address:
@@ -6881,8 +6881,8 @@ arm9:
         r1: window_flags
         r2: window_extra_info pointer
         r3: window rectangle
-        stack[0]: total number of selectable entries
-        stack[1]: number of selectable entries per page
+        stack[0]: total number of selectable items
+        stack[1]: number of selectable items per page
     - name: IsMenuOptionActive
       address:
         EU: 0x2032768
@@ -6940,8 +6940,8 @@ arm9:
         r1: window_flags
         r2: window_extra_info pointer
         r3: window rectangle
-        stack[0]: total number of selectable entries
-        stack[1]: number of selectable entries per page
+        stack[0]: total number of selectable items
+        stack[1]: number of selectable items per page
         stack[2]: ?
     - name: SetupAndShowKeyboard
       address:

@@ -706,7 +706,7 @@ int CreateAdvancedTextBoxWithArg(struct window_params* params, struct window_fla
 struct advanced_text_box* CreateAdvancedTextBoxInternal(struct window_params* params,
                                                         struct window_flags flags,
                                                         struct window_extra_info* extra_info,
-                                                        int n_entries, int n_entries_per_page);
+                                                        int n_items, int n_items_per_page);
 void SetAdvancedTextBoxPartialMenu(int window_id, bool partial_menu);
 void SetAdvancedTextBoxField0x1C4(int window_id, uint8_t value);
 void SetAdvancedTextBoxField0x1C2(int window_id);
@@ -722,8 +722,8 @@ void UpdateAdvancedTextBox(struct window* window);
 void PlayAdvancedTextBoxInputSound(int window_id, int index);
 int CreateTeamSelectionMenu(struct window_params* params, struct window_flags flags,
                             struct window_extra_info* window_extra_info,
-                            team_selection_menu_get_item_fn_t get_item, int n_entries,
-                            int n_entries_per_page);
+                            team_selection_menu_get_item_fn_t get_item, int n_items,
+                            int n_items_per_page);
 void CloseTeamSelectionMenu(int window_id);
 bool IsTeamSelectionMenuActive(int window_id);
 void UpdateTeamSelectionMenu(struct window* window);
@@ -732,7 +732,7 @@ int CalcMenuHeightDiv8(struct window_flags flags, struct window_extra_info* extr
                        int* n_options, int* n_opt_per_page);
 void InitWindowInput(struct window_input_ctx* input_ctx, struct window_flags flags,
                      struct window_extra_info* window_extra_info, struct window_rectangle* rect,
-                     int n_entries, int n_entries_per_page);
+                     int n_items, int n_items_per_page);
 bool IsMenuOptionActive(undefined* param_1);
 uint8_t GetPageStart(struct window_input_ctx* input_ctx);
 uint8_t GetNumEntriesOnPage(struct window_input_ctx* input_ctx);
@@ -740,7 +740,7 @@ int GetPageEntryYOffset(struct window_input_ctx* input_ctx, uint8_t entry_idx);
 void PlayWindowInputSound(struct window_input_ctx* input_ctx, int index);
 void InitInventoryMenuInput(struct inventory_menu_input_ctx* input_ctx, struct window_flags flags,
                             struct window_extra_info* window_extra_info,
-                            struct window_rectangle* rect, int n_entries, int n_entries_per_page,
+                            struct window_rectangle* rect, int n_items, int n_items_per_page,
                             undefined param_7);
 int SetupAndShowKeyboard(int menu_type, char* buffer1, char* buffer2);
 int ShowKeyboard(int menu_type, char* buffer1, int param_3, char* buffer2);
