@@ -6897,7 +6897,7 @@ arm9:
       address:
         EU: 0x203285C
       description: |-
-        Gets the index of the entry the current menu page starts on (the current page id times the maximum number of entries on one page).
+        Gets the index of the entry the current menu page starts on (the current page index times the maximum number of entries on one page).
         
         r0: window_input_ctx struct pointer
         return: index of first entry on page
