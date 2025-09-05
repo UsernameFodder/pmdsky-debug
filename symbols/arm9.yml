@@ -6897,26 +6897,26 @@ arm9:
       address:
         EU: 0x203285C
       description: |-
-        Gets the index of the entry the current menu page starts on (the current page index times the maximum number of entries on one page).
+        Gets the index of the item the current menu page starts on (the current page index times the maximum number of items on one page).
         
         r0: window_input_ctx struct pointer
-        return: index of first entry on page
-    - name: GetNumEntriesOnPage
+        return: index of first item on page
+    - name: GetNumItemsOnPage
       address:
         EU: 0x2032888
       description: |-
-        Gets the number of entries on the current menu page.
+        Gets the number of items on the current menu page.
         
         r0: window_input_ctx struct pointer
-        return: number of entries on page
-    - name: GetPageEntryYOffset
+        return: number of items on page
+    - name: GetPageItemYOffset
       address:
         EU: 0x2032BCC
       description: |-
-        Gets the y-offset of a given entry on the current menu page.
+        Gets the y-offset of a given item on the current menu page.
         
         r0: window_input_ctx struct pointer
-        r1: entry index
+        r1: item index
         return: y-offset
     - name: PlayWindowInputSound
       address:

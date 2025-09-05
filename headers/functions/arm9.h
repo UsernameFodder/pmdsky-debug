@@ -735,8 +735,8 @@ void InitWindowInput(struct window_input_ctx* input_ctx, struct window_flags fla
                      int n_items, int n_items_per_page);
 bool IsMenuOptionActive(undefined* param_1);
 uint8_t GetPageStart(struct window_input_ctx* input_ctx);
-uint8_t GetNumEntriesOnPage(struct window_input_ctx* input_ctx);
-int GetPageEntryYOffset(struct window_input_ctx* input_ctx, uint8_t entry_idx);
+uint8_t GetNumItemsOnPage(struct window_input_ctx* input_ctx);
+int GetPageItemYOffset(struct window_input_ctx* input_ctx, uint8_t item_idx);
 void PlayWindowInputSound(struct window_input_ctx* input_ctx, int index);
 void InitInventoryMenuInput(struct inventory_menu_input_ctx* input_ctx, struct window_flags flags,
                             struct window_extra_info* window_extra_info,
