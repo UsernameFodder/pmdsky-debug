@@ -6916,7 +6916,7 @@ arm9:
         Gets the y-offset of a given item on the current menu page.
         
         r0: window_input_ctx struct pointer
-        r1: item index
+        r1: item index on page, in range [0, n_items_on_page)
         return: y-offset
     - name: PlayWindowInputSound
       address:
