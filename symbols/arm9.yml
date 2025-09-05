@@ -5871,11 +5871,11 @@ arm9:
         Window update function for advanced menus.
         
         r0: window pointer
-    - name: HandleCheckIqMenu
+    - name: DrawAdvancedMenu
       address:
         EU: 0x202C554
       description: |-
-        Handles displaying the Check IQ menu in both dungeon and ground mode.
+        Draws the contents of an advanced menu on the screen.
         
         r0: window pointer
     - name: CreateCollectionMenu
@@ -6897,10 +6897,10 @@ arm9:
       address:
         EU: 0x203285C
       description: |-
-        Gets the item the current menu page starts on (the current page id times the maximum number of items on one page).
+        Gets the index of the item the current menu page starts on (the current page index times the maximum number of items on one page).
         
         r0: window_input_ctx struct pointer
-        return: first item on page
+        return: index of first item on page
     - name: GetNumItemsOnPage
       address:
         EU: 0x2032888
@@ -6916,7 +6916,7 @@ arm9:
         Gets the y-offset of a given item on the current menu page.
         
         r0: window_input_ctx struct pointer
-        r1: item
+        r1: item index on page, in range [0, n_items_on_page)
         return: y-offset
     - name: PlayWindowInputSound
       address:
@@ -7018,6 +7018,17 @@ arm9:
         r1: Pointer to bitarray where the enabled skills will be written when enabling or disabling them in the menu
         r2: Monster IQ
         r3: True if the monster is blinded
+    - name: GetCheckIqMenuSkillString
+      address:
+        EU: 0x2042438
+      description: |-
+        Gets the string for a team member's IQ skill to be displayed in the Check IQ menu.
+        
+        Is stored as an advanced_menu_entry_fn_t in the advanced_menu struct.
+        
+        r0: [output] buffer
+        r1: id in team member's IQ skill list
+        return: input buffer
     - name: GetNotifyNote
       address:
         EU: 0x20487BC

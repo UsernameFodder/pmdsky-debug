@@ -614,7 +614,7 @@ bool IsAdvancedMenuActive(int window_id);
 int GetAdvancedMenuCurrentOption(int window_id);
 int GetAdvancedMenuResult(int window_id);
 void UpdateAdvancedMenu(struct window* window);
-void HandleCheckIqMenu(struct window* window);
+void DrawAdvancedMenu(struct window* window);
 int CreateCollectionMenu(struct window_params* params, struct window_flags flags,
                          struct window_extra_info* window_extra_info,
                          unk_collection_menu_fn_t param_4, undefined4 param_5, int n_options,
@@ -736,7 +736,7 @@ void InitWindowInput(struct window_input_ctx* input_ctx, struct window_flags fla
 bool IsMenuOptionActive(undefined* param_1);
 uint8_t GetPageStart(struct window_input_ctx* input_ctx);
 uint8_t GetNumItemsOnPage(struct window_input_ctx* input_ctx);
-int GetPageItemYOffset(struct window_input_ctx* input_ctx, uint8_t item);
+int GetPageItemYOffset(struct window_input_ctx* input_ctx, uint8_t item_idx);
 void PlayWindowInputSound(struct window_input_ctx* input_ctx, int index);
 void InitInventoryMenuInput(struct inventory_menu_input_ctx* input_ctx, struct window_flags flags,
                             struct window_extra_info* window_extra_info,
@@ -750,6 +750,7 @@ char* TeamSelectionMenuGetItem(char* buffer, int member_idx);
 void PrintMoveOptionMenu(void);
 void PrintIqSkillsMenu(enum monster_id monster_id, uint32_t* iq_skills_flags, int monster_iq,
                        bool is_blinded);
+char* GetCheckIqMenuSkillString(char* buf, int iq_entry_idx);
 bool GetNotifyNote(void);
 void SetNotifyNote(bool flag);
 void InitSpecialEpisodeHero(void);
