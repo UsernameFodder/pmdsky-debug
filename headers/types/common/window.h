@@ -330,13 +330,13 @@ ASSERT_SIZE(struct window_list, 4480);
 // stored in window_params / returned by GetWindowContents.
 struct window_input_ctx {
     undefined fields_0x0[180];
-    uint32_t first_item_y_offset; // 0xB4: Y-offset for first item on page
-    // 0xB8: Difference in the Y-offset between one item and the next, shifted left by 8 bits
+    uint32_t first_item_y_offset; // 0xB4: Y-offset for first entry on page
+    // 0xB8: Difference in the Y-offset between one entry and the next, shifted left by 8 bits
     uint32_t y_offset_diff;
     undefined4 field_0xbc;
-    uint32_t n_items_on_page;   // 0xC0: Actual number of items on the page
-    uint32_t max_items_on_page; // 0xC4: Maximum possible number of items on the page
-    uint32_t current_page_id;   // 0xC8: Current page the user is on (starts at 0)
+    uint32_t n_entries_on_page;   // 0xC0: Actual number of entries on the page
+    uint32_t max_entries_on_page; // 0xC4: Maximum possible number of entries on the page
+    uint32_t current_page_id;     // 0xC8: Current page the user is on (starts at 0)
     undefined fields_0xcc[40];
     uint8_t field_0xf4;
     undefined field_0xf5;
@@ -868,7 +868,7 @@ struct advanced_menu {
     struct window_input_ctx input_ctx; // 0x4
     int field_0xfc;
     struct window_extra_info extra_info;      // 0x100
-    advanced_menu_entry_fn_t get_item_string; // 0x198
+    advanced_menu_entry_fn_t get_entry_string; // 0x198
     int state;                                // 0x19C: appears to be a state value
     uint8_t field_0x1a0;
     uint8_t field_0x1a1;
