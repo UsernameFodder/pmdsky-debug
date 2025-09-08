@@ -2631,6 +2631,8 @@ overlay29:
     - name: IsHero
       address:
         EU: 0x22FC0F0
+        NA: 0x22FB6E4
+        JP: 0x22FCBB8
       description: |-
         Checks if an entity is the hero, returning true if the "Joined At" field of its monster struct is DUNGEON_JOINED_AT_QUESTION_MARKS (reserved for the hero).
         
@@ -2639,6 +2641,8 @@ overlay29:
     - name: IsSpecialStoryAllyOrClient
       address:
         EU: 0x22FC46C
+        NA: 0x22FBA70
+        JP: 0x22FCF44
       description: |-
         Same as IsSpecialStoryAlly, except taking an entity pointer and also checking if it is a client.
         

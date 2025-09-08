@@ -5874,6 +5874,8 @@ arm9:
     - name: DrawAdvancedMenu
       address:
         EU: 0x202C554
+        NA: 0x202C260
+        JP: 0x202C5B8
       description: |-
         Draws the contents of an advanced menu on the screen.
         
@@ -6736,6 +6738,8 @@ arm9:
     - name: GetWindowIdPageStart
       address:
         EU: 0x2030D0C
+        NA: 0x2030A18
+        JP: 0x2030D38
       description: |-
         Gets the item the current menu page of a given window id starts on (the current page id times the maximum number of items on one page).
         
@@ -6896,6 +6900,8 @@ arm9:
     - name: GetPageStart
       address:
         EU: 0x203285C
+        NA: 0x2032568
+        JP: 0x2032888
       description: |-
         Gets the index of the item the current menu page starts on (the current page index times the maximum number of items on one page).
         
@@ -6904,6 +6910,8 @@ arm9:
     - name: GetNumItemsOnPage
       address:
         EU: 0x2032888
+        NA: 0x2032594
+        JP: 0x20328B4
       description: |-
         Gets the number of items on the current menu page.
         
@@ -6912,6 +6920,8 @@ arm9:
     - name: GetPageItemYOffset
       address:
         EU: 0x2032BCC
+        NA: 0x20328D8
+        JP: 0x2032BF8
       description: |-
         Gets the y-offset of a given item on the current menu page.
         
@@ -7021,6 +7031,8 @@ arm9:
     - name: GetCheckIqMenuSkillString
       address:
         EU: 0x2042438
+        NA: 0x204213C
+        JP: 0x20424AC
       description: |-
         Gets the string for a team member's IQ skill to be displayed in the Check IQ menu.
         
