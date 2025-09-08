@@ -3132,6 +3132,16 @@ overlay29:
         
         r0: entity pointer
         return: bool
+    - name: MonsterHasQuarterHp
+      address:
+        EU: 0x2301208
+        NA: 0x23007DC
+        JP: 0x2301BC0
+      description: |-
+        Checks if a monster has a quarter or less HP remaining.
+        
+        r0: entity pointer
+        return: bool
     - name: CheckVariousStatuses2
       address:
         EU: 0x2301244
