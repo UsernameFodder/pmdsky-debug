@@ -651,6 +651,15 @@ overlay10:
         NA: 0x2
         JP: 0x2
       description: "The chance of Mist Ball lowering special attack, as a percentage (50%)."
+    - name: PITFALL_TRAP_DAMAGE
+      address:
+        EU: 0x22C4E3C
+        NA: 0x22C44E4
+        JP: 0x22C5BCC
+      length:
+        NA: 0x2
+        JP: 0x2
+      description: "Damage dealt by pitfall traps (5)."
     - name: CHARGE_BEAM_BOOST_SPECIAL_ATTACK_CHANCE
       address:
         EU: 0x22C4E48
