@@ -659,7 +659,7 @@ overlay10:
       length:
         NA: 0x2
         JP: 0x2
-      description: "Damage dealt by pitfall traps (5)."
+      description: Damage dealt by pitfall traps (5).
     - name: CHARGE_BEAM_BOOST_SPECIAL_ATTACK_CHANCE
       address:
         EU: 0x22C4E48
