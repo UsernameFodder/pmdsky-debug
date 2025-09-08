@@ -286,6 +286,7 @@ bool IsMonsterMuzzled(struct entity* monster);
 bool MonsterHasMiracleEyeStatus(struct entity* monster);
 bool MonsterHasNegativeStatus(struct entity* monster, bool check_held_item);
 bool IsMonsterSleeping(struct entity* monster);
+bool MonsterHasQuarterHp(struct entity* monster);
 bool CheckVariousStatuses2(struct entity* entity, bool blind_check);
 bool CheckVariousConditions(struct entity* entity);
 bool CheckVariousStatuses(struct entity* entity);

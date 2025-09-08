@@ -165,6 +165,8 @@ overlay31:
     - name: DrawDungeonHintContents
       address:
         EU: 0x2389DCC
+        NA: 0x23891A8
+        JP: 0x238A46C
       description: |-
         Draws the contents of the current dungeon hint that is to be displayed in the Dungeon Hints menu.
         
