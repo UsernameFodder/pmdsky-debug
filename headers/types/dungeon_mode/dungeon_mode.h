@@ -2532,7 +2532,6 @@ struct alert_box_info {
     short field_0xc8e;           // Also some sort of index into alert_box_messages
     undefined2 field_0xc90;
     undefined2 field_0xc92;
-    undefined field_0xc93;
     undefined field_0xc94;
     undefined field_0xc95;
     undefined field_0xc96;
