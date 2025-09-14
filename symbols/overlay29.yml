@@ -1669,6 +1669,16 @@ overlay29:
         r0: position
         r1: bool update trap visibility
         return: whether a trap was succesfully removed or not
+    - name: TryRevealAttackedTrap
+      address:
+        EU: 0x22EE88C
+      description: |-
+        Reveals the trap given by the position if the dungeon struct's regular_attack_reveal_traps field is true.
+        
+        Is also activated on a tile if a fainted monster drops an item on it.
+        
+        r0: position struct pointer
+        r1: boolean for whether to update trap visibility afterwards (always 1 in practice)
     - name: TryTriggerTrap
       address:
         EU: 0x22EE950
@@ -2650,6 +2660,13 @@ overlay29:
         
         r0: entity pointer
         return: bool
+    - name: ResetTriggerFlags
+      address:
+        EU: 0x22FC4B0
+      description: |-
+        Resets a monster's contact_ability_trigger_bitflags and exclusive_item_trigger_bitflags fields to 0.
+        
+        r0: entity pointer
     - name: IsSpecialStoryAlly
       address:
         EU: 0x22FC4CC
@@ -7073,6 +7090,15 @@ overlay29:
         Attempts to activate Gravity for this dungeon floor.
         
         return: whether or not gravity was activated
+    - name: RevealAttackedTile
+      address:
+        EU: 0x2339000
+      description: |-
+        Reveals the tile given by the position.
+        
+        Is also activated on a tile if a fainted monster drops an item on it.
+        
+        r0: position struct pointer
     - name: ShouldBoostKecleonShopSpawnChance
       address:
         EU: 0x2339090
@@ -8845,17 +8871,91 @@ overlay29:
         Note: unverified, ported from Irdkwia's notes
         
         r0: mission struct
+    - name: InitAlertBoxInfo
+      address:
+        EU: 0x234BBA4
+      description: Initializes the heap-allocated alert_box_info struct in MESSAGE_LOG_INFO.
+    - name: FreeAlertBoxInfo
+      address:
+        EU: 0x234BBD0
+      description: Frees the heap-allocated alert_box_info struct in MESSAGE_LOG_INFO.
+    - name: SetMessageLogGroupStartFlag
+      address:
+        EU: 0x234BC24
+      description: |-
+        Sets whether the next message in the message log should be the start of a new group separated by a horizontal line.
+        
+        r0: bool
+    - name: GetGlobalPreprocessorArgs
+      address:
+        EU: 0x234BC34
+      description: |-
+        Gets a pointer to the global preprocessor_args struct used for the message log.
+        
+        return: preprocessor_args pointer
+    - name: InitGlobalPreprocessorArgs
+      address:
+        EU: 0x234BC4C
+      description: Initializes the global preprocessor_args struct used for the message log.
+    - name: SetPreprocessorArgsFlagVal
+      address:
+        EU: 0x234BC6C
+      description: |-
+        Sets a flag_vals element in the global preprocessor_args struct used for the message log to a specified value.
+        
+        r0: position in flag_vals array
+        r1: value
     - name: SetPreprocessorArgsIdVal
       address:
         EU: 0x234BC84
         NA: 0x234B084
         JP: 0x234C2F4
       description: |-
-        Sets an id_vals element in the global preprocessor_args struct passed throughout the code to PreprocessString to a specified value.
+        Sets an id_vals element in the global preprocessor_args struct used for the message log to a specified value.
         
         r0: position in id_vals array
         r1: value
-    - name: LogMessageByIdWithPopupCheckParticipants
+    - name: SetPreprocessorArgsNumberVal
+      address:
+        EU: 0x234BC9C
+      description: |-
+        Sets a number_vals element in the global preprocessor_args struct used for the message log to a specified value.
+        
+        r0: position in number_vals array
+        r1: value
+    - name: SetPreprocessorArgsString
+      address:
+        EU: 0x234BC9C
+      description: |-
+        Sets a strings element in the global preprocessor_args struct used for the message log to a specified string.
+        
+        r0: position in strings array
+        r1: string pointer
+    - name: SetPreprocessorArgsStringToName
+      address:
+        EU: 0x234BCCC
+      description: |-
+        Sets a strings element in the global preprocessor_args struct used for the message log to the name of a monster.
+        
+        r0: position in strings array
+        r1: monster_id
+    - name: SetPreprocessorArgsSpeakerId
+      address:
+        EU: 0x234BD04
+      description: |-
+        Sets the speaker_id in the global preprocessor_args struct used for the message log to the id of a monster.
+        
+        r0: monster_id
+    - name: SetPreprocessorArgsSpeakerId0x30000
+      address:
+        EU: 0x234BD18
+      description: |-
+        Sets the speaker_id in the global preprocessor_args struct used for the message log to a monster's team index, ORed with 0x30000.
+        
+        r0: team_index
+    - name: LogMessageByIdWithPopupAndAbility
+      aliases:
+        - LogMessageByIdWithPopupCheckParticipants
       address:
         EU: 0x234BE50
         NA: 0x234B250
@@ -8863,13 +8963,13 @@ overlay29:
       description: |-
         Logs the appropriate message based on the participating entites; this function calls LogMessageByIdWithPopupCheckUserTarget is both the user and target pointers are non-null, otherwise it calls LogMessageByIdWithPopupCheckUser if the user pointer is non-null, otherwise doesn't log anything.
         
-        This function also seems to set some global table entry to some value?
+        This function also replaces the [c_i:r3] tag by setting an id_vals element in the global preprocessor_args struct used for the message log to an ability.
         
         r0: user entity pointer
         r1: target entity pointer
         r2: message ID
-        r3: index into some table?
-        stack[0]: value to set at the table index specified by r3?
+        r3: position in id_vals array
+        stack[0]: value (in practice, always the ability, although could be used for any other text tag that uses id_vals)
     - name: LogMessageByIdWithPopupCheckUser
       address:
         EU: 0x234BEA4
@@ -10418,6 +10518,12 @@ overlay29:
         EU: 0x4
         NA: 0x4
       description: "[Runtime] Pointer to decoded fixed room data loaded from the BALANCE/fixed.bin file."
+    - name: MESSAGE_LOG_INFO
+      address:
+        EU: 0x023543E4
+      length:
+        EU: 0xC
+      description: "[Runtime] Struct containing information and state for logged messages."
     - name: DUNGEON_FADES_PTR
       address:
         EU: 0x23543F8

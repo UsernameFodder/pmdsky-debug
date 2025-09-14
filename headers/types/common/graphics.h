@@ -18,8 +18,12 @@ struct animation_control {
     uint16_t field6_0xc; // (from struct entity) animation frame counter for the idle animation?
     undefined field7_0xe;
     undefined field8_0xf;
-    // appears to be a structure used for unknown purpose with 6 2-byte value
-    undefined2 field9_0x10[6];
+    // 0x10: Information used to create an object's OAM attributes.
+    // See https://problemkaputt.de/gbatek.htm#lcdobjoamattributes
+    // In particular, the first three elements of the array are ANDed with some value, then ORed
+    // with the element three indexes above.
+    // Notably, setting bit 0x400 of the fourth element will make the object semi-transparent.
+    uint16_t oam_attribute_info[6];
     struct vec2_16 position;
     struct vec2_16 anim_frame_offset;
     struct vec2_16 anim_frame_shadow_offset;

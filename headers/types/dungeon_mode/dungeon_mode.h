@@ -718,8 +718,8 @@ struct entity {
     int elevation;
     bool is_visible; // 0x20: For traps/hidden stairs
     undefined field_0x21;
-    // 0x22: If true, the sprite will be shown with a certain degree of transparency
-    bool transparent;
+    // 0x22: Set when a monster is taking damage
+    enum damage_visual damage_visual_effect;
     // 0x23: Seems to be the animation frame counter for the 10-frame "shuffle" animation that
     // plays at the end of a walk sequence
     uint8_t end_walk_anim_frame;
@@ -2519,6 +2519,46 @@ struct target_list {
     struct entity* targets[64];
 };
 ASSERT_SIZE(struct target_list, 256);
+
+// Contains information for the "popup alert" messages at the bottom of the screen, which are also
+// printed to the message log.
+struct alert_box_info {
+    char alert_box_messages[10][320];
+    // 0xC80: Whether the message specified by the index is the start of a group
+    bool message_starts_group[10];
+    undefined field_0xc8a;
+    undefined field_0xc8b;
+    short alert_box_message_idx; // 0xC8C: Index of current message in alert_box_messages
+    short field_0xc8e;           // Also some sort of index into alert_box_messages
+    undefined2 field_0xc90;
+    undefined2 field_0xc92;
+    undefined field_0xc93;
+    undefined field_0xc94;
+    undefined field_0xc95;
+    undefined field_0xc96;
+    undefined field_0xc97;
+    undefined4 field_0xc98;
+    struct preprocessor_args preprocessor_args;
+    uint8_t alert_box_window_id; // 0xCEC
+    undefined field_0xced;
+    undefined field_0xcee;
+    undefined4 field_0xcef;
+}
+ASSERT_SIZE(struct alert_box_info, 3312);
+
+// Contains the alert_box_info struct as well as information related to the current message group.
+struct message_log_info {
+    // 0x0: If true, a new message group will start on the next LogMessage call, even if the user
+    // matches the last user. A "group" of messages is separated by a horizontal line.
+    bool should_start_group;
+    undefined field_0x1;
+    undefined field_0x2;
+    undefined field_0x3;
+    struct alert_box_info* alert_box_info;
+    // 0x4: If this does not match the current user, a new group will always start
+    struct entity* last_user;
+}
+ASSERT_SIZE(struct message_log_info, 12);
 
 // Separate this out into its own file because it's massive
 #include "dungeon.h"

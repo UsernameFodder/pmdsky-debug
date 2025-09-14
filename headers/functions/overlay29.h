@@ -146,6 +146,7 @@ bool CanLayTrap(struct position* pos);
 bool TrySpawnTrap(struct position* pos, enum trap_id trap_id, uint8_t team, bool visible);
 bool TrySpawnTrapperTrap(struct entity* entity);
 bool TryRemoveTrap(struct position* pos, bool update_trap_visibility);
+bool TryRevealAttackedTrap(struct position* pos, bool update_trap_visibility);
 void TryTriggerTrap(struct entity* entity, struct position* pos, undefined param_3,
                     undefined param_4);
 void ApplyMudTrapEffect(struct entity* attacker, struct entity* defender);
@@ -238,6 +239,7 @@ bool HasLowHealth(struct entity* entity);
 bool AreEntitiesAdjacent(struct entity* first, struct entity* second);
 bool IsHero(struct entity* entity);
 bool IsSpecialStoryAllyOrClient(struct entity* entity);
+void ResetTriggerFlags(struct entity* entity);
 bool IsSpecialStoryAlly(struct monster* monster);
 bool IsExperienceLocked(struct monster* monster);
 void InitOtherMonsterData(struct entity* entity, int fixed_room_stats_index, enum direction_id dir);
@@ -719,6 +721,7 @@ bool NearbyAllyIqSkillIsEnabled(struct entity* entity, enum iq_skill_id iq_skill
 void ResetGravity(void);
 bool GravityIsActive(void);
 bool TryActivateGravity(void);
+void RevealAttackedTile(struct position* pos);
 bool ShouldBoostKecleonShopSpawnChance(void);
 void SetShouldBoostKecleonShopSpawnChance(bool value);
 void UpdateShouldBoostKecleonShopSpawnChance(void);
@@ -898,8 +901,19 @@ bool GetTargetMonsterNotFoundFlag(void);
 bool FloorHasMissionMonster(struct mission_destination_info* mission_dst);
 struct mission* GetMissionIfActiveOnFloor(struct dungeon_floor_pair* pair, uint8_t mission_id);
 void GenerateMissionEggMonster(struct mission* mission);
+void InitAlertBoxInfo(void);
+void FreeAlertBoxInfo(void);
+void SetMessageGroupStartFlag(bool should_start_group);
+struct preprocessor_args* GetGlobalPreprocessorArgs(void);
+void InitGlobalPreprocessorArgs(void);
+void SetPreprocessorArgsFlagVal(uint8_t pos, uint32_t val);
 void SetPreprocessorArgsIdVal(uint8_t pos, uint32_t val);
-void LogMessageByIdWithPopupCheckParticipants(struct entity* user, struct entity* target,
+void SetPreprocessorArgsNumberVal(uint8_t pos, uint32_t val);
+void SetPreprocessorArgsString(uint8_t pos, char* string);
+void SetPreprocessorArgsStringToName(uint8_t pos, enum monster_id monster_id);
+void SetPreprocessorArgsSpeakerId(enum monster_id monster_id);
+void SetPreprocessorArgsSpeakerId0x30000(int16_t team_index);
+void LogMessageByIdWithPopupAndAbility(struct entity* user, struct entity* target,
                                               int message_id, int idx, int16_t val);
 void LogMessageByIdWithPopupCheckUser(struct entity* user, int message_id);
 void LogMessageWithPopupCheckUser(struct entity* user, const char* message);

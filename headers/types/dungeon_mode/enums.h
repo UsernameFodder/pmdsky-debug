@@ -1468,4 +1468,16 @@ enum monster_treatment {
     TREATMENT_IGNORE = 2,
 };
 
+// Used to indicate what visual effect a monster should undergo while taking damage
+enum damage_visual {
+    DAMAGE_VISUAL_NONE = 0,
+    DAMAGE_VISUAL_FLICKERING = 1,
+    DAMAGE_VISUAL_INVISIBLE = 2, // For fissure
+};
+
+// This is usually stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(damage_visual);
+#pragma pack(pop)
+
 #endif
