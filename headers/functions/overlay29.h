@@ -914,7 +914,7 @@ void SetPreprocessorArgsStringToName(uint8_t pos, enum monster_id monster_id);
 void SetPreprocessorArgsSpeakerId(enum monster_id monster_id);
 void SetPreprocessorArgsSpeakerId0x30000(int16_t team_index);
 void LogMessageByIdWithPopupAndAbility(struct entity* user, struct entity* target,
-                                              int message_id, int idx, int16_t val);
+                                       int message_id, int idx, int16_t val);
 void LogMessageByIdWithPopupCheckUser(struct entity* user, int message_id);
 void LogMessageWithPopupCheckUser(struct entity* user, const char* message);
 void LogMessageByIdQuiet(struct entity* user, int message_id);
