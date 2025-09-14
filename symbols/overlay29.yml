@@ -2191,7 +2191,9 @@ overlay29:
         r1: X target position
         r2: Y target position
         r3: ?
-    - name: CreateMonsterSummaryFromMonster
+    - name: CreateMonsterSummaryFromEntity
+      aliases:
+        - CreateMonsterSummaryFromMonster
       address:
         EU: 0x22F93D8
         NA: 0x22F89CC
@@ -2200,7 +2202,7 @@ overlay29:
         Creates a snapshot of the condition of a monster struct in a monster_summary struct.
         
         r0: [output] monster_summary
-        r1: monster
+        r1: monster_entity
     - name: UpdateAiTargetPos
       address:
         EU: 0x22F9B50
@@ -2631,6 +2633,8 @@ overlay29:
     - name: IsHero
       address:
         EU: 0x22FC0F0
+        NA: 0x22FB6E4
+        JP: 0x22FCBB8
       description: |-
         Checks if an entity is the hero, returning true if the "Joined At" field of its monster struct is DUNGEON_JOINED_AT_QUESTION_MARKS (reserved for the hero).
         
@@ -2639,6 +2643,8 @@ overlay29:
     - name: IsSpecialStoryAllyOrClient
       address:
         EU: 0x22FC46C
+        NA: 0x22FBA70
+        JP: 0x22FCF44
       description: |-
         Same as IsSpecialStoryAlly, except taking an entity pointer and also checking if it is a client.
         
@@ -3125,6 +3131,16 @@ overlay29:
         JP: 0x2301B8C
       description: |-
         Checks if a monster has the sleep, nightmare, or napping status.
+        
+        r0: entity pointer
+        return: bool
+    - name: MonsterHasQuarterHp
+      address:
+        EU: 0x2301208
+        NA: 0x23007DC
+        JP: 0x2301BC0
+      description: |-
+        Checks if a monster has a quarter or less HP remaining.
         
         r0: entity pointer
         return: bool
