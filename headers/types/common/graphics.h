@@ -20,7 +20,7 @@ struct animation_control {
     undefined field8_0xf;
     // 0x10: Information used to create an object's OAM attributes.
     // See https://problemkaputt.de/gbatek.htm#lcdobjoamattributes
-    // In particular, the first three elements of the array are ANDed with some value, then ORed
+    // To do so, the first three elements of the array are ANDed with some value, then ORed
     // with the element three indexes above.
     // Notably, setting bit 0x400 of the fourth element will make the object semi-transparent.
     uint16_t oam_attribute_info[6];
