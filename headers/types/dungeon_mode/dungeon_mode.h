@@ -2528,7 +2528,7 @@ struct alert_box_info {
     bool message_starts_group[10];
     undefined field_0xc8a;
     undefined field_0xc8b;
-    short alert_box_message_idx; // 0xC8C: Index of current message in alert_box_messages
+    short alert_box_current_idx; // 0xC8C: Index of current message in alert_box_messages
     short field_0xc8e;           // Also some sort of index into alert_box_messages
     undefined2 field_0xc90;
     undefined2 field_0xc92;
