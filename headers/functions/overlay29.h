@@ -903,7 +903,7 @@ struct mission* GetMissionIfActiveOnFloor(struct dungeon_floor_pair* pair, uint8
 void GenerateMissionEggMonster(struct mission* mission);
 void InitAlertBoxInfo(void);
 void FreeAlertBoxInfo(void);
-void SetMessageGroupStartFlag(bool should_start_group);
+void SetMessageLogGroupStartFlag(bool should_start_group);
 struct preprocessor_args* GetGlobalPreprocessorArgs(void);
 void InitGlobalPreprocessorArgs(void);
 void SetPreprocessorArgsFlagVal(uint8_t pos, uint32_t val);

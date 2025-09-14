@@ -8925,7 +8925,7 @@ overlay29:
         r1: value
     - name: SetPreprocessorArgsString
       address:
-        EU: 0x234BC9C
+        EU: 0x234BCB4
       description: |-
         Sets a strings element in the global preprocessor_args struct used for the message log to a specified string.
         
@@ -10520,7 +10520,7 @@ overlay29:
       description: "[Runtime] Pointer to decoded fixed room data loaded from the BALANCE/fixed.bin file."
     - name: MESSAGE_LOG_INFO
       address:
-        EU: 0x023543E4
+        EU: 0x23543E4
       length:
         EU: 0xC
       description: "[Runtime] Struct containing information and state for logged messages."

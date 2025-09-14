@@ -2543,7 +2543,7 @@ struct alert_box_info {
     undefined field_0xced;
     undefined field_0xcee;
     undefined4 field_0xcef;
-}
+};
 ASSERT_SIZE(struct alert_box_info, 3312);
 
 // Contains the alert_box_info struct as well as information related to the current message group.
@@ -2557,7 +2557,7 @@ struct message_log_info {
     struct alert_box_info* alert_box_info;
     // 0x4: If this does not match the current user, a new group will always start
     struct entity* last_user;
-}
+};
 ASSERT_SIZE(struct message_log_info, 12);
 
 // Separate this out into its own file because it's massive
