@@ -657,6 +657,7 @@ overlay10:
         NA: 0x22C44E4
         JP: 0x22C5BCC
       length:
+        EU: 0x2
         NA: 0x2
         JP: 0x2
       description: Damage dealt by pitfall traps (5).
