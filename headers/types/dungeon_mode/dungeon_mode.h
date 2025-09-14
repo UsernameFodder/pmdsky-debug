@@ -2542,7 +2542,7 @@ struct alert_box_info {
     uint8_t alert_box_window_id; // 0xCEC
     undefined field_0xced;
     undefined field_0xcee;
-    undefined4 field_0xcef;
+    undefined field_0xcef;
 };
 ASSERT_SIZE(struct alert_box_info, 3312);
 
