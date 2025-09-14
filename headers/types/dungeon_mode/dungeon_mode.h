@@ -719,7 +719,7 @@ struct entity {
     bool is_visible; // 0x20: For traps/hidden stairs
     undefined field_0x21;
     // 0x22: Set when a monster is taking damage
-    enum damage_visual damage_visual_effect;
+    enum damage_visual_8 damage_visual_effect;
     // 0x23: Seems to be the animation frame counter for the 10-frame "shuffle" animation that
     // plays at the end of a walk sequence
     uint8_t end_walk_anim_frame;
