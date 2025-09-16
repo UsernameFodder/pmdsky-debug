@@ -8238,10 +8238,8 @@ overlay29:
       description: |-
         Check if late-game traps (Summon, Pitfall, and Pokémon traps) work in the given fixed room.
         
-        Or disabled? This function, which Irdkwia's notes label as a disable check, check the struct field labeled in End's notes as an enable flag.
-        
         r0: fixed room ID
-        return: bool
+        return: True if late-game traps are enabled, false if they are disabled.
     - name: AreMovesEnabled
       address:
         EU: 0x2344D44
