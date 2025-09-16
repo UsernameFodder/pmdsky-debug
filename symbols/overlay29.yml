@@ -8916,6 +8916,8 @@ overlay29:
         r0: position in flag_vals array
         r1: value
     - name: SetMessageLogPreprocessorArgsIdVal
+      aliases:
+        - SetPreprocessorArgsIdVal
       address:
         EU: 0x234BC84
         NA: 0x234B084
