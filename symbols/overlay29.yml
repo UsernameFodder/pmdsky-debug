@@ -1679,6 +1679,7 @@ overlay29:
         
         r0: position struct pointer
         r1: boolean for whether to update trap visibility afterwards (always 1 in practice)
+        return: true if there is a trap on the position
     - name: TryTriggerTrap
       address:
         EU: 0x22EE950
@@ -8874,11 +8875,17 @@ overlay29:
     - name: InitAlertBoxInfo
       address:
         EU: 0x234BBA4
-      description: Initializes the heap-allocated alert_box_info struct in MESSAGE_LOG_INFO.
+      description: |-
+        Initializes the heap-allocated alert_box_info struct in MESSAGE_LOG_INFO.
+        
+        No params.
     - name: FreeAlertBoxInfo
       address:
         EU: 0x234BBD0
-      description: Frees the heap-allocated alert_box_info struct in MESSAGE_LOG_INFO.
+      description: |-
+        Frees the heap-allocated alert_box_info struct in MESSAGE_LOG_INFO.
+        
+        No params.
     - name: SetMessageLogGroupStartFlag
       address:
         EU: 0x234BC24
@@ -8886,18 +8893,21 @@ overlay29:
         Sets whether the next message in the message log should be the start of a new group separated by a horizontal line.
         
         r0: bool
-    - name: GetGlobalPreprocessorArgs
+    - name: GetMessageLogPreprocessorArgs
       address:
         EU: 0x234BC34
       description: |-
         Gets a pointer to the global preprocessor_args struct used for the message log.
         
         return: preprocessor_args pointer
-    - name: InitGlobalPreprocessorArgs
+    - name: InitMessageLogPreprocessorArgs
       address:
         EU: 0x234BC4C
-      description: Initializes the global preprocessor_args struct used for the message log.
-    - name: SetPreprocessorArgsFlagVal
+      description: |-
+        Initializes the global preprocessor_args struct used for the message log.
+        
+        No params.
+    - name: SetMessageLogPreprocessorArgsFlagVal
       address:
         EU: 0x234BC6C
       description: |-
@@ -8905,7 +8915,7 @@ overlay29:
         
         r0: position in flag_vals array
         r1: value
-    - name: SetPreprocessorArgsIdVal
+    - name: SetMessageLogPreprocessorArgsIdVal
       address:
         EU: 0x234BC84
         NA: 0x234B084
@@ -8915,7 +8925,7 @@ overlay29:
         
         r0: position in id_vals array
         r1: value
-    - name: SetPreprocessorArgsNumberVal
+    - name: SetMessageLogPreprocessorArgsNumberVal
       address:
         EU: 0x234BC9C
       description: |-
@@ -8923,7 +8933,7 @@ overlay29:
         
         r0: position in number_vals array
         r1: value
-    - name: SetPreprocessorArgsString
+    - name: SetMessageLogPreprocessorArgsString
       address:
         EU: 0x234BCB4
       description: |-
@@ -8931,7 +8941,7 @@ overlay29:
         
         r0: position in strings array
         r1: string pointer
-    - name: SetPreprocessorArgsStringToName
+    - name: SetMessageLogPreprocessorArgsStringToName
       address:
         EU: 0x234BCCC
       description: |-
@@ -8939,14 +8949,14 @@ overlay29:
         
         r0: position in strings array
         r1: monster_id
-    - name: SetPreprocessorArgsSpeakerId
+    - name: SetMessageLogPreprocessorArgsSpeakerId
       address:
         EU: 0x234BD04
       description: |-
         Sets the speaker_id in the global preprocessor_args struct used for the message log to the id of a monster.
         
         r0: monster_id
-    - name: SetPreprocessorArgsSpeakerId0x30000
+    - name: SetMessageLogPreprocessorArgsSpeakerId0x30000
       address:
         EU: 0x234BD18
       description: |-

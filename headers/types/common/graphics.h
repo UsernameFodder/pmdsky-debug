@@ -22,7 +22,7 @@ struct animation_control {
     // See https://problemkaputt.de/gbatek.htm#lcdobjoamattributes
     // To do so, the first three elements of the array are ANDed with some value, then ORed
     // with the element three indexes above.
-    // Notably, setting bit 0x400 of the fourth element will make the object semi-transparent.
+    // Notably, setting bit 0x400 of oam_attribute_info[3] will make the object semi-transparent.
     uint16_t oam_attribute_info[6];
     struct vec2_16 position;
     struct vec2_16 anim_frame_offset;
