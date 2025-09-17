@@ -543,7 +543,7 @@ overlay29:
         
         r0: string ID (unclear what this means)
         r1: entity pointer
-        r2: ?
+        r2: unused
     - name: UpdateMapSurveyorFlag
       address:
         EU: 0x22E375C
