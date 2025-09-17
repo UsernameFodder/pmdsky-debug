@@ -106,6 +106,7 @@ extern struct exclusive_item_effect_id_8 EXCL_ITEM_EFFECTS_EVASION_BOOST[8];
 extern struct tile DEFAULT_TILE;
 extern bool HIDDEN_STAIRS_SPAWN_BLOCKED;
 extern void* FIXED_ROOM_DATA_PTR;
+extern struct message_log_info MESSAGE_LOG_INFO;
 extern struct dungeon_fades* DUNGEON_FADES_PTR;
 
 #endif

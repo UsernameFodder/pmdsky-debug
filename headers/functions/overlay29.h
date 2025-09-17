@@ -146,6 +146,9 @@ bool CanLayTrap(struct position* pos);
 bool TrySpawnTrap(struct position* pos, enum trap_id trap_id, uint8_t team, bool visible);
 bool TrySpawnTrapperTrap(struct entity* entity);
 bool TryRemoveTrap(struct position* pos, bool update_trap_visibility);
+bool TryRevealAttackedTrap(struct position* pos, bool update_trap_visibility);
+void SubstitutePlaceholderTrapTags(struct preprocessor_args* preprocessor_args, uint8_t tag_id,
+                                   enum trap_id trap_id);
 void TryTriggerTrap(struct entity* entity, struct position* pos, undefined param_3,
                     undefined param_4);
 void ApplyMudTrapEffect(struct entity* attacker, struct entity* defender);
@@ -238,6 +241,7 @@ bool HasLowHealth(struct entity* entity);
 bool AreEntitiesAdjacent(struct entity* first, struct entity* second);
 bool IsHero(struct entity* entity);
 bool IsSpecialStoryAllyOrClient(struct entity* entity);
+void ResetTriggerFlags(struct entity* entity);
 bool IsSpecialStoryAlly(struct monster* monster);
 bool IsExperienceLocked(struct monster* monster);
 void InitOtherMonsterData(struct entity* entity, int fixed_room_stats_index, enum direction_id dir);
@@ -274,6 +278,8 @@ int CalcSpeedStageWrapper(struct entity* entity);
 int GetNumberOfAttacks(struct entity* entity);
 enum display_name_type GetMonsterDisplayNameType(struct monster* monster);
 void GetMonsterName(char* buffer, struct monster* target_info);
+void SetPreprocessorArgsStringToName(struct preprocessor_args* preprocessor_args, uint8_t pos,
+                                     struct monster* monster, undefined param_4, uint8_t name_type);
 bool IsMonsterDrowsy(struct entity* monster);
 bool MonsterHasNonvolatileNonsleepStatus(struct entity* monster);
 bool MonsterHasImmobilizingStatus(struct entity* monster);
@@ -719,6 +725,7 @@ bool NearbyAllyIqSkillIsEnabled(struct entity* entity, enum iq_skill_id iq_skill
 void ResetGravity(void);
 bool GravityIsActive(void);
 bool TryActivateGravity(void);
+void RevealAttackedTile(struct position* pos);
 bool ShouldBoostKecleonShopSpawnChance(void);
 void SetShouldBoostKecleonShopSpawnChance(bool value);
 void UpdateShouldBoostKecleonShopSpawnChance(void);
@@ -844,6 +851,8 @@ void GenerateAndSpawnItem(enum item_id item_id, int16_t x, int16_t y, uint16_t q
 bool IsHiddenStairsFloor(void);
 bool IsSecretBazaarVeneer(void);
 void PrepareItemForPrinting(uint8_t tag_id, struct item* item);
+void PrepareItemForPrinting2(struct preprocessor_args* preprocessor_args, uint8_t tag_id,
+                             struct item* item);
 void GenerateStandardItem(struct item* item, enum item_id item_id,
                           enum gen_item_stickiness sticky_type);
 void GenerateCleanItem(struct item* item, enum item_id item_id);
@@ -898,9 +907,20 @@ bool GetTargetMonsterNotFoundFlag(void);
 bool FloorHasMissionMonster(struct mission_destination_info* mission_dst);
 struct mission* GetMissionIfActiveOnFloor(struct dungeon_floor_pair* pair, uint8_t mission_id);
 void GenerateMissionEggMonster(struct mission* mission);
-void SetPreprocessorArgsIdVal(uint8_t pos, uint32_t val);
-void LogMessageByIdWithPopupCheckParticipants(struct entity* user, struct entity* target,
-                                              int message_id, int idx, int16_t val);
+void InitAlertBoxInfo(void);
+void FreeAlertBoxInfo(void);
+void SetMessageLogGroupStartFlag(bool should_start_group);
+struct preprocessor_args* GetMessageLogPreprocessorArgs(void);
+void InitMessageLogPreprocessorArgs(void);
+void SetMessageLogPreprocessorArgsFlagVal(uint8_t pos, uint32_t val);
+void SetMessageLogPreprocessorArgsIdVal(uint8_t pos, uint32_t val);
+void SetMessageLogPreprocessorArgsNumberVal(uint8_t pos, uint32_t val);
+void SetMessageLogPreprocessorArgsString(uint8_t pos, char* string);
+void SetMessageLogPreprocessorArgsStringToName(uint8_t pos, enum monster_id monster_id);
+void SetMessageLogPreprocessorArgsSpeakerId(enum monster_id monster_id);
+void SetMessageLogPreprocessorArgsSpeakerId0x30000(int16_t team_index);
+void LogMessageByIdWithPopupAndAbility(struct entity* user, struct entity* target, int message_id,
+                                       int idx, int16_t val);
 void LogMessageByIdWithPopupCheckUser(struct entity* user, int message_id);
 void LogMessageWithPopupCheckUser(struct entity* user, const char* message);
 void LogMessageByIdQuiet(struct entity* user, int message_id);
