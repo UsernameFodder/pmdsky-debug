@@ -4161,6 +4161,20 @@ overlay29:
         stack[1]: [output] struct containing info about the damage calculation (only the critical_hit, type_matchup, and field_0xF fields are modified)
         stack[2]: flag for whether Erratic Player and Technician effects should be excluded. CalcDamage only passes in true if the move is the regular attack or a projectile.
         return: whether or not the Type-Advantage Master IQ skill should activate if the attacker has it. In practice, this corresponds to when the attack is super-effective, but technically true is also returned when the defender is an invalid entity.
+    - name: WeightWeakTypePicker
+      address:
+        EU: 0x230C248
+        NA: 0x230B7D4
+        JP: 0x230CD34
+      description: |-
+        Calculates a move weight used for deciding which target the move should be used on.
+        This function is used to calculate move weight when the attacker has the IQ skill Weak-Type Picker,
+        which weights moves higher depending on type effectiveness.
+        
+        r0: attacker pointer
+        r2: defender pointer
+        r3: attack type
+        return: Move weight for deciding move targeting.
     - name: CalcDamage
       address:
         EU: 0x230C620

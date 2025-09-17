@@ -1110,9 +1110,11 @@ struct dungeon {
     undefined field_0x3b71;
     undefined field_0x3b72;
     undefined field_0x3b73;
-    // 0x3B74: Unknown array, likely one entry per monster species. This might be related to
-    // the IQ skill Exp. Go-Getter so the AI knows which monsters to prioritize.
-    uint8_t unknown_array_0x3B74[600];
+    // 0x3B74: An array containing rankings of Pokémon species by their exp. yield, indexed by
+    // Pokémon species ID. This is used by the IQ skill Exp. Go-Getter so the AI knows which
+    // monsters to prioritize. The species with the highest exp. yield on the floor has the value
+    // 0xFF, second-highest has 0xFE, and so on. Species not on the floor have the value 1.
+    uint8_t exp_yield_rankings[600];
     // 0x3DCC: Appears to be a table that holds the statuses::statuses_unique_id value for
     // the monsters. Maybe just for convenience to avoid loading it from every monster?
     uint32_t monster_unique_id[20];
