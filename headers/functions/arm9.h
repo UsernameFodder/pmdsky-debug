@@ -528,6 +528,7 @@ char* SetStringPower(char* s, int param_2);
 char* GetRankString(char* s, int rank_and_flags);
 char* GetCurrentTeamNameString(char* buffer, int param_2);
 char* GetBagNameString(char* buffer);
+char* GetSize0x80Buffer(int idx);
 char* GetDungeonResultString(int string_number);
 void SubstitutePlaceholderItemTags(uint8_t tag_id, struct item* item, undefined4* param_3);
 void SetQuestionMarks(char* s);

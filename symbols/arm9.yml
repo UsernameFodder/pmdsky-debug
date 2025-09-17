@@ -5050,6 +5050,14 @@ arm9:
         
         r0: [output] Pointer to the buffer where the string will be written
         return: Pointer to the buffer where the string was written (in other words, the same value passed in r0)
+    - name: GetSize0x80Buffer
+      address:
+        EU: 0x02025284
+      description: |-
+        Returns a pointer to a buffer of size 0x80.
+        
+        r0: index in a global list of buffers
+        return: buffer pointer
     - name: GetDungeonResultString
       address:
         EU: 0x20252A4
