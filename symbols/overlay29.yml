@@ -1680,6 +1680,15 @@ overlay29:
         r0: position struct pointer
         r1: boolean for whether to update trap visibility afterwards (always 1 in practice)
         return: true if there is a trap on the position
+    - name: SubstitutePlaceholderTrapTags
+      address:
+        EU: 0x22EE92C
+      description: |-
+        Used in SubstitutePlaceholderStringTags. Substitutes a [trap:r1] tag in a message log message for the name of a trap.
+        
+        r0: preprocessor_args pointer (in practice, always the global struct used for the message log)
+        r1: tag id
+        r2: trap id
     - name: TryTriggerTrap
       address:
         EU: 0x22EE950
@@ -8376,10 +8385,19 @@ overlay29:
           - 0x2345F08
           - 0x2345F34
       description: |-
-        Calls functions to prepare an item to be printed in place of the [item:r0] tag.
+        Calls functions to prepare an item to be printed in place of the [item:r0] tag in a message log message.
         
         r0: tag id
         r1: item struct pointer
+    - name: PrepareItemForPrinting2
+      address:
+        EU: 0x234578C
+      description: |-
+        Used in SubstitutePlaceholderStringTags. Has the same functionality as PrepareItemForPrinting, except the message log preprocessor_args struct is passed as a parameter.
+        
+        r0: preprocessor_args pointer (in practice, always the global struct used for the message log)
+        r1: tag id
+        r2: some static address
     - name: GenerateStandardItem
       address:
         EU: 0x23457B4

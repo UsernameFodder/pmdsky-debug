@@ -147,6 +147,8 @@ bool TrySpawnTrap(struct position* pos, enum trap_id trap_id, uint8_t team, bool
 bool TrySpawnTrapperTrap(struct entity* entity);
 bool TryRemoveTrap(struct position* pos, bool update_trap_visibility);
 bool TryRevealAttackedTrap(struct position* pos, bool update_trap_visibility);
+void SubstitutePlaceholderTrapTags(struct preprocessor_args* preprocessor_args, uint8_t tag_id,
+                                   enum trap_id trap_id);
 void TryTriggerTrap(struct entity* entity, struct position* pos, undefined param_3,
                     undefined param_4);
 void ApplyMudTrapEffect(struct entity* attacker, struct entity* defender);
@@ -849,6 +851,7 @@ void GenerateAndSpawnItem(enum item_id item_id, int16_t x, int16_t y, uint16_t q
 bool IsHiddenStairsFloor(void);
 bool IsSecretBazaarVeneer(void);
 void PrepareItemForPrinting(uint8_t tag_id, struct item* item);
+void PrepareItemForPrinting2(struct preprocessor_args* preprocessor_args, uint8_t tag_id, struct item* item);
 void GenerateStandardItem(struct item* item, enum item_id item_id,
                           enum gen_item_stickiness sticky_type);
 void GenerateCleanItem(struct item* item, enum item_id item_id);

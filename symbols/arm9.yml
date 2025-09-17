@@ -5058,6 +5058,14 @@ arm9:
         
         r0: index in a global list of buffers
         return: buffer pointer
+    - name: GetSize0x80Buffer2
+      address:
+        EU: 0x2025294
+      description: |-
+        Same as GetSize0x80Buffer, except the buffer is from a separate list.
+        
+        r0: index in a global list of buffers
+        return: buffer pointer
     - name: GetDungeonResultString
       address:
         EU: 0x20252A4
