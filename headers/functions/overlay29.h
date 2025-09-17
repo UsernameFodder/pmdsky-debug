@@ -276,7 +276,7 @@ int CalcSpeedStageWrapper(struct entity* entity);
 int GetNumberOfAttacks(struct entity* entity);
 enum display_name_type GetMonsterDisplayNameType(struct monster* monster);
 void GetMonsterName(char* buffer, struct monster* target_info);
-void SetPreprocessorArgsStringToName(struct preprocessor_args* preprocessor_args, int buffer_idx,
+void SetPreprocessorArgsStringToName(struct preprocessor_args* preprocessor_args, uint8_t pos,
                                      struct monster* monster, undefined param_4, uint8_t name_type);
 bool IsMonsterDrowsy(struct entity* monster);
 bool MonsterHasNonvolatileNonsleepStatus(struct entity* monster);

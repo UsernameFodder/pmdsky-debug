@@ -3033,7 +3033,7 @@ overlay29:
         Sets a strings element in a preprocessor_args struct to the name of a monster.
         
         r0: preprocessor_args pointer (if this is null, will use the global message log preprocessor_args struct)
-        r1: index of buffer in a global list
+        r1: position in strings array
         r2: monster pointer
         r3: unused
         stack[0]: if 0, will call GetMonsterName; if 1, will call GetMonsterNameWithGender; the 2 case is unknown and seemingly unused.
