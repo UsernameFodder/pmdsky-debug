@@ -5052,7 +5052,7 @@ arm9:
         return: Pointer to the buffer where the string was written (in other words, the same value passed in r0)
     - name: GetSize0x80Buffer
       address:
-        EU: 0x02025284
+        EU: 0x2025284
       description: |-
         Returns a pointer to a buffer of size 0x80.
         
