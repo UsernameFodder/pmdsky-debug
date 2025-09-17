@@ -5072,9 +5072,9 @@ arm9:
         NA: 0x2024FE8
         JP: 0x2025038
       description: |-
-        Sets what item's name should be displayed in place of the [item:r0] tag when printing a string.
+        Sets what item's name should be displayed in place of the [item:r0] tag when printing a string to the message log.
         
-        Is almost always accompanied by a SetPreprocessorArgsIdVal(tag id, tag id | 0x40000) call in dungeon mode.
+        Is almost always accompanied by a SetMessageLogPreprocessorArgsIdVal(tag id, tag id | 0x40000) call.
         
         r0: tag id
         r1: item struct pointer
