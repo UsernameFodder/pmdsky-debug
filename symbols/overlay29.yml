@@ -8397,7 +8397,7 @@ overlay29:
         
         r0: preprocessor_args pointer (in practice, always the global struct used for the message log)
         r1: tag id
-        r2: some static address
+        r2: item pointer
     - name: GenerateStandardItem
       address:
         EU: 0x23457B4
