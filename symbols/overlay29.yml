@@ -10312,6 +10312,16 @@ overlay29:
       length:
         NA: 0x8
       description: "The minimum value of the base damage formula (after DAMAGE_FORMULA_NON_TEAM_MEMBER_MODIFIER application, if relevant), as a 64-bit binary fixed-point number with 16 fraction bits (1)."
+    - name: WEAK_TYPE_PICKER_MATCHUP_MULTIPLIERS
+      address:
+        EU: 0x2353490
+        NA: 0x2352884
+        JP: 0x2353B04
+      length:
+        EU: 0x10
+        NA: 0x10
+        JP: 0x10
+      description: "Array of multipliers to a move's AI weight when Weak-Type Picker is in effect, based on the move's type matchup against its target. Array indexes correspond to enum type_matchup."
     - name: TYPE_DAMAGE_NEGATING_EXCLUSIVE_ITEM_EFFECTS
       address:
         EU: 0x23534B0

@@ -79,6 +79,7 @@ extern struct fx64_16 SOLID_ROCK_MULTIPLIER;
 extern struct fx64_16 DAMAGE_FORMULA_MAX_BASE;
 extern struct fx64_16 WONDER_GUARD_MULTIPLIER;
 extern struct fx64_16 DAMAGE_FORMULA_MIN_BASE;
+extern int WEAK_TYPE_PICKER_MATCHUP_MULTIPLIERS[4];
 extern struct damage_negating_exclusive_eff_entry TYPE_DAMAGE_NEGATING_EXCLUSIVE_ITEM_EFFECTS[28];
 extern struct status_two_turn_id_8 TWO_TURN_STATUSES[11];
 extern struct two_turn_move_and_status TWO_TURN_MOVES_AND_STATUSES[22];
