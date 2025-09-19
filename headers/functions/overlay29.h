@@ -394,6 +394,7 @@ enum type_matchup GetTypeMatchup(struct entity* attacker, struct entity* defende
 bool CalcTypeBasedDamageEffects(struct fx64_16* damage_mult_out, struct entity* attacker,
                                 struct entity* defender, int attack_power, enum type_id attack_type,
                                 struct damage_data* damage_out, bool partial);
+int WeightWeakTypePicker(struct entity* user, struct entity* target, enum type_id move_type);
 void CalcDamage(struct entity* attacker, struct entity* defender, enum type_id attack_type,
                 int attack_power, int crit_chance, struct damage_data* damage_out,
                 fx32_8 damage_mult_fp, enum move_id move_id, bool full_calc);

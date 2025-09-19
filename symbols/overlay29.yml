@@ -1672,6 +1672,8 @@ overlay29:
     - name: TryRevealAttackedTrap
       address:
         EU: 0x22EE88C
+        NA: 0x22EDEDC
+        JP: 0x22EF540
       description: |-
         Reveals the trap given by the position if the dungeon struct's regular_attack_reveal_traps field is true.
         
@@ -1683,6 +1685,8 @@ overlay29:
     - name: SubstitutePlaceholderTrapTags
       address:
         EU: 0x22EE92C
+        NA: 0x22EDF7C
+        JP: 0x22EF5E0
       description: |-
         Used in SubstitutePlaceholderStringTags. Substitutes a [trap:r1] tag in a message log message for the name of a trap.
         
@@ -2673,6 +2677,8 @@ overlay29:
     - name: ResetTriggerFlags
       address:
         EU: 0x22FC4B0
+        NA: 0x22FBAB4
+        JP: 0x22FCF88
       description: |-
         Resets a monster's contact_ability_trigger_bitflags and exclusive_item_trigger_bitflags fields to 0.
         
@@ -3038,6 +3044,8 @@ overlay29:
     - name: SetPreprocessorArgsStringToName
       address:
         EU: 0x2300E38
+        NA: 0x230040C
+        JP: 0x2301814
       description: |-
         Sets a strings element in a preprocessor_args struct to the name of a monster.
         
@@ -4161,6 +4169,20 @@ overlay29:
         stack[1]: [output] struct containing info about the damage calculation (only the critical_hit, type_matchup, and field_0xF fields are modified)
         stack[2]: flag for whether Erratic Player and Technician effects should be excluded. CalcDamage only passes in true if the move is the regular attack or a projectile.
         return: whether or not the Type-Advantage Master IQ skill should activate if the attacker has it. In practice, this corresponds to when the attack is super-effective, but technically true is also returned when the defender is an invalid entity.
+    - name: WeightWeakTypePicker
+      address:
+        EU: 0x230C248
+        NA: 0x230B7D4
+        JP: 0x230CD34
+      description: |-
+        Calculates a move weight used for deciding which target the move should be used on.
+        This function is used to calculate move weight when the attacker has the IQ skill Weak-Type Picker,
+        which weights moves higher depending on type effectiveness.
+        
+        r0: attacker pointer
+        r2: defender pointer
+        r3: attack type
+        return: Move weight for deciding move targeting.
     - name: CalcDamage
       address:
         EU: 0x230C620
@@ -7114,6 +7136,8 @@ overlay29:
     - name: RevealAttackedTile
       address:
         EU: 0x2339000
+        NA: 0x2338430
+        JP: 0x23397F4
       description: |-
         Reveals the tile given by the position.
         
@@ -8390,6 +8414,8 @@ overlay29:
     - name: PrepareItemForPrinting2
       address:
         EU: 0x234578C
+        NA: 0x2344BA8
+        JP: 0x2345F6C
       description: |-
         Used in SubstitutePlaceholderStringTags. Has the same functionality as PrepareItemForPrinting, except the message log preprocessor_args struct is passed as a parameter.
         
@@ -8902,6 +8928,8 @@ overlay29:
     - name: InitAlertBoxInfo
       address:
         EU: 0x234BBA4
+        NA: 0x234AFA4
+        JP: 0x234C214
       description: |-
         Initializes the heap-allocated alert_box_info struct in MESSAGE_LOG_INFO.
         
@@ -8909,6 +8937,8 @@ overlay29:
     - name: FreeAlertBoxInfo
       address:
         EU: 0x234BBD0
+        NA: 0x234AFD0
+        JP: 0x234C240
       description: |-
         Frees the heap-allocated alert_box_info struct in MESSAGE_LOG_INFO.
         
@@ -8916,6 +8946,8 @@ overlay29:
     - name: SetMessageLogGroupStartFlag
       address:
         EU: 0x234BC24
+        NA: 0x234B024
+        JP: 0x234C294
       description: |-
         Sets whether the next message in the message log should be the start of a new group separated by a horizontal line.
         
@@ -8923,6 +8955,8 @@ overlay29:
     - name: GetMessageLogPreprocessorArgs
       address:
         EU: 0x234BC34
+        NA: 0x234B034
+        JP: 0x234C2A4
       description: |-
         Gets a pointer to the global preprocessor_args struct used for the message log.
         
@@ -8930,6 +8964,8 @@ overlay29:
     - name: InitMessageLogPreprocessorArgs
       address:
         EU: 0x234BC4C
+        NA: 0x234B04C
+        JP: 0x234C2BC
       description: |-
         Initializes the global preprocessor_args struct used for the message log.
         
@@ -8937,6 +8973,8 @@ overlay29:
     - name: SetMessageLogPreprocessorArgsFlagVal
       address:
         EU: 0x234BC6C
+        NA: 0x234B06C
+        JP: 0x234C2DC
       description: |-
         Sets a flag_vals element in the global preprocessor_args struct used for the message log to a specified value.
         
@@ -8957,6 +8995,8 @@ overlay29:
     - name: SetMessageLogPreprocessorArgsNumberVal
       address:
         EU: 0x234BC9C
+        NA: 0x234B09C
+        JP: 0x234C30C
       description: |-
         Sets a number_vals element in the global preprocessor_args struct used for the message log to a specified value.
         
@@ -8965,6 +9005,8 @@ overlay29:
     - name: SetMessageLogPreprocessorArgsString
       address:
         EU: 0x234BCB4
+        NA: 0x234B0B4
+        JP: 0x234C324
       description: |-
         Sets a strings element in the global preprocessor_args struct used for the message log to a specified string.
         
@@ -8973,6 +9015,8 @@ overlay29:
     - name: SetMessageLogPreprocessorArgsStringToName
       address:
         EU: 0x234BCCC
+        NA: 0x234B0CC
+        JP: 0x234C33C
       description: |-
         Sets a strings element in the global preprocessor_args struct used for the message log to the name of a monster.
         
@@ -8981,6 +9025,8 @@ overlay29:
     - name: SetMessageLogPreprocessorArgsSpeakerId
       address:
         EU: 0x234BD04
+        NA: 0x234B104
+        JP: 0x234C374
       description: |-
         Sets the speaker_id in the global preprocessor_args struct used for the message log to the id of a monster.
         
@@ -8988,6 +9034,8 @@ overlay29:
     - name: SetMessageLogPreprocessorArgsSpeakerId0x30000
       address:
         EU: 0x234BD18
+        NA: 0x234B118
+        JP: 0x234C388
       description: |-
         Sets the speaker_id in the global preprocessor_args struct used for the message log to a monster's team index, ORed with 0x30000.
         
@@ -10264,6 +10312,16 @@ overlay29:
       length:
         NA: 0x8
       description: "The minimum value of the base damage formula (after DAMAGE_FORMULA_NON_TEAM_MEMBER_MODIFIER application, if relevant), as a 64-bit binary fixed-point number with 16 fraction bits (1)."
+    - name: WEAK_TYPE_PICKER_MATCHUP_MULTIPLIERS
+      address:
+        EU: 0x2353490
+        NA: 0x2352884
+        JP: 0x2353B04
+      length:
+        EU: 0x10
+        NA: 0x10
+        JP: 0x10
+      description: "Array of multipliers to a move's AI weight when Weak-Type Picker is in effect, based on the move's type matchup against its target. Array indexes correspond to enum type_matchup."
     - name: TYPE_DAMAGE_NEGATING_EXCLUSIVE_ITEM_EFFECTS
       address:
         EU: 0x23534B0
@@ -10560,6 +10618,8 @@ overlay29:
     - name: MESSAGE_LOG_INFO
       address:
         EU: 0x23543E4
+        NA: 0x23537CC
+        JP: 0x2354A44
       length:
         EU: 0xC
       description: "[Runtime] Struct containing information and state for logged messages."

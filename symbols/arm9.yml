@@ -5053,6 +5053,8 @@ arm9:
     - name: GetSize0x80Buffer
       address:
         EU: 0x2025284
+        NA: 0x2024FB8
+        JP: 0x2025008
       description: |-
         Returns a pointer to a buffer of size 0x80.
         
@@ -5061,6 +5063,8 @@ arm9:
     - name: GetSize0x80Buffer2
       address:
         EU: 0x2025294
+        NA: 0x2024FC8
+        JP: 0x2025018
       description: |-
         Same as GetSize0x80Buffer, except the buffer is from a separate list.
         
