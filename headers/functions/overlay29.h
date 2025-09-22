@@ -723,6 +723,8 @@ bool IsTileGround(struct position* pos);
 bool IsWaterTileset(void);
 enum monster_id GetRandomSpawnMonsterID(void);
 bool NearbyAllyIqSkillIsEnabled(struct entity* entity, enum iq_skill_id iq_skill);
+struct entity* FindAdjacentEnemy(struct entity* monster);
+bool IsAdjacentToEnemyIgnoreTreatment(struct entity* monster);
 void ResetGravity(void);
 bool GravityIsActive(void);
 bool TryActivateGravity(void);
