@@ -7132,7 +7132,7 @@ overlay29:
         NA: 0x2338350
         JP: 0x2339714
       description: |-
-        Called to check if a hostile entity is present in any of the tiles adjacent to an entity. Unlike IsAdjacentToEnemy, this function uses monster->is_not_team_member to determine if an adjacent enemy is hostilerather than GetTreatmentBetweenMonsters, which means it doesn't take decoy, petrified, and invisible statuses into account.
+        Called to check if a hostile entity is present in any of the tiles adjacent to an entity. Unlike IsAdjacentToEnemy, this function uses monster->is_not_team_member to determine if an adjacent enemy is hostile rather than GetTreatmentBetweenMonsters, which means it doesn't take decoy, petrified, and invisible statuses into account.
         
         r0: Pointer to entity
         return: True if yes, false if no
