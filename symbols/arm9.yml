@@ -302,6 +302,16 @@ arm9:
         
         r0: The value to get the sine of.
         return: floor(256 * sin(pi * abs(x) / 2048)) as a signed 32-bit integer.
+    - name: CosAbs4096
+      address:
+        EU: 0x2001980
+        NA: 0x2001980
+        JP: 0x2001980
+      description: |-
+        This function computes the cosine of the absolute value of r0 using a lookup table. The period of the function is 4096, and the range is [-256, 256].
+        
+        r0: The value to get the cosine of.
+        return: floor(256 * cos(pi * abs(x) / 2048)) as a signed 32-bit integer.
     - name: UFixedPoint64CmpLt
       address:
         EU: 0x2001A30
@@ -11077,6 +11087,16 @@ arm9:
         EU: 0x4
         NA: 0x4
       description: "555, appears to be the maximum number of members recruited to an exploration team, at least for the purposes of some checks that need to iterate over all team members."
+    - name: SINE_VALUE_TABLE
+      address:
+        EU: 0x2090FE0
+        NA: 0x2090C48
+        JP: 0x2090F30
+      length:
+        EU: 0x1000
+        NA: 0x1000
+        JP: 0x1000
+      description: "A lookup table for the values of sine. The table contains 1024 values evenly distributed in the range [sin(0) * 256, sin(pi / 2) * 256); i.e., the first quarter of the unit circle. The rest of sine (and cosine) is derived by reusing these values."
     - name: NATURAL_LOG_VALUE_TABLE
       address:
         EU: 0x20917E0

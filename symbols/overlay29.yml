@@ -4490,6 +4490,17 @@ overlay29:
         
         r0: exclusive item effect ID
         return: bool
+    - name: FindDirectionOfAdjacentMonsterWithItem
+      address:
+        EU: 0x2310344
+        NA: 0x230F8D0
+        JP: 0x2310E0C
+      description: |-
+        Given a monster, looks for an adjacent monster with the specified held item and returns the direction of that monster. Returns DIR_NONE if no monster is found. If there are multiple monsters with the specified held item, start in the direction the monster is facing and rotate in the order of DIRECTIONS_XY, picking the first direction with an eligible monster.
+        
+        r0: entity to look for an adjacent monster around it
+        r1: held item to search for on adjacent monsters
+        return: direction of an adjacent monster with the specified held item, or DIR_NONE if there are none.
     - name: TrySpawnEnemyItemDrop
       address:
         EU: 0x231044C
@@ -6251,7 +6262,7 @@ overlay29:
         NA: 0x231E8F0
         JP: 0x231FD9C
       description: |-
-        Called to check if a hostile entity is present in any of the tiles adjacent to an entity.
+        Called to check if a hostile entity is present in any of the tiles adjacent to an entity. This function uses GetTreatmentBetweenMonsters to determine whether an adjacent entity is hostile, which has special handling for the decoy, petrified, and invisible statuses.
         
         r0: Pointer to entity
         return: True if yes, false if no
@@ -7106,6 +7117,26 @@ overlay29:
         r0: entity pointer
         r1: IQ skill ID
         return: bool
+    - name: FindAdjacentEnemy
+      address:
+        EU: 0x2338E78
+        NA: 0x23382A8
+        JP: 0x233966C
+      description: |-
+        Finds a hostile entity adjacent to the given entity. Hostility is based on whether the monster->is_not_team_member flag does not match. If there are multiple adjacent hostile enemies, the first one is returned based on the order of directions in DIRECTION_XY.
+        
+        r0: Pointer to entity
+        return: A hostile entity adjacent to the given entity, or null if there aren't any.
+    - name: IsAdjacentToEnemyIgnoreTreatment
+      address:
+        EU: 0x2338F20
+        NA: 0x2338350
+        JP: 0x2339714
+      description: |-
+        Called to check if a hostile entity is present in any of the tiles adjacent to an entity. Unlike IsAdjacentToEnemy, this function uses monster->is_not_team_member to determine if an adjacent enemy is hostile rather than GetTreatmentBetweenMonsters, which means it doesn't take decoy, petrified, and invisible statuses into account.
+        
+        r0: Pointer to entity
+        return: True if yes, false if no
     - name: ResetGravity
       address:
         EU: 0x2338F3C
