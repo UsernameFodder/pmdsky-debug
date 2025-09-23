@@ -4500,6 +4500,7 @@ overlay29:
         
         r0: entity to look for an adjacent monster around it
         r1: held item to search for on adjacent monsters
+        return: direction of an adjacent monster with the specified held item, or -1 if there are none.
     - name: TrySpawnEnemyItemDrop
       address:
         EU: 0x231044C

@@ -11087,7 +11087,7 @@ arm9:
         EU: 0x4
         NA: 0x4
       description: "555, appears to be the maximum number of members recruited to an exploration team, at least for the purposes of some checks that need to iterate over all team members."
-    - name: SIN_TABLE
+    - name: SINE_VALUE_TABLE
       address:
         EU: 0x2090FE0
         NA: 0x2090C48
