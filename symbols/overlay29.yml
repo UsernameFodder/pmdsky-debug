@@ -4496,11 +4496,11 @@ overlay29:
         NA: 0x230F8D0
         JP: 0x2310E0C
       description: |-
-        Given a monster, looks for an adjacent monster with the specified held item and returns the direction of that monster. Returns -1 if no monster is found. If there are multiple monsters with the specified held item, start in the direction the monster is facing and rotate in the order of DIRECTIONS_XY, picking the first direction with an eligible monster.
+        Given a monster, looks for an adjacent monster with the specified held item and returns the direction of that monster. Returns DIR_NONE if no monster is found. If there are multiple monsters with the specified held item, start in the direction the monster is facing and rotate in the order of DIRECTIONS_XY, picking the first direction with an eligible monster.
         
         r0: entity to look for an adjacent monster around it
         r1: held item to search for on adjacent monsters
-        return: direction of an adjacent monster with the specified held item, or -1 if there are none.
+        return: direction of an adjacent monster with the specified held item, or DIR_NONE if there are none.
     - name: TrySpawnEnemyItemDrop
       address:
         EU: 0x231044C
