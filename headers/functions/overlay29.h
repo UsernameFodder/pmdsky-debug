@@ -439,6 +439,8 @@ int ExclusiveItemOffenseBoost(struct entity* entity, int move_category_idx);
 int ExclusiveItemDefenseBoost(struct entity* entity, int move_category_idx);
 int TeamMemberHasItemActive(struct entity* monsters, enum item_id item_id);
 bool TeamMemberHasExclusiveItemEffectActive(enum exclusive_item_effect_id effect_id);
+enum direction_id FindDirectionOfAdjacentMonsterWithItem(struct entity* pokemon,
+                                                         enum item_id item_id);
 void TrySpawnEnemyItemDrop(struct entity* attacker, struct entity* defender);
 void TickNoSlipCap(struct entity* entity);
 void TickStatusAndHealthRegen(struct entity* entity);
