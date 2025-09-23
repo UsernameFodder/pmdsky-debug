@@ -17,6 +17,7 @@ extern struct script_var_value_table* SCRIPT_VARS_VALUES_PTR;
 extern uint32_t MAX_PLAY_TIME;
 extern uint32_t MONSTER_ID_LIMIT;
 extern uint32_t MAX_RECRUITABLE_TEAM_MEMBERS;
+extern int16_t SIN_TABLE[1024];
 extern fx16_12 NATURAL_LOG_VALUE_TABLE[2048];
 extern undefined CART_REMOVED_IMG_DATA[0]; // Length differs between versions
 extern char STRING_DEBUG_EMPTY[4];
