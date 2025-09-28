@@ -6961,8 +6961,6 @@ arm9:
     - name: GetCurrentPage
       address:
         EU: 0x2032854
-        NA: 0x2032568
-        JP: 0x2032888
       description: |-
         Gets the index of the current menu page the user is on.
         

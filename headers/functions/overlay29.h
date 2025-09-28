@@ -457,7 +457,7 @@ void TryInflictNightmareStatus(struct entity* user, struct entity* target, int t
 void TryInflictNappingStatus(struct entity* user, struct entity* target, int turns);
 void TryInflictYawningStatus(struct entity* user, struct entity* target, int turns);
 void TryInflictSleeplessStatus(struct entity* user, struct entity* target);
-bool TryInflictPausedStatus(struct entity* user, struct entity* target, bool check_safeguard, 
+bool TryInflictPausedStatus(struct entity* user, struct entity* target, bool check_safeguard,
                             int turns, bool log_failure, bool check_only);
 bool TryInflictInfatuatedStatus(struct entity* user, struct entity* target, bool log_failure,
                                 bool check_only);
@@ -643,8 +643,8 @@ bool IsAdjacentToEnemy(struct entity* entity);
 bool ShouldTryEatItem(enum item_id item_id);
 int GetMaxPpWrapper(struct move* move);
 bool MoveIsNotPhysical(enum move_id move_id);
-void MakeFloorOneRoom(struct entity* user);
 bool CategoryIsNotPhysical(enum move_category category_id);
+void MakeFloorOneRoom(struct entity* user);
 void TryDrought(struct entity* user);
 void TryPounce(struct entity* user, struct entity* target, enum direction_id direction);
 void TryBlowAway(struct entity* user, struct entity* target, enum direction_id direction);

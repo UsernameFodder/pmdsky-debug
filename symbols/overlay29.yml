@@ -6352,13 +6352,6 @@ overlay29:
         
         r0: move ID
         return: bool
-    - name: MakeFloorOneRoom
-      address:
-        EU: 0x231F4A8
-      description: |-
-        Removes all walls to make the floor one room.
-        
-        r0: user entity pointer
     - name: CategoryIsNotPhysical
       address:
         EU: 0x231F498
@@ -6369,6 +6362,13 @@ overlay29:
         
         r0: move category ID
         return: bool
+    - name: MakeFloorOneRoom
+      address:
+        EU: 0x231F4A8
+      description: |-
+        Removes all walls to make the floor one room.
+        
+        r0: user entity pointer
     - name: TryDrought
       address:
         EU: 0x231FFFC
