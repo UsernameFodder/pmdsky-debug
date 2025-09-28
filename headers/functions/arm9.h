@@ -407,6 +407,7 @@ void PlaySeVolumeWrapper(int index);
 void PlayBgmById(enum music_id music_id);
 void PlayBgmByIdVolume(enum music_id music_id, undefined param_2, int volume);
 void StopBgmCommand(void);
+void PlayMeById(int me_id);
 void PlaySeByIdVolume(int se_id, int volume);
 void SendAudioCommand2(struct audio_command command);
 struct audio_command* AllocAudioCommand(int status);
@@ -589,6 +590,7 @@ void SetParentMenuState7(int window_id);
 void CloseParentMenu(int window_id);
 bool IsParentMenuActive(int window_id);
 bool CheckParentMenuField0x1A0(int window_id);
+int GetSimpleMenuResult(int window_id);
 void UpdateParentMenu(struct window* window);
 int CreateSimpleMenuFromStringIds(struct window_params* params, struct window_flags flags,
                                   struct window_extra_info* window_extra_info,
@@ -604,7 +606,6 @@ void CloseSimpleMenu(int window_id);
 bool IsSimpleMenuActive(int window_id);
 bool CheckSimpleMenuField0x1A0(int window_id);
 int GetSimpleMenuField0x1A4(int window_id);
-int GetSimpleMenuResult(int window_id);
 void UpdateSimpleMenu(struct window* window);
 void SetSimpleMenuField0x1AC(int window_id, int value);
 int CreateAdvancedMenu(struct window_params* params, struct window_flags flags,
@@ -698,6 +699,8 @@ bool IsControlsChartActive(int window_id);
 void UpdateControlsChart(struct window* window);
 int CreateAlertBox(struct window_params* params);
 void CloseAlertBox(int window_id);
+bool AddMessageToAlertBox(int window_id, struct preprocessor_flags flags, char* message,
+                          struct preprocessor_args* preprocessor_args, bool is_new_group);
 bool IsAlertBoxActive(int window_id);
 void UpdateAlertBox(struct window* window);
 int CreateAdvancedTextBox(struct window_params* params, struct window_flags flags,
@@ -736,8 +739,12 @@ int CalcMenuHeightDiv8(struct window_flags flags, struct window_extra_info* extr
 void InitWindowInput(struct window_input_ctx* input_ctx, struct window_flags flags,
                      struct window_extra_info* window_extra_info, struct window_rectangle* rect,
                      int n_items, int n_items_per_page);
-bool IsMenuOptionActive(undefined* param_1);
+bool IsMenuOptionActive(struct window_input_ctx* input_ctx);
+uint8_t GetSelectedItemOnPage(struct window_input_ctx* input_ctx);
+uint8_t GetCurrentPage(struct window_input_ctx* input_ctx);
 uint8_t GetPageStart(struct window_input_ctx* input_ctx);
+uint8_t GetSelectedMenuItemIdx(struct window_input_ctx* input_ctx);
+uint8_t GetTotalNumMenuItems(struct window_input_ctx* input_ctx);
 uint8_t GetNumItemsOnPage(struct window_input_ctx* input_ctx);
 int GetPageItemYOffset(struct window_input_ctx* input_ctx, uint8_t item_idx);
 void PlayWindowInputSound(struct window_input_ctx* input_ctx, int index);

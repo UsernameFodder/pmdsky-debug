@@ -3942,7 +3942,7 @@ arm9:
       description: |-
         Wrapper for PlaySeByIdVolume with 0x100 as the volume.
         
-        r0: Index
+        r0: Sound effect ID
     - name: PlaySeVolumeWrapper
       address:
         EU: 0x2017D68
@@ -3985,6 +3985,17 @@ arm9:
         Stops the BGM that is being currently played by calling SendAudioCommand.
         
         No params.
+    - name: PlayMeById
+      address:
+        EU: 0x2017E90
+        NA: 0x2017DF4
+        JP: 0x2017E4C
+      description: |-
+        Initializes some values and then calls SendAudioCommand to play a ME track.
+        
+        Checks for DEBUG_FLAG_BGM_OFF. The volume is set to either 0 or 255 depending on the flag before calling SendAudioCommand.
+        
+        r0: ME ID
     - name: PlaySeByIdVolume
       address:
         EU: 0x2018354
@@ -5667,6 +5678,18 @@ arm9:
         
         r0: window_id
         return: bool
+    - name: GetSimpleMenuResult
+      address:
+        EU:
+          - 0x202AEA4
+          - 0x202B870
+        NA: 0x202B57C
+        JP: 0x202B8D4
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: window_id
+        return: ?
     - name: UpdateParentMenu
       address:
         EU: 0x202AEF0
@@ -5776,16 +5799,6 @@ arm9:
         
         r0: window_id
         return: field_0x1a4
-    - name: GetSimpleMenuResult
-      address:
-        EU: 0x202B870
-        NA: 0x202B57C
-        JP: 0x202B8D4
-      description: |-
-        Note: unverified, ported from Irdkwia's notes
-        
-        r0: window_id
-        return: ?
     - name: UpdateSimpleMenu
       address:
         EU: 0x202B8BC
@@ -6627,6 +6640,18 @@ arm9:
         Closes a window created with CreateAlertBox.
         
         r0: window_id
+    - name: AddMessageToAlertBox
+      address:
+        EU: 0x2030400
+      description: |-
+        Adds a message to the dungeon alert box.
+        
+        r0: window_id
+        r1: preprocessor flags
+        r2: message string pointer
+        r3: preprocessor_args struct pointer
+        stack[0]: whether the message is the start of a new group (meaning it should be preceded by a horizontal line)
+        return: whether the message was sucessfully added
     - name: IsAlertBoxActive
       address:
         EU: 0x20304E8
@@ -6925,8 +6950,26 @@ arm9:
       description: |-
         Called whenever a menu option is selected. Returns whether the option is active or not.
         
-        r0: ?
+        r0: window_input_ctx struct pointer
         return: True if the menu option is enabled, false otherwise.
+    - name: GetSelectedItemOnPage
+      address:
+        EU: 0x203286C
+      description: |-
+        Gets the index on the page of the current item the user has selected.
+        
+        r0: window_input_ctx struct pointer
+        return: index of current selected item on the page
+    - name: GetCurrentPage
+      address:
+        EU: 0x2032854
+        NA: 0x2032568
+        JP: 0x2032888
+      description: |-
+        Gets the index of the current menu page the user is on.
+        
+        r0: window_input_ctx struct pointer
+        return: current page
     - name: GetPageStart
       address:
         EU: 0x203285C
@@ -6937,6 +6980,22 @@ arm9:
         
         r0: window_input_ctx struct pointer
         return: index of first item on page
+    - name: GetSelectedMenuItemIdx
+      address:
+        EU: 0x203286C
+      description: |-
+        Gets the index of the current menu item the user has selected.
+        
+        r0: window_input_ctx struct pointer
+        return: index of current selected item
+    - name: GetTotalNumMenuItems
+      address:
+        EU: 0x2032880
+      description: |-
+        Gets the total number of items in the menu.
+        
+        r0: window_input_ctx struct pointer
+        return: number of menu items
     - name: GetNumItemsOnPage
       address:
         EU: 0x2032888
@@ -6947,6 +7006,22 @@ arm9:
         
         r0: window_input_ctx struct pointer
         return: number of items on page
+    - name: GetMaxItemsOnPage
+      address:
+        EU: 0x2032890
+      description: |-
+        Gets the maximum possible number of items the menu can hold on one of its pages.
+        
+        r0: window_input_ctx struct pointer
+        return: number of menu pages
+    - name: GetTotalNumPages
+      address:
+        EU: 0x2032898
+      description: |-
+        Gets the total number of pages in the menu.
+        
+        r0: window_input_ctx struct pointer
+        return: number of menu pages
     - name: GetPageItemYOffset
       address:
         EU: 0x2032BCC

@@ -333,11 +333,13 @@ struct window_input_ctx {
     uint32_t first_item_y_offset; // 0xB4: Y-offset for first item on page
     // 0xB8: Difference in the Y-offset between one item and the next, shifted left by 8 bits
     uint32_t y_offset_diff;
-    undefined4 field_0xbc;
-    uint32_t n_items_on_page;   // 0xC0: Actual number of items on the page
-    uint32_t max_items_on_page; // 0xC4: Maximum possible number of items on the page
-    uint32_t current_page_id;   // 0xC8: Current page the user is on (starts at 0)
-    undefined fields_0xcc[40];
+    uint32_t selected_item_on_page; // 0xBC: Index on the page of the current selected item
+    uint32_t n_items_on_page;       // 0xC0: Actual number of items on the page
+    uint32_t max_items_on_page;     // 0xC4: Maximum possible number of items on the page
+    uint32_t current_page_idx;      // 0xC8: Current page the user is on (starts at 0)
+    uint32_t total_num_pages;       // 0xCC: Total number of pages
+    uint32_t total_num_items;       // 0xD0: Total number of menu items
+    undefined fields_0xd4[32];
     uint8_t field_0xf4;
     undefined field_0xf5;
     undefined field_0xf6;
@@ -643,8 +645,13 @@ struct controls_chart {
 };
 ASSERT_SIZE(struct controls_chart, 168);
 
-struct unk_alert_box_struct {
-    undefined fields_0x0[328];
+struct alert_box_message {
+    undefined4 field_0x0;
+    // 0x4: Whether the message is the start of a new group separated by a horizontal line
+    bool is_new_group;
+    char message[320]; // 0x5
+    undefined field_0x145;
+    struct preprocessor_flags flags; // 0x146
 };
 ASSERT_SIZE(struct unk_alert_box_struct, 328);
 
@@ -1085,8 +1092,11 @@ ASSERT_SIZE(struct inventory_menu, 420);
 
 // Used for creating the stairs menu.
 struct stairs_menu {
-    undefined4 field_0x0;
-    undefined4 field_0x4;
+    uint8_t header_window_id;    // 0x0: window id for the header showing the type of stairs
+    uint8_t main_menu_window_id; // 0x1: window id for the main menu for selecting the action
+    uint8_t info_window_id;      // 0x2: window id for the "Info" menu
+    undefined field_0x3;
+    int main_menu_result;  // 0x4: Store the result of the main menu for selecting the action
     struct entity* entity; // 0x8: Seems to always point to the leader?
     // 0xC: Used for switching in HandleStairsMenu.
     // Seems to be 0 when opening the main stairs menu, 1 when the main stairs menu is open,

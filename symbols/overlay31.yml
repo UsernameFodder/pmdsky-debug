@@ -70,7 +70,21 @@ overlay31:
         
         Uses a switch statement based on the state field in stairs_menu to determine what actions to take.
         
-        return: int
+        return: 4 if should close stairs menu entirely, 1 otherwise (including when switching between main/info menus)
+    - name: CloseStairsMenu
+      address:
+        EU: 0x2383E8C
+      description: |-
+        Closes the main stairs menu. Used both when closing it entirely as well as when switching to the info menu.
+
+        No params.
+    - name: FreeStairsMenuState
+      address:
+        EU: 0x2383E8C
+      description: |-
+        Closes the main stairs menu and frees the heap-allocated stairs_menu struct pointed to by STAIRS_MENU_PTR.
+
+        No params.
     - name: EntityIsValidOverlay31
       address:
         EU:
@@ -289,7 +303,7 @@ overlay31:
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: DUNGEON_SUBMENU_ITEMS_1
+    - name: STAIRS_MENU_ITEMS_NORMAL
       address:
         EU: 0x238AA94
         NA: 0x2389E70
@@ -298,7 +312,8 @@ overlay31:
         EU: 0x20
         NA: 0x20
         JP: 0x20
-    - name: DUNGEON_SUBMENU_ITEMS_2
+      description: "List of 4 simple_menu_id_items for the normal stairs menu."
+    - name: STAIRS_MENU_ITEMS_WARP_ZONE
       address:
         EU: 0x238AAB4
         NA: 0x2389E90
@@ -307,7 +322,8 @@ overlay31:
         EU: 0x20
         NA: 0x20
         JP: 0x20
-    - name: DUNGEON_SUBMENU_ITEMS_3
+      description: "List of 4 simple_menu_id_items for the Warp Zone stairs menu."
+    - name: STAIRS_MENU_ITEMS_RESCUE_POINT
       address:
         EU: 0x238AAD4
         NA: 0x2389EB0
@@ -316,7 +332,8 @@ overlay31:
         EU: 0x20
         NA: 0x20
         JP: 0x20
-    - name: DUNGEON_SUBMENU_ITEMS_4
+      description: "List of 4 simple_menu_id_items for the Rescue Point stairs menu."
+    - name: STAIRS_MENU_ITEMS_HIDDEN_STAIRS
       address:
         EU: 0x238AAF4
         NA: 0x2389ED0
@@ -325,6 +342,7 @@ overlay31:
         EU: 0x20
         NA: 0x20
         JP: 0x20
+      description: "List of 4 simple_menu_id_items for the hidden stairs menu."
     - name: OVERLAY31_UNKNOWN_STRUCT__NA_2389EF0
       address:
         EU: 0x238AB14
