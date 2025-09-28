@@ -394,6 +394,7 @@ enum type_matchup GetTypeMatchup(struct entity* attacker, struct entity* defende
 bool CalcTypeBasedDamageEffects(struct fx64_16* damage_mult_out, struct entity* attacker,
                                 struct entity* defender, int attack_power, enum type_id attack_type,
                                 struct damage_data* damage_out, bool partial);
+int WeightWeakTypePicker(struct entity* user, struct entity* target, enum type_id move_type);
 void CalcDamage(struct entity* attacker, struct entity* defender, enum type_id attack_type,
                 int attack_power, int crit_chance, struct damage_data* damage_out,
                 fx32_8 damage_mult_fp, enum move_id move_id, bool full_calc);
@@ -438,6 +439,8 @@ int ExclusiveItemOffenseBoost(struct entity* entity, int move_category_idx);
 int ExclusiveItemDefenseBoost(struct entity* entity, int move_category_idx);
 int TeamMemberHasItemActive(struct entity* monsters, enum item_id item_id);
 bool TeamMemberHasExclusiveItemEffectActive(enum exclusive_item_effect_id effect_id);
+enum direction_id FindDirectionOfAdjacentMonsterWithItem(struct entity* entity,
+                                                         enum item_id item_id);
 void TrySpawnEnemyItemDrop(struct entity* attacker, struct entity* defender);
 void TickNoSlipCap(struct entity* entity);
 void TickStatusAndHealthRegen(struct entity* entity);
@@ -722,6 +725,8 @@ bool IsTileGround(struct position* pos);
 bool IsWaterTileset(void);
 enum monster_id GetRandomSpawnMonsterID(void);
 bool NearbyAllyIqSkillIsEnabled(struct entity* entity, enum iq_skill_id iq_skill);
+struct entity* FindAdjacentEnemy(struct entity* monster);
+bool IsAdjacentToEnemyIgnoreTreatment(struct entity* monster);
 void ResetGravity(void);
 bool GravityIsActive(void);
 bool TryActivateGravity(void);
