@@ -140,8 +140,8 @@ bool IsDungeonEndReasonFailure(void);
 void SetForcedLossReason(enum forced_loss_reason forced_loss_reason);
 enum forced_loss_reason GetForcedLossReason(void);
 void BindTrapToTile(struct tile* tile, struct entity* trap, bool is_visible);
-void SpawnTraps(void);
 bool AreLateGameTrapsEnabledWrapper(void);
+void SpawnTraps(void);
 void SpawnEnemyTrapAtPos(enum trap_id trap_id, int16_t x, int16_t y, uint8_t flags,
                          bool is_visible);
 void PrepareTrapperTrap(struct entity* entity, enum trap_id trap_id, uint8_t team);
@@ -642,8 +642,8 @@ int GetAiUseItemProbability(struct entity* item_consumer, struct item* item, uin
 bool IsAdjacentToEnemy(struct entity* entity);
 bool ShouldTryEatItem(enum item_id item_id);
 int GetMaxPpWrapper(struct move* move);
-void MakeFloorOneRoom(struct entity* user);
 bool MoveIsNotPhysical(enum move_id move_id);
+void MakeFloorOneRoom(struct entity* user);
 bool CategoryIsNotPhysical(enum move_category category_id);
 void TryDrought(struct entity* user);
 void TryPounce(struct entity* user, struct entity* target, enum direction_id direction);

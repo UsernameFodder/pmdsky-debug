@@ -1417,7 +1417,7 @@ overlay10:
       description: Attack power for Iron Thorns.
     - name: BAD_WEATHER_DAMAGE
       address:
-        EU: 0x22c5044
+        EU: 0x22C5044
       length:
         EU: 0x2
       description: Damage dealt by the Sandstorm and Hail weather conditions (3).

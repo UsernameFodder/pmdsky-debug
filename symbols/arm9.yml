@@ -3987,9 +3987,7 @@ arm9:
         No params.
     - name: PlayMeById
       address:
-        EU: 0x2017E90
-        NA: 0x2017DF4
-        JP: 0x2017E4C
+        EU: 0x20182A8
       description: |-
         Initializes some values and then calls SendAudioCommand to play a ME track.
         
@@ -6954,7 +6952,7 @@ arm9:
         return: True if the menu option is enabled, false otherwise.
     - name: GetSelectedItemOnPage
       address:
-        EU: 0x203286C
+        EU: 0x203284C
       description: |-
         Gets the index on the page of the current item the user has selected.
         

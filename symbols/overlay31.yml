@@ -76,14 +76,14 @@ overlay31:
         EU: 0x2383E8C
       description: |-
         Closes the main stairs menu. Used both when closing it entirely as well as when switching to the info menu.
-
+        
         No params.
     - name: FreeStairsMenuState
       address:
         EU: 0x2383E8C
       description: |-
         Closes the main stairs menu and frees the heap-allocated stairs_menu struct pointed to by STAIRS_MENU_PTR.
-
+        
         No params.
     - name: EntityIsValidOverlay31
       address:
@@ -312,7 +312,7 @@ overlay31:
         EU: 0x20
         NA: 0x20
         JP: 0x20
-      description: "List of 4 simple_menu_id_items for the normal stairs menu."
+      description: List of 4 simple_menu_id_items for the normal stairs menu.
     - name: STAIRS_MENU_ITEMS_WARP_ZONE
       address:
         EU: 0x238AAB4
@@ -322,7 +322,7 @@ overlay31:
         EU: 0x20
         NA: 0x20
         JP: 0x20
-      description: "List of 4 simple_menu_id_items for the Warp Zone stairs menu."
+      description: List of 4 simple_menu_id_items for the Warp Zone stairs menu.
     - name: STAIRS_MENU_ITEMS_RESCUE_POINT
       address:
         EU: 0x238AAD4
@@ -332,7 +332,7 @@ overlay31:
         EU: 0x20
         NA: 0x20
         JP: 0x20
-      description: "List of 4 simple_menu_id_items for the Rescue Point stairs menu."
+      description: List of 4 simple_menu_id_items for the Rescue Point stairs menu.
     - name: STAIRS_MENU_ITEMS_HIDDEN_STAIRS
       address:
         EU: 0x238AAF4
@@ -342,7 +342,7 @@ overlay31:
         EU: 0x20
         NA: 0x20
         JP: 0x20
-      description: "List of 4 simple_menu_id_items for the hidden stairs menu."
+      description: List of 4 simple_menu_id_items for the hidden stairs menu.
     - name: OVERLAY31_UNKNOWN_STRUCT__NA_2389EF0
       address:
         EU: 0x238AB14

@@ -855,7 +855,7 @@ overlay29:
         EU: 0x22E843C
       description: |-
         Gets the id of the trap to be used as the effect of a Random Trap.
-
+        
         return: trap id
     - name: GetItemIdToSpawn
       address:
@@ -1607,13 +1607,6 @@ overlay29:
         r0: tile pointer
         r1: entity pointer
         r2: visibility flag
-    - name: SpawnTraps
-      address:
-        EU: 0x22EE238
-      description: |-
-        Spawns a new dungeon floor's traps.
-        
-        No params.
     - name: AreLateGameTrapsEnabledWrapper
       address:
         EU: 0x22EE218
@@ -1623,6 +1616,13 @@ overlay29:
         A wrapper around AreLateGameTrapsEnabled that passes the fixed room for the floor.
         
         return: bool
+    - name: SpawnTraps
+      address:
+        EU: 0x22EE238
+      description: |-
+        Spawns a new dungeon floor's traps.
+        
+        No params.
     - name: SpawnEnemyTrapAtPos
       address:
         EU: 0x22EE320
@@ -3229,7 +3229,7 @@ overlay29:
         return: bool
     - name: CheckVariousStatuses2
       address:
-        EU: 
+        EU:
           - 0x2301244
           - 0x2301308
         NA: 0x2300818
@@ -3244,7 +3244,7 @@ overlay29:
         return: bool
     - name: CheckVariousConditions
       address:
-        EU: 
+        EU:
           - 0x230156C
           - 0x2301624
         NA: 0x2300B40
@@ -3258,7 +3258,7 @@ overlay29:
         return: bool
     - name: CheckVariousStatuses
       address:
-        EU: 
+        EU:
           - 0x23016DC
           - 0x230172C
         NA: 0x2300CB0
@@ -6342,13 +6342,6 @@ overlay29:
         
         r0: move pointer
         return: max PP for the given move, capped at 99
-    - name: MakeFloorOneRoom
-      address:
-        EU: 0x231F4A8
-      description: |-
-        Removes all walls to make the floor one room.
-        
-        r0: user entity pointer
     - name: MoveIsNotPhysical
       address:
         EU: 0x231F480
@@ -6359,6 +6352,13 @@ overlay29:
         
         r0: move ID
         return: bool
+    - name: MakeFloorOneRoom
+      address:
+        EU: 0x231F4A8
+      description: |-
+        Removes all walls to make the floor one room.
+        
+        r0: user entity pointer
     - name: CategoryIsNotPhysical
       address:
         EU: 0x231F498
@@ -9154,7 +9154,7 @@ overlay29:
         EU: 0x234BE94
       description: |-
         Calls WaitUntilAlertBoxTextIsLoaded with r0 = 0x50.
-
+        
         No params.
     - name: LogMessageByIdWithPopupCheckUser
       address:
