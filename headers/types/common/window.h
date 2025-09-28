@@ -649,11 +649,11 @@ struct alert_box_message {
     undefined4 field_0x0;
     // 0x4: Whether the message is the start of a new group separated by a horizontal line
     bool is_new_group;
-    char message[320]; // 0x5
+    char message_contents[320]; // 0x5
     undefined field_0x145;
     struct preprocessor_flags flags; // 0x146
 };
-ASSERT_SIZE(struct unk_alert_box_struct, 328);
+ASSERT_SIZE(struct alert_box_message, 328);
 
 // Also see CreateAlertBox
 // Used for popup log messages in dungeon mode that disappear after some time
@@ -664,10 +664,10 @@ struct alert_box {
     undefined field_0x3;
     int state;                                  // 0x4: appears to be a state value
     struct dialogue_display_ctx display_ctx;    // 0x8
-    struct unk_alert_box_struct field_0x124[4]; // length is a guess, but the size fits nicely
-    int16_t field_0x644;
-    int16_t idx1; // 0x646: some index into field_0x124
-    int16_t idx2; // 0x648: some index into field_0x124
+    struct alert_box_message messages[4]; // 0x124
+    int16_t next_idx; // 0x644: Index to add next message at
+    int16_t idx1; // 0x646: some index into messages
+    int16_t idx2; // 0x648: some index into messages
     int16_t field_0x64a;
     int16_t field_0x64c;
     undefined field_0x64e;
