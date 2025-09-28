@@ -80,7 +80,7 @@ overlay31:
         No params.
     - name: FreeStairsMenuState
       address:
-        EU: 0x2383E8C
+        EU: 0x2383EF0
       description: |-
         Closes the main stairs menu and frees the heap-allocated stairs_menu struct pointed to by STAIRS_MENU_PTR.
         
