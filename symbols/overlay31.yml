@@ -71,7 +71,7 @@ overlay31:
         Uses a switch statement based on the state field in stairs_menu to determine what actions to take.
         
         return: 4 if should close stairs menu entirely, 1 otherwise (including when switching between main/info menus)
-    - name: CloseStairsMenu
+    - name: CloseMainStairsMenu
       address:
         EU: 0x2383E8C
       description: |-

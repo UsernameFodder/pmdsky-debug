@@ -7,7 +7,7 @@ void DungeonMenuSwitch(int idx);
 void CreateStairsMenuState(struct entity* entity);
 void StairsSubheadingCallback(int window_id);
 int HandleStairsMenu(void);
-void CloseStairsMenu(void);
+void CloseMainStairsMenu(void);
 void FreeStairsMenuState(void);
 bool EntityIsValidOverlay31(struct entity* entity);
 void MovesMenu(struct action_data* action);
