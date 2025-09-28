@@ -57,7 +57,7 @@ void PlayEffectAnimation0x171Full(struct entity* entity);
 void PlayEffectAnimation0x171(struct entity* entity);
 void PlayEffectAnimationEntityStandard(struct entity* entity, int effect_id);
 void ShowPpRestoreEffect(struct entity* entity);
-void PlaySeIfShouldDisplayEntity(struct entity* entity, int se_id);
+void PlaySeByIdIfShouldDisplayEntity(struct entity* entity, int se_id);
 bool ShouldDisplayEntityAdvanced(struct entity* entity);
 void PlayEffectAnimation0x1A9(struct entity* entity);
 void PlayEffectAnimation0x29(struct entity* entity);

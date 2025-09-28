@@ -662,12 +662,12 @@ struct alert_box {
     undefined field_0x1;
     undefined field_0x2;
     undefined field_0x3;
-    int state;                                  // 0x4: appears to be a state value
-    struct dialogue_display_ctx display_ctx;    // 0x8
-    struct alert_box_message messages[4]; // 0x124
-    int16_t next_idx; // 0x644: Index to add next message at
-    int16_t idx1; // 0x646: some index into messages
-    int16_t idx2; // 0x648: some index into messages
+    int state;                               // 0x4: appears to be a state value
+    struct dialogue_display_ctx display_ctx; // 0x8
+    struct alert_box_message messages[4];    // 0x124
+    int16_t next_idx;                        // 0x644: Index to add next message at
+    int16_t idx1;                            // 0x646: some index into messages
+    int16_t idx2;                            // 0x648: some index into messages
     int16_t field_0x64a;
     int16_t field_0x64c;
     undefined field_0x64e;
