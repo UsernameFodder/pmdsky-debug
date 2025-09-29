@@ -1096,7 +1096,7 @@ struct stairs_menu {
     uint8_t main_menu_window_id; // 0x1: window id for the main menu for selecting the action
     uint8_t info_window_id;      // 0x2: window id for the "Info" menu
     undefined field_0x3;
-    int main_menu_result;  // 0x4: Store the result of the main menu for selecting the action
+    int main_menu_result;  // 0x4: Stores the result of the main menu for selecting the action
     struct entity* entity; // 0x8: Seems to always point to the leader?
     // 0xC: Used for switching in HandleStairsMenu.
     // Seems to be 0 when opening the main stairs menu, 1 when the main stairs menu is open,
