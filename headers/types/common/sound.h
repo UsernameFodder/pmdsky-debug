@@ -91,8 +91,9 @@ struct audio_command {
     // 0x0: Seems to be a value that marks the status of this entry. It's probably an enum, maybe a
     // command ID. Seems to be 0 when the entry is not in use.
     int status;
-    struct music_id_16 music_id; // 0x4: ID of the music to play
-    uint16_t volume;             // 0x6: Volume (0-255)
+    // 0x4: ID of the music to play. Is a ME ID instead when a ME is to be played.
+    struct music_id_16 music_id;
+    uint16_t volume; // 0x6: Volume (0-255)
     undefined2 field_0x8;
     undefined field_0xA;
     undefined field_0xB;
