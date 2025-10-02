@@ -1034,6 +1034,17 @@ overlay29:
         r1: Target position
         r2: True to assume the entity standing on the origin position has the dropeye status
         return: True if the target position is in sight from the origin position
+    - name: IsPositionWithinTwoTiles
+      address:
+        EU: 0x22E9D0C
+        NA: 0x22E935C
+        JP: 0x22EA9C4
+      description: |-
+        Checks if a given target position is within two tiles of a given origin position.
+        
+        r0: Origin position
+        r1: Target position
+        return: True if the target position within two tiles of the origin position.
     - name: GetLeader
       address:
         EU: 0x22E9F30
@@ -2958,6 +2969,16 @@ overlay29:
         r0: Entity pointer
         r1: Mobility type
         return: New mobility type, after accounting for the IQ skills mentioned above
+    - name: CanMoveThroughWalls
+      address:
+        EU: 0x2300334
+        NA: 0x22FF908
+        JP: 0x2300CD8
+      description: |-
+        Checks if a given monster can move through walls, including both the innate ability of Ghost types and outside modifiers like Mobile Scarf/Orb.
+        
+        r0: Entity pointer
+        return: True if the monster can move through walls.
     - name: CannotStandOnTile
       address:
         EU: 0x23006C8
@@ -3312,6 +3333,27 @@ overlay29:
         r1: Direction
         r2: [output] True if movement was not possible because there was another monster on the target tile, false otherwise.
         return: True if the monster can move in the specified direction, false otherwise.
+    - name: IsAtJunction
+      address:
+        EU: 0x2301EC4
+        NA: 0x2301498
+        JP: 0x23029B4
+      description: |-
+        Checks if the tile the given monster is on is considered a junction for the purposes of AI movement. This is affected by what types of terrain the monster can cross.
+        
+        r0: Entity pointer
+        return: True if tile the monster is on is a junction.
+    - name: ShouldAvoidFirstHit
+      address:
+        EU: 0x2301FC0
+        NA: 0x2301594
+        JP: 0x2302B04
+      description: |-
+        Checks whether an AI-controlled monster should try to avoid the first hit in battle.
+        
+        r0: Entity pointer
+        r1: If true, this function always returns true.
+        return: True if the monster should try to avoid the first hit in battle.
     - name: ShouldMonsterRunAway
       address:
         EU: 0x2301FE4
@@ -3542,6 +3584,16 @@ overlay29:
         Called after exiting the IQ skills menu or after an enemy spawns.
         
         r0: monster pointer
+    - name: CanSeeTeammate
+      address:
+        EU: 0x2302C2C
+        NA: 0x2302200
+        JP: 0x2303750
+      description: |-
+        Checks if an allied monster can see any other teammate (via CanSeeTarget). Always returns false for enemy monsters.
+        
+        r0: monster pointer
+        return: True if the monster is an allied monster that can see another teammate.
     - name: GetMoveTypeForMonster
       address:
         EU: 0x2302CA8
@@ -4025,6 +4077,16 @@ overlay29:
         
         r0: Pointer to monster
         return: bool
+    - name: GetLeaderIfVisible
+      address:
+        EU: 0x2308CF0
+        NA: 0x23082C4
+        JP: 0x23097F8
+      description: |-
+        For allied monsters, gets the leader monster if they are visible to the ally. Always returns null for enemy monsters.
+        
+        r0: Pointer to monster
+        return: Pointer to the leader monster if visible, null otherwise.
     - name: RunMonsterAi
       address:
         EU: 0x2308D6C
@@ -10149,10 +10211,25 @@ overlay29:
       length:
         EU: 0x20
         NA: 0x20
+        JP: 0x20
       description: |-
         An array mapping each direction index to its x and y displacements.
         
         Directions start with 0=down and proceed counterclockwise (see enum direction_id). Displacements for x and y are interleaved and encoded as 2-byte signed integers. For example, the first two integers are [0, 1], which correspond to the x and y displacements for the "down" direction (positive y means down).
+    - name: FACING_DIRECTION_INCREMENTS
+      address:
+        EU: 0x2352388
+        NA: 0x235177C
+        JP: 0x23529FC
+      length:
+        EU: 0x20
+        NA: 0x20
+        JP: 0x20
+      description: |-
+        An array of direction offsets from a monster's current facing direction, each increasingly farther away from the current direction.
+        
+        For example, the array starts with [0, 1, -1, 2...]. If the monster's current direction is DIR_UP, the first four array elements
+        are each added to the current direction, corresponding to DIR_UP, DIR_UP_LEFT, DIR_UP_RIGHT, DIR_LEFT.
     - name: DISPLACEMENTS_WITHIN_2_LARGEST_FIRST
       address:
         EU: 0x23523E8
