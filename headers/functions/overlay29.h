@@ -112,6 +112,7 @@ int CalcStatusDuration(struct entity* entity, int16_t* turn_range, bool iq_skill
 void DungeonRngUnsetSecondary(void);
 void DungeonRngSetSecondary(int i);
 void DungeonRngSetPrimary(void);
+void PlaySeByIdIfNotSilence(int se_id);
 enum music_id MusicTableIdxToMusicId(int music_table_idx);
 void ChangeDungeonMusic(enum music_id music_id);
 void TrySwitchPlace(struct entity* user, struct entity* target);

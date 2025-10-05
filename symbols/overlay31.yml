@@ -304,6 +304,8 @@ overlay31:
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: STAIRS_MENU_ITEMS_NORMAL
+      aliases:
+        - DUNGEON_SUBMENU_ITEMS_1
       address:
         EU: 0x238AA94
         NA: 0x2389E70
@@ -314,6 +316,8 @@ overlay31:
         JP: 0x20
       description: List of 4 simple_menu_id_items for the normal stairs menu.
     - name: STAIRS_MENU_ITEMS_WARP_ZONE
+      aliases:
+        - DUNGEON_SUBMENU_ITEMS_2
       address:
         EU: 0x238AAB4
         NA: 0x2389E90
@@ -324,6 +328,8 @@ overlay31:
         JP: 0x20
       description: List of 4 simple_menu_id_items for the Warp Zone stairs menu.
     - name: STAIRS_MENU_ITEMS_RESCUE_POINT
+      aliases:
+        - DUNGEON_SUBMENU_ITEMS_3
       address:
         EU: 0x238AAD4
         NA: 0x2389EB0
@@ -334,6 +340,8 @@ overlay31:
         JP: 0x20
       description: List of 4 simple_menu_id_items for the Rescue Point stairs menu.
     - name: STAIRS_MENU_ITEMS_HIDDEN_STAIRS
+      aliases:
+        - DUNGEON_SUBMENU_ITEMS_4
       address:
         EU: 0x238AAF4
         NA: 0x2389ED0

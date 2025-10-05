@@ -746,6 +746,8 @@ uint8_t GetPageStart(struct window_input_ctx* input_ctx);
 uint8_t GetSelectedMenuItemIdx(struct window_input_ctx* input_ctx);
 uint8_t GetTotalNumMenuItems(struct window_input_ctx* input_ctx);
 uint8_t GetNumItemsOnPage(struct window_input_ctx* input_ctx);
+uint8_t GetMaxItemsOnPage(struct window_input_ctx* input_ctx);
+uint8_t GetTotalNumPages(struct window_input_ctx* input_ctx);
 int GetPageItemYOffset(struct window_input_ctx* input_ctx, uint8_t item_idx);
 void PlayWindowInputSound(struct window_input_ctx* input_ctx, int index);
 void InitInventoryMenuInput(struct inventory_menu_input_ctx* input_ctx, struct window_flags flags,
