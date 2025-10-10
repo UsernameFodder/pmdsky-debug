@@ -19,7 +19,7 @@ overlay31:
         NA: 0x2382820
         JP: 0x2383AA0
       description: |-
-        Initializes the main dungeon menu and allocates a struct on the heap with information for HandleDungeonMenu
+        Initializes the main dungeon menu and allocates a struct on the heap with information for HandleDungeonMenu.
         
         No params.
     - name: DrawDungeonMenuStatusWindow
