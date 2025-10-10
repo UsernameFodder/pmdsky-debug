@@ -1,14 +1,16 @@
 #ifndef HEADERS_FUNCTIONS_OVERLAY31_H_
 #define HEADERS_FUNCTIONS_OVERLAY31_H_
 
-void EntryOverlay31(void);
+void InitDungeonMenu(void);
 void DrawDungeonMenuStatusWindow(int param_1);
 void DungeonMenuSwitch(int idx);
-void CreateStairsMenuState(struct entity* entity);
+int HandleDungeonMenu(void);
+void FreeDungeonMenu(void);
+void InitStairsMenu(struct entity* entity);
 void StairsSubheadingCallback(int window_id);
 int HandleStairsMenu(void);
 void CloseMainStairsMenu(void);
-void FreeStairsMenuState(void);
+void FreeStairsMenu(void);
 bool EntityIsValidOverlay31(struct entity* entity);
 void MovesMenu(struct action_data* action);
 bool HandleMovesMenuWrapper0(undefined* param_1, undefined param_2, undefined param_3,

@@ -13,13 +13,13 @@ overlay31:
     JP: 0x7AC0
   description: Controls the dungeon menu (during dungeon mode).
   functions:
-    - name: EntryOverlay31
+    - name: InitDungeonMenu
       address:
         EU: 0x2383420
         NA: 0x2382820
         JP: 0x2383AA0
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Initializes the main dungeon menu and allocates a struct on the heap with information for HandleDungeonMenu
         
         No params.
     - name: DrawDungeonMenuStatusWindow
@@ -40,7 +40,25 @@ overlay31:
         Note: unverified, ported from Irdkwia's notes
         
         r0: appears to be an index of some sort, probably the menu index based on the function name?
-    - name: CreateStairsMenuState
+    - name: HandleDungeonMenu
+      address:
+        EU: 0x2383754
+      description: |-
+        Handles displaying the main dungeon menu and is called on each frame while it is open.
+        
+        Uses a switch statement based on a state field of the struct allocated in InitDungeonMenu to determine what actions to take.
+        
+        return: 4 if should close main dungeon menu (including when switching menus), 1 otherwise
+    - name: FreeDungeonMenu
+      address:
+        EU: 0x23839AC
+      description: |-
+        Closes the main dungeon menu and frees the heap-allocated struct initialized in InitDungeonMenu.
+        
+        No params.
+    - name: InitStairsMenu
+      aliases:
+        - CreateStairsMenuState
       address:
         EU: 0x2383AD4
         NA: 0x2382ED4
@@ -48,7 +66,7 @@ overlay31:
       description: |-
         Called when the leader steps on any stairs tile (regular, warp zone, rescue point, hidden stairs).
         
-        Allocates a stairs_menu struct on the heap with information for HandleStairsMenu, which will be pointed to by STAIRS_MENU_PTR.
+        Initializes the stairs menu and allocates a stairs_menu struct on the heap with information for HandleStairsMenu, which will be pointed to by STAIRS_MENU_PTR.
         
         r0: Entity pointer (in practice, always the leader)
     - name: StairsSubheadingCallback
@@ -78,7 +96,7 @@ overlay31:
         Closes the main stairs menu. Used both when closing it entirely as well as when switching to the info menu.
         
         No params.
-    - name: FreeStairsMenuState
+    - name: FreeStairsMenu
       address:
         EU: 0x2383EF0
       description: |-
