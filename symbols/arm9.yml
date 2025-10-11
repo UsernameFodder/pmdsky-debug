@@ -7088,7 +7088,7 @@ arm9:
         return: whether the menu was successfully initialized
     - name: InitMenuWithWindowExtraInfo
       address:
-        EU: 0x2034BD8
+        EU: 0x2034C68
       description: |-
         Has the same functionality as InitMenu except also tries to initialize menu_control's window_extra_info struct.
         
