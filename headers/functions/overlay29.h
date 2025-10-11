@@ -57,11 +57,13 @@ void PlayEffectAnimation0x171Full(struct entity* entity);
 void PlayEffectAnimation0x171(struct entity* entity);
 void PlayEffectAnimationEntityStandard(struct entity* entity, int effect_id);
 void ShowPpRestoreEffect(struct entity* entity);
+void PlaySeByIdIfShouldDisplayEntity(struct entity* entity, int se_id);
 bool ShouldDisplayEntityAdvanced(struct entity* entity);
 void PlayEffectAnimation0x1A9(struct entity* entity);
 void PlayEffectAnimation0x29(struct entity* entity);
 void PlayEffectAnimation0x18E(struct entity* entity);
 void LoadMappaFileAttributes(int quick_saved, bool disable_monsters, undefined* special_process);
+enum trap_id GetRandomTrapId(void);
 enum item_id GetItemIdToSpawn(enum item_list_type item_list);
 int CopySpawnEntriesMaster(struct monster_spawn_entry* spawn_entries, int offset);
 int MonsterSpawnListPartialCopy(struct monster_spawn_entry* buffer, int current_buffer_entries);
@@ -111,9 +113,11 @@ int CalcStatusDuration(struct entity* entity, int16_t* turn_range, bool iq_skill
 void DungeonRngUnsetSecondary(void);
 void DungeonRngSetSecondary(int i);
 void DungeonRngSetPrimary(void);
+void PlaySeByIdIfNotSilence(int se_id);
 enum music_id MusicTableIdxToMusicId(int music_table_idx);
 void ChangeDungeonMusic(enum music_id music_id);
 void TrySwitchPlace(struct entity* user, struct entity* target);
+void ResetLeaderActionFields(bool clear_additional_fields);
 void SetLeaderActionFields(enum action action_id);
 void ClearMonsterActionFields(struct action_data* monster_action);
 void SetMonsterActionFields(struct action_data* monster_action, enum action action_id);
@@ -140,6 +144,7 @@ void SetForcedLossReason(enum forced_loss_reason forced_loss_reason);
 enum forced_loss_reason GetForcedLossReason(void);
 void BindTrapToTile(struct tile* tile, struct entity* trap, bool is_visible);
 bool AreLateGameTrapsEnabledWrapper(void);
+void SpawnTraps(void);
 void SpawnEnemyTrapAtPos(enum trap_id trap_id, int16_t x, int16_t y, uint8_t flags,
                          bool is_visible);
 void PrepareTrapperTrap(struct entity* entity, enum trap_id trap_id, uint8_t team);
@@ -148,6 +153,7 @@ bool TrySpawnTrap(struct position* pos, enum trap_id trap_id, uint8_t team, bool
 bool TrySpawnTrapperTrap(struct entity* entity);
 bool TryRemoveTrap(struct position* pos, bool update_trap_visibility);
 bool TryRevealAttackedTrap(struct position* pos, bool update_trap_visibility);
+void SubstitutePlaceholderTrapTags2(uint8_t tag_id, enum trap_id trap_id);
 void SubstitutePlaceholderTrapTags(struct preprocessor_args* preprocessor_args, uint8_t tag_id,
                                    enum trap_id trap_id);
 void TryTriggerTrap(struct entity* entity, struct position* pos, undefined param_3,
@@ -174,6 +180,7 @@ bool DebugRecruitingEnabled(void);
 void TryActivateIqBooster(void);
 bool IsSecretBazaarNpcBehavior(enum monster_behavior behavior);
 struct action_16* GetLeaderAction(void);
+enum action_id GetLeaderActionId(void);
 void GetEntityTouchscreenArea(struct entity* entity, struct touchscreen_area* area);
 void SetLeaderAction(void);
 bool ShouldLeaderKeepRunning(void);
@@ -459,8 +466,8 @@ void TryInflictNightmareStatus(struct entity* user, struct entity* target, int t
 void TryInflictNappingStatus(struct entity* user, struct entity* target, int turns);
 void TryInflictYawningStatus(struct entity* user, struct entity* target, int turns);
 void TryInflictSleeplessStatus(struct entity* user, struct entity* target);
-bool TryInflictPausedStatus(struct entity* user, struct entity* target, int param_3, int turns,
-                            bool log_failure, bool check_only);
+bool TryInflictPausedStatus(struct entity* user, struct entity* target, bool check_safeguard,
+                            int turns, bool log_failure, bool check_only);
 bool TryInflictInfatuatedStatus(struct entity* user, struct entity* target, bool log_failure,
                                 bool check_only);
 bool TryInflictBurnStatus(struct entity* user, struct entity* target, bool special_effect,
@@ -547,7 +554,7 @@ bool TryInflictExposedStatus(struct entity* user, struct entity* target, int eff
                              bool only_check);
 void TryActivateIdentifyCondition(struct entity* user, struct entity* target);
 bool TryInflictBlinkerStatus(struct entity* user, struct entity* target, bool check_only,
-                             bool log_failure);
+                             bool is_permanent);
 bool IsBlinded(struct entity* entity, bool check_held_item);
 bool TryInflictCrossEyedStatus(struct entity* user, struct entity* target, bool check_only);
 void TryInflictEyedropStatus(struct entity* user, struct entity* target);
@@ -578,6 +585,7 @@ bool TryInflictEmbargoStatus(struct entity* user, struct entity* target, bool lo
 bool TryInflictMiracleEyeStatus(struct entity* user, struct entity* target, bool check_only);
 void TryInflictMagnetRiseStatus(struct entity* user, struct entity* target);
 bool IsFloating(struct entity* entity);
+void SetReflectStatus(struct entity* user, struct entity* target, enum status_reflect_id status);
 void TryInflictSafeguardStatus(struct entity* user, struct entity* target);
 void TryInflictMistStatus(struct entity* user, struct entity* target);
 void TryInflictWishStatus(struct entity* user, struct entity* target);
@@ -645,6 +653,7 @@ bool ShouldTryEatItem(enum item_id item_id);
 int GetMaxPpWrapper(struct move* move);
 bool MoveIsNotPhysical(enum move_id move_id);
 bool CategoryIsNotPhysical(enum move_category category_id);
+void MakeFloorOneRoom(struct entity* user);
 void TryDrought(struct entity* user);
 void TryPounce(struct entity* user, struct entity* target, enum direction_id direction);
 void TryBlowAway(struct entity* user, struct entity* target, enum direction_id direction);
@@ -932,6 +941,7 @@ void SetMessageLogPreprocessorArgsSpeakerId(enum monster_id monster_id);
 void SetMessageLogPreprocessorArgsSpeakerId0x30000(int16_t team_index);
 void LogMessageByIdWithPopupAndAbility(struct entity* user, struct entity* target, int message_id,
                                        int idx, int16_t val);
+void WaitUntilAlertBoxTextIsLoadedWrapper(void);
 void LogMessageByIdWithPopupCheckUser(struct entity* user, int message_id);
 void LogMessageWithPopupCheckUser(struct entity* user, const char* message);
 void LogMessageByIdQuiet(struct entity* user, int message_id);
@@ -947,6 +957,8 @@ void LogMessageByIdWithPopup(struct entity* user, int message_id);
 void LogMessageWithPopup(struct entity* user, const char* message);
 void LogMessage(struct entity* user, const char* message, bool show_popup);
 void LogMessageById(struct entity* user, int message_id, bool show_popup);
+bool AlertBoxIsScrolling(void);
+void WaitUntilAlertBoxTextIsLoaded(undefined param_1);
 void InitPortraitDungeon(struct portrait_params* portrait, enum monster_id monster_id,
                          enum portrait_emotion emotion);
 void OpenMessageLog(undefined4 param_1, undefined4 param_2);
@@ -967,6 +979,7 @@ bool YesNoMenu(undefined param_1, int string_id, int default_option, undefined p
 void DisplayMessageInternal(int message_id, bool wait_for_input, struct portrait_params* portrait,
                             undefined4 param_4, undefined4 param_5, undefined4 param_6);
 void OpenMenu(undefined param_1, undefined param_2, bool open_bag);
+void StairsMenuAfterStep(struct entity* leader, bool leave_minimap_closed_after);
 int DungeonModeSetupAndShowNameKeyboard(char* str_keyboard_result, char* buffer,
                                         undefined4 param_3);
 int OthersMenuLoop(void);
