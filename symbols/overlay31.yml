@@ -88,7 +88,7 @@ overlay31:
         r0: window_id
     - name: StairsMenuLoop
       aliases:
-        - CreateStairsMenuState
+        - HandleStairsMenu
       address:
         EU: 0x2383BBC
         NA: 0x2382FBC
