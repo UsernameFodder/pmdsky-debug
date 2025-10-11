@@ -7093,7 +7093,7 @@ arm9:
         Master function called on every frame for handling the game's menus (seemingly the vast majority with the exception of some in dungeon mode). 
         
         This includes updating them, freeing them, and entering and exiting their respective overlays if applicable.
-
+        
         No params.
     - name: SetupAndShowKeyboard
       address:
