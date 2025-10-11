@@ -7067,7 +7067,7 @@ arm9:
         EU: 0x2034A94
       description: |-
         Checks if two overlay_load_entries have the same values for all of their fields.
-
+        
         r0: overlay_load_entry pointer
         r1: overlay_load_entry pointer
         return: bool
@@ -7076,14 +7076,14 @@ arm9:
         EU: 0x2034AE4
       description: |-
         Frees the currently active menu by calling the destructor function of the active entry in menu_control.
-
+        
         No params.
     - name: InitMenu
       address:
         EU: 0x2034BD8
       description: |-
         Initializes a menu by setting the incoming_entry field of menu_control to the given overlay_load_entry.
-
+        
         r0: overlay_load_entry pointer
         return: whether the menu was successfully initialized
     - name: HandleMenus
