@@ -7086,6 +7086,24 @@ arm9:
         
         r0: overlay_load_entry pointer
         return: whether the menu was successfully initialized
+    - name: InitMenuWithWindowExtraInfo
+      address:
+        EU: 0x2034BD8
+      description: |-
+        Has the same functionality as InitMenu except also tries to initialize menu_control's window_extra_info struct.
+        
+        r0: overlay_load_entry pointer
+        r1: whether there is a window_extra_info struct
+        r2: window_extra_info pointer
+        return: whether the menu was successfully initialized
+    - name: CopyMenuControlWindowExtraInfo
+      address:
+        EU: 0x2034D2C
+      description: |-
+        Copies menu_control's window_extra_info to the given address.
+        
+        r0: [output] window_extra_info pointer
+        return: whether the window extra info was successfully copied
     - name: HandleMenus
       address:
         EU: 0x2034D74

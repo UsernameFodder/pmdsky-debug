@@ -758,6 +758,9 @@ void InitInventoryMenuInput(struct inventory_menu_input_ctx* input_ctx, struct w
 bool OverlayLoadEntriesEqual(struct overlay_load_entry* entry1, struct overlay_load_entry* entry2);
 void FreeMenu(void);
 bool InitMenu(struct overlay_load_entry* entry);
+bool InitMenuWithWindowExtraInfo(struct overlay_load_entry* entry, bool init_extra_info,
+                                 struct window_extra_info* window_extra_info);
+bool CopyMenuControlWindowExtraInfo(struct window_extra_info* window_extra_info);
 void HandleMenus(void);
 int SetupAndShowKeyboard(int menu_type, char* buffer1, char* buffer2);
 int ShowKeyboard(int menu_type, char* buffer1, int param_3, char* buffer2);

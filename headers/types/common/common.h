@@ -1372,7 +1372,9 @@ struct menu_control {
     // 0x14: The incoming entry which is set in InitMenu.
     // When loading a new menu, it is copied to active_entry and then zeroed out.
     struct overlay_load_entry incoming_entry;
-    undefined fields_0x24[160];
+    // 0x24: Whether there is a window_extra_info struct for CopyMenuControlWindowExtraInfo
+    int has_window_extra_info;
+    struct window_extra_info window_extra_info;
     struct overlay_load_entry active_entry; // 0xC4: The entry for the currently active menu
     // 0xD4: 0 means no menu active, 1 means menu initializing, 2 means menu active, 3 means ???
     int state;
