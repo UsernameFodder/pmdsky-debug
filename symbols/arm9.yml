@@ -7090,7 +7090,7 @@ arm9:
       address:
         EU: 0x2034D74
       description: |-
-        Master function called on every frame for handling the game's menus. 
+        Master function called on every frame for handling the game's menus (seemingly almost all with the exception of some in dungeon mode). 
         
         This includes updating them, freeing them, and entering and exiting their respective overlays if applicable.
 
