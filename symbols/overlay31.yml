@@ -58,7 +58,7 @@ overlay31:
         No params.
     - name: StairsMenu
       address:
-        EU: 0x23839AC
+        EU: 0x2383A18
       description: |-
         Called when the stairs menu is open. Does not return until the menu is closed.
         

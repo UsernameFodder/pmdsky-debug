@@ -11698,6 +11698,15 @@ arm9:
         Note that x_offset and y_offset refer to the right and bottom edges, since they will be paired with the x_offset_end and y_offset_end window flags in CreateTeamSelectionMenu.
         
         Additionally, width and height are 0, and will be computed in CreateTeamSelectionMenu.
+    - name: NULL_OVERLAY_LOAD_ENTRY
+      address:
+        EU: 0x209B5C8
+      length:
+        EU: 0x10
+      description: |-
+        An overlay_load_entry whose values are all zeroes.
+        
+        type: overlay_load_entry
     - name: PARTNER_TALK_KIND_TABLE
       address:
         EU: 0x209D268
@@ -11754,15 +11763,6 @@ arm9:
         All the possible layouts a portrait can be placed in by default.
         
         type: struct portrait_layout[32]
-    - name: NULL_OVERLAY_LOAD_ENTRY
-      address:
-        EU: 0x209B5C8
-      length:
-        EU: 0x10
-      description: |-
-        An overlay_load_entry whose values are all zeroes.
-        
-        type: overlay_load_entry
     - name: KAOMADO_FILEPATH
       address:
         EU: 0x209E658
