@@ -40,7 +40,7 @@ overlay31:
         Note: unverified, ported from Irdkwia's notes
         
         r0: appears to be an index of some sort, probably the menu index based on the function name?
-    - name: HandleDungeonMenu
+    - name: DungeonMenuLoop
       address:
         EU: 0x2383754
       description: |-
@@ -56,6 +56,14 @@ overlay31:
         Closes the main dungeon menu and frees the heap-allocated struct initialized in InitDungeonMenu.
         
         No params.
+    - name: StairsMenu
+      address:
+        EU: 0x23839AC
+      description: |-
+        Called when the stairs menu is open. Does not return until the menu is closed.
+        
+        r0: Entity pointer (in practice, always the leader)
+        r1: whether to not open minimap upon menu close
     - name: InitStairsMenu
       aliases:
         - CreateStairsMenuState
@@ -78,7 +86,9 @@ overlay31:
         Callback function passed to CreateAdvancedTextBox for creating the subheading for the stairs menu.
         
         r0: window_id
-    - name: HandleStairsMenu
+    - name: StairsMenuLoop
+      aliases:
+        - CreateStairsMenuState
       address:
         EU: 0x2383BBC
         NA: 0x2382FBC
@@ -112,6 +122,15 @@ overlay31:
         JP:
           - 0x23848D8
       description: "See overlay29.yml::EntityIsValid"
+    - name: ItemsMenu
+      address:
+        EU: 0x23844E4
+      description: |-
+        Called when the in-dungeon "items" menu is open. Does not return until the menu is closed.
+        
+        r0: Pointer to the leader's entity struct
+        r1: ?
+        return: ?
     - name: MovesMenu
       address:
         EU: 0x2385DC0

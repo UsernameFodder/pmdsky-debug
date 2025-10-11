@@ -590,6 +590,7 @@ void SetParentMenuState7(int window_id);
 void CloseParentMenu(int window_id);
 bool IsParentMenuActive(int window_id);
 bool CheckParentMenuField0x1A0(int window_id);
+uint8_t GetWindowIdSelectedItemOnPage(int window_id);
 int GetSimpleMenuResult(int window_id);
 void UpdateParentMenu(struct window* window);
 int CreateSimpleMenuFromStringIds(struct window_params* params, struct window_flags flags,
@@ -754,6 +755,10 @@ void InitInventoryMenuInput(struct inventory_menu_input_ctx* input_ctx, struct w
                             struct window_extra_info* window_extra_info,
                             struct window_rectangle* rect, int n_items, int n_items_per_page,
                             undefined param_7);
+bool OverlayLoadEntriesEqual(struct overlay_load_entry* entry1, struct overlay_load_entry* entry2);
+void FreeMenu(void);
+bool InitMenu(struct overlay_load_entry* entry);
+void HandleMenus(void);
 int SetupAndShowKeyboard(int menu_type, char* buffer1, char* buffer2);
 int ShowKeyboard(int menu_type, char* buffer1, int param_3, char* buffer2);
 int GetKeyboardStatus(void);

@@ -116,6 +116,7 @@ void PlaySeByIdIfNotSilence(int se_id);
 enum music_id MusicTableIdxToMusicId(int music_table_idx);
 void ChangeDungeonMusic(enum music_id music_id);
 void TrySwitchPlace(struct entity* user, struct entity* target);
+void ResetLeaderActionFields(bool clear_additional_fields);
 void SetLeaderActionFields(enum action action_id);
 void ClearMonsterActionFields(struct action_data* monster_action);
 void SetMonsterActionFields(struct action_data* monster_action, enum action action_id);
@@ -178,6 +179,7 @@ bool DebugRecruitingEnabled(void);
 void TryActivateIqBooster(void);
 bool IsSecretBazaarNpcBehavior(enum monster_behavior behavior);
 struct action_16* GetLeaderAction(void);
+enum action_id GetLeaderActionId(void);
 void GetEntityTouchscreenArea(struct entity* entity, struct touchscreen_area* area);
 void SetLeaderAction(void);
 bool ShouldLeaderKeepRunning(void);
@@ -971,6 +973,7 @@ bool YesNoMenu(undefined param_1, int string_id, int default_option, undefined p
 void DisplayMessageInternal(int message_id, bool wait_for_input, struct portrait_params* portrait,
                             undefined4 param_4, undefined4 param_5, undefined4 param_6);
 void OpenMenu(undefined param_1, undefined param_2, bool open_bag);
+void StairsMenuAfterStep(struct entity* leader, bool leave_minimap_closed_after);
 int DungeonModeSetupAndShowNameKeyboard(char* str_keyboard_result, char* buffer,
                                         undefined4 param_3);
 int OthersMenuLoop(void);

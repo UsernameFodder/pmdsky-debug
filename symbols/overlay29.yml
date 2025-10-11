@@ -1368,6 +1368,13 @@ overlay29:
         
         r0: pointer to user entity
         r1: pointer to target entity
+    - name: ResetLeaderActionFields
+      address:
+        EU: 0x22EBD48
+      description: |-
+        Resets the leader monster's action_id fields to 0.
+        
+        r0: whether to also set the action_use_idx fields of the action_parameters structs and the arc_item_target_pos fields to 0
     - name: SetLeaderActionFields
       address:
         EU: 0x22EBD78
@@ -1956,6 +1963,13 @@ overlay29:
         Returns a pointer to the action data of the current leader (field 0x4A on its monster struct).
         
         No params.
+    - name: GetLeaderActionId
+      address:
+        EU: 0x22F1550
+      description: |-
+        Gets the current action id of the leader monster's action data.
+        
+        return: action_id
     - name: GetEntityTouchscreenArea
       address:
         EU: 0x22F1560
@@ -9482,6 +9496,14 @@ overlay29:
         r0: (?) Unused by the function. Seems to be 1 byte long.
         r1: (?) Unused by the function. Seems to be 1 byte long.
         r2: True to open the bag menu, false to open the main dungeon menu
+    - name: StairsMenuAfterStep
+      address:
+        EU: 0x234F504
+      description: |-
+        Opens the stairs menu after stepping on a stairs tile.
+        
+        r0: Entity pointer (in practice, always the leader)
+        r1: whether to not open minimap upon menu close
     - name: DungeonModeSetupAndShowNameKeyboard
       address:
         EU: 0x234FC14

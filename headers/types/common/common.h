@@ -1363,4 +1363,23 @@ struct monster_file_contents {
 };
 ASSERT_SIZE(struct monster_file_contents, 78548);
 
+// Master struct for controlling the game's menus.
+struct menu_control {
+    undefined fields_0x0[16];
+    // 0x10: Whether to load a new menu on the next call of HandleMenus
+    bool load_new_menu;
+    undefined fields_0x11[3];
+    // 0x14: The incoming entry which is set in InitMenu.
+    // When loading a new menu, it is copied to active_entry and then zeroed out.
+    struct overlay_load_entry incoming_entry;
+    undefined fields_0x24[160];
+    struct overlay_load_entry active_entry; // 0xC4: The entry for the currently active menu
+    // 0xD4: 0 means no menu active, 1 means menu initializing, 2 means menu active, 3 means ???
+    int state;
+    // 0xD8: Whether the overlay in active_entry should be unloaded upon calling FreeMenu
+    bool should_unload_overlay_on_free;
+    undefined fields_0xd9[3];
+};
+ASSERT_SIZE(struct menu_control, 220);
+
 #endif

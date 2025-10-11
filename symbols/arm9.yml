@@ -5676,6 +5676,14 @@ arm9:
         
         r0: window_id
         return: bool
+    - name: GetWindowIdSelectedItemOnPage
+      address:
+        EU: 0x202AE74
+      description: |-
+        Gets the index on the page of the current item the user has selected on the menu given by the window_id.
+        
+        r0: window id
+        return: index of current selected item on the page
     - name: GetSimpleMenuResult
       address:
         EU:
@@ -7054,6 +7062,39 @@ arm9:
         stack[0]: total number of selectable items
         stack[1]: number of selectable items per page
         stack[2]: ?
+    - name: OverlayLoadEntriesEqual
+      address:
+        EU: 0x2034A94
+      description: |-
+        Checks if two overlay_load_entries have the same values for all of their fields.
+
+        r0: overlay_load_entry pointer
+        r1: overlay_load_entry pointer
+        return: bool
+    - name: FreeMenu
+      address:
+        EU: 0x2034AE4
+      description: |-
+        Frees the currently active menu by calling the destructor function of the active entry in menu_control.
+
+        No params.
+    - name: InitMenu
+      address:
+        EU: 0x2034BD8
+      description: |-
+        Initializes a menu by setting the incoming_entry field of menu_control to the given overlay_load_entry.
+
+        r0: overlay_load_entry pointer
+        return: whether the menu was successfully initialized
+    - name: HandleMenus
+      address:
+        EU: 0x2034D74
+      description: |-
+        Master function called on every frame for handling the game's menus. 
+        
+        This includes updating them, freeing them, and entering and exiting their respective overlays if applicable.
+
+        No params.
     - name: SetupAndShowKeyboard
       address:
         EU: 0x2036AA8
@@ -11713,6 +11754,15 @@ arm9:
         All the possible layouts a portrait can be placed in by default.
         
         type: struct portrait_layout[32]
+    - name: NULL_OVERLAY_LOAD_ENTRY
+      address:
+        EU: 0x209B5C8
+      length:
+        EU: 0x10
+      description: |-
+        An overlay_load_entry whose values are all zeroes.
+        
+        type: overlay_load_entry
     - name: KAOMADO_FILEPATH
       address:
         EU: 0x209E658
@@ -13314,6 +13364,15 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         type: int16_t[6]
+    - name: MENU_CONTROL_PTR
+      address:
+        EU: 0x20B06B4
+      length:
+        EU: 0x4
+      description: |-
+        Pointer to the master struct used for handling menus.
+        
+        type: menu_control*
     - name: KEYBOARD_STRING_IDS
       address:
         EU: 0x20B0718
