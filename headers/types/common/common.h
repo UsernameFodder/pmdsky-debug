@@ -1375,7 +1375,7 @@ struct menu_control {
     // 0x24: Whether there is a window_extra_info struct for CopyMenuControlWindowExtraInfo
     int has_window_extra_info;
     struct window_extra_info window_extra_info; // 0x28
-    undefined4 fields_0xc0[4];
+    undefined fields_0xc0[4];
     struct overlay_load_entry active_entry; // 0xC4: The entry for the currently active menu
     // 0xD4: 0 means no menu active, 1 means menu initializing, 2 means menu active, 3 means ???
     int state;
