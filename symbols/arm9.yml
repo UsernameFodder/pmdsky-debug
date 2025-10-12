@@ -7071,7 +7071,7 @@ arm9:
         r0: overlay_load_entry pointer
         r1: overlay_load_entry pointer
         return: bool
-    - name: FreeMenu
+    - name: FreeActiveMenu
       address:
         EU: 0x2034AE4
       description: |-

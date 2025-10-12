@@ -14,6 +14,8 @@ overlay31:
   description: Controls the dungeon menu (during dungeon mode).
   functions:
     - name: InitDungeonMenu
+      aliases:
+        - EntryOverlay31
       address:
         EU: 0x2383420
         NA: 0x2382820

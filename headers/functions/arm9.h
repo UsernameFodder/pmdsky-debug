@@ -756,7 +756,7 @@ void InitInventoryMenuInput(struct inventory_menu_input_ctx* input_ctx, struct w
                             struct window_rectangle* rect, int n_items, int n_items_per_page,
                             undefined param_7);
 bool OverlayLoadEntriesEqual(struct overlay_load_entry* entry1, struct overlay_load_entry* entry2);
-void FreeMenu(void);
+void FreeActiveMenu(void);
 bool InitMenu(struct overlay_load_entry* entry);
 bool InitMenuWithWindowExtraInfo(struct overlay_load_entry* entry, bool init_extra_info,
                                  struct window_extra_info* window_extra_info);
