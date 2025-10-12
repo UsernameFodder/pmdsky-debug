@@ -3989,7 +3989,7 @@ arm9:
       address:
         EU: 0x20182A8
       description: |-
-        Initializes some values and then calls SendAudioCommand to play a ME track.
+        Initializes some values and then calls SendAudioCommand to play a ME track (musical sound effect).
         
         Checks for DEBUG_FLAG_BGM_OFF. The volume is set to either 0 or 255 depending on the flag before calling SendAudioCommand.
         
@@ -6657,7 +6657,7 @@ arm9:
         r2: message string pointer
         r3: preprocessor_args struct pointer
         stack[0]: whether the message is the start of a new group (meaning it should be preceded by a horizontal line)
-        return: whether the message was sucessfully added
+        return: whether the message was successfully added
     - name: IsAlertBoxActive
       address:
         EU: 0x20304E8

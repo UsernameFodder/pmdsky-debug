@@ -347,6 +347,16 @@ overlay10:
         The first dungeon that can have extra traps spawn in Monster Houses, Dark Hill
         
         type: struct dungeon_id_8
+    - name: FIERY_DRUM_RECRUIT_BOOST
+      address:
+        EU: 0x22C4D68
+        NA: 0x22C4410
+        JP: 0x22C5AF8
+      length:
+        EU: 0x2
+        NA: 0x2
+        JP: 0x2
+      description: The amount added to the recruit rate with compatible species when holding a Fiery Drum.
     - name: BAD_POISON_DAMAGE_COOLDOWN
       address:
         EU: 0x22C4D6C
@@ -357,6 +367,16 @@ overlay10:
         NA: 0x2
         JP: 0x2
       description: The number of turns between passive bad poison (toxic) damage.
+    - name: ICY_FLUTE_RECRUIT_BOOST
+      address:
+        EU: 0x22C4D74
+        NA: 0x22C441C
+        JP: 0x22C5B04
+      length:
+        EU: 0x2
+        NA: 0x2
+        JP: 0x2
+      description: The amount added to the recruit rate with compatible species when holding an Icy Flute.
     - name: PROTEIN_STAT_BOOST
       address:
         EU: 0x22C4D78
@@ -405,6 +425,16 @@ overlay10:
         NA: 0x2
         JP: 0x2
       description: Damage dealt by eating an Oren Berry.
+    - name: GOLDEN_MASK_RECRUIT_BOOST
+      address:
+        EU: 0x22C4D94
+        NA: 0x22C443C
+        JP: 0x22C5B24
+      length:
+        EU: 0x2
+        NA: 0x2
+        JP: 0x2
+      description: The amount added to the recruit rate when holding a Golden Mask.
     - name: IRON_TAIL_LOWER_DEFENSE_CHANCE
       address:
         EU: 0x22C4D98
@@ -488,6 +518,16 @@ overlay10:
         NA: 0x2
         JP: 0x2
       description: The amount of HP restored by eating a Sitrus Berry.
+    - name: AMBER_TEAR_RECRUIT_BOOST
+      address:
+        EU: 0x22C4DD4
+        NA: 0x22C447C
+        JP: 0x22C5B64
+      length:
+        EU: 0x2
+        NA: 0x2
+        JP: 0x2
+      description: The amount added to the recruit rate when holding an Amber Tear.
     - name: MUDDY_WATER_LOWER_ACCURACY_CHANCE
       address:
         EU: 0x22C4DDC
@@ -696,6 +736,16 @@ overlay10:
         NA: 0x2
         JP: 0x2
       description: The permanent HP boost from eating a Life Seed.
+    - name: FRIEND_BOW_FAST_FRIEND_BOOST
+      address:
+        EU: 0x22C4E54
+        NA: 0x22C44FC
+        JP: 0x22C5BE4
+      length:
+        EU: 0x2
+        NA: 0x2
+        JP: 0x2
+      description: The amount added to the recruit rate when holding a Friend Bow or with the Fast Friend IQ skill.
     - name: OCTAZOOKA_LOWER_ACCURACY_CHANCE
       address:
         EU: 0x22C4E58
@@ -1439,6 +1489,56 @@ overlay10:
         NA: 0x2
         JP: 0x2
       description: The amount of HP restored by Healing Wish (999). This also applies to Lunar Dance.
+    - name: SKY_MELODICA_RECRUIT_BOOST
+      address:
+        EU: 0x22C5054
+        NA: 0x22C46FC
+        JP: 0x22C5DE4
+      length:
+        EU: 0x2
+        NA: 0x2
+        JP: 0x2
+      description: The amount added to the recruit rate with compatible species when holding a Sky Melodica.
+    - name: GRASS_CORNET_RECRUIT_BOOST
+      address:
+        EU: 0x22C5058
+        NA: 0x22C4700
+        JP: 0x22C5DE8
+      length:
+        EU: 0x2
+        NA: 0x2
+        JP: 0x2
+      description: The amount added to the recruit rate with compatible species when holding a Grass Cornet.
+    - name: ROCK_HORN_RECRUIT_BOOST
+      address:
+        EU: 0x22C505C
+        NA: 0x22C4704
+        JP: 0x22C5DEC
+      length:
+        EU: 0x2
+        NA: 0x2
+        JP: 0x2
+      description: The amount added to the recruit rate with compatible species when holding a Rock Horn.
+    - name: AQUA_MONICA_RECRUIT_BOOST
+      address:
+        EU: 0x22C5060
+        NA: 0x22C4708
+        JP: 0x22C5DF0
+      length:
+        EU: 0x2
+        NA: 0x2
+        JP: 0x2
+      description: The amount added to the recruit rate with compatible species when holding a Aqua Monica.
+    - name: TERRA_CYMBAL_RECRUIT_BOOST
+      address:
+        EU: 0x22C5064
+        NA: 0x22C470C
+        JP: 0x22C5DF4
+      length:
+        EU: 0x2
+        NA: 0x2
+        JP: 0x2
+      description: The amount added to the recruit rate with compatible species when holding a Terra Cymbal.
     - name: ME_FIRST_MULTIPLIER
       address:
         EU: 0x22C5068

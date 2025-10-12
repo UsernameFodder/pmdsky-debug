@@ -53,12 +53,16 @@ class HeaderSymbolList(ABC):
         return self.file_stem(self.header_file)
 
     @classmethod
-    def file_stem(cls, header_file: str) -> str:
-        return os.path.splitext(os.path.relpath(header_file, start=cls.HEADERS_DIR))[0]
+    def file_stem(cls, filepath: str, start: Optional[str] = None) -> str:
+        if start is None:
+            start = cls.HEADERS_DIR
+        return os.path.splitext(os.path.relpath(filepath, start=start))[0]
 
     @classmethod
-    def headers(cls) -> Generator[str, None, None]:
-        for root, dirs, files in os.walk(cls.HEADERS_DIR):
+    def headers(cls, start_dir: Optional[str] = None) -> Generator[str, None, None]:
+        if start_dir is None:
+            start_dir = cls.HEADERS_DIR
+        for root, dirs, files in os.walk(start_dir):
             dirs.sort()  # Ensure subdirectories are visited in sorted order
             for f in sorted(files):
                 if f.endswith(".h"):
@@ -70,6 +74,14 @@ class HeaderSymbolList(ABC):
         Get the symbol file name that corresponds to the given header file.
         """
         fname = os.path.join(SYMBOLS_DIR, cls.file_stem(header_file) + ".yml")
+        return fname if os.path.isfile(fname) else None
+
+    @classmethod
+    def get_header_file(cls, symbol_file: str) -> Optional[str]:
+        """
+        Get the header file name that corresponds to the given symbol file.
+        """
+        fname = os.path.join(cls.HEADERS_DIR, cls.file_stem(symbol_file, SYMBOLS_DIR) + ".h")
         return fname if os.path.isfile(fname) else None
 
     @staticmethod
