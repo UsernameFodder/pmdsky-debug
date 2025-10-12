@@ -85,6 +85,7 @@ int GetChebyshevDistance(struct position* position_a, struct position* position_
 bool IsPositionActuallyInSight(struct position* origin, struct position* target,
                                bool user_has_dropeye);
 bool IsPositionInSight(struct position* origin, struct position* target, bool user_has_dropeye);
+bool IsPositionWithinTwoTiles(struct position* origin, struct position* target);
 struct entity* GetLeader(void);
 struct monster* GetLeaderMonster(void);
 bool GetRandomTile(struct position* pos_out, bool exclude_key_doors);
@@ -279,6 +280,7 @@ enum mobility_type GetMobilityTypeCheckSlipAndFloating(struct entity* monster,
 bool IsInvalidSpawnTile(enum monster_id monster_id, struct tile* tile);
 enum mobility_type GetMobilityTypeAfterIqSkills(struct entity* monster,
                                                 enum mobility_type mobility_type);
+bool CanMoveThroughWalls(struct entity* monster);
 bool CannotStandOnTile(struct entity* monster, struct tile* tile);
 int CalcSpeedStage(struct entity* entity, int counter_weight);
 int CalcSpeedStageWrapper(struct entity* entity);
@@ -313,6 +315,8 @@ bool CanMonsterMoveOrSwapWithAllyInDirection(struct entity* monster, enum direct
 bool CanAttackInDirection(struct entity* monster, enum direction_id direction);
 bool CanAiMonsterMoveInDirection(struct entity* monster, enum direction_id direction,
                                  bool* out_monster_in_target_position);
+bool IsAtJunction(struct entity* monster);
+bool ShouldAvoidFirstHit(struct entity* monster, bool force_avoid);
 bool ShouldMonsterRunAway(struct entity* monster);
 bool ShouldMonsterRunAwayAndShowEffect(struct entity* monster, bool show_run_away_effect);
 void DisplayRunAwayIfTriggered(struct entity* monster, bool show_run_away_effect);
@@ -335,6 +339,7 @@ bool IsTacticSet(struct entity* entity, enum tactic_id tactic_id);
 bool HasDropeyeStatus(struct entity* entity);
 bool IqSkillIsEnabled(struct entity* entity, enum iq_skill_id iq_id);
 void UpdateIqSkills(struct monster* monster);
+bool CanSeeTeammate(struct monster* monster);
 enum type_id GetMoveTypeForMonster(struct entity* entity, struct move* move);
 int GetMovePower(struct entity* entity, struct move* move);
 bool MonsterCanThrowItems(struct monster* monster);
@@ -382,6 +387,7 @@ void EndProtectStatus(struct entity* user, struct entity* target);
 void TryRestoreRoostTyping(struct entity* user, struct entity* target);
 void TryTriggerMonsterHouse(struct entity* entity, bool outside_enemies);
 bool ShouldMonsterFollowLeader(struct entity* monster);
+struct entity* GetLeaderIfVisible(struct entity* monster);
 void RunMonsterAi(struct entity* monster, int unused);
 void ApplyDamageAndEffects(struct entity* attacker, struct entity* defender,
                            struct damage_data* damage_data, bool false_swipe, bool exp_on_faint,
