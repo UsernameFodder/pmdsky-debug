@@ -3989,7 +3989,7 @@ arm9:
       address:
         EU: 0x20182A8
       description: |-
-        Initializes some values and then calls SendAudioCommand to play a ME track.
+        Initializes some values and then calls SendAudioCommand to play a ME track (musical sound effect).
         
         Checks for DEBUG_FLAG_BGM_OFF. The volume is set to either 0 or 255 depending on the flag before calling SendAudioCommand.
         
