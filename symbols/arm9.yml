@@ -3942,7 +3942,7 @@ arm9:
       description: |-
         Wrapper for PlaySeByIdVolume with 0x100 as the volume.
         
-        r0: Index
+        r0: Sound effect ID
     - name: PlaySeVolumeWrapper
       address:
         EU: 0x2017D68
@@ -3985,6 +3985,17 @@ arm9:
         Stops the BGM that is being currently played by calling SendAudioCommand.
         
         No params.
+    - name: PlayMeById
+      address:
+        EU: 0x20182A8
+      description: |-
+        Initializes some values and then calls SendAudioCommand to play a ME track (musical sound effect).
+        
+        For a list of tracks, see https://wiki.skytemple.org/index.php?title=List_of_Sound_Effects#ME
+        
+        Checks for DEBUG_FLAG_BGM_OFF. The volume is set to either 0 or 255 depending on the flag before calling SendAudioCommand.
+        
+        r0: ME ID
     - name: PlaySeByIdVolume
       address:
         EU: 0x2018354
@@ -5667,6 +5678,26 @@ arm9:
         
         r0: window_id
         return: bool
+    - name: GetWindowIdSelectedItemOnPage
+      address:
+        EU: 0x202AE74
+      description: |-
+        Gets the index on the page of the current item the user has selected on the menu given by the window_id.
+        
+        r0: window id
+        return: index of current selected item on the page
+    - name: GetSimpleMenuResult
+      address:
+        EU:
+          - 0x202AEA4
+          - 0x202B870
+        NA: 0x202B57C
+        JP: 0x202B8D4
+      description: |-
+        Note: unverified, ported from Irdkwia's notes
+        
+        r0: window_id
+        return: ?
     - name: UpdateParentMenu
       address:
         EU: 0x202AEF0
@@ -5776,16 +5807,6 @@ arm9:
         
         r0: window_id
         return: field_0x1a4
-    - name: GetSimpleMenuResult
-      address:
-        EU: 0x202B870
-        NA: 0x202B57C
-        JP: 0x202B8D4
-      description: |-
-        Note: unverified, ported from Irdkwia's notes
-        
-        r0: window_id
-        return: ?
     - name: UpdateSimpleMenu
       address:
         EU: 0x202B8BC
@@ -6627,6 +6648,18 @@ arm9:
         Closes a window created with CreateAlertBox.
         
         r0: window_id
+    - name: AddMessageToAlertBox
+      address:
+        EU: 0x2030400
+      description: |-
+        Adds a message to the dungeon alert box.
+        
+        r0: window_id
+        r1: preprocessor flags
+        r2: message string pointer
+        r3: preprocessor_args struct pointer
+        stack[0]: whether the message is the start of a new group (meaning it should be preceded by a horizontal line)
+        return: whether the message was successfully added
     - name: IsAlertBoxActive
       address:
         EU: 0x20304E8
@@ -6925,8 +6958,24 @@ arm9:
       description: |-
         Called whenever a menu option is selected. Returns whether the option is active or not.
         
-        r0: ?
+        r0: window_input_ctx struct pointer
         return: True if the menu option is enabled, false otherwise.
+    - name: GetSelectedItemOnPage
+      address:
+        EU: 0x203284C
+      description: |-
+        Gets the index on the page of the current item the user has selected.
+        
+        r0: window_input_ctx struct pointer
+        return: index of current selected item on the page
+    - name: GetCurrentPage
+      address:
+        EU: 0x2032854
+      description: |-
+        Gets the index of the current menu page the user is on.
+        
+        r0: window_input_ctx struct pointer
+        return: current page
     - name: GetPageStart
       address:
         EU: 0x203285C
@@ -6937,6 +6986,22 @@ arm9:
         
         r0: window_input_ctx struct pointer
         return: index of first item on page
+    - name: GetSelectedMenuItemIdx
+      address:
+        EU: 0x203286C
+      description: |-
+        Gets the index of the current menu item the user has selected.
+        
+        r0: window_input_ctx struct pointer
+        return: index of current selected item
+    - name: GetTotalNumMenuItems
+      address:
+        EU: 0x2032880
+      description: |-
+        Gets the total number of items in the menu.
+        
+        r0: window_input_ctx struct pointer
+        return: number of menu items
     - name: GetNumItemsOnPage
       address:
         EU: 0x2032888
@@ -6947,6 +7012,22 @@ arm9:
         
         r0: window_input_ctx struct pointer
         return: number of items on page
+    - name: GetMaxItemsOnPage
+      address:
+        EU: 0x2032890
+      description: |-
+        Gets the maximum possible number of items the menu can hold on one of its pages.
+        
+        r0: window_input_ctx struct pointer
+        return: number of menu pages
+    - name: GetTotalNumPages
+      address:
+        EU: 0x2032898
+      description: |-
+        Gets the total number of pages in the menu.
+        
+        r0: window_input_ctx struct pointer
+        return: number of menu pages
     - name: GetPageItemYOffset
       address:
         EU: 0x2032BCC
@@ -6983,6 +7064,57 @@ arm9:
         stack[0]: total number of selectable items
         stack[1]: number of selectable items per page
         stack[2]: ?
+    - name: OverlayLoadEntriesEqual
+      address:
+        EU: 0x2034A94
+      description: |-
+        Checks if two overlay_load_entries have the same values for all of their fields.
+        
+        r0: overlay_load_entry pointer
+        r1: overlay_load_entry pointer
+        return: bool
+    - name: FreeActiveMenu
+      address:
+        EU: 0x2034AE4
+      description: |-
+        Frees the currently active menu by calling the destructor function of the active entry in menu_control.
+        
+        No params.
+    - name: InitMenu
+      address:
+        EU: 0x2034BD8
+      description: |-
+        Initializes a menu by setting the incoming_entry field of menu_control to the given overlay_load_entry.
+        
+        r0: overlay_load_entry pointer
+        return: whether the menu was successfully initialized
+    - name: InitMenuWithWindowExtraInfo
+      address:
+        EU: 0x2034C68
+      description: |-
+        Has the same functionality as InitMenu except also tries to initialize menu_control's window_extra_info struct.
+        
+        r0: overlay_load_entry pointer
+        r1: whether there is a window_extra_info struct
+        r2: window_extra_info pointer
+        return: whether the menu was successfully initialized
+    - name: CopyMenuControlWindowExtraInfo
+      address:
+        EU: 0x2034D2C
+      description: |-
+        Copies menu_control's window_extra_info to the given address.
+        
+        r0: [output] window_extra_info pointer
+        return: whether the window extra info was successfully copied
+    - name: HandleMenus
+      address:
+        EU: 0x2034D74
+      description: |-
+        Master function called on every frame for handling the game's menus (seemingly the vast majority with the exception of some in dungeon mode). 
+        
+        This includes updating them, freeing them, and entering and exiting their respective overlays if applicable.
+        
+        No params.
     - name: SetupAndShowKeyboard
       address:
         EU: 0x2036AA8
@@ -11586,6 +11718,15 @@ arm9:
         Note that x_offset and y_offset refer to the right and bottom edges, since they will be paired with the x_offset_end and y_offset_end window flags in CreateTeamSelectionMenu.
         
         Additionally, width and height are 0, and will be computed in CreateTeamSelectionMenu.
+    - name: NULL_OVERLAY_LOAD_ENTRY
+      address:
+        EU: 0x209B5C8
+      length:
+        EU: 0x10
+      description: |-
+        An overlay_load_entry whose values are all zeroes.
+        
+        type: overlay_load_entry
     - name: PARTNER_TALK_KIND_TABLE
       address:
         EU: 0x209D268
@@ -13243,6 +13384,15 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         type: int16_t[6]
+    - name: MENU_CONTROL_PTR
+      address:
+        EU: 0x20B06B4
+      length:
+        EU: 0x4
+      description: |-
+        Pointer to the master struct used for handling menus.
+        
+        type: menu_control*
     - name: KEYBOARD_STRING_IDS
       address:
         EU: 0x20B0718

@@ -2529,14 +2529,18 @@ struct alert_box_info {
     undefined field_0xc8a;
     undefined field_0xc8b;
     short alert_box_current_idx; // 0xC8C: Index of current message in alert_box_messages
-    short field_0xc8e;           // Also some sort of index into alert_box_messages
-    undefined2 field_0xc90;
+    // 0xC8E: Index of current fully loaded message in alert_box_messages
+    // (i.e. for which the scrolling is finished)
+    short alert_box_current_loaded_idx;
+    short frames_until_close; // 0xC90
     undefined2 field_0xc92;
     undefined field_0xc94;
     undefined field_0xc95;
     undefined field_0xc96;
     undefined field_0xc97;
-    undefined4 field_0xc98;
+    // 0xC98: 0 means nothing is being loaded, 1 means a message is about to start loading,
+    // 2 means a message is currently loading/scrolling.
+    int loading_status;
     struct preprocessor_args preprocessor_args;
     uint8_t alert_box_window_id; // 0xCEC
     undefined field_0xced;
