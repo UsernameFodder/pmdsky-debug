@@ -326,6 +326,8 @@ void DisplayRunAwayIfTriggered(struct entity* monster, bool show_run_away_effect
 enum monster_treatment GetTreatmentBetweenMonsters(struct entity* entity1, struct entity* entity2,
                                                    bool see_invisible_targets,
                                                    bool ignore_petrified_targets);
+enum monster_treatment GetTreatmentBetweenMonstersIgnoreStatus(struct entity* entity1,
+                                                               struct entity* entity2);
 bool SafeguardIsActive(struct entity* user, struct entity* target, bool log_message);
 bool LeafGuardIsActive(struct entity* user, struct entity* target, bool log_message);
 bool IsProtectedFromStatDrops(struct entity* user, struct entity* target, bool log_message);
@@ -902,6 +904,7 @@ void DisplayFloorCard(int duration);
 void HandleFloorCard(enum dungeon_id dungeon_id, uint8_t floor, int duration,
                      enum hidden_stairs_type hidden_stairs_type);
 void FillMissionDestinationInfo(void);
+bool IsItemUnkMissionItem2(struct item* item);
 bool CheckActiveChallengeRequest(void);
 struct mission_destination_info* GetMissionDestination(void);
 bool IsOutlawOrChallengeRequestFloor(void);

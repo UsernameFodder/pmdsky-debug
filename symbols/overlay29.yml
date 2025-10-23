@@ -3516,6 +3516,17 @@ overlay29:
         r2: If false, return TREATMENT_IGNORE if entity 2 is invisible and entity 1 cannot see invisible monsters
         r3: If true, return TREATMENT_IGNORE if entity 1 is a team member and entity 2 has the STATUS_PETRIFIED status
         return: Treatment that monster 1 should apply to monster 2
+    - name: GetTreatmentBetweenMonstersIgnoreStatus
+      address:
+        EU: 0x23022D8
+        NA: 0x23018AC
+        JP: 0x2302E1C
+      description: |-
+        Called to check if a monster should treat another as an ally, enemy, or ignore it. Similar to GetTreatmentBetweenMonsters, except temporary statuses (decoy, invisible, petrified) are ignored.
+        
+        r0: Pointer to entity 1
+        r1: Pointer to entity 2
+        return: Treatment that monster 1 should apply to monster 2
     - name: SafeguardIsActive
       address:
         EU: 0x230236C
@@ -8875,6 +8886,16 @@ overlay29:
         Fills the dungeon::mission_destination_info field with information from the currently active mission on the floor, if one is present.
         
         No params.
+    - name: IsItemUnkMissionItem2
+      address:
+        EU: 0x2349900
+        NA: 0x2348D00
+        JP: 0x234A028
+      description: |-
+        Checks if an item is a special target item with flag item::f_unk_mission_item2 set.
+        
+        r0: item pointer
+        return: True if the item is a special target item with flag item::f_unk_mission_item2 set.
     - name: CheckActiveChallengeRequest
       address:
         EU: 0x2349D4C
