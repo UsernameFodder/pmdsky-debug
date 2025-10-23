@@ -640,6 +640,8 @@ overlay10:
     - name: CURSE_DAMAGE_COOLDOWN
       address:
         EU: 0x22C4E14
+        NA: 0x22C44BC
+        JP: 0x22C5BA4
       length:
         EU: 0x2
       description: The number of turns between passive curse damage (3).
@@ -956,6 +958,8 @@ overlay10:
     - name: INGRAIN_BONUS_REGEN
       address:
         EU: 0x22C4EE8
+        NA: 0x22C4590
+        JP: 0x22C5C78
       length:
         EU: 0x2
       description: The passive bonus regen given by the Ingrain status condition (10).
@@ -991,6 +995,8 @@ overlay10:
     - name: WRAP_DAMAGE
       address:
         EU: 0x22C4F28
+        NA: 0x22C45D0
+        JP: 0x22C5CB8
       length:
         EU: 0x2
       description: Damage dealt by the wrap status condition (6).
@@ -1006,6 +1012,8 @@ overlay10:
     - name: INGRAIN_BONUS_REGEN_COOLDOWN
       address:
         EU: 0x22C4F40
+        NA: 0x22C45E8
+        JP: 0x22C5CD0
       length:
         EU: 0x2
       description: The number of turns between ingrain health regeneration (5).
@@ -1022,6 +1030,8 @@ overlay10:
     - name: WRAP_DAMAGE_COOLDOWN
       address:
         EU: 0x22C4F48
+        NA: 0x22C45F0
+        JP: 0x22C5CD8
       length:
         EU: 0x2
       description: The number of turns between passive wrap damage (2).
@@ -1094,6 +1104,8 @@ overlay10:
     - name: AQUA_RING_BONUS_REGEN
       address:
         EU: 0x22C4F80
+        NA: 0x22C4628
+        JP: 0x22C5D10
       length:
         EU: 0x2
       description: The passive bonus regen given by the Aqua Ring status condition (8).
@@ -1468,6 +1480,8 @@ overlay10:
     - name: BAD_WEATHER_DAMAGE
       address:
         EU: 0x22C5044
+        NA: 0x22C46EC
+        JP: 0x22C5DD4
       length:
         EU: 0x2
       description: Damage dealt by the Sandstorm and Hail weather conditions (3).
