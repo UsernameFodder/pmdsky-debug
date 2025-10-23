@@ -178,6 +178,7 @@ void RevealTrapsNearby(struct entity* monster);
 bool ShouldRunMonsterAi(struct entity* monster);
 bool DebugRecruitingEnabled(void);
 void TryActivateIqBooster(void);
+bool IsLoneOutlaw(enum monster_behavior behavior);
 bool IsSecretBazaarNpcBehavior(enum monster_behavior behavior);
 struct action_16* GetLeaderAction(void);
 enum action_id GetLeaderActionId(void);
@@ -252,6 +253,8 @@ bool IsSpecialStoryAllyOrClient(struct entity* entity);
 void ResetTriggerFlags(struct entity* entity);
 bool IsSpecialStoryAlly(struct monster* monster);
 bool IsExperienceLocked(struct monster* monster);
+bool IsLoneOutlawVeneer(struct monster* monster_info);
+bool IsSecretBazaarNpc(struct entity* entity);
 void InitOtherMonsterData(struct entity* entity, int fixed_room_stats_index, enum direction_id dir);
 void InitEnemySpawnStats(void);
 void InitEnemyStatsAndMoves(struct move* move_list, int16_t* hp, uint8_t* offensive_stats,

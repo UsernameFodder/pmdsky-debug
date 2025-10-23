@@ -1955,6 +1955,16 @@ overlay29:
         value is 0.
         
         No params.
+    - name: IsLoneOutlaw
+      address:
+        EU: 0x22F049C
+        NA: 0x22EFAE8
+        JP: 0x22F10EC
+      description: |-
+        Checks if a behavior ID corresponds to one of the outlaw types that are not from an outlaw team. I.e., BEHAVIOR_OUTLAW, BEHAVIOR_HIDDEN_OUTLAW, or BEHAVIOR_FLEEING_OUTLAW.
+        
+        r0: monster behavior ID
+        return: bool
     - name: IsSecretBazaarNpcBehavior
       address:
         EU: 0x22F04B8
@@ -2768,6 +2778,28 @@ overlay29:
         This basically just inverts IsSpecialStoryAlly, with the exception of also checking for the "Joined At" field being DUNGEON_CLIENT (set for mission clients).
         
         r0: monster pointer
+        return: bool
+    - name: IsLoneOutlawVeneer
+      address:
+        EU: 0x22FC7DC
+        NA: 0x22FBDE0
+        JP: 0x22FD1D0
+      description: |-
+        Likely a linker-generated veneer for IsLoneOutlaw.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
+        
+        r0: monster behavior ID
+        return: bool
+    - name: IsSecretBazaarNpc
+      address:
+        EU: 0x22FC7EC
+        NA: 0x22FBDF0
+        JP: 0x22FD1E0
+      description: |-
+        Checks if an entity is a Secret Bazaar NPCs.
+        
+        r0: entity pointer
         return: bool
     - name: InitOtherMonsterData
       address:
