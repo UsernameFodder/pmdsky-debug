@@ -12349,6 +12349,16 @@ arm9:
         NA: 0x4
         JP: 0x4
       description: "The prefactor to the argument of ClampedLn in the damage formula (FLV + DAMAGE_FORMULA_FLV_SHIFT), as a binary fixed-point number with 8 fraction bits (10)."
+    - name: TACTICS_FOLLOW_LEADER
+      address:
+        EU: 0x20A1E90
+        NA: 0x20A190C
+        JP: 0x20A2CE0
+      length:
+        EU: 0xC
+        NA: 0xC
+        JP: 0xC
+      description: "Array of boolean values corresponding to each tactic_id enum, determining whether the tactic makes party members follow the leader."
     - name: FORBIDDEN_FORGOT_MOVE_LIST
       address:
         EU: 0x20A1E9C
