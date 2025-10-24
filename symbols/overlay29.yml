@@ -1967,7 +1967,7 @@ overlay29:
         value is 0.
         
         No params.
-    - name: IsLoneOutlaw
+    - name: IsBehaviorLoneOutlaw
       address:
         EU: 0x22F049C
         NA: 0x22EFAE8
@@ -2793,17 +2793,15 @@ overlay29:
         
         r0: monster pointer
         return: bool
-    - name: IsLoneOutlawVeneer
+    - name: IsMonsterLoneOutlaw
       address:
         EU: 0x22FC7DC
         NA: 0x22FBDE0
         JP: 0x22FD1D0
       description: |-
-        Likely a linker-generated veneer for IsLoneOutlaw.
+        Checks if a monster's behavior corresponds to one of the outlaw types that are not from an outlaw team. I.e., BEHAVIOR_OUTLAW, BEHAVIOR_HIDDEN_OUTLAW, or BEHAVIOR_FLEEING_OUTLAW.
         
-        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
-        
-        r0: monster behavior ID
+        r0: monster pointer
         return: bool
     - name: IsSecretBazaarNpc
       address:
