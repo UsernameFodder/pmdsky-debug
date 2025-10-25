@@ -3988,6 +3988,8 @@ arm9:
     - name: PlayMeById
       address:
         EU: 0x20182A8
+        NA: 0x201820C
+        JP: 0x2018264
       description: |-
         Initializes some values and then calls SendAudioCommand to play a ME track (musical sound effect).
         
@@ -5681,6 +5683,8 @@ arm9:
     - name: GetWindowIdSelectedItemOnPage
       address:
         EU: 0x202AE74
+        NA: 0x202AB80
+        JP: 0x202AED8
       description: |-
         Gets the index on the page of the current item the user has selected on the menu given by the window_id.
         
@@ -5691,8 +5695,12 @@ arm9:
         EU:
           - 0x202AEA4
           - 0x202B870
-        NA: 0x202B57C
-        JP: 0x202B8D4
+        NA:
+          - 0x202ABB0
+          - 0x202B57C
+        JP:
+          - 0x202AF08
+          - 0x202B8D4
       description: |-
         Note: unverified, ported from Irdkwia's notes
         
@@ -6651,6 +6659,8 @@ arm9:
     - name: AddMessageToAlertBox
       address:
         EU: 0x2030400
+        NA: 0x203010C
+        JP: 0x2030450
       description: |-
         Adds a message to the dungeon alert box.
         
@@ -6963,6 +6973,8 @@ arm9:
     - name: GetSelectedItemOnPage
       address:
         EU: 0x203284C
+        NA: 0x2032558
+        JP: 0x2032878
       description: |-
         Gets the index on the page of the current item the user has selected.
         
@@ -6971,6 +6983,8 @@ arm9:
     - name: GetCurrentPage
       address:
         EU: 0x2032854
+        NA: 0x2032560
+        JP: 0x2032880
       description: |-
         Gets the index of the current menu page the user is on.
         
@@ -6989,6 +7003,8 @@ arm9:
     - name: GetSelectedMenuItemIdx
       address:
         EU: 0x203286C
+        NA: 0x2032578
+        JP: 0x2032898
       description: |-
         Gets the index of the current menu item the user has selected.
         
@@ -6997,6 +7013,8 @@ arm9:
     - name: GetTotalNumMenuItems
       address:
         EU: 0x2032880
+        NA: 0x203258C
+        JP: 0x20328AC
       description: |-
         Gets the total number of items in the menu.
         
@@ -7015,6 +7033,8 @@ arm9:
     - name: GetMaxItemsOnPage
       address:
         EU: 0x2032890
+        NA: 0x203259C
+        JP: 0x20328BC
       description: |-
         Gets the maximum possible number of items the menu can hold on one of its pages.
         
@@ -7023,6 +7043,8 @@ arm9:
     - name: GetTotalNumPages
       address:
         EU: 0x2032898
+        NA: 0x20325A4
+        JP: 0x20328C4
       description: |-
         Gets the total number of pages in the menu.
         
@@ -7067,6 +7089,8 @@ arm9:
     - name: OverlayLoadEntriesEqual
       address:
         EU: 0x2034A94
+        NA: 0x20347A0
+        JP: 0x2034AC0
       description: |-
         Checks if two overlay_load_entries have the same values for all of their fields.
         
@@ -7076,6 +7100,8 @@ arm9:
     - name: FreeActiveMenu
       address:
         EU: 0x2034AE4
+        NA: 0x20347F0
+        JP: 0x2034B10
       description: |-
         Frees the currently active menu by calling the destructor function of the active entry in menu_control.
         
@@ -7083,6 +7109,8 @@ arm9:
     - name: InitMenu
       address:
         EU: 0x2034BD8
+        NA: 0x20348E4
+        JP: 0x2034C04
       description: |-
         Initializes a menu by setting the incoming_entry field of menu_control to the given overlay_load_entry.
         
@@ -7091,6 +7119,8 @@ arm9:
     - name: InitMenuWithWindowExtraInfo
       address:
         EU: 0x2034C68
+        NA: 0x2034974
+        JP: 0x2034C94
       description: |-
         Has the same functionality as InitMenu except also tries to initialize menu_control's window_extra_info struct.
         
@@ -7101,6 +7131,8 @@ arm9:
     - name: CopyMenuControlWindowExtraInfo
       address:
         EU: 0x2034D2C
+        NA: 0x2034A38
+        JP: 0x2034D58
       description: |-
         Copies menu_control's window_extra_info to the given address.
         
@@ -7109,6 +7141,8 @@ arm9:
     - name: HandleMenus
       address:
         EU: 0x2034D74
+        NA: 0x2034A80
+        JP: 0x2034DA0
       description: |-
         Master function called on every frame for handling the game's menus (seemingly the vast majority with the exception of some in dungeon mode). 
         
@@ -11721,6 +11755,8 @@ arm9:
     - name: NULL_OVERLAY_LOAD_ENTRY
       address:
         EU: 0x209B5C8
+        NA: 0x209B08C
+        JP: 0x209B9E0
       length:
         EU: 0x10
       description: |-
@@ -12313,6 +12349,16 @@ arm9:
         NA: 0x4
         JP: 0x4
       description: "The prefactor to the argument of ClampedLn in the damage formula (FLV + DAMAGE_FORMULA_FLV_SHIFT), as a binary fixed-point number with 8 fraction bits (10)."
+    - name: TACTICS_FOLLOW_LEADER
+      address:
+        EU: 0x20A1E90
+        NA: 0x20A190C
+        JP: 0x20A2CE0
+      length:
+        EU: 0xC
+        NA: 0xC
+        JP: 0xC
+      description: "Array of boolean values corresponding to each tactic_id enum, determining whether the tactic makes party members follow the leader."
     - name: FORBIDDEN_FORGOT_MOVE_LIST
       address:
         EU: 0x20A1E9C
@@ -13387,6 +13433,8 @@ arm9:
     - name: MENU_CONTROL_PTR
       address:
         EU: 0x20B06B4
+        NA: 0x20AFD98
+        JP: 0x20B11D8
       length:
         EU: 0x4
       description: |-

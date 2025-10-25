@@ -178,6 +178,7 @@ void RevealTrapsNearby(struct entity* monster);
 bool ShouldRunMonsterAi(struct entity* monster);
 bool DebugRecruitingEnabled(void);
 void TryActivateIqBooster(void);
+bool IsBehaviorLoneOutlaw(enum monster_behavior behavior);
 bool IsSecretBazaarNpcBehavior(enum monster_behavior behavior);
 struct action_16* GetLeaderAction(void);
 enum action_id GetLeaderActionId(void);
@@ -252,6 +253,8 @@ bool IsSpecialStoryAllyOrClient(struct entity* entity);
 void ResetTriggerFlags(struct entity* entity);
 bool IsSpecialStoryAlly(struct monster* monster);
 bool IsExperienceLocked(struct monster* monster);
+bool IsMonsterLoneOutlaw(struct monster* monster);
+bool IsSecretBazaarNpc(struct entity* entity);
 void InitOtherMonsterData(struct entity* entity, int fixed_room_stats_index, enum direction_id dir);
 void InitEnemySpawnStats(void);
 void InitEnemyStatsAndMoves(struct move* move_list, int16_t* hp, uint8_t* offensive_stats,
@@ -323,6 +326,8 @@ void DisplayRunAwayIfTriggered(struct entity* monster, bool show_run_away_effect
 enum monster_treatment GetTreatmentBetweenMonsters(struct entity* entity1, struct entity* entity2,
                                                    bool see_invisible_targets,
                                                    bool ignore_petrified_targets);
+enum monster_treatment GetTreatmentBetweenMonstersIgnoreStatus(struct entity* entity1,
+                                                               struct entity* entity2);
 bool SafeguardIsActive(struct entity* user, struct entity* target, bool log_message);
 bool LeafGuardIsActive(struct entity* user, struct entity* target, bool log_message);
 bool IsProtectedFromStatDrops(struct entity* user, struct entity* target, bool log_message);
@@ -899,6 +904,7 @@ void DisplayFloorCard(int duration);
 void HandleFloorCard(enum dungeon_id dungeon_id, uint8_t floor, int duration,
                      enum hidden_stairs_type hidden_stairs_type);
 void FillMissionDestinationInfo(void);
+bool IsItemUnkMissionItem2(struct item* item);
 bool CheckActiveChallengeRequest(void);
 struct mission_destination_info* GetMissionDestination(void);
 bool IsOutlawOrChallengeRequestFloor(void);

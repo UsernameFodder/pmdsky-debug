@@ -45,6 +45,8 @@ overlay31:
     - name: DungeonMenuLoop
       address:
         EU: 0x2383754
+        NA: 0x2382B54
+        JP: 0x2383DD4
       description: |-
         Handles displaying the main dungeon menu and is called on each frame while it is open.
         
@@ -54,6 +56,8 @@ overlay31:
     - name: FreeDungeonMenu
       address:
         EU: 0x23839AC
+        NA: 0x2382DAC
+        JP: 0x238402C
       description: |-
         Closes the main dungeon menu and frees the heap-allocated struct initialized in InitDungeonMenu.
         
@@ -61,6 +65,8 @@ overlay31:
     - name: StairsMenu
       address:
         EU: 0x2383A18
+        NA: 0x2382E18
+        JP: 0x2384098
       description: |-
         Called when the stairs menu is open. Does not return until the menu is closed.
         
@@ -104,6 +110,8 @@ overlay31:
     - name: CloseMainStairsMenu
       address:
         EU: 0x2383E8C
+        NA: 0x238328C
+        JP: 0x238450C
       description: |-
         Closes the main stairs menu. Used both when closing it entirely as well as when switching to the info menu.
         
@@ -111,6 +119,8 @@ overlay31:
     - name: FreeStairsMenu
       address:
         EU: 0x2383EF0
+        NA: 0x23832F0
+        JP: 0x2384570
       description: |-
         Closes the main stairs menu and frees the heap-allocated stairs_menu struct pointed to by STAIRS_MENU_PTR.
         
@@ -127,6 +137,8 @@ overlay31:
     - name: ItemsMenu
       address:
         EU: 0x23844E4
+        NA: 0x23838E4
+        JP: 0x2384B64
       description: |-
         Called when the in-dungeon "items" menu is open. Does not return until the menu is closed.
         
