@@ -5338,6 +5338,7 @@ overlay29:
         
         r0: user entity pointer
         r1: target entity pointer
+        r2: number of turns the status will last for
     - name: TryInflictWhifferStatus
       address:
         EU: 0x2316660
@@ -5348,6 +5349,8 @@ overlay29:
         
         r0: user entity pointer
         r1: target entity pointer
+        r2: number of turns the status will last for
+        r3: flag to only perform the check for inflicting without actually inflicting
     - name: TryInflictSetDamageStatus
       address:
         EU: 0x2316748
@@ -5411,6 +5414,7 @@ overlay29:
         
         r0: user entity pointer
         r1: target entity pointer
+        r2: flag to only perform the check for inflicting without actually inflicting
         return: Whether or not the status could be inflicted
     - name: TryInflictStockpileStatus
       address:

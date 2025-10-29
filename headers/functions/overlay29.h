@@ -536,14 +536,15 @@ void RevealEnemies(struct entity* user, struct entity* target);
 bool TryInflictLeechSeedStatus(struct entity* user, struct entity* target, bool log_failure,
                                bool check_only);
 void TryInflictDestinyBondStatus(struct entity* user, struct entity* target);
-void TryInflictSureShotStatus(struct entity* user, struct entity* target);
-void TryInflictWhifferStatus(struct entity* user, struct entity* target);
+void TryInflictSureShotStatus(struct entity* user, struct entity* target, uint8_t turns);
+void TryInflictWhifferStatus(struct entity* user, struct entity* target, uint8_t turns,
+                             bool only_check);
 void TryInflictSetDamageStatus(struct entity* user, struct entity* target);
 void TryInflictFocusEnergyStatus(struct entity* user, struct entity* target);
 bool TryInflictDecoyStatus(struct entity* user, struct entity* target);
 void TryInflictCurseStatus(struct entity* user, struct entity* target);
 void TryInflictSnatchStatus(struct entity* user, struct entity* target);
-bool TryInflictTauntStatus(struct entity* user, struct entity* target);
+bool TryInflictTauntStatus(struct entity* user, struct entity* target, bool only_check);
 bool TryInflictStockpileStatus(struct entity* user, struct entity* target);
 void TryInflictInvisibleStatus(struct entity* user, struct entity* target);
 bool TryInflictPerishSongStatus(struct entity* user, struct entity* target, bool only_check);
