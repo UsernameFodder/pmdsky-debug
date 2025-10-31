@@ -6551,7 +6551,7 @@ overlay29:
         EU: 0x232014C
       description: |-
         Attempts to pull all items on the floor towards the user.
-
+        
         Fails if the floor is a fixed room on which Trawl Orbs are disabled.
         
         r0: user entity pointer
