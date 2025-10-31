@@ -516,7 +516,7 @@ void BoostSpeed(struct entity* user, struct entity* target, int n_stages, int tu
                 bool log_failure);
 void BoostSpeedOneStage(struct entity* user, struct entity* target, int turns, bool log_failure);
 void LowerSpeed(struct entity* user, struct entity* target, int n_stages, bool log_failure);
-bool TrySealMove(struct entity* user, struct entity* target, bool log_failure);
+bool TrySealMove(struct entity* user, struct entity* target, bool only_check);
 void BoostOrLowerSpeed(struct entity* user, struct entity* target);
 void ResetHitChanceStat(struct entity* user, struct entity* target, int stat_idx, int param_4);
 bool ExclusiveItemEffectIsActiveWithLogging(struct entity* user, struct entity* target,

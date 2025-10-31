@@ -5167,7 +5167,7 @@ overlay29:
         
         r0: user entity pointer
         r1: target entity pointer
-        r2: flag to log a message on failure
+        r2: flag to only perform the check for inflicting without actually inflicting
         return: Whether or not a move was sealed
     - name: BoostOrLowerSpeed
       address:
