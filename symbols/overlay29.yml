@@ -6546,6 +6546,15 @@ overlay29:
         Fails if orbs are disabled on the floor or if the current tileset has the is_water_tileset flag set.
         
         r0: user pointer
+    - name: TryTrawl
+      address:
+        EU: 0x232014C
+      description: |-
+        Attempts to pull all items on the floor towards the user.
+
+        Fails if the floor is a fixed room on which Trawl Orbs are disabled.
+        
+        r0: user entity pointer
     - name: TryPounce
       address:
         EU: 0x2320688
