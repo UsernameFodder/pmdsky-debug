@@ -3854,6 +3854,15 @@ overlay29:
         r2: bool message flag?
         r3: bool show level up dialogue (for example "Hey, I leveled up!" with a portrait)?
         return: success flag
+    - name: DungeonTmLearnMove
+      address:
+        EU: 0x2304300
+      description: |-
+        Makes a team member learn a given move, or prompts them to forget one first if their move list is full. Used when activating a TM in dungeon mode.
+        
+        r0: user
+        r1: move id
+        return: whether the move was successfully learned
     - name: GetMonsterMoves
       address:
         EU: 0x2304544
@@ -6506,6 +6515,15 @@ overlay29:
         
         r0: move pointer
         return: max PP for the given move, capped at 99
+    - name: InitMoveWrapper
+      address:
+        EU: 0x231F46C
+      description: |-
+        Wrapper for InitMove which takes a superfluous parameter.
+        
+        r0: unused
+        r1: [output] pointer to move to initialize
+        r2: move ID
     - name: MoveIsNotPhysical
       address:
         EU: 0x231F480

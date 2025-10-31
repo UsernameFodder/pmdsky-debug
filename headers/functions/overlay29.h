@@ -358,6 +358,7 @@ void LevelUpItemEffect(struct entity* user, struct entity* target, int levels, b
                        bool dialogue);
 bool TryDecreaseLevel(struct entity* user, struct entity* target, int n_levels);
 bool LevelUp(struct entity* user, struct entity* target, bool message, bool dialogue);
+bool DungeonTmLearnMove(struct entity* user, enum move_id move_id);
 void GetMonsterMoves(struct move_id_16* out_moves, enum monster_id monster_id, int level);
 void EvolveMonster(struct entity* user, struct entity* target, enum monster_id new_monster_id);
 void ChangeMonsterAnimation(struct entity* monster, int8_t animation_id,
@@ -659,6 +660,7 @@ int GetAiUseItemProbability(struct entity* item_consumer, struct item* item, uin
 bool IsAdjacentToEnemy(struct entity* entity);
 bool ShouldTryEatItem(enum item_id item_id);
 int GetMaxPpWrapper(struct move* move);
+void InitMoveWrapper(undefined4 param_1, struct move* move, enum move_id move_id);
 bool MoveIsNotPhysical(enum move_id move_id);
 bool CategoryIsNotPhysical(enum move_category category_id);
 void MakeFloorOneRoom(struct entity* user);

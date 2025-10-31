@@ -3247,7 +3247,7 @@ arm9:
         
         This sets f_exists and f_enabled_for_ai on the flags, the ID to the given ID, the PP to the max PP for the move ID, and the ginseng boost to 0.
         
-        r0: pointer to move to initialize
+        r0: [output] pointer to move to initialize
         r1: move ID
     - name: InitMoveCheckId
       address:
