@@ -3858,7 +3858,7 @@ overlay29:
       address:
         EU: 0x2304300
       description: |-
-        Makes a team member learn a given move, or prompts them to forget one first if their move list is full. Used when activating a TM in dungeon mode.
+        Makes a monster learn a given move, or prompts them to forget one first if their move list is full. Used when activating a TM in dungeon mode.
         
         r0: user entity pointer
         r1: move id
