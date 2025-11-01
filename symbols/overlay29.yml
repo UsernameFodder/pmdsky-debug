@@ -328,6 +328,21 @@ overlay29:
         Fades the screen to black across several frames.
         
         No params.
+    - name: SetDungeonEscapeFields
+      address:
+        EU: 0x22E1328
+      description: |-
+        Sets the successful_exit_tracker and end_floor_no_death_check_flag fields of the dungeon struct.
+        
+        r0: new successful_exit_tracker
+        r1: new end_floor_no_death_check_flag
+    - name: GetSuccessfulExitTracker
+      address:
+        EU: 0x22E1344
+      description: |-
+        Returns the successful_exit_tracker field of the dungeon struct.
+        
+        return: successful_exit_tracker
     - name: CheckTouchscreenArea
       address:
         EU: 0x22E15F8
@@ -3839,6 +3854,15 @@ overlay29:
         r2: bool message flag?
         r3: bool show level up dialogue (for example "Hey, I leveled up!" with a portrait)?
         return: success flag
+    - name: DungeonTmLearnMove
+      address:
+        EU: 0x2304300
+      description: |-
+        Makes a team member learn a given move, or prompts them to forget one first if their move list is full. Used when activating a TM in dungeon mode.
+        
+        r0: user entity pointer
+        r1: move id
+        return: whether the move was successfully learned
     - name: GetMonsterMoves
       address:
         EU: 0x2304544
@@ -5152,7 +5176,7 @@ overlay29:
         
         r0: user entity pointer
         r1: target entity pointer
-        r2: flag to log a message on failure
+        r2: flag to only perform the check for inflicting without actually inflicting
         return: Whether or not a move was sealed
     - name: BoostOrLowerSpeed
       address:
@@ -5338,6 +5362,7 @@ overlay29:
         
         r0: user entity pointer
         r1: target entity pointer
+        r2: number of turns the status will last for
     - name: TryInflictWhifferStatus
       address:
         EU: 0x2316660
@@ -5348,6 +5373,8 @@ overlay29:
         
         r0: user entity pointer
         r1: target entity pointer
+        r2: number of turns the status will last for
+        r3: flag to only perform the check for inflicting without actually inflicting
     - name: TryInflictSetDamageStatus
       address:
         EU: 0x2316748
@@ -5411,6 +5438,7 @@ overlay29:
         
         r0: user entity pointer
         r1: target entity pointer
+        r2: flag to only perform the check for inflicting without actually inflicting
         return: Whether or not the status could be inflicted
     - name: TryInflictStockpileStatus
       address:
@@ -6487,6 +6515,15 @@ overlay29:
         
         r0: move pointer
         return: max PP for the given move, capped at 99
+    - name: InitMoveWrapper
+      address:
+        EU: 0x231F46C
+      description: |-
+        Wrapper for InitMove which takes a superfluous parameter.
+        
+        r0: unused
+        r1: [output] pointer to move to initialize
+        r2: move ID
     - name: MoveIsNotPhysical
       address:
         EU: 0x231F480
@@ -6527,6 +6564,15 @@ overlay29:
         Fails if orbs are disabled on the floor or if the current tileset has the is_water_tileset flag set.
         
         r0: user pointer
+    - name: TryTrawl
+      address:
+        EU: 0x232014C
+      description: |-
+        Attempts to pull all items on the floor towards the user.
+        
+        Fails if the floor is a fixed room on which Trawl Orbs are disabled.
+        
+        r0: user entity pointer
     - name: TryPounce
       address:
         EU: 0x2320688

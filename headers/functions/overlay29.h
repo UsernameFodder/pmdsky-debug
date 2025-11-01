@@ -19,6 +19,8 @@ bool FixedRoomIsSubstituteRoom(void);
 bool StoryRestrictionsEnabled(void);
 int GetScenarioBalanceVeneer(void);
 void FadeToBlack(void);
+void SetDungeonEscapeFields(uint32_t successful_exit_tracker, bool end_floor_no_death_check_flag);
+uint32_t GetSuccessfulExitTracker(void);
 bool CheckTouchscreenArea(int x1, int y1, int x2, int y2);
 struct trap* GetTrapInfo(struct entity* trap_entity);
 struct item* GetItemInfo(struct entity* item_entity);
@@ -356,6 +358,7 @@ void LevelUpItemEffect(struct entity* user, struct entity* target, int levels, b
                        bool dialogue);
 bool TryDecreaseLevel(struct entity* user, struct entity* target, int n_levels);
 bool LevelUp(struct entity* user, struct entity* target, bool message, bool dialogue);
+bool DungeonTmLearnMove(struct entity* user, enum move_id move_id);
 void GetMonsterMoves(struct move_id_16* out_moves, enum monster_id monster_id, int level);
 void EvolveMonster(struct entity* user, struct entity* target, enum monster_id new_monster_id);
 void ChangeMonsterAnimation(struct entity* monster, int8_t animation_id,
@@ -514,7 +517,7 @@ void BoostSpeed(struct entity* user, struct entity* target, int n_stages, int tu
                 bool log_failure);
 void BoostSpeedOneStage(struct entity* user, struct entity* target, int turns, bool log_failure);
 void LowerSpeed(struct entity* user, struct entity* target, int n_stages, bool log_failure);
-bool TrySealMove(struct entity* user, struct entity* target, bool log_failure);
+bool TrySealMove(struct entity* user, struct entity* target, bool only_check);
 void BoostOrLowerSpeed(struct entity* user, struct entity* target);
 void ResetHitChanceStat(struct entity* user, struct entity* target, int stat_idx, int param_4);
 bool ExclusiveItemEffectIsActiveWithLogging(struct entity* user, struct entity* target,
@@ -536,14 +539,15 @@ void RevealEnemies(struct entity* user, struct entity* target);
 bool TryInflictLeechSeedStatus(struct entity* user, struct entity* target, bool log_failure,
                                bool check_only);
 void TryInflictDestinyBondStatus(struct entity* user, struct entity* target);
-void TryInflictSureShotStatus(struct entity* user, struct entity* target);
-void TryInflictWhifferStatus(struct entity* user, struct entity* target);
+void TryInflictSureShotStatus(struct entity* user, struct entity* target, uint8_t turns);
+void TryInflictWhifferStatus(struct entity* user, struct entity* target, uint8_t turns,
+                             bool only_check);
 void TryInflictSetDamageStatus(struct entity* user, struct entity* target);
 void TryInflictFocusEnergyStatus(struct entity* user, struct entity* target);
 bool TryInflictDecoyStatus(struct entity* user, struct entity* target);
 void TryInflictCurseStatus(struct entity* user, struct entity* target);
 void TryInflictSnatchStatus(struct entity* user, struct entity* target);
-bool TryInflictTauntStatus(struct entity* user, struct entity* target);
+bool TryInflictTauntStatus(struct entity* user, struct entity* target, bool only_check);
 bool TryInflictStockpileStatus(struct entity* user, struct entity* target);
 void TryInflictInvisibleStatus(struct entity* user, struct entity* target);
 bool TryInflictPerishSongStatus(struct entity* user, struct entity* target, bool only_check);
@@ -656,10 +660,12 @@ int GetAiUseItemProbability(struct entity* item_consumer, struct item* item, uin
 bool IsAdjacentToEnemy(struct entity* entity);
 bool ShouldTryEatItem(enum item_id item_id);
 int GetMaxPpWrapper(struct move* move);
+void InitMoveWrapper(undefined4 param_1, struct move* move, enum move_id move_id);
 bool MoveIsNotPhysical(enum move_id move_id);
 bool CategoryIsNotPhysical(enum move_category category_id);
 void MakeFloorOneRoom(struct entity* user);
 void TryDrought(struct entity* user);
+void TryTrawl(struct entity* user);
 void TryPounce(struct entity* user, struct entity* target, enum direction_id direction);
 void TryBlowAway(struct entity* user, struct entity* target, enum direction_id direction);
 void TryExplosion(struct entity* user, struct entity* target, struct position* pos, int radius,

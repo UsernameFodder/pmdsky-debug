@@ -1608,6 +1608,17 @@ overlay10:
         The turn range for the Nightmare status inflicted by Nightmare, [4, 8).
         
         type: int16_t[2]
+    - name: SLEEPLESSNESS_TURN_RANGE
+      address:
+        EU: 0x22C5080
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Sleepless status, [0x7F, 0x7F] (infinite).
+        
+        type: int16_t[2]
     - name: REFLECT_LIGHT_SCREEN_TURN_RANGE
       address:
         EU: 0x22C5084
@@ -1849,6 +1860,17 @@ overlay10:
         NA: 0x4
         JP: 0x4
       description: "The damage multiplier corresponding to MATCHUP_NEUTRAL when Erratic Player is active, as a fixed-point number with 8 fraction bits (1)."
+    - name: MIRROR_MOVE_TURN_RANGE
+      address:
+        EU: 0x22C5198
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Mirror Move status, [1, 3).
+        
+        type: int16_t[2]
     - name: AIR_BLADE_DAMAGE_MULTIPLIER
       address:
         EU: 0x22C519C

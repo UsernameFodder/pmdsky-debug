@@ -333,7 +333,7 @@ char* GetMoveName(enum move_id move_id);
 void FormatMoveString(char* string, struct move* move, undefined* type_print);
 void FormatMoveStringMore(undefined* param_1, int param_2, struct move* move,
                           undefined* type_print);
-void InitMove(struct move* move, enum move_id);
+void InitMove(struct move* move, enum move_id move_id);
 void InitMoveCheckId(struct move* move, enum move_id move_id);
 void GetInfoMoveGround(struct ground_move* move, enum move_id move_id);
 struct move_target_and_range GetMoveTargetAndRange(struct move* move, bool is_ai);
