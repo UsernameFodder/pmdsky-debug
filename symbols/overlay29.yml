@@ -342,7 +342,7 @@ overlay29:
       description: |-
         Returns the successful_exit_tracker field of the dungeon struct.
         
-        No params.
+        return: successful_exit_tracker
     - name: CheckTouchscreenArea
       address:
         EU: 0x22E15F8
