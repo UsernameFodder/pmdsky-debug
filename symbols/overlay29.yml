@@ -1939,6 +1939,16 @@ overlay29:
         stack[1]: trap ID
         stack[2]: bool caused by random trap
         return: True if the trap should be destroyed after the effect is applied
+    - name: SpawnMonstersAroundPos
+      address:
+        EU: 0x22EFE68
+      description: |-
+        Spawns a given number of monsters around a position. Used by the Summon Trap and Grudge Trap.
+        
+        r0: entity pointer (unused)
+        r1: position
+        r2: number of enemies to spawn
+        return: number of enemies that have actually been spawned
     - name: RevealTrapsNearby
       address:
         EU: 0x22EFF8C
@@ -5405,6 +5415,9 @@ overlay29:
         
         r0: user entity pointer
         r1: target entity pointer
+        r2: value to set the target monster's unk_decoy_tracker flag to
+        r3: flag to log a message
+        stack[0]: flag to only perform the check for inflicting without actually inflicting
         return: Whether or not the status could be inflicted
     - name: TryInflictCurseStatus
       address:

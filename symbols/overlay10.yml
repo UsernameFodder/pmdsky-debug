@@ -1717,6 +1717,17 @@ overlay10:
         NA: 0x4
         JP: 0x4
       description: The (subtractive) move accuracy drop induced on an attacker if the defender is wearing a Detect Band (30).
+    - name: DECOY_TURN_RANGE
+      address:
+        EU: 0x22C510C
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Decoy status, [20, 50).
+        
+        type: int16_t[2]
     - name: TINTED_LENS_MULTIPLIER
       address:
         EU: 0x22C5118

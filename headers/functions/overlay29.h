@@ -176,6 +176,7 @@ bool ApplyRandomTrapEffect(struct trap* trap, struct entity* user, struct entity
 void ApplyGrudgeTrapEffect(struct entity* monster, struct position* pos);
 bool ApplyTrapEffect(struct trap* trap, struct entity* user, struct entity* target,
                      struct tile* tile, struct position* pos, enum trap_id, bool random_trap);
+int SpawnMonstersAroundPos(struct entity* monster, struct position* pos, uint8_t num_enemies);
 void RevealTrapsNearby(struct entity* monster);
 bool ShouldRunMonsterAi(struct entity* monster);
 bool DebugRecruitingEnabled(void);
@@ -544,7 +545,8 @@ void TryInflictWhifferStatus(struct entity* user, struct entity* target, uint8_t
                              bool only_check);
 void TryInflictSetDamageStatus(struct entity* user, struct entity* target);
 void TryInflictFocusEnergyStatus(struct entity* user, struct entity* target);
-bool TryInflictDecoyStatus(struct entity* user, struct entity* target);
+bool TryInflictDecoyStatus(struct entity* user, struct entity* target, undefined unk_decoy_tracker,
+                           bool log_message, bool only_check);
 void TryInflictCurseStatus(struct entity* user, struct entity* target);
 void TryInflictSnatchStatus(struct entity* user, struct entity* target);
 bool TryInflictTauntStatus(struct entity* user, struct entity* target, bool only_check);
