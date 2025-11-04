@@ -52,7 +52,7 @@ struct dungeon {
     // 0x11: True if the leader isn't doing anything right now. False if it's currently performing
     // an action (such as walking or attacking)
     bool no_action_in_progress;
-    bool iq_disabled;                 // 0x12: IQ skills won't work in the dungeon.
+    bool iq_disabled;                    // 0x12: IQ skills won't work in the dungeon.
     bool regular_attack_no_reveal_traps; // 0x13: Regular attacks will not reveal traps.
     // 0x14: If > 0, you get kicked out of the dungeon, usually because an important team member
     // (such as your client) fainted.
