@@ -8105,6 +8105,14 @@ arm9:
         
         r0: ?
         return: (?) Seems to be composed of multiple bitflags.
+    - name: TilesetSecondaryTerrainIsChasm
+      address:
+        EU: 0x204F894
+      description: |-
+        Returns true if the given tileset has a chasm secondary terrain.
+        
+        r0: tileset id
+        return: bool
     - name: GetNbFloors
       address:
         EU: 0x204F8B4
@@ -12474,9 +12482,9 @@ arm9:
         NA: 0xC8
         JP: 0xC8
       description: |-
-        The type of secondary terrain for each dungeon in the game.
+        The type of secondary terrain for each tileset in the game.
         
-        This is an array of 200 bytes. Each byte is an enum corresponding to one dungeon.
+        This is an array of 200 bytes. Each byte is an enum corresponding to one tileset.
         
         type: struct secondary_terrain_type_8[200]
     - name: SENTRY_DUTY_MONSTER_IDS
