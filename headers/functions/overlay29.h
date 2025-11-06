@@ -10,7 +10,7 @@ void DungeonZInit(void);
 void DungeonFree(void);
 int RunDungeon(struct dungeon_init* dungeon_init_data, struct dungeon* dungeon);
 bool EntityIsValid(struct entity* entity);
-bool TilesetSecondaryTerrainIsChasm2(int16_t tileset_id);
+bool FloorSecondaryTerrainIsChasm(int16_t tileset_id);
 enum floor_type GetFloorType(void);
 bool TryForcedLoss(bool skip_floor_end_check);
 bool IsBossFight(enum fixed_room_id fixed_room_id);

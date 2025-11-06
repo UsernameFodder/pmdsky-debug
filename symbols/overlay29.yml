@@ -238,11 +238,11 @@ overlay29:
         
         r0: entity pointer
         return: bool
-    - name: TilesetSecondaryTerrainIsChasm2
+    - name: FloorSecondaryTerrainIsChasm
       address:
         EU: 0x22E0CB8
       description: |-
-        Returns true if the given tileset has a chasm secondary terrain, checking first if floor_generation_status::has_chasms_as_secondary_terrain is true
+        Returns true if the given floor has a chasm secondary terrain, checking first if floor_generation_status::has_chasms_as_secondary_terrain is true
         and if not, whether the tileset's entry in SECONDARY_TERRAIN_TYPES is SECONDARY_TERRAIN_CHASM.
         
         r0: tileset id
