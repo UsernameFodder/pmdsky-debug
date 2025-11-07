@@ -1725,7 +1725,7 @@ overlay10:
         NA: 0x4
         JP: 0x4
       description: |-
-        The turn range for the statuses (Counter, Mini Counter, Metal Burst) set by SetReflctStatus, [6, 12).
+        The turn range for the statuses (Counter, Mini Counter, Metal Burst) set by SetReflectStatus, [6, 12).
         
         type: int16_t[2]
     - name: MATCHUP_IMMUNE_MULTIPLIER
