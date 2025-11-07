@@ -1619,16 +1619,72 @@ overlay10:
         The turn range for the Sleepless status, [0x7F, 0x7F] (infinite).
         
         type: int16_t[2]
-    - name: REFLECT_LIGHT_SCREEN_TURN_RANGE
+    - name: REFLECT_TURN_RANGE
       address:
         EU: 0x22C5084
         NA: 0x22C472C
         JP: 0x22C5E14
       length:
+        EU: 0x4
         NA: 0x4
         JP: 0x4
       description: |-
-        The turn range for the Reflect and Light Screen statuses, [10, 12).
+        The turn range for the Reflect status, [10, 12).
+        
+        type: int16_t[2]
+    - name: LIGHT_SCREEN_TURN_RANGE
+      address:
+        EU: 0x22C5088
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Light Screen status, [10, 12).
+        
+        type: int16_t[2]
+    - name: SAFEGUARD_TURN_RANGE
+      address:
+        EU: 0x22C508C
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Safeguard status, [15, 20).
+        
+        type: int16_t[2]
+    - name: MIST_TURN_RANGE
+      address:
+        EU: 0x22C5090
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Mist status, [10, 14).
+        
+        type: int16_t[2]
+    - name: MAGIC_COAT_TURN_RANGE
+      address:
+        EU: 0x22C5098
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Magic Coat status, [10, 14).
+        
+        type: int16_t[2]
+    - name: SET_REFLECT_STATUS_TURN_RANGE
+      address:
+        EU: 0x22C50A8
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the statuses (Counter, Mini Counter, Metal Burst) set by SetReflctStatus, [6, 12).
         
         type: int16_t[2]
     - name: BURN_DAMAGE_MULTIPLIER
