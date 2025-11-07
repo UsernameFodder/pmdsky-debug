@@ -667,6 +667,7 @@ void InitMoveWrapper(undefined4 param_1, struct move* move, enum move_id move_id
 bool MoveIsNotPhysical(enum move_id move_id);
 bool CategoryIsNotPhysical(enum move_category category_id);
 void MakeFloorOneRoom(struct entity* user);
+void TryHurl(struct entity* user, struct entity* target);
 void TryDrought(struct entity* user);
 void TryTrawl(struct entity* user);
 void TryPounce(struct entity* user, struct entity* target, enum direction_id direction);

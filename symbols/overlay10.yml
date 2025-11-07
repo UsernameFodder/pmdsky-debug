@@ -480,6 +480,14 @@ overlay10:
         NA: 0x2
         JP: 0x2
       description: "The chance of Crunch (and others, see DoMoveDamageLowerDef20) lowering defense, as a percentage (20%)."
+    - name: HURL_DAMAGE
+      address:
+        EU: 0x22C4DB0
+      length:
+        EU: 0x2
+        NA: 0x2
+        JP: 0x2
+      description: Damage dealt from hurling a monster at another monster (10).
     - name: TRAP_BUSTER_ACTIVATION_CHANCE
       address:
         EU: 0x22C4DB4

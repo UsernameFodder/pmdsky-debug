@@ -6575,6 +6575,14 @@ overlay29:
         Removes all walls to make the floor one room.
         
         r0: user entity pointer
+    - name: TryHurl
+      address:
+        EU: 0x231F864
+      description: |-
+        Attempts to hurl the target monster at another monster, or to an unoccupied tile if there is no valid one in range.
+        
+        r0: user entity pointer
+        r1: target entity pointer
     - name: TryDrought
       address:
         EU: 0x231FFFC
