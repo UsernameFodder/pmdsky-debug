@@ -1676,17 +1676,6 @@ overlay10:
         The turn range for the Magic Coat status, [10, 14).
         
         type: int16_t[2]
-    - name: SET_REFLECT_STATUS_TURN_RANGE
-      address:
-        EU: 0x22C50A8
-      length:
-        EU: 0x4
-        NA: 0x4
-        JP: 0x4
-      description: |-
-        The turn range for the statuses (Counter, Mini Counter, Metal Burst) set by SetReflctStatus, [6, 12).
-        
-        type: int16_t[2]
     - name: BURN_DAMAGE_MULTIPLIER
       address:
         EU: 0x22C509C
@@ -1720,6 +1709,17 @@ overlay10:
         NA: 0x4
         JP: 0x4
       description: "The damage multiplier corresponding to MATCHUP_SUPER_EFFECTIVE when Erratic Player is active, as a fixed-point number with 8 fraction bits (the raw value is 0x1B3, the closest possible representation of 1.7)."
+    - name: SET_REFLECT_STATUS_TURN_RANGE
+      address:
+        EU: 0x22C50A8
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the statuses (Counter, Mini Counter, Metal Burst) set by SetReflctStatus, [6, 12).
+        
+        type: int16_t[2]
     - name: MATCHUP_IMMUNE_MULTIPLIER
       address:
         EU: 0x22C50B0
