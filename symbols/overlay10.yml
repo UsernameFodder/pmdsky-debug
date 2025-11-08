@@ -1628,6 +1628,8 @@ overlay10:
         
         type: int16_t[2]
     - name: REFLECT_TURN_RANGE
+      aliases:
+        - REFLECT_LIGHT_SCREEN_TURN_RANGE
       address:
         EU: 0x22C5084
         NA: 0x22C472C
