@@ -856,6 +856,7 @@ void SetEnterDungeon(enum dungeon_id dungeon_id);
 void InitDungeonInit(struct dungeon_init* dungeon_init_data, enum dungeon_id dungeon_id);
 bool IsNoLossPenaltyDungeon(enum dungeon_id dungeon_id);
 undefined CheckMissionRestrictions(undefined param_1);
+bool TilesetSecondaryTerrainIsChasm(int16_t tileset_id);
 int GetNbFloors(enum dungeon_id dungeon_id);
 int GetNbFloorsPlusOne(enum dungeon_id dungeon_id);
 enum dungeon_group_id GetDungeonGroup(enum dungeon_id dungeon_id);

@@ -480,6 +480,14 @@ overlay10:
         NA: 0x2
         JP: 0x2
       description: "The chance of Crunch (and others, see DoMoveDamageLowerDef20) lowering defense, as a percentage (20%)."
+    - name: HURL_DAMAGE
+      address:
+        EU: 0x22C4DB0
+      length:
+        EU: 0x2
+        NA: 0x2
+        JP: 0x2
+      description: Damage dealt from hurling a monster at another monster (10).
     - name: TRAP_BUSTER_ACTIVATION_CHANCE
       address:
         EU: 0x22C4DB4
@@ -1619,16 +1627,63 @@ overlay10:
         The turn range for the Sleepless status, [0x7F, 0x7F] (infinite).
         
         type: int16_t[2]
-    - name: REFLECT_LIGHT_SCREEN_TURN_RANGE
+    - name: REFLECT_TURN_RANGE
+      aliases:
+        - REFLECT_LIGHT_SCREEN_TURN_RANGE
       address:
         EU: 0x22C5084
         NA: 0x22C472C
         JP: 0x22C5E14
       length:
+        EU: 0x4
         NA: 0x4
         JP: 0x4
       description: |-
-        The turn range for the Reflect and Light Screen statuses, [10, 12).
+        The turn range for the Reflect status, [10, 12).
+        
+        type: int16_t[2]
+    - name: LIGHT_SCREEN_TURN_RANGE
+      address:
+        EU: 0x22C5088
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Light Screen status, [10, 12).
+        
+        type: int16_t[2]
+    - name: SAFEGUARD_TURN_RANGE
+      address:
+        EU: 0x22C508C
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Safeguard status, [15, 20).
+        
+        type: int16_t[2]
+    - name: MIST_TURN_RANGE
+      address:
+        EU: 0x22C5090
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Mist status, [10, 14).
+        
+        type: int16_t[2]
+    - name: MAGIC_COAT_TURN_RANGE
+      address:
+        EU: 0x22C5098
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Magic Coat status, [10, 14).
         
         type: int16_t[2]
     - name: BURN_DAMAGE_MULTIPLIER
@@ -1664,6 +1719,17 @@ overlay10:
         NA: 0x4
         JP: 0x4
       description: "The damage multiplier corresponding to MATCHUP_SUPER_EFFECTIVE when Erratic Player is active, as a fixed-point number with 8 fraction bits (the raw value is 0x1B3, the closest possible representation of 1.7)."
+    - name: SET_REFLECT_STATUS_TURN_RANGE
+      address:
+        EU: 0x22C50A8
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the statuses (Counter, Mini Counter, Metal Burst) set by SetReflectStatus, [6, 12).
+        
+        type: int16_t[2]
     - name: MATCHUP_IMMUNE_MULTIPLIER
       address:
         EU: 0x22C50B0
@@ -1717,6 +1783,17 @@ overlay10:
         NA: 0x4
         JP: 0x4
       description: The (subtractive) move accuracy drop induced on an attacker if the defender is wearing a Detect Band (30).
+    - name: DECOY_TURN_RANGE
+      address:
+        EU: 0x22C510C
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Decoy status, [20, 50).
+        
+        type: int16_t[2]
     - name: TINTED_LENS_MULTIPLIER
       address:
         EU: 0x22C5118

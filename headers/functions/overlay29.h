@@ -10,6 +10,7 @@ void DungeonZInit(void);
 void DungeonFree(void);
 int RunDungeon(struct dungeon_init* dungeon_init_data, struct dungeon* dungeon);
 bool EntityIsValid(struct entity* entity);
+bool FloorSecondaryTerrainIsChasm(int16_t tileset_id);
 enum floor_type GetFloorType(void);
 bool TryForcedLoss(bool skip_floor_end_check);
 bool IsBossFight(enum fixed_room_id fixed_room_id);
@@ -176,6 +177,7 @@ bool ApplyRandomTrapEffect(struct trap* trap, struct entity* user, struct entity
 void ApplyGrudgeTrapEffect(struct entity* monster, struct position* pos);
 bool ApplyTrapEffect(struct trap* trap, struct entity* user, struct entity* target,
                      struct tile* tile, struct position* pos, enum trap_id, bool random_trap);
+int SpawnMonstersAroundPos(struct entity* monster, struct position* pos, uint8_t num_enemies);
 void RevealTrapsNearby(struct entity* monster);
 bool ShouldRunMonsterAi(struct entity* monster);
 bool DebugRecruitingEnabled(void);
@@ -544,7 +546,8 @@ void TryInflictWhifferStatus(struct entity* user, struct entity* target, uint8_t
                              bool only_check);
 void TryInflictSetDamageStatus(struct entity* user, struct entity* target);
 void TryInflictFocusEnergyStatus(struct entity* user, struct entity* target);
-bool TryInflictDecoyStatus(struct entity* user, struct entity* target);
+bool TryInflictDecoyStatus(struct entity* user, struct entity* target, undefined unk_decoy_tracker,
+                           bool log_message, bool only_check);
 void TryInflictCurseStatus(struct entity* user, struct entity* target);
 void TryInflictSnatchStatus(struct entity* user, struct entity* target);
 bool TryInflictTauntStatus(struct entity* user, struct entity* target, bool only_check);
@@ -664,6 +667,7 @@ void InitMoveWrapper(undefined4 param_1, struct move* move, enum move_id move_id
 bool MoveIsNotPhysical(enum move_id move_id);
 bool CategoryIsNotPhysical(enum move_category category_id);
 void MakeFloorOneRoom(struct entity* user);
+void TryHurl(struct entity* user, struct entity* target);
 void TryDrought(struct entity* user);
 void TryTrawl(struct entity* user);
 void TryPounce(struct entity* user, struct entity* target, enum direction_id direction);
