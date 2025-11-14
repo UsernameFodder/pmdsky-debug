@@ -483,6 +483,8 @@ overlay10:
     - name: HURL_DAMAGE
       address:
         EU: 0x22C4DB0
+        NA: 0x22C4458
+        JP: 0x22C5B40
       length:
         EU: 0x2
         NA: 0x2
@@ -1619,6 +1621,8 @@ overlay10:
     - name: SLEEPLESSNESS_TURN_RANGE
       address:
         EU: 0x22C5080
+        NA: 0x22C4728
+        JP: 0x22C5E10
       length:
         EU: 0x4
         NA: 0x4
@@ -1645,6 +1649,8 @@ overlay10:
     - name: LIGHT_SCREEN_TURN_RANGE
       address:
         EU: 0x22C5088
+        NA: 0x22C4730
+        JP: 0x22C5E18
       length:
         EU: 0x4
         NA: 0x4
@@ -1656,6 +1662,8 @@ overlay10:
     - name: SAFEGUARD_TURN_RANGE
       address:
         EU: 0x22C508C
+        NA: 0x22C4734
+        JP: 0x22C5E1C
       length:
         EU: 0x4
         NA: 0x4
@@ -1667,6 +1675,8 @@ overlay10:
     - name: MIST_TURN_RANGE
       address:
         EU: 0x22C5090
+        NA: 0x22C4738
+        JP: 0x22C5E20
       length:
         EU: 0x4
         NA: 0x4
@@ -1678,6 +1688,8 @@ overlay10:
     - name: MAGIC_COAT_TURN_RANGE
       address:
         EU: 0x22C5098
+        NA: 0x22C4740
+        JP: 0x22C5E28
       length:
         EU: 0x4
         NA: 0x4
@@ -1722,6 +1734,8 @@ overlay10:
     - name: SET_REFLECT_STATUS_TURN_RANGE
       address:
         EU: 0x22C50A8
+        NA: 0x22C4750
+        JP: 0x22C5E38
       length:
         EU: 0x4
         NA: 0x4
@@ -1786,6 +1800,8 @@ overlay10:
     - name: DECOY_TURN_RANGE
       address:
         EU: 0x22C510C
+        NA: 0x22C47B4
+        JP: 0x22C5E9C
       length:
         EU: 0x4
         NA: 0x4
@@ -1940,6 +1956,8 @@ overlay10:
     - name: MIRROR_MOVE_TURN_RANGE
       address:
         EU: 0x22C5198
+        NA: 0x22C4840
+        JP: 0x22C5F28
       length:
         EU: 0x4
         NA: 0x4

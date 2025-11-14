@@ -259,6 +259,7 @@ bool IsSpecialStoryAlly(struct monster* monster);
 bool IsExperienceLocked(struct monster* monster);
 bool IsMonsterLoneOutlaw(struct monster* monster);
 bool IsSecretBazaarNpc(struct entity* entity);
+bool IsTeamMemberOnFirstTurnInFixedRoom(struct monster* monster);
 void InitOtherMonsterData(struct entity* entity, int fixed_room_stats_index, enum direction_id dir);
 void InitEnemySpawnStats(void);
 void InitEnemyStatsAndMoves(struct move* move_list, int16_t* hp, uint8_t* offensive_stats,

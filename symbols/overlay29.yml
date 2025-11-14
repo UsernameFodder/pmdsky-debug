@@ -241,6 +241,8 @@ overlay29:
     - name: FloorSecondaryTerrainIsChasm
       address:
         EU: 0x22E0CB8
+        NA: 0x22E0378
+        JP: 0x22E1A10
       description: |-
         Returns true if the current floor has a chasm secondary terrain, checking first if floor_generation_status::has_chasms_as_secondary_terrain is true
         and if not, whether the tileset's entry in SECONDARY_TERRAIN_TYPES is SECONDARY_TERRAIN_CHASM.
@@ -340,6 +342,8 @@ overlay29:
     - name: SetDungeonEscapeFields
       address:
         EU: 0x22E1328
+        NA: 0x22E09E8
+        JP: 0x22E2078
       description: |-
         Sets the successful_exit_tracker and end_floor_no_death_check_flag fields of the dungeon struct.
         
@@ -348,6 +352,8 @@ overlay29:
     - name: GetSuccessfulExitTracker
       address:
         EU: 0x22E1344
+        NA: 0x22E0A04
+        JP: 0x22E2094
       description: |-
         Returns the successful_exit_tracker field of the dungeon struct.
         
@@ -1951,6 +1957,8 @@ overlay29:
     - name: SpawnMonstersAroundPos
       address:
         EU: 0x22EFE68
+        NA: 0x22EF4B4
+        JP: 0x22F0AB8
       description: |-
         Spawns a given number of monsters around a position. Used by the Summon Trap and Grudge Trap.
         
@@ -2846,6 +2854,16 @@ overlay29:
         Checks if an entity is a Secret Bazaar NPCs.
         
         r0: entity pointer
+        return: bool
+    - name: IsTeamMemberOnFirstTurnInFixedRoom
+      address:
+        EU: 0x22FC800
+        NA: 0x22FBE04
+        JP: 0x22FD1F4
+      description: |-
+        Returns true if a monster is a team member, it is the first turn of the current floor, and the floor is a fixed room.
+        
+        r0: monster pointer
         return: bool
     - name: InitOtherMonsterData
       address:
@@ -3876,6 +3894,8 @@ overlay29:
     - name: DungeonTmLearnMove
       address:
         EU: 0x2304300
+        NA: 0x23038D4
+        JP: 0x2304E24
       description: |-
         Makes a team member learn a given move, or prompts them to forget one first if their move list is full. Used when activating a TM in dungeon mode.
         
@@ -6540,6 +6560,8 @@ overlay29:
     - name: InitMoveWrapper
       address:
         EU: 0x231F46C
+        NA: 0x231EA04
+        JP: 0x231FEB0
       description: |-
         Wrapper for InitMove which takes a superfluous parameter.
         
@@ -6578,6 +6600,8 @@ overlay29:
     - name: TryHurl
       address:
         EU: 0x231F864
+        NA: 0x231EDFC
+        JP: 0x23202A8
       description: |-
         Attempts to hurl the target monster at another monster, or to an unoccupied tile if there is no valid one in range.
         
@@ -6597,6 +6621,8 @@ overlay29:
     - name: TryTrawl
       address:
         EU: 0x232014C
+        NA: 0x231F6E4
+        JP: 0x2320B90
       description: |-
         Attempts to pull all items on the floor towards the user.
         
