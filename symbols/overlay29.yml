@@ -783,6 +783,15 @@ overlay29:
         Just a guess. Calls PlayEffectAnimation with data from animation ID 0x171.
         
         r0: entity pointer
+    - name: PlayParalysisEffect
+      address:
+        EU: 0x22E4BF0
+        NA: 0x22E4240
+        JP: 0x22E58B0
+      description: |-
+        Displays the graphical effect on a monster that just became paralyzed.
+        
+        r0: entity pointer
     - name: PlayEffectAnimationEntityStandard
       address:
         EU: 0x22E4C98
@@ -793,6 +802,24 @@ overlay29:
         
         r0: entity pointer
         r1: effect id
+    - name: PlaySpeedUpEffect
+      address:
+        EU: 0x22E4E7C
+        NA: 0x22E44CC
+        JP: 0x22E5B3C
+      description: |-
+        Displays the graphical effect on a monster that just raised movement speed.
+        
+        r0: entity pointer
+    - name: PlaySpeedDownEffect
+      address:
+        EU: 0x22E4ECC
+        NA: 0x22E451C
+        JP: 0x22E5B8C
+      description: |-
+        Displays the graphical effect on a monster that just lowered movement speed.
+        
+        r0: entity pointer
     - name: ShowPpRestoreEffect
       address:
         EU: 0x22E5314
@@ -802,6 +829,106 @@ overlay29:
         Displays the graphical effect on a monster that just recovered PP.
         
         r0: entity pointer
+    - name: PlayOffensiveStatDownEffect
+      address:
+        EU: 0x22E56D8
+        NA: 0x22E4D28
+        JP: 0x22E6398
+      description: |-
+        Displays the graphical effect on a monster that just lowered an offensive stat.
+        
+        r0: entity pointer
+        r1: stat index
+    - name: PlayDefensiveStatDownEffect
+      address:
+        EU: 0x22E577C
+        NA: 0x22E4DCC
+        JP: 0x22E643C
+      description: |-
+        Displays the graphical effect on a monster that just lowered a defensive stat.
+        
+        r0: entity pointer
+        r1: stat index
+    - name: PlayOffensiveStatUpEffect
+      address:
+        EU: 0x22E5824
+        NA: 0x22E4E74
+        JP: 0x22E64E4
+      description: |-
+        Displays the graphical effect on a monster that just raised an offensive stat.
+        
+        r0: entity pointer
+        r1: stat index
+    - name: PlayDefensiveStatUpEffect
+      address:
+        EU: 0x22E58CC
+        NA: 0x22E4F1C
+        JP: 0x22E658C
+      description: |-
+        Displays the graphical effect on a monster that just raised a defensive stat.
+        
+        r0: entity pointer
+        r1: stat index
+    - name: PlayOffensiveStatMultiplierUpEffect
+      address:
+        EU: 0x22E5970
+        NA: 0x22E4FC0
+        JP: 0x22E6630
+      description: |-
+        Displays the graphical effect on a monster that just raised an offensive stat multiplier.
+        
+        r0: entity pointer
+        r1: stat index
+    - name: PlayOffensiveStatMultiplierDownEffect
+      address:
+        EU: 0x22E5A18
+        NA: 0x22E5068
+        JP: 0x22E66D8
+      description: |-
+        Displays the graphical effect on a monster that just lowered an offensive stat multiplier.
+        
+        r0: entity pointer
+        r1: stat index
+    - name: PlayDefensiveStatMultiplierUpEffect
+      address:
+        EU: 0x22E5ABC
+        NA: 0x22E510C
+        JP: 0x22E677C
+      description: |-
+        Displays the graphical effect on a monster that just raised a defensive stat multiplier.
+        
+        r0: entity pointer
+        r1: stat index
+    - name: PlayDefensiveStatMultiplierDownEffect
+      address:
+        EU: 0x22E5B60
+        NA: 0x22E51B0
+        JP: 0x22E6820
+      description: |-
+        Displays the graphical effect on a monster that just lowered a defensive stat multiplier.
+        
+        r0: entity pointer
+        r1: stat index
+    - name: PlayHitChanceUpEffect
+      address:
+        EU: 0x22E5C08
+        NA: 0x22E5258
+        JP: 0x22E68C8
+      description: |-
+        Displays the graphical effect on a monster that just raised a hit chance stat.
+        
+        r0: entity pointer
+        r1: stat index
+    - name: PlayHitChanceDownEffect
+      address:
+        EU: 0x22E5CA8
+        NA: 0x22E52F8
+        JP: 0x22E6968
+      description: |-
+        Displays the graphical effect on a monster that just lowered a hit chance stat.
+        
+        r0: entity pointer
+        r1: stat index
     - name: PlaySeByIdIfShouldDisplayEntity
       address:
         EU: 0x22E6050
@@ -5064,6 +5191,8 @@ overlay29:
         r2: stat index
         r3: number of stages
     - name: FlashFireShouldActivate
+      aliases:
+        - GetFlashFireStatus
       address:
         EU: 0x23146D4
         NA: 0x2313C74

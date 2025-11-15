@@ -2007,6 +2007,19 @@ overlay10:
         The turn range for the Yawning status inflicted by Yawn, [2, 2].
         
         type: int16_t[2]
+    - name: CRINGE_TURN_RANGE
+      address:
+        EU: 0x22C51DC
+        NA: 0x22C4884
+        JP: 0x22C5F6C
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Cringe status, [1, 1].
+        
+        type: int16_t[2]
     - name: SPEED_BOOST_TURN_RANGE
       address:
         EU: 0x22C51E0
@@ -2020,6 +2033,24 @@ overlay10:
         Appears to control the range of turns for which a speed boost can last.
         
         The first two bytes are the low value of the range, and the later two bytes are the high value.
+    - name: SPEED_LOWER_TURN_RANGE
+      address:
+        EU: 0x22C51E4
+        NA: 0x22C488C
+        JP: 0x22C5F74
+      description: |-
+        The turn range for lowered speed, [6, 8].
+        
+        type: int16_t[2]
+    - name: PARALYSIS_TURN_RANGE
+      address:
+        EU: 0x22C51EC
+        NA: 0x22C4894
+        JP: 0x22C5F7C
+      description: |-
+        The turn range for the Paralysis status, [1, 2].
+        
+        type: int16_t[2]
     - name: SOLARBEAM_DAMAGE_MULTIPLIER
       address:
         EU: 0x22C51FC
