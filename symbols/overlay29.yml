@@ -3644,7 +3644,7 @@ overlay29:
         Checks whether an AI-controlled monster should try to avoid the first hit in battle.
         
         r0: Entity pointer
-        r1: If true, this function always returns true.
+        r1: If false, this function always returns false.
         return: True if the monster should try to avoid the first hit in battle.
     - name: ShouldMonsterRunAway
       address:

@@ -337,7 +337,7 @@ bool CanAttackInDirection(struct entity* monster, enum direction_id direction);
 bool CanAiMonsterMoveInDirection(struct entity* monster, enum direction_id direction,
                                  bool* out_monster_in_target_position);
 bool IsAtJunction(struct entity* monster);
-bool ShouldAvoidFirstHit(struct entity* monster, bool force_avoid);
+bool ShouldAvoidFirstHit(struct entity* monster, bool should_avoid);
 bool ShouldMonsterRunAway(struct entity* monster);
 bool ShouldMonsterRunAwayAndShowEffect(struct entity* monster, bool show_run_away_effect);
 void DisplayRunAwayIfTriggered(struct entity* monster, bool show_run_away_effect);
