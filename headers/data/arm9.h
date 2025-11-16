@@ -64,7 +64,7 @@ extern struct overlay_load_entry NULL_OVERLAY_LOAD_ENTRY;
 extern struct partner_talk_kind_table_entry PARTNER_TALK_KIND_TABLE[11];
 extern struct prog_pos_info EVENT_FLAG_PROG_POS_INFO;
 extern struct script_local_var_table SCRIPT_VARS_LOCALS;
-extern uint8_t EVENT_FLAG_EXPANSION_ERROR[32];
+extern unsigned char EVENT_FLAG_EXPANSION_ERROR[32];
 extern struct script_var_table SCRIPT_VARS;
 extern struct portrait_layout PORTRAIT_LAYOUTS[32];
 extern char KAOMADO_FILEPATH[20];
