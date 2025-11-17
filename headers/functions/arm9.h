@@ -803,8 +803,10 @@ void SaveScriptVariableValue(void* local_var_vals, enum script_var_id id, int va
 void SaveScriptVariableValueAtIndex(void* local_var_vals, enum script_var_id id, int idx, int val);
 int LoadScriptVariableValueSum(void* local_var_vals, enum script_var_id id);
 void LoadScriptVariableValueBytes(enum script_var_id id, void* dest, uint32_t n);
+void LoadScriptVariableValueString(enum script_var_id id, void* dest, uint8_t n);
 void SaveScriptVariableValueBytes(enum script_var_id id, void* src, uint32_t n);
 bool ScriptVariablesEqual(void* local_var_vals, enum script_var_id id1, enum script_var_id id2);
+int CalcScriptVariables(int val0, int val1, enum script_calc_operation operation);
 void EventFlagResume(void);
 void EventFlagBackup(void);
 int DumpScriptVariableValues(void* dest);

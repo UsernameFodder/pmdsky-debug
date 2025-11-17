@@ -7549,6 +7549,17 @@ arm9:
         r0: script variable ID
         r1: [output] script variable value bytes
         r2: number of bytes to load
+    - name: LoadScriptVariableValueString
+      address:
+        EU: 0x204BEE8
+        NA: 0x204BBB0
+        JP: 0x204BF10
+      description: |-
+        Loads a string from the value of a given script variable. Adds a trailing null terminator in the output.
+        
+        r0: script variable ID
+        r1: [output] script variable value string
+        r2: number of characters to load
     - name: SaveScriptVariableValueBytes
       address:
         EU: 0x204BF04
@@ -7572,6 +7583,18 @@ arm9:
         r1: script variable ID 1
         r2: script variable ID 2
         return: true if values are equal, false otherwise
+    - name: CalcScriptVariables
+      address:
+        EU: 0x204BFE4
+        NA: 0x204BCAC
+        JP: 0x204C00C
+      description: |-
+        Performs a calculation on two loaded script variables.
+        
+        r0: script variable 1
+        r1: script variable 2
+        r2: calculation to perform on the script variables
+        return: calculation result
     - name: EventFlagResume
       address:
         EU: 0x204C2F8
@@ -8108,6 +8131,8 @@ arm9:
     - name: TilesetSecondaryTerrainIsChasm
       address:
         EU: 0x204F894
+        NA: 0x204F55C
+        JP: 0x204F8B4
       description: |-
         Returns true if the given tileset has a chasm secondary terrain.
         
@@ -11784,6 +11809,16 @@ arm9:
         Table of values for the PARTNER_TALK_KIND script variable.
         
         type: struct partner_talk_kind_table_entry[11]
+    - name: EVENT_FLAG_PROG_POS_INFO
+      address:
+        EU: 0x209D430
+        NA: 0x209CEAC
+        JP: 0x209E280
+      length:
+        EU: 0x8
+        NA: 0x8
+        JP: 0x8
+      description: Debug information used to log an error with an unrecognized operation in CalcScriptVariables.
     - name: SCRIPT_VARS_LOCALS
       address:
         EU: 0x209D450
@@ -11799,6 +11834,16 @@ arm9:
         Each entry has the same structure as an entry in SCRIPT_VARS.
         
         type: struct script_local_var_table
+    - name: EVENT_FLAG_EXPANSION_ERROR
+      address:
+        EU: 0x209D4AC
+        NA: 0x209CF28
+        JP: 0x209E2FC
+      length:
+        EU: 0x20
+        NA: 0x20
+        JP: 0x20
+      description: Error log message for an unrecognized operation in CalcScriptVariables.
     - name: SCRIPT_VARS
       address:
         EU: 0x209DDF4

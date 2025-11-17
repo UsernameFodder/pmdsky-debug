@@ -667,8 +667,9 @@ struct monster {
     undefined field_0x20f;
     uint8_t hp_fractional; // 0x210: 200 * fractional_part(HP)
     undefined field_0x211;
-    undefined field_0x212;
-    undefined field_0x213;
+    // 0x212: When a Pokémon can pass through walls in a hallway, this counts up to 200 before the
+    // Pokémon turns in a random direction.
+    int16_t mobile_turn_timer;
     // 0x214: Somehow related to gaining exp through a joy ribbon. Set to 0 after
     // gaining or losing a level. Also checked and set to 0 when an enemy evolves.
     // Maybe for a specific scenario of leveling up with exp from a joy ribbon?
