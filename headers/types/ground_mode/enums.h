@@ -864,6 +864,20 @@ enum script_calc_operation {
     CALC_RANDOM = 11,
 };
 
+enum script_compare_operation {
+    CMP_TRUE,
+    CMP_FALSE,
+    CMP_EQ,
+    CMP_GT,
+    CMP_LT,
+    CMP_GE,
+    CMP_LE,
+    CMP_NE,
+    CMP_AND_NONZERO,
+    CMP_XOR_NONZERO, // logically identical to CMP_NE
+    CMP_BIT_SET,
+};
+
 // Special processes invoked through script calls to OPCODE_PROCESS_SPECIAL.
 // Descriptions are (mostly) taken from pmd2scriptdata.xml from skytemple_files.
 // Also see the corresponding functions that implement some of the special processes.

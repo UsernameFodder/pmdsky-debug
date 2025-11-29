@@ -7591,10 +7591,100 @@ arm9:
       description: |-
         Performs a calculation on two loaded script variables.
         
-        r0: script variable 1
-        r1: script variable 2
+        r0: script variable value 1
+        r1: script variable value 2
         r2: calculation to perform on the script variables
         return: calculation result
+    - name: CompareScriptVariables
+      address:
+        EU: 0x204C0D0
+        NA: 0x204BD98
+        JP: 0x204C0F8
+      description: |-
+        Compares two loaded script variables and returns the comparison result.
+        
+        r0: script variable value 1
+        r1: script variable value 2
+        r2: comparison to perform on the script variables
+        return: comparison result
+    - name: CalcScriptVariablesVeneer
+      address:
+        EU: 0x204C204
+        NA: 0x204BECC
+        JP: 0x204C22C
+      description: |-
+        Likely a linker-generated veneer for CalcScriptVariables.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
+        
+        r0: script variable value 1
+        r1: script variable value 2
+        r2: calculation to perform on the script variables
+        return: calculation result
+    - name: CalcAndUpdateScriptVarWithOtherValue
+      address:
+        EU: 0x204C210
+        NA: 0x204BED8
+        JP: 0x204C238
+      description: |-
+        Runs a calculation on a script variable, then sets the script variable to the calculation result.
+        
+        r0: pointer to the local variable table
+        r1: script variable ID
+        r2: other value to use in the calculation
+        r3: calculation to perform on the script variables
+    - name: CalcAndUpdateScriptVarWithOtherScriptVar
+      address:
+        EU: 0x204C248
+        NA: 0x204BF10
+        JP: 0x204C270
+      description: |-
+        Runs a calculation on a script variable, then sets the script variable to the calculation result.
+        
+        r0: pointer to the local variable table
+        r1: script variable ID
+        r2: other script variable to use in the calculation
+        r3: calculation to perform on the script variables
+    - name: CompareScriptVariablesVeneer
+      address:
+        EU: 0x204C294
+        NA: 0x204BF5C
+        JP: 0x204C2BC
+      description: |-
+        Likely a linker-generated veneer for CompareScriptVariables.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
+        
+        r0: script variable value 1
+        r1: script variable value 2
+        r2: comparison to perform on the script variables
+        return: comparison result
+    - name: LoadAndCompareScriptVarAndValue
+      address:
+        EU: 0x204C2A0
+        NA: 0x204BF68
+        JP: 0x204C2C8
+      description: |-
+        Runs a comparison on a script variable and another value, then returns the comparison result.
+        
+        r0: pointer to the local variable table
+        r1: script variable ID
+        r2: other script variable to use in the comparison
+        r3: comparison to perform on the script variables
+        return: comparison result
+    - name: LoadAndCompareScriptVars
+      address:
+        EU: 0x204C2C0
+        NA: 0x204BF88
+        JP: 0x204C2E8
+      description: |-
+        Runs a comparison on two script variables, then returns the comparison result.
+        
+        r0: pointer to the local variable table
+        r1: script variable ID
+        r2: other script variable to use in the comparison
+        r3: comparison to perform on the script variables
+        return: comparison result
     - name: EventFlagResume
       address:
         EU: 0x204C2F8
@@ -11809,7 +11899,9 @@ arm9:
         Table of values for the PARTNER_TALK_KIND script variable.
         
         type: struct partner_talk_kind_table_entry[11]
-    - name: EVENT_FLAG_PROG_POS_INFO
+    - name: EVENT_FLAG_PROG_POS_INFO_CALC_SCRIPT_VARIABLES
+      aliases:
+        - EVENT_FLAG_PROG_POS_INFO
       address:
         EU: 0x209D430
         NA: 0x209CEAC
@@ -11819,6 +11911,26 @@ arm9:
         NA: 0x8
         JP: 0x8
       description: Debug information used to log an error with an unrecognized operation in CalcScriptVariables.
+    - name: EVENT_FLAG_PROG_POS_INFO_COMPARE_SCRIPT_VARIABLES
+      address:
+        EU: 0x209D438
+        NA: 0x209CEB4
+        JP: 0x209E288
+      length:
+        EU: 0x8
+        NA: 0x8
+        JP: 0x8
+      description: Debug information used to log an error with an unrecognized operation in CompareScriptVariables.
+    - name: EVENT_FLAG_FILE_NAME
+      address:
+        EU: 0x209D440
+        NA: 0x209CEBC
+        JP: 0x209E290
+      length:
+        EU: 0x10
+        NA: 0x10
+        JP: 0x10
+      description: "The file name \"event_flag.c\", used for debug logging."
     - name: SCRIPT_VARS_LOCALS
       address:
         EU: 0x209D450
@@ -11834,7 +11946,9 @@ arm9:
         Each entry has the same structure as an entry in SCRIPT_VARS.
         
         type: struct script_local_var_table
-    - name: EVENT_FLAG_EXPANSION_ERROR
+    - name: EVENT_FLAG_CALC_SCRIPT_VARIABLES_ERROR
+      aliases:
+        - EVENT_FLAG_EXPANSION_ERROR
       address:
         EU: 0x209D4AC
         NA: 0x209CF28
@@ -11844,6 +11958,16 @@ arm9:
         NA: 0x20
         JP: 0x20
       description: Error log message for an unrecognized operation in CalcScriptVariables.
+    - name: EVENT_FLAG_COMPARE_SCRIPT_VARIABLES_ERROR
+      address:
+        EU: 0x209D4CC
+        NA: 0x209CF48
+        JP: 0x209E31C
+      length:
+        EU: 0x1C
+        NA: 0x1C
+        JP: 0x1C
+      description: Error log message for an unrecognized operation in CompareScriptVariables.
     - name: SCRIPT_VARS
       address:
         EU: 0x209DDF4

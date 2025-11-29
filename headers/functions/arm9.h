@@ -807,6 +807,18 @@ void LoadScriptVariableValueString(enum script_var_id id, void* dest, uint8_t n)
 void SaveScriptVariableValueBytes(enum script_var_id id, void* src, uint32_t n);
 bool ScriptVariablesEqual(void* local_var_vals, enum script_var_id id1, enum script_var_id id2);
 int CalcScriptVariables(int val0, int val1, enum script_calc_operation operation);
+bool CompareScriptVariables(int val0, int val1, enum script_compare_operation operation);
+int CalcScriptVariablesVeneer(int val0, int val1, enum script_calc_operation operation);
+void CalcAndUpdateScriptVarWithOtherValue(void* local_var_vals, enum script_var_id id,
+                                          int other_val, enum script_calc_operation operation);
+void CalcAndUpdateScriptVarWithOtherScriptVar(void* local_var_vals, enum script_var_id id1,
+                                              enum script_var_id id2,
+                                              enum script_calc_operation operation);
+bool CompareScriptVariablesVeneer(int val0, int val1, enum script_compare_operation operation);
+bool LoadAndCompareScriptVarAndValue(void* local_var_vals, enum script_var_id id, int other_val,
+                                     enum script_compare_operation operation);
+bool LoadAndCompareScriptVars(void* local_var_vals, enum script_var_id id1, enum script_var_id id2,
+                              enum script_compare_operation operation);
 void EventFlagResume(void);
 void EventFlagBackup(void);
 int DumpScriptVariableValues(void* dest);
