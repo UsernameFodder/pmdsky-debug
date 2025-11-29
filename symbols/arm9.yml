@@ -7739,6 +7739,17 @@ arm9:
         Initializes most of the SCENARIO_* script variables (except SCENARIO_TALK_BIT_FLAG for some reason). Also initializes the PLAY_OLD_GAME variable.
         
         No params.
+    - name: LoadScriptVarValuePair
+      address:
+        EU: 0x204C914
+        NA: 0x204C5DC
+        JP: 0x204C93C
+      description: |-
+        Loads values [val0, val1] from a script variable.
+        
+        r0: script variable ID
+        r1: Pointer to store index 0 of the script variable.
+        r2: Pointer to store index 1 of the script variable.
     - name: SetScenarioScriptVar
       address:
         EU: 0x204C950
@@ -7752,6 +7763,66 @@ arm9:
         r0: script variable ID
         r1: val0
         r2: val1
+    - name: IsStoryBeforePoint
+      address:
+        EU: 0x204CA00
+        NA: 0x204C6C8
+        JP: 0x204CA28
+      description: |-
+        Checks if the current story progress is before a certain point in the story.
+        
+        r0: script variable ID
+        r1: story chapter to compare to
+        r2: story chapter subsection to compare to
+        return: whether the story progress is before the given chapter and subsection.
+    - name: IsStoryBeforeOrAtPoint
+      address:
+        EU: 0x204CA6C
+        NA: 0x204C734
+        JP: 0x204CA94
+      description: |-
+        Checks if the current story progress is before or at a certain point in the story.
+        
+        r0: script variable ID
+        r1: story chapter to compare to
+        r2: story chapter subsection to compare to
+        return: whether the story progress is before or at the given chapter and subsection.
+    - name: IsStoryAtPoint
+      address:
+        EU: 0x204CAE4
+        NA: 0x204C7AC
+        JP: 0x204CB0C
+      description: |-
+        Checks if the current story progress is at a certain point in the story.
+        
+        r0: script variable ID
+        r1: story chapter to compare to
+        r2: story chapter subsection to compare to
+        return: whether the story progress is at the given chapter and subsection.
+    - name: IsStoryAtOrAfterPoint
+      address:
+        EU: 0x204CB40
+        NA: 0x204C808
+        JP: 0x204CB68
+      description: |-
+        Checks if the current story progress is at or after a certain point in the story.
+        
+        r0: script variable ID
+        r1: story chapter to compare to
+        r2: story chapter subsection to compare to
+        return: whether the story progress is at or after the given chapter and subsection.
+    - name: IsStoryAfterPoint
+      address:
+        EU: 0x204CBB8
+        NA: 0x204C880
+        JP: 0x204CBE0
+      description: |-
+        Checks if the current story progress is after a certain point in the story.
+        
+        r0: script variable ID
+        r1: story chapter to compare to
+        r2: story chapter subsection to compare to
+        return: whether the story progress is after the given chapter and subsection.
     - name: GetSpecialEpisodeType
       address:
         EU: 0x204CC24
@@ -7770,6 +7841,24 @@ arm9:
         Sets the special episode type by changing the SPECIAL_EPISODE_TYPE script variable.
         
         r0: special episode type
+    - name: GetDebugSpecialEpisodeNumber
+      address:
+        EU: 0x204CC50
+        NA: 0x204C918
+        JP: 0x204CC78
+      description: |-
+        Gets the value of DEBUG_SPECIAL_EPISODE_NUMBER.
+        
+        return: value of DEBUG_SPECIAL_EPISODE_NUMBER
+    - name: SetDebugSpecialEpisodeNumber
+      address:
+        EU: 0x204CC60
+        NA: 0x204C928
+        JP: 0x204CC88
+      description: |-
+        Sets the value of DEBUG_SPECIAL_EPISODE_NUMBER.
+        
+        r0: new value of DEBUG_SPECIAL_EPISODE_NUMBER
     - name: GetExecuteSpecialEpisodeType
       address:
         EU: 0x204CC70
@@ -12003,6 +12092,16 @@ arm9:
         These variables underpin the various ExplorerScript global variables you can use in the SkyTemple SSB debugger.
         
         type: struct script_var_table
+    - name: SCENARIO_CALC_DEBUG_MSG
+      address:
+        EU: 0x209E524
+        NA: 0x209DFA0
+        JP: 0x209F374
+      length:
+        EU: 0x28
+        NA: 0x28
+        JP: 0x28
+      description: Debug log message with the old and new scenario values when SetScenarioScriptVar runs.
     - name: PORTRAIT_LAYOUTS
       address:
         EU: 0x209E598

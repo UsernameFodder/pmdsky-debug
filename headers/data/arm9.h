@@ -71,6 +71,7 @@ extern unsigned char EVENT_FLAG_COMPARE_SCRIPT_VARIABLES_ERROR[28];
 extern unsigned char EVENT_FLAG_GAME_MODE_DEBUG_MSG[32];
 extern unsigned char EVENT_FLAG_BACKUP_DEBUG_MSG[32];
 extern struct script_var_table SCRIPT_VARS;
+extern unsigned char SCENARIO_CALC_DEBUG_MSG[40];
 extern struct portrait_layout PORTRAIT_LAYOUTS[32];
 extern char KAOMADO_FILEPATH[20];
 extern uint8_t WONDER_MAIL_BITS_MAP[32];
