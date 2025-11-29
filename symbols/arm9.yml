@@ -7633,7 +7633,6 @@ arm9:
         r1: script variable ID
         r2: other value to use in the calculation
         r3: calculation to perform on the script variables
-        return: calculation result
     - name: CalcAndUpdateScriptVarWithOtherScriptVar
       address:
         EU: 0x204C248
@@ -7646,7 +7645,6 @@ arm9:
         r1: script variable ID
         r2: other script variable to use in the calculation
         r3: calculation to perform on the script variables
-        return: calculation result
     - name: CompareScriptVariablesVeneer
       address:
         EU: 0x204C294
