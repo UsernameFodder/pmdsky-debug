@@ -68,6 +68,8 @@ extern unsigned char EVENT_FLAG_FILE_NAME[16];
 extern struct script_local_var_table SCRIPT_VARS_LOCALS;
 extern unsigned char EVENT_FLAG_CALC_SCRIPT_VARIABLES_ERROR[32];
 extern unsigned char EVENT_FLAG_COMPARE_SCRIPT_VARIABLES_ERROR[28];
+extern unsigned char EVENT_FLAG_GAME_MODE_DEBUG_MSG[32];
+extern unsigned char EVENT_FLAG_BACKUP_DEBUG_MSG[32];
 extern struct script_var_table SCRIPT_VARS;
 extern struct portrait_layout PORTRAIT_LAYOUTS[32];
 extern char KAOMADO_FILEPATH[20];
