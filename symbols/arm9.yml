@@ -7731,6 +7731,8 @@ arm9:
         r0: raw data to copy to the values table
         return: whether the restored value for VAR_VERSION is equal to its default value
     - name: InitScenarioScriptVars
+      aliases:
+        - InitScenarioProgressScriptVars
       address:
         EU: 0x204C7C0
         NA: 0x204C488
@@ -7751,6 +7753,8 @@ arm9:
         r1: Pointer to store index 0 of the script variable.
         r2: Pointer to store index 1 of the script variable.
     - name: SetScenarioScriptVar
+      aliases:
+        - SetScenarioProgressScriptVars
       address:
         EU: 0x204C950
         NA: 0x204C618
