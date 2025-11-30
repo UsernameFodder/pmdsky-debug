@@ -7878,6 +7878,66 @@ arm9:
         
         r0: special episode type
         return: bool
+    - name: SetSpecialEpisodeOpen
+      address:
+        EU: 0x204CCB0
+        NA: 0x204C978
+        JP: 0x204CCD8
+      description: |-
+        Sets the value of the script variable SPECIAL_EPISODE_OPEN, which indicates if a special episode is unlocked.
+        
+        r0: special episode type
+        r1: new SPECIAL_EPISODE_OPEN value
+    - name: IsSpecialEpisodeOpenMismatch
+      address:
+        EU: 0x204CCD8
+        NA: 0x204C9A0
+        JP: 0x204CD00
+      description: |-
+        Checks if there is a mismatch between the values of the script variables SPECIAL_EPISODE_OPEN and VAR_SPECIAL_EPISODE_OPEN_OLD.
+        This checks for all special episodes at once.
+        
+        return: bool
+    - name: IsSpecialEpisodeOpenOld
+      address:
+        EU: 0x204CD00
+        NA: 0x204C9C8
+        JP: 0x204CD28
+      description: |-
+        Checks if the SPECIAL_EPISODE_OPEN_OLD script variable is set to true.
+        
+        r0: special episode type
+        return: bool
+    - name: SetSpecialEpisodeOpenOld
+      address:
+        EU: 0x204CD2C
+        NA: 0x204C9F4
+        JP: 0x204CD54
+      description: |-
+        Sets the value of the script variable SPECIAL_EPISODE_OPEN_OLD.
+        
+        r0: special episode type
+        r1: new SPECIAL_EPISODE_OPEN_OLD value
+    - name: IsSpecialEpisodeBeaten
+      address:
+        EU: 0x204CD54
+        NA: 0x204CA1C
+        JP: 0x204CD7C
+      description: |-
+        Checks if a special episode is beaten from the SPECIAL_EPISODE_CONQUEST script variable.
+        
+        r0: special episode type
+        return: bool
+    - name: SetSpecialEpisodeBeaten
+      address:
+        EU: 0x204CD80
+        NA: 0x204CA48
+        JP: 0x204CDA8
+      description: |-
+        Sets the value of the script variable SPECIAL_EPISODE_CONQUEST, which indicates if a special episode is beaten.
+        
+        r0: special episode type
+        r1: new SPECIAL_EPISODE_CONQUEST value
     - name: HasPlayedOldGame
       address:
         EU: 0x204CDA8

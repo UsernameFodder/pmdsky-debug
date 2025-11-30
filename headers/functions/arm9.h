@@ -837,6 +837,13 @@ int GetDebugSpecialEpisodeNumber(void);
 void SetDebugSpecialEpisodeNumber(int special_episode_number);
 int GetExecuteSpecialEpisodeType(void);
 bool IsSpecialEpisodeOpen(enum special_episode_type special_episode_type);
+void SetSpecialEpisodeOpen(enum special_episode_type special_episode_type, bool episode_open);
+bool IsSpecialEpisodeOpenMismatch(void);
+bool IsSpecialEpisodeOpenOld(enum special_episode_type special_episode_type);
+void SetSpecialEpisodeOpenOld(enum special_episode_type special_episode_type, bool episode_open);
+bool IsSpecialEpisodeBeaten(enum special_episode_type special_episode_type);
+void SetSpecialEpisodeBeaten(enum special_episode_type special_episode_type,
+                             bool special_episode_beaten);
 bool HasPlayedOldGame(void);
 bool GetPerformanceFlagWithChecks(int flag_id);
 int GetScenarioBalance(void);
