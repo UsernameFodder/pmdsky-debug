@@ -846,6 +846,7 @@ void SetSpecialEpisodeBeaten(enum special_episode_type special_episode_type,
                              bool special_episode_beaten);
 bool HasPlayedOldGame(void);
 bool GetPerformanceFlagWithChecks(int flag_id);
+void SetPerformanceFlagWithChecks(int flag_id, int value);
 int GetScenarioBalance(void);
 void ScenarioFlagBackup(void);
 void InitWorldMapScriptVars(void);

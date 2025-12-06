@@ -7754,7 +7754,7 @@ arm9:
         r2: Pointer to store index 1 of the script variable.
     - name: SetScenarioScriptVar
       aliases:
-        - SetScenarioProgressScriptVars
+        - SetScenarioProgressScriptVar
       address:
         EU: 0x204C950
         NA: 0x204C618
@@ -7952,6 +7952,8 @@ arm9:
         
         return: bool
     - name: GetPerformanceFlagWithChecks
+      aliases:
+        - GetResolvedPerformanceProgressFlag
       address:
         EU: 0x204CDCC
         NA: 0x204CA94
@@ -7966,6 +7968,22 @@ arm9:
         
         r0: ID of the flag to get
         return: Value of the flag
+    - name: SetPerformanceFlagWithChecks
+      aliases:
+        - SetResolvedPerformanceProgressFlag
+      address:
+        EU: 0x204CE64
+        NA: 0x204CB2C
+        JP: 0x204CE8C
+      description: |-
+        Sets the value of one of the flags in VAR_PERFORMANCE_PROGRESS_LIST, with some edge cases.
+        
+        List of cases where the function behaves differently:
+        - If the requested flag is 0, sets the flag to false if the new value is 0, and true otherwise
+        - If the requested flag is 7 and GAME_MODE == GAME_MODE_SPECIAL_EPISODE, the flag is not set
+        
+        r0: ID of the flag to get
+        r1: Value to set the flag to.
     - name: GetScenarioBalance
       address:
         EU: 0x204CECC
