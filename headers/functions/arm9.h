@@ -794,6 +794,7 @@ enum game_mode GetGameMode(void);
 bool IsGameModeRescue(void);
 void InitScriptVariableValues(void);
 void InitEventFlagScriptVars(void);
+void DefaultInitScriptVariable(void* local_var_vals, enum script_var_id id);
 void ZinitScriptVariable(void* local_var_vals, enum script_var_id id);
 void LoadScriptVariableRaw(struct script_var_desc* var, void* local_var_vals,
                            enum script_var_id id);
@@ -848,6 +849,7 @@ bool HasPlayedOldGame(void);
 bool GetPerformanceFlagWithChecks(int flag_id);
 void SetPerformanceFlagWithChecks(int flag_id, int value);
 int GetScenarioBalance(void);
+void ScenarioFlagRestore(void);
 void ScenarioFlagBackup(void);
 void InitWorldMapScriptVars(void);
 void InitDungeonListScriptVars(void);
