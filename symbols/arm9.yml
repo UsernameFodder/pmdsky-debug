@@ -12140,6 +12140,16 @@ arm9:
         Each entry has the same structure as an entry in SCRIPT_VARS.
         
         type: struct script_local_var_table
+    - name: EVENT_FLAG_SIZE_DEBUG_MSG
+      address:
+        EU: 0x209D490
+        NA: 0x209CF0C
+        JP: 0x209E2E0
+      length:
+        EU: 0x1C
+        NA: 0x1C
+        JP: 0x1C
+      description: "Debug log message that says \"EventFlagSize\""
     - name: EVENT_FLAG_CALC_SCRIPT_VARIABLES_ERROR
       aliases:
         - EVENT_FLAG_EXPANSION_ERROR
@@ -12182,6 +12192,36 @@ arm9:
         NA: 0x20
         JP: 0x20
       description: Debug log message when EventFlagBackup runs.
+    - name: SUM_MSG
+      address:
+        EU: 0x209D528
+        NA: 0x209CFA4
+        JP: 0x209E378
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: "Debug log message that says \"SUM\""
+    - name: SUB30_PROJECTP_MSG
+      address:
+        EU: 0x209D71C
+        NA: 0x209D198
+        JP: 0x209E56C
+      length:
+        EU: 0x10
+        NA: 0x10
+        JP: 0x10
+      description: "Debug log message that says \"SUB30_PROJECTP\""
+    - name: NOTE_MODIFY_FLAG_MSG
+      address:
+        EU: 0x209D850
+        NA: 0x209D2CC
+        JP: 0x209E6A0
+      length:
+        EU: 0x14
+        NA: 0x14
+        JP: 0x14
+      description: "Debug log message that says \"NOTE_MODIFY_FLAG\""
     - name: SCRIPT_VARS
       address:
         EU: 0x209DDF4
