@@ -376,6 +376,21 @@ ram:
         Move struct of the last new move introduced when learning a new move. Persists even after the move selection is made in the menu.
         
         type: struct move
+    - name: OPTIONS
+      address:
+        EU: 0x22AB9E0
+        NA: 0x22AB0A0
+        JP: 0x22AC85C
+      length:
+        EU: 0x9
+        NA: 0x9
+        JP: 0x9
+      description: |-
+        The game's options as controlled by the player through the Others -> Options menu
+        
+        The option for "Grids On/Off" is not stored here.
+        
+        type: struct options
     - name: SCRIPT_VARS_VALUES
       address:
         EU: 0x22AB9EC

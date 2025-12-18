@@ -1393,4 +1393,17 @@ struct menu_control {
 };
 ASSERT_SIZE(struct menu_control, 220);
 
+struct options {
+    uint8_t touch_screen;  // Off = 0, Menu Only = 1, Use Anywhere = 2
+    uint8_t bottom_screen; // No map = 0, Clear map = 1, Shaded map = 2
+    uint8_t top_screen;    // Controls = 0, Team stats = 1, Text log = 2, Map and team = 3, Job = 4
+    uint8_t unk0;
+    uint8_t speed;           // Regular = 0, Fast = 1
+    uint8_t far_off_pals;    // Self = 0, Look = 1
+    uint8_t damage_turn;     // No = 0, Yes = 1
+    uint8_t d_pad_attack;    // No = 0, Yes = 1
+    uint8_t check_direction; // No = 0, Yes = 1
+};
+ASSERT_SIZE(struct options, 9);
+
 #endif
