@@ -386,9 +386,8 @@ ram:
         NA: 0x9
         JP: 0x9
       description: |-
-        The game's options as controlled by the player through the Others -> Options menu
-        
-        The option for "Grids On/Off" is not stored here.
+        The game's options as controlled by the player through the Others -> Options menu,
+        and the Window Frame Type.
         
         type: struct options
     - name: SCRIPT_VARS_VALUES
