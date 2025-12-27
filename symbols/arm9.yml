@@ -7549,6 +7549,17 @@ arm9:
         r0: script variable ID
         r1: [output] script variable value bytes
         r2: number of bytes to load
+    - name: LoadScriptVariableValueString
+      address:
+        EU: 0x204BEE8
+        NA: 0x204BBB0
+        JP: 0x204BF10
+      description: |-
+        Loads a string from the value of a given script variable. Adds a trailing null terminator in the output.
+        
+        r0: script variable ID
+        r1: [output] script variable value string
+        r2: number of characters to load
     - name: SaveScriptVariableValueBytes
       address:
         EU: 0x204BF04
@@ -7572,6 +7583,108 @@ arm9:
         r1: script variable ID 1
         r2: script variable ID 2
         return: true if values are equal, false otherwise
+    - name: CalcScriptVariables
+      address:
+        EU: 0x204BFE4
+        NA: 0x204BCAC
+        JP: 0x204C00C
+      description: |-
+        Performs a calculation on two loaded script variables.
+        
+        r0: script variable value 1
+        r1: script variable value 2
+        r2: calculation to perform on the script variables
+        return: calculation result
+    - name: CompareScriptVariables
+      address:
+        EU: 0x204C0D0
+        NA: 0x204BD98
+        JP: 0x204C0F8
+      description: |-
+        Compares two loaded script variables and returns the comparison result.
+        
+        r0: script variable value 1
+        r1: script variable value 2
+        r2: comparison to perform on the script variables
+        return: comparison result
+    - name: CalcScriptVariablesVeneer
+      address:
+        EU: 0x204C204
+        NA: 0x204BECC
+        JP: 0x204C22C
+      description: |-
+        Likely a linker-generated veneer for CalcScriptVariables.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
+        
+        r0: script variable value 1
+        r1: script variable value 2
+        r2: calculation to perform on the script variables
+        return: calculation result
+    - name: CalcAndUpdateScriptVarWithOtherValue
+      address:
+        EU: 0x204C210
+        NA: 0x204BED8
+        JP: 0x204C238
+      description: |-
+        Runs a calculation on a script variable, then sets the script variable to the calculation result.
+        
+        r0: pointer to the local variable table
+        r1: script variable ID
+        r2: other value to use in the calculation
+        r3: calculation to perform on the script variables
+    - name: CalcAndUpdateScriptVarWithOtherScriptVar
+      address:
+        EU: 0x204C248
+        NA: 0x204BF10
+        JP: 0x204C270
+      description: |-
+        Runs a calculation on a script variable, then sets the script variable to the calculation result.
+        
+        r0: pointer to the local variable table
+        r1: script variable ID
+        r2: other script variable to use in the calculation
+        r3: calculation to perform on the script variables
+    - name: CompareScriptVariablesVeneer
+      address:
+        EU: 0x204C294
+        NA: 0x204BF5C
+        JP: 0x204C2BC
+      description: |-
+        Likely a linker-generated veneer for CompareScriptVariables.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
+        
+        r0: script variable value 1
+        r1: script variable value 2
+        r2: comparison to perform on the script variables
+        return: comparison result
+    - name: LoadAndCompareScriptVarAndValue
+      address:
+        EU: 0x204C2A0
+        NA: 0x204BF68
+        JP: 0x204C2C8
+      description: |-
+        Runs a comparison on a script variable and another value, then returns the comparison result.
+        
+        r0: pointer to the local variable table
+        r1: script variable ID
+        r2: other script variable to use in the comparison
+        r3: comparison to perform on the script variables
+        return: comparison result
+    - name: LoadAndCompareScriptVars
+      address:
+        EU: 0x204C2C0
+        NA: 0x204BF88
+        JP: 0x204C2E8
+      description: |-
+        Runs a comparison on two script variables, then returns the comparison result.
+        
+        r0: pointer to the local variable table
+        r1: script variable ID
+        r2: other script variable to use in the comparison
+        r3: comparison to perform on the script variables
+        return: comparison result
     - name: EventFlagResume
       address:
         EU: 0x204C2F8
@@ -7618,6 +7731,8 @@ arm9:
         r0: raw data to copy to the values table
         return: whether the restored value for VAR_VERSION is equal to its default value
     - name: InitScenarioScriptVars
+      aliases:
+        - InitScenarioProgressScriptVars
       address:
         EU: 0x204C7C0
         NA: 0x204C488
@@ -7626,7 +7741,20 @@ arm9:
         Initializes most of the SCENARIO_* script variables (except SCENARIO_TALK_BIT_FLAG for some reason). Also initializes the PLAY_OLD_GAME variable.
         
         No params.
+    - name: LoadScriptVarValuePair
+      address:
+        EU: 0x204C914
+        NA: 0x204C5DC
+        JP: 0x204C93C
+      description: |-
+        Loads values [val0, val1] from a script variable.
+        
+        r0: script variable ID
+        r1: Pointer to store index 0 of the script variable.
+        r2: Pointer to store index 1 of the script variable.
     - name: SetScenarioScriptVar
+      aliases:
+        - SetScenarioProgressScriptVar
       address:
         EU: 0x204C950
         NA: 0x204C618
@@ -7639,6 +7767,66 @@ arm9:
         r0: script variable ID
         r1: val0
         r2: val1
+    - name: IsStoryBeforePoint
+      address:
+        EU: 0x204CA00
+        NA: 0x204C6C8
+        JP: 0x204CA28
+      description: |-
+        Checks if the current story progress is before a certain point in the story.
+        
+        r0: script variable ID
+        r1: story chapter to compare to
+        r2: story chapter subsection to compare to
+        return: whether the story progress is before the given chapter and subsection.
+    - name: IsStoryBeforeOrAtPoint
+      address:
+        EU: 0x204CA6C
+        NA: 0x204C734
+        JP: 0x204CA94
+      description: |-
+        Checks if the current story progress is before or at a certain point in the story.
+        
+        r0: script variable ID
+        r1: story chapter to compare to
+        r2: story chapter subsection to compare to
+        return: whether the story progress is before or at the given chapter and subsection.
+    - name: IsStoryAtPoint
+      address:
+        EU: 0x204CAE4
+        NA: 0x204C7AC
+        JP: 0x204CB0C
+      description: |-
+        Checks if the current story progress is at a certain point in the story.
+        
+        r0: script variable ID
+        r1: story chapter to compare to
+        r2: story chapter subsection to compare to
+        return: whether the story progress is at the given chapter and subsection.
+    - name: IsStoryAtOrAfterPoint
+      address:
+        EU: 0x204CB40
+        NA: 0x204C808
+        JP: 0x204CB68
+      description: |-
+        Checks if the current story progress is at or after a certain point in the story.
+        
+        r0: script variable ID
+        r1: story chapter to compare to
+        r2: story chapter subsection to compare to
+        return: whether the story progress is at or after the given chapter and subsection.
+    - name: IsStoryAfterPoint
+      address:
+        EU: 0x204CBB8
+        NA: 0x204C880
+        JP: 0x204CBE0
+      description: |-
+        Checks if the current story progress is after a certain point in the story.
+        
+        r0: script variable ID
+        r1: story chapter to compare to
+        r2: story chapter subsection to compare to
+        return: whether the story progress is after the given chapter and subsection.
     - name: GetSpecialEpisodeType
       address:
         EU: 0x204CC24
@@ -7657,6 +7845,24 @@ arm9:
         Sets the special episode type by changing the SPECIAL_EPISODE_TYPE script variable.
         
         r0: special episode type
+    - name: GetDebugSpecialEpisodeNumber
+      address:
+        EU: 0x204CC50
+        NA: 0x204C918
+        JP: 0x204CC78
+      description: |-
+        Gets the value of DEBUG_SPECIAL_EPISODE_NUMBER.
+        
+        return: value of DEBUG_SPECIAL_EPISODE_NUMBER
+    - name: SetDebugSpecialEpisodeNumber
+      address:
+        EU: 0x204CC60
+        NA: 0x204C928
+        JP: 0x204CC88
+      description: |-
+        Sets the value of DEBUG_SPECIAL_EPISODE_NUMBER.
+        
+        r0: new value of DEBUG_SPECIAL_EPISODE_NUMBER
     - name: GetExecuteSpecialEpisodeType
       address:
         EU: 0x204CC70
@@ -7676,6 +7882,66 @@ arm9:
         
         r0: special episode type
         return: bool
+    - name: SetSpecialEpisodeOpen
+      address:
+        EU: 0x204CCB0
+        NA: 0x204C978
+        JP: 0x204CCD8
+      description: |-
+        Sets the value of the script variable SPECIAL_EPISODE_OPEN, which indicates if a special episode is unlocked.
+        
+        r0: special episode type
+        r1: new SPECIAL_EPISODE_OPEN value
+    - name: IsSpecialEpisodeOpenMismatch
+      address:
+        EU: 0x204CCD8
+        NA: 0x204C9A0
+        JP: 0x204CD00
+      description: |-
+        Checks if there is a mismatch between the values of the script variables SPECIAL_EPISODE_OPEN and VAR_SPECIAL_EPISODE_OPEN_OLD.
+        This checks for all special episodes at once.
+        
+        return: bool
+    - name: IsSpecialEpisodeOpenOld
+      address:
+        EU: 0x204CD00
+        NA: 0x204C9C8
+        JP: 0x204CD28
+      description: |-
+        Checks if the SPECIAL_EPISODE_OPEN_OLD script variable is set to true.
+        
+        r0: special episode type
+        return: bool
+    - name: SetSpecialEpisodeOpenOld
+      address:
+        EU: 0x204CD2C
+        NA: 0x204C9F4
+        JP: 0x204CD54
+      description: |-
+        Sets the value of the script variable SPECIAL_EPISODE_OPEN_OLD.
+        
+        r0: special episode type
+        r1: new SPECIAL_EPISODE_OPEN_OLD value
+    - name: IsSpecialEpisodeBeaten
+      address:
+        EU: 0x204CD54
+        NA: 0x204CA1C
+        JP: 0x204CD7C
+      description: |-
+        Checks if a special episode is beaten from the SPECIAL_EPISODE_CONQUEST script variable.
+        
+        r0: special episode type
+        return: bool
+    - name: SetSpecialEpisodeBeaten
+      address:
+        EU: 0x204CD80
+        NA: 0x204CA48
+        JP: 0x204CDA8
+      description: |-
+        Sets the value of the script variable SPECIAL_EPISODE_CONQUEST, which indicates if a special episode is beaten.
+        
+        r0: special episode type
+        r1: new SPECIAL_EPISODE_CONQUEST value
     - name: HasPlayedOldGame
       address:
         EU: 0x204CDA8
@@ -7686,6 +7952,8 @@ arm9:
         
         return: bool
     - name: GetPerformanceFlagWithChecks
+      aliases:
+        - GetResolvedPerformanceProgressFlag
       address:
         EU: 0x204CDCC
         NA: 0x204CA94
@@ -7700,6 +7968,22 @@ arm9:
         
         r0: ID of the flag to get
         return: Value of the flag
+    - name: SetPerformanceFlagWithChecks
+      aliases:
+        - SetResolvedPerformanceProgressFlag
+      address:
+        EU: 0x204CE64
+        NA: 0x204CB2C
+        JP: 0x204CE8C
+      description: |-
+        Sets the value of one of the flags in VAR_PERFORMANCE_PROGRESS_LIST, with some edge cases.
+        
+        List of cases where the function behaves differently:
+        - If the requested flag is 0, sets the flag to false if the new value is 0, and true otherwise
+        - If the requested flag is 7 and GAME_MODE == GAME_MODE_SPECIAL_EPISODE, the flag is not set
+        
+        r0: ID of the flag to get
+        r1: Value to set the flag to.
     - name: GetScenarioBalance
       address:
         EU: 0x204CECC
@@ -8108,6 +8392,8 @@ arm9:
     - name: TilesetSecondaryTerrainIsChasm
       address:
         EU: 0x204F894
+        NA: 0x204F55C
+        JP: 0x204F8B4
       description: |-
         Returns true if the given tileset has a chasm secondary terrain.
         
@@ -11784,6 +12070,38 @@ arm9:
         Table of values for the PARTNER_TALK_KIND script variable.
         
         type: struct partner_talk_kind_table_entry[11]
+    - name: EVENT_FLAG_PROG_POS_INFO_CALC_SCRIPT_VARIABLES
+      aliases:
+        - EVENT_FLAG_PROG_POS_INFO
+      address:
+        EU: 0x209D430
+        NA: 0x209CEAC
+        JP: 0x209E280
+      length:
+        EU: 0x8
+        NA: 0x8
+        JP: 0x8
+      description: Debug information used to log an error with an unrecognized operation in CalcScriptVariables.
+    - name: EVENT_FLAG_PROG_POS_INFO_COMPARE_SCRIPT_VARIABLES
+      address:
+        EU: 0x209D438
+        NA: 0x209CEB4
+        JP: 0x209E288
+      length:
+        EU: 0x8
+        NA: 0x8
+        JP: 0x8
+      description: Debug information used to log an error with an unrecognized operation in CompareScriptVariables.
+    - name: EVENT_FLAG_FILE_NAME
+      address:
+        EU: 0x209D440
+        NA: 0x209CEBC
+        JP: 0x209E290
+      length:
+        EU: 0x10
+        NA: 0x10
+        JP: 0x10
+      description: "The file name \"event_flag.c\", used for debug logging."
     - name: SCRIPT_VARS_LOCALS
       address:
         EU: 0x209D450
@@ -11799,6 +12117,48 @@ arm9:
         Each entry has the same structure as an entry in SCRIPT_VARS.
         
         type: struct script_local_var_table
+    - name: EVENT_FLAG_CALC_SCRIPT_VARIABLES_ERROR
+      aliases:
+        - EVENT_FLAG_EXPANSION_ERROR
+      address:
+        EU: 0x209D4AC
+        NA: 0x209CF28
+        JP: 0x209E2FC
+      length:
+        EU: 0x20
+        NA: 0x20
+        JP: 0x20
+      description: Error log message for an unrecognized operation in CalcScriptVariables.
+    - name: EVENT_FLAG_COMPARE_SCRIPT_VARIABLES_ERROR
+      address:
+        EU: 0x209D4CC
+        NA: 0x209CF48
+        JP: 0x209E31C
+      length:
+        EU: 0x1C
+        NA: 0x1C
+        JP: 0x1C
+      description: Error log message for an unrecognized operation in CompareScriptVariables.
+    - name: EVENT_FLAG_GAME_MODE_DEBUG_MSG
+      address:
+        EU: 0x209D4E8
+        NA: 0x209CF64
+        JP: 0x209E338
+      length:
+        EU: 0x20
+        NA: 0x20
+        JP: 0x20
+      description: Debug log message when EventFlagResume runs.
+    - name: EVENT_FLAG_BACKUP_DEBUG_MSG
+      address:
+        EU: 0x209D508
+        NA: 0x209CF84
+        JP: 0x209E358
+      length:
+        EU: 0x20
+        NA: 0x20
+        JP: 0x20
+      description: Debug log message when EventFlagBackup runs.
     - name: SCRIPT_VARS
       address:
         EU: 0x209DDF4
@@ -11814,6 +12174,16 @@ arm9:
         These variables underpin the various ExplorerScript global variables you can use in the SkyTemple SSB debugger.
         
         type: struct script_var_table
+    - name: SCENARIO_CALC_DEBUG_MSG
+      address:
+        EU: 0x209E524
+        NA: 0x209DFA0
+        JP: 0x209F374
+      length:
+        EU: 0x28
+        NA: 0x28
+        JP: 0x28
+      description: Debug log message with the old and new scenario values when SetScenarioScriptVar runs.
     - name: PORTRAIT_LAYOUTS
       address:
         EU: 0x209E598

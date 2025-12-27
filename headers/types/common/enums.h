@@ -4253,6 +4253,36 @@ enum talk_type {
     TALK_TYPE_GROUND_WAIT = 5,
 };
 
+enum top_screen_option {
+    TOP_SCREEN_CONTROLS = 0,
+    TOP_SCREEN_TEAM_STATS = 1,
+    TOP_SCREEN_TEXT_LOG = 2,
+    TOP_SCREEN_MAP_AND_TEAM = 3,
+    TOP_SCREEN_JOB = 4
+};
+
+enum touch_screen_option {
+    TOUCH_SCREEN_OFF = 0,
+    TOUCH_SCREEN_MENU_ONLY = 1,
+    TOUCH_SCREEN_USE_ANYWHERE = 2
+};
+
+enum bottom_screen_option {
+    BOTTOM_SCREEN_NO_MAP = 0,
+    BOTTOM_SCREEN_CLEAR_MAP = 1,
+    BOTTOM_SCREEN_SHADED_MAP = 2
+};
+
+enum speed_option { SPEED_REGULAR = 0, SPEED_FAST = 1 };
+
+enum far_off_pals_option { FAR_OFF_PALS_SELF = 0, FAR_OFF_PALS_LOOK = 1 };
+
+enum damage_turn_option { DAMAGE_TURL_NO = 0, DAMAGE_TURN_YES = 1 };
+
+enum d_pad_attack_option { D_PAD_ATTACK_NO = 0, D_PAD_ATTACK_YES = 1 };
+
+enum check_direction_option { CHECK_DIRECTION_NO = 0, CHECK_DIRECTION_YES = 1 };
+
 #pragma pack(push, 1)
 ENUM_8_BIT(box_type);
 #pragma pack(pop)

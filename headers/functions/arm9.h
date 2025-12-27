@@ -803,20 +803,50 @@ void SaveScriptVariableValue(void* local_var_vals, enum script_var_id id, int va
 void SaveScriptVariableValueAtIndex(void* local_var_vals, enum script_var_id id, int idx, int val);
 int LoadScriptVariableValueSum(void* local_var_vals, enum script_var_id id);
 void LoadScriptVariableValueBytes(enum script_var_id id, void* dest, uint32_t n);
+void LoadScriptVariableValueString(enum script_var_id id, void* dest, uint8_t n);
 void SaveScriptVariableValueBytes(enum script_var_id id, void* src, uint32_t n);
 bool ScriptVariablesEqual(void* local_var_vals, enum script_var_id id1, enum script_var_id id2);
+int CalcScriptVariables(int val0, int val1, enum script_calc_operation operation);
+bool CompareScriptVariables(int val0, int val1, enum script_compare_operation operation);
+int CalcScriptVariablesVeneer(int val0, int val1, enum script_calc_operation operation);
+void CalcAndUpdateScriptVarWithOtherValue(void* local_var_vals, enum script_var_id id,
+                                          int other_val, enum script_calc_operation operation);
+void CalcAndUpdateScriptVarWithOtherScriptVar(void* local_var_vals, enum script_var_id id1,
+                                              enum script_var_id id2,
+                                              enum script_calc_operation operation);
+bool CompareScriptVariablesVeneer(int val0, int val1, enum script_compare_operation operation);
+bool LoadAndCompareScriptVarAndValue(void* local_var_vals, enum script_var_id id, int other_val,
+                                     enum script_compare_operation operation);
+bool LoadAndCompareScriptVars(void* local_var_vals, enum script_var_id id1, enum script_var_id id2,
+                              enum script_compare_operation operation);
 void EventFlagResume(void);
 void EventFlagBackup(void);
 int DumpScriptVariableValues(void* dest);
 bool RestoreScriptVariableValues(void* src);
 void InitScenarioScriptVars(void);
+void LoadScriptVarValuePair(enum script_var_id id, int* val0, int* val1);
 void SetScenarioScriptVar(enum script_var_id id, uint8_t val0, uint8_t val1);
+bool IsStoryBeforePoint(enum script_var_id id, int chapter, int subsection);
+bool IsStoryBeforeOrAtPoint(enum script_var_id id, int chapter, int subsection);
+bool IsStoryAtPoint(enum script_var_id id, int chapter, int subsection);
+bool IsStoryAtOrAfterPoint(enum script_var_id id, int chapter, int subsection);
+bool IsStoryAfterPoint(enum script_var_id id, int chapter, int subsection);
 int GetSpecialEpisodeType(void);
 void SetSpecialEpisodeType(enum special_episode_type special_episode_type);
+int GetDebugSpecialEpisodeNumber(void);
+void SetDebugSpecialEpisodeNumber(int special_episode_number);
 int GetExecuteSpecialEpisodeType(void);
 bool IsSpecialEpisodeOpen(enum special_episode_type special_episode_type);
+void SetSpecialEpisodeOpen(enum special_episode_type special_episode_type, bool episode_open);
+bool IsSpecialEpisodeOpenMismatch(void);
+bool IsSpecialEpisodeOpenOld(enum special_episode_type special_episode_type);
+void SetSpecialEpisodeOpenOld(enum special_episode_type special_episode_type, bool episode_open);
+bool IsSpecialEpisodeBeaten(enum special_episode_type special_episode_type);
+void SetSpecialEpisodeBeaten(enum special_episode_type special_episode_type,
+                             bool special_episode_beaten);
 bool HasPlayedOldGame(void);
 bool GetPerformanceFlagWithChecks(int flag_id);
+void SetPerformanceFlagWithChecks(int flag_id, int value);
 int GetScenarioBalance(void);
 void ScenarioFlagBackup(void);
 void InitWorldMapScriptVars(void);

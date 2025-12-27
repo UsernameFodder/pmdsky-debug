@@ -35,6 +35,7 @@ extern struct animation_control* CURSOR_16_ANIMATION_CONTROL;
 extern uint16_t ALERT_SPRITE_ID;
 extern struct animation_control* ALERT_ANIMATION_CONTROL;
 extern struct move LAST_NEW_MOVE;
+extern struct options OPTIONS;
 extern struct script_var_value_table SCRIPT_VARS_VALUES;
 extern uint8_t BAG_LEVEL;
 extern struct special_episode_type_8 DEBUG_SPECIAL_EPISODE_NUMBER;
