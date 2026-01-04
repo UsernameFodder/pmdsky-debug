@@ -1402,13 +1402,13 @@ struct options {
     uint8_t touch_screen;  // Off = 0, Menu Only = 1, Use Anywhere = 2
     uint8_t bottom_screen; // No map = 0, Clear map = 1, Shaded map = 2
     uint8_t top_screen;    // Controls = 0, Team stats = 1, Text log = 2, Map and team = 3, Job = 4
-    uint8_t grids;         // Off = 0, On = 1
+    bool grids;            // Off = 0, On = 1
     uint8_t speed;         // Regular = 0, Fast = 1
     uint8_t far_off_pals;  // Self = 0, Look = 1
-    uint8_t damage_turn;   // No = 0, Yes = 1
-    uint8_t d_pad_attack;  // No = 0, Yes = 1
-    uint8_t check_direction; // No = 0, Yes = 1
-    uint8_t frame_type;      // Frame type 1 = 0, 2 = 1, 3 = 2, 4 = 3, 5 = 4
+    bool damage_turn;      // No = 0, Yes = 1
+    bool d_pad_attack;     // No = 0, Yes = 1
+    bool check_direction;  // No = 0, Yes = 1
+    uint8_t frame_type;    // Frame type 1 = 0, 2 = 1, 3 = 2, 4 = 3, 5 = 4
 };
 ASSERT_SIZE(struct options, 10);
 
