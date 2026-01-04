@@ -12507,6 +12507,7 @@ arm9:
         EU: 0x20
         NA: 0x20
         JP: 0x20
+      description: Debug log message that prints the current game mode when ScenarioFlagRestore is invoked.
     - name: SCENARIO_FLAG_BACKUP_DEBUG_MSG
       address:
         EU: 0x209E56C
@@ -12516,6 +12517,7 @@ arm9:
         EU: 0x20
         NA: 0x20
         JP: 0x20
+      description: Debug log message that prints the current game mode when ScenarioFlagBackup is invoked.
     - name: PORTRAIT_LAYOUTS
       address:
         EU: 0x209E598
