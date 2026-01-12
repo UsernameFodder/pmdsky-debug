@@ -143,6 +143,7 @@ extern uint32_t BAG_CAPACITY_TABLE_SPECIAL_EPISODES[5];
 extern uint32_t BAG_CAPACITY_TABLE[8];
 extern struct monster_id_16 SPECIAL_EPISODE_MAIN_CHARACTERS[100];
 extern struct guest_monster GUEST_MONSTER_DATA[18];
+extern struct guest_monster GUEST_MONSTER_BANETTE;
 extern struct guest_monster GUEST_MONSTER_SKORUPI;
 extern struct guest_monster GUEST_MONSTER_BIDOOF;
 extern struct guest_monster GUEST_MONSTER_SNOVER;

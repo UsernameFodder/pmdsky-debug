@@ -7431,12 +7431,17 @@ arm9:
         Likely a linker-generated veneer for InitOptions.
         
         See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
+        
+        No params.
     - name: InitOptions
       address:
         EU: 0x204AE5C
         NA: 0x204AB24
         JP: 0x204AE8C
-      description: Initializes the game options struct (OPTIONS) with its default values.
+      description: |-
+        Initializes the game options struct (OPTIONS) with its default values.
+        
+        No params.
     - name: GetOptions
       address:
         EU: 0x204AEB0
@@ -7650,7 +7655,10 @@ arm9:
         EU: 0x204B360
         NA: 0x204B028
         JP: 0x204B390
-      description: Prints a debug message with values related to event flag size.
+      description: |-
+        Prints a debug message with values related to event flag size.
+        
+        No params.
     - name: InitScriptVariableValues
       address:
         EU: 0x204B384
@@ -13310,8 +13318,6 @@ arm9:
         JP: 0xC8
       description: "type: struct monster_id_16[100]"
     - name: GUEST_MONSTER_DATA
-      aliases:
-        - GUEST_MONSTER_BANETTE
       address:
         EU: 0x20A2E40
         NA: 0x20A28BC
@@ -13327,10 +13333,17 @@ arm9:
         
         See the struct definitions and Frostbyte's dungeon data document for more info.
         
-        In the ASM, this data is not accessed as an array, but rather as individual entries.
-        This address also represents the first guest monster, Banette in Murky Cave during Igglybuff the Prodigy.
-        
         type: struct guest_monster[18]
+    - name: GUEST_MONSTER_BANETTE
+      address:
+        EU: 0x20A2E40
+        NA: 0x20A28BC
+        JP: 0x20A3C90
+      length:
+        EU: 0x24
+        NA: 0x24
+        JP: 0x24
+      description: Guest monster data for Banette in Murky Cave during Igglybuff the Prodigy.
     - name: GUEST_MONSTER_SKORUPI
       address:
         EU: 0x20A2E64
