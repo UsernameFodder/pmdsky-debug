@@ -312,6 +312,8 @@ int SoundLfoWave_SawFunc(struct dse_lfo* lfo);
 int SoundLfoWave_ReverseSawFunc(struct dse_lfo* lfo);
 int SoundLfoWave_HalfNoiseFunc(struct dse_lfo* lfo);
 int SoundLfoWave_FullNoiseFunc(struct dse_lfo* lfo);
+void Crypto_RC4Init(undefined* ctx, const void* key, uint8_t key_len);
+void Crypto_RC4Encrypt(undefined* ctx, const void* src, size_t size, void* dst);
 void EnableVramBanksInSetDontSave(struct vram_banks_set vram_banks);
 void EnableVramBanksInSet(struct vram_banks_set* vram_banks);
 void G3_LoadMtx43(struct matrix_4x3* matrix);
@@ -349,6 +351,9 @@ void FileInit(struct file_stream* file);
 bool GetOverlayInfo(struct overlay_info_entry* overlay_info, undefined param_2, int overlay_id);
 bool LoadOverlayInternal(struct overlay_info_entry* overlay_info);
 void InitOverlay(struct overlay_info_entry* overlay_info);
+void MD5_Init(undefined* ctx);
+void MD5_Update(undefined* ctx, const void* buf, size_t size);
+void MD5_Digest(uint32_t* hash, undefined* ctx);
 uint32_t PM_ForceToPowerOff(void);
 
 // If declaring these builtins causes issues, you can disable them

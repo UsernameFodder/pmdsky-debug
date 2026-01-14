@@ -12,9 +12,9 @@ overlay0:
     NA: 0x609A0
     JP: 0x609A0
   description: |-
-    Likely contains supporting data and code related to the top menu.
+    Contains supporting data and code related to the Top Menu, as well as core networking functions.
     
-    This is loaded together with overlay 1 while in the top menu. Since it's in overlay group 2 (together with overlay 10, which is another "data" overlay), this overlay probably plays a similar role. It mentions several files from the BACK folder that are known backgrounds for the top menu.
+    This is loaded together with overlay 1 while in the Top Menu. Since it's in overlay group 2 (together with overlay 10, which is another "data" overlay), this overlay probably plays a similar role. It mentions several files from the BACK folder that are known backgrounds for the Top Menu.
   functions:
     - name: SelectRandomBackground
       address:
@@ -25,4 +25,321 @@ overlay0:
         Selects a random background from the BACK/s09p04-10a.bgp files to be used as the background for the top menu.
           
         No params.
+    - name: close
+      address:
+        EU: 0x22CF0E8
+        NA: 0x22CE8D4
+        JP: 0x22D0080
+      description: |-
+        Closes a file descriptor.
+        
+        r0: file descriptor
+        return: 0 on success, or a negative value representing an error
+    - name: socket
+      address:
+        EU: 0x22CF9C0
+        NA: 0x22CF1AC
+        JP: 0x22D0958
+      description: |-
+        Creates a socket file descriptor for network activity.
+        
+        r0: domain
+        r1: family
+        r2: protocol
+        return: socket file descriptor on success, negative value indicating error otherwise
+    - name: bind
+      address:
+        EU: 0x22CF9EC
+        NA: 0x22CF1D8
+        JP: 0x22D0984
+      description: |-
+        Binds a socket to an address.
+        
+        r0: socket file descriptor
+        r1: address
+        return: 0 on success, or a negative value representing an error
+    - name: connect
+      address:
+        EU: 0x22CFA18
+        NA: 0x22CF204
+        JP: 0x22D09B0
+      description: |-
+        Connects a socket to an address.
+        
+        r0: socket file descriptor
+        r1: address
+        return: 0 on success, or a negative value representing an error
+    - name: recv
+      address:
+        EU: 0x22CFA74
+        NA: 0x22CF260
+        JP: 0x22D0A0C
+      description: |-
+        Receives a message from a connected socket.
+        
+        r0: socket file descriptor
+        r1: destination buffer
+        r2: size of buffer
+        r3: flags
+        return: number of bytes read, or a negative value representing an error
+    - name: recvfrom
+      address:
+        EU: 0x22CFA98
+        NA: 0x22CF284
+        JP: 0x22D0A30
+      description: |-
+        Receives a message from a connectionless socket, also returning the source address that sent data.
+        
+        r0: socket file descriptor
+        r1: destination buffer
+        r2: size of buffer
+        r3: flags
+        stack[0]: destination address; can be NULL
+        stack[1]: length of destination address
+        return: number of bytes read, or a negative value representing an error
+    - name: send
+      address:
+        EU: 0x22CFB28
+        NA: 0x22CF314
+        JP: 0x22D0AC0
+      description: |-
+        Sends a message to a connected socket.
+        
+        r0: socket file descriptor
+        r1: source buffer
+        r2: size of buffer
+        r3: flags
+        return: number of bytes sent, or a negative value representing an error
+    - name: sendto
+      address:
+        EU: 0x22CFB4C
+        NA: 0x22CF338
+        JP: 0x22D0AE4
+      description: |-
+        Sends a message to a connectionless socket.
+        
+        r0: socket file descriptor
+        r1: source buffer
+        r2: size of buffer
+        r3: flags
+        stack[0]: target address
+        stack[1]: length of target address
+        return: number of bytes sent, or a negative value representing an error
+    - name: CloseVeneer
+      address:
+        EU: 0x22CFBDC
+        NA: 0x22CF3C8
+        JP: 0x22D0B74
+      description: |-
+        Likely a linker-generated veneer for close.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
+        
+        r0: file descriptor
+        return: 0 on success, or a negative value representing an error
+    - name: fcntl
+      address:
+        EU: 0x22CFDE0
+        NA: 0x22CF5CC
+        JP: 0x22D0D78
+      description: |-
+        Performs an operation on a file descriptor.
+        
+        r0: file descriptor
+        r1: operation
+        r2: operation-specific argument
+        return: operation-specific value
+    - name: InitWfc
+      address:
+        EU: 0x22D7FA8
+        NA: 0x22D7794
+        JP: 0x22D8F40
+      description: |-
+        Just a guess. Repeatedly calling this eventually results in a DNS query for conntest.nintendowifi.net and allows for use of the socket functions.
+        
+        return: status?
+    - name: SocketCastError
+      address:
+        EU: 0x22F579C
+        NA: 0x22F4F88
+        JP: 0x22F6734
+      description: |-
+        Casts a value to a new value, if it is negative. Mostly used in socket functions to cast any potential errors to -1.
+        
+        r0: original value
+        r1: new value to cast an error as, if original value is negative
+        return: original value if non-negative, new value otherwise
+    - name: SocketCreate
+      address:
+        EU: 0x22F57B4
+        NA: 0x22F4FA0
+        JP: 0x22F674C
+      description: |-
+        A wrapper for socket, casting any errors to -1.
+        
+        r0: domain
+        r1: family
+        r2: protocol
+        return: socket file descriptor on success, -1 on an error
+    - name: SocketClose
+      address:
+        EU: 0x22F57C8
+        NA: 0x22F4FB4
+        JP: 0x22F6760
+      description: |-
+        A wrapper for close, casting any errors to -1.
+        
+        r0: file descriptor
+        return: 0 on success, -1 on an error
+    - name: SocketBind
+      address:
+        EU: 0x22F57F0
+        NA: 0x22F4FDC
+        JP: 0x22F6788
+      description: |-
+        A wrapper for bind, casting any errors to -1.
+        
+        r0: socket file descriptor
+        r1: address
+        r2: length of address
+        return: 0 on success, -1 on an error
+    - name: SocketConnect
+      address:
+        EU: 0x22F5850
+        NA: 0x22F503C
+        JP: 0x22F67E8
+      description: |-
+        A wrapper for connect, casting any errors to -1.
+        
+        r0: socket file descriptor
+        r1: address
+        r2: length of address
+        return: 0 on success, -1 on an error
+    - name: SocketRecv
+      address:
+        EU: 0x22F589C
+        NA: 0x22F5088
+        JP: 0x22F6834
+      description: |-
+        A wrapper for recv, casting any errors to -1.
+        
+        r0: socket file descriptor
+        r1: destination buffer
+        r2: size of buffer
+        r3: flags
+        return: number of bytes read, or -1 on an error
+    - name: SocketRecvFrom
+      address:
+        EU: 0x22F58B0
+        NA: 0x22F509C
+        JP: 0x22F6848
+      description: |-
+        A wrapper for recvfrom, casting any errors to -1.
+        
+        r0: socket file descriptor
+        r1: destination buffer
+        r2: size of buffer
+        r3: flags
+        stack[0]: destination address; can be NULL
+        stack[1]: length of destination address
+        return: number of bytes read, or -1 on an error
+    - name: SocketSend
+      address:
+        EU: 0x22F58E0
+        NA: 0x22F50CC
+        JP: 0x22F6878
+      description: |-
+        A wrapper for send, casting any errors to -1.
+        
+        r0: socket file descriptor
+        r1: source buffer
+        r2: size of buffer
+        r3: flags
+        return: number of bytes sent, or -1 on an error
+    - name: SocketSendTo
+      address:
+        EU: 0x22F58F4
+        NA: 0x22F50E0
+        JP: 0x22F688C
+      description: |-
+        A wrapper for sendto, casting any errors to -1.
+        
+        r0: socket file descriptor
+        r1: source buffer
+        r2: size of buffer
+        r3: flags
+        stack[0]: target address
+        stack[1]: length of target address
+        return: number of bytes sent, or -1 on an error
+    - name: SocketSetBlocking
+      address:
+        EU: 0x22F5AB0
+        NA: 0x22F529C
+        JP: 0x22F6A48
+      description: |-
+        Sets a socket to be blocking or non-blocking.
+        
+        r0: socket file descriptor
+        r1: blocking flag
+        return: success
+    - name: do_rand
+      address:
+        EU: 0x22F5E0C
+        NA: 0x22F55F8
+        JP: 0x22F6DA4
+      description: |-
+        Generates a pseudorandom integer provided a parameter.
+        
+        r0: ctx
+        return: pseudorandom integer
+    - name: rand
+      address:
+        EU: 0x22F5E58
+        NA: 0x22F5644
+        JP: 0x22F6DF0
+      description: |-
+        Generates a new pseudorandom integer from the current PRNG sequence number and updates it.
+        
+        return: psuedorandom integer
+    - name: srand
+      address:
+        EU: 0x22F5E78
+        NA: 0x22F5664
+        JP: 0x22F6E10
+      description: |-
+        Seeds a PRNG sequence number used by rand.
+        
+        r0: seed
+    - name: randrange
+      address:
+        EU: 0x22F5E94
+        NA: 0x22F5680
+        JP: 0x22F6E2C
+      description: |-
+        Generates a new pseudorandom integer by performing (rand() % (y - x) + x).
+        
+        r0: x
+        r1: y
+        return: pseudorandom integer on the interval [x, y - 1]
+    - name: ResolveAvailableNintendoWifi
+      address:
+        EU: 0x22F640C
+        NA: 0x22F5BF8
+        JP: 0x22F73A4
+      description: |-
+        Seemingly resolves the IP of "pokedungeonds.available.gs.nintendowifi.net", in which "pokedungeonds" is provided as the first parameter.
+        
+        r0: string
+    - name: PasswordEncryptString
+      address:
+        EU: 0x230C4F4
+        NA: 0x230BCE0
+        JP: 0x230D48C
+      description: |-
+        Performs XOR encryption/decryption on a string, the keystream derived from srand(0x79707367) and repeatedly calling randrange(0x0, 0xFF).
+        
+        Seemingly called mostly for the "passenc" field in DWC messages.
+        
+        r0: src
+        r1: dest
   data: []

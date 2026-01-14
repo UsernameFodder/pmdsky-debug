@@ -295,4 +295,13 @@ struct system_clock {
 };
 ASSERT_SIZE(struct system_clock, 28);
 
+// IPv4 Internet domain socket address.
+struct sockaddr_in {
+    uint8_t len; // always 8
+    uint8_t family;
+    uint16_t port;
+    uint8_t ip[4];
+};
+ASSERT_SIZE(struct sockaddr_in, 8);
+
 #endif
