@@ -282,7 +282,7 @@ overlay0:
         r0: socket file descriptor
         r1: blocking flag
         return: success
-    - name: do_rand
+    - name: DoRand
       address:
         EU: 0x22F5E0C
         NA: 0x22F55F8
@@ -310,7 +310,7 @@ overlay0:
         Seeds a PRNG sequence number used by rand.
         
         r0: seed
-    - name: randrange
+    - name: RandRangeOverlay0
       address:
         EU: 0x22F5E94
         NA: 0x22F5680
