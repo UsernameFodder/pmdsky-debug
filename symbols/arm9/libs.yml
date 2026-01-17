@@ -1183,6 +1183,24 @@ libs:
         EU: 0x2075AB8
         NA: 0x2075720
         JP: 0x2075A08
+      description: |-
+        Initializes an RC4 context.
+        
+        r0: context
+        r1: key
+        r2: key length (clamped down to a maximum of 16)
+    - name: Crypto_RC4Encrypt
+      address:
+        EU: 0x2075B48
+        NA: 0x20757B0
+        JP: 0x2075A98
+      description: |-
+        Encrypts/decrypts a buffer using an RC4 context.
+        
+        r0: context
+        r1: src
+        r2: size
+        r3: dest
     - name: Mtx_LookAt
       address:
         EU: 0x2075BC0
@@ -2181,6 +2199,36 @@ libs:
         This function is responsible for jumping to all the pointers located in the overlay's static init array, among other things.
         
         r0: Overlay info struct
+    - name: MD5_Init
+      address:
+        EU: 0x2080494
+        NA: 0x20800FC
+        JP: 0x20803E4
+      description: |-
+        Initializes an MD5 context.
+        
+        r0: context
+    - name: MD5_Update
+      address:
+        EU: 0x20804D4
+        NA: 0x208013C
+        JP: 0x2080424
+      description: |-
+        Updates an MD5 context using a buffer's bytes.
+        
+        r0: context
+        r1: buffer
+        r2: size of buffer
+    - name: MD5_Digest
+      address:
+        EU: 0x208059C
+        NA: 0x2080204
+        JP: 0x20804EC
+      description: |-
+        Calculates and stores an MD5 hash into a destination buffer. The MD5 context is zeroed-out after this operation.
+        
+        r0: [output] hash buffer (16 bytes)
+        r1: context
     - name: PM_ForceToPowerOff
       address:
         EU: 0x20823A4
