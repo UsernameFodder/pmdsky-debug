@@ -11942,31 +11942,31 @@ arm9:
         Linked to the dungeon group id
         
         Note: unverified, ported from Irdkwia's notes
-    - name: ST_I2N_I_BIN
+    - name: ST_I2N_I_BIN_FILE_NAME
       address:
         EU: 0x20983F4
       length:
         EU: 0xB
       description: Name of the file st_i2n_i.bin
-    - name: ST_I2N_E_BIN
+    - name: ST_I2N_E_BIN_FILE_NAME
       address:
         EU: 0x2098404
       length:
         EU: 0xB
       description: Name of the file st_i2n_e.bin
-    - name: ST_I2N_S_BIN
+    - name: ST_I2N_S_BIN_FILE_NAME
       address:
         EU: 0x2098414
       length:
         EU: 0xB
       description: Name of the file st_i2n_s.bin
-    - name: ST_I2N_G_BIN
+    - name: ST_I2N_G_BIN_FILE_NAME
       address:
         EU: 0x2098424
       length:
         EU: 0xB
       description: Name of the file st_i2n_g.bin
-    - name: ST_I2N_F_BIN
+    - name: ST_I2N_F_BIN_FILE_NAME
       address:
         EU: 0x2098434
       length:
@@ -11982,7 +11982,7 @@ arm9:
         NA: 0x40
         JP: 0x40
       description: "Stores the IDs of each baby Pokemon (and Phione), as well as the exclusive item they hatch with."
-    - name: ITEM_P_BIN
+    - name: ITEM_P_BIN_FILE_PATH
       address:
         EU: 0x2098484
         NA: 0x2098038
@@ -11992,7 +11992,7 @@ arm9:
         NA: 0x18
         JP: 0x18
       description: File path of the file item_p.bin
-    - name: ITEM_S_P_BIN
+    - name: ITEM_S_P_BIN_FILE_PATH
       address:
         EU: 0x20984A0
         NA: 0x2098054
@@ -12002,7 +12002,7 @@ arm9:
         NA: 0x1A
         JP: 0x1A
       description: File path of the file item_s_p.bin
-    - name: ITEM_ST_I2N_BIN
+    - name: ITEM_ST_I2N_BIN_FORMAT
       address:
         EU: 0x20984BC
         NA: 0x2098070

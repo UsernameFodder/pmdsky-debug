@@ -36,21 +36,21 @@ extern char STRING_MONSTER_M_ATTACK_BIN[24];
 extern char STRING_MONSTER_M_GROUND_BIN[24];
 extern char STRING_FILE_DIRECTORY_INIT[40];
 #if PMDSKY_VERSION == PMDSKY_EU
-extern char ST_I2N_I_BIN[12];
-extern char ST_I2N_E_BIN[12];
-extern char ST_I2N_S_BIN[12];
-extern char ST_I2N_G_BIN[12];
-extern char ST_I2N_F_BIN[12];
+extern char ST_I2N_I_BIN_FILE_NAME[12];
+extern char ST_I2N_E_BIN_FILE_NAME[12];
+extern char ST_I2N_S_BIN_FILE_NAME[12];
+extern char ST_I2N_G_BIN_FILE_NAME[12];
+extern char ST_I2N_F_BIN_FILE_NAME[12];
 #endif
 extern struct baby_exclusive_item_pair BABY_EXCLUSIVE_ITEM_PAIRS[16];
-extern char ITEM_P_BIN[24];
-extern char ITEM_S_P_BIN[26];
+extern char ITEM_P_BIN_FILE_PATH[24];
+extern char ITEM_S_P_BIN_FILE_PATH[26];
 #if PMDSKY_VERSION == PMDSKY_JP
-#define ITEM_ST_I2N_BIN_LENGTH_ 16
+#define ITEM_ST_I2N_BIN_FORMAT_LENGTH_ 16
 #else
-#define ITEM_ST_I2N_BIN_LENGTH_ 26
+#define ITEM_ST_I2N_BIN_FORMAT_LENGTH_ 26
 #endif
-extern char ITEM_ST_I2N_BIN[ITEM_ST_I2N_BIN_LENGTH_];
+extern char ITEM_ST_I2N_BIN_FORMAT[ITEM_ST_I2N_BIN_FORMAT_LENGTH_];
 extern char ITEM_NAME_FORMAT_YELLOW[16];
 extern char ITEM_NAME_FORMAT_INDIGO[16];
 extern char ITEM_NAME_FORMAT_PLAIN[4];
