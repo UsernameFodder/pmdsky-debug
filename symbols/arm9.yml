@@ -11942,6 +11942,36 @@ arm9:
         Linked to the dungeon group id
         
         Note: unverified, ported from Irdkwia's notes
+    - name: ST_I2N_I_BIN
+      address:
+        EU: 0x20983F4
+      length:
+        EU: 0xB
+      description: Name of the file st_i2n_i.bin
+    - name: ST_I2N_E_BIN
+      address:
+        EU: 0x2098404
+      length:
+        EU: 0xB
+      description: Name of the file st_i2n_e.bin
+    - name: ST_I2N_S_BIN
+      address:
+        EU: 0x2098414
+      length:
+        EU: 0xB
+      description: Name of the file st_i2n_s.bin
+    - name: ST_I2N_G_BIN
+      address:
+        EU: 0x2098424
+      length:
+        EU: 0xB
+      description: Name of the file st_i2n_g.bin
+    - name: ST_I2N_F_BIN
+      address:
+        EU: 0x2098434
+      length:
+        EU: 0xB
+      description: Name of the file st_i2n_f.bin
     - name: BABY_EXCLUSIVE_ITEM_PAIRS
       address:
         EU: 0x2098444
@@ -11952,6 +11982,36 @@ arm9:
         NA: 0x40
         JP: 0x40
       description: "Stores the IDs of each baby Pokemon (and Phione), as well as the exclusive item they hatch with."
+    - name: ITEM_P_BIN
+      address:
+        EU: 0x2098484
+        NA: 0x2098038
+        JP: 0x209832C
+      length:
+        EU: 0x18
+        NA: 0x18
+        JP: 0x18
+      description: File path of the file item_p.bin
+    - name: ITEM_S_P_BIN
+      address:
+        EU: 0x20984A0
+        NA: 0x2098054
+        JP: 0x2098348
+      length:
+        EU: 0x1A
+        NA: 0x1A
+        JP: 0x1A
+      description: File path of the file item_s_p.bin
+    - name: ITEM_ST_I2N_BIN
+      address:
+        EU: 0x20984BC
+        NA: 0x2098070
+        JP: 0x2098364
+      length:
+        EU: 0x10
+        NA: 0x1A
+        JP: 0x1A
+      description: "File path for language files. In EU, this is a format string where each of the language files can be inserted in. In NA/JP, this is just the file path of the file st_i2n_j.bin"
     - name: ITEM_NAME_FORMAT_YELLOW
       address:
         EU: 0x20984D0
@@ -14253,6 +14313,12 @@ arm9:
         [Runtime] List of pointers to various item data tables.
         
         The first two pointers are definitely item-related (although the order appears to be flipped between EU/NA?). Not sure about the third pointer.
+    - name: ITEM_LANG_FILE_ARRAY
+      address:
+        EU: 0x20AFF88
+      length:
+        EU: 0x14
+      description: An array containing the names of each language file. Only exists in EU.
     - name: DUNGEON_MOVE_TABLES
       address:
         EU: 0x20AFFA8
