@@ -35,7 +35,22 @@ extern char STRING_DUNGEON_DUNGEON_BIN[20];
 extern char STRING_MONSTER_M_ATTACK_BIN[24];
 extern char STRING_MONSTER_M_GROUND_BIN[24];
 extern char STRING_FILE_DIRECTORY_INIT[40];
+#if PMDSKY_VERSION == PMDSKY_EU
+extern char ST_I2N_I_BIN_FILE_NAME[12];
+extern char ST_I2N_E_BIN_FILE_NAME[12];
+extern char ST_I2N_S_BIN_FILE_NAME[12];
+extern char ST_I2N_G_BIN_FILE_NAME[12];
+extern char ST_I2N_F_BIN_FILE_NAME[12];
+#endif
 extern struct baby_exclusive_item_pair BABY_EXCLUSIVE_ITEM_PAIRS[16];
+extern char ITEM_P_BIN_FILE_PATH[24];
+extern char ITEM_S_P_BIN_FILE_PATH[26];
+#if PMDSKY_VERSION == PMDSKY_JP
+#define ITEM_ST_I2N_BIN_FORMAT_LENGTH_ 16
+#else
+#define ITEM_ST_I2N_BIN_FORMAT_LENGTH_ 26
+#endif
+extern char ITEM_ST_I2N_BIN_FORMAT[ITEM_ST_I2N_BIN_FORMAT_LENGTH_];
 extern char ITEM_NAME_FORMAT_YELLOW[16];
 extern char ITEM_NAME_FORMAT_INDIGO[16];
 extern char ITEM_NAME_FORMAT_PLAIN[4];
@@ -213,6 +228,9 @@ extern struct pack_file_opened* PACK_FILES_OPENED;
 extern const char* PACK_FILE_PATHS_TABLE[6];
 extern struct item* BAG_ITEMS_PTR_MIRROR;
 extern void* ITEM_DATA_TABLE_PTRS[3];
+#if PMDSKY_VERSION == PMDSKY_EU
+extern char* ITEM_LANG_FILE_ARRAY[5];
+#endif
 extern struct move_data_table* MOVE_DATA_TABLE_PTR;
 extern struct wan_table* WAN_TABLE;
 extern struct render_3d_global RENDER_3D;
