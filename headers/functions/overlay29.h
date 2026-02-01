@@ -266,10 +266,13 @@ bool CheckSpawnThreshold(enum monster_id monster_id);
 bool HasLowHealth(struct entity* entity);
 bool AreEntitiesAdjacent(struct entity* first, struct entity* second);
 bool IsHero(struct entity* entity);
+int16_t FindMoveOnMonster(struct entity* entity, enum move_id move_id);
+bool DoesMonsterHaveMove(struct entity* entity, enum move_id move_id);
 bool IsSpecialStoryAllyOrClient(struct entity* entity);
 void ResetTriggerFlags(struct entity* entity);
 bool IsSpecialStoryAlly(struct monster* monster);
 bool IsExperienceLocked(struct monster* monster);
+struct entity* FindMonsterWithBehavior(enum monster_behavior monster_behavior);
 bool IsMonsterLoneOutlaw(struct monster* monster);
 bool IsSecretBazaarNpc(struct entity* entity);
 bool IsTeamMemberOnFirstTurnInFixedRoom(struct monster* monster);
@@ -646,6 +649,7 @@ struct move_target_and_range GetEntityMoveTargetAndRange(struct entity* entity, 
                                                          bool is_ai);
 struct natural_gift_item_info* GetEntityNaturalGiftInfo(struct entity* entity);
 enum type_id GetEntityWeatherBallType(struct entity* entity);
+void UseMoveByMoveId(struct entity* entity, enum move_id move_id, bool add_move_if_not_exists);
 void ActivateMotorDrive(struct entity* entity);
 void TryActivateFrisk(struct entity* attacker, struct entity* defender);
 void TryActivateBadDreams(struct entity* entity);
@@ -693,6 +697,8 @@ void TryAftermathExplosion(struct entity* user, struct entity* target, struct po
 void TryWarp(struct entity* user, struct entity* target, enum warp_type warp_type,
              struct position* position);
 void EnsureCanStandCurrentTile(struct entity* entity);
+void UseMove(struct entity* entity, uint16_t move_index, undefined4 param_3, undefined4 param_4,
+             undefined4 param5);
 void TryActivateNondamagingDefenderAbility(struct entity* entity);
 void TryActivateNondamagingDefenderExclusiveItem(struct entity* attacker, struct entity* defender);
 int GetMoveRangeDistance(struct entity* user, struct move* move, bool check_two_turn_moves);
@@ -957,6 +963,7 @@ bool GetTargetMonsterNotFoundFlag(void);
 bool FloorHasMissionMonster(struct mission_destination_info* mission_dst);
 struct mission* GetMissionIfActiveOnFloor(struct dungeon_floor_pair* pair, uint8_t mission_id);
 void GenerateMissionEggMonster(struct mission* mission);
+void TeleportFleeingOutlaw();
 void InitAlertBoxInfo(void);
 void FreeAlertBoxInfo(void);
 void SetMessageLogGroupStartFlag(bool should_start_group);
