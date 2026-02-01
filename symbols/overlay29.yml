@@ -3609,16 +3609,18 @@ overlay29:
         r1: Base mobility type
         r2: Direction of mobility
         return: Final mobility type
-    - name: IsMonsterCornered
+    - name: CanMonsterMoveOrSwapWithAllyInAnyDirection
+      aliases:
+        - IsMonsterCornered
       address:
         EU: 0x2301B44
         NA: 0x2301118
         JP: 0x230251C
       description: |-
-        True if the given monster is cornered (it can't move in any direction)
+        True if the given monster can move in any direction.
         
         r0: Entity pointer
-        return: True if the monster can't move in any direction, false otherwise.
+        return: True if the monster can move in any direction, false otherwise.
     - name: CanMonsterMoveOrSwapWithAllyInDirection
       address:
         EU: 0x2301B84

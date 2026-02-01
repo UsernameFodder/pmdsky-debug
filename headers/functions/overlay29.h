@@ -334,7 +334,7 @@ bool CanMonsterMoveInDirection(struct entity* monster, enum direction_id directi
 enum mobility_type GetDirectionalMobilityType(struct entity* monster,
                                               enum mobility_type base_mobility,
                                               enum direction_id direction);
-bool IsMonsterCornered(struct entity* monster);
+bool CanMonsterMoveOrSwapWithAllyInAnyDirection(struct entity* monster);
 bool CanMonsterMoveOrSwapWithAllyInDirection(struct entity* monster, enum direction_id direction);
 bool CanAttackInDirection(struct entity* monster, enum direction_id direction);
 bool CanAiMonsterMoveInDirection(struct entity* monster, enum direction_id direction,
