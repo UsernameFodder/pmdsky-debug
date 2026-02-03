@@ -963,7 +963,7 @@ bool GetTargetMonsterNotFoundFlag(void);
 bool FloorHasMissionMonster(struct mission_destination_info* mission_dst);
 struct mission* GetMissionIfActiveOnFloor(struct dungeon_floor_pair* pair, uint8_t mission_id);
 void GenerateMissionEggMonster(struct mission* mission);
-void TeleportFleeingOutlaw();
+void TeleportFleeingOutlaw(void);
 void InitAlertBoxInfo(void);
 void FreeAlertBoxInfo(void);
 void SetMessageLogGroupStartFlag(bool should_start_group);
