@@ -9469,7 +9469,10 @@ overlay29:
         EU: 0x234BAA4
         NA: 0x234AEA4
         JP: 0x234C114
-      description: "If there is a fleeing outlaw on the floor with the move Teleport, makes that outlaw use Teleport."
+      description: |-
+        If there is a fleeing outlaw on the floor with the move Teleport, makes that outlaw use Teleport.
+        
+        No params.
     - name: InitAlertBoxInfo
       address:
         EU: 0x234BBA4
