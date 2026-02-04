@@ -2919,6 +2919,28 @@ overlay29:
         
         r0: entity pointer
         return: bool
+    - name: FindMoveOnMonster
+      address:
+        EU: 0x22FC3DC
+        NA: 0x22FB9E0
+        JP: 0x22FCEB4
+      description: |-
+        Searches for a move in an entity's moveset by move ID, and returns the moveset index of the move if found. Returns -1 if the move is not found.
+        
+        r0: entity pointer
+        r1: move ID to search for
+        return: the moveset index of the move if found, or -1 if not found
+    - name: DoesMonsterHaveMove
+      address:
+        EU: 0x22FC450
+        NA: 0x22FBA54
+        JP: 0x22FCF28
+      description: |-
+        Checks if an entity has a specific move (move ID) in their moveset.
+        
+        r0: entity pointer
+        r1: move ID to search for
+        return: true if the entity has the given move ID, or false otherwise
     - name: IsSpecialStoryAllyOrClient
       address:
         EU: 0x22FC46C
@@ -2962,6 +2984,16 @@ overlay29:
         
         r0: monster pointer
         return: bool
+    - name: FindMonsterWithBehavior
+      address:
+        EU: 0x22FC5E8
+        NA: 0x22FBBEC
+        JP: 0x22FD0B4
+      description: |-
+        Searches the dungeon for a monster with a certain monster behavior, and returns the first matching entity.
+        
+        r0: monster behavior to search for
+        return: the first entity in the dungeon with the given monster behavior, or null if not found
     - name: IsMonsterLoneOutlaw
       address:
         EU: 0x22FC7DC
@@ -3577,16 +3609,18 @@ overlay29:
         r1: Base mobility type
         r2: Direction of mobility
         return: Final mobility type
-    - name: IsMonsterCornered
+    - name: CanMonsterMoveOrSwapWithAllyInAnyDirection
+      aliases:
+        - IsMonsterCornered
       address:
         EU: 0x2301B44
         NA: 0x2301118
         JP: 0x230251C
       description: |-
-        True if the given monster is cornered (it can't move in any direction)
+        True if the given monster can move in any direction.
         
         r0: Entity pointer
-        return: True if the monster can't move in any direction, false otherwise.
+        return: True if the monster can move in any direction, false otherwise.
     - name: CanMonsterMoveOrSwapWithAllyInDirection
       address:
         EU: 0x2301B84
@@ -6362,6 +6396,18 @@ overlay29:
         
         r0: entity pointer
         return: type ID
+    - name: UseMoveByMoveId
+      address:
+        EU: 0x231B984
+        NA: 0x231AF24
+        JP: 0x231C3F4
+      description: |-
+        Makes the entity use a specific move by its move ID. If the entity doesn't have the specified move and add_move_if_not_exists is true,
+        overwrites the first move in the entity's moveset with the specified move.
+        
+        r0: entity pointer
+        r1: move ID
+        r2: if true and the entity doesn't have the specified move, the entity's first move is overwritten with the specified move
     - name: ActivateMotorDrive
       address:
         EU: 0x231BAC0
@@ -6837,6 +6883,19 @@ overlay29:
         will be warped to the leader. Otherwise, the monster is warped randomly.
         
         r0: Entity pointer
+    - name: UseMove
+      address:
+        EU: 0x2321EC4
+        NA: 0x232145C
+        JP: 0x2322908
+      description: |-
+        Makes the given entity use a move at the given index in the entity's moveset.
+        
+        r0: Entity pointer
+        r1: Moveset index
+        r2: ?
+        r3: ?
+        stack[0]: ?
     - name: TryActivateNondamagingDefenderAbility
       address:
         EU: 0x23224E0
@@ -9405,6 +9464,15 @@ overlay29:
         Note: unverified, ported from Irdkwia's notes
         
         r0: mission struct
+    - name: TeleportFleeingOutlaw
+      address:
+        EU: 0x234BAA4
+        NA: 0x234AEA4
+        JP: 0x234C114
+      description: |-
+        If there is a fleeing outlaw on the floor with the move Teleport, makes that outlaw use Teleport.
+        
+        No params.
     - name: InitAlertBoxInfo
       address:
         EU: 0x234BBA4
