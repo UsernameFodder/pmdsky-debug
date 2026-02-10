@@ -1845,6 +1845,76 @@ libs:
         EU: 0x2078C7C
         NA: 0x20788E4
         JP: 0x2078BCC
+    - name: OS_InitIrqTable
+      address:
+        EU: 0x2078E18
+        NA: 0x2078A80
+        JP: 0x2078D68
+    - name: OS_SetIrqFunction
+      address:
+        EU: 0x2078E30
+        NA: 0x2078A98
+        JP: 0x2078D80
+    - name: OS_SetIrqMask
+      address:
+        EU: 0x2078FD4
+        NA: 0x2078C3C
+        JP: 0x2078F24
+    - name: OS_EnableIrqMask
+      address:
+        EU: 0x2079000
+        NA: 0x2078C68
+        JP: 0x2078F50
+    - name: OS_DisableIrqMask
+      address:
+        EU: 0x2079030
+        NA: 0x2078C98
+        JP: 0x2078F80
+    - name: OS_ResetRequestIrqMask
+      address:
+        EU: 0x2079060
+        NA: 0x2078CC8
+        JP: 0x2078FB0
+    - name: OS_SetIrqStackChecker
+      address:
+        EU: 0x207908C
+        NA: 0x2078CF4
+        JP: 0x2078FDC
+    - name: OS_InitLock
+      address:
+        EU: 0x20790C0
+        NA: 0x2078D28
+        JP: 0x2079010
+    - name: OS_LockByWord
+      address:
+        EU: 0x20791D8
+        NA: 0x2078E40
+        JP: 0x2079128
+    - name: OSi_DoUnlockByWord
+      address:
+        EU: 0x20791E8
+        NA: 0x2078E50
+        JP: 0x2079138
+    - name: OS_UnlockByWord
+      address:
+        EU: 0x207925C
+        NA: 0x2078EC4
+        JP: 0x20791AC
+    - name: OS_UnlockCartridge
+      address:
+        EU: 0x20792D8
+        NA: 0x2078F40
+        JP: 0x2079228
+    - name: OS_UnLockCartridge
+      address:
+        EU: 0x20792F8
+        NA: 0x2078F60
+        JP: 0x2079248
+    - name: OSi_FreeCartridgeBus
+      address:
+        EU: 0x207933C
+        NA: 0x2078FA4
+        JP: 0x207928C
     - name: OS_GetLockID
       address:
         EU: 0x20793C4
@@ -1859,6 +1929,11 @@ libs:
         Increments thread_info::thread_count by 1 and returns the new value.
         
         return: New thread count
+    - name: OSi_InsertLinkToQueue
+      address:
+        EU: 0x2079500
+        NA: 0x2079168
+        JP: 0x2079450
     - name: InsertThreadIntoList
       address:
         EU: 0x2079630
@@ -1870,6 +1945,16 @@ libs:
         The thread is inserted in sorted order.
         
         r0: Thread to insert
+    - name: OS_RescheduleThread
+      address:
+        EU: 0x20796D8
+        NA: 0x2079340
+        JP: 0x2079628
+    - name: OS_InitThread
+      address:
+        EU: 0x20797A0
+        NA: 0x2079408
+        JP: 0x20796F0
     - name: StartThread
       address:
         EU: 0x20798F8
@@ -1897,6 +1982,31 @@ libs:
         Base functions that contain an infinite loop that is not supposed to return and that have their stacks in main RAM have this function as their return address.
         
         No params.
+    - name: OS_SleepThread
+      address:
+        EU: 0x2079C20
+        NA: 0x2079888
+        JP: 0x2079B70
+    - name: OS_WakeupThreadDirect
+      address:
+        EU: 0x2079CD8
+        NA: 0x2079940
+        JP: 0x2079C28
+    - name: OS_SelectThread
+      address:
+        EU: 0x2079D00
+        NA: 0x2079968
+        JP: 0x2079C50
+    - name: OS_SetSwitchThreadCallback
+      address:
+        EU: 0x2079F74
+        NA: 0x2079BDC
+        JP: 0x2079EC4
+    - name: OSi_IdleThreadProc
+      address:
+        EU: 0x2079F9C
+        NA: 0x2079C04
+        JP: 0x2079EEC
     - name: SetThreadField0xB4
       address:
         EU: 0x207A014
@@ -1921,6 +2031,96 @@ libs:
         r0: Pointer to the thread to initialize
         r1: Pointer to the function the thread will run
         r2: Pointer to the start of the thread's stack area - 4
+    - name: OS_SaveContext
+      address:
+        EU: 0x207A0A0
+        NA: 0x2079D08
+        JP: 0x2079FF0
+    - name: OS_LoadContext
+      address:
+        EU: 0x207A0EC
+        NA: 0x2079D54
+        JP: 0x207A03C
+    - name: OS_InitMutex
+      address:
+        EU: 0x207A3C8
+        NA: 0x207A030
+        JP: 0x207A318
+    - name: DC_FlushAll
+      address:
+        EU: 0x207A608
+        NA: 0x207A270
+        JP: 0x207A558
+    - name: DC_InvalidateRange
+      address:
+        EU: 0x207A63C
+        NA: 0x207A2A4
+        JP: 0x207A58C
+    - name: DC_FlushRange
+      address:
+        EU: 0x207A674
+        NA: 0x207A2DC
+        JP: 0x207A5C4
+    - name: OSi_WaitVCount0
+      address:
+        EU: 0x207A6E4
+        NA: 0x207A34C
+        JP: 0x207A634
+    - name: OS_Init
+      address:
+        EU: 0x207A704
+        NA: 0x207A36C
+        JP: 0x207A654
+    - name: OS_InitArena
+      address:
+        EU: 0x207A74C
+        NA: 0x207A3B4
+        JP: 0x207A69C
+    - name: OS_InitArenaEx
+      address:
+        EU: 0x207A850
+        NA: 0x207A4B8
+        JP: 0x207A7A0
+    - name: OS_GetInitArenaHi
+      address:
+        EU: 0x207A8E4
+        NA: 0x207A54C
+        JP: 0x207A834
+    - name: OS_GetInitArenaLo
+      address:
+        EU: 0x207A9C8
+        NA: 0x207A630
+        JP: 0x207A918
+    - name: OS_SetArenaHi
+      address:
+        EU: 0x207AA70
+        NA: 0x207A6D8
+        JP: 0x207A9C0
+    - name: OS_SetArenaLo
+      address:
+        EU: 0x207AA84
+        NA: 0x207A6EC
+        JP: 0x207A9D4
+    - name: OS_SetProtectionRegion1
+      address:
+        EU: 0x207AEAC
+        NA: 0x207AB14
+        JP: 0x207ADFC
+    - name: OS_SetProtectionRegion2
+      address:
+        EU: 0x207AEB4
+        NA: 0x207AB1C
+        JP: 0x207AE04
+    - name: OS_InitException
+      address:
+        EU: 0x207AEBC
+        NA: 0x207AB24
+        JP: 0x207AE0C
+    - name: OSi_ExceptionHandler
+      address:
+        EU: 0x207AF2C
+        NA: 0x207AB94
+        JP: 0x207AE7C
     - name: GetTimer0Control
       address:
         EU: 0x207B27C
@@ -1930,6 +2130,11 @@ libs:
         Returns the value of the control register for hardware timer 0
         
         return: Value of the control register
+    - name: OS_InitVAlarm
+      address:
+        EU: 0x207B708
+        NA: 0x207B370
+        JP: 0x207B658
     - name: ClearIrqFlag
       address:
         EU: 0x207BB68
@@ -1997,6 +2202,11 @@ libs:
         See https://problemkaputt.de/gbatek.htm#armcpuflagsconditionfieldcond
         
         return: cpsr & 0x1f (the cpsr mode bits M4-M0)
+    - name: OS_InitReset
+      address:
+        EU: 0x207BC14
+        NA: 0x207B87C
+        JP: 0x207BB64
     - name: GetDsFirmwareUserSettings
       address:
         EU: 0x207BDA0
@@ -2018,6 +2228,11 @@ libs:
         
         r0: x
         return: clz(x)
+    - name: OSi_InitVramExclusive
+      address:
+        EU: 0x207BE2C
+        NA: 0x207BA94
+        JP: 0x207BD7C
     - name: WaitForever2
       address:
         EU: 0x207BFB8
@@ -2040,6 +2255,26 @@ libs:
         This just calls (in Ghidra terminology) coproc_moveto_Wait_for_interrupt(0). See https://en.wikipedia.org/wiki/ARM_architecture_family#Coprocessors.
         
         No params.
+    - name: MI_SetWramBank
+      address:
+        EU: 0x207BFD4
+        NA: 0x207BC3C
+        JP: 0x207BF24
+    - name: MI_DmaCopy16
+      address:
+        EU: 0x207C0D4
+        NA: 0x207BD3C
+        JP: 0x207C024
+    - name: MI_StopDma
+      address:
+        EU: 0x207C4FC
+        NA: 0x207C164
+        JP: 0x207C44C
+    - name: MIi_CheckDma0SourceAddress
+      address:
+        EU: 0x207C5FC
+        NA: 0x207C264
+        JP: 0x207C54C
     - name: ArrayFill16
       address:
         EU: 0x207C650
@@ -2155,6 +2390,41 @@ libs:
         r0: desired value
         r1: ptr
         return: previous value
+    - name: MI_Init
+      address:
+        EU: 0x207CB5C
+        NA: 0x207C7C4
+        JP: 0x207CAAC
+    - name: Pxi_Init
+      address:
+        EU: 0x207DD3C
+        NA: 0x207D9A4
+        JP: 0x207DC8C
+    - name: Pxi_InitFifo
+      address:
+        EU: 0x207DD48
+        NA: 0x207D9B0
+        JP: 0x207DC98
+    - name: Pxi_SetFifoRecvCallback
+      address:
+        EU: 0x207DE48
+        NA: 0x207DAB0
+        JP: 0x207DD98
+    - name: Pxi_IsCallbackReady
+      address:
+        EU: 0x207DE94
+        NA: 0x207DAFC
+        JP: 0x207DDE4
+    - name: Pxi_SendWordByFifo
+      address:
+        EU: 0x207DEB8
+        NA: 0x207DB20
+        JP: 0x207DE08
+    - name: Pxii_HandlerRecvFifoNotEmpty
+      address:
+        EU: 0x207DF40
+        NA: 0x207DBA8
+        JP: 0x207DE90
     - name: FileInit
       address:
         EU: 0x207F77C
@@ -2229,6 +2499,21 @@ libs:
         
         r0: [output] hash buffer (16 bytes)
         r1: context
+    - name: PMi_CallCallbackAndUnlock
+      address:
+        EU: 0x2081E1C
+        NA: 0x2081A84
+        JP: 0x2081D6C
+    - name: PM_Init
+      address:
+        EU: 0x2081E5C
+        NA: 0x2081AC4
+        JP: 0x2081DAC
+    - name: PMi_CommonCallback
+      address:
+        EU: 0x2081F00
+        NA: 0x2081B68
+        JP: 0x2081E50
     - name: PM_ForceToPowerOff
       address:
         EU: 0x20823A4
@@ -2238,6 +2523,116 @@ libs:
         Powers off the system.
         
         return: ?
+    - name: Cardi_InitCommon
+      address:
+        EU: 0x20835E0
+        NA: 0x2083248
+        JP: 0x2083530
+    - name: Card_Enable
+      address:
+        EU: 0x2083718
+        NA: 0x2083380
+        JP: 0x2083668
+    - name: Cardi_ReadFromCache
+      address:
+        EU: 0x2084024
+        NA: 0x2083C8C
+        JP: 0x2083F74
+    - name: Cardi_SetRomOp
+      address:
+        EU: 0x20840B0
+        NA: 0x2083D18
+        JP: 0x2084000
+    - name: Cardi_ReadCard
+      address:
+        EU: 0x20843C0
+        NA: 0x2084028
+        JP: 0x2084310
+    - name: Card_Init
+      address:
+        EU: 0x208469C
+        NA: 0x2084304
+        JP: 0x20845EC
+    - name: Cardi_GetRomAccessor
+      address:
+        EU: 0x208470C
+        NA: 0x2084374
+        JP: 0x208465C
+    - name: Cardi_OnFifoRecv
+      address:
+        EU: 0x2084718
+        NA: 0x2084380
+        JP: 0x2084668
+    - name: Cardi_TaskThread
+      address:
+        EU: 0x208474C
+        NA: 0x20843B4
+        JP: 0x208469C
+    - name: Card_InitPulledOutCallback
+      address:
+        EU: 0x20848F0
+        NA: 0x2084558
+        JP: 0x2084840
+    - name: Cardi_PulledOutCallback
+      address:
+        EU: 0x208491C
+        NA: 0x2084584
+        JP: 0x208486C
+    - name: Ctrdgi_InitCommon
+      address:
+        EU: 0x2084ACC
+        NA: 0x2084734
+        JP: 0x2084A1C
+    - name: Ctrdgi_ChangeLatestAccessCycle
+      address:
+        EU: 0x2084C50
+        NA: 0x20848B8
+        JP: 0x2084BA0
+    - name: Ctrdgi_RestoreAccessCycle
+      address:
+        EU: 0x2084C98
+        NA: 0x2084900
+        JP: 0x2084BE8
+    - name: Ctrdgi_LockByProcessor
+      address:
+        EU: 0x2084CCC
+        NA: 0x2084934
+        JP: 0x2084C1C
+    - name: Ctrdgi_UnlockByProcessor
+      address:
+        EU: 0x2084D28
+        NA: 0x2084990
+        JP: 0x2084C78
+    - name: Ctrdgi_SendtoPxi
+      address:
+        EU: 0x2084D4C
+        NA: 0x20849B4
+        JP: 0x2084C9C
+    - name: Ctrdg_Init
+      address:
+        EU: 0x2084DE4
+        NA: 0x2084A4C
+        JP: 0x2084D34
+    - name: Ctrdgi_InitModuleInfo
+      address:
+        EU: 0x2084E98
+        NA: 0x2084B00
+        JP: 0x2084DE8
+    - name: Ctrdgi_CallbackForInitModuleInfo
+      address:
+        EU: 0x208508C
+        NA: 0x2084CF4
+        JP: 0x2084FDC
+    - name: Ctrdgi_PulledOutCallback
+      address:
+        EU: 0x20850B8
+        NA: 0x2084D20
+        JP: 0x2085008
+    - name: Ctrdg_TerminateForPulledOut
+      address:
+        EU: 0x2085114
+        NA: 0x2084D7C
+        JP: 0x2085064
     - name: abs
       address:
         EU: 0x20868F4
