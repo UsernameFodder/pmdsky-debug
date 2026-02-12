@@ -430,11 +430,6 @@ void Ctrdgi_RestoreAccessCycle(struct ctrdg_rom_cycle* r);
 void Ctrdgi_LockByProcessor(uint16_t lock_id, struct ctrdg_lock_by_proc* info);
 void Ctrdgi_UnlockByProcessor(uint16_t lock_id, struct ctrdg_lock_by_proc* info);
 void Ctrdgi_SendtoPxi(uint32_t data);
-void Ctrdg_Init();
-void Ctrdgi_InitModuleInfo();
-void Ctrdgi_CallbackForInitModuleInfo();
-void Ctrdgi_PulledOutCallback();
-void Ctrdg_TerminateForPulledOut();
 
 // If declaring these builtins causes issues, you can disable them
 #ifndef PMDSKY_NO_BUILTIN
