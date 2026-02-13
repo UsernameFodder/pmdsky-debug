@@ -1,6 +1,8 @@
 #ifndef HEADERS_TYPES_COMMON_UTIL_H_
 #define HEADERS_TYPES_COMMON_UTIL_H_
 
+#include "enums.h"
+
 // Common data structures not specific to EoS
 
 // RGB8 color
@@ -123,22 +125,18 @@ typedef void (*thread_entry_fn_t)(void);
 // Specifies a function called when a thread exits
 typedef void (*thread_exit_fn_t)(void);
 
-// Contains information about a running thread
-struct thread {
-    int flags;                // Probably a flags field. Usually 0x1F.
-    struct thread* field_0x4; // r2 parameter in ThreadStart
-    undefined4 field_0x8;     // Initialized to 0
-    undefined4 field_0xC;     // Initialized to 0
-    undefined4 field_0x10;    // Initialized to 0
-    undefined4 field_0x14;    // Initialized to 0
-    undefined4 field_0x18;    // Initialized to 0
-    undefined4 field_0x1C;    // Initialized to 0
-    undefined4 field_0x20;    // Initialized to 0
-    undefined4 field_0x24;    // Initialized to 0
-    undefined4 field_0x28;    // Initialized to 0
-    undefined4 field_0x2C;    // Initialized to 0
-    undefined4 field_0x30;    // Initialized to 0
-    undefined4 field_0x34;    // Initialized to 0
+struct cp_context {
+    uint64_t div_numer;
+    uint64_t div_denom;
+    uint64_t sqrt;
+    uint16_t div_mode;
+    uint16_t sqrt_mode;
+};
+ASSERT_SIZE(struct cp_context, 28);
+
+struct os_context {
+    uint32_t cpsr;
+    uint32_t registers[13]; // Initialized to 0
     // 0x38: Points to the area of the allocated stack area that can actually be used to store data.
     // This is equal to stack_pointer - 0x44, with an additional - 4 if the resulting addess is not
     // aligned to 8 bytes.
@@ -147,69 +145,94 @@ struct thread {
     thread_exit_fn_t exit_function;
     void* function_address_plus_4; // 0x40: Pointer to the function to run + 4
     void* stack_pointer_minus_4;   // 0x44: Pointer to the start of the stack area - 4
-    undefined field_0x48;
-    undefined field_0x49;
-    undefined field_0x4A;
-    undefined field_0x4B;
-    undefined field_0x4C;
-    undefined field_0x4D;
-    undefined field_0x4E;
-    undefined field_0x4F;
-    undefined field_0x50;
-    undefined field_0x51;
-    undefined field_0x52;
-    undefined field_0x53;
-    undefined field_0x54;
-    undefined field_0x55;
-    undefined field_0x56;
-    undefined field_0x57;
-    undefined field_0x58;
-    undefined field_0x59;
-    undefined field_0x5A;
-    undefined field_0x5B;
-    undefined field_0x5C;
-    undefined field_0x5D;
-    undefined field_0x5E;
-    undefined field_0x5F;
-    undefined field_0x60;
-    undefined field_0x61;
-    undefined field_0x62;
-    undefined field_0x63;
-    undefined4 field_0x64; // Initialized to 0
+    struct cp_context cp_context;
+};
+ASSERT_SIZE(struct os_context, 100);
+
+typedef void (*os_alarm_handler)(void*);
+
+struct osi_alarm {
+    os_alarm_handler handler;
+    void* arg;
+
+    uint32_t tag;
+    uint64_t fire;
+    struct osi_alarm* prev;
+    struct osi_alarm* next;
+
+    uint64_t period;
+    uint64_t start;
+};
+ASSERT_SIZE(struct osi_alarm, 44);
+
+typedef void (*os_thread_destructor)(void*);
+
+struct thread;
+struct os_thread_queue;
+struct os_thread_link;
+struct os_mutex;
+struct os_mutex_queue;
+struct os_mutex_link;
+
+struct os_thread_queue {
+    struct thread* head; // Initialized to NULL
+    struct thread* tail; // Initialized to NULL
+};
+ASSERT_SIZE(struct os_thread_queue, 8);
+
+struct os_thread_link {
+    struct thread* prev; // Initialized to NULL
+    struct thread* next; // Initialized to NULL
+};
+ASSERT_SIZE(struct os_thread_link, 8);
+
+struct os_mutex_link {
+    struct os_mutex* next; // Initialized to NULL
+    struct os_mutex* prev; // Initialized to NULL
+};
+ASSERT_SIZE(struct os_mutex_link, 8);
+
+struct os_mutex_queue {
+    struct os_mutex* head; // Initialized to NULL
+    struct os_mutex* tail; // Initialized to NULL
+};
+ASSERT_SIZE(struct os_mutex_queue, 8);
+
+struct os_mutex {
+    struct os_thread_queue queue;
+    struct thread* thread;     // Initialized to NULL
+    int count;                 // Initialized to 0
+    struct os_mutex_link link; // Initialized to NULL
+};
+ASSERT_SIZE(struct os_mutex, 24);
+
+// Contains information about a running thread
+struct thread {
+    struct os_context context;
+    enum os_thread_state state; // Initialized to OS_THREAD_STATE_WAITING
     // 0x68: Pointer to the next thread. This forms a linked list sorted in ascending order
     // according to sorting_order
     struct thread* next_thread;
     // 0x6C: Seems to be a thread ID that gets incremented for each new thread created.
     int thread_id;
-    int sorting_order;       // 0x70: Unknown. Used to sort threads.
-    undefined4 field_0x74;   // Initialized to 0
-    undefined4 field_0x78;   // Initialized to 0
-    undefined4 field_0x7C;   // Initialized to 0
-    undefined4 field_0x80;   // Initialized to 0
-    undefined4 field_0x84;   // Initialized to 0
-    undefined4 field_0x88;   // Initialized to 0
-    undefined4 field_0x8C;   // Initialized to 0
-    void* stack_end_pointer; // 0x90: Pointer to the end of the stack area (exclusive)
-    void* stack_pointer;     // 0x94: Pointer to the start of the stack area (inclusive)
-    undefined4 field_0x98;   // Initialized to 0
-    undefined4 field_0x9C;   // Initialized to 0
-    undefined4 field_0xA0;   // Initialized to 0
-    // Initialized to 0. Actually part of a separate struct alongside field_0xA8 and field_0xAC.
-    undefined4 field_0xA4;
-    undefined4 field_0xA8; // Initialized to 0
-    undefined4 field_0xAC; // Initialized to 0
-    undefined4 field_0xB0; // Initialized to 0
-    undefined4 field_0xB4; // Initialized to 0
-    undefined field_0xB8;
-    undefined field_0xB9;
-    undefined field_0xBA;
-    undefined field_0xBB;
-    undefined field_0xBC;
-    undefined field_0xBD;
-    undefined field_0xBE;
-    undefined field_0xBF;
+    int sorting_order;             // 0x70: Used to sort threads.
+    void* profiler;                // Initialized to NULL
+    struct os_thread_queue* queue; // Initialized to NULL
+    struct os_thread_link link;
+    struct os_mutex* mutex; // Initialized to NULL
+    struct os_mutex_queue mutex_queue;
+    void* stack_end_pointer;       // 0x90: Pointer to the end of the stack area (exclusive)
+    void* stack_pointer;           // 0x94: Pointer to the start of the stack area (inclusive)
+    uint32_t stack_warning_offset; // Initialized to 0
+    struct os_thread_queue join_queue;
+    // Initialized to 0.
+    void* specific[3];
+    struct osi_alarm* alarm_for_sleep; // Initialized to 0
+    os_thread_destructor destructor;   // Initialized to NULL
+    void* user_parameter;
+    uint32_t system_errno;
 };
-ASSERT_SIZE(struct thread, 192); // Last 8 bytes are not confirmed
+ASSERT_SIZE(struct thread, 192);
 
 // Seems to be used to hold some global state about threads
 struct thread_info {
@@ -303,5 +326,42 @@ struct sockaddr_in {
     uint8_t ip[4];
 };
 ASSERT_SIZE(struct sockaddr_in, 8);
+
+typedef void (*os_irq_function)(void);
+
+typedef void (*lock_ctrl_funcp)(void);
+
+typedef void (*os_switch_thread_callback)(struct thread* from, struct thread* to);
+
+typedef void (*pxi_fifo_callback)(enum pxi_fifo_tag tag, uint32_t data, bool err);
+
+struct os_lock_word {
+    uint32_t lock_flag;
+    uint16_t owner_id;
+    uint16_t extension;
+};
+ASSERT_SIZE(struct os_lock_word, 8);
+
+struct card_rom_stat {
+    void (*read_func)(struct card_rom_stat*);
+    uint32_t ctrl;
+    uint8_t* cache_page;
+    uint32_t dummy[5];
+    uint8_t cache_buf[512];
+};
+ASSERT_SIZE(struct card_rom_stat, 544);
+
+struct ctrdg_rom_cycle {
+    enum mi_cartridge_rom_cycle_1st c1;
+    enum mi_cartridge_rom_cycle_2nd c2;
+};
+ASSERT_SIZE(struct ctrdg_rom_cycle, 8);
+
+struct ctrdg_lock_by_proc {
+    bool locked;
+    uint8_t dummy[3];
+    enum os_intr_mode irq;
+};
+ASSERT_SIZE(struct ctrdg_lock_by_proc, 8);
 
 #endif
