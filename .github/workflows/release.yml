@@ -30,6 +30,8 @@ jobs:
       - check-symbols
       - check-headers
     uses: UsernameFodder/pmdsky-debug/.github/workflows/check-symbol-header-sync.yml@master
+    with:
+      allow-missing-symbol-headers: true
   generate-and-deploy:
     runs-on: ubuntu-latest
     needs:

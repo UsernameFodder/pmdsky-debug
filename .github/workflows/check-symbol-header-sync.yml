@@ -10,6 +10,11 @@ on:
     branches:
       - master
   workflow_call:
+    inputs:
+      allow-missing-symbol-headers:
+        required: false
+        type: boolean
+        default: false
 
 env:
   PYTHON_TERM_COLOR: always
@@ -24,6 +29,7 @@ jobs:
         run: make -C headers symbol-check
   header-sync-check:
     runs-on: ubuntu-latest
+    if: '!inputs.allow-missing-symbol-headers'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
