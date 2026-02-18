@@ -1905,7 +1905,7 @@ libs:
         EU: 0x20792D8
         NA: 0x2078F40
         JP: 0x2079228
-    - name: OS_UnLockCartridge
+    - name: OS_UnlockCartridgeVeneer
       address:
         EU: 0x20792F8
         NA: 0x2078F60

@@ -332,7 +332,7 @@ int OSi_DoUnlockByWord(uint16_t lock_id, struct os_lock_word* lockp, lock_ctrl_f
                        bool disable_fiq);
 int OS_UnlockByWord(uint16_t lock_id, struct os_lock_word* lockp, lock_ctrl_funcp ctrl_funcp);
 int OS_UnlockCartridge(uint16_t lock_id);
-int OS_UnLockCartridge(uint16_t lock_id);
+int OS_UnlockCartridgeVeneer(uint16_t lock_id);
 void OSi_FreeCartridgeBus(void);
 int IncrementThreadCount(void);
 void OSi_InsertLinkToQueue(struct os_thread_queue* queue, struct thread* thread);

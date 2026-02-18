@@ -125,6 +125,7 @@ typedef void (*thread_entry_fn_t)(void);
 // Specifies a function called when a thread exits
 typedef void (*thread_exit_fn_t)(void);
 
+#pragma pack(push, 4)
 struct cp_context {
     uint64_t div_numer;
     uint64_t div_denom;
@@ -133,6 +134,7 @@ struct cp_context {
     uint16_t sqrt_mode;
 };
 ASSERT_SIZE(struct cp_context, 28);
+#pragma pack(pop)
 
 struct os_context {
     uint32_t cpsr;
@@ -151,6 +153,7 @@ ASSERT_SIZE(struct os_context, 100);
 
 typedef void (*os_alarm_handler)(void*);
 
+#pragma pack(push, 4)
 struct osi_alarm {
     os_alarm_handler handler;
     void* arg;
@@ -164,6 +167,7 @@ struct osi_alarm {
     uint64_t start;
 };
 ASSERT_SIZE(struct osi_alarm, 44);
+#pragma pack(pop)
 
 typedef void (*os_thread_destructor)(void*);
 
