@@ -4,5 +4,6 @@
 extern struct window_params JUKEBOX_TRACK_MENU_DEFAULT_WINDOW_PARAMS;
 extern struct window_params PLAYBACK_CONTROLS_MENU_DEFAULT_WINDOW_PARAMS;
 extern struct window_params INPUT_LOCK_BOX_DEFAULT_WINDOW_PARAMS;
+extern undefined4 OV9_STATIC_INITIALIZER;
 
 #endif

@@ -12,5 +12,6 @@ extern struct simple_menu_id_item BAR_MENU_ITEMS_CONFIRM_2[3];
 extern struct simple_menu_id_item BAR_MAIN_MENU_ITEMS[4];
 extern struct simple_menu_id_item BAR_SUBMENU_ITEMS_1[4];
 extern struct simple_menu_id_item BAR_SUBMENU_ITEMS_2[6];
+extern undefined4 OV19_STATIC_INITIALIZER;
 
 #endif

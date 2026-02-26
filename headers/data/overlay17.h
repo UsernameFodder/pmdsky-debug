@@ -17,5 +17,6 @@ extern struct simple_menu_id_item ASSEMBLY_SUBMENU_ITEMS_5[7];
 extern struct simple_menu_id_item ASSEMBLY_SUBMENU_ITEMS_6[7];
 extern struct simple_menu_id_item ASSEMBLY_SUBMENU_ITEMS_7[8];
 extern void* OVERLAY17_FUNCTION_POINTER_TABLE[42];
+extern undefined4 OV17_STATIC_INITIALIZER;
 
 #endif

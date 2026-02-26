@@ -23,6 +23,7 @@ extern int STRING_ID_SENTRY_THATS_ALL;
 extern enum monster_id SENTRY_GROVYLE_MONSTER_ID;
 extern struct simple_menu_id_item SENTRY_DEBUG_MENU_ITEMS[9];
 extern struct sentry_duty* SENTRY_DUTY_PTR;
+extern undefined4 OV14_STATIC_INITIALIZER;
 extern state_handler_fn_t SENTRY_DUTY_STATE_HANDLER_TABLE[35];
 
 #endif

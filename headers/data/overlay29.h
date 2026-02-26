@@ -92,6 +92,7 @@ extern bool CORNER_CARDINAL_NEIGHBOR_IS_OPEN[4][8];
 extern int16_t GUMMI_LIKE_STRING_IDS[4];
 extern int16_t GUMMI_IQ_STRING_IDS[5];
 extern int16_t DAMAGE_STRING_IDS[27];
+extern undefined4 OV29_STATIC_INITIALIZER;
 extern struct dungeon* DUNGEON_PTR;
 extern struct dungeon* DUNGEON_PTR_MASTER;
 extern struct top_screen_status* TOP_SCREEN_STATUS_PTR;
