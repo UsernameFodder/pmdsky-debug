@@ -148,8 +148,7 @@ overlay27:
         EU: 0x4
         NA: 0x4
         JP: 0x4
-      description: |-
-        Static initializer for overlay 27.
+      description: Static initializer for overlay 27.
     - name: OVERLAY27_UNKNOWN_POINTER__NA_238CE80
       address:
         EU: 0x238D9C0

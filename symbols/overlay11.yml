@@ -1857,8 +1857,7 @@ overlay11:
         EU: 0x4
         NA: 0x4
         JP: 0x4
-      description: |-
-        Static initializer for overlay 11.
+      description: Static initializer for overlay 11.
     - name: UNIONALL_RAM_ADDRESS
       address:
         EU: 0x23257E4

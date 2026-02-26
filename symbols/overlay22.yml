@@ -158,8 +158,7 @@ overlay22:
         EU: 0x4
         NA: 0x4
         JP: 0x4
-      description: |-
-        Static initializer for overlay 22.
+      description: Static initializer for overlay 22.
     - name: OVERLAY22_UNKNOWN_POINTER__NA_238EC60
       address:
         EU: 0x238F7A0

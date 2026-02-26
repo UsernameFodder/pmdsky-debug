@@ -214,8 +214,7 @@ overlay19:
         EU: 0x4
         NA: 0x4
         JP: 0x4
-      description: |-
-        Static initializer for overlay 19.
+      description: Static initializer for overlay 19.
     - name: OVERLAY19_UNKNOWN_POINTER__NA_238E360
       address:
         EU: 0x238EE80

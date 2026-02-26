@@ -163,8 +163,7 @@ overlay23:
         EU: 0x4
         NA: 0x4
         JP: 0x4
-      description: |-
-        Static initializer for overlay 23.
+      description: Static initializer for overlay 23.
     - name: OVERLAY23_UNKNOWN_POINTER__NA_238D8A0
       address:
         EU: 0x238E3E0

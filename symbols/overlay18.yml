@@ -213,8 +213,7 @@ overlay18:
         EU: 0x4
         NA: 0x4
         JP: 0x4
-      description: |-
-        Static initializer for overlay 18.
+      description: Static initializer for overlay 18.
     - name: OVERLAY18_UNKNOWN_POINTER__NA_238D620
       address:
         EU: 0x238E160

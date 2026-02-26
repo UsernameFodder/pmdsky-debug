@@ -112,8 +112,7 @@ overlay16:
         EU: 0x4
         NA: 0x4
         JP: 0x4
-      description: |-
-        Static initializer for overlay 16.
+      description: Static initializer for overlay 16.
     - name: OVERLAY16_UNKNOWN_POINTER__NA_238CE40
       address:
         EU: 0x238D980

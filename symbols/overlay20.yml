@@ -208,8 +208,7 @@ overlay20:
         EU: 0x4
         NA: 0x4
         JP: 0x4
-      description: |-
-        Static initializer for overlay 20.
+      description: Static initializer for overlay 20.
     - name: OVERLAY20_UNKNOWN_POINTER__NA_238D120
       address:
         EU: 0x238DC60

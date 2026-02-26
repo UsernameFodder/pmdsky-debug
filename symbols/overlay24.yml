@@ -98,8 +98,7 @@ overlay24:
         EU: 0x4
         NA: 0x4
         JP: 0x4
-      description: |-
-        Static initializer for overlay 24.
+      description: Static initializer for overlay 24.
     - name: OVERLAY24_UNKNOWN_POINTER__NA_238C600
       address:
         EU: 0x238D140

@@ -455,8 +455,7 @@ overlay21:
         EU: 0x4
         NA: 0x4
         JP: 0x4
-      description: |-
-        Static initializer for overlay 21.
+      description: Static initializer for overlay 21.
     - name: SWAP_SHOP_MENU_DATA_PTR
       address:
         EU: 0x238DA80

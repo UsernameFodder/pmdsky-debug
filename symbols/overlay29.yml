@@ -11045,8 +11045,7 @@ overlay29:
         EU: 0x4
         NA: 0x4
         JP: 0x4
-      description: |-
-        Static initializer for overlay 29.
+      description: Static initializer for overlay 29.
     - name: DUNGEON_PTR
       address:
         EU: 0x2354138

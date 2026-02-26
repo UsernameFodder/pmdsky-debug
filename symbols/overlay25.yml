@@ -129,8 +129,7 @@ overlay25:
         EU: 0x4
         NA: 0x4
         JP: 0x4
-      description: |-
-        Static initializer for overlay 25.
+      description: Static initializer for overlay 25.
     - name: OVERLAY25_UNKNOWN_POINTER__NA_238B5E0
       address:
         EU: 0x238C120

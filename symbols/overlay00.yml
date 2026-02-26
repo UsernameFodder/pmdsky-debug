@@ -352,5 +352,4 @@ overlay0:
         EU: 0x4
         NA: 0x4
         JP: 0x4
-      description: |-
-        Static initializer for overlay 0.
+      description: Static initializer for overlay 0.
