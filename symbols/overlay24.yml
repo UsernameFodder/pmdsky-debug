@@ -87,12 +87,19 @@ overlay24:
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: OVERLAY24_RESERVED_SPACE
+    - name: OV24_STATIC_INITIALIZER
+      aliases:
+        - OVERLAY24_RESERVED_SPACE
       address:
+        EU: 0x238D120
         NA: 0x238C5E0
+        JP: 0x238DB48
       length:
-        NA: 0x20
-      description: "Note: unverified, ported from Irdkwia's notes"
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        Static initializer for overlay 24.
     - name: OVERLAY24_UNKNOWN_POINTER__NA_238C600
       address:
         EU: 0x238D140

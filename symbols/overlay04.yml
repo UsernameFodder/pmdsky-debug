@@ -13,4 +13,15 @@ overlay4:
     JP: 0x2BE0
   description: Controls the Trade Items submenu within the top menu.
   functions: []
-  data: []
+  data:
+    - name: OV4_STATIC_INITIALIZER
+      address:
+        EU: 0x233FDB8
+        NA: 0x233F638
+        JP: 0x2340EB8
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        Static initializer for overlay 4.

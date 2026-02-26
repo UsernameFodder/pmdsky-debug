@@ -246,16 +246,19 @@ overlay13:
         0x10 * (174 answers?)
         
         Note: unverified, ported from Irdkwia's notes
-    - name: OVERLAY13_RESERVED_SPACE
+    - name: OV13_STATIC_INITIALIZER
+      aliases:
+        - OVERLAY13_RESERVED_SPACE
       address:
         EU: 0x238D9D0
         NA: 0x238CE90
         JP: 0x238E3F8
       length:
-        EU: 0x10
-        NA: 0x10
-        JP: 0x10
-      description: "Note: unverified, ported from Irdkwia's notes"
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        Static initializer for overlay 13.
     - name: OVERLAY13_UNKNOWN_POINTER__NA_238CEA0
       address:
         EU: 0x238D9E0

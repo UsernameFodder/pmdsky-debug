@@ -147,12 +147,19 @@ overlay22:
         EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: OVERLAY22_RESERVED_SPACE
+    - name: OV22_STATIC_INITIALIZER
+      aliases:
+        - OVERLAY22_RESERVED_SPACE
       address:
+        EU: 0x238F798
         NA: 0x238EC58
+        JP: 0x23901B8
       length:
-        NA: 0x8
-      description: "Note: unverified, ported from Irdkwia's notes"
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        Static initializer for overlay 22.
     - name: OVERLAY22_UNKNOWN_POINTER__NA_238EC60
       address:
         EU: 0x238F7A0

@@ -497,6 +497,17 @@ overlay14:
         EU: 0x48
         NA: 0x48
         JP: 0x48
+    - name: OV14_STATIC_INITIALIZER
+      address:
+        EU: 0x238E70C
+        NA: 0x238DB6C
+        JP: 0x238F0D4
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        Static initializer for overlay 14.
     - name: SENTRY_DUTY_PTR
       address:
         EU: 0x238E720

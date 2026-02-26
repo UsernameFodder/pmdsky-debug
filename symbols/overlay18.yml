@@ -202,12 +202,19 @@ overlay18:
       length:
         NA: 0x130
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: OVERLAY18_RESERVED_SPACE
+    - name: OV18_STATIC_INITIALIZER
+      aliases:
+        - OVERLAY18_RESERVED_SPACE
       address:
+        EU: 0x238E15C
         NA: 0x238D61C
+        JP: 0x238EB88
       length:
+        EU: 0x4
         NA: 0x4
-      description: "Note: unverified, ported from Irdkwia's notes"
+        JP: 0x4
+      description: |-
+        Static initializer for overlay 18.
     - name: OVERLAY18_UNKNOWN_POINTER__NA_238D620
       address:
         EU: 0x238E160

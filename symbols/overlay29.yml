@@ -11036,6 +11036,17 @@ overlay29:
       length:
         NA: 0x36
       description: List that matches the damage_message ID to their corresponding string ID. The null entry at 0xE in the middle is for hunger. The last entry is null.
+    - name: OV29_STATIC_INITIALIZER
+      address:
+        EU: 0x23540DC
+        NA: 0x23534C4
+        JP: 0x2354744
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        Static initializer for overlay 29.
     - name: DUNGEON_PTR
       address:
         EU: 0x2354138

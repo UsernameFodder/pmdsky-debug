@@ -157,12 +157,19 @@ overlay17:
       length:
         NA: 0xA8
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: OVERLAY17_RESERVED_SPACE
+    - name: OV17_STATIC_INITIALIZER
+      aliases:
+        - OVERLAY17_RESERVED_SPACE
       address:
+        EU: 0x238C92C
         NA: 0x238BDEC
+        JP: 0x238D348
       length:
-        NA: 0x14
-      description: "Note: unverified, ported from Irdkwia's notes"
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        Static initializer for overlay 17.
     - name: OVERLAY17_UNKNOWN_POINTER__NA_238BE00
       address:
         EU: 0x238C940

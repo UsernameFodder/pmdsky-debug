@@ -1848,6 +1848,17 @@ overlay11:
         - possibly function pointer to frame-update function?
         
         type: struct overlay_load_entry[21]
+    - name: OV11_STATIC_INITIALIZER
+      address:
+        EU: 0x2325790
+        NA: 0x2324C40
+        JP: 0x23261B4
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        Static initializer for overlay 11.
     - name: UNIONALL_RAM_ADDRESS
       address:
         EU: 0x23257E4

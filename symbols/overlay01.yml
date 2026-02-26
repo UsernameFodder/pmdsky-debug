@@ -228,3 +228,14 @@ overlay1:
         EU: 0x38
         NA: 0x38
         JP: 0x38
+    - name: OV1_STATIC_INITIALIZER
+      address:
+        EU: 0x233C800
+        NA: 0x233C0B4
+        JP: 0x233D92C
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        Static initializer for overlay 1.

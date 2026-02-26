@@ -24,12 +24,19 @@ overlay26:
         0x6 + 11*0xC + 0x2
         
         Note: unverified, ported from Irdkwia's notes
-    - name: OVERLAY26_RESERVED_SPACE
+    - name: OV26_STATIC_INITIALIZER
+      aliases:
+        - OVERLAY26_RESERVED_SPACE
       address:
+        EU: 0x238BA88
         NA: 0x238AF48
+        JP: 0x238C4A8
       length:
-        NA: 0x18
-      description: "Note: unverified, ported from Irdkwia's notes"
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        Static initializer for overlay 26.
     - name: OVERLAY26_UNKNOWN_POINTER__NA_238AF60
       address:
         EU: 0x238BAA0
