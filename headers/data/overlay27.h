@@ -13,5 +13,6 @@ extern struct window_params DISCARD_WINDOW_PARAMS_5;
 extern struct window_params DISCARD_WINDOW_PARAMS_6;
 extern struct window_params DISCARD_WINDOW_PARAMS_7;
 extern struct window_params DISCARD_WINDOW_PARAMS_8;
+extern undefined4 OV27_STATIC_INITIALIZER;
 
 #endif

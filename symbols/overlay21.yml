@@ -444,12 +444,18 @@ overlay21:
       length:
         EU: 0x13
       description: "[CS:V][gold:0][CR]"
-    - name: OVERLAY21_RESERVED_SPACE
+    - name: OV21_STATIC_INITIALIZER
+      aliases:
+        - OVERLAY21_RESERVED_SPACE
       address:
+        EU: 0x238DA78
         NA: 0x238CF38
+        JP: 0x238E4A8
       length:
-        NA: 0x8
-      description: "Note: unverified, ported from Irdkwia's notes"
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: Static initializer for overlay 21.
     - name: SWAP_SHOP_MENU_DATA_PTR
       address:
         EU: 0x238DA80

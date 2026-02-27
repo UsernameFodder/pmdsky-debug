@@ -13,4 +13,14 @@ overlay7:
     JP: 0x53E0
   description: "Controls the Nintendo WFC submenu within the top menu (under \"Other\")."
   functions: []
-  data: []
+  data:
+    - name: OV7_STATIC_INITIALIZER
+      address:
+        EU: 0x23404C0
+        NA: 0x2341B50
+        JP: 0x23436A8
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: Static initializer for overlay 7.

@@ -342,4 +342,14 @@ overlay0:
         
         r0: src
         r1: dest
-  data: []
+  data:
+    - name: OV0_STATIC_INITIALIZER
+      address:
+        EU: 0x2318F98
+        NA: 0x2318770
+        JP: 0x2319F1C
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: Static initializer for overlay 0.

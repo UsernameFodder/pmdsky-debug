@@ -13,4 +13,14 @@ overlay3:
     JP: 0xA160
   description: Controls the Friend Rescue submenu within the top menu.
   functions: []
-  data: []
+  data:
+    - name: OV3_STATIC_INITIALIZER
+      address:
+        EU: 0x234728C
+        NA: 0x2346B0C
+        JP: 0x234839C
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: Static initializer for overlay 3.

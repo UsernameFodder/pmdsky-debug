@@ -8,5 +8,6 @@ extern struct window_params DAYCARE_WINDOW_PARAMS_2;
 extern struct window_params DAYCARE_WINDOW_PARAMS_3;
 extern struct window_params DAYCARE_WINDOW_PARAMS_4;
 extern struct window_params DAYCARE_WINDOW_PARAMS_5;
+extern undefined4 OV24_STATIC_INITIALIZER;
 
 #endif

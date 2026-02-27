@@ -197,12 +197,18 @@ overlay20:
         EU: 0x18
         NA: 0x18
         JP: 0x18
-    - name: OVERLAY20_RESERVED_SPACE
+    - name: OV20_STATIC_INITIALIZER
+      aliases:
+        - OVERLAY20_RESERVED_SPACE
       address:
+        EU: 0x238DC50
         NA: 0x238D110
+        JP: 0x238E66C
       length:
-        NA: 0x10
-      description: "Note: unverified, ported from Irdkwia's notes"
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: Static initializer for overlay 20.
     - name: OVERLAY20_UNKNOWN_POINTER__NA_238D120
       address:
         EU: 0x238DC60

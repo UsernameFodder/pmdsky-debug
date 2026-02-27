@@ -7,5 +7,6 @@ extern struct window_params BANK_WINDOW_PARAMS_2;
 extern struct window_params BANK_WINDOW_PARAMS_3;
 extern struct window_params BANK_WINDOW_PARAMS_4;
 extern struct window_params BANK_WINDOW_PARAMS_5;
+extern undefined4 OV15_STATIC_INITIALIZER;
 
 #endif

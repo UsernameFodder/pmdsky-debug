@@ -15,5 +15,6 @@ extern struct window_params SHOP_WINDOW_PARAMS_7;
 extern struct window_params SHOP_WINDOW_PARAMS_8;
 extern struct window_params SHOP_WINDOW_PARAMS_9;
 extern struct window_params SHOP_WINDOW_PARAMS_10;
+extern undefined4 OV22_STATIC_INITIALIZER;
 
 #endif

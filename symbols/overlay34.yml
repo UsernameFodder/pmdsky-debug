@@ -69,12 +69,18 @@ overlay34:
         EU: 0x28
         NA: 0x28
         JP: 0x28
-    - name: OVERLAY34_RESERVED_SPACE
+    - name: OV34_STATIC_INITIALIZER
+      aliases:
+        - OVERLAY34_RESERVED_SPACE
       address:
+        EU: 0x22DD91C
         NA: 0x22DD074
+        JP: 0x22DE678
       length:
-        NA: 0xC
-      description: "Note: unverified, ported from Irdkwia's notes"
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: Static initializer for overlay 34.
     - name: OVERLAY34_UNKNOWN_POINTER__NA_22DD080
       address:
         EU: 0x22DD920

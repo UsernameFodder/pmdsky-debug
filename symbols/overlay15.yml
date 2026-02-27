@@ -62,12 +62,18 @@ overlay15:
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: OVERLAY15_RESERVED_SPACE
+    - name: OV15_STATIC_INITIALIZER
+      aliases:
+        - OVERLAY15_RESERVED_SPACE
       address:
+        EU: 0x238BCC8
         NA: 0x238B164
+        JP: 0x238C6DC
       length:
-        NA: 0x1C
-      description: "Note: unverified, ported from Irdkwia's notes"
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: Static initializer for overlay 15.
     - name: OVERLAY15_UNKNOWN_POINTER__NA_238B180
       address:
         EU: 0x238BCE0

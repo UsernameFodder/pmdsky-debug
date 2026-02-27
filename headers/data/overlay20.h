@@ -19,5 +19,6 @@ extern struct window_params RECYCLE_WINDOW_PARAMS_9;
 extern struct window_params RECYCLE_WINDOW_PARAMS_10;
 extern struct window_params RECYCLE_WINDOW_PARAMS_11;
 extern struct simple_menu_id_item RECYCLE_MAIN_MENU_ITEMS_3[3];
+extern undefined4 OV20_STATIC_INITIALIZER;
 
 #endif

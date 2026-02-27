@@ -13,4 +13,14 @@ overlay12:
     JP: 0x20
   description: Unused; all zeroes.
   functions: []
-  data: []
+  data:
+    - name: OV12_STATIC_INITIALIZER
+      address:
+        EU: 0x238AC80
+        NA: 0x238A140
+        JP: 0x238B6A0
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: Static initializer for overlay 12.
