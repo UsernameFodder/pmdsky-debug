@@ -998,7 +998,7 @@ struct link_shop {
     uint32_t next_state; // 0x80: Next value for state.
     undefined4 unk_0x84;
     undefined4 unk_0x88;
-    undefined4 unk_0x8c;
+    undefined2 unk_0x8c;
     undefined2 padding_0x8e;
     struct window_extra_info extra_info_1; // 0x90
     struct window_extra_info extra_info_2; // 0x128
