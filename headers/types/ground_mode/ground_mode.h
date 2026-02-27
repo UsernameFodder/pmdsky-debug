@@ -1023,6 +1023,6 @@ struct link_shop {
     char name[10];           // 0x3AE: Name of the selected monster.
     undefined unk_0x3b8[12]; // Could not find direct use of this, probably not padding though.
 };
-ASSERT_SIZE(struct link_shop, 964)
+ASSERT_SIZE(struct link_shop, 964);
 
 #endif
