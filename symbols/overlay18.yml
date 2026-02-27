@@ -12,7 +12,38 @@ overlay18:
     NA: 0x3500
     JP: 0x3520
   description: Controls the Electivire Link Shop.
-  functions: []
+  functions:
+    - name: LinkShopEntryPoint
+      address:
+        EU: 0x238AC80
+        NA: 0x238A140
+        JP: 0x238B6A0
+      description: |-
+        Is the entrypoint of the overlay_load_entry, and seems to run once to initiate the Link Shop. Is not called anywhere else.
+        Allocates space for link_shop, and initializes many of its fields.
+        
+        No params.
+        return: Always returns 1.
+    - name: LinkShopDestructor
+      address:
+        EU: 0x238BB14
+        NA: 0x238AFD4
+        JP: 0x238C530
+      description: |-
+        Is the destructor of the overlay_load_entry, and seems to run once on closing the Link Shop. Is not called anywhere else.
+        Frees up the allocated space for link_shop if it is not already empty.
+        
+        No params.
+    - name: LinkShopMainManager
+      address:
+        EU: 0x238BB5C
+        NA: 0x238B01C
+        JP: 0x238C578
+      description: |-
+        Called every frame the Electivire Link Shop is open. Handles the majority of the menu.
+        
+        No params.
+        return: Usually returns 1. Returns 4 when exiting the Link Shop.
   data:
     - name: LINK_SHOP_WINDOW_PARAMS_1
       address:
@@ -214,14 +245,16 @@ overlay18:
         NA: 0x4
         JP: 0x4
       description: Static initializer for overlay 18.
-    - name: OVERLAY18_UNKNOWN_POINTER__NA_238D620
+    - name: LINK_SHOP_PTR
       address:
         EU: 0x238E160
         NA: 0x238D620
         JP: 0x238EBA0
       length:
+        EU: 0x4
         NA: 0x4
-      description: "Note: unverified, ported from Irdkwia's notes"
+        JP: 0x4
+      description: Pointer to the heap-allocated link_shop struct.
     - name: OVERLAY18_UNKNOWN_POINTER__NA_238D624
       address:
         NA: 0x238D624
