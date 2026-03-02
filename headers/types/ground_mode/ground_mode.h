@@ -968,4 +968,61 @@ struct ground_bg {
 };
 ASSERT_SIZE(struct ground_bg, 1372);
 
+struct link_shop {
+    int8_t window_id_0x0;
+    int8_t portrait_window_id; // 0x1
+    int8_t window_id_0x2;
+    int8_t window_id_0x3;
+    int8_t window_id_0x4;
+    int8_t window_id_0x5;
+    int8_t window_id_0x6;
+    int8_t window_id_0x7;
+    int8_t window_id_0x8;
+    int8_t scroll_box_window_id; // 0x9
+    int8_t window_id_0xa;
+    int8_t window_id_0xb;
+    int8_t window_id_0xc;
+    int8_t window_id_0xd;
+    int8_t window_id_0xe;
+    int8_t window_id_0xf;
+    bool unk_0x10;
+    undefined padding_0x11[3];
+    struct preprocessor_args preprocessor_args; // 0x14
+    struct portrait_params portrait_params;     // 0x64
+    undefined4
+        unk_0x74;   // Potentially also some state value; used in a switch in LinkShopMainManager.
+    uint32_t state; // 0x78: Current state of the link shop menu; used in a switch in
+                    // LinkShopMainManager. Could be an enum.
+    undefined4
+        unk_0x7c; // Potentially also some state value; used in a switch in LinkShopMainManager.
+    uint32_t next_state; // 0x80: Next value for state.
+    undefined4 unk_0x84;
+    undefined4 unk_0x88;
+    undefined2 unk_0x8c;
+    undefined2 padding_0x8e;
+    struct window_extra_info extra_info_1; // 0x90
+    struct window_extra_info extra_info_2; // 0x128
+    struct window_extra_info extra_info_3; // 0x1C0
+    struct window_extra_info extra_info_4; // 0x258
+    struct window_extra_info extra_info_5; // 0x2F0
+    undefined2 unk_0x388;
+    undefined2 unk_0x38a;
+    int16_t member_idx; // 0x38C: Index in TEAM_MEMBER_TABLE for the selected monster.
+    undefined2 padding_0x38e;
+    undefined4 unk_0x390;
+    uint8_t unk_0x394[8];
+    undefined4 unk_0x39c;
+    undefined4 unk_0x3a0;
+    undefined2 unk_0x3a4;
+    undefined1 unk_0x3a6; // This through 0x3AD is filled with a memcpy; may be a smaller struct.
+    undefined1 unk_0x3a7; // Could not find direct use of this; may be padding.
+    undefined2 unk_0x3a8;
+    undefined2 unk_0x3aa;
+    undefined1 unk_0x3ac;
+    undefined1 unk_0x3ad;
+    char name[10];           // 0x3AE: Name of the selected monster.
+    undefined unk_0x3b8[12]; // Could not find direct use of this, probably not padding though.
+};
+ASSERT_SIZE(struct link_shop, 964);
+
 #endif

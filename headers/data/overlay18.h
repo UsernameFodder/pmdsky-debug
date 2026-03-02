@@ -23,5 +23,6 @@ extern struct simple_menu_id_item LINK_SHOP_SUBMENU_ITEMS_6[9];
 extern struct simple_menu_id_item LINK_SHOP_SUBMENU_ITEMS_7[9];
 extern void* OVERLAY18_FUNCTION_POINTER_TABLE[76];
 extern undefined4 OV18_STATIC_INITIALIZER;
+extern struct link_shop* LINK_SHOP_PTR;
 
 #endif
