@@ -22,7 +22,6 @@ overlay18:
         Is the entrypoint of the overlay_load_entry, and seems to run once to initiate the Link Shop. Is not called anywhere else.
         Allocates space for link_shop, and initializes many of its fields.
         
-        No params.
         return: Always returns 1.
     - name: LinkShopDestructor
       address:
