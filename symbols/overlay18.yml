@@ -41,7 +41,6 @@ overlay18:
       description: |-
         Called every frame the Electivire Link Shop is open. Handles the majority of the menu.
         
-        No params.
         return: Usually returns 1. Returns 4 when exiting the Link Shop.
   data:
     - name: LINK_SHOP_WINDOW_PARAMS_1
