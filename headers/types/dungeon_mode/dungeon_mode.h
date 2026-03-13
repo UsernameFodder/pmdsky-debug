@@ -2567,7 +2567,7 @@ ASSERT_SIZE(struct message_log_info, 12);
 // Contains information about the user's current button input in dungeon mode.
 // For a mapping of keys <-> bits, see https://problemkaputt.de/gbatek.htm#gbakeypadinput
 // (with the additions of bit 10 = x, bit 11 = y, bit 13 = debug)
-struct dungeon_button_info {
+struct dungeon_button_input {
     uint16_t cur_held_buttons;    // 0x0
     uint16_t cur_pressed_buttons; // 0x2
     uint16_t field_0x4;
@@ -2579,7 +2579,7 @@ struct dungeon_button_info {
     uint16_t b_frames_counter;       // 0x10: How many frames B has been held for (caps at 100)
     uint16_t r_frames_counter;       // 0x10: How many frames R has been held for (caps at 100)
 };
-ASSERT_SIZE(struct dungeon_button_info, 14);
+ASSERT_SIZE(struct dungeon_button_input, 14);
 
 // Separate this out into its own file because it's massive
 #include "dungeon.h"
