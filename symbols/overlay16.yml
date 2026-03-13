@@ -101,12 +101,18 @@ overlay16:
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: OVERLAY16_RESERVED_SPACE
+    - name: OV16_STATIC_INITIALIZER
+      aliases:
+        - OVERLAY16_RESERVED_SPACE
       address:
+        EU: 0x238D978
         NA: 0x238CE34
+        JP: 0x238E3B4
       length:
-        NA: 0xC
-      description: "Note: unverified, ported from Irdkwia's notes"
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: Static initializer for overlay 16.
     - name: OVERLAY16_UNKNOWN_POINTER__NA_238CE40
       address:
         EU: 0x238D980

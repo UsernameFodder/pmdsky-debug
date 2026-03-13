@@ -14,5 +14,6 @@ extern struct window_params MAIN_MENU_WINDOW_PARAMS_9;
 extern struct simple_menu_id_item MAIN_DEBUG_MENU_ITEMS_1[12];
 extern struct window_params MAIN_MENU_WINDOW_PARAMS_10;
 extern struct simple_menu_id_item MAIN_DEBUG_MENU_ITEMS_2[7];
+extern undefined4 OV1_STATIC_INITIALIZER;
 
 #endif

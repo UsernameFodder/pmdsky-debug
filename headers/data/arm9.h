@@ -35,7 +35,26 @@ extern char STRING_DUNGEON_DUNGEON_BIN[20];
 extern char STRING_MONSTER_M_ATTACK_BIN[24];
 extern char STRING_MONSTER_M_GROUND_BIN[24];
 extern char STRING_FILE_DIRECTORY_INIT[40];
+#if PMDSKY_VERSION == PMDSKY_EU
+extern char ST_I2N_I_BIN_FILE_NAME[12];
+extern char ST_I2N_E_BIN_FILE_NAME[12];
+extern char ST_I2N_S_BIN_FILE_NAME[12];
+extern char ST_I2N_G_BIN_FILE_NAME[12];
+extern char ST_I2N_F_BIN_FILE_NAME[12];
+#endif
 extern struct baby_exclusive_item_pair BABY_EXCLUSIVE_ITEM_PAIRS[16];
+extern char ITEM_P_BIN_FILE_PATH[24];
+extern char ITEM_S_P_BIN_FILE_PATH[26];
+#if PMDSKY_VERSION == PMDSKY_JP
+#define ITEM_ST_I2N_BIN_FORMAT_LENGTH_ 16
+#else
+#define ITEM_ST_I2N_BIN_FORMAT_LENGTH_ 26
+#endif
+extern char ITEM_ST_I2N_BIN_FORMAT[ITEM_ST_I2N_BIN_FORMAT_LENGTH_];
+extern char ITEM_NAME_FORMAT_YELLOW[16];
+extern char ITEM_NAME_FORMAT_INDIGO[16];
+extern char ITEM_NAME_FORMAT_PLAIN[4];
+extern char ITEM_NAME_FORMAT_CREAM[16];
 extern enum item_id KECLEON_SHOP_ITEM_TABLE_LISTS_1[4];
 extern enum item_id KECLEON_SHOP_ITEM_TABLE_LISTS_2[4];
 extern struct exclusive_item_stat_boost_entry EXCLUSIVE_ITEM_STAT_BOOST_DATA[15];
@@ -66,12 +85,18 @@ extern struct prog_pos_info EVENT_FLAG_PROG_POS_INFO_CALC_SCRIPT_VARIABLES;
 extern struct prog_pos_info EVENT_FLAG_PROG_POS_INFO_COMPARE_SCRIPT_VARIABLES;
 extern unsigned char EVENT_FLAG_FILE_NAME[16];
 extern struct script_local_var_table SCRIPT_VARS_LOCALS;
+extern unsigned char EVENT_FLAG_SIZE_DEBUG_MSG[28];
 extern unsigned char EVENT_FLAG_CALC_SCRIPT_VARIABLES_ERROR[32];
 extern unsigned char EVENT_FLAG_COMPARE_SCRIPT_VARIABLES_ERROR[28];
 extern unsigned char EVENT_FLAG_GAME_MODE_DEBUG_MSG[32];
 extern unsigned char EVENT_FLAG_BACKUP_DEBUG_MSG[32];
+extern unsigned char SUM_MSG[4];
+extern unsigned char SUB30_PROJECTP_MSG[16];
+extern unsigned char NOTE_MODIFY_FLAG_MSG[20];
 extern struct script_var_table SCRIPT_VARS;
 extern unsigned char SCENARIO_CALC_DEBUG_MSG[40];
+extern unsigned char SCENARIO_FLAG_RESUME_DEBUG_MSG[32];
+extern unsigned char SCENARIO_FLAG_BACKUP_DEBUG_MSG[32];
 extern struct portrait_layout PORTRAIT_LAYOUTS[32];
 extern char KAOMADO_FILEPATH[20];
 extern uint8_t WONDER_MAIL_BITS_MAP[32];
@@ -133,6 +158,24 @@ extern uint32_t BAG_CAPACITY_TABLE_SPECIAL_EPISODES[5];
 extern uint32_t BAG_CAPACITY_TABLE[8];
 extern struct monster_id_16 SPECIAL_EPISODE_MAIN_CHARACTERS[100];
 extern struct guest_monster GUEST_MONSTER_DATA[18];
+extern struct guest_monster GUEST_MONSTER_BANETTE;
+extern struct guest_monster GUEST_MONSTER_SKORUPI;
+extern struct guest_monster GUEST_MONSTER_BIDOOF;
+extern struct guest_monster GUEST_MONSTER_SNOVER;
+extern struct guest_monster GUEST_MONSTER_BIDOOF_2;
+extern struct guest_monster GUEST_MONSTER_GROVYLE;
+extern struct guest_monster GUEST_MONSTER_LOUDRED;
+extern struct guest_monster GUEST_MONSTER_DUSKNOIR;
+extern struct guest_monster GUEST_MONSTER_GROVYLE_2;
+extern struct guest_monster GUEST_MONSTER_CHATOT;
+extern struct guest_monster GUEST_MONSTER_SHINY_CELEBI;
+extern struct guest_monster GUEST_MONSTER_GROVYLE_3;
+extern struct guest_monster GUEST_MONSTER_GROVYLE_4;
+extern struct guest_monster GUEST_MONSTER_CRESSELIA;
+extern struct guest_monster GUEST_MONSTER_BIDOOF_3;
+extern struct guest_monster GUEST_MONSTER_BIDOOF_4;
+extern struct guest_monster GUEST_MONSTER_SHAYMIN_LAND;
+extern struct guest_monster GUEST_MONSTER_SNOVER_2;
 extern struct rankup_table_entry RANK_UP_TABLE[13];
 extern struct monster_id_16 DS_DOWNLOAD_TEAMS[56];
 extern enum monster_id UNOWN_SPECIES_ADDITIONAL_CHARS[28];
@@ -185,6 +228,9 @@ extern struct pack_file_opened* PACK_FILES_OPENED;
 extern const char* PACK_FILE_PATHS_TABLE[6];
 extern struct item* BAG_ITEMS_PTR_MIRROR;
 extern void* ITEM_DATA_TABLE_PTRS[3];
+#if PMDSKY_VERSION == PMDSKY_EU
+extern char* ITEM_LANG_FILE_ARRAY[5];
+#endif
 extern struct move_data_table* MOVE_DATA_TABLE_PTR;
 extern struct wan_table* WAN_TABLE;
 extern struct render_3d_global RENDER_3D;

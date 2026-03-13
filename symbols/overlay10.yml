@@ -2587,3 +2587,13 @@ overlay10:
         Note: unverified, ported from Irdkwia's notes
         
         type: struct special_monster_move_animation[7422]
+    - name: OV10_STATIC_INITIALIZER
+      address:
+        EU: 0x22DCAF8
+        NA: 0x22DC1A8
+        JP: 0x22DD85C
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: Static initializer for overlay 10.

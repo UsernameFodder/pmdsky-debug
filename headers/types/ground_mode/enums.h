@@ -2244,6 +2244,16 @@ enum swap_shop_inventory_case {
     SWAP_INV_CASE_CHOOSE_TRADE_AWAY_ITEMS_LIST = 3,
 };
 
+// https://docs.google.com/spreadsheets/d/1NK3wkC8mOCu-tVkxULLkhpgPR-glApiD2v3zp-mdW7w
+enum performance_progress_flag {
+    PERFORMANCE_PROGRESS_FLAG_SHOW_TEAM_NAME = 1,
+    PERFORMANCE_PROGRESS_FLAG_RANDOM_MISSION = 3,
+    PERFORMANCE_PROGRESS_FLAG_SHOW_POTENTIAL_RECRUITS = 5,
+    PERFORMANCE_PROGRESS_FLAG_EVOLUTION_ENABLED = 6,
+    PERFORMANCE_PROGRESS_FLAG_LEADER_SWITCH_ENABLED = 7,
+    PERFORMANCE_PROGRESS_FLAG_NO_CHATOT_IN_BRINE_CAVE = 25
+};
+
 // These are super long, so split them out into a separate file
 #include "version_dep_enums.h"
 

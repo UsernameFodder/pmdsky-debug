@@ -193,3 +193,13 @@ overlay9:
       length:
         NA: 0x10
       description: Default window_params for an input_lock_box.
+    - name: OV9_STATIC_INITIALIZER
+      address:
+        EU: 0x233FF4C
+        NA: 0x233F7C4
+        JP: 0x2340FF0
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: Static initializer for overlay 9.

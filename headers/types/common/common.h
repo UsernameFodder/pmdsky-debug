@@ -629,17 +629,21 @@ ASSERT_SIZE(struct unk_dungeon_init, 232);
 struct dungeon_init {
     struct dungeon_id_8 id; // 0x0: Copied into dungeon::id
     uint8_t floor;          // 0x1: Copied into dungeon::floor
+    // 0x2 index of the dungeon. Indexes are mapped to IDs in DUNGEON_SWAP_ID_TABLE
     // Copied into dungeon::field_0x74C, might be related to the dungeon being conquered or
     // the fixed room overrides.
-    undefined2 field_0x2;
+    uint16_t dungeon_idx;
     undefined field_0x4;
     bool nonstory_flag;      // 0x5: Copied into dungeon::nonstory_flag
     bool recruiting_enabled; // 0x6: Copied into dungeon::recruiting_enabled
     // 0x7: If true, dungeon::recruiting_enabled gets set to false. Overrides recruiting_enabled.
     bool force_disable_recruiting;
-    undefined field_0x8; // Copied into dungeon::field_0x75A
-    // 0x9: Copied into dungeon::field_0x75B, but the value is immediately overwritten with TRUE.
-    bool field_0x9;
+    // 0x8 Pokemon show up in potential recruits, (inferred by assignment from performance progress
+    // flag 6) Copied into dungeon::field_0x75A
+    bool show_potential_recruits; // Copied into dungeon::field_0x75A
+    // 0x9: Whether team name is shown, (inferred by assignment from performance progress flag 1)
+    // Copied into dungeon::field_0x75B, but the value is immediately overwritten with TRUE.
+    bool show_team_name;
     bool send_home_disabled;        // 0xA: Copied into dungeon::send_home_disabled
     bool hidden_land_flag;          // 0xB: Copied into dungeon::hidden_land_flag
     bool skip_faint_animation_flag; // 0xC: Copied into dungeon::skip_faint_animation_flag
@@ -650,7 +654,7 @@ struct dungeon_init {
     bool send_help_item;    // 0x10: If true, you recive an item at the start of the dungeon
     bool show_rescues_left; // 0x11: If true, you get a message saying how many rescue chances you
                             // have left
-    undefined field_0x12;
+    int8_t field_0x12;
     undefined field_0x13;
     // 0x14
     // [EU]0x22DF920 loads this as a word
@@ -1398,13 +1402,13 @@ struct options {
     uint8_t touch_screen;  // Off = 0, Menu Only = 1, Use Anywhere = 2
     uint8_t bottom_screen; // No map = 0, Clear map = 1, Shaded map = 2
     uint8_t top_screen;    // Controls = 0, Team stats = 1, Text log = 2, Map and team = 3, Job = 4
-    uint8_t grids;         // Off = 0, On = 1
+    bool grids;            // Off = 0, On = 1
     uint8_t speed;         // Regular = 0, Fast = 1
     uint8_t far_off_pals;  // Self = 0, Look = 1
-    uint8_t damage_turn;   // No = 0, Yes = 1
-    uint8_t d_pad_attack;  // No = 0, Yes = 1
-    uint8_t check_direction; // No = 0, Yes = 1
-    uint8_t frame_type;      // Frame type 1 = 0, 2 = 1, 3 = 2, 4 = 3, 5 = 4
+    bool damage_turn;      // No = 0, Yes = 1
+    bool d_pad_attack;     // No = 0, Yes = 1
+    bool check_direction;  // No = 0, Yes = 1
+    uint8_t frame_type;    // Frame type 1 = 0, 2 = 1, 3 = 2, 4 = 3, 5 = 4
 };
 ASSERT_SIZE(struct options, 10);
 

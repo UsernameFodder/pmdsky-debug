@@ -137,12 +137,18 @@ overlay27:
       length:
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: OVERLAY27_RESERVED_SPACE
+    - name: OV27_STATIC_INITIALIZER
+      aliases:
+        - OVERLAY27_RESERVED_SPACE
       address:
+        EU: 0x238D9B0
         NA: 0x238CE70
+        JP: 0x238E400
       length:
-        NA: 0x10
-      description: "Note: unverified, ported from Irdkwia's notes"
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: Static initializer for overlay 27.
     - name: OVERLAY27_UNKNOWN_POINTER__NA_238CE80
       address:
         EU: 0x238D9C0

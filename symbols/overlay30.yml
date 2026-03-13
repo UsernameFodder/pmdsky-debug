@@ -46,3 +46,13 @@ overlay30:
         NA: 0xC
         JP: 0xC
       description: やよい様
+    - name: OV30_STATIC_INITIALIZER
+      address:
+        EU: 0x2386C9C
+        NA: 0x2386098
+        JP: 0x23872F8
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: Static initializer for overlay 30.

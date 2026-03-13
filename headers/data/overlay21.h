@@ -44,7 +44,7 @@ extern char SWAP_SHOP_TEXT_PUT_IN_CAULDRON_DEBUG_STRING[38];
 extern char SWAP_SHOP_DO_SWAP_THEN_TALK_DEBUG_STRING[36];
 extern wchar_t OVERLAY21_JP_STRING[3];
 extern char SWAP_SHOP_GOLD_STRING[18];
-extern undefined OVERLAY21_RESERVED_SPACE[8];
+extern undefined4 OV21_STATIC_INITIALIZER;
 extern struct swap_shop_menu_data* SWAP_SHOP_MENU_DATA_PTR;
 extern undefined* OVERLAY21_UNKNOWN_POINTER__NA_238CF44;
 

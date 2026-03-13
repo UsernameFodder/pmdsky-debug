@@ -12,5 +12,6 @@ extern struct window_params EVO_WINDOW_PARAMS_4;
 extern struct window_params EVO_WINDOW_PARAMS_5;
 extern struct window_params EVO_WINDOW_PARAMS_6;
 extern struct window_params EVO_WINDOW_PARAMS_7;
+extern undefined4 OV16_STATIC_INITIALIZER;
 
 #endif
