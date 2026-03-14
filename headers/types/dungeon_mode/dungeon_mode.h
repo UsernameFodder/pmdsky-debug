@@ -2574,8 +2574,8 @@ struct dungeon_button_input {
     // Only implemented for B and R.
     struct buttons cur_released_buttons;
     struct buttons cur_released_buttons_2; // 0x8
-    uint16_t b_frames_counter;       // 0x10: How many frames B has been held for (caps at 100)
-    uint16_t r_frames_counter;       // 0x10: How many frames R has been held for (caps at 100)
+    uint16_t b_frames_counter; // 0x10: How many frames B has been held for (caps at 100)
+    uint16_t r_frames_counter; // 0x10: How many frames R has been held for (caps at 100)
 };
 ASSERT_SIZE(struct dungeon_button_input, 14);
 
