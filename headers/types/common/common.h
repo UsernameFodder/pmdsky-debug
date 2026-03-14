@@ -1415,7 +1415,7 @@ ASSERT_SIZE(struct options, 10);
 // This is the layout of all button bitflags in the input/controller structs.
 // Derived from https://problemkaputt.de/gbatek.htm#gbakeypadinput
 // as well as https://problemkaputt.de/gbatek.htm#dskeypad for the DS-specific buttons.
-// Note that the referenced IO registers represents the flags the opposite way
+// Note that the referenced IO registers represent the flags the opposite way
 // to this struct, using 0 to mean pressed and 1 to mean released.
 struct buttons {
     bool a : 1;
