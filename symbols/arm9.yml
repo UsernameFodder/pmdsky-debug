@@ -908,8 +908,7 @@ arm9:
         NA: 0x20061EC
         JP: 0x20061EC
       description: |-
-        Gets a bitfield representing the currently held buttons.
-        For a mapping of keys <-> bits, see the buttons struct in common.h.
+        Gets the currently held buttons.
         
         r0: controller
         r1: btn_ptr
@@ -920,8 +919,7 @@ arm9:
         NA: 0x200625C
         JP: 0x200625C
       description: |-
-        Gets a bitfield representing the currently pressed buttons.
-        For a mapping of keys <-> bits, see the buttons struct in common.h.
+        Gets the currently pressed buttons.
         
         r0: controller
         r1: btn_ptr
