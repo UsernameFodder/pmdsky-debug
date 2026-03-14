@@ -1412,4 +1412,26 @@ struct options {
 };
 ASSERT_SIZE(struct options, 10);
 
+// This is the layout of all button bitflags in the input/controller structs. This is present only
+// for analysis purposes, as internally the code does not seem to actually store these as a struct.
+struct buttons {
+    bool a : 1;
+    bool b : 1;
+    bool select : 1;
+    bool start : 1;
+    bool right : 1;
+    bool left : 1;
+    bool up : 1;
+    bool down : 1;
+    bool r : 1;
+    bool l : 1;
+    bool x : 1;
+    bool y : 1;
+    bool unk12 : 1;
+    bool debug : 1;
+    bool unk14 : 1;
+    bool unk15 : 1;
+};
+ASSERT_SIZE(struct buttons, 0x2);
+
 #endif

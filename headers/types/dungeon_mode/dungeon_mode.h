@@ -2565,8 +2565,7 @@ struct message_log_info {
 ASSERT_SIZE(struct message_log_info, 12);
 
 // Contains information about the user's current button input in dungeon mode.
-// For a mapping of keys <-> bits, see https://problemkaputt.de/gbatek.htm#gbakeypadinput
-// (with the additions of bit 10 = x, bit 11 = y, bit 13 = debug)
+// For a mapping of keys <-> bits, see the buttons struct in common.h.
 struct dungeon_button_input {
     uint16_t cur_held_buttons;    // 0x0
     uint16_t cur_pressed_buttons; // 0x2
