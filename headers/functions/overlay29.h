@@ -22,6 +22,7 @@ int GetScenarioBalanceVeneer(void);
 void FadeToBlack(void);
 void SetDungeonEscapeFields(uint32_t successful_exit_tracker, bool end_floor_no_death_check_flag);
 uint32_t GetSuccessfulExitTracker(void);
+void GetAndStoreButtonInput(void);
 bool CheckTouchscreenArea(int x1, int y1, int x2, int y2);
 struct trap* GetTrapInfo(struct entity* trap_entity);
 struct item* GetItemInfo(struct entity* item_entity);
@@ -748,6 +749,7 @@ void ActivateSportCondition(bool water_sport);
 bool TryActivateWeather(bool param_1, bool param_2);
 int DigitCount(int n);
 void LoadTextureUi(void);
+int GetPaletteBaseAddress(undefined4 pal_vram_offset_upper, undefined4 pal_vram_offset_lower);
 int DisplayNumberTextureUi(int16_t x, int16_t y, int n, int ally_mode);
 int DisplayCharTextureUi(struct render_3d_element_64* element64, int16_t x, int16_t y, int char_id,
                          int16_t param_5);

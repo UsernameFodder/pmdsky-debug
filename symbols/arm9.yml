@@ -908,7 +908,7 @@ arm9:
         NA: 0x20061EC
         JP: 0x20061EC
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Gets the currently held buttons.
         
         r0: controller
         r1: btn_ptr
@@ -919,7 +919,7 @@ arm9:
         NA: 0x200625C
         JP: 0x200625C
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Gets the currently pressed buttons.
         
         r0: controller
         r1: btn_ptr

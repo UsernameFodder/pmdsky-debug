@@ -90,8 +90,8 @@ void GetDsFirmwareUserSettingsVeneer(struct user_settings* settings);
 void Rgb8ToRgb5(struct rgb5* target, struct rgba* source);
 float EuclideanNorm(int* vec2);
 void ClampComponentAbs(int* vec2, int max);
-bool GetHeldButtons(int controller, undefined* btn_ptr);
-bool GetPressedButtons(int controller, undefined* btn_ptr);
+bool GetHeldButtons(int controller, struct buttons* btn_ptr);
+bool GetPressedButtons(int controller, struct buttons* btn_ptr);
 bool GetReleasedStylus(undefined* stylus_ptr);
 void KeyWaitInit(void);
 void DebugPrintSystemClock(void);
@@ -476,8 +476,8 @@ void LoadWteFromFileDirectory(struct wte_handle* handle, enum pack_file_id pack_
                               uint16_t file_index, uint32_t malloc_flags);
 void UnloadWte(struct wte_handle* handle);
 undefined* LoadWtuFromBin(int bin_file_id, int file_id, int load_type);
-void ProcessWte(undefined* wte_header_ptr, undefined4 pal_vram_offset,
-                undefined4 pal_texture_vram_offset_upper, undefined4 pal_texture_vram_offset_lower);
+void ProcessWte(undefined* wte_header_ptr, undefined4 texture_vram_offset,
+                undefined4 pal_vram_offset_upper, undefined4 pal_vram_offset_lower);
 void DelayWteFree(struct wte_handle* handle);
 void ResetPlannedVramTransfer(struct delayed_texture_vram_container* container);
 uint32_t PlanCopyTextureToTextureVram(struct delayed_texture_vram_container* container,

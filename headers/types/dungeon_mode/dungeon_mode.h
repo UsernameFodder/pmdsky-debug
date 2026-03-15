@@ -2564,6 +2564,21 @@ struct message_log_info {
 };
 ASSERT_SIZE(struct message_log_info, 12);
 
+// Contains information about the user's current button input in dungeon mode.
+struct dungeon_button_input {
+    struct buttons cur_held_buttons;    // 0x0
+    struct buttons cur_pressed_buttons; // 0x2
+    struct buttons field_0x4;
+    // 0x6: This and the next bitfield are duplicates of each other, and store whether
+    // a certain key has been released this frame after being held for 2-11 frames.
+    // Only implemented for B and R.
+    struct buttons cur_released_buttons;
+    struct buttons cur_released_buttons_2; // 0x8
+    uint16_t b_frames_counter; // 0x10: How many frames B has been held for (caps at 100)
+    uint16_t r_frames_counter; // 0x10: How many frames R has been held for (caps at 100)
+};
+ASSERT_SIZE(struct dungeon_button_input, 14);
+
 // Separate this out into its own file because it's massive
 #include "dungeon.h"
 
