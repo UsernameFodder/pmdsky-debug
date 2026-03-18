@@ -361,6 +361,8 @@ overlay29:
     - name: GetAndStoreButtonInput
       address:
         EU: 0x22E13A4
+        NA: 0x22E0A64
+        JP: 0x22E20F4
       description: |-
         Gets and stores the button input for the current frame in DUNGEON_BUTTON_INPUT.
         
@@ -7357,6 +7359,8 @@ overlay29:
     - name: GetPaletteBaseAddress
       address:
         EU: 0x23362B0
+        NA: 0x2335864
+        JP: 0x2336C34
       description: |-
         Gets the palette base address for a 3D element loaded from a WTE file.
         Takes the same parameters as were used in the specified file's ProcessWte call.
