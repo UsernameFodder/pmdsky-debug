@@ -1010,6 +1010,7 @@ bool IsSpecialEpisodeDungeon(enum dungeon_id dungeon_id);
 enum item_id RetrieveFromItemList1(undefined* dungeon_info, undefined4 param_2);
 bool IsForbiddenFloor(undefined* dungeon_info, undefined4 param_2, undefined4 param_3,
                       undefined4 param_4);
+void Copy16BitsTo(undefined* write_info, void* buf_write);
 void Copy16BitsFrom(undefined* read_info, void* buf_read);
 enum item_id RetrieveFromItemList2(undefined* dungeon_info, undefined4 param_2);
 bool IsInvalidForMission(enum dungeon_id dungeon_id);
@@ -1146,6 +1147,7 @@ void EnableAllLearnableIqSkills(uint32_t* iq_skills_flags, enum monster_id monst
                                 int monster_iq);
 bool IqSkillFlagTest(uint32_t* iq_skill_flags, enum iq_skill_id iq_id);
 enum iq_skill_id GetNextIqSkill(enum monster_id monster_id, int monster_iq);
+bool ExplorerMazeMonsterExists(void);
 void GetExplorerMazeTeamName(char* buffer);
 struct ground_monster* GetExplorerMazeMonster(uint8_t entry_number);
 undefined4 WriteMonsterInfoToSave(void* start_addr, uint32_t total_len);
@@ -1154,6 +1156,7 @@ void WriteMonsterToSave(undefined* write_info, struct ground_monster* monster);
 void ReadMonsterFromSave(undefined* read_info, struct ground_monster* monster);
 void GetEvolutionPossibilities(struct ground_monster* monster, undefined* evo);
 int GetMonsterEvoStatus(struct ground_monster* monster);
+bool HandleShedinjaEvolution(int16_t* member_idx, enum monster_id monster_id);
 void CopyTacticString(char* buffer, enum tactic_id tactic_id);
 void GetStatBoostsForMonsterSummary(struct monster_summary* monster_summary,
                                     enum monster_id monster_id, struct item* item, int iq,
