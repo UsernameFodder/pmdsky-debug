@@ -9581,6 +9581,16 @@ arm9:
         r0: dungeon_info
         others: ?
         return: bool
+    - name: Copy16BitsTo
+      address:
+        EU: 0x20518FC
+        NA: 0x20515C4
+        JP: 0x2051914
+      description: |-
+        Writes 16 bits of data from buffer_write to write_info.
+        
+        r0: write_info
+        r1: buffer_write
     - name: Copy16BitsFrom
       address:
         EU: 0x2051924
@@ -10974,6 +10984,15 @@ arm9:
         r0: Monster ID
         r1: Monster IQ
         return: ID of the next skill learned by the monster, or IQ_NONE if the monster won't learn any more skills.
+    - name: ExplorerMazeMonsterExists
+      address:
+        EU: 0x2059320
+        NA: 0x2058FA4
+        JP: 0x20592A0
+      description: |-
+        Returns true if there is Explorer Maze monster data in TEAM_MEMBER_TABLE_PTR->explorer_maze_monsters.
+        
+        return: True if there is Explorer Maze monster data in TEAM_MEMBER_TABLE_PTR->explorer_maze_monsters, false otherwise.
     - name: GetExplorerMazeTeamName
       address:
         EU: 0x20593DC
@@ -11059,6 +11078,17 @@ arm9:
         
         r0: ground_monster
         return: evo_status
+    - name: HandleShedinjaEvolution
+      address:
+        EU: 0x205A604
+        NA: 0x205A288
+        JP: 0x205A584
+      description: |-
+        Checks to see if the player just evolved a Nincada into Ninjask. If so, adds a Shedinja to the player's team.
+        
+        r0: pointer to current team member index
+        r1: monster_id
+        return: true
     - name: CopyTacticString
       address:
         EU: 0x205A7AC
