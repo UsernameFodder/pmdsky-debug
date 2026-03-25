@@ -112,6 +112,8 @@ overlay13:
         
         type: uint8_t[2]
     - name: PARTNER_PORTRAIT_OFFSET
+      aliases:
+        - PORTRAIT_ATTRIBUTES
       address:
         EU: 0x238CB54
         NA: 0x238C014
@@ -155,6 +157,8 @@ overlay13:
         
         type: overlay_load_entry
     - name: MAIN_DBOX_WINDOW_PARAMS
+      aliases:
+        - QUIZ_WINDOW_PARAMS_1
       address:
         EU: 0x238CB74
         NA: 0x238C034
@@ -168,6 +172,8 @@ overlay13:
         
         type: window_params
     - name: AURA_BOW_DBOX_WINDOW_PARAMS
+      aliases:
+        - QUIZ_WINDOW_PARAMS_2
       address:
         EU: 0x238CB84
         NA: 0x238C044
@@ -181,6 +187,8 @@ overlay13:
         
         type: window_params
     - name: DEBUG_WINDOW_PARAMS
+      aliases:
+        - QUIZ_WINDOW_PARAMS_3
       address:
         EU: 0x238CB94
         NA: 0x238C054
@@ -194,6 +202,8 @@ overlay13:
         
         type: window_params
     - name: QUIZ_INTRO_WINDOW_PARAMS
+      aliases:
+        - QUIZ_WINDOW_PARAMS_4
       address:
         EU: 0x238CBA4
         NA: 0x238C064
@@ -207,6 +217,8 @@ overlay13:
         
         type: window_params
     - name: CONFIRM_PARTNER_MENU_ITEMS
+      aliases:
+        - QUIZ_MENU_ITEMS_1
       address:
         EU: 0x238CBB4
         NA: 0x238C074
@@ -369,6 +381,8 @@ overlay13:
         has been hovered over. Used to change the portrait to happy after some time
         has elapsed.
     - name: QUESTION_ANSWER_WINDOW_PARAMS
+      aliases:
+        - QUIZ_WINDOW_PARAMS_5
       address:
         EU: 0x238D9EC
         NA: 0x238CEAC
@@ -382,6 +396,8 @@ overlay13:
         
         type: window_params
     - name: CHOOSE_PARTNER_WINDOW_PARAMS
+      aliases:
+        - QUIZ_WINDOW_PARAMS_6
       address:
         EU: 0x238D9FC
         NA: 0x238CEBC
@@ -395,6 +411,8 @@ overlay13:
         
         type: window_params
     - name: QUIZ_QUESTION_MENU_ITEMS
+      aliases:
+        - QUIZ_DEBUG_MENU_ITEMS
       address:
         EU: 0x238DA0C
         NA: 0x238CECC
