@@ -8459,12 +8459,11 @@ arm9:
         NA: 0x204D3C0
         JP: 0x204D720
       description: |-
-        Reads progress data from GLOBAL_PROGRESS_PTR and compresses it using bitstreams.
+        Reads progress data from the global_progress struct and compresses it using bitstreams.
         
         Read equivalent of CopyProgressInfoFromStream.
         
         r0: bitstream
-        others: ?
     - name: GetProgressInfoForSave
       aliases:
         - CopyProgressInfoFromScratchTo
@@ -8505,8 +8504,9 @@ arm9:
         
         Write equivalent of GetProgressInfoForSave.
         
-        r0: start_address
-        r1: total_length
+        r0: Location of source compressed progress data
+        r1: Data length
+        return: Final bit_idx of the bitstream used
     - name: InitKaomadoStream
       address:
         EU: 0x204DAB8
@@ -9258,26 +9258,41 @@ arm9:
         return: type ID
     - name: InitBitstreamForWrite
       address:
-        EU: 0x2050CC8
+        EU: 0x2050CAC
+        NA: 0x2050974
+        JP: 0x2050CC0
       description: |-
         Initializes a bitstream at addr, preserving the contents of the region. For using the bitstream to write somewhere else.
         
         Used with CopyBitsFromStream.
         
-        r0: Pointer to bitstream to initialize
+        r0: [Output] Pointer to bitstream to initialize
         r1: Pointer to where the bitstream should read from. This is the source, so bits will be written from somewhere else into here.
         r2: Length of data to read (in bytes)
     - name: InitBitstreamForRead
       address:
         EU: 0x2050CC8
+        NA: 0x2050990
+        JP: 0x2050CDC
       description: |-
         Initializes a bitstream at addr, and zeroes out the region it uses (dst to dst+len). For writing from somewhere else into the bitstream.
         
         Used with CopyBitsToStream.
         
-        r0: bitstream to initialize
+        r0: [Output] bitstream to initialize
         r1: Pointer to where the bitstream should write to. This is the destination, so bits will be read from somewhere else into here.
         r2: Length of data to read (in bytes)
+    - name: BitstreamDebug
+      address:
+        EU: 0x2050CF4
+        NA: 0x20509BC
+        JP: 0x2050D08
+      description: |-
+        Potentially a debug function. Gets called by many functions that use bitstreams.
+        
+        Likely a debug function, but does nothing in the final release.
+        
+        r0: Bitstream
     - name: CopyBitsToStream
       aliases:
         - CopyBitsTo
@@ -9302,7 +9317,7 @@ arm9:
         Copies n bits from the provided bitstream into the destination.
         
         r0: bitstream
-        r1: Destination to write to.
+        r1: [output] Destination to write to
         r2: Number of bits to read from stream
     - name: StoreDefaultTeamData
       address:
@@ -11089,47 +11104,62 @@ arm9:
         
         r0: Entry number (0-3)
         return: Ground monster data of the specified entry
-    - name: WriteMonsterInfoToSave
+    - name: GetMonsterInfoForSave
+      aliases:
+        - WriteMonsterInfoToSave
       address:
         EU: 0x2059494
         NA: 0x2059118
         JP: 0x2059414
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Compresseses monster info from the team_member_table struct using CopyMonsterToStream, writing the compressed data to the provided destination.
         
-        r0: start_address
-        r1: total_length
-        return: ?
+        Read equivalent of ReadMonsterInfoFromSave.
+        
+        r0: [output] Destination for compressed monster info
+        r1: Data length
+        return: Final bit_idx of the bitstream used
     - name: ReadMonsterInfoFromSave
       address:
         EU: 0x20595A0
         NA: 0x2059224
         JP: 0x2059520
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Decompresses monster info from the source address to populate the team_member_table struct using CopyMonsterFromStream.
         
-        r0: start_address
-        r1: total_length
-    - name: WriteMonsterToSave
+        Write equivalent of GetMonsterInfoForSave.
+        
+        r0: Location of source monster info
+        r1: Data length
+        return: Final bit_idx of the bitstream used
+    - name: CopyMonsterToStream
+      aliases:
+        - WriteMonsterToSave
       address:
         EU: 0x20596B0
         NA: 0x2059334
         JP: 0x2059630
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Compresses the provided ground_monster struct using the provided bitstream.
         
-        r0: write_info
-        r1: ground_monster
-    - name: ReadMonsterFromSave
+        Read equivalent of CopyMonsterFromStream.
+        
+        r0: bitstream
+        r1: Ground monster
+    - name: CopyMonsterFromStream
+      aliases:
+        - ReadMonsterFromSave
       address:
         EU: 0x20597C0
         NA: 0x2059444
         JP: 0x2059740
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Decompresses from the provided bitstream to create a ground_monster struct.
         
-        r0: read_info
-        r1: ground_monster
+        Write equivalent of CopyMonsterToStream.
+        
+        r0: bitstream
+        r1: [output] Ground monster
     - name: GetEvolutionPossibilities
       address:
         EU: 0x2059E94
