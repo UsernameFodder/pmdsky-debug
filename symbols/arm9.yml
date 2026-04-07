@@ -8472,7 +8472,7 @@ arm9:
         NA: 0x204D548
         JP: 0x204D8A8
       description: |-
-        Compresseses progress info using CopyProgressInfoToStream, writing the compressed data to the provided destination.
+        Compresses progress info using CopyProgressInfoToStream, writing the compressed data to the provided destination.
         
         Read equivalent of ReadProgressInfoFromSave.
         
