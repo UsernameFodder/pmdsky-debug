@@ -11112,7 +11112,7 @@ arm9:
         NA: 0x2059118
         JP: 0x2059414
       description: |-
-        Compresseses monster info from the team_member_table struct using CopyMonsterToStream, writing the compressed data to the provided destination.
+        Compresses monster info from the team_member_table struct using CopyMonsterToStream, writing the compressed data to the provided destination.
         
         Read equivalent of ReadMonsterInfoFromSave.
         
