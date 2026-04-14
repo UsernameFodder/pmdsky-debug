@@ -642,15 +642,6 @@ ram:
         Including the allocator metadata, this arena occupies 0x64000 bytes of space.
         
         type: struct mem_arena
-    - name: DUNGEON_BUTTON_INPUT
-      address:
-        EU: 0x237D294
-      length:
-        EU: 0xE
-      description: |-
-        [Runtime] Stores information about the user's current button input in dungeon mode.
-        
-        type: struct dungeon_button_input
     - name: GROUND_MEMORY_ARENA_1_BLOCKS
       address:
         NA: 0x2324FDC
