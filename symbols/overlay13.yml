@@ -13,42 +13,44 @@ overlay13:
     JP: 0x2E80
   description: "Controls the personality test, including the available partners and playable Pokémon. The actual personality test questions are stored in the MESSAGE folder."
   functions:
-    - name: EntryOverlay13
+    - name: PersonalityTestEntryPoint
+      aliases:
+        - EntryOverlay13
       address:
         EU: 0x238AC80
         NA: 0x238A140
         JP: 0x238B6A0
       description: |-
-        Main function of this overlay.
-        
-        Note: unverified, ported from Irdkwia's notes
+        Called when this overlay is loaded. Allocates and initializes the personality_test struct, and updates PERSONALITY_TEST_PTR.
         
         No params.
-    - name: ExitOverlay13
+    - name: PersonalityTestDestructor
+      aliases:
+        - ExitOverlay13
       address:
         EU: 0x238ACD0
         NA: 0x238A190
         JP: 0x238B6F0
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Called before unloading the overlay. Frees the allocated personality_test struct, and clears PERSONALITY_TEST_PTR.
         
         No params.
-    - name: Overlay13SwitchFunctionNa238A1C8
+    - name: PersonalityTestFrameUpdate
       address:
         EU: 0x238AD08
         NA: 0x238A1C8
         JP: 0x238B728
       description: |-
-        Handles the 'return' value from MENU_PERSONALITY_TEST called by scripts. 
+        Called every frame while the overlay is loaded. Uses a switch case with PERSONALITY_TEST_PTR->outer_state, where an outer_state of 0xD will call PersonalityTestMainManager. Most outer_states seem to try to head towards this state. Handles the 'return' value from MENU_PERSONALITY_TEST called by scripts. 
         
         return: int?
-    - name: Overlay13SwitchFunctionNa238A574
+    - name: PersonalityTestMainManager
       address:
         EU: 0x238B0B4
         NA: 0x238A574
         JP: 0x238BAD4
       description: |-
-        Handles the menus and dialogue boxes associated with the personality quiz.
+        Handles the majority of the logic for the entire personality test, including picking/answering questions, determining aura color, touching the aura bow, choosing the partner species, and more. Uses a switch case with PERSONALITY_TEST_PTR->state to track where we are in the overall test sequence.
         
         No params.
     - name: GetPersonality
@@ -59,29 +61,42 @@ overlay13:
       description: |-
         Returns the personality obtained after answering all the questions.
         
-        The value to return is determined by checking the points obtained for each the personalities and returning the one with the highest amount of points.
+        The value to return is determined by checking the points obtained for each the personalities and returning the one with the highest amount of points. This is where the "tiebreaker bonus points" are applied.
+        
+        In the case that there is still a tie after applying the tiebreaker bonus points, the first personality in the list of tying personalities takes priority.
         
         return: Personality (0-15)
-    - name: GetOptionStringFromID
+    - name: GetPartnerOptionString
+      aliases:
+        - GetOptionStringFromID
       address:
         EU: 0x238C930
         NA: 0x238BDF0
         JP: 0x238D354
       description: |-
-        Note: unverified, ported from Irdkwia's notes. The first parameter and the return value point to the same string (which is passed directly into PreprocessString as the first argument), so I'm not sure why they're named differently... Seems like a mistake?
+        Gets the string for a partner option (gender symbol + name) and puts it in the provided buffer. Returns the same buffer pointer that was passed in (for some reason).
         
-        r0: menu_id
-        r1: option_id
-        return: process
+        r0: [output] buffer
+        r1: Index in PERSONALITY_TEST_PTR->partner_options
+        return: buffer
     - name: WaitForNextStep
       address:
         EU: 0x238C98C
         NA: 0x238BE4C
         JP: 0x238D3B0
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Sets the current state in PERSONALITY_TEST_PTR to WAIT_NEXT_STEP, and sets the future state to the provided state.
         
-        r0: switch_case
+        r0: Next state for after the WAIT_NEXT_STEP state finishes
+    - name: DrawPersonalityTestDebug
+      address:
+        EU: 0x238C9AC
+        NA: 0x238BE6C
+        JP: 0x238D3D0
+      description: |-
+        Updates and draws the text for the personality test debug window that shows the scores for each personality. Assumes that the window exists.
+        
+        r0: Window ID for the debug window
   data:
     - name: QUIZ_BORDER_COLOR_TABLE
       address:
@@ -92,8 +107,13 @@ overlay13:
         EU: 0x4
         NA: 0x4
         JP: 0x4
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: PORTRAIT_ATTRIBUTES
+      description: |-
+        Value to be passed into SetBothScreensWindowsColor. Indexed using gender.
+        
+        type: uint8_t[2]
+    - name: PARTNER_PORTRAIT_OFFSET
+      aliases:
+        - PORTRAIT_ATTRIBUTES
       address:
         EU: 0x238CB54
         NA: 0x238C014
@@ -102,8 +122,13 @@ overlay13:
         EU: 0x8
         NA: 0x8
         JP: 0x8
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: QUIZ_MALE_FEMALE_BOOST_TABLE
+      description: |-
+        Offset passed into SetPortraitOffset for the partner portrait.
+        
+        type: vec2
+    - name: PLAY_OLD_GAME_BOOST
+      aliases:
+        - QUIZ_MALE_FEMALE_BOOST_TABLE
       address:
         EU: 0x238CB5C
         NA: 0x238C01C
@@ -112,8 +137,11 @@ overlay13:
         EU: 0x8
         NA: 0x8
         JP: 0x8
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: OVERLAY13_UNKNOWN_STRUCT__NA_238C024
+      description: |-
+        Which personalities will receive a 4 point bonus if "Yes" was answered to the Explorers of Time/Darkness question, by gender. 16 is used as a terminator.
+        
+        type: uint8_t[2][4]
+    - name: OVERLAY13_LOAD_ENTRY
       address:
         EU: 0x238CB64
         NA: 0x238C024
@@ -122,8 +150,15 @@ overlay13:
         EU: 0x10
         NA: 0x10
         JP: 0x10
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: QUIZ_WINDOW_PARAMS_1
+      description: |-
+        Information about the overlay: the ID, the frame update function, and the destructor function.
+        
+        The entrypoint function is NOT specified here, as overlay 11 directly calls PersonalityTestEntryPoint after loading the overlay.
+        
+        type: overlay_load_entry
+    - name: MAIN_DBOX_WINDOW_PARAMS
+      aliases:
+        - QUIZ_WINDOW_PARAMS_1
       address:
         EU: 0x238CB74
         NA: 0x238C034
@@ -132,8 +167,13 @@ overlay13:
         EU: 0x10
         NA: 0x10
         JP: 0x10
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: QUIZ_WINDOW_PARAMS_2
+      description: |-
+        Window params for the main dialogue box used throughout the personality test.
+        
+        type: window_params
+    - name: AURA_BOW_DBOX_WINDOW_PARAMS
+      aliases:
+        - QUIZ_WINDOW_PARAMS_2
       address:
         EU: 0x238CB84
         NA: 0x238C044
@@ -142,8 +182,13 @@ overlay13:
         EU: 0x10
         NA: 0x10
         JP: 0x10
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: QUIZ_WINDOW_PARAMS_3
+      description: |-
+        Window params for the dialogue box shown on the top screen during the aura bow segment.
+        
+        type: window_params
+    - name: DEBUG_WINDOW_PARAMS
+      aliases:
+        - QUIZ_WINDOW_PARAMS_3
       address:
         EU: 0x238CB94
         NA: 0x238C054
@@ -152,8 +197,13 @@ overlay13:
         EU: 0x10
         NA: 0x10
         JP: 0x10
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: QUIZ_WINDOW_PARAMS_4
+      description: |-
+        Window params for the personality test debug window.
+        
+        type: window_params
+    - name: QUIZ_INTRO_WINDOW_PARAMS
+      aliases:
+        - QUIZ_WINDOW_PARAMS_4
       address:
         EU: 0x238CBA4
         NA: 0x238C064
@@ -162,8 +212,13 @@ overlay13:
         EU: 0x10
         NA: 0x10
         JP: 0x10
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: QUIZ_MENU_ITEMS_1
+      description: |-
+        Window params for the personality test introduction.
+        
+        type: window_params
+    - name: CONFIRM_PARTNER_MENU_ITEMS
+      aliases:
+        - QUIZ_MENU_ITEMS_1
       address:
         EU: 0x238CBB4
         NA: 0x238C074
@@ -172,7 +227,10 @@ overlay13:
         EU: 0x18
         NA: 0x18
         JP: 0x18
-      description: "Note: unverified, ported from Irdkwia's notes"
+      description: |-
+        Items for the menu for confirming partner species.
+        
+        type: simple_menu_id_item[2]
     - name: STARTERS_PARTNER_IDS
       address:
         EU: 0x238CBCC
@@ -182,7 +240,10 @@ overlay13:
         EU: 0x2A
         NA: 0x2A
         JP: 0x2A
-      description: "type: struct monster_id_16[21]"
+      description: |-
+        Potential partner species.
+        
+        type: struct monster_id_16[21]
     - name: STARTERS_HERO_IDS
       address:
         EU: 0x238CBF8
@@ -192,7 +253,10 @@ overlay13:
         EU: 0x40
         NA: 0x40
         JP: 0x40
-      description: "type: struct monster_id_16[32]"
+      description: |-
+        The possible hero species by personality and gender.
+        
+        type: struct monster_id_16[16][2]"
     - name: STARTERS_TYPE_INCOMPATIBILITY_TABLE
       address:
         EU: 0x238CC38
@@ -202,7 +266,14 @@ overlay13:
         EU: 0x54
         NA: 0x54
         JP: 0x54
-      description: "Note: unverified, ported from Irdkwia's notes"
+      description: |-
+        An array representing each type as different bits.
+        
+        [type_id] = 1 << (type_id - 1), so 0b0 = None, 0b1 = Normal, 0b10 = Fire, etc...
+        
+        A "bitflag" integer is created for the hero species' types and each potential partner species' types, using this table with bitwise OR. If any bits are shared between the hero bitflag and a partner's bitflag (if the result of a bitwise AND != 0), the hero shares a type with the potential partner, and the partner is invalid.
+        
+        type: uint32_t[18]
     - name: STARTERS_STRINGS
       address:
         EU: 0x238CC8C
@@ -212,7 +283,12 @@ overlay13:
         EU: 0x60
         NA: 0x60
         JP: 0x60
-      description: "Irdkwia's notes: InsightsStringIDs"
+      description: |-
+        String IDs for the explanation of each personality type.
+        
+        These strings come in sets of 3, where the first string is the explanation of the personality, the second string is the male species, and the third string is the female
+        
+        type: uint16_t[16][3]
     - name: QUIZ_QUESTION_STRINGS
       address:
         EU: 0x238CCEC
@@ -222,30 +298,38 @@ overlay13:
         EU: 0x84
         NA: 0x84
         JP: 0x84
-      description: "0x2 * (66 questions)"
+      description: |-
+        String IDs for each of the 66 quiz questions.
+        
+        type: uint16_t[66]
     - name: QUIZ_ANSWER_STRINGS
       address:
         EU: 0x238CD70
         NA: 0x238C230
         JP: 0x238D798
       length:
-        EU: 0x160
-        NA: 0x160
-        JP: 0x160
-      description: "0x2 * (175 answers + null-terminator)"
+        EU: 0x15E
+        NA: 0x15E
+        JP: 0x15E
+      description: |-
+        String IDs for each of the 175 answers to the quiz questions.
+        
+        type: uint16_t[175]
     - name: QUIZ_ANSWER_POINTS
       address:
         EU: 0x238CED0
         NA: 0x238C390
         JP: 0x238D8F8
       length:
-        EU: 0xAE0
-        NA: 0xAE0
-        JP: 0xAE0
+        EU: 0xAB0
+        NA: 0xAB0
+        JP: 0xAB0
       description: |-
-        0x10 * (174 answers?)
+        Points for each of the 16 personalities for each of the 171 answers in the quiz that do NOT have special behavior.
         
-        Note: unverified, ported from Irdkwia's notes
+        This excludes the answers to the Explorers of Time/Darkness question and gender question, as these answers have special behavior; the former sets not_play_old_game, and the latter uses PLAY_OLD_GAME_BOOST if not_play_old_game is false.
+        
+        type: uint8_t[171][16]
     - name: OV13_STATIC_INITIALIZER
       aliases:
         - OVERLAY13_RESERVED_SPACE
@@ -258,7 +342,7 @@ overlay13:
         NA: 0x4
         JP: 0x4
       description: Static initializer for overlay 13.
-    - name: OVERLAY13_UNKNOWN_POINTER__NA_238CEA0
+    - name: PERSONALITY_TEST_PTR
       address:
         EU: 0x238D9E0
         NA: 0x238CEA0
@@ -267,7 +351,10 @@ overlay13:
         EU: 0x4
         NA: 0x4
         JP: 0x4
-      description: "Note: unverified, ported from Irdkwia's notes"
+      description: |-
+        [Runtime] Pointer to the struct holding all information about the personality test.
+        
+        type: struct personality_test*
     - name: PARTNER_SELECT_MENU_OPTION_TRACKER
       address:
         EU: 0x238D9E4
@@ -293,7 +380,9 @@ overlay13:
         Keeps track of how long the currently hovered option in the partner menu
         has been hovered over. Used to change the portrait to happy after some time
         has elapsed.
-    - name: QUIZ_WINDOW_PARAMS_5
+    - name: QUESTION_ANSWER_WINDOW_PARAMS
+      aliases:
+        - QUIZ_WINDOW_PARAMS_5
       address:
         EU: 0x238D9EC
         NA: 0x238CEAC
@@ -302,8 +391,13 @@ overlay13:
         EU: 0x10
         NA: 0x10
         JP: 0x10
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: QUIZ_WINDOW_PARAMS_6
+      description: |-
+        Window params for answers to questions in the personality test. Also used for confirming partner species.
+        
+        type: window_params
+    - name: CHOOSE_PARTNER_WINDOW_PARAMS
+      aliases:
+        - QUIZ_WINDOW_PARAMS_6
       address:
         EU: 0x238D9FC
         NA: 0x238CEBC
@@ -312,8 +406,13 @@ overlay13:
         EU: 0x10
         NA: 0x10
         JP: 0x10
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: QUIZ_DEBUG_MENU_ITEMS
+      description: |-
+        Window params for choosing the partner species.
+        
+        type: window_params
+    - name: QUIZ_QUESTION_MENU_ITEMS
+      aliases:
+        - QUIZ_DEBUG_MENU_ITEMS
       address:
         EU: 0x238DA0C
         NA: 0x238CECC
@@ -322,7 +421,14 @@ overlay13:
         EU: 0x48
         NA: 0x48
         JP: 0x48
-      description: "Note: unverified, ported from Irdkwia's notes"
+      description: |-
+        A sort of menu item buffer for quiz answers. The result_values are static, but the string_ids are changed for each question to its corresponding answers, with a string_id of 0 being used as a terminator.
+        
+        The exact size on this is strange. There are 8 filled entries, with the 9th seemingly acting as a terminator, yet CreateSimpleMenuFromStringIds is called with n_items = 10. Additionally, multiple other parts of the personality_test struct expect there to be a maximum of 4 answers to any given question.
+        
+        Maybe earlier in development there were plans to support more questions? Alternatively, maybe this was/is additionally used for some debug menu that has more options; This would explain why Irdkwia's notes called it QUIZ_DEBUG_MENU_ITEMS, at least.
+        
+        type: simple_menu_id_item[9]
     - name: OVERLAY13_UNKNOWN_STRUCT__NA_238CF14
       address:
         EU: 0x238DA54
@@ -333,7 +439,9 @@ overlay13:
         NA: 0x10
         JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: QUIZ_QUESTION_ANSWER_ASSOCIATIONS
+    - name: QUIZ_ANSWER_ASSOCIATIONS
+      aliases:
+        - QUIZ_QUESTION_ANSWER_ASSOCIATIONS
       address:
         EU: 0x238DA64
         NA: 0x238CF24
@@ -343,6 +451,6 @@ overlay13:
         NA: 0x84
         JP: 0x84
       description: |-
-        0x2 * (66 questions)
+        Holds information about the answers for each of the 66 possible questions in the quiz. Specifically, each entry for a question contains the number of answers for the question, and the index for the first answer to the question in QUIZ_ANSWER_STRINGS and QUIZ_ANSWER_POINTS. This allows PersonalityTestMainManager to get the necessary info for the answers to the current question.
         
-        Note: unverified, ported from Irdkwia's notes
+        type: quiz_answer_association[66]

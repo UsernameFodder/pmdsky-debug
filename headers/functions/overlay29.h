@@ -566,7 +566,7 @@ void TryInflictSetDamageStatus(struct entity* user, struct entity* target);
 void TryInflictFocusEnergyStatus(struct entity* user, struct entity* target);
 bool TryInflictDecoyStatus(struct entity* user, struct entity* target, undefined unk_decoy_tracker,
                            bool log_message, bool only_check);
-void TryInflictCurseStatus(struct entity* user, struct entity* target);
+void TryInflictCurseStatus(struct entity* user, struct entity* target, bool log_message);
 void TryInflictSnatchStatus(struct entity* user, struct entity* target);
 bool TryInflictTauntStatus(struct entity* user, struct entity* target, bool only_check);
 bool TryInflictStockpileStatus(struct entity* user, struct entity* target);
@@ -886,7 +886,8 @@ enum hidden_stairs_type GetHiddenStairsType(struct dungeon_generation_info* gen_
                                             struct floor_properties* floor_props);
 int GetFinalKecleonShopSpawnChance(int base_kecleon_shop_chance);
 void ResetHiddenStairsSpawn(void);
-void PlaceFixedRoomTile(struct tile* tile, union fixed_room_action action, int x, int y);
+void PlaceFixedRoomTile(struct tile* tile, union fixed_room_action action, int x, int y,
+                        bool place_item_or_trap);
 enum direction_id FixedRoomActionParamToDirection(uint8_t fixed_room_action_param);
 void ApplyKeyEffect(struct entity* user, struct entity* target);
 void LoadFixedRoomData(void);

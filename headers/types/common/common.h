@@ -1437,4 +1437,13 @@ struct buttons {
 };
 ASSERT_SIZE(struct buttons, 2);
 
+struct bitstream {
+    char* ptr;        // 0x0: Current byte
+    undefined4 end;   // 0x4: End of the region the bitstream can read from / write to. Doesn't seem
+                      // to do anything with this information?
+    uint32_t bit_idx; // 0x8: Bit position in current byte
+    uint32_t bit_count; // 0xC: Total bits this stream has used
+};
+ASSERT_SIZE(struct bitstream, 16);
+
 #endif

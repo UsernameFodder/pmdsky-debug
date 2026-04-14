@@ -52,7 +52,7 @@ void SetAnimDataFields(struct animation* anim, uint16_t param_2);
 void SetAnimDataFieldsWrapper(struct animation* anim, uint32_t param_2);
 void InitAnimDataFromOtherAnimData(struct animation* dst, struct animation* src);
 void SetAnimDataFields2(struct animation* anim, uint32_t flags, uint32_t param_3);
-struct animation_data GetIdleAnimationType(enum monster_id, undefined* param_2);
+struct animation_data GetIdleAnimationType(enum monster_id monster_id, undefined* param_2);
 void LoadObjectAnimData(struct animation* anim, int16_t object_id, uint32_t flags);
 void InitAnimDataFromOtherAnimDataVeneer(struct animation* dst, struct animation* src);
 void AnimRelatedFunction(struct animation* anim, undefined4 param_2, undefined4 param_3);

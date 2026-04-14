@@ -361,6 +361,8 @@ overlay29:
     - name: GetAndStoreButtonInput
       address:
         EU: 0x22E13A4
+        NA: 0x22E0A64
+        JP: 0x22E20F4
       description: |-
         Gets and stores the button input for the current frame in DUNGEON_BUTTON_INPUT.
         
@@ -5630,6 +5632,7 @@ overlay29:
         
         r0: user entity pointer
         r1: target entity pointer
+        r2: flag to log a message
     - name: TryInflictSnatchStatus
       address:
         EU: 0x2316CE0
@@ -7357,6 +7360,8 @@ overlay29:
     - name: GetPaletteBaseAddress
       address:
         EU: 0x23362B0
+        NA: 0x2335864
+        JP: 0x2336C34
       description: |-
         Gets the palette base address for a 3D element loaded from a WTE file.
         Takes the same parameters as were used in the specified file's ProcessWte call.
@@ -8737,12 +8742,13 @@ overlay29:
         NA: 0x2342F30
         JP: 0x23442F4
       description: |-
-        Used to spawn a single tile when generating a fixed room. The tile might contain an item or a monster.
+        Used to spawn a single tile when generating a fixed room. The tile might contain an item, trap, or monster.
         
         r0: Pointer to the tile to spawn
         r1: Fixed room action to perform. Controls what exactly will be spawned. The action is actually 12 bits long, the highest 4 bits are used as a parameter that represents a direction (for example, when spawning a monster).
         r2: Tile X position
         r3: Tile Y position
+        stack[0]: Whether to place an item or trap, if one is present
     - name: FixedRoomActionParamToDirection
       address:
         EU: 0x2344550
