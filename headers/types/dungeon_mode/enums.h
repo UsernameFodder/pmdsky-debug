@@ -1455,10 +1455,10 @@ enum top_screen_type {
 enum fade_status_dungeon {
     DUNGEON_FADE_0x0 = 0,
     DUNGEON_FADE_NONE = 1,
-    DUNGEON_FADE_IN = 2,
-    DUNGEON_FADE_OUT = 3,
-    DUNGEON_FADE_0x4 = 4,
-    DUNGEON_FADE_0x5 = 5,
+    DUNGEON_FADE_IN_BLACK = 2,
+    DUNGEON_FADE_OUT_BLACK = 3,
+    DUNGEON_FADE_IN_WHITE = 4,
+    DUNGEON_FADE_OUT_WHITE = 5,
 };
 
 // Used to indicate how a given monster should target another.
