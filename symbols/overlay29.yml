@@ -7695,6 +7695,15 @@ overlay29:
         Is also activated on a tile if a fainted monster drops an item on it.
         
         r0: position struct pointer
+    - name: ResetVictoryCounter
+      address:
+        EU: 0x233902C
+        NA: 0x233845C
+        JP: 0x2339820
+      description: |-
+        Resets the dungeon struct's victory_counter to 0.
+        
+        No params.
     - name: ShouldBoostKecleonShopSpawnChance
       address:
         EU: 0x2339090
