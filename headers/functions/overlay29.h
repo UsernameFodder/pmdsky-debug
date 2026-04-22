@@ -783,6 +783,7 @@ void ResetGravity(void);
 bool GravityIsActive(void);
 bool TryActivateGravity(void);
 void RevealAttackedTile(struct position* pos);
+void ResetVictoryCounter(void);
 bool ShouldBoostKecleonShopSpawnChance(void);
 void SetShouldBoostKecleonShopSpawnChance(bool value);
 void UpdateShouldBoostKecleonShopSpawnChance(void);
