@@ -68,6 +68,7 @@ extern struct mem_block GROUND_MEMORY_ARENA_1_BLOCKS[52];
 extern uint8_t GROUND_MEMORY_ARENA_1_MEMORY[408324];
 extern struct sentry_duty SENTRY_DUTY_STRUCT;
 extern struct dungeon_button_input DUNGEON_BUTTON_INPUT;
+extern uint32_t DUNGEON_FRAMES_PASSED;
 extern bool TURNING_ON_THE_SPOT_FLAG;
 extern struct loaded_attack_sprite_data* LOADED_ATTACK_SPRITE_DATA;
 extern enum mobility_type MOBILITY_TYPE_TO_DUNGEON_MOBILITY_TYPE[8];

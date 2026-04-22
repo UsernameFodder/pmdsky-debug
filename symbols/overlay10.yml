@@ -719,6 +719,12 @@ overlay10:
         NA: 0x2
         JP: 0x2
       description: Damage dealt by pitfall traps (5).
+    - name: EATEN_BLAST_SEED_DAMAGE_NORMAL
+      address:
+        EU: 0x22C4E40
+      length:
+        EU: 0x2
+      description: Damage normally dealt by an eaten blast seed (35).
     - name: CHARGE_BEAM_BOOST_SPECIAL_ATTACK_CHANCE
       address:
         EU: 0x22C4E48
@@ -1010,6 +1016,24 @@ overlay10:
       length:
         EU: 0x2
       description: Damage dealt by the wrap status condition (6).
+    - name: THROWN_BLAST_SEED_DAMAGE_NORMAL
+      address:
+        EU: 0x22C4F2C
+      length:
+        EU: 0x2
+      description: Damage normally dealt by a thrown blast seed (25).
+    - name: THROWN_BLAST_SEED_DAMAGE_BOSS
+      address:
+        EU: 0x22C4F30
+      length:
+        EU: 0x2
+      description: Damage dealt by a thrown blast seed during boss fights (25).
+    - name: EATEN_BLAST_SEED_DAMAGE_BOSS
+      address:
+        EU: 0x22C4F34
+      length:
+        EU: 0x2
+      description: Damage dealt by an eaten blast seed during boss fights (35).
     - name: TYPE_ADVANTAGE_MASTER_CRIT_RATE
       address:
         EU: 0x22C4F38
@@ -1101,6 +1125,12 @@ overlay10:
         NA: 0x2
         JP: 0x2
       description: "The chance of Shadow Ball lowering special defense, as a percentage (20%)."
+    - name: AQUA_RING_HEALING_COUNTDOWN
+      address:
+        EU: 0x22C4F78
+      length:
+        EU: 0x2
+      description: The countdown in turns between healing from Aqua Ring (4).
     - name: STICK_POWER
       address:
         EU: 0x22C4F7C
@@ -2039,7 +2069,7 @@ overlay10:
         NA: 0x22C488C
         JP: 0x22C5F74
       description: |-
-        The turn range for lowered speed, [6, 8].
+        The turn range for lowered speed, [6, 8).
         
         type: int16_t[2]
     - name: PARALYSIS_TURN_RANGE
@@ -2048,7 +2078,7 @@ overlay10:
         NA: 0x22C4894
         JP: 0x22C5F7C
       description: |-
-        The turn range for the Paralysis status, [1, 2].
+        The turn range for the Paralysis status, [1, 2).
         
         type: int16_t[2]
     - name: SOLARBEAM_DAMAGE_MULTIPLIER
@@ -2069,6 +2099,15 @@ overlay10:
         NA: 0x4
         JP: 0x4
       description: "The damage multiplier for Sky Attack, as a fixed-point number with 8 fraction bits (2)."
+    - name: WRAP_TURN_RANGE
+      address:
+        EU: 0x22C5204
+      length:
+        EU: 0x4
+      description: |-
+        The turn range for the Wrap status, [2, 5).
+        
+        type: int16_t[2]
     - name: RAZOR_WIND_DAMAGE_MULTIPLIER
       address:
         EU: 0x22C5208
@@ -2086,6 +2125,15 @@ overlay10:
       length:
         NA: 0x4
       description: "The damage multiplier for Focus Punch, as a fixed-point number with 8 fraction bits (2)."
+    - name: INGRAIN_TURN_RANGE
+      address:
+        EU: 0x22C5210
+      length:
+        EU: 0x4
+      description: |-
+        The turn range for the Ingrain status, [15, 30).
+        
+        type: int16_t[2]
     - name: SKULL_BASH_DAMAGE_MULTIPLIER
       address:
         EU: 0x22C5214

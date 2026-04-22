@@ -452,6 +452,7 @@ void SetAndPlayAnimationForAnimationControl(struct animation_control* anim_ctrl,
 void SwitchAnimationControlToNextFrame(struct animation_control* anim_ctrl);
 void LoadAnimationFrameAndIncrementInAnimationControl(struct animation_control* anim_ctrl,
                                                       struct wan_animation_frame* anim_frame);
+void FillOamAttributeInfo(struct animation_control* dst, uint16_t* src);
 uint32_t AnimationControlGetAllocForMaxFrame(struct animation_control* anim_ctrl);
 void DeleteWanTableEntry(struct wan_table* wan_table, int wan_id);
 int AllocateWanTableEntry(struct wan_table* wan_table);

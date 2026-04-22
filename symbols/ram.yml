@@ -675,6 +675,17 @@ ram:
         [Runtime] Stores information about the user's current button input in dungeon mode.
         
         type: struct dungeon_button_input
+    - name: DUNGEON_FRAMES_PASSED
+      address:
+        EU: 0x237D450
+      length:
+        EU: 0x4
+      description: |-
+        [Runtime] Stores the number of frames that have passed since the beginning of dungeon mode. 
+        
+        Seems to also be the beginning of some struct, where the value right after is the last case of UnkMapRelatedFunc.
+        
+        type: uint32_t
     - name: TURNING_ON_THE_SPOT_FLAG
       address:
         EU: 0x237D5A6
