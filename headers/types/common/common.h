@@ -274,7 +274,8 @@ ASSERT_SIZE(struct ground_monster, 68);
 struct team_member {
     // 0x0: flags: 1-byte bitfield
     bool f_is_valid : 1;
-    uint8_t flags_unk1 : 7;
+    bool f_is_valid_ground_mode_npc : 1;
+    uint8_t flags_unk1 : 6;
 
     bool is_leader;                // 0x1
     uint8_t level;                 // 0x2

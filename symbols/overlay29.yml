@@ -538,6 +538,26 @@ overlay29:
         r0: User entity pointer
         r1: Target entity pointer
         return: True if the user can target the target, false otherwise
+    - name: IsValidTargetEntity
+      address:
+        EU: 0x22E3214
+      description: |-
+        Checks if an entity is a valid target for another entity. Checks if both entities are valid and then calls IsPositionActuallyInSight.
+        
+        This logic is identical to CanSeeTarget, except without its additional checks involving the monster structs of the entities (for invisibility, etc.)
+        
+        r0: User entity pointer
+        r1: Target entity pointer
+        return: True if the specified monster can see the target monster, false otherwise.
+    - name: CanSeePosition
+      address:
+        EU: 0x22E3270
+      description: |-
+        Checks if a monster can see a position. Same as CanTargetPosition, but calls IsPositionActuallyInSight instead.
+        
+        r0: Entity pointer
+        r1: Target position
+        return: True if the specified monster can see the target position, false otherwise.
     - name: CanTargetPosition
       address:
         EU: 0x22E3294
@@ -1137,6 +1157,15 @@ overlay29:
         Calls a function that calls FreeTeamStats in overlay10.
         
         return: always 1, seems unused
+    - name: DisplayTeamStatsSprite
+      address:
+        EU: 0x22E8C20
+      description: |-
+        Displays a party member's sprite on the team stats menu.
+        
+        r0: Team member entity pointer
+        r1: ?
+        r2: ?
     - name: AssignTopScreenHandlers
       address:
         EU: 0x22E9078
@@ -1346,6 +1375,18 @@ overlay29:
         Advances one frame. Does not return until the next frame starts.
         
         r0: ? - Unused by the function
+    - name: UnkMapRelatedFunc
+      address:
+        EU: 0x22EADD8
+      description: |-
+        Calling this function with r0 = 6 (or its duplicates in the switch statement) will normally close the minimap, while r0 = 0 will reopen it.
+        
+        When called in certain places, the function will crash the game instead?
+        
+        Also does nothing if the passed case is the same as the last case used (or 0 if the last case was 0xd).
+        
+        r0: Which case to use for the switch statement
+        r1: unused
     - name: DisplayAnimatedNumbers
       address:
         EU: 0x22EB0C8

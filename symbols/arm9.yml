@@ -4365,6 +4365,14 @@ arm9:
         
         r0: animation_control
         r1: animation_frame
+    - name: FillOamAttributeInfo
+      address:
+        EU: 0x201D1AC
+      description: |-
+        Copies an array of values into an animation_control struct's oam_attribute_info.
+        
+        r0: animation_control
+        r1: source array (length 6)
     - name: AnimationControlGetAllocForMaxFrame
       address:
         EU: 0x201D20C

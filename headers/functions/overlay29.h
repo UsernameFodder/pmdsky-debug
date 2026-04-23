@@ -39,6 +39,8 @@ bool ShouldDisplayEntity(struct entity* entity, undefined param_2);
 bool ShouldDisplayEntityWrapper(struct entity* entity);
 bool CanSeeTarget(struct entity* user, struct entity* target);
 bool CanTargetEntity(struct entity* user, struct entity* target);
+bool IsValidTargetEntity(struct entity* user, struct entity* target);
+bool CanSeePosition(struct entity* monster, struct position* position);
 bool CanTargetPosition(struct entity* monster, struct position* position);
 void PopulateActiveMonsterPtrs(void);
 int GetTeamMemberIndex(struct entity* monster);
@@ -92,6 +94,7 @@ void FreeTopScreenStatus(void);
 int InitializeTeamStats(void);
 int UpdateTeamStatsWrapper(void);
 int FreeTeamStatsWrapper(void);
+void DisplayTeamStatsSprite(struct entity* team_member, undefined4 param_2, undefined4 param_3);
 void AssignTopScreenHandlers(void** funcs, top_screen_status_fn_t init_func,
                              top_screen_status_fn_t update_func, void* param_4,
                              top_screen_status_fn_t free_func);
@@ -115,6 +118,7 @@ bool FindFarthestUnoccupiedTileWithin2(struct position* pos_out, struct position
 bool FindUnoccupiedTileWithin3(struct position* pos_out, struct position* origin, bool random_room);
 uint8_t TickStatusTurnCounter(uint8_t* counter);
 void AdvanceFrame(undefined param_1);
+void UnkMapRelatedFunc(int switch_case, undefined4 param_2);
 void DisplayAnimatedNumbers(int amount, struct entity* entity, bool display_sign,
                             enum number_color number_color);
 void SetDungeonRngPreseed23Bit(uint32_t preseed23);
