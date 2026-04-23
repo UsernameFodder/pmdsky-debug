@@ -541,6 +541,8 @@ overlay29:
     - name: IsValidTargetEntity
       address:
         EU: 0x22E3214
+        NA: 0x22E28D4
+        JP: 0x22E3F68
       description: |-
         Checks if an entity is a valid target for another entity. Checks if both entities are valid and then calls IsPositionActuallyInSight.
         
@@ -552,6 +554,8 @@ overlay29:
     - name: CanSeePosition
       address:
         EU: 0x22E3270
+        NA: 0x22E2930
+        JP: 0x22E3FC4
       description: |-
         Checks if a monster can see a position. Same as CanTargetPosition, but calls IsPositionActuallyInSight instead.
         
@@ -1160,6 +1164,8 @@ overlay29:
     - name: DisplayTeamStatsSprite
       address:
         EU: 0x22E8C20
+        NA: 0x22E8270
+        JP: 0x22E98D8
       description: |-
         Displays a party member's sprite on the team stats menu.
         
@@ -1378,6 +1384,8 @@ overlay29:
     - name: UnkMapRelatedFunc
       address:
         EU: 0x22EADD8
+        NA: 0x22EA428
+        JP: 0x22EBA90
       description: |-
         Calling this function with r0 = 6 (or its duplicates in the switch statement) will normally close the minimap, while r0 = 0 will reopen it.
         
