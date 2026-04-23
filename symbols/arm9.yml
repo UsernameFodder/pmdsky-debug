@@ -4368,6 +4368,8 @@ arm9:
     - name: FillOamAttributeInfo
       address:
         EU: 0x201D1AC
+        NA: 0x201D110
+        JP: 0x201D168
       description: |-
         Copies an array of values into an animation_control struct's oam_attribute_info.
         
