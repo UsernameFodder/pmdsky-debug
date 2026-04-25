@@ -846,7 +846,7 @@ void GetGridPositions(int* grid_starts_x, int* grid_starts_y, int grid_size_x, i
 void InitDungeonGrid(struct dungeon_grid_cell* grid, int grid_size_x, int grid_size_y);
 void AssignRooms(struct dungeon_grid_cell* grid, int grid_size_x, int grid_size_y, int n_rooms);
 void CreateRoomsAndAnchors(struct dungeon_grid_cell* grid, int grid_size_x, int grid_size_y,
-                           int* grid_starts_x, int* grid_starts_y, uint32_t room_flags);
+                           int* grid_starts_x, int* grid_starts_y, struct room_flags room_flags);
 void GenerateSecondaryStructures(struct dungeon_grid_cell* grid, int grid_size_x, int grid_size_y);
 void AssignGridCellConnections(struct dungeon_grid_cell* grid, int grid_size_x, int grid_size_y,
                                int cursor_x, int cursor_y, struct floor_properties* floor_props);
