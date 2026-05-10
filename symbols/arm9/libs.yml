@@ -1827,6 +1827,8 @@ libs:
         NA: 0x207887C
         JP: 0x2078B64
     - name: GeomGxFifoSendMtx4x3
+      aliases:
+        - GX_SendFifo48B
       address:
         EU: 0x2078C58
         NA: 0x20788C0
@@ -2046,6 +2048,16 @@ libs:
         EU: 0x207A3C8
         NA: 0x207A030
         JP: 0x207A318
+    - name: DC_InvalidateAll
+      address:
+        EU: 0x207A5D0
+        NA: 0x207A238
+        JP: 0x207A520
+    - name: DC_StoreAll
+      address:
+        EU: 0x207A5DC
+        NA: 0x207A244
+        JP: 0x207A52C
     - name: DC_FlushAll
       address:
         EU: 0x207A608
@@ -2056,11 +2068,36 @@ libs:
         EU: 0x207A63C
         NA: 0x207A2A4
         JP: 0x207A58C
+    - name: DC_StoreRange
+      address:
+        EU: 0x207A658
+        NA: 0x207A2C0
+        JP: 0x207A5A8
     - name: DC_FlushRange
       address:
         EU: 0x207A674
         NA: 0x207A2DC
         JP: 0x207A5C4
+    - name: DC_WaitWriteBufferEmpty
+      address:
+        EU: 0x207A698
+        NA: 0x207A300
+        JP: 0x207A5E8
+    - name: IC_Enable
+      address:
+        EU: 0x207A6A4
+        NA: 0x207A30C
+        JP: 0x207A5F4
+    - name: IC_InvalidateAll
+      address:
+        EU: 0x207A6BC
+        NA: 0x207A324
+        JP: 0x207A60C
+    - name: IC_InvalidateRange
+      address:
+        EU: 0x207A6C8
+        NA: 0x207A330
+        JP: 0x207A618
     - name: OSi_WaitVCount0
       address:
         EU: 0x207A6E4
@@ -2101,6 +2138,26 @@ libs:
         EU: 0x207AA84
         NA: 0x207A6EC
         JP: 0x207A9D4
+    - name: OS_GetDtcmAddress
+      address:
+        EU: 0x207AE64
+        NA: 0x207AACC
+        JP: 0x207ADB4
+    - name: OS_EnableProtectionUnit
+      address:
+        EU: 0x207AE78
+        NA: 0x207AAE0
+        JP: 0x207ADC8
+    - name: OS_DisableProtectionUnit
+      address:
+        EU: 0x207AE88
+        NA: 0x207AAF0
+        JP: 0x207ADD8
+    - name: OS_SetDPermissionsForProtectionRegion
+      address:
+        EU: 0x207AE98
+        NA: 0x207AB00
+        JP: 0x207ADE8
     - name: OS_SetProtectionRegion1
       address:
         EU: 0x207AEAC
@@ -2121,7 +2178,49 @@ libs:
         EU: 0x207AF2C
         NA: 0x207AB94
         JP: 0x207AE7C
+    - name: OSi_GetAndDisplayContext
+      address:
+        EU: 0x207AFB0
+        NA: 0x207AC18
+        JP: 0x207AF00
+    - name: OSi_SetExContext
+      address:
+        EU: 0x207AFC4
+        NA: 0x207AC2C
+        JP: 0x207AF14
+    - name: OSi_DisplayExContent
+      address:
+        EU: 0x207B054
+        NA: 0x207ACBC
+        JP: 0x207AFA4
+    - name: OSi_SetTimerReserved
+      address:
+        EU: 0x207B0D0
+        NA: 0x207AD38
+        JP: 0x207B020
+    - name: OS_InitTick
+      address:
+        EU: 0x207B0EC
+        NA: 0x207AD54
+        JP: 0x207B03C
+    - name: OS_IsTickAvailable
+      address:
+        EU: 0x207B164
+        NA: 0x207ADCC
+        JP: 0x207B0B4
+    - name: OSi_CountUpTick
+      address:
+        EU: 0x207B174
+        NA: 0x207ADDC
+        JP: 0x207B0C4
+    - name: OS_GetTick
+      address:
+        EU: 0x207B1DC
+        NA: 0x207AE44
+        JP: 0x207B12C
     - name: GetTimer0Control
+      aliases:
+        - OS_GetTickLo
       address:
         EU: 0x207B27C
         NA: 0x207AEE4
@@ -2130,6 +2229,51 @@ libs:
         Returns the value of the control register for hardware timer 0
         
         return: Value of the control register
+    - name: OS_SetTick
+      address:
+        EU: 0x207B28C
+        NA: 0x207AEF4
+        JP: 0x207B1DC
+    - name: OSi_SetTimer
+      address:
+        EU: 0x207B2FC
+        NA: 0x207AF64
+        JP: 0x207B24C
+    - name: OS_InitAlarm
+      address:
+        EU: 0x207B388
+        NA: 0x207AFF0
+        JP: 0x207B2D8
+    - name: OS_IsAlarmAvailable
+      address:
+        EU: 0x207B3C8
+        NA: 0x207B030
+        JP: 0x207B318
+    - name: OS_CreateAlarm
+      address:
+        EU: 0x207B3D8
+        NA: 0x207B040
+        JP: 0x207B328
+    - name: OS_InsertAlarm
+      address:
+        EU: 0x207B3E8
+        NA: 0x207B050
+        JP: 0x207B338
+    - name: OS_SetAlarm
+      address:
+        EU: 0x207B514
+        NA: 0x207B17C
+        JP: 0x207B464
+    - name: OSi_AlarmHandler
+      address:
+        EU: 0x207B608
+        NA: 0x207B270
+        JP: 0x207B558
+    - name: OSi_ArrangeTimer
+      address:
+        EU: 0x207B618
+        NA: 0x207B280
+        JP: 0x207B568
     - name: OS_InitVAlarm
       address:
         EU: 0x207B708
@@ -2207,6 +2351,26 @@ libs:
         EU: 0x207BC14
         NA: 0x207B87C
         JP: 0x207BB64
+    - name: OSi_CommonCallback
+      address:
+        EU: 0x207BC68
+        NA: 0x207B8D0
+        JP: 0x207BBB8
+    - name: OSi_SendToPxi
+      address:
+        EU: 0x207BC9C
+        NA: 0x207B904
+        JP: 0x207BBEC
+    - name: OS_ResetSystem
+      address:
+        EU: 0x207BCC8
+        NA: 0x207B930
+        JP: 0x207BC18
+    - name: OS_GetMacAddress
+      address:
+        EU: 0x207BD84
+        NA: 0x207B9EC
+        JP: 0x207BCD4
     - name: GetDsFirmwareUserSettings
       address:
         EU: 0x207BDA0
@@ -2219,6 +2383,8 @@ libs:
         
         r0: user_settings pointer
     - name: CountLeadingZeros
+      aliases:
+        - OsCountZeroBits
       address:
         EU: 0x207BE24
         NA: 0x207BA8C
@@ -2233,6 +2399,11 @@ libs:
         EU: 0x207BE2C
         NA: 0x207BA94
         JP: 0x207BD7C
+    - name: OSi_UnlockVram
+      address:
+        EU: 0x207BE60
+        NA: 0x207BAC8
+        JP: 0x207BDB0
     - name: WaitForever2
       address:
         EU: 0x207BFB8
@@ -2276,6 +2447,8 @@ libs:
         NA: 0x207C264
         JP: 0x207C54C
     - name: ArrayFill16
+      aliases:
+        - MTi_CpuClear16
       address:
         EU: 0x207C650
         NA: 0x207C2B8
@@ -2287,6 +2460,8 @@ libs:
         r1: ptr
         r2: len (# bytes)
     - name: ArrayCopy16
+      aliases:
+        - MTi_CpuCopy16
       address:
         EU: 0x207C678
         NA: 0x207C2E0
@@ -2300,6 +2475,8 @@ libs:
         r1: dest
         r2: len (# bytes)
     - name: ArrayFill32
+      aliases:
+        - MTi_CpuClear32
       address:
         EU: 0x207C6AC
         NA: 0x207C314
@@ -2313,6 +2490,8 @@ libs:
         r1: ptr
         r2: len (# bytes)
     - name: ArrayCopy32
+      aliases:
+        - MTi_CpuCopy32
       address:
         EU: 0x207C6C8
         NA: 0x207C330
@@ -2326,6 +2505,8 @@ libs:
         r1: dest
         r2: len (# bytes)
     - name: ArrayFill32Fast
+      aliases:
+        - MTi_CpuClearFast
       address:
         EU: 0x207C6F0
         NA: 0x207C358
@@ -2337,6 +2518,8 @@ libs:
         r1: ptr
         r2: len (# bytes)
     - name: ArrayCopy32Fast
+      aliases:
+        - MTi_CpuCopy32Fast
       address:
         EU: 0x207C74C
         NA: 0x207C3B4
@@ -2348,6 +2531,8 @@ libs:
         r1: dest
         r2: len (# bytes)
     - name: MemsetFast
+      aliases:
+        - MI_CpuFill8
       address:
         EU: 0x207C7A4
         NA: 0x207C40C
@@ -2363,6 +2548,8 @@ libs:
         r1: value
         r2: len (# bytes)
     - name: MemcpyFast
+      aliases:
+        - MI_CpuCopy8
       address:
         EU: 0x207C860
         NA: 0x207C4C8
@@ -2390,11 +2577,31 @@ libs:
         r0: desired value
         r1: ptr
         return: previous value
+    - name: MTi_CardDmaCopy32
+      address:
+        EU: 0x207CAE8
+        NA: 0x207C750
+        JP: 0x207CA38
     - name: MI_Init
       address:
         EU: 0x207CB5C
         NA: 0x207C7C4
         JP: 0x207CAAC
+    - name: PushCommand_Impl
+      address:
+        EU: 0x207CF64
+        NA: 0x207CBCC
+        JP: 0x207CEB4
+    - name: Snd_Init
+      address:
+        EU: 0x207CFA8
+        NA: 0x207CC10
+        JP: 0x207CEF8
+    - name: Snd_CommandInit
+      address:
+        EU: 0x207D008
+        NA: 0x207CC70
+        JP: 0x207CF58
     - name: Pxi_Init
       address:
         EU: 0x207DD3C

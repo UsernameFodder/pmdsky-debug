@@ -25,6 +25,11 @@ overlay0:
         Selects a random background from the BACK/s09p04-10a.bgp files to be used as the background for the top menu.
           
         No params.
+    - name: Socl_Startup
+      address:
+        EU: 0x22CD5A4
+        NA: 0x22CCD90
+        JP: 0x22CE53C
     - name: close
       address:
         EU: 0x22CF0E8
@@ -149,6 +154,11 @@ overlay0:
         r1: operation
         r2: operation-specific argument
         return: operation-specific value
+    - name: Soc_Startup
+      address:
+        EU: 0x22CFE88
+        NA: 0x22CF674
+        JP: 0x22D0E20
     - name: InitWfc
       address:
         EU: 0x22D7FA8
