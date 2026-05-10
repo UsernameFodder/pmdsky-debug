@@ -1130,6 +1130,18 @@ arm9:
         
         r0: screen_fade
         return: bool
+    - name: HandleFadesVeneer
+      address:
+        EU: 0x200BCDC
+        NA: 0x200BC54
+        JP: 0x200BC54
+      description: |-
+        Likely a linker-generated veneer for HandleFades.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
+        
+        r0: screen_fade
+        return: bool
     - name: GetFadeStatus
       address:
         EU: 0x200BDB4

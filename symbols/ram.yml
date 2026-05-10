@@ -592,6 +592,33 @@ ram:
         NA: 0x22B9648
         JP: 0x22BAE00
       description: thread_info struct that contains global state about threads
+    - name: OSI_TIMER_RESERVED
+      address:
+        EU: 0x22BA2DC
+        NA: 0x22B999C
+        JP: 0x22BB154
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+    - name: OSI_USE_TICK
+      address:
+        EU: 0x22BA2E0
+        NA: 0x22B99A0
+        JP: 0x22BB158
+      length:
+        EU: 0x8
+        NA: 0x8
+        JP: 0x8
+    - name: OSI_USE_ALARM
+      address:
+        EU: 0x22BA2F0
+        NA: 0x22B99B0
+        JP: 0x22BB168
+      length:
+        EU: 0xC
+        NA: 0xC
+        JP: 0xC
     - name: FRAMES_SINCE_LAUNCH_TIMES_THREE
       address:
         EU: 0x22BA304
@@ -600,6 +627,24 @@ ram:
         EU: 0x4
         NA: 0x4
       description: "Starts at 0 when the game is first launched, and ticks up by 3 per frame while the game is running."
+    - name: OSI_VRAM_EXCLUSIVE
+      address:
+        EU: 0x22BA314
+        NA: 0x22B99D4
+        JP: 0x22BB18C
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+    - name: OSI_VRAM_LOCK_ID
+      address:
+        EU: 0x22BA318
+        NA: 0x22B99D8
+        JP: 0x22BB190
+      length:
+        EU: 0x14
+        NA: 0x14
+        JP: 0x14
     - name: GROUND_MEMORY_ARENA_1_PTR
       address:
         NA: 0x2324CB4

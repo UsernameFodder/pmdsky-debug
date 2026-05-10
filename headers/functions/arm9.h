@@ -110,6 +110,7 @@ void LoadFileFromRom(struct iovec* iov, const char* filepath, uint32_t flags);
 void TransformPaletteDataWithFlushDivideFade(struct palette_data* palette);
 void UpdateFadeStatus(struct screen_fade* fstruct, int param_2, int duration);
 bool HandleFades(struct screen_fade* fstruct);
+bool HandleFadesVeneer(struct screen_fade* fstruct);
 int GetFadeStatus(struct screen_fade* fstruct);
 void InitDebug(void);
 void InitDebugFlag(void);
