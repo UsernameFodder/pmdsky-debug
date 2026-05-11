@@ -11345,9 +11345,3 @@ overlay29:
       length:
         EU: 0x4
       description: "[Runtime] Pointer to the dungeon fades struct that maintains the status of screen fades in dungeon mode."
-    - name: SECRET_BAZAAR_DIALOGUE_INFO_PTR
-      address:
-        EU: 0x2383400
-      length:
-        EU: 0x4
-      description: "[Runtime] Pointer to the secret_bazaar_dialogue_info struct during dungeon mode."
