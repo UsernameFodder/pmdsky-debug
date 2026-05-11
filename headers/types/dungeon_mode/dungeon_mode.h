@@ -2585,8 +2585,8 @@ ASSERT_SIZE(struct dungeon_button_input, 14);
 
 struct secret_bazaar_dialogue_info {
     undefined field_0x0[16];
-    int8_t dialogue_window_id; // 0x10
-    int8_t menu_window_id; // 0x11
+    int8_t dialogue_window_id;     // 0x10
+    int8_t menu_window_id;         // 0x11
     int8_t portrait_box_window_id; // 0x12
     undefined field_0x13;
     struct preprocessor_args preprocessor_args; // 0x14
