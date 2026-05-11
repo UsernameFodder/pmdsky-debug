@@ -188,7 +188,7 @@ overlay1:
         EU: 0x233BEB0
       length:
         EU: 0x34
-      description: "List of the 13 performance progress flags corresponding to clear marks on the save file load screen."
+      description: List of the 13 performance progress flags corresponding to clear marks on the save file load screen.
     - name: MAIN_MENU_WINDOW_PARAMS_8
       address:
         EU: 0x233BF1C
