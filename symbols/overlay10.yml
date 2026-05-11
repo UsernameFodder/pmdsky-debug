@@ -1919,11 +1919,11 @@ overlay10:
       description: |-
         The turn range for the Gastro Acid status, [4, 10).
 
-      - name: HEAL_BLOCK_TURN_RANGE
+    - name: HEAL_BLOCK_TURN_RANGE
       address:
         EU: 0x22C50CC 
         NA: 0x22C4774
-        JP: 0x???????
+        JP: 0x22C5E5C
       length:
         EU: 0x4
         NA: 0x4
