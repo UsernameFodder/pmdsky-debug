@@ -1128,6 +1128,14 @@ struct spawn_position {
 };
 ASSERT_SIZE(struct spawn_position, 2);
 
+struct room_flags {
+    bool f_secondary_structures : 1; // Whether secondary structures are allowed
+    uint8_t room_flags_unk1 : 1;
+    bool f_room_imperfections : 1; // Whether room imperfections are allowed
+    uint8_t room_flags_unk3 : 5;
+};
+ASSERT_SIZE(struct room_flags, 1);
+
 // Dungeon floor properties
 struct floor_properties {
     struct floor_layout_8 layout; // 0x0
@@ -1160,12 +1168,8 @@ struct floor_properties {
     bool allow_dead_ends;
     // 0xC: Maximum number of secondary structures that can be generated on the floor
     uint8_t max_secondary_structures;
-    // 0xD: room_flags: 1-byte bitfield
-    bool f_secondary_structures : 1; // Whether secondary structures are allowed
-    uint8_t room_flags_unk1 : 1;
-    bool f_room_imperfections : 1; // Whether room imperfections are allowed
-    uint8_t room_flags_unk3 : 5;
-
+    // 0xD: Contains flags for secondary structures and imperfect rooms.
+    struct room_flags room_flags;
     undefined field_0xe;
     uint8_t item_density; // 0xF: Controls how many items will be spawned
     uint8_t trap_density; // 0x10: Controls how many traps will be spawned

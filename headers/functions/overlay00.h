@@ -2,6 +2,7 @@
 #define HEADERS_FUNCTIONS_OVERLAY00_H_
 
 void SelectRandomBackground(void);
+void Socl_Startup(void);
 int close(int fd);
 int socket(int domain, int family, int protocol);
 int bind(int sockfd, const struct sockaddr_in* addr);
@@ -13,6 +14,7 @@ int sendto(int sockfd, const void* buf, size_t size, int flags, const struct soc
            int addr_len);
 int CloseVeneer(int fd);
 int fcntl(int fd, int op, uint32_t op_arg);
+void Soc_Startup(void);
 int InitWfc(void);
 int SocketCastError(int error, int cast_error);
 int SocketCreate(int domain, int family, int protocol);
