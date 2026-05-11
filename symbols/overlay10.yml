@@ -1918,7 +1918,7 @@ overlay10:
         JP: 0x4
       description: |-
         The turn range for the Gastro Acid status, [4, 10).
-
+        
         type: int16_t[2]
     - name: HEAL_BLOCK_TURN_RANGE
       address:
