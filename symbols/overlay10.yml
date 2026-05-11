@@ -1921,7 +1921,7 @@ overlay10:
 
     - name: HEAL_BLOCK_TURN_RANGE
       address:
-        EU: 0x22C50CC 
+        EU: 0x22C50CC
         NA: 0x22C4774
         JP: 0x22C5E5C
       length:
