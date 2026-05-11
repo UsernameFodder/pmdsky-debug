@@ -111,5 +111,6 @@ extern bool HIDDEN_STAIRS_SPAWN_BLOCKED;
 extern void* FIXED_ROOM_DATA_PTR;
 extern struct message_log_info MESSAGE_LOG_INFO;
 extern struct dungeon_fades* DUNGEON_FADES_PTR;
+extern struct secret_bazaar_dialogue_info* SECRET_BAZAAR_DIALOGUE_INFO_PTR;
 
 #endif

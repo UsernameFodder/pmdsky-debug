@@ -140,6 +140,7 @@ extern fx32_8 DAMAGE_FORMULA_AT_PREFACTOR;
 extern fx32_8 DAMAGE_FORMULA_LN_ARG_PREFACTOR;
 extern bool TACTICS_FOLLOW_LEADER[12];
 extern struct forbidden_forgot_move_entry FORBIDDEN_FORGOT_MOVE_LIST[3];
+extern struct type_id_8 CONVERSION2_TYPE_TABLE[18];
 extern int16_t TACTICS_UNLOCK_LEVEL_TABLE[12];
 extern int16_t CLIENT_LEVEL_TABLE[16];
 extern int16_t OUTLAW_LEVEL_TABLE[16];

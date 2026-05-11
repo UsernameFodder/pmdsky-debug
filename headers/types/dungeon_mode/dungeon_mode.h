@@ -2579,6 +2579,19 @@ struct dungeon_button_input {
 };
 ASSERT_SIZE(struct dungeon_button_input, 14);
 
+struct secret_bazaar_dialogue_info {
+    undefined field_0x0[16];
+    int8_t dialogue_window_id; // 0x10
+    int8_t menu_window_id; // 0x11
+    int8_t portrait_box_window_id // 0x12
+    struct preprocessor_args preprocessor_args; // 0x14
+    undefined field_0x13[1025];
+    struct preprocessor_flags flags; // 0x470
+    struct simple_menu_id_item* menu_items; // 0x474
+    undefined4 field_0x474;
+};
+ASSERT_SIZE(struct secret_bazaar_dialogue_info, 1144);
+
 // Separate this out into its own file because it's massive
 #include "dungeon.h"
 

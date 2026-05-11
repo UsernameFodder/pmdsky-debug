@@ -678,6 +678,8 @@ ram:
     - name: DUNGEON_FRAMES_PASSED
       address:
         EU: 0x237D450
+        NA: 0x237C850
+        JP: 0x237DAD0
       length:
         EU: 0x4
       description: |-

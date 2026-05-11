@@ -4368,6 +4368,8 @@ arm9:
     - name: FillOamAttributeInfo
       address:
         EU: 0x201D1AC
+        NA: 0x201D110
+        JP: 0x201D168
       description: |-
         Copies an array of values into an animation_control struct's oam_attribute_info.
         
@@ -5559,6 +5561,18 @@ arm9:
         Clear marks are shown on the save file load screen. They are used to show which plot milestones have already been completed.
         
         r0: Clear mark ID
+        r1: X pos (unknown units, usually ranges between 3 and 27)
+        r2: Y pos (unknown units, normally 14)
+        r3: ?
+    - name: PrintSpecialEpisodeClearMark
+      address:
+        EU: 0x202A700
+      description: |-
+        Prints the specified special episode clear mark on the screen.
+        
+        These clear marks are shown on the special episode load screen. They are used to show which special episodes have already been completed.
+        
+        r0: Special episode ID
         r1: X pos (unknown units, usually ranges between 3 and 27)
         r2: Y pos (unknown units, normally 14)
         r3: ?
@@ -13296,6 +13310,15 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         type: struct forbidden_forgot_move_entry[3]
+    - name: CONVERSION2_TYPE_TABLE
+      address:
+        EU: 0x20A1EB0
+      length:
+        EU: 0x12
+      description: |-
+        A lookup table which takes a type as an index to get the type for Conversion2.
+        
+        type: struct type_id_8[18]
     - name: TACTICS_UNLOCK_LEVEL_TABLE
       address:
         EU: 0x20A1EC4

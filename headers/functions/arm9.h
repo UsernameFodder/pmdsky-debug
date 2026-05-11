@@ -571,6 +571,8 @@ void LoadCursors(void);
 void InitWindowTrailer(struct window_trailer* trailer);
 void LoadAlert(void);
 void PrintClearMark(int mark_id, int x, int y, undefined param_4);
+void PrintSpecialEpisodeClearMark(enum special_episode_type special_episode_type, int x, int y,
+                                  undefined param_4);
 void PrintBadgeMark(enum rank badge_id, int x, int y, undefined param_4);
 void PrintMark(int file, int id_in_file, int x, int y, undefined param_5);
 int CreateParentMenuFromStringIds(struct window_params* params, struct window_flags flags,

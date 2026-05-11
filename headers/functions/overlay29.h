@@ -488,6 +488,7 @@ enum direction_id FindDirectionOfAdjacentMonsterWithItem(struct entity* entity,
                                                          enum item_id item_id);
 void TrySpawnEnemyItemDrop(struct entity* attacker, struct entity* defender);
 void TickNoSlipCap(struct entity* entity);
+void ActivateEndOfTurnEffects(struct entity* entity);
 void TickStatusAndHealthRegen(struct entity* entity);
 void InflictSleepStatusSingle(struct entity* entity, int turns);
 void TryInflictSleepStatus(struct entity* user, struct entity* target, int turns, bool log_failure);
@@ -971,6 +972,7 @@ bool GetTargetMonsterNotFoundFlag(void);
 bool FloorHasMissionMonster(struct mission_destination_info* mission_dst);
 struct mission* GetMissionIfActiveOnFloor(struct dungeon_floor_pair* pair, uint8_t mission_id);
 void GenerateMissionEggMonster(struct mission* mission);
+struct entity* GetFirstExperienceLockedTeamMember(void);
 void TeleportFleeingOutlaw(void);
 void InitAlertBoxInfo(void);
 void FreeAlertBoxInfo(void);
@@ -1023,6 +1025,7 @@ void DisplayMessage2(struct portrait_params* portrait, int message_id, bool wait
 bool YesNoMenu(undefined param_1, int string_id, int default_option, undefined param_4);
 void DisplayMessageInternal(int message_id, bool wait_for_input, struct portrait_params* portrait,
                             undefined4 param_4, undefined4 param_5, undefined4 param_6);
+void InitSecretBazaarDialogueInfo(void);
 void OpenMenu(undefined param_1, undefined param_2, bool open_bag);
 void StairsMenuAfterStep(struct entity* leader, bool leave_minimap_closed_after);
 int DungeonModeSetupAndShowNameKeyboard(char* str_keyboard_result, char* buffer,

@@ -541,6 +541,8 @@ overlay29:
     - name: IsValidTargetEntity
       address:
         EU: 0x22E3214
+        NA: 0x22E28D4
+        JP: 0x22E3F68
       description: |-
         Checks if an entity is a valid target for another entity. Checks if both entities are valid and then calls IsPositionActuallyInSight.
         
@@ -552,6 +554,8 @@ overlay29:
     - name: CanSeePosition
       address:
         EU: 0x22E3270
+        NA: 0x22E2930
+        JP: 0x22E3FC4
       description: |-
         Checks if a monster can see a position. Same as CanTargetPosition, but calls IsPositionActuallyInSight instead.
         
@@ -1160,6 +1164,8 @@ overlay29:
     - name: DisplayTeamStatsSprite
       address:
         EU: 0x22E8C20
+        NA: 0x22E8270
+        JP: 0x22E98D8
       description: |-
         Displays a party member's sprite on the team stats menu.
         
@@ -1378,6 +1384,8 @@ overlay29:
     - name: UnkMapRelatedFunc
       address:
         EU: 0x22EADD8
+        NA: 0x22EA428
+        JP: 0x22EBA90
       description: |-
         Calling this function with r0 = 6 (or its duplicates in the switch statement) will normally close the minimap, while r0 = 0 will reopen it.
         
@@ -4980,6 +4988,13 @@ overlay29:
         JP: 0x23110CC
       description: |-
         Checks if the entity is a team member and holds the No-Slip Cap, and if so attempts to make one item in the bag sticky.
+        
+        r0: pointer to entity
+    - name: ActivateEndOfTurnEffects
+      address:
+        EU: 0x2310698
+      description: |-
+        Triggers many different effects that happen at the end of a turn, such as Warp Scarf warping, belly loss, weather damage, etc.
         
         r0: pointer to entity
     - name: TickStatusAndHealthRegen
@@ -9537,6 +9552,15 @@ overlay29:
         Note: unverified, ported from Irdkwia's notes
         
         r0: mission struct
+    - name: GetFirstExperienceLockedTeamMember
+      address:
+        EU: 0x234A670
+      description: |-
+        Returns the entity pointer to the first experience-locked member on the team (so a client or a special story ally).
+        
+        Returns a null pointer instead if none are present.
+        
+        No params.
     - name: TeleportFleeingOutlaw
       address:
         EU: 0x234BAA4
@@ -10004,6 +10028,13 @@ overlay29:
         r3: ?
         stack[0]: ?
         stack[1]: ?
+    - name: InitSecretBazaarDialogueInfo
+      address:
+        EU: 0x234E758
+      description: |-
+        Initializes the struct pointed to by SECRET_BAZAAR_DIALOGUE_INFO_PTR.
+        
+        No params.
     - name: OpenMenu
       address:
         EU: 0x234E9F4
@@ -11314,3 +11345,9 @@ overlay29:
       length:
         EU: 0x4
       description: "[Runtime] Pointer to the dungeon fades struct that maintains the status of screen fades in dungeon mode."
+    - name: SECRET_BAZAAR_DIALOGUE_INFO_PTR
+      address:
+        EU: 0x2383400
+      length:
+        EU: 0x4
+      description: "[Runtime] Pointer to the secret_bazaar_dialogue_info struct during dungeon mode."
