@@ -1918,6 +1918,18 @@ overlay10:
         JP: 0x4
       description: |-
         The turn range for the Gastro Acid status, [4, 10).
+
+      - name: HEAL_BLOCK_TURN_RANGE
+      address:
+        EU: 0x22C50CC 
+        NA: 0x22C4774
+        JP: 0x???????
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Heal Block status, [4, 10).
         
         type: int16_t[2]
     - name: SPORT_CONDITION_TURN_RANGE
