@@ -5576,6 +5576,7 @@ arm9:
         r1: X pos (unknown units, usually ranges between 3 and 27)
         r2: Y pos (unknown units, normally 14)
         r3: ?
+        return: window_id
     - name: PrintSpecialEpisodeClearMark
       address:
         EU: 0x202A700
@@ -5588,6 +5589,7 @@ arm9:
         r1: X pos (unknown units, usually ranges between 3 and 27)
         r2: Y pos (unknown units, normally 14)
         r3: ?
+        return: window_id
     - name: PrintBadgeMark
       address:
         EU: 0x202A728
@@ -5602,6 +5604,7 @@ arm9:
         r1: X pos (unknown units, always 3)
         r2: Y pos (unknown units, always 18)
         r3: ? (always 3)
+        return: window_id
     - name: PrintMark
       address:
         EU: 0x202A750
@@ -5615,6 +5618,7 @@ arm9:
         r2: X pos (unknown units)
         r3: Y pos (unknown units)
         stack[0]: ?
+        return: window_id
     - name: CreateParentMenuFromStringIds
       address:
         EU: 0x202A8C0
