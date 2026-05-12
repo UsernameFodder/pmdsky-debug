@@ -4990,6 +4990,13 @@ overlay29:
         Checks if the entity is a team member and holds the No-Slip Cap, and if so attempts to make one item in the bag sticky.
         
         r0: pointer to entity
+    - name: ActivateEndOfTurnEffects
+      address:
+        EU: 0x2310698
+      description: |-
+        Triggers many different effects that happen at the end of a turn, such as Warp Scarf warping, belly loss, weather damage, etc.
+        
+        r0: pointer to entity
     - name: TickStatusAndHealthRegen
       address:
         EU: 0x2311AE8
@@ -9545,6 +9552,15 @@ overlay29:
         Note: unverified, ported from Irdkwia's notes
         
         r0: mission struct
+    - name: GetFirstExperienceLockedTeamMember
+      address:
+        EU: 0x234A670
+      description: |-
+        Returns the entity pointer to the first experience-locked member on the team (so a client or a special story ally).
+        
+        Returns a null pointer instead if none are present.
+        
+        return: entity pointer
     - name: TeleportFleeingOutlaw
       address:
         EU: 0x234BAA4
@@ -10012,6 +10028,13 @@ overlay29:
         r3: ?
         stack[0]: ?
         stack[1]: ?
+    - name: InitSecretBazaarDialogueInfo
+      address:
+        EU: 0x234E758
+      description: |-
+        Initializes the struct pointed to by SECRET_BAZAAR_DIALOGUE_INFO_PTR.
+        
+        No params.
     - name: OpenMenu
       address:
         EU: 0x234E9F4

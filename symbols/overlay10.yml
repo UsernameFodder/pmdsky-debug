@@ -509,6 +509,12 @@ overlay10:
         NA: 0x2
         JP: 0x2
       description: The chance of Trap Buster activating (30%).
+    - name: MAGNET_PULL_ACTIVATION_CHANCE
+      address:
+        EU: 0x22C4DB8
+      length:
+        EU: 0x2
+      description: "The chance of Magnet Pull inflicting immobilization, as a percentage (12%)."
     - name: FOREWARN_FORCED_MISS_CHANCE
       address:
         EU: 0x22C4DC0
@@ -979,6 +985,12 @@ overlay10:
         NA: 0x2
         JP: 0x2
       description: "The move power threshold for Technician (4). Moves whose base power doesn't exceed this value will receive a 50% damage boost."
+    - name: ARENA_TRAP_ACTIVATION_CHANCE
+      address:
+        EU: 0x22C4EBC
+      length:
+        EU: 0x2
+      description: "The chance of Arena Trap inflicting immobilization, as a percentage (12%)."
     - name: SONICBOOM_FIXED_DAMAGE
       address:
         EU: 0x22C4EC0
@@ -1409,6 +1421,12 @@ overlay10:
         NA: 0x2
         JP: 0x2
       description: "The chance of Flame Wheel (and others, see DoMoveDamageBurn10FlameWheel) burning, as a percentage (10%)."
+    - name: SHADOW_TAG_ACTIVATION_CHANCE
+      address:
+        EU: 0x22C4FE4
+      length:
+        EU: 0x2
+      description: "The chance of Shadow Tag inflicting immobilization, as a percentage (12%)."
     - name: PSYBEAM_CONFUSE_CHANCE
       address:
         EU: 0x22C4FE8
@@ -1449,6 +1467,12 @@ overlay10:
         NA: 0x2
         JP: 0x2
       description: The percentage increase in experience from the Wonder Chest item
+    - name: SHED_SKIN_ACTIVATION_CHANCE
+      address:
+        EU: 0x22C4FF8
+      length:
+        EU: 0x2
+      description: "The chance of Shed Skin curing a monster's statuses on any given turn, as a percentage (50%)."
     - name: SPAWN_CAP_WITH_MONSTER_HOUSE
       address:
         EU: 0x22C4FFC

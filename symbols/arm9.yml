@@ -5576,6 +5576,20 @@ arm9:
         r1: X pos (unknown units, usually ranges between 3 and 27)
         r2: Y pos (unknown units, normally 14)
         r3: ?
+        return: window_id
+    - name: PrintSpecialEpisodeClearMark
+      address:
+        EU: 0x202A700
+      description: |-
+        Prints the specified special episode clear mark on the screen.
+        
+        These clear marks are shown on the special episode load screen. They are used to show which special episodes have already been completed.
+        
+        r0: Special episode ID
+        r1: X pos (unknown units, usually ranges between 3 and 27)
+        r2: Y pos (unknown units, normally 14)
+        r3: ?
+        return: window_id
     - name: PrintBadgeMark
       address:
         EU: 0x202A728
@@ -5590,6 +5604,7 @@ arm9:
         r1: X pos (unknown units, always 3)
         r2: Y pos (unknown units, always 18)
         r3: ? (always 3)
+        return: window_id
     - name: PrintMark
       address:
         EU: 0x202A750
@@ -5603,6 +5618,7 @@ arm9:
         r2: X pos (unknown units)
         r3: Y pos (unknown units)
         stack[0]: ?
+        return: window_id
     - name: CreateParentMenuFromStringIds
       address:
         EU: 0x202A8C0
@@ -13310,6 +13326,15 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         type: struct forbidden_forgot_move_entry[3]
+    - name: CONVERSION2_TYPE_TABLE
+      address:
+        EU: 0x20A1EB0
+      length:
+        EU: 0x12
+      description: |-
+        A lookup table which takes a type as an index to get the type for Conversion2.
+        
+        type: struct type_id_8[18]
     - name: TACTICS_UNLOCK_LEVEL_TABLE
       address:
         EU: 0x20A1EC4
