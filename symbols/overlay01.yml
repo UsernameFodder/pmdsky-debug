@@ -186,6 +186,8 @@ overlay1:
     - name: CLEAR_MARK_PERFORMANCE_PROGRESS_FLAGS
       address:
         EU: 0x233BEB0
+        NA: 0x233B764
+        JP: 0x233CFDC
       length:
         EU: 0x34
       description: List of the 13 performance progress flags corresponding to clear marks on the save file load screen.
