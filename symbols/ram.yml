@@ -942,6 +942,8 @@ ram:
     - name: SECRET_BAZAAR_DIALOGUE_INFO_PTR
       address:
         EU: 0x2383400
+        NA: 0x2382800
+        JP: 0x2383A80
       length:
         EU: 0x4
       description: "[Runtime] Pointer to the secret_bazaar_dialogue_info struct during dungeon mode."

@@ -512,6 +512,8 @@ overlay10:
     - name: MAGNET_PULL_ACTIVATION_CHANCE
       address:
         EU: 0x22C4DB8
+        NA: 0x22C4460
+        JP: 0x22C5B48
       length:
         EU: 0x2
       description: "The chance of Magnet Pull inflicting immobilization, as a percentage (12%)."
@@ -988,6 +990,8 @@ overlay10:
     - name: ARENA_TRAP_ACTIVATION_CHANCE
       address:
         EU: 0x22C4EBC
+        NA: 0x22C4564
+        JP: 0x22C5C4C
       length:
         EU: 0x2
       description: "The chance of Arena Trap inflicting immobilization, as a percentage (12%)."
@@ -1424,6 +1428,8 @@ overlay10:
     - name: SHADOW_TAG_ACTIVATION_CHANCE
       address:
         EU: 0x22C4FE4
+        NA: 0x22C468C
+        JP: 0x22C5D74
       length:
         EU: 0x2
       description: "The chance of Shadow Tag inflicting immobilization, as a percentage (12%)."
@@ -1470,6 +1476,8 @@ overlay10:
     - name: SHED_SKIN_ACTIVATION_CHANCE
       address:
         EU: 0x22C4FF8
+        NA: 0x22C46A0
+        JP: 0x22C5D88
       length:
         EU: 0x2
       description: "The chance of Shed Skin curing a monster's statuses on any given turn, as a percentage (50%)."
