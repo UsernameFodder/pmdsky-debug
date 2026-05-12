@@ -9560,7 +9560,7 @@ overlay29:
         
         Returns a null pointer instead if none are present.
         
-        No params.
+        return: entity pointer
     - name: TeleportFleeingOutlaw
       address:
         EU: 0x234BAA4
