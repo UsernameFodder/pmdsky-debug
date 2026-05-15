@@ -415,19 +415,39 @@ itcm:
         No params.
     - name: OSi_DoResetSystem
       address:
+        NA: 0x20B4B4C
+        JP: 0x20B6414
         EU-ITCM: 0x1FF97CC
+        NA-ITCM: 0x1FF97CC
+        JP-ITCM: 0x1FF9834
     - name: OSi_DoBoot
       address:
+        NA: 0x20B4B80
+        JP: 0x20B6448
         EU-ITCM: 0x1FF9800
+        NA-ITCM: 0x1FF9800
+        JP-ITCM: 0x1FF9868
     - name: OSi_CpuClear32
       address:
+        NA: 0x20B4C4C
+        JP: 0x20B6514
         EU-ITCM: 0x1FF98CC
+        NA-ITCM: 0x1FF98CC
+        JP-ITCM: 0x1FF9934
     - name: OSi_ReloadRomData
       address:
+        NA: 0x20B4C68
+        JP: 0x20B6530
         EU-ITCM: 0x1FF98E8
+        NA-ITCM: 0x1FF98E8
+        JP-ITCM: 0x1FF9950
     - name: OSi_ReadCardRom32
       address:
+        NA: 0x20B4D10
+        JP: 0x20B65D8
         EU-ITCM: 0x1FF9990
+        NA-ITCM: 0x1FF9990
+        JP-ITCM: 0x1FF99F8
     - name: MIi_DmaSetParams
       aliases:
         - InitDmaTransfer_Standard
@@ -449,10 +469,18 @@ itcm:
         r3: word count
     - name: MIi_DmaSetParams_Wait
       address:
+        NA: 0x20B4E28
+        JP: 0x20B66F0
         EU-ITCM: 0x1FF9AA8
+        NA-ITCM: 0x1FF9AA8
+        JP-ITCM: 0x1FF9B10
     - name: MIi_DmaSetParams_NoInt
       address:
+        NA: 0x20B4E98
+        JP: 0x20B6760
         EU-ITCM: 0x1FF9B18
+        NA-ITCM: 0x1FF9B18
+        JP-ITCM: 0x1FF9B80
     - name: ShouldMonsterRunAwayAndShowEffectOutlawCheck
       aliases:
         - ShouldMonsterRunAwayVariationOutlawCheck

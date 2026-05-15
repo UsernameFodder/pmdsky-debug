@@ -28,536 +28,894 @@ overlay0:
     - name: WM_Init
       address:
         EU: 0x22BF178
+        NA: 0x22BE964
+        JP: 0x22C0110
     - name: WmInitCore
       address:
         EU: 0x22BF1A4
+        NA: 0x22BE990
+        JP: 0x22C013C
     - name: WM_Finish
       address:
         EU: 0x22BF388
+        NA: 0x22BEB74
+        JP: 0x22C0320
     - name: WMi_SetCallbackTable
       address:
         EU: 0x22BF3F8
+        NA: 0x22BEBE4
+        JP: 0x22C0390
     - name: WmGetCommandBuffer4Arm7
       address:
         EU: 0x22BF410
+        NA: 0x22BEBFC
+        JP: 0x22C03A8
     - name: WMi_SendCommand
       address:
         EU: 0x22BF468
+        NA: 0x22BEC54
+        JP: 0x22C0400
     - name: WMi_SendCommandDirect
       address:
         EU: 0x22BF514
+        NA: 0x22BED00
+        JP: 0x22C04AC
     - name: WMi_GetSystemWork
       address:
         EU: 0x22BF584
+        NA: 0x22BED70
+        JP: 0x22C051C
     - name: WMi_CheckInitialized
       address:
         EU: 0x22BF594
+        NA: 0x22BED80
+        JP: 0x22C052C
     - name: WMi_CheckIdle
       address:
         EU: 0x22BF5B0
+        NA: 0x22BED9C
+        JP: 0x22C0548
     - name: WMi_CheckState
       address:
         EU: 0x22BF5F8
+        NA: 0x22BEDE4
+        JP: 0x22C0590
     - name: WmReceiveFifo
       address:
         EU: 0x22BF68C
+        NA: 0x22BEE78
+        JP: 0x22C0624
     - name: WmClearFifoRecvFlag
       address:
         EU: 0x22BFA38
+        NA: 0x22BF224
+        JP: 0x22C09D0
     - name: WMi_GetStatusAddress
       address:
         EU: 0x22BFA54
+        NA: 0x22BF240
+        JP: 0x22C09EC
     - name: WM_GetAid
       address:
         EU: 0x22BFA78
+        NA: 0x22BF264
+        JP: 0x22C0A10
     - name: WM_GetConnectedAids
       address:
         EU: 0x22BFAA8
+        NA: 0x22BF294
+        JP: 0x22C0A40
     - name: WM_SetIndCallback
       address:
         EU: 0x22BFAD8
+        NA: 0x22BF2C4
+        JP: 0x22C0A70
     - name: WM_SetPortCallback
       address:
         EU: 0x22BFB1C
+        NA: 0x22BF308
+        JP: 0x22C0AB4
     - name: WM_ReadStatus
       address:
         EU: 0x22BFBF4
+        NA: 0x22BF3E0
+        JP: 0x22C0B8C
     - name: WM_GetMpSendBufferSize
       address:
         EU: 0x22BFC40
+        NA: 0x22BF42C
+        JP: 0x22C0BD8
     - name: WM_GetMpReceiveBufferSize
       address:
         EU: 0x22BFCAC
+        NA: 0x22BF498
+        JP: 0x22C0C44
     - name: WM_ReadMpData
       address:
         EU: 0x22BFD70
+        NA: 0x22BF55C
+        JP: 0x22C0D08
     - name: WM_GetAllowedChannel
       address:
         EU: 0x22BFE54
+        NA: 0x22BF640
+        JP: 0x22C0DEC
     - name: WM_GetLinkLevel
       address:
         EU: 0x22BFE74
+        NA: 0x22BF660
+        JP: 0x22C0E0C
     - name: WM_GetDispersionBeaconPeriod
       address:
         EU: 0x22BFF04
+        NA: 0x22BF6F0
+        JP: 0x22C0E9C
     - name: WM_GetDispersionScanPeriod
       address:
         EU: 0x22BFF94
+        NA: 0x22BF780
+        JP: 0x22C0F2C
     - name: WM_GetOtherElements
       address:
         EU: 0x22C0028
+        NA: 0x22BF814
+        JP: 0x22C0FC0
     - name: WM_GetNextTgid
       address:
         EU: 0x22C0180
+        NA: 0x22BF96C
+        JP: 0x22C1118
     - name: WM_Enable
       address:
         EU: 0x22C01F4
+        NA: 0x22BF9E0
+        JP: 0x22C118C
     - name: WMi_EnableEx
       address:
         EU: 0x22C0204
+        NA: 0x22BF9F0
+        JP: 0x22C119C
     - name: WM_Disable
       address:
         EU: 0x22C0268
+        NA: 0x22BFA54
+        JP: 0x22C1200
     - name: WM_PowerOn
       address:
         EU: 0x22C02A8
+        NA: 0x22BFA94
+        JP: 0x22C1240
     - name: WM_PowerOff
       address:
         EU: 0x22C02E8
+        NA: 0x22BFAD4
+        JP: 0x22C1280
     - name: WM_InitializeEx
       address:
         EU: 0x22C0328
+        NA: 0x22BFB14
+        JP: 0x22C12C0
     - name: WM_InitializeForListening
       address:
         EU: 0x22C0338
+        NA: 0x22BFB24
+        JP: 0x22C12D0
     - name: WMi_InitializeEx
       address:
         EU: 0x22C0350
+        NA: 0x22BFB3C
+        JP: 0x22C12E8
     - name: WM_Reset
       address:
         EU: 0x22C03B0
+        NA: 0x22BFB9C
+        JP: 0x22C1348
     - name: WM_End
       address:
         EU: 0x22C03E8
+        NA: 0x22BFBD4
+        JP: 0x22C1380
     - name: WM_SetParentParameter
       address:
         EU: 0x22C0428
+        NA: 0x22BFC14
+        JP: 0x22C13C0
     - name: WmCheckParentParameter
       address:
         EU: 0x22C0504
+        NA: 0x22BFCF0
+        JP: 0x22C149C
     - name: WMi_StartParentEx
       address:
         EU: 0x22C0554
+        NA: 0x22BFD40
+        JP: 0x22C14EC
     - name: WM_StartParent
       address:
         EU: 0x22C05B0
+        NA: 0x22BFD9C
+        JP: 0x22C1548
     - name: WM_EndParent
       address:
         EU: 0x22C05C0
+        NA: 0x22BFDAC
+        JP: 0x22C1558
     - name: WM_StartScan
       address:
         EU: 0x22C0600
+        NA: 0x22BFDEC
+        JP: 0x22C1598
     - name: WM_StartScanEx
       address:
         EU: 0x22C06EC
+        NA: 0x22BFED8
+        JP: 0x22C1684
     - name: WM_EndScan
       address:
         EU: 0x22C083C
+        NA: 0x22C0028
+        JP: 0x22C17D4
     - name: WM_StartConnectEx
       address:
         EU: 0x22C087C
+        NA: 0x22C0068
+        JP: 0x22C1814
     - name: WM_Disconnect
       address:
         EU: 0x22C0948
+        NA: 0x22C0134
+        JP: 0x22C18E0
     - name: WMi_StartMP
       address:
         EU: 0x22C0A30
+        NA: 0x22C021C
+        JP: 0x22C19C8
     - name: WM_StartMpEx
       address:
         EU: 0x22C0BA0
+        NA: 0x22C038C
+        JP: 0x22C1B38
     - name: WM_StartMP
       address:
         EU: 0x22C0C44
+        NA: 0x22C0430
+        JP: 0x22C1BDC
     - name: WM_SetMpDataToPortEx
       address:
         EU: 0x22C0CAC
+        NA: 0x22C0498
+        JP: 0x22C1C44
     - name: WM_EndMP
       address:
         EU: 0x22C0DDC
+        NA: 0x22C05C8
+        JP: 0x22C1D74
     - name: WM_StartDcf
       address:
         EU: 0x22C0E4C
+        NA: 0x22C0638
+        JP: 0x22C1DE4
     - name: WM_SetDcfData
       address:
         EU: 0x22C0EEC
+        NA: 0x22C06D8
+        JP: 0x22C1E84
     - name: WM_EndDcf
       address:
         EU: 0x22C0FB8
+        NA: 0x22C07A4
+        JP: 0x22C1F50
     - name: WM_StartDataSharing
       address:
         EU: 0x22C1024
+        NA: 0x22C0810
+        JP: 0x22C1FBC
     - name: WM_EndDataSharing
       address:
         EU:
           - 0x22C1278
           - 0x22C1BC0
+        NA:
+          - 0x22C0A64
+          - 0x22C13AC
+        JP:
+          - 0x22C2210
+          - 0x22C2B58
     - name: WM_StepDataSharing
       address:
         EU: 0x22C12C0
+        NA: 0x22C0AAC
+        JP: 0x22C2258
     - name: WmDataSharingSetDataCallback
       address:
         EU: 0x22C1608
+        NA: 0x22C0DF4
+        JP: 0x22C25A0
     - name: WmDataSharingReceiveCallback_Parent
       address:
         EU: 0x22C16E0
+        NA: 0x22C0ECC
+        JP: 0x22C2678
     - name: WmDataSharingReceiveCallback_Child
       address:
         EU: 0x22C180C
+        NA: 0x22C0FF8
+        JP: 0x22C27A4
     - name: WmDataSharingReceiveData
       address:
         EU: 0x22C1900
+        NA: 0x22C10EC
+        JP: 0x22C2898
     - name: WmDataSharingSendDataSet
       address:
         EU: 0x22C19CC
+        NA: 0x22C11B8
+        JP: 0x22C2964
     - name: WM_GetSharedDataAddress
       address:
         EU: 0x22C1B20
+        NA: 0x22C130C
+        JP: 0x22C2AB8
     - name: WmGetSharedDataAddress
       address:
         EU: 0x22C1B74
+        NA: 0x22C1360
+        JP: 0x22C2B0C
     - name: WM_StartKeySharing
       address:
         EU: 0x22C1BA4
+        NA: 0x22C1390
+        JP: 0x22C2B3C
     - name: WM_SetWepKey
       address:
         EU: 0x22C1BCC
+        NA: 0x22C13B8
+        JP: 0x22C2B64
     - name: WM_SetWepKeyEx
       address:
         EU: 0x22C1C40
+        NA: 0x22C142C
+        JP: 0x22C2BD8
     - name: WM_SetGameInfo
       address:
         EU: 0x22C1CBC
+        NA: 0x22C14A8
+        JP: 0x22C2C54
     - name: WM_SetBeaconIndication
       address:
         EU: 0x22C1D74
+        NA: 0x22C1560
+        JP: 0x22C2D0C
     - name: WM_SetLifeTime
       address:
         EU: 0x22C1DC4
+        NA: 0x22C15B0
+        JP: 0x22C2D5C
     - name: WM_MeasureChannel
       address:
         EU: 0x22C1E24
+        NA: 0x22C1610
+        JP: 0x22C2DBC
     - name: WM_InitWirelessCounter
       address:
         EU: 0x22C1E9C
+        NA: 0x22C1688
+        JP: 0x22C2E34
     - name: reset_network_vars
       address:
         EU: 0x22C8948
+        NA: 0x22C8134
+        JP: 0x22C98E0
     - name: OS_YieldThread2
       address:
         EU: 0x22C8A4C
+        NA: 0x22C8238
+        JP: 0x22C99E4
     - name: default_link_is_on
       address:
         EU: 0x22C8A78
+        NA: 0x22C8264
+        JP: 0x22C9A10
     - name: Cps_Startup
       address:
         EU: 0x22C8A80
+        NA: 0x22C826C
+        JP: 0x22C9A18
     - name: Cps_CalmDown
       address:
         EU: 0x22C8CBC
+        NA: 0x22C84A8
+        JP: 0x22C9C54
     - name: Cps_SetScavengerCallback
       address:
         EU: 0x22C8D0C
+        NA: 0x22C84F8
+        JP: 0x22C9CA4
     - name: Cps_Cleanup
       address:
         EU: 0x22C8D1C
+        NA: 0x22C8508
+        JP: 0x22C9CB4
     - name: Cps_SetThreadPriority
       address:
         EU: 0x22C8D64
+        NA: 0x22C8550
+        JP: 0x22C9CFC
     - name: calc_checksum_do
       address:
         EU: 0x22C8D9C
+        NA: 0x22C8588
+        JP: 0x22C9D34
     - name: invert_checksum
       address:
         EU: 0x22C8E50
+        NA: 0x22C863C
+        JP: 0x22C9DE8
     - name: calc_checksum
       address:
         EU: 0x22C8E6C
+        NA: 0x22C8658
+        JP: 0x22C9E04
     - name: check_tcpudpsum
       address:
         EU: 0x22C8E88
+        NA: 0x22C8674
+        JP: 0x22C9E20
     - name: ip_islocal
       address:
         EU: 0x22C8ED8
+        NA: 0x22C86C4
+        JP: 0x22C9E70
     - name: get_targetip
       address:
         EU: 0x22C8F18
+        NA: 0x22C8704
+        JP: 0x22C9EB0
     - name: is_broadcast
       address:
         EU: 0x22C8F3C
+        NA: 0x22C8728
+        JP: 0x22C9ED4
     - name: is_multicast
       address:
         EU: 0x22C8F78
+        NA: 0x22C8764
+        JP: 0x22C9F10
     - name: ip_isme
       address:
         EU: 0x22C8F8C
+        NA: 0x22C8778
+        JP: 0x22C9F24
     - name: maccmp
       address:
         EU: 0x22C900C
+        NA: 0x22C87F8
+        JP: 0x22C9FA4
     - name: send_packet
       address:
         EU: 0x22C9038
+        NA: 0x22C8824
+        JP: 0x22C9FD0
     - name: put_in_buffer
       address:
         EU: 0x22C9094
+        NA: 0x22C8880
+        JP: 0x22CA02C
     - name: Cpsi_RecvCallbackFunc
       address:
         EU: 0x22C9288
+        NA: 0x22C8A74
+        JP: 0x22CA220
     - name: receive_packet
       address:
         EU: 0x22C92E0
+        NA: 0x22C8ACC
+        JP: 0x22CA278
     - name: throw_packet
       address:
         EU: 0x22C93A0
+        NA: 0x22C8B8C
+        JP: 0x22CA338
     - name: inq_arpcache
       address:
         EU: 0x22C93E4
+        NA: 0x22C8BD0
+        JP: 0x22CA37C
     - name: send_arprequest
       address:
         EU: 0x22C94B4
+        NA: 0x22C8CA0
+        JP: 0x22CA44C
     - name: arprequest
       address:
         EU: 0x22C95B0
+        NA: 0x22C8D9C
+        JP: 0x22CA548
     - name: reg_arpcache
       address:
         EU: 0x22C9620
+        NA: 0x22C8E0C
+        JP: 0x22CA5B8
     - name: send_ether
       address:
         EU: 0x22C975C
+        NA: 0x22C8F48
+        JP: 0x22CA6F4
     - name: send_ip_frag
       address:
         EU: 0x22C982C
+        NA: 0x22C9018
+        JP: 0x22CA7C4
     - name: send_ip
       address:
         EU: 0x22C9954
+        NA: 0x22C9140
+        JP: 0x22CA8EC
     - name: send_ping
       address:
         EU: 0x22C9B4C
+        NA: 0x22C9338
+        JP: 0x22CAAE4
     - name: send_udp
       address:
         EU: 0x22C9BFC
+        NA: 0x22C93E8
+        JP: 0x22CAB94
     - name: send_tcp
       address:
         EU: 0x22C9D38
+        NA: 0x22C9524
+        JP: 0x22CACD0
     - name: reply_arp
       address:
         EU: 0x22C9FAC
+        NA: 0x22C9798
+        JP: 0x22CAF44
     - name: dispatch_arp
       address:
         EU: 0x22CA054
+        NA: 0x22C9840
+        JP: 0x22CAFEC
     - name: reply_icmp
       address:
         EU: 0x22CA198
+        NA: 0x22C9984
+        JP: 0x22CB130
     - name: process_icmp_reply
       address:
         EU: 0x22CA27C
+        NA: 0x22C9A68
+        JP: 0x22CB214
     - name: valid_ip
       address:
         EU: 0x22CA37C
+        NA: 0x22C9B68
+        JP: 0x22CB314
     - name: dispatch_icmp
       address:
         EU: 0x22CA39C
+        NA: 0x22C9B88
+        JP: 0x22CB334
     - name: check_listener
       address:
         EU: 0x22CA46C
+        NA: 0x22C9C58
+        JP: 0x22CB404
     - name: check_socket
       address:
         EU: 0x22CA540
+        NA: 0x22C9D2C
+        JP: 0x22CB4D8
     - name: find_socket
       address:
         EU: 0x22CA5F4
+        NA: 0x22C9DE0
+        JP: 0x22CB58C
     - name: parse_mss
       address:
         EU: 0x22CA658
+        NA: 0x22C9E44
+        JP: 0x22CB5F0
     - name: no_need_inq
       address:
         EU: 0x22CA6DC
+        NA: 0x22C9EC8
+        JP: 0x22CB674
     - name: tcp_send_handshake
       address:
         EU: 0x22CA6F8
+        NA: 0x22C9EE4
+        JP: 0x22CB690
     - name: tcp_send_ack
       address:
         EU: 0x22CA76C
+        NA: 0x22C9F58
+        JP: 0x22CB704
     - name: tcp_send_finack
       address:
         EU: 0x22CA780
+        NA: 0x22C9F6C
+        JP: 0x22CB718
     - name: tcp_send_rst
       address:
         EU: 0x22CA794
+        NA: 0x22C9F80
+        JP: 0x22CB72C
     - name: dt_syn_listen
       address:
         EU: 0x22CA8D0
+        NA: 0x22CA0BC
+        JP: 0x22CB868
     - name: find_specific_socket
       address:
         EU: 0x22CA9BC
+        NA: 0x22CA1A8
+        JP: 0x22CB954
     - name: dt_syn
       address:
         EU: 0x22CAA44
+        NA: 0x22CA230
+        JP: 0x22CB9DC
     - name: dt_synack
       address:
         EU: 0x22CAB1C
+        NA: 0x22CA308
+        JP: 0x22CBAB4
     - name: dt_ack
       address:
         EU: 0x22CAC14
+        NA: 0x22CA400
+        JP: 0x22CBBAC
     - name: dt_fin
       address:
         EU: 0x22CAF2C
+        NA: 0x22CA718
+        JP: 0x22CBEC4
     - name: dt_rst
       address:
         EU: 0x22CAFF8
+        NA: 0x22CA7E4
+        JP: 0x22CBF90
     - name: dispatch_tcp
       address:
         EU: 0x22CB034
+        NA: 0x22CA820
+        JP: 0x22CBFCC
     - name: dispatch_udp
       address:
         EU: 0x22CB154
+        NA: 0x22CA940
+        JP: 0x22CC0EC
     - name: check_frag
       address:
         EU: 0x22CB360
+        NA: 0x22CAB4C
+        JP: 0x22CC2F8
     - name: dispatch_ip
       address:
         EU: 0x22CB62C
+        NA: 0x22CAE18
+        JP: 0x22CC5C4
     - name: tcpip
       address:
         EU: 0x22CB7F0
+        NA: 0x22CAFDC
+        JP: 0x22CC788
     - name: Cps_SocGetEport
       address:
         EU: 0x22CB860
+        NA: 0x22CB04C
+        JP: 0x22CC7F8
     - name: get_seqno
       address:
         EU: 0x22CB908
+        NA: 0x22CB0F4
+        JP: 0x22CC8A0
     - name: Cps_SocRegister
       address:
         EU: 0x22CB94C
+        NA: 0x22CB138
+        JP: 0x22CC8E4
     - name: Cps_SocUnRegister
       address:
         EU: 0x22CB960
+        NA: 0x22CB14C
+        JP: 0x22CC8F8
     - name: Cps_SocDatagramMode
       address:
         EU: 0x22CB978
+        NA: 0x22CB164
+        JP: 0x22CC910
     - name: Cps_SocBind
       address:
         EU: 0x22CB9A4
+        NA: 0x22CB190
+        JP: 0x22CC93C
     - name: Cps_SocUse
       address:
         EU: 0x22CBA04
+        NA: 0x22CB1F0
+        JP: 0x22CC99C
     - name: Cps_SocRelease
       address:
         EU: 0x22CBA38
+        NA: 0x22CB224
+        JP: 0x22CC9D0
     - name: Cps_SocDup
       address:
         EU: 0x22CBA58
+        NA: 0x22CB244
+        JP: 0x22CC9F0
     - name: Cps_SetUdpCallback
       address:
         EU: 0x22CBA70
+        NA: 0x22CB25C
+        JP: 0x22CCA08
     - name: Cpsi_TcpConnectRaw
       address:
         EU: 0x22CBA8C
+        NA: 0x22CB278
+        JP: 0x22CCA24
     - name: Cps_TcpConnect
       address:
         EU: 0x22CBB40
+        NA: 0x22CB32C
+        JP: 0x22CCAD8
     - name: Cpsi_TcpShutdownRaw
       address:
         EU: 0x22CBB80
+        NA: 0x22CB36C
+        JP: 0x22CCB18
     - name: Cps_TcpShutdown
       address:
         EU: 0x22CBBD0
+        NA: 0x22CB3BC
+        JP: 0x22CCB68
     - name: Cps_TcpClose
       address:
         EU: 0x22CBC0C
+        NA: 0x22CB3F8
+        JP: 0x22CCBA4
     - name: udp_read_raw
       address:
         EU: 0x22CBC94
+        NA: 0x22CB480
+        JP: 0x22CCC2C
     - name: Cpsi_TcpReadRaw
       address:
         EU: 0x22CBCE8
+        NA: 0x22CB4D4
+        JP: 0x22CCC80
     - name: Cps_SocRead
       address:
         EU: 0x22CBD64
+        NA: 0x22CB550
+        JP: 0x22CCCFC
     - name: Cpsi_SocConsumeRaw
       address:
         EU: 0x22CBDC8
+        NA: 0x22CB5B4
+        JP: 0x22CCD60
     - name: Cps_SocConsume
       address:
         EU: 0x22CBE58
+        NA: 0x22CB644
+        JP: 0x22CCDF0
     - name: tcp_write_do
       address:
         EU: 0x22CBE90
+        NA: 0x22CB67C
+        JP: 0x22CCE28
     - name: tcp_write_do2
       address:
         EU: 0x22CBF54
+        NA: 0x22CB740
+        JP: 0x22CCEEC
     - name: Cpsi_TcpWrite2Raw
       address:
         EU: 0x22CBF90
+        NA: 0x22CB77C
+        JP: 0x22CCF28
     - name: Cpsi_SocWrite2
       address:
         EU: 0x22CC198
+        NA: 0x22CB984
+        JP: 0x22CD130
     - name: Cps_SocWrite
       address:
         EU: 0x22CC26C
+        NA: 0x22CBA58
+        JP: 0x22CD204
     - name: Cps_SocGetLength
       address:
         EU: 0x22CC304
+        NA: 0x22CBAF0
+        JP: 0x22CD29C
     - name: Cps_SocFlush
       address:
         EU: 0x22CC374
+        NA: 0x22CBB60
+        JP: 0x22CD30C
     - name: set_fixed_ip
       address:
         EU: 0x22CC3B4
+        NA: 0x22CBBA0
+        JP: 0x22CD34C
     - name: scavenger
       address:
         EU: 0x22CC454
+        NA: 0x22CBC40
+        JP: 0x22CD3EC
     - name: dhcp_setcommon
       address:
         EU: 0x22CC7C4
+        NA: 0x22CBFB0
+        JP: 0x22CD75C
     - name: pad_mem
       address:
         EU: 0x22CC950
+        NA: 0x22CC13C
+        JP: 0x22CD8E8
     - name: dhcp_send_discover
       address:
         EU: 0x22CC984
+        NA: 0x22CC170
+        JP: 0x22CD91C
     - name: dhcp_send_request
       address:
         EU: 0x22CCA48
+        NA: 0x22CC234
+        JP: 0x22CD9E0
     - name: dhcp_analyze_response
       address:
         EU: 0x22CCB50
+        NA: 0x22CC33C
+        JP: 0x22CDAE8
     - name: dhcp_discover_server
       address:
         EU: 0x22CCEA0
+        NA: 0x22CC68C
+        JP: 0x22CDE38
     - name: dhcp_request_server
       address:
         EU: 0x22CCEF8
+        NA: 0x22CC6E4
+        JP: 0x22CDE90
     - name: dhcp_release_server
       address:
         EU: 0x22CCFF4
+        NA: 0x22CC7E0
+        JP: 0x22CDF8C
     - name: dns_skipname
       address:
         EU: 0x22CD060
+        NA: 0x22CC84C
+        JP: 0x22CDFF8
     - name: resolve_common
       address:
         EU: 0x22CD090
+        NA: 0x22CC87C
+        JP: 0x22CE028
     - name: strtol10
       address:
         EU: 0x22CD338
+        NA: 0x22CCB24
+        JP: 0x22CE2D0
     - name: rawip
       address:
         EU: 0x22CD36C
+        NA: 0x22CCB58
+        JP: 0x22CE304
     - name: resolve_sub
       address:
         EU: 0x22CD408
+        NA: 0x22CCBF4
+        JP: 0x22CE3A0
     - name: Cps_Resolve
       address:
         EU: 0x22CD46C
+        NA: 0x22CCC58
+        JP: 0x22CE404
     - name: Socl_Startup
       address:
         EU: 0x22CD5A4
@@ -566,162 +924,268 @@ overlay0:
     - name: Socli_StartupSocl
       address:
         EU: 0x22CD5E0
+        NA: 0x22CCDCC
+        JP: 0x22CE578
     - name: Socli_StartupCps
       address:
         EU: 0x22CD620
+        NA: 0x22CCE0C
+        JP: 0x22CE5B8
     - name: Socli_SetMyIP
       address:
         EU: 0x22CD77C
+        NA: 0x22CCF68
+        JP: 0x22CE714
     - name: Socli_DhcpTimeout
       address:
         EU: 0x22CD7E8
+        NA: 0x22CCFD4
+        JP: 0x22CE780
     - name: Socl_LinkIsOn
       address:
         EU: 0x22CD800
+        NA: 0x22CCFEC
+        JP: 0x22CE798
     - name: Socli_StartupCommandPacketQueue
       address:
         EU: 0x22CD818
+        NA: 0x22CD004
+        JP: 0x22CE7B0
     - name: Socli_CleanupCommandPacketQueue
       address:
         EU: 0x22CD8AC
+        NA: 0x22CD098
+        JP: 0x22CE844
     - name: Socli_AllocCommandPacket
       address:
         EU: 0x22CD8F4
+        NA: 0x22CD0E0
+        JP: 0x22CE88C
     - name: Socli_CreateCommandPacket
       address:
         EU: 0x22CD91C
+        NA: 0x22CD108
+        JP: 0x22CE8B4
     - name: Socli_FreeCommandPacket
       address:
         EU: 0x22CD95C
+        NA: 0x22CD148
+        JP: 0x22CE8F4
     - name: Socli_GetCtrlPipe
       address:
         EU: 0x22CD97C
+        NA: 0x22CD168
+        JP: 0x22CE914
     - name: Socli_SendCommandPacket
       address:
         EU: 0x22CD990
+        NA: 0x22CD17C
+        JP: 0x22CE928
     - name: Socli_SendCommandPacketToCtrlPipe
       address:
         EU: 0x22CD9DC
+        NA: 0x22CD1C8
+        JP: 0x22CE974
     - name: Socli_ExecCommandPacket
       address:
         EU: 0x22CD9F4
+        NA: 0x22CD1E0
+        JP: 0x22CE98C
     - name: Socli_ExecCommandPacketInRecvPipe
       address:
         EU: 0x22CDA64
+        NA: 0x22CD250
+        JP: 0x22CE9FC
     - name: Socli_ExecCommandPacketInSendPipe
       address:
         EU: 0x22CDA74
+        NA: 0x22CD260
+        JP: 0x22CEA0C
     - name: Socli_ExecCommandPacketInCtrlPipe
       address:
         EU: 0x22CDA84
+        NA: 0x22CD270
+        JP: 0x22CEA1C
     - name: Socli_CommandPacketHandler
       address:
         EU: 0x22CDA9C
+        NA: 0x22CD288
+        JP: 0x22CEA34
     - name: Socl_CreateSocket
       address:
         EU: 0x22CDB4C
+        NA: 0x22CD338
+        JP: 0x22CEAE4
     - name: Socli_CreateSocketCallBack
       address:
         EU: 0x22CDB88
+        NA: 0x22CD374
+        JP: 0x22CEB20
     - name: Socli_StartupSocket
       address:
         EU: 0x22CDBFC
+        NA: 0x22CD3E8
+        JP: 0x22CEB94
     - name: Socli_GetSizeSocket
       address:
         EU: 0x22CDC64
+        NA: 0x22CD450
+        JP: 0x22CEBFC
     - name: Socli_GetSizeCommandPipe
       address:
         EU: 0x22CDCE4
+        NA: 0x22CD4D0
+        JP: 0x22CEC7C
     - name: Socli_InitSocket
       address:
         EU: 0x22CDD0C
+        NA: 0x22CD4F8
+        JP: 0x22CECA4
     - name: Socli_InitSocketBuffer
       address:
         EU: 0x22CDE08
+        NA: 0x22CD5F4
+        JP: 0x22CEDA0
     - name: Socli_InitCommandPipe
       address:
         EU: 0x22CDE30
+        NA: 0x22CD61C
+        JP: 0x22CEDC8
     - name: Socl_Bind
       address:
         EU: 0x22CDEA4
+        NA: 0x22CD690
+        JP: 0x22CEE3C
     - name: Socl_Connect
       address:
         EU: 0x22CDF14
+        NA: 0x22CD700
+        JP: 0x22CEEAC
     - name: Socli_ExecBindCommand
       address:
         EU: 0x22CDFFC
+        NA: 0x22CD7E8
+        JP: 0x22CEF94
     - name: Socli_BindCallBack
       address:
         EU: 0x22CE054
+        NA: 0x22CD840
+        JP: 0x22CEFEC
     - name: Socl_ReadFrom
       address:
         EU: 0x22CE0D8
+        NA: 0x22CD8C4
+        JP: 0x22CF070
     - name: Socli_ReadAndConsumeBuffer
       address:
         EU: 0x22CE220
+        NA: 0x22CDA0C
+        JP: 0x22CF1B8
     - name: Socli_ReadBuffer
       address:
         EU: 0x22CE2BC
+        NA: 0x22CDAA8
+        JP: 0x22CF254
     - name: Socli_CopyCpsBuffer
       address:
         EU: 0x22CE330
+        NA: 0x22CDB1C
+        JP: 0x22CF2C8
     - name: Socli_ReadCpsBuffer
       address:
         EU: 0x22CE438
+        NA: 0x22CDC24
+        JP: 0x22CF3D0
     - name: Socli_ExecReadCommand
       address:
         EU: 0x22CE4AC
+        NA: 0x22CDC98
+        JP: 0x22CF444
     - name: Socli_ReadCallBack
       address:
         EU: 0x22CE4F8
+        NA: 0x22CDCE4
+        JP: 0x22CF490
     - name: Socli_ConsumeBuffer
       address:
         EU: 0x22CE648
+        NA: 0x22CDE34
+        JP: 0x22CF5E0
     - name: Socli_ConsumeCallBack
       address:
         EU: 0x22CE694
+        NA: 0x22CDE80
+        JP: 0x22CF62C
     - name: Socli_ConsumeCpsBuffer
       address:
         EU: 0x22CE6A4
+        NA: 0x22CDE90
+        JP: 0x22CF63C
     - name: Socli_ReadUdpBuffer
       address:
         EU: 0x22CE6E0
+        NA: 0x22CDECC
+        JP: 0x22CF678
     - name: Socli_UdpRecvCallback
       address:
         EU: 0x22CE824
+        NA: 0x22CE010
+        JP: 0x22CF7BC
     - name: Socl_WriteTo
       address:
         EU: 0x22CE938
+        NA: 0x22CE124
+        JP: 0x22CF8D0
     - name: Socli_WriteBuffer
       address:
         EU: 0x22CEA4C
+        NA: 0x22CE238
+        JP: 0x22CF9E4
     - name: Socli_AllocWriteBuffer
       address:
         EU: 0x22CEB50
+        NA: 0x22CE33C
+        JP: 0x22CFAE8
     - name: Socli_GetWriteBufferFreeSize
       address:
         EU: 0x22CEBD4
+        NA: 0x22CE3C0
+        JP: 0x22CFB6C
     - name: Socli_ExecWriteCommand
       address:
         EU: 0x22CEBF8
+        NA: 0x22CE3E4
+        JP: 0x22CFB90
     - name: Socli_WriteCallBack
       address:
         EU: 0x22CED6C
+        NA: 0x22CE558
+        JP: 0x22CFD04
     - name: Socli_GetOptimumSendBufLen
       address:
         EU: 0x22CEE9C
+        NA: 0x22CE688
+        JP: 0x22CFE34
     - name: Socli_MemCpy
       address:
         EU: 0x22CEF40
+        NA: 0x22CE72C
+        JP: 0x22CFED8
     - name: Socl_Shutdown
       address:
         EU: 0x22CEFD8
+        NA: 0x22CE7C4
+        JP: 0x22CFF70
     - name: Socli_ShutdownCallBack
       address:
         EU: 0x22CF084
+        NA: 0x22CE870
+        JP: 0x22D001C
     - name: Socl_IsClosed
       address:
         EU: 0x22CF0B4
+        NA: 0x22CE8A0
+        JP: 0x22D004C
     - name: close
       address:
         EU: 0x22CF0E8
@@ -735,72 +1199,118 @@ overlay0:
     - name: Socli_CloseCallBack
       address:
         EU: 0x22CF1B8
+        NA: 0x22CE9A4
+        JP: 0x22D0150
     - name: Socli_CleanupSocket
       address:
         EU: 0x22CF250
+        NA: 0x22CEA3C
+        JP: 0x22D01E8
     - name: Socli_FreeCommandPipe
       address:
         EU: 0x22CF350
+        NA: 0x22CEB3C
+        JP: 0x22D02E8
     - name: Socli_TrashSocket
       address:
         EU: 0x22CF3F0
+        NA: 0x22CEBDC
+        JP: 0x22D0388
     - name: Soc_Cleanup
       address:
         EU: 0x22CF42C
+        NA: 0x22CEC18
+        JP: 0x22D03C4
     - name: Socl_CloseAll
       address:
         EU: 0x22CF4D0
+        NA: 0x22CECBC
+        JP: 0x22D0468
     - name: Socl_CalmDown
       address:
         EU: 0x22CF578
+        NA: 0x22CED64
+        JP: 0x22D0510
     - name: Socl_Resolve
       address:
         EU: 0x22CF5F4
+        NA: 0x22CEDE0
+        JP: 0x22D058C
     - name: Socl_InetAtoH
       address:
         EU: 0x22CF6A4
+        NA: 0x22CEE90
+        JP: 0x22D063C
     - name: Socl_SetResolver
       address:
         EU: 0x22CF6F0
+        NA: 0x22CEEDC
+        JP: 0x22D0688
     - name: Socl_GetHostID
       address:
         EU: 0x22CF724
+        NA: 0x22CEF10
+        JP: 0x22D06BC
     - name: Socl_GetStatus
       address:
         EU: 0x22CF78C
+        NA: 0x22CEF78
+        JP: 0x22D0724
     - name: Socli_GetReadBufferOccpiedSize
       address:
         EU: 0x22CF85C
+        NA: 0x22CF048
+        JP: 0x22D07F4
     - name: Socli_RoundUp4
       address:
         EU: 0x22CF8A4
+        NA: 0x22CF090
+        JP: 0x22D083C
     - name: Socli_SocketRegister
       address:
         EU: 0x22CF8B0
+        NA: 0x22CF09C
+        JP: 0x22D0848
     - name: Socli_SocketRegisterList
       address:
         EU: 0x22CF8C8
+        NA: 0x22CF0B4
+        JP: 0x22D0860
     - name: Socli_SocketRegisterTrash
       address:
         EU: 0x22CF8D8
+        NA: 0x22CF0C4
+        JP: 0x22D0870
     - name: Socli_SocketUnregister
       address:
         EU: 0x22CF8F0
+        NA: 0x22CF0DC
+        JP: 0x22D0888
     - name: Socli_SocketUnregisterList
       address:
         EU: 0x22CF908
+        NA: 0x22CF0F4
+        JP: 0x22D08A0
     - name: Socli_SocketGetNextPtr
       address:
         EU: 0x22CF924
+        NA: 0x22CF110
+        JP: 0x22D08BC
     - name: Socli_SocketUnregisterTrash
       address:
         EU: 0x22CF950
+        NA: 0x22CF13C
+        JP: 0x22D08E8
     - name: Socl_SocketIsInvalid
       address:
         EU: 0x22CF968
+        NA: 0x22CF154
+        JP: 0x22D0900
     - name: Socl_SocketIsInTrash
       address:
         EU: 0x22CF99C
+        NA: 0x22CF188
+        JP: 0x22D0934
     - name: socket
       address:
         EU: 0x22CF9C0
@@ -894,6 +1404,8 @@ overlay0:
     - name: Soc_Shutdown
       address:
         EU: 0x22CFBD0
+        NA: 0x22CF3BC
+        JP: 0x22D0B68
     - name: Soc_Close
       aliases:
         - CloseVeneer
@@ -911,15 +1423,23 @@ overlay0:
     - name: Soc_GetHostByName
       address:
         EU: 0x22CFBE8
+        NA: 0x22CF3D4
+        JP: 0x22D0B80
     - name: Soc_GetSockName
       address:
         EU: 0x22CFCA8
+        NA: 0x22CF494
+        JP: 0x22D0C40
     - name: Soc_GetHostID
       address:
         EU: 0x22CFD3C
+        NA: 0x22CF528
+        JP: 0x22D0CD4
     - name: Soc_SetResolver
       address:
         EU: 0x22CFD74
+        NA: 0x22CF560
+        JP: 0x22D0D0C
     - name: Soc_Fcntl
       aliases:
         - fcntl
@@ -937,9 +1457,13 @@ overlay0:
     - name: AllocFunc
       address:
         EU: 0x22CFE30
+        NA: 0x22CF61C
+        JP: 0x22D0DC8
     - name: FreeFunc
       address:
         EU: 0x22CFE5C
+        NA: 0x22CF648
+        JP: 0x22D0DF4
     - name: Soc_Startup
       address:
         EU: 0x22CFE88
@@ -948,516 +1472,858 @@ overlay0:
     - name: Soc_InetNtoA
       address:
         EU: 0x22D0008
+        NA: 0x22CF7F4
+        JP: 0x22D0FA0
     - name: Soc_InetAtoN
       address:
         EU: 0x22D0038
+        NA: 0x22CF824
+        JP: 0x22D0FD0
     - name: Soc_InetNtoP
       address:
         EU: 0x22D0088
+        NA: 0x22CF874
+        JP: 0x22D1020
     - name: Soc_U32to4U8
       address:
         EU: 0x22D010C
+        NA: 0x22CF8F8
+        JP: 0x22D10A4
     - name: Soc_Poll
       address:
         EU: 0x22D012C
+        NA: 0x22CF918
+        JP: 0x22D10C4
     - name: Socl_EnableSsl
       address:
         EU: 0x22D01E0
+        NA: 0x22CF9CC
+        JP: 0x22D1178
     - name: Socli_ExecEnableSslCommand
       address:
         EU: 0x22D0260
+        NA: 0x22CFA4C
+        JP: 0x22D11F8
     - name: Socli_EnableSslCallBack
       address:
         EU: 0x22D029C
+        NA: 0x22CFA88
+        JP: 0x22D1234
     - name: find_session_from_id
       address:
         EU: 0x22D0300
+        NA: 0x22CFAEC
+        JP: 0x22D1298
     - name: find_session_from_ip
       address:
         EU: 0x22D0394
+        NA: 0x22CFB80
+        JP: 0x22D132C
     - name: cache_session
       address:
         EU: 0x22D0434
+        NA: 0x22CFC20
+        JP: 0x22D13CC
     - name: purge_session
       address:
         EU: 0x22D0520
+        NA: 0x22CFD0C
+        JP: 0x22D14B8
     - name: date2sec
       address:
         EU: 0x22D0588
+        NA: 0x22CFD74
+        JP: 0x22D1520
     - name: Cps_GetSslLowThreadPriority
       address:
         EU: 0x22D05C0
+        NA: 0x22CFDAC
+        JP: 0x22D1558
     - name: Cps_SetSslLowThreadPriority
       address:
         EU: 0x22D05D0
+        NA: 0x22CFDBC
+        JP: 0x22D1568
     - name: enter_computebound
       address:
         EU: 0x22D05E0
+        NA: 0x22CFDCC
+        JP: 0x22D1578
     - name: exit_computebound
       address:
         EU: 0x22D062C
+        NA: 0x22CFE18
+        JP: 0x22D15C4
     - name: Cps_SetRootCa
       address:
         EU: 0x22D0650
+        NA: 0x22CFE3C
+        JP: 0x22D15E8
     - name: Get_RootCA
       address:
         EU: 0x22D0678
+        NA: 0x22CFE64
+        JP: 0x22D1610
     - name: cert_item_len
       address:
         EU: 0x22D06C4
+        NA: 0x22CFEB0
+        JP: 0x22D165C
     - name: make_dn
       address:
         EU: 0x22D0714
+        NA: 0x22CFF00
+        JP: 0x22D16AC
     - name: parse_time
       address:
         EU: 0x22D0780
+        NA: 0x22CFF6C
+        JP: 0x22D1718
     - name: cert_item
       address:
         EU: 0x22D0800
+        NA: 0x22CFFEC
+        JP: 0x22D1798
     - name: validate_signature
       address:
         EU: 0x22D0CF0
+        NA: 0x22D04DC
+        JP: 0x22D1C88
     - name: auth_cert
       address:
         EU: 0x22D0E98
+        NA: 0x22D0684
+        JP: 0x22D1E30
     - name: chars_till_end
       address:
         EU: 0x22D0F7C
+        NA: 0x22D0768
+        JP: 0x22D1F14
     - name: compare_fqdn
       address:
         EU: 0x22D0FA0
+        NA: 0x22D078C
+        JP: 0x22D1F38
     - name: rcv_certificate
       address:
         EU: 0x22D100C
+        NA: 0x22D07F8
+        JP: 0x22D1FA4
     - name: rcv_server_hello
       address:
         EU: 0x22D1230
+        NA: 0x22D0A1C
+        JP: 0x22D21C8
     - name: has_method
       address:
         EU: 0x22D12E4
+        NA: 0x22D0AD0
+        JP: 0x22D227C
     - name: select_method
       address:
         EU: 0x22D1330
+        NA: 0x22D0B1C
+        JP: 0x22D22C8
     - name: version_ok
       address:
         EU: 0x22D1390
+        NA: 0x22D0B7C
+        JP: 0x22D2328
     - name: client_hello_v2
       address:
         EU: 0x22D13A0
+        NA: 0x22D0B8C
+        JP: 0x22D2338
     - name: decrypt_premaster_secret
       address:
         EU: 0x22D1504
+        NA: 0x22D0CF0
+        JP: 0x22D249C
     - name: create_ms_sub
       address:
         EU: 0x22D1744
+        NA: 0x22D0F30
+        JP: 0x22D26DC
     - name: create_master_secret
       address:
         EU: 0x22D17E0
+        NA: 0x22D0FCC
+        JP: 0x22D2778
     - name: create_key_block
       address:
         EU: 0x22D1840
+        NA: 0x22D102C
+        JP: 0x22D27D8
     - name: rcv_client_key_exchange
       address:
         EU: 0x22D1A0C
+        NA: 0x22D11F8
+        JP: 0x22D29A4
     - name: finished_md5
       address:
         EU: 0x22D1A48
+        NA: 0x22D1234
+        JP: 0x22D29E0
     - name: finished_sha1
       address:
         EU: 0x22D1B24
+        NA: 0x22D1310
+        JP: 0x22D2ABC
     - name: rcv_finished
       address:
         EU: 0x22D1C00
+        NA: 0x22D13EC
+        JP: 0x22D2B98
     - name: add1_be8
       address:
         EU: 0x22D1CC0
+        NA: 0x22D14AC
+        JP: 0x22D2C58
     - name: decrypt
       address:
         EU: 0x22D1CE4
+        NA: 0x22D14D0
+        JP: 0x22D2C7C
     - name: make_plaintext
       address:
         EU: 0x22D1CFC
+        NA: 0x22D14E8
+        JP: 0x22D2C94
     - name: make_ciphertext
       address:
         EU: 0x22D1F2C
+        NA: 0x22D1718
+        JP: 0x22D2EC4
     - name: tcp_read_raw_nbytes
       address:
         EU: 0x22D2130
+        NA: 0x22D191C
+        JP: 0x22D30C8
     - name: update_digest
       address:
         EU: 0x22D219C
+        NA: 0x22D1988
+        JP: 0x22D3134
     - name: parse_record_in_buf
       address:
         EU: 0x22D21C8
+        NA: 0x22D19B4
+        JP: 0x22D3160
     - name: parse_record
       address:
         EU: 0x22D2448
+        NA: 0x22D1C34
+        JP: 0x22D33E0
     - name: set_random
       address:
         EU: 0x22D25E8
+        NA: 0x22D1DD4
+        JP: 0x22D3580
     - name: Cps_SslAddRandomSeed
       address:
         EU: 0x22D2718
+        NA: 0x22D1F04
+        JP: 0x22D36B0
     - name: send_change_cipher_spec_and_finished
       address:
         EU: 0x22D2788
+        NA: 0x22D1F74
+        JP: 0x22D3720
     - name: send_client_hello
       address:
         EU: 0x22D28E0
+        NA: 0x22D20CC
+        JP: 0x22D3878
     - name: send_client_key_exchange
       address:
         EU: 0x22D2A74
+        NA: 0x22D2260
+        JP: 0x22D3A0C
     - name: mustget_change_cipher_spec_and_finished
       address:
         EU: 0x22D2D34
+        NA: 0x22D2520
+        JP: 0x22D3CCC
     - name: ssl_listen_try
       address:
         EU: 0x22D2D64
+        NA: 0x22D2550
+        JP: 0x22D3CFC
     - name: Cpsi_SslConnect
       address:
         EU: 0x22D2E30
+        NA: 0x22D261C
+        JP: 0x22D3DC8
     - name: Cpsi_SslRead
       address:
         EU: 0x22D2E84
+        NA: 0x22D2670
+        JP: 0x22D3E1C
     - name: Cpsi_SslConsume
       address:
         EU: 0x22D2F5C
+        NA: 0x22D2748
+        JP: 0x22D3EF4
     - name: try_fill_record
       address:
         EU: 0x22D2FAC
+        NA: 0x22D2798
+        JP: 0x22D3F44
     - name: Cpsi_SslGetLength
       address:
         EU: 0x22D30F0
+        NA: 0x22D28DC
+        JP: 0x22D4088
     - name: Cpsi_SslWrite2
       address:
         EU: 0x22D316C
+        NA: 0x22D2958
+        JP: 0x22D4104
     - name: Cpsi_SslShutdown
       address:
         EU: 0x22D32A0
+        NA: 0x22D2A8C
+        JP: 0x22D4238
     - name: Cpsi_SslClose
       address:
         EU: 0x22D3320
+        NA: 0x22D2B0C
+        JP: 0x22D42B8
     - name: Cps_SetSsl
       address:
         EU: 0x22D3358
+        NA: 0x22D2B44
+        JP: 0x22D42F0
     - name: Cpsi_SslPeriodical
       address:
         EU: 0x22D3388
+        NA: 0x22D2B74
+        JP: 0x22D4320
     - name: Cpsi_SslCleanup
       address:
         EU: 0x22D3468
+        NA: 0x22D2C54
+        JP: 0x22D4400
     - name: char_from_long_md5
       address:
         EU: 0x22D3484
+        NA: 0x22D2C70
+        JP: 0x22D441C
     - name: long_from_char_md5
       address:
         EU: 0x22D349C
+        NA: 0x22D2C88
+        JP: 0x22D4434
     - name: Cpsi_Md5_Block
       address:
         EU: 0x22D34B4
+        NA: 0x22D2CA0
+        JP: 0x22D444C
     - name: Cpsi_Md5_Init
       address:
         EU: 0x22D38D0
+        NA: 0x22D30BC
+        JP: 0x22D4868
     - name: Cpsi_Md5_Calc
       address:
         EU: 0x22D3918
+        NA: 0x22D3104
+        JP: 0x22D48B0
     - name: Cpsi_Md5_Result
       address:
         EU: 0x22D39D0
+        NA: 0x22D31BC
+        JP: 0x22D4968
     - name: Cpsi_Sha1_Block_Helper
       address:
         EU: 0x22D3A38
+        NA: 0x22D3224
+        JP: 0x22D49D0
       description: Also known as R.
     - name: char_from_long_sha1
       address:
         EU: 0x22D3A7C
+        NA: 0x22D3268
+        JP: 0x22D4A14
     - name: long_from_char_sha1
       address:
         EU: 0x22D3AC0
+        NA: 0x22D32AC
+        JP: 0x22D4A58
     - name: Cpsi_Sha1_Block
       address:
         EU: 0x22D3B08
+        NA: 0x22D32F4
+        JP: 0x22D4AA0
     - name: Cpsi_Sha1_Init
       address:
         EU: 0x22D4190
+        NA: 0x22D397C
+        JP: 0x22D5128
     - name: Cpsi_Sha1_Calc
       address:
         EU: 0x22D41E4
+        NA: 0x22D39D0
+        JP: 0x22D517C
     - name: Cpsi_Sha1_Result
       address:
         EU: 0x22D429C
+        NA: 0x22D3A88
+        JP: 0x22D5234
     - name: Cpsi_Sha1_Result_Prng
       address:
         EU: 0x22D4304
+        NA: 0x22D3AF0
+        JP: 0x22D529C
     - name: Cpsi_Rc4_Init
       address:
         EU: 0x22D4334
+        NA: 0x22D3B20
+        JP: 0x22D52CC
     - name: Cpsi_Rc4_Crypt
       address:
         EU: 0x22D43A8
+        NA: 0x22D3B94
+        JP: 0x22D5340
     - name: count_digits
       address:
         EU:
           - 0x22D4414
           - 0x22D441C
+        NA:
+          - 0x22D3C00
+        JP:
+          - 0x22D53AC
     - name: Cpsi_Big_Sign
       address:
         EU: 0x22D443C
+        NA: 0x22D3C28
+        JP: 0x22D53D4
     - name: Cpsi_Big_Add
       address:
         EU: 0x22D446C
+        NA: 0x22D3C58
+        JP: 0x22D5404
     - name: Cpsi_Big_Add_Small
       address:
         EU: 0x22D4508
+        NA: 0x22D3CF4
+        JP: 0x22D54A0
     - name: Cpsi_Big_Negate
       address:
         EU: 0x22D456C
+        NA: 0x22D3D58
+        JP: 0x22D5504
     - name: Cpsi_Big_Sub
       address:
         EU: 0x22D45AC
+        NA: 0x22D3D98
+        JP: 0x22D5544
     - name: Cpsi_Big_Sub_Small
       address:
         EU: 0x22D4654
+        NA: 0x22D3E40
+        JP: 0x22D55EC
     - name: Cpsi_Big_Compare
       address:
         EU: 0x22D46BC
+        NA: 0x22D3EA8
+        JP: 0x22D5654
     - name: Cpsi_Big_Add_Part
       address:
         EU: 0x22D46F4
+        NA: 0x22D3EE0
+        JP: 0x22D568C
     - name: Cpsi_Big_Mult
       address:
         EU: 0x22D4728
+        NA: 0x22D3F14
+        JP: 0x22D56C0
     - name: Cpsi_Big_Mult_Small
       address:
         EU: 0x22D47D4
+        NA: 0x22D3FC0
+        JP: 0x22D576C
     - name: Cpsi_Big_Sqr
       address:
         EU: 0x22D484C
+        NA: 0x22D4038
+        JP: 0x22D57E4
     - name: get48bits_1
       address:
         EU: 0x22D4980
+        NA: 0x22D416C
+        JP: 0x22D5918
     - name: get48bits_2
       address:
         EU: 0x22D498C
+        NA: 0x22D4178
+        JP: 0x22D5924
     - name: get48bits_3
       address:
         EU: 0x22D499C
+        NA: 0x22D4188
+        JP: 0x22D5934
     - name: get64bits
       address:
         EU: 0x22D49B0
+        NA: 0x22D419C
+        JP: 0x22D5948
     - name: Cpsi_Big_Div
       address:
         EU: 0x22D49CC
+        NA: 0x22D41B8
+        JP: 0x22D5964
     - name: Cpsi_Big_Power
       address:
         EU: 0x22D4BAC
+        NA: 0x22D4398
+        JP: 0x22D5B44
     - name: Cpsi_Big_Modinv
       address:
         EU: 0x22D4D40
+        NA: 0x22D452C
+        JP: 0x22D5CD8
     - name: Cpsi_Big_Montmult
       address:
         EU: 0x22D4E8C
+        NA: 0x22D4678
+        JP: 0x22D5E24
     - name: Cpsi_Big_Montpower
       address:
         EU: 0x22D4FB4
+        NA: 0x22D47A0
+        JP: 0x22D5F4C
     - name: Cpsi_Big_From_Char
       address:
         EU: 0x22D51C0
+        NA: 0x22D49AC
+        JP: 0x22D6158
     - name: Cpsi_Char_From_Big
       address:
         EU: 0x22D521C
+        NA: 0x22D4A08
+        JP: 0x22D61B4
     - name: MD5_InitVeneer
       address:
         EU: 0x22D5260
+        NA: 0x22D4A4C
+        JP: 0x22D61F8
     - name: MD5_UpdateVeneer
       address:
         EU: 0x22D526C
+        NA: 0x22D4A58
+        JP: 0x22D6204
     - name: MD5_DigestVeneer
       address:
         EU: 0x22D5278
+        NA: 0x22D4A64
+        JP: 0x22D6210
     - name: Wcm_Init
       address:
         EU: 0x22D5284
+        NA: 0x22D4A70
+        JP: 0x22D621C
     - name: Wcm_Finish
       address:
         EU: 0x22D539C
+        NA: 0x22D4B88
+        JP: 0x22D6334
     - name: Wcm_StartupAsync
       address:
         EU: 0x22D53F4
+        NA: 0x22D4BE0
+        JP: 0x22D638C
     - name: Wcm_CleanupAsync
       address:
         EU: 0x22D55F8
+        NA: 0x22D4DE4
+        JP: 0x22D6590
     - name: Wcm_SearchAsync
       address:
         EU: 0x22D56E8
+        NA: 0x22D4ED4
+        JP: 0x22D6680
     - name: Wcm_BeginSearchAsync
       address:
         EU: 0x22D5708
+        NA: 0x22D4EF4
+        JP: 0x22D66A0
     - name: Wcm_EndSearchAsync
       address:
         EU: 0x22D5880
+        NA: 0x22D506C
+        JP: 0x22D6818
     - name: Wcm_ConnectAsync
       address:
         EU: 0x22D5924
+        NA: 0x22D5110
+        JP: 0x22D68BC
     - name: Wcm_DisconnectAsync
       address:
         EU: 0x22D5B28
+        NA: 0x22D5314
+        JP: 0x22D6AC0
     - name: Wcm_TerminateAsync
       address:
         EU: 0x22D5C44
+        NA: 0x22D5430
+        JP: 0x22D6BDC
     - name: Wcm_GetPhase
       address:
         EU: 0x22D5E54
+        NA: 0x22D5640
+        JP: 0x22D6DEC
     - name: Wcm_UpdateOption
       address:
         EU: 0x22D5E84
+        NA: 0x22D5670
+        JP: 0x22D6E1C
     - name: Wcmi_GetSystemWork
       address:
         EU: 0x22D5F20
+        NA: 0x22D570C
+        JP: 0x22D6EB8
     - name: WcmConfigure
       address:
         EU: 0x22D5F30
+        NA: 0x22D571C
+        JP: 0x22D6EC8
     - name: WcmEditScanExParam
       address:
         EU: 0x22D6050
+        NA: 0x22D583C
+        JP: 0x22D6FE8
     - name: WcmInitOption
       address:
         EU: 0x22D61E8
+        NA: 0x22D59D4
+        JP: 0x22D7180
     - name: WcmGetNextScanChannel
       address:
         EU: 0x22D6208
+        NA: 0x22D59F4
+        JP: 0x22D71A0
     - name: WcmNotify
       address:
         EU: 0x22D6298
+        NA: 0x22D5A84
+        JP: 0x22D7230
     - name: WcmNotifyEx
       address:
         EU: 0x22D62DC
+        NA: 0x22D5AC8
+        JP: 0x22D7274
     - name: WcmSetPhase
       address:
         EU: 0x22D6330
+        NA: 0x22D5B1C
+        JP: 0x22D72C8
     - name: Wcmi_ResetKeepAliveAlarm
       address:
         EU: 0x22D63C8
+        NA: 0x22D5BB4
+        JP: 0x22D7360
     - name: WcmKeepAliveAlarm
       address:
         EU: 0x22D643C
+        NA: 0x22D5C28
+        JP: 0x22D73D4
     - name: WcmCountBits
       address:
         EU: 0x22D644C
+        NA: 0x22D5C38
+        JP: 0x22D73E4
     - name: WcmCountLeadingZero
       address:
         EU: 0x22D6478
+        NA: 0x22D5C64
+        JP: 0x22D7410
     - name: WcmWmReset
       address:
         EU: 0x22D6480
+        NA: 0x22D5C6C
+        JP: 0x22D7418
     - name: WcmWmcbIndication
       address:
         EU: 0x22D64DC
+        NA: 0x22D5CC8
+        JP: 0x22D7474
     - name: WcmWmcbCommon
       address:
         EU: 0x22D6554
+        NA: 0x22D5D40
+        JP: 0x22D74EC
     - name: WcmWmcbScanEx
       address:
         EU: 0x22D6810
+        NA: 0x22D5FFC
+        JP: 0x22D77A8
     - name: WcmWmcbEndScan
       address:
         EU: 0x22D6AF4
+        NA: 0x22D62E0
+        JP: 0x22D7A8C
     - name: WcmWmcbConnect
       address:
         EU: 0x22D6B6C
+        NA: 0x22D6358
+        JP: 0x22D7B04
     - name: WcmWmcbDisconnect
       address:
         EU: 0x22D6DD0
+        NA: 0x22D65BC
+        JP: 0x22D7D68
     - name: WcmWmcbStartDcf
       address:
         EU: 0x22D6E98
+        NA: 0x22D6684
+        JP: 0x22D7E30
     - name: WcmWmcbEndDcf
       address:
         EU: 0x22D6FA8
+        NA: 0x22D6794
+        JP: 0x22D7F40
     - name: WcmWmcbReset
       address:
         EU: 0x22D70C4
+        NA: 0x22D68B0
+        JP: 0x22D805C
     - name: Wcm_ClearApList
       address:
         EU: 0x22D73F0
+        NA: 0x22D6BDC
+        JP: 0x22D8388
     - name: Wcm_CountApList
       address:
         EU: 0x22D7444
+        NA: 0x22D6C30
+        JP: 0x22D83DC
     - name: Wcm_LockApList
       address:
         EU: 0x22D749C
+        NA: 0x22D6C88
+        JP: 0x22D8434
     - name: Wcm_PointApList
       address:
         EU: 0x22D7518
+        NA: 0x22D6D04
+        JP: 0x22D84B0
     - name: Wcmi_EntryApList
       address:
         EU: 0x22D7570
+        NA: 0x22D6D5C
+        JP: 0x22D8508
     - name: WcmAllocApList
       address:
         EU: 0x22D75FC
+        NA: 0x22D6DE8
+        JP: 0x22D8594
     - name: WcmGetOldestApList
       address:
         EU: 0x22D76C8
+        NA: 0x22D6EB4
+        JP: 0x22D8660
     - name: WcmSearchApList
       address:
         EU: 0x22D76F8
+        NA: 0x22D6EE4
+        JP: 0x22D8690
     - name: WcmSearchIndexedApList
       address:
         EU: 0x22D7764
+        NA: 0x22D6F50
+        JP: 0x22D86FC
     - name: WcmAppendApList
       address:
         EU: 0x22D77B4
+        NA: 0x22D6FA0
+        JP: 0x22D874C
     - name: Wcmi_InitCpsif
       address:
         EU: 0x22D7870
+        NA: 0x22D705C
+        JP: 0x22D8808
     - name: Wcmi_CpsifRecvCallback
       address:
         EU: 0x22D78B0
+        NA: 0x22D709C
+        JP: 0x22D8848
     - name: Wcmi_CpsifSendNullPacket
       address:
         EU: 0x22D78E4
+        NA: 0x22D70D0
+        JP: 0x22D887C
     - name: Wcm_GetApMacAddress
       address:
         EU: 0x22D7954
+        NA: 0x22D7140
+        JP: 0x22D88EC
     - name: Wcm_GetApEssid
       address:
         EU: 0x22D7998
+        NA: 0x22D7184
+        JP: 0x22D8930
     - name: Wcm_SetRecvDcfCallback
       address:
         EU: 0x22D79F8
+        NA: 0x22D71E4
+        JP: 0x22D8990
     - name: Wcm_SendDcfData
       address:
         EU: 0x22D7A18
+        NA: 0x22D7204
+        JP: 0x22D89B0
     - name: WcmCpsifWmCallback
       address:
         EU: 0x22D7BA0
+        NA: 0x22D738C
+        JP: 0x22D8B38
     - name: WcmCpsifKaCallback
       address:
         EU: 0x22D7BE0
+        NA: 0x22D73CC
+        JP: 0x22D8B78
     - name: WcmCpsifTryLockMutexInIrq
       address:
         EU: 0x22D7BF4
+        NA: 0x22D73E0
+        JP: 0x22D8B8C
     - name: WcmCpsifUnlockMutexInIrq
       address:
         EU: 0x22D7C44
+        NA: 0x22D7430
+        JP: 0x22D8BDC
     - name: Wcm_CompareBssID
       address:
         EU: 0x22D7C7C
+        NA: 0x22D7468
+        JP: 0x22D8C14
     - name: Wcm_GetLinkLevel
       address:
         EU: 0x22D7CA8
+        NA: 0x22D7494
+        JP: 0x22D8C40
     - name: Wcmi_GetRssiAverage
       address:
         EU: 0x22D7CEC
+        NA: 0x22D74D8
+        JP: 0x22D8C84
     - name: WcmGetLinkLevel
       address:
         EU: 0x22D7D6C
+        NA: 0x22D7558
+        JP: 0x22D8D04
     - name: Wcmi_ShelterRssi
       address:
         EU: 0x22D7DA0
+        NA: 0x22D758C
+        JP: 0x22D8D38
     - name: Dwc_AC_Create
       address:
         EU: 0x22D7E00
+        NA: 0x22D75EC
+        JP: 0x22D8D98
     - name: Dwc_AC_Process
       aliases:
         - InitWfc
@@ -1472,800 +2338,1334 @@ overlay0:
     - name: Dwc_AC_GetStatus
       address:
         EU: 0x22D8078
+        NA: 0x22D7864
+        JP: 0x22D9010
     - name: Dwc_AC_GetApType
       address:
         EU: 0x22D80E4
+        NA: 0x22D78D0
+        JP: 0x22D907C
     - name: Dwc_AC_GetApData
       address:
         EU: 0x22D8114
+        NA: 0x22D7900
+        JP: 0x22D90AC
     - name: Dwc_AC_Destroy
       address:
         EU: 0x22D816C
+        NA: 0x22D7958
+        JP: 0x22D9104
     - name: Dwc_AC_SetSpecifyAp
       address:
         EU: 0x22D81A8
+        NA: 0x22D7994
+        JP: 0x22D9140
     - name: Dwc_AC_CheckWiFiStation
       address:
         EU: 0x22D820C
+        NA: 0x22D79F8
+        JP: 0x22D91A4
     - name: Dwci_AC_InsertApInfo
       address:
         EU: 0x22D82C4
+        NA: 0x22D7AB0
+        JP: 0x22D925C
     - name: Dwci_AC_Alloc
       address:
         EU: 0x22D82F0
+        NA: 0x22D7ADC
+        JP: 0x22D9288
     - name: Dwci_AC_Free
       address:
         EU: 0x22D8330
+        NA: 0x22D7B1C
+        JP: 0x22D92C8
     - name: Dwci_AC_FreeAll
       address:
         EU: 0x22D8394
+        NA: 0x22D7B80
+        JP: 0x22D932C
     - name: Dwci_AC_GetMemPtr
       address:
         EU: 0x22D84B8
+        NA: 0x22D7CA4
+        JP: 0x22D9450
     - name: Dwci_AC_SetPhase
       address:
         EU: 0x22D8510
+        NA: 0x22D7CFC
+        JP: 0x22D94A8
     - name: Dwci_AC_GetPhase
       address:
         EU: 0x22D8570
+        NA: 0x22D7D5C
+        JP: 0x22D9508
     - name: Dwci_AC_SetError
       address:
         EU: 0x22D858C
+        NA: 0x22D7D78
+        JP: 0x22D9524
     - name: Dwci_AC_GetError
       address:
         EU: 0x22D85B0
+        NA: 0x22D7D9C
+        JP: 0x22D9548
     - name: Dwci_AC_SetApType
       address:
         EU: 0x22D85C4
+        NA: 0x22D7DB0
+        JP: 0x22D955C
     - name: Dwci_ConvConnectApType
       address:
         EU: 0x22D866C
+        NA: 0x22D7E58
+        JP: 0x22D9604
     - name: Free_Disused
       address:
         EU: 0x22D867C
+        NA: 0x22D7E68
+        JP: 0x22D9614
     - name: CheckDuplicate
       address:
         EU: 0x22D86B4
+        NA: 0x22D7EA0
+        JP: 0x22D964C
     - name: Dwci_AC_GetBeacon
       address:
         EU: 0x22D8754
+        NA: 0x22D7F40
+        JP: 0x22D96EC
     - name: Dwci_AC_CheckNintendoSsid
       address:
         EU: 0x22D88C0
+        NA: 0x22D80AC
+        JP: 0x22D9858
     - name: CompareList
       address:
         EU: 0x22D8954
+        NA: 0x22D8140
+        JP: 0x22D98EC
     - name: CompareListDiff
       address:
         EU: 0x22D89D0
+        NA: 0x22D81BC
+        JP: 0x22D9968
     - name: AddList
       address:
         EU: 0x22D8A60
+        NA: 0x22D824C
+        JP: 0x22D99F8
     - name: SetDataListTail
       address:
         EU: 0x22D8B28
+        NA: 0x22D8314
+        JP: 0x22D9AC0
     - name: UpDateList
       address:
         EU: 0x22D8B74
+        NA: 0x22D8360
+        JP: 0x22D9B0C
     - name: SortList
       address:
         EU: 0x22D8BE0
+        NA: 0x22D83CC
+        JP: 0x22D9B78
     - name: Dwci_AC_CallBackWcm
       address:
         EU: 0x22D8CD0
+        NA: 0x22D84BC
+        JP: 0x22D9C68
     - name: Dwci_AC_ConnectAP
       address:
         EU: 0x22D8D5C
+        NA: 0x22D8548
+        JP: 0x22D9CF4
     - name: ConnectStart
       address:
         EU: 0x22D8DA0
+        NA: 0x22D858C
+        JP: 0x22D9D38
     - name: ConnectAP
       address:
         EU: 0x22D8E98
+        NA: 0x22D8684
+        JP: 0x22D9E30
     - name: GetConnectType
       address:
         EU: 0x22D8FD4
+        NA: 0x22D87C0
+        JP: 0x22D9F6C
     - name: GetPowerMode
       address:
         EU: 0x22D9170
+        NA: 0x22D895C
+        JP: 0x22DA108
     - name: GetAuthMode
       address:
         EU: 0x22D918C
+        NA: 0x22D8978
+        JP: 0x22DA124
     - name: GetWepKey
       address:
         EU: 0x22D91A8
+        NA: 0x22D8994
+        JP: 0x22DA140
     - name: Dwci_AC_CloseNetwork
       address:
         EU: 0x22D9294
+        NA: 0x22D8A80
+        JP: 0x22DA22C
     - name: DisConnectAP
       address:
         EU: 0x22D931C
+        NA: 0x22D8B08
+        JP: 0x22DA2B4
     - name: CloseSocket
       address:
         EU: 0x22D93AC
+        NA: 0x22D8B98
+        JP: 0x22DA344
     - name: Dwci_AC_Error
       address:
         EU: 0x22D93F4
+        NA: 0x22D8BE0
+        JP: 0x22DA38C
     - name: Dwci_AC_GetResult
       address:
         EU: 0x22D9418
+        NA: 0x22D8C04
+        JP: 0x22DA3B0
     - name: GetProgramaError
       address:
         EU: 0x22D9468
+        NA: 0x22D8C54
+        JP: 0x22DA400
     - name: GetIrregularError
       address:
         EU: 0x22D94AC
+        NA: 0x22D8C98
+        JP: 0x22DA444
     - name: GetNotFoundAP
       address:
         EU: 0x22D94B4
+        NA: 0x22D8CA0
+        JP: 0x22DA44C
     - name: GetNotFoundInet
       address:
         EU: 0x22D94D0
+        NA: 0x22D8CBC
+        JP: 0x22DA468
     - name: Dwci_AC_MakeSearchList
       address:
         EU: 0x22D95E0
+        NA: 0x22D8DCC
+        JP: 0x22DA578
     - name: Dwci_AC_CheckFreespot
       address:
         EU: 0x22D9674
+        NA: 0x22D8E60
+        JP: 0x22DA60C
     - name: MakeAroundList
       address:
         EU: 0x22D96C0
+        NA: 0x22D8EAC
+        JP: 0x22DA658
     - name: MakeStealthList
       address:
         EU: 0x22D9720
+        NA: 0x22D8F0C
+        JP: 0x22DA6B8
     - name: MakeUserList
       address:
         EU: 0x22D980C
+        NA: 0x22D8FF8
+        JP: 0x22DA7A4
     - name: MakeDifferChannelList
       address:
         EU: 0x22D9914
+        NA: 0x22D9100
+        JP: 0x22DA8AC
     - name: CheckDifferChannelStart
       address:
         EU: 0x22D99A4
+        NA: 0x22D9190
+        JP: 0x22DA93C
     - name: Dwci_AC_ConnectRetryAP
       address:
         EU: 0x22D99E8
+        NA: 0x22D91D4
+        JP: 0x22DA980
     - name: Dwci_AC_SearchAP
       address:
         EU: 0x22D9AC4
+        NA: 0x22D92B0
+        JP: 0x22DAA5C
     - name: Dwci_AC_SetStealthChannel
       address:
         EU: 0x22D9B88
+        NA: 0x22D9374
+        JP: 0x22DAB20
     - name: Dwci_AC_GetStealthChannel
       address:
         EU: 0x22D9BBC
+        NA: 0x22D93A8
+        JP: 0x22DAB54
     - name: Dwci_AC_SearchReStart
       address:
         EU: 0x22D9C24
+        NA: 0x22D9410
+        JP: 0x22DABBC
     - name: SearchStart
       address:
         EU: 0x22D9D04
+        NA: 0x22D94F0
+        JP: 0x22DAC9C
     - name: SearchAround
       address:
         EU: 0x22D9D54
+        NA: 0x22D9540
+        JP: 0x22DACEC
     - name: SearchAround2ndLap
       address:
         EU: 0x22D9DF8
+        NA: 0x22D95E4
+        JP: 0x22DAD90
     - name: SearchDifferChannel
       address:
         EU: 0x22D9E40
+        NA: 0x22D962C
+        JP: 0x22DADD8
     - name: SearchStealth
       address:
         EU: 0x22D9F68
+        NA: 0x22D9754
+        JP: 0x22DAF00
     - name: NextSearchCheck
       address:
         EU: 0x22DA088
+        NA: 0x22D9874
+        JP: 0x22DB020
     - name: SearchEndCheck
       address:
         EU: 0x22DA14C
+        NA: 0x22D9938
+        JP: 0x22DB0E4
     - name: CheckStartStealthSearch
       address:
         EU: 0x22DA210
+        NA: 0x22D99FC
+        JP: 0x22DB1A8
     - name: ScanStart
       address:
         EU: 0x22DA270
+        NA: 0x22D9A5C
+        JP: 0x22DB208
     - name: Dwci_AC_Start
       address:
         EU: 0x22DA294
+        NA: 0x22D9A80
+        JP: 0x22DB22C
     - name: Dwci_AC_ConnectTest
       address:
         EU: 0x22DA31C
+        NA: 0x22D9B08
+        JP: 0x22DB2B4
     - name: ConnectTestStart
       address:
         EU: 0x22DA418
+        NA: 0x22D9C04
+        JP: 0x22DB3B0
     - name: GetIpAddress
       address:
         EU: 0x22DA47C
+        NA: 0x22D9C68
+        JP: 0x22DB414
     - name: ConnectTestCreate
       address:
         EU: 0x22DA50C
+        NA: 0x22D9CF8
+        JP: 0x22DB4A4
     - name: ConnectTestProcess
       address:
         EU: 0x22DA538
+        NA: 0x22D9D24
+        JP: 0x22DB4D0
     - name: ConnectTestEnd
       address:
         EU: 0x22DA5A4
+        NA: 0x22D9D90
+        JP: 0x22DB53C
     - name: ConnectTestRetry
       address:
         EU: 0x22DA5B8
+        NA: 0x22D9DA4
+        JP: 0x22DB550
     - name: MakeSocConfig
       address:
         EU: 0x22DA5E8
+        NA: 0x22D9DD4
+        JP: 0x22DB580
     - name: ConvAddress
       address:
         EU: 0x22DA6A8
+        NA: 0x22D9E94
+        JP: 0x22DB640
     - name: ConvNetMask
       address:
         EU: 0x22DA6FC
+        NA: 0x22D9EE8
+        JP: 0x22DB694
     - name: CheckSetDns
       address:
         EU: 0x22DA750
+        NA: 0x22D9F3C
+        JP: 0x22DB6E8
     - name: Dwci_AC_CheckNintendoShopAP
       address:
         EU: 0x22DA7D8
+        NA: 0x22D9FC4
+        JP: 0x22DB770
     - name: Dwci_AC_GetNintendoShopWepKey
       address:
         EU: 0x22DA810
+        NA: 0x22D9FFC
+        JP: 0x22DB7A8
     - name: Dwci_AC_GetPostalCode
       address:
         EU: 0x22DA838
+        NA: 0x22DA024
+        JP: 0x22DB7D0
     - name: Dwci_AC_CheckNintendoUsbAP
       address:
         EU: 0x22DA884
+        NA: 0x22DA070
+        JP: 0x22DB81C
     - name: Dwci_AC_GetNintendoUsbWepKey
       address:
         EU: 0x22DA8A8
+        NA: 0x22DA094
+        JP: 0x22DB840
     - name: DecodeSsid
       address:
         EU: 0x22DA8B8
+        NA: 0x22DA0A4
+        JP: 0x22DB850
     - name: MakeShopWepKey
       address:
         EU: 0x22DA9BC
+        NA: 0x22DA1A8
+        JP: 0x22DB954
     - name: MakeUsbWepKey
       address:
         EU: 0x22DAA08
+        NA: 0x22DA1F4
+        JP: 0x22DB9A0
     - name: eb64
       address:
         EU: 0x22DABB4
+        NA: 0x22DA3A0
+        JP: 0x22DBB4C
     - name: db64
       address:
         EU: 0x22DAC24
+        NA: 0x22DA410
+        JP: 0x22DBBBC
     - name: Dwc_AC_StartupGetWdsInfo
       address:
         EU: 0x22DB3B0
+        NA: 0x22DAB9C
+        JP: 0x22DC348
     - name: Dwc_AC_ProcessGetWdsInfo
       address:
         EU: 0x22DB420
+        NA: 0x22DAC0C
+        JP: 0x22DC3B8
     - name: Dwc_AC_CancelGetWdsInfo
       address:
         EU: 0x22DB758
+        NA: 0x22DAF44
+        JP: 0x22DC6F0
     - name: Dwc_AC_CleanupGetWdsInfo
       address:
         EU: 0x22DB774
+        NA: 0x22DAF60
+        JP: 0x22DC70C
     - name: Dwci_Acc_SetMaskBits
       address:
         EU: 0x22DB8F4
+        NA: 0x22DB0E0
+        JP: 0x22DC88C
     - name: Dwci_Acc_GetUserId
       address:
         EU: 0x22DB920
+        NA: 0x22DB10C
+        JP: 0x22DC8B8
     - name: Dwci_Acc_GetPlayerId
       address:
         EU: 0x22DB940
+        NA: 0x22DB12C
+        JP: 0x22DC8D8
     - name: Dwci_Acc_GetFriendKey
       address:
         EU: 0x22DB948
+        NA: 0x22DB134
+        JP: 0x22DC8E0
     - name: Dwci_Acc_GetGsProfileId
       address:
         EU: 0x22DB95C
+        NA: 0x22DB148
+        JP: 0x22DC8F4
     - name: Dwci_Acc_SetUserId
       address:
         EU: 0x22DB964
+        NA: 0x22DB150
+        JP: 0x22DC8FC
     - name: Dwci_Acc_SetPlayerId
       address:
         EU: 0x22DB98C
+        NA: 0x22DB178
+        JP: 0x22DC924
     - name: Dwci_Acc_SetFriendKey
       address:
         EU: 0x22DB994
+        NA: 0x22DB180
+        JP: 0x22DC92C
     - name: Dwci_Acc_SetGsProfileId
       address:
         EU: 0x22DB99C
+        NA: 0x22DB188
+        JP: 0x22DC934
     - name: Dwci_Acc_GetFlags
       address:
         EU: 0x22DB9A4
+        NA: 0x22DB190
+        JP: 0x22DC93C
     - name: Dwci_Acc_GetFlag_DataType
       address:
         EU: 0x22DB9B8
+        NA: 0x22DB1A4
+        JP: 0x22DC950
     - name: Dwc_IsBuddyFriendData
       address:
         EU: 0x22DB9C8
+        NA: 0x22DB1B4
+        JP: 0x22DC960
     - name: Dwci_IsBuddyFriendData
       address:
         EU: 0x22DB9F8
+        NA: 0x22DB1E4
+        JP: 0x22DC990
     - name: Dwci_IsReverseBuddyFriendData
       address:
         EU: 0x22DBA30
+        NA: 0x22DB21C
+        JP: 0x22DC9C8
     - name: Dwci_IsBuddyMsgAlreadySent
       address:
         EU: 0x22DBA4C
+        NA: 0x22DB238
+        JP: 0x22DC9E4
     - name: Dwc_GetFriendDataType
       address:
         EU: 0x22DBA68
+        NA: 0x22DB254
+        JP: 0x22DCA00
     - name: Dwci_Acc_SetFlags
       address:
         EU: 0x22DBA74
+        NA: 0x22DB260
+        JP: 0x22DCA0C
     - name: Dwci_Acc_SetFlag_DataType
       address:
         EU: 0x22DBA8C
+        NA: 0x22DB278
+        JP: 0x22DCA24
     - name: Dwci_SetBuddyFriendData
       address:
         EU: 0x22DBAB0
+        NA: 0x22DB29C
+        JP: 0x22DCA48
     - name: Dwci_SetReverseBuddyFlag
       address:
         EU: 0x22DBADC
+        NA: 0x22DB2C8
+        JP: 0x22DCA74
     - name: Dwci_SetExpIsBuddyFriendFlag
       address:
         EU: 0x22DBB0C
+        NA: 0x22DB2F8
+        JP: 0x22DCAA4
     - name: Dwci_SetSentBuddyReqFlag
       address:
         EU: 0x22DBB3C
+        NA: 0x22DB328
+        JP: 0x22DCAD4
     - name: Dwc_Acc_CreateFriendKey
       address:
         EU: 0x22DBB6C
+        NA: 0x22DB358
+        JP: 0x22DCB04
     - name: Dwc_CheckFriendKey
       address:
         EU: 0x22DBBF4
+        NA: 0x22DB3E0
+        JP: 0x22DCB8C
     - name: Dwc_Acc_CheckFriendKey
       address:
         EU: 0x22DBC14
+        NA: 0x22DB400
+        JP: 0x22DCBAC
     - name: Dwc_Acc_FriendKeyToGsProfileId
       address:
         EU: 0x22DBC58
+        NA: 0x22DB444
+        JP: 0x22DCBF0
     - name: Dwc_FriendKeyToString
       address:
         EU: 0x22DBCAC
+        NA: 0x22DB498
+        JP: 0x22DCC44
     - name: Dwci_Acc_U64ToString32
       address:
         EU: 0x22DBCCC
+        NA: 0x22DB4B8
+        JP: 0x22DCC64
     - name: Dwci_Acc_LoginIdToUserName
       address:
         EU: 0x22DBD3C
+        NA: 0x22DB528
+        JP: 0x22DCCD4
     - name: Dwci_Acc_CreateUserData
       address:
         EU: 0x22DBDCC
+        NA: 0x22DB5B8
+        JP: 0x22DCD64
     - name: Dwci_Acc_CreateTempLoginId
       address:
         EU: 0x22DBE48
+        NA: 0x22DB634
+        JP: 0x22DCDE0
     - name: Dwci_Acc_CheckConsoleUserId
       address:
         EU: 0x22DBF0C
+        NA: 0x22DB6F8
+        JP: 0x22DCEA4
     - name: Dwci_Acc_IsValidLoginId
       address:
         EU: 0x22DBF78
+        NA: 0x22DB764
+        JP: 0x22DCF10
     - name: Dwci_Acc_IsAuthentic
       address:
         EU: 0x22DBF90
+        NA: 0x22DB77C
+        JP: 0x22DCF28
     - name: Dwc_IsValidFriendData
       address:
         EU: 0x22DBFA0
+        NA: 0x22DB78C
+        JP: 0x22DCF38
     - name: Dwci_Acc_IsValidFriendData
       address:
         EU: 0x22DBFB8
+        NA: 0x22DB7A4
+        JP: 0x22DCF50
     - name: Dwc_CreateUserData
       address:
         EU: 0x22DBFC4
+        NA: 0x22DB7B0
+        JP: 0x22DCF5C
     - name: Dwc_CheckUserData
       address:
         EU: 0x22DBFD0
+        NA: 0x22DB7BC
+        JP: 0x22DCF68
     - name: Dwc_CheckHasProfile
       address:
         EU: 0x22DC014
+        NA: 0x22DB800
+        JP: 0x22DCFAC
     - name: Dwc_CheckValidConsole
       address:
         EU: 0x22DC044
+        NA: 0x22DB830
+        JP: 0x22DCFDC
     - name: Dwci_Acc_SetLoginIdToUserData
       address:
         EU: 0x22DC0AC
+        NA: 0x22DB898
+        JP: 0x22DD044
     - name: Dwc_CheckDirtyFlag
       address:
         EU: 0x22DC104
+        NA: 0x22DB8F0
+        JP: 0x22DD09C
     - name: Dwci_Acc_IsDirty
       address:
         EU: 0x22DC110
+        NA: 0x22DB8FC
+        JP: 0x22DD0A8
     - name: Dwc_ClearDirtyFlag
       address:
         EU: 0x22DC128
+        NA: 0x22DB914
+        JP: 0x22DD0C0
     - name: Dwci_Acc_ClearDirty
       address:
         EU: 0x22DC134
+        NA: 0x22DB920
+        JP: 0x22DD0CC
     - name: Dwc_GetFriendKey
       address:
         EU: 0x22DC178
+        NA: 0x22DB964
+        JP: 0x22DD110
     - name: Dwc_GetGsProfileId
       address:
         EU: 0x22DC1A0
+        NA: 0x22DB98C
+        JP: 0x22DD138
     - name: Dwc_CreateFriendKey
       address:
         EU: 0x22DC200
+        NA: 0x22DB9EC
+        JP: 0x22DD198
     - name: Dwc_CreateFriendKeyToken
       address:
         EU: 0x22DC230
+        NA: 0x22DBA1C
+        JP: 0x22DD1C8
     - name: Dwc_CreateExchangeToken
       address:
         EU: 0x22DC26C
+        NA: 0x22DBA58
+        JP: 0x22DD204
     - name: Dwc_SetGsProfileId
       address:
         EU: 0x22DC2C0
+        NA: 0x22DBAAC
+        JP: 0x22DD258
     - name: Dwc_LoginIdToUserName
       address:
         EU: 0x22DC2F4
+        NA: 0x22DBAE0
+        JP: 0x22DD28C
     - name: Dwc_IsEqualFriendData
       address:
         EU: 0x22DC30C
+        NA: 0x22DBAF8
+        JP: 0x22DD2A4
     - name: Dwc_ReportFriendData
       address:
         EU: 0x22DC3F0
+        NA: 0x22DBBDC
+        JP: 0x22DD388
     - name: Dwc_ReportUserData
       address:
         EU: 0x22DC478
+        NA: 0x22DBC64
+        JP: 0x22DD410
     - name: Dwc_Auth_SetCustomNas
       address:
         EU: 0x22DC498
+        NA: 0x22DBC84
+        JP: 0x22DD430
     - name: Dwc_Auth_Create
       address:
         EU: 0x22DC4B8
+        NA: 0x22DBCA4
+        JP: 0x22DD450
     - name: Dwci_Auth_StartThread
       address:
         EU: 0x22DC5DC
+        NA: 0x22DBDC8
+        JP: 0x22DD574
     - name: Dwc_Auth_Abort
       address:
         EU: 0x22DC690
+        NA: 0x22DBE7C
+        JP: 0x22DD628
     - name: Dwc_Auth_Destroy
       address:
         EU: 0x22DC71C
+        NA: 0x22DBF08
+        JP: 0x22DD6B4
     - name: Dwc_Auth_Join
       address:
         EU: 0x22DC774
+        NA: 0x22DBF60
+        JP: 0x22DD70C
     - name: Dwc_Auth_GetError
       address:
         EU: 0x22DC7A4
+        NA: 0x22DBF90
+        JP: 0x22DD73C
     - name: Dwc_Auth_GetResult
       address:
         EU: 0x22DC7F0
+        NA: 0x22DBFDC
+        JP: 0x22DD788
     - name: Dwci_Auth_Start
       address:
         EU: 0x22DC880
+        NA: 0x22DC06C
+        JP: 0x22DD818
     - name: Dwci_Auth_Thread
       address:
         EU: 0x22DC990
+        NA: 0x22DC17C
+        JP: 0x22DD928
     - name: Dwci_Auth_ParseHttp
       address:
         EU: 0x22DCC44
+        NA: 0x22DC430
+        JP: 0x22DDBDC
     - name: Dwci_Auth_FillResult
       address:
         EU: 0x22DCE1C
+        NA: 0x22DC608
+        JP: 0x22DDDB4
     - name: Dwc_Auth_Prepare_FirstPost
       address:
         EU: 0x22DD0E4
+        NA: 0x22DC8D0
+        JP: 0x22DE07C
     - name: Dwci_Auth_SetError
       address:
         EU: 0x22DD288
+        NA: 0x22DCA74
+        JP: 0x22DE220
     - name: Dwc_Auth_SetCalInfoToHttp
       address:
         EU: 0x22DD2F4
+        NA: 0x22DCAE0
+        JP: 0x22DE28C
     - name: Dwc_Http_Create
       address:
         EU: 0x22DD8F0
+        NA: 0x22DD0DC
+        JP: 0x22DE888
     - name: Dwc_Http_FinishHeader
       address:
         EU: 0x22DDA0C
+        NA: 0x22DD1F8
+        JP: 0x22DE9A4
     - name: Dwc_Http_StartThread
       address:
         EU: 0x22DDAA4
+        NA: 0x22DD290
+        JP: 0x22DEA3C
     - name: Dwc_Http_Abort
       address:
         EU: 0x22DDB60
+        NA: 0x22DD34C
+        JP: 0x22DEAF8
     - name: Dwc_Http_GetRecvProgress
       address:
         EU: 0x22DDBBC
+        NA: 0x22DD3A8
+        JP: 0x22DEB54
     - name: Dwci_Http_InitCpsSocket
       address:
         EU: 0x22DDC34
+        NA: 0x22DD420
+        JP: 0x22DEBCC
     - name: Dwci_Http_Resolve
       address:
         EU: 0x22DDC8C
+        NA: 0x22DD478
+        JP: 0x22DEC24
     - name: Dwci_Http_Thread
       address:
         EU: 0x22DDD88
+        NA: 0x22DD574
+        JP: 0x22DED20
     - name: Dwc_Http_Destroy
       address:
         EU: 0x22DE0A4
+        NA: 0x22DD890
+        JP: 0x22DF03C
     - name: Dwci_Http_WriteBasicHeader
       address:
         EU: 0x22DE158
+        NA: 0x22DD944
+        JP: 0x22DF0F0
     - name: Dwc_Http_Add_HeaderItem
       address:
         EU: 0x22DE218
+        NA: 0x22DDA04
+        JP: 0x22DF1B0
     - name: Dwc_Http_Add_PostBase64Item
       address:
         EU: 0x22DE2F4
+        NA: 0x22DDAE0
+        JP: 0x22DF28C
     - name: Dwc_Http_Add_Body
       address:
         EU: 0x22DE400
+        NA: 0x22DDBEC
+        JP: 0x22DF398
     - name: Dwci_Http_CpsCallback
       address:
         EU: 0x22DE488
+        NA: 0x22DDC74
+        JP: 0x22DF420
     - name: Dwci_Http_AllocBuffer
       address:
         EU: 0x22DE494
+        NA: 0x22DDC80
+        JP: 0x22DF42C
     - name: Dwci_Http_FreeBuffer
       address:
         EU: 0x22DE4EC
+        NA: 0x22DDCD8
+        JP: 0x22DF484
     - name: Dwci_Http_ReallocBuffer
       address:
         EU: 0x22DE52C
+        NA: 0x22DDD18
+        JP: 0x22DF4C4
     - name: Dwci_Http_SetHostinfo
       address:
         EU: 0x22DE5D4
+        NA: 0x22DDDC0
+        JP: 0x22DF56C
     - name: Dwc_Http_AddResult
       address:
         EU: 0x22DE728
+        NA: 0x22DDF14
+        JP: 0x22DF6C0
     - name: Dwc_Http_ParseResult
       address:
         EU: 0x22DE87C
+        NA: 0x22DE068
+        JP: 0x22DF814
     - name: Dwc_Http_GetResult
       address:
         EU: 0x22DEB1C
+        NA: 0x22DE308
+        JP: 0x22DFAB4
     - name: Dwc_Http_GetBase64DecodedResult
       address:
         EU: 0x22DEB74
+        NA: 0x22DE360
+        JP: 0x22DFB0C
     - name: Dwc_Http_GetRawResult
       address:
         EU: 0x22DEBC8
+        NA: 0x22DE3B4
+        JP: 0x22DFB60
     - name: Dwc_Http_Disconnect
       address:
         EU: 0x22DEC08
+        NA: 0x22DE3F4
+        JP: 0x22DFBA0
     - name: Dwc_Netcheck_Create
       address:
         EU: 0x22DEC90
+        NA: 0x22DE47C
+        JP: 0x22DFC28
     - name: Dwc_Netcheck_Destroy
       address:
         EU: 0x22DED70
+        NA: 0x22DE55C
+        JP: 0x22DFD08
     - name: Dwc_Netcheck_Abort
       address:
         EU: 0x22DEE68
+        NA: 0x22DE654
+        JP: 0x22DFE00
     - name: Dwc_Netcheck_GetError
       address:
         EU: 0x22DEED0
+        NA: 0x22DE6BC
+        JP: 0x22DFE68
     - name: Dwc_Netcheck_GetReturnCode
       address:
         EU: 0x22DEF10
+        NA: 0x22DE6FC
+        JP: 0x22DFEA8
     - name: Dwci_Netcheck_StartThread
       address:
         EU: 0x22DEF28
+        NA: 0x22DE714
+        JP: 0x22DFEC0
     - name: Dwci_Netcheck_Thread
       address:
         EU: 0x22DEFB0
+        NA: 0x22DE79C
+        JP: 0x22DFF48
     - name: Dwci_Netcheck_SetError
       address:
         EU: 0x22DFEC4
+        NA: 0x22DF6B0
+        JP: 0x22E0E5C
     - name: Dwc_Auth_SetNasTimeDiff
       address:
         EU: 0x22DFF08
+        NA: 0x22DF6F4
+        JP: 0x22E0EA0
     - name: Dwc_Svl_Init
       address:
         EU: 0x22E0124
+        NA: 0x22DF910
+        JP: 0x22E10BC
     - name: Dwc_Svl_Cleanup
       address:
         EU: 0x22E01BC
+        NA: 0x22DF9A8
+        JP: 0x22E1154
     - name: Dwc_Svl_GetTokenAsync
       address:
         EU: 0x22E0208
+        NA: 0x22DF9F4
+        JP: 0x22E11A0
     - name: Dwc_Svl_Process
       address:
         EU: 0x22E0470
+        NA: 0x22DFC5C
+        JP: 0x22E1408
     - name: Dwci_Svl_ParseHttp
       address:
         EU: 0x22E0544
+        NA: 0x22DFD30
+        JP: 0x22E14DC
     - name: Dwc_Util_Base64Encode
       address:
         EU: 0x22E0760
+        NA: 0x22DFF4C
+        JP: 0x22E16F8
     - name: Dwc_Util_Base64Decode
       address:
         EU: 0x22E08E8
+        NA: 0x22E00D4
+        JP: 0x22E1880
     - name: Dwc_CleanupInet
       address:
         EU:
           - 0x22E0BA8
           - 0x22E1284
+        NA:
+          - 0x22E0394
+          - 0x22E0A70
+        JP:
+          - 0x22E1B40
+          - 0x22E221C
     - name: Dwci_GetAllocateHeader
       address:
         EU: 0x22E0BC0
+        NA: 0x22E03AC
+        JP: 0x22E1B58
     - name: Dwci_SetAllocateHeader
       address:
         EU: 0x22E0BC8
+        NA: 0x22E03B4
+        JP: 0x22E1B60
     - name: Dwci_GetAllocateSize
       address:
         EU: 0x22E0BE0
+        NA: 0x22E03CC
+        JP: 0x22E1B78
     - name: Dwc_SetMemFunc
       address:
         EU: 0x22E0BF0
+        NA: 0x22E03DC
+        JP: 0x22E1B88
     - name: Dwc_Alloc
       address:
         EU: 0x22E0C04
+        NA: 0x22E03F0
+        JP: 0x22E1B9C
     - name: Dwc_AllocEx
       address:
         EU: 0x22E0C14
+        NA: 0x22E0400
+        JP: 0x22E1BAC
     - name: Dwc_Free
       address:
         EU: 0x22E0C48
+        NA: 0x22E0434
+        JP: 0x22E1BE0
     - name: Dwc_Realloc
       address:
         EU: 0x22E0C84
+        NA: 0x22E0470
+        JP: 0x22E1C1C
     - name: Dwc_ReallocEx
       address:
         EU: 0x22E0C98
+        NA: 0x22E0484
+        JP: 0x22E1C30
     - name: Dwci_GsMalloc
       address:
         EU: 0x22E0D04
+        NA: 0x22E04F0
+        JP: 0x22E1C9C
     - name: Dwci_GsRealloc
       address:
         EU: 0x22E0D18
+        NA: 0x22E0504
+        JP: 0x22E1CB0
     - name: Dwci_GsFree
       address:
         EU: 0x22E0D34
+        NA: 0x22E0520
+        JP: 0x22E1CCC
     - name: Dwci_GsMemalign
       address:
         EU: 0x22E0D4C
+        NA: 0x22E0538
+        JP: 0x22E1CE4
     - name: Dwc_InitInetEx
       address:
         EU: 0x22E0D60
+        NA: 0x22E054C
+        JP: 0x22E1CF8
     - name: Dwc_InitInet
       address:
         EU: 0x22E0DC4
+        NA: 0x22E05B0
+        JP: 0x22E1D5C
     - name: Dwc_SetAuthServer
       address:
         EU: 0x22E0DDC
+        NA: 0x22E05C8
+        JP: 0x22E1D74
     - name: Dwc_ConnectInetAsync
       address:
         EU: 0x22E0E2C
+        NA: 0x22E0618
+        JP: 0x22E1DC4
     - name: Dwc_DebugConnectInetAsync
       address:
         EU: 0x22E0EE0
+        NA: 0x22E06CC
+        JP: 0x22E1E78
     - name: Dwc_CheckInet
       address:
         EU: 0x22E0F3C
+        NA: 0x22E0728
+        JP: 0x22E1ED4
     - name: Dwc_ProcessInet
       address:
         EU: 0x22E0F94
+        NA: 0x22E0780
+        JP: 0x22E1F2C
     - name: Dwc_GetInetStatus
       address:
         EU: 0x22E10B0
+        NA: 0x22E089C
+        JP: 0x22E2048
     - name: Dwc_CleanupInetAsync
       address:
         EU: 0x22E1310
+        NA: 0x22E0AFC
+        JP: 0x22E22A8
     - name: Dwci_CheckDisconnected
       address:
         EU: 0x22E13D4
+        NA: 0x22E0BC0
+        JP: 0x22E236C
     - name: Dwc_GetLinkLevel
       address:
         EU: 0x22E1400
+        NA: 0x22E0BEC
+        JP: 0x22E2398
     - name: Dwc_GetApInfo
       address:
         EU: 0x22E140C
+        NA: 0x22E0BF8
+        JP: 0x22E23A4
     - name: Dwc_UpdateConnection
       address:
         EU: 0x22E156C
+        NA: 0x22E0D58
+        JP: 0x22E2504
     - name: Dwc_GetIngamesnCheckResult
       address:
         EU: 0x22E15C0
+        NA: 0x22E0DAC
+        JP: 0x22E2558
     - name: Dwc_SvlGetTokenAsync
       address:
         EU: 0x22E15D0
+        NA: 0x22E0DBC
+        JP: 0x22E2568
     - name: Dwc_SvlProcess
       address:
         EU: 0x22E1644
+        NA: 0x22E0E30
+        JP: 0x22E25DC
     - name: Dwc_SvlAbort
       address:
         EU: 0x22E1668
+        NA: 0x22E0E54
+        JP: 0x22E2600
     - name: Dwc_NasLoginAsync
       address:
         EU: 0x22E1680
+        NA: 0x22E0E6C
+        JP: 0x22E2618
     - name: Dwc_NasLoginProcess
       address:
         EU: 0x22E1698
+        NA: 0x22E0E84
+        JP: 0x22E2630
     - name: Dwci_BM_GetApInfo
       address:
         EU: 0x22EDC50
+        NA: 0x22ED43C
+        JP: 0x22EEBE8
     - name: Dwci_BM_GetWiFiInfo
       address:
         EU: 0x22EDC7C
+        NA: 0x22ED468
+        JP: 0x22EEC14
     - name: Dwci_BM_SetWiFiInfo
       address:
         EU: 0x22EDD54
+        NA: 0x22ED540
+        JP: 0x22EECEC
     - name: Dwci_BackuplInit
       address:
         EU: 0x22EDE30
+        NA: 0x22ED61C
+        JP: 0x22EEDC8
     - name: Dwci_BackuplRead
       address:
         EU: 0x22EDE74
+        NA: 0x22ED660
+        JP: 0x22EEE0C
     - name: Dwci_BackuplWritePage
       address:
         EU: 0x22EDEA0
+        NA: 0x22ED68C
+        JP: 0x22EEE38
     - name: Dwci_BackuplWriteAll
       address:
         EU: 0x22EDF28
+        NA: 0x22ED714
+        JP: 0x22EEEC0
     - name: Dwci_BackuplSetWiFi
       address:
         EU: 0x22EDFBC
+        NA: 0x22ED7A8
+        JP: 0x22EEF54
     - name: Dwci_BackuplConvMaskCidr
       address:
         EU: 0x22EDFD4
+        NA: 0x22ED7C0
+        JP: 0x22EEF6C
     - name: Dwci_BackuplConvMaskAddr
       address:
         EU: 0x22EE018
+        NA: 0x22ED804
+        JP: 0x22EEFB0
     - name: Dwc_BackuplCheckSsid
       address:
         EU: 0x22EE048
+        NA: 0x22ED834
+        JP: 0x22EEFE0
     - name: Dwc_BackuplCheckIp
       address:
         EU: 0x22EE070
+        NA: 0x22ED85C
+        JP: 0x22EF008
     - name: Dwc_BackuplCheckAddress
       address:
         EU: 0x22EE0D4
+        NA: 0x22ED8C0
+        JP: 0x22EF06C
     - name: NVramm_ExecuteCommand
       address:
         EU: 0x22EE100
+        NA: 0x22ED8EC
+        JP: 0x22EF098
     - name: ReadNvram
       address:
         EU: 0x22EE56C
+        NA: 0x22EDD58
+        JP: 0x22EF504
     - name: WriteNvram
       address:
         EU: 0x22EE5FC
+        NA: 0x22EDDE8
+        JP: 0x22EF594
     - name: verify
       address:
         EU: 0x22EE678
+        NA: 0x22EDE64
+        JP: 0x22EF610
     - name: WriteDisable
       address:
         EU: 0x22EE6C4
+        NA: 0x22EDEB0
+        JP: 0x22EF65C
     - name: Callback_NVram
       address:
         EU: 0x22EE730
+        NA: 0x22EDF1C
+        JP: 0x22EF6C8
     - name: Dwci_BackuplConvWifiInfo
       address:
         EU: 0x22EE760
+        NA: 0x22EDF4C
+        JP: 0x22EF6F8
     - name: Dwci_BackuplGetWifi
       address:
         EU: 0x22EE820
+        NA: 0x22EE00C
+        JP: 0x22EF7B8
     - name: Dwc_BM_Init
       address:
         EU: 0x22EE82C
+        NA: 0x22EE018
+        JP: 0x22EF7C4
     - name: CheckAp_Dwc
       address:
         EU: 0x22EEB34
+        NA: 0x22EE320
+        JP: 0x22EFACC
     - name: Init_Dwc
       address:
         EU: 0x22EEC34
+        NA: 0x22EE420
+        JP: 0x22EFBCC
     - name: InitPage_Dwc
       address:
         EU: 0x22EECB4
+        NA: 0x22EE4A0
+        JP: 0x22EFC4C
     - name: Dwci_Util_WiFiId_ScrambleUid
       address:
         EU: 0x22EECE0
+        NA: 0x22EE4CC
+        JP: 0x22EFC78
     - name: Dwci_Auth_GetNewWiFiInfo
       address:
         EU: 0x22EEE64
+        NA: 0x22EE650
+        JP: 0x22EFDFC
     - name: Dwci_Auth_MakeWiFiID
       address:
         EU: 0x22EF040
+        NA: 0x22EE82C
+        JP: 0x22EFFD8
     - name: Dwci_Auth_UpDateWiFiID
       address:
         EU: 0x22EF084
+        NA: 0x22EE870
+        JP: 0x22F001C
     - name: Dwci_Auth_RemakeWiFiID
       address:
         EU: 0x22EF0D4
+        NA: 0x22EE8C0
+        JP: 0x22F006C
     - name: Dwc_Auth_GetId
       address:
         EU: 0x22EF274
+        NA: 0x22EEA60
+        JP: 0x22F020C
     - name: SocketCastError
       address:
         EU: 0x22F579C
