@@ -945,9 +945,6 @@ overlay0:
         EU: 0x22CFE88
         NA: 0x22CF674
         JP: 0x22D0E20
-    - name: Soc_Startup
-      address:
-        EU: 0x22CFE88
     - name: Soc_InetNtoA
       address:
         EU: 0x22D0008
@@ -1002,7 +999,7 @@ overlay0:
     - name: Cps_SetRootCa
       address:
         EU: 0x22D0650
-    - name: get_rootCA
+    - name: Get_RootCA
       address:
         EU: 0x22D0678
     - name: cert_item_len
@@ -1155,19 +1152,21 @@ overlay0:
     - name: long_from_char_md5
       address:
         EU: 0x22D349C
-    - name: Cpsi_md5_block
+    - name: Cpsi_Md5_Block
       address:
         EU: 0x22D34B4
-    - name: Cpsi_md5_init
+    - name: Cpsi_Md5_Init
       address:
         EU: 0x22D38D0
-    - name: Cpsi_md5_calc
+    - name: Cpsi_Md5_Calc
       address:
         EU: 0x22D3918
-    - name: Cpsi_md5_result
+    - name: Cpsi_Md5_Result
       address:
         EU: 0x22D39D0
-    - name: R
+    - name: Cpsi_Sha1_Block_Helper
+      aliases:
+        - R
       address:
         EU: 0x22D3A38
     - name: char_from_long_sha1
@@ -1176,25 +1175,25 @@ overlay0:
     - name: long_from_char_sha1
       address:
         EU: 0x22D3AC0
-    - name: Cpsi_sha1_block
+    - name: Cpsi_Sha1_Block
       address:
         EU: 0x22D3B08
-    - name: Cpsi_sha1_init
+    - name: Cpsi_Sha1_Init
       address:
         EU: 0x22D4190
-    - name: Cpsi_sha1_calc
+    - name: Cpsi_Sha1_Calc
       address:
         EU: 0x22D41E4
-    - name: Cpsi_sha1_result
+    - name: Cpsi_Sha1_Result
       address:
         EU: 0x22D429C
-    - name: Cpsi_sha1_result_prng
+    - name: Cpsi_Sha1_Result_Prng
       address:
         EU: 0x22D4304
-    - name: Cpsi_rc4_init
+    - name: Cpsi_Rc4_Init
       address:
         EU: 0x22D4334
-    - name: Cpsi_rc4_crypt
+    - name: Cpsi_Rc4_Crypt
       address:
         EU: 0x22D43A8
     - name: count_digits
@@ -1202,37 +1201,37 @@ overlay0:
         EU:
           - 0x22D4414
           - 0x22D441C
-    - name: Cpsi_big_sign
+    - name: Cpsi_Big_Sign
       address:
         EU: 0x22D443C
-    - name: Cpsi_big_add
+    - name: Cpsi_Big_Add
       address:
         EU: 0x22D446C
-    - name: Cpsi_big_add_small
+    - name: Cpsi_Big_Add_Small
       address:
         EU: 0x22D4508
-    - name: Cpsi_big_negate
+    - name: Cpsi_Big_Negate
       address:
         EU: 0x22D456C
-    - name: Cpsi_big_sub
+    - name: Cpsi_Big_Sub
       address:
         EU: 0x22D45AC
-    - name: Cpsi_big_sub_small
+    - name: Cpsi_Big_Sub_Small
       address:
         EU: 0x22D4654
-    - name: Cpsi_big_compare
+    - name: Cpsi_Big_Compare
       address:
         EU: 0x22D46BC
-    - name: Cpsi_big_add_part
+    - name: Cpsi_Big_Add_Part
       address:
         EU: 0x22D46F4
-    - name: Cpsi_big_mult
+    - name: Cpsi_Big_Mult
       address:
         EU: 0x22D4728
-    - name: Cpsi_big_mult_small
+    - name: Cpsi_Big_Mult_Small
       address:
         EU: 0x22D47D4
-    - name: Cpsi_big_sqr
+    - name: Cpsi_Big_Sqr
       address:
         EU: 0x22D484C
     - name: get48bits_1
@@ -1247,25 +1246,25 @@ overlay0:
     - name: get64bits
       address:
         EU: 0x22D49B0
-    - name: Cpsi_big_div
+    - name: Cpsi_Big_Div
       address:
         EU: 0x22D49CC
-    - name: Cpsi_big_power
+    - name: Cpsi_Big_Power
       address:
         EU: 0x22D4BAC
-    - name: Cpsi_big_modinv
+    - name: Cpsi_Big_Modinv
       address:
         EU: 0x22D4D40
-    - name: Cpsi_big_montmult
+    - name: Cpsi_Big_Montmult
       address:
         EU: 0x22D4E8C
-    - name: Cpsi_big_montpower
+    - name: Cpsi_Big_Montpower
       address:
         EU: 0x22D4FB4
-    - name: Cpsi_big_from_char
+    - name: Cpsi_Big_From_Char
       address:
         EU: 0x22D51C0
-    - name: Cpsi_char_from_big
+    - name: Cpsi_Char_From_Big
       address:
         EU: 0x22D521C
     - name: MD5_InitVeneer
@@ -1717,13 +1716,13 @@ overlay0:
     - name: Dwci_AC_GetNintendoUsbWepKey
       address:
         EU: 0x22DA8A8
-    - name: decodeSsid
+    - name: DecodeSsid
       address:
         EU: 0x22DA8B8
-    - name: makeShopWepKey
+    - name: MakeShopWepKey
       address:
         EU: 0x22DA9BC
-    - name: makeUsbWepKey
+    - name: MakeUsbWepKey
       address:
         EU: 0x22DAA08
     - name: eb64
@@ -2217,16 +2216,16 @@ overlay0:
     - name: NVramm_ExecuteCommand
       address:
         EU: 0x22EE100
-    - name: readNvram
+    - name: ReadNvram
       address:
         EU: 0x22EE56C
-    - name: writeNvram
+    - name: WriteNvram
       address:
         EU: 0x22EE5FC
     - name: verify
       address:
         EU: 0x22EE678
-    - name: writeDisable
+    - name: WriteDisable
       address:
         EU: 0x22EE6C4
     - name: Callback_NVram
@@ -2241,16 +2240,16 @@ overlay0:
     - name: Dwc_BM_Init
       address:
         EU: 0x22EE82C
-    - name: checkAp
+    - name: CheckAp_Dwc
       address:
         EU: 0x22EEB34
-    - name: init
+    - name: Init_Dwc
       address:
         EU: 0x22EEC34
-    - name: initPage
+    - name: InitPage_Dwc
       address:
         EU: 0x22EECB4
-    - name: Dwci_Util_WiFiId_scrambleUid
+    - name: Dwci_Util_WiFiId_ScrambleUid
       address:
         EU: 0x22EECE0
     - name: Dwci_Auth_GetNewWiFiInfo
