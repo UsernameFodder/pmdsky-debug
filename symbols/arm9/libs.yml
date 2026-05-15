@@ -1971,9 +1971,6 @@ libs:
         EU: 0x207933C
         NA: 0x2078FA4
         JP: 0x207928C
-    - name: OSi_FreeCartridgeBus
-      address:
-        EU: 0x207933C
     - name: OS_LockCard
       address:
         EU: 0x2079354
@@ -2498,9 +2495,6 @@ libs:
         EU: 0x207B708
         NA: 0x207B370
         JP: 0x207B658
-    - name: OS_InitVAlarm
-      address:
-        EU: 0x207B708
     - name: OSi_InsertVAlarm
       address:
         EU: 0x207B750
@@ -3659,9 +3653,6 @@ libs:
         EU: 0x2083718
         NA: 0x2083380
         JP: 0x2083668
-    - name: Card_Enable
-      address:
-        EU: 0x2083718
     - name: Cardi_WaitAsync
       address:
         EU: 0x2083728
