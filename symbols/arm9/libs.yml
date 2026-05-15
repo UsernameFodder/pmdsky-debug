@@ -2394,13 +2394,13 @@ libs:
         NA: 0x207AC18
         JP: 0x207AF00
     - name: OSi_SetExContext
-      aliases:
-        - OSi_SetExContent
       address:
         EU: 0x207AFC4
         NA: 0x207AC2C
         JP: 0x207AF14
     - name: OSi_DisplayExContext
+      aliases:
+        - OSi_DisplayExContent
       address:
         EU: 0x207B054
         NA: 0x207ACBC
