@@ -3218,7 +3218,7 @@ libs:
         EU: 0x207F6D0
     - name: FS_Init
       address:
-        EU: 0x207F754        
+        EU: 0x207F754
     - name: FS_InitFile
       aliases:
         - FileInit
