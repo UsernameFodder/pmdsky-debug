@@ -379,7 +379,9 @@ itcm:
         
         r0: monster ID
         return: key
-    - name: HardwareInterrupt
+    - name: OS_IrqHandler
+      aliases:
+        - HardwareInterrupt
       address:
         EU: 0x20B52A8
         NA: 0x20B4968
@@ -396,7 +398,9 @@ itcm:
         This function does not return.
         
         No params.
-    - name: ReturnFromInterrupt
+    - name: OS_IrqHandler_ThreadSwitch
+      aliases:
+        - ReturnFromInterrupt
       address:
         EU: 0x20B5310
         NA: 0x20B49D0
@@ -406,9 +410,27 @@ itcm:
         JP-ITCM: 0x1FF96B8
       description: |-
         The execution returns to this function after a hardware interrupt function is run.
+        Ghidra will fail to decompile one instruction in this function, "fc7fe0e9". Changing it to "fc7fa0e9" will fix decompilation.
         
         No params.
-    - name: InitDmaTransfer_Standard
+    - name: OSi_DoResetSystem
+      address:
+        EU-ITCM: 0x1FF97CC
+    - name: OSi_DoBoot
+      address:
+        EU-ITCM: 0x1FF9800
+    - name: OSi_CpuClear32
+      address:
+        EU-ITCM: 0x1FF98CC
+    - name: OSi_ReloadRomData
+      address:
+        EU-ITCM: 0x1FF98E8
+    - name: OSi_ReadCardRom32
+      address:
+        EU-ITCM: 0x1FF9990
+    - name: MIi_DmaSetParams
+      aliases:
+        - InitDmaTransfer_Standard
       address:
         EU: 0x20B5728
         NA: 0x20B4DE8
@@ -425,6 +447,12 @@ itcm:
         r1: source address
         r2: destination address
         r3: word count
+    - name: MIi_DmaSetParams_Wait
+      address:
+        EU-ITCM: 0x1FF9AA8
+    - name: MIi_DmaSetParams_NoInt
+      address:
+        EU-ITCM: 0x1FF9B18
     - name: ShouldMonsterRunAwayAndShowEffectOutlawCheck
       aliases:
         - ShouldMonsterRunAwayVariationOutlawCheck

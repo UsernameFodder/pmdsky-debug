@@ -26,9 +26,9 @@ enum monster_id GetKeyN2MBaseForm(int key);
 void GetKeyM2NSwitch(enum monster_id monster_id, int sw);
 int GetKeyM2N(enum monster_id monster_id);
 int GetKeyM2NBaseForm(enum monster_id monster_id);
-void HardwareInterrupt(void);
-void ReturnFromInterrupt(void);
-void InitDmaTransfer_Standard(uint8_t channel, void* src, void* dst, uint16_t word_count);
+void OS_IrqHandler(void);
+void OS_IrqHandler_ThreadSwitch(void);
+void MIi_DmaSetParams(uint8_t channel, void* src, void* dst, uint16_t word_count);
 bool ShouldMonsterRunAwayAndShowEffectOutlawCheck(struct entity* monster,
                                                   bool show_run_away_effect);
 void AiMovement(struct entity* monster, bool show_run_away_effect);

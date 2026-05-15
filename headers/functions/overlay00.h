@@ -12,10 +12,10 @@ int recvfrom(int sockfd, void* buf, size_t size, int flags, struct sockaddr_in* 
 int send(int sockfd, const void* buf, size_t size, int flags);
 int sendto(int sockfd, const void* buf, size_t size, int flags, const struct sockaddr_in* addr,
            int addr_len);
-int CloseVeneer(int fd);
-int fcntl(int fd, int op, uint32_t op_arg);
+int Soc_Close(int fd);
+int Soc_Fcntl(int fd, int op, uint32_t op_arg);
 void Soc_Startup(void);
-int InitWfc(void);
+int Dwc_AC_Process(void);
 int SocketCastError(int error, int cast_error);
 int SocketCreate(int domain, int family, int protocol);
 int SocketClose(int fd);
