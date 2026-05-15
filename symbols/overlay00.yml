@@ -1167,7 +1167,7 @@ overlay0:
     - name: Cpsi_Sha1_Block_Helper
       address:
         EU: 0x22D3A38
-      description: "Also known as R."  
+      description: Also known as R.
     - name: char_from_long_sha1
       address:
         EU: 0x22D3A7C
