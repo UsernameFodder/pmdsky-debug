@@ -2431,9 +2431,9 @@ libs:
         EU: 0x207B1DC
         NA: 0x207AE44
         JP: 0x207B12C
-    - name: GetTimer0Control
+    - name: OS_GetTickLo
       aliases:
-        - OS_GetTickLo
+        - GetTimer0Control
       address:
         EU: 0x207B27C
         NA: 0x207AEE4
