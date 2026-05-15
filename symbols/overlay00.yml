@@ -1165,10 +1165,9 @@ overlay0:
       address:
         EU: 0x22D39D0
     - name: Cpsi_Sha1_Block_Helper
-      aliases:
-        - R
       address:
         EU: 0x22D3A38
+      description: "Also known as R."  
     - name: char_from_long_sha1
       address:
         EU: 0x22D3A7C
