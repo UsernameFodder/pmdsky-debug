@@ -423,7 +423,7 @@ itcm:
         EU-ITCM: 0x1FF98CC
     - name: OSi_ReloadRomData
       address:
-        EU: 0x1FF98E8
+        EU-ITCM: 0x1FF98E8
     - name: OSi_ReadCardRom32
       address:
         EU-ITCM: 0x1FF9990
