@@ -3,7 +3,7 @@
 
 void SelectRandomBackground(void);
 void Socl_Startup(void);
-int Soc_Close(int fd);
+int close(int fd);
 int Soc_Socket(int domain, int family, int protocol);
 int Soc_Bind(int sockfd, const struct sockaddr_in* addr);
 int Soc_Connect(int sockfd, const struct sockaddr_in* addr);
