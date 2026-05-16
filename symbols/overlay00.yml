@@ -614,7 +614,7 @@ overlay0:
     - name: MB_UpdateGameInfoMember
       address:
         EU: 0x22C5DA4
-    - name: mystrlen_MB
+    - name: Mystrlen_MB
       address:
         EU: 0x22C5E14
     - name: MB_AddGameInfo
@@ -3136,17 +3136,17 @@ overlay0:
         EU: 0x22DA8A8
         NA: 0x22DA094
         JP: 0x22DB840
-    - name: decodeSSID_Dwc
+    - name: DecodeSSID_Dwc
       address:
         EU: 0x22DA8B8
         NA: 0x22DA0A4
         JP: 0x22DB850
-    - name: makeShopWepKey_Dwc
+    - name: MakeShopWepKey_Dwc
       address:
         EU: 0x22DA9BC
         NA: 0x22DA1A8
         JP: 0x22DB954
-    - name: makeUsbWepKey_Dwc
+    - name: MakeUsbWepKey_Dwc
       address:
         EU: 0x22DAA08
         NA: 0x22DA1F4
@@ -3156,7 +3156,7 @@ overlay0:
         EU: 0x22DABB4
         NA: 0x22DA3A0
         JP: 0x22DBB4C
-    - name: db64_Dwc
+    - name: Db64_Dwc
       address:
         EU: 0x22DAC24
         NA: 0x22DA410
@@ -4813,13 +4813,6 @@ overlay0:
     - name: Dwc_Auth_CheckWiFiIDNeedCreate
       address:
         EU: 0x22EF2C8
-    - name: ret_022EF650
-      address:
-        EU: 0x22EF650
-      description: |-
-        Does nothing but return. Likely a debug hook for a nearby function.
-        
-        No params.
     - name: Dwci_Ndi_FreeAttr
       address:
         EU: 0x22EFFE4
@@ -4853,7 +4846,7 @@ overlay0:
     - name: Dwci_NdStartup
       address:
         EU: 0x22F049C
-    - name: nhttpCleanupCallback
+    - name: NhttpCleanupCallback
       address:
         EU: 0x22F0644
     - name: Dwci_NdCleanupAsync
@@ -4964,7 +4957,7 @@ overlay0:
     - name: Nhttpi_CleanupThreadProc
       address:
         EU: 0x22F1BFC
-    - name: addHdrList_Nhttp
+    - name: AddHdrList_Nhttp
       address:
         EU: 0x22F1C38
     - name: Nhttpi_GetHdrFromList
@@ -4973,7 +4966,7 @@ overlay0:
     - name: IncAscii_Nhttp
       address:
         EU: 0x22F1D94
-    - name: checkTagPost_Nhttp
+    - name: CheckTagPost_Nhttp
       address:
         EU: 0x22F1DC8
     - name: Nhttp_AddHeaderField
@@ -5298,20 +5291,6 @@ overlay0:
         r0: socket file descriptor
         r1: blocking flag
         return: success
-    - name: ret_022F5DA0
-      address:
-        EU: 0x22F5DA0
-      description: |-
-        Does nothing but return. Likely a debug hook for a nearby function.
-        
-        No params.
-    - name: ret_022F5DA4
-      address:
-        EU: 0x22F5DA4
-      description: |-
-        Does nothing but return. Likely a debug hook for a nearby function.
-        
-        No params.
     - name: OS_Sleep_VeNeeR
       address:
         EU: 0x22F5E00
@@ -5354,13 +5333,6 @@ overlay0:
         r0: x
         r1: y
         return: pseudorandom integer on the interval [x, y - 1]
-    - name: ret_022F62D8
-      address:
-        EU: 0x22F62D8
-      description: |-
-        Does nothing but return. Likely a debug hook for a nearby function.
-        
-        No params.
     - name: ResolveAvailableNintendoWifi
       address:
         EU: 0x22F640C
@@ -5373,35 +5345,7 @@ overlay0:
     - name: GSIAvailableCheckThink
       address:
         EU: 0x22F65BC
-    - name: ret_022F9CF0
-      address:
-        EU: 0x22F9CF0
-      description: |-
-        Does nothing but return. Likely a debug hook for a nearby function.
-        
-        No params.
-    - name: ret_022F9CF4
-      address:
-        EU: 0x22F9CF4
-      description: |-
-        Does nothing but return. Likely a debug hook for a nearby function.
-        
-        No params.
-    - name: ret_022F9CF8
-      address:
-        EU: 0x22F9CF8
-      description: |-
-        Does nothing but return. Likely a debug hook for a nearby function.
-        
-        No params.
-    - name: ret_022F9CFC
-      address:
-        EU: 0x22F9CFC
-      description: |-
-        Does nothing but return. Likely a debug hook for a nearby function.
-        
-        No params.
-    - name: ghttpStartup
+    - name: GhttpStartup
       address:
         EU: 0x22FC75C
     - name: GhttpCleanup
@@ -5428,58 +5372,51 @@ overlay0:
     - name: GpSetCallback
       address:
         EU: 0x22FF7BC
-    - name: gpConnectPreAuthenticatedA
+    - name: GpConnectPreAuthenticatedA
       address:
         EU: 0x22FF80C
-    - name: gpDisconnect
+    - name: GpDisconnect
       address:
         EU: 0x22FF910
-    - name: gpProfileSearchA
+    - name: GpProfileSearchA
       address:
         EU: 0x22FF944
     - name: GpGetInfo
       address:
         EU: 0x22FFA0C
-    - name: gpSendBuddyRequestA
+    - name: GpSendBuddyRequestA
       address:
         EU: 0x22FFB38
-    - name: gpAuthBuddyRequest
+    - name: GpAuthBuddyRequest
       address:
         EU: 0x22FFCAC
-    - name: gpDenyBuddyRequest
+    - name: GpDenyBuddyRequest
       address:
         EU: 0x22FFCFC
-    - name: gpGetNumBuddies
+    - name: GpGetNumBuddies
       address:
         EU: 0x22FFDBC
-    - name: gpGetBuddyStatus
+    - name: GpGetBuddyStatus
       address:
         EU: 0x22FFDEC
-    - name: gpGetBuddyIndex
+    - name: GpGetBuddyIndex
       address:
         EU: 0x22FFF7C
-    - name: gpIsBuddy
+    - name: GpIsBuddy
       address:
         EU: 0x230001C
-    - name: gpDeleteBuddy
+    - name: GpDeleteBuddy
       address:
         EU: 0x2300094
-    - name: gpSetStatusA
+    - name: GpSetStatusA
       address:
         EU: 0x23000F0
-    - name: gpSendBuddyMessageA
+    - name: GpSendBuddyMessageA
       address:
         EU: 0x2300324
-    - name: gpGetReversBuddiesList
+    - name: GpGetReversBuddiesList
       address:
         EU: 0x23003BC
-    - name: ret_02308DE0
-      address:
-        EU: 0x2308DE0
-      description: |-
-        Does nothing but return. Likely a debug hook for a nearby function.
-        
-        No params.
     - name: PasswordEncryptString
       address:
         EU: 0x230C4F4
@@ -5501,66 +5438,57 @@ overlay0:
     - name: PersistThink
       address:
         EU: 0x230CB40
-    - name: gt2Reject
+    - name: Gt2Reject
       address:
-        EU:
-          - 0x230E4D0
-          - 0x230E90C
+        EU: 0x230E4D0
     - name: Gt2CreateSocket
       address:
         EU: 0x230E888
     - name: Gt2CloseSocket
       address:
         EU: 0x230E8AC
-    - name: gt2Think
+    - name: Gt2Think
       address:
         EU: 0x230E8C4
-    - name: gt2Listen
+    - name: Gt2Listen
       address:
         EU: 0x230E8F4
-    - name: gt2Accept
+    - name: Gt2Accept
       address:
         EU: 0x230E900
-    - name: gt2Connect
+    - name: Gt2Connect
       address:
         EU: 0x230E918
-    - name: gt2Send
+    - name: Gt2Send
       address:
         EU: 0x230EA94
     - name: Gt2CloseConnectionHard
       address:
         EU: 0x230EB98
-    - name: gt2CloseAllConnectionsHard
+    - name: Gt2CloseAllConnectionsHard
       address:
         EU: 0x230EBB8
-    - name: gt2GetLocalPort
+    - name: Gt2GetLocalPort
       address:
         EU: 0x230EC3C
-    - name: gt2GetOutgoingBufferFreeSpace
+    - name: Gt2GetOutgoingBufferFreeSpace
       address:
         EU: 0x230EC4C
-    - name: gt2GetSocketSOCKET
+    - name: Gt2GetSocketSOCKET
       address:
         EU: 0x230EC5C
-    - name: gt2SetUnrecognizedMessageCallback
+    - name: Gt2SetUnrecognizedMessageCallback
       address:
         EU: 0x230EC64
-    - name: gt2SetConnectionData
+    - name: Gt2SetConnectionData
       address:
         EU: 0x230EC6C
-    - name: gt2GetConnectionData
+    - name: Gt2GetConnectionData
       address:
         EU: 0x230EC74
     - name: Gt2AddressToString
       address:
         EU: 0x2311408
-    - name: ret_023116FC
-      address:
-        EU: 0x23116FC
-      description: |-
-        Does nothing but return. Likely a debug hook for a nearby function.
-        
-        No params.
     - name: NNFreeNegotiateList
       address:
         EU: 0x2311DF4
