@@ -3,14 +3,14 @@
 
 void SelectRandomBackground(void);
 void Socl_Startup(void);
-int close(int fd);
-int socket(int domain, int family, int protocol);
-int bind(int sockfd, const struct sockaddr_in* addr);
-int connect(int sockfd, const struct sockaddr_in* addr);
-int recv(int sockfd, void* buf, size_t size, int flags);
-int recvfrom(int sockfd, void* buf, size_t size, int flags, struct sockaddr_in* addr, int addr_len);
-int send(int sockfd, const void* buf, size_t size, int flags);
-int sendto(int sockfd, const void* buf, size_t size, int flags, const struct sockaddr_in* addr,
+int Soc_Close(int fd);
+int Soc_Socket(int domain, int family, int protocol);
+int Soc_Bind(int sockfd, const struct sockaddr_in* addr);
+int Soc_Connect(int sockfd, const struct sockaddr_in* addr);
+int Soc_Recv(int sockfd, void* buf, size_t size, int flags);
+int Soc_RecvFrom(int sockfd, void* buf, size_t size, int flags, struct sockaddr_in* addr, int addr_len);
+int Soc_Send(int sockfd, const void* buf, size_t size, int flags);
+int Soc_SendTo(int sockfd, const void* buf, size_t size, int flags, const struct sockaddr_in* addr,
            int addr_len);
 int Soc_Close(int fd);
 int Soc_Fcntl(int fd, int op, uint32_t op_arg);
