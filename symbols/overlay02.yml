@@ -16,7 +16,7 @@ overlay2:
     - name: InitWfcSettingsOverlay
       address:
         EU: 0x2329D40
-      description: Most likely the only non-SDK/DWC function in the entire overlay. Seems responsible for initializing and running the WFC Settings interface, via overlay_00 and overlay_02 SDK/DWC functions.
+      description: "Most likely the only non-SDK/DWC function in the entire overlay. Seems responsible for initializing and running the WFC Settings interface, via overlay_00 and overlay_02 SDK/DWC functions."
     - name: Nns_FndInitList
       address:
         EU: 0x2329D8C
