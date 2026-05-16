@@ -5654,6 +5654,7 @@ overlay0:
     - name: ServerBrowserGetMyPublicIPAddr
       address:
         EU: 0x23165A4
+  data:
     - name: OV0_STATIC_INITIALIZER
       address:
         EU: 0x2318F98
