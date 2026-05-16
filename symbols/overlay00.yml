@@ -4043,7 +4043,7 @@ overlay0:
     - name: Dwc_GetAidList
       address:
         EU: 0x22E274C
-    - name: Dwc_IsValidAID
+    - name: Dwc_IsValidAid
       address:
         EU: 0x22E279C
     - name: Dwc_GetState
@@ -4055,7 +4055,7 @@ overlay0:
     - name: Dwci_GetGT2Connection
       address:
         EU: 0x22E28B8
-    - name: Dwci_GetConnectionAID
+    - name: Dwci_GetConnectionAid
       address:
         EU: 0x22E291C
     - name: Dwci_GetConnectionIndex
@@ -4076,10 +4076,10 @@ overlay0:
     - name: Dwci_GetConnectionInfoByIdx
       address:
         EU: 0x22E2A10
-    - name: Dwci_IsValidAID
+    - name: Dwci_IsValidAid
       address:
         EU: 0x22E2A20
-    - name: Dwci_ResetMyAID
+    - name: Dwci_ResetMyAid
       address:
         EU: 0x22E2A68
     - name: Dwcs_ForceShutdown
@@ -4088,10 +4088,10 @@ overlay0:
     - name: Dwci_SetState
       address:
         EU: 0x22E2A84
-    - name: Dwci_DeleteAID
+    - name: Dwci_DeleteAid
       address:
         EU: 0x22E2AA4
-    - name: Dwci_HandleGPError_Common?
+    - name: Dwci_HandleGpError_Common
       address:
         EU: 0x22E2B04
     - name: Dwci_HandleGT2Error
@@ -4322,10 +4322,10 @@ overlay0:
     - name: Dwci_SetNumValidConnection
       address:
         EU: 0x22E73F0
-    - name: Dwci_GetAllAIDList
+    - name: Dwci_GetAllAidList
       address:
         EU: 0x22E7444
-    - name: Dwci_GetValidAIDList
+    - name: Dwci_GetValidAidList
       address:
         EU: 0x22E7478
     - name: Dwci_GPSetServerStatus
@@ -4451,16 +4451,16 @@ overlay0:
     - name: Dwci_ClearGameMatchKeys
       address:
         EU: 0x22EB770
-    - name: Dwci_GetAIDFromList
+    - name: Dwci_GetAidFromList
       address:
         EU: 0x22EB7C8
     - name: Dwci_IsFriendByIdxList
       address:
         EU: 0x22EB838
-    - name: Dwci_GetAIDFromProfileID
+    - name: Dwci_GetAidFromProfileID
       address:
         EU: 0x22EB8A8
-    - name: Dwci_GetAIDBitmask
+    - name: Dwci_GetAidBitmask
       address:
         EU: 0x22EB90C
     - name: Dwci_InitClWaitTimeout
@@ -4616,43 +4616,43 @@ overlay0:
     - name: Dwcs_GetOutgoingBufferFreeSize
       address:
         EU: 0x22ED5E0
-    - name: Dwc_InitGHTTP
+    - name: Dwc_InitGhttp
       address:
         EU: 0x22ED604
-    - name: Dwc_ShutdownGHTTP
+    - name: Dwc_ShutdownGhttp
       address:
         EU: 0x22ED628
-    - name: Dwc_ProcessGHTTP
+    - name: Dwc_ProcessGhttp
       address:
         EU: 0x22ED668
-    - name: GHTTPCompletedCallback
+    - name: GhttpCompletedCallback
       address:
         EU: 0x22ED688
-    - name: GHTTPProgressCallback
+    - name: GhttpProgressCallback
       address:
         EU: 0x22ED724
-    - name: Dwci_GHTTPGetEx
+    - name: Dwci_GhttpGetEx
       address:
         EU: 0x22ED76C
-    - name: Dwc_GetGHTTPDataEx2
+    - name: Dwc_GetGhttpDataEx2
       address:
         EU: 0x22ED910
-    - name: Dwc_CancelGHTTPRequest
+    - name: Dwc_CancelGhttpRequest
       address:
         EU: 0x22ED938
-    - name: Dwci_HandleGHTTPError
+    - name: Dwci_HandleGhttpError
       address:
         EU: 0x22ED978
-    - name: Dwci_AppendDwcGHTTPParam
+    - name: Dwci_AppendDwcGhttpParam
       address:
         EU: 0x22EDAD4
     - name: Dwci_RemoveDwcGHttpParamEntry
       address:
         EU: 0x22EDB30
-    - name: Dwci_FindDwcGHTTPParamEntryByReq
+    - name: Dwci_FindDwcGhttpParamEntryByReq
       address:
         EU: 0x22EDBB4
-    - name: Dwci_RemoveAllDwcGHTTPParamEntry
+    - name: Dwci_RemoveAllDwcGhttpParamEntry
       address:
         EU: 0x22EDBE0
     - name: Dwci_BM_GetApInfo
@@ -4820,7 +4820,7 @@ overlay0:
         Does nothing but return. Likely a debug hook for a nearby function.
         
         No params.
-    - name: Dwci_Ndi_freeAttr
+    - name: Dwci_Ndi_FreeAttr
       address:
         EU: 0x22EFFE4
     - name: SetAttr_Dwc
@@ -4835,16 +4835,16 @@ overlay0:
     - name: DecodeChar_Dwc
       address:
         EU: 0x22F01B0
-    - name: Dwci_Ndi_getDecodeLenBASE64
+    - name: Dwci_Ndi_GetDecodeLenBASE64
       address:
         EU: 0x22F0208
-    - name: Dwci_Ndi_getEncodeLenBASE64
+    - name: Dwci_Ndi_GetEncodeLenBASE64
       address:
         EU: 0x22F0214
-    - name: Dwci_Ndi_encodeBASE64
+    - name: Dwci_Ndi_EncodeBase64
       address:
         EU: 0x22F0230
-    - name: Dwci_Ndi_decodeBASE64
+    - name: Dwci_Ndi_EecodeBase64
       address:
         EU: 0x22F0328
     - name: StrAlloc_Dwc
@@ -4862,13 +4862,13 @@ overlay0:
     - name: Dwci_NdCancelAsync
       address:
         EU: 0x22F06B0
-    - name: Dwci_Ndi_getApInfo
+    - name: Dwci_Ndi_GetApInfo
       address:
         EU: 0x22F06EC
-    - name: Dwci_Ndi_getDSdesc
+    - name: Dwci_Ndi_GetDSdesc
       address:
         EU: 0x22F07EC
-    - name: Dwci_Ndi_getUserAgent
+    - name: Dwci_Ndi_GetUserAgent
       address:
         EU: 0x22F0878
     - name: Req_Callback_Dwc
@@ -4892,67 +4892,67 @@ overlay0:
     - name: Dwci_NdGetFileAsync
       address:
         EU: 0x22F1340
-    - name: Dwci_Ndi_response_count
+    - name: Dwci_Ndi_Response_Count
       address:
         EU: 0x22F1504
-    - name: Dwci_Ndi_response_contents
+    - name: Dwci_Ndi_Response_Contents
       address:
         EU: 0x22F1558
-    - name: Dwci_Ndi_response_list
+    - name: Dwci_Ndi_Response_List
       address:
         EU: 0x22F1584
-    - name: Dwci_Ndi_initLockGlobal
+    - name: Dwci_Ndi_InitLockGlobal
       address:
         EU: 0x22F1808
-    - name: Dwci_Ndi_exitLockGlobal
+    - name: Dwci_Ndi_ExitLockGlobal
       address:
         EU: 0x22F1820
-    - name: Dwci_Ndi_lockGlobal
+    - name: Dwci_Ndi_LockGlobal
       address:
         EU: 0x22F1824
-    - name: Dwci_Ndi_unlockGlobal
+    - name: Dwci_Ndi_UnlockGlobal
       address:
         EU: 0x22F1838
-    - name: Dwci_Ndi_initHttpCallback
+    - name: Dwci_Ndi_InitHttpCallback
       address:
         EU: 0x22F184C
-    - name: Dwci_Ndi_exitHttpCallback
+    - name: Dwci_Ndi_ExitHttpCallback
       address:
         EU: 0x22F1874
-    - name: Dwci_Ndi_prepareHttpCallback
+    - name: Dwci_Ndi_PrepareHttpCallback
       address:
         EU: 0x22F1878
-    - name: Dwci_Ndi_unprepareHttpCallback
+    - name: Dwci_Ndi_UnprepareHttpCallback
       address:
         EU: 0x22F18C0
-    - name: Dwci_Ndi_kickThread
+    - name: Dwci_Ndi_KickThread
       address:
         EU: 0x22F18EC
-    - name: Dwci_Ndi_getMacAddress
+    - name: Dwci_Ndi_GetMacAddress
       address:
         EU: 0x22F1900
     - name: Dwci_Ndi_Strlen
       address:
         EU: 0x22F1960
-    - name: Dwci_Ndi_strncmp
+    - name: Dwci_Ndi_Strncmp
       address:
         EU: 0x22F196C
-    - name: Dwci_Ndi_memclr
+    - name: Dwci_Ndi_Memclr
       address:
         EU: 0x22F1978
-    - name: Dwci_Ndi_memcpy
+    - name: Dwci_Ndi_Memcpy
       address:
         EU: 0x22F198C
-    - name: Dwci_Ndi_strToInt
+    - name: Dwci_Ndi_StrToInt
       address:
         EU: 0x22F19A4
-    - name: Dwci_Ndi_intToStr
+    - name: Dwci_Ndi_IntToStr
       address:
         EU: 0x22F19B0
-    - name: Dwci_Ndi_intToStrFigure
+    - name: Dwci_Ndi_IntToStrFigure
       address:
         EU: 0x22F19BC
-    - name: Dwci_Ndi_hexToStrFigure
+    - name: Dwci_Ndi_HexToStrFigure
       address:
         EU: 0x22F1A94
     - name: Nhttp_Startup
@@ -4967,7 +4967,7 @@ overlay0:
     - name: addHdrList_Nhttp
       address:
         EU: 0x22F1C38
-    - name: Nhttpi_getHdrFromList
+    - name: Nhttpi_GetHdrFromList
       address:
         EU: 0x22F1D50
     - name: IncAscii_Nhttp
@@ -4988,22 +4988,22 @@ overlay0:
     - name: Nhttpi_SetReqQueue
       address:
         EU: 0x22F1F1C
-    - name: Nhttpi_findReqQueue
+    - name: Nhttpi_FindReqQueue
       address:
         EU: 0x22F1FD0
-    - name: Nhttpi_freeReqQueue
+    - name: Nhttpi_FreeReqQueue
       address:
         EU: 0x22F2028
-    - name: Nhttpi_allFreeReqQueue
+    - name: Nhttpi_AllFreeReqQueue
       address:
         EU: 0x22F20C8
-    - name: Nhttpi_getReqFromReqQueue
+    - name: Nhttpi_GetReqFromReqQueue
       address:
         EU: 0x22F20F8
-    - name: Nhttpi_initLockReqList
+    - name: Nhttpi_InitLockReqList
       address:
         EU: 0x22F210C
-    - name: Nhttpi_exitLockReqList
+    - name: Nhttpi_ExitLockReqList
       address:
         EU: 0x22F2124
     - name: Nhttpi_LockReqList
@@ -5012,13 +5012,13 @@ overlay0:
     - name: Nhttpi_UnlockReqList
       address:
         EU: 0x22F213C
-    - name: Nhttpi_createCommThread
+    - name: Nhttpi_CreateCommThread
       address:
         EU: 0x22F2150
-    - name: Nhttpi_destroyCommThread
+    - name: Nhttpi_DestroyCommThread
       address:
         EU: 0x22F21C8
-    - name: Nhttpi_idleCommThread
+    - name: Nhttpi_IdleCommThread
       address:
         EU: 0x22F21F0
     - name: Nhttpi_KickCommThread
@@ -5039,10 +5039,10 @@ overlay0:
     - name: Nhttpi_CompareTokenN_HdrRecvBuf
       address:
         EU: 0x22F2440
-    - name: Nhttpi_loadFromHdrRecvBuf
+    - name: Nhttpi_LoadFromHdrRecvBuf
       address:
         EU: 0x22F2510
-    - name: Nhttpi_isRecvBufFull
+    - name: Nhttpi_IsRecvBufFull
       address:
         EU: 0x22F25FC
     - name: Nhttpi_RecvBuf
@@ -5060,7 +5060,7 @@ overlay0:
     - name: DeleteStrList
       address:
         EU: 0x22F2C34
-    - name: Nhttpi_destroyRequestObject
+    - name: Nhttpi_DestroyRequestObject
       address:
         EU: 0x22F2C88
     - name: Nhttp_SendRequestAsync
@@ -5069,7 +5069,7 @@ overlay0:
     - name: Nhttp_CancelRequestAsync
       address:
         EU: 0x22F2D8C
-    - name: Nhttpi_cancelAllRequests
+    - name: Nhttpi_CancelAllRequests
       address:
         EU: 0x22F2E08
     - name: Nhttpi_ResolveHostname
@@ -5078,7 +5078,7 @@ overlay0:
     - name: Nhttp_DestroyResponse
       address:
         EU: 0x22F2EF4
-    - name: Nhttpi_getHeaderValue
+    - name: Nhttpi_GetHeaderValue
       address:
         EU: 0x22F2F6C
     - name: Nhttp_GetHeaderField
@@ -5150,7 +5150,7 @@ overlay0:
     - name: Nhttpi_GetUrlEncodedSize
       address:
         EU: 0x22F49F0
-    - name: Nhttpi_encodeUrlChar
+    - name: Nhttpi_EncodeUrlChar
       address:
         EU: 0x22F4A58
     - name: Nhttpi_StrToHex
@@ -5573,7 +5573,7 @@ overlay0:
     - name: NNProcessData
       address:
         EU: 0x2312EA0
-    - name: qr2_init_socketA
+    - name: qr2_init_socketa
       address:
         EU: 0x2313000
     - name: qr2_register_natneg_callback
@@ -5600,7 +5600,7 @@ overlay0:
     - name: qr2_buffer_add_int
       address:
         EU: 0x2313524
-    - name: qr2_parse_queryA
+    - name: qr2_parse_querya
       address:
         EU: 0x231456C
     - name: SBServerGetIntValueA
