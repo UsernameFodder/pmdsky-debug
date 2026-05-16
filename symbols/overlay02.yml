@@ -718,7 +718,7 @@ overlay2:
     - name: aoss_apc_callback
       address:
         EU: 0x23308A4
-    - name: alarmCallback
+    - name: AlarmCallback
       address:
         EU:
           - 0x23308B8
