@@ -508,10 +508,10 @@ overlay2:
     - name: Aossi_Init
       address:
         EU: 0x232E5B8
-    - name: Aoss_Init_old
+    - name: Aoss_Init_Old
       address:
         EU: 0x232E6A8
-    - name: aoss_IP_sta
+    - name: aoss_ip_sta
       address:
         EU: 0x232F0C0
     - name: aoss_release
@@ -526,16 +526,16 @@ overlay2:
     - name: aoss_get_error
       address:
         EU: 0x232F168
-    - name: Aoss_seq_data_copy
+    - name: aoss_seq_data_copy
       address:
         EU: 0x232F174
     - name: aoss_check_str
       address:
         EU: 0x232F36C
-    - name: checkAP_Aoss
+    - name: CheckAP_Aoss
       address:
         EU: 0x232F390
-    - name: Aoss_set_ApInfo
+    - name: Aoss_Set_ApInfo
       address:
         EU: 0x232F40C
     - name: MakeSendSeqID
@@ -790,10 +790,10 @@ overlay2:
     - name: Apc_GetState
       address:
         EU: 0x2331A90
-    - name: soAlloc
+    - name: SoAlloc
       address:
         EU: 0x2331A9C
-    - name: soFree
+    - name: SoFree
       address:
         EU: 0x2331ACC
     - name: AtermApc_InitEventBuf
@@ -802,7 +802,7 @@ overlay2:
     - name: AtermApc_GetEvent
       address:
         EU: 0x2331B1C
-    - name: AtermApc_callback
+    - name: AtermApc_Callback
       address:
         EU: 0x2331B54
     - name: InitAtermApcNetwork
@@ -889,16 +889,16 @@ overlay2:
     - name: aeskw_xor64
       address:
         EU: 0x2333378
-    - name: rijndaelKeySetupEnc
+    - name: RijndaelKeySetupEnc
       address:
         EU: 0x23333C0
-    - name: rijndaelKeySetupDec
+    - name: RijndaelKeySetupDec
       address:
         EU: 0x2333678
-    - name: rijndaelEncrypt
+    - name: RijndaelEncrypt
       address:
         EU: 0x2333808
-    - name: rijndaelDecrypt
+    - name: RijndaelDecrypt
       address:
         EU: 0x2333BC4
     - name: MY_MD5Init
@@ -919,10 +919,10 @@ overlay2:
     - name: Decode
       address:
         EU: 0x23348E8
-    - name: MD5_memcpy
+    - name: MD5_Memcpy
       address:
         EU: 0x2334914
-    - name: MD5_memset
+    - name: MD5_Memset
       address:
         EU: 0x233492C
     - name: MD5Encode
@@ -964,7 +964,7 @@ overlay2:
     - name: Dwci_AnimelEnd
       address:
         EU: 0x2334CD8
-    - name: taskAnime
+    - name: TaskAnime
       address:
         EU: 0x2334D14
     - name: Dwci_BtnlInit
@@ -1291,16 +1291,16 @@ overlay2:
     - name: Dwci_ChangeScene
       address:
         EU: 0x2339594
-    - name: Dwci_SetParam_
+    - name: Dwci_SetParam
       address:
         EU: 0x23395A4
-    - name: Dwci_GetParam_
+    - name: Dwci_GetParam
       address:
         EU: 0x23395B8
-    - name: Dwci_SetParam2_
+    - name: Dwci_SetParam2
       address:
         EU: 0x23395E0
-    - name: Dwci_GetParam2_
+    - name: Dwci_GetParam2
       address:
         EU: 0x23395F4
     - name: Dwci_Language
@@ -3412,25 +3412,25 @@ overlay2:
     - name: Dwci_GetChildInfo
       address:
         EU: 0x234CBF0
-    - name: _Dwci_MovSearchChannel
+    - name: Dwci_MovSearchChannel
       address:
         EU: 0x234CC00
-    - name: _Dwci_MovStartWaitChild
+    - name: Dwci_MovStartWaitChild
       address:
         EU: 0x234CCA8
-    - name: _Dwci_Mov_WaitandDownloadandBoot_Child
+    - name: Dwci_Mov_WaitandDownloadandBoot_Child
       address:
         EU: 0x234CCCC
-    - name: _Dwci_Mov_ReadyMovUserID
+    - name: Dwci_Mov_ReadyMovUserID
       address:
         EU: 0x234CE84
-    - name: _Dwci_Mov_MovUserID
+    - name: Dwci_Mov_MovUserID
       address:
         EU: 0x234CEB0
-    - name: _Dwci_Mov_EraseFlashData
+    - name: Dwci_Mov_EraseFlashData
       address:
         EU: 0x234D08C
-    - name: _Dwci_MovEnd
+    - name: Dwci_MovEnd
       address:
         EU: 0x234D0A4
     - name: JudgeConnectableChild
@@ -3454,16 +3454,16 @@ overlay2:
     - name: Dwci_ArclEnd
       address:
         EU: 0x234D568
-    - name: userProc
+    - name: UserProc
       address:
         EU: 0x234D5F4
-    - name: cbRead
+    - name: CbRead
       address:
         EU: 0x234D658
-    - name: cbReadRom
+    - name: CbReadRom
       address:
         EU: 0x234D698
-    - name: cbWrite
+    - name: CbWrite
       address:
         EU: 0x234D6A8
     - name: Dwci_ArclReadEx
@@ -3472,7 +3472,7 @@ overlay2:
     - name: Dwci_ArclRelease
       address:
         EU: 0x234D7A4
-    - name: cmpBack
+    - name: CmpBack
       address:
         EU: 0x234D7D8
     - name: Dwci_CelllInit
@@ -3637,7 +3637,7 @@ overlay2:
     - name: Dwci_HeaplAllocEx
       address:
         EU: 0x234EFE0
-    - name: Dwci_HeaplFree_
+    - name: Dwci_HeaplFree
       address:
         EU: 0x234F004
     - name: Dwci_HeaplFree2
@@ -3748,6 +3748,7 @@ overlay2:
     - name: swprintf_subroutine
       address:
         EU: 0x234FDF4
+      description: Likely part of some sort of inline swprintf function.
     - name: Dwci_ClearVram
       address:
         EU: 0x234FE3C
