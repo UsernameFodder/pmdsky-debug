@@ -3805,15 +3805,9 @@ overlay0:
         EU: 0x22E0B8C
     - name: Dwci_SetError
       address:
-        EU:
-          - 0x22E0BA8
-          - 0x22E1284
-        NA:
-          - 0x22E0394
-          - 0x22E0A70
-        JP:
-          - 0x22E1B40
-          - 0x22E221C
+        EU: 0x22E0BA8
+        NA: 0x22E0394
+        JP: 0x22E1B40
     - name: Dwci_GetAllocateHeader
       address:
         EU: 0x22E0BC0
