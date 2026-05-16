@@ -5,6 +5,7 @@
 
 import json
 import ghidra.program.model.symbol.SourceType as SourceType
+import ghidra.util.exception.DuplicateNameException as DuplicateNameException
 
 COMMENT_TAG = "=== imported description ===\n"
 functionManager = currentProgram.getFunctionManager()
@@ -30,7 +31,13 @@ for s in symbols:
             print("Created function {} at address {}".format(name, address))
         else:
             old_name = func.getName()
-            func.setName(name, SourceType.USER_DEFINED)
+            try:
+                func.setName(name, SourceType.USER_DEFINED)
+            except DuplicateNameException:
+                # This can happen if name already exists, but is not the
+                # primary label, which can happen if it was overridden by a
+                # different label. In this case, just set it as the primary.
+                createLabel(address, name, True)
             print(
                 "Renamed function {} to {} at address {}".format(
                     old_name, name, address
