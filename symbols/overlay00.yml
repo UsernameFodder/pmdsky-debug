@@ -461,7 +461,7 @@ overlay0:
     - name: Wbt_GetRegisteredCount
       address:
         EU: 0x22C34F4
-    - name: Wbt_PrintBTList
+    - name: Wbt_PrintBtList
       address:
         EU: 0x22C352C
     - name: Wbt_AidbitmapToAid
@@ -545,7 +545,7 @@ overlay0:
     - name: MBi_CommParentSendMsg
       address:
         EU: 0x22C4754
-    - name: MBi_CommParentSendDLFileInfo
+    - name: MBi_CommParentSendDlFileInfo
       address:
         EU: 0x22C4794
     - name: MBi_ReloadCache
@@ -704,7 +704,7 @@ overlay0:
     - name: MBi_SetMaxScanTime
       address:
         EU: 0x22C7F78
-    - name: MBi_SetMPData
+    - name: MBi_SetMpData
       address:
         EU: 0x22C7F88
     - name: MBi_SendMP
@@ -757,7 +757,7 @@ overlay0:
     - name: MBi_EndTaskThread
       address:
         EU: 0x22C85EC
-    - name: MBi_SetChildMPMaxSize
+    - name: MBi_SetChildMpMaxSize
       address:
         EU: 0x22C8634
     - name: MBi_SetParentPieceBuffer
@@ -785,7 +785,7 @@ overlay0:
         EU: 0x22C8A4C
         NA: 0x22C8238
         JP: 0x22C99E4
-    - name: Empty_Func_CPS
+    - name: Empty_Func_Cps
       address:
         EU: 0x22C8A74
     - name: default_link_is_on
@@ -3066,7 +3066,7 @@ overlay0:
         EU: 0x22DA418
         NA: 0x22D9C04
         JP: 0x22DB3B0
-    - name: GetIPAddress_Dwc
+    - name: GetIpAddress_Dwc
       address:
         EU: 0x22DA47C
         NA: 0x22D9C68
@@ -3091,7 +3091,7 @@ overlay0:
         EU: 0x22DA5B8
         NA: 0x22D9DA4
         JP: 0x22DB550
-    - name: MakeSOCConfig_Dwc
+    - name: MakeSocConfig_Dwc
       address:
         EU: 0x22DA5E8
         NA: 0x22D9DD4
@@ -3106,7 +3106,7 @@ overlay0:
         EU: 0x22DA6FC
         NA: 0x22D9EE8
         JP: 0x22DB694
-    - name: CheckSetDNS_Dwc
+    - name: CheckSetDns_Dwc
       address:
         EU: 0x22DA750
         NA: 0x22D9F3C
@@ -3136,7 +3136,7 @@ overlay0:
         EU: 0x22DA8A8
         NA: 0x22DA094
         JP: 0x22DB840
-    - name: DecodeSSID_Dwc
+    - name: DecodeSsid_Dwc
       address:
         EU: 0x22DA8B8
         NA: 0x22DA0A4
@@ -3980,7 +3980,7 @@ overlay0:
     - name: Dwci_NdCleanupCallback
       address:
         EU: 0x22E1790
-    - name: Dwci_SVLTokenWaitThread
+    - name: Dwci_SvlTokenWaitThread
       address:
         EU: 0x22E17D4
     - name: Dwc_NdInitAsync
@@ -4103,10 +4103,10 @@ overlay0:
     - name: Dwci_UpdateServersCallback
       address:
         EU: 0x22E2D24
-    - name: Dwci_GPErrorCallback
+    - name: Dwci_GpErrorCallback
       address:
         EU: 0x22E2D6C
-    - name: Dwci_GPRecvBuddyMessageCallback
+    - name: Dwci_GpRecvBuddyMessageCallback
       address:
         EU: 0x22E2DA4
     - name: Dwci_GT2ReceivedCallback
@@ -4142,16 +4142,16 @@ overlay0:
     - name: Dwci_CloseLogin
       address:
         EU: 0x22E3534
-    - name: Dwci_HandleGPError_Login
+    - name: Dwci_HandleGpError_Login
       address:
         EU: 0x22E355C
-    - name: Dwci_GPConnectCallback
+    - name: Dwci_GpConnectCallback
       address:
         EU: 0x22E35D0
     - name: Dwci_RemoteAuthCallback
       address:
         EU: 0x22E3708
-    - name: Dwci_GPConnect
+    - name: Dwci_GpConnect
       address:
         EU: 0x22E3720
     - name: Dwci_RemoteLogin
@@ -4160,7 +4160,7 @@ overlay0:
     - name: Dwci_RemoteLoginProcess
       address:
         EU: 0x22E3988
-    - name: Dwci_GPGetInfoCallback
+    - name: Dwci_GpGetInfoCallback
       address:
         EU: 0x22E3B90
     - name: Dwci_CheckLogin
@@ -4190,34 +4190,34 @@ overlay0:
     - name: Dwci_StopFriendProcess
       address:
         EU: 0x22E43FC
-    - name: Dwci_GPRecvBuddyRequestCallback
+    - name: Dwci_GpRecvBuddyRequestCallback
       address:
         EU: 0x22E4484
-    - name: Dwci_GPRecvBuddyAuthCallback
+    - name: Dwci_GpRecvBuddyAuthCallback
       address:
         EU: 0x22E44D0
-    - name: Dwci_GPRecvBuddyStatusCallback
+    - name: Dwci_GpRecvBuddyStatusCallback
       address:
         EU: 0x22E4500
-    - name: Dwci_GetProfileIDFromList
+    - name: Dwci_GetProfileIdFromList
       address:
         EU: 0x22E4584
     - name: Dwci_GetFriendListIndex
       address:
         EU: 0x22E45CC
-    - name: Dwci_InitGPProcessCount
+    - name: Dwci_InitGpProcessCount
       address:
         EU: 0x22E4630
-    - name: Dwci_SetGPStatus
+    - name: Dwci_SetGpStatus
       address:
         EU: 0x22E4668
-    - name: Dwci_GetGPStatus
+    - name: Dwci_GetGpStatus
       address:
         EU: 0x22E471C
     - name: Dwci_ShutdownFriend
       address:
         EU: 0x22E47A4
-    - name: Dwci_GPProcess
+    - name: Dwci_GpProcess
       address:
         EU: 0x22E47B8
     - name: Dwci_CloseFriendProcess
@@ -4238,22 +4238,22 @@ overlay0:
     - name: Dwci_RefreshFriendListAll
       address:
         EU: 0x22E4C98
-    - name: Dwci_GPSendBuddyRequest
+    - name: Dwci_GpSendBuddyRequest
       address:
         EU: 0x22E4DE4
     - name: Dwci_GetFriendBuddyStatus
       address:
         EU: 0x22E4E18
-    - name: Dwci_HandleGPError_Friend
+    - name: Dwci_HandleGpError_Friend
       address:
         EU: 0x22E4ED4
-    - name: Dwci_GPProfileSearchCallback
+    - name: Dwci_GpProfileSearchCallback
       address:
         EU: 0x22E4F48
-    - name: Dwci_GPGetInfoCallback_RecvBuddyRequest
+    - name: Dwci_GpGetInfoCallback_RecvBuddyRequest
       address:
         EU: 0x22E51EC
-    - name: Dwci_GPGetInfoCallback_RecvAuthMessage
+    - name: Dwci_GpGetInfoCallback_RecvAuthMessage
       address:
         EU: 0x22E541C
     - name: Dwci_GetPersCallbackLevel
@@ -4268,7 +4268,7 @@ overlay0:
     - name: Dwci_GetReverseBuddiesCallback
       address:
         EU: 0x22E56AC
-    - name: Dwci_NNFreeNegotiateList
+    - name: Dwci_NnFreeNegotiateList
       address:
         EU: 0x22E5894
     - name: Dwci_MatchInit
@@ -4292,7 +4292,7 @@ overlay0:
     - name: Dwci_GT2ConnectedCallback
       address:
         EU: 0x22E6A5C
-    - name: Dwci_MatchGPRecvBuddyMsgCallback
+    - name: Dwci_MatchGpRecvBuddyMsgCallback
       address:
         EU: 0x22E6CE0
     - name: Dwci_StopResendingMatchCommand
@@ -4310,7 +4310,7 @@ overlay0:
     - name: Dwci_ProcessMatchClosing
       address:
         EU: 0x22E7034
-    - name: Dwci_ProcessMatchSCClosing
+    - name: Dwci_ProcessMatchScClosing
       address:
         EU: 0x22E71B0
     - name: Dwci_DeleteHostByProfileID
@@ -4328,7 +4328,7 @@ overlay0:
     - name: Dwci_GetValidAidList
       address:
         EU: 0x22E7478
-    - name: Dwci_GPSetServerStatus
+    - name: Dwci_GpSetServerStatus
       address:
         EU: 0x22E751C
     - name: Dwci_ShutdownMatch
@@ -4343,13 +4343,13 @@ overlay0:
     - name: Dwci_CloseMatching
       address:
         EU: 0x22E7A18
-    - name: Dwci_SBUpdateAsync
+    - name: Dwci_SbUpdateAsync
       address:
         EU: 0x22E7AB4
     - name: Dwci_GetDefaultMatchFilter
       address:
         EU: 0x22E7CB0
-    - name: Dwci_NNStartupAsync
+    - name: Dwci_NnStartupAsync
       address:
         EU: 0x22E7D18
     - name: Dwci_DoNatNegotiationAsync
@@ -4358,13 +4358,13 @@ overlay0:
     - name: Dwci_SendMatchCommand
       address:
         EU: 0x22E80C0
-    - name: Dwci_SendSBMsgCommand
+    - name: Dwci_SendSbMsgCommand
       address:
         EU: 0x22E8284
-    - name: Dwci_SendGPBuddyMsgCommand
+    - name: Dwci_SendGpBuddyMsgCommand
       address:
         EU: 0x22E839C
-    - name: Dwci_GetGPBuddyAdditionalMsg
+    - name: Dwci_GetGpBuddyAdditionalMsg
       address:
         EU: 0x22E8460
     - name: Dwci_ProcessRecvMatchCommand
@@ -4472,19 +4472,19 @@ overlay0:
     - name: Dwci_ProcessOptMinComp
       address:
         EU: 0x22EBA08
-    - name: Dwci_HandleGPError_Match
+    - name: Dwci_HandleGpError_Match
       address:
         EU: 0x22EBE34
-    - name: Dwci_HandleSBError_Match
+    - name: Dwci_HandleSbError_Match
       address:
         EU: 0x22EBEA8
     - name: Dwci_HandleQR2Error
       address:
         EU: 0x22EBF3C
-    - name: Dwci_HandleNNError
+    - name: Dwci_HandleNnError
       address:
         EU: 0x22EC024
-    - name: Dwci_HandleNNResult
+    - name: Dwci_HandleNnResult
       address:
         EU: 0x22EC080
     - name: Dwci_HandleGT2Error_Match
@@ -4517,13 +4517,13 @@ overlay0:
     - name: Dwci_QR2ClientMsgCallback
       address:
         EU: 0x22EC460
-    - name: Dwci_NNProgressCallback
+    - name: Dwci_NnProgressCallback
       address:
         EU: 0x22EC56C
-    - name: Dwci_NNCompletedCallback
+    - name: Dwci_NnCompletedCallback
       address:
         EU: 0x22EC570
-    - name: Dwci_ProcessNNFailure
+    - name: Dwci_ProcessNnFailure
       address:
         EU: 0x22EC954
     - name: Dwci_SetMatchCnt
@@ -4810,7 +4810,7 @@ overlay0:
         EU: 0x22EF274
         NA: 0x22EEA60
         JP: 0x22F020C
-    - name: Dwc_Auth_CheckWiFiIDNeedCreate
+    - name: Dwc_Auth_CheckWiFiIdNeedCreate
       address:
         EU: 0x22EF2C8
     - name: Dwci_Ndi_FreeAttr
@@ -4828,10 +4828,10 @@ overlay0:
     - name: DecodeChar_Dwc
       address:
         EU: 0x22F01B0
-    - name: Dwci_Ndi_GetDecodeLenBASE64
+    - name: Dwci_Ndi_GetDecodeLenBase64
       address:
         EU: 0x22F0208
-    - name: Dwci_Ndi_GetEncodeLenBASE64
+    - name: Dwci_Ndi_GetEncodeLenBase64
       address:
         EU: 0x22F0214
     - name: Dwci_Ndi_EncodeBase64
@@ -4975,7 +4975,7 @@ overlay0:
     - name: Nhttp_AddPostDataAscii
       address:
         EU: 0x22F1E8C
-    - name: Nhttp_SetCAChain
+    - name: Nhttp_SetCaChain
       address:
         EU: 0x22F1F00
     - name: Nhttpi_SetReqQueue
@@ -5083,7 +5083,7 @@ overlay0:
     - name: SslAuthCallback
       address:
         EU: 0x22F31A0
-    - name: Nhttpi_SetSSLseed
+    - name: Nhttpi_SetSslseed
       address:
         EU: 0x22F31AC
     - name: Nhttpi_SocOpen
@@ -5277,7 +5277,7 @@ overlay0:
         stack[0]: target address
         stack[1]: length of target address
         return: number of bytes sent, or -1 on an error
-    - name: GOAGetLastError
+    - name: GoaGetLastError
       address:
         EU: 0x22F59A8
     - name: SocketSetBlocking
@@ -5342,7 +5342,7 @@ overlay0:
         Seemingly resolves the IP of "pokedungeonds.available.gs.nintendowifi.net", in which "pokedungeonds" is provided as the first parameter.
         
         r0: string
-    - name: GSIAvailableCheckThink
+    - name: GsiAvailableCheckThink
       address:
         EU: 0x22F65BC
     - name: GhttpStartup
@@ -5474,7 +5474,7 @@ overlay0:
     - name: Gt2GetOutgoingBufferFreeSpace
       address:
         EU: 0x230EC4C
-    - name: Gt2GetSocketSOCKET
+    - name: Gt2GetSocketSocket
       address:
         EU: 0x230EC5C
     - name: Gt2SetUnrecognizedMessageCallback
@@ -5489,16 +5489,16 @@ overlay0:
     - name: Gt2AddressToString
       address:
         EU: 0x2311408
-    - name: NNFreeNegotiateList
+    - name: NnFreeNegotiateList
       address:
         EU: 0x2311DF4
-    - name: NNCancel
+    - name: NnCancel
       address:
         EU: 0x23127C4
-    - name: NNThink
+    - name: NnThink
       address:
         EU: 0x2312ACC
-    - name: NNProcessData
+    - name: NnProcessData
       address:
         EU: 0x2312EA0
     - name: qr2_init_socketa
@@ -5531,22 +5531,22 @@ overlay0:
     - name: qr2_parse_querya
       address:
         EU: 0x231456C
-    - name: SBServerGetIntValueA
+    - name: SbServerGetIntValueA
       address:
         EU: 0x2315A78
-    - name: SBServerGetPublicInetAddress
+    - name: SbServerGetPublicInetAddress
       address:
         EU: 0x2315B20
-    - name: SBServerGetPublicQueryPort
+    - name: SbServerGetPublicQueryPort
       address:
         EU: 0x2315B28
-    - name: SBServerHasPrivateAddress
+    - name: SbServerHasPrivateAddress
       address:
         EU: 0x2315B54
-    - name: SBServerGetPrivateInetAddress
+    - name: SbServerGetPrivateInetAddress
       address:
         EU: 0x2315B6C
-    - name: SBServerGetPrivateQueryPort
+    - name: SbServerGetPrivateQueryPort
       address:
         EU: 0x2315B74
     - name: ServerBrowserFree
@@ -5573,7 +5573,7 @@ overlay0:
     - name: ServerBrowserGetServer
       address:
         EU: 0x2316594
-    - name: ServerBrowserGetMyPublicIPAddr
+    - name: ServerBrowserGetMyPublicIpAddr
       address:
         EU: 0x23165A4
   data:
