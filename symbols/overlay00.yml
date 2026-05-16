@@ -401,115 +401,115 @@ overlay0:
         EU: 0x22C1E9C
         NA: 0x22C1688
         JP: 0x22C2E34
-    - name: WBTi_InitBitmap
+    - name: Wbti_InitBitmap
       address:
         EU: 0x22C1EE8
-    - name: WBTi_MergeBitmapIndex
+    - name: Wbti_MergeBitmapIndex
       address:
         EU: 0x22C1F44
-    - name: WBTi_FindBitmapIndex
+    - name: Wbti_FindBitmapIndex
       address:
         EU: 0x22C1FB0
-    - name: WBTi_GetPacketBuffer
+    - name: Wbti_GetPacketBuffer
       address:
         EU: 0x22C2034
-    - name: WBTi_SwitchNextCommand
+    - name: Wbti_SwitchNextCommand
       address:
         EU: 0x22C20D4
-    - name: WBTi_NotifySystemCallback
+    - name: Wbti_NotifySystemCallback
       address:
         EU: 0x22C21D0
-    - name: WBTi_TryCreateResponse
+    - name: Wbti_TryCreateResponse
       address:
         EU: 0x22C2280
-    - name: WBTi_CheckRequest
+    - name: Wbti_CheckRequest
       address:
         EU: 0x22C26E8
-    - name: WBTi_CheckBlockResponse
+    - name: Wbti_CheckBlockResponse
       address:
         EU: 0x22C28D0
-    - name: WBT_CallPacketSendHook
+    - name: Wbt_CallPacketSendHook
       address:
         EU: 0x22C2A5C
-    - name: WBTi_NotifyCompletionCallback
+    - name: Wbti_NotifyCompletionCallback
       address:
         EU: 0x22C2C58
-    - name: WBT_CallPacketRecvHook
+    - name: Wbt_CallPacketRecvHook
       address:
         EU: 0x22C2D30
-    - name: WBT_InitContext
+    - name: Wbt_InitContext
       address:
         EU: 0x22C315C
-    - name: WBT_ResetContext
+    - name: Wbt_ResetContext
       address:
         EU: 0x22C31C4
-    - name: WBT_PostCommand
+    - name: Wbt_PostCommand
       address:
         EU: 0x22C3238
-    - name: WBT_CancelCommand
+    - name: Wbt_CancelCommand
       address:
         EU: 0x22C32B0
-    - name: WBT_GetBitmapLength
+    - name: Wbt_GetBitmapLength
       address:
         EU: 0x22C33CC
-    - name: WBT_RegisterBlockInfo
+    - name: Wbt_RegisterBlockInfo
       address:
         EU: 0x22C33F8
-    - name: WBT_UnregisterBlockInfo
+    - name: Wbt_UnregisterBlockInfo
       address:
         EU: 0x22C3498
-    - name: WBT_GetRegisteredCount
+    - name: Wbt_GetRegisteredCount
       address:
         EU: 0x22C34F4
-    - name: WBT_PrintBTList
+    - name: Wbt_PrintBTList
       address:
         EU: 0x22C352C
-    - name: WBT_AidbitmapToAid
+    - name: Wbt_AidbitmapToAid
       address:
         EU: 0x22C3550
-    - name: WBT_InitParent
+    - name: Wbt_InitParent
       address:
         EU: 0x22C3574
-    - name: WBT_InitChild
+    - name: Wbt_InitChild
       address:
         EU: 0x22C3630
-    - name: WBT_End
+    - name: Wbt_End
       address:
         EU: 0x22C36C0
-    - name: WBT_SetOwnAid
+    - name: Wbt_SetOwnAid
       address:
         EU: 0x22C3704
-    - name: WBT_MpParentSendHook
+    - name: Wbt_MpParentSendHook
       address:
         EU: 0x22C3734
-    - name: WBT_MpChildSendHook
+    - name: Wbt_MpChildSendHook
       address:
         EU: 0x22C3758
-    - name: WBT_MpParentRecvHook
+    - name: Wbt_MpParentRecvHook
       address:
         EU: 0x22C377C
-    - name: WBT_MpChildRecvHook
+    - name: Wbt_MpChildRecvHook
       address:
         EU: 0x22C37A0
-    - name: WBT_RegisterBlock
+    - name: Wbt_RegisterBlock
       address:
         EU: 0x22C37C0
-    - name: WBT_UnregisterBlock
+    - name: Wbt_UnregisterBlock
       address:
         EU: 0x22C3804
-    - name: WBT_RequestSync
+    - name: Wbt_RequestSync
       address:
         EU: 0x22C381C
-    - name: WBT_GetBlockInfo
+    - name: Wbt_GetBlockInfo
       address:
         EU: 0x22C3880
-    - name: WBT_GetBlock
+    - name: Wbt_GetBlock
       address:
         EU: 0x22C3924
-    - name: WBT_PutUserData
+    - name: Wbt_PutUserData
       address:
         EU: 0x22C39E8
-    - name: WBT_CancelCurrentCommand
+    - name: Wbt_CancelCurrentCommand
       address:
         EU: 0x22C3A60
     - name: MB_CommSetParentStateCallback
@@ -3161,31 +3161,31 @@ overlay0:
         EU: 0x22DAC24
         NA: 0x22DA410
         JP: 0x22DBBBC
-    - name: WDSGetRssi8
+    - name: WdsGetRssi8
       address:
         EU: 0x22DAD8C
-    - name: WDSScanCallback
+    - name: WdsScanCallback
       address:
         EU: 0x22DADA0
-    - name: WDS_GetWorkAreaSize
+    - name: Wds_GetWorkAreaSize
       address:
         EU: 0x22DB08C
-    - name: WDS_Initialize
+    - name: Wds_Initialize
       address:
         EU: 0x22DB098
-    - name: WDS_End
+    - name: Wds_End
       address:
         EU: 0x22DB130
-    - name: WDS_StartScan
+    - name: Wds_StartScan
       address:
         EU: 0x22DB170
-    - name: WDS_EndScan
+    - name: Wds_EndScan
       address:
         EU: 0x22DB238
-    - name: WDS_GetApInfoByIndex
+    - name: Wds_GetApInfoByIndex
       address:
         EU: 0x22DB270
-    - name: WDS_GetApInfoAll
+    - name: Wds_GetApInfoAll
       address:
         EU: 0x22DB30C
     - name: Dwc_AC_StartupGetWdsInfo
@@ -3211,22 +3211,22 @@ overlay0:
     - name: IsValidApnum
       address:
         EU: 0x22DB7D0
-    - name: WDS_Initialize_CB
+    - name: Wds_Initialize_CB
       address:
         EU: 0x22DB804
-    - name: WDS_StartScan_CB
+    - name: Wds_StartScan_CB
       address:
         EU: 0x22DB818
-    - name: WDS_EndScan_CB
+    - name: Wds_EndScan_CB
       address:
         EU: 0x22DB82C
-    - name: WDS_End_CB
+    - name: Wds_End_CB
       address:
         EU: 0x22DB840
-    - name: WDS_Error_End_CB
+    - name: Wds_Error_End_CB
       address:
         EU: 0x22DB854
-    - name: DWC_Init
+    - name: Dwc_Init
       address:
         EU: 0x22DB868
     - name: Dwci_Acc_SetMaskBits
@@ -3509,7 +3509,7 @@ overlay0:
         EU: 0x22DC498
         NA: 0x22DBC84
         JP: 0x22DD430
-    - name: DWC_Auth_GetCustomNas
+    - name: Dwc_Auth_GetCustomNas
       address:
         EU: 0x22DC4A8
     - name: Dwc_Auth_Create
@@ -3585,7 +3585,7 @@ overlay0:
         EU: 0x22DD2F4
         NA: 0x22DCAE0
         JP: 0x22DE28C
-    - name: DWC_Auth_SetCalInfoToHttp
+    - name: Dwc_Auth_SetCalInfoToHttp
       address:
         EU: 0x22DD5A4
     - name: Dwc_Http_Create
@@ -3791,16 +3791,16 @@ overlay0:
         EU: 0x22E08E8
         NA: 0x22E00D4
         JP: 0x22E1880
-    - name: DWC_GetLastError
+    - name: Dwc_GetLastError
       address:
         EU: 0x22E0A50
-    - name: DWC_GetLastErrorEx
+    - name: Dwc_GetLastErrorEx
       address:
         EU: 0x22E0A70
-    - name: DWC_ClearError
+    - name: Dwc_ClearError
       address:
         EU: 0x22E0B6C
-    - name: DWCi_IsError
+    - name: Dwci_IsError
       address:
         EU: 0x22E0B8C
     - name: Dwci_SetError
@@ -3919,7 +3919,7 @@ overlay0:
         EU: 0x22E10B0
         NA: 0x22E089C
         JP: 0x22E2048
-    - name: DWC_CleanupInet
+    - name: Dwc_CleanupInet
       address:
         EU: 0x22E1284
     - name: Dwc_CleanupInetAsync
@@ -3977,652 +3977,652 @@ overlay0:
         EU: 0x22E1698
         NA: 0x22E0E84
         JP: 0x22E2630
-    - name: DWCi_NdCleanupCallback
+    - name: Dwci_NdCleanupCallback
       address:
         EU: 0x22E1790
-    - name: DWCi_SVLTokenWaitThread
+    - name: Dwci_SVLTokenWaitThread
       address:
         EU: 0x22E17D4
-    - name: DWC_NdInitAsync
+    - name: Dwc_NdInitAsync
       address:
         EU: 0x22E198C
-    - name: DWC_NdCleanupAsync
+    - name: Dwc_NdCleanupAsync
       address:
         EU: 0x22E1AA4
-    - name: DWC_NdSetAttr
+    - name: Dwc_NdSetAttr
       address:
         EU: 0x22E1AF0
-    - name: DWC_NdGetFileListNumAsync
+    - name: Dwc_NdGetFileListNumAsync
       address:
         EU: 0x22E1B24
-    - name: DWC_NdGetFileListAsync
+    - name: Dwc_NdGetFileListAsync
       address:
         EU: 0x22E1B48
-    - name: DWC_NdGetFileAsync
+    - name: Dwc_NdGetFileAsync
       address:
         EU: 0x22E1B90
-    - name: DWC_NdCancelAsync
+    - name: Dwc_NdCancelAsync
       address:
         EU: 0x22E1BC8
-    - name: DWC_SetCommonKeyValueString
+    - name: Dwc_SetCommonKeyValueString
       address:
         EU: 0x22E1BE4
-    - name: DWC_AddCommonKeyValueString
+    - name: Dwc_AddCommonKeyValueString
       address:
         EU: 0x22E1C1C
-    - name: DWC_GetCommonValueString
+    - name: Dwc_GetCommonValueString
       address:
         EU: 0x22E1C5C
-    - name: DWCi_GetMathRand32
+    - name: Dwci_GetMathRand32
       address:
         EU: 0x22E1D58
-    - name: DWCi_WStrLen
+    - name: Dwci_WStrLen
       address:
         EU: 0x22E1E78
-    - name: DWC_InitFriendsMatch
+    - name: Dwc_InitFriendsMatch
       address:
         EU: 0x22E1EA4
-    - name: DWC_ShutdownFriendsMatch
+    - name: Dwc_ShutdownFriendsMatch
       address:
         EU: 0x22E2128
-    - name: DWC_ProcessFriendsMatch
+    - name: Dwc_ProcessFriendsMatch
       address:
         EU: 0x22E2298
-    - name: DWC_LoginAsync
+    - name: Dwc_LoginAsync
       address:
         EU: 0x22E2518
-    - name: DWC_UpdateServersAsync
+    - name: Dwc_UpdateServersAsync
       address:
         EU: 0x22E2620
-    - name: DWC_CloseConnectionHard
+    - name: Dwc_CloseConnectionHard
       address:
         EU: 0x22E26C8
-    - name: DWC_GetMyAid
+    - name: Dwc_GetMyAid
       address:
         EU: 0x22E2730
-    - name: DWC_GetAidList
+    - name: Dwc_GetAidList
       address:
         EU: 0x22E274C
-    - name: DWC_IsValidAID
+    - name: Dwc_IsValidAID
       address:
         EU: 0x22E279C
-    - name: DWC_GetState
+    - name: Dwc_GetState
       address:
         EU: 0x22E27D4
-    - name: DWCi_GT2Startup
+    - name: Dwci_GT2Startup
       address:
         EU: 0x22E27F0
-    - name: DWCi_GetGT2Connection
+    - name: Dwci_GetGT2Connection
       address:
         EU: 0x22E28B8
-    - name: DWCi_GetConnectionAID
+    - name: Dwci_GetConnectionAID
       address:
         EU: 0x22E291C
-    - name: DWCi_GetConnectionIndex
+    - name: Dwci_GetConnectionIndex
       address:
         EU: 0x22E292C
-    - name: DWCi_GT2GetConnectionListIdx
+    - name: Dwci_GT2GetConnectionListIdx
       address:
         EU: 0x22E293C
-    - name: DWCi_ClearGT2ConnectionList
+    - name: Dwci_ClearGT2ConnectionList
       address:
         EU: 0x22E2968
-    - name: DWCi_GetGT2ConnectionByIdx
+    - name: Dwci_GetGT2ConnectionByIdx
       address:
         EU: 0x22E2998
-    - name: DWCi_GetGT2ConnectionByProfileID
+    - name: Dwci_GetGT2ConnectionByProfileID
       address:
         EU: 0x22E29A8
-    - name: DWCi_GetConnectionInfoByIdx
+    - name: Dwci_GetConnectionInfoByIdx
       address:
         EU: 0x22E2A10
-    - name: DWCi_IsValidAID
+    - name: Dwci_IsValidAID
       address:
         EU: 0x22E2A20
-    - name: DWCi_ResetMyAID
+    - name: Dwci_ResetMyAID
       address:
         EU: 0x22E2A68
-    - name: DWCs_ForceShutdown
+    - name: Dwcs_ForceShutdown
       address:
         EU: 0x22E2A80
-    - name: DWCi_SetState
+    - name: Dwci_SetState
       address:
         EU: 0x22E2A84
-    - name: DWCi_DeleteAID
+    - name: Dwci_DeleteAID
       address:
         EU: 0x22E2AA4
-    - name: DWCi_HandleGPError_Common?
+    - name: Dwci_HandleGPError_Common?
       address:
         EU: 0x22E2B04
-    - name: DWCi_HandleGT2Error
+    - name: Dwci_HandleGT2Error
       address:
         EU: 0x22E2C20
-    - name: DWCi_LoginCallback
+    - name: Dwci_LoginCallback
       address:
         EU: 0x22E2CC4
-    - name: DWCi_UpdateServersCallback
+    - name: Dwci_UpdateServersCallback
       address:
         EU: 0x22E2D24
-    - name: DWCi_GPErrorCallback
+    - name: Dwci_GPErrorCallback
       address:
         EU: 0x22E2D6C
-    - name: DWCi_GPRecvBuddyMessageCallback
+    - name: Dwci_GPRecvBuddyMessageCallback
       address:
         EU: 0x22E2DA4
-    - name: DWCi_GT2ReceivedCallback
+    - name: Dwci_GT2ReceivedCallback
       address:
         EU: 0x22E2EFC
-    - name: DWCi_GT2ClosedCallback
+    - name: Dwci_GT2ClosedCallback
       address:
         EU: 0x22E2F08
-    - name: DWCi_GT2PingCallback
+    - name: Dwci_GT2PingCallback
       address:
         EU: 0x22E3270
-    - name: DWCi_GT2SocketErrorCallback
+    - name: Dwci_GT2SocketErrorCallback
       address:
         EU: 0x22E327C
-    - name: DWCi_LoginInit
+    - name: Dwci_LoginInit
       address:
         EU: 0x22E32B8
-    - name: DWCi_LoginAsync
+    - name: Dwci_LoginAsync
       address:
         EU: 0x22E333C
-    - name: DWCi_LoginProcess
+    - name: Dwci_LoginProcess
       address:
         EU: 0x22E3374
-    - name: DWCi_GetUserData
+    - name: Dwci_GetUserData
       address:
         EU: 0x22E346C
-    - name: DWCi_StopLogin
+    - name: Dwci_StopLogin
       address:
         EU: 0x22E3488
-    - name: DWCi_ShutdownLogin
+    - name: Dwci_ShutdownLogin
       address:
         EU: 0x22E34D8
-    - name: DWCi_CloseLogin
+    - name: Dwci_CloseLogin
       address:
         EU: 0x22E3534
-    - name: DWCi_HandleGPError_Login
+    - name: Dwci_HandleGPError_Login
       address:
         EU: 0x22E355C
-    - name: DWCi_GPConnectCallback
+    - name: Dwci_GPConnectCallback
       address:
         EU: 0x22E35D0
-    - name: DWCi_RemoteAuthCallback
+    - name: Dwci_RemoteAuthCallback
       address:
         EU: 0x22E3708
-    - name: DWCi_GPConnect
+    - name: Dwci_GPConnect
       address:
         EU: 0x22E3720
-    - name: DWCi_RemoteLogin
+    - name: Dwci_RemoteLogin
       address:
         EU: 0x22E37BC
-    - name: DWCi_RemoteLoginProcess
+    - name: Dwci_RemoteLoginProcess
       address:
         EU: 0x22E3988
-    - name: DWCi_GPGetInfoCallback
+    - name: Dwci_GPGetInfoCallback
       address:
         EU: 0x22E3B90
-    - name: DWCi_CheckLogin
+    - name: Dwci_CheckLogin
       address:
         EU: 0x22E3D34
-    - name: DWC_GetFriendStatus
+    - name: Dwc_GetFriendStatus
       address:
         EU: 0x22E3D60
-    - name: DWC_GetFriendStatusSC
+    - name: Dwc_GetFriendStatusSC
       address:
         EU: 0x22E3D78
-    - name: DWC_DeleteBuddyFriendData
+    - name: Dwc_DeleteBuddyFriendData
       address:
         EU: 0x22E3E94
-    - name: DWC_SetBuddyFriendCallback
+    - name: Dwc_SetBuddyFriendCallback
       address:
         EU: 0x22E3F28
-    - name: DWCi_FriendInit
+    - name: Dwci_FriendInit
       address:
         EU: 0x22E3F54
-    - name: DWCi_FriendProcess
+    - name: Dwci_FriendProcess
       address:
         EU: 0x22E4070
-    - name: DWCi_UpdateServersAsync
+    - name: Dwci_UpdateServersAsync
       address:
         EU: 0x22E4350
-    - name: DWCi_StopFriendProcess
+    - name: Dwci_StopFriendProcess
       address:
         EU: 0x22E43FC
-    - name: DWCi_GPRecvBuddyRequestCallback
+    - name: Dwci_GPRecvBuddyRequestCallback
       address:
         EU: 0x22E4484
-    - name: DWCi_GPRecvBuddyAuthCallback
+    - name: Dwci_GPRecvBuddyAuthCallback
       address:
         EU: 0x22E44D0
-    - name: DWCi_GPRecvBuddyStatusCallback
+    - name: Dwci_GPRecvBuddyStatusCallback
       address:
         EU: 0x22E4500
-    - name: DWCi_GetProfileIDFromList
+    - name: Dwci_GetProfileIDFromList
       address:
         EU: 0x22E4584
-    - name: DWCi_GetFriendListIndex
+    - name: Dwci_GetFriendListIndex
       address:
         EU: 0x22E45CC
-    - name: DWCi_InitGPProcessCount
+    - name: Dwci_InitGPProcessCount
       address:
         EU: 0x22E4630
-    - name: DWCi_SetGPStatus
+    - name: Dwci_SetGPStatus
       address:
         EU: 0x22E4668
-    - name: DWCi_GetGPStatus
+    - name: Dwci_GetGPStatus
       address:
         EU: 0x22E471C
-    - name: DWCi_ShutdownFriend
+    - name: Dwci_ShutdownFriend
       address:
         EU: 0x22E47A4
-    - name: DWCi_GPProcess
+    - name: Dwci_GPProcess
       address:
         EU: 0x22E47B8
-    - name: DWCi_CloseFriendProcess
+    - name: Dwci_CloseFriendProcess
       address:
         EU: 0x22E4844
-    - name: DWCi_UpdateFriendReq
+    - name: Dwci_UpdateFriendReq
       address:
         EU: 0x22E4874
-    - name: DWCi_EndUpdateServers
+    - name: Dwci_EndUpdateServers
       address:
         EU: 0x22E4B44
-    - name: DWCi_DeleteFriendFromList
+    - name: Dwci_DeleteFriendFromList
       address:
         EU: 0x22E4B7C
-    - name: DWCi_RefreshFriendListForth
+    - name: Dwci_RefreshFriendListForth
       address:
         EU: 0x22E4BD4
-    - name: DWCi_RefreshFriendListAll
+    - name: Dwci_RefreshFriendListAll
       address:
         EU: 0x22E4C98
-    - name: DWCi_GPSendBuddyRequest
+    - name: Dwci_GPSendBuddyRequest
       address:
         EU: 0x22E4DE4
-    - name: DWCi_GetFriendBuddyStatus
+    - name: Dwci_GetFriendBuddyStatus
       address:
         EU: 0x22E4E18
-    - name: DWCi_HandleGPError_Friend
+    - name: Dwci_HandleGPError_Friend
       address:
         EU: 0x22E4ED4
-    - name: DWCi_GPProfileSearchCallback
+    - name: Dwci_GPProfileSearchCallback
       address:
         EU: 0x22E4F48
-    - name: DWCi_GPGetInfoCallback_RecvBuddyRequest
+    - name: Dwci_GPGetInfoCallback_RecvBuddyRequest
       address:
         EU: 0x22E51EC
-    - name: DWCi_GPGetInfoCallback_RecvAuthMessage
+    - name: Dwci_GPGetInfoCallback_RecvAuthMessage
       address:
         EU: 0x22E541C
-    - name: DWCi_GetPersCallbackLevel
+    - name: Dwci_GetPersCallbackLevel
       address:
         EU: 0x22E5670
-    - name: DWCi_BeginCloseStatsConnection
+    - name: Dwci_BeginCloseStatsConnection
       address:
         EU: 0x22E5684
-    - name: DWCi_EndCloseStatsConnection
+    - name: Dwci_EndCloseStatsConnection
       address:
         EU: 0x22E5698
-    - name: DWCi_GetReverseBuddiesCallback
+    - name: Dwci_GetReverseBuddiesCallback
       address:
         EU: 0x22E56AC
-    - name: DWCi_NNFreeNegotiateList
+    - name: Dwci_NNFreeNegotiateList
       address:
         EU: 0x22E5894
-    - name: DWCi_MatchInit
+    - name: Dwci_MatchInit
       address:
         EU: 0x22E58BC
-    - name: DWCi_QR2Startup
+    - name: Dwci_QR2Startup
       address:
         EU: 0x22E5A38
-    - name: DWCi_SendStateChanged
+    - name: Dwci_SendStateChanged
       address:
         EU: 0x22E5BD4
-    - name: DWCi_MatchProcess
+    - name: Dwci_MatchProcess
       address:
         EU: 0x22E5C84
-    - name: DWCi_GT2UnrecognizedMessageCallback
+    - name: Dwci_GT2UnrecognizedMessageCallback
       address:
         EU: 0x22E6720
-    - name: DWCi_GT2ConnectAttemptCallback
+    - name: Dwci_GT2ConnectAttemptCallback
       address:
         EU: 0x22E6814
-    - name: DWCi_GT2ConnectedCallback
+    - name: Dwci_GT2ConnectedCallback
       address:
         EU: 0x22E6A5C
-    - name: DWCi_MatchGPRecvBuddyMsgCallback
+    - name: Dwci_MatchGPRecvBuddyMsgCallback
       address:
         EU: 0x22E6CE0
-    - name: DWCi_StopResendingMatchCommand
+    - name: Dwci_StopResendingMatchCommand
       address:
         EU: 0x22E6D64
-    - name: DWCi_StopMatching
+    - name: Dwci_StopMatching
       address:
         EU: 0x22E6D84
-    - name: DWCi_ClearQR2Key
+    - name: Dwci_ClearQR2Key
       address:
         EU: 0x22E6E40
-    - name: DWCi_ProcessMatchSynPacket
+    - name: Dwci_ProcessMatchSynPacket
       address:
         EU: 0x22E6E7C
-    - name: DWCi_ProcessMatchClosing
+    - name: Dwci_ProcessMatchClosing
       address:
         EU: 0x22E7034
-    - name: DWCi_ProcessMatchSCClosing
+    - name: Dwci_ProcessMatchSCClosing
       address:
         EU: 0x22E71B0
-    - name: DWCi_DeleteHostByProfileID
+    - name: Dwci_DeleteHostByProfileID
       address:
         EU: 0x22E71D4
-    - name: DWCi_DeleteHostByIndex
+    - name: Dwci_DeleteHostByIndex
       address:
         EU: 0x22E7238
-    - name: DWCi_SetNumValidConnection
+    - name: Dwci_SetNumValidConnection
       address:
         EU: 0x22E73F0
-    - name: DWCi_GetAllAIDList
+    - name: Dwci_GetAllAIDList
       address:
         EU: 0x22E7444
-    - name: DWCi_GetValidAIDList
+    - name: Dwci_GetValidAIDList
       address:
         EU: 0x22E7478
-    - name: DWCi_GPSetServerStatus
+    - name: Dwci_GPSetServerStatus
       address:
         EU: 0x22E751C
-    - name: DWCi_ShutdownMatch
+    - name: Dwci_ShutdownMatch
       address:
         EU: 0x22E75EC
-    - name: DWCi_IsShutdownMatch
+    - name: Dwci_IsShutdownMatch
       address:
         EU: 0x22E7664
-    - name: DWCi_ResetMatchParam
+    - name: Dwci_ResetMatchParam
       address:
         EU: 0x22E767C
-    - name: DWCi_CloseMatching
+    - name: Dwci_CloseMatching
       address:
         EU: 0x22E7A18
-    - name: DWCi_SBUpdateAsync
+    - name: Dwci_SBUpdateAsync
       address:
         EU: 0x22E7AB4
-    - name: DWCi_GetDefaultMatchFilter
+    - name: Dwci_GetDefaultMatchFilter
       address:
         EU: 0x22E7CB0
-    - name: DWCi_NNStartupAsync
+    - name: Dwci_NNStartupAsync
       address:
         EU: 0x22E7D18
-    - name: DWCi_DoNatNegotiationAsync
+    - name: Dwci_DoNatNegotiationAsync
       address:
         EU: 0x22E8004
-    - name: DWCi_SendMatchCommand
+    - name: Dwci_SendMatchCommand
       address:
         EU: 0x22E80C0
-    - name: DWCi_SendSBMsgCommand
+    - name: Dwci_SendSBMsgCommand
       address:
         EU: 0x22E8284
-    - name: DWCi_SendGPBuddyMsgCommand
+    - name: Dwci_SendGPBuddyMsgCommand
       address:
         EU: 0x22E839C
-    - name: DWCi_GetGPBuddyAdditionalMsg
+    - name: Dwci_GetGPBuddyAdditionalMsg
       address:
         EU: 0x22E8460
-    - name: DWCi_ProcessRecvMatchCommand
+    - name: Dwci_ProcessRecvMatchCommand
       address:
         EU: 0x22E84FC
-    - name: DWCi_CheckResvCommand
+    - name: Dwci_CheckResvCommand
       address:
         EU: 0x22E93E0
-    - name: DWCi_ProcessResvOK
+    - name: Dwci_ProcessResvOK
       address:
         EU: 0x22E970C
-    - name: DWCi_MakeBackupServerData
+    - name: Dwci_MakeBackupServerData
       address:
         EU: 0x22E98CC
-    - name: DWCi_HandleMatchCommandError
+    - name: Dwci_HandleMatchCommandError
       address:
         EU: 0x22E991C
-    - name: DWCi_SendResvCommand
+    - name: Dwci_SendResvCommand
       address:
         EU: 0x22E9948
-    - name: DWCi_SendResvCommandToFriend
+    - name: Dwci_SendResvCommandToFriend
       address:
         EU: 0x22E9B04
-    - name: DWCi_RetryReserving
+    - name: Dwci_RetryReserving
       address:
         EU: 0x22E9DCC
-    - name: DWCi_CancelReservation
+    - name: Dwci_CancelReservation
       address:
         EU: 0x22E9EA4
-    - name: DWCi_CancelPreConnectedServerProcess
+    - name: Dwci_CancelPreConnectedServerProcess
       address:
         EU: 0x22E9EF8
-    - name: DWCi_CancelPreConnectedClientProcess
+    - name: Dwci_CancelPreConnectedClientProcess
       address:
         EU: 0x22EA114
-    - name: DWCi_ChangeToClient
+    - name: Dwci_ChangeToClient
       address:
         EU: 0x22EA1D4
-    - name: DWCi_PostProcessConnection
+    - name: Dwci_PostProcessConnection
       address:
         EU: 0x22EA2B8
-    - name: DWCi_AreAllBuddies
+    - name: Dwci_AreAllBuddies
       address:
         EU: 0x22EA980
-    - name: DWCi_FinishCancelMatching
+    - name: Dwci_FinishCancelMatching
       address:
         EU: 0x22EAA08
-    - name: DWCi_InvalidateReservation
+    - name: Dwci_InvalidateReservation
       address:
         EU: 0x22EAAC8
-    - name: DWCi_RestartFromCancel
+    - name: Dwci_RestartFromCancel
       address:
         EU: 0x22EAB9C
-    - name: DWCi_RestartFromTimeout
+    - name: Dwci_RestartFromTimeout
       address:
         EU: 0x22EAC9C
-    - name: DWCi_ResumeMatching
+    - name: Dwci_ResumeMatching
       address:
         EU: 0x22EACD0
-    - name: DWCi_CloseCancelHostAsync
+    - name: Dwci_CloseCancelHostAsync
       address:
         EU: 0x22EAD90
-    - name: DWCi_CloseAllConnectionsByTimeout
+    - name: Dwci_CloseAllConnectionsByTimeout
       address:
         EU: 0x22EAE00
-    - name: DWCi_CloseShutdownClientSC
+    - name: Dwci_CloseShutdownClientSC
       address:
         EU: 0x22EAE30
-    - name: DWCi_SendMatchSynPacket
+    - name: Dwci_SendMatchSynPacket
       address:
         EU: 0x22EAF6C
-    - name: DWCi_ProcessMatchSynTimeout
+    - name: Dwci_ProcessMatchSynTimeout
       address:
         EU: 0x22EB05C
-    - name: DWCi_SendCancelMatchSynCommand
+    - name: Dwci_SendCancelMatchSynCommand
       address:
         EU: 0x22EB2CC
-    - name: DWCi_ProcessCancelMatchSynCommand
+    - name: Dwci_ProcessCancelMatchSynCommand
       address:
         EU: 0x22EB34C
-    - name: DWCi_ProcessCancelMatchSynTimeout
+    - name: Dwci_ProcessCancelMatchSynTimeout
       address:
         EU: 0x22EB570
-    - name: DWCi_ClearGameMatchKeys
+    - name: Dwci_ClearGameMatchKeys
       address:
         EU: 0x22EB770
-    - name: DWCi_GetAIDFromList
+    - name: Dwci_GetAIDFromList
       address:
         EU: 0x22EB7C8
-    - name: DWCi_IsFriendByIdxList
+    - name: Dwci_IsFriendByIdxList
       address:
         EU: 0x22EB838
-    - name: DWCi_GetAIDFromProfileID
+    - name: Dwci_GetAIDFromProfileID
       address:
         EU: 0x22EB8A8
-    - name: DWCi_GetAIDBitmask
+    - name: Dwci_GetAIDBitmask
       address:
         EU: 0x22EB90C
-    - name: DWCi_InitClWaitTimeout
+    - name: Dwci_InitClWaitTimeout
       address:
         EU: 0x22EB970
-    - name: DWCi_InitOptMinCompParam
+    - name: Dwci_InitOptMinCompParam
       address:
         EU: 0x22EB998
-    - name: DWCi_ProcessOptMinComp
+    - name: Dwci_ProcessOptMinComp
       address:
         EU: 0x22EBA08
-    - name: DWCi_HandleGPError_Match
+    - name: Dwci_HandleGPError_Match
       address:
         EU: 0x22EBE34
-    - name: DWCi_HandleSBError_Match
+    - name: Dwci_HandleSBError_Match
       address:
         EU: 0x22EBEA8
-    - name: DWCi_HandleQR2Error
+    - name: Dwci_HandleQR2Error
       address:
         EU: 0x22EBF3C
-    - name: DWCi_HandleNNError
+    - name: Dwci_HandleNNError
       address:
         EU: 0x22EC024
-    - name: DWCi_HandleNNResult
+    - name: Dwci_HandleNNResult
       address:
         EU: 0x22EC080
-    - name: DWCi_HandleGT2Error_Match
+    - name: Dwci_HandleGT2Error_Match
       address:
         EU: 0x22EC0E0
-    - name: DWCi_QR2ServerKeyCallback
+    - name: Dwci_QR2ServerKeyCallback
       address:
         EU: 0x22EC184
-    - name: DWCi_QR2PlayerKeyCallback
+    - name: Dwci_QR2PlayerKeyCallback
       address:
         EU: 0x22EC2CC
-    - name: DWCi_QR2TeamKeyCallback
+    - name: Dwci_QR2TeamKeyCallback
       address:
         EU: 0x22EC2D0
-    - name: DWCi_QR2KeyListCallback
+    - name: Dwci_QR2KeyListCallback
       address:
         EU: 0x22EC2D4
-    - name: DWCi_QR2CountCallback
+    - name: Dwci_QR2CountCallback
       address:
         EU: 0x22EC378
-    - name: DWCi_QR2AddErrorCallback
+    - name: Dwci_QR2AddErrorCallback
       address:
         EU: 0x22EC380
-    - name: DWCi_QR2PublicAddrCallback
+    - name: Dwci_QR2PublicAddrCallback
       address:
         EU: 0x22EC38C
-    - name: DWCi_QR2NatnegCallback
+    - name: Dwci_QR2NatnegCallback
       address:
         EU: 0x22EC3AC
-    - name: DWCi_QR2ClientMsgCallback
+    - name: Dwci_QR2ClientMsgCallback
       address:
         EU: 0x22EC460
-    - name: DWCi_NNProgressCallback
+    - name: Dwci_NNProgressCallback
       address:
         EU: 0x22EC56C
-    - name: DWCi_NNCompletedCallback
+    - name: Dwci_NNCompletedCallback
       address:
         EU: 0x22EC570
-    - name: DWCi_ProcessNNFailure
+    - name: Dwci_ProcessNNFailure
       address:
         EU: 0x22EC954
-    - name: DWCi_SetMatchCnt
+    - name: Dwci_SetMatchCnt
       address:
         EU: 0x22EC9C4
-    - name: DWCi_GetMatchCnt
+    - name: Dwci_GetMatchCnt
       address:
         EU: 0x22EC9D4
-    - name: DWCi_SetMatchStatus
+    - name: Dwci_SetMatchStatus
       address:
         EU: 0x22EC9E4
-    - name: DWCi_InitReliableQueue
+    - name: Dwci_InitReliableQueue
       address:
         EU: 0x22EC9F8
-    - name: DWCi_CleanupReliableQueue
+    - name: Dwci_CleanupReliableQueue
       address:
         EU: 0x22ECA10
-    - name: DWCi_IsReliableQueueFree
+    - name: Dwci_IsReliableQueueFree
       address:
         EU: 0x22ECA78
-    - name: DWCi_ProcessReliableQueue
+    - name: Dwci_ProcessReliableQueue
       address:
         EU: 0x22ECA94
-    - name: DWCi_ProcessReliableQueueEx
+    - name: Dwci_ProcessReliableQueueEx
       address:
         EU: 0x22ECAA8
-    - name: DWCi_InsertReliableQueue
+    - name: Dwci_InsertReliableQueue
       address:
         EU: 0x22ECB88
-    - name: DWC_IsSendableReliable
+    - name: Dwc_IsSendableReliable
       address:
         EU: 0x22ECC74
-    - name: DWCi_SendReliable
+    - name: Dwci_SendReliable
       address:
         EU: 0x22ECD04
-    - name: DWCs_EncodeHeader
+    - name: Dwcs_EncodeHeader
       address:
         EU: 0x22ECE24
-    - name: DWCs_DecodeHeader
+    - name: Dwcs_DecodeHeader
       address:
         EU: 0x22ECE54
-    - name: DWCs_GetRequiredHeaderSize
+    - name: Dwcs_GetRequiredHeaderSize
       address:
         EU: 0x22ECE90
-    - name: DWCi_InitTransport
+    - name: Dwci_InitTransport
       address:
         EU: 0x22ECEB0
-    - name: DWCi_RecvCallback
+    - name: Dwci_RecvCallback
       address:
         EU: 0x22ECEF0
-    - name: DWCi_PingCallback
+    - name: Dwci_PingCallback
       address:
         EU: 0x22ECF2C
-    - name: DWCi_TransportProcess
+    - name: Dwci_TransportProcess
       address:
         EU: 0x22ECF6C
-    - name: DWCi_ClearTransConnection
+    - name: Dwci_ClearTransConnection
       address:
         EU: 0x22ED104
-    - name: DWCi_ShutdownTransport
+    - name: Dwci_ShutdownTransport
       address:
         EU: 0x22ED190
-    - name: DWCs_GetTransConnection
+    - name: Dwcs_GetTransConnection
       address:
         EU: 0x22ED1AC
-    - name: DWCs_GetSendState
+    - name: Dwcs_GetSendState
       address:
         EU: 0x22ED1C4
-    - name: DWCs_GetRecvState
+    - name: Dwcs_GetRecvState
       address:
         EU: 0x22ED1E0
-    - name: DWCs_Send
+    - name: Dwcs_Send
       address:
         EU: 0x22ED1FC
-    - name: DWCs_HandleReliableMessage
+    - name: Dwcs_HandleReliableMessage
       address:
         EU: 0x22ED284
-    - name: DWCs_HandleUnreliableMessage
+    - name: Dwcs_HandleUnreliableMessage
       address:
         EU: 0x22ED378
-    - name: DWCs_RecvDataHeader
+    - name: Dwcs_RecvDataHeader
       address:
         EU: 0x22ED3F8
-    - name: DWCs_RecvDataBody
+    - name: Dwcs_RecvDataBody
       address:
         EU: 0x22ED4C0
-    - name: DWCs_RecvSystemDataBody
+    - name: Dwcs_RecvSystemDataBody
       address:
         EU: 0x22ED5A4
-    - name: DWCs_GetOutgoingBufferFreeSize
+    - name: Dwcs_GetOutgoingBufferFreeSize
       address:
         EU: 0x22ED5E0
-    - name: DWC_InitGHTTP
+    - name: Dwc_InitGHTTP
       address:
         EU: 0x22ED604
-    - name: DWC_ShutdownGHTTP
+    - name: Dwc_ShutdownGHTTP
       address:
         EU: 0x22ED628
-    - name: DWC_ProcessGHTTP
+    - name: Dwc_ProcessGHTTP
       address:
         EU: 0x22ED668
     - name: GHTTPCompletedCallback
@@ -4631,28 +4631,28 @@ overlay0:
     - name: GHTTPProgressCallback
       address:
         EU: 0x22ED724
-    - name: DWCi_GHTTPGetEx
+    - name: Dwci_GHTTPGetEx
       address:
         EU: 0x22ED76C
-    - name: DWC_GetGHTTPDataEx2
+    - name: Dwc_GetGHTTPDataEx2
       address:
         EU: 0x22ED910
-    - name: DWC_CancelGHTTPRequest
+    - name: Dwc_CancelGHTTPRequest
       address:
         EU: 0x22ED938
-    - name: DWCi_HandleGHTTPError
+    - name: Dwci_HandleGHTTPError
       address:
         EU: 0x22ED978
-    - name: DWCi_AppendDWCGHTTPParam
+    - name: Dwci_AppendDwcGHTTPParam
       address:
         EU: 0x22EDAD4
-    - name: DWCi_RemoveDwcGHttpParamEntry
+    - name: Dwci_RemoveDwcGHttpParamEntry
       address:
         EU: 0x22EDB30
-    - name: DWCi_FindDWCGHTTPParamEntryByReq
+    - name: Dwci_FindDwcGHTTPParamEntryByReq
       address:
         EU: 0x22EDBB4
-    - name: DWCi_RemoveAllDWCGHTTPParamEntry
+    - name: Dwci_RemoveAllDwcGHTTPParamEntry
       address:
         EU: 0x22EDBE0
     - name: Dwci_BM_GetApInfo
@@ -4810,7 +4810,7 @@ overlay0:
         EU: 0x22EF274
         NA: 0x22EEA60
         JP: 0x22F020C
-    - name: DWC_Auth_CheckWiFiIDNeedCreate
+    - name: Dwc_Auth_CheckWiFiIDNeedCreate
       address:
         EU: 0x22EF2C8
     - name: ret_022EF650
@@ -4820,58 +4820,58 @@ overlay0:
         Does nothing but return. Likely a debug hook for a nearby function.
         
         No params.
-    - name: DWCi_Ndi_freeAttr
+    - name: Dwci_Ndi_freeAttr
       address:
         EU: 0x22EFFE4
-    - name: SetAttr_DWC
+    - name: SetAttr_Dwc
       address:
         EU: 0x22F0028
-    - name: DWCi_NdSetAttr
+    - name: Dwci_NdSetAttr
       address:
         EU: 0x22F00F8
-    - name: GetNChar_DWC
+    - name: GetNChar_Dwc
       address:
         EU: 0x22F0168
-    - name: DecodeChar_DWC
+    - name: DecodeChar_Dwc
       address:
         EU: 0x22F01B0
-    - name: DWCi_Ndi_getDecodeLenBASE64
+    - name: Dwci_Ndi_getDecodeLenBASE64
       address:
         EU: 0x22F0208
-    - name: DWCi_Ndi_getEncodeLenBASE64
+    - name: Dwci_Ndi_getEncodeLenBASE64
       address:
         EU: 0x22F0214
-    - name: DWCi_Ndi_encodeBASE64
+    - name: Dwci_Ndi_encodeBASE64
       address:
         EU: 0x22F0230
-    - name: DWCi_Ndi_decodeBASE64
+    - name: Dwci_Ndi_decodeBASE64
       address:
         EU: 0x22F0328
-    - name: StrAlloc_DWC
+    - name: StrAlloc_Dwc
       address:
         EU: 0x22F0450
-    - name: DWCi_NdStartup
+    - name: Dwci_NdStartup
       address:
         EU: 0x22F049C
     - name: nhttpCleanupCallback
       address:
         EU: 0x22F0644
-    - name: DWCi_NdCleanupAsync
+    - name: Dwci_NdCleanupAsync
       address:
         EU: 0x22F0688
-    - name: DWCi_NdCancelAsync
+    - name: Dwci_NdCancelAsync
       address:
         EU: 0x22F06B0
-    - name: DWCi_Ndi_getApInfo
+    - name: Dwci_Ndi_getApInfo
       address:
         EU: 0x22F06EC
-    - name: DWCi_Ndi_getDSdesc
+    - name: Dwci_Ndi_getDSdesc
       address:
         EU: 0x22F07EC
-    - name: DWCi_Ndi_getUserAgent
+    - name: Dwci_Ndi_getUserAgent
       address:
         EU: 0x22F0878
-    - name: Req_Callback_DWC
+    - name: Req_Callback_Dwc
       address:
         EU: 0x22F089C
     - name: FreeHttp
@@ -4883,145 +4883,145 @@ overlay0:
     - name: RunHttp
       address:
         EU: 0x22F0FA0
-    - name: DWCi_NdGetFileListNumAsync
+    - name: Dwci_NdGetFileListNumAsync
       address:
         EU: 0x22F1000
-    - name: DWCi_NdGetFileListAsync
+    - name: Dwci_NdGetFileListAsync
       address:
         EU: 0x22F107C
-    - name: DWCi_NdGetFileAsync
+    - name: Dwci_NdGetFileAsync
       address:
         EU: 0x22F1340
-    - name: DWCi_Ndi_response_count
+    - name: Dwci_Ndi_response_count
       address:
         EU: 0x22F1504
-    - name: DWCi_Ndi_response_contents
+    - name: Dwci_Ndi_response_contents
       address:
         EU: 0x22F1558
-    - name: DWCi_Ndi_response_list
+    - name: Dwci_Ndi_response_list
       address:
         EU: 0x22F1584
-    - name: DWCi_Ndi_initLockGlobal
+    - name: Dwci_Ndi_initLockGlobal
       address:
         EU: 0x22F1808
-    - name: DWCi_Ndi_exitLockGlobal
+    - name: Dwci_Ndi_exitLockGlobal
       address:
         EU: 0x22F1820
-    - name: DWCi_Ndi_lockGlobal
+    - name: Dwci_Ndi_lockGlobal
       address:
         EU: 0x22F1824
-    - name: DWCi_Ndi_unlockGlobal
+    - name: Dwci_Ndi_unlockGlobal
       address:
         EU: 0x22F1838
-    - name: DWCi_Ndi_initHttpCallback
+    - name: Dwci_Ndi_initHttpCallback
       address:
         EU: 0x22F184C
-    - name: DWCi_Ndi_exitHttpCallback
+    - name: Dwci_Ndi_exitHttpCallback
       address:
         EU: 0x22F1874
-    - name: DWCi_Ndi_prepareHttpCallback
+    - name: Dwci_Ndi_prepareHttpCallback
       address:
         EU: 0x22F1878
-    - name: DWCi_Ndi_unprepareHttpCallback
+    - name: Dwci_Ndi_unprepareHttpCallback
       address:
         EU: 0x22F18C0
-    - name: DWCi_Ndi_kickThread
+    - name: Dwci_Ndi_kickThread
       address:
         EU: 0x22F18EC
-    - name: DWCi_Ndi_getMacAddress
+    - name: Dwci_Ndi_getMacAddress
       address:
         EU: 0x22F1900
-    - name: DWCi_Ndi_Strlen
+    - name: Dwci_Ndi_Strlen
       address:
         EU: 0x22F1960
-    - name: DWCi_Ndi_strncmp
+    - name: Dwci_Ndi_strncmp
       address:
         EU: 0x22F196C
-    - name: DWCi_Ndi_memclr
+    - name: Dwci_Ndi_memclr
       address:
         EU: 0x22F1978
-    - name: DWCi_Ndi_memcpy
+    - name: Dwci_Ndi_memcpy
       address:
         EU: 0x22F198C
-    - name: DWCi_Ndi_strToInt
+    - name: Dwci_Ndi_strToInt
       address:
         EU: 0x22F19A4
-    - name: DWCi_Ndi_intToStr
+    - name: Dwci_Ndi_intToStr
       address:
         EU: 0x22F19B0
-    - name: DWCi_Ndi_intToStrFigure
+    - name: Dwci_Ndi_intToStrFigure
       address:
         EU: 0x22F19BC
-    - name: DWCi_Ndi_hexToStrFigure
+    - name: Dwci_Ndi_hexToStrFigure
       address:
         EU: 0x22F1A94
-    - name: NHTTP_Startup
+    - name: Nhttp_Startup
       address:
         EU: 0x22F1AEC
-    - name: NHTTP_CleanupAsync
+    - name: Nhttp_CleanupAsync
       address:
         EU: 0x22F1BB4
-    - name: NHTTPi_CleanupThreadProc
+    - name: Nhttpi_CleanupThreadProc
       address:
         EU: 0x22F1BFC
-    - name: addHdrList_NHTTP
+    - name: addHdrList_Nhttp
       address:
         EU: 0x22F1C38
-    - name: NHTTPi_getHdrFromList
+    - name: Nhttpi_getHdrFromList
       address:
         EU: 0x22F1D50
-    - name: IncAscii_NHTTP
+    - name: IncAscii_Nhttp
       address:
         EU: 0x22F1D94
-    - name: checkTagPost_NHTTP
+    - name: checkTagPost_Nhttp
       address:
         EU: 0x22F1DC8
-    - name: NHTTP_AddHeaderField
+    - name: Nhttp_AddHeaderField
       address:
         EU: 0x22F1E68
-    - name: NHTTP_AddPostDataAscii
+    - name: Nhttp_AddPostDataAscii
       address:
         EU: 0x22F1E8C
-    - name: NHTTP_SetCAChain
+    - name: Nhttp_SetCAChain
       address:
         EU: 0x22F1F00
-    - name: NHTTPi_SetReqQueue
+    - name: Nhttpi_SetReqQueue
       address:
         EU: 0x22F1F1C
-    - name: NHTTPi_findReqQueue
+    - name: Nhttpi_findReqQueue
       address:
         EU: 0x22F1FD0
-    - name: NHTTPi_freeReqQueue
+    - name: Nhttpi_freeReqQueue
       address:
         EU: 0x22F2028
-    - name: NHTTPi_allFreeReqQueue
+    - name: Nhttpi_allFreeReqQueue
       address:
         EU: 0x22F20C8
-    - name: NHTTPi_getReqFromReqQueue
+    - name: Nhttpi_getReqFromReqQueue
       address:
         EU: 0x22F20F8
-    - name: NHTTPi_initLockReqList
+    - name: Nhttpi_initLockReqList
       address:
         EU: 0x22F210C
-    - name: NHTTPi_exitLockReqList
+    - name: Nhttpi_exitLockReqList
       address:
         EU: 0x22F2124
-    - name: NHTTPi_LockReqList
+    - name: Nhttpi_LockReqList
       address:
         EU: 0x22F2128
-    - name: NHTTPi_UnlockReqList
+    - name: Nhttpi_UnlockReqList
       address:
         EU: 0x22F213C
-    - name: NHTTPi_createCommThread
+    - name: Nhttpi_createCommThread
       address:
         EU: 0x22F2150
-    - name: NHTTPi_destroyCommThread
+    - name: Nhttpi_destroyCommThread
       address:
         EU: 0x22F21C8
-    - name: NHTTPi_idleCommThread
+    - name: Nhttpi_idleCommThread
       address:
         EU: 0x22F21F0
-    - name: NHTTPi_KickCommThread
+    - name: Nhttpi_KickCommThread
       address:
         EU: 0x22F220C
     - name: SetupGetcharFromHdrRecvBuf
@@ -5030,103 +5030,103 @@ overlay0:
     - name: GetcharFromHdrRecvBuf
       address:
         EU: 0x22F2284
-    - name: NHTTPi_FindNextLineHdrRecvBuf
+    - name: Nhttpi_FindNextLineHdrRecvBuf
       address:
         EU: 0x22F2300
-    - name: NHTTPi_SkipSpaceHdrRecvBuf
+    - name: Nhttpi_SkipSpaceHdrRecvBuf
       address:
         EU: 0x22F23D0
-    - name: NHTTPi_CompareTokenN_HdrRecvBuf
+    - name: Nhttpi_CompareTokenN_HdrRecvBuf
       address:
         EU: 0x22F2440
-    - name: NHTTPi_loadFromHdrRecvBuf
+    - name: Nhttpi_loadFromHdrRecvBuf
       address:
         EU: 0x22F2510
-    - name: NHTTPi_isRecvBufFull
+    - name: Nhttpi_isRecvBufFull
       address:
         EU: 0x22F25FC
-    - name: NHTTPi_RecvBuf
+    - name: Nhttpi_RecvBuf
       address:
         EU: 0x22F2610
-    - name: NHTTPi_RecvBufN
+    - name: Nhttpi_RecvBufN
       address:
         EU: 0x22F2638
-    - name: NHTTP_CreateRequest
+    - name: Nhttp_CreateRequest
       address:
         EU: 0x22F26A8
-    - name: NHTTP_DestroyRequest
+    - name: Nhttp_DestroyRequest
       address:
         EU: 0x22F2C0C
     - name: DeleteStrList
       address:
         EU: 0x22F2C34
-    - name: NHTTPi_destroyRequestObject
+    - name: Nhttpi_destroyRequestObject
       address:
         EU: 0x22F2C88
-    - name: NHTTP_SendRequestAsync
+    - name: Nhttp_SendRequestAsync
       address:
         EU: 0x22F2D00
-    - name: NHTTP_CancelRequestAsync
+    - name: Nhttp_CancelRequestAsync
       address:
         EU: 0x22F2D8C
-    - name: NHTTPi_cancelAllRequests
+    - name: Nhttpi_cancelAllRequests
       address:
         EU: 0x22F2E08
-    - name: NHTTPi_ResolveHostname
+    - name: Nhttpi_ResolveHostname
       address:
         EU: 0x22F2E5C
-    - name: NHTTP_DestroyResponse
+    - name: Nhttp_DestroyResponse
       address:
         EU: 0x22F2EF4
-    - name: NHTTPi_getHeaderValue
+    - name: Nhttpi_getHeaderValue
       address:
         EU: 0x22F2F6C
-    - name: NHTTP_GetHeaderField
+    - name: Nhttp_GetHeaderField
       address:
         EU: 0x22F3078
-    - name: NHTTP_GetBodyAll
+    - name: Nhttp_GetBodyAll
       address:
         EU: 0x22F317C
     - name: SslAuthCallback
       address:
         EU: 0x22F31A0
-    - name: NHTTPi_SetSSLseed
+    - name: Nhttpi_SetSSLseed
       address:
         EU: 0x22F31AC
-    - name: NHTTPi_SocOpen
+    - name: Nhttpi_SocOpen
       address:
         EU: 0x22F31CC
-    - name: NHTTPi_SocClose
+    - name: Nhttpi_SocClose
       address:
         EU: 0x22F324C
-    - name: NHTTPi_SocCloseWait
+    - name: Nhttpi_SocCloseWait
       address:
         EU: 0x22F325C
-    - name: NHTTPi_SocConnect
+    - name: Nhttpi_SocConnect
       address:
         EU: 0x22F3298
-    - name: NHTTPi_SocRecv
+    - name: Nhttpi_SocRecv
       address:
         EU: 0x22F3314
-    - name: NHTTPi_SocSend
+    - name: Nhttpi_SocSend
       address:
         EU: 0x22F3360
-    - name: NHTTPi_SocCancel
+    - name: Nhttpi_SocCancel
       address:
         EU: 0x22F33AC
-    - name: NHTTPi_Strcmp
+    - name: Nhttpi_Strcmp
       address:
         EU: 0x22F33C8
-    - name: NHTTPi_Strnicmp
+    - name: Nhttpi_Strnicmp
       address:
         EU: 0x22F33D4
-    - name: NHTTPi_Strlen
+    - name: Nhttpi_Strlen
       address:
         EU: 0x22F343C
-    - name: NHTTPi_Memclr
+    - name: Nhttpi_Memclr
       address:
         EU: 0x22F3448
-    - name: NHTTPi_Memcpy
+    - name: Nhttpi_Memcpy
       address:
         EU: 0x22F345C
     - name: SaveBuf
@@ -5144,31 +5144,31 @@ overlay0:
     - name: ClearCloseQue
       address:
         EU: 0x22F3690
-    - name: NHTTPi_CommThreadProc
+    - name: Nhttpi_CommThreadProc
       address:
         EU: 0x22F36F0
-    - name: NHTTPi_GetUrlEncodedSize
+    - name: Nhttpi_GetUrlEncodedSize
       address:
         EU: 0x22F49F0
-    - name: NHTTPi_encodeUrlChar
+    - name: Nhttpi_encodeUrlChar
       address:
         EU: 0x22F4A58
-    - name: NHTTPi_StrToHex
+    - name: Nhttpi_StrToHex
       address:
         EU: 0x22F4AE8
-    - name: NHTTPi_StrToInt
+    - name: Nhttpi_StrToInt
       address:
         EU: 0x22F4BD0
-    - name: NHTTPi_IntToStr
+    - name: Nhttpi_IntToStr
       address:
         EU: 0x22F4C68
-    - name: NHTTPi_CompareToken
+    - name: Nhttpi_CompareToken
       address:
         EU: 0x22F4D24
-    - name: NHTTPi_StrToNum
+    - name: Nhttpi_StrToNum
       address:
         EU: 0x22F4DA8
-    - name: NHTTPi_MemFind
+    - name: Nhttpi_MemFind
       address:
         EU: 0x22F4E18
     - name: SocketCastError
@@ -5373,12 +5373,6 @@ overlay0:
     - name: GSIAvailableCheckThink
       address:
         EU: 0x22F65BC
-    - name: branch_022F68D0_0x022f68d8
-      address:
-        EU: 0x22F68D0
-    - name: branch_022F6960_0x022f6970
-      address:
-        EU: 0x22F6960
     - name: ret_022F9CF0
       address:
         EU: 0x22F9CF0
@@ -5494,7 +5488,7 @@ overlay0:
       description: |-
         Performs XOR encryption/decryption on a string, the keystream derived from srand(0x79707367) and repeatedly calling randrange(0x0, 0xFF).
         
-        Seemingly called mostly for the "passenc" field in DWC messages.
+        Seemingly called mostly for the "passenc" field in Dwc messages.
         
         r0: src
         r1: dest
