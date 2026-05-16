@@ -1,4 +1,5 @@
 # Imports pmdsky-debug symbols into an NTRGhidra project
+# @runtime Jython
 # @author UsernameFodder
 # @category Data
 

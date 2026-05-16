@@ -1,4 +1,5 @@
 # Imports symbols from a JSON file
+# @runtime Jython
 # @author UsernameFodder
 # @category Data
 
