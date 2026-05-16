@@ -11,8 +11,3788 @@ overlay2:
     EU: 0x2AFC0
     NA: 0x2AFA0
     JP: 0x2AFA0
-  description: "Controls the Nintendo WFC Settings interface, accessed from the top menu (Other > Nintendo WFC > Nintendo WFC Settings). Presumably contains code for Nintendo Wi-Fi setup."
-  functions: []
+  description: "Controls the Nintendo WFC Settings interface, accessed from the top menu (Other > Nintendo WFC > Nintendo WFC Settings). Contains code for Nintendo Wi-Fi setup."
+  functions:
+    - name: InitWfcSettingsOverlay
+      address:
+        EU: 0x2329D40
+      description: -|
+        Most likely the only non-SDK/DWC function in the entire overlay. Seems responsible for initializing and running the WFC Settings interface, via overlay_00 and overlay_02 SDK/DWC functions.
+    - name: Nns_FndInitList
+      address:
+        EU: 0x2329D8C
+    - name: SetFirstObject
+      address:
+        EU: 0x2329DA4
+    - name: Nns_FndAppendListObject
+      address:
+        EU: 0x2329DD0
+    - name: Nns_FndPrependListObject
+      address:
+        EU: 0x2329E24
+    - name: Nns_FndInsertListObject
+      address:
+        EU: 0x2329E74
+    - name: Nns_FndRemoveListObject
+      address:
+        EU: 0x2329ED8
+    - name: Nns_FndGetNextListObject
+      address:
+        EU: 0x2329F38
+    - name: Nns_FndGetPrevListObject
+      address:
+        EU: 0x2329F50
+    - name: FindContainHeap
+      address:
+        EU: 0x2329F64
+    - name: FindListContainHeap
+      address:
+        EU: 0x2329FCC
+    - name: Nnsi_FndInitHeapHead
+      address:
+        EU: 0x2329FF4
+    - name: Nnsi_FndFinalizeHeap
+      address:
+        EU: 0x232A070
+    - name: GetRegionOfMBlock
+      address:
+        EU: 0x232A088
+    - name: RemoveMBlock
+      address:
+        EU: 0x232A0B4
+    - name: InsertMBlock
+      address:
+        EU: 0x232A0DC
+    - name: InitMBlock
+      address:
+        EU: 0x232A10C
+    - name: InitExpHeap
+      address:
+        EU: 0x232A138
+    - name: AllocUsedBlockFromFreeBlock
+      address:
+        EU: 0x232A1AC
+    - name: ExpHeap_AllocFromHead
+      address:
+        EU: 0x232A32C
+    - name: ExpHeap_AllocFromTail
+      address:
+        EU: 0x232A3E0
+    - name: RecycleRegion
+      address:
+        EU: 0x232A490
+    - name: Nns_FndCreateExpHeapEx
+      address:
+        EU: 0x232A580
+    - name: Nns_FndDestroyExpHeap
+      address:
+        EU: 0x232A5B8
+    - name: Nns_FndAllocFromExpHeapEx
+      address:
+        EU: 0x232A5C4
+    - name: Nns_FndFreeToExpHeap
+      address:
+        EU: 0x232A5F4
+    - name: InitFrameHeap
+      address:
+        EU: 0x232A630
+    - name: FrmHeap_AllocFromHead
+      address:
+        EU: 0x232A678
+    - name: FrmHeap_AllocFromTail
+      address:
+        EU: 0x232A6D4
+    - name: FrmHeap_FreeHead
+      address:
+        EU: 0x232A72C
+    - name: FrmHeap_FreeTail
+      address:
+        EU: 0x232A740
+    - name: Nns_FndCreateFrmHeapEx
+      address:
+        EU: 0x232A76C
+    - name: Nns_FndDestroyFrmHeap
+      address:
+        EU: 0x232A7A4
+    - name: Nns_FndAllocFromFrmHeapEx
+      address:
+        EU: 0x232A7B0
+    - name: Nns_FndFreeToFrmHeap
+      address:
+        EU: 0x232A7E4
+    - name: Nns_G2dFindBinaryBlock
+      address:
+        EU: 0x232A810
+    - name: GetGlyphIndex
+      address:
+        EU: 0x232A858
+    - name: Nns_G2dFontInitUtf16
+      address:
+        EU: 0x232A920
+    - name: Nns_G2dFontFindGlyphIndex
+      address:
+        EU: 0x232A944
+    - name: Nns_G2dFontGetCharWidthsFromIndex
+      address:
+        EU: 0x232A98C
+    - name: Nnsi_G2dFontGetStringWidth
+      address:
+        EU: 0x232A9D8
+    - name: Nnsi_G2dFontGetTextHeight
+      address:
+        EU: 0x232AA84
+    - name: Nnsi_G2dFontGetTextWidth
+      address:
+        EU: 0x232AAF8
+    - name: GetCharIndex1D
+      address:
+        EU: 0x232AB8C
+    - name: ObjSizeToShape
+      address:
+        EU: 0x232AC84
+    - name: ClearChar
+      address:
+        EU: 0x232ACA0
+    - name: LetterChar
+      address:
+        EU: 0x232ADD8
+    - name: DrawGlyphLine
+      address:
+        EU: 0x232B018
+    - name: DrawGlyph1D
+      address:
+        EU: 0x232B1B0
+    - name: ClearContinuous
+      address:
+        EU: 0x232B3C0
+    - name: ClearLine
+      address:
+        EU: 0x232B410
+    - name: ClearAreaLine
+      address:
+        EU: 0x232B490
+    - name: ClearArea1D
+      address:
+        EU: 0x232B62C
+    - name: InitCharCanvas
+      address:
+        EU: 0x232B820
+    - name: Nns_G2dCharCanvasDrawChar
+      address:
+        EU: 0x232B848
+    - name: Nns_G2dCharCanvasInitForBG
+      address:
+        EU: 0x232B96C
+    - name: Nns_G2dCharCanvasInitForObj1D
+      address:
+        EU: 0x232B998
+    - name: Nns_G2dMapScrToCharText
+      address:
+        EU: 0x232BA20
+    - name: Nns_G2dMapScrToChar256x16Pltt
+      address:
+        EU: 0x232BAD0
+    - name: Nnsi_G2dCalcRequiredObj
+      address:
+        EU: 0x232BB2C
+    - name: Nns_G2dArrangeObj1D
+      address:
+        EU: 0x232BB88
+    - name: Nnsi_G2dTextCanvasDrawString
+      address:
+        EU: 0x232BE80
+    - name: Nnsi_G2dTextCanvasDrawTextAlign
+      address:
+        EU: 0x232BF34
+    - name: Nnsi_G2dTextCanvasDrawText
+      address:
+        EU: 0x232C09C
+    - name: Nnsi_G2dTextCanvasDrawTextRect
+      address:
+        EU: 0x232C1C0
+    - name: Nnsi_G2dGetUnpackedFont
+      address:
+        EU: 0x232C2A0
+    - name: Nnsi_G2dUnpackNft
+      address:
+        EU: 0x232C3F4
+    - name: Nnsi_G2dBitReaderRead
+      address:
+        EU: 0x232C4D0
+    - name: Nnsi_G2dSplitCharUtf16
+      address:
+        EU: 0x232C530
+    - name: Nns_SndInit
+      address:
+        EU: 0x232C544
+    - name: Nns_SndMain
+      address:
+        EU: 0x232C5CC
+    - name: BeginSleep
+      address:
+        EU: 0x232C5FC
+    - name: EndSleep
+      address:
+        EU: 0x232C634
+    - name: Nns_SndUnlockChannel
+      address:
+        EU: 0x232C640
+    - name: Nns_SndUnlockCapture
+      address:
+        EU: 0x232C670
+    - name: Nns_SndFreeAlarm
+      address:
+        EU: 0x232C68C
+    - name: Nnsi_SndInitResourceMgr
+      address:
+        EU: 0x232C6AC
+    - name: Nns_SndPlayerSetPlayableSeqCount
+      address:
+        EU: 0x232C6C8
+    - name: Nns_SndPlayerSetAllocatableChannel
+      address:
+        EU: 0x232C6E8
+    - name: Nns_SndPlayerCreateHeap
+      address:
+        EU: 0x232C700
+    - name: Nns_SndPlayerStopSeq
+      address:
+        EU: 0x232C794
+    - name: Nns_SndHandleInit
+      address:
+        EU: 0x232C7A4
+    - name: Nns_SndHandleReleaseSeq
+      address:
+        EU: 0x232C7B0
+    - name: Nns_SndPlayerSetInitialVolume
+      address:
+        EU: 0x232C7E4
+    - name: Nns_SndPlayerSetChannelPriority
+      address:
+        EU: 0x232C7F8
+    - name: Nns_SndPlayerSetTrackPitch
+      address:
+        EU: 0x232C818
+    - name: Nns_SndPlayerSetSeqArcNo
+      address:
+        EU: 0x232C838
+    - name: Nnsi_SndPlayerInit
+      address:
+        EU: 0x232C864
+    - name: Nnsi_SndPlayerMain
+      address:
+        EU: 0x232C918
+    - name: Nnsi_SndPlayerAllocSeqPlayer
+      address:
+        EU: 0x232CA7C
+    - name: Nnsi_SndPlayerFreeSeqPlayer
+      address:
+        EU:
+          - 0x232CB14
+          - 0x232D5BC
+    - name: Nnsi_SndPlayerStartSeq
+      address:
+        EU: 0x232CB20
+    - name: Nnsi_SndPlayerStopSeq
+      address:
+        EU: 0x232CB70
+    - name: Nnsi_SndPlayerAllocHeap
+      address:
+        EU: 0x232CBBC
+    - name: InitPlayer
+      address:
+        EU: 0x232CC10
+    - name: InsertPlayerList
+      address:
+        EU: 0x232CC58
+    - name: InsertPrioList
+      address:
+        EU: 0x232CCA8
+    - name: ForceStopSeq
+      address:
+        EU: 0x232CCFC
+    - name: AllocSeqPlayer
+      address:
+        EU: 0x232CD34
+    - name: ShutdownPlayer
+      address:
+        EU:
+          - 0x232CD9C
+          - 0x232E390
+    - name: PlayerHeapDisposeCallback
+      address:
+        EU: 0x232CE20
+    - name: SetPlayerPriority
+      address:
+        EU: 0x232CE70
+    - name: Nns_SndStrmFreeChannel
+      address:
+        EU: 0x232CED0
+    - name: Nns_SndStrmStart
+      address:
+        EU: 0x232CEF8
+    - name: Nns_SndStrmStop
+      address:
+        EU: 0x232CF4C
+    - name: Nns_SndStrmSetVolume
+      address:
+        EU: 0x232CF68
+    - name: ForceStopStrm
+      address:
+        EU: 0x232CFD4
+    - name: ShutdownStrm
+      address:
+        EU: 0x232D048
+    - name: Nnsi_SndCaptureInit
+      address:
+        EU: 0x232D078
+    - name: Nnsi_SndCaptureMain
+      address:
+        EU: 0x232D090
+    - name: Nnsi_SndCaptureStop
+      address:
+        EU: 0x232D118
+    - name: Nnsi_SndCaptureBeginSleep
+      address:
+        EU: 0x232D208
+    - name: Nnsi_SndCaptureEndSleep
+      address:
+        EU: 0x232D268
+    - name: Nns_SndArcInitOnMemory
+      address:
+        EU: 0x232D2EC
+    - name: Nns_SndArcSetCurrent
+      address:
+        EU: 0x232D3B0
+    - name: Nns_SndArcGetCurrent
+      address:
+        EU: 0x232D3C8
+    - name: Nns_SndArcGetSeqArcInfo
+      address:
+        EU: 0x232D3D8
+    - name: Nns_SndArcGetBankInfo
+      address:
+        EU: 0x232D43C
+    - name: Nns_SndArcGetWaveArcInfo
+      address:
+        EU: 0x232D4A0
+    - name: Nns_SndArcGetPlayerInfo
+      address:
+        EU: 0x232D504
+    - name: Nns_SndArcGetFileSize
+      address:
+        EU: 0x232D568
+    - name: Nns_SndArcReadFile
+      address:
+        EU: 0x232D590
+    - name: Nns_SndArcGetFileAddress
+      address:
+        EU: 0x232D658
+    - name: Nns_SndArcSetFileAddress
+      address:
+        EU: 0x232D680
+    - name: Nns_SndHeapCreate
+      address:
+        EU: 0x232D69C
+    - name: Nns_SndHeapDestroy
+      address:
+        EU: 0x232D70C
+    - name: Nns_SndHeapClear
+      address:
+        EU: 0x232D724
+    - name: Nns_SndHeapAlloc
+      address:
+        EU: 0x232D7E0
+    - name: InitHeapSection
+      address:
+        EU: 0x232D848
+    - name: InitHeap
+      address:
+        EU: 0x232D858
+    - name: NewSection
+      address:
+        EU: 0x232D88C
+    - name: EraseSync
+      address:
+        EU: 0x232D8C8
+    - name: Nnsi_SndArcLoadBank
+      address:
+        EU: 0x232D8E8
+    - name: Nnsi_SndArcLoadWaveArc
+      address:
+        EU: 0x232DA28
+    - name: Nnsi_SndArcLoadFile
+      address:
+        EU: 0x232DAB4
+    - name: LoadBank
+      address:
+        EU: 0x232DB54
+    - name: LoadWaveArc
+      address:
+        EU: 0x232DBC0
+    - name: LoadWaveArcTable
+      address:
+        EU: 0x232DC2C
+    - name: DisposeCallback
+      address:
+        EU: 0x232DD34
+    - name: BankDisposeCallback
+      address:
+        EU: 0x232DD8C
+    - name: WaveArcDisposeCallback
+      address:
+        EU: 0x232DDBC
+    - name: WaveArcTableDisposeCallback
+      address:
+        EU: 0x232DDEC
+    - name: SingleWaveDisposeCallback
+      address:
+        EU: 0x232DE0C
+    - name: LoadSingleWave
+      address:
+        EU: 0x232DE54
+    - name: LoadSingleWaves
+      address:
+        EU: 0x232DF1C
+    - name: Nns_SndArcPlayerSetup
+      address:
+        EU: 0x232DFDC
+    - name: Nns_SndArcPlayerStartSeqArc
+      address:
+        EU: 0x232E078
+    - name: StartSeqArc
+      address:
+        EU: 0x232E0F8
+    - name: Nnsi_SndArcStrmMain
+      address:
+        EU: 0x232E1BC
+    - name: FreePlayer
+      address:
+        EU: 0x232E2CC
+    - name: ForceStopStrm_Arc
+      address:
+        EU: 0x232E2F8
+    - name: FreeChannel
+      address:
+        EU: 0x232E3F4
+    - name: RemoveCommandByPlayer
+      address:
+        EU: 0x232E418
+    - name: FreeCommandBuffer
+      address:
+        EU: 0x232E488
+    - name: Nnsi_SndSeqArcGetSeqInfo
+      address:
+        EU: 0x232E4B4
+    - name: Nnsi_SndFaderInit
+      address:
+        EU: 0x232E4F4
+    - name: Nnsi_SndFaderSet
+      address:
+        EU: 0x232E50C
+    - name: Nnsi_SndFaderGet
+      address:
+        EU: 0x232E534
+    - name: Nnsi_SndFaderUpdate
+      address:
+        EU: 0x232E568
+    - name: Nnsi_SndFaderIsFinished
+      address:
+        EU: 0x232E580
+    - name: Aoss_Malloc
+      address:
+        EU: 0x232E598
+    - name: Aoss_Free
+      address:
+        EU: 0x232E5A8
+    - name: Aossi_Init
+      address:
+        EU: 0x232E5B8
+    - name: Aoss_Init_old
+      address:
+        EU: 0x232E6A8
+    - name: aoss_IP_sta
+      address:
+        EU: 0x232F0C0
+    - name: aoss_release
+      address:
+        EU: 0x232F0D8
+    - name: aoss_data_init
+      address:
+        EU: 0x232F104
+    - name: aoss_set_error
+      address:
+        EU: 0x232F15C
+    - name: aoss_get_error
+      address:
+        EU: 0x232F168
+    - name: Aoss_seq_data_copy
+      address:
+        EU: 0x232F174
+    - name: aoss_check_str
+      address:
+        EU: 0x232F36C
+    - name: checkAP_Aoss
+      address:
+        EU: 0x232F390
+    - name: Aoss_set_ApInfo
+      address:
+        EU: 0x232F40C
+    - name: MakeSendSeqID
+      address:
+        EU: 0x232F450
+    - name: Aoss_StatusExclusion
+      address:
+        EU: 0x232F480
+    - name: RecvMessage
+      address:
+        EU: 0x232F4AC
+    - name: AstsSetInitRes
+      address:
+        EU: 0x232F54C
+    - name: AstsSetSecureRes
+      address:
+        EU: 0x232F628
+    - name: AstsRestartRes
+      address:
+        EU: 0x232F700
+    - name: DecodePacket
+      address:
+        EU: 0x232F7A4
+    - name: CheckSeqID
+      address:
+        EU: 0x232F898
+    - name: CheckRecvSeqID
+      address:
+        EU: 0x232F8DC
+    - name: GetProductInfo
+      address:
+        EU: 0x232F928
+    - name: aoss_get_bin
+      address:
+        EU: 0x232F9E4
+    - name: GetWepData
+      address:
+        EU: 0x232FA08
+    - name: GetWpaData
+      address:
+        EU: 0x232FB5C
+    - name: GetBssidData
+      address:
+        EU: 0x232FC14
+    - name: GetSecurityData
+      address:
+        EU: 0x232FC44
+    - name: GetSecurityType
+      address:
+        EU: 0x232FD54
+    - name: SendMessage
+      address:
+        EU: 0x232FD64
+    - name: AstsSetInitReq
+      address:
+        EU: 0x232FDB8
+    - name: AstsSetSecureReq
+      address:
+        EU: 0x232FEFC
+    - name: AstsRestartReq
+      address:
+        EU: 0x232FFD8
+    - name: SetStaData
+      address:
+        EU: 0x2330044
+    - name: PacketDataSet
+      address:
+        EU: 0x23300D0
+    - name: SetPacketHeader
+      address:
+        EU: 0x2330124
+    - name: SendPacketUdp
+      address:
+        EU: 0x233017C
+    - name: EncodeRC4
+      address:
+        EU: 0x23301E4
+    - name: DecodeRC4
+      address:
+        EU: 0x2330260
+    - name: RC4init
+      address:
+        EU: 0x23302E8
+    - name: RC4encrypt
+      address:
+        EU: 0x233034C
+    - name: arcfour_byte
+      address:
+        EU: 0x2330378
+    - name: crc
+      address:
+        EU: 0x23303B8
+    - name: update_crc
+      address:
+        EU: 0x23303E0
+    - name: make_crc_table
+      address:
+        EU: 0x2330418
+    - name: CryptSeqNo
+      address:
+        EU: 0x2330450
+    - name: MakeKey
+      address:
+        EU: 0x23304CC
+    - name: AddKey
+      address:
+        EU: 0x2330500
+    - name: Rotate
+      address:
+        EU: 0x2330524
+    - name: Aoss_SetIpAddr
+      address:
+        EU: 0x233057C
+    - name: Aoss_Disconnect
+      address:
+        EU: 0x23305D4
+    - name: Aoss_Memcmp
+      address:
+        EU: 0x23305F8
+    - name: Aoss_Memcpy
+      address:
+        EU: 0x2330618
+    - name: Aoss_Memset
+      address:
+        EU: 0x2330628
+    - name: Aoss_Recvfrom
+      address:
+        EU: 0x2330634
+    - name: Aoss_Select
+      address:
+        EU: 0x2330648
+    - name: Aoss_Sendto
+      address:
+        EU: 0x233069C
+    - name: Aoss_Setsockopt
+      address:
+        EU: 0x23306AC
+    - name: Aoss_Socket
+      address:
+        EU: 0x23306B0
+    - name: Aoss_Bind
+      address:
+        EU: 0x23306B8
+    - name: Aoss_Close
+      address:
+        EU: 0x23306C4
+    - name: Aoss_Htonl
+      address:
+        EU: 0x23306CC
+    - name: Aoss_Htons
+      address:
+        EU: 0x23306F4
+    - name: Aoss_Ntohl
+      address:
+        EU: 0x233070C
+    - name: Aoss_Ntohs
+      address:
+        EU: 0x2330734
+    - name: Aoss_Strlen
+      address:
+        EU: 0x233074C
+    - name: Aoss_Rand
+      address:
+        EU: 0x2330760
+    - name: Aoss_FD_Zero
+      address:
+        EU: 0x23307D0
+    - name: Aoss_FD_Set
+      address:
+        EU: 0x23307DC
+    - name: Set_Wlla_Bss_Info
+      address:
+        EU: 0x23307E4
+    - name: Get_Wlla_Ssid_Param
+      address:
+        EU: 0x2330870
+    - name: Set_Wlla_Link_Stat
+      address:
+        EU: 0x2330894
+    - name: aoss_apc_callback
+      address:
+        EU: 0x23308A4
+    - name: alarmCallback
+      address:
+        EU:
+          - 0x23308B8
+          - 0x2331B84
+    - name: Aossi_InitLocal
+      address:
+        EU: 0x23308CC
+    - name: Aossi_EndLocal
+      address:
+        EU: 0x2330990
+    - name: Aossi_Disconnect
+      address:
+        EU: 0x2330A28
+    - name: Aossi_WlanGetBssList
+      address:
+        EU: 0x2330A60
+    - name: Aossi_WlanConnect
+      address:
+        EU: 0x2330BD8
+    - name: Aossi_Sleep
+      address:
+        EU: 0x2330DA8
+    - name: Aossi_Status
+      address:
+        EU: 0x2330DB0
+    - name: Apci_Notify
+      address:
+        EU:
+          - 0x2330DC4
+          - 0x2331420
+    - name: Apci_MoveIdleState
+      address:
+        EU:
+          - 0x233107C
+          - 0x233172C
+    - name: Apc_GetApList
+      address:
+        EU:
+          - 0x23310E4
+          - 0x2331794
+    - name: Apc_SearchStart
+      address:
+        EU:
+          - 0x2331128
+          - 0x23317D8
+    - name: Apc_SearchEnd
+      address:
+        EU:
+          - 0x2331218
+          - 0x23318C0
+    - name: Apc_Disconnect
+      address:
+        EU: 0x2331254
+    - name: Apc_End
+      address:
+        EU:
+          - 0x233128C
+          - 0x23318F8
+    - name: Apc_Connect
+      address:
+        EU:
+          - 0x23312E4
+          - 0x2331950
+    - name: Apc_Init
+      address:
+        EU:
+          - 0x2331368
+          - 0x23319D4
+    - name: Apc_GetState
+      address:
+        EU: 0x2331A90
+    - name: soAlloc
+      address:
+        EU: 0x2331A9C
+    - name: soFree
+      address:
+        EU: 0x2331ACC
+    - name: AtermApc_InitEventBuf
+      address:
+        EU: 0x2331AF4
+    - name: AtermApc_GetEvent
+      address:
+        EU: 0x2331B1C
+    - name: AtermApc_callback
+      address:
+        EU: 0x2331B54
+    - name: InitAtermApcNetwork
+      address:
+        EU: 0x2331B90
+    - name: FreeAtermApcNetwork
+      address:
+        EU: 0x2331C34
+    - name: ConnectAP
+      address:
+        EU: 0x2331C8C
+    - name: DisconnectAP
+      address:
+        EU: 0x2331DB0
+    - name: CheckAccessPoint
+      address:
+        EU: 0x2331E14
+    - name: ScanAP
+      address:
+        EU: 0x2331FE0
+    - name: SendFrameViaInterface
+      address:
+        EU: 0x2332274
+    - name: SendBroadcast
+      address:
+        EU: 0x233228C
+    - name: SendFrame
+      address:
+        EU: 0x23322C8
+    - name: GetFrameData
+      address:
+        EU: 0x23322D4
+    - name: GetElementData
+      address:
+        EU: 0x2332344
+    - name: GetFirstElement
+      address:
+        EU: 0x2332394
+    - name: SetFrameData
+      address:
+        EU: 0x23323C8
+    - name: SetElementData
+      address:
+        EU: 0x233248C
+    - name: SetSingleElement
+      address:
+        EU: 0x23324EC
+    - name: IsSearchCommand
+      address:
+        EU: 0x2332514
+    - name: GetCommandElement
+      address:
+        EU: 0x23325E8
+    - name: SetSearchRes
+      address:
+        EU: 0x2332638
+    - name: GetAdapterMac
+      address:
+        EU: 0x23326D4
+    - name: GetMacEncKey
+      address:
+        EU: 0x23326E0
+    - name: GetWLanSetElement
+      address:
+        EU: 0x23327DC
+    - name: AsciiToHex
+      address:
+        EU: 0x23329B0
+    - name: StoreNetParam
+      address:
+        EU: 0x2332A64
+    - name: AutoConfigThreadEx
+      address:
+        EU: 0x2332BEC
+    - name: AutoConfigThread
+      address:
+        EU: 0x2332FD0
+    - name: keywrap_encrypt
+      address:
+        EU: 0x2333008
+    - name: keywrap_decrypt
+      address:
+        EU: 0x23331C0
+    - name: aeskw_xor64
+      address:
+        EU: 0x2333378
+    - name: rijndaelKeySetupEnc
+      address:
+        EU: 0x23333C0
+    - name: rijndaelKeySetupDec
+      address:
+        EU: 0x2333678
+    - name: rijndaelEncrypt
+      address:
+        EU: 0x2333808
+    - name: rijndaelDecrypt
+      address:
+        EU: 0x2333BC4
+    - name: MY_MD5Init
+      address:
+        EU: 0x2333F80
+    - name: MY_MD5Update
+      address:
+        EU: 0x2333FA8
+    - name: MY_MD5Final
+      address:
+        EU: 0x2334020
+    - name: MD5Transform
+      address:
+        EU: 0x2334074
+    - name: Encode
+      address:
+        EU: 0x23348BC
+    - name: Decode
+      address:
+        EU: 0x23348E8
+    - name: MD5_memcpy
+      address:
+        EU: 0x2334914
+    - name: MD5_memset
+      address:
+        EU: 0x233492C
+    - name: MD5Encode
+      address:
+        EU: 0x2334944
+    - name: GetTickCount
+      address:
+        EU: 0x233496C
+    - name: Calloc
+      address:
+        EU: 0x2334988
+    - name: Free
+      address:
+        EU: 0x23349AC
+    - name: PutHex
+      address:
+        EU: 0x23349BC
+    - name: PutMac
+      address:
+        EU: 0x23349F0
+    - name: Atermi_ApConfigStart
+      address:
+        EU: 0x2334A24
+    - name: Atermi_ApConfigEnd
+      address:
+        EU: 0x2334B0C
+    - name: Atermi_ApConfigGetState
+      address:
+        EU: 0x2334BA0
+    - name: Atermi_ApConfigGetResult
+      address:
+        EU: 0x2334BD8
+    - name: SendNotify
+      address:
+        EU: 0x2334BEC
+    - name: Dwci_AnimelInitEx
+      address:
+        EU: 0x2334C08
+    - name: Dwci_AnimelEnd
+      address:
+        EU: 0x2334CD8
+    - name: taskAnime
+      address:
+        EU: 0x2334D14
+    - name: Dwci_BtnlInit
+      address:
+        EU: 0x2334DE0
+    - name: Dwci_BtnlEnd
+      address:
+        EU: 0x2334ED8
+    - name: Dwci_BtnlGet
+      address:
+        EU: 0x2334F08
+    - name: Dwci_BtnlSet
+      address:
+        EU: 0x2334F1C
+    - name: Dwci_BtnlSetForce
+      address:
+        EU: 0x2334F3C
+    - name: Dwci_BtnlIsEnd
+      address:
+        EU: 0x2334F50
+    - name: Dwci_BtnlEnable
+      address:
+        EU: 0x2334F7C
+    - name: Dwci_BtnlDisable
+      address:
+        EU: 0x2334F94
+    - name: Button_Disp
+      address:
+        EU: 0x2334FAC
+    - name: Button_TaskStart
+      address:
+        EU: 0x2335040
+    - name: Button_TaskStart1
+      address:
+        EU: 0x23350AC
+    - name: Button_TaskMain
+      address:
+        EU: 0x23350FC
+    - name: Button_TaskEnd
+      address:
+        EU: 0x2335288
+    - name: Button_TaskEnd1
+      address:
+        EU: 0x23352EC
+    - name: Button_TaskRelease
+      address:
+        EU: 0x2335364
+    - name: Dwci_CommentlInit
+      address:
+        EU: 0x2335454
+    - name: Dwci_CommentlDispEx
+      address:
+        EU: 0x2335468
+    - name: Dwci_CommentlDelete
+      address:
+        EU: 0x233553C
+    - name: Dwci_Char
+      address:
+        EU: 0x2335574
+    - name: Dwci_CmnlLoadResource
+      address:
+        EU: 0x23355D4
+    - name: Dwci_CmnlStep
+      address:
+        EU: 0x2335614
+    - name: Dwci_CmnlButton
+      address:
+        EU: 0x2335664
+    - name: Dwci_CmnlMsgDraw
+      address:
+        EU: 0x233569C
+    - name: Dwci_CmnlMsgNameDraw
+      address:
+        EU: 0x2335710
+    - name: Dwci_CmnlFontFlag
+      address:
+        EU: 0x23357CC
+    - name: Dwci_FocuslInit
+      address:
+        EU: 0x23357E4
+    - name: Dwci_FocuslEnd
+      address:
+        EU: 0x2335804
+    - name: Dwci_FocuslDisp
+      address:
+        EU: 0x233581C
+    - name: Dwci_FocuslDisp4
+      address:
+        EU: 0x23358D8
+    - name: Dwci_FocuslDelete
+      address:
+        EU: 0x23359C8
+    - name: Dwci_HLlInit
+      address:
+        EU: 0x2335A08
+    - name: Dwci_HLlEnd
+      address:
+        EU: 0x2335A80
+    - name: Dwci_HLlLoad
+      address:
+        EU: 0x2335A94
+    - name: Dwci_HLlLoadSet
+      address:
+        EU: 0x2335AF0
+    - name: Dwci_HLlLoadList
+      address:
+        EU: 0x2335B08
+    - name: Headline_TaskLoad
+      address:
+        EU: 0x2335B20
+    - name: Dwci_IconlInit
+      address:
+        EU: 0x2335B60
+    - name: Dwci_IconlEnd
+      address:
+        EU: 0x2335C18
+    - name: Icon_TaskRenew
+      address:
+        EU: 0x2335C5C
+    - name: Dwci_KBlInit
+      address:
+        EU: 0x2335D04
+    - name: Dwci_KBlEnd
+      address:
+        EU: 0x2336068
+    - name: Dwci_KBlGet
+      address:
+        EU: 0x233609C
+    - name: Dwci_KBlSetErase
+      address:
+        EU: 0x23360B0
+    - name: Dwci_KBlSetInput
+      address:
+        EU: 0x23360C4
+    - name: Dwci_KBlIsInit
+      address:
+        EU: 0x23360D8
+    - name: Keyboard_TaskStart0
+      address:
+        EU: 0x23360F4
+    - name: Keyboard_TaskStart1
+      address:
+        EU: 0x2336188
+    - name: Keyboard_TaskStart2
+      address:
+        EU: 0x233621C
+    - name: Keyboard_TaskStart3
+      address:
+        EU: 0x23362B0
+    - name: Keyboard_TaskStart4
+      address:
+        EU: 0x2336340
+    - name: Keyboard_TaskMain
+      address:
+        EU: 0x23363D0
+    - name: Keyboard_TouchTriger
+      address:
+        EU: 0x23363E8
+    - name: Keyboard_TouchRelease
+      address:
+        EU: 0x23365D0
+    - name: Keyboard_PushCaps
+      address:
+        EU: 0x23368B8
+    - name: Keyboard_PushShift
+      address:
+        EU: 0x23368E8
+    - name: Keyboard_Touch
+      address:
+        EU: 0x2336918
+    - name: Keyboard_ExchangeBack
+      address:
+        EU: 0x2336B1C
+    - name: Keyboard_Key
+      address:
+        EU: 0x2336B70
+    - name: Keyboard_Disp
+      address:
+        EU: 0x2336DA0
+    - name: Keyboard_ChangePage
+      address:
+        EU: 0x233701C
+    - name: Keyboard_ChangeColor
+      address:
+        EU: 0x23370A0
+    - name: Keyboard_DispFocus
+      address:
+        EU: 0x2337168
+    - name: Keyboard_MoveFocus
+      address:
+        EU: 0x2337244
+    - name: Keyboard_TaskEnd0
+      address:
+        EU: 0x233767C
+    - name: Keyboard_TaskEnd1
+      address:
+        EU: 0x2337700
+    - name: Keyboard_TaskEnd2
+      address:
+        EU: 0x2337774
+    - name: Keyboard_TaskEnd3
+      address:
+        EU: 0x23377E8
+    - name: Keyboard_TaskEnd4
+      address:
+        EU: 0x233785C
+    - name: Keyboard_TaskEnd5
+      address:
+        EU: 0x23378D0
+    - name: Dwci_KB10lInit
+      address:
+        EU: 0x23379B0
+    - name: Dwci_KB10lEnd
+      address:
+        EU: 0x2337CEC
+    - name: Dwci_KB10lGet
+      address:
+        EU: 0x2337D20
+    - name: Dwci_KB10lSetErase
+      address:
+        EU: 0x2337D34
+    - name: Dwci_KB10lSetInput
+      address:
+        EU: 0x2337D48
+    - name: Dwci_KB10lSetShift
+      address:
+        EU: 0x2337D5C
+    - name: Dwci_KB10lIsInit
+      address:
+        EU: 0x2337D70
+    - name: Keyboard10_TaskStart0
+      address:
+        EU: 0x2337D8C
+    - name: Keyboard10_TaskStart1
+      address:
+        EU: 0x2337E10
+    - name: Keyboard10_TaskStart2
+      address:
+        EU: 0x2337E94
+    - name: Keyboard10_TaskStart3
+      address:
+        EU: 0x2337F18
+    - name: Keyboard10_TaskStart4
+      address:
+        EU: 0x2337F9C
+    - name: Keyboard10_TaskMain
+      address:
+        EU: 0x2338010
+    - name: Keyboard10_TouchTriger
+      address:
+        EU: 0x2338028
+    - name: Keyboard10_TouchRelease
+      address:
+        EU: 0x2338204
+    - name: Keyboard10_Touch
+      address:
+        EU: 0x23383D4
+    - name: Keyboard10_ExchangeBack
+      address:
+        EU: 0x23385C4
+    - name: Keyboard10_Key
+      address:
+        EU: 0x2338610
+    - name: Keyboard10_Disp
+      address:
+        EU: 0x23387AC
+    - name: Keyboard10_ChangeColor
+      address:
+        EU: 0x2338A0C
+    - name: Keyboard10_DispFocus
+      address:
+        EU: 0x2338AD4
+    - name: Keyboard10_MoveFocus
+      address:
+        EU: 0x2338B60
+    - name: Keyboard10_TaskEnd0
+      address:
+        EU: 0x2338C0C
+    - name: Keyboard10_TaskEnd1
+      address:
+        EU: 0x2338C84
+    - name: Keyboard10_TaskEnd2
+      address:
+        EU: 0x2338CF4
+    - name: Keyboard10_TaskEnd3
+      address:
+        EU: 0x2338D64
+    - name: Keyboard10_TaskEnd4
+      address:
+        EU: 0x2338DD4
+    - name: Keyboard10_TaskEnd5
+      address:
+        EU: 0x2338E44
+    - name: Dwci_AosslInit
+      address:
+        EU: 0x2338F04
+    - name: Dwci_AosslEnd
+      address:
+        EU: 0x2339014
+    - name: Dwci_AosslStart
+      address:
+        EU: 0x2339064
+    - name: AossAlloc
+      address:
+        EU: 0x23390C4
+    - name: AossFree
+      address:
+        EU: 0x23390D4
+    - name: Dwc_StartUtility
+      address:
+        EU: 0x23390E0
+    - name: Main_CheckParam
+      address:
+        EU: 0x2339188
+    - name: Main_InitGame
+      address:
+        EU: 0x2339204
+    - name: Main_InitGraph
+      address:
+        EU: 0x23392CC
+    - name: Main_ProcEnd
+      address:
+        EU: 0x2339544
+    - name: Dwci_ChangeScene
+      address:
+        EU: 0x2339594
+    - name: Dwci_SetParam_
+      address:
+        EU: 0x23395A4
+    - name: Dwci_GetParam_
+      address:
+        EU: 0x23395B8
+    - name: Dwci_SetParam2_
+      address:
+        EU: 0x23395E0
+    - name: Dwci_GetParam2_
+      address:
+        EU: 0x23395F4
+    - name: Dwci_Language
+      address:
+        EU:
+          - 0x233961C
+          - 0x2339674
+    - name: Dwci_Entry
+      address:
+        EU: 0x233962C
+    - name: Dwci_Flag
+      address:
+        EU: 0x2339644
+    - name: Dwci_EndUtility
+      address:
+        EU: 0x2339660
+    - name: Dwci_MsglInit
+      address:
+        EU: 0x23396B4
+    - name: Dwci_MsglEnd
+      address:
+        EU: 0x23396F0
+    - name: Dwci_MsglRead
+      address:
+        EU: 0x2339704
+    - name: Dwci_MsglRelease
+      address:
+        EU: 0x233975C
+    - name: Dwci_MsglGet
+      address:
+        EU: 0x2339788
+    - name: Dwci_MsglGetEx
+      address:
+        EU: 0x23397A0
+    - name: Dwci_MovlInit
+      address:
+        EU: 0x23397CC
+    - name: Dwci_MovlEnd
+      address:
+        EU: 0x23398B8
+    - name: Move_TaskEnd
+      address:
+        EU: 0x23398D8
+    - name: Dwci_MovlIsEnd
+      address:
+        EU: 0x2339914
+    - name: Dwci_MovlChangeCallback
+      address:
+        EU: 0x2339930
+    - name: Dwci_MovlAdmitChild
+      address:
+        EU: 0x2339948
+    - name: Dwci_MovlGetChild
+      address:
+        EU: 0x2339954
+    - name: Move_TaskFramework
+      address:
+        EU: 0x233996C
+    - name: Dwci_RakulInit
+      address:
+        EU: 0x2339C0C
+    - name: Dwci_RakulEnd
+      address:
+        EU: 0x2339C78
+    - name: Dwci_RakulGetState
+      address:
+        EU: 0x2339C9C
+    - name: Dwci_RakulSetResult
+      address:
+        EU: 0x2339D58
+    - name: RakuRaku_MemAlloc
+      address:
+        EU: 0x2339D84
+    - name: RakuRaku_MemFree
+      address:
+        EU: 0x2339D9C
+    - name: RakuRaku_CbConfig
+      address:
+        EU: 0x2339DAC
+    - name: Dwci_SceneEnd
+      address:
+        EU: 0x2339DB8
+    - name: SceneEnd_EndScene
+      address:
+        EU: 0x2339DF4
+    - name: Dwci_SceneInit
+      address:
+        EU: 0x2339E68
+    - name: SceneInit_ProcFade
+      address:
+        EU: 0x233A048
+    - name: SceneInit_ProcWait
+      address:
+        EU: 0x233A084
+    - name: Dwci_SceneMenu
+      address:
+        EU: 0x233A0F8
+    - name: SceneMenu_InitGraphics
+      address:
+        EU: 0x233A174
+    - name: SceneMenu_ProcInit
+      address:
+        EU: 0x233A260
+    - name: SceneMenu_ProcInit1
+      address:
+        EU: 0x233A2B4
+    - name: SceneMenu_ProcInit2
+      address:
+        EU: 0x233A2F0
+    - name: SceneMenu_ProcScene
+      address:
+        EU: 0x233A318
+    - name: SceneMenu_Input
+      address:
+        EU: 0x233A32C
+    - name: SceneMenu_Draw
+      address:
+        EU: 0x233A458
+    - name: SceneMenu_Button
+      address:
+        EU: 0x233A45C
+    - name: SceneMenu_EndScene
+      address:
+        EU: 0x233A4AC
+    - name: SceneMenu_EndScene1
+      address:
+        EU: 0x233A4CC
+    - name: SceneMenu_EndScene2
+      address:
+        EU: 0x233A518
+    - name: SceneMenu_MoveFocus
+      address:
+        EU: 0x233A5C0
+    - name: SceneMenu_DispPushButton
+      address:
+        EU: 0x233A630
+    - name: Dwci_SceneOptErase
+      address:
+        EU: 0x233A670
+    - name: SceneOptErase_InitGraphics
+      address:
+        EU: 0x233A6B8
+    - name: SceneOptErase_ProcInit
+      address:
+        EU: 0x233A738
+    - name: SceneOptErase_ProcInit1
+      address:
+        EU: 0x233A78C
+    - name: SceneOptErase_ProcInit2
+      address:
+        EU: 0x233A7C8
+    - name: SceneOptErase_ProcScene
+      address:
+        EU: 0x233A7F0
+    - name: SceneOptErase_Input
+      address:
+        EU: 0x233A804
+    - name: SceneOptErase_Draw
+      address:
+        EU: 0x233A83C
+    - name: SceneOptErase_Button
+      address:
+        EU: 0x233A840
+    - name: SceneOptErase_EndScene
+      address:
+        EU: 0x233A8A8
+    - name: SceneOptErase_EndScene1
+      address:
+        EU: 0x233A8C8
+    - name: SceneOptErase_EndScene2
+      address:
+        EU: 0x233A92C
+    - name: SceneOptErase_ProcConfirm
+      address:
+        EU: 0x233A9E4
+    - name: SceneOptErase_ProcConfirm1
+      address:
+        EU: 0x233AA34
+    - name: Dwci_SceneOptErase1
+      address:
+        EU: 0x233AA54
+    - name: SceneOptErase1_InitGraphics
+      address:
+        EU: 0x233AA78
+    - name: SceneOptErase1_ProcInit
+      address:
+        EU: 0x233AAF8
+    - name: SceneOptErase1_ProcInit1
+      address:
+        EU: 0x233AB2C
+    - name: SceneOptErase1_ProcInit2
+      address:
+        EU: 0x233AB58
+    - name: SceneOptErase1_ProcScene
+      address:
+        EU: 0x233AB80
+    - name: SceneOptErase1_Input
+      address:
+        EU: 0x233AB94
+    - name: SceneOptErase1_Draw
+      address:
+        EU: 0x233ABB4
+    - name: SceneOptErase1_Button
+      address:
+        EU: 0x233ABB8
+    - name: SceneOptErase1_EndScene
+      address:
+        EU: 0x233ABE0
+    - name: SceneOptErase1_EndScene1
+      address:
+        EU: 0x233AC00
+    - name: SceneOptErase1_EndScene2
+      address:
+        EU: 0x233AC4C
+    - name: Dwci_SceneOptInfo
+      address:
+        EU: 0x233AC80
+    - name: SceneOptInfo_InitGraphics
+      address:
+        EU: 0x233ACB4
+    - name: SceneOptInfo_DrawInfo
+      address:
+        EU: 0x233AD34
+    - name: SceneOptInfo_ProcInit
+      address:
+        EU: 0x233AF38
+    - name: SceneOptInfo_ProcInit1
+      address:
+        EU: 0x233AF8C
+    - name: SceneOptInfo_ProcInit2
+      address:
+        EU: 0x233AFC8
+    - name: SceneOptInfo_ProcScene
+      address:
+        EU: 0x233AFF0
+    - name: SceneOptInfo_Input
+      address:
+        EU: 0x233B004
+    - name: SceneOptInfo_Draw
+      address:
+        EU: 0x233B024
+    - name: SceneOptInfo_Button
+      address:
+        EU: 0x233B028
+    - name: SceneOptInfo_EndScene
+      address:
+        EU: 0x233B050
+    - name: SceneOptInfo_EndScene1
+      address:
+        EU: 0x233B070
+    - name: SceneOptInfo_EndScene2
+      address:
+        EU: 0x233B0C0
+    - name: Dwci_SceneOptMenu
+      address:
+        EU: 0x233B130
+    - name: SceneOptMenu_InitGraphics
+      address:
+        EU: 0x233B1F8
+    - name: SceneOptMenu_ProcInit
+      address:
+        EU: 0x233B394
+    - name: SceneOptMenu_ProcInit1
+      address:
+        EU: 0x233B3E8
+    - name: SceneOptMenu_ProcInit2
+      address:
+        EU: 0x233B424
+    - name: SceneOptMenu_ProcScene
+      address:
+        EU: 0x233B44C
+    - name: SceneOptMenu_Input
+      address:
+        EU: 0x233B460
+    - name: SceneOptMenu_Draw
+      address:
+        EU: 0x233B554
+    - name: SceneOptMenu_Button
+      address:
+        EU: 0x233B558
+    - name: SceneOptMenu_EndScene
+      address:
+        EU: 0x233B5FC
+    - name: SceneOptMenu_EndScene1
+      address:
+        EU: 0x233B61C
+    - name: SceneOptMenu_EndScene2
+      address:
+        EU: 0x233B680
+    - name: SceneOptMenu_MoveFocus
+      address:
+        EU: 0x233B78C
+    - name: SceneOptMenu_DispPush
+      address:
+        EU: 0x233B81C
+    - name: Dwci_SceneOptMovComm
+      address:
+        EU: 0x233B848
+    - name: SceneOptMovComm_InitGraphics
+      address:
+        EU: 0x233B880
+    - name: SceneOptMovComm_ProcInit
+      address:
+        EU: 0x233B900
+    - name: SceneOptMovComm_ProcInit1
+      address:
+        EU: 0x233B934
+    - name: SceneOptMovComm_ProcScene
+      address:
+        EU: 0x233B964
+    - name: SceneOptMovComm_Input
+      address:
+        EU: 0x233B974
+    - name: SceneOptMovComm_Draw
+      address:
+        EU: 0x233B978
+    - name: SceneOptMovComm_EndScene
+      address:
+        EU: 0x233B97C
+    - name: SceneOptMovComm_EndScene1
+      address:
+        EU: 0x233B9A4
+    - name: SceneOptMoveComm_CbMov
+      address:
+        EU: 0x233BA38
+    - name: Dwci_SceneOptMovComplete
+      address:
+        EU: 0x233BAC0
+    - name: SceneOptMovComplete_InitGraphics
+      address:
+        EU: 0x233BAE0
+    - name: SceneOptMovComplete_ProcInit
+      address:
+        EU: 0x233BB48
+    - name: SceneOptMovComplete_ProcInit1
+      address:
+        EU: 0x233BB7C
+    - name: SceneOptMovComplete_ProcInit2
+      address:
+        EU: 0x233BBA8
+    - name: SceneOptMovComplete_ProcScene
+      address:
+        EU: 0x233BBD0
+    - name: SceneOptMovComplete_Input
+      address:
+        EU: 0x233BBE4
+    - name: SceneOptMovComplete_Draw
+      address:
+        EU: 0x233BC04
+    - name: SceneOptMovComplete_Button
+      address:
+        EU: 0x233BC08
+    - name: SceneOptMovComplete_EndScene
+      address:
+        EU: 0x233BC30
+    - name: SceneOptMovComplete_EndScene1
+      address:
+        EU: 0x233BC50
+    - name: SceneOptMovComplete_EndScene2
+      address:
+        EU: 0x233BC9C
+    - name: Dwci_SceneOptMovConfirm
+      address:
+        EU: 0x233BCD0
+    - name: SceneOptMovConfirm_InitGraphics
+      address:
+        EU: 0x233BCF0
+    - name: SceneOptMovConfirm_ProcInit
+      address:
+        EU: 0x233BD58
+    - name: SceneOptMovConfirm_ProcInit1
+      address:
+        EU: 0x233BD8C
+    - name: SceneOptMovConfirm_ProcInit2
+      address:
+        EU: 0x233BDC8
+    - name: SceneOptMovConfirm_ProcScene
+      address:
+        EU: 0x233BDF0
+    - name: SceneOptMovConfirm_Input
+      address:
+        EU: 0x233BE04
+    - name: SceneOptMovConfirm_Draw
+      address:
+        EU: 0x233BE24
+    - name: SceneOptMovConfirm_Button
+      address:
+        EU: 0x233BE28
+    - name: SceneOptMovConfirm_EndScene
+      address:
+        EU: 0x233BE50
+    - name: SceneOptMovConfirm_EndScene1
+      address:
+        EU: 0x233BE70
+    - name: SceneOptMovConfirm_EndScene2
+      address:
+        EU: 0x233BEAC
+    - name: Dwci_SceneOptMovConfirm1
+      address:
+        EU: 0x233BEFC
+    - name: SceneOptMovConfirm1_InitGraphics
+      address:
+        EU: 0x233BF44
+    - name: SceneOptMovConfirm1_ProcInit
+      address:
+        EU: 0x233BFC4
+    - name: SceneOptMovConfirm1_ProcInit1
+      address:
+        EU: 0x233C018
+    - name: SceneOptMovConfirm1_ProcInit2
+      address:
+        EU: 0x233C044
+    - name: SceneOptMovConfirm1_ProcScene
+      address:
+        EU: 0x233C06C
+    - name: SceneOptMovConfirm1_Input
+      address:
+        EU: 0x233C080
+    - name: SceneOptMovConfirm1_Draw
+      address:
+        EU: 0x233C0B8
+    - name: SceneOptMovConfirm1_Button
+      address:
+        EU: 0x233C0BC
+    - name: SceneOptMovConfirm1_EndScene
+      address:
+        EU: 0x233C10C
+    - name: SceneOptMovConfirm1_EndScene1
+      address:
+        EU: 0x233C12C
+    - name: SceneOptMovConfirm1_EndScene2
+      address:
+        EU: 0x233C190
+    - name: Dwci_SceneOptMovDisconnect
+      address:
+        EU: 0x233C248
+    - name: SceneOptMovDisconnect_InitGraphics
+      address:
+        EU: 0x233C278
+    - name: SceneOptMovDisconnect_ProcInit
+      address:
+        EU: 0x233C2E4
+    - name: SceneOptMovDisconnect_ProcInit1
+      address:
+        EU: 0x233C318
+    - name: SceneOptMovDisconnect_ProcScene
+      address:
+        EU: 0x233C348
+    - name: SceneOptMovDisconnect_Draw
+      address:
+        EU: 0x233C358
+    - name: SceneOptMovDisconnect_EndScene
+      address:
+        EU: 0x233C35C
+    - name: SceneOptMovDisconnect_EndScene1
+      address:
+        EU: 0x233C398
+    - name: SceneOptMovDisconnect_Wait
+      address:
+        EU: 0x233C3FC
+    - name: Dwci_SceneOptMovFailure
+      address:
+        EU: 0x233C430
+    - name: SceneOptMovFailure_InitGraphics
+      address:
+        EU: 0x233C46C
+    - name: SceneOptMovFailure_ProcInit
+      address:
+        EU: 0x233C4EC
+    - name: SceneOptMovFailure_ProcInit1
+      address:
+        EU: 0x233C554
+    - name: SceneOptMovFailure_ProcInit2
+      address:
+        EU: 0x233C590
+    - name: SceneOptMovFailure_ProcScene
+      address:
+        EU: 0x233C5C4
+    - name: SceneOptMovFailure_Input
+      address:
+        EU: 0x233C5D8
+    - name: SceneOptMovFailure_Draw
+      address:
+        EU: 0x233C610
+    - name: SceneOptMovFailure_Button
+      address:
+        EU: 0x233C614
+    - name: SceneOptMovFailure_EndScene
+      address:
+        EU: 0x233C66C
+    - name: SceneOptMovFailure_EndScene1
+      address:
+        EU: 0x233C68C
+    - name: SceneOptMovFailure_EndScene2
+      address:
+        EU: 0x233C6F0
+    - name: Dwci_SceneOptMovUser
+      address:
+        EU: 0x233C798
+    - name: SceneOptMovUser_InitGraphics
+      address:
+        EU: 0x233C868
+    - name: SceneOptMovUser_ProcInit
+      address:
+        EU: 0x233C8E8
+    - name: SceneOptMovUser_ProcInit1
+      address:
+        EU: 0x233C91C
+    - name: SceneOptMovUser_ProcInit2
+      address:
+        EU: 0x233C940
+    - name: SceneOptMovUser_ProcScene
+      address:
+        EU: 0x233C964
+    - name: SceneOptMovUser_Input
+      address:
+        EU: 0x233C9D4
+    - name: SceneOptMovUser_Draw
+      address:
+        EU: 0x233C9D8
+    - name: SceneOptMovUser_EndScene
+      address:
+        EU: 0x233C9DC
+    - name: SceneOptMovUser_EndScene1
+      address:
+        EU: 0x233CA38
+    - name: SceneOptMovUser_EndScene2
+      address:
+        EU: 0x233CA94
+    - name: SceneOptMovUser_CbMov
+      address:
+        EU: 0x233CB5C
+    - name: Dwci_IsFold
+      address:
+        EU:
+          - 0x233CB70
+          - 0x233CF68
+          - 0x23431F4
+          - 0x234360C
+          - 0x2343C64
+          - 0x2346980
+    - name: Dwci_SceneOptMovWait
+      address:
+        EU: 0x233CB90
+    - name: SceneOptMovWait_InitGraphics
+      address:
+        EU: 0x233CBDC
+    - name: SceneOptMovWait_ProcInit
+      address:
+        EU: 0x233CC5C
+    - name: SceneOptMovWait_ProcInit1
+      address:
+        EU: 0x233CC90
+    - name: SceneOptMovWait_ProcInit2
+      address:
+        EU: 0x233CCBC
+    - name: SceneOptMovWait_ProcScene
+      address:
+        EU: 0x233CCE0
+    - name: SceneOptMovWait_Input
+      address:
+        EU: 0x233CCF4
+    - name: SceneOptMovWait_Draw
+      address:
+        EU: 0x233CD2C
+    - name: SceneOptMovWait_Button
+      address:
+        EU: 0x233CD30
+    - name: SceneOptMovWait_EndScene
+      address:
+        EU: 0x233CD5C
+    - name: SceneOptMovWait_EndScene1
+      address:
+        EU: 0x233CD94
+    - name: SceneOptMovWait_EndScene2
+      address:
+        EU: 0x233CE14
+    - name: SceneOptMovWait_CbMov
+      address:
+        EU: 0x233CF0C
+    - name: Dwci_SceneSetAossButton
+      address:
+        EU: 0x233CF88
+    - name: SceneSetAossButton_InitGraphics
+      address:
+        EU: 0x233CFE8
+    - name: SceneSetAossButton_ProcInit
+      address:
+        EU: 0x233D090
+    - name: SceneSetAossButton_ProcInit1
+      address:
+        EU: 0x233D0E4
+    - name: SceneSetAossButton_ProcInit2
+      address:
+        EU: 0x233D120
+    - name: SceneSetAossButton_ProcScene
+      address:
+        EU: 0x233D168
+    - name: SceneSetAossButton_Input
+      address:
+        EU: 0x233D23C
+    - name: SceneSetAossButton_Draw
+      address:
+        EU: 0x233D274
+    - name: SceneSetAossButton_Button
+      address:
+        EU: 0x233D278
+    - name: SceneSetAossButton_EndScene
+      address:
+        EU: 0x233D2C4
+    - name: SceneSetAossButton_EndScene1
+      address:
+        EU: 0x233D300
+    - name: SceneSetAossButton_EndScene2
+      address:
+        EU: 0x233D364
+    - name: SceneSetAossButton_TaskVBlank
+      address:
+        EU: 0x233D440
+    - name: SceneSetAossButton_ProcError
+      address:
+        EU: 0x233D45C
+    - name: SceneSetAossButton_ProcError1
+      address:
+        EU: 0x233D488
+    - name: SceneSetAossButton_ProcWait
+      address:
+        EU: 0x233D4A8
+    - name: SceneSetAossButton_ProcCancel
+      address:
+        EU: 0x233D4F4
+    - name: Dwci_SceneSetAossComplete
+      address:
+        EU: 0x233D524
+    - name: SceneSetAossComplete_InitGraphics
+      address:
+        EU: 0x233D560
+    - name: SceneSetAossComplete_ProcInit
+      address:
+        EU: 0x233D5CC
+    - name: SceneSetAossComplete_ProcInit1
+      address:
+        EU: 0x233D600
+    - name: SceneSetAossComplete_ProcScene
+      address:
+        EU: 0x233D624
+    - name: SceneSetAossComplete_Draw
+      address:
+        EU: 0x233D634
+    - name: SceneSetAossComplete_EndScene
+      address:
+        EU: 0x233D638
+    - name: SceneSetAossComplete_EndScene1
+      address:
+        EU: 0x233D674
+    - name: SceneSetAossComplete_Wait
+      address:
+        EU: 0x233D6E4
+    - name: Dwci_SceneSetApList
+      address:
+        EU: 0x233D718
+    - name: SceneSetApList_InitGraphics
+      address:
+        EU: 0x233D7F0
+    - name: InitScrollBar
+      address:
+        EU: 0x233D944
+    - name: GetCharName
+      address:
+        EU: 0x233D9EC
+    - name: SceneSetApList_ProcInit
+      address:
+        EU: 0x233DB60
+    - name: SceneSetApList_ProcInit1
+      address:
+        EU: 0x233DBB4
+    - name: SceneSetApList_ProcInit2
+      address:
+        EU: 0x233DBF0
+    - name: SceneSetApList_ProcScene
+      address:
+        EU: 0x233DC18
+    - name: SceneSetApList_Input
+      address:
+        EU: 0x233DC2C
+    - name: SceneSetApList_Draw
+      address:
+        EU: 0x233DE80
+    - name: SceneSetApList_Button
+      address:
+        EU: 0x233E0F0
+    - name: SceneSetApList_EndScene
+      address:
+        EU: 0x233E1FC
+    - name: SceneSetApList_EndScene1
+      address:
+        EU: 0x233E21C
+    - name: SceneSetApList_EndScene2
+      address:
+        EU: 0x233E28C
+    - name: DrawApInfo
+      address:
+        EU: 0x233E488
+    - name: DrawAp
+      address:
+        EU: 0x233E530
+    - name: DrapApObj
+      address:
+        EU: 0x233E6A8
+    - name: SceneSetApList_SetOffset
+      address:
+        EU: 0x233E734
+    - name: SceneSetApList_TaskUp
+      address:
+        EU: 0x233E7F0
+    - name: SceneSetApList_TaskDown
+      address:
+        EU: 0x233E8AC
+    - name: SceneSetApList_TaskVBlank
+      address:
+        EU: 0x233E944
+    - name: SceneSetApList_DispFocus
+      address:
+        EU: 0x233E9A0
+    - name: SceneSetApList_MoveFocus
+      address:
+        EU: 0x233E9EC
+    - name: ScrollUp
+      address:
+        EU: 0x233EB38
+    - name: ScrollDown
+      address:
+        EU: 0x233EBAC
+    - name: SceneSetApList_DispPushButton
+      address:
+        EU: 0x233EC30
+    - name: SceneSetApList_ProcError
+      address:
+        EU: 0x233EC60
+    - name: SceneSetApList_ProcError1
+      address:
+        EU: 0x233EC8C
+    - name: Dwci_SceneSetEdit32
+      address:
+        EU: 0x233ECB4
+    - name: SceneSetEdit32_InitGraphics
+      address:
+        EU: 0x233EDE8
+    - name: SceneSetEdit32_ProcInit
+      address:
+        EU: 0x233EEA4
+    - name: SceneSetEdit32_ProcInit1
+      address:
+        EU: 0x233EEF8
+    - name: SceneSetEdit32_ProcInit2
+      address:
+        EU: 0x233EF74
+    - name: SceneSetEdit32_ProcScene
+      address:
+        EU: 0x233EF94
+    - name: SceneSetEdit32_Input
+      address:
+        EU: 0x233EFA4
+    - name: SceneSetEdit32_Draw
+      address:
+        EU: 0x233F164
+    - name: SceneSetEdit32_EndScene
+      address:
+        EU: 0x233F168
+    - name: SceneSetEdit32_EndScene1
+      address:
+        EU: 0x233F184
+    - name: SceneSetEdit32_EndScene2
+      address:
+        EU: 0x233F1B4
+    - name: SceneSetEdit32_EndScene3
+      address:
+        EU: 0x233F28C
+    - name: DrawSsid
+      address:
+        EU: 0x233F390
+    - name: SceneSetEdit32_DispCaret
+      address:
+        EU: 0x233F484
+    - name: SceneSetEdit32_ProcWin
+      address:
+        EU: 0x233F4EC
+    - name: SceneSetEdit32_ProcWin1
+      address:
+        EU: 0x233F548
+    - name: SceneSetEdit32_IsCorrect
+      address:
+        EU: 0x233F5F8
+    - name: SceneSetEdit32_ProcError
+      address:
+        EU: 0x233F784
+    - name: SceneSetEdit32_ProcError1
+      address:
+        EU: 0x233F7B0
+    - name: Dwci_SceneSetEditAddress
+      address:
+        EU: 0x233F7F4
+    - name: SceneSetEditAddress_InitGraphics
+      address:
+        EU: 0x233F968
+    - name: SceneSetEditAddress_ProcInit
+      address:
+        EU: 0x233FA24
+    - name: SceneSetEditAddress_ProcInit1
+      address:
+        EU: 0x233FA78
+    - name: SceneSetEditAddress_ProcInit2
+      address:
+        EU: 0x233FB04
+    - name: SceneSetEditAddress_ProcScene
+      address:
+        EU: 0x233FB24
+    - name: SceneSetEditAddress_Input
+      address:
+        EU: 0x233FB34
+    - name: IsOver
+      address:
+        EU: 0x233FE44
+    - name: SceneSetEditAddress_Draw
+      address:
+        EU: 0x233FED8
+    - name: SceneSetEditAddress_EndScene
+      address:
+        EU: 0x233FEDC
+    - name: SceneSetEditAddress_EndScene1
+      address:
+        EU: 0x233FEF8
+    - name: SceneSetEditAddress_EndScene2
+      address:
+        EU: 0x233FF28
+    - name: SceneSetEditAddress_EndScene3
+      address:
+        EU: 0x233FFB4
+    - name: SceneSetEditAddress_DrawAddress
+      address:
+        EU: 0x2340058
+    - name: SceneSetEditAddress_DispCaret
+      address:
+        EU: 0x234011C
+    - name: SceneSetEditAddress_ProcWin
+      address:
+        EU: 0x2340170
+    - name: SceneSetEditAddress_ProcWin1
+      address:
+        EU: 0x23401CC
+    - name: ArrangeAddress
+      address:
+        EU: 0x2340280
+    - name: SceneSetEditAddress_IsCorrect
+      address:
+        EU: 0x23402F8
+    - name: SceneSetEditAddress_ProcError
+      address:
+        EU: 0x234044C
+    - name: SceneSetEditAddress_ProcError1
+      address:
+        EU: 0x2340478
+    - name: Dwci_SceneSetError
+      address:
+        EU: 0x23404BC
+    - name: SceneSetError_InitGraphics
+      address:
+        EU: 0x23404D8
+    - name: DrawMessage
+      address:
+        EU: 0x2340558
+    - name: SceneSetError_ProcInit
+      address:
+        EU: 0x23408CC
+    - name: SceneSetError_ProcInit1
+      address:
+        EU: 0x2340900
+    - name: SceneSetError_ProcInit2
+      address:
+        EU: 0x234093C
+    - name: SceneSetError_ProcScene
+      address:
+        EU: 0x2340964
+    - name: SceneSetError_Input
+      address:
+        EU: 0x2340978
+    - name: SceneSetError_Draw
+      address:
+        EU: 0x2340998
+    - name: SceneSetError_Button
+      address:
+        EU: 0x234099C
+    - name: SceneSetError_EndScene
+      address:
+        EU: 0x23409C4
+    - name: SceneSetError_EndScene1
+      address:
+        EU: 0x23409E4
+    - name: SceneSetError_EndScene2
+      address:
+        EU: 0x2340A34
+    - name: Dwci_SetErrorCode
+      address:
+        EU: 0x2340AE8
+    - name: Dwci_SceneSetList
+      address:
+        EU: 0x2340AF8
+    - name: SceneSetList_InitGraphics
+      address:
+        EU: 0x2340CF4
+    - name: CalcParam
+      address:
+        EU: 0x2340F08
+    - name: SceneSetList_ProcInit
+      address:
+        EU: 0x2340F44
+    - name: SceneSetList_ProcInit1
+      address:
+        EU: 0x2340F98
+    - name: SceneSetList_ProcScene
+      address:
+        EU: 0x2340FCC
+    - name: SceneSetList_Input
+      address:
+        EU: 0x2340FDC
+    - name: InputWinButton
+      address:
+        EU: 0x234125C
+    - name: PushWinButton
+      address:
+        EU: 0x23412E0
+    - name: SceneSetList_PushIpAuto
+      address:
+        EU: 0x2341460
+    - name: SceneSetList_PushDnsAuto
+      address:
+        EU: 0x23414CC
+    - name: SceneSetList_Draw
+      address:
+        EU: 0x2341504
+    - name: SceneSetList_EndScene
+      address:
+        EU: 0x2341760
+    - name: SceneSetList_EndScene1
+      address:
+        EU: 0x2341780
+    - name: SceneSetList_EndScene2
+      address:
+        EU: 0x23417CC
+    - name: SceneSetList_DrawWindow
+      address:
+        EU: 0x2341AC0
+    - name: SceneSetList_DrawColumnChar
+      address:
+        EU: 0x2341B80
+    - name: SceneSetList_DrawColumnObj
+      address:
+        EU: 0x2341D1C
+    - name: SceneSetList_IsEnablePush
+      address:
+        EU: 0x2341E70
+    - name: SceneSetList_DispObj
+      address:
+        EU: 0x2341F04
+    - name: SceneSetList_DrawString
+      address:
+        EU: 0x2342008
+    - name: SceneSetList_DrawAddress
+      address:
+        EU: 0x234215C
+    - name: SceneSetList_SetOffset
+      address:
+        EU: 0x23421F4
+    - name: SceneSetList_IsPush
+      address:
+        EU: 0x2342404
+    - name: SceneSetList_CalcColumnIdx
+      address:
+        EU: 0x2342678
+    - name: SceneSetList_CalcIdxColumn
+      address:
+        EU: 0x23426BC
+    - name: SceneSetList_TaskUp
+      address:
+        EU: 0x23426E0
+    - name: SceneSetList_TaskDown
+      address:
+        EU: 0x23427A8
+    - name: SceneSetList_TaskVBlank
+      address:
+        EU: 0x234284C
+    - name: SceneSetList_DispFocus
+      address:
+        EU: 0x23428D0
+    - name: SceneSetList_ApplyForcus
+      address:
+        EU: 0x23429A8
+    - name: SceneSetList_ApplyForcus1
+      address:
+        EU: 0x2342A58
+    - name: SceneSetList_MoveFocus
+      address:
+        EU: 0x2342A88
+    - name: SceneSetList_DispPushButton
+      address:
+        EU: 0x2342D78
+    - name: SceneSetList_TaskPushCount
+      address:
+        EU: 0x2342DAC
+    - name: SceneSetList_PushButtonYesNo
+      address:
+        EU: 0x2342E00
+    - name: SceneSetList_IsCorrect
+      address:
+        EU: 0x2342EC4
+    - name: SceneSetList_ProcError
+      address:
+        EU: 0x2342F64
+    - name: SceneSetList_ProcError1
+      address:
+        EU: 0x2342FA4
+    - name: Dwci_SetListReturn
+      address:
+        EU: 0x2342FC4
+    - name: Dwci_SceneSetListSave
+      address:
+        EU: 0x2342FD4
+    - name: SceneSetListSave_InitGraphics
+      address:
+        EU: 0x2342FF4
+    - name: SceneSetListSave_ProcInit
+      address:
+        EU: 0x2343088
+    - name: SceneSetListSave_ProcInit1
+      address:
+        EU: 0x23430DC
+    - name: SceneSetListSave_ProcScene
+      address:
+        EU: 0x234312C
+    - name: SceneSetListSave_Input
+      address:
+        EU: 0x2343154
+    - name: SceneSetListSave_Draw
+      address:
+        EU: 0x2343158
+    - name: SceneSetListSave_EndScene
+      address:
+        EU: 0x234315C
+    - name: SceneSetListSave_EndScene1
+      address:
+        EU: 0x2343198
+    - name: Dwci_SceneSetRakuButton
+      address:
+        EU: 0x2343214
+    - name: SceneSetRakuButton_InitGraphics
+      address:
+        EU: 0x2343250
+    - name: SceneSetRakuButton_ProcInit
+      address:
+        EU: 0x23432D0
+    - name: SceneSetRakuButton_ProcInit1
+      address:
+        EU: 0x2343304
+    - name: SceneSetRakuButton_ProcInit2
+      address:
+        EU: 0x2343330
+    - name: SceneSetRakuButton_ProcScene
+      address:
+        EU: 0x2343358
+    - name: SceneSetRakuButton_Input
+      address:
+        EU: 0x2343378
+    - name: SceneSetRakuButton_Draw
+      address:
+        EU: 0x23433B0
+    - name: SceneSetRakuButton_Button
+      address:
+        EU: 0x23433B4
+    - name: SceneSetRakuButton_EndScene
+      address:
+        EU: 0x23433E0
+    - name: SceneSetRakuButton_EndScene1
+      address:
+        EU: 0x2343400
+    - name: SceneSetRakuButton_EndScene2
+      address:
+        EU: 0x2343474
+    - name: SceneSetRakuButton_CheckRaku
+      address:
+        EU: 0x234353C
+    - name: SceneSetRakuButton_ProcError
+      address:
+        EU: 0x23435C0
+    - name: SceneSetRakuButton_ProcError1
+      address:
+        EU: 0x23435EC
+    - name: Dwci_SceneSetRakuButton1
+      address:
+        EU: 0x234362C
+    - name: SceneSetRakuButton1_InitGraphics
+      address:
+        EU: 0x2343668
+    - name: SceneSetRakuButton1_ProcInit
+      address:
+        EU: 0x23436E8
+    - name: SceneSetRakuButton1_ProcInit1
+      address:
+        EU: 0x234371C
+    - name: SceneSetRakuButton1_ProcInit2
+      address:
+        EU: 0x2343748
+    - name: SceneSetRakuButton1_ProcScene
+      address:
+        EU: 0x2343770
+    - name: SceneSetRakuButton1_Input
+      address:
+        EU: 0x2343790
+    - name: SceneSetRakuButton1_Draw
+      address:
+        EU: 0x23437C8
+    - name: SceneSetRakuButton1_Button
+      address:
+        EU: 0x23437CC
+    - name: SceneSetRakuButton1_EndScene
+      address:
+        EU: 0x23437F8
+    - name: SceneSetRakuButton1_EndScene1
+      address:
+        EU: 0x2343818
+    - name: SceneSetRakuButton1_EndScene2
+      address:
+        EU: 0x234387C
+    - name: SceneSetRakuButton1_CheckRaku
+      address:
+        EU: 0x2343938
+    - name: SceneSetRakuButton1_ProcError
+      address:
+        EU: 0x2343A10
+    - name: SceneSetRakuButton1_ProcError1
+      address:
+        EU: 0x2343A3C
+    - name: Dwci_SceneSetRakuComplete
+      address:
+        EU: 0x2343A5C
+    - name: SceneSetRakuComplete_InitGraphics
+      address:
+        EU: 0x2343A98
+    - name: SceneSetRakuComplete_ProcInit
+      address:
+        EU: 0x2343B18
+    - name: SceneSetRakuComplete_ProcInit1
+      address:
+        EU: 0x2343B4C
+    - name: SceneSetRakuComplete_ProcScene
+      address:
+        EU: 0x2343B70
+    - name: SceneSetRakuComplete_Draw
+      address:
+        EU: 0x2343B80
+    - name: SceneSetRakuComplete_EndScene
+      address:
+        EU: 0x2343B84
+    - name: SceneSetRakuComplete_EndScene1
+      address:
+        EU: 0x2343BC0
+    - name: SceneSetRakuComplete_Wait
+      address:
+        EU: 0x2343C30
+    - name: Dwci_SceneSetRakuReady
+      address:
+        EU: 0x2343C84
+    - name: SceneSetRakuReady_InitGraphics
+      address:
+        EU: 0x2343CE0
+    - name: SceneSetRakuReady_ProcInit
+      address:
+        EU: 0x2343D88
+    - name: SceneSetRakuReady_ProcInit1
+      address:
+        EU: 0x2343DDC
+    - name: SceneSetRakuReady_ProcInit2
+      address:
+        EU: 0x2343E1C
+    - name: SceneSetRakuReady_ProcScene
+      address:
+        EU: 0x2343E44
+    - name: SceneSetRakuReady_Input
+      address:
+        EU: 0x2343E64
+    - name: SceneSetRakuReady_Draw
+      address:
+        EU: 0x2343E9C
+    - name: SceneSetRakuReady_Button
+      address:
+        EU: 0x2343EA0
+    - name: SceneSetRakuReady_EndScene
+      address:
+        EU: 0x2343ECC
+    - name: SceneSetRakuReady_EndScene1
+      address:
+        EU: 0x2343EEC
+    - name: SceneSetRakuReady_EndScene2
+      address:
+        EU: 0x2343F60
+    - name: SceneSetRakuReady_CheckRaku
+      address:
+        EU: 0x2344028
+    - name: SceneSetRakuReady_ProcError
+      address:
+        EU: 0x23440AC
+    - name: SceneSetRakuReady_ProcError1
+      address:
+        EU: 0x23440D8
+    - name: Dwci_SceneSetSearch
+      address:
+        EU: 0x23440F8
+    - name: SceneSetSearch_InitGraphics
+      address:
+        EU: 0x2344160
+    - name: SceneSetSearch_ProcInit
+      address:
+        EU: 0x2344208
+    - name: SceneSetSearch_ProcInit1
+      address:
+        EU: 0x234425C
+    - name: SceneSetSearch_ProcInit2
+      address:
+        EU: 0x2344298
+    - name: SceneSetSearch_ProcScene
+      address:
+        EU: 0x23442C0
+    - name: SceneSetSearch_IsEnd
+      address:
+        EU: 0x23442D8
+    - name: SceneSetSearch_Input
+      address:
+        EU: 0x2344400
+    - name: SceneSetSearch_Draw
+      address:
+        EU: 0x2344424
+    - name: SceneSetSearch_Button
+      address:
+        EU: 0x2344428
+    - name: SceneSetSearch_EndScene
+      address:
+        EU: 0x2344454
+    - name: SceneSetSearch_EndScene1
+      address:
+        EU: 0x2344474
+    - name: SceneSetSearch_EndScene2
+      address:
+        EU: 0x23444C4
+    - name: SceneSetSearch_ProcError
+      address:
+        EU: 0x2344590
+    - name: SceneSetSearch_ProcError1
+      address:
+        EU: 0x23445BC
+    - name: Dwci_SceneSetSelectAp
+      address:
+        EU: 0x23445DC
+    - name: SceneSetSelectAp_InitGraphics
+      address:
+        EU: 0x234463C
+    - name: SceneSetSelectAp_InitObj
+      address:
+        EU: 0x234474C
+    - name: SceneSetSelectAp_ProcInit
+      address:
+        EU: 0x2344854
+    - name: SceneSetSelectAp_ProcInit1
+      address:
+        EU: 0x23448A8
+    - name: SceneSetSelectAp_ProcInit2
+      address:
+        EU: 0x23448E4
+    - name: SceneSetSelectAp_ProcScene
+      address:
+        EU: 0x2344918
+    - name: SceneSetSelectAp_Input
+      address:
+        EU: 0x234492C
+    - name: SceneSetSelectAp_Draw
+      address:
+        EU: 0x2344A20
+    - name: SceneSetSelectAp_Button
+      address:
+        EU: 0x2344A24
+    - name: SceneSetSelectAp_EndScene
+      address:
+        EU: 0x2344B58
+    - name: SceneSetSelectAp_EndScene1
+      address:
+        EU: 0x2344B94
+    - name: SceneSetSelectAp_EndScene2
+      address:
+        EU: 0x2344C18
+    - name: SceneSetSelectAp_DispFocus
+      address:
+        EU: 0x2344DBC
+    - name: SceneSetSelectAp_MoveFocus
+      address:
+        EU: 0x2344E38
+    - name: SceneSetSelectAp_DispPushClear
+      address:
+        EU: 0x234502C
+    - name: SceneSetSelectAp_ProcErase
+      address:
+        EU: 0x23450BC
+    - name: SceneSetSelectAp_ProcErase1
+      address:
+        EU: 0x2345228
+    - name: SceneSetSelectAp_DispPush
+      address:
+        EU: 0x234524C
+    - name: Dwci_SceneSetSelectWay
+      address:
+        EU: 0x234531C
+    - name: SceneSetSelectWay_InitGraphics
+      address:
+        EU: 0x2345440
+    - name: SceneSetSelectWay_ProcInit
+      address:
+        EU: 0x234552C
+    - name: SceneSetSelectWay_ProcInit1
+      address:
+        EU: 0x2345580
+    - name: SceneSetSelectWay_ProcInit2
+      address:
+        EU: 0x23455BC
+    - name: SceneSetSelectWay_ProcScene
+      address:
+        EU: 0x23455E4
+    - name: SceneSetSelectWay_Input
+      address:
+        EU: 0x23455F8
+    - name: SceneSetSelectWay_Draw
+      address:
+        EU: 0x234577C
+    - name: SceneSetSelectWay_Button
+      address:
+        EU: 0x2345780
+    - name: SceneSetSelectWay_EndScene
+      address:
+        EU: 0x23457D4
+    - name: SceneSetSelectWay_EndScene1
+      address:
+        EU: 0x23457F4
+    - name: SceneSetSelectWay_EndScene2
+      address:
+        EU: 0x2345858
+    - name: SceneSetSelectWay_MoveFocus
+      address:
+        EU: 0x2345988
+    - name: SceneSetSelectWay_DispPush
+      address:
+        EU: 0x2345A7C
+    - name: Dwci_SceneSetTest
+      address:
+        EU: 0x2345AD4
+    - name: SceneSetTest_InitGraphics
+      address:
+        EU: 0x2345B60
+    - name: SceneSetTest_InitAc
+      address:
+        EU: 0x2345C08
+    - name: SceneSetTest_ProcInit
+      address:
+        EU: 0x2345CA8
+    - name: SceneSetTest_ProcInit1
+      address:
+        EU: 0x2345D14
+    - name: SceneSetTest_ProcScene
+      address:
+        EU: 0x2345D48
+    - name: SceneSetTest_Input
+      address:
+        EU: 0x2345D5C
+    - name: SceneSetTest_Draw
+      address:
+        EU: 0x2345D60
+    - name: SceneSetTest_Button
+      address:
+        EU: 0x2345D64
+    - name: SceneSetTest_EndScene
+      address:
+        EU: 0x2345D68
+    - name: SceneSetTest_EndScene1
+      address:
+        EU: 0x2345D90
+    - name: SceneSetTest_EndScene2
+      address:
+        EU: 0x2345DB4
+    - name: SceneSetTest_TaskAc
+      address:
+        EU: 0x2345E58
+    - name: AcAlloc
+      address:
+        EU: 0x2345EFC
+    - name: AcFree
+      address:
+        EU: 0x2345F10
+    - name: Dwci_SceneSetTestCompletet
+      address:
+        EU: 0x2345F20
+    - name: SceneSetTestCompletet_InitGraphics
+      address:
+        EU: 0x2345F50
+    - name: SceneSetTestCompletet_ProcInit
+      address:
+        EU: 0x2345FBC
+    - name: SceneSetTestCompletet_ProcInit1
+      address:
+        EU: 0x2345FF0
+    - name: SceneSetTestCompletet_ProcScene
+      address:
+        EU: 0x2346014
+    - name: SceneSetTestCompletet_Draw
+      address:
+        EU: 0x2346024
+    - name: SceneSetTestCompletet_EndScene
+      address:
+        EU: 0x2346028
+    - name: SceneSetTestCompletet_EndScene1
+      address:
+        EU: 0x2346080
+    - name: SceneSetTestCompletet_Wait
+      address:
+        EU: 0x2346124
+    - name: Dwci_SceneSetTestConfirm
+      address:
+        EU: 0x2346194
+    - name: SceneSetTestConfirm_InitGraphics
+      address:
+        EU: 0x23461EC
+    - name: SceneSetTestConfirm_ProcInit
+      address:
+        EU: 0x2346258
+    - name: SceneSetTestConfirm_ProcInit1
+      address:
+        EU: 0x23462AC
+    - name: SceneSetTestConfirm_ProcScene
+      address:
+        EU: 0x2346334
+    - name: SceneSetTestConfirm_Input
+      address:
+        EU: 0x2346370
+    - name: SceneSetTestConfirm_Draw
+      address:
+        EU: 0x2346374
+    - name: SceneSetTestConfirm_EndScene
+      address:
+        EU: 0x2346378
+    - name: SceneSetTestConfirm_EndScene1
+      address:
+        EU: 0x23463AC
+    - name: Dwci_SceneSetUsbComplete
+      address:
+        EU: 0x23463E8
+    - name: SceneSetUsbComplete_InitGraphics
+      address:
+        EU: 0x2346428
+    - name: SceneSetUsbComplete_ProcInit
+      address:
+        EU: 0x23464A8
+    - name: SceneSetUsbComplete_ProcInit1
+      address:
+        EU: 0x23464DC
+    - name: SceneSetUsbComplete_ProcScene
+      address:
+        EU: 0x2346500
+    - name: SceneSetUsbComplete_Draw
+      address:
+        EU: 0x2346510
+    - name: SceneSetUsbComplete_EndScene
+      address:
+        EU: 0x2346514
+    - name: SceneSetUsbComplete_EndScene1
+      address:
+        EU: 0x2346550
+    - name: SceneSetUsbComplete_Wait
+      address:
+        EU: 0x23465C0
+    - name: Dwci_SceneSetUsbReady
+      address:
+        EU: 0x23465F4
+    - name: SceneSetUsbReady_InitGraphics
+      address:
+        EU: 0x2346644
+    - name: SceneSetUsbReady_ProcInit
+      address:
+        EU: 0x23466EC
+    - name: SceneSetUsbReady_ProcInit1
+      address:
+        EU: 0x2346740
+    - name: SceneSetUsbReady_ProcInit2
+      address:
+        EU: 0x234677C
+    - name: SceneSetUsbReady_ProcScene
+      address:
+        EU: 0x23467A4
+    - name: SceneSetUsbReady_Input
+      address:
+        EU: 0x23467B8
+    - name: SceneSetUsbReady_Draw
+      address:
+        EU: 0x23467F0
+    - name: SceneSetUsbReady_Button
+      address:
+        EU: 0x23467F4
+    - name: SceneSetUsbReady_EndScene
+      address:
+        EU: 0x2346844
+    - name: SceneSetUsbReady_EndScene1
+      address:
+        EU: 0x2346864
+    - name: SceneSetUsbReady_EndScene2
+      address:
+        EU: 0x23468C8
+    - name: Dwci_SceneSetUsbReady1
+      address:
+        EU: 0x23469A0
+    - name: SceneSetUsbReady1_InitGraphics
+      address:
+        EU: 0x2346A34
+    - name: SceneSetUsbReady1_ProcInit
+      address:
+        EU: 0x2346ADC
+    - name: SceneSetUsbReady1_ProcInit1
+      address:
+        EU: 0x2346B10
+    - name: SceneSetUsbReady1_ProcInit2
+      address:
+        EU: 0x2346B3C
+    - name: SceneSetUsbReady1_ProcScene
+      address:
+        EU: 0x2346B64
+    - name: SceneSetUsbReady1_Input
+      address:
+        EU: 0x2346B78
+    - name: SceneSetUsbReady1_Draw
+      address:
+        EU: 0x2346BB0
+    - name: SceneSetUsbReady1_Button
+      address:
+        EU: 0x2346BB4
+    - name: SceneSetUsbReady1_EndScene
+      address:
+        EU: 0x2346C00
+    - name: SceneSetUsbReady1_EndScene1
+      address:
+        EU: 0x2346C20
+    - name: SceneSetUsbReady1_EndScene2
+      address:
+        EU: 0x2346C8C
+    - name: SceneSetUsbReady1_CbUsb
+      address:
+        EU: 0x2346D80
+    - name: SceneSetUsbReady1_ProcNotFound
+      address:
+        EU: 0x2346E6C
+    - name: SceneSetUsbReady1_ProcNotFound1
+      address:
+        EU: 0x2346E98
+    - name: SceneSetUsbReady1_ProcBoth
+      address:
+        EU:
+          - 0x2346EB8
+          - 0x2346F14
+    - name: Dwci_ScreenlInit
+      address:
+        EU: 0x2346F7C
+    - name: Dwci_ScreenlEnd
+      address:
+        EU: 0x2346FDC
+    - name: Dwci_ScreenlRenew
+      address:
+        EU: 0x2347008
+    - name: Dwci_ScreenlCopy
+      address:
+        EU: 0x2347020
+    - name: Screen_TaskLoad
+      address:
+        EU: 0x2347078
+    - name: Dwci_ScreenlCopyPalette
+      address:
+        EU: 0x23470CC
+    - name: Screen_TaskCopyPltt
+      address:
+        EU: 0x2347108
+    - name: Dwci_ScreenlSetPalette
+      address:
+        EU: 0x2347134
+    - name: Screen_TaskSetPltt
+      address:
+        EU: 0x2347160
+    - name: Dwci_SBlInit
+      address:
+        EU: 0x2347190
+    - name: Dwci_SBlEnd
+      address:
+        EU: 0x2347268
+    - name: Dwci_SBlGet
+      address:
+        EU: 0x23472A4
+    - name: Dwci_SBlGetState
+      address:
+        EU: 0x23472B8
+    - name: Scrollbar_Disp
+      address:
+        EU:
+          - 0x23472CC
+          - 0x2347818
+    - name: Dwci_SBlEnable
+      address:
+        EU: 0x23472D8
+    - name: Dwci_SBlDisable
+      address:
+        EU: 0x23472F0
+    - name: Scrollbar_TaskMain
+      address:
+        EU: 0x2347308
+    - name: Scrollbar_MoveBar
+      address:
+        EU: 0x234748C
+    - name: Scrollbar_PlaySound
+      address:
+        EU: 0x234755C
+    - name: Scrollbar_StepBar
+      address:
+        EU: 0x23475D4
+    - name: Scrollbar_SetBar
+      address:
+        EU: 0x2347600
+    - name: Scrollbar_IsTrigger
+      address:
+        EU: 0x2347668
+    - name: Scrollbar_IsTouch
+      address:
+        EU: 0x23476F4
+    - name: Scrollbar_CalcRect
+      address:
+        EU: 0x2347740
+    - name: Dwci_SearchlInit
+      address:
+        EU: 0x2347854
+    - name: Dwci_SearchlEnd
+      address:
+        EU: 0x2347888
+    - name: Dwci_SearchlBegin
+      address:
+        EU: 0x23478BC
+    - name: Search_StartScan
+      address:
+        EU: 0x2347988
+    - name: Dwci_SearchlStop
+      address:
+        EU: 0x23479BC
+    - name: Dwci_SearchlGetApInfo
+      address:
+        EU: 0x2347A58
+    - name: Search_Callback
+      address:
+        EU: 0x2347AB4
+    - name: Search_RenewInfo
+      address:
+        EU: 0x2347B18
+    - name: Dwci_SettignlInit
+      address:
+        EU: 0x2347CEC
+    - name: Dwci_SettignlEnd
+      address:
+        EU: 0x2347D30
+    - name: Dwci_SettignlGet
+      address:
+        EU: 0x2347D44
+    - name: Dwci_SettinglSetIpAuto
+      address:
+        EU: 0x2347D58
+    - name: Dwci_SettinglSetDnsAuto
+      address:
+        EU: 0x2347D6C
+    - name: Dwci_SettinglSetSsid
+      address:
+        EU: 0x2347D80
+    - name: Dwci_SettinglSetWep
+      address:
+        EU: 0x2347DB0
+    - name: Dwci_SettinglSetIp
+      address:
+        EU: 0x2347F64
+    - name: Dwci_SettinglSetNetMask
+      address:
+        EU: 0x2347F80
+    - name: Dwci_SettinglSetGateway
+      address:
+        EU: 0x2347FA0
+    - name: Dwci_SettinglSetDnsP
+      address:
+        EU: 0x2347FC0
+    - name: Dwci_SettinglGetSsid
+      address:
+        EU: 0x2347FE0
+    - name: Dwci_SettinglGetIp
+      address:
+        EU: 0x2348004
+    - name: Dwci_SettinglGetNetMask
+      address:
+        EU: 0x2348044
+    - name: Dwci_SettinglGetGateway
+      address:
+        EU: 0x2348084
+    - name: Dwci_SettinglGetDnsP
+      address:
+        EU: 0x23480C8
+    - name: Dwci_SettinglGetDnsS
+      address:
+        EU: 0x234810C
+    - name: Dwci_SettinglGetSetType
+      address:
+        EU: 0x2348150
+    - name: Dwci_SettinglSetSetting
+      address:
+        EU: 0x2348168
+    - name: Dwci_SettinglSet
+      address:
+        EU: 0x2348248
+    - name: Dwci_SettinglSetRaku
+      address:
+        EU: 0x2348324
+    - name: Dwci_SettinglSetAoss
+      address:
+        EU: 0x2348438
+    - name: Dwci_SettinglGetMemMap
+      address:
+        EU: 0x2348548
+    - name: Dwci_SettinglErasePage
+      address:
+        EU: 0x2348558
+    - name: Dwci_SettinglEraseAll
+      address:
+        EU: 0x2348594
+    - name: Setting_Write
+      address:
+        EU: 0x2348644
+    - name: Dwci_SettinglConvAddress
+      address:
+        EU: 0x23487AC
+    - name: Setting_Ascii2Hex
+      address:
+        EU: 0x2348834
+    - name: Dwci_SndlInit
+      address:
+        EU: 0x2348850
+    - name: Dwci_SndlEnd
+      address:
+        EU: 0x23488E0
+    - name: Dwci_SndlPlay
+      address:
+        EU: 0x234890C
+    - name: Dwci_SndlSetVolume
+      address:
+        EU: 0x2348930
+    - name: Dwci_SndlSetPitch
+      address:
+        EU: 0x2348950
+    - name: Dwci_SndlStop
+      address:
+        EU: 0x2348974
+    - name: Sound_TaskSound
+      address:
+        EU: 0x2348994
+    - name: Dwci_SteplBegin
+      address:
+        EU: 0x23489A0
+    - name: Step_TaskBegin0
+      address:
+        EU: 0x2348A9C
+    - name: Step_TaskBegin1
+      address:
+        EU: 0x2348B80
+    - name: Step_TaskBegin2
+      address:
+        EU: 0x2348C64
+    - name: Step_TaskBegin3
+      address:
+        EU: 0x2348D48
+    - name: Step_TaskBegin4
+      address:
+        EU: 0x2348E2C
+    - name: Step_TaskBegin5
+      address:
+        EU: 0x2348ECC
+    - name: Dwci_SteplEnd
+      address:
+        EU: 0x2348EF4
+    - name: Dwci_SteplChange
+      address:
+        EU: 0x2348F34
+    - name: Dwci_SteplGet
+      address:
+        EU: 0x2348FFC
+    - name: Step_TaskEnd0
+      address:
+        EU: 0x234901C
+    - name: Step_TaskEnd1
+      address:
+        EU: 0x23490B0
+    - name: Step_TaskEnd2
+      address:
+        EU: 0x234918C
+    - name: Step_TaskEnd3
+      address:
+        EU: 0x2349268
+    - name: Step_TaskEnd4
+      address:
+        EU: 0x2349344
+    - name: Dwci_SteplIsEnd
+      address:
+        EU: 0x234941C
+    - name: Dwci_SteplChangeScr
+      address:
+        EU: 0x2349448
+    - name: Step_TaskChange
+      address:
+        EU: 0x2349490
+    - name: Dwci_UsbaplBegin
+      address:
+        EU: 0x23494DC
+    - name: UsbAc_StartScan
+      address:
+        EU: 0x2349660
+    - name: Dwci_UsbaplEnd
+      address:
+        EU: 0x2349694
+    - name: Dwci_UsbaplSetCallback
+      address:
+        EU: 0x2349778
+    - name: UsbAc_CbWm
+      address:
+        EU: 0x2349790
+    - name: UsbAc_ScanFirst
+      address:
+        EU: 0x2349820
+    - name: UsbAc_ScanWait
+      address:
+        EU: 0x2349978
+    - name: UsbAc_TaskFirst
+      address:
+        EU: 0x2349A84
+    - name: Dwci_WinlInitEx
+      address:
+        EU: 0x2349BC0
+    - name: Dwci_WinlEnd
+      address:
+        EU: 0x2349EEC
+    - name: Dwci_WinlGet
+      address:
+        EU: 0x2349F30
+    - name: Dwci_WinlIsInit
+      address:
+        EU: 0x2349F44
+    - name: Window_TaskV
+      address:
+        EU: 0x2349F60
+    - name: Window_TaskMove
+      address:
+        EU: 0x2349FC0
+    - name: Window_TaskMain
+      address:
+        EU: 0x234A094
+    - name: Window_TaskMain1
+      address:
+        EU: 0x234A1F0
+    - name: Window_Disp
+      address:
+        EU: 0x234A25C
+    - name: Window_DispCell
+      address:
+        EU: 0x234A404
+    - name: Window_PushButton
+      address:
+        EU: 0x234A490
+    - name: Window_TaskEnd
+      address:
+        EU: 0x234A550
+    - name: Window_TaskEnd1
+      address:
+        EU: 0x234A58C
+    - name: WindowTaskEnd2
+      address:
+        EU: 0x234A61C
+    - name: Window_TaskEnd3
+      address:
+        EU: 0x234A678
+    - name: Dwci_Mov_Mbp_MemInit
+      address:
+        EU: 0x234A728
+    - name: Dwci_Mov_Mbp_Init
+      address:
+        EU: 0x234A768
+    - name: Dwci_Mov_Mbp_Start
+      address:
+        EU: 0x234A888
+    - name: Dwci_Mov_Mbp_RegistFile
+      address:
+        EU: 0x234A8D0
+    - name: Dwci_Mov_Mbp_AcceptChild
+      address:
+        EU: 0x234A9A4
+    - name: Dwci_Mov_Mbp_KickChild
+      address:
+        EU: 0x234AA44
+    - name: Dwci_Mov_Mbp_StartDownload
+      address:
+        EU: 0x234AB1C
+    - name: Dwci_Mov_Mbp_StartDownloadAll
+      address:
+        EU: 0x234ABF4
+    - name: Dwci_Mov_Mbp_IsBootableAll
+      address:
+        EU: 0x234ACD4
+    - name: Dwci_Mov_Mbp_StartRebootAll
+      address:
+        EU: 0x234AD3C
+    - name: Dwci_Mov_Mbp_Cancel
+      address:
+        EU: 0x234AE34
+    - name: ParentStateCallback_Helper
+      address:
+        EU: 0x234AE48
+    - name: ParentStateCallback
+      address:
+        EU: 0x234AE78
+    - name: Dwci_Mov_Mbp_ChangeState
+      address:
+        EU: 0x234B19C
+    - name: Dwci_Mov_Mbp_GetState
+      address:
+        EU: 0x234B1B0
+    - name: Dwci_Mov_Mbp_GetChildBmp
+      address:
+        EU: 0x234B1C4
+    - name: Dwci_Mov_Mbp_GetChildState
+      address:
+        EU: 0x234B21C
+    - name: Dwci_Mov_Mbp_GetChildInfo
+      address:
+        EU: 0x234B2E4
+    - name: Dwci_Mov_Mbp_GetPlayerNo
+      address:
+        EU: 0x234B318
+    - name: Dwci_Mov_WH_MemInit
+      address:
+        EU: 0x234B3C0
+    - name: Dwci_Mov_WH_ChangeSysState
+      address:
+        EU: 0x234B3FC
+    - name: Dwci_Mov_WH_SetError
+      address:
+        EU: 0x234B478
+    - name: Dwci_Mov_WH_StateInSetParentParam
+      address:
+        EU: 0x234B498
+    - name: Dwci_Mov_WH_StateOutSetParentParam
+      address:
+        EU: 0x234B4DC
+    - name: Dwci_Mov_WH_StateInStartParent
+      address:
+        EU: 0x234B548
+    - name: Dwci_Mov_WH_StateOutSetParentWepKey
+      address:
+        EU: 0x234B5AC
+    - name: Dwci_Mov_WH_StateInSetParentWepKey
+      address:
+        EU: 0x234B5E4
+    - name: Dwci_Mov_WH_StateOutStartParent
+      address:
+        EU: 0x234B648
+    - name: Dwci_Mov_WH_StateInStartParentMP
+      address:
+        EU: 0x234B7B8
+    - name: Dwci_Mov_WH_StateOutStartParentMP
+      address:
+        EU: 0x234B850
+    - name: Dwci_Mov_WH_StateInStartParentKeyShare
+      address:
+        EU: 0x234B97C
+    - name: Dwci_Mov_WH_StateInEndParentKeyShare
+      address:
+        EU: 0x234B9B8
+    - name: Dwci_Mov_WH_StateInEndParentMP
+      address:
+        EU: 0x234B9E8
+    - name: Dwci_Mov_WH_StateOutEndParentMP
+      address:
+        EU: 0x234BA18
+    - name: Dwci_Mov_WH_StateInEndParent
+      address:
+        EU: 0x234BA6C
+    - name: Dwci_Mov_WH_StateOutEndParent
+      address:
+        EU: 0x234BA94
+    - name: Dwci_Mov_WH_StateInEndChildKeyShare
+      address:
+        EU: 0x234BAB8
+    - name: Dwci_Mov_WH_StateInEndChildMP
+      address:
+        EU: 0x234BB08
+    - name: Dwci_Mov_WH_StateOutEndChildMP
+      address:
+        EU: 0x234BB38
+    - name: Dwci_Mov_WH_StateInEndChild
+      address:
+        EU: 0x234BB6C
+    - name: Dwci_Mov_WH_StateOutEndChild
+      address:
+        EU: 0x234BBA4
+    - name: Dwci_Mov_WH_StateInReset
+      address:
+        EU: 0x234BBC8
+    - name: Dwci_Mov_WH_StateOutReset
+      address:
+        EU: 0x234BBF8
+    - name: Dwci_Mov_WH_StateOutEnd
+      address:
+        EU: 0x234BC2C
+    - name: Dwci_Mov_WH_SetGgid
+      address:
+        EU: 0x234BC54
+    - name: Dwci_Mov_WH_GetBitmap
+      address:
+        EU: 0x234BC68
+    - name: Dwci_Mov_WH_GetSystemState
+      address:
+        EU: 0x234BC7C
+    - name: Dwci_Mov_WH_StartMeasureChannel
+      address:
+        EU: 0x234BC90
+    - name: Dwci_Mov_WH_StateInMeasureChannel
+      address:
+        EU: 0x234BD68
+    - name: Dwci_Mov_WH_StateOutMeasureChannel
+      address:
+        EU: 0x234BE04
+    - name: WHi_MeasureChannel
+      address:
+        EU: 0x234BEDC
+    - name: Dwci_Mov_WH_GetMeasureChannel
+      address:
+        EU: 0x234BEFC
+    - name: SelectChannel
+      address:
+        EU: 0x234BF74
+    - name: Dwci_Mov_WH_Initialize
+      address:
+        EU: 0x234C05C
+    - name: Dwci_Mov_WH_IndicateHandler
+      address:
+        EU: 0x234C0D4
+    - name: Dwci_Mov_WH_StateInInitialize
+      address:
+        EU: 0x234C0F4
+    - name: Dwci_Mov_WH_StateOutInitialize
+      address:
+        EU: 0x234C140
+    - name: Dwci_Mov_WH_ParentConnect
+      address:
+        EU: 0x234C190
+    - name: Dwci_Mov_WH_SetJudgeAcceptFunc
+      address:
+        EU: 0x234C308
+    - name: Dwci_Mov_WH_GetSharedDataAdr
+      address:
+        EU: 0x234C31C
+    - name: Dwci_Mov_WH_StepDS
+      address:
+        EU: 0x234C344
+    - name: Dwci_Mov_WH_Reset
+      address:
+        EU: 0x234C3EC
+    - name: Dwci_Mov_WH_Finalize
+      address:
+        EU: 0x234C408
+    - name: Dwci_Mov_WH_End
+      address:
+        EU: 0x234C510
+    - name: Dwci_MovInit
+      address:
+        EU: 0x234C560
+    - name: Dwci_MovFinalize
+      address:
+        EU: 0x234C650
+    - name: Dwci_MovPrepare
+      address:
+        EU: 0x234C72C
+    - name: Dwci_MovStartAdmitChild
+      address:
+        EU: 0x234C7AC
+    - name: Dwci_MovStartDownloadandBootChild
+      address:
+        EU: 0x234C7F4
+    - name: Dwci_MovFramework
+      address:
+        EU: 0x234C828
+    - name: Dwci_MovGetStatus
+      address:
+        EU: 0x234CBAC
+    - name: Dwci_GetChildInfo
+      address:
+        EU: 0x234CBF0
+    - name: _Dwci_MovSearchChannel
+      address:
+        EU: 0x234CC00
+    - name: _Dwci_MovStartWaitChild
+      address:
+        EU: 0x234CCA8
+    - name: _Dwci_Mov_WaitandDownloadandBoot_Child
+      address:
+        EU: 0x234CCCC
+    - name: _Dwci_Mov_ReadyMovUserID
+      address:
+        EU: 0x234CE84
+    - name: _Dwci_Mov_MovUserID
+      address:
+        EU: 0x234CEB0
+    - name: _Dwci_Mov_EraseFlashData
+      address:
+        EU: 0x234D08C
+    - name: _Dwci_MovEnd
+      address:
+        EU: 0x234D0A4
+    - name: JudgeConnectableChild
+      address:
+        EU: 0x234D0D4
+    - name: Parent_InitDataShare
+      address:
+        EU: 0x234D110
+    - name: Parent_StepDataShare
+      address:
+        EU: 0x234D154
+    - name: Parent_Data_Receive_Progress
+      address:
+        EU: 0x234D2BC
+    - name: Parent_Get_Child_Data_Kind
+      address:
+        EU: 0x234D3A0
+    - name: Dwci_ArclInit
+      address:
+        EU: 0x234D3B8
+    - name: Dwci_ArclEnd
+      address:
+        EU: 0x234D568
+    - name: userProc
+      address:
+        EU: 0x234D5F4
+    - name: cbRead
+      address:
+        EU: 0x234D658
+    - name: cbReadRom
+      address:
+        EU: 0x234D698
+    - name: cbWrite
+      address:
+        EU: 0x234D6A8
+    - name: Dwci_ArclReadEx
+      address:
+        EU: 0x234D6B0
+    - name: Dwci_ArclRelease
+      address:
+        EU: 0x234D7A4
+    - name: cmpBack
+      address:
+        EU: 0x234D7D8
+    - name: Dwci_CelllInit
+      address:
+        EU: 0x234D830
+    - name: Dwci_CelllEnd
+      address:
+        EU: 0x234D904
+    - name: Dwci_CelllForm
+      address:
+        EU: 0x234D958
+    - name: Dwci_CelllDelete
+      address:
+        EU: 0x234DAB4
+    - name: Dwci_CelllGetObj
+      address:
+        EU: 0x234DB34
+    - name: Dwci_CelllGetObjNum
+      address:
+        EU: 0x234DB40
+    - name: Dwci_CelllSetEffect
+      address:
+        EU: 0x234DB48
+    - name: Dwci_CelllSetPalette
+      address:
+        EU: 0x234DBEC
+    - name: Dwci_CelllSetPosition
+      address:
+        EU: 0x234DC6C
+    - name: Dwci_CelllSetPriority
+      address:
+        EU: 0x234DD5C
+    - name: Dwci_CelllGetPosition
+      address:
+        EU: 0x234DDBC
+    - name: Dwci_CeinlRead
+      address:
+        EU: 0x234DDEC
+    - name: Dwci_CeinlRelease
+      address:
+        EU: 0x234DE1C
+    - name: Dwci_CeinlSet
+      address:
+        EU: 0x234DE44
+    - name: Dwci_CeinlSetExObj
+      address:
+        EU: 0x234DED8
+    - name: Dwci_CeinlSetExCell
+      address:
+        EU: 0x234DF04
+    - name: Dwci_QuelForm
+      address:
+        EU: 0x234DF4C
+    - name: Dwci_QuelFormEx
+      address:
+        EU: 0x234DF80
+    - name: Dwci_QuelDelete
+      address:
+        EU: 0x234DFC0
+    - name: Dwci_QuelPushBack
+      address:
+        EU: 0x234DFDC
+    - name: Dwci_QuelPopBack
+      address:
+        EU: 0x234E034
+    - name: Dwci_EfflInit
+      address:
+        EU: 0x234E08C
+    - name: Dwci_EfflEnd
+      address:
+        EU: 0x234E0D4
+    - name: Dwci_EfflCheck
+      address:
+        EU: 0x234E0E8
+    - name: Dwci_EfflFade
+      address:
+        EU: 0x234E10C
+    - name: Effect_TaskFade
+      address:
+        EU: 0x234E1E4
+    - name: Dwci_EfflWait
+      address:
+        EU: 0x234E30C
+    - name: Effect_TaskWait
+      address:
+        EU: 0x234E364
+    - name: Dwci_FntlInit
+      address:
+        EU: 0x234E39C
+    - name: Dwci_FntlEnd
+      address:
+        EU: 0x234E4A0
+    - name: Dwci_FntlFormEx
+      address:
+        EU: 0x234E4EC
+    - name: Dwci_FntlDelete
+      address:
+        EU: 0x234E5C8
+    - name: Dwci_FntlFormBgEx
+      address:
+        EU: 0x234E5F4
+    - name: Font_TaskLoad
+      address:
+        EU: 0x234E76C
+    - name: Dwci_FntlDeleteBg
+      address:
+        EU: 0x234E7F4
+    - name: Dwci_FntlDeleteBgLcd
+      address:
+        EU: 0x234E858
+    - name: Dwci_FntlDraw
+      address:
+        EU: 0x234E87C
+    - name: Dwci_FntlDrawCharEx
+      address:
+        EU: 0x234E92C
+    - name: Dwci_FntlDrawStringEx
+      address:
+        EU: 0x234E968
+    - name: Dwci_FntlDrawRect
+      address:
+        EU: 0x234EA14
+    - name: Dwci_FntlClear
+      address:
+        EU: 0x234EAD4
+    - name: Dwci_FntlDisp
+      address:
+        EU: 0x234EAE8
+    - name: Dwci_FntlRenewBg
+      address:
+        EU: 0x234EB80
+    - name: Dwci_InputCoord
+      address:
+        EU: 0x234EBA4
+    - name: Dwci_InputRect
+      address:
+        EU: 0x234EBB0
+    - name: Dwci_Coord2Rect
+      address:
+        EU: 0x234EBC8
+    - name: Dwci_GXlVisible
+      address:
+        EU: 0x234EBFC
+    - name: Dwci_GXlInvisible
+      address:
+        EU: 0x234EC50
+    - name: Dwci_GXlSetWndPosition
+      address:
+        EU: 0x234ECAC
+    - name: Dwci_GXlSetWndPlane
+      address:
+        EU: 0x234EDC4
+    - name: Dwci_HeaplInit
+      address:
+        EU: 0x234EF30
+    - name: Dwci_HeaplEnd
+      address:
+        EU: 0x234EF70
+    - name: Dwci_HeaplAlloc
+      address:
+        EU: 0x234EF94
+    - name: Dwci_HeaplAllocEx
+      address:
+        EU: 0x234EFE0
+    - name: Dwci_HeaplFree_
+      address:
+        EU: 0x234F004
+    - name: Dwci_HeaplFree2
+      address:
+        EU: 0x234F048
+    - name: Dwci_IptlInit
+      address:
+        EU: 0x234F084
+    - name: Dwci_IptlEnd
+      address:
+        EU: 0x234F100
+    - name: Dwci_IptlRead
+      address:
+        EU: 0x234F138
+    - name: Input_ReadKey
+      address:
+        EU: 0x234F148
+    - name: Input_ReadTouch
+      address:
+        EU: 0x234F24C
+    - name: Dwci_IptlCheckTrigger
+      address:
+        EU: 0x234F3E8
+    - name: Dwci_IptlCheckRepeat
+      address:
+        EU: 0x234F428
+    - name: Dwci_IptlCheckRelease
+      address:
+        EU: 0x234F468
+    - name: Dwci_TPlCheck
+      address:
+        EU: 0x234F4A8
+    - name: Dwci_TPlCheckTrigger
+      address:
+        EU: 0x234F530
+    - name: Dwci_TPlCheckRepeat
+      address:
+        EU: 0x234F5B8
+    - name: Dwci_TPlCheckRelease
+      address:
+        EU: 0x234F640
+    - name: Dwci_TPlCheckATrigger
+      address:
+        EU: 0x234F6C8
+    - name: Dwci_TPlGet
+      address:
+        EU: 0x234F730
+    - name: Dwci_IptlCheckFold
+      address:
+        EU: 0x234F798
+    - name: Dwci_ItrlIntr
+      address:
+        EU: 0x234F814
+    - name: Dwci_ItrlEnd
+      address:
+        EU: 0x234F888
+    - name: IntrVBlank
+      address:
+        EU: 0x234F8C4
+    - name: Dwci_LstlForm
+      address:
+        EU: 0x234F8EC
+    - name: Dwci_LstlDelete
+      address:
+        EU: 0x234F918
+    - name: Dwci_LstlErase
+      address:
+        EU: 0x234F934
+    - name: Dwci_LstlInsert
+      address:
+        EU: 0x234F96C
+    - name: Dwci_LstlPushBack
+      address:
+        EU: 0x234F99C
+    - name: Dwci_LstlPushFront
+      address:
+        EU: 0x234F9AC
+    - name: Dwci_ObjlInit
+      address:
+        EU: 0x234F9BC
+    - name: Obj_TaskTransfer
+      address:
+        EU: 0x234FA58
+    - name: Dwci_ObjlEnd
+      address:
+        EU: 0x234FAA0
+    - name: Dwci_ObjlFormGx
+      address:
+        EU: 0x234FACC
+    - name: Dwci_ObjlDelete
+      address:
+        EU: 0x234FAEC
+    - name: Dwci_ObjlGetOam
+      address:
+        EU: 0x234FB38
+    - name: Dwci_OvrlInit
+      address:
+        EU: 0x234FB50
+    - name: Dwci_OvrlAlloc
+      address:
+        EU: 0x234FC10
+    - name: Dwci_OvrlFree
+      address:
+        EU: 0x234FD88
+    - name: Dwci_StrlNLen
+      address:
+        EU: 0x234FDC8
+    - name: swprintf_subroutine
+      address:
+        EU: 0x234FDF4
+    - name: Dwci_ClearVram
+      address:
+        EU: 0x234FE3C
+    - name: Dwci_RepairVram
+      address:
+        EU: 0x234FEF0
+    - name: Sub_ClearVram
+      address:
+        EU: 0x234FFF8
+    - name: Dwci_SetLedWireless
+      address:
+        EU: 0x235007C
+    - name: Dwci_SetLedNormal
+      address:
+        EU: 0x23500A8
+    - name: Dwci_TsklInit
+      address:
+        EU: 0x23500B8
+    - name: Dwci_TsklEnd
+      address:
+        EU: 0x23501CC
+    - name: Dwci_TsklAct
+      address:
+        EU: 0x2350214
+    - name: Dwci_TsklForm
+      address:
+        EU: 0x23502C4
+    - name: Task_FormTask
+      address:
+        EU: 0x23502D8
+    - name: Dwci_TsklChangeFunc
+      address:
+        EU: 0x2350364
+    - name: Dwci_TsklDelete
+      address:
+        EU: 0x235036C
+    - name: Dwci_TsklDeleteEx
+      address:
+        EU: 0x235038C
+    - name: Task_DeleteTcb
+      address:
+        EU: 0x2350398
+    - name: Dwci_TsklOperate
+      address:
+        EU: 0x23503DC
   data:
     - name: OV2_STATIC_INITIALIZER
       address:
