@@ -2263,8 +2263,6 @@ libs:
         NA: 0x2079C48
         JP: 0x2079F30
     - name: OS_SetThreadDestructor
-      aliases:
-        - SetThreadField0xB4
       address:
         EU: 0x207A014
         NA: 0x2079C7C
