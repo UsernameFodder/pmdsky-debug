@@ -3808,8 +3808,6 @@ overlay0:
     - name: Dwci_SetError
       address:
         EU: 0x22E0BA8
-        NA: 0x22E0394
-        JP: 0x22E1B40
     - name: Dwci_GetAllocateHeader
       address:
         EU: 0x22E0BC0
@@ -3918,6 +3916,8 @@ overlay0:
     - name: Dwc_CleanupInet
       address:
         EU: 0x22E1284
+        NA: 0x22E0A70
+        JP: 0x22E221C
     - name: Dwc_CleanupInetAsync
       address:
         EU: 0x22E1310
