@@ -3794,6 +3794,8 @@ overlay0:
     - name: Dwc_GetLastError
       address:
         EU: 0x22E0A50
+        NA: 0x22E0394
+        JP: 0x22E1B40
     - name: Dwc_GetLastErrorEx
       address:
         EU: 0x22E0A70
@@ -5285,9 +5287,6 @@ overlay0:
         r0: socket file descriptor
         r1: blocking flag
         return: success
-    - name: OS_Sleep_VeNeeR
-      address:
-        EU: 0x22F5E00
     - name: DoRand
       address:
         EU: 0x22F5E0C
