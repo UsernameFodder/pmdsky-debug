@@ -4833,7 +4833,7 @@ overlay0:
     - name: Dwci_RankingSessionEncrypt
       address:
         EU: 0x22EF8DC
-    - name: Dwci_RankingSessionInitialize?
+    - name: Dwci_RankingSessionInitialize
       address:
         EU: 0x22EFA24
     - name: Dwci_RankingSessionProcess
@@ -4851,7 +4851,7 @@ overlay0:
     - name: Dwci_RankingSessionPutAsync
       address:
         EU: 0x22EFD74
-    - name: Dwci_RankingSessionGetAsync?
+    - name: Dwci_RankingSessionGetAsync
       address:
         EU: 0x22EFFC0
     - name: Dwci_Ndi_FreeAttr
