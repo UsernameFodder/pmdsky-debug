@@ -3794,8 +3794,6 @@ overlay0:
     - name: Dwc_GetLastError
       address:
         EU: 0x22E0A50
-        NA: 0x22E0394
-        JP: 0x22E1B40
     - name: Dwc_GetLastErrorEx
       address:
         EU: 0x22E0A70
