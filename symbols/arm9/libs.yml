@@ -3338,7 +3338,7 @@ libs:
         EU: 0x207D5E4
         NA: 0x207D24C
         JP: 0x207D534
-- name: InitPxi
+    - name: InitPxi
       address:
         EU: 0x207D608
         NA: 0x207D270
@@ -3790,8 +3790,6 @@ libs:
         r1: ?
         r2: Overlay ID
         return: True if the entry could be loaded successfully?
-      address:
-        EU: 0x2080034
     - name: FS_LoadOverlayImageAsync
       aliases:
         - LoadOverlayInternal
@@ -5285,8 +5283,6 @@ libs:
         return: a - b
     - name: _fadd
       aliases:
-        - _addsf3
-      aliases:
         - __addsf3
       address:
         EU: 0x208F050
@@ -5378,8 +5374,6 @@ libs:
         return: a < b
     - name: _fdiv
       aliases:
-        - _divsf3
-      aliases:
         - __divsf3
       address:
         EU: 0x208F5CC
@@ -5394,8 +5388,6 @@ libs:
         r1: divisor
         return: dividend / divisor
     - name: _f2d
-      aliases:
-        - _extendsfdf2
       aliases:
         - __extendsfdf2
       address:
@@ -5413,8 +5405,6 @@ libs:
         return: (double)float
     - name: _ffix
       aliases:
-        - _fixsfsi
-      aliases:
         - __fixsfsi
       address:
         EU: 0x208FA08
@@ -5428,8 +5418,6 @@ libs:
         r0: float
         return: (int)float
     - name: _fflt
-      aliases:
-        - _floatsisf
       aliases:
         - __floatsisf
       address:
@@ -5445,8 +5433,6 @@ libs:
         return: (float)int
     - name: _ffltu
       aliases:
-        - _floatunsisf
-      aliases:
         - __floatunsisf
       address:
         EU: 0x208FA84
@@ -5460,8 +5446,6 @@ libs:
         r0: uint
         return: (float)uint
     - name: _fmul
-      aliases:
-        - _mulsf3
       aliases:
         - __mulsf3
       address:
@@ -5487,8 +5471,6 @@ libs:
         r0: x
         return: sqrt(x)
     - name: _fsub
-      aliases:
-        - _subsf3
       aliases:
         - __subsf3
       address:
@@ -5590,8 +5572,6 @@ libs:
         return: a * b
     - name: _s32_div_f
       aliases:
-        - _divsi3
-      aliases:
         - __divsi3
       address:
         EU: 0x209023C
@@ -5608,8 +5588,6 @@ libs:
         r1: divisor
         return: (quotient) | (remainder << 32)
     - name: _u32_div_f
-      aliases:
-        - _udivsi3
       aliases:
         - __udivsi3
       address:
@@ -5628,8 +5606,6 @@ libs:
         r1: divisor
         return: (quotient) | (remainder << 32)
     - name: _u32_div_not_0_f
-      aliases:
-        - _udivsi3_no_zero_check
       aliases:
         - __udivsi3_no_zero_check
       address:
