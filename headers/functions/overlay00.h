@@ -19,7 +19,7 @@ void Soc_Startup(void);
 int Dwc_AC_Process(void);
 int CheckRCode_Gsi(int error, int cast_error);
 int socket_gsi(int domain, int family, int protocol);
-int close_gsi(int fd);
+int closesocket_gsi(int fd);
 int bind_gsi(int sockfd, const struct sockaddr_in* addr, int addr_len);
 int connect_gsi(int sockfd, const struct sockaddr_in* addr, int addr_len);
 int recv_gsi(int sockfd, void* buf, size_t size, int flags);
@@ -32,7 +32,7 @@ bool SetSockBlocking(int sockfd, bool blocking);
 int nextlongrand_gsi(uint32_t ctx);
 int longrand_gsi(void);
 void Util_RandSeed(uint32_t seed);
-int RandRangeOverlay0(int x, int y);
+int Util_RandInt(int x, int y);
 void SendPacket_Gsi(const char* identifier);
 void GpiEncodeString(const char* src, char* dst);
 
