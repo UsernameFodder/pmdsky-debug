@@ -401,6 +401,380 @@ overlay0:
         EU: 0x22C1E9C
         NA: 0x22C1688
         JP: 0x22C2E34
+    - name: Wbti_InitBitmap
+      address:
+        EU: 0x22C1EE8
+    - name: Wbti_MergeBitmapIndex
+      address:
+        EU: 0x22C1F44
+    - name: Wbti_FindBitmapIndex
+      address:
+        EU: 0x22C1FB0
+    - name: Wbti_GetPacketBuffer
+      address:
+        EU: 0x22C2034
+    - name: Wbti_SwitchNextCommand
+      address:
+        EU: 0x22C20D4
+    - name: Wbti_NotifySystemCallback
+      address:
+        EU: 0x22C21D0
+    - name: Wbti_TryCreateResponse
+      address:
+        EU: 0x22C2280
+    - name: Wbti_CheckRequest
+      address:
+        EU: 0x22C26E8
+    - name: Wbti_CheckBlockResponse
+      address:
+        EU: 0x22C28D0
+    - name: Wbt_CallPacketSendHook
+      address:
+        EU: 0x22C2A5C
+    - name: Wbti_NotifyCompletionCallback
+      address:
+        EU: 0x22C2C58
+    - name: Wbt_CallPacketRecvHook
+      address:
+        EU: 0x22C2D30
+    - name: Wbt_InitContext
+      address:
+        EU: 0x22C315C
+    - name: Wbt_ResetContext
+      address:
+        EU: 0x22C31C4
+    - name: Wbt_PostCommand
+      address:
+        EU: 0x22C3238
+    - name: Wbt_CancelCommand
+      address:
+        EU: 0x22C32B0
+    - name: Wbt_GetBitmapLength
+      address:
+        EU: 0x22C33CC
+    - name: Wbt_RegisterBlockInfo
+      address:
+        EU: 0x22C33F8
+    - name: Wbt_UnregisterBlockInfo
+      address:
+        EU: 0x22C3498
+    - name: Wbt_GetRegisteredCount
+      address:
+        EU: 0x22C34F4
+    - name: Wbt_PrintBtList
+      address:
+        EU: 0x22C352C
+    - name: Wbt_AidbitmapToAid
+      address:
+        EU: 0x22C3550
+    - name: Wbt_InitParent
+      address:
+        EU: 0x22C3574
+    - name: Wbt_InitChild
+      address:
+        EU: 0x22C3630
+    - name: Wbt_End
+      address:
+        EU: 0x22C36C0
+    - name: Wbt_SetOwnAid
+      address:
+        EU: 0x22C3704
+    - name: Wbt_MpParentSendHook
+      address:
+        EU: 0x22C3734
+    - name: Wbt_MpChildSendHook
+      address:
+        EU: 0x22C3758
+    - name: Wbt_MpParentRecvHook
+      address:
+        EU: 0x22C377C
+    - name: Wbt_MpChildRecvHook
+      address:
+        EU: 0x22C37A0
+    - name: Wbt_RegisterBlock
+      address:
+        EU: 0x22C37C0
+    - name: Wbt_UnregisterBlock
+      address:
+        EU: 0x22C3804
+    - name: Wbt_RequestSync
+      address:
+        EU: 0x22C381C
+    - name: Wbt_GetBlockInfo
+      address:
+        EU: 0x22C3880
+    - name: Wbt_GetBlock
+      address:
+        EU: 0x22C3924
+    - name: Wbt_PutUserData
+      address:
+        EU: 0x22C39E8
+    - name: Wbt_CancelCurrentCommand
+      address:
+        EU: 0x22C3A60
+    - name: MB_CommSetParentStateCallback
+      address:
+        EU: 0x22C3A84
+    - name: MB_CommGetParentState
+      address:
+        EU: 0x22C3AAC
+    - name: MB_CommGetChildUser
+      address:
+        EU: 0x22C3AF8
+    - name: MB_CommIsBootable
+      address:
+        EU: 0x22C3B7C
+    - name: MB_CommResponseRequest
+      address:
+        EU: 0x22C3BD0
+    - name: MBi_CommChangeParentState
+      address:
+        EU: 0x22C3CB0
+    - name: MBi_CommChangeParentStateCallbackOnly
+      address:
+        EU: 0x22C3CFC
+    - name: MBi_CommParentCallback
+      address:
+        EU: 0x22C3D24
+    - name: MBi_CommParentRecvDataPerChild
+      address:
+        EU: 0x22C41C4
+    - name: MBi_CommParentRecvData
+      address:
+        EU: 0x22C46A8
+    - name: MBi_CommParentSendMsg
+      address:
+        EU: 0x22C4754
+    - name: MBi_CommParentSendDlFileInfo
+      address:
+        EU: 0x22C4794
+    - name: MBi_ReloadCache
+      address:
+        EU: 0x22C492C
+    - name: MBi_CommParentSendBlock
+      address:
+        EU: 0x22C49D0
+    - name: MBi_CommParentSendData
+      address:
+        EU: 0x22C4C6C
+    - name: MBi_Calc_SendBlock
+      address:
+        EU: 0x22C4DEC
+    - name: MBi_Calc_NextSendBlock
+      address:
+        EU: 0x22C4E68
+    - name: IsChildAidValid
+      address:
+        EU: 0x22C4E78
+    - name: MBi_CommCallParentError
+      address:
+        EU: 0x22C4E94
+    - name: MB_GetSegmentLength
+      address:
+        EU: 0x22C4EAC
+    - name: MB_ReadSegment
+      address:
+        EU: 0x22C4F2C
+    - name: MBi_ReadSegmentHeader
+      address:
+        EU: 0x22C53A4
+    - name: MB_RegisterFile
+      address:
+        EU: 0x22C541C
+    - name: MBi_MakeDownloadFileInfo
+      address:
+        EU: 0x22C56AC
+    - name: MBi_SetSegmentInfo
+      address:
+        EU: 0x22C5720
+    - name: MBi_MakeBlockInfoTable
+      address:
+        EU: 0x22C5898
+    - name: MBi_Get_BlockInfo
+      address:
+        EU: 0x22C5964
+    - name: MBi_IsAbleToRecv
+      address:
+        EU: 0x22C5A18
+    - name: IsAbleToLoad
+      address:
+        EU: 0x22C5AC4
+    - name: MBi_BlockHeaderEnd
+      address:
+        EU: 0x22C5B90
+    - name: MBi_Calc_Cksum
+      address:
+        EU: 0x22C5BC8
+    - name: MBi_MakeGameInfo
+      address:
+        EU: 0x22C5C14
+    - name: MBi_ReadIconInfo
+      address:
+        EU: 0x22C5D04
+    - name: MB_UpdateGameInfoMember
+      address:
+        EU: 0x22C5DA4
+    - name: Mystrlen_MB
+      address:
+        EU: 0x22C5E14
+    - name: MB_AddGameInfo
+      address:
+        EU: 0x22C5E3C
+    - name: MB_InitSendGameInfoStatus
+      address:
+        EU: 0x22C5E80
+    - name: MBi_ClearSendStatus
+      address:
+        EU: 0x22C5EAC
+    - name: MB_SendGameInfoBeacon
+      address:
+        EU: 0x22C5ED0
+    - name: MBi_ReadyBeaconSendStatus
+      address:
+        EU: 0x22C5F5C
+    - name: MBi_InitSendFixedBeacon
+      address:
+        EU: 0x22C5FFC
+    - name: MBi_SendFixedBeacon
+      address:
+        EU: 0x22C6050
+    - name: MBi_InitSendVolatBeacon
+      address:
+        EU: 0x22C61B4
+    - name: MBi_SendVolatBeacon
+      address:
+        EU: 0x22C61E4
+    - name: ChangeScanChannel
+      address:
+        EU: 0x22C6450
+    - name: MBi_IsSendEnabled
+      address:
+        EU: 0x22C64C0
+    - name: MBi_OnInitializeDone
+      address:
+        EU: 0x22C6520
+    - name: MBi_EndCommon
+      address:
+        EU: 0x22C6570
+    - name: MBi_ParentCallback
+      address:
+        EU: 0x22C65B4
+    - name: MBi_ChildPortCallback
+      address:
+        EU: 0x22C6E0C
+    - name: MBi_ChildCallback
+      address:
+        EU: 0x22C6E7C
+    - name: MBi_GetBeaconPeriodDispersion
+      address:
+        EU: 0x22C76A8
+    - name: MB_Init
+      address:
+        EU: 0x22C7710
+    - name: MBi_IsCommSizeValid
+      address:
+        EU: 0x22C78F4
+    - name: MB_SetParentCommParam
+      address:
+        EU: 0x22C7964
+    - name: MBi_StartCommon
+      address:
+        EU: 0x22C79FC
+    - name: MBi_StartParentCore
+      address:
+        EU: 0x22C7AD0
+    - name: MB_StartParentFromIdle
+      address:
+        EU: 0x22C7CB4
+    - name: MBi_CallReset
+      address:
+        EU: 0x22C7CD8
+    - name: MBi_OnReset
+      address:
+        EU: 0x22C7D10
+    - name: MBi_CommEnd
+      address:
+        EU: 0x22C7D1C
+    - name: MB_EndToIdle
+      address:
+        EU: 0x22C7DB0
+    - name: MB_DisconnectChild
+      address:
+        EU: 0x22C7DEC
+    - name: MBi_SetMaxScanTime
+      address:
+        EU: 0x22C7F78
+    - name: MBi_SetMpData
+      address:
+        EU: 0x22C7F88
+    - name: MBi_SendMP
+      address:
+        EU: 0x22C7FD4
+    - name: MBi_GetGgid
+      address:
+        EU: 0x22C80B4
+    - name: MBi_GetTgid
+      address:
+        EU: 0x22C80C8
+    - name: MBi_GetAttribute
+      address:
+        EU: 0x22C80DC
+    - name: MBi_IsStarted
+      address:
+        EU: 0x22C813C
+    - name: MBi_CheckWmErrcode
+      address:
+        EU: 0x22C815C
+    - name: MBi_InitCache
+      address:
+        EU: 0x22C8194
+    - name: MBi_AttachCacheBuffer
+      address:
+        EU: 0x22C81A8
+    - name: MBi_MakeParentSendBuffer
+      address:
+        EU:
+          - 0x22C8210
+          - 0x22C86C8
+    - name: MBi_TaskThread
+      address:
+        EU: 0x22C82A8
+    - name: MBi_InitTaskThread
+      address:
+        EU: 0x22C83C0
+    - name: MBi_IsTaskAvailable
+      address:
+        EU: 0x22C8440
+    - name: MBi_InitTaskInfo
+      address:
+        EU: 0x22C845C
+    - name: MBi_ReadFromCache
+      address:
+        EU: 0x22C8470
+    - name: MBi_SetTask
+      address:
+        EU: 0x22C8488
+    - name: MBi_EndTaskThread
+      address:
+        EU: 0x22C85EC
+    - name: MBi_SetChildMpMaxSize
+      address:
+        EU: 0x22C8634
+    - name: MBi_SetParentPieceBuffer
+      address:
+        EU: 0x22C8664
+    - name: MBi_ClearParentPieceBuffer
+      address:
+        EU: 0x22C8684
+    - name: MBi_SetRecvBufferFromChild
+      address:
+        EU: 0x22C874C
+    - name: MBi_ReceiveRequestDataPiece
+      address:
+        EU: 0x22C8868
+    - name: IsGetAllRequestData
+      address:
+        EU: 0x22C88F4
     - name: reset_network_vars
       address:
         EU: 0x22C8948
@@ -411,6 +785,9 @@ overlay0:
         EU: 0x22C8A4C
         NA: 0x22C8238
         JP: 0x22C99E4
+    - name: Empty_Func_Cps
+      address:
+        EU: 0x22C8A74
     - name: default_link_is_on
       address:
         EU: 0x22C8A78
@@ -1311,7 +1688,9 @@ overlay0:
         EU: 0x22CF99C
         NA: 0x22CF188
         JP: 0x22D0934
-    - name: socket
+    - name: Soc_Socket
+      aliases:
+        - socket
       address:
         EU: 0x22CF9C0
         NA: 0x22CF1AC
@@ -1323,7 +1702,9 @@ overlay0:
         r1: family
         r2: protocol
         return: socket file descriptor on success, negative value indicating error otherwise
-    - name: bind
+    - name: Soc_Bind
+      aliases:
+        - bind
       address:
         EU: 0x22CF9EC
         NA: 0x22CF1D8
@@ -1334,7 +1715,9 @@ overlay0:
         r0: socket file descriptor
         r1: address
         return: 0 on success, or a negative value representing an error
-    - name: connect
+    - name: Soc_Connect
+      aliases:
+        - connect
       address:
         EU: 0x22CFA18
         NA: 0x22CF204
@@ -1345,7 +1728,9 @@ overlay0:
         r0: socket file descriptor
         r1: address
         return: 0 on success, or a negative value representing an error
-    - name: recv
+    - name: Soc_Recv
+      aliases:
+        - recv
       address:
         EU: 0x22CFA74
         NA: 0x22CF260
@@ -1358,7 +1743,9 @@ overlay0:
         r2: size of buffer
         r3: flags
         return: number of bytes read, or a negative value representing an error
-    - name: recvfrom
+    - name: Soc_RecvFrom
+      aliases:
+        - recvfrom
       address:
         EU: 0x22CFA98
         NA: 0x22CF284
@@ -1373,7 +1760,9 @@ overlay0:
         stack[0]: destination address; can be NULL
         stack[1]: length of destination address
         return: number of bytes read, or a negative value representing an error
-    - name: send
+    - name: Soc_Send
+      aliases:
+        - send
       address:
         EU: 0x22CFB28
         NA: 0x22CF314
@@ -1386,7 +1775,9 @@ overlay0:
         r2: size of buffer
         r3: flags
         return: number of bytes sent, or a negative value representing an error
-    - name: sendto
+    - name: Soc_SendTo
+      aliases:
+        - sendto
       address:
         EU: 0x22CFB4C
         NA: 0x22CF338
@@ -1454,12 +1845,12 @@ overlay0:
         r1: operation
         r2: operation-specific argument
         return: operation-specific value
-    - name: AllocFunc
+    - name: AllocFunc_Socl
       address:
         EU: 0x22CFE30
         NA: 0x22CF61C
         JP: 0x22D0DC8
-    - name: FreeFunc
+    - name: FreeFunc_Socl
       address:
         EU: 0x22CFE5C
         NA: 0x22CF648
@@ -2345,7 +2736,7 @@ overlay0:
         EU: 0x22D80E4
         NA: 0x22D78D0
         JP: 0x22D907C
-    - name: Dwc_AC_GetApData
+    - name: Dwc_AC_GetApSpotInfo
       address:
         EU: 0x22D8114
         NA: 0x22D7900
@@ -2360,7 +2751,7 @@ overlay0:
         EU: 0x22D81A8
         NA: 0x22D7994
         JP: 0x22D9140
-    - name: Dwc_AC_CheckWiFiStation
+    - name: Dwc_AC_SetSpecifyApEx
       address:
         EU: 0x22D820C
         NA: 0x22D79F8
@@ -2420,12 +2811,12 @@ overlay0:
         EU: 0x22D866C
         NA: 0x22D7E58
         JP: 0x22D9604
-    - name: Free_Disused
+    - name: Free_Disused_Dwc
       address:
         EU: 0x22D867C
         NA: 0x22D7E68
         JP: 0x22D9614
-    - name: CheckDuplicate
+    - name: CheckDuplicate_Dwc
       address:
         EU: 0x22D86B4
         NA: 0x22D7EA0
@@ -2440,32 +2831,32 @@ overlay0:
         EU: 0x22D88C0
         NA: 0x22D80AC
         JP: 0x22D9858
-    - name: CompareList
+    - name: CompareList_Dwc
       address:
         EU: 0x22D8954
         NA: 0x22D8140
         JP: 0x22D98EC
-    - name: CompareListDiff
+    - name: CompareListDiff_Dwc
       address:
         EU: 0x22D89D0
         NA: 0x22D81BC
         JP: 0x22D9968
-    - name: AddList
+    - name: AddList_Dwc
       address:
         EU: 0x22D8A60
         NA: 0x22D824C
         JP: 0x22D99F8
-    - name: SetDataListTail
+    - name: SetDataListTail_Dwc
       address:
         EU: 0x22D8B28
         NA: 0x22D8314
         JP: 0x22D9AC0
-    - name: UpDateList
+    - name: UpDateList_Dwc
       address:
         EU: 0x22D8B74
         NA: 0x22D8360
         JP: 0x22D9B0C
-    - name: SortList
+    - name: SortList_Dwc
       address:
         EU: 0x22D8BE0
         NA: 0x22D83CC
@@ -2480,32 +2871,32 @@ overlay0:
         EU: 0x22D8D5C
         NA: 0x22D8548
         JP: 0x22D9CF4
-    - name: ConnectStart
+    - name: ConnectStart_Dwc
       address:
         EU: 0x22D8DA0
         NA: 0x22D858C
         JP: 0x22D9D38
-    - name: ConnectAP
+    - name: ConnectAP_Dwc
       address:
         EU: 0x22D8E98
         NA: 0x22D8684
         JP: 0x22D9E30
-    - name: GetConnectType
+    - name: GetConnectType_Dwc
       address:
         EU: 0x22D8FD4
         NA: 0x22D87C0
         JP: 0x22D9F6C
-    - name: GetPowerMode
+    - name: GetPowerMode_Dwc
       address:
         EU: 0x22D9170
         NA: 0x22D895C
         JP: 0x22DA108
-    - name: GetAuthMode
+    - name: GetAuthMode_Dwc
       address:
         EU: 0x22D918C
         NA: 0x22D8978
         JP: 0x22DA124
-    - name: GetWepKey
+    - name: GetWepKey_Dwc
       address:
         EU: 0x22D91A8
         NA: 0x22D8994
@@ -2515,12 +2906,12 @@ overlay0:
         EU: 0x22D9294
         NA: 0x22D8A80
         JP: 0x22DA22C
-    - name: DisConnectAP
+    - name: DisConnectAP_Dwc
       address:
         EU: 0x22D931C
         NA: 0x22D8B08
         JP: 0x22DA2B4
-    - name: CloseSocket
+    - name: CloseSocket_Dwc
       address:
         EU: 0x22D93AC
         NA: 0x22D8B98
@@ -2535,22 +2926,22 @@ overlay0:
         EU: 0x22D9418
         NA: 0x22D8C04
         JP: 0x22DA3B0
-    - name: GetProgramaError
+    - name: GetProgramaError_Dwc
       address:
         EU: 0x22D9468
         NA: 0x22D8C54
         JP: 0x22DA400
-    - name: GetIrregularError
+    - name: GetIrregularError_Dwc
       address:
         EU: 0x22D94AC
         NA: 0x22D8C98
         JP: 0x22DA444
-    - name: GetNotFoundAP
+    - name: GetNotFoundAP_Dwc
       address:
         EU: 0x22D94B4
         NA: 0x22D8CA0
         JP: 0x22DA44C
-    - name: GetNotFoundInet
+    - name: GetNotFoundInet_Dwc
       address:
         EU: 0x22D94D0
         NA: 0x22D8CBC
@@ -2565,27 +2956,27 @@ overlay0:
         EU: 0x22D9674
         NA: 0x22D8E60
         JP: 0x22DA60C
-    - name: MakeAroundList
+    - name: MakeAroundList_Dwc
       address:
         EU: 0x22D96C0
         NA: 0x22D8EAC
         JP: 0x22DA658
-    - name: MakeStealthList
+    - name: MakeStealthList_Dwc
       address:
         EU: 0x22D9720
         NA: 0x22D8F0C
         JP: 0x22DA6B8
-    - name: MakeUserList
+    - name: MakeUserList_Dwc
       address:
         EU: 0x22D980C
         NA: 0x22D8FF8
         JP: 0x22DA7A4
-    - name: MakeDifferChannelList
+    - name: MakeDifferChannelList_Dwc
       address:
         EU: 0x22D9914
         NA: 0x22D9100
         JP: 0x22DA8AC
-    - name: CheckDifferChannelStart
+    - name: CheckDifferChannelStart_Dwc
       address:
         EU: 0x22D99A4
         NA: 0x22D9190
@@ -2615,47 +3006,47 @@ overlay0:
         EU: 0x22D9C24
         NA: 0x22D9410
         JP: 0x22DABBC
-    - name: SearchStart
+    - name: SearchStart_Dwc
       address:
         EU: 0x22D9D04
         NA: 0x22D94F0
         JP: 0x22DAC9C
-    - name: SearchAround
+    - name: SearchAround_Dwc
       address:
         EU: 0x22D9D54
         NA: 0x22D9540
         JP: 0x22DACEC
-    - name: SearchAround2ndLap
+    - name: SearchAround2ndLap_Dwc
       address:
         EU: 0x22D9DF8
         NA: 0x22D95E4
         JP: 0x22DAD90
-    - name: SearchDifferChannel
+    - name: SearchDifferChannel_Dwc
       address:
         EU: 0x22D9E40
         NA: 0x22D962C
         JP: 0x22DADD8
-    - name: SearchStealth
+    - name: SearchStealth_Dwc
       address:
         EU: 0x22D9F68
         NA: 0x22D9754
         JP: 0x22DAF00
-    - name: NextSearchCheck
+    - name: NextSearchCheck_Dwc
       address:
         EU: 0x22DA088
         NA: 0x22D9874
         JP: 0x22DB020
-    - name: SearchEndCheck
+    - name: SearchEndCheck_Dwc
       address:
         EU: 0x22DA14C
         NA: 0x22D9938
         JP: 0x22DB0E4
-    - name: CheckStartStealthSearch
+    - name: CheckStartStealthSearch_Dwc
       address:
         EU: 0x22DA210
         NA: 0x22D99FC
         JP: 0x22DB1A8
-    - name: ScanStart
+    - name: ScanStart_Dwc
       address:
         EU: 0x22DA270
         NA: 0x22D9A5C
@@ -2670,52 +3061,52 @@ overlay0:
         EU: 0x22DA31C
         NA: 0x22D9B08
         JP: 0x22DB2B4
-    - name: ConnectTestStart
+    - name: ConnectTestStart_Dwc
       address:
         EU: 0x22DA418
         NA: 0x22D9C04
         JP: 0x22DB3B0
-    - name: GetIpAddress
+    - name: GetIpAddress_Dwc
       address:
         EU: 0x22DA47C
         NA: 0x22D9C68
         JP: 0x22DB414
-    - name: ConnectTestCreate
+    - name: ConnectTestCreate_Dwc
       address:
         EU: 0x22DA50C
         NA: 0x22D9CF8
         JP: 0x22DB4A4
-    - name: ConnectTestProcess
+    - name: ConnectTestProcess_Dwc
       address:
         EU: 0x22DA538
         NA: 0x22D9D24
         JP: 0x22DB4D0
-    - name: ConnectTestEnd
+    - name: ConnectTestEnd_Dwc
       address:
         EU: 0x22DA5A4
         NA: 0x22D9D90
         JP: 0x22DB53C
-    - name: ConnectTestRetry
+    - name: ConnectTestRetry_Dwc
       address:
         EU: 0x22DA5B8
         NA: 0x22D9DA4
         JP: 0x22DB550
-    - name: MakeSocConfig
+    - name: MakeSocConfig_Dwc
       address:
         EU: 0x22DA5E8
         NA: 0x22D9DD4
         JP: 0x22DB580
-    - name: ConvAddress
+    - name: ConvAddress_Dwc
       address:
         EU: 0x22DA6A8
         NA: 0x22D9E94
         JP: 0x22DB640
-    - name: ConvNetMask
+    - name: ConvNetMask_Dwc
       address:
         EU: 0x22DA6FC
         NA: 0x22D9EE8
         JP: 0x22DB694
-    - name: CheckSetDns
+    - name: CheckSetDns_Dwc
       address:
         EU: 0x22DA750
         NA: 0x22D9F3C
@@ -2745,31 +3136,58 @@ overlay0:
         EU: 0x22DA8A8
         NA: 0x22DA094
         JP: 0x22DB840
-    - name: DecodeSsid
+    - name: DecodeSsid_Dwc
       address:
         EU: 0x22DA8B8
         NA: 0x22DA0A4
         JP: 0x22DB850
-    - name: MakeShopWepKey
+    - name: MakeShopWepKey_Dwc
       address:
         EU: 0x22DA9BC
         NA: 0x22DA1A8
         JP: 0x22DB954
-    - name: MakeUsbWepKey
+    - name: MakeUsbWepKey_Dwc
       address:
         EU: 0x22DAA08
         NA: 0x22DA1F4
         JP: 0x22DB9A0
-    - name: eb64
+    - name: CodeToValue_Dwc
       address:
         EU: 0x22DABB4
         NA: 0x22DA3A0
         JP: 0x22DBB4C
-    - name: db64
+    - name: Db64_Dwc
       address:
         EU: 0x22DAC24
         NA: 0x22DA410
         JP: 0x22DBBBC
+    - name: WdsGetRssi8
+      address:
+        EU: 0x22DAD8C
+    - name: WdsScanCallback
+      address:
+        EU: 0x22DADA0
+    - name: Wds_GetWorkAreaSize
+      address:
+        EU: 0x22DB08C
+    - name: Wds_Initialize
+      address:
+        EU: 0x22DB098
+    - name: Wds_End
+      address:
+        EU: 0x22DB130
+    - name: Wds_StartScan
+      address:
+        EU: 0x22DB170
+    - name: Wds_EndScan
+      address:
+        EU: 0x22DB238
+    - name: Wds_GetApInfoByIndex
+      address:
+        EU: 0x22DB270
+    - name: Wds_GetApInfoAll
+      address:
+        EU: 0x22DB30C
     - name: Dwc_AC_StartupGetWdsInfo
       address:
         EU: 0x22DB3B0
@@ -2790,6 +3208,27 @@ overlay0:
         EU: 0x22DB774
         NA: 0x22DAF60
         JP: 0x22DC70C
+    - name: IsValidApnum
+      address:
+        EU: 0x22DB7D0
+    - name: Wds_Initialize_CB
+      address:
+        EU: 0x22DB804
+    - name: Wds_StartScan_CB
+      address:
+        EU: 0x22DB818
+    - name: Wds_EndScan_CB
+      address:
+        EU: 0x22DB82C
+    - name: Wds_End_CB
+      address:
+        EU: 0x22DB840
+    - name: Wds_Error_End_CB
+      address:
+        EU: 0x22DB854
+    - name: Dwc_Init
+      address:
+        EU: 0x22DB868
     - name: Dwci_Acc_SetMaskBits
       address:
         EU: 0x22DB8F4
@@ -3070,6 +3509,9 @@ overlay0:
         EU: 0x22DC498
         NA: 0x22DBC84
         JP: 0x22DD430
+    - name: Dwc_Auth_GetCustomNas
+      address:
+        EU: 0x22DC4A8
     - name: Dwc_Auth_Create
       address:
         EU: 0x22DC4B8
@@ -3125,7 +3567,7 @@ overlay0:
         EU: 0x22DCE1C
         NA: 0x22DC608
         JP: 0x22DDDB4
-    - name: Dwc_Auth_Prepare_FirstPost
+    - name: Dwci_Auth_Prepare_FirstPost
       address:
         EU: 0x22DD0E4
         NA: 0x22DC8D0
@@ -3135,11 +3577,17 @@ overlay0:
         EU: 0x22DD288
         NA: 0x22DCA74
         JP: 0x22DE220
-    - name: Dwc_Auth_SetCalInfoToHttp
+    - name: Dwc_Auth_GetCalInfoFromNVram
+      address:
+        EU: 0x22DD2CC
+    - name: Dwc_Auth_GetCalInfoFromWiFiInfo
       address:
         EU: 0x22DD2F4
         NA: 0x22DCAE0
         JP: 0x22DE28C
+    - name: Dwc_Auth_SetCalInfoToHttp
+      address:
+        EU: 0x22DD5A4
     - name: Dwc_Http_Create
       address:
         EU: 0x22DD8F0
@@ -3160,7 +3608,7 @@ overlay0:
         EU: 0x22DDB60
         NA: 0x22DD34C
         JP: 0x22DEAF8
-    - name: Dwc_Http_GetRecvProgress
+    - name: Dwci_Http_Yield
       address:
         EU: 0x22DDBBC
         NA: 0x22DD3A8
@@ -3175,6 +3623,9 @@ overlay0:
         EU: 0x22DDC8C
         NA: 0x22DD478
         JP: 0x22DEC24
+    - name: Dwci_Http_CheckHeaderReceived
+      address:
+        EU: 0x22DDCA0
     - name: Dwci_Http_Thread
       address:
         EU: 0x22DDD88
@@ -3330,27 +3781,33 @@ overlay0:
         EU: 0x22E0544
         NA: 0x22DFD30
         JP: 0x22E14DC
-    - name: Dwc_Util_Base64Encode
+    - name: Dwc_Auth_Base64Encode
       address:
         EU: 0x22E0760
         NA: 0x22DFF4C
         JP: 0x22E16F8
-    - name: Dwc_Util_Base64Decode
+    - name: Dwc_Auth_Base64Decode
       address:
         EU: 0x22E08E8
         NA: 0x22E00D4
         JP: 0x22E1880
-    - name: Dwc_CleanupInet
+    - name: Dwc_GetLastError
       address:
-        EU:
-          - 0x22E0BA8
-          - 0x22E1284
-        NA:
-          - 0x22E0394
-          - 0x22E0A70
-        JP:
-          - 0x22E1B40
-          - 0x22E221C
+        EU: 0x22E0A50
+    - name: Dwc_GetLastErrorEx
+      address:
+        EU: 0x22E0A70
+    - name: Dwc_ClearError
+      address:
+        EU: 0x22E0B6C
+    - name: Dwci_IsError
+      address:
+        EU: 0x22E0B8C
+    - name: Dwci_SetError
+      address:
+        EU: 0x22E0BA8
+        NA: 0x22E0394
+        JP: 0x22E1B40
     - name: Dwci_GetAllocateHeader
       address:
         EU: 0x22E0BC0
@@ -3456,6 +3913,11 @@ overlay0:
         EU: 0x22E10B0
         NA: 0x22E089C
         JP: 0x22E2048
+    - name: Dwc_CleanupInet
+      address:
+        EU: 0x22E1284
+        NA: 0x22E0A70
+        JP: 0x22E221C
     - name: Dwc_CleanupInetAsync
       address:
         EU: 0x22E1310
@@ -3496,21 +3958,699 @@ overlay0:
         EU: 0x22E1644
         NA: 0x22E0E30
         JP: 0x22E25DC
-    - name: Dwc_SvlAbort
+    - name: Dwci_NdAlloc
       address:
         EU: 0x22E1668
         NA: 0x22E0E54
         JP: 0x22E2600
-    - name: Dwc_NasLoginAsync
+    - name: Dwci_NdFree
       address:
         EU: 0x22E1680
         NA: 0x22E0E6C
         JP: 0x22E2618
-    - name: Dwc_NasLoginProcess
+    - name: Dwci_NdCallback
       address:
         EU: 0x22E1698
         NA: 0x22E0E84
         JP: 0x22E2630
+    - name: Dwci_NdCleanupCallback
+      address:
+        EU: 0x22E1790
+    - name: Dwci_SvlTokenWaitThread
+      address:
+        EU: 0x22E17D4
+    - name: Dwc_NdInitAsync
+      address:
+        EU: 0x22E198C
+    - name: Dwc_NdCleanupAsync
+      address:
+        EU: 0x22E1AA4
+    - name: Dwc_NdSetAttr
+      address:
+        EU: 0x22E1AF0
+    - name: Dwc_NdGetFileListNumAsync
+      address:
+        EU: 0x22E1B24
+    - name: Dwc_NdGetFileListAsync
+      address:
+        EU: 0x22E1B48
+    - name: Dwc_NdGetFileAsync
+      address:
+        EU: 0x22E1B90
+    - name: Dwc_NdCancelAsync
+      address:
+        EU: 0x22E1BC8
+    - name: Dwc_SetCommonKeyValueString
+      address:
+        EU: 0x22E1BE4
+    - name: Dwc_AddCommonKeyValueString
+      address:
+        EU: 0x22E1C1C
+    - name: Dwc_GetCommonValueString
+      address:
+        EU: 0x22E1C5C
+    - name: Dwci_GetMathRand32
+      address:
+        EU: 0x22E1D58
+    - name: Dwci_WStrLen
+      address:
+        EU: 0x22E1E78
+    - name: Dwc_InitFriendsMatch
+      address:
+        EU: 0x22E1EA4
+    - name: Dwc_ShutdownFriendsMatch
+      address:
+        EU: 0x22E2128
+    - name: Dwc_ProcessFriendsMatch
+      address:
+        EU: 0x22E2298
+    - name: Dwc_LoginAsync
+      address:
+        EU: 0x22E2518
+    - name: Dwc_UpdateServersAsync
+      address:
+        EU: 0x22E2620
+    - name: Dwc_CloseConnectionHard
+      address:
+        EU: 0x22E26C8
+    - name: Dwc_GetMyAid
+      address:
+        EU: 0x22E2730
+    - name: Dwc_GetAidList
+      address:
+        EU: 0x22E274C
+    - name: Dwc_IsValidAid
+      address:
+        EU: 0x22E279C
+    - name: Dwc_GetState
+      address:
+        EU: 0x22E27D4
+    - name: Dwci_GT2Startup
+      address:
+        EU: 0x22E27F0
+    - name: Dwci_GetGT2Connection
+      address:
+        EU: 0x22E28B8
+    - name: Dwci_GetConnectionAid
+      address:
+        EU: 0x22E291C
+    - name: Dwci_GetConnectionIndex
+      address:
+        EU: 0x22E292C
+    - name: Dwci_GT2GetConnectionListIdx
+      address:
+        EU: 0x22E293C
+    - name: Dwci_ClearGT2ConnectionList
+      address:
+        EU: 0x22E2968
+    - name: Dwci_GetGT2ConnectionByIdx
+      address:
+        EU: 0x22E2998
+    - name: Dwci_GetGT2ConnectionByProfileID
+      address:
+        EU: 0x22E29A8
+    - name: Dwci_GetConnectionInfoByIdx
+      address:
+        EU: 0x22E2A10
+    - name: Dwci_IsValidAid
+      address:
+        EU: 0x22E2A20
+    - name: Dwci_ResetMyAid
+      address:
+        EU: 0x22E2A68
+    - name: Dwcs_ForceShutdown
+      address:
+        EU: 0x22E2A80
+    - name: Dwci_SetState
+      address:
+        EU: 0x22E2A84
+    - name: Dwci_DeleteAid
+      address:
+        EU: 0x22E2AA4
+    - name: Dwci_HandleGpError_Common
+      address:
+        EU: 0x22E2B04
+    - name: Dwci_HandleGT2Error
+      address:
+        EU: 0x22E2C20
+    - name: Dwci_LoginCallback
+      address:
+        EU: 0x22E2CC4
+    - name: Dwci_UpdateServersCallback
+      address:
+        EU: 0x22E2D24
+    - name: Dwci_GpErrorCallback
+      address:
+        EU: 0x22E2D6C
+    - name: Dwci_GpRecvBuddyMessageCallback
+      address:
+        EU: 0x22E2DA4
+    - name: Dwci_GT2ReceivedCallback
+      address:
+        EU: 0x22E2EFC
+    - name: Dwci_GT2ClosedCallback
+      address:
+        EU: 0x22E2F08
+    - name: Dwci_GT2PingCallback
+      address:
+        EU: 0x22E3270
+    - name: Dwci_GT2SocketErrorCallback
+      address:
+        EU: 0x22E327C
+    - name: Dwci_LoginInit
+      address:
+        EU: 0x22E32B8
+    - name: Dwci_LoginAsync
+      address:
+        EU: 0x22E333C
+    - name: Dwci_LoginProcess
+      address:
+        EU: 0x22E3374
+    - name: Dwci_GetUserData
+      address:
+        EU: 0x22E346C
+    - name: Dwci_StopLogin
+      address:
+        EU: 0x22E3488
+    - name: Dwci_ShutdownLogin
+      address:
+        EU: 0x22E34D8
+    - name: Dwci_CloseLogin
+      address:
+        EU: 0x22E3534
+    - name: Dwci_HandleGpError_Login
+      address:
+        EU: 0x22E355C
+    - name: Dwci_GpConnectCallback
+      address:
+        EU: 0x22E35D0
+    - name: Dwci_RemoteAuthCallback
+      address:
+        EU: 0x22E3708
+    - name: Dwci_GpConnect
+      address:
+        EU: 0x22E3720
+    - name: Dwci_RemoteLogin
+      address:
+        EU: 0x22E37BC
+    - name: Dwci_RemoteLoginProcess
+      address:
+        EU: 0x22E3988
+    - name: Dwci_GpGetInfoCallback
+      address:
+        EU: 0x22E3B90
+    - name: Dwci_CheckLogin
+      address:
+        EU: 0x22E3D34
+    - name: Dwc_GetFriendStatus
+      address:
+        EU: 0x22E3D60
+    - name: Dwc_GetFriendStatusSC
+      address:
+        EU: 0x22E3D78
+    - name: Dwc_DeleteBuddyFriendData
+      address:
+        EU: 0x22E3E94
+    - name: Dwc_SetBuddyFriendCallback
+      address:
+        EU: 0x22E3F28
+    - name: Dwci_FriendInit
+      address:
+        EU: 0x22E3F54
+    - name: Dwci_FriendProcess
+      address:
+        EU: 0x22E4070
+    - name: Dwci_UpdateServersAsync
+      address:
+        EU: 0x22E4350
+    - name: Dwci_StopFriendProcess
+      address:
+        EU: 0x22E43FC
+    - name: Dwci_GpRecvBuddyRequestCallback
+      address:
+        EU: 0x22E4484
+    - name: Dwci_GpRecvBuddyAuthCallback
+      address:
+        EU: 0x22E44D0
+    - name: Dwci_GpRecvBuddyStatusCallback
+      address:
+        EU: 0x22E4500
+    - name: Dwci_GetProfileIdFromList
+      address:
+        EU: 0x22E4584
+    - name: Dwci_GetFriendListIndex
+      address:
+        EU: 0x22E45CC
+    - name: Dwci_InitGpProcessCount
+      address:
+        EU: 0x22E4630
+    - name: Dwci_SetGpStatus
+      address:
+        EU: 0x22E4668
+    - name: Dwci_GetGpStatus
+      address:
+        EU: 0x22E471C
+    - name: Dwci_ShutdownFriend
+      address:
+        EU: 0x22E47A4
+    - name: Dwci_GpProcess
+      address:
+        EU: 0x22E47B8
+    - name: Dwci_CloseFriendProcess
+      address:
+        EU: 0x22E4844
+    - name: Dwci_UpdateFriendReq
+      address:
+        EU: 0x22E4874
+    - name: Dwci_EndUpdateServers
+      address:
+        EU: 0x22E4B44
+    - name: Dwci_DeleteFriendFromList
+      address:
+        EU: 0x22E4B7C
+    - name: Dwci_RefreshFriendListForth
+      address:
+        EU: 0x22E4BD4
+    - name: Dwci_RefreshFriendListAll
+      address:
+        EU: 0x22E4C98
+    - name: Dwci_GpSendBuddyRequest
+      address:
+        EU: 0x22E4DE4
+    - name: Dwci_GetFriendBuddyStatus
+      address:
+        EU: 0x22E4E18
+    - name: Dwci_HandleGpError_Friend
+      address:
+        EU: 0x22E4ED4
+    - name: Dwci_GpProfileSearchCallback
+      address:
+        EU: 0x22E4F48
+    - name: Dwci_GpGetInfoCallback_RecvBuddyRequest
+      address:
+        EU: 0x22E51EC
+    - name: Dwci_GpGetInfoCallback_RecvAuthMessage
+      address:
+        EU: 0x22E541C
+    - name: Dwci_GetPersCallbackLevel
+      address:
+        EU: 0x22E5670
+    - name: Dwci_BeginCloseStatsConnection
+      address:
+        EU: 0x22E5684
+    - name: Dwci_EndCloseStatsConnection
+      address:
+        EU: 0x22E5698
+    - name: Dwci_GetReverseBuddiesCallback
+      address:
+        EU: 0x22E56AC
+    - name: Dwci_NnFreeNegotiateList
+      address:
+        EU: 0x22E5894
+    - name: Dwci_MatchInit
+      address:
+        EU: 0x22E58BC
+    - name: Dwci_QR2Startup
+      address:
+        EU: 0x22E5A38
+    - name: Dwci_SendStateChanged
+      address:
+        EU: 0x22E5BD4
+    - name: Dwci_MatchProcess
+      address:
+        EU: 0x22E5C84
+    - name: Dwci_GT2UnrecognizedMessageCallback
+      address:
+        EU: 0x22E6720
+    - name: Dwci_GT2ConnectAttemptCallback
+      address:
+        EU: 0x22E6814
+    - name: Dwci_GT2ConnectedCallback
+      address:
+        EU: 0x22E6A5C
+    - name: Dwci_MatchGpRecvBuddyMsgCallback
+      address:
+        EU: 0x22E6CE0
+    - name: Dwci_StopResendingMatchCommand
+      address:
+        EU: 0x22E6D64
+    - name: Dwci_StopMatching
+      address:
+        EU: 0x22E6D84
+    - name: Dwci_ClearQR2Key
+      address:
+        EU: 0x22E6E40
+    - name: Dwci_ProcessMatchSynPacket
+      address:
+        EU: 0x22E6E7C
+    - name: Dwci_ProcessMatchClosing
+      address:
+        EU: 0x22E7034
+    - name: Dwci_ProcessMatchScClosing
+      address:
+        EU: 0x22E71B0
+    - name: Dwci_DeleteHostByProfileID
+      address:
+        EU: 0x22E71D4
+    - name: Dwci_DeleteHostByIndex
+      address:
+        EU: 0x22E7238
+    - name: Dwci_SetNumValidConnection
+      address:
+        EU: 0x22E73F0
+    - name: Dwci_GetAllAidList
+      address:
+        EU: 0x22E7444
+    - name: Dwci_GetValidAidList
+      address:
+        EU: 0x22E7478
+    - name: Dwci_GpSetServerStatus
+      address:
+        EU: 0x22E751C
+    - name: Dwci_ShutdownMatch
+      address:
+        EU: 0x22E75EC
+    - name: Dwci_IsShutdownMatch
+      address:
+        EU: 0x22E7664
+    - name: Dwci_ResetMatchParam
+      address:
+        EU: 0x22E767C
+    - name: Dwci_CloseMatching
+      address:
+        EU: 0x22E7A18
+    - name: Dwci_SbUpdateAsync
+      address:
+        EU: 0x22E7AB4
+    - name: Dwci_GetDefaultMatchFilter
+      address:
+        EU: 0x22E7CB0
+    - name: Dwci_NnStartupAsync
+      address:
+        EU: 0x22E7D18
+    - name: Dwci_DoNatNegotiationAsync
+      address:
+        EU: 0x22E8004
+    - name: Dwci_SendMatchCommand
+      address:
+        EU: 0x22E80C0
+    - name: Dwci_SendSbMsgCommand
+      address:
+        EU: 0x22E8284
+    - name: Dwci_SendGpBuddyMsgCommand
+      address:
+        EU: 0x22E839C
+    - name: Dwci_GetGpBuddyAdditionalMsg
+      address:
+        EU: 0x22E8460
+    - name: Dwci_ProcessRecvMatchCommand
+      address:
+        EU: 0x22E84FC
+    - name: Dwci_CheckResvCommand
+      address:
+        EU: 0x22E93E0
+    - name: Dwci_ProcessResvOK
+      address:
+        EU: 0x22E970C
+    - name: Dwci_MakeBackupServerData
+      address:
+        EU: 0x22E98CC
+    - name: Dwci_HandleMatchCommandError
+      address:
+        EU: 0x22E991C
+    - name: Dwci_SendResvCommand
+      address:
+        EU: 0x22E9948
+    - name: Dwci_SendResvCommandToFriend
+      address:
+        EU: 0x22E9B04
+    - name: Dwci_RetryReserving
+      address:
+        EU: 0x22E9DCC
+    - name: Dwci_CancelReservation
+      address:
+        EU: 0x22E9EA4
+    - name: Dwci_CancelPreConnectedServerProcess
+      address:
+        EU: 0x22E9EF8
+    - name: Dwci_CancelPreConnectedClientProcess
+      address:
+        EU: 0x22EA114
+    - name: Dwci_ChangeToClient
+      address:
+        EU: 0x22EA1D4
+    - name: Dwci_PostProcessConnection
+      address:
+        EU: 0x22EA2B8
+    - name: Dwci_AreAllBuddies
+      address:
+        EU: 0x22EA980
+    - name: Dwci_FinishCancelMatching
+      address:
+        EU: 0x22EAA08
+    - name: Dwci_InvalidateReservation
+      address:
+        EU: 0x22EAAC8
+    - name: Dwci_RestartFromCancel
+      address:
+        EU: 0x22EAB9C
+    - name: Dwci_RestartFromTimeout
+      address:
+        EU: 0x22EAC9C
+    - name: Dwci_ResumeMatching
+      address:
+        EU: 0x22EACD0
+    - name: Dwci_CloseCancelHostAsync
+      address:
+        EU: 0x22EAD90
+    - name: Dwci_CloseAllConnectionsByTimeout
+      address:
+        EU: 0x22EAE00
+    - name: Dwci_CloseShutdownClientSC
+      address:
+        EU: 0x22EAE30
+    - name: Dwci_SendMatchSynPacket
+      address:
+        EU: 0x22EAF6C
+    - name: Dwci_ProcessMatchSynTimeout
+      address:
+        EU: 0x22EB05C
+    - name: Dwci_SendCancelMatchSynCommand
+      address:
+        EU: 0x22EB2CC
+    - name: Dwci_ProcessCancelMatchSynCommand
+      address:
+        EU: 0x22EB34C
+    - name: Dwci_ProcessCancelMatchSynTimeout
+      address:
+        EU: 0x22EB570
+    - name: Dwci_ClearGameMatchKeys
+      address:
+        EU: 0x22EB770
+    - name: Dwci_GetAidFromList
+      address:
+        EU: 0x22EB7C8
+    - name: Dwci_IsFriendByIdxList
+      address:
+        EU: 0x22EB838
+    - name: Dwci_GetAidFromProfileID
+      address:
+        EU: 0x22EB8A8
+    - name: Dwci_GetAidBitmask
+      address:
+        EU: 0x22EB90C
+    - name: Dwci_InitClWaitTimeout
+      address:
+        EU: 0x22EB970
+    - name: Dwci_InitOptMinCompParam
+      address:
+        EU: 0x22EB998
+    - name: Dwci_ProcessOptMinComp
+      address:
+        EU: 0x22EBA08
+    - name: Dwci_HandleGpError_Match
+      address:
+        EU: 0x22EBE34
+    - name: Dwci_HandleSbError_Match
+      address:
+        EU: 0x22EBEA8
+    - name: Dwci_HandleQR2Error
+      address:
+        EU: 0x22EBF3C
+    - name: Dwci_HandleNnError
+      address:
+        EU: 0x22EC024
+    - name: Dwci_HandleNnResult
+      address:
+        EU: 0x22EC080
+    - name: Dwci_HandleGT2Error_Match
+      address:
+        EU: 0x22EC0E0
+    - name: Dwci_QR2ServerKeyCallback
+      address:
+        EU: 0x22EC184
+    - name: Dwci_QR2PlayerKeyCallback
+      address:
+        EU: 0x22EC2CC
+    - name: Dwci_QR2TeamKeyCallback
+      address:
+        EU: 0x22EC2D0
+    - name: Dwci_QR2KeyListCallback
+      address:
+        EU: 0x22EC2D4
+    - name: Dwci_QR2CountCallback
+      address:
+        EU: 0x22EC378
+    - name: Dwci_QR2AddErrorCallback
+      address:
+        EU: 0x22EC380
+    - name: Dwci_QR2PublicAddrCallback
+      address:
+        EU: 0x22EC38C
+    - name: Dwci_QR2NatnegCallback
+      address:
+        EU: 0x22EC3AC
+    - name: Dwci_QR2ClientMsgCallback
+      address:
+        EU: 0x22EC460
+    - name: Dwci_NnProgressCallback
+      address:
+        EU: 0x22EC56C
+    - name: Dwci_NnCompletedCallback
+      address:
+        EU: 0x22EC570
+    - name: Dwci_ProcessNnFailure
+      address:
+        EU: 0x22EC954
+    - name: Dwci_SetMatchCnt
+      address:
+        EU: 0x22EC9C4
+    - name: Dwci_GetMatchCnt
+      address:
+        EU: 0x22EC9D4
+    - name: Dwci_SetMatchStatus
+      address:
+        EU: 0x22EC9E4
+    - name: Dwci_InitReliableQueue
+      address:
+        EU: 0x22EC9F8
+    - name: Dwci_CleanupReliableQueue
+      address:
+        EU: 0x22ECA10
+    - name: Dwci_IsReliableQueueFree
+      address:
+        EU: 0x22ECA78
+    - name: Dwci_ProcessReliableQueue
+      address:
+        EU: 0x22ECA94
+    - name: Dwci_ProcessReliableQueueEx
+      address:
+        EU: 0x22ECAA8
+    - name: Dwci_InsertReliableQueue
+      address:
+        EU: 0x22ECB88
+    - name: Dwc_IsSendableReliable
+      address:
+        EU: 0x22ECC74
+    - name: Dwci_SendReliable
+      address:
+        EU: 0x22ECD04
+    - name: Dwcs_EncodeHeader
+      address:
+        EU: 0x22ECE24
+    - name: Dwcs_DecodeHeader
+      address:
+        EU: 0x22ECE54
+    - name: Dwcs_GetRequiredHeaderSize
+      address:
+        EU: 0x22ECE90
+    - name: Dwci_InitTransport
+      address:
+        EU: 0x22ECEB0
+    - name: Dwci_RecvCallback
+      address:
+        EU: 0x22ECEF0
+    - name: Dwci_PingCallback
+      address:
+        EU: 0x22ECF2C
+    - name: Dwci_TransportProcess
+      address:
+        EU: 0x22ECF6C
+    - name: Dwci_ClearTransConnection
+      address:
+        EU: 0x22ED104
+    - name: Dwci_ShutdownTransport
+      address:
+        EU: 0x22ED190
+    - name: Dwcs_GetTransConnection
+      address:
+        EU: 0x22ED1AC
+    - name: Dwcs_GetSendState
+      address:
+        EU: 0x22ED1C4
+    - name: Dwcs_GetRecvState
+      address:
+        EU: 0x22ED1E0
+    - name: Dwcs_Send
+      address:
+        EU: 0x22ED1FC
+    - name: Dwcs_HandleReliableMessage
+      address:
+        EU: 0x22ED284
+    - name: Dwcs_HandleUnreliableMessage
+      address:
+        EU: 0x22ED378
+    - name: Dwcs_RecvDataHeader
+      address:
+        EU: 0x22ED3F8
+    - name: Dwcs_RecvDataBody
+      address:
+        EU: 0x22ED4C0
+    - name: Dwcs_RecvSystemDataBody
+      address:
+        EU: 0x22ED5A4
+    - name: Dwcs_GetOutgoingBufferFreeSize
+      address:
+        EU: 0x22ED5E0
+    - name: Dwc_InitGhttp
+      address:
+        EU: 0x22ED604
+    - name: Dwc_ShutdownGhttp
+      address:
+        EU: 0x22ED628
+    - name: Dwc_ProcessGhttp
+      address:
+        EU: 0x22ED668
+    - name: GhttpCompletedCallback
+      address:
+        EU: 0x22ED688
+    - name: GhttpProgressCallback
+      address:
+        EU: 0x22ED724
+    - name: Dwci_GhttpGetEx
+      address:
+        EU: 0x22ED76C
+    - name: Dwc_GetGhttpDataEx2
+      address:
+        EU: 0x22ED910
+    - name: Dwc_CancelGhttpRequest
+      address:
+        EU: 0x22ED938
+    - name: Dwci_HandleGhttpError
+      address:
+        EU: 0x22ED978
+    - name: Dwci_AppendDwcGhttpParam
+      address:
+        EU: 0x22EDAD4
+    - name: Dwci_RemoveDwcGHttpParamEntry
+      address:
+        EU: 0x22EDB30
+    - name: Dwci_FindDwcGhttpParamEntryByReq
+      address:
+        EU: 0x22EDBB4
+    - name: Dwci_RemoveAllDwcGhttpParamEntry
+      address:
+        EU: 0x22EDBE0
     - name: Dwci_BM_GetApInfo
       address:
         EU: 0x22EDC50
@@ -3581,22 +4721,22 @@ overlay0:
         EU: 0x22EE100
         NA: 0x22ED8EC
         JP: 0x22EF098
-    - name: ReadNvram
+    - name: ReadNvram_Dwc
       address:
         EU: 0x22EE56C
         NA: 0x22EDD58
         JP: 0x22EF504
-    - name: WriteNvram
+    - name: WriteNvram_Dwc
       address:
         EU: 0x22EE5FC
         NA: 0x22EDDE8
         JP: 0x22EF594
-    - name: verify
+    - name: Verify_Dwc
       address:
         EU: 0x22EE678
         NA: 0x22EDE64
         JP: 0x22EF610
-    - name: WriteDisable
+    - name: WriteDisable_Dwc
       address:
         EU: 0x22EE6C4
         NA: 0x22EDEB0
@@ -3666,6 +4806,360 @@ overlay0:
         EU: 0x22EF274
         NA: 0x22EEA60
         JP: 0x22F020C
+    - name: Dwc_Auth_CheckWiFiIdNeedCreate
+      address:
+        EU: 0x22EF2C8
+    - name: Dwci_Ndi_FreeAttr
+      address:
+        EU: 0x22EFFE4
+    - name: SetAttr_Dwc
+      address:
+        EU: 0x22F0028
+    - name: Dwci_NdSetAttr
+      address:
+        EU: 0x22F00F8
+    - name: GetNChar_Dwc
+      address:
+        EU: 0x22F0168
+    - name: DecodeChar_Dwc
+      address:
+        EU: 0x22F01B0
+    - name: Dwci_Ndi_GetDecodeLenBase64
+      address:
+        EU: 0x22F0208
+    - name: Dwci_Ndi_GetEncodeLenBase64
+      address:
+        EU: 0x22F0214
+    - name: Dwci_Ndi_EncodeBase64
+      address:
+        EU: 0x22F0230
+    - name: Dwci_Ndi_EecodeBase64
+      address:
+        EU: 0x22F0328
+    - name: StrAlloc_Dwc
+      address:
+        EU: 0x22F0450
+    - name: Dwci_NdStartup
+      address:
+        EU: 0x22F049C
+    - name: NhttpCleanupCallback
+      address:
+        EU: 0x22F0644
+    - name: Dwci_NdCleanupAsync
+      address:
+        EU: 0x22F0688
+    - name: Dwci_NdCancelAsync
+      address:
+        EU: 0x22F06B0
+    - name: Dwci_Ndi_GetApInfo
+      address:
+        EU: 0x22F06EC
+    - name: Dwci_Ndi_GetDSdesc
+      address:
+        EU: 0x22F07EC
+    - name: Dwci_Ndi_GetUserAgent
+      address:
+        EU: 0x22F0878
+    - name: Req_Callback_Dwc
+      address:
+        EU: 0x22F089C
+    - name: FreeHttp
+      address:
+        EU: 0x22F0BCC
+    - name: SetupHttp
+      address:
+        EU: 0x22F0BF8
+    - name: RunHttp
+      address:
+        EU: 0x22F0FA0
+    - name: Dwci_NdGetFileListNumAsync
+      address:
+        EU: 0x22F1000
+    - name: Dwci_NdGetFileListAsync
+      address:
+        EU: 0x22F107C
+    - name: Dwci_NdGetFileAsync
+      address:
+        EU: 0x22F1340
+    - name: Dwci_Ndi_Response_Count
+      address:
+        EU: 0x22F1504
+    - name: Dwci_Ndi_Response_Contents
+      address:
+        EU: 0x22F1558
+    - name: Dwci_Ndi_Response_List
+      address:
+        EU: 0x22F1584
+    - name: Dwci_Ndi_InitLockGlobal
+      address:
+        EU: 0x22F1808
+    - name: Dwci_Ndi_ExitLockGlobal
+      address:
+        EU: 0x22F1820
+    - name: Dwci_Ndi_LockGlobal
+      address:
+        EU: 0x22F1824
+    - name: Dwci_Ndi_UnlockGlobal
+      address:
+        EU: 0x22F1838
+    - name: Dwci_Ndi_InitHttpCallback
+      address:
+        EU: 0x22F184C
+    - name: Dwci_Ndi_ExitHttpCallback
+      address:
+        EU: 0x22F1874
+    - name: Dwci_Ndi_PrepareHttpCallback
+      address:
+        EU: 0x22F1878
+    - name: Dwci_Ndi_UnprepareHttpCallback
+      address:
+        EU: 0x22F18C0
+    - name: Dwci_Ndi_KickThread
+      address:
+        EU: 0x22F18EC
+    - name: Dwci_Ndi_GetMacAddress
+      address:
+        EU: 0x22F1900
+    - name: Dwci_Ndi_Strlen
+      address:
+        EU: 0x22F1960
+    - name: Dwci_Ndi_Strncmp
+      address:
+        EU: 0x22F196C
+    - name: Dwci_Ndi_Memclr
+      address:
+        EU: 0x22F1978
+    - name: Dwci_Ndi_Memcpy
+      address:
+        EU: 0x22F198C
+    - name: Dwci_Ndi_StrToInt
+      address:
+        EU: 0x22F19A4
+    - name: Dwci_Ndi_IntToStr
+      address:
+        EU: 0x22F19B0
+    - name: Dwci_Ndi_IntToStrFigure
+      address:
+        EU: 0x22F19BC
+    - name: Dwci_Ndi_HexToStrFigure
+      address:
+        EU: 0x22F1A94
+    - name: Nhttp_Startup
+      address:
+        EU: 0x22F1AEC
+    - name: Nhttp_CleanupAsync
+      address:
+        EU: 0x22F1BB4
+    - name: Nhttpi_CleanupThreadProc
+      address:
+        EU: 0x22F1BFC
+    - name: AddHdrList_Nhttp
+      address:
+        EU: 0x22F1C38
+    - name: Nhttpi_GetHdrFromList
+      address:
+        EU: 0x22F1D50
+    - name: IncAscii_Nhttp
+      address:
+        EU: 0x22F1D94
+    - name: CheckTagPost_Nhttp
+      address:
+        EU: 0x22F1DC8
+    - name: Nhttp_AddHeaderField
+      address:
+        EU: 0x22F1E68
+    - name: Nhttp_AddPostDataAscii
+      address:
+        EU: 0x22F1E8C
+    - name: Nhttp_SetCaChain
+      address:
+        EU: 0x22F1F00
+    - name: Nhttpi_SetReqQueue
+      address:
+        EU: 0x22F1F1C
+    - name: Nhttpi_FindReqQueue
+      address:
+        EU: 0x22F1FD0
+    - name: Nhttpi_FreeReqQueue
+      address:
+        EU: 0x22F2028
+    - name: Nhttpi_AllFreeReqQueue
+      address:
+        EU: 0x22F20C8
+    - name: Nhttpi_GetReqFromReqQueue
+      address:
+        EU: 0x22F20F8
+    - name: Nhttpi_InitLockReqList
+      address:
+        EU: 0x22F210C
+    - name: Nhttpi_ExitLockReqList
+      address:
+        EU: 0x22F2124
+    - name: Nhttpi_LockReqList
+      address:
+        EU: 0x22F2128
+    - name: Nhttpi_UnlockReqList
+      address:
+        EU: 0x22F213C
+    - name: Nhttpi_CreateCommThread
+      address:
+        EU: 0x22F2150
+    - name: Nhttpi_DestroyCommThread
+      address:
+        EU: 0x22F21C8
+    - name: Nhttpi_IdleCommThread
+      address:
+        EU: 0x22F21F0
+    - name: Nhttpi_KickCommThread
+      address:
+        EU: 0x22F220C
+    - name: SetupGetcharFromHdrRecvBuf
+      address:
+        EU: 0x22F2228
+    - name: GetcharFromHdrRecvBuf
+      address:
+        EU: 0x22F2284
+    - name: Nhttpi_FindNextLineHdrRecvBuf
+      address:
+        EU: 0x22F2300
+    - name: Nhttpi_SkipSpaceHdrRecvBuf
+      address:
+        EU: 0x22F23D0
+    - name: Nhttpi_CompareTokenN_HdrRecvBuf
+      address:
+        EU: 0x22F2440
+    - name: Nhttpi_LoadFromHdrRecvBuf
+      address:
+        EU: 0x22F2510
+    - name: Nhttpi_IsRecvBufFull
+      address:
+        EU: 0x22F25FC
+    - name: Nhttpi_RecvBuf
+      address:
+        EU: 0x22F2610
+    - name: Nhttpi_RecvBufN
+      address:
+        EU: 0x22F2638
+    - name: Nhttp_CreateRequest
+      address:
+        EU: 0x22F26A8
+    - name: Nhttp_DestroyRequest
+      address:
+        EU: 0x22F2C0C
+    - name: DeleteStrList
+      address:
+        EU: 0x22F2C34
+    - name: Nhttpi_DestroyRequestObject
+      address:
+        EU: 0x22F2C88
+    - name: Nhttp_SendRequestAsync
+      address:
+        EU: 0x22F2D00
+    - name: Nhttp_CancelRequestAsync
+      address:
+        EU: 0x22F2D8C
+    - name: Nhttpi_CancelAllRequests
+      address:
+        EU: 0x22F2E08
+    - name: Nhttpi_ResolveHostname
+      address:
+        EU: 0x22F2E5C
+    - name: Nhttp_DestroyResponse
+      address:
+        EU: 0x22F2EF4
+    - name: Nhttpi_GetHeaderValue
+      address:
+        EU: 0x22F2F6C
+    - name: Nhttp_GetHeaderField
+      address:
+        EU: 0x22F3078
+    - name: Nhttp_GetBodyAll
+      address:
+        EU: 0x22F317C
+    - name: SslAuthCallback
+      address:
+        EU: 0x22F31A0
+    - name: Nhttpi_SetSslseed
+      address:
+        EU: 0x22F31AC
+    - name: Nhttpi_SocOpen
+      address:
+        EU: 0x22F31CC
+    - name: Nhttpi_SocClose
+      address:
+        EU: 0x22F324C
+    - name: Nhttpi_SocCloseWait
+      address:
+        EU: 0x22F325C
+    - name: Nhttpi_SocConnect
+      address:
+        EU: 0x22F3298
+    - name: Nhttpi_SocRecv
+      address:
+        EU: 0x22F3314
+    - name: Nhttpi_SocSend
+      address:
+        EU: 0x22F3360
+    - name: Nhttpi_SocCancel
+      address:
+        EU: 0x22F33AC
+    - name: Nhttpi_Strcmp
+      address:
+        EU: 0x22F33C8
+    - name: Nhttpi_Strnicmp
+      address:
+        EU: 0x22F33D4
+    - name: Nhttpi_Strlen
+      address:
+        EU: 0x22F343C
+    - name: Nhttpi_Memclr
+      address:
+        EU: 0x22F3448
+    - name: Nhttpi_Memcpy
+      address:
+        EU: 0x22F345C
+    - name: SaveBuf
+      address:
+        EU: 0x22F3474
+    - name: SkipLineBuf
+      address:
+        EU: 0x22F3528
+    - name: FreeSslConnection
+      address:
+        EU: 0x22F35B4
+    - name: PutSocketToCloseQue
+      address:
+        EU: 0x22F35F0
+    - name: ClearCloseQue
+      address:
+        EU: 0x22F3690
+    - name: Nhttpi_CommThreadProc
+      address:
+        EU: 0x22F36F0
+    - name: Nhttpi_GetUrlEncodedSize
+      address:
+        EU: 0x22F49F0
+    - name: Nhttpi_EncodeUrlChar
+      address:
+        EU: 0x22F4A58
+    - name: Nhttpi_StrToHex
+      address:
+        EU: 0x22F4AE8
+    - name: Nhttpi_StrToInt
+      address:
+        EU: 0x22F4BD0
+    - name: Nhttpi_IntToStr
+      address:
+        EU: 0x22F4C68
+    - name: Nhttpi_CompareToken
+      address:
+        EU: 0x22F4D24
+    - name: Nhttpi_StrToNum
+      address:
+        EU: 0x22F4DA8
+    - name: Nhttpi_MemFind
+      address:
+        EU: 0x22F4E18
     - name: SocketCastError
       address:
         EU: 0x22F579C
@@ -3779,6 +5273,9 @@ overlay0:
         stack[0]: target address
         stack[1]: length of target address
         return: number of bytes sent, or -1 on an error
+    - name: GoaGetLastError
+      address:
+        EU: 0x22F59A8
     - name: SocketSetBlocking
       address:
         EU: 0x22F5AB0
@@ -3838,6 +5335,81 @@ overlay0:
         Seemingly resolves the IP of "pokedungeonds.available.gs.nintendowifi.net", in which "pokedungeonds" is provided as the first parameter.
         
         r0: string
+    - name: GsiAvailableCheckThink
+      address:
+        EU: 0x22F65BC
+    - name: GhttpStartup
+      address:
+        EU: 0x22FC75C
+    - name: GhttpCleanup
+      address:
+        EU: 0x22FC7B0
+    - name: GHttpGetExA
+      address:
+        EU: 0x22FC80C
+    - name: GhttpThink
+      address:
+        EU: 0x22FC9D8
+    - name: GHttpCancelRequest
+      address:
+        EU: 0x22FC9EC
+    - name: GpInitialize
+      address:
+        EU: 0x22FF73C
+    - name: GpDestroy
+      address:
+        EU: 0x22FF76C
+    - name: GpProcess
+      address:
+        EU: 0x22FF788
+    - name: GpSetCallback
+      address:
+        EU: 0x22FF7BC
+    - name: GpConnectPreAuthenticatedA
+      address:
+        EU: 0x22FF80C
+    - name: GpDisconnect
+      address:
+        EU: 0x22FF910
+    - name: GpProfileSearchA
+      address:
+        EU: 0x22FF944
+    - name: GpGetInfo
+      address:
+        EU: 0x22FFA0C
+    - name: GpSendBuddyRequestA
+      address:
+        EU: 0x22FFB38
+    - name: GpAuthBuddyRequest
+      address:
+        EU: 0x22FFCAC
+    - name: GpDenyBuddyRequest
+      address:
+        EU: 0x22FFCFC
+    - name: GpGetNumBuddies
+      address:
+        EU: 0x22FFDBC
+    - name: GpGetBuddyStatus
+      address:
+        EU: 0x22FFDEC
+    - name: GpGetBuddyIndex
+      address:
+        EU: 0x22FFF7C
+    - name: GpIsBuddy
+      address:
+        EU: 0x230001C
+    - name: GpDeleteBuddy
+      address:
+        EU: 0x2300094
+    - name: GpSetStatusA
+      address:
+        EU: 0x23000F0
+    - name: GpSendBuddyMessageA
+      address:
+        EU: 0x2300324
+    - name: GpGetReversBuddiesList
+      address:
+        EU: 0x23003BC
     - name: PasswordEncryptString
       address:
         EU: 0x230C4F4
@@ -3846,10 +5418,157 @@ overlay0:
       description: |-
         Performs XOR encryption/decryption on a string, the keystream derived from srand(0x79707367) and repeatedly calling randrange(0x0, 0xFF).
         
-        Seemingly called mostly for the "passenc" field in DWC messages.
+        Seemingly called mostly for the "passenc" field in Dwc messages.
         
         r0: src
         r1: dest
+    - name: CloseStatsConnection
+      address:
+        EU: 0x230CAB0
+    - name: IsStatsConnected
+      address:
+        EU: 0x230CB20
+    - name: PersistThink
+      address:
+        EU: 0x230CB40
+    - name: Gt2Reject
+      address:
+        EU: 0x230E4D0
+    - name: Gt2CreateSocket
+      address:
+        EU: 0x230E888
+    - name: Gt2CloseSocket
+      address:
+        EU: 0x230E8AC
+    - name: Gt2Think
+      address:
+        EU: 0x230E8C4
+    - name: Gt2Listen
+      address:
+        EU: 0x230E8F4
+    - name: Gt2Accept
+      address:
+        EU: 0x230E900
+    - name: Gt2Connect
+      address:
+        EU: 0x230E918
+    - name: Gt2Send
+      address:
+        EU: 0x230EA94
+    - name: Gt2CloseConnectionHard
+      address:
+        EU: 0x230EB98
+    - name: Gt2CloseAllConnectionsHard
+      address:
+        EU: 0x230EBB8
+    - name: Gt2GetLocalPort
+      address:
+        EU: 0x230EC3C
+    - name: Gt2GetOutgoingBufferFreeSpace
+      address:
+        EU: 0x230EC4C
+    - name: Gt2GetSocketSocket
+      address:
+        EU: 0x230EC5C
+    - name: Gt2SetUnrecognizedMessageCallback
+      address:
+        EU: 0x230EC64
+    - name: Gt2SetConnectionData
+      address:
+        EU: 0x230EC6C
+    - name: Gt2GetConnectionData
+      address:
+        EU: 0x230EC74
+    - name: Gt2AddressToString
+      address:
+        EU: 0x2311408
+    - name: NnFreeNegotiateList
+      address:
+        EU: 0x2311DF4
+    - name: NnCancel
+      address:
+        EU: 0x23127C4
+    - name: NnThink
+      address:
+        EU: 0x2312ACC
+    - name: NnProcessData
+      address:
+        EU: 0x2312EA0
+    - name: qr2_init_socketa
+      address:
+        EU: 0x2313000
+    - name: qr2_register_natneg_callback
+      address:
+        EU: 0x23131C4
+    - name: qr2_register_clientmessage_callback
+      address:
+        EU: 0x23131DC
+    - name: qr2_register_publicaddress_callback
+      address:
+        EU: 0x23131F4
+    - name: qr2_think
+      address:
+        EU: 0x231320C
+    - name: qr2_send_statechanged
+      address:
+        EU: 0x2313408
+    - name: qr2_shutdown
+      address:
+        EU: 0x2313464
+    - name: qr2_keybuffer_add
+      address:
+        EU: 0x23134E8
+    - name: qr2_buffer_add_int
+      address:
+        EU: 0x2313524
+    - name: qr2_parse_querya
+      address:
+        EU: 0x231456C
+    - name: SbServerGetIntValueA
+      address:
+        EU: 0x2315A78
+    - name: SbServerGetPublicInetAddress
+      address:
+        EU: 0x2315B20
+    - name: SbServerGetPublicQueryPort
+      address:
+        EU: 0x2315B28
+    - name: SbServerHasPrivateAddress
+      address:
+        EU: 0x2315B54
+    - name: SbServerGetPrivateInetAddress
+      address:
+        EU: 0x2315B6C
+    - name: SbServerGetPrivateQueryPort
+      address:
+        EU: 0x2315B74
+    - name: ServerBrowserFree
+      address:
+        EU: 0x23162EC
+    - name: ServerBrowserLimitUpdateA
+      address:
+        EU: 0x2316440
+    - name: ServerBrowserSendMessageToServerA
+      address:
+        EU: 0x2316474
+    - name: ServerBrowserSendNatNegotiateCookieToServerA
+      address:
+        EU: 0x23164CC
+    - name: ServerBrowserThink
+      address:
+        EU: 0x2316514
+    - name: ServerBrowserClear
+      address:
+        EU: 0x2316548
+    - name: ServerBrowserState
+      address:
+        EU: 0x2316560
+    - name: ServerBrowserGetServer
+      address:
+        EU: 0x2316594
+    - name: ServerBrowserGetMyPublicIpAddr
+      address:
+        EU: 0x23165A4
   data:
     - name: OV0_STATIC_INITIALIZER
       address:
