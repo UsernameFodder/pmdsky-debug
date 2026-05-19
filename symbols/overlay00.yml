@@ -5587,7 +5587,7 @@ overlay0:
     - name: SendPacket_Gsi
       address:
         EU: 0x22F63BC
-    - name: 
+    - name: GsiStartAvailableCheckA
       aliases:
         - ResolveAvailableNintendoWifi
       address:
