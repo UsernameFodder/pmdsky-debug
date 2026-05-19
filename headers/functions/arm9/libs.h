@@ -440,7 +440,7 @@ void Pxi_IsCallbackReady(int fifo_tag, enum pxi_proc proc);
 int Pxi_SendWordByFifo(int fifo_tag, uint32_t data, bool err);
 void Pxii_HandlerRecvFifoNotEmpty(void);
 void FS_InitFile(struct file_stream* file);
-bool FS_GetOverlayInfo(struct overlay_info_entry* overlay_info, undefined param_2, int overlay_id);
+bool FS_LoadOverlayInfo(struct overlay_info_entry* overlay_info, undefined param_2, int overlay_id);
 bool FS_LoadOverlayImageAsync(struct overlay_info_entry* overlay_info);
 void FS_StartOverlay(struct overlay_info_entry* overlay_info);
 void MD5_Init(undefined* ctx);
@@ -471,16 +471,17 @@ void Ctrdgi_SendtoPxi(uint32_t data);
 // If declaring these builtins causes issues, you can disable them
 #ifndef PMDSKY_NO_BUILTIN
 int abs(int x);
-int mbtowc(wchar_t* pwc, const char* s, size_t n);
-bool TryAssignByte(uint8_t* ptr, uint8_t val);
-bool TryAssignByteWrapper(uint8_t* ptr, uint8_t val);
+int _mbtowc_noconv(wchar_t* pwc, const char* s, size_t n);
+
+bool _wctomb_noconv(uint8_t* ptr, uint8_t val);
+bool wctomb(uint8_t* ptr, uint8_t val);
 size_t wcstombs(char* dest, const wchar_t* src, size_t n);
 void* memcpy(void* dest, const void* src, size_t n);
 void* memmove(void* dest, const void* src, size_t n);
 void* memset(void* s, int c, size_t n);
 void* memchr(const void* s, int c, size_t n);
 int memcmp(const void* s1, const void* s2, size_t n);
-void memset_internal(void* s, int c, size_t n);
+void _fill_mem(void* s, int c, size_t n);
 int __vsprintf_internal_slice(slice_append_fn_t append, struct slice* str, const char* format,
                               va_list ap);
 bool TryAppendToSlice(struct slice* slice, const void* data, size_t data_len);
