@@ -17,23 +17,23 @@ int Soc_Close(int fd);
 int Soc_Fcntl(int fd, int op, uint32_t op_arg);
 void Soc_Startup(void);
 int Dwc_AC_Process(void);
-int SocketCastError(int error, int cast_error);
-int SocketCreate(int domain, int family, int protocol);
-int SocketClose(int fd);
-int SocketBind(int sockfd, const struct sockaddr_in* addr, int addr_len);
-int SocketConnect(int sockfd, const struct sockaddr_in* addr, int addr_len);
-int SocketRecv(int sockfd, void* buf, size_t size, int flags);
-int SocketRecvFrom(int sockfd, void* buf, size_t size, int flags, struct sockaddr_in* addr,
+int CheckRCode_Gsi(int error, int cast_error);
+int socket_gsi(int domain, int family, int protocol);
+int close_gsi(int fd);
+int bind_gsi(int sockfd, const struct sockaddr_in* addr, int addr_len);
+int connect_gsi(int sockfd, const struct sockaddr_in* addr, int addr_len);
+int recv_gsi(int sockfd, void* buf, size_t size, int flags);
+int recvfrom_gsi(int sockfd, void* buf, size_t size, int flags, struct sockaddr_in* addr,
                    int addr_len);
-int SocketSend(int sockfd, const void* buf, size_t size, int flags);
-int SocketSendTo(int sockfd, const void* buf, size_t size, int flags,
+int send_gsi(int sockfd, const void* buf, size_t size, int flags);
+int sendto_gsi(int sockfd, const void* buf, size_t size, int flags,
                  const struct sockaddr_in* addr, int addr_len);
-bool SocketSetBlocking(int sockfd, bool blocking);
-int DoRand(uint32_t ctx);
-int rand(void);
-void srand(uint32_t seed);
+bool SetSockBlocking(int sockfd, bool blocking);
+int nextlongrand_gsi(uint32_t ctx);
+int longrand_gsi(void);
+void Util_RandSeed(uint32_t seed);
 int RandRangeOverlay0(int x, int y);
-void ResolveAvailableNintendoWifi(const char* identifier);
-void PasswordEncryptString(const char* src, char* dst);
+void SendPacket_Gsi(const char* identifier);
+void GpiEncodeString(const char* src, char* dst);
 
 #endif
