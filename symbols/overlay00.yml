@@ -7116,7 +7116,7 @@ overlay0:
     - name: qr2_buffer_add_int
       address:
         EU: 0x2313524
-    - name: qr2_Buffer_AddA
+    - name: Qr2_Buffer_AddA
       address:
         EU: 0x2313558
     - name: enum_local_ips
