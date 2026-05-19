@@ -24,10 +24,10 @@ int bind_gsi(int sockfd, const struct sockaddr_in* addr, int addr_len);
 int connect_gsi(int sockfd, const struct sockaddr_in* addr, int addr_len);
 int recv_gsi(int sockfd, void* buf, size_t size, int flags);
 int recvfrom_gsi(int sockfd, void* buf, size_t size, int flags, struct sockaddr_in* addr,
-                   int addr_len);
+                 int addr_len);
 int send_gsi(int sockfd, const void* buf, size_t size, int flags);
-int sendto_gsi(int sockfd, const void* buf, size_t size, int flags,
-                 const struct sockaddr_in* addr, int addr_len);
+int sendto_gsi(int sockfd, const void* buf, size_t size, int flags, const struct sockaddr_in* addr,
+               int addr_len);
 bool SetSockBlocking(int sockfd, bool blocking);
 int nextlongrand_gsi(uint32_t ctx);
 int longrand_gsi(void);
