@@ -4638,14 +4638,14 @@ libs:
     - name: Std_CompareString
       address:
         EU: 
-		  - 0x2085664
-		  - 0x2085670
-		NA:
-		  - 0x20852CC
-		  - 0x20852D8
+          - 0x2085664
+          - 0x2085670
+        NA:
+          - 0x20852CC
+          - 0x20852D8
         JP:
           - 0x20855B4
-		  - 0x20855C0
+          - 0x20855C0
     - name: Std_CompareNString
       address:
         EU: 0x2085690
