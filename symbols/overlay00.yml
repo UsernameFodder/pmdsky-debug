@@ -396,7 +396,7 @@ overlay0:
         EU: 0x22C1E24
         NA: 0x22C1610
         JP: 0x22C2DBC
-    - name: WM_InitWirelessCounter
+    - name: WM_SetEntry
       address:
         EU: 0x22C1E9C
         NA: 0x22C1688
@@ -2395,17 +2395,17 @@ overlay0:
         EU: 0x22D521C
         NA: 0x22D4A08
         JP: 0x22D61B4
-    - name: MD5_InitVeneer
+    - name: MD5Init_Ghi
       address:
         EU: 0x22D5260
         NA: 0x22D4A4C
         JP: 0x22D61F8
-    - name: MD5_UpdateVeneer
+    - name: MD5Update_Ghi
       address:
         EU: 0x22D526C
         NA: 0x22D4A58
         JP: 0x22D6204
-    - name: MD5_DigestVeneer
+    - name: MD5Final_Ghi
       address:
         EU: 0x22D5278
         NA: 0x22D4A64
@@ -4809,6 +4809,51 @@ overlay0:
     - name: Dwc_Auth_CheckWiFiIdNeedCreate
       address:
         EU: 0x22EF2C8
+    - name: b64size
+      address:
+        EU: 0x22EF318
+    - name: my_randinit
+      address:
+        EU: 0x22EF350
+    - name: my_rand
+      address:
+        EU: 0x22EF364
+    - name: Dwci_RankingValidateKey
+      address:
+        EU: 0x22EF3A4
+    - name: Dwci_RankingSessionCompleteCallback_Helper
+      address:
+        EU: 0x22EF4A0
+    - name: Dwci_RankingSessionProgressCallback
+      address:
+        EU: 0x22EF650
+    - name: Dwci_RankingSessionCompleteCallback
+      address:
+        EU: 0x22EF654
+    - name: Dwci_RankingSessionEncrypt
+      address:
+        EU: 0x22EF8DC
+    - name: Dwci_RankingSessionInitialize
+      address:
+        EU: 0x22EFA24
+    - name: Dwci_RankingSessionProcess
+      address:
+        EU: 0x22EFB94
+    - name: Dwci_RankingSessionCancel
+      address:
+        EU: 0x22EFCC0
+    - name: Dwci_RankingSessionShutdown
+      address:
+        EU: 0x22EFCEC
+    - name: Dwci_RankingSessionGetResponse
+      address:
+        EU: 0x22EFD5C
+    - name: Dwci_RankingSessionPutAsync
+      address:
+        EU: 0x22EFD74
+    - name: Dwci_RankingSessionGetAsync
+      address:
+        EU: 0x22EFFC0
     - name: Dwci_Ndi_FreeAttr
       address:
         EU: 0x22EFFE4
@@ -5160,7 +5205,99 @@ overlay0:
     - name: Nhttpi_MemFind
       address:
         EU: 0x22F4E18
-    - name: SocketCastError
+    - name: FreeElement_Gsi
+      address:
+        EU: 0x22F4E9C
+    - name: ArrayGrow_Gsi
+      address:
+        EU: 0x22F4EC0
+    - name: SetElement_Gsi
+      address:
+        EU: 0x22F4EF0
+    - name: ArrayNew_Gsi
+      address:
+        EU: 0x22F4F14
+    - name: ArrayFree_Gsi
+      address:
+        EU: 0x22F4F6C
+    - name: ArrayLength_Gsi
+      address:
+        EU: 0x22F4FB4
+    - name: ArrayNth_Gsi
+      address:
+        EU: 0x22F4FBC
+    - name: ArrayAppend_Gsi
+      address:
+        EU: 0x22F4FE8
+    - name: ArrayInsertAt_Gsi
+      address:
+        EU: 0x22F5000
+    - name: ArrayInsertSorted_Gsi
+      address:
+        EU: 0x22F5084
+    - name: ArrayRemoveAt_Gsi
+      address:
+        EU: 0x22F50D8
+    - name: ArrayDeleteAt_Gsi
+      address:
+        EU: 0x22F5130
+    - name: ArrayReplaceAt_Gsi
+      address:
+        EU: 0x22F5150
+    - name: ArraySearch_Gsi
+      address:
+        EU: 0x22F517C
+    - name: ArrayMap_Gsi
+      address:
+        EU: 0x22F5234
+    - name: ArrayMapBackwards_Gsi
+      address:
+        EU: 0x22F5270
+    - name: ArrayClear_Gsi
+      address:
+        EU: 0x22F52C0
+    - name: mylsearch_gsi
+      address:
+        EU: 0x22F52EC
+    - name: mybsearch_gsi
+      address:
+        EU: 0x22F5344
+    - name: TableNew_Gsi
+      address:
+        EU: 0x22F53A8
+    - name: TableNew2_Gsi
+      address:
+        EU: 0x22F53D0
+    - name: TableFree_Gsi
+      address:
+        EU: 0x22F544C
+    - name: TableCount_Gsi
+      address:
+        EU: 0x22F5498
+    - name: TableEnter_Gsi
+      address:
+        EU: 0x22F54E4
+    - name: TableRemove_Gsi
+      address:
+        EU: 0x22F5564
+    - name: TableLookup_Gsi
+      address:
+        EU: 0x22F55E0
+    - name: TableMap_Gsi
+      address:
+        EU: 0x22F5658
+    - name: TableMapSafe2_Gsi
+      address:
+        EU: 0x22F56A0
+    - name: MD5Print_Gsi
+      address:
+        EU: 0x22F56F4
+    - name: MD5Digest_Gsi
+      address:
+        EU: 0x22F5750
+    - name: CheckRCode_Gsi
+      aliases:
+        - SocketCastError
       address:
         EU: 0x22F579C
         NA: 0x22F4F88
@@ -5171,7 +5308,9 @@ overlay0:
         r0: original value
         r1: new value to cast an error as, if original value is negative
         return: original value if non-negative, new value otherwise
-    - name: SocketCreate
+    - name: socket_gsi
+      aliases:
+        - SocketCreate
       address:
         EU: 0x22F57B4
         NA: 0x22F4FA0
@@ -5183,7 +5322,9 @@ overlay0:
         r1: family
         r2: protocol
         return: socket file descriptor on success, -1 on an error
-    - name: SocketClose
+    - name: closesocket_gsi
+      aliases:
+        - SocketClose
       address:
         EU: 0x22F57C8
         NA: 0x22F4FB4
@@ -5193,7 +5334,12 @@ overlay0:
         
         r0: file descriptor
         return: 0 on success, -1 on an error
-    - name: SocketBind
+    - name: shutdown_gsi
+      address:
+        EU: 0x22F57DC
+    - name: bind_gsi
+      aliases:
+        - SocketBind
       address:
         EU: 0x22F57F0
         NA: 0x22F4FDC
@@ -5205,7 +5351,9 @@ overlay0:
         r1: address
         r2: length of address
         return: 0 on success, -1 on an error
-    - name: SocketConnect
+    - name: connect_gsi
+      aliases:
+        - SocketConnect
       address:
         EU: 0x22F5850
         NA: 0x22F503C
@@ -5217,7 +5365,9 @@ overlay0:
         r1: address
         r2: length of address
         return: 0 on success, -1 on an error
-    - name: SocketRecv
+    - name: recv_gsi
+      aliases:
+        - SocketRecv
       address:
         EU: 0x22F589C
         NA: 0x22F5088
@@ -5230,7 +5380,9 @@ overlay0:
         r2: size of buffer
         r3: flags
         return: number of bytes read, or -1 on an error
-    - name: SocketRecvFrom
+    - name: recvfrom_gsi
+      aliases:
+        - SocketRecvFrom
       address:
         EU: 0x22F58B0
         NA: 0x22F509C
@@ -5245,7 +5397,9 @@ overlay0:
         stack[0]: destination address; can be NULL
         stack[1]: length of destination address
         return: number of bytes read, or -1 on an error
-    - name: SocketSend
+    - name: send_gsi
+      aliases:
+        - SocketSend
       address:
         EU: 0x22F58E0
         NA: 0x22F50CC
@@ -5258,7 +5412,9 @@ overlay0:
         r2: size of buffer
         r3: flags
         return: number of bytes sent, or -1 on an error
-    - name: SocketSendTo
+    - name: sendto_gsi
+      aliases:
+        - SocketSendTo
       address:
         EU: 0x22F58F4
         NA: 0x22F50E0
@@ -5273,10 +5429,24 @@ overlay0:
         stack[0]: target address
         stack[1]: length of target address
         return: number of bytes sent, or -1 on an error
+    - name: setsockopt_gsi
+      address:
+        EU: 0x22F594C
+    - name: getsockname_gsi
+      address:
+        EU: 0x22F5960
+    - name: inet_addr_gsi
+      address:
+        EU: 0x22F598C
     - name: GoaGetLastError
       address:
         EU: 0x22F59A8
-    - name: SocketSetBlocking
+    - name: GsiSocketSelect
+      address:
+        EU: 0x22F59B8
+    - name: SetSockBlocking
+      aliases:
+        - SocketSetBlocking
       address:
         EU: 0x22F5AB0
         NA: 0x22F529C
@@ -5287,7 +5457,57 @@ overlay0:
         r0: socket file descriptor
         r1: blocking flag
         return: success
-    - name: DoRand
+    - name: SetReceiveBufferSize
+      address:
+        EU: 0x22F5AF0
+    - name: CanReceiveOnSocket
+      address:
+        EU: 0x22F5B34
+    - name: CanSendOnSocket
+      address:
+        EU: 0x22F5B5C
+    - name: getlocalhost_gsi
+      address:
+        EU: 0x22F5B84
+    - name: IsPrivateIP
+      address:
+        EU: 0x22F5C10
+    - name: time_gsi
+      address:
+        EU: 0x22F5C8C
+    - name: GsiStartResolvingHostname
+      address:
+        EU: 0x22F5CC0
+    - name: GsiCancelResolvingHostname
+      address:
+        EU: 0x22F5D08
+    - name: GsiGetResolvedIP
+      address:
+        EU: 0x22F5D14
+    - name: goastrdup
+      address:
+        EU: 0x22F5D28
+    - name: strlwr
+      address:
+        EU: 0x22F5D5C
+    - name: SocketStartUp_Ghi
+      address:
+        EU: 0x22F5DA0
+    - name: SocketShutDown_Gsi
+      address:
+        EU: 0x22F5DA4
+    - name: current_time_gsi
+      address:
+        EU: 0x22F5DA8
+    - name: current_time_hires_gsi
+      address:
+        EU: 0x22F5DD0
+    - name: msleep_gsi
+      address:
+        EU: 0x22F5E00
+    - name: nextlongrand_gsi
+      aliases:
+        - DoRand
       address:
         EU: 0x22F5E0C
         NA: 0x22F55F8
@@ -5297,7 +5517,9 @@ overlay0:
         
         r0: ctx
         return: pseudorandom integer
-    - name: rand
+    - name: longrand_gsi
+      aliases:
+        - rand
       address:
         EU: 0x22F5E58
         NA: 0x22F5644
@@ -5306,7 +5528,9 @@ overlay0:
         Generates a new pseudorandom integer from the current PRNG sequence number and updates it.
         
         return: psuedorandom integer
-    - name: srand
+    - name: Util_RandSeed
+      aliases:
+        - srand
       address:
         EU: 0x22F5E78
         NA: 0x22F5664
@@ -5315,7 +5539,9 @@ overlay0:
         Seeds a PRNG sequence number used by rand.
         
         r0: seed
-    - name: RandRangeOverlay0
+    - name: Util_RandInt
+      aliases:
+        - RandRangeOverlay0
       address:
         EU: 0x22F5E94
         NA: 0x22F5680
@@ -5326,7 +5552,44 @@ overlay0:
         r0: x
         r1: y
         return: pseudorandom integer on the interval [x, y - 1]
-    - name: ResolveAvailableNintendoWifi
+    - name: QuartToTrip
+      address:
+        EU: 0x22F5EB8
+    - name: TripToQuart
+      address:
+        EU: 0x22F5F14
+    - name: B64Decode
+      address:
+        EU: 0x22F5FAC
+    - name: B64Encode
+      address:
+        EU: 0x22F61A0
+    - name: GsDebugAssert
+      address:
+        EU: 0x22F62D8
+    - name: GsiMemoryCallbacksSet
+      address:
+        EU: 0x22F62DC
+    - name: gsimalloc
+      address:
+        EU: 0x22F62F8
+    - name: gsirealloc
+      address:
+        EU: 0x22F6310
+    - name: gsifree
+      address:
+        EU: 0x22F6328
+    - name: get_sockaddrin
+      address:
+        EU:
+          - 0x22F6348
+          - 0x2313638
+    - name: SendPacket_Gsi
+      address:
+        EU: 0x22F63BC
+    - name: 
+      aliases:
+        - ResolveAvailableNintendoWifi
       address:
         EU: 0x22F640C
         NA: 0x22F5BF8
@@ -5335,9 +5598,316 @@ overlay0:
         Seemingly resolves the IP of "pokedungeonds.available.gs.nintendowifi.net", in which "pokedungeonds" is provided as the first parameter.
         
         r0: string
+    - name: HandlePacket
+      address:
+        EU: 0x22F6504
     - name: GsiAvailableCheckThink
       address:
         EU: 0x22F65BC
+    - name: GsiCryptRsaGeneratePad
+      address:
+        EU: 0x22F6704
+    - name: GsCryptRsaEncryptBuffer
+      address:
+        EU: 0x22F6750
+    - name: GsCryptRsaPkcs1EncryptBuffer
+      address:
+        EU: 0x22F675C
+    - name: GsiLargeIntTimerEnter
+      address:
+        EU: 0x22F682C
+    - name: GsiLargeIntTimerExit
+      address:
+        EU: 0x22F687C
+    - name: GsiLargeIntCompare
+      address:
+        EU:
+          - 0x22F68D0
+          - 0x22F68D8
+    - name: GsiLargeIntStripLeadingZeroes
+      address:
+        EU:
+          - 0x22F6960
+          - 0x22F6970
+    - name: GsiLargeIntAdd
+      address:
+        EU: 0x22F6990
+    - name: GsiLargeIntSub
+      address:
+        EU: 0x22F6AD0
+    - name: GsiLargeIntMult
+      address:
+        EU: 0x22F6BDC
+    - name: GsLargeIntDiv
+      address:
+        EU: 0x22F6DA0
+    - name: GsiLargeIntDiv
+      address:
+        EU: 0x22F6DC0
+    - name: GsiLargeIntSubDivide
+      address:
+        EU: 0x22F714C
+    - name: GsLargeIntSquareMod
+      address:
+        EU: 0x22F734C
+    - name: GsLargeIntPowerMod
+      address:
+        EU: 0x22F753C
+    - name: GsiLargeIntMultM
+      address:
+        EU: 0x22F79C4
+    - name: GsiLargeIntInverseMod
+      address:
+        EU: 0x22F7C8C
+    - name: GsLargeIntReverseBytes
+      address:
+        EU: 0x22F7D10
+    - name: GsLargeIntSetFromMemoryStream
+      address:
+        EU: 0x22F7D54
+    - name: GsLargeIntWriteToMemoryStream
+      address:
+        EU: 0x22F7D98
+    - name: swap_byte_gsi
+      address:
+        EU: 0x22F7DE0
+    - name: RC4Init_Gsi
+      address:
+        EU: 0x22F7DF4
+    - name: RC4Encrypt_Gsi
+      address:
+        EU: 0x22F7E80
+    - name: Sha1Reset_Gsi
+      address:
+        EU: 0x22F7F20
+    - name: Sha1Result_Gsi
+      address:
+        EU: 0x22F7F88
+    - name: Sha1Input_Ghi
+      address:
+        EU: 0x22F8020
+    - name: Sha1ProcessMessageBlock
+      address:
+        EU: 0x22F80E4
+    - name: Sha1PadMessage
+      address:
+        EU: 0x22F8338
+    - name: GsUdpEngineGetEngine
+      address:
+        EU: 0x22F846C
+    - name: GsUdpMsgHandlerFree
+      address:
+        EU: 0x22F8478
+    - name: GsUdpMsgHandlerCompare
+      address:
+        EU: 0x22F8488
+    - name: GsUdpMsgHandlerCompare2
+      address:
+        EU: 0x22F8498
+    - name: GsUdpRemotePeerCompare
+      address:
+        EU: 0x22F84B0
+    - name: GsUdpRemotePeerCompare2
+      address:
+        EU: 0x22F84DC
+    - name: GsUdpSocketError
+      address:
+        EU: 0x22F84F4
+    - name: GsUdpClosedRoutingCB
+      address:
+        EU: 0x22F8568
+    - name: GsUdpConnectedRoutingCB
+      address:
+        EU: 0x22F8680
+    - name: GsUdpPingRoutingCB
+      address:
+        EU: 0x22F8898
+    - name: GsUdpReceivedRoutingCB
+      address:
+        EU: 0x22F8958
+    - name: GsUdpUnrecognizedMsgCB
+      address:
+        EU: 0x22F8A80
+    - name: GsUdpConnAttemptCB
+      address:
+        EU: 0x22F8AE0
+    - name: GsUdpEngineIsInitialized
+      address:
+        EU: 0x22F8C20
+    - name: GsUdpEngineInitialize
+      address:
+        EU: 0x22F8C30
+    - name: GsUdpEngineGetPeerState
+      address:
+        EU: 0x22F8D8C
+    - name: GsUdpEngineStartTalkingToPeer
+      address:
+        EU: 0x22F8E30
+    - name: GsUdpEngineSendMessage
+      address:
+        EU: 0x22F905C
+    - name: GsUdpEngineThink
+      address:
+        EU: 0x22F919C
+    - name: GsUdpEngineShutdown
+      address:
+        EU: 0x22F91C4
+    - name: GsUdpEngineGetLocalPort
+      address:
+        EU: 0x22F9204
+    - name: GsUdpEngineAddMsgHandler
+      address:
+        EU: 0x22F9220
+    - name: GsUdpEngineRemoveMsgHandler
+      address:
+        EU: 0x22F9330
+    - name: GsUdpEngineNoMoreMsgHandlers
+      address:
+        EU: 0x22F93D8
+    - name: GsUdpEngineNoApp
+      address:
+        EU: 0x22F9408
+    - name: GsUdpEngineGetPeerOutBufferFreeSpace
+      address:
+        EU: 0x22F9464
+    - name: GsXmlWriterGetData
+      address:
+        EU: 0x22F94E4
+    - name: GsXmlWriterGetDataLength
+      address:
+        EU: 0x22F94EC
+    - name: GhiResizeBuffer
+      address:
+        EU: 0x22F94F4
+    - name: GhiInitBuffer
+      address:
+        EU: 0x22F9534
+    - name: GhiInitFixedBuffer
+      address:
+        EU: 0x22F95C0
+    - name: GhiInitReadOnlyBuffer
+      address:
+        EU: 0x22F9620
+    - name: GhiFreeBuffer
+      address:
+        EU: 0x22F9678
+    - name: GhiAppendDataToBuffer
+      address:
+        EU: 0x22F96B0
+    - name: GhiEncryptDataToBuffer
+      address:
+        EU: 0x22F97B0
+    - name: GhiAppendHeaderToBuffer
+      address:
+        EU: 0x22F9924
+    - name: GhiAppendCharToBuffer
+      address:
+        EU: 0x22F99A4
+    - name: GhiAppendIntToBuffer
+      address:
+        EU: 0x22F9A60
+    - name: GhiResetBuffer
+      address:
+        EU: 0x22F9A98
+    - name: GhiSendBufferedData
+      address:
+        EU: 0x22F9AB8
+    - name: GhiReadDataFromBufferFixed
+      address:
+        EU: 0x22F9BAC
+    - name: GhiCallCompletedCallback
+      address:
+        EU: 0x22F9BF8
+    - name: GhiCallProgressCallback
+      address:
+        EU: 0x22F9C50
+    - name: GhiCallPostCallback
+      address:
+        EU: 0x22F9CA0
+    - name: GhiCreateLock
+      address:
+        EU: 0x22F9CF0
+    - name: GhiFreeLock
+      address:
+        EU: 0x22F9CF4
+    - name: GhiLock
+      address:
+        EU: 0x22F9CF8
+    - name: GhiUnlock
+      address:
+        EU: 0x22F9CFC
+    - name: GhiDecryptReceivedData
+      address:
+        EU: 0x22F9D00
+    - name: GhiDoReceive
+      address:
+        EU: 0x22F9E40
+    - name: GhiDoSend
+      address:
+        EU: 0x22F9F48
+    - name: GhiTrySendThenBuffer
+      address:
+        EU: 0x22F9FDC
+    - name: GhiFindFreeSlot
+      address:
+        EU: 0x22FA0B4
+    - name: GhiNewConnection
+      address:
+        EU: 0x22FA1A0
+    - name: GhiFreeConnection
+      address:
+        EU: 0x22FA354
+    - name: GhiRequestToConnection
+      address:
+        EU: 0x22FA4A4
+    - name: GhiEnumConnections
+      address:
+        EU: 0x22FA4F8
+    - name: GhiRedirectConnection
+      address:
+        EU: 0x22FA55C
+    - name: GhiCleanupConnections
+      address:
+        EU: 0x22FA684
+    - name: GhttpSetRequestEncryptionEngine
+      address:
+        EU: 0x22FA6FC
+    - name: GhiEncryptorWriteNboLength
+      address:
+        EU: 0x22FA7C4
+    - name: GhiEncryptorReadNboLength
+      address:
+        EU: 0x22FA820
+    - name: GhiEncryptorParseAsn1Sequence
+      address:
+        EU: 0x22FA888
+    - name: GhttpEncryptorGenerateEncryptionKeys
+      address:
+        EU: 0x22FA97C
+    - name: GhttpEncryptorSslInitFunc
+      address:
+        EU: 0x22FAEBC
+    - name: GhttpEncryptorSslCleanupFunc
+      address:
+        EU: 0x22FB0C4
+    - name: GhttpEncryptorSslEncryptFunc
+      address:
+        EU: 0x22FB0FC
+    - name: GhttpEncryptorSslDecryptFunc
+      address:
+        EU: 0x22FB30C
+    - name: GhiCertificateChainIsValid
+      address:
+        EU: 0x22FB538
+    - name: GhttpEncryptorProcessSslHandshake
+      address:
+        EU: 0x22FB540
+    - name: GhiHandleStatus
+      address:
+        EU: 0x22FC538
+    - name: GhiProcessConnection
+      address:
+        EU: 0x22FC5F4
     - name: GhttpStartup
       address:
         EU: 0x22FC75C
@@ -5353,6 +5923,105 @@ overlay0:
     - name: GHttpCancelRequest
       address:
         EU: 0x22FC9EC
+    - name: GhiIsPostAutoFree
+      address:
+        EU: 0x22FCA04
+    - name: GhiFreePost
+      address:
+        EU: 0x22FCA0C
+    - name: GhiPostGetContentType
+      address:
+        EU: 0x22FCA28
+    - name: GhiPostGetNoFilesContentLength
+      address:
+        EU: 0x22FCA80
+    - name: GhiPostGetHasFilesContentLength
+      address:
+        EU: 0x22FCB18
+    - name: GhiPostGetContentLength
+      address:
+        EU: 0x22FCE30
+    - name: GhiPostStateInit
+      address:
+        EU: 0x22FCE60
+    - name: GhiPostStateCleanup
+      address:
+        EU: 0x22FCEF0
+    - name: GhiPostInitState
+      address:
+        EU: 0x22FCF2C
+    - name: GhiPostCleanupState
+      address:
+        EU: 0x22FD070
+    - name: GhiPostStringStateDoPosting
+      address:
+        EU: 0x22FD0E8
+    - name: GhiPostXmlStateDoPosting
+      address:
+        EU: 0x22FD274
+    - name: GhiPostFileDiskStateDoPosting
+      address:
+        EU: 0x22FD3C0
+    - name: GhiPostFileMemoryStateDoPosting
+      address:
+        EU: 0x22FD514
+    - name: GhiPostStateDoPosting
+      address:
+        EU: 0x22FD6F0
+    - name: GhiPostDoPosting
+      address:
+        EU: 0x22FDDB4
+    - name: GhiParseUrl
+      address:
+        EU: 0x22FDFB8
+    - name: GhiDoSocketInit
+      address:
+        EU: 0x22FE138
+    - name: GhiDoHostLookup
+      address:
+        EU: 0x22FE1D0
+    - name: GhiDoLookupPending
+      address:
+        EU: 0x22FE2AC
+    - name: GhiDoConnecting
+      address:
+        EU: 0x22FE328
+    - name: GhiDoSecuringSession
+      address:
+        EU: 0x22FE590
+    - name: GhiDoSendingRequest
+      address:
+        EU: 0x22FE6FC
+    - name: GhiDoPosting
+      address:
+        EU: 0x22FE9D4
+    - name: GhiDoWaiting
+      address:
+        EU: 0x22FEAB4
+    - name: GhiParseStatus
+      address:
+        EU: 0x22FEB64
+    - name: GhiDoReceivingStatus
+      address:
+        EU: 0x22FEC60
+    - name: GhiDeliverIncomingFileData
+      address:
+        EU: 0x22FEE08
+    - name: GhiParseChunkSize
+      address:
+        EU: 0x22FEEC8
+    - name: GhiAppendToChunkHeaderBuffer
+      address:
+        EU: 0x22FEEF0
+    - name: GhiProcessIncomingFileData
+      address:
+        EU: 0x22FEF44
+    - name: GhiDoReceivingHeaders
+      address:
+        EU: 0x22FF0CC
+    - name: GhiDoReceivingFile
+      address:
+        EU: 0x22FF5EC
     - name: GpInitialize
       address:
         EU: 0x22FF73C
@@ -5377,6 +6046,9 @@ overlay0:
     - name: GpGetInfo
       address:
         EU: 0x22FFA0C
+    - name: GpGetInfoNoWait
+      address:
+        EU: 0x22FFAE8
     - name: GpSendBuddyRequestA
       address:
         EU: 0x22FFB38
@@ -5410,7 +6082,402 @@ overlay0:
     - name: GpGetReversBuddiesList
       address:
         EU: 0x23003BC
-    - name: PasswordEncryptString
+    - name: GpiInitialize
+      address:
+        EU: 0x2300470
+    - name: GpiDestroy
+      address:
+        EU: 0x230059C
+    - name: GpiResetProfile
+      address:
+        EU: 0x2300604
+    - name: GpiReset
+      address:
+        EU: 0x2300624
+    - name: GpiProcessConnectionManager
+      address:
+        EU: 0x2300840
+    - name: GpiProcess
+      address:
+        EU: 0x2300BC8
+    - name: GpiSendAuthBuddyRequest
+      address:
+        EU: 0x2300D38
+    - name: GpiProcessRecvBuddyMessage
+      address:
+        EU: 0x2300DE0
+    - name: GpiProcessRecvBuddyStatusInfo
+      address:
+        EU: 0x2301A10
+    - name: GpiSendServerBuddyMessage
+      address:
+        EU: 0x2302264
+    - name: GpiSendBuddyMessage
+      address:
+        EU: 0x2302340
+    - name: GpiBuddyHandleKeyRequest
+      address:
+        EU: 0x23024C8
+    - name: GpiBuddyHandleKeyReply
+      address:
+        EU: 0x2302564
+    - name: GpiAuthBuddyRequest
+      address:
+        EU: 0x23029B4
+    - name: GpiFixBuddyIndices
+      address:
+        EU: 0x2302A80
+    - name: GpiDeleteBuddy
+      address:
+        EU: 0x2302AC4
+    - name: GpiAppendCharToBuffer
+      address:
+        EU: 0x2302D30
+    - name: GpiAppendStringToBufferLen
+      address:
+        EU: 0x2302DA8
+    - name: GpiAppendStringToBuffer
+      address:
+        EU: 0x2302E4C
+    - name: GpiAppendIntToBuffer
+      address:
+        EU: 0x2302E7C
+    - name: GpiSendData
+      address:
+        EU: 0x2302EB4
+    - name: GpiSendOrBufferChar
+      address:
+        EU: 0x2302F90
+    - name: GpiSendOrBufferStringLenToPeer
+      address:
+        EU: 0x2302F98
+    - name: GpiSendOrBufferString
+      address:
+        EU: 0x2303098
+    - name: GpiRecvToBuffer
+      address:
+        EU: 0x23030C8
+    - name: GpiSendFromBuffer
+      address:
+        EU: 0x2303218
+    - name: GpiSendBufferToPeer
+      address:
+        EU: 0x2303304
+    - name: GpiReadMessageFromBuffer
+      address:
+        EU: 0x230346C
+    - name: GpiClipBufferToPosition
+      address:
+        EU: 0x23035A8
+    - name: GpiCallErrorCallback
+      address:
+        EU: 0x2303600
+    - name: GpiAddCallback
+      address:
+        EU: 0x2303688
+    - name: GpiCallCallback
+      address:
+        EU: 0x230372C
+    - name: GpiProcessCallbacks
+      address:
+        EU: 0x23039C4
+    - name: RandomString
+      address:
+        EU: 0x2303AAC
+    - name: GpiStartConnect
+      address:
+        EU: 0x2303B14
+    - name: GpiConnect
+      address:
+        EU: 0x2303E78
+    - name: GpiSendLogin
+      address:
+        EU: 0x2304074
+    - name: GpiSendNewuser
+      address:
+        EU: 0x23044AC
+    - name: GpiProcessConnect
+      address:
+        EU: 0x23046F4
+    - name: GpiCheckConnect
+      address:
+        EU: 0x2304DC8
+    - name: GpiDisconnectCleanupProfile
+      address:
+        EU: 0x2304E3C
+    - name: GpiDisconnect
+      address:
+        EU: 0x2304FAC
+    - name: GpiIsValidDate
+      address:
+        EU: 0x230514C
+    - name: GpiDateToInt
+      address:
+        EU: 0x23052AC
+    - name: GpiInfoCacheToArg
+      address:
+        EU: 0x230531C
+    - name: GpiProcessGetInfo
+      address:
+        EU: 0x2305514
+    - name: GpiAddLocalInfo
+      address:
+        EU: 0x2305D00
+    - name: GpiSendLocalInfo
+      address:
+        EU: 0x2305DE8
+    - name: GpiSendUserInfo
+      address:
+        EU: 0x2305E28
+    - name: GpiSetInfoi
+      address:
+        EU: 0x2305E68
+    - name: GpiSetInfos
+      address:
+        EU: 0x2306338
+    - name: GpiSendGetInfo
+      address:
+        EU: 0x2306B20
+    - name: GpiGetInfo
+      address:
+        EU: 0x2306BB8
+    - name: GpiSetInfoCache
+      address:
+        EU: 0x2306D5C
+    - name: GpiFreeInfoCache
+      address:
+        EU: 0x2306E34
+    - name: GpiStatusInfoKeyFree
+      address:
+        EU: 0x2306F00
+    - name: GpiStatusInfoKeysInit
+      address:
+        EU: 0x2306F2C
+    - name: GpiStatusInfoKeysDestroy
+      address:
+        EU: 0x2306F74
+    - name: GpiStatusInfoKeyCompFunc
+      address:
+        EU: 0x2306F98
+    - name: GpiStatusInfoAddKey
+      address:
+        EU: 0x2306FAC
+    - name: GpiStatusInfoSetKey
+      address:
+        EU: 0x2307034
+    - name: GpiStatusInfoCheckKey
+      address:
+        EU: 0x23070D8
+    - name: GpiSaveKeysToBuffer
+      address:
+        EU: 0x230716C
+    - name: GpiFailedOpCallback
+      address:
+        EU: 0x2307498
+    - name: GpiAddOperation
+      address:
+        EU: 0x2307850
+    - name: GpiDestroyOperation
+      address:
+        EU: 0x2307908
+    - name: GpiRemoveOperation
+      address:
+        EU: 0x2307980
+    - name: GpiFindOperationByID
+      address:
+        EU: 0x23079D0
+    - name: GpiOperationsAreBlocking
+      address:
+        EU: 0x2307A1C
+    - name: GpiProcessOperation
+      address:
+        EU: 0x2307A58
+    - name: GpiProcessPeerInitiatingConnection
+      address:
+        EU: 0x2307AE4
+    - name: GpiProcessPeerAcceptingConnection
+      address:
+        EU: 0x2307DF4
+    - name: GpiPeerSendMessages
+      address:
+        EU: 0x2308038
+    - name: GpiProcessPeerConnected
+      address:
+        EU: 0x2308110
+    - name: GpiCheckTimedOutPeerOperations
+      address:
+        EU: 0x230848C
+    - name: GpiProcessPeer
+      address:
+        EU: 0x2308554
+    - name: GpiDestroyPeer
+      address:
+        EU: 0x23085D0
+    - name: GpiRemovePeer
+      address:
+        EU: 0x230861C
+    - name: GpiProcessPeers
+      address:
+        EU: 0x23086E8
+    - name: GpiGetPeerByProfile
+      address:
+        EU: 0x2308774
+    - name: GpiGetPeerByAddr
+      address:
+        EU: 0x23087A4
+    - name: GpiFreeMessage
+      address:
+        EU: 0x23087EC
+    - name: GpiAddPeer
+      address:
+        EU: 0x2308808
+    - name: GpiPeerGetSig
+      address:
+        EU: 0x2308894
+    - name: GpiPeerStartConnect
+      address:
+        EU: 0x23088F8
+    - name: GpiPeerAddMessage
+      address:
+        EU: 0x23089F8
+    - name: GpiPeerStartTransferMessage
+      address:
+        EU: 0x2308B60
+    - name: GpiPeerFinishTransferMessage
+      address:
+        EU: 0x2308BBC
+    - name: GpiPeerLeftCallback
+      address:
+        EU: 0x2308C90
+    - name: GpiPeerMessageCallback
+      address:
+        EU: 0x2308CB8
+    - name: GpiPeerAcceptedCallback
+      address:
+        EU: 0x2308DB0
+    - name: GpiPeerPingReplyCallback
+      address:
+        EU: 0x2308DE0
+    - name: GpiPeerAddOp
+      address:
+        EU: 0x2308DE4
+    - name: GpiPeerRemoveOp
+      address:
+        EU: 0x2308E2C
+    - name: GpiProfilesTableHash
+      address:
+        EU: 0x2308EC0
+    - name: GpiProfilesTableCompare
+      address:
+        EU: 0x2308ED4
+    - name: GpiProfilesTableFree
+      address:
+        EU: 0x2308EE4
+    - name: GpiInitProfiles
+      address:
+        EU: 0x2308FF8
+    - name: GpiProcessNewProfile
+      address:
+        EU: 0x2309050
+    - name: GpiProfileListAdd
+      address:
+        EU: 0x23091B0
+    - name: GpiGetProfile
+      address:
+        EU: 0x2309260
+    - name: GpiProcessDeleteProfle
+      address:
+        EU: 0x230929C
+    - name: GpiRemoveProfileByID
+      address:
+        EU: 0x23093AC
+    - name: GpiRemoveProfile
+      address:
+        EU: 0x23093E0
+    - name: GpiCheckProfileForUser
+      address:
+        EU: 0x23093F4
+    - name: GpiFindProfileByUser
+      address:
+        EU: 0x2309454
+    - name: GpiProfileMapCallback
+      address:
+        EU: 0x23094A0
+    - name: GpiProfileMap
+      address:
+        EU: 0x23094BC
+    - name: GpiCheckForBuddy
+      address:
+        EU: 0x23094FC
+    - name: GpiFindBuddy
+      address:
+        EU: 0x230954C
+    - name: GpiRemoveBuddyStatus
+      address:
+        EU: 0x230957C
+    - name: GpiRemoveBuddyStatusInfo
+      address:
+        EU: 0x23095B0
+    - name: GpiCanFreeProfile
+      address:
+        EU: 0x2309614
+    - name: GpiStartProfileSearch
+      address:
+        EU: 0x2309654
+    - name: GpiInitSearchData
+      address:
+        EU: 0x2309830
+    - name: GpiStartSearch
+      address:
+        EU: 0x23098E0
+    - name: GpiProfileSearch
+      address:
+        EU: 0x2309970
+    - name: GpiOthersBuddyList
+      address:
+        EU: 0x2309B5C
+    - name: GpiProcessSearch
+      address:
+        EU: 0x2309BC8
+    - name: GpiProcessSearches
+      address:
+        EU: 0x230BCFC
+    - name: GpiSendTransferReply
+      address:
+        EU: 0x230BE14
+    - name: GpiHandleTransferMessage
+      address:
+        EU: 0x230BEB8
+    - name: GpiProcessRegisterUniqueNick
+      address:
+        EU: 0x230BF3C
+    - name: GpiProcessRegisterCdKey
+      address:
+        EU: 0x230C040
+    - name: strzcpy_gsi
+      address:
+        EU: 0x230C144
+    - name: GpiCheckForError
+      address:
+        EU: 0x230C164
+    - name: GpiValueForKey
+      address:
+        EU: 0x230C23C
+    - name: GpiCheckSocketConnect
+      address:
+        EU: 0x230C2A8
+    - name: GpiReadKeyAndValue
+      address:
+        EU: 0x230C36C
+    - name: GpiSetError
+      address:
+        EU: 0x230C4BC
+    - name: GpiSetErrorString
+      address:
+        EU: 0x230C4E0
+    - name: GpiEncodeString
+      aliases:
+        - PasswordEncryptString
       address:
         EU: 0x230C4F4
         NA: 0x230BCE0
@@ -5422,6 +6489,48 @@ overlay0:
         
         r0: src
         r1: dest
+    - name: BucketNew
+      address:
+        EU: 0x230C57C
+    - name: BucketSet
+      address:
+        EU: 0x230C5F0
+    - name: BucketAdd_Gsi
+      address:
+        EU: 0x230C61C
+    - name: BucketSub_Gsi
+      address:
+        EU: 0x230C6B0
+    - name: BucketMult_Gsi
+      address:
+        EU: 0x230C734
+    - name: BucketDiv_Gsi
+      address:
+        EU: 0x230C7B4
+    - name: BucketConcat_Gsi
+      address:
+        EU: 0x230C838
+    - name: BucketAvg_Gsi
+      address:
+        EU: 0x230C8AC
+    - name: bint
+      address:
+        EU: 0x230C980
+    - name: bfloat
+      address:
+        EU: 0x230C998
+    - name: DumpMap_Gsi
+      address:
+        EU: 0x230C9B4
+    - name: DoSet_Gsi
+      address:
+        EU: 0x230C9E4
+    - name: DoGet_Gsi
+      address:
+        EU: 0x230CA60
+    - name: DoFind_Gsi
+      address:
+        EU: 0x230CA80
     - name: CloseStatsConnection
       address:
         EU: 0x230CAB0
@@ -5431,9 +6540,183 @@ overlay0:
     - name: PersistThink
       address:
         EU: 0x230CB40
-    - name: Gt2Reject
+    - name: xcode_buf
+      address:
+        EU: 0x230CC90
+    - name: value_for_key
+      address:
+        EU: 0x230CCD8
+    - name: value_for_key_safe
+      address:
+        EU: 0x230CDAC
+    - name: SocketReadable
+      address:
+        EU: 0x230CDC4
+    - name: FindFinal
+      address:
+        EU: 0x230CDD0
+    - name: FindRequest
+      address:
+        EU: 0x230CE38
+    - name: ProcessPlayerAuth
+      address:
+        EU: 0x230CEBC
+    - name: ProcessGetPid
+      address:
+        EU: 0x230CF6C
+    - name: ProcessGetData
+      address:
+        EU: 0x230CFF8
+    - name: ProcessSetData
+      address:
+        EU: 0x230D0DC
+    - name: ProcessStatement
+      address:
+        EU: 0x230D174
+    - name: ProcessInBuffer
+      address:
+        EU: 0x230D25C
+    - name: CallReqCallback
+      address:
+        EU: 0x230D2E4
+    - name: ClosePendingCallbacks
+      address:
+        EU: 0x230D3E8
+    - name: GetTeamIndex_Gsi
+      address:
+        EU: 0x230D4DC
+    - name: GetPlayerIndex_Gsi
+      address:
+        EU: 0x230D50C
+    - name: ServerOpInt
+      address:
+        EU: 0x230D53C
+    - name: ServerOpFloat
+      address:
+        EU: 0x230D5A4
+    - name: ServerOpString
+      address:
+        EU: 0x230D614
+    - name: TeamOpInt
+      address:
+        EU: 0x230D670
+    - name: TeamOpFloat
+      address:
+        EU: 0x230D6CC
+    - name: TeamOpString
+      address:
+        EU: 0x230D72C
+    - name: PlayerOpInt
+      address:
+        EU: 0x230D788
+    - name: PlayerOpFloat
+      address:
+        EU: 0x230D7E4
+    - name: PlayerOpString
+      address:
+        EU: 0x230D844
+    - name: Gti2VerifyChallenge
+      address:
+        EU: 0x230D8A0
+    - name: Gti2GetChallenge
+      address:
+        EU: 0x230D93C
+    - name: Gti2GetResponse
+      address:
+        EU: 0x230DA34
+    - name: Gti2CheckResponse
+      address:
+        EU: 0x230DB3C
+    - name: Gti2AllocateBuffer
+      address:
+        EU: 0x230DB70
+    - name: Gti2GetBufferFreeSpace
+      address:
+        EU: 0x230DB9C
+    - name: Gti2BufferWriteByte
+      address:
+        EU: 0x230DBAC
+    - name: Gti2BufferWriteUShort
+      address:
+        EU: 0x230DBC4
+    - name: Gti2BufferWriteData
+      address:
+        EU: 0x230DBF4
+    - name: Gti2BufferShorten
+      address:
+        EU: 0x230DC4C
+    - name: Gti2SocketErrorCallback
+      address:
+        EU: 0x230DC94
+    - name: Gti2ConnectAttemptCallback
+      address:
+        EU: 0x230DD04
+    - name: Gti2ConnectedCallback
+      address:
+        EU: 0x230DDE4
+    - name: Gti2ReceivedCallback
+      address:
+        EU: 0x230DE8C
+    - name: Gti2ClosedCallback
+      address:
+        EU: 0x230DF30
+    - name: Gti2PingCallback
+      address:
+        EU: 0x230DFC0
+    - name: Gti2SendFilterCallback
+      address:
+        EU: 0x230E050
+    - name: Gti2ReceiveFilterCallback
+      address:
+        EU: 0x230E118
+    - name: Gti2DumpCallback
+      address:
+        EU: 0x230E1E0
+    - name: Gti2UnrecognizedMessageCallback
+      address:
+        EU: 0x230E2CC
+    - name: Gti2NewOutgoingConnection
+      address:
+        EU: 0x230E36C
+    - name: Gti2NewIncomingConnection
+      address:
+        EU: 0x230E39C
+    - name: Gti2StartConnectionAttempt
+      address:
+        EU: 0x230E3CC
+    - name: Gti2AcceptConnection
+      address:
+        EU: 0x230E474
+    - name: Gti2RejectConnection
       address:
         EU: 0x230E4D0
+    - name: Gti2ConnectionSendData
+      address:
+        EU: 0x230E528
+    - name: Gti2CheckTimeout
+      address:
+        EU: 0x230E570
+    - name: Gti2SendRetries
+      address:
+        EU: 0x230E614
+    - name: Gti2CheckPendingAck
+      address:
+        EU: 0x230E680
+    - name: Gti2CheckKeepAlive
+      address:
+        EU: 0x230E6BC
+    - name: Gti2ConnectionThink
+      address:
+        EU: 0x230E6F0
+    - name: Gti2CloseConnection
+      address:
+        EU: 0x230E758
+    - name: Gti2ConnectionClosed
+      address:
+        EU: 0x230E7A8
+    - name: Gti2ConnectionCleanup
+      address:
+        EU: 0x230E804
     - name: Gt2CreateSocket
       address:
         EU: 0x230E888
@@ -5449,6 +6732,9 @@ overlay0:
     - name: Gt2Accept
       address:
         EU: 0x230E900
+    - name: Gt2Reject
+      address:
+        EU: 0x230E90C
     - name: Gt2Connect
       address:
         EU: 0x230E918
@@ -5458,12 +6744,30 @@ overlay0:
     - name: Gt2CloseConnectionHard
       address:
         EU: 0x230EB98
+    - name: Gti2CloseAllConnectionsHardMap
+      address:
+        EU: 0x230EBA8
     - name: Gt2CloseAllConnectionsHard
       address:
         EU: 0x230EBB8
+    - name: Gt2GetConnectionState
+      address:
+        EU: 0x230EBFC
+    - name: Gt2GetRemoteIP
+      address:
+        EU: 0x230EC24
+    - name: Gt2GetRemotePort
+      address:
+        EU: 0x230EC2C
+    - name: Gt2GetLocalIP
+      address:
+        EU: 0x230EC34
     - name: Gt2GetLocalPort
       address:
         EU: 0x230EC3C
+    - name: Gt2GetOutgoingBufferSize
+      address:
+        EU: 0x230EC44
     - name: Gt2GetOutgoingBufferFreeSpace
       address:
         EU: 0x230EC4C
@@ -5479,18 +6783,303 @@ overlay0:
     - name: Gt2GetConnectionData
       address:
         EU: 0x230EC74
+    - name: Gti2UShortFromBuffer
+      address:
+        EU: 0x230EC7C
+    - name: Gti2UShortToBuffer
+      address:
+        EU: 0x230EC9C
+    - name: Gti2SnDiff
+      address:
+        EU: 0x230ECB0
+    - name: Gti2ConnectionError
+      address:
+        EU: 0x230ECC0
+    - name: Gti2ConnectionCommunicationError
+      address:
+        EU: 0x230ED54
+    - name: Gti2ConnectionMemoryError
+      address:
+        EU: 0x230ED68
+    - name: Gti2HandleEsn
+      address:
+        EU: 0x230ED94
+    - name: Gti2HandleAppUnreliable
+      address:
+        EU: 0x230EE90
+    - name: Gti2HandleAppReliable
+      address:
+        EU: 0x230EF20
+    - name: Gti2HandleClientChallenge
+      address:
+        EU: 0x230EFCC
+    - name: Gti2HandleServerChallenge
+      address:
+        EU: 0x230F064
+    - name: Gti2HandleClientResponse
+      address:
+        EU: 0x230F140
+    - name: Gti2HandleAccept
+      address:
+        EU: 0x230F250
+    - name: Gti2HandleReject
+      address:
+        EU: 0x230F29C
+    - name: Gti2HandleClose
+      address:
+        EU: 0x230F308
+    - name: Gti2DeliverReliableMessage
+      address:
+        EU: 0x230F34C
+    - name: Gti2IncomingBufferMessageCompare
+      address:
+        EU: 0x230F44C
+    - name: Gti2BufferIncomingMessage
+      address:
+        EU: 0x230F460
+    - name: Gti2RemoveHoldMessage
+      address:
+        EU: 0x230F614
+    - name: Gti2DeliverHoldMessages
+      address:
+        EU: 0x230F698
+    - name: Gti2SetPendingAck
+      address:
+        EU: 0x230F718
+    - name: Gti2HandleReliableMessage
+      address:
+        EU: 0x230F740
+    - name: Gti2HandleAck
+      address:
+        EU: 0x230F8F0
+    - name: Gti2HandleNack
+      address:
+        EU: 0x230F93C
+    - name: Gti2HandlePing
+      address:
+        EU: 0x230FA18
+    - name: Gti2HandlePong
+      address:
+        EU: 0x230FA24
+    - name: Gti2HandleClosed
+      address:
+        EU: 0x230FAB8
+    - name: Gti2HandleUnreliableMessage
+      address:
+        EU: 0x230FAF0
+    - name: Gti2HandleMessage
+      address:
+        EU: 0x230FBB4
+    - name: Gti2HandleConnectionReset
+      address:
+        EU: 0x230FEB0
+    - name: Gti2HandleHostUnreachable
+      address:
+        EU: 0x230FFB0
+    - name: Gti2ReceiveMessages
+      address:
+        EU: 0x231004C
+    - name: Gti2StoreOutgoingReliableMessageInfo
+      address:
+        EU: 0x23101D0
+    - name: Gti2BeginReliableMessage
+      address:
+        EU: 0x2310244
+    - name: Gti2EndReliableMessage
+      address:
+        EU: 0x2310338
+    - name: Gti2SendAppReliable
+      address:
+        EU: 0x2310380
+    - name: Gti2SendClientChallenge
+      address:
+        EU: 0x23103F4
+    - name: Gti2SendServerChallenge
+      address:
+        EU: 0x231045C
+    - name: Gti2SendClientResponse
+      address:
+        EU: 0x23104F0
+    - name: Gti2SendAccept
+      address:
+        EU: 0x2310574
+    - name: Gti2SendReject
+      address:
+        EU: 0x23105D8
+    - name: Gti2SendClose
+      address:
+        EU: 0x2310658
+    - name: Gti2SendKeepAlive
+      address:
+        EU: 0x23106BC
+    - name: Gti2SendAppUnreliable
+      address:
+        EU: 0x2310720
+    - name: Gti2SendAck
+      address:
+        EU: 0x2310818
+    - name: Gti2SendNack
+      address:
+        EU: 0x23108BC
+    - name: Gti2SendPong
+      address:
+        EU: 0x2310984
+    - name: Gti2SendClosed
+      address:
+        EU: 0x2310998
+    - name: Gti2SendClosedOnSocket
+      address:
+        EU: 0x23109B4
+    - name: Gti2ResendMessage
+      address:
+        EU: 0x2310A3C
+    - name: Gti2Send
+      address:
+        EU: 0x2310AC0
+    - name: Gti2ConnectionHash
+      address:
+        EU: 0x2310ADC
+    - name: Gti2ConnectionCompare
+      address:
+        EU: 0x2310AFC
+    - name: Gti2ConnectionFree
+      address:
+        EU: 0x2310B30
+    - name: Gti2SocketFindConnection
+      address:
+        EU: 0x2310B40
+    - name: Gti2CreateSocket
+      address:
+        EU: 0x2310B78
+    - name: Gti2CloseSocket
+      address:
+        EU: 0x2310DBC
+    - name: Gti2Listen
+      address:
+        EU: 0x2310E00
+    - name: Gti2CreateConnectionObject
+      address:
+        EU: 0x2310E08
+    - name: Gti2NewSocketConnection
+      address:
+        EU: 0x2310E18
+    - name: Gti2FreeSocketConnection
+      address:
+        EU: 0x2311028
+    - name: Gti2SocketSend
+      address:
+        EU: 0x23110EC
+    - name: Gti2SocketConnectionsThinkMap
+      address:
+        EU: 0x2311300
+    - name: Gti2SocketConnectionsThink
+      address:
+        EU: 0x2311358
+    - name: Gti2FreeClosedConnections
+      address:
+        EU: 0x2311394
+    - name: Gti2SocketError
+      address:
+        EU: 0x23113CC
     - name: Gt2AddressToString
       address:
         EU: 0x2311408
+    - name: Gt2StringToAddress
+      address:
+        EU: 0x23114B8
+    - name: Gti2MessageCheck
+      address:
+        EU: 0x2311614
+    - name: GetLocalIP_Gsi
+      address:
+        EU: 0x2311664
+    - name: GetLocalPort_Gsi
+      address:
+        EU: 0x23116C8
+    - name: OutputMapping
+      address:
+        EU: 0x23116FC
+    - name: Think_NN
+      address:
+        EU: 0x2311700
+    - name: NatifyThink
+      address:
+        EU: 0x2311A40
+    - name: DetermineNatType
+      address:
+        EU: 0x2311A4C
+    - name: FindNegotiatorForCookie
+      address:
+        EU: 0x2311C94
+    - name: AddNegotiator
+      address:
+        EU: 0x2311CFC
+    - name: RemoveNegotiator
+      address:
+        EU: 0x2311D8C
     - name: NnFreeNegotiateList
       address:
         EU: 0x2311DF4
+    - name: CheckMagic_NN
+      address:
+        EU: 0x2311E20
+    - name: SendPacket_NN
+      address:
+        EU: 0x2311E44
+    - name: GetLocalIP_NN
+      address:
+        EU: 0x2311E98
+    - name: GetLocalPort_NN
+      address:
+        EU: 0x2311EFC
+    - name: SendReportPacket
+      address:
+        EU: 0x2311F30
+    - name: StartReport
+      address:
+        EU: 0x2312084
+    - name: SendInitPackets
+      address:
+        EU: 0x231212C
+    - name: SendPingPacket
+      address:
+        EU: 0x23123A4
+    - name: CheckNatifyStatus
+      address:
+        EU: 0x23124C4
+    - name: NameToIp_NN
+      address:
+        EU: 0x23125D4
+    - name: ResolveServer_NN
+      address:
+        EU: 0x231260C
+    - name: ResolveServers_NN
+      address:
+        EU: 0x231264C
+    - name: NnBeginNegotiationWithSocket
+      address:
+        EU: 0x23126F4
     - name: NnCancel
       address:
         EU: 0x23127C4
+    - name: NegotiateThink
+      address:
+        EU: 0x23127FC
     - name: NnThink
       address:
         EU: 0x2312ACC
+    - name: SendConnectAck
+      address:
+        EU: 0x2312B30
+    - name: ProcessConnectPacket
+      address:
+        EU: 0x2312BFC
+    - name: ProcessPingPacket
+      address:
+        EU: 0x2312CAC
+    - name: ProcessInitPacket
+      address:
+        EU: 0x2312D4C
     - name: NnProcessData
       address:
         EU: 0x2312EA0
@@ -5509,6 +7098,12 @@ overlay0:
     - name: qr2_think
       address:
         EU: 0x231320C
+    - name: qr2_check_queries
+      address:
+        EU: 0x2313248
+    - name: qr2_check_send_heartbeat
+      address:
+        EU: 0x23132F4
     - name: qr2_send_statechanged
       address:
         EU: 0x2313408
@@ -5521,9 +7116,159 @@ overlay0:
     - name: qr2_buffer_add_int
       address:
         EU: 0x2313524
+    - name: qr2_Buffer_AddA
+      address:
+        EU: 0x2313558
+    - name: enum_local_ips
+      address:
+        EU: 0x23135C4
+    - name: swap_byte_qr2
+      address:
+        EU: 0x23136E0
+    - name: encode_ct
+      address:
+        EU: 0x23136F4
+    - name: gs_encode
+      address:
+        EU: 0x231373C
+    - name: gs_encrypt
+      address:
+        EU: 0x2313800
+    - name: qr_add_packet_header
+      address:
+        EU: 0x2313944
+    - name: compute_challenge_response
+      address:
+        EU: 0x2313974
+    - name: handle_public_address
+      address:
+        EU: 0x2313A14
+    - name: qr_build_partial_query_reply
+      address:
+        EU: 0x2313AC4
+    - name: qr_build_query_reply
+      address:
+        EU: 0x2313D28
+    - name: qr_build_split_query_reply
+      address:
+        EU: 0x2313D80
+    - name: qr_process_query
+      address:
+        EU: 0x2314034
+    - name: qr_process_client_message
+      address:
+        EU: 0x23141C8
+    - name: qr_got_recent_message
+      address:
+        EU: 0x23142F0
+    - name: qr2_process_ip_verify
+      address:
+        EU: 0x2314354
+    - name: qr2_check_ip_verify
+      address:
+        EU: 0x23144C8
+    - name: qr2_expire_ip_verify
+      address:
+        EU: 0x2314528
     - name: qr2_parse_querya
       address:
         EU: 0x231456C
+    - name: send_keepalive
+      address:
+        EU: 0x231496C
+    - name: send_heartbeat
+      address:
+        EU: 0x23149CC
+    - name: qr2_internal_is_master_only_key
+      address:
+        EU: 0x2314C50
+    - name: keyrand_goa
+      address:
+        EU: 0x2314C98
+    - name: GoaHashInit
+      address:
+        EU: 0x2314D4C
+    - name: GoaCryptInit
+      address:
+        EU: 0x2314D94
+    - name: GoaEncryptByte
+      address:
+        EU: 0x2314E5C
+    - name: GoaEncrypt
+      address:
+        EU: 0x2314F28
+    - name: FifoAddRear
+      address:
+        EU: 0x2314F64
+    - name: FifoAddFront
+      address:
+        EU: 0x2314F98
+    - name: FifoRemove
+      address:
+        EU: 0x2314FCC
+    - name: FifoClear
+      address:
+        EU: 0x2315038
+    - name: QeStartQuery
+      address:
+        EU: 0x231504C
+    - name: SbEngineHaltUpdates
+      address:
+        EU: 0x2315314
+    - name: SbEngineCleanup
+      address:
+        EU: 0x2315330
+    - name: ParseSingleQR2Reply
+      address:
+        EU: 0x231535C
+    - name: ParseSingleGoaReply
+      address:
+        EU: 0x2315520
+    - name: ParseSingleIcmpReply
+      address:
+        EU: 0x23155B8
+    - name: ProcessIncomingReplies
+      address:
+        EU: 0x23155C0
+    - name: TimeoutOldQueries
+      address:
+        EU: 0x2315754
+    - name: QueueNextQueries
+      address:
+        EU: 0x23157E4
+    - name: SbQueryEngineThink
+      address:
+        EU: 0x2315824
+    - name: SbQueryEngineAddQueryKey
+      address:
+        EU: 0x2315884
+    - name: RefStringHash
+      address:
+        EU: 0x23158A4
+    - name: RefStringCompare
+      address:
+        EU: 0x23158B4
+    - name: RefStringFree
+      address:
+        EU: 0x23158C8
+    - name: SbRefStrHash
+      address:
+        EU: 0x23158D8
+    - name: SbRefStrHashCleanup
+      address:
+        EU: 0x231593C
+    - name: SbServerFree
+      address:
+        EU: 0x231597C
+    - name: SbServerAddKeyValue
+      address:
+        EU: 0x23159A0
+    - name: SbServerAddIntKeyValue
+      address:
+        EU: 0x23159E0
+    - name: SbServerGetStringValueA
+      address:
+        EU: 0x2315A18
     - name: SbServerGetIntValueA
       address:
         EU: 0x2315A78
@@ -5533,6 +7278,9 @@ overlay0:
     - name: SbServerGetPublicQueryPort
       address:
         EU: 0x2315B28
+    - name: SbServerGetPublicQueryPortNbo
+      address:
+        EU: 0x2315B4C
     - name: SbServerHasPrivateAddress
       address:
         EU: 0x2315B54
@@ -5542,9 +7290,69 @@ overlay0:
     - name: SbServerGetPrivateQueryPort
       address:
         EU: 0x2315B74
+    - name: SbServerSetNext
+      address:
+        EU: 0x2315B98
+    - name: SbServerGetNext
+      address:
+        EU: 0x2315BA0
+    - name: CheckValidKey
+      address:
+        EU: 0x2315BA8
+    - name: mytok
+      address:
+        EU: 0x2315C08
+    - name: SbServerParseKeyVals
+      address:
+        EU: 0x2315C6C
+    - name: SbServerParseQR2FullKeysSingle
+      address:
+        EU: 0x2315CFC
+    - name: SbServerParseQR2FullKeysSplit
+      address:
+        EU: 0x2315EE8
+    - name: StringHash
+      address:
+        EU: 0x2316140
+    - name: KeyValFree
+      address:
+        EU: 0x2316198
+    - name: KeyValHashKey
+      address:
+        EU: 0x23161BC
+    - name: KeyValCompareKey
+      address:
+        EU: 0x23161CC
+    - name: SbServerGetPing
+      address:
+        EU: 0x23161F0
+    - name: SbAllocServer
+      address:
+        EU: 0x23161F8
+    - name: SbServerSetFlags
+      address:
+        EU: 0x23162A4
+    - name: SbServerSetPublicAddr
+      address:
+        EU: 0x23162AC
+    - name: SbServerSetIcmpIp
+      address:
+        EU: 0x23162B8
+    - name: SbServerSetState
+      address:
+        EU: 0x23162C0
+    - name: SbServerGetState
+      address:
+        EU: 0x23162C8
+    - name: SbIsNullServer
+      address:
+        EU: 0x23162D0
     - name: ServerBrowserFree
       address:
         EU: 0x23162EC
+    - name: ServerBrowserBeginUpdate2
+      address:
+        EU: 0x2316310
     - name: ServerBrowserLimitUpdateA
       address:
         EU: 0x2316440
@@ -5557,6 +7365,9 @@ overlay0:
     - name: ServerBrowserThink
       address:
         EU: 0x2316514
+    - name: ServerBrowserHalt
+      address:
+        EU: 0x231652C
     - name: ServerBrowserClear
       address:
         EU: 0x2316548
@@ -5569,6 +7380,141 @@ overlay0:
     - name: ServerBrowserGetMyPublicIpAddr
       address:
         EU: 0x23165A4
+    - name: SbServerListAppendServer
+      address:
+        EU: 0x23165AC
+    - name: SbServerListFindServerByIP
+      address:
+        EU: 0x23165E8
+    - name: AddServerToDeadlist
+      address:
+        EU: 0x2316658
+    - name: SbServerListRemoveAt
+      address:
+        EU: 0x231668C
+    - name: SbServerListNth
+      address:
+        EU: 0x23166D8
+    - name: SbFreeDeadList
+      address:
+        EU: 0x23166EC
+    - name: SbServerListClear
+      address:
+        EU: 0x2316744
+    - name: SbRefStr
+      address:
+        EU: 0x231679C
+    - name: SbReleaseStr
+      address:
+        EU: 0x231680C
+    - name: NtsLengthSB
+      address:
+        EU: 0x2316860
+    - name: ErrorDisconnect
+      address:
+        EU: 0x2316890
+    - name: StringHash_Sb
+      address:
+        EU: 0x231694C
+    - name: ServerListConnect
+      address:
+        EU: 0x23169A4
+    - name: BufferAddNtS
+      address:
+        EU: 0x2316AD0
+    - name: BufferAddByte
+      address:
+        EU: 0x2316B20
+    - name: BufferAddInt
+      address:
+        EU: 0x2316B44
+    - name: BufferAddIntLE
+      address:
+        EU: 0x2316B98
+    - name: BufferAddData
+      address:
+        EU: 0x2316BF0
+    - name: SetupListChallenge
+      address:
+        EU: 0x2316C24
+    - name: SendWithRetry
+      address:
+        EU: 0x2316D10
+    - name: SbServerListConnectAndQuery
+      address:
+        EU: 0x2316DB4
+    - name: FreePopularValues
+      address:
+        EU: 0x2316FF0
+    - name: FreeKeyList
+      address:
+        EU: 0x2317034
+    - name: SbServerListDisconnect
+      address:
+        EU: 0x2317098
+    - name: SbServerListCleanup
+      address:
+        EU: 0x23170FC
+    - name: InitCryptKey
+      address:
+        EU: 0x2317134
+    - name: ServerSizeForFlags
+      address:
+        EU: 0x23171D0
+    - name: FullRulesPresent
+      address:
+        EU: 0x23171FC
+    - name: AllKeysPresent
+      address:
+        EU: 0x2317280
+    - name: ParseServerIpPort
+      address:
+        EU: 0x2317358
+    - name: ParseServer
+      address:
+        EU: 0x23173C8
+    - name: IncomingListParseServer
+      address:
+        EU: 0x23176A0
+    - name: SbSetLastListErrorPtr
+      address:
+        EU: 0x23177D0
+    - name: ProcessMainListData
+      address:
+        EU: 0x23177D8
+    - name: ProcessPushKeyList
+      address:
+        EU: 0x2317C04
+    - name: ProcessPlayerSearch
+      address:
+        EU: 0x2317CE0
+    - name: ProcessMaploop
+      address:
+        EU: 0x2317E9C
+    - name: ProcessDeleteServer
+      address:
+        EU: 0x2318020
+    - name: ProcessPushServer
+      address:
+        EU: 0x23180AC
+    - name: ProcessAdHocData
+      address:
+        EU: 0x23181A4
+    - name: ProcessIncomingData
+      address:
+        EU: 0x2318324
+    - name: SbSendMessageToServer
+      address:
+        EU: 0x2318408
+    - name: SbSendNatNegotiateCookieToServer
+      address:
+        EU: 0x2318530
+    - name: ProcessLanData
+      address:
+        EU: 0x23185E8
+    - name: SbListThink
+      address:
+        EU: 0x231870C
   data:
     - name: OV0_STATIC_INITIALIZER
       address:
