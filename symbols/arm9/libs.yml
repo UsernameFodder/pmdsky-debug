@@ -4691,9 +4691,11 @@ libs:
         EU: 0x2085F6C
         NA: 0x2085BD4
         JP: 0x2085EBC
-    - name: Nan
+    - name: NotANumber
       address:
         EU: 0x20867E8
+      description: |-
+        The original name for this function is "nan".
     - name: _flush_line_buffered_output_files
       address:
         EU: 0x2086800
