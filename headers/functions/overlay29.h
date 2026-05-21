@@ -620,7 +620,7 @@ bool TryInflictEmbargoStatus(struct entity* user, struct entity* target, bool lo
 bool TryInflictMiracleEyeStatus(struct entity* user, struct entity* target, bool check_only);
 void TryInflictMagnetRiseStatus(struct entity* user, struct entity* target);
 bool IsFloating(struct entity* entity);
-void SetTwoTurnInvincibility(struct entity* defender, enum two_turn_invincibility);
+void SetTwoTurnInvincibility(struct entity* target, enum two_turn_invincibility);
 void SetReflectStatus(struct entity* user, struct entity* target, enum status_reflect_id status);
 void TryInflictSafeguardStatus(struct entity* user, struct entity* target);
 void TryInflictMistStatus(struct entity* user, struct entity* target);
