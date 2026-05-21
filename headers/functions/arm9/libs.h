@@ -489,6 +489,8 @@ int __vsprintf_internal(char* str, size_t maxlen, const char* format, va_list ap
 int vsprintf(char* str, const char* format, va_list ap);
 int snprintf(char* str, size_t n, const char* format, ...);
 int sprintf(char* str, const char* format, ...);
+int rand(void);
+void srand(uint32_t seed);
 size_t strlen(const char* s);
 char* strcpy(char* dest, const char* src);
 char* strncpy(char* dest, const char* src, size_t n);
