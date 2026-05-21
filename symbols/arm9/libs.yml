@@ -4691,7 +4691,7 @@ libs:
         EU: 0x2085F6C
         NA: 0x2085BD4
         JP: 0x2085EBC
-    - name: "nan"
+    - name: Nan
       address:
         EU: 0x20867E8
     - name: _flush_line_buffered_output_files
