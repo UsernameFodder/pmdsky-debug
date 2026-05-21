@@ -5532,7 +5532,7 @@ overlay0:
         NA: 0x22F5664
         JP: 0x22F6E10
       description: |-
-        Seeds a PRNG sequence number used by rand.
+        Seeds a PRNG sequence number used by longrand_gsi.
         
         r0: seed
     - name: Util_RandInt
