@@ -4694,8 +4694,7 @@ libs:
     - name: NotANumber
       address:
         EU: 0x20867E8
-      description: |-
-        The original name for this function is "nan".
+      description: "The original name for this function is \"nan\"."
     - name: _flush_line_buffered_output_files
       address:
         EU: 0x2086800
