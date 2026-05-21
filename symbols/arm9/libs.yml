@@ -4993,9 +4993,25 @@ libs:
     - name: rand
       address:
         EU: 0x2089948
+        NA: 0x20895B0
+      description: |-
+        The rand(3) C library function.
+        
+        Computes a pseudorandom 15-bit integer using the classical ANSI C linear congruential generator (LCG), which uses a modulus of 2^32, a multiplier of 1103515245, and an increment of 12345. I.e., the recurrence relation is `x = (1103515245*x_prev + 12345)`, where x is a 32-bit unsigned integer. Only the upper 16 bits, excluding the most significant bit, are used as output.
+        
+        The LCG has a hard-coded seed of 1, but can be seeded with a call to srand.
+        
+        return: psuedorandom integer on the interval [0, 32767]
     - name: srand
       address:
         EU: 0x208997C
+        NA: 0x20895E4
+      description: |-
+        The srand(3) C library function.
+        
+        Seed RAND_SEQUENCE_NUM to a given value.
+        
+        r0: seed
     - name: strlen
       address:
         EU: 0x2089A10
@@ -5668,4 +5684,12 @@ libs:
     - name: _call_static_initializers
       address:
         EU: 0x2090C40
-  data: []
+  data:
+    - name: ANSI_C_LCG_MULTIPLIER
+      address:
+        NA: 0x20895DC
+      description: "The ANSI C LCG multiplier, 1103515245, used by the system PRNG."
+    - name: RAND_MAX
+      address:
+        NA: 0x20895E0
+      description: "Mask applied to the output of rand (0x7fff), so that the return value falls in the range [0, RAND_MAX] per the ANSI C standard."
