@@ -1480,10 +1480,11 @@ enum damage_visual {
 ENUM_8_BIT(damage_visual);
 #pragma pack(pop)
 
+// Two-turn invincibility status and visuals
 enum two_turn_invincibility {
     TWO_TURN_NONE = 0,
     TWO_TURN_FLYING = 1, // For Fly, Bounce, Seismic Toss
-    TWO_TURN_OTHER = 2, // For other two-turn invincibility moves (Shadow Force, Dig, etc.)
+    TWO_TURN_OTHER = 2,  // For other two-turn invincibility moves (Shadow Force, Dig, etc.)
 };
 
 #pragma pack(push, 1)
