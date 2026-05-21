@@ -5518,8 +5518,6 @@ overlay0:
         r0: ctx
         return: pseudorandom integer
     - name: longrand_gsi
-      aliases:
-        - rand
       address:
         EU: 0x22F5E58
         NA: 0x22F5644
@@ -5529,8 +5527,6 @@ overlay0:
         
         return: psuedorandom integer
     - name: Util_RandSeed
-      aliases:
-        - srand
       address:
         EU: 0x22F5E78
         NA: 0x22F5664
