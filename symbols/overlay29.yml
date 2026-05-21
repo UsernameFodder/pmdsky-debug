@@ -6147,6 +6147,16 @@ overlay29:
         
         r0: entity pointer
         return: bool
+    - name: SetTwoTurnInvincibility
+      address:
+        NA: 0x2318A90
+      description: |-
+        Sets two-turn invincibility to a specified value on a target monster entity.
+        
+        Used for the "flying up/down" effects (similar to Fly/Bounce) in Seismic Toss' animation.
+        
+        r0: target entity pointer
+        r1: two_turn_move_invincible value
     - name: SetReflectStatus
       address:
         EU: 0x23197F8
