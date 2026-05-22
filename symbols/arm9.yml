@@ -14877,3 +14877,7 @@ arm9:
       length:
         EU: 0x4
         NA: 0x4
+    - name: RAND_SEQUENCE_NUM
+      address:
+        NA: 0x20B3224
+      description: "[Runtime] The current PRNG sequence number for the system PRNG. See rand for more information on how the system PRNG works."

@@ -793,6 +793,62 @@ libs:
         EU: 0x2072D34
         NA: 0x207299C
         JP: 0x2072C84
+    - name: RetEu0x02073300
+      address:
+        EU: 0x2073300
+      description: |-
+        Does nothing but return. Consists of only a bx lr instruction. May be a placeholder, dummy callback, or similar.
+        
+        No params.
+    - name: RetEu0x02073304
+      address:
+        EU: 0x2073304
+      description: |-
+        Does nothing but return. Consists of only a bx lr instruction. May be a placeholder, dummy callback, or similar.
+        
+        No params.
+    - name: RetEu0x02073308
+      address:
+        EU: 0x2073308
+      description: |-
+        Does nothing but return. Consists of only a bx lr instruction. May be a placeholder, dummy callback, or similar.
+        
+        No params.
+    - name: RetEu0x0207333c
+      address:
+        EU: 0x207333C
+      description: |-
+        Does nothing but return. Consists of only a bx lr instruction. May be a placeholder, dummy callback, or similar.
+        
+        No params.
+    - name: RetEu0x02073340
+      address:
+        EU: 0x2073340
+      description: |-
+        Does nothing but return. Consists of only a bx lr instruction. May be a placeholder, dummy callback, or similar.
+        
+        No params.
+    - name: RetEu0x02073594
+      address:
+        EU: 0x2073594
+      description: |-
+        Does nothing but return. Consists of only a bx lr instruction. May be a placeholder, dummy callback, or similar.
+        
+        No params.
+    - name: RetEu0x02073598
+      address:
+        EU: 0x2073598
+      description: |-
+        Does nothing but return. Consists of only a bx lr instruction. May be a placeholder, dummy callback, or similar.
+        
+        No params.
+    - name: RetEu0x0207359c
+      address:
+        EU: 0x207359C
+      description: |-
+        Does nothing but return. Consists of only a bx lr instruction. May be a placeholder, dummy callback, or similar.
+        
+        No params.
     - name: DseSynth_Reset
       address:
         EU: 0x20735A0
@@ -1271,6 +1327,9 @@ libs:
         EU: 0x2076260
         NA: 0x2075EC8
         JP: 0x20761B0
+    - name: FX_Init
+      address:
+        EU: 0x2076408
     - name: GX_Init
       address:
         EU: 0x207640C
@@ -3717,7 +3776,7 @@ libs:
         EU: 0x207FF3C
         NA: 0x207FBA4
         JP: 0x207FE8C
-    - name: FS_GetOverlayInfo
+    - name: FS_LoadOverlayInfo
       aliases:
         - GetOverlayInfo
       address:
@@ -3777,6 +3836,8 @@ libs:
         NA: 0x20800B0
         JP: 0x2080398
     - name: MD5_Init
+      aliases:
+        - Math_MD5Init
       address:
         EU: 0x2080494
         NA: 0x20800FC
@@ -3786,6 +3847,8 @@ libs:
         
         r0: context
     - name: MD5_Update
+      aliases:
+        - Math_MD5Update
       address:
         EU: 0x20804D4
         NA: 0x208013C
@@ -3797,6 +3860,8 @@ libs:
         r1: buffer
         r2: size of buffer
     - name: MD5_Digest
+      aliases:
+        - Math_MD5Digest
       address:
         EU: 0x208059C
         NA: 0x2080204
@@ -3807,6 +3872,8 @@ libs:
         r0: [output] hash buffer (16 bytes)
         r1: context
     - name: MD5_Transform
+      aliases:
+        - Math_MD5Transform
       address:
         EU: 0x2080654
         NA: 0x20802BC
@@ -4510,6 +4577,9 @@ libs:
         EU: 0x20852CC
         NA: 0x2084F34
         JP: 0x208521C
+    - name: Math_CalcSha1
+      address:
+        EU: 0x2085310
     - name: Mathi_Crc8InitTable
       address:
         EU: 0x2085350
@@ -4565,14 +4635,17 @@ libs:
         EU: 0x208563C
         NA: 0x20852A4
         JP: 0x208558C
-    - name: Std_CompareStringVeneer
-      address:
-        EU: 0x2085664
-        NA: 0x20852CC
-        JP: 0x20855B4
     - name: Std_CompareString
       address:
-        EU: 0x2085670
+        EU:
+          - 0x2085664
+          - 0x2085670
+        NA:
+          - 0x20852CC
+          - 0x20852D8
+        JP:
+          - 0x20855B4
+          - 0x20855C0
     - name: Std_CompareNString
       address:
         EU: 0x2085690
@@ -4618,6 +4691,16 @@ libs:
         EU: 0x2085F6C
         NA: 0x2085BD4
         JP: 0x2085EBC
+    - name: NotANumber
+      address:
+        EU: 0x20867E8
+      description: "The original name for this function is \"nan\"."
+    - name: _flush_line_buffered_output_files
+      address:
+        EU: 0x2086800
+    - name: _flush_all
+      address:
+        EU: 0x208688C
     - name: abs
       address:
         EU: 0x20868F4
@@ -4628,7 +4711,56 @@ libs:
         
         r0: x
         return: abs(x)
-    - name: mbtowc
+    - name: _convert_from_newlines
+      address:
+        EU: 0x2086900
+    - name: _convert_to_newlines
+      address:
+        EU: 0x2086904
+    - name: _prep_buffer
+      address:
+        EU: 0x2086908
+    - name: _load_buffer
+      address:
+        EU: 0x2086938
+    - name: _flush_buffer
+      address:
+        EU: 0x20869C4
+    - name: fread
+      address:
+        EU: 0x2086A4C
+    - name: _fread
+      address:
+        EU: 0x2086B58
+    - name: fclose
+      address:
+        EU: 0x2086EA0
+    - name: fflush
+      address:
+        EU: 0x2086F14
+    - name: _msl_strnicmp
+      address:
+        EU:
+          - 0x2086FFC
+          - 0x208E248
+    - name: _ftell
+      address:
+        EU: 0x2087084
+    - name: ftell
+      address:
+        EU: 0x2087100
+    - name: _fseek
+      address:
+        EU: 0x208721C
+    - name: fseek
+      address:
+        EU: 0x2087404
+    - name: rewind
+      address:
+        EU: 0x2087530
+    - name: _mbtowc_noconv
+      aliases:
+        - mbtowc
       address:
         EU: 0x2087554
         NA: 0x20871BC
@@ -4640,7 +4772,9 @@ libs:
         r1: s
         r2: n
         return: number of consumed bytes, or -1 on failure
-    - name: TryAssignByte
+    - name: _wctomb_noconv
+      aliases:
+        - TryAssignByte
       address:
         EU: 0x208758C
         NA: 0x20871F4
@@ -4651,7 +4785,9 @@ libs:
         r0: pointer
         r1: value
         return: true on success, false on failure
-    - name: TryAssignByteWrapper
+    - name: wctomb
+      aliases:
+        - TryAssignByteWrapper
       address:
         EU: 0x20875A0
         NA: 0x2087208
@@ -4740,7 +4876,9 @@ libs:
         r1: s2
         r2: n
         return: comparison value
-    - name: memset_internal
+    - name: _fill_mem
+      aliases:
+        - memset_internal
       address:
         EU: 0x2087720
         NA: 0x2087388
@@ -4753,6 +4891,24 @@ libs:
         r0: s
         r1: c (int, but must be a single-byte value)
         r2: n
+    - name: parse_format
+      address:
+        EU: 0x20877D0
+    - name: long2str
+      address:
+        EU: 0x2087D60
+    - name: longlong2str
+      address:
+        EU: 0x2087FAC
+    - name: double2hex
+      address:
+        EU: 0x20882A8
+    - name: round_decimal
+      address:
+        EU: 0x2088784
+    - name: float2str
+      address:
+        EU: 0x20888A8
     - name: __vsprintf_internal_slice
       address:
         EU: 0x208900C
@@ -4834,6 +4990,28 @@ libs:
         r1: format
         ...: variadic
         return: number of characters printed, excluding the null-terminator
+    - name: rand
+      address:
+        EU: 0x2089948
+        NA: 0x20895B0
+      description: |-
+        The rand(3) C library function.
+        
+        Computes a pseudorandom 15-bit integer using the classical ANSI C linear congruential generator (LCG), which uses a modulus of 2^32, a multiplier of 1103515245, and an increment of 12345. I.e., the recurrence relation is `x = (1103515245*x_prev + 12345)`, where x is a 32-bit unsigned integer. Only the upper 16 bits, excluding the most significant bit, are used as output.
+        
+        The LCG has a hard-coded seed of 1, but can be seeded with a call to srand.
+        
+        return: psuedorandom integer on the interval [0, 32767]
+    - name: srand
+      address:
+        EU: 0x208997C
+        NA: 0x20895E4
+      description: |-
+        The srand(3) C library function.
+        
+        Seed RAND_SEQUENCE_NUM to a given value.
+        
+        r0: seed
     - name: strlen
       address:
         EU: 0x2089A10
@@ -4950,6 +5128,21 @@ libs:
         r0: haystack
         r1: needle
         return: pointer into haystack where needle starts, or null pointer if no match
+    - name: _strtold
+      address:
+        EU: 0x2089E74
+    - name: strtold
+      address:
+        EU: 0x208B0C0
+    - name: atof
+      address:
+        EU: 0x208B1A0
+    - name: _strtoul
+      address:
+        EU: 0x208B1B0
+    - name: strtoul
+      address:
+        EU: 0x208B598
     - name: strtol
       address:
         EU: 0x208B630
@@ -4960,6 +5153,9 @@ libs:
         EU: 0x208B6F8
         NA: 0x208B360
         JP: 0x208B648
+    - name: fwide
+      address:
+        EU: 0x208B70C
     - name: wcslen
       address:
         EU: 0x208B780
@@ -4970,6 +5166,18 @@ libs:
         
         r0: ws
         return: length of ws
+    - name: fabs
+      address:
+        EU: 0x208C94C
+    - name: _num2dec
+      address:
+        EU: 0x208D9D0
+    - name: _dec2num
+      address:
+        EU: 0x208DA78
+    - name: strcasecmp
+      address:
+        EU: 0x208E254
     - name: _dadd
       address:
         EU: 0x208E260
@@ -5473,4 +5681,15 @@ libs:
         Meant to do set up for floating point calculations? Does nothing.
         
         No params.
-  data: []
+    - name: _call_static_initializers
+      address:
+        EU: 0x2090C40
+  data:
+    - name: ANSI_C_LCG_MULTIPLIER
+      address:
+        NA: 0x20895DC
+      description: "The ANSI C LCG multiplier, 1103515245, used by the system PRNG."
+    - name: RAND_MAX
+      address:
+        NA: 0x20895E0
+      description: "Mask applied to the output of rand (0x7fff), so that the return value falls in the range [0, RAND_MAX] per the ANSI C standard."
