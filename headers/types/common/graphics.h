@@ -466,7 +466,7 @@ struct oam_info {
     undefined field_0x15;
     undefined field_0x16;
     undefined field_0x17;
-    int oam_base_address;                      // 0x18: Address in OAM to copy attributes to
+    void* oam_base_address;                      // 0x18: Address in OAM to copy attributes to
     struct grouped_oam_objs* grouped_oam_objs; // 0x10: This is an array of size max_num_objs
 };
 ASSERT_SIZE(struct oam_info, 32);
