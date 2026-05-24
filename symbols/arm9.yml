@@ -1105,6 +1105,42 @@ arm9:
         NA: 0x200AE38
         JP: 0x200AE38
       description: "r0: palette_data"
+    - name: InitOamInfo
+      address:
+        EU: 0x200B508
+      description: |-
+        Initializes an oam_info struct.
+        
+        r0: oam_info
+        r1: max_num_objs
+        r2: max_num_groups
+        r3: oam_base_address
+        stack[0]: MemAlloc flags
+    - name: SetShouldCopyToOam
+      address:
+        EU: 0x200B570
+      description: "r0: oam_info"
+    - name: GroupOamObjs
+      address:
+        EU: 0x200B57C
+      description: |-
+        Fills oam_info's grouped_oam_objs by going backwards through each group in ungrouped_oam_objs.
+        
+        r0: oam_info
+    - name: CopyAttributesToOam
+      address:
+        EU: 0x200B630
+      description: |-
+        Copies oam_info's grouped_oam_objs to oam_info's oam_base_address.
+        
+        r0: oam_info
+    - name: ClearGroupedOamObjsAndGroups
+      address:
+        EU: 0x200B67C
+      description: |-
+        Clears oam_info's grouped_oam_objs and prev_obj_idx_in_group arrays.
+        
+        r0: oam_info
     - name: UpdateFadeStatus
       address:
         EU: 0x200BA18
@@ -14523,6 +14559,15 @@ arm9:
         [Runtime] Points to the contents of the move data table loaded from waza_p.bin
         
         type: struct move_data_table*
+    - name: OBJ_GRAPHICS_CONTROLS_PTR
+      address:
+        EU: 0x20B0508
+      length:
+        EU: 0x4
+      description: |-
+        [Runtime] Points to the collection of master structs responsible for displaying objects.
+        
+        type: struct obj_graphics_controls*
     - name: WAN_TABLE
       address:
         EU: 0x20B0524

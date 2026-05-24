@@ -444,4 +444,46 @@ struct palette_data {
 };
 ASSERT_SIZE(struct palette_data, 40);
 
+struct ungrouped_oam_objs {
+    uint16_t oam_attributes[3];  // 0x0: See https://problemkaputt.de/gbatek.htm#lcdobjoamattributes
+    short prev_obj_idx_in_group; // 0x6: Index into ungrouped_oam_objs
+};
+ASSERT_SIZE(struct ungrouped_oam_objs, 8);
+
+struct grouped_oam_objs {
+    uint16_t oam_attributes[3]; // 0x0: See https://problemkaputt.de/gbatek.htm#lcdobjoamattributes
+    undefined2 field_0x6;
+};
+ASSERT_SIZE(struct grouped_oam_objs, 8);
+
+struct oam_info {
+    int max_num_objs;   // 0x0: Either 0x70 (for bottom_ and top_screen_objs) or 0x10 for the others
+    int max_num_groups; // 0x4: Always 0x140
+    int cur_obj_idx;    // 0x8
+    short* prev_obj_idx_in_group;                  // 0xC: This is an array of size max_num_groups
+    struct ungrouped_oam_objs* ungrouped_oam_objs; // 0x10: This is an array of size max_num_objs
+    bool should_copy_to_oam;                       // 0x14
+    undefined field_0x15;
+    undefined field_0x16;
+    undefined field_0x17;
+    int oam_base_address;                      // 0x18: Address in OAM to copy attributes to
+    struct grouped_oam_objs* grouped_oam_objs; // 0x10: This is an array of size max_num_objs
+};
+ASSERT_SIZE(struct oam_info, 32);
+
+struct obj_graphics_control {
+    undefined field_0x0[32];
+    struct oam_info oam_info;
+    undefined field_0x40[48];
+};
+ASSERT_SIZE(struct obj_graphics_control, 112);
+
+struct obj_graphics_controls {
+    struct obj_graphics_control bottom_screen_objs;
+    struct obj_graphics_control top_screen_objs;
+    struct obj_graphics_control unk1;
+    struct obj_graphics_control unk2;
+};
+ASSERT_SIZE(struct obj_graphics_controls, 448);
+
 #endif
