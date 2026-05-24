@@ -1,4 +1,5 @@
 # Imports pmdsky-debug symbols into an NTRGhidra project
+# @runtime Jython
 # @author UsernameFodder
 # @category Data
 
@@ -24,8 +25,20 @@ def getFileAddrSpace(filename):
     if match:
         overlayNum = int(match.group(1))
         # This is the naming scheme NTRGhidra uses for overlays
-        return "overlay_{}".format(overlayNum)
-    return "ram"  # Default address space name
+        # Depending on the NTRGhidra version, the number may or may not be
+        # zero-padded, so search the addrSpaceMap keys directly for the name
+        try:
+            return next(
+                addrSpace
+                for name, addrSpace in addrSpaceMap.items()
+                if re.match("overlay_0*{}$".format(overlayNum), name)
+            )
+        except StopIteration:
+            raise ValueError(filename)
+    try:
+        return addrSpaceMap["ram"]  # Default address space name
+    except KeyError:
+        raise ValueError(filename)
 
 
 jythonDir = askDirectory("Select directory containing symbol JSON files", "Import")
@@ -38,7 +51,15 @@ filenames = sorted(
 )
 
 for fname in filenames:
-    addrSpace = addrSpaceMap[getFileAddrSpace(fname)]
+    try:
+        addrSpace = getFileAddrSpace(fname)
+    except ValueError:
+        print(
+            "Could not find address space for {}, skipping".format(
+                os.path.basename(fname)
+            )
+        )
+        continue
     with open(fname, "r") as f:
         symbols = json.load(f)
 

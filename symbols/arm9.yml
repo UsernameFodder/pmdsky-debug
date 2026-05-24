@@ -5580,6 +5580,8 @@ arm9:
     - name: PrintSpecialEpisodeClearMark
       address:
         EU: 0x202A700
+        NA: 0x202A40C
+        JP: 0x202A764
       description: |-
         Prints the specified special episode clear mark on the screen.
         
@@ -13329,6 +13331,8 @@ arm9:
     - name: CONVERSION2_TYPE_TABLE
       address:
         EU: 0x20A1EB0
+        NA: 0x20A192C
+        JP: 0x20A2D00
       length:
         EU: 0x12
       description: |-
@@ -14873,3 +14877,7 @@ arm9:
       length:
         EU: 0x4
         NA: 0x4
+    - name: RAND_SEQUENCE_NUM
+      address:
+        NA: 0x20B3224
+      description: "[Runtime] The current PRNG sequence number for the system PRNG. See rand for more information on how the system PRNG works."

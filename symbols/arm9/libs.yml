@@ -793,6 +793,62 @@ libs:
         EU: 0x2072D34
         NA: 0x207299C
         JP: 0x2072C84
+    - name: RetEu0x02073300
+      address:
+        EU: 0x2073300
+      description: |-
+        Does nothing but return. Consists of only a bx lr instruction. May be a placeholder, dummy callback, or similar.
+        
+        No params.
+    - name: RetEu0x02073304
+      address:
+        EU: 0x2073304
+      description: |-
+        Does nothing but return. Consists of only a bx lr instruction. May be a placeholder, dummy callback, or similar.
+        
+        No params.
+    - name: RetEu0x02073308
+      address:
+        EU: 0x2073308
+      description: |-
+        Does nothing but return. Consists of only a bx lr instruction. May be a placeholder, dummy callback, or similar.
+        
+        No params.
+    - name: RetEu0x0207333c
+      address:
+        EU: 0x207333C
+      description: |-
+        Does nothing but return. Consists of only a bx lr instruction. May be a placeholder, dummy callback, or similar.
+        
+        No params.
+    - name: RetEu0x02073340
+      address:
+        EU: 0x2073340
+      description: |-
+        Does nothing but return. Consists of only a bx lr instruction. May be a placeholder, dummy callback, or similar.
+        
+        No params.
+    - name: RetEu0x02073594
+      address:
+        EU: 0x2073594
+      description: |-
+        Does nothing but return. Consists of only a bx lr instruction. May be a placeholder, dummy callback, or similar.
+        
+        No params.
+    - name: RetEu0x02073598
+      address:
+        EU: 0x2073598
+      description: |-
+        Does nothing but return. Consists of only a bx lr instruction. May be a placeholder, dummy callback, or similar.
+        
+        No params.
+    - name: RetEu0x0207359c
+      address:
+        EU: 0x207359C
+      description: |-
+        Does nothing but return. Consists of only a bx lr instruction. May be a placeholder, dummy callback, or similar.
+        
+        No params.
     - name: DseSynth_Reset
       address:
         EU: 0x20735A0
@@ -1271,6 +1327,9 @@ libs:
         EU: 0x2076260
         NA: 0x2075EC8
         JP: 0x20761B0
+    - name: FX_Init
+      address:
+        EU: 0x2076408
     - name: GX_Init
       address:
         EU: 0x207640C
@@ -1847,6 +1906,61 @@ libs:
         EU: 0x2078C7C
         NA: 0x20788E4
         JP: 0x2078BCC
+    - name: OS_WaitIrq
+      address:
+        EU: 0x2078C98
+        NA: 0x2078900
+        JP: 0x2078BE8
+    - name: OS_IrqDummy
+      address:
+        EU: 0x2078D0C
+        NA: 0x2078974
+        JP: 0x2078C5C
+    - name: OSi_IrqCallback
+      address:
+        EU: 0x2078D10
+        NA: 0x2078978
+        JP: 0x2078C60
+    - name: OSi_IrqDma0
+      address:
+        EU: 0x2078D98
+        NA: 0x2078A00
+        JP: 0x2078CE8
+    - name: OSi_IrqDma1
+      address:
+        EU: 0x2078DA8
+        NA: 0x2078A10
+        JP: 0x2078CF8
+    - name: OSi_IrqDma2
+      address:
+        EU: 0x2078DB8
+        NA: 0x2078A20
+        JP: 0x2078D08
+    - name: OSi_IrqDma3
+      address:
+        EU: 0x2078DC8
+        NA: 0x2078A30
+        JP: 0x2078D18
+    - name: OSi_IrqTimer0
+      address:
+        EU: 0x2078DD8
+        NA: 0x2078A40
+        JP: 0x2078D28
+    - name: OSi_IrqTimer1
+      address:
+        EU: 0x2078DE8
+        NA: 0x2078A50
+        JP: 0x2078D38
+    - name: OSi_IrqTimer2
+      address:
+        EU: 0x2078DF8
+        NA: 0x2078A60
+        JP: 0x2078D48
+    - name: OSi_IrqTimer3
+      address:
+        EU: 0x2078E08
+        NA: 0x2078A70
+        JP: 0x2078D58
     - name: OS_InitIrqTable
       address:
         EU: 0x2078E18
@@ -1857,6 +1971,21 @@ libs:
         EU: 0x2078E30
         NA: 0x2078A98
         JP: 0x2078D80
+    - name: OS_GetIrqFunction
+      address:
+        EU: 0x2078EB8
+        NA: 0x2078B20
+        JP: 0x2078E08
+    - name: OSi_EnterDmaCallback
+      address:
+        EU: 0x2078F44
+        NA: 0x2078BAC
+        JP: 0x2078E94
+    - name: OSi_EnterTimerCallback
+      address:
+        EU: 0x2078F8C
+        NA: 0x2078BF4
+        JP: 0x2078EDC
     - name: OS_SetIrqMask
       address:
         EU: 0x2078FD4
@@ -1887,6 +2016,11 @@ libs:
         EU: 0x20790C0
         NA: 0x2078D28
         JP: 0x2079010
+    - name: OSi_DoLockByWord
+      address:
+        EU: 0x207918C
+        NA: 0x2078DF4
+        JP: 0x20790DC
     - name: OS_LockByWord
       address:
         EU: 0x20791D8
@@ -1902,6 +2036,11 @@ libs:
         EU: 0x207925C
         NA: 0x2078EC4
         JP: 0x20791AC
+    - name: OSi_DoTryLockByWord
+      address:
+        EU: 0x207926C
+        NA: 0x2078ED4
+        JP: 0x20791BC
     - name: OS_UnlockCartridge
       address:
         EU: 0x20792D8
@@ -1912,17 +2051,79 @@ libs:
         EU: 0x20792F8
         NA: 0x2078F60
         JP: 0x2079248
+    - name: OS_TryLockCartridge
+      address:
+        EU: 0x2079304
+        NA: 0x2078F6C
+        JP: 0x2079254
+    - name: OSi_AllocateCartridgeBus
+      address:
+        EU: 0x2079324
+        NA: 0x2078F8C
+        JP: 0x2079274
     - name: OSi_FreeCartridgeBus
       address:
         EU: 0x207933C
         NA: 0x2078FA4
         JP: 0x207928C
+    - name: OS_LockCard
+      address:
+        EU: 0x2079354
+        NA: 0x2078FBC
+        JP: 0x20792A4
+    - name: OS_UnlockCard
+      address:
+        EU: 0x2079370
+        NA: 0x2078FD8
+        JP: 0x20792C0
+    - name: OSi_AllocateCardBus
+      address:
+        EU: 0x207938C
+        NA: 0x2078FF4
+        JP: 0x20792DC
+    - name: OSi_FreeCardBus
+      address:
+        EU: 0x20793A4
+        NA: 0x207900C
+        JP: 0x20792F4
+    - name: OS_ReadOwnerOfLockWord
+      address:
+        EU: 0x20793BC
+        NA: 0x2079024
+        JP: 0x207930C
     - name: OS_GetLockID
       address:
         EU: 0x20793C4
         NA: 0x207902C
         JP: 0x2079314
-    - name: IncrementThreadCount
+    - name: OS_ReleaseLockId
+      address:
+        EU: 0x207942C
+        NA: 0x2079094
+        JP: 0x207937C
+    - name: OS_VsPrintf
+      address:
+        EU: 0x2079474
+        NA: 0x20790DC
+        JP: 0x20793C4
+    - name: OS_VsNPrintf
+      address:
+        EU: 0x207949C
+        NA: 0x2079104
+        JP: 0x20793EC
+    - name: OS_SnPrintf
+      address:
+        EU: 0x20794B4
+        NA: 0x207911C
+        JP: 0x2079404
+    - name: OS_VsNPrintfExStub
+      address:
+        EU: 0x20794DC
+        NA: 0x2079144
+        JP: 0x207942C
+    - name: OSi_GetUnusedThreadId
+      aliases:
+        - IncrementThreadCount
       address:
         EU: 0x20794E8
         NA: 0x2079150
@@ -1936,7 +2137,24 @@ libs:
         EU: 0x2079500
         NA: 0x2079168
         JP: 0x2079450
-    - name: InsertThreadIntoList
+    - name: OSi_RemoveLinkFromQueue
+      address:
+        EU: 0x2079578
+        NA: 0x20791E0
+        JP: 0x20794C8
+    - name: OSi_RemoveSpecifiedLinkFromQueue
+      address:
+        EU: 0x20795AC
+        NA: 0x2079214
+        JP: 0x20794FC
+    - name: OSi_RemoveMutexLinkFromQueue
+      address:
+        EU: 0x2079600
+        NA: 0x2079268
+        JP: 0x2079550
+    - name: OSi_InsertThreadToList
+      aliases:
+        - InsertThreadIntoList
       address:
         EU: 0x2079630
         NA: 0x2079298
@@ -1947,6 +2165,11 @@ libs:
         The thread is inserted in sorted order.
         
         r0: Thread to insert
+    - name: OSi_RemoveThreadFromList
+      address:
+        EU: 0x2079690
+        NA: 0x20792F8
+        JP: 0x20795E0
     - name: OS_RescheduleThread
       address:
         EU: 0x20796D8
@@ -1957,7 +2180,14 @@ libs:
         EU: 0x20797A0
         NA: 0x2079408
         JP: 0x20796F0
-    - name: StartThread
+    - name: OS_IsThreadAvailable
+      address:
+        EU: 0x20798E8
+        NA: 0x2079550
+        JP: 0x2079838
+    - name: OS_CreateThread
+      aliases:
+        - StartThread
       address:
         EU: 0x20798F8
         NA: 0x2079560
@@ -1973,7 +2203,9 @@ libs:
         r3: Pointer to the stack area for this thread. Not all the space is usable. See thread::usable_stack_pointer for more info.
         stack[0]: Stack size
         stack[1]: (?) Used to sort threads on a list
-    - name: ThreadExit
+    - name: OS_ExitThread
+      aliases:
+        - ThreadExit
       address:
         EU: 0x20799F4
         NA: 0x207965C
@@ -1984,11 +2216,56 @@ libs:
         Base functions that contain an infinite loop that is not supposed to return and that have their stacks in main RAM have this function as their return address.
         
         No params.
+    - name: OSi_ExitThread_ArgSpecified
+      address:
+        EU: 0x2079A14
+        NA: 0x207967C
+        JP: 0x2079964
+    - name: OSi_ExitThread
+      address:
+        EU: 0x2079A70
+        NA: 0x20796D8
+        JP: 0x20799C0
+    - name: OSi_ExitThread_Destroy
+      address:
+        EU: 0x2079AA8
+        NA: 0x2079710
+        JP: 0x20799F8
+    - name: OS_DestroyThread
+      address:
+        EU: 0x2079B04
+        NA: 0x207976C
+        JP: 0x2079A54
+    - name: OSi_CancelThreadAlarmForSleep
+      address:
+        EU: 0x2079B80
+        NA: 0x20797E8
+        JP: 0x2079AD0
+    - name: OS_JoinThread
+      address:
+        EU: 0x2079B98
+        NA: 0x2079800
+        JP: 0x2079AE8
+    - name: OS_IsThreadTerminated
+      address:
+        EU: 0x2079BC8
+        NA: 0x2079830
+        JP: 0x2079B18
+    - name: OS_SleepThreadDirect
+      address:
+        EU: 0x2079BDC
+        NA: 0x2079844
+        JP: 0x2079B2C
     - name: OS_SleepThread
       address:
         EU: 0x2079C20
         NA: 0x2079888
         JP: 0x2079B70
+    - name: OS_WakeupThread
+      address:
+        EU: 0x2079C70
+        NA: 0x20798D8
+        JP: 0x2079BC0
     - name: OS_WakeupThreadDirect
       address:
         EU: 0x2079CD8
@@ -1999,6 +2276,31 @@ libs:
         EU: 0x2079D00
         NA: 0x2079968
         JP: 0x2079C50
+    - name: OS_YieldThread
+      address:
+        EU: 0x2079D44
+        NA: 0x20799AC
+        JP: 0x2079C94
+    - name: OS_SetThreadPriority
+      address:
+        EU: 0x2079DFC
+        NA: 0x2079A64
+        JP: 0x2079D4C
+    - name: OS_GetThreadPriority
+      address:
+        EU: 0x2079EA4
+        NA: 0x2079B0C
+        JP: 0x2079DF4
+    - name: OS_Sleep
+      address:
+        EU: 0x2079EAC
+        NA: 0x2079B14
+        JP: 0x2079DFC
+    - name: OSi_SleepAlarmCallback
+      address:
+        EU: 0x2079F54
+        NA: 0x2079BBC
+        JP: 0x2079EA4
     - name: OS_SetSwitchThreadCallback
       address:
         EU: 0x2079F74
@@ -2009,7 +2311,17 @@ libs:
         EU: 0x2079F9C
         NA: 0x2079C04
         JP: 0x2079EEC
-    - name: SetThreadField0xB4
+    - name: OS_DisableScheduler
+      address:
+        EU: 0x2079FAC
+        NA: 0x2079C14
+        JP: 0x2079EFC
+    - name: OS_EnableScheduler
+      address:
+        EU: 0x2079FE0
+        NA: 0x2079C48
+        JP: 0x2079F30
+    - name: OS_SetThreadDestructor
       address:
         EU: 0x207A014
         NA: 0x2079C7C
@@ -2019,7 +2331,9 @@ libs:
         
         r0: Thread
         r1: Value to set
-    - name: InitThread
+    - name: OS_InitContext
+      aliases:
+        - InitThread
       address:
         EU: 0x207A01C
         NA: 0x2079C84
@@ -2043,11 +2357,81 @@ libs:
         EU: 0x207A0EC
         NA: 0x2079D54
         JP: 0x207A03C
+    - name: OS_IsRunOnEmulator
+      address:
+        EU: 0x207A130
+        NA: 0x2079D98
+        JP: 0x207A080
+    - name: OS_GetConsoleType
+      address:
+        EU: 0x207A138
+        NA: 0x2079DA0
+        JP: 0x207A088
+    - name: OS_InitMessageQueue
+      address:
+        EU: 0x207A150
+        NA: 0x2079DB8
+        JP: 0x207A0A0
+    - name: OS_SendMessage
+      address:
+        EU: 0x207A178
+        NA: 0x2079DE0
+        JP: 0x207A0C8
+    - name: OS_ReceiveMessage
+      address:
+        EU: 0x207A20C
+        NA: 0x2079E74
+        JP: 0x207A15C
+    - name: OS_JamMessage
+      address:
+        EU: 0x207A2B0
+        NA: 0x2079F18
+        JP: 0x207A200
+    - name: OS_ReadMessage
+      address:
+        EU: 0x207A34C
+        NA: 0x2079FB4
+        JP: 0x207A29C
     - name: OS_InitMutex
       address:
         EU: 0x207A3C8
         NA: 0x207A030
         JP: 0x207A318
+    - name: OS_LockMutex
+      address:
+        EU: 0x207A3E0
+        NA: 0x207A048
+        JP: 0x207A330
+    - name: OS_UnlockMutex
+      address:
+        EU: 0x207A464
+        NA: 0x207A0CC
+        JP: 0x207A3B4
+    - name: OSi_UnlockAllMutex
+      address:
+        EU: 0x207A4C0
+        NA: 0x207A128
+        JP: 0x207A410
+    - name: OS_TryLockMutex
+      address:
+        EU: 0x207A4FC
+        NA: 0x207A164
+        JP: 0x207A44C
+    - name: OSi_EnqueueTail
+      address:
+        EU: 0x207A570
+        NA: 0x207A1D8
+        JP: 0x207A4C0
+    - name: OSi_DequeueItem
+      address:
+        EU: 0x207A594
+        NA: 0x207A1FC
+        JP: 0x207A4E4
+    - name: DC_Enable
+      address:
+        EU: 0x207A5B8
+        NA: 0x207A220
+        JP: 0x207A508
     - name: DC_InvalidateAll
       address:
         EU: 0x207A5D0
@@ -2118,6 +2502,16 @@ libs:
         EU: 0x207A850
         NA: 0x207A4B8
         JP: 0x207A7A0
+    - name: OS_GetArenaHi
+      address:
+        EU: 0x207A8BC
+        NA: 0x207A524
+        JP: 0x207A80C
+    - name: OS_GetArenaLo
+      address:
+        EU: 0x207A8D0
+        NA: 0x207A538
+        JP: 0x207A820
     - name: OS_GetInitArenaHi
       address:
         EU: 0x207A8E4
@@ -2138,6 +2532,11 @@ libs:
         EU: 0x207AA84
         NA: 0x207A6EC
         JP: 0x207A9D4
+    - name: OS_AllocFromArenaLo
+      address:
+        EU: 0x207AAB4
+        NA: 0x207A71C
+        JP: 0x207AA04
     - name: OS_GetDtcmAddress
       address:
         EU: 0x207AE64
@@ -2188,11 +2587,18 @@ libs:
         EU: 0x207AFC4
         NA: 0x207AC2C
         JP: 0x207AF14
-    - name: OSi_DisplayExContent
+    - name: OSi_DisplayExContext
+      aliases:
+        - OSi_DisplayExContent
       address:
         EU: 0x207B054
         NA: 0x207ACBC
         JP: 0x207AFA4
+    - name: OSi_DisplayExContext_Helper
+      address:
+        EU: 0x207B0A4
+        NA: 0x207AD0C
+        JP: 0x207AFF4
     - name: OSi_SetTimerReserved
       address:
         EU: 0x207B0D0
@@ -2218,9 +2624,9 @@ libs:
         EU: 0x207B1DC
         NA: 0x207AE44
         JP: 0x207B12C
-    - name: GetTimer0Control
+    - name: OS_GetTickLo
       aliases:
-        - OS_GetTickLo
+        - GetTimer0Control
       address:
         EU: 0x207B27C
         NA: 0x207AEE4
@@ -2264,6 +2670,11 @@ libs:
         EU: 0x207B514
         NA: 0x207B17C
         JP: 0x207B464
+    - name: OS_CancelAlarm
+      address:
+        EU: 0x207B580
+        NA: 0x207B1E8
+        JP: 0x207B4D0
     - name: OSi_AlarmHandler
       address:
         EU: 0x207B608
@@ -2279,7 +2690,59 @@ libs:
         EU: 0x207B708
         NA: 0x207B370
         JP: 0x207B658
-    - name: ClearIrqFlag
+    - name: OSi_InsertVAlarm
+      address:
+        EU: 0x207B750
+        NA: 0x207B3B8
+        JP: 0x207B6A0
+    - name: OSi_AppendVAlarm
+      address:
+        EU: 0x207B7CC
+        NA: 0x207B434
+        JP: 0x207B71C
+    - name: OSi_DetachVAlarm
+      address:
+        EU: 0x207B804
+        NA: 0x207B46C
+        JP: 0x207B754
+    - name: OS_CreateVAlarm
+      address:
+        EU: 0x207B83C
+        NA: 0x207B4A4
+        JP: 0x207B78C
+    - name: OS_SetPeriodicVAlarm
+      address:
+        EU: 0x207B850
+        NA: 0x207B4B8
+        JP: 0x207B7A0
+    - name: OSi_SetNextVAlarm
+      address:
+        EU: 0x207B8DC
+        NA: 0x207B544
+        JP: 0x207B82C
+    - name: OS_CancelVAlarm
+      address:
+        EU: 0x207B91C
+        NA: 0x207B584
+        JP: 0x207B86C
+    - name: OSi_VAlarmHandler
+      address:
+        EU: 0x207B964
+        NA: 0x207B5CC
+        JP: 0x207B8B4
+    - name: OSi_CompareVCount
+      address:
+        EU: 0x207BADC
+        NA: 0x207B744
+        JP: 0x207BA2C
+    - name: OSi_GetVFrame
+      address:
+        EU: 0x207BB28
+        NA: 0x207B790
+        JP: 0x207BA78
+    - name: OS_EnableInterrupts
+      aliases:
+        - ClearIrqFlag
       address:
         EU: 0x207BB68
         NA: 0x207B7D0
@@ -2288,7 +2751,9 @@ libs:
         Enables processor interrupts by clearing the i flag in the program status register (cpsr).
         
         return: Old value of cpsr & 0x80 (0x80 if interrupts were disabled, 0x0 if they were already enabled)
-    - name: EnableIrqFlag
+    - name: OS_DisableInterrupts
+      aliases:
+        - EnableIrqFlag
       address:
         EU: 0x207BB7C
         NA: 0x207B7E4
@@ -2297,7 +2762,9 @@ libs:
         Disables processor interrupts by setting the i flag in the program status register (cpsr).
         
         return: Old value of cpsr & 0x80 (0x80 if interrupts were already disabled, 0x0 if they were enabled)
-    - name: SetIrqFlag
+    - name: OS_RestoreInterrupts
+      aliases:
+        - SetIrqFlag
       address:
         EU: 0x207BB90
         NA: 0x207B7F8
@@ -2307,7 +2774,9 @@ libs:
         
         r0: Value to set the flag to (0x80 to set it, which disables interrupts; 0x0 to unset it, which enables interrupts)
         return: Old value of cpsr & 0x80 (0x80 if interrupts were disabled, 0x0 if they were enabled)
-    - name: EnableIrqFiqFlags
+    - name: OS_EnableInterrupts_IrqAndFiq
+      aliases:
+        - EnableIrqFiqFlags
       address:
         EU: 0x207BBA8
         NA: 0x207B810
@@ -2316,7 +2785,9 @@ libs:
         Disables processor all interrupts (both standard and fast) by setting the i and f flags in the program status register (cpsr).
         
         return: Old value of cpsr & 0xC0 (contains the previous values of the i and f flags)
-    - name: SetIrqFiqFlags
+    - name: OS_RestoreInterrupts_IrqAndFiq
+      aliases:
+        - SetIrqFiqFlags
       address:
         EU: 0x207BBBC
         NA: 0x207B824
@@ -2326,7 +2797,9 @@ libs:
         
         r0: Value to set the flags to (0xC0 to set both flags, 0x80 to set the i flag and clear the f flag, 0x40 to set the f flag and clear the i flag and 0x0 to clear both flags)
         return: Old value of cpsr & 0xC0 (contains the previous values of the i and f flags)
-    - name: GetIrqFlag
+    - name: OS_GetCpsrIrq
+      aliases:
+        - GetIrqFlag
       address:
         EU: 0x207BBD4
         NA: 0x207B83C
@@ -2335,7 +2808,9 @@ libs:
         Gets the current value of the processor's interrupt request (i) flag
         
         return: cpsr & 0x80 (0x80 if interrupts are disabled, 0x0 if they are enabled)
-    - name: GetProcessorMode
+    - name: OS_GetProcMode
+      aliases:
+        - GetProcessorMode
       address:
         EU: 0x207BBE0
         NA: 0x207B848
@@ -2346,6 +2821,16 @@ libs:
         See https://problemkaputt.de/gbatek.htm#armcpuflagsconditionfieldcond
         
         return: cpsr & 0x1f (the cpsr mode bits M4-M0)
+    - name: OS_SpinWait
+      address:
+        EU: 0x207BBEC
+        NA: 0x207B854
+        JP: 0x207BB3C
+    - name: OS_WaitVBlankIntr
+      address:
+        EU: 0x207BBF8
+        NA: 0x207B860
+        JP: 0x207BB48
     - name: OS_InitReset
       address:
         EU: 0x207BC14
@@ -2371,7 +2856,9 @@ libs:
         EU: 0x207BD84
         NA: 0x207B9EC
         JP: 0x207BCD4
-    - name: GetDsFirmwareUserSettings
+    - name: OS_GetOwnerInfo
+      aliases:
+        - GetDsFirmwareUserSettings
       address:
         EU: 0x207BDA0
         NA: 0x207BA08
@@ -2404,7 +2891,14 @@ libs:
         EU: 0x207BE60
         NA: 0x207BAC8
         JP: 0x207BDB0
-    - name: WaitForever2
+    - name: OS_GetLowEntropyData
+      address:
+        EU: 0x207BEE8
+        NA: 0x207BB50
+        JP: 0x207BE38
+    - name: OS_Panic
+      aliases:
+        - WaitForever2
       address:
         EU: 0x207BFB8
         NA: 0x207BC20
@@ -2415,7 +2909,9 @@ libs:
         This is called on fatal errors to hang the program indefinitely.
         
         No params.
-    - name: WaitForInterrupt
+    - name: OS_Halt
+      aliases:
+        - WaitForInterrupt
       address:
         EU: 0x207BFC8
         NA: 0x207BC30
@@ -2431,16 +2927,66 @@ libs:
         EU: 0x207BFD4
         NA: 0x207BC3C
         JP: 0x207BF24
+    - name: MI_DmaFill32
+      address:
+        EU: 0x207BFE4
+        NA: 0x207BC4C
+        JP: 0x207BF34
+    - name: MI_DmaCopy32
+      address:
+        EU: 0x207C064
+        NA: 0x207BCCC
+        JP: 0x207BFB4
     - name: MI_DmaCopy16
       address:
         EU: 0x207C0D4
         NA: 0x207BD3C
         JP: 0x207C024
+    - name: MI_DmaFill32Async
+      address:
+        EU: 0x207C140
+        NA: 0x207BDA8
+        JP: 0x207C090
+    - name: MI_DmaCopy32Async
+      address:
+        EU: 0x207C204
+        NA: 0x207BE6C
+        JP: 0x207C154
+    - name: MI_DmaSend32Async
+      address:
+        EU: 0x207C29C
+        NA: 0x207BF04
+        JP: 0x207C1EC
+    - name: MI_DmaCopy16Async
+      address:
+        EU: 0x207C33C
+        NA: 0x207BFA4
+        JP: 0x207C28C
+    - name: MI_DmaSend16Async
+      address:
+        EU: 0x207C3D4
+        NA: 0x207C03C
+        JP: 0x207C324
+    - name: MI_IsDmaBusy
+      address:
+        EU: 0x207C474
+        NA: 0x207C0DC
+        JP: 0x207C3C4
+    - name: MI_WaitDma
+      address:
+        EU: 0x207C494
+        NA: 0x207C0FC
+        JP: 0x207C3E4
     - name: MI_StopDma
       address:
         EU: 0x207C4FC
         NA: 0x207C164
         JP: 0x207C44C
+    - name: MIi_CheckAnotherAutoDma
+      address:
+        EU: 0x207C578
+        NA: 0x207C1E0
+        JP: 0x207C4C8
     - name: MIi_CheckDma0SourceAddress
       address:
         EU: 0x207C5FC
@@ -2577,6 +3123,11 @@ libs:
         r0: desired value
         r1: ptr
         return: previous value
+    - name: MI_UncompressLZ8
+      address:
+        EU: 0x207C9E8
+        NA: 0x207C650
+        JP: 0x207C938
     - name: MTi_CardDmaCopy32
       address:
         EU: 0x207CAE8
@@ -2587,6 +3138,126 @@ libs:
         EU: 0x207CB5C
         NA: 0x207C7C4
         JP: 0x207CAAC
+    - name: Snd_StopSeq
+      address:
+        EU: 0x207CB74
+        NA: 0x207C7DC
+        JP: 0x207CAC4
+    - name: Snd_PrepareSeq
+      address:
+        EU: 0x207CB94
+        NA: 0x207C7FC
+        JP: 0x207CAE4
+    - name: Snd_StartPreparedSeq
+      address:
+        EU: 0x207CBBC
+        NA: 0x207C824
+        JP: 0x207CB0C
+    - name: Snd_SetPlayerTempoRatio
+      address:
+        EU: 0x207CBDC
+        NA: 0x207C844
+        JP: 0x207CB2C
+    - name: Snd_SetPlayerVolume
+      address:
+        EU: 0x207CBF4
+        NA: 0x207C85C
+        JP: 0x207CB44
+    - name: Snd_SetTrackPan
+      address:
+        EU: 0x207CC0C
+        NA: 0x207C874
+        JP: 0x207CB5C
+    - name: Snd_SetTrackAllocatableChannel
+      address:
+        EU: 0x207CC28
+        NA: 0x207C890
+        JP: 0x207CB78
+    - name: Snd_StartTimer
+      address:
+        EU: 0x207CC50
+        NA: 0x207C8B8
+        JP: 0x207CBA0
+    - name: Snd_StopTimer
+      address:
+        EU: 0x207CC78
+        NA: 0x207C8E0
+        JP: 0x207CBC8
+    - name: Snd_SetupCapture
+      address:
+        EU: 0x207CCDC
+        NA: 0x207C944
+        JP: 0x207CC2C
+    - name: Snd_SetupAlarm
+      address:
+        EU: 0x207CD1C
+        NA: 0x207C984
+        JP: 0x207CC6C
+    - name: Snd_LockChannel
+      address:
+        EU: 0x207CD5C
+        NA: 0x207C9C4
+        JP: 0x207CCAC
+    - name: Snd_UnlockChannel
+      address:
+        EU: 0x207CD7C
+        NA: 0x207C9E4
+        JP: 0x207CCCC
+    - name: Snd_SetChannelTimer
+      address:
+        EU: 0x207CD9C
+        NA: 0x207CA04
+        JP: 0x207CCEC
+    - name: Snd_SetChannelVolume
+      address:
+        EU: 0x207CDBC
+        NA: 0x207CA24
+        JP: 0x207CD0C
+    - name: Snd_SetChannelPan
+      address:
+        EU: 0x207CDE4
+        NA: 0x207CA4C
+        JP: 0x207CD34
+    - name: Snd_SetupChannelPcm
+      address:
+        EU: 0x207CE04
+        NA: 0x207CA6C
+        JP: 0x207CD54
+    - name: Snd_SetupChannelPsg
+      address:
+        EU: 0x207CE50
+        NA: 0x207CAB8
+        JP: 0x207CDA0
+    - name: Snd_SetupChannelNoise
+      address:
+        EU: 0x207CE78
+        NA: 0x207CAE0
+        JP: 0x207CDC8
+    - name: Snd_InvalidateSeqData
+      address:
+        EU: 0x207CEAC
+        NA: 0x207CB14
+        JP: 0x207CDFC
+    - name: Snd_InvalidateBankData
+      address:
+        EU: 0x207CECC
+        NA: 0x207CB34
+        JP: 0x207CE1C
+    - name: Snd_SetOutputSelector
+      address:
+        EU: 0x207CEEC
+        NA: 0x207CB54
+        JP: 0x207CE3C
+    - name: Sndi_SetPlayerParam
+      address:
+        EU: 0x207CF14
+        NA: 0x207CB7C
+        JP: 0x207CE64
+    - name: Sndi_SetTrackParam
+      address:
+        EU: 0x207CF3C
+        NA: 0x207CBA4
+        JP: 0x207CE8C
     - name: PushCommand_Impl
       address:
         EU: 0x207CF64
@@ -2597,11 +3268,181 @@ libs:
         EU: 0x207CFA8
         NA: 0x207CC10
         JP: 0x207CEF8
+    - name: Sndi_LockMutex
+      address:
+        EU: 0x207CFE0
+        NA: 0x207CC48
+        JP: 0x207CF30
+    - name: Sndi_UnlockMutex
+      address:
+        EU: 0x207CFF4
+        NA: 0x207CC5C
+        JP: 0x207CF44
     - name: Snd_CommandInit
       address:
         EU: 0x207D008
         NA: 0x207CC70
         JP: 0x207CF58
+    - name: Snd_RecvCommandReply
+      address:
+        EU: 0x207D0DC
+        NA: 0x207CD44
+        JP: 0x207D02C
+    - name: Snd_AllocCommand
+      address:
+        EU: 0x207D1EC
+        NA: 0x207CE54
+        JP: 0x207D13C
+    - name: Snd_PushCommand
+      address:
+        EU: 0x207D274
+        NA: 0x207CEDC
+        JP: 0x207D1C4
+    - name: Snd_FlushCommand
+      address:
+        EU: 0x207D2AC
+        NA: 0x207CF14
+        JP: 0x207D1FC
+    - name: Snd_WaitForCommandProc
+      address:
+        EU: 0x207D468
+        NA: 0x207D0D0
+        JP: 0x207D3B8
+    - name: Snd_GetCurrentCommandTag
+      address:
+        EU: 0x207D4D4
+        NA: 0x207D13C
+        JP: 0x207D424
+    - name: Snd_IsFinishedCommandTag
+      address:
+        EU: 0x207D500
+        NA: 0x207D168
+        JP: 0x207D450
+    - name: Snd_CountFreeCommand
+      address:
+        EU: 0x207D550
+        NA: 0x207D1B8
+        JP: 0x207D4A0
+    - name: Snd_CountReservedCommand
+      address:
+        EU: 0x207D58C
+        NA: 0x207D1F4
+        JP: 0x207D4DC
+    - name: Snd_CountWaitingCommand
+      address:
+        EU: 0x207D5C8
+        NA: 0x207D230
+        JP: 0x207D518
+    - name: PxiFifoCallback
+      address:
+        EU: 0x207D5E4
+        NA: 0x207D24C
+        JP: 0x207D534
+    - name: InitPxi
+      address:
+        EU: 0x207D608
+        NA: 0x207D270
+        JP: 0x207D558
+    - name: RequestCommandProc
+      address:
+        EU: 0x207D668
+        NA: 0x207D2D0
+        JP: 0x207D5B8
+    - name: AllocCommand
+      address:
+        EU: 0x207D690
+        NA: 0x207D2F8
+        JP: 0x207D5E0
+    - name: IsCommandAvailable
+      address:
+        EU: 0x207D6D8
+        NA: 0x207D340
+        JP: 0x207D628
+    - name: Snd_AlarmInit
+      address:
+        EU: 0x207D718
+        NA: 0x207D380
+        JP: 0x207D668
+    - name: Sndi_IncAlarmId
+      address:
+        EU: 0x207D748
+        NA: 0x207D3B0
+        JP: 0x207D698
+    - name: Sndi_SetAlarmHandler
+      address:
+        EU: 0x207D768
+        NA: 0x207D3D0
+        JP: 0x207D6B8
+    - name: Sndi_CallAlarmHandler
+      address:
+        EU: 0x207D798
+        NA: 0x207D400
+        JP: 0x207D6E8
+    - name: Snd_GetPlayerStatus
+      address:
+        EU: 0x207D7DC
+        NA: 0x207D444
+        JP: 0x207D72C
+    - name: Snd_GetChannelStatus
+      address:
+        EU: 0x207D808
+        NA: 0x207D470
+        JP: 0x207D758
+    - name: Sndi_GetFinishedCommandTag
+      address:
+        EU: 0x207D834
+        NA: 0x207D49C
+        JP: 0x207D784
+    - name: Sndi_InitSharedWork
+      address:
+        EU: 0x207D85C
+        NA: 0x207D4C4
+        JP: 0x207D7AC
+    - name: Snd_CalcChannelVolume
+      address:
+        EU: 0x207D8D8
+        NA: 0x207D540
+        JP: 0x207D828
+    - name: Snd_AssignWaveArc
+      address:
+        EU: 0x207D948
+        NA: 0x207D5B0
+        JP: 0x207D898
+    - name: Snd_DestroyBank
+      address:
+        EU: 0x207DA14
+        NA: 0x207D67C
+        JP: 0x207D964
+    - name: Snd_DestroyWaveArc
+      address:
+        EU: 0x207DAAC
+        NA: 0x207D714
+        JP: 0x207D9FC
+    - name: Snd_GetFirstInstDataPos
+      address:
+        EU: 0x207DAF4
+        NA: 0x207D75C
+        JP: 0x207DA44
+    - name: Snd_GetNextInstData
+      address:
+        EU: 0x207DB14
+        NA: 0x207D77C
+        JP: 0x207DA64
+    - name: Snd_GetWaveDataCount
+      address:
+        EU: 0x207DCC4
+        NA: 0x207D92C
+        JP: 0x207DC14
+    - name: Snd_SetWaveDataAddress
+      address:
+        EU: 0x207DCCC
+        NA: 0x207D934
+        JP: 0x207DC1C
+    - name: Snd_GetWaveDataAddress
+      address:
+        EU: 0x207DD00
+        NA: 0x207D968
+        JP: 0x207DC50
     - name: Pxi_Init
       address:
         EU: 0x207DD3C
@@ -2632,7 +3473,184 @@ libs:
         EU: 0x207DF40
         NA: 0x207DBA8
         JP: 0x207DE90
-    - name: FileInit
+    - name: FSi_ReleaseCommand
+      address:
+        EU: 0x207E058
+        NA: 0x207DCC0
+        JP: 0x207DFA8
+    - name: FSi_TranslateCommand
+      address:
+        EU: 0x207E0B4
+        NA: 0x207DD1C
+        JP: 0x207E004
+    - name: FSi_StrNiCmp
+      address:
+        EU: 0x207E244
+        NA: 0x207DEAC
+        JP: 0x207E194
+    - name: FSi_ReadTable
+      address:
+        EU: 0x207E294
+        NA: 0x207DEFC
+        JP: 0x207E1E4
+    - name: FSi_SeekDirDirect
+      address:
+        EU: 0x207E354
+        NA: 0x207DFBC
+        JP: 0x207E2A4
+    - name: FSi_ReadFileCommand
+      address:
+        EU: 0x207E388
+        NA: 0x207DFF0
+        JP: 0x207E2D8
+    - name: FSi_WriteFileCommand
+      address:
+        EU: 0x207E3B4
+        NA: 0x207E01C
+        JP: 0x207E304
+    - name: FSi_SeekDirCommand
+      address:
+        EU: 0x207E3E0
+        NA: 0x207E048
+        JP: 0x207E330
+    - name: FSi_ReadDirCommand
+      address:
+        EU: 0x207E478
+        NA: 0x207E0E0
+        JP: 0x207E3C8
+    - name: FSi_FindPathCommand
+      address:
+        EU: 0x207E5A4
+        NA: 0x207E20C
+        JP: 0x207E4F4
+    - name: FSi_GetPathCommand
+      address:
+        EU: 0x207E788
+        NA: 0x207E3F0
+        JP: 0x207E6D8
+    - name: FSi_OpenFileFastCommand
+      address:
+        EU: 0x207EB34
+        NA: 0x207E79C
+        JP: 0x207EA84
+    - name: FSi_OpenFileDirectCommand
+      address:
+        EU: 0x207EBB4
+        NA: 0x207E81C
+        JP: 0x207EB04
+    - name: FSi_CloseFileCommand
+      address:
+        EU: 0x207EBDC
+        NA: 0x207E844
+        JP: 0x207EB2C
+    - name: FSi_GetPackedName
+      address:
+        EU: 0x207EBE4
+        NA: 0x207E84C
+        JP: 0x207EB34
+    - name: FSi_ReadMemCallback
+      address:
+        EU: 0x207EC3C
+        NA: 0x207E8A4
+        JP: 0x207EB8C
+    - name: FSi_WriteMemCallback
+      address:
+        EU: 0x207EC58
+        NA: 0x207E8C0
+        JP: 0x207EBA8
+    - name: FSi_ReadMemoryCore
+      address:
+        EU: 0x207EC78
+        NA: 0x207E8E0
+        JP: 0x207EBC8
+    - name: FSi_NextCommand
+      address:
+        EU: 0x207EC90
+        NA: 0x207E8F8
+        JP: 0x207EBE0
+    - name: FSi_ExecuteAsyncCommand
+      address:
+        EU: 0x207EEA4
+        NA: 0x207EB0C
+        JP: 0x207EDF4
+    - name: FSi_ExecuteSyncCommand
+      address:
+        EU: 0x207EF38
+        NA: 0x207EBA0
+        JP: 0x207EE88
+    - name: FSi_SendCommand
+      address:
+        EU: 0x207EF7C
+        NA: 0x207EBE4
+        JP: 0x207EECC
+    - name: FS_InitArchive
+      address:
+        EU: 0x207F120
+        NA: 0x207ED88
+        JP: 0x207F070
+    - name: FS_FindArchive
+      address:
+        EU: 0x207F14C
+        NA: 0x207EDB4
+        JP: 0x207F09C
+    - name: FS_RegisterArchiveName
+      address:
+        EU: 0x207F18C
+        NA: 0x207EDF4
+        JP: 0x207F0DC
+    - name: FS_ReleaseArchiveName
+      address:
+        EU: 0x207F240
+        NA: 0x207EEA8
+        JP: 0x207F190
+    - name: FS_LoadArchive
+      address:
+        EU: 0x207F2C4
+        NA: 0x207EF2C
+        JP: 0x207F214
+    - name: FS_UnloadArchive
+      address:
+        EU: 0x207F334
+        NA: 0x207EF9C
+        JP: 0x207F284
+    - name: FS_LoadArchiveTables
+      address:
+        EU: 0x207F3F4
+        NA: 0x207F05C
+        JP: 0x207F344
+    - name: FS_UnloadArchiveTables
+      address:
+        EU: 0x207F518
+        NA: 0x207F180
+        JP: 0x207F468
+    - name: FS_SuspendArchive
+      address:
+        EU: 0x207F5A4
+        NA: 0x207F20C
+        JP: 0x207F4F4
+    - name: FS_ResumeArchive
+      address:
+        EU: 0x207F640
+        NA: 0x207F2A8
+        JP: 0x207F590
+    - name: FS_SetArchiveProc
+      address:
+        EU: 0x207F6B0
+        NA: 0x207F318
+        JP: 0x207F600
+    - name: FS_NotifyArchiveAsyncEnd
+      address:
+        EU: 0x207F6D0
+        NA: 0x207F338
+        JP: 0x207F620
+    - name: FS_Init
+      address:
+        EU: 0x207F754
+        NA: 0x207F3BC
+        JP: 0x207F6A4
+    - name: FS_InitFile
+      aliases:
+        - FileInit
       address:
         EU: 0x207F77C
         NA: 0x207F3E4
@@ -2643,7 +3661,124 @@ libs:
         This function must always be called before opening a file.
         
         r0: file_stream pointer
-    - name: GetOverlayInfo
+    - name: FSi_FindPath
+      address:
+        EU: 0x207F7A4
+        NA: 0x207F40C
+        JP: 0x207F6F4
+    - name: FSi_ReadFileCore
+      address:
+        EU: 0x207F8E8
+        NA: 0x207F550
+        JP: 0x207F838
+    - name: FS_ConvertPathToFileID
+      address:
+        EU: 0x207F964
+        NA: 0x207F5CC
+        JP: 0x207F8B4
+    - name: FS_OpenFileDirect
+      address:
+        EU: 0x207F9A4
+        NA: 0x207F60C
+        JP: 0x207F8F4
+    - name: FS_OpenFileFast
+      address:
+        EU: 0x207F9EC
+        NA: 0x207F654
+        JP: 0x207F93C
+    - name: FS_OpenFile
+      address:
+        EU: 0x207FA5C
+        NA: 0x207F6C4
+        JP: 0x207F9AC
+    - name: FS_CloseFile
+      address:
+        EU: 0x207FAA4
+        NA: 0x207F70C
+        JP: 0x207F9F4
+    - name: FS_WaitAsync
+      address:
+        EU: 0x207FAE0
+        NA: 0x207F748
+        JP: 0x207FA30
+    - name: FS_ReadFileAsync
+      address:
+        EU: 0x207FBA0
+        NA: 0x207F808
+        JP: 0x207FAF0
+    - name: FS_ReadFile
+      address:
+        EU: 0x207FBB0
+        NA: 0x207F818
+        JP: 0x207FB00
+    - name: FS_SeekFile
+      address:
+        EU: 0x207FBC0
+        NA: 0x207F828
+        JP: 0x207FB10
+    - name: FS_ChangeDir
+      address:
+        EU: 0x207FC2C
+        NA: 0x207F894
+        JP: 0x207FB7C
+    - name: FSi_OnRomReadDone
+      address:
+        EU: 0x207FC84
+        NA: 0x207F8EC
+        JP: 0x207FBD4
+    - name: FSi_ReadRomCallback
+      address:
+        EU: 0x207FCA8
+        NA: 0x207F910
+        JP: 0x207FBF8
+    - name: FSi_WriteDummyCallback
+      address:
+        EU: 0x207FCF0
+        NA: 0x207F958
+        JP: 0x207FC40
+    - name: FSi_RomArchiveProc
+      address:
+        EU: 0x207FCF8
+        NA: 0x207F960
+        JP: 0x207FC48
+    - name: FSi_ReadDummyCallback
+      address:
+        EU: 0x207FD64
+        NA: 0x207F9CC
+        JP: 0x207FCB4
+    - name: FSi_EmptyArchiveProc
+      address:
+        EU: 0x207FD6C
+        NA: 0x207F9D4
+        JP: 0x207FCBC
+    - name: FSi_InitRom
+      address:
+        EU: 0x207FD74
+        NA: 0x207F9DC
+        JP: 0x207FCC4
+    - name: FSi_GetOverlayBinarySize
+      address:
+        EU: 0x207FEBC
+        NA: 0x207FB24
+        JP: 0x207FE0C
+    - name: FS_ClearOverlayImage
+      address:
+        EU: 0x207FED8
+        NA: 0x207FB40
+        JP: 0x207FE28
+    - name: FS_GetOverlayFileID
+      address:
+        EU: 0x207FF14
+        NA: 0x207FB7C
+        JP: 0x207FE64
+    - name: FSi_LoadOverlayInfoCore
+      address:
+        EU: 0x207FF3C
+        NA: 0x207FBA4
+        JP: 0x207FE8C
+    - name: FS_LoadOverlayInfo
+      aliases:
+        - GetOverlayInfo
       address:
         EU: 0x2080034
         NA: 0x207FC9C
@@ -2655,7 +3790,9 @@ libs:
         r1: ?
         r2: Overlay ID
         return: True if the entry could be loaded successfully?
-    - name: LoadOverlayInternal
+    - name: FS_LoadOverlayImageAsync
+      aliases:
+        - LoadOverlayInternal
       address:
         EU: 0x2080130
         NA: 0x207FD98
@@ -2665,7 +3802,14 @@ libs:
         
         r0: Overlay info struct
         Return: True if the overlay was loaded successfully?
-    - name: InitOverlay
+    - name: FSi_CompareDigest
+      address:
+        EU: 0x20801C0
+        NA: 0x207FE28
+        JP: 0x2080110
+    - name: FS_StartOverlay
+      aliases:
+        - InitOverlay
       address:
         EU: 0x2080254
         NA: 0x207FEBC
@@ -2676,7 +3820,24 @@ libs:
         This function is responsible for jumping to all the pointers located in the overlay's static init array, among other things.
         
         r0: Overlay info struct
+    - name: FS_EndOverlay
+      address:
+        EU: 0x2080348
+        NA: 0x207FFB0
+        JP: 0x2080298
+    - name: FS_UnloadOverlayImage
+      address:
+        EU: 0x2080438
+        NA: 0x20800A0
+        JP: 0x2080388
+    - name: FS_UnloadOverlay
+      address:
+        EU: 0x2080448
+        NA: 0x20800B0
+        JP: 0x2080398
     - name: MD5_Init
+      aliases:
+        - Math_MD5Init
       address:
         EU: 0x2080494
         NA: 0x20800FC
@@ -2686,6 +3847,8 @@ libs:
         
         r0: context
     - name: MD5_Update
+      aliases:
+        - Math_MD5Update
       address:
         EU: 0x20804D4
         NA: 0x208013C
@@ -2697,6 +3860,8 @@ libs:
         r1: buffer
         r2: size of buffer
     - name: MD5_Digest
+      aliases:
+        - Math_MD5Digest
       address:
         EU: 0x208059C
         NA: 0x2080204
@@ -2706,6 +3871,133 @@ libs:
         
         r0: [output] hash buffer (16 bytes)
         r1: context
+    - name: MD5_Transform
+      aliases:
+        - Math_MD5Transform
+      address:
+        EU: 0x2080654
+        NA: 0x20802BC
+        JP: 0x20805A4
+    - name: Dgt_Hash2Init
+      address:
+        EU: 0x2080A08
+        NA: 0x2080670
+        JP: 0x2080958
+    - name: Dgt_Hash2Update
+      address:
+        EU: 0x2080A58
+        NA: 0x20806C0
+        JP: 0x20809A8
+    - name: Dgt_Hash2GetHash
+      address:
+        EU: 0x2080BAC
+        NA: 0x2080814
+        JP: 0x2080AFC
+    - name: Dgt_Hash2CalcHmac
+      address:
+        EU: 0x2080DA8
+        NA: 0x2080A10
+        JP: 0x2080CF8
+    - name: Dgti_CalcHmac
+      address:
+        EU: 0x2080E3C
+        NA: 0x2080AA4
+        JP: 0x2080D8C
+    - name: Dgt_Hash2Transform
+      address:
+        EU: 0x2081008
+        NA: 0x2080C70
+        JP: 0x2080F58
+    - name: CP_SaveContext
+      address:
+        EU: 0x2081288
+        NA: 0x2080EF0
+        JP: 0x20811D8
+    - name: CPi_RestoreContext
+      address:
+        EU: 0x20812C8
+        NA: 0x2080F30
+        JP: 0x2081218
+    - name: TPi_TpCallback
+      address:
+        EU: 0x2081304
+        NA: 0x2080F6C
+        JP: 0x2081254
+    - name: TP_Init
+      address:
+        EU: 0x2081584
+        NA: 0x20811EC
+        JP: 0x20814D4
+    - name: TP_GetUserInfo
+      address:
+        EU: 0x20815FC
+        NA: 0x2081264
+        JP: 0x208154C
+    - name: TP_SetCalibrateParam
+      address:
+        EU: 0x2081690
+        NA: 0x20812F8
+        JP: 0x20815E0
+    - name: TP_RequestSamplingAsync
+      address:
+        EU: 0x20817B8
+        NA: 0x2081420
+        JP: 0x2081708
+    - name: TP_GetCalibratedResult
+      address:
+        EU: 0x208184C
+        NA: 0x20814B4
+        JP: 0x208179C
+    - name: TP_WaitCalibratedResult
+      address:
+        EU: 0x2081898
+        NA: 0x2081500
+        JP: 0x20817E8
+    - name: TP_RequestAutoSamplingStartAsync
+      address:
+        EU: 0x20818B4
+        NA: 0x208151C
+        JP: 0x2081804
+    - name: TP_GetLatestIndexInAuto
+      address:
+        EU: 0x2081A4C
+        NA: 0x20816B4
+        JP: 0x208199C
+    - name: TP_CalcCalibrateParam
+      address:
+        EU: 0x2081A5C
+        NA: 0x20816C4
+        JP: 0x20819AC
+    - name: TP_GetCalibratedPoint
+      address:
+        EU: 0x2081C48
+        NA: 0x20818B0
+        JP: 0x2081B98
+    - name: TP_WaitBusy
+      address:
+        EU: 0x2081D6C
+        NA: 0x20819D4
+        JP: 0x2081CBC
+    - name: TP_CheckBusy
+      address:
+        EU: 0x2081D84
+        NA: 0x20819EC
+        JP: 0x2081CD4
+    - name: PMi_Lock
+      address:
+        EU: 0x2081D98
+        NA: 0x2081A00
+        JP: 0x2081CE8
+    - name: PMi_WaitBusy
+      address:
+        EU: 0x2081DD4
+        NA: 0x2081A3C
+        JP: 0x2081D24
+    - name: PMi_DummyCallback
+      address:
+        EU: 0x2081E14
+        NA: 0x2081A7C
+        JP: 0x2081D64
     - name: PMi_CallCallbackAndUnlock
       address:
         EU: 0x2081E1C
@@ -2721,6 +4013,61 @@ libs:
         EU: 0x2081F00
         NA: 0x2081B68
         JP: 0x2081E50
+    - name: PMi_SendSleepStart
+      address:
+        EU: 0x2081FC8
+        NA: 0x2081C30
+        JP: 0x2081F18
+    - name: PM_SendUtilityCommandAsync
+      address:
+        EU: 0x208205C
+        NA: 0x2081CC4
+        JP: 0x2081FAC
+    - name: PMi_ReadRegisterAsync
+      address:
+        EU: 0x20820BC
+        NA: 0x2081D24
+        JP: 0x208200C
+    - name: PMi_ReadRegister
+      address:
+        EU: 0x2082128
+        NA: 0x2081D90
+        JP: 0x2082078
+    - name: PMi_WriteRegisterAsync
+      address:
+        EU: 0x2082150
+        NA: 0x2081DB8
+        JP: 0x20820A0
+    - name: PMi_WriteRegister
+      address:
+        EU: 0x20821B0
+        NA: 0x2081E18
+        JP: 0x2082100
+    - name: PMi_SetLedAsync
+      address:
+        EU: 0x20821D8
+        NA: 0x2081E40
+        JP: 0x2082128
+    - name: PMi_SetLed
+      address:
+        EU: 0x208222C
+        NA: 0x2081E94
+        JP: 0x208217C
+    - name: PM_SetBackLightAsync
+      address:
+        EU: 0x2082254
+        NA: 0x2081EBC
+        JP: 0x20821A4
+    - name: PM_SetBackLight
+      address:
+        EU: 0x20822D0
+        NA: 0x2081F38
+        JP: 0x2082220
+    - name: PM_ForceToPowerOffAsync
+      address:
+        EU: 0x20822F8
+        NA: 0x2081F60
+        JP: 0x2082248
     - name: PM_ForceToPowerOff
       address:
         EU: 0x20823A4
@@ -2730,16 +4077,311 @@ libs:
         Powers off the system.
         
         return: ?
+    - name: PMi_SetAmp
+      address:
+        EU: 0x20823CC
+        NA: 0x2082034
+        JP: 0x208231C
+    - name: PM_GetBackLight
+      address:
+        EU: 0x20823F8
+        NA: 0x2082060
+        JP: 0x2082348
+    - name: PMi_SendPxiData
+      address:
+        EU: 0x2082454
+        NA: 0x20820BC
+        JP: 0x20823A4
+    - name: PMi_SetLcdPower
+      address:
+        EU: 0x20826C0
+        NA: 0x2082328
+        JP: 0x2082610
+    - name: PM_SetLcdPower
+      address:
+        EU: 0x20827B8
+        NA: 0x2082420
+        JP: 0x2082708
+    - name: PM_GetLcdPower
+      address:
+        EU: 0x20827D8
+        NA: 0x2082440
+        JP: 0x2082728
+    - name: PMi_SendLedPatternCommandAsync
+      address:
+        EU: 0x20827F4
+        NA: 0x208245C
+        JP: 0x2082744
+    - name: PMi_SendLedPatternCommand
+      address:
+        EU: 0x208283C
+        NA: 0x20824A4
+        JP: 0x208278C
+    - name: PM_GetLedPatternAsync
+      address:
+        EU: 0x2082864
+        NA: 0x20824CC
+        JP: 0x20827B4
+    - name: PM_GetLedPattern
+      address:
+        EU: 0x20828AC
+        NA: 0x2082514
+        JP: 0x20827FC
+    - name: PMi_PrependList
+      address:
+        EU: 0x20828D4
+        NA: 0x208253C
+        JP: 0x2082824
+    - name: PMi_AppendList
+      address:
+        EU: 0x20828E8
+        NA: 0x2082550
+        JP: 0x2082838
+    - name: PMi_DeleteList
+      address:
+        EU: 0x2082934
+        NA: 0x208259C
+        JP: 0x2082884
+    - name: PMi_ExecuteList
+      address:
+        EU: 0x208297C
+        NA: 0x20825E4
+        JP: 0x20828CC
+    - name: PM_PrependPreSleepCallback
+      address:
+        EU: 0x20829A4
+        NA: 0x208260C
+        JP: 0x20828F4
+    - name: PM_AppendPostSleepCallback
+      address:
+        EU: 0x20829BC
+        NA: 0x2082624
+        JP: 0x208290C
+    - name: PM_DeletePreSleepCallback
+      address:
+        EU: 0x20829D4
+        NA: 0x208263C
+        JP: 0x2082924
+    - name: PM_DeletePostSleepCallback
+      address:
+        EU: 0x20829EC
+        NA: 0x2082654
+        JP: 0x208293C
+    - name: Rtc_Init
+      address:
+        EU: 0x2082A04
+        NA: 0x208266C
+        JP: 0x2082954
+    - name: Rtc_GetDateAsync
+      address:
+        EU: 0x2082A70
+        NA: 0x20826D8
+        JP: 0x20829C0
+    - name: Rtc_GetDate
+      address:
+        EU: 0x2082AE0
+        NA: 0x2082748
+        JP: 0x2082A30
+    - name: Rtc_GetTimeAsync
+      address:
+        EU: 0x2082B18
+        NA: 0x2082780
+        JP: 0x2082A68
+    - name: Rtc_GetTime
+      address:
+        EU: 0x2082B8C
+        NA: 0x20827F4
+        JP: 0x2082ADC
+    - name: Rtc_GetDateTimeAsync
+      address:
+        EU: 0x2082BC4
+        NA: 0x208282C
+        JP: 0x2082B14
+    - name: Rtc_GetDateTime
+      address:
+        EU: 0x2082C40
+        NA: 0x20828A8
+        JP: 0x2082B90
+    - name: RtcCommonCallback
+      address:
+        EU: 0x2082C78
+        NA: 0x20828E0
+        JP: 0x2082BC8
+    - name: RtcBcd2Hex
+      address:
+        EU: 0x20831C8
+        NA: 0x2082E30
+        JP: 0x2083118
+    - name: RtcGetResultCallback
+      address:
+        EU: 0x2083238
+        NA: 0x2082EA0
+        JP: 0x2083188
+    - name: RtcWaitBusy
+      address:
+        EU: 0x2083248
+        NA: 0x2082EB0
+        JP: 0x2083198
+    - name: Rtci_ReadRawDateTimeAsync
+      address:
+        EU: 0x2083260
+        NA: 0x2082EC8
+        JP: 0x20831B0
+    - name: Rtci_ReadRawDateAsync
+      address:
+        EU: 0x2083270
+        NA: 0x2082ED8
+        JP: 0x20831C0
+    - name: Rtci_ReadRawTimeAsync
+      address:
+        EU: 0x2083280
+        NA: 0x2082EE8
+        JP: 0x20831D0
+    - name: Rtci_WriteRawStatus2Async
+      address:
+        EU: 0x2083290
+        NA: 0x2082EF8
+        JP: 0x20831E0
+    - name: RtcSendPxiCommand
+      address:
+        EU: 0x20832A0
+        NA: 0x2082F08
+        JP: 0x20831F0
+    - name: Rtc_ConvertDateToDay
+      address:
+        EU: 0x20832C8
+        NA: 0x2082F30
+        JP: 0x2083218
+    - name: Rtci_ConvertTimeToSecond
+      address:
+        EU: 0x208335C
+        NA: 0x2082FC4
+        JP: 0x20832AC
+    - name: Rtc_ConvertDateTimeToSecond
+      address:
+        EU: 0x2083374
+        NA: 0x2082FDC
+        JP: 0x20832C4
+    - name: Rtc_GetDayOfWeek
+      address:
+        EU: 0x20833D8
+        NA: 0x2083040
+        JP: 0x2083328
+    - name: Cardi_SetTask
+      address:
+        EU: 0x2083494
+        NA: 0x20830FC
+        JP: 0x20833E4
+    - name: Cardi_LockResource
+      address:
+        EU: 0x20834D0
+        NA: 0x2083138
+        JP: 0x2083420
+    - name: Cardi_UnlockResource
+      address:
+        EU: 0x2083554
+        NA: 0x20831BC
+        JP: 0x20834A4
     - name: Cardi_InitCommon
       address:
         EU: 0x20835E0
         NA: 0x2083248
         JP: 0x2083530
+    - name: Card_IsEnabled
+      address:
+        EU: 0x20836F0
+        NA: 0x2083358
+        JP: 0x2083640
+    - name: Card_CheckEnabled
+      address:
+        EU: 0x2083700
+        NA: 0x2083368
+        JP: 0x2083650
     - name: Card_Enable
       address:
         EU: 0x2083718
         NA: 0x2083380
         JP: 0x2083668
+    - name: Cardi_WaitAsync
+      address:
+        EU: 0x2083728
+        NA: 0x2083390
+        JP: 0x2083678
+    - name: Cardi_TryWaitAsync
+      address:
+        EU: 0x2083774
+        NA: 0x20833DC
+        JP: 0x20836C4
+    - name: Card_SetThreadPriority
+      address:
+        EU: 0x2083790
+        NA: 0x20833F8
+        JP: 0x20836E0
+    - name: Card_LockRom
+      address:
+        EU: 0x20837CC
+        NA: 0x2083434
+        JP: 0x208371C
+    - name: Card_UnlockRom
+      address:
+        EU: 0x20837E8
+        NA: 0x2083450
+        JP: 0x2083738
+    - name: Card_LockBackup
+      address:
+        EU: 0x2083804
+        NA: 0x208346C
+        JP: 0x2083754
+    - name: Card_UnlockBackup
+      address:
+        EU: 0x2083814
+        NA: 0x208347C
+        JP: 0x2083764
+    - name: Cardi_IdentifyBackupCore
+      address:
+        EU: 0x208383C
+        NA: 0x20834A4
+        JP: 0x208378C
+    - name: Cardi_RequestStreamCommandCore
+      address:
+        EU: 0x2083BC0
+        NA: 0x2083828
+        JP: 0x2083B10
+    - name: Cardi_RequestStreamCommand
+      address:
+        EU: 0x2083DB0
+        NA: 0x2083A18
+        JP: 0x2083D00
+    - name: Card_GetCurrentBackupType
+      address:
+        EU: 0x2083E98
+        NA: 0x2083B00
+        JP: 0x2083DE8
+    - name: Card_GetBackupTotalSize
+      address:
+        EU: 0x2083EAC
+        NA: 0x2083B14
+        JP: 0x2083DFC
+    - name: Card_GetBackupSectorSize
+      address:
+        EU: 0x2083EC0
+        NA: 0x2083B28
+        JP: 0x2083E10
+    - name: Card_IdentifyBackup
+      address:
+        EU: 0x2083ED4
+        NA: 0x2083B3C
+        JP: 0x2083E24
+    - name: Card_WaitBackupAsync
+      address:
+        EU: 0x208400C
+        NA: 0x2083C74
+        JP: 0x2083F5C
+    - name: Card_TryWaitBackupAsync
+      address:
+        EU: 0x2084018
+        NA: 0x2083C80
+        JP: 0x2083F68
     - name: Cardi_ReadFromCache
       address:
         EU: 0x2084024
@@ -2750,16 +4392,36 @@ libs:
         EU: 0x20840B0
         NA: 0x2083D18
         JP: 0x2084000
+    - name: Cardi_TryReadCardDma
+      address:
+        EU: 0x2084234
+        NA: 0x2083E9C
+        JP: 0x2084184
     - name: Cardi_ReadCard
       address:
         EU: 0x20843C0
         NA: 0x2084028
         JP: 0x2084310
+    - name: Cardi_ReadRomSyncCore
+      address:
+        EU: 0x208450C
+        NA: 0x2084174
+        JP: 0x208445C
+    - name: Cardi_ReadRom
+      address:
+        EU: 0x20845A4
+        NA: 0x208420C
+        JP: 0x20844F4
     - name: Card_Init
       address:
         EU: 0x208469C
         NA: 0x2084304
         JP: 0x20845EC
+    - name: Card_WaitRomAsync
+      address:
+        EU: 0x2084700
+        NA: 0x2084368
+        JP: 0x2084650
     - name: Cardi_GetRomAccessor
       address:
         EU: 0x208470C
@@ -2775,6 +4437,11 @@ libs:
         EU: 0x208474C
         NA: 0x20843B4
         JP: 0x208469C
+    - name: Cardi_Request
+      address:
+        EU: 0x208479C
+        NA: 0x2084404
+        JP: 0x20846EC
     - name: Card_InitPulledOutCallback
       address:
         EU: 0x20848F0
@@ -2785,11 +4452,51 @@ libs:
         EU: 0x208491C
         NA: 0x2084584
         JP: 0x208486C
+    - name: Card_SetPulledOutCallback
+      address:
+        EU: 0x2084970
+        NA: 0x20845D8
+        JP: 0x20848C0
+    - name: Card_IsPulledOut
+      address:
+        EU: 0x2084980
+        NA: 0x20845E8
+        JP: 0x20848D0
+    - name: Card_TerminateForPulledOut
+      address:
+        EU: 0x2084990
+        NA: 0x20845F8
+        JP: 0x20848E0
+    - name: Cardi_CheckPulledOutCore
+      address:
+        EU: 0x2084A1C
+        NA: 0x2084684
+        JP: 0x208496C
+    - name: Cardi_SendtoPxi
+      address:
+        EU: 0x2084A7C
+        NA: 0x20846E4
+        JP: 0x20849CC
     - name: Ctrdgi_InitCommon
       address:
         EU: 0x2084ACC
         NA: 0x2084734
         JP: 0x2084A1C
+    - name: Ctrdg_IsOptionCartridge
+      address:
+        EU: 0x2084B04
+        NA: 0x208476C
+        JP: 0x2084A54
+    - name: Ctrdgi_IsAgbCartridgeAtInit
+      address:
+        EU: 0x2084B2C
+        NA: 0x2084794
+        JP: 0x2084A7C
+    - name: Ctrdg_IsExisting
+      address:
+        EU: 0x2084B44
+        NA: 0x20847AC
+        JP: 0x2084A94
     - name: Ctrdgi_ChangeLatestAccessCycle
       address:
         EU: 0x2084C50
@@ -2815,6 +4522,11 @@ libs:
         EU: 0x2084D4C
         NA: 0x20849B4
         JP: 0x2084C9C
+    - name: Ctrdg_Enable
+      address:
+        EU: 0x2084D9C
+        NA: 0x2084A04
+        JP: 0x2084CEC
     - name: Ctrdg_Init
       address:
         EU: 0x2084DE4
@@ -2840,6 +4552,155 @@ libs:
         EU: 0x2085114
         NA: 0x2084D7C
         JP: 0x2085064
+    - name: Ctrdgi_CallbackForSetPhi
+      address:
+        EU: 0x2085128
+        NA: 0x2084D90
+        JP: 0x2085078
+    - name: Ctrdgi_InitTaskThread
+      address:
+        EU: 0x208513C
+        NA: 0x2084DA4
+        JP: 0x208508C
+    - name: Ctrdgi_InitTaskInfo
+      address:
+        EU: 0x20851C8
+        NA: 0x2084E30
+        JP: 0x2085118
+    - name: Ctrdgi_TaskThread
+      address:
+        EU: 0x20851DC
+        NA: 0x2084E44
+        JP: 0x208512C
+    - name: Math_CountPopulation
+      address:
+        EU: 0x20852CC
+        NA: 0x2084F34
+        JP: 0x208521C
+    - name: Math_CalcSha1
+      address:
+        EU: 0x2085310
+    - name: Mathi_Crc8InitTable
+      address:
+        EU: 0x2085350
+        NA: 0x2084FB8
+        JP: 0x20852A0
+    - name: Mathi_Crc8Update
+      address:
+        EU: 0x2085390
+        NA: 0x2084FF8
+        JP: 0x20852E0
+    - name: Mathi_Crc16InitTable
+      address:
+        EU: 0x20853C8
+        NA: 0x2085030
+        JP: 0x2085318
+    - name: Mathi_Crc16Update
+      address:
+        EU: 0x208540C
+        NA: 0x2085074
+        JP: 0x208535C
+    - name: Mathi_Crc32InitTable
+      address:
+        EU: 0x208544C
+        NA: 0x20850B4
+        JP: 0x208539C
+    - name: Mathi_Crc32Update
+      address:
+        EU: 0x208548C
+        NA: 0x20850F4
+        JP: 0x20853DC
+    - name: Math_CalcCrc8
+      address:
+        EU: 0x20854C8
+        NA: 0x2085130
+        JP: 0x2085418
+    - name: Math_CalcCrc16
+      address:
+        EU: 0x20854F0
+        NA: 0x2085158
+        JP: 0x2085440
+    - name: Math_CalcCrc32
+      address:
+        EU: 0x2085518
+        NA: 0x2085180
+        JP: 0x2085468
+    - name: Std_CopyLString
+      address:
+        EU: 0x20855DC
+        NA: 0x2085244
+        JP: 0x208552C
+    - name: Std_GetStringLength
+      address:
+        EU: 0x208563C
+        NA: 0x20852A4
+        JP: 0x208558C
+    - name: Std_CompareString
+      address:
+        EU:
+          - 0x2085664
+          - 0x2085670
+        NA:
+          - 0x20852CC
+          - 0x20852D8
+        JP:
+          - 0x20855B4
+          - 0x20855C0
+    - name: Std_CompareNString
+      address:
+        EU: 0x2085690
+        NA: 0x20852F8
+        JP: 0x20855E0
+    - name: Std_TsScanf
+      address:
+        EU: 0x20856D0
+        NA: 0x2085338
+        JP: 0x2085620
+    - name: Stdi_IsSpace
+      address:
+        EU: 0x20856F8
+        NA: 0x2085360
+        JP: 0x2085648
+    - name: Stdi_FillBitset
+      address:
+        EU: 0x2085720
+        NA: 0x2085388
+        JP: 0x2085670
+    - name: Std_TvsScanf
+      address:
+        EU: 0x2085774
+        NA: 0x20853DC
+        JP: 0x20856C4
+    - name: string_put_char
+      address:
+        EU: 0x2085E90
+        NA: 0x2085AF8
+        JP: 0x2085DE0
+    - name: string_fill_char
+      address:
+        EU: 0x2085EC0
+        NA: 0x2085B28
+        JP: 0x2085E10
+    - name: string_put_string
+      address:
+        EU: 0x2085F14
+        NA: 0x2085B7C
+        JP: 0x2085E64
+    - name: OS_VsNPrintfEx
+      address:
+        EU: 0x2085F6C
+        NA: 0x2085BD4
+        JP: 0x2085EBC
+    - name: NotANumber
+      address:
+        EU: 0x20867E8
+      description: "The original name for this function is \"nan\"."
+    - name: _flush_line_buffered_output_files
+      address:
+        EU: 0x2086800
+    - name: _flush_all
+      address:
+        EU: 0x208688C
     - name: abs
       address:
         EU: 0x20868F4
@@ -2850,7 +4711,56 @@ libs:
         
         r0: x
         return: abs(x)
-    - name: mbtowc
+    - name: _convert_from_newlines
+      address:
+        EU: 0x2086900
+    - name: _convert_to_newlines
+      address:
+        EU: 0x2086904
+    - name: _prep_buffer
+      address:
+        EU: 0x2086908
+    - name: _load_buffer
+      address:
+        EU: 0x2086938
+    - name: _flush_buffer
+      address:
+        EU: 0x20869C4
+    - name: fread
+      address:
+        EU: 0x2086A4C
+    - name: _fread
+      address:
+        EU: 0x2086B58
+    - name: fclose
+      address:
+        EU: 0x2086EA0
+    - name: fflush
+      address:
+        EU: 0x2086F14
+    - name: _msl_strnicmp
+      address:
+        EU:
+          - 0x2086FFC
+          - 0x208E248
+    - name: _ftell
+      address:
+        EU: 0x2087084
+    - name: ftell
+      address:
+        EU: 0x2087100
+    - name: _fseek
+      address:
+        EU: 0x208721C
+    - name: fseek
+      address:
+        EU: 0x2087404
+    - name: rewind
+      address:
+        EU: 0x2087530
+    - name: _mbtowc_noconv
+      aliases:
+        - mbtowc
       address:
         EU: 0x2087554
         NA: 0x20871BC
@@ -2862,7 +4772,9 @@ libs:
         r1: s
         r2: n
         return: number of consumed bytes, or -1 on failure
-    - name: TryAssignByte
+    - name: _wctomb_noconv
+      aliases:
+        - TryAssignByte
       address:
         EU: 0x208758C
         NA: 0x20871F4
@@ -2873,7 +4785,9 @@ libs:
         r0: pointer
         r1: value
         return: true on success, false on failure
-    - name: TryAssignByteWrapper
+    - name: wctomb
+      aliases:
+        - TryAssignByteWrapper
       address:
         EU: 0x20875A0
         NA: 0x2087208
@@ -2962,7 +4876,9 @@ libs:
         r1: s2
         r2: n
         return: comparison value
-    - name: memset_internal
+    - name: _fill_mem
+      aliases:
+        - memset_internal
       address:
         EU: 0x2087720
         NA: 0x2087388
@@ -2975,6 +4891,24 @@ libs:
         r0: s
         r1: c (int, but must be a single-byte value)
         r2: n
+    - name: parse_format
+      address:
+        EU: 0x20877D0
+    - name: long2str
+      address:
+        EU: 0x2087D60
+    - name: longlong2str
+      address:
+        EU: 0x2087FAC
+    - name: double2hex
+      address:
+        EU: 0x20882A8
+    - name: round_decimal
+      address:
+        EU: 0x2088784
+    - name: float2str
+      address:
+        EU: 0x20888A8
     - name: __vsprintf_internal_slice
       address:
         EU: 0x208900C
@@ -3056,6 +4990,28 @@ libs:
         r1: format
         ...: variadic
         return: number of characters printed, excluding the null-terminator
+    - name: rand
+      address:
+        EU: 0x2089948
+        NA: 0x20895B0
+      description: |-
+        The rand(3) C library function.
+        
+        Computes a pseudorandom 15-bit integer using the classical ANSI C linear congruential generator (LCG), which uses a modulus of 2^32, a multiplier of 1103515245, and an increment of 12345. I.e., the recurrence relation is `x = (1103515245*x_prev + 12345)`, where x is a 32-bit unsigned integer. Only the upper 16 bits, excluding the most significant bit, are used as output.
+        
+        The LCG has a hard-coded seed of 1, but can be seeded with a call to srand.
+        
+        return: psuedorandom integer on the interval [0, 32767]
+    - name: srand
+      address:
+        EU: 0x208997C
+        NA: 0x20895E4
+      description: |-
+        The srand(3) C library function.
+        
+        Seed RAND_SEQUENCE_NUM to a given value.
+        
+        r0: seed
     - name: strlen
       address:
         EU: 0x2089A10
@@ -3172,6 +5128,34 @@ libs:
         r0: haystack
         r1: needle
         return: pointer into haystack where needle starts, or null pointer if no match
+    - name: _strtold
+      address:
+        EU: 0x2089E74
+    - name: strtold
+      address:
+        EU: 0x208B0C0
+    - name: atof
+      address:
+        EU: 0x208B1A0
+    - name: _strtoul
+      address:
+        EU: 0x208B1B0
+    - name: strtoul
+      address:
+        EU: 0x208B598
+    - name: strtol
+      address:
+        EU: 0x208B630
+        NA: 0x208B298
+        JP: 0x208B580
+    - name: atoi
+      address:
+        EU: 0x208B6F8
+        NA: 0x208B360
+        JP: 0x208B648
+    - name: fwide
+      address:
+        EU: 0x208B70C
     - name: wcslen
       address:
         EU: 0x208B780
@@ -3182,6 +5166,18 @@ libs:
         
         r0: ws
         return: length of ws
+    - name: fabs
+      address:
+        EU: 0x208C94C
+    - name: _num2dec
+      address:
+        EU: 0x208D9D0
+    - name: _dec2num
+      address:
+        EU: 0x208DA78
+    - name: strcasecmp
+      address:
+        EU: 0x208E254
     - name: _dadd
       address:
         EU: 0x208E260
@@ -3685,4 +5681,15 @@ libs:
         Meant to do set up for floating point calculations? Does nothing.
         
         No params.
-  data: []
+    - name: _call_static_initializers
+      address:
+        EU: 0x2090C40
+  data:
+    - name: ANSI_C_LCG_MULTIPLIER
+      address:
+        NA: 0x20895DC
+      description: "The ANSI C LCG multiplier, 1103515245, used by the system PRNG."
+    - name: RAND_MAX
+      address:
+        NA: 0x20895E0
+      description: "Mask applied to the output of rand (0x7fff), so that the return value falls in the range [0, RAND_MAX] per the ANSI C standard."

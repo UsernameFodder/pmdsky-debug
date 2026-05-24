@@ -4993,6 +4993,8 @@ overlay29:
     - name: ActivateEndOfTurnEffects
       address:
         EU: 0x2310698
+        NA: 0x230FC24
+        JP: 0x2311160
       description: |-
         Triggers many different effects that happen at the end of a turn, such as Warp Scarf warping, belly loss, weather damage, etc.
         
@@ -6145,6 +6147,16 @@ overlay29:
         
         r0: entity pointer
         return: bool
+    - name: SetTwoTurnInvincibility
+      address:
+        NA: 0x2318A90
+      description: |-
+        Sets two-turn invincibility to a specified value on a target monster entity.
+        
+        Used for the "flying up/down" effects (similar to Fly/Bounce) in Seismic Toss' animation.
+        
+        r0: target entity pointer
+        r1: two_turn_move_invincible value
     - name: SetReflectStatus
       address:
         EU: 0x23197F8
@@ -9555,6 +9567,8 @@ overlay29:
     - name: GetFirstExperienceLockedTeamMember
       address:
         EU: 0x234A670
+        NA: 0x2349A70
+        JP: 0x234AD10
       description: |-
         Returns the entity pointer to the first experience-locked member on the team (so a client or a special story ally).
         
@@ -10031,6 +10045,8 @@ overlay29:
     - name: InitSecretBazaarDialogueInfo
       address:
         EU: 0x234E758
+        NA: 0x234DB58
+        JP: 0x234EDE4
       description: |-
         Initializes the struct pointed to by SECRET_BAZAAR_DIALOGUE_INFO_PTR.
         
