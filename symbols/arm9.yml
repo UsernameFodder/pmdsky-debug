@@ -1141,6 +1141,15 @@ arm9:
         Clears oam_info's grouped_oam_objs and prev_obj_idx_in_group arrays.
         
         r0: oam_info
+    - name: AddObjToUngroupedOamObjs
+      address:
+        EU: 0x200B6F0
+      description: |-
+        Adds an object to oam_info's ungrouped_oam_objs, while also updating the necessary values to group it later.
+        
+        r0: oam_info
+        r1: oam_attributes
+        r2: group
     - name: UpdateFadeStatus
       address:
         EU: 0x200BA18

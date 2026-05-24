@@ -114,6 +114,7 @@ void SetShouldCopyToOam(struct oam_info* oam_info);
 void GroupOamObjs(struct oam_info* oam_info);
 void CopyAttributesToOam(struct oam_info* oam_info);
 void ClearGroupedOamObjsAndGroups(struct oam_info* oam_info);
+void AddObjToUngroupedOamObjs(struct oam_info* oam_info, uint16_t* oam_attributes, int group);
 void UpdateFadeStatus(struct screen_fade* fstruct, int param_2, int duration);
 bool HandleFades(struct screen_fade* fstruct);
 bool HandleFadesVeneer(struct screen_fade* fstruct);
