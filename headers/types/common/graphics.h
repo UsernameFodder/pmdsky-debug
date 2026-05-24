@@ -483,7 +483,8 @@ struct obj_graphics_controls {
     struct obj_graphics_control top_screen_objs;
     struct obj_graphics_control unk1;
     struct obj_graphics_control unk2;
+    undefined field_0x1c0[7488];
 };
-ASSERT_SIZE(struct obj_graphics_controls, 448);
+ASSERT_SIZE(struct obj_graphics_controls, 7936);
 
 #endif
