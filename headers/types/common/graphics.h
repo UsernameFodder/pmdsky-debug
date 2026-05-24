@@ -473,16 +473,17 @@ ASSERT_SIZE(struct oam_info, 32);
 
 struct obj_graphics_control {
     undefined field_0x0[32];
-    struct oam_info oam_info;
-    undefined field_0x40[48];
+    struct oam_info oam_info; // 0x20
+    int cur_obj_idx;          // 0x40: Seems to be a duplicate of the one in oam_info
+    undefined field_0x44[44];
 };
 ASSERT_SIZE(struct obj_graphics_control, 112);
 
 struct obj_graphics_controls {
-    struct obj_graphics_control bottom_screen_objs;
-    struct obj_graphics_control top_screen_objs;
-    struct obj_graphics_control unk1;
-    struct obj_graphics_control unk2;
+    struct obj_graphics_control bottom_screen_objs; // 0x0
+    struct obj_graphics_control top_screen_objs;    // 0x70
+    struct obj_graphics_control unk1;               // 0xE0
+    struct obj_graphics_control unk2;               // 0x150
     undefined field_0x1c0[7488];
 };
 ASSERT_SIZE(struct obj_graphics_controls, 7936);
