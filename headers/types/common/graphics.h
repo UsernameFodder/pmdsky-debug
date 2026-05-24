@@ -460,13 +460,13 @@ struct oam_info {
     int max_num_objs;   // 0x0: Either 0x70 (for bottom_ and top_screen_objs) or 0x10 for the others
     int max_num_groups; // 0x4: Always 0x140
     int cur_obj_idx;    // 0x8
-    short* prev_obj_idx_in_group;                  // 0xC: This is an array of size max_num_groups
+    short* prev_obj_idx_in_group;                 // 0xC: This is an array of size max_num_groups
     struct ungrouped_oam_obj* ungrouped_oam_objs; // 0x10: This is an array of size max_num_objs
-    bool should_copy_to_oam;                       // 0x14
+    bool should_copy_to_oam;                      // 0x14
     undefined field_0x15;
     undefined field_0x16;
     undefined field_0x17;
-    void* oam_base_address;                    // 0x18: Address in OAM to copy attributes to
+    void* oam_base_address;                   // 0x18: Address in OAM to copy attributes to
     struct grouped_oam_obj* grouped_oam_objs; // 0x10: This is an array of size max_num_objs
 };
 ASSERT_SIZE(struct oam_info, 32);
