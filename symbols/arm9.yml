@@ -1108,6 +1108,8 @@ arm9:
     - name: InitOamInfo
       address:
         EU: 0x200B508
+        NA: 0x200B508
+        JP: 0x200B508
       description: |-
         Initializes an oam_info struct.
         
@@ -1119,10 +1121,14 @@ arm9:
     - name: SetShouldCopyToOam
       address:
         EU: 0x200B570
+        NA: 0x200B570
+        JP: 0x200B570
       description: "r0: oam_info"
     - name: GroupOamObjs
       address:
         EU: 0x200B57C
+        NA: 0x200B57C
+        JP: 0x200B57C
       description: |-
         Fills oam_info's grouped_oam_objs by going backwards through each group in ungrouped_oam_objs.
         
@@ -1130,6 +1136,8 @@ arm9:
     - name: CopyAttributesToOam
       address:
         EU: 0x200B630
+        NA: 0x200B630
+        JP: 0x200B630
       description: |-
         Copies oam_info's grouped_oam_objs to oam_info's oam_base_address.
         
@@ -1137,6 +1145,8 @@ arm9:
     - name: ClearGroupedOamObjsAndGroups
       address:
         EU: 0x200B67C
+        NA: 0x200B67C
+        JP: 0x200B67C
       description: |-
         Clears oam_info's grouped_oam_objs and prev_obj_idx_in_group arrays.
         
@@ -1144,6 +1154,8 @@ arm9:
     - name: AddObjToUngroupedOamObjs
       address:
         EU: 0x200B6F0
+        NA: 0x200B6F0
+        JP: 0x200B6F0
       description: |-
         Adds an object to oam_info's ungrouped_oam_objs, while also updating the necessary values to group it later.
         
@@ -14571,6 +14583,8 @@ arm9:
     - name: OBJ_GRAPHICS_CONTROLS_PTR
       address:
         EU: 0x20B0508
+        NA: 0x20AFC4C
+        JP: 0x20B108C
       length:
         EU: 0x4
       description: |-
@@ -14933,5 +14947,7 @@ arm9:
         NA: 0x4
     - name: RAND_SEQUENCE_NUM
       address:
+        EU: 0x20B3B68
         NA: 0x20B3224
+        JP: 0x20B4A98
       description: "[Runtime] The current PRNG sequence number for the system PRNG. See rand for more information on how the system PRNG works."
