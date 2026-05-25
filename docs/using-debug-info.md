@@ -10,6 +10,7 @@
       - [Enums](#enums)
         - [Workaround for enums in struct fields](#workaround-for-enums-in-struct-fields)
       - [Bitfields](#bitfields)
+        - [Older versions](#older-versions)
     - [Subsequent imports](#subsequent-imports)
   - [No$GBA](#nogba)
 
@@ -105,16 +106,19 @@ However, automatic resolution might not always be possible. For example, the raw
 ![Ghidra equates](images/ghidra-equates.png)
 
 ##### Workaround for enums in struct fields
-One common case where automatic enum resolution fails is when the enum is a bitfield within a struct (see the [`headers/` README](../headers/README.md) for why things are done this way). Since the Ghidra decompiler [does not yet support bitfields](#bitfields), these fields won't be recognized or resolved to enum labels. Until this feature is added, you can use equates as described in the previous section.
+One common case where automatic enum resolution sometimes fails is when the enum is a bitfield within a struct (see the [`headers/` README](../headers/README.md) for why things are done this way). Even in later versions of the Ghidra decompiler that support [bitfields](#bitfields) generally, there are cases where these fields won't be recognized or resolved to enum labels. Until this is improved, you can use equates as described in the previous section.
 
 Alternatively, if you really prefer automatic resolution, another workaround is to manually define a new, properly-sized enum (in the data type manager: Window > Data Type Manager) by copying the existing enum and changing the `Size` field in the editor, then editing the struct definition to use the properly-sized, non-bitfield enum for the relevant field. For example, you could create a new enum called `item_id_16` with a size of 2 bytes, then change `struct item::id` to be of type `item_id_16` rather than a bitfield of type `item_id` (which is normally defined to be 4 bytes). After doing this, the Ghidra decompiler should be able to automatically resolve enum labels when `struct item::id` is used (you can also use the resized enums as [types for certain data labels](#applying-types-manually)). Be aware that this may cause some conflicts with [subsequent debug info imports](#subsequent-imports).
 
 #### Bitfields
-_Explorers of Sky_ makes frequent use of bitfields. Ghidra supports bitfields in struct definitions, but they unfortunately don't yet work in the decompiler (support for them is "on the books", see [ghidra#2462](https://github.com/NationalSecurityAgency/ghidra/issues/2462) and [ghidra#647](https://github.com/NationalSecurityAgency/ghidra/issues/647)). This means that some struct fields might appear as undefined in the decompiler, even though they are defined in the struct definition. For example, the room flags bitfield at offset 0xD of `struct floor_properties` will show up as the Ghidra-default `field_0xd` in the decompiler.
+_Explorers of Sky_ makes frequent use of bitfields. Ghidra supports bitfields in struct definitions, and as of version 12.1, displays struct bitfields in the decompiler like normal fields.
 
-![Bitfields currently won't show up in the Ghidra decompiler](images/ghidra-bitfields.png)
+##### Older versions
+If you're using an older version of Ghidra, some struct fields might appear as undefined in the decompiler, even though they are defined in the struct definition. For example, prior to Ghidra 12.1, the room flags bitfield at offset 0xD of `struct floor_properties` would show up as the Ghidra-default `field_0xd` in the decompiler.
 
-This is something to be aware of while reading decompiled code. If a field looks undefined, don't forget to check the actual struct definition in the data type manager or the C headers to see if it's a bitfield. If this really bothers you, you can redefine that field (in the data type manager: Window > Data Type Manager) to a normal integer field with a name like `flags`. Be aware that this may cause some conflicts with [subsequent debug info imports](#subsequent-imports).
+![Bitfields didn't show up in older versions of the Ghidra decompiler](images/ghidra-bitfields-old.png)
+
+This is something to be aware of while reading decompiled code on older Ghidra versions. I recommend just upgrading Ghidra to a newer version.
 
 ### Subsequent imports
 As `pmdsky-debug` is updated, you might want to import the latest debug information into your project. Ghidra is pretty good about checking for repeated information when you import things, so if you've already imported a previous version of the debug info, you should be able to just follow the above steps for importing symbols and headers with the latest `pmdsky-debug` package to add incremental changes. (Although if there are changes to existing things in the debug info rather than just new additions, you might have to do some manual cleanup afterwards.)

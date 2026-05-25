@@ -45,7 +45,7 @@ You will always start with the main ARM9 binary, which is usually named `arm9.bi
 2. Locate `arm9.bin` (or equivalent) in your file system and select it to import.
 3. Fill in the appropriate configuration options:
     1. The format should be "Raw Binary"
-    2. The language should be "ARM:LE:32:v5t:default" (To elaborate, the [Nintendo DS](https://en.wikipedia.org/wiki/Nintendo_DS) has an [ARM946E-S](https://en.wikipedia.org/wiki/ARM9#ARM9E-S_and_ARM9EJ-S) CPU which uses the ARMv5TE microarchitecture, and everything in EoS is [little-endian](https://en.wikipedia.org/wiki/Endianness)). You can select the right language by clicking the "..." button and locating the appropriate entry in the table (you can narrow things down nicely by setting "v5t" as the filter). Make sure you select the _little-endian_ row!
+    2. The language should be "ARM:LE:32:v5t:default" (To elaborate, the [Nintendo DS](https://en.wikipedia.org/wiki/Nintendo_DS) has an [ARM946E-S](https://en.wikipedia.org/wiki/ARM9#ARM9E-S_and_ARM9EJ-S) CPU which uses the ARMv5TE microarchitecture, and everything in EoS is [little-endian](https://en.wikipedia.org/wiki/Endianness) and uses the default [AAPCS](https://github.com/ARM-software/abi-aa/tree/main/aapcs32) standard for procedure calls). You can select the right language by clicking the "..." button and locating the appropriate entry in the table (you can narrow things down nicely by setting "v5t" as the filter). Make sure you select the _little-endian_, _default_ row (as opposed to the _big-endian_ or _APCS_ rows)!
 
        ![Ghidra language selection](images/ghidra-language.png)
 
