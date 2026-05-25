@@ -2,8 +2,8 @@
 - [Using Debug Info from `pmdsky-debug`](#using-debug-info-from-pmdsky-debug)
   - [Ghidra](#ghidra)
     - [Symbols](#symbols)
-      - [Using the built-in import script](#using-the-built-in-import-script)
       - [Using the custom `pmdsky-debug` import script](#using-the-custom-pmdsky-debug-import-script)
+      - [Using the built-in import script](#using-the-built-in-import-script)
       - [Using the NTRGhidra import script](#using-the-ntrghidra-import-script)
     - [C headers (types and function signatures)](#c-headers-types-and-function-signatures)
       - [Applying types manually](#applying-types-manually)
@@ -18,26 +18,9 @@
 Ghidra can load both symbols and C source code. These instructions assume a specific Ghidra setup. See the preceding steps in [Setting up Ghidra for _Pokémon Mystery Dungeon: Explorers of Sky_](ghidra-setup.md) first.
 
 ### Symbols
-There are two options for importing `pmdsky-debug` symbols into Ghidra: with the built-in import script (easier) or with a custom one from `pmdsky-debug` (better). Using the built-in script requires slightly less setup, but won't import symbol descriptions, whereas the custom `pmdsky-debug` importer will create plate comments containing the symbol descriptions. The two options are otherwise equivalent.
+There are two options for importing `pmdsky-debug` symbols into Ghidra: with the custom import script from `pmdsky-debug` (better) and with the built-in import script (maybe easier if you already have a Python environment set up in Ghidra). Using the custom `pmdsky-debug` importer will create plate comments containing the symbol descriptions, whereas the built-in script may require slightly less setup in Python-enabled Ghidra installations, but won't import symbol descriptions. The two options are otherwise equivalent.
 
 If you used [NTRGhidra](https://github.com/pedro-javierf/NTRGhidra) to set up your project, you must use a special import script. See [Using the NTRGhidra import script](#using-the-ntrghidra-import-script).
-
-#### Using the built-in import script
-1. Download `symbols-ghidra.zip` from the [latest release package](https://github.com/UsernameFodder/pmdsky-debug/releases/latest) and extract the archive.
-2. In the Ghidra code browser, open the script manager (Window > Script Manager in the menu, or by clicking the image in the top toolbar).
-3. Search for "ImportSymbolsScript.py".
-
-   ![ImportSymbolsScript.py](images/ghidra-import-symbols-script.png)
-
-4. When you run the script, it will open a file picker window. Run the import script on each of the `.ghidra` files in the `pmdsky-debug` archive that correspond to a binary you've loaded into the Ghidra program (pick the version subdirectory that matches your ROM). **Do _not_ blanket-load every single file**, as this will cause incorrect symbols to be applied (due to [overlays](overlays.md)), which is difficult to correct later.
-
-   Alternatively, you can concatenate the contents of all the relevant `.ghidra` files into a single, combined `.ghidra` file and just run the import script once on that file. For example, a combined `.ghidra` file for a North American ROM might look like this:
-
-   ![Example Ghidra symbol table](images/ghidra-symbol-file.png)
-
-5. You should now see symbol names in the code listing and the decompiler:
-
-   ![Symbol names in Ghidra](images/ghidra-symbols.png)
 
 #### Using the custom `pmdsky-debug` import script
 1. Download `symbols-json.zip` from the [latest release package](https://github.com/UsernameFodder/pmdsky-debug/releases/latest) and extract the archive.
@@ -55,6 +38,25 @@ If you used [NTRGhidra](https://github.com/pedro-javierf/NTRGhidra) to set up yo
 5. You should now see symbol names and descriptions in the code listing and the decompiler:
 
    ![Symbol names and descriptions in Ghidra](images/ghidra-symbols-with-descriptions.png)
+
+#### Using the built-in import script
+These steps assume your Ghidra installation has a Python runtime environment enabled. This is the default in Ghidra versions prior to 12.1. In 12.1+, you must either install the Jython [extension](https://www.ghidradocs.com/12.1_PUBLIC/help/Base/help/topics/FrontEndPlugin/Extensions.htm) or start Ghidra in [PyGhidra mode](https://www.ghidradocs.com/12.1_PUBLIC/GettingStarted.html#pyghidra-mode) to run Python scripts. If this doesn't apply to you, then you might as well [use the custom `pmdsky-debug` import script](#using-the-custom-pmdsky-debug-import-script) instead, since it'll give better results and should be just as easy to set up.
+
+1. Download `symbols-ghidra.zip` from the [latest release package](https://github.com/UsernameFodder/pmdsky-debug/releases/latest) and extract the archive.
+2. In the Ghidra code browser, open the script manager (Window > Script Manager in the menu, or by clicking the image in the top toolbar).
+3. Search for "ImportSymbolsScript.py".
+
+   ![ImportSymbolsScript.py](images/ghidra-import-symbols-script.png)
+
+4. When you run the script, it will open a file picker window. Run the import script on each of the `.ghidra` files in the `pmdsky-debug` archive that correspond to a binary you've loaded into the Ghidra program (pick the version subdirectory that matches your ROM). **Do _not_ blanket-load every single file**, as this will cause incorrect symbols to be applied (due to [overlays](overlays.md)), which is difficult to correct later.
+
+   Alternatively, you can concatenate the contents of all the relevant `.ghidra` files into a single, combined `.ghidra` file and just run the import script once on that file. For example, a combined `.ghidra` file for a North American ROM might look like this:
+
+   ![Example Ghidra symbol table](images/ghidra-symbol-file.png)
+
+5. You should now see symbol names in the code listing and the decompiler:
+
+   ![Symbol names in Ghidra](images/ghidra-symbols.png)
 
 #### Using the NTRGhidra import script
 Importing into an NTRGhidra project is essentially the same as [using the custom `pmdsky-debug` import script](#using-the-custom-pmdsky-debug-import-script), with the following differences:
