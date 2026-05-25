@@ -108,6 +108,13 @@ void FileClose(struct file_stream* file);
 void UnloadFile(void* ptr);
 void LoadFileFromRom(struct iovec* iov, const char* filepath, uint32_t flags);
 void TransformPaletteDataWithFlushDivideFade(struct palette_data* palette);
+void InitOamInfo(struct oam_info* oam_info, int max_num_objs, int max_num_groups,
+                 int oam_base_address, uint32_t mem_alloc_flags);
+void SetShouldCopyToOam(struct oam_info* oam_info);
+void GroupOamObjs(struct oam_info* oam_info);
+void CopyAttributesToOam(struct oam_info* oam_info);
+void ClearGroupedOamObjsAndGroups(struct oam_info* oam_info);
+void AddObjToUngroupedOamObjs(struct oam_info* oam_info, uint16_t* oam_attributes, int group);
 void UpdateFadeStatus(struct screen_fade* fstruct, int param_2, int duration);
 bool HandleFades(struct screen_fade* fstruct);
 bool HandleFadesVeneer(struct screen_fade* fstruct);
