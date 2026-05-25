@@ -41,23 +41,23 @@ If you used [NTRGhidra](https://github.com/pedro-javierf/NTRGhidra) to set up yo
 #### Using the custom `pmdsky-debug` import script
 1. Download `symbols-json.zip` from the [latest release package](https://github.com/UsernameFodder/pmdsky-debug/releases/latest) and extract the archive.
 2. In the Ghidra code browser, open the script manager (Window > Script Manager in the menu, or by clicking the image in the top toolbar).
-3. Add [`import_symbols_json.py`](../tools/ghidra_scripts/import_symbols_json.py) to the Ghidra Script Manager. There are two ways to do this:
+3. Add [`ImportSymbolsJson.java`](../tools/ghidra_scripts/ImportSymbolsJson.java) to the Ghidra Script Manager. There are two ways to do this:
     1. [Preferred] Add a script directory containing the file (e.g., the `pmdsky-debug/tools/ghidra_scripts` directory) with the "Manage Script Directories" button.
 
        ![Manage Script Directories](images/ghidra-manage-script-directories.png)
 
-    2. Create a new script with the "Create New Script" button and manually copy the code into the editor (select "Python" for the script type and name it `import_symbols_json.py`).
+    2. Create a new script with the "Create New Script" button and manually copy the code into the editor (select "Java" for the script type and name it `ImportSymbolsJson.java`).
 
        ![Create New Script](images/ghidra-create-new-script.png)
 
-4. Search for the "import_symbols_json.py" script you just added and run it. When you run the script, it will open a file picker window. Run the import script on each of the `.json` files in the `pmdsky-debug` archive that correspond to a binary you've loaded into the Ghidra program (pick the version subdirectory that matches your ROM). **Do _not_ blanket-load every single file**, as this will cause incorrect symbols to be applied (due to [overlays](overlays.md)), which is difficult to correct later.
+4. Search for the "ImportSymbolsJson.java" script you just added and run it. When you run the script, it will open a file picker window. Run the import script on each of the `.json` files in the `pmdsky-debug` archive that correspond to a binary you've loaded into the Ghidra program (pick the version subdirectory that matches your ROM). **Do _not_ blanket-load every single file**, as this will cause incorrect symbols to be applied (due to [overlays](overlays.md)), which is difficult to correct later.
 5. You should now see symbol names and descriptions in the code listing and the decompiler:
 
    ![Symbol names and descriptions in Ghidra](images/ghidra-symbols-with-descriptions.png)
 
 #### Using the NTRGhidra import script
 Importing into an NTRGhidra project is essentially the same as [using the custom `pmdsky-debug` import script](#using-the-custom-pmdsky-debug-import-script), with the following differences:
-1. Use [`import_symbols_ntr_ghidra.py`](../tools/ghidra_scripts/import_symbols_ntr_ghidra.py) rather than `import_symbols_json.py`.
+1. Use [`ImportSymbolsNtrGhidra.java`](../tools/ghidra_scripts/ImportSymbolsNtrGhidra.java) rather than `ImportSymbolsJson.java`.
 2. When the script opens the file picker window, select the version subdirectory within the `symbols-json` archive that matches your ROM (e.g., `symbols-json/NA/` for the North American version), rather than a specific JSON file. The script will import symbols from all the relevant files at once.
 
 ### C headers (types and function signatures)
