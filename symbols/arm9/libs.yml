@@ -793,7 +793,7 @@ libs:
         EU: 0x2072D34
         NA: 0x207299C
         JP: 0x2072C84
-    - name: RetEu0x02073300
+    - name: RetNa0x02072f68
       address:
         EU: 0x2073300
         NA: 0x2072F68
@@ -802,7 +802,7 @@ libs:
         Does nothing but return. Consists of only a bx lr instruction. May be a placeholder, dummy callback, or similar.
         
         No params.
-    - name: RetEu0x02073304
+    - name: RetNa0x02072f6c
       address:
         EU: 0x2073304
         NA: 0x2072F6C
@@ -811,7 +811,7 @@ libs:
         Does nothing but return. Consists of only a bx lr instruction. May be a placeholder, dummy callback, or similar.
         
         No params.
-    - name: RetEu0x02073308
+    - name: RetNa0x02072f70
       address:
         EU: 0x2073308
         NA: 0x2072F70
@@ -820,7 +820,7 @@ libs:
         Does nothing but return. Consists of only a bx lr instruction. May be a placeholder, dummy callback, or similar.
         
         No params.
-    - name: RetEu0x0207333c
+    - name: RetNa0x02072fa4
       address:
         EU: 0x207333C
         NA: 0x2072FA4
@@ -829,7 +829,7 @@ libs:
         Does nothing but return. Consists of only a bx lr instruction. May be a placeholder, dummy callback, or similar.
         
         No params.
-    - name: RetEu0x02073340
+    - name: RetNa0x02072fa8
       address:
         EU: 0x2073340
         NA: 0x2072FA8
@@ -838,7 +838,7 @@ libs:
         Does nothing but return. Consists of only a bx lr instruction. May be a placeholder, dummy callback, or similar.
         
         No params.
-    - name: RetEu0x02073594
+    - name: RetNa0x020731fc
       address:
         EU: 0x2073594
         NA: 0x20731FC
@@ -847,7 +847,7 @@ libs:
         Does nothing but return. Consists of only a bx lr instruction. May be a placeholder, dummy callback, or similar.
         
         No params.
-    - name: RetEu0x02073598
+    - name: RetNa0x02073200
       address:
         EU: 0x2073598
         NA: 0x2073200
@@ -856,7 +856,7 @@ libs:
         Does nothing but return. Consists of only a bx lr instruction. May be a placeholder, dummy callback, or similar.
         
         No params.
-    - name: RetEu0x0207359c
+    - name: RetNa0x02073204
       address:
         EU: 0x207359C
         NA: 0x2073204
