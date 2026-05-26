@@ -6149,7 +6149,9 @@ overlay29:
         return: bool
     - name: SetTwoTurnInvincibility
       address:
+        EU: 0x23194F0
         NA: 0x2318A90
+        JP: 0x2319F60
       description: |-
         Sets two-turn invincibility to a specified value on a target monster entity.
         

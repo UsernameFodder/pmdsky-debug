@@ -793,58 +793,74 @@ libs:
         EU: 0x2072D34
         NA: 0x207299C
         JP: 0x2072C84
-    - name: RetEu0x02073300
+    - name: RetNa0x02072f68
       address:
         EU: 0x2073300
+        NA: 0x2072F68
+        JP: 0x2073250
       description: |-
         Does nothing but return. Consists of only a bx lr instruction. May be a placeholder, dummy callback, or similar.
         
         No params.
-    - name: RetEu0x02073304
+    - name: RetNa0x02072f6c
       address:
         EU: 0x2073304
+        NA: 0x2072F6C
+        JP: 0x2073254
       description: |-
         Does nothing but return. Consists of only a bx lr instruction. May be a placeholder, dummy callback, or similar.
         
         No params.
-    - name: RetEu0x02073308
+    - name: RetNa0x02072f70
       address:
         EU: 0x2073308
+        NA: 0x2072F70
+        JP: 0x2073258
       description: |-
         Does nothing but return. Consists of only a bx lr instruction. May be a placeholder, dummy callback, or similar.
         
         No params.
-    - name: RetEu0x0207333c
+    - name: RetNa0x02072fa4
       address:
         EU: 0x207333C
+        NA: 0x2072FA4
+        JP: 0x207328C
       description: |-
         Does nothing but return. Consists of only a bx lr instruction. May be a placeholder, dummy callback, or similar.
         
         No params.
-    - name: RetEu0x02073340
+    - name: RetNa0x02072fa8
       address:
         EU: 0x2073340
+        NA: 0x2072FA8
+        JP: 0x2073290
       description: |-
         Does nothing but return. Consists of only a bx lr instruction. May be a placeholder, dummy callback, or similar.
         
         No params.
-    - name: RetEu0x02073594
+    - name: RetNa0x020731fc
       address:
         EU: 0x2073594
+        NA: 0x20731FC
+        JP: 0x20734E4
       description: |-
         Does nothing but return. Consists of only a bx lr instruction. May be a placeholder, dummy callback, or similar.
         
         No params.
-    - name: RetEu0x02073598
+    - name: RetNa0x02073200
       address:
         EU: 0x2073598
+        NA: 0x2073200
+        JP: 0x20734E8
       description: |-
         Does nothing but return. Consists of only a bx lr instruction. May be a placeholder, dummy callback, or similar.
         
         No params.
-    - name: RetEu0x0207359c
+    - name: RetNa0x02073204
       address:
         EU: 0x207359C
+        NA: 0x2073204
+        JP: 0x20734EC
       description: |-
         Does nothing but return. Consists of only a bx lr instruction. May be a placeholder, dummy callback, or similar.
         
@@ -1330,6 +1346,8 @@ libs:
     - name: FX_Init
       address:
         EU: 0x2076408
+        NA: 0x2076070
+        JP: 0x2076358
     - name: GX_Init
       address:
         EU: 0x207640C
@@ -4580,6 +4598,8 @@ libs:
     - name: Math_CalcSha1
       address:
         EU: 0x2085310
+        NA: 0x2084F78
+        JP: 0x2085260
     - name: Mathi_Crc8InitTable
       address:
         EU: 0x2085350
@@ -4694,13 +4714,19 @@ libs:
     - name: NotANumber
       address:
         EU: 0x20867E8
+        NA: 0x2086450
+        JP: 0x2086738
       description: "The original name for this function is \"nan\"."
     - name: _flush_line_buffered_output_files
       address:
         EU: 0x2086800
+        NA: 0x2086468
+        JP: 0x2086750
     - name: _flush_all
       address:
         EU: 0x208688C
+        NA: 0x20864F4
+        JP: 0x20867DC
     - name: abs
       address:
         EU: 0x20868F4
@@ -4714,50 +4740,84 @@ libs:
     - name: _convert_from_newlines
       address:
         EU: 0x2086900
+        NA: 0x2086568
+        JP: 0x2086850
     - name: _convert_to_newlines
       address:
         EU: 0x2086904
+        NA: 0x208656C
+        JP: 0x2086854
     - name: _prep_buffer
       address:
         EU: 0x2086908
+        NA: 0x2086570
+        JP: 0x2086858
     - name: _load_buffer
       address:
         EU: 0x2086938
+        NA: 0x20865A0
+        JP: 0x2086888
     - name: _flush_buffer
       address:
         EU: 0x20869C4
+        NA: 0x208662C
+        JP: 0x2086914
     - name: fread
       address:
         EU: 0x2086A4C
+        NA: 0x20866B4
+        JP: 0x208699C
     - name: _fread
       address:
         EU: 0x2086B58
+        NA: 0x20867C0
+        JP: 0x2086AA8
     - name: fclose
       address:
         EU: 0x2086EA0
+        NA: 0x2086B08
+        JP: 0x2086DF0
     - name: fflush
       address:
         EU: 0x2086F14
+        NA: 0x2086B7C
+        JP: 0x2086E64
     - name: _msl_strnicmp
       address:
         EU:
           - 0x2086FFC
           - 0x208E248
+        NA:
+          - 0x2086C64
+          - 0x208DEB0
+        JP:
+          - 0x2086F4C
+          - 0x208E198
     - name: _ftell
       address:
         EU: 0x2087084
+        NA: 0x2086CEC
+        JP: 0x2086FD4
     - name: ftell
       address:
         EU: 0x2087100
+        NA: 0x2086D68
+        JP: 0x2087050
     - name: _fseek
       address:
         EU: 0x208721C
+        NA: 0x2086E84
+        JP: 0x208716C
     - name: fseek
       address:
         EU: 0x2087404
+        NA: 0x208706C
+        JP: 0x2087354
     - name: rewind
       address:
         EU: 0x2087530
+        NA: 0x2087198
+        JP: 0x2087480
     - name: _mbtowc_noconv
       aliases:
         - mbtowc
@@ -4894,21 +4954,33 @@ libs:
     - name: parse_format
       address:
         EU: 0x20877D0
+        NA: 0x2087438
+        JP: 0x2087720
     - name: long2str
       address:
         EU: 0x2087D60
+        NA: 0x20879C8
+        JP: 0x2087CB0
     - name: longlong2str
       address:
         EU: 0x2087FAC
+        NA: 0x2087C14
+        JP: 0x2087EFC
     - name: double2hex
       address:
         EU: 0x20882A8
+        NA: 0x2087F10
+        JP: 0x20881F8
     - name: round_decimal
       address:
         EU: 0x2088784
+        NA: 0x20883EC
+        JP: 0x20886D4
     - name: float2str
       address:
         EU: 0x20888A8
+        NA: 0x2088510
+        JP: 0x20887F8
     - name: __vsprintf_internal_slice
       address:
         EU: 0x208900C
@@ -4994,6 +5066,7 @@ libs:
       address:
         EU: 0x2089948
         NA: 0x20895B0
+        JP: 0x2089898
       description: |-
         The rand(3) C library function.
         
@@ -5006,6 +5079,7 @@ libs:
       address:
         EU: 0x208997C
         NA: 0x20895E4
+        JP: 0x20898CC
       description: |-
         The srand(3) C library function.
         
@@ -5131,18 +5205,28 @@ libs:
     - name: _strtold
       address:
         EU: 0x2089E74
+        NA: 0x2089ADC
+        JP: 0x2089DC4
     - name: strtold
       address:
         EU: 0x208B0C0
+        NA: 0x208AD28
+        JP: 0x208B010
     - name: atof
       address:
         EU: 0x208B1A0
+        NA: 0x208AE08
+        JP: 0x208B0F0
     - name: _strtoul
       address:
         EU: 0x208B1B0
+        NA: 0x208AE18
+        JP: 0x208B100
     - name: strtoul
       address:
         EU: 0x208B598
+        NA: 0x208B200
+        JP: 0x208B4E8
     - name: strtol
       address:
         EU: 0x208B630
@@ -5156,6 +5240,8 @@ libs:
     - name: fwide
       address:
         EU: 0x208B70C
+        NA: 0x208B374
+        JP: 0x208B65C
     - name: wcslen
       address:
         EU: 0x208B780
@@ -5169,15 +5255,23 @@ libs:
     - name: fabs
       address:
         EU: 0x208C94C
+        NA: 0x208C5B4
+        JP: 0x208C89C
     - name: _num2dec
       address:
         EU: 0x208D9D0
+        NA: 0x208D638
+        JP: 0x208D920
     - name: _dec2num
       address:
         EU: 0x208DA78
+        NA: 0x208D6E0
+        JP: 0x208D9C8
     - name: strcasecmp
       address:
         EU: 0x208E254
+        NA: 0x208DEBC
+        JP: 0x208E1A4
     - name: _dadd
       address:
         EU: 0x208E260
@@ -5684,6 +5778,8 @@ libs:
     - name: _call_static_initializers
       address:
         EU: 0x2090C40
+        NA: 0x20908A8
+        JP: 0x2090B90
   data:
     - name: ANSI_C_LCG_MULTIPLIER
       address:
