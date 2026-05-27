@@ -54,7 +54,7 @@ struct animation_control {
     struct wan_offset* wan_offsets;
     struct wan_fragment** wan_frames;
     void** wan_fragments_byte_store;
-    struct wan_palettes* wan_palettes;
+    struct palette_init_info* palette_init_info;
     uint16_t wan_is_256_color;
     uint16_t loop_start; // same meaning as in struct wan_animation_frame
     undefined field44_0x64;
@@ -471,11 +471,37 @@ struct oam_info {
 };
 ASSERT_SIZE(struct oam_info, 32);
 
+struct unk_texture_struct {
+    undefined field_0x0[3780];
+};
+ASSERT_SIZE(struct unk_texture_substruct, 3780);
+
+struct unk_palette_struct {
+    undefined field_0x0[156];
+};
+ASSERT_SIZE(struct unk_texture_struct, 156);
+
 struct obj_graphics_control {
-    undefined field_0x0[32];
+    undefined field_0x0;
+    undefined field_0x1;
+    undefined field_0x2;
+    undefined field_0x3;
+    struct unk_texture_struct* field_0x4;
+    struct unk_palette_struct* field_0x8;
+    undefined4 field_0xc; // Always seems to be 2, is frequently mapped through an array to 0x80
+    undefined field_0x10[16];
     struct oam_info oam_info; // 0x20
     int cur_obj_idx;          // 0x40: Seems to be a duplicate of the one in oam_info
-    undefined field_0x44[44];
+    undefined field_0x44[32];
+    void* texture_vram_base_addr; // 0x64: 0x6400000 for bottom screen, 0x6600000 for top screen
+    undefined field_0x68;
+    undefined field_0x69;
+    undefined field_0x6a;
+    undefined field_0x6b;
+    undefined field_0x6c;
+    undefined field_0x6d;
+    undefined field_0x6e;
+    undefined field_0x6f;
 };
 ASSERT_SIZE(struct obj_graphics_control, 112);
 
@@ -484,7 +510,10 @@ struct obj_graphics_controls {
     struct obj_graphics_control top_screen_objs;    // 0x70
     struct obj_graphics_control unk1;               // 0xE0
     struct obj_graphics_control unk2;               // 0x150
-    undefined field_0x1c0[7488];
+    struct unk_texture_struct bottom_screen_tex;    // 0x1C0
+    struct unk_texture_struct top_screen_tex;       // 0xFC4
+    struct unk_palette_struct bottom_screen_pal;    // 0x1DC8
+    struct unk_palette_struct top_screen_pal;       // 0x1E64
 };
 ASSERT_SIZE(struct obj_graphics_controls, 7936);
 
