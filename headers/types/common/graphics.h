@@ -479,7 +479,7 @@ ASSERT_SIZE(struct unk_texture_struct, 3588);
 struct unk_palette_struct {
     undefined field_0x0[156];
 };
-ASSERT_SIZE(struct unk_texture_struct, 156);
+ASSERT_SIZE(struct unk_palette_struct, 156);
 
 struct obj_graphics_control {
     undefined field_0x0;
