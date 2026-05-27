@@ -472,9 +472,9 @@ struct oam_info {
 ASSERT_SIZE(struct oam_info, 32);
 
 struct unk_texture_struct {
-    undefined field_0x0[3780];
+    undefined field_0x0[3588];
 };
-ASSERT_SIZE(struct unk_texture_struct, 3780);
+ASSERT_SIZE(struct unk_texture_struct, 3588);
 
 struct unk_palette_struct {
     undefined field_0x0[156];
