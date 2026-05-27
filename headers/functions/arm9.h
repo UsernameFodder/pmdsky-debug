@@ -523,7 +523,7 @@ int HandleSir0Translation(uint8_t** dst, uint8_t* src);
 void ConvertPointersSir0(undefined* sir0_ptr);
 int HandleSir0TranslationVeneer(uint8_t** dst, uint8_t* src);
 void FillPaletteInitInfo(struct palette_init_info* palette_init_info, struct rgba* palette_bytes,
-                         uint16_t palette_mode, uint16_t nb_colors_or_palettes, 
+                         uint16_t palette_mode, uint16_t nb_colors_or_palettes,
                          uint16_t ext_palette_upper, uint8_t palette_num_custom);
 int DecompressAtNormalVeneer(undefined* addr_decomp, int expected_size, undefined* at_ptr);
 int DecompressAtNormal(undefined* addr_decomp, int expected_size, undefined* at_ptr);

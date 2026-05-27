@@ -4343,11 +4343,11 @@ arm9:
     - name: CopyAttributesToOamBothScreens
       address:
         EU: 0x201BE50
-      description: "No params."
+      description: No params.
     - name: GroupOamAttributesBothScreens
       address:
         EU: 0x201BEF8
-      description: "No params."
+      description: No params.
     - name: CopyAndInterleaveWrapper
       address:
         EU: 0x201C08C
