@@ -4310,7 +4310,7 @@ arm9:
         
         r0: obj_graphics_control
         r1: palette_init_info
-        r2: palette_num
+        r2: palette_num (bits 12-15 of OAM attribute 2)
         return: always 1
     - name: AddSimpleObjToOam
       address:
