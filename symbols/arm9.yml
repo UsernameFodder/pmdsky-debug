@@ -4337,11 +4337,11 @@ arm9:
       address:
         EU: 0x201BB64
       description: |-
-        Changes the texture of a simple object (one not tied to an animation_control struct).
+        Changes the texture of all simple objects (ones not tied to an animation_control struct) that use the specified OAM tile number.
         
         r0: obj_graphics_control
         r1: texture src
-        r2: object tile number in OAM
+        r2: tile number in OAM
         r3: texture size in bytes
         stack[0]: true if object uses extended palettes, see https://problemkaputt.de/gbatek.htm#dsvideoextendedpalettes
         stack[1]: upper 4 bits in 256-color extended palette, shifted right by 4
