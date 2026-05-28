@@ -4306,7 +4306,7 @@ arm9:
       address:
         EU: 0x201B4D8
       description: |-
-        Loads an object's palette into obj_graphics_control.
+        Loads an object palette into obj_graphics_control, from which it will be copied into VRAM.
         
         r0: obj_graphics_control
         r1: palette_init_info
