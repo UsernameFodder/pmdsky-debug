@@ -4337,7 +4337,7 @@ arm9:
       address:
         EU: 0x201BB64
       description: |-
-        Changes the texture in VRAM of all simple objects (ones not tied to an animation_control struct) that use the specified OAM tile number.
+        Changes the texture in VRAM of all objects that use the specified OAM tile number. Used for simple objects (ones not tied to an animation_control struct).
         
         r0: obj_graphics_control
         r1: texture src
