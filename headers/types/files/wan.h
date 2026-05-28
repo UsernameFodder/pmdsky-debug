@@ -40,7 +40,7 @@ struct palette_init_info {
     uint16_t palette_mode;
     uint16_t nb_colors_or_palettes; // 0x6
     uint16_t ext_palette_upper;     // 0x8: Upper 4 bits in 256-color extended palette
-    int8_t palette_num_custom;     // 0xA: If not -1, overwrites palette_num in LoadObjPalette
+    int8_t palette_num_custom;      // 0xA: If not -1, overwrites palette_num in LoadObjPalette
     // 0xB: If 1, splits the palette in chunks of 0x10 across multiple
     // extended palettes starting from palette_num
     uint8_t multi_ext_palettes;
