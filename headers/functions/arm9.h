@@ -447,6 +447,9 @@ int LoadObjPalette(struct obj_graphics_control* obj_graphics_control,
 int AddSimpleObjToOam(struct obj_graphics_control* obj_graphics_control, uint16_t* obj, int group);
 void GroupOamAttributesWrapper(struct obj_graphics_control* obj_graphics_control);
 void CopyAttributesToOamWrapper(struct obj_graphics_control* obj_graphics_control);
+void ChangeSimpleObjTexture(struct obj_graphics_control* obj_graphics_control, undefined4* src,
+                            short oam_tile_num, uint16_t texture_size, bool extended_palette,
+                            uint8_t ext_palette_upper_shifted);
 void InitObjGraphicsControls(void);
 void CopyAttributesToOamBothScreens(void);
 void GroupOamAttributesBothScreens(void);
