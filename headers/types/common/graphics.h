@@ -488,8 +488,8 @@ struct obj_graphics_control {
     undefined field_0x3;
     struct unk_texture_struct* field_0x4;
     struct unk_palette_struct* field_0x8;
-    undefined4 field_0xc; // Always seems to be 2, is frequently mapped through an array to 0x80
-    undefined field_0x10[16];
+    undefined2 field_0xc; // Always seems to be 2, is frequently mapped through an array to 0x80
+    undefined field_0xe[18];
     struct oam_info oam_info; // 0x20
     int cur_obj_idx;          // 0x40: Seems to be a duplicate of the one in oam_info
     undefined field_0x44[32];
