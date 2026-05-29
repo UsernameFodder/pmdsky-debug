@@ -11104,7 +11104,7 @@ arm9:
       address:
         EU: 0x2058E38
       description: |-
-        Maps an object's designated OAM tile number (bits 0-9 in attribute 2) to the address it should be placed at in VRAM.
+        Maps an object's designated OAM tile number (bits 0-9 in attribute 2) to the address its texture should be placed at in VRAM.
         
         r0: tile number
         r1: 0 for bottom screen, 1 for top screen
