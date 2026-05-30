@@ -4282,6 +4282,18 @@ arm9:
         NA: 0x201A9E4
         JP: 0x201AA3C
       description: "Note: unverified, ported from Irdkwia's notes"
+    - name: FillCopyToFlatVramCommand
+      address:
+        EU: 0x201AB74
+      description: |-
+        Fills the command contained in a copy_to_obj_vram_order struct with the specified values.
+        
+        r0: command
+        r1: dst
+        r2: src
+        r3: len_output (doubled if using an interleaved copy, i.e. if using an extended palette)
+        stack[0]: copy_type
+        stack[1]: interleave_with
     - name: ExecuteCopyToFlatVramCommand
       address:
         EU: 0x201ABA8

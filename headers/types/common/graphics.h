@@ -403,7 +403,8 @@ struct copy_to_obj_vram_order {
     uint32_t len_output;
     void* src; // if null, will instead fill the destination with zeros
     void* dst;
-    // Value to interleave when using the COPY_TO_FLAT_VRAM_INTERLEAVED copy type
+    // Value to interleave when using the COPY_TO_FLAT_VRAM_INTERLEAVED copy type.
+    // This is the upper 4 bits of the 256-color extended palette.
     uint16_t interleave_with;
     struct copy_to_obj_vram_order_type_8 copy_type;
     uint8_t maybe_padding;

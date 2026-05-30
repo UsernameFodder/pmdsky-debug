@@ -439,6 +439,9 @@ void PlaySeFullSpec(int param_1, int param_2, int param_3, int param_4);
 void SeChangeVolume(int param_1, int param_2, int param_3);
 void SeChangePan(int param_1, int param_2, int param_3);
 void StopSe(int param_1, int param_2);
+void FillCopyToFlatVramCommand(struct copy_to_obj_vram_order* order, void* dst, void * src,
+                               uint32_t len_output, enum copy_to_obj_vram_order_type copy_type,
+                               uint16_t interleave_with);
 void ExecuteCopyToFlatVramCommand(struct copy_to_obj_vram_order* order);
 uint32_t DecodeFragmentByteAssemblyTable(struct wan_fragment_bytes_assembly_entry* entry,
                                          void* dst);
