@@ -4319,7 +4319,7 @@ arm9:
         Adds a simple object (one not tied to an animation_control struct) to OAM.
         
         The second parameter is an array of size 4 where obj[0] is the second half of attribute 0,
-        obj[1] is attribute 1, obj[2] is attribute 2, and obj[3] is the first half of attribute 0 (the x-coordinate).
+        obj[1] is attribute 1, obj[2] is attribute 2, and obj[3] is the first half of attribute 0 (the y-coordinate).
         
         r0: obj_graphics_control
         r1: obj

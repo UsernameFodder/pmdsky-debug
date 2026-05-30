@@ -1406,6 +1406,13 @@ overlay29:
         
         r0: Which case to use for the switch statement
         r1: unused
+    - name: AnimateWaterShadows
+      address:
+        EU: 0x22EAFFC
+      description: |-
+        Animates the water shadows beneath entities.
+        
+        No params.
     - name: DisplayAnimatedNumbers
       address:
         EU: 0x22EB0C8

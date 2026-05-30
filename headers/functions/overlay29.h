@@ -120,6 +120,7 @@ bool FindUnoccupiedTileWithin3(struct position* pos_out, struct position* origin
 uint8_t TickStatusTurnCounter(uint8_t* counter);
 void AdvanceFrame(undefined param_1);
 void UnkMapRelatedFunc(int switch_case, undefined4 param_2);
+void AnimateWaterShadows(void);
 void DisplayAnimatedNumbers(int amount, struct entity* entity, bool display_sign,
                             enum number_color number_color);
 void SetDungeonRngPreseed23Bit(uint32_t preseed23);
