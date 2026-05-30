@@ -387,6 +387,8 @@ bool LevelUp(struct entity* user, struct entity* target, bool message, bool dial
 bool DungeonTmLearnMove(struct entity* user, enum move_id move_id);
 void GetMonsterMoves(struct move_id_16* out_moves, enum monster_id monster_id, int level);
 void EvolveMonster(struct entity* user, struct entity* target, enum monster_id new_monster_id);
+void DisplayMonsterShadow(bool display_shadow, enum shadow_type shadow_type, bool yellow_circle,
+                          uint16_t x, uint16_t y);
 void ChangeMonsterAnimation(struct entity* monster, int8_t animation_id,
                             enum direction_id direction);
 uint8_t GetIdleAnimationId(struct entity* entity);

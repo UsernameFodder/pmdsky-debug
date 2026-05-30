@@ -4164,6 +4164,17 @@ overlay29:
         r0: user entity pointer?
         r1: target pointer to the entity to evolve
         r2: Species to evolve into
+    - name: DisplayMonsterShadow
+      address:
+        EU: 0x2304888
+      description: |-
+        Displays a shadow under a monster.
+        
+        r0: whether to display the shadow
+        r1: shadow type
+        r2: whether to display a yellow circle (for team members and special cases like decoys, rescue clients, etc.)
+        r3: x-coordinate in OAM plus 0x10
+        stack[0]: y-coordinate in OAM plus 0x8
     - name: ChangeMonsterAnimation
       address:
         EU: 0x23053D4
