@@ -1493,7 +1493,7 @@ ENUM_8_BIT(two_turn_invincibility);
 #pragma pack(pop)
 
 // Types of monster shadows
-enum two_turn_invincibility {
+enum shadow_type {
     SHADOW_SMALL_LAND = 0,
     SHADOW_MEDIUM_LAND = 1,
     SHADOW_LARGE_LAND = 2,
@@ -1506,7 +1506,7 @@ enum two_turn_invincibility {
 
 // This is usually stored as an 8-bit integer
 #pragma pack(push, 1)
-ENUM_8_BIT(two_turn_invincibility);
+ENUM_8_BIT(shadow_type);
 #pragma pack(pop)
 
 #endif
