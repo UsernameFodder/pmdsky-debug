@@ -577,14 +577,16 @@ ASSERT_SIZE(struct partner_talk_kind_table_entry, 8);
 
 struct bar_item {
     struct item_id_16 id;
-    int16_t field_0x2;
-    int16_t field_0x4;
-    int16_t field_0x6;
-    int16_t field_0x8;
-    int16_t field_0xa;
-    int16_t field_0xc;
-    // Probably padding
-    undefined field_0xe[8];
+    int16_t hp_increase;
+    int16_t iq_increase;
+    int16_t atk_increase;
+    int16_t def_increase;
+    int16_t spa_increase;
+    int16_t spdef_increase;
+    ushort normal_drink_wght;
+    ushort good_drink_wght;
+    ushort miracle_drink_wght;
+    ushort bad_drink_wght;
 };
 ASSERT_SIZE(struct bar_item, 22);
 
