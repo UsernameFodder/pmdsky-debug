@@ -111,7 +111,7 @@ overlay19:
       description: |-
         Seems to handle closing portrait boxes for the overlay. 
         
-        No params or return.
+        No params.
     - name: BarCaseManagerSub
       address:
         EU: 0x238AFE4
@@ -136,14 +136,14 @@ overlay19:
       description: |-
         Populates an item list of only valid bar items within spinda_cafe.
         
-        No params or return.
+        No params.
     - name: BarZeroInitPreprocessorFlagsAndReturnCase
       address:
         EU: 0x238D174
       description: |-
         Zero inits many preprocessor_flag fields, but also sets the return_case for scripts to zero within spinda_cafe.
         
-        No params or return.
+        No params.
     - name: BarZeroInitBufferAndPreprocessorArgsZero
       address:
         EU: 0x238D1A4
@@ -236,14 +236,14 @@ overlay19:
       description: |-
         Has different behavior based on the type of drink. Usually assigns the next correct bar_subcase, and for good stat based drink events, seems to handle or roll that somehow. 
         
-        No params or return.
+        No params.
     - name: BarPostDrinkCaseForCustomer
       address:
         EU: 0x238DE44
       description: |-
         Sets the correct bar_update_case after completing a drink, depending on who ordered the drink.
         
-        No params or return.
+        No params.
     - name: BarMaybeIsClosedUnkStringIdMenu
       address:
         EU: 0x238DEBC
@@ -277,14 +277,14 @@ overlay19:
       description: |-
         Calls ShowPortraitInPortraitBox with portrait data from the spinda_cafe struct.
         
-        No params or return.
+        No params.
     - name: BarTryHidePortrait
       address:
         EU: 0x238DFB0
       description: |-
         Calls HidePortraitBox with portrait data from the spinda_cafe struct.
         
-        No params or return.
+        No params.
     - name: BarInventoryMenuCallback
       address:
         EU: 0x238DFD8
@@ -301,7 +301,7 @@ overlay19:
       description: |-
         Calls CloseInventoryMenu with spinda_cafe->inventory_window_id.
         
-        No params or return.
+        No params.
     - name: BarTryCloseTeamMovesMenu
       address:
         EU: 0x238E050
@@ -309,7 +309,7 @@ overlay19:
         Calls CloseAdvancedTextBox with spinda_cafe->inventory_window_id.
         Contextually seems responsible for closing the menu for team moves.
         
-        No params or return.
+        No params.
     - name: SpindaBarEntry
       address:
         EU: 0x238E0A0
@@ -331,7 +331,7 @@ overlay19:
         The destructor of overlay 19 for both entry points.
         Does nothing but call BarTryClosePortraitBox...
         
-        No params or return.
+        No params.
     - name: SpindaBarMenuUpdate
       address:
         EU: 0x238E1CC
