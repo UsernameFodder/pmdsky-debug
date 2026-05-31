@@ -810,7 +810,7 @@ impl Block {
     }
     /// Returns a combined iterator over both function and data symbols in the [`Block`], realized
     /// for the [`Version`] corresponding to `version_name`.
-    pub fn iter_realized(&self, version_name: &str) -> impl Iterator<Item = RealizedSymbol> + '_ {
+    pub fn iter_realized(&self, version_name: &str) -> impl Iterator<Item = RealizedSymbol<'_>> {
         let version = self.version(version_name);
         self.iter().realize(version)
     }
@@ -819,13 +819,13 @@ impl Block {
     pub fn functions_realized(
         &self,
         version_name: &str,
-    ) -> impl Iterator<Item = RealizedSymbol> + '_ {
+    ) -> impl Iterator<Item = RealizedSymbol<'_>> {
         let version = self.version(version_name);
         self.functions.iter().realize(version)
     }
     /// Returns an iterator over data symbols in the [`Block`], realized for the [`Version`]
     /// corresponding to `version_name`.
-    pub fn data_realized(&self, version_name: &str) -> impl Iterator<Item = RealizedSymbol> + '_ {
+    pub fn data_realized(&self, version_name: &str) -> impl Iterator<Item = RealizedSymbol<'_>> {
         let version = self.version(version_name);
         self.data.iter().realize(version)
     }
@@ -1183,10 +1183,7 @@ impl SymGen {
     }
     /// Returns a flat [`Iterator`] over all symbols contained within every [`Block`] in
     /// the [`SymGen`], realized for the [`Version`] corresponding to `version_name`.
-    pub fn symbols_realized(
-        &self,
-        version_name: &str,
-    ) -> impl Iterator<Item = RealizedSymbol> + '_ {
+    pub fn symbols_realized(&self, version_name: &str) -> impl Iterator<Item = RealizedSymbol<'_>> {
         let v = String::from(version_name);
         self.blocks().flat_map(move |b| b.iter_realized(&v))
     }
@@ -1195,13 +1192,13 @@ impl SymGen {
     pub fn functions_realized(
         &self,
         version_name: &str,
-    ) -> impl Iterator<Item = RealizedSymbol> + '_ {
+    ) -> impl Iterator<Item = RealizedSymbol<'_>> {
         let v = String::from(version_name);
         self.blocks().flat_map(move |b| b.functions_realized(&v))
     }
     /// Returns a flat [`Iterator`] over all data symbols contained within every [`Block`] in
     /// the [`SymGen`], realized for the [`Version`] corresponding to `version_name`.
-    pub fn data_realized(&self, version_name: &str) -> impl Iterator<Item = RealizedSymbol> + '_ {
+    pub fn data_realized(&self, version_name: &str) -> impl Iterator<Item = RealizedSymbol<'_>> {
         let v = String::from(version_name);
         self.blocks().flat_map(move |b| b.data_realized(&v))
     }
