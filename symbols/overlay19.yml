@@ -337,6 +337,7 @@ overlay19:
         EU: 0x238E1CC
       description: |-
         Called every frame overlay 19 is active, primarily handling interface between the script, and BarCaseManagerSub.
+        
         return: undefined4
   data:
     - name: BAR_MIRACLE_EVENT_WEIGHTS
@@ -349,6 +350,7 @@ overlay19:
       description: |-
         Weights for a "miracle drink event" to be an egg, a gourmet recruit, a dungeon unlock, or a regular miracle drink in that order.
         By default, it's 10 weight for each.
+        
         type: int16_t[4]
     - name: BAR_UNLOCKABLE_DUNGEONS_TABLE
       address:
