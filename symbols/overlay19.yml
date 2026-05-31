@@ -23,35 +23,296 @@ overlay19:
         
         r0: item ID
         return: struct bar_item*
-    - name: GetRecruitableMonsterAll
+    - name: SetMiracleDrinkStatCountRange
+      address:
+        EU: 0x238ACC0
+      description: |-
+        [MANUAL DESCRIPTION]
+        
+        r0: undefined4
+        r1: undefined4
+    - name: SetBadDrinkStatCountRange
+      address:
+        EU: 0x238ACD4
+      description: |-
+        [MANUAL DESCRIPTION]
+        
+        r0: undefined4
+        r1: undefined4
+    - name: GetBarItemResultWeights
+      address:
+        EU: 0x238ACE8
+      description: |-
+        [MANUAL DESCRIPTION]
+        
+        r0: int
+        return: ushort * 
+    - name: BarGetDrinkEventWeights
+      address:
+        EU: 0x238ACF8
+      description: |-
+        [MANUAL DESCRIPTION]
+        return: ushort * 
+    - name: BarGetRandomValidEggRecruit
       address:
         EU: 0x238AD04
         NA: 0x238A1C4
         JP: 0x238B724
       description: |-
-        Note: unverified, ported from Irdkwia's notes
-        
-        return: int?
-    - name: GetRecruitableMonsterList
+        [MANUAL DESCRIPTION]
+        return: enum 
+    - name: BarGetValidEggGiverFromGourmetTable
       address:
         EU: 0x238ADB4
         NA: 0x238A274
         JP: 0x238B7D4
       description: |-
-        Note: unverified, ported from Irdkwia's notes
-        
-        return: int?
-    - name: GetRecruitableMonsterListRestricted
+        [MANUAL DESCRIPTION]
+        return: enum 
+    - name: BarGetRandomValidRecruitFromGourmetTable
       address:
         EU: 0x238AE5C
         NA: 0x238A31C
         JP: 0x238B87C
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        [MANUAL DESCRIPTION]
+        return: enum 
+    - name: BarGetUnlockableDungeonPtr
+      address:
+        EU: 0x238AF14
+      description: |-
+        [MANUAL DESCRIPTION]
         
-        return: int?
+        r0: struct bar_dungeon_unlock ** 
+        return: int 
+    - name: BarPopulateUnlockableDungeons
+      address:
+        EU: 0x238AF2C
+      description: |-
+        [MANUAL DESCRIPTION]
+        
+        r0: struct
+        return: int 
+    - name: BarTryClosePortraitBox
+      address:
+        EU: 0x238AFA8
+      description: |-
+        [MANUAL DESCRIPTION]
+        No params or return.
+    - name: BarCaseManagerSub
+      address:
+        EU: 0x238AFE4
+      description: |-
+        [MANUAL DESCRIPTION]
+        return: undefined4 
+    - name: BarMaybeSetBarScrollBoxWindowId
+      address:
+        EU: 0x238B93C
+      description: |-
+        [MANUAL DESCRIPTION]
+        
+        r0: undefined4
+        r1: undefined4
+        r2: undefined4
+        return: undefined4 
+    - name: BarPopulateDrinkableBagItems
+      address:
+        EU: 0x238D0DC
+      description: |-
+        [MANUAL DESCRIPTION]
+        No params or return.
+    - name: BarSetPreprocessorFlagsAndSubcase
+      address:
+        EU: 0x238D174
+      description: |-
+        [MANUAL DESCRIPTION]
+        No params or return.
+    - name: BarStrBufferZeroToPreprocessorFlags
+      address:
+        EU: 0x238D1A4
+      description: |-
+        [MANUAL DESCRIPTION]
+        return: bool 
+    - name: BarTrySetEventMainActor
+      address:
+        EU: 0x238D1F8
+      description: |-
+        [MANUAL DESCRIPTION]
+        return: undefined4 
+    - name: BarStrBufferOneToPreprocessorFlags
+      address:
+        EU: 0x238D2E4
+      description: |-
+        [MANUAL DESCRIPTION]
+        return: bool 
+    - name: BarPrintHpIncreaseString
+      address:
+        EU: 0x238D340
+      description: |-
+        [MANUAL DESCRIPTION]
+        
+        r0: int
+        r1: int32_t
+        r2: undefined4
+        r3: undefined4
+        return: undefined4 
+    - name: BarPrintOtherStatIncreaseString
+      address:
+        EU: 0x238D434
+      description: |-
+        [MANUAL DESCRIPTION]
+        
+        r0: int
+        r1: int
+        r2: int
+        return: undefined4 
+    - name: BarPrintIqAndSkills
+      address:
+        EU: 0x238D524
+      description: |-
+        [MANUAL DESCRIPTION]
+        
+        r0: int
+        return: undefined4 
+    - name: BarPrintLevelMaxedOutString
+      address:
+        EU: 0x238D660
+      description: |-
+        [MANUAL DESCRIPTION]
+        
+        r0: int
+        r1: undefined4
+        r2: undefined4
+        r3: undefined4
+    - name: BarDrawAndUpdateGainedIqSkills
+      address:
+        EU: 0x238D6F4
+      description: |-
+        [MANUAL DESCRIPTION]
+        
+        r0: char
+        r1: char
+        r2: int
+        r3: int
+        stack[0]: int
+        stack[1]: int
+        stack[2]: int
+        return: undefined4 
+    - name: BarUpdateDrinkEventNewStats
+      address:
+        EU: 0x238D820
+      description: |-
+        [MANUAL DESCRIPTION]
+        
+        r0: struct
+        r1: int
+        return: undefined4 
+    - name: BarPrintReactionsAndStatIncreases
+      address:
+        EU: 0x238D9F4
+      description: |-
+        [MANUAL DESCRIPTION]
+        
+        r0: struct
+        r1: undefined4
+        r2: undefined4
+        r3: undefined4
+    - name: BarHandleDrinkEventSubcase
+      address:
+        EU: 0x238DC0C
+      description: |-
+        [MANUAL DESCRIPTION]
+        No params or return.
+    - name: BarPostDrinkCaseForCustomer
+      address:
+        EU: 0x238DE44
+      description: |-
+        [MANUAL DESCRIPTION]
+        No params or return.
+    - name: BarMaybeIsClosedUnkStringIdMenu
+      address:
+        EU: 0x238DEBC
+      description: |-
+        [MANUAL DESCRIPTION]
+        return: undefined4 
+    - name: BarCreateUnkStringIdMenu
+      address:
+        EU: 0x238DED4
+      description: |-
+        [MANUAL DESCRIPTION]
+        
+        r0: undefined4
+        r1: undefined4
+        r2: struct
+        r3: undefined4
+        stack[0]: char
+        stack[1]: uint32_t
+    - name: GetUnkStringIdMenuResult
+      address:
+        EU: 0x238DF4C
+      description: |-
+        [MANUAL DESCRIPTION]
+        return: int 
+    - name: BarDisplayPortrait
+      address:
+        EU: 0x238DF84
+      description: |-
+        [MANUAL DESCRIPTION]
+        No params or return.
+    - name: BarTryHidePortraitBox
+      address:
+        EU: 0x238DFB0
+      description: |-
+        [MANUAL DESCRIPTION]
+        No params or return.
+    - name: BarInventoryMenuCallback
+      address:
+        EU: 0x238DFD8
+      description: |-
+        [MANUAL DESCRIPTION]
+        
+        r0: undefined4
+        r1: int
+        r2: undefined4
+        return: undefined4 
+    - name: BarTryCloseInventoryMenu
+      address:
+        EU: 0x238E018
+      description: |-
+        [MANUAL DESCRIPTION]
+        No params or return.
+    - name: BarTryCloseTeamMovesMenu
+      address:
+        EU: 0x238E050
+      description: |-
+        [MANUAL DESCRIPTION]
+        No params or return.
+    - name: SpindaBarEntry
+      address:
+        EU: 0x238E0A0
+      description: |-
+        [MANUAL DESCRIPTION]
+        return: undefined4 
+    - name: SpindaBarResume
+      address:
+        EU: 0x238E130
+      description: |-
+        [MANUAL DESCRIPTION]
+        return: undefined4 
+    - name: SpindaBarDestruct
+      address:
+        EU: 0x238E1C0
+      description: |-
+        [MANUAL DESCRIPTION]
+        No params or return.
+    - name: SpindaBarMenuUpdate
+      address:
+        EU: 0x238E1CC
+      description: |-
+        [MANUAL DESCRIPTION]
+        return: undefined4
   data:
-    - name: OVERLAY19_UNKNOWN_TABLE__NA_238DAE0
+    - name: BAR_MIRACLE_EVENT_WEIGHTS
       address:
         EU: 0x238E614
         NA: 0x238DAE0
@@ -59,9 +320,8 @@ overlay19:
       length:
         NA: 0x8
       description: |-
-        4*0x2
-        
-        Note: unverified, ported from Irdkwia's notes
+        [MANUAL DESCRIPTION]
+        int16_t 
     - name: BAR_UNLOCKABLE_DUNGEONS_TABLE
       address:
         EU: 0x238E61C
@@ -73,7 +333,7 @@ overlay19:
         Note: unverified, ported from Irdkwia's notes
         
         type: struct dungeon_id_16[6]
-    - name: BAR_RECRUITABLE_MONSTER_TABLE
+    - name: BAR_RECRUITABLE_GOURMET_MONSTER_TABLE
       address:
         EU: 0x238E628
         NA: 0x238DAF4
@@ -82,9 +342,8 @@ overlay19:
         NA: 0xD8
         JP: 0xD8
       description: |-
-        Note: unverified, ported from Irdkwia's notes
-        
-        type: struct monster_id_16[108]
+        [MANUAL DESCRIPTION]
+        monster_id_16 
     - name: BAR_AVAILABLE_ITEMS
       address:
         EU: 0x238E700
@@ -96,15 +355,53 @@ overlay19:
         Note: unverified, ported from Irdkwia's notes
         
         type: struct bar_item[66]
-    - name: OVERLAY19_UNKNOWN_STRING_IDS__NA_238E178
+    - name: BAR_STAT_REACTION_STRINGS
       address:
         EU: 0x238ECAC
         NA: 0x238E178
         JP: 0x238F6D0
       length:
         NA: 0x2C
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: OVERLAY19_UNKNOWN_STRUCT__NA_238E1A4
+      description: |-
+        [MANUAL DESCRIPTION]
+        int16_t 
+    - name: GOOD_DRINK_REACTION_STRINGS
+      address:
+        EU: 0x238ECB2
+      description: |-
+        [MANUAL DESCRIPTION]
+        int16_t 
+    - name: BAR_STAT_CHANGE_STRINGS
+      address:
+        EU: 0x238ECB8
+      description: |-
+        [MANUAL DESCRIPTION]
+        int16_t 
+    - name: NEUTRAL_DRINK_REACTION_STRINGS
+      address:
+        EU: 0x238ECBE
+      description: |-
+        [MANUAL DESCRIPTION]
+        int16_t 
+    - name: AWFUL_DRINK_REACTION_STRINGS
+      address:
+        EU: 0x238ECC4
+      description: |-
+        [MANUAL DESCRIPTION]
+        int16_t 
+    - name: BAR_IQ_CHANGE_STRINGS
+      address:
+        EU: 0x238ECCA
+      description: |-
+        [MANUAL DESCRIPTION]
+        int16_t 
+    - name: BAR_IQ_UNABLE_TO_CHANGE_STRINGS
+      address:
+        EU: 0x238ECD0
+      description: |-
+        [MANUAL DESCRIPTION]
+        int16_t 
+    - name: GOURMET_PORTRAIT_OFFSET_TABLE
       address:
         EU: 0x238ECD8
         NA: 0x238E1A4
@@ -112,17 +409,18 @@ overlay19:
       length:
         NA: 0x28
       description: |-
-        5*0x8
-        
-        Note: unverified, ported from Irdkwia's notes
-    - name: OVERLAY19_UNKNOWN_STRING_IDS__NA_238E1CC
+        [MANUAL DESCRIPTION]
+        vec2 
+    - name: BAR_STAT_NAME_STRINGS
       address:
         EU: 0x238ED00
         NA: 0x238E1CC
         JP: 0x238F724
       length:
         NA: 0xC
-      description: "Note: unverified, ported from Irdkwia's notes"
+      description: |-
+        [MANUAL DESCRIPTION]
+        int16_t 
     - name: BAR_WINDOW_PARAMS_1
       address:
         EU: 0x238ED0C
@@ -168,14 +466,14 @@ overlay19:
         EU: 0x18
         NA: 0x18
         JP: 0x18
-    - name: OVERLAY19_UNKNOWN_STRING_IDS__NA_238E238
+    - name: BAR_DRINK_NAMES_STRINGS
       address:
         EU: 0x238ED6C
         NA: 0x238E238
         JP: 0x238F790
-      length:
-        NA: 0x18
-      description: "Note: unverified, ported from Irdkwia's notes"
+      description: |-
+        [MANUAL DESCRIPTION]
+        int16_t 
     - name: BAR_MAIN_MENU_ITEMS
       address:
         EU: 0x238ED84
@@ -203,6 +501,42 @@ overlay19:
         EU: 0x30
         NA: 0x30
         JP: 0x30
+    - name: BAR_NEW_LINE_CHAR
+      address:
+        EU: 0x238EDF4
+      description: |-
+        [MANUAL DESCRIPTION]
+        wchar_t 
+    - name: BAR_ME_PLAY_TEXT_TAG
+      address:
+        EU: 0x238EDF8
+      description: |-
+        [MANUAL DESCRIPTION]
+        char 
+    - name: DEBUG_MESSAGE_REQUEST_STR
+      address:
+        EU: 0x238EE04
+      description: |-
+        [MANUAL DESCRIPTION]
+        char 
+    - name: DEBUG_MESSAGE_REQUEST_AND_RETURN_STR
+      address:
+        EU: 0x238EE1C
+      description: |-
+        [MANUAL DESCRIPTION]
+        char 
+    - name: DEBUG_MESSAGE_BEFORE_SET_STR
+      address:
+        EU: 0x238EE38
+      description: |-
+        [MANUAL DESCRIPTION]
+        char 
+    - name: DEBUG_MESSAGE_AFTER_SET_STR
+      address:
+        EU: 0x238EE58
+      description: |-
+        [MANUAL DESCRIPTION]
+        char 
     - name: OV19_STATIC_INITIALIZER
       aliases:
         - OVERLAY19_RESERVED_SPACE
@@ -215,7 +549,7 @@ overlay19:
         NA: 0x4
         JP: 0x4
       description: Static initializer for overlay 19.
-    - name: OVERLAY19_UNKNOWN_POINTER__NA_238E360
+    - name: BAR_MENU_PRIOR_CHOICE_INDICES
       address:
         EU: 0x238EE80
         NA: 0x238E360

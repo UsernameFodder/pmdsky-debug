@@ -1025,4 +1025,77 @@ struct link_shop {
 };
 ASSERT_SIZE(struct link_shop, 964);
 
+
+struct bar_dungeon_unlock {
+    struct dungeon_id_8 dungeon_id;
+    uint8_t scenario_balance_min;
+};
+ASSERT_SIZE(struct bar_dungeon_unlock, 2);
+
+// Pointer lives at 0x23258F0 EU, which is squarely part of overlay_11. Other overlays likely share this address too.
+struct spinda_cafe {
+    enum bar_update_case main_case;
+    enum bar_subcase curr_subcase;
+    enum bar_subcase next_subcase;
+    int8_t portrait_window_id;
+    undefined1 unk_0xd;
+    undefined1 unk_0xe;
+    undefined1 unk_0xf;
+    struct portrait_params portrait_params;
+    int8_t inventory_window_id;
+    int8_t team_window_id;
+    int8_t scroll_box_window_id;
+    bool item_validities[50];
+    undefined1 unk_0x55;
+    undefined1 unk_0x56;
+    undefined1 unk_0x57;
+    int sel_item_index;
+    bool team_member_valid[4];
+    undefined1 unk_0x60;
+    undefined1 unk_0x61;
+    undefined1 unk_0x62;
+    undefined1 unk_0x63;
+    int number_of_items;
+    struct item_id_16 bag_items[50];
+    struct item selected_item;
+    undefined1 unk_0xd2;
+    undefined1 unk_0xd3;
+    uint team_member_index;
+    short selected_move_index;
+    struct move_id_16 team_move_ids[16];
+    int16_t drink_type_index; // random [0,11] and determines what spinda calls the drink (IE: Mix, Juice, Dew, Soda, Shake)
+    enum drink_event_type drink_event;
+    short frame_delay;
+    struct dungeon_id_8 unlocked_dungeon;
+    undefined1 unk_0x103;
+    struct monster_id_16 cafe_recruit_species;
+    struct monster_id_16 egg_giver_species;
+    int drink_stat_kind;
+    struct bar_stats_data bar_stats;
+    int return_case;
+    struct preprocessor_flags preprocessor_flags_0;
+    struct preprocessor_flags preprocessor_flags_1;
+    char string_buffer_0[1024];
+    char string_buffer_1[1024];
+    int unknown_flags_1;
+    struct window_extra_info window_extra_info;
+};
+ASSERT_SIZE(struct spinda_cafe, 2664);
+
+struct bar_stats_data {
+    int16_t stat_modifiers[6];
+    int16_t new_stats[6];
+    int8_t actual_stat_changes[6];
+    undefined unk_field_0x1e;
+    undefined unk_field_0x1f;
+    int stat_drink_event_kind; // 0x0: stat_down, 0x1: surprise_stat_up, 0x2: expected_stat_up
+    int num_iq_skills_pre;
+    int num_iq_skills_post;
+    struct iq_skill_id_8 iq_skills_pre[69];
+    struct iq_skill_id_8 iq_skills_post[69];
+    undefined unk_field_0xb6;
+    undefined unk_field_0xb7;
+};
+ASSERT_SIZE(struct bar_stats_data, 184);
+
 #endif
