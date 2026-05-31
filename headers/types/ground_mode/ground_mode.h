@@ -1032,6 +1032,22 @@ struct bar_dungeon_unlock {
 };
 ASSERT_SIZE(struct bar_dungeon_unlock, 2);
 
+struct bar_stats_data {
+    int16_t stat_modifiers[6];
+    int16_t new_stats[6];
+    int8_t actual_stat_changes[6];
+    undefined unk_field_0x1e;
+    undefined unk_field_0x1f;
+    int stat_drink_event_kind; // 0x0: stat_down, 0x1: surprise_stat_up, 0x2: expected_stat_up
+    int num_iq_skills_pre;
+    int num_iq_skills_post;
+    struct iq_skill_id_8 iq_skills_pre[69];
+    struct iq_skill_id_8 iq_skills_post[69];
+    undefined unk_field_0xb6;
+    undefined unk_field_0xb7;
+};
+ASSERT_SIZE(struct bar_stats_data, 184);
+
 // Pointer lives at 0x23258F0 EU, which is squarely part of overlay_11. Other overlays likely share this address too.
 struct spinda_cafe {
     enum bar_update_case main_case;
@@ -1060,7 +1076,7 @@ struct spinda_cafe {
     struct item selected_item;
     undefined1 unk_0xd2;
     undefined1 unk_0xd3;
-    uint team_member_index;
+    uint32_t team_member_index;
     short selected_move_index;
     struct move_id_16 team_move_ids[16];
     int16_t drink_type_index; // random [0,11] and determines what spinda calls the drink (IE: Mix, Juice, Dew, Soda, Shake)
@@ -1081,21 +1097,5 @@ struct spinda_cafe {
     struct window_extra_info window_extra_info;
 };
 ASSERT_SIZE(struct spinda_cafe, 2664);
-
-struct bar_stats_data {
-    int16_t stat_modifiers[6];
-    int16_t new_stats[6];
-    int8_t actual_stat_changes[6];
-    undefined unk_field_0x1e;
-    undefined unk_field_0x1f;
-    int stat_drink_event_kind; // 0x0: stat_down, 0x1: surprise_stat_up, 0x2: expected_stat_up
-    int num_iq_skills_pre;
-    int num_iq_skills_post;
-    struct iq_skill_id_8 iq_skills_pre[69];
-    struct iq_skill_id_8 iq_skills_post[69];
-    undefined unk_field_0xb6;
-    undefined unk_field_0xb7;
-};
-ASSERT_SIZE(struct bar_stats_data, 184);
 
 #endif
