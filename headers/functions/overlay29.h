@@ -393,7 +393,7 @@ void ChangeMonsterAnimation(struct entity* monster, int8_t animation_id,
                             enum direction_id direction);
 uint8_t GetIdleAnimationId(struct entity* entity);
 void DetermineAllMonsterShadow(void);
-uint8_t DetermineMonsterShadow(struct entity* monster);
+enum shadow_type DetermineMonsterShadow(struct entity* monster);
 bool DisplayActions(struct entity* param_1);
 void CheckNonLeaderTile(struct entity* entity);
 bool EndNegativeStatusCondition(struct entity* user, struct entity* target, bool animation,
