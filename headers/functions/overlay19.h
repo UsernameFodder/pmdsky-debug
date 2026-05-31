@@ -4,8 +4,8 @@
 struct bar_item* GetBarItem(enum item_id item_id);
 void SetMiracleDrinkStatCountRange(int* param_1, int* param_2);
 void SetBadDrinkStatCountRange(int* param_1, int* param_2);
-unsigned short* GetBarItemResultWeights(enum item_id param_1);
-unsigned short* BarGetDrinkEventWeights(void);
+uint16_t* GetBarItemResultWeights(enum item_id param_1);
+uint16_t* BarGetDrinkEventWeights(void);
 enum monster_id BarGetRandomValidEggRecruit(void);
 enum monster_id BarGetValidEggGiverFromGourmetTable(void);
 enum monster_id BarGetRandomValidRecruitFromGourmetTable(void);
@@ -44,4 +44,5 @@ undefined4 SpindaBarEntry(void);
 undefined4 SpindaBarResume(void);
 void SpindaBarDestruct(void);
 undefined4 SpindaBarMenuUpdate(void);
+
 #endif

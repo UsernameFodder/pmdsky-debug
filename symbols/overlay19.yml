@@ -143,6 +143,7 @@ overlay19:
         EU: 0x238D1A4
       description: |-
         Zero initializes the preprocessor_args_0 and string_buffer_0 fields of spinda_cafe.
+        
         return: bool for if buffer was empty string
     - name: BarTrySetEventMainActor
       address:
@@ -157,6 +158,7 @@ overlay19:
         EU: 0x238D2E4
       description: |-
         Zero initializes the preprocessor_args_1 and string_buffer_1 fields of spinda_cafe.
+        
         return: bool for if buffer was empty string
     - name: BarPrintHpIncreaseString
       address:

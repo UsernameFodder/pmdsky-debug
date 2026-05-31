@@ -2276,7 +2276,7 @@ enum bar_update_case {
     BAR_GOURMET_HERO_PARTNER = 18,
     BAR_GOURMET_RECRUIT = 19,
     BAR_GOURMET_LEAVE = 20,
-    BAR_UNLOCK_DUNGEON = 21
+    BAR_UNLOCK_DUNGEON = 21,
 };
 
 enum bar_subcase {
