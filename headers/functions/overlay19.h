@@ -18,7 +18,7 @@ void BarPopulateDrinkableBagItems(void);
 void BarZeroInitPreprocessorFlagsAndReturnCase(void);
 bool BarZeroInitBufferAndPreprocessorArgsZero(void);
 undefined4 BarTrySetEventMainActor(void);
-bool BarZeroInitBufferAndPreprocessorArgsZero(void);
+bool BarZeroInitBufferAndPreprocessorArgsOne(void);
 undefined4 BarPrintHpIncreaseString(int32_t param_1,int32_t param_2);
 undefined4 BarPrintOtherStatIncreaseString(int param_1,int param_2,int param_3);
 undefined4 BarPrintIqAndSkills(int param_1);
