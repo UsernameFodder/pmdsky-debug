@@ -45,7 +45,7 @@ overlay19:
       description: |-
         Retrieves a pointer to the weights for normal, good, miracle, and bad drink results by item.
         The miracle drink event chance is actually a shared chance for a random drink event such as a dungeon unlock, recruit, or a real miracle drink.
-
+        
         r0: item_id
         return: uint16_t*
     - name: BarGetDrinkEventWeights
@@ -53,7 +53,7 @@ overlay19:
         EU: 0x238ACF8
       description: |-
         Retrieves the static chances for an egg, recruit, dungeon unlock, or a miracle drink.
-
+        
         return: uint16_t *
     - name: BarGetRandomValidEggRecruit
       address:
@@ -62,7 +62,7 @@ overlay19:
         JP: 0x238B724
       description: |-
         Retrives a random valid egg species for an egg event at the cafe.
-
+        
         return: enum monster_id
     - name: BarGetValidEggGiverFromGourmetTable
       address:
@@ -71,7 +71,7 @@ overlay19:
         JP: 0x238B7D4
       description: |-
         Retrieves a random valid species from BAR_RECRUITABLE_GOURMET_MONSTER_TABLE to serve as the egg giver for an egg event at the cafe.
-
+        
         return: enum monster_id
     - name: BarGetRandomValidRecruitFromGourmetTable
       address:
@@ -80,7 +80,7 @@ overlay19:
         JP: 0x238B87C
       description: |-
         Retrieves a random valid species from BAR_RECRUITABLE_GOURMET_MONSTER_TABLE to serve as the recruit for an gourmet recruit event at the cafe.
-
+        
         return: enum monster_id
     - name: BarGetUnlockableDungeonPtr
       address:
@@ -88,7 +88,7 @@ overlay19:
       description: |-
         If not zero, stores a double pointer to the BAR_UNLOCKABLE_DUNGEONS_TABLE to r0. Then returns 6 for some reason... 
         Unclear what this is intended to actually do...
-
+        
         r0: struct bar_dungeon_unlock **
         return: Always 6?
     - name: BarPopulateUnlockableDungeons
@@ -104,7 +104,7 @@ overlay19:
         EU: 0x238AFA8
       description: |-
         Seems to handle closing portrait boxes for the overlay. 
-
+        
         No params or return.
     - name: BarCaseManagerSub
       address:
@@ -112,7 +112,7 @@ overlay19:
       description: |-
         Called once every frame by SpindaBarMenuUpdate if the bar_update_case is BAR_SUBCASE_FUNC.
         State Case with unique behaviors enumerated by enum bar_subcase.
-
+        
         return: maybe a return code for SpindaBarMenuUpdate?
     - name: BarMaybeSetBarScrollBoxWindowId
       address:
@@ -136,7 +136,7 @@ overlay19:
         EU: 0x238D174
       description: |-
         Zero Inits many preprocessor_flag fields, but also sets the return_case for scripts to zero within spinda_cafe.
-
+        
         No params or return.
     - name: BarZeroInitBufferAndPreprocessorArgsZero
       address:
@@ -150,7 +150,7 @@ overlay19:
       description: |-
         Seems to set ACTOR_NPC_EVENT_MAIN to whoever the player ordered the drink for.
         Seems to do other things before that though...
-
+        
         return: undefined4
     - name: BarZeroInitBufferAndPreprocessorArgsOne
       address:
@@ -242,7 +242,7 @@ overlay19:
       description: |-
         Seems to check if a currently unknown String Id based menu type's window is closed?
         Just a guess.
-
+        
         return: undefined4
     - name: BarCreateUnkStringIdMenu
       address:
@@ -261,21 +261,21 @@ overlay19:
         EU: 0x238DF4C
       description: |-
         Seems to retrieve the result of some kind of player choice from a currently unknown String Id based menu type.
-
+        
         return: menu result
     - name: BarTryShowPortrait
       address:
         EU: 0x238DF84
       description: |-
         Calls ShowPortraitInPortraitBox with portrait data from the spinda_cafe struct.
-
+        
         No params or return.
     - name: BarTryHidePortrait
       address:
         EU: 0x238DFB0
       description: |-
         Calls HidePortraitBox with portrait data from the spinda_cafe struct.
-
+        
         No params or return.
     - name: BarInventoryMenuCallback
       address:
@@ -292,7 +292,7 @@ overlay19:
         EU: 0x238E018
       description: |-
         Calls CloseInventoryMenu with spinda_cafe->inventory_window_id.
-
+        
         No params or return.
     - name: BarTryCloseTeamMovesMenu
       address:
@@ -300,21 +300,21 @@ overlay19:
       description: |-
         Calls CloseAdvancedTextBox with spinda_cafe->inventory_window_id.
         Contextually seems responsible for closing the menu for team moves.
-
+        
         No params or return.
     - name: SpindaBarEntry
       address:
         EU: 0x238E0A0
       description: |-
         First entry point into overlay 19, called by MENU_JUICE_BAR.
-
+        
         return: undefined4
     - name: SpindaBarResume
       address:
         EU: 0x238E130
       description: |-
         Subsequent entry point into overlay 19, called by MENU_JUICE_BAR_PICK_ITEM.
-
+        
         return: undefined4
     - name: SpindaBarDestruct
       address:
@@ -322,7 +322,7 @@ overlay19:
       description: |-
         The destructor of overlay 19 for both entry points.
         Does nothing but call BarTryClosePortraitBox...
-
+        
         No params or return.
     - name: SpindaBarMenuUpdate
       address:
@@ -359,12 +359,12 @@ overlay19:
         NA: 0x238DAF4
         JP: 0x238F04C
       length:
-        NA: 0xD8
         EU: 0xD8
+        NA: 0xD8
         JP: 0xD8
       description: |-
         A table of valid monsters for both the recruit for the gourmet recruit event, and the egg-giver for egg event.
-
+        
         type: monster_id_16[108]
     - name: BAR_AVAILABLE_ITEMS
       address:
@@ -408,7 +408,7 @@ overlay19:
         EU: 0x238ECBE
       description: |-
         Text string ids for the flavor of neutral drinks.
-
+        
         type: int16_t[3]
     - name: BAD_DRINK_REACTION_STRINGS
       address:
@@ -422,7 +422,7 @@ overlay19:
         EU: 0x238ECCA
       description: |-
         Text string ids for how IQ changed, depending on the source of the IQ increase (guaranteed, good, miracle).
-
+        
         type: int16_t[3]
     - name: BAR_IQ_UNABLE_TO_CHANGE_STRINGS
       address:
@@ -430,7 +430,7 @@ overlay19:
       description: |-
         Text string ids for how IQ would have changed, depending on the source of the IQ increase (guaranteed, good, miracle).
         Play if IQ is already maxed out. One of these strings falsely claims IQ increases anyway.
-
+        
         type int16_t[3]
     - name: GOURMET_PORTRAIT_OFFSET_TABLE
       address:
@@ -441,7 +441,7 @@ overlay19:
         NA: 0x28
       description: |-
         Table of portrait offsets for the gourmet recruit's portraits during the gourmet recruit drink event.
-
+        
         type: vec2[5]
     - name: BAR_STAT_NAME_STRINGS
       address:
@@ -542,7 +542,7 @@ overlay19:
       description: |-
         A new line character, appended to various other strings during operation of the menu.
         Always loaded as a full 4 bytes...
-
+        
         type: wchar_t
     - name: BAR_ME_PLAY_TEXT_TAG
       address:
@@ -557,7 +557,7 @@ overlay19:
       description: |-
         "dirinkbar request %3d\n"
         Request likely refers to requesting the script to do something.
-
+        
         type: string
     - name: DEBUG_MESSAGE_REQUEST_AND_RETURN_STR
       address:
@@ -565,7 +565,7 @@ overlay19:
       description: |-
         "dirinkbar request %3d[%3d]\n"
         Request again likely refers to requesting the script to do something.
-
+        
         type: string
     - name: DEBUG_MESSAGE_BEFORE_SET_STR
       address:
@@ -573,7 +573,7 @@ overlay19:
       description: |-
         "dirinkbar message before set\n"
         Message before likely refers to a textbox appearing immediately before passing control to the script engine.
-
+        
         type: string
     - name: DEBUG_MESSAGE_AFTER_SET_STR
       address:
@@ -602,5 +602,4 @@ overlay19:
         JP: 0x238F8A0
       length:
         NA: 0x6
-      description: |-
-        Seems to remember where the player's cursor was previously during menu navigation.
+      description: "Seems to remember where the player's cursor was previously during menu navigation."

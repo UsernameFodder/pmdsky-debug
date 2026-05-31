@@ -1027,7 +1027,6 @@ struct link_shop {
 };
 ASSERT_SIZE(struct link_shop, 964);
 
-
 struct bar_dungeon_unlock {
     struct dungeon_id_8 dungeon_id;
     uint8_t scenario_balance_min;
@@ -1050,7 +1049,8 @@ struct bar_stats_data {
 };
 ASSERT_SIZE(struct bar_stats_data, 184);
 
-// Pointer lives at 0x23258F0 EU, which is squarely part of overlay_11. Other overlays likely share this address too.
+// Pointer lives at 0x23258F0 EU, which is squarely part of overlay_11. Other overlays likely share
+// this address too.
 struct spinda_cafe {
     enum bar_update_case main_case;
     enum bar_subcase curr_subcase;
@@ -1081,7 +1081,8 @@ struct spinda_cafe {
     uint32_t team_member_index;
     short selected_move_index;
     struct move_id_16 team_move_ids[16];
-    int16_t drink_type_index; // random [0,11] and determines what spinda calls the drink (IE: Mix, Juice, Dew, Soda, Shake)
+    int16_t drink_type_index; // random [0,11] and determines what spinda calls the drink (IE: Mix,
+                              // Juice, Dew, Soda, Shake)
     enum drink_event_type drink_event;
     short frame_delay;
     struct dungeon_id_8 unlocked_dungeon;
