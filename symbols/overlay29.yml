@@ -380,6 +380,17 @@ overlay29:
         r2: Area upper X coordinate
         r3: Area upper Y coordinate
         return: True if the specified area contains the currently pressed touchscreen position, false otherwise.
+    - name: OamTileNumberToVramAddressOv29
+      address:
+        EU: 0x22E186C
+      description: |-
+        Maps an object's designated OAM tile number (bits 0-9 in attribute 2) to the address its texture should be placed at in VRAM.
+        
+        Is an exact copy of OamTileNumberToVramAddress in arm9.
+        
+        r0: tile number
+        r1: 0 for bottom screen, 1 for top screen
+        return: VRAM tile address
     - name: GetTrapInfo
       address:
         EU: 0x22E1F48
@@ -1431,6 +1442,13 @@ overlay29:
         
         r0: Which case to use for the switch statement
         r1: unused
+    - name: AnimateWaterShadows
+      address:
+        EU: 0x22EAFFC
+      description: |-
+        Animates the water shadows beneath entities.
+        
+        No params.
     - name: DisplayAnimatedNumbers
       address:
         EU: 0x22EB0C8
@@ -4182,6 +4200,17 @@ overlay29:
         r0: user entity pointer?
         r1: target pointer to the entity to evolve
         r2: Species to evolve into
+    - name: DisplayMonsterShadow
+      address:
+        EU: 0x2304888
+      description: |-
+        Displays a shadow under a monster.
+        
+        r0: whether to display the shadow
+        r1: shadow type
+        r2: whether to display a yellow circle (for team members and special cases like decoys, rescue clients, etc.)
+        r3: x-coordinate in OAM plus 0x10
+        stack[0]: y-coordinate in OAM plus 0x8
     - name: ChangeMonsterAnimation
       address:
         EU: 0x23053D4

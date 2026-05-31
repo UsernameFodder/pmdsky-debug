@@ -4282,6 +4282,18 @@ arm9:
         NA: 0x201A9E4
         JP: 0x201AA3C
       description: "Note: unverified, ported from Irdkwia's notes"
+    - name: FillCopyToFlatVramCommand
+      address:
+        EU: 0x201AB74
+      description: |-
+        Fills the command contained in a copy_to_obj_vram_order struct with the specified values.
+        
+        r0: command
+        r1: dst
+        r2: src
+        r3: len_output (doubled if using an interleaved copy, i.e. if using an extended palette)
+        stack[0]: copy_type
+        stack[1]: interleave_with
     - name: ExecuteCopyToFlatVramCommand
       address:
         EU: 0x201ABA8
@@ -4302,6 +4314,64 @@ arm9:
         r0: pointer to array of fragment byte assembly entry, final (otherwise unused) one should have byte_amount = 0
         r1: dst
         return: number of decoded bytes
+    - name: LoadObjPalette
+      address:
+        EU: 0x201B4D8
+      description: |-
+        Loads an object palette into obj_graphics_control, from which it will be copied into VRAM.
+        
+        r0: obj_graphics_control
+        r1: palette_init_info
+        r2: palette_num (bits 12-15 of OAM attribute 2)
+        return: always 1
+    - name: AddSimpleObjToOam
+      address:
+        EU: 0x201BA94
+      description: |-
+        Adds a simple object (one not tied to an animation_control struct) to OAM.
+        
+        The second parameter is an array of size 4 where obj[0] is the second half of attribute 0,
+        obj[1] is attribute 1, obj[2] is attribute 2, and obj[3] is the first half of attribute 0 (the y-coordinate) shifted left by 4.
+        
+        r0: obj_graphics_control
+        r1: obj
+        r2: group
+        return: -2 if group out of bounds, -1 if too many objects, 0 if successful
+    - name: GroupOamAttributesWrapper
+      address:
+        EU: 0x201BB38
+      description: "r0: obj_graphics_control"
+    - name: CopyAttributesToOamWrapper
+      address:
+        EU: 0x201BB48
+      description: "r0: obj_graphics_control"
+    - name: ChangeSimpleObjTexture
+      address:
+        EU: 0x201BB64
+      description: |-
+        Changes the texture in VRAM of all objects that use the specified OAM tile number. Used for simple objects (ones not tied to an animation_control struct).
+        
+        r0: obj_graphics_control
+        r1: texture src
+        r2: tile number in OAM
+        r3: texture size in bytes
+        stack[0]: true if object uses extended palettes, see https://problemkaputt.de/gbatek.htm#dsvideoextendedpalettes
+        stack[1]: upper 4 bits in 256-color extended palette, shifted right by 4
+    - name: InitObjGraphicsControls
+      address:
+        EU: 0x201BBD8
+      description: |-
+        Initializes the obj_graphics_controls struct.
+        
+        No params.
+    - name: CopyAttributesToOamBothScreens
+      address:
+        EU: 0x201BE50
+      description: No params.
+    - name: GroupOamAttributesBothScreens
+      address:
+        EU: 0x201BEF8
+      description: No params.
     - name: CopyAndInterleaveWrapper
       address:
         EU: 0x201C08C
@@ -4913,6 +4983,18 @@ arm9:
         r0: [output] double pointer to beginning of data
         r1: pointer to source file buffer
         return: return code
+    - name: FillPaletteInitInfo
+      address:
+        EU: 0x201F634
+      description: |-
+        Fills a palette_init_info struct's fields with the given parameters, besides multi_ext_palettes which will always be made 0.
+        
+        r0: palette_init_info
+        r1: palette_bytes
+        r2: palette_mode
+        r3: nb_colors_or_palettes
+        stack[0]: ext_palette_upper
+        stack[1]: palette_num_custom
     - name: DecompressAtNormalVeneer
       address:
         EU: 0x201F65C
@@ -11030,6 +11112,15 @@ arm9:
         
         r0: team member index in party
         r1: ?
+    - name: OamTileNumberToVramAddress
+      address:
+        EU: 0x2058E38
+      description: |-
+        Maps an object's designated OAM tile number (bits 0-9 in attribute 2) to the address its texture should be placed at in VRAM.
+        
+        r0: tile number
+        r1: 0 for bottom screen, 1 for top screen
+        return: VRAM tile address
     - name: GetIqSkillStringId
       address:
         EU: 0x2058F98

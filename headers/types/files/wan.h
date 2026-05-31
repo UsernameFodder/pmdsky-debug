@@ -33,16 +33,20 @@ struct wan_animation_header {
 };
 ASSERT_SIZE(struct wan_animation_header, 24);
 
-struct wan_palettes {
-    struct rgba* palette_bytes;
-    uint16_t unk1;
-    uint16_t nb_color;
-    uint16_t unk2;
-    uint8_t unk3;
-    uint8_t unk4;
+struct palette_init_info {
+    struct rgba* palette_bytes; // 0x0
+    // 0x4: 0 if 16-color standard, 1 if 256-color extended. See
+    // https://problemkaputt.de/gbatek.htm#dsvideoextendedpalettes
+    uint16_t palette_mode;
+    uint16_t nb_colors_or_palettes; // 0x6
+    uint16_t ext_palette_upper;     // 0x8: Upper 4 bits in 256-color extended palette
+    int8_t palette_num_custom;      // 0xA: If not -1, overwrites palette_num in LoadObjPalette
+    // 0xB: If 1, splits the palette in chunks of 0x10 across multiple
+    // extended palettes starting from palette_num
+    uint8_t multi_ext_palettes;
     uint32_t unk5; // Normally always 0
 };
-ASSERT_SIZE(struct wan_palettes, 16);
+ASSERT_SIZE(struct palette_init_info, 16);
 
 // An animation group is a set of animations, either a single one or 8 for the eight possible
 // orientations of a monster. An animation is itself made of frames.
@@ -68,7 +72,7 @@ ASSERT_SIZE(struct wan_animation_frame, 12);
 struct wan_image_header {
     // first level is a group of assembly entry, that can be used to build a fragment_bytes
     struct wan_fragment_bytes_assembly_entry** fragments_bytes_store;
-    struct wan_palettes* palettes;
+    struct palette_init_info* palettes;
     uint16_t unk1;
     bool is_256_color;
     undefined1 padding1;

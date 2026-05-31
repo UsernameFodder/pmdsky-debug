@@ -24,6 +24,7 @@ void SetDungeonEscapeFields(uint32_t successful_exit_tracker, bool end_floor_no_
 uint32_t GetSuccessfulExitTracker(void);
 void GetAndStoreButtonInput(void);
 bool CheckTouchscreenArea(int x1, int y1, int x2, int y2);
+void* OamTileNumberToVramAddressOv29(short oam_tile_num, uint8_t screen);
 struct trap* GetTrapInfo(struct entity* trap_entity);
 struct item* GetItemInfo(struct entity* item_entity);
 struct tile* GetTileAtEntity(struct entity* entity);
@@ -123,6 +124,7 @@ bool FindUnoccupiedTileWithin3(struct position* pos_out, struct position* origin
 uint8_t TickStatusTurnCounter(uint8_t* counter);
 void AdvanceFrame(undefined param_1);
 void UnkMapRelatedFunc(int switch_case, undefined4 param_2);
+void AnimateWaterShadows(void);
 void DisplayAnimatedNumbers(int amount, struct entity* entity, bool display_sign,
                             enum number_color number_color);
 void SetDungeonRngPreseed23Bit(uint32_t preseed23);
@@ -389,11 +391,13 @@ bool LevelUp(struct entity* user, struct entity* target, bool message, bool dial
 bool DungeonTmLearnMove(struct entity* user, enum move_id move_id);
 void GetMonsterMoves(struct move_id_16* out_moves, enum monster_id monster_id, int level);
 void EvolveMonster(struct entity* user, struct entity* target, enum monster_id new_monster_id);
+void DisplayMonsterShadow(bool display_shadow, enum shadow_type shadow_type, bool yellow_circle,
+                          uint16_t x, uint16_t y);
 void ChangeMonsterAnimation(struct entity* monster, int8_t animation_id,
                             enum direction_id direction);
 uint8_t GetIdleAnimationId(struct entity* entity);
 void DetermineAllMonsterShadow(void);
-uint8_t DetermineMonsterShadow(struct entity* monster);
+enum shadow_type DetermineMonsterShadow(struct entity* monster);
 bool DisplayActions(struct entity* param_1);
 void CheckNonLeaderTile(struct entity* entity);
 bool EndNegativeStatusCondition(struct entity* user, struct entity* target, bool animation,
