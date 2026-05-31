@@ -380,6 +380,17 @@ overlay29:
         r2: Area upper X coordinate
         r3: Area upper Y coordinate
         return: True if the specified area contains the currently pressed touchscreen position, false otherwise.
+    - name: OamTileNumberToVramAddressOv29
+      address:
+        EU: 0x22E186C
+      description: |-
+        Maps an object's designated OAM tile number (bits 0-9 in attribute 2) to the address its texture should be placed at in VRAM.
+        
+        Is an exact copy of OamTileNumberToVramAddress in arm9.
+        
+        r0: tile number
+        r1: 0 for bottom screen, 1 for top screen
+        return: VRAM tile address
     - name: GetTrapInfo
       address:
         EU: 0x22E1F48
@@ -1041,13 +1052,22 @@ overlay29:
         r0: quick_saved
         r1: disable_monsters
         r2: special_process
+    - name: GetRandomSpawnTrapId
+      address:
+        EU: 0x22E83E0
+        NA: 0x22E7A30
+        JP: 0x22E90A0
+      description: |-
+        Gets the id of a random trap to be used when spawning traps on the floor during dungeon generation.
+        
+        return: trap id
     - name: GetRandomTrapId
       address:
         EU: 0x22E843C
         NA: 0x22E7A8C
         JP: 0x22E90F8
       description: |-
-        Gets the id of the trap to be used as the effect of a Random Trap.
+        Gets the id of a random trap to be used as the effect of a Random Trap.
         
         return: trap id
     - name: GetItemIdToSpawn
@@ -1061,6 +1081,24 @@ overlay29:
         If the function fails to properly choose an item (due to, for example, a corrupted item list), ITEM_POKE is returned.
         
         r0: Which item list to use
+        return: Item ID
+    - name: GetRandomBazaarItem
+      address:
+        EU: 0x22E8568
+        NA: 0x22E7BB8
+        JP: 0x22E9224
+      description: |-
+        Randomly picks an item from the pool of items for the Secret Bazaar grab bag.
+        
+        return: Item ID
+    - name: GetRandomSecretRoomItem
+      address:
+        EU: 0x22E8580
+        NA: 0x22E7BD0
+        JP: 0x22E923C
+      description: |-
+        Randomly picks an item from the pool of items for secret room chests.
+        
         return: Item ID
     - name: CopySpawnEntriesMaster
       address:
@@ -1086,6 +1124,15 @@ overlay29:
         r0: [output] Buffer where the result will be stored
         r1: Current amount of entries in the buffer
         return: New amount of entries in the buffer
+    - name: CopySpawnEntriesOnce
+      address:
+        EU: 0x22E86AC
+        NA: 0x22E7CFC
+        JP: 0x22E9364
+      description: |-
+        Calls CopySpawnEntriesMaster if it has not already been called for the current dungeon. If CopySpawnEntriesMaster has already been called, this function does nothing.
+        
+        No params.
     - name: IsOnMonsterSpawnList
       address:
         EU: 0x22E86FC
@@ -1395,6 +1442,13 @@ overlay29:
         
         r0: Which case to use for the switch statement
         r1: unused
+    - name: AnimateWaterShadows
+      address:
+        EU: 0x22EAFFC
+      description: |-
+        Animates the water shadows beneath entities.
+        
+        No params.
     - name: DisplayAnimatedNumbers
       address:
         EU: 0x22EB0C8
@@ -4146,6 +4200,17 @@ overlay29:
         r0: user entity pointer?
         r1: target pointer to the entity to evolve
         r2: Species to evolve into
+    - name: DisplayMonsterShadow
+      address:
+        EU: 0x2304888
+      description: |-
+        Displays a shadow under a monster.
+        
+        r0: whether to display the shadow
+        r1: shadow type
+        r2: whether to display a yellow circle (for team members and special cases like decoys, rescue clients, etc.)
+        r3: x-coordinate in OAM plus 0x10
+        stack[0]: y-coordinate in OAM plus 0x8
     - name: ChangeMonsterAnimation
       address:
         EU: 0x23053D4

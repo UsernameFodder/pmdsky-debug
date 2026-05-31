@@ -676,9 +676,7 @@ struct monster {
     uint32_t unk_exp_tracker;
     // 0x218: Status icons displayed on top of the monster's sprite
     struct status_icon_flags status_icons;
-    // 0x220: Seems to be related in some way to shadow size and being a water tileset. So
-    // probably controls when the ripple effect when standing on water.
-    uint8_t water_shadow_ripple_tracker;
+    struct shadow_type_8 shadow_type; // 0x220
     // 0x221: Set if the current move being used was copied by Me First
     bool me_first_flag;
     undefined field_0x222;

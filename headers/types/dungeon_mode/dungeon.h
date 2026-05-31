@@ -1127,9 +1127,9 @@ struct dungeon {
     undefined field_0x3e25;
     undefined field_0x3e26;
     undefined field_0x3e27;
-    // 0x3E28: Related in some way to the spawn entries on the floor. Does something about them
-    // if false, then set to true.
-    bool unk_spawn_entry_id_check;
+    // 0x3E28: Set to true after spawn entries are copied. Prevents copying spawn entries more than
+    // once.
+    bool spawn_entries_copied;
     undefined field_0x3e29;
     undefined field_0x3e2a;
     undefined field_0x3e2b;

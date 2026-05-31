@@ -439,9 +439,23 @@ void PlaySeFullSpec(int param_1, int param_2, int param_3, int param_4);
 void SeChangeVolume(int param_1, int param_2, int param_3);
 void SeChangePan(int param_1, int param_2, int param_3);
 void StopSe(int param_1, int param_2);
+void FillCopyToFlatVramCommand(struct copy_to_obj_vram_order* order, void* dst, void* src,
+                               uint32_t len_output, enum copy_to_obj_vram_order_type copy_type,
+                               uint16_t interleave_with);
 void ExecuteCopyToFlatVramCommand(struct copy_to_obj_vram_order* order);
 uint32_t DecodeFragmentByteAssemblyTable(struct wan_fragment_bytes_assembly_entry* entry,
                                          void* dst);
+int LoadObjPalette(struct obj_graphics_control* obj_graphics_control,
+                   struct palette_init_info* palette_init_info, uint8_t palette_num);
+int AddSimpleObjToOam(struct obj_graphics_control* obj_graphics_control, uint16_t* obj, int group);
+void GroupOamAttributesWrapper(struct obj_graphics_control* obj_graphics_control);
+void CopyAttributesToOamWrapper(struct obj_graphics_control* obj_graphics_control);
+void ChangeSimpleObjTexture(struct obj_graphics_control* obj_graphics_control, undefined4* src,
+                            short oam_tile_num, uint16_t texture_size, bool extended_palette,
+                            uint8_t ext_palette_upper_shifted);
+void InitObjGraphicsControls(void);
+void CopyAttributesToOamBothScreens(void);
+void GroupOamAttributesBothScreens(void);
 void CopyAndInterleaveWrapper(uint16_t* dst, uint16_t* src, uint32_t len, uint8_t val);
 void InitAnimationControl(struct animation_control* animation_control);
 void InitAnimationControlWithSet(struct animation_control* animation_control);
@@ -514,6 +528,9 @@ void Render3dElement64(struct render_3d_element_64* element64);
 int HandleSir0Translation(uint8_t** dst, uint8_t* src);
 void ConvertPointersSir0(undefined* sir0_ptr);
 int HandleSir0TranslationVeneer(uint8_t** dst, uint8_t* src);
+void FillPaletteInitInfo(struct palette_init_info* palette_init_info, struct rgba* palette_bytes,
+                         uint16_t palette_mode, uint16_t nb_colors_or_palettes,
+                         uint16_t ext_palette_upper, int8_t palette_num_custom);
 int DecompressAtNormalVeneer(undefined* addr_decomp, int expected_size, undefined* at_ptr);
 int DecompressAtNormal(undefined* addr_decomp, int expected_size, undefined* at_ptr);
 int DecompressAtHalf(undefined* addr_decomp, int expected_size, undefined* at_ptr, int high_nibble);
@@ -1146,6 +1163,7 @@ void RefillTeam(void);
 int ClearItem(int team_id, bool check);
 void ChangeGiratinaFormIfSkyDungeon(enum dungeon_id dungeon_id);
 void RevertGiratinaAndShaymin(uint8_t member_idx, undefined param_2);
+void* OamTileNumberToVramAddress(short oam_tile_num, uint8_t screen);
 int GetIqSkillStringId(enum iq_skill_id iq_skill);
 bool DoesTacticFollowLeader(enum tactic_id tactic_id);
 void GetUnlockedTactics(enum tactic_id* unlocked_tactics, int level);

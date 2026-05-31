@@ -2532,13 +2532,9 @@ overlay0:
         JP: 0x22D5340
     - name: count_digits
       address:
-        EU:
-          - 0x22D4414
-          - 0x22D441C
-        NA:
-          - 0x22D3C00
-        JP:
-          - 0x22D53AC
+        EU: 0x22D4414
+        NA: 0x22D3C00
+        JP: 0x22D53AC
     - name: Cpsi_Big_Sign
       address:
         EU: 0x22D443C
@@ -6781,22 +6777,14 @@ overlay0:
         JP: 0x22F7814
     - name: GsiLargeIntCompare
       address:
-        EU:
-          - 0x22F68D0
-          - 0x22F68D8
-        NA:
-          - 0x22F60BC
-        JP:
-          - 0x22F7868
+        EU: 0x22F68D0
+        NA: 0x22F60BC
+        JP: 0x22F7868
     - name: GsiLargeIntStripLeadingZeroes
       address:
-        EU:
-          - 0x22F6960
-          - 0x22F6970
-        NA:
-          - 0x22F614C
-        JP:
-          - 0x22F78F8
+        EU: 0x22F6960
+        NA: 0x22F614C
+        JP: 0x22F78F8
     - name: GsiLargeIntAdd
       address:
         EU: 0x22F6990
