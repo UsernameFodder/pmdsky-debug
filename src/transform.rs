@@ -66,9 +66,9 @@ fn generate_symbols<P: AsRef<Path>>(
 /// Gets a list of all version names within a SymGen.
 /// 1. If a version list is explicitly specified by blocks, use those.
 /// 2. If a block does not explicitly specify a version list, infer it
-/// based on the addresses it contains.
+///    based on the addresses it contains.
 /// 3. If blocks with symbols exist but none has an explicit version, return
-/// a vector containing a single empty string ("").
+///    a vector containing a single empty string ("").
 fn all_version_names(symgen: &SymGen) -> Vec<&str> {
     let mut vers = BTreeSet::new();
     let mut symgen_has_symbols: bool = false;
