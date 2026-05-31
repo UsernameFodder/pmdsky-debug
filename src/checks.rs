@@ -1068,7 +1068,7 @@ where
     let mut errors = Vec::with_capacity(input_files.len());
     for input_file in input_files {
         match run_checks(input_file, checks, recursive) {
-            Ok(result) => results.extend(result.into_iter()),
+            Ok(result) => results.extend(result),
             Err(e) => errors.push((input_file.as_ref().to_string_lossy().into_owned(), e)),
         }
     }

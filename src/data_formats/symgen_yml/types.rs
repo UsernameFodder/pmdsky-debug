@@ -177,7 +177,7 @@ impl Linkable {
     /// Returns an iterator over the values within a [`Linkable`].
     ///
     /// This is defined to return a concrete type so it can be stored in struct fields.
-    pub fn iter(&self) -> LinkableIter {
+    pub fn iter(&self) -> LinkableIter<'_> {
         match self {
             Self::Single(x) => OrOnce::Once(iter::once(x)),
             Self::Multiple(v) => OrOnce::Iter(v.iter()),
@@ -292,7 +292,7 @@ impl<T> VersionDep<T> {
 
     /// Gets the given [`Version`]'s corresponding entry in the [`VersionDep<T>`] for in-place
     /// manipulation, where the given key is matched by name.
-    pub fn entry(&mut self, key: Version) -> Entry<Version, T> {
+    pub fn entry(&mut self, key: Version) -> Entry<'_, Version, T> {
         self.entry_native(self.find_native_version(&key).cloned().unwrap_or(key))
     }
     /// Gets the given native [`Version`]'s corresponding entry in the [`VersionDep<T>`] for
@@ -302,7 +302,7 @@ impl<T> VersionDep<T> {
     /// This method is less flexible than the `entry()` method, but is less work
     /// (it is a pure map lookup), so it's useful if you are already working within the
     /// [`VersionDep<T>`]'s native [`Version`] space.
-    pub fn entry_native(&mut self, native_key: Version) -> Entry<Version, T> {
+    pub fn entry_native(&mut self, native_key: Version) -> Entry<'_, Version, T> {
         self.0.entry(native_key)
     }
     /// Returns a reference to the value in the [`VersionDep<T>`] corresponding to the [`Version`],
