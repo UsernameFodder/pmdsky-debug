@@ -165,6 +165,17 @@ bool IsBagNotEmpty(void);
 void GetExclusiveItemRequirements(undefined param_1, undefined param_2);
 void SwapShopInventoryManager(enum swap_shop_inventory_case inventory_case,
                               int monster_id_or_exc_item_count);
+void GetTradeTypeOfIndex(void);
+uint16_t RetreiveTradeCountReq(void);
+void ShopWipeEverything(void);
+int Return3IfNotQuadExcItem(void);
+void CheckExclusiveItemRequirements(void);
+void DoSomethingFunkyWithBag(void);
+undefined4 ExclusiveItemCountingThing(uint enum item_id,uint param_2,int param_3);
+void LoopExclusiveItemReqs(void);
+void AddExclusiveItemToShop(int Loop_Index,uint16_t param_2,uint16_t Exclusive_Item_ID);
+int GetItemByTradeType(void);
+void CloseTextBox2AndResetWindowID(void);
 void HandleControlsTopScreenGround(void);
 bool GetDungeonMapPos(struct uvec2* out_pos, enum dungeon_id dungeon);
 void WorldMapSetMode(uint32_t world_map_mode);

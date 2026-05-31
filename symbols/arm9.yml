@@ -3070,6 +3070,13 @@ arm9:
         
         r0: some struct that has species ID in it?
         return: max HP boost from exclusive items
+    - name: FreePointerAndDestination
+      address:
+        EU: 0x20115A0
+      description: |-
+        [MANUAL DESCRIPTION]
+        
+        No params.
     - name: ApplyGummiBoostsToGroundMonster
       address:
         EU: 0x20115D0
@@ -3221,6 +3228,13 @@ arm9:
         stack[0]: Item ID
         stack[1]: bool to NOT increase stats
         stack[2]: [output] pointer to a struct gummi_result
+    - name: EmptySwapShop
+      address:
+        EU: 0x2012B60
+      description: |-
+        [MANUAL DESCRIPTION]
+        
+        No params.
     - name: LoadSynthBin
       address:
         EU: 0x2012B88
@@ -3241,6 +3255,35 @@ arm9:
       description: |-
         Generates the Croagunk Swap Shop items for Croagunk in Wigglytuff's Guild.
         return: 1 if at least one item generated, 0 otherwise.
+    - name: InitSynthShopItems
+      address:
+        EU: 0x2013160
+      description: |-
+        [MANUAL DESCRIPTION]
+        
+        r0: struct
+        return: uint 
+    - name: PopCroagunkItem
+      address:
+        EU: 0x20131F8
+      description: |-
+        [MANUAL DESCRIPTION]
+        
+        return: undefined4 
+    - name: LoadCroagunkShop
+      address:
+        EU: 0x2013238
+      description: |-
+        [MANUAL DESCRIPTION]
+        
+        return: undefined4 
+    - name: SaveCroagunkShop
+      address:
+        EU: 0x2013298
+      description: |-
+        [MANUAL DESCRIPTION]
+        
+        return: undefined4 
     - name: GetSynthItem
       address:
         EU: 0x20132F8
@@ -5515,6 +5558,25 @@ arm9:
         r1: x offset within window
         r2: y offset within window
         r3: text to draw
+    - name: PrintNumExclusiveItemsHeld
+      address:
+        EU: 0x202654C
+      description: |-
+        [MANUAL DESCRIPTION]
+        
+        No params.
+    - name: PrintNumExclusiveItems
+      address:
+        EU: 0x20265C4
+      description: |-
+        [MANUAL DESCRIPTION]
+        
+        r0: undefined4
+        r1: undefined4
+        r2: undefined4
+        r3: undefined4
+        stack[0]: undefined4
+        
     - name: GetCharWidth
       address:
         EU: 0x2026830
