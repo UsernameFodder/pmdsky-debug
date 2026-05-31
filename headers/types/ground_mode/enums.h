@@ -2345,7 +2345,7 @@ enum bar_subcase {
     SBAR_DEFAULT_RESUME = 61,
     SBAR_MAYBE_WAIT_OUT_FRAMES = 62,
     SBAR_MAYBE_WAIT_CLOSE = 63,
-    SBAR_MIRACLE_FINISH = 64
+    SBAR_MIRACLE_FINISH = 64,
 };
 
 enum drink_event_type {
@@ -2355,7 +2355,7 @@ enum drink_event_type {
     DRINK_EVENT_EGG = 3,
     DRINK_EVENT_GOURMET = 4,
     DRINK_EVENT_DUNGEON = 5,
-    DRINK_EVENT_MIRACLE = 6
+    DRINK_EVENT_MIRACLE = 6,
 };
 
 // These are super long, so split them out into a separate file
