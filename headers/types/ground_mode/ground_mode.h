@@ -583,10 +583,10 @@ struct bar_item {
     int16_t def_increase;
     int16_t spa_increase;
     int16_t spdef_increase;
-    ushort normal_drink_wght;
-    ushort good_drink_wght;
-    ushort miracle_drink_wght;
-    ushort bad_drink_wght;
+    uint16_t normal_drink_wght;
+    uint16_t good_drink_wght;
+    uint16_t miracle_drink_wght;
+    uint16_t bad_drink_wght;
 };
 ASSERT_SIZE(struct bar_item, 22);
 
