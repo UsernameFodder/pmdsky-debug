@@ -135,7 +135,7 @@ overlay19:
       address:
         EU: 0x238D174
       description: |-
-        Zero Inits many preprocessor_flag fields, but also sets the return_case for scripts to zero within spinda_cafe.
+        Zero inits many preprocessor_flag fields, but also sets the return_case for scripts to zero within spinda_cafe.
         
         No params or return.
     - name: BarZeroInitBufferAndPreprocessorArgsZero
