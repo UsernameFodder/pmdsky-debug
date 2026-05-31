@@ -61,7 +61,7 @@ overlay19:
         NA: 0x238A1C4
         JP: 0x238B724
       description: |-
-        Retrives a random valid egg species for an egg event at the cafe.
+        Retrieves a random valid egg species for an egg event at the cafe.
         
         return: enum monster_id
     - name: BarGetValidEggGiverFromGourmetTable
