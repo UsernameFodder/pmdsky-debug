@@ -1079,12 +1079,12 @@ struct spinda_cafe {
     undefined1 unk_0xd2;
     undefined1 unk_0xd3;
     uint32_t team_member_index;
-    short selected_move_index;
+    int16_t selected_move_index;
     struct move_id_16 team_move_ids[16];
     int16_t drink_type_index; // random [0,11] and determines what spinda calls the drink (IE: Mix,
                               // Juice, Dew, Soda, Shake)
     enum drink_event_type drink_event;
-    short frame_delay;
+    uint16_t frame_delay;
     struct dungeon_id_8 unlocked_dungeon;
     undefined1 unk_0x103;
     struct monster_id_16 cafe_recruit_species;
