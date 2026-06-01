@@ -232,6 +232,8 @@ extern void* ITEM_DATA_TABLE_PTRS[3];
 #if PMDSKY_VERSION == PMDSKY_EU
 extern char* ITEM_LANG_FILE_ARRAY[5];
 #endif
+
+extern void* SYNTH_BIN_FILE_PTR;
 extern struct move_data_table* MOVE_DATA_TABLE_PTR;
 extern struct obj_graphics_controls* OBJ_GRAPHICS_CONTROLS_PTR;
 extern struct wan_table* WAN_TABLE;

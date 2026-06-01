@@ -1608,7 +1608,6 @@ overlay11:
         r0: int32_t
         r1: uint16_t
         r2: uint16_t
-        
     - name: GetItemByTradeType
       address:
         EU: 0x230D30C
@@ -1913,6 +1912,54 @@ overlay11:
       length:
         NA: 0x10
       description: Default window_params for a team_info_box.
+    - name: SWAP_SHOP_ONE_STAR_STR
+      address:
+        EU: 0x2323AD8
+      descrition: |-
+        "[M:S3]"
+        Used exclusively by GetExclusiveItemRequirements.
+    - name: SWAP_SHOP_TWO_STAR_STR
+      address:
+        EU: 0x2323AE0
+      descrition: |-
+        "[M:S3][M:S3]"
+        Used exclusively by GetExclusiveItemRequirements.
+    - name: SWAP_SHOP_THREE_STAR_STR
+      address:
+        EU: 0x2323AF0
+      descrition: |-
+        "[M:S3][M:S3][M:S3]"
+        Used exclusively by GetExclusiveItemRequirements.
+    - name: SWAP_SHOP_RED_TEXT_TAG_STR
+      address:
+        EU: 0x2323B34
+      descrition: |-
+        "[CS:W]"
+        Used exclusively by a subfunction of SwapShopInventoryManager.
+    - name: SWAP_SHOP_UNCENTER_TEXT_TAG_STR
+      address:
+        EU: 0x2323B3C
+      descrition: |-
+        "[CR]"
+        Used exclusively by a subfunction of SwapShopInventoryManager.
+    - name: SWAP_SHOP_CLUMSET_ONE_STAR_STR
+      address:
+        EU: 0x2323B44
+      descrition: |-
+        "[CLUM_SET:130][M:S3]"
+        Used exclusively by a subfunction of SwapShopInventoryManager.
+    - name: SWAP_SHOP_CLUMSET_TWO_STAR_STR
+      address:
+        EU: 0x2323B5C
+      descrition: |-
+        "[CLUM_SET:122][M:S3][M:S3]"
+        Used exclusively by a subfunction of SwapShopInventoryManager.
+    - name: SWAP_SHOP_CLUMSET_THREE_STAR_STR
+      address:
+        EU: 0x2323B78
+      descrition: |-
+        "[CLUM_SET:114][M:S3][M:S3][M:S3]"
+        Used exclusively by a subfunction of SwapShopInventoryManager.
     - name: OVERLAY11_OVERLAY_LOAD_TABLE
       address:
         EU: 0x2323B9C
@@ -1970,6 +2017,12 @@ overlay11:
         Host pointers to multiple structure used for performing an overworld scene
         
         type: struct main_ground_data
+    - name: EXCLUSIVE_ITEM_REQUIREMENTS_PTR
+      address:
+        EU: 0x23258E0
+      length:
+        EU: 0x4   
+      description: Pointer to the exclusive_item_requirements struct, used by the swap shop. 
     - name: SWAP_SHOP_INVENTORY_PTRS
       address:
         EU: 0x23258E4

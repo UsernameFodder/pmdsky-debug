@@ -300,7 +300,7 @@ bool GetExclusiveItemForMonsterFromBag(struct item* item, enum exclusive_item_ef
                                        enum monster_id monster_id, enum type_id type1,
                                        enum type_id type2);
 int GetHpBoostFromExclusiveItems(undefined* param_1);
-void FreePointerAndDestination(void);
+void SwapShopFreeDoublePointer(void);
 void ApplyGummiBoostsToGroundMonster(struct ground_monster* ground_monster, enum item_id item_id,
                                      bool not_boost_stats, struct gummi_result* gummi_result);
 void ApplyGummiBoostsToTeamMember(struct team_member* team_member, enum item_id item_id,
@@ -328,12 +328,12 @@ void ApplyGummiBoostsGroundMode(struct monster_id_16* monster_id, uint16_t* mons
                                 uint8_t* monster_offensive_stats, uint8_t* monster_defensive_stats,
                                 enum item_id item_id, bool not_boost_stats,
                                 struct gummi_result* gummi_result);
-void EmptySwapShop(void);
+void ClearCroagunkItems(void);
 bool LoadSynthBin(void);
 void CloseSynthBin(void);
 bool GenerateCroagunkItems(void);
-uint InitSynthShopItems(struct synth_template* param_1);
-bool PopCroagunkItem(void);
+uint GetCroagunkItemTemplates(struct synth_template* param_1);
+bool PopCroagunkItem(enum item_id item);
 undefined4 LoadCroagunkShop(void);
 undefined4 SaveCroagunkShop(void);
 struct synth_template* GetSynthItem(enum item_id exclusive_item);
@@ -585,8 +585,6 @@ void LoadTblTalk(void);
 int GetTalkLine(int personality_idx, enum talk_type talk_type, int restrictions);
 bool IsAOrBPressed(void);
 void DrawTextInWindow(int window_id, int x, int y, char* string);
-void PrintNumExclusiveItemsHeld(void);
-void PrintNumExclusiveItems(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint32_t param_4, preprocessor_args* param_5);
 uint8_t GetCharWidth(char symbol);
 int GetColorCodePaletteOffset(char symbol);
 uint8_t DrawChar(int window_id, int x, int y, char symbol, int color_offset);

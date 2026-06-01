@@ -3070,13 +3070,14 @@ arm9:
         
         r0: some struct that has species ID in it?
         return: max HP boost from exclusive items
-    - name: FreePointerAndDestination
+    - name: SwapShopFreeDoublePointer
       address:
         EU: 0x20115A0
       description: |-
-        [MANUAL DESCRIPTION]
-        
-        No params.
+        Seems to call MemFree on *param_1 and **param_1, with a safety check that the **param_1 isn't zero.
+        Only known XREF is to SwapShopInventoryManager, so a more specific purpose for this function may exist.
+
+        r0: double pointer to free
     - name: ApplyGummiBoostsToGroundMonster
       address:
         EU: 0x20115D0
@@ -3228,11 +3229,11 @@ arm9:
         stack[0]: Item ID
         stack[1]: bool to NOT increase stats
         stack[2]: [output] pointer to a struct gummi_result
-    - name: EmptySwapShop
+    - name: ClearCroagunkItems
       address:
         EU: 0x2012B60
       description: |-
-        [MANUAL DESCRIPTION]
+        Zeroes the 8 daily random items Croagunk can swap for.
         
         No params.
     - name: LoadSynthBin
@@ -3255,33 +3256,34 @@ arm9:
       description: |-
         Generates the Croagunk Swap Shop items for Croagunk in Wigglytuff's Guild.
         return: 1 if at least one item generated, 0 otherwise.
-    - name: InitSynthShopItems
+    - name: GetCroagunkItemTemplates
       address:
         EU: 0x2013160
       description: |-
-        [MANUAL DESCRIPTION]
+        Retrieves the current Croagunk Swap Shop items as synth_template structs.
         
-        r0: struct
+        r0: pointer to at least 8 synth_template structs
         return: uint 
     - name: PopCroagunkItem
       address:
         EU: 0x20131F8
       description: |-
-        [MANUAL DESCRIPTION]
+        Tries to pop an item by id from Croagunk Swap Shop items.
         
-        return: undefined4 
-    - name: LoadCroagunkShop
+        r0: item_id
+        return: 1 if the item was found, 0 if not. 
+    - name: LoadCroagunkItems
       address:
         EU: 0x2013238
       description: |-
-        [MANUAL DESCRIPTION]
+        Seems to load the Croagunk Swap Shop items from the save file.
         
         return: undefined4 
     - name: SaveCroagunkShop
       address:
         EU: 0x2013298
       description: |-
-        [MANUAL DESCRIPTION]
+        Seems to store the Croagunk Swap Shop items to the save file.
         
         return: undefined4 
     - name: GetSynthItem
@@ -5558,25 +5560,6 @@ arm9:
         r1: x offset within window
         r2: y offset within window
         r3: text to draw
-    - name: PrintNumExclusiveItemsHeld
-      address:
-        EU: 0x202654C
-      description: |-
-        [MANUAL DESCRIPTION]
-        
-        No params.
-    - name: PrintNumExclusiveItems
-      address:
-        EU: 0x20265C4
-      description: |-
-        [MANUAL DESCRIPTION]
-        
-        r0: undefined4
-        r1: undefined4
-        r2: undefined4
-        r3: undefined4
-        stack[0]: undefined4
-        
     - name: GetCharWidth
       address:
         EU: 0x2026830
@@ -14716,6 +14699,10 @@ arm9:
       length:
         EU: 0x14
       description: An array containing the names of each language file. Only exists in EU.
+    - name: SYNTH_BIN_FILE_PTR
+      address:
+        EU: 0x20AFFA0
+      description: The location of the data/SYNTH/synth.bin file while loaded.
     - name: DUNGEON_MOVE_TABLES
       address:
         EU: 0x20AFFA8

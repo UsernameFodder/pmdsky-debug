@@ -28,10 +28,9 @@ overlay21:
       address:
         EU: 0x238AFA8
       description: |-
-        [MANUAL DESCRIPTION]
+        Assigns a specified window_id to SWAP_SHOP_MENU_DATA_PTR->simple_menu_window_id.
         
-        r0: int8_t
-        
+        r0: window_id
     - name: GetFirstExclusivePrerequisite
       address:
         EU: 0x238C320
