@@ -233,7 +233,7 @@ extern void* ITEM_DATA_TABLE_PTRS[3];
 extern char* ITEM_LANG_FILE_ARRAY[5];
 #endif
 
-extern void* SYNTH_BIN_FILE_PTR;
+extern struct synth_file* SYNTH_BIN_FILE_PTR;
 extern struct move_data_table* MOVE_DATA_TABLE_PTR;
 extern struct obj_graphics_controls* OBJ_GRAPHICS_CONTROLS_PTR;
 extern struct wan_table* WAN_TABLE;
@@ -242,6 +242,7 @@ extern render_3d_element_64_fn_t RENDER_3D_FUNCTIONS_64[8];
 extern int16_t TBL_TALK_GROUP_STRING_ID_START[6];
 extern struct menu_control* MENU_CONTROL_PTR;
 extern int16_t KEYBOARD_STRING_IDS[30];
+extern struct mission_reward_struct_main * MISSION_REWARD_STRUCT_MAIN_PTR;
 extern bool NOTIFY_NOTE;
 extern struct monster_id_16 DEFAULT_HERO_ID;
 extern struct monster_id_16 DEFAULT_PARTNER_ID;

@@ -7456,6 +7456,20 @@ arm9:
         r0: buffer
         r1: team member index
         return: menu item text (points into buffer)
+    - name: FreeMissionRewardStructMain
+      address:
+        EU: 0x203F2D0
+      description: |-
+        Frees MISSION_REWARD_STRUCT_MAIN_PTR if it is currently active.
+        
+        No params.
+    - name: MissionRewardCloseAllBoxes
+      address:
+        EU: 0x203F358
+      description: |-
+        Closes all textboxes from MISSION_REWARD_STRUCT_MAIN_PTR for the overlay 11 portion of the mission reward sequence.
+        
+        No params.
     - name: PrintMoveOptionMenu
       address:
         EU: 0x20405BC
@@ -7490,6 +7504,13 @@ arm9:
         r0: [output] buffer
         r1: id in team member's IQ skill list
         return: input buffer
+    - name: PlayMissionClearBgm
+      address:
+        EU: 0x2046A5C
+      description: |-
+        Plays the mission clear bgm after completing a dungeon. Called by overlay 26.
+        
+        No params.
     - name: GetNotifyNote
       address:
         EU: 0x20487BC
@@ -8890,6 +8911,15 @@ arm9:
         If true you won't lose your money and items upon fainting. Also used to initialize dungeon_init::skip_faint_animation_flag.
         
         Returns: True for DUNGEON_CRYSTAL_LAKE and DUNGEON_5TH_STATION_CLEARING, as well as for DUNGEON_DEEP_STAR_CAVE_TEAM_ROGUE if the ground variable SIDE01_BOSS2ND is 0; false otherwise.
+    - name: MissionRewardValidateDungeonId
+      address:
+        EU: 0x204F490
+      description: |-
+        Checks script variables $DUNGEON_ENTER and $DUNGEON_ENTER_INDEX for "mission dungeon" and a valid non-dojo dungeon respectively.
+        If so, stores the dungeon id from $DUNGEON_ENTER_INDEX to a pointer.
+        
+        r0: dungeon_id_8* (return)
+        return: 1 if the dungeon pulled from script variables is valid for mission rewards, 0 otherwise. 
     - name: CheckMissionRestrictions
       address:
         EU: 0x204F6FC
@@ -11913,6 +11943,27 @@ arm9:
         r0: item ID
         r1: to_sky
         return: bool
+    - name: InitMissionReward
+      address:
+        EU: 0x20631D8
+      description: |-
+        Seems to initialize a mission_reward_data struct from a mission.
+        Called by MissionRewardEntryPoint in overlay 26.
+        
+        
+        r0: struct mission*
+        r1: struct mission_reward_data*
+        r2: undefined4
+        r3: undefined4
+    - name: RollRandomItemReward
+      address:
+        EU: 0x2063420
+      description: |-
+        Seems to select a random item for an item mission reward, calling RetrieveFromItemList2 until it succeeds.
+        
+        r0: undefined4
+        r1: undefined4
+        r2: mission reward item pointer
     - name: IsAvailableItem
       address:
         EU: 0x20637D8
@@ -11935,6 +11986,13 @@ arm9:
         
         r0: item_buffer
         return: Number of deliverable items for a mission
+    - name: ZeroInitMissionRewardDataStruct
+      address:
+        EU: 0x2063898
+      description: |-
+        Zero initializes a mission_reward_data struct.
+        
+        r0: struct mission_reward_data*
     - name: GetScriptEntityMonsterId
       address:
         EU: 0x2065CF0
@@ -14881,6 +14939,14 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         type: int16_t[30]
+    - name: MISSION_REWARD_STRUCT_MAIN_PTR
+      address:
+        EU: 0x20B0790
+      description: |-
+        Points to a mission_reward_struct_main struct, responsible for handling the overlay 11 portion of the mission reward sequence.
+        Is also used sparingly during the Spinda Cafe egg event.
+
+        type: mission_reward_struct_main
     - name: NOTIFY_NOTE
       address:
         EU: 0x20B0814

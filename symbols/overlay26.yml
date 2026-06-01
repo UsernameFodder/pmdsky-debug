@@ -11,20 +11,304 @@ overlay26:
     EU: 0xE40
     NA: 0xE40
     JP: 0xE40
-  description: "Related to mission completion. It's loaded when the dungeon completion summary is shown upon exiting a dungeon, and during the cutscenes where you collect mission rewards from clients."
-  functions: []
+  description: "Related to mission completion. It's loaded when the dungeon completion summary is shown upon exiting a dungeon and during the cutscenes where you collect mission rewards from clients. May also be related to preparing for dungeon entry."
+  functions:
+    - name: MissionRewardOverlayEntryPoint
+      address:
+        EU: 0x238AC80
+      description: |-
+        The entry point for part of the mission reward sequence.
+        A significant portion of this process lives in overlay 11 instead.
+        
+        return: undefined4
+    - name: MissionRewardOverlayDestructor
+      address:
+        EU: 0x238B0A8
+      description: |-
+        The destructor for initializing the mission reward sequence. 
+        
+        No params.
+    - name: MissionRewardOverlayFrameUpdate
+      address:
+        EU: 0x238B0E0
+      description: |-
+        The entry point for part of the mission reward sequence.
+        The actual mission reward process itself is primarily done in overlay 11.
+        
+        return: undefined4
+    - name: MissionRewardClosePortraitAndDialogueBox
+      address:
+        EU: 0x238B44C
+      description: |-
+        Responsible for closing the current portrait and dialogue box for the above functions.
+        
+        No params.
+    - name: ApplyRuleDungeonEffectsEntryPoint
+      address:
+        EU: 0x238B4B0
+      description: |-
+        Just a guess. See ApplyRuleDungeonEffectsFrameUpdate for further explanation.
+        Is an entry_point for an overlay_load_entry.
+        
+        r0: undefined4
+        r1: undefined4
+        r2: undefined4
+        r3: undefined4
+        return: undefined4
+    - name: ApplyRuleDungeonEffectsDestructor
+      address:
+        EU: 0x238B4DC
+      description: |-
+        Just a guess. See ApplyRuleDungeonEffectsFrameUpdate for further explanation.
+        Is a destructor for an overlay_load_entry.
+
+        No params.
+    - name: ApplyRuleDungeonEffectsFrameUpdate
+      address:
+        EU: 0x238B508
+      description: |-
+        Just a guess. After enough frames pass, conditionally calls GetMaxItemsAllowed, RemoveAllItemsStartingAt, IsMoneyAllowed, and SetMoneyCarried, 
+        as well as a handful of unknown functions that likely check if the entered dungeon is a rule dungeon. 
+        Is a frame_update for an overlay_load_entry.
+
+        return: undefined4
+    - name: ExitDungeon1EntryPoint
+      address:
+        EU: 0x238B5A8
+      description: |-
+        Seems to get called on exiting a dungeon. Might be exclusive to whether the dungeon is in mission mode?
+        Is an entry_point for an overlay_load_entry.
+        
+        r0: undefined4
+        r1: undefined4
+        r2: undefined4
+        r3: undefined4
+        return: undefined4
+    - name: ExitDungeon1Destructor
+      address:
+        EU: 0x238B5D4
+      description: |-
+        Seems to get called on exiting a dungeon. Might be exclusive to whether the dungeon is in mission mode?
+        Is a destructor for an overlay_load_entry.
+
+        No params.
+    - name: ExitDungeon1FrameUpdate
+      address:
+        EU: 0x238B600
+      description: |-
+        Seems to get called on exiting a dungeon. Might be exclusive to whether the dungeon is in mission mode?
+        Is a frame_update for an overlay_load_entry.
+
+        return: undefined4
+    - name: UnkOv26EntryPoint_0238b754_EU
+      address:
+        EU: 0x238B818
+      description: |-
+        Is an unidentified entry_point for an overlay_load_entry.
+        
+        r0: undefined4
+        r1: undefined4
+        r2: undefined4
+        r3: undefined4
+        return: undefined4
+    - name: UnkOv26Destructor_0238b780_EU
+      address:
+        EU: 0x238B850
+      description: |-
+        Is an unidentified destructor for an overlay_load_entry.
+
+        No params.
+    - name: UnkOv26FrameUpdate_0238b7ac_EU
+      address:
+        EU: 0x238B87C
+      description: |-
+        Is an unidentified frame_update for an overlay_load_entry.
+
+        return: undefined4
+    - name: DungeonExitEntryPoint2
+      address:
+        EU: 0x238B818
+      description: |-
+        Seems to get called on exiting a dungeon. Might be exclusive to whether the dungeon is not in mission mode?
+        Is an entry_point for an overlay_load_entry.
+        
+        r0: undefined4
+        r1: undefined4
+        r2: undefined4
+        r3: undefined4
+        return: undefined4
+    - name: DungeonExitDestructor2
+      address:
+        EU: 0x238B850
+      description: |-
+        Seems to get called on exiting a dungeon. Might be exclusive to whether the dungeon is not in mission mode?
+        Is a destructor for an overlay_load_entry.
+
+        No params.
+    - name: DungeonExitFrameUpdate2
+      address:
+        EU: 0x238B87C
+      description: |-
+        Seems to get called on exiting a dungeon. Might be exclusive to whether the dungeon is not in mission mode?
+        Is a frame_update for an overlay_load_entry.
+
+        return: undefined4
   data:
-    - name: OVERLAY26_UNKNOWN_TABLE__NA_238AE20
+    - name: MISSION_TYPE_12_DIALOGUE_SEQS
       address:
         EU: 0x238B960
         NA: 0x238AE20
         JP: 0x238C380
       length:
-        NA: 0x8C
+        EU: 0x6
+        NA: 0x6
       description: |-
-        0x6 + 11*0xC + 0x2
+        A singular mission_reward_dialogue_sequence struct for treasure hoard missions.
+        Is fed sequentially to MissionRewardFrameUpdate to either produce a textbox, or conclude the dialogue. 
         
-        Note: unverified, ported from Irdkwia's notes
+        type: mission_reward_dialogue_sequence 
+    - name: MISSION_DEFAULT_DIALOGUE_SEQS
+      address:
+        EU: 0x238B966
+      length:
+        EU: 0xC
+        NA: 0xC
+      description: |-
+        A pair of mission_reward_dialogue_sequence structs used for missions of type 4, 5, and technically 14.
+        Is fed sequentially to MissionRewardFrameUpdate to either produce a textbox, or conclude the dialogue. 
+        
+        type: mission_reward_dialogue_sequence 
+    - name: MISSION_TYPE_10_DIALOGUE_SEQS
+      address:
+        EU: 0x238B972
+      length:
+        EU: 0xC
+        NA: 0xC
+      description: |-
+        A pair of mission_reward_dialogue_sequence structs used for missions of type 10.
+        Is fed sequentially to MissionRewardFrameUpdate to either produce a textbox, or conclude the dialogue.
+        
+        type: mission_reward_dialogue_sequence 
+    - name: MISSION_TYPE_9_DIALOGUE_SEQS
+      address:
+        EU: 0x238B97E
+      length:
+        EU: 0xC
+        NA: 0xC
+      description: |-
+        A pair of mission_reward_dialogue_sequence structs used for missions of type 9.
+        Is fed sequentially to MissionRewardFrameUpdate to either produce a textbox, or conclude the dialogue.
+        
+        type: mission_reward_dialogue_sequence 
+    - name: MISSION_TYPE_8_DIALOGUE_SEQS
+      address:
+        EU: 0x238B98A
+      length:
+        EU: 0xC
+        NA: 0xC
+      description: |-
+        A pair of mission_reward_dialogue_sequence structs used for missions of type 8.
+        Is fed sequentially to MissionRewardFrameUpdate to either produce a textbox, or conclude the dialogue.
+        
+        type: mission_reward_dialogue_sequence 
+    - name: MISSION_TYPE_6_DIALOGUE_SEQS
+      address:
+        EU: 0x238B996
+      length:
+        EU: 0xC
+        NA: 0xC
+      description: |-
+        A pair of mission_reward_dialogue_sequence structs used for missions of type 6.
+        Is fed sequentially to MissionRewardFrameUpdate to either produce a textbox, or conclude the dialogue.
+        
+        type: mission_reward_dialogue_sequence 
+    - name: MISSION_TYPE_7_DIALOGUE_SEQS
+      address:
+        EU: 0x238B9A2
+      length:
+        EU: 0xC
+        NA: 0xC
+      description: |-
+        A pair of mission_reward_dialogue_sequence structs used for missions of type 7.
+        Is fed sequentially to MissionRewardFrameUpdate to either produce a textbox, or conclude the dialogue.
+        
+        type: mission_reward_dialogue_sequence 
+    - name: MISSION_TYPE_3_DIALOGUE_SEQS
+      address:
+        EU: 0x238B9AE
+      length:
+        EU: 0xC
+        NA: 0xC
+      description: |-
+        A pair of mission_reward_dialogue_sequence structs used for missions of type 3.
+        Is fed sequentially to MissionRewardFrameUpdate to either produce a textbox, or conclude the dialogue.
+        
+        type: mission_reward_dialogue_sequence 
+    - name: MISSION_TYPE_2_DIALOGUE_SEQS
+      address:
+        EU: 0x238B9BA
+      length:
+        EU: 0xC
+        NA: 0xC
+      description: |-
+        A pair of mission_reward_dialogue_sequence structs used for missions of type 2.
+        Is fed sequentially to MissionRewardFrameUpdate to either produce a textbox, or conclude the dialogue.
+        
+        type: mission_reward_dialogue_sequence 
+    - name: MISSION_TYPE_1_DIALOGUE_SEQS
+      address:
+        EU: 0x238B9C6
+      length:
+        EU: 0xC
+        NA: 0xC
+      description: |-
+        A pair of mission_reward_dialogue_sequence structs used for missions of type 1.
+        Is fed sequentially to MissionRewardFrameUpdate to either produce a textbox, or conclude the dialogue.
+        
+        type: mission_reward_dialogue_sequence 
+    - name: MISSION_TYPE_0_DIALOGUE_SEQS
+      address:
+        EU: 0x238B9D2
+      length:
+        EU: 0xC
+        NA: 0xC
+      description: |-
+        A pair of mission_reward_dialogue_sequence structs used for missions of type 0.
+        Is fed sequentially to MissionRewardFrameUpdate to either produce a textbox, or conclude the dialogue.
+        
+        type: mission_reward_dialogue_sequence 
+    - name: MISSION_TYPE_11_DIALOGUE_SEQS
+      address:
+        EU: 0x238B9DE
+      length:
+        EU: 0xC
+        NA: 0xC
+      description: |-
+        A pair of mission_reward_dialogue_sequence structs used for missions of type 11.
+        Is fed sequentially to MissionRewardFrameUpdate to either produce a textbox, or conclude the dialogue.
+        
+        type: mission_reward_dialogue_sequence 
+    - name: DEBUG_CONQUEST_COUNT_STR
+      address:
+        EU: 0x238B9EC
+      description: |-
+        "UNIT RETURN %3d conquest count ======================="
+        
+        type: string
+    - name: DEBUG_DEAD_COUNT_STR
+      address:
+        EU: 0x238BA24
+      description: |-
+        "UNIT RETURN %3d dead count ======================="
+        
+        type: string
+    - name: DEBUG_NO_COUNT_STR
+      address:
+        EU: 0x238BA58
+      description: |-
+        "UNIT RETURN %3d no count ======================="
+        
+        type: string
     - name: OV26_STATIC_INITIALIZER
       aliases:
         - OVERLAY26_RESERVED_SPACE
@@ -37,30 +321,33 @@ overlay26:
         NA: 0x4
         JP: 0x4
       description: Static initializer for overlay 26.
-    - name: OVERLAY26_UNKNOWN_POINTER__NA_238AF60
+    - name: MISSION_REWARD_OVERLAY_STRUCT_PTR
       address:
         EU: 0x238BAA0
         NA: 0x238AF60
         JP: 0x238C4C0
-      length:
-        NA: 0x4
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: OVERLAY26_UNKNOWN_POINTER__NA_238AF64
+      description: |-
+        A pointer to a mission_reward_struct_overlay struct, responsible for the operations of part of the mission reward sequence.
+        
+        type: mission_reward_struct_overlay* 
+    - name: APPLY_RULE_DUNGEON_EFFECTS_STRUCT_PTR
       address:
         EU: 0x238BAA4
         NA: 0x238AF64
         JP: 0x238C4C4
-      length:
-        NA: 0x4
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: OVERLAY26_UNKNOWN_POINTER__NA_238AF68
+      description: |-
+        A pointer to a struct of unknown size, responsible for the operations of the ApplyRuleDungeonEffects* overlay_load_entry.
+        
+        type: undefined* 
+    - name: EXIT_DUNGEON_1_STRUCT_PTR
       address:
         EU: 0x238BAA8
         NA: 0x238AF68
         JP: 0x238C4C8
-      length:
-        NA: 0x4
-      description: "Note: unverified, ported from Irdkwia's notes"
+      description: |-
+        A pointer to a struct of unknown size, responsible for the operations of the DungeonExit1* overlay_load_entry.
+        
+        type: undefined* 
     - name: OVERLAY26_UNKNOWN_POINTER__NA_238AF6C
       address:
         EU: 0x238BAAC
@@ -68,12 +355,13 @@ overlay26:
         JP: 0x238C4CC
       length:
         NA: 0x4
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: OVERLAY26_UNKNOWN_POINTER5__NA_238AF70
+      description: "Note: unverified, ported from Irdkwia's notes. Used exclusively by the UnkOv26EntryPoint_* structs."
+    - name: EXIT_DUNGEON_2_STRUCT_PTR
       address:
         EU: 0x238BAB0
         NA: 0x238AF70
         JP: 0x238C4D0
-      length:
-        NA: 0x4
-      description: "Note: unverified, ported from Irdkwia's notes"
+      description: |-
+        A pointer to a struct of unknown size, responsible for the operations of the DungeonExit2* overlay_load_entry. 
+        
+        type: undefined* 

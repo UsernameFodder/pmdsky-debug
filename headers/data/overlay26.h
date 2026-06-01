@@ -1,6 +1,26 @@
 #ifndef HEADERS_DATA_OVERLAY26_H_
 #define HEADERS_DATA_OVERLAY26_H_
 
+extern mission_reward_dialogue_sequence MISSION_TYPE_12_DIALOGUE_SEQS[1];
+extern mission_reward_dialogue_sequence MISSION_DEFAULT_DIALOGUE_SEQS[2];
+extern mission_reward_dialogue_sequence MISSION_TYPE_10_DIALOGUE_SEQS[2];
+extern mission_reward_dialogue_sequence MISSION_TYPE_9_DIALOGUE_SEQS[2];
+extern mission_reward_dialogue_sequence MISSION_TYPE_8_DIALOGUE_SEQS[2];
+extern mission_reward_dialogue_sequence MISSION_TYPE_6_DIALOGUE_SEQS[2];
+extern mission_reward_dialogue_sequence MISSION_TYPE_7_DIALOGUE_SEQS[2];
+extern mission_reward_dialogue_sequence MISSION_TYPE_3_DIALOGUE_SEQS[2];
+extern mission_reward_dialogue_sequence MISSION_TYPE_2_DIALOGUE_SEQS[2];
+extern mission_reward_dialogue_sequence MISSION_TYPE_1_DIALOGUE_SEQS[2];
+extern mission_reward_dialogue_sequence MISSION_TYPE_0_DIALOGUE_SEQS[2];
+extern mission_reward_dialogue_sequence MISSION_TYPE_11_DIALOGUE_SEQS[2];
+extern char DEBUG_CONQUEST_COUNT_STR[54];
+extern char DEBUG_DEAD_COUNT_STR[50];
+extern char DEBUG_NO_COUNT_STR[48];
 extern undefined4 OV26_STATIC_INITIALIZER;
+extern mission_reward_struct_overlay * MISSION_REWARD_OVERLAY_STRUCT_PTR;
+extern undefined* APPLY_RULE_DUNGEON_EFFECTS_STRUCT_PTR;
+extern undefined* OV26_UNK_ENTRY_POINT_STRUCT_PTR;
+extern undefined* EXIT_DUNGEON_1_STRUCT_PTR;
+extern undefined* EXIT_DUNGEON_2_STRUCT_PTR;
 
 #endif
