@@ -276,6 +276,7 @@ void SetActiveKecleonShop(enum team_id team_id);
 int GetMoneyStored(void);
 void SetMoneyStored(int amount);
 void AddMoneyStored(int amount);
+enum monster_id GetEggSpecies(void);
 void RemoveItemFromKecleonShop1(int slot);
 void SortKecleonItems1(void);
 void GenerateKecleonItems1(enum kecleon_shop_version kecleon_shop_version);
@@ -457,7 +458,7 @@ int AddSimpleObjToOam(struct obj_graphics_control* obj_graphics_control, uint16_
 void GroupOamAttributesWrapper(struct obj_graphics_control* obj_graphics_control);
 void CopyAttributesToOamWrapper(struct obj_graphics_control* obj_graphics_control);
 void ChangeSimpleObjTexture(struct obj_graphics_control* obj_graphics_control, undefined4* src,
-                            short oam_tile_num, uint16_t texture_size, bool extended_palette,
+                            uint16_t oam_tile_num, uint16_t texture_size, bool extended_palette,
                             uint8_t ext_palette_upper_shifted);
 void InitObjGraphicsControls(void);
 void CopyAttributesToOamBothScreens(void);
@@ -1134,6 +1135,10 @@ bool DexNumbersEqual(enum monster_id monster1, enum monster_id monster2);
 bool GendersEqual(enum monster_id monster1, enum monster_id monster2);
 bool GendersEqualNotGenderless(enum monster_id monster1, enum monster_id monster2);
 bool GendersNotEqualNotGenderless(enum monster_id monster1, enum monster_id monster2);
+void ModifyHpStat(int16_t *stat_ptr,int32_t amount);
+void ModifyOffensiveStat(int8_t *stat_ptr,int32_t amount);
+void ModifyDefensiveStat(int8_t *stat_ptr,int32_t amount);
+void ModifyIqStat(int16_t *stat_ptr,int32_t amount);
 bool IsMonsterOnTeam(enum monster_id monster_id, int recruit_strategy);
 void GetNbRecruited(undefined* recruit);
 bool IsValidTeamMember(int member_idx);
@@ -1166,10 +1171,11 @@ void SetTeamSetupHeroAndPartnerOnly(void);
 void SetTeamSetupHeroOnly(void);
 int GetPartyMembers(uint16_t* party_members);
 void RefillTeam(void);
+void ValidateTeamMembers(bool *param_1);
 int ClearItem(int team_id, bool check);
 void ChangeGiratinaFormIfSkyDungeon(enum dungeon_id dungeon_id);
 void RevertGiratinaAndShaymin(uint8_t member_idx, undefined param_2);
-void* OamTileNumberToVramAddress(short oam_tile_num, uint8_t screen);
+void* OamTileNumberToVramAddress(uint16_t oam_tile_num, uint8_t screen);
 int GetIqSkillStringId(enum iq_skill_id iq_skill);
 bool DoesTacticFollowLeader(enum tactic_id tactic_id);
 void GetUnlockedTactics(enum tactic_id* unlocked_tactics, int level);
@@ -1252,6 +1258,9 @@ void SetActorTalkMainAndActorTalkSub(enum script_entity_id actor_id_main,
                                      enum script_entity_id actor_id_sub);
 void SetActorTalkMain(enum script_entity_id actor_id);
 void SetActorTalkSub(enum script_entity_id actor_id);
+void SetActorEventMain(undefined2 param_1);
+void SetRandomRequestNpcs1And2(undefined2 param_1,undefined2 param_2);
+void SetAllEventNpcs(undefined2 param_1,undefined2 param_2,undefined2 param_3,undefined2 param_4);
 void RandomizeDemoActors(void);
 void ItemAtTableIdx(int idx, struct bulk_item* item);
 void MainLoop(void);

@@ -189,6 +189,27 @@ overlay11:
         EU: 0x22E6690
         NA: 0x22E5D50
         JP: 0x22E737C
+    - name: ReturnScriptMenuResultZero
+      address:
+        EU: 0x22E77A8
+      description: |-
+        Returns control to the scripting engine for a message_menu, with case id 0.
+        
+        No params.
+    - name: ReturnScriptMenuResult
+      address:
+        EU: 0x22E77CC
+      description: |-
+        Returns control to the scripting engine for a message_menu, with a specified case_id.
+
+        r0: case id to pass to the scripting engine
+    - name: IsScriptMenuReturnDisabled
+      address:
+        EU: 0x22E7808
+      description: |-
+        Checks if the scripting engine is ready to return control to an overlay-based menu.
+        
+        return: 1 if the menu should continue execution, 0 if not.
     - name: ScriptSpecialProcessCall
       address:
         EU: 0x22E7A58
@@ -1518,6 +1539,14 @@ overlay11:
         r1: format
         ...: variadic
         return: number of characters printed, excluding the null-terminator
+    - name: IsGroundMonsterAtMaxLevel
+      address:
+        EU: 0x230B718
+      description: |-
+        Checks if a ground_monster is above level 99.
+        
+        r0: ground_monster pointer
+        return: 1 if ground monster is above level 99, 0 if not. 
     - name: GetExclusiveItemRequirements
       address:
         EU: 0x230B8D4
@@ -1540,88 +1569,6 @@ overlay11:
         
         r0: switch case index for the function: 0 = Swap List Inventory, 1 = Unknown, 2 = Species Exclusive Item List, 3 = Item Trade Away Selection List.
         r1: Depends on r0. If case 2: ID of the monster to retrieve an exclusive item list for. If case 3: Number of Exclusive Items the player owns.
-    - name: GetTradeTypeOfIndex
-      address:
-        EU: 0x230C2B0
-      description: |-
-        [MANUAL DESCRIPTION]
-        
-        No params.
-    - name: RetreiveTradeCountReq
-      address:
-        EU: 0x230C2F4
-      description: |-
-        [MANUAL DESCRIPTION]
-        
-        return: uint16_t 
-    - name: ShopWipeEverything
-      address:
-        EU: 0x230C934
-      description: |-
-        [MANUAL DESCRIPTION]
-        
-        No params.
-    - name: Return3IfNotQuadExcItem
-      address:
-        EU: 0x230CA04
-      description: |-
-        [MANUAL DESCRIPTION]
-        
-        return: int 
-    - name: CheckExclusiveItemRequirements
-      address:
-        EU: 0x230CB6C
-      description: |-
-        [MANUAL DESCRIPTION]
-        
-        No params.
-    - name: DoSomethingFunkyWithBag
-      address:
-        EU: 0x230CE70
-      description: |-
-        [MANUAL DESCRIPTION]
-        
-        No params.
-    - name: ExclusiveItemCountingThing
-      address:
-        EU: 0x230CF3C
-      description: |-
-        [MANUAL DESCRIPTION]
-        
-        r0: uint32_t32_t
-        r1: uint32_t32_t
-        r2: int
-        return: undefined4 
-    - name: LoopExclusiveItemReqs
-      address:
-        EU: 0x230CFB8
-      description: |-
-        [MANUAL DESCRIPTION]
-        
-        No params.
-    - name: AddExclusiveItemToShop
-      address:
-        EU: 0x230D2C0
-      description: |-
-        [MANUAL DESCRIPTION]
-        
-        r0: int32_t
-        r1: uint16_t
-        r2: uint16_t
-    - name: GetItemByTradeType
-      address:
-        EU: 0x230D30C
-      description: |-
-        [MANUAL DESCRIPTION]
-        
-        return: int 
-    - name: CloseTextBox2AndResetWindowID
-      address:
-        EU: 0x230D480
-      description: |-
-        [MANUAL DESCRIPTION]
-        
-        No params.
     - name: HandleControlsTopScreenGround
       address:
         EU: 0x230EFB4

@@ -2885,6 +2885,13 @@ arm9:
         Adds money to the amount of money the player has stored in the Duskull Bank. Just calls SetMoneyStored with the current money + money gained.
         
         r0: money gained (can be negative)
+    - name: GetEggSpecies
+      address:
+        EU: 0x2010824
+      description: |-
+        Seems to retrieve the species of the egg the player currently has, or zero for no egg.
+        
+        return: monster_id
     - name: RemoveItemFromKecleonShop1
       address:
         EU: 0x2010914
@@ -10798,6 +10805,38 @@ arm9:
         r0: id1
         r1: id2
         return: bool
+    - name: ModifyHpStat
+      address:
+        EU: 0x2055334
+      description: |-
+        Used to raise or lower the Hp stat, bounding the value to [1,999].
+        
+        r0: hp stat pointer
+        r1: amount
+    - name: ModifyOffensiveStat
+      address:
+        EU: 0x2055368
+      description: |-
+        Used to raise or lower a defensive stat, bounding the value to [1,255].
+        
+        r0: offensive stat pointer
+        r1: amount
+    - name: ModifyDefensiveStat
+      address:
+        EU: 0x205539C
+      description: |-
+        Used to raise or lower a defensive stat, bounding the value to [1,255].
+        
+        r0: defensive stat pointer
+        r1: amount
+    - name: ModifyIqStat
+      address:
+        EU: 0x20553D0
+      description: |-
+        Used to raise or lower the Iq stat, bounding the value to [1,999].
+        
+        r0: iq stat pointer
+        r1: amount
     - name: IsMonsterOnTeam
       address:
         EU: 0x20554C4
@@ -11128,6 +11167,13 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         No params.
+    - name: ValidateTeamMembers
+      address:
+        EU: 0x2058440
+      description: |-
+        Fills out a table of 4 bools for whether each member of the active team is valid.
+
+        r0: bool* (Points to at least 4 bools) 
     - name: ClearItem
       address:
         EU: 0x205856C
@@ -11940,7 +11986,33 @@ arm9:
         Sets ACTOR_TALK_SUB to be actor_id.
         Implements SPECIAL_PROC_SET_ACTOR_TALK_SUB (see ScriptSpecialProcessCall).
         
-        r0: script_entity_id
+        r0: actor_id
+    - name: SetActorEventMain
+      address:
+        EU: 0x2065EEC
+      description: |-
+        Sets ACTOR_NPC_EVENT_MAIN to a specific actor_id.
+        
+        r0: actor_id
+    - name: SetRandomRequestNpcs1And2
+      address:
+        EU: 0x2065EFC
+      description: |-
+        Sets ACTOR_REQUEST_NPC01 and ACTOR_REQUEST_NPC02 to specific actor_ids.
+        Has no impact on ACTOR_REQUEST_NPC03.
+
+        r0: ACTOR_REQUEST_NPC01 actor_id
+        r1: ACTOR_REQUEST_NPC02 actor_id
+    - name: SetAllEventNpcs
+      address:
+        EU: 0x2065F28
+      description: |-
+        Sets ACTOR_EVENT_NPC01 through ACTOR_EVENT_NPC04 to specific actor_ids.
+        
+        r0: ACTOR_EVENT_NPC01 actor_id
+        r1: ACTOR_EVENT_NPC02 actor_id
+        r2: ACTOR_EVENT_NPC03 actor_id
+        r3: ACTOR_EVENT_NPC04 actor_id
     - name: RandomizeDemoActors
       address:
         EU: 0x2065FC4
