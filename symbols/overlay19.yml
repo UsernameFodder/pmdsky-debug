@@ -583,6 +583,8 @@ overlay19:
     - name: BAR_ME_PLAY_TEXT_TAG
       address:
         EU: 0x238EDF8
+      length:
+        EU: 0xC
       description: |-
         "[me_play:0]"
         
@@ -590,6 +592,8 @@ overlay19:
     - name: DEBUG_MESSAGE_REQUEST_STR
       address:
         EU: 0x238EE04
+      length:
+        EU: 0x17
       description: |-
         "dirinkbar request %3d\n"
         Request likely refers to requesting the script to do something.
@@ -598,6 +602,8 @@ overlay19:
     - name: DEBUG_MESSAGE_REQUEST_AND_RETURN_STR
       address:
         EU: 0x238EE1C
+      length:
+        EU: 0x1C
       description: |-
         "dirinkbar request %3d[%3d]\n"
         Request again likely refers to requesting the script to do something.
@@ -606,6 +612,8 @@ overlay19:
     - name: DEBUG_MESSAGE_BEFORE_SET_STR
       address:
         EU: 0x238EE38
+      length:
+        EU: 0x1E
       description: |-
         "dirinkbar message before set\n"
         Message before likely refers to a textbox appearing immediately before passing control to the script engine.
@@ -614,6 +622,8 @@ overlay19:
     - name: DEBUG_MESSAGE_AFTER_SET_STR
       address:
         EU: 0x238EE58
+      length:
+        EU: 0x1D
       description: |-
         "dirinkbar message after set\n"
         Message before likely refers to a textbox appearing immediately after passing control to the script engine.
