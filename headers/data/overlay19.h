@@ -1,17 +1,35 @@
 #ifndef HEADERS_DATA_OVERLAY19_H_
 #define HEADERS_DATA_OVERLAY19_H_
 
+extern int16_t BAR_MIRACLE_EVENT_WEIGHTS[4];
 extern struct dungeon_id_16 BAR_UNLOCKABLE_DUNGEONS_TABLE[6];
-extern struct monster_id_16 BAR_RECRUITABLE_MONSTER_TABLE[108];
+extern struct monster_id_16 BAR_RECRUITABLE_GOURMET_MONSTER_TABLE[108];
 extern struct bar_item BAR_AVAILABLE_ITEMS[66];
+extern int16_t BAR_STAT_REACTION_STRINGS[3];
+extern int16_t GOOD_DRINK_REACTION_STRINGS[3];
+extern int16_t BAR_STAT_CHANGE_STRINGS[3];
+extern int16_t NEUTRAL_DRINK_REACTION_STRINGS[3];
+extern int16_t BAD_DRINK_REACTION_STRINGS[3];
+extern int16_t BAR_IQ_CHANGE_STRINGS[3];
+extern int16_t BAR_IQ_UNABLE_TO_CHANGE_STRINGS[3];
+extern struct vec2 GOURMET_PORTRAIT_OFFSET_TABLE[5];
+extern int16_t BAR_STAT_NAME_STRINGS[6];
 extern struct window_params BAR_WINDOW_PARAMS_1;
 extern struct window_params BAR_WINDOW_PARAMS_2;
 extern struct window_params BAR_WINDOW_PARAMS_3;
 extern struct simple_menu_id_item BAR_MENU_ITEMS_CONFIRM_1[3];
 extern struct simple_menu_id_item BAR_MENU_ITEMS_CONFIRM_2[3];
+extern int16_t BAR_DRINK_NAMES_STRINGS[12];
 extern struct simple_menu_id_item BAR_MAIN_MENU_ITEMS[4];
 extern struct simple_menu_id_item BAR_SUBMENU_ITEMS_1[4];
 extern struct simple_menu_id_item BAR_SUBMENU_ITEMS_2[6];
+extern wchar_t BAR_NEW_LINE_CHAR;
+extern char BAR_ME_PLAY_TEXT_TAG[12];
+extern char DEBUG_MESSAGE_REQUEST_STR[23];
+extern char DEBUG_MESSAGE_REQUEST_AND_RETURN_STR[28];
+extern char DEBUG_MESSAGE_BEFORE_SET_STR[30];
+extern char DEBUG_MESSAGE_AFTER_SET_STR[29];
 extern undefined4 OV19_STATIC_INITIALIZER;
+extern int16_t BAR_MENU_PRIOR_CHOICE_INDICES[3];
 
 #endif
