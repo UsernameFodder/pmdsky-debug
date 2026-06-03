@@ -1172,6 +1172,9 @@ struct recycle_shop_main {
     undefined field34_0x9a;
     undefined field35_0x9b;
     undefined field_0x9c;
+    undefined field_0x9d;
+    undefined field_0x9e;
+    undefined field_0x9f;
     undefined field_0xa0;
     undefined field_0xa1;
     undefined field_0xa2;
