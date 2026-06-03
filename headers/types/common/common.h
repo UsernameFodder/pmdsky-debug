@@ -1390,6 +1390,20 @@ struct game_state_values {
 };
 ASSERT_SIZE(struct game_state_values, 5044);
 
+
+struct special_episode_pc {
+    struct monster_id_16 species;
+    struct dungeon_id_8 met_location;
+    undefined field2_0x3;
+    struct move_id_16 move_ids[4];
+    bool moves_fixed;
+    undefined field5_0xd;
+    int16_t level;
+    int16_t iq;
+    int16_t fixed_hp;
+};
+ASSERT_SIZE(struct special_episode_pc, 20);
+
 struct diary_menu_main_menu_data {
     int current_case_1;
     int diary_type;
@@ -1470,24 +1484,30 @@ struct mission_substruct_1 {
 };
 ASSERT_SIZE(struct mission_substruct_1, 28);
 
+struct mission_reward_data {
+    struct monster_id_16 client;
+    struct mission_reward_type_8 mission_reward_type;
+    undefined field2_0x3;
+    int outlaw_leader_level;
+    int amount_money;
+    undefined4 num_items_to_roll;
+    struct mission_reward_params item_rewards[4];
+    undefined field10_0x26;
+    undefined field11_0x27;
+    int mission_rank_points;
+};
+ASSERT_SIZE(struct mission_reward_data, 44);
+
 struct mission_details {
     undefined4 field_0x0;
     undefined4 field_0x4;
     struct mission_substruct_1 *mission_substruct_ptr;
     char *temp_buffer_ptr;
-    // Maybe NPC1 and NPC2? Otherwise makes little sense why the client field is repeated...
     struct monster_id_16 client;
     struct monster_id_16 target;
     struct item_id_16 reward_item;
     struct item_id_16 item_wanted;
-    struct monster_id_16 client_again;
-    struct mission_reward_type_8 mission_reward_type;
-    undefined field_0x1b;
-    int outlaw_leader_level;
-    int amount_money;
-    int num_items_to_roll;
-    struct mission_reward_params reward_params[4];
-    int mission_rank_points;
+    struct mission_reward_data reward_data;
     uint8_t params_1;
     uint8_t params_2;
     uint8_t objective;
@@ -1516,5 +1536,34 @@ struct mission_details {
     int8_t *rescue_mission_kind_ptr;
 };
 ASSERT_SIZE(struct mission_details, 104);
+
+// This struct is exactly 0x6 bytes long.
+#pragma pack(push, 2)
+struct mission_reward_dialogue_sequence {
+    int16_t case_id;
+    struct preprocessor_flags preprocessor_flags;
+    uint16_t text_string_id;
+};
+#pragma pack(pop)
+ASSERT_SIZE(struct mission_reward_dialogue_sequence, 6);
+
+struct mission_reward_struct_overlay {
+    enum mission_reward_frame_update_case case_id;
+    int8_t dialogue_box_window_id;
+    int8_t portrait_box_window_id;
+    undefined2 field_0x6;
+    struct preprocessor_args dialogue_box_preprocessor_args;
+    int frame_counter;
+    int npc_count;
+    struct mission_reward_data reward_data;
+    int8_t scen_1;
+    undefined field_0x8d;
+    undefined field_0x8e;
+    undefined field_0x8f;
+    struct mission *mission_ptr;
+    struct mission_reward_dialogue_sequence *mission_dialogue_params_ptr;
+    int subtype;
+};
+ASSERT_SIZE(struct mission_reward_struct_overlay, 156);
 
 #endif

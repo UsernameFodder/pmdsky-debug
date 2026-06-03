@@ -4372,4 +4372,16 @@ ENUM_16_BIT(rank);
 ENUM_8_BIT(rank);
 #pragma pack(pop)
 
+enum mission_reward_frame_update_case {
+    CASE_ENTRY=0,
+    CASE_INIT_DIALOGUE=1,
+    CASE_DIALOGUE_END=2,
+    CASE_WAIT_10_FRAMES=3,
+    CASE_INIT_REWARD_STRUCT=4,
+    CASE_CONTINUE_REWARD_DATA=5,
+    CASE_RUN_DESTRUCTOR=6,
+    CASE_EXIT=7,
+    // There are more, seems like it goes up to case 21
+};
+
 #endif
