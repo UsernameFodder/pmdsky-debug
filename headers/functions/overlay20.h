@@ -18,9 +18,6 @@ undefined4 RecycleShopHandleTopScreenWindow(void);
 void RecycleShopTopScreenDrawItemStats(int param_1);
 void RecycleShopTopScreenDrawItemName(int window_id);
 void RecycleShopTopScreenDrawInfoWindow(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4);
-undefined4 MaybeCheckIfPlayerHasRequiredItems(undefined4 param_1);
-bool MaybeHandleItemTradingLogic(uint param_1);
-void MaybeDistinguishBetweenStorageAndBagItems(undefined4 param_1,undefined *param_2,int owned_item_list_index,int param_4);
 void DisplaySelectionTutorialWindow(int window_id,undefined4 param_2,undefined4 param_3,undefined4 param_4);
 
 #endif

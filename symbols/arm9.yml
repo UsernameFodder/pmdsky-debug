@@ -3506,7 +3506,7 @@ arm9:
         Seems to load the Croagunk Swap Shop items from the save file.
         
         return: undefined4 
-    - name: SaveCroagunkShop
+    - name: SaveCroagunkItems
       address:
         EU: 0x2013298
       description: |-
@@ -12267,7 +12267,7 @@ arm9:
         r2: ?
     - name: MakeSpecialEpisodeMissionDetails
       address:
-        EU: 0x2061354
+        EU: 0x2061FDC
       description: |-
         Creates the mission details displayed on the top screen when viewing a special episode transmission.
         Seems to contain only a hard-coded mission summary, and a WMS code.
@@ -12293,7 +12293,7 @@ arm9:
         r2: type of objective to display?
         r3: monster_id to embed in the string
         stack[0]: item_id_16 to embed in the string
-    - name: AppendDungeonLocation
+    - name: AppendMissionDungeonLocation
       address:
         EU: 0x2062358
       description: |-
@@ -14171,7 +14171,7 @@ arm9:
       description: "Array of boolean values corresponding to each tactic_id enum, determining whether the tactic makes party members follow the leader."
     - name: TREASURE_MEMO_FIXED_ROOM_IDS
       address:
-        EU: 0x20A1EdC
+        EU: 0x20A1EDC
       length:
         EU: 0x1E
       description: |-

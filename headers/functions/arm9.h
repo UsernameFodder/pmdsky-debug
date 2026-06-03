@@ -363,8 +363,8 @@ void CloseSynthBin(void);
 bool GenerateCroagunkItems(void);
 uint GetCroagunkItemTemplates(struct synth_template* param_1);
 bool PopCroagunkItem(enum item_id item);
-undefined4 LoadCroagunkShop(void);
-undefined4 SaveCroagunkShop(void);
+undefined4 LoadCroagunkItems(void);
+undefined4 SaveCroagunkItems(void);
 struct synth_template* GetSynthItem(enum item_id exclusive_item);
 bool GetValidSynthsForSpecies(enum monster_id monster_id,
                               struct monster_synth_data* monster_synth_data,
@@ -1256,8 +1256,6 @@ bool IsMissionTypeSpecialEpisode(struct mission* mission);
 bool DoesMissionHaveTypeAndSubtype(struct mission, struct mission_type_8* type, int * subtype)
 bool AlreadyHasSimilarMission(struct mission_type_8* type, int8_t * subtype_8);
 void GenerateDailyMissions(void);
-int IsItTrueNormal(int param_1);
-int IsItTrueBottle(int param_1);
 bool AlreadyHaveMission(struct mission* mission);
 int CountJobListMissions(void);
 int DungeonRequestsDone(uint8_t param_1, bool param_2);
@@ -1298,7 +1296,7 @@ void MakeMissionDetails(struct misson_details *param_1,char *buffer,undefined pa
 void MakeSpecialEpisodeMissionDetails(struct mission_details, undefined param_2)
 undefined PrintWonderMailSkyCode(undefined param_1,undefined param_2,undefined param_3,undefined param_4);
 void AppendMissionObjective(char *param_1,int param_2,undefined4 param_3,uint32_t param_4,short param_5);
-void MissionAppendDungeonLocation(struct misson_details *param_1,char *buffer,int param_3);
+void MissionAppendMissionDungeonLocation(struct misson_details *param_1,char *buffer,int param_3);
 bool SumValidMissionCategoryWeights(undefined4 mission_vendor);
 struct mission_template * GetRandomMissionTemplate(void);
 undefined4 LoadMissionTemplates(void);
