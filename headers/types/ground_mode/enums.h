@@ -2121,6 +2121,16 @@ enum rank {
     RANK_GUILDMASTER = 12,
 };
 
+// This is sometimes stored as a 16-bit integer
+#pragma pack(push, 2)
+ENUM_16_BIT(rank);
+#pragma pack(pop)
+
+// This is sometimes stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(rank);
+#pragma pack(pop)
+
 enum animation_speed {
     ANIMATION_SPEED_NORMAL = 0,
     ANIMATION_SPEED_SLOW = 1,
@@ -2356,6 +2366,31 @@ enum drink_event_type {
     DRINK_EVENT_GOURMET = 4,
     DRINK_EVENT_DUNGEON = 5,
     DRINK_EVENT_MIRACLE = 6,
+};
+
+enum recycle_main_menu_state {
+    REC_MMENU_UNK_0x0=0,
+    REC_MMENU_UNK_0x1=1,
+    REC_MMENU_UNK_0x2=2,
+    REC_MMENU_UNK_0x3=3,
+    REC_MMENU_UNK_0x4=4,
+    REC_MMENU_OFFER=5,
+    REC_MMENU_CLOSE_PORTRAIT=6,
+    REC_MMENU_INFO=7,
+    REC_MMENU_EXIT_DIALOGUE=8,
+    REC_MMENU_UNK_0x9=9,
+};
+
+typedef enum recycle_case_id {
+    RECYCLE_INIT_FIRST=0,
+    RECYCLE_INIT_RESUME=1,
+    RECYCLE_MAIN_CASE=2,
+    RECYCLE_EXIT_BEGIN=3,
+    RECYCLE_EXIT_CLOSE_PORTRAIT=4,
+    RECYCLE_EXIT_TO_SCRIPT=5,
+    RECYCLE_RESUME_FROM_SCRIPT=6,
+    RECYCLE_REDEEM_TICKET=7,
+    RECYCLE_UNK_SUSPEND_0x8=8,
 };
 
 // These are super long, so split them out into a separate file

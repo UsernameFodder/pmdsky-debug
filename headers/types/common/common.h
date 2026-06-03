@@ -1447,4 +1447,157 @@ struct bitstream {
 };
 ASSERT_SIZE(struct bitstream, 16);
 
+struct kec_shop_1 {
+    struct bulk_item field0_0x0[8];
+};
+
+struct kec_shop_2 {
+    struct bulk_item field0_0x0[4];
+};
+
+struct item_storage {
+    struct item_id_16 ids[1000];
+    int16_t quantities[1000];
+};
+
+struct item_bag {
+    struct item bag_items[50];
+};
+
+struct game_state_values {
+    struct item_bag bag_items[3];
+    struct item_bag *current_bag_ptr;
+    int8_t team_id;
+    undefined field3_0x389;
+    struct item_storage storage_items;
+    int8_t active_kec_shops;
+    undefined field6_0x132b;
+    struct bulk_item *active_kec_shop_1_ptr;
+    struct kec_shop_1 kec_shop_1_items[2]; // One inventory for main game, one for special episodes
+    struct bulk_item *active_kec_shop_2_ptr;
+    struct kec_shop_2 kec_shop_2_items[2]; // One inventory for main game, one for special episodes
+    uint32_t carry_gold[3]; // Copies 0x18 bits to save file (in a loop)
+    uint32_t bank_gold; // Copies 0x18 bits to save file (both in a loop and out of one)
+    struct monster_id_16 egg_species; // Copies 0xC bits to save file
+    undefined2 field14_0x13a6; // Copies 0xC bits to save file, read and written to by functions used in overlay 24.
+    uint16_t egg_hatch_timer; // Copies 0x8 bits to save file
+    enum rank guild_rank:8; // Copies 0x8 bits to save file?
+    undefined field17_0x13ab;
+    uint32_t recycle_count; // Copies 0x10 bits to save file
+    uint16_t recycle_offer_cooldown; // Copies 0x10 bits to save file
+    struct item_id_16 recycle_shop_offer; // Copies 0x10 bits to save file
+    undefined2 field_0x13b2;
+};
+ASSERT_SIZE(game_state_values, 5044);
+
+struct diary_menu_main_menu_data {
+    int current_case_1;
+    int diary_type;
+    int next_case_1;
+    undefined field3_0xc;
+    undefined field4_0xd;
+    undefined field5_0xe;
+    undefined field6_0xf;
+    int num_options;
+    int loop_counter;
+    int advanced_menu_result;
+    undefined field10_0x1c;
+    undefined field11_0x1d;
+    undefined field12_0x1e;
+    undefined field13_0x1f;
+    undefined field14_0x20;
+    undefined field15_0x21;
+    undefined field16_0x22;
+    undefined field17_0x23;
+    char title_text_buffer[1024];
+    char options_text_buffers[32][64];
+    int frame_case_id;
+    struct preprocessor_args preprocessor_args;
+    undefined field22_0xc78;
+    undefined field23_0xc79;
+    undefined field24_0xc7a;
+    undefined field25_0xc7b;
+    int8_t advanced_menu_window_id;
+    int8_t dialogue_box_window_id;
+    undefined field28_0xc7e;
+    undefined field29_0xc7f;
+};
+ASSERT_SIZE(struct diary_menu_main_menu_data, 1320);
+
+// mission_NPC_2 is misspelled to NCP02 in debug prints
+struct mission_result_and_client {
+    int16_t mission_result;
+    struct monster_id_16 mission_NPC_1;
+    struct monster_id_16 mission_NPC_2;
+};
+// TODO: size me!
+
+struct reward_overlay_data {
+    int16_t field_0x0;
+    int16_t is_egg_or_item; // This seems to determine whether this struct describes an egg or item. 
+    int16_t item_or_recruit; // monster_id_16 of the recruit, or item_id_16 of the item.
+};
+// TODO: size me!
+
+struct mission_substruct_1 {
+    struct dungeon_id_8 dungeon_id;
+    uint8_t floor;
+    undefined field_0x6;
+    undefined field_0x7;
+    int description_id;
+    uint8_t unique_map_id;
+    undefined field_0xd;
+    struct monster_id_16 client;
+    struct monster_id_16 target;
+    struct monster_id_16 outlaw_backup_species;
+    struct item_id_16 item_wanted;
+    struct mission_reward_type_8 reward_type;
+    undefined field_0x17;
+    struct item_id_16 item_reward;
+    struct mission_restriction_type_8 restriction_type;
+    undefined field_0x1b;
+    union mission_restriction restriction;
+    undefined field_0x1e;
+    undefined field_0x1f;
+};
+// TODO: size me!
+
+struct misson_details {
+    undefined4 field_0x0;
+    undefined4 field_0x4;
+    struct mission_substruct_1 *mission_substruct_ptr;
+    char *temp_buffer_ptr;
+    struct monster_id_16 client;
+    struct monster_id_16 target;
+    struct item_id_16 reward_item;
+    struct item_id_16 item_wanted;
+    struct monster_id_16 client_ov26;
+    struct mission_reward_type_8 mission_reward_type_ov26;
+    undefined field_0x
+    int outlaw_leader_level;
+    int amount_money;
+    int num_items_to_roll;
+    struct reward_overlay_data reward_data[4];
+    int mission_rank_points;
+    uint8_t params_1;
+    uint8_t params_2;
+    uint8_t objective;
+    undefined1 related_to_menu_str_index;
+    undefined1 menu_str_index;
+    struct mission_restriction_type_8 mission_restriction_kind;
+    union mission_restriction mission_restriction;
+    int8_t mission_restriction_type_id;
+    undefined field_0x
+    undefined field_0x
+    undefined field_0x
+    undefined4 field_0x
+    undefined2 field_0x
+    undefined2 field_0x
+    undefined4 field_0x
+    struct mission *mission_ptr;
+    struct mission_template *mission_template;
+    int8_t *rescue_mission_kind_ptr;
+};
+// TODO: size me!
+
 #endif

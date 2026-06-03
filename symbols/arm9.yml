@@ -13170,7 +13170,10 @@ arm9:
         EU: 0x360
         NA: 0x360
         JP: 0x360
-      description: "Note: unverified, ported from Irdkwia's notes"
+      description: |-
+        Table of recycle_item structs, used to track all possible trades in the recycle shop.
+
+        type: recycle_item[24]
     - name: TYPE_SPECIFIC_EXCLUSIVE_ITEMS
       address:
         EU: 0x2099070

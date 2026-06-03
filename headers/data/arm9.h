@@ -59,6 +59,7 @@ extern enum item_id KECLEON_SHOP_ITEM_TABLE_LISTS_1[4];
 extern enum item_id KECLEON_SHOP_ITEM_TABLE_LISTS_2[4];
 extern struct exclusive_item_stat_boost_entry EXCLUSIVE_ITEM_STAT_BOOST_DATA[15];
 extern struct exclusive_item_effect_entry EXCLUSIVE_ITEM_EFFECT_DATA[956];
+extern struct recycle_item recycle_item[24];
 extern struct item_id_16 TYPE_SPECIFIC_EXCLUSIVE_ITEMS[17][4];
 extern struct move_id_16 RECOIL_MOVE_LIST[11];
 extern struct move_id_16 PUNCH_MOVE_LIST[16];
