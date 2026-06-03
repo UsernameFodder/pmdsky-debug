@@ -1167,9 +1167,12 @@ struct recycle_shop_main {
     undefined field35_0x9b;
     undefined4 field_0x9c;
     undefined4 field_0xa0;
-    bool portrait_is_active;
+    undefined field34_0xa1;
+    undefined field35_0xa2;
+    undefined4 field_0xa3;
+    bool portrait_active;
     bool resuming_menu;
-    bool portrait_is_hidden;
+    bool portrait_hidden;
     undefined field_0xa7;
     struct item_id_16 item_id;
     undefined field_0xaa;

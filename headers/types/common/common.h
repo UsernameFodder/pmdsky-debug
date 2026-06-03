@@ -1450,12 +1450,12 @@ ASSERT_SIZE(struct bitstream, 16);
 struct kec_shop_1 {
     struct bulk_item items[8];
 };
-ASSERT_SIZE(kec_shop_1, 32);
+ASSERT_SIZE(struct kec_shop_1, 32);
 
 struct kec_shop_2 {
     struct bulk_item items[4];
 };
-ASSERT_SIZE(kec_shop_2, 16);
+ASSERT_SIZE(struct kec_shop_2, 16);
 
 struct item_storage {
     struct item_id_16 ids[1000];
@@ -1490,8 +1490,6 @@ struct game_state_values {
     uint32_t recycle_count; // Copies 0x10 bits to save file
     uint16_t recycle_offer_cooldown; // Copies 0x10 bits to save file
     struct item_id_16 recycle_shop_offer; // Copies 0x10 bits to save file
-    undefined field_0x13b2; // Likely padding. Not copied to save file.
-    undefined field_0x13b3; // Likely padding. Not copied to save file.
 };
 ASSERT_SIZE(struct game_state_values, 5044);
 
@@ -1580,12 +1578,13 @@ struct misson_details {
     undefined4 field_0x4;
     struct mission_substruct_1 *mission_substruct_ptr;
     char *temp_buffer_ptr;
+    // Maybe NPC1 and NPC2? Otherwise makes little sense why the client field is repeated...
     struct monster_id_16 client;
     struct monster_id_16 target;
     struct item_id_16 reward_item;
     struct item_id_16 item_wanted;
-    struct monster_id_16 client_ov26;
-    struct mission_reward_type_8 mission_reward_type_ov26;
+    struct monster_id_16 client_again;
+    struct mission_reward_type_8 mission_reward_type;
     undefined field_0x1b;
     int outlaw_leader_level;
     int amount_money;
@@ -1603,10 +1602,18 @@ struct misson_details {
     undefined field_0x4d;
     undefined field_0x4e;
     undefined field_0x4f;
-    undefined4 field_0x50;
-    undefined2 field_0x51;
-    undefined2 field_0x52;
-    undefined4 field_0x53;
+    undefined field_0x50;
+    undefined field_0x51;
+    undefined field_0x52;
+    undefined field_0x53;
+    undefined field_0x54;
+    undefined field_0x55;
+    undefined field_0x56;
+    undefined field_0x57;
+    undefined field_0x58;
+    undefined field_0x59;
+    undefined field_0x5a;
+    undefined field_0x5b;
     struct mission *mission_ptr;
     struct mission_template *mission_template;
     int8_t *rescue_mission_kind_ptr;
