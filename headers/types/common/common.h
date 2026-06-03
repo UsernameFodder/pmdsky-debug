@@ -1492,8 +1492,6 @@ struct mission_reward_data {
     int amount_money;
     undefined4 num_items_to_roll;
     struct mission_reward_params item_rewards[4];
-    undefined field10_0x26;
-    undefined field11_0x27;
     int mission_rank_points;
 };
 ASSERT_SIZE(struct mission_reward_data, 44);
