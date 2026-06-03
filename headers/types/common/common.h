@@ -1594,14 +1594,15 @@ struct misson_details {
     uint8_t params_1;
     uint8_t params_2;
     uint8_t objective;
-    undefined1 related_to_menu_str_index;
-    undefined1 menu_str_index;
+    undefined related_to_menu_str_index;
+    int8_t menu_str_index;
     struct mission_restriction_type_8 mission_restriction_kind;
     union mission_restriction mission_restriction;
     int8_t mission_restriction_type_id;
     undefined field_0x4d;
     undefined field_0x4e;
     undefined field_0x4f;
+/*
     undefined field_0x50;
     undefined field_0x51;
     undefined field_0x52;
@@ -1617,6 +1618,7 @@ struct misson_details {
     struct mission *mission_ptr;
     struct mission_template *mission_template;
     int8_t *rescue_mission_kind_ptr;
+*/
 };
 ASSERT_SIZE(struct mission_details, 104);
 

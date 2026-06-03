@@ -1129,9 +1129,15 @@ ASSERT_SIZE(struct short_recycle_item, 20);
 struct recycle_shop_main {
     enum recycle_case_id case_id;
     enum recycle_main_menu_state mmenu_case;
-    int init_neg_1;
+    undefined field_0x8;
+    undefined field_0x9;
+    undefined field_0xa;
+    undefined field_0xb;
     int unk_subcase;
-    int init_zero;
+    undefined field_0x10;
+    undefined field_0x11;
+    undefined field_0x12;
+    undefined field_0x13;
     int unk_counter_0x14;
     int8_t portrait_window_id;
     undefined field_0x19;
@@ -1144,7 +1150,7 @@ struct recycle_shop_main {
     undefined field_0x2f;
     struct preprocessor_args preprocessor_args;
     int recycle_trade_type;
-    struct recycle_item **recycle_items_ptr;
+    struct recycle_item *recycle_items_ptr;
     undefined field16_0x88;
     undefined field17_0x89;
     undefined field18_0x8a;
@@ -1165,11 +1171,11 @@ struct recycle_shop_main {
     undefined field33_0x99;
     undefined field34_0x9a;
     undefined field35_0x9b;
-    undefined4 field_0x9c;
-    undefined4 field_0xa0;
-    undefined field34_0xa1;
-    undefined field35_0xa2;
-    undefined4 field_0xa3;
+    undefined field_0x9c;
+    undefined field_0xa0;
+    undefined field_0xa1;
+    undefined field_0xa2;
+    undefined field_0xa3;
     bool portrait_active;
     bool resuming_menu;
     bool portrait_hidden;
@@ -1180,18 +1186,19 @@ struct recycle_shop_main {
     undefined field_0xac;
     undefined field_0xad;
     undefined field_0xae;
-    undefined4 field_0xaf;
+    undefined field_0xaf;
     int8_t related_to_trade_type;
     undefined field_0xb1;
     undefined field_0xb2;
     undefined field_0xb3;
 };
+ASSERT_SIZE(struct recycle_shop_main, 180);
 
 struct recycle_offer_items {
     struct recycle_item **item_ids_ptr;
     int num_offers;
 };
-ASSERT_SIZE(struct recycle_shop_main, 180);
+
 
 struct recycle_unk_struct_0x84 {
     int case_id;
