@@ -100,9 +100,9 @@ overlay26:
         Is a frame_update for an overlay_load_entry.
 
         return: undefined4
-    - name: UnkOv26EntryPoint_0238b754_EU
+    - name: UnkOv26EntryPoint0238b754EU
       address:
-        EU: 0x238B818
+        EU: 0x238B754
       description: |-
         Is an unidentified entry_point for an overlay_load_entry.
         
@@ -111,16 +111,16 @@ overlay26:
         r2: undefined4
         r3: undefined4
         return: undefined4
-    - name: UnkOv26Destructor_0238b780_EU
+    - name: UnkOv26Destructor0238b780EU
       address:
-        EU: 0x238B850
+        EU: 0x238B780
       description: |-
         Is an unidentified destructor for an overlay_load_entry.
 
         No params.
-    - name: UnkOv26FrameUpdate_0238b7ac_EU
+    - name: UnkOv26FrameUpdate0238b7acEU
       address:
-        EU: 0x238B87C
+        EU: 0x0238B7AC
       description: |-
         Is an unidentified frame_update for an overlay_load_entry.
 

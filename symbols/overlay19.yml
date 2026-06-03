@@ -95,7 +95,7 @@ overlay19:
         If not zero, stores a double pointer to the BAR_UNLOCKABLE_DUNGEONS_TABLE to r0. Then returns 6 for some reason... 
         Unclear what this is intended to actually do...
         
-        r0: struct bar_dungeon_unlock **
+        r0: struct dungeon_unlock_entry **
         return: Always 6?
     - name: BarPopulateUnlockableDungeons
       address:
@@ -364,7 +364,7 @@ overlay19:
       description: |-
         Stores dungeon ids, as well as the required $SCENARIO_BALANCE_FLAG to obtain them from the cafe.
         
-        type: struct bar_dungeon_unlock[6]
+        type: struct dungeon_unlock_entry[6]
     - name: BAR_RECRUITABLE_GOURMET_MONSTER_TABLE
       aliases:
         - BAR_RECRUITABLE_MONSTER_TABLE

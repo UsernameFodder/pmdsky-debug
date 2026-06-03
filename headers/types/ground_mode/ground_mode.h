@@ -1027,12 +1027,6 @@ struct link_shop {
 };
 ASSERT_SIZE(struct link_shop, 964);
 
-struct bar_dungeon_unlock {
-    struct dungeon_id_8 dungeon_id;
-    uint8_t scenario_balance_min;
-};
-ASSERT_SIZE(struct bar_dungeon_unlock, 2);
-
 struct bar_stats_data {
     int16_t stat_modifiers[6];
     int16_t new_stats[6];
