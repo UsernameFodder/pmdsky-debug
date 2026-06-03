@@ -3490,7 +3490,7 @@ arm9:
         Retrieves the current Croagunk Swap Shop items as synth_template structs.
         
         r0: pointer to at least 8 synth_template structs
-        return: uint 
+        return: uint32_t 
     - name: PopCroagunkItem
       address:
         EU: 0x20131F8
@@ -12614,7 +12614,7 @@ arm9:
         
         r0: main_buffer
         r1: int32_t
-        r2: uint pointer
+        r2: uint32_t pointer
         return: main_buffer
     - name: CreateJobSummary
       address:
