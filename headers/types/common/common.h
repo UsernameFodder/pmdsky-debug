@@ -1448,47 +1448,52 @@ struct bitstream {
 ASSERT_SIZE(struct bitstream, 16);
 
 struct kec_shop_1 {
-    struct bulk_item field0_0x0[8];
+    struct bulk_item items[8];
 };
+ASSERT_SIZE(kec_shop_1, 32);
 
 struct kec_shop_2 {
-    struct bulk_item field0_0x0[4];
+    struct bulk_item items[4];
 };
+ASSERT_SIZE(kec_shop_2, 16);
 
 struct item_storage {
     struct item_id_16 ids[1000];
     int16_t quantities[1000];
 };
+ASSERT_SIZE(struct item_storage, 4000);
 
 struct item_bag {
     struct item bag_items[50];
 };
+ASSERT_SIZE(struct item_bag, 300);
 
 struct game_state_values {
     struct item_bag bag_items[3];
     struct item_bag *current_bag_ptr;
     int8_t team_id;
-    undefined field3_0x389;
+    undefined field3_0x389; // Likely padding. Not copied to save file.
     struct item_storage storage_items;
     int8_t active_kec_shops;
-    undefined field6_0x132b;
+    undefined field6_0x132b; // Likely padding. Not copied to save file.
     struct bulk_item *active_kec_shop_1_ptr;
     struct kec_shop_1 kec_shop_1_items[2]; // One inventory for main game, one for special episodes
     struct bulk_item *active_kec_shop_2_ptr;
     struct kec_shop_2 kec_shop_2_items[2]; // One inventory for main game, one for special episodes
-    uint32_t carry_gold[3]; // Copies 0x18 bits to save file (in a loop)
-    uint32_t bank_gold; // Copies 0x18 bits to save file (both in a loop and out of one)
+    uint32_t carry_gold[3]; // Copies 0x18 bits to save file (in a loop with bank_gold)
+    uint32_t bank_gold; // Copies 0x18 bits to save file (twice! once inside and once more outside the loop!)
     struct monster_id_16 egg_species; // Copies 0xC bits to save file
     undefined2 field14_0x13a6; // Copies 0xC bits to save file, read and written to by functions used in overlay 24.
     uint16_t egg_hatch_timer; // Copies 0x8 bits to save file
     struct rank_8 guild_rank; // Copies 0x8 bits to save file?
-    undefined field17_0x13ab;
+    undefined field17_0x13ab; // Likely padding. Not copied to save file.
     uint32_t recycle_count; // Copies 0x10 bits to save file
     uint16_t recycle_offer_cooldown; // Copies 0x10 bits to save file
     struct item_id_16 recycle_shop_offer; // Copies 0x10 bits to save file
-    undefined2 field_0x13b2;
+    undefined field_0x13b2; // Likely padding. Not copied to save file.
+    undefined field_0x13b3; // Likely padding. Not copied to save file.
 };
-ASSERT_SIZE(game_state_values, 5044);
+ASSERT_SIZE(struct game_state_values, 5044);
 
 struct diary_menu_main_menu_data {
     int current_case_1;
@@ -1529,15 +1534,23 @@ struct mission_result_and_client {
     int16_t mission_result;
     struct monster_id_16 mission_NPC_1;
     struct monster_id_16 mission_NPC_2;
+    // Padding, if these fields even exist.
+    undefined field_0x6;
+    undefined field_0x7;
 };
-// TODO: size me!
+ASSERT_SIZE(struct mission_result_and_client, 8);
 
-struct reward_overlay_data {
+
+// This substruct is exactly 0x6 bytes long.
+#pragma pack(push, 2)
+// May actually be a union of several 0x6 byte structs...
+struct mission_reward_params {
     int16_t field_0x0;
     int16_t is_egg_or_item; // This seems to determine whether this struct describes an egg or item. 
     int16_t item_or_recruit; // monster_id_16 of the recruit, or item_id_16 of the item.
 };
-// TODO: size me!
+#pragma pack(pop)
+ASSERT_SIZE(struct mission_reward_params, 6);
 
 struct mission_substruct_1 {
     struct dungeon_id_8 dungeon_id;
@@ -1560,7 +1573,7 @@ struct mission_substruct_1 {
     undefined field_0x1e;
     undefined field_0x1f;
 };
-// TODO: size me!
+ASSERT_SIZE(struct mission_substruct_1, 28);
 
 struct misson_details {
     undefined4 field_0x0;
@@ -1573,11 +1586,11 @@ struct misson_details {
     struct item_id_16 item_wanted;
     struct monster_id_16 client_ov26;
     struct mission_reward_type_8 mission_reward_type_ov26;
-    undefined field_0x
+    undefined field_0x1b;
     int outlaw_leader_level;
     int amount_money;
     int num_items_to_roll;
-    struct reward_overlay_data reward_data[4];
+    struct mission_reward_params reward_params[4];
     int mission_rank_points;
     uint8_t params_1;
     uint8_t params_2;
@@ -1587,17 +1600,17 @@ struct misson_details {
     struct mission_restriction_type_8 mission_restriction_kind;
     union mission_restriction mission_restriction;
     int8_t mission_restriction_type_id;
-    undefined field_0x
-    undefined field_0x
-    undefined field_0x
-    undefined4 field_0x
-    undefined2 field_0x
-    undefined2 field_0x
-    undefined4 field_0x
+    undefined field_0x4d;
+    undefined field_0x4e;
+    undefined field_0x4f;
+    undefined4 field_0x50;
+    undefined2 field_0x51;
+    undefined2 field_0x52;
+    undefined4 field_0x53;
     struct mission *mission_ptr;
     struct mission_template *mission_template;
     int8_t *rescue_mission_kind_ptr;
 };
-// TODO: size me!
+ASSERT_SIZE(struct mission_details, 104);
 
 #endif
