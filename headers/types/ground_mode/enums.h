@@ -2381,7 +2381,7 @@ enum recycle_main_menu_state {
     REC_MMENU_UNK_0x9=9,
 };
 
-typedef enum recycle_case_id {
+enum recycle_case_id {
     RECYCLE_INIT_FIRST=0,
     RECYCLE_INIT_RESUME=1,
     RECYCLE_MAIN_CASE=2,

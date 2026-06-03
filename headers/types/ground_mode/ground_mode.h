@@ -1104,8 +1104,8 @@ struct recycle_item {
     int32_t min_recycles;
     int16_t field6_0x10;
     struct rank_16 min_rank;
-    undefined field1_0x2;
-    undefined field2_0x3;
+    undefined field1_0x12;
+    undefined field2_0x13;
     struct bulk_item traded_item_ids[4];
 };
 ASSERT_SIZE(struct recycle_item, 36);
@@ -1114,9 +1114,9 @@ ASSERT_SIZE(struct recycle_item, 36);
 // The "double pointers" to recycle_items could perhaps be recycle_item_data pointers.
 struct recycle_item_data {
     struct recycle_item *shop_item;
-    uint trade_type;
-    uint num_items_to_trade;
-    uint min_recycles;
+    uint32_t trade_type;
+    uint32_t num_items_to_trade;
+    uint32_t min_recycles;
     int16_t field4_0x10;
     int16_t field5_0x12;
     struct bulk_item field6_0x14;

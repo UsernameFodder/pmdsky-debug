@@ -1481,7 +1481,7 @@ struct game_state_values {
     struct monster_id_16 egg_species; // Copies 0xC bits to save file
     undefined2 field14_0x13a6; // Copies 0xC bits to save file, read and written to by functions used in overlay 24.
     uint16_t egg_hatch_timer; // Copies 0x8 bits to save file
-    enum rank guild_rank:8; // Copies 0x8 bits to save file?
+    struct rank_8 guild_rank; // Copies 0x8 bits to save file?
     undefined field17_0x13ab;
     uint32_t recycle_count; // Copies 0x10 bits to save file
     uint16_t recycle_offer_cooldown; // Copies 0x10 bits to save file
@@ -1522,7 +1522,7 @@ struct diary_menu_main_menu_data {
     undefined field28_0xc7e;
     undefined field29_0xc7f;
 };
-ASSERT_SIZE(struct diary_menu_main_menu_data, 1320);
+ASSERT_SIZE(struct diary_menu_main_menu_data, 3200);
 
 // mission_NPC_2 is misspelled to NCP02 in debug prints
 struct mission_result_and_client {
