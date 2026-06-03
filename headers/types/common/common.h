@@ -1602,23 +1602,6 @@ struct misson_details {
     undefined field_0x4d;
     undefined field_0x4e;
     undefined field_0x4f;
-/*
-    undefined field_0x50;
-    undefined field_0x51;
-    undefined field_0x52;
-    undefined field_0x53;
-    undefined field_0x54;
-    undefined field_0x55;
-    undefined field_0x56;
-    undefined field_0x57;
-    undefined field_0x58;
-    undefined field_0x59;
-    undefined field_0x5a;
-    undefined field_0x5b;
-    struct mission *mission_ptr;
-    struct mission_template *mission_template;
-    int8_t *rescue_mission_kind_ptr;
-*/
 };
 ASSERT_SIZE(struct mission_details, 104);
 
