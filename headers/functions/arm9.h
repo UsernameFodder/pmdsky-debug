@@ -845,6 +845,7 @@ void EventFlagBackupVeneer(void);
 void InitMainTeamAfterQuiz(void);
 void InitSpecialEpisodePartners(void);
 void InitSpecialEpisodeExtraPartner(void);
+void AssignSpecialEpisodePc(int team_member_id,special_episode_pc *param_2);
 void ReadStringSave(char* buf);
 bool CheckStringSave(const char* buf);
 int WriteSaveFile(undefined* save_info, undefined* buf, int size);
@@ -1288,15 +1289,15 @@ bool ValidateLegendaryChallengeMission(struct mission_template* valid_mission_in
 int MatchMissionTemplateToMission(struct mission *param_1,undefined4 param_2);
 void AppendMissionTitle(char* main_buffer, char* temp_buffer, struct preprocessor_args* args,
                         struct mission_details* details);
-void FormatMissionTitle(char *buffer,struct misson_details *param_2);
-void FormatSpecialEpisodeMissionTitle(char *param_1);
+void FormatMissionHeader(char *buffer,struct misson_details *param_2);
+void FormatSpecialEpisodeMissionHeader(char *param_1);
 void AppendMissionSummary(char* main_buffer, char* temp_buffer, int window_id, int y_offset,
                           struct preprocessor_args* args, struct mission_details* details);
 void MakeMissionDetails(struct misson_details *param_1,char *buffer,undefined param_3);
 void MakeSpecialEpisodeMissionDetails(struct mission_details, undefined param_2)
 undefined PrintWonderMailSkyCode(undefined param_1,undefined param_2,undefined param_3,undefined param_4);
 void AppendMissionObjective(char *param_1,int param_2,undefined4 param_3,uint32_t param_4,short param_5);
-void MissionAppendMissionDungeonLocation(struct misson_details *param_1,char *buffer,int param_3);
+void AppendMissionDungeonLocation(struct misson_details *param_1,char *buffer,int param_3);
 bool SumValidMissionCategoryWeights(undefined4 mission_vendor);
 struct mission_template * GetRandomMissionTemplate(void);
 undefined4 LoadMissionTemplates(void);
@@ -1312,7 +1313,7 @@ bool CanSendItem(enum item_id item_id, bool to_sky);
 void InitMissionReward(struct mission *param_1,struct mission_reward_data *param_2,undefined4 param_3,undefined4 param_4);
 void RollRandomItemReward(undefined4 param_1,undefined4 param_2, item_id_16 *param_3);
 void GenerateMissionRewards(struct mission *MissionPtr,int IsCafeMission);
-undefined4 CheckDungeonMissionUnlock(enum dungeon_id param_1);
+undefined4 CheckDungeonMissionUnlockConditions(enum dungeon_id param_1);
 bool IsAvailableItem(enum item_id item_id);
 int GetAvailableItemDeliveryList(undefined* item_buffer);
 void ZeroInitMissionRewardDataStruct(struct mission_reward_data *param_1);

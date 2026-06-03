@@ -7812,7 +7812,7 @@ arm9:
         Implements SPECIAL_PROC_0x4 (see ScriptSpecialProcessCall).
         
         No params.
-    - name: AssignSpecialEpisodePC
+    - name: AssignSpecialEpisodePc
       address:
         EU: 0x2048DE0
       description: |-
@@ -12232,7 +12232,7 @@ arm9:
         
         r0: header buffer
         r1: struct misson_details
-    - name: FormatSpecialEpisodeMissionTitle
+    - name: FormatSpecialEpisodeMissionHeader
       address:
         EU: 0x20611A0
       description: |-
@@ -12402,7 +12402,7 @@ arm9:
         return: True if the specified dungeon can be part of a mission
     - name: GetMissionRankWithCapAndModifiers
       address:
-        EU: 0x2063118
+        EU: 0x20630D8
       description: |-
         Calls GetMissionRank, then adds one to the rank if the mission requires escorting a client, or defeating an outlaw.
         Before returning, caps the mission rank at 15 (9 stars).

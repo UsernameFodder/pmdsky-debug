@@ -19,7 +19,6 @@ extern char DEBUG_NO_COUNT_STR[48];
 extern undefined4 OV26_STATIC_INITIALIZER;
 extern mission_reward_struct_overlay * MISSION_REWARD_OVERLAY_STRUCT_PTR;
 extern undefined* APPLY_RULE_DUNGEON_EFFECTS_STRUCT_PTR;
-extern undefined* OV26_UNK_ENTRY_POINT_STRUCT_PTR;
 extern undefined* EXIT_DUNGEON_1_STRUCT_PTR;
 extern undefined* EXIT_DUNGEON_2_STRUCT_PTR;
 
