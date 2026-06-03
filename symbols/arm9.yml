@@ -3318,13 +3318,21 @@ arm9:
         
         r0: struct recycle_item double pointer
         return: 1 if trade_type is 1, 0 otherwise. 
+    - name: GetRecycleItemBonusOdds
+      address:
+        EU: 0x2011EC0
+      description: |-
+        Retrieves the odds of a recycle shop item to produce a bonus item when recycled.
+
+        r0: struct recycle_item double pointer
+        return: Odds to produce a bonus item, out of 100.
     - name: CountTradedRecycleItems
       address:
         EU: 0x2011ECC
       description: |-
         Counts the number of valid traded_items in a recycle_item_data struct, effectively returning the number of specific items required to do the trade. 
         
-        r0: struct recycle_item_data
+        r0: struct recycle_item double pointer
         return: number of items required for trade
     - name: RecycleShopTradeIsNonspecific
       address:

@@ -1096,33 +1096,35 @@ struct spinda_cafe {
 ASSERT_SIZE(struct spinda_cafe, 2664);
 
 struct recycle_item {
-    struct item_id_16 id;
-    undefined field1_0x2;
-    undefined field2_0x3;
+    enum item_id id;
     int32_t trade_type; // 0x0 = Normal, 0x1 = Ticket, 0x2 = Offer
-    int32_t num_items_to_trade; // Exclusively for prize tickets, which do not have specific requirements
+    enum rank min_rank; // Vanilla prize tickets require a guild rank to unlock 
     int32_t min_recycles;
-    int16_t field6_0x10;
-    struct rank_16 min_rank;
-    undefined field1_0x12;
-    undefined field2_0x13;
-    struct bulk_item traded_item_ids[4];
+    // Some kind of key for which item to offer as a bonus after trading.
+    // 0x5: Prize Ticket, 0x8: Silver Ticket, 0xD: Gold Ticket, 0x14: Prism Ticket
+    int16_t bonus_item;
+    // Odds out of 100 to get that bonus item after trading.
+    int16_t bonus_odds; 
+    struct bulk_item traded_items[4];
 };
 ASSERT_SIZE(struct recycle_item, 36);
 
-// Unclear why this needs to be different from recycle_item besides optimization...
-// The "double pointers" to recycle_items could perhaps be recycle_item_data pointers.
-struct recycle_item_data {
-    struct recycle_item *shop_item;
-    uint32_t trade_type;
-    uint32_t num_items_to_trade;
-    uint32_t min_recycles;
-    int16_t field4_0x10;
-    int16_t field5_0x12;
-    struct bulk_item field6_0x14;
+// This struct seems to only exist in RAM. More research into it's purpose may be necessary.
+// Note that it has all the same fields as recycle_item, but compressed into far fewer bytes.
+struct short_recycle_item {
+    struct item_id_16 id;
+    int8_t trade_type; // 0x0 = Normal, 0x1 = Ticket, 0x2 = Offer
+    struct rank_8 min_rank;
+    int16_t min_recycles;
+    // Some kind of key for which item to offer as a bonus after trading.
+    // 0x5: Prize Ticket, 0x8: Silver Ticket, 0xD: Gold Ticket, 0x14: Prism Ticket
+    int8_t bonus_item;
+    // Odds out of 100 to get that bonus item after trading.
+    int8_t bonus_odds; 
+    int8_t traded_item_quantities[4];
+    struct item_id_16 traded_item_ids[4];
 };
-ASSERT_SIZE(struct recycle_item_data, 24);
-
+ASSERT_SIZE(struct short_recycle_item, 20);
 
 struct recycle_shop_main {
     enum recycle_case_id case_id;

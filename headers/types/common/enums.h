@@ -4346,4 +4346,30 @@ enum os_intr_mode {
     OS_INTRMODE_DISABLE_IRQ = 0x80
 };
 
+enum rank {
+    RANK_NORMAL = 0,
+    RANK_BRONZE = 1,
+    RANK_SILVER = 2,
+    RANK_GOLD = 3,
+    RANK_DIAMOND = 4,
+    RANK_SUPER = 5,
+    RANK_ULTRA = 6,
+    RANK_HYPER = 7,
+    RANK_MASTER = 8,
+    RANK_MASTER_1_STAR = 9,
+    RANK_MASTER_2_STARS = 10,
+    RANK_MASTER_3_STARS = 11,
+    RANK_GUILDMASTER = 12,
+};
+
+// This is sometimes stored as a 16-bit integer
+#pragma pack(push, 2)
+ENUM_16_BIT(rank);
+#pragma pack(pop)
+
+// This is sometimes stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(rank);
+#pragma pack(pop)
+
 #endif
