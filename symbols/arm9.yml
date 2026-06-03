@@ -12239,7 +12239,7 @@ arm9:
         Can consist of a title, mission rank, mission status, dungeon, and floor. Some missions exclude some of these fields.
         
         r0: header buffer
-        r1: struct misson_details
+        r1: struct mission_details
     - name: FormatSpecialEpisodeMissionHeader
       address:
         EU: 0x20611A0
@@ -12270,7 +12270,7 @@ arm9:
         Can consist of a mission summary, client, objective, dungeon+floor, restrictions, difficulty, reward, and WMS code.
         Some missions exclude one or more of these fields.
         
-        r0: struct misson_details
+        r0: struct mission_details
         r1: buffer
         r2: ?
     - name: MakeSpecialEpisodeMissionDetails
@@ -12307,7 +12307,7 @@ arm9:
       description: |-
         Generates the "Place: ..." string for MakeMissionDetails.
         
-        r0: misson_details pointer
+        r0: mission_details pointer
         r1: buffer
         r2: buffer size
     - name: SumValidMissionCategoryWeights
