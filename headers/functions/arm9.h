@@ -821,6 +821,10 @@ void InitInventoryMenuInput(struct inventory_menu_input_ctx* input_ctx, struct w
                             struct window_extra_info* window_extra_info,
                             struct window_rectangle* rect, int n_items, int n_items_per_page,
                             undefined param_7);
+void InventoryMenuNextPage(struct inventory_menu_input_ctx *param_1);
+void InventoryMenuPreviousPage(struct inventory_menu_input_ctx *param_1);
+void InventoryMenuNext10Pages(struct inventory_menu_input_ctx *param_1);
+void InventoryMenuPrevious10Pages(struct inventory_menu_input_ctx *param_1);
 bool OverlayLoadEntriesEqual(struct overlay_load_entry* entry1, struct overlay_load_entry* entry2);
 void FreeActiveMenu(void);
 bool InitMenu(struct overlay_load_entry* entry);
@@ -946,6 +950,7 @@ int GetScenarioBalance(void);
 void ScenarioFlagRestore(void);
 void ScenarioFlagBackup(void);
 void InitWorldMapScriptVars(void);
+void SetWorldMapLevel(undefined4 param_1);
 void InitDungeonListScriptVars(void);
 void SetDungeonConquest(enum dungeon_id dungeon_id, int bit_value);
 enum dungeon_mode GetDungeonMode(enum dungeon_id dungeon_id);
@@ -1062,6 +1067,8 @@ uint32_t GetPlayTimeSeconds(struct play_time* igt);
 uint32_t SubFixedPoint(uint32_t val_fp, uint32_t dec_fp);
 uint32_t BinToDecFixedPoint(ufx32_16* q16);
 int CeilFixedPoint(uint32_t val_fp);
+void MtInit(int32_t initial_seed);
+int32_t MtNext(void);
 bool DungeonGoesUp(enum dungeon_id dungeon_id);
 int GetTurnLimit(enum dungeon_id dungeon_id);
 bool DoesNotSaveWhenEntering(enum dungeon_id dungeon_id);
@@ -1267,6 +1274,7 @@ int DungeonRequestsDoneWrapper(uint8_t param_1);
 bool AnyDungeonRequestsDone(uint8_t param_1);
 bool AddMissionToJobList(struct mission* mission);
 struct mission* GetAcceptedMission(uint8_t mission_id);
+bool IsAcceptedMissionSlotEmpty(int param_1);
 bool WasMissionCompletedToday(struct mission_result_and_client* param_1, struct mission* param_2,
                               enum mission_type param_3);
 int GetMissionByTypeAndDungeon(int start_index, enum mission_type mission_type,
@@ -1304,6 +1312,7 @@ undefined PrintWonderMailSkyCode(undefined param_1, undefined param_2, undefined
 void AppendMissionObjective(char* param_1, int param_2, undefined4 param_3, uint32_t param_4,
                             short param_5);
 void AppendMissionDungeonLocation(struct mission_details* param_1, char* buffer, int param_3);
+uint RandomizeMissionCategory(uint32_t MissionWghtSum,uint param_2,struct mission_weighted_category *param_3);
 bool SumValidMissionCategoryWeights(undefined4 mission_vendor);
 struct mission_template* GetRandomMissionTemplate(void);
 undefined4 LoadMissionTemplates(void);
@@ -1323,6 +1332,8 @@ void GenerateMissionRewards(struct mission* MissionPtr, int IsCafeMission);
 undefined4 CheckDungeonMissionUnlockConditions(enum dungeon_id param_1);
 bool IsAvailableItem(enum item_id item_id);
 int GetAvailableItemDeliveryList(undefined* item_buffer);
+void WriteMissionMtState(int32_t* state_ptr);
+int16_t ReadMissionMtStateLower(void);
 void ZeroInitMissionRewardDataStruct(struct mission_reward_data* param_1);
 enum monster_id GetScriptEntityMonsterId(enum script_entity_id entity_id);
 int GetScriptEntityMatchingStorageId(enum script_entity_id entity_id);
@@ -1330,10 +1341,12 @@ void SetActorTalkMainAndActorTalkSub(enum script_entity_id actor_id_main,
                                      enum script_entity_id actor_id_sub);
 void SetActorTalkMain(enum script_entity_id actor_id);
 void SetActorTalkSub(enum script_entity_id actor_id);
-void SetActorEventMain(undefined2 param_1);
-void SetRandomRequestNpcs1And2(undefined2 param_1, undefined2 param_2);
-void SetAllEventNpcs(undefined2 param_1, undefined2 param_2, undefined2 param_3,
-                     undefined2 param_4);
+void SetActorEventMain(enum script_entity_id actor_id);
+void SetRandomRequestNpcs1And2(enum script_entity_id actor_id1, enum script_entity_id actor_id2);
+void SetRandomRequestNPC03KindVar(enum monster_id param_1);
+void SetAllEventNpcs(enum script_entity_id param_1, enum script_entity_id param_2, enum script_entity_id param_3,
+                     enum script_entity_id param_4);
+void SetNewFriendActor(enum script_entity_id param_1);
 void RandomizeDemoActors(void);
 void ItemAtTableIdx(int idx, struct bulk_item* item);
 void MainLoop(void);
