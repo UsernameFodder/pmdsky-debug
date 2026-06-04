@@ -1312,7 +1312,7 @@ undefined PrintWonderMailSkyCode(undefined param_1, undefined param_2, undefined
 void AppendMissionObjective(char* param_1, int param_2, undefined4 param_3, uint32_t param_4,
                             short param_5);
 void AppendMissionDungeonLocation(struct mission_details* param_1, char* buffer, int param_3);
-uint RandomizeMissionCategory(uint32_t MissionWghtSum,uint param_2,struct mission_weighted_category *param_3);
+uint32_t RandomizeMissionCategory(uint32_t MissionWghtSum,uint32_t param_2,struct mission_weighted_category *param_3);
 bool SumValidMissionCategoryWeights(undefined4 mission_vendor);
 struct mission_template* GetRandomMissionTemplate(void);
 undefined4 LoadMissionTemplates(void);
