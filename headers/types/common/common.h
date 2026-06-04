@@ -1367,29 +1367,30 @@ ASSERT_SIZE(struct item_bag, 300);
 
 struct game_state_values {
     struct item_bag bag_items[3];
-    struct item_bag *current_bag_ptr;
+    struct item_bag* current_bag_ptr;
     int8_t team_id;
     undefined field3_0x389; // Likely padding. Not copied to save file.
     struct item_storage storage_items;
     int8_t active_kec_shops;
     undefined field6_0x132b; // Likely padding. Not copied to save file.
-    struct bulk_item *active_kec_shop_1_ptr;
+    struct bulk_item* active_kec_shop_1_ptr;
     struct kec_shop_1 kec_shop_1_items[2]; // One inventory for main game, one for special episodes
-    struct bulk_item *active_kec_shop_2_ptr;
+    struct bulk_item* active_kec_shop_2_ptr;
     struct kec_shop_2 kec_shop_2_items[2]; // One inventory for main game, one for special episodes
     uint32_t carry_gold[3]; // Copies 0x18 bits to save file (in a loop with bank_gold)
-    uint32_t bank_gold; // Copies 0x18 bits to save file (twice! once inside and once more outside the loop!)
+    uint32_t bank_gold; // Copies 0x18 bits to save file (twice! once inside and once more outside
+                        // the loop!)
     struct monster_id_16 egg_species; // Copies 0xC bits to save file
-    undefined2 field14_0x13a6; // Copies 0xC bits to save file, read and written to by functions used in overlay 24.
-    uint16_t egg_hatch_timer; // Copies 0x8 bits to save file
-    struct rank_8 guild_rank; // Copies 0x8 bits to save file?
-    undefined field17_0x13ab; // Likely padding. Not copied to save file.
-    uint32_t recycle_count; // Copies 0x10 bits to save file
-    uint16_t recycle_offer_cooldown; // Copies 0x10 bits to save file
+    undefined2 field14_0x13a6; // Copies 0xC bits to save file, read and written to by functions
+                               // used in overlay 24.
+    uint16_t egg_hatch_timer;  // Copies 0x8 bits to save file
+    struct rank_8 guild_rank;  // Copies 0x8 bits to save file?
+    undefined field17_0x13ab;  // Likely padding. Not copied to save file.
+    uint32_t recycle_count;    // Copies 0x10 bits to save file
+    uint16_t recycle_offer_cooldown;      // Copies 0x10 bits to save file
     struct item_id_16 recycle_shop_offer; // Copies 0x10 bits to save file
 };
 ASSERT_SIZE(struct game_state_values, 5044);
-
 
 struct special_episode_pc {
     struct monster_id_16 species;
@@ -1449,13 +1450,12 @@ struct mission_result_and_client {
 };
 ASSERT_SIZE(struct mission_result_and_client, 8);
 
-
 // This substruct is exactly 0x6 bytes long.
 #pragma pack(push, 2)
 // May actually be a union of several 0x6 byte structs...
 struct mission_reward_params {
     int16_t field_0x0;
-    int16_t is_egg_or_item; // This seems to determine whether this struct describes an egg or item. 
+    int16_t is_egg_or_item; // This seems to determine whether this struct describes an egg or item.
     int16_t item_or_recruit; // monster_id_16 of the recruit, or item_id_16 of the item.
 };
 #pragma pack(pop)
@@ -1499,8 +1499,8 @@ ASSERT_SIZE(struct mission_reward_data, 44);
 struct mission_details {
     undefined4 field_0x0;
     undefined4 field_0x4;
-    struct mission_substruct_1 *mission_substruct_ptr;
-    char *temp_buffer_ptr;
+    struct mission_substruct_1* mission_substruct_ptr;
+    char* temp_buffer_ptr;
     struct monster_id_16 client;
     struct monster_id_16 target;
     struct item_id_16 reward_item;
@@ -1529,9 +1529,9 @@ struct mission_details {
     undefined field_0x59;
     undefined field_0x5a;
     undefined field_0x5b;
-    struct mission *mission_ptr;
-    struct mission_template *mission_template;
-    int8_t *rescue_mission_kind_ptr;
+    struct mission* mission_ptr;
+    struct mission_template* mission_template;
+    int8_t* rescue_mission_kind_ptr;
 };
 ASSERT_SIZE(struct mission_details, 104);
 
@@ -1558,8 +1558,8 @@ struct mission_reward_struct_overlay {
     undefined field_0x8d;
     undefined field_0x8e;
     undefined field_0x8f;
-    struct mission *mission_ptr;
-    struct mission_reward_dialogue_sequence *mission_dialogue_params_ptr;
+    struct mission* mission_ptr;
+    struct mission_reward_dialogue_sequence* mission_dialogue_params_ptr;
     int subtype;
 };
 ASSERT_SIZE(struct mission_reward_struct_overlay, 156);

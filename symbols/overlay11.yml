@@ -201,7 +201,7 @@ overlay11:
         EU: 0x22E77CC
       description: |-
         Returns control to the scripting engine for a message_menu, with a specified case_id.
-
+        
         r0: case id to pass to the scripting engine
     - name: IsScriptMenuReturnDisabled
       address:
@@ -1497,7 +1497,7 @@ overlay11:
       description: |-
         Seems to be the entry_point for a "mini-overlay" overlay_load_entry that lives in overlay 11, that controls eating gummis in the overworld. 
         
-        return: undefined4 
+        return: undefined4
     - name: EatOverworldGummiDestructor
       address:
         EU: 0x22FFCB8
@@ -1511,7 +1511,7 @@ overlay11:
       description: |-
         Seems to be the frame_update for a "mini-overlay" overlay_load_entry that lives in overlay 11, that controls eating gummis in the overworld.
         
-        return: undefined4 
+        return: undefined4
     - name: CreateTopGroundMenu
       address:
         EU: 0x2301724
@@ -1544,8 +1544,8 @@ overlay11:
         EU: 0x2301B38
       description: |-
         Seems to be the entry_point for a "mini-overlay" overlay_load_entry that lives in overlay 11, which controls the others menu in ground mode.
-
-        return: undefined4 
+        
+        return: undefined4
     - name: GroundBagOthersMenuDestructor
       address:
         EU: 0x2301BBC
@@ -1567,7 +1567,7 @@ overlay11:
         Seems to initialize the menu which controls bidoof and sunflora's diaries, as well as the FAQ board on B1F of the guild.
         
         r0: undefined4
-        return: undefined4 
+        return: undefined4
     - name: FreeDiaryAndFaqBoardMenuMenu
       address:
         EU: 0x23042A0
@@ -1610,7 +1610,7 @@ overlay11:
         Checks if a ground_monster is above level 99.
         
         r0: ground_monster pointer
-        return: 1 if ground monster is above level 99, 0 if not. 
+        return: 1 if ground monster is above level 99, 0 if not.
     - name: GetExclusiveItemRequirements
       address:
         EU: 0x230B8D4
@@ -2039,8 +2039,8 @@ overlay11:
       address:
         EU: 0x23258E0
       length:
-        EU: 0x4   
-      description: Pointer to the exclusive_item_requirements struct, used by the swap shop. 
+        EU: 0x4
+      description: "Pointer to the exclusive_item_requirements struct, used by the swap shop."
     - name: SWAP_SHOP_INVENTORY_PTRS
       address:
         EU: 0x23258E4

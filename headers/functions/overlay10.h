@@ -12,7 +12,8 @@ bool CheckInventoryMenuField0x1A0(int window_id);
 uint8_t PopInventoryMenuField0x1A3(int window_id);
 void UpdateInventoryMenu(struct window* window);
 bool IsInventoryMenuState3(int window_id);
-void CreateInventoryMenuOuter(int n_items,int param_2,int param_3,uint8_t *param_4,void *param_5,update_window_fn_t *param_6,uint32_t param_7);
+void CreateInventoryMenuOuter(int n_items, int param_2, int param_3, uint8_t* param_4,
+                              void* param_5, update_window_fn_t* param_6, uint32_t param_7);
 int GetEffectAnimationField0x19(int anim_id);
 bool AnimationHasMoreFrames(int param_1);
 struct effect_animation* GetEffectAnimation(int anim_id);

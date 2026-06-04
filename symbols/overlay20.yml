@@ -20,7 +20,7 @@ overlay20:
         The entry point for the overlay, when called by MENU_RECYCLE_SHOP, serving to initialize the recycle shop.
         Calls RecycleShopCommonEntryPoint(0).
         
-        return: undefined4 
+        return: undefined4
     - name: RecycleShopEntryPointResume
       address:
         EU: 0x238AC90
@@ -29,7 +29,7 @@ overlay20:
         Calls RecycleShopCommonEntryPoint(0).
         
         
-        return: undefined4 
+        return: undefined4
     - name: RecycleShopDestructor
       address:
         EU: 0x238ACA0
@@ -43,7 +43,7 @@ overlay20:
       description: |-
         The shared frame_update of both recycle shop overlay_load_entries, managing operations of the overlay each frame.
         
-        return: undefined4 
+        return: undefined4
     - name: RecycleShopCommonEntryPoint
       address:
         EU: 0x238BDD4
@@ -52,7 +52,7 @@ overlay20:
         
         
         r0: 1 if resuming, 0 if first entry.
-        return: undefined4 
+        return: undefined4
     - name: PrintWynautTextbox
       address:
         EU: 0x238BE80
@@ -107,7 +107,7 @@ overlay20:
       description: |-
         Seems to generally manage the top screen window during item selection, assigning the below callbacks to some window creation function.
         
-        return: undefined4 
+        return: undefined4
     - name: RecycleShopTopScreenDrawItemStats
       address:
         EU: 0x238C40C
@@ -151,9 +151,9 @@ overlay20:
         NA: 0x238CF7C
         JP: 0x238E4D8
       length:
-        NA: 0x8
         EU: 0x8
-      description: |- 
+        NA: 0x8
+      description: |-
         Note: unverified, ported from Irdkwia's notes.
         Seems to consist of a pointer to RECYCLE_SHOP_S14P02A_BGP_FILE_STR and an unknown value. Perhaps a pointer to the file at runtime?
     - name: RECYCLE_MENU_ITEMS_CONFIRM_1
@@ -211,7 +211,7 @@ overlay20:
       description: |-
         "BACK/s14p02a.bgp"
         Likely a background file loaded in manually by the recycle shop.
-
+        
         type: string
     - name: RECYCLE_WINDOW_PARAMS_1
       address:
@@ -358,7 +358,7 @@ overlay20:
         JP: 0x4
       description: |-
         A permanent pointer to the recycle_shop_main struct.
-
+        
         type: recycle_shop_main*
     - name: RECYCLE_SHOP_UNK_STRUCT_SIZE_84H_PTR
       aliases:
@@ -373,7 +373,7 @@ overlay20:
         JP: 0x4
       description: |-
         Seems to be a pointer to a struct of unknown purpose with size 0x84.
-
+        
         type: recycle_shop_struct_0x84*
     - name: RECYCLE_SHOP_UNK_STRUCT_SIZE_340H_PTR
       aliases:
@@ -388,7 +388,7 @@ overlay20:
         JP: 0x4
       description: |-
         Seems to be a pointer to a struct of unknown purpose with size 0x340.
-
+        
         type: recycle_shop_struct_0x340*
     - name: RECYCLE_SHOP_UNK_STRUCT_SIZE_1CCH_PTR
       aliases:
@@ -401,7 +401,7 @@ overlay20:
         EU: 0x4
         NA: 0x4
         JP: 0x4
-      description:  |-
+      description: |-
         Seems to be a pointer to a struct of unknown purpose with size 0x1CC.
-
+        
         type: recycle_shop_struct_0x1cc*

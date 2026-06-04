@@ -246,7 +246,7 @@ extern render_3d_element_64_fn_t RENDER_3D_FUNCTIONS_64[8];
 extern int16_t TBL_TALK_GROUP_STRING_ID_START[6];
 extern struct menu_control* MENU_CONTROL_PTR;
 extern int16_t KEYBOARD_STRING_IDS[30];
-extern struct mission_reward_struct_main * MISSION_REWARD_STRUCT_MAIN_PTR;
+extern struct mission_reward_struct_main* MISSION_REWARD_STRUCT_MAIN_PTR;
 extern bool NOTIFY_NOTE;
 extern struct monster_id_16 DEFAULT_HERO_ID;
 extern struct monster_id_16 DEFAULT_PARTNER_ID;

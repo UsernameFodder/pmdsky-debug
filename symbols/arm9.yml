@@ -2906,7 +2906,7 @@ arm9:
       description: |-
         Seems to get unknown field 0x13a6 of GAME_STATE_VALUES. Only known to be called by overlay 24, Chansey Daycare.
         
-        return: undefined2 
+        return: undefined2
     - name: SetUnkGameState0x13a6
       address:
         EU: 0x201086C
@@ -2921,7 +2921,7 @@ arm9:
         Seems to get the number of days until the current egg in Chansey Daycare hatches from GAME_STATE_VALUES.
         Appears to be entirely unused, in favor of DecementEggHatchTimer.
         
-        return: uint16_t 
+        return: uint16_t
     - name: SetEggHatchTimer
       address:
         EU: 0x201089C
@@ -3134,7 +3134,7 @@ arm9:
       description: |-
         Seems to call MemFree on *param_1 and **param_1, with a safety check that the **param_1 isn't zero.
         Only known XREF is to SwapShopInventoryManager, so a more specific purpose for this function may exist.
-
+        
         r0: double pointer to free
     - name: ApplyGummiBoostsToGroundMonster
       address:
@@ -3317,13 +3317,13 @@ arm9:
         Checks if the trade_type of a recycle_item is 1, indicating that the item uses the trade method for prize tickets.
         
         r0: struct recycle_item double pointer
-        return: 1 if trade_type is 1, 0 otherwise. 
+        return: 1 if trade_type is 1, 0 otherwise.
     - name: GetRecycleItemBonusOdds
       address:
         EU: 0x2011EC0
       description: |-
         Retrieves the odds of a recycle shop item to produce a bonus item when recycled.
-
+        
         r0: struct recycle_item double pointer
         return: Odds to produce a bonus item, out of 100.
     - name: CountTradedRecycleItems
@@ -3342,7 +3342,7 @@ arm9:
         Unclear how this differs in functionally from RecycleItemHasTradeTypePrizeTicket, as they conditions they check fully overlap in vanilla.
         
         r0: recycle_item double pointer
-        return: 1 if the traded item is 1400, 0 if not. 
+        return: 1 if the traded item is 1400, 0 if not.
     - name: RecycleShopOfferExists
       address:
         EU: 0x2011F90
@@ -3448,7 +3448,7 @@ arm9:
       description: |-
         Loops through the RECYCLE_SHOP_ITEM_LIST, counting the number of valid recycle shop trades.
         Filters each entry by guild rank, minimum recycle count, and a specified filter on trade type.
-
+        
         
         r0: trade filter. 3 to not exclude by trade type, else see IsRecycleTradeTypeValid.
         r1: number of recycles
@@ -3460,7 +3460,7 @@ arm9:
       description: |-
         Uses the following logic to check if a recycle trade type fits a trade filter.
         return not ((filter != type) && ((filter != 0 || (type == 2))))
-
+        
         r0: trade filter. 2 to whitelist offers, 1 to blacklist offers, 0 to blacklist offer and prize ticket trade types.
         r1: trade_type
         return: 1 if the item is valid, 0 if not.
@@ -3498,7 +3498,7 @@ arm9:
         Retrieves the current Croagunk Swap Shop items as synth_template structs.
         
         r0: pointer to at least 8 synth_template structs
-        return: uint32_t 
+        return: uint32_t
     - name: PopCroagunkItem
       address:
         EU: 0x20131F8
@@ -3506,21 +3506,21 @@ arm9:
         Tries to pop an item by id from Croagunk Swap Shop items.
         
         r0: item_id
-        return: 1 if the item was found, 0 if not. 
+        return: 1 if the item was found, 0 if not.
     - name: LoadCroagunkItems
       address:
         EU: 0x2013238
       description: |-
         Seems to load the Croagunk Swap Shop items from the save file.
         
-        return: undefined4 
+        return: undefined4
     - name: SaveCroagunkItems
       address:
         EU: 0x2013298
       description: |-
         Seems to store the Croagunk Swap Shop items to the save file.
         
-        return: undefined4 
+        return: undefined4
     - name: GetSynthItem
       address:
         EU: 0x20132F8
@@ -9167,7 +9167,7 @@ arm9:
         If so, stores the dungeon id from $DUNGEON_ENTER_INDEX to a pointer.
         
         r0: dungeon_id_8* (return)
-        return: 1 if the dungeon pulled from script variables is valid for mission rewards, 0 otherwise. 
+        return: 1 if the dungeon pulled from script variables is valid for mission rewards, 0 otherwise.
     - name: CheckMissionRestrictions
       address:
         EU: 0x204F6FC
@@ -9264,9 +9264,9 @@ arm9:
         r1: Struct containing the dungeon ID and floor number
     - name: GetMissionRank
       address:
-        EU: 
-          - 0x204FB4C
+        EU:
           - 0x204FAE0
+          - 0x204FB4C
         NA: 0x204F814
         JP: 0x204FB68
       description: |-
@@ -11485,8 +11485,8 @@ arm9:
         EU: 0x2058440
       description: |-
         Fills out a table of 4 bools for whether each member of the active team is valid.
-
-        r0: bool* (Points to at least 4 bools) 
+        
+        r0: bool* (Points to at least 4 bools)
     - name: ClearItem
       address:
         EU: 0x205856C
@@ -11929,11 +11929,11 @@ arm9:
         EU: 0x205E604
       description: |-
         Checks if a specified mission has a specified mission_type and subtype. More general than AreMissionsEquivalent.
-
+        
         r0: mission pointer
         r1: mission_type pointer
         r2: mission_subtype pointer
-        return: 1 if the player already has this mission, 0 if not. 
+        return: 1 if the player already has this mission, 0 if not.
     - name: AlreadyHasSimilarMission
       address:
         EU: 0x205E634
@@ -11943,7 +11943,7 @@ arm9:
         
         r0: mission_type pointer
         r1: mission_subtype pointer
-        return: 1 if the player already has this mission, 0 if not. 
+        return: 1 if the player already has this mission, 0 if not.
     - name: GenerateDailyMissions
       address:
         EU: 0x205E94C
@@ -12032,11 +12032,11 @@ arm9:
         Runs a series of mission_type specific checks to determine if the mission really was completed today, before running mission rewards.
         Examples of checks include: Being in the right dungeon, and having a specific item or item within a treasure box in the bag. 
         Also seems to initialize the mission_result_and_client struct's NPC fields to correctly fit the mission_type.
-
+        
         r0: struct mission_result_and_client
         r1: struct mission
         r2: enum mission_type
-        return: 1 if the mission was completed, 0 if not. 
+        return: 1 if the mission was completed, 0 if not.
     - name: GetMissionByTypeAndDungeon
       address:
         EU: 0x205F728
@@ -12414,7 +12414,7 @@ arm9:
       description: |-
         Calls GetMissionRank, then adds one to the rank if the mission requires escorting a client, or defeating an outlaw.
         Before returning, caps the mission rank at 15 (9 stars).
-
+        
         r0: dungeon_floor_pair pointer
         r1: mission_type
         return: mission rank
@@ -12472,9 +12472,9 @@ arm9:
         EU: 0x2063710
       description: |-
         Checks if a specified dungeon is eligible to be unlocked by a mission.
-
+        
         r0: dungeon_id
-        return: 3 if the dungeon is not in MISSION_DUNGEON_UNLOCK_TABLE, 2 if the dungeon is open or entered, 1 if $SCENARIO_BALANCE_FLAG is not large enough, and 0 otherwise.  
+        return: 3 if the dungeon is not in MISSION_DUNGEON_UNLOCK_TABLE, 2 if the dungeon is open or entered, 1 if $SCENARIO_BALANCE_FLAG is not large enough, and 0 otherwise.
     - name: IsAvailableItem
       address:
         EU: 0x20637D8
@@ -12569,7 +12569,7 @@ arm9:
       description: |-
         Sets ACTOR_REQUEST_NPC01 and ACTOR_REQUEST_NPC02 to specific actor_ids.
         Has no impact on ACTOR_REQUEST_NPC03.
-
+        
         r0: ACTOR_REQUEST_NPC01 actor_id
         r1: ACTOR_REQUEST_NPC02 actor_id
     - name: SetAllEventNpcs
@@ -13180,7 +13180,7 @@ arm9:
         JP: 0x360
       description: |-
         Table of recycle_item structs, used to track all possible trades in the recycle shop.
-
+        
         type: recycle_item[24]
     - name: TYPE_SPECIFIC_EXCLUSIVE_ITEMS
       address:
@@ -14159,7 +14159,7 @@ arm9:
         EU: 0x5
       description: |-
         Table of fixed room ids used by the MISSION_ARREST_OUTLAW and MISSION_OUTLAW_HIDEOUT type and subtype.
-
+        
         type: uint8_t
     - name: CHALLENGE_NORMAL_FIXED_ROOM_IDS
       address:
@@ -14168,7 +14168,7 @@ arm9:
         EU: 0x5
       description: |-
         Table of fixed room ids used by the MISSION_CHALLENGE_REQUEST and MISSION_CHALLENGE_NORMAL type and subtype.
-
+        
         type: uint8_t
     - name: TACTICS_FOLLOW_LEADER
       address:
@@ -14180,16 +14180,6 @@ arm9:
         NA: 0xC
         JP: 0xC
       description: "Array of boolean values corresponding to each tactic_id enum, determining whether the tactic makes party members follow the leader."
-    - name: TREASURE_MEMO_FIXED_ROOM_IDS
-      address:
-        EU: 0x20A1EDC
-      length:
-        EU: 0x1E
-      description: |-
-        Table of fixed room ids used by the MISSION_TREASURE_MEMO type.
-        The last 15 entries only show up after the postgame (performance flag 9).
-
-        type: uint8_t
     - name: FORBIDDEN_FORGOT_MOVE_LIST
       address:
         EU: 0x20A1E9C
@@ -14224,6 +14214,16 @@ arm9:
         NA: 0x18
         JP: 0x18
       description: "type: int16_t[12]"
+    - name: TREASURE_MEMO_FIXED_ROOM_IDS
+      address:
+        EU: 0x20A1EDC
+      length:
+        EU: 0x1E
+      description: |-
+        Table of fixed room ids used by the MISSION_TREASURE_MEMO type.
+        The last 15 entries only show up after the postgame (performance flag 9).
+        
+        type: uint8_t
     - name: CLIENT_LEVEL_TABLE
       address:
         EU: 0x20A1EFC
@@ -15497,7 +15497,7 @@ arm9:
       description: |-
         Points to a mission_reward_struct_main struct, responsible for handling the overlay 11 portion of the mission reward sequence.
         Is also used sparingly during the Spinda Cafe egg event.
-
+        
         type: mission_reward_struct_main
     - name: NOTIFY_NOTE
       address:
