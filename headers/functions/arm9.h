@@ -1343,7 +1343,7 @@ void SetActorTalkMain(enum script_entity_id actor_id);
 void SetActorTalkSub(enum script_entity_id actor_id);
 void SetActorEventMain(enum script_entity_id actor_id);
 void SetRandomRequestNpcs1And2(enum script_entity_id actor_id1, enum script_entity_id actor_id2);
-void SetRandomRequestNPC03KindVar(enum monster_id param_1);
+void SetRandomRequestNpc03KindVar(enum monster_id param_1);
 void SetAllEventNpcs(enum script_entity_id param_1, enum script_entity_id param_2, enum script_entity_id param_3,
                      enum script_entity_id param_4);
 void SetNewFriendActor(enum script_entity_id param_1);

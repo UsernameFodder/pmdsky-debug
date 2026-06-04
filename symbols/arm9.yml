@@ -12371,12 +12371,21 @@ arm9:
         r0: mission_details pointer
         r1: buffer
         r2: buffer size
+    - name: RandomizeMissionCategory
+      address:
+        EU: 0x20625C4
+      description: |-
+        Seems to select a mission_weighted_category at weighted random, of the valid options.
+
+        r0: sum of mission weight categories
+        r1: ?
+        r2: mission_weighted_category pointers to select at random.
+        return: mission_weighted_category index, selected at random
     - name: SumValidMissionCategoryWeights
       address:
         EU: 0x206260C
       description: |-
         Seems to tally up the total weights for each mission_category under a specified mission vendor.
-        
         
         r0: 0 for job board, 1 for outlaw board, 2 for cafe client, 3 for beach bottle 
         return: 1 if the total weight is non-zero, 0 if not.
@@ -12648,7 +12657,7 @@ arm9:
         
         r0: ACTOR_REQUEST_NPC01 actor_id
         r1: ACTOR_REQUEST_NPC02 actor_id
-    - name: SetRandomRequestNPC03KindVar
+    - name: SetRandomRequestNpc03KindVar
       address:
         EU: 0x2065F10
       description: |-
