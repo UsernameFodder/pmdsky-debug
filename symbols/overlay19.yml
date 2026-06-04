@@ -26,6 +26,8 @@ overlay19:
     - name: SetMiracleDrinkStatCountRange
       address:
         EU: 0x238ACC0
+        NA: 0x238A180
+        JP: 0x238B6E0
       description: |-
         Retrieves the minimum and maximum stat boost for a miracle drink. In vanilla this is [2,5].
         
@@ -34,6 +36,8 @@ overlay19:
     - name: SetBadDrinkStatCountRange
       address:
         EU: 0x238ACD4
+        NA: 0x238A194
+        JP: 0x238B6F4
       description: |-
         Retrieves the minimum and maximum stat reduction for a bad drink. In vanilla this is [1,3].
         
@@ -42,6 +46,8 @@ overlay19:
     - name: GetBarItemResultWeights
       address:
         EU: 0x238ACE8
+        NA: 0x238A1A8
+        JP: 0x238B708
       description: |-
         Retrieves a pointer to the weights for normal, good, miracle, and bad drink results by item.
         The miracle drink event chance is actually a shared chance for a random drink event such as a dungeon unlock, recruit, or a real miracle drink.
@@ -51,6 +57,8 @@ overlay19:
     - name: BarGetDrinkEventWeights
       address:
         EU: 0x238ACF8
+        NA: 0x238A1B8
+        JP: 0x238B718
       description: |-
         Retrieves the static chances for an egg, recruit, dungeon unlock, or a miracle drink.
         
@@ -91,6 +99,8 @@ overlay19:
     - name: BarGetUnlockableDungeonPtr
       address:
         EU: 0x238AF14
+        NA: 0x238A3D4
+        JP: 0x238B934
       description: |-
         If not zero, stores a double pointer to the BAR_UNLOCKABLE_DUNGEONS_TABLE to r0. Then returns 6 for some reason... 
         Unclear what this is intended to actually do...
@@ -100,6 +110,8 @@ overlay19:
     - name: BarPopulateUnlockableDungeons
       address:
         EU: 0x238AF2C
+        NA: 0x238A3EC
+        JP: 0x238B94C
       description: |-
         Populates a pointer of dungeon ids based on the current $SCENARIO_BALANCE_FLAG and unlock statuses of dungeons in the BAR_UNLOCKABLE_DUNGEONS_TABLE.
         
@@ -108,6 +120,8 @@ overlay19:
     - name: BarTryClosePortraitBox
       address:
         EU: 0x238AFA8
+        NA: 0x238A468
+        JP: 0x238B9C8
       description: |-
         Seems to handle closing portrait boxes for the overlay. 
         
@@ -115,6 +129,8 @@ overlay19:
     - name: BarCaseManagerSub
       address:
         EU: 0x238AFE4
+        NA: 0x238A4A4
+        JP: 0x238BA04
       description: |-
         Called once every frame by SpindaBarMenuUpdate if the bar_update_case is BAR_SUBCASE_FUNC.
         State Case with unique behaviors enumerated by enum bar_subcase.
@@ -133,6 +149,8 @@ overlay19:
     - name: BarPopulateDrinkableBagItems
       address:
         EU: 0x238D0DC
+        NA: 0x238C5A8
+        JP: 0x238DB00
       description: |-
         Populates an item list of only valid bar items within spinda_cafe.
         
@@ -140,6 +158,8 @@ overlay19:
     - name: BarZeroInitPreprocessorFlagsAndReturnCase
       address:
         EU: 0x238D174
+        NA: 0x238C640
+        JP: 0x238DB98
       description: |-
         Zero inits many preprocessor_flag fields, but also sets the return_case for scripts to zero within spinda_cafe.
         
@@ -147,6 +167,8 @@ overlay19:
     - name: BarZeroInitBufferAndPreprocessorArgsZero
       address:
         EU: 0x238D1A4
+        NA: 0x238C670
+        JP: 0x238DBC8
       description: |-
         Zero initializes the preprocessor_args_0 and string_buffer_0 fields of spinda_cafe.
         
@@ -154,6 +176,8 @@ overlay19:
     - name: BarTrySetEventMainActor
       address:
         EU: 0x238D1F8
+        NA: 0x238C6C4
+        JP: 0x238DC1C
       description: |-
         Seems to set ACTOR_NPC_EVENT_MAIN to whoever the player ordered the drink for.
         Seems to do other things before that though...
@@ -162,6 +186,8 @@ overlay19:
     - name: BarZeroInitBufferAndPreprocessorArgsOne
       address:
         EU: 0x238D2E4
+        NA: 0x238C7B0
+        JP: 0x238DD08
       description: |-
         Zero initializes the preprocessor_args_1 and string_buffer_1 fields of spinda_cafe.
         
@@ -169,6 +195,8 @@ overlay19:
     - name: BarPrintHpIncreaseString
       address:
         EU: 0x238D340
+        NA: 0x238C80C
+        JP: 0x238DD64
       description: |-
         Handles printing the correct text for a HP stat increase from a drink.
         
@@ -178,6 +206,8 @@ overlay19:
     - name: BarPrintOtherStatIncreaseString
       address:
         EU: 0x238D434
+        NA: 0x238C900
+        JP: 0x238DE58
       description: |-
         Seems to handle printing the correct text for a non-HP, non-IQ stat increase from a drink.
         
@@ -188,6 +218,8 @@ overlay19:
     - name: BarPrintIqAndSkills
       address:
         EU: 0x238D524
+        NA: 0x238C9F0
+        JP: 0x238DF48
       description: |-
         Seems to handle printing the correct text for an IQ stat increase from a drink, including learned skills.
         
@@ -196,6 +228,8 @@ overlay19:
     - name: BarPrintLevelMaxedOutString
       address:
         EU: 0x238D660
+        NA: 0x238CB2C
+        JP: 0x238E084
       description: |-
         Seems to handle printing the correct text for a "level increase" from a drink, but only if the pokemon is already level 100.
         
@@ -203,6 +237,8 @@ overlay19:
     - name: BarDrawAndUpdateGainedIqSkills
       address:
         EU: 0x238D6F4
+        NA: 0x238CBC0
+        JP: 0x238E118
       description: |-
         Called by BarPrintIqAndSkills to name any IQ skills gained from a drink.
         
@@ -217,6 +253,8 @@ overlay19:
     - name: BarUpdateDrinkEventNewStats
       address:
         EU: 0x238D820
+        NA: 0x238CCEC
+        JP: 0x238E244
       description: |-
         Actually apply stat changes from a drink.
         
@@ -226,6 +264,8 @@ overlay19:
     - name: BarPrintReactionsAndStatIncreases
       address:
         EU: 0x238D9F4
+        NA: 0x238CEC0
+        JP: 0x238E418
       description: |-
         Seems to handle drink reactions, and calling the correct stat increase text function.
         
@@ -233,6 +273,8 @@ overlay19:
     - name: BarHandleDrinkEventSubcase
       address:
         EU: 0x238DC0C
+        NA: 0x238D0D8
+        JP: 0x238E630
       description: |-
         Has different behavior based on the type of drink. Usually assigns the next correct bar_subcase, and for good stat based drink events, seems to handle or roll that somehow. 
         
@@ -240,6 +282,8 @@ overlay19:
     - name: BarPostDrinkCaseForCustomer
       address:
         EU: 0x238DE44
+        NA: 0x238D310
+        JP: 0x238E868
       description: |-
         Sets the correct bar_update_case after completing a drink, depending on who ordered the drink.
         
@@ -247,6 +291,8 @@ overlay19:
     - name: BarMaybeIsClosedUnkStringIdMenu
       address:
         EU: 0x238DEBC
+        NA: 0x238D388
+        JP: 0x238E8E0
       description: |-
         Seems to check if a currently unknown String Id based menu type's window is closed?
         Just a guess.
@@ -255,6 +301,8 @@ overlay19:
     - name: BarCreateUnkStringIdMenu
       address:
         EU: 0x238DED4
+        NA: 0x238D3A0
+        JP: 0x238E8F8
       description: |-
         Seems to handle initialization of a currently unknown String Id based menu type.
         
@@ -267,6 +315,8 @@ overlay19:
     - name: GetUnkStringIdMenuResult
       address:
         EU: 0x238DF4C
+        NA: 0x238D418
+        JP: 0x238E970
       description: |-
         Seems to retrieve the result of some kind of player choice from a currently unknown String Id based menu type.
         
@@ -274,6 +324,8 @@ overlay19:
     - name: BarTryShowPortrait
       address:
         EU: 0x238DF84
+        NA: 0x238D450
+        JP: 0x238E9A8
       description: |-
         Calls ShowPortraitInPortraitBox with portrait data from the spinda_cafe struct.
         
@@ -281,6 +333,8 @@ overlay19:
     - name: BarTryHidePortrait
       address:
         EU: 0x238DFB0
+        NA: 0x238D47C
+        JP: 0x238E9D4
       description: |-
         Calls HidePortraitBox with portrait data from the spinda_cafe struct.
         
@@ -288,6 +342,8 @@ overlay19:
     - name: BarInventoryMenuCallback
       address:
         EU: 0x238DFD8
+        NA: 0x238D4A4
+        JP: 0x238E9FC
       description: |-
         Seems to be some sort of callback function used by an inventory menu for the cafe.
         
@@ -298,6 +354,8 @@ overlay19:
     - name: BarTryCloseInventoryMenu
       address:
         EU: 0x238E018
+        NA: 0x238D4E4
+        JP: 0x238EA3C
       description: |-
         Calls CloseInventoryMenu with spinda_cafe->inventory_window_id.
         
@@ -305,6 +363,8 @@ overlay19:
     - name: BarTryCloseTeamMovesMenu
       address:
         EU: 0x238E050
+        NA: 0x238D51C
+        JP: 0x238EA74
       description: |-
         Calls CloseAdvancedTextBox with spinda_cafe->inventory_window_id.
         Contextually seems responsible for closing the menu for team moves.
@@ -313,6 +373,8 @@ overlay19:
     - name: SpindaBarEntry
       address:
         EU: 0x238E0A0
+        NA: 0x238D56C
+        JP: 0x238EAC4
       description: |-
         First entry point into overlay 19, called by MENU_JUICE_BAR.
         
@@ -320,6 +382,8 @@ overlay19:
     - name: SpindaBarResume
       address:
         EU: 0x238E130
+        NA: 0x238D5FC
+        JP: 0x238EB54
       description: |-
         Subsequent entry point into overlay 19, called by MENU_JUICE_BAR_PICK_ITEM.
         
@@ -327,6 +391,8 @@ overlay19:
     - name: SpindaBarDestruct
       address:
         EU: 0x238E1C0
+        NA: 0x238D68C
+        JP: 0x238EBE4
       description: |-
         The destructor of overlay 19 for both entry points.
         Does nothing but call BarTryClosePortraitBox...
@@ -335,6 +401,8 @@ overlay19:
     - name: SpindaBarMenuUpdate
       address:
         EU: 0x238E1CC
+        NA: 0x238D698
+        JP: 0x238EBF0
       description: |-
         Called every frame overlay 19 is active, primarily handling interface between the script, and BarCaseManagerSub.
         
@@ -408,6 +476,8 @@ overlay19:
     - name: GOOD_DRINK_REACTION_STRINGS
       address:
         EU: 0x238ECB2
+        NA: 0x238E17E
+        JP: 0x238F6D6
       length:
         EU: 0x6
       description: |-
@@ -417,6 +487,8 @@ overlay19:
     - name: BAR_STAT_CHANGE_STRINGS
       address:
         EU: 0x238ECB8
+        NA: 0x238E184
+        JP: 0x238F6DC
       length:
         EU: 0x6
       description: |-
@@ -426,6 +498,8 @@ overlay19:
     - name: NEUTRAL_DRINK_REACTION_STRINGS
       address:
         EU: 0x238ECBE
+        NA: 0x238E18A
+        JP: 0x238F6E2
       length:
         EU: 0x6
       description: |-
@@ -435,6 +509,8 @@ overlay19:
     - name: BAD_DRINK_REACTION_STRINGS
       address:
         EU: 0x238ECC4
+        NA: 0x238E190
+        JP: 0x238F6E8
       length:
         EU: 0x6
       description: |-
@@ -444,6 +520,8 @@ overlay19:
     - name: BAR_IQ_CHANGE_STRINGS
       address:
         EU: 0x238ECCA
+        NA: 0x238E196
+        JP: 0x238F6EE
       length:
         EU: 0x6
       description: |-
@@ -453,6 +531,8 @@ overlay19:
     - name: BAR_IQ_UNABLE_TO_CHANGE_STRINGS
       address:
         EU: 0x238ECD0
+        NA: 0x238E19C
+        JP: 0x238F6F4
       length:
         EU: 0x6
       description: |-
@@ -573,6 +653,8 @@ overlay19:
     - name: BAR_NEW_LINE_CHAR
       address:
         EU: 0x238EDF4
+        NA: 0x238E2C0
+        JP: 0x238F818
       length:
         EU: 0x4
       description: |-
@@ -583,6 +665,8 @@ overlay19:
     - name: BAR_ME_PLAY_TEXT_TAG
       address:
         EU: 0x238EDF8
+        NA: 0x238E2C4
+        JP: 0x238F81C
       length:
         EU: 0xC
       description: |-
@@ -592,6 +676,8 @@ overlay19:
     - name: DEBUG_MESSAGE_REQUEST_STR
       address:
         EU: 0x238EE04
+        NA: 0x238E2D0
+        JP: 0x238F828
       length:
         EU: 0x17
       description: |-
@@ -602,6 +688,8 @@ overlay19:
     - name: DEBUG_MESSAGE_REQUEST_AND_RETURN_STR
       address:
         EU: 0x238EE1C
+        NA: 0x238E2E8
+        JP: 0x238F840
       length:
         EU: 0x1C
       description: |-
@@ -612,6 +700,8 @@ overlay19:
     - name: DEBUG_MESSAGE_BEFORE_SET_STR
       address:
         EU: 0x238EE38
+        NA: 0x238E304
+        JP: 0x238F85C
       length:
         EU: 0x1E
       description: |-
@@ -622,6 +712,8 @@ overlay19:
     - name: DEBUG_MESSAGE_AFTER_SET_STR
       address:
         EU: 0x238EE58
+        NA: 0x238E324
+        JP: 0x238F87C
       length:
         EU: 0x1D
       description: |-
