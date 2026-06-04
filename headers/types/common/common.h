@@ -870,109 +870,6 @@ struct mission_floors_forbidden {
 };
 ASSERT_SIZE(struct mission_floors_forbidden, 2);
 
-// Used throughout the process of displaying a mission
-struct mission_details {
-    undefined field_0x0;
-    undefined field_0x1;
-    undefined field_0x2;
-    undefined field_0x3;
-    undefined field_0x4;
-    undefined field_0x5;
-    undefined field_0x6;
-    undefined field_0x7;
-    // 0x8: Pointer to "mission struct + 0x4" (new substruct?)
-    struct mission* mission_ptr;
-    undefined field_0xc;
-    undefined field_0xd;
-    undefined field_0xe;
-    undefined field_0xf;
-    undefined field_0x10;
-    undefined field_0x11;
-    undefined field_0x12;
-    undefined field_0x13;
-    undefined field_0x14;
-    undefined field_0x15;
-    undefined field_0x16;
-    undefined field_0x17;
-    undefined field_0x18;
-    undefined field_0x19;
-    undefined field_0x1a;
-    undefined field_0x1b;
-    undefined field_0x1c;
-    undefined field_0x1d;
-    undefined field_0x1e;
-    undefined field_0x1f;
-    undefined field_0x20;
-    undefined field_0x21;
-    undefined field_0x22;
-    undefined field_0x23;
-    undefined field_0x24;
-    undefined field_0x25;
-    undefined field_0x26;
-    undefined field_0x27;
-    undefined field_0x28;
-    undefined field_0x29;
-    undefined field_0x2a;
-    undefined field_0x2b;
-    undefined field_0x2c;
-    undefined field_0x2d;
-    undefined field_0x2e;
-    undefined field_0x2f;
-    undefined field_0x30;
-    undefined field_0x31;
-    undefined field_0x32;
-    undefined field_0x33;
-    undefined field_0x34;
-    undefined field_0x35;
-    undefined field_0x36;
-    undefined field_0x37;
-    undefined field_0x38;
-    undefined field_0x39;
-    undefined field_0x3a;
-    undefined field_0x3b;
-    undefined field_0x3c;
-    undefined field_0x3d;
-    undefined field_0x3e;
-    undefined field_0x3f;
-    undefined field_0x40;
-    undefined field_0x41;
-    undefined field_0x42;
-    undefined field_0x43;
-    undefined field_0x44;
-    undefined field_0x45;
-    undefined field_0x46;
-    undefined field_0x47;
-    // Used to pull a string from MISSION_MENU_STRING_IDS_1
-    uint8_t mission_menu_string_index;
-    undefined field_0x49;
-    undefined field_0x4a;
-    undefined field_0x4b;
-    undefined field_0x4c;
-    undefined field_0x4d;
-    undefined field_0x4e;
-    undefined field_0x4f;
-    undefined field_0x50;
-    undefined field_0x51;
-    undefined field_0x52;
-    undefined field_0x53;
-    undefined field_0x54;
-    undefined field_0x55;
-    undefined field_0x56;
-    undefined field_0x57;
-    undefined field_0x58;
-    undefined field_0x59;
-    undefined field_0x5a;
-    undefined field_0x5b;
-    undefined field_0x5c;
-    undefined field_0x5d;
-    undefined field_0x5e;
-    undefined field_0x5f;
-    // 0x60: pointer to mission_template struct
-    struct mission_template* template_ptr;
-};
-// mission_details is at least this big. Unclear how much bigger it actually is.
-ASSERT_SIZE(struct mission_details, 100);
-
 // Information about a valid mission; a list of these structs is stored in and directly loaded from
 // RESCUE/rescue.bin at 0x20, where 481 of these structs exist. These are used to select a string
 // from MISSION_STRING_IDS at random, to provide variance to mission flavor text.
@@ -1446,5 +1343,225 @@ struct bitstream {
     uint32_t bit_count; // 0xC: Total bits this stream has used
 };
 ASSERT_SIZE(struct bitstream, 16);
+
+struct kec_shop_1 {
+    struct bulk_item items[8];
+};
+ASSERT_SIZE(struct kec_shop_1, 32);
+
+struct kec_shop_2 {
+    struct bulk_item items[4];
+};
+ASSERT_SIZE(struct kec_shop_2, 16);
+
+struct item_storage {
+    struct item_id_16 ids[1000];
+    int16_t quantities[1000];
+};
+ASSERT_SIZE(struct item_storage, 4000);
+
+struct item_bag {
+    struct item bag_items[50];
+};
+ASSERT_SIZE(struct item_bag, 300);
+
+struct game_state_values {
+    struct item_bag bag_items[3];
+    struct item_bag* current_bag_ptr;
+    int8_t team_id;
+    undefined field3_0x389; // Likely padding. Not copied to save file.
+    struct item_storage storage_items;
+    int8_t active_kec_shops;
+    undefined field6_0x132b; // Likely padding. Not copied to save file.
+    struct bulk_item* active_kec_shop_1_ptr;
+    struct kec_shop_1 kec_shop_1_items[2]; // One inventory for main game, one for special episodes
+    struct bulk_item* active_kec_shop_2_ptr;
+    struct kec_shop_2 kec_shop_2_items[2]; // One inventory for main game, one for special episodes
+    uint32_t carry_gold[3]; // Copies 0x18 bits to save file (in a loop with bank_gold)
+    uint32_t bank_gold; // Copies 0x18 bits to save file (twice! once inside and once more outside
+                        // the loop!)
+    struct monster_id_16 egg_species; // Copies 0xC bits to save file
+    undefined2 field14_0x13a6; // Copies 0xC bits to save file, read and written to by functions
+                               // used in overlay 24.
+    uint16_t egg_hatch_timer;  // Copies 0x8 bits to save file
+    struct rank_8 guild_rank;  // Copies 0x8 bits to save file?
+    undefined field17_0x13ab;  // Likely padding. Not copied to save file.
+    uint32_t recycle_count;    // Copies 0x10 bits to save file
+    uint16_t recycle_offer_cooldown;      // Copies 0x10 bits to save file
+    struct item_id_16 recycle_shop_offer; // Copies 0x10 bits to save file
+};
+ASSERT_SIZE(struct game_state_values, 5044);
+
+struct special_episode_pc {
+    struct monster_id_16 species;
+    struct dungeon_id_8 met_location;
+    undefined field2_0x3;
+    struct move_id_16 move_ids[4];
+    bool moves_fixed;
+    undefined field5_0xd;
+    int16_t level;
+    int16_t iq;
+    int16_t fixed_hp;
+};
+ASSERT_SIZE(struct special_episode_pc, 20);
+
+struct diary_menu_main_menu_data {
+    int current_case_1;
+    int diary_type;
+    int next_case_1;
+    undefined field3_0xc;
+    undefined field4_0xd;
+    undefined field5_0xe;
+    undefined field6_0xf;
+    int num_options;
+    int loop_counter;
+    int advanced_menu_result;
+    undefined field10_0x1c;
+    undefined field11_0x1d;
+    undefined field12_0x1e;
+    undefined field13_0x1f;
+    undefined field14_0x20;
+    undefined field15_0x21;
+    undefined field16_0x22;
+    undefined field17_0x23;
+    char title_text_buffer[1024];
+    char options_text_buffers[32][64];
+    int frame_case_id;
+    struct preprocessor_args preprocessor_args;
+    undefined field22_0xc78;
+    undefined field23_0xc79;
+    undefined field24_0xc7a;
+    undefined field25_0xc7b;
+    int8_t advanced_menu_window_id;
+    int8_t dialogue_box_window_id;
+    undefined field28_0xc7e;
+    undefined field29_0xc7f;
+};
+ASSERT_SIZE(struct diary_menu_main_menu_data, 3200);
+
+// mission_NPC_2 is misspelled to NCP02 in debug prints
+struct mission_result_and_client {
+    int16_t mission_result;
+    struct monster_id_16 mission_NPC_1;
+    struct monster_id_16 mission_NPC_2;
+    // Padding, if these fields even exist.
+    undefined field_0x6;
+    undefined field_0x7;
+};
+ASSERT_SIZE(struct mission_result_and_client, 8);
+
+// This substruct is exactly 0x6 bytes long.
+#pragma pack(push, 2)
+// May actually be a union of several 0x6 byte structs...
+struct mission_reward_params {
+    int16_t field_0x0;
+    int16_t is_egg_or_item; // This seems to determine whether this struct describes an egg or item.
+    int16_t item_or_recruit; // monster_id_16 of the recruit, or item_id_16 of the item.
+};
+#pragma pack(pop)
+ASSERT_SIZE(struct mission_reward_params, 6);
+
+struct mission_substruct_1 {
+    struct dungeon_id_8 dungeon_id;
+    uint8_t floor;
+    undefined field_0x6;
+    undefined field_0x7;
+    int description_id;
+    uint8_t unique_map_id;
+    undefined field_0xd;
+    struct monster_id_16 client;
+    struct monster_id_16 target;
+    struct monster_id_16 outlaw_backup_species;
+    struct item_id_16 item_wanted;
+    struct mission_reward_type_8 reward_type;
+    undefined field_0x17;
+    struct item_id_16 item_reward;
+    struct mission_restriction_type_8 restriction_type;
+    undefined field_0x1b;
+    union mission_restriction restriction;
+    undefined field_0x1e;
+    undefined field_0x1f;
+};
+ASSERT_SIZE(struct mission_substruct_1, 28);
+
+struct mission_reward_data {
+    struct monster_id_16 client;
+    struct mission_reward_type_8 mission_reward_type;
+    undefined field2_0x3;
+    int outlaw_leader_level;
+    int amount_money;
+    undefined4 num_items_to_roll;
+    struct mission_reward_params item_rewards[4];
+    int mission_rank_points;
+};
+ASSERT_SIZE(struct mission_reward_data, 44);
+
+struct mission_details {
+    undefined4 field_0x0;
+    undefined4 field_0x4;
+    struct mission_substruct_1* mission_substruct_ptr;
+    char* temp_buffer_ptr;
+    struct monster_id_16 client;
+    struct monster_id_16 target;
+    struct item_id_16 reward_item;
+    struct item_id_16 item_wanted;
+    struct mission_reward_data reward_data;
+    uint8_t params_1;
+    uint8_t params_2;
+    uint8_t objective;
+    undefined related_to_menu_str_index;
+    int8_t menu_str_index;
+    struct mission_restriction_type_8 mission_restriction_kind;
+    union mission_restriction mission_restriction;
+    int8_t mission_restriction_type_id;
+    undefined field_0x4d;
+    undefined field_0x4e;
+    undefined field_0x4f;
+    undefined field_0x50;
+    undefined field_0x51;
+    undefined field_0x52;
+    undefined field_0x53;
+    undefined field_0x54;
+    undefined field_0x55;
+    undefined field_0x56;
+    undefined field_0x57;
+    undefined field_0x58;
+    undefined field_0x59;
+    undefined field_0x5a;
+    undefined field_0x5b;
+    struct mission* mission_ptr;
+    struct mission_template* mission_template;
+    int8_t* rescue_mission_kind_ptr;
+};
+ASSERT_SIZE(struct mission_details, 104);
+
+// This struct is exactly 0x6 bytes long.
+#pragma pack(push, 2)
+struct mission_reward_dialogue_sequence {
+    int16_t case_id;
+    struct preprocessor_flags preprocessor_flags;
+    uint16_t text_string_id;
+};
+#pragma pack(pop)
+ASSERT_SIZE(struct mission_reward_dialogue_sequence, 6);
+
+struct mission_reward_struct_overlay {
+    enum mission_reward_frame_update_case case_id;
+    int8_t dialogue_box_window_id;
+    int8_t portrait_box_window_id;
+    undefined2 field_0x6;
+    struct preprocessor_args dialogue_box_preprocessor_args;
+    int frame_counter;
+    int npc_count;
+    struct mission_reward_data reward_data;
+    int8_t scen_1;
+    undefined field_0x8d;
+    undefined field_0x8e;
+    undefined field_0x8f;
+    struct mission* mission_ptr;
+    struct mission_reward_dialogue_sequence* mission_dialogue_params_ptr;
+    int subtype;
+};
+ASSERT_SIZE(struct mission_reward_struct_overlay, 156);
 
 #endif

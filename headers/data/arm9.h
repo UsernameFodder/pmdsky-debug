@@ -59,6 +59,7 @@ extern enum item_id KECLEON_SHOP_ITEM_TABLE_LISTS_1[4];
 extern enum item_id KECLEON_SHOP_ITEM_TABLE_LISTS_2[4];
 extern struct exclusive_item_stat_boost_entry EXCLUSIVE_ITEM_STAT_BOOST_DATA[15];
 extern struct exclusive_item_effect_entry EXCLUSIVE_ITEM_EFFECT_DATA[956];
+extern struct recycle_item RECYCLE_SHOP_ITEM_LIST[24];
 extern struct item_id_16 TYPE_SPECIFIC_EXCLUSIVE_ITEMS[17][4];
 extern struct move_id_16 RECOIL_MOVE_LIST[11];
 extern struct move_id_16 PUNCH_MOVE_LIST[16];
@@ -138,10 +139,13 @@ extern fx32_8 DAMAGE_FORMULA_LN_PREFACTOR;
 extern fx32_8 DAMAGE_FORMULA_DEF_PREFACTOR;
 extern fx32_8 DAMAGE_FORMULA_AT_PREFACTOR;
 extern fx32_8 DAMAGE_FORMULA_LN_ARG_PREFACTOR;
+extern uint8_t OUTLAW_HIDEOUT_FIXED_ROOM_IDS[5];
+extern uint8_t CHALLENGE_NORMAL_FIXED_ROOM_IDS[5];
 extern bool TACTICS_FOLLOW_LEADER[12];
 extern struct forbidden_forgot_move_entry FORBIDDEN_FORGOT_MOVE_LIST[3];
 extern struct type_id_8 CONVERSION2_TYPE_TABLE[18];
 extern int16_t TACTICS_UNLOCK_LEVEL_TABLE[12];
+extern uint8_t TREASURE_MEMO_FIXED_ROOM_IDS[30];
 extern int16_t CLIENT_LEVEL_TABLE[16];
 extern int16_t OUTLAW_LEVEL_TABLE[16];
 extern int16_t OUTLAW_MINION_LEVEL_TABLE[16];
@@ -232,6 +236,8 @@ extern void* ITEM_DATA_TABLE_PTRS[3];
 #if PMDSKY_VERSION == PMDSKY_EU
 extern char* ITEM_LANG_FILE_ARRAY[5];
 #endif
+
+extern struct synth_file* SYNTH_BIN_FILE_PTR;
 extern struct move_data_table* MOVE_DATA_TABLE_PTR;
 extern struct obj_graphics_controls* OBJ_GRAPHICS_CONTROLS_PTR;
 extern struct wan_table* WAN_TABLE;
@@ -240,6 +246,7 @@ extern render_3d_element_64_fn_t RENDER_3D_FUNCTIONS_64[8];
 extern int16_t TBL_TALK_GROUP_STRING_ID_START[6];
 extern struct menu_control* MENU_CONTROL_PTR;
 extern int16_t KEYBOARD_STRING_IDS[30];
+extern struct mission_reward_struct_main* MISSION_REWARD_STRUCT_MAIN_PTR;
 extern bool NOTIFY_NOTE;
 extern struct monster_id_16 DEFAULT_HERO_ID;
 extern struct monster_id_16 DEFAULT_PARTNER_ID;

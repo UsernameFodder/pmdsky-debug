@@ -9,7 +9,7 @@ uint16_t* BarGetDrinkEventWeights(void);
 enum monster_id BarGetRandomValidEggRecruit(void);
 enum monster_id BarGetValidEggGiverFromGourmetTable(void);
 enum monster_id BarGetRandomValidRecruitFromGourmetTable(void);
-int BarGetUnlockableDungeonPtr(struct bar_dungeon_unlock** param_1);
+int BarGetUnlockableDungeonPtr(struct dungeon_unlock_entry** param_1);
 int BarPopulateUnlockableDungeons(struct dungeon_id_8* param_1);
 void BarTryClosePortraitBox(void);
 undefined4 BarCaseManagerSub(void);

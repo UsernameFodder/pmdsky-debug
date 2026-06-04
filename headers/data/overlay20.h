@@ -6,6 +6,7 @@ extern struct simple_menu_id_item RECYCLE_MENU_ITEMS_CONFIRM_2[3];
 extern struct simple_menu_id_item RECYCLE_SUBMENU_ITEMS_1[3];
 extern struct simple_menu_id_item RECYCLE_SUBMENU_ITEMS_2[4];
 extern struct simple_menu_id_item RECYCLE_MAIN_MENU_ITEMS_1[5];
+extern char RECYCLE_SHOP_S14P02A_BGP_FILE_STR[17];
 extern struct window_params RECYCLE_WINDOW_PARAMS_1;
 extern struct window_params RECYCLE_WINDOW_PARAMS_2;
 extern struct window_params RECYCLE_WINDOW_PARAMS_3;
@@ -20,5 +21,8 @@ extern struct window_params RECYCLE_WINDOW_PARAMS_10;
 extern struct window_params RECYCLE_WINDOW_PARAMS_11;
 extern struct simple_menu_id_item RECYCLE_MAIN_MENU_ITEMS_3[3];
 extern undefined4 OV20_STATIC_INITIALIZER;
-
+extern struct recycle_shop_main* RECYCLE_SHOP_MAIN_STRUCT_PTR;
+extern struct recycle_unk_struct_0x84* RECYCLE_SHOP_UNK_STRUCT_SIZE_84H_PTR;
+extern struct recycle_unk_struct_0x340* RECYCLE_SHOP_UNK_STRUCT_SIZE_340H_PTR;
+extern struct recycle_unk_struct_0x1cc* RECYCLE_SHOP_UNK_STRUCT_SIZE_1CCH_PTR;
 #endif
