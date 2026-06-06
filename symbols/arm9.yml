@@ -4305,6 +4305,15 @@ arm9:
         r0: Music ID
         r1: (?) Stored on byte 8 on the struct passed to SendAudioCommand
         r2: Volume (0-255)
+    - name: IsMePlaying
+      address:
+        EU: 0x2017CAC
+      description: |-
+        Seems to check if the specified ME effect is currently active. Has some kind of special logic for unknown ME value 0x3E6, which is not known to be a valid ME value...
+        MEs are usually short jingles that are used when notifying the player of something, like unlocking a dungeon or receiving an item.
+        
+        r0: ME_id
+        return: 1 if that ME is playing, 0 if not.
     - name: PlaySeByIdVolumeWrapper
       address:
         EU: 0x2017D1C
@@ -7598,6 +7607,38 @@ arm9:
         stack[0]: total number of selectable items
         stack[1]: number of selectable items per page
         stack[2]: ?
+    - name: InventoryMenuNextPage
+      address:
+        EU: 0x2033578
+      description: |-
+        Tries to go to the next page of an inventory_menu window.
+        
+        
+        r0: struct inventory_menu_input_ctx
+    - name: InventoryMenuPreviousPage
+      address:
+        EU: 0x20335A0
+      description: |-
+        Tries to go to the previous page of an inventory_menu window.
+        
+        
+        r0: struct inventory_menu_input_ctx
+    - name: InventoryMenuNext10Pages
+      address:
+        EU: 0x20335C0
+      description: |-
+        Tries to go forward by 10 pages in an inventory_menu window.
+        
+        
+        r0: struct inventory_menu_input_ctx
+    - name: InventoryMenuPrevious10Pages
+      address:
+        EU: 0x20335E4
+      description: |-
+        Tries to go backward by 10 pages in an inventory_menu window.
+        
+        
+        r0: struct inventory_menu_input_ctx
     - name: OverlayLoadEntriesEqual
       address:
         EU: 0x2034A94
@@ -8803,6 +8844,13 @@ arm9:
         Initializes the WORLD_MAP_* script variable values (IDs 0x55-0x57).
         
         No params.
+    - name: SetWorldMapLevel
+      address:
+        EU: 0x204D120
+      description: |-
+        Calls SaveScriptVariableValue with script variable $WORLD_MAP_LEVEL. 
+        
+        r0: value to save
     - name: InitDungeonListScriptVars
       address:
         EU: 0x204D1C8
@@ -9983,6 +10031,20 @@ arm9:
         
         r0: number
         return: ceil(number)
+    - name: MtInit
+      address:
+        EU: 0x2051420
+      description: |-
+        Initializes the MT_TABLE Mersenne Twister with a specified initial seed.
+        
+        r0: seed
+    - name: MtNext
+      address:
+        EU: 0x205146C
+      description: |-
+        Advances the MT_TABLE Mersenne Twister by one, and returns the result.
+        
+        return: next rand
     - name: DungeonGoesUp
       address:
         EU: 0x20515C0
@@ -10780,6 +10842,15 @@ arm9:
         r0: string_buffer
         r1: monster ID
         return: bool
+    - name: InitializeTeamMemberFromMentry
+      address:
+        EU: 0x20535CC
+      description: |-
+        Seems to copy a ground_monster pokemon from the Chimecho Assembly to the active team.
+        
+        r0: team_member pointer
+        r1: ground_monster pointer
+        r2: team_member index
     - name: GetLvlUpEntry
       address:
         EU: 0x2053B18
@@ -12047,6 +12118,14 @@ arm9:
         
         r0: mission id in player's job list
         return: mission struct pointer
+    - name: IsAcceptedMissionSlotEmpty
+      address:
+        EU: 0x205F46C
+      description: |-
+        Checks if a specified slot of the player's mission list is empty.
+        
+        r0: slot id
+        return: 1 if the slot is empty, 0 if not.
     - name: WasMissionCompletedToday
       address:
         EU: 0x205F494
@@ -12332,12 +12411,21 @@ arm9:
         r0: mission_details pointer
         r1: buffer
         r2: buffer size
+    - name: RandomizeMissionCategory
+      address:
+        EU: 0x20625C4
+      description: |-
+        Seems to select a mission_weighted_category at weighted random, of the valid options.
+        
+        r0: sum of mission weight categories
+        r1: ?
+        r2: mission_weighted_category pointers to select at random.
+        return: mission_weighted_category index, selected at random
     - name: SumValidMissionCategoryWeights
       address:
         EU: 0x206260C
       description: |-
         Seems to tally up the total weights for each mission_category under a specified mission vendor.
-        
         
         r0: 0 for job board, 1 for outlaw board, 2 for cafe client, 3 for beach bottle 
         return: 1 if the total weight is non-zero, 0 if not.
@@ -12519,6 +12607,21 @@ arm9:
         
         r0: item_buffer
         return: Number of deliverable items for a mission
+    - name: WriteMissionMtState
+      address:
+        EU: 0x2063870
+      description: |-
+        Stores a Mersenne Twister state to RESCUE_BIN_UNPACK->mt_state.
+        
+        
+        r0: state pointer
+    - name: ReadMissionMtStateLower
+      address:
+        EU: 0x2063880
+      description: |-
+        Returns the bottom half of RESCUE_BIN_UNPACK->mt_state.
+        
+        return: bottom half of the current mt_state.
     - name: ZeroInitMissionRewardDataStruct
       address:
         EU: 0x2063898
@@ -12594,6 +12697,13 @@ arm9:
         
         r0: ACTOR_REQUEST_NPC01 actor_id
         r1: ACTOR_REQUEST_NPC02 actor_id
+    - name: SetRandomRequestNpc03KindVar
+      address:
+        EU: 0x2065F10
+      description: |-
+        Sets the RANDOM_REQUEST_NPC03_KIND script variable, which controls the species of ACTOR_REQUEST_NPC03.
+        
+        r0: species to store in RANDOM_REQUEST_NPC03_KIND.
     - name: SetAllEventNpcs
       address:
         EU: 0x2065F28
@@ -12604,6 +12714,13 @@ arm9:
         r1: ACTOR_EVENT_NPC02 actor_id
         r2: ACTOR_EVENT_NPC03 actor_id
         r3: ACTOR_EVENT_NPC04 actor_id
+    - name: SetNewFriendActor
+      address:
+        EU: 0x2065F44
+      description: |-
+        Sets NPC_NEW_FRIEND to a specific actor_id.
+        
+        r0: NPC_NEW_FRIEND actor_id
     - name: RandomizeDemoActors
       address:
         EU: 0x2065FC4
@@ -12811,6 +12928,13 @@ arm9:
         Maximum number of seconds that the file timer counts up to.
         
         35999999 seconds (one second under 10000 hours).
+    - name: MT_MULT
+      address:
+        EU: 0x2051464
+      description: |-
+        The standard mult for Mersenne Twister initialization, 0x6C078965.
+        
+        type: int
     - name: MONSTER_ID_LIMIT
       address:
         EU: 0x2054818
@@ -15598,6 +15722,27 @@ arm9:
         [Runtime]
         
         type: struct adventure_log*
+    - name: MT_TABLE_INDEX
+      address:
+        EU: 0x20B0898
+      description: |-
+        The current index of the Mersenne Twister Table.
+        
+        type: int
+    - name: TWIST_LOW_BIT_MULTS
+      address:
+        EU: 0x20B0898
+      description: |-
+        The mults for the "twist" of a Mersenne Twister, 0x0 and 0x9908B0DF.
+        
+        type: int[2]
+    - name: MT_TABLE
+      address:
+        EU: 0x20B0898
+      description: |-
+        A full Mersenne Twister table. Only known to be used by mission generation.
+        
+        type: int[624]
     - name: ITEM_TABLES_PTRS_1
       address:
         EU: 0x20B1264
@@ -15735,6 +15880,13 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         type: const char*[16]
+    - name: RESCUE_BIN_UNPACK
+      address:
+        EU: 0x20B141C
+      description: |-
+        The unpacked contents of the RESCUE/rescue.bin file. Also contains a mersenne twister state, for some reason.
+        
+        type: rescue_bin_unpack struct
     - name: SMD_EVENTS_FUN_TABLE
       address:
         EU: 0x20B14D4

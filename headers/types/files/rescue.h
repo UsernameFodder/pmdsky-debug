@@ -124,3 +124,17 @@ struct mission_categories_table {
     struct mission_weighted_category unused_category;
 };
 ASSERT_SIZE(struct mission_categories_table, 640);
+
+// The unpacked rescue.bin file after being loaded in arm9.
+struct rescue_bin_unpack {
+    int mt_state;
+    struct rescue_str_variant_table* string_variants;
+    struct monster_id_16* monster_table_entries;
+    struct mission_weighted_category* all_categories;
+    struct item_id_16* item_table_entries;
+    struct rescue_str_continuity_table* string_continuities;
+    struct mission_template* mission_templates;
+    struct mission_weighted_category* valid_categories;
+    int category_weight_sum; // Sum of all weighted categories
+    undefined* file_pointer; // Points to the raw rescue.bin file loaded in memory.
+};
