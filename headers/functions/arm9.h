@@ -446,6 +446,7 @@ void OpenWaza(int waza_id);
 void SelectWaza(int waza_id);
 void PlayBgmByIdVeneer(enum music_id music_id);
 void PlayBgmByIdVolumeVeneer(enum music_id music_id, undefined param_2, int volume);
+bool IsMePlaying(int me_id);
 void PlaySeByIdVolumeWrapper(int index);
 void PlaySeVolumeWrapper(int index);
 void PlayBgmById(enum music_id music_id);
@@ -1146,6 +1147,7 @@ void GuestMonsterToGroundMonster(struct ground_monster* ground_monster,
                                  struct guest_monster* guest_monster);
 void SetBaseStatsMovesGroundMonster(struct ground_monster* ground_monster);
 bool StrcmpMonsterName(char* string, enum monster_id monster_id);
+void InitializeTeamMemberFromMentry(struct team_member *param_1,struct ground_monster *param_2,int32_t param_3);
 void GetLvlUpEntry(struct level_up_entry* level_up_entry, enum monster_id monster_id, int level);
 uint8_t* GetEncodedHalfword(uint8_t* data_ptr, uint16_t* result);
 int GetEvoFamily(undefined* monster, undefined* evo_family);

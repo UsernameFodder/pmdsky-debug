@@ -4305,6 +4305,15 @@ arm9:
         r0: Music ID
         r1: (?) Stored on byte 8 on the struct passed to SendAudioCommand
         r2: Volume (0-255)
+    - name: IsMePlaying
+      address:
+        EU: 0x2017CAC
+      description: |-
+        Seems to check if the specified ME effect is currently active. Has some kind of special logic for unknown ME value 0x3E6, which is not known to be a valid ME value...
+        MEs are usually short jingles that are used when notifying the player of something, like unlocking a dungeon or receiving an item.
+        
+        r0: ME_id
+        return: 1 if that ME is playing, 0 if not.
     - name: PlaySeByIdVolumeWrapper
       address:
         EU: 0x2017D1C
@@ -10813,6 +10822,15 @@ arm9:
         r0: string_buffer
         r1: monster ID
         return: bool
+    - name: InitializeTeamMemberFromMentry
+      address:
+        EU: 0x20535CC
+      description: |-
+        Seems to copy a ground_monster pokemon from the Chimecho Assembly to the active team.
+        
+        r0: team_member pointer
+        r1: ground_monster pointer
+        r2: team_member index
     - name: GetLvlUpEntry
       address:
         EU: 0x2053B18
