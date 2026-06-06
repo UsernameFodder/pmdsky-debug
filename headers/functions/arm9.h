@@ -822,10 +822,10 @@ void InitInventoryMenuInput(struct inventory_menu_input_ctx* input_ctx, struct w
                             struct window_extra_info* window_extra_info,
                             struct window_rectangle* rect, int n_items, int n_items_per_page,
                             undefined param_7);
-void InventoryMenuNextPage(struct inventory_menu_input_ctx *param_1);
-void InventoryMenuPreviousPage(struct inventory_menu_input_ctx *param_1);
-void InventoryMenuNext10Pages(struct inventory_menu_input_ctx *param_1);
-void InventoryMenuPrevious10Pages(struct inventory_menu_input_ctx *param_1);
+void InventoryMenuNextPage(struct inventory_menu_input_ctx* param_1);
+void InventoryMenuPreviousPage(struct inventory_menu_input_ctx* param_1);
+void InventoryMenuNext10Pages(struct inventory_menu_input_ctx* param_1);
+void InventoryMenuPrevious10Pages(struct inventory_menu_input_ctx* param_1);
 bool OverlayLoadEntriesEqual(struct overlay_load_entry* entry1, struct overlay_load_entry* entry2);
 void FreeActiveMenu(void);
 bool InitMenu(struct overlay_load_entry* entry);
@@ -1147,7 +1147,8 @@ void GuestMonsterToGroundMonster(struct ground_monster* ground_monster,
                                  struct guest_monster* guest_monster);
 void SetBaseStatsMovesGroundMonster(struct ground_monster* ground_monster);
 bool StrcmpMonsterName(char* string, enum monster_id monster_id);
-void InitializeTeamMemberFromMentry(struct team_member *param_1,struct ground_monster *param_2,int32_t param_3);
+void InitializeTeamMemberFromMentry(struct team_member* param_1, struct ground_monster* param_2,
+                                    int32_t param_3);
 void GetLvlUpEntry(struct level_up_entry* level_up_entry, enum monster_id monster_id, int level);
 uint8_t* GetEncodedHalfword(uint8_t* data_ptr, uint16_t* result);
 int GetEvoFamily(undefined* monster, undefined* evo_family);
@@ -1314,7 +1315,8 @@ undefined PrintWonderMailSkyCode(undefined param_1, undefined param_2, undefined
 void AppendMissionObjective(char* param_1, int param_2, undefined4 param_3, uint32_t param_4,
                             short param_5);
 void AppendMissionDungeonLocation(struct mission_details* param_1, char* buffer, int param_3);
-uint32_t RandomizeMissionCategory(uint32_t MissionWghtSum,uint32_t param_2,struct mission_weighted_category *param_3);
+uint32_t RandomizeMissionCategory(uint32_t MissionWghtSum, uint32_t param_2,
+                                  struct mission_weighted_category* param_3);
 bool SumValidMissionCategoryWeights(undefined4 mission_vendor);
 struct mission_template* GetRandomMissionTemplate(void);
 undefined4 LoadMissionTemplates(void);
@@ -1346,8 +1348,8 @@ void SetActorTalkSub(enum script_entity_id actor_id);
 void SetActorEventMain(enum script_entity_id actor_id);
 void SetRandomRequestNpcs1And2(enum script_entity_id actor_id1, enum script_entity_id actor_id2);
 void SetRandomRequestNpc03KindVar(enum monster_id param_1);
-void SetAllEventNpcs(enum script_entity_id param_1, enum script_entity_id param_2, enum script_entity_id param_3,
-                     enum script_entity_id param_4);
+void SetAllEventNpcs(enum script_entity_id param_1, enum script_entity_id param_2,
+                     enum script_entity_id param_3, enum script_entity_id param_4);
 void SetNewFriendActor(enum script_entity_id param_1);
 void RandomizeDemoActors(void);
 void ItemAtTableIdx(int idx, struct bulk_item* item);

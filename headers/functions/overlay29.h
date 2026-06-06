@@ -172,7 +172,8 @@ bool RunLeaderTurn(undefined param_1);
 void TrySpawnMonsterAndActivatePlusMinus(void);
 bool IsFloorOver(void);
 void DecrementWindCounter(void);
-void CreateMonsterSummaryFromEntityOuter(union damage_source_16 param_1,struct entity *param_2,struct monster *param_3,int param_4);
+void CreateMonsterSummaryFromEntityOuter(union damage_source_16 param_1, struct entity* param_2,
+                                         struct monster* param_3, int param_4);
 bool IsDungeonEndReasonFailure(void);
 void SetForcedLossReason(enum forced_loss_reason forced_loss_reason);
 enum forced_loss_reason GetForcedLossReason(void);
@@ -215,7 +216,7 @@ bool DebugRecruitingEnabled(void);
 void TryActivateIqBooster(void);
 bool IsBehaviorLoneOutlaw(enum monster_behavior behavior);
 bool IsSecretBazaarNpcBehavior(enum monster_behavior behavior);
-void GonePebbleGradualPaletteShift(struct rgba *param_1,uint32_t param_2);
+void GonePebbleGradualPaletteShift(struct rgba* param_1, uint32_t param_2);
 struct action_16* GetLeaderAction(void);
 enum action_id GetLeaderActionId(void);
 void GetEntityTouchscreenArea(struct entity* entity, struct touchscreen_area* area);
@@ -270,7 +271,7 @@ bool CheckTeamMemberIdxVeneer(int member_idx);
 bool IsMonsterIdInNormalRangeVeneer(enum monster_id monster_id);
 void BoostIQ(struct entity* entity, int iq_boost, bool suppress_logs);
 bool ShouldMonsterHeadToStairs(struct entity* entity);
-void DisplayLinkedMovesWarnings(struct entity *param_1,int move_slot);
+void DisplayLinkedMovesWarnings(struct entity* param_1, int move_slot);
 bool MewSpawnCheck(enum monster_id monster_id, bool fail_if_mew);
 void TryEndStatusWithAbility(struct entity* attacker, struct entity* defender);
 bool ExclusiveItemEffectIsActive(struct entity* entity, enum exclusive_item_effect_id effect_id);
@@ -989,7 +990,7 @@ enum monster_id GetMissionTargetEnemy(void);
 enum monster_id GetMissionEnemyMinionGroup(int i);
 void SetTargetMonsterNotFoundFlag(bool value);
 bool GetTargetMonsterNotFoundFlag(void);
-void ClearMissionDestinationInfo(struct mission_destination_info *param_1);
+void ClearMissionDestinationInfo(struct mission_destination_info* param_1);
 bool FloorHasMissionMonster(struct mission_destination_info* mission_dst);
 struct mission* GetMissionIfActiveOnFloor(struct dungeon_floor_pair* pair, uint8_t mission_id);
 void GenerateMissionEggMonster(struct mission* mission);
@@ -1048,7 +1049,8 @@ void DisplayMessage2(struct portrait_params* portrait, int message_id, bool wait
 bool YesNoMenu(undefined param_1, int string_id, int default_option, undefined param_4);
 void DisplayMessageInternal(int message_id, bool wait_for_input, struct portrait_params* portrait,
                             undefined4 param_4, undefined4 param_5, undefined4 param_6);
-void PrintMissionCompleteString(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,undefined1 param_5);
+void PrintMissionCompleteString(undefined4 param_1, undefined4 param_2, undefined4 param_3,
+                                undefined4 param_4, undefined1 param_5);
 void InitSecretBazaarDialogueInfo(void);
 void OpenMenu(undefined param_1, undefined param_2, bool open_bag);
 void StairsMenuAfterStep(struct entity* leader, bool leave_minimap_closed_after);

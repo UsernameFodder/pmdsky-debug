@@ -4574,6 +4574,8 @@ arm9:
     - name: FillCopyToFlatVramCommand
       address:
         EU: 0x201AB74
+        NA: 0x201AAD8
+        JP: 0x201AB30
       description: |-
         Fills the command contained in a copy_to_obj_vram_order struct with the specified values.
         
@@ -4606,6 +4608,8 @@ arm9:
     - name: LoadObjPalette
       address:
         EU: 0x201B4D8
+        NA: 0x201B43C
+        JP: 0x201B494
       description: |-
         Loads an object palette into obj_graphics_control, from which it will be copied into VRAM.
         
@@ -4616,6 +4620,8 @@ arm9:
     - name: AddSimpleObjToOam
       address:
         EU: 0x201BA94
+        NA: 0x201B9F8
+        JP: 0x201BA50
       description: |-
         Adds a simple object (one not tied to an animation_control struct) to OAM.
         
@@ -4629,14 +4635,20 @@ arm9:
     - name: GroupOamAttributesWrapper
       address:
         EU: 0x201BB38
+        NA: 0x201BA9C
+        JP: 0x201BAF4
       description: "r0: obj_graphics_control"
     - name: CopyAttributesToOamWrapper
       address:
         EU: 0x201BB48
+        NA: 0x201BAAC
+        JP: 0x201BB04
       description: "r0: obj_graphics_control"
     - name: ChangeSimpleObjTexture
       address:
         EU: 0x201BB64
+        NA: 0x201BAC8
+        JP: 0x201BB20
       description: |-
         Changes the texture in VRAM of all objects that use the specified OAM tile number. Used for simple objects (ones not tied to an animation_control struct).
         
@@ -4649,6 +4661,8 @@ arm9:
     - name: InitObjGraphicsControls
       address:
         EU: 0x201BBD8
+        NA: 0x201BB3C
+        JP: 0x201BB94
       description: |-
         Initializes the obj_graphics_controls struct.
         
@@ -4656,10 +4670,14 @@ arm9:
     - name: CopyAttributesToOamBothScreens
       address:
         EU: 0x201BE50
+        NA: 0x201BDB4
+        JP: 0x201BE0C
       description: No params.
     - name: GroupOamAttributesBothScreens
       address:
         EU: 0x201BEF8
+        NA: 0x201BE5C
+        JP: 0x201BEB4
       description: No params.
     - name: CopyAndInterleaveWrapper
       address:
@@ -5275,6 +5293,8 @@ arm9:
     - name: FillPaletteInitInfo
       address:
         EU: 0x201F634
+        NA: 0x201F598
+        JP: 0x201F5F0
       description: |-
         Fills a palette_init_info struct's fields with the given parameters, besides multi_ext_palettes which will always be made 0.
         
@@ -11590,6 +11610,8 @@ arm9:
     - name: OamTileNumberToVramAddress
       address:
         EU: 0x2058E38
+        NA: 0x2058ABC
+        JP: 0x2058DB8
       description: |-
         Maps an object's designated OAM tile number (bits 0-9 in attribute 2) to the address its texture should be placed at in VRAM.
         
@@ -12103,7 +12125,7 @@ arm9:
         Checks if a specified slot of the player's mission list is empty.
         
         r0: slot id
-        return: 1 if the slot is empty, 0 if not. 
+        return: 1 if the slot is empty, 0 if not.
     - name: WasMissionCompletedToday
       address:
         EU: 0x205F494
@@ -12394,7 +12416,7 @@ arm9:
         EU: 0x20625C4
       description: |-
         Seems to select a mission_weighted_category at weighted random, of the valid options.
-
+        
         r0: sum of mission weight categories
         r1: ?
         r2: mission_weighted_category pointers to select at random.
@@ -15712,14 +15734,14 @@ arm9:
         EU: 0x20B0898
       description: |-
         The mults for the "twist" of a Mersenne Twister, 0x0 and 0x9908B0DF.
-
+        
         type: int[2]
     - name: MT_TABLE
       address:
         EU: 0x20B0898
       description: |-
         A full Mersenne Twister table. Only known to be used by mission generation.
-
+        
         type: int[624]
     - name: ITEM_TABLES_PTRS_1
       address:
@@ -15863,7 +15885,7 @@ arm9:
         EU: 0x20B141C
       description: |-
         The unpacked contents of the RESCUE/rescue.bin file. Also contains a mersenne twister state, for some reason.
-
+        
         type: rescue_bin_unpack struct
     - name: SMD_EVENTS_FUN_TABLE
       address:
