@@ -18,6 +18,13 @@ overlay29:
   subregions:
     - move_effects.yml
   functions:
+    - name: InitDungeonPalatteStruct
+      address:
+        EU: 0x22DEC40
+      description: |-
+        Seems to initialize the dungeon_palette_struct, which likely handles background color display in dungeon mode. 
+        
+        No params.
     - name: GetWeatherColorTable
       address:
         EU: 0x22DEF60
@@ -393,6 +400,13 @@ overlay29:
         r0: tile number
         r1: 0 for bottom screen, 1 for top screen
         return: VRAM tile address
+    - name: ResetDungeonColorPalette
+      address:
+        EU: 0x22E1E4C
+      description: |-
+        Zeroes the entire color_table in the dungeon struct.
+        
+        No params.
     - name: GetTrapInfo
       address:
         EU: 0x22E1F48
@@ -1254,6 +1268,13 @@ overlay29:
         Gets called twice when fading out the top screen. First it calls the free_func of the top screen type and sets the handlers to null and on the second pass it just returns.
         
         return: always 1, seems unused
+    - name: DungeonChangeTopScreenType
+      address:
+        EU: 0x22E9658
+      description: |-
+        Seems to change the top screen display type in dungeon mode.
+        
+        r0: index of top screen mode to change to
     - name: GetDirectionTowardsPosition
       address:
         EU: 0x22E99D0
@@ -1627,6 +1648,14 @@ overlay29:
         Plays the specified sound effect if it is not the designated silence value (0x3F00).
         
         r0: Sound effect ID
+    - name: PlayMeByIdIfNot998
+      address:
+        EU: 0x22EB694
+      description: |-
+        Plays the specified ME effect if it is not a specific unknown ME value (0x3E6). This is not known to be a valid ME value...
+        MEs are usually short jingles that are used when notifying the player of something, like unlocking a dungeon or receiving an item.
+        
+        r0: ME_id
     - name: MusicTableIdxToMusicId
       address:
         EU: 0x22EB6B0
@@ -1646,6 +1675,14 @@ overlay29:
         Replace the currently playing music with the provided music
         
         r0: music ID
+    - name: SetUnkMusicFlag
+      address:
+        EU: 0x22EB8E4
+      description: |-
+        Seems to set some kind of flag in the dungeon struct that affects bgm in some way.
+        Called in ApplyDamage immediately before and after reviving a pokemon, as well as other places.
+        
+        r0: uint8_t
     - name: TrySwitchPlace
       address:
         EU: 0x22EBB28
@@ -1755,6 +1792,15 @@ overlay29:
         
         r0: Pointer to the entity that used the item
         r1: Parameter index in monster::action_data::action_parameters. Will be used to use to determine the index of the used item.
+    - name: ConvertTmToUsedTm
+      address:
+        EU: 0x22EC018
+      description: |-
+        Seems to be responsible for turning a TM into a Used TM after use. Explicitly checks if the TM is an HM, and if so, does not transform it.
+        
+        r0: Pointer to the entity that used the TM.
+        r1: Parameter index in monster::action_data::action_parameters. Will be used to use to determine the index of the used item.
+        No params.
     - name: AddDungeonSubMenuOption
       address:
         EU: 0x22EC1CC
@@ -1866,6 +1912,17 @@ overlay29:
         Decrements dungeon::wind_turns and displays a wind warning message if required.
         
         No params.
+    - name: CreateMonsterSummaryFromEntityOuter
+      address:
+        EU: 0x22ED794
+      description: |-
+        Seems to be the parent function for CreateMonsterSummaryFromEntity.
+        Sets the fainted_monster_dungeon_end_reason field to a damage_source. 
+        
+        r0: damage_source_16
+        r1: entity pointer
+        r2: monster pointer
+        r3: int
     - name: IsDungeonEndReasonFailure
       address:
         EU: 0x22ED8F4
@@ -2272,6 +2329,14 @@ overlay29:
         
         r0: monster behavior ID
         return: bool
+    - name: GonePebbleGradualPaletteShift
+      address:
+        EU: 0x22F1210
+      description: |-
+        Seems to be responsible for the palette shift of the dungeon background for the Gone Pebble item effect.
+        
+        r0: rgba table pointer
+        r1: uint
     - name: GetLeaderAction
       address:
         EU: 0x22F1540
@@ -2841,6 +2906,14 @@ overlay29:
         
         r0: Entity pointer
         return: True if the monster should try to reach the stairs, false otherwise
+    - name: DisplayLinkedMovesWarnings
+      address:
+        EU: 0x22FAF80
+      description: |-
+        Seems to handle displaying the text string for linked moves de-linking when at 2, 1, or 0 PP. 
+        
+        r0: entity pointer
+        r1: move_slot id
     - name: MewSpawnCheck
       address:
         EU: 0x22FAFFC
@@ -3110,6 +3183,13 @@ overlay29:
         
         r0: monster behavior to search for
         return: the first entity in the dungeon with the given monster behavior, or null if not found
+    - name: CountActiveMonsters
+      address:
+        EU: 0x22FC648
+      description: |-
+        Loops through the monster entity table, counting the number of valid entities.
+        
+        return: number of monsters on the floor
     - name: IsMonsterLoneOutlaw
       address:
         EU: 0x22FC7DC
@@ -9347,6 +9427,15 @@ overlay29:
         Fills the dungeon::mission_destination_info field with information from the currently active mission on the floor, if one is present.
         
         No params.
+    - name: MissionExitPrompt
+      address:
+        EU: 0x2349618
+      description: |-
+        Responsible for asking the player if they want to leave the dungeon after a mission via nested YesNoMenu() calls.
+        The first YesNoMenu uses a text string id from the param of this function.
+        
+        r0: int
+        return: undefined4
     - name: IsItemUnkMissionItem2
       address:
         EU: 0x2349900
@@ -9596,6 +9685,14 @@ overlay29:
         Gets the value of dungeon::target_monster_not_found_flag.
         
         return: dungeon::target_monster_not_found_flag
+    - name: ClearMissionDestinationInfo
+      address:
+        EU: 0x234A2EC
+      description: |-
+        Zeroes all fields of a mission_destination_info struct.
+        Seems to be called as part of FillMissionDestinationInfo, and one other place.
+        
+        r0: mission_destination_info pointer
     - name: FloorHasMissionMonster
       address:
         EU: 0x234A348
@@ -9648,6 +9745,22 @@ overlay29:
         Returns a null pointer instead if none are present.
         
         return: entity pointer
+    - name: TryCompleteMission
+      address:
+        EU: 0x234A6D4
+      description: |-
+        Seems to check if the mission on the current floor has been completed. Each mission type seems to use the params differently.
+        
+        r0: target monster_id or arrest outlaw item_id?
+        r1: treasure memo item_id?
+    - name: TreasureMemoComplete
+      address:
+        EU: 0x234B88C
+      description: |-
+        Seems to run when a treasure memo mission has been completed.
+        Handles the fanfare for completing the mission, runs TryCompleteMission, and calls MissionExitPrompt.
+        
+        No params.
     - name: TeleportFleeingOutlaw
       address:
         EU: 0x234BAA4
@@ -10115,6 +10228,18 @@ overlay29:
         r3: ?
         stack[0]: ?
         stack[1]: ?
+    - name: PrintMissionCompleteString
+      address:
+        EU: 0x234E30C
+      description: |-
+        Seems to handle the displaying the textbox for completing a specific kind of mission.
+        Only known to be called by TreasureMemoComplete.
+        
+        r0: string_id to play for completing the mission.
+        r1: ?
+        r2: ?
+        r3: ?
+        stack[0]: ?
     - name: InitSecretBazaarDialogueInfo
       address:
         EU: 0x234E758
