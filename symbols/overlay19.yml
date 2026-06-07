@@ -23,106 +23,547 @@ overlay19:
         
         r0: item ID
         return: struct bar_item*
-    - name: GetRecruitableMonsterAll
+    - name: SetMiracleDrinkStatCountRange
+      address:
+        EU: 0x238ACC0
+        NA: 0x238A180
+        JP: 0x238B6E0
+      description: |-
+        Retrieves the minimum and maximum stat boost for a miracle drink. In vanilla this is [2,5].
+        
+        r0: int*
+        r1: int*
+    - name: SetBadDrinkStatCountRange
+      address:
+        EU: 0x238ACD4
+        NA: 0x238A194
+        JP: 0x238B6F4
+      description: |-
+        Retrieves the minimum and maximum stat reduction for a bad drink. In vanilla this is [1,3].
+        
+        r0: int*
+        r1: int*
+    - name: GetBarItemResultWeights
+      address:
+        EU: 0x238ACE8
+        NA: 0x238A1A8
+        JP: 0x238B708
+      description: |-
+        Retrieves a pointer to the weights for normal, good, miracle, and bad drink results by item.
+        The miracle drink event chance is actually a shared chance for a random drink event such as a dungeon unlock, recruit, or a real miracle drink.
+        
+        r0: item_id
+        return: uint16_t*
+    - name: BarGetDrinkEventWeights
+      address:
+        EU: 0x238ACF8
+        NA: 0x238A1B8
+        JP: 0x238B718
+      description: |-
+        Retrieves the static chances for an egg, recruit, dungeon unlock, or a miracle drink.
+        
+        return: uint16_t *
+    - name: BarGetRandomValidEggRecruit
+      aliases:
+        - GetRecruitableMonsterAll
       address:
         EU: 0x238AD04
         NA: 0x238A1C4
         JP: 0x238B724
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Retrieves a random valid egg species for an egg event at the cafe.
         
-        return: int?
-    - name: GetRecruitableMonsterList
+        return: enum monster_id
+    - name: BarGetValidEggGiverFromGourmetTable
+      aliases:
+        - GetRecruitableMonsterList
       address:
         EU: 0x238ADB4
         NA: 0x238A274
         JP: 0x238B7D4
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Retrieves a random valid species from BAR_RECRUITABLE_GOURMET_MONSTER_TABLE to serve as the egg giver for an egg event at the cafe.
         
-        return: int?
-    - name: GetRecruitableMonsterListRestricted
+        return: enum monster_id
+    - name: BarGetRandomValidRecruitFromGourmetTable
+      aliases:
+        - GetRecruitableMonsterListRestricted
       address:
         EU: 0x238AE5C
         NA: 0x238A31C
         JP: 0x238B87C
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Retrieves a random valid species from BAR_RECRUITABLE_GOURMET_MONSTER_TABLE to serve as the recruit for an gourmet recruit event at the cafe.
         
-        return: int?
+        return: enum monster_id
+    - name: BarGetUnlockableDungeonPtr
+      address:
+        EU: 0x238AF14
+        NA: 0x238A3D4
+        JP: 0x238B934
+      description: |-
+        If not zero, stores a double pointer to the BAR_UNLOCKABLE_DUNGEONS_TABLE to r0. Then returns 6 for some reason... 
+        Unclear what this is intended to actually do...
+        
+        r0: struct bar_dungeon_unlock **
+        return: Always 6?
+    - name: BarPopulateUnlockableDungeons
+      address:
+        EU: 0x238AF2C
+        NA: 0x238A3EC
+        JP: 0x238B94C
+      description: |-
+        Populates a pointer of dungeon ids based on the current $SCENARIO_BALANCE_FLAG and unlock statuses of dungeons in the BAR_UNLOCKABLE_DUNGEONS_TABLE.
+        
+        r0: struct dungeon_id_8*
+        return: number of allowed dungeons
+    - name: BarTryClosePortraitBox
+      address:
+        EU: 0x238AFA8
+        NA: 0x238A468
+        JP: 0x238B9C8
+      description: |-
+        Seems to handle closing portrait boxes for the overlay. 
+        
+        No params.
+    - name: BarCaseManagerSub
+      address:
+        EU: 0x238AFE4
+        NA: 0x238A4A4
+        JP: 0x238BA04
+      description: |-
+        Called once every frame by SpindaBarMenuUpdate if the bar_update_case is BAR_SUBCASE_FUNC.
+        State Case with unique behaviors enumerated by enum bar_subcase.
+        
+        return: maybe a return code for SpindaBarMenuUpdate?
+    - name: BarMaybeSetBarScrollBoxWindowId
+      address:
+        EU: 0x238B93C
+      description: |-
+        Seems to set the scroll_box_window_id for spinda_cafe.
+        
+        r0: undefined4
+        r1: undefined4
+        r2: undefined4
+        return: undefined4
+    - name: BarPopulateDrinkableBagItems
+      address:
+        EU: 0x238D0DC
+        NA: 0x238C5A8
+        JP: 0x238DB00
+      description: |-
+        Populates an item list of only valid bar items within spinda_cafe.
+        
+        No params.
+    - name: BarZeroInitPreprocessorFlagsAndReturnCase
+      address:
+        EU: 0x238D174
+        NA: 0x238C640
+        JP: 0x238DB98
+      description: |-
+        Zero inits many preprocessor_flag fields, but also sets the return_case for scripts to zero within spinda_cafe.
+        
+        No params.
+    - name: BarZeroInitBufferAndPreprocessorArgsZero
+      address:
+        EU: 0x238D1A4
+        NA: 0x238C670
+        JP: 0x238DBC8
+      description: |-
+        Zero initializes the preprocessor_args_0 and string_buffer_0 fields of spinda_cafe.
+        
+        return: bool for if buffer was empty string
+    - name: BarTrySetEventMainActor
+      address:
+        EU: 0x238D1F8
+        NA: 0x238C6C4
+        JP: 0x238DC1C
+      description: |-
+        Seems to set ACTOR_NPC_EVENT_MAIN to whoever the player ordered the drink for.
+        Seems to do other things before that though...
+        
+        return: undefined4
+    - name: BarZeroInitBufferAndPreprocessorArgsOne
+      address:
+        EU: 0x238D2E4
+        NA: 0x238C7B0
+        JP: 0x238DD08
+      description: |-
+        Zero initializes the preprocessor_args_1 and string_buffer_1 fields of spinda_cafe.
+        
+        return: bool for if buffer was empty string
+    - name: BarPrintHpIncreaseString
+      address:
+        EU: 0x238D340
+        NA: 0x238C80C
+        JP: 0x238DD64
+      description: |-
+        Handles printing the correct text for a HP stat increase from a drink.
+        
+        r0: hp increase amount?
+        r1: a different hp increase amount?
+        return: undefined4
+    - name: BarPrintOtherStatIncreaseString
+      address:
+        EU: 0x238D434
+        NA: 0x238C900
+        JP: 0x238DE58
+      description: |-
+        Seems to handle printing the correct text for a non-HP, non-IQ stat increase from a drink.
+        
+        r0: stat increase amount?
+        r1: a different stat increase amount?
+        r2: Stat Index
+        return: undefined4
+    - name: BarPrintIqAndSkills
+      address:
+        EU: 0x238D524
+        NA: 0x238C9F0
+        JP: 0x238DF48
+      description: |-
+        Seems to handle printing the correct text for an IQ stat increase from a drink, including learned skills.
+        
+        r0: IQ increase amount
+        return: undefined4
+    - name: BarPrintLevelMaxedOutString
+      address:
+        EU: 0x238D660
+        NA: 0x238CB2C
+        JP: 0x238E084
+      description: |-
+        Seems to handle printing the correct text for a "level increase" from a drink, but only if the pokemon is already level 100.
+        
+        r0: levels "increased"
+    - name: BarDrawAndUpdateGainedIqSkills
+      address:
+        EU: 0x238D6F4
+        NA: 0x238CBC0
+        JP: 0x238E118
+      description: |-
+        Called by BarPrintIqAndSkills to name any IQ skills gained from a drink.
+        
+        r0: char
+        r1: char
+        r2: int
+        r3: int
+        stack[0]: int
+        stack[1]: int
+        stack[2]: int
+        return: undefined4
+    - name: BarUpdateDrinkEventNewStats
+      address:
+        EU: 0x238D820
+        NA: 0x238CCEC
+        JP: 0x238E244
+      description: |-
+        Actually apply stat changes from a drink.
+        
+        r0: struct bar_stats_data*
+        r1: stored to bar_stats_data->stat_drink_event_kind
+        return: undefined4
+    - name: BarPrintReactionsAndStatIncreases
+      address:
+        EU: 0x238D9F4
+        NA: 0x238CEC0
+        JP: 0x238E418
+      description: |-
+        Seems to handle drink reactions, and calling the correct stat increase text function.
+        
+        r0: struct bar_stats_data*
+    - name: BarHandleDrinkEventSubcase
+      address:
+        EU: 0x238DC0C
+        NA: 0x238D0D8
+        JP: 0x238E630
+      description: |-
+        Has different behavior based on the type of drink. Usually assigns the next correct bar_subcase, and for good stat based drink events, seems to handle or roll that somehow. 
+        
+        No params.
+    - name: BarPostDrinkCaseForCustomer
+      address:
+        EU: 0x238DE44
+        NA: 0x238D310
+        JP: 0x238E868
+      description: |-
+        Sets the correct bar_update_case after completing a drink, depending on who ordered the drink.
+        
+        No params.
+    - name: BarMaybeIsClosedUnkStringIdMenu
+      address:
+        EU: 0x238DEBC
+        NA: 0x238D388
+        JP: 0x238E8E0
+      description: |-
+        Seems to check if a currently unknown String Id based menu type's window is closed?
+        Just a guess.
+        
+        return: undefined4
+    - name: BarCreateUnkStringIdMenu
+      address:
+        EU: 0x238DED4
+        NA: 0x238D3A0
+        JP: 0x238E8F8
+      description: |-
+        Seems to handle initialization of a currently unknown String Id based menu type.
+        
+        r0: undefined4
+        r1: undefined4
+        r2: struct simple_menu_id_item*
+        r3: undefined4
+        stack[0]: char
+        stack[1]: uint32_t
+    - name: GetUnkStringIdMenuResult
+      address:
+        EU: 0x238DF4C
+        NA: 0x238D418
+        JP: 0x238E970
+      description: |-
+        Seems to retrieve the result of some kind of player choice from a currently unknown String Id based menu type.
+        
+        return: menu result
+    - name: BarTryShowPortrait
+      address:
+        EU: 0x238DF84
+        NA: 0x238D450
+        JP: 0x238E9A8
+      description: |-
+        Calls ShowPortraitInPortraitBox with portrait data from the spinda_cafe struct.
+        
+        No params.
+    - name: BarTryHidePortrait
+      address:
+        EU: 0x238DFB0
+        NA: 0x238D47C
+        JP: 0x238E9D4
+      description: |-
+        Calls HidePortraitBox with portrait data from the spinda_cafe struct.
+        
+        No params.
+    - name: BarInventoryMenuCallback
+      address:
+        EU: 0x238DFD8
+        NA: 0x238D4A4
+        JP: 0x238E9FC
+      description: |-
+        Seems to be some sort of callback function used by an inventory menu for the cafe.
+        
+        r0: undefined4
+        r1: spinda_cafe->item_validities index?
+        r2: undefined4
+        return: undefined4
+    - name: BarTryCloseInventoryMenu
+      address:
+        EU: 0x238E018
+        NA: 0x238D4E4
+        JP: 0x238EA3C
+      description: |-
+        Calls CloseInventoryMenu with spinda_cafe->inventory_window_id.
+        
+        No params.
+    - name: BarTryCloseTeamMovesMenu
+      address:
+        EU: 0x238E050
+        NA: 0x238D51C
+        JP: 0x238EA74
+      description: |-
+        Calls CloseAdvancedTextBox with spinda_cafe->inventory_window_id.
+        Contextually seems responsible for closing the menu for team moves.
+        
+        No params.
+    - name: SpindaBarEntry
+      address:
+        EU: 0x238E0A0
+        NA: 0x238D56C
+        JP: 0x238EAC4
+      description: |-
+        First entry point into overlay 19, called by MENU_JUICE_BAR.
+        
+        return: undefined4
+    - name: SpindaBarResume
+      address:
+        EU: 0x238E130
+        NA: 0x238D5FC
+        JP: 0x238EB54
+      description: |-
+        Subsequent entry point into overlay 19, called by MENU_JUICE_BAR_PICK_ITEM.
+        
+        return: undefined4
+    - name: SpindaBarDestruct
+      address:
+        EU: 0x238E1C0
+        NA: 0x238D68C
+        JP: 0x238EBE4
+      description: |-
+        The destructor of overlay 19 for both entry points.
+        Does nothing but call BarTryClosePortraitBox...
+        
+        No params.
+    - name: SpindaBarMenuUpdate
+      address:
+        EU: 0x238E1CC
+        NA: 0x238D698
+        JP: 0x238EBF0
+      description: |-
+        Called every frame overlay 19 is active, primarily handling interface between the script, and BarCaseManagerSub.
+        
+        return: undefined4
   data:
-    - name: OVERLAY19_UNKNOWN_TABLE__NA_238DAE0
+    - name: BAR_MIRACLE_EVENT_WEIGHTS
       address:
         EU: 0x238E614
         NA: 0x238DAE0
         JP: 0x238F038
       length:
+        EU: 0x8
         NA: 0x8
       description: |-
-        4*0x2
+        Weights for a "miracle drink event" to be an egg, a gourmet recruit, a dungeon unlock, or a regular miracle drink in that order.
+        By default, it's 10 weight for each.
         
-        Note: unverified, ported from Irdkwia's notes
+        type: int16_t[4]
     - name: BAR_UNLOCKABLE_DUNGEONS_TABLE
       address:
         EU: 0x238E61C
         NA: 0x238DAE8
         JP: 0x238F040
       length:
+        EU: 0xC
         NA: 0xC
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Stores dungeon ids, as well as the required $SCENARIO_BALANCE_FLAG to obtain them from the cafe.
         
-        type: struct dungeon_id_16[6]
-    - name: BAR_RECRUITABLE_MONSTER_TABLE
+        type: struct bar_dungeon_unlock[6]
+    - name: BAR_RECRUITABLE_GOURMET_MONSTER_TABLE
+      aliases:
+        - BAR_RECRUITABLE_MONSTER_TABLE
       address:
         EU: 0x238E628
         NA: 0x238DAF4
         JP: 0x238F04C
       length:
+        EU: 0xD8
         NA: 0xD8
         JP: 0xD8
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        A table of valid monsters for both the recruit for the gourmet recruit event, and the egg-giver for egg event.
         
-        type: struct monster_id_16[108]
+        type: monster_id_16[108]
     - name: BAR_AVAILABLE_ITEMS
       address:
         EU: 0x238E700
         NA: 0x238DBCC
         JP: 0x238F124
       length:
+        EU: 0x5AC
         NA: 0x5AC
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        A table of valid bar items, the stats they would give for a good drink, and the weights for normal/good/"miracle"/bad drinks.
         
         type: struct bar_item[66]
-    - name: OVERLAY19_UNKNOWN_STRING_IDS__NA_238E178
+    - name: BAR_STAT_REACTION_STRINGS
       address:
         EU: 0x238ECAC
         NA: 0x238E178
         JP: 0x238F6D0
       length:
+        EU: 0x2C
         NA: 0x2C
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: OVERLAY19_UNKNOWN_STRUCT__NA_238E1A4
+      description: |-
+        Text string ids for bad/miracle/good drink reactions to stat changes, in that order.
+        Ex: "Huh?[K] Whaaat?[K]" or "Shock!!!"
+        
+        type: int16_t[3]
+    - name: GOOD_DRINK_REACTION_STRINGS
+      address:
+        EU: 0x238ECB2
+        NA: 0x238E17E
+        JP: 0x238F6D6
+      length:
+        EU: 0x6
+      description: |-
+        Text string ids for good drinks if a stat goes up/a stat is already maxed out/IQ went up in that order.
+        
+        type: int16_t[3]
+    - name: BAR_STAT_CHANGE_STRINGS
+      address:
+        EU: 0x238ECB8
+        NA: 0x238E184
+        JP: 0x238F6DC
+      length:
+        EU: 0x6
+      description: |-
+        Text string ids for stats changing because of bad/miracle/good drinks in that order.
+        
+        type: int16_t[3]
+    - name: NEUTRAL_DRINK_REACTION_STRINGS
+      address:
+        EU: 0x238ECBE
+        NA: 0x238E18A
+        JP: 0x238F6E2
+      length:
+        EU: 0x6
+      description: |-
+        Text string ids for the flavor of neutral drinks.
+        
+        type: int16_t[3]
+    - name: BAD_DRINK_REACTION_STRINGS
+      address:
+        EU: 0x238ECC4
+        NA: 0x238E190
+        JP: 0x238F6E8
+      length:
+        EU: 0x6
+      description: |-
+        Text string ids for the flavor of bad drinks.
+        
+        type: int16_t[3]
+    - name: BAR_IQ_CHANGE_STRINGS
+      address:
+        EU: 0x238ECCA
+        NA: 0x238E196
+        JP: 0x238F6EE
+      length:
+        EU: 0x6
+      description: |-
+        Text string ids for how IQ changed, depending on the source of the IQ increase (guaranteed, good, miracle).
+        
+        type: int16_t[3]
+    - name: BAR_IQ_UNABLE_TO_CHANGE_STRINGS
+      address:
+        EU: 0x238ECD0
+        NA: 0x238E19C
+        JP: 0x238F6F4
+      length:
+        EU: 0x6
+      description: |-
+        Text string ids for how IQ would have changed, depending on the source of the IQ increase (guaranteed, good, miracle).
+        Play if IQ is already maxed out. One of these strings falsely claims IQ increases anyway.
+        
+        type int16_t[3]
+    - name: GOURMET_PORTRAIT_OFFSET_TABLE
       address:
         EU: 0x238ECD8
         NA: 0x238E1A4
         JP: 0x238F6FC
       length:
+        EU: 0x28
         NA: 0x28
       description: |-
-        5*0x8
+        Table of portrait offsets for the gourmet recruit's portraits during the gourmet recruit drink event.
         
-        Note: unverified, ported from Irdkwia's notes
-    - name: OVERLAY19_UNKNOWN_STRING_IDS__NA_238E1CC
+        type: vec2[5]
+    - name: BAR_STAT_NAME_STRINGS
       address:
         EU: 0x238ED00
         NA: 0x238E1CC
         JP: 0x238F724
       length:
+        EU: 0xC
         NA: 0xC
-      description: "Note: unverified, ported from Irdkwia's notes"
+      description: |-
+        Text string ids for the names of the stats, to be used by other text strings.
+        
+        type: int16_t[6]
     - name: BAR_WINDOW_PARAMS_1
       address:
         EU: 0x238ED0C
@@ -168,14 +609,20 @@ overlay19:
         EU: 0x18
         NA: 0x18
         JP: 0x18
-    - name: OVERLAY19_UNKNOWN_STRING_IDS__NA_238E238
+    - name: BAR_DRINK_NAMES_STRINGS
       address:
         EU: 0x238ED6C
         NA: 0x238E238
         JP: 0x238F790
       length:
+        EU: 0x18
         NA: 0x18
-      description: "Note: unverified, ported from Irdkwia's notes"
+        JP: 0x18
+      description: |-
+        A list of types of drinks, such as "Tea", "Milk", or "Juice" to refer to the drink by.
+        Not all of the text strings designed for this purpose are actually in use. 
+        
+        type: int16_t[12]
     - name: BAR_MAIN_MENU_ITEMS
       address:
         EU: 0x238ED84
@@ -203,6 +650,77 @@ overlay19:
         EU: 0x30
         NA: 0x30
         JP: 0x30
+    - name: BAR_NEW_LINE_CHAR
+      address:
+        EU: 0x238EDF4
+        NA: 0x238E2C0
+        JP: 0x238F818
+      length:
+        EU: 0x4
+      description: |-
+        A new line character, appended to various other strings during operation of the menu.
+        Always loaded as a full 4 bytes...
+        
+        type: wchar_t
+    - name: BAR_ME_PLAY_TEXT_TAG
+      address:
+        EU: 0x238EDF8
+        NA: 0x238E2C4
+        JP: 0x238F81C
+      length:
+        EU: 0xC
+      description: |-
+        "[me_play:0]"
+        
+        type: string
+    - name: DEBUG_MESSAGE_REQUEST_STR
+      address:
+        EU: 0x238EE04
+        NA: 0x238E2D0
+        JP: 0x238F828
+      length:
+        EU: 0x17
+      description: |-
+        "dirinkbar request %3d\n"
+        Request likely refers to requesting the script to do something.
+        
+        type: string
+    - name: DEBUG_MESSAGE_REQUEST_AND_RETURN_STR
+      address:
+        EU: 0x238EE1C
+        NA: 0x238E2E8
+        JP: 0x238F840
+      length:
+        EU: 0x1C
+      description: |-
+        "dirinkbar request %3d[%3d]\n"
+        Request again likely refers to requesting the script to do something.
+        
+        type: string
+    - name: DEBUG_MESSAGE_BEFORE_SET_STR
+      address:
+        EU: 0x238EE38
+        NA: 0x238E304
+        JP: 0x238F85C
+      length:
+        EU: 0x1E
+      description: |-
+        "dirinkbar message before set\n"
+        Message before likely refers to a textbox appearing immediately before passing control to the script engine.
+        
+        type: string
+    - name: DEBUG_MESSAGE_AFTER_SET_STR
+      address:
+        EU: 0x238EE58
+        NA: 0x238E324
+        JP: 0x238F87C
+      length:
+        EU: 0x1D
+      description: |-
+        "dirinkbar message after set\n"
+        Message before likely refers to a textbox appearing immediately after passing control to the script engine.
+        
+        type: string
     - name: OV19_STATIC_INITIALIZER
       aliases:
         - OVERLAY19_RESERVED_SPACE
@@ -215,17 +733,12 @@ overlay19:
         NA: 0x4
         JP: 0x4
       description: Static initializer for overlay 19.
-    - name: OVERLAY19_UNKNOWN_POINTER__NA_238E360
+    - name: BAR_MENU_PRIOR_CHOICE_INDICES
       address:
         EU: 0x238EE80
         NA: 0x238E360
         JP: 0x238F8A0
       length:
-        NA: 0x4
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: OVERLAY19_UNKNOWN_POINTER__NA_238E364
-      address:
-        NA: 0x238E364
-      length:
-        NA: 0x4
-      description: "Note: unverified, ported from Irdkwia's notes"
+        EU: 0x6
+        NA: 0x6
+      description: "Seems to remember where the player's cursor was previously during menu navigation."

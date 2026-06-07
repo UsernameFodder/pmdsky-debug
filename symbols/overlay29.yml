@@ -383,6 +383,8 @@ overlay29:
     - name: OamTileNumberToVramAddressOv29
       address:
         EU: 0x22E186C
+        NA: 0x22E0F2C
+        JP: 0x22E25BC
       description: |-
         Maps an object's designated OAM tile number (bits 0-9 in attribute 2) to the address its texture should be placed at in VRAM.
         
@@ -1460,6 +1462,8 @@ overlay29:
     - name: AnimateWaterShadows
       address:
         EU: 0x22EAFFC
+        NA: 0x22EA64C
+        JP: 0x22EBCB4
       description: |-
         Animates the water shadows beneath entities.
         
@@ -4280,6 +4284,8 @@ overlay29:
     - name: DisplayMonsterShadow
       address:
         EU: 0x2304888
+        NA: 0x2303E5C
+        JP: 0x23053AC
       description: |-
         Displays a shadow under a monster.
         
