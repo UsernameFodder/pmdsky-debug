@@ -1257,7 +1257,7 @@ bool CheckItemForMissionType(enum mission_type type, union mission_subtype* subt
 enum mission_generation_result GenerateMission(undefined* param_1, struct mission* mission_data);
 int CountAndPopulateValidMissionTableMonsters(enum monster_id* monster_table, undefined4* range);
 bool IsMissionTypeSpecialEpisode(struct mission* mission);
-bool DoesMissionHaveTypeAndSubtype(struct mission, struct mission_type_8* type, union mission_subtype* subtype);
+bool DoesMissionHaveTypeAndSubtype(struct mission* mission, struct mission_type_8* type, union mission_subtype* subtype);
 bool AlreadyHasSimilarMission(struct mission_type_8* type, union mission_subtype* subtype);
 void GenerateDailyMissions(void);
 bool AlreadyHaveMission(struct mission* mission);
