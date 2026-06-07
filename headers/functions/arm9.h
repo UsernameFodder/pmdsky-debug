@@ -585,6 +585,7 @@ uint8_t DrawChar(int window_id, int x, int y, char symbol, int color_offset);
 struct window* GetWindow(int window_id);
 int NewWindowScreenCheck(struct window_params* params, uint8_t param_2);
 int NewWindow(struct window_params* params, uint8_t param_2);
+int GetPaletteBaseAddress(undefined4 pal_vram_offset_upper, undefined4 pal_vram_offset_lower);
 void SetScreenWindowsColor(int palette_idx, bool upper_screen);
 void SetBothScreensWindowsColor(int palette_idx);
 void UpdateWindow(int window_id);

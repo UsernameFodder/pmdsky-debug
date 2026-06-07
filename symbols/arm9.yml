@@ -5585,6 +5585,16 @@ arm9:
         r0: window_params pointer to be copied by value into window::hdr in the new window
         r1: ?
         return: window_id
+    - name: GetPaletteBaseAddress
+      address:
+        EU: 0x2027B9C
+      description: |-
+        Gets the palette base address for a 3D element loaded from a WTE file.
+        Takes the same parameters as were used in the specified file's ProcessWte call.
+        
+        r0: upper part of the palette VRAM
+        r1: lower part of the palette VRAM
+        return: palette base address
     - name: SetScreenWindowsColor
       address:
         EU: 0x2027D5C

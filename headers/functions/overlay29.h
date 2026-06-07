@@ -47,13 +47,14 @@ void PopulateActiveMonsterPtrs(void);
 int GetTeamMemberIndex(struct entity* monster);
 void SubstitutePlaceholderStringTags(int string_id, struct entity* entity, undefined4 param_3);
 bool UpdateMapSurveyorFlag(void);
-void PointCameraToMonster(struct entity* entity, undefined param_2);
+void PointCameraToMonster(struct entity* entity, bool update_trap_vis_and_map);
 void UpdateCamera(undefined param_1);
 bool ItemIsActive(struct entity* entity, enum item_id item_id);
 int GetVisibilityRange(void);
 void RevealWholeFloor(struct entity* entity);
 int PlayEffectAnimationEntity(struct entity* entity, int effect_id, bool play_now, int param_4,
-                              int param_5, undefined param_6, int param_7, undefined2* param_8);
+                              int param_5, undefined param_6, enum direction_id effect_dir,
+                              undefined2* param_8);
 int PlayEffectAnimationPos(struct position* pos, int effect_id, bool play_now);
 int PlayEffectAnimationPixelPos(struct pixel_position* pixel_pos, int effect_id, bool play_now);
 void AnimationDelayOrSomething(undefined param_1);
@@ -67,6 +68,8 @@ void PlayEffectAnimationEntityStandard(struct entity* entity, int effect_id);
 void PlaySpeedUpEffect(struct entity* entity);
 void PlaySpeedDownEffect(struct entity* entity);
 void ShowPpRestoreEffect(struct entity* entity);
+void DisplayStockpileNumbers(struct entity* entity);
+void PlayInvisifySeIfShouldDisplayEntity(struct entity* entity);
 void PlayOffensiveStatDownEffect(struct entity* entity, int stat_index);
 void PlayDefensiveStatDownEffect(struct entity* entity, int stat_index);
 void PlayOffensiveStatUpEffect(struct entity* entity, int stat_index);
@@ -208,6 +211,14 @@ bool DebugRecruitingEnabled(void);
 void TryActivateIqBooster(void);
 bool IsBehaviorLoneOutlaw(enum monster_behavior behavior);
 bool IsSecretBazaarNpcBehavior(enum monster_behavior behavior);
+bool TalkToSecretBazaarNpcStandard(int string_id, struct entity* shopkeeper, 
+                                   enum portrait_emotion emotion);
+bool TalkToSecretBazaarNpcWithYesNoMenu(int string_id, struct entity* shopkeeper, 
+                                   enum portrait_emotion emotion);
+void MakeTargetFaceUserAndIdle(struct entity* target, struct entity* user);
+void SubtractMoneyCarriedWithSfx(int amount);
+bool TalkToSecretBazaarNpc(int string_id, struct entity* shopkeeper, enum portrait_emotion emotion, 
+                           struct simple_menu_id_item* menu_items, bool param_5);
 struct action_16* GetLeaderAction(void);
 enum action_id GetLeaderActionId(void);
 void GetEntityTouchscreenArea(struct entity* entity, struct touchscreen_area* area);
@@ -259,8 +270,10 @@ void ReevaluateSnatchMonster(void);
 struct entity* GetRandomExplorerMazeMonster(void);
 void RestorePpAllMovesSetFlags(struct entity* entity);
 bool CheckTeamMemberIdxVeneer(int member_idx);
+bool CheckMonsterTeamMemberIdx(struct entity* entity);
 bool IsMonsterIdInNormalRangeVeneer(enum monster_id monster_id);
 void BoostIQ(struct entity* entity, int iq_boost, bool suppress_logs);
+void ChangeMonsterAnimationToIdle(struct entity* entity, enum direction_id direction);
 bool ShouldMonsterHeadToStairs(struct entity* entity);
 bool MewSpawnCheck(enum monster_id monster_id, bool fail_if_mew);
 void TryEndStatusWithAbility(struct entity* attacker, struct entity* defender);
@@ -392,7 +405,7 @@ bool DungeonTmLearnMove(struct entity* user, enum move_id move_id);
 void GetMonsterMoves(struct move_id_16* out_moves, enum monster_id monster_id, int level);
 void EvolveMonster(struct entity* user, struct entity* target, enum monster_id new_monster_id);
 void DisplayMonsterShadow(bool display_shadow, enum shadow_type shadow_type, bool yellow_circle,
-                          uint16_t x, uint16_t y);
+                          int16_t x, int16_t y);
 void ChangeMonsterAnimation(struct entity* monster, int8_t animation_id,
                             enum direction_id direction);
 uint8_t GetIdleAnimationId(struct entity* entity);
@@ -476,6 +489,8 @@ void UpdateShopkeeperModeAfterAttack(struct entity* attacker, struct entity* def
 void UpdateShopkeeperModeAfterTrap(struct entity* shopkeeper, bool non_team_member);
 void ResetDamageCalcDiagnostics(void);
 bool SpecificRecruitCheck(enum monster_id monster_id);
+bool PointCameraToMonsterWrapper(struct entity* entity);
+bool IsEitherMonsterInvalid(struct entity* entity1, struct entity* entity2);
 bool RecruitCheck(struct entity* user, struct entity* target);
 bool TryRecruit(struct entity* user, struct entity* recruit);
 void TrySpawnMonsterAndTickSpawnCounter(void);
@@ -763,7 +778,7 @@ void ActivateSportCondition(bool water_sport);
 bool TryActivateWeather(bool param_1, bool param_2);
 int DigitCount(int n);
 void LoadTextureUi(void);
-int GetPaletteBaseAddress(undefined4 pal_vram_offset_upper, undefined4 pal_vram_offset_lower);
+int GetPaletteBaseAddressOv29(undefined4 pal_vram_offset_upper, undefined4 pal_vram_offset_lower);
 int DisplayNumberTextureUi(int16_t x, int16_t y, int n, int ally_mode);
 int DisplayCharTextureUi(struct render_3d_element_64* element64, int16_t x, int16_t y, int char_id,
                          int16_t param_5);
@@ -923,6 +938,7 @@ void GenerateAndSpawnItem(enum item_id item_id, int16_t x, int16_t y, uint16_t q
                           bool sticky, bool check_in_bag);
 bool IsHiddenStairsFloor(void);
 bool IsSecretBazaarVeneer(void);
+void InteractWithSecretBazaarNpc(struct entity* user, struct entity* shopkeeper);
 void PrepareItemForPrinting(uint8_t tag_id, struct item* item);
 void PrepareItemForPrinting2(struct preprocessor_args* preprocessor_args, uint8_t tag_id,
                              struct item* item);

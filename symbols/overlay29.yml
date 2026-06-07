@@ -637,7 +637,7 @@ overlay29:
         Points the camera to the specified monster.
         
         r0: Entity pointer
-        r1: ?
+        r1: whether to also update trap visibility and the minimap
     - name: UpdateCamera
       address:
         EU: 0x22E3874
@@ -732,6 +732,7 @@ overlay29:
         r0: entity pointer
         r1: Effect ID
         r2: appears to be a flag for actually running the animation now? If this is 0, the AdvanceFrame loop is skipped entirely.
+        stack[2]: direction of effect
         others: ?
         return: status code, or maybe the number of frames or something? Either way, -1 seems to indicate the animation being finished or something?
     - name: PlayEffectAnimationPos
@@ -862,6 +863,20 @@ overlay29:
         JP: 0x22E5B8C
       description: |-
         Displays the graphical effect on a monster that just lowered movement speed.
+        
+        r0: entity pointer
+    - name: DisplayStockpileNumbers
+      address:
+        EU: 0x22E5084
+      description: |-
+        Displays the numbers for a monster's stockpile stage above them.
+        
+        r0: entity pointer
+    - name: PlayInvisifySeIfShouldDisplayEntity
+      address:
+        EU: 0x22E50B4
+      description: |-
+        Calls PlaySeByIdIfShouldDisplayEntity with the sound effect for turning a monster invisible.
         
         r0: entity pointer
     - name: ShowPpRestoreEffect
@@ -2268,6 +2283,53 @@ overlay29:
         
         r0: monster behavior ID
         return: bool
+    - name: TalkToSecretBazaarNpcStandard
+      address:
+        EU: 0x22F0FB8
+      description: |-
+        Opens a dialogue box with the given shopkeeper as the speaker, without a yes/no menu and with param_5 set to false.
+        
+        r0: string id
+        r1: shopkeeper entity pointer
+        r2: portrait emotion
+        return: ? (bool)
+    - name: TalkToSecretBazaarNpcWithYesNoMenu
+      address:
+        EU: 0x22F0FE0
+      description: |-
+        Opens a dialogue box with the given shopkeeper as the speaker, with a yes/no menu and with param_5 set to true.
+        
+        r0: string id
+        r1: shopkeeper entity pointer
+        r2: portrait emotion
+        return: ? (bool)
+    - name: MakeTargetFaceUserAndIdle
+      address:
+        EU: 0x22F1008
+      description: |-
+        Makes the target face the user and changes their animation to idle.
+        
+        r0: target entity pointer
+        r1: user entity pointer
+    - name: SubtractMoneyCarriedWithSfx
+      address:
+        EU: 0x22F1170
+      description: |-
+        Subtracts the amount of money from the the player's current amount of money and plays the sound effect for buying an item.
+        
+        r0: money amount
+    - name: TalkToSecretBazaarNpc
+      address:
+        EU: 0x22F1338
+      description: |-
+        Opens a dialogue box with the given shopkeeper as the speaker.
+        
+        r0: string id
+        r1: shopkeeper entity pointer
+        r2: portrait emotion
+        r3: pointer to an array of simple_menu_id_items (null if there is no menu)
+        stack[0]: ? (changes something in secret_bazaar_dialogue_info if true. seems to only be true if there is a menu)
+        return: ? (bool)
     - name: GetLeaderAction
       address:
         EU: 0x22F1540
@@ -2792,18 +2854,25 @@ overlay29:
         Called when a monster is revived.
         
         r0: pointer to entity whose moves will be restored
-    - name: CheckTeamMemberIdxVeneer
+    - name: CheckMonsterTeamMemberIdx
       address:
-        EU: 0x22FA64C
-        NA: 0x22F9C40
-        JP: 0x22FB1F8
+        EU: 0x22FA658
       description: |-
-        Likely a linker-generated veneer for CheckTeamMemberIdx.
+        Calls CheckTeamMemberIdx on the given monster's team_index.
         
-        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
-        
-        r0: member index
+        r0: entity pointer
         return: True if the value is equal to 0x55AA or 0x5AA5
+    - name: GetRandomExplorerMazeMonster
+      address:
+        EU: 0x22FA3F8
+        NA: 0x22F99EC
+        JP: 0x22FAFA4
+      description: |-
+        Checks if any enemy monsters on the floor have the behavior BEHAVIOR_EXPLORER_MAZE_1, 
+        BEHAVIOR_EXPLORER_MAZE_2, BEHAVIOR_EXPLORER_MAZE_3 or BEHAVIOR_EXPLORER_MAZE_4 and returns
+        one at random. If none can be found, it returns NULL.
+        
+        return: monster entity pointer
     - name: IsMonsterIdInNormalRangeVeneer
       address:
         EU: 0x22FA674
@@ -2827,6 +2896,14 @@ overlay29:
         r0: monster entity pointer
         r1: iq boost
         r2: bool suppress logs
+    - name: ChangeMonsterAnimationToIdle
+      address:
+        EU: 0x22FAD6C
+      description: |-
+        Makes the monster play their idle animation in the given direction.
+        
+        r0: entity pointer
+        r1: direction
     - name: ShouldMonsterHeadToStairs
       address:
         EU: 0x22FAE3C
@@ -4209,8 +4286,8 @@ overlay29:
         r0: whether to display the shadow
         r1: shadow type
         r2: whether to display a yellow circle (for team members and special cases like decoys, rescue clients, etc.)
-        r3: x-coordinate in OAM plus 0x10
-        stack[0]: y-coordinate in OAM plus 0x8
+        r3: the x-coordinate in OAM plus some constant offset. Valid input range: (-0x20, 0x11F)
+        stack[0]: the y-coordinate in OAM plus some constant offset. Valid input range: (-0x20, 0xE0)
     - name: ChangeMonsterAnimation
       address:
         EU: 0x23053D4
@@ -4862,6 +4939,22 @@ overlay29:
         Resets the damage calculation diagnostic info stored on the dungeon struct. Called unconditionally at the start of CalcDamage.
         
         No params.
+    - name: PointCameraToMonsterWrapper
+      address:
+        EU: 0x230E0B8
+      description: |-
+        Calls PointCameraToMonster on the given monster with update_trap_vis_and_map = 1.
+        
+        r0: entity pointer
+    - name: IsEitherMonsterInvalid
+      address:
+        EU: 0x230E0C8
+      description: |-
+        Returns true if at least one of the given monsters is an invalid entity.
+        
+        r0: entity pointer
+        r1: entity pointer
+        return: bool
     - name: SpecificRecruitCheck
       address:
         EU: 0x230E588
@@ -7492,7 +7585,9 @@ overlay29:
         Note: unverified, ported from Irdkwia's notes
         
         No params.
-    - name: GetPaletteBaseAddress
+    - name: GetPaletteBaseAddressOv29
+      aliases:
+        - GetPaletteBaseAddress
       address:
         EU: 0x23362B0
         NA: 0x2335864
@@ -7500,6 +7595,8 @@ overlay29:
       description: |-
         Gets the palette base address for a 3D element loaded from a WTE file.
         Takes the same parameters as were used in the specified file's ProcessWte call.
+        
+        Is an exact copy of GetPaletteBaseAddress in arm9.
         
         r0: upper part of the palette VRAM
         r1: lower part of the palette VRAM
@@ -9091,6 +9188,14 @@ overlay29:
         See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
         
         return: bool
+    - name: InteractWithSecretBazaarNpc
+      address:
+        EU: 0x2345128
+      description: |-
+        Called to interact with a secret bazaar shopkeeper.
+        
+        r0: user entity pointer
+        r1: shopkeeper entity pointer
     - name: PrepareItemForPrinting
       address:
         EU:
