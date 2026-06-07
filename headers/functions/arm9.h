@@ -1302,7 +1302,7 @@ void MakeSpecialEpisodeMissionDetails(struct mission_details details, undefined 
 undefined PrintWonderMailSkyCode(undefined param_1, undefined param_2, undefined param_3,
                                  undefined param_4);
 void AppendMissionObjective(char* buffer, int buffer_size, undefined4 objective, enum monster_id monster,
-                            enum item_id_16 item);
+                            struct item_id_16 item);
 void AppendMissionDungeonLocation(struct mission_details* param_1, char* buffer, int buffer_size);
 bool SumValidMissionCategoryWeights(enum mission_vendor vendor);
 struct mission_template* GetRandomMissionTemplate(void);
