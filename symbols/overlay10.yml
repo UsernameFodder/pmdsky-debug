@@ -139,11 +139,11 @@ overlay10:
         Seems to handle the creation of an inventory menu for the spinda cafe.
         The fact that this lives in overlay_10 suggests it may serve a more general purpose
         
-        r0: int32_t
+        r0: n_items
         r1: int32_t
         r2: int32_t
         r3: uint8_t * 
-        stack[0]: void
+        stack[0]: ?
         stack[1]: update_window_fn_t 
         statk[2]: uint32_t
     - name: GetEffectAnimationField0x19

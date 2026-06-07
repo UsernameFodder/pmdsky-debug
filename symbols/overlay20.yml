@@ -28,7 +28,6 @@ overlay20:
         The entry point for the overlay, when called by MENU_RECYCLE_SHOP2, resuming operations of the overlay.
         Calls RecycleShopCommonEntryPoint(0).
         
-        
         return: undefined4
     - name: RecycleShopDestructor
       address:
@@ -50,7 +49,6 @@ overlay20:
       description: |-
         Effectively the shared entry_point of both recycle shop overlay_load_entry, called immediately by both real entry_points to the overlay.
         
-        
         r0: 1 if resuming, 0 if first entry.
         return: undefined4
     - name: PrintWynautTextbox
@@ -59,14 +57,12 @@ overlay20:
       description: |-
         Seems to display a textbox with wynaut's default portrait and a specified text string id.
         
-        
         r0: string_id
     - name: PrintWynautSimpleMenu
       address:
         EU: 0x238BEDC
       description: |-
         Seems to display a simple_menu with wynaut's default portrait, a specified text string id, and a few simple_menu_id_item pointers.
-        
         
         r0: struct recycle_shop_main
         r1: string_id
@@ -76,7 +72,6 @@ overlay20:
         EU: 0x238BF50
       description: |-
         Seems to hide the active portrait box? Might be doing something else in addition. 
-        
         
         r0: struct recycle_shop_main pointer
         r1: ?
@@ -114,23 +109,21 @@ overlay20:
       description: |-
         Seems to display the trade info and stats for the item the cursor is currently on on the top screen window.
         
-        
         r0: int
     - name: RecycleShopTopScreenDrawItemName
       address:
         EU: 0x238C580
       description: |-
         Seems to print the item the cursor is currently on to the top screen window. 
-        
-        
-        r0: int
+
+        r0: window_id
     - name: RecycleShopTopScreenDrawInfoWindow
       address:
         EU: 0x238C5F4
       description: |-
         Seems to display the bottom window in the top screen display of the recycle shop, which explains how to read the top window.
         
-        r0: int32_t
+        r0: window_id
         r1: undefined4
         r2: undefined4
         r3: undefined4
@@ -140,7 +133,7 @@ overlay20:
       description: |-
         Displays a side window explaining how to multi-select items for non-specific recycling.
         
-        r0: int32_t
+        r0: window_id
         r1: undefined4
         r2: undefined4
         r3: undefined4
@@ -207,6 +200,7 @@ overlay20:
         NA: 0x238D014
         JP: 0x238E570
       length:
+        EU: 0x11
         NA: 0x11
       description: |-
         "BACK/s14p02a.bgp"
@@ -361,8 +355,6 @@ overlay20:
         
         type: recycle_shop_main*
     - name: RECYCLE_SHOP_UNK_STRUCT_SIZE_84H_PTR
-      aliases:
-        - OVERLAY20_UNKNOWN_POINTER__NA_238D124
       address:
         EU: 0x238DC64
         NA: 0x238D124
@@ -374,10 +366,8 @@ overlay20:
       description: |-
         Seems to be a pointer to a struct of unknown purpose with size 0x84.
         
-        type: recycle_shop_struct_0x84*
+        type: recycle_unk_struct_0x84*
     - name: RECYCLE_SHOP_UNK_STRUCT_SIZE_340H_PTR
-      aliases:
-        - OVERLAY20_UNKNOWN_POINTER__NA_238D128
       address:
         EU: 0x238DC68
         NA: 0x238D128
@@ -389,10 +379,8 @@ overlay20:
       description: |-
         Seems to be a pointer to a struct of unknown purpose with size 0x340.
         
-        type: recycle_shop_struct_0x340*
+        type: recycle_unk_struct_0x340*
     - name: RECYCLE_SHOP_UNK_STRUCT_SIZE_1CCH_PTR
-      aliases:
-        - OVERLAY20_UNKNOWN_POINTER__NA_238D12C
       address:
         EU: 0x238DC6C
         NA: 0x238D12C
@@ -404,4 +392,4 @@ overlay20:
       description: |-
         Seems to be a pointer to a struct of unknown purpose with size 0x1CC.
         
-        type: recycle_shop_struct_0x1cc*
+        type: recycle_unk_struct_0x1cc*

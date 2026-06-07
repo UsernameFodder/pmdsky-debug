@@ -12178,7 +12178,7 @@ arm9:
         
         r0: mission_type
         r1: mission_subtype
-        return: fixed room id
+        return: fixed_room_id
     - name: SelectRandomFixedRoomInRange
       address:
         EU: 0x2060400
@@ -12186,7 +12186,7 @@ arm9:
         Returns a random fixed room from a list for a specified range. Checks for "null-termination" if no ending table entry is given.
         It seems that the TREASURE_MEMO_FIXED_ROOM_IDS table is frontloaded with 15 "easy" layouts, and only those are allowed before performance flag 9 is enabled. 
         
-        r0: table of fixed room ids (int8_t pointer)
+        r0: fixed_room_id_8 table pointer
         r1: number of entries to choose from, -1 to use the entire table.
         return: int8_t
     - name: ReadRescueBinFile
@@ -12310,8 +12310,7 @@ arm9:
       description: |-
         Seems to print a WMS code for a mission, based on context and live analysis.
         
-        r0+: ?
-        return: ?
+
     - name: AppendMissionObjective
       address:
         EU: 0x2062144
@@ -12339,7 +12338,7 @@ arm9:
         Seems to tally up the total weights for each mission_category under a specified mission vendor.
         
         
-        r0: 0 for job board, 1 for outlaw board, 2 for cafe client, 3 for beach bottle 
+        r0: mission_vendor
         return: 1 if the total weight is non-zero, 0 if not.
     - name: GetRandomMissionTemplate
       address:
@@ -14182,7 +14181,7 @@ arm9:
       description: |-
         Table of fixed room ids used by the MISSION_ARREST_OUTLAW and MISSION_OUTLAW_HIDEOUT type and subtype.
         
-        type: uint8_t
+        type: fixed_room_id_8[5]
     - name: CHALLENGE_NORMAL_FIXED_ROOM_IDS
       address:
         EU: 0x20A1E88
@@ -14191,7 +14190,7 @@ arm9:
       description: |-
         Table of fixed room ids used by the MISSION_CHALLENGE_REQUEST and MISSION_CHALLENGE_NORMAL type and subtype.
         
-        type: uint8_t
+        type: fixed_room_id_8[5]
     - name: TACTICS_FOLLOW_LEADER
       address:
         EU: 0x20A1E90
@@ -14245,7 +14244,7 @@ arm9:
         Table of fixed room ids used by the MISSION_TREASURE_MEMO type.
         The last 15 entries only show up after the postgame (performance flag 9).
         
-        type: uint8_t
+        type: fixed_room_id_8[30]
     - name: CLIENT_LEVEL_TABLE
       address:
         EU: 0x20A1EFC
@@ -15406,6 +15405,8 @@ arm9:
     - name: SYNTH_BIN_FILE_PTR
       address:
         EU: 0x20AFFA0
+      length:
+        EU: 0x4
       description: The location of the data/SYNTH/synth.bin file while loaded.
     - name: DUNGEON_MOVE_TABLES
       address:
@@ -15516,11 +15517,13 @@ arm9:
     - name: MISSION_REWARD_STRUCT_MAIN_PTR
       address:
         EU: 0x20B0790
+      length:
+        EU: 0x4
       description: |-
         Points to a mission_reward_struct_main struct, responsible for handling the overlay 11 portion of the mission reward sequence.
         Is also used sparingly during the Spinda Cafe egg event.
         
-        type: mission_reward_struct_main
+        type: mission_reward_struct_main pointer
     - name: NOTIFY_NOTE
       address:
         EU: 0x20B0814

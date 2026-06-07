@@ -3931,6 +3931,15 @@ enum mission_reward_type {
 ENUM_8_BIT(mission_reward_type);
 #pragma pack(pop)
 
+
+enum mission_vendor {
+    MISSION_VENDOR_JOB_BOARD = 0,
+    MISSION_VENDOR_OUTLAW_BOARD = 1,
+    MISSION_VENDOR_SPINDA_CAFE = 2,
+    MISSION_VENDOR_BEACH_BOTTLE = 3,
+};
+
+
 // Different types of restrictions that a mission can have
 enum mission_restriction_type {
     MISSION_RESTRICTION_NONE = 0,

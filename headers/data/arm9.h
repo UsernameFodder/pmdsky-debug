@@ -139,13 +139,13 @@ extern fx32_8 DAMAGE_FORMULA_LN_PREFACTOR;
 extern fx32_8 DAMAGE_FORMULA_DEF_PREFACTOR;
 extern fx32_8 DAMAGE_FORMULA_AT_PREFACTOR;
 extern fx32_8 DAMAGE_FORMULA_LN_ARG_PREFACTOR;
-extern uint8_t OUTLAW_HIDEOUT_FIXED_ROOM_IDS[5];
-extern uint8_t CHALLENGE_NORMAL_FIXED_ROOM_IDS[5];
+extern struct fixed_room_id_8 OUTLAW_HIDEOUT_FIXED_ROOM_IDS[5];
+extern struct fixed_room_id_8 CHALLENGE_NORMAL_FIXED_ROOM_IDS[5];
 extern bool TACTICS_FOLLOW_LEADER[12];
 extern struct forbidden_forgot_move_entry FORBIDDEN_FORGOT_MOVE_LIST[3];
 extern struct type_id_8 CONVERSION2_TYPE_TABLE[18];
 extern int16_t TACTICS_UNLOCK_LEVEL_TABLE[12];
-extern uint8_t TREASURE_MEMO_FIXED_ROOM_IDS[30];
+extern struct fixed_room_id_8 TREASURE_MEMO_FIXED_ROOM_IDS[30];
 extern int16_t CLIENT_LEVEL_TABLE[16];
 extern int16_t OUTLAW_LEVEL_TABLE[16];
 extern int16_t OUTLAW_MINION_LEVEL_TABLE[16];
@@ -236,7 +236,6 @@ extern void* ITEM_DATA_TABLE_PTRS[3];
 #if PMDSKY_VERSION == PMDSKY_EU
 extern char* ITEM_LANG_FILE_ARRAY[5];
 #endif
-
 extern struct synth_file* SYNTH_BIN_FILE_PTR;
 extern struct move_data_table* MOVE_DATA_TABLE_PTR;
 extern struct obj_graphics_controls* OBJ_GRAPHICS_CONTROLS_PTR;
