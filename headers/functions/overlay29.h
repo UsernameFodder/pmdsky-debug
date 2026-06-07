@@ -214,7 +214,7 @@ bool IsSecretBazaarNpcBehavior(enum monster_behavior behavior);
 bool TalkToSecretBazaarNpcStandard(int string_id, struct entity* shopkeeper,
                                    enum portrait_emotion emotion);
 bool TalkToSecretBazaarNpcWithYesNoMenu(int string_id, struct entity* shopkeeper,
-                                   enum portrait_emotion emotion);
+                                        enum portrait_emotion emotion);
 void MakeTargetFaceUserAndIdle(struct entity* target, struct entity* user);
 void SubtractMoneyCarriedWithSfx(int amount);
 bool TalkToSecretBazaarNpc(int string_id, struct entity* shopkeeper, enum portrait_emotion emotion,

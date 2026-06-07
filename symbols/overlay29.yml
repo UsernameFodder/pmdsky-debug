@@ -2878,17 +2878,6 @@ overlay29:
         
         r0: entity pointer
         return: True if the value is equal to 0x55AA or 0x5AA5
-    - name: GetRandomExplorerMazeMonster
-      address:
-        EU: 0x22FA3F8
-        NA: 0x22F99EC
-        JP: 0x22FAFA4
-      description: |-
-        Checks if any enemy monsters on the floor have the behavior BEHAVIOR_EXPLORER_MAZE_1, 
-        BEHAVIOR_EXPLORER_MAZE_2, BEHAVIOR_EXPLORER_MAZE_3 or BEHAVIOR_EXPLORER_MAZE_4 and returns
-        one at random. If none can be found, it returns NULL.
-        
-        return: monster entity pointer
     - name: IsMonsterIdInNormalRangeVeneer
       address:
         EU: 0x22FA674
