@@ -2306,6 +2306,7 @@ overlay29:
         r0: string id
         r1: shopkeeper entity pointer
         r2: portrait emotion
+        r3: pointer to an array of simple_menu_id_items
         return: ? (bool)
     - name: MakeTargetFaceUserAndIdle
       address:
