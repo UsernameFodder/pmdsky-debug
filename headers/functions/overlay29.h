@@ -488,9 +488,9 @@ void CalcDamageFixedWrapper(struct entity* attacker, struct entity* defender, in
 void UpdateShopkeeperModeAfterAttack(struct entity* attacker, struct entity* defender);
 void UpdateShopkeeperModeAfterTrap(struct entity* shopkeeper, bool non_team_member);
 void ResetDamageCalcDiagnostics(void);
-bool SpecificRecruitCheck(enum monster_id monster_id);
-bool PointCameraToMonsterWrapper(struct entity* entity);
+void PointCameraToMonsterWrapper(struct entity* entity);
 bool IsEitherMonsterInvalid(struct entity* entity1, struct entity* entity2);
+bool SpecificRecruitCheck(enum monster_id monster_id);
 bool RecruitCheck(struct entity* user, struct entity* target);
 bool TryRecruit(struct entity* user, struct entity* recruit);
 void TrySpawnMonsterAndTickSpawnCounter(void);
