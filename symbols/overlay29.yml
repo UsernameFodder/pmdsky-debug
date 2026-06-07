@@ -2858,6 +2858,18 @@ overlay29:
         Called when a monster is revived.
         
         r0: pointer to entity whose moves will be restored
+    - name: CheckTeamMemberIdxVeneer
+      address:
+        EU: 0x22FA64C
+        NA: 0x22F9C40
+        JP: 0x22FB1F8
+      description: |-
+        Likely a linker-generated veneer for CheckTeamMemberIdx.
+        
+        See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
+        
+        r0: member index
+        return: True if the value is equal to 0x55AA or 0x5AA5
     - name: CheckMonsterTeamMemberIdx
       address:
         EU: 0x22FA658

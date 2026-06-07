@@ -211,13 +211,13 @@ bool DebugRecruitingEnabled(void);
 void TryActivateIqBooster(void);
 bool IsBehaviorLoneOutlaw(enum monster_behavior behavior);
 bool IsSecretBazaarNpcBehavior(enum monster_behavior behavior);
-bool TalkToSecretBazaarNpcStandard(int string_id, struct entity* shopkeeper, 
+bool TalkToSecretBazaarNpcStandard(int string_id, struct entity* shopkeeper,
                                    enum portrait_emotion emotion);
-bool TalkToSecretBazaarNpcWithYesNoMenu(int string_id, struct entity* shopkeeper, 
+bool TalkToSecretBazaarNpcWithYesNoMenu(int string_id, struct entity* shopkeeper,
                                    enum portrait_emotion emotion);
 void MakeTargetFaceUserAndIdle(struct entity* target, struct entity* user);
 void SubtractMoneyCarriedWithSfx(int amount);
-bool TalkToSecretBazaarNpc(int string_id, struct entity* shopkeeper, enum portrait_emotion emotion, 
+bool TalkToSecretBazaarNpc(int string_id, struct entity* shopkeeper, enum portrait_emotion emotion,
                            struct simple_menu_id_item* menu_items, bool param_5);
 struct action_16* GetLeaderAction(void);
 enum action_id GetLeaderActionId(void);
