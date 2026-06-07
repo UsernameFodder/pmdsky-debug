@@ -1450,15 +1450,12 @@ struct mission_result_and_client {
 };
 ASSERT_SIZE(struct mission_result_and_client, 8);
 
-// This substruct is exactly 0x6 bytes long.
-//#pragma pack(push, 2)
 // May actually be a union of several 0x6 byte structs...
 struct mission_reward_params {
     int16_t field_0x0;
     int16_t is_egg_or_item; // This seems to determine whether this struct describes an egg or item.
     int16_t item_or_recruit; // monster_id_16 of the recruit, or item_id_16 of the item.
 };
-//#pragma pack(pop)
 ASSERT_SIZE(struct mission_reward_params, 6);
 
 struct mission_substruct_1 {
@@ -1535,14 +1532,11 @@ struct mission_details {
 };
 ASSERT_SIZE(struct mission_details, 104);
 
-// This struct is exactly 0x6 bytes long.
-//#pragma pack(push, 2)
 struct mission_reward_dialogue_sequence {
     int16_t case_id;
     struct preprocessor_flags preprocessor_flags;
     uint16_t text_string_id;
 };
-//#pragma pack(pop)
 ASSERT_SIZE(struct mission_reward_dialogue_sequence, 6);
 
 struct mission_reward_struct_overlay {

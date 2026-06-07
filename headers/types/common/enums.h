@@ -3878,9 +3878,9 @@ enum mission_subtype_challenge {
 };
 
 // This is usually stored as an 8-bit integer
-//#pragma pack(push, 1)
-//ENUM_8_BIT(mission_subtype_challenge);
-//#pragma pack(pop)
+#pragma pack(push, 1)
+ENUM_8_BIT(mission_subtype_challenge);
+#pragma pack(pop)
 
 // Mission subtype for MISSION_TYPE_CONSUMABLE
 enum mission_subtype_consumable {
@@ -3892,9 +3892,9 @@ enum mission_subtype_consumable {
 };
 
 // This is usually stored as an 8-bit integer
-//#pragma pack(push, 1)
-//ENUM_8_BIT(mission_subtype_consumable);
-//#pragma pack(pop)
+#pragma pack(push, 1)
+ENUM_8_BIT(mission_subtype_consumable);
+#pragma pack(pop)
 
 // The meaning of the mission subtype depends on the mission type
 union mission_subtype {
