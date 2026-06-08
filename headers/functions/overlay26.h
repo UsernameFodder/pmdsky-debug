@@ -13,10 +13,10 @@ undefined4 ExitDungeon1EntryPoint(undefined4 param_1, undefined4 param_2, undefi
                                   undefined4 param_4);
 void ExitDungeon1Destructor(void);
 undefined4 ExitDungeon1FrameUpdate(void);
-undefined4 UnkOv26EntryPoint0238b754EU(undefined4 param_1, undefined4 param_2, undefined4 param_3,
+undefined4 UnkOv26EntryPointEu0238b754(undefined4 param_1, undefined4 param_2, undefined4 param_3,
                                        undefined4 param_4);
-void UnkOv26Destructor0238b780EU(void);
-undefined4 UnkOv26FrameUpdate0238b7acEU(void);
+void UnkOv26DestructorEu0238b780(void);
+undefined4 UnkOv26FrameUpdateEu0238b7ac(void);
 undefined4 DungeonExitEntryPoint2(undefined4 param_1, undefined4 param_2, undefined4 param_3,
                                   undefined4 param_4);
 void DungeonExitDestructor2(void);

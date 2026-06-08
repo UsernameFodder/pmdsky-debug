@@ -111,14 +111,14 @@ overlay26:
         r2: undefined4
         r3: undefined4
         return: undefined4
-    - name: UnkOv26Destructor0238b780EU
+    - name: UnkOv26DestructorEu0238b780
       address:
         EU: 0x238B780
       description: |-
         Is an unidentified destructor for an overlay_load_entry.
         
         No params.
-    - name: UnkOv26FrameUpdate0238b7acEU
+    - name: UnkOv26FrameUpdateEu0238b7ac
       address:
         EU: 0x238B7AC
       description: |-
