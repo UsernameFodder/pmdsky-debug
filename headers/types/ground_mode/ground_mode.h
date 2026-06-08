@@ -1215,7 +1215,7 @@ struct recycle_unk_struct_0x84 {
     undefined field8_0x69;
     undefined field9_0x6a;
     undefined field10_0x6b;
-    struct recycle_item* recycle_ite_ptr;
+    struct recycle_item* recycle_item_ptr;
     int16_t matching_items_bag[4];
     int16_t matching_items_storage[4];
     int16_t num_items_to_trade;

@@ -6,7 +6,7 @@ undefined4 RecycleShopEntryPointResume(void);
 void RecycleShopDestructor(void);
 undefined4 RecycleShopFrameUpdate(void);
 undefined4 RecycleShopCommonEntryPoint(bool resuming_menu);
-void PrintWynautTextbox(int strind_id);
+void PrintWynautTextbox(int string_id);
 void PrintWynautSimpleMenu(struct recycle_shop_main* recycle_shop_main, int string_id,
                            struct simple_menu_id_item* simple_menu_id_item);
 void RecycleShopTryHidePortraitBox(struct recycle_shop_main* recycle_shop_main, bool param_2);

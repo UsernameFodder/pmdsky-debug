@@ -9186,7 +9186,7 @@ arm9:
         Checks script variables $DUNGEON_ENTER and $DUNGEON_ENTER_INDEX for "mission dungeon" and a valid non-dojo dungeon respectively.
         If so, stores the dungeon id from $DUNGEON_ENTER_INDEX to a pointer.
         
-        r0: dungeon_id_8* (return)
+        r0: [output] dungeon_id_8*
         return: 1 if the dungeon pulled from script variables is valid for mission rewards, 0 otherwise.
     - name: CheckMissionRestrictions
       address:
@@ -11933,7 +11933,7 @@ arm9:
       description: |-
         Reads a portion of the mission monster table from rescue.bin, counting and populating the valid monsters for the mission.
         
-        r0: [secondary return] Pointer to the subset of valid monster_ids
+        r0: [output] Pointer to the subset of valid monster_ids
         r1: Involved in the bounds of the min and max table indices.
         return: number of valid monsters
     - name: IsMissionTypeSpecialEpisode
@@ -11942,7 +11942,7 @@ arm9:
         NA: 0x205E238
         JP: 0x205E538
       description: |-
-        Checks if a mission is for a Special Episode Transmission, which unlocks Special Episode 3. This specifically checks for a mission of type MISSION_CONSUMABLE and subtype 0x2.
+        Checks if a mission is for a Special Episode Transmission, which unlocks Special Episode 3. This specifically checks for a mission of type MISSION_TYPE_CONSUMABLE and subtype MISSION_SPECIAL_EPISODE.
         
         r0: mission pointer
         return: bool

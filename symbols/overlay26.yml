@@ -100,7 +100,7 @@ overlay26:
         Is a frame_update for an overlay_load_entry.
         
         return: undefined4
-    - name: UnkOv26EntryPoint0238b754EU
+    - name: UnkOv26EntryPointEu0238b754
       address:
         EU: 0x238B754
       description: |-
