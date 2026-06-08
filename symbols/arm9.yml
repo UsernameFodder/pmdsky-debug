@@ -12307,10 +12307,7 @@ arm9:
     - name: PrintWonderMailSkyCode
       address:
         EU: 0x2062044
-      description: |-
-        Seems to print a WMS code for a mission, based on context and live analysis.
-        
-
+      description: "Seems to print a WMS code for a mission, based on context and live analysis."
     - name: AppendMissionObjective
       address:
         EU: 0x2062144

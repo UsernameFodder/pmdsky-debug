@@ -115,7 +115,7 @@ overlay20:
         EU: 0x238C580
       description: |-
         Seems to print the item the cursor is currently on to the top screen window. 
-
+        
         r0: window_id
     - name: RecycleShopTopScreenDrawInfoWindow
       address:
