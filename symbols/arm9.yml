@@ -14490,7 +14490,7 @@ arm9:
       length:
         EU: 0x60
         NA: 0x60
-    - name: ARM9_UNKNOWN_TABLE__NA_20AE924
+    - name: VOLUME_TABLE
       address:
         EU: 0x20AF1C4
         NA: 0x20AE924
@@ -14499,10 +14499,7 @@ arm9:
         EU: 0x2D4
         NA: 0x2D4
         JP: 0x2D4
-      description: |-
-        724*0x1
-        
-        Note: unverified, ported from Irdkwia's notes
+      description: 724*0x1
     - name: MEMORY_ALLOCATION_ARENA_GETTERS
       address:
         EU: 0x20AF7A0
