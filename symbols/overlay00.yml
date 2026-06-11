@@ -3801,9 +3801,7 @@ overlay0:
         EU: 0x22DC4B8
         NA: 0x22DBCA4
         JP: 0x22DD450
-    - name: Dwci_Auth_StartThread
-      aliases:
-        - Dwci_Auth_OS_CreateThread
+    - name: Dwci_Auth_OS_CreateThread
       address:
         EU: 0x22DC5DC
         NA: 0x22DBDC8
@@ -3888,9 +3886,7 @@ overlay0:
         EU: 0x22DDA0C
         NA: 0x22DD1F8
         JP: 0x22DE9A4
-    - name: Dwc_Http_StartThread
-      aliases:
-        - Dwc_Http_OS_CreateThread
+    - name: Dwc_Http_OS_CreateThread
       address:
         EU: 0x22DDAA4
         NA: 0x22DD290
@@ -4030,9 +4026,7 @@ overlay0:
         EU: 0x22DEF10
         NA: 0x22DE6FC
         JP: 0x22DFEA8
-    - name: Dwci_Netcheck_StartThread
-      aliases:
-        - Dwci_Netcheck_OS_CreateThread
+    - name: Dwci_Netcheck_OS_CreateThread
       address:
         EU: 0x22DEF28
         NA: 0x22DE714
