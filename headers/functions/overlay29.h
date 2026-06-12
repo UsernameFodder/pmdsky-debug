@@ -45,6 +45,7 @@ bool CanSeePosition(struct entity* monster, struct position* position);
 bool CanTargetPosition(struct entity* monster, struct position* position);
 void PopulateActiveMonsterPtrs(void);
 int GetTeamMemberIndex(struct entity* monster);
+void GetTrapName(char* buffer, struct entity* entity);
 void SubstitutePlaceholderStringTags(int string_id, struct entity* entity, undefined4 param_3);
 bool UpdateMapSurveyorFlag(void);
 void PointCameraToMonster(struct entity* entity, bool update_trap_vis_and_map);

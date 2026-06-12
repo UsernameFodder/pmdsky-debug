@@ -605,6 +605,14 @@ overlay29:
         
         r0: Pointer to the entity to find
         return: Index of the specified entity on the entity list, or null if it's not on the first 4 slots.
+    - name: GetMonsterOrTrapName
+      address:
+        EU: 0x22E33B8
+      description: |-
+        Gets the name of the entity if it is a monster or trap. In other cases, the function either does nothing or gets an unrelated string.
+        
+        r0: [output] buffer
+        r1: entity
     - name: SubstitutePlaceholderStringTags
       address:
         EU: 0x22E3418
