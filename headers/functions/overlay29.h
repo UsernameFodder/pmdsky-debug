@@ -209,6 +209,7 @@ bool ApplyTrapEffect(struct trap* trap, struct entity* user, struct entity* targ
 void ChangeTrapOnTile(struct tile* tile, enum trap_id trap_id);
 int SpawnMonstersAroundPos(struct entity* monster, struct position* pos, uint8_t num_enemies);
 void RevealTrapsNearby(struct entity* monster);
+bool RevealTrapAtPos(int x, int y);
 bool ShouldRunMonsterAi(struct entity* monster);
 bool DebugRecruitingEnabled(void);
 void TryActivateIqBooster(void);

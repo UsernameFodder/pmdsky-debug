@@ -2257,6 +2257,15 @@ overlay29:
         Reveals traps within the monster's viewing range.
         
         r0: entity pointer
+    - name: RevealTrapAtPos
+      address:
+        EU: 0x22F00B4
+      description: |-
+        Reveals the trap at the given position if one is present.
+        
+        r0: x
+        r1: y
+        return: true if there was a hidden trap to reveal
     - name: ShouldRunMonsterAi
       address:
         EU: 0x22F03A0
