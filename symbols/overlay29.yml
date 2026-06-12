@@ -1909,6 +1909,14 @@ overlay29:
         Returns dungeon::forced_loss_reason
         
         return: forced_loss_reason
+    - name: GetTrapName
+      address:
+        EU: 0x22EE1DC
+      description: |-
+        Gets the name of the given trap.
+        
+        r0: [output] buffer
+        r1: trap id
     - name: BindTrapToTile
       address:
         EU: 0x22EE208
@@ -3547,9 +3555,9 @@ overlay29:
         NA: 0x2300164
         JP: 0x2301538
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Gets the name of a given monster.
         
-        r0: buffer
+        r0: [output] buffer
         r1: TargetInfo
     - name: SprintfStatic
       address:

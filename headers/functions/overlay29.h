@@ -172,6 +172,7 @@ void DecrementWindCounter(void);
 bool IsDungeonEndReasonFailure(void);
 void SetForcedLossReason(enum forced_loss_reason forced_loss_reason);
 enum forced_loss_reason GetForcedLossReason(void);
+void GetTrapName(char* buffer, enum trap_id trap_id);
 void BindTrapToTile(struct tile* tile, struct entity* trap, bool is_visible);
 bool AreLateGameTrapsEnabledWrapper(void);
 void SpawnTraps(void);
