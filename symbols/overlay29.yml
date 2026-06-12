@@ -2228,6 +2228,14 @@ overlay29:
         stack[1]: trap ID
         stack[2]: bool caused by random trap
         return: True if the trap should be destroyed after the effect is applied
+    - name: ChangeTrapOnTile
+      address:
+        EU: 0x22EFE2C
+      description: |-
+        Changes the trap on the tile to the given trap id if there is already one on the tile.
+        
+        r0: tile
+        r1: trap id
     - name: SpawnMonstersAroundPos
       address:
         EU: 0x22EFE68

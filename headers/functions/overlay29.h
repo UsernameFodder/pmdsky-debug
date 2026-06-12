@@ -206,6 +206,7 @@ bool ApplyRandomTrapEffect(struct trap* trap, struct entity* user, struct entity
 void ApplyGrudgeTrapEffect(struct entity* monster, struct position* pos);
 bool ApplyTrapEffect(struct trap* trap, struct entity* user, struct entity* target,
                      struct tile* tile, struct position* pos, enum trap_id, bool random_trap);
+void ChangeTrapOnTile(struct tile* tile, enum trap_id trap_id);
 int SpawnMonstersAroundPos(struct entity* monster, struct position* pos, uint8_t num_enemies);
 void RevealTrapsNearby(struct entity* monster);
 bool ShouldRunMonsterAi(struct entity* monster);
