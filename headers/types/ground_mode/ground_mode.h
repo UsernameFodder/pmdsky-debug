@@ -1248,7 +1248,7 @@ struct recycle_unk_struct_0x340 {
     int field119_0x90;
     undefined fields_0x94[32];
     struct window_input_ctx window_input_ctx;
-    undefined field153_0x1ac[388];
+    undefined fields_0x1ac[388];
     int simple_menu_2_result;
     struct recycle_offer_items offer_items;
     struct simple_menu_item* simple_menu_item_ptr; // Created by retype action
