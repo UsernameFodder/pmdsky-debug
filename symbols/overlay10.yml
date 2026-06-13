@@ -527,16 +527,18 @@ overlay10:
         NA: 0x2
         JP: 0x2
       description: "The chance of Forewarn forcing a move to miss, as a percentage (20%)."
-    - name: WISE_HEALER_MULTIPLIER
+    - name: CONSTRICTION_DAMAGE
+      address:
+        EU: 0x22C4DC4
+      length:
+        EU: 0x2
+      description: "Damage dealt by the constriction status condition."
+    - name: WISE_HEALER_PERCENTAGE
       address:
         EU: 0x22C4DC8
-        NA: 0x22C4710
-        JP: 0x22C5DF8
       length:
-        EU: 0x4
-        NA: 0x4
-        JP: 0x4
-      description: "The healing multiplier for monsters with the Wise Healer IQ skill, as a fixed-point number with 8 fraction bits (1.15)."
+        EU: 0x2
+      description: "The additional percentage of HP that should be restored for monsters with the Wise Healer IQ skill (15%)."
     - name: UNOWN_STONE_DROP_CHANCE
       address:
         EU: 0x22C4DCC
