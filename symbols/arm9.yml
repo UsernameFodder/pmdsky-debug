@@ -1894,6 +1894,14 @@ arm9:
         r1: item
         r2: bitmask
         return: bool
+    - name: GetMoneyQuantity
+      address:
+        EU: 0x200D934
+      description: |-
+        Gets the actual money a Poké item should give by indexing its quantity field into MONEY_QUANTITY_TABLE, then multiplying by ~1.2x if the Coin Watcher flag is set.
+        
+        r0: item
+        return: money amount
     - name: GetItemsForSave
       aliases:
         - WriteItemsToSave

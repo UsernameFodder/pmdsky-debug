@@ -179,6 +179,7 @@ int FindItemInInventory(enum item_id item_id);
 int SprintfStatic(char* str, const char* format, ...);
 void ItemZInit(struct item* item);
 bool AreItemsEquivalent(struct item* item1, struct item* item2, int bitmask);
+int GetMoneyQuantity(struct item* item);
 int GetItemsForSave(void* dst, uint32_t len);
 int ReadItemsFromSave(void* src, uint32_t len);
 bool IsItemAvailableInDungeonGroup(enum dungeon_id dungeon_id, enum item_id item_id);
