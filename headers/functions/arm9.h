@@ -1277,8 +1277,8 @@ int DungeonRequestsDoneWrapper(uint8_t param_1);
 bool AnyDungeonRequestsDone(uint8_t param_1);
 bool AddMissionToJobList(struct mission* mission);
 struct mission* GetAcceptedMission(uint8_t mission_id);
-bool WasMissionCompletedToday(struct mission_result_and_client* result_and_client, struct mission* mission,
-                              enum mission_type type);
+bool WasMissionCompletedToday(struct mission_result_and_client* result_and_client,
+                              struct mission* mission, enum mission_type type);
 int GetMissionByTypeAndDungeon(int start_index, enum mission_type mission_type,
                                undefined* subtype_struct, enum dungeon_id dungeon_id);
 bool CheckAcceptedMissionByTypeAndDungeon(enum mission_type mission_type, undefined* subtype_struct,
@@ -1315,7 +1315,8 @@ undefined PrintWonderMailSkyCode(undefined param_1, undefined param_2, undefined
                                  undefined param_4);
 void AppendMissionObjective(char* buffer, int buffer_size, undefined4 objective,
                             enum monster_id monster, struct item_id_16 item);
-void AppendMissionDungeonLocation(struct mission_details* mission_details, char* buffer, int buffer_size);
+void AppendMissionDungeonLocation(struct mission_details* mission_details, char* buffer,
+                                  int buffer_size);
 bool SumValidMissionCategoryWeights(enum mission_vendor vendor);
 struct mission_template* GetRandomMissionTemplate(void);
 struct mission_template* LoadMissionTemplates(void);
