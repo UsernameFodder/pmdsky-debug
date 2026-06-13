@@ -1244,7 +1244,7 @@ struct recycle_unk_struct_0x340 {
     undefined field16_0x26;
     undefined field17_0x27;
     int field18_0x28;
-    undefined field_0x2c[100];
+    undefined fields_0x2c[100];
     int field119_0x90;
     undefined field_0x94[32];
     struct window_input_ctx window_input_ctx;
