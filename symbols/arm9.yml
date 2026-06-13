@@ -2907,7 +2907,7 @@ arm9:
       description: |-
         Seems to set the species of the egg in Chansey Daycare to GAME_STATE_VALUES.
         
-        r0: struct monster_id_16
+        r0: monster_id
     - name: GetUnkGameState0x13a6
       address:
         EU: 0x2010854
@@ -3378,7 +3378,7 @@ arm9:
       description: |-
         Retrieves GAME_STATE_VALUES->rank. Seems to exclusively be used for recycle shop prize ticket unlocks, but does correlate with guild rank.
         
-        return: rank_8
+        return: guild rank
     - name: IncrementRecycleCountVar
       address:
         EU: 0x2012008
