@@ -536,7 +536,7 @@ overlay10:
         EU: 0x4
         NA: 0x4
         JP: 0x4
-      description: The healing multiplier for monsters with the Wise Healer IQ skill, as a fixed-point number with 8 fraction bits (1.15).
+      description: "The healing multiplier for monsters with the Wise Healer IQ skill, as a fixed-point number with 8 fraction bits (1.15)."
     - name: UNOWN_STONE_DROP_CHANCE
       address:
         EU: 0x22C4DCC
