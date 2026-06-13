@@ -10787,7 +10787,7 @@ arm9:
       address:
         EU: 0x20552C0
       description: |-
-        Given a string of up to 10 characters, outputs the string to display it in a specific color, or the original string if r2 is 0.
+        Given a string of up to 10 characters, formats the string to display it in a specific color, or the original string if r2 is 0.
         
         r0: [output] buffer
         r1: string to recolor
@@ -10796,7 +10796,7 @@ arm9:
       address:
         EU: 0x205531C
       description: |-
-        Given a string of up to 10 characters, outputs the string to display it in either light blue if the monster is the leader or yellow otherwise.
+        Given a string of up to 10 characters, formats the string to display it in either light blue if the monster is the leader or yellow otherwise.
         
         r0: [output] buffer
         r1: string to recolor
