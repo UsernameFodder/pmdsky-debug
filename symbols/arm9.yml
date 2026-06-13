@@ -11152,7 +11152,7 @@ arm9:
         r1: check
     - name: GetTeamMemberName
       address:
-        EU: 0x2058930
+        EU: 0x2058908
       description: |-
         Gets the name of the active team member in the given slot index.
         
