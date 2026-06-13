@@ -1281,9 +1281,9 @@ struct recycle_unk_struct_0x1cc {
     int simple_menu_result;
     struct owned_item** owned_items_list_ptr;
     int num_items_required;
-    void* function_1;
-    void* function_2;
-    void* function_3;
+    undefined* function_1;
+    undefined* function_2;
+    undefined* function_3;
 };
 ASSERT_SIZE(struct recycle_unk_struct_0x1cc, 460);
 
