@@ -333,7 +333,7 @@ int ApplyNectarBoostToGroundMonster(struct ground_monster* ground_monster,
 bool IsMonsterAffectedByGravelyrockGroundMode(struct ground_monster* ground_monster);
 int ApplyGravelyrockBoostToGroundMonster(struct ground_monster* ground_monster,
                                          int* attempted_iq_boost_out);
-void ApplyGummiBoostsGroundMode(enum monster_id_16* monster_id, uint16_t* monster_iq,
+void ApplyGummiBoostsGroundMode(struct monster_id_16* monster_id, uint16_t* monster_iq,
                                 uint8_t* monster_offensive_stats, uint8_t* monster_defensive_stats,
                                 enum item_id item_id, bool not_boost_stats,
                                 struct gummi_result* gummi_result);
