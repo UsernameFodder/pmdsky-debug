@@ -1246,7 +1246,7 @@ struct recycle_unk_struct_0x340 {
     int field18_0x28;
     undefined fields_0x2c[100];
     int field119_0x90;
-    undefined field_0x94[32];
+    undefined fields_0x94[32];
     struct window_input_ctx window_input_ctx;
     undefined field153_0x1ac[388];
     int simple_menu_2_result;
