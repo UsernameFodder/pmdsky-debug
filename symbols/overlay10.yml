@@ -532,13 +532,13 @@ overlay10:
         EU: 0x22C4DC4
       length:
         EU: 0x2
-      description: "Damage dealt by the constriction status condition."
+      description: Damage dealt by the constriction status condition.
     - name: WISE_HEALER_PERCENTAGE
       address:
         EU: 0x22C4DC8
       length:
         EU: 0x2
-      description: "The additional percentage of HP that should be restored for monsters with the Wise Healer IQ skill (15%)."
+      description: The additional percentage of HP that should be restored for monsters with the Wise Healer IQ skill (15%).
     - name: UNOWN_STONE_DROP_CHANCE
       address:
         EU: 0x22C4DCC
