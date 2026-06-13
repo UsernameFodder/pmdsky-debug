@@ -1487,7 +1487,7 @@ struct mission_reward_data {
     undefined field2_0x3;
     int outlaw_leader_level;
     int amount_money;
-    undefined4 num_items_to_roll;
+    int num_items_to_roll;
     struct mission_reward_params item_rewards[4];
     int mission_rank_points;
 };
