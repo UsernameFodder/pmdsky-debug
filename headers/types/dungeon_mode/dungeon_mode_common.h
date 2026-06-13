@@ -9,12 +9,12 @@
 // Item info
 struct item {
     // 0x0: flags: 1-byte bitfield
-    bool f_exists : 1;  // Validity flag
-    bool f_in_shop : 1; // In a Kecleon Shop
-    bool f_unpaid : 1;  // Picked up from a Kecleon Shop but not paid for yet
-    bool f_sticky : 1;  // Sticky
-    bool f_set : 1;     // Usable by L+R
-    bool flag_unk5 : 1;
+    bool f_exists : 1;       // Validity flag
+    bool f_in_shop : 1;      // In a Kecleon Shop
+    bool f_unpaid : 1;       // Picked up from a Kecleon Shop but not paid for yet
+    bool f_sticky : 1;       // Sticky
+    bool f_set : 1;          // Usable by L+R
+    bool f_coin_watcher : 1; // Money picked up by a monster with Coin Watcher
     // For stolen items to recover from outlaws (has red X)? Could be for other items for other
     // types of missions? (Uncertain)
     bool f_unk_mission_item1 : 1;
@@ -24,8 +24,9 @@ struct item {
     bool f_unk_mission_item2 : 1;
     // 0x1: For bag items. 0 for none, 1 if held by the leader, 2 for the second party member, etc.
     uint8_t held_by;
-    // 0x2: Only for stackable items. Will be 0 if unapplicable. For Poké, this is an "amount code"
-    // rather than the literal amount (see MONEY_QUANTITY_TABLE)
+    // 0x2: For Poké, this is an "amount code" rather than the literal amount (see
+    // MONEY_QUANTITY_TABLE). For certain items, this field stores other information (the move for
+    // TMs, the item inside for boxes, etc.)
     uint16_t quantity;
     struct item_id_16 id; // 0x4
 };

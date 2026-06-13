@@ -1894,6 +1894,14 @@ arm9:
         r1: item
         r2: bitmask
         return: bool
+    - name: GetMoneyQuantity
+      address:
+        EU: 0x200D934
+      description: |-
+        Gets the actual money a Poké item should give by indexing its quantity field into MONEY_QUANTITY_TABLE, then multiplying by 1.2x if the Coin Watcher flag is set.
+        
+        r0: item
+        return: money amount
     - name: GetItemsForSave
       aliases:
         - WriteItemsToSave
@@ -5896,6 +5904,16 @@ arm9:
         r0: window_params pointer to be copied by value into window::hdr in the new window
         r1: ?
         return: window_id
+    - name: GetPaletteBaseAddress
+      address:
+        EU: 0x2027B9C
+      description: |-
+        Gets the palette base address for a 3D element loaded from a WTE file.
+        Takes the same parameters as were used in the specified file's ProcessWte call.
+        
+        r0: upper part of the palette VRAM
+        r1: lower part of the palette VRAM
+        return: palette base address
     - name: SetScreenWindowsColor
       address:
         EU: 0x2027D5C
@@ -11105,6 +11123,24 @@ arm9:
         r0: id1
         r1: id2
         return: bool
+    - name: RecolorNameString
+      address:
+        EU: 0x20552C0
+      description: |-
+        Given a string of up to 10 characters, formats the string to display it in a specific color, or the original string if r2 is 0.
+        
+        r0: [output] buffer
+        r1: string to recolor
+        r2: text color symbol for the [CS:r2] tag
+    - name: RecolorTeamMemberNameString
+      address:
+        EU: 0x205531C
+      description: |-
+        Given a string of up to 10 characters, formats the string to display it in either light blue if the monster is the leader or yellow otherwise.
+        
+        r0: [output] buffer
+        r1: string to recolor
+        r2: whether the monster is the team leader
     - name: ModifyHpStat
       address:
         EU: 0x2055334
@@ -11341,6 +11377,15 @@ arm9:
         
         r0: ground monster pointer
         return: bool
+    - name: GetRecoloredGroundMonsterName
+      address:
+        EU: 0x2056400
+      description: |-
+        Gets the name of the ground monster formatted to be displayed in a specific color.
+        
+        r0: [output] buffer
+        r1: ground monster pointer
+        r2: text color symbol for the [CS:r2] tag
     - name: RemoveActiveMembersFromAllTeams
       address:
         EU: 0x2056444
@@ -11517,6 +11562,30 @@ arm9:
         
         r0: team_id
         r1: check
+    - name: GetRecoloredNameOfTeamMemberAtIdx
+      address:
+        EU: 0x2058878
+      description: |-
+        Gets the name of the active team member in the given slot index formatted to be displayed in either light blue if the monster is the leader or yellow otherwise.
+        
+        r0: [output] buffer
+        r1: roster index
+    - name: GetNameOfTeamMemberAtIdx
+      address:
+        EU: 0x2058908
+      description: |-
+        Gets the name of the active team member in the given slot index.
+        
+        r0: [output] buffer
+        r1: roster index
+    - name: GetRecoloredTeamMemberName
+      address:
+        EU: 0x2058930
+      description: |-
+        Gets the name of the team member formatted to be displayed in either light blue if the monster is the leader or yellow otherwise.
+        
+        r0: [output] buffer
+        r1: team member pointer
     - name: ChangeGiratinaFormIfSkyDungeon
       address:
         EU: 0x2058954
@@ -15213,7 +15282,7 @@ arm9:
       length:
         EU: 0x60
         NA: 0x60
-    - name: ARM9_UNKNOWN_TABLE__NA_20AE924
+    - name: VOLUME_TABLE
       address:
         EU: 0x20AF1C4
         NA: 0x20AE924
@@ -15222,10 +15291,7 @@ arm9:
         EU: 0x2D4
         NA: 0x2D4
         JP: 0x2D4
-      description: |-
-        724*0x1
-        
-        Note: unverified, ported from Irdkwia's notes
+      description: 724*0x1
     - name: MEMORY_ALLOCATION_ARENA_GETTERS
       address:
         EU: 0x20AF7A0
