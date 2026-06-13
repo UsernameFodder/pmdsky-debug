@@ -527,6 +527,16 @@ overlay10:
         NA: 0x2
         JP: 0x2
       description: "The chance of Forewarn forcing a move to miss, as a percentage (20%)."
+    - name: WISE_HEALER_MULTIPLIER
+      address:
+        EU: 0x22C4DC8
+        NA: 0x22C4710
+        JP: 0x22C5DF8
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: The healing multiplier for monsters with the Wise Healer IQ skill, as a fixed-point number with 8 fraction bits (1.15).
     - name: UNOWN_STONE_DROP_CHANCE
       address:
         EU: 0x22C4DCC
