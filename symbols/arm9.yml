@@ -11150,7 +11150,15 @@ arm9:
         
         r0: team_id
         r1: check
-    - name: GetTeamMemberName
+    - name: GetRecoloredNameOfTeamMemberAtIdx
+      address:
+        EU: 0x2058878
+      description: |-
+        Gets the name of the active team member in the given slot index formatted to be displayed in either light blue if the monster is the leader or yellow otherwise.
+        
+        r0: [output] buffer
+        r1: roster index
+    - name: GetNameOfTeamMemberAtIdx
       address:
         EU: 0x2058908
       description: |-
