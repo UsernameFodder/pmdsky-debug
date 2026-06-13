@@ -1210,7 +1210,7 @@ struct recycle_unk_struct_0x84 {
     int field4_0x10;
     int8_t text_box_window_ids[3];
     // These 81 bytes appear to be fully unused.
-    undefined fields_0x15[81];
+    undefined unused_0x15[81];
     undefined field7_0x68;
     undefined field8_0x69;
     undefined field9_0x6a;
