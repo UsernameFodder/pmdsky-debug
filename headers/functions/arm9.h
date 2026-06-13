@@ -1165,6 +1165,8 @@ void SetTeamSetupHeroOnly(void);
 int GetPartyMembers(uint16_t* party_members);
 void RefillTeam(void);
 int ClearItem(int team_id, bool check);
+void GetTeamMemberName(char* out, int roster_idx);
+void GetRecoloredTeamMemberName(char* out, struct team_member* team_member);
 void ChangeGiratinaFormIfSkyDungeon(enum dungeon_id dungeon_id);
 void RevertGiratinaAndShaymin(uint8_t member_idx, undefined param_2);
 void* OamTileNumberToVramAddress(short oam_tile_num, uint8_t screen);

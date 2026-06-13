@@ -11150,6 +11150,22 @@ arm9:
         
         r0: team_id
         r1: check
+    - name: GetTeamMemberName
+      address:
+        EU: 0x2058930
+      description: |-
+        Gets the name of the active team member in the given slot index.
+        
+        r0: [output] buffer
+        r1: roster index
+    - name: GetRecoloredTeamMemberName
+      address:
+        EU: 0x2058930
+      description: |-
+        Gets the name of the team member formatted to be displayed in either light blue if the monster is the leader or yellow otherwise.
+        
+        r0: [output] buffer
+        r1: team member pointer
     - name: ChangeGiratinaFormIfSkyDungeon
       address:
         EU: 0x2058954
