@@ -10997,7 +10997,7 @@ arm9:
         return: bool
     - name: GetRecoloredGroundMonsterName
       address:
-        EU: 0x20552C0
+        EU: 0x2056400
       description: |-
         Gets the name of the ground monster formatted to be displayed in a specific color.
         
