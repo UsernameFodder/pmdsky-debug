@@ -144,7 +144,7 @@ overlay10:
         r2: int32_t
         r3: uint8_t * 
         stack[0]: ?
-        stack[1]: update_window_fn_t 
+        stack[1]: ?
         statk[2]: uint32_t
     - name: GetEffectAnimationField0x19
       address:
