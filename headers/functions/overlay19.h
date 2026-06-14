@@ -32,8 +32,8 @@ void BarHandleDrinkEventSubcase(void);
 void BarPostDrinkCaseForCustomer(void);
 undefined4 BarMaybeIsClosedUnkStringIdMenu(void);
 void BarCreateUnkStringIdMenu(undefined4 param_1, undefined4 param_2,
-                              struct simple_menu_id_item* simple_menu_id_item, undefined4 param_4, char param_5,
-                              uint32_t param_6);
+                              struct simple_menu_id_item* simple_menu_id_item, undefined4 param_4,
+                              char param_5, uint32_t param_6);
 int GetUnkStringIdMenuResult(void);
 void BarTryShowPortrait(void);
 void BarTryHidePortrait(void);
