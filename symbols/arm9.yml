@@ -7864,7 +7864,6 @@ arm9:
       description: |-
         Seems to be responsible for creating special episode ground_monster for special episodes.  
         
-        
         r0: team_member_id
         r1: special_episode_pc pointer
     - name: ReadStringSave
