@@ -189,6 +189,27 @@ overlay11:
         EU: 0x22E6690
         NA: 0x22E5D50
         JP: 0x22E737C
+    - name: ReturnScriptMenuResultZero
+      address:
+        EU: 0x22E77A8
+      description: |-
+        Returns control to the scripting engine for a message_menu, with case id 0.
+        
+        No params.
+    - name: ReturnScriptMenuResult
+      address:
+        EU: 0x22E77CC
+      description: |-
+        Returns control to the scripting engine for a message_menu, with a specified case_id.
+        
+        r0: case id to pass to the scripting engine
+    - name: IsScriptMenuReturnDisabled
+      address:
+        EU: 0x22E7808
+      description: |-
+        Checks if the scripting engine is ready to return control to an overlay-based menu.
+        
+        return: 1 if the menu should continue execution, 0 if not.
     - name: ScriptSpecialProcessCall
       address:
         EU: 0x22E7A58
@@ -1470,6 +1491,27 @@ overlay11:
         Window update function for team info boxes.
         
         r0: window pointer
+    - name: EatOverworldGummiEntryPoint
+      address:
+        EU: 0x22FFBB8
+      description: |-
+        Seems to be the entry_point for a "mini-overlay" overlay_load_entry that lives in overlay 11, that controls eating gummis in the overworld. 
+        
+        return: undefined4
+    - name: EatOverworldGummiDestructor
+      address:
+        EU: 0x22FFCB8
+      description: |-
+        Seems to be the destructor for a "mini-overlay" overlay_load_entry that lives in overlay 11, that controls eating gummis in the overworld.
+        
+        No params.
+    - name: EatOverworldGummiFrameUpdate
+      address:
+        EU: 0x22FFCF4
+      description: |-
+        Seems to be the frame_update for a "mini-overlay" overlay_load_entry that lives in overlay 11, that controls eating gummis in the overworld.
+        
+        return: undefined4
     - name: CreateTopGroundMenu
       address:
         EU: 0x2301724
@@ -1497,6 +1539,49 @@ overlay11:
         Window update function for the top-level ground mode menu.
         
         return: status code
+    - name: GroundBagOthersMenuEntryPoint
+      address:
+        EU: 0x2301B38
+      description: |-
+        Seems to be the entry_point for a "mini-overlay" overlay_load_entry that lives in overlay 11, which controls the others menu in ground mode.
+        
+        return: undefined4
+    - name: GroundBagOthersMenuDestructor
+      address:
+        EU: 0x2301BBC
+      description: |-
+        Seems to be the destructor for a "mini-overlay" overlay_load_entry that lives in overlay 11, which controls the others menu in ground mode.
+        
+        No params.
+    - name: GroundBagOthersMenuFrameUpdate
+      address:
+        EU: 0x2301BF8
+      description: |-
+        Seems to be the frame_update for a "mini-overlay" overlay_load_entry that lives in overlay 11, which controls the others menu in ground mode.
+        
+        return: undefined4
+    - name: InitDiaryAndFaqBoardMenu
+      address:
+        EU: 0x2303C60
+      description: |-
+        Seems to initialize the menu which controls bidoof and sunflora's diaries, as well as the FAQ board on B1F of the guild.
+        
+        r0: undefined4
+        return: undefined4
+    - name: FreeDiaryAndFaqBoardMenuMenu
+      address:
+        EU: 0x23042A0
+      description: |-
+        Seems to free them menu which controls bidoof and sunflora's diaries, as well as the FAQ board on B1F of the guild.
+        
+        No params.
+    - name: DiaryAndFaqBoardMenuFrameUpdate
+      address:
+        EU: 0x23042CC
+      description: |-
+        Seems to run each frame to manage the menu which controls bidoof and sunflora's diaries, as well as the FAQ board on B1F of the guild.
+        
+        return: undefined4
     - name: IsBagNotEmpty
       address:
         EU: 0x2305460
@@ -1518,6 +1603,14 @@ overlay11:
         r1: format
         ...: variadic
         return: number of characters printed, excluding the null-terminator
+    - name: IsGroundMonsterAtMaxLevel
+      address:
+        EU: 0x230B718
+      description: |-
+        Checks if a ground_monster is above level 99.
+        
+        r0: ground_monster pointer
+        return: 1 if ground monster is above level 99, 0 if not.
     - name: GetExclusiveItemRequirements
       address:
         EU: 0x230B8D4
@@ -1540,6 +1633,13 @@ overlay11:
         
         r0: switch case index for the function: 0 = Swap List Inventory, 1 = Unknown, 2 = Species Exclusive Item List, 3 = Item Trade Away Selection List.
         r1: Depends on r0. If case 2: ID of the monster to retrieve an exclusive item list for. If case 3: Number of Exclusive Items the player owns.
+    - name: LoadRecycleShopOverlay
+      address:
+        EU: 0x230D768
+      description: |-
+        Seems to be responsible for loading overlay 20 for the recycle shop.
+        
+        No params.
     - name: HandleControlsTopScreenGround
       address:
         EU: 0x230EFB4
@@ -1830,6 +1930,70 @@ overlay11:
       length:
         NA: 0x10
       description: Default window_params for a team_info_box.
+    - name: SWAP_SHOP_ONE_STAR_STR
+      address:
+        EU: 0x2323AD8
+      length:
+        EU: 0x7
+      description: |-
+        "[M:S3]"
+        Used exclusively by GetExclusiveItemRequirements.
+    - name: SWAP_SHOP_TWO_STAR_STR
+      address:
+        EU: 0x2323AE0
+      length:
+        EU: 0xD
+      description: |-
+        "[M:S3][M:S3]"
+        Used exclusively by GetExclusiveItemRequirements.
+    - name: SWAP_SHOP_THREE_STAR_STR
+      address:
+        EU: 0x2323AF0
+      length:
+        EU: 0x13
+      description: |-
+        "[M:S3][M:S3][M:S3]"
+        Used exclusively by GetExclusiveItemRequirements.
+    - name: SWAP_SHOP_RED_TEXT_TAG_STR
+      address:
+        EU: 0x2323B34
+      length:
+        EU: 0x7
+      description: |-
+        "[CS:W]"
+        Used exclusively by a subfunction of SwapShopInventoryManager.
+    - name: SWAP_SHOP_UNCENTER_TEXT_TAG_STR
+      address:
+        EU: 0x2323B3C
+      length:
+        EU: 0x5
+      description: |-
+        "[CR]"
+        Used exclusively by a subfunction of SwapShopInventoryManager.
+    - name: SWAP_SHOP_CLUMSET_ONE_STAR_STR
+      address:
+        EU: 0x2323B44
+      length:
+        EU: 0x15
+      description: |-
+        "[CLUM_SET:130][M:S3]"
+        Used exclusively by a subfunction of SwapShopInventoryManager.
+    - name: SWAP_SHOP_CLUMSET_TWO_STAR_STR
+      address:
+        EU: 0x2323B5C
+      length:
+        EU: 0x1B
+      description: |-
+        "[CLUM_SET:122][M:S3][M:S3]"
+        Used exclusively by a subfunction of SwapShopInventoryManager.
+    - name: SWAP_SHOP_CLUMSET_THREE_STAR_STR
+      address:
+        EU: 0x2323B78
+      length:
+        EU: 0x21
+      description: |-
+        "[CLUM_SET:114][M:S3][M:S3][M:S3]"
+        Used exclusively by a subfunction of SwapShopInventoryManager.
     - name: OVERLAY11_OVERLAY_LOAD_TABLE
       address:
         EU: 0x2323B9C
@@ -1887,6 +2051,12 @@ overlay11:
         Host pointers to multiple structure used for performing an overworld scene
         
         type: struct main_ground_data
+    - name: EXCLUSIVE_ITEM_REQUIREMENTS_PTR
+      address:
+        EU: 0x23258E0
+      length:
+        EU: 0x4
+      description: "Pointer to the exclusive_item_requirements struct, used by the swap shop."
     - name: SWAP_SHOP_INVENTORY_PTRS
       address:
         EU: 0x23258E4

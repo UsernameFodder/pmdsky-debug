@@ -1027,12 +1027,6 @@ struct link_shop {
 };
 ASSERT_SIZE(struct link_shop, 964);
 
-struct bar_dungeon_unlock {
-    struct dungeon_id_8 dungeon_id;
-    uint8_t scenario_balance_min;
-};
-ASSERT_SIZE(struct bar_dungeon_unlock, 2);
-
 struct bar_stats_data {
     int16_t stat_modifiers[6];
     int16_t new_stats[6];
@@ -1100,5 +1094,197 @@ struct spinda_cafe {
     struct window_extra_info window_extra_info;
 };
 ASSERT_SIZE(struct spinda_cafe, 2664);
+
+struct recycle_item {
+    enum item_id id;
+    int32_t trade_type; // 0x0 = Normal, 0x1 = Ticket, 0x2 = Offer
+    enum rank min_rank; // Vanilla prize tickets require a guild rank to unlock
+    int32_t min_recycles;
+    // Some kind of key for which item to offer as a bonus after trading.
+    // 0x5: Prize Ticket, 0x8: Silver Ticket, 0xD: Gold Ticket, 0x14: Prism Ticket
+    int16_t bonus_item;
+    // Odds out of 100 to get that bonus item after trading.
+    int16_t bonus_odds;
+    struct bulk_item traded_items[4];
+};
+ASSERT_SIZE(struct recycle_item, 36);
+
+// This struct seems to only exist in RAM. More research into it's purpose may be necessary.
+// Note that it has all the same fields as recycle_item, but compressed into far fewer bytes.
+struct short_recycle_item {
+    struct item_id_16 id;
+    int8_t trade_type; // 0x0 = Normal, 0x1 = Ticket, 0x2 = Offer
+    struct rank_8 min_rank;
+    int16_t min_recycles;
+    // Some kind of key for which item to offer as a bonus after trading.
+    // 0x5: Prize Ticket, 0x8: Silver Ticket, 0xD: Gold Ticket, 0x14: Prism Ticket
+    int8_t bonus_item;
+    // Odds out of 100 to get that bonus item after trading.
+    int8_t bonus_odds;
+    int8_t traded_item_quantities[4];
+    struct item_id_16 traded_item_ids[4];
+};
+ASSERT_SIZE(struct short_recycle_item, 20);
+
+struct recycle_shop_main {
+    enum recycle_case_id case_id;
+    enum recycle_main_menu_state mmenu_case;
+    undefined field_0x8;
+    undefined field_0x9;
+    undefined field_0xa;
+    undefined field_0xb;
+    int unk_subcase;
+    undefined field_0x10;
+    undefined field_0x11;
+    undefined field_0x12;
+    undefined field_0x13;
+    int unk_counter_0x14;
+    int8_t portrait_window_id;
+    undefined field_0x19;
+    undefined field_0x1a;
+    undefined field_0x1b;
+    struct portrait_params portrait_params;
+    int8_t window_id_2;
+    int8_t window_id_3;
+    int8_t window_id_4;
+    undefined field_0x2f;
+    struct preprocessor_args preprocessor_args;
+    int recycle_trade_type;
+    struct recycle_item* recycle_items_ptr;
+    undefined field16_0x88;
+    undefined field17_0x89;
+    undefined field18_0x8a;
+    undefined field19_0x8b;
+    undefined field20_0x8c;
+    undefined field21_0x8d;
+    undefined field22_0x8e;
+    undefined field23_0x8f;
+    undefined field24_0x90;
+    undefined field25_0x91;
+    undefined field26_0x92;
+    undefined field27_0x93;
+    undefined field28_0x94;
+    undefined field29_0x95;
+    undefined field30_0x96;
+    undefined field31_0x97;
+    undefined field32_0x98;
+    undefined field33_0x99;
+    undefined field34_0x9a;
+    undefined field35_0x9b;
+    undefined field_0x9c;
+    undefined field_0x9d;
+    undefined field_0x9e;
+    undefined field_0x9f;
+    undefined field_0xa0;
+    undefined field_0xa1;
+    undefined field_0xa2;
+    undefined field_0xa3;
+    bool portrait_active;
+    bool resuming_menu;
+    bool portrait_hidden;
+    undefined field_0xa7;
+    struct item_id_16 item_id;
+    undefined field_0xaa;
+    undefined field_0xab;
+    undefined field_0xac;
+    undefined field_0xad;
+    undefined field_0xae;
+    undefined field_0xaf;
+    int8_t related_to_trade_type;
+    undefined field_0xb1;
+    undefined field_0xb2;
+    undefined field_0xb3;
+};
+ASSERT_SIZE(struct recycle_shop_main, 180);
+
+struct recycle_offer_items {
+    struct recycle_item** item_ids_ptr;
+    int num_offers;
+};
+
+struct recycle_unk_struct_0x84 {
+    int case_id;
+    int subcase_id;
+    int field2_0x8;
+    int field3_0xc;
+    int field4_0x10;
+    int8_t text_box_window_ids[3];
+    // These 81 bytes appear to be fully unused.
+    undefined unused_0x15[81];
+    undefined field7_0x68;
+    undefined field8_0x69;
+    undefined field9_0x6a;
+    undefined field10_0x6b;
+    struct recycle_item* recycle_item_ptr;
+    int16_t matching_items_bag[4];
+    int16_t matching_items_storage[4];
+    int16_t num_items_to_trade;
+    undefined field15_0x82;
+    undefined field16_0x83;
+};
+ASSERT_SIZE(struct recycle_unk_struct_0x84, 132);
+
+struct recycle_unk_struct_0x340 {
+    int case_id;
+    int8_t simple_menu_wid_1;   // Created by retype action
+    int8_t simple_menu_wid_2;   // Created by retype action
+    int8_t scrollbox_window_id; // Created by retype action
+    undefined field4_0x7;
+    int simple_menu_1_result;
+    int smenu_1_result_old;
+    int starts_zero_1;
+    int starts_zero_2;
+    undefined field9_0x18;
+    undefined field10_0x19;
+    undefined field11_0x1a;
+    undefined field12_0x1b;
+    int arm9_unk_field; //  Arm9LoadUnkFieldNa0x2029EC8
+    int is_0xd;
+    int16_t text_string_id;
+    undefined field16_0x26;
+    undefined field17_0x27;
+    int field18_0x28;
+    undefined fields_0x2c[100];
+    int field119_0x90;
+    undefined fields_0x94[32];
+    struct window_input_ctx window_input_ctx;
+    undefined fields_0x1ac[388];
+    int simple_menu_2_result;
+    struct recycle_offer_items offer_items;
+    struct simple_menu_item* simple_menu_item_ptr; // Created by retype action
+};
+ASSERT_SIZE(struct recycle_unk_struct_0x340, 832);
+
+// Likely used for selecting items you own between bag and storage. May be shared with the swap
+// shop?
+struct recycle_unk_struct_0x1cc {
+    int case_id;
+    int8_t collection_window_id;
+    int8_t simple_menu_window_id;
+    int8_t scroll_box_window_id;
+    int8_t textbox_window_id_1;
+    int8_t textbox_window_id_2;
+    undefined field_0x9;
+    undefined field_0xa;
+    undefined field_0xb;
+    int item_selection_index;
+    int item_selection_index_backup;
+    int starts_zero;
+    int also_starts_zero;
+    bool explain;
+    undefined field12_0x1d;
+    undefined field13_0x1e;
+    undefined field14_0x1f;
+    struct window_extra_info window_extra_info;
+    struct window_input_ctx window_input_ctx;
+    char* option_states;
+    int simple_menu_result;
+    struct owned_item** owned_items_list_ptr;
+    int num_items_required;
+    undefined* function_1;
+    undefined* function_2;
+    undefined* function_3;
+};
+ASSERT_SIZE(struct recycle_unk_struct_0x1cc, 460);
 
 #endif

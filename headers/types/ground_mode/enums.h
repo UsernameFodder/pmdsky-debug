@@ -2105,22 +2105,6 @@ enum talk_kind {
     TALK_HERO_FEMALE = 5,
 };
 
-enum rank {
-    RANK_NORMAL = 0,
-    RANK_BRONZE = 1,
-    RANK_SILVER = 2,
-    RANK_GOLD = 3,
-    RANK_DIAMOND = 4,
-    RANK_SUPER = 5,
-    RANK_ULTRA = 6,
-    RANK_HYPER = 7,
-    RANK_MASTER = 8,
-    RANK_MASTER_1_STAR = 9,
-    RANK_MASTER_2_STARS = 10,
-    RANK_MASTER_3_STARS = 11,
-    RANK_GUILDMASTER = 12,
-};
-
 enum animation_speed {
     ANIMATION_SPEED_NORMAL = 0,
     ANIMATION_SPEED_SLOW = 1,
@@ -2356,6 +2340,31 @@ enum drink_event_type {
     DRINK_EVENT_GOURMET = 4,
     DRINK_EVENT_DUNGEON = 5,
     DRINK_EVENT_MIRACLE = 6,
+};
+
+enum recycle_main_menu_state {
+    REC_MMENU_UNK_0x0 = 0,
+    REC_MMENU_UNK_0x1 = 1,
+    REC_MMENU_UNK_0x2 = 2,
+    REC_MMENU_UNK_0x3 = 3,
+    REC_MMENU_UNK_0x4 = 4,
+    REC_MMENU_OFFER = 5,
+    REC_MMENU_CLOSE_PORTRAIT = 6,
+    REC_MMENU_INFO = 7,
+    REC_MMENU_EXIT_DIALOGUE = 8,
+    REC_MMENU_UNK_0x9 = 9,
+};
+
+enum recycle_case_id {
+    RECYCLE_INIT_FIRST = 0,
+    RECYCLE_INIT_RESUME = 1,
+    RECYCLE_MAIN_CASE = 2,
+    RECYCLE_EXIT_BEGIN = 3,
+    RECYCLE_EXIT_CLOSE_PORTRAIT = 4,
+    RECYCLE_EXIT_TO_SCRIPT = 5,
+    RECYCLE_RESUME_FROM_SCRIPT = 6,
+    RECYCLE_REDEEM_TICKET = 7,
+    RECYCLE_UNK_SUSPEND_0x8 = 8,
 };
 
 // These are super long, so split them out into a separate file
