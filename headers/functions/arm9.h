@@ -1310,7 +1310,7 @@ void FormatSpecialEpisodeMissionHeader(char* buffer);
 void AppendMissionSummary(char* main_buffer, char* temp_buffer, int window_id, int y_offset,
                           struct preprocessor_args* args, struct mission_details* details);
 void MakeMissionDetails(struct mission_details* mission_details, char* buffer, undefined param_3);
-void MakeSpecialEpisodeMissionDetails(char* buffer, struct mission_details* details);
+void MakeSpecialEpisodeMissionDetails(char* buffer, undefined param_2);
 undefined PrintWonderMailSkyCode(undefined param_1, undefined param_2, undefined param_3,
                                  undefined param_4);
 void AppendMissionObjective(char* buffer, int buffer_size, undefined4 objective,
