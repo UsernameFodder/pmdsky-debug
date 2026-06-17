@@ -179,6 +179,7 @@ int FindItemInInventory(enum item_id item_id);
 int SprintfStatic(char* str, const char* format, ...);
 void ItemZInit(struct item* item);
 bool AreItemsEquivalent(struct item* item1, struct item* item2, int bitmask);
+int GetMoneyQuantity(struct item* item);
 int GetItemsForSave(void* dst, uint32_t len);
 int ReadItemsFromSave(void* src, uint32_t len);
 bool IsItemAvailableInDungeonGroup(enum dungeon_id dungeon_id, enum item_id item_id);
@@ -277,11 +278,11 @@ int GetMoneyStored(void);
 void SetMoneyStored(int amount);
 void AddMoneyStored(int amount);
 enum monster_id GetEggSpecies(void);
-void SetEggSpecies(struct monster_id_16 param_1);
+void SetEggSpecies(enum monster_id monster);
 undefined2 GetUnkGameState0x13a6(void);
 void SetUnkGameState0x13a6(undefined2 param_1);
 uint16_t GetEggHatchTimer(void);
-void SetEggHatchTimer(uint16_t param_1);
+void SetEggHatchTimer(uint16_t hatch_timer);
 void DecrementEggHatchTimer(void);
 int RemoveInvalidKecleonShop1Items(void);
 void RemoveItemFromKecleonShop1(int slot);
@@ -308,7 +309,7 @@ bool GetExclusiveItemForMonsterFromBag(struct item* item, enum exclusive_item_ef
                                        enum monster_id monster_id, enum type_id type1,
                                        enum type_id type2);
 int GetHpBoostFromExclusiveItems(undefined* param_1);
-void SwapShopFreeDoublePointer(void);
+void SwapShopFreeDoublePointer(undefined** param_1);
 void ApplyGummiBoostsToGroundMonster(struct ground_monster* ground_monster, enum item_id item_id,
                                      bool not_boost_stats, struct gummi_result* gummi_result);
 void ApplyGummiBoostsToTeamMember(struct team_member* team_member, enum item_id item_id,
@@ -337,32 +338,32 @@ void ApplyGummiBoostsGroundMode(struct monster_id_16* monster_id, uint16_t* mons
                                 enum item_id item_id, bool not_boost_stats,
                                 struct gummi_result* gummi_result);
 void WipeRecycleShopRecords(void);
-void FreeRecycleOfferItems(struct recycle_offer_items* param_1);
-enum item_id GetRecycleItemId(struct recycle_item** param_1);
-bool RecycleItemHasTradeTypePrizeTicket(struct recycle_item** param_1);
-int16_t GetRecycleItemBonusOdds(struct recycle_item** param_1);
-int CountTradedRecycleItems(struct recycle_item** param_1);
-bool RecycleShopTradeIsNonspecific(struct recycle_item** param_1);
+void FreeRecycleOfferItems(struct recycle_offer_items* offer_items);
+enum item_id GetRecycleItemId(struct recycle_item** recycle_item);
+bool RecycleItemHasTradeTypePrizeTicket(struct recycle_item** recycle_item);
+int16_t GetRecycleItemBonusOdds(struct recycle_item** recycle_item);
+int CountTradedRecycleItems(struct recycle_item** recycle_item);
+bool RecycleShopTradeIsNonspecific(struct recycle_item** recycle_item);
 bool RecycleShopOfferExists(void);
 void ClearRecycleShopOffer(void);
 uint32_t GetGameStateRecycleCount(void);
-struct rank_8 GetRankForRecycleShop(void);
+enum rank GetRankForRecycleShop(void);
 void IncrementRecycleCountVar(void);
 void UpdateRecycleShop(void);
 void DecrementRecycleOfferCooldown(void);
 bool IsRecycleOfferCooldownOver(void);
 int GetRecycleOfferCooldown(void);
-bool RecycleShopIsNotThrownItem(enum item_id param_1);
-bool RecycleShopIsTradableItem(enum item_id param_1, bool param_2);
-int RecycleShopCountTradableItemsInBag(bool param_1);
-int RecycleShopCountTradableItemsInStorage(bool param_1);
+bool RecycleShopIsNotThrownItem(enum item_id item);
+bool RecycleShopIsTradableItem(enum item_id item, bool disallow_tickets);
+int RecycleShopCountTradableItemsInBag(bool disallow_tickets);
+int RecycleShopCountTradableItemsInStorage(bool disallow_tickets);
 int CountValidRecycleShopItems(int filter, uint32_t recycles, enum rank rank);
-bool IsRecycleTradeTypeValid(int param_1, int param_2);
+bool IsRecycleTradeTypeValid(int filter, int trade_type);
 void ClearCroagunkItems(void);
 bool LoadSynthBin(void);
 void CloseSynthBin(void);
 bool GenerateCroagunkItems(void);
-uint32_t GetCroagunkItemTemplates(struct synth_template* param_1);
+uint32_t GetCroagunkItemTemplates(struct synth_template* synth_template);
 bool PopCroagunkItem(enum item_id item);
 undefined4 LoadCroagunkItems(void);
 undefined4 SaveCroagunkItems(void);
@@ -624,6 +625,7 @@ uint8_t DrawChar(int window_id, int x, int y, char symbol, int color_offset);
 struct window* GetWindow(int window_id);
 int NewWindowScreenCheck(struct window_params* params, uint8_t param_2);
 int NewWindow(struct window_params* params, uint8_t param_2);
+int GetPaletteBaseAddress(undefined4 pal_vram_offset_upper, undefined4 pal_vram_offset_lower);
 void SetScreenWindowsColor(int palette_idx, bool upper_screen);
 void SetBothScreensWindowsColor(int palette_idx);
 void UpdateWindow(int window_id);
@@ -852,7 +854,7 @@ void EventFlagBackupVeneer(void);
 void InitMainTeamAfterQuiz(void);
 void InitSpecialEpisodePartners(void);
 void InitSpecialEpisodeExtraPartner(void);
-void AssignSpecialEpisodePc(int team_member_id, struct special_episode_pc* param_2);
+void AssignSpecialEpisodePc(int team_member_id, struct special_episode_pc* special_episode_pc);
 void ReadStringSave(char* buf);
 bool CheckStringSave(const char* buf);
 int WriteSaveFile(undefined* save_info, undefined* buf, int size);
@@ -987,7 +989,7 @@ void MissionToWonderMailPassword(char* password, struct mission* mission_data);
 void SetEnterDungeon(enum dungeon_id dungeon_id);
 void InitDungeonInit(struct dungeon_init* dungeon_init_data, enum dungeon_id dungeon_id);
 bool IsNoLossPenaltyDungeon(enum dungeon_id dungeon_id);
-bool MissionRewardValidateDungeonId(struct dungeon_id_8* param_1);
+bool MissionRewardValidateDungeonId(struct dungeon_id_8* dungeon_id);
 undefined CheckMissionRestrictions(undefined param_1);
 bool TilesetSecondaryTerrainIsChasm(int16_t tileset_id);
 int GetNbFloors(enum dungeon_id dungeon_id);
@@ -1181,6 +1183,8 @@ bool DexNumbersEqual(enum monster_id monster1, enum monster_id monster2);
 bool GendersEqual(enum monster_id monster1, enum monster_id monster2);
 bool GendersEqualNotGenderless(enum monster_id monster1, enum monster_id monster2);
 bool GendersNotEqualNotGenderless(enum monster_id monster1, enum monster_id monster2);
+void RecolorNameString(char* out, char* name, char color_symbol);
+void RecolorTeamMemberNameString(char* out, char* name, bool is_leader);
 void ModifyHpStat(int16_t* stat_ptr, int32_t amount);
 void ModifyOffensiveStat(int8_t* stat_ptr, int32_t amount);
 void ModifyDefensiveStat(int8_t* stat_ptr, int32_t amount);
@@ -1190,7 +1194,7 @@ void GetNbRecruited(undefined* recruit);
 bool IsValidTeamMember(int member_idx);
 bool IsMainCharacter(int member_idx);
 struct ground_monster* GetTeamMember(int member_idx);
-int GetRecruitMentryIdBySpecies(enum monster_id param_1, int param_2);
+int GetRecruitMentryIdBySpecies(enum monster_id monster_id, int num_to_skip);
 int GetHeroMemberIdx(void);
 int GetPartnerMemberIdx(void);
 int GetMainCharacter1MemberIdx(void);
@@ -1204,6 +1208,7 @@ struct ground_monster* GetMainCharacter3(void);
 int GetFirstMatchingMemberIdx(enum monster_id monster_id);
 int GetFirstEmptyMemberIdx(int param_1);
 bool IsMonsterNotNicknamed(struct ground_monster* monster);
+void GetRecoloredGroundMonsterName(char* out, struct ground_monster* monster, char color_symbol);
 void RemoveActiveMembersFromAllTeams(void);
 void RemoveActiveMembersFromSpecialEpisodeTeam(void);
 void RemoveActiveMembersFromRescueTeam(void);
@@ -1218,11 +1223,14 @@ void RemoveActiveMembersFromMainTeam(void);
 void SetTeamSetupHeroAndPartnerOnly(void);
 void SetTeamSetupHeroOnly(void);
 int GetPartyMembers(uint16_t* party_members);
-int GetAdventureNpcIds(struct monster_id_16* param_1);
-int GetUnitNpcIds(struct monster_id_16* param_1);
+int GetAdventureNpcIds(struct monster_id_16* monster_id_table);
+int GetUnitNpcIds(struct monster_id_16* monster_id_table);
 void RefillTeam(void);
-void ValidateTeamMembers(bool* param_1);
+void ValidateTeamMembers(bool* valid_member_table);
 int ClearItem(int team_id, bool check);
+void GetRecoloredNameOfTeamMemberAtIdx(char* out, int roster_idx);
+void GetNameOfTeamMemberAtIdx(char* out, int roster_idx);
+void GetRecoloredTeamMemberName(char* out, struct team_member* team_member);
 void ChangeGiratinaFormIfSkyDungeon(enum dungeon_id dungeon_id);
 void RevertGiratinaAndShaymin(uint8_t member_idx, undefined param_2);
 void* OamTileNumberToVramAddress(uint16_t oam_tile_num, uint8_t screen);
@@ -1261,14 +1269,16 @@ int GetSosMailCount(int param_1, bool param_2);
 bool IsMissionSuspendedAndValid(struct mission* mission);
 bool AreMissionsEquivalent(struct mission* mission1, struct mission* mission2);
 bool IsMissionValid(struct mission* mission);
-bool CheckMonsterForMissionType(enum mission_type type, int* subtype, enum monster_id target,
-                                bool param_4);
-bool CheckItemForMissionType(enum mission_type type, int* subtype, enum item_id param_3);
+bool CheckMonsterForMissionType(enum mission_type type, union mission_subtype* subtype,
+                                enum monster_id target, bool allow_no_monster);
+bool CheckItemForMissionType(enum mission_type type, union mission_subtype* subtype,
+                             enum item_id item);
 enum mission_generation_result GenerateMission(undefined* param_1, struct mission* mission_data);
-int CountAndPopulateValidMissionTableMonsters(undefined4* param_1, undefined4* param_2);
+int CountAndPopulateValidMissionTableMonsters(enum monster_id* monster_table, undefined4* range);
 bool IsMissionTypeSpecialEpisode(struct mission* mission);
-bool DoesMissionHaveTypeAndSubtype(struct mission, struct mission_type_8* type, int* subtype);
-bool AlreadyHasSimilarMission(struct mission_type_8* type, int8_t* subtype_8);
+bool DoesMissionHaveTypeAndSubtype(struct mission* mission, struct mission_type_8* type,
+                                   union mission_subtype* subtype);
+bool AlreadyHasSimilarMission(struct mission_type_8* type, union mission_subtype* subtype);
 void GenerateDailyMissions(void);
 bool AlreadyHaveMission(struct mission* mission);
 int CountJobListMissions(void);
@@ -1278,8 +1288,8 @@ bool AnyDungeonRequestsDone(uint8_t param_1);
 bool AddMissionToJobList(struct mission* mission);
 struct mission* GetAcceptedMission(uint8_t mission_id);
 bool IsAcceptedMissionSlotEmpty(int param_1);
-bool WasMissionCompletedToday(struct mission_result_and_client* param_1, struct mission* param_2,
-                              enum mission_type param_3);
+bool WasMissionCompletedToday(struct mission_result_and_client* result_and_client,
+                              struct mission* mission, enum mission_type type);
 int GetMissionByTypeAndDungeon(int start_index, enum mission_type mission_type,
                                undefined* subtype_struct, enum dungeon_id dungeon_id);
 bool CheckAcceptedMissionByTypeAndDungeon(enum mission_type mission_type, undefined* subtype_struct,
@@ -1292,8 +1302,9 @@ void DeleteAllPossibleDungeonsList(void);
 int GenerateAllPossibleDeliverList(void);
 void DeleteAllPossibleDeliverList(void);
 void ClearMissionData(struct mission* mission);
-int GetMissionSpecificFixedRoom(enum mission_type type, int subtype);
-int8_t SelectRandomFixedRoomInRange(int8_t* fixed_rooms, int max);
+enum fixed_room_id GetMissionSpecificFixedRoom(enum mission_type type,
+                                               union mission_subtype subtype);
+int8_t SelectRandomFixedRoomInRange(struct fixed_room_id_8* fixed_rooms, int max);
 void ReadRescueBinFile(void);
 void GenerateMissionDetailsStruct(struct mission* mission, struct mission_details* details,
                                   undefined param_3, undefined param_4);
@@ -1301,44 +1312,49 @@ bool ValidateNormalChallengeMission(struct mission_template* valid_mission_info,
                                     struct mission* mission);
 bool ValidateLegendaryChallengeMission(struct mission_template* valid_mission_info,
                                        struct mission* mission);
-int MatchMissionTemplateToMission(struct mission* param_1, undefined4 param_2);
+struct mission_template* MatchMissionTemplateToMission(undefined4 table_index,
+                                                       struct mission* mission);
 void AppendMissionTitle(char* main_buffer, char* temp_buffer, struct preprocessor_args* args,
                         struct mission_details* details);
-void FormatMissionHeader(char* buffer, struct mission_details* param_2);
-void FormatSpecialEpisodeMissionHeader(char* param_1);
+void FormatMissionHeader(char* buffer, struct mission_details* mission_details);
+void FormatSpecialEpisodeMissionHeader(char* buffer);
 void AppendMissionSummary(char* main_buffer, char* temp_buffer, int window_id, int y_offset,
                           struct preprocessor_args* args, struct mission_details* details);
-void MakeMissionDetails(struct mission_details* param_1, char* buffer, undefined param_3);
-void MakeSpecialEpisodeMissionDetails(struct mission_details, undefined param_2);
+void MakeMissionDetails(struct mission_details* mission_details, char* buffer, undefined param_3);
+void MakeSpecialEpisodeMissionDetails(char* buffer, undefined param_2);
 undefined PrintWonderMailSkyCode(undefined param_1, undefined param_2, undefined param_3,
                                  undefined param_4);
-void AppendMissionObjective(char* param_1, int param_2, undefined4 param_3, uint32_t param_4,
-                            short param_5);
-void AppendMissionDungeonLocation(struct mission_details* param_1, char* buffer, int param_3);
-uint32_t RandomizeMissionCategory(uint32_t MissionWghtSum, uint32_t param_2,
-                                  struct mission_weighted_category* param_3);
-bool SumValidMissionCategoryWeights(undefined4 mission_vendor);
+void AppendMissionObjective(char* buffer, int buffer_size, undefined4 objective,
+                            enum monster_id monster, struct item_id_16 item);
+void AppendMissionDungeonLocation(struct mission_details* mission_details, char* buffer,
+                                  int buffer_size);
+uint32_t RandomizeMissionCategory(uint32_t mission_wght_sum, undefined param_2,
+                                  struct mission_weighted_category* category);
+bool SumValidMissionCategoryWeights(enum mission_vendor vendor);
 struct mission_template* GetRandomMissionTemplate(void);
-undefined4 LoadMissionTemplates(void);
+struct mission_template* LoadMissionTemplates(void);
 bool IsMonsterMissionAllowed(enum monster_id monster_id);
 bool CanMonsterBeUsedForMissionWrapper(enum monster_id monster_id);
 bool CanMonsterBeUsedForMission(enum monster_id monster_id, bool check_story_banned);
 bool IsMonsterMissionAllowedStory(enum monster_id monster_id);
 bool IsMonsterIllegalForMissions(enum monster_id monster_id);
 bool CanDungeonBeUsedForMission(enum dungeon_id dungeon_id);
-int8_t GetMissionRankWithCapAndModifiers(void);
-int8_t GetMissionRankWithCapAndModifiersAndCap(void);
+enum mission_rank GetMissionRankWithCapAndModifiers(struct dungeon_floor_pair* dungeon_floor_pair,
+                                                    enum mission_type type);
+enum mission_rank
+GetMissionRankWithCapAndModifiersAndCap(struct dungeon_floor_pair* dungeon_floor_pair,
+                                        enum mission_type type);
 bool CanSendItem(enum item_id item_id, bool to_sky);
-void InitMissionReward(struct mission* param_1, struct mission_reward_data* param_2,
+void InitMissionReward(struct mission* mission, struct mission_reward_data* reward_data,
                        undefined4 param_3, undefined4 param_4);
-void RollRandomItemReward(undefined4 param_1, undefined4 param_2, struct item_id_16* param_3);
-void GenerateMissionRewards(struct mission* MissionPtr, int IsCafeMission);
-undefined4 CheckDungeonMissionUnlockConditions(enum dungeon_id param_1);
+void RollRandomItemReward(undefined4 param_1, undefined4 param_2, struct item_id_16* item_id);
+void GenerateMissionRewards(struct mission* mission, bool is_cafe_mission);
+int CheckDungeonMissionUnlockConditions(enum dungeon_id dungeon);
 bool IsAvailableItem(enum item_id item_id);
 int GetAvailableItemDeliveryList(undefined* item_buffer);
 void WriteMissionMtState(int32_t* state_ptr);
 int16_t ReadMissionMtStateLower(void);
-void ZeroInitMissionRewardDataStruct(struct mission_reward_data* param_1);
+void ZeroInitMissionRewardDataStruct(struct mission_reward_data* reward_data);
 enum monster_id GetScriptEntityMonsterId(enum script_entity_id entity_id);
 int GetScriptEntityMatchingStorageId(enum script_entity_id entity_id);
 void SetActorTalkMainAndActorTalkSub(enum script_entity_id actor_id_main,
@@ -1348,9 +1364,9 @@ void SetActorTalkSub(enum script_entity_id actor_id);
 void SetActorEventMain(enum script_entity_id actor_id);
 void SetRandomRequestNpcs1And2(enum script_entity_id actor_id1, enum script_entity_id actor_id2);
 void SetRandomRequestNpc03KindVar(enum monster_id param_1);
-void SetAllEventNpcs(enum script_entity_id param_1, enum script_entity_id param_2,
-                     enum script_entity_id param_3, enum script_entity_id param_4);
-void SetNewFriendActor(enum script_entity_id param_1);
+void SetRandomRequestNpcs1And2(enum script_entity_id actor_id_1, enum script_entity_id actor_id_2);
+void SetAllEventNpcs(enum script_entity_id actor_id_1, enum script_entity_id actor_id_2,
+                     enum script_entity_id actor_id_3, enum script_entity_id actor_id_4);
 void RandomizeDemoActors(void);
 void ItemAtTableIdx(int idx, struct bulk_item* item);
 void MainLoop(void);

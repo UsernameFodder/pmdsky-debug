@@ -1894,6 +1894,14 @@ arm9:
         r1: item
         r2: bitmask
         return: bool
+    - name: GetMoneyQuantity
+      address:
+        EU: 0x200D934
+      description: |-
+        Gets the actual money a Poké item should give by indexing its quantity field into MONEY_QUANTITY_TABLE, then multiplying by 1.2x if the Coin Watcher flag is set.
+        
+        r0: item
+        return: money amount
     - name: GetItemsForSave
       aliases:
         - WriteItemsToSave
@@ -2899,7 +2907,7 @@ arm9:
       description: |-
         Seems to set the species of the egg in Chansey Daycare to GAME_STATE_VALUES.
         
-        r0: struct monster_id_16
+        r0: monster_id
     - name: GetUnkGameState0x13a6
       address:
         EU: 0x2010854
@@ -3370,7 +3378,7 @@ arm9:
       description: |-
         Retrieves GAME_STATE_VALUES->rank. Seems to exclusively be used for recycle shop prize ticket unlocks, but does correlate with guild rank.
         
-        return: rank_8
+        return: guild rank
     - name: IncrementRecycleCountVar
       address:
         EU: 0x2012008
@@ -5905,6 +5913,16 @@ arm9:
         r0: window_params pointer to be copied by value into window::hdr in the new window
         r1: ?
         return: window_id
+    - name: GetPaletteBaseAddress
+      address:
+        EU: 0x2027B9C
+      description: |-
+        Gets the palette base address for a 3D element loaded from a WTE file.
+        Takes the same parameters as were used in the specified file's ProcessWte call.
+        
+        r0: upper part of the palette VRAM
+        r1: lower part of the palette VRAM
+        return: palette base address
     - name: SetScreenWindowsColor
       address:
         EU: 0x2027D5C
@@ -7887,7 +7905,6 @@ arm9:
       description: |-
         Seems to be responsible for creating special episode ground_monster for special episodes.  
         
-        
         r0: team_member_id
         r1: special_episode_pc pointer
     - name: ReadStringSave
@@ -9234,7 +9251,7 @@ arm9:
         Checks script variables $DUNGEON_ENTER and $DUNGEON_ENTER_INDEX for "mission dungeon" and a valid non-dojo dungeon respectively.
         If so, stores the dungeon id from $DUNGEON_ENTER_INDEX to a pointer.
         
-        r0: dungeon_id_8* (return)
+        r0: [output] dungeon_id_8*
         return: 1 if the dungeon pulled from script variables is valid for mission rewards, 0 otherwise.
     - name: CheckMissionRestrictions
       address:
@@ -11176,6 +11193,24 @@ arm9:
         r0: id1
         r1: id2
         return: bool
+    - name: RecolorNameString
+      address:
+        EU: 0x20552C0
+      description: |-
+        Given a string of up to 10 characters, formats the string to display it in a specific color, or the original string if r2 is 0.
+        
+        r0: [output] buffer
+        r1: string to recolor
+        r2: text color symbol for the [CS:r2] tag
+    - name: RecolorTeamMemberNameString
+      address:
+        EU: 0x205531C
+      description: |-
+        Given a string of up to 10 characters, formats the string to display it in either light blue if the monster is the leader or yellow otherwise.
+        
+        r0: [output] buffer
+        r1: string to recolor
+        r2: whether the monster is the team leader
     - name: ModifyHpStat
       address:
         EU: 0x2055334
@@ -11412,6 +11447,15 @@ arm9:
         
         r0: ground monster pointer
         return: bool
+    - name: GetRecoloredGroundMonsterName
+      address:
+        EU: 0x2056400
+      description: |-
+        Gets the name of the ground monster formatted to be displayed in a specific color.
+        
+        r0: [output] buffer
+        r1: ground monster pointer
+        r2: text color symbol for the [CS:r2] tag
     - name: RemoveActiveMembersFromAllTeams
       address:
         EU: 0x2056444
@@ -11588,6 +11632,30 @@ arm9:
         
         r0: team_id
         r1: check
+    - name: GetRecoloredNameOfTeamMemberAtIdx
+      address:
+        EU: 0x2058878
+      description: |-
+        Gets the name of the active team member in the given slot index formatted to be displayed in either light blue if the monster is the leader or yellow otherwise.
+        
+        r0: [output] buffer
+        r1: roster index
+    - name: GetNameOfTeamMemberAtIdx
+      address:
+        EU: 0x2058908
+      description: |-
+        Gets the name of the active team member in the given slot index.
+        
+        r0: [output] buffer
+        r1: roster index
+    - name: GetRecoloredTeamMemberName
+      address:
+        EU: 0x2058930
+      description: |-
+        Gets the name of the team member formatted to be displayed in either light blue if the monster is the leader or yellow otherwise.
+        
+        r0: [output] buffer
+        r1: team member pointer
     - name: ChangeGiratinaFormIfSkyDungeon
       address:
         EU: 0x2058954
@@ -12004,7 +12072,7 @@ arm9:
       description: |-
         Reads a portion of the mission monster table from rescue.bin, counting and populating the valid monsters for the mission.
         
-        r0: [secondary return] Pointer to the subset of valid monster_ids
+        r0: [output] Pointer to the subset of valid monster_ids
         r1: Involved in the bounds of the min and max table indices.
         return: number of valid monsters
     - name: IsMissionTypeSpecialEpisode
@@ -12013,7 +12081,7 @@ arm9:
         NA: 0x205E238
         JP: 0x205E538
       description: |-
-        Checks if a mission is for a Special Episode Transmission, which unlocks Special Episode 3. This specifically checks for a mission of type MISSION_CONSUMABLE and subtype 0x2.
+        Checks if a mission is for a Special Episode Transmission, which unlocks Special Episode 3. This specifically checks for a mission of type MISSION_TYPE_CONSUMABLE and subtype MISSION_SPECIAL_EPISODE.
         
         r0: mission pointer
         return: bool
@@ -12257,7 +12325,7 @@ arm9:
         
         r0: mission_type
         r1: mission_subtype
-        return: fixed room id
+        return: fixed_room_id
     - name: SelectRandomFixedRoomInRange
       address:
         EU: 0x2060400
@@ -12265,7 +12333,7 @@ arm9:
         Returns a random fixed room from a list for a specified range. Checks for "null-termination" if no ending table entry is given.
         It seems that the TREASURE_MEMO_FIXED_ROOM_IDS table is frontloaded with 15 "easy" layouts, and only those are allowed before performance flag 9 is enabled. 
         
-        r0: table of fixed room ids (int8_t pointer)
+        r0: fixed_room_id_8 table pointer
         r1: number of entries to choose from, -1 to use the entire table.
         return: int8_t
     - name: ReadRescueBinFile
@@ -12386,11 +12454,7 @@ arm9:
     - name: PrintWonderMailSkyCode
       address:
         EU: 0x2062044
-      description: |-
-        Seems to print a WMS code for a mission, based on context and live analysis.
-        
-        r0+: ?
-        return: ?
+      description: "Seems to print a WMS code for a mission, based on context and live analysis."
     - name: AppendMissionObjective
       address:
         EU: 0x2062144
@@ -12427,7 +12491,8 @@ arm9:
       description: |-
         Seems to tally up the total weights for each mission_category under a specified mission vendor.
         
-        r0: 0 for job board, 1 for outlaw board, 2 for cafe client, 3 for beach bottle 
+        
+        r0: mission_vendor
         return: 1 if the total weight is non-zero, 0 if not.
     - name: GetRandomMissionTemplate
       address:
@@ -14306,7 +14371,7 @@ arm9:
       description: |-
         Table of fixed room ids used by the MISSION_ARREST_OUTLAW and MISSION_OUTLAW_HIDEOUT type and subtype.
         
-        type: uint8_t
+        type: fixed_room_id_8[5]
     - name: CHALLENGE_NORMAL_FIXED_ROOM_IDS
       address:
         EU: 0x20A1E88
@@ -14315,7 +14380,7 @@ arm9:
       description: |-
         Table of fixed room ids used by the MISSION_CHALLENGE_REQUEST and MISSION_CHALLENGE_NORMAL type and subtype.
         
-        type: uint8_t
+        type: fixed_room_id_8[5]
     - name: TACTICS_FOLLOW_LEADER
       address:
         EU: 0x20A1E90
@@ -14369,7 +14434,7 @@ arm9:
         Table of fixed room ids used by the MISSION_TREASURE_MEMO type.
         The last 15 entries only show up after the postgame (performance flag 9).
         
-        type: uint8_t
+        type: fixed_room_id_8[30]
     - name: CLIENT_LEVEL_TABLE
       address:
         EU: 0x20A1EFC
@@ -15341,7 +15406,7 @@ arm9:
       length:
         EU: 0x60
         NA: 0x60
-    - name: ARM9_UNKNOWN_TABLE__NA_20AE924
+    - name: VOLUME_TABLE
       address:
         EU: 0x20AF1C4
         NA: 0x20AE924
@@ -15350,10 +15415,7 @@ arm9:
         EU: 0x2D4
         NA: 0x2D4
         JP: 0x2D4
-      description: |-
-        724*0x1
-        
-        Note: unverified, ported from Irdkwia's notes
+      description: 724*0x1
     - name: MEMORY_ALLOCATION_ARENA_GETTERS
       address:
         EU: 0x20AF7A0
@@ -15530,6 +15592,8 @@ arm9:
     - name: SYNTH_BIN_FILE_PTR
       address:
         EU: 0x20AFFA0
+      length:
+        EU: 0x4
       description: The location of the data/SYNTH/synth.bin file while loaded.
     - name: DUNGEON_MOVE_TABLES
       address:
@@ -15640,11 +15704,13 @@ arm9:
     - name: MISSION_REWARD_STRUCT_MAIN_PTR
       address:
         EU: 0x20B0790
+      length:
+        EU: 0x4
       description: |-
         Points to a mission_reward_struct_main struct, responsible for handling the overlay 11 portion of the mission reward sequence.
         Is also used sparingly during the Spinda Cafe egg event.
         
-        type: mission_reward_struct_main
+        type: mission_reward_struct_main pointer
     - name: NOTIFY_NOTE
       address:
         EU: 0x20B0814

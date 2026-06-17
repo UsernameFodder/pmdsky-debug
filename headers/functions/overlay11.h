@@ -20,7 +20,7 @@ void StationLoadHanger(void);
 void ScriptStationLoadTalk(void);
 void SsbLoad1(void);
 void ReturnScriptMenuResultZero(void);
-void ReturnScriptMenuResult(int param_1);
+void ReturnScriptMenuResult(int case_id);
 bool IsScriptMenuReturnDisabled(void);
 int ScriptSpecialProcessCall(undefined4* param_1, enum special_process_id id, int arg1, int arg2);
 bool GetCoroutineInfo(struct coroutine_info* coroutine_info, enum common_routine_id coroutine_id);
@@ -174,7 +174,7 @@ undefined4 InitDiaryAndFaqBoardMenu(undefined4 param_1);
 void FreeDiaryAndFaqBoardMenuMenu(void);
 undefined4 DiaryAndFaqBoardMenuFrameUpdate(void);
 bool IsBagNotEmpty(void);
-bool IsGroundMonsterAtMaxLevel(struct ground_monster* param_1);
+bool IsGroundMonsterAtMaxLevel(struct ground_monster* ground_monster);
 void GetExclusiveItemRequirements(undefined param_1, undefined param_2);
 void SwapShopInventoryManager(enum swap_shop_inventory_case inventory_case,
                               int monster_id_or_exc_item_count);

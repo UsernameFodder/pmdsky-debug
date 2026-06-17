@@ -139,12 +139,12 @@ overlay10:
         Seems to handle the creation of an inventory menu for the spinda cafe.
         The fact that this lives in overlay_10 suggests it may serve a more general purpose
         
-        r0: int32_t
+        r0: n_items
         r1: int32_t
         r2: int32_t
         r3: uint8_t * 
-        stack[0]: void
-        stack[1]: update_window_fn_t 
+        stack[0]: ?
+        stack[1]: ?
         statk[2]: uint32_t
     - name: GetEffectAnimationField0x19
       address:
@@ -541,6 +541,18 @@ overlay10:
         NA: 0x2
         JP: 0x2
       description: "The chance of Forewarn forcing a move to miss, as a percentage (20%)."
+    - name: CONSTRICTION_DAMAGE
+      address:
+        EU: 0x22C4DC4
+      length:
+        EU: 0x2
+      description: Damage dealt by the constriction status condition.
+    - name: WISE_HEALER_PERCENTAGE
+      address:
+        EU: 0x22C4DC8
+      length:
+        EU: 0x2
+      description: The additional percentage of HP that should be restored for monsters with the Wise Healer IQ skill (15%).
     - name: UNOWN_STONE_DROP_CHANCE
       address:
         EU: 0x22C4DCC

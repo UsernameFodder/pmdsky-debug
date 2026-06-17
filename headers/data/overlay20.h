@@ -25,4 +25,5 @@ extern struct recycle_shop_main* RECYCLE_SHOP_MAIN_STRUCT_PTR;
 extern struct recycle_unk_struct_0x84* RECYCLE_SHOP_UNK_STRUCT_SIZE_84H_PTR;
 extern struct recycle_unk_struct_0x340* RECYCLE_SHOP_UNK_STRUCT_SIZE_340H_PTR;
 extern struct recycle_unk_struct_0x1cc* RECYCLE_SHOP_UNK_STRUCT_SIZE_1CCH_PTR;
+
 #endif

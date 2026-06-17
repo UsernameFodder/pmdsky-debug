@@ -592,6 +592,31 @@ ram:
         NA: 0x22B9648
         JP: 0x22BAE00
       description: thread_info struct that contains global state about threads
+    - name: OSI_IS_THREAD_INITIALIZED
+      address:
+        EU: 0x22B9F94
+        NA: 0x22B9654
+        JP: 0x22BAE0C
+    - name: OSI_THREAD_INFO
+      address:
+        EU: 0x22B9FAC
+        NA: 0x22B966C
+        JP: 0x22BAE24
+    - name: OSI_INITIALIZED
+      address:
+        EU: 0x22BA204
+        NA: 0x22B98C4
+        JP: 0x22BB07C
+    - name: OSI_DEBUGGER_HANDLER
+      address:
+        EU: 0x22BA230
+        NA: 0x22B98F0
+        JP: 0x22BB0A8
+    - name: OSI_EX_CONTEXT
+      address:
+        EU: 0x22BA25C
+        NA: 0x22B991C
+        JP: 0x22BB0D4
     - name: OSI_TIMER_RESERVED
       address:
         EU: 0x22BA2DC
@@ -610,6 +635,11 @@ ram:
         EU: 0x8
         NA: 0x8
         JP: 0x8
+    - name: OSI_TICK_COUNTER
+      address:
+        EU: 0x22BA2E8
+        NA: 0x22B99A8
+        JP: 0x22BB160
     - name: OSI_USE_ALARM
       address:
         EU: 0x22BA2F0
@@ -627,6 +657,11 @@ ram:
         EU: 0x4
         NA: 0x4
       description: "Starts at 0 when the game is first launched, and ticks up by 3 per frame while the game is running."
+    - name: OSI_IS_INIT_RESET
+      address:
+        EU: 0x22BA310
+        NA: 0x22B99D0
+        JP: 0x22BB188
     - name: OSI_VRAM_EXCLUSIVE
       address:
         EU: 0x22BA314
@@ -645,6 +680,21 @@ ram:
         EU: 0x14
         NA: 0x14
         JP: 0x14
+    - name: SND_MUTEX
+      address:
+        EU: 0x22BA330
+        NA: 0x22B99F0
+        JP: 0x22BB1A8
+    - name: RESERVE_LIST
+      address:
+        EU: 0x22BA360
+        NA: 0x22B9A20
+        JP: 0x22BB1C0
+    - name: SNDI_SHARED_WORK
+      address:
+        EU: 0x22BBEA0
+        NA: 0x22BB560
+        JP: 0x22BCD00
     - name: GROUND_MEMORY_ARENA_1_PTR
       address:
         NA: 0x2324CB4
