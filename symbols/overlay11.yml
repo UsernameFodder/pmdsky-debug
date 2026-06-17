@@ -192,6 +192,8 @@ overlay11:
     - name: ReturnScriptMenuResultZero
       address:
         EU: 0x22E77A8
+        NA: 0x22E6E68
+        JP: 0x22E8494
       description: |-
         Returns control to the scripting engine for a message_menu, with case id 0.
         
@@ -199,6 +201,8 @@ overlay11:
     - name: ReturnScriptMenuResult
       address:
         EU: 0x22E77CC
+        NA: 0x22E6E8C
+        JP: 0x22E84B8
       description: |-
         Returns control to the scripting engine for a message_menu, with a specified case_id.
         
@@ -206,6 +210,8 @@ overlay11:
     - name: IsScriptMenuReturnDisabled
       address:
         EU: 0x22E7808
+        NA: 0x22E6EC8
+        JP: 0x22E84F4
       description: |-
         Checks if the scripting engine is ready to return control to an overlay-based menu.
         
@@ -1494,6 +1500,8 @@ overlay11:
     - name: EatOverworldGummiEntryPoint
       address:
         EU: 0x22FFBB8
+        NA: 0x22FF21C
+        JP: 0x2300888
       description: |-
         Seems to be the entry_point for a "mini-overlay" overlay_load_entry that lives in overlay 11, that controls eating gummis in the overworld. 
         
@@ -1501,6 +1509,8 @@ overlay11:
     - name: EatOverworldGummiDestructor
       address:
         EU: 0x22FFCB8
+        NA: 0x22FF31C
+        JP: 0x2300988
       description: |-
         Seems to be the destructor for a "mini-overlay" overlay_load_entry that lives in overlay 11, that controls eating gummis in the overworld.
         
@@ -1508,6 +1518,8 @@ overlay11:
     - name: EatOverworldGummiFrameUpdate
       address:
         EU: 0x22FFCF4
+        NA: 0x22FF358
+        JP: 0x23009C4
       description: |-
         Seems to be the frame_update for a "mini-overlay" overlay_load_entry that lives in overlay 11, that controls eating gummis in the overworld.
         
@@ -1542,6 +1554,8 @@ overlay11:
     - name: GroundBagOthersMenuEntryPoint
       address:
         EU: 0x2301B38
+        NA: 0x230119C
+        JP: 0x23027F0
       description: |-
         Seems to be the entry_point for a "mini-overlay" overlay_load_entry that lives in overlay 11, which controls the others menu in ground mode.
         
@@ -1549,6 +1563,8 @@ overlay11:
     - name: GroundBagOthersMenuDestructor
       address:
         EU: 0x2301BBC
+        NA: 0x2301220
+        JP: 0x2302874
       description: |-
         Seems to be the destructor for a "mini-overlay" overlay_load_entry that lives in overlay 11, which controls the others menu in ground mode.
         
@@ -1556,6 +1572,8 @@ overlay11:
     - name: GroundBagOthersMenuFrameUpdate
       address:
         EU: 0x2301BF8
+        NA: 0x230125C
+        JP: 0x23028B0
       description: |-
         Seems to be the frame_update for a "mini-overlay" overlay_load_entry that lives in overlay 11, which controls the others menu in ground mode.
         
@@ -1563,6 +1581,8 @@ overlay11:
     - name: InitDiaryAndFaqBoardMenu
       address:
         EU: 0x2303C60
+        NA: 0x23032C4
+        JP: 0x2304924
       description: |-
         Seems to initialize the menu which controls bidoof and sunflora's diaries, as well as the FAQ board on B1F of the guild.
         
@@ -1571,6 +1591,8 @@ overlay11:
     - name: FreeDiaryAndFaqBoardMenuMenu
       address:
         EU: 0x23042A0
+        NA: 0x2303904
+        JP: 0x2304F68
       description: |-
         Seems to free them menu which controls bidoof and sunflora's diaries, as well as the FAQ board on B1F of the guild.
         
@@ -1578,6 +1600,8 @@ overlay11:
     - name: DiaryAndFaqBoardMenuFrameUpdate
       address:
         EU: 0x23042CC
+        NA: 0x2303930
+        JP: 0x2304F94
       description: |-
         Seems to run each frame to manage the menu which controls bidoof and sunflora's diaries, as well as the FAQ board on B1F of the guild.
         
@@ -1606,6 +1630,8 @@ overlay11:
     - name: IsGroundMonsterAtMaxLevel
       address:
         EU: 0x230B718
+        NA: 0x230AD7C
+        JP: 0x230C320
       description: |-
         Checks if a ground_monster is above level 99.
         
@@ -1636,6 +1662,8 @@ overlay11:
     - name: LoadRecycleShopOverlay
       address:
         EU: 0x230D768
+        NA: 0x230CDCC
+        JP: 0x230E378
       description: |-
         Seems to be responsible for loading overlay 20 for the recycle shop.
         
@@ -1933,6 +1961,8 @@ overlay11:
     - name: SWAP_SHOP_ONE_STAR_STR
       address:
         EU: 0x2323AD8
+        NA: 0x2322FA8
+        JP: 0x2324524
       length:
         EU: 0x7
       description: |-
@@ -1941,6 +1971,8 @@ overlay11:
     - name: SWAP_SHOP_TWO_STAR_STR
       address:
         EU: 0x2323AE0
+        NA: 0x2322FB0
+        JP: 0x232452C
       length:
         EU: 0xD
       description: |-
@@ -1949,6 +1981,8 @@ overlay11:
     - name: SWAP_SHOP_THREE_STAR_STR
       address:
         EU: 0x2323AF0
+        NA: 0x2322FC0
+        JP: 0x232453C
       length:
         EU: 0x13
       description: |-
@@ -1957,6 +1991,8 @@ overlay11:
     - name: SWAP_SHOP_RED_TEXT_TAG_STR
       address:
         EU: 0x2323B34
+        NA: 0x2323004
+        JP: 0x2324580
       length:
         EU: 0x7
       description: |-
@@ -1965,6 +2001,8 @@ overlay11:
     - name: SWAP_SHOP_UNCENTER_TEXT_TAG_STR
       address:
         EU: 0x2323B3C
+        NA: 0x232300C
+        JP: 0x2324588
       length:
         EU: 0x5
       description: |-
@@ -1973,6 +2011,8 @@ overlay11:
     - name: SWAP_SHOP_CLUMSET_ONE_STAR_STR
       address:
         EU: 0x2323B44
+        NA: 0x2323014
+        JP: 0x2324590
       length:
         EU: 0x15
       description: |-
@@ -1981,6 +2021,8 @@ overlay11:
     - name: SWAP_SHOP_CLUMSET_TWO_STAR_STR
       address:
         EU: 0x2323B5C
+        NA: 0x232302C
+        JP: 0x23245A8
       length:
         EU: 0x1B
       description: |-
@@ -1989,6 +2031,8 @@ overlay11:
     - name: SWAP_SHOP_CLUMSET_THREE_STAR_STR
       address:
         EU: 0x2323B78
+        NA: 0x2323048
+        JP: 0x23245C4
       length:
         EU: 0x21
       description: |-
@@ -2054,6 +2098,8 @@ overlay11:
     - name: EXCLUSIVE_ITEM_REQUIREMENTS_PTR
       address:
         EU: 0x23258E0
+        NA: 0x2324DA0
+        JP: 0x2326300
       length:
         EU: 0x4
       description: "Pointer to the exclusive_item_requirements struct, used by the swap shop."
