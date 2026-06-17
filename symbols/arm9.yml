@@ -11148,6 +11148,13 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         No params.
+    - name: ClearActiveTeamMemberHeldItemIfNotSticky
+      address:
+        EU: 0x20584B4
+      description: |-
+        Clears the held item of the active team member in the given slot index if the item is not sticky.
+        
+        r0: roster index
     - name: ClearItem
       address:
         EU: 0x205856C

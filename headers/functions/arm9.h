@@ -1165,6 +1165,7 @@ void SetTeamSetupHeroAndPartnerOnly(void);
 void SetTeamSetupHeroOnly(void);
 int GetPartyMembers(uint16_t* party_members);
 void RefillTeam(void);
+void ClearActiveTeamMemberHeldItemIfNotSticky(int roster_idx);
 int ClearItem(int team_id, bool check);
 void GetRecoloredNameOfTeamMemberAtIdx(char* out, int roster_idx);
 void GetNameOfTeamMemberAtIdx(char* out, int roster_idx);
