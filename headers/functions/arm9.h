@@ -953,7 +953,7 @@ int GetScenarioBalance(void);
 void ScenarioFlagRestore(void);
 void ScenarioFlagBackup(void);
 void InitWorldMapScriptVars(void);
-void SetWorldMapLevel(undefined4 param_1);
+void SetWorldMapLevel(int32_t world_map_level);
 void InitDungeonListScriptVars(void);
 void SetDungeonConquest(enum dungeon_id dungeon_id, int bit_value);
 enum dungeon_mode GetDungeonMode(enum dungeon_id dungeon_id);
@@ -1287,7 +1287,7 @@ int DungeonRequestsDoneWrapper(uint8_t param_1);
 bool AnyDungeonRequestsDone(uint8_t param_1);
 bool AddMissionToJobList(struct mission* mission);
 struct mission* GetAcceptedMission(uint8_t mission_id);
-bool IsAcceptedMissionSlotEmpty(int param_1);
+bool IsAcceptedMissionSlotEmpty(int32_t mission_slot);
 bool WasMissionCompletedToday(struct mission_result_and_client* result_and_client,
                               struct mission* mission, enum mission_type type);
 int GetMissionByTypeAndDungeon(int start_index, enum mission_type mission_type,
