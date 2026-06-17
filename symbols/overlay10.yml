@@ -132,6 +132,20 @@ overlay10:
         r1: format
         ...: variadic
         return: number of characters printed, excluding the null-terminator
+    - name: CreateInventoryMenuOuter
+      address:
+        EU: 0x22BDDB4
+      description: |-
+        Seems to handle the creation of an inventory menu for the spinda cafe.
+        The fact that this lives in overlay_10 suggests it may serve a more general purpose
+        
+        r0: n_items
+        r1: int32_t
+        r2: int32_t
+        r3: uint8_t * 
+        stack[0]: ?
+        stack[1]: ?
+        statk[2]: uint32_t
     - name: GetEffectAnimationField0x19
       address:
         EU: 0x22BE7F4

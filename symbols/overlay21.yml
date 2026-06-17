@@ -24,6 +24,13 @@ overlay21:
         Often calls SwapShopInventoryManager, and is often called by SwapShopMainManager.
         
         r0: New current_switch_case value.
+    - name: SwapShopSetSimpleMenuWindowId
+      address:
+        EU: 0x238AFA8
+      description: |-
+        Assigns a specified window_id to SWAP_SHOP_MENU_DATA_PTR->simple_menu_window_id.
+        
+        r0: window_id
     - name: GetFirstExclusivePrerequisite
       address:
         EU: 0x238C320

@@ -20,9 +20,18 @@ extern struct animation_data SETANIMATION_TABLE[84];
 extern struct ground_entity_function_table OBJECT_FUNCTION_TABLE;
 extern struct ground_entity_function_table PERFORMER_FUNCTION_TABLE;
 extern struct window_params TEAM_INFO_BOX_DEFAULT_WINDOW_PARAMS;
+extern char SWAP_SHOP_ONE_STAR_STR[7];
+extern char SWAP_SHOP_TWO_STAR_STR[13];
+extern char SWAP_SHOP_THREE_STAR_STR[19];
+extern char SWAP_SHOP_RED_TEXT_TAG_STR[7];
+extern char SWAP_SHOP_UNCENTER_TEXT_TAG_STR[5];
+extern char SWAP_SHOP_CLUMSET_ONE_STAR_STR[21];
+extern char SWAP_SHOP_CLUMSET_TWO_STAR_STR[27];
+extern char SWAP_SHOP_CLUMSET_THREE_STAR_STR[33];
 extern struct overlay_load_entry OVERLAY11_OVERLAY_LOAD_TABLE[21];
 extern undefined4 OV11_STATIC_INITIALIZER;
 extern struct main_ground_data GROUND_STATE_PTRS;
+extern struct exclusive_item_requirements* EXCLUSIVE_ITEM_REQUIREMENTS_PTR;
 extern struct swap_shop_inventory_ptrs SWAP_SHOP_INVENTORY_PTRS;
 extern uint32_t WORLD_MAP_MODE;
 

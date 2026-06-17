@@ -3931,6 +3931,13 @@ enum mission_reward_type {
 ENUM_8_BIT(mission_reward_type);
 #pragma pack(pop)
 
+enum mission_vendor {
+    MISSION_VENDOR_JOB_BOARD = 0,
+    MISSION_VENDOR_OUTLAW_BOARD = 1,
+    MISSION_VENDOR_SPINDA_CAFE = 2,
+    MISSION_VENDOR_BEACH_BOTTLE = 3,
+};
+
 // Different types of restrictions that a mission can have
 enum mission_restriction_type {
     MISSION_RESTRICTION_NONE = 0,
@@ -4344,6 +4351,44 @@ enum os_intr_mode {
     OS_INTRMODE_ENABLE = 0,
     OS_INTRMODE_DISABLE_FIQ = 0x40,
     OS_INTRMODE_DISABLE_IRQ = 0x80
+};
+
+enum rank {
+    RANK_NORMAL = 0,
+    RANK_BRONZE = 1,
+    RANK_SILVER = 2,
+    RANK_GOLD = 3,
+    RANK_DIAMOND = 4,
+    RANK_SUPER = 5,
+    RANK_ULTRA = 6,
+    RANK_HYPER = 7,
+    RANK_MASTER = 8,
+    RANK_MASTER_1_STAR = 9,
+    RANK_MASTER_2_STARS = 10,
+    RANK_MASTER_3_STARS = 11,
+    RANK_GUILDMASTER = 12,
+};
+
+// This is sometimes stored as a 16-bit integer
+#pragma pack(push, 2)
+ENUM_16_BIT(rank);
+#pragma pack(pop)
+
+// This is sometimes stored as an 8-bit integer
+#pragma pack(push, 1)
+ENUM_8_BIT(rank);
+#pragma pack(pop)
+
+enum mission_reward_frame_update_case {
+    CASE_ENTRY = 0,
+    CASE_INIT_DIALOGUE = 1,
+    CASE_DIALOGUE_END = 2,
+    CASE_WAIT_10_FRAMES = 3,
+    CASE_INIT_REWARD_STRUCT = 4,
+    CASE_CONTINUE_REWARD_DATA = 5,
+    CASE_RUN_DESTRUCTOR = 6,
+    CASE_EXIT = 7,
+    // There are more, seems like it goes up to case 21
 };
 
 #endif
