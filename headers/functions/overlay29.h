@@ -111,7 +111,7 @@ void AssignTopScreenHandlers(void** funcs, top_screen_status_fn_t init_func,
                              top_screen_status_fn_t free_func);
 void HandleTopScreenFades(void);
 int FreeTopScreen(void);
-void DungeonChangeTopScreenType(int param_1);
+void DungeonChangeTopScreenType(int top_screen_type);
 enum direction_id GetDirectionTowardsPosition(struct position* origin, struct position* target);
 int GetChebyshevDistance(struct position* position_a, struct position* position_b);
 bool IsPositionActuallyInSight(struct position* origin, struct position* target,
@@ -984,7 +984,7 @@ void DisplayFloorCard(int duration);
 void HandleFloorCard(enum dungeon_id dungeon_id, uint8_t floor, int duration,
                      enum hidden_stairs_type hidden_stairs_type);
 void FillMissionDestinationInfo(void);
-undefined4 MissionExitPrompt(int param_1);
+undefined4 MissionExitPrompt(int string_id);
 bool IsItemUnkMissionItem2(struct item* item);
 bool CheckActiveChallengeRequest(void);
 struct mission_destination_info* GetMissionDestination(void);
@@ -1011,12 +1011,12 @@ enum monster_id GetMissionTargetEnemy(void);
 enum monster_id GetMissionEnemyMinionGroup(int i);
 void SetTargetMonsterNotFoundFlag(bool value);
 bool GetTargetMonsterNotFoundFlag(void);
-void ClearMissionDestinationInfo(struct mission_destination_info* param_1);
+void ClearMissionDestinationInfo(struct mission_destination_info* mission_dest_info);
 bool FloorHasMissionMonster(struct mission_destination_info* mission_dst);
 struct mission* GetMissionIfActiveOnFloor(struct dungeon_floor_pair* pair, uint8_t mission_id);
 void GenerateMissionEggMonster(struct mission* mission);
 struct entity* GetFirstExperienceLockedTeamMember(void);
-void TryCompleteMission(int param_1, int param_2);
+void TryCompleteMission(undefined param_1, undefined param_2);
 void TreasureMemoComplete(void);
 void TeleportFleeingOutlaw(void);
 void InitAlertBoxInfo(void);
@@ -1070,7 +1070,7 @@ void DisplayMessage2(struct portrait_params* portrait, int message_id, bool wait
 bool YesNoMenu(undefined param_1, int string_id, int default_option, undefined param_4);
 void DisplayMessageInternal(int message_id, bool wait_for_input, struct portrait_params* portrait,
                             undefined4 param_4, undefined4 param_5, undefined4 param_6);
-void PrintMissionCompleteString(undefined4 param_1, undefined4 param_2, undefined4 param_3,
+void PrintMissionCompleteString(uint string_id, undefined4 param_2, undefined4 param_3,
                                 undefined4 param_4, undefined1 param_5);
 void InitSecretBazaarDialogueInfo(void);
 void OpenMenu(undefined param_1, undefined param_2, bool open_bag);
