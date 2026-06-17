@@ -1367,6 +1367,7 @@ void SetRandomRequestNpc03KindVar(enum monster_id param_1);
 void SetRandomRequestNpcs1And2(enum script_entity_id actor_id_1, enum script_entity_id actor_id_2);
 void SetAllEventNpcs(enum script_entity_id actor_id_1, enum script_entity_id actor_id_2,
                      enum script_entity_id actor_id_3, enum script_entity_id actor_id_4);
+void SetNewFriendActor(enum script_entity_id actor_id);
 void RandomizeDemoActors(void);
 void ItemAtTableIdx(int idx, struct bulk_item* item);
 void MainLoop(void);
