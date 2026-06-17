@@ -447,6 +447,7 @@ void OpenWaza(int waza_id);
 void SelectWaza(int waza_id);
 void PlayBgmByIdVeneer(enum music_id music_id);
 void PlayBgmByIdVolumeVeneer(enum music_id music_id, undefined param_2, int volume);
+bool IsMePlaying(int me_id);
 void PlaySeByIdVolumeWrapper(int index);
 void PlaySeVolumeWrapper(int index);
 void PlayBgmById(enum music_id music_id);
@@ -823,6 +824,10 @@ void InitInventoryMenuInput(struct inventory_menu_input_ctx* input_ctx, struct w
                             struct window_extra_info* window_extra_info,
                             struct window_rectangle* rect, int n_items, int n_items_per_page,
                             undefined param_7);
+void InventoryMenuNextPage(struct inventory_menu_input_ctx* param_1);
+void InventoryMenuPreviousPage(struct inventory_menu_input_ctx* param_1);
+void InventoryMenuNext10Pages(struct inventory_menu_input_ctx* param_1);
+void InventoryMenuPrevious10Pages(struct inventory_menu_input_ctx* param_1);
 bool OverlayLoadEntriesEqual(struct overlay_load_entry* entry1, struct overlay_load_entry* entry2);
 void FreeActiveMenu(void);
 bool InitMenu(struct overlay_load_entry* entry);
@@ -948,6 +953,7 @@ int GetScenarioBalance(void);
 void ScenarioFlagRestore(void);
 void ScenarioFlagBackup(void);
 void InitWorldMapScriptVars(void);
+void SetWorldMapLevel(int32_t world_map_level);
 void InitDungeonListScriptVars(void);
 void SetDungeonConquest(enum dungeon_id dungeon_id, int bit_value);
 enum dungeon_mode GetDungeonMode(enum dungeon_id dungeon_id);
@@ -1064,6 +1070,8 @@ uint32_t GetPlayTimeSeconds(struct play_time* igt);
 uint32_t SubFixedPoint(uint32_t val_fp, uint32_t dec_fp);
 uint32_t BinToDecFixedPoint(ufx32_16* q16);
 int CeilFixedPoint(uint32_t val_fp);
+void MtInit(int32_t initial_seed);
+int32_t MtNext(void);
 bool DungeonGoesUp(enum dungeon_id dungeon_id);
 int GetTurnLimit(enum dungeon_id dungeon_id);
 bool DoesNotSaveWhenEntering(enum dungeon_id dungeon_id);
@@ -1141,6 +1149,8 @@ void GuestMonsterToGroundMonster(struct ground_monster* ground_monster,
                                  struct guest_monster* guest_monster);
 void SetBaseStatsMovesGroundMonster(struct ground_monster* ground_monster);
 bool StrcmpMonsterName(char* string, enum monster_id monster_id);
+void InitializeTeamMemberFromMentry(struct team_member* param_1, struct ground_monster* param_2,
+                                    int32_t param_3);
 void GetLvlUpEntry(struct level_up_entry* level_up_entry, enum monster_id monster_id, int level);
 uint8_t* GetEncodedHalfword(uint8_t* data_ptr, uint16_t* result);
 int GetEvoFamily(undefined* monster, undefined* evo_family);
@@ -1277,6 +1287,7 @@ int DungeonRequestsDoneWrapper(uint8_t param_1);
 bool AnyDungeonRequestsDone(uint8_t param_1);
 bool AddMissionToJobList(struct mission* mission);
 struct mission* GetAcceptedMission(uint8_t mission_id);
+bool IsAcceptedMissionSlotEmpty(int32_t mission_slot);
 bool WasMissionCompletedToday(struct mission_result_and_client* result_and_client,
                               struct mission* mission, enum mission_type type);
 int GetMissionByTypeAndDungeon(int start_index, enum mission_type mission_type,
@@ -1317,6 +1328,8 @@ void AppendMissionObjective(char* buffer, int buffer_size, undefined4 objective,
                             enum monster_id monster, struct item_id_16 item);
 void AppendMissionDungeonLocation(struct mission_details* mission_details, char* buffer,
                                   int buffer_size);
+uint32_t RandomizeMissionCategory(uint32_t mission_wght_sum, undefined param_2,
+                                  struct mission_weighted_category* category);
 bool SumValidMissionCategoryWeights(enum mission_vendor vendor);
 struct mission_template* GetRandomMissionTemplate(void);
 struct mission_template* LoadMissionTemplates(void);
@@ -1339,6 +1352,8 @@ void GenerateMissionRewards(struct mission* mission, bool is_cafe_mission);
 int CheckDungeonMissionUnlockConditions(enum dungeon_id dungeon);
 bool IsAvailableItem(enum item_id item_id);
 int GetAvailableItemDeliveryList(undefined* item_buffer);
+void WriteMissionMtState(int32_t* state_ptr);
+int16_t ReadMissionMtStateLower(void);
 void ZeroInitMissionRewardDataStruct(struct mission_reward_data* reward_data);
 enum monster_id GetScriptEntityMonsterId(enum script_entity_id entity_id);
 int GetScriptEntityMatchingStorageId(enum script_entity_id entity_id);
@@ -1348,8 +1363,10 @@ void SetActorTalkMain(enum script_entity_id actor_id);
 void SetActorTalkSub(enum script_entity_id actor_id);
 void SetActorEventMain(enum script_entity_id actor_id);
 void SetRandomRequestNpcs1And2(enum script_entity_id actor_id_1, enum script_entity_id actor_id_2);
+void SetRandomRequestNpc03KindVar(enum monster_id param_1);
 void SetAllEventNpcs(enum script_entity_id actor_id_1, enum script_entity_id actor_id_2,
                      enum script_entity_id actor_id_3, enum script_entity_id actor_id_4);
+void SetNewFriendActor(enum script_entity_id actor_id);
 void RandomizeDemoActors(void);
 void ItemAtTableIdx(int idx, struct bulk_item* item);
 void MainLoop(void);
