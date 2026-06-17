@@ -1070,7 +1070,7 @@ void DisplayMessage2(struct portrait_params* portrait, int message_id, bool wait
 bool YesNoMenu(undefined param_1, int string_id, int default_option, undefined param_4);
 void DisplayMessageInternal(int message_id, bool wait_for_input, struct portrait_params* portrait,
                             undefined4 param_4, undefined4 param_5, undefined4 param_6);
-void PrintMissionCompleteString(uint string_id, undefined4 param_2, undefined4 param_3,
+void PrintMissionCompleteString(int string_id, undefined4 param_2, undefined4 param_3,
                                 undefined4 param_4, undefined1 param_5);
 void InitSecretBazaarDialogueInfo(void);
 void OpenMenu(undefined param_1, undefined param_2, bool open_bag);
