@@ -5897,14 +5897,15 @@ arm9:
         r1: x offset within window
         r2: y offset within window
         r3: text to draw
-    - name: AppendStandardStringToMission
+    - name: AppendStringIdToWindow
+      aliases:
+        - AppendStandardStringToMission
       address:
         EU: 0x202654C
         NA: 0x2026268
         JP: 0x2026340
       description: |-
-        Seems to append a string from a string_id to text. Known to be used for this purpose in MakeMissionDetails.
-        
+        Seems to append a string from a string_id to text. Known to be used for this purpose in MakeMissionDetails and BankUpdateDigitInputMenuDisplay.
         
         r0: undefined4
         r1: undefined4
@@ -7416,6 +7417,14 @@ arm9:
         
         r0: window_id
         return: bool
+    - name: GetDigitInputResult
+      address:
+        EU: 0x2030C34
+      description: |-
+        Seems to retrieve the result of a digit input advanced textbox. 
+        
+        r0: advanced textbox window_id
+        return: value submitted in a digit input advanced texbox.
     - name: GetWindowIdPageStart
       address:
         EU: 0x2030D0C
@@ -7800,6 +7809,82 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         return: ?
+    - name: DigitInputMenuInit
+      address:
+        EU: 0x203975C
+      description: |-
+        Seems to handle initialization of a digit_input_window_manager.
+        Used by something other than Duskull Bank!
+                
+        r0: digit_input_window_manager pointer
+    - name: DigitInputMenuReturn
+      address:
+        EU: 0x2039824
+      description: |-
+        Seems to process the result of DigitInputMenuFrameUpdate.
+        Used by something other than Duskull Bank!
+        
+        r0: digit_input_window_manager pointer
+        return: int32_t 
+    - name: DigitInputMenuInitDigits
+      address:
+        EU: 0x20398C8
+      description: |-
+        Seems to handle initializing the digit fields of a digit_input_window_manager struct, adjusting the max_digits to align with max_value, and more.
+        
+        r0: digit_input_window_manager pointer
+    - name: DigitInputMenuGetDigits
+      address:
+        EU: 0x203997C
+      description: |-
+        Seems to handle generating the digits of a digit input menu, given the max value it can display and the number of digits it can hold. 
+        
+        r0: [output] digit_values
+        r1: max_value
+        r2: max_digits
+        return: ?
+    - name: DigitInputMenuFrameUpdate
+      address:
+        EU: 0x20399E0
+      description: |-
+        Run every frame a digit input menu is active, detecting player inputs via both buttons and the touch screen.
+        
+        r0: digit_input_window_manager pointer
+        return: Some kind of exit code, interpreted by DigitInputMenuReturn
+    - name: DigitInputMenuCheckValidTouchScreenInput
+      address:
+        EU: 0x2039C48
+      description: |-
+        Just a guess. Seems to be checking for touch screen input, and interpreting the results as an equivalent set of button inputs?
+        
+        r0: digit_input_window_manager pointer
+        return: undefined4 
+    - name: DigitInputMenuCheckTouchUpDownArrow
+      address:
+        EU: 0x2039CF8
+      description: |-
+        Called by DigitInputMenuCheckValidTouchScreenInput, which this function assumes to be generally correct.
+        Seems to specifically check for a touch screen press above or below the current digit, to increment/decrement it
+        
+        r0: digit_input_window_manager pointer
+        r1: int
+        r2: int
+        return: ? 
+    - name: DigitInputMenuDrawDigits
+      address:
+        EU: 0x2039E08
+      description: |-
+        Seems to handle actually drawing the digits on the advanced textbox for a digit_input_window_manager.
+        
+        r0: digit_input_window_manager pointer
+    - name: DigitInputMenuDrawDigitsCallback
+      address:
+        EU: 0x2039F10
+      description: |-
+        A text_box_callback_fn_t for a digit input window advanced_text_box.
+        Is used by something other than the Duskull Bank!
+        
+        No params.
     - name: TeamSelectionMenuGetItem
       address:
         EU: 0x203AA58
