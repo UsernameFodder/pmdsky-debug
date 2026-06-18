@@ -1873,6 +1873,24 @@ arm9:
         r1: format
         ...: variadic
         return: number of characters printed, excluding the null-terminator
+    - name: MaybeGetUncoloredFormattedItemName
+      address:
+        EU: 0x200D6E4
+      description: |-
+        Seems to return an uncolored copy of the item name, with the appropriate quantity tag.
+        
+        r0: [output] name string
+        r1: item pointer
+        r2: bool table corresponding to item categories?
+    - name: MaybeGetColoredFormattedItemName
+      address:
+        EU: 0x200D6F8
+      description: |-
+        Seems to return a colored copy of the item name, with the appropriate color and quantity tag.
+        
+        r0: [output] name string
+        r1: item pointer
+        r2: bool table corresponding to item categories?
     - name: ItemZInit
       address:
         EU: 0x200D8A4
@@ -2978,6 +2996,14 @@ arm9:
         Removes an item from the first Kecleon Shop at a specific slot in the shop list.
         
         r0: item slot (0-7)
+    - name: GetCurrentKecleonShop1ItemByIndex
+      address:
+        EU: 0x2010940
+      description: |-
+        Retrieves a bulk_item from the first Kecleon Shop at a specified index.
+        
+        r0: index
+        return: bulk_item pointer
     - name: SortKecleonItems1
       address:
         EU: 0x20109FC
@@ -3009,6 +3035,13 @@ arm9:
         
         r0: item ID
         return: whether the item was added succesfully
+    - name: RemoveInvalidKecleonShop2Items
+      address:
+        EU: 0x2010BE4
+      description: |-
+        Iterates through the current first Kecleon Shop items, and removes any with item_id ITEM_NONE.
+        
+        return: number of items removed from the shop.
     - name: RemoveItemFromKecleonShop2
       address:
         EU: 0x2010C20
@@ -3018,6 +3051,14 @@ arm9:
         Removes an item from the second Kecleon Shop at a specific slot in the shop list.
         
         r0: item slot (0-4)
+    - name: GetCurrentKecleonShop2ItemByIndex
+      address:
+        EU: 0x2010C4C
+      description: |-
+        Retrieves a bulk_item from the first Kecleon Shop at a specified index.
+        
+        r0: index
+        return: bulk_item pointer
     - name: SortKecleonItems2
       address:
         EU: 0x2010D08
