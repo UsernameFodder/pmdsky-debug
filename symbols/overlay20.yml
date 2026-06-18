@@ -16,6 +16,8 @@ overlay20:
     - name: RecycleShopEntryPointFirst
       address:
         EU: 0x238AC80
+        NA: 0x238A140
+        JP: 0x238B6A0
       description: |-
         The entry point for the overlay, when called by MENU_RECYCLE_SHOP, serving to initialize the recycle shop.
         Calls RecycleShopCommonEntryPoint(0).
@@ -24,6 +26,8 @@ overlay20:
     - name: RecycleShopEntryPointResume
       address:
         EU: 0x238AC90
+        NA: 0x238A150
+        JP: 0x238B6B0
       description: |-
         The entry point for the overlay, when called by MENU_RECYCLE_SHOP2, resuming operations of the overlay.
         Calls RecycleShopCommonEntryPoint(0).
@@ -32,6 +36,8 @@ overlay20:
     - name: RecycleShopDestructor
       address:
         EU: 0x238ACA0
+        NA: 0x238A160
+        JP: 0x238B6C0
       description: |-
         The shared destructor of both recycle shop overlay_load_entries, suspending operations of the overlay.
         
@@ -39,6 +45,8 @@ overlay20:
     - name: RecycleShopFrameUpdate
       address:
         EU: 0x238ACF0
+        NA: 0x238A1B0
+        JP: 0x238B710
       description: |-
         The shared frame_update of both recycle shop overlay_load_entries, managing operations of the overlay each frame.
         
@@ -46,6 +54,8 @@ overlay20:
     - name: RecycleShopCommonEntryPoint
       address:
         EU: 0x238BDD4
+        NA: 0x238B294
+        JP: 0x238C7F4
       description: |-
         Effectively the shared entry_point of both recycle shop overlay_load_entry, called immediately by both real entry_points to the overlay.
         
@@ -54,6 +64,8 @@ overlay20:
     - name: PrintWynautTextbox
       address:
         EU: 0x238BE80
+        NA: 0x238B340
+        JP: 0x238C8A0
       description: |-
         Seems to display a textbox with wynaut's default portrait and a specified text string id.
         
@@ -61,6 +73,8 @@ overlay20:
     - name: PrintWynautSimpleMenu
       address:
         EU: 0x238BEDC
+        NA: 0x238B39C
+        JP: 0x238C8FC
       description: |-
         Seems to display a simple_menu with wynaut's default portrait, a specified text string id, and a few simple_menu_id_item pointers.
         
@@ -70,6 +84,8 @@ overlay20:
     - name: RecycleShopTryHidePortraitBox
       address:
         EU: 0x238BF50
+        NA: 0x238B410
+        JP: 0x238C970
       description: |-
         Seems to hide the active portrait box? Might be doing something else in addition. 
         
@@ -78,6 +94,8 @@ overlay20:
     - name: PrintWynautNormalPortrait
       address:
         EU: 0x238BFE8
+        NA: 0x238B4A8
+        JP: 0x238CA08
       description: |-
         Prepares a normal portrait for wynaut, and updates the necessary fields of recycle_shop_main to do so.
         
@@ -85,6 +103,8 @@ overlay20:
     - name: RecycleShopClosePortraitBox
       address:
         EU: 0x238C050
+        NA: 0x238B510
+        JP: 0x238CA70
       description: |-
         Seems to close the currently active portrait box, if one exists.
         
@@ -92,6 +112,8 @@ overlay20:
     - name: RecycleShopCloseAllWindows
       address:
         EU: 0x238C0EC
+        NA: 0x238B5AC
+        JP: 0x238CB0C
       description: |-
         Seems to close all windows of the recycle shop when called. Retrieves window_ids from RECYCLE_SHOP_UNK_STRUCT_SIZE_84H_PTR. 
         
@@ -99,6 +121,8 @@ overlay20:
     - name: RecycleShopHandleTopScreenWindow
       address:
         EU: 0x238C19C
+        NA: 0x238B65C
+        JP: 0x238CBBC
       description: |-
         Seems to generally manage the top screen window during item selection, assigning the below callbacks to some window creation function.
         
@@ -106,6 +130,8 @@ overlay20:
     - name: RecycleShopTopScreenDrawItemStats
       address:
         EU: 0x238C40C
+        NA: 0x238B8CC
+        JP: 0x238CE2C
       description: |-
         Seems to display the trade info and stats for the item the cursor is currently on on the top screen window.
         
@@ -113,6 +139,8 @@ overlay20:
     - name: RecycleShopTopScreenDrawItemName
       address:
         EU: 0x238C580
+        NA: 0x238BA40
+        JP: 0x238CFA0
       description: |-
         Seems to print the item the cursor is currently on to the top screen window. 
         
@@ -120,6 +148,8 @@ overlay20:
     - name: RecycleShopTopScreenDrawInfoWindow
       address:
         EU: 0x238C5F4
+        NA: 0x238BAB4
+        JP: 0x238D014
       description: |-
         Seems to display the bottom window in the top screen display of the recycle shop, which explains how to read the top window.
         
@@ -130,6 +160,8 @@ overlay20:
     - name: DisplaySelectionTutorialWindow
       address:
         EU: 0x238DA60
+        NA: 0x238CF20
+        JP: 0x238E47C
       description: |-
         Displays a side window explaining how to multi-select items for non-specific recycling.
         

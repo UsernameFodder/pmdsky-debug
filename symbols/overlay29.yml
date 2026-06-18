@@ -608,6 +608,8 @@ overlay29:
     - name: GetMonsterOrTrapName
       address:
         EU: 0x22E33B8
+        NA: 0x22E2A78
+        JP: 0x22E410C
       description: |-
         Gets the name of the entity if it is a monster or trap. In other cases, the function either does nothing or gets an unrelated string.
         
@@ -878,6 +880,8 @@ overlay29:
     - name: DisplayStockpileNumbers
       address:
         EU: 0x22E5084
+        NA: 0x22E46D4
+        JP: 0x22E5D44
       description: |-
         Displays the numbers for a monster's stockpile stage above them.
         
@@ -885,6 +889,8 @@ overlay29:
     - name: PlayInvisifySeIfShouldDisplayEntity
       address:
         EU: 0x22E50B4
+        NA: 0x22E4704
+        JP: 0x22E5D74
       description: |-
         Calls PlaySeByIdIfShouldDisplayEntity with the sound effect for turning a monster invisible.
         
@@ -1920,6 +1926,8 @@ overlay29:
     - name: GetTrapName
       address:
         EU: 0x22EE1DC
+        NA: 0x22ED82C
+        JP: 0x22EEE90
       description: |-
         Gets the name of the given trap.
         
@@ -2231,6 +2239,8 @@ overlay29:
     - name: ChangeTrapOnTile
       address:
         EU: 0x22EFE2C
+        NA: 0x22EF478
+        JP: 0x22F0A7C
       description: |-
         Changes the trap on the tile to the given trap id if there is already one on the tile.
         
@@ -2260,6 +2270,8 @@ overlay29:
     - name: RevealTrapAtPos
       address:
         EU: 0x22F00B4
+        NA: 0x22EF700
+        JP: 0x22F0D04
       description: |-
         Reveals the trap at the given position if one is present.
         
@@ -2323,6 +2335,8 @@ overlay29:
     - name: TalkToSecretBazaarNpcStandard
       address:
         EU: 0x22F0FB8
+        NA: 0x22F0604
+        JP: 0x22F1C08
       description: |-
         Opens a dialogue box with the given shopkeeper as the speaker, without a yes/no menu and with param_5 set to false.
         
@@ -2333,6 +2347,8 @@ overlay29:
     - name: TalkToSecretBazaarNpcWithYesNoMenu
       address:
         EU: 0x22F0FE0
+        NA: 0x22F062C
+        JP: 0x22F1C30
       description: |-
         Opens a dialogue box with the given shopkeeper as the speaker, with a yes/no menu and with param_5 set to true.
         
@@ -2344,6 +2360,8 @@ overlay29:
     - name: MakeTargetFaceUserAndIdle
       address:
         EU: 0x22F1008
+        NA: 0x22F0654
+        JP: 0x22F1C58
       description: |-
         Makes the target face the user and changes their animation to idle.
         
@@ -2352,6 +2370,8 @@ overlay29:
     - name: SubtractMoneyCarriedWithSfx
       address:
         EU: 0x22F1170
+        NA: 0x22F07BC
+        JP: 0x22F1DC0
       description: |-
         Subtracts the amount of money from the the player's current amount of money and plays the sound effect for buying an item.
         
@@ -2359,6 +2379,8 @@ overlay29:
     - name: TalkToSecretBazaarNpc
       address:
         EU: 0x22F1338
+        NA: 0x22F0984
+        JP: 0x22F1F88
       description: |-
         Opens a dialogue box with the given shopkeeper as the speaker.
         
@@ -2907,6 +2929,8 @@ overlay29:
     - name: CheckMonsterTeamMemberIdx
       address:
         EU: 0x22FA658
+        NA: 0x22F9C4C
+        JP: 0x22FB204
       description: |-
         Calls CheckTeamMemberIdx on the given monster's team_index.
         
@@ -2938,6 +2962,8 @@ overlay29:
     - name: ChangeMonsterAnimationToIdle
       address:
         EU: 0x22FAD6C
+        NA: 0x22FA360
+        JP: 0x22FB908
       description: |-
         Makes the monster play their idle animation in the given direction.
         
@@ -4990,6 +5016,8 @@ overlay29:
     - name: IsEitherMonsterInvalid
       address:
         EU: 0x230E0C8
+        NA: 0x230D654
+        JP: 0x230EB90
       description: |-
         Returns true if at least one of the given monsters is an invalid entity.
         
@@ -9232,6 +9260,8 @@ overlay29:
     - name: InteractWithSecretBazaarNpc
       address:
         EU: 0x2345128
+        NA: 0x2344544
+        JP: 0x2345908
       description: |-
         Called to interact with a secret bazaar shopkeeper.
         
