@@ -138,3 +138,4 @@ struct rescue_bin_unpack {
     int category_weight_sum; // Sum of all weighted categories
     undefined* file_pointer; // Points to the raw rescue.bin file loaded in memory.
 };
+ASSERT_SIZE(struct rescue_bin_unpack, 40);
