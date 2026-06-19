@@ -176,8 +176,9 @@ bool RunLeaderTurn(undefined param_1);
 void TrySpawnMonsterAndActivatePlusMinus(void);
 bool IsFloorOver(void);
 void DecrementWindCounter(void);
-void CreateMonsterSummaryFromEntityOuter(union damage_source_16 damage_source, struct entity* entity,
-                                         struct monster* monster, int param_4);
+void CreateMonsterSummaryFromEntityOuter(union damage_source_16 damage_source,
+                                         struct entity* entity, struct monster* monster,
+                                         int param_4);
 bool IsDungeonEndReasonFailure(void);
 void SetForcedLossReason(enum forced_loss_reason forced_loss_reason);
 enum forced_loss_reason GetForcedLossReason(void);

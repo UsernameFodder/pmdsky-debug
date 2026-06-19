@@ -1149,8 +1149,8 @@ void GuestMonsterToGroundMonster(struct ground_monster* ground_monster,
                                  struct guest_monster* guest_monster);
 void SetBaseStatsMovesGroundMonster(struct ground_monster* ground_monster);
 bool StrcmpMonsterName(char* string, enum monster_id monster_id);
-void InitializeTeamMemberFromMentry(struct team_member* team_member, struct ground_monster* ground_monster,
-                                    int32_t slot_index);
+void InitializeTeamMemberFromMentry(struct team_member* team_member,
+                                    struct ground_monster* ground_monster, int32_t slot_index);
 void GetLvlUpEntry(struct level_up_entry* level_up_entry, enum monster_id monster_id, int level);
 uint8_t* GetEncodedHalfword(uint8_t* data_ptr, uint16_t* result);
 int GetEvoFamily(undefined* monster, undefined* evo_family);
