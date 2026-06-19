@@ -3,7 +3,7 @@
 
 #include "overlay29/move_effects.h"
 
-void InitDungeonPalatteStruct(void);
+void InitDungeonPaletteStruct(void);
 struct rgba* GetWeatherColorTable(enum weather_id);
 struct dungeon* DungeonAlloc(void);
 struct dungeon* GetDungeonPtrMaster(void);
@@ -176,8 +176,8 @@ bool RunLeaderTurn(undefined param_1);
 void TrySpawnMonsterAndActivatePlusMinus(void);
 bool IsFloorOver(void);
 void DecrementWindCounter(void);
-void CreateMonsterSummaryFromEntityOuter(union damage_source_16 param_1, struct entity* param_2,
-                                         struct monster* param_3, int param_4);
+void CreateMonsterSummaryFromEntityOuter(union damage_source_16 damage_source, struct entity* entity,
+                                         struct monster* monster, int param_4);
 bool IsDungeonEndReasonFailure(void);
 void SetForcedLossReason(enum forced_loss_reason forced_loss_reason);
 enum forced_loss_reason GetForcedLossReason(void);
@@ -230,7 +230,7 @@ bool TalkToSecretBazaarNpcWithYesNoMenu(int string_id, struct entity* shopkeeper
                                         struct simple_menu_id_item* menu_items);
 void MakeTargetFaceUserAndIdle(struct entity* target, struct entity* user);
 void SubtractMoneyCarriedWithSfx(int amount);
-void GonePebbleGradualPaletteShift(struct rgba* param_1, uint32_t param_2);
+void GonePebbleGradualPaletteShift(struct rgba* palette, uint32_t param_2);
 bool TalkToSecretBazaarNpc(int string_id, struct entity* shopkeeper, enum portrait_emotion emotion,
                            struct simple_menu_id_item* menu_items, bool param_5);
 struct action_16* GetLeaderAction(void);
@@ -289,7 +289,7 @@ bool IsMonsterIdInNormalRangeVeneer(enum monster_id monster_id);
 void BoostIQ(struct entity* entity, int iq_boost, bool suppress_logs);
 void ChangeMonsterAnimationToIdle(struct entity* entity, enum direction_id direction);
 bool ShouldMonsterHeadToStairs(struct entity* entity);
-void DisplayLinkedMovesWarnings(struct entity* param_1, int move_slot);
+void DisplayLinkedMovesWarnings(struct entity* entity, int move_slot);
 bool MewSpawnCheck(enum monster_id monster_id, bool fail_if_mew);
 void TryEndStatusWithAbility(struct entity* attacker, struct entity* defender);
 bool ExclusiveItemEffectIsActive(struct entity* entity, enum exclusive_item_effect_id effect_id);
@@ -312,7 +312,7 @@ void ResetTriggerFlags(struct entity* entity);
 bool IsSpecialStoryAlly(struct monster* monster);
 bool IsExperienceLocked(struct monster* monster);
 struct entity* FindMonsterWithBehavior(enum monster_behavior monster_behavior);
-undefined4 CountActiveMonsters(void);
+int CountActiveMonsters(void);
 bool IsMonsterLoneOutlaw(struct monster* monster);
 bool IsSecretBazaarNpc(struct entity* entity);
 bool IsTeamMemberOnFirstTurnInFixedRoom(struct monster* monster);
