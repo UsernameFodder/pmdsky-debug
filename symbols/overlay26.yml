@@ -16,6 +16,8 @@ overlay26:
     - name: MissionRewardOverlayEntryPoint
       address:
         EU: 0x238AC80
+        NA: 0x238A140
+        JP: 0x238B6A0
       description: |-
         The entry point for part of the mission reward sequence.
         A significant portion of this process lives in overlay 11 instead.
@@ -24,6 +26,8 @@ overlay26:
     - name: MissionRewardOverlayDestructor
       address:
         EU: 0x238B0A8
+        NA: 0x238A568
+        JP: 0x238BAC8
       description: |-
         The destructor for initializing the mission reward sequence. 
         
@@ -31,6 +35,8 @@ overlay26:
     - name: MissionRewardOverlayFrameUpdate
       address:
         EU: 0x238B0E0
+        NA: 0x238A5A0
+        JP: 0x238BB00
       description: |-
         The entry point for part of the mission reward sequence.
         The actual mission reward process itself is primarily done in overlay 11.
@@ -39,6 +45,8 @@ overlay26:
     - name: MissionRewardClosePortraitAndDialogueBox
       address:
         EU: 0x238B44C
+        NA: 0x238A90C
+        JP: 0x238BE6C
       description: |-
         Responsible for closing the current portrait and dialogue box for the above functions.
         
@@ -46,6 +54,8 @@ overlay26:
     - name: ApplyRuleDungeonEffectsEntryPoint
       address:
         EU: 0x238B4B0
+        NA: 0x238A970
+        JP: 0x238BED0
       description: |-
         Just a guess. See ApplyRuleDungeonEffectsFrameUpdate for further explanation.
         Is an entry_point for an overlay_load_entry.
@@ -58,6 +68,8 @@ overlay26:
     - name: ApplyRuleDungeonEffectsDestructor
       address:
         EU: 0x238B4DC
+        NA: 0x238A99C
+        JP: 0x238BEFC
       description: |-
         Just a guess. See ApplyRuleDungeonEffectsFrameUpdate for further explanation.
         Is a destructor for an overlay_load_entry.
@@ -66,6 +78,8 @@ overlay26:
     - name: ApplyRuleDungeonEffectsFrameUpdate
       address:
         EU: 0x238B508
+        NA: 0x238A9C8
+        JP: 0x238BF28
       description: |-
         Just a guess. After enough frames pass, conditionally calls GetMaxItemsAllowed, RemoveAllItemsStartingAt, IsMoneyAllowed, and SetMoneyCarried, 
         as well as a handful of unknown functions that likely check if the entered dungeon is a rule dungeon. 
@@ -75,6 +89,8 @@ overlay26:
     - name: ExitDungeon1EntryPoint
       address:
         EU: 0x238B5A8
+        NA: 0x238AA68
+        JP: 0x238BFC8
       description: |-
         Seems to get called on exiting a dungeon. Might be exclusive to whether the dungeon is in mission mode?
         Is an entry_point for an overlay_load_entry.
@@ -87,6 +103,8 @@ overlay26:
     - name: ExitDungeon1Destructor
       address:
         EU: 0x238B5D4
+        NA: 0x238AA94
+        JP: 0x238BFF4
       description: |-
         Seems to get called on exiting a dungeon. Might be exclusive to whether the dungeon is in mission mode?
         Is a destructor for an overlay_load_entry.
@@ -95,6 +113,8 @@ overlay26:
     - name: ExitDungeon1FrameUpdate
       address:
         EU: 0x238B600
+        NA: 0x238AAC0
+        JP: 0x238C020
       description: |-
         Seems to get called on exiting a dungeon. Might be exclusive to whether the dungeon is in mission mode?
         Is a frame_update for an overlay_load_entry.
@@ -103,6 +123,8 @@ overlay26:
     - name: UnkOv26EntryPointEu0238b754
       address:
         EU: 0x238B754
+        NA: 0x238AC14
+        JP: 0x238C174
       description: |-
         Is an unidentified entry_point for an overlay_load_entry.
         
@@ -114,6 +136,8 @@ overlay26:
     - name: UnkOv26DestructorEu0238b780
       address:
         EU: 0x238B780
+        NA: 0x238AC40
+        JP: 0x238C1A0
       description: |-
         Is an unidentified destructor for an overlay_load_entry.
         
@@ -121,6 +145,8 @@ overlay26:
     - name: UnkOv26FrameUpdateEu0238b7ac
       address:
         EU: 0x238B7AC
+        NA: 0x238AC6C
+        JP: 0x238C1CC
       description: |-
         Is an unidentified frame_update for an overlay_load_entry.
         
@@ -128,6 +154,8 @@ overlay26:
     - name: DungeonExitEntryPoint2
       address:
         EU: 0x238B818
+        NA: 0x238ACD8
+        JP: 0x238C238
       description: |-
         Seems to get called on exiting a dungeon. Might be exclusive to whether the dungeon is not in mission mode?
         Is an entry_point for an overlay_load_entry.
@@ -140,6 +168,8 @@ overlay26:
     - name: DungeonExitDestructor2
       address:
         EU: 0x238B850
+        NA: 0x238AD10
+        JP: 0x238C270
       description: |-
         Seems to get called on exiting a dungeon. Might be exclusive to whether the dungeon is not in mission mode?
         Is a destructor for an overlay_load_entry.
@@ -148,6 +178,8 @@ overlay26:
     - name: DungeonExitFrameUpdate2
       address:
         EU: 0x238B87C
+        NA: 0x238AD3C
+        JP: 0x238C29C
       description: |-
         Seems to get called on exiting a dungeon. Might be exclusive to whether the dungeon is not in mission mode?
         Is a frame_update for an overlay_load_entry.
@@ -170,6 +202,8 @@ overlay26:
     - name: MISSION_DEFAULT_DIALOGUE_SEQS
       address:
         EU: 0x238B966
+        NA: 0x238AE26
+        JP: 0x238C386
       length:
         EU: 0xC
         NA: 0xC
@@ -181,6 +215,8 @@ overlay26:
     - name: MISSION_TYPE_10_DIALOGUE_SEQS
       address:
         EU: 0x238B972
+        NA: 0x238AE32
+        JP: 0x238C392
       length:
         EU: 0xC
         NA: 0xC
@@ -192,6 +228,8 @@ overlay26:
     - name: MISSION_TYPE_9_DIALOGUE_SEQS
       address:
         EU: 0x238B97E
+        NA: 0x238AE3E
+        JP: 0x238C39E
       length:
         EU: 0xC
         NA: 0xC
@@ -203,6 +241,8 @@ overlay26:
     - name: MISSION_TYPE_8_DIALOGUE_SEQS
       address:
         EU: 0x238B98A
+        NA: 0x238AE4A
+        JP: 0x238C3AA
       length:
         EU: 0xC
         NA: 0xC
@@ -214,6 +254,8 @@ overlay26:
     - name: MISSION_TYPE_6_DIALOGUE_SEQS
       address:
         EU: 0x238B996
+        NA: 0x238AE56
+        JP: 0x238C3B6
       length:
         EU: 0xC
         NA: 0xC
@@ -225,6 +267,8 @@ overlay26:
     - name: MISSION_TYPE_7_DIALOGUE_SEQS
       address:
         EU: 0x238B9A2
+        NA: 0x238AE62
+        JP: 0x238C3C2
       length:
         EU: 0xC
         NA: 0xC
@@ -236,6 +280,8 @@ overlay26:
     - name: MISSION_TYPE_3_DIALOGUE_SEQS
       address:
         EU: 0x238B9AE
+        NA: 0x238AE6E
+        JP: 0x238C3CE
       length:
         EU: 0xC
         NA: 0xC
@@ -247,6 +293,8 @@ overlay26:
     - name: MISSION_TYPE_2_DIALOGUE_SEQS
       address:
         EU: 0x238B9BA
+        NA: 0x238AE7A
+        JP: 0x238C3DA
       length:
         EU: 0xC
         NA: 0xC
@@ -258,6 +306,8 @@ overlay26:
     - name: MISSION_TYPE_1_DIALOGUE_SEQS
       address:
         EU: 0x238B9C6
+        NA: 0x238AE86
+        JP: 0x238C3E6
       length:
         EU: 0xC
         NA: 0xC
@@ -269,6 +319,8 @@ overlay26:
     - name: MISSION_TYPE_0_DIALOGUE_SEQS
       address:
         EU: 0x238B9D2
+        NA: 0x238AE92
+        JP: 0x238C3F2
       length:
         EU: 0xC
         NA: 0xC
@@ -280,6 +332,8 @@ overlay26:
     - name: MISSION_TYPE_11_DIALOGUE_SEQS
       address:
         EU: 0x238B9DE
+        NA: 0x238AE9E
+        JP: 0x238C3FE
       length:
         EU: 0xC
         NA: 0xC
@@ -291,6 +345,8 @@ overlay26:
     - name: DEBUG_CONQUEST_COUNT_STR
       address:
         EU: 0x238B9EC
+        NA: 0x238AEAC
+        JP: 0x238C40C
       length:
         EU: 0x36
       description: |-
@@ -300,6 +356,8 @@ overlay26:
     - name: DEBUG_DEAD_COUNT_STR
       address:
         EU: 0x238BA24
+        NA: 0x238AEE4
+        JP: 0x238C444
       length:
         EU: 0x32
       description: |-
@@ -309,6 +367,8 @@ overlay26:
     - name: DEBUG_NO_COUNT_STR
       address:
         EU: 0x238BA58
+        NA: 0x238AF18
+        JP: 0x238C478
       length:
         EU: 0x30
       description: |-

@@ -1897,6 +1897,8 @@ arm9:
     - name: GetMoneyQuantity
       address:
         EU: 0x200D934
+        NA: 0x200D8AC
+        JP: 0x200D8DC
       description: |-
         Gets the actual money a Poké item should give by indexing its quantity field into MONEY_QUANTITY_TABLE, then multiplying by 1.2x if the Coin Watcher flag is set.
         
@@ -2896,6 +2898,8 @@ arm9:
     - name: GetEggSpecies
       address:
         EU: 0x2010824
+        NA: 0x201077C
+        JP: 0x201074C
       description: |-
         Seems to retrieve the species of the egg the player currently has in Chansey Daycare from GAME_STATE_VALUES.
         If no egg is present, returns zero.
@@ -2904,6 +2908,8 @@ arm9:
     - name: SetEggSpecies
       address:
         EU: 0x201083C
+        NA: 0x2010794
+        JP: 0x2010764
       description: |-
         Seems to set the species of the egg in Chansey Daycare to GAME_STATE_VALUES.
         
@@ -2911,6 +2917,8 @@ arm9:
     - name: GetUnkGameState0x13a6
       address:
         EU: 0x2010854
+        NA: 0x20107AC
+        JP: 0x201077C
       description: |-
         Seems to get unknown field 0x13a6 of GAME_STATE_VALUES. Only known to be called by overlay 24, Chansey Daycare.
         
@@ -2918,6 +2926,8 @@ arm9:
     - name: SetUnkGameState0x13a6
       address:
         EU: 0x201086C
+        NA: 0x20107C4
+        JP: 0x2010794
       description: |-
         Seems to set unknown field 0x13a6 of GAME_STATE_VALUES. Only known to be called by overlay 24, Chansey Daycare.
         
@@ -2925,6 +2935,8 @@ arm9:
     - name: GetEggHatchTimer
       address:
         EU: 0x2010884
+        NA: 0x20107DC
+        JP: 0x20107AC
       description: |-
         Seems to get the number of days until the current egg in Chansey Daycare hatches from GAME_STATE_VALUES.
         Appears to be entirely unused, in favor of DecementEggHatchTimer.
@@ -2933,6 +2945,8 @@ arm9:
     - name: SetEggHatchTimer
       address:
         EU: 0x201089C
+        NA: 0x20107F4
+        JP: 0x20107C4
       description: |-
         Seems to set the number of days until the current egg in Chansey Daycare hatches to GAME_STATE_VALUES.
         
@@ -2940,6 +2954,8 @@ arm9:
     - name: DecrementEggHatchTimer
       address:
         EU: 0x20108B4
+        NA: 0x201080C
+        JP: 0x20107DC
       description: |-
         Seems to decrement the number of days until the current egg in Chansey Daycare hatches. Called by GroundMainNextDay.
         
@@ -2947,6 +2963,8 @@ arm9:
     - name: RemoveInvalidKecleonShop1Items
       address:
         EU: 0x20108D8
+        NA: 0x2010830
+        JP: 0x2010800
       description: |-
         Iterates through the current first Kecleon Shop items, and removes any with item_id ITEM_NONE.
         
@@ -3139,6 +3157,8 @@ arm9:
     - name: SwapShopFreeDoublePointer
       address:
         EU: 0x20115A0
+        NA: 0x20114F8
+        JP: 0x20114C8
       description: |-
         Seems to call MemFree on *param_1 and **param_1, with a safety check that the **param_1 isn't zero.
         Only known XREF is to SwapShopInventoryManager, so a more specific purpose for this function may exist.
@@ -3298,6 +3318,8 @@ arm9:
     - name: WipeRecycleShopRecords
       address:
         EU: 0x2011B60
+        NA: 0x2011AB8
+        JP: 0x2011A88
       description: |-
         Sets the guild_rank, recycle_count, and recycle_offer_cooldown fields to zero, and sets the reycle_shop_offer to -1 of GAME_STATE_VALUES.
         Also zeroes VAR_SUB30_SPOT_LEVEL, VAR_SUB30_SPOT_DISCOVER, VAR_RECYCLE_COUNT, and VAR_SUB30_TREASURE_DISCOVER script variables.
@@ -3306,6 +3328,8 @@ arm9:
     - name: FreeRecycleOfferItems
       address:
         EU: 0x2011E60
+        NA: 0x2011DB8
+        JP: 0x2011D88
       description: |-
         Seems to free a recycle_offer_items struct from memory.
         
@@ -3313,6 +3337,8 @@ arm9:
     - name: GetRecycleItemId
       address:
         EU: 0x2011E98
+        NA: 0x2011DF0
+        JP: 0x2011DC0
       description: |-
         Gets the item_id of a dereferenced recycle_item struct.
         
@@ -3321,6 +3347,8 @@ arm9:
     - name: RecycleItemHasTradeTypePrizeTicket
       address:
         EU: 0x2011EA4
+        NA: 0x2011DFC
+        JP: 0x2011DCC
       description: |-
         Checks if the trade_type of a recycle_item is 1, indicating that the item uses the trade method for prize tickets.
         
@@ -3329,6 +3357,8 @@ arm9:
     - name: GetRecycleItemBonusOdds
       address:
         EU: 0x2011EC0
+        NA: 0x2011E18
+        JP: 0x2011DE8
       description: |-
         Retrieves the odds of a recycle shop item to produce a bonus item when recycled.
         
@@ -3337,6 +3367,8 @@ arm9:
     - name: CountTradedRecycleItems
       address:
         EU: 0x2011ECC
+        NA: 0x2011E24
+        JP: 0x2011DF4
       description: |-
         Counts the number of valid traded_items in a recycle_item_data struct, effectively returning the number of specific items required to do the trade. 
         
@@ -3345,6 +3377,8 @@ arm9:
     - name: RecycleShopTradeIsNonspecific
       address:
         EU: 0x2011F6C
+        NA: 0x2011EC4
+        JP: 0x2011E94
       description: |-
         Checks if the first slot of a recycle_item struct's traded_items is 1400, indicative of a nonspecific prize ticket trade.
         Unclear how this differs in functionally from RecycleItemHasTradeTypePrizeTicket, as they conditions they check fully overlap in vanilla.
@@ -3354,6 +3388,8 @@ arm9:
     - name: RecycleShopOfferExists
       address:
         EU: 0x2011F90
+        NA: 0x2011EE8
+        JP: 0x2011EB8
       description: |-
         Checks if GAME_STATE_VALUES->recycle_shop_offer is anything but -1, which indicates no offer for the day.
         
@@ -3361,6 +3397,8 @@ arm9:
     - name: ClearRecycleShopOffer
       address:
         EU: 0x2011FBC
+        NA: 0x2011F14
+        JP: 0x2011EE4
       description: |-
         Sets GAME_STATE_VALUES->recycle_shop_offer to -1, indicating no offer for the day.
         
@@ -3368,6 +3406,8 @@ arm9:
     - name: GetGameStateRecycleCount
       address:
         EU: 0x2011FD8
+        NA: 0x2011F30
+        JP: 0x2011F00
       description: |-
         Retrieves GAME_STATE_VALUES->recycle_count. May differ from the recycle count at ADVENTURE_LOG_PTR->nb_recycled.
         
@@ -3375,6 +3415,8 @@ arm9:
     - name: GetRankForRecycleShop
       address:
         EU: 0x2011FF0
+        NA: 0x2011F48
+        JP: 0x2011F18
       description: |-
         Retrieves GAME_STATE_VALUES->rank. Seems to exclusively be used for recycle shop prize ticket unlocks, but does correlate with guild rank.
         
@@ -3382,6 +3424,8 @@ arm9:
     - name: IncrementRecycleCountVar
       address:
         EU: 0x2012008
+        NA: 0x2011F60
+        JP: 0x2011F30
       description: |-
         Seems to increment the RECYCLE_COUNT script variable, capping it at 999,999 recycles.
         
@@ -3389,6 +3433,8 @@ arm9:
     - name: UpdateRecycleShop
       address:
         EU: 0x2012048
+        NA: 0x2011FA0
+        JP: 0x2011F70
       description: |-
         Call by GroundMainNextDay to prepare the recycle shop for the next day of operations.
         Updates offers, offer cooldowns, recycle counts, available trades, and the flags for new dungeons or treasure. 
@@ -3397,6 +3443,8 @@ arm9:
     - name: DecrementRecycleOfferCooldown
       address:
         EU: 0x20122CC
+        NA: 0x2012224
+        JP: 0x20121F4
       description: |-
         Calls IsRecycleOfferCooldownOver, and if that returns false, decrements GAME_STATE_VALUES->recycle_offer_cooldown by one day.
         
@@ -3404,6 +3452,8 @@ arm9:
     - name: IsRecycleOfferCooldownOver
       address:
         EU: 0x20122FC
+        NA: 0x2012254
+        JP: 0x2012224
       description: |-
         Checks if GAME_STATE_VALUES->recycle_offer_cooldown is zero.
         
@@ -3411,6 +3461,8 @@ arm9:
     - name: GetRecycleOfferCooldown
       address:
         EU: 0x2012324
+        NA: 0x201227C
+        JP: 0x201224C
       description: |-
         Retrieves the GAME_STATE_VALUES->recycle_offer_cooldown, the number of days until a new recycle shop offer is allowed.
         
@@ -3418,6 +3470,8 @@ arm9:
     - name: RecycleShopIsNotThrownItem
       address:
         EU: 0x20126A4
+        NA: 0x20125FC
+        JP: 0x20125CC
       description: |-
         Checks if the item_category of an item is anything but CATEGORY_THROWN_ARC or CATEGORY_THROWN_LINE.
         This likely exists to prevent stackable items from being traded in the recycle shop, as in vanilla only thrown items are stackable.
@@ -3427,6 +3481,8 @@ arm9:
     - name: RecycleShopIsTradableItem
       address:
         EU: 0x20126D8
+        NA: 0x2012630
+        JP: 0x2012600
       description: |-
         Checks if an item is capable of being traded in the recycle shop, calling RecycleShopIsNotThrownItem.
         Also returns if the item is a prize ticket from IsTicketItem, if r1 is not 0.
@@ -3437,6 +3493,8 @@ arm9:
     - name: RecycleShopCountTradableItemsInBag
       address:
         EU: 0x2012704
+        NA: 0x201265C
+        JP: 0x201262C
       description: |-
         Count the number of tradable items in the current bag with RecycleShopIsTradableItem.
         
@@ -3445,6 +3503,8 @@ arm9:
     - name: RecycleShopCountTradableItemsInStorage
       address:
         EU: 0x2012770
+        NA: 0x20126C8
+        JP: 0x2012698
       description: |-
         Count the number of tradable items in storage with RecycleShopIsTradableItem.
         
@@ -3453,6 +3513,8 @@ arm9:
     - name: CountValidRecycleShopItems
       address:
         EU: 0x2012984
+        NA: 0x20128DC
+        JP: 0x20128AC
       description: |-
         Loops through the RECYCLE_SHOP_ITEM_LIST, counting the number of valid recycle shop trades.
         Filters each entry by guild rank, minimum recycle count, and a specified filter on trade type.
@@ -3465,6 +3527,8 @@ arm9:
     - name: IsRecycleTradeTypeValid
       address:
         EU: 0x20129FC
+        NA: 0x2012954
+        JP: 0x2012924
       description: |-
         Uses the following logic to check if a recycle trade type fits a trade filter.
         return not ((filter != type) && ((filter != 0 || (type == 2))))
@@ -3475,6 +3539,8 @@ arm9:
     - name: ClearCroagunkItems
       address:
         EU: 0x2012B60
+        NA: 0x2012AB8
+        JP: 0x2012A88
       description: |-
         Zeroes the 8 daily random items Croagunk can swap for.
         
@@ -3502,6 +3568,8 @@ arm9:
     - name: GetCroagunkItemTemplates
       address:
         EU: 0x2013160
+        NA: 0x20130B8
+        JP: 0x2013088
       description: |-
         Retrieves the current Croagunk Swap Shop items as synth_template structs.
         
@@ -3510,6 +3578,8 @@ arm9:
     - name: PopCroagunkItem
       address:
         EU: 0x20131F8
+        NA: 0x2013150
+        JP: 0x2013120
       description: |-
         Tries to pop an item by id from Croagunk Swap Shop items.
         
@@ -3518,6 +3588,8 @@ arm9:
     - name: LoadCroagunkItems
       address:
         EU: 0x2013238
+        NA: 0x2013190
+        JP: 0x2013160
       description: |-
         Seems to load the Croagunk Swap Shop items from the save file.
         
@@ -3525,6 +3597,8 @@ arm9:
     - name: SaveCroagunkItems
       address:
         EU: 0x2013298
+        NA: 0x20131F0
+        JP: 0x20131C0
       description: |-
         Seems to store the Croagunk Swap Shop items to the save file.
         
@@ -5835,6 +5909,8 @@ arm9:
     - name: AppendStandardStringToMission
       address:
         EU: 0x202654C
+        NA: 0x2026268
+        JP: 0x2026340
       description: |-
         Seems to append a string from a string_id to text. Known to be used for this purpose in MakeMissionDetails.
         
@@ -5916,6 +5992,8 @@ arm9:
     - name: GetPaletteBaseAddress
       address:
         EU: 0x2027B9C
+        NA: 0x20278A8
+        JP: 0x2027C08
       description: |-
         Gets the palette base address for a 3D element loaded from a WTE file.
         Takes the same parameters as were used in the specified file's ProcessWte call.
@@ -7777,6 +7855,8 @@ arm9:
     - name: FreeMissionRewardStructMain
       address:
         EU: 0x203F2D0
+        NA: 0x203EFD4
+        JP: 0x203F374
       description: |-
         Frees MISSION_REWARD_STRUCT_MAIN_PTR if it is currently active.
         
@@ -7784,6 +7864,8 @@ arm9:
     - name: MissionRewardCloseAllBoxes
       address:
         EU: 0x203F358
+        NA: 0x203F05C
+        JP: 0x203F3FC
       description: |-
         Closes all textboxes from MISSION_REWARD_STRUCT_MAIN_PTR for the overlay 11 portion of the mission reward sequence.
         
@@ -7825,6 +7907,8 @@ arm9:
     - name: PlayMissionClearBgm
       address:
         EU: 0x2046A5C
+        NA: 0x2046740
+        JP: 0x2046AB0
       description: |-
         Plays the mission clear bgm after completing a dungeon. Called by overlay 26.
         
@@ -7902,6 +7986,8 @@ arm9:
     - name: AssignSpecialEpisodePc
       address:
         EU: 0x2048DE0
+        NA: 0x2048AC4
+        JP: 0x2048E30
       description: |-
         Seems to be responsible for creating special episode ground_monster for special episodes.  
         
@@ -9247,6 +9333,8 @@ arm9:
     - name: MissionRewardValidateDungeonId
       address:
         EU: 0x204F490
+        NA: 0x204F158
+        JP: 0x204F4B0
       description: |-
         Checks script variables $DUNGEON_ENTER and $DUNGEON_ENTER_INDEX for "mission dungeon" and a valid non-dojo dungeon respectively.
         If so, stores the dungeon id from $DUNGEON_ENTER_INDEX to a pointer.
@@ -9352,8 +9440,12 @@ arm9:
         EU:
           - 0x204FAE0
           - 0x204FB4C
-        NA: 0x204F814
-        JP: 0x204FB68
+        NA:
+          - 0x204F7A8
+          - 0x204F814
+        JP:
+          - 0x204FAFC
+          - 0x204FB68
       description: |-
         Gets the mission rank for the given dungeon and floor.
         
@@ -11196,6 +11288,8 @@ arm9:
     - name: RecolorNameString
       address:
         EU: 0x20552C0
+        NA: 0x2054F44
+        JP: 0x205527C
       description: |-
         Given a string of up to 10 characters, formats the string to display it in a specific color, or the original string if r2 is 0.
         
@@ -11205,6 +11299,8 @@ arm9:
     - name: RecolorTeamMemberNameString
       address:
         EU: 0x205531C
+        NA: 0x2054FA0
+        JP: 0x20552D8
       description: |-
         Given a string of up to 10 characters, formats the string to display it in either light blue if the monster is the leader or yellow otherwise.
         
@@ -11214,6 +11310,8 @@ arm9:
     - name: ModifyHpStat
       address:
         EU: 0x2055334
+        NA: 0x2054FB8
+        JP: 0x20552F0
       description: |-
         Used to raise or lower the Hp stat, bounding the value to [1,999].
         
@@ -11222,6 +11320,8 @@ arm9:
     - name: ModifyOffensiveStat
       address:
         EU: 0x2055368
+        NA: 0x2054FEC
+        JP: 0x2055324
       description: |-
         Used to raise or lower a defensive stat, bounding the value to [1,255].
         
@@ -11230,6 +11330,8 @@ arm9:
     - name: ModifyDefensiveStat
       address:
         EU: 0x205539C
+        NA: 0x2055020
+        JP: 0x2055358
       description: |-
         Used to raise or lower a defensive stat, bounding the value to [1,255].
         
@@ -11238,6 +11340,8 @@ arm9:
     - name: ModifyIqStat
       address:
         EU: 0x20553D0
+        NA: 0x2055054
+        JP: 0x205538C
       description: |-
         Used to raise or lower the Iq stat, bounding the value to [1,999].
         
@@ -11304,6 +11408,8 @@ arm9:
     - name: GetRecruitMentryIdBySpecies
       address:
         EU: 0x205594C
+        NA: 0x20555D0
+        JP: 0x205596C
       description: |-
         Seems to retrieve a regular recruit in the mentry's id with a specified monster_id, looping through the entire mentry starting from slot 5.
         The second param can be used to skip a specified number of matches, though this appears to be zero in both known calls to this function.
@@ -11450,6 +11556,8 @@ arm9:
     - name: GetRecoloredGroundMonsterName
       address:
         EU: 0x2056400
+        NA: 0x2056084
+        JP: 0x2056420
       description: |-
         Gets the name of the ground monster formatted to be displayed in a specific color.
         
@@ -11549,6 +11657,8 @@ arm9:
     - name: GetAppointedLeaderMemberIdx
       address:
         EU: 0x2056C20
+        NA: 0x20568A4
+        JP: 0x2056C40
       description: |-
         Retrieves the team member index of the current leader.
         
@@ -11593,6 +11703,8 @@ arm9:
     - name: GetAdventureNpcIds
       address:
         EU: 0x20570EC
+        NA: 0x2056D70
+        JP: 0x2057104
       description: |-
         Retrieves the monster_ids of the active team, to set ACTOR_ADVENTURE_NPC01 through ACTOR_ADVENTURE_NPC04.
         
@@ -11601,6 +11713,8 @@ arm9:
     - name: GetUnitNpcIds
       address:
         EU: 0x2057180
+        NA: 0x2056E04
+        JP: 0x2057198
       description: |-
         Retrieves the monster_ids of the active team, to set ACTOR_UNIT_NPC01 through ACTOR_UNIT_NPC04.
         
@@ -11618,6 +11732,8 @@ arm9:
     - name: ValidateTeamMembers
       address:
         EU: 0x2058440
+        NA: 0x20580C4
+        JP: 0x20583C4
       description: |-
         Fills out a table of 4 bools for whether each member of the active team is valid.
         
@@ -11635,6 +11751,8 @@ arm9:
     - name: GetRecoloredNameOfTeamMemberAtIdx
       address:
         EU: 0x2058878
+        NA: 0x20584FC
+        JP: 0x20587FC
       description: |-
         Gets the name of the active team member in the given slot index formatted to be displayed in either light blue if the monster is the leader or yellow otherwise.
         
@@ -11643,6 +11761,8 @@ arm9:
     - name: GetNameOfTeamMemberAtIdx
       address:
         EU: 0x2058908
+        NA: 0x205858C
+        JP: 0x205888C
       description: |-
         Gets the name of the active team member in the given slot index.
         
@@ -11651,6 +11771,8 @@ arm9:
     - name: GetRecoloredTeamMemberName
       address:
         EU: 0x2058930
+        NA: 0x20585B4
+        JP: 0x20588B4
       description: |-
         Gets the name of the team member formatted to be displayed in either light blue if the monster is the leader or yellow otherwise.
         
@@ -12033,6 +12155,8 @@ arm9:
     - name: CheckMonsterForMissionType
       address:
         EU: 0x205D384
+        NA: 0x205D008
+        JP: 0x205D308
       description: |-
         Seems to check if a monster is valid for a specific mission type and subtype.
         Checks monster id range, some kind of legality check for purple kecleon, and if the monster is using its base form (IE: castform-sun would fail the base form check.)
@@ -12046,6 +12170,8 @@ arm9:
     - name: CheckItemForMissionType
       address:
         EU: 0x205D498
+        NA: 0x205D11C
+        JP: 0x205D41C
       description: |-
         Seems to check if an item is valid for a specific mission type and subtype.
         Calls IsValidTargetItem, IsItemValidVeneer, and IsStorableItem.
@@ -12069,6 +12195,8 @@ arm9:
     - name: CountAndPopulateValidMissionTableMonsters
       address:
         EU: 0x205E328
+        NA: 0x205DFAC
+        JP: 0x205E2AC
       description: |-
         Reads a portion of the mission monster table from rescue.bin, counting and populating the valid monsters for the mission.
         
@@ -12088,6 +12216,8 @@ arm9:
     - name: DoesMissionHaveTypeAndSubtype
       address:
         EU: 0x205E604
+        NA: 0x205E288
+        JP: 0x205E588
       description: |-
         Checks if a specified mission has a specified mission_type and subtype. More general than AreMissionsEquivalent.
         
@@ -12098,6 +12228,8 @@ arm9:
     - name: AlreadyHasSimilarMission
       address:
         EU: 0x205E634
+        NA: 0x205E2B8
+        JP: 0x205E5B8
       description: |-
         Seems to check if the player already has a mission of the same type and subtype on the job list, or any mission vendor like the job board.
         Likely used for "unique" missions like challenge letters, as this uses DoesMissionHaveTypeAndSubtype.
@@ -12197,6 +12329,8 @@ arm9:
     - name: WasMissionCompletedToday
       address:
         EU: 0x205F494
+        NA: 0x205F118
+        JP: 0x205F418
       description: |-
         Runs a series of mission_type specific checks to determine if the mission really was completed today, before running mission rewards.
         Examples of checks include: Being in the right dungeon, and having a specific item or item within a treasure box in the bag. 
@@ -12319,6 +12453,8 @@ arm9:
     - name: GetMissionSpecificFixedRoom
       address:
         EU: 0x20602FC
+        NA: 0x205FF80
+        JP: 0x2060270
       description: |-
         Returns a fixed room id for a mission based on the specified mission type and subtype.
         For missions with multiple valid fixed rooms, uses SelectRandomFixedRoomInRange to select one at random.
@@ -12329,6 +12465,8 @@ arm9:
     - name: SelectRandomFixedRoomInRange
       address:
         EU: 0x2060400
+        NA: 0x2060084
+        JP: 0x2060374
       description: |-
         Returns a random fixed room from a list for a specified range. Checks for "null-termination" if no ending table entry is given.
         It seems that the TREASURE_MEMO_FIXED_ROOM_IDS table is frontloaded with 15 "easy" layouts, and only those are allowed before performance flag 9 is enabled. 
@@ -12339,6 +12477,8 @@ arm9:
     - name: ReadRescueBinFile
       address:
         EU: 0x2060448
+        NA: 0x20600CC
+        JP: 0x20603BC
       description: |-
         Seems to open data/RESCUE/rescue.bin, if it is not already open.
         Contains various mission data, see rescue.h for further details.
@@ -12381,6 +12521,8 @@ arm9:
     - name: MatchMissionTemplateToMission
       address:
         EU: 0x2060CE8
+        NA: 0x206096C
+        JP: 0x2060C5C
       description: |-
         Seems to find a matching mission_template for the corresponding mission struct if one exists. 
         Uses a table of validation functions ARM9_UNKNOWN_FUNCTION_TABLE__NA_20A3CF4, not all of which are known.
@@ -12403,6 +12545,8 @@ arm9:
     - name: FormatMissionHeader
       address:
         EU: 0x2060E78
+        NA: 0x2060AFC
+        JP: 0x2060DEC
       description: |-
         Constructs a "mission header" for a normal mission, shown in the job list on the bottom screen. Is also used for SOS/A-OK Mail.
         Can consist of a title, mission rank, mission status, dungeon, and floor. Some missions exclude some of these fields.
@@ -12412,6 +12556,8 @@ arm9:
     - name: FormatSpecialEpisodeMissionHeader
       address:
         EU: 0x20611A0
+        NA: 0x2060E24
+        JP: 0x2061110
       description: |-
         Constructs a "mission header" for a special episode transmission mission, shown in the job list on the bottom screen.
         Uses a specific text string (15439 EU) to generate the header.
@@ -12434,6 +12580,8 @@ arm9:
     - name: MakeMissionDetails
       address:
         EU: 0x2061354
+        NA: 0x2060FD8
+        JP: 0x20612C4
       description: |-
         Creates the mission details displayed on the top screen when viewing a mission. Is also used for SOS/A-OK Mail.
         Can consist of a mission summary, client, objective, dungeon+floor, restrictions, difficulty, reward, and WMS code.
@@ -12445,6 +12593,8 @@ arm9:
     - name: MakeSpecialEpisodeMissionDetails
       address:
         EU: 0x2061FDC
+        NA: 0x2061C60
+        JP: 0x2061F48
       description: |-
         Creates the mission details displayed on the top screen when viewing a special episode transmission.
         Seems to contain only a hard-coded mission summary, and a WMS code.
@@ -12454,10 +12604,14 @@ arm9:
     - name: PrintWonderMailSkyCode
       address:
         EU: 0x2062044
+        NA: 0x2061CC8
+        JP: 0x2061FB0
       description: "Seems to print a WMS code for a mission, based on context and live analysis."
     - name: AppendMissionObjective
       address:
         EU: 0x2062144
+        NA: 0x2061DC8
+        JP: 0x20620B0
       description: |-
         Generates the "Objective: ..." string for MakeMissionDetails.
         
@@ -12469,6 +12623,8 @@ arm9:
     - name: AppendMissionDungeonLocation
       address:
         EU: 0x2062358
+        NA: 0x2061FDC
+        JP: 0x20622C4
       description: |-
         Generates the "Place: ..." string for MakeMissionDetails.
         
@@ -12488,6 +12644,8 @@ arm9:
     - name: SumValidMissionCategoryWeights
       address:
         EU: 0x206260C
+        NA: 0x2062290
+        JP: 0x2062578
       description: |-
         Seems to tally up the total weights for each mission_category under a specified mission vendor.
         
@@ -12497,6 +12655,8 @@ arm9:
     - name: GetRandomMissionTemplate
       address:
         EU: 0x20628F4
+        NA: 0x2062578
+        JP: 0x2062860
       description: |-
         Retrieves a random mission_template from a weighted random mission_category.
         
@@ -12504,6 +12664,8 @@ arm9:
     - name: LoadMissionTemplates
       address:
         EU: 0x2062B80
+        NA: 0x2062804
+        JP: 0x2062AEC
       description: |-
         Retrieves a pointer to the mission_template table from the rescue.bin file.
         Does not check if the file has been loaded first.
@@ -12586,6 +12748,8 @@ arm9:
     - name: GetMissionRankWithCapAndModifiers
       address:
         EU: 0x20630D8
+        NA: 0x2062D5C
+        JP: 0x2063044
       description: |-
         Calls GetMissionRank, then adds one to the rank if the mission requires escorting a client, or defeating an outlaw.
         Before returning, caps the mission rank at 15 (9 stars).
@@ -12596,6 +12760,8 @@ arm9:
     - name: GetMissionRankWithCapAndModifiersAndCap
       address:
         EU: 0x2063118
+        NA: 0x2062D9C
+        JP: 0x2063084
       description: |-
         Calls GetMissionRankWithModifiersWithCeil, then redundantly caps the return again at 15 (9 stars).
         
@@ -12616,6 +12782,8 @@ arm9:
     - name: InitMissionReward
       address:
         EU: 0x20631D8
+        NA: 0x2062E5C
+        JP: 0x2063144
       description: |-
         Seems to initialize a mission_reward_data struct from a mission.
         Called by MissionRewardEntryPoint in overlay 26.
@@ -12628,6 +12796,8 @@ arm9:
     - name: RollRandomItemReward
       address:
         EU: 0x2063420
+        NA: 0x20630A4
+        JP: 0x206338C
       description: |-
         Seems to select a random item for an item mission reward, calling RetrieveFromItemList2 until it succeeds.
         
@@ -12637,6 +12807,8 @@ arm9:
     - name: GenerateMissionRewards
       address:
         EU: 0x20634D8
+        NA: 0x206315C
+        JP: 0x2063444
       description: |-
         Seems to handle initializing the mission reward related fields of a mission struct, after generating the mission.
         
@@ -12645,6 +12817,8 @@ arm9:
     - name: CheckDungeonMissionUnlockConditions
       address:
         EU: 0x2063710
+        NA: 0x2063394
+        JP: 0x206367C
       description: |-
         Checks if a specified dungeon is eligible to be unlocked by a mission.
         
@@ -12690,6 +12864,8 @@ arm9:
     - name: ZeroInitMissionRewardDataStruct
       address:
         EU: 0x2063898
+        NA: 0x206351C
+        JP: 0x2063804
       description: |-
         Zero initializes a mission_reward_data struct.
         
@@ -12749,6 +12925,8 @@ arm9:
     - name: SetActorEventMain
       address:
         EU: 0x2065EEC
+        NA: 0x2065B70
+        JP: 0x2065E58
       description: |-
         Sets ACTOR_NPC_EVENT_MAIN to a specific actor_id.
         
@@ -12756,6 +12934,8 @@ arm9:
     - name: SetRandomRequestNpcs1And2
       address:
         EU: 0x2065EFC
+        NA: 0x2065B80
+        JP: 0x2065E68
       description: |-
         Sets ACTOR_REQUEST_NPC01 and ACTOR_REQUEST_NPC02 to specific actor_ids.
         Has no impact on ACTOR_REQUEST_NPC03.
@@ -12772,6 +12952,8 @@ arm9:
     - name: SetAllEventNpcs
       address:
         EU: 0x2065F28
+        NA: 0x2065BAC
+        JP: 0x2065E94
       description: |-
         Sets ACTOR_EVENT_NPC01 through ACTOR_EVENT_NPC04 to specific actor_ids.
         
@@ -12821,6 +13003,8 @@ arm9:
     - name: ChooseMissionTitle
       address:
         EU: 0x20699F8
+        NA: 0x2069660
+        JP: 0x2069950
       description: |-
         Seems to determine whether or not to use the standard system for generating a mission title, or to use a separate function for a special episode transmission.
         
@@ -14366,6 +14550,8 @@ arm9:
     - name: OUTLAW_HIDEOUT_FIXED_ROOM_IDS
       address:
         EU: 0x20A1E80
+        NA: 0x20A18FC
+        JP: 0x20A2CD0
       length:
         EU: 0x5
       description: |-
@@ -14375,6 +14561,8 @@ arm9:
     - name: CHALLENGE_NORMAL_FIXED_ROOM_IDS
       address:
         EU: 0x20A1E88
+        NA: 0x20A1904
+        JP: 0x20A2CD8
       length:
         EU: 0x5
       description: |-
@@ -14428,6 +14616,8 @@ arm9:
     - name: TREASURE_MEMO_FIXED_ROOM_IDS
       address:
         EU: 0x20A1EDC
+        NA: 0x20A1958
+        JP: 0x20A2D2C
       length:
         EU: 0x1E
       description: |-
@@ -15592,6 +15782,8 @@ arm9:
     - name: SYNTH_BIN_FILE_PTR
       address:
         EU: 0x20AFFA0
+        NA: 0x20AF6D4
+        JP: 0x20B0B14
       length:
         EU: 0x4
       description: The location of the data/SYNTH/synth.bin file while loaded.
@@ -15704,6 +15896,8 @@ arm9:
     - name: MISSION_REWARD_STRUCT_MAIN_PTR
       address:
         EU: 0x20B0790
+        NA: 0x20AFE74
+        JP: 0x20B16E8
       length:
         EU: 0x4
       description: |-
