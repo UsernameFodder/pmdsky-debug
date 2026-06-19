@@ -4390,6 +4390,8 @@ arm9:
     - name: IsMePlaying
       address:
         EU: 0x2017CAC
+        NA: 0x2017C10
+        JP: 0x2017C68
       description: |-
         Seems to check if the specified ME effect is currently active. Has some kind of special logic for unknown ME value 0x3E6, which is not known to be a valid ME value...
         MEs are usually short jingles that are used when notifying the player of something, like unlocking a dungeon or receiving an item.
@@ -7706,6 +7708,8 @@ arm9:
     - name: InventoryMenuNextPage
       address:
         EU: 0x2033578
+        NA: 0x2033284
+        JP: 0x20335A4
       description: |-
         Tries to go to the next page of an inventory_menu window.
         
@@ -7714,6 +7718,8 @@ arm9:
     - name: InventoryMenuPreviousPage
       address:
         EU: 0x20335A0
+        NA: 0x20332AC
+        JP: 0x20335CC
       description: |-
         Tries to go to the previous page of an inventory_menu window.
         
@@ -7722,6 +7728,8 @@ arm9:
     - name: InventoryMenuNext10Pages
       address:
         EU: 0x20335C0
+        NA: 0x20332CC
+        JP: 0x20335EC
       description: |-
         Tries to go forward by 10 pages in an inventory_menu window.
         
@@ -7730,6 +7738,8 @@ arm9:
     - name: InventoryMenuPrevious10Pages
       address:
         EU: 0x20335E4
+        NA: 0x20332F0
+        JP: 0x2033610
       description: |-
         Tries to go backward by 10 pages in an inventory_menu window.
         
@@ -8950,6 +8960,8 @@ arm9:
     - name: SetWorldMapLevel
       address:
         EU: 0x204D120
+        NA: 0x204CDE8
+        JP: 0x204D148
       description: |-
         Calls SaveScriptVariableValue with script variable $WORLD_MAP_LEVEL. 
         
@@ -10143,6 +10155,8 @@ arm9:
     - name: MtInit
       address:
         EU: 0x2051420
+        NA: 0x20510E8
+        JP: 0x2051438
       description: |-
         Initializes the MT_TABLE Mersenne Twister with a specified initial seed.
         
@@ -10150,6 +10164,8 @@ arm9:
     - name: MtNext
       address:
         EU: 0x205146C
+        NA: 0x2051134
+        JP: 0x2051484
       description: |-
         Advances the MT_TABLE Mersenne Twister by one, and returns the result.
         
@@ -10954,6 +10970,8 @@ arm9:
     - name: InitializeTeamMemberFromMentry
       address:
         EU: 0x20535CC
+        NA: 0x2053250
+        JP: 0x2053588
       description: |-
         Seems to copy a ground_monster pokemon from the Chimecho Assembly to the active team.
         
@@ -12321,6 +12339,8 @@ arm9:
     - name: IsAcceptedMissionSlotEmpty
       address:
         EU: 0x205F46C
+        NA: 0x205F0F0
+        JP: 0x205F3F0
       description: |-
         Checks if a specified slot of the player's mission list is empty.
         
@@ -12634,6 +12654,8 @@ arm9:
     - name: RandomizeMissionCategory
       address:
         EU: 0x20625C4
+        NA: 0x2062248
+        JP: 0x2062530
       description: |-
         Seems to select a mission_weighted_category at weighted random, of the valid options.
         
@@ -12849,6 +12871,8 @@ arm9:
     - name: WriteMissionMtState
       address:
         EU: 0x2063870
+        NA: 0x20634F4
+        JP: 0x20637DC
       description: |-
         Stores a Mersenne Twister state to RESCUE_BIN_UNPACK->mt_state.
         
@@ -12857,6 +12881,8 @@ arm9:
     - name: ReadMissionMtStateLower
       address:
         EU: 0x2063880
+        NA: 0x2063504
+        JP: 0x20637EC
       description: |-
         Returns the bottom half of RESCUE_BIN_UNPACK->mt_state.
         
@@ -12945,6 +12971,8 @@ arm9:
     - name: SetRandomRequestNpc03KindVar
       address:
         EU: 0x2065F10
+        NA: 0x2065B94
+        JP: 0x2065E7C
       description: |-
         Sets the RANDOM_REQUEST_NPC03_KIND script variable, which controls the species of ACTOR_REQUEST_NPC03.
         
@@ -12964,6 +12992,8 @@ arm9:
     - name: SetNewFriendActor
       address:
         EU: 0x2065F44
+        NA: 0x2065BC8
+        JP: 0x2065EB0
       description: |-
         Sets NPC_NEW_FRIEND to a specific actor_id.
         
@@ -15554,6 +15584,7 @@ arm9:
       length:
         EU: 0x10
         NA: 0x10
+        JP: 0x10
     - name: TRIG_TABLE
       address:
         EU: 0x20AA850
@@ -15590,6 +15621,7 @@ arm9:
       length:
         EU: 0x10
         NA: 0x10
+        JP: 0x10
     - name: TEX_START_ADDR_TABLE
       address:
         EU: 0x20AE964
@@ -15598,6 +15630,7 @@ arm9:
       length:
         EU: 0x60
         NA: 0x60
+        JP: 0x60
     - name: VOLUME_TABLE
       address:
         EU: 0x20AF1C4
@@ -15616,6 +15649,7 @@ arm9:
       length:
         EU: 0x8
         NA: 0x8
+        JP: 0x8
       description: |-
         Functions to get the desired memory arena for allocating and freeing heap memory.
         
@@ -15714,7 +15748,9 @@ arm9:
         NA: 0x20AF698
         JP: 0x20B0AD8
       length:
+        EU: 0x1
         NA: 0x1
+        JP: 0x1
     - name: PACK_FILES_OPENED
       aliases:
         - DIRECTORY_FILES_EXTRACTED
@@ -15725,6 +15761,7 @@ arm9:
       length:
         EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: |-
         [Runtime] A pointer to the 6 opened Pack files (listed at PACK_FILE_PATHS_TABLE)
         
@@ -15739,6 +15776,7 @@ arm9:
       length:
         EU: 0x18
         NA: 0x18
+        JP: 0x18
       description: |-
         List of pointers to path strings to all known pack files.
         The game uses this table to load its resources when launching dungeon mode.
@@ -15771,6 +15809,7 @@ arm9:
       length:
         EU: 0xC
         NA: 0xC
+        JP: 0xC
       description: |-
         [Runtime] List of pointers to various item data tables.
         
@@ -15788,6 +15827,8 @@ arm9:
         JP: 0x20B0B14
       length:
         EU: 0x4
+        NA: 0x4
+        JP: 0x4
       description: The location of the data/SYNTH/synth.bin file while loaded.
     - name: DUNGEON_MOVE_TABLES
       address:
@@ -15813,6 +15854,8 @@ arm9:
         JP: 0x20B108C
       length:
         EU: 0x4
+        NA: 0x4
+        JP: 0x4
       description: |-
         [Runtime] Points to the collection of master structs responsible for displaying objects.
         
@@ -15823,7 +15866,9 @@ arm9:
         NA: 0x20AFC68
         JP: 0x20B10A8
       length:
+        EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: |-
         pointer to the list of wan sprite loaded in RAM
         
@@ -15836,6 +15881,7 @@ arm9:
       length:
         EU: 0x44
         NA: 0x44
+        JP: 0x44
       description: |-
         The (seemingly) unique instance render_3d_global in the game
         
@@ -15848,6 +15894,7 @@ arm9:
       length:
         EU: 0x20
         NA: 0x20
+        JP: 0x20
       description: |-
         Pointers to the 8 functions available for rendering a render_3d_element_64
         
@@ -15864,7 +15911,9 @@ arm9:
         NA: 0x20AFCF8
         JP: 0x20B1140
       length:
+        EU: 0xC
         NA: 0xC
+        JP: 0xC
       description: |-
         Note: unverified, ported from Irdkwia's notes
         
@@ -15876,6 +15925,8 @@ arm9:
         JP: 0x20B11D8
       length:
         EU: 0x4
+        NA: 0x4
+        JP: 0x4
       description: |-
         Pointer to the master struct used for handling menus.
         
@@ -15902,6 +15953,8 @@ arm9:
         JP: 0x20B16E8
       length:
         EU: 0x4
+        NA: 0x4
+        JP: 0x4
       description: |-
         Points to a mission_reward_struct_main struct, responsible for handling the overlay 11 portion of the mission reward sequence.
         Is also used sparingly during the Spinda Cafe egg event.
@@ -15967,6 +16020,7 @@ arm9:
       length:
         EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: |-
         [Runtime]
         
@@ -15987,8 +16041,12 @@ arm9:
     - name: MT_TABLE_INDEX
       address:
         EU: 0x20B0898
+        NA: 0x20AFF7C
+        JP: 0x20B17F0
       length:
         EU: 0x4
+        NA: 0x4
+        JP: 0x4
       description: |-
         The current index of the Mersenne Twister Table.
         
@@ -15996,8 +16054,12 @@ arm9:
     - name: TWIST_LOW_BIT_MULTS
       address:
         EU: 0x20B0898
+        NA: 0x20AFF7C
+        JP: 0x20B17F0
       length:
         EU: 0x8
+        NA: 0x8
+        JP: 0x8
       description: |-
         The mults for the "twist" of a Mersenne Twister, 0x0 and 0x9908B0DF.
         
@@ -16005,8 +16067,12 @@ arm9:
     - name: MT_TABLE
       address:
         EU: 0x20B0898
+        NA: 0x20AFF7C
+        JP: 0x20B17F0
       length:
         EU: 0x9C0
+        NA: 0x9C0
+        JP: 0x9C0
       description: |-
         A full Mersenne Twister table. Only known to be used by mission generation.
         
@@ -16151,8 +16217,12 @@ arm9:
     - name: RESCUE_BIN_UNPACK
       address:
         EU: 0x20B141C
+        NA: 0x20B0AD8
+        JP: 0x20B234C
       length:
         EU: 0x28
+        NA: 0x28
+        JP: 0x28
       description: |-
         The unpacked contents of the RESCUE/rescue.bin file. Also contains a mersenne twister state, for some reason.
         
@@ -16165,6 +16235,7 @@ arm9:
       length:
         EU: 0x1FC
         NA: 0x1FC
+        JP: 0x1FC
       description: |-
         Table of all DSE events, see https://projectpokemon.org/docs/mystery-dungeon-nds/procyon-studios-digital-sound-elements-r12/
         
@@ -16203,6 +16274,7 @@ arm9:
       length:
         EU: 0x40
         NA: 0x40
+        JP: 0x40
     - name: IS_DISP_ON
       address:
         EU: 0x20B34D8
@@ -16211,6 +16283,7 @@ arm9:
       length:
         EU: 0x1
         NA: 0x1
+        JP: 0x1
     - name: GXI_DMA_ID
       address:
         EU: 0x20B34DC
@@ -16219,6 +16292,7 @@ arm9:
       length:
         EU: 0x4
         NA: 0x4
+        JP: 0x4
     - name: RAND_SEQUENCE_NUM
       address:
         EU: 0x20B3B68
