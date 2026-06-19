@@ -18,7 +18,7 @@ overlay29:
   subregions:
     - move_effects.yml
   functions:
-    - name: InitDungeonPalatteStruct
+    - name: InitDungeonPaletteStruct
       address:
         EU: 0x22DEC40
       description: |-
