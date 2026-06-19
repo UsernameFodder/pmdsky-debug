@@ -824,10 +824,10 @@ void InitInventoryMenuInput(struct inventory_menu_input_ctx* input_ctx, struct w
                             struct window_extra_info* window_extra_info,
                             struct window_rectangle* rect, int n_items, int n_items_per_page,
                             undefined param_7);
-void InventoryMenuNextPage(struct inventory_menu_input_ctx* param_1);
-void InventoryMenuPreviousPage(struct inventory_menu_input_ctx* param_1);
-void InventoryMenuNext10Pages(struct inventory_menu_input_ctx* param_1);
-void InventoryMenuPrevious10Pages(struct inventory_menu_input_ctx* param_1);
+void InventoryMenuNextPage(struct inventory_menu_input_ctx* ctx);
+void InventoryMenuPreviousPage(struct inventory_menu_input_ctx* ctx);
+void InventoryMenuNext10Pages(struct inventory_menu_input_ctx* ctx);
+void InventoryMenuPrevious10Pages(struct inventory_menu_input_ctx* ctx);
 bool OverlayLoadEntriesEqual(struct overlay_load_entry* entry1, struct overlay_load_entry* entry2);
 void FreeActiveMenu(void);
 bool InitMenu(struct overlay_load_entry* entry);
@@ -1149,8 +1149,8 @@ void GuestMonsterToGroundMonster(struct ground_monster* ground_monster,
                                  struct guest_monster* guest_monster);
 void SetBaseStatsMovesGroundMonster(struct ground_monster* ground_monster);
 bool StrcmpMonsterName(char* string, enum monster_id monster_id);
-void InitializeTeamMemberFromMentry(struct team_member* param_1, struct ground_monster* param_2,
-                                    int32_t param_3);
+void InitializeTeamMemberFromMentry(struct team_member* team_member, struct ground_monster* ground_monster,
+                                    int32_t slot_index);
 void GetLvlUpEntry(struct level_up_entry* level_up_entry, enum monster_id monster_id, int level);
 uint8_t* GetEncodedHalfword(uint8_t* data_ptr, uint16_t* result);
 int GetEvoFamily(undefined* monster, undefined* evo_family);
@@ -1363,7 +1363,7 @@ void SetActorTalkMain(enum script_entity_id actor_id);
 void SetActorTalkSub(enum script_entity_id actor_id);
 void SetActorEventMain(enum script_entity_id actor_id);
 void SetRandomRequestNpcs1And2(enum script_entity_id actor_id_1, enum script_entity_id actor_id_2);
-void SetRandomRequestNpc03KindVar(enum monster_id param_1);
+void SetRandomRequestNpc03KindVar(enum monster_id id);
 void SetAllEventNpcs(enum script_entity_id actor_id_1, enum script_entity_id actor_id_2,
                      enum script_entity_id actor_id_3, enum script_entity_id actor_id_4);
 void SetNewFriendActor(enum script_entity_id actor_id);
