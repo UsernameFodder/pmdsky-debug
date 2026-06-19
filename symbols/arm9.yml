@@ -13180,6 +13180,8 @@ arm9:
     - name: MT_MULT
       address:
         EU: 0x2051464
+      length:
+        EU: 0x4
       description: |-
         The standard mult for Mersenne Twister initialization, 0x6C078965.
         
@@ -15985,6 +15987,8 @@ arm9:
     - name: MT_TABLE_INDEX
       address:
         EU: 0x20B0898
+      length:
+        EU: 0x4
       description: |-
         The current index of the Mersenne Twister Table.
         
@@ -15992,6 +15996,8 @@ arm9:
     - name: TWIST_LOW_BIT_MULTS
       address:
         EU: 0x20B0898
+      length:
+        EU: 0x8
       description: |-
         The mults for the "twist" of a Mersenne Twister, 0x0 and 0x9908B0DF.
         
@@ -15999,6 +16005,8 @@ arm9:
     - name: MT_TABLE
       address:
         EU: 0x20B0898
+      length:
+        EU: 0x9C0
       description: |-
         A full Mersenne Twister table. Only known to be used by mission generation.
         
@@ -16143,6 +16151,8 @@ arm9:
     - name: RESCUE_BIN_UNPACK
       address:
         EU: 0x20B141C
+      length:
+        EU: 0x28
       description: |-
         The unpacked contents of the RESCUE/rescue.bin file. Also contains a mersenne twister state, for some reason.
         
