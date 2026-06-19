@@ -1823,7 +1823,6 @@ overlay29:
         
         r0: Pointer to the entity that used the TM.
         r1: Parameter index in monster::action_data::action_parameters. Will be used to use to determine the index of the used item.
-        No params.
     - name: AddDungeonSubMenuOption
       address:
         EU: 0x22EC1CC
