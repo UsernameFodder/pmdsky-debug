@@ -1291,8 +1291,8 @@ struct duskull_bank {
     enum bank_main_case_id main_case_id;
     enum bank_subcase current_subcase_id;
     enum bank_subcase next_subcase_id;
-    int gold_withdrawn; // If negative, is storing gold
-    undefined4 field4_0x10; // Zeroed but otherwise unused
+    int gold_withdrawn;        // If negative, is storing gold
+    undefined4 field4_0x10;    // Zeroed but otherwise unused
     undefined field5_0x14[64]; // Seems to be fully unused.
     struct digit_input_menu digit_input_menu;
     int8_t dialogue_box_window_id;
@@ -1317,13 +1317,15 @@ struct kecleon_shop_shared_struct {
     undefined field_0x1;
     undefined field_0x2;
     undefined field_0x3;
-    int32_t main_case_id; // As the menu is better understood, a subcase should be made for this field.
+    int32_t
+        main_case_id; // As the menu is better understood, a subcase should be made for this field.
     bool is_green_kec;
     undefined field3_0x9;
     undefined field4_0xa;
     undefined field5_0xb;
     undefined4 field6_0xc;
-    int32_t subcase_id; // As the menu is better understood, a subcase should be made for this field.
+    int32_t
+        subcase_id; // As the menu is better understood, a subcase should be made for this field.
     undefined field8_0x14;
     undefined field9_0x15;
     undefined field10_0x16;
@@ -1352,7 +1354,7 @@ struct kecleon_shop_shared_struct {
     undefined4 field33_0x38;
     undefined4 field34_0x3c;
     undefined4 field35_0x40;
-    struct game_state_values *game_state_values_ptr;
+    struct game_state_values* game_state_values_ptr;
     int8_t dialogue_box_window_id;
     int8_t portrait_box_window_id;
     int8_t collection_menu_window_id;
@@ -1368,7 +1370,7 @@ struct kecleon_shop_shared_struct {
 ASSERT_SIZE(struct kecleon_shop_shared_struct, 496);
 
 struct shop_item_name {
-    char *item_name_ptr; // Points to buffer of size 80
+    char* item_name_ptr; // Points to buffer of size 80
     int item_slot_id;
 };
 ASSERT_SIZE(struct shop_item_name, 8);
@@ -1401,7 +1403,7 @@ struct purple_kec_shop_item_data_wrapper {
     int16_t selected_item_slot;
     undefined field1_0x2;
     undefined field2_0x3;
-    struct purple_kec_shop_item_data *purple_kec_item_data_ptr;
+    struct purple_kec_shop_item_data* purple_kec_item_data_ptr;
 };
 ASSERT_SIZE(struct purple_kec_shop_item_data_wrapper, 8);
 
@@ -1431,14 +1433,14 @@ struct green_kec_shop_item_data_wrapper {
     int16_t selected_item_slot;
     undefined field1_0x2;
     undefined field2_0x3;
-    struct green_kec_shop_item_data *green_kec_item_data_ptr;
+    struct green_kec_shop_item_data* green_kec_item_data_ptr;
 };
 ASSERT_SIZE(struct green_kec_shop_item_data_wrapper, 8);
 
-
 // Exclusively used within the overlay
 struct kangaskhan_storage_manager {
-    int32_t kangaskhan_type; // 0 is likely kangaskhan, 1 and 2 are treated the same, consistent with kanga rock behavior.
+    int32_t kangaskhan_type; // 0 is likely kangaskhan, 1 and 2 are treated the same, consistent
+                             // with kanga rock behavior.
     undefined4 field1_0x4;
     int32_t subcase_id;
     int32_t next_subcase;

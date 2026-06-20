@@ -1578,8 +1578,8 @@ ASSERT_SIZE(struct unk_storage_struct_0x18c0, 6336);
 struct unk_storage_struct_0x14 {
     int16_t field0_0x0;
     int16_t field1_0x2;
-    struct unk_storage_struct_0x18c0 *struct_0x18c0_ptr;
-    bool *are_selected_items; // Points to bool table of size 1000
+    struct unk_storage_struct_0x18c0* struct_0x18c0_ptr;
+    bool* are_selected_items; // Points to bool table of size 1000
     undefined4 field4_0xc;
     undefined4 field5_0x10;
 };
@@ -1589,8 +1589,8 @@ struct unk_storage_struct_0xc {
     undefined2 field0_0x0;
     undefined field1_0x2;
     undefined field2_0x3;
-    struct storage_collection_menu_manager *unk_struct_size_0xa0;
-    bool *are_selected_items; // Points to a bool table of size 50
+    struct storage_collection_menu_manager* unk_struct_size_0xa0;
+    bool* are_selected_items; // Points to a bool table of size 50
 };
 ASSERT_SIZE(struct unk_storage_struct_0xc, 12);
 
@@ -1637,7 +1637,8 @@ struct unk_storage_struct_0x410 {
     undefined4 field271_0x170;
     char unk_buffer_0x174[256];
     undefined4 field528_0x274;
-    // The usage of this field is inconsistent with it being a buffer, but it is suspiciously sized...
+    // The usage of this field is inconsistent with it being a buffer, but it is suspiciously
+    // sized...
     undefined field529_0x278[256];
     undefined4 field785_0x378;
     undefined field786_0x37c;
@@ -1656,6 +1657,5 @@ struct unk_storage_struct_0x410 {
     char unk_buffer_0x390[128];
 };
 ASSERT_SIZE(struct unk_storage_struct_0x410, 1040);
-
 
 #endif

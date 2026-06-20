@@ -18,6 +18,6 @@ extern char BANK_SUB_NOT_CLOSE_STR[15];
 extern char BANK_SELECT_NOT_CLOSE_STR[18];
 extern char BANK_INPUT_NOT_CLOSE_STR[17];
 extern undefined4 OV15_STATIC_INITIALIZER;
-extern struct duskull_bank *DUSKULL_BANK_STRUCT_PTR;
+extern struct duskull_bank* DUSKULL_BANK_STRUCT_PTR;
 
 #endif

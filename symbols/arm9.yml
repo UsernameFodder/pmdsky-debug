@@ -2791,7 +2791,7 @@ arm9:
         Just a guess.
         Seems like it might handle updating storage, syncing the item count data to the temporary item slots after interacting with storage.
         Used as a sort parallel to RemoveEmptyItemsInBag.
-
+        
         No params.
     - name: RemoveItemAtIdxInStorage
       address:
@@ -7924,7 +7924,7 @@ arm9:
         Used by something other than Duskull Bank!
         
         r0: digit_input_menu pointer
-        return: int32_t 
+        return: int32_t
     - name: DigitInputMenuInitDigits
       address:
         EU: 0x20398C8
@@ -7957,7 +7957,7 @@ arm9:
         Just a guess. Seems to be checking for touch screen input, and interpreting the results as an equivalent set of button inputs?
         
         r0: digit_input_menu pointer
-        return: undefined4 
+        return: undefined4
     - name: DigitInputMenuCheckTouchUpDownArrow
       address:
         EU: 0x2039CF8
@@ -7968,7 +7968,7 @@ arm9:
         r0: digit_input_menu pointer
         r1: int
         r2: int
-        return: ? 
+        return: ?
     - name: DigitInputMenuDrawDigits
       address:
         EU: 0x2039E08
@@ -8058,14 +8058,14 @@ arm9:
         r1: undefined4
         r2: int
         r3: int
-        return: int 
+        return: int
     - name: FreeUnkStorageStruct0xA0
       address:
         EU: 0x2042980
       description: |-
         Frees an unknown struct of size 0xA0, to a pointer in UNK_STORAGE_STRUCT_0XC.
         Appears to be used for kangaskhan storage.
-
+        
         No params.
     - name: ClearBagSelectedItemTable
       address:
@@ -8083,7 +8083,7 @@ arm9:
         Known to be used by Kangaskhan Storage.
         
         r0: index
-        return: bool 
+        return: bool
     - name: AllocUnkBagStruct
       address:
         EU: 0x2042EB4
@@ -8110,16 +8110,16 @@ arm9:
         r0: int
         r1: undefined4
         r2: int
-        return: int 
+        return: int
     - name: MaybeTrySelectStorageItem
       address:
         EU: 0x20432D4
       description: |-
         Seems to be responsible for selecting an item from storage, for multi-select. 
         Known to be used by Kangaskhan Storage.
-
+        
         r0: buttons struct? Seems to be checking for the R button...
-        return: bool 
+        return: bool
     - name: FreeUnkStorageStruct0x18c0
       address:
         EU: 0x2043498
@@ -8143,7 +8143,7 @@ arm9:
         Seems to count the number of currently selected items in storage.
         Known to be used by Kangaskhan Storage. 
         
-        return: number of selected items 
+        return: number of selected items
     - name: GetFirstSelectedStorageItemIndex
       address:
         EU: 0x2043848
@@ -8167,7 +8167,7 @@ arm9:
       description: |-
         Seems to allocate a table of bools for selected storage items to a pointer in UNK_STORAGE_STRUCT_0X14.
         Known to be used by Kangaskhan Storage.
-
+        
         No params.
     - name: FreeStorageSelectedItemTable
       address:
@@ -8193,7 +8193,7 @@ arm9:
       description: |-
         Seems to close a simple menu for a currently unknown struct of size 0x410 at UNK_STORAGE_STRUCT_0X410_PTR. May be a state case structure of some kind.
         Likely used by Kangaskhan Storage, or some other storage interaction menu.
-
+        
         No params.
     - name: UnkStorageStruct0x410CreateDialogueBox
       address:
@@ -16214,7 +16214,7 @@ arm9:
       description: |-
         A currently unknown struct of size 0xc, with ties to kangaskhan storage.
         
-        type: struct unk_storage_struct_0xc 
+        type: struct unk_storage_struct_0xc
     - name: UNK_STORAGE_STRUCT_0X14
       address:
         EU: 0x20B07D0
@@ -16223,7 +16223,7 @@ arm9:
       description: |-
         A currently unknown struct of size 0x14, with ties to kangaskhan storage.
         
-        type: struct unk_storage_struct_0x14 
+        type: struct unk_storage_struct_0x14
     - name: UNK_STORAGE_STRUCT_0X8_PTR_1
       address:
         EU: 0x20B07E4
@@ -16232,7 +16232,7 @@ arm9:
       description: |-
         A pointer to a currently unknown struct of size 0x8, with ties to kangaskhan storage.
         
-        type: struct unk_storage_struct_0x8* 
+        type: struct unk_storage_struct_0x8*
     - name: UNK_STORAGE_WINDOW_STRUCT_0XC_PTR
       address:
         EU: 0x20B07E8
@@ -16241,7 +16241,7 @@ arm9:
       description: |-
         A pointer to a currently unknown struct of size 0xc, with ties to kangaskhan storage.
         
-        type: struct unk_storage_window_struct_0xc* 
+        type: struct unk_storage_window_struct_0xc*
     - name: UNK_STORAGE_STRUCT_0X8_PTR_2
       address:
         EU: 0x20B07EC
@@ -16250,7 +16250,7 @@ arm9:
       description: |-
         A pointer to a currently unknown struct of size 0x8, with ties to kangaskhan storage.
         
-        type: struct unk_storage_struct_0x8* 
+        type: struct unk_storage_struct_0x8*
     - name: UNK_STORAGE_STRUCT_0X410_PTR
       address:
         EU: 0x20B07F0
@@ -16259,7 +16259,7 @@ arm9:
       description: |-
         A pointer to a currently unknown struct of size 0x410, with ties to kangaskhan storage.
         
-        type: struct unk_storage_struct_0x410* 
+        type: struct unk_storage_struct_0x410*
     - name: NOTIFY_NOTE
       address:
         EU: 0x20B0814

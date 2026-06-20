@@ -122,7 +122,7 @@ overlay22:
         An unk_collection_menu_fn_t function used by GreenKecleonShopInitCollectionMenu.
         
         r0: uint
-        return: undefined4 
+        return: undefined4
     - name: GreenKecleonShopVoidFnCollectionMenuCallback
       address:
         EU: 0x238B2B4
@@ -239,7 +239,7 @@ overlay22:
         An unk_collection_menu_fn_t function used by PurpleKecleonShopInitCollectionMenu.
         
         r0: uint
-        return: undefined4 
+        return: undefined4
     - name: PurpleKecleonShopCollectionMenuCallback
       address:
         EU: 0x238B900
@@ -253,7 +253,7 @@ overlay22:
       description: |-
         Seems responsible for handling the majority of the frame update behavior for both kecleon shops, particularly window management.
         Shares this responsibility with KecleonShopSubcaseManager2.
-
+        
         r0: subcase id (should eventually be an enum)
     - name: KecleonShopSubcaseManager2
       address:
@@ -261,7 +261,7 @@ overlay22:
       description: |-
         Seems responsible for handling the majority of the frame update behavior for both kecleon shops, particularly window management.
         Shares this responsibility with KecleonShopSubcaseManager1.
-
+        
         No params.
     - name: RemoveInvalidKecleonShopItems
       address:
@@ -291,7 +291,7 @@ overlay22:
       description: |-
         The sole entry_point for the kecleon shop overlay.
         
-        return: undefined4 
+        return: undefined4
     - name: KecleonShopDestructor
       address:
         EU: 0x238E2F0
@@ -305,7 +305,7 @@ overlay22:
       description: |-
         The sole frame_update for the kecleon shop overlay.
         
-        return: undefined4 
+        return: undefined4
     - name: KecleonShopCloseSimpleMenu
       address:
         EU: 0x238F324
@@ -341,7 +341,7 @@ overlay22:
       description: |-
         "[CR]"
         Used exclusively after items in green kecleon's shop that the player cannot buy/sell.
-
+        
         type: string
     - name: SHOP_WINDOW_PARAMS_2
       address:
@@ -378,11 +378,11 @@ overlay22:
         NA: 0x238E85C
         JP: 0x238FDBC
       length:
-        NA: 0xC
         EU: 0xC
-      description: |- 
+        NA: 0xC
+      description: |-
         Exclusively passed into MaybeGetUncoloredFormattedItemName and MaybeGetColoredFormattedItemName.
-        The exact purpose of this struct is unknown, but the only "true" bool in the table is for "Other" items.       
+        The exact purpose of this struct is unknown, but the only "true" bool in the table is for "Other" items.
     - name: SHOP_MENU_ITEMS_CONFIRM
       address:
         EU: 0x238F3A8
@@ -444,7 +444,7 @@ overlay22:
         NA: 0x238E960
       length:
         EU: 0x10
-        NA: 0x10        
+        NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: SHOP_WINDOW_PARAMS_5
       address:
@@ -452,7 +452,7 @@ overlay22:
         NA: 0x238E970
       length:
         EU: 0x10
-        NA: 0x10        
+        NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: SHOP_WINDOW_PARAMS_6
       address:
@@ -934,4 +934,4 @@ overlay22:
       description: |-
         Seems to handle the operations of the kecleon shop, and is shared for both brothers.
         
-        type: kecleon_shop_shared_struct* 
+        type: kecleon_shop_shared_struct*

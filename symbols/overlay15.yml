@@ -63,7 +63,7 @@ overlay15:
       description: |-
         The sole entry_point function for the duskull bank overlay.
         
-        return: undefined4 
+        return: undefined4
     - name: DuskullBankDestructor
       address:
         EU: 0x238BA04
@@ -77,7 +77,7 @@ overlay15:
       description: |-
         The sole frame_update function for the duskull bank overlay.
         
-        return: undefined4 
+        return: undefined4
   data:
     - name: BANK_MAIN_MENU_ITEMS
       address:
@@ -97,8 +97,8 @@ overlay15:
         NA: 0x10
       description: |-
         Seems to be fully unused. May be a leftover from Time/Darkness or Rescue Team?
-
-        type: struct window_params 
+        
+        type: struct window_params
     - name: BANK_GOLD_STATUS_WINDOW_PARAMS_2
       address:
         EU: 0x238BBF8
@@ -110,7 +110,7 @@ overlay15:
       description: |-
         A window_params struct used by the window displaying stored and carried gold for the duskull bank.
         
-        type: struct window_params 
+        type: struct window_params
     - name: BANK_ADVANCED_TEXTBOX_WINDOW_PARAMS
       address:
         EU: 0x238BC08
@@ -122,7 +122,7 @@ overlay15:
       description: |-
         A window_params struct used by the digit input advanced textbox for the duskull bank.
         
-        type: struct window_params 
+        type: struct window_params
     - name: BANK_MAIN_MENU_WINDOW_PARAMS
       address:
         EU: 0x238BC18
@@ -134,7 +134,7 @@ overlay15:
       description: |-
         A window_params struct used by the main menu of the duskull bank.
         
-        type: struct window_params 
+        type: struct window_params
     - name: BANK_WINDOW_PARAMS_5
       address:
         EU: 0x238BC28
@@ -144,7 +144,7 @@ overlay15:
         NA: 0x10
       description: |-
         Seems to be fully unused. May be a leftover from Time/Darkness or Rescue Team?
-
+        
         type: struct window_params
     - name: BANK_R_CLOSE_STR
       address:
