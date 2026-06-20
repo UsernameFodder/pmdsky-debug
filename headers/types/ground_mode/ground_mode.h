@@ -1435,6 +1435,8 @@ struct green_kec_shop_item_data_wrapper {
 };
 ASSERT_SIZE(struct green_kec_shop_item_data_wrapper, 8);
 
+
+// Exclusively used within the overlay
 struct kangaskhan_storage_manager {
     int32_t kangaskhan_type; // 0 is likely kangaskhan, 1 and 2 are treated the same, consistent with kanga rock behavior.
     undefined4 field1_0x4;
@@ -1455,7 +1457,7 @@ struct kangaskhan_storage_manager {
     undefined4 field16_0x28;
     undefined4 field17_0x2c;
     undefined4 field18_0x30;
-    undefined fields19_0x34[30];
+    undefined fields19_0x34[84];
     struct portrait_emotion_8 portrait_emotion;
     undefined field104_0x89;
     undefined field105_0x8a;
