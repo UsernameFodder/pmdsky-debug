@@ -4254,6 +4254,13 @@ overlay29:
         Called after exiting the IQ skills menu or after an enemy spawns.
         
         r0: monster pointer
+    - name: UpdateIqSkillsWrapper
+      address:
+        EU: 0x2302C1C
+      description: |-
+        Wrapper function for UpdateIqSkills.
+        
+        r0: monster entity pointer
     - name: CanSeeTeammate
       address:
         EU: 0x2302C2C

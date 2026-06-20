@@ -406,6 +406,7 @@ bool IsTacticSet(struct entity* entity, enum tactic_id tactic_id);
 bool HasDropeyeStatus(struct entity* entity);
 bool IqSkillIsEnabled(struct entity* entity, enum iq_skill_id iq_id);
 void UpdateIqSkills(struct monster* monster);
+void UpdateIqSkillsWrapper(struct entity* entity);
 bool CanSeeTeammate(struct monster* monster);
 enum type_id GetMoveTypeForMonster(struct entity* entity, struct move* move);
 int GetMovePower(struct entity* entity, struct move* move);
