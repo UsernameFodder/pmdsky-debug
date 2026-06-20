@@ -1630,7 +1630,7 @@ struct unk_storage_struct_0x410 {
     int8_t window_id_0x15;
     int8_t simple_menu_window_id;
     int8_t scroll_box_window_id;
-    undefined4 subcase_id?;
+    undefined4 subcase_id;
     struct preprocessor_args preprocessor_args;
     undefined4 field17_0x6c;
     char unk_buffer_0x70[256];
