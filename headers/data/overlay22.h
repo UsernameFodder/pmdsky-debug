@@ -65,8 +65,8 @@ extern char KEC_SHOP_BUY_MULTI_THANKS_STR[18];
 extern char KEC_SHOP_SELL_MULTI_THANKS_STR[19];
 extern char KEC_SHOP_CHANGEJOB_STR[11];
 extern undefined4 OV22_STATIC_INITIALIZER;
-extern struct unk_green_kec_struct_0x8 UNK_GREEN_KEC_STRUCT_0x8;
-extern struct unk_purple_kec_struct_0x8 UNK_PURPLE_KEC_STRUCT_0x8;
+extern struct unk_green_kec_struct_0x8 UNK_GREEN_KEC_STRUCT_0X8;
+extern struct unk_purple_kec_struct_0x8 UNK_PURPLE_KEC_STRUCT_0X8;
 extern struct kecleon_shop_shared_struct* KECLEON_SHOP_SHARED_STRUCT_PTR;
 
 #endif

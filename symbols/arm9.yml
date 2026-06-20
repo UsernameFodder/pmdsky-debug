@@ -8051,7 +8051,7 @@ arm9:
       address:
         EU: 0x2042554
       description: |-
-        Initializes an unknown struct of size 0xA0, to a pointer in UNK_STORAGE_STRUCT_0xC.
+        Initializes an unknown struct of size 0xA0, to a pointer in UNK_STORAGE_STRUCT_0XC.
         Appears to be used for kangaskhan storage.
         
         r0: int32_t
@@ -8063,7 +8063,7 @@ arm9:
       address:
         EU: 0x2042980
       description: |-
-        Frees an unknown struct of size 0xA0, to a pointer in UNK_STORAGE_STRUCT_0xC.
+        Frees an unknown struct of size 0xA0, to a pointer in UNK_STORAGE_STRUCT_0XC.
         Appears to be used for kangaskhan storage.
 
         No params.
@@ -8088,7 +8088,7 @@ arm9:
       address:
         EU: 0x2042EB4
       description: |-
-        Allocates a currently unknown struct UNK_STORAGE_STRUCT_0xC, that seems to manage the bag while interacting with storage.
+        Allocates a currently unknown struct UNK_STORAGE_STRUCT_0XC, that seems to manage the bag while interacting with storage.
         Known to be used by Kangaskhan Storage.
         
         No params.
@@ -8096,7 +8096,7 @@ arm9:
       address:
         EU: 0x2042ED8
       description: |-
-        Frees a currently unknown struct UNK_STORAGE_STRUCT_0xC, that seems to manage the bag while interacting with storage.
+        Frees a currently unknown struct UNK_STORAGE_STRUCT_0XC, that seems to manage the bag while interacting with storage.
         Known to be used by Kangaskhan Storage.
         
         No params.
@@ -8104,7 +8104,7 @@ arm9:
       address:
         EU: 0x204300C
       description: |-
-        Allocates a currently unknown struct of size 0x18c0, and stores it to a pointer at UNK_STORAGE_STRUCT_0x14.
+        Allocates a currently unknown struct of size 0x18c0, and stores it to a pointer at UNK_STORAGE_STRUCT_0X14.
         Known to be used by Kangaskhan Storage.
         
         r0: int
@@ -8124,7 +8124,7 @@ arm9:
       address:
         EU: 0x2043498
       description: |-
-        Frees a currently unknown struct of size 0x18c0 from a pointer at UNK_STORAGE_STRUCT_0x14.
+        Frees a currently unknown struct of size 0x18c0 from a pointer at UNK_STORAGE_STRUCT_0X14.
         Known to be used by Kangaskhan Storage.
         
         No params.
@@ -8165,7 +8165,7 @@ arm9:
       address:
         EU: 0x20443B0
       description: |-
-        Seems to allocate a table of bools for selected storage items to a pointer in UNK_STORAGE_STRUCT_0x14.
+        Seems to allocate a table of bools for selected storage items to a pointer in UNK_STORAGE_STRUCT_0X14.
         Known to be used by Kangaskhan Storage.
 
         No params.
@@ -8173,7 +8173,7 @@ arm9:
       address:
         EU: 0x20443D4
       description: |-
-        Seems to free a table of bools for selected storage items from a pointer in UNK_STORAGE_STRUCT_0x14.
+        Seems to free a table of bools for selected storage items from a pointer in UNK_STORAGE_STRUCT_0X14.
         Known to be used by Kangaskhan Storage.
         
         No params.
@@ -8181,7 +8181,7 @@ arm9:
       address:
         EU: 0x2045714
       description: |-
-        Allocates a currently unknown struct of size 0x410 at UNK_STORAGE_STRUCT_0x410_PTR. May be a state case structure of some kind.
+        Allocates a currently unknown struct of size 0x410 at UNK_STORAGE_STRUCT_0X410_PTR. May be a state case structure of some kind.
         Likely used by Kangaskhan Storage, or some other storage interaction menu.
         
         r0: undefined2
@@ -8191,7 +8191,7 @@ arm9:
       address:
         EU: 0x20468F8
       description: |-
-        Seems to close a simple menu for a currently unknown struct of size 0x410 at UNK_STORAGE_STRUCT_0x410_PTR. May be a state case structure of some kind.
+        Seems to close a simple menu for a currently unknown struct of size 0x410 at UNK_STORAGE_STRUCT_0X410_PTR. May be a state case structure of some kind.
         Likely used by Kangaskhan Storage, or some other storage interaction menu.
 
         No params.
@@ -8199,7 +8199,7 @@ arm9:
       address:
         EU: 0x2046940
       description: |-
-        Seems to create a dialogue box for a currently unknown struct of size 0x410 at UNK_STORAGE_STRUCT_0x410_PTR. May be a state case structure of some kind.
+        Seems to create a dialogue box for a currently unknown struct of size 0x410 at UNK_STORAGE_STRUCT_0X410_PTR. May be a state case structure of some kind.
         Likely used by Kangaskhan Storage, or some other storage interaction menu.
         
         No params.
@@ -16206,7 +16206,7 @@ arm9:
         Is also used sparingly during the Spinda Cafe egg event.
         
         type: mission_reward_struct_main pointer
-    - name: UNK_STORAGE_STRUCT_0xC
+    - name: UNK_STORAGE_STRUCT_0XC
       address:
         EU: 0x20B07C4
       length:
@@ -16215,7 +16215,7 @@ arm9:
         A currently unknown struct of size 0xc, with ties to kangaskhan storage.
         
         type: struct unk_storage_struct_0xc 
-    - name: UNK_STORAGE_STRUCT_0x14
+    - name: UNK_STORAGE_STRUCT_0X14
       address:
         EU: 0x20B07D0
       length:
@@ -16224,7 +16224,7 @@ arm9:
         A currently unknown struct of size 0x14, with ties to kangaskhan storage.
         
         type: struct unk_storage_struct_0x14 
-    - name: UNK_STORAGE_STRUCT_0x8_PTR_1
+    - name: UNK_STORAGE_STRUCT_0X8_PTR_1
       address:
         EU: 0x20B07E4
       length:
@@ -16233,7 +16233,7 @@ arm9:
         A pointer to a currently unknown struct of size 0x8, with ties to kangaskhan storage.
         
         type: struct unk_storage_struct_0x8* 
-    - name: UNK_STORAGE_WINDOW_STRUCT_0xC_PTR
+    - name: UNK_STORAGE_WINDOW_STRUCT_0XC_PTR
       address:
         EU: 0x20B07E8
       length:
@@ -16242,7 +16242,7 @@ arm9:
         A pointer to a currently unknown struct of size 0xc, with ties to kangaskhan storage.
         
         type: struct unk_storage_window_struct_0xc* 
-    - name: UNK_STORAGE_STRUCT_0x8_PTR_2
+    - name: UNK_STORAGE_STRUCT_0X8_PTR_2
       address:
         EU: 0x20B07EC
       length:
@@ -16251,7 +16251,7 @@ arm9:
         A pointer to a currently unknown struct of size 0x8, with ties to kangaskhan storage.
         
         type: struct unk_storage_struct_0x8* 
-    - name: UNK_STORAGE_STRUCT_0x410_PTR
+    - name: UNK_STORAGE_STRUCT_0X410_PTR
       address:
         EU: 0x20B07F0
       length:

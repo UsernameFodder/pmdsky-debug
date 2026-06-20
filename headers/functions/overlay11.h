@@ -193,7 +193,6 @@ void LoadKecleonShopOverlay(bool param_1);
 void LoadKangaskhanOverlay(bool param_1);
 void LoadChanseyDaycareOverlay(void);
 void LoadXatuAppraisalOverlay(void);
-void LoadMissionRewardOverlay(void);
 void LoadRecycleShopOverlay(void);
 void LoadRuleDungeonEffectsOverlay(void);
 void LoadSpecialEpisodeDiscardOverlay1(void);

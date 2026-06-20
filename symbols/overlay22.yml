@@ -161,7 +161,7 @@ overlay22:
         [MANUAL DESCRIPTION]
         
         return: undefined4 
-    - name: PurpleKecleonShopGetSelectedItemSlot?
+    - name: PurpleKecleonShopGetSelectedItemSlot
       address:
         EU: 0x238B438
       description: |-
@@ -818,7 +818,7 @@ overlay22:
         NA: 0x4
         JP: 0x4
       description: Static initializer for overlay 22.
-    - name: UNK_GREEN_KEC_STRUCT_0x8
+    - name: UNK_GREEN_KEC_STRUCT_0X8
       address:
         EU: 0x238F7A0
         NA: 0x238EC60
@@ -830,7 +830,7 @@ overlay22:
         [MANUAL DESCRIPTION]
         
         type: unk_green_kec_struct_0x8 
-    - name: UNK_PURPLE_KEC_STRUCT_0x8
+    - name: UNK_PURPLE_KEC_STRUCT_0X8
       address:
         EU: 0x238F7A8
         NA: 0x238EC68

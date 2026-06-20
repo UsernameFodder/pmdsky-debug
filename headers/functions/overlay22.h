@@ -21,6 +21,7 @@ void PurpleKecleonShopUpdateItemNamesAndCollectionMenu(void);
 int PurpleKecleonShopInitCollectionMenu(void);
 void PurpleKecleonShopDoNothing(void);
 undefined4 PurpleKecleonShopGetCollectionMenuStatus(void);
+uint16_t PurpleKecleonShopGetSelectedItemSlot(void);
 void PurpleKecleonShopInitItemNameData(void);
 void PurpleKecleonShopFreeItemNameData(void);
 void PurpleKecleonShopFillItemNameData(void);
