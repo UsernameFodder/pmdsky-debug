@@ -1570,7 +1570,7 @@ struct unk_storage_struct_0x18c0 {
     undefined field8_0x7da;
     undefined field9_0x7db;
     struct window_extra_info window_extra_info;
-    undefined field11_0x874[4164];
+    undefined field11_0x874[4168];
     undefined4 field4175_0x18bc;
 };
 ASSERT_SIZE(struct unk_storage_struct_0x18c0, 6336);
@@ -1612,7 +1612,7 @@ struct unk_storage_struct_0x8 {
     undefined field3_0x6;
     undefined field4_0x7;
 };
-ASSERT_SIZE(struct unk_storage_struct_0x18c0, 8);
+ASSERT_SIZE(struct unk_storage_struct_0x8, 8);
 
 struct unk_storage_struct_0x410 {
     undefined4 field0_0x0;
@@ -1655,7 +1655,7 @@ struct unk_storage_struct_0x410 {
     undefined4 field798_0x38c;
     char unk_buffer_0x390[128];
 };
-ASSERT_SIZE(struct unk_storage_struct_0x18c0, 1040);
+ASSERT_SIZE(struct unk_storage_struct_0x410, 1040);
 
 
 #endif

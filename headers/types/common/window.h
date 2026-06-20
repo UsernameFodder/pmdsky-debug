@@ -1128,7 +1128,7 @@ struct digit_input_menu {
     undefined field13_0x2a;
     undefined field14_0x2b;
 };
-ASSERT_SIZE(struct digit_input_window_manager, 44);
+ASSERT_SIZE(struct digit_input_menu, 44);
 
 // Not a window, but seems to be a manger struct for the collection menu that handles kangaskhan storage.
 struct storage_collection_menu_manager {
