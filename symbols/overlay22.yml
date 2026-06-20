@@ -899,7 +899,7 @@ overlay22:
         NA: 0x4
         JP: 0x4
       description: Static initializer for overlay 22.
-    - name: GREEN_KEK_SHOP_ITEM_DATA_WRAPPER
+    - name: GREEN_KEC_SHOP_ITEM_DATA_WRAPPER
       address:
         EU: 0x238F7A0
         NA: 0x238EC60
@@ -908,10 +908,10 @@ overlay22:
         EU: 0x8
         NA: 0x8
       description: |-
-        [MANUAL DESCRIPTION]
+        Seems to contain item property data for the green kecleon shop.
         
         type: green_kec_shop_item_data_wrapper
-    - name: PURPLE_KEK_SHOP_ITEM_DATA_WRAPPER
+    - name: PURPLE_KEC_SHOP_ITEM_DATA_WRAPPER
       address:
         EU: 0x238F7A8
         NA: 0x238EC68
@@ -920,7 +920,7 @@ overlay22:
         EU: 0x8
         NA: 0x8
       description: |-
-        [MANUAL DESCRIPTION]
+        Seems to contain item property data for the purple kecleon shop.
         
         type: purple_kec_shop_item_data_wrapper
     - name: KECLEON_SHOP_SHARED_STRUCT_PTR
@@ -932,6 +932,6 @@ overlay22:
         EU: 0x4
         NA: 0x4
       description: |-
-        [MANUAL DESCRIPTION]
+        Seems to handle the operations of the kecleon shop, and is shared for both brothers.
         
         type: kecleon_shop_shared_struct* 
