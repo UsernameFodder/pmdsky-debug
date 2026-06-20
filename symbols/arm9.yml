@@ -5216,6 +5216,20 @@ arm9:
         Initialize the render_3d_element_64 structure (without performing any drawing or external data access)
         
         r0: render_3d_element_64
+    - name: GetPaletteBaseAddress
+      address:
+        EU:
+          - 0x201E858
+          - 0x2027B9C
+        NA: 0x20278A8
+        JP: 0x2027C08
+      description: |-
+        Gets the palette base address for a 3D element loaded from a WTE file.
+        Takes the same parameters as were used in the specified file's ProcessWte call.
+        
+        r0: upper part of the palette VRAM
+        r1: lower part of the palette VRAM
+        return: palette base address
     - name: Render3d64Texture0x7
       address:
         EU: 0x201E8E0
@@ -5980,18 +5994,6 @@ arm9:
         r0: window_params pointer to be copied by value into window::hdr in the new window
         r1: ?
         return: window_id
-    - name: GetPaletteBaseAddress
-      address:
-        EU: 0x2027B9C
-        NA: 0x20278A8
-        JP: 0x2027C08
-      description: |-
-        Gets the palette base address for a 3D element loaded from a WTE file.
-        Takes the same parameters as were used in the specified file's ProcessWte call.
-        
-        r0: upper part of the palette VRAM
-        r1: lower part of the palette VRAM
-        return: palette base address
     - name: SetScreenWindowsColor
       address:
         EU: 0x2027D5C
