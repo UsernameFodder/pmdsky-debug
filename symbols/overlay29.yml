@@ -21,6 +21,8 @@ overlay29:
     - name: InitDungeonPaletteStruct
       address:
         EU: 0x22DEC40
+        NA: 0x22DE300
+        JP: 0x22DF9A0
       description: |-
         Seems to initialize the dungeon_palette_struct, which likely handles background color display in dungeon mode. 
         
@@ -403,6 +405,8 @@ overlay29:
     - name: ResetDungeonColorPalette
       address:
         EU: 0x22E1E4C
+        NA: 0x22E150C
+        JP: 0x22E2B9C
       description: |-
         Zeroes the entire color_table in the dungeon struct.
         
@@ -1300,6 +1304,8 @@ overlay29:
     - name: DungeonChangeTopScreenType
       address:
         EU: 0x22E9658
+        NA: 0x22E8CA8
+        JP: 0x22EA310
       description: |-
         Seems to change the top screen display type in dungeon mode.
         
@@ -1680,6 +1686,8 @@ overlay29:
     - name: PlayMeByIdIfNot998
       address:
         EU: 0x22EB694
+        NA: 0x22EACE4
+        JP: 0x22EC34C
       description: |-
         Plays the specified ME effect if it is not a specific unknown ME value (0x3E6). This is not known to be a valid ME value...
         MEs are usually short jingles that are used when notifying the player of something, like unlocking a dungeon or receiving an item.
@@ -1707,6 +1715,8 @@ overlay29:
     - name: SetUnkMusicFlag
       address:
         EU: 0x22EB8E4
+        NA: 0x22EAF34
+        JP: 0x22EC59C
       description: |-
         Seems to set some kind of flag in the dungeon struct that affects bgm in some way.
         Called in ApplyDamage immediately before and after reviving a pokemon, as well as other places.
@@ -1824,6 +1834,8 @@ overlay29:
     - name: ConvertTmToUsedTm
       address:
         EU: 0x22EC018
+        NA: 0x22EB668
+        JP: 0x22ECCD0
       description: |-
         Seems to be responsible for turning a TM into a Used TM after use. Explicitly checks if the TM is an HM, and if so, does not transform it.
         
@@ -1943,6 +1955,8 @@ overlay29:
     - name: CreateMonsterSummaryFromEntityOuter
       address:
         EU: 0x22ED794
+        NA: 0x22ECDE4
+        JP: 0x22EE448
       description: |-
         Seems to be the parent function for CreateMonsterSummaryFromEntity.
         Sets the fainted_monster_dungeon_end_reason field to a damage_source. 
@@ -2435,6 +2449,8 @@ overlay29:
     - name: GonePebbleGradualPaletteShift
       address:
         EU: 0x22F1210
+        NA: 0x22F085C
+        JP: 0x22F1E60
       description: |-
         Seems to be responsible for the palette shift of the dungeon background for the Gone Pebble item effect.
         
@@ -3046,6 +3062,8 @@ overlay29:
     - name: DisplayLinkedMovesWarnings
       address:
         EU: 0x22FAF80
+        NA: 0x22FA574
+        JP: 0x22FBB1C
       description: |-
         Seems to handle displaying the text string for linked moves de-linking when at 2, 1, or 0 PP. 
         
@@ -3323,6 +3341,8 @@ overlay29:
     - name: CountActiveMonsters
       address:
         EU: 0x22FC648
+        NA: 0x22FBC4C
+        JP: 0x22FD114
       description: |-
         Loops through the monster entity table, counting the number of valid entities.
         
@@ -9606,6 +9626,8 @@ overlay29:
     - name: MissionExitPrompt
       address:
         EU: 0x2349618
+        NA: 0x2348A18
+        JP: 0x2349D40
       description: |-
         Responsible for asking the player if they want to leave the dungeon after a mission via nested YesNoMenu() calls.
         The first YesNoMenu uses a text string id from the param of this function.
@@ -9864,6 +9886,8 @@ overlay29:
     - name: ClearMissionDestinationInfo
       address:
         EU: 0x234A2EC
+        NA: 0x23496EC
+        JP: 0x234AA14
       description: |-
         Zeroes all fields of a mission_destination_info struct.
         Seems to be called as part of FillMissionDestinationInfo, and one other place.
@@ -9924,6 +9948,8 @@ overlay29:
     - name: TryCompleteMission
       address:
         EU: 0x234A6D4
+        NA: 0x2349AD4
+        JP: 0x234AD74
       description: |-
         Seems to check if the mission on the current floor has been completed. Each mission type seems to use the params differently.
         
@@ -9932,6 +9958,8 @@ overlay29:
     - name: TreasureMemoComplete
       address:
         EU: 0x234B88C
+        NA: 0x234AC8C
+        JP: 0x234BEFC
       description: |-
         Seems to run when a treasure memo mission has been completed.
         Handles the fanfare for completing the mission, runs TryCompleteMission, and calls MissionExitPrompt.
@@ -10407,6 +10435,8 @@ overlay29:
     - name: PrintMissionCompleteString
       address:
         EU: 0x234E30C
+        NA: 0x234D70C
+        JP: 0x234E998
       description: |-
         Seems to handle the displaying the textbox for completing a specific kind of mission.
         Only known to be called by TreasureMemoComplete.
