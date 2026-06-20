@@ -33,6 +33,8 @@ extern undefined4 OV11_STATIC_INITIALIZER;
 extern struct main_ground_data GROUND_STATE_PTRS;
 extern struct exclusive_item_requirements* EXCLUSIVE_ITEM_REQUIREMENTS_PTR;
 extern struct swap_shop_inventory_ptrs SWAP_SHOP_INVENTORY_PTRS;
+extern bool SPINDA_CAFE_OVERLAY_STATUS;
+extern bool RECYCLE_SHOP_OVERLAY_STATUS;
 extern uint32_t WORLD_MAP_MODE;
 
 #endif

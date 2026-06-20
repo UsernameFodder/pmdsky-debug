@@ -1287,4 +1287,202 @@ struct recycle_unk_struct_0x1cc {
 };
 ASSERT_SIZE(struct recycle_unk_struct_0x1cc, 460);
 
+struct duskull_bank {
+    enum bank_main_case_id main_case_id;
+    enum bank_subcase current_subcase_id;
+    enum bank_subcase next_subcase_id;
+    int gold_withdrawn;        // If negative, is storing gold
+    undefined4 field4_0x10;    // Zeroed but otherwise unused
+    undefined field5_0x14[64]; // Seems to be fully unused.
+    struct digit_input_menu digit_input_menu;
+    int8_t dialogue_box_window_id;
+    int8_t portrait_box_window_id;
+    int8_t gold_status_window_id; // Referred to by debug prints as a "sub" of some kind
+    int8_t simple_menu_window_id;
+    int8_t unk_input_window_id;
+    undefined field12_0x85;
+    undefined field13_0x86;
+    undefined field14_0x87;
+    struct preprocessor_args preprocessor_args;
+    bool is_withdrawing;
+    undefined field17_0xd9;
+    undefined field18_0xda;
+    undefined field19_0xdb;
+    struct portrait_params portrait_params;
+};
+ASSERT_SIZE(struct duskull_bank, 236);
+
+struct kecleon_shop_shared_struct {
+    bool is_purple_kec;
+    undefined field_0x1;
+    undefined field_0x2;
+    undefined field_0x3;
+    int32_t
+        main_case_id; // As the menu is better understood, a subcase should be made for this field.
+    bool is_green_kec;
+    undefined field3_0x9;
+    undefined field4_0xa;
+    undefined field5_0xb;
+    undefined4 field6_0xc;
+    int32_t
+        subcase_id; // As the menu is better understood, a subcase should be made for this field.
+    undefined field8_0x14;
+    undefined field9_0x15;
+    undefined field10_0x16;
+    undefined field11_0x17;
+    undefined field12_0x18;
+    undefined field13_0x19;
+    undefined field14_0x1a;
+    undefined field15_0x1b;
+    undefined field16_0x1c;
+    undefined field17_0x1d;
+    undefined field18_0x1e;
+    undefined field19_0x1f;
+    undefined field20_0x20;
+    undefined field21_0x21;
+    undefined field22_0x22;
+    undefined field23_0x23;
+    int num_items_to_sell;
+    int total_sell_price;
+    struct item selected_item;
+    int8_t selected_item_green;
+    int8_t selected_item_purple;
+    undefined field29_0x34;
+    undefined field30_0x35;
+    undefined field31_0x36;
+    undefined field32_0x37;
+    undefined4 field33_0x38;
+    undefined4 field34_0x3c;
+    undefined4 field35_0x40;
+    struct game_state_values* game_state_values_ptr;
+    int8_t dialogue_box_window_id;
+    int8_t portrait_box_window_id;
+    int8_t collection_menu_window_id;
+    int8_t window_id_0x4b;
+    int8_t simple_menu_window_id;
+    undefined field42_0x4d;
+    undefined field43_0x4e;
+    undefined field44_0x4f;
+    struct preprocessor_args preprocessor_args;
+    undefined fields46_0xa0[320];
+    struct portrait_params portrait_params;
+};
+ASSERT_SIZE(struct kecleon_shop_shared_struct, 496);
+
+struct shop_item_name {
+    char* item_name_ptr; // Points to buffer of size 80
+    int item_slot_id;
+};
+ASSERT_SIZE(struct shop_item_name, 8);
+
+struct purple_kec_shop_item_data {
+    undefined4 field0_0x0; // Set by Arm9LoadUnkFieldNa0x2029EC8...
+    undefined4 field1_0x4;
+    int16_t shop_name_string_id;
+    undefined field3_0xa;
+    undefined field4_0xb;
+    undefined4 field5_0xc;
+    undefined fields6_0x10[136];
+    int8_t collection_menu_window_id; // Created by Rename Structure Field action
+    undefined field143_0x99;
+    undefined field144_0x9a;
+    undefined field145_0x9b;
+    int32_t num_items_for_sale;
+    struct shop_item_name shop_item_name_table[4];
+    struct shop_item_name unk_shop_item_name;
+    char item_name_buffers[4][80];
+    undefined1 unk_item_field_tbl_1[4];
+    undefined1 unk_item_field_tbl_1_unuse[4];
+    int32_t item_prices[4];
+    int32_t item_prices_unused[4];
+    bool items_are_selected[4];
+};
+ASSERT_SIZE(struct purple_kec_shop_item_data, 564);
+
+struct purple_kec_shop_item_data_wrapper {
+    int16_t selected_item_slot;
+    undefined field1_0x2;
+    undefined field2_0x3;
+    struct purple_kec_shop_item_data* purple_kec_item_data_ptr;
+};
+ASSERT_SIZE(struct purple_kec_shop_item_data_wrapper, 8);
+
+struct green_kec_shop_item_data {
+    undefined4 field0_0x0; // Set by Arm9LoadUnkFieldNa0x2029EC8...
+    int field1_0x4;
+    int16_t shop_name_string_id; // Created by Rename Structure Field action
+    undefined field3_0xa;
+    undefined field4_0xb;
+    int field5_0xc;
+    undefined fields_0x10[136];
+    int8_t collection_menu_window_id;
+    undefined field143_0x99;
+    undefined field144_0x9a;
+    undefined field145_0x9b;
+    int32_t num_items_for_sale; // Created by Rename Structure Field action
+    struct shop_item_name shop_item_name_table[8];
+    struct shop_item_name unk_shop_item_name;
+    char item_name_buffers[8][80];
+    int8_t unk_item_field_tbl_1[8];
+    int item_prices[8];
+    undefined1 items_are_selected[8];
+};
+ASSERT_SIZE(struct green_kec_shop_item_data, 920);
+
+struct green_kec_shop_item_data_wrapper {
+    int16_t selected_item_slot;
+    undefined field1_0x2;
+    undefined field2_0x3;
+    struct green_kec_shop_item_data* green_kec_item_data_ptr;
+};
+ASSERT_SIZE(struct green_kec_shop_item_data_wrapper, 8);
+
+// Exclusively used within the overlay
+struct kangaskhan_storage_manager {
+    int32_t kangaskhan_type; // 0 is likely kangaskhan, 1 and 2 are treated the same, consistent
+                             // with kanga rock behavior.
+    undefined4 field1_0x4;
+    int32_t subcase_id;
+    int32_t next_subcase;
+    int32_t unk_counter_0x10;
+    int32_t unk_timer_0x14;
+    struct item bag_item_to_store;
+    undefined field7_0x1e;
+    undefined field8_0x1f;
+    int8_t item_slot;
+    undefined field10_0x21;
+    undefined field11_0x22;
+    undefined field12_0x23;
+    int16_t block_storage_item_slot;
+    undefined field14_0x26;
+    undefined field15_0x27;
+    undefined4 field16_0x28;
+    undefined4 field17_0x2c;
+    undefined4 field18_0x30;
+    undefined fields19_0x34[84];
+    struct portrait_emotion_8 portrait_emotion;
+    undefined field104_0x89;
+    undefined field105_0x8a;
+    undefined field106_0x8b;
+    undefined4 case_id; // Seems strange for it to be all the way down here...
+    undefined1 field108_0x90[5];
+    int8_t dialogue_box_window_id;
+    int8_t portrait_box_window_id;
+    int8_t collection_menu_window_id;
+    int8_t window_id_0x98;
+    int8_t simple_menu_window_id;
+    undefined field114_0x9a;
+    undefined field115_0x9b;
+    struct preprocessor_args preprocessor_args;
+    undefined fields117_0xec[64];
+    char string_buffer[128];
+    struct portrait_params portrait_params;
+    bool window_is_copied;
+    undefined field_0x1bd;
+    undefined field_0x1be;
+    undefined field_0x1bf;
+    struct window_extra_info window_extra_info;
+};
+ASSERT_SIZE(struct kangaskhan_storage_manager, 600);
+
 #endif
