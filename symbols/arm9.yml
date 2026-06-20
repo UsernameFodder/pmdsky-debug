@@ -2784,6 +2784,15 @@ arm9:
         r0: item index
         r1: [output] pointer to an item
         return: bool whether or not the item id is not 0
+    - name: MaybeUpdateStorage
+      address:
+        EU: 0x2010124
+      description: |-
+        Just a guess.
+        Seems like it might handle updating storage, syncing the item count data to the temporary item slots after interacting with storage.
+        Used as a sort parallel to RemoveEmptyItemsInBag.
+
+        No params.
     - name: RemoveItemAtIdxInStorage
       address:
         EU: 0x2010248
@@ -7143,6 +7152,14 @@ arm9:
         Seems to do some things with the text box, before doing the same things that CloseTextBox does.
         
         r0: window_id
+    - name: IsTextboxState3
+      address:
+        EU: 0x202FCAC
+      description: |-
+        Checks if a text_box is in state 3.
+        
+        r0: window_id
+        return: bool
     - name: CreateTextBoxInternal
       address:
         EU: 0x202FCD0
@@ -7989,6 +8006,162 @@ arm9:
         r0: [output] buffer
         r1: id in team member's IQ skill list
         return: input buffer
+    - name: InitUnkStorageStruct0xA0
+      address:
+        EU: 0x2042554
+      description: |-
+        Initializes an unknown struct of size 0xA0, to a pointer in UNK_STORAGE_STRUCT_0xC.
+        Appears to be used for kangaskhan storage.
+        
+        r0: int32_t
+        r1: undefined4
+        r2: int
+        r3: int
+        return: int 
+    - name: FreeUnkStorageStruct0xA0
+      address:
+        EU: 0x2042980
+      description: |-
+        Frees an unknown struct of size 0xA0, to a pointer in UNK_STORAGE_STRUCT_0xC.
+        Appears to be used for kangaskhan storage.
+
+        No params.
+    - name: ClearBagSelectedItemTable
+      address:
+        EU: 0x2042E14
+      description: |-
+        Seems to clear the list of selected bag item bools.
+        Known to be used by Kangaskhan Storage.
+        
+        No params.
+    - name: IsBagItemIndexSelected
+      address:
+        EU: 0x2042EA0
+      description: |-
+        Seems to check if a specified index in the bag is selected.
+        Known to be used by Kangaskhan Storage.
+        
+        r0: index
+        return: bool 
+    - name: AllocUnkBagStruct
+      address:
+        EU: 0x2042EB4
+      description: |-
+        Allocates a currently unknown struct UNK_STORAGE_STRUCT_0xC, that seems to manage the bag while interacting with storage.
+        Known to be used by Kangaskhan Storage.
+        
+        No params.
+    - name: FreeUnkBagStruct
+      address:
+        EU: 0x2042ED8
+      description: |-
+        Frees a currently unknown struct UNK_STORAGE_STRUCT_0xC, that seems to manage the bag while interacting with storage.
+        Known to be used by Kangaskhan Storage.
+        
+        No params.
+    - name: InitUnkStorageStruct0x18c0
+      address:
+        EU: 0x204300C
+      description: |-
+        Allocates a currently unknown struct of size 0x18c0, and stores it to a pointer at UNK_STORAGE_STRUCT_0x14.
+        Known to be used by Kangaskhan Storage.
+        
+        r0: int
+        r1: undefined4
+        r2: int
+        return: int 
+    - name: MaybeTrySelectStorageItem
+      address:
+        EU: 0x20432D4
+      description: |-
+        Seems to be responsible for selecting an item from storage, for multi-select. 
+        Known to be used by Kangaskhan Storage.
+
+        r0: buttons struct? Seems to be checking for the R button...
+        return: bool 
+    - name: FreeUnkStorageStruct0x18c0
+      address:
+        EU: 0x2043498
+      description: |-
+        Frees a currently unknown struct of size 0x18c0 from a pointer at UNK_STORAGE_STRUCT_0x14.
+        Known to be used by Kangaskhan Storage.
+        
+        No params.
+    - name: ClearStorageSelectedItemTable
+      address:
+        EU: 0x20437F0
+      description: |-
+        Seems to clear the selected item bool table for storage.
+        Known to be used by Kangaskhan Storage.
+        
+        No params.
+    - name: CountSelectedStorageItems
+      address:
+        EU: 0x2043818
+      description: |-
+        Seems to count the number of currently selected items in storage.
+        Known to be used by Kangaskhan Storage. 
+        
+        return: number of selected items 
+    - name: GetFirstSelectedStorageItemIndex
+      address:
+        EU: 0x2043848
+      description: |-
+        Seems to retrieve the index of the first currently selected item in storage.
+        Known to be used by Kangaskhan Storage. 
+        
+        return: index of first selected item
+    - name: IsStorageItemIndexSelected
+      address:
+        EU: 0x2043884
+      description: |-
+        Seems to check if a specified storage item index is selected.
+        Known to be used by Kangaskhan Storage. 
+        
+        r0: index
+        return: bool
+    - name: AllocStorageSelectedItemTable
+      address:
+        EU: 0x20443B0
+      description: |-
+        Seems to allocate a table of bools for selected storage items to a pointer in UNK_STORAGE_STRUCT_0x14.
+        Known to be used by Kangaskhan Storage.
+
+        No params.
+    - name: FreeStorageSelectedItemTable
+      address:
+        EU: 0x20443D4
+      description: |-
+        Seems to free a table of bools for selected storage items from a pointer in UNK_STORAGE_STRUCT_0x14.
+        Known to be used by Kangaskhan Storage.
+        
+        No params.
+    - name: InitUnkStorageStruct0x410
+      address:
+        EU: 0x2045714
+      description: |-
+        Allocates a currently unknown struct of size 0x410 at UNK_STORAGE_STRUCT_0x410_PTR. May be a state case structure of some kind.
+        Likely used by Kangaskhan Storage, or some other storage interaction menu.
+        
+        r0: undefined2
+        r1: int
+        return: undefined4
+    - name: UnkStorageStruct0x410CloseSimpleMenu
+      address:
+        EU: 0x20468F8
+      description: |-
+        Seems to close a simple menu for a currently unknown struct of size 0x410 at UNK_STORAGE_STRUCT_0x410_PTR. May be a state case structure of some kind.
+        Likely used by Kangaskhan Storage, or some other storage interaction menu.
+
+        No params.
+    - name: UnkStorageStruct0x410CreateDialogueBox
+      address:
+        EU: 0x2046940
+      description: |-
+        Seems to create a dialogue box for a currently unknown struct of size 0x410 at UNK_STORAGE_STRUCT_0x410_PTR. May be a state case structure of some kind.
+        Likely used by Kangaskhan Storage, or some other storage interaction menu.
+        
+        No params.
     - name: PlayMissionClearBgm
       address:
         EU: 0x2046A5C
@@ -15906,6 +16079,60 @@ arm9:
         Is also used sparingly during the Spinda Cafe egg event.
         
         type: mission_reward_struct_main pointer
+    - name: UNK_STORAGE_STRUCT_0xC
+      address:
+        EU: 0x20B07C4
+      length:
+        EU: 0xC
+      description: |-
+        A currently unknown struct of size 0xc, with ties to kangaskhan storage.
+        
+        type: struct unk_storage_struct_0xc 
+    - name: UNK_STORAGE_STRUCT_0x14
+      address:
+        EU: 0x20B07D0
+      length:
+        EU: 0x14
+      description: |-
+        A currently unknown struct of size 0x14, with ties to kangaskhan storage.
+        
+        type: struct unk_storage_struct_0x14 
+    - name: UNK_STORAGE_STRUCT_0x8_PTR_1
+      address:
+        EU: 0x20B07E4
+      length:
+        EU: 0x4
+      description: |-
+        A pointer to a currently unknown struct of size 0x8, with ties to kangaskhan storage.
+        
+        type: struct unk_storage_struct_0x8* 
+    - name: UNK_STORAGE_WINDOW_STRUCT_0xC_PTR
+      address:
+        EU: 0x20B07E8
+      length:
+        EU: 0x4
+      description: |-
+        A pointer to a currently unknown struct of size 0xc, with ties to kangaskhan storage.
+        
+        type: struct unk_storage_window_struct_0xc* 
+    - name: UNK_STORAGE_STRUCT_0x8_PTR_2
+      address:
+        EU: 0x20B07EC
+      length:
+        EU: 0x4
+      description: |-
+        A pointer to a currently unknown struct of size 0x8, with ties to kangaskhan storage.
+        
+        type: struct unk_storage_struct_0x8* 
+    - name: UNK_STORAGE_STRUCT_0x410_PTR
+      address:
+        EU: 0x20B07F0
+      length:
+        EU: 0x4
+      description: |-
+        A pointer to a currently unknown struct of size 0x410, with ties to kangaskhan storage.
+        
+        type: struct unk_storage_struct_0x410* 
     - name: NOTIFY_NOTE
       address:
         EU: 0x20B0814

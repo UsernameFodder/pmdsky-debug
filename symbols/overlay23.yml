@@ -12,32 +12,131 @@ overlay23:
     NA: 0x3780
     JP: 0x37E0
   description: Controls Kangaskhan Storage (both in Treasure Town and via Kangaskhan Rocks).
-  functions: []
+  functions:
+    - name: KangaskhanStorageSubcaseManager1
+      address:
+        EU: 0x238AC80
+      description: |-
+        Seems responsible for handling the majority of the frame update behavior for kangaskhan storage, particularly window management.
+        Shares this responsibility with KangaskhanStorageSubcaseManager1.
+
+        r0: subcase id (should eventually be an enum)
+    - name: KangaskhanStorageSubcaseManager2
+      address:
+        EU: 0x238BD78
+      description: |-
+        Seems responsible for handling the majority of the frame update behavior for kangaskhan storage, particularly window management.
+        Shares this responsibility with KangaskhanStorageSubcaseManager2.
+        
+        No params.
+    - name: KangaskhanStorageEntryPoint
+      address:
+        EU: 0x238CE68
+      description: |-
+        The sole entry_point for the kangaskhan storage overlay.
+        
+        return: undefined4 
+    - name: KangaskhanStorageDestructor
+      address:
+        EU: 0x238CF88
+      description: |-
+        The sole destructor for the kangaskhan storage overlay.
+        
+        No params.
+    - name: KangaskhanStorageFrameUpdate
+      address:
+        EU: 0x238CFB4
+      description: |-
+        The sole frame_update for the kangaskhan storage overlay.
+        
+        return: undefined4 
+    - name: KangaskhanStorageCloseSimpleMenu
+      address:
+        EU: 0x238DBD8
+      description: |-
+        Closes a simple menu with the simple_menu_window_id from KANGASKHAN_STORAGE_MENU_PTR.
+        
+        No params.
+    - name: KangaskhanStorageShowDialogueAndPortraitIfNotRock
+      address:
+        EU: 0x238DC20
+      description: |-
+        Seems responsible for handling dialogue from kangaskhan.
+        Does nothing if "KANGASKHAN_STORAGE_MENU_PTR->is_kanga_rock" is true.
+        
+        r0: window_id
+        r1: preprocessor_flags pointer
+        r2: string_id
+    - name: KangaskhanStorageWithdrawSelectedItems
+      address:
+        EU: 0x238DC88
+      description: |-
+        Seems to iteratively remove selected items from storage, and add them to the bag. 
+        Only used when multiple items are selected.
+
+        No params.
+    - name: KangaskhanStorageDepositSelectedItems
+      address:
+        EU: 0x238DCF8
+      description: |-
+        Seems to iteratively remove selected items from the bag, and add them to storage. 
+        Only used when multiple items are selected.
+        
+        No params.
+    - name: KangaskhanStorageWithdrawSingleItem
+      address:
+        EU: 0x238DD78
+      description: |-
+        Seems to remove a single item from storage, and add it to the bag.
+        Subsequently clears the storage selected item table, likely for if multi-select was used on a single item.
+        
+        No params.
+    - name: KangaskhanStorageDepositSingleItem
+      address:
+        EU: 0x238DDB8
+      description: |-
+        Seems to remove a single item from the bag, and add it to storage.
+        Subsequently clears the bag selected item table, likely for if multi-select was used on a single item.
+        
+        No params.
   data:
-    - name: OVERLAY23_UNKNOWN_VALUE__NA_238D2E8
+    - name: STORAGE_OPTION_STATES_1
       address:
         EU: 0x238DE28
         NA: 0x238D2E8
         JP: 0x238E8A0
       length:
         NA: 0x4
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: OVERLAY23_UNKNOWN_VALUE__NA_238D2EC
+      description: |-
+        A list of states per menu option. Enabled is 0x0 and Disabled is 0x3.
+        Not currently known how these are used.
+
+        type: int8_t[4]
+    - name: STORAGE_OPTION_STATES_2
       address:
         EU: 0x238DE2C
         NA: 0x238D2EC
         JP: 0x238E8A4
       length:
         NA: 0x4
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: OVERLAY23_UNKNOWN_STRUCT__NA_238D2F0
+      description: |-
+        A list of states per menu option. Enabled is 0x0 and Disabled is 0x3.
+        Not currently known how these are used.
+        
+        type: int8_t[4]
+    - name: STORAGE_ITEM_CATEGORY_BOOLS
       address:
         EU: 0x238DE30
         NA: 0x238D2F0
         JP: 0x238E8A8
       length:
         NA: 0xC
-      description: "Note: unverified, ported from Irdkwia's notes"
+        EU: 0xC
+      description: |- 
+        Exclusively passed into MaybeGetUncoloredFormattedItemName and MaybeGetColoredFormattedItemName.
+        The exact purpose of this struct is unknown, but the only "true" bool in the table is for "Other" items.     
+        
+        type: bool 
     - name: STORAGE_MENU_ITEMS_CONFIRM
       address:
         EU: 0x238DE3C
@@ -164,11 +263,14 @@ overlay23:
         NA: 0x4
         JP: 0x4
       description: Static initializer for overlay 23.
-    - name: OVERLAY23_UNKNOWN_POINTER__NA_238D8A0
+    - name: KANGASKHAN_STORAGE_MENU_PTR
       address:
         EU: 0x238E3E0
         NA: 0x238D8A0
         JP: 0x238EE60
       length:
         NA: 0x4
-      description: "Note: unverified, ported from Irdkwia's notes"
+      description: |-
+        The main struct that manages kangaskhan storage behavior for the overlay.
+        
+        type: kangaskhan_storage_menu struct pointer
