@@ -18,6 +18,6 @@ extern struct window_params STORAGE_WINDOW_PARAMS_6;
 extern struct window_params STORAGE_WINDOW_PARAMS_7;
 extern struct window_params STORAGE_WINDOW_PARAMS_8;
 extern undefined4 OV23_STATIC_INITIALIZER;
-extern struct kangaskhan_storage_menu* KANGASKHAN_STORAGE_MENU_PTR;
+extern struct kangaskhan_storage_manager* KANGASKHAN_STORAGE_MANAGER_PTR;
 
 #endif

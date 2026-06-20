@@ -263,7 +263,7 @@ overlay23:
         NA: 0x4
         JP: 0x4
       description: Static initializer for overlay 23.
-    - name: KANGASKHAN_STORAGE_MENU_PTR
+    - name: KANGASKHAN_STORAGE_MANAGER_PTR
       address:
         EU: 0x238E3E0
         NA: 0x238D8A0
@@ -273,4 +273,4 @@ overlay23:
       description: |-
         The main struct that manages kangaskhan storage behavior for the overlay.
         
-        type: kangaskhan_storage_menu struct pointer
+        type: kangaskhan_storage_manager struct pointer

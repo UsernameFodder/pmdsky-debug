@@ -24,7 +24,7 @@ overlay22:
       address:
         EU: 0x238AC90
       description: |-
-        Seems to initialize a collection menu for green kecleon with data from UNK_GREEN_KEC_STRUCT_0X8.
+        Seems to initialize a collection menu for green kecleon with data from GREEN_KEC_SHOP_ITEM_DATA_WRAPPER.
         
         return: collection menu window_id
     - name: GreenKecleonShopDoNothing
@@ -38,35 +38,35 @@ overlay22:
       address:
         EU: 0x238AD70
       description: |-
-        Seems to return some kind of status data for the collection menu from UNK_GREEN_KEC_STRUCT_0X8.
+        Seems to return some kind of status data for the collection menu from GREEN_KEC_SHOP_ITEM_DATA_WRAPPER.
         
         return: collection menu status?
     - name: GreenKecleonShopGetShopItemSlot
       address:
         EU: 0x238ADEC
       description: |-
-        Seems to retrieve the item slot the cursor is currently pointing to from UNK_GREEN_KEC_STRUCT_0X8.
+        Seems to retrieve the item slot the cursor is currently pointing to from GREEN_KEC_SHOP_ITEM_DATA_WRAPPER.
         
         return: shop item slot index
     - name: GreenKecleonShopInitItemNameData
       address:
         EU: 0x238AE00
       description: |-
-        Initializes a green_kec_shop_item_data struct in UNK_GREEN_KEC_STRUCT_0X8.
+        Initializes a green_kec_shop_item_data struct in GREEN_KEC_SHOP_ITEM_DATA_WRAPPER.
         
         No params.
     - name: GreenKecleonShopFreeItemNameData
       address:
         EU: 0x238AE34
       description: |-
-        Frees a green_kec_shop_item_data struct in UNK_GREEN_KEC_STRUCT_0X8.
+        Frees a green_kec_shop_item_data struct in GREEN_KEC_SHOP_ITEM_DATA_WRAPPER.
         
         No params.
     - name: GreenKecleonShopFillItemNameData
       address:
         EU: 0x238AE60
       description: |-
-        Populates a green_kec_shop_item_data struct in UNK_GREEN_KEC_STRUCT_0X8.
+        Populates a green_kec_shop_item_data struct in GREEN_KEC_SHOP_ITEM_DATA_WRAPPER.
         
         No params.
     - name: GreenKecleonShopCountSelectedItems
@@ -141,7 +141,7 @@ overlay22:
       address:
         EU: 0x238B2DC
       description: |-
-        Seems to initialize a collection menu for purple kecleon with data from UNK_PURPLE_KEC_STRUCT_0X8.
+        Seems to initialize a collection menu for purple kecleon with data from PURPLE_KEC_SHOP_ITEM_DATA_WRAPPER.
         
         return: collection menu window_id
     - name: PurpleKecleonShopDoNothing
@@ -155,35 +155,35 @@ overlay22:
       address:
         EU: 0x238B3BC
       description: |-
-        Seems to return some kind of status data for the collection menu from UNK_PURPLE_KEC_STRUCT_0X8.
+        Seems to return some kind of status data for the collection menu from PURPLE_KEC_SHOP_ITEM_DATA_WRAPPER.
         
         return: collection menu status?
     - name: PurpleKecleonShopGetShopItemSlot
       address:
         EU: 0x238B438
       description: |-
-        Seems to retrieve the item slot the cursor is currently pointing to from UNK_PURPLE_KEC_STRUCT_0X8.
+        Seems to retrieve the item slot the cursor is currently pointing to from PURPLE_KEC_SHOP_ITEM_DATA_WRAPPER.
         
         return: shop item slot index
     - name: PurpleKecleonShopInitItemNameData
       address:
         EU: 0x238B44C
       description: |-
-        Initializes a purple_kec_shop_item_data struct in UNK_PURPLE_KEC_STRUCT_0X8.
+        Initializes a purple_kec_shop_item_data struct in PURPLE_KEC_SHOP_ITEM_DATA_WRAPPER.
         
         No params.
     - name: PurpleKecleonShopFreeItemNameData
       address:
         EU: 0x238B480
       description: |-
-        Frees a purple_kec_shop_item_data struct in UNK_PURPLE_KEC_STRUCT_0X8.
+        Frees a purple_kec_shop_item_data struct in PURPLE_KEC_SHOP_ITEM_DATA_WRAPPER.
         
         No params.
     - name: PurpleKecleonShopFillItemNameData
       address:
         EU: 0x238B4AC
       description: |-
-        Frees a purple_kec_shop_item_data struct in UNK_PURPLE_KEC_STRUCT_0X8.
+        Frees a purple_kec_shop_item_data struct in PURPLE_KEC_SHOP_ITEM_DATA_WRAPPER.
         
         No params.
     - name: PurpleKecleonShopCountSelectedItems
@@ -899,7 +899,7 @@ overlay22:
         NA: 0x4
         JP: 0x4
       description: Static initializer for overlay 22.
-    - name: UNK_GREEN_KEC_STRUCT_0X8
+    - name: GREEN_KEK_SHOP_ITEM_DATA_WRAPPER
       address:
         EU: 0x238F7A0
         NA: 0x238EC60
@@ -910,8 +910,8 @@ overlay22:
       description: |-
         [MANUAL DESCRIPTION]
         
-        type: unk_green_kec_struct_0x8 
-    - name: UNK_PURPLE_KEC_STRUCT_0X8
+        type: green_kec_shop_item_data_wrapper
+    - name: PURPLE_KEK_SHOP_ITEM_DATA_WRAPPER
       address:
         EU: 0x238F7A8
         NA: 0x238EC68
@@ -922,7 +922,7 @@ overlay22:
       description: |-
         [MANUAL DESCRIPTION]
         
-        type: unk_purple_kec_struct_0x8 
+        type: purple_kec_shop_item_data_wrapper
     - name: KECLEON_SHOP_SHARED_STRUCT_PTR
       address:
         EU: 0x238F7B0

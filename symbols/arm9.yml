@@ -7915,7 +7915,7 @@ arm9:
         Seems to handle initialization of a digit_input_window_manager.
         Used by something other than Duskull Bank!
                 
-        r0: digit_input_window_manager pointer
+        r0: digit_input_menu pointer
     - name: DigitInputMenuReturn
       address:
         EU: 0x2039824
@@ -7923,15 +7923,15 @@ arm9:
         Seems to process the result of DigitInputMenuFrameUpdate.
         Used by something other than Duskull Bank!
         
-        r0: digit_input_window_manager pointer
+        r0: digit_input_menu pointer
         return: int32_t 
     - name: DigitInputMenuInitDigits
       address:
         EU: 0x20398C8
       description: |-
-        Seems to handle initializing the digit fields of a digit_input_window_manager struct, adjusting the max_digits to align with max_value, and more.
+        Seems to handle initializing the digit fields of a digit_input_menu struct, adjusting the max_digits to align with max_value, and more.
         
-        r0: digit_input_window_manager pointer
+        r0: digit_input_menu pointer
     - name: DigitInputMenuGetDigits
       address:
         EU: 0x203997C
@@ -7948,7 +7948,7 @@ arm9:
       description: |-
         Run every frame a digit input menu is active, detecting player inputs via both buttons and the touch screen.
         
-        r0: digit_input_window_manager pointer
+        r0: digit_input_menu pointer
         return: Some kind of exit code, interpreted by DigitInputMenuReturn
     - name: DigitInputMenuCheckValidTouchScreenInput
       address:
@@ -7956,7 +7956,7 @@ arm9:
       description: |-
         Just a guess. Seems to be checking for touch screen input, and interpreting the results as an equivalent set of button inputs?
         
-        r0: digit_input_window_manager pointer
+        r0: digit_input_menu pointer
         return: undefined4 
     - name: DigitInputMenuCheckTouchUpDownArrow
       address:
@@ -7965,7 +7965,7 @@ arm9:
         Called by DigitInputMenuCheckValidTouchScreenInput, which this function assumes to be generally correct.
         Seems to specifically check for a touch screen press above or below the current digit, to increment/decrement it
         
-        r0: digit_input_window_manager pointer
+        r0: digit_input_menu pointer
         r1: int
         r2: int
         return: ? 
@@ -7975,7 +7975,7 @@ arm9:
       description: |-
         Seems to handle actually drawing the digits on the advanced textbox for a digit_input_window_manager.
         
-        r0: digit_input_window_manager pointer
+        r0: digit_input_menu pointer
     - name: DigitInputMenuDrawDigitsCallback
       address:
         EU: 0x2039F10

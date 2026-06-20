@@ -2367,6 +2367,33 @@ enum recycle_case_id {
     RECYCLE_UNK_SUSPEND_0x8 = 8,
 };
 
+enum bank_main_case_id {
+    BANK_BEGIN_MENU=0,
+    BANK_DO_SUBCASE=1,
+    BANK_WAIT_CLOSE_MENU=2,
+    BANK_END_MENU=3,
+    BANK_UNK_0x4=4,
+    BANK_CLOSE_MENU=5,
+};
+
+enum bank_subcase {
+    SBANK_WELCOME=0,
+    SBANK_MAIN_MENU_DIALOGUE=1,
+    SBANK_MAIN_MENU_SELECTION=2,
+    SBANK_INFO_DIALOGUE=3,
+    SBANK_BEGIN_EXIT=4,
+    SBANK_BACK_OUT_DIGIT_MENU=5,
+    SBANK_EXIT=6,
+    SBANK_TRY_BEGIN_DEPOSIT=7,
+    SBANK_DEPOSIT_DIGIT_MENU=8,
+    SBANK_DEPOSIT_END=9,
+    SBANK_TRY_BEGIN_WITHDRAW=10,
+    SBANK_WITHDRAW_DIGIT_MENU=11,
+    SBANK_WITHDRAW_END=12,
+    SBANK_UPDATE_GOLD_STATUS=13,
+};
+
+
 // These are super long, so split them out into a separate file
 #include "version_dep_enums.h"
 
