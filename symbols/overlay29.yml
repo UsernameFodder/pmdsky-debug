@@ -763,6 +763,7 @@ overlay29:
         r1: Effect ID
         r2: appears to be a flag for actually running the animation now? If this is 0, the AdvanceFrame loop is skipped entirely.
         stack[2]: direction of effect
+        stack[3]: custom oam_adjustment_info array for the animation_control struct (length 6, or null if should use default values)
         others: ?
         return: status code, or maybe the number of frames or something? Either way, -1 seems to indicate the animation being finished or something?
     - name: PlayEffectAnimationPos
@@ -1672,6 +1673,22 @@ overlay29:
         JP: 0x22EC2CC
       description: |-
         Sets the dungeon PRNG to use the primary LCG for subsequent random number generation.
+        
+        No params.
+    - name: PlayLevelUpSound
+      address:
+        EU: 0x22EB62C
+      description: |-
+        Plays the sound for leveling up.
+        
+        No params.
+    - name: PlayDungeonTipSound
+      address:
+        EU:
+          - 0x22EB63C
+          - 0x22EB66C
+      description: |-
+        Plays the sound effect for displaying a dungeon tip.
         
         No params.
     - name: PlaySeByIdIfNotSilence
@@ -3142,6 +3159,15 @@ overlay29:
         
         r0: entity pointer
         r1: exclusive item effect ID
+        return: bool
+    - name: ShouldTreatMonsterAsAlly
+      address:
+        EU: 0x22FB9E0
+      description: |-
+        Returns true if entity 1 should treat entity 2 as an ally, assuming entity 1 can see invisible monsters and will not ignore petrified ones.
+        
+        r0: Pointer to entity 1
+        r1: Pointer to entity 2
         return: bool
     - name: GetTeamMemberWithIqSkill
       address:
@@ -5130,6 +5156,60 @@ overlay29:
         r0: entity pointer
         r1: entity pointer
         return: bool
+    - name: SwapDefensiveStages
+      address:
+        EU: 0x230E2E8
+      description: |-
+        Swaps the defensive stages of two monsters.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: whether to log a message
+    - name: SwapDefensiveMultipliers
+      address:
+        EU: 0x230E35C
+      description: |-
+        Swaps the defensive multipliers of two monsters.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: whether to log a message
+    - name: SwapOffensiveStages
+      address:
+        EU: 0x230E3D0
+      description: |-
+        Swaps the offensive stages of two monsters.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: whether to log a message
+    - name: SwapOffensiveMultipliers
+      address:
+        EU: 0x230E444
+      description: |-
+        Swaps the offensive multipliers of two monsters.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: whether to log a message
+    - name: SwapHitChanceStages
+      address:
+        EU: 0x230E444
+      description: |-
+        Swaps the hit chance stages of two monsters.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: whether to log a message
+    - name: SwapUserAtkAndDefModifiers
+      address:
+        EU: 0x230E444
+      description: |-
+        Swaps the attack and defense modifiers of the user entity.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: whether to log a message
     - name: SpecificRecruitCheck
       address:
         EU: 0x230E588

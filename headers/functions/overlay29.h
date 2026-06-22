@@ -57,7 +57,7 @@ int GetVisibilityRange(void);
 void RevealWholeFloor(struct entity* entity);
 int PlayEffectAnimationEntity(struct entity* entity, int effect_id, bool play_now, int param_4,
                               int param_5, undefined param_6, enum direction_id effect_dir,
-                              undefined2* param_8);
+                              uint16_t* custom_oam_adjustment_info);
 int PlayEffectAnimationPos(struct position* pos, int effect_id, bool play_now);
 int PlayEffectAnimationPixelPos(struct pixel_position* pixel_pos, int effect_id, bool play_now);
 void AnimationDelayOrSomething(undefined param_1);
@@ -147,6 +147,8 @@ int CalcStatusDuration(struct entity* entity, int16_t* turn_range, bool iq_skill
 void DungeonRngUnsetSecondary(void);
 void DungeonRngSetSecondary(int i);
 void DungeonRngSetPrimary(void);
+void PlayLevelUpSound(void);
+void PlayDungeonTipSound(void);
 void PlaySeByIdIfNotSilence(int se_id);
 void PlayMeByIdIfNot998(int me_id);
 enum music_id MusicTableIdxToMusicId(int music_table_idx);
@@ -294,6 +296,7 @@ void DisplayLinkedMovesWarnings(struct entity* entity, int move_slot);
 bool MewSpawnCheck(enum monster_id monster_id, bool fail_if_mew);
 void TryEndStatusWithAbility(struct entity* attacker, struct entity* defender);
 bool ExclusiveItemEffectIsActive(struct entity* entity, enum exclusive_item_effect_id effect_id);
+bool ShouldTreatMonsterAsAlly(struct entity* entity1, struct entity* entity2);
 struct entity* GetTeamMemberWithIqSkill(enum iq_skill_id iq_skill);
 bool TeamMemberHasEnabledIqSkill(enum iq_skill_id iq_skill);
 bool TeamLeaderIqSkillIsEnabled(enum iq_skill_id iq_skill);
@@ -508,6 +511,12 @@ void UpdateShopkeeperModeAfterTrap(struct entity* shopkeeper, bool non_team_memb
 void ResetDamageCalcDiagnostics(void);
 void PointCameraToMonsterWrapper(struct entity* entity);
 bool IsEitherMonsterInvalid(struct entity* entity1, struct entity* entity2);
+void SwapDefensiveStages(struct entity* attacker, struct entity* defender, bool log_message);
+void SwapDefensiveMultipliers(struct entity* attacker, struct entity* defender, bool log_message);
+void SwapOffensiveStages(struct entity* attacker, struct entity* defender, bool log_message);
+void SwapOffensiveMultipliers(struct entity* attacker, struct entity* defender, bool log_message);
+void SwapHitChanceStages(struct entity* attacker, struct entity* defender, bool log_message);
+void SwapUserAtkAndDefModifiers(struct entity* attacker, struct entity* defender, bool log_message);
 bool SpecificRecruitCheck(enum monster_id monster_id);
 bool RecruitCheck(struct entity* user, struct entity* target);
 bool TryRecruit(struct entity* user, struct entity* recruit);

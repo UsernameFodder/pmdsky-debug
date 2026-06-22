@@ -103,25 +103,28 @@ ASSERT_SIZE(struct wan_header, 10);
 struct wan_fragment {
     // negative mean using the previous defined fragment bytes (or to not update it?)
     int16_t fragment_bytes_index;
-    int8_t unk1;
-    int8_t unk2;
+    int16_t unk1;
 
     // 2 bytes
     int8_t offset_y : 8;
+    bool unk2 : 1;
     bool unk3 : 1;
-    bool unk4 : 1;
-    uint8_t likely_padding_1 : 3;
+    // 0=Normal, 1=Semi-Transparent, 2=OBJ Window, 3=Prohibited
+    // Seemingly always 0 in the base game, but still works properly for creating
+    // semi-transparent objects assuming it is not zeroed by oam_adjustment_info.
+    uint8_t obj_mode : 2;
+    uint8_t likely_padding_1 : 1;
     bool is_mosaic : 1;
-    uint8_t shape_indice : 2; // as used in OBJ attribute 1
+    uint8_t shape_indice : 2; // as used in OBJ attribute 0
 
     // 2 bytes
     uint16_t offset_x : 9; // The value to be used is this - 256, which can end up negative.
     bool likely_padding_2 : 1;
-    bool unk5 : 1;
+    bool unk4 : 1;
     bool is_last : 1;
     bool h_flip : 1;
     bool v_flip : 1;
-    uint8_t size_indice : 2; // as used in OBJ attribute 0
+    uint8_t size_indice : 2; // as used in OBJ attribute 1
 
     // 2 bytes
     uint16_t fragment_alloc_counter : 10;

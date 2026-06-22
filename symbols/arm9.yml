@@ -4701,6 +4701,17 @@ arm9:
         r1: palette_init_info
         r2: palette_num (bits 12-15 of OAM attribute 2)
         return: always 1
+    - name: AddWanFragmentToOam
+      address:
+        EU: 0x201B770
+      description: |-
+        Adds a WAN fragment to OAM.
+        
+        r0: obj_graphics_control
+        r1: wan_fragment
+        r2: ?
+        r3: oam_adjustment_info (length 6 array, or null to not adjust)
+        return: -2 if group out of bounds, -1 if too many objects, 0 if successful
     - name: AddSimpleObjToOam
       address:
         EU: 0x201BA94
@@ -4775,6 +4786,13 @@ arm9:
         r1: src
         r2: len (in bytes, will be divided by 2 in the call to CopyAndInterleave)
         r3: val
+    - name: InitOamAdjustmentInfo
+      address:
+        EU: 0x201C09C
+      description: |-
+        Initializes an oam_adjustment_info array that will be used in an animation_control structure with default values (0xFFFF for the ANDs, 0 for the ORs).
+        
+        r0: [output] oam_adjustment_info array (length 6)
     - name: InitAnimationControl
       address:
         EU: 0x201C0EC
@@ -4895,13 +4913,15 @@ arm9:
         
         r0: animation_control
         r1: animation_frame
-    - name: FillOamAttributeInfo
+    - name: FillOamAdjustmentInfo
+      aliases:
+        - FillOamAttributeInfo
       address:
         EU: 0x201D1AC
         NA: 0x201D110
         JP: 0x201D168
       description: |-
-        Copies an array of values into an animation_control struct's oam_attribute_info.
+        Copies an array of values into an animation_control struct's oam_adjustment_info.
         
         r0: animation_control
         r1: source array (length 6)
@@ -5614,9 +5634,55 @@ arm9:
         NA: 0x2023690
         JP: 0x20236E0
       description: |-
-        Initializes a struct preprocess_args.
+        Initializes a preprocessor_args struct.
         
         r0: preprocessor args pointer
+    - name: CopyOrInitPreprocessorArgs
+      address:
+        EU: 0x2023920
+      description: |-
+        Copies the input preprocessor_args struct to the output struct, or initializes it if the input is a null pointer.
+        
+        r0: [output] preprocessor args pointer
+        r1: input preprocessor args pointer, or null if should initialize one
+    - name: QuantityToString
+      address:
+        EU: 0x20239D8
+      description: |-
+        Converts a quantity to a string, adding commas in between numbers when appropriate.
+        
+        r0: [output] string
+        r1: quantity
+        r2: adjusted size (if there are less characters in the string than this number, leading spaces will be added to make it this size)
+        r3: ?
+    - name: MoneyQuantityToString
+      address:
+        EU: 
+          - 0x2023B30
+          - 0x2023B58
+      description: |-
+        Converts a money quantity to a string, adding commas in between numbers when appropriate.
+        
+        Note that this function does not add the P symbol at the end.
+        
+        r0: [output] string
+        r1: quantity
+    - name: BankQuantityToString
+      address:
+        EU: 0x2023B6C
+      description: |-
+        Converts a money quantity shown in the bank menu to a string, adding commas in between numbers when appropriate and also adding leading spaces.
+        
+        r0: [output] string
+        r1: quantity
+    - name: ExpQuantityToString
+      address:
+        EU: 0x2023B6C
+      description: |-
+        Converts an experience quantity to a string, adding commas in between numbers when appropriate.
+        
+        r0: [output] string
+        r1: quantity
     - name: SetStringAccuracy
       address:
         EU: 0x20245C0

@@ -485,6 +485,9 @@ uint32_t DecodeFragmentByteAssemblyTable(struct wan_fragment_bytes_assembly_entr
                                          void* dst);
 int LoadObjPalette(struct obj_graphics_control* obj_graphics_control,
                    struct palette_init_info* palette_init_info, uint8_t palette_num);
+int AddWanFragmentToOam(struct obj_graphics_control* obj_graphics_control,
+                        struct wan_fragment* fragment, uint16_t param_3,
+                        uint16_t* oam_adjustment_info);
 int AddSimpleObjToOam(struct obj_graphics_control* obj_graphics_control, uint16_t* obj, int group);
 void GroupOamAttributesWrapper(struct obj_graphics_control* obj_graphics_control);
 void CopyAttributesToOamWrapper(struct obj_graphics_control* obj_graphics_control);
@@ -495,6 +498,7 @@ void InitObjGraphicsControls(void);
 void CopyAttributesToOamBothScreens(void);
 void GroupOamAttributesBothScreens(void);
 void CopyAndInterleaveWrapper(uint16_t* dst, uint16_t* src, uint32_t len, uint8_t val);
+void InitOamAdjustmentInfo(uint16_t* oam_adjustment_info);
 void InitAnimationControl(struct animation_control* animation_control);
 void InitAnimationControlWithSet(struct animation_control* animation_control);
 void SetSpriteIdForAnimationControl(struct animation_control* anim_ctrl, uint16_t sprite_id);
@@ -512,7 +516,7 @@ void SetAndPlayAnimationForAnimationControl(struct animation_control* anim_ctrl,
 void SwitchAnimationControlToNextFrame(struct animation_control* anim_ctrl);
 void LoadAnimationFrameAndIncrementInAnimationControl(struct animation_control* anim_ctrl,
                                                       struct wan_animation_frame* anim_frame);
-void FillOamAttributeInfo(struct animation_control* dst, uint16_t* src);
+void FillOamAdjustmentInfo(struct animation_control* dst, uint16_t* src);
 uint32_t AnimationControlGetAllocForMaxFrame(struct animation_control* anim_ctrl);
 void DeleteWanTableEntry(struct wan_table* wan_table, int wan_id);
 int AllocateWanTableEntry(struct wan_table* wan_table);
@@ -589,7 +593,12 @@ int PreprocessStringFromId(char* output, int output_size, int string_id,
                            struct preprocessor_flags flags, struct preprocessor_args* args);
 bool StrcmpTagVeneer(const char* s1, const char* s2);
 int AtoiTagVeneer(const char* s);
+void CopyOrInitPreprocessorArgs(struct preprocessor_args* out, struct preprocessor_args* in);
 void InitPreprocessorArgs(struct preprocessor_args* args);
+void QuantityToString(char* s, int quantity, uint8_t adj_size, undefined4 param_4);
+void MoneyQuantityToString(char* s, int quantity);
+void BankQuantityToString(char* s, int quantity);
+void ExpQuantityToString(char* s, int quantity);
 char* SetStringAccuracy(char* s, int param_2);
 char* SetStringPower(char* s, int param_2);
 char* GetRankString(char* s, int rank_and_flags);
