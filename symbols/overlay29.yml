@@ -3168,6 +3168,13 @@ overlay29:
         r0: entity pointer
         r1: exclusive item effect ID
         return: bool
+    - name: TryActivateStairSensor
+      address:
+        EU: 0x22FB758
+      description: |-
+        Activates the Stair Sensor IQ skill if a member on the team has it and they are not a special story ally.
+        
+        r0: whether to not log a message (always 0)
     - name: ShouldTreatMonsterAsAlly
       address:
         EU: 0x22FB9E0

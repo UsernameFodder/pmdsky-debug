@@ -297,6 +297,7 @@ void DisplayLinkedMovesWarnings(struct entity* entity, int move_slot);
 bool MewSpawnCheck(enum monster_id monster_id, bool fail_if_mew);
 void TryEndStatusWithAbility(struct entity* attacker, struct entity* defender);
 bool ExclusiveItemEffectIsActive(struct entity* entity, enum exclusive_item_effect_id effect_id);
+void TryActivateStairSensor(bool dont_log_message);
 bool ShouldTreatMonsterAsAlly(struct entity* entity1, struct entity* entity2);
 struct entity* GetTeamMemberWithIqSkill(enum iq_skill_id iq_skill);
 bool TeamMemberHasEnabledIqSkill(enum iq_skill_id iq_skill);
