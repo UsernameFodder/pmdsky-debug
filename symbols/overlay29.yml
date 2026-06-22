@@ -1088,6 +1088,14 @@ overlay29:
         Just a guess. Calls PlayEffectAnimation with data from animation ID 0x18E.
         
         r0: entity pointer
+    - name: PlayStairSensorArrowEffect
+      address:
+        EU: 0x22E72D8
+      description: |-
+        Plays the Stair Sensor arrow effect.
+        
+        r0: entity pointer
+        r1: arrow direction
     - name: LoadMappaFileAttributes
       address:
         EU: 0x22E796C

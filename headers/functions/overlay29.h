@@ -88,6 +88,7 @@ bool ShouldDisplayEntityAdvanced(struct entity* entity);
 void PlayEffectAnimation0x1A9(struct entity* entity);
 void PlayEffectAnimation0x29(struct entity* entity);
 void PlayEffectAnimation0x18E(struct entity* entity);
+void PlayStairSensorArrowEffect(struct entity* entity, enum direction_id arrow_dir);
 void LoadMappaFileAttributes(int quick_saved, bool disable_monsters, undefined* special_process);
 enum trap_id GetRandomSpawnTrapId(void);
 enum trap_id GetRandomTrapId(void);
