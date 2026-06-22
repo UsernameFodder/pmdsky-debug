@@ -1325,7 +1325,7 @@ struct kecleon_shop_shared_struct {
     undefined field5_0xb;
     undefined4 field6_0xc;
     // As the menu is better understood, an enum should be made for this field.
-    int32_t subcase_id; 
+    int32_t subcase_id;
     undefined field8_0x14;
     undefined field9_0x15;
     undefined field10_0x16;

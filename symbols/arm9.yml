@@ -1816,7 +1816,7 @@ arm9:
         EU: 0x200D398
       description: |-
         Seems to get a formatted copy of an item.
-
+        
         r0: [output] name string
         r1: item pointer
         r2: bool table corresponding to item categories?

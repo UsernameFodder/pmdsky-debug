@@ -176,7 +176,8 @@ int GetDisplayedSellPrice(struct item* item);
 int GetActualBuyPrice(struct item* item);
 int GetActualSellPrice(struct item* item);
 int FindItemInInventory(enum item_id item_id);
-void MaybeGetFormattedItemName(char* item_name, struct item* item, bool* category_table, bool is_colored, bool space_align_non_sticky_items);
+void MaybeGetFormattedItemName(char* item_name, struct item* item, bool* category_table,
+                               bool is_colored, bool space_align_non_sticky_items);
 int SprintfStatic(char* str, const char* format, ...);
 void MaybeGetUncoloredFormattedItemName(char* item_name, struct item* item, bool* category_table);
 void MaybeGetColoredFormattedItemName(char* item_name, struct item* item, bool* category_table);
