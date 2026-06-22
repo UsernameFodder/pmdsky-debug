@@ -300,6 +300,7 @@ void TryActivateNewFloorPpRestoration(bool suppress_logs);
 bool ExclusiveItemEffectIsActive(struct entity* entity, enum exclusive_item_effect_id effect_id);
 void TryActivateNewFloorHpRestoration(bool log_failure);
 void TryActivateStairSensor(bool suppress_logs);
+void TryActivateAcuteSniffer(bool suppress_logs);
 bool ShouldTreatMonsterAsAlly(struct entity* entity1, struct entity* entity2);
 struct entity* GetTeamMemberWithIqSkill(enum iq_skill_id iq_skill);
 bool TeamMemberHasEnabledIqSkill(enum iq_skill_id iq_skill);

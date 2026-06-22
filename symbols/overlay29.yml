@@ -3189,6 +3189,13 @@ overlay29:
         Activates the Stair Sensor IQ skill if a member on the team has it and they are not a special story ally.
         
         r0: flag to suppress message logging
+    - name: TryActivateAcuteSniffer
+      address:
+        EU: 0x22FB914
+      description: |-
+        Activates the Acute Sniffer IQ skill if a member on the team has it and no boss fight is active.
+        
+        r0: flag to suppress message logging
     - name: ShouldTreatMonsterAsAlly
       address:
         EU: 0x22FB9E0
