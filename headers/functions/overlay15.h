@@ -1,5 +1,6 @@
 #ifndef HEADERS_FUNCTIONS_OVERLAY15_H_
 #define HEADERS_FUNCTIONS_OVERLAY15_H_
+
 void InitDuskullBankStruct(void);
 undefined4 DuskullBankSubcaseManager1(void);
 void DuskullBankSubcaseManager2(enum bank_subcase subcase);
