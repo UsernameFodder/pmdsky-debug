@@ -5657,7 +5657,7 @@ arm9:
         r3: ?
     - name: MoneyQuantityToString
       address:
-        EU: 
+        EU:
           - 0x2023B30
           - 0x2023B58
       description: |-
@@ -5669,7 +5669,7 @@ arm9:
         r1: quantity
     - name: BankQuantityToString
       address:
-        EU: 0x2023B6C
+        EU: 0x2023B44
       description: |-
         Converts a money quantity shown in the bank menu to a string, adding commas in between numbers when appropriate and also adding leading spaces.
         

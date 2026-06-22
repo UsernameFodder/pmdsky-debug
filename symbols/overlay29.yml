@@ -5194,7 +5194,7 @@ overlay29:
         r2: whether to log a message
     - name: SwapHitChanceStages
       address:
-        EU: 0x230E444
+        EU: 0x230E4B8
       description: |-
         Swaps the hit chance stages of two monsters.
         
@@ -5203,7 +5203,7 @@ overlay29:
         r2: whether to log a message
     - name: SwapUserAtkAndDefModifiers
       address:
-        EU: 0x230E444
+        EU: 0x230E52C
       description: |-
         Swaps the attack and defense modifiers of the user entity.
         

@@ -486,7 +486,7 @@ uint32_t DecodeFragmentByteAssemblyTable(struct wan_fragment_bytes_assembly_entr
 int LoadObjPalette(struct obj_graphics_control* obj_graphics_control,
                    struct palette_init_info* palette_init_info, uint8_t palette_num);
 int AddWanFragmentToOam(struct obj_graphics_control* obj_graphics_control,
-                        struct wan_fragment* fragment, uint16_t param_3,
+                        struct wan_fragment* fragment, uint16_t* param_3,
                         uint16_t* oam_adjustment_info);
 int AddSimpleObjToOam(struct obj_graphics_control* obj_graphics_control, uint16_t* obj, int group);
 void GroupOamAttributesWrapper(struct obj_graphics_control* obj_graphics_control);
@@ -593,8 +593,8 @@ int PreprocessStringFromId(char* output, int output_size, int string_id,
                            struct preprocessor_flags flags, struct preprocessor_args* args);
 bool StrcmpTagVeneer(const char* s1, const char* s2);
 int AtoiTagVeneer(const char* s);
-void CopyOrInitPreprocessorArgs(struct preprocessor_args* out, struct preprocessor_args* in);
 void InitPreprocessorArgs(struct preprocessor_args* args);
+void CopyOrInitPreprocessorArgs(struct preprocessor_args* out, struct preprocessor_args* in);
 void QuantityToString(char* s, int quantity, uint8_t adj_size, undefined4 param_4);
 void MoneyQuantityToString(char* s, int quantity);
 void BankQuantityToString(char* s, int quantity);
