@@ -99,7 +99,7 @@ overlay15:
         Seems to be fully unused. May be a leftover from Time/Darkness or Rescue Team?
         
         type: struct window_params
-    - name: BANK_GOLD_STATUS_WINDOW_PARAMS_2
+    - name: BANK_GOLD_STATUS_WINDOW_PARAMS
       address:
         EU: 0x238BBF8
         NA: 0x238B08C

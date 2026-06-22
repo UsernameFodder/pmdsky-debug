@@ -1317,15 +1317,15 @@ struct kecleon_shop_shared_struct {
     undefined field_0x1;
     undefined field_0x2;
     undefined field_0x3;
-    int32_t
-        main_case_id; // As the menu is better understood, a subcase should be made for this field.
+    // As the menu is better understood, an enum should be made for this field.
+    int32_t main_case_id;
     bool is_green_kec;
     undefined field3_0x9;
     undefined field4_0xa;
     undefined field5_0xb;
     undefined4 field6_0xc;
-    int32_t
-        subcase_id; // As the menu is better understood, a subcase should be made for this field.
+    // As the menu is better understood, an enum should be made for this field.
+    int32_t subcase_id; 
     undefined field8_0x14;
     undefined field9_0x15;
     undefined field10_0x16;

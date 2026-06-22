@@ -3,7 +3,7 @@
 
 extern struct simple_menu_id_item BANK_MAIN_MENU_ITEMS[5];
 extern struct window_params BANK_WINDOW_PARAMS_1;
-extern struct window_params BANK_GOLD_STATUS_WINDOW_PARAMS_2;
+extern struct window_params BANK_GOLD_STATUS_WINDOW_PARAMS;
 extern struct window_params BANK_ADVANCED_TEXTBOX_WINDOW_PARAMS;
 extern struct window_params BANK_MAIN_MENU_WINDOW_PARAMS;
 extern struct window_params BANK_WINDOW_PARAMS_5;
