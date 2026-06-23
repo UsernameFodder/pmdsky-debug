@@ -1161,7 +1161,7 @@ arm9:
         
         r0: oam_info
         r1: oam_attributes
-        r2: group
+        r2: priority group
     - name: UpdateFadeStatus
       address:
         EU: 0x200BA18
@@ -4725,7 +4725,7 @@ arm9:
         
         r0: obj_graphics_control
         r1: obj
-        r2: group
+        r2: priority group
         return: -2 if group out of bounds, -1 if too many objects, 0 if successful
     - name: GroupOamAttributesWrapper
       address:
