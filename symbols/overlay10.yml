@@ -2033,7 +2033,7 @@ overlay10:
         NA: 0x4
         JP: 0x4
       description: |-
-        The turn range for the Miracle Eye status, [127, 127).
+        The turn range for the Miracle Eye status, [127, 127) (infinite).
         
         type: int16_t[2]
     - name: MAGNET_RISE_TURN_RANGE
@@ -2150,7 +2150,7 @@ overlay10:
         NA: 0x4
         JP: 0x4
       description: |-
-        The turn range for the Petrified status when applied to anything other than the player character, [127, 127).
+        The turn range for the Petrified status when applied to anything other than the player character, [127, 127) (infinite).
         
         type: int16_t[2]
     - name: SET_DAMAGE_TURN_RANGE
@@ -2412,7 +2412,7 @@ overlay10:
         NA: 0x4
         JP: 0x4
       description: |-
-        The turn range for the Mobile status (Mobile Orb), [127, 127).
+        The turn range for the Mobile status (Mobile Orb), [127, 127) (infinite).
         
         type: int16_t[2]
     - name: MATCHUP_NOT_VERY_EFFECTIVE_MULTIPLIER
@@ -2511,7 +2511,7 @@ overlay10:
         NA: 0x4
         JP: 0x4
       description: |-
-        The turn range for the Eyedrop status, [127, 127).
+        The turn range for the Eyedrop status, [127, 127) (infinite).
         
         type: int16_t[2]
     - name: MIRROR_MOVE_TURN_RANGE
@@ -2619,7 +2619,7 @@ overlay10:
         NA: 0x4
         JP: 0x4
       description: |-
-        The turn range for the Slip status (Slip Seed), [127, 127).
+        The turn range for the Slip status (Slip Seed), [127, 127) (infinite).
         
         type: int16_t[2]
     - name: FROZEN_TURN_RANGE
@@ -2645,7 +2645,7 @@ overlay10:
         NA: 0x4
         JP: 0x4
       description: |-
-        The turn range for the Burn status, [127, 127).
+        The turn range for the Burn status, [127, 127) (infinite).
         
         type: int16_t[2]
     - name: POISONED_TURN_RANGE
@@ -2658,7 +2658,7 @@ overlay10:
         NA: 0x4
         JP: 0x4
       description: |-
-        The turn range for the Poisoned status, [127, 127).
+        The turn range for the Poisoned status, [127, 127) (infinite).
         
         type: int16_t[2]
     - name: DROPEYE_TURN_RANGE
@@ -2684,7 +2684,7 @@ overlay10:
         NA: 0x4
         JP: 0x4
       description: |-
-        The turn range for the Badly Poisoned status, [127, 127).
+        The turn range for the Badly Poisoned status, [127, 127) (infinite).
         
         type: int16_t[2]
     - name: CRINGE_TURN_RANGE
