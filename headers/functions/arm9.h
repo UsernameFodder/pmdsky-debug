@@ -485,6 +485,9 @@ uint32_t DecodeFragmentByteAssemblyTable(struct wan_fragment_bytes_assembly_entr
                                          void* dst);
 int LoadObjPalette(struct obj_graphics_control* obj_graphics_control,
                    struct palette_init_info* palette_init_info, uint8_t palette_num);
+int AddWanFragmentToOam(struct obj_graphics_control* obj_graphics_control,
+                        struct wan_fragment* fragment, uint16_t* param_3,
+                        uint16_t* oam_adjustment_info);
 int AddSimpleObjToOam(struct obj_graphics_control* obj_graphics_control, uint16_t* obj, int group);
 void GroupOamAttributesWrapper(struct obj_graphics_control* obj_graphics_control);
 void CopyAttributesToOamWrapper(struct obj_graphics_control* obj_graphics_control);
@@ -495,6 +498,7 @@ void InitObjGraphicsControls(void);
 void CopyAttributesToOamBothScreens(void);
 void GroupOamAttributesBothScreens(void);
 void CopyAndInterleaveWrapper(uint16_t* dst, uint16_t* src, uint32_t len, uint8_t val);
+void InitOamAdjustmentInfo(uint16_t* oam_adjustment_info);
 void InitAnimationControl(struct animation_control* animation_control);
 void InitAnimationControlWithSet(struct animation_control* animation_control);
 void SetSpriteIdForAnimationControl(struct animation_control* anim_ctrl, uint16_t sprite_id);
@@ -512,7 +516,7 @@ void SetAndPlayAnimationForAnimationControl(struct animation_control* anim_ctrl,
 void SwitchAnimationControlToNextFrame(struct animation_control* anim_ctrl);
 void LoadAnimationFrameAndIncrementInAnimationControl(struct animation_control* anim_ctrl,
                                                       struct wan_animation_frame* anim_frame);
-void FillOamAttributeInfo(struct animation_control* dst, uint16_t* src);
+void FillOamAdjustmentInfo(struct animation_control* dst, uint16_t* src);
 uint32_t AnimationControlGetAllocForMaxFrame(struct animation_control* anim_ctrl);
 void DeleteWanTableEntry(struct wan_table* wan_table, int wan_id);
 int AllocateWanTableEntry(struct wan_table* wan_table);
@@ -553,6 +557,7 @@ void GeomSetVertexCoord16(int x, int y, int z);
 void InitRender3dData(void);
 void GeomSwapBuffers(void);
 void InitRender3dElement64(struct render_3d_element_64* element64);
+int GetPaletteBaseAddress(undefined4 pal_vram_offset_upper, undefined4 pal_vram_offset_lower);
 void Render3d64Texture0x7(struct render_3d_element_64* element64);
 void Render3d64WindowFrame(struct render_3d_element_64* element64);
 void EnqueueRender3d64Tiling(struct render_3d_element_64* element64);
@@ -568,7 +573,7 @@ void ConvertPointersSir0(undefined* sir0_ptr);
 int HandleSir0TranslationVeneer(uint8_t** dst, uint8_t* src);
 void FillPaletteInitInfo(struct palette_init_info* palette_init_info, struct rgba* palette_bytes,
                          uint16_t palette_mode, uint16_t nb_colors_or_palettes,
-                         uint16_t ext_palette_upper, int8_t palette_num_custom);
+                         uint16_t ext_palette_start, int8_t palette_num_custom);
 int DecompressAtNormalVeneer(undefined* addr_decomp, int expected_size, undefined* at_ptr);
 int DecompressAtNormal(undefined* addr_decomp, int expected_size, undefined* at_ptr);
 int DecompressAtHalf(undefined* addr_decomp, int expected_size, undefined* at_ptr, int high_nibble);
@@ -589,6 +594,11 @@ int PreprocessStringFromId(char* output, int output_size, int string_id,
 bool StrcmpTagVeneer(const char* s1, const char* s2);
 int AtoiTagVeneer(const char* s);
 void InitPreprocessorArgs(struct preprocessor_args* args);
+void CopyOrInitPreprocessorArgs(struct preprocessor_args* out, struct preprocessor_args* in);
+void QuantityToString(char* s, int quantity, uint8_t adj_size, undefined4 param_4);
+void MoneyQuantityToString(char* s, int quantity);
+void BankQuantityToString(char* s, int quantity);
+void ExpQuantityToString(char* s, int quantity);
 char* SetStringAccuracy(char* s, int param_2);
 char* SetStringPower(char* s, int param_2);
 char* GetRankString(char* s, int rank_and_flags);
@@ -625,7 +635,6 @@ uint8_t DrawChar(int window_id, int x, int y, char symbol, int color_offset);
 struct window* GetWindow(int window_id);
 int NewWindowScreenCheck(struct window_params* params, uint8_t param_2);
 int NewWindow(struct window_params* params, uint8_t param_2);
-int GetPaletteBaseAddress(undefined4 pal_vram_offset_upper, undefined4 pal_vram_offset_lower);
 void SetScreenWindowsColor(int palette_idx, bool upper_screen);
 void SetBothScreensWindowsColor(int palette_idx);
 void UpdateWindow(int window_id);
