@@ -5256,7 +5256,7 @@ arm9:
         JP: 0x2027C08
       description: |-
         Gets the palette base address for a 3D element loaded from a WTE file.
-        Takes the same parameters as were used in the specified file's ProcessWte call.
+        Normally takes the same parameters as were used in the specified file's ProcessWte call.
         
         r0: upper part of the palette VRAM
         r1: lower part of the palette VRAM

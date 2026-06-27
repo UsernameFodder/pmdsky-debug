@@ -7893,7 +7893,7 @@ overlay29:
         JP: 0x2336C34
       description: |-
         Gets the palette base address for a 3D element loaded from a WTE file.
-        Takes the same parameters as were used in the specified file's ProcessWte call.
+        Normally takes the same parameters as were used in the specified file's ProcessWte call.
         
         Is an exact copy of GetPaletteBaseAddress in arm9.
         
