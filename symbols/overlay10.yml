@@ -1971,6 +1971,19 @@ overlay10:
         NA: 0x4
         JP: 0x4
       description: "The damage multiplier corresponding to MATCHUP_IMMUNE, as a fixed-point number with 8 fraction bits (0.5)."
+    - name: AQUA_RING_TURN_RANGE
+      address:
+        EU: 0x22C50BC
+        NA: 0x22C4764
+        JP: 0x22C5E4C
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Aqua Ring status, [8, 16).
+        
+        type: int16_t[2]
     - name: GASTRO_ACID_TURN_RANGE
       address:
         EU: 0x22C50C4
@@ -1997,6 +2010,71 @@ overlay10:
         The turn range for the Heal Block status, [4, 10).
         
         type: int16_t[2]
+    - name: EMBARGO_TURN_RANGE
+      address:
+        EU: 0x22C50D0
+        NA: 0x22C4778
+        JP: 0x22C5E60
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Embargo status, [4, 10).
+        
+        type: int16_t[2]
+    - name: MIRACLE_EYE_TURN_RANGE
+      address:
+        EU: 0x22C50D4
+        NA: 0x22C477C
+        JP: 0x22C5E64
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Miracle Eye status, [127, 127) (infinite).
+        
+        type: int16_t[2]
+    - name: MAGNET_RISE_TURN_RANGE
+      address:
+        EU: 0x22C50D8
+        NA: 0x22C4780
+        JP: 0x22C5E68
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Magnet Rise status, [4, 10).
+        
+        type: int16_t[2]
+    - name: CURSE_TURN_RANGE
+      address:
+        EU: 0x22C50DC
+        NA: 0x22C4784
+        JP: 0x22C5E6C
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Curse status, [3, 9).
+        
+        type: int16_t[2]
+    - name: SNATCH_TURN_RANGE
+      address:
+        EU: 0x22C50E0
+        NA: 0x22C4788
+        JP: 0x22C5E70
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Snatch status, [3, 5).
+        
+        type: int16_t[2]
     - name: SPORT_CONDITION_TURN_RANGE
       address:
         EU: 0x22C50E4
@@ -2008,6 +2086,32 @@ overlay10:
         JP: 0x4
       description: |-
         The turn range for the sport conditions activated by Mud Sport and Water Sport, [10, 12).
+        
+        type: int16_t[2]
+    - name: LEECH_SEED_TURN_RANGE
+      address:
+        EU: 0x22C50E8
+        NA: 0x22C4790
+        JP: 0x22C5E78
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Leech Seed status, [10, 12).
+        
+        type: int16_t[2]
+    - name: WISH_TURN_RANGE
+      address:
+        EU: 0x22C50EC
+        NA: 0x22C4794
+        JP: 0x22C5E7C
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Wish status, [10, 12).
         
         type: int16_t[2]
     - name: SURE_SHOT_TURN_RANGE
@@ -2023,6 +2127,45 @@ overlay10:
         The turn range for the Sure Shot status inflicted by Mind Reader and Lock-On, [10, 12).
         
         type: int16_t[2]
+    - name: PLAYER_PETRIFIED_TURN_RANGE
+      address:
+        EU: 0x22C50F4
+        NA: 0x22C479C
+        JP: 0x22C5E84
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Petrified status when applied to the player character, [10, 20).
+        
+        type: int16_t[2]
+    - name: PETRIFIED_TURN_RANGE
+      address:
+        EU: 0x22C50F8
+        NA: 0x22C47A0
+        JP: 0x22C5E88
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Petrified status when applied to anything other than the player character, [127, 127) (infinite).
+        
+        type: int16_t[2]
+    - name: SET_DAMAGE_TURN_RANGE
+      address:
+        EU: 0x22C50FC
+        NA: 0x22C47A4
+        JP: 0x22C5E8C
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Set Damage status (Future Sight and Doom Desire), [2, 4).
+        
+        type: int16_t[2]
     - name: DETECT_BAND_MOVE_ACCURACY_DROP
       address:
         EU: 0x22C5100
@@ -2033,6 +2176,32 @@ overlay10:
         NA: 0x4
         JP: 0x4
       description: The (subtractive) move accuracy drop induced on an attacker if the defender is wearing a Detect Band (30).
+    - name: FOCUS_ENERGY_TURN_RANGE
+      address:
+        EU: 0x22C5104
+        NA: 0x22C47AC
+        JP: 0x22C5E94
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Focus Energy status, [2, 4).
+        
+        type: int16_t[2]
+    - name: COWERING_TURN_RANGE
+      address:
+        EU: 0x22C5108
+        NA: 0x22C47B0
+        JP: 0x22C5E98
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Cowering status, [10, 12).
+        
+        type: int16_t[2]
     - name: DECOY_TURN_RANGE
       address:
         EU: 0x22C510C
@@ -2044,6 +2213,32 @@ overlay10:
         JP: 0x4
       description: |-
         The turn range for the Decoy status, [20, 50).
+        
+        type: int16_t[2]
+    - name: PROTECT_TURN_RANGE
+      address:
+        EU: 0x22C5110
+        NA: 0x22C47B8
+        JP: 0x22C5EA0
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Protect status, [1, 3).
+        
+        type: int16_t[2]
+    - name: TAUNT_TURN_RANGE
+      address:
+        EU: 0x22C5114
+        NA: 0x22C47BC
+        JP: 0x22C5EA4
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Taunt status, [10, 12).
         
         type: int16_t[2]
     - name: TINTED_LENS_MULTIPLIER
@@ -2069,6 +2264,32 @@ overlay10:
         The turn range for the Whiffer status inflicted by Smokescreen, [1, 4).
         
         type: int16_t[2]
+    - name: INVISIBLE_TURN_RANGE
+      address:
+        EU: 0x22C5120
+        NA: 0x22C47C8
+        JP: 0x22C5EB0
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Invisible status, [20, 30).
+        
+        type: int16_t[2]
+    - name: MIRROR_COAT_TURN_RANGE
+      address:
+        EU: 0x22C5124
+        NA: 0x22C47CC
+        JP: 0x22C5EB4
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Mirror Coat status, [10, 12).
+        
+        type: int16_t[2]
     - name: PERISH_SONG_TURN_RANGE
       address:
         EU: 0x22C5128
@@ -2080,6 +2301,32 @@ overlay10:
         JP: 0x4
       description: |-
         The turn range for the status inflicted by Perish Song, [3, 3).
+        
+        type: int16_t[2]
+    - name: DESTINY_BOND_TURN_RANGE
+      address:
+        EU: 0x22C512C
+        NA: 0x22C47D4
+        JP: 0x22C5EBC
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Destiny Bond status, [10, 10).
+        
+        type: int16_t[2]
+    - name: ENCORE_TURN_RANGE
+      address:
+        EU: 0x22C5130
+        NA: 0x22C47D8
+        JP: 0x22C5EC0
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Encore status, [10, 10).
         
         type: int16_t[2]
     - name: SHADOW_FORCE_DAMAGE_MULTIPLIER
@@ -2132,6 +2379,19 @@ overlay10:
         NA: 0x4
         JP: 0x4
       description: "The multiplier for projectile damage from Power Pitcher (1.5), as a binary fixed-point number (8 fraction bits)"
+    - name: INFATUATED_TURN_RANGE
+      address:
+        EU: 0x22C515C
+        NA: 0x22C4804
+        JP: 0x22C5EEC
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Infatuated status, [4, 6).
+        
+        type: int16_t[2]
     - name: QUICK_DODGER_MOVE_ACCURACY_DROP
       address:
         EU: 0x22C5160
@@ -2142,6 +2402,19 @@ overlay10:
         NA: 0x4
         JP: 0x4
       description: The (subtractive) move accuracy drop induced on an attacker if the defender has the Quick Dodger IQ skill (10).
+    - name: MOBILE_TURN_RANGE
+      address:
+        EU: 0x22C5164
+        NA: 0x22C480C
+        JP: 0x22C5EF4
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Mobile status (Mobile Orb), [127, 127) (infinite).
+        
+        type: int16_t[2]
     - name: MATCHUP_NOT_VERY_EFFECTIVE_MULTIPLIER
       address:
         EU: 0x22C5168
@@ -2192,6 +2465,19 @@ overlay10:
         NA: 0x4
         JP: 0x4
       description: "The damage multiplier corresponding to MATCHUP_NOT_VERY_EFFECTIVE when Erratic Player is active, as a fixed-point number with 8 fraction bits (0.5)."
+    - name: BLINKER_TURN_RANGE
+      address:
+        EU: 0x22C5180
+        NA: 0x22C4828
+        JP: 0x22C5F10
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Blinker status, [10, 10).
+        
+        type: int16_t[2]
     - name: MATCHUP_NEUTRAL_MULTIPLIER_ERRATIC_PLAYER
       address:
         EU: 0x22C5184
@@ -2202,6 +2488,32 @@ overlay10:
         NA: 0x4
         JP: 0x4
       description: "The damage multiplier corresponding to MATCHUP_NEUTRAL when Erratic Player is active, as a fixed-point number with 8 fraction bits (1)."
+    - name: CROSS_EYED_TURN_RANGE
+      address:
+        EU: 0x22C5188
+        NA: 0x22C4830
+        JP: 0x22C5F18
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Cross Eyed status, [10, 10).
+        
+        type: int16_t[2]
+    - name: EYEDROP_TURN_RANGE
+      address:
+        EU: 0x22C5190
+        NA: 0x22C4838
+        JP: 0x22C5F20
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Eyedrop status, [127, 127) (infinite).
+        
+        type: int16_t[2]
     - name: MIRROR_MOVE_TURN_RANGE
       address:
         EU: 0x22C5198
@@ -2225,6 +2537,19 @@ overlay10:
         NA: 0x4
         JP: 0x4
       description: "The multiplier for damage from the Air Blade (1.5), as a binary fixed-point number (8 fraction bits)"
+    - name: MUZZLED_TURN_RANGE
+      address:
+        EU: 0x22C51A0
+        NA: 0x22C4848
+        JP: 0x22C5F30
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Muzzled status, [10, 10).
+        
+        type: int16_t[2]
     - name: KECLEON_SHOP_BOOST_CHANCE_MULTIPLIER
       address:
         EU: 0x22C51A4
@@ -2245,6 +2570,32 @@ overlay10:
         NA: 0x4
         JP: 0x4
       description: "The hidden stairs spawn chance multiplier (~1.2) as a binary fixed-point number (8 fraction bits), if applicable. See ShouldBoostHiddenStairsSpawnChance in overlay 29."
+    - name: CONVERSION2_TURN_RANGE
+      address:
+        EU: 0x22C51AC
+        NA: 0x22C4854
+        JP: 0x22C5F3C
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Conversion 2 status, [10, 10).
+        
+        type: int16_t[2]
+    - name: VITAL_THROW_TURN_RANGE
+      address:
+        EU: 0x22C51B4
+        NA: 0x22C485C
+        JP: 0x22C5F44
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Vital Throw status, [15, 20).
+        
+        type: int16_t[2]
     - name: YAWN_TURN_RANGE
       address:
         EU: 0x22C51B8
@@ -2256,6 +2607,84 @@ overlay10:
         JP: 0x4
       description: |-
         The turn range for the Yawning status inflicted by Yawn, [2, 2].
+        
+        type: int16_t[2]
+    - name: SLIP_TURN_RANGE
+      address:
+        EU: 0x22C51C4
+        NA: 0x22C486C
+        JP: 0x22C5F54
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Slip status (Slip Seed), [127, 127) (infinite).
+        
+        type: int16_t[2]
+    - name: FROZEN_TURN_RANGE
+      address:
+        EU: 0x22C51C8
+        NA: 0x22C4870
+        JP: 0x22C5F58
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Frozen status, [3, 5).
+        
+        type: int16_t[2]
+    - name: BURN_TURN_RANGE
+      address:
+        EU: 0x22C51CC
+        NA: 0x22C4874
+        JP: 0x22C5F5C
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Burn status, [127, 127) (infinite).
+        
+        type: int16_t[2]
+    - name: POISONED_TURN_RANGE
+      address:
+        EU: 0x22C51D0
+        NA: 0x22C4878
+        JP: 0x22C5F60
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Poisoned status, [127, 127) (infinite).
+        
+        type: int16_t[2]
+    - name: DROPEYE_TURN_RANGE
+      address:
+        EU: 0x22C51D4
+        NA: 0x22C487C
+        JP: 0x22C5F64
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Dropeye status, [40, 50).
+        
+        type: int16_t[2]
+    - name: BADLY_POISONED_TURN_RANGE
+      address:
+        EU: 0x22C51D8
+        NA: 0x22C4880
+        JP: 0x22C5F68
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Badly Poisoned status, [127, 127) (infinite).
         
         type: int16_t[2]
     - name: CRINGE_TURN_RANGE
@@ -2297,6 +2726,19 @@ overlay10:
         The turn range for lowered speed, [6, 8).
         
         type: int16_t[2]
+    - name: CONFUSED_TURN_RANGE
+      address:
+        EU: 0x22C51E8
+        NA: 0x22C4890
+        JP: 0x22C5F78
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Confused status, [6, 12).
+        
+        type: int16_t[2]
     - name: PARALYSIS_TURN_RANGE
       address:
         EU: 0x22C51EC
@@ -2308,6 +2750,19 @@ overlay10:
         JP: 0x4
       description: |-
         The turn range for the Paralysis status, [1, 2).
+        
+        type: int16_t[2]
+    - name: CONSTRICTION_TURN_RANGE
+      address:
+        EU: 0x22C51F8
+        NA: 0x22C48A0
+        JP: 0x22C5F88
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+      description: |-
+        The turn range for the Constriction status (applied by Whirlpool-like moves), [3, 6).
         
         type: int16_t[2]
     - name: SOLARBEAM_DAMAGE_MULTIPLIER
