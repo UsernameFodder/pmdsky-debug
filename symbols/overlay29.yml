@@ -7876,6 +7876,14 @@ overlay29:
         Note: unverified, ported from Irdkwia's notes
         
         No params.
+    - name: InitUi3dElement
+      address:
+        EU: 0x2336254
+      description: |-
+        Initializes a 3D element for displaying a part of the dungeon UI.
+        
+        r0: [output] render_3d_element_64
+        r1: upper part of the palette VRAM
     - name: GetPaletteBaseAddressOv29
       aliases:
         - GetPaletteBaseAddress

@@ -810,6 +810,7 @@ void ActivateSportCondition(bool water_sport);
 bool TryActivateWeather(bool param_1, bool param_2);
 int DigitCount(int n);
 void LoadTextureUi(void);
+void InitUi3dElement(struct render_3d_element_64* element64, undefined4 pal_vram_offset_upper);
 int GetPaletteBaseAddressOv29(undefined4 pal_vram_offset_upper, undefined4 pal_vram_offset_lower);
 int DisplayNumberTextureUi(int16_t x, int16_t y, int n, int ally_mode);
 int DisplayCharTextureUi(struct render_3d_element_64* element64, int16_t x, int16_t y, int char_id,
