@@ -107,8 +107,8 @@ struct wan_fragment {
 
     // 2 bytes
     int8_t offset_y : 8;
-    bool unk2 : 1;
     bool unk3 : 1;
+    bool unk4 : 1;
     // 0=Normal, 1=Semi-Transparent, 2=OBJ Window, 3=Prohibited
     // Seemingly always 0 in the base game, but still works properly for creating
     // semi-transparent objects assuming it is not zeroed by oam_adjustment_info.
@@ -120,7 +120,7 @@ struct wan_fragment {
     // 2 bytes
     uint16_t offset_x : 9; // The value to be used is this - 256, which can end up negative.
     bool likely_padding_2 : 1;
-    bool unk4 : 1;
+    bool unk5 : 1;
     bool is_last : 1;
     bool h_flip : 1;
     bool v_flip : 1;
