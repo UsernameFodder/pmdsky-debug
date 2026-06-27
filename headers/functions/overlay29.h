@@ -814,7 +814,7 @@ void InitUi3dElement(struct render_3d_element_64* element64, undefined4 pal_vram
 int GetPaletteBaseAddressOv29(undefined4 pal_vram_offset_upper, undefined4 pal_vram_offset_lower);
 int DisplayNumberTextureUi(int16_t x, int16_t y, int n, int ally_mode);
 int DisplayCharTextureUi(struct render_3d_element_64* element64, int16_t x, int16_t y, int char_id,
-                         int16_t param_5);
+                         undefined4 pal_vram_offset_lower);
 void DisplayUi(void);
 struct tile* GetTile(int x, int y);
 struct tile* GetTileSafe(int x, int y);

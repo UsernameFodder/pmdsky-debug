@@ -7925,7 +7925,7 @@ overlay29:
         r1: x position
         r2: y position
         r3: char_id
-        stack[0]: ?
+        stack[0]: lower part of the palette VRAM
         return: ?
     - name: DisplayUi
       address:
