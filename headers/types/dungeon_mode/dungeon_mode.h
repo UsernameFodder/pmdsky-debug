@@ -2611,9 +2611,9 @@ struct recruit_info {
     struct position position; // 0x2
     // 0x6: Is field_0x14 of struct monster instead if the monster is a boss (unused in base game?)
     int16_t max_hp_stat;
-    uint8_t offensive_stats[2];    // 0x8
-    uint8_t defensive_stats[2];    // 0xA
-    uint16_t level;                // 0xC
+    uint8_t offensive_stats[2]; // 0x8
+    uint8_t defensive_stats[2]; // 0xA
+    uint16_t level;             // 0xC
     undefined field_0xe;
     undefined field_0xf;
     uint32_t total_exp;            // 0x10
