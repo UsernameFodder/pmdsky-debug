@@ -8205,7 +8205,7 @@ arm9:
         Allocates a currently unknown struct of size 0x410 at UNK_STORAGE_STRUCT_0X410_PTR. May be a state case structure of some kind.
         Likely used by Kangaskhan Storage, or some other storage interaction menu.
         
-        r0: undefined2
+        r0: undefined2 pointer
         r1: int
         return: undefined4
     - name: UnkStorageStruct0x410CloseSimpleMenu
