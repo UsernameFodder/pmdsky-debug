@@ -136,7 +136,7 @@ overlay23:
         Exclusively passed into MaybeGetUncoloredFormattedItemName and MaybeGetColoredFormattedItemName.
         The exact purpose of this struct is unknown, but the only "true" bool in the table is for "Other" items.     
         
-        type: bool
+        type: bool[12]
     - name: STORAGE_MENU_ITEMS_CONFIRM
       address:
         EU: 0x238DE3C
