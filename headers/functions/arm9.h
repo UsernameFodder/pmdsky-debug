@@ -108,6 +108,9 @@ void FileClose(struct file_stream* file);
 void UnloadFile(void* ptr);
 void LoadFileFromRom(struct iovec* iov, const char* filepath, uint32_t flags);
 void TransformPaletteDataWithFlushDivideFade(struct palette_data* palette);
+void MarkPaletteDataAsNeedingUpdate(struct palette_data* palette_data);
+void FillPaletteDataRgba(struct palette_data* palette_data, uint16_t start,
+                         struct rgba* palette_bytes, uint16_t nb_colors);
 void InitOamInfo(struct oam_info* oam_info, int max_num_objs, int max_num_groups,
                  int oam_base_address, uint32_t mem_alloc_flags);
 void SetShouldCopyToOam(struct oam_info* oam_info);

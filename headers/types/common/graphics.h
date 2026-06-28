@@ -420,8 +420,8 @@ struct palette_data_substruct {
     uint8_t field3_0x9;
     uint8_t field4_0xa;
     uint8_t field5_0xb;
-    uint32_t field6_0xc;
-    uint16_t* palettes; // 0x10: 2-byte (BGR5?) colors
+    void* pal_vram_base_address; // 0xC
+    uint16_t* palettes;          // 0x10: 2-byte (BGR5?) colors
 };
 ASSERT_SIZE(struct palette_data_substruct, 20);
 
@@ -478,7 +478,11 @@ struct unk_texture_struct {
 ASSERT_SIZE(struct unk_texture_struct, 3588);
 
 struct unk_palette_struct {
-    undefined field_0x0[156];
+    struct palette_data_substruct standard_palette_sub; // 0x0
+    struct palette_data standard_palette_data;          // 0x14
+    struct palette_data_substruct extended_palette_sub; // 0x3C: Unused for top screen
+    struct palette_data extended_palette_data;          // 0x50: Unused for top screen
+    undefined field_0x78[36];
 };
 ASSERT_SIZE(struct unk_palette_struct, 156);
 

@@ -1275,8 +1275,8 @@ overlay29:
         Displays a party member's sprite on the team stats menu.
         
         r0: Team member entity pointer
-        r1: ?
-        r2: ?
+        r1: Actual index to display the sprite at
+        r2: Roster index
     - name: AssignTopScreenHandlers
       address:
         EU: 0x22E9078
@@ -2821,6 +2821,14 @@ overlay29:
         
         r0: [output] monster_summary
         r1: monster_entity
+    - name: FillRecruitInfo
+      address:
+        EU: 0x22F9A64
+      description: |-
+        Fills the recruit_info struct with values from the monster entity pointer.
+        
+        r0: [output] recruit_info pointer
+        r1: entity pointer
     - name: UpdateAiTargetPos
       address:
         EU: 0x22F9B50
@@ -5280,6 +5288,7 @@ overlay29:
         
         r0: user entity pointer
         r1: monster to recruit entity pointer
+        r2: recruit_info pointer
         return: True if the monster was recruited, false if it wasn't
     - name: TrySpawnMonsterAndTickSpawnCounter
       address:
@@ -8148,6 +8157,15 @@ overlay29:
         Returns flag tileset_property::is_water_tileset for the current tileset
         
         return: True if the current tileset is a water tileset
+    - name: ClearTileMonster
+      address:
+        EU: 0x2338A90
+      description: |-
+        Removes the given monster from the tile at the given position if it is present on it.
+        
+        r0: entity pointer
+        r1: x position
+        r2: y position
     - name: GetRandomSpawnMonsterID
       address:
         EU: 0x2338B68
@@ -10365,6 +10383,13 @@ overlay29:
         r0: user entity pointer
         r1: message ID
         r2: bool, whether or not to present a message popup
+    - name: AlertBoxIsActive
+      address:
+        EU: 0x234C33C
+      description: |-
+        Returns true if the alert box is currently open.
+        
+        return: bool
     - name: AlertBoxIsScrolling
       address:
         EU: 0x234C3EC

@@ -1099,6 +1099,20 @@ arm9:
         r0: [output] pointer to an IO struct {ptr, len}
         r1: file path string pointer
         r2: flags
+    - name: MarkPaletteDataAsNeedingUpdate
+      address:
+        EU: 0x200A504
+      description: "r0: palette_data"
+    - name: FillPaletteDataRgba
+      address:
+        EU: 0x200A5B0
+      description: |-
+        Fills a portion of the RGBA palette of a palette_data struct, which will be transformed into RGB5 and copied into palette VRAM.
+        
+        r0: palette_data
+        r1: starting position (ranges between [0, 0x100) for standard palettes and [0, 0x1000) for extended)
+        r2: palette bytes
+        r3: number of colors
     - name: TransformPaletteDataWithFlushDivideFade
       address:
         EU: 0x200AE38
@@ -5416,7 +5430,7 @@ arm9:
       description: |-
         Fills a palette_init_info struct's fields with the given parameters, besides multi_ext_palettes which will always be made 0.
         
-        r0: palette_init_info
+        r0: [output] palette_init_info
         r1: palette_bytes
         r2: palette_mode
         r3: nb_colors_or_palettes
