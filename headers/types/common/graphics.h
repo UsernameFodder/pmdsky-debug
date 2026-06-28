@@ -482,7 +482,9 @@ struct unk_palette_struct {
     struct palette_data standard_palette_data;          // 0x14
     struct palette_data_substruct extended_palette_sub; // 0x3C: Unused for top screen
     struct palette_data extended_palette_data;          // 0x50: Unused for top screen
-    undefined field_0x78[36];
+    undefined field_0x78;
+    bool is_top_screen; // 0x79
+    undefined field_0x7a[34];
 };
 ASSERT_SIZE(struct unk_palette_struct, 156);
 
