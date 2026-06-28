@@ -113,7 +113,7 @@ overlay22:
         
         r0: unused
         r1: int
-        r2: uint
+        r2: uint32_t pointer
         return: item name string (buffer size 80)
     - name: GreenKecleonShopUnkCollectionMenuCallback
       address:
@@ -230,7 +230,7 @@ overlay22:
         
         r0: unused
         r1: int
-        r2: uint
+        r2: uint32_t pointer
         return: item name string (buffer size 80)
     - name: PurpleKecleonShopUnkCollectionMenuCallback
       address:
