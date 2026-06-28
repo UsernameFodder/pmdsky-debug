@@ -2615,6 +2615,7 @@ struct recruit_info {
     undefined field_0x7;
     uint8_t offensive_stats[2];    // 0x8
     uint8_t defensive_stats[2];    // 0xA
+    uint32_t total_exp;            // 0x10
     int16_t belly;                 // 0x14
     int16_t belly_thousandths;     // 0x16
     int16_t max_belly;             // 0x18
