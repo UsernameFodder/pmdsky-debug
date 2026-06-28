@@ -190,7 +190,7 @@ void LoadRecycleShopOverlayResume(void);
 bool IsRecycleShopOverlaySuspended(void);
 void LoadCroagunkSwapShopOverlay(void);
 void LoadKecleonShopOverlay(bool is_purple_kec);
-void LoadKangaskhanOverlay(undefined param_1);
+void LoadKangaskhanOverlay(int param_1);
 void LoadChanseyDaycareOverlay(void);
 void LoadXatuAppraisalOverlay(void);
 void LoadMissionRewardOverlay(void);
