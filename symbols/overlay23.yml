@@ -65,7 +65,7 @@ overlay23:
         Does nothing if "KANGASKHAN_STORAGE_MENU_PTR->is_kanga_rock" is true.
         
         r0: window_id
-        r1: preprocessor_flags pointer
+        r1: preprocessor_flags
         r2: string_id
     - name: KangaskhanStorageWithdrawSelectedItems
       address:
