@@ -1103,6 +1103,15 @@ arm9:
       address:
         EU: 0x200A504
       description: "r0: palette_data"
+    - name: CopyColorToPaletteDataRgba
+      address:
+        EU: 0x200A590
+      description: |-
+        Copies a single color to the RGBA palette of a palette_data struct, which will be transformed into RGB5 and copied into palette VRAM.
+        
+        r0: palette_data
+        r1: position (ranges between [0, 0x100) for standard palettes and [0, 0x1000) for extended)
+        r2: palette bytes
     - name: FillPaletteDataRgba
       address:
         EU: 0x200A5B0
