@@ -2247,7 +2247,7 @@ overlay11:
       description: |-
         Tracks whether or not the spinda cafe overlay is suspended. 1 if it is inactive, 0 if it is active.
         
-        type: bool
+        type: int
     - name: RECYCLE_SHOP_OVERLAY_STATUS
       address:
         EU: 0x23258F4
@@ -2256,7 +2256,7 @@ overlay11:
       description: |-
         Tracks whether or not the recycle shop overlay is suspended. 1 if it is inactive, 0 if it is active.
         
-        type: bool
+        type: int
     - name: WORLD_MAP_MODE
       address:
         EU: 0x2325924
