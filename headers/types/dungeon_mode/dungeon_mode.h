@@ -2608,11 +2608,9 @@ ASSERT_SIZE(struct secret_bazaar_dialogue_info, 1144);
 // Temporary struct used by TryRecruit.
 struct recruit_info {
     struct monster_id_16 id;   // 0x0
-    struct position* position; // 0x2
-    // 0x4: Is field_0x14 of struct monster instead if the monster is a boss (unused in base game?)
+    struct position position; // 0x2
+    // 0x6: Is field_0x14 of struct monster instead if the monster is a boss (unused in base game?)
     int16_t max_hp_stat;
-    undefined field_0x6;
-    undefined field_0x7;
     uint8_t offensive_stats[2];    // 0x8
     uint8_t defensive_stats[2];    // 0xA
     uint32_t total_exp;            // 0x10
