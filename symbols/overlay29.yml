@@ -763,6 +763,7 @@ overlay29:
         r1: Effect ID
         r2: appears to be a flag for actually running the animation now? If this is 0, the AdvanceFrame loop is skipped entirely.
         stack[2]: direction of effect
+        stack[3]: custom oam_adjustment_info array for the animation_control struct (length 6, or null if should use default values)
         others: ?
         return: status code, or maybe the number of frames or something? Either way, -1 seems to indicate the animation being finished or something?
     - name: PlayEffectAnimationPos
@@ -1087,6 +1088,14 @@ overlay29:
         Just a guess. Calls PlayEffectAnimation with data from animation ID 0x18E.
         
         r0: entity pointer
+    - name: PlayStairSensorArrowEffect
+      address:
+        EU: 0x22E72D8
+      description: |-
+        Plays the Stair Sensor arrow effect.
+        
+        r0: entity pointer
+        r1: arrow direction
     - name: LoadMappaFileAttributes
       address:
         EU: 0x22E796C
@@ -1672,6 +1681,22 @@ overlay29:
         JP: 0x22EC2CC
       description: |-
         Sets the dungeon PRNG to use the primary LCG for subsequent random number generation.
+        
+        No params.
+    - name: PlayLevelUpSound
+      address:
+        EU: 0x22EB62C
+      description: |-
+        Plays the sound for leveling up.
+        
+        No params.
+    - name: PlayDungeonTipSound
+      address:
+        EU:
+          - 0x22EB63C
+          - 0x22EB66C
+      description: |-
+        Plays the sound effect for displaying a dungeon tip.
         
         No params.
     - name: PlaySeByIdIfNotSilence
@@ -3096,6 +3121,13 @@ overlay29:
         
         r0: attacker entity pointer
         r1: defender entity pointer
+    - name: TryActivateNewFloorPpRestoration
+      address:
+        EU: 0x22FB464
+      description: |-
+        Activates the Deep Breather IQ skill and/or the exclusive item effect for restoring PP on new floors for team members that have them.
+        
+        r0: flag to suppress message logging
     - name: ExclusiveItemEffectIsActive
       address:
         EU:
@@ -3142,6 +3174,36 @@ overlay29:
         
         r0: entity pointer
         r1: exclusive item effect ID
+        return: bool
+    - name: TryActivateNewFloorHpRestoration
+      address:
+        EU: 0x22FB6C8
+      description: |-
+        Activates the exclusive item effect for fully restoring HP on new floors for team members that have it.
+        
+        r0: flag to log a message on failure
+    - name: TryActivateStairSensor
+      address:
+        EU: 0x22FB758
+      description: |-
+        Activates the Stair Sensor IQ skill if a member on the team has it and they are not a special story ally.
+        
+        r0: flag to suppress message logging
+    - name: TryActivateAcuteSniffer
+      address:
+        EU: 0x22FB914
+      description: |-
+        Activates the Acute Sniffer IQ skill if a member on the team has it and no boss fight is active.
+        
+        r0: flag to suppress message logging
+    - name: ShouldTreatMonsterAsAlly
+      address:
+        EU: 0x22FB9E0
+      description: |-
+        Returns true if entity 1 should treat entity 2 as an ally, assuming entity 1 can see invisible monsters and will not ignore petrified ones.
+        
+        r0: Pointer to entity 1
+        r1: Pointer to entity 2
         return: bool
     - name: GetTeamMemberWithIqSkill
       address:
@@ -4274,6 +4336,13 @@ overlay29:
         Called after exiting the IQ skills menu or after an enemy spawns.
         
         r0: monster pointer
+    - name: UpdateIqSkillsWrapper
+      address:
+        EU: 0x2302C1C
+      description: |-
+        Wrapper function for UpdateIqSkills.
+        
+        r0: monster entity pointer
     - name: CanSeeTeammate
       address:
         EU: 0x2302C2C
@@ -5123,6 +5192,60 @@ overlay29:
         r0: entity pointer
         r1: entity pointer
         return: bool
+    - name: SwapDefensiveStages
+      address:
+        EU: 0x230E2E8
+      description: |-
+        Swaps the defensive stages of two monsters.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: whether to log a message
+    - name: SwapDefensiveMultipliers
+      address:
+        EU: 0x230E35C
+      description: |-
+        Swaps the defensive multipliers of two monsters.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: whether to log a message
+    - name: SwapOffensiveStages
+      address:
+        EU: 0x230E3D0
+      description: |-
+        Swaps the offensive stages of two monsters.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: whether to log a message
+    - name: SwapOffensiveMultipliers
+      address:
+        EU: 0x230E444
+      description: |-
+        Swaps the offensive multipliers of two monsters.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: whether to log a message
+    - name: SwapHitChanceStages
+      address:
+        EU: 0x230E4B8
+      description: |-
+        Swaps the hit chance stages of two monsters.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: whether to log a message
+    - name: SwapUserAtkAndDefModifiers
+      address:
+        EU: 0x230E52C
+      description: |-
+        Swaps the attack and defense modifiers of the user entity.
+        
+        r0: attacker pointer
+        r1: defender pointer
+        r2: whether to log a message
     - name: SpecificRecruitCheck
       address:
         EU: 0x230E588
@@ -7753,6 +7876,14 @@ overlay29:
         Note: unverified, ported from Irdkwia's notes
         
         No params.
+    - name: InitUi3dElement
+      address:
+        EU: 0x2336254
+      description: |-
+        Initializes a 3D element for displaying a part of the dungeon UI.
+        
+        r0: [output] render_3d_element_64
+        r1: upper part of the palette VRAM
     - name: GetPaletteBaseAddressOv29
       aliases:
         - GetPaletteBaseAddress
@@ -7762,7 +7893,7 @@ overlay29:
         JP: 0x2336C34
       description: |-
         Gets the palette base address for a 3D element loaded from a WTE file.
-        Takes the same parameters as were used in the specified file's ProcessWte call.
+        Normally takes the same parameters as were used in the specified file's ProcessWte call.
         
         Is an exact copy of GetPaletteBaseAddress in arm9.
         
@@ -7794,7 +7925,7 @@ overlay29:
         r1: x position
         r2: y position
         r3: char_id
-        stack[0]: ?
+        stack[0]: lower part of the palette VRAM
         return: ?
     - name: DisplayUi
       address:
