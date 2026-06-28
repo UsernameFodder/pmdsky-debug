@@ -8157,7 +8157,7 @@ overlay29:
         Returns flag tileset_property::is_water_tileset for the current tileset
         
         return: True if the current tileset is a water tileset
-    - name: ClearTileMonster
+    - name: RemoveMonsterFromTile
       address:
         EU: 0x2338A90
       description: |-

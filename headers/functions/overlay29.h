@@ -838,7 +838,7 @@ bool PositionHasMonster(struct position* pos);
 bool TrySmashWall(struct position* pos);
 bool IsTileGround(struct position* pos);
 bool IsWaterTileset(void);
-void ClearTileMonster(struct entity* entity, int x, int y);
+void RemoveMonsterFromTile(struct entity* entity, int x, int y);
 enum monster_id GetRandomSpawnMonsterID(void);
 bool NearbyAllyIqSkillIsEnabled(struct entity* entity, enum iq_skill_id iq_skill);
 struct entity* FindAdjacentEnemy(struct entity* monster);
