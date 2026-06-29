@@ -6195,7 +6195,7 @@ arm9:
         r0: menu id
     - name: SavePrevMenuItem
       aliases:
-        - Arm9LoadUnkFieldNa0x2029EC8
+        - Arm9StoreUnkFieldNa0x2029EC8
       address:
         EU: 0x202A1CC
         NA: 0x2029ED8
