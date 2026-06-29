@@ -709,11 +709,11 @@ int CreateCollectionMenu(struct window_params* params, struct window_flags flags
                          struct window_extra_info* window_extra_info,
                          unk_collection_menu_fn_t param_4, undefined4 param_5, int n_options,
                          int n_opt_per_page);
-uint8_t GetWindowIdSelectedMenuItemIdx(int window_id);
 void SetCollectionMenuField0x1BC(int window_id, int value);
 void SetCollectionMenuWidth(int window_id, int width);
 void CloseCollectionMenu(int window_id);
 bool IsCollectionMenuActive(int window_id);
+uint8_t GetWindowIdSelectedMenuItemIdx(int window_id);
 void SetCollectionMenuField0x1C8(int window_id, uint8_t value);
 void SetCollectionMenuField0x1A0(int window_id, undefined4 value);
 void SetCollectionMenuField0x1A4(int window_id, undefined4 value);
