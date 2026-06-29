@@ -323,6 +323,12 @@ ram:
       length:
         EU: 0x2
       description: "Id of the \"FONT/cursor.wan\" sprite loaded in WAN_TABLE"
+    - name: PREV_MENU_ITEMS
+      address:
+        EU: 0x22AB5A8
+      length:
+        EU: 0x15
+      description: "A list of the previous menu item the user had selected on different ingame menus, indexed by a 'menu ID' assigned to each one."
     - name: CURSOR_ANIMATION_CONTROL
       address:
         EU: 0x22AB5C0

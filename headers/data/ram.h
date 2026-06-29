@@ -30,6 +30,7 @@ extern struct mem_arena* SOUND_MEMORY_ARENA_PTR;
 extern struct window_list WINDOW_LIST;
 extern uint16_t CURSOR_16_SPRITE_ID;
 extern uint16_t CURSOR_SPRITE_ID;
+extern uint8_t PREV_MENU_ITEMS[21];
 extern struct animation_control* CURSOR_ANIMATION_CONTROL;
 extern struct animation_control* CURSOR_16_ANIMATION_CONTROL;
 extern uint16_t ALERT_SPRITE_ID;

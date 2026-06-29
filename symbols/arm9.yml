@@ -6182,25 +6182,29 @@ arm9:
         Seems to initialize a window_trailer within a new window.
         
         r0: window_trailer pointer
-    - name: Arm9LoadUnkFieldNa0x2029EC8
+    - name: LoadPrevMenuItem
+      aliases:
+        - Arm9LoadUnkFieldNa0x2029EC8
       address:
         EU: 0x202A1BC
         NA: 0x2029EC8
         JP: 0x202A220
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Loads the previous menu item the user had selected on the menu referenced by the given ID.
         
-        r0: id
-    - name: Arm9StoreUnkFieldNa0x2029ED8
+        r0: menu id
+    - name: SavePrevMenuItem
+      aliases:
+        - Arm9LoadUnkFieldNa0x2029EC8
       address:
         EU: 0x202A1CC
         NA: 0x2029ED8
         JP: 0x202A230
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Stores the given menu item as the previous menu item the user had selected on the menu referenced by the given ID.
         
-        r0: id
-        r1: value
+        r0: menu id
+        r1: menu item
     - name: LoadAlert
       address:
         EU: 0x202A1DC
@@ -6712,6 +6716,14 @@ arm9:
         
         r0: window_id
         return: bool
+    - name: GetWindowIdSelectedMenuItemIdx
+      address:
+        EU: 0x202CA3C
+      description: |-
+        Gets the index of the current menu item the user has selected on the menu given by the window_id.
+        
+        r0: window id
+        return: index of current selected item
     - name: SetCollectionMenuField0x1C8
       address:
         EU: 0x202CA88

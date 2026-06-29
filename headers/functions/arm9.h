@@ -649,6 +649,8 @@ void GetWindowRectangle(int window_id, struct window_rectangle* rect_out);
 void* GetWindowContents(int window_id);
 void LoadCursors(void);
 void InitWindowTrailer(struct window_trailer* trailer);
+uint8_t LoadPrevMenuItem(int menu_id);
+void StorePrevMenuItem(int menu_id, uint8_t menu_item);
 void LoadAlert(void);
 int PrintClearMark(int mark_id, int x, int y, undefined param_4);
 int PrintSpecialEpisodeClearMark(enum special_episode_type special_episode_type, int x, int y,
@@ -707,6 +709,7 @@ int CreateCollectionMenu(struct window_params* params, struct window_flags flags
                          struct window_extra_info* window_extra_info,
                          unk_collection_menu_fn_t param_4, undefined4 param_5, int n_options,
                          int n_opt_per_page);
+uint8_t GetWindowIdSelectedItemOnPage(int window_id);
 void SetCollectionMenuField0x1BC(int window_id, int value);
 void SetCollectionMenuWidth(int window_id, int width);
 void CloseCollectionMenu(int window_id);
