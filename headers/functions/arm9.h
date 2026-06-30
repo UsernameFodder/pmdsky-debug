@@ -108,7 +108,7 @@ void FileClose(struct file_stream* file);
 void UnloadFile(void* ptr);
 void LoadFileFromRom(struct iovec* iov, const char* filepath, uint32_t flags);
 void MarkPaletteDataAsNeedingUpdate(struct palette_data* palette_data);
-void CopyColorToPaletteDataRgba(struct palette_data* palette_data, uint16_t start,
+void CopyColorToPaletteDataRgba(struct palette_data* palette_data, uint16_t pos,
                                 struct rgba* palette_bytes);
 void FillPaletteDataRgba(struct palette_data* palette_data, uint16_t start,
                          struct rgba* palette_bytes, uint16_t nb_colors);
