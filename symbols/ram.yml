@@ -328,7 +328,7 @@ ram:
         EU: 0x22AB5A8
       length:
         EU: 0x15
-      description: "A list of the previous menu item the user had selected on different ingame menus, indexed by a 'menu ID' assigned to each one."
+      description: "A list of the previous menu item index the user had selected on different ingame menus, indexed by a 'menu ID' assigned to each one."
     - name: CURSOR_ANIMATION_CONTROL
       address:
         EU: 0x22AB5C0
