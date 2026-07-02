@@ -6193,6 +6193,7 @@ arm9:
         Loads the index of the previous menu item the user had selected on the menu referenced by the given ID.
         
         r0: menu id
+        return: menu item index
     - name: SavePrevMenuItem
       aliases:
         - Arm9StoreUnkFieldNa0x2029ED8
