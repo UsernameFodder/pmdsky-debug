@@ -2605,6 +2605,31 @@ struct secret_bazaar_dialogue_info {
 };
 ASSERT_SIZE(struct secret_bazaar_dialogue_info, 1144);
 
+// Temporary struct used by TryRecruit.
+struct recruit_info {
+    struct monster_id_16 id;  // 0x0
+    struct position position; // 0x2
+    // 0x6: Is field_0x14 of struct monster instead if the monster is a boss (unused in base game?)
+    int16_t max_hp_stat;
+    uint8_t offensive_stats[2]; // 0x8
+    uint8_t defensive_stats[2]; // 0xA
+    uint16_t level;             // 0xC
+    undefined field_0xe;
+    undefined field_0xf;
+    uint32_t total_exp;            // 0x10
+    int16_t belly;                 // 0x14
+    int16_t belly_thousandths;     // 0x16
+    int16_t max_belly;             // 0x18
+    int16_t max_belly_thousandths; // 0x1A
+    struct item held_item;         // 0x1C
+    struct move moves[4];          // 0x22
+    undefined field_0x42;
+    undefined field_0x43;
+    int16_t hidden_power_base_power; // 0x44
+    int16_t hidden_power_type;       // 0x46
+};
+ASSERT_SIZE(struct recruit_info, 72);
+
 // Separate this out into its own file because it's massive
 #include "dungeon.h"
 

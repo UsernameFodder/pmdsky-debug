@@ -106,7 +106,7 @@ void FreeTopScreenStatus(void);
 int InitializeTeamStats(void);
 int UpdateTeamStatsWrapper(void);
 int FreeTeamStatsWrapper(void);
-void DisplayTeamStatsSprite(struct entity* team_member, undefined4 param_2, undefined4 param_3);
+void DisplayTeamStatsSprite(struct entity* team_member, int actual_idx, int roster_idx);
 void AssignTopScreenHandlers(void** funcs, top_screen_status_fn_t init_func,
                              top_screen_status_fn_t update_func, void* param_4,
                              top_screen_status_fn_t free_func);
@@ -271,6 +271,7 @@ void HandleFaint(struct entity* fainted_entity, union damage_source damage_sourc
 void MoveMonsterToPos(struct entity* entity, int x_pos, int y_pos, undefined param_4);
 void CreateMonsterSummaryFromEntity(struct monster_summary* monster_summary,
                                     struct entity* monster_entity);
+void FillRecruitInfo(struct recruit_info* recruit_info, struct entity* monster);
 void UpdateAiTargetPos(struct entity* monster);
 void SetMonsterTypeAndAbility(struct entity* target);
 void TryActivateSlowStart(void);
@@ -524,7 +525,7 @@ void SwapHitChanceStages(struct entity* attacker, struct entity* defender, bool 
 void SwapUserAtkAndDefModifiers(struct entity* attacker, struct entity* defender, bool log_message);
 bool SpecificRecruitCheck(enum monster_id monster_id);
 bool RecruitCheck(struct entity* user, struct entity* target);
-bool TryRecruit(struct entity* user, struct entity* recruit);
+bool TryRecruit(struct entity* user, struct entity* recruit, struct recruit_info* recruit_info);
 void TrySpawnMonsterAndTickSpawnCounter(void);
 void AiDecideUseItem(struct entity* entity);
 void GetPossibleAiThrownItemDirections(struct entity* entity, int ally_or_enemy, struct item* item,
@@ -837,6 +838,7 @@ bool PositionHasMonster(struct position* pos);
 bool TrySmashWall(struct position* pos);
 bool IsTileGround(struct position* pos);
 bool IsWaterTileset(void);
+void RemoveMonsterFromTile(struct entity* entity, int x, int y);
 enum monster_id GetRandomSpawnMonsterID(void);
 bool NearbyAllyIqSkillIsEnabled(struct entity* entity, enum iq_skill_id iq_skill);
 struct entity* FindAdjacentEnemy(struct entity* monster);
@@ -1066,6 +1068,7 @@ void LogMessageByIdWithPopup(struct entity* user, int message_id);
 void LogMessageWithPopup(struct entity* user, const char* message);
 void LogMessage(struct entity* user, const char* message, bool show_popup);
 void LogMessageById(struct entity* user, int message_id, bool show_popup);
+bool AlertBoxIsActive(void);
 bool AlertBoxIsScrolling(void);
 void WaitUntilAlertBoxTextIsLoaded(undefined param_1);
 void InitPortraitDungeon(struct portrait_params* portrait, enum monster_id monster_id,

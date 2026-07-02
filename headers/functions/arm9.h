@@ -107,6 +107,11 @@ void FileSeek(struct file_stream* file, int offset, int whence);
 void FileClose(struct file_stream* file);
 void UnloadFile(void* ptr);
 void LoadFileFromRom(struct iovec* iov, const char* filepath, uint32_t flags);
+void MarkPaletteDataAsNeedingUpdate(struct palette_data* palette_data);
+void CopyColorToPaletteDataRgba(struct palette_data* palette_data, uint16_t pos,
+                                struct rgba* palette_bytes);
+void FillPaletteDataRgba(struct palette_data* palette_data, uint16_t start,
+                         struct rgba* palette_bytes, uint16_t nb_colors);
 void TransformPaletteDataWithFlushDivideFade(struct palette_data* palette);
 void InitOamInfo(struct oam_info* oam_info, int max_num_objs, int max_num_groups,
                  int oam_base_address, uint32_t mem_alloc_flags);
@@ -652,6 +657,8 @@ void GetWindowRectangle(int window_id, struct window_rectangle* rect_out);
 void* GetWindowContents(int window_id);
 void LoadCursors(void);
 void InitWindowTrailer(struct window_trailer* trailer);
+uint8_t LoadPrevMenuItem(int menu_id);
+void SavePrevMenuItem(int menu_id, uint8_t menu_item);
 void LoadAlert(void);
 int PrintClearMark(int mark_id, int x, int y, undefined param_4);
 int PrintSpecialEpisodeClearMark(enum special_episode_type special_episode_type, int x, int y,
@@ -714,6 +721,7 @@ void SetCollectionMenuField0x1BC(int window_id, int value);
 void SetCollectionMenuWidth(int window_id, int width);
 void CloseCollectionMenu(int window_id);
 bool IsCollectionMenuActive(int window_id);
+uint8_t GetWindowIdSelectedMenuItemIdx(int window_id);
 void SetCollectionMenuField0x1C8(int window_id, uint8_t value);
 void SetCollectionMenuField0x1A0(int window_id, undefined4 value);
 void SetCollectionMenuField0x1A4(int window_id, undefined4 value);
