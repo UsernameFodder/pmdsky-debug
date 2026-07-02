@@ -12,7 +12,307 @@ overlay22:
     NA: 0x4B40
     JP: 0x4B40
   description: Controls the Kecleon Shop in Treasure Town.
-  functions: []
+  functions:
+    - name: GreenKecleonShopUpdateItemNamesAndCollectionMenu
+      address:
+        EU: 0x238AC80
+      description: |-
+        Calls GreenKecleonShopFillItemNameData and GreenKecleonShopInitCollectionMenu, then returns.
+        
+        No params.
+    - name: GreenKecleonShopInitCollectionMenu
+      address:
+        EU: 0x238AC90
+      description: |-
+        Seems to initialize a collection menu for green kecleon with data from GREEN_KEC_SHOP_ITEM_DATA_WRAPPER.
+        
+        return: collection menu window_id
+    - name: GreenKecleonShopDoNothing
+      address:
+        EU: 0x238AD6C
+      description: |-
+        Does nothing but return. Is exclusively called by the green kecleon shop.
+        
+        No params.
+    - name: GreenKecleonShopGetCollectionMenuStatus
+      address:
+        EU: 0x238AD70
+      description: |-
+        Seems to return some kind of status data for the collection menu from GREEN_KEC_SHOP_ITEM_DATA_WRAPPER.
+        
+        return: collection menu status?
+    - name: GreenKecleonShopGetShopItemSlot
+      address:
+        EU: 0x238ADEC
+      description: |-
+        Seems to retrieve the item slot the cursor is currently pointing to from GREEN_KEC_SHOP_ITEM_DATA_WRAPPER.
+        
+        return: shop item slot index
+    - name: GreenKecleonShopInitItemNameData
+      address:
+        EU: 0x238AE00
+      description: |-
+        Initializes a green_kec_shop_item_data struct in GREEN_KEC_SHOP_ITEM_DATA_WRAPPER.
+        
+        No params.
+    - name: GreenKecleonShopFreeItemNameData
+      address:
+        EU: 0x238AE34
+      description: |-
+        Frees a green_kec_shop_item_data struct in GREEN_KEC_SHOP_ITEM_DATA_WRAPPER.
+        
+        No params.
+    - name: GreenKecleonShopFillItemNameData
+      address:
+        EU: 0x238AE60
+      description: |-
+        Populates a green_kec_shop_item_data struct in GREEN_KEC_SHOP_ITEM_DATA_WRAPPER.
+        
+        No params.
+    - name: GreenKecleonShopCountSelectedItems
+      address:
+        EU: 0x238B00C
+      description: |-
+        Counts the number of multi-selected items in the green kecleon shop.
+        
+        return: # of selected items.
+    - name: GreenKecleonShopGetFirstSelectedItemIndex
+      address:
+        EU: 0x238B048
+      description: |-
+        Retrieves the index of the first multi-selected item in the green kecleon shop.
+        
+        return: index of the first selected shop item.
+    - name: GreenKecleonShopSumSelectedItemPrices
+      address:
+        EU: 0x238B084
+      description: |-
+        Sums the prices of all currently selected items in the green kecleon shop.
+        
+        return: total price of all selected shop items.
+    - name: GreenKecleonShopPurchaseSingleItem
+      address:
+        EU: 0x238B0C8
+      description: |-
+        Handles purchasing a single item from the green kecleon shop, by index.
+        
+        r0: shop item slot
+    - name: GreenKecleonShopPurchaseSelectedItems
+      address:
+        EU: 0x238B10C
+      description: |-
+        Handles purchasing all selected items from the green kecleon shop.
+        Will not be used if only one item is selected.
+        
+        No params.
+    - name: GreenKecleonGetItemNameStringByIndex
+      address:
+        EU: 0x238B180
+      description: |-
+        Retrieves the item name string for a shop item in the green kecleon shop by index.
+        
+        r0: unused
+        r1: int
+        r2: uint32_t pointer
+        return: item name string (buffer size 80)
+    - name: GreenKecleonShopUnkCollectionMenuCallback
+      address:
+        EU: 0x238B1BC
+      description: |-
+        An unk_collection_menu_fn_t function used by GreenKecleonShopInitCollectionMenu.
+        
+        r0: uint
+        return: undefined4
+    - name: GreenKecleonShopVoidFnCollectionMenuCallback
+      address:
+        EU: 0x238B2B4
+      description: |-
+        An unk_collection_menu_void_fn_t function used by GreenKecleonShopInitCollectionMenu.
+        
+        r0: uint
+    - name: PurpleKecleonShopUpdateItemNamesAndCollectionMenu
+      address:
+        EU: 0x238B2CC
+      description: |-
+        Calls PurpleKecleonShopFillItemNameData and PurpleKecleonShopInitCollectionMenu, then returns.
+        
+        No params.
+    - name: PurpleKecleonShopInitCollectionMenu
+      address:
+        EU: 0x238B2DC
+      description: |-
+        Seems to initialize a collection menu for purple kecleon with data from PURPLE_KEC_SHOP_ITEM_DATA_WRAPPER.
+        
+        return: collection menu window_id
+    - name: PurpleKecleonShopDoNothing
+      address:
+        EU: 0x238B3B8
+      description: |-
+        Does nothing but return. Is exclusively called by the purple kecleon shop.
+        
+        No params.
+    - name: PurpleKecleonShopGetCollectionMenuStatus
+      address:
+        EU: 0x238B3BC
+      description: |-
+        Seems to return some kind of status data for the collection menu from PURPLE_KEC_SHOP_ITEM_DATA_WRAPPER.
+        
+        return: collection menu status?
+    - name: PurpleKecleonShopGetShopItemSlot
+      address:
+        EU: 0x238B438
+      description: |-
+        Seems to retrieve the item slot the cursor is currently pointing to from PURPLE_KEC_SHOP_ITEM_DATA_WRAPPER.
+        
+        return: shop item slot index
+    - name: PurpleKecleonShopInitItemNameData
+      address:
+        EU: 0x238B44C
+      description: |-
+        Initializes a purple_kec_shop_item_data struct in PURPLE_KEC_SHOP_ITEM_DATA_WRAPPER.
+        
+        No params.
+    - name: PurpleKecleonShopFreeItemNameData
+      address:
+        EU: 0x238B480
+      description: |-
+        Frees a purple_kec_shop_item_data struct in PURPLE_KEC_SHOP_ITEM_DATA_WRAPPER.
+        
+        No params.
+    - name: PurpleKecleonShopFillItemNameData
+      address:
+        EU: 0x238B4AC
+      description: |-
+        Frees a purple_kec_shop_item_data struct in PURPLE_KEC_SHOP_ITEM_DATA_WRAPPER.
+        
+        No params.
+    - name: PurpleKecleonShopCountSelectedItems
+      address:
+        EU: 0x238B658
+      description: |-
+        Counts the number of multi-selected items in the purple kecleon shop.
+        
+        return: # of selected items.
+    - name: PurpleKecleonShopGetFirstSelectedItemIndex
+      address:
+        EU: 0x238B694
+      description: |-
+        Retrieves the index of the first multi-selected item in the purple kecleon shop.
+        
+        return: index of the first selected shop item.
+    - name: PurpleKecleonShopSumSelectedItemPrices
+      address:
+        EU: 0x238B6D0
+      description: |-
+        Sums the prices of all currently selected items in the purple kecleon shop.
+        
+        return: total price of all selected shop items.
+    - name: PurpleKecleonShopPurchaseSingleItem
+      address:
+        EU: 0x238B714
+      description: |-
+        Handles purchasing a single item from the purple kecleon shop, by index.
+        
+        r0: shop item slot
+    - name: PurpleKecleonShopPurchaseSelectedItems
+      address:
+        EU: 0x238B758
+      description: |-
+        Handles purchasing all selected items from the purple kecleon shop.
+        Will not be used if only one item is selected.
+        
+        No params.
+    - name: PurpleKecleonGetItemNameStringByIndex
+      address:
+        EU: 0x238B7CC
+      description: |-
+        Retrieves the item name string for a shop item in the purple kecleon shop by index.
+        
+        r0: unused
+        r1: int
+        r2: uint32_t pointer
+        return: item name string (buffer size 80)
+    - name: PurpleKecleonShopUnkCollectionMenuCallback
+      address:
+        EU: 0x238B808
+      description: |-
+        An unk_collection_menu_fn_t function used by PurpleKecleonShopInitCollectionMenu.
+        
+        r0: uint
+        return: undefined4
+    - name: PurpleKecleonShopCollectionMenuCallback
+      address:
+        EU: 0x238B900
+      description: |-
+        An unk_collection_menu_void_fn_t function used by PurpleKecleonShopInitCollectionMenu.
+        
+        r0: uint
+    - name: KecleonShopSubcaseManager1
+      address:
+        EU: 0x238B918
+      description: |-
+        Seems responsible for handling the majority of the frame update behavior for both kecleon shops, particularly window management.
+        Shares this responsibility with KecleonShopSubcaseManager2.
+        
+        r0: subcase id (should eventually be an enum)
+    - name: KecleonShopSubcaseManager2
+      address:
+        EU: 0x238CCC4
+      description: |-
+        Seems responsible for handling the majority of the frame update behavior for both kecleon shops, particularly window management.
+        Shares this responsibility with KecleonShopSubcaseManager1.
+        
+        No params.
+    - name: RemoveInvalidKecleonShopItems
+      address:
+        EU: 0x238E068
+      description: |-
+        Calls either RemoveInvalidKecleonShop1Items or RemoveInvalidKecleonShop2Items depending on which kecleon shop is active.
+        
+        No params.
+    - name: KecleonShopSumBagItemSellPrices
+      address:
+        EU: 0x238E094
+      description: |-
+        Sums the sell prices of all items in the bag, presumably for the Sell All option for both kecleon shops.
+        
+        No params.
+    - name: KecleonShopUpdatePortraitEmotion
+      address:
+        EU: 0x238E134
+      description: |-
+        Updates the portrait emotion for the currently active kecleon shop.
+        Can only change the portrait to PORTRAIT_NORMAL or PORTRAIT_ANGRY.
+        
+        r0: 1 if angry, 0 if normal.
+    - name: KecleonShopEntryPoint
+      address:
+        EU: 0x238E180
+      description: |-
+        The sole entry_point for the kecleon shop overlay.
+        
+        return: undefined4
+    - name: KecleonShopDestructor
+      address:
+        EU: 0x238E2F0
+      description: |-
+        The sole destructor for the kecleon shop overlay.
+        
+        No params.
+    - name: KecleonShopFrameUpdate
+      address:
+        EU: 0x238E340
+      description: |-
+        The sole frame_update for the kecleon shop overlay.
+        
+        return: undefined4
+    - name: KecleonShopCloseSimpleMenu
+      address:
+        EU: 0x238F324
+      description: |-
+        Closes a simple menu for the kecleon shop.
+        
+        No params.
   data:
     - name: SHOP_WINDOW_PARAMS_1
       address:
@@ -23,6 +323,26 @@ overlay22:
         EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
+    - name: GREEN_KEC_SHOP_RED_COLOR_TEXT_TAG
+      address:
+        EU: 0x238F36C
+      length:
+        EU: 0x7
+      description: |-
+        "[CS:W]"
+        Used exclusively before items in green kecleon's shop that the player cannot buy/sell.
+        
+        type: string
+    - name: GREEN_KEC_SHOP_UNCOLOR_TEXT_TAG
+      address:
+        EU: 0x238F374
+      length:
+        EU: 0x5
+      description: |-
+        "[CR]"
+        Used exclusively after items in green kecleon's shop that the player cannot buy/sell.
+        
+        type: string
     - name: SHOP_WINDOW_PARAMS_2
       address:
         EU: 0x238F37C
@@ -32,14 +352,37 @@ overlay22:
         EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
-    - name: OVERLAY22_UNKNOWN_STRUCT__NA_238E85C
+    - name: PURPLE_KEC_SHOP_RED_COLOR_TEXT_TAG
+      address:
+        EU: 0x238F38C
+      length:
+        EU: 0x7
+      description: |-
+        "[CS:W]"
+        Used exclusively before items in purple kecleon's shop that the player cannot buy/sell.
+        
+        type: string
+    - name: PURPLE_KEC_SHOP_UNCOLOR_TEXT_TAG
+      address:
+        EU: 0x238F394
+      length:
+        EU: 0x5
+      description: |-
+        "[CR]"
+        Used exclusively after items in purple kecleon's shop that the player cannot buy/sell.
+        
+        type: string
+    - name: KECLEON_SHOP_ITEM_CATEGORY_BOOLS
       address:
         EU: 0x238F39C
         NA: 0x238E85C
         JP: 0x238FDBC
       length:
+        EU: 0xC
         NA: 0xC
-      description: "Note: unverified, ported from Irdkwia's notes"
+      description: |-
+        Exclusively passed into MaybeGetUncoloredFormattedItemName and MaybeGetColoredFormattedItemName.
+        The exact purpose of this struct is unknown, but the only "true" bool in the table is for "Other" items.
     - name: SHOP_MENU_ITEMS_CONFIRM
       address:
         EU: 0x238F3A8
@@ -76,30 +419,39 @@ overlay22:
         EU: 0x30
         NA: 0x30
         JP: 0x30
-    - name: OVERLAY22_UNKNOWN_STRING_IDS
+    - name: KECLEON_SHOP_TEXT_STRINGS
       address:
         EU: 0x238F430
         NA: 0x238E8F0
         JP: 0x238FE50
       length:
         NA: 0x60
-      description: "Note: unverified, ported from Irdkwia's notes"
+      description: |-
+        A collection of 48 text string ids, 24 for green kecleon, and 24 for purple kecleon. 
+        
+        type: int16_t[2][24]
     - name: SHOP_WINDOW_PARAMS_3
       address:
+        EU: 0x238F490
         NA: 0x238E950
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: SHOP_WINDOW_PARAMS_4
       address:
+        EU: 0x238F4A0
         NA: 0x238E960
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: SHOP_WINDOW_PARAMS_5
       address:
+        EU: 0x238F4B0
         NA: 0x238E970
       length:
+        EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: SHOP_WINDOW_PARAMS_6
@@ -147,6 +499,394 @@ overlay22:
         EU: 0x10
         NA: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
+    - name: KEC_SHOP_START_STR
+      address:
+        EU: 0x238F510
+      length:
+        EU: 0x8
+      description: |-
+        "_START\n"
+        
+        type: string
+    - name: KEC_SHOP_RESTART_STR
+      address:
+        EU: 0x238F518
+      length:
+        EU: 0xA
+      description: |-
+        "_RESTART\n"
+        
+        type: string
+    - name: KEC_SHOP_SELECTMENU_STR
+      address:
+        EU: 0x238F524
+      length:
+        EU: 0xD
+      description: |-
+        "_SELECTMENU\n"
+        
+        type: string
+    - name: KEC_SHOP_EXPLANATION_STR
+      address:
+        EU: 0x238F534
+      length:
+        EU: 0xE
+      description: |-
+        "_EXPLANATION\n"
+        
+        type: string
+    - name: KEC_SHOP_THANKS_STR
+      address:
+        EU: 0x238F544
+      length:
+        EU: 0x9
+      description: |-
+        "_THANKS\n"
+        
+        type: string
+    - name: KEC_SHOP_SHOP_NON_STR
+      address:
+        EU: 0x238F550
+      length:
+        EU: 0xB
+      description: |-
+        "_SHOP_NON\n"
+        
+        type: string
+    - name: KEC_SHOP_GOLD_NON_STR
+      address:
+        EU: 0x238F55C
+      length:
+        EU: 0xB
+      description: |-
+        "_GOLD_NON\n"
+        
+        type: string
+    - name: KEC_SHOP_GOLD_MAX_STR
+      address:
+        EU: 0x238F568
+      length:
+        EU: 0xB
+      description: |-
+        "_GOLD_MAX\n"
+        
+        type: string
+    - name: KEC_SHOP_GOLD_FULL_STR
+      address:
+        EU: 0x238F574
+      length:
+        EU: 0xC
+      description: |-
+        "_GOLD_FULL\n"
+        
+        type: string
+    - name: KEC_SHOP_SELL_NON_STR
+      address:
+        EU: 0x238F580
+      length:
+        EU: 0xB
+      description: |-
+        "_SELL_NON\n"
+        
+        type: string
+    - name: KEC_SHOP_ITEM_NON_STR
+      address:
+        EU: 0x238F58C
+      length:
+        EU: 0xB
+      description: |-
+        "_ITEM_NON\n"
+        
+        type: string
+    - name: KEC_SHOP_ITEM_MAX_STR
+      address:
+        EU: 0x238F598
+      length:
+        EU: 0xB
+      description: |-
+        "_ITEM_MAX\n"
+        
+        type: string
+    - name: KEC_SHOP_SOLD_OUT_STR
+      address:
+        EU: 0x238F5A4
+      length:
+        EU: 0xB
+      description: |-
+        "_SOLD_OUT\n"
+        
+        type: string
+    - name: KEC_SHOP_BUY_POOR_STR
+      address:
+        EU: 0x238F5B0
+      length:
+        EU: 0xB
+      description: |-
+        "_BUY_POOR\n"
+        
+        type: string
+    - name: KEC_SHOP_SELL_BAD_STR
+      address:
+        EU: 0x238F5BC
+      length:
+        EU: 0xB
+      description: |-
+        "_SELL_BAD\n"
+        
+        type: string
+    - name: KEC_SHOP_SELL_FULL_STR
+      address:
+        EU: 0x238F5C8
+      length:
+        EU: 0xC
+      description: |-
+        "_SELL_FULL\n"
+        
+        type: string
+    - name: KEC_SHOP_MODE_BUY_START_STR
+      address:
+        EU: 0x238F5D4
+      length:
+        EU: 0x11
+      description: |-
+        "_MODE_BUY_START\n"
+        
+        type: string
+    - name: KEC_SHOP_BUY_RESTART_STR
+      address:
+        EU: 0x238F5E8
+      length:
+        EU: 0xE
+      description: |-
+        "_BUY_RESTART\n"
+        
+        type: string
+    - name: KEC_SHOP_BUY_SELECT_STR
+      address:
+        EU: 0x238F5F8
+      length:
+        EU: 0xD
+      description: |-
+        "_BUY_SELECT\n"
+        
+        type: string
+    - name: KEC_SHOP_BUY_RESELECT_STR
+      address:
+        EU: 0x238F608
+      length:
+        EU: 0xF
+      description: |-
+        "_BUY_RESELECT\n"
+        
+        type: string
+    - name: KEC_SHOP_SUB_MENU_BUY_STR
+      address:
+        EU: 0x238F618
+      length:
+        EU: 0xF
+      description: |-
+        "_SUB_MENU_BUY\n"
+        
+        type: string
+    - name: KEC_SHOP_BUY_CONFIRM_STR
+      address:
+        EU: 0x238F628
+      length:
+        EU: 0xE
+      description: |-
+        "_BUY_CONFIRM\n"
+        
+        type: string
+    - name: KEC_SHOP_BUY_EXPLA_ITEM_STR
+      address:
+        EU: 0x238F638
+      length:
+        EU: 0x1B
+      description: |-
+        "_BUY_EXPLA Item%d Count%d\n"
+        
+        type: string
+    - name: KEC_SHOP_ITEM_TEXT_TAG
+      address:
+        EU: 0x238F654
+      length:
+        EU: 0x9
+      description: |-
+        "[item:0]"
+        
+        type: string
+    - name: KEC_SHOP_BUY_THANKS_STR
+      address:
+        EU: 0x238F660
+      length:
+        EU: 0xD
+      description: |-
+        "_BUY_THANKS\n"
+        
+        type: string
+    - name: KEC_SHOP_SELL_START_STR
+      address:
+        EU: 0x238F670
+      length:
+        EU: 0xD
+      description: |-
+        "_SELL_START\n"
+        
+        type: string
+    - name: KEC_SHOP_SELL_RESTART_STR
+      address:
+        EU: 0x238F680
+      length:
+        EU: 0xF
+      description: |-
+        "_SELL_RESTART\n"
+        
+        type: string
+    - name: KEC_SHOP_SELL_SELECT_STR
+      address:
+        EU: 0x238F690
+      length:
+        EU: 0xE
+      description: |-
+        "_SELL_SELECT\n"
+        
+        type: string
+    - name: KEC_SHOP_SELL_RESELECT_STR
+      address:
+        EU: 0x238F6A0
+      length:
+        EU: 0x10
+      description: |-
+        "_SELL_RESELECT\n"
+        
+        type: string
+    - name: KEC_SHOP_SELL_SUB_MENU_STR
+      address:
+        EU: 0x238F6B0
+      length:
+        EU: 0x10
+      description: |-
+        "_SELL_SUB_MENU\n"
+        
+        type: string
+    - name: KEC_SHOP_SELL_CONFIRM_STR
+      address:
+        EU: 0x238F6C0
+      length:
+        EU: 0xF
+      description: |-
+        "_SELL_CONFIRM\n"
+        
+        type: string
+    - name: KEC_SHOP_SELL_CONFIRM_NEW_STR
+      address:
+        EU: 0x238F6D0
+      length:
+        EU: 0x13
+      description: |-
+        "_SELL_CONFIRM NEW\n"
+        
+        type: string
+    - name: KEC_SHOP_BUY_CONFIRM_NEW_STR
+      address:
+        EU: 0x238F6E4
+      length:
+        EU: 0x12
+      description: |-
+        "_BUY_CONFIRM NEW\n"
+        
+        type: string
+    - name: KEC_SHOP_SELL_EXPLA_STR
+      address:
+        EU: 0x238F6F8
+      length:
+        EU: 0xD
+      description: |-
+        "_SELL_EXPLA\n"
+        
+        type: string
+    - name: KEC_SHOP_SELL_THANKS_STR
+      address:
+        EU: 0x238F708
+      length:
+        EU: 0xE
+      description: |-
+        "_SELL_THANKS\n"
+        
+        type: string
+    - name: KEC_SHOP_SELL_ALL_STR
+      address:
+        EU: 0x238F718
+      length:
+        EU: 0xB
+      description: |-
+        "_SELL_ALL\n"
+        
+        type: string
+    - name: KEC_SHOP_BUT_MULTI_STR
+      address:
+        EU: 0x238F724
+      length:
+        EU: 0xC
+      description: |-
+        "_BUT_MULTI\n"
+        Likely a typo for "_BUY_MULTI\n".
+        
+        type: string
+    - name: KEC_SHOP_SELL_MULTI_STR
+      address:
+        EU: 0x238F730
+      length:
+        EU: 0xD
+      description: |-
+        "_SELL_MULTI\n"
+        
+        type: string
+    - name: KEC_SHOP_ALL_CONFIRM_STR
+      address:
+        EU: 0x238F740
+      length:
+        EU: 0xE
+      description: |-
+        "_ALL_CONFIRM\n"
+        
+        type: string
+    - name: KEC_SHOP_SELL_ALL_THANKS_STR
+      address:
+        EU: 0x238F750
+      length:
+        EU: 0x11
+      description: |-
+        "SELL_ALL_THANKS\n"
+        
+        type: string
+    - name: KEC_SHOP_BUY_MULTI_THANKS_STR
+      address:
+        EU: 0x238F764
+      length:
+        EU: 0x12
+      description: |-
+        "BUY_MULTI_THANKS\n"
+        
+        type: string
+    - name: KEC_SHOP_SELL_MULTI_THANKS_STR
+      address:
+        EU: 0x238F778
+      length:
+        EU: 0x13
+      description: |-
+        "SELL_MULTI_THANKS\n"
+        
+        type: string
+    - name: KEC_SHOP_CHANGEJOB_STR
+      address:
+        EU: 0x238F78C
+      length:
+        EU: 0xB
+      description: |-
+        "ChangeJob\n"
+        
+        type: string
     - name: OV22_STATIC_INITIALIZER
       aliases:
         - OVERLAY22_RESERVED_SPACE
@@ -159,39 +899,39 @@ overlay22:
         NA: 0x4
         JP: 0x4
       description: Static initializer for overlay 22.
-    - name: OVERLAY22_UNKNOWN_POINTER__NA_238EC60
+    - name: GREEN_KEC_SHOP_ITEM_DATA_WRAPPER
       address:
         EU: 0x238F7A0
         NA: 0x238EC60
         JP: 0x23901C0
       length:
-        NA: 0x4
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: OVERLAY22_UNKNOWN_POINTER__NA_238EC64
-      address:
-        NA: 0x238EC64
-      length:
-        NA: 0x4
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: OVERLAY22_UNKNOWN_POINTER__NA_238EC68
+        EU: 0x8
+        NA: 0x8
+      description: |-
+        Seems to contain item property data for the green kecleon shop.
+        
+        type: green_kec_shop_item_data_wrapper
+    - name: PURPLE_KEC_SHOP_ITEM_DATA_WRAPPER
       address:
         EU: 0x238F7A8
         NA: 0x238EC68
         JP: 0x23901C8
       length:
-        NA: 0x4
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: OVERLAY22_UNKNOWN_POINTER__NA_238EC6C
-      address:
-        NA: 0x238EC6C
-      length:
-        NA: 0x4
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: OVERLAY22_UNKNOWN_POINTER__NA_238EC70
+        EU: 0x8
+        NA: 0x8
+      description: |-
+        Seems to contain item property data for the purple kecleon shop.
+        
+        type: purple_kec_shop_item_data_wrapper
+    - name: KECLEON_SHOP_SHARED_STRUCT_PTR
       address:
         EU: 0x238F7B0
         NA: 0x238EC70
         JP: 0x23901D0
       length:
+        EU: 0x4
         NA: 0x4
-      description: "Note: unverified, ported from Irdkwia's notes"
+      description: |-
+        Seems to handle the operations of the kecleon shop, and is shared for both brothers.
+        
+        type: kecleon_shop_shared_struct*

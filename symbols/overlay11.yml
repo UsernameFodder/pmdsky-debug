@@ -1659,13 +1659,141 @@ overlay11:
         
         r0: switch case index for the function: 0 = Swap List Inventory, 1 = Unknown, 2 = Species Exclusive Item List, 3 = Item Trade Away Selection List.
         r1: Depends on r0. If case 2: ID of the monster to retrieve an exclusive item list for. If case 3: Number of Exclusive Items the player owns.
-    - name: LoadRecycleShopOverlay
+    - name: LoadDuskullBankOverlay
+      address:
+        EU: 0x230D54C
+      description: |-
+        Seems to handle loading overlay 15 for the duskull bank.
+        
+        No params.
+    - name: LoadLuminousSpringOverlay
+      address:
+        EU: 0x230D560
+      description: |-
+        Seems to handle loading overlay 16 for luminous spring.
+        
+        No params.
+    - name: LoadChimechoAssemblyOverlay
+      address:
+        EU: 0x230D574
+      description: |-
+        Seems to handle loading overlay 17 for the chimecho assembly.
+        
+        r0: undefined4
+    - name: LoadElectivireLinkShopOverlay
+      address:
+        EU: 0x230D59C
+      description: |-
+        Seems to handle loading overlay 18 for the electivire link shop.
+        
+        r0: undefined4
+    - name: LoadSpindaCafeOverlayInit
+      address:
+        EU: 0x230D5C4
+      description: |-
+        Seems to handle loading overlay 19 for initializing the spinda cafe.
+        
+        No params.
+    - name: LoadSpindaCafeOverlayResume
+      address:
+        EU: 0x230D5E8
+      description: |-
+        Seems to handle loading overlay 19 for resuming operations of the spinda cafe.
+        
+        No params.
+    - name: IsSpindaCafeOverlaySuspended
+      address:
+        EU: 0x230D60C
+      description: |-
+        Checks SPINDA_CAFE_OVERLAY_STATUS for if the Spinda Cafe is inactive.
+        
+        return: 1 if the cafe is suspended, 0 if not.
+    - name: LoadRecycleShopOverlayInit
+      address:
+        EU: 0x230D61C
+      description: |-
+        Seems to handle loading overlay 20 for initializing the recycle shop.
+        
+        No params.
+    - name: LoadRecycleShopOverlayResume
+      address:
+        EU: 0x230D644
+      description: |-
+        Seems to handle loading overlay 20 for resuming operations of the recycle shop.
+        
+        No params.
+    - name: IsRecycleShopOverlaySuspended
+      address:
+        EU: 0x230D67C
+      description: |-
+        Checks RECYCLE_SHOP_OVERLAY_STATUS for if the recycle shop is inactive.
+        
+        return: 1 if the recycle shop is suspended, 0 if not.
+    - name: LoadCroagunkSwapShopOverlay
+      address:
+        EU: 0x230D6E4
+      description: |-
+        Seems to handle loading overlay 21 for the croagunk swap shop.
+        
+        No params.
+    - name: LoadKecleonShopOverlay
+      address:
+        EU: 0x230D6F8
+      description: |-
+        Seems to handle loading overlay 22 for the kecleon brothers shop. Is used by both colors of Kecleon.
+        
+        r0: 1 for purple kecleon, 0 for green kecleon.
+    - name: LoadKangaskhanOverlay
+      address:
+        EU: 0x230D720
+      description: |-
+        Seems to handle loading overlay 23 for Kangaskhan storage, as well as Kangaskhan rock storage. 
+        
+        r0: 2 for kangaskhan rock, 0 otherwise?
+    - name: LoadChanseyDaycareOverlay
+      address:
+        EU: 0x230D740
+      description: |-
+        Seems to handle loading overlay 24 for the Chansey daycare.
+        
+        No params.
+    - name: LoadXatuAppraisalOverlay
+      address:
+        EU: 0x230D754
+      description: |-
+        Seems to handle loading overlay 24 for Xatu's appraisal.
+        
+        No params.
+    - name: LoadMissionRewardOverlay
+      aliases:
+        - LoadRecycleShopOverlay
       address:
         EU: 0x230D768
         NA: 0x230CDCC
         JP: 0x230E378
       description: |-
-        Seems to be responsible for loading overlay 20 for the recycle shop.
+        Seems to be responsible for loading overlay 26 for the mission reward sequence.
+        
+        No params.
+    - name: LoadRuleDungeonEffectsOverlay
+      address:
+        EU: 0x230D77C
+      description: |-
+        Seems to be responsible for loading overlay 26 to handle rule dungeon effects.
+        
+        No params.
+    - name: LoadSpecialEpisodeDiscardOverlay1
+      address:
+        EU: 0x230D7CC
+      description: |-
+        Seems to load overlay 27, which is believed to handle special episode discarding.
+        
+        No params.
+    - name: LoadSpecialEpisodeDiscardOverlay2
+      address:
+        EU: 0x230D7E0
+      description: |-
+        Seems to load overlay 27, which is believed to handle special episode discarding.
         
         No params.
     - name: HandleControlsTopScreenGround
@@ -2111,6 +2239,24 @@ overlay11:
       length:
         EU: 0x8
       description: Host pointers to multiple structures used for performing internal Swap Shop checks.
+    - name: SPINDA_CAFE_OVERLAY_STATUS
+      address:
+        EU: 0x23258EC
+      length:
+        EU: 0x4
+      description: |-
+        Tracks whether or not the spinda cafe overlay is suspended. 1 if it is inactive, 0 if it is active.
+        
+        type: int
+    - name: RECYCLE_SHOP_OVERLAY_STATUS
+      address:
+        EU: 0x23258F4
+      length:
+        EU: 0x4
+      description: |-
+        Tracks whether or not the recycle shop overlay is suspended. 1 if it is inactive, 0 if it is active.
+        
+        type: int
     - name: WORLD_MAP_MODE
       address:
         EU: 0x2325924

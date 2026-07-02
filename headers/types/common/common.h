@@ -1558,4 +1558,104 @@ struct mission_reward_struct_overlay {
 };
 ASSERT_SIZE(struct mission_reward_struct_overlay, 156);
 
+struct unk_storage_struct_0x18c0 {
+    int field0_0x0;
+    int16_t storage_block_indices[1000];
+    int8_t collection_menu_window_id;
+    int8_t textbox_window_id_1;
+    int8_t textbox_window_id_2;
+    int8_t field5_0x7d7;
+    int8_t field6_0x7d8;
+    int8_t field7_0x7d9;
+    undefined field8_0x7da;
+    undefined field9_0x7db;
+    struct window_extra_info window_extra_info;
+    undefined field11_0x874[4168];
+    undefined4 field4175_0x18bc;
+};
+ASSERT_SIZE(struct unk_storage_struct_0x18c0, 6336);
+
+struct unk_storage_struct_0x14 {
+    int16_t field0_0x0;
+    int16_t field1_0x2;
+    struct unk_storage_struct_0x18c0* struct_0x18c0_ptr;
+    bool* are_selected_items; // Points to bool table of size 1000
+    undefined4 field4_0xc;
+    undefined4 field5_0x10;
+};
+ASSERT_SIZE(struct unk_storage_struct_0x14, 20);
+
+struct unk_storage_struct_0xc {
+    undefined2 field0_0x0;
+    undefined field1_0x2;
+    undefined field2_0x3;
+    struct storage_collection_menu_manager* unk_struct_size_0xa0;
+    bool* are_selected_items; // Points to a bool table of size 50
+};
+ASSERT_SIZE(struct unk_storage_struct_0xc, 12);
+
+struct unk_storage_window_struct_0xc {
+    undefined4 field0_0x0;
+    undefined field1_0x4;
+    undefined field2_0x5;
+    undefined2 field3_0x6;
+    undefined2 field4_0x8;
+    int8_t textbox_window_id;
+    undefined field6_0xb;
+};
+ASSERT_SIZE(struct unk_storage_window_struct_0xc, 12);
+
+struct unk_storage_struct_0x8 {
+    undefined4 field0_0x0;
+    undefined field1_0x4;
+    int8_t textbox_window_id;
+    undefined field3_0x6;
+    undefined field4_0x7;
+};
+ASSERT_SIZE(struct unk_storage_struct_0x8, 8);
+
+struct unk_storage_struct_0x410 {
+    undefined4 field0_0x0;
+    int32_t case_id;
+    int32_t next_case;
+    undefined field3_0xc;
+    undefined field4_0xd;
+    undefined field5_0xe;
+    undefined field6_0xf;
+    undefined field7_0x10;
+    undefined field8_0x11;
+    undefined field9_0x12;
+    undefined field10_0x13;
+    int8_t dialogue_box_window_id;
+    int8_t window_id_0x15;
+    int8_t simple_menu_window_id;
+    int8_t scroll_box_window_id;
+    undefined4 subcase_id;
+    struct preprocessor_args preprocessor_args;
+    undefined4 field17_0x6c;
+    char unk_buffer_0x70[256];
+    undefined4 field271_0x170;
+    char unk_buffer_0x174[256];
+    undefined4 field528_0x274;
+    // The usage of this field is inconsistent with it being a buffer, but it is suspiciously
+    // sized...
+    undefined field529_0x278[256];
+    undefined4 field785_0x378;
+    undefined field786_0x37c;
+    undefined field787_0x37d;
+    undefined field788_0x37e;
+    undefined field789_0x37f;
+    undefined2 field790_0x380;
+    undefined2 field791_0x382;
+    undefined2 field792_0x384;
+    undefined field793_0x386;
+    undefined field794_0x387;
+    undefined2 field795_0x388;
+    undefined field796_0x38a;
+    undefined field797_0x38b;
+    undefined4 field798_0x38c;
+    char unk_buffer_0x390[128];
+};
+ASSERT_SIZE(struct unk_storage_struct_0x410, 1040);
+
 #endif

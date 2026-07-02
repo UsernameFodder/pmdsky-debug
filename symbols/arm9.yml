@@ -1811,6 +1811,17 @@ arm9:
         
         r0: item_id
         return: inventory index
+    - name: MaybeGetFormattedItemName
+      address:
+        EU: 0x200D398
+      description: |-
+        Seems to get a formatted copy of an item.
+        
+        r0: [output] name string
+        r1: item pointer
+        r2: bool table corresponding to item categories?
+        r3: 1 if name should be colored, 0 if not
+        stack[0]: 1 if should align with sticky items, 0 if not.
     - name: SprintfStatic
       address:
         EU:
@@ -1873,6 +1884,24 @@ arm9:
         r1: format
         ...: variadic
         return: number of characters printed, excluding the null-terminator
+    - name: MaybeGetUncoloredFormattedItemName
+      address:
+        EU: 0x200D6E4
+      description: |-
+        Seems to return an uncolored copy of the item name, with the appropriate quantity tag.
+        
+        r0: [output] name string
+        r1: item pointer
+        r2: bool table corresponding to item categories?
+    - name: MaybeGetColoredFormattedItemName
+      address:
+        EU: 0x200D6F8
+      description: |-
+        Seems to return a colored copy of the item name, with the appropriate color and quantity tag.
+        
+        r0: [output] name string
+        r1: item pointer
+        r2: bool table corresponding to item categories?
     - name: ItemZInit
       address:
         EU: 0x200D8A4
@@ -2766,6 +2795,15 @@ arm9:
         r0: item index
         r1: [output] pointer to an item
         return: bool whether or not the item id is not 0
+    - name: MaybeUpdateStorage
+      address:
+        EU: 0x2010124
+      description: |-
+        Just a guess.
+        Seems like it might handle updating storage, syncing the item count data to the temporary item slots after interacting with storage.
+        Used as a sort parallel to RemoveEmptyItemsInBag.
+        
+        No params.
     - name: RemoveItemAtIdxInStorage
       address:
         EU: 0x2010248
@@ -2978,6 +3016,14 @@ arm9:
         Removes an item from the first Kecleon Shop at a specific slot in the shop list.
         
         r0: item slot (0-7)
+    - name: GetCurrentKecleonShop1ItemByIndex
+      address:
+        EU: 0x2010940
+      description: |-
+        Retrieves a bulk_item from the first Kecleon Shop at a specified index.
+        
+        r0: index
+        return: bulk_item pointer
     - name: SortKecleonItems1
       address:
         EU: 0x20109FC
@@ -3009,6 +3055,13 @@ arm9:
         
         r0: item ID
         return: whether the item was added succesfully
+    - name: RemoveInvalidKecleonShop2Items
+      address:
+        EU: 0x2010BE4
+      description: |-
+        Iterates through the current first Kecleon Shop items, and removes any with item_id ITEM_NONE.
+        
+        return: number of items removed from the shop.
     - name: RemoveItemFromKecleonShop2
       address:
         EU: 0x2010C20
@@ -3018,6 +3071,14 @@ arm9:
         Removes an item from the second Kecleon Shop at a specific slot in the shop list.
         
         r0: item slot (0-4)
+    - name: GetCurrentKecleonShop2ItemByIndex
+      address:
+        EU: 0x2010C4C
+      description: |-
+        Retrieves a bulk_item from the first Kecleon Shop at a specified index.
+        
+        r0: index
+        return: bulk_item pointer
     - name: SortKecleonItems2
       address:
         EU: 0x2010D08
@@ -5988,14 +6049,15 @@ arm9:
         r1: x offset within window
         r2: y offset within window
         r3: text to draw
-    - name: AppendStandardStringToMission
+    - name: AppendStringIdToWindow
+      aliases:
+        - AppendStandardStringToMission
       address:
         EU: 0x202654C
         NA: 0x2026268
         JP: 0x2026340
       description: |-
-        Seems to append a string from a string_id to text. Known to be used for this purpose in MakeMissionDetails.
-        
+        Seems to append a string from a string_id to text. Known to be used for this purpose in MakeMissionDetails and BankUpdateDigitInputMenuDisplay.
         
         r0: undefined4
         r1: undefined4
@@ -7180,6 +7242,14 @@ arm9:
         Seems to do some things with the text box, before doing the same things that CloseTextBox does.
         
         r0: window_id
+    - name: IsTextboxState3
+      address:
+        EU: 0x202FCAC
+      description: |-
+        Checks if a text_box is in state 3.
+        
+        r0: window_id
+        return: bool
     - name: CreateTextBoxInternal
       address:
         EU: 0x202FCD0
@@ -7495,6 +7565,14 @@ arm9:
         
         r0: window_id
         return: bool
+    - name: GetDigitInputResult
+      address:
+        EU: 0x2030C34
+      description: |-
+        Seems to retrieve the result of a digit input advanced textbox. 
+        
+        r0: advanced textbox window_id
+        return: value submitted in a digit input advanced texbox.
     - name: GetWindowIdPageStart
       address:
         EU: 0x2030D0C
@@ -7919,6 +7997,82 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         return: ?
+    - name: DigitInputMenuInit
+      address:
+        EU: 0x203975C
+      description: |-
+        Seems to handle initialization of a digit_input_window_manager.
+        Used by something other than Duskull Bank!
+                
+        r0: digit_input_menu pointer
+    - name: DigitInputMenuReturn
+      address:
+        EU: 0x2039824
+      description: |-
+        Seems to process the result of DigitInputMenuFrameUpdate.
+        Used by something other than Duskull Bank!
+        
+        r0: digit_input_menu pointer
+        return: int32_t
+    - name: DigitInputMenuInitDigits
+      address:
+        EU: 0x20398C8
+      description: |-
+        Seems to handle initializing the digit fields of a digit_input_menu struct, adjusting the max_digits to align with max_value, and more.
+        
+        r0: digit_input_menu pointer
+    - name: DigitInputMenuGetDigits
+      address:
+        EU: 0x203997C
+      description: |-
+        Seems to handle generating the digits of a digit input menu, given the max value it can display and the number of digits it can hold. 
+        
+        r0: [output] digit_values
+        r1: max_value
+        r2: max_digits
+        return: ?
+    - name: DigitInputMenuFrameUpdate
+      address:
+        EU: 0x20399E0
+      description: |-
+        Run every frame a digit input menu is active, detecting player inputs via both buttons and the touch screen.
+        
+        r0: digit_input_menu pointer
+        return: Some kind of exit code, interpreted by DigitInputMenuReturn
+    - name: DigitInputMenuCheckValidTouchScreenInput
+      address:
+        EU: 0x2039C48
+      description: |-
+        Just a guess. Seems to be checking for touch screen input, and interpreting the results as an equivalent set of button inputs?
+        
+        r0: digit_input_menu pointer
+        return: undefined4
+    - name: DigitInputMenuCheckTouchUpDownArrow
+      address:
+        EU: 0x2039CF8
+      description: |-
+        Called by DigitInputMenuCheckValidTouchScreenInput, which this function assumes to be generally correct.
+        Seems to specifically check for a touch screen press above or below the current digit, to increment/decrement it
+        
+        r0: digit_input_menu pointer
+        r1: int
+        r2: int
+        return: ?
+    - name: DigitInputMenuDrawDigits
+      address:
+        EU: 0x2039E08
+      description: |-
+        Seems to handle actually drawing the digits on the advanced textbox for a digit_input_window_manager.
+        
+        r0: digit_input_menu pointer
+    - name: DigitInputMenuDrawDigitsCallback
+      address:
+        EU: 0x2039F10
+      description: |-
+        A text_box_callback_fn_t for a digit input window advanced_text_box.
+        Is used by something other than the Duskull Bank!
+        
+        No params.
     - name: TeamSelectionMenuGetItem
       address:
         EU: 0x203AA58
@@ -7982,6 +8136,162 @@ arm9:
         r0: [output] buffer
         r1: id in team member's IQ skill list
         return: input buffer
+    - name: InitUnkStorageStruct0xA0
+      address:
+        EU: 0x2042554
+      description: |-
+        Initializes an unknown struct of size 0xA0, to a pointer in UNK_STORAGE_STRUCT_0XC.
+        Appears to be used for kangaskhan storage.
+        
+        r0: int32_t
+        r1: undefined4
+        r2: int
+        r3: int
+        return: int
+    - name: FreeUnkStorageStruct0xA0
+      address:
+        EU: 0x2042980
+      description: |-
+        Frees an unknown struct of size 0xA0, to a pointer in UNK_STORAGE_STRUCT_0XC.
+        Appears to be used for kangaskhan storage.
+        
+        No params.
+    - name: ClearBagSelectedItemTable
+      address:
+        EU: 0x2042E14
+      description: |-
+        Seems to clear the list of selected bag item bools.
+        Known to be used by Kangaskhan Storage.
+        
+        No params.
+    - name: IsBagItemIndexSelected
+      address:
+        EU: 0x2042EA0
+      description: |-
+        Seems to check if a specified index in the bag is selected.
+        Known to be used by Kangaskhan Storage.
+        
+        r0: index
+        return: bool
+    - name: AllocUnkBagStruct
+      address:
+        EU: 0x2042EB4
+      description: |-
+        Allocates a currently unknown struct UNK_STORAGE_STRUCT_0XC, that seems to manage the bag while interacting with storage.
+        Known to be used by Kangaskhan Storage.
+        
+        No params.
+    - name: FreeUnkBagStruct
+      address:
+        EU: 0x2042ED8
+      description: |-
+        Frees a currently unknown struct UNK_STORAGE_STRUCT_0XC, that seems to manage the bag while interacting with storage.
+        Known to be used by Kangaskhan Storage.
+        
+        No params.
+    - name: InitUnkStorageStruct0x18c0
+      address:
+        EU: 0x204300C
+      description: |-
+        Allocates a currently unknown struct of size 0x18c0, and stores it to a pointer at UNK_STORAGE_STRUCT_0X14.
+        Known to be used by Kangaskhan Storage.
+        
+        r0: int
+        r1: undefined4
+        r2: int
+        return: int
+    - name: MaybeTrySelectStorageItem
+      address:
+        EU: 0x20432D4
+      description: |-
+        Seems to be responsible for selecting an item from storage, for multi-select. 
+        Known to be used by Kangaskhan Storage.
+        
+        r0: buttons struct? Seems to be checking for the R button...
+        return: bool
+    - name: FreeUnkStorageStruct0x18c0
+      address:
+        EU: 0x2043498
+      description: |-
+        Frees a currently unknown struct of size 0x18c0 from a pointer at UNK_STORAGE_STRUCT_0X14.
+        Known to be used by Kangaskhan Storage.
+        
+        No params.
+    - name: ClearStorageSelectedItemTable
+      address:
+        EU: 0x20437F0
+      description: |-
+        Seems to clear the selected item bool table for storage.
+        Known to be used by Kangaskhan Storage.
+        
+        No params.
+    - name: CountSelectedStorageItems
+      address:
+        EU: 0x2043818
+      description: |-
+        Seems to count the number of currently selected items in storage.
+        Known to be used by Kangaskhan Storage. 
+        
+        return: number of selected items
+    - name: GetFirstSelectedStorageItemIndex
+      address:
+        EU: 0x2043848
+      description: |-
+        Seems to retrieve the index of the first currently selected item in storage.
+        Known to be used by Kangaskhan Storage. 
+        
+        return: index of first selected item
+    - name: IsStorageItemIndexSelected
+      address:
+        EU: 0x2043884
+      description: |-
+        Seems to check if a specified storage item index is selected.
+        Known to be used by Kangaskhan Storage. 
+        
+        r0: index
+        return: bool
+    - name: AllocStorageSelectedItemTable
+      address:
+        EU: 0x20443B0
+      description: |-
+        Seems to allocate a table of bools for selected storage items to a pointer in UNK_STORAGE_STRUCT_0X14.
+        Known to be used by Kangaskhan Storage.
+        
+        No params.
+    - name: FreeStorageSelectedItemTable
+      address:
+        EU: 0x20443D4
+      description: |-
+        Seems to free a table of bools for selected storage items from a pointer in UNK_STORAGE_STRUCT_0X14.
+        Known to be used by Kangaskhan Storage.
+        
+        No params.
+    - name: InitUnkStorageStruct0x410
+      address:
+        EU: 0x2045714
+      description: |-
+        Allocates a currently unknown struct of size 0x410 at UNK_STORAGE_STRUCT_0X410_PTR. May be a state case structure of some kind.
+        Likely used by Kangaskhan Storage, or some other storage interaction menu.
+        
+        r0: undefined2 pointer
+        r1: int
+        return: undefined4
+    - name: UnkStorageStruct0x410CloseSimpleMenu
+      address:
+        EU: 0x20468F8
+      description: |-
+        Seems to close a simple menu for a currently unknown struct of size 0x410 at UNK_STORAGE_STRUCT_0X410_PTR. May be a state case structure of some kind.
+        Likely used by Kangaskhan Storage, or some other storage interaction menu.
+        
+        No params.
+    - name: UnkStorageStruct0x410CreateDialogueBox
+      address:
+        EU: 0x2046940
+      description: |-
+        Seems to create a dialogue box for a currently unknown struct of size 0x410 at UNK_STORAGE_STRUCT_0X410_PTR. May be a state case structure of some kind.
+        Likely used by Kangaskhan Storage, or some other storage interaction menu.
+        
+        No params.
     - name: PlayMissionClearBgm
       address:
         EU: 0x2046A5C
@@ -16028,6 +16338,60 @@ arm9:
         Is also used sparingly during the Spinda Cafe egg event.
         
         type: mission_reward_struct_main pointer
+    - name: UNK_STORAGE_STRUCT_0XC
+      address:
+        EU: 0x20B07C4
+      length:
+        EU: 0xC
+      description: |-
+        A currently unknown struct of size 0xc, with ties to kangaskhan storage.
+        
+        type: struct unk_storage_struct_0xc
+    - name: UNK_STORAGE_STRUCT_0X14
+      address:
+        EU: 0x20B07D0
+      length:
+        EU: 0x14
+      description: |-
+        A currently unknown struct of size 0x14, with ties to kangaskhan storage.
+        
+        type: struct unk_storage_struct_0x14
+    - name: UNK_STORAGE_STRUCT_0X8_PTR_1
+      address:
+        EU: 0x20B07E4
+      length:
+        EU: 0x4
+      description: |-
+        A pointer to a currently unknown struct of size 0x8, with ties to kangaskhan storage.
+        
+        type: struct unk_storage_struct_0x8*
+    - name: UNK_STORAGE_WINDOW_STRUCT_0XC_PTR
+      address:
+        EU: 0x20B07E8
+      length:
+        EU: 0x4
+      description: |-
+        A pointer to a currently unknown struct of size 0xc, with ties to kangaskhan storage.
+        
+        type: struct unk_storage_window_struct_0xc*
+    - name: UNK_STORAGE_STRUCT_0X8_PTR_2
+      address:
+        EU: 0x20B07EC
+      length:
+        EU: 0x4
+      description: |-
+        A pointer to a currently unknown struct of size 0x8, with ties to kangaskhan storage.
+        
+        type: struct unk_storage_struct_0x8*
+    - name: UNK_STORAGE_STRUCT_0X410_PTR
+      address:
+        EU: 0x20B07F0
+      length:
+        EU: 0x4
+      description: |-
+        A pointer to a currently unknown struct of size 0x410, with ties to kangaskhan storage.
+        
+        type: struct unk_storage_struct_0x410*
     - name: NOTIFY_NOTE
       address:
         EU: 0x20B0814

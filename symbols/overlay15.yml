@@ -12,7 +12,72 @@ overlay15:
     NA: 0x1060
     JP: 0x1060
   description: Controls the Duskull Bank.
-  functions: []
+  functions:
+    - name: InitDuskullBankStruct
+      address:
+        EU: 0x238AC80
+      description: |-
+        Allocates and initializes a duskull_bank struct at DUSKULL_BANK_STRUCT_PTR.
+        
+        No params.
+    - name: DuskullBankSubcaseManager1
+      address:
+        EU: 0x238AD74
+      description: |-
+        Seems to manage the more niche operations of the bank, primarily window management and player input interpretation.
+        Consists of a switch case over the bank_subcase enum.
+        
+        return: undefined4
+    - name: DuskullBankSubcaseManager2
+      address:
+        EU: 0x238B02C
+      description: |-
+        Seems to manage the more niche operations of the bank, primarily window generation.
+        Consists of a switch case over the bank_subcase enum.
+        
+        r0: enum bank_subcase
+    - name: BankUpdateDigitInputMenuDisplay
+      address:
+        EU: 0x238B8E4
+      description: |-
+        Runs once every frame while the digit display menu is up, to redraw it as needed.
+        
+        r0: 1 for the withdrawing text string, 0 for depositing.
+    - name: DuskullBankTextboxGoldStatusCallback
+      address:
+        EU: 0x238B930
+      description: |-
+        A text_box_callback_fn_t function for the gold status window that seems to populate the current and stored money.
+        
+        r0: window_id
+    - name: DuskullBankDigitInputDisplayCallback
+      address:
+        EU: 0x238B9D8
+      description: |-
+        A text_box_callback_fn_t function for the digit display window that calls BankUpdateDigitInputMenuDisplay with the correct param from the duskull_bank struct.
+        
+        No params.
+    - name: DuskullBankEntryPoint
+      address:
+        EU: 0x238B9F4
+      description: |-
+        The sole entry_point function for the duskull bank overlay.
+        
+        return: undefined4
+    - name: DuskullBankDestructor
+      address:
+        EU: 0x238BA04
+      description: |-
+        The sole destructor function for the duskull bank overlay.
+        
+        No params.
+    - name: DuskullBankFrameUpdate
+      address:
+        EU: 0x238BAC0
+      description: |-
+        The sole frame_update function for the duskull bank overlay.
+        
+        return: undefined4
   data:
     - name: BANK_MAIN_MENU_ITEMS
       address:
@@ -25,11 +90,16 @@ overlay15:
         JP: 0x28
     - name: BANK_WINDOW_PARAMS_1
       address:
+        EU: 0x238BBE8
         NA: 0x238B07C
       length:
+        EU: 0x10
         NA: 0x10
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: BANK_WINDOW_PARAMS_2
+      description: |-
+        Seems to be fully unused. May be a leftover from Time/Darkness or Rescue Team?
+        
+        type: struct window_params
+    - name: BANK_GOLD_STATUS_WINDOW_PARAMS
       address:
         EU: 0x238BBF8
         NA: 0x238B08C
@@ -37,8 +107,11 @@ overlay15:
       length:
         EU: 0x10
         NA: 0x10
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: BANK_WINDOW_PARAMS_3
+      description: |-
+        A window_params struct used by the window displaying stored and carried gold for the duskull bank.
+        
+        type: struct window_params
+    - name: BANK_ADVANCED_TEXTBOX_WINDOW_PARAMS
       address:
         EU: 0x238BC08
         NA: 0x238B09C
@@ -46,8 +119,11 @@ overlay15:
       length:
         EU: 0x10
         NA: 0x10
-      description: "Note: unverified, ported from Irdkwia's notes"
-    - name: BANK_WINDOW_PARAMS_4
+      description: |-
+        A window_params struct used by the digit input advanced textbox for the duskull bank.
+        
+        type: struct window_params
+    - name: BANK_MAIN_MENU_WINDOW_PARAMS
       address:
         EU: 0x238BC18
         NA: 0x238B0AC
@@ -55,13 +131,111 @@ overlay15:
       length:
         EU: 0x10
         NA: 0x10
-      description: "Note: unverified, ported from Irdkwia's notes"
+      description: |-
+        A window_params struct used by the main menu of the duskull bank.
+        
+        type: struct window_params
     - name: BANK_WINDOW_PARAMS_5
       address:
+        EU: 0x238BC28
         NA: 0x238B0BC
       length:
+        EU: 0x10
         NA: 0x10
-      description: "Note: unverified, ported from Irdkwia's notes"
+      description: |-
+        Seems to be fully unused. May be a leftover from Time/Darkness or Rescue Team?
+        
+        type: struct window_params
+    - name: BANK_R_CLOSE_STR
+      address:
+        EU: 0x238BC38
+      length:
+        EU: 0x9
+      description: |-
+        "R-Close\n"
+        
+        type: string
+    - name: BANK_M_OPEN_STR
+      address:
+        EU: 0x238BC44
+      length:
+        EU: 0x8
+      description: |-
+        "M-Open\n"
+        
+        type: string
+    - name: BANK_S_CLOSE_STR
+      address:
+        EU: 0x238BC4C
+      length:
+        EU: 0x9
+      description: |-
+        "S-Close\n"
+        
+        type: string
+    - name: MENU_BANK_MODE_CANCEL_STR
+      address:
+        EU: 0x238BC58
+      length:
+        EU: 0x17
+      description: |-
+        "Menu_Bank_Mode_Cancel\n"
+        
+        type: string
+    - name: BANK_P_OPEN_STR
+      address:
+        EU: 0x238BC70
+      length:
+        EU: 0x8
+      description: |-
+        "P-Open\n"
+        
+        type: string
+    - name: BANK_G_OPEN_STR
+      address:
+        EU: 0x238BC78
+      length:
+        EU: 0x8
+      description: |-
+        "G-Open\n"
+        
+        type: string
+    - name: BANK_MES_NOT_CLOSE_STR
+      address:
+        EU: 0x238BC80
+      length:
+        EU: 0xF
+      description: |-
+        "mes not close\n"
+        
+        type: string
+    - name: BANK_SUB_NOT_CLOSE_STR
+      address:
+        EU: 0x238BC90
+      length:
+        EU: 0xF
+      description: |-
+        "sub not close\n"
+        
+        type: string
+    - name: BANK_SELECT_NOT_CLOSE_STR
+      address:
+        EU: 0x238BCA0
+      length:
+        EU: 0x12
+      description: |-
+        "select not close\n"
+        
+        type: string
+    - name: BANK_INPUT_NOT_CLOSE_STR
+      address:
+        EU: 0x238BCB4
+      length:
+        EU: 0x11
+      description: |-
+        "Input not close\n"
+        
+        type: string
     - name: OV15_STATIC_INITIALIZER
       aliases:
         - OVERLAY15_RESERVED_SPACE
@@ -74,11 +248,15 @@ overlay15:
         NA: 0x4
         JP: 0x4
       description: Static initializer for overlay 15.
-    - name: OVERLAY15_UNKNOWN_POINTER__NA_238B180
+    - name: DUSKULL_BANK_STRUCT_PTR
       address:
         EU: 0x238BCE0
         NA: 0x238B180
         JP: 0x238C6E0
       length:
+        EU: 0x4
         NA: 0x4
-      description: "Note: unverified, ported from Irdkwia's notes"
+      description: |-
+        Manages the majority of duskull bank operations for the overlay.
+        
+        type: duskull_bank struct pointer

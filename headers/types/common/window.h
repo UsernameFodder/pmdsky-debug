@@ -1107,4 +1107,40 @@ struct stairs_menu {
 };
 ASSERT_SIZE(struct stairs_menu, 24);
 
+// Used for creating and managing the advanced textbox that handles digit inputs, such as duskull
+// bank transactions.
+struct digit_input_menu {
+    int32_t current_value;
+    int32_t initial_value;
+    int32_t min_value;
+    int32_t max_value;
+    int32_t initial_digit;
+    uint8_t advanced_textbox_window_id;
+    undefined field6_0x15;
+    undefined field7_0x16;
+    undefined field8_0x17;
+    // Offset for the advanced menu's position. Not used by the duskull bank.
+    int32_t window_offset_coords[2];
+    // Seems to be related to the touch screen hitbox for the up and down arrows for a digit.
+    // Relative to the position of the window.
+    int32_t ts_arrow_coords[2];
+    int8_t selected_digit;
+    int8_t num_digits;
+    undefined field13_0x2a;
+    undefined field14_0x2b;
+};
+ASSERT_SIZE(struct digit_input_menu, 44);
+
+// Not a window, but seems to be a manger struct for the collection menu that handles kangaskhan
+// storage.
+struct storage_collection_menu_manager {
+    int32_t case_id;
+    int8_t collection_menu_window_id;
+    undefined field2_0x5;
+    undefined field3_0x6;
+    undefined field4_0x7;
+    struct window_extra_info window_extra_info;
+};
+ASSERT_SIZE(struct storage_collection_menu_manager, 160);
+
 #endif
