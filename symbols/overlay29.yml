@@ -1091,6 +1091,8 @@ overlay29:
     - name: PlayStairSensorArrowEffect
       address:
         EU: 0x22E72D8
+        NA: 0x22E6928
+        JP: 0x22E7F98
       description: |-
         Plays the Stair Sensor arrow effect.
         
@@ -1686,6 +1688,8 @@ overlay29:
     - name: PlayLevelUpSound
       address:
         EU: 0x22EB62C
+        NA: 0x22EAC7C
+        JP: 0x22EC2E4
       description: |-
         Plays the sound for leveling up.
         
@@ -1695,6 +1699,12 @@ overlay29:
         EU:
           - 0x22EB63C
           - 0x22EB66C
+        NA:
+          - 0x22EAC8C
+          - 0x22EACBC
+        JP:
+          - 0x22EC2F4
+          - 0x22EC324
       description: |-
         Plays the sound effect for displaying a dungeon tip.
         
@@ -2824,6 +2834,8 @@ overlay29:
     - name: FillRecruitInfo
       address:
         EU: 0x22F9A64
+        NA: 0x22F9058
+        JP: 0x22FA61C
       description: |-
         Fills the recruit_info struct with values from the monster entity pointer.
         
@@ -3132,6 +3144,8 @@ overlay29:
     - name: TryActivateNewFloorPpRestoration
       address:
         EU: 0x22FB464
+        NA: 0x22FAA58
+        JP: 0x22FBFE0
       description: |-
         Activates the Deep Breather IQ skill and/or the exclusive item effect for restoring PP on new floors for team members that have them.
         
@@ -3186,6 +3200,8 @@ overlay29:
     - name: TryActivateNewFloorHpRestoration
       address:
         EU: 0x22FB6C8
+        NA: 0x22FACBC
+        JP: 0x22FC248
       description: |-
         Activates the exclusive item effect for fully restoring HP on new floors for team members that have it.
         
@@ -3193,6 +3209,8 @@ overlay29:
     - name: TryActivateStairSensor
       address:
         EU: 0x22FB758
+        NA: 0x22FAD4C
+        JP: 0x22FC2D8
       description: |-
         Activates the Stair Sensor IQ skill if a member on the team has it and they are not a special story ally.
         
@@ -3200,6 +3218,8 @@ overlay29:
     - name: TryActivateAcuteSniffer
       address:
         EU: 0x22FB914
+        NA: 0x22FAF08
+        JP: 0x22FC490
       description: |-
         Activates the Acute Sniffer IQ skill if a member on the team has it and no boss fight is active.
         
@@ -3207,6 +3227,8 @@ overlay29:
     - name: ShouldTreatMonsterAsAlly
       address:
         EU: 0x22FB9E0
+        NA: 0x22FAFD4
+        JP: 0x22FC55C
       description: |-
         Returns true if entity 1 should treat entity 2 as an ally, assuming entity 1 can see invisible monsters and will not ignore petrified ones.
         
@@ -4347,6 +4369,8 @@ overlay29:
     - name: UpdateIqSkillsWrapper
       address:
         EU: 0x2302C1C
+        NA: 0x23021F0
+        JP: 0x2303740
       description: |-
         Wrapper function for UpdateIqSkills.
         
@@ -5203,6 +5227,8 @@ overlay29:
     - name: SwapDefensiveStages
       address:
         EU: 0x230E2E8
+        NA: 0x230D874
+        JP: 0x230EDB0
       description: |-
         Swaps the defensive stages of two monsters.
         
@@ -5212,6 +5238,8 @@ overlay29:
     - name: SwapDefensiveMultipliers
       address:
         EU: 0x230E35C
+        NA: 0x230D8E8
+        JP: 0x230EE24
       description: |-
         Swaps the defensive multipliers of two monsters.
         
@@ -5221,6 +5249,8 @@ overlay29:
     - name: SwapOffensiveStages
       address:
         EU: 0x230E3D0
+        NA: 0x230D95C
+        JP: 0x230EE98
       description: |-
         Swaps the offensive stages of two monsters.
         
@@ -5230,6 +5260,8 @@ overlay29:
     - name: SwapOffensiveMultipliers
       address:
         EU: 0x230E444
+        NA: 0x230D9D0
+        JP: 0x230EF0C
       description: |-
         Swaps the offensive multipliers of two monsters.
         
@@ -5239,6 +5271,8 @@ overlay29:
     - name: SwapHitChanceStages
       address:
         EU: 0x230E4B8
+        NA: 0x230DA44
+        JP: 0x230EF80
       description: |-
         Swaps the hit chance stages of two monsters.
         
@@ -5248,6 +5282,8 @@ overlay29:
     - name: SwapUserAtkAndDefModifiers
       address:
         EU: 0x230E52C
+        NA: 0x230DAB8
+        JP: 0x230EFF4
       description: |-
         Swaps the attack and defense modifiers of the user entity.
         
@@ -7888,6 +7924,8 @@ overlay29:
     - name: InitUi3dElement
       address:
         EU: 0x2336254
+        NA: 0x2335808
+        JP: 0x2336BD8
       description: |-
         Initializes a 3D element for displaying a part of the dungeon UI.
         
@@ -8160,6 +8198,8 @@ overlay29:
     - name: RemoveMonsterFromTile
       address:
         EU: 0x2338A90
+        NA: 0x2337EC0
+        JP: 0x2339284
       description: |-
         Removes the given monster from the tile at the given position if it is present on it.
         
@@ -10386,6 +10426,8 @@ overlay29:
     - name: AlertBoxIsActive
       address:
         EU: 0x234C33C
+        NA: 0x234B73C
+        JP: 0x234C9AC
       description: |-
         Returns true if the alert box is currently open.
         

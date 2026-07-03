@@ -16,6 +16,8 @@ overlay22:
     - name: GreenKecleonShopUpdateItemNamesAndCollectionMenu
       address:
         EU: 0x238AC80
+        NA: 0x238A140
+        JP: 0x238B6A0
       description: |-
         Calls GreenKecleonShopFillItemNameData and GreenKecleonShopInitCollectionMenu, then returns.
         
@@ -23,6 +25,8 @@ overlay22:
     - name: GreenKecleonShopInitCollectionMenu
       address:
         EU: 0x238AC90
+        NA: 0x238A150
+        JP: 0x238B6B0
       description: |-
         Seems to initialize a collection menu for green kecleon with data from GREEN_KEC_SHOP_ITEM_DATA_WRAPPER.
         
@@ -30,6 +34,8 @@ overlay22:
     - name: GreenKecleonShopDoNothing
       address:
         EU: 0x238AD6C
+        NA: 0x238A22C
+        JP: 0x238B78C
       description: |-
         Does nothing but return. Is exclusively called by the green kecleon shop.
         
@@ -37,6 +43,8 @@ overlay22:
     - name: GreenKecleonShopGetCollectionMenuStatus
       address:
         EU: 0x238AD70
+        NA: 0x238A230
+        JP: 0x238B790
       description: |-
         Seems to return some kind of status data for the collection menu from GREEN_KEC_SHOP_ITEM_DATA_WRAPPER.
         
@@ -44,6 +52,8 @@ overlay22:
     - name: GreenKecleonShopGetShopItemSlot
       address:
         EU: 0x238ADEC
+        NA: 0x238A2AC
+        JP: 0x238B80C
       description: |-
         Seems to retrieve the item slot the cursor is currently pointing to from GREEN_KEC_SHOP_ITEM_DATA_WRAPPER.
         
@@ -51,6 +61,8 @@ overlay22:
     - name: GreenKecleonShopInitItemNameData
       address:
         EU: 0x238AE00
+        NA: 0x238A2C0
+        JP: 0x238B820
       description: |-
         Initializes a green_kec_shop_item_data struct in GREEN_KEC_SHOP_ITEM_DATA_WRAPPER.
         
@@ -58,6 +70,8 @@ overlay22:
     - name: GreenKecleonShopFreeItemNameData
       address:
         EU: 0x238AE34
+        NA: 0x238A2F4
+        JP: 0x238B854
       description: |-
         Frees a green_kec_shop_item_data struct in GREEN_KEC_SHOP_ITEM_DATA_WRAPPER.
         
@@ -65,6 +79,8 @@ overlay22:
     - name: GreenKecleonShopFillItemNameData
       address:
         EU: 0x238AE60
+        NA: 0x238A320
+        JP: 0x238B880
       description: |-
         Populates a green_kec_shop_item_data struct in GREEN_KEC_SHOP_ITEM_DATA_WRAPPER.
         
@@ -72,6 +88,8 @@ overlay22:
     - name: GreenKecleonShopCountSelectedItems
       address:
         EU: 0x238B00C
+        NA: 0x238A4CC
+        JP: 0x238BA2C
       description: |-
         Counts the number of multi-selected items in the green kecleon shop.
         
@@ -79,6 +97,8 @@ overlay22:
     - name: GreenKecleonShopGetFirstSelectedItemIndex
       address:
         EU: 0x238B048
+        NA: 0x238A508
+        JP: 0x238BA68
       description: |-
         Retrieves the index of the first multi-selected item in the green kecleon shop.
         
@@ -86,6 +106,8 @@ overlay22:
     - name: GreenKecleonShopSumSelectedItemPrices
       address:
         EU: 0x238B084
+        NA: 0x238A544
+        JP: 0x238BAA4
       description: |-
         Sums the prices of all currently selected items in the green kecleon shop.
         
@@ -93,6 +115,8 @@ overlay22:
     - name: GreenKecleonShopPurchaseSingleItem
       address:
         EU: 0x238B0C8
+        NA: 0x238A588
+        JP: 0x238BAE8
       description: |-
         Handles purchasing a single item from the green kecleon shop, by index.
         
@@ -100,6 +124,8 @@ overlay22:
     - name: GreenKecleonShopPurchaseSelectedItems
       address:
         EU: 0x238B10C
+        NA: 0x238A5CC
+        JP: 0x238BB2C
       description: |-
         Handles purchasing all selected items from the green kecleon shop.
         Will not be used if only one item is selected.
@@ -108,6 +134,8 @@ overlay22:
     - name: GreenKecleonGetItemNameStringByIndex
       address:
         EU: 0x238B180
+        NA: 0x238A640
+        JP: 0x238BBA0
       description: |-
         Retrieves the item name string for a shop item in the green kecleon shop by index.
         
@@ -118,6 +146,8 @@ overlay22:
     - name: GreenKecleonShopUnkCollectionMenuCallback
       address:
         EU: 0x238B1BC
+        NA: 0x238A67C
+        JP: 0x238BBDC
       description: |-
         An unk_collection_menu_fn_t function used by GreenKecleonShopInitCollectionMenu.
         
@@ -126,6 +156,8 @@ overlay22:
     - name: GreenKecleonShopVoidFnCollectionMenuCallback
       address:
         EU: 0x238B2B4
+        NA: 0x238A774
+        JP: 0x238BCD4
       description: |-
         An unk_collection_menu_void_fn_t function used by GreenKecleonShopInitCollectionMenu.
         
@@ -133,6 +165,8 @@ overlay22:
     - name: PurpleKecleonShopUpdateItemNamesAndCollectionMenu
       address:
         EU: 0x238B2CC
+        NA: 0x238A78C
+        JP: 0x238BCEC
       description: |-
         Calls PurpleKecleonShopFillItemNameData and PurpleKecleonShopInitCollectionMenu, then returns.
         
@@ -140,6 +174,8 @@ overlay22:
     - name: PurpleKecleonShopInitCollectionMenu
       address:
         EU: 0x238B2DC
+        NA: 0x238A79C
+        JP: 0x238BCFC
       description: |-
         Seems to initialize a collection menu for purple kecleon with data from PURPLE_KEC_SHOP_ITEM_DATA_WRAPPER.
         
@@ -147,6 +183,8 @@ overlay22:
     - name: PurpleKecleonShopDoNothing
       address:
         EU: 0x238B3B8
+        NA: 0x238A878
+        JP: 0x238BDD8
       description: |-
         Does nothing but return. Is exclusively called by the purple kecleon shop.
         
@@ -154,6 +192,8 @@ overlay22:
     - name: PurpleKecleonShopGetCollectionMenuStatus
       address:
         EU: 0x238B3BC
+        NA: 0x238A87C
+        JP: 0x238BDDC
       description: |-
         Seems to return some kind of status data for the collection menu from PURPLE_KEC_SHOP_ITEM_DATA_WRAPPER.
         
@@ -161,6 +201,8 @@ overlay22:
     - name: PurpleKecleonShopGetShopItemSlot
       address:
         EU: 0x238B438
+        NA: 0x238A8F8
+        JP: 0x238BE58
       description: |-
         Seems to retrieve the item slot the cursor is currently pointing to from PURPLE_KEC_SHOP_ITEM_DATA_WRAPPER.
         
@@ -168,6 +210,8 @@ overlay22:
     - name: PurpleKecleonShopInitItemNameData
       address:
         EU: 0x238B44C
+        NA: 0x238A90C
+        JP: 0x238BE6C
       description: |-
         Initializes a purple_kec_shop_item_data struct in PURPLE_KEC_SHOP_ITEM_DATA_WRAPPER.
         
@@ -175,6 +219,8 @@ overlay22:
     - name: PurpleKecleonShopFreeItemNameData
       address:
         EU: 0x238B480
+        NA: 0x238A940
+        JP: 0x238BEA0
       description: |-
         Frees a purple_kec_shop_item_data struct in PURPLE_KEC_SHOP_ITEM_DATA_WRAPPER.
         
@@ -182,6 +228,8 @@ overlay22:
     - name: PurpleKecleonShopFillItemNameData
       address:
         EU: 0x238B4AC
+        NA: 0x238A96C
+        JP: 0x238BECC
       description: |-
         Frees a purple_kec_shop_item_data struct in PURPLE_KEC_SHOP_ITEM_DATA_WRAPPER.
         
@@ -189,6 +237,8 @@ overlay22:
     - name: PurpleKecleonShopCountSelectedItems
       address:
         EU: 0x238B658
+        NA: 0x238AB18
+        JP: 0x238C078
       description: |-
         Counts the number of multi-selected items in the purple kecleon shop.
         
@@ -196,6 +246,8 @@ overlay22:
     - name: PurpleKecleonShopGetFirstSelectedItemIndex
       address:
         EU: 0x238B694
+        NA: 0x238AB54
+        JP: 0x238C0B4
       description: |-
         Retrieves the index of the first multi-selected item in the purple kecleon shop.
         
@@ -203,6 +255,8 @@ overlay22:
     - name: PurpleKecleonShopSumSelectedItemPrices
       address:
         EU: 0x238B6D0
+        NA: 0x238AB90
+        JP: 0x238C0F0
       description: |-
         Sums the prices of all currently selected items in the purple kecleon shop.
         
@@ -210,6 +264,8 @@ overlay22:
     - name: PurpleKecleonShopPurchaseSingleItem
       address:
         EU: 0x238B714
+        NA: 0x238ABD4
+        JP: 0x238C134
       description: |-
         Handles purchasing a single item from the purple kecleon shop, by index.
         
@@ -217,6 +273,8 @@ overlay22:
     - name: PurpleKecleonShopPurchaseSelectedItems
       address:
         EU: 0x238B758
+        NA: 0x238AC18
+        JP: 0x238C178
       description: |-
         Handles purchasing all selected items from the purple kecleon shop.
         Will not be used if only one item is selected.
@@ -225,6 +283,8 @@ overlay22:
     - name: PurpleKecleonGetItemNameStringByIndex
       address:
         EU: 0x238B7CC
+        NA: 0x238AC8C
+        JP: 0x238C1EC
       description: |-
         Retrieves the item name string for a shop item in the purple kecleon shop by index.
         
@@ -235,6 +295,8 @@ overlay22:
     - name: PurpleKecleonShopUnkCollectionMenuCallback
       address:
         EU: 0x238B808
+        NA: 0x238ACC8
+        JP: 0x238C228
       description: |-
         An unk_collection_menu_fn_t function used by PurpleKecleonShopInitCollectionMenu.
         
@@ -243,6 +305,8 @@ overlay22:
     - name: PurpleKecleonShopCollectionMenuCallback
       address:
         EU: 0x238B900
+        NA: 0x238ADC0
+        JP: 0x238C320
       description: |-
         An unk_collection_menu_void_fn_t function used by PurpleKecleonShopInitCollectionMenu.
         
@@ -250,6 +314,8 @@ overlay22:
     - name: KecleonShopSubcaseManager1
       address:
         EU: 0x238B918
+        NA: 0x238ADD8
+        JP: 0x238C338
       description: |-
         Seems responsible for handling the majority of the frame update behavior for both kecleon shops, particularly window management.
         Shares this responsibility with KecleonShopSubcaseManager2.
@@ -258,6 +324,8 @@ overlay22:
     - name: KecleonShopSubcaseManager2
       address:
         EU: 0x238CCC4
+        NA: 0x238C184
+        JP: 0x238D6E4
       description: |-
         Seems responsible for handling the majority of the frame update behavior for both kecleon shops, particularly window management.
         Shares this responsibility with KecleonShopSubcaseManager1.
@@ -266,6 +334,8 @@ overlay22:
     - name: RemoveInvalidKecleonShopItems
       address:
         EU: 0x238E068
+        NA: 0x238D528
+        JP: 0x238EA88
       description: |-
         Calls either RemoveInvalidKecleonShop1Items or RemoveInvalidKecleonShop2Items depending on which kecleon shop is active.
         
@@ -273,6 +343,8 @@ overlay22:
     - name: KecleonShopSumBagItemSellPrices
       address:
         EU: 0x238E094
+        NA: 0x238D554
+        JP: 0x238EAB4
       description: |-
         Sums the sell prices of all items in the bag, presumably for the Sell All option for both kecleon shops.
         
@@ -280,6 +352,8 @@ overlay22:
     - name: KecleonShopUpdatePortraitEmotion
       address:
         EU: 0x238E134
+        NA: 0x238D5F4
+        JP: 0x238EB54
       description: |-
         Updates the portrait emotion for the currently active kecleon shop.
         Can only change the portrait to PORTRAIT_NORMAL or PORTRAIT_ANGRY.
@@ -288,6 +362,8 @@ overlay22:
     - name: KecleonShopEntryPoint
       address:
         EU: 0x238E180
+        NA: 0x238D640
+        JP: 0x238EBA0
       description: |-
         The sole entry_point for the kecleon shop overlay.
         
@@ -295,6 +371,8 @@ overlay22:
     - name: KecleonShopDestructor
       address:
         EU: 0x238E2F0
+        NA: 0x238D7B0
+        JP: 0x238ED10
       description: |-
         The sole destructor for the kecleon shop overlay.
         
@@ -302,6 +380,8 @@ overlay22:
     - name: KecleonShopFrameUpdate
       address:
         EU: 0x238E340
+        NA: 0x238D800
+        JP: 0x238ED60
       description: |-
         The sole frame_update for the kecleon shop overlay.
         
@@ -309,6 +389,8 @@ overlay22:
     - name: KecleonShopCloseSimpleMenu
       address:
         EU: 0x238F324
+        NA: 0x238E7E4
+        JP: 0x238FD44
       description: |-
         Closes a simple menu for the kecleon shop.
         
@@ -322,12 +404,17 @@ overlay22:
       length:
         EU: 0x10
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: GREEN_KEC_SHOP_RED_COLOR_TEXT_TAG
       address:
         EU: 0x238F36C
+        NA: 0x238E82C
+        JP: 0x238FD8C
       length:
         EU: 0x7
+        NA: 0x7
+        JP: 0x7
       description: |-
         "[CS:W]"
         Used exclusively before items in green kecleon's shop that the player cannot buy/sell.
@@ -336,8 +423,12 @@ overlay22:
     - name: GREEN_KEC_SHOP_UNCOLOR_TEXT_TAG
       address:
         EU: 0x238F374
+        NA: 0x238E834
+        JP: 0x238FD94
       length:
         EU: 0x5
+        NA: 0x5
+        JP: 0x5
       description: |-
         "[CR]"
         Used exclusively after items in green kecleon's shop that the player cannot buy/sell.
@@ -351,12 +442,17 @@ overlay22:
       length:
         EU: 0x10
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: PURPLE_KEC_SHOP_RED_COLOR_TEXT_TAG
       address:
         EU: 0x238F38C
+        NA: 0x238E84C
+        JP: 0x238FDAC
       length:
         EU: 0x7
+        NA: 0x7
+        JP: 0x7
       description: |-
         "[CS:W]"
         Used exclusively before items in purple kecleon's shop that the player cannot buy/sell.
@@ -365,8 +461,12 @@ overlay22:
     - name: PURPLE_KEC_SHOP_UNCOLOR_TEXT_TAG
       address:
         EU: 0x238F394
+        NA: 0x238E854
+        JP: 0x238FDB4
       length:
         EU: 0x5
+        NA: 0x5
+        JP: 0x5
       description: |-
         "[CR]"
         Used exclusively after items in purple kecleon's shop that the player cannot buy/sell.
@@ -380,6 +480,7 @@ overlay22:
       length:
         EU: 0xC
         NA: 0xC
+        JP: 0xC
       description: |-
         Exclusively passed into MaybeGetUncoloredFormattedItemName and MaybeGetColoredFormattedItemName.
         The exact purpose of this struct is unknown, but the only "true" bool in the table is for "Other" items.
@@ -425,7 +526,9 @@ overlay22:
         NA: 0x238E8F0
         JP: 0x238FE50
       length:
+        EU: 0x60
         NA: 0x60
+        JP: 0x60
       description: |-
         A collection of 48 text string ids, 24 for green kecleon, and 24 for purple kecleon. 
         
@@ -462,6 +565,7 @@ overlay22:
       length:
         EU: 0x10
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: SHOP_WINDOW_PARAMS_7
       address:
@@ -471,6 +575,7 @@ overlay22:
       length:
         EU: 0x10
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: SHOP_WINDOW_PARAMS_8
       address:
@@ -480,6 +585,7 @@ overlay22:
       length:
         EU: 0x10
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: SHOP_WINDOW_PARAMS_9
       address:
@@ -489,6 +595,7 @@ overlay22:
       length:
         EU: 0x10
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: SHOP_WINDOW_PARAMS_10
       address:
@@ -498,12 +605,17 @@ overlay22:
       length:
         EU: 0x10
         NA: 0x10
+        JP: 0x10
       description: "Note: unverified, ported from Irdkwia's notes"
     - name: KEC_SHOP_START_STR
       address:
         EU: 0x238F510
+        NA: 0x238E9D0
+        JP: 0x238FF30
       length:
         EU: 0x8
+        NA: 0x8
+        JP: 0x8
       description: |-
         "_START\n"
         
@@ -511,8 +623,12 @@ overlay22:
     - name: KEC_SHOP_RESTART_STR
       address:
         EU: 0x238F518
+        NA: 0x238E9D8
+        JP: 0x238FF38
       length:
         EU: 0xA
+        NA: 0xA
+        JP: 0xA
       description: |-
         "_RESTART\n"
         
@@ -520,8 +636,12 @@ overlay22:
     - name: KEC_SHOP_SELECTMENU_STR
       address:
         EU: 0x238F524
+        NA: 0x238E9E4
+        JP: 0x238FF44
       length:
         EU: 0xD
+        NA: 0xD
+        JP: 0xD
       description: |-
         "_SELECTMENU\n"
         
@@ -529,8 +649,12 @@ overlay22:
     - name: KEC_SHOP_EXPLANATION_STR
       address:
         EU: 0x238F534
+        NA: 0x238E9F4
+        JP: 0x238FF54
       length:
         EU: 0xE
+        NA: 0xE
+        JP: 0xE
       description: |-
         "_EXPLANATION\n"
         
@@ -538,8 +662,12 @@ overlay22:
     - name: KEC_SHOP_THANKS_STR
       address:
         EU: 0x238F544
+        NA: 0x238EA04
+        JP: 0x238FF64
       length:
         EU: 0x9
+        NA: 0x9
+        JP: 0x9
       description: |-
         "_THANKS\n"
         
@@ -547,8 +675,12 @@ overlay22:
     - name: KEC_SHOP_SHOP_NON_STR
       address:
         EU: 0x238F550
+        NA: 0x238EA10
+        JP: 0x238FF70
       length:
         EU: 0xB
+        NA: 0xB
+        JP: 0xB
       description: |-
         "_SHOP_NON\n"
         
@@ -556,8 +688,12 @@ overlay22:
     - name: KEC_SHOP_GOLD_NON_STR
       address:
         EU: 0x238F55C
+        NA: 0x238EA1C
+        JP: 0x238FF7C
       length:
         EU: 0xB
+        NA: 0xB
+        JP: 0xB
       description: |-
         "_GOLD_NON\n"
         
@@ -565,8 +701,12 @@ overlay22:
     - name: KEC_SHOP_GOLD_MAX_STR
       address:
         EU: 0x238F568
+        NA: 0x238EA28
+        JP: 0x238FF88
       length:
         EU: 0xB
+        NA: 0xB
+        JP: 0xB
       description: |-
         "_GOLD_MAX\n"
         
@@ -574,8 +714,12 @@ overlay22:
     - name: KEC_SHOP_GOLD_FULL_STR
       address:
         EU: 0x238F574
+        NA: 0x238EA34
+        JP: 0x238FF94
       length:
         EU: 0xC
+        NA: 0xC
+        JP: 0xC
       description: |-
         "_GOLD_FULL\n"
         
@@ -583,8 +727,12 @@ overlay22:
     - name: KEC_SHOP_SELL_NON_STR
       address:
         EU: 0x238F580
+        NA: 0x238EA40
+        JP: 0x238FFA0
       length:
         EU: 0xB
+        NA: 0xB
+        JP: 0xB
       description: |-
         "_SELL_NON\n"
         
@@ -592,8 +740,12 @@ overlay22:
     - name: KEC_SHOP_ITEM_NON_STR
       address:
         EU: 0x238F58C
+        NA: 0x238EA4C
+        JP: 0x238FFAC
       length:
         EU: 0xB
+        NA: 0xB
+        JP: 0xB
       description: |-
         "_ITEM_NON\n"
         
@@ -601,8 +753,12 @@ overlay22:
     - name: KEC_SHOP_ITEM_MAX_STR
       address:
         EU: 0x238F598
+        NA: 0x238EA58
+        JP: 0x238FFB8
       length:
         EU: 0xB
+        NA: 0xB
+        JP: 0xB
       description: |-
         "_ITEM_MAX\n"
         
@@ -610,8 +766,12 @@ overlay22:
     - name: KEC_SHOP_SOLD_OUT_STR
       address:
         EU: 0x238F5A4
+        NA: 0x238EA64
+        JP: 0x238FFC4
       length:
         EU: 0xB
+        NA: 0xB
+        JP: 0xB
       description: |-
         "_SOLD_OUT\n"
         
@@ -619,8 +779,12 @@ overlay22:
     - name: KEC_SHOP_BUY_POOR_STR
       address:
         EU: 0x238F5B0
+        NA: 0x238EA70
+        JP: 0x238FFD0
       length:
         EU: 0xB
+        NA: 0xB
+        JP: 0xB
       description: |-
         "_BUY_POOR\n"
         
@@ -628,8 +792,12 @@ overlay22:
     - name: KEC_SHOP_SELL_BAD_STR
       address:
         EU: 0x238F5BC
+        NA: 0x238EA7C
+        JP: 0x238FFDC
       length:
         EU: 0xB
+        NA: 0xB
+        JP: 0xB
       description: |-
         "_SELL_BAD\n"
         
@@ -637,8 +805,12 @@ overlay22:
     - name: KEC_SHOP_SELL_FULL_STR
       address:
         EU: 0x238F5C8
+        NA: 0x238EA88
+        JP: 0x238FFE8
       length:
         EU: 0xC
+        NA: 0xC
+        JP: 0xC
       description: |-
         "_SELL_FULL\n"
         
@@ -646,8 +818,12 @@ overlay22:
     - name: KEC_SHOP_MODE_BUY_START_STR
       address:
         EU: 0x238F5D4
+        NA: 0x238EA94
+        JP: 0x238FFF4
       length:
         EU: 0x11
+        NA: 0x11
+        JP: 0x11
       description: |-
         "_MODE_BUY_START\n"
         
@@ -655,8 +831,12 @@ overlay22:
     - name: KEC_SHOP_BUY_RESTART_STR
       address:
         EU: 0x238F5E8
+        NA: 0x238EAA8
+        JP: 0x2390008
       length:
         EU: 0xE
+        NA: 0xE
+        JP: 0xE
       description: |-
         "_BUY_RESTART\n"
         
@@ -664,8 +844,12 @@ overlay22:
     - name: KEC_SHOP_BUY_SELECT_STR
       address:
         EU: 0x238F5F8
+        NA: 0x238EAB8
+        JP: 0x2390018
       length:
         EU: 0xD
+        NA: 0xD
+        JP: 0xD
       description: |-
         "_BUY_SELECT\n"
         
@@ -673,8 +857,12 @@ overlay22:
     - name: KEC_SHOP_BUY_RESELECT_STR
       address:
         EU: 0x238F608
+        NA: 0x238EAC8
+        JP: 0x2390028
       length:
         EU: 0xF
+        NA: 0xF
+        JP: 0xF
       description: |-
         "_BUY_RESELECT\n"
         
@@ -682,8 +870,12 @@ overlay22:
     - name: KEC_SHOP_SUB_MENU_BUY_STR
       address:
         EU: 0x238F618
+        NA: 0x238EAD8
+        JP: 0x2390038
       length:
         EU: 0xF
+        NA: 0xF
+        JP: 0xF
       description: |-
         "_SUB_MENU_BUY\n"
         
@@ -691,8 +883,12 @@ overlay22:
     - name: KEC_SHOP_BUY_CONFIRM_STR
       address:
         EU: 0x238F628
+        NA: 0x238EAE8
+        JP: 0x2390048
       length:
         EU: 0xE
+        NA: 0xE
+        JP: 0xE
       description: |-
         "_BUY_CONFIRM\n"
         
@@ -700,8 +896,12 @@ overlay22:
     - name: KEC_SHOP_BUY_EXPLA_ITEM_STR
       address:
         EU: 0x238F638
+        NA: 0x238EAF8
+        JP: 0x2390058
       length:
         EU: 0x1B
+        NA: 0x1B
+        JP: 0x1B
       description: |-
         "_BUY_EXPLA Item%d Count%d\n"
         
@@ -709,8 +909,12 @@ overlay22:
     - name: KEC_SHOP_ITEM_TEXT_TAG
       address:
         EU: 0x238F654
+        NA: 0x238EB14
+        JP: 0x2390074
       length:
         EU: 0x9
+        NA: 0x9
+        JP: 0x9
       description: |-
         "[item:0]"
         
@@ -718,8 +922,12 @@ overlay22:
     - name: KEC_SHOP_BUY_THANKS_STR
       address:
         EU: 0x238F660
+        NA: 0x238EB20
+        JP: 0x2390080
       length:
         EU: 0xD
+        NA: 0xD
+        JP: 0xD
       description: |-
         "_BUY_THANKS\n"
         
@@ -727,8 +935,12 @@ overlay22:
     - name: KEC_SHOP_SELL_START_STR
       address:
         EU: 0x238F670
+        NA: 0x238EB30
+        JP: 0x2390090
       length:
         EU: 0xD
+        NA: 0xD
+        JP: 0xD
       description: |-
         "_SELL_START\n"
         
@@ -736,8 +948,12 @@ overlay22:
     - name: KEC_SHOP_SELL_RESTART_STR
       address:
         EU: 0x238F680
+        NA: 0x238EB40
+        JP: 0x23900A0
       length:
         EU: 0xF
+        NA: 0xF
+        JP: 0xF
       description: |-
         "_SELL_RESTART\n"
         
@@ -745,8 +961,12 @@ overlay22:
     - name: KEC_SHOP_SELL_SELECT_STR
       address:
         EU: 0x238F690
+        NA: 0x238EB50
+        JP: 0x23900B0
       length:
         EU: 0xE
+        NA: 0xE
+        JP: 0xE
       description: |-
         "_SELL_SELECT\n"
         
@@ -754,8 +974,12 @@ overlay22:
     - name: KEC_SHOP_SELL_RESELECT_STR
       address:
         EU: 0x238F6A0
+        NA: 0x238EB60
+        JP: 0x23900C0
       length:
         EU: 0x10
+        NA: 0x10
+        JP: 0x10
       description: |-
         "_SELL_RESELECT\n"
         
@@ -763,8 +987,12 @@ overlay22:
     - name: KEC_SHOP_SELL_SUB_MENU_STR
       address:
         EU: 0x238F6B0
+        NA: 0x238EB70
+        JP: 0x23900D0
       length:
         EU: 0x10
+        NA: 0x10
+        JP: 0x10
       description: |-
         "_SELL_SUB_MENU\n"
         
@@ -772,8 +1000,12 @@ overlay22:
     - name: KEC_SHOP_SELL_CONFIRM_STR
       address:
         EU: 0x238F6C0
+        NA: 0x238EB80
+        JP: 0x23900E0
       length:
         EU: 0xF
+        NA: 0xF
+        JP: 0xF
       description: |-
         "_SELL_CONFIRM\n"
         
@@ -781,8 +1013,12 @@ overlay22:
     - name: KEC_SHOP_SELL_CONFIRM_NEW_STR
       address:
         EU: 0x238F6D0
+        NA: 0x238EB90
+        JP: 0x23900F0
       length:
         EU: 0x13
+        NA: 0x13
+        JP: 0x13
       description: |-
         "_SELL_CONFIRM NEW\n"
         
@@ -790,8 +1026,12 @@ overlay22:
     - name: KEC_SHOP_BUY_CONFIRM_NEW_STR
       address:
         EU: 0x238F6E4
+        NA: 0x238EBA4
+        JP: 0x2390104
       length:
         EU: 0x12
+        NA: 0x12
+        JP: 0x12
       description: |-
         "_BUY_CONFIRM NEW\n"
         
@@ -799,8 +1039,12 @@ overlay22:
     - name: KEC_SHOP_SELL_EXPLA_STR
       address:
         EU: 0x238F6F8
+        NA: 0x238EBB8
+        JP: 0x2390118
       length:
         EU: 0xD
+        NA: 0xD
+        JP: 0xD
       description: |-
         "_SELL_EXPLA\n"
         
@@ -808,8 +1052,12 @@ overlay22:
     - name: KEC_SHOP_SELL_THANKS_STR
       address:
         EU: 0x238F708
+        NA: 0x238EBC8
+        JP: 0x2390128
       length:
         EU: 0xE
+        NA: 0xE
+        JP: 0xE
       description: |-
         "_SELL_THANKS\n"
         
@@ -817,8 +1065,12 @@ overlay22:
     - name: KEC_SHOP_SELL_ALL_STR
       address:
         EU: 0x238F718
+        NA: 0x238EBD8
+        JP: 0x2390138
       length:
         EU: 0xB
+        NA: 0xB
+        JP: 0xB
       description: |-
         "_SELL_ALL\n"
         
@@ -826,8 +1078,12 @@ overlay22:
     - name: KEC_SHOP_BUT_MULTI_STR
       address:
         EU: 0x238F724
+        NA: 0x238EBE4
+        JP: 0x2390144
       length:
         EU: 0xC
+        NA: 0xC
+        JP: 0xC
       description: |-
         "_BUT_MULTI\n"
         Likely a typo for "_BUY_MULTI\n".
@@ -836,8 +1092,12 @@ overlay22:
     - name: KEC_SHOP_SELL_MULTI_STR
       address:
         EU: 0x238F730
+        NA: 0x238EBF0
+        JP: 0x2390150
       length:
         EU: 0xD
+        NA: 0xD
+        JP: 0xD
       description: |-
         "_SELL_MULTI\n"
         
@@ -845,8 +1105,12 @@ overlay22:
     - name: KEC_SHOP_ALL_CONFIRM_STR
       address:
         EU: 0x238F740
+        NA: 0x238EC00
+        JP: 0x2390160
       length:
         EU: 0xE
+        NA: 0xE
+        JP: 0xE
       description: |-
         "_ALL_CONFIRM\n"
         
@@ -854,8 +1118,12 @@ overlay22:
     - name: KEC_SHOP_SELL_ALL_THANKS_STR
       address:
         EU: 0x238F750
+        NA: 0x238EC10
+        JP: 0x2390170
       length:
         EU: 0x11
+        NA: 0x11
+        JP: 0x11
       description: |-
         "SELL_ALL_THANKS\n"
         
@@ -863,8 +1131,12 @@ overlay22:
     - name: KEC_SHOP_BUY_MULTI_THANKS_STR
       address:
         EU: 0x238F764
+        NA: 0x238EC24
+        JP: 0x2390184
       length:
         EU: 0x12
+        NA: 0x12
+        JP: 0x12
       description: |-
         "BUY_MULTI_THANKS\n"
         
@@ -872,8 +1144,12 @@ overlay22:
     - name: KEC_SHOP_SELL_MULTI_THANKS_STR
       address:
         EU: 0x238F778
+        NA: 0x238EC38
+        JP: 0x2390198
       length:
         EU: 0x13
+        NA: 0x13
+        JP: 0x13
       description: |-
         "SELL_MULTI_THANKS\n"
         
@@ -881,8 +1157,12 @@ overlay22:
     - name: KEC_SHOP_CHANGEJOB_STR
       address:
         EU: 0x238F78C
+        NA: 0x238EC4C
+        JP: 0x23901AC
       length:
         EU: 0xB
+        NA: 0xB
+        JP: 0xB
       description: |-
         "ChangeJob\n"
         
@@ -907,6 +1187,7 @@ overlay22:
       length:
         EU: 0x8
         NA: 0x8
+        JP: 0x8
       description: |-
         Seems to contain item property data for the green kecleon shop.
         
@@ -919,6 +1200,7 @@ overlay22:
       length:
         EU: 0x8
         NA: 0x8
+        JP: 0x8
       description: |-
         Seems to contain item property data for the purple kecleon shop.
         
@@ -931,6 +1213,7 @@ overlay22:
       length:
         EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: |-
         Seems to handle the operations of the kecleon shop, and is shared for both brothers.
         

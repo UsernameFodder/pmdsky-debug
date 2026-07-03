@@ -1662,6 +1662,8 @@ overlay11:
     - name: LoadDuskullBankOverlay
       address:
         EU: 0x230D54C
+        NA: 0x230CBB0
+        JP: 0x230E15C
       description: |-
         Seems to handle loading overlay 15 for the duskull bank.
         
@@ -1669,6 +1671,8 @@ overlay11:
     - name: LoadLuminousSpringOverlay
       address:
         EU: 0x230D560
+        NA: 0x230CBC4
+        JP: 0x230E170
       description: |-
         Seems to handle loading overlay 16 for luminous spring.
         
@@ -1676,6 +1680,8 @@ overlay11:
     - name: LoadChimechoAssemblyOverlay
       address:
         EU: 0x230D574
+        NA: 0x230CBD8
+        JP: 0x230E184
       description: |-
         Seems to handle loading overlay 17 for the chimecho assembly.
         
@@ -1683,6 +1689,8 @@ overlay11:
     - name: LoadElectivireLinkShopOverlay
       address:
         EU: 0x230D59C
+        NA: 0x230CC00
+        JP: 0x230E1AC
       description: |-
         Seems to handle loading overlay 18 for the electivire link shop.
         
@@ -1690,6 +1698,8 @@ overlay11:
     - name: LoadSpindaCafeOverlayInit
       address:
         EU: 0x230D5C4
+        NA: 0x230CC28
+        JP: 0x230E1D4
       description: |-
         Seems to handle loading overlay 19 for initializing the spinda cafe.
         
@@ -1697,6 +1707,8 @@ overlay11:
     - name: LoadSpindaCafeOverlayResume
       address:
         EU: 0x230D5E8
+        NA: 0x230CC4C
+        JP: 0x230E1F8
       description: |-
         Seems to handle loading overlay 19 for resuming operations of the spinda cafe.
         
@@ -1704,6 +1716,8 @@ overlay11:
     - name: IsSpindaCafeOverlaySuspended
       address:
         EU: 0x230D60C
+        NA: 0x230CC70
+        JP: 0x230E21C
       description: |-
         Checks SPINDA_CAFE_OVERLAY_STATUS for if the Spinda Cafe is inactive.
         
@@ -1711,6 +1725,8 @@ overlay11:
     - name: LoadRecycleShopOverlayInit
       address:
         EU: 0x230D61C
+        NA: 0x230CC80
+        JP: 0x230E22C
       description: |-
         Seems to handle loading overlay 20 for initializing the recycle shop.
         
@@ -1718,6 +1734,8 @@ overlay11:
     - name: LoadRecycleShopOverlayResume
       address:
         EU: 0x230D644
+        NA: 0x230CCA8
+        JP: 0x230E254
       description: |-
         Seems to handle loading overlay 20 for resuming operations of the recycle shop.
         
@@ -1725,6 +1743,8 @@ overlay11:
     - name: IsRecycleShopOverlaySuspended
       address:
         EU: 0x230D67C
+        NA: 0x230CCE0
+        JP: 0x230E28C
       description: |-
         Checks RECYCLE_SHOP_OVERLAY_STATUS for if the recycle shop is inactive.
         
@@ -1732,6 +1752,8 @@ overlay11:
     - name: LoadCroagunkSwapShopOverlay
       address:
         EU: 0x230D6E4
+        NA: 0x230CD48
+        JP: 0x230E2F4
       description: |-
         Seems to handle loading overlay 21 for the croagunk swap shop.
         
@@ -1739,6 +1761,8 @@ overlay11:
     - name: LoadKecleonShopOverlay
       address:
         EU: 0x230D6F8
+        NA: 0x230CD5C
+        JP: 0x230E308
       description: |-
         Seems to handle loading overlay 22 for the kecleon brothers shop. Is used by both colors of Kecleon.
         
@@ -1746,6 +1770,8 @@ overlay11:
     - name: LoadKangaskhanOverlay
       address:
         EU: 0x230D720
+        NA: 0x230CD84
+        JP: 0x230E330
       description: |-
         Seems to handle loading overlay 23 for Kangaskhan storage, as well as Kangaskhan rock storage. 
         
@@ -1753,6 +1779,8 @@ overlay11:
     - name: LoadChanseyDaycareOverlay
       address:
         EU: 0x230D740
+        NA: 0x230CDA4
+        JP: 0x230E350
       description: |-
         Seems to handle loading overlay 24 for the Chansey daycare.
         
@@ -1760,6 +1788,8 @@ overlay11:
     - name: LoadXatuAppraisalOverlay
       address:
         EU: 0x230D754
+        NA: 0x230CDB8
+        JP: 0x230E364
       description: |-
         Seems to handle loading overlay 24 for Xatu's appraisal.
         
@@ -1778,6 +1808,8 @@ overlay11:
     - name: LoadRuleDungeonEffectsOverlay
       address:
         EU: 0x230D77C
+        NA: 0x230CDE0
+        JP: 0x230E38C
       description: |-
         Seems to be responsible for loading overlay 26 to handle rule dungeon effects.
         
@@ -1785,6 +1817,8 @@ overlay11:
     - name: LoadSpecialEpisodeDiscardOverlay1
       address:
         EU: 0x230D7CC
+        NA: 0x230CE30
+        JP: 0x230E3DC
       description: |-
         Seems to load overlay 27, which is believed to handle special episode discarding.
         
@@ -1792,6 +1826,8 @@ overlay11:
     - name: LoadSpecialEpisodeDiscardOverlay2
       address:
         EU: 0x230D7E0
+        NA: 0x230CE44
+        JP: 0x230E3F0
       description: |-
         Seems to load overlay 27, which is believed to handle special episode discarding.
         
@@ -2230,6 +2266,8 @@ overlay11:
         JP: 0x2326300
       length:
         EU: 0x4
+        NA: 0x4
+        JP: 0x4
       description: "Pointer to the exclusive_item_requirements struct, used by the swap shop."
     - name: SWAP_SHOP_INVENTORY_PTRS
       address:
@@ -2238,12 +2276,18 @@ overlay11:
         JP: 0x2326304
       length:
         EU: 0x8
+        NA: 0x8
+        JP: 0x8
       description: Host pointers to multiple structures used for performing internal Swap Shop checks.
     - name: SPINDA_CAFE_OVERLAY_STATUS
       address:
         EU: 0x23258EC
+        NA: 0x2324DAC
+        JP: 0x232630C
       length:
         EU: 0x4
+        NA: 0x4
+        JP: 0x4
       description: |-
         Tracks whether or not the spinda cafe overlay is suspended. 1 if it is inactive, 0 if it is active.
         
@@ -2251,8 +2295,12 @@ overlay11:
     - name: RECYCLE_SHOP_OVERLAY_STATUS
       address:
         EU: 0x23258F4
+        NA: 0x2324DB4
+        JP: 0x2326314
       length:
         EU: 0x4
+        NA: 0x4
+        JP: 0x4
       description: |-
         Tracks whether or not the recycle shop overlay is suspended. 1 if it is inactive, 0 if it is active.
         
@@ -2265,4 +2313,5 @@ overlay11:
       length:
         EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: The current world map

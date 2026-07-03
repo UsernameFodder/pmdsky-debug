@@ -326,6 +326,8 @@ ram:
     - name: PREV_MENU_ITEMS
       address:
         EU: 0x22AB5A8
+        NA: 0x22AAC68
+        JP: 0x22AC474
       length:
         EU: 0x15
       description: "A list of the previous menu item indexes the user had selected on different ingame menus, indexed by a 'menu ID' assigned to each one."

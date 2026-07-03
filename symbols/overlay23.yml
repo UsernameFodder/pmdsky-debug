@@ -16,6 +16,8 @@ overlay23:
     - name: KangaskhanStorageSubcaseManager1
       address:
         EU: 0x238AC80
+        NA: 0x238A140
+        JP: 0x238B6A0
       description: |-
         Seems responsible for handling the majority of the frame update behavior for kangaskhan storage, particularly window management.
         Shares this responsibility with KangaskhanStorageSubcaseManager1.
@@ -24,6 +26,8 @@ overlay23:
     - name: KangaskhanStorageSubcaseManager2
       address:
         EU: 0x238BD78
+        NA: 0x238B238
+        JP: 0x238C7C4
       description: |-
         Seems responsible for handling the majority of the frame update behavior for kangaskhan storage, particularly window management.
         Shares this responsibility with KangaskhanStorageSubcaseManager2.
@@ -32,6 +36,8 @@ overlay23:
     - name: KangaskhanStorageEntryPoint
       address:
         EU: 0x238CE68
+        NA: 0x238C328
+        JP: 0x238D8E0
       description: |-
         The sole entry_point for the kangaskhan storage overlay.
         
@@ -39,6 +45,8 @@ overlay23:
     - name: KangaskhanStorageDestructor
       address:
         EU: 0x238CF88
+        NA: 0x238C448
+        JP: 0x238DA00
       description: |-
         The sole destructor for the kangaskhan storage overlay.
         
@@ -46,6 +54,8 @@ overlay23:
     - name: KangaskhanStorageFrameUpdate
       address:
         EU: 0x238CFB4
+        NA: 0x238C474
+        JP: 0x238DA2C
       description: |-
         The sole frame_update for the kangaskhan storage overlay.
         
@@ -53,6 +63,8 @@ overlay23:
     - name: KangaskhanStorageCloseSimpleMenu
       address:
         EU: 0x238DBD8
+        NA: 0x238D098
+        JP: 0x238E650
       description: |-
         Closes a simple menu with the simple_menu_window_id from KANGASKHAN_STORAGE_MENU_PTR.
         
@@ -60,6 +72,8 @@ overlay23:
     - name: KangaskhanStorageShowDialogueAndPortraitIfNotRock
       address:
         EU: 0x238DC20
+        NA: 0x238D0E0
+        JP: 0x238E698
       description: |-
         Seems responsible for handling dialogue from kangaskhan.
         Does nothing if "KANGASKHAN_STORAGE_MENU_PTR->is_kanga_rock" is true.
@@ -70,6 +84,8 @@ overlay23:
     - name: KangaskhanStorageWithdrawSelectedItems
       address:
         EU: 0x238DC88
+        NA: 0x238D148
+        JP: 0x238E700
       description: |-
         Seems to iteratively remove selected items from storage, and add them to the bag. 
         Only used when multiple items are selected.
@@ -78,6 +94,8 @@ overlay23:
     - name: KangaskhanStorageDepositSelectedItems
       address:
         EU: 0x238DCF8
+        NA: 0x238D1B8
+        JP: 0x238E770
       description: |-
         Seems to iteratively remove selected items from the bag, and add them to storage. 
         Only used when multiple items are selected.
@@ -86,6 +104,8 @@ overlay23:
     - name: KangaskhanStorageWithdrawSingleItem
       address:
         EU: 0x238DD78
+        NA: 0x238D238
+        JP: 0x238E7F0
       description: |-
         Seems to remove a single item from storage, and add it to the bag.
         Subsequently clears the storage selected item table, likely for if multi-select was used on a single item.
@@ -94,6 +114,8 @@ overlay23:
     - name: KangaskhanStorageDepositSingleItem
       address:
         EU: 0x238DDB8
+        NA: 0x238D278
+        JP: 0x238E830
       description: |-
         Seems to remove a single item from the bag, and add it to storage.
         Subsequently clears the bag selected item table, likely for if multi-select was used on a single item.

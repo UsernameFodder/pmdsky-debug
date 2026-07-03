@@ -1102,10 +1102,14 @@ arm9:
     - name: MarkPaletteDataAsNeedingUpdate
       address:
         EU: 0x200A504
+        NA: 0x200A504
+        JP: 0x200A504
       description: "r0: palette_data"
     - name: CopyColorToPaletteDataRgba
       address:
         EU: 0x200A590
+        NA: 0x200A590
+        JP: 0x200A590
       description: |-
         Copies a single color to the RGBA palette of a palette_data struct, which will be transformed into RGB5 and copied into palette VRAM.
         
@@ -1115,6 +1119,8 @@ arm9:
     - name: FillPaletteDataRgba
       address:
         EU: 0x200A5B0
+        NA: 0x200A5B0
+        JP: 0x200A5B0
       description: |-
         Fills a portion of the RGBA palette of a palette_data struct, which will be transformed into RGB5 and copied into palette VRAM.
         
@@ -1837,6 +1843,8 @@ arm9:
     - name: MaybeGetFormattedItemName
       address:
         EU: 0x200D398
+        NA: 0x200D310
+        JP: 0x200D310
       description: |-
         Seems to get a formatted copy of an item.
         
@@ -1910,6 +1918,8 @@ arm9:
     - name: MaybeGetUncoloredFormattedItemName
       address:
         EU: 0x200D6E4
+        NA: 0x200D65C
+        JP: 0x200D65C
       description: |-
         Seems to return an uncolored copy of the item name, with the appropriate quantity tag.
         
@@ -1919,6 +1929,8 @@ arm9:
     - name: MaybeGetColoredFormattedItemName
       address:
         EU: 0x200D6F8
+        NA: 0x200D670
+        JP: 0x200D670
       description: |-
         Seems to return a colored copy of the item name, with the appropriate color and quantity tag.
         
@@ -2821,6 +2833,8 @@ arm9:
     - name: MaybeUpdateStorage
       address:
         EU: 0x2010124
+        NA: 0x201007C
+        JP: 0x201004C
       description: |-
         Just a guess.
         Seems like it might handle updating storage, syncing the item count data to the temporary item slots after interacting with storage.
@@ -3042,6 +3056,8 @@ arm9:
     - name: GetCurrentKecleonShop1ItemByIndex
       address:
         EU: 0x2010940
+        NA: 0x2010898
+        JP: 0x2010868
       description: |-
         Retrieves a bulk_item from the first Kecleon Shop at a specified index.
         
@@ -3081,6 +3097,8 @@ arm9:
     - name: RemoveInvalidKecleonShop2Items
       address:
         EU: 0x2010BE4
+        NA: 0x2010B3C
+        JP: 0x2010B0C
       description: |-
         Iterates through the current first Kecleon Shop items, and removes any with item_id ITEM_NONE.
         
@@ -3097,6 +3115,8 @@ arm9:
     - name: GetCurrentKecleonShop2ItemByIndex
       address:
         EU: 0x2010C4C
+        NA: 0x2010BA4
+        JP: 0x2010B74
       description: |-
         Retrieves a bulk_item from the first Kecleon Shop at a specified index.
         
@@ -4788,6 +4808,8 @@ arm9:
     - name: AddWanFragmentToOam
       address:
         EU: 0x201B770
+        NA: 0x201B6D4
+        JP: 0x201B72C
       description: |-
         Adds a WAN fragment to OAM.
         
@@ -4873,6 +4895,8 @@ arm9:
     - name: InitOamAdjustmentInfo
       address:
         EU: 0x201C09C
+        NA: 0x201C000
+        JP: 0x201C058
       description: |-
         Initializes an oam_adjustment_info array that will be used in an animation_control structure with default values (0xFFFF for the ANDs, 0 for the ORs).
         
@@ -5336,8 +5360,12 @@ arm9:
         EU:
           - 0x201E858
           - 0x2027B9C
-        NA: 0x20278A8
-        JP: 0x2027C08
+        NA:
+          - 0x201E7BC
+          - 0x20278A8
+        JP:
+          - 0x201E814
+          - 0x2027C08
       description: |-
         Gets the palette base address for a 3D element loaded from a WTE file.
         Normally takes the same parameters as were used in the specified file's ProcessWte call.
@@ -5724,6 +5752,8 @@ arm9:
     - name: CopyOrInitPreprocessorArgs
       address:
         EU: 0x2023920
+        NA: 0x20236FC
+        JP: 0x202374C
       description: |-
         Copies the input preprocessor_args struct to the output struct, or initializes it if the input is a null pointer.
         
@@ -5732,6 +5762,8 @@ arm9:
     - name: QuantityToString
       address:
         EU: 0x20239D8
+        NA: 0x20237B4
+        JP: 0x2023804
       description: |-
         Converts a quantity to a string, adding commas in between numbers when appropriate.
         
@@ -5744,6 +5776,12 @@ arm9:
         EU:
           - 0x2023B30
           - 0x2023B58
+        NA:
+          - 0x20238E0
+          - 0x2023900
+        JP:
+          - 0x2023930
+          - 0x2023950
       description: |-
         Converts a money quantity to a string, adding commas in between numbers when appropriate.
         
@@ -5754,6 +5792,8 @@ arm9:
     - name: BankQuantityToString
       address:
         EU: 0x2023B44
+        NA: 0x20238F0
+        JP: 0x2023940
       description: |-
         Converts a money quantity shown in the bank menu to a string, adding commas in between numbers when appropriate and also adding leading spaces.
         
@@ -5762,6 +5802,8 @@ arm9:
     - name: ExpQuantityToString
       address:
         EU: 0x2023B6C
+        NA: 0x2023910
+        JP: 0x2023960
       description: |-
         Converts an experience quantity to a string, adding commas in between numbers when appropriate.
         
@@ -6782,6 +6824,8 @@ arm9:
     - name: GetWindowIdSelectedMenuItemIdx
       address:
         EU: 0x202CA3C
+        NA: 0x202C748
+        JP: 0x202CAA0
       description: |-
         Gets the index of the current menu item the user has selected on the menu given by the window_id.
         
@@ -7281,6 +7325,8 @@ arm9:
     - name: IsTextboxState3
       address:
         EU: 0x202FCAC
+        NA: 0x202F9B8
+        JP: 0x202FCFC
       description: |-
         Checks if a text_box is in state 3.
         
@@ -7604,6 +7650,8 @@ arm9:
     - name: GetDigitInputResult
       address:
         EU: 0x2030C34
+        NA: 0x2030940
+        JP: 0x2030C60
       description: |-
         Seems to retrieve the result of a digit input advanced textbox. 
         
@@ -8036,6 +8084,8 @@ arm9:
     - name: DigitInputMenuInit
       address:
         EU: 0x203975C
+        NA: 0x2039460
+        JP: 0x2039868
       description: |-
         Seems to handle initialization of a digit_input_window_manager.
         Used by something other than Duskull Bank!
@@ -8044,6 +8094,8 @@ arm9:
     - name: DigitInputMenuReturn
       address:
         EU: 0x2039824
+        NA: 0x2039528
+        JP: 0x2039930
       description: |-
         Seems to process the result of DigitInputMenuFrameUpdate.
         Used by something other than Duskull Bank!
@@ -8053,6 +8105,8 @@ arm9:
     - name: DigitInputMenuInitDigits
       address:
         EU: 0x20398C8
+        NA: 0x20395CC
+        JP: 0x20399D4
       description: |-
         Seems to handle initializing the digit fields of a digit_input_menu struct, adjusting the max_digits to align with max_value, and more.
         
@@ -8060,6 +8114,8 @@ arm9:
     - name: DigitInputMenuGetDigits
       address:
         EU: 0x203997C
+        NA: 0x2039680
+        JP: 0x2039A88
       description: |-
         Seems to handle generating the digits of a digit input menu, given the max value it can display and the number of digits it can hold. 
         
@@ -8070,6 +8126,8 @@ arm9:
     - name: DigitInputMenuFrameUpdate
       address:
         EU: 0x20399E0
+        NA: 0x20396E4
+        JP: 0x2039AEC
       description: |-
         Run every frame a digit input menu is active, detecting player inputs via both buttons and the touch screen.
         
@@ -8078,6 +8136,8 @@ arm9:
     - name: DigitInputMenuCheckValidTouchScreenInput
       address:
         EU: 0x2039C48
+        NA: 0x203994C
+        JP: 0x2039D54
       description: |-
         Just a guess. Seems to be checking for touch screen input, and interpreting the results as an equivalent set of button inputs?
         
@@ -8086,6 +8146,8 @@ arm9:
     - name: DigitInputMenuCheckTouchUpDownArrow
       address:
         EU: 0x2039CF8
+        NA: 0x20399FC
+        JP: 0x2039E04
       description: |-
         Called by DigitInputMenuCheckValidTouchScreenInput, which this function assumes to be generally correct.
         Seems to specifically check for a touch screen press above or below the current digit, to increment/decrement it
@@ -8097,6 +8159,8 @@ arm9:
     - name: DigitInputMenuDrawDigits
       address:
         EU: 0x2039E08
+        NA: 0x2039B0C
+        JP: 0x2039F14
       description: |-
         Seems to handle actually drawing the digits on the advanced textbox for a digit_input_window_manager.
         
@@ -8104,6 +8168,8 @@ arm9:
     - name: DigitInputMenuDrawDigitsCallback
       address:
         EU: 0x2039F10
+        NA: 0x2039C14
+        JP: 0x203A01C
       description: |-
         A text_box_callback_fn_t for a digit input window advanced_text_box.
         Is used by something other than the Duskull Bank!
@@ -8175,6 +8241,8 @@ arm9:
     - name: InitUnkStorageStruct0xA0
       address:
         EU: 0x2042554
+        NA: 0x2042258
+        JP: 0x20425C8
       description: |-
         Initializes an unknown struct of size 0xA0, to a pointer in UNK_STORAGE_STRUCT_0XC.
         Appears to be used for kangaskhan storage.
@@ -8187,6 +8255,8 @@ arm9:
     - name: FreeUnkStorageStruct0xA0
       address:
         EU: 0x2042980
+        NA: 0x2042664
+        JP: 0x20429D4
       description: |-
         Frees an unknown struct of size 0xA0, to a pointer in UNK_STORAGE_STRUCT_0XC.
         Appears to be used for kangaskhan storage.
@@ -8195,6 +8265,8 @@ arm9:
     - name: ClearBagSelectedItemTable
       address:
         EU: 0x2042E14
+        NA: 0x2042AF8
+        JP: 0x2042E68
       description: |-
         Seems to clear the list of selected bag item bools.
         Known to be used by Kangaskhan Storage.
@@ -8203,6 +8275,8 @@ arm9:
     - name: IsBagItemIndexSelected
       address:
         EU: 0x2042EA0
+        NA: 0x2042B84
+        JP: 0x2042EF4
       description: |-
         Seems to check if a specified index in the bag is selected.
         Known to be used by Kangaskhan Storage.
@@ -8212,6 +8286,8 @@ arm9:
     - name: AllocUnkBagStruct
       address:
         EU: 0x2042EB4
+        NA: 0x2042B98
+        JP: 0x2042F08
       description: |-
         Allocates a currently unknown struct UNK_STORAGE_STRUCT_0XC, that seems to manage the bag while interacting with storage.
         Known to be used by Kangaskhan Storage.
@@ -8220,6 +8296,8 @@ arm9:
     - name: FreeUnkBagStruct
       address:
         EU: 0x2042ED8
+        NA: 0x2042BBC
+        JP: 0x2042F2C
       description: |-
         Frees a currently unknown struct UNK_STORAGE_STRUCT_0XC, that seems to manage the bag while interacting with storage.
         Known to be used by Kangaskhan Storage.
@@ -8228,6 +8306,8 @@ arm9:
     - name: InitUnkStorageStruct0x18c0
       address:
         EU: 0x204300C
+        NA: 0x2042CF0
+        JP: 0x2043060
       description: |-
         Allocates a currently unknown struct of size 0x18c0, and stores it to a pointer at UNK_STORAGE_STRUCT_0X14.
         Known to be used by Kangaskhan Storage.
@@ -8239,6 +8319,8 @@ arm9:
     - name: MaybeTrySelectStorageItem
       address:
         EU: 0x20432D4
+        NA: 0x2042FB8
+        JP: 0x2043328
       description: |-
         Seems to be responsible for selecting an item from storage, for multi-select. 
         Known to be used by Kangaskhan Storage.
@@ -8248,6 +8330,8 @@ arm9:
     - name: FreeUnkStorageStruct0x18c0
       address:
         EU: 0x2043498
+        NA: 0x204317C
+        JP: 0x20434EC
       description: |-
         Frees a currently unknown struct of size 0x18c0 from a pointer at UNK_STORAGE_STRUCT_0X14.
         Known to be used by Kangaskhan Storage.
@@ -8256,6 +8340,8 @@ arm9:
     - name: ClearStorageSelectedItemTable
       address:
         EU: 0x20437F0
+        NA: 0x20434D4
+        JP: 0x2043844
       description: |-
         Seems to clear the selected item bool table for storage.
         Known to be used by Kangaskhan Storage.
@@ -8264,6 +8350,8 @@ arm9:
     - name: CountSelectedStorageItems
       address:
         EU: 0x2043818
+        NA: 0x20434FC
+        JP: 0x204386C
       description: |-
         Seems to count the number of currently selected items in storage.
         Known to be used by Kangaskhan Storage. 
@@ -8272,6 +8360,8 @@ arm9:
     - name: GetFirstSelectedStorageItemIndex
       address:
         EU: 0x2043848
+        NA: 0x204352C
+        JP: 0x204389C
       description: |-
         Seems to retrieve the index of the first currently selected item in storage.
         Known to be used by Kangaskhan Storage. 
@@ -8280,6 +8370,8 @@ arm9:
     - name: IsStorageItemIndexSelected
       address:
         EU: 0x2043884
+        NA: 0x2043568
+        JP: 0x20438D8
       description: |-
         Seems to check if a specified storage item index is selected.
         Known to be used by Kangaskhan Storage. 
@@ -8289,6 +8381,8 @@ arm9:
     - name: AllocStorageSelectedItemTable
       address:
         EU: 0x20443B0
+        NA: 0x2044094
+        JP: 0x2044404
       description: |-
         Seems to allocate a table of bools for selected storage items to a pointer in UNK_STORAGE_STRUCT_0X14.
         Known to be used by Kangaskhan Storage.
@@ -8297,6 +8391,8 @@ arm9:
     - name: FreeStorageSelectedItemTable
       address:
         EU: 0x20443D4
+        NA: 0x20440B8
+        JP: 0x2044428
       description: |-
         Seems to free a table of bools for selected storage items from a pointer in UNK_STORAGE_STRUCT_0X14.
         Known to be used by Kangaskhan Storage.
@@ -8305,6 +8401,8 @@ arm9:
     - name: InitUnkStorageStruct0x410
       address:
         EU: 0x2045714
+        NA: 0x20453F8
+        JP: 0x2045758
       description: |-
         Allocates a currently unknown struct of size 0x410 at UNK_STORAGE_STRUCT_0X410_PTR. May be a state case structure of some kind.
         Likely used by Kangaskhan Storage, or some other storage interaction menu.
@@ -8315,6 +8413,8 @@ arm9:
     - name: UnkStorageStruct0x410CloseSimpleMenu
       address:
         EU: 0x20468F8
+        NA: 0x20465DC
+        JP: 0x204694C
       description: |-
         Seems to close a simple menu for a currently unknown struct of size 0x410 at UNK_STORAGE_STRUCT_0X410_PTR. May be a state case structure of some kind.
         Likely used by Kangaskhan Storage, or some other storage interaction menu.
@@ -8323,6 +8423,8 @@ arm9:
     - name: UnkStorageStruct0x410CreateDialogueBox
       address:
         EU: 0x2046940
+        NA: 0x2046624
+        JP: 0x2046994
       description: |-
         Seems to create a dialogue box for a currently unknown struct of size 0x410 at UNK_STORAGE_STRUCT_0X410_PTR. May be a state case structure of some kind.
         Likely used by Kangaskhan Storage, or some other storage interaction menu.
@@ -16377,8 +16479,12 @@ arm9:
     - name: UNK_STORAGE_STRUCT_0XC
       address:
         EU: 0x20B07C4
+        NA: 0x20AFEA8
+        JP: 0x20B171C
       length:
         EU: 0xC
+        NA: 0xC
+        JP: 0xC
       description: |-
         A currently unknown struct of size 0xc, with ties to kangaskhan storage.
         
@@ -16386,8 +16492,12 @@ arm9:
     - name: UNK_STORAGE_STRUCT_0X14
       address:
         EU: 0x20B07D0
+        NA: 0x20AFEB4
+        JP: 0x20B1728
       length:
         EU: 0x14
+        NA: 0x14
+        JP: 0x14
       description: |-
         A currently unknown struct of size 0x14, with ties to kangaskhan storage.
         
@@ -16395,8 +16505,12 @@ arm9:
     - name: UNK_STORAGE_STRUCT_0X8_PTR_1
       address:
         EU: 0x20B07E4
+        NA: 0x20AFEC8
+        JP: 0x20B173C
       length:
         EU: 0x4
+        NA: 0x4
+        JP: 0x4
       description: |-
         A pointer to a currently unknown struct of size 0x8, with ties to kangaskhan storage.
         
@@ -16404,8 +16518,12 @@ arm9:
     - name: UNK_STORAGE_WINDOW_STRUCT_0XC_PTR
       address:
         EU: 0x20B07E8
+        NA: 0x20AFECC
+        JP: 0x20B1740
       length:
         EU: 0x4
+        NA: 0x4
+        JP: 0x4
       description: |-
         A pointer to a currently unknown struct of size 0xc, with ties to kangaskhan storage.
         
@@ -16413,8 +16531,12 @@ arm9:
     - name: UNK_STORAGE_STRUCT_0X8_PTR_2
       address:
         EU: 0x20B07EC
+        NA: 0x20AFED0
+        JP: 0x20B1744
       length:
         EU: 0x4
+        NA: 0x4
+        JP: 0x4
       description: |-
         A pointer to a currently unknown struct of size 0x8, with ties to kangaskhan storage.
         
@@ -16422,8 +16544,12 @@ arm9:
     - name: UNK_STORAGE_STRUCT_0X410_PTR
       address:
         EU: 0x20B07F0
+        NA: 0x20AFED4
+        JP: 0x20B1748
       length:
         EU: 0x4
+        NA: 0x4
+        JP: 0x4
       description: |-
         A pointer to a currently unknown struct of size 0x410, with ties to kangaskhan storage.
         
@@ -16757,6 +16883,15 @@ arm9:
         EU: 0x20B34DC
         NA: 0x20B2B98
         JP: 0x20B440C
+      length:
+        EU: 0x4
+        NA: 0x4
+        JP: 0x4
+    - name: OSI_CONSOLE_TYPE_CACHE
+      address:
+        EU: 0x20B34F0
+        NA: 0x20B2BAC
+        JP: 0x20B4420
       length:
         EU: 0x4
         NA: 0x4

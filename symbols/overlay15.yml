@@ -16,6 +16,8 @@ overlay15:
     - name: InitDuskullBankStruct
       address:
         EU: 0x238AC80
+        NA: 0x238A140
+        JP: 0x238B6A0
       description: |-
         Allocates and initializes a duskull_bank struct at DUSKULL_BANK_STRUCT_PTR.
         
@@ -23,6 +25,8 @@ overlay15:
     - name: DuskullBankSubcaseManager1
       address:
         EU: 0x238AD74
+        NA: 0x238A234
+        JP: 0x238B794
       description: |-
         Seems to manage the more niche operations of the bank, primarily window management and player input interpretation.
         Consists of a switch case over the bank_subcase enum.
@@ -31,6 +35,8 @@ overlay15:
     - name: DuskullBankSubcaseManager2
       address:
         EU: 0x238B02C
+        NA: 0x238A4E8
+        JP: 0x238BA48
       description: |-
         Seems to manage the more niche operations of the bank, primarily window generation.
         Consists of a switch case over the bank_subcase enum.
@@ -39,6 +45,8 @@ overlay15:
     - name: BankUpdateDigitInputMenuDisplay
       address:
         EU: 0x238B8E4
+        NA: 0x238AD78
+        JP: 0x238C2E8
       description: |-
         Runs once every frame while the digit display menu is up, to redraw it as needed.
         
@@ -46,6 +54,8 @@ overlay15:
     - name: DuskullBankTextboxGoldStatusCallback
       address:
         EU: 0x238B930
+        NA: 0x238ADC4
+        JP: 0x238C338
       description: |-
         A text_box_callback_fn_t function for the gold status window that seems to populate the current and stored money.
         
@@ -53,6 +63,8 @@ overlay15:
     - name: DuskullBankDigitInputDisplayCallback
       address:
         EU: 0x238B9D8
+        NA: 0x238AE6C
+        JP: 0x238C3E4
       description: |-
         A text_box_callback_fn_t function for the digit display window that calls BankUpdateDigitInputMenuDisplay with the correct param from the duskull_bank struct.
         
@@ -60,6 +72,8 @@ overlay15:
     - name: DuskullBankEntryPoint
       address:
         EU: 0x238B9F4
+        NA: 0x238AE88
+        JP: 0x238C400
       description: |-
         The sole entry_point function for the duskull bank overlay.
         
@@ -67,6 +81,8 @@ overlay15:
     - name: DuskullBankDestructor
       address:
         EU: 0x238BA04
+        NA: 0x238AE98
+        JP: 0x238C410
       description: |-
         The sole destructor function for the duskull bank overlay.
         
@@ -74,6 +90,8 @@ overlay15:
     - name: DuskullBankFrameUpdate
       address:
         EU: 0x238BAC0
+        NA: 0x238AF54
+        JP: 0x238C4CC
       description: |-
         The sole frame_update function for the duskull bank overlay.
         
@@ -149,8 +167,12 @@ overlay15:
     - name: BANK_R_CLOSE_STR
       address:
         EU: 0x238BC38
+        NA: 0x238B0D4
+        JP: 0x238C64C
       length:
         EU: 0x9
+        NA: 0x9
+        JP: 0x9
       description: |-
         "R-Close\n"
         
@@ -158,8 +180,12 @@ overlay15:
     - name: BANK_M_OPEN_STR
       address:
         EU: 0x238BC44
+        NA: 0x238B0E0
+        JP: 0x238C658
       length:
         EU: 0x8
+        NA: 0x8
+        JP: 0x8
       description: |-
         "M-Open\n"
         
@@ -167,8 +193,12 @@ overlay15:
     - name: BANK_S_CLOSE_STR
       address:
         EU: 0x238BC4C
+        NA: 0x238B0E8
+        JP: 0x238C660
       length:
         EU: 0x9
+        NA: 0x9
+        JP: 0x9
       description: |-
         "S-Close\n"
         
@@ -176,8 +206,12 @@ overlay15:
     - name: MENU_BANK_MODE_CANCEL_STR
       address:
         EU: 0x238BC58
+        NA: 0x238B0F4
+        JP: 0x238C66C
       length:
         EU: 0x17
+        NA: 0x17
+        JP: 0x17
       description: |-
         "Menu_Bank_Mode_Cancel\n"
         
@@ -185,8 +219,12 @@ overlay15:
     - name: BANK_P_OPEN_STR
       address:
         EU: 0x238BC70
+        NA: 0x238B10C
+        JP: 0x238C684
       length:
         EU: 0x8
+        NA: 0x8
+        JP: 0x8
       description: |-
         "P-Open\n"
         
@@ -194,8 +232,12 @@ overlay15:
     - name: BANK_G_OPEN_STR
       address:
         EU: 0x238BC78
+        NA: 0x238B114
+        JP: 0x238C68C
       length:
         EU: 0x8
+        NA: 0x8
+        JP: 0x8
       description: |-
         "G-Open\n"
         
@@ -203,8 +245,12 @@ overlay15:
     - name: BANK_MES_NOT_CLOSE_STR
       address:
         EU: 0x238BC80
+        NA: 0x238B11C
+        JP: 0x238C694
       length:
         EU: 0xF
+        NA: 0xF
+        JP: 0xF
       description: |-
         "mes not close\n"
         
@@ -212,8 +258,12 @@ overlay15:
     - name: BANK_SUB_NOT_CLOSE_STR
       address:
         EU: 0x238BC90
+        NA: 0x238B12C
+        JP: 0x238C6A4
       length:
         EU: 0xF
+        NA: 0xF
+        JP: 0xF
       description: |-
         "sub not close\n"
         
@@ -221,8 +271,12 @@ overlay15:
     - name: BANK_SELECT_NOT_CLOSE_STR
       address:
         EU: 0x238BCA0
+        NA: 0x238B13C
+        JP: 0x238C6B4
       length:
         EU: 0x12
+        NA: 0x12
+        JP: 0x12
       description: |-
         "select not close\n"
         
@@ -230,8 +284,12 @@ overlay15:
     - name: BANK_INPUT_NOT_CLOSE_STR
       address:
         EU: 0x238BCB4
+        NA: 0x238B150
+        JP: 0x238C6C8
       length:
         EU: 0x11
+        NA: 0x11
+        JP: 0x11
       description: |-
         "Input not close\n"
         
@@ -256,6 +314,7 @@ overlay15:
       length:
         EU: 0x4
         NA: 0x4
+        JP: 0x4
       description: |-
         Manages the majority of duskull bank operations for the overlay.
         
