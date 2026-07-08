@@ -2388,6 +2388,8 @@ overlay29:
     - name: CheckBossFightVictory
       address:
         EU: 0x22F0178
+        NA: 0x22EF7C4
+        JP: 0x22F0DC8
       description: |-
         Checks if the boss fight should be marked as won after the given entity has fainted.
         
@@ -2495,6 +2497,8 @@ overlay29:
     - name: ReopenMinimap
       address:
         EU: 0x22F11FC
+        NA: 0x22F0848
+        JP: 0x22F1E4C
       description: |-
         Reopens the minimap if the option to hide it is not set.
         
@@ -3691,6 +3695,8 @@ overlay29:
     - name: HasStatusThatPreventsLeaderActing
       address:
         EU: 0x22FFE20
+        NA: 0x22FF3F4
+        JP: 0x23007E4
       description: |-
         Returns true if the monster has any status problem that prevents it from acting as the leader.
         
@@ -4012,6 +4018,8 @@ overlay29:
     - name: HasStatusThatPreventsOutlawEscaping
       address:
         EU: 0x2301530
+        NA: 0x2300B04
+        JP: 0x2301EE8
       description: |-
         Checks if a monster has a status (any kind of sleep or status under status_frozen) that prevents it from escaping as an outlaw.
         
@@ -6144,6 +6152,8 @@ overlay29:
     - name: EndLeechSeedStatusForAllTargets
       address:
         EU: 0x2316434
+        NA: 0x23159D4
+        JP: 0x2316EAC
       description: |-
         Ends the Leech Seed status for all monsters that the given monster gave the status to.
         
@@ -6699,6 +6709,8 @@ overlay29:
     - name: WaitUntilMonsterFliesOffscreen
       address:
         EU: 0x2319534
+        NA: 0x2318AD4
+        JP: 0x2319FA4
       description: |-
         Waits in a loop until the monster has flown offscreen (used for the effect of Seismic Toss and moves like Fly/Bounce).
         
@@ -6706,6 +6718,8 @@ overlay29:
     - name: WaitUntilMonsterIsBackOnGround
       address:
         EU: 0x23195A8
+        NA: 0x2318B48
+        JP: 0x231A018
       description: |-
         Waits in a loop until the monster is back on the ground (used for the effect of Seismic Toss).
         
@@ -6713,6 +6727,8 @@ overlay29:
     - name: BeginChargedMove
       address:
         EU: 0x231961C
+        NA: 0x2318BBC
+        JP: 0x231A08C
       description: |-
         Begins the given charged move for the target entity.
         
@@ -6724,6 +6740,8 @@ overlay29:
     - name: EndTwoTurnMove
       address:
         EU: 0x23197B8
+        NA: 0x2318D58
+        JP: 0x231A228
       description: |-
         Ends a two-turn move for the given entity, resetting its relevant fields.
         
@@ -10486,6 +10504,8 @@ overlay29:
     - name: GetAlertBoxLoadingStatus
       address:
         EU: 0x234C0F4
+        NA: 0x234B4F4
+        JP: 0x234C764
       description: "return: message_log_info->alert_box_info::loading_status"
     - name: LogMessage
       address:
@@ -10539,6 +10559,8 @@ overlay29:
     - name: WaitUntilAlertBoxPauseIsOver
       address:
         EU: 0x234C654
+        NA: 0x234BA54
+        JP: 0x234CCB8
       description: |-
         Waits until the dungeon alert box has finished scrolling, then waits until one of the following conditions is true:
         
@@ -10610,6 +10632,8 @@ overlay29:
     - name: WaitUntilFadeIsFinished
       address:
         EU: 0x234D338
+        NA: 0x234C738
+        JP: 0x234D99C
       description: |-
         Waits in a loop until the screen fade on the given screen is finished.
         
@@ -10718,6 +10742,8 @@ overlay29:
     - name: CloseMinimap
       address:
         EU: 0x234E158
+        NA: 0x234D558
+        JP: 0x234E7E4
       description: |-
         Closes the minimap.
         
@@ -11841,6 +11867,8 @@ overlay29:
     - name: DEFEAT_STRING_IDS
       address:
         EU: 0x2353E4C
+        NA: 0x235321C
+        JP: 0x235449C
       length:
         EU: 0x4
       description: "List that holds the string IDs for a monster being defeated (0 is 'was defeated!', 1 is 'fainted!')"
