@@ -1900,8 +1900,6 @@ move_effects:
       description: |-
         Move effect: Thundershock
         
-        This is identical to DoMoveDamageParalyze10, except it uses a different data symbol for the paralysis chance (but it's still 10%).
-        
         r0: attacker pointer
         r1: defender pointer
         r2: move
