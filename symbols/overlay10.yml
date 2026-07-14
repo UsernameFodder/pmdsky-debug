@@ -918,7 +918,7 @@ overlay10:
         EU: 0x2
         NA: 0x2
         JP: 0x2
-      description: "The chance of Lick (and others, see DoMoveDamageParalyze10) paralyzing, as a percentage (10%)."
+      description: "The chance of Lick (and others, see DoMoveDamageParalyze15) paralyzing, as a percentage (15%)."
     - name: THUNDER_FANG_PARALYZE_CHANCE
       address:
         EU: 0x22C4E84
