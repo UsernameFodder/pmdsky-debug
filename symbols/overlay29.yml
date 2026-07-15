@@ -9564,14 +9564,25 @@ overlay29:
         
         r0: Parameter value
         return: Direction
+    - name: TryOpenKeyDoor
+      address:
+        EU: 0x23445BC
+      description: |-
+        Attempts to open a locked door at the given tile if a locked door has not already
+        been opened on the floor.
+        
+        r0: user entity pointer
+        r1: tile pointer
+        r2: success string id
+        r3: failure string id
     - name: ApplyKeyEffect
       address:
         EU: 0x23448BC
         NA: 0x2343CD8
         JP: 0x234509C
       description: |-
-        Attempts to open a locked door in front of the target if a locked door has not already
-        been open on the floor.
+        Attempts to open a locked door above the target if a locked door has not already
+        been opened on the floor.
         
         r0: user entity pointer
         r1: target entity pointer

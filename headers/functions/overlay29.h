@@ -979,6 +979,7 @@ void ResetHiddenStairsSpawn(void);
 void PlaceFixedRoomTile(struct tile* tile, union fixed_room_action action, int x, int y,
                         bool place_item_or_trap);
 enum direction_id FixedRoomActionParamToDirection(uint8_t fixed_room_action_param);
+void TryOpenKeyDoor(struct entity* user, struct tile* tile, int success_msg_id, int fail_msg_id);
 void ApplyKeyEffect(struct entity* user, struct entity* target);
 void LoadFixedRoomData(void);
 int LoadFixedRoom(int param_1, int param_2, int param_3, undefined4 param_4);
