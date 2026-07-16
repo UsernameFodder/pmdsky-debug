@@ -5021,6 +5021,20 @@ arm9:
         
         r0: animation_control
         r1: animation_frame
+    - name: DisplayAnimationControlCurrentFrame
+      address:
+        EU: 0x201C660
+      description: |-
+        Displays the current frame of the animation_control struct.
+        
+        r0: animation_control
+    - name: DisplayAndSwitchAnimationControlCurrentFrame
+      address:
+        EU: 0x201CFF8
+      description: |-
+        Displays the current frame of the animation_control struct and switches it afterwards if applicable.
+        
+        r0: animation_control
     - name: FillOamAdjustmentInfo
       aliases:
         - FillOamAttributeInfo

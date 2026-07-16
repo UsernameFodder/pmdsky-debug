@@ -233,7 +233,7 @@ struct statuses {
     // A value of 1 mean "high up" (Fly/Bounce). A value of 2 means some other condition like
     // Dig, Shadow Force, etc. Other values are treated as invalid. Also used for the move
     // Seismic Toss when throwing up the target.
-    uint8_t two_turn_move_invincible;
+    struct two_turn_invincibility_8 two_turn_move_invincible;
     // 0x63: Related to handling AI when a decoy is present on the floor?
     // Seems to only be 0, 1, 2
     undefined decoy_ai_tracker;
@@ -526,7 +526,9 @@ struct monster {
     struct position pixel_pos;  // 0x182: The monster's graphical position on screen?
     undefined field_0x186;
     undefined field_0x187;
-    int elevation_mirror; // 0x188: Mirror of the elevation field in struct entity
+    // 0x188: Works the same as the elevation field in struct entity, but is not
+    // tied to it.
+    int elevation2;
     // 0x18C: Bitflags that cause non-damaging exclusive items to trigger on the
     // attacker after they have completed their move. For example, the Eclipse Robe
     // (Darkrai exclusive item) may afflict attacking enemies with the nightmare
@@ -708,7 +710,7 @@ struct entity {
     enum entity_type type;                  // 0x0
     struct position pos;                    // 0x4
     struct position prev_pos;               // 0x8
-    struct pixel_position pixel_pos;        // 0xC
+    struct pixel_position pixel_pos;        // 0xC: Shifted left by 8
     struct pixel_position pixel_pos_mirror; // 0x14: Monsters only?
     // 0x1C: Graphical parameter for evelation above the ground. Last byte behaves weirdly.
     int elevation;
@@ -2577,7 +2579,7 @@ struct dungeon_button_input {
 };
 ASSERT_SIZE(struct dungeon_button_input, 14);
 
-struct secret_bazaar_dialogue_info {
+struct dungeon_dialogue_info {
     undefined field_0x0[16];
     int8_t dialogue_window_id;     // 0x10
     int8_t menu_window_id;         // 0x11
@@ -2599,7 +2601,7 @@ struct secret_bazaar_dialogue_info {
     struct simple_menu_id_item* menu_items; // 0x470
     undefined4 field_0x474;
 };
-ASSERT_SIZE(struct secret_bazaar_dialogue_info, 1144);
+ASSERT_SIZE(struct dungeon_dialogue_info, 1144);
 
 // Temporary struct used by TryRecruit.
 struct recruit_info {

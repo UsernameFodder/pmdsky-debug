@@ -95,7 +95,7 @@ extern int TRIPLE_KICK_SUCCESSIVE_HITS;
 extern int METRONOME_NEXT_INDEX;
 extern struct tile DEFAULT_TILE_COPY;
 extern struct floor_generation_status FLOOR_GENERATION_STATUS;
-extern struct secret_bazaar_dialogue_info* SECRET_BAZAAR_DIALOGUE_INFO_PTR;
+extern struct dungeon_dialogue_info* DUNGEON_DIALOGUE_INFO_PTR;
 extern struct stairs_menu* STAIRS_MENU_PTR;
 
 #endif

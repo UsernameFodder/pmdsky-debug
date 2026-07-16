@@ -30,6 +30,7 @@ void ResetDungeonColorPalette(void);
 struct trap* GetTrapInfo(struct entity* trap_entity);
 struct item* GetItemInfo(struct entity* item_entity);
 struct tile* GetTileAtEntity(struct entity* entity);
+void DisplayMonstersAndItems(void);
 void UpdateEntityPixelPos(struct entity* entity, struct pixel_position* pixel_pos);
 void SetEntityPixelPosXY(struct entity* entity, uint32_t x, uint32_t y);
 void IncrementEntityPixelPosXY(struct entity* entity, uint32_t x, uint32_t y);
@@ -37,6 +38,7 @@ struct entity* CreateEnemyEntity(enum monster_id monster_id);
 struct entity* SpawnTrap(enum trap_id trap_id, struct position* position, uint8_t team,
                          uint8_t flags);
 struct entity* SpawnItemEntity(struct position* position);
+void CreateTemporaryEntity(struct entity* entity);
 bool ShouldMinimapDisplayEntity(struct entity* entity);
 bool ShouldDisplayEntity(struct entity* entity, undefined param_2);
 bool ShouldDisplayEntityWrapper(struct entity* entity);
@@ -61,6 +63,7 @@ int PlayEffectAnimationEntity(struct entity* entity, int effect_id, bool play_no
 int PlayEffectAnimationPos(struct position* pos, int effect_id, bool play_now);
 int PlayEffectAnimationPixelPos(struct pixel_position* pixel_pos, int effect_id, bool play_now);
 void AnimationDelayOrSomething(undefined param_1);
+void CopyStatusIconFlags(struct status_icon_flags* dst, struct entity* src);
 void UpdateStatusIconFlags(struct entity* entity);
 void PlayQuestionMarkEffect(struct entity* entity);
 void PlayExclamationPointEffect(struct entity* entity);
@@ -113,12 +116,14 @@ void AssignTopScreenHandlers(void** funcs, top_screen_status_fn_t init_func,
 void HandleTopScreenFades(void);
 int FreeTopScreen(void);
 void DungeonChangeTopScreenType(int top_screen_type);
+void DrawDungeonControlsText(int window_id);
 enum direction_id GetDirectionTowardsPosition(struct position* origin, struct position* target);
 int GetChebyshevDistance(struct position* position_a, struct position* position_b);
 bool IsPositionActuallyInSight(struct position* origin, struct position* target,
                                bool user_has_dropeye);
 bool IsPositionInSight(struct position* origin, struct position* target, bool user_has_dropeye);
 bool IsPositionWithinTwoTiles(struct position* origin, struct position* target);
+bool DisplayThrownItemShadow(int16_t x, int16_t y);
 struct entity* GetLeader(void);
 struct monster* GetLeaderMonster(void);
 bool GetRandomTile(struct position* pos_out, bool exclude_key_doors);
@@ -191,6 +196,7 @@ bool AreLateGameTrapsEnabledWrapper(void);
 void SpawnTraps(void);
 void SpawnEnemyTrapAtPos(enum trap_id trap_id, int16_t x, int16_t y, uint8_t flags,
                          bool is_visible);
+void CreateTrapAndStairsHallucinations(void);
 void PrepareTrapperTrap(struct entity* entity, enum trap_id trap_id, uint8_t team);
 bool CanLayTrap(struct position* pos);
 bool TrySpawnTrap(struct position* pos, enum trap_id trap_id, uint8_t team, bool visible);
@@ -224,6 +230,8 @@ void RevealTrapsNearby(struct entity* monster);
 bool RevealTrapAtPos(int x, int y);
 void CheckBossFightVictory(struct entity* fainted_entity, enum monster_behavior behavior,
                            bool change_music);
+void ChangeTeamAnimationsToIdle(void);
+bool IsFloorOver2(void);
 bool ShouldRunMonsterAi(struct entity* monster);
 bool DebugRecruitingEnabled(void);
 void TryActivateIqBooster(void);
@@ -236,6 +244,7 @@ bool TalkToSecretBazaarNpcWithYesNoMenu(int string_id, struct entity* shopkeeper
                                         struct simple_menu_id_item* menu_items);
 void MakeTargetFaceUserAndIdle(struct entity* target, struct entity* user);
 void SubtractMoneyCarriedWithSfx(int amount);
+void MakeSecretBazaarNpcsIdleInDirection(enum direction_id dir);
 void ReopenMinimap(void);
 void GonePebbleGradualPaletteShift(struct rgba* palette, uint32_t param_2);
 bool TalkToSecretBazaarNpc(int string_id, struct entity* shopkeeper, enum portrait_emotion emotion,
@@ -295,7 +304,7 @@ bool CheckTeamMemberIdxVeneer(int member_idx);
 bool CheckMonsterTeamMemberIdx(struct entity* entity);
 bool IsMonsterIdInNormalRangeVeneer(enum monster_id monster_id);
 void BoostIQ(struct entity* entity, int iq_boost, bool suppress_logs);
-void ChangeMonsterAnimationToIdle(struct entity* entity, enum direction_id direction);
+void MakeMonsterIdleInDirection2(struct entity* entity, enum direction_id direction);
 bool ShouldMonsterHeadToStairs(struct entity* entity);
 void DisplayLinkedMovesWarnings(struct entity* entity, int move_slot);
 bool MewSpawnCheck(enum monster_id monster_id, bool fail_if_mew);
@@ -359,7 +368,7 @@ bool IsInvalidSpawnTile(enum monster_id monster_id, struct tile* tile);
 enum mobility_type GetMobilityTypeAfterIqSkills(struct entity* monster,
                                                 enum mobility_type mobility_type);
 bool CanMoveThroughWalls(struct entity* monster);
-bool CannotStandOnTile(struct entity* monster, struct tile* tile);
+bool CannotStandOnTile(struct entity* monster, struct position* tile_pos);
 int CalcSpeedStage(struct entity* entity, int counter_weight);
 int CalcSpeedStageWrapper(struct entity* entity);
 int GetNumberOfAttacks(struct entity* entity);
@@ -438,9 +447,14 @@ void GetMonsterMoves(struct move_id_16* out_moves, enum monster_id monster_id, i
 void EvolveMonster(struct entity* user, struct entity* target, enum monster_id new_monster_id);
 void DisplayMonsterShadow(bool display_shadow, enum shadow_type shadow_type, bool yellow_circle,
                           int16_t x, int16_t y);
+void DisplayMonster(struct entity* entity);
+void AnimateFlyingMoves(struct entity* entity);
 void ChangeMonsterAnimation(struct entity* monster, int8_t animation_id,
                             enum direction_id direction);
+void ChangeMonsterAnimationToIdle(struct entity* monster, enum direction_id direction);
+void ChangeMonsterAnimationToHurt(struct entity* monster, enum direction_id direction);
 uint8_t GetIdleAnimationId(struct entity* entity);
+void MakeMonsterIdleInDirection(struct entity* entity, enum direction_id direction);
 void DetermineAllMonsterShadow(void);
 enum shadow_type DetermineMonsterShadow(struct entity* monster);
 bool DisplayActions(struct entity* param_1);
@@ -994,6 +1008,8 @@ void GenerateCleanItem(struct item* item, enum item_id item_id);
 void TryLeaderItemPickUp(struct position* position, bool flag);
 bool SpawnItem(struct position* position, struct item* item, bool flag);
 void RemoveGroundItem(struct position* position, bool update_shop_counters);
+bool DisplayItem(struct entity* item, bool hallucinate, bool on_floor, enum direction_id dir,
+                 bool priority);
 void SpawnDroppedItemWrapper(struct entity* entity, struct position* pos, struct item* item,
                              undefined4 param_4);
 void SpawnDroppedItem(struct entity* entity, struct entity* item_entity, struct item* item,
@@ -1006,6 +1022,9 @@ void AddHeldItemToBag(struct monster* monster);
 void RemoveEmptyItemsInBagWrapper(void);
 void GenerateItem(struct item* item, enum item_id item_id, uint16_t quantity,
                   enum gen_item_stickiness sticky_type);
+void HandleRegularProjectileThrow(struct entity* user, struct item* item,
+                                  struct position* start_pos, enum direction dir,
+                                  struct projectile_throw_info* projectile_throw_info);
 void HandleCurvedProjectileThrow(struct entity* user, struct item* item, struct position* start_pos,
                                  struct position* target_pos,
                                  struct projectile_throw_info* projectile_throw_info);
@@ -1105,10 +1124,11 @@ void DisplayMessage2(struct portrait_params* portrait, int message_id, bool wait
 bool YesNoMenu(undefined param_1, int string_id, int default_option, undefined param_4);
 void CloseMinimap(void);
 void DisplayMessageInternal(int message_id, bool wait_for_input, struct portrait_params* portrait,
-                            undefined4 param_4, undefined4 param_5, undefined4 param_6);
+                            undefined4 param_4, struct preprocessor_args* preprocessor_args,
+                            undefined4 param_6);
 void PrintMissionCompleteString(int string_id, undefined4 param_2, undefined4 param_3,
                                 undefined4 param_4, undefined1 param_5);
-void InitSecretBazaarDialogueInfo(void);
+void InitDungeonDialogueInfo(void);
 void OpenMenu(undefined param_1, undefined param_2, bool open_bag);
 void StairsMenuAfterStep(struct entity* leader, bool leave_minimap_closed_after);
 int DungeonModeSetupAndShowNameKeyboard(char* str_keyboard_result, char* buffer,

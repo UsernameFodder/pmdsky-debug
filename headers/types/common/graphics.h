@@ -10,7 +10,9 @@
 // Mentioned under the name of "AnimeCtrl" in a debug message.
 struct animation_control {
     uint16_t some_bitfield;
-    undefined2 field1_0x2;
+    uint16_t unk_flags1 : 4;
+    uint16_t no_auto_frame_switch : 1;
+    uint16_t unk_flags2 : 11;
     undefined2 field2_0x4;
     uint16_t anim_frame_duration;
     undefined2 field4_0x8;

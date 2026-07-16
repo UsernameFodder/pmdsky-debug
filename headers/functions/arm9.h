@@ -461,7 +461,7 @@ void SelectWaza(int waza_id);
 void PlayBgmByIdVeneer(enum music_id music_id);
 void PlayBgmByIdVolumeVeneer(enum music_id music_id, undefined param_2, int volume);
 bool IsMePlaying(int me_id);
-void PlaySeByIdVolumeWrapper(int index);
+void PlaySeByIdVolumeWrapper(int se_id);
 void PlaySeVolumeWrapper(int index);
 void PlayBgmById(enum music_id music_id);
 void PlayBgmByIdVolume(enum music_id music_id, undefined param_2, int volume);
@@ -529,6 +529,8 @@ void SetAndPlayAnimationForAnimationControl(struct animation_control* anim_ctrl,
 void SwitchAnimationControlToNextFrame(struct animation_control* anim_ctrl);
 void LoadAnimationFrameAndIncrementInAnimationControl(struct animation_control* anim_ctrl,
                                                       struct wan_animation_frame* anim_frame);
+void DisplayAnimationControlCurrentFrame(struct animation_control* anim_ctrl);
+void DisplayAndSwitchAnimationControlCurrentFrame(struct animation_control* anim_ctrl);
 void FillOamAdjustmentInfo(struct animation_control* dst, uint16_t* src);
 uint32_t AnimationControlGetAllocForMaxFrame(struct animation_control* anim_ctrl);
 void DeleteWanTableEntry(struct wan_table* wan_table, int wan_id);

@@ -441,6 +441,13 @@ overlay29:
         
         r0: pointer to entity
         return: pointer to tile
+    - name: DisplayMonstersAndItems
+      address:
+        EU: 0x22E2194
+      description: |-
+        Displays all monsters on the top and bottom screen as well as all items (including hallucinated ones) on the floor.
+        
+        No params.
     - name: UpdateEntityPixelPos
       address:
         EU: 0x22E2380
@@ -508,6 +515,13 @@ overlay29:
         
         r0: position
         return: entity pointer for the newly added item, or null on failure
+    - name: CreateTemporaryEntity
+      address:
+        EU: 0x22E2DB0
+      description: |-
+        Creates a temporary entity to be used as a placeholder for functions that require one.
+        
+        r0: [output] entity pointer
     - name: ShouldMinimapDisplayEntity
       address:
         EU: 0x22E2DD8
@@ -801,6 +815,14 @@ overlay29:
         Might wait until the animation is done? Contains several loops that call AdvanceFrame.
         
         r0: ?
+    - name: CopyStatusIconFlags
+      address:
+        EU: 0x22E43F0
+      description: |-
+        Copies a monster's status_icon_flags to the destination pointer.
+        
+        r0: [output] status_icon_flags
+        r1: entity pointer
     - name: UpdateStatusIconFlags
       address:
         EU: 0x22E4464
@@ -1321,6 +1343,13 @@ overlay29:
         Seems to change the top screen display type in dungeon mode.
         
         r0: index of top screen mode to change to
+    - name: DrawDungeonControlsText
+      address:
+        EU: 0x22E9810
+      description: |-
+        Draws the text for the top screen controls menu in the given window.
+        
+        r0: window id
     - name: GetDirectionTowardsPosition
       address:
         EU: 0x22E99D0
@@ -1381,6 +1410,15 @@ overlay29:
         r0: Origin position
         r1: Target position
         return: True if the target position within two tiles of the origin position.
+    - name: DisplayThrownItemShadow
+      address:
+        EU: 0x22E9E38
+      description: |-
+        Displays the shadow of an item that is being thrown.
+        
+        r0: x (pixel pos)
+        r1: y (pixel pos)
+        return: true if the shadow was displayed (pixel pos was not out of bounds)
     - name: GetLeader
       address:
         EU: 0x22E9F30
@@ -2082,6 +2120,15 @@ overlay29:
         r2: y position
         r3: flags
         stack[0]: visibility flag
+    - name: CreateTrapAndStairsHallucinations
+      address:
+        EU: 0x22EE380
+      description: |-
+        Places hallucination items at the locations of traps and stairs.
+        
+        Removing the original texture of the tile is handled elsewhere.
+        
+        No params.
     - name: PrepareTrapperTrap
       address:
         EU: 0x22EE584
@@ -2396,6 +2443,20 @@ overlay29:
         r0: fainted entity
         r1: behavior of fainted monster (the function will do nothing if it's not a fixed room enemy)
         r2: whether to change the music if the boss fight is over
+    - name: ChangeTeamAnimationsToIdle
+      address:
+        EU: 0x22F02EC
+      description: |-
+        Changes the animations of all team members to idle.
+        
+        No params.
+    - name: IsFloorOver2
+      address:
+        EU: 0x22F037C
+      description: |-
+        Same as IsFloorOver, but with a redundant check for end_floor_flag.
+        
+        return: bool
     - name: ShouldRunMonsterAi
       address:
         EU: 0x22F03A0
@@ -2494,6 +2555,13 @@ overlay29:
         Subtracts the amount of money from the the player's current amount of money and plays the sound effect for buying an item.
         
         r0: money amount
+    - name: MakeSecretBazaarNpcsIdleInDirection
+      address:
+        EU: 0x22F119C
+      description: |-
+        Changes the animations of all secret bazaar shopkeepers to idle in the given direction and updates their target_pos field.
+        
+        r0: direction
     - name: ReopenMinimap
       address:
         EU: 0x22F11FC
@@ -2525,7 +2593,7 @@ overlay29:
         r1: shopkeeper entity pointer
         r2: portrait emotion
         r3: pointer to an array of simple_menu_id_items (null if there is no menu)
-        stack[0]: ? (changes something in secret_bazaar_dialogue_info if true. seems to only be true if there is a menu)
+        stack[0]: ? (changes something in dungeon_dialogue_info if true. seems to only be true if there is a menu)
         return: ? (bool)
     - name: GetLeaderAction
       address:
@@ -3106,13 +3174,13 @@ overlay29:
         r0: monster entity pointer
         r1: iq boost
         r2: bool suppress logs
-    - name: ChangeMonsterAnimationToIdle
+    - name: MakeMonsterIdleInDirection2
       address:
         EU: 0x22FAD6C
         NA: 0x22FA360
         JP: 0x22FB908
       description: |-
-        Makes the monster play their idle animation in the given direction.
+        Makes the monster play their idle animation in the given direction and sets the direction field of their action struct.
         
         r0: entity pointer
         r1: direction
@@ -3766,11 +3834,13 @@ overlay29:
         return: True if the monster can move through walls.
     - name: CannotStandOnTile
       address:
-        EU: 0x23006C8
+        EU:
+          - 0x2300384
+          - 0x23006C8
         NA: 0x22FFC9C
         JP: 0x23010AC
       description: |-
-        Checks if a given monster cannot stand on a given tile.
+        Checks if a given monster cannot stand on the tile at the given position.
         
         Reasons include:
         - The coordinates of the tile are out of bounds
@@ -3778,7 +3848,7 @@ overlay29:
         - The monster does not have the required mobility to stand on the tile
         
         r0: Entity pointer
-        r1: Tile pointer
+        r1: Tile position pointer
         return: True if the monster cannot stand on the specified tile, false if it can
     - name: CalcSpeedStage
       address:
@@ -4599,6 +4669,20 @@ overlay29:
         r2: whether to display a yellow circle (for team members and special cases like decoys, rescue clients, etc.)
         r3: the x-coordinate in OAM plus some constant offset. Valid input range: (-0x20, 0x11F)
         stack[0]: the y-coordinate in OAM plus some constant offset. Valid input range: (-0x20, 0xE0)
+    - name: DisplayMonster
+      address:
+        EU: 0x2304944
+      description: |-
+        Handles displaying the monster on the bottom screen.
+        
+        r0: entity pointer
+    - name: AnimateFlyingMoves
+      address:
+        EU: 0x2305114
+      description: |-
+        Called every frame to make the monster fly up when its two_turn_move_invincible field is set to TWO_TURN_FLYING, and back down when its value is changed.
+        
+        r0: entity pointer
     - name: ChangeMonsterAnimation
       address:
         EU: 0x23053D4
@@ -4612,6 +4696,26 @@ overlay29:
         r0: Entity pointer
         r1: ID of the animation to set
         r2: Direction to turn the monster in, or DIR_NONE to keep the current direction
+    - name: ChangeMonsterAnimationToIdle
+      address:
+        EU: 0x2305474
+      description: |-
+        Changes the animation a monster is currently playing to its idle animation. Optionally changes their direction as well.
+        
+        Does nothing if the provided entity is not a monster.
+        
+        r0: Entity pointer
+        r1: Direction to turn the monster in, or DIR_NONE to keep the current direction
+    - name: ChangeMonsterAnimationToHurt
+      address:
+        EU: 0x23054B0
+      description: |-
+        Changes the animation a monster is currently playing to its hurt animation. Optionally changes their direction as well.
+        
+        Does nothing if the provided entity is not a monster.
+        
+        r0: Entity pointer
+        r1: Direction to turn the monster in, or DIR_NONE to keep the current direction
     - name: GetIdleAnimationId
       address:
         EU: 0x23054E0
@@ -4624,6 +4728,14 @@ overlay29:
         
         r0: pointer to entity
         return: animation ID
+    - name: MakeMonsterIdleInDirection
+      address:
+        EU: 0x2305528
+      description: |-
+        Makes the monster play their idle animation in the given direction and sets the direction field of their action struct.
+        
+        r0: entity pointer
+        r1: direction
     - name: DetermineAllMonsterShadow
       address:
         EU: 0x2305590
@@ -9732,6 +9844,18 @@ overlay29:
         
         r0: Position where the item is located
         r1: If true, update dungeon::poke_buy_kecleon_shop and dungeon::poke_sold_kecleon_shop
+    - name: DisplayItem
+      address:
+        EU: 0x23463B4
+      description: |-
+        Displays an item.
+        
+        r0: item entity pointer
+        r1: whether the camera entity is hallucinating
+        r2: whether the item is on the floor
+        r3: direction
+        stack[0]: whether the item should be displayed at a higher priority than monsters
+        return: whether the item was successfully displayed
     - name: SpawnDroppedItemWrapper
       address:
         EU: 0x2346628
@@ -9838,6 +9962,17 @@ overlay29:
         r1: item ID
         r2: quantity
         r3: stickiness type (enum gen_item_stickiness)
+    - name: HandleRegularProjectileThrow
+      address:
+        EU: 0x2348118
+      description: |-
+        Throws an item in a straight line.
+        
+        r0: monster entity throwing the item
+        r1: item being thrown
+        r2: position to start throwing the item from
+        r3: direction to throw the item in
+        stack[0]: Metadata about the item being thrown
     - name: HandleCurvedProjectileThrow
       address:
         EU: 0x23487C8
@@ -10760,7 +10895,7 @@ overlay29:
         r1: True to wait for player input before closing the dialogue box, false to close it automatically once all the characters get printed.
         r2: pointer to the structure representing the desired state of the portrait
         r3: ?
-        stack[0]: ?
+        stack[0]: preprocessor args
         stack[1]: ?
     - name: PrintMissionCompleteString
       address:
@@ -10776,13 +10911,15 @@ overlay29:
         r2: ?
         r3: ?
         stack[0]: ?
-    - name: InitSecretBazaarDialogueInfo
+    - name: InitDungeonDialogueInfo
+      aliases:
+        - InitSecretBazaarDialogueInfo
       address:
         EU: 0x234E758
         NA: 0x234DB58
         JP: 0x234EDE4
       description: |-
-        Initializes the struct pointed to by SECRET_BAZAAR_DIALOGUE_INFO_PTR.
+        Initializes the struct pointed to by DUNGEON_DIALOGUE_INFO_PTR.
         
         No params.
     - name: OpenMenu
