@@ -444,6 +444,8 @@ overlay29:
     - name: DisplayMonstersAndItems
       address:
         EU: 0x22E2194
+        NA: 0x22E1854
+        JP: 0x22E2EE4
       description: |-
         Displays all monsters on the top and bottom screen as well as all items (including hallucinated ones) on the floor.
         
@@ -518,6 +520,8 @@ overlay29:
     - name: CreateTemporaryEntity
       address:
         EU: 0x22E2DB0
+        NA: 0x22E2470
+        JP: 0x22E3B04
       description: |-
         Creates a temporary entity to be used as a placeholder for functions that require one.
         
@@ -818,6 +822,8 @@ overlay29:
     - name: CopyStatusIconFlags
       address:
         EU: 0x22E43F0
+        NA: 0x22E3A40
+        JP: 0x22E50B0
       description: |-
         Copies a monster's status_icon_flags to the destination pointer.
         
@@ -1346,6 +1352,8 @@ overlay29:
     - name: DrawDungeonControlsText
       address:
         EU: 0x22E9810
+        NA: 0x22E8E60
+        JP: 0x22EA4C8
       description: |-
         Draws the text for the top screen controls menu in the given window.
         
@@ -1413,6 +1421,8 @@ overlay29:
     - name: DisplayThrownItemShadow
       address:
         EU: 0x22E9E38
+        NA: 0x22E9488
+        JP: 0x22EAAF0
       description: |-
         Displays the shadow of an item that is being thrown.
         
@@ -2123,6 +2133,8 @@ overlay29:
     - name: CreateTrapAndStairsHallucinations
       address:
         EU: 0x22EE380
+        NA: 0x22ED9D0
+        JP: 0x22EF034
       description: |-
         Places hallucination items at the locations of traps and stairs.
         
@@ -2446,6 +2458,8 @@ overlay29:
     - name: ChangeTeamAnimationsToIdle
       address:
         EU: 0x22F02EC
+        NA: 0x22EF938
+        JP: 0x22F0F3C
       description: |-
         Changes the animations of all team members to idle.
         
@@ -2453,6 +2467,8 @@ overlay29:
     - name: IsFloorOver2
       address:
         EU: 0x22F037C
+        NA: 0x22EF9C8
+        JP: 0x22F0FCC
       description: |-
         Same as IsFloorOver, but with a redundant check for end_floor_flag.
         
@@ -3837,8 +3853,12 @@ overlay29:
         EU:
           - 0x2300384
           - 0x23006C8
-        NA: 0x22FFC9C
-        JP: 0x23010AC
+        NA:
+          - 0x22FF958
+          - 0x22FFC9C
+        JP:
+          - 0x2300D28
+          - 0x23010AC
       description: |-
         Checks if a given monster cannot stand on the tile at the given position.
         
@@ -4672,6 +4692,8 @@ overlay29:
     - name: DisplayMonster
       address:
         EU: 0x2304944
+        NA: 0x2303F18
+        JP: 0x2305468
       description: |-
         Handles displaying the monster on the bottom screen.
         
@@ -4679,6 +4701,8 @@ overlay29:
     - name: AnimateFlyingMoves
       address:
         EU: 0x2305114
+        NA: 0x23046E8
+        JP: 0x2305C38
       description: |-
         Called every frame to make the monster fly up when its two_turn_move_invincible field is set to TWO_TURN_FLYING, and back down when its value is changed.
         
@@ -4699,6 +4723,8 @@ overlay29:
     - name: ChangeMonsterAnimationToIdle
       address:
         EU: 0x2305474
+        NA: 0x2304A48
+        JP: 0x2305F98
       description: |-
         Changes the animation a monster is currently playing to its idle animation. Optionally changes their direction as well.
         
@@ -4709,6 +4735,8 @@ overlay29:
     - name: ChangeMonsterAnimationToHurt
       address:
         EU: 0x23054B0
+        NA: 0x2304A84
+        JP: 0x2305FD4
       description: |-
         Changes the animation a monster is currently playing to its hurt animation. Optionally changes their direction as well.
         
@@ -4731,6 +4759,8 @@ overlay29:
     - name: MakeMonsterIdleInDirection
       address:
         EU: 0x2305528
+        NA: 0x2304AFC
+        JP: 0x230604C
       description: |-
         Makes the monster play their idle animation in the given direction and sets the direction field of their action struct.
         
@@ -9847,6 +9877,8 @@ overlay29:
     - name: DisplayItem
       address:
         EU: 0x23463B4
+        NA: 0x23457C8
+        JP: 0x2346B8C
       description: |-
         Displays an item.
         
@@ -9965,6 +9997,8 @@ overlay29:
     - name: HandleRegularProjectileThrow
       address:
         EU: 0x2348118
+        NA: 0x2347518
+        JP: 0x23488D8
       description: |-
         Throws an item in a straight line.
         

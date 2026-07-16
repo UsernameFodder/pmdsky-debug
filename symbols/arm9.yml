@@ -5024,6 +5024,8 @@ arm9:
     - name: DisplayAnimationControlCurrentFrame
       address:
         EU: 0x201C660
+        NA: 0x201C5C4
+        JP: 0x201C61C
       description: |-
         Displays the current frame of the animation_control struct.
         
@@ -5031,6 +5033,8 @@ arm9:
     - name: DisplayAndSwitchAnimationControlCurrentFrame
       address:
         EU: 0x201CFF8
+        NA: 0x201CF5C
+        JP: 0x201CFB4
       description: |-
         Displays the current frame of the animation_control struct and switches it afterwards if applicable.
         
