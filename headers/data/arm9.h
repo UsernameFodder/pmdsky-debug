@@ -277,6 +277,7 @@ extern undefined* MISSION_LIST_PTR;
 extern const char* REMOTE_STRING_PTR_TABLE[7];
 extern const char* RANK_STRING_PTR_TABLE[16];
 extern struct rescue_bin_unpack RESCUE_BIN_UNPACK;
+extern struct special_actors SPECIAL_ACTORS;
 extern void* SMD_EVENTS_FUN_TABLE[127];
 extern int16_t MUSIC_DURATION_LOOKUP_TABLE_1[128];
 extern int32_t MUSIC_DURATION_LOOKUP_TABLE_2[128];
@@ -284,6 +285,8 @@ extern sound_lfo_waveform_callback LFO_WAVEFORM_CALLBACKS[16];
 extern bool IS_DISP_ON;
 extern uint32_t GXI_DMA_ID;
 extern uint32_t OSI_CONSOLE_TYPE_CACHE;
+extern undefined FSI_DIGEST_KEY_LEN;
+extern undefined DAY_OF_YEAR;
 extern uint32_t RAND_SEQUENCE_NUM;
 
 #endif

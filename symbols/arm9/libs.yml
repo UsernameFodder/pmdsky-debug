@@ -3129,6 +3129,8 @@ libs:
         r1: dest
         r2: n (# bytes)
     - name: AtomicExchange
+      aliases:
+        - MI_SwapWord
       address:
         EU: 0x207C9E0
         NA: 0x207C648
@@ -3147,6 +3149,8 @@ libs:
         NA: 0x207C650
         JP: 0x207C938
     - name: MTi_CardDmaCopy32
+      aliases:
+        - MIi_CardDmaCopy32
       address:
         EU: 0x207CAE8
         NA: 0x207C750
@@ -3810,6 +3814,7 @@ libs:
         return: True if the entry could be loaded successfully?
     - name: FS_LoadOverlayImageAsync
       aliases:
+        - FS_LoadOverlayImage
         - LoadOverlayInternal
       address:
         EU: 0x2080130
@@ -3897,16 +3902,22 @@ libs:
         NA: 0x20802BC
         JP: 0x20805A4
     - name: Dgt_Hash2Init
+      aliases:
+        - Dgt_Hash2Reset
       address:
         EU: 0x2080A08
         NA: 0x2080670
         JP: 0x2080958
     - name: Dgt_Hash2Update
+      aliases:
+        - Dgt_Hash2SetSource
       address:
         EU: 0x2080A58
         NA: 0x20806C0
         JP: 0x20809A8
     - name: Dgt_Hash2GetHash
+      aliases:
+        - Dgt_Hash2GetDigest
       address:
         EU: 0x2080BAC
         NA: 0x2080814

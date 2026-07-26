@@ -29,6 +29,7 @@ int GetKeyM2NBaseForm(enum monster_id monster_id);
 void OS_IrqHandler(void);
 void OS_IrqHandler_ThreadSwitch(void);
 void MIi_DmaSetParams(uint8_t channel, void* src, void* dst, uint16_t word_count);
+void Mii_DmaSetParams_Wait_NoInt(void);
 bool ShouldMonsterRunAwayAndShowEffectOutlawCheck(struct entity* monster,
                                                   bool show_run_away_effect);
 void AiMovement(struct entity* monster, bool show_run_away_effect);

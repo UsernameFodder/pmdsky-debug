@@ -1485,4 +1485,22 @@ struct kangaskhan_storage_manager {
 };
 ASSERT_SIZE(struct kangaskhan_storage_manager, 600);
 
+struct special_actors {
+    enum monster_id event_npc02;
+    enum monster_id event_npc01;
+    enum monster_id demo_partner;
+    enum monster_id event_npc04;
+    enum monster_id event_npc03;
+    enum monster_id demo_hero;
+    enum monster_id new_friend;
+    enum monster_id random_request_npc02;
+    enum monster_id random_request_npc01;
+    enum script_entity_id event_npc_sub;
+    enum script_entity_id event_npc_main;
+    enum script_entity_id talk_sub;
+    enum script_entity_id talk_main;
+    undefined4 field_0x34;
+};
+ASSERT_SIZE(struct special_actors, 56);
+
 #endif

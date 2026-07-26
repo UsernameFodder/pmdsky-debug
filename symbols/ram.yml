@@ -698,11 +698,26 @@ ram:
         EU: 0x22BA360
         NA: 0x22B9A20
         JP: 0x22BB1C0
+    - name: CALLBACK_TABLE
+      address:
+        EU: 0x22BBE40
+        NA: 0x22BB500
+        JP: 0x22BCCA0
     - name: SNDI_SHARED_WORK
       address:
         EU: 0x22BBEA0
         NA: 0x22BB560
         JP: 0x22BCD00
+    - name: FIFO_CTRL_INIT
+      address:
+        EU: 0x22BBEA4
+        NA: 0x22BB564
+        JP: 0x22BCD04
+    - name: FSI_ARC_ROM
+      address:
+        EU: 0x22BBF54
+        NA: 0x22BB614
+        JP: 0x22BCDB4
     - name: GROUND_MEMORY_ARENA_1_PTR
       address:
         NA: 0x2324CB4
