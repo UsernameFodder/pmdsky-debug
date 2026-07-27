@@ -15331,7 +15331,7 @@ arm9:
         EU: 0x20A2220
       length:
         EU: 0x4
-      description: "The minimum IQ for a team member or Explorer Maze monster."
+      description: The minimum IQ for a team member or Explorer Maze monster.
     - name: IQ_GROUP_SKILLS
       address:
         EU: 0x20A2314
