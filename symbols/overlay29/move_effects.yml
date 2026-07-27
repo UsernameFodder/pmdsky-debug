@@ -1301,13 +1301,13 @@ move_effects:
         r2: move (unused)
         r3: item ID
         return: whether the move was successfully used
-    - name: DoMoveDamageParalyze10
+    - name: DoMoveDamageParalyze15
       address:
         EU: 0x2328BD8
         NA: 0x232816C
         JP: 0x23295F4
       description: |-
-        Move effect: Deal damage with a 10% chance (LICK_PARALZYE_CHANCE) of paralyzing the defender.
+        Move effect: Deal damage with a 15% chance (LICK_PARALZYE_CHANCE) of paralyzing the defender.
         Relevant moves: Lick, Spark, Body Slam, DragonBreath
         
         r0: attacker pointer
@@ -1899,8 +1899,6 @@ move_effects:
         JP: 0x232AB90
       description: |-
         Move effect: Thundershock
-        
-        This is identical to DoMoveDamageParalyze10, except it uses a different data symbol for the paralysis chance (but it's still 10%).
         
         r0: attacker pointer
         r1: defender pointer

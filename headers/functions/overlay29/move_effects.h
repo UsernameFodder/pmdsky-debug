@@ -188,7 +188,7 @@ bool DoMoveEarthquake(struct entity* attacker, struct entity* defender, struct m
 enum nature_power_variant GetNaturePowerVariant(void);
 bool DoMoveNaturePower(struct entity* attacker, struct entity* defender, struct move* move,
                        enum item_id item_id);
-bool DoMoveDamageParalyze10(struct entity* attacker, struct entity* defender, struct move* move,
+bool DoMoveDamageParalyze15(struct entity* attacker, struct entity* defender, struct move* move,
                             enum item_id item_id);
 bool DoMoveSelfdestruct(struct entity* attacker, struct entity* defender, struct move* move,
                         enum item_id item_id);

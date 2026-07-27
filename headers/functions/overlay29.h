@@ -122,8 +122,6 @@ void HandleTopScreenFades(void);
 int FreeTopScreen(void);
 void DungeonChangeTopScreenType(int top_screen_type);
 void DrawDungeonControlsText(int window_id);
-void InitDungeonControlsMenu(void);
-void FreeDungeonControlsMenu(void);
 enum direction_id GetDirectionTowardsPosition(struct position* origin, struct position* target);
 int GetChebyshevDistance(struct position* position_a, struct position* position_b);
 bool IsPositionActuallyInSight(struct position* origin, struct position* target,
@@ -236,7 +234,7 @@ int SpawnMonstersAroundPos(struct entity* monster, struct position* pos, uint8_t
 void RevealTrapsNearby(struct entity* monster);
 bool RevealTrapAtPos(int x, int y);
 void CheckBossFightVictory(struct entity* fainted_entity, enum monster_behavior behavior,
-                           bool dont_change_music);
+                           bool change_music);
 void ChangeTeamAnimationsToIdle(void);
 bool IsFloorOver2(void);
 bool ShouldRunMonsterAi(struct entity* monster);
@@ -1049,7 +1047,7 @@ void RemoveEmptyItemsInBagWrapper(void);
 void GenerateItem(struct item* item, enum item_id item_id, uint16_t quantity,
                   enum gen_item_stickiness sticky_type);
 void HandleRegularProjectileThrow(struct entity* user, struct item* item,
-                                  struct position* start_pos, enum direction_id dir,
+                                  struct position* start_pos, enum direction dir,
                                   struct projectile_throw_info* projectile_throw_info);
 void HandleCurvedProjectileThrow(struct entity* user, struct item* item, struct position* start_pos,
                                  struct position* target_pos,
