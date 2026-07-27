@@ -1127,6 +1127,7 @@ int GetAlertBoxLoadingStatus(void);
 void LogMessage(struct entity* user, const char* message, bool show_popup);
 void LogMessageById(struct entity* user, int message_id, bool show_popup);
 bool AlertBoxIsActive(void);
+bool FullyCloseAlertBox(void);
 bool AlertBoxIsScrolling(void);
 void WaitUntilAlertBoxTextIsLoaded(undefined param_1);
 void WaitUntilAlertBoxPauseIsOver(undefined param_1);

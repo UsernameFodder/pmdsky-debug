@@ -10884,6 +10884,13 @@ overlay29:
         Returns true if the alert box is currently open.
         
         return: bool
+    - name: FullyCloseAlertBox
+      address:
+        EU: 0x234C368
+      description: |-
+        Fully closes the alert box, calling CloseAlertBox and various other functions as well as changing the window id and loading status.
+        
+        return: whether the alert box was closed
     - name: AlertBoxIsScrolling
       address:
         EU: 0x234C3EC
