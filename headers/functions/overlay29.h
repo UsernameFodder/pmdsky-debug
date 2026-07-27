@@ -25,7 +25,7 @@ void SetDungeonEscapeFields(uint32_t successful_exit_tracker, bool end_floor_no_
 uint32_t GetSuccessfulExitTracker(void);
 void GetAndStoreButtonInput(void);
 bool CheckTouchscreenArea(int x1, int y1, int x2, int y2);
-void* OamTileNumberToVramAddressOv29(short oam_tile_num, uint8_t screen);
+void* OamTileNumberToVramAddressOv29(short oam_tile_num, enum screen screen);
 void ResetDungeonColorPalette(void);
 struct trap* GetTrapInfo(struct entity* trap_entity);
 struct item* GetItemInfo(struct entity* item_entity);
@@ -60,6 +60,7 @@ void RevealWholeFloor(struct entity* entity);
 int PlayEffectAnimationEntity(struct entity* entity, int effect_id, bool play_now, int param_4,
                               int param_5, undefined param_6, enum direction_id effect_dir,
                               uint16_t* custom_oam_adjustment_info);
+bool DungeonScreenEffectActive(void);
 int PlayEffectAnimationPos(struct position* pos, int effect_id, bool play_now);
 int PlayEffectAnimationPixelPos(struct pixel_position* pixel_pos, int effect_id, bool play_now);
 void AnimationDelayOrSomething(undefined param_1);
@@ -87,10 +88,12 @@ void PlayDefensiveStatMultiplierDownEffect(struct entity* entity, int stat_index
 void PlayHitChanceUpEffect(struct entity* entity, int stat_index);
 void PlayHitChanceDownEffect(struct entity* entity, int stat_index);
 void PlaySeByIdIfShouldDisplayEntity(struct entity* entity, int se_id);
+void PlayStairsSfx(void);
 bool ShouldDisplayEntityAdvanced(struct entity* entity);
 void PlayEffectAnimation0x1A9(struct entity* entity);
 void PlayEffectAnimation0x29(struct entity* entity);
 void PlayEffectAnimation0x18E(struct entity* entity);
+void PlayKeyDoorUnlockEffect(struct entity* entity, bool is_not_treasure_memo);
 void PlayStairSensorArrowEffect(struct entity* entity, enum direction_id arrow_dir);
 void LoadMappaFileAttributes(int quick_saved, bool disable_monsters, undefined* special_process);
 enum trap_id GetRandomSpawnTrapId(void);
@@ -110,6 +113,8 @@ int InitializeTeamStats(void);
 int UpdateTeamStatsWrapper(void);
 int FreeTeamStatsWrapper(void);
 void DisplayTeamStatsSprite(struct entity* team_member, int actual_idx, int roster_idx);
+void InitDungeonControlsMenuWithBg(void);
+void FreeDungeonControlsMenuWithBg(void);
 void AssignTopScreenHandlers(void** funcs, top_screen_status_fn_t init_func,
                              top_screen_status_fn_t update_func, void* param_4,
                              top_screen_status_fn_t free_func);
@@ -117,6 +122,8 @@ void HandleTopScreenFades(void);
 int FreeTopScreen(void);
 void DungeonChangeTopScreenType(int top_screen_type);
 void DrawDungeonControlsText(int window_id);
+void InitDungeonControlsMenu(void);
+void FreeDungeonControlsMenu(void);
 enum direction_id GetDirectionTowardsPosition(struct position* origin, struct position* target);
 int GetChebyshevDistance(struct position* position_a, struct position* position_b);
 bool IsPositionActuallyInSight(struct position* origin, struct position* target,
@@ -229,7 +236,7 @@ int SpawnMonstersAroundPos(struct entity* monster, struct position* pos, uint8_t
 void RevealTrapsNearby(struct entity* monster);
 bool RevealTrapAtPos(int x, int y);
 void CheckBossFightVictory(struct entity* fainted_entity, enum monster_behavior behavior,
-                           bool change_music);
+                           bool dont_change_music);
 void ChangeTeamAnimationsToIdle(void);
 bool IsFloorOver2(void);
 bool ShouldRunMonsterAi(struct entity* monster);
@@ -237,6 +244,8 @@ bool DebugRecruitingEnabled(void);
 void TryActivateIqBooster(void);
 bool IsBehaviorLoneOutlaw(enum monster_behavior behavior);
 bool IsSecretBazaarNpcBehavior(enum monster_behavior behavior);
+void FreezeAnim(struct entity* entity);
+void UnfreezeAnim(struct entity* entity);
 bool TalkToSecretBazaarNpcStandard(int string_id, struct entity* shopkeeper,
                                    enum portrait_emotion emotion);
 bool TalkToSecretBazaarNpcWithYesNoMenu(int string_id, struct entity* shopkeeper,
@@ -258,15 +267,22 @@ void CheckLeaderTile(void);
 void ChangeLeader(void);
 enum monster_gender GetPlayerGender(void);
 void HandleHeldItemSwaps(struct entity* entity);
+void TryPlaceItem(struct entity* user);
+void UseSingleUseItemSelf(struct entity* user);
 void UseSingleUseItemWrapper(struct entity* user);
 void UseSingleUseItem(struct entity* user, struct entity* target);
 void UseThrowableItem(struct entity* user);
+void TalkToTeamMemberInFront(struct entity* entity);
+void PlayerUseMove(struct entity* entity);
 void ResetDamageData(struct damage_data* damage);
+void UseRegularAttackOrStruggle(struct entity* entity);
 void FreeLoadedAttackSpriteAndMore(void);
 uint16_t SetAndLoadCurrentAttackAnimation(enum pack_file_id pack_id, uint16_t file_index);
 void ClearLoadedAttackSprite(void);
 uint16_t GetLoadedAttackSpriteId(void);
 int DungeonGetTotalSpriteFileSize(enum monster_id monster_id);
+void LoadMonsterSprites(void);
+void LoadActiveMonsterSprites(void);
 uint16_t DungeonGetSpriteIndex(enum monster_id monster_id);
 bool JoinedAtRangeCheck2Veneer(struct dungeon_id_8 joined_at);
 bool FloorNumberIsEven(void);
@@ -277,10 +293,12 @@ void SwapMonsterWanFileIndex(int src_id, int dst_id);
 void LoadMonsterSprite(enum monster_id monster_id, undefined param_2);
 void DeleteMonsterSpriteFile(enum monster_id monster_id);
 void DeleteAllMonsterSpriteFiles(void);
+bool CanMonsterBeAddedToTeam(struct entity* entity);
 void EuFaintCheck(bool non_team_member_fainted, bool set_unk_byte);
 void HandleFaint(struct entity* fainted_entity, union damage_source damage_source,
                  struct entity* killer);
 void MoveMonsterToPos(struct entity* entity, int x_pos, int y_pos, undefined param_4);
+struct entity* GetMonsterInFront(struct entity* entity);
 void CreateMonsterSummaryFromEntity(struct monster_summary* monster_summary,
                                     struct entity* monster_entity);
 void FillRecruitInfo(struct recruit_info* recruit_info, struct entity* monster);
@@ -342,6 +360,9 @@ void InitOtherMonsterData(struct entity* entity, int fixed_room_stats_index, enu
 void InitEnemySpawnStats(void);
 void InitEnemyStatsAndMoves(struct move* move_list, int16_t* hp, uint8_t* offensive_stats,
                             uint8_t* defensive_stats);
+void InitExplorerMazeMonsterStatsMovesAndIq(struct move* move_list, int16_t* hp,
+                                            uint8_t* offensive_stats, uint8_t* defensive_stats,
+                                            int16_t* iq, enum monster_behavior behavior);
 void SpawnTeam(undefined param_1);
 void SpawnInitialMonsters(void);
 struct entity* SpawnMonster(struct spawned_monster_data* monster_data, bool cannot_be_asleep);
@@ -623,6 +644,8 @@ void ResetHitChanceStat(struct entity* user, struct entity* target, int stat_idx
 bool ExclusiveItemEffectIsActiveWithLogging(struct entity* user, struct entity* target,
                                             bool should_log, int message_id,
                                             enum exclusive_item_effect_id effect_id);
+void LogMessageWithTargetAndExclusiveItemName(struct entity* user, struct entity* target,
+                                              int message_id, enum exclusive_item_effect_id effect);
 bool TryActivateQuickFeet(struct entity* attacker, struct entity* defender);
 void TryInflictTerrifiedStatus(struct entity* user, struct entity* target);
 bool TryInflictGrudgeStatus(struct entity* user, struct entity* target, bool log_message);
@@ -733,6 +756,7 @@ bool TargetRegularAttack(struct entity* user, enum direction_id* direction, bool
 bool IsTargetInRange(struct entity* user, struct entity* target, enum direction_id direction,
                      int n_tiles);
 bool ShouldUsePp(struct entity* entity);
+void AiUseMove(struct entity* entity);
 struct move_target_and_range GetEntityMoveTargetAndRange(struct entity* entity, struct move* move,
                                                          bool is_ai);
 struct natural_gift_item_info* GetEntityNaturalGiftInfo(struct entity* entity);
@@ -894,6 +918,7 @@ void SetHiddenStairsField(enum hidden_stairs_type hidden_stairs);
 enum hidden_stairs_type GetHiddenFloorField(void);
 void SetHiddenFloorField(enum hidden_stairs_type hidden_floor);
 void LoadWeather3DFiles(void);
+bool 3DWeatherEffectActive(void);
 void RenderWeather3D(void);
 struct minimap_display_data* GetMinimapData(void);
 void DrawMinimapTile(int x, int y);
@@ -1024,7 +1049,7 @@ void RemoveEmptyItemsInBagWrapper(void);
 void GenerateItem(struct item* item, enum item_id item_id, uint16_t quantity,
                   enum gen_item_stickiness sticky_type);
 void HandleRegularProjectileThrow(struct entity* user, struct item* item,
-                                  struct position* start_pos, enum direction dir,
+                                  struct position* start_pos, enum direction_id dir,
                                   struct projectile_throw_info* projectile_throw_info);
 void HandleCurvedProjectileThrow(struct entity* user, struct item* item, struct position* start_pos,
                                  struct position* target_pos,

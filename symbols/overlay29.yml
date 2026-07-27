@@ -400,7 +400,7 @@ overlay29:
         Is an exact copy of OamTileNumberToVramAddress in arm9.
         
         r0: tile number
-        r1: 0 for bottom screen, 1 for top screen
+        r1: screen
         return: VRAM tile address
     - name: ResetDungeonColorPalette
       address:
@@ -780,6 +780,13 @@ overlay29:
         stack[3]: custom oam_adjustment_info array for the animation_control struct (length 6, or null if should use default values)
         others: ?
         return: status code, or maybe the number of frames or something? Either way, -1 seems to indicate the animation being finished or something?
+    - name: DungeonScreenEffectActive
+      address:
+        EU: 0x22E3F30
+      description: |-
+        Returns true if a screen effect (like Leaf Storm's or Sunny Day's) is currently active.
+        
+        return: bool
     - name: PlayEffectAnimationPos
       address:
         EU: 0x22E418C
@@ -1055,6 +1062,13 @@ overlay29:
         
         r0: entity pointer
         r1: Sound effect ID
+    - name: PlayStairsSfx
+      address:
+        EU: 0x22E6718
+      description: |-
+        Plays the appropriate sound effect for climbing/descending the stairs, or nothing if the stairs are replaced by a warp zone or rescue point.
+        
+        No params.
     - name: ShouldDisplayEntityAdvanced
       address:
         EU: 0x22E6880
@@ -1110,6 +1124,14 @@ overlay29:
         Just a guess. Calls PlayEffectAnimation with data from animation ID 0x18E.
         
         r0: entity pointer
+    - name: PlayKeyDoorUnlockEffect
+      address:
+        EU: 0x22E7044
+      description: |-
+        Plays the key door unlock effect.
+        
+        r0: entity pointer
+        r1: whether the key door is not for a treasure memo (plays a sound if true)
     - name: PlayStairSensorArrowEffect
       address:
         EU: 0x22E72D8
@@ -1301,6 +1323,20 @@ overlay29:
         r0: Team member entity pointer
         r1: Actual index to display the sprite at
         r2: Roster index
+    - name: InitDungeonControlsMenuWithBg
+      address:
+        EU: 0x22E8EB0
+      description: |-
+        Calls InitDungeonControlsMenu and loads the menu's background.
+        
+        No params.
+    - name: FreeDungeonControlsMenuWithBg
+      address:
+        EU: 0x22E8F38
+      description: |-
+        Calls FreeDungeonControlsMenu and unloads the menu's background.
+        
+        No params.
     - name: AssignTopScreenHandlers
       address:
         EU: 0x22E9078
@@ -1350,6 +1386,20 @@ overlay29:
         Draws the text for the top screen controls menu in the given window.
         
         r0: window id
+    - name: InitDungeonControlsMenu
+      address:
+        EU: 0x22E9844
+      description: |-
+        Initializes the dungeon_controls_menu struct and creates its textbox.
+        
+        return: 1 if successfully initialized
+    - name: FreeDungeonControlsMenu
+      address:
+        EU: 0x22E98D8
+      description: |-
+        Frees the dungeon_controls_menu struct and closes its textbox.
+        
+        return: 1 if successfully freed
     - name: GetDirectionTowardsPosition
       address:
         EU: 0x22E99D0
@@ -2442,7 +2492,7 @@ overlay29:
         
         r0: fainted entity
         r1: behavior of fainted monster (the function will do nothing if it's not a fixed room enemy)
-        r2: whether to change the music if the boss fight is over
+        r2: whether to not change the music if the boss fight is over
     - name: ChangeTeamAnimationsToIdle
       address:
         EU: 0x22F02EC
@@ -2511,6 +2561,20 @@ overlay29:
         
         r0: monster behavior ID
         return: bool
+    - name: FreezeAnim
+      address:
+        EU: 0x22F0EA4
+      description: |-
+        Freezes a monster's current animation.
+        
+        r0: entity pointer
+    - name: UnfreezeAnim
+      address:
+        EU: 0x22F0ECC
+      description: |-
+        Unfreezes a monster's current animation.
+        
+        r0: entity pointer
     - name: TalkToSecretBazaarNpcStandard
       address:
         EU: 0x22F0FB8
@@ -2684,6 +2748,22 @@ overlay29:
         Handles giving/taking held items to/from a party member (and likely other things).
         
         r0: entity pointer
+    - name: TryPlaceItem
+      address:
+        EU: 0x22F55B4
+      description: |-
+        Tries to place an item on the floor, and logs various failure messages under different conditions.
+        
+        The item to use is determined by the user's monster::action_data::action_parameter[0].
+        
+        r0: User entity pointer
+    - name: UseSingleUseItemSelf
+      address:
+        EU: 0x22F5C78
+      description: |-
+        Same as UseSingleUseItem, but the target will be set to the user.
+        
+        r0: User
     - name: UseSingleUseItemWrapper
       address:
         EU: 0x22F5C88
@@ -2717,6 +2797,27 @@ overlay29:
         If the item's category is CATEGORY_THROWN_LINE or CATEGORY_THROWN_ARC, the game will attempt to decrement the count of the used item by 1. If it's not or there's only 1 item left, it is destroyed instead.
         
         r0: User (monster who used the item)
+    - name: TalkToTeamMemberInFront
+      address:
+        EU: 0x22F6380
+      description: |-
+        Talks to the team member in front of the given entity, if there is one and it is on a tile the entity can attack in.
+        
+        r0: Entity pointer
+    - name: PlayerUseMove
+      address:
+        EU: 0x22F68D0
+      description: |-
+        Handles using a move by the player.
+        
+        r0: entity pointer
+    - name: UseRegularAttackOrStruggle
+      address:
+        EU: 0x22F6A10
+      description: |-
+        Handles using the regular attack or Struggle by the entity.
+        
+        r0: entity pointer
     - name: ResetDamageData
       address:
         EU: 0x22F77D0
@@ -2777,6 +2878,20 @@ overlay29:
         
         r0: monster ID
         return: sprite file size
+    - name: LoadMonsterSprites
+      address:
+        EU: 0x22F7AE8
+      description: |-
+        The main function for loading monster sprites at the beginning of a floor.
+        
+        No params.
+    - name: LoadActiveMonsterSprites
+      address:
+        EU: 0x22F7CC0
+      description: |-
+        Loads the sprites of all active monsters on the floor based on their apparent ids. Used when loading quicksaves.
+        
+        No params.
     - name: DungeonGetSpriteIndex
       address:
         EU: 0x22F7D40
@@ -2877,6 +2992,13 @@ overlay29:
         Note: unverified, ported from Irdkwia's notes
         
         No params.
+    - name: CanMonsterBeAddedToTeam
+      address:
+        EU: 0x22F81EC
+      description: |-
+        Returns false if there are already four members on the active team or if the total body size of the team would be greater than 6 if this monster was added.
+        
+        r0: entity pointer
     - name: EuFaintCheck
       address:
         EU: 0x22F88E8
@@ -2909,6 +3031,14 @@ overlay29:
         r1: X target position
         r2: Y target position
         r3: ?
+    - name: GetMonsterInFront
+      address:
+        EU: 0x22F91CC
+      description: |-
+        Returns the monster in front of the given entity, or null if there is none or it is on a tile they cannot attack in.
+        
+        r0: Entity pointer
+        return: Entity pointer of monster in front
     - name: CreateMonsterSummaryFromEntity
       aliases:
         - CreateMonsterSummaryFromMonster
@@ -3589,10 +3719,22 @@ overlay29:
       description: |-
         Initializes the HP, Atk, Sp. Atk, Def, Sp. Def and moveset of a newly spawned enemy. Might do something else too.
         
-        r0: Pointer to the monster's move list
-        r1: Pointer to the monster's current HP
-        r2: Pointer to the monster's offensive stats
-        r3: Pointer to the monster's defensive stats
+        r0: [output] Pointer to the monster's move list
+        r1: [output] Pointer to the monster's current HP
+        r2: [output] Pointer to the monster's offensive stats
+        r3: [output] Pointer to the monster's defensive stats
+    - name: InitExplorerMazeMonsterStatsMovesAndIq
+      address:
+        EU: 0x22FCE64
+      description: |-
+        Initializes the HP, offensive/defensive stats, and IQ of an explorer maze monster.
+        
+        r0: [output] Pointer to the monster's move list
+        r1: [output] Pointer to the monster's current HP
+        r2: [output] Pointer to the monster's offensive stats
+        r3: [output] Pointer to the monster's defensive stats
+        stack[0]: Pointer to the monster's IQ
+        stack[1]: Monster behavior
     - name: SpawnTeam
       address:
         EU: 0x22FCF08
@@ -6133,6 +6275,16 @@ overlay29:
         r3: message ID to be logged if the effect is active
         stack[0]: exclusive item effect ID
         return: bool, same as ExclusiveItemEffectIsActive
+    - name: LogMessageWithTargetAndExclusiveItemName
+      address:
+        EU: 0x2315824
+      description: |-
+        Logs the given string ID, substituting its [string:0] tag for the target's name and [item:1] for an exclusive item in the bag which has the given effect id.
+        
+        r0: user entity pointer
+        r1: target entity pointer
+        r2: string id
+        r3: exclusive item effect id
     - name: TryActivateQuickFeet
       address:
         EU: 0x231587C
@@ -7143,6 +7295,13 @@ overlay29:
         
         r0: entity pointer
         return: True if the monster should not use PP, false if it should.
+    - name: AiUseMove
+      address:
+        EU: 0x231B300
+      description: |-
+        Handles using a move by the AI.
+        
+        r0: entity pointer
     - name: GetEntityMoveTargetAndRange
       address:
         EU: 0x231B70C
@@ -8693,6 +8852,13 @@ overlay29:
         Loads the 1001.wte, 1005.wte, and 1031.wte files in dungeon.bin, which are used for the 3D effects for the tileset weather as well as the Sandstorm/Fog weather conditions.
         
         No params.
+    - name: 3DWeatherEffectActive
+      address:
+        EU: 0x2339558
+      description: |-
+        Returns true if a 3D weather effect (a tileset weather or Sandstorm/Fog) is active.
+        
+        return: bool
     - name: RenderWeather3D
       address:
         EU: 0x2339694
@@ -11682,6 +11848,11 @@ overlay29:
         EU: 0x90
         NA: 0x90
       description: "Array of bit masks used to set monster::status_icon. Indexed by monster::statuses::reflect * 8. See UpdateStatusIconFlags for details."
+    - name: DUNGEON_CONTROLS_MENU_WINDOW_PARAMS
+      address:
+        EU: 0x2352200
+      length:
+        EU: 0x10
     - name: POSITION_DISPLACEMENT_TO_DIRECTION
       address:
         EU: 0x2352210
@@ -12094,7 +12265,16 @@ overlay29:
       description: |-
         [Runtime] Pointer for struct for handling the status of the top screen in dungeon mode.
         
-        type: struct top_screen_status
+        type: struct top_screen_status*
+    - name: DUNGEON_CONTROLS_MENU_PTR
+      address:
+        EU: 0x2354158
+      length:
+        EU: 0x4
+      description: |-
+        [Runtime] Pointer for struct for displaying the dungeon controls menu.
+        
+        type: struct dungeon_controls_menu*
     - name: LEADER_PTR
       address:
         EU: 0x235415C

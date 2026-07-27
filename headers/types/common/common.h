@@ -1289,7 +1289,7 @@ struct menu_control {
     struct menu_load_entry active_entry; // 0xC4: The entry for the currently active menu
     // 0xD4: 0 means no menu active, 1 means menu initializing, 2 means menu active, 3 means ???
     int state;
-    // 0xD8: Whether the overlay in active_entry should be unloaded upon calling FreeMenu
+    // 0xD8: Whether the overlay in active_entry should be unloaded upon calling FreeActiveMenu
     bool should_unload_overlay_on_free;
     undefined field_0xd9;
     undefined field_0xda;

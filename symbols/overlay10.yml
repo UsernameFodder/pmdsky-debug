@@ -148,6 +148,16 @@ overlay10:
         stack[0]: ?
         stack[1]: ?
         statk[2]: uint32_t
+    - name: LoadPaletteBase
+      address:
+        EU: 0x22BE09C
+      description: |-
+        Loads either the 8bpp or 4bpp palette base (from WAN file 292 or 1, respectively).
+
+        See https://github.com/WraithFire/wanimation-studio/blob/master/docs/README.md#sprite-modes
+        
+        r0: sprite index in wan_table to load from
+        r1: 0 for 8bpp, 1 for 4bpp
     - name: GetEffectAnimationField0x19
       address:
         EU: 0x22BE7F4
@@ -158,6 +168,13 @@ overlay10:
         
         r0: anim_id
         return: GetEffectAnimation(anim_id)->field_0x19.
+    - name: ScreenEffectActive
+      address:
+        EU: 0x22C0228
+      description: |-
+        Returns true if a screen effect (like Leaf Storm's or cutscene rain) is currently active on the given screen.
+        
+        r0: screen
     - name: AnimationHasMoreFrames
       address:
         EU: 0x22C0244
@@ -289,7 +306,7 @@ overlay10:
       description: |-
         Appears to populate the Lv./HP row in the "Team stats" top screen.
         
-        r0: index of some kind
+        r0: window id
     - name: ProcessTeamStatsNameGender
       address:
         EU: 0x22C21BC
@@ -298,7 +315,7 @@ overlay10:
       description: |-
         Appears to populate the name/gender row in the "Team stats" top screen.
         
-        r0: index of some kind
+        r0: window id
     - name: IsBackgroundTileset
       address:
         EU: 0x22C2ECC

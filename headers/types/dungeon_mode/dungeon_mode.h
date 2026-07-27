@@ -2628,6 +2628,15 @@ struct recruit_info {
 };
 ASSERT_SIZE(struct recruit_info, 72);
 
+struct dungeon_controls_menu {
+    int8_t window_id; // 0x0
+    undefined field_0x1;
+    undefined field_0x2;
+    undefined field_0x3;
+    struct preprocessor_args preprocessor_args; // 0x4
+};
+ASSERT_SIZE(struct dungeon_controls_menu, 84);
+
 // Separate this out into its own file because it's massive
 #include "dungeon.h"
 

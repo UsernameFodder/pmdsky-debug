@@ -5058,6 +5058,14 @@ arm9:
         
         r0: animation_control
         return: allocation for max frame
+    - name: SetAnimationControlPausedFlag
+      address:
+        EU: 0x201D234
+      description: |-
+        Changes the flag for whether the animation should be paused.
+        
+        r0: animation_control
+        r1: whether the animation should be paused
     - name: DeleteWanTableEntry
       address:
         EU: 0x201D278
@@ -12356,7 +12364,7 @@ arm9:
         Maps an object's designated OAM tile number (bits 0-9 in attribute 2) to the address its texture should be placed at in VRAM.
         
         r0: tile number
-        r1: 0 for bottom screen, 1 for top screen
+        r1: screen
         return: VRAM tile address
     - name: GetIqSkillStringId
       address:
@@ -15314,6 +15322,12 @@ arm9:
         Table of 4-byte values for each IQ skill that represent the required IQ value to unlock a skill.
         
         type: int[69]
+    - name: MIN_TEAM_MEMBER_IQ
+      address:
+        EU: 0x20A2220
+      length:
+        EU: 0x4
+      description: "The minimum IQ for a team member or Explorer Maze monster."
     - name: IQ_GROUP_SKILLS
       address:
         EU: 0x20A2314
@@ -16455,8 +16469,6 @@ arm9:
     - name: MENU_CONTROL_PTR
       address:
         EU: 0x20B06B4
-        NA: 0x20AFD98
-        JP: 0x20B11D8
       length:
         EU: 0x4
         NA: 0x4
