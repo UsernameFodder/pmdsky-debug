@@ -122,6 +122,8 @@ void HandleTopScreenFades(void);
 int FreeTopScreen(void);
 void DungeonChangeTopScreenType(int top_screen_type);
 void DrawDungeonControlsText(int window_id);
+void InitDungeonControlsMenu(void);
+void FreeDungeonControlsMenu(void);
 enum direction_id GetDirectionTowardsPosition(struct position* origin, struct position* target);
 int GetChebyshevDistance(struct position* position_a, struct position* position_b);
 bool IsPositionActuallyInSight(struct position* origin, struct position* target,

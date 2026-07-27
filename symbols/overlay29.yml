@@ -1394,6 +1394,20 @@ overlay29:
         Draws the text for the top screen controls menu in the given window.
         
         r0: window id
+    - name: InitDungeonControlsMenu
+      address:
+        EU: 0x22E9844
+      description: |-
+        Initializes the dungeon controls menu.
+        
+        No params.
+    - name: FreeDungeonControlsMenu
+      address:
+        EU: 0x22E98D8
+      description: |-
+        Frees the dungeon controls menu.
+        
+        No params.
     - name: GetDirectionTowardsPosition
       address:
         EU: 0x22E99D0
