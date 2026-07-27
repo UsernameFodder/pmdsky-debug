@@ -2490,7 +2490,7 @@ overlay29:
         
         r0: fainted entity
         r1: behavior of fainted monster (the function will do nothing if it's not a fixed room enemy)
-        r2: whether to change the music if the boss fight is over
+        r2: whether to not change the music if the boss fight is over
     - name: ChangeTeamAnimationsToIdle
       address:
         EU: 0x22F02EC

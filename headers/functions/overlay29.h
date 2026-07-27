@@ -234,7 +234,7 @@ int SpawnMonstersAroundPos(struct entity* monster, struct position* pos, uint8_t
 void RevealTrapsNearby(struct entity* monster);
 bool RevealTrapAtPos(int x, int y);
 void CheckBossFightVictory(struct entity* fainted_entity, enum monster_behavior behavior,
-                           bool change_music);
+                           bool dont_change_music);
 void ChangeTeamAnimationsToIdle(void);
 bool IsFloorOver2(void);
 bool ShouldRunMonsterAi(struct entity* monster);
