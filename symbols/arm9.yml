@@ -16472,7 +16472,7 @@ arm9:
         type: int16_t[6]
     - name: MENU_CONTROL_PTR
       address:
-        EU: 0x20B06B4
+        EU: 0x20B06D4
       length:
         EU: 0x4
         NA: 0x4
