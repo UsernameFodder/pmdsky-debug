@@ -767,6 +767,13 @@ overlay29:
         More specifically, sets dungeon::display_data::luminous to 1, sets visibility_flags::f_revealed for all tiles on the floor, calls UpdateCamera, UpdateTrapsVisibility, UpdateMinimap and logs the message "It became brighter on the floor!".
         
         r0: Pointer to the entity who revealed the floor
+    - name: DungeonScreenEffectActive
+      address:
+        EU: 0x22E3F30
+      description: |-
+        Returns true if a screen effect (like Leaf Storm's or Sunny Day's) is currently active.
+        
+        return: bool
     - name: PlayEffectAnimationEntity
       address:
         EU: 0x22E3F94
@@ -784,13 +791,6 @@ overlay29:
         stack[3]: custom oam_adjustment_info array for the animation_control struct (length 6, or null if should use default values)
         others: ?
         return: status code, or maybe the number of frames or something? Either way, -1 seems to indicate the animation being finished or something?
-    - name: DungeonScreenEffectActive
-      address:
-        EU: 0x22E3F30
-      description: |-
-        Returns true if a screen effect (like Leaf Storm's or Sunny Day's) is currently active.
-        
-        return: bool
     - name: PlayEffectAnimationPos
       address:
         EU: 0x22E418C
@@ -8868,7 +8868,7 @@ overlay29:
         Loads the 1001.wte, 1005.wte, and 1031.wte files in dungeon.bin, which are used for the 3D effects for the tileset weather as well as the Sandstorm/Fog weather conditions.
         
         No params.
-    - name: 3DWeatherEffectActive
+    - name: Weather3DEffectActive
       address:
         EU: 0x2339558
       description: |-

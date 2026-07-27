@@ -57,10 +57,10 @@ void UpdateCamera(undefined param_1);
 bool ItemIsActive(struct entity* entity, enum item_id item_id);
 int GetVisibilityRange(void);
 void RevealWholeFloor(struct entity* entity);
+bool DungeonScreenEffectActive(void);
 int PlayEffectAnimationEntity(struct entity* entity, int effect_id, bool play_now, int param_4,
                               int param_5, undefined param_6, enum direction_id effect_dir,
                               uint16_t* custom_oam_adjustment_info);
-bool DungeonScreenEffectActive(void);
 int PlayEffectAnimationPos(struct position* pos, int effect_id, bool play_now);
 int PlayEffectAnimationPixelPos(struct pixel_position* pixel_pos, int effect_id, bool play_now);
 void AnimationDelayOrSomething(undefined param_1);
@@ -272,8 +272,8 @@ void UseSingleUseItem(struct entity* user, struct entity* target);
 void UseThrowableItem(struct entity* user);
 void TalkToTeamMemberInFront(struct entity* entity);
 void PlayerUseMove(struct entity* entity);
-void ResetDamageData(struct damage_data* damage);
 void UseRegularAttackOrStruggle(struct entity* entity);
+void ResetDamageData(struct damage_data* damage);
 void FreeLoadedAttackSpriteAndMore(void);
 uint16_t SetAndLoadCurrentAttackAnimation(enum pack_file_id pack_id, uint16_t file_index);
 void ClearLoadedAttackSprite(void);
@@ -916,7 +916,7 @@ void SetHiddenStairsField(enum hidden_stairs_type hidden_stairs);
 enum hidden_stairs_type GetHiddenFloorField(void);
 void SetHiddenFloorField(enum hidden_stairs_type hidden_floor);
 void LoadWeather3DFiles(void);
-bool 3DWeatherEffectActive(void);
+bool Weather3DEffectActive(void);
 void RenderWeather3D(void);
 struct minimap_display_data* GetMinimapData(void);
 void DrawMinimapTile(int x, int y);
@@ -1047,7 +1047,7 @@ void RemoveEmptyItemsInBagWrapper(void);
 void GenerateItem(struct item* item, enum item_id item_id, uint16_t quantity,
                   enum gen_item_stickiness sticky_type);
 void HandleRegularProjectileThrow(struct entity* user, struct item* item,
-                                  struct position* start_pos, enum direction dir,
+                                  struct position* start_pos, enum direction_id dir,
                                   struct projectile_throw_info* projectile_throw_info);
 void HandleCurvedProjectileThrow(struct entity* user, struct item* item, struct position* start_pos,
                                  struct position* target_pos,

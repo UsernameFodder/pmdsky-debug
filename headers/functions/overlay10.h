@@ -14,7 +14,7 @@ void UpdateInventoryMenu(struct window* window);
 bool IsInventoryMenuState3(int window_id);
 void CreateInventoryMenuOuter(int n_items, int param_2, int param_3, uint8_t* param_4,
                               undefined* param_5, undefined* param_6, uint32_t param_7);
-void LoadPaletteBase(uint8_t sprite_index, bool 4bpp);
+void LoadPaletteBase(uint8_t sprite_index, bool is_4bpp);
 int GetEffectAnimationField0x19(int anim_id);
 bool ScreenEffectActive(enum screen screen);
 bool AnimationHasMoreFrames(int param_1);
