@@ -297,7 +297,7 @@ bool CanMonsterBeAddedToTeam(struct entity* entity);
 void EuFaintCheck(bool non_team_member_fainted, bool set_unk_byte);
 void HandleFaint(struct entity* fainted_entity, union damage_source damage_source,
                  struct entity* killer);
-void MoveMonsterToPos(struct entity* entity, int x_pos, int y_pos, bool always_update_prev_pos);
+void MoveMonsterToPos(struct entity* entity, int x_pos, int y_pos, bool reset_prev_pos_fields);
 struct entity* GetMonsterInFront(struct entity* entity);
 void CreateMonsterSummaryFromEntity(struct monster_summary* monster_summary,
                                     struct entity* monster_entity);

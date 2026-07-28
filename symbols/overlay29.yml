@@ -3046,7 +3046,7 @@ overlay29:
         r0: Entity pointer
         r1: X target position
         r2: Y target position
-        r3: whether to always update the monster's prev_pos even if they are invisible
+        r3: whether to reset the monster struct's prev_pos, prev_pos_2, etc. fields to the target position
     - name: GetMonsterInFront
       address:
         EU: 0x22F91CC
