@@ -1068,6 +1068,16 @@ overlay29:
         
         r0: entity pointer
         r1: Sound effect ID
+    - name: PlayMissSfx
+      address:
+        EU:
+          - 0x22E611C
+          - 0x22E6150
+      description: |-
+        Plays the sound effect for an attack missing. Varies depending on whether the defender is a team member or not.
+        
+        r0: attacker entity pointer (unused)
+        r1: defender entity pointer
     - name: PlayStairsSfx
       address:
         EU: 0x22E6718

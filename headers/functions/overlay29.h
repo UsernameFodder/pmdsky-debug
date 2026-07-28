@@ -88,6 +88,7 @@ void PlayDefensiveStatMultiplierDownEffect(struct entity* entity, int stat_index
 void PlayHitChanceUpEffect(struct entity* entity, int stat_index);
 void PlayHitChanceDownEffect(struct entity* entity, int stat_index);
 void PlaySeByIdIfShouldDisplayEntity(struct entity* entity, int se_id);
+void PlayMissSfx(struct entity* attacker, struct entity* defender);
 void PlayStairsSfx(void);
 bool ShouldDisplayEntityAdvanced(struct entity* entity);
 void PlayEffectAnimation0x1A9(struct entity* entity);
