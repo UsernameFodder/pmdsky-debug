@@ -12438,16 +12438,18 @@ arm9:
         r1: Monster species
         r2: Monster IQ
         return: Amount of skills written to the output array
-    - name: DisableIqSkill
+    - name: ToggleIqSkill
+      aliases:
+        - DisableIqSkill
       address:
         EU: 0x2059120
         NA: 0x2058DA4
         JP: 0x20590A0
       description: |-
-        Disables an IQ skill.
+        Turns an IQ skill on if it is inactive, or off if it is active.
         
         r0: Pointer to the bitarray containing the list of enabled IQ skills
-        r1: ID of the skill to disable
+        r1: ID of the skill to toggle
     - name: EnableIqSkill
       address:
         EU: 0x2059170

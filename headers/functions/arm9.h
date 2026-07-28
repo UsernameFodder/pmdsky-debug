@@ -1299,7 +1299,7 @@ void GetUnlockedTacticFlags(bool* tactic_unlock_flags, int level);
 bool CanLearnIqSkill(int iq_amount, enum iq_skill_id iq_id);
 int GetLearnableIqSkills(struct iq_skill_id_8* out_iq_skill_id, enum monster_id monster_id,
                          int monster_iq);
-void DisableIqSkill(uint32_t* iq_skills_flags, enum iq_skill_id iq_id);
+void ToggleIqSkill(uint32_t* iq_skills_flags, enum iq_skill_id iq_id);
 void EnableIqSkill(uint32_t* iq_skills_flags, enum iq_skill_id iq_id);
 enum iq_skill_id GetSpeciesIqSkill(enum monster_id monster_id, int index);
 void DisableAllIqSkills(uint32_t* iq_skills_flags);
