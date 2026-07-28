@@ -329,7 +329,9 @@ ASSERT_SIZE(struct window_list, 4480);
 // This struct seems to always be at +0x4 of the various window contents structs
 // stored in window_params / returned by GetWindowContents.
 struct window_input_ctx {
-    undefined fields_0x0[180];
+    undefined fields_0x0[28];
+    uint16_t title_string_id; // 0x1C: String ID to use for the title
+    undefined fields_0x1e[150];
     uint32_t first_item_y_offset; // 0xB4: Y-offset for first item on page
     // 0xB8: Difference in the Y-offset between one item and the next, shifted left by 8 bits
     uint32_t y_offset_diff;

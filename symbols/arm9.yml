@@ -7693,6 +7693,14 @@ arm9:
         
         r0: window id
         return: first item on page
+    - name: SetWindowTitle
+      address:
+        EU: 0x2030D28
+      description: |-
+        Sets the string ID to use for a window's title.
+        
+        r0: window id
+        r1: string id
     - name: GetAdvancedTextBoxFlags2
       address:
         EU: 0x2030D34
