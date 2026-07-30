@@ -3759,7 +3759,7 @@ overlay29:
         r1: [output] Pointer to the monster's current HP
         r2: [output] Pointer to the monster's offensive stats
         r3: [output] Pointer to the monster's defensive stats
-        stack[0]: Pointer to the monster's IQ
+        stack[0]: [output] Pointer to the monster's IQ
         stack[1]: Monster behavior
     - name: SpawnTeam
       address:
