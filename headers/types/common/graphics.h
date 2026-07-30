@@ -9,10 +9,13 @@
 // Contains data relating to animation.
 // Mentioned under the name of "AnimeCtrl" in a debug message.
 struct animation_control {
-    uint16_t some_bitfield;
+    uint16_t some_bitfield1 : 14;
+    uint16_t anim_paused : 1;
+    uint16_t some_bitfield2 : 1;
     uint16_t unk_flags1 : 4;
     uint16_t no_auto_frame_switch : 1;
-    uint16_t unk_flags2 : 11;
+    uint16_t use_oam_adjustment_info : 1;
+    uint16_t unk_flags2 : 10;
     undefined2 field2_0x4;
     uint16_t anim_frame_duration;
     undefined2 field4_0x8;
@@ -485,7 +488,7 @@ struct unk_palette_struct {
     struct palette_data_substruct extended_palette_sub; // 0x3C: Unused for top screen
     struct palette_data extended_palette_data;          // 0x50: Unused for top screen
     undefined field_0x78;
-    bool is_top_screen; // 0x79
+    struct screen_8 screen; // 0x79
     undefined field_0x7a[34];
 };
 ASSERT_SIZE(struct unk_palette_struct, 156);

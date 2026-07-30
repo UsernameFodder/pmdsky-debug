@@ -14,7 +14,9 @@ void UpdateInventoryMenu(struct window* window);
 bool IsInventoryMenuState3(int window_id);
 void CreateInventoryMenuOuter(int n_items, int param_2, int param_3, uint8_t* param_4,
                               undefined* param_5, undefined* param_6, uint32_t param_7);
+void LoadPaletteBase(uint8_t sprite_index, bool is_4bpp);
 int GetEffectAnimationField0x19(int anim_id);
+bool ScreenEffectActive(enum screen screen);
 bool AnimationHasMoreFrames(int param_1);
 struct effect_animation* GetEffectAnimation(int anim_id);
 struct move_animation* GetMoveAnimation(enum move_id move_id);
@@ -27,8 +29,8 @@ undefined4 DrawTeamStats(undefined4 param_1, int param_2, undefined4 param_3, ui
 void UpdateTeamStats(void);
 int FreeTeamStats(void);
 int FreeMapAndTeam(void);
-void ProcessTeamStatsLvHp(int idx);
-void ProcessTeamStatsNameGender(int idx);
+void ProcessTeamStatsLvHp(int window_id);
+void ProcessTeamStatsNameGender(int window_id);
 bool IsBackgroundTileset(int tileset_id);
 void InitTilesetBuffer(void* buffer, int tileset_id, uint32_t malloc_flags);
 int MainGame(int end_cond);

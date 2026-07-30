@@ -156,6 +156,7 @@ extern int16_t IQ_SKILL_RESTRICTIONS[69];
 extern struct secondary_terrain_type_8 SECONDARY_TERRAIN_TYPES[200];
 extern struct monster_id_16 SENTRY_DUTY_MONSTER_IDS[102];
 extern int32_t IQ_SKILLS[69];
+extern int MIN_TEAM_MEMBER_IQ;
 extern uint8_t IQ_GROUP_SKILLS[400];
 extern int MONEY_QUANTITY_TABLE[100];
 extern int16_t IQ_GUMMI_GAIN_TABLE[18][18];

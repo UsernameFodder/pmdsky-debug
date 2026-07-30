@@ -5062,6 +5062,14 @@ arm9:
         
         r0: animation_control
         return: allocation for max frame
+    - name: SetAnimationControlPausedFlag
+      address:
+        EU: 0x201D234
+      description: |-
+        Changes the flag for whether the animation should be paused.
+        
+        r0: animation_control
+        r1: whether the animation should be paused
     - name: DeleteWanTableEntry
       address:
         EU: 0x201D278
@@ -7685,6 +7693,14 @@ arm9:
         
         r0: window id
         return: first item on page
+    - name: SetWindowTitle
+      address:
+        EU: 0x2030D28
+      description: |-
+        Sets the string ID to use for a window's title.
+        
+        r0: window id
+        r1: string id
     - name: GetAdvancedTextBoxFlags2
       address:
         EU: 0x2030D34
@@ -12360,7 +12376,7 @@ arm9:
         Maps an object's designated OAM tile number (bits 0-9 in attribute 2) to the address its texture should be placed at in VRAM.
         
         r0: tile number
-        r1: 0 for bottom screen, 1 for top screen
+        r1: screen
         return: VRAM tile address
     - name: GetIqSkillStringId
       address:
@@ -12430,16 +12446,18 @@ arm9:
         r1: Monster species
         r2: Monster IQ
         return: Amount of skills written to the output array
-    - name: DisableIqSkill
+    - name: ToggleIqSkill
+      aliases:
+        - DisableIqSkill
       address:
         EU: 0x2059120
         NA: 0x2058DA4
         JP: 0x20590A0
       description: |-
-        Disables an IQ skill.
+        Turns an IQ skill on if it is inactive, or off if it is active.
         
         r0: Pointer to the bitarray containing the list of enabled IQ skills
-        r1: ID of the skill to disable
+        r1: ID of the skill to toggle
     - name: EnableIqSkill
       address:
         EU: 0x2059170
@@ -15318,6 +15336,12 @@ arm9:
         Table of 4-byte values for each IQ skill that represent the required IQ value to unlock a skill.
         
         type: int[69]
+    - name: MIN_TEAM_MEMBER_IQ
+      address:
+        EU: 0x20A2220
+      length:
+        EU: 0x4
+      description: The minimum IQ for a team member or Explorer Maze monster.
     - name: IQ_GROUP_SKILLS
       address:
         EU: 0x20A2314
@@ -16458,9 +16482,7 @@ arm9:
         type: int16_t[6]
     - name: MENU_CONTROL_PTR
       address:
-        EU: 0x20B06B4
-        NA: 0x20AFD98
-        JP: 0x20B11D8
+        EU: 0x20B06D4
       length:
         EU: 0x4
         NA: 0x4
