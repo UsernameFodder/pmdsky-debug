@@ -151,6 +151,8 @@ overlay10:
     - name: LoadPaletteBase
       address:
         EU: 0x22BE09C
+        NA: 0x22BD75C
+        JP: 0x22BEF00
       description: |-
         Loads either the 8bpp or 4bpp palette base (from WAN file 292 or 1, respectively).
         
@@ -171,6 +173,8 @@ overlay10:
     - name: ScreenEffectActive
       address:
         EU: 0x22C0228
+        NA: 0x22BF8E8
+        JP: 0x22C108C
       description: |-
         Returns true if a screen effect (like Leaf Storm's or cutscene rain) is currently active on the given screen.
         

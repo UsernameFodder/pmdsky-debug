@@ -770,6 +770,8 @@ overlay29:
     - name: DungeonScreenEffectActive
       address:
         EU: 0x22E3F30
+        NA: 0x22E3580
+        JP: 0x22E4BF0
       description: |-
         Returns true if a screen effect (like Leaf Storm's or Sunny Day's) is currently active.
         
@@ -1073,6 +1075,12 @@ overlay29:
         EU:
           - 0x22E611C
           - 0x22E6150
+        NA:
+          - 0x22E576C
+          - 0x22E57A0
+        JP:
+          - 0x22E6DDC
+          - 0x22E6E10
       description: |-
         Plays the sound effect for an attack missing. Varies depending on whether the defender is a team member or not.
         
@@ -1081,6 +1089,8 @@ overlay29:
     - name: PlayStairsSfx
       address:
         EU: 0x22E6718
+        NA: 0x22E5D68
+        JP: 0x22E73D8
       description: |-
         Plays the appropriate sound effect for climbing/descending the stairs, or nothing if the stairs are replaced by a warp zone or rescue point.
         
@@ -1143,6 +1153,8 @@ overlay29:
     - name: PlayKeyDoorUnlockEffect
       address:
         EU: 0x22E7044
+        NA: 0x22E6694
+        JP: 0x22E7D04
       description: |-
         Plays the key door unlock effect.
         
@@ -1342,6 +1354,8 @@ overlay29:
     - name: InitDungeonControlsMenuWithBg
       address:
         EU: 0x22E8EB0
+        NA: 0x22E8500
+        JP: 0x22E9B68
       description: |-
         Calls InitDungeonControlsMenu and loads the menu's background.
         
@@ -1349,6 +1363,8 @@ overlay29:
     - name: FreeDungeonControlsMenuWithBg
       address:
         EU: 0x22E8F38
+        NA: 0x22E8588
+        JP: 0x22E9BF0
       description: |-
         Calls FreeDungeonControlsMenu and unloads the menu's background.
         
@@ -1407,6 +1423,8 @@ overlay29:
     - name: InitDungeonControlsMenu
       address:
         EU: 0x22E9844
+        NA: 0x22E8E94
+        JP: 0x22EA4FC
       description: |-
         Initializes the dungeon controls menu.
         
@@ -1414,6 +1432,8 @@ overlay29:
     - name: FreeDungeonControlsMenu
       address:
         EU: 0x22E98D8
+        NA: 0x22E8F28
+        JP: 0x22EA590
       description: |-
         Frees the dungeon controls menu.
         
@@ -2590,6 +2610,8 @@ overlay29:
     - name: FreezeAnim
       address:
         EU: 0x22F0EA4
+        NA: 0x22F04F0
+        JP: 0x22F1AF4
       description: |-
         Freezes a monster's current animation.
         
@@ -2597,6 +2619,8 @@ overlay29:
     - name: UnfreezeAnim
       address:
         EU: 0x22F0ECC
+        NA: 0x22F0518
+        JP: 0x22F1B1C
       description: |-
         Unfreezes a monster's current animation.
         
@@ -2777,6 +2801,8 @@ overlay29:
     - name: TryPlaceItem
       address:
         EU: 0x22F55B4
+        NA: 0x22F4BF8
+        JP: 0x22F61F4
       description: |-
         Tries to place an item on the floor, and logs various failure messages under different conditions.
         
@@ -2786,6 +2812,8 @@ overlay29:
     - name: UseSingleUseItemSelf
       address:
         EU: 0x22F5C78
+        NA: 0x22F52BC
+        JP: 0x22F68B4
       description: |-
         Same as UseSingleUseItem, but the target will be set to the user.
         
@@ -2826,6 +2854,8 @@ overlay29:
     - name: TalkToTeamMemberInFront
       address:
         EU: 0x22F6380
+        NA: 0x22F59C4
+        JP: 0x22F6FC0
       description: |-
         Talks to the team member in front of the given entity, if there is one and it is on a tile the entity can attack in.
         
@@ -2833,6 +2863,8 @@ overlay29:
     - name: PlayerUseMove
       address:
         EU: 0x22F68D0
+        NA: 0x22F5F18
+        JP: 0x22F74FC
       description: |-
         Handles using a move by the player.
         
@@ -2840,6 +2872,8 @@ overlay29:
     - name: UseRegularAttackOrStruggle
       address:
         EU: 0x22F6A10
+        NA: 0x22F6058
+        JP: 0x22F763C
       description: |-
         Handles using the regular attack or Struggle by the entity.
         
@@ -2907,6 +2941,8 @@ overlay29:
     - name: LoadMonsterSprites
       address:
         EU: 0x22F7AE8
+        NA: 0x22F7130
+        JP: 0x22F86FC
       description: |-
         The main function for loading monster sprites at the beginning of a floor.
         
@@ -2914,6 +2950,8 @@ overlay29:
     - name: LoadActiveMonsterSprites
       address:
         EU: 0x22F7CC0
+        NA: 0x22F7308
+        JP: 0x22F88D4
       description: |-
         Loads the sprites of all active monsters on the floor based on their apparent ids. Used when loading quicksaves.
         
@@ -3021,6 +3059,8 @@ overlay29:
     - name: CanMonsterBeAddedToTeam
       address:
         EU: 0x22F81EC
+        NA: 0x22F7834
+        JP: 0x22F8DF4
       description: |-
         Returns false if there are already four members on the active team or if the total body size of the team would be greater than 6 if this monster was added.
         
@@ -3060,6 +3100,8 @@ overlay29:
     - name: GetMonsterInFront
       address:
         EU: 0x22F91CC
+        NA: 0x22F87C0
+        JP: 0x22F9D84
       description: |-
         Returns the monster in front of the given entity, or null if there is none or it is on a tile they cannot attack in.
         
@@ -3752,6 +3794,8 @@ overlay29:
     - name: InitExplorerMazeMonsterStatsMovesAndIq
       address:
         EU: 0x22FCE64
+        NA: 0x22FC468
+        JP: 0x22FD858
       description: |-
         Initializes the HP, offensive/defensive stats, and IQ of an explorer maze monster.
         
@@ -6318,6 +6362,8 @@ overlay29:
     - name: LogMessageWithTargetAndExclusiveItemName
       address:
         EU: 0x2315824
+        NA: 0x2314DC4
+        JP: 0x2316298
       description: |-
         Logs the given string ID, substituting its [string:0] tag for the target's name and [item:1] for an exclusive item in the bag which has the given effect id.
         
@@ -7338,6 +7384,8 @@ overlay29:
     - name: AiUseMove
       address:
         EU: 0x231B300
+        NA: 0x231A8A0
+        JP: 0x231BD70
       description: |-
         Handles using a move by the AI.
         
@@ -8895,6 +8943,8 @@ overlay29:
     - name: Weather3DEffectActive
       address:
         EU: 0x2339558
+        NA: 0x2338988
+        JP: 0x2339D4C
       description: |-
         Returns true if a 3D weather effect (a tileset weather or Sandstorm/Fog) is active.
         
@@ -9773,6 +9823,8 @@ overlay29:
     - name: TryOpenKeyDoor
       address:
         EU: 0x23445BC
+        NA: 0x23439D8
+        JP: 0x2344D9C
       description: |-
         Attempts to open a locked door at the given tile if a locked door has not already
         been opened on the floor.
@@ -10897,6 +10949,8 @@ overlay29:
     - name: FullyCloseAlertBox
       address:
         EU: 0x234C368
+        NA: 0x234B768
+        JP: 0x234C9D8
       description: |-
         Fully closes the alert box, calling CloseAlertBox and various other functions as well as changing the window id and loading status.
         
@@ -11902,6 +11956,8 @@ overlay29:
     - name: DUNGEON_CONTROLS_MENU_WINDOW_PARAMS
       address:
         EU: 0x2352200
+        NA: 0x23515F4
+        JP: 0x2352874
       length:
         EU: 0x10
     - name: POSITION_DISPLACEMENT_TO_DIRECTION
@@ -12320,6 +12376,8 @@ overlay29:
     - name: DUNGEON_CONTROLS_MENU_PTR
       address:
         EU: 0x2354158
+        NA: 0x2353558
+        JP: 0x23547D8
       length:
         EU: 0x4
       description: |-

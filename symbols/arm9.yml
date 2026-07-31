@@ -5065,6 +5065,8 @@ arm9:
     - name: SetAnimationControlPausedFlag
       address:
         EU: 0x201D234
+        NA: 0x201D198
+        JP: 0x201D1F0
       description: |-
         Changes the flag for whether the animation should be paused.
         
@@ -16483,6 +16485,8 @@ arm9:
     - name: MENU_CONTROL_PTR
       address:
         EU: 0x20B06D4
+        NA: 0x20AFDB8
+        JP: 0x20B11FC
       length:
         EU: 0x4
         NA: 0x4
