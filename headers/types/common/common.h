@@ -1660,4 +1660,13 @@ struct unk_storage_struct_0x410 {
 };
 ASSERT_SIZE(struct unk_storage_struct_0x410, 1040);
 
+struct alarm_callback_info {
+    void (*func)(void*);
+    void* arg;
+    uint8_t id;
+    uint8_t pad;
+    uint16_t pad2;
+};
+ASSERT_SIZE(struct alarm_callback_info, 12);
+
 #endif

@@ -5065,6 +5065,8 @@ arm9:
     - name: SetAnimationControlPausedFlag
       address:
         EU: 0x201D234
+        NA: 0x201D198
+        JP: 0x201D1F0
       description: |-
         Changes the flag for whether the animation should be paused.
         
@@ -7695,7 +7697,9 @@ arm9:
         return: first item on page
     - name: SetWindowTitle
       address:
-        EU: 0x2030D28
+        EU: 0x2030D20
+        NA: 0x2030A2C
+        JP: 0x2030D4C
       description: |-
         Sets the string ID to use for a window's title.
         
@@ -16483,6 +16487,8 @@ arm9:
     - name: MENU_CONTROL_PTR
       address:
         EU: 0x20B06D4
+        NA: 0x20AFDB8
+        JP: 0x20B11FC
       length:
         EU: 0x4
         NA: 0x4
@@ -16865,6 +16871,19 @@ arm9:
         The unpacked contents of the RESCUE/rescue.bin file. Also contains a mersenne twister state, for some reason.
         
         type: rescue_bin_unpack struct
+    - name: SPECIAL_ACTORS
+      address:
+        EU: 0x20B144C
+        NA: 0x20B0B08
+        JP: 0x20B237C
+      length:
+        EU: 0x38
+        NA: 0x38
+        JP: 0x38
+      description: |-
+        Actors that require special handling for the game to display, such as the player and partner.
+        
+        type: special_actors struct
     - name: SMD_EVENTS_FUN_TABLE
       address:
         EU: 0x20B14D4
@@ -16940,6 +16959,16 @@ arm9:
         EU: 0x4
         NA: 0x4
         JP: 0x4
+    - name: FSI_DIGEST_KEY_LEN
+      address:
+        EU: 0x20B34FC
+        NA: 0x20B2BB8
+        JP: 0x20B442C
+    - name: DAY_OF_YEAR
+      address:
+        EU: 0x20B37E0
+        NA: 0x20B2E9C
+        JP: 0x20B4710
     - name: RAND_SEQUENCE_NUM
       address:
         EU: 0x20B3B68

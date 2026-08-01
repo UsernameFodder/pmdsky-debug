@@ -277,6 +277,7 @@ extern undefined* MISSION_LIST_PTR;
 extern const char* REMOTE_STRING_PTR_TABLE[7];
 extern const char* RANK_STRING_PTR_TABLE[16];
 extern struct rescue_bin_unpack RESCUE_BIN_UNPACK;
+extern struct special_actors SPECIAL_ACTORS;
 extern void* SMD_EVENTS_FUN_TABLE[127];
 extern int16_t MUSIC_DURATION_LOOKUP_TABLE_1[128];
 extern int32_t MUSIC_DURATION_LOOKUP_TABLE_2[128];
