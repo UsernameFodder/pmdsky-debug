@@ -489,6 +489,11 @@ itcm:
         EU-ITCM: 0x1FF9B3C
         NA-ITCM: 0x1FF9B3C
         JP-ITCM: 0x1FF9BA4
+      description: |-
+        r0: channel id
+        r1: source address
+        r2: destination address
+        r3: word count
     - name: ShouldMonsterRunAwayAndShowEffectOutlawCheck
       aliases:
         - ShouldMonsterRunAwayVariationOutlawCheck

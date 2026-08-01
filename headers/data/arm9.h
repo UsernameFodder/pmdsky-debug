@@ -285,8 +285,6 @@ extern sound_lfo_waveform_callback LFO_WAVEFORM_CALLBACKS[16];
 extern bool IS_DISP_ON;
 extern uint32_t GXI_DMA_ID;
 extern uint32_t OSI_CONSOLE_TYPE_CACHE;
-extern undefined FSI_DIGEST_KEY_LEN;
-extern undefined DAY_OF_YEAR;
 extern uint32_t RAND_SEQUENCE_NUM;
 
 #endif
