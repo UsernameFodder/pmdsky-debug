@@ -703,6 +703,10 @@ ram:
         EU: 0x22BBE40
         NA: 0x22BB500
         JP: 0x22BCCA0
+      length:
+        EU: 0x60
+        NA: 0x60
+        JP: 0x60
     - name: SNDI_SHARED_WORK
       address:
         EU: 0x22BBEA0
