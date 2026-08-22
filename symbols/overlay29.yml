@@ -3284,6 +3284,8 @@ overlay29:
     - name: TryPointCameraToFarOffTeammate
       address:
         EU: 0x22FA24C
+        NA: 0x22F9840
+        JP: 0x22FADF8
       description: |-
         Attempts to place the camera on top of the specified teammate.
         
@@ -5240,6 +5242,8 @@ overlay29:
     - name: ResetTypeChanges
       address:
         EU: 0x230870C
+        NA: 0x2307CE0
+        JP: 0x2309210
       description: |-
         Resets any type changes that the given monster has undergone.
         

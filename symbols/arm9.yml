@@ -5042,6 +5042,8 @@ arm9:
     - name: GetPixelOffsetFromSprite
       address:
         EU: 0x201D02C
+        NA: 0x201CF90
+        JP: 0x201CFE8
       description: |-
         Converts a WAN offset on a sprite into a pixel offset.
         
@@ -5051,6 +5053,8 @@ arm9:
     - name: FillPixelOffsetArrayFromSprite
       address:
         EU: 0x201D0D0
+        NA: 0x201D034
+        JP: 0x201D08C
       description: |-
         Converts the first array_len WAN offsets on a sprite into an array of pixel offsets.
         
