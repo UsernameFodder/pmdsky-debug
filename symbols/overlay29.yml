@@ -1073,6 +1073,8 @@ overlay29:
     - name: PlayItemThrowSfx
       address:
         EU: 0x22E60D8
+        NA: 0x22E5728
+        JP: 0x22E6D98
       description: |-
         Plays the appropriate sound effect for throwing an item based on its category.
         
@@ -1627,6 +1629,8 @@ overlay29:
     - name: GetCurvedProjectileTargetPos
       address:
         EU: 0x22EA44C
+        NA: 0x22E9A9C
+        JP: 0x22EB104
       description: |-
         Gets the position a curved projectile should land at when thrown by the user.
         
@@ -2897,6 +2901,8 @@ overlay29:
     - name: GetShopkeeperIfTalkable
       address:
         EU: 0x22F6BC8
+        NA: 0x22F6210
+        JP: 0x22F77F4
       description: |-
         Returns a pointer to the floor's shopkeeper, or an invalid entity pointer if there is none, they cannot be talked to, or they are not in the same room as the leader.
         
@@ -2905,6 +2911,8 @@ overlay29:
     - name: HandleShopTransaction
       address:
         EU: 0x22F6C84
+        NA: 0x22F62CC
+        JP: 0x22F78B0
       description: |-
         Checks if a Kecleon shop transaction should occur and initiates it if so.
         
@@ -2919,6 +2927,8 @@ overlay29:
     - name: TryBuyFromShop
       address:
         EU: 0x22F73C4
+        NA: 0x22F6A0C
+        JP: 0x22F7FF4
       description: |-
         Handles buying from a Kecleon shop.
         
@@ -2927,6 +2937,8 @@ overlay29:
     - name: TriggerThiefAlert
       address:
         EU: 0x22F7664
+        NA: 0x22F6CAC
+        JP: 0x22F8290
       description: |-
         Triggers the sequence for stealing from a Kecleon shop.
         
@@ -3431,6 +3443,8 @@ overlay29:
     - name: ActivateTerrainEffects
       address:
         EU: 0x22FA680
+        NA: 0x22F9C74
+        JP: 0x22FB22C
       description: |-
         Handles causing the burn from lava, healing a burn from water, and decreasing hunger in the walls.
         
@@ -4101,6 +4115,8 @@ overlay29:
     - name: CannotMoveToTile
       address:
         EU: 0x2300190
+        NA: 0x22FF764
+        JP: 0x2300B54
       description: |-
         Same as CannotStandOnTile, but also returns false if the monster is currently on the tile.
         
@@ -4392,6 +4408,8 @@ overlay29:
     - name: CanBeTalkedTo
       address:
         EU: 0x23013F8
+        NA: 0x23009CC
+        JP: 0x2301DB0
       description: |-
         Returns true if the monster doesn't have a status that prevents it from being talked to.
         
@@ -5015,6 +5033,8 @@ overlay29:
     - name: MakeMonsterIdleInDirectionIfValid
       address:
         EU: 0x230542C
+        NA: 0x2304A00
+        JP: 0x2305F50
       description: |-
         Makes the monster play their idle animation. Also makes them do so in the given direction and sets the direction field of their action struct if the direction parameter is between 0 and 7 (inclusive).
         
@@ -8010,6 +8030,8 @@ overlay29:
     - name: CalcExplosionDamage
       address:
         EU: 0x232150C
+        NA: 0x2320AA4
+        JP: 0x2321F50
       description: |-
         Calculates and inflicts damage from an explosion.
         
@@ -8021,6 +8043,8 @@ overlay29:
     - name: CalcAftermathExplosionDamage
       address:
         EU: 0x2321634
+        NA: 0x2320BCC
+        JP: 0x2322078
       description: |-
         Calculates and inflicts damage from an aftermath explosion.
         
@@ -12623,6 +12647,8 @@ overlay29:
     - name: EXPLOSION_FIXED_DAMAGES
       address:
         EU: 0x2354300
+        NA: 0x2353700
+        JP: 0x2354980
       length:
         EU: 0xC
       description: "Array of damages indexed by radius for explosion damage (before reductions from exclusive items, etc)."
