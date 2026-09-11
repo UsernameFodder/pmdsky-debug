@@ -11573,7 +11573,7 @@ arm9:
         - Meowth: Hypnosis
         - Munchlax: Zen Headbutt
         - Skitty: Zen Headbutt
-
+        
         r0: pointer to the ground_monster to attempt to grant a move to, as either the hero or the partner.
     - name: GetLvlUpEntry
       address:
