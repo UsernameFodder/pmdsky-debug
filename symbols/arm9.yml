@@ -11558,7 +11558,7 @@ arm9:
         r2: team_member index
     - name: AddUniqueStarterMoveTo
       address:
-        NA: 0x02053568
+        NA: 0x2053568
       description: |-
         Grants certain starter Pokemon a unique move that they cannot normally learn.
 
