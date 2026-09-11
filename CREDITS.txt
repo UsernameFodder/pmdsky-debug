@@ -38,6 +38,7 @@ other parts of the project, feel free to add yourself to this file!
 - Chesyon
 - Xaklor
 - Caitemis
+- Itred12
 - The rest of the contributors to Project Pokémon's technical documentation
   for the NDS Mystery Dungeon games, which can be found here:
   https://projectpokemon.org/home/docs/mystery-dungeon-nds/
