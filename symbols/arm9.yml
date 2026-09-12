@@ -17021,14 +17021,9 @@ arm9:
         NA: 0x20a3258
       description: |- 
         An array of eight unique moves given to specific starter pokemon, which their lines cannot normally learn.
-
+        
         The ninth element is a terminator, containing a blank monster and move ID.
-
-        Notably, all of the listed Pokémon are starters whom have recieved changes in some way in Explorers of Sky.
-        According to Bulbapedia: Phanphy, Vulpix, Riolu, Eevee, and Shinx are all new hero choices in EoS specifically,
-        Skitty was modified to be unavalible as a male,
-        and Meowth and Munchlax were removed from the hero pool altogether, only being partner choices in EoS.
-
+        
         The moves are as follows:
         - Vulpix: Faint Attack
         - Eevee: Flail
@@ -17038,6 +17033,13 @@ arm9:
         - Meowth: Hypnosis
         - Munchlax: Zen Headbutt
         - Skitty: Zen Headbutt
+        
+        Notably, all of the listed Pokémon are starters whom have recieved changes in some way in Explorers of Sky.
+        According to Bulbapedia: Phanphy, Vulpix, Riolu, Eevee, and Shinx are all new hero choices in EoS specifically,
+        Skitty was modified to be unavalible as a male,
+        and Meowth and Munchlax were removed from the hero pool altogether, only being partner choices in EoS.
+
+        
 
 
 
