@@ -11556,16 +11556,15 @@ arm9:
         r0: team_member pointer
         r1: ground_monster pointer
         r2: team_member index
-    - name: AddUniqueStarterMoveTo
+    - name: AddStarterEggMove
       address:
         NA: 0x2053568
       description: |-
-        Grants certain starter pokemon a unique move at the beginning of the game, adding it to the first available slot.
+        Grants certain starter pokemon an egg move from their line at the beginning of the game, adding it to the first available slot.
         
         Only called during the InitMainTeamAfterQuiz special process, for both the hero and the partner.
         Will skip granting any move if the target somehow already has four moves.
         
-        Most (all?) of the granted moves are "unique" in the sense that they cannot normally be learned by these pokemon.
         See pointer to STARTER_MOVES_ARRAY near the end of this function for a full list of the pokemon-move pairs that are used by it.
         
         r0: pointer to the ground_monster to attempt to grant a move to. Will always be either the hero or the partner.
@@ -15723,7 +15722,7 @@ arm9:
       address:
         NA: 0x20A3258
       description: |-
-        An array of eight unique moves given to specific starter pokemon, which their lines cannot normally learn.
+        An array of eight egg-moves manually granted to a small handful starter pokemon, used by the function AddStarterEggMove.
         
         The ninth element is a terminator, containing a blank monster and move ID.
         
@@ -15742,7 +15741,7 @@ arm9:
         Skitty was modified to be unavalible as a male,
         and Meowth and Munchlax were removed from the hero pool altogether, only being partner choices in EoS.
         
-        NOTE: It's unclear whether these pokemon are able to re-learn these moves at the Electivire link shop if they're forgotten in any way. More research is appreciated.
+        MORE RESEARCH REQUIRED: Are these pokemon able to re-learn the egg move they're given if it's forgotten in any way?
     - name: REMOTE_STRINGS
       address:
         EU: 0x20A4140
