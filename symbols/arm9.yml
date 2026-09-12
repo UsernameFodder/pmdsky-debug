@@ -4056,10 +4056,10 @@ arm9:
         NA: 0x2013C64
         JP: 0x2013C34
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Note: semi-verified?
         
-        r0: moveset_str
-        return: # moves
+        r0: pointer to a ground_monster's move table
+        return: # of moves the ground_monster knows
     - name: GetMovesetIdx
       address:
         EU:
@@ -4074,11 +4074,11 @@ arm9:
       description: |-
         Returns the move position in the moveset if it is found, -1 otherwise
         
-        Note: unverified, ported from Irdkwia's notes
+        Note: semi-verified?
         
-        r0: moveset_str
-        r1: move ID
-        return: ?
+        r0: pointer to a ground_monster's move table
+        r1: move ID to find
+        return: index of the move in the ground_monster's move table, or -1 if the given move wasn't found.
     - name: IsReflectedByMagicCoat
       address:
         EU: 0x2013DB0
