@@ -15725,7 +15725,7 @@ arm9:
         NA: 0x4B0
         JP: 0x4B0
       description: Contains information about the sprite size and sprite file size of each monster
-      - name: STARTER_MOVES_ARRAY
+    - name: STARTER_MOVES_ARRAY
       address: 
         NA: 0x20a3258
       description: |- 
