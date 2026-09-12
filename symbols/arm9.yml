@@ -11560,21 +11560,15 @@ arm9:
       address:
         NA: 0x2053568
       description: |-
-        Grants certain starter Pokemon a unique move that they cannot normally learn.
+        Grants certain starter pokemon a unique move at the beginning of the game, adding it to the first available slot.
         
-        Only called during InitMainTeamAfterQuiz, for both the hero and the partner.
+        Only called during InitMainTeamAfterQuiz special process, for both the hero and the partner.
         Will skip granting any move if the target somehow already has four moves.
-        Gives the following:
-        - Vulpix: Faint Attack
-        - Eevee: Flail
-        - Phanphy: Ancient Power
-        - Shinx: Quick Attack
-        - Riolu: Bite
-        - Meowth: Hypnosis
-        - Munchlax: Zen Headbutt
-        - Skitty: Zen Headbutt
         
-        r0: pointer to the ground_monster to attempt to grant a move to, as either the hero or the partner.
+        Most (all?) of the granted moves are "unique" in the sense that they cannot normally be learned by these pokemon.
+        See pointer to STARTER_MOVES_ARRAY near the end of this function for a full list of the pokemon-move pairs that are used by it.
+        
+        r0: pointer to the ground_monster to attempt to grant a move to. Will always be either the hero or the partner.
     - name: GetLvlUpEntry
       address:
         EU: 0x2053B18
@@ -15736,7 +15730,7 @@ arm9:
         The moves are as follows:
         - Vulpix: Faint Attack
         - Eevee: Flail
-        - Phanphy: Ancient Power
+        - Phanpy: AncientPower
         - Shinx: Quick Attack
         - Riolu: Bite
         - Meowth: Hypnosis
@@ -15747,6 +15741,8 @@ arm9:
         According to Bulbapedia: Phanphy, Vulpix, Riolu, Eevee, and Shinx are all new hero choices in EoS specifically,
         Skitty was modified to be unavalible as a male,
         and Meowth and Munchlax were removed from the hero pool altogether, only being partner choices in EoS.
+        
+        NOTE: It's unclear whether these pokemon are able to re-learn these moves at the Electivire link shop if they're forgotten in any way. More research is appreciated.
     - name: REMOTE_STRINGS
       address:
         EU: 0x20A4140
