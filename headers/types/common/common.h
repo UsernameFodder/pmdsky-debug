@@ -1758,4 +1758,11 @@ struct effect_control {
 };
 ASSERT_SIZE(struct effect_control, 10148);
 
+// Stores a pair of monster_id_16 to move_id_16, used for granting specific starter pokemon a unique move their line cannot normally learn.
+struct unique_starter_move {
+    struct monster_id_16 starter_id; // The starter whom will learn this move
+    struct move_id_16 unique_move; // The move to be learned
+};
+ASSERT_SIZE(struct unique_starter_move, 4);
+
 #endif

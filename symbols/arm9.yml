@@ -16997,3 +16997,28 @@ arm9:
         NA: 0x20B3224
         JP: 0x20B4A98
       description: "[Runtime] The current PRNG sequence number for the system PRNG. See rand for more information on how the system PRNG works."
+    - name: STARTER_MOVES_ARRAY
+      address: 
+        NA: 0x20a3258
+      description: |- 
+        An array of eight unique moves given to specific starter pokemon, which their lines cannot normally learn.
+
+        The ninth element is a terminator, containing a blank monster and move ID.
+
+        Notably, all of the listed Pokémon are starters whom have recieved changes in some way in Explorers of Sky.
+        According to Bulbapedia: Phanphy, Vulpix, Riolu, Eevee, and Shinx are all new hero choices in EoS specifically,
+        Skitty was modified to be unavalible as a male,
+        and Meowth and Munchlax were removed from the hero pool altogether, only being partner choices in EoS.
+
+        The moves are as follows:
+        - Vulpix: Faint Attack
+        - Eevee: Flail
+        - Phanphy: Ancient Power
+        - Shinx: Quick Attack
+        - Riolu: Bite
+        - Meowth: Hypnosis
+        - Munchlax: Zen Headbutt
+        - Skitty: Zen Headbutt
+
+
+
