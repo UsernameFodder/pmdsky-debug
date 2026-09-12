@@ -15727,7 +15727,7 @@ arm9:
       description: Contains information about the sprite size and sprite file size of each monster
     - name: STARTER_MOVES_ARRAY
       address: 
-        NA: 0x20a3258
+        NA: 0x20A3258
       description: |- 
         An array of eight unique moves given to specific starter pokemon, which their lines cannot normally learn.
         
