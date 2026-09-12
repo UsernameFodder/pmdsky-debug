@@ -11562,7 +11562,7 @@ arm9:
       description: |-
         Grants certain starter pokemon a unique move at the beginning of the game, adding it to the first available slot.
         
-        Only called during InitMainTeamAfterQuiz special process, for both the hero and the partner.
+        Only called during the InitMainTeamAfterQuiz special process, for both the hero and the partner.
         Will skip granting any move if the target somehow already has four moves.
         
         Most (all?) of the granted moves are "unique" in the sense that they cannot normally be learned by these pokemon.
