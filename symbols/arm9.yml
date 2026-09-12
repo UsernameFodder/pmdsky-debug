@@ -15726,9 +15726,9 @@ arm9:
         JP: 0x4B0
       description: Contains information about the sprite size and sprite file size of each monster
     - name: STARTER_MOVES_ARRAY
-      address: 
+      address:
         NA: 0x20A3258
-      description: |- 
+      description: |-
         An array of eight unique moves given to specific starter pokemon, which their lines cannot normally learn.
         
         The ninth element is a terminator, containing a blank monster and move ID.
