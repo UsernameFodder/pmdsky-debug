@@ -961,7 +961,7 @@ overlay29:
         
         r0: entity pointer
     - name: PlayAttractHitEffect
-      address: 
+      address:
         NA: 0x22E4C00
       description: |-
         Displays the graphical effect on a monster that was just hit by the move Attract.
