@@ -11556,25 +11556,20 @@ arm9:
         r0: team_member pointer
         r1: ground_monster pointer
         r2: team_member index
-    - name: AddUniqueStarterMoveTo
+    - name: AddStarterEggMove
+      aliases:
+        - AddUniqueStarterMoveTo
       address:
         NA: 0x2053568
       description: |-
-        Grants certain starter Pokemon a unique move that they cannot normally learn.
+        Grants certain starter Pokemon an egg move from their line at the beginning of the game, adding it to the first available slot.
         
-        Only called during InitMainTeamAfterQuiz, for both the hero and the partner.
+        Only called during the InitMainTeamAfterQuiz special process, for both the hero and the partner.
         Will skip granting any move if the target somehow already has four moves.
-        Gives the following:
-        - Vulpix: Faint Attack
-        - Eevee: Flail
-        - Phanphy: Ancient Power
-        - Shinx: Quick Attack
-        - Riolu: Bite
-        - Meowth: Hypnosis
-        - Munchlax: Zen Headbutt
-        - Skitty: Zen Headbutt
         
-        r0: pointer to the ground_monster to attempt to grant a move to, as either the hero or the partner.
+        See pointer to STARTER_MOVES_ARRAY near the end of this function for a full list of the Pokemon-move pairs that are used by it.
+        
+        r0: pointer to the ground_monster to attempt to grant a move to. Will always be either the hero or the partner.
     - name: GetLvlUpEntry
       address:
         EU: 0x2053B18
@@ -15725,6 +15720,32 @@ arm9:
         NA: 0x4B0
         JP: 0x4B0
       description: Contains information about the sprite size and sprite file size of each monster
+    - name: STARTER_MOVES_ARRAY
+      address:
+        NA: 0x20A3258
+      length:
+        NA: 0x24
+      description: |-
+        An array of eight egg-moves manually granted to a small handful starter pokemon, used by the function AddStarterEggMove.
+        
+        The ninth element is a terminator, containing a blank monster and move ID.
+        
+        The moves are as follows:
+        - Vulpix: Faint Attack
+        - Eevee: Flail
+        - Phanpy: AncientPower
+        - Shinx: Quick Attack
+        - Riolu: Bite
+        - Meowth: Hypnosis
+        - Munchlax: Zen Headbutt
+        - Skitty: Zen Headbutt
+        
+        Notably, all of the listed Pokémon are starters whom have recieved changes in some way in Explorers of Sky.
+        According to Bulbapedia: Phanphy, Vulpix, Riolu, Eevee, and Shinx are all new hero choices in EoS specifically,
+        Skitty was modified to be unavalible as a male,
+        and Meowth and Munchlax were removed from the hero pool altogether, only being partner choices in EoS.
+        
+        MORE RESEARCH REQUIRED: Are these pokemon able to re-learn the egg move they're given if it's forgotten in any way?
     - name: REMOTE_STRINGS
       address:
         EU: 0x20A4140
