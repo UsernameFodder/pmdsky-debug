@@ -11557,15 +11557,17 @@ arm9:
         r1: ground_monster pointer
         r2: team_member index
     - name: AddStarterEggMove
+      aliases:
+        - AddUniqueStarterMoveTo
       address:
         NA: 0x2053568
       description: |-
-        Grants certain starter pokemon an egg move from their line at the beginning of the game, adding it to the first available slot.
+        Grants certain starter Pokemon an egg move from their line at the beginning of the game, adding it to the first available slot.
         
         Only called during the InitMainTeamAfterQuiz special process, for both the hero and the partner.
         Will skip granting any move if the target somehow already has four moves.
         
-        See pointer to STARTER_MOVES_ARRAY near the end of this function for a full list of the pokemon-move pairs that are used by it.
+        See pointer to STARTER_MOVES_ARRAY near the end of this function for a full list of the Pokemon-move pairs that are used by it.
         
         r0: pointer to the ground_monster to attempt to grant a move to. Will always be either the hero or the partner.
     - name: GetLvlUpEntry
@@ -15721,6 +15723,8 @@ arm9:
     - name: STARTER_MOVES_ARRAY
       address:
         NA: 0x20A3258
+      length:
+        NA: 0x24
       description: |-
         An array of eight egg-moves manually granted to a small handful starter pokemon, used by the function AddStarterEggMove.
         

@@ -1758,7 +1758,8 @@ struct effect_control {
 };
 ASSERT_SIZE(struct effect_control, 10148);
 
-// Stores a pair of monster_id_16 to move_id_16, used for granting specific starter pokemon an egg move from their line.
+// Stores a pair of monster_id_16 to move_id_16.
+// Used for granting specific starter pokemon an egg move from their line.
 struct starter_egg_move {
     // 0x0: The starter whom will learn this move
     struct monster_id_16 starter_id;
