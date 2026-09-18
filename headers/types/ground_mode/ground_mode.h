@@ -1503,4 +1503,10 @@ struct special_actors {
 };
 ASSERT_SIZE(struct special_actors, 56);
 
+
+struct chansey_daycare {
+    
+};
+ASSERT_SIZE(struct chansey_daycare, 679)
+
 #endif

@@ -2393,6 +2393,11 @@ enum bank_subcase {
     SBANK_UPDATE_GOLD_STATUS = 13,
 };
 
+enum daycare_maincase {
+    DAYCARE_INIT = 0,
+    STATE_UNK_0x19 = 25
+};
+
 // These are super long, so split them out into a separate file
 #include "version_dep_enums.h"
 
