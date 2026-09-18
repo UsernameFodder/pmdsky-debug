@@ -2393,7 +2393,7 @@ enum bank_subcase {
     SBANK_UPDATE_GOLD_STATUS = 13,
 };
 
-typedef enum daycare_menu_state { /* Used to manage switch-cases in Chansey Daycare */
+typedef enum daycare_menu_state { // Used to manage switch-cases in Chansey Daycare
     DAYCARE_INIT = 0,
     MAYBE_TAKEEGG = 1,
     INFO = 2,
@@ -2433,7 +2433,7 @@ typedef enum daycare_menu_state { /* Used to manage switch-cases in Chansey Dayc
     STATE_UNK_0x24 = 36,
     STATE_UNK_0x25 = 37,
     STATE_UNK_0x26 = 38
-} daycare_menu_state;
+};
 
 // These are super long, so split them out into a separate file
 #include "version_dep_enums.h"
