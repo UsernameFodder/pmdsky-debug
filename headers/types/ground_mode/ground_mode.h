@@ -2020,6 +2020,6 @@ struct chansey_daycare {
     struct portrait_params portrait_params;
     int field513_0x2a4;
 };
-ASSERT_SIZE(struct chansey_daycare, 679)
+ASSERT_SIZE(struct chansey_daycare, 679);
 
 #endif

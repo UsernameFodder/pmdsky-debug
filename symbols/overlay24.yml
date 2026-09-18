@@ -190,7 +190,7 @@ overlay24:
         So, if you want an Egg, go on
         lots of missions! ♪"
     - name: STRINGID_CHANSEY_JOINEDTEAM
-      addresss: 
+      address: 
         NA: 0x238B3F0
       description: |-
         String ID 0x399:
