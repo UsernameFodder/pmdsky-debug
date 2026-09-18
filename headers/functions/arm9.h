@@ -1208,6 +1208,8 @@ bool NeedsItemToSpawn(enum monster_id monster_id);
 int GetExclusiveItem(enum monster_id monster_id, int excl_idx);
 int GetFamilyIndex(enum monster_id monster_id);
 void LoadM2nAndN2m(void);
+void MaybeSetUpMonsterFromEgg(undefined* param_1, enum monster_id species, char* name_buffer,
+                              undefined* param_4, int param_5, undefined param_6);
 void GuestMonsterToGroundMonster(struct ground_monster* ground_monster,
                                  struct guest_monster* guest_monster);
 void SetBaseStatsMovesGroundMonster(struct ground_monster* ground_monster);
@@ -1262,8 +1264,6 @@ int GetRecruitMentryIdBySpecies(enum monster_id monster_id, int num_to_skip);
 int GetHeroMemberIdx(void);
 int GetPartnerMemberIdx(void);
 int GetMainCharacter1MemberIdx(void);
-void MaybeSetUpMonsterFromEgg(undefined* param_1, enum monster_id species, char* name_buffer,
-                              undefined* param_4, int param_5, undefined param_6);
 struct ground_monster* MaybeAddGroundMonsterFromEggToTeam(void);
 int GetMainCharacter2MemberIdx(void);
 int GetMainCharacter3MemberIdx(void);
