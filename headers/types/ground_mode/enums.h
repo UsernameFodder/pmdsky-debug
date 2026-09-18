@@ -2393,10 +2393,47 @@ enum bank_subcase {
     SBANK_UPDATE_GOLD_STATUS = 13,
 };
 
-enum daycare_maincase {
+typedef enum daycare_menu_state { /* Used to manage switch-cases in Chansey Daycare */
     DAYCARE_INIT = 0,
-    STATE_UNK_0x19 = 25
-};
+    MAYBE_TAKEEGG = 1,
+    INFO = 2,
+    CHECKON = 3,
+    STATE_UNK_0x4 = 4,
+    EGGHATCH = 5,
+    SEEMINGLYIDENTICAL_EGGHATCH2 = 6,
+    SEEMINGLYIDENTICAL_EGGHATCH3 = 7,
+    EGGHATCH_NEVERMIND = 8,
+    EGGHATCH_INIT = 9,
+    RECRUIT_BABY = 10,
+    STATE_UNK_0xb = 11,
+    STATE_UNK_0xc = 12,
+    STATE_UNK_0xd = 13,
+    RECRUIT_CHOICER = 14,
+    SOMETHING_SETUPBABY = 15,
+    MAYBE_GIVEEGGSTATBONUS = 16,
+    STATE_UNK_0x11 = 17,
+    STATE_UNK_0x12 = 18,
+    STATE_UNK_0x13 = 19,
+    STATE_UNK_0x14 = 20,
+    STATE_UNK_0x15 = 21,
+    STATE_UNK_0x16 = 22,
+    STATE_UNK_0x17 = 23,
+    STATE_UNK_0x18 = 24,
+    STATE_UNK_0x19 = 25,
+    MAYBE_MAINMENU = 26,
+    STATE_UNK_0x1b = 27,
+    STATE_UNK_0x1c = 28,
+    STATE_UNK_0x1d = 29,
+    STATE_UNK_0x1e = 30,
+    RECRUIT = 31,
+    STATE_UNK_0x20 = 32,
+    STATE_UNK_0x21 = 33,
+    STATE_UNK_0x22 = 34,
+    STATE_UNK_0x23 = 35,
+    STATE_UNK_0x24 = 36,
+    STATE_UNK_0x25 = 37,
+    STATE_UNK_0x26 = 38
+} daycare_menu_state;
 
 // These are super long, so split them out into a separate file
 #include "version_dep_enums.h"
