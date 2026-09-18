@@ -1526,7 +1526,7 @@ struct chansey_daycare {
     undefined field19_0x1e;
     undefined field20_0x1f;
     undefined1 maybe_first_interaction; // Created by Rename Structure Field action
-    undefined1 maybe_has_egg; // Created by Rename Structure Field action
+    undefined1 maybe_has_egg;           // Created by Rename Structure Field action
     undefined field23_0x22;
     undefined field24_0x23;
     undefined field25_0x24;
