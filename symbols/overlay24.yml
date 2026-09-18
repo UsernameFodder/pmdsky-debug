@@ -32,7 +32,7 @@ overlay24:
         NA: 0x238C36C
       description: |-
         Called every frame while the Chansey Daycare menu is active.
-
+        
         Returns: either 1 or 4, depending on the state of the menu (MORE RESEARCH NEEDED)
   data:
     - name: PREPROCESSORFLAGS_CHANSEY_COMMON

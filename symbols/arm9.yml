@@ -1915,7 +1915,6 @@ arm9:
         r1: format
         ...: variadic
         return: number of characters printed, excluding the null-terminator
-    
     - name: MaybeGetUncoloredFormattedItemName
       address:
         EU: 0x200D6E4
