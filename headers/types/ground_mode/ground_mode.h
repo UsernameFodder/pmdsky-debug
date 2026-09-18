@@ -1505,7 +1505,7 @@ ASSERT_SIZE(struct special_actors, 56);
 
 
 struct chansey_daycare {
-    enum daycare_menu_state state; /* Current state of the Chansey Daycare menu(?) */
+    enum daycare_menu_state state; // Current state of the Chansey Daycare menu(?)
     undefined field1_0x4;
     undefined field2_0x5;
     undefined field3_0x6;
@@ -1526,8 +1526,8 @@ struct chansey_daycare {
     undefined field18_0x1d;
     undefined field19_0x1e;
     undefined field20_0x1f;
-    undefined1 maybe_first_interaction; /* Created by Rename Structure Field action */
-    undefined1 maybe_has_egg; /* Created by Rename Structure Field action */
+    undefined1 maybe_first_interaction; // Created by Rename Structure Field action
+    undefined1 maybe_has_egg; // Created by Rename Structure Field action
     undefined field23_0x22;
     undefined field24_0x23;
     undefined field25_0x24;
@@ -1573,7 +1573,7 @@ struct chansey_daycare {
     undefined field65_0x4f;
     undefined field66_0x50;
     undefined field67_0x51;
-    undefined1 unk_egg_name; /* Created by Rename Structure Field action */
+    undefined1 unk_egg_name; // Created by Rename Structure Field action
     undefined field69_0x53;
     undefined field70_0x54;
     undefined field71_0x55;
@@ -1593,7 +1593,7 @@ struct chansey_daycare {
     undefined field85_0x63;
     undefined field86_0x64;
     undefined field87_0x65;
-    undefined1 unk_sets_preprocessorargs_strings0_field; /* Created by Rename Structure Field action */
+    undefined1 unk_sets_preprocessorargs_strings0_field; // Created by Rename Structure Field action
     undefined field89_0x67;
     undefined field90_0x68;
     undefined field91_0x69;
@@ -1849,7 +1849,7 @@ struct chansey_daycare {
     undefined field341_0x163;
     undefined field342_0x164;
     undefined field343_0x165;
-    char *unk_buffer2; /* Created by Rename Structure Field action */
+    char *unk_buffer2; // Created by Rename Structure Field action
     undefined field345_0x16a;
     undefined field346_0x16b;
     undefined field347_0x16c;
@@ -1938,7 +1938,7 @@ struct chansey_daycare {
     undefined field430_0x1ed;
     undefined field431_0x1ee;
     undefined field432_0x1ef;
-    enum portrait_emotion current_portrait_emotion; /* Created by Rename Structure Field action */
+    enum portrait_emotion current_portrait_emotion; // Created by Rename Structure Field action
     undefined field434_0x1f4;
     undefined field435_0x1f5;
     undefined field436_0x1f6;
@@ -2012,14 +2012,15 @@ struct chansey_daycare {
     undefined field504_0x289;
     undefined field505_0x28a;
     undefined field506_0x28b;
-    int8_t dialogue_window_id; /* (Created by Rename Structure Field action) Potentially main window? */
-    int8_t portrait_window_id; /* Created by Rename Structure Field action */
+    // (Created by Rename Structure Field action) Potentially main window?
+    int8_t dialogue_window_id; 
+    int8_t portrait_window_id; // Created by Rename Structure Field action
     undefined field509_0x28e;
-    int unk_menu_id; /* Created by Rename Structure Field action */
+    int unk_menu_id; // Created by Rename Structure Field action
     undefined field511_0x293;
     struct portrait_params portrait_params;
     int field513_0x2a4;
 };
-ASSERT_SIZE(struct chansey_daycare, 688);
+ASSERT_SIZE(struct chansey_daycare, 680);
 
 #endif
