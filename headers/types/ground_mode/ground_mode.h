@@ -1503,7 +1503,6 @@ struct special_actors {
 };
 ASSERT_SIZE(struct special_actors, 56);
 
-
 struct chansey_daycare {
     enum daycare_menu_state state; // Current state of the Chansey Daycare menu(?)
     undefined field1_0x4;
@@ -2013,7 +2012,7 @@ struct chansey_daycare {
     undefined field505_0x28a;
     undefined field506_0x28b;
     // (Created by Rename Structure Field action) Potentially main window?
-    int8_t dialogue_window_id; 
+    int8_t dialogue_window_id;
     int8_t portrait_window_id; // Created by Rename Structure Field action
     undefined field509_0x28e;
     int unk_menu_id; // Created by Rename Structure Field action
@@ -2021,6 +2020,6 @@ struct chansey_daycare {
     struct portrait_params portrait_params;
     int field513_0x2a4;
 };
-ASSERT_SIZE(struct chansey_daycare, 688);
+ASSERT_SIZE(struct chansey_daycare, 684);
 
 #endif
