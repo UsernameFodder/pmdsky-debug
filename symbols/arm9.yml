@@ -11518,6 +11518,7 @@ arm9:
     - name: MaybeSetUpMonsterFromEgg
       address:
         NA: 0x2052CF4
+      description: "Note: unverified" 
     - name: GuestMonsterToGroundMonster
       address:
         EU: 0x20531CC
@@ -16688,8 +16689,6 @@ arm9:
         [Runtime] Flag related to saving and loading state?
         
         type: bool
-   
-      description: "Note: unverified" 
     - name: DEFAULT_HERO_ID
       address:
         EU: 0x20B0818

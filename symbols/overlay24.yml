@@ -241,6 +241,8 @@ overlay24:
         JP: 0x4
       description: Static initializer for overlay 24.
     - name: CHANSEY_DAYCARE_STRUCT_POINTER
+      aliases:
+        - OVERLAY24_UNKNOWN_POINTER__NA_238C600
       address:
         EU: 0x238D140
         NA: 0x238C600
