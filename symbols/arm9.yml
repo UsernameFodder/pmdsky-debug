@@ -1915,6 +1915,7 @@ arm9:
         r1: format
         ...: variadic
         return: number of characters printed, excluding the null-terminator
+    
     - name: MaybeGetUncoloredFormattedItemName
       address:
         EU: 0x200D6E4
@@ -11087,6 +11088,7 @@ arm9:
         r1: subregion_id
         r2: region_id
         return: ?
+      
     - name: LoadMonsterMd
       address:
         EU: 0x2052690
@@ -11513,6 +11515,9 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         No params.
+    - name: MaybeSetUpMonsterFromEgg
+      address:
+        NA: 0x2052CF4
     - name: GuestMonsterToGroundMonster
       address:
         EU: 0x20531CC
@@ -13830,6 +13835,10 @@ arm9:
         EU: 0x4
         NA: 0x4
       description: "555, appears to be the maximum number of members recruited to an exploration team, at least for the purposes of some checks that need to iterate over all team members."
+    - name: MaybeAddMonsterFromEggToTeam
+      address:
+        NA: 0x2055D4C
+      description: "Note: unverified"
     - name: SINE_VALUE_TABLE
       address:
         EU: 0x2090FE0
@@ -16679,6 +16688,8 @@ arm9:
         [Runtime] Flag related to saving and loading state?
         
         type: bool
+   
+      description: "Note: unverified" 
     - name: DEFAULT_HERO_ID
       address:
         EU: 0x20B0818

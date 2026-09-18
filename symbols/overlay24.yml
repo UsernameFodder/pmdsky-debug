@@ -12,7 +12,10 @@ overlay24:
     NA: 0x24E0
     JP: 0x24E0
   description: Controls the Chansey Daycare.
-  functions: 
+  functions:
+    - name: ChanseyDaycareSubcaseManager
+      address:
+        NA: 0x238A610
     - name: ChanseyDaycareEntrypoint
       address:
         NA: 0x238C1D4
@@ -31,23 +34,11 @@ overlay24:
         Called every frame while the Chansey Daycare menu is active.
 
         Returns: either 1 or 4, depending on the state of the menu (MORE RESEARCH NEEDED)
-
-    - name: ChanseyDaycareSubcaseManager
-      address:
-        NA: 0x238A610
-    - name: MaybeSetUpMonsterFromEgg
-      address: 
-        NA: 0x2052CF4
-      description: "Note: unverified" 
-    - name: MaybeAddMonsterFromEggToTeam
-      address:
-        NA: 0x2055D4C
-      description: "Note: unverified"
   data:
     - name: PREPROCESSORFLAGS_CHANSEY_COMMON
-      address: 
+      address:
         NA: 0x238B38C
-      description: Used when displaying some string IDs in Chansey's dialogue.
+      description: "Used when displaying some string IDs in Chansey's dialogue."
     - name: PREPROCESSORFLAGS_CHANSEY_INTRO
       address: 
         NA: 0x238B38C
@@ -94,6 +85,67 @@ overlay24:
         String ID 0x38F:
         "I'm looking after your Egg! ♪
         It's doing fabulously well! ♪"
+    - name: STRINGID_CHANSEY_INFO
+      address:
+        NA: 0x238B3AC
+      description: |-
+        String ID 0x391:
+        "[kind:] Day Care takes
+        Eggs and looks after them for Pokémon! ♪[C]
+        I'm responsible for caring for
+        Eggs, raising them as if they were my own! ♪[C]
+        I hope you're as excited as I am
+        to know what's growing inside your Egg! ♪[C]
+        I've heard that you can get Eggs
+        as rewards for missions sometimes. ♪[C]
+        So, if you want an Egg, go on
+        lots of missions! ♪"
+    - name: STRINGID_CHANSEY_MIRACLEOFLIFE
+      address:
+        NA: 0x238B3B4
+      description: |-
+        String ID 0x392:
+        "[se_play:0]Huh...?[K] The Egg...[C]
+        Is it...?[K] Could it be...?[K]
+        Is it close to hatching?[C]
+        Could it...?![C]
+        Will it...?!"
+    - name: STRINGID_CHANSEY_IDENTICAL_MIRACLEOFLIFE
+      address:
+        NA: 0x238B3B8
+      description: |-
+        String ID 0x393:
+        "[se_play:0]Huh...?[K] The Egg...[C]
+        Is it...?[K] Could it be...?[K]
+        Is it close to hatching?[C]
+        Could it...?![C]
+        Will it...?!"
+    - name: STRINGID_CHANSEY_RECRUITCHOICER
+      address:
+        NA: 0x238B3C0
+      description: |-
+        String ID 0x396:
+        "Accept [string0] into the team?"
+    - name: STRINGID_CHANSEY_RECRUITTHISBABY
+      address:
+        NA: 0x238B3C8
+      description: |-
+        String ID 0x395:
+        "Huh...?[K] What?[se_play:0][C]
+        The Egg...[K][me_play:1]hatched![C]
+        A healthy [CS:N][string0][CR]![K]
+        Look! See it smile? It's adorable! ♪[C]
+        Oh? The [CS:N][string0][CR] wants
+        to join your team! ♪[K] What will you do?"
+    - name: STRINGID_CHANSEY_JOINEDTEAM
+      address: 
+        NA: 0x238B3F0
+      description: |-
+        String ID 0x399:
+        "[CS:F][string0][CR] joined the team![C]
+        [CS:F][string0][CR] is happy to be a member![C]
+        [CS:F][string0][CR] went off to be a part of your
+        [CS:K]Chimecho[CR] Assembly roster."
     - name: STRINGID_CHANSEY_DRAFTED
       address:
         NA: 0x238B3F4
@@ -137,67 +189,6 @@ overlay24:
         EU: 0x20
         NA: 0x20
         JP: 0x20
-    - name: STRINGID_CHANSEY_MIRACLEOFLIFE
-      address: 
-        NA: 0x238B3B4
-      description: |-
-        String ID 0x392:
-        "[se_play:0]Huh...?[K] The Egg...[C]
-        Is it...?[K] Could it be...?[K]
-        Is it close to hatching?[C]
-        Could it...?![C]
-        Will it...?!"
-    - name: STRINGID_CHANSEY_IDENTICAL_MIRACLEOFLIFE
-      address: 
-        NA: 0x238B3B8
-      description: |-
-        String ID 0x393:
-        "[se_play:0]Huh...?[K] The Egg...[C]
-        Is it...?[K] Could it be...?[K]
-        Is it close to hatching?[C]
-        Could it...?![C]
-        Will it...?!"
-    - name: STRINGID_CHANSEY_RECRUITTHISBABY
-      address: 
-        NA: 0x238B3C8
-      description: |-
-        String ID 0x395:
-        "Huh...?[K] What?[se_play:0][C]
-        The Egg...[K][me_play:1]hatched![C]
-        A healthy [CS:N][string0][CR]![K]
-        Look! See it smile? It's adorable! ♪[C]
-        Oh? The [CS:N][string0][CR] wants
-        to join your team! ♪[K] What will you do?"
-    - name: STRINGID_CHANSEY_RECRUITCHOICER
-      address: 
-        NA: 0x238B3C0
-      description: |-
-        String ID 0x396:
-        "Accept [string0] into the team?"
-    - name: STRINGID_CHANSEY_INFO
-      address: 
-        NA: 0x238B3AC
-      description: |-
-        String ID 0x391:
-        "[kind:] Day Care takes
-        Eggs and looks after them for Pokémon! ♪[C]
-        I'm responsible for caring for
-        Eggs, raising them as if they were my own! ♪[C]
-        I hope you're as excited as I am
-        to know what's growing inside your Egg! ♪[C]
-        I've heard that you can get Eggs
-        as rewards for missions sometimes. ♪[C]
-        So, if you want an Egg, go on
-        lots of missions! ♪"
-    - name: STRINGID_CHANSEY_JOINEDTEAM
-      address: 
-        NA: 0x238B3F0
-      description: |-
-        String ID 0x399:
-        "[CS:F][string0][CR] joined the team![C]
-        [CS:F][string0][CR] is happy to be a member![C]
-        [CS:F][string0][CR] went off to be a part of your
-        [CS:K]Chimecho[CR] Assembly roster."
     - name: OVERLAY24_UNKNOWN_STRING_IDS
       address:
         NA: 0x238C558
@@ -258,4 +249,4 @@ overlay24:
         NA: 0x4
       description: |-
         Pointer to the Chansey Daycare struct, filled out at runtime.
-        Type: pointer of chansey_daycare_struct 
+        Type: pointer of chansey_daycare_struct
