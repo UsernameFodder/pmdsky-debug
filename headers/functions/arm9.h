@@ -1262,6 +1262,8 @@ int GetRecruitMentryIdBySpecies(enum monster_id monster_id, int num_to_skip);
 int GetHeroMemberIdx(void);
 int GetPartnerMemberIdx(void);
 int GetMainCharacter1MemberIdx(void);
+void MaybeSetUpMonsterFromEgg(undefined *param_1, enum monster_id species, char* name_buffer, undefined *param_4, int param_5, undefined param_6);
+ground_monster* MaybeAddGroundMonsterFromEggToTeam(void);
 int GetMainCharacter2MemberIdx(void);
 int GetMainCharacter3MemberIdx(void);
 struct ground_monster* GetHero(void);

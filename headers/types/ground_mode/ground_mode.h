@@ -1560,7 +1560,7 @@ struct chansey_daycare {
     undefined field52_0x3f;
     undefined field53_0x40;
     undefined field54_0x41;
-    char *baby_name;
+    char* baby_name;
     undefined field56_0x46;
     undefined field57_0x47;
     undefined field58_0x48;
@@ -1849,7 +1849,7 @@ struct chansey_daycare {
     undefined field341_0x163;
     undefined field342_0x164;
     undefined field343_0x165;
-    char *unk_buffer2; // Created by Rename Structure Field action
+    char* unk_buffer2; // Created by Rename Structure Field action
     undefined field345_0x16a;
     undefined field346_0x16b;
     undefined field347_0x16c;
@@ -1933,7 +1933,7 @@ struct chansey_daycare {
     undefined field425_0x1ba;
     undefined field426_0x1bb;
     struct mission_reward_data unk_missionreward_field;
-    struct ground_monster *unk_groundmonster_field;
+    struct ground_monster* unk_groundmonster_field;
     undefined field429_0x1ec;
     undefined field430_0x1ed;
     undefined field431_0x1ee;
