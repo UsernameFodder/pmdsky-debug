@@ -21,7 +21,7 @@ overlay24:
         NA: 0x238C1D4
       description: |-
         Entrypoint for the Chansey Daycare.
-
+        
         Returns: always 1??
     - name: ChanseyDaycareDestructor
       address:
@@ -40,7 +40,7 @@ overlay24:
         NA: 0x238B38C
       description: "Used when displaying some string IDs in Chansey's dialogue."
     - name: PREPROCESSORFLAGS_CHANSEY_INTRO
-      address: 
+      address:
         NA: 0x238B38C
       description: Used when displaying STRINGID_CHANSEY_INTRO.
     - name: STRINGID_CHANSEY_WELCOME
@@ -138,7 +138,7 @@ overlay24:
         Oh? The [CS:N][string0][CR] wants
         to join your team! ♪[K] What will you do?"
     - name: STRINGID_CHANSEY_JOINEDTEAM
-      address: 
+      address:
         NA: 0x238B3F0
       description: |-
         String ID 0x399:

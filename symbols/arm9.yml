@@ -11088,7 +11088,6 @@ arm9:
         r1: subregion_id
         r2: region_id
         return: ?
-      
     - name: LoadMonsterMd
       address:
         EU: 0x2052690
@@ -11518,7 +11517,7 @@ arm9:
     - name: MaybeSetUpMonsterFromEgg
       address:
         NA: 0x2052CF4
-      description: "Note: unverified" 
+      description: "Note: unverified"
     - name: GuestMonsterToGroundMonster
       address:
         EU: 0x20531CC
