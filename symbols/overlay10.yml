@@ -164,6 +164,8 @@ overlay10:
     - name: TerminateAllEffects
       address:
         EU: 0x22BE508
+        NA: 0x22BDBC8
+        JP: 0x22BF36C
       description: |-
         Terminates all currently playing live effects.
         
@@ -171,6 +173,8 @@ overlay10:
     - name: TerminateEffect
       address:
         EU: 0x22BE5FC
+        NA: 0x22BDCBC
+        JP: 0x22BF460
       description: |-
         Makes the live effect with the given unique id stop playing in the middle of execution.
         
@@ -179,6 +183,8 @@ overlay10:
     - name: TerminateEffectWrapper
       address:
         EU: 0x22BE790
+        NA: 0x22BDE50
+        JP: 0x22BF5F4
       description: |-
         Wrapper for TerminateEffect.
         
@@ -196,6 +202,8 @@ overlay10:
     - name: PlayEffect
       address:
         EU: 0x22BE900
+        NA: 0x22BDFC0
+        JP: 0x22BF764
       description: |-
         Fills a live_effect struct's fields with specific effect-related information to begin playback.
         
@@ -206,6 +214,8 @@ overlay10:
     - name: GetLiveEffectIdx
       address:
         EU: 0x22BF2E0
+        NA: 0x22BE9A0
+        JP: 0x22C0144
       description: |-
         Gets a live effect's index in EFFECT_CONTROL.live_effects from its unique id.
         
@@ -214,6 +224,8 @@ overlay10:
     - name: DisplayEffect
       address:
         EU: 0x22BFE30
+        NA: 0x22BF4F0
+        JP: 0x22C0C94
       description: |-
         Displays the current frame of an effect animation, also handling playing the sound effect if necessary.
         

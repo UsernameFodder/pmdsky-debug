@@ -110,6 +110,8 @@ overlay31:
     - name: StairsDescriptionCallback
       address:
         EU: 0x2383E48
+        NA: 0x2383248
+        JP: 0x23844C8
       description: |-
         Callback function passed to CreateAdvancedTextBox for creating the description for the stairs in the info menu.
         

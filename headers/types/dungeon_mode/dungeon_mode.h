@@ -2617,6 +2617,13 @@ struct dungeon_controls_menu {
 };
 ASSERT_SIZE(struct dungeon_controls_menu, 84);
 
+struct data_serializer {
+    uint8_t* stream;
+    uint8_t* end;
+    uint32_t count;
+};
+ASSERT_SIZE(struct data_serializer, 12);
+
 // Separate this out into its own file because it's massive
 #include "dungeon.h"
 

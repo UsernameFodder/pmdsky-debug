@@ -25,6 +25,59 @@ overlay30:
         
         r0: Pointer to buffer where data should be written
         r1: Buffer size. Seems to be 0x5800 (22 KB) when the function is called.
+    - name: InitDataSerializerWriter
+      address:
+        EU: 0x2386840
+        NA: 0x2385C3C
+        JP: 0x2386E9C
+      description: |-
+        Initializes the quicksave data serializer when writing to it.
+        
+        r0: data_serializer struct
+        r1: data stream for the data serializer to write data to.
+        r2: number of bytes that the data stream can hold.
+    - name: WriteBitsToDataSerializer
+      address:
+        EU: 0x2386858
+        NA: 0x2385C54
+        JP: 0x2386EB4
+      description: |-
+        Writes bits to the quicksave data serializer from a source pointer.
+        
+        r0: data_serializer struct
+        r1: pointer to the data to write to the data serializer.
+        r2: number of bits to write to the data serializer.
+    - name: InitDataSerializerReader
+      address:
+        EU: 0x2386890
+        NA: 0x2385C8C
+        JP: 0x2386EEC
+      description: |-
+        Initializes the quicksave data serializer when reading from it.
+        
+        r0: data_serializer struct
+        r1: data stream for the data serializer to read data from.
+        r2: number of bytes that the data stream holds.
+    - name: ReadBitsFromDataSerializer
+      address:
+        EU: 0x23868A8
+        NA: 0x2385CA4
+        JP: 0x2386F04
+      description: |-
+        Reads bits to a pointer from the quicksave data serializer.
+        
+        r0: data_serializer struct
+        r1: pointer to a buffer to hold data read from the data serializer.
+        r2: number of bits to read from the data serializer.
+    - name: FinishDataSerializer
+      address:
+        EU: 0x23868E0
+        NA: 0x2385CDC
+        JP: 0x2386F3C
+      description: |-
+        Empty function called at the end of writing/reading quicksave data.
+        
+        r0: data_serializer struct
   data:
     - name: OVERLAY30_JP_STRING_1
       address:
