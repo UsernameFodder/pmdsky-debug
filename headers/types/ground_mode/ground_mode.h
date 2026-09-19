@@ -1559,7 +1559,9 @@ struct chansey_daycare {
     undefined field52_0x3f;
     undefined field53_0x40;
     undefined field54_0x41;
-    char* baby_name;
+    // The first ten characters of this buffer(?) are strncpy'd into the hatched monster's name.
+    // (In state MAYBE_GIVEEGGSTATBONUS)
+    char unk_strncpyied_into_hatched_mon_name_0x42; 
     undefined field56_0x46;
     undefined field57_0x47;
     undefined field58_0x48;
@@ -1848,7 +1850,7 @@ struct chansey_daycare {
     undefined field341_0x163;
     undefined field342_0x164;
     undefined field343_0x165;
-    char* unk_buffer2; // Created by Rename Structure Field action
+    char* unk_keyboardrelated_char_0x166; // Created by Rename Structure Field action
     undefined field345_0x16a;
     undefined field346_0x16b;
     undefined field347_0x16c;
