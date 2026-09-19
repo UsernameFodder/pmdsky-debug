@@ -1,6 +1,19 @@
 #ifndef HEADERS_DATA_OVERLAY24_H_
 #define HEADERS_DATA_OVERLAY24_H_
 
+extern struct preprocessor_flags PREPROCESSORFLAGS_CHANSEY_COMMON;
+extern struct preprocessor_flags PREPROCESSORFLAGS_CHANSEY_INTRO;
+extern int STRINGID_CHANSEY_WELCOME;
+extern int STRINGID_CHANSEY_INTRO;
+extern struct preprocessor_flags PREPROCESSORFLAGS_CHANSEY_LOOKINGAFTER;
+extern int STRINGID_CHANSEY_LOOKINGAFTER;
+extern int STRINGID_CHANSEY_INFO;
+extern int STRINGID_CHANSEY_MIRACLEOFLIFE;
+extern int STRINGID_CHANSEY_IDENTICAL_MIRACLEOFLIFE;
+extern int STRINGID_CHANSEY_RECRUITCHOICER;
+extern int STRINGID_CHANSEY_RECRUITTHISBABY;
+extern int STRINGID_CHANSEY_JOINEDTEAM;
+extern int STRINGID_CHANSEY_DRAFTED;
 extern struct simple_menu_id_item DAYCARE_MENU_ITEMS_CONFIRM[3];
 extern struct simple_menu_id_item DAYCARE_MAIN_MENU_ITEMS[4];
 extern struct window_params DAYCARE_WINDOW_PARAMS_1;
@@ -9,5 +22,6 @@ extern struct window_params DAYCARE_WINDOW_PARAMS_3;
 extern struct window_params DAYCARE_WINDOW_PARAMS_4;
 extern struct window_params DAYCARE_WINDOW_PARAMS_5;
 extern undefined4 OV24_STATIC_INITIALIZER;
+extern struct chansey_daycare CHANSEY_DAYCARE_STRUCT_POINTER;
 
 #endif
