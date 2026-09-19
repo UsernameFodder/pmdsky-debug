@@ -1561,7 +1561,7 @@ struct chansey_daycare {
     undefined field54_0x41;
     // The first ten characters of this buffer(?) are strncpy'd into the hatched monster's name.
     // (In state MAYBE_GIVEEGGSTATBONUS)
-    char unk_strncpyied_into_hatched_mon_name_0x42; 
+    char unk_strncpyied_into_hatched_mon_name_0x42;
     undefined field56_0x46;
     undefined field57_0x47;
     undefined field58_0x48;
