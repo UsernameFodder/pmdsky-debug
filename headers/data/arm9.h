@@ -187,6 +187,7 @@ extern struct rankup_table_entry RANK_UP_TABLE[13];
 extern struct monster_id_16 DS_DOWNLOAD_TEAMS[56];
 extern enum monster_id UNOWN_SPECIES_ADDITIONAL_CHARS[28];
 extern struct monster_sprite_data_entry MONSTER_SPRITE_DATA[600];
+extern struct starter_egg_move STARTER_MOVES_ARRAY[9];
 extern int16_t MISSION_MENU_STRING_IDS_1[8];
 extern int16_t MISSION_MENU_STRING_IDS_2[8];
 extern struct dungeon_unlock_entry MISSION_DUNGEON_UNLOCK_TABLE[3];

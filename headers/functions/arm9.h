@@ -417,8 +417,8 @@ int GetMoveActualAccuracy(enum move_id move_id);
 int GetMoveBasePowerFromId(enum move_id move_id);
 bool IsMoveRangeStringUser(struct move* move);
 char* GetMoveMessageFromId(enum move_id move_id);
-int GetNbMoves(undefined* moveset);
-int GetMovesetIdx(undefined* moveset, enum move_id move_id);
+int GetNbMoves(struct ground_move* moveset);
+int GetMovesetIdx(struct ground_move* moveset, enum move_id move_id);
 bool IsReflectedByMagicCoat(enum move_id move_id);
 bool CanBeSnatched(enum move_id move_id);
 bool FailsWhileMuzzled(enum move_id move_id);
@@ -1214,6 +1214,7 @@ void SetBaseStatsMovesGroundMonster(struct ground_monster* ground_monster);
 bool StrcmpMonsterName(char* string, enum monster_id monster_id);
 void InitializeTeamMemberFromMentry(struct team_member* team_member,
                                     struct ground_monster* ground_monster, int32_t slot_index);
+void AddStarterEggMove(struct ground_monster* ground_monster);
 void GetLvlUpEntry(struct level_up_entry* level_up_entry, enum monster_id monster_id, int level);
 uint8_t* GetEncodedHalfword(uint8_t* data_ptr, uint16_t* result);
 int GetEvoFamily(undefined* monster, undefined* evo_family);

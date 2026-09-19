@@ -78,6 +78,7 @@ void PlaySpeedDownEffect(struct entity* entity);
 void DisplayStockpileNumbers(struct entity* entity);
 void PlayInvisifySeIfShouldDisplayEntity(struct entity* entity);
 void ShowPpRestoreEffect(struct entity* entity);
+void PlayAttractHitEffect(struct entity* entity);
 void PlayOffensiveStatDownEffect(struct entity* entity, int stat_index);
 void PlayDefensiveStatDownEffect(struct entity* entity, int stat_index);
 void PlayOffensiveStatUpEffect(struct entity* entity, int stat_index);

@@ -960,6 +960,13 @@ overlay29:
         Displays the graphical effect on a monster that just recovered PP.
         
         r0: entity pointer
+    - name: PlayAttractHitEffect
+      address:
+        NA: 0x22E4C00
+      description: |-
+        Displays the graphical effect on a monster that was just hit by the move Attract.
+        
+        r0: entity pointer
     - name: PlayOffensiveStatDownEffect
       address:
         EU: 0x22E56D8
