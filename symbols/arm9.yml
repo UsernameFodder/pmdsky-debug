@@ -11560,7 +11560,9 @@ arm9:
       aliases:
         - AddUniqueStarterMoveTo
       address:
+        EU: 0x20538E4
         NA: 0x2053568
+        JP: 0x20538A0
       description: |-
         Grants certain starter Pokemon an egg move from their line at the beginning of the game, adding it to the first available slot.
         
@@ -15722,7 +15724,9 @@ arm9:
       description: Contains information about the sprite size and sprite file size of each monster
     - name: STARTER_MOVES_ARRAY
       address:
+        EU: 0x20A3858
         NA: 0x20A3258
+        JP: 0x20A463C
       length:
         NA: 0x24
       description: |-
