@@ -10377,6 +10377,22 @@ overlay29:
         monster::is_not_team_member should be checked to be false before calling.
         
         r0: monster pointer
+    - name: GetItemHolderTeamIndex
+      address:
+        EU: 0x23407BB4
+      description: |-
+        Gets the index in the team of the monster holding the given item, or -1 if none is.
+        
+        r0: item pointer
+        return: team index, or -1
+    - name: IsNatureGifterRestrictedItem
+      address:
+        EU: 0x23407BFC
+      description: |-
+        Checks if the given item's effect cannot be spread to the whole party through Nature Gifter when consumed.
+        
+        r0: item id
+        return: bool
     - name: RemoveEmptyItemsInBagWrapper
       address:
         EU: 0x2347C2C

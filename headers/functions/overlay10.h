@@ -19,6 +19,7 @@ void TerminateAllEffects(void);
 void TerminateEffect(int unique_id, bool not_special_wan_file);
 void TerminateEffectWrapper(int unique_id);
 enum wan_offset_type GetEffectAnimationWanOffset(int anim_id);
+void UnloadEffect(struct live_effect* effect, bool not_special_wan_file);
 void PlayEffect(struct live_effect* effect, enum screen screen);
 int GetLiveEffectIdx(int unique_id);
 bool DisplayEffect(struct live_effect* effect, struct vec2_16* camera_pos);
@@ -31,6 +32,8 @@ int16_t GetTrapAnimation(enum trap_id trap_id);
 int16_t GetItemAnimation1(enum item_id item_id);
 int16_t GetItemAnimation2(enum item_id item_id);
 int GetMoveAnimationSpeed(enum move_id move_id);
+int LoadEffectWanTableEntry(enum effect_file_type effect_file_type, uint32_t file_index,
+                            uint8_t live_effect_idx);
 undefined4 DrawTeamStats(undefined4 param_1, int param_2, undefined4 param_3, uint32_t param_4);
 void UpdateTeamStats(void);
 int FreeTeamStats(void);

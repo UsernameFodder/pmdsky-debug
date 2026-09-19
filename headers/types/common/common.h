@@ -1714,7 +1714,7 @@ struct live_effect {
     uint32_t animation_index; // 0x50: See struct effect_animation
     undefined4 field_0x54;
     int se_id;               // 0x58
-    undefined4 field_0x5c;   // Seemingly always 0
+    int frames_until_sfx;    // 0x5C: Seemingly always 0, then set to -1 when the SFX is played
     uint8_t is_non_blocking; // 0x60
     uint8_t repeat;          // 0x61: If non-zero, makes the animation repeat a bunch of times
     undefined2 field_0x62;
@@ -1743,7 +1743,7 @@ struct effect_control {
     struct live_effect live_effects[32]; // 0x0
     uint32_t next_unique_id;             // 0x2780
     uint32_t is_ground_mode;             // 0x2784
-    // 0x2788: Entry in wan_table for file 1 if ground mode, file 292 if dungeon mode
+    // 0x2788: Entry in wan_table for file 1 if ground mode, file 0 if dungeon mode
     uint16_t wan_entry;
     undefined field_0x278a;
     undefined field_0x278b;

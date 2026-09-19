@@ -1068,6 +1068,8 @@ bool HasHeldItem(struct entity* entity, enum item_id item_id);
 void GenerateMoneyQuantity(struct item* item, int max_amount);
 bool CheckTeamItemsFlags(int flags);
 void AddHeldItemToBag(struct monster* monster);
+int GetItemHolderTeamIndex(struct item* item);
+bool IsNatureGifterRestrictedItem(enum item_id item_id);
 void RemoveEmptyItemsInBagWrapper(void);
 void GenerateItem(struct item* item, enum item_id item_id, uint16_t quantity,
                   enum gen_item_stickiness sticky_type);
