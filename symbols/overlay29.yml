@@ -10419,7 +10419,7 @@ overlay29:
         r0: monster pointer
     - name: GetItemHolderTeamIndex
       address:
-        EU: 0x23407BB4
+        EU: 0x2347BB4
       description: |-
         Gets the index in the team of the monster holding the given item, or -1 if none is.
         
@@ -10427,7 +10427,7 @@ overlay29:
         return: team index, or -1
     - name: IsNatureGifterRestrictedItem
       address:
-        EU: 0x23407BFC
+        EU: 0x2347BFC
       description: |-
         Checks if the given item's effect cannot be spread to the whole party through Nature Gifter when consumed.
         
