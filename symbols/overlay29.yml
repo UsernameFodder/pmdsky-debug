@@ -1209,7 +1209,7 @@ overlay29:
       address:
         EU: 0x22E7830
       description: |-
-        Finds any entries in dungeon::monster_move_animations using the given entity and updates fields in their live_effects.
+        Finds any entries in dungeon::monster_move_animations that use the given entity and updates fields in their live_effects.
         
         r0: entity pointer
         r1: ?
