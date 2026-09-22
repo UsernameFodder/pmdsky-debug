@@ -2628,7 +2628,7 @@ ASSERT_SIZE(struct data_serializer, 12);
 struct monster_move_animation {
     int live_effect_unique_id; // 0x0
     undefined4 field_0x4;
-    enum wan_offset_type_8 wan_offset; // 0x8
+    struct wan_offset_type_8 wan_offset; // 0x8
     undefined field_0x9;
     undefined field_0xa;
     undefined field_0xb;

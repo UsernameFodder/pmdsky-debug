@@ -1704,7 +1704,7 @@ struct live_effect {
     struct vec2_16 pos; // 0x20: Absolute pixel coordinates of effect
     // 0x24: The wan_offset converted into a pixel offset. Added to pos when displaying.
     struct vec2_16 pixel_wan_offset;
-    enum wan_offset_type_8 wan_offset; // 0x28
+    struct wan_offset_type_8 wan_offset; // 0x28
     undefined field_0x29;
     undefined field_0x2a;
     undefined field_0x2b;
