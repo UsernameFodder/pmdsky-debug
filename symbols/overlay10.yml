@@ -219,6 +219,16 @@ overlay10:
         
         r0: live_effect
         r1: screen
+    - name: InitEffect
+      address:
+        EU: 0x22BED8C
+      description: |-
+        Finds a currently unused live effect, zeroes it, and fills its more general fields such as screen, file_type, and unique_id.
+        
+        r0: ?
+        r1: ?
+        r2: screen
+        return: unique id
     - name: GetLiveEffectIdx
       address:
         EU: 0x22BF2E0

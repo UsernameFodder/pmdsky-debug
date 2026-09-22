@@ -21,6 +21,7 @@ void TerminateEffectWrapper(int unique_id);
 enum wan_offset_type GetEffectAnimationWanOffset(int anim_id);
 void UnloadEffect(struct live_effect* effect, bool not_special_wan_file);
 void PlayEffect(struct live_effect* effect, enum screen screen);
+int InitEffect(undefined4 param_1, undefined4* param_2, enum screen screen);
 int GetLiveEffectIdx(int unique_id);
 enum wan_offset_type GetLiveEffectWanOffset(int unique_id);
 bool DisplayEffect(struct live_effect* effect, struct vec2_16* camera_pos);
