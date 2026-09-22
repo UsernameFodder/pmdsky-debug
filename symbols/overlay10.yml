@@ -3236,7 +3236,7 @@ overlay10:
         EU: 0x3C
         NA: 0x3C
         JP: 0x3C
-      description: "The list of items whose effects cannot be spread to the whole party through Nature Gifter when consumed."
+      description: The list of items whose effects cannot be spread to the whole party through Nature Gifter when consumed.
     - name: TYPE_MATCHUP_COMBINATOR_TABLE
       address:
         EU: 0x22C566C
