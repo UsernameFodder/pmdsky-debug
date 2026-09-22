@@ -2634,7 +2634,7 @@ struct monster_move_animation {
     undefined field_0xb;
     struct entity* entity; // 0xC
 };
-ASSERT_SIZE(struct unk_effect_struct, 16);
+ASSERT_SIZE(struct monster_move_animation, 16);
 
 // Separate this out into its own file because it's massive
 #include "dungeon.h"
