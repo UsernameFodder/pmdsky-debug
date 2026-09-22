@@ -229,6 +229,14 @@ overlay10:
         
         r0: unique id
         return: index, or -1 if it is not present
+    - name: GetLiveEffectWanOffset
+      address:
+        EU: 0x22BF918
+      description: |-
+        Gets the WAN offset of the live effect given by the unique id.
+        
+        r0: unique id
+        return: WAN offset type, or -1 if a live effect with the given id was not found
     - name: DisplayEffect
       address:
         EU: 0x22BFE30
@@ -260,6 +268,30 @@ overlay10:
         Checks if there is an effect animation with the given unique id in progress and if so, whether its is_non_blocking field is 0.
         
         r0: unique id of animation
+        return: bool
+    - name: IsBlizzardTailwindOrPowderSnow
+      address:
+        EU: 0x22C072C
+      description: |-
+        Returns true if the move id is equal to Blizzard, Tailwind or Powder Snow.
+        
+        r0: move id
+        return: bool
+    - name: IsWanOrWat
+      address:
+        EU: 0x22C077C
+      description: |-
+        Returns true if the file type is a WAN file (including WAN files 0/1) or a WAT file.
+        
+        r0: effect file type
+        return: bool
+    - name: IsScreenOrWba
+      address:
+        EU: 0x22C0794
+      description: |-
+        Returns true if the file type is a screen effect or a WBA file.
+        
+        r0: effect file type
         return: bool
     - name: GetEffectAnimation
       address:

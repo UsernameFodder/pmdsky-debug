@@ -1189,6 +1189,30 @@ overlay29:
         
         r0: entity pointer
         r1: arrow direction
+    - name: InitMonsterMoveEffect
+      address:
+        EU: 0x22E7718
+      description: |-
+        Finds the first available entry in dungeon::monster_move_animations and initializes it with the given values.
+        
+        r0: live effect unique id
+        r1: entity pointer
+        r2: ?
+    - name: FreeMonsterMoveEffects
+      address:
+        EU: 0x22E7780
+      description: |-
+        Marks entries in dungeon::monster_move_animations whose animations have finished as being unused.
+        
+        No params.
+    - name: UpdateLiveEffectsFromMonsterMoveEffects
+      address:
+        EU: 0x22E7830
+      description: |-
+        Finds any entries in dungeon::monster_move_animations using the given entity and updates fields in their live_effects.
+        
+        r0: entity pointer
+        r1: ?
     - name: LoadMappaFileAttributes
       address:
         EU: 0x22E796C

@@ -1702,8 +1702,12 @@ struct live_effect {
     undefined4 field_0x18; // Seemingly always 0
     undefined4 field_0x1c;
     struct vec2_16 pos; // 0x20: Absolute pixel coordinates of effect
-    undefined4 field_0x24;
-    undefined4 field_0x28;
+    // 0x24: The wan_offset converted into a pixel offset. Added to pos when displaying.
+    struct vec2_16 pixel_wan_offset;
+    enum wan_offset_type_8 wan_offset; // 0x28
+    undefined field_0x29;
+    undefined field_0x2a;
+    undefined field_0x2b;
     undefined4 field_0x2c;
     uint16_t oam_adjustment_info[6];      // 0x30
     uint32_t some_bitfield;               // 0x3C
