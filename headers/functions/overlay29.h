@@ -195,6 +195,7 @@ void RunFractionalTurn(bool is_first_loop);
 bool RunLeaderTurn(undefined param_1);
 void TrySpawnMonsterAndActivatePlusMinus(void);
 bool IsFloorOver(void);
+void ShakeScreen(undefined param_1);
 void DecrementWindCounter(void);
 void CreateMonsterSummaryFromEntityOuter(union damage_source_16 damage_source,
                                          struct entity* entity, struct monster* monster,

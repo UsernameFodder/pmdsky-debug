@@ -280,5 +280,6 @@ extern struct move_animation MOVE_ANIMATION_INFO[563];
 extern struct effect_animation EFFECT_ANIMATION_INFO[700];
 extern struct special_monster_move_animation SPECIAL_MONSTER_MOVE_ANIMATION_INFO[7422];
 extern undefined4 OV10_STATIC_INITIALIZER;
+extern struct effect_control* EFFECT_CONTROL_PTR;
 
 #endif

@@ -2135,6 +2135,13 @@ overlay29:
         If dungeon::end_floor_flag is 1 or 2, sets dungeon::floor_loop_status to floor_loop_status::FLOOR_LOOP_NEXT_FLOOR.
         
         return: true if the current floor should end
+    - name: ShakeScreen
+      address:
+        EU: 0x22ED4AC
+      description: |-
+        Shakes the screen. Does not return until shaking is finished.
+        
+        r0: ? (always 1 in practice)
     - name: DecrementWindCounter
       address:
         EU: 0x22ED4F8
