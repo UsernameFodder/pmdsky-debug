@@ -223,7 +223,7 @@ overlay10:
       address:
         EU: 0x22BED8C
       description: |-
-        Finds a currently unused live effect, zeroes it, and fills its more general fields such as screen, effect_id, file_type, and unique_id.
+        Finds a currently unused live effect, zeroes it, and fills its more general fields such as screen, file_type, and unique_id.
         
         r0: ?
         r1: effect_init_info
