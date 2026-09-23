@@ -1692,7 +1692,7 @@ struct live_effect_unk_substruct {
 ASSERT_SIZE(struct live_effect_unk_substruct, 64);
 
 struct effect_init_info {
-    uint32_t effect_id; // 0x0
+    uint32_t effect_id;   // 0x0
     undefined4 field_0x4; // Seemingly always 0
     undefined4 field_0x8;
     struct vec2_16 pos; // 0xC: Absolute pixel coordinates of effect
@@ -1704,8 +1704,8 @@ struct effect_init_info {
     undefined field_0x17;
     undefined4 field_0x18;
     uint16_t oam_adjustment_info[6]; // 0x1C
-    uint32_t some_bitfield; // 0x28
-}
+    uint32_t some_bitfield;          // 0x28
+};
 ASSERT_SIZE(struct effect_init_info, 44);
 
 // Represents an effect animation that is currently playing
@@ -1716,9 +1716,9 @@ struct live_effect {
     int unique_id;                   // 0xC: -1 if no effect playing
     undefined4 field_0x10;
     struct effect_init_info effect_init_info; // 0x14
-    enum effect_file_type file_type_copy; // 0x40: Seemingly a copy of file_type
-    int file_index;                       // 0x44: File index in pack 3 (effect.bin)
-    uint32_t palette_num;                 // 0x48
+    enum effect_file_type file_type_copy;     // 0x40: Seemingly a copy of file_type
+    int file_index;                           // 0x44: File index in pack 3 (effect.bin)
+    uint32_t palette_num;                     // 0x48
     undefined4 field_0x4c;
     uint32_t animation_index; // 0x50: See struct effect_animation
     undefined4 field_0x54;
