@@ -226,7 +226,7 @@ overlay10:
         Finds a currently unused live effect, zeroes it, and fills its more general fields such as screen, effect_id, file_type, and unique_id.
         
         r0: ?
-        r1: ?
+        r1: effect_init_info
         r2: screen
         return: unique id
     - name: InitAndPlayEffect
@@ -236,7 +236,7 @@ overlay10:
         Calls InitEffect, then calls PlayEffect.
         
         r0: ?
-        r1: ?
+        r1: effect_init_info
         r2: screen
         return: unique id
     - name: GetLiveEffectIdx
