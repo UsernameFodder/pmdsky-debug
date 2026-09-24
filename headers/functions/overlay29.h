@@ -101,6 +101,7 @@ void PlayKeyDoorUnlockEffect(struct entity* entity, bool is_not_treasure_memo);
 void PlayStairSensorArrowEffect(struct entity* entity, enum direction_id arrow_dir);
 void InitMonsterMoveEffect(int live_effect_unique_id, struct entity* entity, undefined4 param_3);
 void FreeMonsterMoveEffects(void);
+void FreeAllMonsterMoveEffects(void);
 void UpdateLiveEffectsFromMonsterMoveEffects(struct entity* entity, undefined4 param_2);
 void LoadMappaFileAttributes(int quick_saved, bool disable_monsters, undefined* special_process);
 enum trap_id GetRandomSpawnTrapId(void);

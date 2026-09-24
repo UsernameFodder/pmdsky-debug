@@ -1691,12 +1691,13 @@ struct live_effect_unk_substruct {
 };
 ASSERT_SIZE(struct live_effect_unk_substruct, 64);
 
-struct effect_init_info {
-    uint32_t effect_id;   // 0x0
-    undefined4 field_0x4; // Seemingly always 0
-    undefined4 field_0x8;
-    struct vec2_16 pos; // 0xC: Absolute pixel coordinates of effect
+struct effect_display_info {
+    uint32_t effect_id;        // 0x0
+    undefined4 field_0x4;      // Seemingly always 0
+    enum direction effect_dir; // 0x8
+    struct vec2_16 pos;        // 0xC: Absolute pixel coordinates of effect
     // 0x10: The wan_offset converted into a pixel offset. Added to pos when displaying.
+    // Sometimes this is unused and the offset is pre-added to pos.
     struct vec2_16 pixel_wan_offset;
     struct wan_offset_type_8 wan_offset; // 0x14
     undefined field_0x15;
@@ -1706,7 +1707,7 @@ struct effect_init_info {
     uint16_t oam_adjustment_info[6]; // 0x1C
     uint32_t some_bitfield;          // 0x28
 };
-ASSERT_SIZE(struct effect_init_info, 44);
+ASSERT_SIZE(struct effect_display_info, 44);
 
 // Represents an effect animation that is currently playing
 struct live_effect {
@@ -1715,7 +1716,7 @@ struct live_effect {
     enum effect_file_type file_type; // 0x8
     int unique_id;                   // 0xC: -1 if no effect playing
     undefined4 field_0x10;
-    struct effect_init_info effect_init_info; // 0x14
+    struct effect_display_info effect_display_info; // 0x14
     enum effect_file_type file_type_copy;     // 0x40: Seemingly a copy of file_type
     int file_index;                           // 0x44: File index in pack 3 (effect.bin)
     uint32_t palette_num;                     // 0x48

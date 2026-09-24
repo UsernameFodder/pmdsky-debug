@@ -1205,6 +1205,13 @@ overlay29:
         Marks entries in dungeon::monster_move_animations whose animations have finished as being unused.
         
         No params.
+    - name: FreeAllMonsterMoveEffects
+      address:
+        EU: 0x22E77F0
+      description: |-
+        Marks all entries in dungeon::monster_move_animations as being unused.
+        
+        No params.
     - name: UpdateLiveEffectsFromMonsterMoveEffects
       address:
         EU: 0x22E7830

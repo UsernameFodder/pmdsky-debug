@@ -226,7 +226,7 @@ overlay10:
         Finds a currently unused live effect, zeroes it, and fills its more general fields such as screen, file_type, and unique_id.
         
         r0: ?
-        r1: effect_init_info
+        r1: effect_display_info
         r2: screen
         return: unique id
     - name: InitAndPlayEffect
@@ -236,7 +236,7 @@ overlay10:
         Calls InitEffect, then calls PlayEffect.
         
         r0: ?
-        r1: effect_init_info
+        r1: effect_display_info
         r2: screen
         return: unique id
     - name: GetLiveEffectIdx
@@ -257,6 +257,13 @@ overlay10:
         
         r0: unique id
         return: WAN offset type, or -1 if a live effect with the given id was not found
+    - name: InitEffectDisplayInfo
+      address:
+        EU: 0x22BFBB4
+      description: |-
+        Initializes an effect_display_info struct with default values.
+        
+        r0: [output] effect_display_info
     - name: GetLiveEffect
       address:
         EU: 0x22BFC54

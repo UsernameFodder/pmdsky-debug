@@ -21,12 +21,13 @@ void TerminateEffectWrapper(int unique_id);
 enum wan_offset_type GetEffectAnimationWanOffset(int anim_id);
 void UnloadEffect(struct live_effect* effect, bool not_special_wan_file);
 void PlayEffect(struct live_effect* effect, enum screen screen);
-int InitEffect(undefined4 param_1, struct effect_init_info* effect_init_info,
+int InitEffect(undefined4 param_1, struct effect_display_info* effect_display_info,
                enum screen screen);
-int InitAndPlayEffect(undefined4 param_1, struct effect_init_info* effect_init_info,
+int InitAndPlayEffect(undefined4 param_1, struct effect_display_info* effect_display_info,
                       enum screen screen);
 int GetLiveEffectIdx(int unique_id);
 enum wan_offset_type GetLiveEffectWanOffset(int unique_id);
+void InitEffectDisplayInfo(struct effect_display_info* effect_display_info);
 struct live_effect* GetLiveEffect(int unique_id);
 bool DisplayEffect(struct live_effect* effect, struct vec2_16* camera_pos);
 bool ScreenEffectActive(enum screen screen);
