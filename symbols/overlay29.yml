@@ -2357,7 +2357,7 @@ overlay29:
         NA: 0x22EDEDC
         JP: 0x22EF540
       description: |-
-        Reveals the trap given by the position if the dungeon struct's regular_attack_reveal_traps field is true.
+        Reveals the trap given by the position if the dungeon struct's regular_attack_no_reveal_traps field is false.
         
         Is also activated on a tile if an item lands on it.
         
