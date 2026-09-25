@@ -2945,6 +2945,7 @@ overlay29:
         Handles using the regular attack or Struggle by the entity.
         
         r0: entity pointer
+        r1: move id
     - name: GetShopkeeperIfTalkable
       address:
         EU: 0x22F6BC8
