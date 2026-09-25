@@ -2359,7 +2359,7 @@ overlay29:
       description: |-
         Reveals the trap given by the position if the dungeon struct's regular_attack_reveal_traps field is true.
         
-        Is also activated on a tile if a fainted monster drops an item on it.
+        Is also activated on a tile if an item lands on it.
         
         r0: position struct pointer
         r1: boolean for whether to update trap visibility afterwards (always 1 in practice)
@@ -8948,7 +8948,7 @@ overlay29:
       description: |-
         Reveals the tile given by the position.
         
-        Is also activated on a tile if a fainted monster drops an item on it.
+        Is also activated on a tile if an item lands on it.
         
         r0: position struct pointer
     - name: ResetVictoryCounter
