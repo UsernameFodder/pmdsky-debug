@@ -284,7 +284,7 @@ void UseSingleUseItem(struct entity* user, struct entity* target);
 void UseThrowableItem(struct entity* user);
 void TalkToTeamMemberInFront(struct entity* entity);
 void PlayerUseMove(struct entity* entity);
-void UseRegularAttackOrStruggle(struct entity* entity);
+void UseRegularAttackOrStruggle(struct entity* entity, enum move_id move_id);
 struct entity* GetShopkeeperIfTalkable(struct entity* leader);
 void HandleShopTransaction(bool always_transact);
 void TrySellToShop(bool param_1);
