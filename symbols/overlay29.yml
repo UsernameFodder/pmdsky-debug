@@ -10353,7 +10353,7 @@ overlay29:
         r0: entity
         r1: position
         r2: item
-        r3: ?
+        r3: whether to not display the item during the drop sequence if the camera entity is blinded
     - name: SpawnDroppedItem
       address:
         EU: 0x23466C4
@@ -10370,7 +10370,7 @@ overlay29:
         r2: item info
         r3: ?
         stack[0]: pointer to int16_t[2] for x/y direction (corresponding to DIRECTIONS_XY)
-        stack[1]: ?
+        stack[1]: whether to not display the item during the drop sequence if the camera entity is blinded
     - name: TryGenerateUnownStoneDrop
       address:
         EU: 0x2346C4C

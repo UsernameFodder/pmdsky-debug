@@ -1066,9 +1066,9 @@ void RemoveGroundItem(struct position* position, bool update_shop_counters);
 bool DisplayItem(struct entity* item, bool hallucinate, bool on_floor, enum direction_id dir,
                  bool priority);
 void SpawnDroppedItemWrapper(struct entity* entity, struct position* pos, struct item* item,
-                             undefined4 param_4);
+                             bool consider_blinded);
 void SpawnDroppedItem(struct entity* entity, struct entity* item_entity, struct item* item,
-                      int param_4, int16_t* dir_xy, undefined param_6);
+                      int param_4, int16_t* dir_xy, bool consider_blinded);
 bool TryGenerateUnownStoneDrop(struct item* item, enum monster_id monster_id);
 bool HasHeldItem(struct entity* entity, enum item_id item_id);
 void GenerateMoneyQuantity(struct item* item, int max_amount);
