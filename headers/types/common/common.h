@@ -1691,6 +1691,24 @@ struct live_effect_unk_substruct {
 };
 ASSERT_SIZE(struct live_effect_unk_substruct, 64);
 
+struct effect_display_info {
+    uint32_t effect_id;           // 0x0
+    undefined4 field_0x4;         // Seemingly always 0
+    enum direction_id effect_dir; // 0x8
+    struct vec2_16 pos;           // 0xC: Absolute pixel coordinates of effect
+    // 0x10: The wan_offset converted into a pixel offset. Added to pos when displaying.
+    // Sometimes this is unused and the offset is pre-added to pos.
+    struct vec2_16 pixel_wan_offset;
+    struct wan_offset_type_8 wan_offset; // 0x14
+    undefined field_0x15;
+    undefined field_0x16;
+    undefined field_0x17;
+    undefined4 field_0x18;
+    uint16_t oam_adjustment_info[6]; // 0x1C
+    uint32_t some_bitfield;          // 0x28
+};
+ASSERT_SIZE(struct effect_display_info, 44);
+
 // Represents an effect animation that is currently playing
 struct live_effect {
     enum screen screen; // 0x0
@@ -1698,23 +1716,15 @@ struct live_effect {
     enum effect_file_type file_type; // 0x8
     int unique_id;                   // 0xC: -1 if no effect playing
     undefined4 field_0x10;
-    uint32_t effect_id;    // 0x14
-    undefined4 field_0x18; // Seemingly always 0
-    undefined4 field_0x1c;
-    struct vec2_16 pos; // 0x20: Absolute pixel coordinates of effect
-    undefined4 field_0x24;
-    undefined4 field_0x28;
-    undefined4 field_0x2c;
-    uint16_t oam_adjustment_info[6];      // 0x30
-    uint32_t some_bitfield;               // 0x3C
-    enum effect_file_type file_type_copy; // 0x40: Seemingly a copy of file_type
-    int file_index;                       // 0x44: File index in pack 3 (effect.bin)
-    uint32_t palette_num;                 // 0x48
+    struct effect_display_info effect_display_info; // 0x14
+    enum effect_file_type file_type_copy;           // 0x40: Seemingly a copy of file_type
+    int file_index;                                 // 0x44: File index in pack 3 (effect.bin)
+    uint32_t palette_num;                           // 0x48
     undefined4 field_0x4c;
     uint32_t animation_index; // 0x50: See struct effect_animation
     undefined4 field_0x54;
     int se_id;               // 0x58
-    undefined4 field_0x5c;   // Seemingly always 0
+    int frames_until_sfx;    // 0x5C: Seemingly always 0, then set to -1 when the SFX is played
     uint8_t is_non_blocking; // 0x60
     uint8_t repeat;          // 0x61: If non-zero, makes the animation repeat a bunch of times
     undefined2 field_0x62;
@@ -1743,7 +1753,7 @@ struct effect_control {
     struct live_effect live_effects[32]; // 0x0
     uint32_t next_unique_id;             // 0x2780
     uint32_t is_ground_mode;             // 0x2784
-    // 0x2788: Entry in wan_table for file 1 if ground mode, file 292 if dungeon mode
+    // 0x2788: Entry in wan_table for file 1 if ground mode, file 0 if dungeon mode
     uint16_t wan_entry;
     undefined field_0x278a;
     undefined field_0x278b;

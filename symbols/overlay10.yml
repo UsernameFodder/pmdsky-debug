@@ -199,6 +199,14 @@ overlay10:
         
         r0: anim_id
         return: GetEffectAnimation(anim_id)->wan_offset
+    - name: UnloadEffect
+      address:
+        EU: 0x22BE804
+      description: |-
+        Marks the live effect as not being used, unloads its wan_table entry if applicable, and calls an unknown inner function to free certain pointers.
+        
+        r0: live effect pointer
+        r1: true if the effect does not have type WAN File 0/1
     - name: PlayEffect
       address:
         EU: 0x22BE900
@@ -211,6 +219,26 @@ overlay10:
         
         r0: live_effect
         r1: screen
+    - name: InitEffect
+      address:
+        EU: 0x22BED8C
+      description: |-
+        Finds a currently unused live effect, zeroes it, and fills its more general fields such as screen, file_type, and unique_id.
+        
+        r0: ?
+        r1: effect_display_info
+        r2: screen
+        return: unique id
+    - name: InitAndPlayEffect
+      address:
+        EU: 0x22BF070
+      description: |-
+        Calls InitEffect, then calls PlayEffect.
+        
+        r0: ?
+        r1: effect_display_info
+        r2: screen
+        return: unique id
     - name: GetLiveEffectIdx
       address:
         EU: 0x22BF2E0
@@ -221,6 +249,29 @@ overlay10:
         
         r0: unique id
         return: index, or -1 if it is not present
+    - name: GetLiveEffectWanOffset
+      address:
+        EU: 0x22BF918
+      description: |-
+        Gets the WAN offset of the live effect given by the unique id.
+        
+        r0: unique id
+        return: WAN offset type, or -1 if a live effect with the given id was not found
+    - name: InitEffectDisplayInfo
+      address:
+        EU: 0x22BFBB4
+      description: |-
+        Initializes an effect_display_info struct with default values.
+        
+        r0: [output] effect_display_info
+    - name: GetLiveEffect
+      address:
+        EU: 0x22BFC54
+      description: |-
+        Gets the live effect with the given unique id if there is one and its field_0x4 is nonzero (which it seemingly always is?).
+        
+        r0: unique id
+        return: live_effect pointer, or null if none was found / the unique id is -1
     - name: DisplayEffect
       address:
         EU: 0x22BFE30
@@ -252,6 +303,30 @@ overlay10:
         Checks if there is an effect animation with the given unique id in progress and if so, whether its is_non_blocking field is 0.
         
         r0: unique id of animation
+        return: bool
+    - name: IsBlizzardTailwindOrPowderSnow
+      address:
+        EU: 0x22C072C
+      description: |-
+        Returns true if the move id is equal to Blizzard, Tailwind or Powder Snow.
+        
+        r0: move id
+        return: bool
+    - name: IsWanOrWat
+      address:
+        EU: 0x22C077C
+      description: |-
+        Returns true if the file type is a WAN file (including WAN files 0/1) or a WAT file.
+        
+        r0: effect file type
+        return: bool
+    - name: IsScreenOrWba
+      address:
+        EU: 0x22C0794
+      description: |-
+        Returns true if the file type is a screen effect or a WBA file.
+        
+        r0: effect file type
         return: bool
     - name: GetEffectAnimation
       address:
@@ -323,6 +398,16 @@ overlay10:
         
         r0: move_id
         return: anim_ent_ptr (This might be a mistake? It seems to be an integer, not a pointer)
+    - name: LoadEffectWanTableEntry
+      address:
+        EU: 0x22C0D34
+      description: |-
+        Returns an already allocated entry for this effect if it exists, otherwise allocates a new one.
+        
+        r0: effect file type
+        r1: file_index
+        r2: index of effect in EFFECT_CONTROL.live_effects (seemingly unused in practice)
+        return: the entry id in wan_table
     - name: DrawTeamStats
       address:
         EU: 0x22C1328
@@ -3179,6 +3264,14 @@ overlay10:
         NA: 0x3C
         JP: 0x3C
       description: "Table for how much damage each tick of badly poisoned should deal. The table is filled with 0x0006, but could use different values for each entry."
+    - name: NATURE_GIFTER_RESTRICTED_ITEMS
+      address:
+        EU: 0x22C5630
+      length:
+        EU: 0x3C
+        NA: 0x3C
+        JP: 0x3C
+      description: The list of items whose effects cannot be spread to the whole party through Nature Gifter when consumed.
     - name: TYPE_MATCHUP_COMBINATOR_TABLE
       address:
         EU: 0x22C566C
@@ -3493,3 +3586,9 @@ overlay10:
         NA: 0x4
         JP: 0x4
       description: Static initializer for overlay 10.
+    - name: EFFECT_CONTROL_PTR
+      address:
+        EU: 0x22DCB00
+      length:
+        EU: 0x4
+      description: Pointer to the master struct containing information about how effects should be played and the ones that are currently active.

@@ -2624,6 +2624,18 @@ struct data_serializer {
 };
 ASSERT_SIZE(struct data_serializer, 12);
 
+// Information about an effect animation currently being played on a monster as part of a move
+struct monster_move_animation {
+    int live_effect_unique_id; // 0x0
+    undefined4 field_0x4;
+    struct wan_offset_type_8 wan_offset; // 0x8
+    undefined field_0x9;
+    undefined field_0xa;
+    undefined field_0xb;
+    struct entity* entity; // 0xC
+};
+ASSERT_SIZE(struct monster_move_animation, 16);
+
 // Separate this out into its own file because it's massive
 #include "dungeon.h"
 

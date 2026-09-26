@@ -1189,6 +1189,37 @@ overlay29:
         
         r0: entity pointer
         r1: arrow direction
+    - name: InitMonsterMoveEffect
+      address:
+        EU: 0x22E7718
+      description: |-
+        Finds the first available entry in dungeon::monster_move_animations and initializes it with the given values.
+        
+        r0: live effect unique id
+        r1: entity pointer
+        r2: ?
+    - name: FreeMonsterMoveEffects
+      address:
+        EU: 0x22E7780
+      description: |-
+        Marks entries in dungeon::monster_move_animations whose animations have finished as being unused.
+        
+        No params.
+    - name: FreeAllMonsterMoveEffects
+      address:
+        EU: 0x22E77F0
+      description: |-
+        Marks all entries in dungeon::monster_move_animations as being unused.
+        
+        No params.
+    - name: UpdateLiveEffectsFromMonsterMoveEffects
+      address:
+        EU: 0x22E7830
+      description: |-
+        Finds any entries in dungeon::monster_move_animations that use the given entity and updates fields in their live_effects.
+        
+        r0: entity pointer
+        r1: ?
     - name: LoadMappaFileAttributes
       address:
         EU: 0x22E796C
@@ -2137,6 +2168,13 @@ overlay29:
         If dungeon::end_floor_flag is 1 or 2, sets dungeon::floor_loop_status to floor_loop_status::FLOOR_LOOP_NEXT_FLOOR.
         
         return: true if the current floor should end
+    - name: ShakeScreen
+      address:
+        EU: 0x22ED4AC
+      description: |-
+        Shakes the screen. Does not return until shaking is finished.
+        
+        r0: ? (always 1 in practice)
     - name: DecrementWindCounter
       address:
         EU: 0x22ED4F8
@@ -2319,9 +2357,9 @@ overlay29:
         NA: 0x22EDEDC
         JP: 0x22EF540
       description: |-
-        Reveals the trap given by the position if the dungeon struct's regular_attack_reveal_traps field is true.
+        Reveals the trap given by the position if the dungeon struct's regular_attack_no_reveal_traps field is false.
         
-        Is also activated on a tile if a fainted monster drops an item on it.
+        Is also activated on a tile if an item lands on it.
         
         r0: position struct pointer
         r1: boolean for whether to update trap visibility afterwards (always 1 in practice)
@@ -2907,6 +2945,7 @@ overlay29:
         Handles using the regular attack or Struggle by the entity.
         
         r0: entity pointer
+        r1: move id
     - name: GetShopkeeperIfTalkable
       address:
         EU: 0x22F6BC8
@@ -8909,7 +8948,7 @@ overlay29:
       description: |-
         Reveals the tile given by the position.
         
-        Is also activated on a tile if a fainted monster drops an item on it.
+        Is also activated on a tile if an item lands on it.
         
         r0: position struct pointer
     - name: ResetVictoryCounter
@@ -10314,7 +10353,7 @@ overlay29:
         r0: entity
         r1: position
         r2: item
-        r3: ?
+        r3: whether to not display the item during the drop sequence if the camera entity is blinded
     - name: SpawnDroppedItem
       address:
         EU: 0x23466C4
@@ -10331,7 +10370,7 @@ overlay29:
         r2: item info
         r3: ?
         stack[0]: pointer to int16_t[2] for x/y direction (corresponding to DIRECTIONS_XY)
-        stack[1]: ?
+        stack[1]: whether to not display the item during the drop sequence if the camera entity is blinded
     - name: TryGenerateUnownStoneDrop
       address:
         EU: 0x2346C4C
@@ -10386,6 +10425,22 @@ overlay29:
         monster::is_not_team_member should be checked to be false before calling.
         
         r0: monster pointer
+    - name: GetItemHolderTeamIndex
+      address:
+        EU: 0x2347BB4
+      description: |-
+        Gets the index in the team of the monster holding the given item, or -1 if none is.
+        
+        r0: item pointer
+        return: team index, or -1
+    - name: IsNatureGifterRestrictedItem
+      address:
+        EU: 0x2347BFC
+      description: |-
+        Checks if the given item's effect cannot be spread to the whole party through Nature Gifter when consumed.
+        
+        r0: item id
+        return: bool
     - name: RemoveEmptyItemsInBagWrapper
       address:
         EU: 0x2347C2C

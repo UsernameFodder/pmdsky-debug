@@ -722,12 +722,6 @@ ram:
         EU: 0x22BBF54
         NA: 0x22BB614
         JP: 0x22BCDB4
-    - name: EFFECT_CONTROL
-      address:
-        EU: 0x22DCB00
-      length:
-        EU: 0x27A4
-      description: The master struct containing information about how effects should be played and the ones that are currently active.
     - name: GROUND_MEMORY_ARENA_1_PTR
       address:
         NA: 0x2324CB4

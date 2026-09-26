@@ -99,6 +99,10 @@ void PlayEffectAnimation0x29(struct entity* entity);
 void PlayEffectAnimation0x18E(struct entity* entity);
 void PlayKeyDoorUnlockEffect(struct entity* entity, bool is_not_treasure_memo);
 void PlayStairSensorArrowEffect(struct entity* entity, enum direction_id arrow_dir);
+void InitMonsterMoveEffect(int live_effect_unique_id, struct entity* entity, undefined4 param_3);
+void FreeMonsterMoveEffects(void);
+void FreeAllMonsterMoveEffects(void);
+void UpdateLiveEffectsFromMonsterMoveEffects(struct entity* entity, undefined4 param_2);
 void LoadMappaFileAttributes(int quick_saved, bool disable_monsters, undefined* special_process);
 enum trap_id GetRandomSpawnTrapId(void);
 enum trap_id GetRandomTrapId(void);
@@ -195,6 +199,7 @@ void RunFractionalTurn(bool is_first_loop);
 bool RunLeaderTurn(undefined param_1);
 void TrySpawnMonsterAndActivatePlusMinus(void);
 bool IsFloorOver(void);
+void ShakeScreen(undefined param_1);
 void DecrementWindCounter(void);
 void CreateMonsterSummaryFromEntityOuter(union damage_source_16 damage_source,
                                          struct entity* entity, struct monster* monster,
@@ -279,7 +284,7 @@ void UseSingleUseItem(struct entity* user, struct entity* target);
 void UseThrowableItem(struct entity* user);
 void TalkToTeamMemberInFront(struct entity* entity);
 void PlayerUseMove(struct entity* entity);
-void UseRegularAttackOrStruggle(struct entity* entity);
+void UseRegularAttackOrStruggle(struct entity* entity, enum move_id move_id);
 struct entity* GetShopkeeperIfTalkable(struct entity* leader);
 void HandleShopTransaction(bool always_transact);
 void TrySellToShop(bool param_1);
@@ -1061,14 +1066,16 @@ void RemoveGroundItem(struct position* position, bool update_shop_counters);
 bool DisplayItem(struct entity* item, bool hallucinate, bool on_floor, enum direction_id dir,
                  bool priority);
 void SpawnDroppedItemWrapper(struct entity* entity, struct position* pos, struct item* item,
-                             undefined4 param_4);
+                             bool consider_blinded);
 void SpawnDroppedItem(struct entity* entity, struct entity* item_entity, struct item* item,
-                      int param_4, int16_t* dir_xy, undefined param_6);
+                      int param_4, int16_t* dir_xy, bool consider_blinded);
 bool TryGenerateUnownStoneDrop(struct item* item, enum monster_id monster_id);
 bool HasHeldItem(struct entity* entity, enum item_id item_id);
 void GenerateMoneyQuantity(struct item* item, int max_amount);
 bool CheckTeamItemsFlags(int flags);
 void AddHeldItemToBag(struct monster* monster);
+int GetItemHolderTeamIndex(struct item* item);
+bool IsNatureGifterRestrictedItem(enum item_id item_id);
 void RemoveEmptyItemsInBagWrapper(void);
 void GenerateItem(struct item* item, enum item_id item_id, uint16_t quantity,
                   enum gen_item_stickiness sticky_type);
