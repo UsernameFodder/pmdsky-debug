@@ -1353,7 +1353,7 @@ libs:
         EU: 0x207640C
         NA: 0x2076074
         JP: 0x207635C
-    - name: GX_HBlankIntr
+    - name: GX_SetVCountEqVal
       address:
         EU: 0x2076558
         NA: 0x20761C0
@@ -2119,12 +2119,12 @@ libs:
         EU: 0x207942C
         NA: 0x2079094
         JP: 0x207937C
-    - name: OS_VsPrintf
+    - name: OS_SPrintf
       address:
         EU: 0x2079474
         NA: 0x20790DC
         JP: 0x20793C4
-    - name: OS_VsNPrintf
+    - name: Os_VsPrintf
       address:
         EU: 0x207949C
         NA: 0x2079104
@@ -2134,7 +2134,7 @@ libs:
         EU: 0x20794B4
         NA: 0x207911C
         JP: 0x2079404
-    - name: OS_VsNPrintfExStub
+    - name: Os_VsnPrintf
       address:
         EU: 0x20794DC
         NA: 0x2079144
@@ -2188,7 +2188,7 @@ libs:
         EU: 0x2079690
         NA: 0x20792F8
         JP: 0x20795E0
-    - name: OS_RescheduleThread
+    - name: OSi_RescheduleThread
       address:
         EU: 0x20796D8
         NA: 0x2079340
@@ -2550,11 +2550,41 @@ libs:
         EU: 0x207AA84
         NA: 0x207A6EC
         JP: 0x207A9D4
-    - name: OS_AllocFromArenaLo
+    - name: DlExtract
       address:
         EU: 0x207AAB4
         NA: 0x207A71C
         JP: 0x207AA04
+    - name: DlInsert
+      address:
+        EU: 0x207AADC
+        NA: 0x207A744
+        JP: 0x207AA2C
+    - name: OS_AllocFromHeap
+      address:
+        EU: 0x207AB84
+        NA: 0x207A7EC
+        JP: 0x207AAD4
+    - name: OS_FreeToHeap
+      address:
+        EU: 0x207AC8C
+        NA: 0x207A8F4
+        JP: 0x207ABDC
+    - name: OS_SetCurrentHeap
+      address:
+        EU: 0x207ACF4
+        NA: 0x207A95C
+        JP: 0x207AC44
+    - name: OS_InitAlloc
+      address:
+        EU: 0x207AD24
+        NA: 0x207A98C
+        JP: 0x207AC74
+    - name: OS_CreateHeap
+      address:
+        EU: 0x207ADCC
+        NA: 0x207AA34
+        JP: 0x207AD1C
     - name: OS_GetDtcmAddress
       address:
         EU: 0x207AE64
@@ -3175,17 +3205,17 @@ libs:
         EU: 0x207CBBC
         NA: 0x207C824
         JP: 0x207CB0C
-    - name: Snd_SetPlayerTempoRatio
+    - name: Snd_SetPlayerVolume
       address:
         EU: 0x207CBDC
         NA: 0x207C844
         JP: 0x207CB2C
-    - name: Snd_SetPlayerVolume
+    - name: Snd_SetPlayerChannelPriority
       address:
         EU: 0x207CBF4
         NA: 0x207C85C
         JP: 0x207CB44
-    - name: Snd_SetTrackPan
+    - name: Snd_SetTrackPitch
       address:
         EU: 0x207CC0C
         NA: 0x207C874
@@ -3255,12 +3285,12 @@ libs:
         EU: 0x207CE78
         NA: 0x207CAE0
         JP: 0x207CDC8
-    - name: Snd_InvalidateSeqData
+    - name: Snd_InvalidateBankData
       address:
         EU: 0x207CEAC
         NA: 0x207CB14
         JP: 0x207CDFC
-    - name: Snd_InvalidateBankData
+    - name: Snd_InvalidateWaveData
       address:
         EU: 0x207CECC
         NA: 0x207CB34
@@ -3987,6 +4017,11 @@ libs:
         EU: 0x20818B4
         NA: 0x208151C
         JP: 0x2081804
+    - name: TP_RequestAutoSamplingStopAsync
+      address:
+        EU: 0x20819B4
+        NA: 0x208161C
+        JP: 0x2081904
     - name: TP_GetLatestIndexInAuto
       address:
         EU: 0x2081A4C
@@ -4007,7 +4042,7 @@ libs:
         EU: 0x2081D6C
         NA: 0x20819D4
         JP: 0x2081CBC
-    - name: TP_CheckBusy
+    - name: TP_CheckError
       address:
         EU: 0x2081D84
         NA: 0x20819EC
@@ -4121,6 +4156,11 @@ libs:
         EU: 0x2082454
         NA: 0x20820BC
         JP: 0x20823A4
+    - name: PM_GoSleepMode
+      address:
+        EU: 0x2082480
+        NA: 0x20820E8
+        JP: 0x20823D0
     - name: PMi_SetLcdPower
       address:
         EU: 0x20826C0
@@ -4421,6 +4461,16 @@ libs:
         EU: 0x20840B0
         NA: 0x2083D18
         JP: 0x2084000
+    - name: Cardi_SetCardDma
+      address:
+        EU: 0x2084110
+        NA: 0x2083D78
+        JP: 0x2084060
+    - name: Cardi_OnReadCard
+      address:
+        EU: 0x2084164
+        NA: 0x2083DCC
+        JP: 0x20840B4
     - name: Cardi_TryReadCardDma
       address:
         EU: 0x2084234
@@ -4431,6 +4481,11 @@ libs:
         EU: 0x20843C0
         NA: 0x2084028
         JP: 0x2084310
+    - name: Cardi_ReadRomIdCore
+      address:
+        EU: 0x20844B0
+        NA: 0x2084118
+        JP: 0x2084400
     - name: Cardi_ReadRomSyncCore
       address:
         EU: 0x208450C
@@ -4621,22 +4676,22 @@ libs:
         EU: 0x2085390
         NA: 0x2084FF8
         JP: 0x20852E0
-    - name: Mathi_Crc16InitTable
+    - name: Mathi_Crc16InitTableRev
       address:
         EU: 0x20853C8
         NA: 0x2085030
         JP: 0x2085318
-    - name: Mathi_Crc16Update
+    - name: Mathi_Crc16UpdateRev
       address:
         EU: 0x208540C
         NA: 0x2085074
         JP: 0x208535C
-    - name: Mathi_Crc32InitTable
+    - name: Mathi_Crc32InitTableRev
       address:
         EU: 0x208544C
         NA: 0x20850B4
         JP: 0x208539C
-    - name: Mathi_Crc32Update
+    - name: Mathi_Crc32UpdateRev
       address:
         EU: 0x208548C
         NA: 0x20850F4
@@ -4656,6 +4711,11 @@ libs:
         EU: 0x2085518
         NA: 0x2085180
         JP: 0x2085468
+    - name: Cht_IsPictochatParent
+      address:
+        EU: 0x2085544
+        NA: 0x20851AC
+        JP: 0x2085494
     - name: Std_CopyLString
       address:
         EU: 0x20855DC
@@ -4717,7 +4777,7 @@ libs:
         EU: 0x2085F14
         NA: 0x2085B7C
         JP: 0x2085E64
-    - name: OS_VsNPrintfEx
+    - name: Std_TvsnPrintf
       address:
         EU: 0x2085F6C
         NA: 0x2085BD4
