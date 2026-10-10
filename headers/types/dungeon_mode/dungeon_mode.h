@@ -921,7 +921,7 @@ struct display_data {
     bool unk_fade_to_black_tracker;
     undefined field_0x32;   // 0x32: Initialized to 0
     undefined field_0x33;   // 0x33: Initialized to 0
-    undefined field_0x34;   // 0x34: Is used, related to lighting?
+    bool dropeye;           // 0x34: True if the camera entity has the dropeye status
     bool team_menu_or_grid; // 0x35: True when the team menu is opened or while Y is being held
     // Derived from internal direction in leader info block
     struct direction_id_8 leader_target_direction;        // 0x36
@@ -2623,6 +2623,19 @@ struct data_serializer {
     uint32_t count;
 };
 ASSERT_SIZE(struct data_serializer, 12);
+
+// Information about an effect animation currently being played on a monster as part of a move.
+// Not used for effects that are not tied to any monster, such as projectiles.
+struct monster_move_animation {
+    int live_effect_unique_id; // 0x0
+    undefined4 field_0x4;
+    struct wan_offset_type_8 wan_offset; // 0x8
+    undefined field_0x9;
+    undefined field_0xa;
+    undefined field_0xb;
+    struct entity* entity; // 0xC
+};
+ASSERT_SIZE(struct monster_move_animation, 16);
 
 // Separate this out into its own file because it's massive
 #include "dungeon.h"

@@ -260,21 +260,7 @@ struct dungeon {
     // 0x614: Initialized to 0xFFFFFFFF. Set to 4 when the leader picks up an item by
     // walking over it?
     int field_0x614;
-    // 0x618: Something related to animiations?  Could be ID?
-    undefined4 unk1_animation1_value;
-    undefined4 unk2_animation1_value;
-    undefined4 unk3_animation1_value;
-    struct entity* animation1_entity; // 0x624: Monster pointer for the animation?
-    // 0x628: Something related to animiations?  Could be ID?
-    undefined4 unk1_animation2_value;
-    undefined4 unk2_animation2_value;
-    undefined4 unk3_animation2_value;
-    struct entity* animation2_entity; // 0x634: Monster pointer for the animation?
-    // 0x638: Something related to animiations? Could be ID?
-    undefined4 unk1_animation3_value;
-    undefined4 unk2_animation3_value;
-    undefined4 unk3_animation3_value;
-    struct entity* animation3_entity; // 0x644: Monster pointer for the animation?
+    struct monster_move_animation monster_move_animations[3]; // 0x618
     // 0x648: Used to store the name of the monster that caused a forced loss.
     char fallen_ally_monster_name[10];
     undefined field_0x652;

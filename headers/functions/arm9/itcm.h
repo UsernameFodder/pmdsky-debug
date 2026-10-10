@@ -23,7 +23,7 @@ void Render3dProcessQueue(void);
 void GetKeyN2MSwitch(int key, int sw);
 enum monster_id GetKeyN2M(int key);
 enum monster_id GetKeyN2MBaseForm(int key);
-void GetKeyM2NSwitch(enum monster_id monster_id, int sw);
+int GetKeyM2NSwitch(enum monster_id monster_id, int sw);
 int GetKeyM2N(enum monster_id monster_id);
 int GetKeyM2NBaseForm(enum monster_id monster_id);
 void OS_IrqHandler(void);
