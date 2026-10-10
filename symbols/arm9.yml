@@ -11513,6 +11513,10 @@ arm9:
         Note: unverified, ported from Irdkwia's notes
         
         No params.
+    - name: MaybeSetUpMonsterFromEgg
+      address:
+        NA: 0x2052CF4
+      description: "Note: unverified"
     - name: GuestMonsterToGroundMonster
       address:
         EU: 0x20531CC
@@ -12155,6 +12159,10 @@ arm9:
         
         r0: ?
         return: team member index of the first available slot
+    - name: MaybeAddGroundMonsterFromEggToTeam
+      address:
+        NA: 0x2055D4C
+      description: "Note: unverified"
     - name: IsMonsterNotNicknamed
       address:
         EU: 0x20563EC
