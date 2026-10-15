@@ -11809,16 +11809,18 @@ arm9:
         
         r0: monster ID
         return: bool
-    - name: GetSecondFormIfValid
+    - name: MaleToFemaleForm
+      aliases:
+        - GetSecondFormIfValid
       address:
         EU: 0x2054F20
         NA: 0x2054BA4
         JP: 0x2054EDC
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Returns the ID of the second form of the specified monster if the specified ID corresponds to a primary form with male gender and the second form has female gender. If those conditions don't meet, returns the same ID unchanged.
         
-        r0: monster ID
-        return: second form
+        r0: Monster ID
+        return: ID of the female form of the monster if the requirements meet, same ID otherwise.
     - name: FemaleToMaleForm
       address:
         EU: 0x2054F5C

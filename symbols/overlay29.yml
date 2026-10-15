@@ -1211,6 +1211,23 @@ overlay29:
         r0: effect id
         r1: entity pointer
         r2: ?
+    - name: PlayStandardEscapeEffect
+      address:
+        EU: 
+          - 0x22E726C
+          - 0x22E72A0
+          - 0x22E72BC
+      description: |-
+        Plays the standard escape effect (the yellow light / Reviver Seed effect, 0x13E) on the entity while making it fly out of the map.
+        
+        r0: entity pointer
+    - name: PlayEscapeOrbEscapeEffect
+      address:
+        EU: 0x22E7288
+      description: |-
+        Plays the Escape Orb effect (0x1BC) on the entity while making it fly out of the map.
+        
+        r0: entity pointer
     - name: PlayStairSensorArrowEffect
       address:
         EU: 0x22E72D8

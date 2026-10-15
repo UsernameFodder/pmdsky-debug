@@ -1239,7 +1239,7 @@ bool IsShaymin(enum monster_id monster_id);
 bool IsCastform(enum monster_id monster_id);
 bool IsCherrim(enum monster_id monster_id);
 bool IsDeoxys(enum monster_id monster_id);
-enum monster_id GetSecondFormIfValid(enum monster_id monster_id);
+enum monster_id MaleToFemaleForm(enum monster_id monster_id);
 enum monster_id FemaleToMaleForm(enum monster_id monster_id);
 enum monster_id GetBaseFormCastformDeoxysCherrim(enum monster_id monster_id);
 bool BaseFormsEqual(enum monster_id monster1, enum monster_id monster2);
