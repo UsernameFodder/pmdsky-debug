@@ -483,7 +483,7 @@ int GetMovePower(struct entity* entity, struct move* move);
 bool MonsterCanThrowItems(struct monster* monster);
 bool UpdateStateFlags(struct monster* monster, uint16_t mask, bool set_flags);
 bool IsProtectedFromNegativeStatus(struct entity* user, struct entity* target, bool log_message);
-void AddExpSpecial(struct entity* attacker, struct entity* defender, int base_exp);
+void AddExp(struct entity* attacker, struct entity* defender, int base_exp);
 void EnemyEvolution(struct entity* entity);
 void LevelUpItemEffect(struct entity* user, struct entity* target, int levels, bool message,
                        bool dialogue);

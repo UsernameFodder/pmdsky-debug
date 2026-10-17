@@ -11598,6 +11598,17 @@ arm9:
         r0: Pointer to encoded value
         r1: [output] Buffer where the resulting 2-byte value will be stored.
         return: Pointer to the next byte to decode
+    - name: CanMonsterLearnMove
+      address:
+        EU: 0x2054098
+      description: |-
+        Returns true if the monster can learn the given move, whether by leveling up or HM/TM.
+
+        Always returns false if the move is Struggle or the monster is the Decoy.
+        
+        r0: monster id
+        r1: move id
+        return: bool
     - name: GetEvoFamily
       address:
         EU: 0x205414C

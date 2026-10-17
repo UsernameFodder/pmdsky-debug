@@ -1217,6 +1217,7 @@ void InitializeTeamMemberFromMentry(struct team_member* team_member,
 void AddStarterEggMove(struct ground_monster* ground_monster);
 void GetLvlUpEntry(struct level_up_entry* level_up_entry, enum monster_id monster_id, int level);
 uint8_t* GetEncodedHalfword(uint8_t* data_ptr, uint16_t* result);
+bool CanMonsterLearnMove(enum monster_id monster_id, enum move_id move_id);
 int GetEvoFamily(undefined* monster, undefined* evo_family);
 int GetEvolutions(enum monster_id monster_id, enum monster_id* output_list,
                   bool skip_sprite_size_check, bool skip_shedinja_check);
