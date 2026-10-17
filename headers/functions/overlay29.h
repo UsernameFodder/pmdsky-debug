@@ -867,8 +867,8 @@ union damage_source GetDamageSourceWrapper(struct move* move, enum item_id item_
 int LowerSshort(int x);
 void PlayMoveAnimation(struct entity* user, struct entity* target, struct move* move,
                        struct position* position);
-uint16_t GetMoveAnimationId(struct move* move, enum weather_id apparent_weather,
-                            bool should_play_alternative_animation);
+enum move_id GetMoveAnimationId(enum move_id move_id, enum weather_id apparent_weather,
+                                bool should_play_alternative_animation);
 bool ShouldMovePlayAlternativeAnimation(struct entity* user, struct move* move);
 bool IsMoveBlockedByTerrain(struct entity* user, struct move* move);
 void ExecuteMoveEffect(struct target_list* targets, struct entity* attacker, struct move* move,
