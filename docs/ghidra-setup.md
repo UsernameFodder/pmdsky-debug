@@ -80,9 +80,9 @@ Once all the binaries have been loaded at the appropriate memory addresses, run 
 See the appropriate section of [Using Debug Info from `pmdsky-debug`](using-debug-info.md#ghidra).
 
 ## (Optional) Disable register variable names in disassembly
-By default, if Ghidra has variable names in the decompiled code (it usually does), it will try to apply them to the disassembly as well, replacing raw register names in instruction operands with the corresponding variable names. With ARM assembly, this is generally unhelpful, since registers are commonly repurposed in the middle of a function and might not always map to a single logical variable. While it's ultimately up to preference, I recommend disabling this behavior so that the disassembly just shows the bare register names. This makes reading the assembly code more straightforward.
+By default, if Ghidra has variable names in the decompiled code (it usually does), it will try to apply them to the disassembly as well, replacing raw register and stack names in instruction operands with the corresponding variable names. With ARM assembly, this is generally unhelpful, since registers are commonly repurposed in the middle of a function and might not always map to a single logical variable. While it's ultimately up to preference, I recommend disabling this behavior so that the disassembly just shows the bare register and stack names. This makes reading the assembly code more straightforward.
 
-To do this, select Edit > Tool Options..., navigate to Options > Listing Fields > Operands Field, uncheck the box labeled "Markup Register Variable References", then hit "Apply".
+To do this, select Edit > Tool Options..., navigate to Options > Listing Fields > Operands Field, uncheck the boxes labeled "Markup Register Variable References" and "Markup Stack Variable References", then hit "Apply".
 
    ![Disabling register variable markup](images/ghidra-markup-register-variable-references.png)
 
