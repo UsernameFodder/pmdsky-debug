@@ -1219,7 +1219,7 @@ overlay29:
         r2: ?
     - name: PlayStandardEscapeEffect
       address:
-        EU: 
+        EU:
           - 0x22E726C
           - 0x22E72A0
           - 0x22E72BC

@@ -306,6 +306,8 @@ struct unk_scroll_box_coords {
 };
 ASSERT_SIZE(struct unk_scroll_box_coords, 24);
 
+typedef void (*update_window_fn_t)(struct window* window);
+
 // Also see CreateScrollBoxSingle/CreateScrollBoxMulti
 // Up/down paged text boxes with formatting?
 // Observed examples:
@@ -1100,7 +1102,6 @@ union window_contents {
 ASSERT_SIZE(union window_contents, 4);
 
 struct window;
-typedef void (*update_window_fn_t)(struct window* window);
 
 struct window_params {
     update_window_fn_t update; // 0x0: A function to update the window

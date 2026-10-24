@@ -967,7 +967,7 @@ overlay10:
         EU: 0x22C4E24
       length:
         EU: 0x2
-      description: "The chance of a permanent stat boost occurring after eating a Gummi (25%)."
+      description: The chance of a permanent stat boost occurring after eating a Gummi (25%).
     - name: GOLD_THORN_POWER
       address:
         EU: 0x22C4E28
