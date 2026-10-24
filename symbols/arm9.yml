@@ -14985,7 +14985,13 @@ arm9:
         EU: 0x2
         NA: 0x2
         JP: 0x2
-      description: IQ gain when ingesting wonder gummis.
+      description: IQ gain when ingesting wonder gummis (15).
+    - name: WONDER_GUMMI_BELLY_RESTORE
+      address:
+        EU: 0x20A1E18
+      length:
+        EU: 0x2
+      description: Belly gain when ingesting wonder gummis (50).
     - name: AURA_BOW_STAT_BOOST
       address:
         EU: 0x20A1E1C

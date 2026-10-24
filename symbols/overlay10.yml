@@ -936,6 +936,12 @@ overlay10:
         NA: 0x2
         JP: 0x2
       description: "The chance of Steel Wing boosting defense, as a percentage (20%)."
+    - name: GUMMI_STAT_BOOST_CHANCE
+      address:
+        EU: 0x22C4E24
+      length:
+        EU: 0x2
+      description: "The chance of a permanent stat boost occurring after eating a Gummi (25%)."
     - name: GOLD_THORN_POWER
       address:
         EU: 0x22C4E28

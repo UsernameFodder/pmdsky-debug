@@ -1201,8 +1201,7 @@ struct monster_data_table_entry {
     struct monster_gender_8 gender; // 0x12: Gender of this particular entity entry.
     uint8_t body_size; // 0x13: The body size of the Pokemon. Used when determining how many Pokemon
                        // fits in the party.
-    struct type_id_8 primary_type;         // 0x14: The Pokemon's primary type.
-    struct type_id_8 secondary_type;       // 0x15: The Pokemon's secondary type.
+    struct type_id_8 types[2];             // 0x14
     struct mobility_type_8 movement_type;  // 0x16: This decides what terrains the entity can move
                                            // over, and whether its hovering or not.
     struct iq_group_id_8 iq_group;         // 0x17: The IQ group the Pokemon belongs to.
