@@ -31,30 +31,6 @@ struct preprocessor_args {
 };
 ASSERT_SIZE(struct preprocessor_args, 80);
 
-struct window;
-typedef void (*update_window_fn_t)(struct window* window);
-
-struct window_params {
-    update_window_fn_t update; // 0x0: A function to update the window
-    // 0x4: Window left (or right in tandem with the x_offset_end window flag) edge x coordinate,
-    // divided by 8.
-    uint8_t x_offset;
-    // 0x5: Window top (or bottom in tandem with the y_offset_end window flag) edge y coordinate,
-    // divided by 8.
-    uint8_t y_offset;
-    uint8_t width;          // 0x6: Window width, divided by 8.
-    uint8_t height;         // 0x7: Window height, divided by 8.
-    struct screen_8 screen; // 0x8: Screen where the window resides
-    // 0x9: The box type can affect the window frame and/or the backdrop.
-    struct box_type_8 box_type;
-    undefined field_0xa;
-    undefined field_0xb;
-    // 0xC: heap-allocated contents for the window, varying by type.
-    // See callers of NewWindowScreenCheck for the different types
-    void* contents;
-};
-ASSERT_SIZE(struct window_params, 16);
-
 // Corner coordinates of the rectangle a window occupies.
 struct window_rectangle {
     int y_min; // 0x0: Window top y coordinate
@@ -284,47 +260,6 @@ struct window_trailer {
 };
 ASSERT_SIZE(struct window_trailer, 36);
 
-// Generic structure for a window containing content
-struct window {
-    struct window_params params; // 0x0
-    // 0x10: it seems like some windows, such as the scroll box, can have an associated sub-window
-    // within the main window
-    int8_t subwindow_id;
-    uint8_t field_0x11;
-    uint16_t field_0x12;
-    // Some heap-allocated struct pointer with size (hdr.width * hdr.height * 0x40)
-    undefined* field_0x14;
-    int field_0x18;
-    int field_0x1c; // hdr.width * hdr.height * 0x40
-    uint32_t field_0x20;
-    undefined field_0x24;
-    undefined field_0x25;
-    undefined field_0x26;
-    undefined field_0x27;
-    int field_0x28;
-    undefined field_0x2c;
-    undefined field_0x2d;
-    undefined field_0x2e;
-    undefined field_0x2f;
-    uint16_t field_0x30;
-    undefined field_0x32;
-    undefined field_0x33;
-    struct render_3d_element_64 backdrop; // 0x34: type RENDER64_RECTANGLE
-    struct render_3d_element_64 frame;    // 0x74: type RENDER64_WINDOW_FRAME
-    uint8_t field_0xb4;
-    undefined field_0xb5;
-    int8_t valid; // 0xB6: usually seems to be 0-3
-    uint8_t field_0xb7;
-    int32_t field_0xb8;
-    struct window_trailer trailer; // 0xBC
-};
-ASSERT_SIZE(struct window, 224);
-
-struct window_list {
-    struct window windows[20];
-};
-ASSERT_SIZE(struct window_list, 4480);
-
 // Tracks state related to interactive windows.
 // This struct seems to always be at +0x4 of the various window contents structs
 // stored in window_params / returned by GetWindowContents.
@@ -370,6 +305,8 @@ struct unk_scroll_box_coords {
     int dy2; // 0x14
 };
 ASSERT_SIZE(struct unk_scroll_box_coords, 24);
+
+typedef void (*update_window_fn_t)(struct window* window);
 
 // Also see CreateScrollBoxSingle/CreateScrollBoxMulti
 // Up/down paged text boxes with formatting?
@@ -1144,5 +1081,88 @@ struct storage_collection_menu_manager {
     struct window_extra_info window_extra_info;
 };
 ASSERT_SIZE(struct storage_collection_menu_manager, 160);
+
+union window_contents {
+    struct simple_menu* simple_menu;
+    struct advanced_menu* advanced_menu;
+    struct collection_menu* collection_menu;
+    struct options_menu* options_menu;
+    struct debug_menu* debug_menu;
+    struct scroll_box* scroll_box;
+    struct dialogue_box* dialogue_box;
+    struct portrait_box* portrait_box;
+    struct text_box* text_box;
+    struct area_name_box* area_name_box;
+    struct controls_chart* controls_chart;
+    struct alert_box* alert_box;
+    struct advanced_text_box* advanced_text_box;
+    struct team_selection_menu* team_selection_menu;
+    struct inventory_menu* inventory_menu;
+};
+ASSERT_SIZE(union window_contents, 4);
+
+struct window;
+
+struct window_params {
+    update_window_fn_t update; // 0x0: A function to update the window
+    // 0x4: Window left (or right in tandem with the x_offset_end window flag) edge x coordinate,
+    // divided by 8.
+    uint8_t x_offset;
+    // 0x5: Window top (or bottom in tandem with the y_offset_end window flag) edge y coordinate,
+    // divided by 8.
+    uint8_t y_offset;
+    uint8_t width;          // 0x6: Window width, divided by 8.
+    uint8_t height;         // 0x7: Window height, divided by 8.
+    struct screen_8 screen; // 0x8: Screen where the window resides
+    // 0x9: The box type can affect the window frame and/or the backdrop.
+    struct box_type_8 box_type;
+    undefined field_0xa;
+    undefined field_0xb;
+    // 0xC: heap-allocated contents for the window, varying by type.
+    // See callers of NewWindowScreenCheck for the different types
+    union window_contents contents;
+};
+ASSERT_SIZE(struct window_params, 16);
+
+// Generic structure for a window containing content
+struct window {
+    struct window_params params; // 0x0
+    // 0x10: it seems like some windows, such as the scroll box, can have an associated sub-window
+    // within the main window
+    int8_t subwindow_id;
+    uint8_t field_0x11;
+    uint16_t field_0x12;
+    // Some heap-allocated struct pointer with size (hdr.width * hdr.height * 0x40)
+    undefined* field_0x14;
+    int field_0x18;
+    int field_0x1c; // hdr.width * hdr.height * 0x40
+    uint32_t field_0x20;
+    undefined field_0x24;
+    undefined field_0x25;
+    undefined field_0x26;
+    undefined field_0x27;
+    int field_0x28;
+    undefined field_0x2c;
+    undefined field_0x2d;
+    undefined field_0x2e;
+    undefined field_0x2f;
+    uint16_t field_0x30;
+    undefined field_0x32;
+    undefined field_0x33;
+    struct render_3d_element_64 backdrop; // 0x34: type RENDER64_RECTANGLE
+    struct render_3d_element_64 frame;    // 0x74: type RENDER64_WINDOW_FRAME
+    uint8_t field_0xb4;
+    undefined field_0xb5;
+    int8_t valid; // 0xB6: usually seems to be 0-3
+    uint8_t field_0xb7;
+    int32_t field_0xb8;
+    struct window_trailer trailer; // 0xBC
+};
+ASSERT_SIZE(struct window, 224);
+
+struct window_list {
+    struct window windows[20];
+};
+ASSERT_SIZE(struct window_list, 4480);
 
 #endif

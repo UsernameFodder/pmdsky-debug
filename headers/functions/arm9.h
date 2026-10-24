@@ -661,7 +661,7 @@ void UpdateWindow(int window_id);
 void ClearWindow(int window_id);
 void DeleteWindow(int window_id);
 void GetWindowRectangle(int window_id, struct window_rectangle* rect_out);
-void* GetWindowContents(int window_id);
+union window_contents GetWindowContents(int window_id);
 void LoadCursors(void);
 void InitWindowTrailer(struct window_trailer* trailer);
 uint8_t LoadPrevMenuItem(int menu_id);
@@ -1217,6 +1217,7 @@ void InitializeTeamMemberFromMentry(struct team_member* team_member,
 void AddStarterEggMove(struct ground_monster* ground_monster);
 void GetLvlUpEntry(struct level_up_entry* level_up_entry, enum monster_id monster_id, int level);
 uint8_t* GetEncodedHalfword(uint8_t* data_ptr, uint16_t* result);
+bool CanMonsterLearnMove(enum monster_id monster_id, enum move_id move_id);
 int GetEvoFamily(undefined* monster, undefined* evo_family);
 int GetEvolutions(enum monster_id monster_id, enum monster_id* output_list,
                   bool skip_sprite_size_check, bool skip_shedinja_check);
@@ -1239,7 +1240,7 @@ bool IsShaymin(enum monster_id monster_id);
 bool IsCastform(enum monster_id monster_id);
 bool IsCherrim(enum monster_id monster_id);
 bool IsDeoxys(enum monster_id monster_id);
-enum monster_id GetSecondFormIfValid(enum monster_id monster_id);
+enum monster_id MaleToFemaleForm(enum monster_id monster_id);
 enum monster_id FemaleToMaleForm(enum monster_id monster_id);
 enum monster_id GetBaseFormCastformDeoxysCherrim(enum monster_id monster_id);
 bool BaseFormsEqual(enum monster_id monster1, enum monster_id monster2);
@@ -1349,6 +1350,8 @@ int CountJobListMissions(void);
 int DungeonRequestsDone(uint8_t param_1, bool param_2);
 int DungeonRequestsDoneWrapper(uint8_t param_1);
 bool AnyDungeonRequestsDone(uint8_t param_1);
+bool GetUnfulfilledMissionRestrictions(enum dungeon_id dungeon_id, struct type_id_16* type_id,
+                                       struct monster_id_16* monster_id);
 bool AddMissionToJobList(struct mission* mission);
 struct mission* GetAcceptedMission(uint8_t mission_id);
 bool IsAcceptedMissionSlotEmpty(int32_t mission_slot);

@@ -1208,6 +1208,32 @@ overlay29:
         
         r0: entity pointer
         r1: whether the key door is not for a treasure memo (plays a sound if true)
+    - name: PlayEscapeEffect
+      address:
+        EU: 0x22E7194
+      description: |-
+        Plays the given effect on the entity while making it fly out of the map.
+        
+        r0: effect id
+        r1: entity pointer
+        r2: ?
+    - name: PlayStandardEscapeEffect
+      address:
+        EU:
+          - 0x22E726C
+          - 0x22E72A0
+          - 0x22E72BC
+      description: |-
+        Plays the standard escape effect (the yellow light / Reviver Seed effect, 0x13E) on the entity while making it fly out of the map.
+        
+        r0: entity pointer
+    - name: PlayEscapeOrbEscapeEffect
+      address:
+        EU: 0x22E7288
+      description: |-
+        Plays the Escape Orb effect (0x1BC) on the entity while making it fly out of the map.
+        
+        r0: entity pointer
     - name: PlayStairSensorArrowEffect
       address:
         EU: 0x22E72D8
@@ -4972,15 +4998,15 @@ overlay29:
         r1: target entity pointer
         r2: flag to log a message
         return: bool
-    - name: AddExpSpecial
+    - name: AddExp
+      aliases:
+        - AddExpSpecial
       address:
         EU: 0x2302F68
         NA: 0x230253C
         JP: 0x2303A8C
       description: |-
         Adds to a monster's experience points, subject to experience boosting effects.
-        
-        This function appears to be called only under special circumstances. Possibly when granting experience from damage (e.g., Joy Ribbon)?
         
         Interestingly, the parameter in r0 isn't actually used. This might be a compiler optimization to avoid shuffling registers, since this function might be called alongside lots of other functions that have both the attacker and defender as the first two arguments.
         

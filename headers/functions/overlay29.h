@@ -101,6 +101,9 @@ void PlayEffectAnimation0x1A9(struct entity* entity);
 void PlayEffectAnimation0x29(struct entity* entity);
 void PlayEffectAnimation0x18E(struct entity* entity);
 void PlayKeyDoorUnlockEffect(struct entity* entity, bool is_not_treasure_memo);
+void PlayEscapeEffect(int effect_id, struct entity* entity, undefined4 param_3);
+void PlayStandardEscapeEffect(struct entity* entity);
+void PlayEscapeOrbEscapeEffect(struct entity* entity);
 void PlayStairSensorArrowEffect(struct entity* entity, enum direction_id arrow_dir);
 void InitMonsterMoveEffect(int live_effect_unique_id, struct entity* entity, undefined4 param_3);
 void FreeMonsterMoveEffects(void);
@@ -480,7 +483,7 @@ int GetMovePower(struct entity* entity, struct move* move);
 bool MonsterCanThrowItems(struct monster* monster);
 bool UpdateStateFlags(struct monster* monster, uint16_t mask, bool set_flags);
 bool IsProtectedFromNegativeStatus(struct entity* user, struct entity* target, bool log_message);
-void AddExpSpecial(struct entity* attacker, struct entity* defender, int base_exp);
+void AddExp(struct entity* attacker, struct entity* defender, int base_exp);
 void EnemyEvolution(struct entity* entity);
 void LevelUpItemEffect(struct entity* user, struct entity* target, int levels, bool message,
                        bool dialogue);
@@ -864,8 +867,8 @@ union damage_source GetDamageSourceWrapper(struct move* move, enum item_id item_
 int LowerSshort(int x);
 void PlayMoveAnimation(struct entity* user, struct entity* target, struct move* move,
                        struct position* position);
-uint16_t GetMoveAnimationId(struct move* move, enum weather_id apparent_weather,
-                            bool should_play_alternative_animation);
+enum move_id GetMoveAnimationId(enum move_id move_id, enum weather_id apparent_weather,
+                                bool should_play_alternative_animation);
 bool ShouldMovePlayAlternativeAnimation(struct entity* user, struct move* move);
 bool IsMoveBlockedByTerrain(struct entity* user, struct move* move);
 void ExecuteMoveEffect(struct target_list* targets, struct entity* attacker, struct move* move,

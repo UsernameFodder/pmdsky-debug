@@ -2214,6 +2214,11 @@ enum type_id {
 ENUM_8_BIT(type_id);
 #pragma pack(pop)
 
+// This is occasionally stored as a 16-bit integer
+#pragma pack(push, 2)
+ENUM_16_BIT(type_id);
+#pragma pack(pop)
+
 enum type_matchup {
     MATCHUP_IMMUNE = 0,
     MATCHUP_NOT_VERY_EFFECTIVE = 1,

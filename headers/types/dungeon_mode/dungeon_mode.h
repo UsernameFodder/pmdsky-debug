@@ -705,6 +705,13 @@ ASSERT_SIZE(struct monster, 572);
 ASSERT_SIZE(struct monster, 576);
 #endif
 
+union entity_info {
+    struct monster* monster;
+    struct item* item;
+    struct trap* trap;
+};
+ASSERT_SIZE(union entity_info, 4);
+
 // Generic entity data
 struct entity {
     enum entity_type type;                  // 0x0
@@ -742,7 +749,7 @@ struct entity {
     uint8_t animation_id_mirror0;      // 0xB1
     undefined field_0xb2;
     undefined field_0xb3;
-    void* info; // 0xB4: Points to info struct for monster/item/trap
+    union entity_info info; // 0xB4: Points to info struct for monster/item/trap
 };
 ASSERT_SIZE(struct entity, 184);
 

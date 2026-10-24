@@ -1529,9 +1529,7 @@ struct dungeon {
     // 0x1990C: Stores statuses::unique_id for the monster pointed to by dungeon::snatch_monster.
     uint32_t snatch_status_unique_id;
     // 0x19910: Spawn genid of the monster to be spawned by the effect of Illuminate
-    uint16_t illuminate_spawn_genid;
-    undefined field_0x19912;
-    undefined field_0x19913;
+    enum monster_id illuminate_spawn_genid;
     // 0x19914: List that matches monster IDs with their sprite index on this floor
     struct monster_id_16 sprite_indexes[1155];
     undefined field_0x1a21a;
