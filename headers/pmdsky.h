@@ -48,7 +48,7 @@ typedef short int16_t;
 typedef int int32_t;
 typedef long long int64_t;
 
-// C23 make bool a keyword that can’t be overwritten
+// C23 made `bool` a keyword that can't be overwritten
 #if __STDC_VERSION__ < 202311L
 // Define the bool type to be 1 byte
 typedef uint8_t bool;
