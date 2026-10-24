@@ -11628,7 +11628,7 @@ arm9:
         EU: 0x2054098
       description: |-
         Returns true if the monster can learn the given move, whether by leveling up or HM/TM.
-
+        
         Always returns false if the move is Struggle or the monster is the Decoy.
         
         r0: monster id
