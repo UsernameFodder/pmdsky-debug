@@ -666,6 +666,14 @@ overlay29:
         r0: string ID (unclear what this means)
         r1: entity pointer
         r2: unused
+    - name: IsPositionVisibleAndOnScreen
+      address:
+        EU: 0x22E3624
+      description: |-
+        Returns true if the position is within 6 tiles in the x direction and 5 tiles in the y direction from the camera target, and if either IsPositionActuallyInSight returns true for the position or the floor is without darkness.
+        
+        r0: position pointer
+        return: bool
     - name: UpdateMapSurveyorFlag
       address:
         EU: 0x22E375C
@@ -767,6 +775,14 @@ overlay29:
         More specifically, sets dungeon::display_data::luminous to 1, sets visibility_flags::f_revealed for all tiles on the floor, calls UpdateCamera, UpdateTrapsVisibility, UpdateMinimap and logs the message "It became brighter on the floor!".
         
         r0: Pointer to the entity who revealed the floor
+    - name: IsFloorWithoutDarkness
+      address:
+        EU: 0x22E3EE4
+      description: |-
+        Returns true if there is no darkness on the floor, i.e. if the camera entity doesn't have the dropeye status and either one of dungeon::display_data::luminous or dungeon::display_data::natural_lighting is true.
+        
+        r0: display_data pointer
+        return: bool
     - name: DungeonScreenEffectActive
       address:
         EU: 0x22E3F30
@@ -838,6 +854,13 @@ overlay29:
         
         r0: [output] status_icon_flags
         r1: entity pointer
+    - name: UpdateStatusIconFlagsAllMonsters
+      address:
+        EU: 0x22E4408
+      description: |-
+        Calls UpdateStatusIconFlags on all monsters on the floor.
+        
+        r0: whether to also set field_0x156 of all monster structs (always 0 in practice)
     - name: UpdateStatusIconFlags
       address:
         EU: 0x22E4464
@@ -1189,6 +1212,37 @@ overlay29:
         
         r0: entity pointer
         r1: arrow direction
+    - name: InitMonsterMoveEffect
+      address:
+        EU: 0x22E7718
+      description: |-
+        Finds the first available entry in dungeon::monster_move_animations and initializes it with the given values.
+        
+        r0: live effect unique id
+        r1: entity pointer
+        r2: ?
+    - name: FreeMonsterMoveEffects
+      address:
+        EU: 0x22E7780
+      description: |-
+        Marks entries in dungeon::monster_move_animations whose animations have finished as being unused.
+        
+        No params.
+    - name: FreeAllMonsterMoveEffects
+      address:
+        EU: 0x22E77F0
+      description: |-
+        Marks all entries in dungeon::monster_move_animations as being unused.
+        
+        No params.
+    - name: UpdateLiveEffectsFromMonsterMoveEffects
+      address:
+        EU: 0x22E7830
+      description: |-
+        Finds any entries in dungeon::monster_move_animations that use the given entity and updates fields in their live_effects.
+        
+        r0: entity pointer
+        r1: ?
     - name: LoadMappaFileAttributes
       address:
         EU: 0x22E796C
@@ -2137,6 +2191,13 @@ overlay29:
         If dungeon::end_floor_flag is 1 or 2, sets dungeon::floor_loop_status to floor_loop_status::FLOOR_LOOP_NEXT_FLOOR.
         
         return: true if the current floor should end
+    - name: ShakeScreen
+      address:
+        EU: 0x22ED4AC
+      description: |-
+        Shakes the screen. Does not return until shaking is finished.
+        
+        r0: ? (always 1 in practice)
     - name: DecrementWindCounter
       address:
         EU: 0x22ED4F8
@@ -2319,9 +2380,9 @@ overlay29:
         NA: 0x22EDEDC
         JP: 0x22EF540
       description: |-
-        Reveals the trap given by the position if the dungeon struct's regular_attack_reveal_traps field is true.
+        Reveals the trap given by the position if the dungeon struct's regular_attack_no_reveal_traps field is false.
         
-        Is also activated on a tile if a fainted monster drops an item on it.
+        Is also activated on a tile if an item lands on it.
         
         r0: position struct pointer
         r1: boolean for whether to update trap visibility afterwards (always 1 in practice)
@@ -2907,6 +2968,7 @@ overlay29:
         Handles using the regular attack or Struggle by the entity.
         
         r0: entity pointer
+        r1: move id
     - name: GetShopkeeperIfTalkable
       address:
         EU: 0x22F6BC8
@@ -8335,11 +8397,20 @@ overlay29:
         NA: 0x2325C78
         JP: 0x2327104
       description: |-
-        Checks whether a moved used by a monster should play its alternative animation. Includes checks for Curse, Snore, Sleep Talk, Solar Beam and 2-turn moves.
+        Checks whether a move used by a monster should play its alternative animation. Includes checks for Curse, Snore, Sleep Talk, Solar Beam and 2-turn moves.
         
         r0: Pointer to the entity that used the move
         r1: Move pointer
         return: True if the move should play its alternative animation
+    - name: IsMoveBlockedByTerrain
+      address:
+        EU: 0x2326788
+      description: |-
+        If the monster is using Dig or Dive, checks whether the terrain of the tile the monster is standing on blocks the use of the move.
+        
+        r0: Pointer to the entity that used the move
+        r1: Pointer to move being used
+        return: True if the monster cannot use the move because of the terrain
     - name: ExecuteMoveEffect
       address:
         EU: 0x232F2A4
@@ -8351,7 +8422,7 @@ overlay29:
         r0: pointer to list of targets
         r1: attacker pointer
         r2: pointer to move data
-        r3: ?
+        r3: item id
         stack[0]: ?
     - name: DoMoveDamageInlined
       address:
@@ -8909,7 +8980,7 @@ overlay29:
       description: |-
         Reveals the tile given by the position.
         
-        Is also activated on a tile if a fainted monster drops an item on it.
+        Is also activated on a tile if an item lands on it.
         
         r0: position struct pointer
     - name: ResetVictoryCounter
@@ -10314,7 +10385,7 @@ overlay29:
         r0: entity
         r1: position
         r2: item
-        r3: ?
+        r3: whether to not display the item during the drop sequence if the camera entity is blinded
     - name: SpawnDroppedItem
       address:
         EU: 0x23466C4
@@ -10331,7 +10402,7 @@ overlay29:
         r2: item info
         r3: ?
         stack[0]: pointer to int16_t[2] for x/y direction (corresponding to DIRECTIONS_XY)
-        stack[1]: ?
+        stack[1]: whether to not display the item during the drop sequence if the camera entity is blinded
     - name: TryGenerateUnownStoneDrop
       address:
         EU: 0x2346C4C
@@ -10386,6 +10457,22 @@ overlay29:
         monster::is_not_team_member should be checked to be false before calling.
         
         r0: monster pointer
+    - name: GetItemHolderTeamIndex
+      address:
+        EU: 0x2347BB4
+      description: |-
+        Gets the index in the team of the monster holding the given item, or -1 if none is.
+        
+        r0: item pointer
+        return: team index, or -1
+    - name: IsNatureGifterRestrictedItem
+      address:
+        EU: 0x2347BFC
+      description: |-
+        Checks if the given item's effect cannot be spread to the whole party through Nature Gifter when consumed.
+        
+        r0: item id
+        return: bool
     - name: RemoveEmptyItemsInBagWrapper
       address:
         EU: 0x2347C2C

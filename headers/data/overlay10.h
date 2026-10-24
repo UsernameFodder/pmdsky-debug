@@ -254,6 +254,7 @@ extern fx32_8 WEATHER_BALL_DAMAGE_MULT_TABLE[8];
 extern struct item_id_16 EAT_ITEM_EFFECT_IGNORE_LIST[36];
 extern struct castform_weather_attributes CASTFORM_WEATHER_ATTRIBUTE_TABLE[8];
 extern int16_t BAD_POISON_DAMAGE_TABLE[30];
+extern struct item_id_16 NATURE_GIFTER_RESTRICTED_ITEMS[30];
 extern struct type_matchup_combinator_table TYPE_MATCHUP_COMBINATOR_TABLE;
 extern fx32_8 OFFENSIVE_STAT_STAGE_MULTIPLIERS[21];
 extern fx32_8 DEFENSIVE_STAT_STAGE_MULTIPLIERS[21];
@@ -279,5 +280,6 @@ extern struct move_animation MOVE_ANIMATION_INFO[563];
 extern struct effect_animation EFFECT_ANIMATION_INFO[700];
 extern struct special_monster_move_animation SPECIAL_MONSTER_MOVE_ANIMATION_INFO[7422];
 extern undefined4 OV10_STATIC_INITIALIZER;
+extern struct effect_control* EFFECT_CONTROL_PTR;
 
 #endif

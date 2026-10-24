@@ -353,6 +353,7 @@ itcm:
         
         r0: monster ID
         r1: switch
+        return: key
     - name: GetKeyM2N
       address:
         EU: 0x20B5200
