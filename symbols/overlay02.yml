@@ -16,1822 +16,3062 @@ overlay2:
     - name: InitWfcSettingsOverlay
       address:
         EU: 0x2329D40
+        NA: 0x2329520
+        JP: 0x232ACC0
       description: "Most likely the only non-SDK/DWC function in the entire overlay. Seems responsible for initializing and running the WFC Settings interface, via overlay_00 and overlay_02 SDK/DWC functions."
     - name: Nns_FndInitList
       address:
         EU: 0x2329D8C
+        NA: 0x2329560
+        JP: 0x232AD00
     - name: SetFirstObject
       address:
         EU: 0x2329DA4
+        NA: 0x2329578
+        JP: 0x232AD18
     - name: Nns_FndAppendListObject
       address:
         EU: 0x2329DD0
+        NA: 0x23295A4
+        JP: 0x232AD44
     - name: Nns_FndPrependListObject
       address:
         EU: 0x2329E24
+        NA: 0x23295F8
+        JP: 0x232AD98
     - name: Nns_FndInsertListObject
       address:
         EU: 0x2329E74
+        NA: 0x2329648
+        JP: 0x232ADE8
     - name: Nns_FndRemoveListObject
       address:
         EU: 0x2329ED8
+        NA: 0x23296AC
+        JP: 0x232AE4C
     - name: Nns_FndGetNextListObject
       address:
         EU: 0x2329F38
+        NA: 0x232970C
+        JP: 0x232AEAC
     - name: Nns_FndGetPrevListObject
       address:
         EU: 0x2329F50
+        NA: 0x2329724
+        JP: 0x232AEC4
     - name: FindContainHeap
       address:
         EU: 0x2329F64
+        NA: 0x2329738
+        JP: 0x232AED8
     - name: FindListContainHeap
       address:
         EU: 0x2329FCC
+        NA: 0x23297A0
+        JP: 0x232AF40
     - name: Nnsi_FndInitHeapHead
       address:
         EU: 0x2329FF4
+        NA: 0x23297C8
+        JP: 0x232AF68
     - name: Nnsi_FndFinalizeHeap
       address:
         EU: 0x232A070
+        NA: 0x2329844
+        JP: 0x232AFE4
     - name: GetRegionOfMBlock
       address:
         EU: 0x232A088
+        NA: 0x232985C
+        JP: 0x232AFFC
     - name: RemoveMBlock
       address:
         EU: 0x232A0B4
+        NA: 0x2329888
+        JP: 0x232B028
     - name: InsertMBlock
       address:
         EU: 0x232A0DC
+        NA: 0x23298B0
+        JP: 0x232B050
     - name: InitMBlock
       address:
         EU: 0x232A10C
+        NA: 0x23298E0
+        JP: 0x232B080
     - name: InitExpHeap
       address:
         EU: 0x232A138
+        NA: 0x232990C
+        JP: 0x232B0AC
     - name: AllocUsedBlockFromFreeBlock
       address:
         EU: 0x232A1AC
+        NA: 0x2329980
+        JP: 0x232B120
     - name: ExpHeap_AllocFromHead
       address:
         EU: 0x232A32C
+        NA: 0x2329B00
+        JP: 0x232B2A0
     - name: ExpHeap_AllocFromTail
       address:
         EU: 0x232A3E0
+        NA: 0x2329BB4
+        JP: 0x232B354
     - name: RecycleRegion
       address:
         EU: 0x232A490
+        NA: 0x2329C64
+        JP: 0x232B404
     - name: Nns_FndCreateExpHeapEx
       address:
         EU: 0x232A580
+        NA: 0x2329D54
+        JP: 0x232B4F4
     - name: Nns_FndDestroyExpHeap
       address:
         EU: 0x232A5B8
+        NA: 0x2329D8C
+        JP: 0x232B52C
     - name: Nns_FndAllocFromExpHeapEx
       address:
         EU: 0x232A5C4
+        NA: 0x2329D98
+        JP: 0x232B538
     - name: Nns_FndFreeToExpHeap
       address:
         EU: 0x232A5F4
+        NA: 0x2329DC8
+        JP: 0x232B568
     - name: InitFrameHeap
       address:
         EU: 0x232A630
+        NA: 0x2329E04
+        JP: 0x232B5A4
     - name: FrmHeap_AllocFromHead
       address:
         EU: 0x232A678
+        NA: 0x2329E4C
+        JP: 0x232B5EC
     - name: FrmHeap_AllocFromTail
       address:
         EU: 0x232A6D4
+        NA: 0x2329EA8
+        JP: 0x232B648
     - name: FrmHeap_FreeHead
       address:
         EU: 0x232A72C
+        NA: 0x2329F00
+        JP: 0x232B6A0
     - name: FrmHeap_FreeTail
       address:
         EU: 0x232A740
+        NA: 0x2329F14
+        JP: 0x232B6B4
     - name: Nns_FndCreateFrmHeapEx
       address:
         EU: 0x232A76C
+        NA: 0x2329F40
+        JP: 0x232B6E0
     - name: Nns_FndDestroyFrmHeap
       address:
         EU: 0x232A7A4
+        NA: 0x2329F78
+        JP: 0x232B718
     - name: Nns_FndAllocFromFrmHeapEx
       address:
         EU: 0x232A7B0
+        NA: 0x2329F84
+        JP: 0x232B724
     - name: Nns_FndFreeToFrmHeap
       address:
         EU: 0x232A7E4
+        NA: 0x2329FB8
+        JP: 0x232B758
     - name: Nns_G2dFindBinaryBlock
       address:
         EU: 0x232A810
+        NA: 0x2329FE4
+        JP: 0x232B784
     - name: GetGlyphIndex
       address:
         EU: 0x232A858
+        NA: 0x232A02C
+        JP: 0x232B7CC
     - name: Nns_G2dFontInitUtf16
       address:
         EU: 0x232A920
+        NA: 0x232A0F4
+        JP: 0x232B894
     - name: Nns_G2dFontFindGlyphIndex
       address:
         EU: 0x232A944
+        NA: 0x232A118
+        JP: 0x232B8B8
     - name: Nns_G2dFontGetCharWidthsFromIndex
       address:
         EU: 0x232A98C
+        NA: 0x232A160
+        JP: 0x232B900
     - name: Nnsi_G2dFontGetStringWidth
       address:
         EU: 0x232A9D8
+        NA: 0x232A1AC
+        JP: 0x232B94C
     - name: Nnsi_G2dFontGetTextHeight
       address:
         EU: 0x232AA84
-    - name: Nnsi_G2dFontGetTextWidth
+        NA: 0x232A258
+        JP: 0x232B9F8
+    - name: Nnsi_G2dFontGetTextRect
       address:
         EU: 0x232AAF8
+        NA: 0x232A2CC
+        JP: 0x232BA6C
     - name: GetCharIndex1D
       address:
         EU: 0x232AB8C
+        NA: 0x232A360
+        JP: 0x232BB00
     - name: ObjSizeToShape
       address:
         EU: 0x232AC84
+        NA: 0x232A458
+        JP: 0x232BBF8
     - name: ClearChar
       address:
         EU: 0x232ACA0
+        NA: 0x232A474
+        JP: 0x232BC14
     - name: LetterChar
       address:
         EU: 0x232ADD8
+        NA: 0x232A5AC
+        JP: 0x232BD4C
     - name: DrawGlyphLine
       address:
         EU: 0x232B018
+        NA: 0x232A7EC
+        JP: 0x232BF8C
     - name: DrawGlyph1D
       address:
         EU: 0x232B1B0
+        NA: 0x232A984
+        JP: 0x232C124
     - name: ClearContinuous
       address:
         EU: 0x232B3C0
+        NA: 0x232AB94
+        JP: 0x232C334
     - name: ClearLine
       address:
         EU: 0x232B410
+        NA: 0x232ABE4
+        JP: 0x232C384
     - name: ClearAreaLine
       address:
         EU: 0x232B490
+        NA: 0x232AC64
+        JP: 0x232C404
     - name: ClearArea1D
       address:
         EU: 0x232B62C
+        NA: 0x232AE00
+        JP: 0x232C5A0
     - name: InitCharCanvas
       address:
         EU: 0x232B820
+        NA: 0x232AFF4
+        JP: 0x232C794
     - name: Nns_G2dCharCanvasDrawChar
       address:
         EU: 0x232B848
+        NA: 0x232B01C
+        JP: 0x232C7BC
     - name: Nns_G2dCharCanvasInitForBG
       address:
         EU: 0x232B96C
+        NA: 0x232B140
+        JP: 0x232C8E0
     - name: Nns_G2dCharCanvasInitForObj1D
       address:
         EU: 0x232B998
+        NA: 0x232B16C
+        JP: 0x232C90C
     - name: Nns_G2dMapScrToCharText
       address:
         EU: 0x232BA20
+        NA: 0x232B1F4
+        JP: 0x232C994
     - name: Nns_G2dMapScrToChar256x16Pltt
       address:
         EU: 0x232BAD0
+        NA: 0x232B2A4
+        JP: 0x232CA44
     - name: Nnsi_G2dCalcRequiredObj
       address:
         EU: 0x232BB2C
+        NA: 0x232B300
+        JP: 0x232CAA0
     - name: Nns_G2dArrangeObj1D
       address:
         EU: 0x232BB88
+        NA: 0x232B35C
+        JP: 0x232CAFC
     - name: Nnsi_G2dTextCanvasDrawString
       address:
         EU: 0x232BE80
+        NA: 0x232B654
+        JP: 0x232CDF4
     - name: Nnsi_G2dTextCanvasDrawTextAlign
       address:
         EU: 0x232BF34
+        NA: 0x232B708
+        JP: 0x232CEA8
     - name: Nnsi_G2dTextCanvasDrawText
       address:
         EU: 0x232C09C
+        NA: 0x232B870
+        JP: 0x232D010
     - name: Nnsi_G2dTextCanvasDrawTextRect
       address:
         EU: 0x232C1C0
+        NA: 0x232B994
+        JP: 0x232D134
     - name: Nnsi_G2dGetUnpackedFont
       address:
         EU: 0x232C2A0
+        NA: 0x232BA74
+        JP: 0x232D214
     - name: Nnsi_G2dUnpackNft
       address:
         EU: 0x232C3F4
+        NA: 0x232BBC8
+        JP: 0x232D368
     - name: Nnsi_G2dBitReaderRead
       address:
         EU: 0x232C4D0
+        NA: 0x232BCA4
+        JP: 0x232D444
     - name: Nnsi_G2dSplitCharUtf16
       address:
         EU: 0x232C530
+        NA: 0x232BD04
+        JP: 0x232D4A4
     - name: Nns_SndInit
       address:
         EU: 0x232C544
+        NA: 0x232BD18
+        JP: 0x232D4B8
     - name: Nns_SndMain
       address:
         EU: 0x232C5CC
+        NA: 0x232BDA0
+        JP: 0x232D540
     - name: BeginSleep
       address:
         EU: 0x232C5FC
+        NA: 0x232BDD0
+        JP: 0x232D570
     - name: EndSleep
       address:
         EU: 0x232C634
+        NA: 0x232BE08
+        JP: 0x232D5A8
     - name: Nns_SndUnlockChannel
       address:
         EU: 0x232C640
+        NA: 0x232BE14
+        JP: 0x232D5B4
     - name: Nns_SndUnlockCapture
       address:
         EU: 0x232C670
+        NA: 0x232BE44
+        JP: 0x232D5E4
     - name: Nns_SndFreeAlarm
       address:
         EU: 0x232C68C
+        NA: 0x232BE60
+        JP: 0x232D600
     - name: Nnsi_SndInitResourceMgr
       address:
         EU: 0x232C6AC
+        NA: 0x232BE80
+        JP: 0x232D620
     - name: Nns_SndPlayerSetPlayableSeqCount
       address:
         EU: 0x232C6C8
+        NA: 0x232BE9C
+        JP: 0x232D63C
     - name: Nns_SndPlayerSetAllocatableChannel
       address:
         EU: 0x232C6E8
+        NA: 0x232BEBC
+        JP: 0x232D65C
     - name: Nns_SndPlayerCreateHeap
       address:
         EU: 0x232C700
+        NA: 0x232BED4
+        JP: 0x232D674
     - name: Nns_SndPlayerStopSeq
       address:
         EU: 0x232C794
+        NA: 0x232BF68
+        JP: 0x232D708
     - name: Nns_SndHandleInit
       address:
         EU: 0x232C7A4
+        NA: 0x232BF78
+        JP: 0x232D718
     - name: Nns_SndHandleReleaseSeq
       address:
         EU: 0x232C7B0
+        NA: 0x232BF84
+        JP: 0x232D724
     - name: Nns_SndPlayerSetInitialVolume
       address:
         EU: 0x232C7E4
+        NA: 0x232BFB8
+        JP: 0x232D758
     - name: Nns_SndPlayerSetChannelPriority
       address:
         EU: 0x232C7F8
+        NA: 0x232BFCC
+        JP: 0x232D76C
     - name: Nns_SndPlayerSetTrackPitch
       address:
         EU: 0x232C818
+        NA: 0x232BFEC
+        JP: 0x232D78C
     - name: Nns_SndPlayerSetSeqArcNo
       address:
         EU: 0x232C838
+        NA: 0x232C00C
+        JP: 0x232D7AC
     - name: Nnsi_SndPlayerInit
       address:
         EU: 0x232C864
+        NA: 0x232C038
+        JP: 0x232D7D8
     - name: Nnsi_SndPlayerMain
       address:
         EU: 0x232C918
+        NA: 0x232C0EC
+        JP: 0x232D88C
     - name: Nnsi_SndPlayerAllocSeqPlayer
       address:
         EU: 0x232CA7C
+        NA: 0x232C250
+        JP: 0x232D9F0
     - name: Nnsi_SndPlayerFreeSeqPlayer
       address:
         EU:
           - 0x232CB14
           - 0x232D5BC
+        NA:
+          - 0x232C2E8
+        JP:
+          - 0x232DA88
     - name: Nnsi_SndPlayerStartSeq
       address:
         EU: 0x232CB20
+        NA: 0x232C2F4
+        JP: 0x232DA94
     - name: Nnsi_SndPlayerStopSeq
       address:
         EU: 0x232CB70
+        NA: 0x232C344
+        JP: 0x232DAE4
     - name: Nnsi_SndPlayerAllocHeap
       address:
         EU: 0x232CBBC
+        NA: 0x232C390
+        JP: 0x232DB30
     - name: InitPlayer
       address:
         EU: 0x232CC10
+        NA: 0x232C3E4
+        JP: 0x232DB84
     - name: InsertPlayerList
       address:
         EU: 0x232CC58
+        NA: 0x232C42C
+        JP: 0x232DBCC
     - name: InsertPrioList
       address:
         EU: 0x232CCA8
+        NA: 0x232C47C
+        JP: 0x232DC1C
     - name: ForceStopSeq
       address:
         EU: 0x232CCFC
+        NA: 0x232C4D0
+        JP: 0x232DC70
     - name: AllocSeqPlayer
       address:
         EU: 0x232CD34
+        NA: 0x232C508
+        JP: 0x232DCA8
     - name: ShutdownPlayer
       address:
         EU:
           - 0x232CD9C
           - 0x232E390
+        NA:
+          - 0x232C570
+          - 0x232DB64
+        JP:
+          - 0x232DD10
+          - 0x232F304
     - name: PlayerHeapDisposeCallback
       address:
         EU: 0x232CE20
+        NA: 0x232C5F4
+        JP: 0x232DD94
     - name: SetPlayerPriority
       address:
         EU: 0x232CE70
+        NA: 0x232C644
+        JP: 0x232DDE4
     - name: Nns_SndStrmFreeChannel
       address:
         EU: 0x232CED0
+        NA: 0x232C6A4
+        JP: 0x232DE44
     - name: Nns_SndStrmStart
       address:
         EU: 0x232CEF8
+        NA: 0x232C6CC
+        JP: 0x232DE6C
     - name: Nns_SndStrmStop
       address:
         EU: 0x232CF4C
+        NA: 0x232C720
+        JP: 0x232DEC0
     - name: Nns_SndStrmSetVolume
       address:
         EU: 0x232CF68
+        NA: 0x232C73C
+        JP: 0x232DEDC
     - name: ForceStopStrm
       address:
         EU: 0x232CFD4
+        NA: 0x232C7A8
+        JP: 0x232DF48
     - name: ShutdownStrm
       address:
         EU: 0x232D048
+        NA: 0x232C81C
+        JP: 0x232DFBC
     - name: Nnsi_SndCaptureInit
       address:
         EU: 0x232D078
+        NA: 0x232C84C
+        JP: 0x232DFEC
     - name: Nnsi_SndCaptureMain
       address:
         EU: 0x232D090
+        NA: 0x232C864
+        JP: 0x232E004
     - name: Nnsi_SndCaptureStop
       address:
         EU: 0x232D118
+        NA: 0x232C8EC
+        JP: 0x232E08C
     - name: Nnsi_SndCaptureBeginSleep
       address:
         EU: 0x232D208
+        NA: 0x232C9DC
+        JP: 0x232E17C
     - name: Nnsi_SndCaptureEndSleep
       address:
         EU: 0x232D268
+        NA: 0x232CA3C
+        JP: 0x232E1DC
     - name: Nns_SndArcInitOnMemory
       address:
         EU: 0x232D2EC
+        NA: 0x232CAC0
+        JP: 0x232E260
     - name: Nns_SndArcSetCurrent
       address:
         EU: 0x232D3B0
+        NA: 0x232CB84
+        JP: 0x232E324
     - name: Nns_SndArcGetCurrent
       address:
         EU: 0x232D3C8
+        NA: 0x232CB9C
+        JP: 0x232E33C
     - name: Nns_SndArcGetSeqArcInfo
       address:
         EU: 0x232D3D8
+        NA: 0x232CBAC
+        JP: 0x232E34C
     - name: Nns_SndArcGetBankInfo
       address:
         EU: 0x232D43C
+        NA: 0x232CC10
+        JP: 0x232E3B0
     - name: Nns_SndArcGetWaveArcInfo
       address:
         EU: 0x232D4A0
+        NA: 0x232CC74
+        JP: 0x232E414
     - name: Nns_SndArcGetPlayerInfo
       address:
         EU: 0x232D504
+        NA: 0x232CCD8
+        JP: 0x232E478
     - name: Nns_SndArcGetFileSize
       address:
         EU: 0x232D568
+        NA: 0x232CD3C
+        JP: 0x232E4DC
     - name: Nns_SndArcReadFile
       address:
         EU: 0x232D590
+        NA: 0x232CD64
+        JP: 0x232E504
     - name: Nns_SndArcGetFileAddress
       address:
         EU: 0x232D658
+        NA: 0x232CE2C
+        JP: 0x232E5CC
     - name: Nns_SndArcSetFileAddress
       address:
         EU: 0x232D680
+        NA: 0x232CE54
+        JP: 0x232E5F4
     - name: Nns_SndHeapCreate
       address:
         EU: 0x232D69C
+        NA: 0x232CE70
+        JP: 0x232E610
     - name: Nns_SndHeapDestroy
       address:
         EU: 0x232D70C
+        NA: 0x232CEE0
+        JP: 0x232E680
     - name: Nns_SndHeapClear
       address:
         EU: 0x232D724
+        NA: 0x232CEF8
+        JP: 0x232E698
     - name: Nns_SndHeapAlloc
       address:
         EU: 0x232D7E0
+        NA: 0x232CFB4
+        JP: 0x232E754
     - name: InitHeapSection
       address:
         EU: 0x232D848
+        NA: 0x232D01C
+        JP: 0x232E7BC
     - name: InitHeap
       address:
         EU: 0x232D858
+        NA: 0x232D02C
+        JP: 0x232E7CC
     - name: NewSection
       address:
         EU: 0x232D88C
+        NA: 0x232D060
+        JP: 0x232E800
     - name: EraseSync
       address:
         EU: 0x232D8C8
+        NA: 0x232D09C
+        JP: 0x232E83C
     - name: Nnsi_SndArcLoadBank
       address:
         EU: 0x232D8E8
+        NA: 0x232D0BC
+        JP: 0x232E85C
     - name: Nnsi_SndArcLoadWaveArc
       address:
         EU: 0x232DA28
+        NA: 0x232D1FC
+        JP: 0x232E99C
     - name: Nnsi_SndArcLoadFile
       address:
         EU: 0x232DAB4
+        NA: 0x232D288
+        JP: 0x232EA28
     - name: LoadBank
       address:
         EU: 0x232DB54
+        NA: 0x232D328
+        JP: 0x232EAC8
     - name: LoadWaveArc
       address:
         EU: 0x232DBC0
+        NA: 0x232D394
+        JP: 0x232EB34
     - name: LoadWaveArcTable
       address:
         EU: 0x232DC2C
+        NA: 0x232D400
+        JP: 0x232EBA0
     - name: DisposeCallback
       address:
         EU: 0x232DD34
+        NA: 0x232D508
+        JP: 0x232ECA8
     - name: BankDisposeCallback
       address:
         EU: 0x232DD8C
+        NA: 0x232D560
+        JP: 0x232ED00
     - name: WaveArcDisposeCallback
       address:
         EU: 0x232DDBC
+        NA: 0x232D590
+        JP: 0x232ED30
     - name: WaveArcTableDisposeCallback
       address:
         EU: 0x232DDEC
+        NA: 0x232D5C0
+        JP: 0x232ED60
     - name: SingleWaveDisposeCallback
       address:
         EU: 0x232DE0C
+        NA: 0x232D5E0
+        JP: 0x232ED80
     - name: LoadSingleWave
       address:
         EU: 0x232DE54
+        NA: 0x232D628
+        JP: 0x232EDC8
     - name: LoadSingleWaves
       address:
         EU: 0x232DF1C
+        NA: 0x232D6F0
+        JP: 0x232EE90
     - name: Nns_SndArcPlayerSetup
       address:
         EU: 0x232DFDC
+        NA: 0x232D7B0
+        JP: 0x232EF50
     - name: Nns_SndArcPlayerStartSeqArc
       address:
         EU: 0x232E078
+        NA: 0x232D84C
+        JP: 0x232EFEC
     - name: StartSeqArc
       address:
         EU: 0x232E0F8
+        NA: 0x232D8CC
+        JP: 0x232F06C
     - name: Nnsi_SndArcStrmMain
       address:
         EU: 0x232E1BC
+        NA: 0x232D990
+        JP: 0x232F130
     - name: FreePlayer
       address:
         EU: 0x232E2CC
+        NA: 0x232DAA0
+        JP: 0x232F240
     - name: ForceStopStrm_Arc
       address:
         EU: 0x232E2F8
+        NA: 0x232DACC
+        JP: 0x232F26C
     - name: FreeChannel
       address:
         EU: 0x232E3F4
+        NA: 0x232DBC8
+        JP: 0x232F368
     - name: RemoveCommandByPlayer
       address:
         EU: 0x232E418
+        NA: 0x232DBEC
+        JP: 0x232F38C
     - name: FreeCommandBuffer
       address:
         EU: 0x232E488
+        NA: 0x232DC5C
+        JP: 0x232F3FC
     - name: Nnsi_SndSeqArcGetSeqInfo
       address:
         EU: 0x232E4B4
+        NA: 0x232DC88
+        JP: 0x232F428
     - name: Nnsi_SndFaderInit
       address:
         EU: 0x232E4F4
+        NA: 0x232DCC8
+        JP: 0x232F468
     - name: Nnsi_SndFaderSet
       address:
         EU: 0x232E50C
+        NA: 0x232DCE0
+        JP: 0x232F480
     - name: Nnsi_SndFaderGet
       address:
         EU: 0x232E534
+        NA: 0x232DD08
+        JP: 0x232F4A8
     - name: Nnsi_SndFaderUpdate
       address:
         EU: 0x232E568
+        NA: 0x232DD3C
+        JP: 0x232F4DC
     - name: Nnsi_SndFaderIsFinished
       address:
         EU: 0x232E580
+        NA: 0x232DD54
+        JP: 0x232F4F4
     - name: Aoss_Malloc
       address:
         EU: 0x232E598
+        NA: 0x232DD6C
+        JP: 0x232F50C
     - name: Aoss_Free
       address:
         EU: 0x232E5A8
+        NA: 0x232DD7C
+        JP: 0x232F51C
     - name: Aossi_Init
       address:
         EU: 0x232E5B8
+        NA: 0x232DD8C
+        JP: 0x232F52C
     - name: Aoss_Init_Old
       address:
         EU: 0x232E6A8
+        NA: 0x232DE7C
+        JP: 0x232F61C
     - name: aoss_ip_sta
       address:
         EU: 0x232F0C0
+        NA: 0x232E894
+        JP: 0x2330034
     - name: aoss_release
       address:
         EU: 0x232F0D8
+        NA: 0x232E8AC
+        JP: 0x233004C
     - name: aoss_data_init
       address:
         EU: 0x232F104
+        NA: 0x232E8D8
+        JP: 0x2330078
     - name: aoss_set_error
       address:
         EU: 0x232F15C
+        NA: 0x232E930
+        JP: 0x23300D0
     - name: aoss_get_error
       address:
         EU: 0x232F168
+        NA: 0x232E93C
+        JP: 0x23300DC
     - name: aoss_seq_data_copy
       address:
         EU: 0x232F174
+        NA: 0x232E948
+        JP: 0x23300E8
     - name: aoss_check_str
       address:
         EU: 0x232F36C
+        NA: 0x232EB40
+        JP: 0x23302E0
     - name: CheckAP_Aoss
       address:
         EU: 0x232F390
+        NA: 0x232EB64
+        JP: 0x2330304
     - name: Aoss_Set_ApInfo
       address:
         EU: 0x232F40C
+        NA: 0x232EBE0
+        JP: 0x2330380
     - name: MakeSendSeqID
       address:
         EU: 0x232F450
+        NA: 0x232EC24
+        JP: 0x23303C4
     - name: Aoss_StatusExclusion
       address:
         EU: 0x232F480
+        NA: 0x232EC54
+        JP: 0x23303F4
     - name: RecvMessage
       address:
         EU: 0x232F4AC
+        NA: 0x232EC80
+        JP: 0x2330420
     - name: AstsSetInitRes
       address:
         EU: 0x232F54C
+        NA: 0x232ED20
+        JP: 0x23304C0
     - name: AstsSetSecureRes
       address:
         EU: 0x232F628
+        NA: 0x232EDFC
+        JP: 0x233059C
     - name: AstsRestartRes
       address:
         EU: 0x232F700
+        NA: 0x232EED4
+        JP: 0x2330674
     - name: DecodePacket
       address:
         EU: 0x232F7A4
+        NA: 0x232EF78
+        JP: 0x2330718
     - name: CheckSeqID
       address:
         EU: 0x232F898
+        NA: 0x232F06C
+        JP: 0x233080C
     - name: CheckRecvSeqID
       address:
         EU: 0x232F8DC
+        NA: 0x232F0B0
+        JP: 0x2330850
     - name: GetProductInfo
       address:
         EU: 0x232F928
+        NA: 0x232F0FC
+        JP: 0x233089C
     - name: aoss_get_bin
       address:
         EU: 0x232F9E4
+        NA: 0x232F1B8
+        JP: 0x2330958
     - name: GetWepData
       address:
         EU: 0x232FA08
+        NA: 0x232F1DC
+        JP: 0x233097C
     - name: GetWpaData
       address:
         EU: 0x232FB5C
+        NA: 0x232F330
+        JP: 0x2330AD0
     - name: GetBssidData
       address:
         EU: 0x232FC14
+        NA: 0x232F3E8
+        JP: 0x2330B88
     - name: GetSecurityData
       address:
         EU: 0x232FC44
+        NA: 0x232F418
+        JP: 0x2330BB8
     - name: GetSecurityType
       address:
         EU: 0x232FD54
+        NA: 0x232F528
+        JP: 0x2330CC8
     - name: SendMessage
       address:
         EU: 0x232FD64
+        NA: 0x232F538
+        JP: 0x2330CD8
     - name: AstsSetInitReq
       address:
         EU: 0x232FDB8
+        NA: 0x232F58C
+        JP: 0x2330D2C
     - name: AstsSetSecureReq
       address:
         EU: 0x232FEFC
+        NA: 0x232F6D0
+        JP: 0x2330E70
     - name: AstsRestartReq
       address:
         EU: 0x232FFD8
+        NA: 0x232F7AC
+        JP: 0x2330F4C
     - name: SetStaData
       address:
         EU: 0x2330044
+        NA: 0x232F818
+        JP: 0x2330FB8
     - name: PacketDataSet
       address:
         EU: 0x23300D0
+        NA: 0x232F8A4
+        JP: 0x2331044
     - name: SetPacketHeader
       address:
         EU: 0x2330124
+        NA: 0x232F8F8
+        JP: 0x2331098
     - name: SendPacketUdp
       address:
         EU: 0x233017C
+        NA: 0x232F950
+        JP: 0x23310F0
     - name: EncodeRC4
       address:
         EU: 0x23301E4
+        NA: 0x232F9B8
+        JP: 0x2331158
     - name: DecodeRC4
       address:
         EU: 0x2330260
+        NA: 0x232FA34
+        JP: 0x23311D4
     - name: RC4init
       address:
         EU: 0x23302E8
+        NA: 0x232FABC
+        JP: 0x233125C
     - name: RC4encrypt
       address:
         EU: 0x233034C
+        NA: 0x232FB20
+        JP: 0x23312C0
     - name: arcfour_byte
       address:
         EU: 0x2330378
+        NA: 0x232FB4C
+        JP: 0x23312EC
     - name: crc
       address:
         EU: 0x23303B8
+        NA: 0x232FB8C
+        JP: 0x233132C
     - name: update_crc
       address:
         EU: 0x23303E0
+        NA: 0x232FBB4
+        JP: 0x2331354
     - name: make_crc_table
       address:
         EU: 0x2330418
+        NA: 0x232FBEC
+        JP: 0x233138C
     - name: CryptSeqNo
       address:
         EU: 0x2330450
+        NA: 0x232FC24
+        JP: 0x23313C4
     - name: MakeKey
       address:
         EU: 0x23304CC
+        NA: 0x232FCA0
+        JP: 0x2331440
     - name: AddKey
       address:
         EU: 0x2330500
+        NA: 0x232FCD4
+        JP: 0x2331474
     - name: Rotate
       address:
         EU: 0x2330524
+        NA: 0x232FCF8
+        JP: 0x2331498
     - name: Aoss_SetIpAddr
       address:
         EU: 0x233057C
+        NA: 0x232FD50
+        JP: 0x23314F0
     - name: Aoss_Disconnect
       address:
         EU: 0x23305D4
+        NA: 0x232FDA8
+        JP: 0x2331548
     - name: Aoss_Memcmp
       address:
         EU: 0x23305F8
+        NA: 0x232FDCC
+        JP: 0x233156C
     - name: Aoss_Memcpy
       address:
         EU: 0x2330618
+        NA: 0x232FDEC
+        JP: 0x233158C
     - name: Aoss_Memset
       address:
         EU: 0x2330628
+        NA: 0x232FDFC
+        JP: 0x233159C
     - name: Aoss_Recvfrom
       address:
         EU: 0x2330634
+        NA: 0x232FE08
+        JP: 0x23315A8
     - name: Aoss_Select
       address:
         EU: 0x2330648
+        NA: 0x232FE1C
+        JP: 0x23315BC
     - name: Aoss_Sendto
       address:
         EU: 0x233069C
+        NA: 0x232FE70
+        JP: 0x2331610
     - name: Aoss_Setsockopt
       address:
         EU: 0x23306AC
+        NA: 0x232FE80
+        JP: 0x2331620
     - name: Aoss_Socket
       address:
         EU: 0x23306B0
+        NA: 0x232FE84
+        JP: 0x2331624
     - name: Aoss_Bind
       address:
         EU: 0x23306B8
+        NA: 0x232FE8C
+        JP: 0x233162C
     - name: Aoss_Close
       address:
         EU: 0x23306C4
+        NA: 0x232FE98
+        JP: 0x2331638
     - name: Aoss_Htonl
       address:
         EU: 0x23306CC
+        NA: 0x232FEA0
+        JP: 0x2331640
     - name: Aoss_Htons
       address:
         EU: 0x23306F4
+        NA: 0x232FEC8
+        JP: 0x2331668
     - name: Aoss_Ntohl
       address:
         EU: 0x233070C
+        NA: 0x232FEE0
+        JP: 0x2331680
     - name: Aoss_Ntohs
       address:
         EU: 0x2330734
+        NA: 0x232FF08
+        JP: 0x23316A8
     - name: Aoss_Strlen
       address:
         EU: 0x233074C
+        NA: 0x232FF20
+        JP: 0x23316C0
     - name: Aoss_Rand
       address:
         EU: 0x2330760
+        NA: 0x232FF34
+        JP: 0x23316D4
     - name: Aoss_FD_Zero
       address:
         EU: 0x23307D0
+        NA: 0x232FFA4
+        JP: 0x2331744
     - name: Aoss_FD_Set
       address:
         EU: 0x23307DC
+        NA: 0x232FFB0
+        JP: 0x2331750
     - name: Set_Wlla_Bss_Info
       address:
         EU: 0x23307E4
+        NA: 0x232FFB8
+        JP: 0x2331758
     - name: Get_Wlla_Ssid_Param
       address:
         EU: 0x2330870
+        NA: 0x2330044
+        JP: 0x23317E4
     - name: Set_Wlla_Link_Stat
       address:
         EU: 0x2330894
+        NA: 0x2330068
+        JP: 0x2331808
     - name: aoss_apc_callback
       address:
         EU: 0x23308A4
+        NA: 0x2330078
+        JP: 0x2331818
     - name: AlarmCallback
       address:
         EU:
           - 0x23308B8
           - 0x2331B84
+        NA:
+          - 0x233008C
+          - 0x2331358
+        JP:
+          - 0x233182C
+          - 0x2332AF8
     - name: Aossi_InitLocal
       address:
         EU: 0x23308CC
+        NA: 0x23300A0
+        JP: 0x2331840
     - name: Aossi_EndLocal
       address:
         EU: 0x2330990
+        NA: 0x2330164
+        JP: 0x2331904
     - name: Aossi_Disconnect
       address:
         EU: 0x2330A28
+        NA: 0x23301FC
+        JP: 0x233199C
     - name: Aossi_WlanGetBssList
       address:
         EU: 0x2330A60
+        NA: 0x2330234
+        JP: 0x23319D4
     - name: Aossi_WlanConnect
       address:
         EU: 0x2330BD8
+        NA: 0x23303AC
+        JP: 0x2331B4C
     - name: Aossi_Sleep
       address:
         EU: 0x2330DA8
+        NA: 0x233057C
+        JP: 0x2331D1C
     - name: Aossi_Status
       address:
         EU: 0x2330DB0
+        NA: 0x2330584
+        JP: 0x2331D24
     - name: Apci_Notify
       address:
         EU:
           - 0x2330DC4
           - 0x2331420
+        NA:
+          - 0x2330598
+          - 0x2330BF4
+        JP:
+          - 0x2331D38
+          - 0x2332394
     - name: Apci_MoveIdleState
       address:
         EU:
           - 0x233107C
           - 0x233172C
+        NA:
+          - 0x2330850
+          - 0x2330F00
+        JP:
+          - 0x2331FF0
+          - 0x23326A0
     - name: Apc_GetApList
       address:
         EU:
           - 0x23310E4
           - 0x2331794
+        NA:
+          - 0x23308B8
+          - 0x2330F68
+        JP:
+          - 0x2332058
+          - 0x2332708
     - name: Apc_SearchStart
       address:
         EU:
           - 0x2331128
           - 0x23317D8
+        NA:
+          - 0x23308FC
+          - 0x2330FAC
+        JP:
+          - 0x233209C
+          - 0x233274C
     - name: Apc_SearchEnd
       address:
         EU:
           - 0x2331218
           - 0x23318C0
+        NA:
+          - 0x23309EC
+          - 0x2331094
+        JP:
+          - 0x233218C
+          - 0x2332834
     - name: Apc_Disconnect
       address:
         EU: 0x2331254
+        NA: 0x2330A28
+        JP: 0x23321C8
     - name: Apc_End
       address:
         EU:
           - 0x233128C
           - 0x23318F8
+        NA:
+          - 0x2330A60
+          - 0x23310CC
+        JP:
+          - 0x2332200
+          - 0x233286C
     - name: Apc_Connect
       address:
         EU:
           - 0x23312E4
           - 0x2331950
+        NA:
+          - 0x2330AB8
+          - 0x2331124
+        JP:
+          - 0x2332258
+          - 0x23328C4
     - name: Apc_Init
       address:
         EU:
           - 0x2331368
           - 0x23319D4
+        NA:
+          - 0x2330B3C
+          - 0x23311A8
+        JP:
+          - 0x23322DC
+          - 0x2332948
     - name: Apc_GetState
       address:
         EU: 0x2331A90
+        NA: 0x2331264
+        JP: 0x2332A04
     - name: SoAlloc
       address:
         EU: 0x2331A9C
+        NA: 0x2331270
+        JP: 0x2332A10
     - name: SoFree
       address:
         EU: 0x2331ACC
+        NA: 0x23312A0
+        JP: 0x2332A40
     - name: AtermApc_InitEventBuf
       address:
         EU: 0x2331AF4
+        NA: 0x23312C8
+        JP: 0x2332A68
     - name: AtermApc_GetEvent
       address:
         EU: 0x2331B1C
+        NA: 0x23312F0
+        JP: 0x2332A90
     - name: AtermApc_Callback
       address:
         EU: 0x2331B54
+        NA: 0x2331328
+        JP: 0x2332AC8
     - name: InitAtermApcNetwork
       address:
         EU: 0x2331B90
+        NA: 0x2331364
+        JP: 0x2332B04
     - name: FreeAtermApcNetwork
       address:
         EU: 0x2331C34
+        NA: 0x2331408
+        JP: 0x2332BA8
     - name: ConnectAP
       address:
         EU: 0x2331C8C
+        NA: 0x2331460
+        JP: 0x2332C00
     - name: DisconnectAP
       address:
         EU: 0x2331DB0
+        NA: 0x2331584
+        JP: 0x2332D24
     - name: CheckAccessPoint
       address:
         EU: 0x2331E14
+        NA: 0x23315E8
+        JP: 0x2332D88
     - name: ScanAP
       address:
         EU: 0x2331FE0
+        NA: 0x23317B4
+        JP: 0x2332F54
     - name: SendFrameViaInterface
       address:
         EU: 0x2332274
+        NA: 0x2331A48
+        JP: 0x23331E8
     - name: SendBroadcast
       address:
         EU: 0x233228C
+        NA: 0x2331A60
+        JP: 0x2333200
     - name: SendFrame
       address:
         EU: 0x23322C8
+        NA: 0x2331A9C
+        JP: 0x233323C
     - name: GetFrameData
       address:
         EU: 0x23322D4
+        NA: 0x2331AA8
+        JP: 0x2333248
     - name: GetElementData
       address:
         EU: 0x2332344
+        NA: 0x2331B18
+        JP: 0x23332B8
     - name: GetFirstElement
       address:
         EU: 0x2332394
+        NA: 0x2331B68
+        JP: 0x2333308
     - name: SetFrameData
       address:
         EU: 0x23323C8
+        NA: 0x2331B9C
+        JP: 0x233333C
     - name: SetElementData
       address:
         EU: 0x233248C
+        NA: 0x2331C60
+        JP: 0x2333400
     - name: SetSingleElement
       address:
         EU: 0x23324EC
+        NA: 0x2331CC0
+        JP: 0x2333460
     - name: IsSearchCommand
       address:
         EU: 0x2332514
+        NA: 0x2331CE8
+        JP: 0x2333488
     - name: GetCommandElement
       address:
         EU: 0x23325E8
+        NA: 0x2331DBC
+        JP: 0x233355C
     - name: SetSearchRes
       address:
         EU: 0x2332638
+        NA: 0x2331E0C
+        JP: 0x23335AC
     - name: GetAdapterMac
       address:
         EU: 0x23326D4
+        NA: 0x2331EA8
+        JP: 0x2333648
     - name: GetMacEncKey
       address:
         EU: 0x23326E0
+        NA: 0x2331EB4
+        JP: 0x2333654
     - name: GetWLanSetElement
       address:
         EU: 0x23327DC
+        NA: 0x2331FB0
+        JP: 0x2333750
     - name: AsciiToHex
       address:
         EU: 0x23329B0
+        NA: 0x2332184
+        JP: 0x2333924
     - name: StoreNetParam
       address:
         EU: 0x2332A64
+        NA: 0x2332238
+        JP: 0x23339D8
     - name: AutoConfigThreadEx
       address:
         EU: 0x2332BEC
+        NA: 0x23323C0
+        JP: 0x2333B60
     - name: AutoConfigThread
       address:
         EU: 0x2332FD0
+        NA: 0x23327A4
+        JP: 0x2333F44
     - name: keywrap_encrypt
       address:
         EU: 0x2333008
+        NA: 0x23327DC
+        JP: 0x2333F7C
     - name: keywrap_decrypt
       address:
         EU: 0x23331C0
+        NA: 0x2332994
+        JP: 0x2334134
     - name: aeskw_xor64
       address:
         EU: 0x2333378
+        NA: 0x2332B4C
+        JP: 0x23342EC
     - name: RijndaelKeySetupEnc
       address:
         EU: 0x23333C0
+        NA: 0x2332B94
+        JP: 0x2334334
     - name: RijndaelKeySetupDec
       address:
         EU: 0x2333678
+        NA: 0x2332E4C
+        JP: 0x23345EC
     - name: RijndaelEncrypt
       address:
         EU: 0x2333808
+        NA: 0x2332FDC
+        JP: 0x233477C
     - name: RijndaelDecrypt
       address:
         EU: 0x2333BC4
+        NA: 0x2333398
+        JP: 0x2334B38
     - name: MY_MD5Init
       address:
         EU: 0x2333F80
+        NA: 0x2333754
+        JP: 0x2334EF4
     - name: MY_MD5Update
       address:
         EU: 0x2333FA8
+        NA: 0x233377C
+        JP: 0x2334F1C
     - name: MY_MD5Final
       address:
         EU: 0x2334020
+        NA: 0x23337F4
+        JP: 0x2334F94
     - name: MD5Transform
       address:
         EU: 0x2334074
+        NA: 0x2333848
+        JP: 0x2334FE8
     - name: Encode
       address:
         EU: 0x23348BC
+        NA: 0x2334090
+        JP: 0x2335830
     - name: Decode
       address:
         EU: 0x23348E8
+        NA: 0x23340BC
+        JP: 0x233585C
     - name: MD5_Memcpy
       address:
         EU: 0x2334914
+        NA: 0x23340E8
+        JP: 0x2335888
     - name: MD5_Memset
       address:
         EU: 0x233492C
+        NA: 0x2334100
+        JP: 0x23358A0
     - name: MD5Encode
       address:
         EU: 0x2334944
+        NA: 0x2334118
+        JP: 0x23358B8
     - name: GetTickCount
       address:
         EU: 0x233496C
+        NA: 0x2334140
+        JP: 0x23358E0
     - name: Calloc
       address:
         EU: 0x2334988
+        NA: 0x233415C
+        JP: 0x23358FC
     - name: Free
       address:
         EU: 0x23349AC
+        NA: 0x2334180
+        JP: 0x2335920
     - name: PutHex
       address:
         EU: 0x23349BC
+        NA: 0x2334190
+        JP: 0x2335930
     - name: PutMac
       address:
         EU: 0x23349F0
+        NA: 0x23341C4
+        JP: 0x2335964
     - name: Atermi_ApConfigStart
       address:
         EU: 0x2334A24
+        NA: 0x23341F8
+        JP: 0x2335998
     - name: Atermi_ApConfigEnd
       address:
         EU: 0x2334B0C
+        NA: 0x23342E0
+        JP: 0x2335A80
     - name: Atermi_ApConfigGetState
       address:
         EU: 0x2334BA0
+        NA: 0x2334374
+        JP: 0x2335B14
     - name: Atermi_ApConfigGetResult
       address:
         EU: 0x2334BD8
+        NA: 0x23343AC
+        JP: 0x2335B4C
     - name: SendNotify
       address:
         EU: 0x2334BEC
+        NA: 0x23343C0
+        JP: 0x2335B60
     - name: Dwci_AnimelInitEx
       address:
         EU: 0x2334C08
+        NA: 0x23343DC
+        JP: 0x2335B7C
     - name: Dwci_AnimelEnd
       address:
         EU: 0x2334CD8
+        NA: 0x23344AC
+        JP: 0x2335C4C
     - name: TaskAnime
       address:
         EU: 0x2334D14
+        NA: 0x23344E8
+        JP: 0x2335C88
     - name: Dwci_BtnlInit
       address:
         EU: 0x2334DE0
+        NA: 0x23345B4
+        JP: 0x2335D54
     - name: Dwci_BtnlEnd
       address:
         EU: 0x2334ED8
+        NA: 0x23346AC
+        JP: 0x2335E4C
     - name: Dwci_BtnlGet
       address:
         EU: 0x2334F08
+        NA: 0x23346DC
+        JP: 0x2335E7C
     - name: Dwci_BtnlSet
       address:
         EU: 0x2334F1C
+        NA: 0x23346F0
+        JP: 0x2335E90
     - name: Dwci_BtnlSetForce
       address:
         EU: 0x2334F3C
+        NA: 0x2334710
+        JP: 0x2335EB0
     - name: Dwci_BtnlIsEnd
       address:
         EU: 0x2334F50
+        NA: 0x2334724
+        JP: 0x2335EC4
     - name: Dwci_BtnlEnable
       address:
         EU: 0x2334F7C
+        NA: 0x2334750
+        JP: 0x2335EF0
     - name: Dwci_BtnlDisable
       address:
         EU: 0x2334F94
+        NA: 0x2334768
+        JP: 0x2335F08
     - name: Button_Disp
       address:
         EU: 0x2334FAC
+        NA: 0x2334780
+        JP: 0x2335F20
     - name: Button_TaskStart
       address:
         EU: 0x2335040
+        NA: 0x2334814
+        JP: 0x2335FB4
     - name: Button_TaskStart1
       address:
         EU: 0x23350AC
+        NA: 0x2334880
+        JP: 0x2336020
     - name: Button_TaskMain
       address:
         EU: 0x23350FC
+        NA: 0x23348D0
+        JP: 0x2336070
     - name: Button_TaskEnd
       address:
         EU: 0x2335288
+        NA: 0x2334A5C
+        JP: 0x23361FC
     - name: Button_TaskEnd1
       address:
         EU: 0x23352EC
+        NA: 0x2334AC0
+        JP: 0x2336260
     - name: Button_TaskRelease
       address:
         EU: 0x2335364
+        NA: 0x2334B38
+        JP: 0x23362D8
     - name: Dwci_CommentlInit
       address:
         EU: 0x2335454
+        NA: 0x2334C28
+        JP: 0x23363C8
     - name: Dwci_CommentlDispEx
       address:
         EU: 0x2335468
+        NA: 0x2334C3C
+        JP: 0x23363DC
     - name: Dwci_CommentlDelete
       address:
         EU: 0x233553C
+        NA: 0x2334D10
+        JP: 0x23364B0
     - name: Dwci_Char
       address:
         EU: 0x2335574
+        NA: 0x2334D48
+        JP: 0x23364E8
     - name: Dwci_CmnlLoadResource
       address:
         EU: 0x23355D4
+        NA: 0x2334DA8
+        JP: 0x2336548
     - name: Dwci_CmnlStep
       address:
         EU: 0x2335614
+        NA: 0x2334DE8
+        JP: 0x2336588
     - name: Dwci_CmnlButton
       address:
         EU: 0x2335664
+        NA: 0x2334E38
+        JP: 0x23365D8
     - name: Dwci_CmnlMsgDraw
       address:
         EU: 0x233569C
+        NA: 0x2334E70
+        JP: 0x2336610
     - name: Dwci_CmnlMsgNameDraw
       address:
         EU: 0x2335710
+        NA: 0x2334EE4
+        JP: 0x2336684
     - name: Dwci_CmnlFontFlag
       address:
         EU: 0x23357CC
+        NA: 0x2334FA0
+        JP: 0x2336740
     - name: Dwci_FocuslInit
       address:
         EU: 0x23357E4
+        NA: 0x2334FB8
+        JP: 0x2336758
     - name: Dwci_FocuslEnd
       address:
         EU: 0x2335804
+        NA: 0x2334FD8
+        JP: 0x2336778
     - name: Dwci_FocuslDisp
       address:
         EU: 0x233581C
+        NA: 0x2334FF0
+        JP: 0x2336790
     - name: Dwci_FocuslDisp4
       address:
         EU: 0x23358D8
+        NA: 0x23350AC
+        JP: 0x233684C
     - name: Dwci_FocuslDelete
       address:
         EU: 0x23359C8
+        NA: 0x233519C
+        JP: 0x233693C
     - name: Dwci_HLlInit
       address:
         EU: 0x2335A08
+        NA: 0x23351DC
+        JP: 0x233697C
     - name: Dwci_HLlEnd
       address:
         EU: 0x2335A80
+        NA: 0x2335254
+        JP: 0x23369F4
     - name: Dwci_HLlLoad
       address:
         EU: 0x2335A94
+        NA: 0x2335268
+        JP: 0x2336A08
     - name: Dwci_HLlLoadSet
       address:
         EU: 0x2335AF0
+        NA: 0x23352C4
+        JP: 0x2336A64
     - name: Dwci_HLlLoadList
       address:
         EU: 0x2335B08
+        NA: 0x23352DC
+        JP: 0x2336A7C
     - name: Headline_TaskLoad
       address:
         EU: 0x2335B20
+        NA: 0x23352F4
+        JP: 0x2336A94
     - name: Dwci_IconlInit
       address:
         EU: 0x2335B60
+        NA: 0x2335334
+        JP: 0x2336AD4
     - name: Dwci_IconlEnd
       address:
         EU: 0x2335C18
+        NA: 0x23353EC
+        JP: 0x2336B8C
     - name: Icon_TaskRenew
       address:
         EU: 0x2335C5C
+        NA: 0x2335430
+        JP: 0x2336BD0
     - name: Dwci_KBlInit
       address:
         EU: 0x2335D04
+        NA: 0x23354D8
+        JP: 0x2336C78
     - name: Dwci_KBlEnd
       address:
         EU: 0x2336068
+        NA: 0x233583C
+        JP: 0x2336FDC
     - name: Dwci_KBlGet
       address:
         EU: 0x233609C
+        NA: 0x2335870
+        JP: 0x2337010
     - name: Dwci_KBlSetErase
       address:
         EU: 0x23360B0
+        NA: 0x2335884
+        JP: 0x2337024
     - name: Dwci_KBlSetInput
       address:
         EU: 0x23360C4
+        NA: 0x2335898
+        JP: 0x2337038
     - name: Dwci_KBlIsInit
       address:
         EU: 0x23360D8
+        NA: 0x23358AC
+        JP: 0x233704C
     - name: Keyboard_TaskStart0
       address:
         EU: 0x23360F4
+        NA: 0x23358C8
+        JP: 0x2337068
     - name: Keyboard_TaskStart1
       address:
         EU: 0x2336188
+        NA: 0x233595C
+        JP: 0x23370FC
     - name: Keyboard_TaskStart2
       address:
         EU: 0x233621C
+        NA: 0x23359F0
+        JP: 0x2337190
     - name: Keyboard_TaskStart3
       address:
         EU: 0x23362B0
+        NA: 0x2335A84
+        JP: 0x2337224
     - name: Keyboard_TaskStart4
       address:
         EU: 0x2336340
     - name: Keyboard_TaskMain
       address:
         EU: 0x23363D0
+        NA: 0x2335BA4
+        JP: 0x2337344
     - name: Keyboard_TouchTriger
       address:
         EU: 0x23363E8
+        NA: 0x2335BBC
+        JP: 0x233735C
     - name: Keyboard_TouchRelease
       address:
         EU: 0x23365D0
+        NA: 0x2335DA4
+        JP: 0x2337544
     - name: Keyboard_PushCaps
       address:
         EU: 0x23368B8
+        NA: 0x233608C
+        JP: 0x233782C
     - name: Keyboard_PushShift
       address:
         EU: 0x23368E8
+        NA: 0x23360BC
+        JP: 0x233785C
     - name: Keyboard_Touch
       address:
         EU: 0x2336918
+        NA: 0x23360EC
+        JP: 0x233788C
     - name: Keyboard_ExchangeBack
       address:
         EU: 0x2336B1C
+        NA: 0x23362F0
+        JP: 0x2337A90
     - name: Keyboard_Key
       address:
         EU: 0x2336B70
+        NA: 0x2336344
+        JP: 0x2337AE4
     - name: Keyboard_Disp
       address:
         EU: 0x2336DA0
+        NA: 0x2336574
+        JP: 0x2337D14
     - name: Keyboard_ChangePage
       address:
         EU: 0x233701C
+        NA: 0x23367F0
+        JP: 0x2337F90
     - name: Keyboard_ChangeColor
       address:
         EU: 0x23370A0
+        NA: 0x2336874
+        JP: 0x2338014
     - name: Keyboard_DispFocus
       address:
         EU: 0x2337168
+        NA: 0x233693C
+        JP: 0x23380DC
     - name: Keyboard_MoveFocus
       address:
         EU: 0x2337244
+        NA: 0x2336A18
+        JP: 0x23381B8
     - name: Keyboard_TaskEnd0
       address:
         EU: 0x233767C
+        NA: 0x2336E50
+        JP: 0x23385F0
     - name: Keyboard_TaskEnd1
       address:
         EU: 0x2337700
+        NA: 0x2336ED4
+        JP: 0x2338674
     - name: Keyboard_TaskEnd2
       address:
         EU: 0x2337774
+        NA: 0x2336F48
+        JP: 0x23386E8
     - name: Keyboard_TaskEnd3
       address:
         EU: 0x23377E8
+        NA: 0x2336FBC
+        JP: 0x233875C
     - name: Keyboard_TaskEnd4
       address:
         EU: 0x233785C
+        NA: 0x2337030
+        JP: 0x23387D0
     - name: Keyboard_TaskEnd5
       address:
         EU: 0x23378D0
+        NA: 0x23370A4
+        JP: 0x2338844
     - name: Dwci_KB10lInit
       address:
         EU: 0x23379B0
+        NA: 0x2337184
+        JP: 0x2338924
     - name: Dwci_KB10lEnd
       address:
         EU: 0x2337CEC
+        NA: 0x23374C0
+        JP: 0x2338C60
     - name: Dwci_KB10lGet
       address:
         EU: 0x2337D20
+        NA: 0x23374F4
+        JP: 0x2338C94
     - name: Dwci_KB10lSetErase
       address:
         EU: 0x2337D34
+        NA: 0x2337508
+        JP: 0x2338CA8
     - name: Dwci_KB10lSetInput
       address:
         EU: 0x2337D48
+        NA: 0x233751C
+        JP: 0x2338CBC
     - name: Dwci_KB10lSetShift
       address:
         EU: 0x2337D5C
+        NA: 0x2337530
+        JP: 0x2338CD0
     - name: Dwci_KB10lIsInit
       address:
         EU: 0x2337D70
+        NA: 0x2337544
+        JP: 0x2338CE4
     - name: Keyboard10_TaskStart0
       address:
         EU: 0x2337D8C
+        NA: 0x2337560
+        JP: 0x2338D00
     - name: Keyboard10_TaskStart1
       address:
         EU: 0x2337E10
+        NA: 0x23375E4
+        JP: 0x2338D84
     - name: Keyboard10_TaskStart2
       address:
         EU: 0x2337E94
+        NA: 0x2337668
+        JP: 0x2338E08
     - name: Keyboard10_TaskStart3
       address:
         EU: 0x2337F18
+        NA: 0x23376EC
+        JP: 0x2338E8C
     - name: Keyboard10_TaskStart4
       address:
         EU: 0x2337F9C
+        NA: 0x2337770
+        JP: 0x2338F10
     - name: Keyboard10_TaskMain
       address:
         EU: 0x2338010
+        NA: 0x23377E4
+        JP: 0x2338F84
     - name: Keyboard10_TouchTriger
       address:
         EU: 0x2338028
+        NA: 0x23377FC
+        JP: 0x2338F9C
     - name: Keyboard10_TouchRelease
       address:
         EU: 0x2338204
+        NA: 0x23379D8
+        JP: 0x2339178
     - name: Keyboard10_Touch
       address:
         EU: 0x23383D4
+        NA: 0x2337BA8
+        JP: 0x2339348
     - name: Keyboard10_ExchangeBack
       address:
         EU: 0x23385C4
+        NA: 0x2337D98
+        JP: 0x2339538
     - name: Keyboard10_Key
       address:
         EU: 0x2338610
+        NA: 0x2337DE4
+        JP: 0x2339584
     - name: Keyboard10_Disp
       address:
         EU: 0x23387AC
+        NA: 0x2337F80
+        JP: 0x2339720
     - name: Keyboard10_ChangeColor
       address:
         EU: 0x2338A0C
+        NA: 0x23381E0
+        JP: 0x2339980
     - name: Keyboard10_DispFocus
       address:
         EU: 0x2338AD4
+        NA: 0x23382A8
+        JP: 0x2339A48
     - name: Keyboard10_MoveFocus
       address:
         EU: 0x2338B60
+        NA: 0x2338334
+        JP: 0x2339AD4
     - name: Keyboard10_TaskEnd0
       address:
         EU: 0x2338C0C
+        NA: 0x23383E0
+        JP: 0x2339B80
     - name: Keyboard10_TaskEnd1
       address:
         EU: 0x2338C84
+        NA: 0x2338458
+        JP: 0x2339BF8
     - name: Keyboard10_TaskEnd2
       address:
         EU: 0x2338CF4
+        NA: 0x23384C8
+        JP: 0x2339C68
     - name: Keyboard10_TaskEnd3
       address:
         EU: 0x2338D64
+        NA: 0x2338538
+        JP: 0x2339CD8
     - name: Keyboard10_TaskEnd4
       address:
         EU: 0x2338DD4
+        NA: 0x23385A8
+        JP: 0x2339D48
     - name: Keyboard10_TaskEnd5
       address:
         EU: 0x2338E44
+        NA: 0x2338618
+        JP: 0x2339DB8
     - name: Dwci_AosslInit
       address:
         EU: 0x2338F04
+        NA: 0x23386D8
+        JP: 0x2339E78
     - name: Dwci_AosslEnd
       address:
         EU: 0x2339014
+        NA: 0x23387E8
+        JP: 0x2339F88
     - name: Dwci_AosslStart
       address:
         EU: 0x2339064
+        NA: 0x2338838
+        JP: 0x2339FD8
     - name: AossAlloc
       address:
         EU: 0x23390C4
+        NA: 0x2338898
+        JP: 0x233A038
     - name: AossFree
       address:
         EU: 0x23390D4
+        NA: 0x23388A8
+        JP: 0x233A048
     - name: Dwc_StartUtility
       address:
         EU: 0x23390E0
+        NA: 0x23388B4
+        JP: 0x233A054
     - name: Main_CheckParam
       address:
         EU: 0x2339188
+        NA: 0x233895C
+        JP: 0x233A0FC
     - name: Main_InitGame
       address:
         EU: 0x2339204
+        NA: 0x23389D8
+        JP: 0x233A178
     - name: Main_InitGraph
       address:
         EU: 0x23392CC
+        NA: 0x2338AA0
+        JP: 0x233A240
     - name: Main_ProcEnd
       address:
         EU: 0x2339544
+        NA: 0x2338D18
+        JP: 0x233A4B8
     - name: Dwci_ChangeScene
       address:
         EU: 0x2339594
+        NA: 0x2338D68
+        JP: 0x233A508
     - name: Dwci_SetParam
       address:
         EU: 0x23395A4
+        NA: 0x2338D78
+        JP: 0x233A518
     - name: Dwci_GetParam
       address:
         EU: 0x23395B8
+        NA: 0x2338D8C
+        JP: 0x233A52C
     - name: Dwci_SetParam2
       address:
         EU: 0x23395E0
+        NA: 0x2338DB4
+        JP: 0x233A554
     - name: Dwci_GetParam2
       address:
         EU: 0x23395F4
+        NA: 0x2338DC8
+        JP: 0x233A568
     - name: Dwci_Language
       address:
         EU:
           - 0x233961C
           - 0x2339674
+        NA:
+          - 0x2338DF0
+          - 0x2338E48
+        JP:
+          - 0x233A590
+          - 0x233A5E8
     - name: Dwci_Entry
       address:
         EU: 0x233962C
+        NA: 0x2338E00
+        JP: 0x233A5A0
     - name: Dwci_Flag
       address:
         EU: 0x2339644
+        NA: 0x2338E18
+        JP: 0x233A5B8
     - name: Dwci_EndUtility
       address:
         EU: 0x2339660
+        NA: 0x2338E34
+        JP: 0x233A5D4
     - name: Dwci_MsglInit
       address:
         EU: 0x23396B4
+        NA: 0x2338E88
+        JP: 0x233A628
     - name: Dwci_MsglEnd
       address:
         EU: 0x23396F0
+        NA: 0x2338EC4
+        JP: 0x233A664
     - name: Dwci_MsglRead
       address:
         EU: 0x2339704
+        NA: 0x2338ED8
+        JP: 0x233A678
     - name: Dwci_MsglRelease
       address:
         EU: 0x233975C
+        NA: 0x2338F30
+        JP: 0x233A6D0
     - name: Dwci_MsglGet
       address:
         EU: 0x2339788
+        NA: 0x2338F5C
+        JP: 0x233A6FC
     - name: Dwci_MsglGetEx
       address:
         EU: 0x23397A0
+        NA: 0x2338F74
+        JP: 0x233A714
     - name: Dwci_MovlInit
       address:
         EU: 0x23397CC
+        NA: 0x2338FA0
+        JP: 0x233A740
     - name: Dwci_MovlEnd
       address:
         EU: 0x23398B8
+        NA: 0x233908C
+        JP: 0x233A82C
     - name: Move_TaskEnd
       address:
         EU: 0x23398D8
+        NA: 0x23390AC
+        JP: 0x233A84C
     - name: Dwci_MovlIsEnd
       address:
         EU: 0x2339914
+        NA: 0x23390E8
+        JP: 0x233A888
     - name: Dwci_MovlChangeCallback
       address:
         EU: 0x2339930
+        NA: 0x2339104
+        JP: 0x233A8A4
     - name: Dwci_MovlAdmitChild
       address:
         EU: 0x2339948
+        NA: 0x233911C
+        JP: 0x233A8BC
     - name: Dwci_MovlGetChild
       address:
         EU: 0x2339954
+        NA: 0x2339128
+        JP: 0x233A8C8
     - name: Move_TaskFramework
       address:
         EU: 0x233996C
+        NA: 0x2339140
+        JP: 0x233A8E0
     - name: Dwci_RakulInit
       address:
         EU: 0x2339C0C
+        NA: 0x23393E0
+        JP: 0x233AB80
     - name: Dwci_RakulEnd
       address:
         EU: 0x2339C78
+        NA: 0x233944C
+        JP: 0x233ABEC
     - name: Dwci_RakulGetState
       address:
         EU: 0x2339C9C
+        NA: 0x2339470
+        JP: 0x233AC10
     - name: Dwci_RakulSetResult
       address:
         EU: 0x2339D58
+        NA: 0x233952C
+        JP: 0x233ACCC
     - name: RakuRaku_MemAlloc
       address:
         EU: 0x2339D84
+        NA: 0x2339558
+        JP: 0x233ACF8
     - name: RakuRaku_MemFree
       address:
         EU: 0x2339D9C
+        NA: 0x2339570
+        JP: 0x233AD10
     - name: RakuRaku_CbConfig
       address:
         EU: 0x2339DAC
+        NA: 0x2339580
+        JP: 0x233AD20
     - name: Dwci_SceneEnd
       address:
         EU: 0x2339DB8
+        NA: 0x233958C
+        JP: 0x233AD2C
     - name: SceneEnd_EndScene
       address:
         EU: 0x2339DF4
+        NA: 0x23395C8
+        JP: 0x233AD68
     - name: Dwci_SceneInit
       address:
         EU: 0x2339E68
+        NA: 0x233963C
+        JP: 0x233ADDC
     - name: SceneInit_ProcFade
       address:
         EU: 0x233A048
+        NA: 0x233981C
+        JP: 0x233AFBC
     - name: SceneInit_ProcWait
       address:
         EU: 0x233A084
+        NA: 0x2339858
+        JP: 0x233AFF8
     - name: Dwci_SceneMenu
       address:
         EU: 0x233A0F8
+        NA: 0x23398CC
+        JP: 0x233B06C
     - name: SceneMenu_InitGraphics
       address:
         EU: 0x233A174
+        NA: 0x2339948
+        JP: 0x233B0E8
     - name: SceneMenu_ProcInit
       address:
         EU: 0x233A260
+        NA: 0x2339A34
+        JP: 0x233B1D4
     - name: SceneMenu_ProcInit1
       address:
         EU: 0x233A2B4
+        NA: 0x2339A88
+        JP: 0x233B228
     - name: SceneMenu_ProcInit2
       address:
         EU: 0x233A2F0
+        NA: 0x2339AC4
+        JP: 0x233B264
     - name: SceneMenu_ProcScene
       address:
         EU: 0x233A318
+        NA: 0x2339AEC
+        JP: 0x233B28C
     - name: SceneMenu_Input
       address:
         EU: 0x233A32C
+        NA: 0x2339B00
+        JP: 0x233B2A0
     - name: SceneMenu_Draw
       address:
         EU: 0x233A458
+        NA: 0x2339C2C
+        JP: 0x233B3CC
     - name: SceneMenu_Button
       address:
         EU: 0x233A45C
+        NA: 0x2339C30
+        JP: 0x233B3D0
     - name: SceneMenu_EndScene
       address:
         EU: 0x233A4AC
+        NA: 0x2339C80
+        JP: 0x233B420
     - name: SceneMenu_EndScene1
       address:
         EU: 0x233A4CC
+        NA: 0x2339CA0
+        JP: 0x233B440
     - name: SceneMenu_EndScene2
       address:
         EU: 0x233A518
+        NA: 0x2339CEC
+        JP: 0x233B48C
     - name: SceneMenu_MoveFocus
       address:
         EU: 0x233A5C0
+        NA: 0x2339D94
+        JP: 0x233B534
     - name: SceneMenu_DispPushButton
       address:
         EU: 0x233A630
+        NA: 0x2339E04
+        JP: 0x233B5A4
     - name: Dwci_SceneOptErase
       address:
         EU: 0x233A670
+        NA: 0x2339E44
+        JP: 0x233B5E4
     - name: SceneOptErase_InitGraphics
       address:
         EU: 0x233A6B8
+        NA: 0x2339E8C
+        JP: 0x233B62C
     - name: SceneOptErase_ProcInit
       address:
         EU: 0x233A738
+        NA: 0x2339F0C
+        JP: 0x233B6AC
     - name: SceneOptErase_ProcInit1
       address:
         EU: 0x233A78C
+        NA: 0x2339F60
+        JP: 0x233B700
     - name: SceneOptErase_ProcInit2
       address:
         EU: 0x233A7C8
+        NA: 0x2339F9C
+        JP: 0x233B73C
     - name: SceneOptErase_ProcScene
       address:
         EU: 0x233A7F0
+        NA: 0x2339FC4
+        JP: 0x233B764
     - name: SceneOptErase_Input
       address:
         EU: 0x233A804
+        NA: 0x2339FD8
+        JP: 0x233B778
     - name: SceneOptErase_Draw
       address:
         EU: 0x233A83C
+        NA: 0x233A010
+        JP: 0x233B7B0
     - name: SceneOptErase_Button
       address:
         EU: 0x233A840
+        NA: 0x233A014
+        JP: 0x233B7B4
     - name: SceneOptErase_EndScene
       address:
         EU: 0x233A8A8
+        NA: 0x233A07C
+        JP: 0x233B81C
     - name: SceneOptErase_EndScene1
       address:
         EU: 0x233A8C8
+        NA: 0x233A09C
+        JP: 0x233B83C
     - name: SceneOptErase_EndScene2
       address:
         EU: 0x233A92C
+        NA: 0x233A100
+        JP: 0x233B8A0
     - name: SceneOptErase_ProcConfirm
       address:
         EU: 0x233A9E4
+        NA: 0x233A1B8
+        JP: 0x233B958
     - name: SceneOptErase_ProcConfirm1
       address:
         EU: 0x233AA34
+        NA: 0x233A208
+        JP: 0x233B9A8
     - name: Dwci_SceneOptErase1
       address:
         EU: 0x233AA54
+        NA: 0x233A228
+        JP: 0x233B9C8
     - name: SceneOptErase1_InitGraphics
       address:
         EU: 0x233AA78
+        NA: 0x233A24C
+        JP: 0x233B9EC
     - name: SceneOptErase1_ProcInit
       address:
         EU: 0x233AAF8
+        NA: 0x233A2CC
+        JP: 0x233BA6C
     - name: SceneOptErase1_ProcInit1
       address:
         EU: 0x233AB2C
+        NA: 0x233A300
+        JP: 0x233BAA0
     - name: SceneOptErase1_ProcInit2
       address:
         EU: 0x233AB58
+        NA: 0x233A32C
+        JP: 0x233BACC
     - name: SceneOptErase1_ProcScene
       address:
         EU: 0x233AB80
+        NA: 0x233A354
+        JP: 0x233BAF4
     - name: SceneOptErase1_Input
       address:
         EU: 0x233AB94
+        NA: 0x233A368
+        JP: 0x233BB08
     - name: SceneOptErase1_Draw
       address:
         EU: 0x233ABB4
+        NA: 0x233A388
+        JP: 0x233BB28
     - name: SceneOptErase1_Button
       address:
         EU: 0x233ABB8
+        NA: 0x233A38C
+        JP: 0x233BB2C
     - name: SceneOptErase1_EndScene
       address:
         EU: 0x233ABE0
+        NA: 0x233A3B4
+        JP: 0x233BB54
     - name: SceneOptErase1_EndScene1
       address:
         EU: 0x233AC00
+        NA: 0x233A3D4
+        JP: 0x233BB74
     - name: SceneOptErase1_EndScene2
       address:
         EU: 0x233AC4C
+        NA: 0x233A420
+        JP: 0x233BBC0
     - name: Dwci_SceneOptInfo
       address:
         EU: 0x233AC80
+        NA: 0x233A454
+        JP: 0x233BBF4
     - name: SceneOptInfo_InitGraphics
       address:
         EU: 0x233ACB4
+        NA: 0x233A488
+        JP: 0x233BC28
     - name: SceneOptInfo_DrawInfo
       address:
         EU: 0x233AD34
+        NA: 0x233A508
+        JP: 0x233BCA8
     - name: SceneOptInfo_ProcInit
       address:
         EU: 0x233AF38
+        NA: 0x233A70C
+        JP: 0x233BEAC
     - name: SceneOptInfo_ProcInit1
       address:
         EU: 0x233AF8C
+        NA: 0x233A760
+        JP: 0x233BF00
     - name: SceneOptInfo_ProcInit2
       address:
         EU: 0x233AFC8
+        NA: 0x233A79C
+        JP: 0x233BF3C
     - name: SceneOptInfo_ProcScene
       address:
         EU: 0x233AFF0
+        NA: 0x233A7C4
+        JP: 0x233BF64
     - name: SceneOptInfo_Input
       address:
         EU: 0x233B004
+        NA: 0x233A7D8
+        JP: 0x233BF78
     - name: SceneOptInfo_Draw
       address:
         EU: 0x233B024
+        NA: 0x233A7F8
+        JP: 0x233BF98
     - name: SceneOptInfo_Button
       address:
         EU: 0x233B028
+        NA: 0x233A7FC
+        JP: 0x233BF9C
     - name: SceneOptInfo_EndScene
       address:
         EU: 0x233B050
+        NA: 0x233A824
+        JP: 0x233BFC4
     - name: SceneOptInfo_EndScene1
       address:
         EU: 0x233B070
+        NA: 0x233A844
+        JP: 0x233BFE4
     - name: SceneOptInfo_EndScene2
       address:
         EU: 0x233B0C0
+        NA: 0x233A894
+        JP: 0x233C034
     - name: Dwci_SceneOptMenu
       address:
         EU: 0x233B130
+        NA: 0x233A904
+        JP: 0x233C0A4
     - name: SceneOptMenu_InitGraphics
       address:
         EU: 0x233B1F8
+        NA: 0x233A9CC
+        JP: 0x233C16C
     - name: SceneOptMenu_ProcInit
       address:
         EU: 0x233B394
+        NA: 0x233AB68
+        JP: 0x233C308
     - name: SceneOptMenu_ProcInit1
       address:
         EU: 0x233B3E8
+        NA: 0x233ABBC
+        JP: 0x233C35C
     - name: SceneOptMenu_ProcInit2
       address:
         EU: 0x233B424
+        NA: 0x233ABF8
+        JP: 0x233C398
     - name: SceneOptMenu_ProcScene
       address:
         EU: 0x233B44C
+        NA: 0x233AC20
+        JP: 0x233C3C0
     - name: SceneOptMenu_Input
       address:
         EU: 0x233B460
+        NA: 0x233AC34
+        JP: 0x233C3D4
     - name: SceneOptMenu_Draw
       address:
         EU: 0x233B554
+        NA: 0x233AD28
+        JP: 0x233C4C8
     - name: SceneOptMenu_Button
       address:
         EU: 0x233B558
+        NA: 0x233AD2C
+        JP: 0x233C4CC
     - name: SceneOptMenu_EndScene
       address:
         EU: 0x233B5FC
+        NA: 0x233ADD0
+        JP: 0x233C570
     - name: SceneOptMenu_EndScene1
       address:
         EU: 0x233B61C
+        NA: 0x233ADF0
+        JP: 0x233C590
     - name: SceneOptMenu_EndScene2
       address:
         EU: 0x233B680
+        NA: 0x233AE54
+        JP: 0x233C5F4
     - name: SceneOptMenu_MoveFocus
       address:
         EU: 0x233B78C
+        NA: 0x233AF60
+        JP: 0x233C700
     - name: SceneOptMenu_DispPush
       address:
         EU: 0x233B81C
+        NA: 0x233AFF0
+        JP: 0x233C790
     - name: Dwci_SceneOptMovComm
       address:
         EU: 0x233B848
+        NA: 0x233B01C
+        JP: 0x233C7BC
     - name: SceneOptMovComm_InitGraphics
       address:
         EU: 0x233B880
+        NA: 0x233B054
+        JP: 0x233C7F4
     - name: SceneOptMovComm_ProcInit
       address:
         EU: 0x233B900
+        NA: 0x233B0D4
+        JP: 0x233C874
     - name: SceneOptMovComm_ProcInit1
       address:
         EU: 0x233B934
+        NA: 0x233B108
+        JP: 0x233C8A8
     - name: SceneOptMovComm_ProcScene
       address:
         EU: 0x233B964
+        NA: 0x233B138
+        JP: 0x233C8D8
     - name: SceneOptMovComm_Input
       address:
         EU: 0x233B974
+        NA: 0x233B148
+        JP: 0x233C8E8
     - name: SceneOptMovComm_Draw
       address:
         EU: 0x233B978
+        NA: 0x233B14C
+        JP: 0x233C8EC
     - name: SceneOptMovComm_EndScene
       address:
         EU: 0x233B97C
+        NA: 0x233B150
+        JP: 0x233C8F0
     - name: SceneOptMovComm_EndScene1
       address:
         EU: 0x233B9A4
+        NA: 0x233B178
+        JP: 0x233C918
     - name: SceneOptMoveComm_CbMov
       address:
         EU: 0x233BA38
+        NA: 0x233B20C
+        JP: 0x233C9AC
     - name: Dwci_SceneOptMovComplete
       address:
         EU: 0x233BAC0
+        NA: 0x233B294
+        JP: 0x233CA34
     - name: SceneOptMovComplete_InitGraphics
       address:
         EU: 0x233BAE0
+        NA: 0x233B2B4
+        JP: 0x233CA54
     - name: SceneOptMovComplete_ProcInit
       address:
         EU: 0x233BB48
+        NA: 0x233B31C
+        JP: 0x233CABC
     - name: SceneOptMovComplete_ProcInit1
       address:
         EU: 0x233BB7C
+        NA: 0x233B350
+        JP: 0x233CAF0
     - name: SceneOptMovComplete_ProcInit2
       address:
         EU: 0x233BBA8
+        NA: 0x233B37C
+        JP: 0x233CB1C
     - name: SceneOptMovComplete_ProcScene
       address:
         EU: 0x233BBD0
+        NA: 0x233B3A4
+        JP: 0x233CB44
     - name: SceneOptMovComplete_Input
       address:
         EU: 0x233BBE4
+        NA: 0x233B3B8
+        JP: 0x233CB58
     - name: SceneOptMovComplete_Draw
       address:
         EU: 0x233BC04
+        NA: 0x233B3D8
+        JP: 0x233CB78
     - name: SceneOptMovComplete_Button
       address:
         EU: 0x233BC08
+        NA: 0x233B3DC
+        JP: 0x233CB7C
     - name: SceneOptMovComplete_EndScene
       address:
         EU: 0x233BC30
+        NA: 0x233B404
+        JP: 0x233CBA4
     - name: SceneOptMovComplete_EndScene1
       address:
         EU: 0x233BC50
+        NA: 0x233B424
+        JP: 0x233CBC4
     - name: SceneOptMovComplete_EndScene2
       address:
         EU: 0x233BC9C
+        NA: 0x233B470
+        JP: 0x233CC10
     - name: Dwci_SceneOptMovConfirm
       address:
         EU: 0x233BCD0
+        NA: 0x233B4A4
+        JP: 0x233CC44
     - name: SceneOptMovConfirm_InitGraphics
       address:
         EU: 0x233BCF0
+        NA: 0x233B4C4
+        JP: 0x233CC64
     - name: SceneOptMovConfirm_ProcInit
       address:
         EU: 0x233BD58
+        NA: 0x233B52C
+        JP: 0x233CCCC
     - name: SceneOptMovConfirm_ProcInit1
       address:
         EU: 0x233BD8C
+        NA: 0x233B560
+        JP: 0x233CD00
     - name: SceneOptMovConfirm_ProcInit2
       address:
         EU: 0x233BDC8
+        NA: 0x233B59C
+        JP: 0x233CD3C
     - name: SceneOptMovConfirm_ProcScene
       address:
         EU: 0x233BDF0
+        NA: 0x233B5C4
+        JP: 0x233CD64
     - name: SceneOptMovConfirm_Input
       address:
         EU: 0x233BE04
+        NA: 0x233B5D8
+        JP: 0x233CD78
     - name: SceneOptMovConfirm_Draw
       address:
         EU: 0x233BE24
+        NA: 0x233B5F8
+        JP: 0x233CD98
     - name: SceneOptMovConfirm_Button
       address:
         EU: 0x233BE28
+        NA: 0x233B5FC
+        JP: 0x233CD9C
     - name: SceneOptMovConfirm_EndScene
       address:
         EU: 0x233BE50
+        NA: 0x233B624
+        JP: 0x233CDC4
     - name: SceneOptMovConfirm_EndScene1
       address:
         EU: 0x233BE70
+        NA: 0x233B644
+        JP: 0x233CDE4
     - name: SceneOptMovConfirm_EndScene2
       address:
         EU: 0x233BEAC
+        NA: 0x233B680
+        JP: 0x233CE20
     - name: Dwci_SceneOptMovConfirm1
       address:
         EU: 0x233BEFC
+        NA: 0x233B6D0
+        JP: 0x233CE70
     - name: SceneOptMovConfirm1_InitGraphics
       address:
         EU: 0x233BF44
+        NA: 0x233B718
+        JP: 0x233CEB8
     - name: SceneOptMovConfirm1_ProcInit
       address:
         EU: 0x233BFC4
+        NA: 0x233B798
+        JP: 0x233CF38
     - name: SceneOptMovConfirm1_ProcInit1
       address:
         EU: 0x233C018
+        NA: 0x233B7EC
+        JP: 0x233CF8C
     - name: SceneOptMovConfirm1_ProcInit2
       address:
         EU: 0x233C044
+        NA: 0x233B818
+        JP: 0x233CFB8
     - name: SceneOptMovConfirm1_ProcScene
       address:
         EU: 0x233C06C
+        NA: 0x233B840
+        JP: 0x233CFE0
     - name: SceneOptMovConfirm1_Input
       address:
         EU: 0x233C080
+        NA: 0x233B854
+        JP: 0x233CFF4
     - name: SceneOptMovConfirm1_Draw
       address:
         EU: 0x233C0B8
+        NA: 0x233B88C
+        JP: 0x233D02C
     - name: SceneOptMovConfirm1_Button
       address:
         EU: 0x233C0BC
+        NA: 0x233B890
+        JP: 0x233D030
     - name: SceneOptMovConfirm1_EndScene
       address:
         EU: 0x233C10C
+        NA: 0x233B8E0
+        JP: 0x233D080
     - name: SceneOptMovConfirm1_EndScene1
       address:
         EU: 0x233C12C
+        NA: 0x233B900
+        JP: 0x233D0A0
     - name: SceneOptMovConfirm1_EndScene2
       address:
         EU: 0x233C190
+        NA: 0x233B964
+        JP: 0x233D104
     - name: Dwci_SceneOptMovDisconnect
       address:
         EU: 0x233C248
+        NA: 0x233BA1C
+        JP: 0x233D1BC
     - name: SceneOptMovDisconnect_InitGraphics
       address:
         EU: 0x233C278
+        NA: 0x233BA4C
+        JP: 0x233D1EC
     - name: SceneOptMovDisconnect_ProcInit
       address:
         EU: 0x233C2E4
+        NA: 0x233BAB8
+        JP: 0x233D258
     - name: SceneOptMovDisconnect_ProcInit1
       address:
         EU: 0x233C318
+        NA: 0x233BAEC
+        JP: 0x233D28C
     - name: SceneOptMovDisconnect_ProcScene
       address:
         EU: 0x233C348
+        NA: 0x233BB1C
+        JP: 0x233D2BC
     - name: SceneOptMovDisconnect_Draw
       address:
         EU: 0x233C358
+        NA: 0x233BB2C
+        JP: 0x233D2CC
     - name: SceneOptMovDisconnect_EndScene
       address:
         EU: 0x233C35C
+        NA: 0x233BB30
+        JP: 0x233D2D0
     - name: SceneOptMovDisconnect_EndScene1
       address:
         EU: 0x233C398
+        NA: 0x233BB6C
+        JP: 0x233D30C
     - name: SceneOptMovDisconnect_Wait
       address:
         EU: 0x233C3FC
+        NA: 0x233BBD0
+        JP: 0x233D370
     - name: Dwci_SceneOptMovFailure
       address:
         EU: 0x233C430
+        NA: 0x233BC04
+        JP: 0x233D3A4
     - name: SceneOptMovFailure_InitGraphics
       address:
         EU: 0x233C46C
+        NA: 0x233BC40
+        JP: 0x233D3E0
     - name: SceneOptMovFailure_ProcInit
       address:
         EU: 0x233C4EC
+        NA: 0x233BCC0
+        JP: 0x233D460
     - name: SceneOptMovFailure_ProcInit1
       address:
         EU: 0x233C554
+        NA: 0x233BD28
+        JP: 0x233D4C8
     - name: SceneOptMovFailure_ProcInit2
       address:
         EU: 0x233C590
+        NA: 0x233BD64
+        JP: 0x233D504
     - name: SceneOptMovFailure_ProcScene
       address:
         EU: 0x233C5C4
+        NA: 0x233BD98
+        JP: 0x233D538
     - name: SceneOptMovFailure_Input
       address:
         EU: 0x233C5D8
+        NA: 0x233BDAC
+        JP: 0x233D54C
     - name: SceneOptMovFailure_Draw
       address:
         EU: 0x233C610
+        NA: 0x233BDE4
+        JP: 0x233D584
     - name: SceneOptMovFailure_Button
       address:
         EU: 0x233C614
+        NA: 0x233BDE8
+        JP: 0x233D588
     - name: SceneOptMovFailure_EndScene
       address:
         EU: 0x233C66C
+        NA: 0x233BE40
+        JP: 0x233D5E0
     - name: SceneOptMovFailure_EndScene1
       address:
         EU: 0x233C68C
+        NA: 0x233BE60
+        JP: 0x233D600
     - name: SceneOptMovFailure_EndScene2
       address:
         EU: 0x233C6F0
+        NA: 0x233BEC4
+        JP: 0x233D664
     - name: Dwci_SceneOptMovUser
       address:
         EU: 0x233C798
+        NA: 0x233BF6C
+        JP: 0x233D70C
     - name: SceneOptMovUser_InitGraphics
       address:
         EU: 0x233C868
+        NA: 0x233C03C
+        JP: 0x233D7DC
     - name: SceneOptMovUser_ProcInit
       address:
         EU: 0x233C8E8
+        NA: 0x233C0BC
+        JP: 0x233D85C
     - name: SceneOptMovUser_ProcInit1
       address:
         EU: 0x233C91C
+        NA: 0x233C0F0
+        JP: 0x233D890
     - name: SceneOptMovUser_ProcInit2
       address:
         EU: 0x233C940
+        NA: 0x233C114
+        JP: 0x233D8B4
     - name: SceneOptMovUser_ProcScene
       address:
         EU: 0x233C964
+        NA: 0x233C138
+        JP: 0x233D8D8
     - name: SceneOptMovUser_Input
       address:
         EU: 0x233C9D4
+        NA: 0x233C1A8
+        JP: 0x233D948
     - name: SceneOptMovUser_Draw
       address:
         EU: 0x233C9D8
+        NA: 0x233C1AC
+        JP: 0x233D94C
     - name: SceneOptMovUser_EndScene
       address:
         EU: 0x233C9DC
+        NA: 0x233C1B0
+        JP: 0x233D950
     - name: SceneOptMovUser_EndScene1
       address:
         EU: 0x233CA38
+        NA: 0x233C20C
+        JP: 0x233D9AC
     - name: SceneOptMovUser_EndScene2
       address:
         EU: 0x233CA94
+        NA: 0x233C268
+        JP: 0x233DA08
     - name: SceneOptMovUser_CbMov
       address:
         EU: 0x233CB5C
+        NA: 0x233C330
+        JP: 0x233DAD0
     - name: Dwci_IsFold
       address:
         EU:
@@ -1841,1958 +3081,3283 @@ overlay2:
           - 0x234360C
           - 0x2343C64
           - 0x2346980
+        NA:
+          - 0x233C344
+          - 0x233C73C
+          - 0x23429C8
+          - 0x2342DE0
+          - 0x2343438
+          - 0x2346154
+        JP:
+          - 0x233DAE4
+          - 0x233DEDC
+          - 0x2344168
+          - 0x2344580
+          - 0x2344BD8
+          - 0x23478F4
     - name: Dwci_SceneOptMovWait
       address:
         EU: 0x233CB90
+        NA: 0x233C364
+        JP: 0x233DB04
     - name: SceneOptMovWait_InitGraphics
       address:
         EU: 0x233CBDC
+        NA: 0x233C3B0
+        JP: 0x233DB50
     - name: SceneOptMovWait_ProcInit
       address:
         EU: 0x233CC5C
+        NA: 0x233C430
+        JP: 0x233DBD0
     - name: SceneOptMovWait_ProcInit1
       address:
         EU: 0x233CC90
+        NA: 0x233C464
+        JP: 0x233DC04
     - name: SceneOptMovWait_ProcInit2
       address:
         EU: 0x233CCBC
+        NA: 0x233C490
+        JP: 0x233DC30
     - name: SceneOptMovWait_ProcScene
       address:
         EU: 0x233CCE0
+        NA: 0x233C4B4
+        JP: 0x233DC54
     - name: SceneOptMovWait_Input
       address:
         EU: 0x233CCF4
+        NA: 0x233C4C8
+        JP: 0x233DC68
     - name: SceneOptMovWait_Draw
       address:
         EU: 0x233CD2C
+        NA: 0x233C500
+        JP: 0x233DCA0
     - name: SceneOptMovWait_Button
       address:
         EU: 0x233CD30
+        NA: 0x233C504
+        JP: 0x233DCA4
     - name: SceneOptMovWait_EndScene
       address:
         EU: 0x233CD5C
+        NA: 0x233C530
+        JP: 0x233DCD0
     - name: SceneOptMovWait_EndScene1
       address:
         EU: 0x233CD94
+        NA: 0x233C568
+        JP: 0x233DD08
     - name: SceneOptMovWait_EndScene2
       address:
         EU: 0x233CE14
+        NA: 0x233C5E8
+        JP: 0x233DD88
     - name: SceneOptMovWait_CbMov
       address:
         EU: 0x233CF0C
+        NA: 0x233C6E0
+        JP: 0x233DE80
     - name: Dwci_SceneSetAossButton
       address:
         EU: 0x233CF88
+        NA: 0x233C75C
+        JP: 0x233DEFC
     - name: SceneSetAossButton_InitGraphics
       address:
         EU: 0x233CFE8
+        NA: 0x233C7BC
+        JP: 0x233DF5C
     - name: SceneSetAossButton_ProcInit
       address:
         EU: 0x233D090
+        NA: 0x233C864
+        JP: 0x233E004
     - name: SceneSetAossButton_ProcInit1
       address:
         EU: 0x233D0E4
+        NA: 0x233C8B8
+        JP: 0x233E058
     - name: SceneSetAossButton_ProcInit2
       address:
         EU: 0x233D120
+        NA: 0x233C8F4
+        JP: 0x233E094
     - name: SceneSetAossButton_ProcScene
       address:
         EU: 0x233D168
+        NA: 0x233C93C
+        JP: 0x233E0DC
     - name: SceneSetAossButton_Input
       address:
         EU: 0x233D23C
+        NA: 0x233CA10
+        JP: 0x233E1B0
     - name: SceneSetAossButton_Draw
       address:
         EU: 0x233D274
+        NA: 0x233CA48
+        JP: 0x233E1E8
     - name: SceneSetAossButton_Button
       address:
         EU: 0x233D278
+        NA: 0x233CA4C
+        JP: 0x233E1EC
     - name: SceneSetAossButton_EndScene
       address:
         EU: 0x233D2C4
+        NA: 0x233CA98
+        JP: 0x233E238
     - name: SceneSetAossButton_EndScene1
       address:
         EU: 0x233D300
+        NA: 0x233CAD4
+        JP: 0x233E274
     - name: SceneSetAossButton_EndScene2
       address:
         EU: 0x233D364
+        NA: 0x233CB38
+        JP: 0x233E2D8
     - name: SceneSetAossButton_TaskVBlank
       address:
         EU: 0x233D440
+        NA: 0x233CC14
+        JP: 0x233E3B4
     - name: SceneSetAossButton_ProcError
       address:
         EU: 0x233D45C
+        NA: 0x233CC30
+        JP: 0x233E3D0
     - name: SceneSetAossButton_ProcError1
       address:
         EU: 0x233D488
+        NA: 0x233CC5C
+        JP: 0x233E3FC
     - name: SceneSetAossButton_ProcWait
       address:
         EU: 0x233D4A8
+        NA: 0x233CC7C
+        JP: 0x233E41C
     - name: SceneSetAossButton_ProcCancel
       address:
         EU: 0x233D4F4
+        NA: 0x233CCC8
+        JP: 0x233E468
     - name: Dwci_SceneSetAossComplete
       address:
         EU: 0x233D524
+        NA: 0x233CCF8
+        JP: 0x233E498
     - name: SceneSetAossComplete_InitGraphics
       address:
         EU: 0x233D560
+        NA: 0x233CD34
+        JP: 0x233E4D4
     - name: SceneSetAossComplete_ProcInit
       address:
         EU: 0x233D5CC
+        NA: 0x233CDA0
+        JP: 0x233E540
     - name: SceneSetAossComplete_ProcInit1
       address:
         EU: 0x233D600
+        NA: 0x233CDD4
+        JP: 0x233E574
     - name: SceneSetAossComplete_ProcScene
       address:
         EU: 0x233D624
+        NA: 0x233CDF8
+        JP: 0x233E598
     - name: SceneSetAossComplete_Draw
       address:
         EU: 0x233D634
+        NA: 0x233CE08
+        JP: 0x233E5A8
     - name: SceneSetAossComplete_EndScene
       address:
         EU: 0x233D638
+        NA: 0x233CE0C
+        JP: 0x233E5AC
     - name: SceneSetAossComplete_EndScene1
       address:
         EU: 0x233D674
+        NA: 0x233CE48
+        JP: 0x233E5E8
     - name: SceneSetAossComplete_Wait
       address:
         EU: 0x233D6E4
+        NA: 0x233CEB8
+        JP: 0x233E658
     - name: Dwci_SceneSetApList
       address:
         EU: 0x233D718
+        NA: 0x233CEEC
+        JP: 0x233E68C
     - name: SceneSetApList_InitGraphics
       address:
         EU: 0x233D7F0
+        NA: 0x233CFC4
+        JP: 0x233E764
     - name: InitScrollBar
       address:
         EU: 0x233D944
+        NA: 0x233D118
+        JP: 0x233E8B8
     - name: GetCharName
       address:
         EU: 0x233D9EC
+        NA: 0x233D1C0
+        JP: 0x233E960
     - name: SceneSetApList_ProcInit
       address:
         EU: 0x233DB60
+        NA: 0x233D334
+        JP: 0x233EAD4
     - name: SceneSetApList_ProcInit1
       address:
         EU: 0x233DBB4
+        NA: 0x233D388
+        JP: 0x233EB28
     - name: SceneSetApList_ProcInit2
       address:
         EU: 0x233DBF0
+        NA: 0x233D3C4
+        JP: 0x233EB64
     - name: SceneSetApList_ProcScene
       address:
         EU: 0x233DC18
+        NA: 0x233D3EC
+        JP: 0x233EB8C
     - name: SceneSetApList_Input
       address:
         EU: 0x233DC2C
+        NA: 0x233D400
+        JP: 0x233EBA0
     - name: SceneSetApList_Draw
       address:
         EU: 0x233DE80
+        NA: 0x233D654
+        JP: 0x233EDF4
     - name: SceneSetApList_Button
       address:
         EU: 0x233E0F0
+        NA: 0x233D8C4
+        JP: 0x233F064
     - name: SceneSetApList_EndScene
       address:
         EU: 0x233E1FC
+        NA: 0x233D9D0
+        JP: 0x233F170
     - name: SceneSetApList_EndScene1
       address:
         EU: 0x233E21C
+        NA: 0x233D9F0
+        JP: 0x233F190
     - name: SceneSetApList_EndScene2
       address:
         EU: 0x233E28C
+        NA: 0x233DA60
+        JP: 0x233F200
     - name: DrawApInfo
       address:
         EU: 0x233E488
+        NA: 0x233DC5C
+        JP: 0x233F3FC
     - name: DrawAp
       address:
         EU: 0x233E530
+        NA: 0x233DD04
+        JP: 0x233F4A4
     - name: DrapApObj
       address:
         EU: 0x233E6A8
+        NA: 0x233DE7C
+        JP: 0x233F61C
     - name: SceneSetApList_SetOffset
       address:
         EU: 0x233E734
+        NA: 0x233DF08
+        JP: 0x233F6A8
     - name: SceneSetApList_TaskUp
       address:
         EU: 0x233E7F0
+        NA: 0x233DFC4
+        JP: 0x233F764
     - name: SceneSetApList_TaskDown
       address:
         EU: 0x233E8AC
+        NA: 0x233E080
+        JP: 0x233F820
     - name: SceneSetApList_TaskVBlank
       address:
         EU: 0x233E944
+        NA: 0x233E118
+        JP: 0x233F8B8
     - name: SceneSetApList_DispFocus
       address:
         EU: 0x233E9A0
+        NA: 0x233E174
+        JP: 0x233F914
     - name: SceneSetApList_MoveFocus
       address:
         EU: 0x233E9EC
+        NA: 0x233E1C0
+        JP: 0x233F960
     - name: ScrollUp
       address:
         EU: 0x233EB38
+        NA: 0x233E30C
+        JP: 0x233FAAC
     - name: ScrollDown
       address:
         EU: 0x233EBAC
+        NA: 0x233E380
+        JP: 0x233FB20
     - name: SceneSetApList_DispPushButton
       address:
         EU: 0x233EC30
+        NA: 0x233E404
+        JP: 0x233FBA4
     - name: SceneSetApList_ProcError
       address:
         EU: 0x233EC60
+        NA: 0x233E434
+        JP: 0x233FBD4
     - name: SceneSetApList_ProcError1
       address:
         EU: 0x233EC8C
+        NA: 0x233E460
+        JP: 0x233FC00
     - name: Dwci_SceneSetEdit32
       address:
         EU: 0x233ECB4
+        NA: 0x233E488
+        JP: 0x233FC28
     - name: SceneSetEdit32_InitGraphics
       address:
         EU: 0x233EDE8
+        NA: 0x233E5BC
+        JP: 0x233FD5C
     - name: SceneSetEdit32_ProcInit
       address:
         EU: 0x233EEA4
+        NA: 0x233E678
+        JP: 0x233FE18
     - name: SceneSetEdit32_ProcInit1
       address:
         EU: 0x233EEF8
+        NA: 0x233E6CC
+        JP: 0x233FE6C
     - name: SceneSetEdit32_ProcInit2
       address:
         EU: 0x233EF74
+        NA: 0x233E748
+        JP: 0x233FEE8
     - name: SceneSetEdit32_ProcScene
       address:
         EU: 0x233EF94
+        NA: 0x233E768
+        JP: 0x233FF08
     - name: SceneSetEdit32_Input
       address:
         EU: 0x233EFA4
+        NA: 0x233E778
+        JP: 0x233FF18
     - name: SceneSetEdit32_Draw
       address:
         EU: 0x233F164
+        NA: 0x233E938
+        JP: 0x23400D8
     - name: SceneSetEdit32_EndScene
       address:
         EU: 0x233F168
+        NA: 0x233E93C
+        JP: 0x23400DC
     - name: SceneSetEdit32_EndScene1
       address:
         EU: 0x233F184
+        NA: 0x233E958
+        JP: 0x23400F8
     - name: SceneSetEdit32_EndScene2
       address:
         EU: 0x233F1B4
+        NA: 0x233E988
+        JP: 0x2340128
     - name: SceneSetEdit32_EndScene3
       address:
         EU: 0x233F28C
+        NA: 0x233EA60
+        JP: 0x2340200
     - name: DrawSsid
       address:
         EU: 0x233F390
+        NA: 0x233EB64
+        JP: 0x2340304
     - name: SceneSetEdit32_DispCaret
       address:
         EU: 0x233F484
+        NA: 0x233EC58
+        JP: 0x23403F8
     - name: SceneSetEdit32_ProcWin
       address:
         EU: 0x233F4EC
+        NA: 0x233ECC0
+        JP: 0x2340460
     - name: SceneSetEdit32_ProcWin1
       address:
         EU: 0x233F548
+        NA: 0x233ED1C
+        JP: 0x23404BC
     - name: SceneSetEdit32_IsCorrect
       address:
         EU: 0x233F5F8
+        NA: 0x233EDCC
+        JP: 0x234056C
     - name: SceneSetEdit32_ProcError
       address:
         EU: 0x233F784
+        NA: 0x233EF58
+        JP: 0x23406F8
     - name: SceneSetEdit32_ProcError1
       address:
         EU: 0x233F7B0
+        NA: 0x233EF84
+        JP: 0x2340724
     - name: Dwci_SceneSetEditAddress
       address:
         EU: 0x233F7F4
+        NA: 0x233EFC8
+        JP: 0x2340768
     - name: SceneSetEditAddress_InitGraphics
       address:
         EU: 0x233F968
+        NA: 0x233F13C
+        JP: 0x23408DC
     - name: SceneSetEditAddress_ProcInit
       address:
         EU: 0x233FA24
+        NA: 0x233F1F8
+        JP: 0x2340998
     - name: SceneSetEditAddress_ProcInit1
       address:
         EU: 0x233FA78
+        NA: 0x233F24C
+        JP: 0x23409EC
     - name: SceneSetEditAddress_ProcInit2
       address:
         EU: 0x233FB04
+        NA: 0x233F2D8
+        JP: 0x2340A78
     - name: SceneSetEditAddress_ProcScene
       address:
         EU: 0x233FB24
+        NA: 0x233F2F8
+        JP: 0x2340A98
     - name: SceneSetEditAddress_Input
       address:
         EU: 0x233FB34
+        NA: 0x233F308
+        JP: 0x2340AA8
     - name: IsOver
       address:
         EU: 0x233FE44
+        NA: 0x233F618
+        JP: 0x2340DB8
     - name: SceneSetEditAddress_Draw
       address:
         EU: 0x233FED8
+        NA: 0x233F6AC
+        JP: 0x2340E4C
     - name: SceneSetEditAddress_EndScene
       address:
         EU: 0x233FEDC
+        NA: 0x233F6B0
+        JP: 0x2340E50
     - name: SceneSetEditAddress_EndScene1
       address:
         EU: 0x233FEF8
+        NA: 0x233F6CC
+        JP: 0x2340E6C
     - name: SceneSetEditAddress_EndScene2
       address:
         EU: 0x233FF28
+        NA: 0x233F6FC
+        JP: 0x2340E9C
     - name: SceneSetEditAddress_EndScene3
       address:
         EU: 0x233FFB4
+        NA: 0x233F788
+        JP: 0x2340F28
     - name: SceneSetEditAddress_DrawAddress
       address:
         EU: 0x2340058
+        NA: 0x233F82C
+        JP: 0x2340FCC
     - name: SceneSetEditAddress_DispCaret
       address:
         EU: 0x234011C
+        NA: 0x233F8F0
+        JP: 0x2341090
     - name: SceneSetEditAddress_ProcWin
       address:
         EU: 0x2340170
+        NA: 0x233F944
+        JP: 0x23410E4
     - name: SceneSetEditAddress_ProcWin1
       address:
         EU: 0x23401CC
+        NA: 0x233F9A0
+        JP: 0x2341140
     - name: ArrangeAddress
       address:
         EU: 0x2340280
+        NA: 0x233FA54
+        JP: 0x23411F4
     - name: SceneSetEditAddress_IsCorrect
       address:
         EU: 0x23402F8
+        NA: 0x233FACC
+        JP: 0x234126C
     - name: SceneSetEditAddress_ProcError
       address:
         EU: 0x234044C
+        NA: 0x233FC20
+        JP: 0x23413C0
     - name: SceneSetEditAddress_ProcError1
       address:
         EU: 0x2340478
+        NA: 0x233FC4C
+        JP: 0x23413EC
     - name: Dwci_SceneSetError
       address:
         EU: 0x23404BC
+        NA: 0x233FC90
+        JP: 0x2341430
     - name: SceneSetError_InitGraphics
       address:
         EU: 0x23404D8
+        NA: 0x233FCAC
+        JP: 0x234144C
     - name: DrawMessage
       address:
         EU: 0x2340558
+        NA: 0x233FD2C
+        JP: 0x23414CC
     - name: SceneSetError_ProcInit
       address:
         EU: 0x23408CC
+        NA: 0x23400A0
+        JP: 0x2341840
     - name: SceneSetError_ProcInit1
       address:
         EU: 0x2340900
+        NA: 0x23400D4
+        JP: 0x2341874
     - name: SceneSetError_ProcInit2
       address:
         EU: 0x234093C
+        NA: 0x2340110
+        JP: 0x23418B0
     - name: SceneSetError_ProcScene
       address:
         EU: 0x2340964
+        NA: 0x2340138
+        JP: 0x23418D8
     - name: SceneSetError_Input
       address:
         EU: 0x2340978
+        NA: 0x234014C
+        JP: 0x23418EC
     - name: SceneSetError_Draw
       address:
         EU: 0x2340998
+        NA: 0x234016C
+        JP: 0x234190C
     - name: SceneSetError_Button
       address:
         EU: 0x234099C
+        NA: 0x2340170
+        JP: 0x2341910
     - name: SceneSetError_EndScene
       address:
         EU: 0x23409C4
+        NA: 0x2340198
+        JP: 0x2341938
     - name: SceneSetError_EndScene1
       address:
         EU: 0x23409E4
+        NA: 0x23401B8
+        JP: 0x2341958
     - name: SceneSetError_EndScene2
       address:
         EU: 0x2340A34
+        NA: 0x2340208
+        JP: 0x23419A8
     - name: Dwci_SetErrorCode
       address:
         EU: 0x2340AE8
+        NA: 0x23402BC
+        JP: 0x2341A5C
     - name: Dwci_SceneSetList
       address:
         EU: 0x2340AF8
+        NA: 0x23402CC
+        JP: 0x2341A6C
     - name: SceneSetList_InitGraphics
       address:
         EU: 0x2340CF4
+        NA: 0x23404C8
+        JP: 0x2341C68
     - name: CalcParam
       address:
         EU: 0x2340F08
+        NA: 0x23406DC
+        JP: 0x2341E7C
     - name: SceneSetList_ProcInit
       address:
         EU: 0x2340F44
+        NA: 0x2340718
+        JP: 0x2341EB8
     - name: SceneSetList_ProcInit1
       address:
         EU: 0x2340F98
+        NA: 0x234076C
+        JP: 0x2341F0C
     - name: SceneSetList_ProcScene
       address:
         EU: 0x2340FCC
+        NA: 0x23407A0
+        JP: 0x2341F40
     - name: SceneSetList_Input
       address:
         EU: 0x2340FDC
+        NA: 0x23407B0
+        JP: 0x2341F50
     - name: InputWinButton
       address:
         EU: 0x234125C
+        NA: 0x2340A30
+        JP: 0x23421D0
     - name: PushWinButton
       address:
         EU: 0x23412E0
+        NA: 0x2340AB4
+        JP: 0x2342254
     - name: SceneSetList_PushIpAuto
       address:
         EU: 0x2341460
+        NA: 0x2340C34
+        JP: 0x23423D4
     - name: SceneSetList_PushDnsAuto
       address:
         EU: 0x23414CC
+        NA: 0x2340CA0
+        JP: 0x2342440
     - name: SceneSetList_Draw
       address:
         EU: 0x2341504
+        NA: 0x2340CD8
+        JP: 0x2342478
     - name: SceneSetList_EndScene
       address:
         EU: 0x2341760
+        NA: 0x2340F34
+        JP: 0x23426D4
     - name: SceneSetList_EndScene1
       address:
         EU: 0x2341780
+        NA: 0x2340F54
+        JP: 0x23426F4
     - name: SceneSetList_EndScene2
       address:
         EU: 0x23417CC
+        NA: 0x2340FA0
+        JP: 0x2342740
     - name: SceneSetList_DrawWindow
       address:
         EU: 0x2341AC0
+        NA: 0x2341294
+        JP: 0x2342A34
     - name: SceneSetList_DrawColumnChar
       address:
         EU: 0x2341B80
+        NA: 0x2341354
+        JP: 0x2342AF4
     - name: SceneSetList_DrawColumnObj
       address:
         EU: 0x2341D1C
+        NA: 0x23414F0
+        JP: 0x2342C90
     - name: SceneSetList_IsEnablePush
       address:
         EU: 0x2341E70
+        NA: 0x2341644
+        JP: 0x2342DE4
     - name: SceneSetList_DispObj
       address:
         EU: 0x2341F04
+        NA: 0x23416D8
+        JP: 0x2342E78
     - name: SceneSetList_DrawString
       address:
         EU: 0x2342008
+        NA: 0x23417DC
+        JP: 0x2342F7C
     - name: SceneSetList_DrawAddress
       address:
         EU: 0x234215C
+        NA: 0x2341930
+        JP: 0x23430D0
     - name: SceneSetList_SetOffset
       address:
         EU: 0x23421F4
+        NA: 0x23419C8
+        JP: 0x2343168
     - name: SceneSetList_IsPush
       address:
         EU: 0x2342404
+        NA: 0x2341BD8
+        JP: 0x2343378
     - name: SceneSetList_CalcColumnIdx
       address:
         EU: 0x2342678
+        NA: 0x2341E4C
+        JP: 0x23435EC
     - name: SceneSetList_CalcIdxColumn
       address:
         EU: 0x23426BC
+        NA: 0x2341E90
+        JP: 0x2343630
     - name: SceneSetList_TaskUp
       address:
         EU: 0x23426E0
+        NA: 0x2341EB4
+        JP: 0x2343654
     - name: SceneSetList_TaskDown
       address:
         EU: 0x23427A8
+        NA: 0x2341F7C
+        JP: 0x234371C
     - name: SceneSetList_TaskVBlank
       address:
         EU: 0x234284C
+        NA: 0x2342020
+        JP: 0x23437C0
     - name: SceneSetList_DispFocus
       address:
         EU: 0x23428D0
+        NA: 0x23420A4
+        JP: 0x2343844
     - name: SceneSetList_ApplyForcus
       address:
         EU: 0x23429A8
+        NA: 0x234217C
+        JP: 0x234391C
     - name: SceneSetList_ApplyForcus1
       address:
         EU: 0x2342A58
+        NA: 0x234222C
+        JP: 0x23439CC
     - name: SceneSetList_MoveFocus
       address:
         EU: 0x2342A88
+        NA: 0x234225C
+        JP: 0x23439FC
     - name: SceneSetList_DispPushButton
       address:
         EU: 0x2342D78
+        NA: 0x234254C
+        JP: 0x2343CEC
     - name: SceneSetList_TaskPushCount
       address:
         EU: 0x2342DAC
+        NA: 0x2342580
+        JP: 0x2343D20
     - name: SceneSetList_PushButtonYesNo
       address:
         EU: 0x2342E00
+        NA: 0x23425D4
+        JP: 0x2343D74
     - name: SceneSetList_IsCorrect
       address:
         EU: 0x2342EC4
+        NA: 0x2342698
+        JP: 0x2343E38
     - name: SceneSetList_ProcError
       address:
         EU: 0x2342F64
+        NA: 0x2342738
+        JP: 0x2343ED8
     - name: SceneSetList_ProcError1
       address:
         EU: 0x2342FA4
+        NA: 0x2342778
+        JP: 0x2343F18
     - name: Dwci_SetListReturn
       address:
         EU: 0x2342FC4
+        NA: 0x2342798
+        JP: 0x2343F38
     - name: Dwci_SceneSetListSave
       address:
         EU: 0x2342FD4
+        NA: 0x23427A8
+        JP: 0x2343F48
     - name: SceneSetListSave_InitGraphics
       address:
         EU: 0x2342FF4
+        NA: 0x23427C8
+        JP: 0x2343F68
     - name: SceneSetListSave_ProcInit
       address:
         EU: 0x2343088
+        NA: 0x234285C
+        JP: 0x2343FFC
     - name: SceneSetListSave_ProcInit1
       address:
         EU: 0x23430DC
+        NA: 0x23428B0
+        JP: 0x2344050
     - name: SceneSetListSave_ProcScene
       address:
         EU: 0x234312C
+        NA: 0x2342900
+        JP: 0x23440A0
     - name: SceneSetListSave_Input
       address:
         EU: 0x2343154
+        NA: 0x2342928
+        JP: 0x23440C8
     - name: SceneSetListSave_Draw
       address:
         EU: 0x2343158
+        NA: 0x234292C
+        JP: 0x23440CC
     - name: SceneSetListSave_EndScene
       address:
         EU: 0x234315C
+        NA: 0x2342930
+        JP: 0x23440D0
     - name: SceneSetListSave_EndScene1
       address:
         EU: 0x2343198
+        NA: 0x234296C
+        JP: 0x234410C
     - name: Dwci_SceneSetRakuButton
       address:
         EU: 0x2343214
+        NA: 0x23429E8
+        JP: 0x2344188
     - name: SceneSetRakuButton_InitGraphics
       address:
         EU: 0x2343250
+        NA: 0x2342A24
+        JP: 0x23441C4
     - name: SceneSetRakuButton_ProcInit
       address:
         EU: 0x23432D0
+        NA: 0x2342AA4
+        JP: 0x2344244
     - name: SceneSetRakuButton_ProcInit1
       address:
         EU: 0x2343304
+        NA: 0x2342AD8
+        JP: 0x2344278
     - name: SceneSetRakuButton_ProcInit2
       address:
         EU: 0x2343330
+        NA: 0x2342B04
+        JP: 0x23442A4
     - name: SceneSetRakuButton_ProcScene
       address:
         EU: 0x2343358
+        NA: 0x2342B2C
+        JP: 0x23442CC
     - name: SceneSetRakuButton_Input
       address:
         EU: 0x2343378
+        NA: 0x2342B4C
+        JP: 0x23442EC
     - name: SceneSetRakuButton_Draw
       address:
         EU: 0x23433B0
+        NA: 0x2342B84
+        JP: 0x2344324
     - name: SceneSetRakuButton_Button
       address:
         EU: 0x23433B4
+        NA: 0x2342B88
+        JP: 0x2344328
     - name: SceneSetRakuButton_EndScene
       address:
         EU: 0x23433E0
+        NA: 0x2342BB4
+        JP: 0x2344354
     - name: SceneSetRakuButton_EndScene1
       address:
         EU: 0x2343400
+        NA: 0x2342BD4
+        JP: 0x2344374
     - name: SceneSetRakuButton_EndScene2
       address:
         EU: 0x2343474
+        NA: 0x2342C48
+        JP: 0x23443E8
     - name: SceneSetRakuButton_CheckRaku
       address:
         EU: 0x234353C
+        NA: 0x2342D10
+        JP: 0x23444B0
     - name: SceneSetRakuButton_ProcError
       address:
         EU: 0x23435C0
+        NA: 0x2342D94
+        JP: 0x2344534
     - name: SceneSetRakuButton_ProcError1
       address:
         EU: 0x23435EC
+        NA: 0x2342DC0
+        JP: 0x2344560
     - name: Dwci_SceneSetRakuButton1
       address:
         EU: 0x234362C
+        NA: 0x2342E00
+        JP: 0x23445A0
     - name: SceneSetRakuButton1_InitGraphics
       address:
         EU: 0x2343668
+        NA: 0x2342E3C
+        JP: 0x23445DC
     - name: SceneSetRakuButton1_ProcInit
       address:
         EU: 0x23436E8
+        NA: 0x2342EBC
+        JP: 0x234465C
     - name: SceneSetRakuButton1_ProcInit1
       address:
         EU: 0x234371C
+        NA: 0x2342EF0
+        JP: 0x2344690
     - name: SceneSetRakuButton1_ProcInit2
       address:
         EU: 0x2343748
+        NA: 0x2342F1C
+        JP: 0x23446BC
     - name: SceneSetRakuButton1_ProcScene
       address:
         EU: 0x2343770
+        NA: 0x2342F44
+        JP: 0x23446E4
     - name: SceneSetRakuButton1_Input
       address:
         EU: 0x2343790
+        NA: 0x2342F64
+        JP: 0x2344704
     - name: SceneSetRakuButton1_Draw
       address:
         EU: 0x23437C8
+        NA: 0x2342F9C
+        JP: 0x234473C
     - name: SceneSetRakuButton1_Button
       address:
         EU: 0x23437CC
+        NA: 0x2342FA0
+        JP: 0x2344740
     - name: SceneSetRakuButton1_EndScene
       address:
         EU: 0x23437F8
+        NA: 0x2342FCC
+        JP: 0x234476C
     - name: SceneSetRakuButton1_EndScene1
       address:
         EU: 0x2343818
+        NA: 0x2342FEC
+        JP: 0x234478C
     - name: SceneSetRakuButton1_EndScene2
       address:
         EU: 0x234387C
+        NA: 0x2343050
+        JP: 0x23447F0
     - name: SceneSetRakuButton1_CheckRaku
       address:
         EU: 0x2343938
+        NA: 0x234310C
+        JP: 0x23448AC
     - name: SceneSetRakuButton1_ProcError
       address:
         EU: 0x2343A10
+        NA: 0x23431E4
+        JP: 0x2344984
     - name: SceneSetRakuButton1_ProcError1
       address:
         EU: 0x2343A3C
+        NA: 0x2343210
+        JP: 0x23449B0
     - name: Dwci_SceneSetRakuComplete
       address:
         EU: 0x2343A5C
+        NA: 0x2343230
+        JP: 0x23449D0
     - name: SceneSetRakuComplete_InitGraphics
       address:
         EU: 0x2343A98
+        NA: 0x234326C
+        JP: 0x2344A0C
     - name: SceneSetRakuComplete_ProcInit
       address:
         EU: 0x2343B18
+        NA: 0x23432EC
+        JP: 0x2344A8C
     - name: SceneSetRakuComplete_ProcInit1
       address:
         EU: 0x2343B4C
+        NA: 0x2343320
+        JP: 0x2344AC0
     - name: SceneSetRakuComplete_ProcScene
       address:
         EU: 0x2343B70
+        NA: 0x2343344
+        JP: 0x2344AE4
     - name: SceneSetRakuComplete_Draw
       address:
         EU: 0x2343B80
+        NA: 0x2343354
+        JP: 0x2344AF4
     - name: SceneSetRakuComplete_EndScene
       address:
         EU: 0x2343B84
+        NA: 0x2343358
+        JP: 0x2344AF8
     - name: SceneSetRakuComplete_EndScene1
       address:
         EU: 0x2343BC0
+        NA: 0x2343394
+        JP: 0x2344B34
     - name: SceneSetRakuComplete_Wait
       address:
         EU: 0x2343C30
+        NA: 0x2343404
+        JP: 0x2344BA4
     - name: Dwci_SceneSetRakuReady
       address:
         EU: 0x2343C84
+        NA: 0x2343458
+        JP: 0x2344BF8
     - name: SceneSetRakuReady_InitGraphics
       address:
         EU: 0x2343CE0
+        NA: 0x23434B4
+        JP: 0x2344C54
     - name: SceneSetRakuReady_ProcInit
       address:
         EU: 0x2343D88
+        NA: 0x234355C
+        JP: 0x2344CFC
     - name: SceneSetRakuReady_ProcInit1
       address:
         EU: 0x2343DDC
+        NA: 0x23435B0
+        JP: 0x2344D50
     - name: SceneSetRakuReady_ProcInit2
       address:
         EU: 0x2343E1C
+        NA: 0x23435F0
+        JP: 0x2344D90
     - name: SceneSetRakuReady_ProcScene
       address:
         EU: 0x2343E44
+        NA: 0x2343618
+        JP: 0x2344DB8
     - name: SceneSetRakuReady_Input
       address:
         EU: 0x2343E64
+        NA: 0x2343638
+        JP: 0x2344DD8
     - name: SceneSetRakuReady_Draw
       address:
         EU: 0x2343E9C
+        NA: 0x2343670
+        JP: 0x2344E10
     - name: SceneSetRakuReady_Button
       address:
         EU: 0x2343EA0
+        NA: 0x2343674
+        JP: 0x2344E14
     - name: SceneSetRakuReady_EndScene
       address:
         EU: 0x2343ECC
+        NA: 0x23436A0
+        JP: 0x2344E40
     - name: SceneSetRakuReady_EndScene1
       address:
         EU: 0x2343EEC
+        NA: 0x23436C0
+        JP: 0x2344E60
     - name: SceneSetRakuReady_EndScene2
       address:
         EU: 0x2343F60
+        NA: 0x2343734
+        JP: 0x2344ED4
     - name: SceneSetRakuReady_CheckRaku
       address:
         EU: 0x2344028
+        NA: 0x23437FC
+        JP: 0x2344F9C
     - name: SceneSetRakuReady_ProcError
       address:
         EU: 0x23440AC
+        NA: 0x2343880
+        JP: 0x2345020
     - name: SceneSetRakuReady_ProcError1
       address:
         EU: 0x23440D8
+        NA: 0x23438AC
+        JP: 0x234504C
     - name: Dwci_SceneSetSearch
       address:
         EU: 0x23440F8
+        NA: 0x23438CC
+        JP: 0x234506C
     - name: SceneSetSearch_InitGraphics
       address:
         EU: 0x2344160
+        NA: 0x2343934
+        JP: 0x23450D4
     - name: SceneSetSearch_ProcInit
       address:
         EU: 0x2344208
+        NA: 0x23439DC
+        JP: 0x234517C
     - name: SceneSetSearch_ProcInit1
       address:
         EU: 0x234425C
+        NA: 0x2343A30
+        JP: 0x23451D0
     - name: SceneSetSearch_ProcInit2
       address:
         EU: 0x2344298
+        NA: 0x2343A6C
+        JP: 0x234520C
     - name: SceneSetSearch_ProcScene
       address:
         EU: 0x23442C0
+        NA: 0x2343A94
+        JP: 0x2345234
     - name: SceneSetSearch_IsEnd
       address:
         EU: 0x23442D8
+        NA: 0x2343AAC
+        JP: 0x234524C
     - name: SceneSetSearch_Input
       address:
         EU: 0x2344400
+        NA: 0x2343BD4
+        JP: 0x2345374
     - name: SceneSetSearch_Draw
       address:
         EU: 0x2344424
+        NA: 0x2343BF8
+        JP: 0x2345398
     - name: SceneSetSearch_Button
       address:
         EU: 0x2344428
+        NA: 0x2343BFC
+        JP: 0x234539C
     - name: SceneSetSearch_EndScene
       address:
         EU: 0x2344454
+        NA: 0x2343C28
+        JP: 0x23453C8
     - name: SceneSetSearch_EndScene1
       address:
         EU: 0x2344474
+        NA: 0x2343C48
+        JP: 0x23453E8
     - name: SceneSetSearch_EndScene2
       address:
         EU: 0x23444C4
+        NA: 0x2343C98
+        JP: 0x2345438
     - name: SceneSetSearch_ProcError
       address:
         EU: 0x2344590
+        NA: 0x2343D64
+        JP: 0x2345504
     - name: SceneSetSearch_ProcError1
       address:
         EU: 0x23445BC
+        NA: 0x2343D90
+        JP: 0x2345530
     - name: Dwci_SceneSetSelectAp
       address:
         EU: 0x23445DC
+        NA: 0x2343DB0
+        JP: 0x2345550
     - name: SceneSetSelectAp_InitGraphics
       address:
         EU: 0x234463C
+        NA: 0x2343E10
+        JP: 0x23455B0
     - name: SceneSetSelectAp_InitObj
       address:
         EU: 0x234474C
+        NA: 0x2343F20
+        JP: 0x23456C0
     - name: SceneSetSelectAp_ProcInit
       address:
         EU: 0x2344854
+        NA: 0x2344028
+        JP: 0x23457C8
     - name: SceneSetSelectAp_ProcInit1
       address:
         EU: 0x23448A8
+        NA: 0x234407C
+        JP: 0x234581C
     - name: SceneSetSelectAp_ProcInit2
       address:
         EU: 0x23448E4
+        NA: 0x23440B8
+        JP: 0x2345858
     - name: SceneSetSelectAp_ProcScene
       address:
         EU: 0x2344918
+        NA: 0x23440EC
+        JP: 0x234588C
     - name: SceneSetSelectAp_Input
       address:
         EU: 0x234492C
+        NA: 0x2344100
+        JP: 0x23458A0
     - name: SceneSetSelectAp_Draw
       address:
         EU: 0x2344A20
+        NA: 0x23441F4
+        JP: 0x2345994
     - name: SceneSetSelectAp_Button
       address:
         EU: 0x2344A24
+        NA: 0x23441F8
+        JP: 0x2345998
     - name: SceneSetSelectAp_EndScene
       address:
         EU: 0x2344B58
+        NA: 0x234432C
+        JP: 0x2345ACC
     - name: SceneSetSelectAp_EndScene1
       address:
         EU: 0x2344B94
+        NA: 0x2344368
+        JP: 0x2345B08
     - name: SceneSetSelectAp_EndScene2
       address:
         EU: 0x2344C18
+        NA: 0x23443EC
+        JP: 0x2345B8C
     - name: SceneSetSelectAp_DispFocus
       address:
         EU: 0x2344DBC
+        NA: 0x2344590
+        JP: 0x2345D30
     - name: SceneSetSelectAp_MoveFocus
       address:
         EU: 0x2344E38
+        NA: 0x234460C
+        JP: 0x2345DAC
     - name: SceneSetSelectAp_DispPushClear
       address:
         EU: 0x234502C
+        NA: 0x2344800
+        JP: 0x2345FA0
     - name: SceneSetSelectAp_ProcErase
       address:
         EU: 0x23450BC
+        NA: 0x2344890
+        JP: 0x2346030
     - name: SceneSetSelectAp_ProcErase1
       address:
         EU: 0x2345228
+        NA: 0x23449FC
+        JP: 0x234619C
     - name: SceneSetSelectAp_DispPush
       address:
         EU: 0x234524C
+        NA: 0x2344A20
+        JP: 0x23461C0
     - name: Dwci_SceneSetSelectWay
       address:
         EU: 0x234531C
+        NA: 0x2344AF0
+        JP: 0x2346290
     - name: SceneSetSelectWay_InitGraphics
       address:
         EU: 0x2345440
+        NA: 0x2344C14
+        JP: 0x23463B4
     - name: SceneSetSelectWay_ProcInit
       address:
         EU: 0x234552C
+        NA: 0x2344D00
+        JP: 0x23464A0
     - name: SceneSetSelectWay_ProcInit1
       address:
         EU: 0x2345580
+        NA: 0x2344D54
+        JP: 0x23464F4
     - name: SceneSetSelectWay_ProcInit2
       address:
         EU: 0x23455BC
+        NA: 0x2344D90
+        JP: 0x2346530
     - name: SceneSetSelectWay_ProcScene
       address:
         EU: 0x23455E4
+        NA: 0x2344DB8
+        JP: 0x2346558
     - name: SceneSetSelectWay_Input
       address:
         EU: 0x23455F8
+        NA: 0x2344DCC
+        JP: 0x234656C
     - name: SceneSetSelectWay_Draw
       address:
         EU: 0x234577C
+        NA: 0x2344F50
+        JP: 0x23466F0
     - name: SceneSetSelectWay_Button
       address:
         EU: 0x2345780
+        NA: 0x2344F54
+        JP: 0x23466F4
     - name: SceneSetSelectWay_EndScene
       address:
         EU: 0x23457D4
+        NA: 0x2344FA8
+        JP: 0x2346748
     - name: SceneSetSelectWay_EndScene1
       address:
         EU: 0x23457F4
+        NA: 0x2344FC8
+        JP: 0x2346768
     - name: SceneSetSelectWay_EndScene2
       address:
         EU: 0x2345858
+        NA: 0x234502C
+        JP: 0x23467CC
     - name: SceneSetSelectWay_MoveFocus
       address:
         EU: 0x2345988
+        NA: 0x234515C
+        JP: 0x23468FC
     - name: SceneSetSelectWay_DispPush
       address:
         EU: 0x2345A7C
+        NA: 0x2345250
+        JP: 0x23469F0
     - name: Dwci_SceneSetTest
       address:
         EU: 0x2345AD4
+        NA: 0x23452A8
+        JP: 0x2346A48
     - name: SceneSetTest_InitGraphics
       address:
         EU: 0x2345B60
+        NA: 0x2345334
+        JP: 0x2346AD4
     - name: SceneSetTest_InitAc
       address:
         EU: 0x2345C08
+        NA: 0x23453DC
+        JP: 0x2346B7C
     - name: SceneSetTest_ProcInit
       address:
         EU: 0x2345CA8
+        NA: 0x234547C
+        JP: 0x2346C1C
     - name: SceneSetTest_ProcInit1
       address:
         EU: 0x2345D14
+        NA: 0x23454E8
+        JP: 0x2346C88
     - name: SceneSetTest_ProcScene
       address:
         EU: 0x2345D48
+        NA: 0x234551C
+        JP: 0x2346CBC
     - name: SceneSetTest_Input
       address:
         EU: 0x2345D5C
+        NA: 0x2345530
+        JP: 0x2346CD0
     - name: SceneSetTest_Draw
       address:
         EU: 0x2345D60
+        NA: 0x2345534
+        JP: 0x2346CD4
     - name: SceneSetTest_Button
       address:
         EU: 0x2345D64
+        NA: 0x2345538
+        JP: 0x2346CD8
     - name: SceneSetTest_EndScene
       address:
         EU: 0x2345D68
+        NA: 0x234553C
+        JP: 0x2346CDC
     - name: SceneSetTest_EndScene1
       address:
         EU: 0x2345D90
+        NA: 0x2345564
+        JP: 0x2346D04
     - name: SceneSetTest_EndScene2
       address:
         EU: 0x2345DB4
+        NA: 0x2345588
+        JP: 0x2346D28
     - name: SceneSetTest_TaskAc
       address:
         EU: 0x2345E58
+        NA: 0x234562C
+        JP: 0x2346DCC
     - name: AcAlloc
       address:
         EU: 0x2345EFC
+        NA: 0x23456D0
+        JP: 0x2346E70
     - name: AcFree
       address:
         EU: 0x2345F10
+        NA: 0x23456E4
+        JP: 0x2346E84
     - name: Dwci_SceneSetTestCompletet
       address:
         EU: 0x2345F20
+        NA: 0x23456F4
+        JP: 0x2346E94
     - name: SceneSetTestCompletet_InitGraphics
       address:
         EU: 0x2345F50
+        NA: 0x2345724
+        JP: 0x2346EC4
     - name: SceneSetTestCompletet_ProcInit
       address:
         EU: 0x2345FBC
+        NA: 0x2345790
+        JP: 0x2346F30
     - name: SceneSetTestCompletet_ProcInit1
       address:
         EU: 0x2345FF0
+        NA: 0x23457C4
+        JP: 0x2346F64
     - name: SceneSetTestCompletet_ProcScene
       address:
         EU: 0x2346014
+        NA: 0x23457E8
+        JP: 0x2346F88
     - name: SceneSetTestCompletet_Draw
       address:
         EU: 0x2346024
+        NA: 0x23457F8
+        JP: 0x2346F98
     - name: SceneSetTestCompletet_EndScene
       address:
         EU: 0x2346028
+        NA: 0x23457FC
+        JP: 0x2346F9C
     - name: SceneSetTestCompletet_EndScene1
       address:
         EU: 0x2346080
+        NA: 0x2345854
+        JP: 0x2346FF4
     - name: SceneSetTestCompletet_Wait
       address:
         EU: 0x2346124
+        NA: 0x23458F8
+        JP: 0x2347098
     - name: Dwci_SceneSetTestConfirm
       address:
         EU: 0x2346194
+        NA: 0x2345968
+        JP: 0x2347108
     - name: SceneSetTestConfirm_InitGraphics
       address:
         EU: 0x23461EC
+        NA: 0x23459C0
+        JP: 0x2347160
     - name: SceneSetTestConfirm_ProcInit
       address:
         EU: 0x2346258
+        NA: 0x2345A2C
+        JP: 0x23471CC
     - name: SceneSetTestConfirm_ProcInit1
       address:
         EU: 0x23462AC
+        NA: 0x2345A80
+        JP: 0x2347220
     - name: SceneSetTestConfirm_ProcScene
       address:
         EU: 0x2346334
+        NA: 0x2345B08
+        JP: 0x23472A8
     - name: SceneSetTestConfirm_Input
       address:
         EU: 0x2346370
+        NA: 0x2345B44
+        JP: 0x23472E4
     - name: SceneSetTestConfirm_Draw
       address:
         EU: 0x2346374
+        NA: 0x2345B48
+        JP: 0x23472E8
     - name: SceneSetTestConfirm_EndScene
       address:
         EU: 0x2346378
+        NA: 0x2345B4C
+        JP: 0x23472EC
     - name: SceneSetTestConfirm_EndScene1
       address:
         EU: 0x23463AC
+        NA: 0x2345B80
+        JP: 0x2347320
     - name: Dwci_SceneSetUsbComplete
       address:
         EU: 0x23463E8
+        NA: 0x2345BBC
+        JP: 0x234735C
     - name: SceneSetUsbComplete_InitGraphics
       address:
         EU: 0x2346428
+        NA: 0x2345BFC
+        JP: 0x234739C
     - name: SceneSetUsbComplete_ProcInit
       address:
         EU: 0x23464A8
+        NA: 0x2345C7C
+        JP: 0x234741C
     - name: SceneSetUsbComplete_ProcInit1
       address:
         EU: 0x23464DC
+        NA: 0x2345CB0
+        JP: 0x2347450
     - name: SceneSetUsbComplete_ProcScene
       address:
         EU: 0x2346500
+        NA: 0x2345CD4
+        JP: 0x2347474
     - name: SceneSetUsbComplete_Draw
       address:
         EU: 0x2346510
+        NA: 0x2345CE4
+        JP: 0x2347484
     - name: SceneSetUsbComplete_EndScene
       address:
         EU: 0x2346514
+        NA: 0x2345CE8
+        JP: 0x2347488
     - name: SceneSetUsbComplete_EndScene1
       address:
         EU: 0x2346550
+        NA: 0x2345D24
+        JP: 0x23474C4
     - name: SceneSetUsbComplete_Wait
       address:
         EU: 0x23465C0
+        NA: 0x2345D94
+        JP: 0x2347534
     - name: Dwci_SceneSetUsbReady
       address:
         EU: 0x23465F4
+        NA: 0x2345DC8
+        JP: 0x2347568
     - name: SceneSetUsbReady_InitGraphics
       address:
         EU: 0x2346644
+        NA: 0x2345E18
+        JP: 0x23475B8
     - name: SceneSetUsbReady_ProcInit
       address:
         EU: 0x23466EC
+        NA: 0x2345EC0
+        JP: 0x2347660
     - name: SceneSetUsbReady_ProcInit1
       address:
         EU: 0x2346740
+        NA: 0x2345F14
+        JP: 0x23476B4
     - name: SceneSetUsbReady_ProcInit2
       address:
         EU: 0x234677C
+        NA: 0x2345F50
+        JP: 0x23476F0
     - name: SceneSetUsbReady_ProcScene
       address:
         EU: 0x23467A4
+        NA: 0x2345F78
+        JP: 0x2347718
     - name: SceneSetUsbReady_Input
       address:
         EU: 0x23467B8
+        NA: 0x2345F8C
+        JP: 0x234772C
     - name: SceneSetUsbReady_Draw
       address:
         EU: 0x23467F0
+        NA: 0x2345FC4
+        JP: 0x2347764
     - name: SceneSetUsbReady_Button
       address:
         EU: 0x23467F4
+        NA: 0x2345FC8
+        JP: 0x2347768
     - name: SceneSetUsbReady_EndScene
       address:
         EU: 0x2346844
+        NA: 0x2346018
+        JP: 0x23477B8
     - name: SceneSetUsbReady_EndScene1
       address:
         EU: 0x2346864
+        NA: 0x2346038
+        JP: 0x23477D8
     - name: SceneSetUsbReady_EndScene2
       address:
         EU: 0x23468C8
+        NA: 0x234609C
+        JP: 0x234783C
     - name: Dwci_SceneSetUsbReady1
       address:
         EU: 0x23469A0
+        NA: 0x2346174
+        JP: 0x2347914
     - name: SceneSetUsbReady1_InitGraphics
       address:
         EU: 0x2346A34
+        NA: 0x2346208
+        JP: 0x23479A8
     - name: SceneSetUsbReady1_ProcInit
       address:
         EU: 0x2346ADC
+        NA: 0x23462B0
+        JP: 0x2347A50
     - name: SceneSetUsbReady1_ProcInit1
       address:
         EU: 0x2346B10
+        NA: 0x23462E4
+        JP: 0x2347A84
     - name: SceneSetUsbReady1_ProcInit2
       address:
         EU: 0x2346B3C
+        NA: 0x2346310
+        JP: 0x2347AB0
     - name: SceneSetUsbReady1_ProcScene
       address:
         EU: 0x2346B64
+        NA: 0x2346338
+        JP: 0x2347AD8
     - name: SceneSetUsbReady1_Input
       address:
         EU: 0x2346B78
+        NA: 0x234634C
+        JP: 0x2347AEC
     - name: SceneSetUsbReady1_Draw
       address:
         EU: 0x2346BB0
+        NA: 0x2346384
+        JP: 0x2347B24
     - name: SceneSetUsbReady1_Button
       address:
         EU: 0x2346BB4
+        NA: 0x2346388
+        JP: 0x2347B28
     - name: SceneSetUsbReady1_EndScene
       address:
         EU: 0x2346C00
+        NA: 0x23463D4
+        JP: 0x2347B74
     - name: SceneSetUsbReady1_EndScene1
       address:
         EU: 0x2346C20
+        NA: 0x23463F4
+        JP: 0x2347B94
     - name: SceneSetUsbReady1_EndScene2
       address:
         EU: 0x2346C8C
+        NA: 0x2346460
+        JP: 0x2347C00
     - name: SceneSetUsbReady1_CbUsb
       address:
         EU: 0x2346D80
+        NA: 0x2346554
+        JP: 0x2347CF4
     - name: SceneSetUsbReady1_ProcNotFound
       address:
         EU: 0x2346E6C
+        NA: 0x2346640
+        JP: 0x2347DE0
     - name: SceneSetUsbReady1_ProcNotFound1
       address:
         EU: 0x2346E98
+        NA: 0x234666C
+        JP: 0x2347E0C
     - name: SceneSetUsbReady1_ProcBoth
       address:
         EU:
           - 0x2346EB8
           - 0x2346F14
+        NA:
+          - 0x234668C
+          - 0x23466E8
+        JP:
+          - 0x2347E2C
+          - 0x2347E88
     - name: Dwci_ScreenlInit
       address:
         EU: 0x2346F7C
+        NA: 0x2346750
+        JP: 0x2347EF0
     - name: Dwci_ScreenlEnd
       address:
         EU: 0x2346FDC
+        NA: 0x23467B0
+        JP: 0x2347F50
     - name: Dwci_ScreenlRenew
       address:
         EU: 0x2347008
+        NA: 0x23467DC
+        JP: 0x2347F7C
     - name: Dwci_ScreenlCopy
       address:
         EU: 0x2347020
+        NA: 0x23467F4
+        JP: 0x2347F94
     - name: Screen_TaskLoad
       address:
         EU: 0x2347078
+        NA: 0x234684C
+        JP: 0x2347FEC
     - name: Dwci_ScreenlCopyPalette
       address:
         EU: 0x23470CC
+        NA: 0x23468A0
+        JP: 0x2348040
     - name: Screen_TaskCopyPltt
       address:
         EU: 0x2347108
+        NA: 0x23468DC
+        JP: 0x234807C
     - name: Dwci_ScreenlSetPalette
       address:
         EU: 0x2347134
+        NA: 0x2346908
+        JP: 0x23480A8
     - name: Screen_TaskSetPltt
       address:
         EU: 0x2347160
+        NA: 0x2346934
+        JP: 0x23480D4
     - name: Dwci_SBlInit
       address:
         EU: 0x2347190
+        NA: 0x2346964
+        JP: 0x2348104
     - name: Dwci_SBlEnd
       address:
         EU: 0x2347268
+        NA: 0x2346A3C
+        JP: 0x23481DC
     - name: Dwci_SBlGet
       address:
         EU: 0x23472A4
+        NA: 0x2346A78
+        JP: 0x2348218
     - name: Dwci_SBlGetState
       address:
         EU: 0x23472B8
+        NA: 0x2346A8C
+        JP: 0x234822C
     - name: Scrollbar_Disp
       address:
         EU:
           - 0x23472CC
           - 0x2347818
+        NA:
+          - 0x2346AA0
+          - 0x2346FEC
+        JP:
+          - 0x2348240
+          - 0x234878C
     - name: Dwci_SBlEnable
       address:
         EU: 0x23472D8
+        NA: 0x2346AAC
+        JP: 0x234824C
     - name: Dwci_SBlDisable
       address:
         EU: 0x23472F0
+        NA: 0x2346AC4
+        JP: 0x2348264
     - name: Scrollbar_TaskMain
       address:
         EU: 0x2347308
+        NA: 0x2346ADC
+        JP: 0x234827C
     - name: Scrollbar_MoveBar
       address:
         EU: 0x234748C
+        NA: 0x2346C60
+        JP: 0x2348400
     - name: Scrollbar_PlaySound
       address:
         EU: 0x234755C
+        NA: 0x2346D30
+        JP: 0x23484D0
     - name: Scrollbar_StepBar
       address:
         EU: 0x23475D4
+        NA: 0x2346DA8
+        JP: 0x2348548
     - name: Scrollbar_SetBar
       address:
         EU: 0x2347600
+        NA: 0x2346DD4
+        JP: 0x2348574
     - name: Scrollbar_IsTrigger
       address:
         EU: 0x2347668
+        NA: 0x2346E3C
+        JP: 0x23485DC
     - name: Scrollbar_IsTouch
       address:
         EU: 0x23476F4
+        NA: 0x2346EC8
+        JP: 0x2348668
     - name: Scrollbar_CalcRect
       address:
         EU: 0x2347740
+        NA: 0x2346F14
+        JP: 0x23486B4
     - name: Dwci_SearchlInit
       address:
         EU: 0x2347854
+        NA: 0x2347028
+        JP: 0x23487C8
     - name: Dwci_SearchlEnd
       address:
         EU: 0x2347888
+        NA: 0x234705C
+        JP: 0x23487FC
     - name: Dwci_SearchlBegin
       address:
         EU: 0x23478BC
+        NA: 0x2347090
+        JP: 0x2348830
     - name: Search_StartScan
       address:
         EU: 0x2347988
+        NA: 0x234715C
+        JP: 0x23488FC
     - name: Dwci_SearchlStop
       address:
         EU: 0x23479BC
+        NA: 0x2347190
+        JP: 0x2348930
     - name: Dwci_SearchlGetApInfo
       address:
         EU: 0x2347A58
+        NA: 0x234722C
+        JP: 0x23489CC
     - name: Search_Callback
       address:
         EU: 0x2347AB4
+        NA: 0x2347288
+        JP: 0x2348A28
     - name: Search_RenewInfo
       address:
         EU: 0x2347B18
+        NA: 0x23472EC
+        JP: 0x2348A8C
     - name: Dwci_SettignlInit
       address:
         EU: 0x2347CEC
+        NA: 0x23474C0
+        JP: 0x2348C60
     - name: Dwci_SettignlEnd
       address:
         EU: 0x2347D30
+        NA: 0x2347504
+        JP: 0x2348CA4
     - name: Dwci_SettignlGet
       address:
         EU: 0x2347D44
+        NA: 0x2347518
+        JP: 0x2348CB8
     - name: Dwci_SettinglSetIpAuto
       address:
         EU: 0x2347D58
+        NA: 0x234752C
+        JP: 0x2348CCC
     - name: Dwci_SettinglSetDnsAuto
       address:
         EU: 0x2347D6C
+        NA: 0x2347540
+        JP: 0x2348CE0
     - name: Dwci_SettinglSetSsid
       address:
         EU: 0x2347D80
+        NA: 0x2347554
+        JP: 0x2348CF4
     - name: Dwci_SettinglSetWep
       address:
         EU: 0x2347DB0
+        NA: 0x2347584
+        JP: 0x2348D24
     - name: Dwci_SettinglSetIp
       address:
-        EU: 0x2347F64
+        EU: 0x2347F48
+        NA: 0x234771C
+        JP: 0x2348EBC
     - name: Dwci_SettinglSetNetMask
       address:
-        EU: 0x2347F80
+        EU: 0x2347F64
+        NA: 0x2347738
+        JP: 0x2348ED8
     - name: Dwci_SettinglSetGateway
       address:
-        EU: 0x2347FA0
+        EU: 0x2347F80
+        NA: 0x2347754
+        JP: 0x2348EF4
     - name: Dwci_SettinglSetDnsP
       address:
+        EU: 0x2347FA0
+        NA: 0x2347774
+        JP: 0x2348F14
+    - name: Dwci_SettinglSetDnsS
+      address:
         EU: 0x2347FC0
+        NA: 0x2347794
+        JP: 0x2348F34
     - name: Dwci_SettinglGetSsid
       address:
         EU: 0x2347FE0
+        NA: 0x23477B4
+        JP: 0x2348F54
     - name: Dwci_SettinglGetIp
       address:
         EU: 0x2348004
+        NA: 0x23477D8
+        JP: 0x2348F78
     - name: Dwci_SettinglGetNetMask
       address:
         EU: 0x2348044
+        NA: 0x2347818
+        JP: 0x2348FB8
     - name: Dwci_SettinglGetGateway
       address:
         EU: 0x2348084
+        NA: 0x2347858
+        JP: 0x2348FF8
     - name: Dwci_SettinglGetDnsP
       address:
         EU: 0x23480C8
+        NA: 0x234789C
+        JP: 0x234903C
     - name: Dwci_SettinglGetDnsS
       address:
         EU: 0x234810C
+        NA: 0x23478E0
+        JP: 0x2349080
     - name: Dwci_SettinglGetSetType
       address:
         EU: 0x2348150
+        NA: 0x2347924
+        JP: 0x23490C4
     - name: Dwci_SettinglSetSetting
       address:
         EU: 0x2348168
+        NA: 0x234793C
+        JP: 0x23490DC
     - name: Dwci_SettinglSet
       address:
         EU: 0x2348248
+        NA: 0x2347A1C
+        JP: 0x23491BC
     - name: Dwci_SettinglSetRaku
       address:
         EU: 0x2348324
+        NA: 0x2347AF8
+        JP: 0x2349298
     - name: Dwci_SettinglSetAoss
       address:
         EU: 0x2348438
+        NA: 0x2347C0C
+        JP: 0x23493AC
     - name: Dwci_SettinglGetMemMap
       address:
         EU: 0x2348548
+        NA: 0x2347D1C
+        JP: 0x23494BC
     - name: Dwci_SettinglErasePage
       address:
         EU: 0x2348558
+        NA: 0x2347D2C
+        JP: 0x23494CC
     - name: Dwci_SettinglEraseAll
       address:
         EU: 0x2348594
+        NA: 0x2347D68
+        JP: 0x2349508
     - name: Setting_Write
       address:
         EU: 0x2348644
+        NA: 0x2347E18
+        JP: 0x23495B8
     - name: Dwci_SettinglConvAddress
       address:
         EU: 0x23487AC
+        NA: 0x2347F80
+        JP: 0x2349720
     - name: Setting_Ascii2Hex
       address:
         EU: 0x2348834
+        NA: 0x2348008
+        JP: 0x23497A8
     - name: Dwci_SndlInit
       address:
         EU: 0x2348850
+        NA: 0x2348024
+        JP: 0x23497C4
     - name: Dwci_SndlEnd
       address:
         EU: 0x23488E0
+        NA: 0x23480B4
+        JP: 0x2349854
     - name: Dwci_SndlPlay
       address:
         EU: 0x234890C
+        NA: 0x23480E0
+        JP: 0x2349880
     - name: Dwci_SndlSetVolume
       address:
         EU: 0x2348930
+        NA: 0x2348104
+        JP: 0x23498A4
     - name: Dwci_SndlSetPitch
       address:
         EU: 0x2348950
+        NA: 0x2348124
+        JP: 0x23498C4
     - name: Dwci_SndlStop
       address:
         EU: 0x2348974
+        NA: 0x2348148
+        JP: 0x23498E8
     - name: Sound_TaskSound
       address:
         EU: 0x2348994
+        NA: 0x2348168
+        JP: 0x2349908
     - name: Dwci_SteplBegin
       address:
         EU: 0x23489A0
+        NA: 0x2348174
+        JP: 0x2349914
     - name: Step_TaskBegin0
       address:
         EU: 0x2348A9C
+        NA: 0x2348270
+        JP: 0x2349A10
     - name: Step_TaskBegin1
       address:
         EU: 0x2348B80
+        NA: 0x2348354
+        JP: 0x2349AF4
     - name: Step_TaskBegin2
       address:
         EU: 0x2348C64
+        NA: 0x2348438
+        JP: 0x2349BD8
     - name: Step_TaskBegin3
       address:
         EU: 0x2348D48
+        NA: 0x234851C
+        JP: 0x2349CBC
     - name: Step_TaskBegin4
       address:
         EU: 0x2348E2C
+        NA: 0x2348600
+        JP: 0x2349DA0
     - name: Step_TaskBegin5
       address:
         EU: 0x2348ECC
+        NA: 0x23486A0
+        JP: 0x2349E40
     - name: Dwci_SteplEnd
       address:
         EU: 0x2348EF4
+        NA: 0x23486C8
+        JP: 0x2349E68
     - name: Dwci_SteplChange
       address:
         EU: 0x2348F34
+        NA: 0x2348708
+        JP: 0x2349EA8
     - name: Dwci_SteplGet
       address:
         EU: 0x2348FFC
+        NA: 0x23487D0
+        JP: 0x2349F70
     - name: Step_TaskEnd0
       address:
         EU: 0x234901C
+        NA: 0x23487F0
+        JP: 0x2349F90
     - name: Step_TaskEnd1
       address:
         EU: 0x23490B0
+        NA: 0x2348884
+        JP: 0x234A024
     - name: Step_TaskEnd2
       address:
         EU: 0x234918C
+        NA: 0x2348960
+        JP: 0x234A100
     - name: Step_TaskEnd3
       address:
         EU: 0x2349268
+        NA: 0x2348A3C
+        JP: 0x234A1DC
     - name: Step_TaskEnd4
       address:
         EU: 0x2349344
+        NA: 0x2348B18
+        JP: 0x234A2B8
     - name: Dwci_SteplIsEnd
       address:
         EU: 0x234941C
+        NA: 0x2348BF0
+        JP: 0x234A390
     - name: Dwci_SteplChangeScr
       address:
         EU: 0x2349448
+        NA: 0x2348C1C
+        JP: 0x234A3BC
     - name: Step_TaskChange
       address:
         EU: 0x2349490
+        NA: 0x2348C64
+        JP: 0x234A404
     - name: Dwci_UsbaplBegin
       address:
         EU: 0x23494DC
+        NA: 0x2348CB0
+        JP: 0x234A450
     - name: UsbAc_StartScan
       address:
         EU: 0x2349660
+        NA: 0x2348E34
+        JP: 0x234A5D4
     - name: Dwci_UsbaplEnd
       address:
         EU: 0x2349694
+        NA: 0x2348E68
+        JP: 0x234A608
     - name: Dwci_UsbaplSetCallback
       address:
         EU: 0x2349778
+        NA: 0x2348F4C
+        JP: 0x234A6EC
     - name: UsbAc_CbWm
       address:
         EU: 0x2349790
+        NA: 0x2348F64
+        JP: 0x234A704
     - name: UsbAc_ScanFirst
       address:
         EU: 0x2349820
+        NA: 0x2348FF4
+        JP: 0x234A794
     - name: UsbAc_ScanWait
       address:
         EU: 0x2349978
+        NA: 0x234914C
+        JP: 0x234A8EC
     - name: UsbAc_TaskFirst
       address:
         EU: 0x2349A84
+        NA: 0x2349258
+        JP: 0x234A9F8
     - name: Dwci_WinlInitEx
       address:
         EU: 0x2349BC0
+        NA: 0x2349394
+        JP: 0x234AB34
     - name: Dwci_WinlEnd
       address:
         EU: 0x2349EEC
+        NA: 0x23496C0
+        JP: 0x234AE60
     - name: Dwci_WinlGet
       address:
         EU: 0x2349F30
+        NA: 0x2349704
+        JP: 0x234AEA4
     - name: Dwci_WinlIsInit
       address:
         EU: 0x2349F44
+        NA: 0x2349718
+        JP: 0x234AEB8
     - name: Window_TaskV
       address:
         EU: 0x2349F60
+        NA: 0x2349734
+        JP: 0x234AED4
     - name: Window_TaskMove
       address:
         EU: 0x2349FC0
+        NA: 0x2349794
+        JP: 0x234AF34
     - name: Window_TaskMain
       address:
         EU: 0x234A094
+        NA: 0x2349868
+        JP: 0x234B008
     - name: Window_TaskMain1
       address:
         EU: 0x234A1F0
+        NA: 0x23499C4
+        JP: 0x234B164
     - name: Window_Disp
       address:
         EU: 0x234A25C
+        NA: 0x2349A30
+        JP: 0x234B1D0
     - name: Window_DispCell
       address:
         EU: 0x234A404
+        NA: 0x2349BD8
+        JP: 0x234B378
     - name: Window_PushButton
       address:
         EU: 0x234A490
+        NA: 0x2349C64
+        JP: 0x234B404
     - name: Window_TaskEnd
       address:
         EU: 0x234A550
+        NA: 0x2349D24
+        JP: 0x234B4C4
     - name: Window_TaskEnd1
       address:
         EU: 0x234A58C
+        NA: 0x2349D60
+        JP: 0x234B500
     - name: WindowTaskEnd2
       address:
         EU: 0x234A61C
+        NA: 0x2349DF0
+        JP: 0x234B590
     - name: Window_TaskEnd3
       address:
         EU: 0x234A678
+        NA: 0x2349E4C
+        JP: 0x234B5EC
     - name: Dwci_Mov_Mbp_MemInit
       address:
         EU: 0x234A728
+        NA: 0x2349EFC
+        JP: 0x234B69C
     - name: Dwci_Mov_Mbp_Init
       address:
         EU: 0x234A768
+        NA: 0x2349F3C
+        JP: 0x234B6DC
     - name: Dwci_Mov_Mbp_Start
       address:
         EU: 0x234A888
+        NA: 0x234A05C
+        JP: 0x234B7FC
     - name: Dwci_Mov_Mbp_RegistFile
       address:
         EU: 0x234A8D0
+        NA: 0x234A0A4
+        JP: 0x234B844
     - name: Dwci_Mov_Mbp_AcceptChild
       address:
         EU: 0x234A9A4
+        NA: 0x234A178
+        JP: 0x234B918
     - name: Dwci_Mov_Mbp_KickChild
       address:
         EU: 0x234AA44
+        NA: 0x234A218
+        JP: 0x234B9B8
     - name: Dwci_Mov_Mbp_StartDownload
       address:
         EU: 0x234AB1C
+        NA: 0x234A2F0
+        JP: 0x234BA90
     - name: Dwci_Mov_Mbp_StartDownloadAll
       address:
         EU: 0x234ABF4
+        NA: 0x234A3C8
+        JP: 0x234BB68
     - name: Dwci_Mov_Mbp_IsBootableAll
       address:
         EU: 0x234ACD4
+        NA: 0x234A4A8
+        JP: 0x234BC48
     - name: Dwci_Mov_Mbp_StartRebootAll
       address:
         EU: 0x234AD3C
+        NA: 0x234A510
+        JP: 0x234BCB0
     - name: Dwci_Mov_Mbp_Cancel
       address:
         EU: 0x234AE34
+        NA: 0x234A608
+        JP: 0x234BDA8
     - name: ParentStateCallback_Helper
       address:
         EU: 0x234AE48
+        NA: 0x234A61C
+        JP: 0x234BDBC
     - name: ParentStateCallback
       address:
         EU: 0x234AE78
+        NA: 0x234A64C
+        JP: 0x234BDEC
     - name: Dwci_Mov_Mbp_ChangeState
       address:
         EU: 0x234B19C
+        NA: 0x234A970
+        JP: 0x234C110
     - name: Dwci_Mov_Mbp_GetState
       address:
         EU: 0x234B1B0
+        NA: 0x234A984
+        JP: 0x234C124
     - name: Dwci_Mov_Mbp_GetChildBmp
       address:
         EU: 0x234B1C4
+        NA: 0x234A998
+        JP: 0x234C138
     - name: Dwci_Mov_Mbp_GetChildState
       address:
         EU: 0x234B21C
+        NA: 0x234A9F0
+        JP: 0x234C190
     - name: Dwci_Mov_Mbp_GetChildInfo
       address:
         EU: 0x234B2E4
+        NA: 0x234AAB8
+        JP: 0x234C258
     - name: Dwci_Mov_Mbp_GetPlayerNo
       address:
         EU: 0x234B318
+        NA: 0x234AAEC
+        JP: 0x234C28C
     - name: Dwci_Mov_WH_MemInit
       address:
         EU: 0x234B3C0
+        NA: 0x234AB94
+        JP: 0x234C334
     - name: Dwci_Mov_WH_ChangeSysState
       address:
         EU: 0x234B3FC
+        NA: 0x234ABD0
+        JP: 0x234C370
     - name: Dwci_Mov_WH_SetError
       address:
         EU: 0x234B478
+        NA: 0x234AC4C
+        JP: 0x234C3EC
     - name: Dwci_Mov_WH_StateInSetParentParam
       address:
         EU: 0x234B498
+        NA: 0x234AC6C
+        JP: 0x234C40C
     - name: Dwci_Mov_WH_StateOutSetParentParam
       address:
         EU: 0x234B4DC
-    - name: Dwci_Mov_WH_StateInStartParent
+        NA: 0x234ACB0
+        JP: 0x234C450
+    - name: Dwci_Mov_Wh_StateInSetParentWepKey
       address:
         EU: 0x234B548
+        NA: 0x234AD1C
+        JP: 0x234C4BC
     - name: Dwci_Mov_WH_StateOutSetParentWepKey
       address:
         EU: 0x234B5AC
-    - name: Dwci_Mov_WH_StateInSetParentWepKey
+        NA: 0x234AD80
+        JP: 0x234C520
+    - name: Dwci_Mov_Wh_StateInStartParent
       address:
         EU: 0x234B5E4
+        NA: 0x234ADB8
+        JP: 0x234C558
     - name: Dwci_Mov_WH_StateOutStartParent
       address:
         EU: 0x234B648
+        NA: 0x234AE1C
+        JP: 0x234C5BC
     - name: Dwci_Mov_WH_StateInStartParentMP
       address:
         EU: 0x234B7B8
+        NA: 0x234AF8C
+        JP: 0x234C72C
     - name: Dwci_Mov_WH_StateOutStartParentMP
       address:
         EU: 0x234B850
+        NA: 0x234B024
+        JP: 0x234C7C4
     - name: Dwci_Mov_WH_StateInStartParentKeyShare
       address:
         EU: 0x234B97C
+        NA: 0x234B150
+        JP: 0x234C8F0
     - name: Dwci_Mov_WH_StateInEndParentKeyShare
       address:
         EU: 0x234B9B8
+        NA: 0x234B18C
+        JP: 0x234C92C
     - name: Dwci_Mov_WH_StateInEndParentMP
       address:
         EU: 0x234B9E8
+        NA: 0x234B1BC
+        JP: 0x234C95C
     - name: Dwci_Mov_WH_StateOutEndParentMP
       address:
         EU: 0x234BA18
+        NA: 0x234B1EC
+        JP: 0x234C98C
     - name: Dwci_Mov_WH_StateInEndParent
       address:
         EU: 0x234BA6C
+        NA: 0x234B240
+        JP: 0x234C9E0
     - name: Dwci_Mov_WH_StateOutEndParent
       address:
         EU: 0x234BA94
+        NA: 0x234B268
+        JP: 0x234CA08
     - name: Dwci_Mov_WH_StateInEndChildKeyShare
       address:
         EU: 0x234BAB8
+        NA: 0x234B28C
+        JP: 0x234CA2C
     - name: Dwci_Mov_WH_StateInEndChildMP
       address:
         EU: 0x234BB08
+        NA: 0x234B2DC
+        JP: 0x234CA7C
     - name: Dwci_Mov_WH_StateOutEndChildMP
       address:
         EU: 0x234BB38
+        NA: 0x234B30C
+        JP: 0x234CAAC
     - name: Dwci_Mov_WH_StateInEndChild
       address:
         EU: 0x234BB6C
+        NA: 0x234B340
+        JP: 0x234CAE0
     - name: Dwci_Mov_WH_StateOutEndChild
       address:
         EU: 0x234BBA4
+        NA: 0x234B378
+        JP: 0x234CB18
     - name: Dwci_Mov_WH_StateInReset
       address:
         EU: 0x234BBC8
+        NA: 0x234B39C
+        JP: 0x234CB3C
     - name: Dwci_Mov_WH_StateOutReset
       address:
         EU: 0x234BBF8
+        NA: 0x234B3CC
+        JP: 0x234CB6C
     - name: Dwci_Mov_WH_StateOutEnd
       address:
         EU: 0x234BC2C
+        NA: 0x234B400
+        JP: 0x234CBA0
     - name: Dwci_Mov_WH_SetGgid
       address:
         EU: 0x234BC54
+        NA: 0x234B428
+        JP: 0x234CBC8
     - name: Dwci_Mov_WH_GetBitmap
       address:
         EU: 0x234BC68
+        NA: 0x234B43C
+        JP: 0x234CBDC
     - name: Dwci_Mov_WH_GetSystemState
       address:
         EU: 0x234BC7C
+        NA: 0x234B450
+        JP: 0x234CBF0
     - name: Dwci_Mov_WH_StartMeasureChannel
       address:
         EU: 0x234BC90
+        NA: 0x234B464
+        JP: 0x234CC04
     - name: Dwci_Mov_WH_StateInMeasureChannel
       address:
         EU: 0x234BD68
+        NA: 0x234B53C
+        JP: 0x234CCDC
     - name: Dwci_Mov_WH_StateOutMeasureChannel
       address:
         EU: 0x234BE04
+        NA: 0x234B5D8
+        JP: 0x234CD78
     - name: WHi_MeasureChannel
       address:
         EU: 0x234BEDC
+        NA: 0x234B6B0
+        JP: 0x234CE50
     - name: Dwci_Mov_WH_GetMeasureChannel
       address:
         EU: 0x234BEFC
+        NA: 0x234B6D0
+        JP: 0x234CE70
     - name: SelectChannel
       address:
         EU: 0x234BF74
+        NA: 0x234B748
+        JP: 0x234CEE8
     - name: Dwci_Mov_WH_Initialize
       address:
         EU: 0x234C05C
+        NA: 0x234B830
+        JP: 0x234CFD0
     - name: Dwci_Mov_WH_IndicateHandler
       address:
         EU: 0x234C0D4
+        NA: 0x234B8A8
+        JP: 0x234D048
     - name: Dwci_Mov_WH_StateInInitialize
       address:
         EU: 0x234C0F4
+        NA: 0x234B8C8
+        JP: 0x234D068
     - name: Dwci_Mov_WH_StateOutInitialize
       address:
         EU: 0x234C140
+        NA: 0x234B914
+        JP: 0x234D0B4
     - name: Dwci_Mov_WH_ParentConnect
       address:
         EU: 0x234C190
+        NA: 0x234B964
+        JP: 0x234D104
     - name: Dwci_Mov_WH_SetJudgeAcceptFunc
       address:
         EU: 0x234C308
+        NA: 0x234BADC
+        JP: 0x234D27C
     - name: Dwci_Mov_WH_GetSharedDataAdr
       address:
         EU: 0x234C31C
+        NA: 0x234BAF0
+        JP: 0x234D290
     - name: Dwci_Mov_WH_StepDS
       address:
         EU: 0x234C344
+        NA: 0x234BB18
+        JP: 0x234D2B8
     - name: Dwci_Mov_WH_Reset
       address:
         EU: 0x234C3EC
+        NA: 0x234BBC0
+        JP: 0x234D360
     - name: Dwci_Mov_WH_Finalize
       address:
         EU: 0x234C408
+        NA: 0x234BBDC
+        JP: 0x234D37C
     - name: Dwci_Mov_WH_End
       address:
         EU: 0x234C510
+        NA: 0x234BCE4
+        JP: 0x234D484
     - name: Dwci_MovInit
       address:
         EU: 0x234C560
+        NA: 0x234BD34
+        JP: 0x234D4D4
     - name: Dwci_MovFinalize
       address:
         EU: 0x234C650
+        NA: 0x234BE24
+        JP: 0x234D5C4
     - name: Dwci_MovPrepare
       address:
         EU: 0x234C72C
+        NA: 0x234BF00
+        JP: 0x234D6A0
     - name: Dwci_MovStartAdmitChild
       address:
         EU: 0x234C7AC
+        NA: 0x234BF80
+        JP: 0x234D720
     - name: Dwci_MovStartDownloadandBootChild
       address:
         EU: 0x234C7F4
+        NA: 0x234BFC8
+        JP: 0x234D768
     - name: Dwci_MovFramework
       address:
         EU: 0x234C828
+        NA: 0x234BFFC
+        JP: 0x234D79C
     - name: Dwci_MovGetStatus
       address:
         EU: 0x234CBAC
+        NA: 0x234C380
+        JP: 0x234DB20
     - name: Dwci_GetChildInfo
       address:
         EU: 0x234CBF0
+        NA: 0x234C3C4
+        JP: 0x234DB64
     - name: Dwci_MovSearchChannel
       address:
         EU: 0x234CC00
+        NA: 0x234C3D4
+        JP: 0x234DB74
     - name: Dwci_MovStartWaitChild
       address:
         EU: 0x234CCA8
+        NA: 0x234C47C
+        JP: 0x234DC1C
     - name: Dwci_Mov_WaitandDownloadandBoot_Child
       address:
         EU: 0x234CCCC
+        NA: 0x234C4A0
+        JP: 0x234DC40
     - name: Dwci_Mov_ReadyMovUserID
       address:
         EU: 0x234CE84
+        NA: 0x234C658
+        JP: 0x234DDF8
     - name: Dwci_Mov_MovUserID
       address:
         EU: 0x234CEB0
+        NA: 0x234C684
+        JP: 0x234DE24
     - name: Dwci_Mov_EraseFlashData
       address:
         EU: 0x234D08C
+        NA: 0x234C860
+        JP: 0x234E000
     - name: Dwci_MovEnd
       address:
         EU: 0x234D0A4
+        NA: 0x234C878
+        JP: 0x234E018
     - name: JudgeConnectableChild
       address:
         EU: 0x234D0D4
+        NA: 0x234C8A8
+        JP: 0x234E048
     - name: Parent_InitDataShare
       address:
         EU: 0x234D110
+        NA: 0x234C8E4
+        JP: 0x234E084
     - name: Parent_StepDataShare
       address:
         EU: 0x234D154
+        NA: 0x234C928
+        JP: 0x234E0C8
     - name: Parent_Data_Receive_Progress
       address:
         EU: 0x234D2BC
+        NA: 0x234CA90
+        JP: 0x234E230
     - name: Parent_Get_Child_Data_Kind
       address:
         EU: 0x234D3A0
+        NA: 0x234CB74
+        JP: 0x234E314
     - name: Dwci_ArclInit
       address:
         EU: 0x234D3B8
+        NA: 0x234CB8C
+        JP: 0x234E32C
     - name: Dwci_ArclEnd
       address:
         EU: 0x234D568
+        NA: 0x234CD3C
+        JP: 0x234E4DC
     - name: UserProc
       address:
         EU: 0x234D5F4
+        NA: 0x234CDC8
+        JP: 0x234E568
     - name: CbRead
       address:
         EU: 0x234D658
+        NA: 0x234CE2C
+        JP: 0x234E5CC
     - name: CbReadRom
       address:
         EU: 0x234D698
+        NA: 0x234CE6C
+        JP: 0x234E60C
     - name: CbWrite
       address:
         EU: 0x234D6A8
+        NA: 0x234CE7C
+        JP: 0x234E61C
     - name: Dwci_ArclReadEx
       address:
         EU: 0x234D6B0
+        NA: 0x234CE84
+        JP: 0x234E624
     - name: Dwci_ArclRelease
       address:
         EU: 0x234D7A4
+        NA: 0x234CF78
+        JP: 0x234E718
     - name: CmpBack
       address:
         EU: 0x234D7D8
+        NA: 0x234CFAC
+        JP: 0x234E74C
     - name: Dwci_CelllInit
       address:
         EU: 0x234D830
+        NA: 0x234D004
+        JP: 0x234E7A4
     - name: Dwci_CelllEnd
       address:
         EU: 0x234D904
+        NA: 0x234D0D8
+        JP: 0x234E878
     - name: Dwci_CelllForm
       address:
         EU: 0x234D958
+        NA: 0x234D12C
+        JP: 0x234E8CC
     - name: Dwci_CelllDelete
       address:
         EU: 0x234DAB4
+        NA: 0x234D288
+        JP: 0x234EA28
     - name: Dwci_CelllGetObj
       address:
         EU: 0x234DB34
+        NA: 0x234D308
+        JP: 0x234EAA8
     - name: Dwci_CelllGetObjNum
       address:
         EU: 0x234DB40
+        NA: 0x234D314
+        JP: 0x234EAB4
     - name: Dwci_CelllSetEffect
       address:
         EU: 0x234DB48
+        NA: 0x234D31C
+        JP: 0x234EABC
     - name: Dwci_CelllSetPalette
       address:
         EU: 0x234DBEC
+        NA: 0x234D3C0
+        JP: 0x234EB60
     - name: Dwci_CelllSetPosition
       address:
         EU: 0x234DC6C
+        NA: 0x234D440
+        JP: 0x234EBE0
     - name: Dwci_CelllSetPriority
       address:
         EU: 0x234DD5C
+        NA: 0x234D530
+        JP: 0x234ECD0
     - name: Dwci_CelllGetPosition
       address:
         EU: 0x234DDBC
+        NA: 0x234D590
+        JP: 0x234ED30
     - name: Dwci_CeinlRead
       address:
         EU: 0x234DDEC
+        NA: 0x234D5C0
+        JP: 0x234ED60
     - name: Dwci_CeinlRelease
       address:
         EU: 0x234DE1C
+        NA: 0x234D5F0
+        JP: 0x234ED90
     - name: Dwci_CeinlSet
       address:
         EU: 0x234DE44
+        NA: 0x234D618
+        JP: 0x234EDB8
     - name: Dwci_CeinlSetExObj
       address:
         EU: 0x234DED8
+        NA: 0x234D6AC
+        JP: 0x234EE4C
     - name: Dwci_CeinlSetExCell
       address:
         EU: 0x234DF04
+        NA: 0x234D6D8
+        JP: 0x234EE78
     - name: Dwci_QuelForm
       address:
         EU: 0x234DF4C
+        NA: 0x234D720
+        JP: 0x234EEC0
     - name: Dwci_QuelFormEx
       address:
         EU: 0x234DF80
+        NA: 0x234D754
+        JP: 0x234EEF4
     - name: Dwci_QuelDelete
       address:
         EU: 0x234DFC0
+        NA: 0x234D794
+        JP: 0x234EF34
     - name: Dwci_QuelPushBack
       address:
         EU: 0x234DFDC
+        NA: 0x234D7B0
+        JP: 0x234EF50
     - name: Dwci_QuelPopBack
       address:
         EU: 0x234E034
+        NA: 0x234D808
+        JP: 0x234EFA8
     - name: Dwci_EfflInit
       address:
         EU: 0x234E08C
+        NA: 0x234D860
+        JP: 0x234F000
     - name: Dwci_EfflEnd
       address:
         EU: 0x234E0D4
+        NA: 0x234D8A8
+        JP: 0x234F048
     - name: Dwci_EfflCheck
       address:
         EU: 0x234E0E8
+        NA: 0x234D8BC
+        JP: 0x234F05C
     - name: Dwci_EfflFade
       address:
         EU: 0x234E10C
+        NA: 0x234D8E0
+        JP: 0x234F080
     - name: Effect_TaskFade
       address:
         EU: 0x234E1E4
+        NA: 0x234D9B8
+        JP: 0x234F158
     - name: Dwci_EfflWait
       address:
         EU: 0x234E30C
+        NA: 0x234DAE0
+        JP: 0x234F280
     - name: Effect_TaskWait
       address:
         EU: 0x234E364
+        NA: 0x234DB38
+        JP: 0x234F2D8
     - name: Dwci_FntlInit
       address:
         EU: 0x234E39C
+        NA: 0x234DB70
+        JP: 0x234F310
     - name: Dwci_FntlEnd
       address:
         EU: 0x234E4A0
+        NA: 0x234DC74
+        JP: 0x234F414
     - name: Dwci_FntlFormEx
       address:
         EU: 0x234E4EC
+        NA: 0x234DCC0
+        JP: 0x234F460
     - name: Dwci_FntlDelete
       address:
         EU: 0x234E5C8
+        NA: 0x234DD9C
+        JP: 0x234F53C
     - name: Dwci_FntlFormBgEx
       address:
         EU: 0x234E5F4
+        NA: 0x234DDC8
+        JP: 0x234F568
     - name: Font_TaskLoad
       address:
         EU: 0x234E76C
+        NA: 0x234DF40
+        JP: 0x234F6E0
     - name: Dwci_FntlDeleteBg
       address:
         EU: 0x234E7F4
+        NA: 0x234DFC8
+        JP: 0x234F768
     - name: Dwci_FntlDeleteBgLcd
       address:
         EU: 0x234E858
+        NA: 0x234E02C
+        JP: 0x234F7CC
     - name: Dwci_FntlDraw
       address:
         EU: 0x234E87C
+        NA: 0x234E050
+        JP: 0x234F7F0
     - name: Dwci_FntlDrawCharEx
       address:
         EU: 0x234E92C
+        NA: 0x234E100
+        JP: 0x234F8A0
     - name: Dwci_FntlDrawStringEx
       address:
         EU: 0x234E968
+        NA: 0x234E13C
+        JP: 0x234F8DC
     - name: Dwci_FntlDrawRect
       address:
         EU: 0x234EA14
+        NA: 0x234E1E8
+        JP: 0x234F988
     - name: Dwci_FntlClear
       address:
         EU: 0x234EAD4
+        NA: 0x234E2A8
+        JP: 0x234FA48
     - name: Dwci_FntlDisp
       address:
         EU: 0x234EAE8
+        NA: 0x234E2BC
+        JP: 0x234FA5C
     - name: Dwci_FntlRenewBg
       address:
         EU: 0x234EB80
+        NA: 0x234E354
+        JP: 0x234FAF4
     - name: Dwci_InputCoord
       address:
         EU: 0x234EBA4
+        NA: 0x234E378
+        JP: 0x234FB18
     - name: Dwci_InputRect
       address:
         EU: 0x234EBB0
+        NA: 0x234E384
+        JP: 0x234FB24
     - name: Dwci_Coord2Rect
       address:
         EU: 0x234EBC8
+        NA: 0x234E39C
+        JP: 0x234FB3C
     - name: Dwci_GXlVisible
       address:
         EU: 0x234EBFC
+        NA: 0x234E3D0
+        JP: 0x234FB70
     - name: Dwci_GXlInvisible
       address:
         EU: 0x234EC50
+        NA: 0x234E424
+        JP: 0x234FBC4
     - name: Dwci_GXlSetWndPosition
       address:
         EU: 0x234ECAC
+        NA: 0x234E480
+        JP: 0x234FC20
     - name: Dwci_GXlSetWndPlane
       address:
         EU: 0x234EDC4
+        NA: 0x234E598
+        JP: 0x234FD38
     - name: Dwci_HeaplInit
       address:
         EU: 0x234EF30
+        NA: 0x234E704
+        JP: 0x234FEA4
     - name: Dwci_HeaplEnd
       address:
         EU: 0x234EF70
+        NA: 0x234E744
+        JP: 0x234FEE4
     - name: Dwci_HeaplAlloc
       address:
         EU: 0x234EF94
+        NA: 0x234E768
+        JP: 0x234FF08
     - name: Dwci_HeaplAllocEx
       address:
         EU: 0x234EFE0
+        NA: 0x234E7B4
+        JP: 0x234FF54
     - name: Dwci_HeaplFree
       address:
         EU: 0x234F004
+        NA: 0x234E7D8
+        JP: 0x234FF78
     - name: Dwci_HeaplFree2
       address:
         EU: 0x234F048
+        NA: 0x234E81C
+        JP: 0x234FFBC
     - name: Dwci_IptlInit
       address:
         EU: 0x234F084
+        NA: 0x234E858
+        JP: 0x234FFF8
     - name: Dwci_IptlEnd
       address:
         EU: 0x234F100
+        NA: 0x234E8D4
+        JP: 0x2350074
     - name: Dwci_IptlRead
       address:
         EU: 0x234F138
+        NA: 0x234E90C
+        JP: 0x23500AC
     - name: Input_ReadKey
       address:
         EU: 0x234F148
+        NA: 0x234E91C
+        JP: 0x23500BC
     - name: Input_ReadTouch
       address:
         EU: 0x234F24C
+        NA: 0x234EA20
+        JP: 0x23501C0
     - name: Dwci_IptlCheckTrigger
       address:
         EU: 0x234F3E8
+        NA: 0x234EBBC
+        JP: 0x235035C
     - name: Dwci_IptlCheckRepeat
       address:
         EU: 0x234F428
+        NA: 0x234EBFC
+        JP: 0x235039C
     - name: Dwci_IptlCheckRelease
       address:
         EU: 0x234F468
+        NA: 0x234EC3C
+        JP: 0x23503DC
     - name: Dwci_TPlCheck
       address:
         EU: 0x234F4A8
+        NA: 0x234EC7C
+        JP: 0x235041C
     - name: Dwci_TPlCheckTrigger
       address:
         EU: 0x234F530
+        NA: 0x234ED04
+        JP: 0x23504A4
     - name: Dwci_TPlCheckRepeat
       address:
         EU: 0x234F5B8
+        NA: 0x234ED8C
+        JP: 0x235052C
     - name: Dwci_TPlCheckRelease
       address:
         EU: 0x234F640
+        NA: 0x234EE14
+        JP: 0x23505B4
     - name: Dwci_TPlCheckATrigger
       address:
         EU: 0x234F6C8
+        NA: 0x234EE9C
+        JP: 0x235063C
     - name: Dwci_TPlGet
       address:
         EU: 0x234F730
+        NA: 0x234EF04
+        JP: 0x23506A4
     - name: Dwci_IptlCheckFold
       address:
         EU: 0x234F798
+        NA: 0x234EF6C
+        JP: 0x235070C
     - name: Dwci_ItrlIntr
       address:
         EU: 0x234F814
+        NA: 0x234EFE8
+        JP: 0x2350788
     - name: Dwci_ItrlEnd
       address:
         EU: 0x234F888
+        NA: 0x234F05C
+        JP: 0x23507FC
     - name: IntrVBlank
       address:
         EU: 0x234F8C4
+        NA: 0x234F098
+        JP: 0x2350838
     - name: Dwci_LstlForm
       address:
         EU: 0x234F8EC
+        NA: 0x234F0C0
+        JP: 0x2350860
     - name: Dwci_LstlDelete
       address:
         EU: 0x234F918
+        NA: 0x234F0EC
+        JP: 0x235088C
     - name: Dwci_LstlErase
       address:
         EU: 0x234F934
+        NA: 0x234F108
+        JP: 0x23508A8
     - name: Dwci_LstlInsert
       address:
         EU: 0x234F96C
+        NA: 0x234F140
+        JP: 0x23508E0
     - name: Dwci_LstlPushBack
       address:
         EU: 0x234F99C
+        NA: 0x234F170
+        JP: 0x2350910
     - name: Dwci_LstlPushFront
       address:
         EU: 0x234F9AC
+        NA: 0x234F180
+        JP: 0x2350920
     - name: Dwci_ObjlInit
       address:
         EU: 0x234F9BC
+        NA: 0x234F190
+        JP: 0x2350930
     - name: Obj_TaskTransfer
       address:
         EU: 0x234FA58
+        NA: 0x234F22C
+        JP: 0x23509CC
     - name: Dwci_ObjlEnd
       address:
         EU: 0x234FAA0
+        NA: 0x234F274
+        JP: 0x2350A14
     - name: Dwci_ObjlFormGx
       address:
         EU: 0x234FACC
+        NA: 0x234F2A0
+        JP: 0x2350A40
     - name: Dwci_ObjlDelete
       address:
         EU: 0x234FAEC
+        NA: 0x234F2C0
+        JP: 0x2350A60
     - name: Dwci_ObjlGetOam
       address:
         EU: 0x234FB38
+        NA: 0x234F30C
+        JP: 0x2350AAC
     - name: Dwci_OvrlInit
       address:
         EU: 0x234FB50
+        NA: 0x234F324
+        JP: 0x2350AC4
     - name: Dwci_OvrlAlloc
       address:
         EU: 0x234FC10
+        NA: 0x234F3E4
+        JP: 0x2350B84
     - name: Dwci_OvrlFree
       address:
         EU: 0x234FD88
+        NA: 0x234F55C
+        JP: 0x2350CFC
     - name: Dwci_StrlNLen
       address:
         EU: 0x234FDC8
+        NA: 0x234F59C
+        JP: 0x2350D3C
     - name: swprintf_subroutine
       address:
         EU: 0x234FDF4
+        NA: 0x234F5C8
+        JP: 0x2350D68
       description: Likely part of some sort of inline swprintf function.
     - name: Dwci_ClearVram
       address:
         EU: 0x234FE3C
+        NA: 0x234F610
+        JP: 0x2350DB0
     - name: Dwci_RepairVram
       address:
         EU: 0x234FEF0
+        NA: 0x234F6C4
+        JP: 0x2350E64
     - name: Sub_ClearVram
       address:
         EU: 0x234FFF8
+        NA: 0x234F7CC
+        JP: 0x2350F6C
     - name: Dwci_SetLedWireless
       address:
         EU: 0x235007C
+        NA: 0x234F850
+        JP: 0x2350FF0
     - name: Dwci_SetLedNormal
       address:
         EU: 0x23500A8
+        NA: 0x234F87C
+        JP: 0x235101C
     - name: Dwci_TsklInit
       address:
         EU: 0x23500B8
+        NA: 0x234F88C
+        JP: 0x235102C
     - name: Dwci_TsklEnd
       address:
         EU: 0x23501CC
+        NA: 0x234F9A0
+        JP: 0x2351140
     - name: Dwci_TsklAct
       address:
         EU: 0x2350214
+        NA: 0x234F9E8
+        JP: 0x2351188
     - name: Dwci_TsklForm
       address:
         EU: 0x23502C4
+        NA: 0x234FA98
+        JP: 0x2351238
     - name: Task_FormTask
       address:
         EU: 0x23502D8
+        NA: 0x234FAAC
+        JP: 0x235124C
     - name: Dwci_TsklChangeFunc
       address:
         EU: 0x2350364
+        NA: 0x234FB38
+        JP: 0x23512D8
     - name: Dwci_TsklDelete
       address:
         EU: 0x235036C
+        NA: 0x234FB40
+        JP: 0x23512E0
     - name: Dwci_TsklDeleteEx
       address:
         EU: 0x235038C
+        NA: 0x234FB60
+        JP: 0x2351300
     - name: Task_DeleteTcb
       address:
         EU: 0x2350398
+        NA: 0x234FB6C
+        JP: 0x235130C
     - name: Dwci_TsklOperate
       address:
         EU: 0x23503DC
+        NA: 0x234FBB0
+        JP: 0x2351350
   data:
     - name: OV2_STATIC_INITIALIZER
       address:

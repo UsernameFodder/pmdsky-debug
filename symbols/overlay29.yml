@@ -669,6 +669,8 @@ overlay29:
     - name: IsPositionVisibleAndOnScreen
       address:
         EU: 0x22E3624
+        NA: 0x22E2CA0
+        JP: 0x22E4334
       description: |-
         Returns true if the position is within 6 tiles in the x direction and 5 tiles in the y direction from the camera target, and if either IsPositionActuallyInSight returns true for the position or the floor is without darkness.
         
@@ -778,6 +780,8 @@ overlay29:
     - name: IsFloorWithoutDarkness
       address:
         EU: 0x22E3EE4
+        NA: 0x22E3534
+        JP: 0x22E4BA4
       description: |-
         Returns true if there is no darkness on the floor, i.e. if the camera entity doesn't have the dropeye status and either one of dungeon::display_data::luminous or dungeon::display_data::natural_lighting is true.
         
@@ -857,6 +861,8 @@ overlay29:
     - name: UpdateStatusIconFlagsAllMonsters
       address:
         EU: 0x22E4408
+        NA: 0x22E3A58
+        JP: 0x22E50C8
       description: |-
         Calls UpdateStatusIconFlags on all monsters on the floor.
         
@@ -1241,6 +1247,8 @@ overlay29:
     - name: InitMonsterMoveEffect
       address:
         EU: 0x22E7718
+        NA: 0x22E6D68
+        JP: 0x22E83D8
       description: |-
         Finds the first available entry in dungeon::monster_move_animations and initializes it with the given values.
         
@@ -1250,6 +1258,8 @@ overlay29:
     - name: FreeMonsterMoveEffects
       address:
         EU: 0x22E7780
+        NA: 0x22E6DD0
+        JP: 0x22E8440
       description: |-
         Marks entries in dungeon::monster_move_animations whose animations have finished as being unused.
         
@@ -1257,6 +1267,8 @@ overlay29:
     - name: FreeAllMonsterMoveEffects
       address:
         EU: 0x22E77F0
+        NA: 0x22E6E40
+        JP: 0x22E84B0
       description: |-
         Marks all entries in dungeon::monster_move_animations as being unused.
         
@@ -1264,6 +1276,8 @@ overlay29:
     - name: UpdateLiveEffectsFromMonsterMoveEffects
       address:
         EU: 0x22E7830
+        NA: 0x22E6E80
+        JP: 0x22E84F0
       description: |-
         Finds any entries in dungeon::monster_move_animations that use the given entity and updates fields in their live_effects.
         
@@ -2220,6 +2234,8 @@ overlay29:
     - name: ShakeScreen
       address:
         EU: 0x22ED4AC
+        NA: 0x22ECAFC
+        JP: 0x22EE160
       description: |-
         Shakes the screen. Does not return until shaking is finished.
         
@@ -8431,6 +8447,8 @@ overlay29:
     - name: IsMoveBlockedByTerrain
       address:
         EU: 0x2326788
+        NA: 0x2325D20
+        JP: 0x23271AC
       description: |-
         If the monster is using Dig or Dive, checks whether the terrain of the tile the monster is standing on blocks the use of the move.
         
@@ -10486,6 +10504,8 @@ overlay29:
     - name: GetItemHolderTeamIndex
       address:
         EU: 0x2347BB4
+        NA: 0x2346FB8
+        JP: 0x2348378
       description: |-
         Gets the index in the team of the monster holding the given item, or -1 if none is.
         
@@ -10494,6 +10514,8 @@ overlay29:
     - name: IsNatureGifterRestrictedItem
       address:
         EU: 0x2347BFC
+        NA: 0x2347000
+        JP: 0x23483C0
       description: |-
         Checks if the given item's effect cannot be spread to the whole party through Nature Gifter when consumed.
         

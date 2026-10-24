@@ -78,6 +78,366 @@ arm7:
         This main function for the ARM7 subsystem. Contains the main event loop.
         
         No params.
+    - name: GetRomValidLanguage
+      address:
+        EU: 0x238066C
+        NA: 0x238066C
+        JP: 0x238066C
+        EU-WRAM: 0x37F8484
+        NA-WRAM: 0x37F8484
+        JP-WRAM: 0x37F8484
+    - name: VBlankIntr
+      address:
+        EU: 0x23806A4
+        NA: 0x23806A4
+        JP: 0x23806A4
+        EU-WRAM: 0x37F84BC
+        NA-WRAM: 0x37F84BC
+        JP-WRAM: 0x37F84BC
+    - name: MainTaskRoutine
+      address:
+        EU: 0x23806C8
+        NA: 0x23806C8
+        JP: 0x23806C8
+        EU-WRAM: 0x37F84E0
+        NA-WRAM: 0x37F84E0
+        JP-WRAM: 0x37F84E0
+    - name: AddTask
+      address:
+        EU: 0x2380780
+        NA: 0x2380780
+        JP: 0x2380780
+        EU-WRAM: 0x37F8598
+        NA-WRAM: 0x37F8598
+        JP-WRAM: 0x37F8598
+    - name: DeleteTask
+      address:
+        EU: 0x2380838
+        NA: 0x2380838
+        JP: 0x2380838
+        EU-WRAM: 0x37F8650
+        NA-WRAM: 0x37F8650
+        JP-WRAM: 0x37F8650
+    - name: LowestIdleTask
+      address:
+        EU: 0x23808B0
+        NA: 0x23808B0
+        JP: 0x23808B0
+        EU-WRAM: 0x37F86C8
+        NA-WRAM: 0x37F86C8
+        JP-WRAM: 0x37F86C8
+    - name: ExecuteMessage
+      address:
+        EU: 0x23808EC
+        NA: 0x23808EC
+        JP: 0x23808EC
+        EU-WRAM: 0x37F8704
+        NA-WRAM: 0x37F8704
+        JP-WRAM: 0x37F8704
+    - name: NewHeapBuf
+      address:
+        EU: 0x2380924
+        NA: 0x2380924
+        JP: 0x2380924
+        EU-WRAM: 0x37F873C
+        NA-WRAM: 0x37F873C
+        JP-WRAM: 0x37F873C
+    - name: DeleteHeapBuf
+      address:
+        EU: 0x2380994
+        NA: 0x2380994
+        JP: 0x2380994
+        EU-WRAM: 0x37F87AC
+        NA-WRAM: 0x37F87AC
+        JP-WRAM: 0x37F87AC
+    - name: AllocateHeapBuf
+      address:
+        EU: 0x2380A54
+        NA: 0x2380A54
+        JP: 0x2380A54
+        EU-WRAM: 0x37F886C
+        NA-WRAM: 0x37F886C
+        JP-WRAM: 0x37F886C
+    - name: ReleaseHeapBuf
+      address:
+        EU: 0x2380AF0
+        NA: 0x2380AF0
+        JP: 0x2380AF0
+        EU-WRAM: 0x37F8908
+        NA-WRAM: 0x37F8908
+        JP-WRAM: 0x37F8908
+    - name: MoveHeapBuf
+      address:
+        EU: 0x2380B70
+        NA: 0x2380B70
+        JP: 0x2380B70
+        EU-WRAM: 0x37F8988
+        NA-WRAM: 0x37F8988
+        JP-WRAM: 0x37F8988
+    - name: AddHeapBuf
+      address:
+        EU: 0x2380BDC
+        NA: 0x2380BDC
+        JP: 0x2380BDC
+        EU-WRAM: 0x37F89F4
+        NA-WRAM: 0x37F89F4
+        JP-WRAM: 0x37F89F4
+    - name: RequestCmdTask
+      address:
+        EU: 0x2380C70
+        NA: 0x2380C70
+        JP: 0x2380C70
+        EU-WRAM: 0x37F8A88
+        NA-WRAM: 0x37F8A88
+        JP-WRAM: 0x37F8A88
+    - name: SendMessageToWmDirect
+      address:
+        EU: 0x2380F40
+        NA: 0x2380F40
+        JP: 0x2380F40
+        EU-WRAM: 0x37F8D58
+        NA-WRAM: 0x37F8D58
+        JP-WRAM: 0x37F8D58
+    - name: WStop
+      address:
+        EU: 0x2381380
+        NA: 0x2381380
+        JP: 0x2381380
+        EU-WRAM: 0x37F9198
+        NA-WRAM: 0x37F9198
+        JP-WRAM: 0x37F9198
+    - name: WSetStaState
+      address:
+        EU: 0x2381420
+        NA: 0x2381420
+        JP: 0x2381420
+        EU-WRAM: 0x37F9238
+        NA-WRAM: 0x37F9238
+        JP-WRAM: 0x37F9238
+    - name: WlIntr
+      address:
+        EU: 0x23814C4
+        NA: 0x23814C4
+        JP: 0x23814C4
+        EU-WRAM: 0x37F92DC
+        NA-WRAM: 0x37F92DC
+        JP-WRAM: 0x37F92DC
+    - name: WlIntrPreTbtt
+      address:
+        EU: 0x2381598
+        NA: 0x2381598
+        JP: 0x2381598
+        EU-WRAM: 0x37F93B0
+        NA-WRAM: 0x37F93B0
+        JP-WRAM: 0x37F93B0
+    - name: WlIntrTbtt
+      address:
+        EU: 0x2381624
+        NA: 0x2381624
+        JP: 0x2381624
+        EU-WRAM: 0x37F943C
+        NA-WRAM: 0x37F943C
+        JP-WRAM: 0x37F943C
+    - name: WlIntrActEnd
+      address:
+        EU: 0x23818C8
+        NA: 0x23818C8
+        JP: 0x23818C8
+        EU-WRAM: 0x37F96E0
+        NA-WRAM: 0x37F96E0
+        JP-WRAM: 0x37F96E0
+    - name: WlIntrCntOvf
+      address:
+        EU: 0x2381934
+        NA: 0x2381934
+        JP: 0x2381934
+        EU-WRAM: 0x37F974C
+        NA-WRAM: 0x37F974C
+        JP-WRAM: 0x37F974C
+    - name: WlIntrTxErr
+      address:
+        EU: 0x2381964
+        NA: 0x2381964
+        JP: 0x2381964
+        EU-WRAM: 0x37F977C
+        NA-WRAM: 0x37F977C
+        JP-WRAM: 0x37F977C
+    - name: WlIntrRxCntup
+      address:
+        EU: 0x2381A74
+        NA: 0x2381A74
+        JP: 0x2381A74
+        EU-WRAM: 0x37F988C
+        NA-WRAM: 0x37F988C
+        JP-WRAM: 0x37F988C
+    - name: WlIntrTxEnd
+      address:
+        EU: 0x2381BF0
+        NA: 0x2381BF0
+        JP: 0x2381BF0
+        EU-WRAM: 0x37F9A08
+        NA-WRAM: 0x37F9A08
+        JP-WRAM: 0x37F9A08
+    - name: WlIntrRxEnd
+      address:
+        EU: 0x2381E58
+        NA: 0x2381E58
+        JP: 0x2381E58
+        EU-WRAM: 0x37F9C70
+        NA-WRAM: 0x37F9C70
+        JP-WRAM: 0x37F9C70
+    - name: WlIntrMpEnd
+      address:
+        EU: 0x2382314
+        NA: 0x2382314
+        JP: 0x2382314
+        EU-WRAM: 0x37FA12C
+        NA-WRAM: 0x37FA12C
+        JP-WRAM: 0x37FA12C
+    - name: WlIntrStartTx
+      address:
+        EU: 0x2382404
+        NA: 0x2382404
+        JP: 0x2382404
+        EU-WRAM: 0x37FA21C
+        NA-WRAM: 0x37FA21C
+        JP-WRAM: 0x37FA21C
+    - name: WlIntrStartRx
+      address:
+        EU: 0x2382510
+        NA: 0x2382510
+        JP: 0x2382510
+        EU-WRAM: 0x37FA328
+        NA-WRAM: 0x37FA328
+        JP-WRAM: 0x37FA328
+    - name: SetParentTbttTxq
+      address:
+        EU: 0x2382780
+        NA: 0x2382780
+        JP: 0x2382780
+        EU-WRAM: 0x37FA598
+        NA-WRAM: 0x37FA598
+        JP-WRAM: 0x37FA598
+    - name: MacBugTxMp
+      address:
+        EU: 0x2382848
+        NA: 0x2382848
+        JP: 0x2382848
+        EU-WRAM: 0x37FA660
+        NA-WRAM: 0x37FA660
+        JP-WRAM: 0x37FA660
+    - name: AdjustRingPointer
+      address:
+        EU: 0x23828B0
+        NA: 0x23828B0
+        JP: 0x23828B0
+        EU-WRAM: 0x37FA6C8
+        NA-WRAM: 0x37FA6C8
+        JP-WRAM: 0x37FA6C8
+    - name: CheckKeyTxEnd
+      address:
+        EU: 0x23828D8
+        NA: 0x23828D8
+        JP: 0x23828D8
+        EU-WRAM: 0x37FA6F0
+        NA-WRAM: 0x37FA6F0
+        JP-WRAM: 0x37FA6F0
+    - name: WlIntrTxBeaconTask
+      address:
+        EU: 0x2382910
+        NA: 0x2382910
+        JP: 0x2382910
+        EU-WRAM: 0x37FA728
+        NA-WRAM: 0x37FA728
+        JP-WRAM: 0x37FA728
+    - name: WlIntrTxEndTask
+      address:
+        EU: 0x238295C
+        NA: 0x238295C
+        JP: 0x238295C
+        EU-WRAM: 0x37FA774
+        NA-WRAM: 0x37FA774
+        JP-WRAM: 0x37FA774
+    - name: WlIntrRxEndTask
+      address:
+        EU: 0x2382B30
+        NA: 0x2382B30
+        JP: 0x2382B30
+        EU-WRAM: 0x37FA948
+        NA-WRAM: 0x37FA948
+        JP-WRAM: 0x37FA948
+    - name: WlIntrMpEndTask
+      address:
+        EU: 0x2382E9C
+        NA: 0x2382E9C
+        JP: 0x2382E9C
+        EU-WRAM: 0x37FACB4
+        NA-WRAM: 0x37FACB4
+        JP-WRAM: 0x37FACB4
+    - name: SetParentTbttTxqTask
+      address:
+        EU: 0x2382F78
+        NA: 0x2382F78
+        JP: 0x2382F78
+        EU-WRAM: 0x37FAD90
+        NA-WRAM: 0x37FAD90
+        JP-WRAM: 0x37FAD90
+    - name: TakeoutRxFrame
+      address:
+        EU: 0x2383038
+        NA: 0x2383038
+        JP: 0x2383038
+        EU-WRAM: 0x37FAE50
+        NA-WRAM: 0x37FAE50
+        JP-WRAM: 0x37FAE50
+    - name: InitTxCtrl
+      address:
+        EU: 0x23830A8
+        NA: 0x23830A8
+        JP: 0x23830A8
+        EU-WRAM: 0x37FAEC0
+        NA-WRAM: 0x37FAEC0
+        JP-WRAM: 0x37FAEC0
+    - name: InitRxCtrl
+      address:
+        EU: 0x23833C8
+        NA: 0x23833C8
+        JP: 0x23833C8
+        EU-WRAM: 0x37FB1E0
+        NA-WRAM: 0x37FB1E0
+        JP-WRAM: 0x37FB1E0
+    - name: WaitLoop_Rxpe
+      address:
+        EU: 0x23834E8
+        NA: 0x23834E8
+        JP: 0x23834E8
+        EU-WRAM: 0x37FB300
+        NA-WRAM: 0x37FB300
+        JP-WRAM: 0x37FB300
+    - name: WaitLoop_ClrAid
+      address:
+        EU: 0x238359C
+        NA: 0x238359C
+        JP: 0x238359C
+        EU-WRAM: 0x37FB3B4
+        NA-WRAM: 0x37FB3B4
+        JP-WRAM: 0x37FB3B4
+    - name: WaitLoop_BbpAccess
+      address:
+        EU: 0x2383608
+        NA: 0x2383608
+        JP: 0x2383608
+        EU-WRAM: 0x37FB420
+        NA-WRAM: 0x37FB420
+        JP-WRAM: 0x37FB420
+    - name: WaitLoop_RfAccess
+      address:
+        EU: 0x238363C
+        NA: 0x238363C
+        JP: 0x238363C
+        EU-WRAM: 0x37FB454
+        NA-WRAM: 0x37FB454
+        JP-WRAM: 0x37FB454
     - name: HardwareInterrupt
       address:
         EU: 0x2383670
@@ -120,6 +480,46 @@ arm7:
         Its parameter is used to index a list of function pointers. The game then jumps to the read pointer.
         
         r0: Index of the function to jump to
+    - name: OSi_IrqVBlank
+      address:
+        EU: 0x2383930
+        NA: 0x2383930
+        JP: 0x2383930
+        EU-WRAM: 0x37FB748
+        NA-WRAM: 0x37FB748
+        JP-WRAM: 0x37FB748
+    - name: OS_InitIrqTable
+      address:
+        EU: 0x2383980
+        NA: 0x2383980
+        JP: 0x2383980
+        EU-WRAM: 0x37FB798
+        NA-WRAM: 0x37FB798
+        JP-WRAM: 0x37FB798
+    - name: OS_SetIrqFunctionArm7
+      address:
+        EU: 0x23839A4
+        NA: 0x23839A4
+        JP: 0x23839A4
+        EU-WRAM: 0x37FB7BC
+        NA-WRAM: 0x37FB7BC
+        JP-WRAM: 0x37FB7BC
+    - name: OSi_EnterTimerCallback
+      address:
+        EU: 0x2383A40
+        NA: 0x2383A40
+        JP: 0x2383A40
+        EU-WRAM: 0x37FB858
+        NA-WRAM: 0x37FB858
+        JP-WRAM: 0x37FB858
+    - name: OS_SetIrqMaskArm7
+      address:
+        EU: 0x2383A8C
+        NA: 0x2383A8C
+        JP: 0x2383A8C
+        EU-WRAM: 0x37FB8A4
+        NA-WRAM: 0x37FB8A4
+        JP-WRAM: 0x37FB8A4
     - name: ClearImeFlag
       address:
         EU: 0x2383AC0
@@ -132,6 +532,14 @@ arm7:
         Clears the Interrupt Master Enable flag, which disables all hardware interrupts.
         
         return: Previous IME value
+    - name: OS_EnableIrqMaskArm7
+      address:
+        EU: 0x2383AD8
+        NA: 0x2383AD8
+        JP: 0x2383AD8
+        EU-WRAM: 0x37FB8F0
+        NA-WRAM: 0x37FB8F0
+        JP-WRAM: 0x37FB8F0
     - name: ClearIeFlag
       address:
         EU: 0x2383B10
@@ -145,6 +553,406 @@ arm7:
         
         r0: Flag to clear
         return: Previous value of the Interrupt Enable flags
+    - name: OS_ResetRequestIrqMaskArm7
+      address:
+        EU: 0x2383B4C
+        NA: 0x2383B4C
+        JP: 0x2383B4C
+        EU-WRAM: 0x37FB964
+        NA-WRAM: 0x37FB964
+        JP-WRAM: 0x37FB964
+    - name: OS_InitLock
+      address:
+        EU: 0x2383B80
+        NA: 0x2383B80
+        JP: 0x2383B80
+        EU-WRAM: 0x37FB998
+        NA-WRAM: 0x37FB998
+        JP-WRAM: 0x37FB998
+    - name: OSi_DoUnlockByWordArm7
+      address:
+        EU: 0x2383C00
+        NA: 0x2383C00
+        JP: 0x2383C00
+        EU-WRAM: 0x37FBA18
+        NA-WRAM: 0x37FBA18
+        JP-WRAM: 0x37FBA18
+    - name: OSi_DoTryLockByWord
+      address:
+        EU: 0x2383C7C
+        NA: 0x2383C7C
+        JP: 0x2383C7C
+        EU-WRAM: 0x37FBA94
+        NA-WRAM: 0x37FBA94
+        JP-WRAM: 0x37FBA94
+    - name: OS_LockCartridge
+      address:
+        EU: 0x2383CF0
+        NA: 0x2383CF0
+        JP: 0x2383CF0
+        EU-WRAM: 0x37FBB08
+        NA-WRAM: 0x37FBB08
+        JP-WRAM: 0x37FBB08
+    - name: OSi_InsertLinkToQueueArm7
+      address:
+        EU: 0x2383ED4
+        NA: 0x2383ED4
+        JP: 0x2383ED4
+        EU-WRAM: 0x37FBCEC
+        NA-WRAM: 0x37FBCEC
+        JP-WRAM: 0x37FBCEC
+    - name: OSi_RemoveSpecifiedLinkFromQueue
+      address:
+        EU: 0x2383F4C
+        NA: 0x2383F4C
+        JP: 0x2383F4C
+        EU-WRAM: 0x37FBD64
+        NA-WRAM: 0x37FBD64
+        JP-WRAM: 0x37FBD64
+    - name: OSi_RemoveMutexLinkFromQueue
+      address:
+        EU: 0x2383FA4
+        NA: 0x2383FA4
+        JP: 0x2383FA4
+        EU-WRAM: 0x37FBDBC
+        NA-WRAM: 0x37FBDBC
+        JP-WRAM: 0x37FBDBC
+    - name: OSi_InsertThreadToListArm7
+      address:
+        EU: 0x2383FD4
+        NA: 0x2383FD4
+        JP: 0x2383FD4
+        EU-WRAM: 0x37FBDEC
+        NA-WRAM: 0x37FBDEC
+        JP-WRAM: 0x37FBDEC
+    - name: OSi_RemoveThreadFromList
+      address:
+        EU: 0x2384034
+        NA: 0x2384034
+        JP: 0x2384034
+        EU-WRAM: 0x37FBE4C
+        NA-WRAM: 0x37FBE4C
+        JP-WRAM: 0x37FBE4C
+    - name: OSi_RescheduleThread
+      address:
+        EU: 0x2384078
+        NA: 0x2384078
+        JP: 0x2384078
+        EU-WRAM: 0x37FBE90
+        NA-WRAM: 0x37FBE90
+        JP-WRAM: 0x37FBE90
+    - name: OS_CreateThreadArm7
+      address:
+        EU: 0x238423C
+        NA: 0x238423C
+        JP: 0x238423C
+        EU-WRAM: 0x37FC054
+        NA-WRAM: 0x37FC054
+        JP-WRAM: 0x37FC054
+    - name: OS_ExitThread
+      address:
+        EU: 0x2384344
+        NA: 0x2384344
+        JP: 0x2384344
+        EU-WRAM: 0x37FC15C
+        NA-WRAM: 0x37FC15C
+        JP-WRAM: 0x37FC15C
+    - name: OSi_ExitThread_ArgSpecified
+      address:
+        EU: 0x2384368
+        NA: 0x2384368
+        JP: 0x2384368
+        EU-WRAM: 0x37FC180
+        NA-WRAM: 0x37FC180
+        JP-WRAM: 0x37FC180
+    - name: OSi_ExitThread
+      address:
+        EU: 0x23843C8
+        NA: 0x23843C8
+        JP: 0x23843C8
+        EU-WRAM: 0x37FC1E0
+        NA-WRAM: 0x37FC1E0
+        JP-WRAM: 0x37FC1E0
+    - name: OSi_ExitThread_Destroy
+      address:
+        EU: 0x2384408
+        NA: 0x2384408
+        JP: 0x2384408
+        EU-WRAM: 0x37FC220
+        NA-WRAM: 0x37FC220
+        JP-WRAM: 0x37FC220
+    - name: OS_SleepThreadArm7
+      address:
+        EU: 0x2384478
+        NA: 0x2384478
+        JP: 0x2384478
+        EU-WRAM: 0x37FC290
+        NA-WRAM: 0x37FC290
+        JP-WRAM: 0x37FC290
+    - name: OS_WakeupThread
+      address:
+        EU: 0x23844CC
+        NA: 0x23844CC
+        JP: 0x23844CC
+        EU-WRAM: 0x37FC2E4
+        NA-WRAM: 0x37FC2E4
+        JP-WRAM: 0x37FC2E4
+    - name: OS_WakeupThreadDirectArm7
+      address:
+        EU: 0x2384554
+        NA: 0x2384554
+        JP: 0x2384554
+        EU-WRAM: 0x37FC36C
+        NA-WRAM: 0x37FC36C
+        JP-WRAM: 0x37FC36C
+    - name: OS_SelectThreadArm7
+      address:
+        EU: 0x2384580
+        NA: 0x2384580
+        JP: 0x2384580
+        EU-WRAM: 0x37FC398
+        NA-WRAM: 0x37FC398
+        JP-WRAM: 0x37FC398
+    - name: OS_SetThreadPriority
+      address:
+        EU: 0x23845A8
+        NA: 0x23845A8
+        JP: 0x23845A8
+        EU-WRAM: 0x37FC3C0
+        NA-WRAM: 0x37FC3C0
+        JP-WRAM: 0x37FC3C0
+    - name: OSi_SleepAlarmCallback
+      address:
+        EU: 0x23846F4
+        NA: 0x23846F4
+        JP: 0x23846F4
+        EU-WRAM: 0x37FC50C
+        NA-WRAM: 0x37FC50C
+        JP-WRAM: 0x37FC50C
+    - name: OS_SetSwitchThreadCallbackArm7
+      address:
+        EU: 0x2384714
+        NA: 0x2384714
+        JP: 0x2384714
+        EU-WRAM: 0x37FC52C
+        NA-WRAM: 0x37FC52C
+        JP-WRAM: 0x37FC52C
+    - name: OS_DisableScheduler
+      address:
+        EU: 0x2384740
+        NA: 0x2384740
+        JP: 0x2384740
+        EU-WRAM: 0x37FC558
+        NA-WRAM: 0x37FC558
+        JP-WRAM: 0x37FC558
+    - name: OS_EnableScheduler
+      address:
+        EU: 0x2384778
+        NA: 0x2384778
+        JP: 0x2384778
+        EU-WRAM: 0x37FC590
+        NA-WRAM: 0x37FC590
+        JP-WRAM: 0x37FC590
+    - name: OS_SaveContextArm7
+      address:
+        EU: 0x2384834
+        NA: 0x2384834
+        JP: 0x2384834
+        EU-WRAM: 0x37FC64C
+        NA-WRAM: 0x37FC64C
+        JP-WRAM: 0x37FC64C
+    - name: OS_LoadContextArm7
+      address:
+        EU: 0x2384868
+        NA: 0x2384868
+        JP: 0x2384868
+        EU-WRAM: 0x37FC680
+        NA-WRAM: 0x37FC680
+        JP-WRAM: 0x37FC680
+    - name: OS_InitMessageQueue
+      address:
+        EU: 0x2384894
+        NA: 0x2384894
+        JP: 0x2384894
+        EU-WRAM: 0x37FC6AC
+        NA-WRAM: 0x37FC6AC
+        JP-WRAM: 0x37FC6AC
+    - name: OS_SendMessage
+      address:
+        EU: 0x23848BC
+        NA: 0x23848BC
+        JP: 0x23848BC
+        EU-WRAM: 0x37FC6D4
+        NA-WRAM: 0x37FC6D4
+        JP-WRAM: 0x37FC6D4
+    - name: OS_ReceiveMessage
+      address:
+        EU: 0x2384948
+        NA: 0x2384948
+        JP: 0x2384948
+        EU-WRAM: 0x37FC760
+        NA-WRAM: 0x37FC760
+        JP-WRAM: 0x37FC760
+    - name: OS_ReadMessage
+      address:
+        EU: 0x23849E4
+        NA: 0x23849E4
+        JP: 0x23849E4
+        EU-WRAM: 0x37FC7FC
+        NA-WRAM: 0x37FC7FC
+        JP-WRAM: 0x37FC7FC
+    - name: OS_LockMutex
+      address:
+        EU: 0x2384A70
+        NA: 0x2384A70
+        JP: 0x2384A70
+        EU-WRAM: 0x37FC888
+        NA-WRAM: 0x37FC888
+        JP-WRAM: 0x37FC888
+    - name: OS_UnlockMutex
+      address:
+        EU: 0x2384AF4
+        NA: 0x2384AF4
+        JP: 0x2384AF4
+        EU-WRAM: 0x37FC90C
+        NA-WRAM: 0x37FC90C
+        JP-WRAM: 0x37FC90C
+    - name: OSi_UnlockAllMutex
+      address:
+        EU: 0x2384B54
+        NA: 0x2384B54
+        JP: 0x2384B54
+        EU-WRAM: 0x37FC96C
+        NA-WRAM: 0x37FC96C
+        JP-WRAM: 0x37FC96C
+    - name: OSi_EnqueueTail
+      address:
+        EU: 0x2384B8C
+        NA: 0x2384B8C
+        JP: 0x2384B8C
+        EU-WRAM: 0x37FC9A4
+        NA-WRAM: 0x37FC9A4
+        JP-WRAM: 0x37FC9A4
+    - name: OSi_DequeueItem
+      address:
+        EU: 0x2384BB0
+        NA: 0x2384BB0
+        JP: 0x2384BB0
+        EU-WRAM: 0x37FC9C8
+        NA-WRAM: 0x37FC9C8
+        JP-WRAM: 0x37FC9C8
+    - name: OS_Init
+      address:
+        EU: 0x2384BD4
+        NA: 0x2384BD4
+        JP: 0x2384BD4
+        EU-WRAM: 0x37FC9EC
+        NA-WRAM: 0x37FC9EC
+        JP-WRAM: 0x37FC9EC
+    - name: OS_InitArena
+      address:
+        EU: 0x2384C04
+        NA: 0x2384C04
+        JP: 0x2384C04
+        EU-WRAM: 0x37FCA1C
+        NA-WRAM: 0x37FCA1C
+        JP-WRAM: 0x37FCA1C
+    - name: OS_InitArenaHiAndLo
+      address:
+        EU: 0x2384C40
+        NA: 0x2384C40
+        JP: 0x2384C40
+        EU-WRAM: 0x37FCA58
+        NA-WRAM: 0x37FCA58
+        JP-WRAM: 0x37FCA58
+    - name: OS_GetInitArenaLoArm7
+      address:
+        EU: 0x2384D20
+        NA: 0x2384D20
+        JP: 0x2384D20
+        EU-WRAM: 0x37FCB38
+        NA-WRAM: 0x37FCB38
+        JP-WRAM: 0x37FCB38
+    - name: DlExtract
+      address:
+        EU: 0x2384D8C
+        NA: 0x2384D8C
+        JP: 0x2384D8C
+        EU-WRAM: 0x37FCBA4
+        NA-WRAM: 0x37FCBA4
+        JP-WRAM: 0x37FCBA4
+    - name: DlInsert
+      address:
+        EU: 0x2384DB4
+        NA: 0x2384DB4
+        JP: 0x2384DB4
+        EU-WRAM: 0x37FCBCC
+        NA-WRAM: 0x37FCBCC
+        JP-WRAM: 0x37FCBCC
+    - name: OS_AllocFromHeap
+      address:
+        EU: 0x2384E5C
+        NA: 0x2384E5C
+        JP: 0x2384E5C
+        EU-WRAM: 0x37FCC74
+        NA-WRAM: 0x37FCC74
+        JP-WRAM: 0x37FCC74
+    - name: OS_FreeToHeap
+      address:
+        EU: 0x2384F6C
+        NA: 0x2384F6C
+        JP: 0x2384F6C
+        EU-WRAM: 0x37FCD84
+        NA-WRAM: 0x37FCD84
+        JP-WRAM: 0x37FCD84
+    - name: OS_SetCurrentHeap
+      address:
+        EU: 0x2384FD8
+        NA: 0x2384FD8
+        JP: 0x2384FD8
+        EU-WRAM: 0x37FCDF0
+        NA-WRAM: 0x37FCDF0
+        JP-WRAM: 0x37FCDF0
+    - name: OS_InitAlloc
+      address:
+        EU: 0x238500C
+        NA: 0x238500C
+        JP: 0x238500C
+        EU-WRAM: 0x37FCE24
+        NA-WRAM: 0x37FCE24
+        JP-WRAM: 0x37FCE24
+    - name: OS_CreateHeap
+      address:
+        EU: 0x23850B4
+        NA: 0x23850B4
+        JP: 0x23850B4
+        EU-WRAM: 0x37FCECC
+        NA-WRAM: 0x37FCECC
+        JP-WRAM: 0x37FCECC
+    - name: OS_CheckHeap
+      address:
+        EU: 0x2385154
+        NA: 0x2385154
+        JP: 0x2385154
+        EU-WRAM: 0x37FCF6C
+        NA-WRAM: 0x37FCF6C
+        JP-WRAM: 0x37FCF6C
+    - name: OS_InitTick
+      address:
+        EU: 0x2385310
+        NA: 0x2385310
+        JP: 0x2385310
+        EU-WRAM: 0x37FD128
+        NA-WRAM: 0x37FD128
+        JP-WRAM: 0x37FD128
+    - name: OSi_CountUpTick
+      address:
+        EU: 0x238539C
+        NA: 0x238539C
+        JP: 0x238539C
+        EU-WRAM: 0x37FD1B4
+        NA-WRAM: 0x37FD1B4
+        JP-WRAM: 0x37FD1B4
     - name: GetCurrentPlaybackTime
       address:
         EU: 0x2385404
@@ -161,6 +969,150 @@ arm7:
         current time instant within the song.
         
         return: Playback time. Units unknown.
+    - name: OSi_SetTimer
+      address:
+        EU: 0x23854A8
+        NA: 0x23854A8
+        JP: 0x23854A8
+        EU-WRAM: 0x37FD2C0
+        NA-WRAM: 0x37FD2C0
+        JP-WRAM: 0x37FD2C0
+    - name: OS_InitAlarm
+      address:
+        EU: 0x2385534
+        NA: 0x2385534
+        JP: 0x2385534
+        EU-WRAM: 0x37FD34C
+        NA-WRAM: 0x37FD34C
+        JP-WRAM: 0x37FD34C
+    - name: OSi_InsertAlarm
+      address:
+        EU: 0x2385598
+        NA: 0x2385598
+        JP: 0x2385598
+        EU-WRAM: 0x37FD3B0
+        NA-WRAM: 0x37FD3B0
+        JP-WRAM: 0x37FD3B0
+    - name: OS_SetAlarm
+      address:
+        EU: 0x23856C4
+        NA: 0x23856C4
+        JP: 0x23856C4
+        EU-WRAM: 0x37FD4DC
+        NA-WRAM: 0x37FD4DC
+        JP-WRAM: 0x37FD4DC
+    - name: OS_SetPeriodicAlarm
+      address:
+        EU: 0x2385734
+        NA: 0x2385734
+        JP: 0x2385734
+        EU-WRAM: 0x37FD54C
+        NA-WRAM: 0x37FD54C
+        JP-WRAM: 0x37FD54C
+    - name: OS_CancelAlarm
+      address:
+        EU: 0x23857A8
+        NA: 0x23857A8
+        JP: 0x23857A8
+        EU-WRAM: 0x37FD5C0
+        NA-WRAM: 0x37FD5C0
+        JP-WRAM: 0x37FD5C0
+    - name: OSi_ArrangeTimer
+      address:
+        EU: 0x2385840
+        NA: 0x2385840
+        JP: 0x2385840
+        EU-WRAM: 0x37FD658
+        NA-WRAM: 0x37FD658
+        JP-WRAM: 0x37FD658
+    - name: OS_InitVAlarm
+      address:
+        EU: 0x2385934
+        NA: 0x2385934
+        JP: 0x2385934
+        EU-WRAM: 0x37FD74C
+        NA-WRAM: 0x37FD74C
+        JP-WRAM: 0x37FD74C
+    - name: OSi_InsertVAlarm
+      address:
+        EU: 0x2385990
+        NA: 0x2385990
+        JP: 0x2385990
+        EU-WRAM: 0x37FD7A8
+        NA-WRAM: 0x37FD7A8
+        JP-WRAM: 0x37FD7A8
+    - name: OSi_DetachVAlarm
+      address:
+        EU: 0x2385A34
+        NA: 0x2385A34
+        JP: 0x2385A34
+        EU-WRAM: 0x37FD84C
+        NA-WRAM: 0x37FD84C
+        JP-WRAM: 0x37FD84C
+    - name: OS_SetVAlarm
+      address:
+        EU: 0x2385A80
+        NA: 0x2385A80
+        JP: 0x2385A80
+        EU-WRAM: 0x37FD898
+        NA-WRAM: 0x37FD898
+        JP-WRAM: 0x37FD898
+    - name: OS_SetPeriodicVAlarm
+      address:
+        EU: 0x2385B10
+        NA: 0x2385B10
+        JP: 0x2385B10
+        EU-WRAM: 0x37FD928
+        NA-WRAM: 0x37FD928
+        JP-WRAM: 0x37FD928
+    - name: OSi_SetNextVAlarm
+      address:
+        EU: 0x2385BA0
+        NA: 0x2385BA0
+        JP: 0x2385BA0
+        EU-WRAM: 0x37FD9B8
+        NA-WRAM: 0x37FD9B8
+        JP-WRAM: 0x37FD9B8
+    - name: OS_SetVAlarmTag
+      address:
+        EU: 0x2385BFC
+        NA: 0x2385BFC
+        JP: 0x2385BFC
+        EU-WRAM: 0x37FDA14
+        NA-WRAM: 0x37FDA14
+        JP-WRAM: 0x37FDA14
+    - name: OS_CancelVAlarm
+      address:
+        EU: 0x2385C20
+        NA: 0x2385C20
+        JP: 0x2385C20
+        EU-WRAM: 0x37FDA38
+        NA-WRAM: 0x37FDA38
+        JP-WRAM: 0x37FDA38
+    - name: OS_CancelVAlarms
+      address:
+        EU: 0x2385C6C
+        NA: 0x2385C6C
+        JP: 0x2385C6C
+        EU-WRAM: 0x37FDA84
+        NA-WRAM: 0x37FDA84
+        JP-WRAM: 0x37FDA84
+    - name: OSi_VAlarmHandler
+      address:
+        EU: 0x2385CE0
+        NA: 0x2385CE0
+        JP: 0x2385CE0
+        EU-WRAM: 0x37FDAF8
+        NA-WRAM: 0x37FDAF8
+        JP-WRAM: 0x37FDAF8
+    - name: OSi_GetVFrame
+      address:
+        EU: 0x2385E90
+        NA: 0x2385E90
+        JP: 0x2385E90
+        EU-WRAM: 0x37FDCA8
+        NA-WRAM: 0x37FDCA8
+        JP-WRAM: 0x37FDCA8
     - name: ClearIrqFlag
       address:
         EU: 0x2385ED4
@@ -235,6 +1187,1406 @@ arm7:
         Copy of the ARM9 function. See arm9.yml for more information.
         
         return: cpsr & 0x1f (the cpsr mode bits M4-M0)
+    - name: OS_InitReset
+      address:
+        EU: 0x2385F64
+        NA: 0x2385F64
+        JP: 0x2385F64
+        EU-WRAM: 0x37FDD7C
+        NA-WRAM: 0x37FDD7C
+        JP-WRAM: 0x37FDD7C
+    - name: OSi_CommonCallback
+      address:
+        EU: 0x2385FAC
+        NA: 0x2385FAC
+        JP: 0x2385FAC
+        EU-WRAM: 0x37FDDC4
+        NA-WRAM: 0x37FDDC4
+        JP-WRAM: 0x37FDDC4
+    - name: OS_ResetSystem
+      address:
+        EU: 0x2385FE0
+        NA: 0x2385FE0
+        JP: 0x2385FE0
+        EU-WRAM: 0x37FDDF8
+        NA-WRAM: 0x37FDDF8
+        JP-WRAM: 0x37FDDF8
+    - name: MI_WaitDma
+      address:
+        EU: 0x2386070
+        NA: 0x2386070
+        JP: 0x2386070
+        EU-WRAM: 0x37FDE88
+        NA-WRAM: 0x37FDE88
+        JP-WRAM: 0x37FDE88
+    - name: MI_StopDmaArm7
+      address:
+        EU: 0x23860DC
+        NA: 0x23860DC
+        JP: 0x23860DC
+        EU-WRAM: 0x37FDEF4
+        NA-WRAM: 0x37FDEF4
+        JP-WRAM: 0x37FDEF4
+    - name: Pxi_InitFifo
+      address:
+        EU: 0x23864A8
+        NA: 0x23864A8
+        JP: 0x23864A8
+        EU-WRAM: 0x37FE2C0
+        NA-WRAM: 0x37FE2C0
+        JP-WRAM: 0x37FE2C0
+    - name: Pxi_SetFifoRecvCallback
+      address:
+        EU: 0x2386584
+        NA: 0x2386584
+        JP: 0x2386584
+        EU-WRAM: 0x37FE39C
+        NA-WRAM: 0x37FE39C
+        JP-WRAM: 0x37FE39C
+    - name: Pxi_IsCallbackReady
+      address:
+        EU: 0x23865D4
+        NA: 0x23865D4
+        JP: 0x23865D4
+        EU-WRAM: 0x37FE3EC
+        NA-WRAM: 0x37FE3EC
+        JP-WRAM: 0x37FE3EC
+    - name: Pxi_SendWordByFifo
+      address:
+        EU: 0x23865F8
+        NA: 0x23865F8
+        JP: 0x23865F8
+        EU-WRAM: 0x37FE410
+        NA-WRAM: 0x37FE410
+        JP-WRAM: 0x37FE410
+    - name: Pxii_SetToFifo
+      address:
+        EU: 0x2386630
+        NA: 0x2386630
+        JP: 0x2386630
+        EU-WRAM: 0x37FE448
+        NA-WRAM: 0x37FE448
+        JP-WRAM: 0x37FE448
+    - name: Pxii_HandlerRecvFifoNotEmpty
+      address:
+        EU: 0x2386690
+        NA: 0x2386690
+        JP: 0x2386690
+        EU-WRAM: 0x37FE4A8
+        NA-WRAM: 0x37FE4A8
+        JP-WRAM: 0x37FE4A8
+    - name: Exii_SetBitRcnt0L
+      address:
+        EU: 0x2386770
+        NA: 0x2386770
+        JP: 0x2386770
+        EU-WRAM: 0x37FE588
+        NA-WRAM: 0x37FE588
+        JP-WRAM: 0x37FE588
+    - name: Padi_XyButton_Callback
+      address:
+        EU: 0x2386844
+        NA: 0x2386844
+        JP: 0x2386844
+        EU-WRAM: 0x37FE65C
+        NA-WRAM: 0x37FE65C
+        JP-WRAM: 0x37FE65C
+    - name: Snd_Shutdown
+      address:
+        EU: 0x238689C
+        NA: 0x238689C
+        JP: 0x238689C
+        EU-WRAM: 0x37FE6B4
+        NA-WRAM: 0x37FE6B4
+        JP-WRAM: 0x37FE6B4
+    - name: Snd_BeginSleep
+      address:
+        EU: 0x23868F0
+        NA: 0x23868F0
+        JP: 0x23868F0
+        EU-WRAM: 0x37FE708
+        NA-WRAM: 0x37FE708
+        JP-WRAM: 0x37FE708
+    - name: Snd_EndSleep
+      address:
+        EU: 0x2386948
+        NA: 0x2386948
+        JP: 0x2386948
+        EU-WRAM: 0x37FE760
+        NA-WRAM: 0x37FE760
+        JP-WRAM: 0x37FE760
+    - name: Snd_SetOutputSelector
+      address:
+        EU: 0x23869B4
+        NA: 0x23869B4
+        JP: 0x23869B4
+        EU-WRAM: 0x37FE7CC
+        NA-WRAM: 0x37FE7CC
+        JP-WRAM: 0x37FE7CC
+    - name: Snd_SetupChannelPcm
+      address:
+        EU: 0x23869EC
+        NA: 0x23869EC
+        JP: 0x23869EC
+        EU-WRAM: 0x37FE804
+        NA-WRAM: 0x37FE804
+        JP-WRAM: 0x37FE804
+    - name: Snd_SetupChannelPsg
+      address:
+        EU: 0x2386AB8
+        NA: 0x2386AB8
+        JP: 0x2386AB8
+        EU-WRAM: 0x37FE8D0
+        NA-WRAM: 0x37FE8D0
+        JP-WRAM: 0x37FE8D0
+    - name: Snd_SetupChannelNoise
+      address:
+        EU: 0x2386B64
+        NA: 0x2386B64
+        JP: 0x2386B64
+        EU-WRAM: 0x37FE97C
+        NA-WRAM: 0x37FE97C
+        JP-WRAM: 0x37FE97C
+    - name: Snd_StopChannel
+      address:
+        EU: 0x2386C08
+        NA: 0x2386C08
+        JP: 0x2386C08
+        EU-WRAM: 0x37FEA20
+        NA-WRAM: 0x37FEA20
+        JP-WRAM: 0x37FEA20
+    - name: Snd_SetChannelVolume
+      address:
+        EU: 0x2386C30
+        NA: 0x2386C30
+        JP: 0x2386C30
+        EU-WRAM: 0x37FEA48
+        NA-WRAM: 0x37FEA48
+        JP-WRAM: 0x37FEA48
+    - name: Snd_SetChannelPan
+      address:
+        EU: 0x2386CC0
+        NA: 0x2386CC0
+        JP: 0x2386CC0
+        EU-WRAM: 0x37FEAD8
+        NA-WRAM: 0x37FEAD8
+        JP-WRAM: 0x37FEAD8
+    - name: Snd_SetMasterPan
+      address:
+        EU: 0x2386D54
+        NA: 0x2386D54
+        JP: 0x2386D54
+        EU-WRAM: 0x37FEB6C
+        NA-WRAM: 0x37FEB6C
+        JP-WRAM: 0x37FEB6C
+    - name: Sndi_SetSurroundDecay
+      address:
+        EU: 0x2386DC8
+        NA: 0x2386DC8
+        JP: 0x2386DC8
+        EU-WRAM: 0x37FEBE0
+        NA-WRAM: 0x37FEBE0
+        JP-WRAM: 0x37FEBE0
+    - name: CalcSurroundDecay
+      address:
+        EU: 0x2386E28
+        NA: 0x2386E28
+        JP: 0x2386E28
+        EU-WRAM: 0x37FEC40
+        NA-WRAM: 0x37FEC40
+        JP-WRAM: 0x37FEC40
+    - name: Snd_CalcTimer
+      address:
+        EU: 0x2386E94
+        NA: 0x2386E94
+        JP: 0x2386E94
+        EU-WRAM: 0x37FECAC
+        NA-WRAM: 0x37FECAC
+        JP-WRAM: 0x37FECAC
+    - name: Snd_CalcChannelVolume
+      address:
+        EU: 0x2386FC0
+        NA: 0x2386FC0
+        JP: 0x2386FC0
+        EU-WRAM: 0x37FEDD8
+        NA-WRAM: 0x37FEDD8
+        JP-WRAM: 0x37FEDD8
+    - name: Snd_SinIdx
+      address:
+        EU: 0x2387040
+        NA: 0x2387040
+        JP: 0x2387040
+        EU-WRAM: 0x37FEE58
+        NA-WRAM: 0x37FEE58
+        JP-WRAM: 0x37FEE58
+    - name: Snd_CalcRandom
+      address:
+        EU: 0x23870AC
+        NA: 0x23870AC
+        JP: 0x23870AC
+        EU-WRAM: 0x37FEEC4
+        NA-WRAM: 0x37FEEC4
+        JP-WRAM: 0x37FEEC4
+    - name: Snd_Init
+      address:
+        EU: 0x23870E0
+        NA: 0x23870E0
+        JP: 0x23870E0
+        EU-WRAM: 0x37FEEF8
+        NA-WRAM: 0x37FEEF8
+        JP-WRAM: 0x37FEEF8
+    - name: Snd_StartIntervalTimer
+      address:
+        EU: 0x238714C
+        NA: 0x238714C
+        JP: 0x238714C
+        EU-WRAM: 0x37FEF64
+        NA-WRAM: 0x37FEF64
+        JP-WRAM: 0x37FEF64
+    - name: SndThread
+      address:
+        EU: 0x23871F0
+        NA: 0x23871F0
+        JP: 0x23871F0
+        EU-WRAM: 0x37FF008
+        NA-WRAM: 0x37FF008
+        JP-WRAM: 0x37FF008
+    - name: Snd_SetupCapture
+      address:
+        EU: 0x23872E4
+        NA: 0x23872E4
+        JP: 0x23872E4
+        EU-WRAM: 0x37FF0FC
+        NA-WRAM: 0x37FF0FC
+        JP-WRAM: 0x37FF0FC
+    - name: Snd_ExChannelInit
+      address:
+        EU: 0x238734C
+        NA: 0x238734C
+        JP: 0x238734C
+        EU-WRAM: 0x37FF164
+        NA-WRAM: 0x37FF164
+        JP-WRAM: 0x37FF164
+    - name: Snd_UpdateExChannel
+      address:
+        EU: 0x23873A8
+        NA: 0x23873A8
+        JP: 0x23873A8
+        EU-WRAM: 0x37FF1C0
+        NA-WRAM: 0x37FF1C0
+        JP-WRAM: 0x37FF1C0
+    - name: Snd_StartExChannelPcm
+      address:
+        EU: 0x2387948
+        NA: 0x2387948
+        JP: 0x2387948
+        EU-WRAM: 0x37FF760
+        NA-WRAM: 0x37FF760
+        JP-WRAM: 0x37FF760
+    - name: Snd_StartExChannelPsg
+      address:
+        EU: 0x2387984
+        NA: 0x2387984
+        JP: 0x2387984
+        EU-WRAM: 0x37FF79C
+        NA-WRAM: 0x37FF79C
+        JP-WRAM: 0x37FF79C
+    - name: Snd_StartExChannelNoise
+      address:
+        EU: 0x23879D0
+        NA: 0x23879D0
+        JP: 0x23879D0
+        EU-WRAM: 0x37FF7E8
+        NA-WRAM: 0x37FF7E8
+        JP-WRAM: 0x37FF7E8
+    - name: Snd_UpdateExChannelEnvelope
+      address:
+        EU: 0x2387A14
+        NA: 0x2387A14
+        JP: 0x2387A14
+        EU-WRAM: 0x37FF82C
+        NA-WRAM: 0x37FF82C
+        JP-WRAM: 0x37FF82C
+    - name: Snd_SetExChannelAttack
+      address:
+        EU: 0x2387ABC
+        NA: 0x2387ABC
+        JP: 0x2387ABC
+        EU-WRAM: 0x37FF8D4
+        NA-WRAM: 0x37FF8D4
+        JP-WRAM: 0x37FF8D4
+    - name: Snd_AllocExChannel
+      address:
+        EU: 0x2387B38
+        NA: 0x2387B38
+        JP: 0x2387B38
+        EU-WRAM: 0x37FF950
+        NA-WRAM: 0x37FF950
+        JP-WRAM: 0x37FF950
+    - name: Snd_StopUnlockedChannel
+      address:
+        EU: 0x2387D18
+        NA: 0x2387D18
+        JP: 0x2387D18
+        EU-WRAM: 0x37FFB30
+        NA-WRAM: 0x37FFB30
+        JP-WRAM: 0x37FFB30
+    - name: Snd_LockChannel
+      address:
+        EU: 0x2387DC8
+        NA: 0x2387DC8
+        JP: 0x2387DC8
+        EU-WRAM: 0x37FFBE0
+        NA-WRAM: 0x37FFBE0
+        JP-WRAM: 0x37FFBE0
+    - name: Snd_UnlockChannel
+      address:
+        EU: 0x2387EA8
+        NA: 0x2387EA8
+        JP: 0x2387EA8
+        EU-WRAM: 0x37FFCC0
+        NA-WRAM: 0x37FFCC0
+        JP-WRAM: 0x37FFCC0
+    - name: Snd_InvalidateWave
+      address:
+        EU: 0x2387EFC
+        NA: 0x2387EFC
+        JP: 0x2387EFC
+        EU-WRAM: 0x37FFD14
+        NA-WRAM: 0x37FFD14
+        JP-WRAM: 0x37FFD14
+    - name: Snd_InitLfoParam
+      address:
+        EU: 0x2387F78
+        NA: 0x2387F78
+        JP: 0x2387F78
+        EU-WRAM: 0x37FFD90
+        NA-WRAM: 0x37FFD90
+        JP-WRAM: 0x37FFD90
+    - name: Snd_UpdateLfo
+      address:
+        EU: 0x2387F9C
+        NA: 0x2387F9C
+        JP: 0x2387F9C
+        EU-WRAM: 0x37FFDB4
+        NA-WRAM: 0x37FFDB4
+        JP-WRAM: 0x37FFDB4
+    - name: Snd_GetLfoValue
+      address:
+        EU: 0x2387FFC
+        NA: 0x2387FFC
+        JP: 0x2387FFC
+        EU-WRAM: 0x37FFE14
+        NA-WRAM: 0x37FFE14
+        JP-WRAM: 0x37FFE14
+    - name: CalcRelease
+      address:
+        EU: 0x238804C
+        NA: 0x238804C
+        JP: 0x238804C
+        EU-WRAM: 0x37FFE64
+        NA-WRAM: 0x37FFE64
+        JP-WRAM: 0x37FFE64
+    - name: StartExChannel
+      address:
+        EU: 0x23880A0
+        NA: 0x23880A0
+        JP: 0x23880A0
+        EU-WRAM: 0x37FFEB8
+        NA-WRAM: 0x37FFEB8
+        JP-WRAM: 0x37FFEB8
+    - name: Snd_SeqInit
+      address:
+        EU: 0x23880D8
+        NA: 0x23880D8
+        JP: 0x23880D8
+        EU-WRAM: 0x37FFEF0
+        NA-WRAM: 0x37FFEF0
+        JP-WRAM: 0x37FFEF0
+    - name: Snd_SeqMain
+      address:
+        EU: 0x238813C
+        NA: 0x238813C
+        JP: 0x238813C
+        EU-WRAM: 0x37FFF54
+        NA-WRAM: 0x37FFF54
+        JP-WRAM: 0x37FFF54
+    - name: Snd_PrepareSeq
+      address:
+        EU: 0x238829C
+        NA: 0x238829C
+        JP: 0x238829C
+        EU-WRAM: 0x38000B4
+        NA-WRAM: 0x38000B4
+        JP-WRAM: 0x38000B4
+    - name: ReadByte
+      address:
+        EU: 0x2388478
+        NA: 0x2388478
+        JP: 0x2388478
+        EU-WRAM: 0x3800290
+        NA-WRAM: 0x3800290
+        JP-WRAM: 0x3800290
+    - name: Snd_StartPreparedSeq
+      address:
+        EU: 0x23884D8
+        NA: 0x23884D8
+        JP: 0x23884D8
+        EU-WRAM: 0x38002F0
+        NA-WRAM: 0x38002F0
+        JP-WRAM: 0x38002F0
+    - name: Snd_StartSeq
+      address:
+        EU: 0x23884F8
+        NA: 0x23884F8
+        JP: 0x23884F8
+        EU-WRAM: 0x3800310
+        NA-WRAM: 0x3800310
+        JP-WRAM: 0x3800310
+    - name: Snd_StopSeq
+      address:
+        EU: 0x2388528
+        NA: 0x2388528
+        JP: 0x2388528
+        EU-WRAM: 0x3800340
+        NA-WRAM: 0x3800340
+        JP-WRAM: 0x3800340
+    - name: Snd_PauseSeq
+      address:
+        EU: 0x2388584
+        NA: 0x2388584
+        JP: 0x2388584
+        EU-WRAM: 0x380039C
+        NA-WRAM: 0x380039C
+        JP-WRAM: 0x380039C
+    - name: Snd_SkipSeq
+      address:
+        EU: 0x23885FC
+        NA: 0x23885FC
+        JP: 0x23885FC
+        EU-WRAM: 0x3800414
+        NA-WRAM: 0x3800414
+        JP-WRAM: 0x3800414
+    - name: Snd_SetTrackMute
+      address:
+        EU: 0x23886C8
+        NA: 0x23886C8
+        JP: 0x23886C8
+        EU-WRAM: 0x38004E0
+        NA-WRAM: 0x38004E0
+        JP-WRAM: 0x38004E0
+    - name: Snd_SetTrackAllocatableChannel
+      address:
+        EU: 0x2388734
+        NA: 0x2388734
+        JP: 0x2388734
+        EU-WRAM: 0x380054C
+        NA-WRAM: 0x380054C
+        JP-WRAM: 0x380054C
+    - name: Snd_InvalidateSeq
+      address:
+        EU: 0x23887A4
+        NA: 0x23887A4
+        JP: 0x23887A4
+        EU-WRAM: 0x38005BC
+        NA-WRAM: 0x38005BC
+        JP-WRAM: 0x38005BC
+    - name: Snd_InvalidateBank
+      address:
+        EU: 0x2388830
+        NA: 0x2388830
+        JP: 0x2388830
+        EU-WRAM: 0x3800648
+        NA-WRAM: 0x3800648
+        JP-WRAM: 0x3800648
+    - name: Sndi_SetPlayerParam
+      address:
+        EU: 0x238888C
+        NA: 0x238888C
+        JP: 0x238888C
+        EU-WRAM: 0x38006A4
+        NA-WRAM: 0x38006A4
+        JP-WRAM: 0x38006A4
+    - name: Sndi_SetTrackParam
+      address:
+        EU: 0x23888D0
+        NA: 0x23888D0
+        JP: 0x23888D0
+        EU-WRAM: 0x38006E8
+        NA-WRAM: 0x38006E8
+        JP-WRAM: 0x38006E8
+    - name: InitCache
+      address:
+        EU: 0x238896C
+        NA: 0x238896C
+        JP: 0x238896C
+        EU-WRAM: 0x3800784
+        NA-WRAM: 0x3800784
+        JP-WRAM: 0x3800784
+    - name: Read24
+      address:
+        EU: 0x23889A8
+        NA: 0x23889A8
+        JP: 0x23889A8
+        EU-WRAM: 0x38007C0
+        NA-WRAM: 0x38007C0
+        JP-WRAM: 0x38007C0
+    - name: ReadArg
+      address:
+        EU: 0x23889D8
+        NA: 0x23889D8
+        JP: 0x23889D8
+        EU-WRAM: 0x38007F0
+        NA-WRAM: 0x38007F0
+        JP-WRAM: 0x38007F0
+    - name: ReleaseTrackChannelAll
+      address:
+        EU: 0x2388BC8
+        NA: 0x2388BC8
+        JP: 0x2388BC8
+        EU-WRAM: 0x38009E0
+        NA-WRAM: 0x38009E0
+        JP-WRAM: 0x38009E0
+    - name: FreeTrackChannelAll
+      address:
+        EU: 0x2388C30
+        NA: 0x2388C30
+        JP: 0x2388C30
+        EU-WRAM: 0x3800A48
+        NA-WRAM: 0x3800A48
+        JP-WRAM: 0x3800A48
+    - name: GetPlayerTrack
+      address:
+        EU: 0x2388C64
+        NA: 0x2388C64
+        JP: 0x2388C64
+        EU-WRAM: 0x3800A7C
+        NA-WRAM: 0x3800A7C
+        JP-WRAM: 0x3800A7C
+    - name: ClosePlayerTrack
+      address:
+        EU: 0x2388C90
+        NA: 0x2388C90
+        JP: 0x2388C90
+        EU-WRAM: 0x3800AA8
+        NA-WRAM: 0x3800AA8
+        JP-WRAM: 0x3800AA8
+    - name: FinishPlayer
+      address:
+        EU: 0x2388CE8
+        NA: 0x2388CE8
+        JP: 0x2388CE8
+        EU-WRAM: 0x3800B00
+        NA-WRAM: 0x3800B00
+        JP-WRAM: 0x3800B00
+    - name: PlayerSeqMain
+      address:
+        EU: 0x2388ED8
+        NA: 0x2388ED8
+        JP: 0x2388ED8
+        EU-WRAM: 0x3800CF0
+        NA-WRAM: 0x3800CF0
+        JP-WRAM: 0x3800CF0
+    - name: GetVariablePtr
+      address:
+        EU: 0x2389A28
+        NA: 0x2389A28
+        JP: 0x2389A28
+        EU-WRAM: 0x3801840
+        NA-WRAM: 0x3801840
+        JP-WRAM: 0x3801840
+    - name: AllocTrack
+      address:
+        EU: 0x2389A6C
+        NA: 0x2389A6C
+        JP: 0x2389A6C
+        EU-WRAM: 0x3801884
+        NA-WRAM: 0x3801884
+        JP-WRAM: 0x3801884
+    - name: SetTrackMute
+      address:
+        EU: 0x2389AB0
+        NA: 0x2389AB0
+        JP: 0x2389AB0
+        EU-WRAM: 0x38018C8
+        NA-WRAM: 0x38018C8
+        JP-WRAM: 0x38018C8
+    - name: Snd_ReadInstData
+      address:
+        EU: 0x2389B30
+        NA: 0x2389B30
+        JP: 0x2389B30
+        EU-WRAM: 0x3801948
+        NA-WRAM: 0x3801948
+        JP-WRAM: 0x3801948
+    - name: Snd_GetWaveDataAddress
+      address:
+        EU: 0x2389CB0
+        NA: 0x2389CB0
+        JP: 0x2389CB0
+        EU-WRAM: 0x3801AC8
+        NA-WRAM: 0x3801AC8
+        JP-WRAM: 0x3801AC8
+    - name: Snd_NoteOn
+      address:
+        EU: 0x2389CF0
+        NA: 0x2389CF0
+        JP: 0x2389CF0
+        EU-WRAM: 0x3801B08
+        NA-WRAM: 0x3801B08
+        JP-WRAM: 0x3801B08
+    - name: Snd_SetPlayerLocalVariable
+      address:
+        EU: 0x2389E38
+        NA: 0x2389E38
+        JP: 0x2389E38
+        EU-WRAM: 0x3801C50
+        NA-WRAM: 0x3801C50
+        JP-WRAM: 0x3801C50
+    - name: Snd_UpdateSharedWork
+      address:
+        EU: 0x2389E74
+        NA: 0x2389E74
+        JP: 0x2389E74
+        EU-WRAM: 0x3801C8C
+        NA-WRAM: 0x3801C8C
+        JP-WRAM: 0x3801C8C
+    - name: Snd_AlarmInit
+      address:
+        EU: 0x2389F0C
+        NA: 0x2389F0C
+        JP: 0x2389F0C
+        EU-WRAM: 0x3801D24
+        NA-WRAM: 0x3801D24
+        JP-WRAM: 0x3801D24
+    - name: Snd_SetupAlarm
+      address:
+        EU: 0x2389F38
+        NA: 0x2389F38
+        JP: 0x2389F38
+        EU-WRAM: 0x3801D50
+        NA-WRAM: 0x3801D50
+        JP-WRAM: 0x3801D50
+    - name: Snd_StartAlarm
+      address:
+        EU: 0x2389F94
+        NA: 0x2389F94
+        JP: 0x2389F94
+        EU-WRAM: 0x3801DAC
+        NA-WRAM: 0x3801DAC
+        JP-WRAM: 0x3801DAC
+    - name: Snd_StopAlarm
+      address:
+        EU: 0x238A050
+        NA: 0x238A050
+        JP: 0x238A050
+        EU-WRAM: 0x3801E68
+        NA-WRAM: 0x3801E68
+        JP-WRAM: 0x3801E68
+    - name: AlarmHandler
+      address:
+        EU: 0x238A090
+        NA: 0x238A090
+        JP: 0x238A090
+        EU-WRAM: 0x3801EA8
+        NA-WRAM: 0x3801EA8
+        JP-WRAM: 0x3801EA8
+    - name: Snd_CommandInit
+      address:
+        EU: 0x238A0C0
+        NA: 0x238A0C0
+        JP: 0x238A0C0
+        EU-WRAM: 0x3801ED8
+        NA-WRAM: 0x3801ED8
+        JP-WRAM: 0x3801ED8
+    - name: Snd_CommandProc
+      address:
+        EU: 0x238A104
+        NA: 0x238A104
+        JP: 0x238A104
+        EU-WRAM: 0x3801F1C
+        NA-WRAM: 0x3801F1C
+        JP-WRAM: 0x3801F1C
+    - name: PxiFifoCallback
+      address:
+        EU: 0x238A7B4
+        NA: 0x238A7B4
+        JP: 0x238A7B4
+        EU-WRAM: 0x38025CC
+        NA-WRAM: 0x38025CC
+        JP-WRAM: 0x38025CC
+    - name: Cardi_InitCommon
+      address:
+        EU: 0x238A80C
+        NA: 0x238A80C
+        JP: 0x238A80C
+        EU-WRAM: 0x3802624
+        NA-WRAM: 0x3802624
+        JP-WRAM: 0x3802624
+    - name: Card_SetThreadPriority
+      address:
+        EU: 0x238A8C8
+        NA: 0x238A8C8
+        JP: 0x238A8C8
+        EU-WRAM: 0x38026E0
+        NA-WRAM: 0x38026E0
+        JP-WRAM: 0x38026E0
+    - name: Cardi_CommandEnd
+      address:
+        EU: 0x238A914
+        NA: 0x238A914
+        JP: 0x238A914
+        EU-WRAM: 0x380272C
+        NA-WRAM: 0x380272C
+        JP-WRAM: 0x380272C
+    - name: Cardi_CommandReadStatus
+      address:
+        EU: 0x238A9B8
+        NA: 0x238A9B8
+        JP: 0x238A9B8
+        EU-WRAM: 0x38027D0
+        NA-WRAM: 0x38027D0
+        JP-WRAM: 0x38027D0
+    - name: Cardi_WaitPrevCommand
+      address:
+        EU: 0x238AA0C
+        NA: 0x238AA0C
+        JP: 0x238AA0C
+        EU-WRAM: 0x3802824
+        NA-WRAM: 0x3802824
+        JP-WRAM: 0x3802824
+    - name: Cardi_CommArray
+      address:
+        EU: 0x238AA48
+        NA: 0x238AA48
+        JP: 0x238AA48
+        EU-WRAM: 0x3802860
+        NA-WRAM: 0x3802860
+        JP-WRAM: 0x3802860
+    - name: Cardi_CommReadCore
+      address:
+        EU: 0x238AACC
+        NA: 0x238AACC
+        JP: 0x238AACC
+        EU-WRAM: 0x38028E4
+        NA-WRAM: 0x38028E4
+        JP-WRAM: 0x38028E4
+    - name: Cardi_CommWriteCore
+      address:
+        EU: 0x238AB0C
+        NA: 0x238AB0C
+        JP: 0x238AB0C
+        EU-WRAM: 0x3802924
+        NA-WRAM: 0x3802924
+        JP-WRAM: 0x3802924
+    - name: Cardi_CommVerifyCore
+      address:
+        EU: 0x238AB5C
+        NA: 0x238AB5C
+        JP: 0x238AB5C
+        EU-WRAM: 0x3802974
+        NA-WRAM: 0x3802974
+        JP-WRAM: 0x3802974
+    - name: Cardi_WriteEnable
+      address:
+        EU: 0x238ABC0
+        NA: 0x238ABC0
+        JP: 0x238ABC0
+        EU-WRAM: 0x38029D8
+        NA-WRAM: 0x38029D8
+        JP-WRAM: 0x38029D8
+    - name: Cardi_SendSpiAddressingCommand
+      address:
+        EU: 0x238ABF4
+        NA: 0x238ABF4
+        JP: 0x238ABF4
+        EU-WRAM: 0x3802A0C
+        NA-WRAM: 0x3802A0C
+        JP-WRAM: 0x3802A0C
+    - name: Cardi_InitStatusRegister
+      address:
+        EU: 0x238AC94
+        NA: 0x238AC94
+        JP: 0x238AC94
+        EU-WRAM: 0x3802AAC
+        NA-WRAM: 0x3802AAC
+        JP-WRAM: 0x3802AAC
+    - name: Cardi_ReadBackupCore
+      address:
+        EU: 0x238ACEC
+        NA: 0x238ACEC
+        JP: 0x238ACEC
+        EU-WRAM: 0x3802B04
+        NA-WRAM: 0x3802B04
+        JP-WRAM: 0x3802B04
+    - name: Cardi_ProgramBackupCore
+      address:
+        EU: 0x238AD58
+        NA: 0x238AD58
+        JP: 0x238AD58
+        EU-WRAM: 0x3802B70
+        NA-WRAM: 0x3802B70
+        JP-WRAM: 0x3802B70
+    - name: Cardi_WriteBackupCore
+      address:
+        EU: 0x238AE10
+        NA: 0x238AE10
+        JP: 0x238AE10
+        EU-WRAM: 0x3802C28
+        NA-WRAM: 0x3802C28
+        JP-WRAM: 0x3802C28
+    - name: Cardi_VerifyBackupCore
+      address:
+        EU: 0x238AEC8
+        NA: 0x238AEC8
+        JP: 0x238AEC8
+        EU-WRAM: 0x3802CE0
+        NA-WRAM: 0x3802CE0
+        JP-WRAM: 0x3802CE0
+    - name: Cardi_EraseBackupSectorCore
+      address:
+        EU: 0x238AF58
+        NA: 0x238AF58
+        JP: 0x238AF58
+        EU-WRAM: 0x3802D70
+        NA-WRAM: 0x3802D70
+        JP-WRAM: 0x3802D70
+    - name: Cardi_EraseBackupSubSectorCore
+      address:
+        EU: 0x238AFF4
+        NA: 0x238AFF4
+        JP: 0x238AFF4
+        EU-WRAM: 0x3802E0C
+        NA-WRAM: 0x3802E0C
+        JP-WRAM: 0x3802E0C
+    - name: Cardi_EraseChipCore
+      address:
+        EU: 0x238B090
+        NA: 0x238B090
+        JP: 0x238B090
+        EU-WRAM: 0x3802EA8
+        NA-WRAM: 0x3802EA8
+        JP-WRAM: 0x3802EA8
+    - name: Cardi_SetWriteProtectCore
+      address:
+        EU: 0x238B0EC
+        NA: 0x238B0EC
+        JP: 0x238B0EC
+        EU-WRAM: 0x3802F04
+        NA-WRAM: 0x3802F04
+        JP-WRAM: 0x3802F04
+    - name: Cardi_SetRomOp
+      address:
+        EU: 0x238B184
+        NA: 0x238B184
+        JP: 0x238B184
+        EU-WRAM: 0x3802F9C
+        NA-WRAM: 0x3802F9C
+        JP-WRAM: 0x3802F9C
+    - name: Cardi_ReadEnd
+      address:
+        EU: 0x238B1E4
+        NA: 0x238B1E4
+        JP: 0x238B1E4
+        EU-WRAM: 0x3802FFC
+        NA-WRAM: 0x3802FFC
+        JP-WRAM: 0x3802FFC
+    - name: Cardi_GetRomFlag
+      address:
+        EU: 0x238B258
+        NA: 0x238B258
+        JP: 0x238B258
+        EU-WRAM: 0x3803070
+        NA-WRAM: 0x3803070
+        JP-WRAM: 0x3803070
+    - name: Cardi_ReadRomIdCore
+      address:
+        EU: 0x238B27C
+        NA: 0x238B27C
+        JP: 0x238B27C
+        EU-WRAM: 0x3803094
+        NA-WRAM: 0x3803094
+        JP-WRAM: 0x3803094
+    - name: Cardi_ReadRomId
+      address:
+        EU: 0x238B2CC
+        NA: 0x238B2CC
+        JP: 0x238B2CC
+        EU-WRAM: 0x38030E4
+        NA-WRAM: 0x38030E4
+        JP-WRAM: 0x38030E4
+    - name: Cardi_WaitTask
+      address:
+        EU: 0x238B2FC
+        NA: 0x238B2FC
+        JP: 0x238B2FC
+        EU-WRAM: 0x3803114
+        NA-WRAM: 0x3803114
+        JP-WRAM: 0x3803114
+    - name: Card_Init
+      address:
+        EU: 0x238B350
+        NA: 0x238B350
+        JP: 0x238B350
+        EU-WRAM: 0x3803168
+        NA-WRAM: 0x3803168
+        JP-WRAM: 0x3803168
+    - name: Cardi_OnFifoRecv
+      address:
+        EU: 0x238B3BC
+        NA: 0x238B3BC
+        JP: 0x238B3BC
+        EU-WRAM: 0x38031D4
+        NA-WRAM: 0x38031D4
+        JP-WRAM: 0x38031D4
+    - name: Cardi_TaskThread
+      address:
+        EU: 0x238B4A0
+        NA: 0x238B4A0
+        JP: 0x238B4A0
+        EU-WRAM: 0x38032B8
+        NA-WRAM: 0x38032B8
+        JP-WRAM: 0x38032B8
+    - name: Card_InitPulledOutCallback
+      address:
+        EU: 0x238B6D4
+        NA: 0x238B6D4
+        JP: 0x238B6D4
+        EU-WRAM: 0x38034EC
+        NA-WRAM: 0x38034EC
+        JP-WRAM: 0x38034EC
+    - name: Cardi_CallbackForPulledOut
+      address:
+        EU: 0x238B72C
+        NA: 0x238B72C
+        JP: 0x238B72C
+        EU-WRAM: 0x3803544
+        NA-WRAM: 0x3803544
+        JP-WRAM: 0x3803544
+    - name: Card_IsPulledOut
+      address:
+        EU: 0x238B790
+        NA: 0x238B790
+        JP: 0x238B790
+        EU-WRAM: 0x38035A8
+        NA-WRAM: 0x38035A8
+        JP-WRAM: 0x38035A8
+    - name: Card_CompareCardId
+      address:
+        EU: 0x238B7D8
+        NA: 0x238B7D8
+        JP: 0x238B7D8
+        EU-WRAM: 0x38035F0
+        NA-WRAM: 0x38035F0
+        JP-WRAM: 0x38035F0
+    - name: Card_IsCardIreqLo
+      address:
+        EU: 0x238B878
+        NA: 0x238B878
+        JP: 0x238B878
+        EU-WRAM: 0x3803690
+        NA-WRAM: 0x3803690
+        JP-WRAM: 0x3803690
+    - name: Math_CountPopulation
+      address:
+        EU: 0x238BA18
+        NA: 0x238BA18
+        JP: 0x238BA18
+        EU-WRAM: 0x3803830
+        NA-WRAM: 0x3803830
+        JP-WRAM: 0x3803830
+    - name: Spi_Init
+      address:
+        EU: 0x238BA5C
+        NA: 0x238BA5C
+        JP: 0x238BA5C
+        EU-WRAM: 0x3803874
+        NA-WRAM: 0x3803874
+        JP-WRAM: 0x3803874
+    - name: Spi_Lock
+      address:
+        EU: 0x238BB74
+        NA: 0x238BB74
+        JP: 0x238BB74
+        EU-WRAM: 0x380398C
+        NA-WRAM: 0x380398C
+        JP-WRAM: 0x380398C
+    - name: Spi_Unlock
+      address:
+        EU: 0x238BBD0
+        NA: 0x238BBD0
+        JP: 0x238BBD0
+        EU-WRAM: 0x38039E8
+        NA-WRAM: 0x38039E8
+        JP-WRAM: 0x38039E8
+    - name: Spii_ReturnResult
+      address:
+        EU: 0x238BC30
+        NA: 0x238BC30
+        JP: 0x238BC30
+        EU-WRAM: 0x3803A48
+        NA-WRAM: 0x3803A48
+        JP-WRAM: 0x3803A48
+    - name: Spii_ReleaseException
+      address:
+        EU: 0x238BD28
+        NA: 0x238BD28
+        JP: 0x238BD28
+        EU-WRAM: 0x3803B40
+        NA-WRAM: 0x3803B40
+        JP-WRAM: 0x3803B40
+    - name: SpiPxiCallback
+      address:
+        EU: 0x238BED0
+        NA: 0x238BED0
+        JP: 0x238BED0
+        EU-WRAM: 0x3803CE8
+        NA-WRAM: 0x3803CE8
+        JP-WRAM: 0x3803CE8
+    - name: TP_Init
+      address:
+        EU: 0x238BF38
+        NA: 0x238BF38
+        JP: 0x238BF38
+        EU-WRAM: 0x3803D50
+        NA-WRAM: 0x3803D50
+        JP-WRAM: 0x3803D50
+    - name: TP_AnalyzeCommand
+      address:
+        EU: 0x238C048
+        NA: 0x238C048
+        JP: 0x238C048
+        EU-WRAM: 0x3803E60
+        NA-WRAM: 0x3803E60
+        JP-WRAM: 0x3803E60
+    - name: TpVAlarmHandler
+      address:
+        EU: 0x238C524
+        NA: 0x238C524
+        JP: 0x238C524
+        EU-WRAM: 0x380433C
+        NA-WRAM: 0x380433C
+        JP-WRAM: 0x380433C
+    - name: TPi_DetectTouch
+      address:
+        EU: 0x238C58C
+        NA: 0x238C58C
+        JP: 0x238C58C
+        EU-WRAM: 0x38043A4
+        NA-WRAM: 0x38043A4
+        JP-WRAM: 0x38043A4
+    - name: TPi_DetectPos
+      address:
+        EU: 0x238C6A4
+        NA: 0x238C6A4
+        JP: 0x238C6A4
+        EU-WRAM: 0x38044BC
+        NA-WRAM: 0x38044BC
+        JP-WRAM: 0x38044BC
+    - name: TP_ExecSampling
+      address:
+        EU: 0x238C894
+        NA: 0x238C894
+        JP: 0x238C894
+        EU-WRAM: 0x38046AC
+        NA-WRAM: 0x38046AC
+        JP-WRAM: 0x38046AC
+    - name: PM_Init
+      address:
+        EU: 0x238CA8C
+        NA: 0x238CA8C
+        JP: 0x238CA8C
+        EU-WRAM: 0x38048A4
+        NA-WRAM: 0x38048A4
+        JP-WRAM: 0x38048A4
+    - name: PM_AnalyzeCommand
+      address:
+        EU: 0x238CAC8
+        NA: 0x238CAC8
+        JP: 0x238CAC8
+        EU-WRAM: 0x38048E0
+        NA-WRAM: 0x38048E0
+        JP-WRAM: 0x38048E0
+    - name: PM_ExecuteProcess
+      address:
+        EU: 0x238CC84
+        NA: 0x238CC84
+        JP: 0x238CC84
+        EU-WRAM: 0x3804A9C
+        NA-WRAM: 0x3804A9C
+        JP-WRAM: 0x3804A9C
+    - name: PMi_SendPxiCommand
+      address:
+        EU: 0x238CDF4
+        NA: 0x238CDF4
+        JP: 0x238CDF4
+        EU-WRAM: 0x3804C0C
+        NA-WRAM: 0x3804C0C
+        JP-WRAM: 0x3804C0C
+    - name: PMi_SetRegister
+      address:
+        EU: 0x238CE38
+        NA: 0x238CE38
+        JP: 0x238CE38
+        EU-WRAM: 0x3804C50
+        NA-WRAM: 0x3804C50
+        JP-WRAM: 0x3804C50
+    - name: PMi_GetRegister
+      address:
+        EU: 0x238CEB4
+        NA: 0x238CEB4
+        JP: 0x238CEB4
+        EU-WRAM: 0x3804CCC
+        NA-WRAM: 0x3804CCC
+        JP-WRAM: 0x3804CCC
+    - name: PMi_SetControl
+      address:
+        EU: 0x238CF28
+        NA: 0x238CF28
+        JP: 0x238CF28
+        EU-WRAM: 0x3804D40
+        NA-WRAM: 0x3804D40
+        JP-WRAM: 0x3804D40
+    - name: PMi_ResetControl
+      address:
+        EU: 0x238CF4C
+        NA: 0x238CF4C
+        JP: 0x238CF4C
+        EU-WRAM: 0x3804D64
+        NA-WRAM: 0x3804D64
+        JP-WRAM: 0x3804D64
+    - name: PMi_SwitchUtilityProc
+      address:
+        EU: 0x238CF78
+        NA: 0x238CF78
+        JP: 0x238CF78
+        EU-WRAM: 0x3804D90
+        NA-WRAM: 0x3804D90
+        JP-WRAM: 0x3804D90
+    - name: Pmi_SetLed
+      address:
+        EU: 0x238D09C
+        NA: 0x238D09C
+        JP: 0x238D09C
+        EU-WRAM: 0x3804EB4
+        NA-WRAM: 0x3804EB4
+        JP-WRAM: 0x3804EB4
+    - name: PMi_DoSleep
+      address:
+        EU: 0x238D104
+        NA: 0x238D104
+        JP: 0x238D104
+        EU-WRAM: 0x3804F1C
+        NA-WRAM: 0x3804F1C
+        JP-WRAM: 0x3804F1C
+    - name: Wvr_Begin
+      address:
+        EU: 0x238D430
+        NA: 0x238D430
+        JP: 0x238D430
+        EU-WRAM: 0x3805248
+        NA-WRAM: 0x3805248
+        JP-WRAM: 0x3805248
+    - name: Wvr_Shutdown
+      address:
+        EU: 0x238D474
+        NA: 0x238D474
+        JP: 0x238D474
+        EU-WRAM: 0x380528C
+        NA-WRAM: 0x380528C
+        JP-WRAM: 0x380528C
+    - name: WvrBegin
+      address:
+        EU: 0x238D4A4
+        NA: 0x238D4A4
+        JP: 0x238D4A4
+        EU-WRAM: 0x38052BC
+        NA-WRAM: 0x38052BC
+        JP-WRAM: 0x38052BC
+    - name: Mic_Init
+      address:
+        EU: 0x238D548
+        NA: 0x238D548
+        JP: 0x238D548
+        EU-WRAM: 0x3805360
+        NA-WRAM: 0x3805360
+        JP-WRAM: 0x3805360
+    - name: Mic_AnalyzeCommand
+      address:
+        EU: 0x238D590
+        NA: 0x238D590
+        JP: 0x238D590
+        EU-WRAM: 0x38053A8
+        NA-WRAM: 0x38053A8
+        JP-WRAM: 0x38053A8
+    - name: MicSetTimerValue
+      address:
+        EU: 0x238D858
+        NA: 0x238D858
+        JP: 0x238D858
+        EU-WRAM: 0x3805670
+        NA-WRAM: 0x3805670
+        JP-WRAM: 0x3805670
+    - name: Mic_ExecuteProcess
+      address:
+        EU: 0x238D8FC
+        NA: 0x238D8FC
+        JP: 0x238D8FC
+        EU-WRAM: 0x3805714
+        NA-WRAM: 0x3805714
+        JP-WRAM: 0x3805714
+    - name: Mic_TimerHandler
+      address:
+        EU: 0x238DB24
+        NA: 0x238DB24
+        JP: 0x238DB24
+        EU-WRAM: 0x380593C
+        NA-WRAM: 0x380593C
+        JP-WRAM: 0x380593C
+    - name: Spi_DummyWaitReceive
+      address:
+        EU: 0x238DE1C
+        NA: 0x238DE1C
+        JP: 0x238DE1C
+        EU-WRAM: 0x3805C34
+        NA-WRAM: 0x3805C34
+        JP-WRAM: 0x3805C34
+    - name: Mic_SetIrqFunction
+      address:
+        EU: 0x238DF80
+        NA: 0x238DF80
+        JP: 0x238DF80
+        EU-WRAM: 0x3805D98
+        NA-WRAM: 0x3805D98
+        JP-WRAM: 0x3805D98
+    - name: Mic_EnableMultipleInterrupt
+      address:
+        EU: 0x238DFA8
+        NA: 0x238DFA8
+        JP: 0x238DFA8
+        EU-WRAM: 0x3805DC0
+        NA-WRAM: 0x3805DC0
+        JP-WRAM: 0x3805DC0
+    - name: Mic_DisableMultipleInterrupt
+      address:
+        EU: 0x238E008
+        NA: 0x238E008
+        JP: 0x238E008
+        EU-WRAM: 0x3805E20
+        NA-WRAM: 0x3805E20
+        JP-WRAM: 0x3805E20
+    - name: Ctrdgi_InitCommon
+      address:
+        EU: 0x238E280
+        NA: 0x238E280
+        JP: 0x238E280
+        EU-WRAM: 0x3806098
+        NA-WRAM: 0x3806098
+        JP-WRAM: 0x3806098
+    - name: Ctrdg_IsPulledOut
+      address:
+        EU: 0x238E2C8
+        NA: 0x238E2C8
+        JP: 0x238E2C8
+        EU-WRAM: 0x38060E0
+        NA-WRAM: 0x38060E0
+        JP-WRAM: 0x38060E0
+    - name: Ctrdg_IsExisting
+      address:
+        EU: 0x238E318
+        NA: 0x238E318
+        JP: 0x238E318
+        EU-WRAM: 0x3806130
+        NA-WRAM: 0x3806130
+        JP-WRAM: 0x3806130
+    - name: Ctrdgi_ChangeLatestAccessCycle
+      address:
+        EU: 0x238E43C
+        NA: 0x238E43C
+        JP: 0x238E43C
+        EU-WRAM: 0x3806254
+        NA-WRAM: 0x3806254
+        JP-WRAM: 0x3806254
+    - name: Ctrdgi_LockByProcessor
+      address:
+        EU: 0x238E4B8
+        NA: 0x238E4B8
+        JP: 0x238E4B8
+        EU-WRAM: 0x38062D0
+        NA-WRAM: 0x38062D0
+        JP-WRAM: 0x38062D0
+    - name: Ctrdgi_UnlockByProcessor
+      address:
+        EU: 0x238E508
+        NA: 0x238E508
+        JP: 0x238E508
+        EU-WRAM: 0x3806320
+        NA-WRAM: 0x3806320
+        JP-WRAM: 0x3806320
+    - name: Ctrdgi_SendtoPxi
+      address:
+        EU: 0x238E530
+        NA: 0x238E530
+        JP: 0x238E530
+        EU-WRAM: 0x3806348
+        NA-WRAM: 0x3806348
+        JP-WRAM: 0x3806348
+    - name: Ctrdg_Init
+      address:
+        EU: 0x238E570
+        NA: 0x238E570
+        JP: 0x238E570
+        EU-WRAM: 0x3806388
+        NA-WRAM: 0x3806388
+        JP-WRAM: 0x3806388
+    - name: Ctrdgi_InitModuleInfo
+      address:
+        EU: 0x238E610
+        NA: 0x238E610
+        JP: 0x238E610
+        EU-WRAM: 0x3806428
+        NA-WRAM: 0x3806428
+        JP-WRAM: 0x3806428
+    - name: Ctrdgi_CallbackForInitModuleInfo
+      address:
+        EU: 0x238E784
+        NA: 0x238E784
+        JP: 0x238E784
+        EU-WRAM: 0x380659C
+        NA-WRAM: 0x380659C
+        JP-WRAM: 0x380659C
+    - name: Ctrdgi_CallbackForPulledOut
+      address:
+        EU: 0x238E7B4
+        NA: 0x238E7B4
+        JP: 0x238E7B4
+        EU-WRAM: 0x38065CC
+        NA-WRAM: 0x38065CC
+        JP-WRAM: 0x38065CC
+    - name: Ctrdg_VibPulseEdgeUpdate
+      address:
+        EU: 0x238E7F8
+        NA: 0x238E7F8
+        JP: 0x238E7F8
+        EU-WRAM: 0x3806610
+        NA-WRAM: 0x3806610
+        JP-WRAM: 0x3806610
+    - name: Ctrdgcheckpullout_Polling
+      address:
+        EU: 0x238EA30
+        NA: 0x238EA30
+        JP: 0x238EA30
+        EU-WRAM: 0x3806848
+        NA-WRAM: 0x3806848
+        JP-WRAM: 0x3806848
+    - name: Ctrdgi_CallbackForSetPhi
+      address:
+        EU: 0x238EB2C
+        NA: 0x238EB2C
+        JP: 0x238EB2C
+        EU-WRAM: 0x3806944
+        NA-WRAM: 0x3806944
+        JP-WRAM: 0x3806944
     - name: _s32_div_f
       aliases:
         - __divsi3
@@ -283,4 +2635,3484 @@ arm7:
         r0: dividend
         r1: divisor
         return: (quotient) | (remainder << 32)
+    - name: OSi_DoBoot
+      address:
+        EU: 0x238F4A8
+        NA: 0x238F4A8
+        JP: 0x238F4A8
+        EU-WRAM: 0x38072C0
+        NA-WRAM: 0x38072C0
+        JP-WRAM: 0x38072C0
+    - name: Wmsp_ReturnResult2Wm9
+      address:
+        EU: 0x238F51C
+        NA: 0x238F51C
+        JP: 0x238F51C
+        EU-WRAM: 0x3807334
+        NA-WRAM: 0x3807334
+        JP-WRAM: 0x3807334
+    - name: Wmsp_GetBuffer4Callback2Wm9
+      address:
+        EU: 0x238F568
+        NA: 0x238F568
+        JP: 0x238F568
+        EU-WRAM: 0x3807380
+        NA-WRAM: 0x3807380
+        JP-WRAM: 0x3807380
+    - name: Wm_Sp_Init
+      address:
+        EU: 0x238F7F0
+        NA: 0x238F7F0
+        JP: 0x238F7F0
+        EU-RAM: 0x27E0000
+        NA-RAM: 0x27E0000
+        JP-RAM: 0x27E0000
+    - name: Wmsp_WlRequest
+      address:
+        EU: 0x238F9BC
+        NA: 0x238F9BC
+        JP: 0x238F9BC
+        EU-RAM: 0x27E01CC
+        NA-RAM: 0x27E01CC
+        JP-RAM: 0x27E01CC
+    - name: WmspPxiCallback
+      address:
+        EU: 0x238FA34
+        NA: 0x238FA34
+        JP: 0x238FA34
+        EU-RAM: 0x27E0244
+        NA-RAM: 0x27E0244
+        JP-RAM: 0x27E0244
+    - name: Wmsp_CheckMacAddress
+      address:
+        EU: 0x238FA9C
+        NA: 0x238FA9C
+        JP: 0x238FA9C
+        EU-RAM: 0x27E02AC
+        NA-RAM: 0x27E02AC
+        JP-RAM: 0x27E02AC
+    - name: Wmsp_CopyParentParam
+      address:
+        EU: 0x238FAFC
+        NA: 0x238FAFC
+        JP: 0x238FAFC
+        EU-RAM: 0x27E030C
+        NA-RAM: 0x27E030C
+        JP-RAM: 0x27E030C
+    - name: Wmsp_SetAllParams
+      address:
+        EU: 0x238FBC0
+        NA: 0x238FBC0
+        JP: 0x238FBC0
+        EU-RAM: 0x27E03D0
+        NA-RAM: 0x27E03D0
+        JP-RAM: 0x27E03D0
+    - name: Wmsp_AddRssiToList
+      address:
+        EU: 0x238FD10
+        NA: 0x238FD10
+        JP: 0x238FD10
+        EU-RAM: 0x27E0520
+        NA-RAM: 0x27E0520
+        JP-RAM: 0x27E0520
+    - name: Wmsp_FillRssiIntoList
+      address:
+        EU: 0x238FD54
+        NA: 0x238FD54
+        JP: 0x238FD54
+        EU-RAM: 0x27E0564
+        NA-RAM: 0x27E0564
+        JP-RAM: 0x27E0564
+    - name: Wmsp_GetAverageLinkLevel
+      address:
+        EU: 0x238FD8C
+        NA: 0x238FD8C
+        JP: 0x238FD8C
+        EU-RAM: 0x27E059C
+        NA-RAM: 0x27E059C
+        JP-RAM: 0x27E059C
+    - name: Wmsp_GetLinkLevel
+      address:
+        EU: 0x238FDC8
+        NA: 0x238FDC8
+        JP: 0x238FDC8
+        EU-RAM: 0x27E05D8
+        NA-RAM: 0x27E05D8
+        JP-RAM: 0x27E05D8
+    - name: Wmsp_SetThreadPriorityLow
+      address:
+        EU: 0x238FE30
+        NA: 0x238FE30
+        JP: 0x238FE30
+        EU-RAM: 0x27E0640
+        NA-RAM: 0x27E0640
+        JP-RAM: 0x27E0640
+    - name: Wmsp_SetThreadPriorityHigh
+      address:
+        EU: 0x238FE90
+        NA: 0x238FE90
+        JP: 0x238FE90
+        EU-RAM: 0x27E06A0
+        NA-RAM: 0x27E06A0
+        JP-RAM: 0x27E06A0
+    - name: Wmsp_GetInternalRequestBuf
+      address:
+        EU: 0x238FEF0
+        NA: 0x238FEF0
+        JP: 0x238FEF0
+        EU-RAM: 0x27E0700
+        NA-RAM: 0x27E0700
+        JP-RAM: 0x27E0700
+    - name: Wmsp_ResetSizeVars
+      address:
+        EU: 0x238FF5C
+        NA: 0x238FF5C
+        JP: 0x238FF5C
+        EU-RAM: 0x27E076C
+        NA-RAM: 0x27E076C
+        JP-RAM: 0x27E076C
+    - name: Wmsp_SetParentMaxSize
+      address:
+        EU: 0x238FF90
+        NA: 0x238FF90
+        JP: 0x238FF90
+        EU-RAM: 0x27E07A0
+        NA-RAM: 0x27E07A0
+        JP-RAM: 0x27E07A0
+    - name: Wmsp_SetChildMaxSize
+      address:
+        EU: 0x238FFE0
+        NA: 0x238FFE0
+        JP: 0x238FFE0
+        EU-RAM: 0x27E07F0
+        NA-RAM: 0x27E07F0
+        JP-RAM: 0x27E07F0
+    - name: Wmsp_SetParentSize
+      address:
+        EU: 0x2390030
+        NA: 0x2390030
+        JP: 0x2390030
+        EU-RAM: 0x27E0840
+        NA-RAM: 0x27E0840
+        JP-RAM: 0x27E0840
+    - name: Wmsp_SetChildSize
+      address:
+        EU: 0x239005C
+        NA: 0x239005C
+        JP: 0x239005C
+        EU-RAM: 0x27E086C
+        NA-RAM: 0x27E086C
+        JP-RAM: 0x27E086C
+    - name: WmspFreeBufOfWL
+      address:
+        EU: 0x23911F8
+        NA: 0x23911F8
+        JP: 0x23911F8
+        EU-RAM: 0x27E1A08
+        NA-RAM: 0x27E1A08
+        JP-RAM: 0x27E1A08
+    - name: Wmsp_RequestResumeMP
+      address:
+        EU: 0x2391244
+        NA: 0x2391244
+        JP: 0x2391244
+        EU-RAM: 0x27E1A54
+        NA-RAM: 0x27E1A54
+        JP-RAM: 0x27E1A54
+    - name: WmspKickMpParent
+      address:
+        EU: 0x23912D8
+        NA: 0x23912D8
+        JP: 0x23912D8
+        EU-RAM: 0x27E1AE8
+        NA-RAM: 0x27E1AE8
+        JP-RAM: 0x27E1AE8
+    - name: WmspMaMultiPollAckAlarmCallback
+      address:
+        EU: 0x2391358
+        NA: 0x2391358
+        JP: 0x2391358
+        EU-RAM: 0x27E1B68
+        NA-RAM: 0x27E1B68
+        JP-RAM: 0x27E1B68
+    - name: WmspKickMpChild
+      address:
+        EU: 0x23913FC
+        NA: 0x23913FC
+        JP: 0x23913FC
+        EU-RAM: 0x27E1C0C
+        NA-RAM: 0x27E1C0C
+        JP-RAM: 0x27E1C0C
+    - name: Wmsp_RequestThread
+      address:
+        EU: 0x23914B0
+        NA: 0x23914B0
+        JP: 0x23914B0
+        EU-RAM: 0x27E1CC0
+        NA-RAM: 0x27E1CC0
+        JP-RAM: 0x27E1CC0
+    - name: Wmsp_Wl_MlmeReset
+      address:
+        EU: 0x2391558
+        NA: 0x2391558
+        JP: 0x2391558
+        EU-RAM: 0x27E1D68
+        NA-RAM: 0x27E1D68
+        JP-RAM: 0x27E1D68
+    - name: Wmsp_Wl_MlmePowerManagement
+      address:
+        EU: 0x23915AC
+        NA: 0x23915AC
+        JP: 0x23915AC
+        EU-RAM: 0x27E1DBC
+        NA-RAM: 0x27E1DBC
+        JP-RAM: 0x27E1DBC
+    - name: Wmsp_Wl_MlmeScan
+      address:
+        EU: 0x239160C
+        NA: 0x239160C
+        JP: 0x239160C
+        EU-RAM: 0x27E1E1C
+        NA-RAM: 0x27E1E1C
+        JP-RAM: 0x27E1E1C
+    - name: Wmsp_Wl_MlmeJoin
+      address:
+        EU: 0x23916C4
+        NA: 0x23916C4
+        JP: 0x23916C4
+        EU-RAM: 0x27E1ED4
+        NA-RAM: 0x27E1ED4
+        JP-RAM: 0x27E1ED4
+    - name: Wmsp_Wl_MlmeAuthenticate
+      address:
+        EU: 0x239173C
+        NA: 0x239173C
+        JP: 0x239173C
+        EU-RAM: 0x27E1F4C
+        NA-RAM: 0x27E1F4C
+        JP-RAM: 0x27E1F4C
+    - name: Wmsp_Wl_MlmeDeAuthenticate
+      address:
+        EU: 0x23917BC
+        NA: 0x23917BC
+        JP: 0x23917BC
+        EU-RAM: 0x27E1FCC
+        NA-RAM: 0x27E1FCC
+        JP-RAM: 0x27E1FCC
+    - name: Wmsp_Wl_MlmeAssociate
+      address:
+        EU: 0x2391834
+        NA: 0x2391834
+        JP: 0x2391834
+        EU-RAM: 0x27E2044
+        NA-RAM: 0x27E2044
+        JP-RAM: 0x27E2044
+    - name: Wmsp_Wl_MlmeStart
+      address:
+        EU: 0x23918B0
+        NA: 0x23918B0
+        JP: 0x23918B0
+        EU-RAM: 0x27E20C0
+        NA-RAM: 0x27E20C0
+        JP-RAM: 0x27E20C0
+    - name: Wmsp_Wl_MlmeMeasureChannel
+      address:
+        EU: 0x2391970
+        NA: 0x2391970
+        JP: 0x2391970
+        EU-RAM: 0x27E2180
+        NA-RAM: 0x27E2180
+        JP-RAM: 0x27E2180
+    - name: Wmsp_Wl_MaData
+      address:
+        EU: 0x23919F0
+        NA: 0x23919F0
+        JP: 0x23919F0
+        EU-RAM: 0x27E2200
+        NA-RAM: 0x27E2200
+        JP-RAM: 0x27E2200
+    - name: Wmsp_Wl_MaKeyData
+      address:
+        EU: 0x2391A9C
+        NA: 0x2391A9C
+        JP: 0x2391A9C
+        EU-RAM: 0x27E22AC
+        NA-RAM: 0x27E22AC
+        JP-RAM: 0x27E22AC
+    - name: Wmsp_Wl_MaMp
+      address:
+        EU: 0x2391B04
+        NA: 0x2391B04
+        JP: 0x2391B04
+        EU-RAM: 0x27E2314
+        NA-RAM: 0x27E2314
+        JP-RAM: 0x27E2314
+    - name: Wmsp_Wl_MaClearData
+      address:
+        EU: 0x2391B9C
+        NA: 0x2391B9C
+        JP: 0x2391B9C
+        EU-RAM: 0x27E23AC
+        NA-RAM: 0x27E23AC
+        JP-RAM: 0x27E23AC
+    - name: Wmsp_Wl_ParamSetAll
+      address:
+        EU: 0x2391BF4
+        NA: 0x2391BF4
+        JP: 0x2391BF4
+        EU-RAM: 0x27E2404
+        NA-RAM: 0x27E2404
+        JP-RAM: 0x27E2404
+    - name: Wmsp_Wl_ParamSetWepKeyId
+      address:
+        EU: 0x2391C48
+        NA: 0x2391C48
+        JP: 0x2391C48
+        EU-RAM: 0x27E2458
+        NA-RAM: 0x27E2458
+        JP-RAM: 0x27E2458
+    - name: Wmsp_Wl_ParamSetBeaconLostThreshold
+      address:
+        EU: 0x2391CA4
+        NA: 0x2391CA4
+        JP: 0x2391CA4
+        EU-RAM: 0x27E24B4
+        NA-RAM: 0x27E24B4
+        JP-RAM: 0x27E24B4
+    - name: Wmsp_Wl_ParamSetSsidMask
+      address:
+        EU: 0x2391D00
+        NA: 0x2391D00
+        JP: 0x2391D00
+        EU-RAM: 0x27E2510
+        NA-RAM: 0x27E2510
+        JP-RAM: 0x27E2510
+    - name: Wmsp_Wl_ParamSetPreambleType
+      address:
+        EU: 0x2391D74
+        NA: 0x2391D74
+        JP: 0x2391D74
+        EU-RAM: 0x27E2584
+        NA-RAM: 0x27E2584
+        JP-RAM: 0x27E2584
+    - name: Wmsp_Wl_ParamSetLifeTime
+      address:
+        EU: 0x2391DD0
+        NA: 0x2391DD0
+        JP: 0x2391DD0
+        EU-RAM: 0x27E25E0
+        NA-RAM: 0x27E25E0
+        JP-RAM: 0x27E25E0
+    - name: Wmsp_Wl_ParamSetMaxConnectableChild
+      address:
+        EU: 0x2391E38
+        NA: 0x2391E38
+        JP: 0x2391E38
+        EU-RAM: 0x27E2648
+        NA-RAM: 0x27E2648
+        JP-RAM: 0x27E2648
+    - name: Wmsp_Wl_ParamSetBeaconSendRecvInd
+      address:
+        EU: 0x2391E94
+        NA: 0x2391E94
+        JP: 0x2391E94
+        EU-RAM: 0x27E26A4
+        NA-RAM: 0x27E26A4
+        JP-RAM: 0x27E26A4
+    - name: Wmsp_Wl_ParamSetNullKeyResponseMode
+      address:
+        EU: 0x2391EF0
+        NA: 0x2391EF0
+        JP: 0x2391EF0
+        EU-RAM: 0x27E2700
+        NA-RAM: 0x27E2700
+        JP-RAM: 0x27E2700
+    - name: Wmsp_Wl_ParamSetBeaconPeriod
+      address:
+        EU: 0x2391F4C
+        NA: 0x2391F4C
+        JP: 0x2391F4C
+        EU-RAM: 0x27E275C
+        NA-RAM: 0x27E275C
+        JP-RAM: 0x27E275C
+    - name: Wmsp_Wl_ParamSetGameInfo
+      address:
+        EU: 0x2391FA8
+        NA: 0x2391FA8
+        JP: 0x2391FA8
+        EU-RAM: 0x27E27B8
+        NA-RAM: 0x27E27B8
+        JP-RAM: 0x27E27B8
+    - name: Wmsp_Wl_DevTestSignal
+      address:
+        EU: 0x2392128
+        NA: 0x2392128
+        JP: 0x2392128
+        EU-RAM: 0x27E2938
+        NA-RAM: 0x27E2938
+        JP-RAM: 0x27E2938
+    - name: Wmspi_Wl_NoArg
+      address:
+        EU: 0x2392198
+        NA: 0x2392198
+        JP: 0x2392198
+        EU-RAM: 0x27E29A8
+        NA-RAM: 0x27E29A8
+        JP-RAM: 0x27E29A8
+    - name: Wmsp_Initialize
+      address:
+        EU: 0x23921E0
+        NA: 0x23921E0
+        JP: 0x23921E0
+        EU-RAM: 0x27E29F0
+        NA-RAM: 0x27E29F0
+        JP-RAM: 0x27E29F0
+    - name: Wmsp_Reset
+      address:
+        EU: 0x2392280
+        NA: 0x2392280
+        JP: 0x2392280
+        EU-RAM: 0x27E2A90
+        NA-RAM: 0x27E2A90
+        JP-RAM: 0x27E2A90
+    - name: Wmsp_End
+      address:
+        EU: 0x2392690
+        NA: 0x2392690
+        JP: 0x2392690
+        EU-RAM: 0x27E2EA0
+        NA-RAM: 0x27E2EA0
+        JP-RAM: 0x27E2EA0
+    - name: Wmsp_SetParentParam
+      address:
+        EU: 0x2392740
+        NA: 0x2392740
+        JP: 0x2392740
+        EU-RAM: 0x27E2F50
+        NA-RAM: 0x27E2F50
+        JP-RAM: 0x27E2F50
+    - name: Wmsp_StartParent
+      address:
+        EU: 0x2392800
+        NA: 0x2392800
+        JP: 0x2392800
+        EU-RAM: 0x27E3010
+        NA-RAM: 0x27E3010
+        JP-RAM: 0x27E3010
+    - name: Wmsp_EndParent
+      address:
+        EU: 0x2392AC8
+        NA: 0x2392AC8
+        JP: 0x2392AC8
+        EU-RAM: 0x27E32D8
+        NA-RAM: 0x27E32D8
+        JP-RAM: 0x27E32D8
+    - name: Wmsp_StartScan
+      address:
+        EU: 0x2392CC0
+        NA: 0x2392CC0
+        JP: 0x2392CC0
+        EU-RAM: 0x27E34D0
+        NA-RAM: 0x27E34D0
+        JP-RAM: 0x27E34D0
+    - name: Wmsp_StartScanEx
+      address:
+        EU: 0x2393050
+        NA: 0x2393050
+        JP: 0x2393050
+        EU-RAM: 0x27E3860
+        NA-RAM: 0x27E3860
+        JP-RAM: 0x27E3860
+    - name: Wmsp_EndScan
+      address:
+        EU: 0x23935AC
+        NA: 0x23935AC
+        JP: 0x23935AC
+        EU-RAM: 0x27E3DBC
+        NA-RAM: 0x27E3DBC
+        JP-RAM: 0x27E3DBC
+    - name: Wmsp_StartConnectEx
+      address:
+        EU: 0x23936B4
+        NA: 0x23936B4
+        JP: 0x23936B4
+        EU-RAM: 0x27E3EC4
+        NA-RAM: 0x27E3EC4
+        JP-RAM: 0x27E3EC4
+    - name: Wmsp_Disconnect
+      address:
+        EU: 0x2393C94
+        NA: 0x2393C94
+        JP: 0x2393C94
+        EU-RAM: 0x27E44A4
+        NA-RAM: 0x27E44A4
+        JP-RAM: 0x27E44A4
+    - name: Wmsp_DisconnectCore
+      address:
+        EU: 0x2393CEC
+        NA: 0x2393CEC
+        JP: 0x2393CEC
+        EU-RAM: 0x27E44FC
+        NA-RAM: 0x27E44FC
+        JP-RAM: 0x27E44FC
+    - name: Wmsp_IndicateDisconnectionFromMyself
+      address:
+        EU: 0x2394278
+        NA: 0x2394278
+        JP: 0x2394278
+        EU-RAM: 0x27E4A88
+        NA-RAM: 0x27E4A88
+        JP-RAM: 0x27E4A88
+    - name: WmspError
+      address:
+        EU: 0x239433C
+        NA: 0x239433C
+        JP: 0x239433C
+        EU-RAM: 0x27E4B4C
+        NA-RAM: 0x27E4B4C
+        JP-RAM: 0x27E4B4C
+    - name: WmspIndError
+      address:
+        EU: 0x2394380
+        NA: 0x2394380
+        JP: 0x2394380
+        EU-RAM: 0x27E4B90
+        NA-RAM: 0x27E4B90
+        JP-RAM: 0x27E4B90
+    - name: Wmsp_StartMp
+      address:
+        EU: 0x23943C4
+        NA: 0x23943C4
+        JP: 0x23943C4
+        EU-RAM: 0x27E4BD4
+        NA-RAM: 0x27E4BD4
+        JP-RAM: 0x27E4BD4
+    - name: Wmsp_SetMpData
+      address:
+        EU: 0x2394758
+        NA: 0x2394758
+        JP: 0x2394758
+        EU-RAM: 0x27E4F68
+        NA-RAM: 0x27E4F68
+        JP-RAM: 0x27E4F68
+    - name: Wmsp_EndMp
+      address:
+        EU: 0x2394894
+        NA: 0x2394894
+        JP: 0x2394894
+        EU-RAM: 0x27E50A4
+        NA-RAM: 0x27E50A4
+        JP-RAM: 0x27E50A4
+    - name: Wmsp_StartDcf
+      address:
+        EU: 0x23949E4
+        NA: 0x23949E4
+        JP: 0x23949E4
+        EU-RAM: 0x27E51F4
+        NA-RAM: 0x27E51F4
+        JP-RAM: 0x27E51F4
+    - name: Wmsp_SetDcfData
+      address:
+        EU: 0x2394A70
+        NA: 0x2394A70
+        JP: 0x2394A70
+        EU-RAM: 0x27E5280
+        NA-RAM: 0x27E5280
+        JP-RAM: 0x27E5280
+    - name: Wmsp_EndDcf
+      address:
+        EU: 0x2394B68
+        NA: 0x2394B68
+        JP: 0x2394B68
+        EU-RAM: 0x27E5378
+        NA-RAM: 0x27E5378
+        JP-RAM: 0x27E5378
+    - name: Wmsp_SetWepKey
+      address:
+        EU: 0x2394C24
+        NA: 0x2394C24
+        JP: 0x2394C24
+        EU-RAM: 0x27E5434
+        NA-RAM: 0x27E5434
+        JP-RAM: 0x27E5434
+    - name: Wmsp_SetWepKeyEx
+      address:
+        EU: 0x2394CCC
+        NA: 0x2394CCC
+        JP: 0x2394CCC
+        EU-RAM: 0x27E54DC
+        NA-RAM: 0x27E54DC
+        JP-RAM: 0x27E54DC
+    - name: Wmsp_SetGameInfo
+      address:
+        EU: 0x2394DC4
+        NA: 0x2394DC4
+        JP: 0x2394DC4
+        EU-RAM: 0x27E55D4
+        NA-RAM: 0x27E55D4
+        JP-RAM: 0x27E55D4
+    - name: Wmsp_SetBeaconTxRxInd
+      address:
+        EU: 0x2394EB8
+        NA: 0x2394EB8
+        JP: 0x2394EB8
+        EU-RAM: 0x27E56C8
+        NA-RAM: 0x27E56C8
+        JP-RAM: 0x27E56C8
+    - name: Wmsp_StartTestMode
+      address:
+        EU: 0x2394F2C
+        NA: 0x2394F2C
+        JP: 0x2394F2C
+        EU-RAM: 0x27E573C
+        NA-RAM: 0x27E573C
+        JP-RAM: 0x27E573C
+    - name: Wmsp_StopTestMode
+      address:
+        EU: 0x2394F50
+        NA: 0x2394F50
+        JP: 0x2394F50
+        EU-RAM: 0x27E5760
+        NA-RAM: 0x27E5760
+        JP-RAM: 0x27E5760
+    - name: Wmsp_MeasureChannel
+      address:
+        EU: 0x23950A0
+        NA: 0x23950A0
+        JP: 0x23950A0
+        EU-RAM: 0x27E58B0
+        NA-RAM: 0x27E58B0
+        JP-RAM: 0x27E58B0
+    - name: Wmsp_InitWirelessCounter
+      address:
+        EU: 0x239527C
+        NA: 0x239527C
+        JP: 0x239527C
+        EU-RAM: 0x27E5A8C
+        NA-RAM: 0x27E5A8C
+        JP-RAM: 0x27E5A8C
+    - name: Wmsp_GetWirelessCounter
+      address:
+        EU: 0x23952E4
+        NA: 0x23952E4
+        JP: 0x23952E4
+        EU-RAM: 0x27E5AF4
+        NA-RAM: 0x27E5AF4
+        JP-RAM: 0x27E5AF4
+    - name: Wmsp_SetValarm
+      address:
+        EU: 0x2395390
+        NA: 0x2395390
+        JP: 0x2395390
+        EU-RAM: 0x27E5BA0
+        NA-RAM: 0x27E5BA0
+        JP-RAM: 0x27E5BA0
+    - name: WmspChildAdjustVSync1
+      address:
+        EU: 0x2395440
+        NA: 0x2395440
+        JP: 0x2395440
+        EU-RAM: 0x27E5C50
+        NA-RAM: 0x27E5C50
+        JP-RAM: 0x27E5C50
+    - name: WmspChildAdjustVSync2
+      address:
+        EU: 0x23955A4
+        NA: 0x23955A4
+        JP: 0x23955A4
+        EU-RAM: 0x27E5DB4
+        NA-RAM: 0x27E5DB4
+        JP-RAM: 0x27E5DB4
+    - name: WmspChildVAlarmMP
+      address:
+        EU: 0x2395664
+        NA: 0x2395664
+        JP: 0x2395664
+        EU-RAM: 0x27E5E74
+        NA-RAM: 0x27E5E74
+        JP-RAM: 0x27E5E74
+    - name: WmspParentAdjustVSync
+      address:
+        EU: 0x239577C
+        NA: 0x239577C
+        JP: 0x239577C
+        EU-RAM: 0x27E5F8C
+        NA-RAM: 0x27E5F8C
+        JP-RAM: 0x27E5F8C
+    - name: WmspParentVAlarmMP
+      address:
+        EU: 0x2395834
+        NA: 0x2395834
+        JP: 0x2395834
+        EU-RAM: 0x27E6044
+        NA-RAM: 0x27E6044
+        JP-RAM: 0x27E6044
+    - name: WmspFromVAlarmToWmspThread
+      address:
+        EU: 0x2395880
+        NA: 0x2395880
+        JP: 0x2395880
+        EU-RAM: 0x27E6090
+        NA-RAM: 0x27E6090
+        JP-RAM: 0x27E6090
+    - name: Wmsp_ValarmSetMpData
+      address:
+        EU: 0x2395930
+        NA: 0x2395930
+        JP: 0x2395930
+        EU-RAM: 0x27E6140
+        NA-RAM: 0x27E6140
+        JP-RAM: 0x27E6140
+    - name: Wmspkicknextmp_Child
+      address:
+        EU: 0x2395B04
+        NA: 0x2395B04
+        JP: 0x2395B04
+        EU-RAM: 0x27E6314
+        NA-RAM: 0x27E6314
+        JP-RAM: 0x27E6314
+    - name: Wmsp_InitSendQueue
+      address:
+        EU: 0x2395B60
+        NA: 0x2395B60
+        JP: 0x2395B60
+        EU-RAM: 0x27E6370
+        NA-RAM: 0x27E6370
+        JP-RAM: 0x27E6370
+    - name: Wmsp_SendMaKeyData
+      address:
+        EU: 0x2395C18
+        NA: 0x2395C18
+        JP: 0x2395C18
+        EU-RAM: 0x27E6428
+        NA-RAM: 0x27E6428
+        JP-RAM: 0x27E6428
+    - name: Wmsp_SendMaMp
+      address:
+        EU: 0x2396110
+        NA: 0x2396110
+        JP: 0x2396110
+        EU-RAM: 0x27E6920
+        NA-RAM: 0x27E6920
+        JP-RAM: 0x27E6920
+    - name: Wmsp_ResumeMaMP
+      address:
+        EU: 0x2396AB8
+        NA: 0x2396AB8
+        JP: 0x2396AB8
+        EU-RAM: 0x27E72C8
+        NA-RAM: 0x27E72C8
+        JP-RAM: 0x27E72C8
+    - name: Wmsp_PutSendQueue
+      address:
+        EU: 0x2396BA8
+        NA: 0x2396BA8
+        JP: 0x2396BA8
+        EU-RAM: 0x27E73B8
+        NA-RAM: 0x27E73B8
+        JP-RAM: 0x27E73B8
+    - name: Wmsp_FlushSendQueue
+      address:
+        EU: 0x2396CDC
+        NA: 0x2396CDC
+        JP: 0x2396CDC
+        EU-RAM: 0x27E74EC
+        NA-RAM: 0x27E74EC
+        JP-RAM: 0x27E74EC
+    - name: Wmsp_CleanSendQueue
+      address:
+        EU: 0x239700C
+        NA: 0x239700C
+        JP: 0x239700C
+        EU-RAM: 0x27E781C
+        NA-RAM: 0x27E781C
+        JP-RAM: 0x27E781C
+    - name: Wmsp_ParsePortPacket
+      address:
+        EU: 0x2397200
+        NA: 0x2397200
+        JP: 0x2397200
+        EU-RAM: 0x27E7A10
+        NA-RAM: 0x27E7A10
+        JP-RAM: 0x27E7A10
+    - name: WmspGetTmptt
+      address:
+        EU: 0x2397404
+        NA: 0x2397404
+        JP: 0x2397404
+        EU-RAM: 0x27E7C14
+        NA-RAM: 0x27E7C14
+        JP-RAM: 0x27E7C14
+    - name: Wmsp_SetEntry
+      address:
+        EU: 0x23974AC
+        NA: 0x23974AC
+        JP: 0x23974AC
+        EU-RAM: 0x27E7CBC
+        NA-RAM: 0x27E7CBC
+        JP-RAM: 0x27E7CBC
+    - name: Wmsp_AutoDeAuth
+      address:
+        EU: 0x239753C
+        NA: 0x239753C
+        JP: 0x239753C
+        EU-RAM: 0x27E7D4C
+        NA-RAM: 0x27E7D4C
+        JP-RAM: 0x27E7D4C
+    - name: Wmsp_Disable
+      address:
+        EU: 0x23977E4
+        NA: 0x23977E4
+        JP: 0x23977E4
+        EU-RAM: 0x27E7FF4
+        NA-RAM: 0x27E7FF4
+        JP-RAM: 0x27E7FF4
+    - name: Wmsp_PowerOn
+      address:
+        EU: 0x239784C
+        NA: 0x239784C
+        JP: 0x239784C
+        EU-RAM: 0x27E805C
+        NA-RAM: 0x27E805C
+        JP-RAM: 0x27E805C
+    - name: Wmspi_CommonWlIdle
+      address:
+        EU: 0x23978F4
+        NA: 0x23978F4
+        JP: 0x23978F4
+        EU-RAM: 0x27E8104
+        NA-RAM: 0x27E8104
+        JP-RAM: 0x27E8104
+    - name: Wmsp_PowerOff
+      address:
+        EU: 0x2397B04
+        NA: 0x2397B04
+        JP: 0x2397B04
+        EU-RAM: 0x27E8314
+        NA-RAM: 0x27E8314
+        JP-RAM: 0x27E8314
+    - name: Wmsp_SetMpParameter
+      address:
+        EU: 0x2397BB0
+        NA: 0x2397BB0
+        JP: 0x2397BB0
+        EU-RAM: 0x27E83C0
+        NA-RAM: 0x27E83C0
+        JP-RAM: 0x27E83C0
+    - name: Wmsp_SetBeaconPeriod
+      address:
+        EU: 0x2397F30
+        NA: 0x2397F30
+        JP: 0x2397F30
+        EU-RAM: 0x27E8740
+        NA-RAM: 0x27E8740
+        JP-RAM: 0x27E8740
+    - name: Wmsp_SetPowerSaveMode
+      address:
+        EU: 0x2397FBC
+        NA: 0x2397FBC
+        JP: 0x2397FBC
+        EU-RAM: 0x27E87CC
+        NA-RAM: 0x27E87CC
+        JP-RAM: 0x27E87CC
+    - name: Wmsp_StartTestRxMode
+      address:
+        EU: 0x239813C
+        NA: 0x239813C
+        JP: 0x239813C
+        EU-RAM: 0x27E894C
+        NA-RAM: 0x27E894C
+        JP-RAM: 0x27E894C
+    - name: Wmsp_StopTestRxMode
+      address:
+        EU: 0x2398160
+        NA: 0x2398160
+        JP: 0x2398160
+        EU-RAM: 0x27E8970
+        NA-RAM: 0x27E8970
+        JP-RAM: 0x27E8970
+    - name: WlessLibReboot
+      address:
+        EU: 0x2398184
+        NA: 0x2398184
+        JP: 0x2398184
+        EU-RAM: 0x27E8994
+        NA-RAM: 0x27E8994
+        JP-RAM: 0x27E8994
+    - name: WL_InitDriver
+      address:
+        EU: 0x23981D0
+        NA: 0x23981D0
+        JP: 0x23981D0
+        EU-RAM: 0x27E89E0
+        NA-RAM: 0x27E89E0
+        JP-RAM: 0x27E89E0
+    - name: InitializeTask
+      address:
+        EU: 0x23983B4
+        NA: 0x23983B4
+        JP: 0x23983B4
+        EU-RAM: 0x27E8BC4
+        NA-RAM: 0x27E8BC4
+        JP-RAM: 0x27E8BC4
+    - name: InitializeHeapBuf
+      address:
+        EU: 0x239845C
+        NA: 0x239845C
+        JP: 0x239845C
+        EU-RAM: 0x27E8C6C
+        NA-RAM: 0x27E8C6C
+        JP-RAM: 0x27E8C6C
+    - name: ReleaseAllWlHeapBuf
+      address:
+        EU: 0x2398534
+        NA: 0x2398534
+        JP: 0x2398534
+        EU-RAM: 0x27E8D44
+        NA-RAM: 0x27E8D44
+        JP-RAM: 0x27E8D44
+    - name: ReleaseAllHeapBuf
+      address:
+        EU: 0x239858C
+        NA: 0x239858C
+        JP: 0x239858C
+        EU-RAM: 0x27E8D9C
+        NA-RAM: 0x27E8D9C
+        JP-RAM: 0x27E8D9C
+    - name: InitializeParam
+      address:
+        EU: 0x23985CC
+        NA: 0x23985CC
+        JP: 0x23985CC
+        EU-RAM: 0x27E8DDC
+        NA-RAM: 0x27E8DDC
+        JP-RAM: 0x27E8DDC
+    - name: WSetMacAdrs
+      address:
+        EU: 0x239864C
+        NA: 0x239864C
+        JP: 0x239864C
+        EU-RAM: 0x27E8E5C
+        NA-RAM: 0x27E8E5C
+        JP-RAM: 0x27E8E5C
+    - name: WSetRetryLimit
+      address:
+        EU: 0x23986AC
+        NA: 0x23986AC
+        JP: 0x23986AC
+        EU-RAM: 0x27E8EBC
+        NA-RAM: 0x27E8EBC
+        JP-RAM: 0x27E8EBC
+    - name: WSetEnableChannel
+      address:
+        EU: 0x23986E0
+        NA: 0x23986E0
+        JP: 0x23986E0
+        EU-RAM: 0x27E8EF0
+        NA-RAM: 0x27E8EF0
+        JP-RAM: 0x27E8EF0
+    - name: WSetMode
+      address:
+        EU: 0x2398720
+        NA: 0x2398720
+        JP: 0x2398720
+        EU-RAM: 0x27E8F30
+        NA-RAM: 0x27E8F30
+        JP-RAM: 0x27E8F30
+    - name: WSetRate
+      address:
+        EU: 0x23987A0
+        NA: 0x23987A0
+        JP: 0x23987A0
+        EU-RAM: 0x27E8FB0
+        NA-RAM: 0x27E8FB0
+        JP-RAM: 0x27E8FB0
+    - name: WSetWepMode
+      address:
+        EU: 0x23987D4
+        NA: 0x23987D4
+        JP: 0x23987D4
+        EU-RAM: 0x27E8FE4
+        NA-RAM: 0x27E8FE4
+        JP-RAM: 0x27E8FE4
+    - name: WSetWepKeyId
+      address:
+        EU: 0x2398874
+        NA: 0x2398874
+        JP: 0x2398874
+        EU-RAM: 0x27E9084
+        NA-RAM: 0x27E9084
+        JP-RAM: 0x27E9084
+    - name: WSetWepKey
+      address:
+        EU: 0x2398898
+        NA: 0x2398898
+        JP: 0x2398898
+        EU-RAM: 0x27E90A8
+        NA-RAM: 0x27E90A8
+        JP-RAM: 0x27E90A8
+    - name: WSetBeaconType
+      address:
+        EU: 0x23988F8
+        NA: 0x23988F8
+        JP: 0x23988F8
+        EU-RAM: 0x27E9108
+        NA-RAM: 0x27E9108
+        JP-RAM: 0x27E9108
+    - name: WSetBcSsidResponse
+      address:
+        EU: 0x2398930
+        NA: 0x2398930
+        JP: 0x2398930
+        EU-RAM: 0x27E9140
+        NA-RAM: 0x27E9140
+        JP-RAM: 0x27E9140
+    - name: WSetBeaconLostThreshold
+      address:
+        EU: 0x2398968
+        NA: 0x2398968
+        JP: 0x2398968
+        EU-RAM: 0x27E9178
+        NA-RAM: 0x27E9178
+        JP-RAM: 0x27E9178
+    - name: WSetActiveZoneTime
+      address:
+        EU: 0x23989A0
+        NA: 0x23989A0
+        JP: 0x23989A0
+        EU-RAM: 0x27E91B0
+        NA-RAM: 0x27E91B0
+        JP-RAM: 0x27E91B0
+    - name: WSetSsidMask
+      address:
+        EU: 0x2398A50
+        NA: 0x2398A50
+        JP: 0x2398A50
+        EU-RAM: 0x27E9260
+        NA-RAM: 0x27E9260
+        JP-RAM: 0x27E9260
+    - name: WSetPreambleType
+      address:
+        EU: 0x2398A80
+        NA: 0x2398A80
+        JP: 0x2398A80
+        EU-RAM: 0x27E9290
+        NA-RAM: 0x27E9290
+        JP-RAM: 0x27E9290
+    - name: WSetAuthAlgo
+      address:
+        EU: 0x2398B28
+        NA: 0x2398B28
+        JP: 0x2398B28
+        EU-RAM: 0x27E9338
+        NA-RAM: 0x27E9338
+        JP-RAM: 0x27E9338
+    - name: WsetCca_Ed
+      address:
+        EU: 0x2398B4C
+        NA: 0x2398B4C
+        JP: 0x2398B4C
+        EU-RAM: 0x27E935C
+        NA-RAM: 0x27E935C
+        JP-RAM: 0x27E935C
+    - name: WSetMainAntenna
+      address:
+        EU: 0x2398B90
+        NA: 0x2398B90
+        JP: 0x2398B90
+        EU-RAM: 0x27E93A0
+        NA-RAM: 0x27E93A0
+        JP-RAM: 0x27E93A0
+    - name: WSetDiversity
+      address:
+        EU: 0x2398BF8
+        NA: 0x2398BF8
+        JP: 0x2398BF8
+        EU-RAM: 0x27E9408
+        NA-RAM: 0x27E9408
+        JP-RAM: 0x27E9408
+    - name: WSetBeaconSendRecvIndicate
+      address:
+        EU: 0x2398CCC
+        NA: 0x2398CCC
+        JP: 0x2398CCC
+        EU-RAM: 0x27E94DC
+        NA-RAM: 0x27E94DC
+        JP-RAM: 0x27E94DC
+    - name: WSetNullKeyMode
+      address:
+        EU: 0x2398D0C
+        NA: 0x2398D0C
+        JP: 0x2398D0C
+        EU-RAM: 0x27E951C
+        NA-RAM: 0x27E951C
+        JP-RAM: 0x27E951C
+    - name: WSetBssid
+      address:
+        EU: 0x2398D5C
+        NA: 0x2398D5C
+        JP: 0x2398D5C
+        EU-RAM: 0x27E956C
+        NA-RAM: 0x27E956C
+        JP-RAM: 0x27E956C
+    - name: WSetSsid
+      address:
+        EU: 0x2398DC0
+        NA: 0x2398DC0
+        JP: 0x2398DC0
+        EU-RAM: 0x27E95D0
+        NA-RAM: 0x27E95D0
+        JP-RAM: 0x27E95D0
+    - name: WSetBeaconPeriod
+      address:
+        EU: 0x2398ED0
+        NA: 0x2398ED0
+        JP: 0x2398ED0
+        EU-RAM: 0x27E96E0
+        NA-RAM: 0x27E96E0
+        JP-RAM: 0x27E96E0
+    - name: WSetDTimPeriod
+      address:
+        EU: 0x2398F28
+        NA: 0x2398F28
+        JP: 0x2398F28
+        EU-RAM: 0x27E9738
+        NA-RAM: 0x27E9738
+        JP-RAM: 0x27E9738
+    - name: WSetListenInterval
+      address:
+        EU: 0x2398F6C
+        NA: 0x2398F6C
+        JP: 0x2398F6C
+        EU-RAM: 0x27E977C
+        NA-RAM: 0x27E977C
+        JP-RAM: 0x27E977C
+    - name: WSetDefaultParameters
+      address:
+        EU: 0x2398FA0
+        NA: 0x2398FA0
+        JP: 0x2398FA0
+        EU-RAM: 0x27E97B0
+        NA-RAM: 0x27E97B0
+        JP-RAM: 0x27E97B0
+    - name: WSetChannel
+      address:
+        EU: 0x23990F0
+        NA: 0x23990F0
+        JP: 0x23990F0
+        EU-RAM: 0x27E9900
+        NA-RAM: 0x27E9900
+        JP-RAM: 0x27E9900
+    - name: WSetRateSet
+      address:
+        EU: 0x239937C
+        NA: 0x239937C
+        JP: 0x239937C
+        EU-RAM: 0x27E9B8C
+        NA-RAM: 0x27E9B8C
+        JP-RAM: 0x27E9B8C
+    - name: WSetTxTimeStampOffset
+      address:
+        EU: 0x23993BC
+        NA: 0x23993BC
+        JP: 0x23993BC
+        EU-RAM: 0x27E9BCC
+        NA-RAM: 0x27E9BCC
+        JP-RAM: 0x27E9BCC
+    - name: WSetPowerMgtMode
+      address:
+        EU: 0x239943C
+        NA: 0x239943C
+        JP: 0x239943C
+        EU-RAM: 0x27E9C4C
+        NA-RAM: 0x27E9C4C
+        JP-RAM: 0x27E9C4C
+    - name: WSetPowerState
+      address:
+        EU: 0x23994A4
+        NA: 0x23994A4
+        JP: 0x23994A4
+        EU-RAM: 0x27E9CB4
+        NA-RAM: 0x27E9CB4
+        JP-RAM: 0x27E9CB4
+    - name: WShutdown
+      address:
+        EU: 0x23994E4
+        NA: 0x23994E4
+        JP: 0x23994E4
+        EU-RAM: 0x27E9CF4
+        NA-RAM: 0x27E9CF4
+        JP-RAM: 0x27E9CF4
+    - name: WWakeUp
+      address:
+        EU: 0x239956C
+        NA: 0x239956C
+        JP: 0x239956C
+        EU-RAM: 0x27E9D7C
+        NA-RAM: 0x27E9D7C
+        JP-RAM: 0x27E9D7C
+    - name: WSetFrameLifeTime
+      address:
+        EU: 0x2399620
+        NA: 0x2399620
+        JP: 0x2399620
+        EU-RAM: 0x27E9E30
+        NA-RAM: 0x27E9E30
+        JP-RAM: 0x27E9E30
+    - name: WDisableTmpttPowerSave
+      address:
+        EU: 0x2399684
+        NA: 0x2399684
+        JP: 0x2399684
+        EU-RAM: 0x27E9E94
+        NA-RAM: 0x27E9E94
+        JP-RAM: 0x27E9E94
+    - name: WEnableTmpttPowerSave
+      address:
+        EU: 0x23996D0
+        NA: 0x23996D0
+        JP: 0x23996D0
+        EU-RAM: 0x27E9EE0
+        NA-RAM: 0x27E9EE0
+        JP-RAM: 0x27E9EE0
+    - name: WInitGameInfo
+      address:
+        EU: 0x2399700
+        NA: 0x2399700
+        JP: 0x2399700
+        EU-RAM: 0x27E9F10
+        NA-RAM: 0x27E9F10
+        JP-RAM: 0x27E9F10
+    - name: WSetGameInfo
+      address:
+        EU: 0x2399744
+        NA: 0x2399744
+        JP: 0x2399744
+        EU-RAM: 0x27E9F54
+        NA-RAM: 0x27E9F54
+        JP-RAM: 0x27E9F54
+    - name: WSetAids
+      address:
+        EU: 0x23997F0
+        NA: 0x23997F0
+        JP: 0x23997F0
+        EU-RAM: 0x27EA000
+        NA-RAM: 0x27EA000
+        JP-RAM: 0x27EA000
+    - name: WClearAids
+      address:
+        EU: 0x239982C
+        NA: 0x239982C
+        JP: 0x239982C
+        EU-RAM: 0x27EA03C
+        NA-RAM: 0x27EA03C
+        JP-RAM: 0x27EA03C
+    - name: WSetKsid
+      address:
+        EU: 0x2399888
+        NA: 0x2399888
+        JP: 0x2399888
+        EU-RAM: 0x27EA098
+        NA-RAM: 0x27EA098
+        JP-RAM: 0x27EA098
+    - name: WClearKsid
+      address:
+        EU: 0x23998AC
+        NA: 0x23998AC
+        JP: 0x23998AC
+        EU-RAM: 0x27EA0BC
+        NA-RAM: 0x27EA0BC
+        JP-RAM: 0x27EA0BC
+    - name: WSetMacAdrs2
+      address:
+        EU: 0x23998EC
+        NA: 0x23998EC
+        JP: 0x23998EC
+        EU-RAM: 0x27EA0FC
+        NA-RAM: 0x27EA0FC
+        JP-RAM: 0x27EA0FC
+    - name: WSetMacAdrs3
+      address:
+        EU: 0x2399920
+        NA: 0x2399920
+        JP: 0x2399920
+        EU-RAM: 0x27EA130
+        NA-RAM: 0x27EA130
+        JP-RAM: 0x27EA130
+    - name: WInitCounter
+      address:
+        EU: 0x239996C
+        NA: 0x239996C
+        JP: 0x239996C
+        EU-RAM: 0x27EA17C
+        NA-RAM: 0x27EA17C
+        JP-RAM: 0x27EA17C
+    - name: WUpdateCounter
+      address:
+        EU: 0x239999C
+        NA: 0x239999C
+        JP: 0x239999C
+        EU-RAM: 0x27EA1AC
+        NA-RAM: 0x27EA1AC
+        JP-RAM: 0x27EA1AC
+    - name: WCheckSsid
+      address:
+        EU: 0x2399B94
+        NA: 0x2399B94
+        JP: 0x2399B94
+        EU-RAM: 0x27EA3A4
+        NA-RAM: 0x27EA3A4
+        JP-RAM: 0x27EA3A4
+    - name: MatchMacAdrs
+      address:
+        EU: 0x2399C64
+        NA: 0x2399C64
+        JP: 0x2399C64
+        EU-RAM: 0x27EA474
+        NA-RAM: 0x27EA474
+        JP-RAM: 0x27EA474
+    - name: CheckEnableChannel
+      address:
+        EU: 0x2399C94
+        NA: 0x2399C94
+        JP: 0x2399C94
+        EU-RAM: 0x27EA4A4
+        NA-RAM: 0x27EA4A4
+        JP-RAM: 0x27EA4A4
+    - name: WElement2RateSet
+      address:
+        EU: 0x2399CB4
+        NA: 0x2399CB4
+        JP: 0x2399CB4
+        EU-RAM: 0x27EA4C4
+        NA-RAM: 0x27EA4C4
+        JP-RAM: 0x27EA4C4
+    - name: WCalcManRate
+      address:
+        EU: 0x2399D68
+        NA: 0x2399D68
+        JP: 0x2399D68
+        EU-RAM: 0x27EA578
+        NA-RAM: 0x27EA578
+        JP-RAM: 0x27EA578
+    - name: Bbp_Read
+      address:
+        EU: 0x2399DB4
+        NA: 0x2399DB4
+        JP: 0x2399DB4
+        EU-RAM: 0x27EA5C4
+        NA-RAM: 0x27EA5C4
+        JP-RAM: 0x27EA5C4
+    - name: Bbp_Write
+      address:
+        EU: 0x2399DE0
+        NA: 0x2399DE0
+        JP: 0x2399DE0
+        EU-RAM: 0x27EA5F0
+        NA-RAM: 0x27EA5F0
+        JP-RAM: 0x27EA5F0
+    - name: RF_Write
+      address:
+        EU: 0x2399E10
+        NA: 0x2399E10
+        JP: 0x2399E10
+        EU-RAM: 0x27EA620
+        NA-RAM: 0x27EA620
+        JP-RAM: 0x27EA620
+    - name: CalcBbpCrc
+      address:
+        EU: 0x2399E30
+        NA: 0x2399E30
+        JP: 0x2399E30
+        EU-RAM: 0x27EA640
+        NA-RAM: 0x27EA640
+        JP-RAM: 0x27EA640
+    - name: WConfigDevice
+      address:
+        EU: 0x2399EA0
+        NA: 0x2399EA0
+        JP: 0x2399EA0
+        EU-RAM: 0x27EA6B0
+        NA-RAM: 0x27EA6B0
+        JP-RAM: 0x27EA6B0
+    - name: InitMac
+      address:
+        EU: 0x2399F10
+        NA: 0x2399F10
+        JP: 0x2399F10
+        EU-RAM: 0x27EA720
+        NA-RAM: 0x27EA720
+        JP-RAM: 0x27EA720
+    - name: InitBaseBand
+      address:
+        EU: 0x2399F48
+        NA: 0x2399F48
+        JP: 0x2399F48
+        EU-RAM: 0x27EA758
+        NA-RAM: 0x27EA758
+        JP-RAM: 0x27EA758
+    - name: InitRF
+      address:
+        EU: 0x2399FB0
+        NA: 0x2399FB0
+        JP: 0x2399FB0
+        EU-RAM: 0x27EA7C0
+        NA-RAM: 0x27EA7C0
+        JP-RAM: 0x27EA7C0
+    - name: InitializeAlarm
+      address:
+        EU: 0x239A138
+        NA: 0x239A138
+        JP: 0x239A138
+        EU-RAM: 0x27EA948
+        NA-RAM: 0x27EA948
+        JP-RAM: 0x27EA948
+    - name: ClearPeriodicTimeOut
+      address:
+        EU: 0x239A23C
+        NA: 0x239A23C
+        JP: 0x239A23C
+        EU-RAM: 0x27EAA4C
+        NA-RAM: 0x27EAA4C
+        JP-RAM: 0x27EAA4C
+    - name: WIntervalTimer
+      address:
+        EU: 0x239A25C
+        NA: 0x239A25C
+        JP: 0x239A25C
+        EU-RAM: 0x27EAA6C
+        NA-RAM: 0x27EAA6C
+        JP-RAM: 0x27EAA6C
+    - name: ClearTimeOut
+      address:
+        EU: 0x239A3D0
+        NA: 0x239A3D0
+        JP: 0x239A3D0
+        EU-RAM: 0x27EABE0
+        NA-RAM: 0x27EABE0
+        JP-RAM: 0x27EABE0
+    - name: Dma_Read
+      address:
+        EU: 0x239A3F0
+        NA: 0x239A3F0
+        JP: 0x239A3F0
+        EU-RAM: 0x27EAC00
+        NA-RAM: 0x27EAC00
+        JP-RAM: 0x27EAC00
+    - name: Dma_Write
+      address:
+        EU: 0x239A46C
+        NA: 0x239A46C
+        JP: 0x239A46C
+        EU-RAM: 0x27EAC7C
+        NA-RAM: 0x27EAC7C
+        JP-RAM: 0x27EAC7C
+    - name: Dma_WriteHeaderData
+      address:
+        EU: 0x239A48C
+        NA: 0x239A48C
+        JP: 0x239A48C
+        EU-RAM: 0x27EAC9C
+        NA-RAM: 0x27EAC9C
+        JP-RAM: 0x27EAC9C
+    - name: Dma_WepWriteHeaderData
+      address:
+        EU: 0x239A4D0
+        NA: 0x239A4D0
+        JP: 0x239A4D0
+        EU-RAM: 0x27EACE0
+        NA-RAM: 0x27EACE0
+        JP-RAM: 0x27EACE0
+    - name: WL_WriteByte
+      address:
+        EU: 0x239A514
+        NA: 0x239A514
+        JP: 0x239A514
+        EU-RAM: 0x27EAD24
+        NA-RAM: 0x27EAD24
+        JP-RAM: 0x27EAD24
+    - name: Rnd_Init
+      address:
+        EU: 0x239A55C
+        NA: 0x239A55C
+        JP: 0x239A55C
+        EU-RAM: 0x27EAD6C
+        NA-RAM: 0x27EAD6C
+        JP-RAM: 0x27EAD6C
+    - name: Rnd_Rand
+      address:
+        EU: 0x239A5A8
+        NA: 0x239A5A8
+        JP: 0x239A5A8
+        EU-RAM: 0x27EADB8
+        NA-RAM: 0x27EADB8
+        JP-RAM: 0x27EADB8
+    - name: Calc_NextCrc
+      address:
+        EU: 0x239A5D8
+        NA: 0x239A5D8
+        JP: 0x239A5D8
+        EU-RAM: 0x27EADE8
+        NA-RAM: 0x27EADE8
+        JP-RAM: 0x27EADE8
+    - name: WCheckTxBufIdBeforeFrame
+      address:
+        EU: 0x239A658
+        NA: 0x239A658
+        JP: 0x239A658
+        EU-RAM: 0x27EAE68
+        NA-RAM: 0x27EAE68
+        JP-RAM: 0x27EAE68
+    - name: WaitMacStop
+      address:
+        EU: 0x239A6D8
+        NA: 0x239A6D8
+        JP: 0x239A6D8
+        EU-RAM: 0x27EAEE8
+        NA-RAM: 0x27EAEE8
+        JP-RAM: 0x27EAEE8
+    - name: RestoreTxFrame
+      address:
+        EU: 0x239A714
+        NA: 0x239A714
+        JP: 0x239A714
+        EU-RAM: 0x27EAF24
+        NA-RAM: 0x27EAF24
+        JP-RAM: 0x27EAF24
+    - name: WCheckTxBuf
+      address:
+        EU: 0x239A760
+        NA: 0x239A760
+        JP: 0x239A760
+        EU-RAM: 0x27EAF70
+        NA-RAM: 0x27EAF70
+        JP-RAM: 0x27EAF70
+    - name: SetFatalErr
+      address:
+        EU: 0x239A85C
+        NA: 0x239A85C
+        JP: 0x239A85C
+        EU-RAM: 0x27EB06C
+        NA-RAM: 0x27EB06C
+        JP-RAM: 0x27EB06C
+    - name: SendFatalErrMsgTask
+      address:
+        EU: 0x239A8A0
+        NA: 0x239A8A0
+        JP: 0x239A8A0
+        EU-RAM: 0x27EB0B0
+        NA-RAM: 0x27EB0B0
+        JP-RAM: 0x27EB0B0
+    - name: TerminateWlTask
+      address:
+        EU: 0x239A920
+        NA: 0x239A920
+        JP: 0x239A920
+        EU-RAM: 0x27EB130
+        NA-RAM: 0x27EB130
+        JP-RAM: 0x27EB130
+    - name: ReleaseWlTask
+      address:
+        EU: 0x239A9C0
+        NA: 0x239A9C0
+        JP: 0x239A9C0
+        EU-RAM: 0x27EB1D0
+        NA-RAM: 0x27EB1D0
+        JP-RAM: 0x27EB1D0
+    - name: DiagMacRegister
+      address:
+        EU: 0x239AA10
+        NA: 0x239AA10
+        JP: 0x239AA10
+        EU-RAM: 0x27EB220
+        NA-RAM: 0x27EB220
+        JP-RAM: 0x27EB220
+    - name: DiagMacMemory
+      address:
+        EU: 0x239ABB4
+        NA: 0x239ABB4
+        JP: 0x239ABB4
+        EU-RAM: 0x27EB3C4
+        NA-RAM: 0x27EB3C4
+        JP-RAM: 0x27EB3C4
+    - name: DiagBaseBand
+      address:
+        EU: 0x239AD40
+        NA: 0x239AD40
+        JP: 0x239AD40
+        EU-RAM: 0x27EB550
+        NA-RAM: 0x27EB550
+        JP-RAM: 0x27EB550
+    - name: CheckKeyTxEndMain
+      address:
+        EU: 0x239B034
+        NA: 0x239B034
+        JP: 0x239B034
+        EU-RAM: 0x27EB844
+        NA-RAM: 0x27EB844
+        JP-RAM: 0x27EB844
+    - name: InitializeIntr
+      address:
+        EU: 0x239B0AC
+        NA: 0x239B0AC
+        JP: 0x239B0AC
+        EU-RAM: 0x27EB8BC
+        NA-RAM: 0x27EB8BC
+        JP-RAM: 0x27EB8BC
+    - name: ReleaseIntr
+      address:
+        EU: 0x239B0D0
+        NA: 0x239B0D0
+        JP: 0x239B0D0
+        EU-RAM: 0x27EB8E0
+        NA-RAM: 0x27EB8E0
+        JP-RAM: 0x27EB8E0
+    - name: Cam_Search
+      address:
+        EU: 0x239B0F0
+        NA: 0x239B0F0
+        JP: 0x239B0F0
+        EU-RAM: 0x27EB900
+        NA-RAM: 0x27EB900
+        JP-RAM: 0x27EB900
+    - name: Cam_SearchAdd
+      address:
+        EU: 0x239B198
+        NA: 0x239B198
+        JP: 0x239B198
+        EU-RAM: 0x27EB9A8
+        NA-RAM: 0x27EB9A8
+        JP-RAM: 0x27EB9A8
+    - name: Cam_AddBcFrame
+      address:
+        EU: 0x239B2D8
+        NA: 0x239B2D8
+        JP: 0x239B2D8
+        EU-RAM: 0x27EBAE8
+        NA-RAM: 0x27EBAE8
+        JP-RAM: 0x27EBAE8
+    - name: Cam_IncFrameCount
+      address:
+        EU: 0x239B334
+        NA: 0x239B334
+        JP: 0x239B334
+        EU-RAM: 0x27EBB44
+        NA-RAM: 0x27EBB44
+        JP-RAM: 0x27EBB44
+    - name: Cam_DecFrameCount
+      address:
+        EU: 0x239B3C4
+        NA: 0x239B3C4
+        JP: 0x239B3C4
+        EU-RAM: 0x27EBBD4
+        NA-RAM: 0x27EBBD4
+        JP-RAM: 0x27EBBD4
+    - name: Cam_SetStaState
+      address:
+        EU: 0x239B434
+        NA: 0x239B434
+        JP: 0x239B434
+        EU-RAM: 0x27EBC44
+        NA-RAM: 0x27EBC44
+        JP-RAM: 0x27EBC44
+    - name: Cam_SetRssi
+      address:
+        EU: 0x239B51C
+        NA: 0x239B51C
+        JP: 0x239B51C
+        EU-RAM: 0x27EBD2C
+        NA-RAM: 0x27EBD2C
+        JP-RAM: 0x27EBD2C
+    - name: Cam_SetPowerMgtMode
+      address:
+        EU: 0x239B53C
+        NA: 0x239B53C
+        JP: 0x239B53C
+        EU-RAM: 0x27EBD4C
+        NA-RAM: 0x27EBD4C
+        JP-RAM: 0x27EBD4C
+    - name: Cam_SetDoze
+      address:
+        EU: 0x239B598
+        NA: 0x239B598
+        JP: 0x239B598
+        EU-RAM: 0x27EBDA8
+        NA-RAM: 0x27EBDA8
+        JP-RAM: 0x27EBDA8
+    - name: Cam_SetAwake
+      address:
+        EU: 0x239B5D8
+        NA: 0x239B5D8
+        JP: 0x239B5D8
+        EU-RAM: 0x27EBDE8
+        NA-RAM: 0x27EBDE8
+        JP-RAM: 0x27EBDE8
+    - name: Cam_SetCapaInfo
+      address:
+        EU: 0x239B5FC
+        NA: 0x239B5FC
+        JP: 0x239B5FC
+        EU-RAM: 0x27EBE0C
+        NA-RAM: 0x27EBE0C
+        JP-RAM: 0x27EBE0C
+    - name: Cam_SetSupRate
+      address:
+        EU: 0x239B61C
+        NA: 0x239B61C
+        JP: 0x239B61C
+        EU-RAM: 0x27EBE2C
+        NA-RAM: 0x27EBE2C
+        JP-RAM: 0x27EBE2C
+    - name: Cam_SetLastSeqCtrl
+      address:
+        EU: 0x239B63C
+        NA: 0x239B63C
+        JP: 0x239B63C
+        EU-RAM: 0x27EBE4C
+        NA-RAM: 0x27EBE4C
+        JP-RAM: 0x27EBE4C
+    - name: Cam_SetAuthSeed
+      address:
+        EU: 0x239B65C
+        NA: 0x239B65C
+        JP: 0x239B65C
+        EU-RAM: 0x27EBE6C
+        NA-RAM: 0x27EBE6C
+        JP-RAM: 0x27EBE6C
+    - name: Cam_UpdateLifeTime
+      address:
+        EU: 0x239B67C
+        NA: 0x239B67C
+        JP: 0x239B67C
+        EU-RAM: 0x27EBE8C
+        NA-RAM: 0x27EBE8C
+        JP-RAM: 0x27EBE8C
+    - name: Cam_AllocateAid
+      address:
+        EU: 0x239B6A0
+        NA: 0x239B6A0
+        JP: 0x239B6A0
+        EU-RAM: 0x27EBEB0
+        NA-RAM: 0x27EBEB0
+        JP-RAM: 0x27EBEB0
+    - name: Cam_ReleaseAid
+      address:
+        EU: 0x239B750
+        NA: 0x239B750
+        JP: 0x239B750
+        EU-RAM: 0x27EBF60
+        NA-RAM: 0x27EBF60
+        JP-RAM: 0x27EBF60
+    - name: Cam_GetStaState
+      address:
+        EU: 0x239B7D0
+        NA: 0x239B7D0
+        JP: 0x239B7D0
+        EU-RAM: 0x27EBFE0
+        NA-RAM: 0x27EBFE0
+        JP-RAM: 0x27EBFE0
+    - name: Cam_IsActive
+      address:
+        EU: 0x239B7F0
+        NA: 0x239B7F0
+        JP: 0x239B7F0
+        EU-RAM: 0x27EC000
+        NA-RAM: 0x27EC000
+        JP-RAM: 0x27EC000
+    - name: Cam_GetPowerMgtMode
+      address:
+        EU: 0x239B810
+        NA: 0x239B810
+        JP: 0x239B810
+        EU-RAM: 0x27EC020
+        NA-RAM: 0x27EC020
+        JP-RAM: 0x27EC020
+    - name: Cam_GetMacAdrs
+      address:
+        EU: 0x239B830
+        NA: 0x239B830
+        JP: 0x239B830
+        EU-RAM: 0x27EC040
+        NA-RAM: 0x27EC040
+        JP-RAM: 0x27EC040
+    - name: Cam_GetAuthSeed
+      address:
+        EU: 0x239B850
+        NA: 0x239B850
+        JP: 0x239B850
+        EU-RAM: 0x27EC060
+        NA-RAM: 0x27EC060
+        JP-RAM: 0x27EC060
+    - name: Cam_GetLastSeqCtrl
+      address:
+        EU: 0x239B870
+        NA: 0x239B870
+        JP: 0x239B870
+        EU-RAM: 0x27EC080
+        NA-RAM: 0x27EC080
+        JP-RAM: 0x27EC080
+    - name: Cam_GetTxRate
+      address:
+        EU: 0x239B890
+        NA: 0x239B890
+        JP: 0x239B890
+        EU-RAM: 0x27EC0A0
+        NA-RAM: 0x27EC0A0
+        JP-RAM: 0x27EC0A0
+    - name: Cam_GetAid
+      address:
+        EU: 0x239B8BC
+        NA: 0x239B8BC
+        JP: 0x239B8BC
+        EU-RAM: 0x27EC0CC
+        NA-RAM: 0x27EC0CC
+        JP-RAM: 0x27EC0CC
+    - name: Cam_GetFrameCount
+      address:
+        EU: 0x239B8DC
+        NA: 0x239B8DC
+        JP: 0x239B8DC
+        EU-RAM: 0x27EC0EC
+        NA-RAM: 0x27EC0EC
+        JP-RAM: 0x27EC0EC
+    - name: Cam_SetTimElementBitmap
+      address:
+        EU: 0x239B8FC
+        NA: 0x239B8FC
+        JP: 0x239B8FC
+        EU-RAM: 0x27EC10C
+        NA-RAM: 0x27EC10C
+        JP-RAM: 0x27EC10C
+    - name: Cam_ClrTimElementBitmap
+      address:
+        EU: 0x239B9B8
+        NA: 0x239B9B8
+        JP: 0x239B9B8
+        EU-RAM: 0x27EC1C8
+        NA-RAM: 0x27EC1C8
+        JP-RAM: 0x27EC1C8
+    - name: Cam_TimerTask
+      address:
+        EU: 0x239BA64
+        NA: 0x239BA64
+        JP: 0x239BA64
+        EU-RAM: 0x27EC274
+        NA-RAM: 0x27EC274
+        JP-RAM: 0x27EC274
+    - name: Cam_Delete
+      address:
+        EU: 0x239BC1C
+        NA: 0x239BC1C
+        JP: 0x239BC1C
+        EU-RAM: 0x27EC42C
+        NA-RAM: 0x27EC42C
+        JP-RAM: 0x27EC42C
+    - name: InitializeCam
+      address:
+        EU: 0x239BC64
+        NA: 0x239BC64
+        JP: 0x239BC64
+        EU-RAM: 0x27EC474
+        NA-RAM: 0x27EC474
+        JP-RAM: 0x27EC474
+    - name: InitCam
+      address:
+        EU: 0x239BD00
+        NA: 0x239BD00
+        JP: 0x239BD00
+        EU-RAM: 0x27EC510
+        NA-RAM: 0x27EC510
+        JP-RAM: 0x27EC510
+    - name: Cam_InitElement
+      address:
+        EU: 0x239BD88
+        NA: 0x239BD88
+        JP: 0x239BD88
+        EU-RAM: 0x27EC598
+        NA-RAM: 0x27EC598
+        JP-RAM: 0x27EC598
+    - name: SendMessageToWmTask
+      address:
+        EU: 0x239BE74
+        NA: 0x239BE74
+        JP: 0x239BE74
+        EU-RAM: 0x27EC684
+        NA-RAM: 0x27EC684
+        JP-RAM: 0x27EC684
+    - name: Mlme_ResetReqCmd
+      address:
+        EU: 0x239BEF0
+        NA: 0x239BEF0
+        JP: 0x239BEF0
+        EU-RAM: 0x27EC700
+        NA-RAM: 0x27EC700
+        JP-RAM: 0x27EC700
+    - name: Mlme_PwrMgtReqCmd
+      address:
+        EU: 0x239BF30
+        NA: 0x239BF30
+        JP: 0x239BF30
+        EU-RAM: 0x27EC740
+        NA-RAM: 0x27EC740
+        JP-RAM: 0x27EC740
+    - name: Mlme_ScanReqCmd
+      address:
+        EU: 0x239BFDC
+        NA: 0x239BFDC
+        JP: 0x239BFDC
+        EU-RAM: 0x27EC7EC
+        NA-RAM: 0x27EC7EC
+        JP-RAM: 0x27EC7EC
+    - name: Mlme_JoinReqCmd
+      address:
+        EU: 0x239C11C
+        NA: 0x239C11C
+        JP: 0x239C11C
+        EU-RAM: 0x27EC92C
+        NA-RAM: 0x27EC92C
+        JP-RAM: 0x27EC92C
+    - name: Mlme_AuthReqCmd
+      address:
+        EU: 0x239C2D4
+        NA: 0x239C2D4
+        JP: 0x239C2D4
+        EU-RAM: 0x27ECAE4
+        NA-RAM: 0x27ECAE4
+        JP-RAM: 0x27ECAE4
+    - name: Mlme_DeAuthReqCmd
+      address:
+        EU: 0x239C3A8
+        NA: 0x239C3A8
+        JP: 0x239C3A8
+        EU-RAM: 0x27ECBB8
+        NA-RAM: 0x27ECBB8
+        JP-RAM: 0x27ECBB8
+    - name: Mlme_AssReqCmd
+      address:
+        EU: 0x239C4DC
+        NA: 0x239C4DC
+        JP: 0x239C4DC
+        EU-RAM: 0x27ECCEC
+        NA-RAM: 0x27ECCEC
+        JP-RAM: 0x27ECCEC
+    - name: Mlme_ReAssReqCmd
+      address:
+        EU: 0x239C5B4
+        NA: 0x239C5B4
+        JP: 0x239C5B4
+        EU-RAM: 0x27ECDC4
+        NA-RAM: 0x27ECDC4
+        JP-RAM: 0x27ECDC4
+    - name: Mlme_DisAssReqCmd
+      address:
+        EU: 0x239C674
+        NA: 0x239C674
+        JP: 0x239C674
+        EU-RAM: 0x27ECE84
+        NA-RAM: 0x27ECE84
+        JP-RAM: 0x27ECE84
+    - name: Mlme_StartReqCmd
+      address:
+        EU: 0x239C780
+        NA: 0x239C780
+        JP: 0x239C780
+        EU-RAM: 0x27ECF90
+        NA-RAM: 0x27ECF90
+        JP-RAM: 0x27ECF90
+    - name: Mlme_MeasChanReqCmd
+      address:
+        EU: 0x239C920
+        NA: 0x239C920
+        JP: 0x239C920
+        EU-RAM: 0x27ED130
+        NA-RAM: 0x27ED130
+        JP-RAM: 0x27ED130
+    - name: Mlme_ScanTask
+      address:
+        EU: 0x239CA04
+        NA: 0x239CA04
+        JP: 0x239CA04
+        EU-RAM: 0x27ED214
+        NA-RAM: 0x27ED214
+        JP-RAM: 0x27ED214
+    - name: Mlme_ScanTimeOut
+      address:
+        EU: 0x239CBF4
+        NA: 0x239CBF4
+        JP: 0x239CBF4
+        EU-RAM: 0x27ED404
+        NA-RAM: 0x27ED404
+        JP-RAM: 0x27ED404
+    - name: Mlme_JoinTask
+      address:
+        EU: 0x239CC58
+        NA: 0x239CC58
+        JP: 0x239CC58
+        EU-RAM: 0x27ED468
+        NA-RAM: 0x27ED468
+        JP-RAM: 0x27ED468
+    - name: Mlme_JoinTimeOut
+      address:
+        EU: 0x239CCF8
+        NA: 0x239CCF8
+        JP: 0x239CCF8
+        EU-RAM: 0x27ED508
+        NA-RAM: 0x27ED508
+        JP-RAM: 0x27ED508
+    - name: Mlme_AuthTask
+      address:
+        EU: 0x239CD34
+        NA: 0x239CD34
+        JP: 0x239CD34
+        EU-RAM: 0x27ED544
+        NA-RAM: 0x27ED544
+        JP-RAM: 0x27ED544
+    - name: Mlme_AuthTimeOut
+      address:
+        EU: 0x239CE18
+        NA: 0x239CE18
+        JP: 0x239CE18
+        EU-RAM: 0x27ED628
+        NA-RAM: 0x27ED628
+        JP-RAM: 0x27ED628
+    - name: Mlme_AssTask
+      address:
+        EU: 0x239CE58
+        NA: 0x239CE58
+        JP: 0x239CE58
+        EU-RAM: 0x27ED668
+        NA-RAM: 0x27ED668
+        JP-RAM: 0x27ED668
+    - name: Mlme_AssTimeOut
+      address:
+        EU: 0x239CF18
+        NA: 0x239CF18
+        JP: 0x239CF18
+        EU-RAM: 0x27ED728
+        NA-RAM: 0x27ED728
+        JP-RAM: 0x27ED728
+    - name: Mlme_ReAssTask
+      address:
+        EU: 0x239CF54
+        NA: 0x239CF54
+        JP: 0x239CF54
+        EU-RAM: 0x27ED764
+        NA-RAM: 0x27ED764
+        JP-RAM: 0x27ED764
+    - name: Mlme_ReAssTimeOut
+      address:
+        EU: 0x239D00C
+        NA: 0x239D00C
+        JP: 0x239D00C
+        EU-RAM: 0x27ED81C
+        NA-RAM: 0x27ED81C
+        JP-RAM: 0x27ED81C
+    - name: Mlme_MeasChannelTask
+      address:
+        EU: 0x239D048
+        NA: 0x239D048
+        JP: 0x239D048
+        EU-RAM: 0x27ED858
+        NA-RAM: 0x27ED858
+        JP-RAM: 0x27ED858
+    - name: Mlme_MeasChanTimeOut
+      address:
+        EU: 0x239D2B8
+        NA: 0x239D2B8
+        JP: 0x239D2B8
+        EU-RAM: 0x27EDAC8
+        NA-RAM: 0x27EDAC8
+        JP-RAM: 0x27EDAC8
+    - name: Mlme_BeaconLostTask
+      address:
+        EU: 0x239D2E4
+        NA: 0x239D2E4
+        JP: 0x239D2E4
+        EU-RAM: 0x27EDAF4
+        NA-RAM: 0x27EDAF4
+        JP-RAM: 0x27EDAF4
+    - name: IssueMlmeConfirm
+      address:
+        EU: 0x239D304
+        NA: 0x239D304
+        JP: 0x239D304
+        EU-RAM: 0x27EDB14
+        NA-RAM: 0x27EDB14
+        JP-RAM: 0x27EDB14
+    - name: Mlme_IssueAuthIndication
+      address:
+        EU: 0x239D358
+        NA: 0x239D358
+        JP: 0x239D358
+        EU-RAM: 0x27EDB68
+        NA-RAM: 0x27EDB68
+        JP-RAM: 0x27EDB68
+    - name: Mlme_IssueDeAuthIndication
+      address:
+        EU: 0x239D3D4
+        NA: 0x239D3D4
+        JP: 0x239D3D4
+        EU-RAM: 0x27EDBE4
+        NA-RAM: 0x27EDBE4
+        JP-RAM: 0x27EDBE4
+    - name: Mlme_IssueAssIndication
+      address:
+        EU: 0x239D450
+        NA: 0x239D450
+        JP: 0x239D450
+        EU-RAM: 0x27EDC60
+        NA-RAM: 0x27EDC60
+        JP-RAM: 0x27EDC60
+    - name: Mlme_IssueReAssIndication
+      address:
+        EU: 0x239D548
+        NA: 0x239D548
+        JP: 0x239D548
+        EU-RAM: 0x27EDD58
+        NA-RAM: 0x27EDD58
+        JP-RAM: 0x27EDD58
+    - name: Mlme_IssueDisAssIndication
+      address:
+        EU: 0x239D634
+        NA: 0x239D634
+        JP: 0x239D634
+        EU-RAM: 0x27EDE44
+        NA-RAM: 0x27EDE44
+        JP-RAM: 0x27EDE44
+    - name: Mlme_IssueBeaconLostIndication
+      address:
+        EU: 0x239D6B0
+        NA: 0x239D6B0
+        JP: 0x239D6B0
+        EU-RAM: 0x27EDEC0
+        NA-RAM: 0x27EDEC0
+        JP-RAM: 0x27EDEC0
+    - name: Mlme_IssueBeaconSendIndication
+      address:
+        EU: 0x239D724
+        NA: 0x239D724
+        JP: 0x239D724
+        EU-RAM: 0x27EDF34
+        NA-RAM: 0x27EDF34
+        JP-RAM: 0x27EDF34
+    - name: Mlme_IssueBeaconRecvIndication
+      address:
+        EU: 0x239D784
+        NA: 0x239D784
+        JP: 0x239D784
+        EU-RAM: 0x27EDF94
+        NA-RAM: 0x27EDF94
+        JP-RAM: 0x27EDF94
+    - name: InitializeMlme
+      address:
+        EU: 0x239D8A0
+        NA: 0x239D8A0
+        JP: 0x239D8A0
+        EU-RAM: 0x27EE0B0
+        NA-RAM: 0x27EE0B0
+        JP-RAM: 0x27EE0B0
+    - name: ParamSet_AllReqCmd
+      address:
+        EU: 0x239D8C8
+        NA: 0x239D8C8
+        JP: 0x239D8C8
+        EU-RAM: 0x27EE0D8
+        NA-RAM: 0x27EE0D8
+        JP-RAM: 0x27EE0D8
+    - name: ParamSet_MacAdrsReqCmd
+      address:
+        EU: 0x239D9B4
+        NA: 0x239D9B4
+        JP: 0x239D9B4
+        EU-RAM: 0x27EE1C4
+        NA-RAM: 0x27EE1C4
+        JP-RAM: 0x27EE1C4
+    - name: ParamSet_EnableChannelReqCmd
+      address:
+        EU: 0x239DA0C
+        NA: 0x239DA0C
+        JP: 0x239DA0C
+        EU-RAM: 0x27EE21C
+        NA-RAM: 0x27EE21C
+        JP-RAM: 0x27EE21C
+    - name: ParamSet_ModeReqCmd
+      address:
+        EU: 0x239DA4C
+        NA: 0x239DA4C
+        JP: 0x239DA4C
+        EU-RAM: 0x27EE25C
+        NA-RAM: 0x27EE25C
+        JP-RAM: 0x27EE25C
+    - name: ParamSet_BeaconTypeReqCmd
+      address:
+        EU: 0x239DAFC
+        NA: 0x239DAFC
+        JP: 0x239DAFC
+        EU-RAM: 0x27EE30C
+        NA-RAM: 0x27EE30C
+        JP-RAM: 0x27EE30C
+    - name: ParamSet_CcaModeEdThReqCmd
+      address:
+        EU: 0x239DBD0
+        NA: 0x239DBD0
+        JP: 0x239DBD0
+        EU-RAM: 0x27EE3E0
+        NA-RAM: 0x27EE3E0
+        JP-RAM: 0x27EE3E0
+    - name: ParamSet_LifeTimeReqCmd
+      address:
+        EU: 0x239DC1C
+        NA: 0x239DC1C
+        JP: 0x239DC1C
+        EU-RAM: 0x27EE42C
+        NA-RAM: 0x27EE42C
+        JP-RAM: 0x27EE42C
+    - name: ParamSet_MaxConnReqCmd
+      address:
+        EU: 0x239DD24
+        NA: 0x239DD24
+        JP: 0x239DD24
+        EU-RAM: 0x27EE534
+        NA-RAM: 0x27EE534
+        JP-RAM: 0x27EE534
+    - name: ParamSet_DiversityReqCmd
+      address:
+        EU: 0x239DDBC
+        NA: 0x239DDBC
+        JP: 0x239DDBC
+        EU-RAM: 0x27EE5CC
+        NA-RAM: 0x27EE5CC
+        JP-RAM: 0x27EE5CC
+    - name: ParamSet_SsidReqCmd
+      address:
+        EU: 0x239DE94
+        NA: 0x239DE94
+        JP: 0x239DE94
+        EU-RAM: 0x27EE6A4
+        NA-RAM: 0x27EE6A4
+        JP-RAM: 0x27EE6A4
+    - name: ParamSet_ListenIntervalReqCmd
+      address:
+        EU: 0x239DF2C
+        NA: 0x239DF2C
+        JP: 0x239DF2C
+        EU-RAM: 0x27EE73C
+        NA-RAM: 0x27EE73C
+        JP-RAM: 0x27EE73C
+    - name: ParamSet_GameInfoReqCmd
+      address:
+        EU: 0x239DF6C
+        NA: 0x239DF6C
+        JP: 0x239DF6C
+        EU-RAM: 0x27EE77C
+        NA-RAM: 0x27EE77C
+        JP-RAM: 0x27EE77C
+    - name: ParamGet_AllReqCmd
+      address:
+        EU: 0x239DFD0
+        NA: 0x239DFD0
+        JP: 0x239DFD0
+        EU-RAM: 0x27EE7E0
+        NA-RAM: 0x27EE7E0
+        JP-RAM: 0x27EE7E0
+    - name: ParamGet_MacAdrsReqCmd
+      address:
+        EU: 0x239E108
+        NA: 0x239E108
+        JP: 0x239E108
+        EU-RAM: 0x27EE918
+        NA-RAM: 0x27EE918
+        JP-RAM: 0x27EE918
+    - name: ParamGet_RetryReqCmd
+      address:
+        EU: 0x239E138
+        NA: 0x239E138
+        JP: 0x239E138
+        EU-RAM: 0x27EE948
+        NA-RAM: 0x27EE948
+        JP-RAM: 0x27EE948
+    - name: ParamGet_EnableChannelReqCmd
+      address:
+        EU: 0x239E160
+        NA: 0x239E160
+        JP: 0x239E160
+        EU-RAM: 0x27EE970
+        NA-RAM: 0x27EE970
+        JP-RAM: 0x27EE970
+    - name: ParamGet_ModeReqCmd
+      address:
+        EU: 0x239E198
+        NA: 0x239E198
+        JP: 0x239E198
+        EU-RAM: 0x27EE9A8
+        NA-RAM: 0x27EE9A8
+        JP-RAM: 0x27EE9A8
+    - name: ParamGet_RateReqCmd
+      address:
+        EU: 0x239E1C0
+        NA: 0x239E1C0
+        JP: 0x239E1C0
+        EU-RAM: 0x27EE9D0
+        NA-RAM: 0x27EE9D0
+        JP-RAM: 0x27EE9D0
+    - name: ParamGet_WepModeReqCmd
+      address:
+        EU: 0x239E1E8
+        NA: 0x239E1E8
+        JP: 0x239E1E8
+        EU-RAM: 0x27EE9F8
+        NA-RAM: 0x27EE9F8
+        JP-RAM: 0x27EE9F8
+    - name: ParamGet_WepKeyIdReqCmd
+      address:
+        EU: 0x239E210
+        NA: 0x239E210
+        JP: 0x239E210
+        EU-RAM: 0x27EEA20
+        NA-RAM: 0x27EEA20
+        JP-RAM: 0x27EEA20
+    - name: ParamGet_BeaconTypeReqCmd
+      address:
+        EU: 0x239E238
+        NA: 0x239E238
+        JP: 0x239E238
+        EU-RAM: 0x27EEA48
+        NA-RAM: 0x27EEA48
+        JP-RAM: 0x27EEA48
+    - name: ParamGet_ResBcSsidReqCmd
+      address:
+        EU: 0x239E268
+        NA: 0x239E268
+        JP: 0x239E268
+        EU-RAM: 0x27EEA78
+        NA-RAM: 0x27EEA78
+        JP-RAM: 0x27EEA78
+    - name: ParamGet_BeaconLostThReqCmd
+      address:
+        EU: 0x239E298
+        NA: 0x239E298
+        JP: 0x239E298
+        EU-RAM: 0x27EEAA8
+        NA-RAM: 0x27EEAA8
+        JP-RAM: 0x27EEAA8
+    - name: ParamGet_ActiveZoneReqCmd
+      address:
+        EU: 0x239E2C0
+        NA: 0x239E2C0
+        JP: 0x239E2C0
+        EU-RAM: 0x27EEAD0
+        NA-RAM: 0x27EEAD0
+        JP-RAM: 0x27EEAD0
+    - name: ParamGet_SsidMaskReqCmd
+      address:
+        EU: 0x239E2E8
+        NA: 0x239E2E8
+        JP: 0x239E2E8
+        EU-RAM: 0x27EEAF8
+        NA-RAM: 0x27EEAF8
+        JP-RAM: 0x27EEAF8
+    - name: ParamGet_PreambleTypeReqCmd
+      address:
+        EU: 0x239E324
+        NA: 0x239E324
+        JP: 0x239E324
+        EU-RAM: 0x27EEB34
+        NA-RAM: 0x27EEB34
+        JP-RAM: 0x27EEB34
+    - name: ParamGet_AuthAlgoReqCmd
+      address:
+        EU: 0x239E354
+        NA: 0x239E354
+        JP: 0x239E354
+        EU-RAM: 0x27EEB64
+        NA-RAM: 0x27EEB64
+        JP-RAM: 0x27EEB64
+    - name: ParamGet_CcaModeEdThReqCmd
+      address:
+        EU: 0x239E37C
+        NA: 0x239E37C
+        JP: 0x239E37C
+        EU-RAM: 0x27EEB8C
+        NA-RAM: 0x27EEB8C
+        JP-RAM: 0x27EEB8C
+    - name: ParamGet_MaxConnReqCmd
+      address:
+        EU: 0x239E3BC
+        NA: 0x239E3BC
+        JP: 0x239E3BC
+        EU-RAM: 0x27EEBCC
+        NA-RAM: 0x27EEBCC
+        JP-RAM: 0x27EEBCC
+    - name: ParamGet_MainAntennaReqCmd
+      address:
+        EU: 0x239E3E8
+        NA: 0x239E3E8
+        JP: 0x239E3E8
+        EU-RAM: 0x27EEBF8
+        NA-RAM: 0x27EEBF8
+        JP-RAM: 0x27EEBF8
+    - name: ParamGet_DiversityReqCmd
+      address:
+        EU: 0x239E424
+        NA: 0x239E424
+        JP: 0x239E424
+        EU-RAM: 0x27EEC34
+        NA-RAM: 0x27EEC34
+        JP-RAM: 0x27EEC34
+    - name: ParamGet_BcnSendRecvIndReqCmd
+      address:
+        EU: 0x239E484
+        NA: 0x239E484
+        JP: 0x239E484
+        EU-RAM: 0x27EEC94
+        NA-RAM: 0x27EEC94
+        JP-RAM: 0x27EEC94
+    - name: ParamGet_NullKeyModeReqCmd
+      address:
+        EU: 0x239E4C0
+        NA: 0x239E4C0
+        JP: 0x239E4C0
+        EU-RAM: 0x27EECD0
+        NA-RAM: 0x27EECD0
+        JP-RAM: 0x27EECD0
+    - name: ParamGet_BssIdReqCmd
+      address:
+        EU: 0x239E4FC
+        NA: 0x239E4FC
+        JP: 0x239E4FC
+        EU-RAM: 0x27EED0C
+        NA-RAM: 0x27EED0C
+        JP-RAM: 0x27EED0C
+    - name: ParamGet_SsidReqCmd
+      address:
+        EU: 0x239E52C
+        NA: 0x239E52C
+        JP: 0x239E52C
+        EU-RAM: 0x27EED3C
+        NA-RAM: 0x27EED3C
+        JP-RAM: 0x27EED3C
+    - name: ParamGet_BeaconPeriodReqCmd
+      address:
+        EU: 0x239E578
+        NA: 0x239E578
+        JP: 0x239E578
+        EU-RAM: 0x27EED88
+        NA-RAM: 0x27EED88
+        JP-RAM: 0x27EED88
+    - name: ParamGet_DtimPeriodReqCmd
+      address:
+        EU: 0x239E5A0
+        NA: 0x239E5A0
+        JP: 0x239E5A0
+        EU-RAM: 0x27EEDB0
+        NA-RAM: 0x27EEDB0
+        JP-RAM: 0x27EEDB0
+    - name: ParamGet_ListenIntervalReqCmd
+      address:
+        EU: 0x239E5C8
+        NA: 0x239E5C8
+        JP: 0x239E5C8
+        EU-RAM: 0x27EEDD8
+        NA-RAM: 0x27EEDD8
+        JP-RAM: 0x27EEDD8
+    - name: ParamGet_GameInfoReqCmd
+      address:
+        EU: 0x239E5F0
+        NA: 0x239E5F0
+        JP: 0x239E5F0
+        EU-RAM: 0x27EEE00
+        NA-RAM: 0x27EEE00
+        JP-RAM: 0x27EEE00
+    - name: Dev_ShutdownReqCmd
+      address:
+        EU: 0x239E6C8
+        NA: 0x239E6C8
+        JP: 0x239E6C8
+        EU-RAM: 0x27EEED8
+        NA-RAM: 0x27EEED8
+        JP-RAM: 0x27EEED8
+    - name: Dev_IdleReqCmd
+      address:
+        EU: 0x239E708
+        NA: 0x239E708
+        JP: 0x239E708
+        EU-RAM: 0x27EEF18
+        NA-RAM: 0x27EEF18
+        JP-RAM: 0x27EEF18
+    - name: Dev_Class1ReqCmd
+      address:
+        EU: 0x239E764
+        NA: 0x239E764
+        JP: 0x239E764
+        EU-RAM: 0x27EEF74
+        NA-RAM: 0x27EEF74
+        JP-RAM: 0x27EEF74
+    - name: Dev_RebootReqCmd
+      address:
+        EU: 0x239E7B8
+        NA: 0x239E7B8
+        JP: 0x239E7B8
+        EU-RAM: 0x27EEFC8
+        NA-RAM: 0x27EEFC8
+        JP-RAM: 0x27EEFC8
+    - name: Dev_ClearWlInfoReqCmd
+      address:
+        EU: 0x239E7F4
+        NA: 0x239E7F4
+        JP: 0x239E7F4
+        EU-RAM: 0x27EF004
+        NA-RAM: 0x27EF004
+        JP-RAM: 0x27EF004
+    - name: Dev_GetVerInfoReqCmd
+      address:
+        EU: 0x239E82C
+        NA: 0x239E82C
+        JP: 0x239E82C
+        EU-RAM: 0x27EF03C
+        NA-RAM: 0x27EF03C
+        JP-RAM: 0x27EF03C
+    - name: Dev_GetWlInfoReqCmd
+      address:
+        EU: 0x239E8D0
+        NA: 0x239E8D0
+        JP: 0x239E8D0
+        EU-RAM: 0x27EF0E0
+        NA-RAM: 0x27EF0E0
+        JP-RAM: 0x27EF0E0
+    - name: Dev_GetStateReqCmd
+      address:
+        EU: 0x239E92C
+        NA: 0x239E92C
+        JP: 0x239E92C
+        EU-RAM: 0x27EF13C
+        NA-RAM: 0x27EF13C
+        JP-RAM: 0x27EF13C
+    - name: Dev_TestSignalReqCmd
+      address:
+        EU: 0x239E954
+        NA: 0x239E954
+        JP: 0x239E954
+        EU-RAM: 0x27EF164
+        NA-RAM: 0x27EF164
+        JP-RAM: 0x27EF164
+    - name: IntrCarrierSuppresionSignal
+      address:
+        EU: 0x239ECB0
+        NA: 0x239ECB0
+        JP: 0x239ECB0
+        EU-RAM: 0x27EF4C0
+        NA-RAM: 0x27EF4C0
+        JP-RAM: 0x27EF4C0
+    - name: Dev_TestRxReqCmd
+      address:
+        EU: 0x239ED2C
+        NA: 0x239ED2C
+        JP: 0x239ED2C
+        EU-RAM: 0x27EF53C
+        NA-RAM: 0x27EF53C
+        JP-RAM: 0x27EF53C
+    - name: MA_DataReqCmd
+      address:
+        EU: 0x239EDDC
+        NA: 0x239EDDC
+        JP: 0x239EDDC
+        EU-RAM: 0x27EF5EC
+        NA-RAM: 0x27EF5EC
+        JP-RAM: 0x27EF5EC
+    - name: MA_KeyDataReqCmd
+      address:
+        EU: 0x239EFA8
+        NA: 0x239EFA8
+        JP: 0x239EFA8
+        EU-RAM: 0x27EF7B8
+        NA-RAM: 0x27EF7B8
+        JP-RAM: 0x27EF7B8
+    - name: MA_MpReqCmd
+      address:
+        EU: 0x239F14C
+        NA: 0x239F14C
+        JP: 0x239F14C
+        EU-RAM: 0x27EF95C
+        NA-RAM: 0x27EF95C
+        JP-RAM: 0x27EF95C
+    - name: MA_TestDataReqCmd
+      address:
+        EU: 0x239F600
+        NA: 0x239F600
+        JP: 0x239F600
+        EU-RAM: 0x27EFE10
+        NA-RAM: 0x27EFE10
+        JP-RAM: 0x27EFE10
+    - name: MA_ClrDataReqCmd
+      address:
+        EU: 0x239F660
+        NA: 0x239F660
+        JP: 0x239F660
+        EU-RAM: 0x27EFE70
+        NA-RAM: 0x27EFE70
+        JP-RAM: 0x27EFE70
+    - name: IssueMaDataConfirm
+      address:
+        EU: 0x239F6AC
+        NA: 0x239F6AC
+        JP: 0x239F6AC
+        EU-RAM: 0x27EFEBC
+        NA-RAM: 0x27EFEBC
+        JP-RAM: 0x27EFEBC
+    - name: TxqPri
+      address:
+        EU: 0x239F6E4
+        NA: 0x239F6E4
+        JP: 0x239F6E4
+        EU-RAM: 0x27EFEF4
+        NA-RAM: 0x27EFEF4
+        JP-RAM: 0x27EFEF4
+    - name: CopyTxFrmToMacBuf
+      address:
+        EU: 0x239F904
+        NA: 0x239F904
+        JP: 0x239F904
+        EU-RAM: 0x27F0114
+        NA-RAM: 0x27F0114
+        JP-RAM: 0x27F0114
+    - name: CheckFrameTimeout
+      address:
+        EU: 0x239FA6C
+        NA: 0x239FA6C
+        JP: 0x239FA6C
+        EU-RAM: 0x27F027C
+        NA-RAM: 0x27F027C
+        JP-RAM: 0x27F027C
+    - name: TxqEndData
+      address:
+        EU: 0x239FAEC
+        NA: 0x239FAEC
+        JP: 0x239FAEC
+        EU-RAM: 0x27F02FC
+        NA-RAM: 0x27F02FC
+        JP-RAM: 0x27F02FC
+    - name: TxqEndManCtrl
+      address:
+        EU: 0x239FC68
+        NA: 0x239FC68
+        JP: 0x239FC68
+        EU-RAM: 0x27F0478
+        NA-RAM: 0x27F0478
+        JP-RAM: 0x27F0478
+    - name: TxqEndPsPoll
+      address:
+        EU: 0x23A0134
+        NA: 0x23A0134
+        JP: 0x23A0134
+        EU-RAM: 0x27F0944
+        NA-RAM: 0x27F0944
+        JP-RAM: 0x27F0944
+    - name: TxqEndBroadCast
+      address:
+        EU: 0x23A019C
+        NA: 0x23A019C
+        JP: 0x23A019C
+        EU-RAM: 0x27F09AC
+        NA-RAM: 0x27F09AC
+        JP-RAM: 0x27F09AC
+    - name: TxEndKeyData
+      address:
+        EU: 0x23A02A8
+        NA: 0x23A02A8
+        JP: 0x23A02A8
+        EU-RAM: 0x27F0AB8
+        NA-RAM: 0x27F0AB8
+        JP-RAM: 0x27F0AB8
+    - name: ClearTxKeyData
+      address:
+        EU: 0x23A02F0
+        NA: 0x23A02F0
+        JP: 0x23A02F0
+        EU-RAM: 0x27F0B00
+        NA-RAM: 0x27F0B00
+        JP-RAM: 0x27F0B00
+    - name: ClearTxMp
+      address:
+        EU: 0x23A0364
+        NA: 0x23A0364
+        JP: 0x23A0364
+        EU-RAM: 0x27F0B74
+        NA-RAM: 0x27F0B74
+        JP-RAM: 0x27F0B74
+    - name: ClearTxData
+      address:
+        EU: 0x23A03B8
+        NA: 0x23A03B8
+        JP: 0x23A03B8
+        EU-RAM: 0x27F0BC8
+        NA-RAM: 0x27F0BC8
+        JP-RAM: 0x27F0BC8
+    - name: ClearQueuedPri
+      address:
+        EU: 0x23A0460
+        NA: 0x23A0460
+        JP: 0x23A0460
+        EU-RAM: 0x27F0C70
+        NA-RAM: 0x27F0C70
+        JP-RAM: 0x27F0C70
+    - name: ResetTxqPri
+      address:
+        EU: 0x23A04C4
+        NA: 0x23A04C4
+        JP: 0x23A04C4
+        EU-RAM: 0x27F0CD4
+        NA-RAM: 0x27F0CD4
+        JP-RAM: 0x27F0CD4
+    - name: DeleteTxFrames
+      address:
+        EU: 0x23A0550
+        NA: 0x23A0550
+        JP: 0x23A0550
+        EU-RAM: 0x27F0D60
+        NA-RAM: 0x27F0D60
+        JP-RAM: 0x27F0D60
+    - name: DeleteTxFrameByAdrs
+      address:
+        EU: 0x23A0648
+        NA: 0x23A0648
+        JP: 0x23A0648
+        EU-RAM: 0x27F0E58
+        NA-RAM: 0x27F0E58
+        JP-RAM: 0x27F0E58
+    - name: DeleteAllTxFrames
+      address:
+        EU: 0x23A06F8
+        NA: 0x23A06F8
+        JP: 0x23A06F8
+        EU-RAM: 0x27F0F08
+        NA-RAM: 0x27F0F08
+        JP-RAM: 0x27F0F08
+    - name: MessageDeleteTx
+      address:
+        EU: 0x23A07E0
+        NA: 0x23A07E0
+        JP: 0x23A07E0
+        EU-RAM: 0x27F0FF0
+        NA-RAM: 0x27F0FF0
+        JP-RAM: 0x27F0FF0
+    - name: SetManCtrlFrame
+      address:
+        EU: 0x23A0884
+        NA: 0x23A0884
+        JP: 0x23A0884
+        EU-RAM: 0x27F1094
+        NA-RAM: 0x27F1094
+        JP-RAM: 0x27F1094
+    - name: TxPsPollFrame
+      address:
+        EU: 0x23A08F8
+        NA: 0x23A08F8
+        JP: 0x23A08F8
+        EU-RAM: 0x27F1108
+        NA-RAM: 0x27F1108
+        JP-RAM: 0x27F1108
+    - name: StartBeaconFrame
+      address:
+        EU: 0x23A098C
+        NA: 0x23A098C
+        JP: 0x23A098C
+        EU-RAM: 0x27F119C
+        NA-RAM: 0x27F119C
+        JP-RAM: 0x27F119C
+    - name: StopBeaconFrame
+      address:
+        EU: 0x23A09CC
+        NA: 0x23A09CC
+        JP: 0x23A09CC
+        EU-RAM: 0x27F11DC
+        NA-RAM: 0x27F11DC
+        JP-RAM: 0x27F11DC
+    - name: MakeBeaconFrame
+      address:
+        EU: 0x23A09F4
+        NA: 0x23A09F4
+        JP: 0x23A09F4
+        EU-RAM: 0x27F1204
+        NA-RAM: 0x27F1204
+        JP-RAM: 0x27F1204
+    - name: UpdateGameInfoElement
+      address:
+        EU: 0x23A0D68
+        NA: 0x23A0D68
+        JP: 0x23A0D68
+        EU-RAM: 0x27F1578
+        NA-RAM: 0x27F1578
+        JP-RAM: 0x27F1578
+    - name: IsEnableManagement
+      address:
+        EU: 0x23A0E64
+        NA: 0x23A0E64
+        JP: 0x23A0E64
+        EU-RAM: 0x27F1674
+        NA-RAM: 0x27F1674
+        JP-RAM: 0x27F1674
+    - name: MakeDisAssFrame
+      address:
+        EU: 0x23A0E94
+        NA: 0x23A0E94
+        JP: 0x23A0E94
+        EU-RAM: 0x27F16A4
+        NA-RAM: 0x27F16A4
+        JP-RAM: 0x27F16A4
+    - name: MakeAssReqFrame
+      address:
+        EU: 0x23A0F10
+        NA: 0x23A0F10
+        JP: 0x23A0F10
+        EU-RAM: 0x27F1720
+        NA-RAM: 0x27F1720
+        JP-RAM: 0x27F1720
+    - name: MakeReAssReqFrame
+      address:
+        EU: 0x23A0FB8
+        NA: 0x23A0FB8
+        JP: 0x23A0FB8
+        EU-RAM: 0x27F17C8
+        NA-RAM: 0x27F17C8
+        JP-RAM: 0x27F17C8
+    - name: MakeAssResFrame
+      address:
+        EU: 0x23A106C
+        NA: 0x23A106C
+        JP: 0x23A106C
+        EU-RAM: 0x27F187C
+        NA-RAM: 0x27F187C
+        JP-RAM: 0x27F187C
+    - name: MakeReAssResFrame
+      address:
+        EU: 0x23A11E0
+        NA: 0x23A11E0
+        JP: 0x23A11E0
+        EU-RAM: 0x27F19F0
+        NA-RAM: 0x27F19F0
+        JP-RAM: 0x27F19F0
+    - name: MakeProbeReqFrame
+      address:
+        EU: 0x23A1340
+        NA: 0x23A1340
+        JP: 0x23A1340
+        EU-RAM: 0x27F1B50
+        NA-RAM: 0x27F1B50
+        JP-RAM: 0x27F1B50
+    - name: MakeProbeResFrame
+      address:
+        EU: 0x23A13CC
+        NA: 0x23A13CC
+        JP: 0x23A13CC
+        EU-RAM: 0x27F1BDC
+        NA-RAM: 0x27F1BDC
+        JP-RAM: 0x27F1BDC
+    - name: MakeAuthFrame
+      address:
+        EU: 0x23A15EC
+        NA: 0x23A15EC
+        JP: 0x23A15EC
+        EU-RAM: 0x27F1DFC
+        NA-RAM: 0x27F1DFC
+        JP-RAM: 0x27F1DFC
+    - name: MakeDeAuthFrame
+      address:
+        EU: 0x23A16AC
+        NA: 0x23A16AC
+        JP: 0x23A16AC
+        EU-RAM: 0x27F1EBC
+        NA-RAM: 0x27F1EBC
+        JP-RAM: 0x27F1EBC
+    - name: MakePsPollFrame
+      address:
+        EU: 0x23A1740
+        NA: 0x23A1740
+        JP: 0x23A1740
+        EU-RAM: 0x27F1F50
+        NA-RAM: 0x27F1F50
+        JP-RAM: 0x27F1F50
+    - name: InitManHeader
+      address:
+        EU: 0x23A1798
+        NA: 0x23A1798
+        JP: 0x23A1798
+        EU-RAM: 0x27F1FA8
+        NA-RAM: 0x27F1FA8
+        JP-RAM: 0x27F1FA8
+    - name: IsExistManFrame
+      address:
+        EU: 0x23A17E4
+        NA: 0x23A17E4
+        JP: 0x23A17E4
+        EU-RAM: 0x27F1FF4
+        NA-RAM: 0x27F1FF4
+        JP-RAM: 0x27F1FF4
+    - name: SetSsidElement
+      address:
+        EU: 0x23A184C
+        NA: 0x23A184C
+        JP: 0x23A184C
+        EU-RAM: 0x27F205C
+        NA-RAM: 0x27F205C
+        JP-RAM: 0x27F205C
+    - name: SetSupRateSet
+      address:
+        EU: 0x23A18C0
+        NA: 0x23A18C0
+        JP: 0x23A18C0
+        EU-RAM: 0x27F20D0
+        NA-RAM: 0x27F20D0
+        JP-RAM: 0x27F20D0
+    - name: RxDataFrameTask
+      address:
+        EU: 0x23A1964
+        NA: 0x23A1964
+        JP: 0x23A1964
+        EU-RAM: 0x27F2174
+        NA-RAM: 0x27F2174
+        JP-RAM: 0x27F2174
+    - name: RxMpFrame
+      address:
+        EU: 0x23A1C34
+        NA: 0x23A1C34
+        JP: 0x23A1C34
+        EU-RAM: 0x27F2444
+        NA-RAM: 0x27F2444
+        JP-RAM: 0x27F2444
+    - name: RxKeyDataFrame
+      address:
+        EU: 0x23A1DB0
+        NA: 0x23A1DB0
+        JP: 0x23A1DB0
+        EU-RAM: 0x27F25C0
+        NA-RAM: 0x27F25C0
+        JP-RAM: 0x27F25C0
+    - name: RxMpAckFrame
+      address:
+        EU: 0x23A1F5C
+        NA: 0x23A1F5C
+        JP: 0x23A1F5C
+        EU-RAM: 0x27F276C
+        NA-RAM: 0x27F276C
+        JP-RAM: 0x27F276C
+    - name: RxDisAssFrame
+      address:
+        EU: 0x23A267C
+        NA: 0x23A267C
+        JP: 0x23A267C
+        EU-RAM: 0x27F2E8C
+        NA-RAM: 0x27F2E8C
+        JP-RAM: 0x27F2E8C
+    - name: RxAssReqFrame
+      address:
+        EU: 0x23A275C
+        NA: 0x23A275C
+        JP: 0x23A275C
+        EU-RAM: 0x27F2F6C
+        NA-RAM: 0x27F2F6C
+        JP-RAM: 0x27F2F6C
+    - name: RxProbeReqFrame
+      address:
+        EU: 0x23A292C
+        NA: 0x23A292C
+        JP: 0x23A292C
+        EU-RAM: 0x27F313C
+        NA-RAM: 0x27F313C
+        JP-RAM: 0x27F313C
+    - name: RxAuthFrame
+      address:
+        EU: 0x23A2DB0
+        NA: 0x23A2DB0
+        JP: 0x23A2DB0
+        EU-RAM: 0x27F35C0
+        NA-RAM: 0x27F35C0
+        JP-RAM: 0x27F35C0
+    - name: RxDeAuthFrame
+      address:
+        EU: 0x23A3350
+        NA: 0x23A3350
+        JP: 0x23A3350
+        EU-RAM: 0x27F3B60
+        NA-RAM: 0x27F3B60
+        JP-RAM: 0x27F3B60
+    - name: ElementChecker
+      address:
+        EU: 0x23A3400
+        NA: 0x23A3400
+        JP: 0x23A3400
+        EU-RAM: 0x27F3C10
+        NA-RAM: 0x27F3C10
+        JP-RAM: 0x27F3C10
+    - name: RxManCtrlTask
+      address:
+        EU: 0x23A3724
+        NA: 0x23A3724
+        JP: 0x23A3724
+        EU-RAM: 0x27F3F34
+        NA-RAM: 0x27F3F34
+        JP-RAM: 0x27F3F34
+    - name: DefragTask
+      address:
+        EU: 0x23A3DD8
+        NA: 0x23A3DD8
+        JP: 0x23A3DD8
+        EU-RAM: 0x27F45E8
+        NA-RAM: 0x27F45E8
+        JP-RAM: 0x27F45E8
+    - name: DefragTimerTask
+      address:
+        EU: 0x23A4300
+        NA: 0x23A4300
+        JP: 0x23A4300
+        EU-RAM: 0x27F4B10
+        NA-RAM: 0x27F4B10
+        JP-RAM: 0x27F4B10
+    - name: UpdateApList
+      address:
+        EU: 0x23A436C
+        NA: 0x23A436C
+        JP: 0x23A436C
+        EU-RAM: 0x27F4B7C
+        NA-RAM: 0x27F4B7C
+        JP-RAM: 0x27F4B7C
+    - name: InitApList
+      address:
+        EU: 0x23A44B0
+        NA: 0x23A44B0
+        JP: 0x23A44B0
+        EU-RAM: 0x27F4CC0
+        NA-RAM: 0x27F4CC0
+        JP-RAM: 0x27F4CC0
+    - name: UpdateApListTask
+      address:
+        EU: 0x23A44D4
+        NA: 0x23A44D4
+        JP: 0x23A44D4
+        EU-RAM: 0x27F4CE4
+        NA-RAM: 0x27F4CE4
+        JP-RAM: 0x27F4CE4
+    - name: Flash_VerifyCheckSum
+      address:
+        EU: 0x23A451C
+        NA: 0x23A451C
+        JP: 0x23A451C
+        EU-RAM: 0x27F4D2C
+        NA-RAM: 0x27F4D2C
+        JP-RAM: 0x27F4D2C
+    - name: Flash_Wait
+      address:
+        EU: 0x23A45C0
+        NA: 0x23A45C0
+        JP: 0x23A45C0
+        EU-RAM: 0x27F4DD0
+        NA-RAM: 0x27F4DD0
+        JP-RAM: 0x27F4DD0
+    - name: Flash_Read
+      address:
+        EU: 0x23A4600
+        NA: 0x23A4600
+        JP: 0x23A4600
+        EU-RAM: 0x27F4E10
+        NA-RAM: 0x27F4E10
+        JP-RAM: 0x27F4E10
+    - name: Flash_DirectRead
+      address:
+        EU: 0x23A4660
+        NA: 0x23A4660
+        JP: 0x23A4660
+        EU-RAM: 0x27F4E70
+        NA-RAM: 0x27F4E70
+        JP-RAM: 0x27F4E70
+    - name: Flash_MakeImage
+      address:
+        EU: 0x23A46B0
+        NA: 0x23A46B0
+        JP: 0x23A46B0
+        EU-RAM: 0x27F4EC0
+        NA-RAM: 0x27F4EC0
+        JP-RAM: 0x27F4EC0
+    - name: Nvram_Init
+      address:
+        EU: 0x23A479C
+        NA: 0x23A479C
+        JP: 0x23A479C
+        EU-RAM: 0x27F4FAC
+        NA-RAM: 0x27F4FAC
+        JP-RAM: 0x27F4FAC
+    - name: Nvram_AnalyzeCommand
+      address:
+        EU: 0x23A47C4
+        NA: 0x23A47C4
+        JP: 0x23A47C4
+        EU-RAM: 0x27F4FD4
+        NA-RAM: 0x27F4FD4
+        JP-RAM: 0x27F4FD4
+    - name: Nvram_ExecuteProcess
+      address:
+        EU: 0x23A496C
+        NA: 0x23A496C
+        JP: 0x23A496C
+        EU-RAM: 0x27F517C
+        NA-RAM: 0x27F517C
+        JP-RAM: 0x27F517C
+    - name: NvramCheckReadyToRead
+      address:
+        EU: 0x23A4C40
+        NA: 0x23A4C40
+        JP: 0x23A4C40
+        EU-RAM: 0x27F5450
+        NA-RAM: 0x27F5450
+        JP-RAM: 0x27F5450
+    - name: NvramCheckReadyToWrite
+      address:
+        EU: 0x23A4C64
+        NA: 0x23A4C64
+        JP: 0x23A4C64
+        EU-RAM: 0x27F5474
+        NA-RAM: 0x27F5474
+        JP-RAM: 0x27F5474
+    - name: Nvram_WriteEnable
+      address:
+        EU: 0x23A4C94
+        NA: 0x23A4C94
+        JP: 0x23A4C94
+        EU-RAM: 0x27F54A4
+        NA-RAM: 0x27F54A4
+        JP-RAM: 0x27F54A4
+    - name: Nvram_WriteDisable
+      address:
+        EU: 0x23A4CF8
+        NA: 0x23A4CF8
+        JP: 0x23A4CF8
+        EU-RAM: 0x27F5508
+        NA-RAM: 0x27F5508
+        JP-RAM: 0x27F5508
+    - name: Nvram_ReadStatusRegister
+      address:
+        EU: 0x23A4D38
+        NA: 0x23A4D38
+        JP: 0x23A4D38
+        EU-RAM: 0x27F5548
+        NA-RAM: 0x27F5548
+        JP-RAM: 0x27F5548
+    - name: Nvram_ReadDataBytes
+      address:
+        EU: 0x23A4DA8
+        NA: 0x23A4DA8
+        JP: 0x23A4DA8
+        EU-RAM: 0x27F55B8
+        NA-RAM: 0x27F55B8
+        JP-RAM: 0x27F55B8
+    - name: Nvram_ReadDataBytesAtHigherSpeed
+      address:
+        EU: 0x23A4ED0
+        NA: 0x23A4ED0
+        JP: 0x23A4ED0
+        EU-RAM: 0x27F56E0
+        NA-RAM: 0x27F56E0
+        JP-RAM: 0x27F56E0
+    - name: Nvram_PageWrite
+      address:
+        EU: 0x23A4FF0
+        NA: 0x23A4FF0
+        JP: 0x23A4FF0
+        EU-RAM: 0x27F5800
+        NA-RAM: 0x27F5800
+        JP-RAM: 0x27F5800
+    - name: Nvram_PageProgram
+      address:
+        EU: 0x23A50FC
+        NA: 0x23A50FC
+        JP: 0x23A50FC
+        EU-RAM: 0x27F590C
+        NA-RAM: 0x27F590C
+        JP-RAM: 0x27F590C
+    - name: Nvram_PageErase
+      address:
+        EU: 0x23A5208
+        NA: 0x23A5208
+        JP: 0x23A5208
+        EU-RAM: 0x27F5A18
+        NA-RAM: 0x27F5A18
+        JP-RAM: 0x27F5A18
+    - name: Nvram_SectorErase
+      address:
+        EU: 0x23A5290
+        NA: 0x23A5290
+        JP: 0x23A5290
+        EU-RAM: 0x27F5AA0
+        NA-RAM: 0x27F5AA0
+        JP-RAM: 0x27F5AA0
+    - name: Nvram_DeepPowerDown
+      address:
+        EU: 0x23A5318
+        NA: 0x23A5318
+        JP: 0x23A5318
+        EU-RAM: 0x27F5B28
+        NA-RAM: 0x27F5B28
+        JP-RAM: 0x27F5B28
+    - name: Nvram_ReleaseFromDeepPowerDown
+      address:
+        EU: 0x23A5358
+        NA: 0x23A5358
+        JP: 0x23A5358
+        EU-RAM: 0x27F5B68
+        NA-RAM: 0x27F5B68
+        JP-RAM: 0x27F5B68
+    - name: Nvram_ChipErase
+      address:
+        EU: 0x23A5398
+        NA: 0x23A5398
+        JP: 0x23A5398
+        EU-RAM: 0x27F5BA8
+        NA-RAM: 0x27F5BA8
+        JP-RAM: 0x27F5BA8
+    - name: Nvram_ReadSiliconId
+      address:
+        EU: 0x23A53D8
+        NA: 0x23A53D8
+        JP: 0x23A53D8
+        EU-RAM: 0x27F5BE8
+        NA-RAM: 0x27F5BE8
+        JP-RAM: 0x27F5BE8
+    - name: Nvram_SoftwareReset
+      address:
+        EU: 0x23A5474
+        NA: 0x23A5474
+        JP: 0x23A5474
+        EU-RAM: 0x27F5C84
+        NA-RAM: 0x27F5C84
+        JP-RAM: 0x27F5C84
+    - name: RtcPxiCallback
+      address:
+        EU: 0x23A5714
+        NA: 0x23A5714
+        JP: 0x23A5714
+        EU-RAM: 0x27F5F24
+        NA-RAM: 0x27F5F24
+        JP-RAM: 0x27F5F24
+    - name: RtcAlarmIntr
+      address:
+        EU: 0x23A5D1C
+        NA: 0x23A5D1C
+        JP: 0x23A5D1C
+        EU-RAM: 0x27F652C
+        NA-RAM: 0x27F652C
+        JP-RAM: 0x27F652C
+    - name: RtcBcd2Hex
+      address:
+        EU: 0x23A5DAC
+        NA: 0x23A5DAC
+        JP: 0x23A5DAC
+        EU-RAM: 0x27F65BC
+        NA-RAM: 0x27F65BC
+        JP-RAM: 0x27F65BC
+    - name: Rtc_Reset
+      address:
+        EU: 0x23A5E1C
+        NA: 0x23A5E1C
+        JP: 0x23A5E1C
+        EU-RAM: 0x27F662C
+        NA-RAM: 0x27F662C
+        JP-RAM: 0x27F662C
+    - name: Rtc_SetHourFormat
+      address:
+        EU: 0x23A5E60
+        NA: 0x23A5E60
+        JP: 0x23A5E60
+        EU-RAM: 0x27F6670
+        NA-RAM: 0x27F6670
+        JP-RAM: 0x27F6670
+    - name: Rtc_ReadDateTime
+      address:
+        EU: 0x23A5F84
+        NA: 0x23A5F84
+        JP: 0x23A5F84
+        EU-RAM: 0x27F6794
+        NA-RAM: 0x27F6794
+        JP-RAM: 0x27F6794
+    - name: Rtc_WriteDateTime
+      address:
+        EU: 0x23A5FB0
+        NA: 0x23A5FB0
+        JP: 0x23A5FB0
+        EU-RAM: 0x27F67C0
+        NA-RAM: 0x27F67C0
+        JP-RAM: 0x27F67C0
+    - name: Rtc_ReadDate
+      address:
+        EU: 0x23A5FE8
+        NA: 0x23A5FE8
+        JP: 0x23A5FE8
+        EU-RAM: 0x27F67F8
+        NA-RAM: 0x27F67F8
+        JP-RAM: 0x27F67F8
+    - name: Rtc_ReadTime
+      address:
+        EU: 0x23A6014
+        NA: 0x23A6014
+        JP: 0x23A6014
+        EU-RAM: 0x27F6824
+        NA-RAM: 0x27F6824
+        JP-RAM: 0x27F6824
+    - name: Rtc_WriteTime
+      address:
+        EU: 0x23A6040
+        NA: 0x23A6040
+        JP: 0x23A6040
+        EU-RAM: 0x27F6850
+        NA-RAM: 0x27F6850
+        JP-RAM: 0x27F6850
+    - name: Rtc_ReadPulse
+      address:
+        EU: 0x23A6078
+        NA: 0x23A6078
+        JP: 0x23A6078
+        EU-RAM: 0x27F6888
+        NA-RAM: 0x27F6888
+        JP-RAM: 0x27F6888
+    - name: Rtc_WritePulse
+      address:
+        EU: 0x23A60E0
+        NA: 0x23A60E0
+        JP: 0x23A60E0
+        EU-RAM: 0x27F68F0
+        NA-RAM: 0x27F68F0
+        JP-RAM: 0x27F68F0
+    - name: Rtc_ReadAlarm1
+      address:
+        EU: 0x23A6154
+        NA: 0x23A6154
+        JP: 0x23A6154
+        EU-RAM: 0x27F6964
+        NA-RAM: 0x27F6964
+        JP-RAM: 0x27F6964
+    - name: Rtc_WriteAlarm1
+      address:
+        EU: 0x23A61B8
+        NA: 0x23A61B8
+        JP: 0x23A61B8
+        EU-RAM: 0x27F69C8
+        NA-RAM: 0x27F69C8
+        JP-RAM: 0x27F69C8
+    - name: Rtc_ReadAlarm2
+      address:
+        EU: 0x23A6228
+        NA: 0x23A6228
+        JP: 0x23A6228
+        EU-RAM: 0x27F6A38
+        NA-RAM: 0x27F6A38
+        JP-RAM: 0x27F6A38
+    - name: Rtc_WriteAlarm2
+      address:
+        EU: 0x23A6288
+        NA: 0x23A6288
+        JP: 0x23A6288
+        EU-RAM: 0x27F6A98
+        NA-RAM: 0x27F6A98
+        JP-RAM: 0x27F6A98
+    - name: Rtc_ReadStatus1
+      address:
+        EU: 0x23A62F4
+        NA: 0x23A62F4
+        JP: 0x23A62F4
+        EU-RAM: 0x27F6B04
+        NA-RAM: 0x27F6B04
+        JP-RAM: 0x27F6B04
+    - name: Rtc_WriteStatus1
+      address:
+        EU: 0x23A6320
+        NA: 0x23A6320
+        JP: 0x23A6320
+        EU-RAM: 0x27F6B30
+        NA-RAM: 0x27F6B30
+        JP-RAM: 0x27F6B30
+    - name: Rtc_ReadStatus2
+      address:
+        EU: 0x23A6358
+        NA: 0x23A6358
+        JP: 0x23A6358
+        EU-RAM: 0x27F6B68
+        NA-RAM: 0x27F6B68
+        JP-RAM: 0x27F6B68
+    - name: Rtc_WriteStatus2
+      address:
+        EU: 0x23A6384
+        NA: 0x23A6384
+        JP: 0x23A6384
+        EU-RAM: 0x27F6B94
+        NA-RAM: 0x27F6B94
+        JP-RAM: 0x27F6B94
+    - name: Rtc_ReadAdjust
+      address:
+        EU: 0x23A63BC
+        NA: 0x23A63BC
+        JP: 0x23A63BC
+        EU-RAM: 0x27F6BCC
+        NA-RAM: 0x27F6BCC
+        JP-RAM: 0x27F6BCC
+    - name: Rtc_WriteAdjust
+      address:
+        EU: 0x23A63E8
+        NA: 0x23A63E8
+        JP: 0x23A63E8
+        EU-RAM: 0x27F6BF8
+        NA-RAM: 0x27F6BF8
+        JP-RAM: 0x27F6BF8
+    - name: Rtc_ReadFree
+      address:
+        EU: 0x23A6420
+        NA: 0x23A6420
+        JP: 0x23A6420
+        EU-RAM: 0x27F6C30
+        NA-RAM: 0x27F6C30
+        JP-RAM: 0x27F6C30
+    - name: Rtc_WriteFree
+      address:
+        EU: 0x23A644C
+        NA: 0x23A644C
+        JP: 0x23A644C
+        EU-RAM: 0x27F6C5C
+        NA-RAM: 0x27F6C5C
+        JP-RAM: 0x27F6C5C
+    - name: RtcChangeAlarmFormat24to12
+      address:
+        EU: 0x23A6484
+        NA: 0x23A6484
+        JP: 0x23A6484
+        EU-RAM: 0x27F6C94
+        NA-RAM: 0x27F6C94
+        JP-RAM: 0x27F6C94
+    - name: RtcChangeAlarmFormat12to24
+      address:
+        EU: 0x23A6594
+        NA: 0x23A6594
+        JP: 0x23A6594
+        EU-RAM: 0x27F6DA4
+        NA-RAM: 0x27F6DA4
+        JP-RAM: 0x27F6DA4
+    - name: RtcGpioTransfer
+      address:
+        EU: 0x23A66A4
+        NA: 0x23A66A4
+        JP: 0x23A66A4
+        EU-RAM: 0x27F6EB4
+        NA-RAM: 0x27F6EB4
+        JP-RAM: 0x27F6EB4
+    - name: Rtci_GpioStart
+      address:
+        EU: 0x23A6700
+        NA: 0x23A6700
+        JP: 0x23A6700
+        EU-RAM: 0x27F6F10
+        NA-RAM: 0x27F6F10
+        JP-RAM: 0x27F6F10
+    - name: Rtci_GpioEnd
+      address:
+        EU: 0x23A6740
+        NA: 0x23A6740
+        JP: 0x23A6740
+        EU-RAM: 0x27F6F50
+        NA-RAM: 0x27F6F50
+        JP-RAM: 0x27F6F50
   data: []

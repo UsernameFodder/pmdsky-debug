@@ -765,6 +765,21 @@ arm9:
         See https://problemkaputt.de/gbatek.htm#dsiomaps.
         
         return: old value in the IME register
+    - name: Sys_IsMailboxPending
+      address:
+        EU: 0x20038D8
+        NA: 0x20038D8
+        JP: 0x20038D8
+    - name: Task_AbortSync
+      address:
+        EU: 0x2003990
+        NA: 0x2003990
+        JP: 0x2003990
+    - name: Sys_WaitForVBlank
+      address:
+        EU: 0x2003A40
+        NA: 0x2003A40
+        JP: 0x2003A40
     - name: SoundResume
       address:
         EU: 0x2003CC4
@@ -1099,6 +1114,16 @@ arm9:
         r0: [output] pointer to an IO struct {ptr, len}
         r1: file path string pointer
         r2: flags
+    - name: GraphicsEngine_SetState
+      address:
+        EU: 0x2008ED0
+        NA: 0x2008ED0
+        JP: 0x2008ED0
+    - name: GraphicsEngine_ApplyState
+      address:
+        EU: 0x2008F88
+        NA: 0x2008F88
+        JP: 0x2008F88
     - name: MarkPaletteDataAsNeedingUpdate
       address:
         EU: 0x200A504
