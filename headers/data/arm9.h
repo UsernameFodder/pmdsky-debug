@@ -13,7 +13,7 @@ extern uint32_t NUMBER_OF_ITEMS;
 extern uint32_t MAX_MONEY_CARRIED;
 extern uint32_t MAX_MONEY_STORED;
 extern struct temp_allocated_buffer_controller* BUFFER_CONTROLLER_PTR;
-extern char* HEAP_ALLOCATED_BUFFER_START_PTR[1024];
+extern struct temporary_string_buffers* TEMP_ALLOCATED_BUFFER_START_PTR;
 extern struct window_list* WINDOW_LIST_PTR;
 extern struct script_var_value_table* SCRIPT_VARS_VALUES_PTR;
 extern uint32_t MAX_PLAY_TIME;

@@ -292,7 +292,7 @@ ram:
       length:
         NA: 0x4
       description: Pointer to SOUND_MEMORY_ARENA.
-    - name: HEAP_ALLOCATED_BUFFER_CONTROLLER
+    - name: TEMP_ALLOCATED_BUFFER_CONTROLLER
       address:
         EU: 0x22A62F8
         NA: 0x22A59B8
@@ -303,7 +303,7 @@ ram:
         The struct used by AllocateTemp1024ByteBufferFromPool for tracking which of its eight buffers have been allocated most recently.
         
         Size unknown. Has Some value(s) between 0x0 and 0x4 which are seemingly never used.
-    - name: HEAP_ALLOCATED_BUFFER_ZONE
+    - name: TEMP_ALLOCATED_BUFFER_ZONE
       address:
         EU: 0x22A6348
         NA: 0x22A5A08
@@ -313,7 +313,7 @@ ram:
       description: |-
         The eight 1024-byte buffers, used sequentially by AllocateTemp1024ByteBufferFromPool.
         
-        Type: char[8][1024]
+        Type: temporary_string_buffers
     - name: WINDOW_LIST
       address:
         EU: 0x22A921C
