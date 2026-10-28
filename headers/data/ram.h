@@ -27,7 +27,7 @@ extern int32_t MONEY_CARRIED;
 extern int32_t MONEY_STORED;
 extern struct audio_command AUDIO_COMMANDS_BUFFER[16];
 extern struct mem_arena* SOUND_MEMORY_ARENA_PTR;
-extern struct temp_allocated_buffer_controller* TEMP_ALLOCATED_BUFFER_CONTROLLER;
+extern struct temp_allocated_buffer_controller TEMP_ALLOCATED_BUFFER_CONTROLLER;
 extern struct temporary_string_buffers TEMP_ALLOCATED_BUFFER_ZONE;
 extern struct window_list WINDOW_LIST;
 extern uint16_t CURSOR_16_SPRITE_ID;
