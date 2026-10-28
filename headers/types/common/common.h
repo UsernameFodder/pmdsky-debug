@@ -1774,7 +1774,7 @@ struct temp_allocated_buffer_controller {
     // 0x0: Unknown, seemingly never used. Might be padding? For some reason?
     undefined4 unk_0x0;
     // 0x4: The index of the most recent of the eight 1024-byte buffers allocated
-    ushort buffer_num;
+    uint16_t buffer_num;
 };
 ASSERT_SIZE(struct temp_allocated_buffer_controller, 6); 
 
