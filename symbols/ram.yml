@@ -166,28 +166,6 @@ ram:
         While the game only allows a maximum of 48 items during normal play, it seems to read up to 50 item slots if filled.
         
         type: struct item[50]
-    - name: HEAP_ALLOCATED_BUFFER_CONTROLLER
-      address: 
-        EU: 0x22A62F8
-        NA: 0x22A59B8
-      length: 
-        EU: 0x6
-        NA: 0x6
-      description: |-
-        The struct used by AllocateTemp1024ByteBufferFromPool for tracking which of its eight buffers have been allocated most recently.
-        
-        Size unknown. Has Some value(s) between 0x0 and 0x4 which are seemingly never used.
-    - name: HEAP_ALLOCATED_BUFFER_ZONE
-      address:
-        EU: 0x22A6348
-        NA: 0x22A5A08
-      length: 
-        EU: 0x2000
-        NA: 0x2000
-      description: |-
-        The eight 1024-byte buffers, used sequentially by AllocateTemp1024ByteBufferFromPool.
-
-        Type: char[8][1024]
     - name: BAG_ITEMS_PTR
       address:
         EU: 0x22A44E8
@@ -314,6 +292,28 @@ ram:
       length:
         NA: 0x4
       description: Pointer to SOUND_MEMORY_ARENA.
+    - name: HEAP_ALLOCATED_BUFFER_CONTROLLER
+      address:
+        EU: 0x22A62F8
+        NA: 0x22A59B8
+      length:
+        EU: 0x6
+        NA: 0x6
+      description: |-
+        The struct used by AllocateTemp1024ByteBufferFromPool for tracking which of its eight buffers have been allocated most recently.
+        
+        Size unknown. Has Some value(s) between 0x0 and 0x4 which are seemingly never used.
+    - name: HEAP_ALLOCATED_BUFFER_ZONE
+      address:
+        EU: 0x22A6348
+        NA: 0x22A5A08
+      length:
+        EU: 0x2000
+        NA: 0x2000
+      description: |-
+        The eight 1024-byte buffers, used sequentially by AllocateTemp1024ByteBufferFromPool.
+        
+        Type: char[8][1024]
     - name: WINDOW_LIST
       address:
         EU: 0x22A921C
@@ -744,12 +744,6 @@ ram:
         EU: 0x22BBF54
         NA: 0x22BB614
         JP: 0x22BCDB4
-    - name: EFFECT_CONTROL
-      address:
-        EU: 0x22DCB00
-      length:
-        EU: 0x27A4
-      description: The master struct containing information about how effects should be played and the ones that are currently active.
     - name: GROUND_MEMORY_ARENA_1_PTR
       address:
         NA: 0x2324CB4
