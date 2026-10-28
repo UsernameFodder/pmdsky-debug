@@ -1784,4 +1784,22 @@ struct starter_egg_move {
 };
 ASSERT_SIZE(struct starter_egg_move, 4);
 
+// Used by AllocateTemp1024ByteBufferFromPool, and seemingly nowhere else.
+// Size unknown, at least 6 bytes
+struct temp_allocated_buffer_controller {
+    // 0x0: Unknown, seemingly never used. Might be padding? For some reason?
+    undefined4 unk_0x0;
+    // 0x4: The index of the most recent of the eight 1024-byte buffers allocated
+    uint16_t buffer_num;
+    uint16_t padding;
+};
+ASSERT_SIZE(struct temp_allocated_buffer_controller, 8);
+
+// A struct used for reserving a specific portion of memory for temporary buffers.
+// See: AllocateTemp1024ByteBufferFromPool.
+struct temporary_string_buffers {
+    char allocatable_buffers[8][1024];
+};
+ASSERT_SIZE(struct temporary_string_buffers, 8192);
+
 #endif

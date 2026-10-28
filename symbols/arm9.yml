@@ -6098,7 +6098,11 @@ arm9:
         EU: 0x2025B54
         NA: 0x2025888
         JP: 0x2025868
-      description: "return: Pointer to byte buffer"
+      description: |-
+        Cycles through one of eight 1024-byte buffers, returning the next one in the sequence.
+        
+        In effect, this function returns a unique buffer only for the first eight calls, with the ninth returning the buffer given to the first, the tenth to the second, etc.
+        This means the buffers given do not need to be manually freed, as they'll be re-used eventually regardless.
     - name: GetStringFromFileVeneer
       address:
         EU: 0x2025B84
@@ -13797,6 +13801,28 @@ arm9:
         EU: 0x4
         NA: 0x4
       description: "Maximum amount of money the player can store in the Duskull Bank, 9999999."
+    - name: BUFFER_CONTROLLER_PTR
+      address:
+        EU: 0x2025B7C
+        NA: 0x20258B0
+      length:
+        EU: 0x4
+        NA: 0x4
+      description: |-
+        Points to the struct used for tracking the buffers managed by AllocateTemp1024ByteBufferFromPool, seen above.
+        
+        type: temp_allocated_buffer_controller*
+    - name: TEMP_ALLOCATED_BUFFER_START_PTR
+      address:
+        EU: 0x2025B80
+        NA: 0x20258B4
+      length:
+        EU: 0x4
+        NA: 0x4
+      description: |-
+        Points to the beginning of the eight 1024-byte buffers used by AllocateTemp1024ByteBufferFromPool, seen above.
+        
+        type: temporary_string_buffers*
     - name: WINDOW_LIST_PTR
       address:
         NA: 0x2028350
