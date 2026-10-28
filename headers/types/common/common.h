@@ -1799,6 +1799,7 @@ ASSERT_SIZE(struct temp_allocated_buffer_controller, 8);
 // See: AllocateTemp1024ByteBufferFromPool.
 struct temporary_string_buffers {
     char allocatable_buffers[8][1024];
-} ASSERT_SIZE(struct temporary_string_buffers, 8192);
+}; 
+ASSERT_SIZE(struct temporary_string_buffers, 8192);
 
 #endif
