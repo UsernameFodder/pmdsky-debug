@@ -236,6 +236,8 @@ extern struct pack_file_opened* PACK_FILES_OPENED;
 extern const char* PACK_FILE_PATHS_TABLE[6];
 extern struct item* BAG_ITEMS_PTR_MIRROR;
 extern void* ITEM_DATA_TABLE_PTRS[3];
+extern struct temp_allocated_buffer_controller* BUFFER_CONTROLLER_PTR;
+extern char* HEAP_ALLOCATED_BUFFER_START_PTR[1024];
 #if PMDSKY_VERSION == PMDSKY_EU
 extern char* ITEM_LANG_FILE_ARRAY[5];
 #endif

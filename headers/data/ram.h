@@ -50,6 +50,8 @@ extern uint8_t PLAY_TIME_FRAME_COUNTER;
 #else
 #define TEAM_NAME_LENGTH_ 10
 #endif
+extern struct temp_allocated_buffer_controller* HEAP_ALLOCATED_BUFFER_CONTROLLER;
+extern char HEAP_ALLOCATED_BUFFER_ZONE[8][1024];
 extern char TEAM_NAME[TEAM_NAME_LENGTH_];
 extern struct monster_id_16 LEVEL_UP_DATA_MONSTER_ID;
 extern struct level_up_entry LEVEL_UP_DATA_DECOMPRESS_BUFFER[100];
