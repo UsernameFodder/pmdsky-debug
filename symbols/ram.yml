@@ -474,6 +474,13 @@ ram:
         EU: 0x1
         NA: 0x1
       description: The floor number to start from in the dungeon specified by PENDING_DUNGEON_ID.
+    - name: MISSION_CLIENT
+      address:
+        EU: 0x22ABE58
+      length:
+        EU: 0x44
+        NA: 0x44
+      description: "The ground_monster struct for the current mission client."
     - name: PLAY_TIME_SECONDS
       address:
         EU: 0x22ABFD4

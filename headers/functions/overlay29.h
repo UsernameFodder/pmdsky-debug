@@ -1172,7 +1172,7 @@ void WaitUntilAlertBoxPauseIsOver(undefined param_1);
 void InitPortraitDungeon(struct portrait_params* portrait, enum monster_id monster_id,
                          enum portrait_emotion emotion);
 void OpenMessageLog(undefined4 param_1, undefined4 param_2);
-bool RunDungeonMode(undefined4* param_1, undefined4 param_2);
+bool RunDungeonMode(dungeon_init* dungeon_init_data, undefined4 param_2);
 void StartFadeDungeon(struct dungeon_fade* fstruct, int delta_delta_brightness,
                       enum fade_status_dungeon fade_type);
 void StartFadeDungeonWrapper(int fade_type, int delta_delta_brightness, enum screen screen);
