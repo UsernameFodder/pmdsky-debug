@@ -1049,6 +1049,7 @@ bool IsValidPortrait(struct portrait_params* portrait);
 bool LoadPortrait(struct portrait_params* portrait, struct kaomado_buffer* buf);
 bool WonderMailPasswordToMission(char* password, struct mission* mission_data);
 void MissionToWonderMailPassword(char* password, struct mission* mission_data);
+void LoadDungeonInitMain(struct dungeon_init_main* dungeon_init_main);
 void SetEnterDungeon(enum dungeon_id dungeon_id);
 void InitDungeonInit(struct dungeon_init* dungeon_init_data, enum dungeon_id dungeon_id);
 bool IsNoLossPenaltyDungeon(enum dungeon_id dungeon_id);

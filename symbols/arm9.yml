@@ -9915,6 +9915,13 @@ arm9:
         
         r0: [output] Pointer to the buffer where the string will be written
         r1: mission struct pointer
+    - name: LoadDungeonInitMain
+      address:
+        EU: 0x204EAC8
+      description: |-
+        Copies the global DUNGEON_INIT_MAIN into the given dungeon_init_main pointer.
+        
+        r0: [output] dungeon_init_main
     - name: SetEnterDungeon
       address:
         EU: 0x204EC84

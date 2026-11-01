@@ -627,9 +627,7 @@ struct unk_dungeon_init {
 };
 ASSERT_SIZE(struct unk_dungeon_init, 232);
 
-// A struct used to init certain values in the dungeon struct when entering dungeon mode.
-// Gets initialized in ground mode.
-struct dungeon_init {
+struct dungeon_init_main {
     struct dungeon_id_8 id; // 0x0: Copied into dungeon::id
     uint8_t floor;          // 0x1: Copied into dungeon::floor
     // 0x2 index of the dungeon. Indexes are mapped to IDs in DUNGEON_SWAP_ID_TABLE
@@ -684,6 +682,12 @@ struct dungeon_init {
     // dungeon::dungeon_game_version_id. Uncertain when the game decides to load the
     // Time/Darkness version of dungeons.
     enum game_id dungeon_game_version_id;
+};
+
+// A struct used to init certain values in the dungeon struct when entering dungeon mode.
+// Gets initialized in ground mode.
+struct dungeon_init {
+    struct dungeon_init_main main;
     undefined4 field_0xB0;
     undefined field_0xB4; // Gets set to dungeon::id during dungeon init
     undefined field_0xB5; // Gets set to dungeon::floor during dungeon init
