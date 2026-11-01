@@ -480,7 +480,7 @@ ram:
       length:
         EU: 0x44
         NA: 0x44
-      description: "The ground_monster struct for the current mission client."
+      description: The ground_monster struct for the current mission client.
     - name: PLAY_TIME_SECONDS
       address:
         EU: 0x22ABFD4
