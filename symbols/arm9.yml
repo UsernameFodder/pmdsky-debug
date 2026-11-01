@@ -9915,6 +9915,34 @@ arm9:
         
         r0: [output] Pointer to the buffer where the string will be written
         r1: mission struct pointer
+    - name: GetDungeonObjective
+      address:
+        EU: 0x204EA34
+      description: |-
+        Gets the dungeon_objective field from DUNGEON_INIT_MAIN.
+        
+        return: dungeon objective
+    - name: GetDungeonIdx
+      address:
+        EU: 0x204EA98
+      description: |-
+        Gets the dungeon_idx field from DUNGEON_INIT_MAIN.
+        
+        return: dungeon index
+    - name: GetDungeonId
+      address:
+        EU: 0x204EAA8
+      description: |-
+        Gets the id field from DUNGEON_INIT_MAIN.
+        
+        return: dungeon id
+    - name: GetDungeonStartingFloor
+      address:
+        EU: 0x204EAB8
+      description: |-
+        Gets the floor field from DUNGEON_INIT_MAIN.
+        
+        return: floor
     - name: LoadDungeonInitMain
       address:
         EU: 0x204EAC8
@@ -9931,13 +9959,15 @@ arm9:
         Used to set the dungeon that will be accessed when switching from ground to dungeon mode.
         
         r0: Dungeon ID
-    - name: InitDungeonInit
+    - name: InitDungeonInitMain
+      aliases:
+        - InitDungeonInit
       address:
         EU: 0x204ED94
         NA: 0x204EA5C
         JP: 0x204EDB4
       description: |-
-        Initializes the dungeon_init struct before entering a dungeon.
+        Initializes the dungeon_init_main struct before entering a dungeon.
         
         r0: [output] Pointer to the struct to init
         r1: Dungeon ID

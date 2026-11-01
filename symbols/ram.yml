@@ -469,7 +469,7 @@ ram:
         
         Controls the text and map location during the "map cutscene" just before entering a dungeon, as well as the actual dungeon loaded afterwards.
         
-        This field is actually part of DUNGEON_INIT_MAIN, a larger struct that also contains PENDING_STARTING_FLOOR and MISSION_CLIENT.
+        This field is actually part of DUNGEON_INIT_MAIN, a larger struct that also contains PENDING_STARTING_FLOOR and PENDING_MISSION_CLIENT.
         
         type: struct dungeon_id_8
     - name: PENDING_STARTING_FLOOR
@@ -480,7 +480,7 @@ ram:
         EU: 0x1
         NA: 0x1
       description: The floor number to start from in the dungeon specified by PENDING_DUNGEON_ID.
-    - name: MISSION_CLIENT
+    - name: PENDING_MISSION_CLIENT
       address:
         EU: 0x22ABE58
       length:
