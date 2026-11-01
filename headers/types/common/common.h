@@ -683,11 +683,12 @@ struct dungeon_init_main {
     // Time/Darkness version of dungeons.
     enum game_id dungeon_game_version_id;
 };
+ASSERT_SIZE(struct dungeon_init_main, 176);
 
 // A struct used to init certain values in the dungeon struct when entering dungeon mode.
 // Gets initialized in ground mode.
 struct dungeon_init {
-    struct dungeon_init_main main;
+    struct dungeon_init_main main; // 0x0
     undefined4 field_0xB0;
     undefined field_0xB4; // Gets set to dungeon::id during dungeon init
     undefined field_0xB5; // Gets set to dungeon::floor during dungeon init
