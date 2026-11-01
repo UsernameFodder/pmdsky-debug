@@ -454,7 +454,7 @@ ram:
         EU: 0x22ABE3C
       length:
         EU: 0xB0
-      description: A struct containing the major info for loading a dungeon, which is copied into the dungeon_init struct in LoadDungeonInitMain.
+      description: "A struct containing the major info for loading a dungeon, which is copied into the dungeon_init struct in LoadDungeonInitMain."
     - name: PENDING_DUNGEON_ID
       address:
         EU: 0x22ABE3C
