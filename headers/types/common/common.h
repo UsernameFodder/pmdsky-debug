@@ -1698,7 +1698,7 @@ struct live_effect {
     enum effect_file_type file_type; // 0x8
     int unique_id;                   // 0xC: -1 if no effect playing
     undefined4 field_0x10;
-     uint32_t effect_id;    // 0x14
+    uint32_t effect_id;    // 0x14
     undefined4 field_0x18; // Seemingly always 0
     undefined4 field_0x1c;
     struct vec2_16 pos; // 0x20: Absolute pixel coordinates of effect
