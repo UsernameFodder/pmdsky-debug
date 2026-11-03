@@ -19,12 +19,8 @@ jobs:
     uses: UsernameFodder/pmdsky-debug/.github/workflows/check-resymgen.yml@master
   check-symbols:
     uses: UsernameFodder/pmdsky-debug/.github/workflows/check-symbols.yml@master
-    with:
-      no-format-on-check-fail: true
   check-headers:
     uses: UsernameFodder/pmdsky-debug/.github/workflows/check-headers.yml@master
-    with:
-      no-format-on-check-fail: true
   check-symbol-header-sync:
     needs:
       - check-symbols
