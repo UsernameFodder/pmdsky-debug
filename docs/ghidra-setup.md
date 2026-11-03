@@ -84,11 +84,13 @@ By default, if Ghidra has variable names in the decompiled code (it usually does
 
 To do this, select Edit > Tool Options..., navigate to Options > Listing Fields > Operands Field, uncheck the boxes labeled "Markup Register Variable References" and "Markup Stack Variable References", then hit "Apply".
 
-   ![Disabling register variable markup](images/ghidra-markup-register-variable-references.png)
+   ![Disabling register variable markup](images/ghidra-markup-register-and-stack-variable-references.png)
 
 With this option disabled, the disassembler will still be _aware_ of variable names from the decompiler, but it won't display them in place of register names in the assembly code.
 
    ![The effect of disabling register variable markup](images/ghidra-register-variables.png)
+
+   ![The effect of disabling register variable markup](images/ghidra-stack-variables.png)
 
 ## Reverse engineer!
 You're now ready to actually reverse engineer! Ghidra has [built-in tutorials](https://github.com/NationalSecurityAgency/ghidra/tree/master/GhidraDocs/GhidraClass) (here's an [HTML preview of the beginner class](https://htmlpreview.github.io/?https://github.com/NationalSecurityAgency/ghidra/blob/stable/GhidraDocs/GhidraClass/Beginner/Introduction_to_Ghidra_Student_Guide.html)) that teach you how to use the application. Also see [Other Resources](resources.md) for some links if you're new to reverse engineering, and the Ghidra section of [Using Debug Info from `pmdsky-debug`](using-debug-info.md#ghidra) for some targeted tips.
