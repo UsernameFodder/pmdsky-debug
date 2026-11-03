@@ -30,6 +30,27 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # For pull_request events, run the formatter on the exact PR head.
+          # Without this, the formatted files for PRs from outdated branches
+          # (that are still mergeable without conflict, otherwise the pull_request
+          # event wouldn't even fire) would include any newer changes merged into the
+          # target branch (i.e., master).
+          #
+          # This does mean that the format and format-check jobs might run on
+          # different checkouts, which in rare cases could lead to surprising results
+          # where the two disagree. In this case, the format-check job would still fail
+          # after committing the formatted files. But this is actually what should
+          # happen; if the PR in isolation is properly formatted but merging it breaks
+          # formatting, then the solution should be to update the PR branch and
+          # format the files in their merged state.
+          #
+          # The alternative would be for the format-check job to match the format job
+          # by checking out the PR head. This is undesirable because the format-check
+          # job is a correctness check, which should run on the final merged state.
+          # This differs from the format job, which is just a convenience for
+          # contributors.
+          ref: ${{ github.event.pull_request.head.sha }}
       - name: Install resymgen
         uses: ./.github/actions/build-resymgen
       - name: Format
