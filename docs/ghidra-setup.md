@@ -79,14 +79,20 @@ Once all the binaries have been loaded at the appropriate memory addresses, run 
 ## Import debug info
 See the appropriate section of [Using Debug Info from `pmdsky-debug`](using-debug-info.md#ghidra).
 
-## (Optional) Disable register variable names in disassembly
-By default, if Ghidra has variable names in the decompiled code (it usually does), it will try to apply them to the disassembly as well, replacing raw register and stack names in instruction operands with the corresponding variable names. With ARM assembly, this is generally unhelpful, since registers are commonly repurposed in the middle of a function and might not always map to a single logical variable. While it's ultimately up to preference, I recommend disabling this behavior so that the disassembly just shows the bare register and stack names. This makes reading the assembly code more straightforward.
+## (Optional) Disable register and stack offset variable names in disassembly
+By default, if Ghidra has variable names in the decompiled code (it usually does), it will try to apply them to the disassembly as well, replacing raw register names and raw stack pointer offsets in instruction operands with the corresponding variable names. With ARM assembly, this is generally unhelpful:
+
+- Registers are commonly repurposed in the middle of a function and might not always map to a single logical variable. For example, suppose a function uses `r0` for one purpose, say as a loop counter, and you rename it to `loop_counter`. If the function reuses `r0` elsewhere for a different purpose, say as a boolean flag, the variable name `loop_counter` will still replace `r0` in all the assembly instructions within that function, even the parts where it's not being used as a loop counter.
+
+- Ghidra's default stack variable names use offsets calculated relative to the _stack frame base_ (where the stack pointer is right when the function is first called, prior to the function prologue that saves register values and shifts the stack pointer to create a new stack frame). This means that the offsets in Ghidra's stack variable names usually differ from the offsets that appear in subsequent instructions, which are typically relative to the _stack frame top_ (where the stack pointer is at the time of the instruction, after the stack pointer has been shifted). For example, Ghidra might name a variable `local_d8` (frame base - 0xD8), while an instruction might access the variable through `[sp,#0x10]` (stack pointer + 0x10), which Ghidra will by default show as `[sp,#local_d8]` in load/store instructions. This can be confusing when reasoning about low-level memory layouts.
+
+While it's ultimately up to preference, I recommend disabling this behavior so that the disassembly shows the bare register names and stack pointer offsets. This makes reading the assembly code more straightforward.
 
 To do this, select Edit > Tool Options..., navigate to Options > Listing Fields > Operands Field, uncheck the boxes labeled "Markup Register Variable References" and "Markup Stack Variable References", then hit "Apply".
 
    ![Disabling register variable markup](images/ghidra-markup-register-and-stack-variable-references.png)
 
-With this option disabled, the disassembler will still be _aware_ of variable names from the decompiler, but it won't display them in place of register names in the assembly code.
+With these options disabled, the disassembler will still be _aware_ of variable names from the decompiler, but it won't display them in place of register names and stack pointer offsets in the assembly code. In the case of stack variables, both the raw stack pointer offsets _and_ the names of the variables they point to will be displayed, so the context isn't lost.
 
    ![The effect of disabling register variable markup](images/ghidra-register-variables.png)
 
