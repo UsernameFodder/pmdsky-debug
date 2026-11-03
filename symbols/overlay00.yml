@@ -982,7 +982,7 @@ overlay0:
         EU: 0x22C845C
         NA: 0x22C7C48
         JP: 0x22C93F4
-    - name: MBi_ReadFromCache
+    - name: MBi_IsTaskBusy
       address:
         EU: 0x22C8470
         NA: 0x22C7C5C
@@ -1818,6 +1818,8 @@ overlay0:
         NA: 0x22CE8A0
         JP: 0x22D004C
     - name: close
+      aliases:
+        - Socl_Close
       address:
         EU: 0x22CF0E8
         NA: 0x22CE8D4
@@ -1847,7 +1849,7 @@ overlay0:
         EU: 0x22CF3F0
         NA: 0x22CEBDC
         JP: 0x22D0388
-    - name: Soc_Cleanup
+    - name: Socl_Cleanup
       address:
         EU: 0x22CF42C
         NA: 0x22CEC18
@@ -2279,6 +2281,11 @@ overlay0:
         EU: 0x22D13A0
         NA: 0x22D0B8C
         JP: 0x22D2338
+    - name: client_hello
+      address:
+        EU: 0x22D1468
+        NA: 0x22D0C54
+        JP: 0x22D2400
     - name: decrypt_premaster_secret
       address:
         EU: 0x22D1504
@@ -2389,7 +2396,7 @@ overlay0:
         EU: 0x22D2D34
         NA: 0x22D2520
         JP: 0x22D3CCC
-    - name: ssl_listen_try
+    - name: ssl_connect_try
       address:
         EU: 0x22D2D64
         NA: 0x22D2550
@@ -2910,7 +2917,7 @@ overlay0:
         EU: 0x22D79F8
         NA: 0x22D71E4
         JP: 0x22D8990
-    - name: Wcm_SendDcfData
+    - name: Wcm_SendDcfDataEx
       address:
         EU: 0x22D7A18
         NA: 0x22D7204
@@ -2996,12 +3003,12 @@ overlay0:
         EU: 0x22D816C
         NA: 0x22D7958
         JP: 0x22D9104
-    - name: Dwc_AC_SetSpecifyAp
+    - name: Dwc_Ac_SetSpecifyApEx
       address:
         EU: 0x22D81A8
         NA: 0x22D7994
         JP: 0x22D9140
-    - name: Dwc_AC_SetSpecifyApEx
+    - name: Dwc_Ac_SetSpecifyAp
       address:
         EU: 0x22D820C
         NA: 0x22D79F8
@@ -4191,7 +4198,7 @@ overlay0:
         EU: 0x22E0E2C
         NA: 0x22E0618
         JP: 0x22E1DC4
-    - name: Dwc_DebugConnectInetAsync
+    - name: Dwc_DebugConnectInetExAsync
       address:
         EU: 0x22E0EE0
         NA: 0x22E06CC
@@ -5366,7 +5373,7 @@ overlay0:
         EU: 0x22ED76C
         NA: 0x22ECF58
         JP: 0x22EE704
-    - name: Dwc_GetGhttpDataEx2
+    - name: Dwc_GetGhttpDataEx
       address:
         EU: 0x22ED910
         NA: 0x22ED0FC
@@ -9379,7 +9386,7 @@ overlay0:
         EU: 0x2314D94
         NA: 0x2314580
         JP: 0x2315D2C
-    - name: GoaEncryptByte
+    - name: GoaDecryptByte
       address:
         EU: 0x2314E5C
         NA: 0x2314648
@@ -9614,7 +9621,7 @@ overlay0:
         EU: 0x23162A4
         NA: 0x2315A90
         JP: 0x231723C
-    - name: SbServerSetPublicAddr
+    - name: SbServerSetPrivateAddr
       address:
         EU: 0x23162AC
         NA: 0x2315A98

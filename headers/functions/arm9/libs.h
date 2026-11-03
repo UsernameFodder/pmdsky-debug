@@ -337,7 +337,7 @@ void OSi_FreeCartridgeBus(void);
 int OSi_GetUnusedThreadId(void);
 void OSi_InsertLinkToQueue(struct os_thread_queue* queue, struct thread* thread);
 void OSi_InsertThreadToList(struct thread* thread);
-void OS_RescheduleThread(void);
+void OSi_RescheduleThread(void);
 void OS_InitThread(void);
 void OS_CreateThread(struct thread* thread, thread_entry_fn_t function, struct thread* param_3,
                      void* stack_area, int stack_size, int param_6);

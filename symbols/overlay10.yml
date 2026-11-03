@@ -202,6 +202,8 @@ overlay10:
     - name: UnloadEffect
       address:
         EU: 0x22BE804
+        NA: 0x22BDEC4
+        JP: 0x22BF668
       description: |-
         Marks the live effect as not being used, unloads its wan_table entry if applicable, and calls an unknown inner function to free certain pointers.
         
@@ -222,6 +224,8 @@ overlay10:
     - name: InitEffect
       address:
         EU: 0x22BED8C
+        NA: 0x22BE44C
+        JP: 0x22BFBF0
       description: |-
         Finds a currently unused live effect, zeroes it, and fills its more general fields such as screen, file_type, and unique_id.
         
@@ -232,6 +236,8 @@ overlay10:
     - name: InitAndPlayEffect
       address:
         EU: 0x22BF070
+        NA: 0x22BE730
+        JP: 0x22BFED4
       description: |-
         Calls InitEffect, then calls PlayEffect.
         
@@ -242,6 +248,8 @@ overlay10:
     - name: InitAndPlayEffectWithChecks
       address:
         EU: 0x22BF0C0
+        NA: 0x22BE780
+        JP: 0x22BFF24
       description: |-
         Calls InitAndPlayEffect with the given parameters if certain checks pass, otherwise either returns -1 or plays a placeholder effect (ID 8).
         
@@ -262,6 +270,8 @@ overlay10:
     - name: GetLiveEffectWanOffset
       address:
         EU: 0x22BF918
+        NA: 0x22BEFD8
+        JP: 0x22C077C
       description: |-
         Gets the WAN offset of the live effect given by the unique id.
         
@@ -270,6 +280,8 @@ overlay10:
     - name: InitEffectDisplayInfo
       address:
         EU: 0x22BFBB4
+        NA: 0x22BF274
+        JP: 0x22C0A18
       description: |-
         Initializes an effect_display_info struct with default values.
         
@@ -277,6 +289,8 @@ overlay10:
     - name: InitAndPlayEffectSetWanOffset
       address:
         EU: 0x22BFBF4
+        NA: 0x22BF2B4
+        JP: 0x22C0A58
       description: |-
         Calls InitAndPlayEffectWithChecks with r0 = 7, also setting effect_display_info's wan_offset field to the default value for its effect_id.
         
@@ -286,6 +300,8 @@ overlay10:
     - name: InitEffectSetWanOffset
       address:
         EU: 0x22BFC24
+        NA: 0x22BF2E4
+        JP: 0x22C0A88
       description: |-
         Calls InitEffect with r0 = 7, also setting effect_display_info's wan_offset field to the default value for its effect_id.
         
@@ -295,6 +311,8 @@ overlay10:
     - name: GetLiveEffect
       address:
         EU: 0x22BFC54
+        NA: 0x22BF314
+        JP: 0x22C0AB8
       description: |-
         Gets the live effect with the given unique id if there is one and its field_0x4 is nonzero (which it seemingly always is?).
         
@@ -335,6 +353,8 @@ overlay10:
     - name: IsBlizzardTailwindOrPowderSnow
       address:
         EU: 0x22C072C
+        NA: 0x22BFDEC
+        JP: 0x22C1590
       description: |-
         Returns true if the move id is equal to Blizzard, Tailwind or Powder Snow.
         
@@ -343,6 +363,8 @@ overlay10:
     - name: IsWanOrWat
       address:
         EU: 0x22C077C
+        NA: 0x22BFE3C
+        JP: 0x22C15E0
       description: |-
         Returns true if the file type is a WAN file (including WAN files 0/1) or a WAT file.
         
@@ -351,6 +373,8 @@ overlay10:
     - name: IsScreenOrWba
       address:
         EU: 0x22C0794
+        NA: 0x22BFE54
+        JP: 0x22C15F8
       description: |-
         Returns true if the file type is a screen effect or a WBA file.
         
@@ -429,6 +453,8 @@ overlay10:
     - name: LoadEffectWanTableEntry
       address:
         EU: 0x22C0D34
+        NA: 0x22C03F4
+        JP: 0x22C1B98
       description: |-
         Returns an already allocated entry for this effect if it exists, otherwise allocates a new one.
         
@@ -3295,6 +3321,8 @@ overlay10:
     - name: NATURE_GIFTER_RESTRICTED_ITEMS
       address:
         EU: 0x22C5630
+        NA: 0x22C4CD8
+        JP: 0x22C63C0
       length:
         EU: 0x3C
         NA: 0x3C
@@ -3617,6 +3645,8 @@ overlay10:
     - name: EFFECT_CONTROL_PTR
       address:
         EU: 0x22DCB00
+        NA: 0x22DC1C0
+        JP: 0x22DD860
       length:
         EU: 0x4
       description: Pointer to the master struct containing information about how effects should be played and the ones that are currently active.
