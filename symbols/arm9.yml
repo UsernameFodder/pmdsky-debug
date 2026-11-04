@@ -10143,7 +10143,7 @@ arm9:
       description: |-
         Adds a guest monster to the active team
         
-        r0: dungeon_init struct for the dungeon that is about to be entered
+        r0: dungeon_init_main struct for the dungeon that is about to be entered
         r1: Number of the guest monster to add. Used when more than one monster is added.
         r2: Pointer to the guest monster entry to add to the team (usually located within GUEST_MONSTER_DATA)
     - name: GetGroundNameId

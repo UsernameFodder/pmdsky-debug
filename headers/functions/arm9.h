@@ -1071,7 +1071,7 @@ enum mission_rank GetMissionRank(struct dungeon_floor_pair* dungeon_and_floor);
 int GetOutlawLevel(struct dungeon_floor_pair* dungeon_and_floor);
 int GetOutlawLeaderLevel(struct dungeon_floor_pair* dungeon_and_floor);
 int GetOutlawMinionLevel(struct dungeon_floor_pair* dungeon_and_floor);
-void AddGuestMonster(struct dungeon_init* dungeon_init_data, int guest_number,
+void AddGuestMonster(struct dungeon_init_main* dungeon_init_main, int guest_number,
                      struct guest_monster* guest_monster);
 int GetGroundNameId(int param_1);
 void SetAdventureLogStructLocation(void);
