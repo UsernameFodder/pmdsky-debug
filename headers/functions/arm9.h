@@ -1208,6 +1208,8 @@ bool NeedsItemToSpawn(enum monster_id monster_id);
 int GetExclusiveItem(enum monster_id monster_id, int excl_idx);
 int GetFamilyIndex(enum monster_id monster_id);
 void LoadM2nAndN2m(void);
+void MaybeSetUpMonsterFromEgg(undefined* param_1, enum monster_id species, char* name_buffer,
+                              undefined* param_4, int param_5, undefined param_6);
 void GuestMonsterToGroundMonster(struct ground_monster* ground_monster,
                                  struct guest_monster* guest_monster);
 void SetBaseStatsMovesGroundMonster(struct ground_monster* ground_monster);
@@ -1271,6 +1273,7 @@ struct ground_monster* GetMainCharacter2(void);
 struct ground_monster* GetMainCharacter3(void);
 int GetFirstMatchingMemberIdx(enum monster_id monster_id);
 int GetFirstEmptyMemberIdx(int param_1);
+struct ground_monster* MaybeAddGroundMonsterFromEggToTeam(void);
 bool IsMonsterNotNicknamed(struct ground_monster* monster);
 void GetRecoloredGroundMonsterName(char* out, struct ground_monster* monster, char color_symbol);
 void RemoveActiveMembersFromAllTeams(void);
