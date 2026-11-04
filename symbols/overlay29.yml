@@ -11334,6 +11334,7 @@ overlay29:
         
         r0: Pointer to the struct containing info used to initialize the dungeon. See type dungeon_init for details.
         r1: ? (always 1)
+        return: bool
     - name: StartFadeDungeon
       address:
         EU: 0x234D008

@@ -31,6 +31,9 @@ struct preprocessor_args {
 };
 ASSERT_SIZE(struct preprocessor_args, 80);
 
+struct window;
+typedef void (*update_window_fn_t)(struct window* window);
+
 // Corner coordinates of the rectangle a window occupies.
 struct window_rectangle {
     int y_min; // 0x0: Window top y coordinate
@@ -305,8 +308,6 @@ struct unk_scroll_box_coords {
     int dy2; // 0x14
 };
 ASSERT_SIZE(struct unk_scroll_box_coords, 24);
-
-typedef void (*update_window_fn_t)(struct window* window);
 
 // Also see CreateScrollBoxSingle/CreateScrollBoxMulti
 // Up/down paged text boxes with formatting?
@@ -1100,8 +1101,6 @@ union window_contents {
     struct inventory_menu* inventory_menu;
 };
 ASSERT_SIZE(union window_contents, 4);
-
-struct window;
 
 struct window_params {
     update_window_fn_t update; // 0x0: A function to update the window
