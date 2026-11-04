@@ -89,7 +89,7 @@ While it's ultimately up to preference, I recommend disabling this behavior so t
 
 To do this, select Edit > Tool Options..., navigate to Options > Listing Fields > Operands Field, uncheck the boxes labeled "Markup Register Variable References" and "Markup Stack Variable References", then hit "Apply".
 
-   ![Disabling register variable markup](images/ghidra-markup-register-and-stack-variable-references.png)
+   ![Disabling register and stack variable markup](images/ghidra-markup-register-and-stack-variable-references.png)
 
 With these options disabled, the disassembler will still be _aware_ of variable names from the decompiler, but it won't display them in place of register names and stack pointer offsets in the assembly code. In the case of stack variables, both the raw stack pointer offsets _and_ the names of the variables they point to will be displayed, so the context isn't lost.
 
