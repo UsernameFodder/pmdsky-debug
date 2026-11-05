@@ -468,6 +468,12 @@ ram:
         The file stream utilized for all Kaomado portrait loads.
         
         type: struct file_stream
+    - name: DUNGEON_INIT_MAIN
+      address:
+        EU: 0x22ABE3C
+      length:
+        EU: 0xB0
+      description: "A struct containing the major info for loading a dungeon, which is copied into the dungeon_init struct in LoadDungeonInitMain."
     - name: PENDING_DUNGEON_ID
       address:
         EU: 0x22ABE3C
@@ -482,7 +488,7 @@ ram:
         
         Controls the text and map location during the "map cutscene" just before entering a dungeon, as well as the actual dungeon loaded afterwards.
         
-        This field is actually part of a larger struct that also contains PENDING_STARTING_FLOOR.
+        This field is actually part of DUNGEON_INIT_MAIN, a larger struct that also contains PENDING_STARTING_FLOOR and PENDING_MISSION_CLIENT.
         
         type: struct dungeon_id_8
     - name: PENDING_STARTING_FLOOR
@@ -493,6 +499,13 @@ ram:
         EU: 0x1
         NA: 0x1
       description: The floor number to start from in the dungeon specified by PENDING_DUNGEON_ID.
+    - name: PENDING_MISSION_CLIENT
+      address:
+        EU: 0x22ABE58
+      length:
+        EU: 0x44
+        NA: 0x44
+      description: The ground_monster struct for the current mission client.
     - name: PLAY_TIME_SECONDS
       address:
         EU: 0x22ABFD4

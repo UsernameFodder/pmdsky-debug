@@ -9919,6 +9919,41 @@ arm9:
         
         r0: [output] Pointer to the buffer where the string will be written
         r1: mission struct pointer
+    - name: GetDungeonObjective
+      address:
+        EU: 0x204EA34
+      description: |-
+        Gets the dungeon_objective field from DUNGEON_INIT_MAIN.
+        
+        return: dungeon objective
+    - name: GetDungeonIdx
+      address:
+        EU: 0x204EA98
+      description: |-
+        Gets the dungeon_idx field from DUNGEON_INIT_MAIN.
+        
+        return: dungeon index
+    - name: GetDungeonId
+      address:
+        EU: 0x204EAA8
+      description: |-
+        Gets the id field from DUNGEON_INIT_MAIN.
+        
+        return: dungeon id
+    - name: GetDungeonStartingFloor
+      address:
+        EU: 0x204EAB8
+      description: |-
+        Gets the floor field from DUNGEON_INIT_MAIN.
+        
+        return: floor
+    - name: LoadDungeonInitMain
+      address:
+        EU: 0x204EAC8
+      description: |-
+        Copies the global DUNGEON_INIT_MAIN into the given dungeon_init_main pointer.
+        
+        r0: [output] dungeon_init_main
     - name: SetEnterDungeon
       address:
         EU: 0x204EC84
@@ -9928,13 +9963,15 @@ arm9:
         Used to set the dungeon that will be accessed when switching from ground to dungeon mode.
         
         r0: Dungeon ID
-    - name: InitDungeonInit
+    - name: InitDungeonInitMain
+      aliases:
+        - InitDungeonInit
       address:
         EU: 0x204ED94
         NA: 0x204EA5C
         JP: 0x204EDB4
       description: |-
-        Initializes the dungeon_init struct before entering a dungeon.
+        Initializes the dungeon_init_main struct before entering a dungeon.
         
         r0: [output] Pointer to the struct to init
         r1: Dungeon ID
@@ -10110,7 +10147,7 @@ arm9:
       description: |-
         Adds a guest monster to the active team
         
-        r0: dungeon_init struct for the dungeon that is about to be entered
+        r0: dungeon_init_main struct for the dungeon that is about to be entered
         r1: Number of the guest monster to add. Used when more than one monster is added.
         r2: Pointer to the guest monster entry to add to the team (usually located within GUEST_MONSTER_DATA)
     - name: GetGroundNameId
@@ -11627,6 +11664,17 @@ arm9:
         r0: Pointer to encoded value
         r1: [output] Buffer where the resulting 2-byte value will be stored.
         return: Pointer to the next byte to decode
+    - name: CanMonsterLearnMove
+      address:
+        EU: 0x2054098
+      description: |-
+        Returns true if the monster can learn the given move, whether by leveling up or HM/TM.
+        
+        Always returns false if the move is Struggle or the monster is the Decoy.
+        
+        r0: monster id
+        r1: move id
+        return: bool
     - name: GetEvoFamily
       address:
         EU: 0x205414C
@@ -11838,16 +11886,18 @@ arm9:
         
         r0: monster ID
         return: bool
-    - name: GetSecondFormIfValid
+    - name: MaleToFemaleForm
+      aliases:
+        - GetSecondFormIfValid
       address:
         EU: 0x2054F20
         NA: 0x2054BA4
         JP: 0x2054EDC
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Returns the ID of the second form of the specified monster if the specified ID corresponds to a primary form with male gender and the second form has female gender. If those conditions don't meet, returns the same ID unchanged.
         
-        r0: monster ID
-        return: second form
+        r0: Monster ID
+        return: ID of the female form of the monster if the requirements meet, same ID otherwise.
     - name: FemaleToMaleForm
       address:
         EU: 0x2054F5C
@@ -12941,6 +12991,16 @@ arm9:
         
         r0: ?
         return: bool: whether the number of missions completed is greater than 0
+    - name: GetUnfulfilledMissionRestrictions
+      address:
+        EU: 0x205F1BC
+      description: |-
+        Checks if the player's party doesn't meet the restrictions for missions they have active in the given dungeon, and outputs their values if so.
+        
+        r0: dungeon id
+        r1: [output] type id of an unfulfilled type restriction
+        r2: [output] monster id of an unfulfilled monster restriction
+        return: whether at least one unfulfilled mission restriction was found for this dungeon id
     - name: AddMissionToJobList
       address:
         EU: 0x205F434
@@ -15013,7 +15073,13 @@ arm9:
         EU: 0x2
         NA: 0x2
         JP: 0x2
-      description: IQ gain when ingesting wonder gummis.
+      description: IQ gain when ingesting wonder gummis (15).
+    - name: WONDER_GUMMI_BELLY_RESTORE
+      address:
+        EU: 0x20A1E18
+      length:
+        EU: 0x2
+      description: Belly gain when ingesting wonder gummis (50).
     - name: AURA_BOW_STAT_BOOST
       address:
         EU: 0x20A1E1C

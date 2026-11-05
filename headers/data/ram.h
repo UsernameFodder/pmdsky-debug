@@ -43,8 +43,10 @@ extern struct script_var_value_table SCRIPT_VARS_VALUES;
 extern uint8_t BAG_LEVEL;
 extern struct special_episode_type_8 DEBUG_SPECIAL_EPISODE_NUMBER;
 extern struct file_stream KAOMADO_STREAM;
+extern struct dungeon_init_main DUNGEON_INIT_MAIN;
 extern struct dungeon_id_8 PENDING_DUNGEON_ID;
 extern uint8_t PENDING_STARTING_FLOOR;
+extern struct ground_monster PENDING_MISSION_CLIENT;
 extern uint32_t PLAY_TIME_SECONDS;
 extern uint8_t PLAY_TIME_FRAME_COUNTER;
 #if PMDSKY_VERSION == PMDSKY_JP
