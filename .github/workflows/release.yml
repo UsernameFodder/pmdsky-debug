@@ -36,7 +36,7 @@ jobs:
       - check-headers
       - check-symbol-header-sync
     env:
-      RELEASE_VERSION: '0.13.0'
+      RELEASE_VERSION: '0.12.1'
       OUTPUT_DIR: out
       RELEASE_INSTALL_DIR: release-install
       RELEASE_ASSETS_DIR: release-assets
