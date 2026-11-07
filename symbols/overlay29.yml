@@ -1211,6 +1211,8 @@ overlay29:
     - name: PlayEscapeEffect
       address:
         EU: 0x22E7194
+        NA: 0x22E67E4
+        JP: 0x22E7E54
       description: |-
         Plays the given effect on the entity while making it fly out of the map.
         
@@ -1223,6 +1225,14 @@ overlay29:
           - 0x22E726C
           - 0x22E72A0
           - 0x22E72BC
+        NA:
+          - 0x22E68BC
+          - 0x22E68F0
+          - 0x22E690C
+        JP:
+          - 0x22E7F2C
+          - 0x22E7F60
+          - 0x22E7F7C
       description: |-
         Plays the standard escape effect (the yellow light / Reviver Seed effect, 0x13E) on the entity while making it fly out of the map.
         
@@ -1230,6 +1240,8 @@ overlay29:
     - name: PlayEscapeOrbEscapeEffect
       address:
         EU: 0x22E7288
+        NA: 0x22E68D8
+        JP: 0x22E7F48
       description: |-
         Plays the Escape Orb effect (0x1BC) on the entity while making it fly out of the map.
         
@@ -12133,6 +12145,16 @@ overlay29:
         This is an array of 269 entries. Each entry contains 3 pointers (one into FIXED_ROOM_ITEM_SPAWN_TABLE, one into FIXED_ROOM_MONSTER_SPAWN_TABLE, and one into FIXED_ROOM_TILE_SPAWN_TABLE), and represents the entities that can spawn on one specific tile in a fixed room.
         
         type: struct fixed_room_entity_spawn_entry[269]
+    - name: DEOXYS_FORMS
+      address:
+        EU: 0x2351CCC
+        NA: 0x23510C0
+        JP: 0x2352340
+      length:
+        EU: 0x8
+        NA: 0x8
+        JP: 0x8
+      description: Array of monster_id enums for Deoxys forms.
     - name: STATUS_ICON_ARRAY_MUZZLED
       address:
         EU: 0x2351DC8
