@@ -504,6 +504,8 @@ ram:
     - name: PENDING_MISSION_CLIENT
       address:
         EU: 0x22ABE58
+        NA: 0x22AB518
+        JP: 0x22ACCD4
       length:
         EU: 0x44
         NA: 0x44
