@@ -820,7 +820,8 @@ struct tile {
     bool f_unbreakable : 1;
     // Tile is any type of "stairs" (normal stairs, Hidden Stairs, Warp Zone)
     bool f_stairs : 1;
-    uint16_t terrain_flags_unk10 : 1;
+    // If true, is part of a secret chamber. Key Doors enable this flag on themselves after they are opened.
+    bool f_part_of_chamber : 1;
     bool f_key_door : 1;            // Tile is a key door
     bool f_key_door_key_locked : 1; // Key door is locked and requires a Key to open
     // Key door is locked and requires an escort to open (for Sealed Chamber missions)
