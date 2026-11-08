@@ -2363,7 +2363,7 @@ arm7:
         EU-WRAM: 0x3804D90
         NA-WRAM: 0x3804D90
         JP-WRAM: 0x3804D90
-    - name: Pmi_SetLed
+    - name: Pmi_SetLedArm7
       address:
         EU: 0x238D09C
         NA: 0x238D09C

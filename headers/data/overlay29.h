@@ -45,6 +45,7 @@ extern struct fixed_room_id_8 FIXED_ROOM_REVISIT_OVERRIDES[256];
 extern struct fixed_room_monster_spawn_entry FIXED_ROOM_MONSTER_SPAWN_TABLE[120];
 extern struct fixed_room_item_spawn_entry FIXED_ROOM_ITEM_SPAWN_TABLE[63];
 extern struct fixed_room_entity_spawn_entry FIXED_ROOM_ENTITY_SPAWN_TABLE[269];
+extern struct monster_id_16 DEOXYS_FORMS[4];
 extern struct status_icon_flags STATUS_ICON_ARRAY_MUZZLED[2];
 extern struct status_icon_flags STATUS_ICON_ARRAY_MAGNET_RISE[2];
 extern struct status_icon_flags STATUS_ICON_ARRAY_MIRACLE_EYE[3];

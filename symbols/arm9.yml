@@ -9922,6 +9922,8 @@ arm9:
     - name: GetDungeonObjective
       address:
         EU: 0x204EA34
+        NA: 0x204E6FC
+        JP: 0x204EA54
       description: |-
         Gets the dungeon_objective field from DUNGEON_INIT_MAIN.
         
@@ -9929,6 +9931,8 @@ arm9:
     - name: GetDungeonIdx
       address:
         EU: 0x204EA98
+        NA: 0x204E760
+        JP: 0x204EAB8
       description: |-
         Gets the dungeon_idx field from DUNGEON_INIT_MAIN.
         
@@ -9936,6 +9940,8 @@ arm9:
     - name: GetDungeonId
       address:
         EU: 0x204EAA8
+        NA: 0x204E770
+        JP: 0x204EAC8
       description: |-
         Gets the id field from DUNGEON_INIT_MAIN.
         
@@ -9943,6 +9949,8 @@ arm9:
     - name: GetDungeonStartingFloor
       address:
         EU: 0x204EAB8
+        NA: 0x204E780
+        JP: 0x204EAD8
       description: |-
         Gets the floor field from DUNGEON_INIT_MAIN.
         
@@ -9950,6 +9958,8 @@ arm9:
     - name: LoadDungeonInitMain
       address:
         EU: 0x204EAC8
+        NA: 0x204E790
+        JP: 0x204EAE8
       description: |-
         Copies the global DUNGEON_INIT_MAIN into the given dungeon_init_main pointer.
         
@@ -11667,6 +11677,8 @@ arm9:
     - name: CanMonsterLearnMove
       address:
         EU: 0x2054098
+        NA: 0x2053D1C
+        JP: 0x2054054
       description: |-
         Returns true if the monster can learn the given move, whether by leveling up or HM/TM.
         
@@ -12994,6 +13006,8 @@ arm9:
     - name: GetUnfulfilledMissionRestrictions
       address:
         EU: 0x205F1BC
+        NA: 0x205EE40
+        JP: 0x205F140
       description: |-
         Checks if the player's party doesn't meet the restrictions for missions they have active in the given dungeon, and outputs their values if so.
         
@@ -15077,6 +15091,8 @@ arm9:
     - name: WONDER_GUMMI_BELLY_RESTORE
       address:
         EU: 0x20A1E18
+        NA: 0x20A1894
+        JP: 0x20A2C68
       length:
         EU: 0x2
       description: Belly gain when ingesting wonder gummis (50).

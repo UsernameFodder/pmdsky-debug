@@ -466,13 +466,9 @@ overlay2:
         JP: 0x232D9F0
     - name: Nnsi_SndPlayerFreeSeqPlayer
       address:
-        EU:
-          - 0x232CB14
-          - 0x232D5BC
-        NA:
-          - 0x232C2E8
-        JP:
-          - 0x232DA88
+        EU: 0x232CB14
+        NA: 0x232C2E8
+        JP: 0x232DA88
     - name: Nnsi_SndPlayerStartSeq
       address:
         EU: 0x232CB20

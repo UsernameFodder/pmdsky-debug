@@ -965,6 +965,8 @@ overlay10:
     - name: GUMMI_STAT_BOOST_CHANCE
       address:
         EU: 0x22C4E24
+        NA: 0x22C44CC
+        JP: 0x22C5BB4
       length:
         EU: 0x2
       description: The chance of a permanent stat boost occurring after eating a Gummi (25%).
