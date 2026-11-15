@@ -3708,11 +3708,11 @@ libs:
         NA: 0x207F3E4
         JP: 0x207F6CC
       description: |-
-        Initializes a file_stream structure for file I/O.
+        Initializes a FSFile structure for file I/O.
         
         This function must always be called before opening a file.
         
-        r0: file_stream pointer
+        r0: FSFile pointer
     - name: FSi_FindPath
       address:
         EU: 0x207F7A4

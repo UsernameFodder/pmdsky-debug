@@ -39,10 +39,10 @@ struct dse_instrument_split* DseSwd_GetNextSplitInRange(struct dse_instrument* i
                                                         uint8_t note_num, uint8_t volume);
 struct dse_mainbank* DseSwd_GetMainBankById(uint16_t id);
 struct dse_wavebank* DseSwd_GetBankById(uint16_t id);
-int DseSwd_InitMainBankFileReader(struct file_stream* file);
-int DseSwd_OpenMainBankFileReader(struct file_stream* file);
-int DseSwd_CloseMainBankFileReader(struct file_stream* file);
-int DseSwd_ReadMainBank(struct file_stream* file, void* buffer, int size, int offset,
+int DseSwd_InitMainBankFileReader(struct FSFile* file);
+int DseSwd_OpenMainBankFileReader(struct FSFile* file);
+int DseSwd_CloseMainBankFileReader(struct FSFile* file);
+int DseSwd_ReadMainBank(struct FSFile* file, void* buffer, int size, int offset,
                         struct dse_mainbank_reading* reading);
 
 int DseBgm_DefaultSignalCallback(int sequence_id, int signal_type, int signal_data,
@@ -439,7 +439,7 @@ void Pxi_SetFifoRecvCallback(int fifo_tag, pxi_fifo_callback callback);
 void Pxi_IsCallbackReady(int fifo_tag, enum pxi_proc proc);
 int Pxi_SendWordByFifo(int fifo_tag, uint32_t data, bool err);
 void Pxii_HandlerRecvFifoNotEmpty(void);
-void FS_InitFile(struct file_stream* file);
+void FS_InitFile(struct FSFile* file);
 bool FS_LoadOverlayInfo(struct overlay_info_entry* overlay_info, undefined param_2, int overlay_id);
 bool FS_LoadOverlayImageAsync(struct overlay_info_entry* overlay_info);
 void FS_StartOverlay(struct overlay_info_entry* overlay_info);
