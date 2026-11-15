@@ -24,14 +24,19 @@ ASSERT_SIZE(struct rect16_xywh, 8);
 // Those FS struct come from the pokediamond decomp. See also how they are used here:
 // https://github.com/pret/pokediamond/blob/ed142f69171f575e9359e113cd18f315cb0fcdd3/arm9/lib/NitroSDK/src/FS_command_default.c
 
-enum FSCommandType {
+// The type of a command, that can be accepted by TranslateCommand and SendCommand
+enum fs_command_type {
     FS_COMMAND_ASYNC_BEGIN = 0,
     FS_COMMAND_READFILE = FS_COMMAND_ASYNC_BEGIN,
     FS_COMMAND_WRITEFILE,
     FS_COMMAND_ASYNC_END,
 
     FS_COMMAND_SYNC_BEGIN = FS_COMMAND_ASYNC_END,
+    // Set the current directory to the the directory id, using arg.seekdir info
     FS_COMMAND_SEEKDIR = FS_COMMAND_SYNC_BEGIN,
+    // List the next entry contained in folder, using arg.readdir info. Can be called multiple time
+    // to list the next directory. The args should be rewritten before each call thought (verify? It
+    // does not break, at least)
     FS_COMMAND_READDIR,
     FS_COMMAND_FINDPATH,
     FS_COMMAND_GETPATH,
@@ -181,7 +186,7 @@ struct FSFile {
     struct FSFileLink link;        // 0x00
     struct FSArchive* arc;         // 0x08
     uint32_t stat;                 // 0xC
-    enum FSCommandType command;    // 0x10
+    enum fs_command_type command;  // 0x10
     enum FSResult error;           // 0x14
     struct OSThreadQueue queue[1]; // 0x18
     union {

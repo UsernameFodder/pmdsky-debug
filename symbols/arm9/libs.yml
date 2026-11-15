@@ -3535,6 +3535,13 @@ libs:
         EU: 0x207E0B4
         NA: 0x207DD1C
         JP: 0x207E004
+      description: |-
+        Wrap over the FSi_*Command function and some others defined directly in the function.
+        
+        r0: FSFile pointer
+        r1: fs_command_type enum entry
+        
+        return: FSResult enum entry
     - name: FSi_StrNiCmp
       address:
         EU: 0x207E244
@@ -3550,6 +3557,13 @@ libs:
         EU: 0x207E354
         NA: 0x207DFBC
         JP: 0x207E2A4
+      description: |-
+        Wrapper over the SeekDir command
+        
+        r0: FSFile pointer [out]
+        r1: dir id
+        
+        return: FSResult enum
     - name: FSi_ReadFileCommand
       address:
         EU: 0x207E388
@@ -3570,6 +3584,12 @@ libs:
         EU: 0x207E478
         NA: 0x207E0E0
         JP: 0x207E3C8
+      description: |-
+        Is one way or another used to list file and directory in the current directory.
+        
+        Typically called via FSi_TranslateCommand
+        
+        r0: FSFile pointer
     - name: FSi_FindPathCommand
       address:
         EU: 0x207E5A4
@@ -3718,6 +3738,15 @@ libs:
         EU: 0x207F7A4
         NA: 0x207F40C
         JP: 0x207F6F4
+      description: |-
+        Wrapper for FSi_FindPathCommand. Locate a directory or a file based on its path.
+        Looking for a directory is mutually exclusive with looking for a file, only r2 XOR r3 should be provided.
+        
+        r0: FSFile pointer [out]
+        r1: file path
+        r2: if looking for a file, FSFileID pointer [out]
+        r3: if looking for a directory, FSDirPos pointer [out]
+        return: true on success, false otherwise, with more detail in the FSFile
     - name: FSi_ReadFileCore
       address:
         EU: 0x207F8E8
@@ -3743,6 +3772,13 @@ libs:
         EU: 0x207FA5C
         NA: 0x207F6C4
         JP: 0x207F9AC
+      description: |-
+        A faillable version of FileOpen
+        
+        r0: FSFile pointer
+        r1: file path string
+        
+        return: bool file_opened
     - name: FS_CloseFile
       address:
         EU: 0x207FAA4
@@ -4747,6 +4783,7 @@ libs:
         EU: 0x20856D0
         NA: 0x2085338
         JP: 0x2085620
+      description: Appear to work similarly than the standard sscanf
     - name: Stdi_IsSpace
       address:
         EU: 0x20856F8

@@ -439,7 +439,14 @@ void Pxi_SetFifoRecvCallback(int fifo_tag, pxi_fifo_callback callback);
 void Pxi_IsCallbackReady(int fifo_tag, enum pxi_proc proc);
 int Pxi_SendWordByFifo(int fifo_tag, uint32_t data, bool err);
 void Pxii_HandlerRecvFifoNotEmpty(void);
+enum FSResult FSi_TranslateCommand(struct FSFile* file, enum fs_command_type command);
+enum FSResult FSi_SeekDirDirect(struct FSFile* file, uint32_t dir_id);
+bool FSi_ReadDirCommand(struct FSFile* file);
+bool FSi_SendCommand(struct FSFile* file, enum fs_command_type command);
 void FS_InitFile(struct FSFile* file);
+bool FSi_FindPath(struct FSFile* file, const char* filepath, struct FSFileID* p_file_id,
+                  struct FSDirPos* p_dir_por);
+bool FS_OpenFile(struct FSFile* file, const char* filepath);
 bool FS_LoadOverlayInfo(struct overlay_info_entry* overlay_info, undefined param_2, int overlay_id);
 bool FS_LoadOverlayImageAsync(struct overlay_info_entry* overlay_info);
 void FS_StartOverlay(struct overlay_info_entry* overlay_info);
@@ -467,6 +474,7 @@ void Ctrdgi_RestoreAccessCycle(struct ctrdg_rom_cycle* r);
 void Ctrdgi_LockByProcessor(uint16_t lock_id, struct ctrdg_lock_by_proc* info);
 void Ctrdgi_UnlockByProcessor(uint16_t lock_id, struct ctrdg_lock_by_proc* info);
 void Ctrdgi_SendtoPxi(uint32_t data);
+uint32_t Std_TsScanf(const char* src, const char* fmt, ...);
 
 // If declaring these builtins causes issues, you can disable them
 #ifndef PMDSKY_NO_BUILTIN
