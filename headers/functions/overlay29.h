@@ -1053,8 +1053,7 @@ bool AreOrbsAllowedVeneer(enum fixed_room_id fixed_room_id);
 bool AreLateGameTrapsEnabled(enum fixed_room_id fixed_room_id);
 bool AreMovesEnabled(enum fixed_room_id fixed_room_id);
 bool IsRoomIlluminated(enum fixed_room_id fixed_room_id);
-enum monster_id GetMatchingMonsterId(enum monster_id monster_id, undefined4 param_2,
-                                     undefined4 param_3);
+enum monster_id GetMatchingMonsterId(enum monster_id monster_id);
 void GenerateItemExplicit(struct item* item, enum item_id item_id, uint16_t quantity, bool sticky);
 void GenerateAndSpawnItem(enum item_id item_id, int16_t x, int16_t y, uint16_t quantity,
                           bool sticky, bool check_in_bag);
