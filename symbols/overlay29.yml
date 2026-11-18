@@ -10264,11 +10264,16 @@ overlay29:
         NA: 0x2344190
         JP: 0x2345554
       description: |-
-        Note: unverified, ported from Irdkwia's notes
+        Handle special case in fixed room spawning, where a monster id should be substitued by one another
+        1156 -> GetMissionTargetEnemy()
+        1157 -> GetMissionEnemyMinionGroup(0)
+        1158 -> GetMissionTargetEnemy()
+        1159 -> GetMissionEnemyMinionGroup(0)
+        1160 -> GetMissionEnemyMinionGroup(1)
+        527 -> either male or female heatran based on DUNGEON_EVENT_LOCAL
+        525 -> either Dialga or Primal Dialga based on some dungeon state
         
         r0: monster ID
-        r1: ?
-        r2: ?
         return: monster ID
     - name: GenerateItemExplicit
       address:

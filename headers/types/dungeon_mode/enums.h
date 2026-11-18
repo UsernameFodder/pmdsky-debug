@@ -1273,7 +1273,7 @@ enum fixed_room_action_non_entity {
     FIXED_ACTION_LEADER_SPAWN = 4,
     FIXED_ACTION_SECONDARY_ROOM = 5, // Secondary terrain tile, part of a room
     FIXED_ACTION_CHASM_HALLWAY = 6,
-    // If spawned, all tiles outside the fixed room are are turned into impassable chasm tiles
+    // If spawned, all tiles outside the fixed room are turned into impassable chasm tiles
     FIXED_ACTION_CHASM_ALL_HALLWAY = 7,
     FIXED_ACTION_WARP_ZONE_ROOM = 8, // Spawns a warp zone
     FIXED_ACTION_FLOOR_HALLWAY = 9,

@@ -469,7 +469,7 @@ ram:
       description: |-
         The file stream utilized for all Kaomado portrait loads.
         
-        type: struct file_stream
+        type: struct FSFile
     - name: DUNGEON_INIT_MAIN
       address:
         EU: 0x22ABE3C

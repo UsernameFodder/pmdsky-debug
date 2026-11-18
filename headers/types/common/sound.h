@@ -334,7 +334,7 @@ struct dse_mainbank {
     uint32_t field_0xC;
     uint32_t field_0x10;
 
-    struct file_stream file;
+    struct FSFile file;
 
     struct dse_mainbank* next;
 };

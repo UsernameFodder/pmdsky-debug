@@ -518,6 +518,7 @@ struct dungeon {
     // 0x74C: Used as an input to GetDungeonMode, and uses output to determine if the
     // override fixed room should be loaded? Also used to determine the objective?
     // Value copied from dungeon_init_data->field_0x2?
+    // used as an argument to CheckDungeonOpen in GetMatchingMonsterId
     undefined2 field_0x74c;
     undefined field_0x74e;
     undefined field_0x74f;

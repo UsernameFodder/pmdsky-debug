@@ -1022,7 +1022,7 @@ arm9:
         
         See https://developer.arm.com/documentation/dui0474/k/image-structure-and-generation/linker-generated-veneers/what-is-a-veneer-
         
-        r0: file_stream pointer
+        r0: FSFile pointer
     - name: FileOpen
       aliases:
         - FileRom_HandleOpen
@@ -1033,7 +1033,7 @@ arm9:
       description: |-
         Opens a file from the ROM file system at the given path, sort of like C's fopen(3) library function.
         
-        r0: file_stream pointer
+        r0: FSFile pointer
         r1: file path string
     - name: FileGetSize
       address:
@@ -1043,7 +1043,7 @@ arm9:
       description: |-
         Gets the size of an open file.
         
-        r0: file_stream pointer
+        r0: FSFile pointer
         return: file size
     - name: FileRead
       aliases:
@@ -1059,7 +1059,7 @@ arm9:
         
         Note: If code is running from IRQ mode, it appears that FileRead hangs the game. When the processor mode is forced into SYSTEM mode FileRead once again works, so it appears that ROM access only works in certain processor modes. Note that forcing the processor into a different mode is generally a bad idea and should be avoided as it will easily corrupt that processor mode's states.
         
-        r0: file_stream pointer
+        r0: FSFile pointer
         r1: [output] buffer
         r2: number of bytes to read
         return: number of bytes read
@@ -1078,7 +1078,7 @@ arm9:
         - SEEK_CUR=1
         - SEEK_END=2
         
-        r0: file_stream pointer
+        r0: FSFile pointer
         r1: offset
         r2: whence
     - name: FileClose
@@ -1093,7 +1093,7 @@ arm9:
         
         Note: It is possible to keep a file stream open even if data transfer mode has been stopped, in which case the file stream can be used again if data transfer mode is reinitialized.
         
-        r0: file_stream pointer
+        r0: FSFile pointer
     - name: UnloadFile
       address:
         EU: 0x2008BD4
