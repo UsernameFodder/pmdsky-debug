@@ -2702,7 +2702,7 @@ struct status_icon_control {
     undefined field_0x6ea;
     undefined field_0x6eb;
     struct status_icon_control_unk_sub field_0x6ec;
-    undefined4* field_0x6f4; // 0x6F4: Pointer to the .sma struct
+    undefined4* manpu_su_unpack; // 0x6F4: Pointer to the .sma struct
     undefined4 field_0x6f8;
 };
 ASSERT_SIZE(struct status_icon_control, 1788);
