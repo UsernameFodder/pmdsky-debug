@@ -18,6 +18,96 @@ overlay29:
   subregions:
     - move_effects.yml
   functions:
+    - name: GetMonsterStatusIconInfo
+      address:
+        EU: 0x22DD0CC
+      description: |-
+        Returns a pointer the monster_status_icon_info struct corresponding to the given unique id, or null if none was found
+        
+        r0: unique id of monster
+        return: monster_status_icon_info pointer
+    - name: GetStatusIcon
+      address:
+        EU: 0x22DD124
+      description: |-
+        Gets the status icon corresponding to the rightmost bit set in either current_status_icon.
+        
+        r0: head current_status_icon
+        r1: center current_status_icon
+        return: status icon
+    - name: DisplayStatusIcon
+      address:
+        EU: 0x22DD160
+      description: |-
+        Displays a status icon from the given monster_status_icon_info struct on both the bottom and top screen (if applicable).
+        
+        r0: monster_status_icon_info struct pointer
+        r1: 1 to display a center status icon (i.e. freeze only), 0 for head
+        r2: camera_pixel_pos
+        return: status icon
+    - name: DisplayBottomScreenStatusIcon
+      address:
+        EU: 0x22DD9E4
+      description: |-
+        Displays a status icon on the bottom screen.
+        
+        r0: unique id of monster being displayed on
+        r1: status icon
+        r2: monster pixel position
+        r3: pixel offset from monster
+        stack[0]: camera pixel position
+        stack[1]: apparent id of monster being displayed on
+    - name: AnimateStatusIconType
+      address:
+        EU: 0x22DDE58
+      description: |-
+        Animates all status icons of the given type.
+        
+        r0: status icon type
+    - name: LoadStatusIcons
+      address:
+        EU: 0x22DDEF4
+      description: |-
+        Loads SYSTEM/manpu_su.sma (which contains data for how status icons should be displayed) onto the heap, and loads its palettes into VRAM.
+        
+        For documentation of the file, see https://github.com/SkyTemple/skytemple-files/tree/5ed359a2560a1f04666b9ea02b71649b89cb16d7/skytemple_files/graphics/sma
+        
+        No params.
+    - name: FillMonsterStatusIconInfo
+      address:
+        EU: 0x22DE118
+      description: |-
+        Fills the apparent_id, status_icon_flags and can_display_on_mon fields in the monster_status_icon_info struct corresponding to the given unique id.
+        
+        r0: unique id
+        r1: apparent id
+        r2: status_icon_flags first half
+        r3: status_icon_flags second half
+        stack[0]: can_display_on_mon
+    - name: AnimateAndDisplayStatusIcons
+      address:
+        EU: 0x22DE1F4
+      description: |-
+        Animates all status icons and displays them.
+        
+        r0: camera_pixel_pos
+    - name: ClearMonsterStatusIconInfo
+      address:
+        EU: 0x22DE4A8
+      description: |-
+        Zeroes the monster_status_icon_info struct corresponding to the given unique id.
+        
+        r0: unique id of monster
+    - name: FillMonsterStatusIconInfoPosFields
+      address:
+        EU: 0x22DE4D8
+      description: |-
+        Fills the monster_pixel_pos and pixel_offsets in the monster_status_icon_info struct corresponding to the given unique id, as well as field_0x15.
+        
+        r0: unique id
+        r1: monster_pixel_pos
+        r2: array of pixel offsets
+        r3: DUNGEON_PTR->display_data.field_0x20
     - name: InitDungeonPaletteStruct
       address:
         EU: 0x22DEC40
@@ -848,15 +938,17 @@ overlay29:
         Waits until currently playing effect animations are finished, and returns only when they are done. Might have some other effects too.
         
         r0: if 0, will only wait for effects with an is_non_blocking field equal to 0; if 1, waits for all effects to finish
-    - name: CopyStatusIconFlags
+    - name: SplitStatusIconFlags
+      aliases:
+        - CopyStatusIconFlags
       address:
         EU: 0x22E43F0
         NA: 0x22E3A40
         JP: 0x22E50B0
       description: |-
-        Copies a monster's status_icon_flags to the destination pointer.
+        Splits a monster's status_icon_flags into an array of two 4-byte bitfields.
         
-        r0: [output] status_icon_flags
+        r0: [output] bitfields
         r1: entity pointer
     - name: UpdateStatusIconFlagsAllMonsters
       address:
@@ -10880,6 +10972,27 @@ overlay29:
         
         r0: minion group index (0-indexed)
         return: monster ID
+    - name: SetTargetEnemyDefeatedMessage
+      address:
+        EU: 0x234A288
+      description: |-
+        Sets the dungeon::target_enemy_defeated_message flag to the given value.
+        
+        r0: new flag value
+    - name: SetHiddenOutlawDefeatedMessage
+      address:
+        EU: 0x234A29C
+      description: |-
+        Sets the dungeon::hidden_outlaw_defeated_message flag to the given value.
+        
+        r0: new flag value
+    - name: GetHiddenOutlawDefeatedMessage
+      address:
+        EU: 0x234A2B0
+      description: |-
+        Gets the value of the dungeon::hidden_outlaw_defeated_message flag.
+        
+        return: bool
     - name: SetTargetMonsterNotFoundFlag
       address:
         EU: 0x234A2C4
@@ -12154,6 +12267,12 @@ overlay29:
         This is an array of 269 entries. Each entry contains 3 pointers (one into FIXED_ROOM_ITEM_SPAWN_TABLE, one into FIXED_ROOM_MONSTER_SPAWN_TABLE, and one into FIXED_ROOM_TILE_SPAWN_TABLE), and represents the entities that can spawn on one specific tile in a fixed room.
         
         type: struct fixed_room_entity_spawn_entry[269]
+    - name: STATUS_ICON_INFO_TABLE
+      address:
+        EU: 0x2351B98
+      length:
+        EU: 0x108
+      description: Array mapping status icon enums to structs containing the shape and palette to use for the icon.
     - name: DEOXYS_FORMS
       address:
         EU: 0x2351CCC
@@ -12680,6 +12799,24 @@ overlay29:
         NA: 0x4
         JP: 0x4
       description: Static initializer for overlay 29.
+    - name: STATUS_ICON_CONTROL_PTR
+      address:
+        EU: 0x2354118
+      length:
+        EU: 0x4
+      description: Pointer to the master struct controlling the display of status icons.
+    - name: BOTTOM_SCREEN_STATUS_ICON_OAM_OBJ
+      address:
+        EU: 0x235411C
+      length:
+        EU: 0x8
+      description: OAM object for the status icon about to be loaded on the bottom screen.
+    - name: TOP_SCREEN_STATUS_ICON_OAM_OBJ
+      address:
+        EU: 0x2354124
+      length:
+        EU: 0x8
+      description: OAM object for the status icon about to be loaded on the top screen.
     - name: DUNGEON_PTR
       address:
         EU: 0x2354138

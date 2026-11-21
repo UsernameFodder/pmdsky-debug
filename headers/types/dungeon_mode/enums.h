@@ -1504,6 +1504,66 @@ enum shadow_type {
     SHADOW_NONE = 6,
 };
 
+enum status_icon {
+    STATUS_ICON_UNK = 0,
+    STATUS_ICON_SLEEPLESS = 1,    // Blue eye blinking yellow
+    STATUS_ICON_BURN = 2,         // Red flame
+    STATUS_ICON_POISON = 3,       // White skull
+    STATUS_ICON_TOXIC_POISON = 4, // Purple skull
+    STATUS_ICON_CONFUSION = 5,    // Yellow birds
+    STATUS_ICON_COWERING = 6,     // 2 blue arrows in circle
+    STATUS_ICON_TAUNT = 7,        // Fist icon
+    STATUS_ICON_ENCORE = 8,       // Blue exclamation mark (same as low HP)
+    // Blue shield with white sparks. Also for counter, mini counter, mist,
+    // metal burst, aqua ring, and lucky chant
+    STATUS_ICON_REFLECT = 9,
+    STATUS_ICON_SAFEGUARD = 10,       // Pink shield. Also for mirror coat
+    STATUS_ICON_LIGHT_SCREEN = 11,    // Golden shield. Also for magic coat
+    STATUS_ICON_PROTECT = 12,         // Green shield. Also for mirror move and vital throw
+    STATUS_ICON_ENDURE = 13,          // Blue shield with red sparks
+    STATUS_ICON_LOW_HP = 14,          // Blue exclamation mark (same as encore)
+    STATUS_ICON_CURSE = 15,           // Red skull
+    STATUS_ICON_EMBARGO = 16,         // Yellow exclamation mark. Also for gastro acid and snatch
+    STATUS_ICON_SURE_SHOT = 17,       // Blue sword blinking yellow
+    STATUS_ICON_WHIFFER = 18,         // 2 green arrows in circle (same as cowering)
+    STATUS_ICON_SET_DAMAGE = 19,      // Blue sword blinking red
+    STATUS_ICON_FOCUS_ENERGY = 20,    // Red sword blinking yellow
+    STATUS_ICON_BLINDED = 21,         // Blue eye with an X
+    STATUS_ICON_CROSS_EYED = 22,      // Blue question mark
+    STATUS_ICON_EYEDROPS = 23,        // Blue eye blinking yellow with a circular wave
+    STATUS_ICON_MUZZLED = 24,         // Blinking red cross
+    STATUS_ICON_GRUDGE = 25,          // Purple shield
+    STATUS_ICON_EXPOSED = 26,         // Blue eye blinking red with a circular wave
+    STATUS_ICON_SLEEP = 27,           // Red Z's
+    STATUS_ICON_LOWERED_STAT = 28,    // Yellow arrow pointing down
+    STATUS_ICON_HEAL_BLOCK = 29,      // Blinking green cross
+    STATUS_ICON_MIRACLE_EYE = 30,     // Blinking orange cross
+    STATUS_ICON_RED_EXCLAMATION = 31, // Probably unused
+    STATUS_ICON_MAGNET_RISE = 32,     // Purple arrow pointing up
+    STATUS_ICON_FREEZE = 33,          // Ice block
+};
+
+// These are ordered the same as in SYSTEM/manpu_su.sma
+enum status_icon_type {
+    ICON_TYPE_EYE = 1,           // Sleepless
+    ICON_TYPE_FLAMES = 2,        // Burn
+    ICON_TYPE_SKULL = 3,         // Poison, toxic poison, curse
+    ICON_TYPE_ICE_BLOCK = 4,     // Freeze
+    ICON_TYPE_BIRDS = 5,         // Confusion
+    ICON_TYPE_CIRCLE_ARROWS = 6, // Cowering, whiffer
+    ICON_TYPE_FIST = 7,          // Taunt
+    ICON_TYPE_EXCLAMATION = 8,   // Low HP, embargo, gastro acid, snatch, unused red exclamation
+    ICON_TYPE_SHIELD = 9,        // Reflect, light screen, protect, etc.
+    ICON_TYPE_ARROW = 10,        // Lowered stat, magnet rise
+    ICON_TYPE_SWORD = 11,        // Sure shot, focus energy, set damage
+    ICON_TYPE_EYE_WITH_X = 12,   // Blinded
+    ICON_TYPE_QUESTION = 13,     // Cross-eyed
+    ICON_TYPE_EYE_CIRCULAR_WAVE = 14, // Eyedrops, exposed
+    ICON_TYPE_X = 15,                 // Muzzled, heal block, miracle eye
+    ICON_TYPE_ZZZ = 16,               // Sleeping
+    ICON_TYPE_SWORD_AND_SHIELD = 17,  // Unused
+};
+
 // This is usually stored as an 8-bit integer
 #pragma pack(push, 1)
 ENUM_8_BIT(shadow_type);
