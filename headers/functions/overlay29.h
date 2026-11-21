@@ -5,12 +5,12 @@
 
 struct monster_status_icon_info* GetMonsterStatusIconInfo(int unique_id);
 enum status_icon GetStatusIcon(uint32_t current_status_icon1, uint32_t current_status_icon2);
-void AnimateStatusIconType(enum status_icon_type status_icon_type);
 void DisplayStatusIcon(struct monster_status_icon_info* monster_status_icon_info, bool center,
                        struct vec2_16* camera_pixel_pos);
 void DisplayBottomScreenStatusIcon(int unique_id, enum status_icon status_icon,
                                    struct vec2_16* monster_pixel_pos,
                                    struct vec2_16* camera_pixel_pos, enum monster_id apparent_id);
+void AnimateStatusIconType(enum status_icon_type status_icon_type);
 void LoadStatusIcons(void);
 void FillMonsterStatusIconInfo(int unique_id, enum monster_id apparent_id,
                                uint32_t status_icon_flags1, uint32_t status_icon_flags2,
