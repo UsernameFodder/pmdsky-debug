@@ -2697,9 +2697,6 @@ struct status_icon_control {
     int active; // 0x0: Nonzero if display is active?
     struct monster_status_icon_info monster_status_icon_info[22]; // 0x4
     undefined4 field_0x6e4;
-    undefined field_0x6e5;
-    undefined field_0x6e6;
-    undefined field_0x6e7;
     undefined field_0x6e8;
     undefined field_0x6e9;
     undefined field_0x6ea;
