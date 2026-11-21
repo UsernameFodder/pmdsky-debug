@@ -2647,7 +2647,8 @@ ASSERT_SIZE(struct monster_move_animation, 16);
 struct status_icon_info {
     enum status_icon_type status_icon_type; // 0x0
     int palette;                            // 0x4: Between 0 and 15, same order as in manpu_su.sma
-} ASSERT_SIZE(struct status_icon_info, 8);
+};
+ASSERT_SIZE(struct status_icon_info, 8);
 
 // Information about the current icon to be displayed onscreen for a monster.
 struct current_status_icons {

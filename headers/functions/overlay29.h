@@ -17,7 +17,7 @@ void FillMonsterStatusIconInfo(int unique_id, enum monster_id apparent_id,
                                bool can_display_on_mon);
 void AnimateAndDisplayStatusIcons(struct vec2_16* camera_pixel_pos);
 void ClearMonsterStatusIconInfo(int unique_id);
-void FillMonsterStatusIconInfoPosFields(int unique_id, struct vec2_16* monster_pixel_pos, 
+void FillMonsterStatusIconInfoPosFields(int unique_id, struct vec2_16* monster_pixel_pos,
                                         struct vec2_16* pixel_offsets, undefined param_4);
 void InitDungeonPaletteStruct(void);
 struct rgba* GetWeatherColorTable(enum weather_id);
@@ -1115,7 +1115,7 @@ void HandleFloorCard(enum dungeon_id dungeon_id, uint8_t floor, int duration,
                      enum hidden_stairs_type hidden_stairs_type);
 void FillMissionDestinationInfo(void);
 undefined4 MissionExitPrompt(int string_id);
-bool IsDroppedStolenItem(struct item* item);
+bool IsItemUnkMissionItem2(struct item* item);
 bool CheckActiveChallengeRequest(void);
 struct mission_destination_info* GetMissionDestination(void);
 bool IsOutlawOrChallengeRequestFloor(void);
