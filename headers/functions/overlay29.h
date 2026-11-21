@@ -3,6 +3,22 @@
 
 #include "overlay29/move_effects.h"
 
+struct monster_status_icon_info* GetMonsterStatusIconInfo(int unique_id);
+enum status_icon GetStatusIcon(uint32_t current_status_icon1, uint32_t current_status_icon2);
+void DisplayStatusIcon(struct monster_status_icon_info* monster_status_icon_info, bool center,
+                       struct vec2_16* camera_pixel_pos);
+void DisplayBottomScreenStatusIcon(int unique_id, enum status_icon status_icon,
+                                   struct vec2_16* monster_pixel_pos,
+                                   struct vec2_16* camera_pixel_pos, enum monster_id apparent_id);
+void AnimateStatusIconType(enum status_icon_type status_icon_type);
+void LoadStatusIcons(void);
+void FillMonsterStatusIconInfo(int unique_id, enum monster_id apparent_id,
+                               uint32_t status_icon_flags1, uint32_t status_icon_flags2,
+                               bool can_display_on_mon);
+void AnimateAndDisplayStatusIcons(struct vec2_16* camera_pixel_pos);
+void ClearMonsterStatusIconInfo(int unique_id);
+void FillMonsterStatusIconInfoPosFields(int unique_id, struct vec2_16* monster_pixel_pos,
+                                        struct vec2_16* pixel_offsets, undefined param_4);
 void InitDungeonPaletteStruct(void);
 struct rgba* GetWeatherColorTable(enum weather_id);
 struct dungeon* DungeonAlloc(void);
@@ -67,7 +83,7 @@ int PlayEffectAnimationEntity(struct entity* entity, int effect_id, bool wait,
 int PlayEffectAnimationPos(struct position* pos, int effect_id, bool wait);
 int PlayEffectAnimationPixelPos(struct pixel_position* pixel_pos, int effect_id, bool wait);
 void FinishPlayingEffectAnimations(bool wait_for_non_blocking);
-void CopyStatusIconFlags(struct status_icon_flags* dst, struct entity* src);
+void SplitStatusIconFlags(uint32_t* dst, struct entity* src);
 void UpdateStatusIconFlagsAllMonsters(bool set_field_0x156);
 void UpdateStatusIconFlags(struct entity* entity);
 void PlayQuestionMarkEffect(struct entity* entity);
@@ -925,6 +941,7 @@ bool IsTileGround(struct position* pos);
 bool IsWaterTileset(void);
 void RemoveMonsterFromTile(struct entity* entity, int x, int y);
 enum monster_id GetRandomSpawnMonsterID(void);
+uint8_t GetSurroundingEnemies(struct entity* user, struct entity** targets);
 bool NearbyAllyIqSkillIsEnabled(struct entity* entity, enum iq_skill_id iq_skill);
 struct entity* FindAdjacentEnemy(struct entity* monster);
 bool IsAdjacentToEnemyIgnoreTreatment(struct entity* monster);
@@ -1122,6 +1139,9 @@ bool IsDestinationFloorWithHiddenOutlaw(void);
 bool IsDestinationFloorWithFleeingOutlaw(void);
 enum monster_id GetMissionTargetEnemy(void);
 enum monster_id GetMissionEnemyMinionGroup(int i);
+void SetTargetEnemyDefeatedMessage(bool value);
+void SetHiddenOutlawDefeatedMessage(bool value);
+bool GetHiddenOutlawDefeatedMessage(void);
 void SetTargetMonsterNotFoundFlag(bool value);
 bool GetTargetMonsterNotFoundFlag(void);
 void ClearMissionDestinationInfo(struct mission_destination_info* mission_dest_info);

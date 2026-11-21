@@ -266,7 +266,7 @@ struct status_icon_flags {
     bool f_poison : 1;    // White skull
     bool f_toxic : 1;     // Purple skull
     bool f_confused : 1;  // Yellow birds
-    bool f_cowering : 1;  // 2 green lines in circle (same as whiffer)
+    bool f_cowering : 1;  // 2 blue arrows in circle
     bool f_taunt : 1;     // Fist icon
     bool f_encore : 1;    // Blue exclamation mark (same as low HP)
     // Blue shield with white sparks. Also for counter, mini counter, mist,
@@ -280,7 +280,7 @@ struct status_icon_flags {
     bool f_curse : 1;                // Red skull
     bool f_embargo : 1;              // Yellow exclamation mark. Also for gastro acid and snatch
     bool f_sure_shot : 1;            // Blue sword blinking yellow
-    bool f_whiffer : 1;              // 2 green lines in circle (same as cowering)
+    bool f_whiffer : 1;              // 2 green arrows in circle (same as cowering)
     bool f_set_damage : 1;           // Blue sword blinking red
     bool f_focus_energy : 1;         // Red sword blinking yellow
     bool f_blinded : 1;              // Blue eye with an X
@@ -870,8 +870,8 @@ struct display_data {
     // 0x4: Copy of 0x0. Used to detect changes in the camera's position.
     struct position camera_pos_mirror;
     // 0x8: Pixel position of the tile the camera is currently pointing to
-    struct position camera_pixel_pos;
-    struct position camera_pixel_pos_mirror; // 0xC: Mirror of 0x8
+    struct vec2_16 camera_pixel_pos;
+    struct vec2_16 camera_pixel_pos_mirror; // 0xC: Mirror of 0x8
     // 0x10: Entity currently being pointed by the camera, mostly used to
     // control rendering of the dungeon, GUI, minimap, etc.
     struct entity* camera_target;
@@ -2643,6 +2643,69 @@ struct monster_move_animation {
     struct entity* entity; // 0xC
 };
 ASSERT_SIZE(struct monster_move_animation, 16);
+
+struct status_icon_info {
+    enum status_icon_type status_icon_type; // 0x0
+    int palette;                            // 0x4: Between 0 and 15, same order as in manpu_su.sma
+};
+ASSERT_SIZE(struct status_icon_info, 8);
+
+// Information about the current icon to be displayed onscreen for a monster.
+struct current_status_icons {
+    // 0x0: The two halves of status_icon_flags, except only one bit will be active at a time
+    // in both taken together.
+    uint32_t current_status_icon[2];
+    uint32_t countdown_until_icon_change; // 0xC
+};
+ASSERT_SIZE(struct current_status_icons, 12);
+
+// Information related to displaying the status icons for a monster.
+struct monster_status_icon_info {
+    bool active; // 0x0: Whether the struct is active?
+    undefined field_0x1;
+    undefined field_0x2;
+    undefined field_0x3;
+    int unique_id;                    // 0x4: Unique id of monster being displayed on
+    enum monster_id apparent_id;      // 0x8: Apparent id of monster being displayed on
+    uint32_t status_icon_flags[2];    // 0xC: struct status_icon_flags, split into two bitfields
+    bool can_display_on_mon;          // 0x14: True if monster is not hidden / fainted
+    undefined field_0x15;             // 0x15: DUNGEON_PTR->display_data.field_0x20
+    struct vec2_16 monster_pixel_pos; // 0x16
+    struct vec2_16 pixel_offsets[2];  // 0x1A: Index 0 for head, 1 for center
+    struct vec2_16 top_screen_pixel_offsets[2]; // 0x22: Index 0 for head, 1 for center
+    undefined field_0x2a;
+    undefined field_0x2b;
+    struct current_status_icons current_status_icons[2]; // 0x2C: Index 0 for head, 1 for center
+    bool display_on_top_screen;                          // 0x44
+    undefined field_0x45;
+    undefined2 field_0x46;
+    undefined2 field_0x48;
+    undefined2 field_0x4a;
+    undefined2 field_0x4c;
+    undefined field_0x4e;
+    undefined field_0x4f;
+};
+ASSERT_SIZE(struct monster_status_icon_info, 80);
+
+struct status_icon_control_unk_sub {
+    undefined field_0x0[8];
+};
+ASSERT_SIZE(struct status_icon_control_unk_sub, 8);
+
+// Master struct controlling the display of status icons.
+struct status_icon_control {
+    int active; // 0x0: Nonzero if display is active?
+    struct monster_status_icon_info monster_status_icon_info[22]; // 0x4
+    undefined4 field_0x6e4;
+    undefined field_0x6e8;
+    undefined field_0x6e9;
+    undefined field_0x6ea;
+    undefined field_0x6eb;
+    struct status_icon_control_unk_sub field_0x6ec;
+    undefined4* manpu_su_unpack; // 0x6F4: Pointer to the .sma struct
+    undefined4 field_0x6f8;
+};
+ASSERT_SIZE(struct status_icon_control, 1788);
 
 // Separate this out into its own file because it's massive
 #include "dungeon.h"
